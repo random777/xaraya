@@ -3,9 +3,8 @@
 <pkgmetadata>
 <herd>net-www</herd>
 <maintainer>
-  <email>johnny@localmomentum.net</email>
+  <email>johnny@xaraya.com</email>
   <name>johnny</name>
-  <description>testing maintainership</description>
 </maintainer>
-<longdescription>Xaraya Application Framework</longdescription>
+<longdescription>Xaraya Web Application Framework</longdescription>
 </pkgmetadata>

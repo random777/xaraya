@@ -11,9 +11,15 @@ KEYWORDS="~x86"
 
 DEPEND="virtual/php"
 
+inherit webapp-apache
+
 S="${WORKDIR}/${P}"
 
 SRC_URI="mirror://sourceforge/xaraya/${P}-full.tar.gz"
+
+pkg_setup() {
+	webapp-detect
+}
 
 
 src_unpack() {
@@ -21,26 +27,18 @@ src_unpack() {
 }
 
 src_install() {
-       # stolen from phpwebsite ebuild, needs to be made non webserver specific
-       HTDOC_ROOT="`grep '^DocumentRoot' /etc/apache/conf/apache.conf | cut -d\  -f2`"
-       [ -z "${HTDOC_ROOT}" ] && HTDOC_ROOT="`grep '^DocumentRoot' /etc/apache2/conf/apache2.conf | cut -d\  -f2`"
-       [ -z "${HTDOC_ROOT}" ] && HTDOC_ROOT="/home/httpd/htdocs"
-
 	cd ${S}
-	dodir ${HTDOC_ROOT}/xaraya
-	cp -r html/* ${D}/${HTDOC_ROOT}/xaraya
-        dodoc CREDITS.txt INSTALL.txt LICENSE.txt INSTALL.txt XarayaDocs.txt releaselog-*
-       
+	dodir ${HTTPD_ROOT}/xaraya
+	cp -r html/* ${D}/${HTTPD_ROOT}/xaraya
+	dodoc CREDITS.txt INSTALL.txt LICENSE.txt INSTALL.txt XarayaGuide.txt releaselog-*
 }
 
 pkg_postinst() {
-        HOSTNAME=`hostname`
-	einfo
+	HOSTNAME=`hostname`
 	einfo ""
-	einfo "Xaraya requires either mySQL or postgreSQL to run"
-	einfo
-	einfo "Once/If you have a database installed proceed to"
+	einfo "Xaraya requires either mySQL or postgreSQL to run."
+	einfo ""
+	einfo "Once/If you have a database and webserver installed and started, proceed to"
 	einfo "http://$HOSTNAME/xaraya/install.php"
-	einfo
-	einfo
+	einfo ""
 }

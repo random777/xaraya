@@ -79,6 +79,7 @@
         XML implementations. This suite has been inserted into our unit test
         framework and we will incrementally run the tests contained in that suite
         to validate our parsers behaviour.
+      </t>
       <t>
         <list>
           <t>phase 0: Get a working parser interface</t>

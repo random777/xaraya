@@ -5,7 +5,7 @@
 <?rfc toc="yes"?>
 <rfc number="0011" category="info">
 	<front>
-		<title/>
+		<title>Admin system</title>
 		<author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
 			<organization>Xaraya Development Group</organization>
 			<address>

@@ -70,34 +70,76 @@
       </t>
     </section>
   
-    <section title="Body">
+    <section title="Registering of events">
       <t>
 		Any core package can define events, also known as registering them, by calling
 		the function 
 		<artwork>
-		  xarEvt_RegisterEvent('eventname')
+		  xarEvt_registerEvent($eventName)
 		</artwork>
+		in its initialization function.
+	  </t>
+	  <t>
 		The naming convention says that the event name starts with the core package
-		name that registers it, beginning with a capital letter. The specific name
+		name that registers it (the owner), beginning with a capital letter. The specific name
 		then follows directly, also beginning with a capital letter. No spaces or
 		special characters are allowed.
 		Example:
 		<artwork>
-		  xarEvt_RegisterEvent('ServerRequest');
+		  xarEvt_registerEvent('ServerRequest');
 		</artwork>
       </t>
+    </section>
+    <section title="Trigger them">
       <t>
-        talk about xarEvt_Trigger (was xarEvt_fire)
+		At certain points in the system load process the registered events can be triggered
+		by calling the function
+		<artwork>
+		  xarEvt_trigger($eventName, $value)
+		</artwork>
+		with $value being an optional variable that can be passed to the event handlers.
+		Example:
+		<artwork>
+		  xarEvt_trigger('ServerRequest');
+		</artwork>
       </t>
+    </section>
+    <section title="Event handler">
       <t>
-        talk about scanning through apis and calling correctly named functions
-        also show the example ServerRequest in stats module
+        Each module, in turn, can implement an event handler function, that will be
+        executed as soon as the corresponding event is being triggered by the core.
+        The function must be situated in the file xaruserapi.php of the module and
+        must adhere the following naming convention:
+        <artwork>
+          function {$modName}_userapievt_on$EventName($arg)
+          {
+          	// event handler code, e.g. db interaction, ...
+          }
+        </artwork>
+        Example:
+        <artwork>
+          function sniffer_userapievt_OnSessionCreate($arg)
+		  {
+		  	// browsersniffing
+		  }
+        </artwork>
+      </t>
+    </section>
+    <section title="Inner workings">
+	  <t>
+        As soon as an event is being triggered somewhere in the core, the events
+        system looks up in each module whether it implements the corresponding
+        event handler. If so, the function is passed the optional variable from the
+        trigger call and is executed immediately.
+        There is no guarantee for call order in case there is more than one module
+        that implements a certain event handler.
       </t>
     </section>
   
     <!-- Revision history is mandatory -->
     <section title="Revision history">
-      <t>2003-02-26 : First Edition</t>
+      <t>2002-02-27 : Version 0.2</t>
+      <t>2003-02-26 : Version 0.1</t>
       <t>2003-02-23 : Created</t>
     </section>
     

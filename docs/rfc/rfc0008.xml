@@ -1,76 +1,45 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
 <rfc number="0001" category="info">
-  <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="January" year="2002"/>
-    
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
+	<front>
+		<title>Install System</title>
+		<author initials="" surname="" fullname="">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email></email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<date month="June" year="2002"/>
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>The contents of this RFC contain the literal content of the old plain
 	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
+			<t>When time is a less scarcer good, someone might convert the plain text
 	into structured XML so we can benefit from it.
       </t>
-    </abstract>
-  </front>
-  
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-
-RFC-8 Install System 
-
-
- Postnuke
- RFC-8 Install System
- Category: Informational
- Version: 0.2
- June 2002
-                         RFC-8 Install System
-Table of Contents 
-   1.   Introduction . . . . . . . . . . . .  . . . . . . . . . . . 2
-   2.   List of requirements for the Install System. . . . . . . . . 2
-   3.   Solution proposals - ADD. . . . . . . . . . 3
-   3a.      . . . . . . . . . .  . . . . . . . . . . .
-   4.   Solution proposals - ADD . . . . . . . . . . . . . . .
-   4a.      . . . . . . . . . .  . . . . . . . . . . .
-   4b.      . . . . . . . . . .  . . . . .
-   5.   Relationship of the Install System .
-   6.   Code that will need to be rewritten  . . . . . . . . . . . .
-   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
-   8.   Tools that need to be created from scratch . . . . . . . . .
-   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
-   10.  Open Issues . . . . . . . . . . . . .  . . . . . . . . . . . .
-   11.  Acknowledgements . . . . . . . . . . . . .  . . . . . . . . . . . .
-   12.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
-                             Informational
-                            RFC-8 Install System
-1. Introduction 
-   The following RFC is a first summary and contains some solution
+		</abstract>
+	</front>
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+		<!-- One content section is mandatory -->
+		<section title="Introduction ">
+			<t>
+			   The following RFC is a first summary and contains some solution
    proposals either compiled from the basic documents or from general
    definitions concerning Install Sytems in other CMSs
  Our install system is currently the best install system of all the free CMSs that already exist, and prolly better than
  the commercial ones. But, let's face facts, it needs some serious work to make it change with the times. Many things
  are changing within PostNuke. Our install system needs to be updated to keep up with these, and expandible for
  later use.
-2. List of requirements for the Install System 
-SECURITY...many users do not delete the install directory...let's make sure it can't be used again if possible 
+			</t>
+		</section>
+		<section title="List of requirements for the Install System">
+			<t>
+			SECURITY...many users do not delete the install directory...let's make sure it can't be used again if possible 
 MORE MODULAR...let's make it pluginable or even scriptable to do the things we want it to do. 
 SMALLER...let's follow through and use our new userapi, and adminapi functions to do the real work 
 EASIER TO MODIFY...a must..it shall be coded using pnHTML as much as possible. 
@@ -79,10 +48,16 @@ Signed modules: Sign modules with a MD5 or equivalent to prevent hacks
 Database abstraction: Support different databases in the install 
 Upgrades: Add more CMS systems to the upgrade scripts 
 Themes install: Use the installer to also add themes 
-Provide optional signup for support forums 
-3. Solution proposals - database tables ADD 
-4. Solution proposals - functions ADD 
- Installer Use Case (John Cox)
+Provide optional signup for support forums
+			</t>
+		</section>
+		<section title="Solution proposals - database tables ADD">
+			<t>
+			</t>
+		</section>
+		<section title="Solution proposals - functions ADD">
+			<t>
+			 Installer Use Case (John Cox)
  I go to Modules Admin in my site. With the listing of modules that I already have installed, there is also a
  list of Modules that are "Official" and validated to run off this system. If I wanted to install the
  module then it would be just the matter of pushing an "Install Module" form button and I allow the script to
@@ -132,21 +107,38 @@ Implementation Considerations
  getting perl support But has php, then a second engine for this in php would work under this
  types of servers.
  This would cover all possibilities IMHO.
-5. Relationship of the System to other areas 
-Modules module: Is invoked for module installs / upgrades 
+			</t>
+		</section>
+		<section title="Relationship of the System to other areas">
+			<t>
+			Modules module: Is invoked for module installs / upgrades 
 Module registry: Check for new versions, download modules 
-pnDDL: Table creation support for different database types 
- 6.  Code that will need to be rewritten
-7. Basic documents for this RFC 
-
-[1] Module Dependencies: http://groups.yahoo.com/group/pndev/message/10572 
+pnDDL: Table creation support for different database types
+			</t>
+		</section>
+		<section title="Code that will need to be rewritten">
+			<t>
+			</t>
+		</section>
+		<section title="Basic documents for this RFC">
+			<t>
+			[1] Module Dependencies: http://groups.yahoo.com/group/pndev/message/10572 
 [2] Modules Remote Install: http://groups.yahoo.com/group/pndev/message/8725 
-[3] Securiy Issues with Remote Install: http://groups.yahoo.com/group/pndev/message/8739 
-8. Tools that need to be created from scratch 
-9. Retractions 
-   We list features that were considered but rejected for this Install System below.
-10. Open Issues 
-Write access to modules directory. Autoinstalling modules is fraught with many security issues. 
+[3] Securiy Issues with Remote Install: http://groups.yahoo.com/group/pndev/message/8739
+			</t>
+		</section>
+		<section title="Tools that need to be created from scratch">
+			<t>
+			</t>
+		</section>
+		<section title="Retractions ">
+			<t>
+			We list features that were considered but rejected for this Install System below.
+			</t>
+		</section>
+		<section title="Open Issues">
+			<t>
+			Write access to modules directory. Autoinstalling modules is fraught with many security issues. 
  Jim McDonald writes:
  My two biggest worries are that unauthorised uses could get to this through
  some sort of security hole and really trash the PostNuke install, and
@@ -156,8 +148,11 @@ Write access to modules directory. Autoinstalling modules is fraught with many s
  will just make it worse.
  If we are going to do this I'd prefer to see it as an option at
  install-time rather than something that is automatically ready to go.
-11. Acknowledgements 
- Jim McDonald
+			</t>
+		</section>
+		<section title="Acknowledgements ">
+			<t>
+			 Jim McDonald
  John Cox
  Andy Varganov
  Jim Barchuk
@@ -166,16 +161,16 @@ Write access to modules directory. Autoinstalling modules is fraught with many s
  Aidan Humphreys
  Scott Kindley
  Francisco Sam Castillo
-12. Changelog 
-    0.1 (Febuary 3, 2002) John Robeson
+			</t>
+		</section>
+		<section title="Changelog ">
+			<t>
+			    0.1 (Febuary 3, 2002) John Robeson
        Initial Version
     0.2 (June 23, 2002) gregorrothfuss
         Resources added
         Use Cases
-
-
-	</artwork>
-      </t>
-    </section>
-  </middle>
+			</t>
+		</section>
+	</middle>
 </rfc>

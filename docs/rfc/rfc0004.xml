@@ -1,70 +1,45 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
-<rfc number="0001" category="info">
-  <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="January" year="2002"/>
-    
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
+<rfc number="0004" category="info">
+	<front>
+		<title>Categories API</title>
+		<author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email></email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<date month="January" year="2002"/>
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0004</t>
+			<t>When time is a less scarcer good, someone might convert the plain text
 	into structured XML so we can benefit from it.
       </t>
-    </abstract>
-  </front>
-  
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-
-RFC-4 Categories API 
-
-
-Postnuke Gregor J. Rothfuss RFC-4 Category API Category: Informational January 2002 Version: 1.1 
-                         RFC-4 Category API
-Table of Contents 
-   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
-   2.   List of requirements for the Category API . . . . . .  . . . 2
-   3.   Solution proposals - database tables . . . . . . . . . . . . 3
-   3a.      . . . . . . . . . .  . . . . . . . . . . .
-   4.   Solution proposals - functions . . . . . . . . . . . . . . .
-   4a.      . . . . . . . . . .  . . . . . . . . . . .
-   4b.      . . . . . . . . . .  . . . . .
-   5.   Relationship of the API to other areas . . . . . . . . . . .
-   6.   Code that will need to be rewritten  . . . . . . . . . . . .
-   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
-   8.   Tools that need to be created from scratch . . . . . . . . .
-   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
-   10.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
-                             Informational                      ?Page 1
-                            RFC-4 Category API                January 2002
-1. Introduction 
-   All ?xxx numbers refer to the basic documents in section 7.
+		</abstract>
+	</front>
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+		<!-- One content section is mandatory -->
+		<section title="Introduction ">
+			<t>
+			   All ?xxx numbers refer to the basic documents in section 7.
    We read through the articles on http://www.postnuke.com, its forum
    threads, feature requests on sourceforge and the developers mailing
    list.
    The following RFC is a first summary and contains some solution
    proposals either compiled from the basic documents or from general
    definitions concerning comments systems / forums.
-2. List of requirements for the Category API 
-    The history of Postnuke has seen several attempts at defining
+			</t>
+		</section>
+		<section title="List of requirements for the Category API">
+			<t>
+			    The history of Postnuke has seen several attempts at defining
     a metadata system. This RFC tries to put together all thoughts
     and issues that came up in these discussions. It owes a lot
     to people like Jorge Gutierrez. Thank you.
@@ -93,18 +68,27 @@ Table of Contents
     - Nesting level unlimited [10], [11]
     - Assign more than one category to an item [12], [13]
     - Replace current Topics &amp; Categories [22], [32]
-3. Solution proposals - database tables 
-    3a. Encoded Hierarchies
+			</t>
+		</section>
+		<section title="Solution proposals - database tables">
+			<t>
+			    3a. Encoded Hierarchies
     See [14] for one possible approach. It is taken from
     Marie Altobellis Amazon Module. It is focussing on
     performance.
-4. Solution proposals - functions 
-    4a. Encoded Hierarchies
+			</t>
+		</section>
+		<section title="Solution proposals - functions">
+			<t>
+			    4a. Encoded Hierarchies
     See [15] for one possible approach. It is taken from
     Marie Altobellis Amazon Module. It is focussing on
     performance.
-5. Relationship of the API to other areas 
-    5a. Permissions System
+			</t>
+		</section>
+		<section title="Relationship of the API to other areas">
+			<t>
+			    5a. Permissions System
     Categories may form an element of a Permission string. Interactions
     between Categories and Permissions have to be figured out. [7]
     5b. User System
@@ -114,8 +98,11 @@ Table of Contents
     5c. Content Syndication System
     Interesting possibilities emerge when you syndicate content with other
     sites based on a common category schema. [24], [25]
-6. Code that will need to be rewritten 
-    /Modules/News
+			</t>
+		</section>
+		<section title="Code that will need to be rewritten">
+			<t>
+			    /Modules/News
     /Modules/Submit_News
     /Modules/NS-AddStory/
     /Modules/NS-Comments/
@@ -126,8 +113,11 @@ Table of Contents
     /Modules/Stats/
     /Modules/Messages/
     and some blocks
-7. Basic documents for this RFC 
-      [1] http://groups.yahoo.com/group/PN-Data/message/32
+			</t>
+		</section>
+		<section title="Basic documents for this RFC">
+			<t>
+			      [1] http://groups.yahoo.com/group/PN-Data/message/32
             Credits to: Jorge Gutierrez
       [2] ftp://ftp.dev.4arrow.com/zip/xpc/releases/distro/
       [3] http://groups.yahoo.com/group/PN-Data/message/40
@@ -216,18 +206,24 @@ Table of Contents
       [32] http://www.postnuke.com/modules.php?
             op=modload&amp;name=News&amp;file=article&amp;sid=650
             Credits to: Hercules
-8. Tools that need to be created from scratch 
-9. Retractions 
-   We list features that were considered but rejected for this API below.
-10. Changelog 
-    1.1 (January 7, 2002)
+			</t>
+		</section>
+		<section title="Tools that need to be created from scratch">
+			<t>
+			</t>
+		</section>
+		<section title="Retractions ">
+			<t>
+			We list features that were considered but rejected for this API below.
+			</t>
+		</section>
+		<section title="Changelog ">
+			<t>
+			    1.1 (January 7, 2002)
       More basic documents added.
     1.0 (January 6, 2002)
       Initial Version
-
-
-	</artwork>
-      </t>
-    </section>
-  </middle>
+			</t>
+		</section>
+	</middle>
 </rfc>

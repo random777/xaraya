@@ -1,76 +1,51 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
-<rfc number="0001" category="info">
-  <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="January" year="2002"/>
-    
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
+<rfc number="0011" category="info">
+	<front>
+		<title></title>
+		<author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email></email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<date month="March" year="2002"/>
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0011</t>
+			<t>When time is a less scarcer good, someone might convert the plain text
 	into structured XML so we can benefit from it.
       </t>
-    </abstract>
-  </front>
-  
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-
-RFC-11 Admin Redesign 
-
-
- Postnuke                                            Gregor J. Rothfuss
- RFC-11 Admin Redesign
- Category: Informational                                     March 2002
- Version: 1.0
-                         RFC-11 Admin Redesign
-Table of Contents 
-   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
-   2.   List of requirements for the Admin System . . . . . .  . . . 2
-   3.   Solution proposals - database tables . . . . . . . . . . . . 3
-   3a.      . . . . . . . . . .  . . . . . . . . . . .
-   4.   Solution proposals - functions . . . . . . . . . . . . . . .
-   4a.      . . . . . . . . . .  . . . . . . . . . . .
-   4b.      . . . . . . . . . .  . . . . .
-   5.   Relationship to other areas . . . . . . . . . . .
-   6.   Code that will need to be rewritten  . . . . . . . . . . . .
-   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
-   8.   Tools that need to be created from scratch . . . . . . . . .
-   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
-   10.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
-                             Informational
-                            RFC-11 Admin Redesign             March 2002
-1. Introduction 
-   All ?xxx numbers refer to the basic documents in section 7.
+		</abstract>
+	</front>
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+		<!-- One content section is mandatory -->
+		<section title="Introduction ">
+			<t>
+			   All ?xxx numbers refer to the basic documents in section 7.
    We read through the articles on http://www.postnuke.com, its forum
    threads, feature requests on sourceforge and the developers mailing
    list.
    The following RFC is a first summary and contains some solution
    proposals either compiled from the basic documents or from general
    definitions concerning comments systems / forums.
-2. List of requirements for the Admin System 
-    Following is a list of requirements broadly grouped into
+			</t>
+		</section>
+		<section title="List of requirements for the Admin System">
+			<t>
+			    Following is a list of requirements broadly grouped into
     categories.
-3. Solution proposals - database tables 
- The purpose of a module classification scheme is:
+			</t>
+		</section>
+		<section title="Solution proposals - database tables">
+			<t>
+			 The purpose of a module classification scheme is:
  *to assist admins to choose the right kind of module for the right task
  *help a new developer recognise what is a modules's function and its possible relation to other modules
  *most importantly, to help the release personnel to be able to decide without a doubt which category/class a
@@ -105,21 +80,44 @@ Where integers are:
     - Sections
     - Topics
     - etc.,
- 4. Miscellaneous
- If category unspecified, the module goes in 4
-4. Solution proposals - functions 
-5. Relationship to other areas 
- 6.  Code that will need to be rewritten
-7. Basic documents for this RFC 
-      [1] Mails from Andy Varganov about Module Classification
-8. Tools that need to be created from scratch 
-9. Retractions 
-   We list features that were considered but rejected for this API below.
-10. Changelog 
-    1.0 (March 19, 2002)
+			</t>
+		</section>
+		<section title="Miscellaneous">
+			<t>
+			 If category unspecified, the module goes in 4
+			</t>
+		</section>
+		<section title="Solution proposals - functions">
+			<t>
+			</t>
+		</section>
+		<section title="Relationship to other areas">
+			<t>
+			</t>
+		</section>
+		<section title="Code that will need to be rewritten">
+			<t>
+			</t>
+		</section>
+		<section title="Basic documents for this RFC">
+			<t>
+			[1] Mails from Andy Varganov about Module Classification
+			</t>
+		</section>
+		<section title="Tools that need to be created from scratch">
+			<t>
+			</t>
+		</section>
+		<section title="Retractions ">
+			<t>
+			We list features that were considered but rejected for this API below.
+			</t>
+		</section>
+		<section title="Changelog ">
+			<t>
+			    1.0 (March 19, 2002)
       Initial Version
-	</artwork>
-      </t>
-    </section>
-  </middle>
+			</t>
+		</section>
+	</middle>
 </rfc>

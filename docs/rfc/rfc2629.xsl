@@ -303,7 +303,7 @@
                 exclude-result-prefixes="msxsl exslt myns ed"
                 >
 
-<xsl:output method="html" encoding="iso-8859-1" version="4.0" doctype-public="-//W3C//DTD HTML 4.01//EN" />
+<xsl:output method="html" encoding="utf-8" version="4.0" doctype-public="-//W3C//DTD HTML 4.01//EN" />
 
 
 <!-- process some of the processing instructions supported by Marshall T. Rose's

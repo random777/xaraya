@@ -5,25 +5,25 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc="yes"?>
 
-<rfc number="0036" category="bcp">
+<rfc number="0038" category="bcp">
   <!-- number: Fill in the number for the RFC -->
   <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
   <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
 
   <!-- Front matter is used for identification of author and organization -->
   <front>
-    <title>Rapid Application Development (RAD)</title>
-    <author initials="G.J.R." surname="Rothfuss" fullname="Gregor J. Rothfuss">
+    <title>Xaraya Developer's Guide (including xarAPI)</title>
+    <author initials="A.V." surname="Vogel" fullname="Andrew Vogel">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>gregor@xarya.com</email>
-	<uri>http://www.xaraya.com</uri>
+	<email>drew@drewvogel.com</email>
+	<uri>http://www.drewvogel.com</uri>
       </address>
     </author>
-    <date month="January" year="2003"/>
+    <date month="February" year="2003"/>
     
     <!-- Initiating team for this RFC -->
-    <workgroup>Project Management Committee</workgroup>
+    <workgroup>Documentation Committee</workgroup>
 
     <!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
@@ -31,8 +31,15 @@
 
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>This RFC is the template for writing RFCs in XML or plain text for the 
-	Xaraya project.</t>
+      	<t>
+		This document will provide the overal structure and desired output 
+		formats for the Xaraya Developer's Guide.  In addition to specific
+		step-by-step instructions for the creation of custom modules
+		and themes, this document will include the xarAPI Reference as 
+		derived from phpDoc and possibly phpXREF as well.
+		<t></t>
+		At the moment, it is only a shell.
+		</t>
     </abstract>
   </front>
 
@@ -40,13 +47,13 @@
   <middle>
     <!-- Introduction is mandatory -->
     <section title="Introduction">
-      <t>Every RFC contains at least the following sections:
-	<list style="bullet">
-	  <t>Introduction</t>
-	  <t>at least one content section</t>
-	  <t>Revision History</t>
-	</list>
-      </t>
+      	<t>Every RFC contains at least the following sections:
+			<list style="bullet">
+			  <t>Introduction</t>
+			  <t>at least one content section</t>
+			  <t>Revision History</t>
+			</list>
+		</t>
     </section>
 
     <!-- One content section is mandatory -->

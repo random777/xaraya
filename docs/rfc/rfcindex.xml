@@ -78,6 +78,7 @@
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0038.html">RFC-0038 User documentation</eref></t>
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0039.html">RFC-0039 Developer documentation</eref></t>
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0040.html">RFC-0040 Configuration system</eref></t>
+					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0041.html">RFC-0041 Event handling system</eref></t>
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc2629.html">RFC-2629 Writing I-Ds and RFCs using XML</eref></t>
         </list>
       </t>

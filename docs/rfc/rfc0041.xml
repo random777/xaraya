@@ -24,7 +24,7 @@
   
   <!-- Front matter is used for identification of author and organization -->
   <front>
-    <title>Event messaging system</title>
+    <title>Event handling system</title>
     <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
       <organization>Xaraya Development Group</organization>
       <address>

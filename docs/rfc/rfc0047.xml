@@ -50,33 +50,42 @@
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
     <!-- Introduction is mandatory -->
-    <section title="Earlier notes">
-      <t>
-        <artwork>
-Generic:
-http://www.movabletype.org/docs/mttrackback.html contains excellent documentation 
-on trackback specs
-
-Xaraya specific actions needed:
-
-Make xaraya send out trackback pings 
-====================================
--> trackback module sends out the trackback pings
--> a ping is triggered by:
-* creation of item
-* changing of item
-* deleting item
-
-Make xaraya receive trackback pings
-===================================
-When items on other sites change or are created as a
-trackback to a xaraya item a trackback ping is received
-This ping needs to be handled by xaraya and stored in relation
-to the item remotely referenced.
-
--> receive and parse the trackback ping
--> route the information (based on url) to the right module-item and store the info there 
--> use display hook to display Trackbacks link and show the trackbacks
+    <section title="Introduction">
+        <t>
+        The purpose of this RFC is to outline how Track Back will be implemented in the Xaraya system.
+        The Track Back specification is located here <xref target="refs.1"/>.
+        </t>    
+    </section>
+    
+    <section title="Requirements List">
+        <t>
+        The main objective of this API is to allow a Track Back enabled site to send Track Back pings
+        and recieve them. Then the system must route them to the appropriate Xaraya content item.
+        <list style="numbers">
+            <t>Send Track Back Pings</t>
+                <list>
+                    <t>Track Back module send out the Track Back ping</t>
+                    <t>Pings are triggered by:</t>
+                        <list>
+                            <t>creation of an item</t>
+                            <t>modifying an item</t>
+                            <t>deleting an item</t>
+                        </list>
+                </list>
+            <t>Receive Track Back Pings</t>
+            <t>
+               When items on other sites change or are created as a
+               trackback to a xaraya item a trackback ping is received
+               This ping needs to be handled by xaraya and stored in relation
+               to the item remotely referenced.
+            </t>
+                <list>
+                    <t>Receive and parse Track Back ping</t>
+                    <t>Route information (based on URL) to the right module and store the info there</t>
+                    <t>Use display hook to display Trackbacks link and show the trackbacks</t>
+                </list>
+            <t>Auto-Discovery of Track Back Ping URLs</t>
+            <t><artwork>
 
 Make xaraya retrieve trackback urls
 ===================================
@@ -90,10 +99,36 @@ example in javascript:
 
 Xaraya trackback module can then inspect /currenturl/ and extract the entries on which
 trackback should refer to.
-        </artwork>
-      </t>
+        </artwork></t>
+        
+        </list>
+    </t>
     </section>
     
+    <section title="Solution proposals - database tables">
+    <t>
+    </t>
+    </section>
+    
+    <section title="Solution proposals - functions">
+    <t>
+    </t>
+    </section>
+    
+    <section title="Code that will need to be rewritten">
+    <t>
+    </t>
+    </section>
+    
+    <section title="Tools that need to be written from scratch">
+    <t>
+    </t>
+    </section>
+    
+    <section title="Current Issues">
+    <t>
+    </t>
+    </section>
     
     <!-- Revision history is mandatory -->
     <section title="Revision history">
@@ -106,6 +141,15 @@ trackback should refer to.
   <back>
     <references title="Reference title">
       <!-- Fill in references as needed -->
+      <reference anchor="refs.1">
+	      <front>
+	          <title>http://www.movabletype.org/docs/mttrackback.html</title>
+	          <author>
+	          <organization>MovableType</organization>
+	          </author>
+	          <date year="2002"/>
+	      </front>
+      </reference>
       <reference>
         <front>
           <title>Reference title</title>

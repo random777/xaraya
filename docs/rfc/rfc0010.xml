@@ -90,7 +90,7 @@ html/
             </t>
 
       <t>
-        html/themes/&lt;theme name&gt;/theme.php contains metadata about the theme;
+		html/themes/&lt;theme name&gt;/xartheme.php contains metadata about the theme;
         no actual markup can reside there. Such metadata includes:
         <list style="symbols">
           <t>$themeinfo['name']</t>

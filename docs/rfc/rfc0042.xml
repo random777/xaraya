@@ -785,6 +785,32 @@ That's about all I can think of regarding item types, and how
 you can benefit from Xaraya's hook system by using them...
 </t>
     </section>
+<section title="Notes on the roles module">
+	<t>The roles module uses hooks among other things in the delete, purge and recall API calls.</t>
+	<t>
+	<em>Delete:</em> A deleted role is still present but not visible, and can be recalled to become visible again. The roles module ignores deleted roles in all of its operations.
+	</t>
+	<t>
+	<em>Recall:</em> A recalled role is one that was previously deleted (and therefore ignored), but is put back into circulation again..
+	</t>
+	<t>
+	<em>Purge:</em> A purged role is for all practical purposes completely gone from Xaraya. References to it are maintained for data integrity purposes, but it cannot be accessed or recalled.
+	</t>
+	<t>
+	The API calls that perform delete, recall and purge in the roles module each have a hook call that lets other modules know that the action has taken place.
+	Since other modules or external applications may or may not have equivalent concepts, the hook calls are variants of conventional "delete" and "create" hook calls. Each call has an additional bit of information that specifies it. For example the hook call in the recall API function is:
+	</t>
+	<artwork>
+// Let any hooks know that we have recalled this user.
+$item['module'] = 'roles';
+$item['itemid'] = $item['uid'];
+$item['method'] = 'recall';
+xarModCallHooks('item', 'create', $uid, $item);
+	</artwork>
+	<t>
+	It is up to modules to analyze these calls and take appropriate action based on their own state.
+	</t>
+</section>
 
     <section title="When (not) to use hooks">
         <t>Comparison with API calls and the event system...</t>

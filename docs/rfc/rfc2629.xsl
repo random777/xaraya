@@ -497,7 +497,7 @@
 <xsl:template match="list[starts-with(@style,'format ')]">
     <table>
     <xsl:apply-templates />
-  </table>
+  	</table>
 </xsl:template>
 
 <xsl:template match="list[@style='hanging']">
@@ -509,48 +509,69 @@
 </xsl:template>
 
 <xsl:template match="list[@style='numbers']">
-    <blockquote>
     <ol>
         <xsl:apply-templates />
       </ol>
-  </blockquote>
 </xsl:template>
 
 <xsl:template match="list[@style='bullets']">
-    <blockquote>
     <ul class="text">
         <xsl:apply-templates />
-      </ul>
-  </blockquote>
+    </ul>
+</xsl:template>
+
+<!-- LC alpha list -->
+<xsl:template match="list[@style='lc_alpha']">
+    <ol type="a">
+        <xsl:apply-templates />
+    </ol>
 </xsl:template>
 
 <!-- numbered list inside numbered list -->
 <xsl:template match="list[@style='numbers']/t/list[@style='numbers']" priority="9">
-    <blockquote>
     <ol style="list-style-type: lower-alpha">
         <xsl:apply-templates />
       </ol>
-  </blockquote>
+</xsl:template>
+
+<!-- LC alpha list inside numbered list -->
+<xsl:template match="list[@style='numbers']/t/list[@style='lc_alpha']" priority="9">
+    <ol type="a">
+        <xsl:apply-templates />
+      </ol>
+</xsl:template>
+
+<!-- UC alpha list inside numbered list -->
+<xsl:template match="list[@style='numbers']/t/list[@style='uc_alpha']" priority="9">
+    <ol type="A">
+        <xsl:apply-templates />
+      </ol>
+</xsl:template>
+
+<xsl:template match="em">
+	<b>
+		<xsl:copy><xsl:apply-templates select="node()" /></xsl:copy>
+	</b>
 </xsl:template>
 
 <xsl:template match="list[@style='symbols']">
     <ul class="text">
-    <xsl:apply-templates />
-  </ul>
+    	<xsl:apply-templates />
+  	</ul>
 </xsl:template>
 
 <!-- same for t(ext) elements -->
 
 <xsl:template match="list[@style='empty' or not(@style)]/t">
     <p>
-    <xsl:apply-templates />
-  </p>
+    	<xsl:apply-templates />
+  	</p>
 </xsl:template>
 
 <xsl:template match="list[@style='numbers' or @style='symbols']/t">
     <li>
-    <xsl:apply-templates />
-  </li>
+    	<xsl:apply-templates />
+  	</li>
 </xsl:template>
 
 <xsl:template match="list[@style='hanging']/t">
@@ -1125,6 +1146,8 @@ p {
     
 li { 
     margin-left: 3em;
+	margin-bottom: 6px;
+	line-height: 150%;
     }
     
 ol { 
@@ -1152,7 +1175,7 @@ ul.toc {
 
 H1 {
     color: #191970;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bolder;
     font-family: Verdana,Arial,Helvetica;}
         
@@ -1161,28 +1184,39 @@ H2 {
     font-size: 14px;
     font-weight: bolder;
     font-family: Verdana,Arial,Helvetica;
-    border-bottom : thin double #191970;
-    line-height : 170%;}
+    line-height : 170%;
+	text-indent: 2em;}
 
 H3 {
     color: #191970;
     font-size: 12px;
     font-weight: bold;
     font-family: Verdana,Arial,Helvetica;
-    line-height : 100%;}
+    line-height : 100%;
+	text-indent: 2em;}
     
 H4 {
     color: #191970;
     font-size: 12px;
     font-weight: bold;
     font-family: Verdana,Arial,Helvetica;
-    line-height : 170%;}
+    border-bottom : thin double #191970;
+    line-height : 170%;
+	text-indent: 2em;}
     
-H5, H6 {
+H5, {
     color: #191970;
     font-size: 11px;
     font-weight: bold;
-    font-family: Verdana,Arial,Helvetica;}
+    font-family: Verdana,Arial,Helvetica;
+	text-indent: 4em;}
+
+H6 {
+    color: #191970;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: Verdana,Arial,Helvetica;
+	text-indent: 6em;}	
     
 TD.header { 
     color: #ffffff;

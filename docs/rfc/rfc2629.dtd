@@ -153,6 +153,9 @@
 
 <!-- the value of the style attribute is inherited from the closest 
      parent -->
+	 
+<!ELEMENT em       (%CTEXT;)>
+	 
 <!ELEMENT list        (t+)>
 <!ATTLIST list
           style       %ATEXT;            "empty">
@@ -191,11 +194,7 @@
 
 <!ELEMENT postamble   (%TEXT;|xref|eref|iref)*>
 
-
-<!--
-  Back matter
-  -->
-
+<!--   Back matter   -->
 
 <!-- sections, if present, are appendices -->
 <!ELEMENT back        (references*,section*)>

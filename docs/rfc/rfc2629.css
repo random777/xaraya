@@ -1,4 +1,4 @@
-BODY {
+body {
 	font-size:11px; 
 	font-family: verdana, arial, helvetica, sans-serif;
 	background-color: #FFFFFF
@@ -17,11 +17,13 @@ p {
 	
 li { 
 	margin-left: 3em;
+	line-height: 125%;
 	}
 	
 ol { 
 	margin-left: 2em;
 	margin-right: 2em;
+	line-height: 150%;
 	}
 	
 ul.text { 
@@ -54,7 +56,8 @@ H1 {
 	color: #191970;
 	font-size: 16px;
 	font-weight: bolder;
-	font-family: Verdana,Arial,Helvetica;}
+	font-family: Verdana,Arial,Helvetica;
+	}
 		
 H2 {
 	color: #191970;
@@ -62,27 +65,31 @@ H2 {
 	font-weight: bolder;
 	font-family: Verdana,Arial,Helvetica;
 	border-bottom : thin double #191970;
-	line-height : 170%;}
+	line-height : 170%;
+	text-indent: 2em;}
 
 H3 {
 	color: #191970;
 	font-size: 12px;
 	font-weight: bold;
 	font-family: Verdana,Arial,Helvetica;
-	line-height : 100%;}
+	line-height : 100%;
+	text-indent: 2em;}
 	
 H4 {
 	color: #191970;
 	font-size: 12px;
 	font-weight: bold;
 	font-family: Verdana,Arial,Helvetica;
-	line-height : 170%;}
+	line-height : 170%;
+	text-indent: 2em;}
 	
 H5, H6 {
 	color: #191970;
 	font-size: 11px;
 	font-weight: bold;
-	font-family: Verdana,Arial,Helvetica;}
+	font-family: Verdana,Arial,Helvetica;
+	text-indent: 2em;}
 	
 TD.header { 
 	color: #ffffff;

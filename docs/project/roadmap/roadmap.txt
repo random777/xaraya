@@ -25,7 +25,10 @@ scn1.1;Release 1.1 scenarios;          ;        ;           ;0       ;0   ;john 
 blwidg;Blocklayout widget   ;	       ;14	;blyout	    ;0	     ;1	  ;dracos    ;scn1.1
 submod;Subscription modules ;2002-10-14;35	;	    ;75	     ;1	  ;miko      ;scn1.1
 unitst;Integrated testing   ;	       ;21	;blwidg	    ;0	     ;1	  ;marcel    ;scn1.1
-multdb;Multidatabase support;	       ;21	;	    ;0	     ;1	  ;gary	     ;scn1.1
+multdb;Multidatabase support;	       ;21	;	    ;0	     ;0	  ;gary	     ;scn1.1
+dbpg;Postgres support;2002-11-01       ;21	;	    ;80	     ;1	  ;gary	     ;multdb
+dbor;Oracle support;	       ;21	;dbpg	    ;0	     ;1	  ;gary	     ;multdb
+dbms;Mssql support;	       ;21	;dbor	    ;0	     ;1	  ;gary	     ;multdb
 prmsys;Permission system    ;          ;        ;           ;0       ;1   ;?         ;scn1.1
 pnproj;pnProject	    ;2002-10-01;35	;prmsys	    ;70      ;1	  ;stego     ;scn1.1
 hlpsys;Help system          ;2002-12-01;21	;blwidg	    ;0	     ;1	  ;gregor    ;scn1.1

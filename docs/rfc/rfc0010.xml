@@ -928,39 +928,60 @@ html/
         </section>
         <!-- xar:ml -->
         <section anchor="ml" title="&lt;xar:ml /&gt;">
-          <t>Open</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-            Ml is a wrapper for <xref target="mlkey">&lt;xar:mlkey /&gt;</xref> and <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> when
-            their values contain placeholders. These placeholders are replaced by
-            the content of <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags in the order they appear in the
-            template.
+            The &lt;xar:ml&gt; tag is a wrapper for <xref target="mlkey">&lt;xar:mlkey
+            /&gt;</xref> and <xref target="mlstring">&lt;xar:mlstring
+            /&gt;</xref> when their values contain placeholders. These
+            placeholders are replaced by the content of <xref
+            target="mlvar">&lt;xar:mlvar /&gt;</xref> tags in the
+            order they appear in the template.
           </t>
-          <t>Syntax example:
+          <t>
+            The enclosing &lt;xar:mlstring&gt; or &lt;xar:mlkey&gt; should have
+            placeholders in its definition of the form #(1)..#(n) if there are
+            'n' variables to be replaced. The contents of th first 
+            &lt;xar:mlvar&gt; tag is put in the place of #(1), the second in the
+            location of #(2) etcetera. 
+          </t>
+          <section title="Forms">
+            <t>Only allowed in block form</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag</t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
               &lt;xar:ml&gt;
-              &lt;xar:mlkey&gt;USERSONLINE&lt;/xar:mlkey&gt;
-              &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
-              &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
+                &lt;xar:mlkey&gt;USERSONLINE&lt;/xar:mlkey&gt;
+                &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
+                &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
               &lt;/xar:ml&gt;
-              
+
+              The values '78' and '120' are put in the place of 
+              #(1) and #(2) in the definition of the key 'USERSONLINE'.
+              Note that these aren't visible in the template itself.
+        
               &lt;xar:ml&gt;
-              &lt;xar:mlstring&gt;There are #(1) members and #(2) guests online.&lt;/xar:mlstring&gt;
-              &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
-              &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
+                &lt;xar:mlstring&gt;There are #(1) members and #(2) guests online.&lt;/xar:mlstring&gt;
+                &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
+                &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
               &lt;/xar:ml&gt;
+
+              Same as first example, but with the &lt;xar:mlstring&gt; form.
             </artwork>
-                    </t>
-          <t>Parent tag: none.</t>
-          <t>Child tags: 
-            <xref target="mlkey">&lt;xar:mlkey /&gt;</xref>, 
-            <xref target="mlstring">&lt;xar:mlstring /&gt;</xref>, 
-            <xref target="mlvar">&lt;xar:mlvar /&gt;</xref>, (optional)</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: 
+              <t><xref target="mlkey">&lt;xar:mlkey /&gt;</xref>,</t>
+              <t><xref target="mlstring">&lt;xar:mlstring /&gt;</xref>,</t> 
+              <t><xref target="mlvar">&lt;xar:mlvar /&gt;</xref>, (optional)</t>
+            </t>
+          </section>
         </section>
         <!-- xar:mlkey -->
         <section anchor="mlkey" title="&lt;xar:mlkey /&gt;">

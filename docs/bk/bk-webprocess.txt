@@ -1,0 +1,114 @@
+Website publishing with bk for xaraya websites
+==============================================
+
+Xaraya has several websites which need to be maintained. Some
+of the sites contain only static pages, others are basically
+placeholders for web-applications.
+
+We treat the maintenance process for websites basically the
+same as the process for maintaining the source code. This means
+that bk will play an important role in it. As the setup can
+be fairly comples, this document contains information for 
+maintainers and developers to be able to use it.
+
+Overview
+--------
+For the websites we use a staging, production process which
+means that all changes are made in a staging environment, 
+which is used to gather all improvements and when stable 
+enough will be published to the production environment.
+
+So the basic hierarchy which holds the content for *all* 
+sites needed by the xarya group is as follows:
+
+            webs-production
+                  ^
+	          |
+		  | publish
+		  |
+		  |
+             webs-staging
+
+This can be compared with the xaraya-main repos and the 
+xaraya-stable repository.
+
+The web repository contains a subdir for each 
+website managed by this process, currently it has the 
+following layout:
+
+reposroot/
+	bk/        ---> content for bk.xaraya.com (ultimately)
+	bugs/      ---> content for bugs.xaraya.com (ultimately)
+        www/       ---> content for www.xaraya.com (ultimately)
+        developer/ ---> content for developer.xaraya.com (ultimately)
+	scripts	   ---> scripts which glue web repositories to other repositories (if necessary)
+
+If both webs-staging and webs-production repositories are in place
+there is a nice structure to edit the content and make sure it's 
+revision controlled and all that, but that doesn't give you a website,
+so we have to define a relation between the "bk-space" and the "web-space"
+
+
+Relation between bk and web-space
+---------------------------------
+web-space: /var/www and below (http)
+bk-space : /usr/local/repositories and below
+
+Option for creating a relation between the two
+
+1. (sym)links from the webspace to the appropriate subdirs in the bk-space
+2. (l)clone in the web-space (copy or hardlinks)
+3. script which extracts files from the repository and copies them to
+   the web-space
+
+A simple table with capabilities of each option:
+ 
+			1	2	3
+-------------------------------------------
+Immediate result	++	+	-	(optional)
+Remote management	+	++	-
+Easy to customize	+	-	++
+Scalable		-	++	-
+Easy to secure		+	+	++
+Relation		+	++	-
+Code integration	+	-	++
+Dynamic sites		++	+	++
+Per site updates	+	-	++
+
+This list was created in 2 minutes, so don't assign
+too much value to it. 
+
+Because currently the sites are all in one repository
+per site publishing is more difficult. Because we only
+need the process (at this time) for the www site, it
+is not really a problem at this time. If we want per
+site control we either have to create a repository 
+for each site, or wait for the nested repositories 
+feature of bk.
+
+Examples for use:
+----------------
+- making changes to websites:
+Make the change in local clone and push
+- publishing the site
+on server: in web-staging: bk push
+remote: 
+ - bk pull web-staging
+ - bk parent web-production
+ - bk pull (should not do anything, just a check)
+ - bk push
+ - bk parent web-staging
+
+What else is needed?
+
+
+Actual implementation:
+---------------------
+
+concept.xaraya.com: 
+- staging site for www.xaraya.com
+- /var/www-ssl/ddf/concept.xaraya.como
+
+www.xaraya.com:
+- production site
+- /var/www/ddf/www.xaraya.com

@@ -773,17 +773,27 @@ html/
 					<t>Attributes:
             <list style="symbols">
 							<t>id: an identifier for the tag (optional)</t>
-							<t>name: the name of the module</t>
+							<t>main: boolean specifying whether this is for the main module output or not</t>
+							<t>module: module to call if this is not the main module tag (optional)</t>
+							<t>type: type of function to call (optional, default is 'user')</t>
+							<t>func: function to call (optional, default is 'main')</t>
+							<t>args: array of arguments to pass to the function (optional), or</t>
+							<t>any other: individual arguments to pass to the function (optional)</t>
 						</list>
 					</t>
 					<t>Description</t>
 					<t>
-            Module loads and displays module output. The module gets all variables
-            needed directly from the core.
+            When 'main' is true, this tag acts as a placeholder for the output of the main module function, and the module gets all variables
+            needed directly from the core. The main module function itself will be executed by the core *before* template loading.
           </t>
+                                        <t>On the other hand, if a module and optional other attributes are specified, this
+            tag will call the corresponding module function during the template loading, and insert its output here.</t>
 					<t>Syntax example:
             <artwork>
-              &lt;xar:module name="News" /&gt;
+              &lt;xar:module main="true" /&gt;
+              &lt;xar:module main="false" module="polls" /&gt;
+              &lt;xar:module main="false" module="$mymodule" type="user" func="$func" args="$args" /&gt;
+              &lt;xar:module main="false" module="articles" type="user" func="view" ptid="1" numitems="10" startnum="$startnum" ... /&gt;
             </artwork>
 					</t>
 					<t>Parent tag: none.</t>
@@ -1109,7 +1119,8 @@ html/
         Multi-module layouts: This feature would allow Xaraya to display
         output from more than one module during a page request. Major core
         changes are required; hooks may provide some insight into how to
-        implement this feature.
+        implement this feature. At the moment, simple multi-module layouts
+        are possible via the xar:module tag.
       </t>
 			<t>
         The help system will add a new widget:

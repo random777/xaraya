@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>   
+ <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+ <?rfc editing="yes"?>
+ <?rfc toc="yes"?>
+ <?rfc tocdepth="2"?>
+<rfc category="bcp" number="0048" xmlns:ed="http://greenbytes.de/2002/rfcedit">
+    <front>
+        <title>Xaraya Style Guide (XSG)</title>
+        <author fullname="AndyV" initials="Andy" surname="V">
+            <organization>Xaraya Core Dev</organization>
+            <address>
+                <email>andyv@xaraya.com</email>
+            </address>
+        </author>
+        <date month="December" year="2003"/>
+    </front>
+    <middle>
+        <section title="Introduction to Xaraya Style Guide">
+            <t>This section describes the aims and objectives of this document.</t>
+            <section title="Who should read it">
+                <t>All xaraya core, modules and themes developers who develop interfaces with BL templates.</t>
+            </section>
+            <section title="What it is">
+                <t> It is an attempt to set standards and rules describing common xaraya user
+                    interfaces (UI) and explaining how to build them within the limitations of
+                    existing xaraya framework. </t>
+            </section>
+            <section title="What it is not">
+                <t>This guide alone cannot help those who are not familiar with <eref
+                    target="http://www.w3c.org">W3C</eref> standards and have little or no
+                    experience working with <eref target="http://www.w3.org/MarkUp/">XHTML</eref>
+                    and <eref target="http://www.w3.org/Style/CSS/">CSS</eref> web documents. We
+                    cannot deliver all necessary and relevant information in a single short
+                    document, so all our readers are also strongly encouraged to review accompanying
+                    references, examples and tutorials.</t>
+            </section>
+            <section title="Guiding Principles">
+                <t>(TODO)</t>
+            </section>
+            <section title="Limitations">
+                <t>(TODO)</t>
+            </section>
+            <section title="Rationale">
+                <t>(TODO)</t>
+            </section>
+            <section title="Status of readiness">
+                <t>
+                    <em>Work in progress</em>. Do not treat this document as the definitive guide
+                    until the status says "Completed". </t>
+            </section>
+        </section>
+        <section title="Terms and Definitions">
+            <t>Terms and abstract models used throughout the guide. (TODO)</t>
+        </section>
+        <section title="Administrator Interfaces">
+            <t>How the admin UI is built</t>
+        </section>
+        <section title="User Interfaces">
+            <t>(TODO)</t>
+        </section>
+        <section title="Other Examples">
+            <t>(TODO)</t>
+        </section>
+        <section title="References">
+            <t>(TODO)</t>
+        </section>
+        <section title="Tutorials">
+            <t>(TODO)</t>
+        </section>
+    </middle>
+    <back>
+        <section title="Notes">
+            <t> (TODO)</t>
+        </section>
+    </back>
+</rfc>

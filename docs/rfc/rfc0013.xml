@@ -1,51 +1,46 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
-<rfc number="0001" category="info">
-  <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="January" year="2002"/>
-    
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
+<rfc number="0013" category="info">
+	<front>
+		<title>Module Classification System</title>
+		<author initials="" surname="" fullname="Unknown">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email>unknown</email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<date month="January" year="2002"/>
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0013</t>
+			<t>When time is a less scarcer good, someone might convert the plain text
 	into structured XML so we can benefit from it.
       </t>
-    </abstract>
-  </front>
-  
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-
-RFC-13 Module Classification System 
-
-
-PostNuke Module Classification System (pnMCS) 
-1. Introduction: 
-The postnuke modules are there to extend the functionality of this content management system (we assume that you are already familiar with the PostNuke Module Developers Guide by Jim McDonald - link). 
+		</abstract>
+	</front>
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+		<!-- One content section is mandatory -->
+		<section title="Introduction">
+			<t>
+			The postnuke modules are there to extend the functionality of this content management system (we assume that you are already familiar with the PostNuke Module Developers Guide by Jim McDonald - link). 
 Traditionally, the modules have been added to /modules directory and activated/deactivated via the admin interface. However, they didn't have any particular weight, class or identity, which could have helped to quickly and unmistakably determine (both programmatically and visually) the module's purpose, role and hierarchy within the pn system. 
-The aim of this document is to set module classification standards for ALL pn modules, including old style (pre pn 0.7), new style and future versions. 
-2. How to identify a module? 
-A module can be identified by way it interacts with the core and other modules. Additionally, we need to identify modules by their virtual categories within the pn administration system. In this document, we are going to use and combine both approaches to form a generic set of classes and categories for all the modules. 
-3. Module Classes: 
-We suggest the following list of possible module classes: 
+The aim of this document is to set module classification standards for ALL pn modules, including old style (pre pn 0.7), new style and future versions.
+			</t>
+		</section>
+		<section title="How to identify a module? ">
+			<t>
+			A module can be identified by way it interacts with the core and other modules. Additionally, we need to identify modules by their virtual categories within the pn administration system. In this document, we are going to use and combine both approaches to form a generic set of classes and categories for all the modules.
+			</t>
+		</section>
+		<section title="Module Classes">
+			<t>
+			We suggest the following list of possible module classes: 
 Format of presentation: long name | short identifier | description | notes 
 Core Classes: these modules should stay with the core to provide basic functionality 
     - core admin modules | 'Core Admin' | admin system functions
@@ -61,9 +56,12 @@ General Classes: these modules can be added and removed as necessary
     - general other modules | 'Other' | functions other than above
 Misc Classes: all other modules which don't fit into the first two groups of classes 
     - miscellaneous other modules | 'Miscellaneous' | all other modules
-Note: Each group of the above module classes can be modified, edited or removed, subject to approval by the pn-dev group. 
-4. Module Categories: 
-Within each of the module classes, we suggest a detailed categorization in the form of 'category' system variable, which would determine the module's place and hierarchy at the pn administration system level. 
+Note: Each group of the above module classes can be modified, edited or removed, subject to approval by the pn-dev group.
+			</t>
+		</section>
+		<section title="Module Categories">
+			<t>
+			Within each of the module classes, we suggest a detailed categorization in the form of 'category' system variable, which would determine the module's place and hierarchy at the pn administration system level. 
 Examples: 
 Category: 'Global' 
   - Settings
@@ -85,18 +83,22 @@ Category: 'Content'
   - Topics
 Category: 'Miscellaneous' 
 Note: If a module is not classified and categorized yet, it is auto-assigned the class 'Miscellaneous' and the category 'Miscellaneous' 
-Note: Each group of the above categories can be modified, edited or removed, subject to approval by the pn-dev group. 
-5. Module Classification IDs: 
-A module's IDs within this classification system is a combination of its class and category short identifiers accessible by all core and non-core functions. 
+Note: Each group of the above categories can be modified, edited or removed, subject to approval by the pn-dev group.
+			</t>
+		</section>
+		<section title="Module Classification IDs">
+			<t>
+			A module's IDs within this classification system is a combination of its class and category short identifiers accessible by all core and non-core functions. 
 Example: 
 Module 'Modules' of the class 'Core Admin' and category 'Global' would have its IDs encoded into pnversion.php (or Version.php) file as follows: 
 $modversion['class'] = 'Core Admin';
-$modversion['category'] = 'Global'; 
-6. Module Unique ID: 
-It has also been suggested that each module should be registered with its unique ID. When designing the module registration system, we suggest that this module classification system is taken into consideration. 
-EOF 
-	</artwork>
-      </t>
-    </section>
-  </middle>
+$modversion['category'] = 'Global';
+			</t>
+		</section>
+		<section title="Module Unique ID">
+			<t>
+			It has also been suggested that each module should be registered with its unique ID. When designing the module registration system, we suggest that this module classification system is taken into consideration.
+			</t>
+		</section>
+	</middle>
 </rfc>

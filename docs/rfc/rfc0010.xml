@@ -52,7 +52,7 @@ to get this accomplished. 
 Theme Systems 
 3. Requirements 
 4. Solution Proposal - Display
-Abstraction Layer & Pluggable Theme Engines and Arrangement of files
+Abstraction Layer &amp; Pluggable Theme Engines and Arrangement of files
 5. Code to be changed 
 5a. Desireable Data Structures 
 6. Code to be
@@ -80,7 +80,7 @@ definition is it seems to combine two different physical definitions,
 Themes and Templating Engines. perhaps:   Templating Engine:
 Class/Function which abstracts display functionality into editable
 template files and returns merged html/xhtml/xml string for output. 
- Themes: Sets of template files & CSS files that create the layout &
+ Themes: Sets of template files &amp; CSS files that create the layout &amp;
 color/style of the postnuke display- ?ladyofdragons''   I'll agree
 with that. - Dracos 
 
@@ -97,7 +97,7 @@ Improve PostNuke performance.
 
  Modules should be looked at as APIs for working with their relevant data types, they should do no actual formatting. The presentation layer should be responsible for working with these APIs to retreive data. This way pages can be built that use different aspects of multiple modules. - ?paul 
 
-4. Solution Proposal - Display Abstraction Layer & Pluggable Theme Engines 
+4. Solution Proposal - Display Abstraction Layer &amp; Pluggable Theme Engines 
 Several schools of thought exist within the PostNuke developer community concerning theme issues. Several discussions in various communication channels point to a "Display Abstraction Layer" as a solution. This would allow site administrators to choose what "Theme Engine" they prefer to use. 
  - (template engine is a fundamental part of an application platform. Although there are benefits of providing people choice of their favorite theme/template engine to work with, I believe benefits of having single, standard, well-defined system overweighs the choice. Choosing a time tested, solid existing template engine may also save development time.) - ?mberkay 
 This solution does not disallow the need for native functionality that may be required outside of the theme system (such as may be required internally by legacy modules). The current theme system along with pnHTML may fill this role, with modification. 
@@ -124,7 +124,7 @@ There are several problems with this approach which I think will hamper postnuke
  * Caching would be uncontrolable since each engine used by each module would have a separate and incompatible cache mechanism. - ?aidan 
  * Session management combined with incompatible caching would be totally broken. - ?aidan 
  * I would be next to imposssible to gather a consensus about the screen model from all the screen components - how do you build a screen from 20 blocks and a module if each block is using a different template engine? - ?aidan 
- ;:if a single templating engine is chosen for postnuke, purely on its merits based on benchmarking & the fact that it has the minimal feature set that is necessary to fulfill its function, this will solve the 'plugin' problems. Can you imagine what would have happened if postnuke decided to go with both PEAR and ADODB? It would be a logistical nightmare trying to decide what module used what system. The same idea applies here. - ?ladyofdragons 
+ ;:if a single templating engine is chosen for postnuke, purely on its merits based on benchmarking &amp; the fact that it has the minimal feature set that is necessary to fulfill its function, this will solve the 'plugin' problems. Can you imagine what would have happened if postnuke decided to go with both PEAR and ADODB? It would be a logistical nightmare trying to decide what module used what system. The same idea applies here. - ?ladyofdragons 
 
  Yes, modules must be templated. This is why we have a default/internal template engine. Modules don't have to look for it, and if an admin really wants to, they can switch all modules to use another engine with a single setting. I don't see this as really splintering theme development, but forking it n-times, where n is the number of template engines PostNuke works with. - Dracos 
 

@@ -69,7 +69,7 @@ Table of Contents
     * search engine-friendly URLs : for facilitating crawling/spidering
       by robots, and automated linking by search engines, newsfeeds etc.
     In both cases, it should be possible to convert the current URL
-    format http://www.mysite.com/index.php?module=...(&type=...)&func=...&pid=...
+    format http://www.mysite.com/index.php?module=...(&amp;type=...)&amp;func=...&amp;pid=...
     into a virtual URL in the style http://www.mysite.com/index.php/.../.../...(?...)
     For user-friendly URLs, the resulting virtual URLs should also be
     "semantically meaningful" where possible. [2]
@@ -78,7 +78,7 @@ Table of Contents
     This means that short URL support shouldn't require mod_rewrite
     * minimal impact on performance
     This means that short URL support shouldn't rely on some global
-    search & replace of any URLs found in the HTML output buffer right
+    search &amp; replace of any URLs found in the HTML output buffer right
     before it's sent to the browser
     * site administrators should be able to turn on/off short URLs
     This means providing configuration settings for the site admins
@@ -167,28 +167,28 @@ function articles_userapi_encode_shorturl($args) {
     if ($func == 'main') {
         $path = '/' . $module . '/index.html';
     } elseif ($func == 'view') {
-        if (isset($cids) && is_array($cids)) {
+        if (isset($cids) &amp;&amp; is_array($cids)) {
             if (count($cids) == 1) {
                 $path = '/' . $module . '/category' . $cids[0] . '.html';
             } else {
                 // this is *not* supported for short URLs -&gt; do nothing
                 // (e.g. for multiple category selections)
             }
-        } elseif (isset($ptid) && isset($pubtypes[$ptid])) {
+        } elseif (isset($ptid) &amp;&amp; isset($pubtypes[$ptid])) {
             $path = '/' . $module . '/' . $pubtypes[$ptid]['name'] . '/index.html';
         } else {
             $path = '/' . $module . '/index.html';
         }
-    } elseif ($func == 'display' && isset($aid)) {
+    } elseif ($func == 'display' &amp;&amp; isset($aid)) {
         $path = '/' . $module . "/$aid.html";
     // TODO: do we even care about those when we display an article ?
-        // just add the cids as regular parameters ?cids[0]=1&cids[1]=4...
-        //if (isset($cids) && is_array($cids)) {
+        // just add the cids as regular parameters ?cids[0]=1&amp;cids[1]=4...
+        //if (isset($cids) &amp;&amp; is_array($cids)) {
         //    foreach ($cids as $id =&gt; $cid) {
         //        if (isset($cid)) {
         //            $path .= $join . "cids[$id]=$cid";
         //            // change the join character (once would be enough)
-        //            $join = '&';
+        //            $join = '&amp;';
         //        }
         //    }
         //}
@@ -197,7 +197,7 @@ function articles_userapi_encode_shorturl($args) {
     }
     // anything else does not have a short URL equivalent
     // add some other module arguments as standard URL parameters
-    if (!empty($path) && isset($startnum)) {
+    if (!empty($path) &amp;&amp; isset($startnum)) {
         $path .= $join . 'startnum=' . $startnum;
     }
     return $path;
@@ -280,7 +280,7 @@ function articles_userapi_decode_shorturl($params) {
     site administrators to set/unset the 'System.UseShortURLsIfPossible'
     variable.
 7. Basic documents for this RFC 
-    [1] http://centre.ics.uci.edu/~grape/modules.php?op=modload&name=Wiki&file=index&pagename=Search%20Engine%20Optimization
+    [1] http://centre.ics.uci.edu/~grape/modules.php?op=modload&amp;name=Wiki&amp;file=index&amp;pagename=Search%20Engine%20Optimization
           Credits to besfred
     [2] URL as UI : http://www.useit.com/alertbox/990321.html
           Credits to Jakob Nielsen

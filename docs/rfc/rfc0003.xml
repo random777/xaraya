@@ -129,39 +129,39 @@ drupal rating: [18]
 7. Basic documents for this RFC 
       [1] http://www.meridianvault.com/rate-it.zip
       [2] http://sourceforge.net/project/showfiles.php?
-            group_id=39306&release_id=60003
+            group_id=39306&amp;release_id=60003
       [3] http://xmlvl.net/article/index.xvl?acct=article:_02
       [4] http://advogato.org/article/176.html
       [5] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=459239&group_id=27927&atid=392231
+            func=detail&amp;aid=459239&amp;group_id=27927&amp;atid=392231
             Credits to: Pim van der Zwet
       [6] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=448439&group_id=27927&atid=392231
+            func=detail&amp;aid=448439&amp;group_id=27927&amp;atid=392231
             Credits to: Anonymous
       [7] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=487384&group_id=27927&atid=392231
+            func=detail&amp;aid=487384&amp;group_id=27927&amp;atid=392231
             Credits to: Steven Hilton, Kevin Fogleman
       [8] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=440463&group_id=27927&atid=392231
+            func=detail&amp;aid=440463&amp;group_id=27927&amp;atid=392231
             Credits to: Simon Troup
       [9] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=461559&group_id=27927&atid=392231
+            func=detail&amp;aid=461559&amp;group_id=27927&amp;atid=392231
             Credits to:
       [10] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=440629&group_id=27927&atid=392231
+            func=detail&amp;aid=440629&amp;group_id=27927&amp;atid=392231
             Credits to: Anonymous
       [11] http://groups.yahoo.com/group/pndev/message/5723
             Credits to: jojajota
       [12] http://slashdot.org/article.pl?
-            sid=02/01/03/1812245&mode=thread
+            sid=02/01/03/1812245&amp;mode=thread
       [13] http://cvs.slashcode.com/index.cgi/slash/plugins/
-            Zoo/zoo.pl?rev=1.11&content-type=text/x-cvsweb-markup
+            Zoo/zoo.pl?rev=1.11&amp;content-type=text/x-cvsweb-markup
       [14] RFC-3 Appendix 1
       [15] RFC-3 Appendix 2
       [16] http://groups.yahoo.com/group/pndev/message/4768
       [17] http://groups.yahoo.com/group/PN-Data/message/67
       [18] http://cvs.drupal.org/viewcvs.cgi/drupal/
-            modules/rating.module?rev=1.39&content-type=text/
+            modules/rating.module?rev=1.39&amp;content-type=text/
             vnd.viewcvs-markup
 8. Tools that need to be created from scratch 
 9. Retractions 

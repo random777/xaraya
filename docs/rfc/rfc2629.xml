@@ -112,7 +112,7 @@ a reference to the DTD,
 and the "rfc" element:</preamble>
 <artwork><![CDATA[
     <?xml version="1.0"?>
-    <!DOCTYPE rfc SYSTEM "rfc]]>&rfc.number;<![CDATA[.dtd">
+    <!DOCTYPE rfc SYSTEM "rfc]]>&amp;rfc.number;<![CDATA[.dtd">
     <rfc>
         ...
     </rfc>
@@ -186,7 +186,7 @@ XML is case sensitive.</t>
 element:</preamble>
 <artwork><![CDATA[
     <?xml version="1.0"?>
-    <!DOCTYPE rfc SYSTEM "rfc]]>&rfc.number;<![CDATA[.dtd">
+    <!DOCTYPE rfc SYSTEM "rfc]]>&amp;rfc.number;<![CDATA[.dtd">
     <rfc>
         <front>
             <title ...>
@@ -612,7 +612,7 @@ putting it all together, we have, e.g.,</preamble>
         <artwork>
             ascii artwork goes here...
     
-            be sure to use "&lt;" or "&amp;" instead of "<" and "&",
+            be sure to use "&amp;lt;" or "&amp;amp;" instead of "&lt;" and "&amp;",
             respectively!
         </artwork>
         <postamble>which is a very simple example.</postamble>
@@ -1213,7 +1213,7 @@ the appropriate substitution (or "XXXX") will occur.</t>
 
 <!ENTITY % TEXT       "#PCDATA">
 
-<!ENTITY   rfc.number "]]>&rfc.number;<![CDATA[">
+<!ENTITY   rfc.number "]]>&amp;rfc.number;<![CDATA[">
 
 
 <!--

@@ -91,7 +91,7 @@ Table of Contents
     - A sane solution for orphaned content [8]
     - Nesting level unlimited [10], [11]
     - Assign more than one category to an item [12], [13]
-    - Replace current Topics & Categories [22], [32]
+    - Replace current Topics &amp; Categories [22], [32]
 3. Solution proposals - database tables 
     3a. Encoded Hierarchies
     See [14] for one possible approach. It is taken from
@@ -144,76 +144,76 @@ Table of Contents
       [9] http://groups.yahoo.com/group/PN-Data/message/288
             Credits to: Marie Altobelli
       [10] http://www.postnuke.com/modules.php
-            ?op=modload&name=News&file=article&sid=935
+            ?op=modload&amp;name=News&amp;file=article&amp;sid=935
             Credits to: jerryj
       [11] http://groups.yahoo.com/group/pndev/message/2952
             Credits to: Florian Bruckner
       [12] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1354
+            op=modload&amp;name=News&amp;file=article&amp;sid=1354
             Credits to: Jason Lotito
       [13] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=441077&group_id=27927&atid=392231
+            func=detail&amp;aid=441077&amp;group_id=27927&amp;atid=392231
             Credits to: Asparagirl
       [14] http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/
             post-nuke/postnuke_official/tests/category_api/
-            categories.sql?rev=1.1&content-type=text/
+            categories.sql?rev=1.1&amp;content-type=text/
             vnd.viewcvs-markup
             Credits to: Marie Altobelli
       [15] http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/
             post-nuke/postnuke_official/tests/category_api/
-            category.php?rev=1.1&content-type=text/
+            category.php?rev=1.1&amp;content-type=text/
             vnd.viewcvs-markup
             Credits to: Marie Altobelli
       [16] http://www.geocrawler.com/archives/3/12620/2001/
             9/100/6581303/
             Credits to: John Crocket
       [17] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=498872&group_id=27927&atid=392231
+            func=detail&amp;aid=498872&amp;group_id=27927&amp;atid=392231
             Credits to: Kristjan
       [18] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=496842&group_id=27927&atid=392231
+            func=detail&amp;aid=496842&amp;group_id=27927&amp;atid=392231
             Credits to: Mark S. Miller
       [19] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=445240&group_id=27927&atid=392231
+            func=detail&amp;aid=445240&amp;group_id=27927&amp;atid=392231
             Credits to: Justin G. Zaun
       [20] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=442991&group_id=27927&atid=392231
+            func=detail&amp;aid=442991&amp;group_id=27927&amp;atid=392231
             Credits to: Francisco
       [21] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=442657&group_id=27927&atid=392231
+            func=detail&amp;aid=442657&amp;group_id=27927&amp;atid=392231
             Credits to: Anonymous
       [22] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=439872&group_id=27927&atid=392231
+            func=detail&amp;aid=439872&amp;group_id=27927&amp;atid=392231
             Credits to: ncwbiz, clnelson, jnlewis
       [23] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1457
+            op=modload&amp;name=News&amp;file=article&amp;sid=1457
             Credits to: greggish
       [24] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1451
+            op=modload&amp;name=News&amp;file=article&amp;sid=1451
             Credits to: Reginald
       [25] http://groups.yahoo.com/group/pndev/message/7531
       [26] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1278
+            op=modload&amp;name=News&amp;file=article&amp;sid=1278
             Credits to: karstenj
       [27] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1255
+            op=modload&amp;name=News&amp;file=article&amp;sid=1255
             Credits to: ma_gius, stodge
       [28] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1225
+            op=modload&amp;name=News&amp;file=article&amp;sid=1225
             Credits to: machine, stodge, Jukap
       [29] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1220
+            op=modload&amp;name=News&amp;file=article&amp;sid=1220
             Credits to: Anonymous, Aidan Humphrey
       [30] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=1211
+            op=modload&amp;name=News&amp;file=article&amp;sid=1211
             Credits to: Christoph Fischer, sunheadweb,
                         php_me
       [31] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=935
+            op=modload&amp;name=News&amp;file=article&amp;sid=935
             Credits to: jerryj, ?LinuxDeveloper,
                         Christoph Fischer
       [32] http://www.postnuke.com/modules.php?
-            op=modload&name=News&file=article&sid=650
+            op=modload&amp;name=News&amp;file=article&amp;sid=650
             Credits to: Hercules
 8. Tools that need to be created from scratch 
 9. Retractions 

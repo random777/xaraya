@@ -75,7 +75,7 @@ Table of Contents
  *most importantly, to help the release personnel to be able to decide without a doubt which category/class a
  module belongs to, what other modules can be bundled with it, and which modules can be classified as
  a) important and self-sufficient (core-like)
- b) extensions & utilities
+ b) extensions &amp; utilities
  c) administrative
  d) other/non-essential etc.,
  Add something to the modules specification stating that
@@ -91,7 +91,7 @@ Where integers are:
     - Languages
     - Modules
     - Blocks
- 2. Users & Groups
+ 2. Users &amp; Groups
     - Permissions
     - User Manager
     - Groups

@@ -88,7 +88,7 @@ Table of Contents
         See section 5 for more information.
     5.  Make comments url-addressable [5]. This allows to refer to
         individual comments with hyperlinks.
-    6.  Provide several search & summary functions, like the date of the
+    6.  Provide several search &amp; summary functions, like the date of the
         last comment for a given discussion [11].
     Moderation
     7.  Rely on permissons system for moderation access [2]
@@ -343,28 +343,28 @@ Table of Contents
       [4] http://groups.yahoo.com/group/pndev/message/5465
             Credits to electric monk
       [5] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=485710&group_id=27927&atid=392231
+            func=detail&amp;aid=485710&amp;group_id=27927&amp;atid=392231
             Credits to goosepro
       [6] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=456931&group_id=27927&atid=392231
+            func=detail&amp;aid=456931&amp;group_id=27927&amp;atid=392231
       [7] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=477620&group_id=27927&atid=392231
+            func=detail&amp;aid=477620&amp;group_id=27927&amp;atid=392231
       [8] http://sourceforge.net/tracker/index.php?
-            func=detail&aid=484304&group_id=27927&atid=392231
+            func=detail&amp;aid=484304&amp;group_id=27927&amp;atid=392231
       [9] http://sourceforge.net/tracker/?
-            group_id=27927&atid=392231&func=detail&aid=440629
+            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=440629
       [10] http://sourceforge.net/tracker/?
-            group_id=27927&atid=392231&func=detail&aid=442294
+            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=442294
       [11] http://sourceforge.net/tracker/?
-            group_id=27927&atid=392231&func=detail&aid=442947
+            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=442947
       [12] http://sourceforge.net/tracker/?
-            group_id=27927&atid=392231&func=detail&aid=445490
+            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=445490
       [13] http://sourceforge.net/tracker/?
-            group_id=27927&atid=392231&func=detail&aid=455164
+            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=455164
       [14] http://sourceforge.net/tracker/?
-            group_id=27927&atid=392231&func=detail&aid=460677
+            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=460677
       [15] http://sourceforge.net/tracker/?
-            group_id=27927&atid=392231&func=detail&aid=477934
+            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=477934
       [16] http://groups.yahoo.com/group/pndev/message/5718
       [17] http://groups.yahoo.com/group/pndev/message/8363
       [18] http://www.cgsa.net/php/identifierShow.php
@@ -399,7 +399,7 @@ Table of Contents
       Section 4b extended.
       Formatting cleanups.
    3.5 (January 6, 2002) modified by Carl P. Corliss (aka Rabbitt)
-      Sections 4a, 4b & 9 added.
+      Sections 4a, 4b &amp; 9 added.
       #2 of Section 10:Retractions moved from Section 5:Moderation.
       'rating' removed from comment table layout.
    3.0 (January 4, 2002) modified by Gregor J. Rothfuss

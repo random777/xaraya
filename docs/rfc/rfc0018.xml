@@ -80,7 +80,7 @@ class ?MyException {
 function ?MyModule_userapi_?MyFunc() { /* Called */ /* ... */ } 
 ?... 
 /* Caller */ /* ... */ 
-$res = pnModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) && pnExceptionMajor() != PN_NO_EXCEPTION) { 
+$res = pnModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) { 
     // Got an exception
     switch (pnExceptionMajor()) {
        case PN_USER_EXCEPTION:
@@ -99,14 +99,14 @@ $res = pnModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) && pnExcep
 An important thing to take care of is the throw back mechanism. Even if with this proposed solution there is not a break in the program flow when an exception is raised, the Exceptions Handling System allows you to apply the concept of throwing back an exception. And it's also very simple to do that, you've only to return with a void value after you catch an exception. Consider the following example: 
 function foo() { 
     $res = pnModAPIFunc('?MyModule', 'user', '?MyFunc');
-    if (!isset($res) && pnExceptionMajor() != PN_NO_EXCEPTION) {
+    if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) {
         // Got an exception, throw it back
         return;
     }
 } 
 function bar() { 
     $res = foo();
-    if (!isset($res) && pnExceptionMajor() != PN_NO_EXCEPTION) {
+    if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) {
         // Got an exception
 	// Real exception handling
         switch (pnExceptionMajor()) {

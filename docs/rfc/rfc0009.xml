@@ -46,8 +46,8 @@ Table of Contents
     A. Proposed Platform
     B. Forums
     C. Live Support
-    D. FAQs & Documentation
-    E. IM & IRC
+    D. FAQs &amp; Documentation
+    E. IM &amp; IRC
 04. Requirements 
     A. Database Tables
     B. Functions
@@ -58,7 +58,7 @@ Table of Contents
     A. Active Issues
     B. Parking Lot
 06. Document Changelog
-07. Credits & Supporting Documents 
+07. Credits &amp; Supporting Documents 
 
 01. Introduction 
     The main objective of this project is to rethink, redesign and
@@ -137,7 +137,7 @@ Table of Contents
       1. Forums - Overview
          All forums to sit on a common table set with specific forum views
          displayed at each subdomain or sister site.  This allows
-      2. Forums - Subdomains & Topics
+      2. Forums - Subdomains &amp; Topics
          www.postnuke.com (Home)
             Feature Requests   -  Core Functionality (for non devs)
             Info Requests      -  Materials used to explain/market PN
@@ -167,22 +167,22 @@ Table of Contents
          themes.postnuke.com
             Requests (Core)    -  Core Theme System Features
             Request (Themes)   -  Specific theme mods or new themes
-            Public Support     -  Theme Installation & Mod (for non-devs)
-            Developer Support  -  Theme Installation & Mod  (for devs only)
-            Core Modules       -  Subforums for individual themes & developers
+            Public Support     -  Theme Installation &amp; Mod (for non-devs)
+            Developer Support  -  Theme Installation &amp; Mod  (for devs only)
+            Core Modules       -  Subforums for individual themes &amp; developers
          mods.postnuke.com
             Requests (Core)    -  Core Module System Features
             Request (Mods)     -  Specific module hacks mods or new mods
-            Public Support     -  Mod Installation & Mod (for non-devs)
-            Developer Support  -  Mod Installation & Mod  (for devs only)
-            Core Modules       -  Subforums for individual modules & module
+            Public Support     -  Mod Installation &amp; Mod (for non-devs)
+            Developer Support  -  Mod Installation &amp; Mod  (for devs only)
+            Core Modules       -  Subforums for individual modules &amp; module
                                   development crews
          blocks.postnuke.com
             Requests (Core)    -  Core Block System Features
             Request (Blocks)   -  Specific theme mods or new themes
-            Public Support     -  Block Installation & Mod (for non-devs)
-            Developer Support  -  Block Installation & Mod  (for devs only)
-            Core Modules       -  Subforums for individual blocks & developers
+            Public Support     -  Block Installation &amp; Mod (for non-devs)
+            Developer Support  -  Block Installation &amp; Mod  (for devs only)
+            Core Modules       -  Subforums for individual blocks &amp; developers
       3. Forums - Architecture
          a. Port PostBoard to use Comments API as its core.  Leverages core
             functionality and PB built from ground up as PN Mod.
@@ -210,7 +210,7 @@ Table of Contents
  i can push a broom and it might be a solution, but what solutions do you intend to push? 
       b. Enables pushing support chat logs to docs dev queue, forums and/or
          bug tracker
-   E. FAQs & Documentation
+   E. FAQs &amp; Documentation
       a. Document Development Forum is fed by Forums, Bug Tracker, an Live Support
  Wolf- 
  This is the first mention of the 'Document Development Forum' It has not been defined anywhere else. 
@@ -222,7 +222,7 @@ This can be used to openly discuss issues such as what pages need work and who k
 It is much better than just assuming that everyone knows what is going on in the wiki and 
 is more open than plain e-mails. 
 It should increase efficiency and effectiveness 
-   F. IM & IRC
+   F. IM &amp; IRC
       a. becomes general chat channel for the community
  gregorrothfuss 
  IM may be a useful way to escalate issues. I dont want to idle in the support rooms all the time when i am working on something, but I would not mind if a select group of people could IM me with urgent questions. 
@@ -251,7 +251,7 @@ Support forums on the PostNuke family of sites should not be the only ones avail
         Initial Version
     1.1 (February 6 2002)  Gregor J. Rothfuss
         Multilingual Support Council added
-07. Credits & Supporting Documents 
+07. Credits &amp; Supporting Documents 
     Bob Brown (MrHerald / apt419)             E-mail: Issues and Concerns
     Sascha Endlicher (karateka)     E-mail: Live Support
     Gregor J. Rothfuss (gregor):       IRC Log: Support Discussion

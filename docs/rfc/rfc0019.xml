@@ -148,7 +148,7 @@ phpdoc parser: get API commentary for programmers reference
 Help system in admin module 
 7. Basic documents for this RFC 
       [1] RE: ?pndev DOCUMENTATION: Preview PDF now available. pndev post 04/26/02 gregorrothfuss
-      [2] RE: ?pndev READ: New Block Stuff & Revamp pndev post 05/13/02 Veres Ferenc
+      [2] RE: ?pndev READ: New Block Stuff &amp; Revamp pndev post 05/13/02 Veres Ferenc
 8. Tools that need to be created from scratch 
 Docbook parser: We need to figure out a way to keep the docbook sources synced with the help system. 
 phpdoc parser: Is there a php-based phpdoc parser available? Check with PEAR. 

@@ -74,6 +74,7 @@ Please visit the #support channel for information on upgrading from PostNuke or 
 	* Ensure that your existing Publication Type configurations are up-to-date with the older version of Xaraya. While logged in as Administrator, go to Admin->Articles->Modify config and click the "Update Configuration" button to ensure that old Publication Type configurations are updated to the current version states.
 
 	* Replace all existing files, directories, and modules _EXCEPT_ <xarroot>/var/config.system.php with the new Xaraya files. The existing <xarroot>/var/config.system.php must be retained; the upgrade script reads database settings from this file.
+    With replacing we mean, DELETE all old files and copy the new ones in. Do not overwrite the old files with the new ones. THIS IS IMPORTANT.
 
 	* Check permissions and ownership of the new files.
 

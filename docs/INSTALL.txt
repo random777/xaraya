@@ -2,7 +2,7 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 NOTE: Detailed installation instructions can be found in the Official Xaraya Installation & Getting Started Guide, in the XarayaGuide.txt file which is included in the root directory of this release. The Guide will provide a clear understanding of installation and configuration of Xaraya.
 
-Xaraya: adam_baum Beta (.9.1.4)
+Xaraya: adam_baum Beta (.9.7.0)
 ===============================
 Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
 
@@ -60,6 +60,9 @@ Please visit the #support channel for information on upgrading from PostNuke to 
    .9.1.0 -> .9.1.2 None
    .9.1.2 -> .9.1.3 None
    .9.1.3 -> .9.1.4 None
+   .9.1.4 -> .9.7.0 Various mod and configure mod changes
+	    to core module.  Various Time functions 
+	    upgraded.
    ----------------------------------------------------
 
 - To upgrade Xaraya to a new version:
@@ -91,7 +94,7 @@ Common Installation Errors
 If you are having difficulties getting past the boot phase, specifically errors about not being able to open the CACHEKEYS file for writing, try deleting the file:
     html/var/templates/CACHEKEYS
 
-Installer stops during bootphase.  This could be a multitude of problems with our compatibility with your server configuration.  Please log the error messages to the Users newsgroup as well as http://bugs.xaraya.com .  The SQL file has been refreshed for .9.1.3 so you can try a manual installation of the database.
+Installer stops during bootphase.  This could be a multitude of problems with our compatibility with your server configuration.  Please log the error messages to the Users newsgroup as well as http://bugs.xaraya.com .  The SQL file has been refreshed for .9.7.0 so you can try a manual installation of the database.
 
 The html/var/cache/rss and html/var/cache/templates both need to be writable and executable, along with the config.system.php file.
 

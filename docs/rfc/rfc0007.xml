@@ -5,13 +5,13 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc='yes'?>
 
-<rfc number="0001" category="info">
+<rfc number="0007" category="info">
   <front>
     <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
+    <author initials="gjr" surname="rothfuss" fullname="Gregor J. Rothfuss">
+      <organization>Project Management Core</organization>
       <address>
-	<email>besfred@gmx.net</email>
+	<email>rothfuss@abstrakt.ch</email>
 	<uri>http://www.xaraya.com</uri>
       </address>
     </author>
@@ -35,31 +35,33 @@
 	<artwork>
 
 
-RFC-7 Modularized User Data 
+ RFC-7 Modularized User Data 
 
-
- Postnuke                                           Gregor J. Rothfuss
+ Postnuke                                          Gregor J. Rothfuss
  Request for Comments: 7
  Version: 1
- Category: Informational                                  January 2002
+ Category: Informational                                January 2002
+ 
                          Modularized User Data
+                         
  Table of Contents
-   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . ?2
-   2.   General statements about Modularized User Data   . . . . . .  2
-   3.   List of requirements for Modularized User Data . . . 3
-   4.   Solution proposals - database tables . . . . . . . . . . . . 4
-   4a.   Table "Content" . . . . . . . . . . . . . . . . . . . . . . 4
-   5.   Relationship to other areas  . . . . . . . . . . . . . . . . ?5
-   6a.    . . . . . . . . . . . . . . . . . . . 5
-   7.   Code that will need to be rewritten  . . . . . . . . . . . . ?6
-   8.   Tools that need to be created from scratch . . . . . . . .  ?7
-   9.   Basic documents for this RFC 7 . . . . . . . . . . . . . .   8
-  10.   Retractions  . . . . . . . . . . . . . . . . . . . . . . .  ?9
-  11.   Author contact . . . . . . . . . . . . . . . . . . . . . .  9
-  12.   Changelog  . . . . . . . . . . . . . . . . . . . . . . . .  9
- gregorrothfuss                 Informational                    [Page 1]
-                                                                ?>>
-The Rest of this file was un-accessible. 
+   1.   Introduction  . . . . . . . . . . . . . . . . . . . . . . 2
+   2.   General statements about Modularized User Data  . . . . . 2
+   3.   List of requirements for Modularized User Data  . . . . . 3
+   4.   Solution proposals - database tables  . . . . . . . . . . 4
+   4a.  Table "Content" . . . . . . . . . . . . . . . . . . . . . 4
+   5.   Relationship to other areas . . . . . . . . . . . . . . . 5
+   6a.    . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+   7.   Code that will need to be rewritten . . . . . . . . . . . 6
+   8.   Tools that need to be created from scratch  . . . . . . . 7
+   9.   Basic documents for this RFC 7  . . . . . . . . . . . . . 8
+   10.  Retractions . . . . . . . . . . . . . . . . . . . . . . . 9
+   11.  Author contact  . . . . . . . . . . . . . . . . . . . . . 9
+   12.  Changelog . . . . . . . . . . . . . . . . . . . . . . . . 9
+   
+   gregorrothfuss              Informational                [Page 1]
+
+Based on the original RFC, no other pages were available. 
 	</artwork>
       </t>
     </section>

@@ -1,13 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
-	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Direct URLs to functions</title>
-	
-	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
-	<meta name="CREATED" content="20030928;11145000">
-	<meta name="CHANGEDBY" content="Scot Gardner">
-	<meta name="CHANGED" content="20030928;11145000">
-	<style>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Direct URLs to functions</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20040815;10451000">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20040815;10451000">
+	<STYLE>
 	<!--
-		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
 		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
 		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
 		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
@@ -18,91 +20,78 @@
 		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
 		A:link { color: #000000 }
 	-->
-	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
-<div align="center" type="HEADER">
-	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
-
-	
-</div>
-<ul>
-	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Direct URLs
-	to functions</h1>
-</li></ul>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" STYLE="page-break-inside: auto">Direct URLs
+	to functions</H1>
+</UL>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 	URLs for new-style modules go through the 'index.php' entry point,
 and are defined by a number of parameters. The parameters that
 currently decide which particular module function to call are as
 follows: 
-</p>
-<ul>
-	<li><p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-	<font color="#000000"><b>module</b> </font>
-	</p>
-	<ol>
-		<li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<UL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+	<FONT COLOR="#000000"><B>module</B> </FONT>
+	</P>
+	<OL>
+		<LI><P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 		The name of the module. This corresponds to the well-known name of
 		the module, which can be found through the modules administration
 		interface 
-		</p>
-	</li></ol>
-	</li><li><p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-	<b>type </b>
-	</p>
-	<ol>
-		<li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+		</P>
+	</OL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+	<B>type </B>
+	</P>
+	<OL>
+		<LI><P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 		The type of the module function. This is currently either 'user'
 		for user functions or 'admin' for administrative functions. 
-		</p>
-	</li></ol>
-	</li><li><p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-	<b>func </b>
-	</p>
-	<ol>
-		<li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+		</P>
+	</OL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+	<B>func </B>
+	</P>
+	<OL>
+		<LI><P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 		The name of the function itself. This is module-dependent. 
-		</p>
-	</li></ol>
-</li></ul>
-<p class="western" style="margin-left: 0.25in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<br><br>
-</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<font color="#000000">	If any of these parameters are undefined
+		</P>
+	</OL>
+</UL>
+<P CLASS="western" STYLE="margin-left: 0.25in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<BR><BR>
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">	If any of these parameters are undefined
 within a URL Xaraya will apply defaults to them. Note that both the
 names of the parameters and their default values might change, and as
 such it is not recommended to create direct URLs for anything but to
-either go through the Xaraya main page or to use the <font size="2"><font face="Courier New, monospace">xarModURL()</font></font>
+either go through the Xaraya main page or to use the <FONT SIZE=2><FONT FACE="Courier New, monospace">xarModURL()</FONT></FONT>
 function to generate URLs that will always be internally consistent
-for any given version of Xaraya. </font>
-</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<font color="#000000">You can also extend the xarModUrl call by
+for any given version of Xaraya. </FONT>
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">You can also extend the xarModUrl call by
 adding a parameter call to the function in the form of an array.
-<font size="2"><font face="Courier New, monospace">xarModURL('module',
-'type', 'function', array('foo' =&gt; $bar))</font></font> will
-create the input parameter of 'foo' having the value of $bar. </font>
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<br>
-</p>
-<div type="FOOTER">
-<div align="center">
-	</div>
-<table width="100%" border="0" cellspacing="2" cellpadding="2">
-  <tbody>
-    <tr>
-      <td align="center" valign="top"><a href="XarayaMDG26.html">Prev</a><br>
-      </td>
-      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
-      </td>
-      <td align="center" valign="top"><a href="XarayaMDG28.html">Next</a><br>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2"><br>
-All
-	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
-
-</div>
-</body></html>
+<FONT SIZE=2><FONT FACE="Courier New, monospace">xarModURL('module',
+'type', 'function', array('foo' =&gt; $bar))</FONT></FONT> will
+create the input parameter of 'foo' having the value of $bar. </FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

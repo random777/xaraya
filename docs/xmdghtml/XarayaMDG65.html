@@ -1,13 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
-	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Writing Hook Functions</title>
-	
-	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
-	<meta name="CREATED" content="20030928;11151300">
-	<meta name="CHANGEDBY" content="Scot Gardner">
-	<meta name="CHANGED" content="20030928;11151300">
-	<style>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>	Writing Hook Functions</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20040815;10452000">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20040815;10452000">
+	<STYLE>
 	<!--
-		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
 		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
 		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
 		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
@@ -18,66 +20,53 @@
 		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
 		A:link { color: #000000 }
 	-->
-	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
-<div align="center" type="HEADER">
-	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
-
-	
-</div>
-<ul>
-	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Writing
-	Hook Functions</h1>
-</li></ul>
-<p style="text-indent: 0.25in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" STYLE="page-break-inside: auto">	Writing
+	Hook Functions</H1>
+</UL>
+<P STYLE="text-indent: 0.25in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 Hook functions are very similar to standard module functions, but
 they have a number of extra restrictions placed on them to be able to
 work as hooks: 
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 Hook functions must be able to operate correctly given only two
-arguments in their arguments array - <i>obid</i> and <i>returnurl</i>,
+arguments in their arguments array - <I>obid</I> and <I>returnurl</I>,
 as these are the only parameters that are passed to the function if
 it is called as a hook. Other parameters are allowed by the function
 but they must be optional, and default to suitable values if not
 present such that the function will work appropriately. 
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 Hook functions must not rely on other hooks to exist, or to have been
 called already or in future. The order of calling a list of hooks is
 undefined, and depending on the site administrator's preferences,
 particular hooks may never be called. 
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-Hook functions must not call the <font face="Courier New, monospace"><font size="2">xarModCallHooks()</font></font>
-function, or functions that might themselves call <font face="Courier New, monospace"><font size="2">xarModCallHooks()</font></font>.
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+Hook functions must not call the <FONT FACE="Courier New, monospace"><FONT SIZE=2>xarModCallHooks()</FONT></FONT>
+function, or functions that might themselves call <FONT FACE="Courier New, monospace"><FONT SIZE=2>xarModCallHooks()</FONT></FONT>.
 If a hook does this, it risks getting the code into an infinite loop.
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 	The Ratings module that comes with the core Xaraya distribution has
 an example hook function that shows how to fit within these
 guidelines whilst still producing a general-purpose function. 
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<br>
-</p>
-<div type="FOOTER">
-<div align="center">
-	</div>
-<table width="100%" border="0" cellspacing="2" cellpadding="2">
-  <tbody>
-    <tr>
-      <td align="center" valign="top"><a href="XarayaMDG64.html">Prev</a><br>
-      </td>
-      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
-      </td>
-      <td align="center" valign="top"><a href="XarayaMDG66.html">Next</a><br>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2"><br>
-All
-	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
-
-</div>
-</body></html>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

@@ -1,13 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
-	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>User Variables</title>
-	
-	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
-	<meta name="CREATED" content="20030928;11144000">
-	<meta name="CHANGEDBY" content="Scot Gardner">
-	<meta name="CHANGED" content="20030928;11144000">
-	<style>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>User Variables</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20040815;10450600">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20040815;10450600">
+	<STYLE>
 	<!--
-		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
 		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
 		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
 		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
@@ -18,168 +20,172 @@
 		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
 		A:link { color: #000000 }
 	-->
-	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
-<div align="center" type="HEADER">
-	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
-
-	
-</div>
-<ul>
-	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; User
-	Variables</h1>
-</li></ul>
-<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<font color="#000000">A user variable is an entity identified by a
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" STYLE="page-break-inside: auto">User
+	Variables</H1>
+</UL>
+<P CLASS="western" STYLE="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">A user variable is an entity identified by a
 name that stores a value owned by exactly one user. Xaraya offers two
-<b>API</b> functions to manipulate user variables, they are
-<font size="2"><font face="Courier New, monospace">xarUserGetVar()</font></font>
-and <font size="2"><font face="Courier New, monospace">xarUserSetVar()</font></font>.
-The purpose of <font size="2"><font face="Courier New, monospace">xarUserGetVar()</font></font>
+<B>API</B> functions to manipulate user variables, they are
+<FONT SIZE=2><FONT FACE="Courier New, monospace">xarUserGetVar()</FONT></FONT>
+and <FONT SIZE=2><FONT FACE="Courier New, monospace">xarUserSetVar()</FONT></FONT>.
+The purpose of <FONT SIZE=2><FONT FACE="Courier New, monospace">xarUserGetVar()</FONT></FONT>
 is to allow read access to one user variable. In contrast to that,
-<font size="2"><font face="Courier New, monospace">xarUserSetVar()</font></font>
-allows write access to one user variable. The <i>$name</i> parameter
-is checked against <b>metadata</b> to make sure the variable is
-registered. Xaraya keeps some <b>metadata</b> about every user
-variable, so you cannot access the <i>$name</i> user variable if its
-metadata is not registered. </font>
-</p>
-<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<font color="#000000">A module can register a new user variable by
-providing its <b>metadata</b> only if it has the right permissions
+<FONT SIZE=2><FONT FACE="Courier New, monospace">xarUserSetVar()</FONT></FONT>
+allows write access to one user variable. The <I>$name</I> parameter
+is checked against <B>metadata</B> to make sure the variable is
+registered. Xaraya keeps some <B>metadata</B> about every user
+variable, so you cannot access the <I>$name</I> user variable if its
+metadata is not registered. </FONT>
+</P>
+<P CLASS="western" STYLE="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">A module can register a new user variable by
+providing its <B>metadata</B> only if it has the right permissions
 (permissions are checked by the registration function). Usually the
 registration process should take place at initialization time for a
-module that wants to use the <i>$name</i> user variable during its
-life cycle. </font>
-</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<font color="#000000">Xaraya does not impose any restriction on the
-value of <i>$name</i> except for duplicate and reserved names. As of
-this writing, the list of reserved names consists of </font>
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<b>uid </b>
-</p>
-<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+module that wants to use the <I>$name</I> user variable during its
+life cycle. </FONT>
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">Xaraya does not impose any restriction on the
+value of <I>$name</I> except for duplicate and reserved names. As of
+this writing, the list of reserved names consists of </FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B>uid </B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 The user id. 
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<b>name </b>
-</p>
-<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-The user display name on the system. &#8220;Name&#8221; should be
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B>name </B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+The user display name on the system. &ldquo;Name&rdquo; should be
 used in any case that you are displaying the user name, IE author
 fields, etc. 
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<b>uname </b>
-</p>
-<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B>uname </B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 The user name is the system variable used to differentiate one user
 from another in string vice integer format. This variable should not
 be used to display information about the user for consistency and
 security reasons. 
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<b>email </b>
-</p>
-<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B>email </B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 The email address of the user. 
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<b>status </b>
-</p>
-<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B>status </B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 The status of the user (active, inactive, deleted etc). 
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<b>auth_module </b>
-</p>
-<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B>auth_module </B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 The authentication module last used for this user. 
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<font color="#000000">You are advised (even for performance reasons)
-to use the following naming convention: <i>$name</i> := $module_name
-. '_' . $real_name </font>
-</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<font color="#000000">To register the <i>$name</i> user variable you
-have to use the module API function <font size="2"><font face="Courier New, monospace">register_user_var()</font></font>
-exported by the Modules module. Here is an example: </font>
-</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<br><br>
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<font face="Courier New, monospace"><font size="2" style="font-size: 9pt;"><font color="#800000">$module_name</font><font color="#008080">
-</font><font color="#000000">=</font><font color="#008080">
-</font><font color="#008000">'MyModule'</font><font color="#000000">;<br></font><font color="#800000">$variable_name</font><font color="#008080">
-</font><font color="#000000">=</font><font color="#008080">
-</font><font color="#008000">'MaxLinesPerPage'</font><font color="#000000">;<br></font><font color="#800000">$metadata</font><font color="#000000">[</font><font color="#008000">'label'</font><font color="#000000">]</font><font color="#008080">
-</font><font color="#000000">=</font><font color="#008080">
-</font><font color="#800000">$module_name</font><font color="#008080">
-</font><font color="#000000">.</font><font color="#008080"> </font><font color="#008000">'_'</font><font color="#008080">
-</font><font color="#000000">.</font><font color="#008080">
-</font><font color="#800000">$variable_name</font><font color="#000000">;<br></font><font color="#800000">$metadata</font><font color="#000000">[</font><font color="#008000">'dtype'</font><font color="#000000">]</font><font color="#008080">
-</font><font color="#000000">=</font><font color="#008080">
-</font><font color="#000000">_UDCONST_INTEGER;</font><font color="#008080">
-</font><font color="#ff9900"><i>//one of the values defined for
-dynamic user data variable types</i></font><font color="#000000"><br></font><font color="#800000">$metadata</font><font color="#000000">[</font><font color="#008000">'default'</font><font color="#000000">]</font><font color="#008080">
-</font><font color="#000000">=</font><font color="#008080">
-<b>20</b></font><font color="#000000">;<br></font><font color="#800000">$metadata</font><font color="#000000">[</font><font color="#008000">'validation'</font><font color="#000000">]</font><font color="#008080">
-</font><font color="#000000">=</font><font color="#008080">
-</font><font color="#008000">'num:&gt;=:10&amp;num:&lt;=:100'</font><font color="#000000">;<br><br>xarModAPILoad(</font><font color="#008000">'Modules'</font><font color="#000000">,</font><font color="#008080">
-</font><font color="#008000">'admin'</font><font color="#000000">);<br><br></font><font color="#800000">$result</font><font color="#008080">
-</font><font color="#000000">=</font><font color="#008080">
-</font><font color="#000000">xarModAPIFunc(</font><font color="#008000">'Modules'</font><font color="#000000">,</font><font color="#008080">
-</font><font color="#008000">'admin'</font><font color="#000000">,</font><font color="#008080">
-</font><font color="#008000">'register_user_var'</font><font color="#000000">,</font><font color="#008080">
-</font><font color="#800000">$metadata</font><font color="#000000">);<br><b>if</b></font><font color="#008080">
-</font><font color="#000000">(!<b>isset</b>(</font><font color="#800000">$result</font><font color="#000000">))</font><font color="#008080">
-</font><font color="#000000">{<br></font><font color="#008080">  </font><font color="#ff9900"><i>//
-xarModAPIFunc() failed</i></font><font color="#000000"><br>}</font><font color="#008080">
-</font><b><font color="#000000">elseif</font></b><font color="#008080">
-</font><font color="#000000">(</font><font color="#800000">$result</font><font color="#008080">
-</font><font color="#000000">==</font><font color="#008080"> </font><font color="#000000"><b>false</b>)<br></font><font color="#008080">
- </font><font color="#ff9900"><i>// registration failed</i></font><font color="#000000"><br>}</font><font color="#008080">
-</font><b><font color="#000000">else</font></b><font color="#008080">
-</font><font color="#000000">{<br></font><font color="#008080">  </font><font color="#ff9900"><i>//
-registration succeeded</i></font><font color="#000000"><br>}</font></font><font color="#000000"><font size="2">
-        </font></font></font>
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<font color="#000000">	As you can see in this example, a descriptive
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000">You are advised (even for performance reasons)
+to use the following naming convention: <I>$name</I> := $module_name
+. '_' . $real_name </FONT>
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">To register the <I>$name</I> user variable you
+have to use the module API function <FONT SIZE=2><FONT FACE="Courier New, monospace">register_user_var()</FONT></FONT>
+exported by the Modules module. Here is an example: </FONT>
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<BR><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2 STYLE="font-size: 9pt"><FONT COLOR="#800000">$module_name</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">=</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#008000">'MyModule'</FONT><FONT COLOR="#000000">;<BR></FONT><FONT COLOR="#800000">$variable_name</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">=</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#008000">'MaxLinesPerPage'</FONT><FONT COLOR="#000000">;<BR></FONT><FONT COLOR="#800000">$metadata</FONT><FONT COLOR="#000000">[</FONT><FONT COLOR="#008000">'label'</FONT><FONT COLOR="#000000">]</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">=</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#800000">$module_name</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#008080"> </FONT><FONT COLOR="#008000">'_'</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">.</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#800000">$variable_name</FONT><FONT COLOR="#000000">;<BR></FONT><FONT COLOR="#800000">$metadata</FONT><FONT COLOR="#000000">[</FONT><FONT COLOR="#008000">'dtype'</FONT><FONT COLOR="#000000">]</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">=</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">_UDCONST_INTEGER;</FONT><FONT COLOR="#008080">
+</FONT><I><FONT COLOR="#ffff00">//one of the values defined for
+dynamic user data variable types</FONT></I><FONT COLOR="#000000"><BR></FONT><FONT COLOR="#800000">$metadata</FONT><FONT COLOR="#000000">[</FONT><FONT COLOR="#008000">'default'</FONT><FONT COLOR="#000000">]</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">=</FONT><FONT COLOR="#008080">
+<B>20</B></FONT><FONT COLOR="#000000">;<BR></FONT><FONT COLOR="#800000">$metadata</FONT><FONT COLOR="#000000">[</FONT><FONT COLOR="#008000">'validation'</FONT><FONT COLOR="#000000">]</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">=</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#008000">'num:&gt;=:10&amp;num:&lt;=:100'</FONT><FONT COLOR="#000000">;<BR><BR>xarModAPILoad(</FONT><FONT COLOR="#008000">'Modules'</FONT><FONT COLOR="#000000">,</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#008000">'admin'</FONT><FONT COLOR="#000000">);<BR><BR></FONT><FONT COLOR="#800000">$result</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">=</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">xarModAPIFunc(</FONT><FONT COLOR="#008000">'Modules'</FONT><FONT COLOR="#000000">,</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#008000">'admin'</FONT><FONT COLOR="#000000">,</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#008000">'register_user_var'</FONT><FONT COLOR="#000000">,</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#800000">$metadata</FONT><FONT COLOR="#000000">);<BR><B>if</B></FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">(!<B>isset</B>(</FONT><FONT COLOR="#800000">$result</FONT><FONT COLOR="#000000">))</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">{<BR></FONT><FONT COLOR="#008080">  </FONT><I><FONT COLOR="#ffff00">//
+xarModAPIFunc() failed</FONT></I><FONT COLOR="#000000"><BR>}</FONT><FONT COLOR="#008080">
+</FONT><B><FONT COLOR="#000000">elseif</FONT></B><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">(</FONT><FONT COLOR="#800000">$result</FONT><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">==</FONT><FONT COLOR="#008080"> </FONT><FONT COLOR="#000000"><B>false</B>)<BR></FONT><FONT COLOR="#008080">
+ </FONT><I><FONT COLOR="#ffff00">// registration failed</FONT></I><FONT COLOR="#000000"><BR>}</FONT><FONT COLOR="#008080">
+</FONT><B><FONT COLOR="#000000">else</FONT></B><FONT COLOR="#008080">
+</FONT><FONT COLOR="#000000">{<BR></FONT><FONT COLOR="#008080">  </FONT><I><FONT COLOR="#ffff00">//
+registration succeeded</FONT></I><FONT COLOR="#000000"><BR>}</FONT></FONT><FONT COLOR="#000000"><FONT SIZE=2>
+        </FONT></FONT></FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000">	As you can see in this example, a descriptive
 array for the new user variable is created first, and later
 register_user_var is called with that array as parameter. Meaningful
 keys for the array are label, dtype, default and validation. The
-<i>label</i> field is mandatory; it specifies the user variable name
-as you'll refer later in <font size="2"><font face="Courier New, monospace">xarUserGetVar()</font></font>
-and <font size="2"><font face="Courier New, monospace">xarUserSetVar()</font></font>
-<i>$name</i> parameter. The <i>dtype</i> field is mandatory; it can
+<I>label</I> field is mandatory; it specifies the user variable name
+as you'll refer later in <FONT SIZE=2><FONT FACE="Courier New, monospace">xarUserGetVar()</FONT></FONT>
+and <FONT SIZE=2><FONT FACE="Courier New, monospace">xarUserSetVar()</FONT></FONT>
+<I>$name</I> parameter. The <I>dtype</I> field is mandatory; it can
 take one of the following values: _UDCONST_STRING, _UDCONST_TEXT,
-_UDCONST_FLOAT, _UDCONST_INTEGER. </font>
-</p>
-
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-<font color="#000000">	You should obviously choose the right value
+_UDCONST_FLOAT, _UDCONST_INTEGER. </FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000">	You should obviously choose the right value
 for the data type that the new user variable would contain. The
-<i>default</i> field is optional; Used when the user has not yet set
-a value for the new user variable. The <i>validation</i> field is
+<I>default</I> field is optional; Used when the user has not yet set
+a value for the new user variable. The <I>validation</I> field is
 optional; refer to the next section to get an overview of variable
 validation. To unregister a user variable you have to call the
-<font size="2"><font face="Courier New, monospace">unregister_user_var()</font></font>,
-which is located in the users module admin <b>API</b>. You should
-call that <b>API</b> only at uninstallation time for your modules.
-Keep in mind that by calling <font size="2"><font face="Courier New, monospace">unregister_user_var()</font></font>
+<FONT SIZE=2><FONT FACE="Courier New, monospace">unregister_user_var()</FONT></FONT>,
+which is located in the users module admin <B>API</B>. You should
+call that <B>API</B> only at uninstallation time for your modules.
+Keep in mind that by calling <FONT SIZE=2><FONT FACE="Courier New, monospace">unregister_user_var()</FONT></FONT>
 all the existing values for that user variable will be deleted from
-user data. </font>
-</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+user data. </FONT>
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 	As described in this document, Xaraya offers support for module
 variables too. If you get confused from that, and cannot see the
 distinction between these different things, here is a little
-explanation.</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+explanation.</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 	Module variables are system-wide variables, shared between each
 module user, like configuration variables. No particular user owns
 them, and even if they do they are protected by permissions for write
@@ -189,38 +195,24 @@ the possibility to choose some behaviors of your module. However,
 when those behaviors are related to user preferences you should avoid
 using module variables and register a new user variable to be used in
 your code. 
-</p>
-<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-<font color="#000000">	As an example, you can consider the above code
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">	As an example, you can consider the above code
 listing, where a new user variable is registered to allow every
 single module user to choose his own MaxLinePerPage setting. Now it
 is reasonable to have selected this choice, but here we could have
 chosen a unique shared module var as well. On the other hand, you do
 not have this kind of freedom, for example consider the authldap
-module in some cases. It needs to access a <b>LDAP</b> server, so it
-needs a variable that contains the <b>LDAP</b> server hostname.
+module in some cases. It needs to access a <B>LDAP</B> server, so it
+needs a variable that contains the <B>LDAP</B> server hostname.
 Obviously this variable should be a module variable, and access to it
 should be granted only to administrators with the right permissions.
 We invite you to ponder this issue for a while before you settle on
-module vars or user vars. </font>
-</p>
-<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
-</p>
-<table width="100%" border="0" cellspacing="2" cellpadding="2">
-  <tbody>
-    <tr>
-      <td align="center" valign="top"><a href="XarayaMDG11.html">Prev</a><br>
-      </td>
-      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
-      </td>
-      <td align="center" valign="top"><a href="XarayaMDG13.html">Next</a><br>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<div type="FOOTER">
-	<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2">All
-	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
-</div>
-</body></html>
+module vars or user vars. </FONT>
+</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

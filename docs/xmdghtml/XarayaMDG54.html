@@ -1,13 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
-	<meta content="text/html; charset=iso-8859-1" http-equiv="CONTENT-TYPE"><title>Write Your User Functions</title>
-	
-	<meta content="OpenOffice.org 1.1.0  (Linux)" name="GENERATOR">
-	<meta content="20030928;11150600" name="CREATED">
-	<meta content="Scot Gardner" name="CHANGEDBY">
-	<meta content="20030928;11150700" name="CHANGED">
-	<style>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Write Your User Functions</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20040815;10451700">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20040815;10451700">
+	<STYLE>
 	<!--
-		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
 		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
 		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
 		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
@@ -18,64 +20,51 @@
 		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
 		A:link { color: #000000 }
 	-->
-	</style></head><body dir="ltr" link="#000000" text="#000000" lang="en-US">
-<div type="HEADER" align="center">
-	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
-
-	
-</div>
-<ul>
-	<li><h1 style="page-break-inside: auto;" class="western">&nbsp;&nbsp;&nbsp; Write Your
-	User Functions</h1>
-</li></ul>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" STYLE="page-break-inside: auto">Write Your
+	User Functions</H1>
+</UL>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 Once the administration functions are in place to manipulate your
 module's data then you can write the user functions to display the
 data. As with the administration functions the user functions that
 you will write depend on the nature of your module, however most
 modules have at least the following items: 
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 overview of a number of items 
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 detailed view of a single item 
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
 Each of these items is normally broken down into two separate pieces.
 The first piece is part of the GUI and gathers information from the
 user as to which item they wish to view, passes it on to the API
 piece, and displays the resultant information. The second piece is
 part of the API and obtains the required information for the display
 piece. 
-</p>
-<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
-Annotated copies of the template <font face="Courier New, monospace"><font size="2">xaruser</font></font>
-and <font face="Courier New, monospace"><font size="2">xaruserapi</font></font>
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+Annotated copies of the template <FONT FACE="Courier New, monospace"><FONT SIZE=2>xaruser</FONT></FONT>
+and <FONT FACE="Courier New, monospace"><FONT SIZE=2>xaruserapi</FONT></FONT>
 function files are available in the standard Xaraya distribution as
 part of the Example module. 
-</p>
-<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
-<br>
-</p>
-<div type="FOOTER">
-<div align="center">
-	<a href="XarayaMDG54.html"><br>
-</a></div>
-<table cellpadding="2" cellspacing="2" border="0" width="100%">
-  <tbody>
-    <tr>
-      <td valign="top" align="center"><a href="XarayaMDG53.html">Prev</a></td>
-      <td valign="top" align="center"><a href="XarayaMDG.html">Home</a><br>
-      </td>
-      <td valign="top" align="center"><a href="XarayaMDG55.html">Next</a><br>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p style="margin-top: 0.29in; margin-bottom: 0in;" align="center"><font size="2"><br>
-All
-	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
-
-</div>
-</body></html>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

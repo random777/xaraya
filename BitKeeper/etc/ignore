@@ -122,3 +122,16 @@ html/modules/uploads
 html/modules/xarbb
 html/modules/xproject
 docs/rfc/rfcindex.xml
+html/modules/formcontrols/xardocs/changelog.txt
+html/modules/formcontrols/xardocs/credits.txt
+html/modules/formcontrols/xardocs/help.txt
+html/modules/formcontrols/xardocs/license.txt
+html/modules/formcontrols/xarimages/admin.gif
+html/modules/formcontrols/xarinit.php
+html/modules/formcontrols/xartemplates/bbcode.js
+html/modules/formcontrols/xartemplates/user-formaction.xd
+html/modules/formcontrols/xartemplates/user-formarea.xd
+html/modules/formcontrols/xartemplates/user-formdisplay.xd
+html/modules/formcontrols/xartemplates/user-formheader.xd
+html/modules/formcontrols/xaruser.php
+html/modules/formcontrols/xarversion.php

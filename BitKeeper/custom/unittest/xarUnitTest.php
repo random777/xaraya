@@ -68,8 +68,13 @@ class xarTestSuite {
             $tests =& $this->_testcases[$casekey]->_tests;
             foreach (array_keys($tests) as $key ) {
                 $result =& $tests[$key]->_result;
-                echo "  |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
-                    (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
+                if (!empty($result->_message)) {
+                    echo "  |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
+                        (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
+                } else {
+                   echo "  |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
+                        (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
+                }
             }
         }
     }

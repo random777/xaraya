@@ -42,7 +42,16 @@
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>This RFC documents the trackback functionality in xaraya.
+      <t>
+        This RFC documents the trackback functionality in xaraya. Trackback has had
+        lots of attention by the growth of blogging lately. The principle of trackback
+        can however be applied to other content than just weblogs pretty easily. A 
+        thorough understanding of what trackback is and how it should be used is 
+        necessary though. This RFC serves two goals:
+        <list>
+          <t>explain trackback in practical terms, not directly related to xaraya</t>
+          <t>document the specification for implementation of a trackback module for xaraya</t>
+        </list>
       </t>
     </abstract>
   </front>

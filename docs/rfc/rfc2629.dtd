@@ -186,7 +186,8 @@
 <!ATTLIST artwork
           xml:space   (default|preserve) "preserve"
           name        %ATEXT;            ""
-          type        %ATEXT;            "">
+          type        %ATEXT;            ""
+	  src         %ATEXT;		 "">
 
 <!ELEMENT postamble   (%TEXT;|xref|eref|iref)*>
 

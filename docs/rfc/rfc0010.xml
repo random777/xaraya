@@ -852,9 +852,10 @@ html/
 							<t>id: an identifier for the tag (optional)</t>
 							<t>file: the filename of the target template</t>
 							<t>type: a switch that tells the engine what type of template is
-                being loaded, either 'module' or 'theme'.</t>
+                being loaded, either 'module' or 'theme'. (optional, default: module)</t>
 							<t>compile: a switch that tells the engine whether to compile the
-                file as a template. Defaults to true.</t>
+                file as a template. (optional, default: true [not implemented].</t>
+              <t>subdata: array to pass to subtemplate (optional, default to data of current template)</t>
 						</list>
 					</t>
 					<t>Description</t>

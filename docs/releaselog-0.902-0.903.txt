@@ -1,0 +1,846 @@
+Release notes for release BETA903
+Changes from BETA902 to BETA903:
+
+2003-05-18: John.Cox@mcnabb.: ChangeSet 1.844
+  install docs updated.
+  	* docs/INSTALL.txt:
+	  install docs updated. 
+2003-05-18: andyv@andyv.plus.com: ChangeSet 1.842
+  small dog items and fixes
+  	* html/modules/themes/xartemplates/admin-list.xd:
+	  fixing display and labels to look more consistent with the modules mod 
+ 	* html/modules/themes/xaradmin.php:
+	  some tweaking to jump on the feature requests later 
+2003-05-18: marc@marclaptop.: ChangeSet 1.838.1.2
+  add module checkboxes to the installer configurations. Articles/categories dependency issue still there under certain circumstances.
+  	* html/modules/roles/xarimages/users.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/test.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/privileges.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/emailicon.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/email.gif:
+	  adjust icon size 
+ 	* html/modules/installer/xartemplates/admin-create_administrator.xd:
+	  cosmetics 
+ 	* html/modules/installer/xartemplates/admin-confirm_configuration.xd:
+	  add checkboxes for configuring single modules. Articles/categories dependency issue still there under certain circumastances. 
+ 	* html/modules/installer/xarconfigurations/public.conf.php:
+	  add checkboxes for configuring single modules. Articles/categories dependency issue still there under certain circumastances. 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  add checkboxes for configuring single modules. Articles/categories dependency issue still there under certain circumastances. 
+2003-05-18: marcel@hsdev.com: ChangeSet 1.836.1.3
+  Removing xarSession2.php. We've migrated all stuff over.  Main differences: - intranet mode not necessary anymore - independent of setting register_globals
+  	* BitKeeper/deleted/.del-xarSession2.php~a63454cd623885f2:
+	  Delete: html/includes/xarSession2.php 
+2003-05-18: marc@marclaptop.: ChangeSet 1.838.1.1
+  admin-showusers.xd, admin-modifyrole.xd, xarinit.php:   allow modify of Admin
+  	* html/modules/roles/xartemplates/admin-showusers.xd:
+	  allow modify of Admin 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  allow modify of Admin 
+ 	* html/modules/roles/xarinit.php:
+	  allow modify of Admin 
+2003-05-18: marcel@hsdev.com: ChangeSet 1.836.1.2
+  Fix for bug 126 for target support when using short urls
+  	* html/includes/xarMod.php:
+	  Fix for bug 126 for target support when using short urls 
+2003-05-18: marc@marclaptop.: ChangeSet 1.832.1.2
+  xarroles.php:   fix bug in roles tree display
+  	* html/modules/roles/xarroles.php:
+	  fix bug in roles tree display 
+2003-05-18: marc@marclaptop.: ChangeSet 1.832.1.1
+  display changes
+  	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  improve privileges assignment display 
+ 	* html/modules/roles/xaradmin.php:
+	  improve privileges assignment display 
+ 	* html/modules/privileges/xarprivileges.php:
+	  make error message clearer 
+ 
+2003-05-18: andyv@andyv.plus.com: ChangeSet 1.842
+  small dog items and fixes
+  	* html/modules/themes/xartemplates/admin-list.xd:
+	  fixing display and labels to look more consistent with the modules mod 
+ 	* html/modules/themes/xaradmin.php:
+	  some tweaking to jump on the feature requests later 
+2003-05-18: marc@marclaptop.: ChangeSet 1.838.1.2
+  add module checkboxes to the installer configurations. Articles/categories dependency issue still there under certain circumstances.
+  	* html/modules/roles/xarimages/users.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/test.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/privileges.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/emailicon.gif:
+	  adjust icon size 
+ 	* html/modules/roles/xarimages/email.gif:
+	  adjust icon size 
+ 	* html/modules/installer/xartemplates/admin-create_administrator.xd:
+	  cosmetics 
+ 	* html/modules/installer/xartemplates/admin-confirm_configuration.xd:
+	  add checkboxes for configuring single modules. Articles/categories dependency issue still there under certain circumastances. 
+ 	* html/modules/installer/xarconfigurations/public.conf.php:
+	  add checkboxes for configuring single modules. Articles/categories dependency issue still there under certain circumastances. 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  add checkboxes for configuring single modules. Articles/categories dependency issue still there under certain circumastances. 
+2003-05-18: marcel@hsdev.com: ChangeSet 1.836.1.3
+  Removing xarSession2.php. We've migrated all stuff over.  Main differences: - intranet mode not necessary anymore - independent of setting register_globals
+  	* BitKeeper/deleted/.del-xarSession2.php~a63454cd623885f2:
+	  Delete: html/includes/xarSession2.php 
+2003-05-18: marc@marclaptop.: ChangeSet 1.838.1.1
+  admin-showusers.xd, admin-modifyrole.xd, xarinit.php:   allow modify of Admin
+  	* html/modules/roles/xartemplates/admin-showusers.xd:
+	  allow modify of Admin 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  allow modify of Admin 
+ 	* html/modules/roles/xarinit.php:
+	  allow modify of Admin 
+2003-05-18: marcel@hsdev.com: ChangeSet 1.836.1.2
+  Fix for bug 126 for target support when using short urls
+  	* html/includes/xarMod.php:
+	  Fix for bug 126 for target support when using short urls 
+2003-05-18: marcel@hsdev.com: ChangeSet 1.835.1.1
+  Fix for bug 602
+  	* html/includes/xarMod.php:
+	  Fix for bug 602 
+2003-05-18: marc@marclaptop.: ChangeSet 1.832.1.2
+  xarroles.php:   fix bug in roles tree display
+  	* html/modules/roles/xarroles.php:
+	  fix bug in roles tree display 
+2003-05-18: John.Cox@mcnabb.: ChangeSet 1.836
+  roles icon set by Lane Allen.  Credit given in credit file for Xaraya.
+  	* html/modules/roles/xarimages/users.gif:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+ 	* html/modules/roles/xarimages/urlicon.gif:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+ 	* html/modules/roles/xarimages/test.gif:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+ 	* html/modules/roles/xarimages/privileges.gif:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+ 	* html/modules/roles/xarimages/infoicon.gif:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+ 	* html/modules/roles/xarimages/emailicon.gif:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+ 	* html/modules/roles/xarimages/email.gif:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+ 	* docs/CREDITS.txt:
+	  roles icon set by Lane Allen.  Credit given in credit file for Xaraya. 
+2003-05-18: marc@marclaptop.: ChangeSet 1.832.1.1
+  display changes
+  	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  improve privileges assignment display 
+ 	* html/modules/roles/xaradmin.php:
+	  improve privileges assignment display 
+ 	* html/modules/privileges/xarprivileges.php:
+	  make error message clearer 
+2003-05-18: John.Cox@mcnabb.: ChangeSet 1.835
+  fix for bug 574
+  	* html/modules/autolinks/xaruserapi.php:
+	  fix for bug 574 
+ 	* html/modules/autolinks/xartemplates/admin-modifyconfig.xd:
+	  fix for bug 574 
+ 	* html/modules/autolinks/xartemplates/admin-main.xd:
+	  fix for bug 574 
+ 	* html/modules/autolinks/xarinit.php:
+	  fix for bug 574 
+ 	* html/modules/autolinks/xaradmin.php:
+	  fix for bug 574 
+2003-05-18: John.Cox@mcnabb.: ChangeSet 1.834
+  fix for bug 589
+  	* html/modules/roles/xartemplates/user-registerform.xd:
+	  fix for bug 589 
+ 	* html/modules/roles/xartemplates/user-confirmregistration.xd:
+	  fix for bug 589 
+2003-05-18: John.Cox@mcnabb.: ChangeSet 1.827.1.1
+  small change to the ignor for sanity, and slight change to the autolinks.
+  	* html/modules/autolinks/xarinit.php:
+	  remove the undefined defines 
+ 	* BitKeeper/etc/ignore:
+	  modified the ignor file to be a little more sane. 
+2003-05-18: marc@marclaptop.: ChangeSet 1.829.1.1
+  xarinit.php:   allow all privileges except the first to be modified
+  	* html/modules/roles/xarinit.php:
+	  allow all privileges except the first to be modified 
+2003-05-18: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.831
+  shortcut DD main function in shorturl
+  	* html/modules/dynamicdata/xaruserapi.php:
+	  shortcut DD main function in shorturl 
+2003-05-18: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.830
+  start reducing memory requirements for DD
+  	* html/includes/properties/index.html:
+	   
+ 	* html/includes/properties/Dynamic_Yahoo_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Username_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_URL_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_URLIcon_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_TimeZone_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_TextBox_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_TextArea_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Status_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_StaticText_Property.php:
+	   
+ 	* html/includes/properties/index.html:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/index.html 
+ 	* html/includes/properties/Dynamic_Yahoo_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Yahoo_Property.php 
+ 	* html/includes/properties/Dynamic_Username_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Username_Property.php 
+ 	* html/includes/properties/Dynamic_URL_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_URL_Property.php 
+ 	* html/includes/properties/Dynamic_URLIcon_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_URLIcon_Property.php 
+ 	* html/includes/properties/Dynamic_TimeZone_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_TimeZone_Property.php 
+ 	* html/includes/properties/Dynamic_TextBox_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_TextBox_Property.php 
+ 	* html/includes/properties/Dynamic_TextArea_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_TextArea_Property.php 
+ 	* html/includes/properties/Dynamic_Status_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Status_Property.php 
+ 	* html/includes/properties/Dynamic_StaticText_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_StaticText_Property.php 
+ 	* html/includes/properties/Dynamic_Select_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_RadioButtons_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Object_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_NumberList_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_NumberBox_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Module_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_MSN_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_LanguageList_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_ItemType_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_ItemID_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Image_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Select_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Select_Property.php 
+ 	* html/includes/properties/Dynamic_RadioButtons_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_RadioButtons_Property.php 
+ 	* html/includes/properties/Dynamic_Object_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Object_Property.php 
+ 	* html/includes/properties/Dynamic_NumberList_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_NumberList_Property.php 
+ 	* html/includes/properties/Dynamic_NumberBox_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_NumberBox_Property.php 
+ 	* html/includes/properties/Dynamic_Module_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Module_Property.php 
+ 	* html/includes/properties/Dynamic_MSN_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_MSN_Property.php 
+ 	* html/includes/properties/Dynamic_LanguageList_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_LanguageList_Property.php 
+ 	* html/includes/properties/Dynamic_ItemType_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_ItemType_Property.php 
+ 	* html/includes/properties/Dynamic_ItemID_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_ItemID_Property.php 
+ 	* html/includes/properties/Dynamic_Image_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Image_Property.php 
+ 	* html/includes/properties/Dynamic_ImageList_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_ICQ_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Hidden_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_HTMLPage_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_FloatBox_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_FileUpload_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_FieldType_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_FieldStatus_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Email_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_DateFormat_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_ImageList_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_ImageList_Property.php 
+ 	* html/includes/properties/Dynamic_ICQ_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_ICQ_Property.php 
+ 	* html/includes/properties/Dynamic_Hidden_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Hidden_Property.php 
+ 	* html/includes/properties/Dynamic_HTMLPage_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_HTMLPage_Property.php 
+ 	* html/includes/properties/Dynamic_FloatBox_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_FloatBox_Property.php 
+ 	* html/includes/properties/Dynamic_FileUpload_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_FileUpload_Property.php 
+ 	* html/includes/properties/Dynamic_FieldType_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_FieldType_Property.php 
+ 	* html/includes/properties/Dynamic_FieldStatus_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_FieldStatus_Property.php 
+ 	* html/includes/properties/Dynamic_Email_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Email_Property.php 
+ 	* html/includes/properties/Dynamic_DateFormat_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_DateFormat_Property.php 
+ 	* html/includes/properties/Dynamic_DataSource_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Checkbox_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_Calendar_Property.php:
+	   
+ 	* html/includes/properties/Dynamic_AIM_Property.php:
+	   
+ 	* html/includes/datastores/index.html:
+	   
+ 	* html/includes/datastores/Dynamic_XMLFile_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_VariableTable_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_UserSettings_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_SQL_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_ModuleVariables_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_LDAP_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_Join_DataStore.php:
+	   
+ 	* html/includes/properties/Dynamic_DataSource_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_DataSource_Property.php 
+ 	* html/includes/properties/Dynamic_Checkbox_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Checkbox_Property.php 
+ 	* html/includes/properties/Dynamic_Calendar_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_Calendar_Property.php 
+ 	* html/includes/properties/Dynamic_AIM_Property.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/properties/Dynamic_AIM_Property.php 
+ 	* html/includes/datastores/index.html:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/index.html 
+ 	* html/includes/datastores/Dynamic_XMLFile_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_XMLFile_DataStore.php 
+ 	* html/includes/datastores/Dynamic_VariableTable_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_VariableTable_DataStore.php 
+ 	* html/includes/datastores/Dynamic_UserSettings_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_UserSettings_DataStore.php 
+ 	* html/includes/datastores/Dynamic_SQL_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_SQL_DataStore.php 
+ 	* html/includes/datastores/Dynamic_ModuleVariables_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_ModuleVariables_DataStore.php 
+ 	* html/includes/datastores/Dynamic_LDAP_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_LDAP_DataStore.php 
+ 	* html/includes/datastores/Dynamic_Join_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_Join_DataStore.php 
+ 	* html/includes/datastores/Dynamic_Hook_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_Function_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_FlatTable_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_File_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_Dummy_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_CSVFile_DataStore.php:
+	   
+ 	* html/includes/datastores/Dynamic_Hook_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_Hook_DataStore.php 
+ 	* html/includes/datastores/Dynamic_Function_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_Function_DataStore.php 
+ 	* html/includes/datastores/Dynamic_FlatTable_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_FlatTable_DataStore.php 
+ 	* html/includes/datastores/Dynamic_File_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_File_DataStore.php 
+ 	* html/includes/datastores/Dynamic_Dummy_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_Dummy_DataStore.php 
+ 	* html/includes/datastores/Dynamic_CSVFile_DataStore.php:
+	  BitKeeper file D:/wintools/cygwin/home/xaraya-stable/html/includes/datastores/Dynamic_CSVFile_DataStore.php 
+ 	* html/modules/dynamicdata/class/properties.php:
+	  start reducing memory requirements for DD 
+ 	* html/modules/dynamicdata/class/datastores.php:
+	  start reducing memory requirements for DD 
+2003-05-17: marc@marclaptop.: ChangeSet 1.829
+  public.conf.php, community.conf.php:   comment out DD constraint on ReadNonCore
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  comment out DD constraint on ReadNonCore 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  comment out DD constraint on ReadNonCore 
+2003-05-17: marc@marclaptop.: ChangeSet 1.828
+  merge configuration changes
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  merge configuration changes 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  merge configuration changes 
+2003-05-17: marc@marclaptop.: ChangeSet 1.825.1.1
+  public.conf.php, community.conf.php:   comment out lines
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  comment out lines 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  comment out lines 
+2003-05-16: miko@power.dudleynet: ChangeSet 1.827
+  fix DTD and base template
+  	* html/modules/base/xartemplates/user-main.xd:
+	  fix the path to the override template 
+ 	* docs/userguide-dbk/userguide.docbook:
+	  add docbook DTD 
+2003-05-16: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.826
+  quick fix to update module state during install
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  quick fix to update module state during install 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  quick fix to update module state during install 
+ 	* html/includes/xarMod.php:
+	  quick fix to update module state during install 
+2003-05-16: marc@marclaptop.: ChangeSet 1.825
+  public.conf.php:   delay loading articles until dependency issue is solved community.conf.php:   delay laoding articles until dependency issue is solved
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  delay loading articles until dependency issue is solved 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  delay laoding articles until dependency issue is solved 
+2003-05-16: marc@marclaptop.: ChangeSet 1.824
+  Merge
+  	* html/modules/privileges/xarprivileges.php:
+	  SCCS merged 
+2003-05-16: marc@marclaptop.: ChangeSet 1.813.1.1
+  rearrange installer to allow for the easy creation of blocks in configurations
+  	* html/modules/privileges/xarprivileges.php:
+	  comment out this table reference. Will be used only when we do dn caching. 
+ 	* html/modules/installer/xarconfigurations/public.conf.php:
+	  add default module and block creation to this configuration 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  add default module and block creation to this configuration 
+ 	* html/modules/installer/xaradmin.php:
+	  rearrange installer to allow for the easy creation of blocks in configurations 
+2003-05-15: Dracos@numenor.: ChangeSet 1.823
+  add missing css rule to rfc10, fix case issues in xar_classic css
+  	* html/themes/Xaraya_Classic/style/style.css:
+	  correct case of selectors, convert colors to lower case 
+ 	* docs/rfc/rfc0010.xml:
+	  add error css rule 
+2003-05-15: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.822
+  allow articles (et al.) in base categories too - bug #526
+  	* html/modules/categories/xarvisualapi.php:
+	  allow articles (et al.) in base categories too - bug #526 
+ 	* html/modules/categories/xaradmin.php:
+	  allow articles (et al.) in base categories too - bug #526 
+2003-05-15: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.821
+  initialize newrows in formatString for SimpleLogger
+  	* html/includes/xarLog.php:
+	  initialize newrows in formatString for SimpleLogger 
+2003-05-15: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.820
+  half the # of normalize() - still excessive
+  	* html/modules/privileges/xarprivileges.php:
+	  half the # of normalize() - still excessive 
+2003-05-15: Dracos@numenor.: ChangeSet 1.819
+  bug 213 Added a third optional param $fileExt = 'css' to allow for dynamic style generation.
+  	* html/includes/xarTemplate.php:
+	  Added a third optional param $fileExt = 'css' to allow for dynamic style generation. 
+2003-05-14: Dracos@numenor.: ChangeSet 1.818
+  dirty fix for part of bug 229...the rest belongs to MLS
+  	* html/includes/xarBLCompiler.php:
+	  dirty fix for part of bug 229...the rest belongs to MLS 
+2003-05-14: voll@magistr.center.parex.net: ChangeSet 1.815.1.1
+  typo fixes
+  	* docs/rfc/rfc0020.xml:
+	  typo fixes 
+2003-05-14: rcave@lxwdev-1.schwabfoundation.org: ChangeSet 1.816
+  Added MySQL multi-table DELETE.
+  	* docs/rfc/rfc0045.xml:
+	  Added MySQL multi-table DELETE. 
+2003-05-13: miko@miko.homelinux.org: ChangeSet 1.811.1.1
+  removing superfluous inline style. can now change colour of the admin logout link in admin menu block
+  	* html/modules/adminpanels/xartemplates/blocks/sidemenu.xd:
+	  removing superfluous inline style. can now change colour of the admin logout link in admin menu block 
+2003-05-13: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.814
+  show real database error instead of DATABASE_ERROR_QUERY at install
+  	* html/includes/xarDB.php:
+	  show real database error instead of DATABASE_ERROR_QUERY at install 
+2003-05-13: marc@marclaptop.: ChangeSet 1.813
+  xaruser.php:   bllow usernames up to 255 chars xaradmin.php:   allow usernames up to 255 chars
+  	* html/modules/roles/xaruser.php:
+	  bllow usernames up to 255 chars 
+ 	* html/modules/roles/xaradmin.php:
+	  allow usernames up to 255 chars 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.811
+  oops, another fix.
+  	* html/themes/rss/modules/articles/user-summary-news.xt:
+	  oops, another fix. 
+ 	* html/modules/articles/xaruser.php:
+	  oops, another fix. 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.810
+  fix for rss theme
+  	* html/themes/rss/modules/articles/user-summary-news.xt:
+	  fix for rss theme 
+ 	* html/modules/articles/xaruser.php:
+	  fix for rss theme 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.809
+  TEMP fix for the RSS theme.
+  	* html/themes/rss/modules/articles/user-summary-news.xt:
+	  TEMP fix for the RSS theme. 
+ 	* html/modules/articles/xaruser.php:
+	  TEMP fix for the RSS theme. 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.808
+  change base module back to a user module
+  	* html/modules/base/xarversion.php:
+	  change base module back to a user module 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.805.1.1
+  Feed templates for certified releases.
+  	* html/modules/themes/xartemplates/admin-release.xd:
+	   
+ 	* html/modules/themes/xartemplates/admin-release.xd:
+	  BitKeeper file C:/cygwin/home/phpdev/www/dev/xaraya-stable/html/modules/themes/xartemplates/admin-release.xd 
+ 	* html/modules/modules/xartemplates/admin-release.xd:
+	  Feed templates for certified releases. 
+2003-05-11: marcel@hsdev.com: ChangeSet 1.801.2.1
+  Single changeset which contains the commenting out of xarExceptionFree statements in core file which *might* be  causing problems. If stuff starts to behave strange, we need to exclude this changeset.
+  	* html/install.php:
+	  Clearing of exceptions here is ok 
+ 	* html/index.php:
+	  Clearing of exceptions here is ok 
+ 	* html/includes/xarUser.php:
+	  Added the comment for the commenting out of xarExceptionFree 
+ 	* html/includes/xarTheme.php:
+	  Added the comment for the commenting out of xarExceptionFree 
+ 	* html/includes/xarServer.php:
+	  Added the comment for the commenting out of xarExceptionFree 
+ 	* html/includes/xarMod.php:
+	  Added the comment for the commenting out of xarExceptionFree 
+ 	* html/includes/xarBlocks.php:
+	  This one is right, we handled the exception, so clearing is ok 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.805
+  validation fix for rss theme
+  	* html/modules/themes/xartemplates/blocks/syndicate.xd:
+	  validation fix for rss theme 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.804
+  small problems fixed with rss theme
+  	* html/modules/themes/xartemplates/blocks/syndicate.xd:
+	  small problems fixed with rss theme 
+ 	* html/modules/themes/xarblocks/syndicate.php:
+	  small problems fixed with rss theme 
+2003-05-11: marc@marclaptop.: ChangeSet 1.802.1.1
+  hopefully the last time I merge this..
+  	* html/modules/roles/xartemplates/admin-testprivileges.xd:
+	  hopefully the last time I merge this.. 
+ 	* html/modules/roles/xartemplates/admin-newrole.xd:
+	  hopefully the last time I merge this.. 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  hopefully the last time I merge this.. 
+ 	* html/modules/roles/xartemplates/admin-viewroles.xd:
+	  Auto merged 
+ 	* html/modules/roles/xaruser.php:
+	  Auto merged 
+ 	* html/modules/privileges/xartemplates/admin-viewroles.xd:
+	  Auto merged 
+2003-05-11: marc@marclaptop.: ChangeSet 1.792.1.2
+  xarprivileges.php:   comment out unused cache commands
+ 2003-05-11: John.Cox@mcnabb.: ChangeSet 1.801.1.1
+  rss theme work
+  	* html/modules/themes/xartemplates/blocks/syndicate.xd:
+	  rss theme work 
+ 	* html/modules/themes/xarblocks/syndicate.php:
+	  rss theme work 
+ 	* html/modules/base/xarinit.php:
+	  upped version number 
+ 	* html/modules/privileges/xarprivileges.php:
+	  comment out unused cache commands 
+2003-05-11: marc@marclaptop.: ChangeSet 1.792.1.1
+  finally merged
+  	* html/modules/privileges/xarprivileges.php:
+	  finally merged 
+2003-05-11: marc@marclaptop.: ChangeSet 1.779.1.6
+  xarprivileges.php:   trying to get this to take...
+  	* html/modules/privileges/xarprivileges.php:
+	  trying to get this to take... 
+2003-05-11: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.802
+  fix setaction() picking the wrong form in roles
+  	* html/modules/roles/xartemplates/admin-viewroles.xd:
+	  fix setaction() picking the wrong form in roles 
+ 	* html/modules/roles/xartemplates/admin-testprivileges.xd:
+	  fix setaction() picking the wrong form in roles 
+ 	* html/modules/roles/xartemplates/admin-newrole.xd:
+	  fix setaction() picking the wrong form in roles 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  fix setaction() picking the wrong form in roles 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.798.1.1
+  slight change for validation purposes.
+  	* html/themes/rss/pages/default.xt:
+	  slight change for validation purposes. 
+2003-05-11: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.800
+  fix setaction() picking the wrong form in privileges
+  	* html/modules/privileges/xartemplates/admin-viewroles.xd:
+	  fix setaction() picking the wrong form in privileges 
+ 	* html/modules/privileges/xartemplates/admin-viewprivileges.xd:
+	  fix setaction() picking the wrong form in privileges 
+ 	* html/modules/privileges/xartemplates/admin-newprivilege.xd:
+	  fix setaction() picking the wrong form in privileges 
+ 	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  fix setaction() picking the wrong form in privileges 
+2003-05-11: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.799
+  fix jscript error when categories contain quotes + bug #565 add category link
+  	* html/modules/categories/xartemplates/admin-viewcats-render.xd:
+	  fix bug #565 - add category link 
+ 	* html/modules/categories/xartemplates/admin-viewcats-jscript.xd:
+	  fix bug #565 - add category link 
+ 	* html/modules/categories/xaradmin.php:
+	  fix jscript error when categories contain quotes 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.798
+  work on rss theme.
+  	* BitKeeper/etc/ignore:
+	  Added html/modules/release/xartemplates/user-rssviewids.xd to the ignore list 
+ 	* html/modules/themes/xartemplates/blocks/syndicate.xd:
+	  work on rss theme. 
+ 	* html/modules/themes/xarblocks/syndicate.php:
+	  work on rss theme. 
+2003-05-11: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.795.1.1
+  fix bug #525 - modvarid error when updating articles config
+  	* html/modules/categories/xaradminapi.php:
+	  fix bug #525 - modvarid error when updating articles config 
+ 	* html/modules/articles/xaradmin.php:
+	  fix bug #525 - modvarid error when updating articles config 
+2003-05-11: John.Cox@mcnabb.: ChangeSet 1.793.1.1
+  misc bug fixes.
+  	* BitKeeper/etc/ignore:
+	  Added html/modules/release/xartemplates/user-getdoc.xd html/modules/release/xartemplates/user-rssviewthemes.xd to the ignore list 
+ 	* html/modules/roles/xartemplates/blocks/logout.xd:
+	  fixed xarmodisavailable call in template. 
+ 	* html/modules/roles/xartemplates/blocks/login.xd:
+	  fixed login block to redirect to be beginning of registration process. 
+ 	* html/modules/example/xartemplates/admin-main.xd:
+	  Added example template for the admin overview. 
+ 	* html/modules/adminpanels/xaradminapi.php:
+	  change the security check on the waiting content block to submit article.  Prolly not the best solution long term. 
+ 	* html/includes/xarMod.php:
+	  strtolower modname for case problems. 
+2003-05-11: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.795
+  WARNING - incompatible template change for user-view.xd
+  	* html/themes/rss/modules/articles/user-view.xt:
+	  WARNING - incompatible template change for user-view.xd 
+ 	* html/modules/articles/xartemplates/user-view.xd:
+	  WARNING - incompatible template change for user-view.xd 
+ 	* html/modules/articles/xaruser.php:
+	  WARNING - incompatible template change for user-view.xd 
+2003-05-11: Jason.Judge@acad-ajp.: ChangeSet 1.794
+  xarVar.php:   Bug 391: allow <br/> as well as <br /> in xarVarPrepHTMLDisplay()
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/includes/xarVar.php:
+	  Bug 391: allow <br/> as well as <br /> in xarVarPrepHTMLDisplay() 
+2003-05-10: marc@marclaptop.: ChangeSet 1.779.1.5
+  admin-testprivileges.xd:   remove forms[0]
+  	* html/modules/roles/xartemplates/admin-testprivileges.xd:
+	  remove forms[0] 
+2003-05-10: marc@marclaptop.: ChangeSet 1.779.1.4
+  sundry html bugs comment out db caching until the update routine is done use xarVar*Cache for the moment
+  	* html/modules/roles/xartemplates/admin-viewroles.xd:
+	  get rid of forms[0] 
+ 	* html/modules/roles/xartemplates/admin-newrole.xd:
+	  get rid of forms[0] 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  get rid of forms[0] 
+ 	* html/modules/roles/xarroles.php:
+	  hold off on db privilege caching (need to finish the db udate routine first) 
+ 	* html/modules/privileges/xartemplates/admin-viewroles.xd:
+	  another stupid lil html bug 
+2003-05-10: marc@marclaptop.: ChangeSet 1.779.1.3
+  privilege cacheing
+  	* html/modules/privileges/xaradmin.php:
+	  remove unused code 
+ 	* html/modules/roles/xaradmin.php:
+	  cosmetic 
+ 	* html/modules/privileges/xaradmin.php:
+	  f2 
+2003-05-10: marc@marclaptop.: ChangeSet 1.779.1.1
+  admin-modifyrole.xd:   field length bug in name field
+  	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  field length bug in name field 
+
+2003-05-10: marc@marclaptop.: ChangeSet 1.779.1.2
+  creating privilege caching
+  	* html/modules/roles/xaruser.php:
+	  creating privilege caching 
+ 	* html/modules/roles/xarroles.php:
+	  creating privilege caching 
+ 	* html/modules/privileges/xartables.php:
+	  creating privilege caching 
+ 	* html/modules/privileges/xarprivileges.php:
+	  creating privilege caching 
+ 	* html/modules/privileges/xarinit.php:
+	  creating privilege caching 
+ 	* html/includes/xarSecurity.php:
+	  creating privilege caching 
+
+2003-05-07: marc@marclaptop.: ChangeSet 1.775.1.1
+  admin-showusers.xd:   link bug
+  	* html/modules/roles/xartemplates/admin-showusers.xd:
+	  link bug 
+2003-05-07: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.778
+  improve exception handling on non-existing DD object
+  	* html/modules/dynamicdata/class/objects.php:
+	  improve exception handling on non-existing DD object 
+ 	* html/modules/dynamicdata/xaruserapi.php:
+	  improve exception handling on non-existing DD object 
+2003-05-07: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.777
+  fix file upload for articles
+  	* html/modules/articles/xartemplates/admin-new.xd:
+	  fix file upload for articles 
+ 	* html/modules/articles/xartemplates/admin-modify.xd:
+	  fix file upload for articles 
+ 	* html/modules/articles/xaradmin.php:
+	  fix file upload for articles 
+2003-05-07: miko@miko.homelinux.org: ChangeSet 1.776
+  xarTheme should be xartheme
+  	* tests/blocklayout/convert.php:
+	  xarTheme should be xartheme 
+2003-05-07: marc@marclaptop.: ChangeSet 1.775
+  inconsequential merge
+  	* html/includes/xarVar.php:
+	  inconsequential merge 
+2003-05-07: marc@marclaptop.: ChangeSet 1.755.3.2
+  cosmetics
+  	* html/includes/xarVar.php:
+	  cosmetics 
+2003-05-07: marc@marclaptop.: ChangeSet 1.755.3.1
+  Many files:   255 char length for uname, name and pass   DBCHANGE
+  	* html/modules/roles/xartemplates/user-showloginform.xd:
+	  255 char length for uname, name and pass DBCHANGE 
+ 	* html/modules/roles/xartemplates/user-requestpw.xd:
+	  255 char length for uname, name and pass DBCHANGE 
+ 	* html/modules/roles/xartemplates/user-registerform.xd:
+	  255 char length for uname, name and pass DBCHANGE 
+ 	* html/modules/roles/xartemplates/user-new.xd:
+	  255 char length for uname, name and pass DBCHANGE 
+ 	* html/modules/roles/xartemplates/admin-newrole.xd:
+	  255 char length for uname, name and pass DBCHANGE 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  255 char length for uname, name and pass DBCHANGE 
+ 	* html/modules/roles/xaruser.php:
+	   
+ 	* html/modules/roles/xarinit.php:
+	  255 char length for uname, name and pass DBCHANGE 
+2003-05-06: John.Cox@mcnabb.: ChangeSet 1.774
+  little more work on the theme convertor
+  	* tests/blocklayout/convert.php:
+	  little more work on the theme convertor 
+2003-05-06: bna0jcc@rmlt002799.: ChangeSet 1.773
+  more work to the theme converter.
+  	* tests/blocklayout/convert.php:
+	  more work to the theme converter. 
+2003-05-06: bna0jcc@rmlt002799.: ChangeSet 1.770.1.1
+  more work on theme converter.
+  	* tests/blocklayout/convert.php:
+	  more work on theme converter. 
+2003-05-06: marcel@hsdev.com: ChangeSet 1.769.1.4
+  escaping of ampersands in artwork sections
+  	* docs/rfc/rfc0044.xml:
+	  escaping of ampersands in artwork sections 
+2003-05-06: marcel@hsdev.com: ChangeSet 1.769.1.3
+  Quick fix for the menu block
+  	* html/modules/base/xarblocks/menu.php:
+	  Added a quick hack to have at least a working situation for child items in the menu block when  title and description etc. are not provided by the user. These should get sensible defaults when creating the lines. 
+2003-05-06: marcel@hsdev.com: ChangeSet 1.769.1.2
+  Validator XMLRPC api is now in separate utility module
+ 2003-05-06: marcel@hsdev.com: ChangeSet 1.769.1.1
+  Added a comment in preparation of fixing bug #47 in xarBLCompiler
+  	* html/includes/xarBLCompiler.php:
+	  Added a comment in preparation of fixing bug #47 
+ 	* BitKeeper/deleted/.del-validator1.php~a2e94c25d1499bff:
+	  Delete: html/modules/webservices/api/validator1.php 
+2003-05-06: John.Cox@mcnabb.: ChangeSet 1.770
+  more theme convert work.  almost ready for testing.
+  	* tests/blocklayout/convert.php:
+	  more theme convert work.  almost ready for testing. 
+2003-05-05: John.Cox@mcnabb.: ChangeSet 1.755.2.1
+  almost working pn theme converter.
+  	* tests/blocklayout/convert.php:
+	  almost working pn theme converter. 
+2003-05-05: nuncanada@h0ly.: ChangeSet 1.768
+  Fixing Bug #524 Fixing the place of the category number in the batch creation                 <input type="hidden" name="creating" id="creating" value="0">
+  	* html/modules/categories/xartemplates/admin-editcat.xd:
+	  Missing creating variable Fixing the place of the category number in the batch creation  
+ 	* html/modules/categories/xaradmin.php:
+	  Missing the creating variable 
+2003-05-05: nuncanada@h0ly.: ChangeSet 1.767
+  Fixing the regexp check Wrong logic
+  	* html/includes/xarVar.php:
+	  Fixing the regexp check Wrong logic 
+2003-05-05: nuncanada@h0ly.: ChangeSet 1.766
+  Merge nuncanada@xaraya.com:/usr/local/repositories/xaraya-stable into h0ly.:C:/cygwin/home/nuncanada/xaraya-stable
+  	* html/includes/xarVar.php:
+	  Auto merged 
+2003-05-05: rcave@lxwdev-1.schwabfoundation.org: ChangeSet 1.763.1.1
+  First stab at multiple database requirements.
+  	* docs/rfc/rfc0045.xml:
+	  First stab at multiple database requirements. 
+2003-05-05: mikespub@sasquatch.pulpcontent.com: ChangeSet 1.764
+  Ferenc Veres - import ContentExpress content
+  	* tests/import/import_ce1249.php:
+	   
+ 	* tests/import/import_ce124.php:
+	   
+ 	* tests/import/import_ce1249.php:
+	  BitKeeper file /home/mikespub/xaraya-stable/tests/import/import_ce1249.php 
+ 	* tests/import/import_ce124.php:
+	  BitKeeper file /home/mikespub/xaraya-stable/tests/import/import_ce124.php 
+2003-05-05: miko@miko.homelinux.org: ChangeSet 1.763
+  admin-main.xd:   correct docs to reflect 2 choices not 1
+  	* html/modules/base/xartemplates/admin-main.xd:
+	  correct docs to reflect 2 choices not 1 
+2003-05-05: miko@miko.homelinux.org: ChangeSet 1.762
+  xarversion.php:   improve description
+  	* html/modules/themes/xarversion.php:
+	  improve description 
+2003-05-05: miko@miko.homelinux.org: ChangeSet 1.761
+  xarversion.php:   improve description
+  	* html/modules/search/xarversion.php:
+	  improve description 
+2003-05-05: miko@miko.homelinux.org: ChangeSet 1.760
+  xarversion.php:   improve comments description 
+  	* html/modules/comments/xarversion.php:
+	  improve comments description  
+2003-05-05: miko@miko.homelinux.org: ChangeSet 1.759
+  INSTALL.txt:   add note about overwrite of config file
+  	* docs/INSTALL.txt:
+	  add note about overwrite of config file 
+2003-05-05: marcel@hsdev.com: ChangeSet 1.755.1.1
+  quick fix for exception on comments in nested rendering. Note: it's a quick fix, needs further investigation
+  	* html/modules/comments/xaruser.php:
+	  quick fix for exception on comments in nested rendering. Note: it's a quick fix, needs further investigation 
+2003-05-05: miko@miko.homelinux.org: ChangeSet 1.757
+  xaradmin.php:   add upgrade.php to reminder block
+  	* html/modules/installer/xaradmin.php:
+	  add upgrade.php to reminder block 
+2003-05-05: miko@miko.homelinux.org: ChangeSet 1.756
+  admin-hooks.xd:   provide better explanation of hooks
+  	* html/modules/modules/xartemplates/admin-hooks.xd:
+	  provide better explanation of hooks 
+2003-05-05: marcel@hsdev.com: ChangeSet 1.755
+  Inserted the releaselogs for 0.900-0.901 and 0.901-0.902
+  	* docs/releaselog-0.901-0.902.txt:
+	   
+ 	* docs/releaselog-0.901-0.902.txt:
+	  BitKeeper file /home/mrb/dev/xaraya/stable/docs/releaselog-0.901-0.902.txt 
+ 	* docs/releaselog-0.900-0.901.txt:
+	   
+ 	* docs/releaselog-0.900-0.901.txt:
+	  BitKeeper file /home/mrb/dev/xaraya/stable/docs/releaselog-0.900-0.901.txt 
+ 	* BitKeeper/deleted/.del-releasenotes-0.900-0.902.txt~ac7c609e:
+	  Delete: docs/releasenotes-0.900-0.902.txt 
+2003-04-26: nuncanada@h0ly.: ChangeSet 1.695.1.1
+  Merge nuncanada@xaraya.com:/usr/local/repositories/xaraya-stable into h0ly.:C:/cygwin/home/nuncanada/xaraya-stable
+  	* html/includes/xarVar.php:
+	  Auto merged 
+2003-04-26: nuncanada@h0ly.: ChangeSet 1.676.4.3
+  Fixing Bug #417
+  	* html/includes/xarVar.php:
+	  Getting rid of empty checks, and using != '' instead 

@@ -2,7 +2,7 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 
 
-Xaraya: adam_baum Beta (.9.0.5)
+Xaraya: adam_baum Beta (.9.0.6)
 ==================================
 
    Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
@@ -35,6 +35,7 @@ Upgrades
    .9.0.4 -> .9.0.5 Changes to the priviliges.  
 		    Removal of the old waiting content ideas 
 		    for new and improved version.
+   .9.0.5 -> .9.0.6 None
    ----------------------------------------------------
 
    - Before upgrading:

@@ -115,6 +115,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Joanna Dalle Nogare (jojodee)
 
+  Jason Judge (judgej)
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 Other development credits

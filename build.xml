@@ -42,11 +42,11 @@
 
   <!-- Full distro modules, when added to the core modules, you get a full system -->
   <property name="modules.full" 
-    value="addressbook,authinvision,authsso,bbclick,bbcode,censor,changelog,contact,xarldap,figlet,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,window,workflow,xarbb,xarldap,xarlinkme,xlink,xslt"/>
+    value="addressbook,authinvision,authsso,bbclick,bbcode,censor,changelog,xarldap,figlet,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,window,workflow,xarbb,xarldap,xarlinkme,xlink,xslt"/>
 
   <!-- theme lists -->
   <property name="themes.full"
-    value="XBlue_Pro"/>
+    value="XBlue_Pro,atom"/>
 
   <!-- source tree properties -->
   <property name="html.dir" value="html" />

@@ -2849,3 +2849,6 @@ html/themes/buddha/modules/roles/blocks/online.xt
 html/themes/buddha/pages/default.xt
 html/themes/buddha/style/style.css
 html/themes/buddha/xartheme.php
+html/modules/figlet/xarclass/index.html
+html/modules/figlet/xarfonts/index.html
+html/modules/figlet/xartemplates/index.html

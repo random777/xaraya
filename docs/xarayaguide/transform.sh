@@ -4,7 +4,7 @@
 # can be called with --nopdf to skip producing the PDF.
 
 STYLESHEET_IMAGES=/usr/share/sgml/docbook/xsl-stylesheets/images
-OUTPUT=/var/www/ddf/downloads/documentation
+OUTPUT=/var/www/ddf/common/documentation
 
 # make the HTML output
 docbook2html -d ldp.dsl\#html -o $OUTPUT make.xml

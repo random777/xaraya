@@ -1,0 +1,100 @@
+Repository management for ddf.
+=============================
+
+To facilitate the servicing of both multiple projects under the ddf
+and the ability to exclude certain repositories for anonymous 
+content viewing over http, the following structure on the central
+server is implemented for the managing of the repositories involved
+
+On the server under /usr/local/repositories:
+
+ 1.   /ddf
+ 2.   /xaraya
+ 3.     /main
+ 4.     /modules
+ 5.     /websites
+ 6.       /www.xaraya.com
+ 7.       /...
+ 8.     /scenarios
+ 9.       /blocklayout
+10.       /permissions
+11.       /...
+12.   /project2
+13.       /main
+14.       /...
+15.       /scenarios
+16.         /...
+
+Explanation:
+
+1./2./12. root of project repositories
+--------------------------------------
+Each project gets his own "bk-zone" on the server. This allows for:
+  - serving multiple projects, instead of one
+  - independent bkweb configurations for projects (public/private/mixed)
+ 
+3./13. main repository of project
+---------------------------------
+Each project has at least one repository and its called 'main'. How main
+is used (stable branch, patch receiver, wild-and-crazy, scenario-pickup) is
+up to each project itself. 
+
+4./5./6./7. additional repositories for the project
+---------------------------------------------------
+At the same level in the dir structure as the main repository additional repositories
+are created which are not temporary, but keep in existence during the lifetime
+of the project. If repositories need to be grouped an additional level in the
+directory structure is created
+
+8./9./10./11. scenarios
+-----------------------
+if projects need temporary repositories on the server, these are called scenarios and
+are placed under the 'scenarios' directory. The repositories in here come and go
+depending on the development pace of the project.
+
+
+Changing the structure on the server has some consequences, each developer
+needs to execute a 'bk parent' command to reparent the clone to the new
+location.
+On the server itself a number of (rather mundane) tasks should also be 
+performed. This doc serves as a checklist
+
+
+General tasks:
+--------------
+- prepare an announcement that structure is changing and set dates
+- prepare an instruction for developers
+
+For each clone on local developers machines:
+--------------------------------------------
+- reparent each clone to new parent
+something like: bk parent user@xaraya.com:/usr/local/repositories/public/xaraya/main
+(ssh parenting)
+-
+
+For each clone on server:
+-------------------------
+- reparent each clone to new parent
+something like: bk parent /usr/local/repositories/public/xaraya/main
+(file parenting)
+- adapt specific scripts for clones, if any
+- check documentation which refers to clones:
+  - bk-webprocess.txt
+  - ...
+
+
+Server tasks:
+-------------
+- adapt bk-daemon script to run from new location, take special care for private 
+  and public repositories (-x option)
+- adapt links in web pages which refer to the web interface of bk
+- adapt the tarball creation script if needed
+- look at backup scripts if they need adapting
+- back up the current config, so we can quickly recover if something nasty happens
+- make sure the repositories are locked during migration, so we can guarantee state
+  (either by explicit locks, or preventing bkd to run at all)
+- look at the user/group flags under which bk daemon runs (only for http)
+- adapt interop triggers for repositories:
+  - patch system
+- evaluatie custom command impact
+

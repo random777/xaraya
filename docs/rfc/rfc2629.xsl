@@ -1082,7 +1082,7 @@
         <link><xsl:copy-of select="@*" /></link>
       </xsl:for-each>
       <xsl:if test="/rfc/@number">
-        <link rel="Alternate" title="Authorative ASCII version" href="http://www.ietf.org/rfc/rfc{/rfc/@number}" />
+          <link rel="Alternate" title="Authorative XML version in DDF repository at http://xaraya.com:15000/stable/hist/docs/rfc/{/rfc/@number}.xml" />
       </xsl:if>
 
       <!-- generator -->
@@ -1357,11 +1357,11 @@
   <xsl:param name="mode" />
   <!-- default case -->
   <xsl:if test="not($xml2rfc-private)">
-    <myns:item>Network Working Group</myns:item>
+    <myns:item>Xaraya Development Group</myns:item>
     <myns:item>
        <xsl:choose>
-        <xsl:when test="/rfc/@ipr and $mode='nroff'">Internet Draft</xsl:when>
-        <xsl:when test="/rfc/@ipr">INTERNET DRAFT</xsl:when>
+        <xsl:when test="/rfc/@ipr and $mode='nroff'">Xaraya Draft</xsl:when>
+        <xsl:when test="/rfc/@ipr">XARAYA DRAFT</xsl:when>
         <xsl:otherwise>Request for Comments: <xsl:value-of select="/rfc/@number"/></xsl:otherwise>
       </xsl:choose>
     </myns:item>
@@ -1542,31 +1542,31 @@
 
   <section title="Intellectual Property Statement" anchor="{$anchor-prefix}.ipr" myns:unnumbered="unnumbered" myns:is-rfc2629="true">
   <t myns:is-rfc2629="true">
-    The IETF takes no position regarding the validity or scope of
+    The DDF takes no position regarding the validity or scope of
     any intellectual property or other rights that might be claimed
     to  pertain to the implementation or use of the technology
     described in this document or the extent to which any license
     under such rights might or might not be available; neither does
     it represent that it has made any effort to identify any such
-    rights. Information on the IETF's procedures with respect to
+    rights. Information on the DDF's procedures with respect to
     rights in standards-track and standards-related documentation
-    can be found in BCP-11. Copies of claims of rights made
+    can be found in RFC-0. Copies of claims of rights made
     available for publication and any assurances of licenses to
     be made available, or the result of an attempt made
     to obtain a general license or permission for the use of such
     proprietary rights by implementors or users of this
-    specification can be obtained from the IETF Secretariat.
+    specification can be obtained from the DDF Board of Directors.
   </t>
   <t myns:is-rfc2629="true">
-    The IETF invites any interested party to bring to its
+    The DDF invites any interested party to bring to its
     attention any copyrights, patents or patent applications, or
     other proprietary rights which may cover technology that may be
     required to practice this standard. Please address the
-    information to the IETF Executive Director.
+    information to the DDF Executive Director.
   </t>
   <xsl:if test="$xml2rfc-iprnotified='yes'">
     <t myns:is-rfc2629="true">
-      The IETF has been notified of intellectual property rights
+      The DDF has been notified of intellectual property rights
       claimed in regard to some or all of the specification contained
       in this document. For more information consult the online list
       of claimed rights.
@@ -1576,7 +1576,7 @@
 
   <section title="Full Copyright Statement" anchor="{$anchor-prefix}.copyright" myns:unnumbered="unnumbered" myns:notoclink="notoclink" myns:is-rfc2629="true">
   <t myns:is-rfc2629="true">    
-    Copyright (C) The Internet Society (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
+    Copyright (C) The Digital Development Foundation (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
   </t>
   <t myns:is-rfc2629="true">
     This document and translations of it may be copied and furnished to
@@ -1586,10 +1586,10 @@
     provided that the above copyright notice and this paragraph are
     included on all such copies and derivative works. However, this
     document itself may not be modified in any way, such as by removing
-    the copyright notice or references to the Internet Society or other
+    the copyright notice or references to the Digital Development Foundation or other
     Internet organizations, except as needed for the purpose of
-    developing Internet standards in which case the procedures for
-    copyrights defined in the Internet Standards process must be
+    developing Xaraya standards in which case the procedures for
+    copyrights defined in the Xaraya Standards process must be
     followed, or as required to translate it into languages other than
     English.
   </t>
@@ -1599,8 +1599,8 @@
   </t>
   <t myns:is-rfc2629="true">
     This document and the information contained herein is provided on an
-    &quot;AS IS&quot; basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
-    TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+    &quot;AS IS&quot; basis and THE XARAYA DEVELOPMENT GROUP AND THE DIGITAL DEVELOPMENT FOUNDATION
+    DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
     BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
     HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
     MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
@@ -1610,7 +1610,7 @@
   <section title="Acknowledgement" myns:unnumbered="unnumbered" myns:notoclink="notoclink" myns:is-rfc2629="true">
   <t myns:is-rfc2629="true">
       Funding for the RFC editor function is currently provided by the
-      Internet Society.
+      Digital Development Foundation.
   </t>
   </section>
 
@@ -1925,7 +1925,7 @@ table.closedissue {
   <xsl:choose>
     <xsl:when test="/rfc/@ipr">
       <t myns:is-rfc2629="true">
-        This document is an Internet-Draft and is 
+        This document is an Xaraya-Draft and is 
         <xsl:choose>
           <xsl:when test="/rfc/@ipr = 'full2026'">
             in full conformance with all provisions of Section 10 of RFC2026.    
@@ -1937,77 +1937,79 @@ table.closedissue {
           <xsl:when test="/rfc/@ipr = 'noDerivativeWorksNow'">
             in full conformance with all provisions of Section 10 of RFC2026
             except that the right to produce derivative works is not granted.
-            (If this document becomes part of an IETF working group activity,
+            (If this document becomes part of an DDF working group activity,
             then it will be brought into full compliance with Section 10 of RFC2026.)  
             </xsl:when>
           <xsl:when test="/rfc/@ipr = 'none'">
             NOT offered in accordance with Section 10 of RFC2026,
-            and the author does not provide the IETF with any rights other
-            than to publish as an Internet-Draft.
+            and the author does not provide the DDF with any rights other
+            than to publish as an Xaraya-Draft.
             </xsl:when>
           <xsl:otherwise>CONFORMANCE UNDEFINED.</xsl:otherwise>
         </xsl:choose>
       </t>
       <t myns:is-rfc2629="true">
-        Internet-Drafts are working documents of the Internet Engineering
-        Task Force (IETF), its areas, and its working groups.
+        Xaraya-Drafts are working documents of the Digital Development 
+        Foundation (DDF), its areas, and its working groups.
         Note that other groups may also distribute working documents as
-        Internet-Drafts.
+        Xaraya-Drafts.
       </t>
       <t myns:is-rfc2629="true">
-        Internet-Drafts are draft documents valid for a maximum of six months
+        Xaraya-Drafts are draft documents valid for a maximum of six months
         and may be updated, replaced, or obsoleted by other documents at any time.
-        It is inappropriate to use Internet-Drafts as reference material or to cite
+        It is inappropriate to use Xaraya-Drafts as reference material or to cite
         them other than as "work in progress".
       </t>
       <t myns:is-rfc2629="true">
-        The list of current Internet-Drafts can be accessed at
-        <eref target='http://www.ietf.org/ietf/1id-abstracts.txt' myns:is-rfc2629="true" />.
+        The list of current Xaraya-Drafts can be accessed at
+          <eref target='http://www.xaraya.com/index.php/docs/15' myns:is-rfc2629="true" />.
       </t>
+      <!--
       <t myns:is-rfc2629="true">
-        The list of Internet-Draft Shadow Directories can be accessed at
+        The list of Xaraya-Draft Shadow Directories can be accessed at
         <eref target='http://www.ietf.org/shadow.html' myns:is-rfc2629="true"/>.
       </t>
+      -->
       <t myns:is-rfc2629="true">
-        This Internet-Draft will expire in <xsl:call-template name="expirydate" />.
+        This Xaraya-Draft will expire in <xsl:call-template name="expirydate" />.
       </t>
     </xsl:when>
 
     <xsl:when test="/rfc/@category='bcp'">
       <t myns:is-rfc2629="true">
-        This document specifies an Internet Best Current Practices for the Internet
+        This document specifies a Xaraya Best Current Practices for the Xaraya
         Community, and requests discussion and suggestions for improvements.
         Distribution of this memo is unlimited.
       </t>
     </xsl:when>
     <xsl:when test="/rfc/@category='exp'">
       <t myns:is-rfc2629="true">
-        This memo defines an Experimental Protocol for the Internet community.
-        It does not specify an Internet standard of any kind.
+        This memo defines an Experimental Protocol for the Xaraya community.
+        It does not specify an Xaraya standard of any kind.
         Discussion and suggestions for improvement are requested.
         Distribution of this memo is unlimited.
       </t>
     </xsl:when>
     <xsl:when test="/rfc/@category='historic'">
       <t myns:is-rfc2629="true">
-        This memo describes a historic protocol for the Internet community.
-        It does not specify an Internet standard of any kind.
+        This memo describes a historic protocol for the Xaraya community.
+        It does not specify an Xaraya standard of any kind.
         Distribution of this memo is unlimited.
       </t>
     </xsl:when>
     <xsl:when test="/rfc/@category='info' or not(/rfc/@category)">
       <t myns:is-rfc2629="true">
-        This memo provides information for the Internet community.
-        It does not specify an Internet standard of any kind.
+        This memo provides information for the Xaraya community.
+        It does not specify an Xaraya standard of any kind.
         Distribution of this memo is unlimited.
       </t>
     </xsl:when>
     <xsl:when test="/rfc/@category='std'">
       <t myns:is-rfc2629="true">
-        This document specifies an Internet standards track protocol for the Internet
+        This document specifies a Xaraya standards track protocol for the Xaraya
         community, and requests discussion and suggestions for improvements.
-        Please refer to the current edition of the &quot;Internet Official Protocol
-        Standards&quot; (STD 1) for the standardization state and status of this
+        Please refer to the current edition of the &quot;Xaraya Official Protocol
+        Standards&quot; (RFC 0) for the standardization state and status of this
         protocol. Distribution of this memo is unlimited.
       </t>
     </xsl:when>
@@ -2020,7 +2022,7 @@ table.closedissue {
 
   <section title="Copyright Notice" myns:unnumbered="unnumbered" myns:notoclink="notoclink" anchor="{$anchor-prefix}.copyrightnotice" myns:is-rfc2629="true">
   <t myns:is-rfc2629="true">
-    Copyright (C) The Internet Society (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
+    Copyright (C) The Digital Development Foundation (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
   </t>
   </section>
   
@@ -2815,7 +2817,7 @@ table.closedissue {
   <xsl:choose>
     <xsl:when test="$xml2rfc-header"><xsl:value-of select="$xml2rfc-header" /></xsl:when>
     <xsl:when test="$xml2rfc-private"/> <!-- private draft, header not set -->
-    <xsl:when test="/rfc/@ipr">INTERNET DRAFT</xsl:when>
+    <xsl:when test="/rfc/@ipr">XARAYA DRAFT</xsl:when>
     <xsl:otherwise>RFC <xsl:value-of select="/rfc/@number"/></xsl:otherwise>
   </xsl:choose>
 </xsl:template>

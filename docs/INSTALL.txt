@@ -11,6 +11,8 @@ Xaraya: adam_baum Beta (.9.0.6)
 
    You can also visit us in channel #support or #chat, on our IRC Server irc.Xaraya.com.
 
+   More detailed installation instructions can be found in XarayaDocs.txt, included with this release. Before installing, read that document for a clearer understanding of the directory structure of this distribution and installation options available to you.
+
 New Installation
 ================
 

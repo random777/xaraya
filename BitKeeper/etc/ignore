@@ -13,3 +13,4 @@ html/modules/example/.pnadmin.php.swp
 html/modules/xproject
 html/var/cache/templates/*
 ~*
+test.php

@@ -52,16 +52,22 @@
 			</t>
 			<t>
 			Callers can notice of exceptions firstly by checking the called function return value and secondly by 
-			calling the xarExceptionMajor function.
+			calling the xarCurrentErrorType function.
 			</t>
 			<t>
 			The Xaraya Exception Handling System provides useful functions to deal with exceptions. Their 
 			signatures are: 
 			</t>
 			<t>
-			void xarExceptionSet($major, $exception_id, $param = NULL); integer xarExceptionMajor(); string 
+			void xarExceptionSet($major, $exception_id, $param = NULL); integer xarCurrentErrorType(); string 
 			xarExceptionId(); object xarExceptionValue(); void xarExceptionFree();
                     </t>
+			<section title="xarCurrentErrorType">
+				<t>
+			xarCurrentErrorType allows the caller to establish whether an exception was raised, and to get the type of
+			raised exception. The major XAR_NO_EXCEPTION identifies the state in which no exception was raised.
+                    </t>
+			</section>
 			<section title="xarExceptionSet">
 				<t>
 			xarExceptionSet allows a function to raise an exception. The caller must supply a value for the major 
@@ -87,10 +93,9 @@ For any other value of major it specifies either a user-defined or system
                    If the exception has no members, param must be NULL.
                     </t>
 			</section>
-			<section title="xarExceptionMajor">
+			<section title="xarExceptionMajor (Deprecated)">
 				<t>
-			xarExceptionMajor allows the caller to establish whether an exception was raised, and to get the type of 
-			raised exception. The major XAR_NO_EXCEPTION identifies the state in which no exception was raised.
+			Replaced with xarCurrentErrorType commencing in Version 0.9.8
                     </t>
 			</section>
 			<section title="xarExceptionId ">
@@ -124,9 +129,9 @@ class ?MyException {
 function ?MyModule_userapi_?MyFunc() { /* Called */ /* ... */ } 
 ?... 
 /* Caller */ /* ... */ 
-$res = xarModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) { 
+$res = xarModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp; xarCurrentErrorType() != XAR_NO_EXCEPTION) { 
     // Got an exception
-    switch (xarExceptionMajor()) {
+    switch (xarCurrentErrorType()) {
        case XAR_USER_EXCEPTION:
            if (xarExceptionId() == '?MyException') {
 	      $value = xarExceptionValue();
@@ -153,17 +158,17 @@ $res = xarModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp
 					<artwork>
 function foo() { 
     $res = xarModAPIFunc('?MyModule', 'user', '?MyFunc');
-    if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
+    if (!isset($res) &amp;&amp; xarCurrentErrorType() != XAR_NO_EXCEPTION) {
         // Got an exception, throw it back
         return;
     }
 } 
 function bar() { 
     $res = foo();
-    if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
+    if (!isset($res) &amp;&amp; xarCurrentErrorType() != XAR_NO_EXCEPTION) {
         // Got an exception
 	// Real exception handling
-        switch (xarExceptionMajor()) {
+        switch (xarCurrentErrorType()) {
            case XAR_USER_EXCEPTION:
                if (xarExceptionId() == '?MyException') {
 	          $value = xarExceptionValue();

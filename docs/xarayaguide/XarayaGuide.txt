@@ -57,9 +57,9 @@ The Official Xaraya Installation & Getting Started Guide is a work-in-progress a
 
 
 
-                                                           Guide version 0144
-                                              Last updated: 02-September-2003
-                 Version 0144 sent to BitKeeper on 02-September-2003, 06:15pm
+                                                           Guide version 0145
+                                              Last updated: 05-September-2003
+                 Version 0145 sent to BitKeeper on 05-September-2003, 04:51pm
 INDEX
 =====
 INTRODUCTION BY JOHN COX
@@ -158,6 +158,8 @@ MODULES IN XARAYA
 		- Authsystem Module (core)
 
 		- Autolinks Module
+			EXAMPLE: Adding an Autolink
+
 			EXAMPLE: Adding AutoLinks to a Publication Type
 
 		- Base Module (core)
@@ -361,10 +363,22 @@ This Guide will assist you with installing, configuring, running, and maintainin
 
 This Guide is designed to be read from start to finish. Certain sections may be skipped (for example, if you're upgrading, you may not need to read the first-time installation instructions). However, reading this entire Guide from start to finish will provide the maximum educational benefit.
 
+Throughout the Guide, there are examples for you to follow. The examples add new features or illustrate concepts and are all designed to work together. Generally, the examples include Animals, Music, or Food but the concepts that they teach can be customized to your particular tastes.
+
 Throughout this Guide, we use several terms that should be understood.
+	* "Anonymous users" are defined as users that have not registered/logged into an account on the site.
+	
+	* "Registered users" are defined as users that have registered for an account on the site and have logged into the site with their username and password.
+	
+	* The "Site Administrator" is one or more individuals who have administrative access to the site.
+
 	* <webdir>: This is the local directory on your site from which pages are served by the webserver. If you're using a modern Red Hat installation, for example, your <webdir> is usually /var/www/html. Consult your operating system manual for information on determining your <webdir>.
 
 	* <xarroot>: This is the local directory on your site in which Xaraya is installed. If you choose to install your <xarroot> into your <webdir>, then the two terms have the same meaning -- they point to the same directory. However, if your <webdir> is /var/www/html, and you install Xaraya into a sub-directory called "xaraya", then your <xarroot> is /var/www/html/xaraya.
+
+	* <theme_dir>: This is the local directory on your site where Xaraya themes are stored. This directory location is defined in the Admin->Base->Modify config, Default Theme Directory field.
+
+	* <theme_name>: This is the name of a theme on your Xaraya site.
 
 	* http://www.mywebsite.com: This URL is used as a stand-in for your site's URL.
 
@@ -377,7 +391,6 @@ Throughout this Guide, we use several terms that should be understood.
 FILES INCLUDED WITH THIS GUIDE
 ==============================
 The following files are included with this guide.
-
 	- guide_images directory -- These are graphic files used by this Guide. It is not necessary to copy these files to your Xaraya installation.
 
 	- images/recipes/NoPhoto.gif -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a new Publication Type that uses Dynamic Data). Displayed when no recipe photograph is available. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
@@ -410,9 +423,9 @@ Thank you to the Xaraya Team for declaring this to be the "Official" guide.
 
 FEATURES OF XARAYA
 ==================
-Xaraya is extensible, open source web-development software platform written in PHP and licensed under the GNU General Public License. Xaraya utilizes robust permissions, data management and multilingual systems to dynamically integrate and manage content. 
+Xaraya is extensible, open source web-development software platform written in PHP and licensed under the GNU General Public License. Xaraya utilizes robust permissions, data management, and multilingual systems to dynamically integrate and manage content.
 
-Xaraya's modular, database independent architecture introduces tools which separate form, function, content, and design. Xaraya delivers the requisite infrastructure for a fully dynamic multi-platform Content Management Solution (CMS).
+Xaraya's modular, database-independent architecture provides tools which separate form, function, content, and design on the site. Xaraya delivers the requisite infrastructure for a fully dynamic multi-platform Content Management Solution (CMS).
 	* Database-driven website engine (PHP-ADODB compliant)
 
 	* Extensible through a variety of third-party modules
@@ -476,9 +489,7 @@ That said, the word Xaraya is reminiscent of 'raya', the Spanish word for Manta 
 
 ASSUMPTIONS
 ===========
-Xaraya allows unprecedented levels of customization, so it is impossible to list every possible configuration. "Anonymous users" are defined as users that have not registered/logged into an account on the site. "Registered users" are defined as users that have registered for an account on the site and have logged into the site with their username and password. The "Site Administrator" is one or more people who have administrative access to the site.
-
-To provide familiarity with how Xaraya functions this Guide makes the following assumptions:
+Xaraya allows unprecedented levels of customization, it is therefore impossible to list every possible configuration. To provide familiarity with how Xaraya functions this Guide makes the following assumptions:
 * That you plan to run a Community Site and:
 	* Do not permit anonymous users to submit articles or post comments until they register.
 
@@ -894,11 +905,11 @@ The next two options determine the position of the new/edited category in the ca
 
 	- Position: Determines the placement of the new/edited category in conjunction with the "In relation to this category" field above. For this example, since we don't want to move this category, just leave this field as it is.
 		- Right before, in the same level: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
-		
+
 		- Right after, in the same level: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
-		
+
 		- The first child category: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and to be a child category of the category referenced in "In relation to this category", select this option.
-		
+
 		- The last child category: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and to be a child category of the category referenced in "In relation to this category", select this option.
 
 	- Optional image: From this drop-down list, select the image associated with this category. The image format can be any popular image file format (JPG, GIF, PNG, etc) and must exist in one of two directories:
@@ -933,7 +944,7 @@ The next two options determine the position of the new category in the category 
 	- Optional image: From this drop-down list, select the image associated with this category. The image format can be any popular image file format (JPG, GIF, PNG, etc) and must exist in one of two directories:
 		- "<xarroot>/modules/categories/xarimages" or
 
-		- "<xarroot>/themes/<theme_name>/modules/categories/images" for theme-dependent versions
+		- "<xarroot>/<themes_dir>/<theme_name>/modules/categories/images" for theme-dependent versions
 
 	- Click "Modify" to save changes.
 
@@ -954,20 +965,20 @@ http://www.thedragonsforge.com/projectX/blocklayout_spec.html
 Xaraya displays information to site visitors by using TEMPLATES. Templates are available in the following varieties: "function templates", "block templates", "page templates", or "block group templates".
 	- "Function Templates" are Content Layout templates that display a view of a particular function of Xaraya. Xaraya separates function templates for users and administrators. User function templates have "user-" at the beginning of the template filename, and administrator function templates have "admin-" at the beginning of the template filename. For example, one of Xaraya's default function templates is called 'user-display-news'. This template defines the layout of the news area in your page as it is displayed to users of the site. The administrator view is defined by the 'admin-display-news' template).
 
-	- "Page Templates" are Content Layout templates that display a view of a whole page, which can include function and block templates. These files reside in the <xarroot>/themes/<theme_name>/pages directory.
+	- "Page Templates" are Content Layout templates that display a view of a whole page, which can include function and block templates. These files reside in the <xarroot>/<themes_dir>/<theme_name>/pages directory.
 
 	- "Block Templates" are Block Layout templates that display a view of a particular block within Xaraya. Block templates exist in <xarroot>/modules/<module_name>/xartemplates/blocks, creating directories as necessary (give new directories appropriate permissions). So, for articles, the block templates exist in <xarroot>/modules/articles/xartemplates/blocks.
 
 	Customize default block templates with the equivalent ".xt" override template in the <xarroot>/<theme_name>/modules/<module_name>/blocks directory, creating directories as necessary (give new directories appropriate permissions). You also have specific override custom block templates that you name when you create a new block. The name of the template file (without the ".xt" extension) is entered into the custom template field when creating a block instance. These specific override template files are in the <xarroot>/<theme_name>/blocks directory.
 
-	- "Block Group Templates" are Block Layout templates that contain a collection of individual block templates. The Block Group template files reside in the <xarroot>/themes/<theme_name>/blocks directory.
+	- "Block Group Templates" are Block Layout templates that contain a collection of individual block templates. The Block Group template files reside in the <xarroot>/<themes_dir>/<theme_name>/blocks directory.
 
-	- "<module_name>.xt Template" is a Content Layout template that overrides the default page template for <module_name>. These files reside in the <xarroot>/themes/<theme_name>/pages directory.
+	- "<module_name>.xt Template" is a Content Layout template that overrides the default page template for <module_name>. These files reside in the <xarroot>/<themes_dir>/<theme_name>/pages directory.
 
 Function templates, block templates, page templates, and block group templates can be defined as either site-wide or theme-specific. It is advisable to make template files theme-specific by default. By doing so, you minimize the amount of work necessary if you decide to add additional themes to the site later.
 	- Site-Wide templates: A site-wide template is used to change the look & feel of the site, no matter what theme is being used. Site-wide templates are overridden by theme-specific templates, if one exists. These files exist in the <xarroot>/modules/<module_name>/xartemplates directory.
 
-	- Theme-specific templates: Theme-specific templates change the look & feel of the site only when displayed through a particular theme. These files exist in the <xarroot>/themes/<theme_name>/modules/<module_name> directory.
+	- Theme-specific templates: Theme-specific templates change the look & feel of the site only when displayed through a particular theme. These files exist in the <xarroot>/<themes_dir>/<theme_name>/modules/<module_name> directory.
 
 If template files exist in both site-wide, theme-specific locations, the theme-specific templates take precedence over site-wide templates.
 
@@ -1587,7 +1598,7 @@ Template files are placed into the <webdir>/modules/articles/xartemplates direct
 	user-summary-recpies.xd -- this is a summary view of the data
 	user-view-recipes.xd (optional)
 
-If you wish to create theme-specific versions of these files, rename the files from *.xd to *.xt and place the theme-specific version in the <webdir>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
+If you wish to create theme-specific versions of these files, rename the files from *.xd to *.xt and place the theme-specific version in the <webdir>/<themes_dir>/<theme_name>/modules/articles directory, creating directories as necessary.
 
 It is recommended that you begin by examining the example files included with this tutorial, or open one of the sample templates provided with Xaraya and make changes as necessary using your favorite HTML editor. Where ever you want to display the fields in the new Publication Type, enter "#$fieldname#" (no quotes) in the template. Xaraya will replace "#$fieldname#" with the contents of the field as stored in the database. In this tutorial, we created the following fields, which are available for display in the template using the #$fieldname# indicated in parenthesis:
 
@@ -1650,45 +1661,114 @@ This module provides LDAP authentication services for Xaraya.
 - Authsystem Module (core): Xaraya default authentication module. No administration panel.
 
 - Autolinks Module: TRANSFORM. Automatically link key words. Admin->Autolinks.
-Autolinks is a feature that, when installed, generates web links related to text content on-the-fly. If you have Autolinks turned on & configured properly, "Beatles" defined as a Keyword, and "http://www.beatles.com" as the auto-link URL, Autolinks in Xaraya will automatically replace occurrences of "Beatles" within your articles with "<a href="http://www.beatles.com">Beatles</a>". Autolinks is not active after Xaraya installation and must be installed through Admin->Modules->View All.
+Autolinks is a feature that, when installed, generates web links related to text content on-the-fly. If you have Autolinks turned on & configured properly, "Beatles" defined as a Keyword, and "http://www.beatles.com" as the auto-link URL, Autolinks in Xaraya will automatically replace occurrences of "Beatles" within your articles with "<a href="http://www.beatles.com">Beatles</a>".
 
-When Autolinks are installed, the option to hook Autolinks into particular modules appears in Admin->Modules->Configure Hooks. Hook Autolinks into the modules you wish, such as Articles, Comments, Ephemerids, Messages, and XarBB.
+When the Autolinks module is installed, the option to hook Autolinks into particular modules appears in Admin->Modules->Configure Hooks. Hook Autolinks into the modules you wish (such as Articles, Comments, Ephemerids, Messages, and XarBB). See the section on Hooks for information about hooking modules together.
 
-	- Add Autolink: Enter the keyword in the Key (link) Word field. This is the text that will be matched in an article (for example, "beatles").
+	- View Links: To view, edit, or delete Autolinks, click Admin->Autolinks->View Links. On the next panel, the following options are displayed. Autolinks in your database are displayed sorted by Name.
+		- Type: Displays the Autolink Type. Click the Autolink Type text to go to the Modify Autolink Type panel.
 
-	NOTE: Capitalization is not important in the Key (link) Word field.
+		- Name: Displays the name of the Autolink. Click the Name text to go to the Modify Autolink panel.
 
-	- Title: Enter the title of the site in the Title field (for example, "The Beatles Site"). This is the name that will be displayed as a mouse-over and in the listing of all Autolinks.
+		- Matching key: Xaraya searches content items for this text. If matching text is located, it is replaced with an autolink. If the Autolink has the "Match as regular expression" field CHECKED, the matching key is displayed in italics.
 
-	- URL: Enter the complete URL for the site in the URL field (for example, "http://www.beatles.com"). Make sure to enter "http://" at the beginning of the link if the site is external to your site; otherwise it will not function as expected.
+		- URL: The URL to which this autolink points.
 
-	If the URL is located on your web site, enter the path to the file or the complete URL. For example, if the file is on your site, enter "music.html" and Autolinks will automatically prepend the "http://www.yoursite.com", resulting in an Autolink of "http://www.yoursite.com/music.html". To be more specific, you could also enter "http://www.yoursite.com/music.html" instead of "music.html".
+		- Options: 
+			- Disable: If you wish to disable an Autolink but not delete it from the Autolinks database, click "Disable". The Autolink will not appear as a link when matching text is found. To enable an Autolink, click "Enable".
 
-	- Comments: Use the Comments field to enter optional free-form alphanumeric comments about the link. Comments are visible only to the Site Administrator.
+			- Edit: If you wish to edit an Autolink, click on the "Edit" link for that Autolink. A panel is displayed allowing you to edit all the information about the selected Autolink.
+				Type: Displays the Autolink Type. It is currently not possible to change the Autolink type for an existing Autolink. To change the Autolink type, delete the existing Autolink and add it again with the new Autolink type.
+					- Edit: If you wish to edit the Autolink Type, click this link to go to the Modify Autolink Type panel.
 
-Click "Create Autolink" to add the Autolink to the database.
+				Security
+				--------
+					- Name: Type the name of the Autolink as it will be displayed in the Autolink administration panels of the site.
 
-To view, edit, or delete Autolinks, click Admin->Autolinks->View. All Autolinks in your database are displayed sorted by Keyword. If you wish to edit an Autolink, click on the "Edit" link for that Autolink. A panel is displayed allowing you to edit all the information about that particular Autolink. Two additional fields, "Enabled" and "Match As Regular Expression", are available on this panel. See below for Enabling/Disabling Autolinks. Click "Modify Autolink" to save changes.
+					- Enabled: If this box is CHECKED, the Autolink.is enabled and will be displayed if a matching key is found content. If this field is UNCHECKED, the Autolink is not displayed if a matching key is found in content.
 
-OTTO: Describe Match As Regular Expression.
+				Matching
+				--------
+					- Matching key: Xaraya searches content items for this text. If matching text is located, it is replaced with the autolink.
 
-To delete an Autolink, click on the "Delete" link for that Autolink. A panel will be displayed asking you to confirm your request to delete the Autolink. If you wish to delete the Autolink, click "Confirm"; otherwise click "Cancel deletion of Autolink" and the link will not be removed.
+					- Match as regular expression: This is an advanced option within Xaraya. CHECK this box to cause the Autolink to be evaluated as a regular expression instead of a string. UNCHECK this box (default) to evaluate the Autolink as a string. A regular expression (sometimes abbreviated to "regex") is a way for a site administrator to express how Xaraya should look for a specified pattern in Autolink text and then what to do when each pattern match is found. For example, a regular expression could tell a program to search for all text lines that contain the word "Windows 95" and then to print out each line in which a match is found or substitute another text sequence (for example, just "Windows") where any match occurs.
 
-If you wish to disable an Autolink but not delete it from the Autolinks database, click "Disable". The Autolink is not deleted but it will not appear as a link when matching text is found. To enable an Autolink, click "Enable".
+				Replacing
+				---------
+					- Title: Enter the title of the Autolink in this field. The title is displayed to site visitors as a mouse-over.
 
-Admin->Autolinks->Modify config: This section allows configuration of how Autolinks appear on your site.
+					- URL: Enter the complete URL for the Autolink in this field. Enter "http://" at the beginning of the link if the site is external to your site; otherwise it will not function as expected.
 
-	Matching
-	--------
+					- Comment: An optional comment on the Autolink. Displayed only in the Modify Autolink panel; not displayed to site visitors.
+
+				Other
+				-----
+					- Sample text to test link: In this field, enter sample text to test the link. The sample text (and resulting links) are displayed on the Admin->Autolinks->View Links panel.
+						- Sample: (displayed in Admin->Autolinks->View Links)
+					
+						- Result: (displayed in Admin->Autolinks->View Links)
+
+			- Click "Modify Autolink" to save changes.
+
+			- Delete: To delete an Autolink, click on the "Delete" link for that Autolink. A panel will be displayed asking you to confirm your request to delete the Autolink. If you wish to delete the Autolink, click "Confirm"; otherwise click "Cancel deletion of Autolink" and the link will not be removed.
+
+	- Add Link: To add a new Autolink, click this link. On the next panel, the following options are displayed.
+		- Autolink Type: From this drop-down list, select the Autolink Type from the previously-defined Autolink Types.
+
+		- Name: Enter the title of the site in the Name field (for example, "The Beatles Site"). This is the name that will be displayed as a mouse-over and in the listing of all Autolinks.
+
+		- Matching key: Enter the keyword in the Matching key field. This is the text that will be matched in an article (for example, "beatles").
+
+		NOTE: Capitalization is not important in the Key (link) Word field.
+
+		- URL: Enter the complete URL for the site in the URL field (for example, "http://www.beatles.com"). Enter "http://" at the beginning of the link if the site is external to your site; otherwise it will not function as expected.
+
+		If the URL is located on your web site, enter the path to the file or the complete URL. For example, if the file is on your site, enter "music.html" and Autolinks will automatically prepend the "http://www.yoursite.com", resulting in an Autolink of "http://www.yoursite.com/music.html". To be more specific, you could also enter "http://www.yoursite.com/music.html" instead of just "music.html".
+
+		- Comments: Use the Comments field to enter optional free-form alphanumeric comments about the link. Comments are visible only to the Site Administrator.
+
+		- Click "Create" to save changes.
+
+	- View Types: To view, modify, or delete existing Autolink Types, click this link. On the next panel, the following options are displayed.
+		- Name: The name of the Autolink Type as it is displayed in the Admin->Autolinks panel.
+
+		- Template: Enter the name of the template file for this Autolink Type (link-{name}.xd). If you enter "underlined" in this field, Xaraya looks for a file called "link-underlined.xd". The file must exist with appropriate permissions and ownership in one of two locations on the site:
+			- <xarroot>/modules/autolinks/xartemplates/ for a site-wide template
+			or
+			- <xarroot>/<themes_dir>/<theme_name>/modules/autolinks/ for a theme-specific template
+
+		- Method: Either "Static" or "Dynamic", based upon the Execute Template Dynamically setting.
+
+		- Description: Description of the Autolink Type. This is displayed within Admin->Autolinks.
+
+		- Options: To edit or delete an existing Autolink Type, click the appropriate link next to the Autolink Type to edit or delete. If you choose to delete an Autolink, you are asked to confirm your choice on the next panel.
+
+	- Add Type: To add a new Autolink Type, click this link. This panel is also displayed when Modifying an Autolink Type. On the next panel, the following options are displayed.
+		- Name: Type the name of the Autolink Type in this field.
+
+		- Template name: Enter the name of the template file for this Autolink Type (link-{name}.xd). If you enter "underlined" in this field, Xaraya looks for a file called "link-underlined.xd". The file must exist with appropriate permissions and ownership in one of two locations on the site:
+			- <xarroot>/modules/autolinks/xartemplates/ for a site-wide template
+			or
+			- <xarroot>/<themes_dir>/<theme_name>/modules/autolinks/ for a theme-specific template
+
+		- Execute Template Dynamically: For default Autolinks operation (non-regular expression), leave this box UNCHECKED. To execute the template dynamically, CHECK this box.
+
+		- Description: Description of the Autolink Type. This is displayed within Admin->Autolinks.
+
+		- Click "Create" to save changes.
+
+	- Modify config: This section allows configuration of how Autolinks appear on your site.
+	Matching Rule Options
+	---------------------
 		- Punctuation characters: Punctuation characters are not permitted in URLs. This list specifies the characters that are NOT permitted. Default: ".!?&quot;';:"
 
 		- Match non-breaking space entity as white space: "&nbsp;" is an entity that represents ' ', while ' ' is just a space. To match "$nbsp;" to a space, CHECK this box. It is generally recommended that this option be CHECKED unless you have a specific reason to uncheck it.
 
-	Action
-	------
+	Action Options
+	--------------
 		- Limit on number of times each link is used in a piece of text: Enter the number of times in a particular article that matching text will be converted to an Autolink. For example, if you would like a matching piece of text to be converted to an Autolink twice in a single article and subsequent matches would not be converted, enter "2" in this field. To convert ALL matching text within a particular article to Autolinks, leave this field blank.
 
-		- Autolink decoration (style will override class):
+		- Autolink decoration (style will override class): From the drop-down list, select the type of decoration displayed for autolinks.
 			- Default: The default decoration style as defined in the site's theme will be used.
 
 			- None: The autolink is displayed without any decoration.
@@ -1701,11 +1781,17 @@ Admin->Autolinks->Modify config: This section allows configuration of how Autoli
 
 		- Open links in new window: CHECK this box if you would like Autolinks to open in a new window. UNCHECK it to open Autolinks in the current browser window.
 
-	Admin
-	-----
-		- Items per page: How many Autolinks would you like to display per page? Enter that value into this field, for example, "25".
+		- Show template errors inline (errors shown in content):
+		
+		- Template base name (affects all templates used):
 
-Click "Submit" to save changes.
+	Admin Options
+	-------------
+		- Items per page: How many Autolinks would you like to display per page? Enter that value into this field, for example, "25".
+		
+		- Show sample links in list:
+
+Click "Create Autolink" to add the Autolink to the database.
 
 EXAMPLE: Adding AutoLinks to a Publication Type
 -----------------------------------------------
@@ -1880,10 +1966,10 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 				- Template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
 					- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 					
-					- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
-						- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
+					- Theme-dependant: Theme-dependant file must exist in: <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>.
+						- Theme dependant templates override module templates in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>
 
-						- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
+						- Theme dependant templates override module blocks in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>/blocks
 
 				- Default state: From this drop-down list, modify the default state for the block instance.
 
@@ -1923,10 +2009,10 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 			- Template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
 				- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 				
-				- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
-					- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
+				- Theme-dependant: Theme-dependant file must exist in: <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>.
+					- Theme dependant templates override module templates in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>
 
-					- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
+					- Theme dependant templates override module blocks in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>/blocks
 
 			- Default state: The default state for the block instance.
 
@@ -2129,10 +2215,10 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 		- Template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
 			- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 				
-			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
-				- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
+			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>.
+				- Theme dependant templates override module templates in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>
 
-				- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
+				- Theme dependant templates override module blocks in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>/blocks
 
 		- Default state: From this drop-down list, select the default state for the new block instance.
 
@@ -2144,10 +2230,10 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 		- Default template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
 			- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 				
-			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
-				- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
+			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>.
+				- Theme dependant templates override module templates in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>
 
-				- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
+				- Theme dependant templates override module blocks in <xarroot>/<themes_dir>/<theme_name>/modules/<module_name>/blocks
 
 		- Click "Create Group" to save changes.
 
@@ -3435,6 +3521,8 @@ To allow users to upload images to the site and include the uploaded images in a
 
 		- Forum description: Enter text describing this forum.
 
+		- Categories: If you've got Categories configured for XarBB (see Admin->Xarbb->Modify config, Categories), selector boxes are displayed from which you can select the Categories with which the new forum is associated.
+
 		- Click "Create Forum" to save changes.
 
 	- View:
@@ -4032,7 +4120,7 @@ This advanced example shows how to create a new Publication Type (Recipes) using
 
 		user-view-recipes.xd (optional)
 	
-	If you wish to create theme-specific versions of these files, rename the files from *.xd to *.xt and place the theme-specific version in the <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
+	If you wish to create theme-specific versions of these files, rename the files from *.xd to *.xt and place the theme-specific version in the <xarroot>/<themes_dir>/<theme_name>/modules/articles directory, creating directories as necessary.
 	
 	It is recommended that you begin by examining the example files included with this tutorial, or open one of the sample templates provided with Xaraya and make changes as necessary using your favorite HTML editor. Where ever you want to display the fields in the new Publication Type, enter "#$fieldname#" (no quotes) in the template. Xaraya will replace "#$fieldname#" with the contents of the field as stored in the database. In this tutorial, we created the following fields, which are available for display in the template using the #$fieldname# indicated in parenthesis:
 		- title (#$title#)
@@ -4841,13 +4929,13 @@ I gave http://www.computerpoint.tv a make-over in less than a couple of hours, a
 # cd <xarroot>/themes
 # cp -R Xaraya_Classic MacyGray
 
-2. Reserve an ID on Xaraya.com and note the ID you've chosen. Edit the <xarroot>/themes/MacyGray/xartheme.php file and enter your Theme ID there. While in that file, change all other information that needs to change like the theme name, directory etc. In vi I do:
+2. Reserve an ID on Xaraya.com and note the ID you've chosen. Edit the <xarroot>/<themes_dir>/MacyGray/xartheme.php file and enter your Theme ID there. While in that file, change all other information that needs to change like the theme name, directory etc. In vi I do:
 
 :g/Xaraya_Classic/s//MacyGray/g
 
 that will replace all occurances of 'Xaraya_Classic' with 'MacyGray'
 
-To do the same for all other files in <xarroot>/themes/MacyGray, do a grep to see where 'Xaraya_Classic' occurs then change that as I've done above in vi or whatever editor you use:
+To do the same for all other files in <xarroot>/<themes_dir>/MacyGray, do a grep to see where 'Xaraya_Classic' occurs then change that as I've done above in vi or whatever editor you use:
 
 # cd themes/MacyGray
 # grep -R Xaraya_Classic *
@@ -4856,13 +4944,13 @@ This will spew all occurances of Xaraya_Classic in all the files in the director
 
 3. Now that you have the basic framework for MacyGray, it is time to get creative!
 
-Use your HTML editor to load <xarroot>/themes/MacyGray/default.xt.
+Use your HTML editor to load <xarroot>/<themes_dir>/MacyGray/default.xt.
 
-Load up <xarroot>/themes/MacyGray/style.css file to ensure that you're working on the complete theme and to avoid surprises! There is a LOT of information and control in the style.css file and you can change just about anything in the theme by changing values in the style.css file. It is also here that you would change the page background color, fonts to use, font attributes, etc. Again your HTML editor should give you a way to change things in the stylesheet in a graphical environment.
+Load up <xarroot>/<themes_dir>/MacyGray/style.css file to ensure that you're working on the complete theme and to avoid surprises! There is a LOT of information and control in the style.css file and you can change just about anything in the theme by changing values in the style.css file. It is also here that you would change the page background color, fonts to use, font attributes, etc. Again your HTML editor should give you a way to change things in the stylesheet in a graphical environment.
 
 Place graphics and other elements. Basically, create your theme here then save the files.
 
-4. Check that your HTML editor didn't screw up the graphic paths, make sure that your graphics are in "<xarroot>/themes/MacyGray/images/" directory, rather than "file:///".
+4. Check that your HTML editor didn't screw up the graphic paths, make sure that your graphics are in "<xarroot>/<themes_dir>/MacyGray/images/" directory, rather than "file:///".
 
 5. Everything saved, make sure that the permissions on the files and directories are set appropriately.
 

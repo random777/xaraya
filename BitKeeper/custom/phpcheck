@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Run some sanity checks for php sourcefiles
+
+bk sfiles -g `bk root`/html | grep ".php" | xargs -n1 php -q -l -f

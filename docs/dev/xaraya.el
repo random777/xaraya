@@ -23,6 +23,7 @@
  * @link http://www.xaraya.com
  * 
  * @subpackage module name
+ * @link  link to where more info can be found
  * @author author name <author@email> (this tag means responsible person)
 */
 "
@@ -46,9 +47,9 @@
  *
  * @author  Author Name <author@email>
  * @deprec  <insert this if function is deprecated>
- * @access  public / private
- * @param   param1 Description of parameter 1
- * @param   param2 Description of parameter 2
+ * @access  public / private / protected
+ * @param   param1 type Description of parameter 1
+ * @param   param2 type Description of parameter 2
  * @return  type to return description
  * @throws  list of exception identifiers which can be thrown
  * @todo    list of things which must be done to comply to relevant RFC

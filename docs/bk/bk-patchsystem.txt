@@ -54,7 +54,7 @@ bk beer
 Some rules on
 when to submit a patch.
 - don't make huge patches, it makes it more difficult to analyze them for us,
-  group changes together. Remember the patch system is meant for pathes, not
+  group changes together. Remember the patch system is meant for patches, not
   for new developments.
 - Try to announce patches first before you submit them, give people a chance 
   to react, once a patch is in our system, it's in forever and puts a load
@@ -63,7 +63,8 @@ when to submit a patch.
   submitting your patch make sure that you have the latest changes in and that
   they don't create conflicts. If they do, solve them first. Repeat this process
   untill it is reasonable conflict free a number of times. Clean patches are far
-  more likely to be accepted than patches which create conflicts. 
+  more likely to be accepted than patches which create conflicts, in fact, patches
+  which create conflicts will not be accepted at all.
 
 When you have finished making the changes you think are necessary you can submit
 the patch. The patch submitting is integrated in our repository system.
@@ -238,7 +239,7 @@ a number of exceptions.
   rather)
 - analyzing on the server is a bit more difficult than locally. Once you have the 
   patch locally in your PENDING directory and have typed the bk takepatch 
-  command, a RESUNC directory is created which holds the changed files in a 
+  command, a RESYNC directory is created which holds the changed files in a 
   "mini-repository" If you go into the RESYNC directory and type  bk csets you 
   will have a graphical changeset analyzer at your disposal, which makes it 
   rather easy to analyze patches.
@@ -251,10 +252,11 @@ Things to remember:
 ===================
 - Obviously this system is highly integrated with bitkeeper, make sure you know how
   to use it's features well.
-- If you submit a second patch, your earlier changes will also be included in sending
-  that patch. This cannot be avoided at the moment. Although it's not harmfull, it 
+- If you submit a second patch before your first patch is integrated (either applied
+  or rejected) your earlier changes will also be included in sending
+  that patch. This cannot be avoided. Although it's not harmfull, it 
   will make analyzing patches a bit more difficult. If possible and reasonable, wait
-  for your patch to be applied rejected or registered after submitting another patch.
+  for your patch to be applied or rejected after submitting another patch.
   As it makes the process for us more difficult when we neglect patches for too long
   it will also help us paying attention to patches regularly.
 - it will help us communicate with you if you set the BK_USER and BK_HOST varables to

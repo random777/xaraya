@@ -28,9 +28,6 @@
 		<!-- Initiating team for this RFC -->
 		<workgroup>Documentation Team</workgroup>
 		
-		<!-- List keywords for the RFC here -->
-		<keyword>rfc</keyword>
-		<keyword>template</keyword>
 		
 		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
 		<abstract>
@@ -59,7 +56,7 @@
 					<list style="numbers">
 						<t><em>Markets and User Base Defined</em>
 							<t> 
-							Xaraya's target markets/user base are as follows:
+                Xaraya's target markets/user base are as follows:
 								<t></t>
 								<list style="numbers">
 									<t><em>Web Designers/Developers: </em>
@@ -191,47 +188,49 @@
 		<section title="Developer POV">
 			<section title="Core Architecture">
 			
-				<section anchor="General Issues" title="General Issues">	
-					<list style="numbers">
-					<t><em>Platform Awareness:</em>
-						<t></t>
-						To enable ease of installation and a variety of administrative 
-						utilities, Xaraya needs to auto-detect the following information
-						about the installation environment. <em>Note:</em> This need 
-						may already be addressed by calling PHPInfo in the installer.
-						<t></t>
-						<list style="numbers">
-							<t><em>Operating System: </em>Brand &amp; Version</t>
-							<t><em>Database Platform: </em>Brand &amp; Version</t> 
-							<t><em>Site Kit Dependencies: </em> Any packages which may 
-								be required for components of a specific site kit.</t>
-							<t><em>???: </em></t>
-						</list> 	
-						<t></t>					
-					</t>	
-					<t><xref target="Appendix B"><em>Component Subcategories:</em></xref>
-						<t></t>
-						In addition to the macro-level classification of Xaraya Components 
-						(Core, Plug-In &amp; Theme), Core &amp; Plug-In Components can
-						and should be further subcategorized to facilitate several
-						initiatives.  Refer to <xref target="Appendix B">Appendix B</xref>
-						for proposed Component Subcategories.  Initiatives enabled by 
-						Component Subcategories include:		 
-						<t></t>
-						<list style="numbers">
-							<t>xApproved Component Registration</t>	
-							<t>Auto-generated Component Information/Download/Install Directory</t>
-							<t>Automated Component Update</t>	
-							<t>Site Kit Development &amp; Distribution</t>	
-							<t>Default Component Permissions based on User Role</t>
-							<t>???</t>					
-						</list> 	
-						<t></t>	
-					</t>
-					</list>
+				<section anchor="General_Issues" title="General Issues">	
+          <t>
+            <list style="numbers">
+              <t><em>Platform Awareness:</em>
+                <t></t>
+                To enable ease of installation and a variety of administrative 
+                utilities, Xaraya needs to auto-detect the following information
+                about the installation environment. <em>Note:</em> This need 
+                may already be addressed by calling PHPInfo in the installer.
+                <t></t>
+                <list style="numbers">
+                  <t><em>Operating System: </em>Brand &amp; Version</t>
+                  <t><em>Database Platform: </em>Brand &amp; Version</t> 
+                  <t><em>Site Kit Dependencies: </em> Any packages which may 
+                    be required for components of a specific site kit.</t>
+                  <t><em>???: </em></t>
+                </list> 	
+                <t></t>					
+              </t>	
+              <t><em>Component Subcategories:</em>
+                <t></t>
+                In addition to the macro-level classification of Xaraya Components 
+                (Core, Plug-In &amp; Theme), Core &amp; Plug-In Components can
+                and should be further subcategorized to facilitate several
+                initiatives.  Refer to <xref target="Appendix_B">Appendix B</xref>
+                for proposed Component Subcategories.  Initiatives enabled by 
+                Component Subcategories include:		 
+                <t></t>
+                <list style="numbers">
+                  <t>xApproved Component Registration</t>	
+                  <t>Auto-generated Component Information/Download/Install Directory</t>
+                  <t>Automated Component Update</t>	
+                  <t>Site Kit Development &amp; Distribution</t>	
+                  <t>Default Component Permissions based on User Role</t>
+                  <t>???</t>					
+                </list> 	
+                <t></t>	
+              </t>
+            </list>
+          </t>
 				</section>	  
 				
-				<section anchor="Directory Structure" title="Directory Structure">
+				<section anchor="Directory_Structure" title="Directory Structure">
 					<t>					
 					To enable quick, selective back ups, the application should be
 					organized within a simple, yet specific directory structure. As
@@ -304,99 +303,98 @@
 		
 				<section anchor="ui_overall" title="BlockLayout and Overall UI Issues">	
 					<t>
-					</t>
-					<list style="numbers">
-						<t>
-							<em>Typeface: </em>
-							Theme templates should consistently apply typeface across the 
-							application.  Basically, all fonts should be controlled by the
-							theme CSS. This may already have been addressed in the BL
-							implementation.  If so, we still need to keep an eye out for
-							legacy font controls from PN which had very inconsistent font
-							controls.
-						</t> 
-						<t>
-							<em>Link Style: </em>
-							If links are not underlined in theme CSS definition, rollover 
-							must include underline.
-						</t>
-						<t>
-							<em>Supported Browsers: </em>	
-							The following list covers all browsers in which Xaraya has been
-							developed and tested.  This does not mean Xaraya will not function
-							in older browsers, only that it has been designed to leverage
-							technologies available in more current offerings.  Browsers not
-							on this list are not officially support by Xaraya.	  
-							<t></t>
-							<list style="numbers">
-								 <t>Internet Explorer 5.5+</t>
-								 <t>Mozilla 0.9.8+</t>
-								 <t>Netscape 6.2+</t>	
-								 <t>Opera 6.5+</t>									 
-							</list>	
-							<t></t>  
-						</t>
-						<t>
-							<em>Proprietary CSS Attributes: </em>
-							Xaraya does not endorse proprietary CSS attributes such as 
-							<em>scrollbar-*s</em> in Internet Explorer, or <em>-moz-*</em> 
-							in Mozilla.
-						</t>	
-						<t>
-							<em>General Enhancements to "How To" Language: </em>
-							There are some changes that should be made to the English 
-							language file that will make X more clearly understandable. 
-							<em>See Drew.</em>
-						</t>  
-						<t>
-							<em>Use Non-technical Language: </em>
-							Remove all techno-speak from site.  Example: Don't refer 
-							to things as "date/timestamp" -- say "date field", "time field", etc. 
-						</t>	
-						<t>
-							<em>Input Field Width: </em>
-							Width of text input fields should be configurable by the 
-							Administrator in Site Settings.
-						</t>
-						<t>
-							<em>Breadcrumb Support: </em>
-							Not sure if bread crumb support is planned as a BL Widget.  If not, it should
-							be.
-						</t>		
-						<t>
-							<em>Page Weight: </em>
-							Page weight on an un-modified configuration should be 
-							~50K. Exceptions include articles, reviews, etc.</t>								
-						<t>
-							<em>Consistent Element Labels: </em>
-							Consistent use and guidelines for naming of all UI elements,
-							including, but not limited to buttons (SEARCH, GO, BACK, etc)
-							and Field Names (ex. Username, Password, Address, etc.)
-							Final approved list to be determined.
-						</t>						
-						<t>
-							<em>Delete Confirmations: </em>
-							Confirm <em>ALL</em> deletions from the site database.
-						</t>							
-						<t>
-							<em>HTML Language: </em>
-							All text in lang/xxx.php should be parsed as HTML, and 
-							displayed in HTML if codes are present. There are a few 
-							locations in which this is not the case. <em>See Drew</em>
-						</t>
-             			<t>
-							<em>Printer Friendliness: </em>
-							All pages should offer a link to a printer friendly version.
-						</t>
-						<t>
-							<em>Consistent Content Add/Delete Process: </em>
-							With the exception of content-specific fields, the UI
-							tools used to add content should have conistent look-and-feel,
-							instructions and other UI elements and processes. In short,
-							adding WebLinks should function the same as adding Reviews.
-						</t>							
-					</list>
-					<t></t>			
+            <list style="numbers">
+              <t>
+                <em>Typeface: </em>
+                Theme templates should consistently apply typeface across the 
+                application.  Basically, all fonts should be controlled by the
+                theme CSS. This may already have been addressed in the BL
+                implementation.  If so, we still need to keep an eye out for
+                legacy font controls from PN which had very inconsistent font
+                controls.
+              </t> 
+              <t>
+                <em>Link Style: </em>
+                If links are not underlined in theme CSS definition, rollover 
+                must include underline.
+              </t>
+              <t>
+                <em>Supported Browsers: </em>	
+                The following list covers all browsers in which Xaraya has been
+                developed and tested.  This does not mean Xaraya will not function
+                in older browsers, only that it has been designed to leverage
+                technologies available in more current offerings.  Browsers not
+                on this list are not officially support by Xaraya.	  
+                <t></t>
+                <list style="numbers">
+                  <t>Internet Explorer 5.5+</t>
+                  <t>Mozilla 0.9.8+</t>
+                  <t>Netscape 6.2+</t>	
+                  <t>Opera 6.5+</t>									 
+                </list>	
+                <t></t>  
+              </t>
+              <t>
+                <em>Proprietary CSS Attributes: </em>
+                Xaraya does not endorse proprietary CSS attributes such as 
+                <em>scrollbar-*s</em> in Internet Explorer, or <em>-moz-*</em> 
+                in Mozilla.
+              </t>	
+              <t>
+                <em>General Enhancements to "How To" Language: </em>
+                There are some changes that should be made to the English 
+                language file that will make X more clearly understandable. 
+                <em>See Drew.</em>
+              </t>  
+              <t>
+                <em>Use Non-technical Language: </em>
+                Remove all techno-speak from site.  Example: Don't refer 
+                to things as "date/timestamp" -- say "date field", "time field", etc. 
+              </t>	
+              <t>
+                <em>Input Field Width: </em>
+                Width of text input fields should be configurable by the 
+                Administrator in Site Settings.
+              </t>
+              <t>
+                <em>Breadcrumb Support: </em>
+                Not sure if bread crumb support is planned as a BL Widget.  If not, it should
+                be.
+              </t>		
+              <t>
+                <em>Page Weight: </em>
+                Page weight on an un-modified configuration should be 
+                ~50K. Exceptions include articles, reviews, etc.</t>								
+              <t>
+                <em>Consistent Element Labels: </em>
+                Consistent use and guidelines for naming of all UI elements,
+                including, but not limited to buttons (SEARCH, GO, BACK, etc)
+                and Field Names (ex. Username, Password, Address, etc.)
+                Final approved list to be determined.
+              </t>						
+              <t>
+                <em>Delete Confirmations: </em>
+                Confirm <em>ALL</em> deletions from the site database.
+              </t>							
+              <t>
+                <em>HTML Language: </em>
+                All text in lang/xxx.php should be parsed as HTML, and 
+                displayed in HTML if codes are present. There are a few 
+                locations in which this is not the case. <em>See Drew</em>
+              </t>
+              <t>
+                <em>Printer Friendliness: </em>
+                All pages should offer a link to a printer friendly version.
+              </t>
+              <t>
+                <em>Consistent Content Add/Delete Process: </em>
+                With the exception of content-specific fields, the UI
+                tools used to add content should have conistent look-and-feel,
+                instructions and other UI elements and processes. In short,
+                adding WebLinks should function the same as adding Reviews.
+              </t>							
+            </list>
+          </t>			
 				</section>
 		</section>
   
@@ -450,35 +448,36 @@
 				</t>
 				
 				<section title="BASE INSTALLATION">					
-					<list style="numbers">
-						<t><em>Pre-Install Questions/Checks</em>
-			            <t></t>
-			              <list style="numbers"> 
-			                <t><em>Pre-Install Checklist</em></t>
-			                <t>Language</t>							  
-			                <t>Accept GPL?</t>
-			                <t><xref target="Appendix A"><em>Permit Installation Logging?</em></xref></t>	
-			                <t>Systems Setting Check</t>							  
-			                <t>Database Settings</t>
-			                <t><xref target="Appendix C"><em>Site Kit Selection</em></xref></t>				
-			              </list>
+          <t>
+            <list style="numbers">
+              <t><em>Pre-Install Questions/Checks</em>
+                <t></t>
+                <list style="numbers"> 
+                  <t><em>Pre-Install Checklist</em></t>
+                  <t>Language</t>							  
+                  <t>Accept GPL?</t>
+                  <t><xref target="Appendix_A">Permit Installation Logging?</xref></t>	
+                  <t>Systems Setting Check</t>							  
+                  <t>Database Settings</t>
+                  <t><xref target="Appendix_C">Site Kit Selection</xref></t>				
+                </list>
 							  <t></t>		
-						</t>
-					
-						<t><em>Base Configuration</em>
-							<t></t>
+              </t>
+              
+              <t><em>Base Configuration</em>
+                <t></t>
 								<list style="numbers"> 								  
 									<t>
 										<em>Pre-Install Checklist: </em> Collect any non-automated 
-									  	configurations processes into one printable <em>DO-THIS-FIRST</em>
-									  	file, and tell the user what they have to do (chmod, 
-									  	etc). Strongly recommend they print it out before proceeding
+                    configurations processes into one printable <em>DO-THIS-FIRST</em>
+                    file, and tell the user what they have to do (chmod, 
+                    etc). Strongly recommend they print it out before proceeding
 									</t>
 									<t>
 										<em>phpMyAdmin: </em> In either basic or xModular form, 
 										phpMyAdmin should be distributed and installed with Xaraya 
 										Core. It is a very mature and useful tool for Administrators. 
-									  	As such, we should embrace it.  As phpMyAdmin is a MySQL-specific
+                    As such, we should embrace it.  As phpMyAdmin is a MySQL-specific
 										tool, it would need adapted (presumably via ADODB) to work
 										with other Xaraya-supported databases (PostGRESQL, Oracle).
 										If this is not possible, the feature would only be made
@@ -534,7 +533,7 @@
 							<t></t>
 							<t>
 								Site Kits are explained in far greater detail in 
-								<xref target="Appendix C">Appendix C</xref>.  The following
+								<xref target="Appendix_C">Appendix C</xref>.  The following
 								are high-level reccommended behaviors of Site Kits.
 								<t></t>		
 								<list style="numbers"> 
@@ -549,7 +548,8 @@
 								</list>              
 							</t>
 						</t>
-					</list>
+            </list>
+          </t>
 				</section>	
 				
 				<section title="Upgrades and Additions">
@@ -674,14 +674,14 @@
 				</section>						
 			</section>
       				
-			<section title="Administrative Utilities Toolset">
+			<section anchor="backup" title="Administrative Utilities Toolset">
 				<t> 
 				To truly administer a Xaraya site well, the Administrator needs a strong toolset.  Some
 				of the tools are be discussed elsewhere in this document. The following is a current best
 				guess at the desired Administrative Utilities Toolset.
 				
 				<list style="numbers">
-					<t><em anchor="backup">Backup Utilities: </em>
+					<t><em>Backup Utilities: </em>
 						Using platform awareness and available tools, the Administrator need the ability
 						to quickly and efficiently back up his site prior to upgrading.  These tools
 						include Database Backup (phpMyAdmin or similar tool) and File Back Up for the 
@@ -1026,7 +1026,7 @@
 </middle>
 
 <back>
-	<section anchor="Appendix A" title="Installation Reporting and Automated Update Tools">
+	<section anchor="Appendix_A" title="Installation Reporting and Automated Update Tools">
 	<t>
          It has been suggested that, upon completion of a Xaraya install, the 
          application either automatically ping Xaraya's server and collect information 
@@ -1078,7 +1078,7 @@
        </t>
 	</section>		
      
-	<section anchor="Appendix B" title="Proposed Component Subcategories">
+	<section anchor="Appendix_B" title="Proposed Component Subcategories">
        <t>
          <list style="numbers">
            <t>
@@ -1152,7 +1152,7 @@
        </t>
 	</section>			
 		
-	<section anchor="Appendix C" title="Site Kits">
+	<section anchor="Appendix_C" title="Site Kits">
 	<t>
          As the name implies, <em>Site Kits</em> are a series of pre-configured 
          Xaraya tarballs	(Core + Modules).  As frame of reference, think of the
@@ -1246,7 +1246,7 @@
        </t>
 	</section>		
      
-	<section anchor="Appendix D" title="References and Resources">
+	<section anchor="Appendix_D" title="References and Resources">
        <t>
          <list style="numbers">
            <t><eref target="http://developer.apple.com/techpubs/macosx/Essentials/AquaHIGuidelines/index.html">AQUA: Apple's Human Interface Guidelines</eref></t>
@@ -1260,7 +1260,7 @@
        </t>
 	</section>
 	
-	<section anchor="Appendix E" title="Package Installations (RPM/MSI Format)">
+	<section anchor="Appendix_E" title="Package Installations (RPM/MSI Format)">
 		<t>
 			These ideas require a more mature, stable Xaraya release to begin feasibility
 			review.  They are captured here because ultimately, they serve both the project 
@@ -1278,13 +1278,13 @@
 		</t>
 	</section>
     
-	<section anchor="Appendix F" title="Resolved Issues">
+	<section anchor="Appendix_F" title="Resolved Issues">
 		<t>
 			This space reserved for future use.
 		</t>
 	</section>
 		
-    <section anchor="Appendix G" title="Additional Credits">
+    <section anchor="Appendix_G" title="Additional Credits">
       <t>Many thanks to the following folks who helped research or otherwise prepare these materials.
         <list style="symbols">
           <t>Chris Dudley (Miko)</t>	          

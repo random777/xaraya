@@ -792,7 +792,7 @@
     <section title="Architecture">
       <t>
         The security system is implemented through the following objects:</t>
-      <section title="Roles">
+      <section title="xarRoles">
         <t>
           A central repository of user and group definitions. Each
           user, group, group of groups etc. is a role with an entry in
@@ -851,7 +851,7 @@
         </t>
       </section>
 
-      <section title="Role">
+      <section title="xarRole">
         <t>
           An object representing a single group or user.
           
@@ -920,13 +920,13 @@
             <em>getPrivileges</em>: get an array of all the privilege objects defined.
           </t>
           <t>              
-            <em>gets</em> and <em>sets</em>: of all the relevant data items in the role object.
+            <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarRole object.
           </t>         
           </list>
         </t>
       </section>
 
-      <section title="Masks">
+      <section title="xarMasks">
         <t>
           A central repository of privilege masks (policies?). The
           masks are normally defined and registered as entries upon
@@ -934,70 +934,179 @@
           that assigned names for components need to be unique within
           a module.
           
-          <artwork>
-            Methods:    
-            listall            gets a list of all the mask entries
-            getEntry           get a mask based on its id or its name
-          </artwork>
+          <t>
+          Methods:
+          </t>
+          <list style="symbols">
+          <t>              
+            <em>constructor</em>
+          </t>
+          <t>              
+            <em>getmasks</em>: returns an array of mask objects for a given module and component.
+          </t>
+          <t>              
+            <em>register</em>: create an entry in the masks repository.
+          </t>
+          <t>              
+            <em>unregister</em>: remove an entry from the masks repository. (this method is deprecated)
+          </t>
+          <t>              
+            <em>removemasks</em>: removes all the masks of a given module from the masks repository.
+          </t>
+          <t>              
+            <em>winnow</em>: merges 2 arrays of mask objects (same level behavior).
+          </t>
+          <t>              
+            <em>trump</em>: merges 2 arrays of mask objects (inheritance behavior).
+          </t>
+          <t>              
+            <em>xarSecurityCheck</em>: checks a privilege against a mask.
+          </t>
+          <t>              
+            <em>getmask</em>: returns a single mask object based on its name.
+          </t>
+          </list>
         </t>
       </section>
 
-      <section title="Privileges">
+      <section title="xarPrivileges">
         <t>
           A central repository for privileges defined at any given
-          time. No duplicate privileges are allowed.
+          time. No duplicate privileges are allowed. This object extends the xarMasks object.
           
-          <artwork>
-            Methods:    
-            getprivileges     returns an array representing all the privileges in the system.
+          <t>
+          Methods:
+          </t>
+          <list style="symbols">
+          <t>              
+            <em>defineInstance</em>: creates an instance definition in the instance repository.
+          </t>
+          <t>              
+            <em>removeInstances</em>: removes all the instance definitions of a given module from the instance repository.
+          </t>
+          <t>              
+            <em>register</em>: create an entry in the privileges repository.
+          </t>
+          <t>              
+            <em>assign</em>: assign a privilege to a role.
+          </t>
+          <t>              
+            <em>getprivileges</em>: returns an array representing all the privileges in the system.
+          </t>
+          <t>              
+            <em>gettoplevelprivileges</em>: returns an array representing all the privileges in the system that heads of a compound privilege (this function is deprecated)..
+          </t>
+          <t>              
+            <em>getrealms</em>: returns an array representing all the realms in the system.
+          </t>
+          <t>              
+            <em>getmodules</em>: returns an array representing all the modules in the system.
+          </t>
+          <t>              
+            <em>getcomponents</em>: returns an array representing all the components of a module.
+          </t>
+          <t>              
+            <em>getinstances</em>: returns an array representing all the instances of a module and component.
+          </t>
+          <t>              
+            <em>getsubprivileges</em>: returns all the child privileges of a given privilege  based on its ID.
+          </t>
+          <t>              
+            <em>getprivilegefast</em>: returns an array representing a single privilege  based on its ID.
             Note: should be private.
-            getprivilegefast  returns an array representing a single privilege  based on its ID.
-            Note: should be private.
-            getsubprivileges  returns all the child privileges of a given privilege  based on its ID.
-            getmodules         returns an array of all the registered modules.
-            Note: Move out? [MrB: use xarAPI function for this]
-            getrealms          returns an array of all the registered realms.
-            Note: Move out? [MrB: postpone]
-            makeTree           returns a tree representation of the privileges.
-            drawtree           returns a crude HTML drawing of a tree generated by maketree.
-            Note: needs to be moved out to the templates.
-          </artwork>
+          </t>
+          <t>              
+            <em>tree functions</em>: a number of help functions for displaying compound privileges.
+          </t>
+          <t>              
+            <em>getPrivilege</em>: retrieves a privilege object from the privileges repository based on its ID.
+          </t>
+          <t>              
+            <em>findPrivilege</em>: retrieves a privilege object from the privileges repository based on its name.
+          </t>
+          <t>              
+            <em>makemember</em>:  makes a privilege a component of another privilege.
+          </t>
+          <t>              
+            <em>makeentry</em>:  defines a top-level entry in the privileges repository.
+          </t>
+         </list>
         </t>
       </section>
 
       <section title="Mask">
         <t>
-          An object representing a single mask
-          <artwork>
-            Methods:            
-            constructor            
-            add            add this mask to the Masks repository
-            remove         remove this mask from the Masks repository
-            equals         check whether a role is the same as this role
-            implies        check whether an entry implies this entry
-            gets           all the interesting variables
-            sets           all the interesting variables except the ID
-            challenge      check the permisssions of a role
-          </artwork>
+          An object representing a single mask.
+          <t>
+          Methods:
+          </t>
+          <list style="symbols">
+          <t>              
+            <em>constructor</em>
+          </t>
+          <t>              
+            <em>implies</em>: compares two masks or privileges.
+          </t>
+          <t>              
+            <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarMask object.
+          </t>
+          </list>
         </t>
       </section>
 
-      <section title="Privilege">
+      <section title="xarPrivilege">
         <t>
-          An object representing a single privilege. This extends Mask
-          <artwork>
-            Methods:            
-            constructor
-            add             add this privilege to the Privileges repository.
-            remove          remove this privilege from the Privileges repository.
-            update          update this privilege in the Privileges repository.
-            addMember       add a child privilege to this privilege
-            removeMember    remove a child privilege from this privilege
-            getChildren     gets a list of the roles who are members of this role
-            getParents      gets a list of the roles who this role is a member of
-            getAncestors    recursive getParents
-            getDescendants  recursive getChildren
-          </artwork>
+          An object representing a single privilege. This object extends xarMask.
+          <t>
+          Methods:
+          </t>
+          <list style="symbols">
+          <t>              
+            <em>constructor</em>
+          </t>
+          <t>              
+            <em>add</em>: add this privilege to the Privileges repository.
+          </t>
+          <t>              
+            <em>makeEntry</em>: adds this privilege as a toplevel entry to the privileges repository.
+          </t>
+          <t>              
+            <em>addMember</em>: adds a component to this privilege.
+          </t>
+          <t>              
+            <em>removeMember</em>: removes a component of this privilege.
+          </t>
+          <t>              
+            <em>update</em>: updates this privilege in the privileges repository.
+          </t>
+          <t>              
+            <em>remove</em>: removes this privilege from the privileges repository.
+          </t>
+          <t>              
+            <em>getRoles</em>: returns an array of roles objects this privilege is assigned to.
+          </t>
+          <t>              
+            <em>removeRole</em>: removes an ssignation of this privilege to a role.
+          </t>
+          <t>              
+            <em>getParents</em>: returns an array of privilege objects this privilege is a component of.
+          </t>
+          <t>              
+            <em>getAncestors</em>: recursive getParents.
+          </t>
+          <t>              
+            <em>getChildren</em>: returns an array of privilege objects that are components of this privilege.
+          </t>
+          <t>              
+            <em>getDescendants</em>: recursive getChildren.
+          </t>
+          <t>              
+            <em>isEqual</em>: compares this privilege object to another.
+          </t>
+          <t>              
+            <em>isEmpty</em>: returns true if this privilege is an empty container.
+          </t>
+          </list>
         </t>
       </section>
 

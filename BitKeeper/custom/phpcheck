@@ -2,4 +2,9 @@
 
 # Run some sanity checks for php sourcefiles
 
-bk sfiles -g `bk root`/html | grep ".php" | xargs -n1 php -q -l -f
+STARTDIR=`bk root`/html
+
+for i in `bk sfiles -g $STARTDIR | grep ".php"`; do
+    bk get -qS $i
+    php -q -l -f $i
+done 

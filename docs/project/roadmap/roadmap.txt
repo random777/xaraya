@@ -3,7 +3,7 @@
 scn1.0;Release 1.0 scenarios;2002-10-01;        ;           ;0       ;0   ;john      ;
 blyout;Blocklayout          ;2002-10-01;49      ;           ;75      ;1   ;dracos    ;scn1.0
 comapi;Comments API         ;2002-11-01;14      ;blyout     ;30      ;1   ;rabbitt   ;scn1.0
-usrsys;User system          ;2002-10-21;14      ;blyout     ;30      ;1   ;jan       ;scn1.0
+usrsys;User system          ;2002-11-05;30      ;blyout     ;40      ;1   ;jan       ;scn1.0
 mlsyst;ML system            ;          ;30      ;blyout     ;70      ;1   ;marco     ;scn1.0
 hooks ;Hooks system	    ;	       ;	;	    ;	     ;1	  ;?	     ;scn1.0
 catego;Categories	    ;2002-10-16;21	;	    ;40	     ;1	  ;rabbitt   ;scn1.0

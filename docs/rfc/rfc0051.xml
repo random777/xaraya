@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- 
+    Supported processing instructions, uncomment the ones you want
+-->
+
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
+<!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
+<!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
+<!-- <?rfc sortrefs="yes"?> Sort the references -->
+<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
+<!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
+
+<!-- I guess we always want a table of contents -->
+<?rfc toc="yes"?>
+
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0051" category="std">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+  
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+  <title>Xaraya Package Distribution System</title>
+    <author initials="C.P." surname="Dudley" fullname="Chris Dudley">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>miko@xaraya.com</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2004"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+    
+    <!-- List keywords for the RFC here -->
+    <keyword>package</keyword>
+    <keyword>distribution</keyword>
+    <keyword>build</keyword>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC describes the mechanism used to distribute Xaraya and its modules and themes. There will be a concept of distribution packages, which will include the core and several other selected modules/themes. But individual modules/themes will also be available for download on their own. This document will describe the process used to make that system possible.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>Xaraya is made up of the following components:
+        <list style="symbols">
+          <t>Core</t>
+          <t>Modules</t>
+          <t>Themes</t>
+        </list>
+      </t>
+      <t>There are two ways of distributing those components:
+        <list style="symbols">
+          <t>Grouped together as a single download</t>
+          <t>as seperate individual downloads</t>
+        </list>
+      </t>
+      <t>Both ways are desirable for different reasons. This document will tackle each one in turn.
+      </t>
+    </section>
+    
+    <!-- One content section is mandatory -->
+    <section title="Distribution Packages">
+      <t>This is a selection of modules and or themes included with the core package as a single download and installable entity. It is to be expected that there would be one installation routine that would be specific to this package and would setup and configure everything included in the package. An example of this would be the community configuration. That would be a seperate download and would include all modules necessary for that scenario. The configuration file for the installer would also be present so the installation routine would handle everything thats necessary for this specific setup.</t>
+      <t>This would mean that each .conf.php file in html/modules/installer/xarconfigurations would correspond to a distribution package. They would all be in the core repository but those that dont apply to the package being built would not be included in the packaging process.</t>
+      <t>So community.conf.php would be included in the community distribution package, along with all modules and themes applicable to that package, but intranet.conf.php and ecommerce.conf.php would not.</t>
+      <t>The configuration file would be read and handled during installation in a similar fashion to the way it is handled today, however the default would be for it to just install what is specified. Only if the user selects "Custom" will they be able to choose which modules, roles etc get installed as specified by the configuration file. It should be possible to specify some choices as compulsory and others as optional. The user would then be able customise their install based on the optional choices - but only if they selected a "custom install". Since only one configuration file would be included in each package there is no need for the configuration selection screen during the install - one that had an option of "custom" or not would replace it.</t>
+      <t>A package would be produced through use of the build system in the core repository. "bk build &lt;packagename&gt;" would seem a sensible way to have it work. This would then pull in modules from the modules repository and themes from the themes repository as necessary.</t>
+      <t>The resultant .tar.gz and .zip files would be named after the configuration file and version of core xaraya used (e.g. community-0.9.7.tar.gz) and then be put up for download on xaraya.com and/or sourceforge.net. Ideally automatically at the end of the build script.</t>
+    </section>
+
+    <section title="Individual Modules/Themes">
+      <t>As well as distribution packages there is also a need to have individual modules and themes available for download seperately. So someone could install the core package and then install the specific modules and themes they require. This also enables someone to download an extra module and add it to any existing installation.</t>
+      <t>The build system would need adding to the modules repository so that one could run commands such as "bk build &lt;modname&gt;". This would then produce a .tar.gz and a .zip file for that specific module. These would be automatically copied to the appropriate download area - whether xaraya.com or sf.net. Ideally the file should be named with the appropriate version number extracted from xarversion.php.</t>
+      <t>For situations where module A requires module B, module dependancies would be used. These should also include versioning if possible, so module A requires version 2.1 or higher of module B. They would still both be individual downloads and would need downloading seperately.</t>
+      <t>The above holds true for themes as well as modules.</t>
+      <t>Language packs could be handled in a similar fashion. They do not currently have any form of versioning however, so maybe that might be something worth introducing.</t>
+    </section>
+    <section title="Download Structure">
+      <t>A possible downloads directory structure for xaraya.com could be:
+        <artwork>
+          html/downloads/packages/core-0.9.7.tar.gz
+                                  core-0.9.7.zip
+                                  community-0.9.7.tar.gz
+                                  community-0.9.7.zip
+                        modules/articles-1.2.tar.gz
+                                articles-1.2.zip
+                                xarbb-2.5.tar.gz
+                                xarbb-2.5.zip
+                        themes/fancy_theme-1.2.tar.gz
+                               fancy_theme-1.2.zip
+                        languages/en_GB.utf-8-1.1.tar.gz
+                                  en_GB.iso8859-1-1.1.zip
+        </artwork>
+      </t>	    
+      <t>Each directory could contain an index.php file which loaded a prettier looking directory index in a style that matched the look and feel of xaraya.com. It could also load in information about the module/item in question from the registered extensions entries in the database.</t>
+    </section>
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>0.1 - Initial Draft</t>
+    </section>
+    
+  </middle>
+  
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    
+    <!-- Any section after this will become an appendix -->
+  </back>
+</rfc>

@@ -8,5 +8,7 @@ OUTPUT=/var/www/ddf/common/documentation/rfcs
 
 make html
 
-cp -a *.html $OUTPUT
+mv *.html $OUTPUT
 cp -rf images/* $OUTPUT/images
+cp -a *.css $OUTPUT
+ln -sf $OUTPUT/rfcindex.html $OUTPUT/index.html

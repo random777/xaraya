@@ -167,8 +167,18 @@ This is the xaraya buildfile. It builds anything needed building:
   Helper targets
   -->
   <target name="clean" description="--> cleans up the buildtree">
-    <echo msg="Distclean cleaning up..." />
+    <echo msg="Cleaning up buildtree..." />
     <delete dir="${build.dir}" />
+  </target>
+
+  <target name="realclean" depends="clean" description="--> also cleans the produced archives">
+    <echo msg="Real clean..."/>
+    <delete>
+      <fileset dir="${build.basedir}">
+        <include name="*.tar.gz"/>
+      </fileset>
+    </delete>
+    <delete dir="${build.basedir}" />
   </target>
   
   <target name="rebuild" depends="clean" description="--> rebuilds Xaraya">

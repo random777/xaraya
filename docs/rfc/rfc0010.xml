@@ -1427,28 +1427,42 @@ html/
         </section>
         <!-- xar:while -->
         <section anchor="while" title="&lt;xar:while /&gt;">
-          <t>Open</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-              <t>condition: the condition to test at the start of each iteration of
-                the tag</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-            Contains template data evaluated while "condition" is true. The value
-            of condition is raw PHP code, executed in safe mode.
+            Contains template data evaluated while the expression
+            specified in the 'condition' attribute is true.
           </t>
-          <t>Syntax example:
+          <section title="Forms">
+            <t>Only block form is allowed</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>An identifier for the tag</t>
+              </t>
+              <t><em>condition</em>
+                <t>PHP expression evaluating to true or false. During the while
+                   loop this expression is evaluated each time at the start of the
+                   loop and while the value is true, the child tags are added to the
+                   output repeatedly. For comparison operators see the 
+                   <xref target="tagdescriptions">Note on logic tags</xref>
+                </t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
-              &lt;xar:while condition="list($uid, $uname) = each $user_result"&gt;
-              // stuff
+              &lt;xar:while condition="list($uid, $uname) = each($user_result)"&gt;
+                // stuff executing as long a the expression is true
               &lt;/xar:while&gt;
             </artwork>
-                    </t>
-          <t>Parent tag: none.</t>
-          <t>Child tags: none</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: 
+              <t><xref target="break">&lt;xar:break&gt;</xref> (optional)</t>
+              <t><xref target="break">&lt;xar:continue&gt;</xref> (optional).</t>
+            </t>
+          </section>
         </section>
       </section>
     </section>

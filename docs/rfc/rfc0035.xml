@@ -26,8 +26,10 @@
     <workgroup>Project Management Committee</workgroup>
 
     <!-- List keywords for the RFC here -->
-    <keyword>rfc</keyword>
-    <keyword>template</keyword>
+    <keyword>SQL</keyword>
+    <keyword>database</keyword>
+    <keyword>query</keyword>
+    <keyword>abstraction</keyword>
 
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
@@ -45,21 +47,74 @@
         Query Abastraction has been made necessary to give us the hability to generate
         efficient SQL queries which are portable across all our Database Pool. It will
         provide us a way to create queries without any preocupations about the
-        underlying database.
+        underlying storage system.
       </t>
+    </section>
+    <!-- One content section is mandatory -->
+    <section title="Pros">
+      <t>
+         "Allows for the creation of queries in a persistent storage neutral manner.
+         Expressed as objects, queries remain consistent across multiple persistent
+         storage solutions. Should the database change from RDB to an OODB " or even to
+         XML Based Query Languages (A lot of research is being done in the field[?,?,?]),
+         "no part of the application will need to be modified." Reference [?]
+      </t>
+    </section>
+    <!-- One content section is mandatory -->
+    <section title="Requirements List">
+      <t>
+         The following is list for sugestions about the implementaion of the Query Abstraction.
+         Please add your own.
+      </t>
+      <list style="numbers">
+        <t>Turn Xaraya completely database agnostic. [Main reason to be implementing this]</t>
+        <t>As we already have a DB Abstraction Library (ADODB), this should be an extension of it. [Gary]</t>
+        <t>Devs should be able to keep using their known SQL for simple queries, where portability is not
+           a problem. [LadyofDragons]</t>
+        <t>The query structure should be able to be passed around the program and receive input from
+           many different modules. [Nuncanada]</t>
+      </list>
+    </section>
+
+    <section title="Possible Implementations Reasearch">
+      <t>
+         There just a few query abstraction packages for PHP, 2 found in the PEAR archives. Both
+         have serious shortcomings to our needs (DB_DataObjects and DB_QueryTool).
+         Both were made without taking in account the necessity to handle multiple DBs.
+      </t>
+      <t>
+         Research done in other languages for inspiration has shown that most query abstractor out there
+         have too simplistic approaches, mainly:
+      </t>
+      <list style="numbers">
+        <t>Simplistic - They simply support the most basic features of the SELECT query, where the own SQL
+           language is already the basic abstraction.</t>
+        <t>Placeholders - They simply store 'common' queries with wildcards showing where the input values
+           should be added. Clearly this doesnt produce DB independent SQL. </t>
+        <t>Stored queries - They store the DB-specific query in files to be called, would be a similar system
+           to that of using our MLS system to translate SQL queries to a specific DB dialect.
+           This requires you to know how to implement the query in every DB, and although it is able to
+           support more complex queries than the simplitic approach, it still falls short from being
+           able to translate the hairy stuff</t>
+      </list>
     </section>
 
     <!-- One content section is mandatory -->
-    <section title="Wish List">
-      <t>The following is list for sugestions about the implementaion of the Query Abstraction</t>
-      <list style="numbers">
-        <t>As we already have a DB Abstraction Library (ADODB), this should be made as an add-on to it.</t>
-        <t>There should be two separate concepts, that of the query structure which preferebly would
-           be a class used only to hold the devs wishes, and drivers to take this annotated wish list
-           and transform it into a proper query.</t>
-        <t>Devs should be able to keep using their known SQL for simple queries, where portability is not
-           a problem</t>
-      </list>
+    <section title="Implementation Idea">
+      <t>The following is where the proposed implementation itself is shown</t>
+      <t>
+         There should be two separate concepts, that of the query structure which preferebly would
+         be a class used only to hold the devs wishes, and drivers to take this annotated wish list
+         and transform it into a proper query.
+      </t>
+      <t> The basic idea is a simple one, you will have a class (our query abstraction class) which
+          will *hold* (with pointers, creating a rigid structure of relations) what the developer
+          is trying to achieve.
+          Then when he thinks he already has everything he wants in the 'shopping list', this
+          structured list will be passed over to a specific DB driver which will translate the given
+          structure in the best possible query for the developer.
+       </t>
+          
     </section>
 
   </middle>
@@ -67,6 +122,60 @@
   <!-- Back matter is used for references and appendices which come after the references -->
   <back>
     <references title="Relevant References">
+
+      <reference target="http://www.ling.uni-potsdam.de/~moocow/projects/diplom/html-plain/node1.html">
+        <front>
+          <title>relational query feature structures</title>
+          <author fullname="Bryan Jurish">
+            <organization></organization>
+          </author>
+          <date year="2001"/>
+        </front>
+        <note>
+          <t>
+             He tried to do what we want in Perl. Still to achive that he only made possible simple queries,
+             where the Standard SQL is already the de facto needed abstraction.
+          </t>
+        </note>
+      </reference>
+
+
+      <reference target="http://arxiv.org/abs/cs.db/0110044">
+        <front>
+          <title>EquiX--A Search and Query Language for XML</title>
+          <author fullname="Sara Cohen"></author>
+          <author fullname="Yaron Kanza"></author>
+          <author fullname="Yakov Kogan"></author>
+          <author fullname="Werner Nutt"></author>
+          <author fullname="Alexander Serebrenik"></author>
+          <author fullname="Yehoshua Sagiv"></author>
+          <date year="2003"/>
+        </front>
+        <note>
+          <t>
+             Although the research is towards a proxy for the database system, our query abstraction
+             could be able to modularly inform supposed proxies our query pattern / structure
+             for better query prediction.
+          </t>
+        </note>
+      </reference>
+
+      <reference target="http://www.cs.duke.edu/~junyi/cps216/report.pdf">
+        <front>
+          <title>An Approach Towards Web Caching and Prefetching for Database Management Systems</title>
+          <author fullname="Dazhi Wang, Junyi Xie">
+            <organization>PHP Devs</organization>
+          </author>
+          <date year="2003"/>
+        </front>
+        <note>
+          <t>
+             Although the research is towards a proxy for the database system, our query abstraction
+             could be able to modularly inform supposed proxies our query pattern / structure
+             for better query prediction.
+          </t>
+        </note>
+      </reference>
 
       <reference target="http://marc.theaimsgroup.com/?l=php-dev&#38;m=101753543913458&#38;w=2">
         <front>
@@ -109,9 +218,9 @@
 
       <reference target="http://marc.theaimsgroup.com/?l=php-db&#38;m=100635358202596&#38;w=2">
         <front>
-          <title>Jonh Lim stating that a SQL parser should be the solution</title>
-          <author fullname="Jonh Lim">
-            <organization>ADODB Main Developer</organization>
+          <title>PHP dev stating that a SQL parser should be the solution</title>
+          <author fullname="Tomas V. V. Cox">
+            <organization>PHP Devs</organization>
           </author>
           <date year="2002"/>
         </front>
@@ -125,29 +234,15 @@
 
       <reference target="http://pear.php.net/package-info.php?pacid=80&#38;release=0.13&#38;PHPSESSID=18e4b1d53db182aceeeb2c1e0b92e399">
         <front>
-          <title>Package to be used as a Query Abstraction for PEAR</title>
-          <author fullname="Jonh Lim">
-            <organization>ADODB Main Developer</organization>
+          <title>PEAR Package Data Object (for query abstraction)</title>
+          <author fullname="">
+            <organization></organization>
           </author>
           <date year="2002"/>
         </front>
         <note>
           <t>
             The class is badly implemented in my opinion. Still there are things that can be reused.
-          </t>
-        </note>
-      </reference>
-
-      <reference target="http://phpclasses.thos.co.za/browse.html/package/20.html">
-        <front>
-          <title>Metabase DB Abstraction Library</title>
-          <author fullname="Manuel Lemos">
-            <organization>Metabase Dev</organization>
-          </author>
-          <date year="2002"/>
-        </front>
-        <note>
-          <t>
           </t>
         </note>
       </reference>

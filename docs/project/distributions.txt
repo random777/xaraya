@@ -34,16 +34,19 @@ example
 headlines
 hitcount
 html
-messages
+multisites
 polls
-quotes
 ratings
 recommend
 referer
+scheduler
 search
+sniffer
 stats
 translations
 wiki
+xarcachemanager
+xarldap
 xmlrpcserver
 xmlrpcsystemapi
 xmlrpcvalidatorapi
@@ -54,30 +57,46 @@ Goal: Distribution of all 'working' modules, to be decided by PMC.
 Contains core
 Contains classic plus:
 addressbook
+authinvision
+authphpbb2
+authsso
 bbclick
 bbcode
-bkview
-calendar
-cast
 censor
 changelog
-contact
 figlet
+images
+issueareapub
+keywords
+mime
+multisites
 mybookmarks
+newsgroups
 opentracker
+overlib
+paypalsetup
+phpldapadmin
+ping
 pubsub
 release
 smilies
+sitetools
+subitems
+trackback
 uploads
+windows
+workflow
 xarbb
+xarlinkme
+xlink
 xslt
-
 
 4. Language packs
 =================
-Language packs are distributed separately. All other distributions 
-are based on the english language with two locales: en_US.iso8859-1 
-and en_US.utf-8.
+Language packs are distributed separately. All other distributions
+now include six locales:
+de_DE.utf-8, en_US.iso8859-1, en_US.utf-8, nl_NL.utf_8, pt_BR.utf-8
+and ru_RU.utf-8.
 
 5. Theme packs
 ==============
@@ -98,9 +117,8 @@ soapserver - does nothing
 dynamic_planning
 facilities
 imagefeed
-images
 latestcomments
-multisites
+messages
 nameday
 nascar
 postboard
@@ -110,7 +128,5 @@ reports
 reviews
 tasks
 todolist
-trackback
 uniqueid
 xproject
-

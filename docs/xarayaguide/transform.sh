@@ -16,12 +16,12 @@ cp *.css $OUTPUT
 cp *.gif $OUTPUT
 cp *.png $OUTPUT
 cp *.jpg $OUTPUT
-tidy -m -i $OUTPUT/*.html
+tidy -asxhtml -q -m -i $OUTPUT/*.html
 
 # make the nochunks HTML output
 docbook2html -d ldp.dsl\#html --nochunks -o $OUTPUT make.xml
 mv $OUTPUT/make.html $OUTPUT/xarayaguide.html
-tidy -m -i $OUTPUT/xarayaguide.html
+tidy -asxhtml -q -m -i $OUTPUT/xarayaguide.html
 
 # make the PDF output
 docbook2pdf -d ldp.dsl\#print -o $OUTPUT make.xml

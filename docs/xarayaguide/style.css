@@ -770,3 +770,4 @@ div.iewintablefixer {
 
 /* * html div.iewintablefixer table {width:95%} */
 /*</group>*/
+div.NAVHEADER, div.NAVFOOTER { clear:both; width:100%; display:table; }

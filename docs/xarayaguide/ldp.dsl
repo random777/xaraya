@@ -153,7 +153,7 @@
 
 (define %generate-legalnotice-link%
   ;; put the legal notice in a separate file
-  #t)
+  #f)
 
 (define %admon-graphics-path%
   ;; use graphics in admonitions, set their

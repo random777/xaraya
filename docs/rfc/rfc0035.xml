@@ -128,12 +128,567 @@
        </t>
     </section>
 
-    <section title="Concept sketch of the proposed code">
-      <t>
-      
+
+    <section title="Concept of how the query abstraction would be used">
+      <t> How would it work:
+        <artwork>
+    This would work if there was data present in the xartables.php informing us what are the tables,
+    their fields, their foreign keys with the nature of the relationship (1-1, 1-Many, Many-Many,
+    what to do with missing values on one side and/or the other?)
+
+    $query =&#38; new sql_select;
+    $query-&#62;select('name','description','left','right');
+    $result =&#38; $query-&#62;run();
+
+    Assuming there is a 1-1 relationship between users and their groups, in two separated tables
+    and that this is properly set in the xartables.php
+    $query =&#38; new sql_select;
+    $query-&#62;select('username','groupname');
+    $result =&#38; $query-&#62;run();
+
+    {Now on omitting $query =&#38; new sql_select; }
+
+    You would be able to do any query including joins that easily unless there were conflicting field names
+    then you would have to set their respective tables:
+
+    Suppose there is an alias field in the user table and a alias in the groups table
+    This way the bulder won´t know which alias to choose
+
+    $query-&#62;select('username','groupname','alias');
+
+
+    Right now i am thinking about this:
+
+    $field =&#38; $query-&#62;create('field','alias');
+    $field-&#62;table('groups');
+    $query-&#62;select('username','groupname', $field);
+
+    But can be changed to other syntaxes:  (After writing, i think this one seems better)
+
+    $field =&#38; $query-&#62;field('alias', 'groups');
+    $query-&#62;select('username','groupname', $field);
+
+    Or:
+    $field =&#38; $query-&#62;field('alias');
+    $field-&#62;table('groups');
+    $query-&#62;select('username','groupname', $field);
+
+    Which one is the best? Please comment!!!!
+
+    Now the part where i havent found a better way of doing the syntax:
+    It is simple, but a lot of nested code...
+
+    $query-&#62;where($query-&#62;condition('userid','&#62;','1000'));
+
+    So, something like this:
+    "SELECT
+            COUNT(P2.".$categoriescolumn['cid'].") AS indent,
+            P1.".$categoriescolumn['cid'].",
+            P1.".$categoriescolumn['name'].",
+            P1.".$categoriescolumn['description'].",
+            P1.".$categoriescolumn['image'].",
+            P1.".$categoriescolumn['parent'].",
+            P1.".$categoriescolumn['left'].",
+            P1.".$categoriescolumn['right']."
+       FROM $categoriestable AS P1,
+            $categoriestable AS P2
+      WHERE P1.".$categoriescolumn['left']."
+            &#62;= P2.".$categoriescolumn['left']."
+        AND P1.".$categoriescolumn['left']."
+            &#60;= P2.".$categoriescolumn['right'];"
+
+    Would be something like:
+
+    $P1 = $query-&#62;table('categories','P1');
+    $P2 = $query-&#62;table('categories','P2');
+    $query-&#62;select(
+        $query-&#62;function('COUNT',$query-&#62;field('cid',$P2),'indent'),
+        $query-&#62;field('cid',$P1),
+        $query-&#62;field('name',$P1),
+        $query-&#62;field('description',$P1),
+        $query-&#62;field('image',$P1),
+        $query-&#62;field('parent',$P1),
+        $query-&#62;field('left',$P1),
+        $query-&#62;field('right',$P1));
+
+    $query-&#62;where(
+        $query-&#62;condition(
+            $query-&#62;condition($query-&#62;field('left',$P1),'&#62;=',$query-&#62;field('left',$P2)),
+            'AND',
+            $query-&#62;condition($query-&#62;field('right',$P1),'&#60;=',$query-&#62;field('right',$P2))));
+
+
+    Comment!
+
+        </artwork>
       </t>
     </section>
 
+    <section title="Concept sketch of the proposed code">
+      <t> Sketch of the proposed code:
+        <artwork>
+/* 5 basic SQL structure types: alias, table, field, function, condition
+ * Special structures: CASE, USER_VARIABLE???
+ */
+
+
+// 3 very simple equal (if werent for the hierarchy) classes...
+// Leaving like this for now, as it helps understand what is the idea.
+// get_class($object) == 'sql_alias'
+
+
+class sql_alias {
+    var $alias;
+    //Constructor
+    function sql_alias ($alias) {$this-&#62;alias = $alias;}
+    function get_alias () {return $this-&#62;alias;}
+}
+
+class sql_table extends sql_alias {
+    var $table;
+    //Constructor
+    function sql_table ($table, $alias = NULL) {
+        $this-&#62;table = $table;
+        if ($alias !== null) {
+            $this-&#62;sql_alias($alias);
+        }
+    }
+}
+
+class sql_field extends sql_table {
+    var $field;
+    //Constructor
+    function sql_field ($field, $table = NULL, $alias = NULL) {
+        $this-&#62;field = $field;
+        if ($table !== null) {
+            $this-&#62;sql_table($table);
+        }
+        if ($alias !== null) {
+            $this-&#62;sql_alias($alias);
+        }
+    }
+    function get_field () {return $this-&#62;field;}
+}
+
+class sql_function extends sql_alias{
+    //Functions: SUM, AVG, COUNT, MIN, MAX, LIKE, NOT, any other??
+    var $function;
+    //Points to a sql structure (field, function or condition)
+    var $pointer;
+    function sql_function ($function, $pointer, $alias = NULL) {
+        $this-&#62;function = $function;
+        $this-&#62;pointer = $pointer;
+        if ($alias !== null) {
+            $this-&#62;sql_alias($alias);
+        }
+
+    }
+    function get_function () {
+        return Array('function' =&#62; $this-&#62;function, 'pointer' =&#62; $this-&#62;pointer);
+    }
+}
+
+class sql_condition
+{
+    //Points to a sql structure (field, function or another condition))
+    var $pointer1, $pointer2;
+    //Connectives: +, -, /, *, =, &#62;, &#60;, &#60;=, &#62;=, any other??
+    var $connective;
+    function sql_condition ($pointer1, $connective, $pointer2) {
+        $this-&#62;pointer1 = $pointer1;
+        $this-&#62;pointer2 = $pointer2;
+        $this-&#62;connective = $connective;
+    }
+    function get_condition () {
+        return Array('pointer1' =&#62; $this-&#62;pointer1, 'pointer2' =&#62; $this-&#62;pointer2, 'connective'=&#62;$this-&#62;connective);
+    }
+}
+
+    // Should CASE (or DECODE or iff) be considered a function? No! It is a special case
+    // I think it maybe the case for having a special function (as i think ADODB will have
+    // such a function sooner or later)
+    //Use Example : SELECT a.ManagerName, SUM(CASE WHEN b.Approval='Y' THEN 1 ELSE 0 END) as Y,
+class sql_case
+{
+    var $case = Array ();
+    function add_case ($when, $then, $else) {
+        $case[] = Array ('when' =&#62; $when, 'then' =&#62; $then, 'else' =&#62; $else);
+    }
+}
+
+
+// sql_connective or sql_operator?
+// class sql_connective {}
+//  Dont think it is necessary... They are considered strings...
+
+/**
+ * Helper Class to mount a SQL Select Query
+ * It´s a little more than a struct, keeping the different 'areas' from
+ * the Select Query separated. So tables, fields and join statements can be
+ * easily exchanged between different parts of the code.
+ */
+class SQL_SELECT
+{
+    var $areas = Array ('select'  =&#62; Array(),
+                        'from'    =&#62; Array(),
+                        'join'    =&#62; Array(),
+                        'where'   =&#62; NULL,
+                        'groupby' =&#62; Array(),
+                        'having'  =&#62; NULL,
+                        'orderby' =&#62; Array(),
+                        'limit'   =&#62; Array('nrows'=&#62;null,'offset'=&#62;null),
+                        'options' =&#62; Array());
+
+    function checkNotTable (&#38;$input) {
+        // check('field') needs to be the first, as fields are the standard input
+        if (!$this-&#62;check('field',$input)     &#38;&#38;
+            !$this-&#62;check('function',$input)  &#38;&#38;
+            !$this-&#62;check('condition',$input) &#38;&#38;
+            !$this-&#62;check('case',$input)) {
+            return false; //Error
+        }
+        return true;
+    }
+
+    function &#38;condition ($pointer1, $connective, $pointer2) {
+        if ($this-&#62;checkNotTable($pointer1)) {
+            die ('Pointer1 is not a field, function or condition');
+            return; //Error
+        }
+
+        if ($this-&#62;checkNotTable($pointer2)) {
+            die ('Pointer2 is not a field, function or condition');
+            return; //Error
+        }
+
+        $obj =&#38; new sql_condition ($pointer1, $connective, $pointer2);
+
+        return $obj;
+    }
+
+    function &#38;function ($function, $pointer) {
+        if ($this-&#62;checkNotTable($pointer)) {
+            die ('Pointer is not a field, function or condition');
+            return; //Error
+        }
+
+        $obj =&#38; new sql_function ($function, $pointer);
+
+        return $obj;
+
+    }
+
+    function &#38;case ()
+        if ((func_num_args()%3)!=0) {die('Case can only be assigned in triples : WHEN THEN ELSE');}
+        $args = func_get_args();
+
+        $obj =&#38; new sql_case ();
+
+        for ($i=0;$i+=3;$i&#60;func_num_args()) {
+            $obj-&#62;add_case($args[$i], $args[$i+1], $args[$i+2]);
+        }
+
+        return $obj;
+    }
+
+    /**
+    * Adds to the SELECT structure
+    *
+    * @param string Where in the structure you want to add it? (select, from, join, where, groupby, having, orderby)
+    *               SELECT ... FROM ... JOIN ... WHERE ... GROUPBY ... HABING ... ORDERBY
+    *               This was made this way to make it easier to understand how to use it
+    * @params mixed The rest of the parameters depend on the chosen place of structure you´re adding to:
+    *               SELECT  -&#62; any number of fields
+    *               FROM    -&#62; any number of tables
+    *               JOIN    -&#62; $table, $on, $jointype
+    *               WHERE   -&#62; 1 condition
+    *               GROUPBY -&#62; any number of fields
+    *               HAVING  -&#62; 1 condition
+    *               ORDERBY -&#62; any number of fields
+    *
+    * @author Nuncanada
+    * @access public
+    */
+/*
+ *
+ * Can be done both ways :
+    As $query-&#62;add('select'....)
+    Or $query-&#62;select(...);
+    The 2nd seems more natural for us SQL zombies
+    function add () {
+        $args = func_get_args();
+        if (func_num_args()&#62;0) {
+
+            $case = strtolower(array_shift($args));
+
+            switch($case) {
+                case 'select':
+                    foreach ($args as $arg) {
+                        if ($this-&#62;checkNotTable($arg)) {
+                            return; //Error
+                        }
+                    }
+
+                    $this-&#62;areas[$case] = array_merge($this-&#62;areas[$case], $args);
+                    break;
+
+
+                case 'groupby':
+                case 'orderby':
+                    foreach ($args as $arg) {
+                        if (!$this-&#62;check('field',$arg)) {
+                            return; //Error
+                        }
+                    }
+
+                    $this-&#62;areas[$case] = array_merge($this-&#62;areas[$case], $args);
+                    break;
+
+                case 'from':
+                    foreach ($args as $arg) {
+                        if ($this-&#62;check ('table',$arg)) {return;};
+                    }
+
+                    $this-&#62;areas[$case] = array_merge($this-&#62;areas[$case], $args);
+                    break;
+
+                case 'join':
+                    if (count($args)!= 3) {die('Wrong parameter count. Where and Having can only have 1 condition parameter');}
+                    if (!$this-&#62;check ('table', $args[0])) {return;}
+                    if (!$this-&#62;check ('condition', $args[1]) {return;}
+
+                    $this-&#62;areas['join'][] = Array('table' =&#62; $args[0],
+                                                   'condition' =&#62; $args[1],
+                                                   'joinType' =&#62; $args[2]);
+
+                    break;
+
+                case 'where':
+                case 'having':
+                    if (count($args)!=1) {die('Wrong parameter count. Where and Having can only have 1 condition parameter');}
+                    if (!$this-&#62;check('condition', $args[0]) {return;} //Error
+
+                    $this-&#62;areas[$case] = $args[0];
+                    break;
+
+                default:
+                    die('Unknown Area in the query'); //Error
+                    break;
+            }
+        } else {
+            die('Nothing to add');
+        }
+    }
+  */
+    var $select = Array();
+    function select () {
+        $args = func_get_args();
+        foreach ($args as $arg) {
+            if ($this-&#62;checkNotTable($arg)) {
+                return; //Error
+            }
+        }
+        $this-&#62;select = array_merge($this-&#62;select, $args);
+    }
+
+    var $groupby;
+    function groupby () {
+        $args = func_get_args();
+        foreach ($args as $arg) {
+            if (!$this-&#62;check('field',$arg)) {
+                return; //Error
+            }
+        }
+        $this-&#62;groupby = array_merge($this-&#62;groupby, $args);
+    }
+
+    var $orderby = Array();
+    function orderby () {
+        $args = func_get_args();
+        foreach ($args as $arg) {
+            if (!$this-&#62;check('field',$arg)) {
+                return; //Error
+            }
+        }
+        $this-&#62;orderby = array_merge($this-&#62;orderby, $args);
+    }
+
+    var $from = Array();
+    function from () {
+        $args = func_get_args();
+        foreach ($args as $arg) {
+            if (!$this-&#62;check('table',$arg)) {
+                return; //Error
+            }
+        }
+        $this-&#62;from = array_merge($this-&#62;from, $args);
+    }
+
+    var $join = Array();
+    function join ($table, $condition, $joinType = '') {
+        if (!$this-&#62;check ('table', $table)) {return;}
+        if (!$this-&#62;check ('condition', $condition) {return;}
+        $this-&#62;join[] = Array('table' =&#62; $table, 'condition' =&#62; $condition, 'joinType' =&#62; $joinType);
+    }
+
+    var $where = NULL;
+    function where ($condition) {
+        if ($this-&#62;where != NULL) {
+            die('Where condition already set');
+        }
+        if (!$this-&#62;check('condition', $condition) {return;} //Error
+        $this-&#62;where = $condition
+    }
+
+    var $having = NULL;
+    function having ($condition) {
+        if ($this-&#62;having != NULL) {
+            die('Where condition already set');
+        }
+        if (!$this-&#62;check('condition', $condition) {return;} //Error
+        $this-&#62;having = $condition
+    }
+
+    /**
+    *   Adds one option to the SELECT syntax. ie DISTINCT
+    *
+    * @param string Select Option
+    * @author Nuncanada
+    * @access public
+    */
+    function addOption($option)
+    {
+        // Examples: DISTINCT, etc etc
+        $this-&#62;areas['options'] = $option;
+    }
+
+    /**
+    * Sets a Limit to the SELECT
+    *
+    * @param integer Number of rows
+    * @param integer Starting Number
+    * @author Nuncanada
+    * @access public
+    */
+    function limit($nrows, $offset)
+    {
+        $this-&#62;areas['limit'] = array('nrows'=&#62;$nrows,'offset'=&#62;$offset);
+    }
+
+    /**
+    * Check if an input is of the desired structure
+    * If it is a string/int, then turn it into one object that represents the desired structure.
+    *
+    * @param string SQL structure
+    * @param mixed User input - String or object
+    * @author Nuncanada
+    * @access private
+    */
+    function check ($structure, &#38;$input) {
+        if (!is_object($input)) { //String or int
+
+            //As this is a private function, this is just a reminder for myself while prototyping/testing
+            if ($structure == 'condition' || $structure == 'function') {
+                die ('Conditional or Functional statements cannot be input as strings.
+                      They need their proper encapsulation'); // Error - Call Exceptions
+                return;
+            } else {
+                $input = &#38;$this-&#62;create($structure, $input);
+            }
+        } elseif (get_class($structure) != 'sql_'.$structure) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+    * Creates the desired structure, return it as an object
+    *
+    * @param string $structure sql structure: 'alias', 'table', 'field', 'function'
+    * @return mixed a newly created SQL structure object, or NULL
+    * @author Chuck Hagenbuch
+    * @access private
+    */
+    function &#38;create ($structure, $input) {
+        $classname = "sql_${structure}";
+
+        if (!class_exists($classname)) {
+            return;            //Call Exception
+        }
+
+        $obj =&#38; new $classname ($input);
+
+        return $obj;
+    }
+
+    /**
+    * Get the strings present in a given place in the SQL structure
+    * Will be used only by the DB drivers
+    *
+    * @param string Place in the SQL structure (from, join, where, groupby, having, orderby)
+    * @author Nuncanada
+    * $access private
+    */
+    function get ($area)
+    {
+        return $this-&#62;areas[$area];
+    }
+}
+
+
+class SQL_SELECT_MYSQL extends SQL_SELECT
+{
+    var $intro = Array ('select'  =&#62; 'SELECT ',
+                        'from'    =&#62; ' FROM ',
+                        'join'    =&#62; ' ',
+                        'where'   =&#62; ' WHERE ',
+                        'groupby' =&#62; ' GROUP BY ',
+                        'having'  =&#62; ' HAVING ',
+                        'orderby' =&#62; ' ORDER BY ',
+                        'limit'   =&#62; ' LIMIT ');
+
+
+    function buildQuery ()
+    {
+        $query = '';
+/*  To be done
+        foreach ($this-&#62;areas as $area =&#62; $array)
+        {
+            if (count($array)&#62;0)
+            {
+                $string = '';
+
+                switch ($area)
+                {
+                    case 'select':
+                    case 'from':
+                    case 'groupby':
+                    case 'orderby':
+                        $string = implode(', ', $array);
+                        break;
+                    case 'join':
+                        $string = implode(' ', $array);
+                        break;
+                    case 'where':
+                    case 'having':
+                        $string = implode(' AND ', $array);
+                        break;
+                    default:
+                        $string = 'Unknown Area in the query';
+                        break;
+                }
+                $query .= $this-&#62;intro[$area] . $string;
+            }
+        }
+*/
+        return $query;
+    }
+}
+
+        </artwork>
+      </t>
+    </section>
   </middle>
 
   <!-- Back matter is used for references and appendices which come after the references -->

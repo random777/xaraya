@@ -1,16 +1,12 @@
 <?php
 
 class testEvt extends xarTestCase {
-    var $myBLC;
     
     function setup() {
-//        include_once 'xarCore.php';
-//        include_once 'xarVar.php';
+        $GLOBALS['xarDebug'] = false;
         include_once 'xarException.php';
         include_once 'xarEvt.php';
         include_once 'xarMLS.php';
-        $GLOBALS['xarDebug'] = false;
-//        include_once 'xarLog.php';
     }
     
     function precondition() {
@@ -40,11 +36,11 @@ x*   - return true (doesnt do anything)
  *       return;
  *   - if (xarExceptionMajor() != XAR_NO_EXCEPTION) return;
  *   - no return if ok (?return true?)
- * - function xarEvt_registerEvent($eventName)
- *   - if (empty($eventName)) {
- *       xarExceptionSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM', 'eventName');
- *       return;
- *   - no return if ok (?return true?)
+x* - function xarEvt_registerEvent($eventName)
+x*   - if (empty($eventName)) {
+x*       xarExceptionSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM', 'eventName');
+x*       return;
+x*   - no return if ok (?return true?)
 x* - function xarEvt__checkEvent($eventName)
 x*   - if (!isset($GLOBALS['xarEvt_knownEvents'][$eventName])) {
 x*       xarExceptionSet(XAR_SYSTEM_EXCEPTION, 'EVENT_NOT_REGISTERED', $eventName);
@@ -60,7 +56,6 @@ x*   - return true; if ok
     }
 
     function testCheckEventFalse() {
-        unset($GLOBALS['xarEvt_knownEvents']['unregEvt']);
         return $this->assertNull(xarEvt__checkEvent('unregEvt'),"Check unregistered event");
     }
 
@@ -69,15 +64,24 @@ x*   - return true; if ok
         return $this->assertTrue(xarEvt__checkEvent('regEvt'),"Check registered event");
     }
 
-    function testRegisterEventNull() {
-        return $this->assertNull(xarEvt_registerEvent(''),"Register Event without specifiying a name");
+// function xarEvt_registerEvent
+    function testRegisterEventFalse() {
+        return $this->assertFalse(xarEvt_registerEvent(''),"Register Event without specifiying a name");
     }
 
     function testRegisterEvent() {
         return $this->assertTrue(xarEvt_registerEvent('regEvt'),"Register Event with name");
     }
+
+// function xar
+
+
+// function xar
 }
 
-$suite->AddTestCase('testEvt','Testing Events System');
+$l_suite = new xarTestSuite('Events');
 
+$l_suite->AddTestCase('testEvt','Testing Events System');
+
+$suites[] =& $l_suite;
 ?>

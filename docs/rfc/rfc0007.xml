@@ -170,44 +170,7 @@ returns array(propid,type,tag)
 </t>
       </section>
     </section>
-    <section title="Proposal for a data dictionary">
-      <section title="Purpose">
-      <t>The data dictionary should handle basic and module 
-dependent types and provide an interface for type checking to modules. 
-Modules shall be able to register their own types with validation and display
-information.</t>
-      </section>
-      <section title="Relation to Dynamic Data">
-	<t>The data dictionary provides basic type checking and type
-handling to all modules, including the dynamic data module. Properties
-handled by the dynamic data module should be derived from basic types.
-It is, however, intended that display and validation information provided 
-by the data
-dictionary may be overridden or extended by the property information 
-stored in the
-dynamic data module to cater to special needs. Example: Derived type jpeg with
-basic type binary. Data dictionary validation (binary, maxlen) 
-can still be used and complemented by DD validation that checks for 
-jpeg headers.</t>
-      </section>
-<section title="Data dictionary design">
-	<t>
-DB tables:
-       <figure preamble=" DB tables"><artwork src="images/rfc0007_7.png"/></figure>
-<list style="symbols">
-	    <t>modid - module id</t>
-	    <t>type - type name</t>
-	    <t>maxlen - maximum storage length</t>
-	    <t>blwidget - blocklayout widget to handle this type</t>
-	  </list>
-      </t>
-	
-	<t>
-API
-       <figure preamble="API"><artwork src="images/rfc0007_6.png"/></figure>
-      </t>
-      </section>
-    </section>
+
     <section title="Relationship to other areas">
       <t>It will need to be determined if it makes sense to allow storage of certain properties
       via the modular authentication system. For instance, it could be beneficial to store

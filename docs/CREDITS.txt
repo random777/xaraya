@@ -111,6 +111,7 @@ Other development credits
 =========================
 
    Lane Allen (lane@stimulilab.com) created the icon set for the roles module.
+   David Parvin (admin@ads-tracker.net) Fixed bug 742 FeedParser Problem.
 
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

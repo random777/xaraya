@@ -134,7 +134,7 @@
                     <listitem>
                       <para>Enabled: If this box is CHECKED, the Autolink.is
                       enabled and will be displayed if a matching key is found
-                      content. If this field is UNCHECKED, the Autolink is not
+                      in content. If this field is UNCHECKED, the Autolink is not
                       displayed if a matching key is found in content. The
                       &#34;Example&#34; field is displayed regardless of the
                       setting of this field. Toggling this field will

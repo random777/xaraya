@@ -509,7 +509,7 @@
       <title>Site Emails</title>
 
       <para>The site can automatically send email messages to users at various
-      stages of user registration. Emails can be sent for to confirm a new
+      stages of user registration. Emails can be sent to confirm a new
       user, welcome a confirmed user to the site, remind a registered user of
       their password, or to re-validate a user who has changed email
       addresses.</para>

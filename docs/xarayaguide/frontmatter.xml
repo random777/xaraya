@@ -782,9 +782,6 @@
     actually sort of fun. Phonetically, it looks like this:
     <firstterm>Zuh-rye-ah</firstterm>.</para>
 
-    <para>To hear Xaraya pronounced by Xaraya Team member Marie Altobelli
-    (LadyofDragons), visit <ulink
-    url="http://www.xaraya.com/xcommon/media/xaraya.wav">http://www.xaraya.com/xcommon/media/xaraya.wav</ulink>.</para>
   </sect1>
 
   <sect1 id="assumptions">
@@ -794,6 +791,8 @@
     impossible to list every possible configuration. To provide familiarity
     with how Xaraya functions this Guide makes the following
     assumptions:</para>
+ 
+    <para>Note that these are purely assumptions for the purposes of this guide and are not limitations of Xaraya itself. All these options are configurable.</para>
 
     <para>* That you plan to run a Community Site and:</para>
 

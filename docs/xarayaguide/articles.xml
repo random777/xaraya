@@ -289,7 +289,7 @@
         </listitem>
 
         <listitem>
-          <para>Filer End of Page: The default regular expression is &#34;<userinput>#&#60;/body.*$#is</userinput>&#34;
+          <para>Filter End of Page: The default regular expression is &#34;<userinput>#&#60;/body.*$#is</userinput>&#34;
           (no quotes), which removes everything after the HTML &#60;/body&#62;
           tag. The original HTML page is not modified.</para>
         </listitem>
@@ -320,7 +320,7 @@
         <listitem>
           <para>Test Import button: Click this button to perform a test import
           of the HTML page without adding the article to the site. Examine the
-          resulting page to insure that everything worked as expected.</para>
+          resulting page to ensure that everything worked as expected.</para>
         </listitem>
 
         <listitem>
@@ -1046,7 +1046,7 @@
       </listitem>
 
       <listitem>
-        <para>ADD THE NEW PUBLICTION TYPE TO A CATAGORY: This is done for each
+        <para>ADD THE NEW PUBLICATION TYPE TO A CATEGORY: This is done for each
         custom Publication Type you create.</para>
 
         <para>To add Publication Types to Categories, go to

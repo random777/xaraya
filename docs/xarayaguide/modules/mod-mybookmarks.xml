@@ -7,7 +7,7 @@
 
   <para>The MyBookmarks module gives your users a way to add their favorite
   bookmarks to a sitewide database. The Bookmarks block with each user&#39;s
-  personal bookmarks, will be displayed on thier Roles My Account page. The
+  personal bookmarks, will be displayed on their Roles My Account page. The
   Random Bookmarks block will pull a random link from the master database of
   all user&#39;s bookmarks.</para>
 

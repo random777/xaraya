@@ -303,9 +303,7 @@
       <title>EXAMPLE: New Publication Type: A Simple Guestbook for Xaraya</title>
 
       <para>A simple Guestbook can be made with the Articles module. Follow
-      this example to create your own Guestbook. A sample of the finished
-      Guestbook is visible at <ulink
-      url="http://www.alyousif.tv/index.php/guestbook">http://www.alyousif.tv/index.php/guestbook</ulink>.</para>
+      this example to create your own Guestbook. </para>
 
       <para>Go to Admin-&#62;Articles-&#62;Publication Types. Click &#34;New
       Publication Type&#34;. On the next panel, enter the following: </para>
@@ -908,7 +906,7 @@
         </listitem>
 
         <listitem>
-          <para>ADD THE NEW PUBLICTION TYPE TO A CATAGORY: This is done for
+          <para>ADD THE NEW PUBLICATION TYPE TO A CATEGORY: This is done for
           each custom Publication Type you create.</para>
 
           <para>To add Publication Types to Categories, go to

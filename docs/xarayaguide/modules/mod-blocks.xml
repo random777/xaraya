@@ -363,48 +363,14 @@
             </listitem>
 
             <listitem>
-              <para>Default state: The default state for the block instance.</para>
+              <para>Default state: From this drop-down list, select the
+              default state for the new block instance.</para>
             </listitem>
 
             <listitem>
               <para>Group: From this drop-down list, select the grouping to
               which the new block instance will be added. See the description
               of Groups, above.</para>
-            </listitem>
-
-            <listitem>
-              <para>Template (optional): Type the filename of the template to
-              be used when displaying this block instance. The file must exist
-              in one of two places:</para>
-
-              <itemizedlist>
-                <listitem>
-                  <para>Module-dependant: Module-dependant file must exist in
-                  <filename>&#60;xarroot&#62;/&#60;module_name&#62;/xartemplates/blocks</filename></para>
-                </listitem>
-
-                <listitem>
-                  <para>Theme-dependant: Theme-dependant file must exist in:
-                  <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename>.</para>
-
-                  <itemizedlist>
-                    <listitem>
-                      <para>Theme dependant templates override module
-                      templates in <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename></para>
-                    </listitem>
-
-                    <listitem>
-                      <para>Theme dependant templates override module blocks
-                      in <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;/blocks</filename></para>
-                    </listitem>
-                  </itemizedlist>
-                </listitem>
-              </itemizedlist>
-            </listitem>
-
-            <listitem>
-              <para>Default state: From this drop-down list, select the
-              default state for the new block instance.</para>
             </listitem>
 
             <listitem>
@@ -426,7 +392,7 @@
 
         <listitem>
           <para>Default template (optional): Type the filename of the template
-          to be used when displaying this block instance. The file must exist
+          to be used when displaying block instances in this block group. The file must exist
           in one of two places:</para>
 
           <itemizedlist>

@@ -29,6 +29,7 @@
 <!ENTITY mod-censor SYSTEM "modules/mod-censor.xml">
 <!ENTITY mod-changelog SYSTEM "modules/mod-changelog.xml">
 <!ENTITY mod-comments SYSTEM "modules/mod-comments.xml">
+<!ENTITY mod-contact SYSTEM "modules/mod-contact.xml">
 <!ENTITY mod-converter SYSTEM "modules/mod-converter.xml">
 <!ENTITY mod-dynamicdata SYSTEM "modules/mod-dynamicdata.xml">
 <!ENTITY mod-dynamic_planning SYSTEM "modules/mod-dynamic_planning.xml">
@@ -99,8 +100,11 @@
 <!ENTITY dynamicdata SYSTEM "dynamicdata.xml">
 <!ENTITY roles SYSTEM "roles.xml">
 <!ENTITY privileges SYSTEM "privileges.xml">
+<!ENTITY managecontent SYSTEM "managecontent.xml">
+<!ENTITY transformcontent SYSTEM "transformcontent.xml">
 <!ENTITY maintenance SYSTEM "maintenance.xml">
 <!ENTITY webservices SYSTEM "webservices.xml">
+<!ENTITY misc SYSTEM "misc.xml">
 <!ENTITY conclusion SYSTEM "conclusion.xml">
 
 <!ENTITY appendix-a SYSTEM "appendixa-xarayalicense.xml">
@@ -229,9 +233,15 @@
  
   &privileges;
 
+  &managecontent;
+
+  &transformcontent;
+
   &maintenance;
 
   &webservices;
+
+  &misc;
 
   &conclusion;
 

@@ -137,6 +137,14 @@ echo &#34;Xaraya backup complete!&#34;</literallayout></para>
   <title>Sitetools Module</title>
 &mod-sitetools;
  </sect1>
+ <sect1 id="html">
+  <title>HTML Module</title>
+&mod-html;
+ </sect1>
+ <sect1 id="mail">
+  <title>Mail Module</title>
+&mod-mail;
+ </sect1>
  <sect1 id="sniffer">
   <title>Sniffer Module</title>
 &mod-sniffer;
@@ -144,6 +152,10 @@ echo &#34;Xaraya backup complete!&#34;</literallayout></para>
  <sect1 id="stats">
   <title>Stats Module</title>
 &mod-stats;
+ </sect1>
+ <sect1 id="referer">
+  <title>Referer Module</title>
+&mod-referer;
  </sect1>
  <sect1 id="opentracker">
   <title>Opentracker Module</title>

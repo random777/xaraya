@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="transformcontent">
+  <title>Transforming Content in Xaraya</title>
+
+  <para>OTTO: explain content management and transforms usage with Xaraya</para>
+
+ <sect1 id="autolinks">
+  <title>Autolinks Module</title>
+&mod-autolinks;
+ </sect1>
+ <sect1 id="bbcode">
+  <title>BBCode Module</title>
+&mod-bbcode;
+ </sect1>
+ <sect1 id="bbclick">
+  <title>BBClick Module</title>
+&mod-bbclick;
+ </sect1>
+ <sect1 id="censor">
+  <title>Censor Module</title>
+&mod-censor;
+ </sect1>
+ <sect1 id="comments">
+  <title>Comments Module</title>
+&mod-comments;
+ </sect1>
+ <sect1 id="changelog">
+  <title>Changelog Module</title>
+&mod-changelog;
+ </sect1>
+ <sect1 id="hitcount">
+  <title>Hitcount Module</title>
+&mod-hitcount;
+ </sect1>
+ <sect1 id="keywords">
+  <title>Keywords Module</title>
+&mod-keywords;
+ </sect1>
+ <sect1 id="pubsub">
+  <title>Pubsub Module</title>
+&mod-pubsub;
+ </sect1>
+ <sect1 id="ratings">
+  <title>Ratings Module</title>
+&mod-ratings;
+ </sect1>
+ <sect1 id="search">
+  <title>Search Module</title>
+&mod-search;
+ </sect1>
+ <sect1 id="subitems">
+  <title>Subitems Module</title>
+&mod-subitems;
+ </sect1>
+ <sect1 id="smilies">
+  <title>Smilies Module</title>
+&mod-smilies;
+ </sect1>
+ <sect1 id="workflow">
+  <title>Workflow Module</title>
+&mod-workflow;
+ </sect1>
+ <sect1 id="wiki">
+  <title>Wiki Module</title>
+&mod-wiki;
+ </sect1>
+ <sect1 id="xlink">
+  <title>XLink Module</title>
+&mod-xlink;
+ </sect1>
+ <sect1 id="xslt">
+  <title>XSLT Module</title>
+&mod-xslt;
+ </sect1>
+ <sect1 id="figlet">
+  <title>Figlet Module</title>
+&mod-figlet;
+ </sect1>
+</chapter>

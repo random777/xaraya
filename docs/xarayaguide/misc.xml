@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="misc">
+  <title>Miscellaneous Xaraya Modules</title>
+
+  <para>This section describes some Xaraya modules that don't really fit anywhere else so they are grouped together here.</para>
+
+ <sect1 id="translations">
+  <title>Translations Module</title>
+&mod-translations;
+ </sect1>
+ <sect1 id="window">
+  <title>Window Module</title>
+&mod-window;
+ </sect1>
+ <sect1 id="bkview">
+  <title>BKView Module</title>
+&mod-bkview;
+ </sect1>
+ <sect1 id="facilities">
+  <title>Facilities Module</title>
+&mod-facilities;
+ </sect1>
+ <sect1 id="multisites">
+  <title>Multisites Module</title>
+&mod-multisites;
+ </sect1>
+ <sect1 id="recommend">
+  <title>Recommend Module</title>
+&mod-recommend;
+ </sect1>
+ <sect1 id="example">
+  <title>Example Module</title>
+&mod-example;
+ </sect1>
+</chapter>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="managecontent">
+  <title>Managing Content in Xaraya</title>
+
+  <para>OTTO: explain managing content with Xaraya</para>
+
+ <sect1 id="polls">
+  <title>Polls Module</title>
+&mod-polls;
+ </sect1>
+ <sect1 id="xarbb">
+  <title>XarBB Module</title>
+&mod-xarbb;
+ </sect1>
+ <sect1 id="headlines">
+  <title>Headlines Module</title>
+&mod-headlines;
+ </sect1>
+ <sect1 id="addressbook">
+  <title>Addressbook Module</title>
+&mod-addressbook;
+ </sect1>
+ <sect1 id="contact">
+  <title>Contact Module</title>
+&mod-contact;
+ </sect1>
+ <sect1 id="issueareapub">
+  <title>IssueAreaPub Module</title>
+&mod-issueareapub;
+ </sect1>
+ <sect1 id="newsgroups">
+  <title>Newsgroups Module</title>
+&mod-newsgroups;
+ </sect1>
+ <sect1 id="uploads">
+  <title>Uploads Module</title>
+&mod-uploads;
+ </sect1>
+</chapter>

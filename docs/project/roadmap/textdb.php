@@ -140,6 +140,7 @@
           $records[$recordNr] = $record;
 	  
           unset($key);
+	  $key='';
           for ($keyNr = 0; $keyNr < (count($keyNames)) ;$keyNr++)
 	    {
 	      
@@ -255,6 +256,7 @@
 
     function search($record)
     {
+      $key='';
       for ($keyNr = 0; $keyNr < (count($this->keyNames)) ;$keyNr++)
       {
         $fieldName = $this->keyNames[$keyNr];

@@ -64,6 +64,9 @@ class GanttGraph extends Graph {
     var $iLabelHMarginFactor=0.2;	// 10% margin on each side of the labels
     var $iLabelVMarginFactor=0.4;	// 40% margin on top and bottom of label
     var $iLayout=GANTT_FROMTOP;	// Could also be GANTT_EVEN
+    var $csimareas='';  // initialize string for map areas
+    var $csimalts=null;
+    var $csimtargets=null;
 
 //---------------
 // CONSTRUCTOR	
@@ -180,101 +183,143 @@ class GanttGraph extends Graph {
 	return array($min,$max);
     }
 
+    // Get a string of all image map areas	
+    function GetCSIMareas() {
+	if( !$this->iHasStroked )
+	    $this->Stroke(_CSIM_SPECIALFILE);
+		
+	return $this->csimareas;
+    }
+
+     // Set href targets for CSIM	
+     function SetCSIMTargets(&$aTargets,$aAlts=null) {
+ 	$this->csimtargets=$aTargets;
+ 	$this->csimalts=$aAlts;
+     }
+
+    function AddToCSIM($i, $plot_obj) {  
+      //add a gantt plotobject to the image map of the gantt-graph
+      switch(get_class($plot_obj)) {
+      case 'ganttbar':
+	// take the rectangle of the ganttbar as the rectangle
+	$coords=$plot_obj->x_left.",".$plot_obj->y_top
+	  .",".$plot_obj->x_right .",".$plot_obj->y_bottom;
+ 	$this->csimareas .= "<area shape=\"rect\" coords=\"$coords\" href=\"" . $this->csimtargets[$i-1]."\"";
+	if( !empty($this->csimalts[$i-1]) ) {
+	  //$tmp=sprintf($this->csimalts[$i],$plot_obj->title);
+	  $tmp=$this->csimalts[$i-1];
+	  $this->csimareas .= " alt=\"$tmp\" title=\"$tmp\"";
+	}
+	$this->csimaraeas .= ">\n";
+	break;
+      default:
+      }
+    }
+    
     // Stroke the gantt chart
-    function Stroke($aStrokeFileName="") {	
+    function Stroke($aStrokeFileName="") {
+      // use _csim flag for generating the image map, skip things which are not
+      // necessary, thus optimizing a bit
 
+      $_csim = ($aStrokeFileName===_CSIM_SPECIALFILE);
+      $this->iHasStroked = true;
 
-	// Should we autoscale dates?
-	if( !$this->scale->IsRangeSet() ) {
-	    list($min,$max) = $this->GetBarMinMax();
-	    $this->scale->SetRange($min,$max);
+      // Should we autoscale dates?
+      if( !$this->scale->IsRangeSet() ) {
+	list($min,$max) = $this->GetBarMinMax();
+	$this->scale->SetRange($min,$max);
+      }
+
+      $this->scale->AdjustStartEndDay();
+			
+      if( $this->img->img == null ) {
+	// The predefined left, right, top, bottom margins.
+	// Note that the top margin might incease depending on
+	// the title.
+	$lm=30;$rm=30;$tm=20;$bm=30;			
+	if( BRAND_TIMING ) $bm += 10;
+	
+	// First find out the height			
+	$n=$this->GetBarMaxLineNumber()+1;
+	$m=max($this->GetMaxLabelHeight(),$this->GetMaxBarAbsHeight());
+	$height=$n*((1+$this->iLabelVMarginFactor)*$m);			
+	
+	// Add the height of the scale titles			
+	$h=$this->scale->GetHeaderHeight();
+	$height += $h;
+
+	// Calculate the top margin needed for title and subtitle
+	if( $this->title->t != "" ) {
+	  $tm += $this->title->GetFontHeight($this->img);
+	}
+	if( $this->subtitle->t != "" ) {
+	  $tm += $this->subtitle->GetFontHeight($this->img);
 	}
 
-	$this->scale->AdjustStartEndDay();
+	// ...and then take the bottom and top plot margins into account
+	$height += $tm + $bm + $this->scale->iTopPlotMargin + $this->scale->iBottomPlotMargin;
 			
-	if( $this->img->img == null ) {
-	    // The predefined left, right, top, bottom margins.
-	    // Note that the top margin might incease depending on
-	    // the title.
-	    $lm=30;$rm=30;$tm=20;$bm=30;			
-	    if( BRAND_TIMING ) $bm += 10;
-			
-	    // First find out the height			
-	    $n=$this->GetBarMaxLineNumber()+1;
-	    $m=max($this->GetMaxLabelHeight(),$this->GetMaxBarAbsHeight());
-	    $height=$n*((1+$this->iLabelVMarginFactor)*$m);			
-			
-	    // Add the height of the scale titles			
-	    $h=$this->scale->GetHeaderHeight();
-	    $height += $h;
-
-	    // Calculate the top margin needed for title and subtitle
-	    if( $this->title->t != "" ) {
-		$tm += $this->title->GetFontHeight($this->img);
-	    }
-	    if( $this->subtitle->t != "" ) {
-		$tm += $this->subtitle->GetFontHeight($this->img);
-	    }
-
-	    // ...and then take the bottom and top plot margins into account
-	    $height += $tm + $bm + $this->scale->iTopPlotMargin + $this->scale->iBottomPlotMargin;
-			
-	    // Now find the minimum width for the chart required
-	    $fw=$this->scale->day->GetFontWidth($this->img)+4;
-	    $nd=$this->scale->GetNumberOfDays();
-	    if( !$this->scale->IsDisplayDay() ) {
-				// If we don't display the individual days we can shrink the
-				// scale a little bit. This is a little bit pragmatic at the 
-				// moment and should be re-written to take into account
-				// a) What scales exactly are shown and 
-				// b) what format do they use so we know how wide we need to
-				// make each scale text space at minimum.
-		$fw /= 2;
-		if( !$this->scale->IsDisplayWeek() ) {
-		    $fw /= 1.8;
-		}
-	    }
-			
-	    // Now determine the width for the activity titles column
-	    // This is complicated by the fact that the titles may have
-	    // tabs. In that case we also need to calculate the individual
-	    // tab positions based on the width of the individual columns
-			
-	    $titlewidth = $this->GetMaxLabelWidth();
-						
-	    // Now get the total width taking 
-	    // titlewidth, left and rigt margin, dayfont size 
-	    // into account
-	    $width = $titlewidth + $nd*$fw + $lm+$rm;
-						
-	    $this->img->CreateImgCanvas($width,$height);			
-	    $this->img->SetMargin($lm,$rm,$tm,$bm);
+	// Now find the minimum width for the chart required
+	$fw=$this->scale->day->GetFontWidth($this->img)+4;
+	$nd=$this->scale->GetNumberOfDays();
+	if( !$this->scale->IsDisplayDay() ) {
+	  // If we don't display the individual days we can shrink the
+	  // scale a little bit. This is a little bit pragmatic at the 
+	  // moment and should be re-written to take into account
+	  // a) What scales exactly are shown and 
+	  // b) what format do they use so we know how wide we need to
+	  // make each scale text space at minimum.
+	  $fw /= 2;
+	  if( !$this->scale->IsDisplayWeek() ) {
+	    $fw /= 1.8;
+	  }
 	}
-		
-	// Should we start from the top or just spread the bars out even over the
-	// available height
-	$this->scale->SetVertLayout($this->iLayout);			
-	if( $this->iLayout == GANTT_FROMTOP ) {
-	    $maxheight=max($this->GetMaxLabelHeight(),$this->GetMaxBarAbsHeight());
-	    $this->scale->SetVertSpacing($maxheight*(1+$this->iLabelVMarginFactor));
-	}
-	// If it hasn't been set find out the maximum line number
-	if( $this->scale->iVertLines == -1 ) 
-	    $this->scale->iVertLines = $this->GetBarMaxLineNumber()+1; 	
-		
-	$maxwidth=max($this->GetMaxLabelWidth(),$this->scale->tableTitle->GetWidth($this->img));
-	$this->scale->SetLabelWidth($maxwidth*(1+$this->iLabelHMarginFactor));
-	$this->StrokePlotArea();
-	$this->scale->Stroke();
-	$this->StrokePlotBox();
-		
-	for($i=0; $i<count($this->iObj); ++$i) {
-	    $this->iObj[$i]->SetLabelLeftMargin(round($maxwidth*$this->iLabelHMarginFactor/2));
-	    $this->iObj[$i]->Stroke($this->img,$this->scale);
-	}
-		
+	
+	// Now determine the width for the activity titles column
+	// This is complicated by the fact that the titles may have
+	// tabs. In that case we also need to calculate the individual
+	// tab positions based on the width of the individual columns
+	
+	$titlewidth = $this->GetMaxLabelWidth();
+	
+	// Now get the total width taking 
+	// titlewidth, left and rigt margin, dayfont size 
+	// into account
+	$width = $titlewidth + $nd*$fw + $lm+$rm;
+	
+	$this->img->CreateImgCanvas($width,$height);			
+	$this->img->SetMargin($lm,$rm,$tm,$bm);
+      }
+      
+      // Should we start from the top or just spread the bars out even over the
+      // available height
+      $this->scale->SetVertLayout($this->iLayout);			
+      if( $this->iLayout == GANTT_FROMTOP ) {
+	$maxheight=max($this->GetMaxLabelHeight(),$this->GetMaxBarAbsHeight());
+	$this->scale->SetVertSpacing($maxheight*(1+$this->iLabelVMarginFactor));
+      }
+      // If it hasn't been set find out the maximum line number
+      if( $this->scale->iVertLines == -1 ) 
+	$this->scale->iVertLines = $this->GetBarMaxLineNumber()+1; 	
+      
+      $maxwidth=max($this->GetMaxLabelWidth(),$this->scale->tableTitle->GetWidth($this->img));
+      $this->scale->SetLabelWidth($maxwidth*(1+$this->iLabelHMarginFactor));
+      $this->StrokePlotArea();
+      $this->scale->Stroke();
+      $this->StrokePlotBox();
+      
+      // Stroke all objects in the GanttChart
+      for($i=0; $i<count($this->iObj); ++$i) {
+	$this->iObj[$i]->SetLabelLeftMargin(round($maxwidth*$this->iLabelHMarginFactor/2));
+	$this->iObj[$i]->Stroke($this->img,$this->scale);
+	if ($this->csimtargets) {
+	  $this->AddToCSIM($i, $this->iObj[$i]);
+	}   
+      }
+      if(!$_csim) {
 	$this->StrokeTitles();
-	$this->cache->PutAndStream($this->img,$this->cache_name,$this->inline,$aStrokeFileName);				
+	$this->cache->PutAndStream($this->img,$this->cache_name,$this->inline,$aStrokeFileName);
+      }
     }
 }
 
@@ -1109,7 +1154,7 @@ class GanttPlotObject {
     var $iStart="";				// Start date
     var $title,$caption;
     var $iCaptionMargin=5;
-		
+
     function GanttPlotObject() {
 	$this->title = new TextProperty();
 	$this->title->Align("left","center");
@@ -1179,6 +1224,7 @@ class GanttBar extends GanttPlotObject {
     var $iPattern=GANTT_RDIAG,$iPatternColor="blue",$iPatternDensity=95;
     var $leftMark,$rightMark;
     var $progress;
+    var $x_left,$y_top,$x_right,$y_bottom;
 	
 //---------------
 // CONSTRUCTOR	
@@ -1251,7 +1297,8 @@ class GanttBar extends GanttPlotObject {
 	else
 	    return -1;
     }
-	
+    
+
     function SetPattern($aPattern,$aColor="blue",$aDensity=95) {		
 	$this->iPattern = $aPattern;
 	$this->iPatternColor = $aColor;
@@ -1306,6 +1353,9 @@ class GanttBar extends GanttPlotObject {
 	    $aImg->SetColor($this->iFrameColor);
 	    $aImg->Rectangle($xt,$yt,$xb,$yb);
 	}
+
+	$this->x_left=$xt; $this->y_top=$yt; $this->x_right=$xb; $this->y_bottom=$yb;
+
 	if( $this->progress->iProgress > 0 ) {
 		
 		//echo "test <p>";
@@ -1325,12 +1375,12 @@ class GanttBar extends GanttPlotObject {
 		
 		    $prog = $factory->Create($this->progress->iPattern,$this->progress->iColor);
 		    $prog->SetDensity($this->progress->iDensity);
-	    	$barheight = ($yb-$yt+1);
+		    $barheight = ($yb-$yt+1);
 		    if( $this->iShadow ) 
-				$barheight -= $this->iShadowWidth;
+		      $barheight -= $this->iShadowWidth;
 		    $progressheight = floor($barheight*$this->progress->iHeight);
 		    $marg = ceil(($barheight-$progressheight)/2);
-	    	$pos = new Rectangle($xtp,$yt + $marg, $len,$barheight-2*$marg);
+		    $pos = new Rectangle($xtp,$yt + $marg, $len,$barheight-2*$marg);
 		    $prog->SetPos($pos);
 		    $prog->Stroke($aImg);
 		}
@@ -1339,13 +1389,13 @@ class GanttBar extends GanttPlotObject {
 
 	// We don't plot the end mark if the bar has been capped
 	if( $limst == $st )
-		$this->leftMark->Stroke($aImg,$xt,$middle);
+	  $this->leftMark->Stroke($aImg,$xt,$middle);
 	if( $limen == $en )	{
-		$this->rightMark->Stroke($aImg,$xb,$middle);
-		$margin = $this->iCaptionMargin;
-		if( $this->rightMark->show ) 
-	    	$margin += $this->rightMark->GetWidth();
-		$this->caption->Stroke($aImg,$xb+$margin,$middle);		
+	  $this->rightMark->Stroke($aImg,$xb,$middle);
+	  $margin = $this->iCaptionMargin;
+	  if( $this->rightMark->show ) 
+	    $margin += $this->rightMark->GetWidth();
+	  $this->caption->Stroke($aImg,$xb+$margin,$middle);		
 	}
 	
     }

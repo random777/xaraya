@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------
 // The full absolute name of directory to be used as a cache. This directory MUST
 // be readable and writable for PHP. Must end with '/'
-DEFINE("CACHE_DIR","/tmp/jpgraphcache/");
+DEFINE("CACHE_DIR","/tmp/jpgraph_cache/");
 
 // Directory for jpGraph TTF fonts. Must end with '/'
 // Note: The fonts must follow the naming conventions as
@@ -87,12 +87,12 @@ DEFINE("LANGUAGE_CYRILLIC",false);
 
 // Should usage of deprecated functions and parameters give a fatal error?
 // (Useful to check if code is future proof.)
-DEFINE("ERR_DEPRECATED",false);
+DEFINE("ERR_DEPRECATED",true);
 
 // Should the time taken to generate each picture be branded to the lower
 // left in corner in each generated image? Useful for performace measurements
 // generating graphs
-DEFINE("BRAND_TIMING",false);
+DEFINE("BRAND_TIMING",true);
 
 // What format should be used for the timing string?
 DEFINE("BRAND_TIME_FORMAT","Generated in: %01.3fs");
@@ -121,7 +121,7 @@ DEFINE("USE_BRESENHAM",false);
 // Enable some extra debug information for CSIM etc to be shown. 
 // (Should only be changed if your first name is Johan and you
 // happen to know what you are doing!!)
-DEFINE("JPG_DEBUG",false);
+DEFINE("JPG_DEBUG",true);
 
 // Special file name to indicate that we only want to calc
 // the image map in the call to Graph::Stroke() used
@@ -974,11 +974,11 @@ class Graph {
 	    $this->Stroke(_CSIM_SPECIALFILE);
 	$csim='';
 	$n = count($this->plots);
-	for( $i=0; $i<$n; ++$i ) 
-	    $csim .= $this->plots[$i]->GetCSIMareas();
+	for( $i=0; $i<$n; ++$i )
+	   $csim .= $this->plots[$i]->GetCSIMareas();
 
 	$n = count($this->y2plots);
-	for( $i=0; $i<$n; ++$i ) 
+	for( $i=0; $i<$n; ++$i )
 	    $csim .= $this->y2plots[$i]->GetCSIMareas();
 
 	return $csim;
@@ -988,14 +988,13 @@ class Graph {
     function GetHTMLImageMap($aMapName) {
 	$im = "<MAP NAME=\"$aMapName\">\n";
 	$im .= $this->GetCSIMareas();
-	$im .= "</MAP>"; 
+	$im .= "</MAP>\n"; 
 	return $im;
     }
 
 
     function StrokeCSIM($aScriptName,$aCSIMName='myjpgimage',$aBorder=0) {
 	GLOBAL $HTTP_GET_VARS;
-
 	if( empty($HTTP_GET_VARS[_CSIM_DISPLAY]) ) {
 	    echo $this->GetHTMLImageMap($aCSIMName);
 	    echo "<img src='".$aScriptName."?"._CSIM_DISPLAY."=1' ISMAP USEMAP='#".$aCSIMName."' border=$aBorder>";

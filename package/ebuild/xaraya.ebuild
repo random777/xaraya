@@ -7,9 +7,12 @@ DESCRIPTION="Xaraya Application Framework"
 HOMEPAGE="http://www.xaraya.com"
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~ppc ~sparc ~alpha ~arm ~hppa ~mips"
 
-DEPEND="virtual/php"
+IUSE=""
+DEPEND=""
+RDEPEND="virtual/php
+	 net-www/apache"
 
 inherit webapp-apache
 

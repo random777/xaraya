@@ -73,6 +73,11 @@ class xarTestSuite {
         chdir($dir);
         return $toreturn;
     }
+    
+    function report($type) {
+        $report = new xarTestReport($type);
+        $report->present(array($this));
+    }
 
 }
 

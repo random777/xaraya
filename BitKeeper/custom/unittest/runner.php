@@ -98,15 +98,7 @@ while (list($key, $dir) = each($dirs)) {
  */
 foreach ($suites as $torun) {
     $torun->run();
-    //$torun->report('text');
+    $torun->report('text');
 }
-
-/**
- * Output the result in a nice testreport
- *
- * @todo Base reporttype on commandline parameters
- */
-$report = new xarTestReport('text');
-$report->present($suites);
 
 ?>

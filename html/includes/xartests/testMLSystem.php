@@ -15,7 +15,7 @@ class testMLSSystem extends xarTestCase {
 }
 $tmp = new xarTestSuite('MLS system tests');
 $tmp->AddTestCase('testMLSSystem','MLS system tests');
-$suites[] =& $tmp;
+$suites[] = $tmp;
 
 
 ?>

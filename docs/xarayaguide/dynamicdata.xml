@@ -2,8 +2,6 @@
 <chapter id="dynamicdata">
   <title>Dynamic Data in Xaraya</title>
 
-  <sect1 id="ddintro">
-    <title>Introduction to Dynamic Data</title>
 
     <para>Xaraya provides the ability for site administrators to add data
     fields to the site to serve a number of different purposes, from extending
@@ -28,6 +26,10 @@
 
     <para>Using Dynamic Data, site administrators can add fields to Xaraya
     that customize the site.</para>
+
+  <sect1 id="ddintro">
+	  
+    <title>Introduction to Dynamic Data</title>
 
     <para>Here&#39;s a general overview illustrating how to add dynamic data
     to a Xaraya module:</para>

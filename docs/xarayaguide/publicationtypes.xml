@@ -2,8 +2,6 @@
 <chapter id="publicationtypes">
   <title>Publication Types</title>
 
-  <sect1 id="pubsintro">
-    <title>Introduction to Publication Types</title>
 
     <para>Xaraya&#39;s Articles module can manage &#39;articles&#39; of
     different types at the same time, for instance news articles, longer
@@ -33,6 +31,9 @@
 
     <para>Want to display recipes on your site? Create a new Publication Type,
     and Xaraya can do that.</para>
+
+  <sect1 id="pubsintro">
+    <title>Introduction to Publication Types</title>
 
     <para>A good strategy for configuration of Categories is to create a
     top-level Category called &#60;sitename&#62;, and below that group all the

@@ -62,25 +62,7 @@
   <sect1 id="kr-hooks">
     <title>KNOWLEDGE REVIEW: Handling Hooks</title>
 
-    <para>OTTO:</para>
+    <para>OTTO: something here to cover the important points of hooks again in an easy to comprehend summarised form</para>
 
-    <para>(optional: The below should be included LATER in the docs, after the
-    user has had a chance to read all the module overviews)</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><command>Admin-&#62;Adminpanels-&#62;Modify config</command>:</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>CHECK Disable Module Overviews</para>
-          </listitem>
-
-          <listitem>
-            <para>Click &#34;Submit&#34; to save changes.</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-    </itemizedlist>
   </sect1>
 </chapter>

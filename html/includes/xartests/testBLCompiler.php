@@ -23,13 +23,6 @@ class testBLCompiler extends xarTestCase {
         // not needed here
     }
     
-    function testTrue() {
-        return $this->assertTrue(true,"Should always pass");
-    }
-    
-    function testFailure() {
-        return $this->assertTrue(1==2,"Should always fail");
-    }
     
     function testnotNull() { 
         return $this->assertNotNull($this->myBLC,"BL Compiler Instantiation");

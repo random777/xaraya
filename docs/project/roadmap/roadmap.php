@@ -105,7 +105,6 @@ $record= $db->first();
 // type: 0: grouping; 1: normal task; 2: milestone
 // duration in days
 
-
 // Generate the gantt bars
 $plots=array();
 $scenario=array();
@@ -141,6 +140,8 @@ while($record) {
     if ($record['start']=="") $record['start']=date("Y-m-d");
     if ($record['duration']=="") $record['duration']=0;
     $enddate= date("Y-m-d",(strtotime($record['start'])+($record['duration']*24*60*60)));
+		// if task incomplete, but not 100% extend to today
+		if ($enddate < date("Y-m-d") && $record['progress']!=100) $enddate=date("Y-m-d");
     if ($enddate > $latestdate[$record['part_of']] ) $latestdate[$record['part_of']]=$enddate;
     $bar = new GanttBar($db->recordNr," ".$record['label'],$record['start'],$enddate,"[".$record['progress']."%] ".$record['lead'],$heightfactor);
     $bar->progress->Set($record['progress']/100);
@@ -189,7 +190,7 @@ while($record) {
       $plots[$record['id']]->iEnd=max($earliest,$plots[$record['id']]->iEnd); 
     }
     
-    // Adjust scenario dates if necessary
+    // Adjust scenario dates if necessary (extend group records)
     if (date("Y-m-d",$plots[$record['id']]->iEnd) > $latestdate[$plots[$record['part_of']]]) {
       $plots[$record['part_of']]->iEnd = $plots[$record['id']]->iEnd;
     }

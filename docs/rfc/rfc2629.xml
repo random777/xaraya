@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<?rfc toc="yes"?>
-<rfc number="2629">
+
+<?rfc editing="yes" ?>
+<?rfc toc="yes" ?>
+<?rfc tocdepth="2"?>
+
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="2629" category="bcp">
 	<front>
 		<title>Writing X-Ds and RFCs using XML</title>
 		<author initials="M.T." surname="Rose" fullname="Marshall T. Rose">
@@ -897,7 +901,45 @@
             application that produces either a text or HTML version of the document.</t>
         </section>
       </section>
+      <section title="Reviewing the RFC">
+        <t>
+          The XML dialect has a number of provisions which makes it easier to review a
+          document. This section is a short summary of them.
+        </t>
+        <section title="Paragraph markers">
+          <t>
+            You might have noticed the numbers before each paragraph in this
+            document. These are called <em>editing marks</em>. They just number
+            the paragraphs is the document consecutively so it's easy to refer
+            to a certain paragraph when discussing the document
+          </t>
+          <t> 
+            To enable the editing marks you have to add a so called processing-instruction
+            to the top of your document:
+            <artwork>
+              &lt;?rfc editing="yes"?>
+            </artwork>
+          </t>
+          <t>
+            The default value of the editing attribute is false, meaning that no 
+            editting markers will be inserted into the document.
+          </t>
+        </section>
+ 
+        <section title="Text markers">
+          <t>
+            To review a document actively, at the text level you can enter three kinds
+            of review remarks:
+            <list style="numbers">
+              <t>&lt;:ed:del&gt; : <ed:del>mark text as to be deleted</ed:del></t>
+              <t>&lt;:ed:ins&gt; : <ed:ins>mark text to be inserted</ed:ins></t>
+              <t>&lt;:ed:replace&gt; <ed:replace><ed:del>something old</ed:del><ed:ins>with something new</ed:ins></ed:replace></t>
+            </list>
+          </t>
+        </section>
+      </section>
     </section>
+
     <section title="Processing the XML Source File">
       <t>
         This section concerns itself with applications that operate on

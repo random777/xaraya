@@ -8,7 +8,7 @@
 <rfc number="0002" category="info">
   <front>
     <title>Comments API</title>
-    <author initials="C." surname="Corliss" fullname="Frank Besler">
+    <author initials="C." surname="Corliss" fullname="Carl P. Corliss">
       <organization>Xaraya Development Group</organization>
       <address>
 	<email>besfred@gmx.net</email>
@@ -29,41 +29,88 @@
   
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
-    <!-- One content section is mandatory -->
+    <section title="Introduction">
+      <t>
+	All ?xxx numbers refer to the basic documents in section 7.
+	We read through the articles on http://www.postnuke.com, its forum
+	threads, feature requests on sourceforge and the developers mailing
+	list.
+	The following RFC is a first summary and contains some solution
+	proposals either compiled from the basic documents or from general
+	definitions concerning comments systems / forums.
+      </t>
+    </section>
+
+    <section title="List of requirements for the Comments API">
+      <t>
+      </t>
+    </section>
+
+    <section title="Solution proposals - database tables">
+      <t>
+      </t>
+      
+      <section title="Table Comments">
+	<t>
+	</t>
+      </section>
+    </section>
+
+    <section title="Solution proposals - functions">
+      <t>
+      </t>
+      
+      <section title="Backend Code">
+	<t>
+	</t>
+      </section>
+
+      <section title="Rendering Code">
+	<t>
+	</t>
+      </section>
+    </section>
+
+    <section title="Relationship of the API to other areas">
+      <t>
+      </t>
+    </section>
+
+    <section title="Code that will need to be rewritten">
+      <t>
+      </t>
+    </section>
+
+    <section title="Basic documents for this RFC">
+      <t>
+      </t>
+    </section>
+
+    <section title="Tools that need to be written from scratch">
+      <t>
+      </t>
+    </section>
+
+    <section title="Current Issues">
+      <t>
+      </t>
+    </section>
+
+    <section title="Retractions">
+      <t>
+      </t>
+    </section>
+    
+    <section title="Changelog">
+      <t>
+      </t>
+    </section>
+
+     <!-- One content section is mandatory -->
     <section title="Original content">
       <t>
 	<artwork>
-	  
-RFC-2 Comments API 
-
-
-Postnuke Carl P. Corliss (Rabbitt) RFC-2 Comments API Gregor J. Rothfuss Category: Informational January 2002 Version: 4.1 
-                         RFC-2 Comments API
-Table of Contents 
-   1.   Introduction  . . . . . . . . . . . . . . . . . . . . . . . 2
-   2.   List of requirements for the Comments API . . . . . .  . . . 2
-   3.   Solution proposals - database tables . . . . . . . . . . . . 3
-   3a.    Table Comments . . . . . . . . . . . . . . . . . . . . . . 3
-   4.   Solution proposals - functions . . . . . . . . . . . . . . .
-   4a.     Backend Code  . . . . . . . . . . . . . . . . . . . . . .
-   4b.     Rendering Code  . . . . . . . .  . . . . . . . . . . . .
-   5.   Relationship of the API to other areas . . . . . . . . . . .
-   6.   Code that will need to be rewritten  . . . . . . . . . . . .
-   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
-   8.   Tools that need to be created from scratch . . . . . . . . .
-   9.   Current Issues . . . . . . . . . . . . . . . . . . . . . . .
-   10.  Retractions  . . . . . . . . . . . . . . . . . . . . . . . .
-   11.  Changelog  . . . . . . . . . . . . . . . . . . . . . . . . .
-                             Informational                      ?Page 1
-                            RFC-2 Comments API              January 2002
-1. Introduction 
-   All ?xxx numbers refer to the basic documents in section 7.
-   We read through the articles on http://www.postnuke.com, its forum
-   threads, feature requests on sourceforge and the developers mailing
-   list.
-   The following RFC is a first summary and contains some solution
-   proposals either compiled from the basic documents or from general
-   definitions concerning comments systems / forums.
+   
 2. List of requirements for the Comments API 
     The main objective of this API is to provide a small, yet flexible
     codebase for adding comment functionality to modules. This API will
@@ -103,6 +150,7 @@ Table of Contents
         as threaded and flat views.
     11. Implement pagination so that long lists of comments do not
         overwhelm the layout.
+
 3. Solution proposals - database tables 
     This is just one proposal for a table structure, the one chosen
     by the XOOPS project can be found in [21].

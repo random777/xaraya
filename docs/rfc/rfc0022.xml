@@ -5,25 +5,21 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc='yes'?>
 
-<rfc number="0001" category="info">
+<rfc number="0022" category="info">
   <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
+    <title>Security vulnerabilities and advisory</title>
+    <author initials="J." surname="Doe" fullname="John Doe">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>besfred@gmx.net</email>
+	<email>johndoe@xaraya.com</email>
 	<uri>http://www.xaraya.com</uri>
       </address>
     </author>
-    <date month="January" year="2002"/>
+    <date month="October" year="2002"/>
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
-      </t>
+      <t>The contents of this RFC could not be found in the original documents.</t>
     </abstract>
   </front>
   

@@ -170,8 +170,11 @@ html/
 					<t>.xar-mod-body</t>
 					<t>.xar-mod-foot</t>
 					<t>.xar-norm</t>
+					<t>.xar-norm-outline</t>
 					<t>.xar-accent</t>
+					<t>.xar-accent-outline</t>
 					<t>.xar-alt</t>
+					<t>.xar-alt-outline</t>
 					<t>.xar-sub</t>
 					<t>.xar-menu-section</t>
 					<t>.xar-menu-item</t>

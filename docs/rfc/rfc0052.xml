@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- 
+    Supported processing instructions, uncomment the ones you want
+-->
+
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
+<!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
+<!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
+<!-- <?rfc sortrefs="yes"?> Sort the references -->
+<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
+<!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
+
+<?-- I guess we always want a table of contents --?>
+<?rfc toc="yes"?>
+
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0052" category="exp">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+  
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>RFC-template</title>
+    <author initials="M.C." surname="Cortez" fullname="Michael Cortez">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>mcortez@xaraya.com</email>
+        <uri>http://EpicSaga.com</uri>
+      </address>
+    </author>
+    <date month="May" year="2004"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Mike's Monkey's</workgroup>
+    
+    <!-- List keywords for the RFC here -->
+    <keyword>Dynamic Data</keyword>
+    <keyword>Properties</keyword>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC extends RFC 0007 - Modularized User Data, by providing specific
+	  instructions on how Dynamic Data Property Types are added to the system, how to create
+	  new ones, and provides documentation on all the properties provided by the Xaraya Core
+	  Distribuation.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>Every RFC contains at least the following sections:
+        <list style="symbols">
+          <t>Introduction</t>
+          <t>The Property Master Class</t>
+          <t>Creating a new Property</t>
+          <t>The Property Loading Mechanism</t>
+          <t>Xaraya Core Property Types</t>
+          <t>Revision History</t>
+        </list>
+      </t>
+    </section>
+    
+    <!-- One content section is mandatory -->
+    <section title="The Property Master Class">
+      <t>The Dynamic Data Module provides a base Property Class that all Properties extend, "Dynamic_Property".  
+	  The Dynamic_Property class is located within /modules/dynamicdata/class/properties.php &lt;Link to PHPDoc for Dynamic Property Class&gt;</t>
+      <t>The Dynamic_Property classes consists of the following base functions that may be overidden:
+        <list style="symbols">
+          <t>getValue()</t>
+          <t>setValue($value)</t>
+          <t>checkInput($name = '', $value = null)</t>
+          <t>validateValue($value = null)</t>
+          <t>getItemValue($itemid)</t>
+          <t>setItemValue($itemid, $value)</t>
+          <t>showInput($args = array())</t>
+          <t>showOutput($args = array())</t>
+		  <t>showLabel($label = null)</t>
+		  <t>showHidden($args = array())</t>
+		  <t>getBasePropertyInfo() - Get the base information for this property.</t>
+        </list>
+	  </t>
+    </section>
+    <section title="Creating a new Property">
+      <t></t>
+	  <t>You must overide the getBasePropertyInfo() method to return an array consisting of data values 
+	     specific to your property, specifically:
+		 
+        <list style="symbols">
+          <t>id - Unique Identifier</t>
+          <t>name - Internal Name of this Property</t>
+          <t>label - Public Label for this Property to be displayed when configuring DD Properties for an Object</t>
+          <t>format - &lt;I have no clue what this does, ask mikespub -- generally this is set to the same value as the id&gt;</t>
+          <t>validation - (optional) Contains the default, site admin overideable, configuration for this property</t>
+          <t>source - (optional) What provides this property, commonly specifies the custom module that provides this property</t>
+          <t>dependancies - (optional) Semicolon seperated list of files that must be present for this property to be available </t>
+          <t>requiresmodule - (optional) this module must be available before this property is enabled</t>
+		  <t>aliases - (optional) If the same property class is reused directly with just different base info, and arguments then supply the alternate base arrays here</t>
+		  <t>args - (optional) An array of the default arguments to be passed to this class' contructor.</t>
+        </list>
+	  </t>
+    </section>
+    <section title="The Property Loading Mechanism">
+      <t>
+	     The Dynamic_Property_Master will scan the Xaraya file system and automatically load properties 
+		 into the system, to be made available to site administrators while configuring Xaraya objects.  
+		 The Dynamic_Property_Master will verify that the specified dependancies and required modules
+		 specified by each property's getBasePropertyInfo() method are present and available prior to
+		 adding the property to the list of available properties.
+	  </t>
+    </section>
+    
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>0.0 - Initial Draft Version</t>
+    </section>
+    
+  </middle>
+  
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    <references title="Reference title">
+      <!-- Fill in references as needed -->
+      <reference>
+        <front>
+          <title>Modularized User Data - RFC 0007</title>
+          <author>
+            <organization>Xaraya Development Group</organization>
+          </author>
+          <date year="2002"/>
+        </front>
+      </reference>
+      <!-- Repeat the aboven block if more references are needed -->
+    </references>
+    
+    <!-- Any section after this will become an appendix -->
+    <section title="Xaraya Core Property Types">
+<section title="Affero">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="AIM">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Calendar">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Checkbox">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="CountryAbbrList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="CountryList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="DataSource">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="DateFormat">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Email">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="FieldStatus">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="FieldType">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="FileUpload">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="FloatBox">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="GroupList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Hardcore">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Hidden">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="HTMLArea">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="HTMLPage">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="ICQ">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="ImageList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Image">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="ItemID">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="ItemType">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="LanguageList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Module">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="MSN">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="MultiSelect">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="NumberBox">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="NumberList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Object">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="PassBox">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="PayPalCart">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="PayPalDonate">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="PayPalNow">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="PayPalSubscription">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="RadioButtons">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Select">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="SendToFriend">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="StateList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="StateProvinceList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="StaticText">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Status">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="TColorPicker">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="TextArea">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="TextBox">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="TextUpload">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="TimeZone">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Upload">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="URLIcon">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="URLTitle">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="URL">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="UserList">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Username">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+
+
+<section title="Yahoo">
+  <section title="Description">
+    <t>
+    </t>
+  </section>
+  <section title="Arguments">
+    <t>
+    </t>
+  </section>
+  <section title="Validation/Configuration Options">
+    <t>
+    </t>
+  </section>
+  <section title="Requirements">
+    <t>
+    </t>
+  </section>
+</section>
+    </section>  </back>
+</rfc>

@@ -51,3 +51,9 @@ Common Installation Errors
 	html/var/templates/CACHEKEYS
 
    The html/var/cache/rss and html/var/cache/templates both need to be writable and executable, along with the config.system.php file.
+
+   If you have a problem with install of your databases, and you recieve a message:
+
+	ErrorNo: 1142, Message:Database error while executing: 'CREATE INDEX i_base_xar_uid ON xar_session_info (xar_uid)'; error description is: 'index command denied to user: 'debeemster@localhost' for table 'xar_session_info''.
+   
+   This is an indication that you or your host does not allow the permission in the database to create indexes.  The system will suffer from slow performance without the DB index, and it is in your host's best interest to allow them.

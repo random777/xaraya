@@ -11,27 +11,91 @@ that bk will play an important role in it. As the setup can
 be fairly comples, this document contains information for 
 maintainers and developers to be able to use it.
 
+------------------------------------------
 Overview
---------
+------------------------------------------
 For the websites we use a staging, production process which
 means that all changes are made in a staging environment, 
 which is used to gather all improvements and when stable 
 enough will be published to the production environment.
 
 So the basic hierarchy which holds the content for *all* 
-sites needed by the xarya group is as follows:
+sites needed by the Xaraya group is as follows:
 
             webs-production
                   ^
-	          |
-		  | publish
+                  |
+                  |
+		  |    (publish)
+		  ^
 		  |
 		  |
              webs-staging
+                  ^
+	          |
+		  |
+		  |    (promote)
+		  ^
+		  |
+		  |
+             webs-development (concept)
+			 
 
-This can be compared with the xaraya-main repos and the 
-xaraya-stable repository.
+------------------------------------------
+Why Three Environments?
+------------------------------------------
+While on the surface, the 3-stage evironment may
+may appear to be an unneccesary layer of bueracracy, it 
+serves several very important functions:
 
+DEVELOPMENT = The Sandbox.  [BUILD]
+------------------------------------------
+New ideas, code, themes get thrown in here.  This 
+environment is highly unstable.  At any given moment, 
+anything or everything could be broken.  This is the URL
+developers (code, content, graphics) use to play and test
+ideas and concepts before asking to have them reviewed.
+
+Once the developer is comfortable that his changes are 
+ready for review, he promotes them to Staging for review
+by the appropriate stakeholders.
+
+Xaraya Code BK Analog :: Xaraya-main repos
+
+Xaraya Code BK Analog :: developers clone  ?
+
+STAGING = Pre-Release Review [TWEAK]
+------------------------------------------
+Once proven and fixed in DEV, code and content is pushed
+to Staging, which is an exact mirror of Production.  This 
+is the environment where folks are asked to look at pending
+releases (code, content, graphics) for a pre-release sanity 
+check.  It exists so reviewers can see the release precisely 
+as it is intended to appear in production. Typos and minor
+tweaks can be caught here and fixed.  Changes are pushed 
+back to DEV if needed.
+
+Once all stakeholders have reviewed and signed off, the
+content can be published to production.
+
+Xaraya Code BK Analog :: Xaraya-stable repos
+
+Xaraya Code BK Analog :: Xaraya-main repos ?
+
+PRODUCTION = Live to the Web [RELEASE]
+------------------------------------------
+Pretty straight-forward.  Live to the world.  Hopefully,
+we caught everything in Dev/Staging.  If not, bugs are
+fixed as needed in DEV and pushed back up through STAGING
+for review and publication.
+
+Xaraya Code BK Analog :: NONE [Release 1.0]
+
+Xaraya Code BK Analog :: Xaraya-stable repos
+
+------------------------------------------
+Web Repositories
+------------------------------------------ 
 The web repository contains a subdir for each 
 website managed by this process, currently it has the 
 following layout:
@@ -39,8 +103,9 @@ following layout:
 reposroot/
 	bk/        ---> content for bk.xaraya.com (ultimately)
 	bugs/      ---> content for bugs.xaraya.com (ultimately)
-        www/       ---> content for www.xaraya.com (ultimately)
-        developer/ ---> content for developer.xaraya.com (ultimately)
+    www/       ---> content for www.xaraya.com (ultimately)
+    developer/ ---> content for developer.xaraya.com (ultimately)
+    news/  	   ---> content for news.xaraya.com (ultimately)
 	scripts	   ---> scripts which glue web repositories to other repositories (if necessary)
 
 If both webs-staging and webs-production repositories are in place
@@ -48,9 +113,9 @@ there is a nice structure to edit the content and make sure it's
 revision controlled and all that, but that doesn't give you a website,
 so we have to define a relation between the "bk-space" and the "web-space"
 
-
+------------------------------------------
 Relation between bk and web-space
----------------------------------
+------------------------------------------
 web-space: /var/www and below (http)
 bk-space : /usr/local/repositories and below
 
@@ -63,8 +128,8 @@ Option for creating a relation between the two
 
 A simple table with capabilities of each option:
  
-			1	2	3
--------------------------------------------
+			        1	2	3
+------------------------------------------
 Immediate result	++	+	-	(optional)
 Remote management	+	++	-
 Easy to customize	+	-	++
@@ -86,29 +151,85 @@ site control we either have to create a repository
 for each site, or wait for the nested repositories 
 feature of bk.
 
+------------------------------------------
 Examples for use:
-----------------
+------------------------------------------
 - making changes to websites:
 Make the change in local clone and push
-- publishing the site
-on server: in web-staging: bk push
-remote: 
+
+- publishing the site on server: 
+in web-staging: bk push remote: 
  - bk pull web-staging
  - bk parent web-production
  - bk pull (should not do anything, just a check)
  - bk push
  - bk parent web-staging
 
-What else is needed?
+
+------------------------------------------
+Actual Web Implementation(s):
+------------------------------------------
+
+DEVELOPEMENT SITE for *.xaraya.com
+------------------------------------------
+URL: https://dev.xaraya.com  (was https://concept.xaraya.com)
+DIR: /var/www-ssl/ddf/concept.xaraya.com
+
+Relevant Subdirs
+	1. /var/www-ssl/ddf/dev.xaraya.com/www/
+	2. /var/www-ssl/ddf/dev.xaraya.com/developer/
+	3. /var/www-ssl/ddf/dev.xaraya.com/bk/
+	4. /var/www-ssl/ddf/dev.xaraya.com/bugs/	
+	5. /var/www-ssl/ddf/dev.xaraya.com/news/
 
 
-Actual implementation:
----------------------
+STAGING SITE for *.xaraya.com
+------------------------------------------
+URL: https://staging.xaraya.com 
+DIR: /var/www-ssl/ddf/staging.xaraya.com
 
-concept.xaraya.com: 
-- staging site for www.xaraya.com
-- /var/www-ssl/ddf/concept.xaraya.como
+Relevant Subdirs
+	1. /var/www-ssl/ddf/staging.xaraya.com/www/
+	2. /var/www-ssl/ddf/staging.xaraya.com/developer/
+	3. /var/www-ssl/ddf/staging.xaraya.com/bk/
+	4. /var/www-ssl/ddf/staging.xaraya.com/bugs/	
+	5. /var/www-ssl/ddf/staging.xaraya.com/news/
 
-www.xaraya.com:
-- production site
-- /var/www/ddf/www.xaraya.com
+	
+PRODUCTION SITES (*.xaraya.com)
+------------------------------------------
+URL: http://www.xaraya.com
+DIR: /var/www/ddf/www.xaraya.com	
+
+URL: https://developer.xaraya.com
+DIR: /var/www-ssl/ddf/www.xaraya.com	
+
+URL: http://bk.xaraya.com
+DIR: /var/www/ddf/bk.xaraya.com	
+
+URL: http://bugs.xaraya.com
+DIR: /var/www/ddf/bugs.xaraya.com	
+
+URL: http://news.xaraya.com
+DIR: /var/www/ddf/news.xaraya.com	
+
+NOTE: In the dev and staging environments, the 
+webroot contains a simple index.html file with 
+pointer links to the various subdires that comprise
+the dev/staging environment for a given subdomain 
+(*.xaraya.com).  This allows us to avoid tons of 
+subdomains (e.g. dev-bugs.xaraya.com, 
+staging-bugs.xaraya.com, etc.).  
+
+This method also allows us to quickly add new 
+development/staging environments without DNS changes.
+Once a new subdomain is built & approved in DEV, it 
+can move to STAGING for team review and comment.  
+If/when a subdomain is approved byt PMC/Marketing,
+we can then ask the server team to make the required
+DNS/HTTPD changes to create the subdomain.
+
+
+COMMENTS:
+- Can we leave out the dev environment? If things get more complex
+later on we can always add a layer. 

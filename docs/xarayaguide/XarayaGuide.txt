@@ -57,9 +57,9 @@ The Official Xaraya Installation & Getting Started Guide is a work-in-progress a
 
 
 
-                                                           Guide version 0140
-                                                 Last updated: 28-August-2003
-                    Version 0140 sent to BitKeeper on 28-August-2003, 04:28pm
+                                                           Guide version 0144
+                                              Last updated: 02-September-2003
+                 Version 0144 sent to BitKeeper on 02-September-2003, 06:15pm
 INDEX
 =====
 INTRODUCTION BY JOHN COX
@@ -98,12 +98,18 @@ GETTING XARAYA
 GETTING XARAYA ONTO THE WEBSERVER
 	Setting Permissions
 
-XARAYA INSTALLATION
+INSTALLING AND UPGRADING XARAYA
+	New Xaraya Installation
+
+	Upgrading Xaraya
+
 	Increase Site Security
 
 	A Quick Look at Xaraya's Interface
 
 	SPECIAL NOTE: Click-paths
+
+XARAYA UPGRADES
 
 REMOVING THE REMINDER BLOCK
 
@@ -229,7 +235,7 @@ MODULES IN XARAYA
 		- Opentracker Module
 
 		- Polls Module
-			EXAMPLE: Adding Polls to the site
+			EXAMPLE: Creating a poll
 
 		- Privileges Module (core)
 
@@ -343,6 +349,8 @@ APPENDIX D: Enabling Short URL support in Apache 2.x
 APPENDIX E: Creating a Xaraya Theme
 
 APPENDIX F: Converting from PostNuke to Xaraya
+
+APPENDIX G: Installing & Configuring Red Hat 9.0 to run Xaraya
 INTRODUCTION BY JOHN COX
 ========================
 Someday...
@@ -644,9 +652,11 @@ To set permissions and ownership on other operating systems, please check your m
 	CAUTION: Be aware that the next command will recursively delete the entire Xaraya TEMPORARY directory.
 	- "rm -R xar"
 
-XARAYA INSTALLATION
-===================
-Once Xaraya has been moved onto your site (either via a copy command or an upload), you must run the installation script before the site can be used. Follow these steps to install Xaraya.
+INSTALLING AND UPGRADING XARAYA
+===============================
+New Xaraya Installation
+-----------------------
+Once Xaraya has been moved onto your site (either via a copy command or an upload, see above), you must run the installation script before the site can be used. Follow these steps to install Xaraya.
 
 SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also use ZoneAlarm, be sure to DISABLE or EXIT ZoneAlarm for the duration of the Xaraya installation on a Windows machine. This is because ZoneAlarm may cause problems when installing Xaraya on a Windows machine.
 
@@ -707,6 +717,27 @@ SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also 
 	- Click "Continue".
 
 * Your Xaraya installation is complete! Click "Launch the site!" to go to your new Xaraya website, logged in as the Administrator.
+
+Upgrading Xaraya
+----------------
+The general practice for upgrading your existing Xaraya site to a newer version is as follows:
+	- Backup the old Xaraya installation & database.
+
+	- Log in to your existing Xaraya site with administration rights.
+
+	- Ensure that your existing Publication Type configurations are up-to-date with the older version of Xaraya. While logged in as Administrator, go to Admin->Articles->Modify config and click the "Update Configuration" button to ensure that old Publication Type configurations are updated to the current version states.
+
+	- Replace all existing files, directories, and modules _EXCEPT_ the <xarroot>/var/config.system.php file with the new Xaraya files. The existing <xarroot>/var/config.system.php file must be retained; the upgrade script reads database settings from this file.
+
+	- Check permissions and ownership of the newly copied files.
+
+	- In the same browser window, point your browser to upgrade.php in your root directory. For example, http://www.mywebsite.com/upgrade.php.
+	
+	- Follow the instructions in the upgrade script.
+	
+	- After the upgrade has completed, remove upgrade.php and install.php from your web directory and ensure that <xarroot>/var/config.system.php has appropriate permissions. See Increase Site Security, below.
+
+	- Go to Admin->Modules->View All, CHECK the Regenerate box and click RELOAD. Upgrade required modules that are indicated by the status of UPGRADE.
 
 Increase Site Security
 ----------------------
@@ -1581,7 +1612,7 @@ It is a wise idea, though technically not required, to log out of your administr
 
 EXAMPLE: Extending the Gallery Publication Type
 -----------------------------------------------
-OTTO: Speak with mcortez about adding thumbnails, etc.
+OTTO: Speak with mcortez about adding thumbnails, importing, etc.
 
 - Authldap Module: Xaraya LDAP authentication module. Admin->Authldap.
 This module provides LDAP authentication services for Xaraya.
@@ -1637,7 +1668,9 @@ When Autolinks are installed, the option to hook Autolinks into particular modul
 
 Click "Create Autolink" to add the Autolink to the database.
 
-To view, edit, or delete Autolinks, click Admin->Autolinks->View. All Autolinks in your database are displayed sorted by Keyword. If you wish to edit an Autolink, click on the "Edit" link for that Autolink. A panel is displayed allowing you to edit all the information about that particular Autolink. An additional field, "Enabled", is available on this panel. See below for Enabling/Disabling Autolinks. Click "Modify Autolink" to save changes.
+To view, edit, or delete Autolinks, click Admin->Autolinks->View. All Autolinks in your database are displayed sorted by Keyword. If you wish to edit an Autolink, click on the "Edit" link for that Autolink. A panel is displayed allowing you to edit all the information about that particular Autolink. Two additional fields, "Enabled" and "Match As Regular Expression", are available on this panel. See below for Enabling/Disabling Autolinks. Click "Modify Autolink" to save changes.
+
+OTTO: Describe Match As Regular Expression.
 
 To delete an Autolink, click on the "Delete" link for that Autolink. A panel will be displayed asking you to confirm your request to delete the Autolink. If you wish to delete the Autolink, click "Confirm"; otherwise click "Cancel deletion of Autolink" and the link will not be removed.
 
@@ -2372,20 +2405,24 @@ Deleting a Block Group
 
 EXAMPLE: Adding sub-sub-categories (etc.) to a Category
 -------------------------------------------------------
-Xaraya allows the site administrator to make categories with sub-sub-categories and sub-sub-categories (see below). In this example, we'll make a category with two sub-categories, and two sub-sub-categories.
+Xaraya allows the site administrator to make categories with sub-sub-categories and sub-sub-categories (etc.), as shown below. In this example, we'll make a category with two sub-categories, and two sub-sub-categories. There are extra categories in the diagram below; create them on your own if you wish.
 
-		Animals of all sorts
+		Animals of all sorts (top-level category)
 		|
-		|---Dogs
+		|---Dogs (sub-category)
 		|   |
-		|   |---Jack Russell Terriers
+		|   |---Jack Russell Terriers (sub-sub-category)
 		|   |
-		|   |---Greyhounds
+		|   |---Greyhounds (sub-sub-category)
 		|
-		|---Cats
+		|---Cats (sub-category)
+		|   |
+		|   |---Domestic Long Hair (sub-sub-category)
+		|   |
+		|   |---Domestic Short Hair (sub-sub-category)
 		|
 		|---etc...
-	
+
 Create a main category called "Animals". Create a sub-category of Animals called "Dogs" and another called "Cats". Create two sub-sub-categories of Animals, in Dogs, called "Jack Russell Terriers" and "Greyhounds". Here's how to do it...
 
 	- Add Animals category. Admin->Categories->Add Category. Enter main category with the following parameters:
@@ -2718,6 +2755,7 @@ The installer module is used by Xaraya during installation and for upgrades to t
 - Mail Module (core): Mail handling utility module. Admin->Mail.
 	- Modify config:
 	This panel allows modification of configuration options for this module.
+
 	Modify Mail Configuration
 	-------------------------
 	- Admin Name: Enter the name of the site administrator here. For example, "Joe Admin".
@@ -2871,95 +2909,100 @@ The installer module is used by Xaraya during installation and for upgrades to t
 
 		- Click "Modify" to save changes, or "Cancel" to cancel changes.
 
-- Opentracker Module (Modules distribution): Wrapper around phpOpenTracker (http://www.phpopentracker.de) for Xaraya. No administration panel.
+- Opentracker Module (Modules distribution): Xaraya wrapper around phpOpenTracker statistics tracking system (http://www.phpopentracker.de). No administration panel.
 
 - Polls Module: Conduct polls. Admin->Polls.
+Polls allow you to gather information from your site visitors using a 'voting booth' method. Xaraya supports an unlimited number of different polls, and polls optionally support selection of multiple options (for example, for surveys like 'Which of these items do you own?'). 
 	- New Poll:
-		- Poll title:
+	To create a new Poll for the site, click "New Poll". The next panel offers the following options.
+		- Poll title: Enter the name of the poll in this field, which is displayed to site visitors.
 
-		- Poll type:
-			- Single vote:
+		- Poll type: If you want your users to be able to select only one option, choose "Single vote" (for example, "John"). If you want your users to be able to select multiple options (for example, "John" and "Paul"), choose "Multiple vote".
 
-			- Multiple vote:
-
-		- Private:
+		- Private: CHECK this box to make this poll private. UNCHECK this box to make the poll public, which means any site visitor with privileges can view and vote in this poll.
 
 		- Poll options: Enter each available poll option, one option per line. Move from field to field using the TAB key.
 
 		- Click "Create Poll" to save changes.
 
 	- List Polls:
-		- Title:
+		- Title: The title of the poll.
 		- Actions:
-			- Edit Options:
-				- Order:
+			- Edit Options: To add, modify, or delete options for the selected Poll, click the "Edit options" link.
+				- Option: The poll option.
+
+				- Order: To move a poll option up or down, click the corresponding arrow next to it.
 
 				- Actions:
-					- Modify:
+					- Modify: To modify a poll option, click the "Modify" link next to the option to be modified. Make any modifications and click "Modify Option" to save changes.
 
-					- Delete:
+					- Delete: To delete a poll option, click the "Delete" link next to the option to be deleted. Confirm your intention to delete the poll option by clicking "Delete Option" on the next panel. The poll option is removed.
 
-				- New option:
-					- Option text:
-
-					- Click "Create Option" to save changes.
+				- New option: Click "New Option" to add a new poll option to an existing poll. Enter the option text to be displayed to site visitors, and click "Create Option" to save changes.
 
 			- Close: Closes the poll so no more votes can be submitted.
 
-			- Modify:
-				- Poll title:
+			- Modify: The modify option allows the title, type, privacy setting, and options to be changed on an existing poll. Click "Modify Poll" to save changes.
 
-				- Poll type:
-
-				- Private:
-
-				- Edit options:
-					- Option text:
-
-					- Click "Create Option" to save changes.
-
-				- Click "Modify Poll" to save changes.
+			- Reset: Click this option to reset the polling data for an exsiting poll. Confirm your intention on the next panel. If you click "Reset Poll", any existing votes are removed for the selected Poll.
 
 			- Delete: Deletes the poll and all responses from the site. Click "Delete Poll" to confirm your intention to delete the poll.
 
 	- Modify config:
 	This panel allows modification of configuration options for this module.
-		- Scale of result bar:
+		- Scale of result bar: OTTO
 
-		- Number of options for new polls:
+		- Number of options for new polls: Sets the default number of options available when a new poll is created. If you only ask "Yes" or "No" polls, it is safe to set this to "2" options. Only the poll options that you use are displayed to site visitors. No matter the value in this setting, new options can be added to polls easily. A suggested setting for this field is "10".
 
-		- Number of polls per list page:
+		- Number of polls per list page: This setting defines the number of polls to display per page. To display 20 polls per page, enter "20" in this field.
 
-		- Activate comments in polls?:
+		- Activate comments in polls?: CHECK this box to permit comments on polls. The Comments module must be installed for this option to function.
 
-		- Use images for graph display: DDL
-			- Never:
+		- Use images for graph display: From this drop-down list, select if you would like to use images for poll results graphs.
+			- Never: Select this option to NEVER display images in the poll results graph.
 
-			- Blocks only:
+			- Blocks only: Select this option to display images in the poll results graph only when the poll is displayed within a block.
 
-			- Module space only:
+			- Module space only: Select this option to display images in the poll results graph only within the Polls module, but not in blocks. For example, selecting this option displays images in the poll results graph only when a site visitor clicks the Polls module.
 
-			- Always:
+			- Always: Always display images for the poll results graph.
 
-		- Allow users to vote (per poll): DDL
-			- Once:
+		- Allow users to vote (per poll): From this drop-down list, select the frequency with which a site visitor is permitted to vote in a poll.
+			- Once: The site visitor is permitted to vote in a poll only once.
 
-			- Once per day:
+			- Once per day: The site visitor is permitted to vote in a poll once per day.
 
-			- Once per week:
+			- Once per week: The site visitor is permitted to vote in a poll once per week.
 
-			- Once per month:
+			- Once per month: The site visitor is permitted to vote in a poll once per month.
 
-		- Allow users to see results before voting:
+		- Allow users to see results before voting: CHECK this box to allow site visitors to view poll results, even if they have not yet voted in a poll. UNCHECK this box to hide poll results until a user has voted in a specific poll.
 
 		- Click "Submit" to save changes.
 
-EXAMPLE: Adding Polls to the site
----------------------------------
+EXAMPLE: Creating a Poll
+------------------------
+To create a Poll, follow these steps:
+	* Go to Admin->Polls->New Poll.
+		- In Poll Title, type "Who is your favorite Beatle?"
 
-- Postboard Module (Modules distribution): PostBoard forum.
+		- Select SINGLE in Poll Type, since we want our voters to select only ONE Beatle. If you wanted to allow them to select multiple options, set this field to Multiple vote. For this example, set it to Single vote.
+
+		- Leave Private UNCHECKED.
+
+		- Options: Add the following options, moving from field to field by pressing the TAB key.
+			- John
+
+			- Paul
+
+			- George
+
+			- Ringo
+
+	* Click "Create Poll" to create the poll.
 
 - Privileges Module (core): Modify privileges security. Admin->Privileges.
+See PRIVILEGES: BUILDING BLOCKS FOR SITE ACCESS, below, for a thorough discussion of Xaraya's Privileges module.
 
 - Pubsub Module (Modules distribution): Allow users to subscribe to updates to site items. Admin->Pubsub.
 
@@ -3387,27 +3430,38 @@ To allow users to upload images to the site and include the uploaded images in a
 
 - Xarbb Module: A lightweight forum for Xaraya. Admin->Xarbb.
 	- Add:
-		- Forum name:
+	To add a forum to Xaraya, click this link. On the next panel, complete the following information about your new forum.
+		- Forum name: Enter the name of the new forum as it will be displayed to site visitors.
 
-		- Forum description:
+		- Forum description: Enter text describing this forum.
 
 		- Click "Create Forum" to save changes.
 
 	- View:
-		- Forum Name:
+	To view, edit, or delete an existing forum, click this link. On the next panel, you have the following options:
+		- Forum Name: The name of the forum.
 
-		- Forum Description:
+		- Forum Description: The forum description.
 
 		- Options:
-			- Edit:
+			- Edit: Click the Edit link to modify the forum name or description. Click "Modify Forum" to save changes.
 
-			- Delete:
+			- Delete: If you wish to delete a forum, click the Delete link next to the name of the forum to be deleted. Confirm your intention to delete by clicking the "Confirm" button. When a forum is deleted, all messages within that forum are also deleted.
 
 	- Modify config:
 	This panel allows modification of configuration options for this module.
-		- Hot Topic:
+		- Hot Topic: Enter the number of messages in a forum to consider the topic "Hot". A Hot Topic is marked with a special icon. For example, if you want forums with 10 or more messages to be marked as Hot, enter "10" in this field.
 
-		- Red Hot Topic:
+		- Red Hot Topic: Enter the number of messages in a forum to consider the topic "Red Hot". A Red Hot Topic is marked with a special icon. For example, if you want forums with 20 or more messages to be marked as Red Hot, enter "20" in this field.
+
+		- Categories:
+		In this section of the panel, forums can be associated with one or more Categories. To associate a forum with a Category, set the "Number of possible categories" field to "1", click "Update Configuration", then select the base category from the drop-down list and click "Update Configuration" again.
+			- New: To add a new Category, click this link. See the section on Categories for more information.
+
+			- Number of possible categories: Enter the number of possible categories with which xarBB will be associated.
+
+			- Base category for xarBB:
+				- Edit: To edit an existing category, click the "Edit" link next to the category name. See the section on Categories for more information.
 
 		- Click "Update Configuration" to save changes.
 
@@ -4111,11 +4165,11 @@ PRIVILEGES: BUILDING BLOCKS FOR SITE ACCESS
 ===========================================
 Introduction to Privileges
 --------------------------
-Xaraya provides tools for very fine-grained access control for site users on either a Group or individual User level. Many of the concepts behind user roles and privileges are based in Object Oriented Programming.
+Through the use of privileges and roles, Xaraya provides very fine-grained access control for site users on either a Group or individual User level. Many of the concepts behind user roles and privileges are based in Object Oriented Programming.
 
-Privileges are individual access rights (Example: Allow Comments on Articles. Example: Do not allow access to administration options.) that can be used as building blocks and collected together into Compound Privileges.
+Privileges are individual access levels (Example: Allow Comments on Articles; Example: Do not allow access to administration options) that can be used as building blocks and collected together into Compound Privileges.
 
-Individual Privileges or Compound Privileges are placed into Roles on the site. Site Roles are built from specific Privileges or Compound Privileges. Privileges are made from Access Levels. Access Levels are the basis for the access control system in Xaraya. Users are placed into Roles and have permission to do whatever the Privileges associated with that Role permit them to do on the site.
+Individual Privileges or Compound Privileges are placed into Site Roles. Site Roles are built from existing Individual Privileges or Compound Privileges. Privileges are made from Access Levels. Access Levels are the basis for the access control system in Xaraya. Users are placed into Roles and have permission to do whatever the Privileges associated with that Role permit them to do on the site.
 
 Terminology
 -----------
@@ -4855,6 +4909,216 @@ To convert from PostNuke to Xaraya, follow the steps below.
 	9. If you no longer intend to run PostNuke, the PostNuke tables can be deleted from the database using the command line or phpMyAdmin.
 
 After conversion, the PostNuke tables in the database may be deleted, if desired.
+
+APPENDIX G: Installing & Configuring Red Hat 9.0 to run Xaraya
+==============================================================
+This appendix will walk you through the basic steps to configure a Red Hat 9.0 system to run Xaraya. 
+
+NOTE: Though we install them, this appendix does NOT include information on configuring email services (Sendmail, Postfix, Squirrelmail, SpamAssassin, etc.). Configuration of this type is beyond the scope of this document.
+
+To install RED HAT LINUX 9.0 to run Xaraya, follow these steps.
+
+CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+=============================================================================
+This procedure will COMPLETELY ERASE HARD DRIVES INSTALLED ON THIS SYSTEM. Be sure there is no important data on the drives; EVERYTHING WILL BE LOST. Use these instructions at your own risk.
+=============================================================================
+CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+
+* Get the RED HAT 9.0 installation CDs.
+
+* Boot the system from the RED HAT 9.0 installation CD. Launch the Red Hat Installer.
+
+* Perform the (optional) media check to test your installation CDs. This is strongly recommended the first time you install from a particular CD set, to make sure that it does not contain any errors. Select "OK" to perform the media check. Once you have checked each CD set once, it is generally not necessary to check it again and you may "Skip" this step.
+
+* WELCOME TO RED HAT LINUX: Click "Next" at the Welcome screen.
+
+* LANGUAGE SELECTION: Select the language to use during installation. Click "Next".
+
+* KEYBOARD CONFIGURATION: Select your Keyboard Configuration. Click "Next".
+
+* MOUSE CONFIGURATION: Select your Mouse Configuration. Click "Next".
+
+* INSTALLATION TYPE: If there is already a Linux operating system installed on this machine, select "Perform a new Red Hat Linux installation" and click "Next". Select "SERVER". Click "Next".
+
+* DISK PARTITIONING SETUP: Select "Automatically Partition" and click "Next".
+
+* AUTOMATIC PARTITIONING: Select "Remove ALL partitions on this system". Click "Next".
+
+A warning window gives you the opportunity to change your mind. If you are certain that you want to remove all partitions on this system, click "Yes". If you do not want to remove all partitions on this system, click "No".
+
+CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+=============================================================================
+Selecting "Yes" will erase EVERYTHING on this system.
+=============================================================================
+CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+
+* DISK SETUP: You can review the changes that Red Hat will make to your computer's hard drive partitions here. Click "Next" to continue.
+
+* BOOT LOADER CONFIGURATION: Leave set to defaults unless you wish to change the settings. Click "Next".
+
+* NETWORK CONFIGURATION: Leave set to defaults unless you wish to change the settings. Click "Next".
+
+* FIREWALL CONFIGURATION: Select Medium (or High) Security, CHECK your network device (usually "eth0") as a Trusted device, CHECK WWW (HTTP), FTP, SSH, DHCP, and MAIL (SMTP). Do NOT check Telnet unless you have a specific need to support it. Click "Next".
+
+* ADDITIONAL LANGUAGE SUPPORT: If you wish for your Red Hat installation to support multiple languages, select them from the listing under Additional Languages. Click "Next".
+
+* TIME ZONE SELECTION: Select your Time zone. Click "Next".
+
+* SET ROOT PASSWORD: Enter the root user's password twice. Remember this password -- it is the key to administrator access to this server. Click "Next".
+
+Be patient -- the installer will read package information for a while, then display the next step.
+
+* PACKAGE GROUP SELECTION:
+The only items that should be CHECKED for this installation are as follows. UNCHECK any other package sets. If you need to install additional features (such as Printing Support), you may do so.
+	CHECK:
+		- X Window System
+
+		- GNOME Desktop Environment
+
+		- Graphical Internet
+
+		- Text Based Internet -- click "Details"
+			In addition to those items already checked,
+			- Check epic
+
+			- Check lynx
+
+			- Check ncftp
+
+			- Check pine
+
+		- Server Configuration Tools
+
+		- Web Server -- click "Details"
+			In addition to those items already checked,
+			- Check mod_auth_mysql
+
+			- Check mod_auth_pgsql
+
+			- Check php-mysql
+
+			- Check php-odbc
+
+			- check php-pgsql
+
+		- Mail Server -- click "Details". This appendix does NOT include information on configuring email services (Sendmail, Postfix, Squirrelmail, SpamAssassin, etc.). This configuration is beyond the scope of this document.
+			In addition to those items already checked,
+			- Check postfix
+
+			- Check spamassassin
+
+			- Check squirrelmail
+
+		- SQL Database Server -- click "Details"
+			In addition to those items already checked,
+			- Check mysql-server
+
+		- Administration Tools
+
+		- System Tools
+
+	Click "Next".
+
+* As configured above, the installation is approximately 1235 megabytes.
+
+CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+=============================================================================
+Continuing through the next step will DESTROY ANY DATA on the system.
+=============================================================================
+CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+
+* ABOUT TO INSTALL: Click "Next" to begin the installation.
+
+* INSTALLING PACKAGES: The system will install from the Red Hat CDs. Insert installation CDs them as you are prompted for them, and click "OK" to continue installation when each CD has been inserted.
+
+* BOOT DISKETTE CREATION: After installation completes, the installer will offer to make a boot floppy. If your system has a floppy drive, it is highly recommended that you create a boot floppy. Select "Yes" to create a boot floppy. You need a floppy disk -- it will be completely erased. Select "No" to skip the creation of a boot floppy.
+
+* GRAPHICAL INTERFACE (X) CONFIGURATION: The Red Hat installer will attempt to detect your video card and monitor type. Click "Next" to move through these configuration options.
+
+* CUSTOMIZE GRAPHICS CONFIGURATION: Select your Color Depth and Screen Resolution from the drop-down lists. IMPORTANT: At the bottom of this screen, set "Please choose your login type" to TEXT. We select "Text" because the text mode login requires fewer system resources. Click "Next" to continue.
+
+* You see "Congratulations, the installation is complete". Remove all media -- the CD and the boot floppy. Click "Exit" to exit the installer and reboot into your new Red Hat 9.0 server.
+
+* When the system reboots, log in as root with the password you selected above.
+
+In the root directory, you should see a file called "anaconda-ks.cfg". This is a record of the installation that was just performed. It is recommended that you keep this file somewhere safe -- the boot floppy is a good suggestion.
+
+Insert the floppy disk, making sure it is write-enabled.
+
+	- Type "mount /mnt/floppy".
+
+	- Type "cp anaconda-ks.cfg /mnt/floppy/ks.cfg".
+
+	- Type "umount /mnt/floppy".
+
+When the floppy drive's activity light goes out, remove the floppy disk, write-protect it, and keep it in a safe place, preferrably away from this server since the file we just copied contains password information. If you ever wish to perform this exact installation again, you can do so by booting from the boot CD, inserting the floppy with ks.cfg on it, and typing "linux ks=floppy".
+
+* Still logged in as root, type "setup" at the command line. Use the cursor keys to move the lightbar down to "System services". Press ENTER. Scroll down and press the SPACEBAR next to "httpd" (web server), "mysqld" (MySQL database server), and "squid" (WWW proxy cache). Press TAB to move the lightbar to OK, then press ENTER. Press TAB two times to move the lightbar to Quit, and press ENTER to leave Setup.
+
+* Type "reboot" at the command line to reboot your server. When the server reboots, the items we selected above will launch.
+
+* UP2DATE:
+	- When the system has rebooted, make sure that the server is connected to the internet. Then, log in as root and type "up2date". Because Red Hat is a constantly evolving product, there are new releases of component software on a frequent basis. The Up2Date program keeps your system updated by communicating with Red Hat Network. If necessary, edit the settings that are displayed, however, generally, the defaults are acceptable. Press ENTER to save and exit, or press "q" to quit without saving.
+
+	- From the command line, type "rpm --import /usr/share/rhn/RPM-GPG-KEY" to import your Red Hat Network information into your installation.
+
+	- From the command line, type "up2date" again. Read the information and click "Next" twice. If you are an existing Red Hat Network user, enter your username, password, and email address in the fields. If you are not an existing Red Hat Network user, choose a username and password and enter them and your email address in the fields. Use TAB to move forward through the fields and SHIFT-TAB to move backward. Using TAB, move the lightbar to "Next" and press ENTER to continue. 
+
+	- Read the next screen, and click "Next" to continue. Red Hat will build a package list and ask if it can send information about your installed packages. It is suggested that you allow this information to be sent. Click "Next" to continue, and click "Next" again to send the system profile to Red Hat Network. Click "Finish" when the profile has been sent.
+
+	- From the command line, type "up2date -l" to see a listing of packages available for updating. There may be a lot of packages, so it is recommended that you type "up2date -l >update.txt" to save the list of files to "update.txt". View the list by typing "more update.txt". Each item on the list indicates a package that has been updated since the creation of the CDs from which you installed.
+
+	To tell Red Hat to update packages, type the following at the command line: "up2date <packagename> <packagename> ...". You can put several packages on one line. Press ENTER and up2date will download, verify, and install the packages you specified. If an updated kernel (the core of the Linux operating system) is available and you wish to update your kernel, type "up2date -f kernel" to force the update of the kernel.
+
+	- Once your system is completely up-to-date, type "reboot" to reboot your server.
+
+* IFCONFIG: From the command line, type "ifconfig" to see the internet protocol (IP) address for this system. Make a note of the IP address.
+
+* phpMyAdmin: Download the latest stable version of phpMyAdmin (in tar.gz/PHP files format) from http://phpmyadmin.sourceforge.net to a temporary directory. From the command line, type "cd /tmp", then "lynx http://phpmyadmin.sourceforge.net" to connect to the site then select the latest version of phpMyAdmin for download. Press ENTER on the file. Select a download mirror and press ENTER. Press "d" to begin the download. When it completes, click on "Save to disk", and press ENTER to retain the default filename. Press "q" and "y"es to exit Lynx.
+
+To extract the archive, type "tar -xzvf <phpmyadmin>.tar.gz" (replace <phpmyadmin> with the name and version of phpMyAdmin that you just downloaded). When the extraction is complete, type "cd <phpmyadmin-dir>" (replace <phpmyadmin-dir> with the name of the directory where phpMyAdmin was extracted). Type "pico config.inc.php". This is the main configuration file for phpMyAdmin.
+
+There are four places we need to edit. Change the values for host, user, password and authentication mode to fit your environment. "Host" means the MySQL server and is usually "localhost". Also insert the correct value for $cfg['PmaAbsoluteUri']. Save the file and exit the editor.
+
+Now we need to copy phpMyAdmin directory to the <webdir>. From within the <phpmyadmin-dir>, type "mkdir /var/www/html/phpmyadmin", then type "cp * /var/www/html/phpmyadmin".
+
+It is recommended that you protect the directory in which you installed phpMyAdmin. Read phpMyAdmin's Documentation.html file in the phpMyAdmin directory for more information on doing so. phpMyAdmin is now ready for use.
+
+* MySQL: MySQL is the database that drives Xaraya. In order to configure MySQL for use, we must accomplish two things: Set a root password for the database, and create a database user & password.
+	- Set a root password for the database: When Red Hat installs MySQL, it is not password protected, making it vulnerable. To assign a password of "yourpass" for the root user, enter the following at the command line:
+		"mysqladmin -u root password yourpass"
+
+	- Create a database user: We must create a database user that Xaraya will use to access the database. We'll use phpMyAdmin for this. To launch Red Hat's Desktop, type "startx" at the command line. When the desktop appears, click the icon at the lower left of your screen that looks like a globe with a computer mouse coiled around it to launch Mozilla browser.
+		- From the broswer, visit the directory where you installed phpMyAdmin. In this example, it should be "http://localhost/phpmyadmin".
+
+		- Click Privileges->Add a new User
+
+		- Enter the following information:
+			* User Name: Enter the name for the database user, for example, "dbuser".
+
+			* Host: Enter the host where the database resides. Since we're hosting the database on the same site as the webserver, select "Local" from the drop-down list.
+
+			* Password: Enter the password for the database user.
+
+			* Re-type: Enter the same password again, to verify.
+
+		- Under Global Privileges, CHECK all the items in each column.
+
+		- Click "Go" to save changes.
+
+		- VERY IMPORTANT: Click the "Home" link under the phpMyAdmin logo in the top-left corner of your screen, then click "Reload MySQL".
+
+	- To exit the Red Hat Desktop, click the Red Hat icon in the lower left corner of the screen and select "Log out". Click "Log Out" and "OK" in the confirmation window, and you are returned to the command line.
+
+* Sendmail: Sendmail is the email agent on your server. Check with your service provider for tips on configuring Sendmail.
+
+* Postfix: Postfix is another email agent on your server. Check with your service provider for tips on configuring Postfix.
+
+* SpamAssassin: SpamAssassin is a mail filter to identify spam. Check with your service provider for tips on configuring SpamAssassin.
+
+* SquirrelMail: SquirrelMail is a webmail package. Check with your service provider for tips on configuring SquirrelMail.
+
+Your system is now ready for the installation of Xaraya.
 
 =-=-=-
 EOF

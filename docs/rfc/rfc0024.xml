@@ -5,7 +5,7 @@
 <?rfc toc='yes'?>
 <rfc number="0024" category="info">
 	<front>
-		<title>Content Management System</title>
+		<title>Publish and Subscribe Module</title>
 		<author initials="C." surname="Dudley" fullname="Chris Dudley">
 			<organization>Xaraya Development Group</organization>
 			<address>

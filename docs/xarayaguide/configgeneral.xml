@@ -2,88 +2,15 @@
 <chapter id="config">
   <title>General Configuration</title>
 
-  <para>Now that we&#39;ve installed Xaraya, we should begin to configure it.
-  The Community Site installation, by default, does not permit Registered
-  users to change their theme, to post comments, or to submit articles for
-  publication (all features that we set forth as configuration goals in
-  Assumptions, above) so these features need to be implemented.
-  <command>Admin-&#62;Themes-&#62;Modify config</command>:</para>
+  <para>Now that we've installed Xaraya, we should begin to configure it.
+  The pages in this section should help guide you through some of the more basic configuration options and start you on the path to customizing your Xaraya site.</para>
 
-  <para>See the section on the Themes Module (below) for more information
-  about these settings.</para>
+ <sect1 id="baseconfig">
+  <title>Base Module Config</title>
 
-  <para>Let&#39;s personalize the site a bit before we get started --
-  we&#39;ll do additional personalization later on. For now, we can change the
-  name, slogan, copyright statement, footer, and default theme of the site
-  from the <command>Admin-&#62;Themes-&#62;Modify config</command> panel.
-  </para>
+  <para>This section describes some of the settings and options available from the base module.</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Select default theme from drop-down list. The Xaraya Base
-      installation provides only one theme, so until you&#39;ve installed
-      additional themes, this should be an easy selection.</para>
-    </listitem>
-  </itemizedlist>
-
-  <para>In the title bar of your browser window, you should see the following:
-  <guilabel>Your Site Name :: Your Site Slogan</guilabel></para>
-
-  <para>This is your Site Name &#38; Site Slogan, respectively, separated by
-  the Title Separator. Edit these using the Site Name &#38; Site Slogan fields
-  below.</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>Type your <emphasis>Site Name</emphasis> -- whatever you&#39;d
-      like the name of your site to be.</para>
-    </listitem>
-
-    <listitem>
-      <para>Type your <emphasis>Site Slogan</emphasis> -- this field defines
-      the site&#39;s slogan. This slogan is displayed at the top of the page
-      under the site name in some themes, and in the title bar of the browser
-      by default.</para>
-    </listitem>
-
-    <listitem>
-      <para>Type the <emphasis>Copyright statement</emphasis> -- defaults to
-      &#34;<userinput>&#38;copy; Copyright 2003 &#60;administrator name&#62;</userinput>&#34;.
-      Change it as necessary.</para>
-    </listitem>
-
-    <listitem>
-      <para>Edit the <emphasis>Footer</emphasis>. The &#39;footer&#39; is
-      displayed at the bottom (the &#39;foot&#39;) of each and every page on
-      your site. This is an excellent place to give credit, state copyright,
-      or put links that you wish to appear on every page of the site. While we
-      appreciate credit being given to Xaraya in the footer, it is by no means
-      compulsory so the &#34;Powered by Xaraya&#34; graphic can be removed if
-      you wish.</para>
-    </listitem>
-
-    <listitem>
-      <para><emphasis>Page Title Separator</emphasis>: Default is &#34; ::
-      &#34;, but you can make it anything you wish by editing this field.</para>
-    </listitem>
-
-    <listitem>
-      <para><emphasis>Page Title Order</emphasis>: Determines how the page
-      title is displayed. You can experiment wiht the page display order to
-      find the one that suits your site best. For now, though, leave it set to
-      the default.</para>
-    </listitem>
-
-    <listitem>
-      <para>Click &#34;<command>Submit</command>&#34; to save changes</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><command>Admin-&#62;Base-&#62;Modify config</command>:</para>
-
-  <para>See the section on the Base Module (below) for more information about
-  these settings.</para>
-
+  <para><command>Admin-&#62;Base-&#62;Modifyconfig</command>: This panel allows you to change some of the settings controlling the core behaviour of the site.</para>
   <itemizedlist>
     <listitem>
       <para>Website display configuration:</para>
@@ -177,6 +104,12 @@
         </listitem>
       </itemizedlist>
     </listitem>
+    <listitem>
+      <para>Languages and Locales</para>
+    </listitem>
+    <listitem>
+      <para>Other</para>
+    </listitem>
   </itemizedlist>
 
   <para><command>Admin-&#62;Base-&#62;System Information</command>: This panel
@@ -185,8 +118,7 @@
   or what modules are compiled into PHP, this is where to find that
   information. This information may be helpful if you need to submit a Xaraya
   bug report or a feature request.</para>
- <sect1 id="base">
-  <title>Xaraya Base Module</title>
-&mod-base;
+
+  <para><command>Admin-&#62;Base-&#62;Extension Releases</command>: This panel syndicates a news feed from www.xaraya.com listing recent module and theme releases.</para>
  </sect1>
 </chapter>

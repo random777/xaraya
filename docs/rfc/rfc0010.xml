@@ -426,6 +426,22 @@ html/
             If the depth attribute is present and an integer 
             greater than 1, an equal number of enclosing loops are broken out of.
 					</t>
+					<t>Syntax example:
+            <artwork>
+              &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
+                &lt;xar:if condition="$i eq 5"&gt;
+                  &lt;xar:break/&gt;
+                &lt;/xar:if&gt;
+                #$i#
+              &lt;/xar:for&gt;
+            </artwork>
+					</t>
+          <t>
+            The above will generate:
+            <artwork>
+              01234
+            </artwork>
+          </t>
 					<t>
             Parent tags: 
             <xref target="for">&lt;xar:for /&gt;</xref>, 
@@ -455,9 +471,20 @@ html/
           </t>
 					<t>Syntax example:
             <artwork>
-              none yet
+              &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
+                &lt;xar:if condition="$i eq 5"&gt;
+                  &lt;xar:continue/&gt;
+                &lt;/xar:if&gt;
+                #$i#
+              &lt;/xar:for&gt;
             </artwork>
 					</t>
+          <t>
+            The above will generate:
+            <artwork>
+              012346789
+            </artwork>
+          </t>
 					<t>Parent tags: <xref target="for">&lt;xar:for /&gt;</xref>, &lt;xar:loop /&gt;, or <xref target="while">&lt;xar:while /&gt;</xref>.</t>
 					<t>Child tags: none</t>
 				</section>
@@ -600,6 +627,7 @@ html/
             <list style="symbols">
 							<t>id: an identifier for the tag (optional)</t>
 							<t>name: the variable which the loop increments</t>
+              <t>prefix: prefix to use when extracting the loop variables (default: _bl_loop_$id if id is set, otherwise $id is the loopnumber)</t>
 						</list>
 					</t>
 					<t>Description</t>
@@ -614,6 +642,18 @@ html/
               &lt;/xar:loop&gt;
             </artwork>
 					</t>
+          <t>
+            The variables are accessed as follows in the loop:
+            <artwork>
+              #$loop:[id:]item['var']# : if you created the $module_data array and put in a 
+                                         variable call 'var' the value of this variable is 
+                                         displayed. Optionally  you can specify id: to reference 
+                                         other loop constructs.
+              #$loop:[id:]index#       : the numeric loop index (of loop with id 'id'
+              #$loop:[id:]number#      : the loop number
+              #$loop:[id:]key#         : the key of the item being referenced
+            </artwork>
+          </t>
 					<t>Parent tag: none.</t>
 					<t>Child tags: none</t>
 				</section>

@@ -1062,26 +1062,34 @@ html/
         </section>
         <!-- xar:mlvar -->
         <section anchor="mlvar" title="&lt;xar:mlvar /&gt;">
-          <t>Open</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-            Contains a string passed to an accompanying <xref target="mlkey">&lt;xar:mlkey /&gt;</xref> or
-            <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> to occupy a place holder. 
-            See <xref target="ml">&lt;xar:ml /&gt;</xref> for  syntax examples using placeholders.
+            Contains a string passed to an accompanying <xref
+            target="mlkey">&lt;xar:mlkey /&gt;</xref> or <xref
+            target="mlstring">&lt;xar:mlstring /&gt;</xref> to occupy
+            a place holder.
           </t>
-          <t>Syntax example:
-            <artwork>
-              none yet
-            </artwork>
-                    </t>
-          <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref>
-                    </t>
-          <t>Child tags: none</t>
+          <section title="Forms">
+            <t>Only block form is allowed</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag</t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
+            <t>
+              See <xref target="ml">&lt;xar:ml /&gt;</xref> for 
+              syntax examples using placeholders.
+            </t>
+          </section>
+          <section title="Context">
+            <t>Parent tag:
+              <t><xref target="ml">&lt;xar:ml /&gt;</xref></t>
+            </t>
+            <t>Child tags: none</t>
+          </section>
         </section>
         <!-- xar:module -->
         <section anchor="module" title="&lt;xar:module /&gt;">

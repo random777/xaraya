@@ -52,13 +52,354 @@
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
     <!-- Introduction is mandatory -->
+    <section title="Introduction">
+        <t>The hook system allows site administrators to extend the functionality of modules - with
+           common features like comments, hitcounts, ratings, support for BBCode or Wiki etc.</t>
+        <t>Those features are provided by so-called hook modules : utility modules that offer a
+           number of hook functions, that will be called automatically when the corresponding hooks are enabled.</t>
+        <t>The main difference between hook calls and regular API calls is that hook calls to a
+           particular hook function (e.g. to display comments) are not hard-coded in the module
+           itself, but you can turn them on and off again via the administration.</t>
+        <t>This gives you a much greater flexibility, both as a site administrator and as a module
+           developer, in terms of the optional features that you want to provide in different parts
+           of your site or in your module.</t>
+    </section>
 
-    
     <!-- One content section is mandatory -->
-
+    <section title="Types of hooks">
+        <t>There are 5 main types of hooks that are currently used to extend module functionality, plus some special-purpose hooks.
+           Some hooks will provide part of the graphical user interface (GUI) to the user, while others will only operate on the API level.
+            <section title="Item Transform Hooks (API)">
+                <t>This type of hook allows you to transform some pieces of text of your module items
+                   (e.g. the summary and body of articles, or the description of a project, ...)
+                   in different ways, depending on the hook modules that are enabled for it.
+                   Hook modules that provide this type of hooks are for instance bbcode, autolinks, wiki, ...</t>
+            </section>
+            <section title="Item Display Hooks (GUI)">
+                <t>This type of hook shows some additional information that relates to a particular
+                   module item when that item is being displayed. Typical examples include comments, hitcount, ratings, ...</t>
+            </section>
+            <section title="Item Create/Update/Delete Hooks (API)">
+                <t>Some hook modules follow the whole life cycle of module items, from the moment the item is created,
+                   through any updates it may have, and up to the point where the item is deleted again.</t>
+                <t>In some cases, like the hitcount or ratings module, those hooks are only used to keep track of some
+                   internal value for each module item. In other cases, like for categories and dynamicdata, the hook
+                   module will also provide a graphical interface - see next type of hook.</t>
+            </section>
+            <section title="Item New/Modify Hooks (GUI)">
+                <t>This type of hook extends the previous one by showing some additional input fields in forms where module
+                   items are added or modified. This allows you to e.g. assign a module item to a particular category,
+                   or to fill in some dynamic properties for that item, etc.</t>
+                <t>The corresponding values will then be saved or updated when the item is created/updated.</t>
+            </section>
+            <section title="Module Configuration Hooks (GUI/API)">
+                <t>Some hook modules, like categories and dynamicdata, also offer specific configuration options
+                   for each module that is hooked to them. This type of hook will automatically insert those options
+                   within the rest of the module configuration screen, and update them when the module configuration itself is being updated.</t>
+            </section>
+            <section title="Special-Purpose Hooks : Search, UserMenu, ...">
+                <t>All the hook types described above provide some common add-on features that can be used to extend different modules.
+                   So a utility module like autolinks, that provides an Item Transform hook, can be used by any module that calls the standard Item Transform hooks, e.g. in articles, xproject, xarbb, ...</t>
+                <t>There is another type of hooks that works the other way around : those hooks are only called in one particular place, by one particular module,
+                   and other modules that provide this hook function will only extend this particular functionality.</t>
+                <t>One example of this is the Item Search hook, which is used by the search module to call any hook function (from any module) that provides a search interface.
+                   So the articles module may provide a search hook function, and the xarbb module may provide one, and the roles module as well, and it's up to the site administrator
+                   to decide which search functions he wants to allow by enabling the corresponding hooks.</t>
+                <t>Another example is the UserMenu hook, which is used by the roles module to call any hook function that provides a user menu, for integration in "Your Account".
+                   So the articles module may provide a user menu function, and the xarbb module may provide one, and the roles module as well, and it's up to the site administrator
+                   to decide which user menu functions he wants to allow by enabling the corresponding hooks.</t>
+            </section>
+        </t>
+    </section>
     
+    <section title="Enabling or disabling hooks">
+        <t>Site administrators can enable hooks via the Modules administration...</t>
+    </section>
+
+    <section title="Designing your module to make use of hooks">
+        <t>Insert xarModCallHooks() in all the right places - cfr. example module.  // TODO: improve the parameters</t>
+        <t>The syntax of the xarModCallHooks() function is as follows :
+           <artwork>
+$outputarray = xarModCallHooks('&lt;hookobject&gt;', '&lt;hookaction&gt;', $objectid, $extrainfo);
+           </artwork></t>
+        <t>In general, API hooks expect an associative array containing the current item information as $extrainfo,
+           and return that array with extended or transformed information.
+           GUI hooks expect the same item information as $extrainfo, and return an associative array of hookmodule => hookoutput pairs
+
+            <section title="Item Transform Hooks (API)">
+                    <artwork>
+Module code in xaruser.php :
+
+function &lt;module&gt;_user_display($args)
+{
+    ...
+    list($some,$pieces,$of,$text) = xarModCallHooks('item', 'transform', $itemid,
+                                                    // TODO: add itemtype
+                                                    // the pieces of text you want to transform here
+                                                    array($some,$pieces,$of,$text));
+/*  // alternatives - to be evaluated
+
+    // a) still pass the pieces of text separately
+    $result = xarModCallHooks('item', 'transform', $itemid,
+                              array(// if your module deals with different types of items
+                                    'itemtype'  =&gt; $itemtype,
+                                    // the pieces of text you want to transform here
+                                    'transform' =&gt; array($some,$pieces,$of,$text)));
+    list($some,$pieces,$of,$text) = $result['transform'];
+
+    // or b) specify *which* pieces of text are to be transformed, and pass the item information (same as other hooks)
+    // get the item information
+    $item = xarModAPIFunc('&lt;module&gt;', 'user', 'get',
+                          array('someid' => $itemid, ...));
+    ...
+    // add some arguments for this hook
+    $item['module'] = '&lt;module&gt;';
+    $item['itemtype'] = $itemtype;
+    // the fields (array keys) corresponding to the pieces of text you want to transform here
+    $item['transform'] = array('some', 'pieces', 'of', 'text');
+
+    // transformed item
+    $item = xarModCallHooks('item', 'transform', $itemid, $item);
+*/
+    ...
+}
+                    </artwork>
+            </section>
+
+            <section title="Item Display Hooks (GUI)">
+                    <artwork>
+Module code in xaruser.php :
+
+function &lt;module&gt;_user_display($args)
+{
+    ...
+    $hookoutput = xarModCallHooks('item', 'display', $itemid,
+                                  array(// if your module deals with different types of items
+                                        'itemtype'  =&gt; $itemtype,
+                                        // the URL to return to e.g. after rating the item, or commenting on it, or ...
+                                        'returnurl' =&gt; xarModURL('&lt;module&gt;', 'user', 'display',
+                                                                 array('someid' =&gt; $itemid, ...))
+                                       ));
+/*  // alternative - to be evaluated
+    // get the item information
+    $item = xarModAPIFunc('&lt;module&gt;', 'user', 'get',
+                          array('someid' => $itemid, ...));
+    ...
+    // add some arguments for this hook
+    $item['module'] = '&lt;module&gt;';
+    $item['itemtype'] = $itemtype;
+    // specify the return URL in the item information, and pass that as $extrainfo (same as other hooks)
+    $item['returnurl'] = xarModURL('&lt;module&gt;', 'user', 'display',
+                                   array('someid' =&gt; $itemid, ...))
+    // get hook output
+    $hookoutput = xarModCallHooks('item', 'display', $itemid, $item);
+*/
+
+    if (empty($hookoutput)) {
+       $data['hooks'] = '';
+    } elseif (is_array($hookoutput)) {
+        // $hookoutput['comments'] contains the hook output for comments,
+        // $hookoutput['hitcount'] contains the hook output for the hitcount,
+        // $hookoutput['ratings'] contains the hook output for ratings, and so on...
+
+        // you can use them individually in the template, or join everything together
+        $data['hooks'] = join('',$hookoutput);
+    } else {
+        // this will no longer be relevant
+        $data['hooks'] = $hookoutput;
+    }
+    ...
+}
+                    </artwork>
+            </section>
+
+            <section title="Item Create/Update/Delete Hooks (API)">
+                    <artwork>
+Module code in xaradminapi.php :
+
+function &lt;module&gt;_adminapi_create($args)
+{
+    ...
+    // create the item first
+    ...
+    // then add some arguments, including the newly created itemid
+    $args['module'] = '&lt;module&gt;';
+    // adapt if you're dealing with several types of items in your module
+    $args['itemtype'] = 0;
+    $args['itemid'] = $itemid;
+    $result = xarModCallHooks('item', 'create', $itemid, $args);
+    ...
+}
+
+function &lt;module&gt;_adminapi_update($args)
+{
+    ...
+    // update the item first
+    ...
+    $args['module'] = '&lt;module&gt;';
+    // adapt if you're dealing with several types of items in your module
+    $args['itemtype'] = 0;
+    $args['itemid'] = $itemid;
+    $result = xarModCallHooks('item', 'update', $itemid, $args);
+    ...
+}
+
+function &lt;module&gt;_adminapi_delete($args)
+{
+    ...
+    $args['module'] = '&lt;module&gt;';
+    // adapt if you're dealing with several types of items in your module
+    $args['itemtype'] = 0;
+    $args['itemid'] = $itemid;
+    $result = xarModCallHooks('item', 'delete', $itemid, $args);
+    ...
+    // delete the item last (!)
+    ...
+}
+                    </artwork>
+            </section>
+
+            <section title="Item New/Modify Hooks (GUI)">
+                    <artwork>
+Module code in xaradmin.php :
+
+function &lt;module&gt;_admin_new($args)
+{
+    ...
+    // we have no item information here yet
+    $item = array();
+    // we don't have an item id yet either
+    $itemid = '';
+    ...
+    $item['module'] = '&lt;module&gt;';
+    // adapt if you're dealing with several types of items in your module
+    $item['itemtype'] = 0;
+    $item['itemid'] = $itemid;
+
+    $hookoutput = xarModCallHooks('item', 'new', $itemid, $item);
+    if (empty($hookoutput)) {
+        $data['hooks'] = '';
+    } elseif (is_array($hookoutput)) {
+        // $hookoutput['categories'] contains the hook output for categories,
+        // $hookoutput['dynamicdata'] contains the hook output for dynamicdata, and so on...
+
+        // you can use them individually in the template, or join everything together
+        $data['hooks'] = join('',$hookoutput);
+    } else {
+        // this will no longer be relevant
+        $data['hooks'] = $hookoutput;
+    }
+    ...
+}
+
+function &lt;module&gt;_admin_modify($args)
+{
+    ...
+    // get the item information
+    $item = xarModAPIFunc('&lt;module&gt;', 'user', 'get',
+                          array('someid' => $itemid, ...));
+    ...
+    $item['module'] = '&lt;module&gt;';
+    // adapt if you're dealing with several types of items in your module
+    $item['itemtype'] = 0;
+    $item['itemid'] = $itemid;
+
+    $hookoutput = xarModCallHooks('item', 'modify', $itemid, $item);
+    if (empty($hookoutput)) {
+        $data['hooks'] = '';
+    } elseif (is_array($hookoutput)) {
+        // $hookoutput['categories'] contains the hook output for categories,
+        // $hookoutput['dynamicdata'] contains the hook output for dynamicdata, and so on...
+
+        // you can use them individually in the template, or join everything together
+        $data['hooks'] = join('',$hookoutput);
+    } else {
+        // this will no longer be relevant
+        $data['hooks'] = $hookoutput;
+    }
+    ...
+}
+                    </artwork>
+            </section>
+
+            <section title="Module Configuration Hooks (GUI/API)">
+                    <artwork>
+Module code in xaradmin.php :
+
+function &lt;module&gt;_admin_modifyconfig($args)
+{
+    ...
+    $extrainfo = array();
+    $extrainfo['module'] = '&lt;module&gt;';
+    // adapt if you're dealing with several types of items in your module
+    $extrainfo['itemtype'] = 0;
+
+    $hookoutput = xarModCallHooks('module', 'modifyconfig', '&lt;module&gt;', $extrainfo);
+    if (empty($hookoutput)) {
+        $data['hooks'] = '';
+    } elseif (is_array($hookoutput)) {
+        // $hookoutput['categories'] contains the hook output for categories,
+        // $hookoutput['dynamicdata'] contains the hook output for dynamicdata, and so on...
+
+        // you can use them individually in the template, or join everything together
+        $data['hooks'] = join('',$hookoutput);
+    } else {
+        // this will no longer be relevant
+        $data['hooks'] = $hookoutput;
+    }
+    ...
+}
+
+function &lt;module&gt;_admin_updateconfig($args)
+{
+    ...
+    $extrainfo = array();
+    $extrainfo['module'] = '&lt;module&gt;';
+    // adapt if you're dealing with several types of items in your module
+    $extrainfo['itemtype'] = 0;
+
+    $result = xarModCallHooks('module', 'updateconfig', '&lt;module&gt;', $extrainfo);
+    ...
+}
+                    </artwork>
+            </section>
+            <section title="Special-Purpose Hooks : Search, UserMenu, ...">
+                 <t>In this case, you need to create a hook function and register it at initialisation - see next point</t>
+            </section>
+        </t>
+    </section>
+
+    <section title="Providing hook functions in your module">
+        <t>Decide what functionality you want to offer first, then see what type(s) of hooks you need to provide for that...</t>
+    </section>
+
+    <section title="When (not) to use hooks">
+        <t>Comparison with API calls and the event system...</t>
+    </section>
+
+    <section title="Implementation Details">
+        <t>Current stuff in the core and modules module...</t>
+    </section>
+
+    <section title="Future Evolution">
+        <t>One major drawback of the current hook types is that most of the hooked functionality can only be used when you're
+           dealing with individual module items, not when you're dealing with several items at once. So you can't easily select
+           module items based on some hooked information, or show some hooked information when viewing a list of items.</t>
+        <t>In order to provide the same kind of functionality when dealing with more than one module item, we can't simply
+           add some GUI output in a list - we need some way to integrate the data retrieval from those "loosely coupled" hook
+           modules with the data retrieval for the module items themselves, or work on the API and/or BL level to achieve the same thing.</t>
+        <t>A first approach to address this issue -used by the articles module at the moment (March 2003)- consisted of making the module
+           "aware" of several commonly used hooks, and to include the data retrieval and GUI integration for those hooks in the module code.
+           This solves the immediate problem of integrating certain hooks when dealing with lists of articles, and still allows you to enable
+           or disable those hooks via administration, but it goes against the idea of "loose coupling" and requires extensive code in the module itself.</t>
+        <t>A more generic approach -for use by any module- is being investigated on the data access level. Whether this will be limited to
+           some kind of "SQL hooks", or will cover the whole issue of data access to module items together with their "related" information
+           is still being explored at the moment. Either way, some changes are to be expected in the hook calls in the future.</t>
+    </section>
+
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2003-03-27: Start filling in some sections</t>
       <t>2003-02-27: Created</t>
     </section>
     

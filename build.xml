@@ -38,7 +38,7 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.base" 
-    value="articles,authldap,autolinks,bloggerapi,categories,comments,example,formcontrols,hitcount,metaweblogapi,ratings,search,soapserver,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,polls,quotes,ratings,recommend,referer,search,stats,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
   
   <!-- source tree properties -->
   <property name="html.dir" value="html" />

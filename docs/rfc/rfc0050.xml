@@ -12,7 +12,7 @@
   
   <!-- Front matter is used for identification of author and organization -->
   <front>
-    <title>Xaraya Object Hierarchy</title>
+    <title>Xaraya Component Hierarchy</title>
     <author initials="M." surname="Lutolf" fullname="Marc Lutolf">
       <organization>Xaraya Development Group</organization>
       <address>
@@ -20,7 +20,7 @@
         <uri>http://www.xaraya.com</uri>
       </address>
     </author>
-    <date month="January" year="2004"/>
+    <date month="February" year="2004"/>
     
     <!-- Initiating team for this RFC -->
     <workgroup>Developer pool</workgroup>
@@ -33,19 +33,622 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>
-        This RFC presents a proposal for a universal system of defining objects in Xaraya and managing the relationships between them. It does not look at content issues within the objects themselves. Rather, it covers the way different objects in Xaraya can be related to each other, and how they can interact in creating, modifying and sharing content.
+        This RFC presents a proposal for a universal system of defining component objects ("xarlets") in Xaraya and managing the relationships between them. 
+        <artwork>
+Caveat:
+Although it makes sense to define such components as OO objects, their properties and the relationships 
+among them as defined are Xaraya specific. This means that although similar concepts such as inheritance
+exist among Xaraya components as they do between OO objects, the two are not identical.
+        </artwork>
+		This RFC does not look at content issues within the components themselves. Rather, it covers the way different components in Xaraya can be related to each other, and how they can interact in creating, modifying and sharing content.
       </t>
       <t>
-        The proposal is conceptually divided into two parts. In the first we define the formalism to manage the diverse types of objects that Xaraya supports in a consistent fashion. This includes setting up a standard API that all objects adhere to.
+        The proposal is conceptually divided into two parts. In the first we define the formalism to manage the diverse types of components that Xaraya supports in a consistent fashion. This includes setting up a standard API that all components adhere to.
       </t>
       <t>        
-        In the second part we look at the way in which objects can interact with each other through their API.Some basic structures for the resulting object hierarchy are defined, as well as mechanism for dynamically creating richer structures.
+        In the second part we look at the way in which components can interact with each other through their API.Some basic structures for the resulting object hierarchy are defined, as well as mechanism for dynamically creating richer structures.
       </t>
     </abstract>
   </front>
   
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
+	<section title="Definition of terms">
+	  <t>
+		<list style="symbols">
+		  <t>
+			Xaraya Component or Xarlet: a general term to describe components objects in the Xaraya system with a common API.
+		  </t>
+		  <t>
+			Content component: any object in Xaraya that contains content that can be accessed, modified. displayed and executed. 
+			<t>
+			Example: users, articles, privileges and xarBB posts are all content components.
+			</t>
+		  </t>
+		  <t>
+			Code component: any xarlet in the Xaraya codebase that has an object wrapper ,that adheres to the component API and contains content that can be accessed, modified. displayed and executed. The terms content and code component are used to underline their respective natures, but in practice the distinction is not always clearly defined.
+			<t>
+			Example: xarModAPIFunc('roles','user','getall') can be defined as a code components.
+			</t>
+		  </t>
+		  <t>
+			Component Hierarchy: A formal structure in Xaraya that manages definitions of xarlets and how they interact.
+		  </t>
+		  <t>
+			Assignment: refers to a unidirectional ternary operator between 2 xarlets, according to a definition by a third xarlet.
+			<t>
+			Examples: a privilege is assigned to a role according to a definition of "privilege assignment", or an an article is assigned to a role according to a definition "author".
+			</t>
+		  </t>
+		  <t>
+			Content Types: defines the type of a xarlet. This is a way of classifying xarlet. A xarlet can have many types, The type definitions themselves are xarlet.
+			<t>
+			Example: "privilege", "sales order", "category" and "type" are xarlet (content component) types
+			</t>
+		  </t>
+		</list>
+	  </t>
+	</section>
+    <!-- Introduction is mandatory -->
+	<section title="Introduction">
+	  <t>
+		<list style="symbols">
+		  <t>
+			The main points of this RFC are:
+			<list style="symbols">
+			  <t> 
+				Data and code in Xaraya can be cast as components (xarlets) and managed in a consistent manner through standard APIs.
+			  </t>
+			  <t>
+				This model initially focusses on "end-user content", i.e. content objects that a user of the system interacts with directly, such as articles, posts or groups. But it can also (hoprfully) be extended to components that the system uses internally, such a module functions.
+			  </t>
+			  <t> 
+				The concepts of xarlets and assignments can be used as the basis for a model describing the relationships between different types of components used in the Xaraya framework.
+			  </t>
+			  <t>
+				By defining a standard Xaraya API for assignments, it becomes possible for conponents to interact in a standardized fashion. In particular it becomes possible to create a standard for data exchange between components of different types. At the lowest level this amounts to just restating (in a different terminology) how API function calls are currently performed. Looking a bit further, it is giving a standard description to higher level mechanisms such as hooks and dynamic data. At the limit it means <em>extending</em> such mechanisms to the point where any two modules, or more generally any two components, can "talk to each other".
+			  </t>
+			</list>
+		  </t>
+		  <t>Benefits:
+			<list style="symbols">
+			  <t>
+				Standardization of data exchange between modules 
+			  </t>
+			  <t>
+				Xarlet "owned" privileges 
+			  </t>
+			  <t>
+				Elimination of redundant code (hierarchies in roles, privileges, categories, comments).
+			  </t>
+			  <t>
+				Elimination of redundant tables (xar_security_acl, xar_privmembers, xar_rolemembers, others)
+			  </t>
+			</list>
+		  </t>
+		  <t>This RFC does not cover:
+			<list style="symbols">
+			  <t>
+				How content is handled within modules or xarlets. It does however attempt to define a standard interface these objects need to show to the world.  
+			  </t>
+			  <t>
+				What should or should not be considered an component/xarlet. This is an issue to be decided by each module (e.g. is a pubtype a component?). At the limit everything in Xaraya could be considered a component, but this may not always be feasible or necessary. This is another way of stating that I believe the component model and the "traditional" 3-part function call model can coexist and complement each other. The initial point to be reached is one where the API part is largely component based, while the GUI part is (probably) largely "traditional". 
+			  </t>
+			</list>
+		  </t>
+		</list>
+	  </t>
+	</section>
+    
+	<section title="Opening Remarks">
+		<t>
+		  There are a number of reasons for putting forth this proposal, but most of them in some way come under the heading of "trying to make it easier for parts of Xaraya to work together". 
+		</t>
+		<t>
+		  The philosophy underlying the Xaraya applications framework stresses the importance of small, modular, reusable components that can be chained together to form larger units of enhanced functionality. Where previously developers would create large, mission-specific modules, Xaraya has been built in a way that lets them draw from a pool of common components to do the job.
+		</t>
+		<t>
+		  However, the success of this approach has also shown its limits. People are finding more sophisticated ways in which they would like modules to interact, and finding it increasingly difficult to do so in a clear and easy way. This document tries to sketch out a way to do just that.
+		</t>
+		<t>
+		Illustration 1: Many modules want to interact with the articles module in order to create new functionality: forums, blogs etc. One of the problems to be solved is finding a way to make this easy, and automatically adjusting the privileges of the modules so that the privilege interface is seen to be that of a single complex component, rather than a collection of modules glued together.
+		</t>
+		<t>
+		Illustration 2: E-commerce modules such as shopping carts and payment (e.g. PayPal) modules want to link up with the ledger module in order to incorporate an accounting backend. Here the problem is one of a single standard interface for exchanging relatively complicated types of data from different sources.
+		</t>
+		<t>
+		  This is an attempt to establish a common way of describing different functionalities of the Xaraya framework, which is hopefully extended to new functionality as it is added. While the implemention at a code level may vary, what is important is that the concepts are commonly understood and can be applied to different situtions in the framework.
+		</t>
+		<t>
+		If we look at the way Xaraya is structured today we have three discrete areas:
+			<list style="numbers">
+			  <t>
+				The 'production' part -> based on a state of a storage (database) produces the "content objects" to be assembled. The content is decided based upon the input parameters supplied by human or process.
+				</t>
+			  <t>
+				The 'assembly' part-> takes the information delivered by the guts of xaraya and manipulates and assembles it into an information set to be cast into a given from through a rendering process.
+			  </t>
+			  <t>
+				The 'rendering' part-> takes the asseembled information and creates an output document.
+			  </t>
+			</list>
+		</t>
+		<t>
+			Schematically:
+		</t>
+		  <artwork>
+			Production     --->     Assembly     --->     Rendering
+			
+			   API                    GUI                 Blocklayout         
+		  </artwork>
+		<t>
+			This RFC deals mainly with the 'production' part, and can hopefully be extended to the assembly part.
+		</t>
+		<t>
+		The formalism developed here is cast in a way to take advantage of both PHP's OO syntax and Xaraya's 3 part function syntax. On the one hand the latter is more familiar and accessible to Xaraya developers, on the other we want to highlight that the object definitions in this proposal are not objects in the OO sense. Rather, they are components specific to the Xaraya applications framework, with their own rules and structures.
+		</t>
+		<t>
+		  The structures proposed here do not (hopefully) call for a rewrite of the codebase. [MrB: "famous last words"] Rather they represent a compatible extension of what is already available. The proposal should also be seen as a generalization of those instruments of data exchange already present, such as hooks and dynamic data.
+		</t>
+	</section>
+
+	<section title="Concepts of the Component Hierarchy">
+		<t>
+		  Defining xarlets is a way of treating the different things that Xaraya processes in a uniform way. The specifics of how the content is arranged within the xarlet are not of interest to the hierarchy. Nor is the way the data is managed or called from the UI, which will be specific to each module.
+		</t>
+		<t>
+		  Instead, the hierarchy is interested in the ways xarlets deal with each other. Within a given module, components today have module-specific ways of interacting. To a certain degree this may persist into the future. Towards the hierarchy, however, they expose standard properties and have a standard API. The definition of this API needs further work, as it must incorporate a dynamic element that allows two components to decide whether and to what degree they are compatible and what sorts of interaction is possible. The hierarchy therefore offers a bridge mechanism through which components from different modules can deal with each other.
+		</t>
+
+		<section title="The Component API">
+		<t>
+		  For convenience the component hierarchy code is put into a new module called System. (This arrangement can be changed in the future without impacting anything) The module's API can be accessed via calls of the type:
+		</t>
+		  <artwork>
+			$result = xarModAPIFunc('base','object',$function);
+		  </artwork>
+		<t>
+
+		</t>
+		</section>
+		<section title="List of API Functions">
+		<t>
+		  The following functions are available via the syntax above:
+		</t>
+		  <artwork>
+			Function               Description
+			---------------------  -----------------------
+			createobject           adds a new object definition to the register
+			updateobject           updates an object definition in the register
+			deleteobject           deletes an object definition in the register
+			getobject              returns an object in the register
+			getallobjects          returns all objects according to specific criteria
+
+			createassignment       adds a new assignment to the assignment table
+			updateassignment       updates a assignment in the assignment table
+			deleteassignment       deletes a assignment in the assignment table
+			getassignment          returns a assignment in the assignment table
+			getallassignments      returns all objects according to specific criteria
+		  </artwork>
+		<t>
+		  The first group of functions deals with managing objects themselves, the scond groups deals with managing relationships between the available objects, which is how the hierarchy is created.
+		</t>
+		</section>
+	</section>
+
+	<section title="Xaraya Components">
+		<section title="Content and Code Components">
+		<t>
+		  Xaraya components can be catalogued in various types for the purposes of the hierarchy. As such they have a standard interface toward the outside world. From a structural point of view they can be distinguished as content or code components.
+		</t>
+		<t>
+		  Content components are, loosely speaking, structured datasets. In a simplest form a content components is an object wrapper around a record from a database table. More complex content components can contain data from different data tables or different data sources.
+		</t>
+		<t>
+		  Code components, on the other hand, are snippets of code from the Xaraya codebase. These themselves may or may not be objects in the PHP OO sense. A simple example of such an object would be a Xaraya GUI or API function, such as 
+		</t>
+		<t>
+		  Note: The distinction between content and code components is a conceptual one, namely that the two types are different "kind of things", coming from different sources. But from the API perspective there really should be only one kind of component.
+		</t>
+		  <artwork>
+			xarModAPIFunc('roles','user','getall');
+		  </artwork>
+		<t>
+		  Components can be called from the object register using the getobject call above.
+		</t>
+		  <artwork>
+			$object = xarModAPIFunc('system','object','getobject',
+						  array('module'  => 'roles',
+								'type'    => 'user'
+								'function => 'getall'
+								)
+					  );						  
+		  </artwork>
+		<t>
+		  or an equivalent shorthand form:
+		</t>
+		  <artwork>
+			$object = xarGetObject('roles','user','getall');
+		  </artwork>
+		<t>
+		  Once available, the component can then be manipulated via its interface, as outlined below.
+		</t>
+		</section>
+		<section title="Component Interface">
+		<t>
+		  Every Xaraya component implements the following interface:
+		</t>
+		  <artwork>
+			Method                 Description
+			---------------------  -----------------------
+			getID                  returns the component's ID
+			getOID                 returns the component's local ID reference
+			getName                returns the component's name
+			getDisplayName         returns the component's display name
+			getResult              returns the result of executing a code component, or null
+			getContent             returns an array of the component's content values
+			getContentNames        returns an array of the names of the component's content values
+			toArray                returns the components public (PHP5 concept) fields in the 
+                                               form of an array
+								   
+			setContent             sets content in the component
+			run                    excutes the component's operator function
+
+			(to be completed)
+		  </artwork>
+		</section>
+	</section>
+
+	<section title="The Component Hierarchy">
+		<t>
+		Once we have component and their interface in place, we can combine them to create complex extensible structures.
+		</t>
+		<t>
+		Fundamental to the description of any hierarchy is the concept of relationships. By defining rules for the way relationships can be built and how they create interaction between component will define the richness of the hierarchy that can be built.
+		</t>
+		<section title="Assignments">
+		<t>
+		  Assigments in Xaraya represent unidirectional relationships between two xarlets,whose nature is defined by a third xarlet. A simple example is assigning a privilege to a role. The corresponding object can be gotten with the following call:
+		</t>
+		  <artwork>
+			$object = xarModAPIFunc('system','object','getassignment',
+						  array('from'    => $privilege,
+								'to'      => $role
+								'operator => $privilegetype
+								)
+					  );						  
+		  </artwork>
+		<t>
+		  or an equivalent shorthand form:
+		</t>
+		  <artwork>
+			$object = xarGetAssignment($privilege,$role,$privilegetype);
+		  </artwork>
+		<t>
+		 Assignment definitions can be freely added by module developers for their own purposes. Such "assignment objects" can in general be created, modified or removed from the system. However, Xaraya has several pre-defined assignment definitions, as listed below. Other assignments are specific to modules, such as categories and comments.
+		</t>
+		  <list style="numbers">
+			<t>
+			  Property: A property is an assignment of one xarlet to another that can be best described as "ownership". Through the assignment one xarlet "owns" another. A xarlet can have zero, one or many properties, and similarly a property can "be had" by zero, one or many xarlets.
+				<t>
+					Example: a privilege assigned to a role is a property of the role.
+				</t>
+			</t> 
+			<t>
+				[MrB: Where is the bordercase? a privilege assigned to a role could also be a construction of a new object. When is something a property and when is it a new object? Something like singular or atomicity comes to mind, not sure where to draw the line though. I tend to favor towards new object construction and staying within that untill the atomic data in the object itself.]
+			</t> 
+			<t>
+			  By convention every xarlet automatically has a "Self" property assigned to it. Self is an assignent of identity, and simply refers to the xarlet itself
+			</t> 
+			<t>
+			  Member: A member is an assignment of one xarlet to another that can be described as a "subordinate". Through the assignment one xarlet "is a child" or "is a member" of another. A xarlet can have zero, one or many children/members, and similarly a child can "be assigned" by zero, one or many xarlet, who are referred to as the child's parents.
+				<t>
+					Example: a category "Benelux" can be defined as a member of a category "EU Countries" and itself can contain members "Belgium", "Luxemburg" and"Netherlands".
+				</t>
+				<t>
+					Example: "Property" and "Member" are members of "Object".
+				</t>
+			</t> 
+			<t>
+			  Type: A type assignment is a special assignment of a xarlet to itself. The assignment defines the type of xarlet a xarlet is.
+				<t>
+					Example: the top level role xarlet (Everybody) is assigned the type "role".
+				</t>
+			</t> 
+			<t>
+			  Hook: A hook assignment between two xarlet (module components) corresponds to creating a Xaraya hook beetween two modules.
+				<t>
+					Example: Hooking comments into the articles module creates a hook assignment between those two modules.
+				</t>
+			<t>
+				[MrB: This is too vague i think. The concept of hooks can be reformulated if 
+				we go the 'object way' by having a dynamic object construction
+				articles, comments -> responses
+
+				Done by discovering that articles and comments have a compatible 
+				interface for construction and exposing this in the interface. When 
+				flagged the 'reponses' object is brought to life, whether that is done 
+				by a hook internally or not isn't very relevant i think.]
+			</t>
+			</t> 
+		  </list>
+		</section>
+		<section title="Inheritance">
+		<t>
+		Assignments can be simply passive entries in the relationships registry that document the relationship between two xarlet and its characteristics. But, going one step further, relationships can also be made to actively affect the xarlet themselves.
+		</t>
+		<t>
+		Inheritance is one such way in which relationships affect xarlets. The most general definition of inheritance in the formalism described above is this:
+		</t>
+		<t>
+		"Inheritance is the way in which one xarlet in a relationship passes on certain of its assignments (properties? or any assignments?) to another."
+		</t>
+		<t>
+		In Xaraya, inheritance passes on certain assignments of the from-xarlet to the to-xarlet, as illustrated below. Another way of looking at it is that inheritance allows us to create temporary assignments at run-time. 
+		</t>
+		<t>
+		The framework will pass on any assignment types that have been defined as properties of the assignment in question. So for example, assigning Type and Privilege as properties to the Member assignment will let the Roles hierarchy pass on types and privileges, as described below.
+		</t>
+		</section>
+		<section title="Examples of Inheritance">
+			<section title="Categories">
+			<t>
+			  This is the simplest type of inheritance. each for-xarlet in a category relationship passes the Self property to the to-xarlet.
+			</t>
+			</section>
+			<section title="Roles">
+			<t>
+			  Roles inheritance passes on two types of assignements. Each for-xarlet in a member relationship passes on the Type and Privilege properties to the to-xarlet.
+			</t>
+			<t>
+			  This is a way of saying that if the for-xarlet is of a type Role (e.g. the Users group), the to-xarlet (a member of the Users group) will also have the same type, and any privilege assigned to the group will also be assigned to its members.
+			</t>
+			</section>
+			<section title="Comments">
+			<t>
+			  Each for-xarlet in a comment relationship passes on the Type property inherited from the article it refers to.
+			</t>
+			</section>
+		</section>
+		<section title="Hierarchy Overview">
+		<t>
+		  The following diagram shows the topmost portion of the object hierarchy (core modules). <em>Only member assignments are shown.</em>
+		  [rndom: this is still largely in flux.]
+		</t>
+		<artwork>    
+		xarHierarchy                   
+		|
+		|--Object
+		|  |                       
+		|  |--ContentObject                               
+		|  |
+		|  |--CodeObject                               
+		|  
+		|--Assignment
+		   |                       
+		   |--Property                               
+		   |                       
+		   |--Member                               
+		   |                       
+		   |--Type                               
+		</artwork>
+		</section>
+	</section>
+
+	<section title="Variable Sets">
+		<t>
+		  A variable set is a set of discrete variables of a component in a common name space. Grouping variables in variable sets lets us manipulate them in a consistent fashion for all components.
+			<t>
+			Example: The set of all variables exposed by a xarlet for data exchange is a variable set. This variable set can be called by the components getContent() method.
+			</t>
+		</t>
+		<t>
+			Manipulating variable sets, rather than single variables, is conistent with and an extension of the PN/Xaraya practice of passing variables to functions as an array $args.
+		</t>
+		<t>
+			A variable in a variable set has the form :identifier:_:varname:
+		</t>
+		<t>
+			The identifier is a prefix that identifies the name space. The varname can be freely chosen. The name space identifier currently in usee are:
+		</t>
+			<list style="symbols">
+			  <t> 
+				<em>xardata</em>: identifies the variable set used in data exchange with other components. These are the public fields of the component that can be gotten with the getContent() method. The definition of this method is:
+				<artwork>
+    function getContent()
+    {
+        return $this->getVarSet('xardata');
+    }
+				</artwork>
+			  </t>
+			  <t> 
+				<em>register</em>: identifies the variable set of the component's basic data. Ingeneral this will be distinct from the previous varset, ass not all these variables are public. These values can be gotten with the toArray() method.
+				<artwork>
+    function toArray()
+    {
+        return $this->getVarSet('register');
+    }
+				</artwork>
+			  </t>
+			  <t> 
+				<em>save</em>: identifies the variable set of the component's data that is stored in the database
+			  </t>
+			</list>
+		<t>
+			The base object class incorporates a number of methods for manipulating varsets. [random: these will presumably be protected methods in PHP5.] They are:
+			<list style="symbols">
+			  <t> 
+				<em>getVarSet($str)</em>: gets an array of variables where $str denotes the name space ideentifier. The array elements are of the form :varname: => :varvalue:.
+			  </t>
+			  <t> 
+				<em>getVarNames($str)</em>: gets an array of variable names where $str denotes the name space identifier. The array elements are of the form :varname:.
+			  </t>
+			  <t> 
+				<em>setVarSet($str, $array)</em>: sets the values of a varset where $str denotes the name space identifier. The elements of $array are of the form :varname: => :varvalue:. If the varset contains variables that are not contained in $array, those variables are untouched.
+			  </t>
+			</list>
+			
+		</t>
+		  <t> 
+			The code sample below shows how one of these methods works.
+		  </t>
+		<artwork>
+    function getVarSet($str) {
+        $vars = get_object_vars($this);
+        $vararray = array();
+        $len = strlen($str)+1;
+        foreach ($vars as $key =>$value) {
+            if(substr($key, 0, $len) == $str .'_') $vararray[substr($key,$len)] = $value;
+        }
+        return $vararray;
+    }
+		</artwork>
+	</section>
+	  
+	<section title="Examples Using the Component Hierarchy">
+		<section title="Types">
+		<t>
+		  Type is a useful, all-round assignment. Assigning Types to xarlet and having them passed on makes it possible to "slice" sets of objects by type. Since objects can have more than one type, this means you can create views by type, with each view displaying only the data of the xarlet pertinent to that type.
+		</t>
+		</section>
+		<section title="Categories and Types">
+		<t>
+		  By assigning the Type property to the Category assignment, categories will inherit not just Self, but also types. This is a simple way of defining so called "base" categories in the categories hierarchy.
+		</t>
+		</section>
+		<section title="Hooks and Masks">
+		<t>
+		  By assigning the Mask property to the Hook assignment, modules linked by hooks can pass on privilege masks. In this way it becomes possible to split up the current complex mask instances and distribute their parts to the modules that have knowledge about the relevant mask data.
+		</t>
+		</section>
+		<section title="Roles and Dynamic Data">
+		<t>
+		  DD properties in roles (or other modules) can be viewed as property assignments of DD "objects" to roles xarlet. By tying the assignment of such properies to the <em>type</em> of role, rather than to any xarlet in the roles hierarchy, it becomes possible to have different DD properties attached to e.g. users and groups.
+		</t>
+		</section>
+		<section title="Content as properties">
+		<t>
+		  In theory the content of a xarlet can also be considered a property of the xarlet, and can be passed on to other objects. This is akin to the OO concept of inheritance, but somewhat more flexible, since more than one parent is possible and since the type of inheritance (in this case what type of data is passed on, perhaps depending on the type) can be dynamically programmed.
+		</t>
+		<t>
+		[MrB: Given a certain object hierarchy the final object is a 'leaf' in the tree and the instances at runtime based on the request are passed to the assembly line. In its simplest form this would be an 'unfolding' type of functionality, which unfolds all instances needed by the request delivering the instance content-object to the assembly which takes that object and merges itwith the templates into out output representation.]
+		</t>
+		<t>
+		This concept can be used to create "distributed objects" between modules. An example is a customer xarlet that is referenced by both the ledger (accounting data) and paypal (transaction data) modules. The actual data of the customer resides in different modules, but the reference is the same for all of them.
+		</t>
+		</section>
+	</section>
+	  
+	<section title="Database Tables">
+		<t>
+		The component hierarchy requires two database tables, one to hold component definitions and one for the assignments between xarlet These are:
+		</t>
+		<section title="Register Table">
+		<t>
+		  N.B.: This still needs some more thought and proof-of-concept. In particular either xa_oid or xar_sourceidentifier could be superfluous.
+		</t>
+		  <artwork>
+
+			CREATE TABLE xar_system_register (
+			  xar_id int(11) NOT NULL auto_increment,
+			  xar_oid int(11) NOT NULL default '0',
+			  xar_name varchar(100) NOT NULL default '',
+			  xar_sourceid int(11) NOT NULL default '0',
+			  xar_sourceaddress varchar(255) NOT NULL default '',
+			  xar_sourcecontainer varchar(100) NOT NULL default '',
+			  xar_sourceinstance varchar(100) NOT NULL default '',
+			  xar_sourceidentifier varchar(100) NOT NULL default '',
+			  PRIMARY KEY  (xar_id)
+			) TYPE=MyISAM;
+
+		  Table: xar_objects_register
+
+			Field                     Description
+			----------------------    --------------
+			xar_id                    unique index assigned by the system
+			xar_oid                   object id for external reference
+			xar_sourceid              designates source type of the object
+			xar_sourceaddress         location of the object
+			xar_sourcecontainer       specific container
+			xar_sourceinstance        instance within the container
+			xar_sourceidentifier      unique reference in the instance
+		  </artwork>
+		<t>
+		  Sourceid: values are (for instance) ids representing db connections, and 100 and 200 for internal or external code components.
+		</t>
+		<t>
+		  Sourceaddress: For *Nuke-like code components: module reference. For db objects: table reference.
+		</t>
+		<t>
+		  Sourcecontainer: For *Nuke-like code components: type reference. For db objects: record reference.
+		</t>
+		<t>
+		  Sourceinstance: For *Nuke-like code components: function reference. For db objects: field reference.
+		</t>
+		<t>
+		  Sourceidentifier: For db objects: record id reference.
+		</t>
+
+		</section>
+		<section title="Relationship Table">
+		  <artwork>
+
+			CREATE TABLE xar_system_assignments (
+			  xar_id int(11) NOT NULL auto_increment,
+			  xar_from_id int(11) NOT NULL default '0',
+			  xar_to_id int(11) NOT NULL default '0',
+			  xar_operator_id int(11) NOT NULL default '0',
+			  PRIMARY KEY  (xar_id),
+			  KEY i_from_xar_id (xar_from_id),
+			  KEY i_xar_to_id (xar_to_id),
+			  KEY i_xar_operator_id (xar_operator_id)
+			) TYPE=MyISAM;
+
+		  Table: xar_objects_assignments
+
+			Field                     Description
+			----------------------    --------------
+			xar_id                    unique index assigned by the system
+			xar_from_id               reference to the from object's oid 
+			xar_to_id                 reference to the to object's oid
+			xar_operator_id           reference to the operator object's oid
+			xar_sourceaddress         location of the object
+		  </artwork>
+		<t>
+		  From: a xarlet reference corresponding to the xarlet the assignment "goes from".
+		</t>
+		<t>
+		  To: a xarlet reference corresponding to the xarlet the assignment "goes to".
+		</t>
+		<t>
+		  Example: Assigning a privilege to a role
+		</t>
+		  <artwork>
+		  From                   To                Operator
+		  ---------------------  ----------------  ------------------
+		  privilege id           role id           privilege type id
+		  </artwork>
+		<t>
+		  The reference privilege type id is a special reference. It is the privilege oid reference given in the table entry:
+		</t>
+		  <artwork>
+		  From                   To                Operator
+		  ---------------------  ----------------  ------------------
+		  type id                privilege id      type id
+		  </artwork>
+
+		</section>
+	</section>
+
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>
+        Version 0.3.0, Jan 18, 2004: First preliminary draft of this document
+      </t>
+      <t>
+        Version 0.3.1, Feb 4, 2004: after review by Marcel van der Boom and Joanna Dalle Nogare
+      </t>
+    </section>
     
   </middle>
   
@@ -62,7 +665,7 @@
           <date year="2002"/>
         </front>
       </reference>
-      <!-- Repeat the aboven block if more references are needed -->
+      <!-- Repeat the above block if more references are needed -->
     </references>
     
     <!-- Any section after this will become an appendix -->

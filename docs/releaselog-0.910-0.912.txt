@@ -1,0 +1,619 @@
+Release notes for release B912.
+Changes from B910 to B912:
+
+2003-09-07: marcel@hsdev.com: ChangeSet 1.1410
+  Merge marcel@xaraya.com:/usr/local/repositories/xaraya/core/stableinto hsdev.com:/home/mrb/dev/ddf/xar/core/stable
+  	* build.xml:
+	  Auto merged 
+2003-09-07: marcel@hsdev.com: ChangeSet 1.1405.2.1
+  0.9.1.2. prepare
+  	* build.xml:
+	  0.9.1.2 prepare 
+2003-09-07: John.Cox@mcnabb.: ChangeSet 1.1409
+  reverting template.  Not sure how this one made it to BK.
+  	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  reverting template.  Not sure how this one made it to BK. 
+2003-09-07: John.Cox@mcnabb.: ChangeSet 1.1405.1.1
+  upped version number to .9.1.2
+  	* html/upgrade.php:
+	  upped version number to .9.1.2 
+ 	* html/modules/base/xarinit.php:
+	  upped version number to .9.1.2 
+ 	* html/includes/xarCore.php:
+	  upped version number to .9.1.2 
+ 	* docs/INSTALL.txt:
+	  upped version number to .9.1.2 
+ 	* build.xml:
+	  upped version number to .9.1.2 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1407
+  Many files:  <form> needs block level tag
+  	* html/modules/privileges/xartemplates/admin-viewroles.xd:
+	  <form> needs block level tag 
+ 	* html/modules/privileges/xartemplates/admin-viewprivileges.xd:
+	  <form> needs block level tag 
+ 	* html/modules/privileges/xartemplates/admin-removerole.xd:
+	  <form> needs block level tag 
+ 	* html/modules/privileges/xartemplates/admin-newprivilege.xd:
+	  <form> needs block level tag 
+ 	* html/modules/privileges/xartemplates/admin-deleteprivilege.xd:
+	  <form> needs block level tag 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1401.2.22
+  Many files:  <form> needs block level tag
+  	* html/modules/modules/xartemplates/admin-remove.xd:
+	  <form> needs block level tag 
+ 	* html/modules/modules/xartemplates/admin-prefs.xd:
+	  <form> needs block level tag 
+ 	* html/modules/modules/xartemplates/admin-pref.xd:
+	  <form> needs block level tag 
+ 	* html/modules/modules/xartemplates/admin-modify.xd:
+	  <form> needs block level tag 
+ 	* html/modules/modules/xartemplates/admin-install.xd:
+	  <form> needs block level tag 
+ 	* html/modules/modules/xartemplates/admin-hooks.xd:
+	  <form> needs block level tag 
+ 	* html/modules/modules/xartemplates/admin-deactivate.xd:
+	  <form> needs block level tag 
+ 	* html/modules/mail/xartemplates/admin-modifyconfig.xd:
+	  <form> needs block level tag 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1401.2.21
+  Many files:  add block level tag to <form>
+  	* html/modules/dynamicdata/xartemplates/util-static.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/util-meta.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/util-import.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/util-export.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/admin-new.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/admin-modifyconfig.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/admin-modify.xd:
+	  add block level tag to <form> 
+ 	* html/modules/dynamicdata/xartemplates/admin-delete.xd:
+	  add block level tag to <form> 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1401.2.20
+  admin-modifyconfig.xd:  add block level tag to <form>
+  	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  add block level tag to <form> 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1401.2.19
+  Merge
+  	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  SCCS merged 
+ 	* html/upgrade.php:
+	  Auto merged 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1401.4.2
+  Many files:  add block level tag to <form>admin-sysinfo.xd, admin-modifyconfig.xd:  all <form> need block level tag
+  	* html/modules/blocks/xartemplates/admin-view_instances.xd:
+	  add block level tag to <form> 
+ 	* html/modules/blocks/xartemplates/admin-registerblock.xd:
+	  add block level tag to <form> 
+ 	* html/modules/blocks/xartemplates/admin-new_instance.xd:
+	  add block level tag to <form> 
+ 	* html/modules/blocks/xartemplates/admin-new_group.xd:
+	  add block level tag to <form> 
+ 	* html/modules/blocks/xartemplates/admin-modify_instance.xd:
+	  add block level tag to <form> 
+ 	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  add block level tag to <form> 
+ 	* html/modules/base/xartemplates/admin-sysinfo.xd:
+	  all <form> need block level tag 
+ 	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  all <form> need block level tag 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  all <form> need block level tag 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1401.4.1
+  pnHTML.php, index.htm, upgrade.php:  all <form> need block level tag
+  	* html/includes/pnHTML.php:
+	  all <form> need block level tag 
+ 	* html/themes/installer/index.htm:
+	  all <form> need block level tag 
+ 	* html/upgrade.php:
+	  all <form> need block level tag 
+2003-09-07: John.Cox@mcnabb.: ChangeSet 1.1401.3.1
+  upped version to 911
+  	* html/upgrade.php:
+	  upped version to 911 
+ 	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  upped version to 911 
+ 	* html/modules/base/xarinit.php:
+	  upped version to 911 
+ 	* docs/INSTALL.txt:
+	  upped version to 911 
+2003-09-07: marc@marclaptop.: ChangeSet 1.1401.2.17
+  Merge marcinmilan@xaraya.com:/usr/local/repositories/xaraya/core/stableinto marclaptop.:C:/inetpub/wwwroot/stable
+  	* html/includes/xarException.php:
+	  Auto merged 
+2003-09-07: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1401.2.16
+  fix installing - bug #1181
+  	* html/includes/xarException.php:
+	  fix installing - bug #1181 
+ 	* html/install.php:
+	  fix installing - bug #1181 
+2003-09-07: marc@marclaptop.: ChangeSet 1.1399.1.5
+  htmlexceptionrendering.class.php:  fix dipsplay problem for ErrorCollection
+  	* html/includes/exceptions/htmlexceptionrendering.class.php:
+	  fix dipsplay problem for ErrorCollection 
+2003-09-07: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1401.2.15
+  fix loopy fix forever
+  	* html/modules/privileges/xartemplates/admin-viewroles.xd:
+	  fix loopy fix forever 
+2003-09-07: marc@marclaptop.: ChangeSet 1.1399.1.4
+  xarException.php, exceptionrendering.class.php, errorcollection.class.php:  fix errorcollection display  still needs more work
+  	* html/includes/xarException.php:
+	  fix errorcollection displaystill needs more work 
+ 	* html/includes/exceptions/exceptionrendering.class.php:
+	  fix errorcollection displaystill needs more work 
+ 	* html/includes/exceptions/errorcollection.class.php:
+	  fix errorcollection displaystill needs more work 
+2003-09-07: marc@marclaptop.: ChangeSet 1.1399.1.3
+  errorcollection.class.php:  change title of errorcollection msg
+  	* html/includes/exceptions/errorcollection.class.php:
+	  change title of errorcollection msg 
+2003-09-07: marc@marclaptop.: ChangeSet 1.1399.1.2
+  htmlexceptionrendering.class.php:  fix rendering error
+  	* html/includes/exceptions/htmlexceptionrendering.class.php:
+	  fix rendering error 
+2003-09-07: marc@marclaptop.: ChangeSet 1.1399.1.1
+  rework of the exceptions system.Base it on classes an (hopefully) remove bugs previously found
+  	* html/includes/exceptions/textexceptionrendering.class.php:
+	   
+ 	* html/includes/exceptions/systemexception.defaults.php:
+	   
+ 	* html/includes/exceptions/textexceptionrendering.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/textexceptionrendering.class.php 
+ 	* html/includes/exceptions/systemexception.defaults.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/systemexception.defaults.php 
+ 	* html/includes/exceptions/systemexception.class.php:
+	   
+ 	* html/includes/exceptions/noexception.class.php:
+	   
+ 	* html/includes/exceptions/systemexception.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/systemexception.class.php 
+ 	* html/includes/exceptions/noexception.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/noexception.class.php 
+ 	* html/includes/exceptions/htmlexceptionrendering.class.php:
+	   
+ 	* html/includes/exceptions/exceptionstack.class.php:
+	   
+ 	* html/includes/exceptions/htmlexceptionrendering.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/htmlexceptionrendering.class.php 
+ 	* html/includes/exceptions/exceptionstack.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/exceptionstack.class.php 
+ 	* html/includes/exceptions/exceptionrendering.class.php:
+	   
+ 	* html/includes/exceptions/exceptionrendering.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/exceptionrendering.class.php 
+ 	* html/includes/exceptions/exception.class.php:
+	   
+ 	* html/includes/exceptions/errorcollection.class.php:
+	   
+ 	* html/includes/exceptions/defaultuserexception.defaults.php:
+	   
+ 	* html/includes/exceptions/exception.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/exception.class.php 
+ 	* html/includes/exceptions/errorcollection.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/errorcollection.class.php 
+ 	* html/includes/exceptions/defaultuserexception.defaults.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/defaultuserexception.defaults.php 
+ 	* html/includes/exceptions/defaultuserexception.class.php:
+	   
+ 	* html/includes/exceptions/defaultuserexception.class.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/includes/exceptions/defaultuserexception.class.php 
+ 	* html/includes/xarException.php:
+	  rework exception system IV 
+2003-09-06: jbeames@sting.in-beames.net: ChangeSet 1.1401.2.14
+  updated config get var arg
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/modules/roles/xartemplates/blocks/login.xd:
+	  updated config get var arg 
+2003-09-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1401.2.13
+  fix deleting module variables
+  	* html/includes/xarVar.php:
+	  fix deleting module variables 
+2003-09-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1401.2.12
+  fix delete+insert logic in xarModSetVar - was breaking module user var functionality
+  	* html/includes/xarVar.php:
+	  fix delete+insert logic in xarModSetVar - was breaking module user var functionality 
+2003-09-06: marcel@hsdev.com: ChangeSet 1.1403
+  Merge hsdev.com:/home/mrb/dev/ddf/xar/core/stableinto hsdev.com:/var/www/xar/core/stable
+  	* html/modules/installer/xartemplates/admin-confirm_configuration.xd:
+	  Auto merged 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.10
+  class.phpmailer.php, admin-confirm_configuration.xd:  <br> -> <br/>
+  	* html/modules/mail/class/class.phpmailer.php:
+	  <br> -> <br/> 
+ 	* html/modules/installer/xartemplates/admin-confirm_configuration.xd:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.9
+  upgrade.php:  <br> -> <br/>
+  	* html/upgrade.php:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.8
+  xarDB.php:  remove pointless <br>
+  	* html/includes/xarDB.php:
+	  remove pointless <br> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.7
+  convert.php, create_db.php:  <br> -> <br/>
+  	* tests/blocklayout/convert.php:
+	  <br> -> <br/> 
+ 	* tests/create_db.php:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.6
+  Many files:  <br> -> <br/>
+  	* tests/import/phpnuke/import_nuke_users.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_topicscat.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_stories.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_sections.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_seccont.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_queue.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_pollcomments.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_poll_desc.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_poll_data.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_links_links.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_links_categories.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_faqcategories.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_faqanswer.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpnuke/import_nuke_comments.php:
+	   
+ 	* tests/import/phpnuke/import_nuke_cleanup.php:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.5
+  Many files:  <br> -> <br/>
+  	* tests/import/phpbb/import_phpbb_vote_results.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_vote_desc.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_users.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_topics.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_pubtype.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_posts.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_forums.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_cleanup.php:
+	  <br> -> <br/> 
+ 	* tests/import/phpbb/import_phpbb_categories.php:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.4
+  import_mt_mysql.php:  <br> -> <br/>
+  	* tests/import/moveabletype/import_mt_mysql.php:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.3
+  importhtmlpages.php:  <br> -> <br/>
+  	* tests/import/htmlpages/importhtmlpages.php:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.2
+  import_ce1249.php, import_ce124.php:  <br> -> <br/>
+  	* tests/import/contentexpress/import_ce1249.php:
+	  <br> -> <br/> 
+ 	* tests/import/contentexpress/import_ce124.php:
+	  <br> -> <br/> 
+2003-09-06: miko@power.dudleynet: ChangeSet 1.1401.2.1
+  Many files:  <br> -> <br/>
+  	* tests/import/postnuke/import_pn_users.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_topicscat.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_stories.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_sections.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_seccont.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_queue.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_pollcomments.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_poll_desc.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_poll_data.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_links_links.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_links_categories.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_faqcategories.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_faqanswer.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_comments.php:
+	  <br> -> <br/> 
+ 	* tests/import/postnuke/import_pn_cleanup.php:
+	  <br> -> <br/> 
+ 	* html/includes/xarException.php:
+	  rework exceptions II 
+ 	* html/includes/xarException.php:
+	  rework exceptions I 
+ 	* html/includes/xarCore.php:
+	  remove some comments 
+2003-09-06: marcel@hsdev.com: ChangeSet 1.1401.1.1
+  some safety stuff
+  	* BitKeeper/custom/build:
+	  some safety stuff 
+2003-09-06: marcel@hsdev.com: ChangeSet 1.1401
+  Archived deleted files from july 2003
+  	* BitKeeper/etc/gone:
+	   
+2003-09-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1400
+  fix text upload for some configs
+  	* html/includes/properties/Dynamic_TextUpload_Property.php:
+	  fix text upload for some configs 
+2003-09-06: marc@marclaptop.: ChangeSet 1.1399
+  sitelock.php:  new file
+  	* html/modules/roles/xaradmin/sitelock.php:
+	   
+ 	* html/modules/roles/xaradmin/sitelock.php:
+	  BitKeeper file C:/inetpub/wwwroot/stable/html/modules/roles/xaradmin/sitelock.php 
+2003-09-05: marc@marclaptop.: ChangeSet 1.1398
+  usermenu.php:  fix error msg
+  	* html/modules/roles/xaruser/usermenu.php:
+	  fix error msg 
+2003-09-05: marc@marclaptop.: ChangeSet 1.1397
+  xarinit.php:  sitelock addition
+  	* html/modules/roles/xarinit.php:
+	  sitelock addition 
+2003-09-05: marc@marclaptop.: ChangeSet 1.1391.1.1
+  adodb.inc.php:  bugfix to suppress unlink error display  for non-existing filesadodb-csvlib.inc.php:  bugfix to suppress fopen error display  for non-existing files
+ 2003-09-05: Andrew.Vogel@drewbox.: ChangeSet 1.1395
+  0145 of the Xaraya Guide.
+  	* docs/xarayaguide/XarayaGuide.txt:
+	  0145 of the Xaraya Guide. 
+ 	* html/xaradodb/adodb.inc.php:
+	  bugfix to suppress unlink error displayfor non-existing files 
+ 	* html/xaradodb/adodb-csvlib.inc.php:
+	  bugfix to suppress fopen error displayfor non-existing files 
+2003-09-05: bna0jcc@rmlt002799.: ChangeSet 1.1390.3.1
+  small template changes.
+  	* html/modules/privileges/xartemplates/admin-viewroles.xd:
+	  loopy fix 
+ 	* html/modules/blocks/xartemplates/admin-main.xd:
+	  small change in the overview. 
+2003-09-06: jojodee@hbwdev.net: ChangeSet 1.1393
+  Wrap update button input field in div and span to align correctly.
+  	* html/modules/blocks/xartemplates/admin-modify_instance.xd:
+	  Wrap update button input field in div and span to align correctly. 
+2003-09-06: jojodee@hbwdev.net: ChangeSet 1.1390.2.1
+  Dynamic user terms and user privacy templates. Credit to Marjolein Katsma for the numerical age - word translation that I've added in.
+  	* html/modules/roles/xartemplates/user-terms.xd:
+	  Dynamic user terms template. Credit to Marjolein Katsma for the numerical age - word translation that I've added in. 
+ 	* html/modules/roles/xartemplates/user-privacy.xd:
+	  Dynamic user privacy template.Credit to Marjolein Katsma for the numerical age - word translation that I've added in. 
+2003-09-05: marcel@hsdev.com: ChangeSet 1.1390.1.1
+  <br> -> <br/>
+  	* html/modules/installer/xartemplates/admin-confirm_configuration.xd:
+	  <br> -> <br/> 
+2003-09-05: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1391
+  normal bug in DD display
+  	* html/modules/dynamicdata/xaruser/display.php:
+	  normal bug in DD display 
+2003-09-05: jojodee@hbwdev.net: ChangeSet 1.1386.1.1
+  Some error messages for unsuccessful table updates. Fix bug #1166 for dynamic data property type update while I'm here.
+  	* html/upgrade.php:
+	  Some error messages for unsuccessful table updates. Fix bug #1166 for dynamic data property type update while I'm here. 
+2003-09-04: John.Cox@mcnabb.: ChangeSet 1.1389
+  small bug fixes to templates.
+  	* html/modules/roles/xartemplates/user-choices.xd:
+	  added tabindexes via request. 
+ 	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  fixed blocks positioning bug (javascript). 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1388
+  import DD object definition via web form
+  	* html/modules/dynamicdata/xarutilapi/import.php:
+	  import DD object definition via web form 
+ 	* html/modules/dynamicdata/xarutil/import.php:
+	  import DD object definition via web form 
+ 	* html/modules/dynamicdata/xartemplates/util-import.xd:
+	  import DD object definition via web form 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1385.2.1
+  match id with name for uploads
+  	* html/includes/properties/Dynamic_TextUpload_Property.php:
+	  match id with name for uploads 
+ 	* html/includes/properties/Dynamic_FileUpload_Property.php:
+	  match id with name for uploads 
+2003-09-04: iansym@howler.(none): ChangeSet 1.1385.1.1
+  Merge howler.(none):/usr/local/repos/xaraya/core/stableinto howler.(none):/home/iansym/cvs/xaraya-stable
+  	* html/includes/xarMLS.php:
+	  Auto merged 
+2003-09-04: iansym@howler.(none): ChangeSet 1.1314.42.1
+  default date format settings
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/includes/xarMLS.php:
+	  Start of the default format for the date functions - waiting on base config settings. 
+2003-09-05: jojodee@hbwdev.net: ChangeSet 1.1376.2.1
+  Fix sql to do valid comparison between existing and required category instance for Blocks.
+  	* html/upgrade.php:
+	  Fix sql to do valid comparison between existing and required category instance for Blocks. 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1385
+  bug #1033 - where/sort fields in DD + allow comma-separated fieldlist (e.g. in BL tags)
+  	* html/modules/dynamicdata/xaruserapi/getitems.php:
+	  allow comma-separated fieldlist (e.g. in BL tags) 
+ 	* html/modules/dynamicdata/xaruserapi/getitem.php:
+	  allow comma-separated fieldlist (e.g. in BL tags) 
+ 	* html/modules/dynamicdata/class/objects.php:
+	  bug #1033 - where/sort fields in DD 
+2003-09-04: marcel@hsdev.com: ChangeSet 1.1383
+  Related to the safeguards for installer
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  adding the safeguards 
+ 	* html/modules/installer/xarconfigurations/intranet.conf.php:
+	  adding the safeguards 
+ 	* html/includes/xarMod.php:
+	  removing some redundant comments, which are misleading 
+2003-09-04: marcel@hsdev.com: ChangeSet 1.1382
+  adapt for change in xarMod__getState -> xarMod_getState
+  	* html/includes/xarTheme.php:
+	  adapt for change in xarMod__getState -> xarMod_getState 
+2003-09-04: marcel@hsdev.com: ChangeSet 1.1381
+  made a public function of xarMod__getState -> xarMod_getState
+  	* html/modules/installer/xarconfigurations/community.conf.php:
+	  made a public function of xarMod__getState -> xarMod_getState 
+ 	* html/includes/xarMod.php:
+	  made a public function of xarMod__getState -> xarMod_getState 
+2003-09-04: marcel@hsdev.com: ChangeSet 1.1380
+  GetState return missing when module is missing , dohadded safeguards in community config
+  	* html/modules/installer/xarconfigurations/community.conf.php:
+	  make the config detect which modules are there and which are not 
+ 	* html/includes/xarMod.php:
+	  - if no state specified, assume per site- return missing instead of uninitialised, because that's just not true 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1377.1.2
+  fix hook call in roles display
+  	* html/modules/roles/xaruser/display.php:
+	  fix hook call in roles display 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1377.1.1
+  temp fix in xarException.php for bug #1160 - to be checked by marc :)
+  	* html/includes/xarException.php:
+	  temp fix in xarException.php for bug #1160 - to be checked by marc :) 
+2003-09-04: marcel@hsdev.com: ChangeSet 1.1376.1.1
+  preparation for 0.9.1.1
+  	* html/includes/xarCore.php:
+	  preparation for 0.9.1.1 
+ 	* build.xml:
+	  preparation for 0.9.1.1 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1377
+  pager speed-up + xarTpl__loadFromFile
+  	* BitKeeper/deleted/.del-user-pagerending.xd~f1c5fe60:
+	  Delete: html/modules/base/xartemplates/user-pagerending.xd 
+ 	* BitKeeper/deleted/.del-user-pagermiddle.xd~f1d2f8eb:
+	  Delete: html/modules/base/xartemplates/user-pagermiddle.xd 
+ 	* BitKeeper/deleted/.del-user-pagerbegin.xd~f19bc6cf:
+	  Delete: html/modules/base/xartemplates/user-pagerbegin.xd 
+ 	* html/modules/base/xartemplates/user-pager.xd:
+	   
+ 	* html/modules/base/xartemplates/user-pager.xd:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/base/xartemplates/user-pager.xd 
+ 	* html/includes/xarTemplate.php:
+	  pager speed-up + xarTpl__loadFromFile 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1376
+  default to no ADODB caching
+  	* html/var/config.system.php.dist:
+	  default to no ADODB caching 
+2003-09-04: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1375
+  session fix - bug#1144
+  	* html/includes/xarSession.php:
+	  session fix - bug#1144 
+2003-09-03: miko@power.dudleynet: ChangeSet 1.1374
+  xarTemplate.php, xarBLCompiler.php:  unexistent isnt a word
+  	* html/includes/xarTemplate.php:
+	  unexistent isnt a word 
+ 	* html/includes/xarBLCompiler.php:
+	  unexistent isnt a word 
+2003-09-04: jojodee@hbwdev.net: ChangeSet 1.1373
+  Add checking and updating of security_instances table to fix hard coded table prefixes in dynamicdata, categories, articles, ratings, and hitcount instances.Check and update dynamicdata instances for missing underscore in table names.Check and update xar_query and xar_instancetable2 where required.
+  	* html/upgrade.php:
+	  Add checking and updating of security_instances table to fix hard coded table prefixes in dynamicdata, categories, articles, ratings, and hitcount instances.Check and update dynamicdata instances for missing underscore in table names.Check and update xar_query and xar_instancetable2 where required. 
+2003-09-03: marc@marclaptop.: ChangeSet 1.1365.1.1
+  register.php:  default users group should be looked for in the name  filed, not the uname filed
+  	* html/modules/roles/xaruser/register.php:
+	  default users group should be looked for in the namefiled, not the uname filed 
+2003-09-03: johnny@falling.pengo.lan: ChangeSet 1.1371
+  adding xaraya ebuild... it's not very clean atm , but it worked for meplease refer to the HOWTO
+  	* package/ebuild/xaraya.ebuild:
+	   
+ 	* package/ebuild/metadata.xml:
+	   
+ 	* package/ebuild/HOWTO:
+	   
+ 	* package/ebuild/xaraya.ebuild:
+	  BitKeeper file /home/johnny/bktrees/xaraya/core/stable/package/ebuild/xaraya.ebuild 
+ 	* package/ebuild/metadata.xml:
+	  BitKeeper file /home/johnny/bktrees/xaraya/core/stable/package/ebuild/metadata.xml 
+ 	* package/ebuild/HOWTO:
+	  BitKeeper file /home/johnny/bktrees/xaraya/core/stable/package/ebuild/HOWTO 
+2003-09-02: nuncanada@h0ly.(none): ChangeSet 1.1370
+  Merge nuncanada@xaraya.com:/usr/local/repositories/xaraya/core/stableinto h0ly.(none):/usr/local/repositories/stable
+ 2003-09-02: Andrew.Vogel@drewbox.: ChangeSet 1.1369
+  Readability changes and new version of Guide (0144) by Drew.
+  	* docs/xarayaguide/XarayaGuide.txt:
+	  0144 of Guide by Drew. 
+ 	* docs/INSTALL.txt:
+	  Renamed Guide in INSTALL.txt 
+2003-09-02: Andrew.Vogel@drewbox.: ChangeSet 1.1368
+  Renaming XarayaDocs.txt to XarayaGuide.txt
+  	* docs/xarayaguide/XarayaGuide.txt:
+	  Rename: docs/xarayaguide/XarayaDocs.txt -> docs/xarayaguide/XarayaGuide.txt 
+2003-09-02: Andrew.Vogel@drewbox.: ChangeSet 1.1367
+  Improving readability of INSTALL.txt
+  	* docs/INSTALL.txt:
+	  Improving readability of INSTALL.txt 
+ 	* html/upgrade.php:
+	  Auto merged 
+ 	* html/includes/xarException.php:
+	  Auto merged 
+ 	* BitKeeper/etc/ignore:
+	  auto-union 
+2003-09-02: nuncanada@h0ly.(none): ChangeSet 1.1314.29.3
+  taking out annoying effect
+  	* html/includes/loggers/javascript.php:
+	  Make it not pop up everytime... 
+2003-09-02: nuncanada@h0ly.(none): ChangeSet 1.1314.29.2
+  Supressed errors in upgrade.phpFixed an error when ratings wasnt installed
+  	* BitKeeper/etc/ignore:
+	  Added html/modules/advanced_polls/pnadmin.php html/modules/advanced_polls/pnadminapi.php html/modules/advanced_polls/pninit.php html/modules/advanced_polls/pntables.php html/modules/advanced_polls/pnuser.php html/modules/advanced_polls/pnuserapi.php html/modules/advanced_polls/pnversion.php to the ignore list 
+ 	* html/upgrade.php:
+	  Hiding the CREATING INDEX errors 
+ 	* html/includes/xarException.php:
+	  Adding the hability to supress Xaraya or Database errors with @ (This was only possible with PHP errors before) 
+2003-09-02: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1366
+  upload flag in Dynamic_*Upload_Property
+  	* html/includes/properties/Dynamic_Upload_Property.php:
+	  upload flag in Dynamic_*Upload_Property 
+ 	* html/includes/properties/Dynamic_TextUpload_Property.php:
+	  upload flag in Dynamic_*Upload_Property 
+ 	* html/includes/properties/Dynamic_FileUpload_Property.php:
+	  upload flag in Dynamic_*Upload_Property 
+2003-09-02: marc@marclaptop.: ChangeSet 1.1365
+  change calls to accomoadate pn SecAuthAction parameters
+  	* html/modules/privileges/xarprivileges.php:
+	  change calls to accomoadte pn SecAuthAction parameters 
+ 	* html/includes/xarSecurity.php:
+	  change calls to accomodate pn SecAuthAction parameters 
+ 	* html/includes/xarException.php:
+	  bugfix for correct error msg display 
+ 	* html/includes/pnLegacy.php:
+	  adjust pnSecauthAction 
+2003-09-02: marc@marclaptop.: ChangeSet 1.1364
+  xaradminapi.php:  bugfix for adodb cache dirxarException.php:  display bug ifx
+  	* html/modules/installer/xaradminapi.php:
+	  bugfix for adodb cache dir 
+ 	* html/includes/xarException.php:
+	  display bug ifx 
+2003-09-01: Andrew.Vogel@drewbox.: ChangeSet 1.1363
+  Readability improvments.
+  	* docs/INSTALL.txt:
+	  Some readability improvements in INSTALL.txt to make it easier for upgraders. 
+2003-09-01: rabbitt@shiva.nioka.org: ChangeSet 1.1362
+  xaradmin.php:  fixes the install problem that users were experiencing.  The problem occured because $adodbTemplatesIsWritable is left undefined if  the directory was unwritable. This causes a php error later on when trying  to assign $data['adodbTemplatesIsWritable'] the value of $adodbTemplatesIsWritable  which has no value.install.php:  added cached variable installer.installing = 1
+  	* html/modules/installer/xaradmin.php:
+	  fixes the install problem that users were experiencing.The problem occured because $adodbTemplatesIsWritable is left undefined ifthe directory was unwritable. This causes a php error later on when tryingto assign $data['adodbTemplatesIsWritable'] the value of $adodbTemplatesIsWritablewhich has no value. 
+ 	* html/install.php:
+	  added cached variable installer.installing = 1 
+2003-09-01: marcel@hsdev.com: ChangeSet 1.1361
+  Release 0.9.1.0 is out
+  	* docs/releaselog-0.906-0.910.txt:
+	   
+ 	* docs/releaselog-0.906-0.910.txt:
+	  BitKeeper file /home/mrb/dev/ddf/xar/core/stable/docs/releaselog-0.906-0.910.txt 
+ 	* build.xml:
+	  adapting build file for release 

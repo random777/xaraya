@@ -243,6 +243,7 @@ html/
         namespace is "xar" and at this time that may not be changed. There are 20
         top level core tags:
         <list style="symbols">
+          <t><xref target="blocklayout">&lt;blocklayout /&gt;</xref></t>
           <t><xref target="block">&lt;xar:block /&gt;</xref></t>
           <t><xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref></t>
           <t><xref target="else">&lt;xar:else /&gt;</xref></t>
@@ -313,7 +314,7 @@ html/
           operators, Blocklayout uses Perl-like string operators within
           templates. Assignment operators are not affected. See below:
           
-      <artwork>
+          <artwork>
         BL operator PHP operator    English
         eq          ==              equal to
         id          ===             identical to
@@ -349,6 +350,82 @@ html/
           before the closing tag, again in terms of required
           structure.
         </t>
+        <!-- xar:blocklayout -->
+        <section anchor="blocklayout" title="&lt;xar:blocklayout /&gt;">
+          <t>
+            The &lt;xar:blocklayout /&gt; tag is the root-tag of a blocklayout complete
+            template. With a <em>complete</em> template we mean the assembly of the page
+            level template, the relevant module templates and all other template snippets
+            necessary to construct the complete template for a particular request.
+          </t>
+          <t>
+            Note that this complete template does not (yet) exist in one piece anywhere, it
+            is assembled from the several templates applicable for a certain request.
+          </t>
+          <t>
+            A root tag is required in each valid XML document and can occur only once. For
+            Xaraya this means the &lt;xar:blocklayout /&gt; tag occurs in a page template only;
+            once as opening tag at or near the beginning of the template and once as
+            closing tag at the end of the page template.
+          </t>
+          <section title="Forms">
+            <t>This tag only has an open form</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>version</em>
+                <t>required attribute. At the moment of writing blocklayout is at version 1.0 or
+                  below, since we are still in beta. When new versions of the blocklayout language
+                  are released this attribute is used for compatability issues. The version number
+                  indicates what version of the blocklayout syntax to expect in the templates.
+                </t>
+              </t>
+              <t><em>[content]</em>(text/html)
+                <t>
+                  The content attribute denotes the type of content the page template describes. The 
+                  value of this attribute is a legal string according to the IETF RFC describing 
+                  mime-types. The default content type is "text/html"
+                </t>
+                <t>
+                  The complete MIME type functionality is described in several IETF RFCs. The most
+                  relevant one for this RFC is: http://www.ietf.org/rfc/rfc2046.txt There are a large
+                  number of content types which can be specified. The most relevant ones for blocklayout
+                  are in the 'text' type of content. Examples:
+                  <list>
+                    <t>text/html  - plain old html</t>
+                    <t>text/plain - plain text</t>
+                    <t>text/xml   - xml data</t>
+                    <t>application/vnd.mozilla.xul+xml - more complicated mime type, identifying a xul document.</t>
+                  </list>
+                </t>
+                <t>
+                  In theory, blocklayout could support any mimetype, but the text and application types will
+                  be the two types, with their respective subtypes which will be used most frequently
+                </t>
+              </t>
+              <t><em>xmlns:xar</em>
+                <t>declaration of the xar namespace. As we currently hardcode the namespace this
+                  attribute can only have the value:
+                  <artwork>xmlns:xar="http://www.xaraya.com/2004/blocklayout"</artwork>
+                </t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
+            <artwork><![CDATA[
+              <?xml version="1.0" encoding="utf-8"?>
+              <xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://www.xaraya.com/2004/blocklayout">
+                <!-- Rest of the page level template goes here -->
+              </xar:blocklayout>]]>              
+            </artwork>
+          </section>
+          <section title="Context">
+            <t>
+              This tag is the root tage of the blocklayout language, it has no parent tags and all other
+              tags are children of this tag.
+            </t>
+          </section>
+        </section>
         <!-- xar:block -->
         <section anchor="block" title="&lt;xar:block /&gt;">
           <t>
@@ -358,14 +435,13 @@ html/
             information to produce its output. There are a number of
             flexible ways to control what a block contains and how it
             will appear in the output.
-            <note>
-              <t>The block tag is one of the most flexible constructs
-              in blocklayout (how surprising). We haven't even touched
-              at all the possibilities ourselves yet. Unfortunately
-              this makes it also the most untested area in blocklayout
-              and vulnerable for surprises.
-              </t>
-            </note>
+          </t>
+          <t>
+            The block tag is one of the most flexible constructs
+            in blocklayout (how surprising). We haven't even touched
+            at all the possibilities ourselves yet. Unfortunately
+            this makes it also the most untested area in blocklayout
+            and vulnerable for surprises.
           </t>
           <t>
             There are two types of blocks:

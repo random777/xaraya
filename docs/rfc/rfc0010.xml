@@ -93,7 +93,7 @@ html/
       <t>
 	html/themes/&lt;theme name&gt;/theme.php contains metadata about the theme;
     no actual markup can reside there. Such metadata includes:
-	<list style="bullet">
+	<list style="symbols">
 	  <t>$themeinfo['name']</t>
 	  <t>$themeinfo['author']</t>
 	  <t>$themeinfo['homepage']</t>
@@ -119,7 +119,7 @@ html/
       <t>
 	The first group is standard classes. Selectors here will be applied to
 	every instance of a tag, unless overridden by a more specific class.
-	<list style="bullet">
+	<list style="symbols">
 	  <t>A</t>
 	  <t>BLOCKQUOTE</t>
 	  <t>BODY</t>
@@ -143,7 +143,7 @@ html/
       <t>
 	Next are individual classes, mostly related to links. Parts of class
 	names enclosed within &lt;&gt; are variable.
-	<list style="bullet">
+	<list style="symbols">
 	  <t>A.xar-title</t>
 	  <t>A.xar-title-block-&lt;group&gt;</t>
 	  <t>A.xar-title-&lt;block&gt;</t>
@@ -184,7 +184,7 @@ html/
       <t>
 	Finally are anonymous classes. Selectors here can be applied to any
 	tag.
-	<list style="bullet">
+	<list style="symbols">
 	  <t>.xar-title</t>
 	  <t>.xar-title-block-&lt;group&gt;</t>
 	  <t>.xar-title-&lt;block&gt;</t>
@@ -244,7 +244,7 @@ html/
 	Tags in Blocklayout adhere to XML syntax. The standard Blocklayout
     namespace is "xar" and at this time that may not be changed. There are 20
 	top level core tags:
-	<list style="bullet">
+	<list style="symbols">
 	  <t><xref target="block">&lt;xar:block /&gt;</xref></t>
 	  <t><xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref></t>
 	  <t><xref target="else">&lt;xar:else /&gt;</xref></t>
@@ -551,7 +551,7 @@ html/
 	      //more stuff
 	      &lt;xar:elseif condition="$func eq 'viewStory'"&gt;
 	      //still more stuff
-	      <xref target="else">&lt;xar:else /&gt;</xref>
+	      &lt;xar:else /&gt;
 	      //even more stuff
 	      &lt;/xar:if&gt;
 	    </artwork>
@@ -684,15 +684,15 @@ html/
 	  <t>Description</t>
 	  <t>
 	    Contains a string passed to an accompanying <xref target="mlkey">&lt;xar:mlkey /&gt;</xref> or
-	    <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> to occupy a place holder. See <xref target="ml">&lt;xar:ml /&gt;</xref> for
-	    syntax examples using placeholders.
+	    <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> to occupy a place holder. 
+	    See <xref target="ml">&lt;xar:ml /&gt;</xref> for  syntax examples using placeholders.
 	  </t>
 	  <t>Syntax example:
 	    <artwork>
 	      none yet
 	    </artwork>
 	  </t>
-	  <t>Parent tag:  <xref target="ml">&lt;xar:ml /&gt;</xref></t>
+	  <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref></t>
 	  <t>Child tags: none</t>
 	</section>
 

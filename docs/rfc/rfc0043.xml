@@ -5,7 +5,7 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc="yes"?>
 
-<rfc number="0043" category="std">
+<rfc number="0043" category="historic">
   <!-- number: Fill in the number for the RFC -->
   <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
   <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
@@ -21,7 +21,7 @@
       </address>
     </author>
     <date month="March" year="2003"/>
-    
+
     <!-- Initiating team for this RFC -->
     <workgroup>Project Developer Pool</workgroup>
 
@@ -32,6 +32,7 @@
     <keyword>database</keyword>
     <keyword>scheme</keyword>
     <keyword>relational</keyword>
+    <keyword>deprecated</keyword>
 
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
@@ -111,13 +112,25 @@
        See also RFC 42 about the module hooks system.
       </t>
     </section>
+
+    <section title="Alternative Approach Comments">
+      <t>
+       The alternative approach is much better than the original one, which was
+       unnecessarily complex...
+      </t>
+      <t>
+       Although i think in the future, a more 'core' approach, which lends less flexibility
+       to the modules would make xaraya able to use this feature more extensively.
+       (For example in a Short-Urls to Intuitive-Urls transition)
+      </t>
+    </section>
   </middle>
 
   <!-- Back matter is used for references and appendices which come after the references -->
   <back>
     <references title="Relevant References">
     </references>
-    
+
     <!-- Any section after this will become an appendix -->
     <section title="Example appendix">
       <t>Any section which is present after the references will become an appendix</t>

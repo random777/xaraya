@@ -20,7 +20,7 @@
  *
  */
 define('UT_PREFIXTESTMETHOD','test'); // functions starting with this prefix are considered tests
-define('UT_OUTLENGTH',50);            // width of the text output in text reporting mode
+define('UT_OUTLENGTH',60);            // width of the text output in text reporting mode
 
 
 /**

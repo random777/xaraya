@@ -254,7 +254,7 @@
           that are not logged in.
         </t>
         <t>
-          Anonymous: This is a special "meta-user" that represents the current user. Myself can be used to create special privileges that allow, for instance, only the author of an article to modify the article.
+          Myself: This is a special "meta-user" that represents the current user. Myself can be used to create special privileges that allow, for instance, only the author of an article to modify the article.
         </t>
       </section>
 

@@ -1556,7 +1556,9 @@ html/
             location in the theme.
           </t>
           <t>
-            The 'module' attribute defines which module the template file is located in, in conjunction with the 'type' attribute as described below. If this attribute is omitted the module where the tag resides is assumed.
+            The 'module' attribute defines which module the template file is located in, 
+            in conjunction with the 'type' attribute as described below. If this attribute 
+            is omitted the module where the tag resides is assumed.
           </t>
           <t>
             The 'type' attribute tells the compiler where to look for
@@ -1573,6 +1575,16 @@ html/
               <t>/themes/[themename]/includes/file.xt</t>
             </list>
           </t>
+          <t>
+            If the value is 'system', the file attribute is interpreted as a 
+            relative location to the containing filename. These so called 'system'
+            includes are formally not part of the 'module-space' or 'theme-space' 
+            and as such cannot be overridden. This tag is used to guarantee that 
+            the template contents is used regardless of the theme being used, 
+            unless the theme overrides the container template which does away 
+            with the xar:template tag in the overridden template.
+           </t>
+          </t>
           <section title="Forms">
             <t>Only the empty form is allowed</t>
           </section>
@@ -1588,16 +1600,10 @@ html/
                 <t><em>[module]</em>
                   <t>module where the file resides.</t>
                 </t>
-                <t><em>[type]</em> {(module)|theme}
+                <t><em>[type]</em> {(module)|theme|system}
                   <t>A string which tells Xaraya what kind of template to include.
                     If mainly affects the locations where Xaraya looks for the file.
                   </t>
-                </t>
-                <t><em>[compile]</em> {(true)|false}
-                  <t>A swithc which tells Xaraya whether to compile the included template
-                    or not.
-                  </t>
-                  <t>Note: not implemented</t>
                 </t>
                 <t><em>[subdata]</em> (container data array)
                   <t>
@@ -1633,6 +1639,11 @@ html/
               &lt;xar:template file="top_links" module="categories" type="module" /&gt;
 
               Looks for file /modules/categories/xartemplates/includes/top_links.xd.
+              
+              &lt;xar:template file="signals/alert.xml" type="system" /&gt;
+              
+              Looks for a file 'alert.xml' in the directory 'signals' below the location
+              of the containing template.              
             </artwork>
             </t>
           </section>

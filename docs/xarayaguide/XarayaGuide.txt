@@ -57,9 +57,9 @@ The Official Xaraya Installation & Getting Started Guide is a work-in-progress a
 
 
 
-                                                           Guide version 0145
-                                              Last updated: 05-September-2003
-                 Version 0145 sent to BitKeeper on 05-September-2003, 04:51pm
+                                                           Guide version 0147
+                                              Last updated: 14-September-2003
+                 Version 0147 sent to BitKeeper on 14-September-2003, 08:00pm
 INDEX
 =====
 INTRODUCTION BY JOHN COX
@@ -1082,7 +1082,7 @@ Below the display & navigation section is the listing of the modules on the site
 
 Modules in Xaraya
 -----------------
-In this section of the Guide, we explore the individual modules that are included with Xaraya. Not all site administrators will use all of these features, so feel free to skip around!
+In this section of the Guide, we explore the individual modules that are included with Xaraya. Most modules support Dynamic Data. If you have Dynamic Data fields defined for a module, you will have additional configuration options beyond what is covered in this Guide. Not all site administrators will use all of these features, so feel free to skip around!
 
 - Addressbook Module (Modules distribution): Xaraya address book module. Admin->Addressbook.
 The Addressbook module provides a configurable address book for your site. Entries in the address book can be made private (viewable only by the person who entered the item) or public (viewable by all users with access to this module).
@@ -1661,16 +1661,27 @@ This module provides LDAP authentication services for Xaraya.
 - Authsystem Module (core): Xaraya default authentication module. No administration panel.
 
 - Autolinks Module: TRANSFORM. Automatically link key words. Admin->Autolinks.
-Autolinks is a feature that, when installed, generates web links related to text content on-the-fly. If you have Autolinks turned on & configured properly, "Beatles" defined as a Keyword, and "http://www.beatles.com" as the auto-link URL, Autolinks in Xaraya will automatically replace occurrences of "Beatles" within your articles with "<a href="http://www.beatles.com">Beatles</a>".
+Autolinks is a feature that, when installed, generates web links related to text content on-the-fly. If you have Autolinks turned on & configured properly, "Beatles" defined as a Keyword, and "http://www.beatles.com" as the auto-link URL, Autolinks in Xaraya can automatically replace occurrences of "Beatles" within your articles with "<a href="http://www.beatles.com">Beatles</a>".
 
 When the Autolinks module is installed, the option to hook Autolinks into particular modules appears in Admin->Modules->Configure Hooks. Hook Autolinks into the modules you wish (such as Articles, Comments, Ephemerids, Messages, and XarBB). See the section on Hooks for information about hooking modules together.
+
+There are five 'levels' of use for the Autolinks module on your site.
+1. Beginner: Create Autolinks based on previously-defined Autolink Types without using Dynamic Data. If you just want to create Autolinks, this is the simplest level. The default Autolink Types & templates are reasonably comprehensive.
+
+2. Intermediate #1: Using Dynamic Data to allow over-ride of global settings for individual links (for example, named targets for links, etc).
+
+3. Intermediate #2: Using dynamic data to access optional features of the standard templates (features such as an alternative icon in the 'external' link type).
+
+4. Advanced #1: Adding new Autolink Types and creating templates for the new types.
+
+5. Advanced #2: Using regular expression (regex) matching.
 
 	- View Links: To view, edit, or delete Autolinks, click Admin->Autolinks->View Links. On the next panel, the following options are displayed. Autolinks in your database are displayed sorted by Name.
 		- Type: Displays the Autolink Type. Click the Autolink Type text to go to the Modify Autolink Type panel.
 
-		- Name: Displays the name of the Autolink. Click the Name text to go to the Modify Autolink panel.
+		- Name: Displays the name of the Autolink. Names are unique across all Autolinks on a site. Click the Name text to go to the Modify Autolink panel.
 
-		- Matching key: Xaraya searches content items for this text. If matching text is located, it is replaced with an autolink. If the Autolink has the "Match as regular expression" field CHECKED, the matching key is displayed in italics.
+		- Matching key: Xaraya searches content items for this text. If matching text is located, it is replaced with an autolink. If the Autolink has the "Match as regular expression" field CHECKED, the matching key is displayed as emphasised (which may be italics or other text formatting based on the theme).
 
 		- URL: The URL to which this autolink points.
 
@@ -1678,72 +1689,85 @@ When the Autolinks module is installed, the option to hook Autolinks into partic
 			- Disable: If you wish to disable an Autolink but not delete it from the Autolinks database, click "Disable". The Autolink will not appear as a link when matching text is found. To enable an Autolink, click "Enable".
 
 			- Edit: If you wish to edit an Autolink, click on the "Edit" link for that Autolink. A panel is displayed allowing you to edit all the information about the selected Autolink.
-				Type: Displays the Autolink Type. It is currently not possible to change the Autolink type for an existing Autolink. To change the Autolink type, delete the existing Autolink and add it again with the new Autolink type.
+				Type: Displays the Autolink Type. If you wish to move an existing Autolink to a different Autolink Type, select the "Move" command under Admin->Autolinks->View Links->Options.
 					- Edit: If you wish to edit the Autolink Type, click this link to go to the Modify Autolink Type panel.
 
 				Security
 				--------
-					- Name: Type the name of the Autolink as it will be displayed in the Autolink administration panels of the site.
+					- Name: Type the name of the Autolink as it will be displayed in the Autolink administration panels of the site. Names are unique across all Autolinks on a site. The name field exists because the Keyword may be a regular expression (see below) instead of a simple name.
 
-					- Enabled: If this box is CHECKED, the Autolink.is enabled and will be displayed if a matching key is found content. If this field is UNCHECKED, the Autolink is not displayed if a matching key is found in content.
+					- Enabled: If this box is CHECKED, the Autolink.is enabled and will be displayed if a matching key is found content. If this field is UNCHECKED, the Autolink is not displayed if a matching key is found in content. The "Example" field is displayed regardless of the setting of this field. Toggling this field will recompile the autolink from the template.
 
 				Matching
 				--------
-					- Matching key: Xaraya searches content items for this text. If matching text is located, it is replaced with the autolink.
+					- Matching key: Xaraya searches content items for this text, which must be enclosed by white space, tags, or punctuation. The punctuation characters are defined in Admin->Autolinks->Modify config. If matching text is located, it is replaced with the autolink.
 
-					- Match as regular expression: This is an advanced option within Xaraya. CHECK this box to cause the Autolink to be evaluated as a regular expression instead of a string. UNCHECK this box (default) to evaluate the Autolink as a string. A regular expression (sometimes abbreviated to "regex") is a way for a site administrator to express how Xaraya should look for a specified pattern in Autolink text and then what to do when each pattern match is found. For example, a regular expression could tell a program to search for all text lines that contain the word "Windows 95" and then to print out each line in which a match is found or substitute another text sequence (for example, just "Windows") where any match occurs.
+					- Match as regular expression: This is an advanced option within Xaraya. CHECK this box to cause the Autolink to be evaluated as a regular expression instead of a string. UNCHECK this box (default) to evaluate the Autolink as a string. A regular expression (frequently abbreviated to "regex") is a way for a site administrator to express how Xaraya should look for a specified pattern in Autolink text and then what to do when each pattern match is found. For example, a regular expression could tell a program to search for all text lines that contain the word "Windows 95" and then to print out each line in which a match is found or substitute another text sequence (for example, just "Windows") where any match occurs.
+					
+					Regular expression matching is very powerful in that a single regular expression will match more than just one word. For example, you may want to match "Windows 98", "Windows 95", and "Windows 9X" as a single autolink with the same URL. Another reason for using a regex is to split the matched string into sub-strings. For example, you may wish to match the text <article:aid> (e.g., "<article:123>") and replace it with a link. The template would need to know just the "123" portion. The regex can split the matched string into the required parts, allowing the seperate components to be passed to the template.
 
 				Replacing
 				---------
-					- Title: Enter the title of the Autolink in this field. The title is displayed to site visitors as a mouse-over.
+				Everything in this section depends on the template. This section describes the 'standard' template; other templates may do something completely different with these fields. The sample templates included with Autolinks will adhere to the standards described below.
+					- Title: Enter the title of the Autolink in this field. The title is displayed to site visitors as a tool-tip.
 
-					- URL: Enter the complete URL for the Autolink in this field. Enter "http://" at the beginning of the link if the site is external to your site; otherwise it will not function as expected.
+					- URL: Enter the complete URL for the Autolink in this field. For external sites, always include "http://" at the beginning of the link. For local links, just the path to the page is sufficient (remember that you can use Short URLs if they are enabled).
 
-					- Comment: An optional comment on the Autolink. Displayed only in the Modify Autolink panel; not displayed to site visitors.
+					- Comment: An optional comment on the Autolink. The Comment field is not currently used in any of the default Autolink templates, however, it is passed to the template in case someone wants to use it.
 
 				Other
 				-----
-					- Sample text to test link: In this field, enter sample text to test the link. The sample text (and resulting links) are displayed on the Admin->Autolinks->View Links panel.
+					- Sample text to test link: In this field, enter sample text to test the link. The sample text (and resulting links) are displayed on the Admin->Autolinks->View Links panel. In Admin->Autolinks->Modify config, you can specify how the sample text will be displayed (sample, result, both, or none).
 						- Sample: (displayed in Admin->Autolinks->View Links)
 					
 						- Result: (displayed in Admin->Autolinks->View Links)
 
 			- Click "Modify Autolink" to save changes.
 
+			- Move:
+				- Move to Autolink Type:
+				- Click "Move" to save changes.
+
 			- Delete: To delete an Autolink, click on the "Delete" link for that Autolink. A panel will be displayed asking you to confirm your request to delete the Autolink. If you wish to delete the Autolink, click "Confirm"; otherwise click "Cancel deletion of Autolink" and the link will not be removed.
 
 	- Add Link: To add a new Autolink, click this link. On the next panel, the following options are displayed.
 		- Autolink Type: From this drop-down list, select the Autolink Type from the previously-defined Autolink Types.
 
-		- Name: Enter the title of the site in the Name field (for example, "The Beatles Site"). This is the name that will be displayed as a mouse-over and in the listing of all Autolinks.
+		- Name: Enter the title of the site in the Name field (for example, "The Beatles Site"). If the name is left blank on the first panel, the value is taken from the matching key field. This is the name that will be displayed as a tool-tip and in the listing of all Autolinks.
 
-		- Matching key: Enter the keyword in the Matching key field. This is the text that will be matched in an article (for example, "beatles").
+		- Matching key: Enter the keyword or regex in the Matching key field. This is the text that will be matched in an article (for example, "beatles").
 
 		NOTE: Capitalization is not important in the Key (link) Word field.
 
-		- URL: Enter the complete URL for the site in the URL field (for example, "http://www.beatles.com"). Enter "http://" at the beginning of the link if the site is external to your site; otherwise it will not function as expected.
+		- URL: Enter the complete URL for the site in the URL field (for example, "http://www.beatles.com"). For external sites, always include "http://" at the beginning of the link. For local links, just the path to the page is sufficient (remember that you can use Short URLs if they are enabled).
 
 		If the URL is located on your web site, enter the path to the file or the complete URL. For example, if the file is on your site, enter "music.html" and Autolinks will automatically prepend the "http://www.yoursite.com", resulting in an Autolink of "http://www.yoursite.com/music.html". To be more specific, you could also enter "http://www.yoursite.com/music.html" instead of just "music.html".
 
-		- Comments: Use the Comments field to enter optional free-form alphanumeric comments about the link. Comments are visible only to the Site Administrator.
+		- Comments: Use the Comments field to enter optional free-form alphanumeric comments about the link. The Comment field is not currently used in any of the default Autolink templates, however, it is passed to the template in case someone wants to use it.
 
-		- Click "Create" to save changes.
+		- Click "Create" to save changes. You are displayed a second panel where there may be additional fields to be populated, including any dynamic data fields defined for the Autolink Type. Creation of a new Autolink must be two-stage because dynamic data fields presented will depend on the chosen Autolink Type.
 
 	- View Types: To view, modify, or delete existing Autolink Types, click this link. On the next panel, the following options are displayed.
-		- Name: The name of the Autolink Type as it is displayed in the Admin->Autolinks panel.
+		- Name: The name of the Autolink Type as it is displayed in the Admin->Autolinks panel. Must be unique.
 
 		- Template: Enter the name of the template file for this Autolink Type (link-{name}.xd). If you enter "underlined" in this field, Xaraya looks for a file called "link-underlined.xd". The file must exist with appropriate permissions and ownership in one of two locations on the site:
 			- <xarroot>/modules/autolinks/xartemplates/ for a site-wide template
 			or
 			- <xarroot>/<themes_dir>/<theme_name>/modules/autolinks/ for a theme-specific template
 
-		- Method: Either "Static" or "Dynamic", based upon the Execute Template Dynamically setting.
+		- Method: Either "Static" or "Dynamic", based upon the Execute Template Dynamically setting. It is useful to understand the difference between these two methods.
+			- Static: A Method of Static will execute the template the moment that "Modify" or "Save" is clicked. The results are then stored away and used to replace linked text.
 
-		- Description: Description of the Autolink Type. This is displayed within Admin->Autolinks.
+			- Dynamic: A Method of Dynamic does not execute the template when "Modify" or "Save" is clicked. Instead, Dynamic will execute the template when matching text is found. If the same matching text appears ten times in a page, a Dynamic type is executed ten times. There are two main reasons why you might use the Dynamic Method:
+				1. The template performs some kind of lookup to get additional details related to what has just been matched, so that details can be displayed that are not known at the time the autolink is created (an article title, for example).
 
-		- Options: To edit or delete an existing Autolink Type, click the appropriate link next to the Autolink Type to edit or delete. If you choose to delete an Autolink, you are asked to confirm your choice on the next panel.
+				2. You may have different autolink templates in different themes and want to use the appropriate template for the theme. This will execute the theme template based on the theme being viewed by the site visitor. By contrast, a Static Method will 'freeze' the template based on the theme the site administrator is using at that time.
 
-	- Add Type: To add a new Autolink Type, click this link. This panel is also displayed when Modifying an Autolink Type. On the next panel, the following options are displayed.
+		- Description: Description of the Autolink Type. This is displayed within Admin->Autolinks as a bit of information for the site administrator.
+
+		- Options: To edit or delete an existing Autolink Type, click the appropriate link next to the Autolink Type to edit or delete. If you choose to delete an Autolink Type, you are asked to confirm your choice on the next panel. If the Autolink Type contains autolinks, you are asked to confirm the intention to delete these Autolinks as well. Autolinks that are not assigned to an Autolink Type are not permitted.
+
+	- Add Type: Autolink Types are a group of similar-style or similar-functionality links based on a shared template for formatting, and sharing the same dynamic data properties if dynamic data is enabled. To add a new Autolink Type, click this link. This panel is also displayed when Modifying an Autolink Type. On the next panel, the following options are displayed.
 		- Name: Type the name of the Autolink Type in this field.
 
 		- Template name: Enter the name of the template file for this Autolink Type (link-{name}.xd). If you enter "underlined" in this field, Xaraya looks for a file called "link-underlined.xd". The file must exist with appropriate permissions and ownership in one of two locations on the site:
@@ -1760,15 +1784,15 @@ When the Autolinks module is installed, the option to hook Autolinks into partic
 	- Modify config: This section allows configuration of how Autolinks appear on your site.
 	Matching Rule Options
 	---------------------
-		- Punctuation characters: Punctuation characters are not permitted in URLs. This list specifies the characters that are NOT permitted. Default: ".!?&quot;';:"
+		- Punctuation characters: This list defines characters that are allowed to border a linked word. For example, if you want to match the word "site" but not in the word "my-site", do not define "-" as an allowed punctuation character.
 
-		- Match non-breaking space entity as white space: "&nbsp;" is an entity that represents ' ', while ' ' is just a space. To match "$nbsp;" to a space, CHECK this box. It is generally recommended that this option be CHECKED unless you have a specific reason to uncheck it.
+		- Match non-breaking space entity as white space: "&nbsp;" is an entity that represents ' ', while ' ' is just a space. To match "$nbsp;" to a space, CHECK this box. It is generally recommended that this option be CHECKED unless you have a specific reason to uncheck it. For example, if this box is CHECKED, a link that matches "my site" will also match "my&nbsp;site" as well as "my     site" and "my &nbsp;  site". All of these links will display the same if the field is CHECKED, but you may not wish to match non-breaking spaces. White space in non-matching regular expressions is treated as white space, regardless of what type or how long it is.
 
 	Action Options
 	--------------
 		- Limit on number of times each link is used in a piece of text: Enter the number of times in a particular article that matching text will be converted to an Autolink. For example, if you would like a matching piece of text to be converted to an Autolink twice in a single article and subsequent matches would not be converted, enter "2" in this field. To convert ALL matching text within a particular article to Autolinks, leave this field blank.
 
-		- Autolink decoration (style will override class): From the drop-down list, select the type of decoration displayed for autolinks.
+		- Autolink decoration (style will override class): From the drop-down list, select the type of decoration displayed for autolinks. This field may be depreciated at some point, but it is currently implemented for legacy reasons. The definitions below are used on the default templates. It is possible to over-ride these settings in a link by using a dynamic data property field called "style".
 			- Default: The default decoration style as defined in the site's theme will be used.
 
 			- None: The autolink is displayed without any decoration.
@@ -1779,17 +1803,24 @@ When the Autolinks module is installed, the option to hook Autolinks into partic
 
 			- Both: Both Underline & Overline decorations are used to display the autolink.
 
-		- Open links in new window: CHECK this box if you would like Autolinks to open in a new window. UNCHECK it to open Autolinks in the current browser window.
+		- Open links in new window: CHECK this box if you would like Autolinks to open in a new window. UNCHECK it to open Autolinks in the current browser window. It is possible to over-ride this setting in a link by using a dynamic data property field called "target", where your own targets may be defined.
 
-		- Show template errors inline (errors shown in content):
+		- Show template errors inline (errors shown in content): Use this while debugging. If a link does not execute the template properly, then it will generate an error message. CHECKING this field will show the error message as a tool-tip over the matched text (the text showing as an error class). UNCHECKING this field will leave words that link to an erroneous template intact - unmatched. The error message does not look good on a site, so it should be UNCHECKED once debugging is complete.
 		
-		- Template base name (affects all templates used):
+		- Template base name (affects all templates used): Don't touch this unless you want to see what template errors look like. Seemed like a good option so an admin can switch between different sets of links without changing theme.
 
 	Admin Options
 	-------------
 		- Items per page: How many Autolinks would you like to display per page? Enter that value into this field, for example, "25".
 		
 		- Show sample links in list:
+			- None:
+
+			- Results only:
+
+			- Sample only:
+
+			- Sample and Results:
 
 Click "Create Autolink" to add the Autolink to the database.
 

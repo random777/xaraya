@@ -52,7 +52,7 @@
         <t>Since ADODB supports many databases, database objects (tables, rows, indexes, etc.) must be restricted to no more than twenty-six (26) characters. An object must start with a letter or an underscore; the rest of the string can contain letters, digits, and underscores.  Special characters are not permitted.</t>
 
         <t>2. Default Values</t>
-        <t>When a non-null string column is created in MySQL, the default value for that column will be '' if not specified. For other databases, such as Oracle and PostGreSQL, the default value will be NULL.  If you do not specify a default value in Oracle or PostGreSQL and try to inserting NULL values in non-NULL columns, the database will give errors.</t>
+        <t>When a non-null string column is created in MySQL, the default value for that column will be '' if not specified. For other databases, such as Oracle and PostgreSQL, the default value will be NULL.  If you do not specify a default value in Oracle or PostgreSQL and try to inserting NULL values in non-NULL columns, the database will give errors.</t>
         <t>To resolve this problem, always set a default value in the table definition when creating a table.  All NOT NULL columns must have an explicit default value declared unless you can be sure that column will always be explicitly set when the table is updated.</t>
 
         <t>3. Reserved Words</t>
@@ -60,7 +60,7 @@
         <t>A complete list of the reserved words for each database can be found at:</t>
         <list style="symbols">
             <t>MySQL documentation - Section 6.1.7 "Is MySQL Picky About Reserved Words?"</t>
-            <t>PostGreSQL User's Guide - Appendix B.</t>
+            <t>PostgreSQL User's Guide - Appendix B.</t>
             <t>Oracle - Oracle9i SQL Reference and the PL/SQL User's Guide and Reference.</t>
         </list>
 
@@ -114,13 +114,15 @@
           ]]>
           </artwork>
         </figure>
+        <t>2.  Multi-table DELETE</t>
+        <t>Multi-table DELETE is supported starting from MySQL 4.0.  However, neither PostgreSQL nor Oracle support this functionality.  DELETE syntax should delete rows from only one table.</t>
       </list>
     </section>
 
-    <section title="PostGreSQL">
+    <section title="PostgreSQL">
       <list>
         <t>1. Sequences on Module Initialization</t>
-        <t>PostGreSQL sequences are not created when a table is created on module initialization but are created when the sequence is first called by the ADODB function GenID().  If a module needs to insert initial records into a table on initialization, the initial value of the sequence must be determined by calling GenID().  You cannot INSERT the initial rows into the table as an error will occur because the sequence value returned from GenID() will be incorrect.</t>      
+        <t>PostgreSQL sequences are not created when a table is created on module initialization but are created when the sequence is first called by the ADODB function GenID().  If a module needs to insert initial records into a table on initialization, the initial value of the sequence must be determined by calling GenID().  You cannot INSERT the initial rows into the table as an error will occur because the sequence value returned from GenID() will be incorrect.</t>      
       </list>
     </section>
   
@@ -159,6 +161,7 @@
         <list>
           <t>2003-04-18: MrB: created</t>
           <t>2003-05-05: Richard Cave: First stab at database requirements.</t>
+          <t>2003-05-14: Richard Cave: Added MySQL multi-table DELETE.</t>
         </list>
       </t>
     </section>

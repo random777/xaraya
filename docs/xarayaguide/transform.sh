@@ -9,8 +9,10 @@ OUTPUT=/var/www/ddf/common/documentation/userguide
 # make the HTML output
 docbook2html -d ldp.dsl\#html -o $OUTPUT make.xml
 cp -a $STYLESHEET_IMAGES $OUTPUT/stylesheet-images
+mkdir -p $OUTPUT/examples
 mkdir -p $OUTPUT/callouts
 mkdir -p $OUTPUT/sourceimages
+cp -rf examples/*.* $OUTPUT/examples
 cp -rf callouts/*.* $OUTPUT/callouts
 cp -rf sourceimages/*.* $OUTPUT/sourceimages
 cp *.css $OUTPUT

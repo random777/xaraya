@@ -182,6 +182,7 @@ html/
 					<t>.xar-menu-section-current</t>
 					<t>.xar-menu-item-current</t>
 					<t>.xar-menu-subitem-current</t>
+					<t>.xar-error</t>
 				</list>
 			</t>
 			<t>

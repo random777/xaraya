@@ -22,13 +22,13 @@ Xaraya Development Team ::
 
 Project Management Committee :
 
-  John Cox (niceguyeddie)
-
-  Marcel van der Boom (MrB)
-
   Marc Lutolf (marcinmilan)
 
   Joanna Dalle Nogare (jojodee)
+  
+  Carl P. Corliss (Rabbitt)
+  
+  Jason Judge (judgej)
 
 
 Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :

@@ -178,3 +178,6 @@ http://www.nusphere.com
 
 * The BBCode Picker from the PHPBB Team:
 PHPBB <http://www.phpbb.com/credits.php>
+
+CSS HelpTips from A List Apart, Mark Newhouse
+AListApart <http://www.alistapart.com/stories/practicalcss/>

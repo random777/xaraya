@@ -1243,27 +1243,45 @@ html/
         </section>
         <!-- xar:set -->
         <section anchor="set" title="&lt;xar:set /&gt;">
-          <t>Open</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-              <t>scope: a string, module, block, or theme (optional)</t>
-              <t>name: the name of the variable to be set</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-            Causes the variable identified by the 'name' attribute to be set to
-            the value of the tag's body. The variable must be available in the
-            scope of the tag.  Values set this way do not persist beyond the current page load.
+            Causes the variable identified by the 'name' attribute to
+            be set to the value of the tag's body. The variable must
+            be available in the scope of the tag.  Values set this way
+            do not persist beyond the current page load.
           </t>
-          <t>Syntax example:
+          <t>
+            Note: &lt;xar:set&gt; is a bit of a problem child. It is the
+            most vulnerable tag we have, security wise. As the base compilation
+            translates this tag into something like: " echo .....", with some
+            work it's easily abused as a php-scripter tag in our current setup.
+          </t>
+          <section title="Forms">
+            <t>Only block form is allowed</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>An identifier for the tag</t>
+              </t>
+              <t><em>name</em>
+                <t>The name of the variable to be set</t>
+              </t>
+              <t><em>[scope]</em> {module|block|theme}
+                <t>Note: this attribute is not implemented</t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
-              &lt;xar:set name="$foo"&gt;bar&lt;/xar:set&gt;
+              &lt;xar:set name="$foo"&gt;'bar'&lt;/xar:set&gt;
+
+              Sets the value of variable $foo to 'bar'
             </artwork>
-                    </t>
-          <t>Parent tag: none.</t>
-          <t>Child tags: none</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: none</t>
+          </section>
         </section>
         <!-- xar:template -->
         <section anchor="template" title="&lt;xar:template /&gt;">

@@ -278,16 +278,27 @@ html/
         </t>
         <t>
           String keys in arrays should be
-          single quoted (#$foo['bar']#) rather than double (#$foo["bar"]#). An
-          alternative syntax for constant keys uses a 'dot' to specify the keys.
+          single quoted (#$foo['bar']#) rather than double (#$foo["bar"]#). The
+          preferred syntax for keys uses a 'dot' to specify the keys.
           #$foo.bar# is equivalent to #$foo['bar']#. These can go down to any
           level and can include numbers, for example, $foo.bar.dee.2
+        </t>
+        <t>
+          Similarly, referencing object members (properties and methods) can be
+          done using the 'colon' notation. #$foo:bar# is equivalent to $foo-&gt;bar. 
+          This is the only way to refer to object members, as the '&gt;' characters would
+          have to be escaped.
+        </t>
+        <t>
+          The 'dot' and 'colon' notation can also be combined if needed. For example:
+          #$foo:bar.test# is equivalent too $foo-&gt;bar['test']. For array key, numeric and 
+          variable keys are also recognized ( #$foo.$bar# equals $foo[$bar] and #$foo.4# equals $foo[4] )
         </t>
         <t>
           In addition to template variables, Blocklayout also allows direct access
           to a limited set of xarAPI functions (list to be determined). Function
           calls are represented as #xarAPIFunc($arg1, 'arg2')#. Function arguments
-          should also be single quoted (as necessary).
+          should also be single quoted (as necessary). In general this is discouraged though.
         </t>
       </section>
       <section title="Comments in Templates">
@@ -1661,8 +1672,11 @@ html/
             Variables are referenced by name, without the preceeding "$". Arrays
             can be indexed via dot notation, i.e.:
             <artwork>
-              &lt;xar:var name="preformat.catandtitle" /&gt;
+              &lt;xar:var name="preformat.catandtitle" /&gt; ( meaning: $preformat['catandtitle'] )
             </artwork>
+            objects can be specifiek using colon notation, i.e:
+            <artwork>
+              &lt;xar:var name="preformat:catandtitle /&gt; ( meaning: $preformat-&gt;catandtitle )
           </t>
           <t>
             The 'scope' attribute value has the following effect:

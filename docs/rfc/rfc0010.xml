@@ -985,27 +985,41 @@ html/
         </section>
         <!-- xar:mlkey -->
         <section anchor="mlkey" title="&lt;xar:mlkey /&gt;">
-          <t>Open</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-                        <xref target="mlkey">&lt;xar:mlkey&gt;</xref> retrieves a multilanguage string based on the database key
-            contained in the tag. If the resulting string does not use
-            placeholders, mlkey may be used alone. Otherwise, mlkey must have
-            <xref target="ml">&lt;xar:ml /&gt;</xref> as a parent tag, with  <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags as
-            siblings. See <xref target="ml">&lt;xar:ml /&gt;</xref> for syntax examples using placeholders.
+            <xref target="mlkey">&lt;xar:mlkey&gt;</xref> retrieves a
+            multilanguage string based on the database key contained
+            in the tag. If the resulting string does not use
+            placeholders, mlkey may be used alone. Otherwise, mlkey
+            must have <xref target="ml">&lt;xar:ml /&gt;</xref> as a
+            parent tag, with <xref target="mlvar">&lt;xar:mlvar
+            /&gt;</xref> tags as siblings. See <xref
+            target="ml">&lt;xar:ml /&gt;</xref> for syntax examples
+            using placeholders.
           </t>
-          <t>Syntax example:
+          <section title="Forms">
+            <t>Only block form is allowed</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag</t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
               &lt;xar:mlkey&gt;LOGIN&lt;/xar:mlkey&gt;
+
+              Retrieves the 'LOGIN' key in the appropriate language and puts its
+              contents in the current context.
             </artwork>
-                    </t>
-          <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
-          <t>Child tags: none</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: 
+             <t><xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
+            </t>
+            <t>Child tags: none</t>
+          </section>
         </section>
         <!-- xar:mlstring -->
         <section anchor="mlstring" title="&lt;xar:mlstring /&gt;">

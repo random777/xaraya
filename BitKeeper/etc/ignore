@@ -2613,3 +2613,4 @@ html/modules/paypalipn/xartemplates/admin-main.xd
 html/modules/paypalipn/xartemplates/admin-modifyconfig.xd
 html/modules/paypalipn/xaruser.php
 html/modules/paypalipn/xarversion.php
+html/modules/paypalipn/xardocs/BATCH.txt

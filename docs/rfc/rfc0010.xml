@@ -874,40 +874,57 @@ html/
         </section>
         <!-- xar:loop -->
         <section anchor="loop" title="&lt;xar:loop /&gt;">
-          <t>Open</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-              <t>name: the variable which the loop increments</t>
-              <t>prefix: DEPRECATED - not supported anymore)</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
             Loop allows theme authors to execute snippets of a template multiple
             times based on a condition.
           </t>
-          <t>Syntax example:
+          <section title="Forms">
+            <t>Only allowed in block form</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag</t>
+              </t>
+              <t><em>name</em>
+                <t>The name of an array variable over which the loop executes. The 
+                   elements are guaranteed to be processed in the same order as they
+                   are stored in this array.
+                </t>
+              </t>
+              <t><em>[prefix]</em> DEPRECATED - not supported anymore)</t>
+            </list>
+            <t>
+              In the body of the loop, a number of special variables are accessible
+              to access the loop variables:
+              <artwork>
+                #$loop:[id:]item['var']# : if you created the $module_data array and put in a 
+                                           variable call 'var' the value of this variable is 
+                                           displayed. Optionally  you can specify id: to reference 
+                                           other loop constructs.
+                #$loop:[id:]index#       : the numeric loop index (of loop with id 'id'
+                #$loop:[id:]number#      : the loop number
+                #$loop:[id:]key#         : the key of the item being referenced
+              </artwork>
+              <t>The 'id' part in these variables refers to other loops. 
+                When nesting loops, the right variables from the right loops can be 
+                accessed this way. As for the foreach construct the loops are executed
+                in a 'save scope'; the values outside the loops are not affected by
+                the loops.
+              </t>
+            </t>
+          </section>
+          <section title="Syntax examples">
             <artwork>
-              &lt;xar:loop name="#$module_data#"&gt;
-              // stuff
+              &lt;xar:loop name="$module_data"&gt;
+                // stuff
               &lt;/xar:loop&gt;
             </artwork>
-                    </t>
-          <t>
-            The variables are accessed as follows in the loop:
-            <artwork>
-              #$loop:[id:]item['var']# : if you created the $module_data array and put in a 
-                                         variable call 'var' the value of this variable is 
-                                         displayed. Optionally  you can specify id: to reference 
-                                         other loop constructs.
-              #$loop:[id:]index#       : the numeric loop index (of loop with id 'id'
-              #$loop:[id:]number#      : the loop number
-              #$loop:[id:]key#         : the key of the item being referenced
-            </artwork>
-          </t>
-          <t>Parent tag: none.</t>
-          <t>Child tags: none</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: none</t>
+          </section>
         </section>
         <!-- xar:ml -->
         <section anchor="ml" title="&lt;xar:ml /&gt;">

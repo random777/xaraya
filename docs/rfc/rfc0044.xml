@@ -7,7 +7,7 @@
 -->
 
 <!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard -->
-<!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
+<?rfc editing="yes"?>  <!-- Insert a number in each paragraph to ease review comments -->
 <!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
 <!-- <?rfc sortrefs="yes"?> Sort the references -->
 <!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->

@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0033" category="bcp">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Upload Module</title>
+    <author initials="MKA" surname="Altobelli" fullname="Marie Altobelli">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>ladyofdragons@xaraya.com</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2003"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>template</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC is to outline the details of the Uploads module.</t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>It has become obvious that there is a need for a centralized handler for upload files.
+			This single module would allow users to handle upload security in a centralized location,
+			and would allow module developers who utilize it to be sure that their modules would not leave
+			holes in a user's website.
+      </t>
+    </section>
+
+    <!-- One content section is mandatory -->
+    <section title="List of requirements">
+      <t>The following is a list of requirements for a central upload module</t>
+			<list style="numbers">
+			<t>Be as secure as possible for an uploads utility</t>
+			<t>Be available to integrate with any module requiring upload capabilities</t>
+			<t>Offer variations to security to enable use in different server environments</t>
+			<t>Use the permissions schema to enable/disable uploads access</t>
+			<t>Allow upload of binary and ascii files</t>
+			<t>Read and return text from uploaded ascii files</t>
+			<t>Save binary files to database as a blob</t>
+			<t>Obscure uploaded files to increase safety</t>
+			<t>Have an approval workflow process to identify dangerous uploads</t>
+			</list>
+    </section>
+
+		<!-- One content section is mandatory -->
+    <section title="Proposed Table Structure">
+      <t>
+			<artwork>
+			CREATE TABLE xar_uploads (
+        xar_ulid int(11) NOT NULL auto_increment,
+        xar_ulmod varchar(32) NOT NULL default '',
+        xar_ulmodid int(32) NOT NULL default '0',
+        xar_uluid int(11) NOT NULL default '0',
+        xar_ulfile varchar(254) NOT NULL default '',
+        xar_ulhash varchar(254) NOT NULL default '',
+				xar_ultype CHAR(1) DEFAULT 'F' NOT NULL, 
+        xar_ulapp tinyint(3) NOT NULL default '0',
+        PRIMARY KEY  (xar_ulid)
+      ) TYPE=MyISAM;
+			
+			CREATE TABLE xar_uploadblobs (
+        xar_ulid mediumint(9) NOT NULL default '0',
+        xar_blob blob NOT NULL
+      ) TYPE=MyISAM;
+			</artwork>
+			</t>
+    </section>
+		
+    <section title="Proposed Functionality">
+      <t>In order to integrate into any module effectively, I think that uploads should be a
+			   core utility module, like categories.  It has a relatively small footprint, and has
+				 much functionality that can extend across modules.  A module can make use of one or 
+				 more functionalities of uploads, as needed.</t>
+				 
+			<t>Three main functionalities are encompassed in this module:</t>
+			<list>
+			<t>Uploading a file that is saved to a folder</t>
+			<t>Uploading a file that is saved to the database</t>
+			<t>Uploading a file whose contents are returned as a text variable</t>
+			</list> 
+			
+			<t>Uploading a file that is saved to a folder:</t>
+			<t>Using this method, the form control is passed to the uploads module.  The file is
+			pulled from the temp folder using _$FILES and is_uploaded_file for maximum security.  
+			The name of the file is scrambled through MD5 using a random salt obtained by time & pid.  
+			a URL to a placeholder page is passed back to the calling module.  The placeholder page 
+			will notify someone who tries it that the file has not been approved, and to try back later.
+			The site admin can then download it for examination, approve the file, and rename it back 
+			to its original name or change the name and location of the file.  The file will be renamed 
+	    through move to the new name.  At this point the placeholder URL if called will forward the 
+			user to the actual file.</t>
+			
+			<t>Uploading a file that is saved to the database</t>
+			<t>Using this method, the form control is passed to the uploads module.  The file is 
+			pulled from the temp folder using _$FILES and is_uploaded_file for maximum security.  
+			A record is added to the xar_uploads table, and the file is then inserted into the 
+			xar_uploadblobs table.  A URL to a placeholder page is passed back to the calling module. 
+			The placeholder page will notify someone who tries it that the file has not been approved, 
+			and to try back later.  The site admin can then download it for examination and approve the file. 
+			At this point the placeholder URL if called will open the file from the database.</t>
+			
+			<t>Uploading a file whos contents are returned as a text variable</t>
+			<t>Using this method, a file is uploaded with the same specs as the file system method.  
+			After the file goes through the validation process, it is opened and its contents are 
+			read into a variable, which is passed back to the calling module.  An illegal read or 
+			fault passes back false.</t>   
+    </section>
+		
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>2003-01-14 - initial submission</t>
+    </section>
+
+  </middle>
+
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    <references title="Reference title">
+      <!-- Fill in references as needed -->
+      <reference>
+	<front>
+	  <title>Reference title</title>
+	  <author>
+	    <organization>Organization</organization>
+	  </author>
+	  <date year="2002"/>
+	</front>
+      </reference>
+      <!-- Repeat the aboven block if more references are needed -->
+    </references>
+    
+    <!-- Any section after this will become an appendix -->
+    <section title="Example appendix">
+      <t>Any section which is present after the references will become an appendix</t>
+    </section>
+  </back>
+</rfc>

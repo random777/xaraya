@@ -1,0 +1,4094 @@
+Due to bk limitations the releaselog is split in two parts:
+
+First part: starts at line 5
+Second part: starts at line 3800
+
+Release notes for release BETA9051.
+Changes from 1.1140.1.104 to BETA9051:
+
+2003-07-13: John.Cox@mcnabb.: ChangeSet 1.1209
+  Merge niceguyeddie@xaraya.com:/usr/local/repositories/xaraya-stable into mcnabb.:C:/cygwin/home/phpdev/www/dev/xaraya-stable
+ 2003-07-13: John.Cox@mcnabb.: ChangeSet 1.1206.1.1
+  slight change to the build file. fix for referers added blank index to the uploads folder.
+  	* html/var/uploads/index.html:
+	   
+ 	* html/var/uploads/index.html:
+	  BitKeeper file C:/cygwin/home/phpdev/www/dev/xaraya-stable/html/var/uploads/index.html 
+ 	* html/modules/referer/xartemplates/admin-view.xd:
+	  fix for the template. 
+ 	* docs/project/distributions.txt:
+	  slight change to the build file.  waiting on marcel for the full build. 
+ 	* build.xml:
+	  slight change to the build file.  waiting on marcel for the full build. 
+2003-07-13: Administrator@xaraya.d2g.com: ChangeSet 1.1208
+  added DD upload field some cleanup TODO: admin stuff, reply, delete, drafts
+  	* html/modules/messages/messages.data.xml:
+	   
+ 	* html/modules/messages/xaruserapi/create.php:
+	  added dd upload 
+ 	* html/modules/messages/xaruser/view.php:
+	  display stuff 
+ 	* html/modules/messages/xaruser/send.php:
+	  added attachement 
+ 	* html/modules/messages/xartemplates/user-display.xd:
+	  display stuff 
+ 	* html/modules/messages/messages.data.xml:
+	  BitKeeper file C:/home/xaraya-stable/html/modules/messages/messages.data.xml 
+ 	* html/modules/messages/xartemplates/includes/view-message.xd:
+	  display stuff 
+ 	* html/modules/messages/xartemplates/includes/input-box.xd:
+	  enabled file uploads 
+ 	* html/modules/messages/xarinit.php:
+	  added creation of Dynamic Data Upload field for messages 
+ 	* html/modules/messages/xaradmin/main.php:
+	  change over to use commentes api admin no-functional still 
+2003-07-13: Vassilis@server.: ChangeSet 1.1207
+  Merge gabrielconnor@xaraya.com:/usr/local/repositories/xaraya-stable into server.:D:/xaraya-stable
+  	* html/modules/example/xartemplates/admin-new.xd:
+	  Auto merged 
+ 	* html/modules/example/xartemplates/admin-new.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-modify.xd:
+	  Auto merged 
+ 	* html/modules/example/xartemplates/admin-modify.xd:
+	  Turn on EOLN_NATIVE flag 
+2003-07-13: Vassilis@server.: ChangeSet 1.1189.5.1
+  More form validations
+  	* html/modules/example/xaruserapi/validateitem.php:
+	  Changed security 
+ 	* html/modules/example/xartemplates/admin-new.xd:
+	  More form validations 
+ 	* html/modules/example/xartemplates/admin-modify.xd:
+	  More form validations 
+ 	* html/modules/example/xaradmin/update.php:
+	  More form validations 
+ 	* html/modules/example/xaradmin/new.php:
+	  More form validations 
+ 	* html/modules/example/xaradmin/modify.php:
+	  More form validations 
+ 	* html/modules/example/xaradmin/create.php:
+	  More form validations 
+2003-07-13: John.Cox@mcnabb.: ChangeSet 1.1206
+  minor bug fixes.
+  	* html/modules/articles/xartemplates/user-search.xd:
+	  minor bug fixes. 
+ 	* html/modules/articles/xarblocks/related.php:
+	  minor bug fixes. 
+ 	* html/includes/xarMod.php:
+	  minor bug fixes. 
+2003-07-13: John.Cox@mcnabb.: ChangeSet 1.1205
+  changes to the dist list
+  	* docs/project/distributions.txt:
+	  changes to the dist list 
+2003-07-13: marcel@hsdev.com: ChangeSet 1.1204
+  Turning EOLN_NATIVE flag on where it was not
+  	* tests/xml-rpc/xmlrpc-test_cases/syndic8-api/getFeedInfo.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/syndic8-api/getFeedCountResponse.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/syndic8-api/getFeedCount.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/syndic8-api/findFeedsResponse.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/syndic8-api/findFeeds.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/blogger-api/newPost.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/blogger-api/getUsersBlogs.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/blogger-api/getUserInfo.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/blogger-api/getRecentPosts.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/blogger-api/getPost.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/blogger-api/editPost.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/blogger-api/deletePost.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-s-manila.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-s-blogger.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-c-weblogs.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-c-syndic8.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/old/xarUser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/old/config.site.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/old/config.site.xml.dist:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/multi-language/xarlang.xsd:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/multi-language/xarML.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/locale/xarUtil.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/locale/xarLocale.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/locale/it_IT.pld:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/locale/en_US.pld:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/locale/ar_AE.pld:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/import/postnuke/import_pn.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/cmdline/xarGetStory:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/cmdline/xarAddDownload:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/cmdline/moz2pnlnk:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/cmdline/init.inc:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/cmdline/getopt.inc:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/cmdline/config.inc:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/blocklayout/convert.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xarTimer.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xarAPI.dbk:
+	  Turn on EOLN_NATIVE flag 
+ 	* sql/vfp_rogue.sql:
+	  Turn on EOLN_NATIVE flag 
+ 	* sql/postgres7_ragnarok.sql:
+	  Turn on EOLN_NATIVE flag 
+ 	* sql/mysql_xaraya.sql:
+	  Turn on EOLN_NATIVE flag 
+ 	* sql/mssql_rogue.sql:
+	  Turn on EOLN_NATIVE flag 
+ 	* scripts/tag_package_release.sh:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-vfp.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-sybase.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-sqlanywhere.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-proxy.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-postgres7.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-postgres64.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-postgres.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-oracle.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-odbc_oracle.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-odbc_mssql.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-odbc.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-oci8po.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-oci805.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-oci8.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-mysqlt.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-mysql.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-mssql.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-informix72.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-informix.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-ibase.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-firebird.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-fbsql.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-db2.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-csv.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-borland_ibase.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-ado_mssql.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-ado_access.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-ado.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/tute.htm:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/tohtml.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/drivers/adodb-access.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/toexport.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/tips_portable_sql.htm:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/readme.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/readme.htm:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/pivottable.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/license.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/crypt.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb2.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-session.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-pear.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-pager.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-lib.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-errorpear.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-errorhandler.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-csvlib.inc.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/xaradodb/adodb-cryptsession.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/var/uploads/61vv.nkzwcpug:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/var/uploads/3ady9n3lpiqam:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/var/logs/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/var/config.system.php.dist:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/rss/pages/default.xt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/rss/modules/articles/user-weblinks-summary.xt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/rss/modules/articles/user-view.xt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/rss/modules/articles/user-display-weblinks.xt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/rss/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/print/style/style.css:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/print/style/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/print/pages/default.xt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/print/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/installer/images/top.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/installer/images/greyed.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/installer/images/completed.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/installer/images/bottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/installer/images/active.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/modules/roles/images/blank.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/modules/categories/images/AllTopics.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/xaraya_logo.jpg:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/vline.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/sideline.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/side_all.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/sh_line.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/header_logo2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/header_logo1.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/header_logo.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/header_fill.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/dot.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/btnline.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/Xaraya_Classic/images/administration_header.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/themes/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xmlrpcvalidatorapi/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xmlrpcsystemapi/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xmlrpcserver/xarincludes/xmlrpcs.inc:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xmlrpcserver/xarincludes/xmlrpc.inc:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xmlrpcserver/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xmlrpcserver/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xmlrpcserver/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/url2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/url.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/topicsubscribe.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/toparrow.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/sticky.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/sendtofriend.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/replypost.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/red_folder.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/quote2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/quote.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/profile.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/printer.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/pm.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/pix.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/newpost.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/minipost.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/minimods.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/lock.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/italic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/infoicon.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/image.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/hot_red_folder.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/hot_folder.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/forumsubscribe.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/folder.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/emailicon.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/email.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/edit.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/code.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/botarrow.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/bold.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/xarbb/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xardocs/license.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xardocs/help.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xardocs/credits.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/wiki/xardocs/changelog.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/uploads/xarimages/ZIP.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/uploads/xarimages/TXT.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/uploads/xarimages/PDF.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/uploads/xarimages/NotFound.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/uploads/xarimages/NotApproved.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/uploads/xarimages/Icons.psd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/translations/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/translations/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/upgrade.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/remove.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/none.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/initialise.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/info.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/hooks.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/disabled.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/deactivate.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/set1/activate.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/upgrade.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/themes.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/official.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/manual.jpg:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/license.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/install.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/help.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/find.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/credits.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/themes/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/winxp.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/win.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/waiting.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/users.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/unix.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/topics.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/sun.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/sections.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/safari.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/question.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/question.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/px.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/osx.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/os2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/opera.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/news.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/netscape7.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/netscape.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/msie.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/mozilla14.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/mozilla.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/mac.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/lynx.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/linux.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/konqueror.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/konqueror.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/irix.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/ie5mac.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/gecko.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/galeon.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/explorer.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/comments.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/camino.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/bsd.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/be.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/authors.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/articles.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/apple.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/amaya.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarimages/aix.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xardocs/notes.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/stats/xardocs/credits.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/soapserver/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/wink.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/surprised.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/smile.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/rolleyes.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/redface.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/razz.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/mad.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/lol.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_wink.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_smile.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_rolleyes.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_redface.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_razz.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_mad.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_lol.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_frown.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_eek.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_cool.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_confused.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon_biggrin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon9.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon8.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon7.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon6.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon5.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon41.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon40.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon4.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon39.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon38.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon37.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon36.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon35.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon34.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon33.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon32.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon31.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon30.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon3.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon29.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon27.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon26.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon25.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon24.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon23.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon22.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon21.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon20.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon19.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon18.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon17.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon16.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon15.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon14.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon13.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon12.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon11.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/icon1.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/happy.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/frown.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/evil.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/cry.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/cool.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/confused.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xardocs/license.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xardocs/help.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xardocs/credits.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xardocs/changelog.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarblocks/smiley.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/smilies/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/search/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/search/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/search/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/search/xardocs/todo.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/search/xarblocks/search.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/search/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xartemplates/blocks/login.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/users.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/urlicon.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/test.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/s.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/privileges.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/k3.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/k2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/k1.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/infoicon.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/home.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/emailicon.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/email.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/el.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/blank.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/T.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarimages/I.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarblocks/user.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarblocks/online.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarblocks/login.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/roles/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xarimages/star.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xarimages/halfstar.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xardocs/changelog.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ratings/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/usersgroups.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/up.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/toggle.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/s.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/remove.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/k3.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/k2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/k1.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/el.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/down.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/blank.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/T.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/privileges/xarimages/I.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarlang/eng/userapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarlang/eng/user.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarlang/eng/survey.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarlang/eng/init.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarlang/eng/adminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarlang/eng/admin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarimages/uparrow.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarimages/noarrow.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarimages/downarrow.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarimages/bar.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xardocs/credits.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xardocs/changelog.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarblocks/poll.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/polls/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/mybookmarks/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/mybookmarks/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xartemplates/admin-modify.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/upgrade.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/remove.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/none.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/initialise.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/info.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/hooks.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/disabled.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/deactivate.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/xarmodicon_96px.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/upgrade.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/set1/activate.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/official.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/manual.jpg:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/license.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/install.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/help.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/find.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/credits.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xardocs/todo.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/modules/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/download.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_url.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_quote.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_listopen.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_listitem.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_listclose.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_italic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_image.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_email.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_code.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/zip.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/yim.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/xaraya_logo.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/www_icon.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/waiting.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/unread.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/to_top.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/tack.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/savedbox_index.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/savedbox.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/saved.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/right.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/global/b_bold.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/right-no.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/reply.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/red.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/read.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/profile.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/print.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/previous.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/pm.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/outbox_index.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/outbox.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/online.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/offline.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/next.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/newpm.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/msnm.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/members.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/logo_xaraya.mix:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/left.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/left-no.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/index.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/inbox.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/icq.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/homepage.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/green.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/email.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/dg.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/delete_pm.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/check_unread.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/check_read.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/check_delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/button.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/buddy.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/book.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/back_top.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/attachment.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/aol.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/aim.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/addbuddy.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/messages/xarimages/add_buddy.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/mail/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/mail/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xartemplates/admin-phase2.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xartemplates/admin-phase1.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xartemplates/admin-main.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xartemplates/admin-finish.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xartemplates/admin-create_administrator.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/upgrades/postnuke/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/upgrades/postnuke/71.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/upgrades/phpnuke/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/upgrades/phpnuke/54.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/upgrades/myphpnuke/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/upgrades/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/installer/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/hitcount/xartemplates/user-main.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/hitcount/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/hitcount/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/hitcount/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/hitcount/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/hitcount/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/hitcount/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/user-view.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/user-menu.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/user-main.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/user-display.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-view.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-new.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-modifyconfig.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-modify.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-menu.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-main.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartemplates/admin-delete.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xarimages/preferences.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xarblocks/others.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xarblocks/first.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/example/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/xarblocks/ephem.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/ephemerids/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/dynamicdata/xarimages/icon_yahoo.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/dynamicdata/xarimages/icon_msnm.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/dynamicdata/xarimages/icon_aim.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/dynamicdata/xarimages/blank.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/dynamicdata/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/dynamicdata/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/dyn_example/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/converter/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarlang/swe/global.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarlang/eng/global.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarlang/deu/global.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/transparent.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/questionmark.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/head_right.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/head_middle.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/head_left.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/exclam.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/boxright.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/boxleft.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/boxbott_right.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/boxbott_middle.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/contactform/boxbott_left.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/logo.jpg:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/logo.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/info.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/head_right.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/head_middle.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/head_left.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/friend.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/exclam.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/empty.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/dots.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/boxright.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/boxleft.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/boxbott_right.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/boxbott_middle.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/boxbott_left.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarimages/Gardner.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xardocs/license.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xardocs/help.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xardocs/credits.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xardocs/changelog.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/css/style.css:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/contact/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xartemplates/user-deleteconf.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/new.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_sub_line.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_sub_end.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_sub_cutoff.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_sub_branch_t.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_sub_branch_l.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_sub.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_spacer.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/n_nosub.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/comments.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xardocs/credits.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/comments/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xartemplates/admin-delete.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xartemplates/admin-config.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/plustop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/plusbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/plus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/minustop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/minusbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/minus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/linebottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/line.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/folder.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/folder-expanded.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/branchtop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/branchbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt2/branch.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/plustop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/plusbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/plus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/minustop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/minusbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/minus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/linebottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/line.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/folder.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/folder-expanded.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/branchtop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/branchbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/imagesAlt/branch.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/plustop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/plusbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/plus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/minustop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/minusbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/minus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/linebottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/line.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/folder.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/folder-expanded.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/branchtop.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/branchbottom.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/images/branch.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/docs/HTML_TreeMenu.pdf:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarincludes/HTML_TreeMenu-1.1.5/docs/HTML_TreeMenu.doc:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/new.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_sub_line.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_sub_end.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_sub_cutoff.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_sub_branch_t.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_sub_branch_l.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_sub.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_spacer.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/n_nosub.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/edit.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/delete.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarimages/AllTopics.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarvisualapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/categories/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/cast/xarimages/preferences.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/cast/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/cast/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/bloggerapi/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-view_types.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-view_instances.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-view_groups.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-new_instance.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-new_group.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-modify_instance.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-main.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-delete_instance.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xartemplates/admin-delete_group.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarimages/upb.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarimages/up.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarimages/downb.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarimages/down.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/blocks/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/bkview/xarimages/trailer.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/bkview/xarimages/file.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/bkview/xarimages/dir.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/bkview/xarimages/arrow.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/bbcode/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/bbclick/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarwidgets/calendarMenu.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xartemplates/admin-sysinfo.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-zho.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-x_rus_koi8r.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-x_brazilian_portuguese.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-uzbekistan.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-ukr.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-tur.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-tha.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-swe.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-spa.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-slv.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-rus.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-rumanstch2.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-rumanstch.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-ron.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-por.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-pol.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-nor.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-nld.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-mas.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-lit.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-lav.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-kor.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-kasakhstan.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-jpn.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-ita.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-isl.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-ind.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-hun.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-heb.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-fra.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-fin.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-est.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-eng.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/xaraya.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/postnuke.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/php.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-ell.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-eire.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-deu.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-dan.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-cro.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-chinese.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-ces.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-catala.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-bul.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-austrian.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-armenia.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/flags/flag-ara.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/blocklayout.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/admin_generic.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarblocks/text.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarblocks/php.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarblocks/menu.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarblocks/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarblocks/html.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarblocks/finclude.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/base/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xartemplates/admin-main.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xardocs/license.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xardocs/help.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xardocs/credits.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xardocs/changelog.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/autolinks/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/authsystem/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/authsystem/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/authsystem/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/user-viewmap.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/user-view.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/user-display-weblinks.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/user-display-pictures.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/user-display-news.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/user-display-faqs.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/user-archive.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/admin-view.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/admin-pubtypes.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/admin-new.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/admin-modifyconfig.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/admin-modify.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/admin-main.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartemplates/admin-delete.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xarblocks/topitems.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xarblocks/related.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xaruserapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xaruser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xartables.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/articles/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xartemplates/admin-view.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xarimages/marker.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xarimages/admin.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xarblocks/admintop.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xarversion.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xarinit.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xaradminapi.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/modules/adminpanels/xaradmin.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/xmltest/valid/sa/051.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/xmltest/valid/sa/050.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/xmltest/valid/sa/049.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/xmltest/valid/ext-sa/014.ent:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/xmltest/valid/ext-sa/008.ent:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/xmltest/valid/ext-sa/007.ent:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/sun/invalid/utf16l.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/sun/invalid/utf16b.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p03fail1.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail9.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail8.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail7.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail6.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail5.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail4.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail31.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail30.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail3.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail29.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail28.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail27.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail26.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail25.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail24.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail23.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail22.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail21.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail20.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail2.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail19.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail18.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail17.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail16.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail15.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail14.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail13.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail12.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail11.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail10.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/oasis/p02fail1.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/japanese/weekly-utf-16.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/japanese/weekly-utf-16.dtd:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/japanese/weekly-little-endian.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/japanese/pr-xml-utf-16.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/japanese/pr-xml-little-endian.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/ibm/valid/P54/xmltech.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/ibm/valid/P54/ibmlogo.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/ibm/not-wf/P02/ibm02n01.xml:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/files/top3.jpe:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xartests/xmltestsuite/xmlconf/files/a_oasis-logo.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarVar.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarUser.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarTemplate.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarTableDDL.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarSession.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarServer.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarSecurity.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarMod.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarMLS.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/ws.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/install.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/index.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarLog.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarException.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarEvt.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarDB.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarCore.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarConfig.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarBlocks.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/xarBLCompiler.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/pnLegacy.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/pnHTML.php:
+	  Turn on EOLN_NATIVE flag 
+ 	* html/includes/index.html:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/warning.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/up.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/toc-plus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/toc-minus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/toc-blank.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/tip.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/prev.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/note.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/next.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/important.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/home.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/9.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/8.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/7.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/6.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/5.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/4.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/3.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/10.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/callouts/1.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/xarayaguide/stylesheet-images/caution.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/9.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/warning.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/up.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/toc-plus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/toc-minus.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/toc-blank.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/tip.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/prev.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/note.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/next.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/important.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/home.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/caution.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/8.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/7.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/6.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/5.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/4.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/3.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/2.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/10.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/userguide-dbk/stylesheet-images/callouts/1.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0034_2.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0034_1.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0034_1.dia:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0030_1.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0029_1.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0028_5.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0028_4.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0028_3.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0028_3.dia:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0028_2.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0028_1.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0028_1.dia:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0010_1.gif:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0007_5.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0007_4.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0007_3.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0007_2.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/rfc/images/rfc0007_1.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/perms02.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/perms01.png:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/manual.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/Theme_Upgrades.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/README-FIRST.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/README-FIRST-SPANISH.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/README-FIRST-RUSSIAN.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/LISEZ_MOI_VITE.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/INSTALL.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/INSTALL-RUSSIAN.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/old/INSTALL-FRA.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/xarMDG.dbk:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/xarAPI.dbk:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/xar.dsl:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/pdfize.sh:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/hook-system.dia:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/core.dia:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/core-initorder.dia:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/dev/core-directdepend.dia:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/QUALITY.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/LICENSE.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* docs/CREDITS.txt:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-xaruserapi.php~bc68e7b6fda2c489:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-xaruserapi.php~6dc3143247b71b:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-xaruser.php~bcf44d605bdb7f29:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-xarcore.php~e29ce3d435ca7921:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-xaradminapi.php~aca28ee6129f29aa:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-xaradmin.php~495280a0a1e942e7:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-visualapi.php~fabd4d19d44a6906:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-validator1.php~a2e94c25d1499bff:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-userapi.php~b8469cb657e663d:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-user.php~1d8e83e57464db23:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-threaded ideas.txt~f54782ec70c94f8:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-threaded ideas.txt~22bda3bfa4cee6dd:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-threaded ideas.php~d2aa7ad7bb3e888c:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-threaded ideas.php~a62c9029d0d32f9a:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-things to work on.txt~fc676052371c6c66:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-things to work on.txt~72b25bb2f4ddae28:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-styleNN.css~3fdf2d38ed0cb6c9:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-misc stuff.php~c9b680e8b1c220:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-init.php~ca115d3d321ba60:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-init.php~4c9189b7d1d04ae:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-first.php~7d2cadbb18dcd3ed:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-en_US.utf-8.pld~54611292ff6b8203:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-en_US.iso-8859-1.pld~b925ac2d844b4a53:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-admintop.php~be53c9ff56ceb3:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-adminmenu.php~a0c85fa79985bad1:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-adminapi.php~5d35bec0ea4a5293:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-admin.php~e9e6916f59b76edb:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-admin.php~a077908d768b4310:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/deleted/.del-NotApproved.gif~4586c5bdd220ff64:
+	  Turn on EOLN_NATIVE flag 
+ 	* BitKeeper/custom/phpDocumentor/Converters/PDF/default/templates/default/templates/media/logo.jpg:
+	  Turn on EOLN_NATIVE flag 
+ 	* tests/xml-rpc/xmlrpc-test_cases/syndic8-api/getFeedInfoResponse.txt:
+	  Turn on EOLN_NATIVE flag 
+2003-07-13: marcel@hsdev.com: ChangeSet 1.1203
+  Description of distributions
+  	* docs/project/distributions.txt:
+	   
+ 	* docs/project/distributions.txt:
+	  BitKeeper file /home/mrb/dev/xaraya/stable/docs/project/distributions.txt 
+2003-07-13: marcel@hsdev.com: ChangeSet 1.1202
+  I don't want edit mode anymore for myself
+  	* BitKeeper/etc/config:
+	  I don't want edit mode anymore for myself 
+2003-07-13: marcel@hsdev.com: ChangeSet 1.1201
+  The extra space at the end of the file caused lots of troubles. I need to get something in place to let BK automatically  remove spaces at the end of php files.
+  	* html/modules/uploads/xarversion.php:
+	  The extra space at the end of the file caused lots of troubles. I need to get something in place to let BK automatically  remove spaces at the end of php files. 
+2003-07-12: miko@power.dudleynet: ChangeSet 1.1200
+  admin-modifyconfig.xd:   xarML -> xarmlstring
+  	* html/modules/authldap/xartemplates/admin-modifyconfig.xd:
+	  xarML -> xarmlstring 
+2003-07-12: miko@power.dudleynet: ChangeSet 1.1199
+  admin-deleteopt.xd:   missing mlstring
+  	* html/modules/polls/xartemplates/admin-deleteopt.xd:
+	  missing mlstring 
+2003-07-12: miko@power.dudleynet: ChangeSet 1.1194.2.1
+  user-view.xd:   cannot break up sentances into fragments and then use xarML on each indvidually as word order is not the same in all languages
+  	* html/modules/dynamicdata/xartemplates/user-view.xd:
+	  cannot break up sentances into fragments and then use xarML on each indvidually as word order is not the same in all languages 
+2003-07-12: John.Cox@mcnabb.: ChangeSet 1.1197
+  fixed getall function
+  	* html/modules/roles/xaruserapi/getall.php:
+	  fixed getall function 
+2003-07-12: Jason.Judge@acad-ajp.: ChangeSet 1.1189.4.1
+  Bug 896: create all module variables on fresh install. This has only become a problem since getting unset module variables is raising an exception (bad move, IMO). Now exceptions must be reset each time a module variable is fetched, just in case it is not set, otherwise the exceptions can hang around and fail in other places.
+  	* html/modules/autolinks/xarinit.php:
+	  Bug 896: create all module variables on fresh install. 
+2003-07-12: John.Cox@mcnabb.: ChangeSet 1.1195
+  fixed dd in memberslist.
+  	* html/modules/roles/xartemplates/user-view.xd:
+	  fixed dd in memberslist. 
+2003-07-12: John.Cox@mcnabb.: ChangeSet 1.1194
+  added syndication view on articles view.
+  	* html/modules/base/xartemplates/blocks/sidemenu.xd:
+	  added syndication view on articles view. 
+ 	* html/modules/base/xarblocks/menu.php:
+	  added syndication view on articles view. 
+2003-07-12: John.Cox@mcnabb.: ChangeSet 1.1189.1.6
+  fixed security check.  block now works for displaying rss.
+  	* html/modules/themes/xarblocks/syndicate.php:
+	  fixed security check.  block now works for displaying rss. 
+2003-07-12: marc@marclaptop.: ChangeSet 1.1191
+  getallactive.php, getall.php, view.php, user-view.xd:   fix the pager
+  	* html/modules/roles/xaruserapi/getallactive.php:
+	  fix the pager 
+ 	* html/modules/roles/xaruserapi/getall.php:
+	  fix the pager 
+ 	* html/modules/roles/xaruser/view.php:
+	  fix the pager 
+ 	* html/modules/roles/xartemplates/user-view.xd:
+	  fix the pager 
+2003-07-12: John.Cox@mcnabb.: ChangeSet 1.1189.1.5
+  removed the copyright temp. to fix rss display.
+  	* html/modules/themes/xartemplates/blocks/syndicate.xd:
+	  removed the copyright temp. to fix rss display. 
+2003-07-12: John.Cox@mcnabb.: ChangeSet 1.1189.1.4
+  fixed meta block security call.
+  	* html/modules/themes/xarblocks/meta.php:
+	  fixed meta block security call. 
+ 	* html/modules/roles/xartemplates/user-waitingconfirm.xd:
+	  wording change for the registration 
+2003-07-12: John.Cox@mcnabb.: ChangeSet 1.1189.3.1
+  changed the valcode to redirect to activate immediately.
+  	* html/val.php:
+	  changed the valcode to redirect to activate immediately. 
+2003-07-12: Jason.Judge@acad-ajp.: ChangeSet 1.1185.1.1
+  Bug 896: fresh install fails.
+ 2003-07-12: marcel@hsdev.com: ChangeSet 1.1189.1.1
+  Build file work
+  	* build.xml:
+	  - added top description - separated the distro's in separate targets 
+ 	* html/modules/autolinks/xaruserapi/_transform.php:
+	  Handle failure when no links have been set up. 
+ 	* html/modules/autolinks/xarinit.php:
+	  Bug 896: set up table correctly on fresh install. 
+2003-07-12: marc@marclaptop.: ChangeSet 1.1190
+  Merge marcinmilan@newton.xaraya.com:/usr/local/repositories/xaraya-stable into marclaptop.:C:/inetpub/wwwroot/xaraya-stable
+  	* html/modules/roles/xaruserapi/getall.php:
+	  Auto merged 
+2003-07-12: marc@marclaptop.: ChangeSet 1.1175.2.1
+  getallactive.php, getall.php, user-view.xd, view.php:   changes to member list   complete for the moment
+  	* html/modules/roles/xaruserapi/getallactive.php:
+	  changes to member list complete for the moment 
+ 	* html/modules/roles/xaruserapi/getall.php:
+	  changes to member list complete for the moment 
+ 	* html/modules/roles/xartemplates/user-view.xd:
+	  changes to member list complete for the moment 
+ 	* html/modules/roles/xaruser/view.php:
+	  changes to member list complete for the moment 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1189
+  External tar and zip for building, the phing tags just take up too much memory.
+  	* build.xml:
+	  Using external tar and zip, the phing tags just take too much memory 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1188
+  test.php:   huh?
+  	* tests/bk/test.php:
+	  huh? 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.8
+  test.php:   remote test
+  	* tests/bk/test.php:
+	  remote test 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.7
+  i take the fifth
+  	* BitKeeper/triggers/pre-apply.qa:
+	  no comment 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.6
+  Ok Ok, let's first warn people. 
+  	* BitKeeper/triggers/pre-apply.qa:
+	  Ok Ok, let's first warn people.  
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.5
+  Start of global quality assurance tests
+  	* BitKeeper/triggers/pre-apply.qa:
+	   
+ 	* BitKeeper/triggers/pre-apply.qa:
+	  BitKeeper file /home/mrb/dev/xaraya/stable/BitKeeper/triggers/pre-apply.qa 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.4
+  Make the phpcheck a bit more quiet, show only errors
+  	* BitKeeper/custom/phpcheck:
+	  Make the phpcheck a bit more quiet, show only errors 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.3
+  test.php:   and fixing it
+  	* tests/bk/test.php:
+	  and fixing it 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.2
+  test.php:   introducing a single php error
+  	* tests/bk/test.php:
+	  introducing a single php error 
+2003-07-12: marcel@hsdev.com: ChangeSet 1.1181.1.1
+  test.php:   new file
+  	* tests/bk/test.php:
+	   
+ 	* tests/bk/test.php:
+	  BitKeeper file /var/www/xar/stable/main/tests/bk/test.php 
+2003-07-12: rabbitt@shiva.nioka.org: ChangeSet 1.1185
+  getmenulinks.php:   adjusted the menu links to reflect recent changes getall.php:   removed debugging message count_unread.php, count_total.php, count_sent.php:   missing semicolon send.php:   implemented posting ability - no preview or reply though. Just submit. display.php, user-display.xd:   minor adjustments to base display view-message.xd, input-box.xd:   updates to get a minimal posting structure set up xartables.php:   xartables has to return at least an array, otherwise everything goes bonkers attachment.png:   new file xaruserapi.php:   fixed stray bugs caused by changes I made
+  	* html/modules/messages/xarimages/attachment.png:
+	   
+ 	* html/modules/messages/xaruserapi/getmenulinks.php:
+	  adjusted the menu links to reflect recent changes 
+ 	* html/modules/messages/xaruserapi/getall.php:
+	  removed debugging message 
+ 	* html/modules/messages/xaruserapi/count_unread.php:
+	  missing semicolon 
+ 	* html/modules/messages/xaruserapi/count_total.php:
+	  missing semicolon 
+ 	* html/modules/messages/xaruserapi/count_sent.php:
+	  missing semicolon 
+ 	* html/modules/messages/xaruser/send.php:
+	  implemented posting ability - no preview or reply though. Just submit. 
+ 	* html/modules/messages/xaruser/display.php:
+	  minor adjustments to base display 
+ 	* html/modules/messages/xartemplates/user-display.xd:
+	  minor adjustments to base display 
+ 	* html/modules/messages/xartemplates/includes/view-message.xd:
+	  updates to get a minimal posting structure set up 
+ 	* html/modules/messages/xartemplates/includes/input-box.xd:
+	  updates to get a minimal posting structure set up 
+ 	* html/modules/messages/xartables.php:
+	  xartables has to return at least an array, otherwise everything goes bonkers 
+ 	* html/modules/messages/xarimages/attachment.png:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xarimages/attachment.png 
+ 	* html/modules/comments/xaruserapi.php:
+	  fixed stray bugs caused by changes I made 
+2003-07-12: rabbitt@shiva.nioka.org: ChangeSet 1.1184
+  misc additions/fixes/updates
+  	* html/modules/messages/xaruser/send.php:
+	   
+ 	* html/modules/messages/xaruser/formhooks.php:
+	   
+ 	* html/modules/messages/xartemplates/user-send.xd:
+	   
+ 	* html/modules/messages/xartemplates/includes/view-message.xd:
+	   
+ 	* html/modules/messages/xartemplates/includes/input-box.xd:
+	   
+ 	* html/modules/messages/xaruserapi/create.php:
+	  misc fixes/additions 
+ 	* html/modules/messages/xaruser/view.php:
+	  misc fixes/additions 
+ 	* html/modules/messages/xaruser/send.php:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xaruser/send.php 
+ 	* html/modules/messages/xaruser/formhooks.php:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xaruser/formhooks.php 
+ 	* html/modules/messages/xaruser/display.php:
+	  misc fixes/additions 
+ 	* html/modules/messages/xartemplates/user-view.xd:
+	  misc fixes/additions 
+ 	* html/modules/messages/xartemplates/user-send.xd:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xartemplates/user-send.xd 
+ 	* html/modules/messages/xartemplates/user-display.xd:
+	  misc fixes/additions 
+ 	* html/modules/messages/xartemplates/includes/view-message.xd:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xartemplates/includes/view-message.xd 
+ 	* html/modules/messages/xartemplates/includes/input-box.xd:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xartemplates/includes/input-box.xd 
+ 	* html/modules/messages/xartables.php:
+	  misc fixes/additions 
+ 	* html/modules/messages/xarinit.php:
+	  misc fixes/additions 
+ 	* html/modules/comments/xaruserapi.php:
+	  misc fixes/additions 
+ 	* BitKeeper/deleted/.del-user-header.xd~daecc13b:
+	  Delete: html/modules/messages/xartemplates/includes/user-header.xd 
+ 	* BitKeeper/deleted/.del-admin-header.xd~dae9a75c:
+	  Delete: html/modules/messages/xartemplates/includes/admin-header.xd 
+ 	* BitKeeper/deleted/.del-xaradminapi.php~5fc2d1c5:
+	  Delete: html/modules/messages/xaradminapi.php 
+ 	* BitKeeper/deleted/.del-xaradmin.php~5fb644fb:
+	  Delete: html/modules/messages/xaradmin.php 
+ 	* BitKeeper/deleted/.del-xaruserapi.php~61e47a51:
+	  Delete: html/modules/messages/xaruserapi.php 
+ 	* BitKeeper/deleted/.del-xaruser.php~61ca4119:
+	  Delete: html/modules/messages/xaruser.php 
+ 	* BitKeeper/deleted/.del-xarobject.xml~dad4aa93:
+	  Delete: html/modules/messages/xarobject.xml 
+ 	* BitKeeper/deleted/.del-common.php~daf75638:
+	  Delete: html/modules/messages/xaruser/common.php 
+2003-07-11: rabbitt@shiva.nioka.org: ChangeSet 1.1183
+  bug fixes
+  	* html/modules/messages/xaruserapi/getall.php:
+	  bug fixes 
+ 	* html/modules/messages/xaruserapi/get.php:
+	  bug fixes 
+ 	* html/modules/messages/xaruser/view.php:
+	  bug fixes 
+ 	* html/modules/messages/xaruser/main.php:
+	  bug fixes 
+ 	* html/modules/messages/xaruser/display.php:
+	  bug fixes 
+ 	* html/modules/messages/xartemplates/user-view.xd:
+	  bug fixes 
+ 	* html/modules/messages/xartemplates/user-display.xd:
+	  bug fixes 
+ 	* html/modules/comments/xaruserapi.php:
+	  misc adjustments 
+2003-07-11: rabbitt@shiva.nioka.org: ChangeSet 1.1182
+  clean up
+  	* html/modules/messages/xaruserapi/get.php:
+	  clean up 
+ 	* html/modules/messages/xaruser/view.php:
+	  clean up 
+ 	* html/modules/messages/xartemplates/user-view.xd:
+	  clean up 
+ 	* html/modules/messages/xartemplates/user-display.xd:
+	  clean up 
+ 	* html/modules/messages/xaruser/display.php:
+	  clean up 
+ 	* html/modules/messages/xartemplates/user-menu.xd:
+	  clean up 
+ 	* html/modules/messages/xartemplates/user-main.xd:
+	  clean up 
+ 	* html/modules/messages/xartemplates/admin-config.xd:
+	  clean up 
+ 	* html/modules/comments/xaruserapi.php:
+	  clean up 
+ 	* html/modules/comments/xaruser.php:
+	  clean up 
+ 	* html/modules/messages/xartemplates/user-view.xd:
+	  Rename: html/modules/messages/xartemplates/user-view-messages.xd -> html/modules/messages/xartemplates/user-view.xd 
+ 	* html/modules/messages/xartemplates/user-display.xd:
+	  Rename: html/modules/messages/xartemplates/user-display-messages.xd -> html/modules/messages/xartemplates/user-display.xd 
+2003-07-11: rabbitt@shiva.nioka.org: ChangeSet 1.1181
+  merged
+  	* html/modules/messages/xarinit.php:
+	  merged 
+2003-07-11: rabbitt@shiva.nioka.org: ChangeSet 1.1176.1.2
+  removing old obsolete files
+  	* BitKeeper/deleted/.del-new.php~db1056b6:
+	  Delete: html/modules/messages/xaruserapi/new.php 
+ 	* BitKeeper/deleted/.del-gettitle.php~db0d2eff:
+	  Delete: html/modules/messages/xaruserapi/gettitle.php 
+ 	* BitKeeper/deleted/.del-getitemlinks.php~db05e5da:
+	  Delete: html/modules/messages/xaruserapi/getitemlinks.php 
+ 	* BitKeeper/deleted/.del-countunread.php~e26d125978233566:
+	  Delete: html/modules/messages/xaruserapi/countunread.php 
+ 	* BitKeeper/deleted/.del-counttotalsaved.php~2df984bc51093a90:
+	  Delete: html/modules/messages/xaruserapi/counttotalsaved.php 
+ 	* BitKeeper/deleted/.del-counttotalout.php~866997bb5fec745b:
+	  Delete: html/modules/messages/xaruserapi/counttotalout.php 
+ 	* BitKeeper/deleted/.del-counttotal.php~6e3e6a25a4fca6b5:
+	  Delete: html/modules/messages/xaruserapi/counttotal.php 
+ 	* BitKeeper/deleted/.del-countitems.php~fd9553e8c121f26:
+	  Delete: html/modules/messages/xaruserapi/countitems.php 
+ 	* BitKeeper/deleted/.del-count.php~dafa805a:
+	  Delete: html/modules/messages/xaruserapi/count.php 
+ 	* BitKeeper/deleted/.del-display.php~db00d447:
+	  Delete: html/modules/messages/xaruserapi/display.php 
+2003-07-11: rabbitt@shiva.nioka.org: ChangeSet 1.1176.1.1
+  comments api: added some functions that messages will need. messages:  major rework going on - switching to use of comments api
+  	* html/modules/messages/xaruserapi/count_unread.php:
+	   
+ 	* html/modules/messages/xaruserapi/count_total.php:
+	   
+ 	* html/modules/messages/xaruserapi/count_sent.php:
+	   
+ 	* html/modules/messages/xaruserapi/count_unread.php:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xaruserapi/count_unread.php 
+ 	* html/modules/messages/xaruserapi/count_total.php:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xaruserapi/count_total.php 
+ 	* html/modules/messages/xaruserapi/count_sent.php:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xaruserapi/count_sent.php 
+ 	* html/modules/messages/xaruserapi/count_outbox.php:
+	   
+ 	* html/modules/messages/xaruserapi/menu.php:
+	  major rework going on - switching to use of comments api 
+ 	* html/modules/messages/xaruserapi/getall.php:
+	  major rework going on - switching to use of comments api 
+ 	* html/modules/messages/xaruserapi/get.php:
+	  major rework going on - switching to use of comments api 
+ 	* html/modules/messages/xaruserapi/create.php:
+	  major rework going on - switching to use of comments api 
+ 	* html/modules/messages/xaruserapi/count_outbox.php:
+	  BitKeeper file /home/rabbitt/projects/xaraya-stable/html/modules/messages/xaruserapi/count_outbox.php 
+ 	* html/modules/messages/xaruser/main.php:
+	  major rework going on - switching to use of comments api 
+ 	* html/modules/messages/xaruser/display.php:
+	  major rework going on - switching to use of comments api 
+ 	* html/modules/messages/xarinit.php:
+	  major rework going on - switching to use of comments api 
+ 	* html/modules/comments/xaruserapi.php:
+	  added a few new functions to facilitate checking stuff based on author 
+ 	* html/modules/comments/xartemplates/admin-modifyconfig.xd:
+	  disabled 'Authorize Comments before they show up' checkbox - it's not fully implemented so no need to have it there... 
+2003-07-11: rcave@lxwdev-1.schwabfoundation.org: ChangeSet 1.1180
+  added functions to remove privileges registered by a module
+  	* html/modules/privileges/xarprivileges.php:
+	  added function findPrivilegesForModule - returns an array of privileges assigned to a module 
+ 	* html/includes/xarSecurity.php:
+	  added function xarRemovePrivileges() to remove the privileges registered by a module 
+2003-07-11: Administrator@xaraya.d2g.com: ChangeSet 1.1177.1.1
+  fixed un-install de-initialize, remove, drop, delete or whatever the hell it's called functions
+  	* html/modules/messages/xarinit.php:
+	  fixed un-install de-initialize, remove, drop, delete or whatever the hell it's called functions 
+2003-07-11: Dracos@numenor.: ChangeSet 1.1175.1.1
+  template cleanup
+  	* html/modules/blocks/xartemplates/admin-view_types.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-view_instances.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-view_groups.xd:
+	  template cleanup in blocks module 
+ 	* html/modules/blocks/xartemplates/admin-registerblock.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-new_instance.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-new_group.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-modify_instance.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-delete_instance.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xartemplates/admin-delete_group.xd:
+	  template cleanup 
+ 	* html/modules/blocks/xarincludes/blocks.js:
+	  template cleanup 
+ 	* html/modules/blocks/xaradmin/view_groups.php:
+	  template cleanup 
+ 	* html/modules/blocks/xaradmin/new_instance.php:
+	  template cleanup 
+ 	* html/modules/blocks/xaradmin/new_group.php:
+	  template cleanup 
+ 	* html/modules/blocks/xaradmin/modify_instance.php:
+	  template cleanup 
+ 	* html/modules/blocks/xaradmin/modify_group.php:
+	  template cleanup 
+ 	* html/modules/blocks/xaradmin/delete_instance.php:
+	  template cleanup 
+ 	* html/modules/blocks/xaradmin/delete_group.php:
+	  template cleanup 
+2003-07-11: Administrator@xaraya.d2g.com: ChangeSet 1.1177
+  Dynamic Data property fix for HTMLArea and check existence of variables before checking them
+  	* html/modules/roles/xaruserapi/getall.php:
+	  need to check if they exist first it tends to break things in other modules 
+ 	* html/includes/properties/Dynamic_HTMLArea_Property.php:
+	  whoops :-) 
+2003-07-11: Administrator@xaraya.d2g.com: ChangeSet 1.1176
+  added form encryption to support the DD Upload property replaced deleted file
+  	* html/modules/messages/xartemplates/admin-config.xd:
+	   
+ 	* html/modules/messages/xartemplates/admin-new.xd:
+	  added form encryption to support the DD Upload property 
+ 	* html/modules/messages/xartemplates/admin-modify-messages.xd:
+	  added form encryption to support the DD Upload property 
+ 	* html/modules/messages/xartemplates/admin-config.xd:
+	  BitKeeper file C:/home/xaraya-stable/html/modules/messages/xartemplates/admin-config.xd 
+2003-07-11: marc@marclaptop.: ChangeSet 1.1175
+  view.php, user-view.xd:   more changes to member list
+  	* html/modules/roles/xaruser/view.php:
+	  more changes to member list 
+ 	* html/modules/roles/xartemplates/user-view.xd:
+	  more changes to member list 
+2003-07-11: marc@marclaptop.: ChangeSet 1.1174
+  user-view.xd:   center display of uname on all lines
+  	* html/modules/roles/xartemplates/user-view.xd:
+	  center display of uname on all lines 
+2003-07-11: marc@marclaptop.: ChangeSet 1.1173
+  view.php, getallactive.php:   changes to members list - not yet complete
+  	* html/modules/roles/xaruser/view.php:
+	  changes to members list - not yet complete 
+ 	* html/modules/roles/xaruserapi/getallactive.php:
+	  changes to members list - not yet complete 
+2003-07-11: marc@marclaptop.: ChangeSet 1.1172
+  getmenulinks.php:   remove admin menulinks from the user menu getallactive.php, getall.php, view.php, user-view.xd:   changes to enhance the member list display   this is not yet complete xarprivileges.php:   small change to debug diplays
+  	* html/modules/roles/xaruserapi/getmenulinks.php:
+	  remove admin menulinks from the user menu 
+ 	* html/modules/roles/xaruserapi/getallactive.php:
+	  changes to enhance the member list display this is not yet complete 
+ 	* html/modules/roles/xaruserapi/getall.php:
+	  changes to enhance the member list display this is not yet complete 
+ 	* html/modules/roles/xaruser/view.php:
+	  changes to enhance the member list display this is not yet complete 
+ 	* html/modules/roles/xartemplates/user-view.xd:
+	  changes to enhance the member list display this is not yet complete 
+ 	* html/modules/privileges/xarprivileges.php:
+	  small change to debug diplays 
+2003-07-11: marcel@hsdev.com: ChangeSet 1.1168.1.2
+  Extending phing to have a ziptask
+  	* BitKeeper/custom/phing/classes/phing/tasks/system/ZipTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ZipTask.php:
+	  BitKeeper file /home/mrb/dev/xaraya/stable/BitKeeper/custom/phing/classes/phing/tasks/system/ZipTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/Zip.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/Zip.php:
+	  BitKeeper file /home/mrb/dev/xaraya/stable/BitKeeper/custom/phing/classes/phing/lib/Zip.php 
+2003-07-11: marcel@hsdev.com: ChangeSet 1.1168.1.1
+  Adapting the build to generate xaraya-x.x.x.x-core.zip and xaraya-x.x.x.x-base.zip
+  	* build.xml:
+	  Added the zipfile targets 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/defaults.properties:
+	  Enable zip as default task 
+2003-07-11: marc@marclaptop.: ChangeSet 1.1140.74.1
+  syndicate.php, meta.php:   bugfix for security check
+  	* html/modules/themes/xarblocks/syndicate.php:
+	  bugfix for security check 
+ 	* html/modules/themes/xarblocks/meta.php:
+	  bugfix for security check 
+2003-07-11: besfred@chimera.medusa: ChangeSet 1.1166.1.1
+  fixes the error message: /<path.to.xar>/html/includes/xarVar.php(126): Undefined variable: flag
+  	* html/includes/xarVar.php:
+	  fixes the error message: /<path.to.xar>/html/includes/xarVar.php(126): Undefined variable: flag 
+2003-07-11: marcel@hsdev.com: ChangeSet 1.1168
+  Added a realclean target which resets everything to the normal state before running the build
+  	* build.xml:
+	  Added a realclean target which resets everything to the normal state before running the build 
+2003-07-11: marcel@hsdev.com: ChangeSet 1.1167
+  Now producing: xaraya-x.x.x.x-core.tar.gz -> all core modules xaraya-x.x.x.x-base.tar.gz -> core + rest of modules in main repo
+  	* build.xml:
+	  Now producing: xaraya-x.x.x.x-core.tar.gz -> all core modules xaraya-x.x.x.x-base.tar.gz -> core + rest of modules in main repo 
+2003-07-11: marcel@hsdev.com: ChangeSet 1.1166
+  Archived april 2003
+  	* BitKeeper/etc/gone:
+	   
+2003-07-11: marcel@hsdev.com: ChangeSet 1.1165
+  Archived march 2003
+  	* BitKeeper/etc/gone:
+	   
+2003-07-10: nuncanada@h0ly.(none): ChangeSet 1.1163
+  Getting dependency to work with deactivation/removal
+  	* html/modules/modules/xartemplates/admin-install.xd:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradminapi/setstate.php:
+	  Making it not insert a new state upon deactivation... 
+ 	* html/modules/modules/xaradminapi/removewithdependents.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradminapi/remove.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradminapi/getalldependents.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradminapi/executeinitfunction.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradminapi/deactivatewithdependents.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradminapi/deactivate.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradminapi/activate.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradmin/remove.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradmin/list.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/modules/xaradmin/deactivate.php:
+	  Getting dependency to work with deactivation/removal 
+ 	* html/modules/articles/xarinit.php:
+	  Comments 
+ 	* html/modules/modules/xartemplates/admin-install.xd:
+	  Rename: html/modules/modules/xartemplates/admin-initialise.xd -> html/modules/modules/xartemplates/admin-install.xd 
+ 	* html/modules/modules/xaradminapi/getalldependents.php:
+	  bk cp getalldependencies.php getalldependents.php 
+ 	* BitKeeper/deleted/.del-verifydependents.php~38b52d54:
+	  Delete: html/modules/modules/xaradminapi/verifydependents.php 
+2003-07-10: nuncanada@h0ly.(none): ChangeSet 1.1162
+  Getting new functionalities ready: - removewithdependents (remove the module and all of its dependents) - deactivatewithdependents (deactivate the module and all of its dependents)
+  	* html/modules/modules/xaradminapi/deactivatewithdependents.php:
+	   
+ 	* html/modules/modules/xaradminapi/removewithdependents.php:
+	  Finishing the function. 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  cosmetic 
+ 	* html/modules/modules/xaradminapi/deactivatewithdependents.php:
+	  BitKeeper file /usr/local/repositories/xaraya-stable/html/modules/modules/xaradminapi/deactivatewithdependents.php 
+ 	* html/modules/modules/xaradmin/remove.php:
+	  cosmetic 
+ 	* html/modules/modules/xaradmin/list.php:
+	  Activate step isnt used anymore... Install can do it all. Both the initialise and activation step is called by it. 
+2003-07-10: marcel@hsdev.com: ChangeSet 1.1140.1.109
+  build:   Change mode to -rwxrwxr-x
+  	* BitKeeper/custom/build:
+	  Change mode to -rwxrwxr-x 
+2003-07-10: marcel@ohm.: ChangeSet 1.1140.72.5
+  Added build/*
+  	* BitKeeper/etc/ignore:
+	  Added build/* 
+2003-07-10: marcel@ohm.: ChangeSet 1.1140.72.4
+  ignore:   added build/*
+  	* BitKeeper/etc/ignore:
+	  added build/xaraya-0.9.0.5 build/xaraya-0.9.0.5.tar.gz 
+2003-07-10: marcel@ohm.: ChangeSet 1.1140.72.3
+  Build file for xaraya. Creates the base distribution, prepared for core/base separation
+  	* build.xml:
+	   
+ 	* build.xml:
+	  BitKeeper file F:/src/bk/xaraya/main/build.xml 
+ 	* BitKeeper/custom/build:
+	  little fix for the build system 
+2003-07-10: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.73.1
+  Switched words as per suggestion from Drew
+  	* html/modules/uploads/xartemplates/admin-main.xd:
+	  Switched words as per suggestion from Drew 
+ 	* html/modules/modules/xaradminapi/removewithdependents.php:
+	  Rename: html/modules/modules/xaradminapi/removedependents.php -> html/modules/modules/xaradminapi/removewithdependents.php 
+2003-07-10: nuncanada@h0ly.(none): ChangeSet 1.1161
+  Initialise -> Install Let's keep nomeclature consistent
+  	* html/modules/modules/xaradmin/list.php:
+	  Initialise -> Install Let's keep nomeclature consistent 
+ 	* html/modules/modules/xaradmin/install.php:
+	  Initialise -> Install Let's keep nomeclature consistent 
+ 	* html/modules/modules/xaradmin/install.php:
+	  Rename: html/modules/modules/xaradmin/initialise.php -> html/modules/modules/xaradmin/install.php 
+2003-07-10: nuncanada@h0ly.(none): ChangeSet 1.1160
+  Step by step i will get there... Need a new change set to change initialise.php to install.php That's good for consistency.
+  	* html/modules/modules/xaradminapi/executeinitfunction.php:
+	   
+ 	* html/modules/modules/xaradminapi/deactivate.php:
+	   
+ 	* html/modules/modules/xaradminapi/executeinitfunction.php:
+	  BitKeeper file /usr/local/repositories/xaraya-stable/html/modules/modules/xaradminapi/executeinitfunction.php 
+ 	* html/modules/modules/xaradminapi/deactivate.php:
+	  BitKeeper file /usr/local/repositories/xaraya-stable/html/modules/modules/xaradminapi/deactivate.php 
+ 	* html/modules/modules/xaradminapi/activate.php:
+	  Abstracting a little this funcion that is looked for in xarinint.php in every module, so we dont have copyied and pasted code everywhere. 
+ 	* html/modules/modules/xaradmin/install.php:
+	  Initialise -> Install 
+ 	* html/modules/modules/xaradmin/deactivate.php:
+	  Making a deactivation API instead of setting the state directly... Might be useful for specific actions later on...  Still i think that everything being done in the  xaradminapi/remove.php should NOT be done there, instead thru some kind of events or whatever... 
+2003-07-10: marcel@ohm.: ChangeSet 1.1140.72.2
+  Bringing the build system to the repository
+  	* BitKeeper/custom/phing/classes/phing/util/regex/RegexMatcher.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/util/regex/RegexEngine.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/util/regex/RegexMatcher.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/util/regex/RegexMatcher.php 
+ 	* BitKeeper/custom/phing/classes/phing/util/regex/RegexEngine.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/util/regex/RegexEngine.php 
+ 	* BitKeeper/custom/phing/classes/phing/util/regex/PregRegexEngine.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/util/SourceFileScanner.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/util/FileUtils.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/util/DirectoryScanner.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/defaults.properties:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/TokenSource.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/util/regex/PregRegexEngine.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/util/regex/PregRegexEngine.php 
+ 	* BitKeeper/custom/phing/classes/phing/util/SourceFileScanner.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/util/SourceFileScanner.php 
+ 	* BitKeeper/custom/phing/classes/phing/util/FileUtils.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/util/FileUtils.php 
+ 	* BitKeeper/custom/phing/classes/phing/util/DirectoryScanner.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/util/DirectoryScanner.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/defaults.properties:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/defaults.properties 
+ 	* BitKeeper/custom/phing/classes/phing/types/TokenSource.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/TokenSource.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/TokenReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/RegularExpression.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/Reference.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/PhingFilterReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/Patternset.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/TokenReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/TokenReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/RegularExpression.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/RegularExpression.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/Reference.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/Reference.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/PhingFilterReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/PhingFilterReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/Patternset.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/Patternset.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/Parameter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/Mapper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/FilterSet.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/FilterChain.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/Fileset.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/FileList.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/Parameter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/Parameter.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/Mapper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/Mapper.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/FilterSet.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/FilterSet.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/FilterChain.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/FilterChain.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/Fileset.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/Fileset.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/FileList.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/FileList.php 
+ 	* BitKeeper/custom/phing/classes/phing/types/DataType.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/task_skel:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Os.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Or.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Not.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Equals.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/types/DataType.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/types/DataType.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/task_skel:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/task_skel 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Os.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/condition/Os.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Or.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/condition/Or.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Not.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/condition/Not.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Equals.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/condition/Equals.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/ConditionBase.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Condition.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/And.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/XsltTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TypedefTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TouchTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/ConditionBase.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/condition/ConditionBase.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/Condition.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/condition/Condition.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/condition/And.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/condition/And.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/XsltTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/XsltTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TypedefTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/TypedefTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TouchTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/TouchTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TaskdefTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TarTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/PropertyTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/PhingTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/PhingCallTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/MoveTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TaskdefTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/TaskdefTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/TarTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/TarTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/PropertyTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/PropertyTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/PhingTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/PhingTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/PhingCallTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/PhingCallTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/MoveTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/MoveTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/MkdirTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ForeachTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ExecTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/EchoTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/DumpTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/DeleteTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/MkdirTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/MkdirTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ForeachTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/ForeachTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ExecTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/ExecTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/EchoTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/EchoTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/DumpTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/DumpTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/DeleteTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/DeleteTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/CopyTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ConditionTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ChmodTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/AvailableTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/ZencodeTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/CopyTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/CopyTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ConditionTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/ConditionTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/ChmodTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/ChmodTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/system/AvailableTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/system/AvailableTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/ZencodeTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/ext/ZencodeTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/StripTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/PHPDocuTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/PHPDocTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/MkPackageTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/HtmlTidyTask.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/StripTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/ext/StripTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/PHPDocuTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/ext/PHPDocuTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/PHPDocTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/ext/PHPDocTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/MkPackageTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/ext/MkPackageTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/ext/HtmlTidyTask.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/ext/HtmlTidyTask.php 
+ 	* BitKeeper/custom/phing/classes/phing/tasks/defaults.properties:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/util/StringTokenizer.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Properties.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Message.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Logger.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Err.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/tasks/defaults.properties:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/tasks/defaults.properties 
+ 	* BitKeeper/custom/phing/classes/phing/system/util/StringTokenizer.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/util/StringTokenizer.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Properties.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/util/Properties.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Message.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/util/Message.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Logger.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/util/Logger.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Err.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/util/Err.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Cmd.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/manifest:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/functions.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/Throwable.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/System.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/SecurityException.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/util/Cmd.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/util/Cmd.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/manifest:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/manifest 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/functions.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/functions.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/Throwable.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/Throwable.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/System.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/System.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/SecurityException.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/SecurityException.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/RuntimeException.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/NullPointerException.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/Exception.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/EventObject.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/Character.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/ArrayIndexOutOfBoundsException.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/RuntimeException.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/RuntimeException.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/NullPointerException.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/NullPointerException.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/Exception.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/Exception.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/EventObject.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/EventObject.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/Character.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/Character.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/lang/ArrayIndexOutOfBoundsException.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/lang/ArrayIndexOutOfBoundsException.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/Writer.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/WinNTFileSystem.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/Win32FileSystem.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/UnixFileSystem.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/Writer.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/Writer.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/WinNTFileSystem.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/WinNTFileSystem.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/Win32FileSystem.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/Win32FileSystem.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/UnixFileSystem.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/UnixFileSystem.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/TokenReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/StringReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/Reader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/IOException.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FilterReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/TokenReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/TokenReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/StringReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/StringReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/Reader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/Reader.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/IOException.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/IOException.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FilterReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/FilterReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FileWriter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FileSystem.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FileReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/File.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/BufferedWriter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/BufferedReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FileWriter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/FileWriter.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FileSystem.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/FileSystem.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/FileReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/FileReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/File.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/File.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/BufferedWriter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/BufferedWriter.php 
+ 	* BitKeeper/custom/phing/classes/phing/system/io/BufferedReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/system/io/BufferedReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/manifest:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/TaskFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/TargetFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/RootFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/manifest:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/manifest 
+ 	* BitKeeper/custom/phing/classes/phing/parser/TaskFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/TaskFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/TargetFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/TargetFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/RootFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/RootFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/ProjectFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/ProjectConfigurator.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/NestedElementFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/Location.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/ExpatParser.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/ExpatParseException.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/ProjectFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/ProjectFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/ProjectConfigurator.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/ProjectConfigurator.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/NestedElementFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/NestedElementFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/Location.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/Location.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/ExpatParser.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/ExpatParser.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/ExpatParseException.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/ExpatParseException.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/DataTypeFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/AbstractSAXParser.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/AbstractFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/regex/RegexMatcher.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/regex/RegexEngine.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/regex/PregRegexEngine.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/parser/DataTypeFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/DataTypeFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/AbstractSAXParser.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/AbstractSAXParser.php 
+ 	* BitKeeper/custom/phing/classes/phing/parser/AbstractFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/parser/AbstractFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/regex/RegexMatcher.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/regex/RegexMatcher.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/regex/RegexEngine.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/regex/RegexEngine.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/regex/PregRegexEngine.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/regex/PregRegexEngine.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/RegexMapper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/MergeMapper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/IdentityMapper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/GlobMapper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/FlattenMapper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/FileNameMapper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/mappers/RegexMapper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/RegexMapper.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/MergeMapper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/MergeMapper.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/IdentityMapper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/IdentityMapper.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/GlobMapper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/GlobMapper.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/FlattenMapper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/FlattenMapper.php 
+ 	* BitKeeper/custom/phing/classes/phing/mappers/FileNameMapper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/mappers/FileNameMapper.php 
+ 	* BitKeeper/custom/phing/classes/phing/manifest:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/detect_php.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/Trie.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/Timer.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/Tar.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/Signal.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/manifest:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/manifest 
+ 	* BitKeeper/custom/phing/classes/phing/lib/detect_php.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/detect_php.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/Trie.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/Trie.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/Timer.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/Timer.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/Tar.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/Tar.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/Signal.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/Signal.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/Regex.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/Gaugebox.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/BuildFileFinder.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/util/IniFileTokenReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/util/ChainReaderHelper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/XsltFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/lib/Regex.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/Regex.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/Gaugebox.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/Gaugebox.php 
+ 	* BitKeeper/custom/phing/classes/phing/lib/BuildFileFinder.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/lib/BuildFileFinder.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/util/IniFileTokenReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/util/IniFileTokenReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/util/ChainReaderHelper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/util/ChainReaderHelper.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/XsltFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/XsltFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/TailFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/TabToSpaces.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/StripPhpComments.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/StripLineComments.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/StripLineBreaks.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/ReplaceTokens.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/TailFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/TailFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/TabToSpaces.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/TabToSpaces.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/StripPhpComments.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/StripPhpComments.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/StripLineComments.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/StripLineComments.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/StripLineBreaks.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/StripLineBreaks.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/ReplaceTokens.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/ReplaceTokens.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/PrefixLines.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/LineContainsRegExp.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/LineContains.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/HeadFilter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/ExpandProperties.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/BaseParamFilterReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/PrefixLines.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/PrefixLines.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/LineContainsRegExp.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/LineContainsRegExp.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/LineContains.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/LineContains.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/HeadFilter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/HeadFilter.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/ExpandProperties.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/ExpandProperties.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/BaseParamFilterReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/BaseParamFilterReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/filters/BaseFilterReader.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/VERSION.TXT:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/UnknownElement.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/TaskContainer.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/TaskAdapter.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/filters/BaseFilterReader.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/filters/BaseFilterReader.php 
+ 	* BitKeeper/custom/phing/classes/phing/VERSION.TXT:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/VERSION.TXT 
+ 	* BitKeeper/custom/phing/classes/phing/UnknownElement.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/UnknownElement.php 
+ 	* BitKeeper/custom/phing/classes/phing/TaskContainer.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/TaskContainer.php 
+ 	* BitKeeper/custom/phing/classes/phing/TaskAdapter.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/TaskAdapter.php 
+ 	* BitKeeper/custom/phing/classes/phing/Task.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/Target.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/RuntimeConfigurable.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/ProjectComponent.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/Project.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/NoBannerLogger.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/Task.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/Task.php 
+ 	* BitKeeper/custom/phing/classes/phing/Target.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/Target.php 
+ 	* BitKeeper/custom/phing/classes/phing/RuntimeConfigurable.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/RuntimeConfigurable.php 
+ 	* BitKeeper/custom/phing/classes/phing/ProjectComponent.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/ProjectComponent.php 
+ 	* BitKeeper/custom/phing/classes/phing/Project.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/Project.php 
+ 	* BitKeeper/custom/phing/classes/phing/NoBannerLogger.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/NoBannerLogger.php 
+ 	* BitKeeper/custom/phing/classes/phing/Main.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/IntrospectionHelper.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/DefaultLogger.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/BuildListener.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/BuildException.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/BuildEvent.php:
+	   
+ 	* BitKeeper/custom/phing/classes/phing/Main.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/Main.php 
+ 	* BitKeeper/custom/phing/classes/phing/IntrospectionHelper.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/IntrospectionHelper.php 
+ 	* BitKeeper/custom/phing/classes/phing/DefaultLogger.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/DefaultLogger.php 
+ 	* BitKeeper/custom/phing/classes/phing/BuildListener.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/BuildListener.php 
+ 	* BitKeeper/custom/phing/classes/phing/BuildException.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/BuildException.php 
+ 	* BitKeeper/custom/phing/classes/phing/BuildEvent.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/phing/BuildEvent.php 
+ 	* BitKeeper/custom/phing/classes/packagesupport.php:
+	   
+ 	* BitKeeper/custom/phing/bin/phing.php:
+	   
+ 	* BitKeeper/custom/build:
+	   
+ 	* BitKeeper/custom/phing/classes/packagesupport.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/classes/packagesupport.php 
+ 	* BitKeeper/custom/phing/bin/phing.php:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/phing/bin/phing.php 
+ 	* BitKeeper/custom/build:
+	  BitKeeper file F:/src/bk/xaraya/main/BitKeeper/custom/build 
+2003-07-10: marcel@ohm.: ChangeSet 1.1140.72.1
+  custom command build rename to make way for build system
+  	* BitKeeper/etc/gone:
+	  cleaning 
+ 	* BitKeeper/custom/ccbuild:
+	  Rename: BitKeeper/custom/build -> BitKeeper/custom/ccbuild 
+2003-07-10: marc@marclaptop.: ChangeSet 1.1140.71.1
+  getallactive.php, getall.php, view.php:   remove anonynous and myself from the member list
+  	* html/modules/roles/xaruserapi/getallactive.php:
+	  remove anonynous and myself from the member list 
+ 	* html/modules/roles/xaruserapi/getall.php:
+	  remove anonynous and myself from the member list 
+ 	* html/modules/roles/xaruser/view.php:
+	  remove anonynous and myself from the member list 
+2003-07-09: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.31
+  Added Confirm delete option, and fixed a problem with some CGI variables not being available on all platforms.
+  	* html/modules/uploads/xartemplates/admin-reject.xd:
+	   
+ 	* html/modules/uploads/xartemplates/admin-reject.xd:
+	  BitKeeper file C:/cygwin/home/mcortez/xaraya-stable/html/modules/uploads/xartemplates/admin-reject.xd 
+ 	* html/modules/uploads/xaradmin/confirmdelete.php:
+	   
+ 	* html/modules/uploads/xaruser.php:
+	  Now returns you to Admin View after successful upload 
+ 	* html/modules/uploads/xartemplates/admin-modifyconfig.xd:
+	  Text change as suggested by Drew, and addition of Confirm Delete option 
+ 	* html/modules/uploads/xarinit.php:
+	  Fixed problem with some CGI variables not being able on all platforms 
+ 	* html/modules/uploads/xaradmin/updateconfig.php:
+	  Adding confirm delete option, and fixed a problem with certain CGI Variables not being available on some platforms 
+ 	* html/modules/uploads/xaradmin/reject.php:
+	  Adding confirm delete option 
+ 	* html/modules/uploads/xaradmin/modifyconfig.php:
+	  Adding confirm delete option 
+ 	* html/modules/uploads/xaradmin/confirmdelete.php:
+	  BitKeeper file C:/cygwin/home/mcortez/xaraya-stable/html/modules/uploads/xaradmin/confirmdelete.php 
+2003-07-09: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.30
+  Try to intelligently figure out the mime type to assist browsers, rather then just simply defaulting to octet-stream all the time
+  	* html/modules/uploads/xaradminapi.php:
+	  Try to intelligently figure out the mime type to assist browsers, rather then just simply defaulting to octet-stream all the time 
+2003-07-09: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.29
+  ReadBaseBlock cannot be used to check the security of individual links.  Individual link security is not in place yet.
+  	* html/modules/base/xarblocks/menu.php:
+	  ReadBaseBlock cannot be used to check the security of individual links.  Individual link security is not in place yet. 
+2003-07-09: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.28
+  Security calls for blocks are <type>:<title>:<id> not title:type:id
+  	* html/modules/base/xarblocks/menu.php:
+	  Security calls for blocks are <type>:<title>:<id> not title:type:id 
+2003-07-09: marc@marclaptop.: ChangeSet 1.1140.70.2
+  replace xarUnregisterMask list with xarRemoveMasks
+  	* html/modules/smilies/xarinit.php:
+	  replace xarUnregisterMask list with xarRemoveMasks 
+ 	* html/modules/referer/xarinit.php:
+	  replace xarUnregisterMask list with xarRemoveMasks 
+ 	* html/modules/ratings/xarinit.php:
+	  replace xarUnregisterMask list with xarRemoveMasks 
+ 	* html/modules/quotes/xarinit.php:
+	  replace xarUnregisterMask list with xarRemoveMasks 
+ 	* html/modules/html/xarinit.php:
+	  replace xarUnregisterMask list with xarRemoveMasks 
+ 	* html/modules/headlines/xarinit.php:
+	  replace xarUnregisterMask list with xarRemoveMasks 
+ 	* html/modules/ephemerids/xarinit.php:
+	  replace xarUnregisterMask list with xarRemoveMasks 
+2003-07-09: marc@marclaptop.: ChangeSet 1.1140.70.1
+  document xarremovemasks in the example modules
+  	* html/modules/privileges/xarprivileges.php:
+	  no change 
+ 	* html/modules/example/xarinit.php:
+	  document xarremovemasks in the example modules 
+2003-07-09: rabbitt@shiva.nioka.org: ChangeSet 1.1140.69.3
+  minor fixes to comment stats / deletion
+  	* html/modules/comments/xaradminapi.php:
+	  minor fixes to comment stats / deletion 
+ 	* html/modules/comments/xaradmin.php:
+	  minor fixes to comment stats / deletion 
+2003-07-09: rabbitt@shiva.nioka.org: ChangeSet 1.1140.69.2
+  fixed some bugs including bugs created when someone changed direct function calls to modapifunc calls..... 
+  	* html/modules/comments/xaradminapi.php:
+	  fixed some bugs including bugs created when someone changed direct function calls to modapifunc calls.....  
+ 	* html/modules/comments/xaradmin.php:
+	  fixed some bugs including bugs created when someone changed direct function calls to modapifunc calls.....  
+2003-07-09: rabbitt@shiva.nioka.org: ChangeSet 1.1140.69.1
+  fixes bug 892: Can not delete Comments
+  	* html/modules/comments/xartemplates/admin-delete.xd:
+	  fixes bug 892: Can not delete Comments 
+2003-07-08: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.25
+  The download function itself does this checking, so there is no need to do it twice
+  	* html/modules/uploads/xaruser.php:
+	  The download function itself does this checking, so there is no need to do it twice 
+2003-07-08: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.24
+  Fixing a missing file bug, and getting upgrade to work.
+  	* html/modules/uploads/xarinit.php:
+	  Getting the upgrade to work 
+ 	* html/modules/uploads/xaradminapi.php:
+	  Fixing bug with files that have been deleted out of the uploads directory 
+2003-07-08: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.23
+  Fixed bug, where is user decided not to upload a file, it was failing.  
+  	* html/includes/properties/Dynamic_Upload_Property.php:
+	  Fixed bug, where is user decided not to upload a file, it was failing.   
+2003-07-08: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.22
+  Fixed a problem that prevented HTMLArea from working in Moz.
+  	* html/includes/properties/Dynamic_HTMLArea_Property.php:
+	  Fixed a problem that prevented HTMLArea from working in Moz. 
+2003-07-08: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.21
+  Added support for a using a WYSIWYG editor, HTMLArea.  This extra property field is only enabled if the user has HTMLArea installed.  I'd prefer to do this via a module, but we need a method that allows modules to register new property types.
+  	* html/includes/properties/Dynamic_HTMLArea_Property.php:
+	   
+ 	* html/modules/dynamicdata/class/properties.php:
+	  Added support for a using a WYSIWYG editor, HTMLArea.  This extra property field is only enabled if the user has HTMLArea installed.  I'd prefer to do this via a module, but we need a method that allows modules to register new property types. 
+ 	* html/includes/properties/Dynamic_HTMLArea_Property.php:
+	  BitKeeper file C:/cygwin/home/mcortez/xaraya-stable/html/includes/properties/Dynamic_HTMLArea_Property.php 
+2003-07-08: nuncanada@h0ly.(none): ChangeSet 1.1158
+  Added comment
+  	* html/modules/articles/xarinit.php:
+	  Adding comment... Not needed anymore as we have the dependency checks working 
+2003-07-08: marc@marclaptop.: ChangeSet 1.1140.68.2
+  xarinit.php:   insert default string for xar_date_reg upgrade.php:   remove the privsets table   don't need this until we do caching
+  	* html/modules/roles/xarinit.php:
+	  insert default string for xar_date_reg 
+ 	* html/upgrade.php:
+	  remove the privsets table don't need this until we do caching 
+2003-07-08: marc@marclaptop.: ChangeSet 1.1140.68.1
+  The upgrade script now works. Generallock and all the other new stuff now is correctly created.
+  	* html/upgrade.php:
+	  bugfix for new privileges 
+2003-07-08: johnny@falling.pengo.lan: ChangeSet 1.1140.61.19
+  small phpdoc fixes
+  	* html/modules/headlines/xarinit.php:
+	  phpdoc cleanup .. and move all ddl declarations to the top of the file 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  small phpdoc fixes  
+2003-07-07: Administrator@xaraya.d2g.com: ChangeSet 1.1140.61.18
+  fix small typo :-)
+  	* html/modules/mybookmarks/xartemplates/includes/user-header.xd:
+	  fix small typo :-) 
+2003-07-07: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.17
+  Added new upload property type that uses uploads module to do its bussiness
+  	* html/includes/properties/Dynamic_Upload_Property.php:
+	   
+ 	* html/modules/uploads/xardocs/installation.txt:
+	  updated install 
+ 	* html/modules/dynamicdata/class/properties.php:
+	  Added upload property type that utilizes uploads module 
+ 	* html/includes/properties/Dynamic_Upload_Property.php:
+	  BitKeeper file C:/cygwin/home/mcortez/xaraya-stable/html/includes/properties/Dynamic_Upload_Property.php 
+2003-07-07: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.16
+  Moved the download function
+  	* html/modules/uploads/xarversion.php:
+	  updated version number, added my dumbass name to the credits. 
+ 	* html/modules/uploads/xaruser.php:
+	  No longer using redirects to get to files, must go through download function 
+ 	* html/modules/uploads/xardocs/changes.txt:
+	  updated changes 
+ 	* html/modules/uploads/xaradminapi.php:
+	  moved the download function 
+ 	* html/modules/uploads/xaradmin/download.php:
+	  moved the download function 
+2003-07-07: mcortez@ariel2.fullcoll.edu: ChangeSet 1.1140.61.15
+  Removed debug message
+  	* html/modules/articles/xaruser/view.php:
+	  Removed debug message 
+2003-07-07: nuncanada@h0ly.(none): ChangeSet 1.1157
+  More one changeset to the dependency stuff. How many more will i need?  -> Install in one step instead of having to initialise/activate -> Fixes
+  	* html/modules/modules/xartemplates/admin-install.xd:
+	  Changing from Initialise to Install 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  initialise -> install Do already the activation too! 
+ 	* html/modules/modules/xaradminapi/initialise.php:
+	  Giving more details on the error 
+ 	* html/modules/modules/xaradminapi/getalldependents.php:
+	  INACTIVE is not a satisfied dependency, it's only satisfiable 
+ 	* html/modules/modules/xaradminapi/getalldependencies.php:
+	  INACTIVE is not a satisfied dependency, it's only satisfiable 
+ 	* html/modules/modules/xaradmin/install.php:
+	  initialisewithdependencies -> installwithdependencies Initialise/Activate at just one step. 
+ 	* html/modules/modules/xaradmin/activate.php:
+	  Using activate API function instead of doing it directly. 
+2003-07-07: miko@miko.homelinux.org: ChangeSet 1.1140.61.14
+  core.conf.php:   remove superfluous "as"
+  	* html/modules/installer/xarconfigurations/core.conf.php:
+	  remove superfluous "as" 
+ 	* html/modules/modules/xaradminapi/removewithdependents.php:
+	  Rename: html/modules/modules/xaradminapi/removewithdependents.php -> html/modules/modules/xaradminapi/removedependents.php 
+2003-07-07: Jason.Judge@acad-ajp.: ChangeSet 1.1140.61.13
+  Sample template to show way of producing alternative link formats.
+  	* html/modules/autolinks/xartemplates/link-sample1.xd:
+	   
+ 	* html/modules/autolinks/xartemplates/link-sample1.xd:
+	  BitKeeper file X:/xaraya-stable/html/modules/autolinks/xartemplates/link-sample1.xd 
+ 	* html/modules/autolinks/xaruserapi/getreplace.php:
+	  Extra template variables. 
+ 	* html/modules/autolinks/xartemplates/link-standard.xd:
+	  Comment in template. 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Rename: html/modules/modules/xaradminapi/initialisewithdependencies.php -> html/modules/modules/xaradminapi/installwithdependencies.php 
+2003-07-07: Jason.Judge@acad-ajp.: ChangeSet 1.1140.67.1
+  Drive the autolink format from a template, plus some general tidy up. Performance has probably decreased at this point, but replace-template caching will improve this with the next update. - now drives autolink replacement string from a template (link-standard.xd) - keywords can now be regular expressions - &nbsp; can be treated as whitespace when matching words. - admin can define the characters to be matched as punctuation (i.e. keyword delimitors) Still to do: - different autolink types with multiple templates - use of DD to allow arbitrary replacement strings in the templates.
+  	* html/modules/autolinks/xaruserapi/htmlattributes.php:
+	   
+ 	* html/modules/autolinks/xaruserapi/htmlattributes.php:
+	  BitKeeper file X:/xaraya-stable/html/modules/autolinks/xaruserapi/htmlattributes.php 
+ 	* html/modules/autolinks/xaruserapi/getreplace.php:
+	   
+ 	* html/modules/autolinks/xaruserapi/getreplace.php:
+	  BitKeeper file X:/xaraya-stable/html/modules/autolinks/xaruserapi/getreplace.php 
+ 	* html/modules/autolinks/xartemplates/link-standard.xd:
+	   
+ 	* html/modules/autolinks/xartemplates/link-standard.xd:
+	  BitKeeper file X:/xaraya-stable/html/modules/autolinks/xartemplates/link-standard.xd 
+ 	* html/modules/autolinks/xarversion.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaruserapi/getall.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaruserapi/get.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaruserapi/_transform.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaruserapi.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xartemplates/admin-view.xd:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xartemplates/admin-modifyconfig.xd:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xartemplates/admin-modify.xd:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xartables.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xarinit.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaradminapi/update.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaradmin/view.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaradmin/updateconfig.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaradmin/update.php:
+	  Drive the autolink format from a template. 
+ 	* html/modules/autolinks/xaradmin/enable.php:
+	  Drive the autolink format from a template. 
+2003-07-07: nuncanada@h0ly.(none): ChangeSet 1.1156
+  Merge nuncanada@xaraya.com:/usr/local/repositories/xaraya-stable into h0ly.(none):/usr/local/repositories/xaraya-stable
+  	* html/modules/privileges/xaradmin/addprivilege.php:
+	  Auto merged 
+ 	* BitKeeper/etc/logging_ok:
+	  auto-union 
+2003-07-07: Vassilis@server.: ChangeSet 1.1140.61.11
+  Additions & bugfixes
+  	* html/modules/cast/xartemplates/admin-newcast.xd:
+	  Changed skillname to id for select boxes 
+ 	* html/modules/cast/xartables.php:
+	  Added scmskills table 
+ 	* html/modules/cast/xarinit.php:
+	  Added scmskills table 
+ 	* html/modules/cast/xaradmin/newcast.php:
+	  Added Action Check Score 
+2003-07-06: rabbitt@shiva.nioka.org: ChangeSet 1.1140.61.10
+  fixed problem with sec tags where loop variables weren't parsed correctly
+  	* html/modules/comments/xartemplates/includes/view-nested.xd:
+	  fixed problem with sec tags where loop variables weren't parsed correctly 
+ 	* html/modules/comments/xartemplates/includes/view-flat.xd:
+	  fixed problem with sec tags where loop variables weren't parsed correctly 
+ 	* html/includes/xarBLCompiler.php:
+	  added parsing to instance and component attributes so you can use loop variables in them 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.61.9
+  fixed loopy
+  	* html/modules/comments/xartemplates/includes/view-nested.xd:
+	  fixed loopy 
+ 	* html/modules/comments/xartemplates/includes/view-flat.xd:
+	  fixed loopy 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.61.8
+  added default to the date_reg.
+  	* html/modules/roles/xarinit.php:
+	  added default to the date_reg. 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.66.2
+  fixed empty admin check
+  	* html/modules/modules/xaradmin/list.php:
+	  fixed empty admin check 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.66.1
+  updated docs and version number
+  	* html/modules/base/xarinit.php:
+	  updated docs and version number 
+ 	* html/includes/xarCore.php:
+	  updated docs and version number 
+ 	* docs/INSTALL.txt:
+	  updated docs and version number 
+ 	* docs/CREDITS.txt:
+	  updated docs and version number 
+2003-07-06: rabbitt@shiva.nioka.org: ChangeSet 1.1140.61.6
+  loop fixes
+  	* html/modules/comments/xartemplates/includes/view-threaded.xd:
+	  loop fixes 
+ 	* html/modules/comments/xartemplates/includes/view-nested.xd:
+	  loop fixes 
+ 	* html/modules/comments/xartemplates/includes/view-flat.xd:
+	  loop fixes 
+ 	* html/modules/comments/xartemplates/admin-stats.xd:
+	  loop fixes 
+ 	* html/modules/comments/xartemplates/admin-module_stats.xd:
+	  loop fixes 
+2003-07-06: rabbitt@shiva.nioka.org: ChangeSet 1.1140.65.1
+  xar:loop fixes
+  	* html/modules/comments/xartemplates/includes/view-threaded.xd:
+	  xar:loop fixes 
+ 	* html/modules/comments/xartemplates/includes/view-nested.xd:
+	  xar:loop fixes 
+ 	* html/modules/comments/xartemplates/includes/view-flat.xd:
+	  xar:loop fixes 
+ 	* html/modules/comments/xartemplates/admin-stats.xd:
+	  xar:loop fixes 
+ 	* html/modules/comments/xartemplates/admin-module_stats.xd:
+	  xar:loop fixes 
+ 	* html/modules/comments/xarrenderer.php:
+	  xar:loop fixes 
+2003-07-06: Dracos@numenor.: ChangeSet 1.1140.64.1
+  bug 44 loop changes
+  	* html/modules/quotes/xartemplates/blocks/quotes.xd:
+	  bug 44 loop changes 
+ 	* html/modules/quotes/xartemplates/admin-view.xd:
+	  bug 44 loop changes 
+ 	* html/modules/quotes/xartemplates/admin-modifyconfig.xd:
+	  make bold modvar settable 
+ 	* html/modules/quotes/xarinit.php:
+	  fix modvars 
+ 	* html/modules/quotes/xarblocks/daily.php:
+	  bug 44 loop changes 
+ 	* html/modules/quotes/xaradmin.php:
+	  bug 44 loop changes 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.63.1
+  some polls template fixes
+  	* html/modules/polls/xartemplates/user-list.xd:
+	  some polls template fixes 
+ 	* html/modules/polls/xartemplates/admin-display.xd:
+	  some polls template fixes 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.62.1
+  loopy fix in comments
+  	* html/modules/comments/xartemplates/includes/view-nested.xd:
+	  loopy fix in comments 
+ 	* html/modules/comments/xartemplates/includes/view-flat.xd:
+	  loopy fix in comments 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.61.2
+  allow multi-line default for properties in DD
+  	* html/modules/dynamicdata/xarinit.php:
+	  allow multi-line default for properties in DD 
+ 	* html/modules/dynamicdata/xaradmin/updateprop.php:
+	  allow multi-line default for properties in DD 
+ 	* html/modules/dynamicdata/xaradmin/modifyprop.php:
+	  allow multi-line default for properties in DD 
+ 	* html/upgrade.php:
+	  allow multi-line default for properties in DD 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.61.1
+  lets see what happens without the new privs on xar.com
+  	* html/upgrade.php:
+	  lets see what happens without the new privs on xar.com 
+2003-07-06: marcel@hsdev.com: ChangeSet 1.1140.54.3
+  placeholder.for.testing:   and now?
+  	* tests/bk/placeholder.for.testing:
+	  and now? 
+2003-07-06: marcel@hsdev.com: ChangeSet 1.1140.54.2
+  placeholder.for.testing:   test for env vars
+  	* tests/bk/placeholder.for.testing:
+	  test for env vars 
+2003-07-06: marcel@hsdev.com: ChangeSet 1.1140.52.2
+  Parse error 
+  	* html/modules/roles/xaruserapi/getusers.php:
+	  typo 
+2003-07-05: nuncanada@h0ly.(none): ChangeSet 1.1155
+  Fixes Bug #875
+  	* html/modules/privileges/xaradmin/addprivilege.php:
+	  Added the XARVAR_DONT_REUSE flag 
+ 	* html/includes/xarVar.php:
+	  Added a new XARVAR_DONT_REUSE flag to xarVarFetch It makes the reference variable not being reused 
+2003-07-05: nuncanada@h0ly.(none): ChangeSet 1.1154
+  Dependency rolling on... Fixed problems with installer
+  	* html/modules/modules/xaradminapi/verifydependency.php:
+	  A dependency is considered done only if the module is at least activated. Comestic changes too. 
+ 	* html/modules/modules/xaradminapi/initialise.php:
+	  Changing exceptions types 
+ 	* html/modules/modules/xaradminapi/activate.php:
+	  Added comment to activate: Shouldnt we check if the module isnt already initialised? 
+ 	* html/modules/modules/xaradmin/install.php:
+	  Updating initialize... Changing direct setting of state to using the api function activate and handling execeptions so GUI can be presented.  
+2003-07-03: nuncanada@h0ly.(none): ChangeSet 1.1149
+  Merged changes... Thanks Jason and Marcel!
+  	* html/modules/modules/xaradminapi/verifydependency.php:
+	  Merge hell... Wish i had seen marcel's typo fixes before... I spent hours to figure out what was wrong...  Just couldnt see it.... Strange how the language can play with us (it seems connected with me often confusing how to write the word 'dependency') 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  ARght... Merge Hell from BK... Flavio needs to learn not to commit half-baked code... The function was completely changed, it doesnt even check for versions anymore, it let it be done by verifydependency 
+ 	* BitKeeper/deleted/.del-verifydependents.php~38b52d54:
+	  Auto merged 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Merge rename: html/modules/modules/xaradminapi/activatedependency.php -> html/modules/modules/xaradminapi/initialisewithdependencies.php 
+ 	* html/modules/modules/xaradmin/install.php:
+	  Auto merged 
+ 	* html/includes/xarMod.php:
+	  Auto merged 
+2003-07-03: nuncanada@h0ly.(none): ChangeSet 1.1148
+  Adding TODO notes. This is just so i can make a pull from the repository
+  	* html/modules/modules/xaradminapi/remove.php:
+	  Added TODO 
+ 	* html/modules/modules/xaradmin/remove.php:
+	  Added TODO 
+2003-07-01: nuncanada@h0ly.(none): ChangeSet 1.1147
+  Moving the dependency stuff forward... It seems to be half working. Needs more checks
+  	* html/modules/modules/xaradminapi/getalldependents.php:
+	   
+ 	* html/modules/modules/xaradminapi/getalldependencies.php:
+	   
+ 	* html/modules/modules/xartemplates/admin-install.xd:
+	  I 
+ 	* html/modules/modules/xaradminapi/verifydependency.php:
+	  Verify not only if active, but inactive or upgraded, these should be good enough to serve as dependencies for the initialization of other modules  
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Added checks Fixed typos 
+ 	* html/modules/modules/xaradminapi/initialise.php:
+	  Changing errors from xarSessionVar('errormsg' to Exceptions 
+ 	* html/modules/modules/xaradminapi/getalldependents.php:
+	  BitKeeper file /usr/local/repositories/xaraya-stable/html/modules/modules/xaradminapi/getalldependencies.php 
+ 	* html/modules/modules/xaradminapi/getalldependencies.php:
+	  BitKeeper file /usr/local/repositories/xaraya-stable/html/modules/modules/xaradminapi/getalldependencies.php 
+ 	* html/modules/modules/xaradminapi/checkmissing.php:
+	  Adding TODO What will we do to modules which their dependency disappear? 
+ 	* html/modules/modules/xaradmin/install.php:
+	  Adding a GUI to deal with the dependencies 
+2003-07-01: nuncanada@h0ly.(none): ChangeSet 1.1146
+  Minor Changes
+  	* html/includes/xarMod.php:
+	  typo, and making the depedency checking easier. 
+2003-06-30: nuncanada@h0ly.(none): ChangeSet 1.1145
+  Fixing simple/html problems in Linux...
+  	* html/includes/loggers/simple.php:
+	  All kind of wrong assumptions on how the PHP file functions works. Fixed them for Linux. Have to test back on Win if it is working.  Cant get the destructor to work in anyway... Can fwrite be used during script shutdown? I need a debugger to figure out if the destructor is at least being called. 
+2003-06-30: nuncanada@h0ly.(none): ChangeSet 1.1144
+  Dependency stuff
+  	* html/modules/modules/xartemplates/admin-install.xd:
+	   
+ 	* html/modules/modules/xartemplates/admin-install.xd:
+	  BitKeeper file /usr/local/repositories/xaraya-stable/html/modules/modules/xartemplates/admin-initialise.xd 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  M 
+ 	* html/modules/modules/xaradmin/install.php:
+	  Added the check to the dependencies in initialise. 1st step where someone might hit a dependency problem. 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Rename: html/modules/modules/xaradminapi/initialisewithdependents.php -> html/modules/modules/xaradminapi/initialisewithdependencies.php 
+2003-06-30: nuncanada@h0ly.(none): ChangeSet 1.1143
+  I need to make a new changeset whenever changing the file names... ohh well
+  	* BitKeeper/deleted/.del-verifydependents.php~38b52d54:
+	  Using the same standard way to handle input as in other functions of this module 
+ 	* html/modules/modules/xaradminapi/verifydependency.php:
+	  Using the same standard way to handle input as in other functions of this module 
+ 	* html/modules/modules/xaradminapi/removewithdependents.php:
+	  Using the same standard way to handle input as in other functions of this module 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Using the same standard way to handle input as in other functions of this module 
+ 	* html/modules/modules/xaradminapi/initialise.php:
+	  Added check to verify dependecies during initialization of a module 
+ 	* html/modules/modules/xaradminapi/checkmissing.php:
+	  Run checkmissing only once... Save the result for later tries 
+ 	* html/includes/xarMod.php:
+	  I 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Rename: html/modules/modules/xaradminapi/initializewithdependents.php -> html/modules/modules/xaradminapi/initialisewithdependents.php 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Rename: html/modules/modules/xaradminapi/initializedependency.php -> html/modules/modules/xaradminapi/initializewithdependents.php 
+ 	* html/modules/modules/xaradminapi/removewithdependents.php:
+	  Rename: html/modules/modules/xaradminapi/unitializedependents.php -> html/modules/modules/xaradminapi/removewithdependents.php 
+ 	* BitKeeper/deleted/.del-verifydependents.php~38b52d54:
+	  Improving description We're going to have some problems with this dependency stuff later on. We need to decide how to deal with them. 
+ 	* html/modules/modules/xaradminapi/verifydependency.php:
+	  Improving desription 
+ 	* html/modules/modules/xaradminapi/removewithdependents.php:
+	  Minor changes Changing name to removewithdependents Later on find a better shorter name 
+2003-06-29: nuncanada@h0ly.(none): ChangeSet 1.1142
+  Changing file name.
+  	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Rename: html/modules/modules/xaradminapi/activatedependency.php -> html/modules/modules/xaradminapi/initializedependency.php 
+2003-06-29: nuncanada@h0ly.(none): ChangeSet 1.1141
+  Moving a little more with the dependency stuff. Not finished yet, had to check in because i will change the file name.
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/modules/modules/xaradminapi/installwithdependencies.php:
+	  Going further with this in a new repository now... Realized this should be only to initialize/unitialize, no need to actually activate the module. (Maybe there can be? If so we need more options in the dependency Appendix to the Modules RFC)  I didnt change as much as it seems, gnu diff couldn't figure this out :( We need better differencing mechanism, ones that understand the language syntax...  citool is really nifty in X Windows :-) 
+
+
+Release notes for release 1.1140.1.103.
+Changes from B904 to 1.1140.1.103:
+
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.1.103
+  another shot at the upgrade.
+  	* html/upgrade.php:
+	  another shot at the upgrade. 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.1.102
+  change to the upgrade script.  perhaps this will fix the problem.
+  	* html/upgrade.php:
+	  change to the upgrade script.  perhaps this will fix the problem. 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.1.100
+  upgrade working with the diner db.  need to test with xar.com
+  	* html/upgrade.php:
+	  upgrade working with the diner db.  need to test with xar.com 
+2003-07-06: miko@power.dudleynet: ChangeSet 1.1140.59.1
+  bug 47 template changes
+  	* html/modules/polls/xartemplates/user-results.xd:
+	  bug 47 template changes 
+ 	* html/modules/polls/xartemplates/user-main.xd:
+	  bug 47 template changes 
+ 	* html/modules/polls/xartemplates/user-list.xd:
+	  bug 47 template changes 
+ 	* html/modules/polls/xartemplates/blocks/pollAdmin.xd:
+	  bug 47 template changes 
+ 	* html/modules/polls/xartemplates/blocks/poll.xd:
+	  bug 47 template changes 
+ 	* html/modules/polls/xartemplates/admin-list.xd:
+	  bug 47 template changes 
+ 	* html/modules/polls/xartemplates/admin-display.xd:
+	  bug 47 template changes 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.57.1
+  upgrade work.  Almost working.
+  	* html/upgrade.php:
+	  some initial work.  Still not working 100%. 
+ 	* html/modules/privileges/xarsetup.php:
+	  adjusted the order for the myself user. 
+ 	* html/includes/xarCore.php:
+	  fix for anon user on upgrades --> Mike's credit here. 
+2003-07-06: voll@yahoo.com: ChangeSet 1.1140.56.1
+  categories - move to xarML and delete xarlang
+  	* html/modules/categories/xarvisualapi/viewcats.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xarvisualapi/treearray.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xarvisualapi/newcat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xarvisualapi/modifycat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xarvisualapi/locationselect.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xarvisualapi/listarray.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xarvisualapi/adminmenu.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaruserapi/getparents.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaruserapi/getneighbours.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaruserapi/getchildren.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaruserapi/getcatinfo.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaruserapi/getcat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/updatecat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/unlink.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/linkcat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/find_point_of_insertion.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/deletecat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/createcatdirectly.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/createcat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradminapi/create.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xaradmin/updatecat.php:
+	  categories - move to xarML and delete xarlang 
+ 	* html/modules/categories/xarinit.php:
+	  categories - move to xarML and delete xarlang 
+ 	* BitKeeper/deleted/.del-visualapi.php~fabd4d19d44a6906:
+	  Delete: html/modules/categories/xarlang/eng/visualapi.php 
+ 	* BitKeeper/deleted/.del-userapi.php~b8469cb657e663d:
+	  Delete: html/modules/categories/xarlang/eng/userapi.php 
+ 	* BitKeeper/deleted/.del-user.php~1d8e83e57464db23:
+	  Delete: html/modules/categories/xarlang/eng/user.php 
+ 	* BitKeeper/deleted/.del-first.php~7d2cadbb18dcd3ed:
+	  Delete: html/modules/categories/xarlang/eng/first.php 
+ 	* BitKeeper/deleted/.del-index.html~2ab19f345fba51d9:
+	  Delete: html/modules/categories/xarlang/eng/index.html 
+ 	* BitKeeper/deleted/.del-adminapi.php~5d35bec0ea4a5293:
+	  Delete: html/modules/categories/xarlang/eng/adminapi.php 
+ 	* BitKeeper/deleted/.del-admin.php~e9e6916f59b76edb:
+	  Delete: html/modules/categories/xarlang/eng/admin.php 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.1.97
+  more modifyprivilege template fixes in privileges
+  	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  more modifyprivilege template fixes in privileges 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.1.96
+  fix bug # 875 + modifyprivilege template error in privileges
+  	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  fix bug # 875 + modifyprivilege template error in privileges 
+ 	* html/modules/privileges/xaradmin/addprivilege.php:
+	  fix bug # 875 + modifyprivilege template error in privileges 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.53.3
+  fix example admin-view
+  	* html/modules/example/xartemplates/admin-view.xd:
+	  fix example admin-view 
+2003-07-06: John.Cox@mcnabb.: ChangeSet 1.1140.55.1
+  fixes for the upgrade.  not working yet.
+  	* html/upgrade.php:
+	  added article hook. 
+ 	* html/modules/roles/xarinit.php:
+	  change the datetime back to varchar 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.53.2
+  show ratings in weblinks summary again
+  	* html/modules/articles/xaruserapi/getall.php:
+	  show ratings in weblinks summary again 
+ 	* html/modules/articles/xartemplates/user-summary-weblinks.xd:
+	  show ratings in weblinks summary again 
+2003-07-06: voll@yahoo.com: ChangeSet 1.1140.1.93
+  move outdated manual from core tree
+  	* docs/old/perms02.png:
+	  Rename: html/modules/privileges/xarimages/perms02.png -> docs/old/perms02.png 
+ 	* docs/old/perms01.png:
+	  Rename: html/modules/privileges/xarimages/perms01.png -> docs/old/perms01.png 
+2003-07-06: voll@yahoo.com: ChangeSet 1.1140.1.92
+  move outdated manual from core tree
+ 2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.53.1
+  configure ratings per itemtype
+  	* html/modules/ratings/xaruserapi/rate.php:
+	  configure ratings per itemtype 
+ 	* html/modules/ratings/xaruser/display.php:
+	  configure ratings per itemtype 
+ 	* html/modules/ratings/xaradmin/modifyconfig.php:
+	  configure ratings per itemtype 
+ 	* BitKeeper/deleted/.del-manual.html~ef732abb:
+	  Delete: html/modules/privileges/xarlang/eng/manual.html 
+ 	* BitKeeper/deleted/.del-index.html~ef695e6e:
+	  Delete: html/modules/privileges/xarlang/eng/index.html 
+2003-07-06: voll@yahoo.com: ChangeSet 1.1140.1.91
+  move outdated manual from core tree
+  	* docs/old/pn-privileges-manual.html:
+	   
+ 	* docs/old/pn-privileges-manual.html:
+	  BitKeeper file C:/cygwin/home/Administrator/xaraya-stable/docs/old/pn-privileges-manual.html 
+2003-07-06: voll@yahoo.com: ChangeSet 1.1140.1.90
+  delete xarlang cat in adminpanels module, move it to xarML
+  	* html/modules/adminpanels/xarblocks/admintop.php:
+	  delete xarlang cat in adminpanels module, move it to xarML 
+2003-07-06: voll@yahoo.com: ChangeSet 1.1140.1.89
+  delete xarlang cat in adminpanels module, move it to xarML
+  	* BitKeeper/deleted/.del-index.html~ca904b1d513f5578:
+	  Delete: html/modules/adminpanels/xarlang/eng/index.html 
+ 	* BitKeeper/deleted/.del-admin.php~a077908d768b4310:
+	  Delete: html/modules/adminpanels/xarlang/eng/admin.php 
+ 	* BitKeeper/deleted/.del-admintop.php~be53c9ff56ceb3:
+	  Delete: html/modules/adminpanels/xarlang/eng/admintop.php 
+ 	* BitKeeper/deleted/.del-adminmenu.php~a0c85fa79985bad1:
+	  Delete: html/modules/adminpanels/xarlang/eng/adminmenu.php 
+ 	* BitKeeper/deleted/.del-init.php~4c9189b7d1d04ae:
+	  Delete: html/modules/adminpanels/xarlang/eng/init.php 
+2003-07-06: voll@yahoo.com: ChangeSet 1.1140.1.88
+  unused file
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* BitKeeper/deleted/.del-admin.php~ef5e96c8:
+	  Delete: html/modules/privileges/xarlang/eng/admin.php 
+2003-07-06: marcel@hsdev.com: ChangeSet 1.1140.52.1
+  prefix attribute is not necessary and redundant
+  	* html/modules/contact/xartemplates/user-view.xd:
+	  prefix attribute is not necessary and redundant 
+ 	* html/modules/blocks/xartemplates/admin-view_groups.xd:
+	  prefix attribute is not necessary and redundant 
+ 	* html/modules/bkview/xartemplates/includes/user-view.xd:
+	  prefix attribute is not necessary and redundant 
+2003-07-06: besfred@ganymed.medusa: ChangeSet 1.1140.1.86
+  Merge xaraya.com:/usr/local/repositories/xaraya-stable into ganymed.medusa:/home/besfred/repos/stable
+  	* html/modules/translations/xartemplates/admin-translate_subtype.xd:
+	  Auto merged 
+2003-07-06: besfred@chimera.medusa: ChangeSet 1.1140.51.1
+  Merge chimera.medusa:/home/httpd/htdocs/stable into chimera.medusa:/home/httpd/htdocs/myxar
+  	* html/modules/translations/xartemplates/admin-translate_subtype.xd:
+	  Auto merged 
+2003-07-06: besfred@chimera.medusa: ChangeSet 1.1140.47.2
+  fix for bug #880
+  	* html/modules/translations/xartemplates/admin-translate_subtype.xd:
+	  fix for bug #880 
+2003-07-06: voll@magistr.center.parex.net: ChangeSet 1.1140.1.85
+  fix name
+  	* docs/CREDITS.txt:
+	  fix name 
+2003-07-06: voll@magistr.center.parex.net: ChangeSet 1.1140.1.84
+  Add xml core translations. Without this file translators don't know how to translate core KEYS
+  	* html/var/locales/en_US.utf-8/xml/core/core.xml:
+	   
+ 	* html/var/locales/en_US.utf-8/xml/core/core.xml:
+	  BitKeeper file C:/cygwin/home/Administrator/xaraya-stable/html/var/locales/en_US.utf-8/xml/core/core.xml 
+2003-07-06: voll@magistr.center.parex.net: ChangeSet 1.1140.1.83
+  Fix reference bug. Unset variable before fetching now
+  	* html/modules/translations/xartemplates/admin-translate_subtype.xd:
+	  Fix reference bug. Unset variable before fetching now 
+ 	* html/modules/translations/xaradmin.php:
+	  Fix reference bug. Unset variable before fetching now 
+2003-07-05: John.Cox@mcnabb.: ChangeSet 1.1140.50.1
+  fixed parse error.
+  	* html/modules/translations/xartemplates/admin-translate_subtype.xd:
+	  fixed parse error. 
+2003-07-06: Jason.Judge@acad-ajp.: ChangeSet 1.1140.1.81
+  Usability tweaks.
+  	* html/modules/autolinks/xaradmin/enable.php:
+	   
+ 	* html/modules/autolinks/xartemplates/admin-view.xd:
+	  Usability tweaks. 
+ 	* html/modules/autolinks/xaradmin/enable.php:
+	  BitKeeper file X:/xaraya-stable/html/modules/autolinks/xaradmin/enable.php 
+ 	* html/modules/autolinks/xaradmin/view.php:
+	  Usability tweaks. 
+ 	* html/modules/autolinks/xaradmin/update.php:
+	  Usability tweaks. 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.1.80
+  get rid of xar:loop in adminpanels
+  	* html/modules/adminpanels/xartemplates/blocks/sidemenu.xd:
+	  get rid of xar:loop in adminpanels 
+2003-07-06: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.49.1
+  get rid of xar:hook in modules + fix template bugs
+  	* html/modules/modules/xaradmin/hooks.php:
+	  get rid of xar:hook in modules + fix template bugs 
+ 	* html/modules/modules/xartemplates/admin-hooks.xd:
+	  get rid of xar:hook in modules + fix template bugs 
+ 	* html/modules/modules/xartemplates/admin-release.xd:
+	  get rid of xar:hook in modules + fix template bugs 
+ 	* html/modules/modules/xartemplates/admin-modify.xd:
+	  get rid of xar:hook in modules + fix template bugs 
+ 	* html/modules/modules/xartemplates/admin-list.xd:
+	  get rid of xar:hook in modules + fix template bugs 
+ 	* html/modules/modules/xartemplates/admin-hooks.xd:
+	  get rid of xar:hook in modules + fix template bugs 
+2003-07-05: John.Cox@mcnabb.: ChangeSet 1.1140.1.78
+  added fix for allowing deletion of active user.
+  	* html/modules/roles/xaruserapi/getactive.php:
+	   
+ 	* html/modules/roles/xaruserapi/getactive.php:
+	  BitKeeper file C:/cygwin/home/phpdev/www/dev/xaraya-stable/html/modules/roles/xaruserapi/getactive.php 
+ 	* html/modules/roles/xaradmin/deleterole.php:
+	  added fix for allowing deletion of active user. 
+2003-07-05: John.Cox@mcnabb.: ChangeSet 1.1140.1.77
+  Merge niceguyeddie@xaraya.com:/usr/local/repositories/xaraya-stable into mcnabb.:C:/cygwin/home/phpdev/www/dev/xaraya-stable
+  	* html/modules/autolinks/xartemplates/admin-view.xd:
+	  Auto merged 
+2003-07-05: John.Cox@mcnabb.: ChangeSet 1.1140.48.1
+  overview pages.
+  	* html/modules/xmlrpcserver/xartemplates/admin-main.xd:
+	  overview pages. 
+ 	* html/modules/soapserver/xarversion.php:
+	  overview pages. 
+ 	* html/modules/referer/xaradmin.php:
+	  overview pages. 
+ 	* html/modules/ratings/xartemplates/admin-main.xd:
+	  overview pages. 
+ 	* html/modules/polls/xartemplates/admin-main.xd:
+	  overview pages. 
+ 	* html/modules/comments/xartemplates/admin-view.xd:
+	  overview pages. 
+ 	* html/modules/comments/xartemplates/admin-main.xd:
+	  overview pages. 
+ 	* html/modules/categories/xartemplates/admin-main.xd:
+	  overview pages. 
+ 	* html/modules/autolinks/xartemplates/admin-view.xd:
+	  fix for loopy changes. 
+2003-07-05: besfred@chimera.medusa: ChangeSet 1.1140.47.1
+  fixed mysql installation
+  	* html/modules/xarbb/xarinit.php:
+	  fixed mysql installation 
+ 	* html/modules/roles/xarinit.php:
+	  fixed mysql installation 
+ 	* html/includes/xarTableDDL.php:
+	  fixed mysql installation 
+2003-07-05: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1140.46.1
+  get rid of xar:loop in hitcount
+  	* html/modules/hitcount/xartemplates/user-main.xd:
+	  get rid of xar:loop in hitcount 
+2003-07-05: Jason.Judge@acad-ajp.: ChangeSet 1.1140.44.1
+  Removed extra 'foreach'
+  	* html/modules/autolinks/xartemplates/admin-view.xd:
+	  Removed extra 'foreach' 
+2003-07-05: John.Cox@mcnabb.: ChangeSet 1.1140.43.1
+  categories work.
+  	* html/modules/xarbb/xartemplates/user-viewtopic.xd:

@@ -1,6 +1,4 @@
 <?php
-// Gantt example 30
-// $Id: ganttex30.php,v 1.3 2002/05/14 07:26:20 aditus Exp $
 //error_reporting(E_NONE);
 
 include ("jpgraph.php");
@@ -8,10 +6,22 @@ include ("jpgraph_gantt.php");
 include ("textdb.php");
 
 // Some global configs
+// FIXME: read at least some of this from db/file so this file can be standalone for several projects.
+if (!$title) {
+  $title="Xaraya scenario roadmap";
+}
+$revision="2002-10-20";
+$revtext="(Revision: $revision)";
 $heightfactor=0.5;
 $groupbarheight=0.1;
-$revision="2002-10-20";
+$groupbarcolor="black";
+$groupbarmarker=MARK_DTRIANGLE;
 $dependencylag="1"; // Allow 1 day for depency lag
+$defaultfile="roadmap.txt";
+$todaylabel="today";
+$todaycolor="darkred";
+// End global configs
+
 
 // Standard calls to create a new graph
 $graph = new GanttGraph(0,0,"auto");
@@ -19,8 +29,8 @@ $graph->SetShadow();
 $graph->SetBox();
 
 // Titles for chart
-$graph->title->Set("Xaraya scenario roadmap");
-$graph->subtitle->Set("(Revision: $revision)");
+$graph->title->Set($title);
+$graph->subtitle->Set($revtext);
 $graph->title->SetFont(FF_FONT1,FS_BOLD,12);
 
 // For illustration we enable all headers. 
@@ -36,8 +46,8 @@ $graph->scale->year->SetFont(FF_FONT1,FS_BOLD,12);
 
 // Define a simple text format for tasks and planning to read in here,
 // so chart can be created with several text files
-if ($tsklist=="") $tsklist="roadmap.txt";
-$db= new TextDb($tsklist);
+if (!$file) $file=$defaultfile;
+$db= new TextDb($file);
 $record= $db->first();
 
 // xaroad contains a list of records
@@ -48,7 +58,7 @@ $record= $db->first();
 
 // Algorithm for sophistication
 // - DONE: scan database for group records and keep log of the latest date, so end-date can be set properly
-// - DONE: keep track of predecessors and adjust the start-date of successors
+// - DONE: keep track of predecessors and adjust the dates of successors
 // - draw arrows from end of predecessor to begin of successors
 
 // Generate the gantt bars
@@ -62,8 +72,12 @@ while($record) {
     // params: line, label, start, end, caption, heightfactor 
     $bar = new GanttBar($db->recordNr,$record[label],$record[start],"",$record[lead],$groupbarheight);
     $bar->title->SetFont(FF_FONT1,FS_BOLD,8);
-    $bar->SetColor("black");
-    $bar->SetPattern(BAND_SOLID, "black");
+    $bar->SetColor($groupbarcolor);
+    $bar->SetPattern(BAND_SOLID, $groupbarcolor);
+    $bar->rightMark->Show();  $bar->rightMark->SetType($groupbarmarker);
+    $bar->rightMark->SetFillColor($groupbarcolor);
+    $bar->leftMark->Show();  $bar->leftMark->SetType($groupbarmarker);
+    $bar->leftMark->SetFillColor($groupbarcolor);
     $scenario[$record[id]]=$bar;
     $plots[$record[id]]=$bar;
     break;
@@ -103,7 +117,7 @@ while($record) {
     $searchrec=array('id' => $record[predecessor]);
     $pred = $db->search($searchrec);
     // Get the end date for the predecessor
-    $earliest = $plots[$pred[id]]->GetMaxDate();
+    $earliest = $plots[$pred[id]]->GetMaxDate()+ $dependencylag*24*60*60;;
     
     // if no start date was give, plan after dependency
     if ($record[start]=='') {
@@ -111,7 +125,7 @@ while($record) {
       $plots[$record[id]]->iEnd=($earliest + $record[duration]*24*60*60);
     } else {
       // Set the end date at least equal to enddate of predecessor, add dependency lag
-      $plots[$record[id]]->iEnd=$earliest + $dependencylag*24*60*60;
+      $plots[$record[id]]->iEnd=max($earliest,$plots[$record[id]]->iEnd); 
     }
     
     // Adjust scenario dates if necessary
@@ -125,7 +139,7 @@ while($record) {
 
 // Add things for which date doesn't change anymore to the graph here.
 // Add a baseline for today
-$vl = new GanttVLine(date("Y-m-d"),"today","darkred");
+$vl = new GanttVLine(date("Y-m-d"),$todaylabel,$todaycolor);
 $graph->Add($vl);
 
 // Process the plot array for drawing 

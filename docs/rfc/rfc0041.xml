@@ -35,8 +35,8 @@
     <author initials="F." surname="Besler" fullname="Frank Besler">
       <organization>Xaraya Development Group</organization>
       <address>
-		<email>besfred@xaraya.com</email>
-		<uri>http://www.xaraya.com</uri>
+        <email>besfred@xaraya.com</email>
+        <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="February" year="2003"/>
@@ -61,48 +61,88 @@
   
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
-
+    
     <!-- Introduction is mandatory -->
     <section title="Introduction">
       <t>
         In this RFC the mechanisms will be described which are currently used in the
         event messaging system of Xaraya.        
       </t>
+      <ed:ins>
+      <t>
+        The event system is used by core packages of Xaraya to trigger certain events
+        in the system. These events are dispatched to the active modules which can define
+        special functions which can then act on those events. 
+      </t>
+      <t>
+        This system co-exists with the hooks system. They are alike but the main reasons to
+        have a separate event-system next to the hook system are:
+        <list style="numbers">
+          <t>The hooks live in <em>module-space</em> while we need signalling from the core as
+            well
+          </t>
+          <t>The events are <em>static</em>, they are guaranteed to happen, while hooks are
+            dynamic and can be disabled (or rather, not configured) by the site administrator.
+          </t>
+        </list>
+      </t>
+      </ed:ins>
     </section>
   
     <section title="Registering of events">
       <t>
-		Any core package can define events, also known as registering them, by calling
-		the function 
-		<artwork>
-		  xarEvt_registerEvent($eventName)
-		</artwork>
-		in its initialization function.
-	  </t>
-	  <t>
-		The naming convention says that the event name starts with the core package
-		name that registers it (the owner), beginning with a capital letter. The specific name
-		then follows directly, also beginning with a capital letter. No spaces or
-		special characters are allowed.
-		Example:
-		<artwork>
-		  xarEvt_registerEvent('ServerRequest');
-		</artwork>
+        <ed:replace><ed:del>Any</ed:del><ed:ins>Some</ed:ins></ed:replace> core package<ed:ins>s</ed:ins> can define 
+        events, also known as registering them, by calling the function.
+        <artwork>
+          xarEvt_registerEvent($eventName)
+        </artwork>
+        in its initialization function.
+        <ed:ins>
+          This function registers the name of the event in a global variable. The only place 
+          that this function may be called is in a core package initialization part. This can
+          be checked with bk -r grep xarEvt_registerEvent.
+          
+          <t>
+            Not all core packages can register events, for example the exception system cannot. The reason for this
+            is that the exception system cannot depend on anything but the basics in Xaraya. 
+          </t>
+        </ed:ins>
+        <ed:issue name="package dependencies" type="needs" status="open">
+          <ed:item date="2003-02-27" entered-by="marcel@hsdev.com">Insert the relation diagram in here?</ed:item>
+        </ed:issue>
+      </t>
+      <t>
+        The naming convention says that the event name starts with the core package
+        name that registers it (the owner), beginning with a capital letter. The specific name
+        then follows directly, also beginning with a capital letter. No spaces or
+        special characters are allowed.
+        Example:
+        <artwork>
+          xarEvt_registerEvent('ServerRequest');
+        </artwork>
       </t>
     </section>
     <section title="Trigger them">
       <t>
-		At certain points in the system load process the registered events can be triggered
-		by calling the function
-		<artwork>
-		  xarEvt_trigger($eventName, $value)
-		</artwork>
-		with $value being an optional variable that can be passed to the event handlers.
-		Example:
-		<artwork>
-		  xarEvt_trigger('ServerRequest');
-		</artwork>
+        At certain points in the system load process the registered events can be triggered
+        by calling the function
+        <artwork>
+          xarEvt_trigger($eventName, $value)
+        </artwork>
+        with $value being an optional variable that can be passed to the event handlers.
+        Example:
+        <artwork>
+          xarEvt_trigger('ServerRequest');
+        </artwork>
       </t>
+      <ed:ins>
+        <t>
+          This function always returns. It might be the case that event handlers do not exist
+          or that event handlers do something funny. The system relies on the exception handling
+          system to catch these situations. The xarEvt_Trigger function neither sets directly exceptions
+          nor handles them from its callees.
+        </t>
+      </ed:ins>
     </section>
     <section title="Event handler">
       <t>
@@ -113,20 +153,27 @@
         <artwork>
           function {$modName}_userapievt_on$EventName($arg)
           {
-          	// event handler code, e.g. db interaction, ...
+            // event handler code, e.g. db interaction, ...
           }
         </artwork>
         Example:
         <artwork>
           function sniffer_userapievt_OnSessionCreate($arg)
-		  {
-		  	// browsersniffing
-		  }
+          {
+		  	    // browsersniffing
+		      }
         </artwork>
       </t>
     </section>
     <section title="Inner workings">
-	  <t>
+      <t>
+        <ed:issue name="eventlist" type="missing" status="open">
+          <ed:item  date="2003-02-27" entered-by="marcel@hsdev.com">
+            Can we include a list of supported events. Better still, a list of 
+            events we want with a marker which ones are supported / implemented
+            and which ones are not
+          </ed:item>
+        </ed:issue>
         As soon as an event is being triggered somewhere in the core, the events
         system looks up in each module whether it implements the corresponding
         event handler. If so, the function is passed the optional variable from the
@@ -135,7 +182,7 @@
         that implements a certain event handler.
       </t>
     </section>
-  
+    
     <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>2002-02-27 : Version 0.2</t>

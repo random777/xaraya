@@ -285,7 +285,7 @@
   <!-- Rebuild target, depends on clean -->
   <target name="rebuild" depends="clean" description=": rebuilds all targets">
     <echo msg="Starting new build..." />
-    <phingcall target="makedist" />
+    <phingcall target="all" />
   </target>
   
     <!--  Displays some help  -->

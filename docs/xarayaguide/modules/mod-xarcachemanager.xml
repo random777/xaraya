@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Blocklayout Template Caching</title>
+
+  <para>This will describe the template caching built into Blocklayout.</para>
+</sect2>
+<sect2>  
+  <title>XarCacheManager Module</title>
+
+  <para>This will describe the optional xarcachemanager module.</para>
+</sect2>

@@ -87,6 +87,7 @@
 <!ENTITY mod-workflow SYSTEM "modules/mod-workflow.xml">
 <!ENTITY mod-xarbb SYSTEM "modules/mod-xarbb.xml">
 <!ENTITY mod-xarlinkme SYSTEM "modules/mod-xarlinkme.xml">
+<!ENTITY mod-xarcachemanager SYSTEM "modules/mod-xarcachemanager.xml">
 <!ENTITY mod-xlink SYSTEM "modules/mod-xlink.xml">
 <!ENTITY mod-xmlrpcserver SYSTEM "modules/mod-xmlrpcserver.xml">
 <!ENTITY mod-xmlrpcsystemapi SYSTEM "modules/mod-xmlrpcsystemapi.xml">

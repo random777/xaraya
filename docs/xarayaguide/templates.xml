@@ -105,4 +105,8 @@
     <title>Xaraya Adminpanels Module</title>
 &mod-adminpanels;
   </sect1>
+  <sect1 id="caching">
+    <title>Xaraya Cache System</title>
+&mod-xarcachemanager;
+  </sect1>
 </chapter>

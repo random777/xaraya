@@ -38,7 +38,7 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.base" 
-    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,sniffer,stats,timezone,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,sniffer,stats,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
 
   <!-- Full distro modules, when added to the core modules, you get a full system -->
   <property name="modules.full" 

@@ -16,7 +16,6 @@
 ;;#                 The GNOME Documentation Project's                   #
 ;;#                  Custion DocBook Stylesheet Layer                   #
 ;;#                    by Dave Mason dcm@redhat.com                     #
-;;#            Securety RISK on miko.homelinux.org!!!!!!!!              #
 ;;#                                                                     #
 ;;#            This is intended as a drop-in replacement for            #
 ;;#            the cygnus-both.dsl file in DocBook Tools.               #

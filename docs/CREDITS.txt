@@ -1,20 +1,20 @@
-PostNuke Credits
+Xaraya Credits
 ================
 
-   PostNuke is, as with many successful open-source products, a huge
+   Xaraya is, as with many successful open-source products, a huge
 collaborative effort spanning many diverse talents from across the globe.  The
-list below gives an idea of some of the people that have helped in
+list below gives an idea of some of the people that have helped in.
 
-   PostNuke was originally a fork of PHPNuke by Francisco Burzi, and many of
-the concepts in that program survive even though the code does not.  We (and
-PHPNuke, of course) were also influenced by earlier products such as slash and
-thatware, and I'm sure that we could trace the lineage back to the earliest
-weblog if we wanted to.  Open source at work is taking the best ideas floating
-around the web and building a product out of them, and that's where we hope
-that PostNuke is heading.
+   Xaraya was originally known as PostNuke, and was a fork of PHPNuke by 
+Francisco Burzi, and many of the concepts in that program survive even though 
+the code does not.  We (and PHPNuke, of course) were also influenced by earlier 
+products such as slash and thatware, and I'm sure that we could trace the lineage 
+back to the earliest weblog if we wanted to.  Open source at work is taking the 
+best ideas floating around the web and building a product out of them, and that's 
+where we hope that Xaraya is heading.
 
 If you feel you were not credited for any work that you did, please contact
-staff-relations@postnuke.com
+info@xaraya.com
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Jim McDonald
@@ -27,9 +27,10 @@ Jim McDonald
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Greg Allan (adam_baum)
 
-     One of them there Canadian boys :)  General layabout/drifter within the PN
+     One of them there Canadian boys :)  General layabout/drifter within the
      development framework. Other then that, one of the 4 who initially
-     launched PostNuke.
+     launched Xaraya. Greg tragically passed away in June 2002. Xaraya is
+     his legacy.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Gregor J. Rothfuss
@@ -42,7 +43,7 @@ Marco Canini
 
      Based in Italy, is working on Modular Authentication System, bug
      hunting, Dynamic User Data implementation, users module.
-     Always searching for new ideas and features to get PostNuke to
+     Always searching for new ideas and features to get Xaraya to
      another planet.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -73,10 +74,8 @@ Carl P. Corliss (aka Rabbitt -- aka FrogBoy George)
 
      Based in the scenic, Oil Rich, Heavily polluted area known as Martinez,
      California USA (30 minutes north of San Fransisco). Carl is working on the
-     new Comments API (destined for roughly .715 or somewhere close) and also
-     works on bug hunting/fixing and supporting users of PostNuke in the
-     #postnuke-support channel on irc.postnuke.com -- also well known for being
-     a dirty hippie.
+     new Comments API and also works on bug hunting/fixing. Also well known for 
+     being a dirty hippie.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Michael M. Wechsler (aka Slinky)
@@ -89,7 +88,7 @@ Michael M. Wechsler (aka Slinky)
 Steve MacGregor (aka Grape)
 
      Gets the thankless task of running the entire documentation effort for the
-     PN Project including hosting and maintaining the documentation web
+     project including hosting and maintaining the documentation web
      presence along with his partner in crime, Stephen Feather (aka Wolf-).
      Steve also provides live technical support on the IRC support channel.
 
@@ -117,29 +116,29 @@ Roger Mauseth (Rabalder)
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ingimar Robertsson
 
-     Icelander sitting in the snow^H^H^Hun, translating PostNuke to Icelandic.
+     Icelander sitting in the snow^H^H^Hun, translating Xaraya to Icelandic.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Johnny Robeson
 
     Living and studyin' in Virginia Beach, VA. Although not coder by trade,
-    I've been known to fix some bugs and provide support for PN users.
+    I've been known to fix some bugs and provide support for users.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Andy Varganov
 
     Lives in Manchester/UK, works with young people. In his free time, drinks
     lots of beer - Guinness Original is his favourite, battles with MacOS X
-    (both server and client), programmes his own pn modules and decides which
-    (third party) module to release on SF or not :)
+    (both server and client), programmes his own modules and decides which
+    (third party) module to release or not :)
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 John Cox
 
     American, living just North of Philadelphia, PA, that mainly just reads
-    email now.  John's contribution to PostNuke is mainly towards the
+    email now.  John's contribution to Xaraya is mainly towards the
     administrative side, but has been known to fix a bug or two when football
-    season is over.  One of the original four to launch PostNuke.
+    season is over.  One of the original four to launch Xaraya.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Pedro Innecco
@@ -157,7 +156,7 @@ Pablo Roca
 
     Spanish, from the northwest (Galicia). An evil? Microsoft Most Valuable
     Professional (MVP) in VisualFoxpro, responsible for database issues and
-    design, he integrated ADODB in PosNuke. Sometimes commits so big changes
+    design, he integrated ADODB in Xaraya. Sometimes commits so big changes
     that can cause all things gets broken. And always seeking testers in more
     database systems.
 
@@ -273,7 +272,7 @@ nemo ( cptnemo@subdimension.com )
 Andy Varganov <email@andyv.co.uk>
     -- Fix for IE Mac display problem with search module.
     -- FIX for ExtraLite theme css
-    -- FIX for PostNuke theme css
+    -- FIX for Xaraya theme css
 
 messner_007
     -- Added the functionality to view links in admin and edit from there, instead of looking up id number.
@@ -294,7 +293,7 @@ Magnus Skjegstad <magnus@skjegstad.com>
     -- Alert and fix to article.php security hole.
 
 daviesjp (jon@blackfrock.com)
-	-- De-Hardcoded name of the PostNuke Theme
+	-- De-Hardcoded name of the Xaraya Theme
 
 Hinrich <hd@tiro.de>
     -- Move config to table
@@ -402,7 +401,7 @@ This software was made thanks to my love for Linux.
 Linux is a registered trademark of Linus Torvalds
 
 * ADODB
-This is a database library we integrated in PostNuke, done by John Slim,
+This is a database library we integrated in Xaraya, done by John Slim,
 good work John!
 http://php.weblogs.com/ADODB
 

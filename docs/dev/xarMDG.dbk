@@ -2,14 +2,14 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 
-<!--- Accepting arguments [$args Vs. pnVarCleanFromInput()] - priority etc. 
+<!--- Accepting arguments [$args Vs. xarVarCleanFromInput()] - priority etc. 
       Add chapter on Blocks (operation, naming conventions, functions)
       describe error handling best practices 
       permissions, blocklayout, reorganize doc
       -->
 <book>
   <bookinfo>
-    <title>PostNuke Module Developers Guide</title>
+    <title>Xaraya Module Developers Guide</title>
     <authorgroup>
       <author><firstname>Marco</firstname><surname>Canini</surname></author>
       <author><firstname>Jim</firstname><surname>McDonald</surname></author>
@@ -58,10 +58,10 @@
       <title>What is a Module?</title>
       <para>
 
-        The PostNuke system allows for expansion of its functionality through
+        The Xaraya system allows for expansion of its functionality through
         the use of modules.  A module is set of files containing functions
         with pre-defined names and roles that integrate very easily with a
-        standard deployment of PostNuke.  A module can also include blocks,
+        standard deployment of Xaraya.  A module can also include blocks,
         images, plain HTML files, <foreignphrase>etc.</foreignphrase>
 
       </para>
@@ -71,9 +71,9 @@
       <para>
 
         There are a number of reasons to write a module. The main reason is
-        because PostNuke does not provide a specific function that you would
+        because Xaraya does not provide a specific function that you would
         like it to. Examples of modules that have been developed to date for
-        PostNuke include bulletin boards, galleries, calendars, address books,
+        Xaraya include bulletin boards, galleries, calendars, address books,
         and MP3 search utilities.
 
       </para>
@@ -85,7 +85,7 @@
       <title>Status of the Module API</title>
       <para>
 
-        The PostNuke module API is currently in beta. This means that the
+        The Xaraya module API is currently in beta. This means that the
         module functionality may well be increased prior to its first official
         release. However, creating a module as outlined in this document will
         work, and continue to work as described for the foreseeable future.
@@ -102,7 +102,7 @@
       <title>On-Going Work</title>
       <para>
 
-        PostNuke is an alpha product and very much a work in progress.  There
+        Xaraya is an alpha product and very much a work in progress.  There
         are a number of areas that are currently still under redesign, and when
         the redesign and resultant new code is in place module developers will
         need to change their code to be able to support the latest functions.
@@ -134,7 +134,7 @@
           </para>
           <para>
 
-            The hooks system. The hooks system is very new to PostNuke, and it
+            The hooks system. The hooks system is very new to Xaraya, and it
             is already recognised that it will require some extra work.  The
             most obvious addition is to allow hooks access to module content,
             but others might be required as well. This should require minimal
@@ -150,8 +150,8 @@
       <para>
 
         This document gives a step-by-step guide to creating a module for the
-        PostNuke system. It covers all stages from the initial design and
-        registering yourself with the PostNuke community to deploying,
+        Xaraya system. It covers all stages from the initial design and
+        registering yourself with the Xaraya community to deploying,
         certifying, and upgrading your module.
 
       </para>
@@ -171,12 +171,12 @@
       <title>Suggestions and Updates</title>
       <para>
 
-        The PostNuke module system is a work-in-progress. There are no doubt
+        The Xaraya module system is a work-in-progress. There are no doubt
         many good ideas out there that have not been incorporated into the
-        PostNuke module system, and if a developer has a request for a
-        particular set of functionality then they can submit it to the PostNuke
-        features request list on SourceForge at the <ulink
-          url="http://sourceforge.net/projects/post-nuke">PostNuke
+        Xaraya module system, and if a developer has a request for a
+        particular set of functionality then they can submit it to the Xaraya
+        features request list at the <ulink
+          url="http://bugs.xaraya.com">Xaraya
           Homepage</ulink>.  If you have found a bug within the current module
         system then you can submit it to the bug list at the same address.
 
@@ -184,12 +184,12 @@
       </para>
       <para>
 
-        Please note that the main requirement for the PostNuke module design is
+        Please note that the main requirement for the Xaraya module design is
         stability. Due to this it is possible that your request for new or
         updated functionality will get refused on the grounds that it is too
         specific, can easily be built from core API functions, or carries out
         work that should rightly be done by a module. In such situations the
-        PostNuke team will always try to provide a simple alternative, but
+        Xaraya team will always try to provide a simple alternative, but
         please remember that submission of a new or updated addition to the
         module design does not guarantee inclusion.
 
@@ -198,10 +198,10 @@
   </chapter>
 
   <chapter>
-    <title>PostNuke Architecture</title>
+    <title>Xaraya Architecture</title>
     <para>
 
-      This chapter describes the basic architecture of PostNuke, explains
+      This chapter describes the basic architecture of Xaraya, explains
 			the major parts, and contains information on the design choices made
 			for the system.
 
@@ -209,8 +209,8 @@
      <sect1>
       <title>Variable handling</title>
       <para>
-			TBD: Accepting arguments [$args Vs. pnVarCleanFromInput()] - priority etc.
-			Why you HAVE to pass all variables through pnVarCleanFromInput etc
+			TBD: Accepting arguments [$args Vs. xarVarCleanFromInput()] - priority etc.
+			Why you HAVE to pass all variables through xarVarCleanFromInput etc
 			Variable scope, what to store in session vars
       </para>
      </sect1>
@@ -220,16 +220,16 @@
 
         An user variable is an entity identified by a name that stores a value owned by
         exactly one user.
-        PostNuke offers two API functions to manipulate user variables, they are
-        <function>pnUserGetVar()</function> and
-        <function>pnUserSetVar()</function>.
-        The purpose of <function>pnUserGetVar()</function> is to allow read access
+        Xaraya offers two API functions to manipulate user variables, they are
+        <function>xarUserGetVar()</function> and
+        <function>xarUserSetVar()</function>.
+        The purpose of <function>xarUserGetVar()</function> is to allow read access
         to one user variable.
-        In contrast to that, <function>pnUserSetVar()</function> allows write access
+        In contrast to that, <function>xarUserSetVar()</function> allows write access
         to one user variable.
         The <parameter>$name</parameter> parameter is checked against metadata to
         make sure the variable is registered.
-        PostNuke keeps some metadata about every user variable, so you can't access
+        Xaraya keeps some metadata about every user variable, so you can't access
         the <parameter>$name</parameter> user variable if its metadata is not registered.
         A module can register a new user variable by providing its metadata only if it has
         the right permissions (permissions are checked by the registration function).
@@ -239,7 +239,7 @@
 			</para>
 			<para>
 				
-        PostNuke doesn't impose any restriction on the value of <parameter>$name</parameter> except
+        Xaraya doesn't impose any restriction on the value of <parameter>$name</parameter> except
         for duplicate and reserved names.
         As of this writing, the list of reserved names consists of
 				
@@ -336,11 +336,11 @@ $metadata['dtype'] = _UDCONST_INTEGER; //one of the values defined for dynamic u
 $metadata['default'] = 20;
 $metadata['validation'] = 'num:>=:10&amp;num:&lt;=:100';
 
-pnModAPILoad('Modules', 'admin');
+xarModAPILoad('Modules', 'admin');
 
-$result = pnModAPIFunc('Modules', 'admin', 'register_user_var', $metadata);
+$result = xarModAPIFunc('Modules', 'admin', 'register_user_var', $metadata);
 if (!isset($result)) {
-  // pnModAPIFunc() failed
+  // xarModAPIFunc() failed
 } elseif ($result == false)
   // registration failed
 } else {
@@ -353,7 +353,8 @@ if (!isset($result)) {
 	 later register_user_var is called with that array as parameter.
          Meaningful keys for the array are: label, dtype, default and validation.
 	 The <parameter>label</parameter> field is mandatory; it specifies the user variable name as you'll refer later in
-	 <function>pnUserGetVar()</function> and <function>pnUserSetVar()</function> <parameter>$name</parameter>
+	 <function>xarUserGetVar()</function> and <function>xarUserSetVar()</function> 
+<parameter>$name</parameter>
 	 parameter.
 	 The <parameter>dtype</parameter> field is mandatory; it can take one of the following values:
 	 _UDCONST_STRING, _UDCONST_TEXT, _UDCONST_FLOAT, _UDCONST_INTEGER.
@@ -369,7 +370,7 @@ if (!isset($result)) {
          for that user variable will be deleted from user data.
        </para>
        <para>
-         As described in this document, PostNuke offers support for module variables too.
+         As described in this document, Xaraya offers support for module variables too.
 	 If you get confused from that, and can't see the distinction between these different things,
 	 here is a little explanation to cover that issue.
 	 Module variables are system-wide variables, shared between each module user, like configuration variables.
@@ -392,9 +393,9 @@ if (!isset($result)) {
      <sect1>
       <title>Variable validation</title>
       <para>
-         PostNuke includes a transparent mechanism for variable validation.
-         It's currently used by two API functions: <function>pnUserValidateVar()</function> and
-	 <function>pnUserSetVar()</function>.
+         Xaraya includes a transparent mechanism for variable validation.
+         It's currently used by two API functions: <function>xarUserValidateVar()</function> and
+	 <function>xarUserSetVar()</function>.
          The validation works thanks to the Dynamic User Data architecture.
          As you saw in the above section, with Dynamic User Data you can register new user variables
          simply by providing its metadata.
@@ -403,11 +404,11 @@ if (!isset($result)) {
          All what you need to do is to follow the right syntax and write your own validator(s), later
          you register it with user variable metadata and now you can get rid of validation in your
          module functions.
-         Simply when you call <function>pnUserSetVar()</function>,
-	 PostNuke will automatically apply your validator(s) and if
+         Simply when you call <function>xarUserSetVar()</function>,
+	 Xaraya will automatically apply your validator(s) and if
          the check fails you will be notified of that by the return value.
 	 To compensate for all this loss of control on validation, a new API function has been created.
-	 You can validate an user variable value with the <function>pnUserValidateVar()</function> function.
+	 You can validate an user variable value with the <function>xarUserValidateVar()</function> function.
 	 That gives you the possibility to first validate all variables from user input and second
 	 update them if all validation checks have succeeded.
       </para>
@@ -453,30 +454,30 @@ if (!isset($result)) {
          <programlisting>
 // validation string = "string:starts:foo bar"
 // validation will succeed
-pnUserSetVar("myVar", "foo bar is better than bar foo");
+xarUserSetVar("myVar", "foo bar is better than bar foo");
 // validation will fail
-pnUserSetVar("myVar", "bar foo is ugly");
+xarUserSetVar("myVar", "bar foo is ugly");
 
 // validation string = "string:starts:foo\\: bar&amp;stringlen:&lt;=:16"
 // NOTE: if you need to use the ':' character you have to
 //       escape it with a preceding '\'
 // validation will succeed
-pnUserSetVar("myVar", "foo: bar is good");
+xarUserSetVar("myVar", "foo: bar is good");
 // validation will fail, the string is too long
-pnUserSetVar("myVar", "foo: bar is better");
+xarUserSetVar("myVar", "foo: bar is better");
 
 // validation string = "!string:regex:/(censored1|censored2)/"
 // NOTE: the negation operator before the string type
 // validation will succeed
-pnUserSetVar("myVar", "i'm a good boy, i'm not posting something bad");
+xarUserSetVar("myVar", "i'm a good boy, i'm not posting something bad");
 // validation will fail
-pnUserSetVar("myVar", "i'm a bad boy, you are a censored1");
+xarUserSetVar("myVar", "i'm a bad boy, you are a censored1");
 
 // validation string = "num:>=:1&amp;num:&lt;=:10"
 // validation will succeed
-pnUserSetVar("myVar", "5");
+xarUserSetVar("myVar", "5");
 // validation will fail
-pnUserSetVar("myVar", "12");
+xarUserSetVar("myVar", "12");
 
 // validation string = "func:MyModule,MyFunc:none"
 // IMPORTANT: if your validation function works only with the
@@ -484,9 +485,9 @@ pnUserSetVar("myVar", "12");
 //            to be passed to function.
 //            You achieve that by simply setting it to 'none'
 // validation will succeed
-pnUserSetVar("myVar", "Homer Simpson");
+xarUserSetVar("myVar", "Homer Simpson");
 // validation will fail
-pnUserSetVar("myVar", "Marco Canini");
+xarUserSetVar("myVar", "Marco Canini");
 
 // MyModule user API
 
@@ -502,14 +503,14 @@ function MyModule_userapi_MyFunc($args)
      <sect1>
       <title>Error handling</title>
       <para>
-        PostNuke is capable of error handling through a powerful
+        Xaraya is capable of error handling through a powerful
         exception handling system.
         Since the PHP language doesn't support language-level
-        exceptions, PostNuke provides an artificial mechanism to
+        exceptions, Xaraya provides an artificial mechanism to
         deal with exceptions.
-        PostNuke divides exceptions into two types: system
+        Xaraya divides exceptions into two types: system
         exceptions and user exceptions.
-        System exceptions are used by PostNuke API functions, but
+        System exceptions are used by Xaraya API functions, but
         you can use them if it's meaningful in that such situation;
         for example consider the DATABASE_ERROR exception, you are
         strongly encouraged to use this exception when a database
@@ -519,30 +520,30 @@ function MyModule_userapi_MyFunc($args)
         functions and API functions when passed parameters are
         considered wrong.
         Finally system exceptions are well known exceptions for
-        which PostNuke can undertake particular actions like
+        which Xaraya can undertake particular actions like
         logging or emailing, on the other and user exceptions are
-        not known by PostNuke, and since they are indistinguishable,
-        PostNuke will treat them as they were all the same thing.
+        not known by Xaraya, and since they are indistinguishable,
+        Xaraya will treat them as they were all the same thing.
         Another good point in distinction between system and user
         exceptions is the fact that you should not leave uncaught
         user exceptions as you can do for system exceptions.
         Hence you should catch all user exceptions instead of
-        throwing back them to PostNuke, this because user exceptions
+        throwing back them to Xaraya, this because user exceptions
         can be seen as soft exceptions, so you could be in the
         position of doing other actions and/or returning a properly
         formatted error message that will look better than the
-        default PostNuke exception caught error message.
+        default Xaraya exception caught error message.
         However it's not illegal to throw back user exceptions to
-        PostNuke, so fell free to do that if it's the case.
+        Xaraya, so fell free to do that if it's the case.
         On the other hand you should avoid to catch system
         exceptions, except particular cases.
         A system exception is an hard exception, this means that
-        something very wrong happened and PostNuke should be noticed
+        something very wrong happened and Xaraya should be noticed
         of that.
         You achieve this simply by throwing back system exceptions.
         Also here there are particular circumstances in which you
         could and perhaps should catch system exceptions.
-        For example consider the <function>pnUserGetVar()</function>
+        For example consider the <function>xarUserGetVar()</function>
         API function: it raises a NO_PERMISSION system exception in
         the case you don't have right permission, however you weren't
         in the position to get access level for user variables, so
@@ -550,22 +551,22 @@ function MyModule_userapi_MyFunc($args)
         ahead when it's meaningful to go ahead.
       </para>
       <para>
-        Now it's the moment to explore how PostNuke permits to deal
+        Now it's the moment to explore how Xaraya permits to deal
         with exceptions.
         Here we begin by exposing how to catch exceptions.
         When a function, that pontetially can raise exceptions,
         outcomes with a void value you MUST check if some exception
         was raised.
-        You can do that by calling the <function>pnExceptionMajor()</function>
+        You can do that by calling the <function>xarExceptionMajor()</function>
         function and comparing its return value with the
-        PN_NO_EXCEPTION constant.
+        XAR_NO_EXCEPTION constant.
         If they are different you know that an exception was raised.
-        The <function>pnExceptioMajor()</function> return value can assume
-        one of these values: PN_NO_EXCEPTION, PN_USER_EXCEPTION,
-        PN_SYSTEM_EXCEPTION.
-        Obviously the value PN_NO_EXCEPTION indicates that no
-        exception was raised, and PN_USER_EXCEPTION stays for user
-        exception was raised and PN_SYSTEM_EXCEPTION stays for
+        The <function>xarExceptioMajor()</function> return value can assume
+        one of these values: XAR_NO_EXCEPTION, XAR_USER_EXCEPTION,
+        XAR_SYSTEM_EXCEPTION.
+        Obviously the value XAR_NO_EXCEPTION indicates that no
+        exception was raised, and XAR_USER_EXCEPTION stays for user
+        exception was raised and XAR_SYSTEM_EXCEPTION stays for
         system exception was raised.
         When you see that an exception was raised you have two
         possibilities: throw it back or handle it.
@@ -577,17 +578,17 @@ function MyModule_userapi_MyFunc($args)
       <para>
         Consider the following example:
       <programlisting>
-$res = pnModFunc('MyModule', 'user', 'MyFunc');
-if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) {
+$res = xarModFunc('MyModule', 'user', 'MyFunc');
+if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
     // Got an exception
-    if (pnExcepionMajor() == PN_SYSTEM_EXCEPTION) {
+    if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) {
         return; // throw back
     }
     // Got a user exception
-    if (pnExceptionId() == 'MyException1') {
-        $value = pnExceptionValue();
+    if (xarExceptionId() == 'MyException1') {
+        $value = xarExceptionValue();
         $output->Text("Syntax error at line: ".$value->lineNumber);
-    } elseif (pnExceptionId() == 'MyException2') {
+    } elseif (xarExceptionId() == 'MyException2') {
         /* Do something useful */
     } else { // MyException3
         /* Do something useful */
@@ -595,12 +596,12 @@ if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) {
     // reset exception status
     // NOTE: it's of vital importance to call this function
     //       before returning
-    pnExceptionFree();
+    xarExceptionFree();
     return $output->GetOutput();
 }
       </programlisting>
         To throw exception you use a unique function:
-        <function>pnExceptionSet()</function>.
+        <function>xarExceptionSet()</function>.
         You simply call it by passing the exception major, id and
         value if one; and after this call you return void.
       </para>
@@ -621,12 +622,12 @@ MyModule_user_MyFunc()
         // Syntax error
         $exc = new MyException1;
         $exc->lineNumber = $line;
-        pnExceptionSet(PN_USER_EXCEPTION, 'MyException1', $exc);return;
+        xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);return;
     }
     /* ... */
-    pnExceptionSet(PN_USER_EXCEPTION, 'MyException2');
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2');
     /* ... */
-    pnExceptionSet(PN_USER_EXCEPTION, 'MyException3');
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3');
     /* ... */
     return true;
 }
@@ -644,28 +645,28 @@ MyModule_user_MyFunc()
         Note that is wrong to not check exception status after a call
         to a function that can pontentially raise something.
         And note also that if you choose to handle one or more
-        exceptions you MUST call <function>pnExceptionFree()</function>
+        exceptions you MUST call <function>xarExceptionFree()</function>
         before exiting, otherwise the trust relationship on which the
         exception handling mechanism is based won't work and you will
         produce very bad things.
         An ulterior thing for who of you aims to code an official
-        PostNuke module: you MUST always check for possibly raised
+        Xaraya module: you MUST always check for possibly raised
         exceptions and not code with the thought that something will
         never happen; you MUST also raise DATABASE_ERROR in every
         function that do queries.
         To get a better understanding of exception handling functions
-        you should now look at PostNuke API Command Reference.
+        you should now look at Xaraya API Command Reference.
       </para>
      </sect1>
     </chapter>
     <chapter>
-    <title>PostNuke Module Design</title>
+    <title>Xaraya Module Design</title>
     <para>
 
-      The PostNuke module system design has been carried out by the PostNuke
+      The Xaraya module system design has been carried out by the Xaraya
       development team to allow for the maximum flexibility to developers
       whilst ensuring that the module can be accessed in a generic fashion by
-      the PostNuke core, other modules, and remote systems given access through
+      the Xaraya core, other modules, and remote systems given access through
       other interfaces such as XML-RPC.  The main design characteristics of the
       module system are listed below.
 
@@ -691,7 +692,7 @@ MyModule_user_MyFunc()
       <para>
 
         Separation of display and operational functions allows for areas within
-        and without PostNuke to use the functionality supplied with a module.
+        and without Xaraya to use the functionality supplied with a module.
         This is most obvious in the case of modules with blocks.  where the
         block might display its own information but use the module functions to
         gather that information.  Other modules where this is hugely important
@@ -707,7 +708,7 @@ MyModule_user_MyFunc()
       <para>
 
         Having a single install directory allows for much easier maintenance of
-        large PostNuke systems, and far easier install and removal of modules
+        large Xaraya systems, and far easier install and removal of modules
         both for the module developer and for the site administrator.
         Dependencies of the layout on the filesystem are no longer required,
         and as such the module designer does not need to worry about on which
@@ -721,12 +722,12 @@ MyModule_user_MyFunc()
       <para>
 
         Allowing access to module functions from external
-        (<foreignphrase>i.e.</foreignphrase> non-PostNuke) systems is a very
-        desirable thing to do.  By allowing this, the PostNuke system becomes a
+        (<foreignphrase>i.e.</foreignphrase> non-Xaraya) systems is a very
+        desirable thing to do.  By allowing this, the Xaraya system becomes a
         content repository, where information can be accessed in ways other
         than through the standard web interface.  An example of this power can
         be seen through use of the XML-RPC interface that is provided with
-        PostNuke and which allows other systems to obtain information directly
+        Xaraya and which allows other systems to obtain information directly
         from modules without going through the web interface, thus allowing
         things like easy syndication of a site's content.
 
@@ -735,11 +736,11 @@ MyModule_user_MyFunc()
   </chapter>
 
   <chapter>
-    <title>PostNuke Module Operations</title>
+    <title>Xaraya Module Operations</title>
     <para>
 
-      This chapter covers how modules interact with PostNuke.  The information
-      in this chapter is correct for the 0.71 release of PostNuke, for other
+      This chapter covers how modules interact with Xaraya.  The information
+      in this chapter is correct for the 0.71 release of Xaraya, for other
       releases please get the most recent copy of the Module Developers Guide.
 
     </para>
@@ -747,7 +748,7 @@ MyModule_user_MyFunc()
       <title>Locating Modules</title>
       <para>
 
-        All PostNuke modules must be placed within their own subdirectory of
+        All Xaraya modules must be placed within their own subdirectory of
         the 'modules' directory to be recognised.  Modules placed anywhere else
         within the filesystem will not be located correctly.
 
@@ -758,10 +759,10 @@ MyModule_user_MyFunc()
       <para>
 
         A module might have administration or user functionality, or both.
-        PostNuke works out which functionality each module has by looking for
-        the files 'pnadmin.php' or 'pnadminapi.php' to confirm administration
-        functionality, and 'pnuser.php' or 'pnuserapi.php' to confirm user
-        functionality.  Lack of these files results in PostNuke assuming that
+        Xaraya works out which functionality each module has by looking for
+        the files 'xaradmin.php' or 'xaradminapi.php' to confirm administration
+        functionality, and 'xaruser.php' or 'xaruserapi.php' to confirm user
+        functionality.  Lack of these files results in Xaraya assuming that
         this specific module functionality does not exist.
 
       </para>
@@ -772,7 +773,7 @@ MyModule_user_MyFunc()
 
         Initialisation of modules is through the
         <function><parameter>modname</parameter>_init()</function> in the
-        'pninit.php' file within the module's directory.  function.  No other
+        'xarinit.php' file within the module's directory.  function.  No other
         function is called when the module is initialised.
 
       </para>
@@ -783,7 +784,7 @@ MyModule_user_MyFunc()
 
         Activation and deactivation of modules is done through field settings
         within the appropriate database table.  Unlike earlier versions of
-        PostNuke, no physical changes to the module directories is made to
+        Xaraya, no physical changes to the module directories is made to
         infer the activation status of the module.
 
       </para>
@@ -793,8 +794,8 @@ MyModule_user_MyFunc()
       <para>
 
         Module functions are called through the
-        <function>pnModFunc()</function> and
-        <function>pnModAPIFunc()</function> functions.  No direct calling of
+        <function>xarModFunc()</function> and
+        <function>xarModAPIFunc()</function> functions.  No direct calling of
         module functions is allowed, even from within the same module.
 
       </para>
@@ -851,13 +852,13 @@ MyModule_user_MyFunc()
       </variablelist>
       <para>
 
-        If any of these parameters are undefined within a URL PostNuke will
+        If any of these parameters are undefined within a URL Xaraya will
         apply defaults to them.  Note that bot the names of the parameters and
         their default values might change, and as such it is not recommended to
-        create direct URLs for anything but to either go through the PostNuke
-        main page or to use the <function>pnModURL()</function> function to
+        create direct URLs for anything but to either go through the Xaraya
+        main page or to use the <function>xarModURL()</function> function to
         generate URLs that will always be internally consistent for any given
-        version of PostNuke.
+        version of Xaraya.
 
       </para>
     </sect1>
@@ -876,7 +877,7 @@ MyModule_user_MyFunc()
       <para>
 
         Choosing a name for your module is important, as this is the main way
-        that your module will be known throughout the PostNuke community.  The
+        that your module will be known throughout the Xaraya community.  The
         name should be related to the functionality that the module provides,
         but also be specific enough to be able to discern it from separate
         modules that might offer similar functionality.
@@ -893,7 +894,7 @@ MyModule_user_MyFunc()
       <title>Decide on the Type of Your Module</title>
       <para>
 
-        There are two broad types of module available in PostNuke.
+        There are two broad types of module available in Xaraya.
         <firstterm>Item modules</firstterm> are modules which contain their own
         content and operate on that content, whereas <firstterm>utility
           modules</firstterm> are modules which contain additional information
@@ -914,10 +915,10 @@ MyModule_user_MyFunc()
 
         Registering your module is not compulsory, but it is a very good idea.
         By registering your module you can ensure that no other official
-        PostNuke module will take the name that you have chosen for your
+        Xaraya module will take the name that you have chosen for your
         module.  Two modules with the same name will not operate correctly on a
-        single PostNuke site, so it is beneficial to both yourself and the
-        PostNuke community in general to have a unique name.
+        single Xaraya site, so it is beneficial to both yourself and the
+        Xaraya community in general to have a unique name.
 
       </para>
       <note>
@@ -929,19 +930,19 @@ MyModule_user_MyFunc()
       </note>
     </sect1>
     <sect1>
-      <title>Obtain a Copy of The PostNuke API Reference Guide</title>
+      <title>Obtain a Copy of The Xaraya API Reference Guide</title>
       <para>
         
-        A copy of the PostNuke API reference guide is essential when developing
+        A copy of the Xaraya API reference guide is essential when developing
         a module.  This guide covers all of the core functionality that the
-        PostNuke system provides and provides example code for every API
+        Xaraya system provides and provides example code for every API
         function available.
 
       </para>
       <note>
         <para>
 
-          Add link to pnAPI download
+          Add link to xarAPI download
 
         </para>
       </note>
@@ -968,7 +969,7 @@ MyModule_user_MyFunc()
           functions will allow other modules to be able to access the
           functionality of your module and incorporate it into their modules.
           It will also allow methods of access apart from those that the
-          standard web-based PostNuke system.
+          standard web-based Xaraya system.
 
         </para>
       </sect2>
@@ -983,10 +984,10 @@ MyModule_user_MyFunc()
         </para>
       </sect2>
       <sect2>
-        <title>The PostNuke Security Model</title>
+        <title>The Xaraya Security Model</title>
         <para>
 
-          The PostNuke security model is a very important area to understand
+          The Xaraya security model is a very important area to understand
           before coding a module.  Developers should understand which parts of
           their module need to be protected, and exactly how this is
           accomplished.
@@ -1005,14 +1006,14 @@ MyModule_user_MyFunc()
 
           Every well-defined module function must return the appropriate return
           codes.  Return codes are the main way in which a module communicates
-          with the PostNuke core, and as such it is vital that the correct
+          with the Xaraya core, and as such it is vital that the correct
           return codes are used.
 
         </para>
         <para>
 
           The following return codes should be used when returning control to
-          the PostNuke core from any module function:
+          the Xaraya core from any module function:
 
         </para>
         <variablelist>
@@ -1023,7 +1024,7 @@ MyModule_user_MyFunc()
 
                 Returning a text string implies that the module function has
                 finished its work and has output to be displayed in the
-                appropriate place on the PostNuke web page.  PostNuke will take
+                appropriate place on the Xaraya web page.  Xaraya will take
                 the returned output and display it as appropriate.  Note that
                 all output from modules is displayed verbatim, with no escaping
                 of HTML characters.  This is to allow for formatted output from
@@ -1040,7 +1041,7 @@ MyModule_user_MyFunc()
                 Returning boolean <parameter>true</parameter> implies that the
                 module function has finished its work and set up an appropriate
                 redirect to send the user to a page that will have display
-                output.  The PostNuke core will take no further action as far
+                output.  The Xaraya core will take no further action as far
                 as this module is concerned.
 
               </para>
@@ -1054,7 +1055,7 @@ MyModule_user_MyFunc()
                 Returning boolean <parameter>false</parameter> implies that the
                 module function has finished its work but not set up an
                 appropriate redirect to send the user to a page that will have
-                display output.  The PostNuke core will set an appropriate
+                display output.  The Xaraya core will set an appropriate
                 redirect for this module.
 
               </para>
@@ -1070,16 +1071,16 @@ MyModule_user_MyFunc()
         </para>
       </sect2>
       <sect2>
-        <title>Where Modules Fit in PostNuke</title>
+        <title>Where Modules Fit in Xaraya</title>
         <para>
 
-          Modules cover two separate areas of PostNuke.  The first is
+          Modules cover two separate areas of Xaraya.  The first is
           administration of core functions,
           (<foreignphrase>e.g.</foreignphrase> users, permissions), and the
           second is extension of system functionality
           (<foreignphrase>e.g.</foreignphrase> downloads, web links).  As each
           of these areas are not core this implies two things.  First is that
-          no module is actually required - the PostNuke system would work
+          no module is actually required - the Xaraya system would work
           without anything in its modules directory, although its functionality
           would be severely limited and there would be no configuration options
           available.  Second is that modules should not remove any core
@@ -1094,7 +1095,7 @@ MyModule_user_MyFunc()
 
         An often overlooked point is that the module should be designed before
         being coded.  This will allow for far easier coding later on, and an
-        understanding of how the module fits into the generic PostNuke module
+        understanding of how the module fits into the generic Xaraya module
         structure.  Some of the points that should be considered are:
 
         <itemizedlist>
@@ -1135,7 +1136,7 @@ MyModule_user_MyFunc()
       <para>
 
         There are a number of standard module functions that allow a newly
-        written module to interface with other parts of the PostNuke system.
+        written module to interface with other parts of the Xaraya system.
         These functions have predefined inputs and outputs, allowing external
         modules and core functions to use them effectively without needing to
         tailor their operation to each separate module.  The best example of
@@ -1154,7 +1155,7 @@ MyModule_user_MyFunc()
       <para>
 
         If your module does not have these functions then it will not integrate
-        fully with the other parts of the PostNuke system.  It is recommended
+        fully with the other parts of the Xaraya system.  It is recommended
         that these functions are supplied if they make any sense in the context
         of your module.
 
@@ -1175,7 +1176,7 @@ MyModule_user_MyFunc()
         <para>
 
           The below list is subject to addition as more standard functions are
-          introduced - the template module supplied with your copy of PostNuke
+          introduced - the template module supplied with your copy of Xaraya
           should have the most up-to-date set of standard functions available.
 
         </para>
@@ -1350,9 +1351,9 @@ MyModule_user_MyFunc()
       <para>
 
         There are a number of utility modules available to carry out features
-        that are required by many item modules within PostNuke.  Examples of
+        that are required by many item modules within Xaraya.  Examples of
         available utility modules are comments, ratings, and categorisation.
-        Take a look at mods.postnuke.come to find out what other utility
+        Take a look at www.xaraya.com to find out what other utility
         modules are available and if they can be used in lieu of parts of the
         code that you would otherwise be writing for your own module.
 
@@ -1370,11 +1371,11 @@ MyModule_user_MyFunc()
     <title>Module Directory Structure</title>
     <para>
 
-      PostNuke modules have a very specific directory structure.  This allows
-      the PostNuke system to use a generic system to access all modules without
+      Xaraya modules have a very specific directory structure.  This allows
+      the Xaraya system to use a generic system to access all modules without
       needing to know specific information about each separate module that is
       built.  Following the directory structure as laid out below is an
-      absolute requirement of any PostNuke-compliant module.
+      absolute requirement of any Xaraya-compliant module.
 
     </para>
     <note>
@@ -1383,10 +1384,10 @@ MyModule_user_MyFunc()
         Extra files and directories in addition to those shown below are
         allowed.  Also, if any of the files below are not required
         (<foreignphrase>e.g.</foreignphrase> the module does not have database
-        tables of its own so it does not require the pntables.php file) then
+        tables of its own so it does not require the xartables.php file) then
         they do not need to exist.  However, files that perform the functions
         outlined below must comply with the file naming convention to allow the
-        PostNuke system to load the suitable files at the appropriate times to
+        Xaraya system to load the suitable files at the appropriate times to
         ensure correct operation of the module.
 
       </para>
@@ -1405,14 +1406,14 @@ MyModule_user_MyFunc()
       <screen>
         modules/                                <co id="dirtop"/>
                 gallery/                        <co id="dirmodname"/>
-                        pnadmin.php             <co id="dirpnadmin"/>
-                        pnadminapi.php          <co id="dirpnadminapi"/>
-                        pnblocks/               <co id="dirpnblocks"/>
+                        xaradmin.php             <co id="dirxaradmin"/>
+                        xaradminapi.php          <co id="dirxaradminapi"/>
+                        xarblocks/               <co id="dirxarblocks"/>
                                  snapshot.php   <co id="dirsnapshot"/>
-                        pnimages/               <co id="dirpnimages"/>
-                                 admin.png      <co id="diradminimg"/>
-                        pninit.php              <co id="dirpninit"/>
-                        pnlang/                 <co id="dirpnlang"/>
+                        xarimages/               <co id="dirxarimages"/>
+                                 admin.xarg      <co id="diradminimg"/>
+                        xarinit.php              <co id="dirxarinit"/>
+                        xarlang/                 <co id="dirxarlang"/>
                                deu/             <co id="dirdeu"/>
                                    admin.php    <co id="dirdeuadmin"/>
                                    init.php     <co id="dirdeuinit"/>
@@ -1426,16 +1427,16 @@ MyModule_user_MyFunc()
                                    snapshot.php <co id="direngsnapshot"/>
                                    user.php     <co id="direnguser"/>
                                ...
-                        pntables.php            <co id="dirpntables"/>
-                        pnuser.php              <co id="dirpnuser"/>
-                        pnuserapi.php           <co id="dirpnuserapi"/>
-                        pnversion.php           <co id="dirpnversion"/>
+                        xartables.php            <co id="dirxartables"/>
+                        xaruser.php              <co id="dirxaruser"/>
+                        xaruserapi.php           <co id="dirxaruserapi"/>
+                        xarversion.php           <co id="dirxarversion"/>
       </screen>
       <calloutlist>
         <callout arearefs="dirtop">
           <para>
 
-            The top-level directory in PostNuke for modules
+            The top-level directory in Xaraya for modules
 
           </para>
         </callout>
@@ -1447,21 +1448,21 @@ MyModule_user_MyFunc()
 
           </para>
         </callout>
-        <callout arearefs="dirpnadmin">
+        <callout arearefs="dirxaradmin">
           <para>
 
             The file that contains all administrative GUI functions for the module
 
           </para>
         </callout>
-        <callout arearefs="dirpnadminapi">
+        <callout arearefs="dirxaradminapi">
           <para>
 
             The file that contains all administrative operational functions for the module
 
           </para>
         </callout>
-        <callout arearefs="dirpnblocks">
+        <callout arearefs="dirxarblocks">
           <para>
 
             The directory that contains all blocks associated with the module
@@ -1476,7 +1477,7 @@ MyModule_user_MyFunc()
 
           </para>
         </callout>
-        <callout arearefs="dirpnimages">
+        <callout arearefs="dirxarimages">
           <para>
 
             The directory that contains all images for the module
@@ -1490,14 +1491,14 @@ MyModule_user_MyFunc()
 
           </para>
         </callout>
-        <callout arearefs="dirpninit">
+        <callout arearefs="dirxarinit">
           <para>
 
             The file that contains initialisation functions for the module
 
           </para>
         </callout>
-        <callout arearefs="dirpnlang">
+        <callout arearefs="dirxarlang">
           <para>
 
             The directory that contains all language translation files for the module
@@ -1517,7 +1518,7 @@ MyModule_user_MyFunc()
 
             The file that contains German language translations for the
             administrative GUI functions for the module
-            (<foreignphrase>i.e.</foreignphrase> pnadmin.php)
+            (<foreignphrase>i.e.</foreignphrase> xaradmin.php)
 
           </para>
         </callout>
@@ -1526,7 +1527,7 @@ MyModule_user_MyFunc()
 
             The file that contains German language translations for the
             initialisation functions for the module
-            (<foreignphrase>i.e.</foreignphrase> pninit.php)
+            (<foreignphrase>i.e.</foreignphrase> xarinit.php)
 
           </para>
         </callout>
@@ -1549,7 +1550,7 @@ MyModule_user_MyFunc()
 
             The file that contains German language translations for the user
             GUI functions for the module (<foreignphrase>i.e.</foreignphrase>
-            pnuser.php)
+            xaruser.php)
 
           </para>
         </callout>
@@ -1565,7 +1566,7 @@ MyModule_user_MyFunc()
 
             The file that contains English language translations for the
             administrative GUI functions for the module
-            (<foreignphrase>i.e.</foreignphrase> pnadmin.php)
+            (<foreignphrase>i.e.</foreignphrase> xaradmin.php)
 
           </para>
         </callout>
@@ -1574,7 +1575,7 @@ MyModule_user_MyFunc()
 
             The file that contains English language translations for the
             initialisation functions for the module
-            (<foreignphrase>i.e.</foreignphrase> pninit.php)
+            (<foreignphrase>i.e.</foreignphrase> xarinit.php)
 
           </para>
         </callout>
@@ -1597,32 +1598,32 @@ MyModule_user_MyFunc()
 
             The file that contains English language translations for the user
             GUI functions for the module (<foreignphrase>i.e.</foreignphrase>
-            pnuser.php)
+            xaruser.php)
 
           </para>
         </callout>
-        <callout arearefs="dirpntables">
+        <callout arearefs="dirxartables">
           <para>
 
             The file that contains all information on database tables for the module.
 
           </para>
         </callout>
-        <callout arearefs="dirpnuser">
+        <callout arearefs="dirxaruser">
           <para>
 
             The file that contains all user GUI functions for the module
 
           </para>
         </callout>
-        <callout arearefs="dirpnuserapi">
+        <callout arearefs="dirxaruserapi">
           <para>
 
             The file that contains all user operational functions for the module
 
           </para>
         </callout>
-        <callout arearefs="dirpnversion">
+        <callout arearefs="dirxarversion">
           <para>
 
             The file that contains all version and credit information for the module
@@ -1640,8 +1641,8 @@ MyModule_user_MyFunc()
       <para>
 
         Create the directory to hold the module files.  This directory must be
-        created under the 'modules' directory in the PostNuke install, and must
-        be created with the name of your module as registered at the PostNuke
+        created under the 'modules' directory in the Xaraya install, and must
+        be created with the name of your module as registered at the Xaraya
         modules site.
 
       </para>
@@ -1661,20 +1662,20 @@ MyModule_user_MyFunc()
       <title>Code your Database Tables</title>
       <para>
 
-        Coding your database tables requires you to edit the pntables.php file
+        Coding your database tables requires you to edit the xartables.php file
         in your module directory.  This file gives information on the structure
         of the tables used by this module, although it does not carry out any
         actions itself.  The structure information is wrapped in a function
-        (<function><parameter>modname</parameter>_pntables()</function>) for easy
-        access by the PostNuke system.  An annotated copy of the template
-        pntables.php file is available in the standard PostNuke distribution as
+        (<function><parameter>modname</parameter>_xartables()</function>) for easy
+        access by the Xaraya system.  An annotated copy of the template
+        xartables.php file is available in the standard Xaraya distribution as
         part of the Template module.
 
       </para>
       <para>
 
         If your module uses tables specified by another module then you can
-        either remove the pntables.php file completely from your module
+        either remove the xartables.php file completely from your module
         directory, or have a suitably named function that just returns an empty
         array.
 
@@ -1683,7 +1684,7 @@ MyModule_user_MyFunc()
         <para>
 
           If you attempt to use the same table name as another module or the
-          PostNuke core then your module will fail in unexpected ways.  Try to
+          Xaraya core then your module will fail in unexpected ways.  Try to
           give your tables unique names, preferably based on your module name.
 
         </para>
@@ -1701,15 +1702,15 @@ MyModule_user_MyFunc()
         are generally only ever called once, although if a site administrator
         desires they should be able to initialise and delete a module as many
         times as they wish.  It should be assumed that whenever these functions
-        are called the PostNuke system has already loaded the relevant
-        information from <filename>pntables.php</filename> and it is available
-        in the information returned by <function>pnDBGetTables()</function>.
+        are called the Xaraya system has already loaded the relevant
+        information from <filename>xartables.php</filename> and it is available
+        in the information returned by <function>xarDBGetTables()</function>.
 
       </para>
       <para>
 
-        An annotated copy of the template <filename>pninit.php</filename> file
-        is available in the standard PostNuke distribution as part of the
+        An annotated copy of the template <filename>xarinit.php</filename> file
+        is available in the standard Xaraya distribution as part of the
         Template solution.
 
       </para>
@@ -1720,7 +1721,7 @@ MyModule_user_MyFunc()
 
         Once the database structure and initialisation files are in place they
         should be tested by using the modules administration area of your
-        PostNuke system to test initialising and deleting your module.  You
+        Xaraya system to test initialising and deleting your module.  You
         should manually check that the database table created is correct, and
         that deleting a module removes all of the relevant configuration
         variables and database tables.  Once you are happy that the module
@@ -1789,15 +1790,15 @@ MyModule_user_MyFunc()
         at what it does.  If it is directly involved with user interaction
         (gathering information from the user or displaying information to the
         user) then it is a GUI function.  If it is involved with obtaining or
-        updating information in the PostNuke system itself (normally in a
+        updating information in the Xaraya system itself (normally in a
         database table) then it is an API function.
 
       </para>
       <para>
 
-        Annotated copies of the template <filename>pnadmin.php</filename> and
-        <filename>pnadminapi.php</filename> files are available in the
-        standard PostNuke distribution in the Template module.
+        Annotated copies of the template <filename>xaradmin.php</filename> and
+        <filename>xaradminapi.php</filename> files are available in the
+        standard Xaraya distribution in the Template module.
 
       </para>
     </sect1>
@@ -1858,9 +1859,9 @@ MyModule_user_MyFunc()
       </informalfigure>
       <para>
 
-        Annotated copies of the template <filename>pnuser.php</filename> and
-        <filename>pnuserapi.php</filename> files are available in the standard
-        PostNuke distribution as part of the Template module.
+        Annotated copies of the template <filename>xaruser.php</filename> and
+        <filename>xaruserapi.php</filename> files are available in the standard
+        Xaraya distribution as part of the Template module.
 
       </para>
     </sect1>
@@ -1888,14 +1889,14 @@ MyModule_user_MyFunc()
         they are not directly related to it except that they use the same
         database tables, and as such they might have to load the module's
         database table information directly through the use of the
-        <function>pnModDBInfoLoad()</function> function if they intend to
+        <function>xarModDBInfoLoad()</function> function if they intend to
         access the module's tables directly.
 
       </para>
       <para>
 
         An annotated copy of the template <filename>first.php</filename> block
-        file is available in the standard PostNuke distribution as part of the
+        file is available in the standard Xaraya distribution as part of the
         Template module.
 
       </para>
@@ -1936,7 +1937,7 @@ MyModule_user_MyFunc()
         widely used packaging formats are WinZip (.zip extension) and
         compressed TAR (.tar.gz extension).  If possible, package the module
         with both formats.  If not then just package it with the format that
-        you have and ask someone on the PostNuke modules site if they can
+        you have and ask someone on the Xaraya modules site if they can
         package it in the other format.
 
       </para>
@@ -2000,7 +2001,7 @@ MyModule_user_MyFunc()
         <listitem>
           <para>
 
-            Transformation of category data into a standard PostNuke format
+            Transformation of category data into a standard Xaraya format
 
           </para>
         </listitem>
@@ -2028,7 +2029,7 @@ MyModule_user_MyFunc()
         <listitem>
           <para>
 
-            Transformation of item data into a standard PostNuke format
+            Transformation of item data into a standard Xaraya format
 
           </para>
         </listitem>
@@ -2058,7 +2059,7 @@ MyModule_user_MyFunc()
       <para>
 
         Hooks are the recommended way of extending the functionality of your
-        module, and use of the appropriate pnAPI hook functions as described
+        module, and use of the appropriate xarAPI hook functions as described
         below is considered mandatory for a compliant module.
 
       </para>
@@ -2068,7 +2069,7 @@ MyModule_user_MyFunc()
 
           If you are developing an item module then you should allow utility
           modules to add functionality to the item module.  This is carried out
-          through use of the <function>pnModCallHooks()</function> function.
+          through use of the <function>xarModCallHooks()</function> function.
           This function should be placed wherever a specific action is carried
           out by the item module, where the current specific actions that the
           hooks system is able to operate on are:
@@ -2084,7 +2085,7 @@ MyModule_user_MyFunc()
         </para>
         <para>
 
-          The <function>pnModCallHooks()</function> function takes a number of
+          The <function>xarModCallHooks()</function> function takes a number of
           parameters, which are explained below:
 
         </para>
@@ -2171,7 +2172,7 @@ MyModule_user_MyFunc()
         </variablelist>
         <para>
 
-          The <function>pnModCallHooks()</function> function returns different
+          The <function>xarModCallHooks()</function> function returns different
           information depending on value of <parameter>hookaction</parameter>.
           If <parameter>hookaction</parameter> is
           <parameter>display</parameter> then the hook will return extra output
@@ -2196,22 +2197,20 @@ MyModule_user_MyFunc()
 
         </para>
         <programlisting>
-$output->SetInputMode(_PNH_VERBATIMINPUT);
-$output->Text(pnModCallHooks('item',
+$output->Text(xarModCallHooks('item',
                              'display',
                              $pictureid,
-                             pnModURL('gallery',
+                             xarModURL('gallery',
                                       'user',
                                       'display',
                                       array('pictureid' => $pictureid))));
-$output->SetInputMode(_PNH_PARSEINPUT);
         </programlisting>
         <para>
 
           which would add the verbatim output of the hooks to the current
           output.  It is worth noting again here the from this code it can be
           seen that the module itself needs no information on what hooks, if
-          any, exist, it just calls the function and lets the PostNuke core
+          any, exist, it just calls the function and lets the Xaraya core
           deal with what extra output should be added to this item.
 
         </para>
@@ -2233,7 +2232,7 @@ $output->SetInputMode(_PNH_PARSEINPUT);
         </para>
         <para>
 
-          The annotated Template module in the standard PostNuke distribution
+          The annotated Template module in the standard Xaraya distribution
           contains notes on calling hooks within an item module.
 
         </para>
@@ -2287,9 +2286,9 @@ $output->SetInputMode(_PNH_PARSEINPUT);
               <para>
 
                 Hook functions must not call the
-                <function>pnModCallHooks()</function> function, or functions
+                <function>xarModCallHooks()</function> function, or functions
                 that might themselves call
-                <function>pnModCallHooks()</function>.  If a hook does this it
+                <function>xarModCallHooks()</function>.  If a hook does this it
                 risks getting the code into an infinite loop.
 
               </para>
@@ -2297,7 +2296,7 @@ $output->SetInputMode(_PNH_PARSEINPUT);
           </itemizedlist>
           <para>
 
-            The Ratings module that comes with the core PostNuke distribution
+            The Ratings module that comes with the core Xaraya distribution
             has an example hook function that shows how to fit within these
             guidelines whilst still producing a general-purpose function.
 
@@ -2310,9 +2309,9 @@ $output->SetInputMode(_PNH_PARSEINPUT);
             Once your module has hook-capable functions in place they need to
             be registered on initialisation of the module so that the
             administrator can configure their applicability, and other modules
-            can access them through the <function>pnModCallHooks()</function>
+            can access them through the <function>xarModCallHooks()</function>
             function.  This is carried out through use of the
-            <function>pnModRegisterHook()</function> function.  This function
+            <function>xarModRegisterHook()</function> function.  This function
             should be placed within the
             <function><parameter>modname</parameter>_init()</function> function
             of your module and given appropriate parameters to register the
@@ -2322,7 +2321,7 @@ $output->SetInputMode(_PNH_PARSEINPUT);
           </para>
           <para>
 
-            The <function>pnModRegisterHook()</function> function takes a
+            The <function>xarModRegisterHook()</function> function takes a
             number of parameters, which are explained below:
 
           </para>
@@ -2360,11 +2359,11 @@ $output->SetInputMode(_PNH_PARSEINPUT);
 
                   The area that the hook function covers - currently either
                   <parameter>GUI</parameter> (for functions that are in
-                  <filename>pnuser.php</filename> and
-                  <filename>pnadmin.php</filename>) or
+                  <filename>xaruser.php</filename> and
+                  <filename>xaradmin.php</filename>) or
                   <parameter>API</parameter> (for functions that are in
-                  <filename>pnuserapi.php</filename> and
-                  <filename>pnadminapi.php</filename>)
+                  <filename>xaruserapi.php</filename> and
+                  <filename>xaradminapi.php</filename>)
 
                 </para>
               </listitem>
@@ -2404,7 +2403,7 @@ $output->SetInputMode(_PNH_PARSEINPUT);
           </variablelist>
           <para>
 
-            The <function>pnModRegisterHook()</function> function returns
+            The <function>xarModRegisterHook()</function> function returns
             <parameter>true</parameter> if the registration was successful, and
             <parameter>false</parameter> if the registration is unsuccessful.
 
@@ -2413,7 +2412,7 @@ $output->SetInputMode(_PNH_PARSEINPUT);
 
             As an example of registering hooks, if you were developing the
             'globalid' utility module (which gives every piece of content in
-            PostNuke a separate ID) and had a
+            Xaraya a separate ID) and had a
             <function>globalid_admin_create()</function> function which created
             an entry in the global ID table for this particular piece of
             content then you would register this as a creation hook.  To do
@@ -2422,7 +2421,7 @@ $output->SetInputMode(_PNH_PARSEINPUT);
 
           </para>
           <programlisting>
-if (!pnModRegisterHook('item',
+if (!xarModRegisterHook('item',
                        'create',
                        'API',
                        'globalid',
@@ -2441,7 +2440,7 @@ if (!pnModRegisterHook('item',
           </para>
           <para>
 
-            The Ratings module that comes with the core PostNuke distribution
+            The Ratings module that comes with the core Xaraya distribution
             has detailed comments on registering hooks within a utility module.
 
           </para>
@@ -2453,7 +2452,7 @@ if (!pnModRegisterHook('item',
             If your module has hook-capable functions that are registered when
             the module is initialised they need to be unregistered when the
             module is deleted.  This is carried out through use of the
-            <function>pnModUnregisterHook()</function> function.  This function
+            <function>xarModUnregisterHook()</function> function.  This function
             should be placed within the
             <function><parameter>modname</parameter>_delete()</function>
             function of your module and given appropriate parameters to
@@ -2463,14 +2462,14 @@ if (!pnModRegisterHook('item',
           </para>
           <para>
 
-            The <function>pnModUnregisterHook()</function> function takes the
-            same parameters as the <function>pnModUnregisterHook()</function>
+            The <function>xarModUnregisterHook()</function> function takes the
+            same parameters as the <function>xarModUnregisterHook()</function>
             function.
 
           </para>
           <para>
 
-            The Ratings module that comes with the core PostNuke distribution has
+            The Ratings module that comes with the core Xaraya distribution has
             detailed comments on unregistering hooks within a utility module.
 
           </para>
@@ -2483,7 +2482,7 @@ if (!pnModRegisterHook('item',
 
         Another way of accessing the functionality of other modules is by
         calling their functions directly with the
-        <function>pnModFunc()</function> function.  Doing this allows a number
+        <function>xarModFunc()</function> function.  Doing this allows a number
         of advantages over hooks, but also a number of disadvantages.  In
         general, calling functions directly is more flexible as the module
         developer understands exactly which functions they are calling and can
@@ -2538,27 +2537,27 @@ if (!pnModRegisterHook('item',
     <title>Notes on Developing Modules</title>
     <para>
     </para>
-    <sect1 id="pnAPI">
-      <title>Use pnAPI</title>
+    <sect1 id="xarAPI">
+      <title>Use xarAPI</title>
       <para>
 
-        pnAPI is the PostNuke Application Programming Interface, a way for
-        modules to interact with the PostNuke core without needing to access
+        xarAPI is the Xaraya Application Programming Interface, a way for
+        modules to interact with the Xaraya core without needing to access
         tables and internal structures directly.  The API also allows for the
-        underlying implementation details of PostNuke to be hidden from
+        underlying implementation details of Xaraya to be hidden from
         developer so that they can write modules in a standard fashion and not
         worry about what might change under the hood.  This is very important
-        for a system such as PostNuke which has undergone, and continues to
+        for a system such as Xaraya which has undergone, and continues to
         undergo, radical changes in the core design to allow it to be faster,
         more secure, and more flexible.
 
       </para>
       <para>
 
-        pnAPI is the only supported way of accessing core information.  Module
+        xarAPI is the only supported way of accessing core information.  Module
         developers must use these methods of obtaining information from the
-        PostNuke core system; failure to do so will very likely result in their
-        module not working when the next version of PostNuke is released.
+        Xaraya core system; failure to do so will very likely result in their
+        module not working when the next version of Xaraya is released.
 
       </para>
     </sect1>
@@ -2566,17 +2565,17 @@ if (!pnModRegisterHook('item',
       <title>Security</title>
       <para>
 
-        Security is a very important part of PostNuke.  All modules should
-        subscribe to the PostNuke Security model to ensure that they operate
+        Security is a very important part of Xaraya.  All modules should
+        subscribe to the Xaraya Security model to ensure that they operate
         correctly within all environments.  For full information on security
-        refer to the PostNuke Security Model documentation, however the main
+        refer to the Xaraya Security Model documentation, however the main
         points as regards modules are covered briefly below.
 
       </para>
       <note>
         <para>
 
-          Add information on the PostNuke security model.
+          Add information on the Xaraya security model.
 
         </para>
       </note>
@@ -2584,11 +2583,11 @@ if (!pnModRegisterHook('item',
         <title>Variable Handling</title>
         <para>
 
-          All variables that come in to or go out of PostNuke should be handled
-          by the relevant <function>pnVar*()</function> functions to ensure
+          All variables that come in to or go out of Xaraya should be handled
+          by the relevant <function>xarVar*()</function> functions to ensure
           that they are safe.  Failure to do this could result in opening
           security wholes at either the web, filesystem, display, or database
-          layers.  Full information on these functions is given in the PostNuke
+          layers.  Full information on these functions is given in the Xaraya
           API Guide, and examples of their use are shown throughout the
           template module.
 
@@ -2596,8 +2595,8 @@ if (!pnModRegisterHook('item',
         <para>
 
           It can be assumed that any variables passed to functions in the
-          PostNuke API will be handled correctly, and as such these variables
-          do not need to be prepared with the <function>pnVar*()</function>
+          Xaraya API will be handled correctly, and as such these variables
+          do not need to be prepared with the <function>xarVar*()</function>
           functions.
 
         </para>
@@ -2608,8 +2607,8 @@ if (!pnModRegisterHook('item',
 
           All items displayed for users and actions carried out by
           administrators must be authorised through use of the
-          <function>pnSecAuthAction()</function> function.  This function
-          underlies the entire PostNuke permissions system and as such must be
+          <function>xarSecAuthAction()</function> function.  This function
+          underlies the entire Xaraya permissions system and as such must be
           used wherever an access check is required.
 
         </para>
@@ -2618,9 +2617,9 @@ if (!pnModRegisterHook('item',
         <title>Reserved Variable Names</title>
         <para>
 
-          PostNuke has a number of variables which are reserved.  These
+          Xaraya has a number of variables which are reserved.  These
           variables should not be used within modules as they can conflict with
-          the PostNuke core and cause unpredictable results.
+          the Xaraya core and cause unpredictable results.
 
         </para>
         <para>
@@ -2655,11 +2654,11 @@ if (!pnModRegisterHook('item',
           API.  In addition to the visible information, there is often a number
           of hidden items of information in the first page that is used in the
           second page.  To ensure that any attempt to add, delete, or change
-          information in the PostNuke system goes through the full two-stage
+          information in the Xaraya system goes through the full two-stage
           method of gathering and processing the information the two functions
-          <function>pnSecGenAuthKey()</function> and
-          <function>pnSecConfirmAuthKey()</function> must be used in the
-          appropriate places.  The Template module in the standard PostNuke
+          <function>xarSecGenAuthKey()</function> and
+          <function>xarSecConfirmAuthKey()</function> must be used in the
+          appropriate places.  The Template module in the standard Xaraya
           distribution contains a number of functions that use these API calls,
           and care should be taken to note where they are used so that
           developed modules will have the same level of protection against
@@ -2673,9 +2672,9 @@ if (!pnModRegisterHook('item',
       <para>
 
         All output generated by module functions must be returned to the
-        PostNuke core.  No output of any type should be made directly from the
+        Xaraya core.  No output of any type should be made directly from the
         module; doing this is not supported and will break in future versions
-        of PostNuke.
+        of Xaraya.
 
       </para>
       <note>
@@ -2842,7 +2841,7 @@ function mymod_user_main()
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>No PostNuke reserved variable names used</entry>
+            <entry>No Xaraya reserved variable names used</entry>
           </row>
           <row>
             <entry>&middot;</entry>
@@ -2850,35 +2849,36 @@ function mymod_user_main()
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>All operations protected by <function>pnSecAuthAction()</function></entry>
+            <entry>All operations protected by <function>xarSecAuthAction()</function></entry>
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>All forms results protected by <function>pnSecConfirmAuthKey()</function></entry>
+            <entry>All forms results protected by <function>xarSecConfirmAuthKey()</function></entry>
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>All form variables obtained by <function>pnVarCleanFromInput()</function></entry>
+            <entry>All form variables obtained by <function>xarVarCleanFromInput()</function></entry>
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>All output parsed through <function>pnVarPrepForDisplay()</function> or <function>pnVarPrepHTMLDisplay()</function></entry>
+            <entry>All output parsed through <function>xarVarPrepForDisplay()</function> or 
+<function>xarVarPrepHTMLDisplay()</function></entry>
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>All suitable output censored by <function>pnVarCensor()</function></entry>
+            <entry>All suitable output censored by <function>xarVarCensor()</function></entry>
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>All variables in SQL queries protected by <function>pnVarPrepForStore()</function></entry>
+            <entry>All variables in SQL queries protected by <function>xarVarPrepForStore()</function></entry>
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>All variables in filesystem access protected by <function>pnVarPrepForOS()</function></entry>
+            <entry>All variables in filesystem access protected by <function>xarVarPrepForOS()</function></entry>
           </row>
           <row>
             <entry>&middot;</entry>
-            <entry>Calls to <function>pnModCallHooks()</function> in all appropriate locations</entry>
+            <entry>Calls to <function>xarModCallHooks()</function> in all appropriate locations</entry>
           </row>
         </tbody>
       </tgroup>

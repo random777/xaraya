@@ -46,7 +46,7 @@ class noTestCase {
     function testbogus() { 
         return $this->assertTrue(true,"***ERROR***"); 
     }
-};
+}
 
 class testMoreUnitTest extends xarTestCase {
    
@@ -77,18 +77,18 @@ class testMoreUnitTest extends xarTestCase {
 
     function testinvalidsuite() {
         $this->mytestsuite->AddTestCase($this->invalidsuite,'This is invalid');
-        $this->assertEquals($this->mytestsuite->_testcases,$this->empty,0,'Non-existing test suite');
+        return $this->assertEquals($this->mytestsuite->_testcases,$this->empty,0,'Non-existing test suite');
     }
     function testsubclassing()
     {
         $this->mytestsuite->AddTestCase('noTestCase','This is invalid');   
-        $this->assertEquals($this->mytestsuite->_testcases,$this->empty,0,'No subclass of xarTestCase');
+        return $this->assertEquals($this->mytestsuite->_testcases,$this->empty,0,'No subclass of xarTestCase');
     }
     
     function testemptyarray()
     {
         $testarray = array();
-        $this->assertEmpty($testarray,'Empty array is empty');
+        return $this->assertEmpty($testarray,'Empty array is empty');
     }    
 }
 

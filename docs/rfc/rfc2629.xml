@@ -4,7 +4,7 @@
 <?rfc toc="yes"?>
 <rfc number="2629">
 <front>
-<title>Writing I-Ds and RFCs using XML</title>
+<title>Writing X-Ds and RFCs using XML</title>
 <author initials="M.T." surname="Rose" fullname="Marshall T. Rose">
 <organization>Invisible Worlds, Inc.</organization>
 <address>
@@ -22,8 +22,8 @@
 <area>General</area>
 <keyword>RFC</keyword>
 <keyword>Request for Comments</keyword>
-<keyword>I-D</keyword>
-<keyword>Internet-Draft</keyword>
+<keyword>X-D</keyword>
+<keyword>Xaraya-Draft</keyword>
 <keyword>XML</keyword>
     <note title="IMPORTANT">
       <t>Although the copyright notice above says Xaraya, this is not the case. The original author mentioned in the

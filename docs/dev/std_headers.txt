@@ -1,6 +1,44 @@
 This file contains some standard headers which we use in our code. You should 
 take the headers as a bare minimum, extend at will
 
+
+Notes on phpdoc package classification:
+---------------------------------------
+packages/subpackages: 
+- variables
+- templates
+- server
+- blocklayout
+- legacy
+- blocks
+- config
+- core
+- database
+  - databasetypenames
+- exceptions
+- logging
+- multilanguage
+- security
+- sessions
+- themes
+  - themenames
+- user
+- modules
+  - modulenames
+( if a module doesn't fit a package mentioned it comes in the modules package)
+
+Examples:
+=========
+privileges module:
+------------------
+@package security
+@subpackage privileges
+
+hitcount module:
+----------------
+@package modules
+@subpackage hitcount
+ 
 PHPdoc header for files:
 ========================
 
@@ -45,6 +83,9 @@ PHPdoc header for functions:
   @todo should contain the developers name who is asking for the todo.. the text should be containted in the 
   @todo tag... the # attribute is optional.. but makes it easier to search where the todo is in the file
   mark the area in the code where the todo is contained by using // TODO: X where X = #
+
+
+
 PHPdoc header for classes
 =========================
 /**
@@ -53,7 +94,7 @@ PHPdoc header for classes
  * A somewhat longer description of the class which
  * may be on multiple lines and can contain examples
  *
- * @package unuassigned - replace with packagename
+ * @package unassigned - replace with packagename
  * @author Author Name <author@email>
  * @deprec date since deprecated <insert if class is deprecated>
  * @todo  todo-item, specify each with new tag

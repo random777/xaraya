@@ -1,0 +1,15 @@
+The PMC will use the following criteria when approving a module for inclusion in a
+formal distribution:
+
+* init/activate/removal
+* registered id in xarversion.php
+* api compliance
+* absence of legacy code
+* usage of BL templates
+* RFC compliance
+* working with the default theme of xaraya
+* phpdoc header/documentation in general
+* Common sense 
+
+
+

@@ -8,164 +8,172 @@ This is the xaraya buildfile. It builds anything needed building:
 - documentation
 -->
 <project name="xaraya" basedir="." default="help">
-
-    <!-- Some essential properties on which the rest really depends -->
-    <property name="version" value="0.9.0.5" />
-    <property name="releaselog" value="releaselog-0.904-0.905.txt" />
-    <property name="final.name" value="${phing.project.name}-${version}" />
-
-    <!-- module lists -->   
-    <!-- The core modules, should be in every distro, it just doesn't work without them -->
-    <property name="modules.core" value="adminpanels,authsystem,base,blocks,dynamicdata,installer,mail,modules,privileges,roles,themes,sniffer"/>
-    <!-- Base modules, when added to the core modules, you get a base system -->
-    <property name="modules.base" value="articles,autolinks,bloggerapi,categories,comments,example,formcontrols,hitcount,metaweblogapi,ratings,search,soapserver,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+  
+  <!-- Some essential properties on which the rest really depends -->
+  <property name="version" value="0.9.0.5" />
+  <property name="releaselog" value="releaselog-0.904-0.905.txt" />
+  <property name="final.name" value="${phing.project.name}-${version}" />
+  
+  <!-- module lists -->   
+  <!-- The core modules, should be in every distro, it just doesn't work without them -->
+  <property name="modules.core" value="adminpanels,authsystem,base,blocks,dynamicdata,installer,mail,modules,privileges,roles,themes,sniffer"/>
+  <!-- Base modules, when added to the core modules, you get a base system -->
+  <property name="modules.base" value="articles,autolinks,bloggerapi,categories,comments,example,formcontrols,hitcount,metaweblogapi,ratings,search,soapserver,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+  
+  <!-- source tree properties -->
+  <property name="html.dir" value="html" />
+  <property name="docs.dir" value="docs" />
+  <property name="tests.dir" value="tests" />
+  <property name="sql.dir" value="sql"/>
+  
+  <!-- build tree properties -->
+  <property name="build.basedir" value="build"/>
+  <property name="build.dir" value="${build.basedir}/${final.name}"/>
+  <property name="build.docs" value="${build.dir}/docs"/>
+  <property name="build.sql" value="${build.dir}/sql" />
+  <property name="build.tests" value="${build.dir}/tests"/>
+  <property name="build.html" value="${build.dir}/html"/>
+  
+  
+  <!--
+  Default target that only displays some help
+  -->
+  <target name="help" description="--> displays a brief help">
+    <echo message="Please call 'bk build -projecthelp' for details" />
+  </target>
+  
+  <!-- 
+  Main target that runs the build
+  -->
+  <target name="makedist" description="--> creates a distribution of Xaraya">
+    <echo message="Copying files to build dir" />
     
-    <!-- source tree properties -->
-    <property name="html.dir" value="html" />
-    <property name="docs.dir" value="docs" />
-    <property name="tests.dir" value="tests" />
-    <property name="sql.dir" value="sql"/>
-
-    <!-- build tree properties -->
-    <property name="build.dir" value="build/${final.name}"/>
-    <property name="build.docs" value="${build.dir}/docs"/>
-    <property name="build.sql" value="${build.dir}/sql" />
-    <property name="build.tests" value="${build.dir}/tests"/>
-    <property name="build.html" value="${build.dir}/html"/>
-
-   
-    <!--
-      Default target that only displays some help
-    -->
-    <target name="help" description="--> displays a brief help">
-        <echo message="Please call 'bk build -projecthelp' for details" />
-    </target>
-
-    <!-- 
-      Main target that runs the build
-    -->
-    <target name="makedist" description="--> creates a distribution of Xaraya">
-        <echo message="Copying files to build dir" />
+    <!-- Copy the usual suspects for GPL alike projects -->
+    <mkdir dir="${build.dir}" />
+    <copy todir="${build.dir}">
+      <fileset dir="${docs.dir}">
+        <include name="CREDITS.txt" />
+        <include name="INSTALL.txt" />
+        <include name="LICENSE.txt" />
+        <include name="${releaselog}" />
+      </fileset>
+    </copy>
+    
+    <!-- Process docs directory -->
+    <mkdir dir="${build.docs}" />
+    <copy todir="${build.docs}">
+      <fileset dir="${docs.dir}">
+        <include name="bk/*.txt" />
+        <exclude name="SCCS/**" />
+      </fileset>
+    </copy>
+    
+    <!-- Proces tests directory -->
+    <mkdir dir="${build.tests}"/>
+    <copy todir="${build.tests}">
+      <fileset dir="${tests.dir}">
+        <include name="caching/**"/>
+        <include name="import/**"/>
+        <include name="modwizard/**"/>
+        <exclude name="SCCS/**"/>
+      </fileset>
+    </copy>
+    
+    <!-- Process html directory -->
+    <mkdir dir="${build.html}"/>
+    <copy todir="${build.html}">
+      <fileset dir="${html.dir}">
+        <include name="includes/**"/>
+        <exclude name="includes/xml/**"/>
+        <exclude name="includes/xartests/**"/>
         
-        <!-- Copy the usual suspects for GPL alike projects -->
-        <mkdir dir="${build.dir}" />
-        <copy todir="${build.dir}">
-          <fileset dir="${docs.dir}">
-            <include name="CREDITS.txt" />
-            <include name="INSTALL.txt" />
-            <include name="LICENSE.txt" />
-            <include name="${releaselog}" />
-          </fileset>
-        </copy>
-
-        <!-- Process docs directory -->
-        <mkdir dir="${build.docs}" />
-        <copy todir="${build.docs}">
-          <fileset dir="${docs.dir}">
-            <include name="bk/*.txt" />
-            <exclude name="SCCS/**" />
-          </fileset>
-        </copy>
-
-        <!-- Proces tests directory -->
-        <mkdir dir="${build.tests}"/>
-        <copy todir="${build.tests}">
-          <fileset dir="${tests.dir}">
-            <include name="caching/**"/>
-            <include name="import/**"/>
-            <include name="modwizard/**"/>
-            <exclude name="SCCS/**"/>
-          </fileset>
-        </copy>
-
-        <!-- Process html directory -->
-        <mkdir dir="${build.html}"/>
-        <copy todir="${build.html}">
-          <fileset dir="${html.dir}">
-            <include name="includes/**"/>
-            <exclude name="includes/xml/**"/>
-
-            <include name="themes/installer/**"/>
-            <include name="themes/print/**"/>
-            <include name="themes/rss/**"/>
-            <include name="themes/Xaraya_Classic/**"/>
-            <include name="themes/index.html"/>
-            
-            <include name="var/index.html"/>
-            <include name="var/**/index.html"/>
-            <include name="var/rsd.xml"/>
-          
-            <include name="var/locales/en_US.iso-8859-1/**"/>
-            <include name="var/locales/en_US.utf-8/**"/>
-
-            <include name="xaradodb/**"/>
-
-            <include name="index.php"/>
-            <include name="ws.php"/>
-            <include name="install.php"/>
-            <include name="upgrade.php"/>
-            <include name="val.php"/>
-
-            <exclude name="xartests/**"/>
-            <exclude name="SCCS/**"/>
-          </fileset>
-        </copy>
-
-        <!-- Handle the sql directory -->
-        <mkdir dir="${build.sql}"/>
-        <copy todir="${build.sql}">
-          <fileset dir="${sql.dir}">
-            <include name="*.sql"/>
-            <exclude name="SCCS/**"/>
-          </fileset>
-        </copy>
-
-        <!-- Copy config.system.php.dist to config.system.php -->
-        <copy file="${html.dir}/var/config.system.php.dist" tofile="${build.html}/var/config.system.php"/>
-
-        <!-- Modules are a bit separate -->
-        <foreach list="modules.core" target="copymodule" param="module.name"/>
-      
-        <!--- here we can make the core distribution -->
-
-        <!-- Modules are a bit separate -->
-        <foreach list="modules.base" target="copymodule" param="module.name"/>
-
-        <!-- here we can make the base distribution -->
-
-        <echo message="Creating tarball from build directory" />
-        <!-- 
-          TODO: This should be done with TarTask as soon as it is finished
-        -->
-        <tar outfile="build/${final.name}.tar.gz" usegzip="true">
-            <fileset dir="build">
-                <include name="${final.name}/**" />
-            </fileset>
-        </tar>
-    </target>
-
-    <!-- copy a module into the build tree -->
-    <target name="copymodule" if="module.name">
-      <echo msg="Copying module ${module.name} into build tree..."/>
-      <copy todir="${build.html}/modules/${module.name}">
-        <fileset dir="${html.dir}/modules/${module.name}">
-          <include name="**"/>
-          <exclude name="SCCS/**"/>
-        </fileset>
-      </copy>
-    </target>
-
-    <!--
-      Helper targets
-    -->
-    <target name="clean" description="--> cleans up the buildtree">
-        <echo msg="Distclean cleaning up..." />
-        <delete dir="${build.dir}" />
-    </target>
-
-    <target name="rebuild" depends="clean" description="--> rebuilds Xaraya">
-        <echo msg="Starting new build..." />
-        <phingcall target="makedist" />
-    </target>
-
+        <include name="themes/installer/**"/>
+        <include name="themes/print/**"/>
+        <include name="themes/rss/**"/>
+        <include name="themes/Xaraya_Classic/**"/>
+        <include name="themes/index.html"/>
+        
+        <include name="var/index.html"/>
+        <include name="var/**/index.html"/>
+        <include name="var/rsd.xml"/>
+        
+        <include name="var/locales/en_US.iso-8859-1/**"/>
+        <include name="var/locales/en_US.utf-8/**"/>
+        
+        <include name="xaradodb/**"/>
+        
+        <include name="index.php"/>
+        <include name="ws.php"/>
+        <include name="install.php"/>
+        <include name="upgrade.php"/>
+        <include name="val.php"/>
+        
+        <exclude name="SCCS/**"/>
+      </fileset>
+    </copy>
+    
+    <!-- Handle the sql directory -->
+    <mkdir dir="${build.sql}"/>
+    <copy todir="${build.sql}">
+      <fileset dir="${sql.dir}">
+        <include name="*.sql"/>
+        <exclude name="SCCS/**"/>
+      </fileset>
+    </copy>
+    
+    <!-- Copy config.system.php.dist to config.system.php -->
+    <copy file="${html.dir}/var/config.system.php.dist" tofile="${build.html}/var/config.system.php"/>
+    
+    <!-- Modules are a bit separate -->
+    <foreach list="modules.core" target="copymodule" param="module.name"/>
+    
+    <!--- here we can make the core distribution -->
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-core.tar.gz"/>
+    </phingcall>
+    
+    <!-- Modules are a bit separate -->
+    <foreach list="modules.base" target="copymodule" param="module.name"/>
+    
+    <!-- here we can make the base distribution -->
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-base.tar.gz"/>
+    </phingcall>
+    
+  </target>
+  
+  <!-- copy a module into the build tree -->
+  <target name="copymodule" if="module.name">
+    <echo msg="Copying module ${module.name} into build tree..."/>
+    <copy todir="${build.html}/modules/${module.name}">
+      <fileset dir="${html.dir}/modules/${module.name}">
+        <include name="**"/>
+        <exclude name="SCCS/**"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <!-- Create a tarball from the current contents of the build tree -->
+  <target name="createtarball" if="tarball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <tar outfile="${build.basedir}/${tarball.name}" usegzip="true">
+      <fileset dir="${build.basedir}">
+        <include name="${final.name}/**" />
+      </fileset>
+    </tar>
+  </target>
+  
+  <!--
+  Helper targets
+  -->
+  <target name="clean" description="--> cleans up the buildtree">
+    <echo msg="Distclean cleaning up..." />
+    <delete dir="${build.dir}" />
+  </target>
+  
+  <target name="rebuild" depends="clean" description="--> rebuilds Xaraya">
+    <echo msg="Starting new build..." />
+    <phingcall target="makedist" />
+  </target>
+  
 </project>

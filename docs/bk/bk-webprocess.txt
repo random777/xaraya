@@ -159,17 +159,17 @@ Actual Web Implementation(s):
 
 Site: bk.xaraya.com
 --------------------
-Repository : /usr/local/repositories/websites/bk
+[DONE] Repository : /usr/local/repositories/websites/bk
 Development clone: N/A
-Staging clone: /var/www-ssl/ddf/staging.xaraya.com/bk/
+[DONE] Staging clone: /var/www-ssl/ddf/staging.xaraya.com/bk/
 Production clone: /var/www/ddf/bk.xaraya.com
 
 
 Site: bugs.xaraya.com
 ---------------------
-Repository : /usr/local/repositories/websites/bugs
+[DONE] Repository : /usr/local/repositories/websites/bugs
 Development clone: N/A
-Staging clone: 	/var/www-ssl/ddf/staging.xaraya.com/bugs/
+Staging clone: 	N/A
 Production clone: /var/www/ddf/bugs.xaraya.com
 
 As this site is bugzilla, this might need some extra stuff.
@@ -179,17 +179,18 @@ Problems observed:
 
 Site: www.xaraya.com
 --------------------
-Repository : /usr/local/repositories/websites/www
-Development clone: /var/www-ssl/ddf/concept.xaraya.com/www/
-Staging clone: /var/www-ssl/ddf/staging.xaraya.com/www/
+
+[DONE] Repository : /usr/local/repositories/websites/www
+[DONE] Development clone: /var/www-ssl/ddf/concept.xaraya.com/www/
+[DONE] Staging clone: /var/www-ssl/ddf/staging.xaraya.com/www/
 Production clone: /var/www/ddf/www.xaraya.com/
 
 
 Site: developer.xaraya.com
 --------------------------
-Repository : /usr/local/repositories/websites/developer
+[DONE] Repository : /usr/local/repositories/websites/developer
 Development clone: N/A
-Staging clone : /var/www-ssl/ddf/staging.xaraya.com/www/
+[DONE] Staging clone : /var/www-ssl/ddf/staging.xaraya.com/developer/
 Production clone: /var/www-ssl/ddf/developer.xaraya.com
 
 Site : news.xaraya.com

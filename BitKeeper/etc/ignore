@@ -1,6 +1,13 @@
 *.DS_Store
 .directory
-BitKeeper/*/*
+BitKeeper/etc/*
+BitKeeper/log/*
+BitKeeper/tmp/*
+BitKeeper/reader/*
+BitKeeper/writer/*
+BitKeeper/deleted/*
+BitKeeper/triggers/*
+templates_c
 PENDING/*
 config.site.xml
 config.system.php

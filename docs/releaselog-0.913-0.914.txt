@@ -1,0 +1,487 @@
+Release notes for release B914.
+Changes from B913 to B914:
+
+2003-10-29: marcel@hsdev.com: ChangeSet 1.1645
+  Adapt the build file, so sniffer will be included in base distro instead of core distro
+  	* build.xml:
+	  Adapt the build file, so sniffer will be included in base distro instead of core distro 
+2003-10-29: marcel@hsdev.com: ChangeSet 1.1644
+  Adapt for moving sniffer to modules repository
+  	* html/modules/installer/xaradmin.php:
+	  sniffer is not installed in core distro now 
+ 	* html/modules/base/xarinit.php:
+	  sniffer is not installed by core distro now 
+2003-10-29: marcel@hsdev.com: ChangeSet 1.1643
+  Moving sniffer out of the core repository
+  	* BitKeeper/deleted/.del-xarSniff.php~3cca1692adb9fcb1:
+	  Delete: html/modules/sniffer/class/xarSniff.php 
+ 	* BitKeeper/deleted/.del-phpSniff.core.php~f55175ecd696ac2:
+	  Delete: html/modules/sniffer/class/phpSniff.core.php 
+ 	* BitKeeper/deleted/.del-xarversion.php~a77bb070:
+	  Delete: html/modules/sniffer/xarversion.php 
+ 	* BitKeeper/deleted/.del-phpSniff.class.php~3acbc873a3f538a:
+	  Delete: html/modules/sniffer/class/phpSniff.class.php 
+ 	* BitKeeper/deleted/.del-xaruserapi.php~450fe121a3d8106c:
+	  Delete: html/modules/sniffer/xaruserapi.php 
+ 	* BitKeeper/deleted/.del-xartables.php~7fefeead1622143b:
+	  Delete: html/modules/sniffer/xartables.php 
+ 	* BitKeeper/deleted/.del-xarinit.php~8ee103d57b909342:
+	  Delete: html/modules/sniffer/xarinit.php 
+ 	* BitKeeper/deleted/.del-xareventapi.php~9efc5074a7410431:
+	  Delete: html/modules/sniffer/xareventapi.php 
+2003-10-28: shrockc@inhs.org: ChangeSet 1.1641
+  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension)
+  	* html/includes/properties/Dynamic_Yahoo_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Username_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_UserList_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Upload_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_URL_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_URLTitle_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_URLIcon_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_TextUpload_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_TextBox_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_TextArea_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_StateList_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Select_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_PayPalSubscription_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_PayPalNow_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_PayPalDonate_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_PayPalCart_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_MultiSelect_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_MSN_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Image_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_ImageList_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_ICQ_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Hidden_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_HTMLPage_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_HTMLArea_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_FloatBox_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_FileUpload_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Email_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_CountryList_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Checkbox_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Calendar_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_Affero_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+ 	* html/includes/properties/Dynamic_AIM_Property.php:
+	  get <xar:data-output> to accept multiple parameters, part 2 (showOutput($value = null) needed to be changed to showOutput($args = array() and an extract done in order to allow future extension) 
+2003-10-28: shrockc@inhs.org: ChangeSet 1.1640
+  handleoutputtag.php:  allows the BL DD tag <xar:data output> to accept multiple attributes just like <xar:data-input> canDynamic_Calendar_Property.php:  fixed calendar display when outputting form in cell mode  added dateformat attribute to dynamicdata calendar property showInput() and showOutput() member functions
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/modules/dynamicdata/xaruserapi/handleoutputtag.php:
+	  allows the BL DD tag <xar:data output> to accept multiple attributes just like <xar:data-input> can 
+ 	* html/includes/properties/Dynamic_Calendar_Property.php:
+	  fixed calendar display when outputting form in cell modeadded dateformat attribute to dynamicdata calendar property showInput() and showOutput() member functions 
+2003-10-28: marcel@hsdev.com: ChangeSet 1.1638.1.1
+  cli php like
+  	* tests/file_slicer.php:
+	  Change mode to -rwxrwxr-x 
+ 	* tests/file_slicer.php:
+	  cli alike 
+2003-10-28: mikespub@fully.qualified.hostname: ChangeSet 1.1639
+  support . in short URL params
+  	* html/includes/xarServer.php:
+	  support . in short URL params 
+2003-10-28: marcel@hsdev.com: ChangeSet 1.1638
+  Same as previous cset, only right this time. Thanks to Rolf, who is far better at this stuff
+  	* html/modules/base/xartemplates/blocks/sidemenu.xd:
+	  repaired my own mess 
+2003-10-28: marcel@hsdev.com: ChangeSet 1.1637
+  - simplify the template a bit- make it have same contextual structure as admin menu- use ul,li combo and let css use contextual selectors
+  	* html/modules/base/xartemplates/blocks/sidemenu.xd:
+	  - simplify the template a bit- make it have same contextual structure as admin menu- use ul,li combo and let css use contextual selectors 
+2003-10-28: marcel@hsdev.com: ChangeSet 1.1633.1.1
+  A daemon in PHP, could be of use for some areas, look in the file for ideas
+  	* tests/daemon/xardaemon.php:
+	   
+ 	* tests/daemon/xardaemon.php:
+	  BitKeeper file /var/www/xar/core/stable/tests/daemon/xardaemon.php 
+2003-10-28: marcel@hsdev.com: ChangeSet 1.1635
+  Put docs in the docs folder in distro
+  	* build.xml:
+	  put docs in the docs folder 
+2003-10-28: jojodee@hbwdev.net: ChangeSet 1.1616.2.1
+  Fix hardcoded table prefix bug #1458
+  	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  Fix hardcoded table prefix bug #1458 
+2003-10-27: rcave@rcave01.schwabfoundation.org: ChangeSet 1.1633
+  Partial fix to 1438.
+  	* html/themes/Xaraya_Classic/style/comments.css:
+	  Remove whitespace and change column width. 
+2003-10-27: voll@yahoo.com: ChangeSet 1.1616.1.1
+  add tests for php and tpl MLS parsing
+  	* tests/multi-language/parsing-test/parser-test.xd:
+	   
+ 	* tests/multi-language/parsing-test/parser-test.php:
+	   
+ 	* tests/multi-language/parsing-test/TPLParserTest.php:
+	   
+ 	* tests/multi-language/parsing-test/PHPParserTest.php:
+	   
+ 	* tests/multi-language/parsing-test/parser-test.xd:
+	  BitKeeper file C:/bk/stable/tests/multi-language/parsing-test/parser-test.xd 
+ 	* tests/multi-language/parsing-test/parser-test.php:
+	  BitKeeper file C:/bk/stable/tests/multi-language/parsing-test/parser-test.php 
+ 	* tests/multi-language/parsing-test/TPLParserTest.php:
+	  BitKeeper file C:/bk/stable/tests/multi-language/parsing-test/TPLParserTest.php 
+ 	* tests/multi-language/parsing-test/PHPParserTest.php:
+	  BitKeeper file C:/bk/stable/tests/multi-language/parsing-test/PHPParserTest.php 
+2003-10-27: nuncanada@botelho2.(none): ChangeSet 1.1631
+  Minor consistency fix for modules module
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/modules/modules/xaradminapi/getdbmodules.php:
+	  Get info from the database instead of the files 
+2003-10-27: marc@marclaptop.: ChangeSet 1.1620.1.1
+  admin-showusers.xd:  fix bug 1449  we need to review state transitions more thoroughly here
+  	* html/modules/roles/xartemplates/admin-showusers.xd:
+	  fix bug 1449we need to review state transitions more thoroughly here 
+2003-10-27: marcel@hsdev.com: ChangeSet 1.1629
+  Merge hsdev.com:/home/mrb/dev/ddf/xar/core/stableinto hsdev.com:/var/www/xar/core/stable
+  	* html/includes/xarTemplate.php:
+	  Auto merged 
+2003-10-27: marcel@hsdev.com: ChangeSet 1.1624.1.1
+  Replaced email address on marcos request
+  	* tests/old/xarUser.php:
+	  replaced email on marcos request 
+ 	* html/modules/blocks/xaradminapi/load.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarUser.php:
+	  replaced email on marcos request 
+ 	* docs/rfc/rfc0010.xml:
+	  replaced email on marcos request 
+ 	* html/includes/xarMLSXMLBackend.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarTemplate.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarSession.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarVar.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarServer.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarMod.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarLog.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarMLS.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarException.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarEvt.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarCore.php:
+	  replaced email on marcos request 
+ 	* html/includes/xarBlocks.php:
+	  replaced email on marcos request 
+2003-10-27: John.Cox@mcnabb.: ChangeSet 1.1628
+  Merge niceguyeddie@xaraya.com:/usr/local/repositories/xaraya/core/stableinto mcnabb.:C:/cygwin/home/phpdev/www/dev/stable
+  	* html/upgrade.php:
+	  Auto merged 
+2003-10-27: John.Cox@mcnabb.: ChangeSet 1.1627
+  upped the version number
+  	* html/upgrade.php:
+	  upped the version number 
+ 	* html/modules/base/xarinit.php:
+	  upped the version number 
+ 	* docs/INSTALL.txt:
+	  upped the version number 
+2003-10-27: miko@xaraya.com: ChangeSet 1.1625.1.1
+  upgrade.php:  missing </div>
+  	* html/upgrade.php:
+	  missing </div> 
+2003-10-27: John.Cox@mcnabb.: ChangeSet 1.1612.2.1
+  slight change to not mask exception.
+  	* BitKeeper/etc/ignore:
+	  Added html/modules/paypalipn/xardocs/BATCH.txt to the ignore list 
+ 	* html/modules/roles/xaruser/lostpassword.php:
+	  slight change to not mask exception. 
+2003-10-27: mikespub@fully.qualified.hostname: ChangeSet 1.1625
+  clarify usage of xarTpl*String functions (used e.g. for pubsub templates)
+  	* html/includes/xarTemplate.php:
+	  clarify usage of xarTpl*String functions (used e.g. for pubsub templates) 
+2003-10-27: marcel@hsdev.com: ChangeSet 1.1624
+  Adapt for new bk version
+  	* BitKeeper/custom/install.txt:
+	  Adapt for new bk version 
+2003-10-27: marcel@hsdev.com: ChangeSet 1.1623
+  Updated bk.script for bk version 3.0.3
+  	* BitKeeper/custom/bk.script-3.0.3:
+	   
+ 	* BitKeeper/custom/bk.script-3.0.3:
+	  BitKeeper file /home/mrb/dev/ddf/xar/core/stable/BitKeeper/custom/bk.script-3.0.3 
+2003-10-26: Jason.Judge@acad-ajp.: ChangeSet 1.1622
+  Prepare property values and defaults for form layout (no bug raised).
+  	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  Prepare property values and defaults for form layout (no bug raised). 
+ 	* html/modules/dynamicdata/xartemplates/admin-modifyconfighook.xd:
+	  Prepare property values and defaults for form layout (no bug raised). 
+2003-10-26: marcel@hsdev.com: ChangeSet 1.1621
+  preparing for 0.9.1.4
+  	* html/includes/xarCore.php:
+	  preparing for 0.9.1.4 
+ 	* build.xml:
+	  preparing for 0.9.1.4 
+2003-10-26: marc@marclaptop.: ChangeSet 1.1618.1.1
+  Cset exclude: marc@marclaptop.|ChangeSet|20031025205944|58781Cset exclude: marc@marclaptop.|ChangeSet|20031025203817|58769Cset exclude: marc@marclaptop.|ChangeSet|20031025203537|58030Cset exclude: marc@marclaptop.|ChangeSet|20031025125848|60899Cset exclude: marc@marclaptop.|ChangeSet|20031025125626|55224Cset exclude: marc@marclaptop.|ChangeSet|20031025074954|55174Cset exclude: marc@marclaptop.|ChangeSet|20031025074729|33432
+  	* html/modules/modules/xaradminapi/setstate.php:
+	  Exclude 
+ 	* html/modules/modules/xaradminapi/remove.php:
+	  Exclude 
+ 	* html/modules/modules/xaradminapi/regenerate.php:
+	  Exclude 
+ 	* html/modules/modules/xaradminapi/getfilemodules.php:
+	  Exclude 
+ 	* html/modules/modules/xaradminapi/getlist.php:
+	  Exclude 
+ 	* html/modules/modules/xaradmin/list.php:
+	  Exclude 
+ 	* html/modules/modules/xaradmin/deactivate.php:
+	  Exclude 
+2003-10-25: ccorliss@lxwdev-1.schwabfoundation.org: ChangeSet 1.1609.1.1
+  style.css:  import the comments stylesheet (provided by AndyV).  this is where I'm throwing it for now until we figure out what  we are going to do about overrideable module stylesheetscomments.css:  new file
+  	* html/themes/Xaraya_Classic/style/style.css:
+	  import the comments stylesheet (provided by AndyV).this is where I'm throwing it for now until we figure out whatwe are going to do about overrideable module stylesheets 
+ 	* html/themes/Xaraya_Classic/style/comments.css:
+	   
+ 	* html/themes/Xaraya_Classic/style/comments.css:
+	  BitKeeper file /var/schwabfoundation/developers/rabbitt/stable/html/themes/Xaraya_Classic/style/comments.css 
+2003-10-25: mikespub@fully.qualified.hostname: ChangeSet 1.1612.1.4
+  prepare the way for module & block caching
+  	* tests/caching/includes/xarCache.php:
+	  prepare the way for module & block caching 
+2003-10-24: Jason.Judge@acad-ajp.: ChangeSet 1.1612
+  Bug 1109: new tag base-render-javascript to render head or body javascript in a template (any template - not just the page template).
+  	* html/modules/base/xartemplates/javascript-render.xd:
+	   
+ 	* html/modules/base/xarjavascriptapi/handlerenderjavascript.php:
+	   
+ 	* html/modules/base/xartemplates/javascript-render.xd:
+	  BitKeeper file F:/bk/stable/html/modules/base/xartemplates/javascript-render.xd 
+ 	* html/modules/base/xarjavascriptapi/handlerenderjavascript.php:
+	  BitKeeper file F:/bk/stable/html/modules/base/xarjavascriptapi/handlerenderjavascript.php 
+ 	* html/themes/Xaraya_Classic/pages/default.xt:
+	  Bug 1109: Added sample tag to page template for JavaScript rendering.Commented out for now until we can get the new tag registered during an upgrade. 
+ 	* html/themes/Xaraya_Classic/pages/admin.xt:
+	  Bug 1109: Added sample tag to page template for JavaScript rendering.Commented out for now until we can get the new tag registered during an upgrade. 
+ 	* html/modules/base/xarjavascriptapi/handlemodulejavascript.php:
+	  Correction to comment. 
+ 	* html/modules/base/xarinit.php:
+	  Bug 1109: register base-render-javascript tag with installation of the base module. 
+2003-10-24: Jason.Judge@acad-ajp.: ChangeSet 1.1611
+  Add API to include dynamic JS fragments from within a module. Allows xarML() and other such stuff to be used to generate inline JavaScript code.
+  	* html/modules/base/xarjavascriptapi/moduleinline.php:
+	   
+ 	* html/modules/base/xarjavascriptapi/moduleinline.php:
+	  BitKeeper file F:/bk/stable/html/modules/base/xarjavascriptapi/moduleinline.php 
+2003-10-23: jbeames@sting.in-beames.net: ChangeSet 1.1610
+  A
+  	* tests/caching/modules/xarcachemanager/xartemplates/admin-flushcache.xd:
+	   
+ 	* tests/caching/modules/xarcachemanager/xartemplates/admin-flushcache.xd:
+	  BitKeeper file /home/jbeames/projects/jsb/stable/tests/caching/modules/xarcachemanager/xartemplates/admin-flushcache.xd 
+ 	* tests/caching/modules/xarcachemanager/xaradmin/flushcache.php:
+	   
+ 	* tests/caching/modules/xarcachemanager/xartemplates/admin-modifyconfig.xd:
+	  Added mlstring tags. 
+ 	* tests/caching/modules/xarcachemanager/xaradminapi/getmenulinks.php:
+	  Added a Flush Cache menu link. 
+ 	* tests/caching/modules/xarcachemanager/xaradmin/flushcache.php:
+	  BitKeeper file /home/jbeames/projects/jsb/stable/tests/caching/modules/xarcachemanager/xaradmin/flushcache.php 
+2003-10-23: John.Cox@mcnabb.: ChangeSet 1.1609
+  fix for bug 1411
+  	* html/modules/base/xartemplates/blocks/menuAdmin.xd:
+	  fix for bug 1411 
+2003-10-24: mikespub@fully.qualified.hostname: ChangeSet 1.1608
+  add hints about using item types in RFC 42 + a note in RFC 43 about current usage
+  	* docs/rfc/rfc0043.xml:
+	  add hints about using item types in RFC 42 + a note in RFC 43 about current usage 
+ 	* docs/rfc/rfc0042.xml:
+	  add hints about using item types in RFC 42 + a note in RFC 43 about current usage 
+2003-10-22: ccorliss@lxwdev-1.schwabfoundation.org: ChangeSet 1.1607
+  file_slicer.php:  new file
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* BitKeeper/deleted/.del-file_slicer~97b737af5f250fb3:
+	  Delete: tests/file_slicer 
+ 	* tests/file_slicer.php:
+	   
+ 	* tests/file_slicer.php:
+	  BitKeeper file /var/schwabfoundation/developers/rabbitt/stable/tests/file_slicer.php 
+ 	* BitKeeper/deleted/.del-file_slicer.php~d30f91028a4ac23c:
+	  Delete: tests/file_slicer.php 
+ 	* BitKeeper/deleted/.del-file_slicer~97b737af5f250fb3:
+	   
+ 	* BitKeeper/deleted/.del-file_slicer~97b737af5f250fb3:
+	  BitKeeper file /var/schwabfoundation/developers/rabbitt/stable/tests/file_slicer 
+ 	* BitKeeper/deleted/.del-file_slicer.php~d30f91028a4ac23c:
+	   
+ 	* BitKeeper/deleted/.del-file_slicer.php~d30f91028a4ac23c:
+	  BitKeeper file /var/schwabfoundation/developers/rabbitt/stable/tests/file_slicer.php 
+2003-10-22: Jason.Judge@acad-ajp.: ChangeSet 1.1604.1.1
+  Bug 1109: changed registered tag name to 'base-include-javascript' for naming consistency (re RFC10)
+  	* html/modules/base/xarinit.php:
+	  Bug 1109: changed registered tag name to 'base-include-javascript' for naming consistency (re RFC10) 
+2003-10-22: mikespub@fully.qualified.hostname: ChangeSet 1.1605
+  just say "when" - support for scheduled mail (no earlier than)
+  	* html/modules/mail/xartemplates/admin-modifyconfig.xd:
+	  just say "when" - support for scheduled mail (no earlier than) 
+ 	* html/modules/mail/xartemplates/admin-main.xd:
+	  just say "when" - support for scheduled mail (no earlier than) 
+ 	* html/modules/mail/xartemplates/admin-compose.xd:
+	  just say "when" - support for scheduled mail (no earlier than) 
+ 	* html/modules/mail/xarinit.php:
+	  just say "when" - support for scheduled mail (no earlier than) 
+ 	* html/modules/mail/xaradminapi.php:
+	  just say "when" - support for scheduled mail (no earlier than) 
+ 	* html/modules/mail/xaradmin.php:
+	  just say "when" - support for scheduled mail (no earlier than) 
+ 	* html/modules/mail/xarschedulerapi/sendmail.php:
+	   
+ 	* html/modules/mail/xarschedulerapi/index.html:
+	   
+ 	* html/modules/mail/xarschedulerapi/sendmail.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/mail/xarschedulerapi/sendmail.php 
+ 	* html/modules/mail/xarschedulerapi/index.html:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/mail/xarschedulerapi/index.html 
+2003-10-22: Jason.Judge@acad-ajp.: ChangeSet 1.1601.1.1
+  Bug 1109: add handler for the 'include-javascript' BL tag.
+  	* html/modules/base/xarjavascriptapi/handlemodulejavascript.php:
+	   
+ 	* html/modules/base/xarjavascriptapi/handlemodulejavascript.php:
+	  BitKeeper file F:/bk/stable/html/modules/base/xarjavascriptapi/handlemodulejavascript.php 
+ 	* html/modules/base/xarinit.php:
+	  Bug 1109: register 'include-javascript' tag. 
+2003-10-22: marcel@hsdev.com: ChangeSet 1.1603
+  We maken niemand blij met een dooie mus ;-)
+  	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  We maken niemand blij met een dooie mus ;-) 
+ 	* html/modules/adminpanels/xaradmin/modifyconfig.php:
+	  We maken niemand blij met een dooie mus ;-) 
+2003-10-22: marcel@hsdev.com: ChangeSet 1.1602
+  Adminpanel modules by name, bug 1419 fixed
+  	* html/modules/adminpanels/xartemplates/blocks/sidemenu.xd:
+	  Adminpanels by name, why was that removed? 
+2003-10-22: marc@marclaptop.: ChangeSet 1.1601
+  xarMLSXMLBackend.php:  finally got it right...xarMLSXMLBackend.php, xarMLS.php:  more rearrangingxarMLSXMLBackend.php:  getting sloppy and doing everything twice..  more futzing with skels generation
+  	* html/includes/xarMLSXMLBackend.php:
+	  finally got it right... 
+ 	* html/includes/xarMLSXMLBackend.php:
+	  more rearranging 
+ 	* html/includes/xarMLS.php:
+	  more rearranging 
+ 	* html/includes/xarMLSXMLBackend.php:
+	  getting sloppy and doing everything twice.. 
+ 	* html/includes/xarMLSXMLBackend.php:
+	  more futzing with skels generation 
+2003-10-22: marc@marclaptop.: ChangeSet 1.1598.1.1
+  xarMLSXMLBackend.php, xarMLS.php:  moving to suppress strings in new skels generatedxarDate.php:  fix bug 1400
+  	* html/includes/xarMLSXMLBackend.php:
+	  moving to suppress strings in new skels generated 
+ 	* html/includes/xarMLS.php:
+	  moving to suppress strings in new skels generated 
+ 	* html/includes/xarDate.php:
+	  fix bug 1400 
+2003-10-22: marcel@hsdev.com: ChangeSet 1.1599
+  Subdata attribute and assert failure logging
+  	* html/includes/xarBLCompiler.php:
+	  - resolve subdata attribute- added some logging before the assertion, helps with bug 1416 
+2003-10-21: rcave@rcave01.schwabfoundation.org: ChangeSet 1.1598
+  Column definitions for PostgreSQL and Oracle returned false ifa default value was passed with an alter table.  This preventedthe alter table from actually occurring.
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/includes/xarTableDDL.php:
+	  Changed alter table for PostgreSQL and Oracle to handle columnvalues appropriately. 
+2003-10-22: marc@marclaptop.: ChangeSet 1.1595.1.1
+  xarMLSXMLBackend.php, xarMLS.php:  vile hack of loadContext
+  	* html/includes/xarMLSXMLBackend.php:
+	  vile hack of loadContext 
+ 	* html/includes/xarMLS.php:
+	  vile hack of loadContext 
+2003-10-22: voll@yahoo.com: ChangeSet 1.1596
+  small legacy fix
+  	* html/includes/pnLegacy.php:
+	  small legacy fix 
+2003-10-21: marc@marclaptop.: ChangeSet 1.1595
+  xarException.php:  fix that early xarmodurl not exists error
+  	* html/includes/xarException.php:
+	  fix that early xarmodurl not exists error 
+2003-10-21: marc@marclaptop.: ChangeSet 1.1594
+  Merge marcinmilan@xaraya.com:/usr/local/repositories/xaraya/core/stableinto marclaptop.:C:/inetpub/wwwroot/stable
+  	* html/includes/xarMod.php:
+	  Auto merged 
+ 	* html/includes/xarMLS.php:
+	  Auto merged 
+2003-10-21: marc@marclaptop.: ChangeSet 1.1591.1.1
+  xarMod.php:  no changexarMLS.php:  small changes
+  	* html/includes/xarMod.php:
+	  no change 
+ 	* html/includes/xarMLS.php:
+	  small changes 
+2003-10-21: jojodee@hbwdev.net: ChangeSet 1.1589.1.1
+  Remove inconsistency in paragraph tag.
+  	* html/modules/roles/xartemplates/user-privacy.xd:
+	  Remove inconsistency in paragraph tag 
+2003-10-20: voll@yahoo.com: ChangeSet 1.1592
+  Remove XARMLS_CTXTYPE_ constants from operation code
+  	* html/includes/xarMod.php:
+	  Remove XARMLS_CTXTYPE_ constants from operation code 
+ 	* html/includes/xarMLS.php:
+	  Remove XARMLS_CTXTYPE_ constants from operation code 
+2003-10-20: marc@marclaptop.: ChangeSet 1.1591
+  xarMLSXMLBackend.php:  small bugfix for utf-8 vs iso locales
+  	* html/includes/xarMLSXMLBackend.php:
+	  small bugfix for utf-8 vs iso locales 
+2003-10-20: marc@marclaptop.: ChangeSet 1.1590
+  xarMLSXMLBackend.php, xarMLS.php:  small fix for better error msgs
+  	* html/includes/xarMLSXMLBackend.php:
+	  small fix for better error msgs 
+ 	* html/includes/xarMLS.php:
+	  small fix for better error msgs 
+2003-10-20: marc@marclaptop.: ChangeSet 1.1589
+  tabs.css:  fix stylesheet:  - make tree/tabs tab same color as other tabs  - keep font black on visited elescted tab, otherwise you can't read itupdaterole.php:  fix bug 1395
+  	* html/modules/roles/xarstyles/tabs.css:
+	  fix stylesheet:- make tree/tabs tab same color as other tabs- keep font black on visited elescted tab, otherwise you can't read it 
+ 	* html/modules/roles/xaradmin/updaterole.php:
+	  fix bug 1395 
+2003-10-20: marc@marclaptop.: ChangeSet 1.1586.1.1
+  xartreerenderer.php:  Change the roles tree view back to where it was before. This should never have been changed, and it is more consistent with the tab view this way.
+  	* html/modules/roles/xartreerenderer.php:
+	  Change the roles tree view back to where it was before. This should never have been changed, and it is more consistent with the tab view this way. 
+2003-10-19: marcel@hsdev.com: ChangeSet 1.1587
+  Bringing the release notes in
+  	* docs/releaselog-0.912-0.913.txt:
+	   
+ 	* docs/releaselog-0.912-0.913.txt:
+	  BitKeeper file /home/mrb/dev/ddf/xar/core/stable/docs/releaselog-0.912-0.913.txt 

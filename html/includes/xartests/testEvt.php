@@ -9,6 +9,7 @@ class testEvt extends xarTestCase {
         include_once 'xarException.php';
         include_once 'xarEvt.php';
         include_once 'xarMLS.php';
+        $GLOBALS['xarDebug'] = false;
 //        include_once 'xarLog.php';
     }
     
@@ -59,11 +60,12 @@ x*   - return true; if ok
     }
 
     function testCheckEventFalse() {
+        unset($GLOBALS['xarEvt_knownEvents']['unregEvt']);
         return $this->assertFalse(xarEvt__checkEvent('unregEvt'),"Check unregistered event");
     }
 
     function testCheckEventTrue() {
-		$GLOBALS['xarEvt_knownEvents']['regEvt'] = true;
+        $GLOBALS['xarEvt_knownEvents']['regEvt'] = true;
         return $this->assertTrue(xarEvt__checkEvent('regEvt'),"Check registered event");
     }
 

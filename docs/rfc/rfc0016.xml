@@ -1,123 +1,234 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
-<rfc number="0001" category="info">
-  <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="January" year="2002"/>
-    
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
-      </t>
-    </abstract>
-  </front>
-  
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-
-RFC-16 User System 
-
-
-Requirements for the new Users System 
-by Jim McDonald 
- I've gone through the SF feature requests and compiled a list of requirements
- for the new User module and a flow for the new user registration process.
- They're in pretty rough form but should be understandable, please take a look
- through and let me know if I've missed anything.
-New user flow 
-   - agree to terms and conditions (if required)
-   - get account details
-   - create user account (account inactive)
-   - send user confirmation email (if required)
-   - receive reply from confirmation email (if required)
-   - set user account to pending
-   - request activation from admin (if required)
-   - receive activation from admin (if required)
-   - activate account
-Admin controls (each can be on or off, set by admin for all users) 
-   - get user to agree to terms and conditions before allowing them
-     to proceed with creating an account
-   - allow user to choose their own password when registering
-   - get user to respond to a registration confirmation email before
-     activating their account
-   - explicit admin approval of account registration required for activation
-   - allow user to set themselves to be invisible in members list
-   - send welcome email on registration
-   - enable/disable user points system
-Admin actions 
-   - modify avatar choice (avatars might be in a separate module, haven't
-     decided yet)
-   - modify registration confirmation email (if set)
-   - modify terms and conditions (if set)
-   - modify welcome email (if set)
-   - activate/deactivate a specific user account (inactive = account still
-     present but user cannot log on with it)
-   - expire user (== inactive but separate state needed for time-based
-     subscriptions)
-   - delete user
-   - edit a user's details
-   - modify list of disallowed email domains during registration
-   - modify list of disallowed usernames during registration
-   - change status of a user field (required/optional/hidden)
-   - create/modify/delete a user field
-   - change expiry date for user
-   - reset a user's password
-   - allow expiry date for users
-   - allow user to collect points for specific actions (e.g. posting a news
-     item, answering an FAQ, posting a comment, ...)
-   - change number of points generated for each action
-   - change names/numbers for points rankings
-   - email some/all users
-   - approve a user
-Admin views 
-   - users in order of registration date
-   - users waiting approval (if set)
-   - users in order of last login
-User actions 
-   - create an account
-   - login
-   - set themselves to be visible/invisible in members list
-   - edit account details (including themes) (and module settings?)
-   - change password
-   - retrieve lost password (question/answer?)
-User views 
-   - visible users
-Blocks 
-   - login
-   - who's online(?)
-   - our latest users
-Hooks 
-   - user activation
-   - user logon
-User states like this define whether a user is capable of logging on or not. So we might have states like: 
-   - disabled - admin deactivated
-   - expired - time deactivated
-   - pending - awaiting admin approval
-   - unconfirmed - awaiting confirmation that email address of user is correct
-   - active - normal state
-And the user could only log on if the account was active. This would allow subscription-based sites along with better admin control than at current, where the only way an admin could lock out a user is to delete their account or change their password, neither of which would give a very useful error message to the user. 
-Group membership would probably come in to play for viewing content on the site, but the actual state of the user is a separate thing. 
-	</artwork>
-      </t>
-    </section>
-  </middle>
+<rfc number="0016" category="info">
+	<front>
+		<title>User System</title>
+		<author initials="J." surname="McDonald" fullname="Jim ">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email>unknown</email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<date month="January" year="2002"/>
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>
+			The contents of this RFC contain the literal content of the old plain 	text version of RFC-0016
+			</t>
+			<t>
+			When time is a less scarcer good, someone might convert the plain text into structured XML so we can 
+			benefit from it.
+			</t>
+		</abstract>
+	</front>
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+		<!-- One content section is mandatory -->
+		<section title="Requirements for the new Users System">
+			<t>
+			I've gone through the SF feature requests and compiled a list of requirements for the new User module 
+			and a flow for the new user registration process.  They're in pretty rough form but should be 
+			understandable, please take a look through and let me know if I've missed anything.
+			</t>
+			<t>
+			<list>
+				<t>
+				New user flow
+				</t>
+				<t>
+				<list>
+					<t>- agree to terms and conditions (if required)
+					</t>
+					<t>- get account details
+					</t>
+					<t>- create user account (account inactive)
+					</t>
+					<t>- send user confirmation email (if required)
+					</t>
+					<t>- receive reply from confirmation email (if required)
+					</t>
+					<t>- set user account to pending
+					</t>
+					<t>- request activation from admin (if required)
+					</t>
+					<t> - receive activation from admin (if required)
+					</t>
+					<t>- activate account
+					</t>
+				</list>
+				</t>
+				<t>
+				Admin controls (each can be on or off, set by admin for all users)
+				</t>
+				<t>
+				<list>
+					<t>- get user to agree to terms and conditions before allowing them to proceed with creating an 
+					account
+					</t>
+					<t>- allow user to choose their own password when registering
+					</t>
+					<t>- get user to respond to a registration confirmation email before
+                                 activating their account
+					</t>
+					<t>- explicit admin approval of account registration required for activation
+					</t>
+					<t>- allow user to set themselves to be invisible in members list
+					</t>
+					<t>- send welcome email on registration
+					</t>
+					<t>- enable/disable user points system
+					</t>
+				</list>
+				</t>
+				<t>Admin actions
+				</t>
+				<t>
+				<list>
+				    <t> - modify avatar choice (avatars might be in a separate module, haven't
+                              decided yet)
+				    </t>
+				    <t>- modify registration confirmation email (if set)
+				    </t>
+				    <t>- modify terms and conditions (if set)
+				    </t>
+				    <t> - modify welcome email (if set)
+				    </t>
+				    <t>- activate/deactivate a specific user account (inactive = account still
+                               present but user cannot log on with it)
+				    </t>
+				    <t>- expire user (== inactive but separate state needed for time-based
+                               subscriptions)
+				    </t>
+				    <t>- delete user
+				    </t>
+				    <t>- edit a user's details
+				    </t>
+				    <t>- modify list of disallowed email domains during registration
+				    </t>
+				    <t> - modify list of disallowed usernames during registration
+				    </t>
+				    <t> - change status of a user field (required/optional/hidden)
+				    </t>
+				    <t>- create/modify/delete a user field
+				    </t>
+				    <t>- change expiry date for user
+				    </t>
+				    <t>- reset a user's password
+				    </t>
+				    <t>- allow expiry date for users
+				    </t>
+				    <t>- allow user to collect points for specific actions (e.g. posting a news
+                               item, answering an FAQ, posting a comment, ...)
+				    </t>
+				    <t>- change number of points generated for each action
+				    </t>
+				    <t>- change names/numbers for points rankings
+				    </t>
+				    <t>- email some/all users
+				    </t>
+				    <t>- approve a user
+				    </t>
+				</list>
+				</t>
+				<t>
+				Admin views
+				</t>
+				<t>
+				<list>
+				    <t>- users in order of registration date
+				    </t>
+				    <t>- users waiting approval (if set)
+				    </t>
+				    <t> - users in order of last login
+				    </t>
+				</list>
+				</t>
+			      <t>
+			      User actions
+				</t>
+				<t>
+				<list>
+					<t>- create an account
+					</t>
+					<t> - login
+					</t>
+					<t>- set themselves to be visible/invisible in members list
+					</t>
+					<t>- edit account details (including themes) (and module settings?)
+					</t>
+					<t>- change password
+					</t>
+					<t>- retrieve lost password (question/answer?)
+					</t>
+				  </list>
+				  </t>
+				<t>
+				User views
+				</t>
+				<t>
+				<list>
+					<t>- visible users
+					</t>
+				</list>
+				</t>
+				<t>
+				Blocks 
+				</t>
+				<t>
+				<list>
+					<t> - login
+					</t>
+					<t> - who's online(?)
+					</t>
+					<t>- our latest users
+					</t>
+				</list>
+				</t>
+				<t>
+				Hooks
+				</t>
+				<t>
+				<list>
+					<t>- user activation
+					</t>
+					<t>- user logon
+					</t>
+				</list>
+				</t>
+				<t>
+				User states like this define whether a user is capable of logging on or not. So we might have states 
+				like:
+				</t>
+				<t>
+				<list>
+					<t> - disabled - admin deactivated
+					</t>
+					<t>- expired - time deactivated
+					</t>
+					<t>- pending - awaiting admin approval
+					</t>
+					<t>- unconfirmed - awaiting confirmation that email address of user is correct
+					</t>
+					<t>- active - normal state
+					</t>
+				</list>
+				</t>
+			   </list>
+			   </t>
+			<t>
+			And the user could only log on if the account was active. This would allow subscription-based sites 
+			along with better admin control than at current, where the only way an admin could lock out a user is to 
+			delete their account or change their password, neither of which would give a very useful error message 
+			to the user.
+			</t>
+			<t>
+			Group membership would probably come in to play for viewing content on the site, but the actual state 
+			of the user is a separate thing. 
+			</t>
+		</section>
+	</middle>
 </rfc>

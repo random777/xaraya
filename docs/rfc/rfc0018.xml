@@ -1,80 +1,123 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
-<rfc number="0001" category="info">
-  <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="January" year="2002"/>
-    
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
-      </t>
-    </abstract>
-  </front>
-  
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-
-RFC-18 Exceptions Handling System 
-
-
- Postnuke                                                            Marco Canini
-RFC-18 Exception Handling System Category: Informational May 2002 Version: 0.1 
-                       RFC-18 Exception Handling System
-Abstract 
-This document describes the Exception Handling System technology, an artificial exceptions handling mechanism built on top of the PHP language. This document is constantly subject to revisions. This isn't the final version of the document. 
-Table of Contents 
-1. Introduction 2. Handling exceptions 2.1. pnExceptionSet 2.2. pnExceptionMajor 2.3. pnExceptionId 2.4. pnExceptionValue 2.5. pnExceptionFree 2.6. Usage of Exception Handling System functions 2.7. Throw back mechanism 3. PostNuke integration 3.1. PostNuke System Exceptions 3.2. PostNuke API changes 4. Changelog 
-1. Introduction 
-Since the PHP language does not provide native exception handling support (as of writing), we need to create an artificial layer to handle them. The way this document proposes to achieve this goal is closely inspired at the way used by CORBA in the C language mapping. 
-In the case of CORBA the C language mapping imposes that every IDL method accept as last parameter a CORBA_Environment type. We can avoid to use a CORBA_Environment-like parameter for all functions, thanks to, firstly, the non-strongly-typed return values we have in PHP, and secondly, the single threaded policy we adopted in PostNuke. 
-2. Handling exceptions 
-Here we introduce the following terminology: 
-Caller is the piece of code that call a function. 
-Called is the piece of code that used by Caller can raise exceptions. 
-Callers can notice of exceptions firstly by checking the called function return value and secondly by calling the pnExceptionMajor function. 
-The PostNuke Exception Handling System provides useful functions to deal with exceptions. Their signatures are: 
-void pnExceptionSet($major, $exception_id, $param = NULL); integer pnExceptionMajor(); string pnExceptionId(); object pnExceptionValue(); void pnExceptionFree(); 
-2.1. pnExceptionSet 
-pnExceptionSet allows a function to raise an exception. The caller must supply a value for the major parameter. The major parameter can have one of the values PN_NO_EXCEPTION, PN_USER_EXCEPTION, or PN_SYSTEM_EXCEPTION. The value of the major parameter constrains the other parameters in the call as follows: 
-If the major parameter has the value PN_NO_EXCEPTION, this is a normal outcome 
-  to the operation. In this case, both exception_id and param must be NULL.
-  Note that it is not necessary to invoke pnExceptionSet to indicate a normal
-  outcome; it is the default behavior if the method simply returns.
+<rfc number="0018" category="info">
+	<front>
+		<title>Exception Handling System</title>
+		<author initials="M." surname="Canini" fullname="Marco Canini">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email>unknown</email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<date month="May" year="2002"/>
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>This document describes the Exception Handling System technology, an artificial exceptions handling  
+			mechanism built on top of the PHP language. This document is constantly subject to revisions. This isn't 
+			the final version of the document.
+                   </t>
+		</abstract>
+	</front>
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+		<!-- One content section is mandatory -->
+		<section title=" Introduction">
+			<t>
+			Since the PHP language does not provide native exception handling support (as of writing), we need to 
+			create an artificial layer to handle them. The way this document proposes to achieve this goal is closely 
+			inspired at the way used by CORBA in the C language mapping. 
+			In the case of CORBA the C language mapping imposes that every IDL method accept as last parameter a 
+			CORBA_Environment type. We can avoid to use a CORBA_Environment-like parameter for all functions, 
+			thanks to, firstly, the non-strongly-typed return values we have in PHP, and secondly, the single threaded 
+			policy we adopted in PostNuke.
+                    </t>
+		</section>
+		<section title="Handling exceptions">
+			<t>
+			Here we introduce the following terminology:
+			</t>
+			<t>
+				<list>
+					<t>
+				Caller is the piece of code that call a function.
+				</t>
+					<t>
+				Called is the piece of code that used by Caller can raise exceptions.
+				</t>
+				</list>
+			</t>
+			<t>
+			Callers can notice of exceptions firstly by checking the called function return value and secondly by 
+			calling the pnExceptionMajor function.
+			</t>
+			<t>
+			The PostNuke Exception Handling System provides useful functions to deal with exceptions. Their 
+			signatures are: 
+			</t>
+			<t>
+			void pnExceptionSet($major, $exception_id, $param = NULL); integer pnExceptionMajor(); string 
+			pnExceptionId(); object pnExceptionValue(); void pnExceptionFree();
+                    </t>
+			<section title="pnExceptionSet">
+				<t>
+			pnExceptionSet allows a function to raise an exception. The caller must supply a value for the major 
+			parameter. The major parameter can have one of the values PN_NO_EXCEPTION, PN_USER_EXCEPTION, 
+			or PN_SYSTEM_EXCEPTION. The value of the major parameter constrains the other parameters in the call 
+			as follows: 
+			</t>
+				<t>
+			If the major parameter has the value PN_NO_EXCEPTION, this is a normal outcome 
+			</t>
+				<t>
+                    to the operation. In this case, both exception_id and param must be NULL.
+                    Note that it is not necessary to invoke pnExceptionSet to indicate a normal
+                    outcome; it is the default behavior if the method simply returns.
+			</t>
+				<t>
 For any other value of major it specifies either a user-defined or system 
-  exception. The exception_id parameter is the ID representing the exception
-  type. If the exception is declared to have members, the param parameter must
-  be the exception struct (PHP class) containing the members.
-  If the exception has no members, param must be NULL.
-2.2. pnExceptionMajor 
-pnExceptionMajor allows the caller to establish whether an exception was raised, and to get the type of raised exception. The major PN_NO_EXCEPTION identifies the state in which no exception was raised. 
-2.3. pnExceptionId 
-pnExceptionId returns the string identifying the exception. The character string contains the ID for the exception (its PHP class name). If invoked when no exception was raised a void value is returned. 
-2.4. pnExceptionValue 
-pnExceptionValue returns an object corresponding to this exception. If invoked when no exception or an exception for which there is no associated information was raised, a void value is returned. 
-2.5. pnExceptionFree 
-pnExceptionFree makes a reset of current exception status, it's a shortcut for pnExceptionSet(PN_NO_EXCEPTION, NULL, NULL). You must always call this function when you handle a catched exception or equivalently you don't throw the exception back to the callers chain. 
-2.6. Usage of exception handling functions 
-To get an overview on their usage consider the following example: 
+			</t>
+				<t>
+                    exception. The exception_id parameter is the ID representing the exception
+                    type. If the exception is declared to have members, the param parameter must
+                   be the exception struct (PHP class) containing the members.
+                   If the exception has no members, param must be NULL.
+                    </t>
+			</section>
+			<section title="pnExceptionMajor">
+				<t>
+			pnExceptionMajor allows the caller to establish whether an exception was raised, and to get the type of 
+			raised exception. The major PN_NO_EXCEPTION identifies the state in which no exception was raised.
+                    </t>
+			</section>
+			<section title="pnExceptionId ">
+				<t>
+			pnExceptionId returns the string identifying the exception. The character string contains the ID for the 
+			exception (its PHP class name). If invoked when no exception was raised a void value is returned.
+                    </t>
+			</section>
+			<section title="pnExceptionValue">
+				<t>
+			pnExceptionValue returns an object corresponding to this exception. If invoked when no exception or an 
+			exception for which there is no associated information was raised, a void value is returned.
+                    </t>
+			</section>
+			<section title="pnExceptionFree">
+				<t>
+			pnExceptionFree makes a reset of current exception status, it's a shortcut for pnExceptionSet
+			(PN_NO_EXCEPTION, NULL, NULL). You must always call this function when you handle a catched 
+			exception or equivalently you don't throw the exception back to the callers chain.
+                    </t>
+			</section>
+			<section title="Usage of exception handling functions">
+				<t>
+			To get an overview on their usage consider the following example: 
+			</t>
+				<t>
+					<artwork>
 class ?MyException { 
     var $msg;
 } 
@@ -95,9 +138,19 @@ $res = pnModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp;
        break;
     }
 } 
-/* ... */ 
-2.7. Throw back mechanism 
-An important thing to take care of is the throw back mechanism. Even if with this proposed solution there is not a break in the program flow when an exception is raised, the Exceptions Handling System allows you to apply the concept of throwing back an exception. And it's also very simple to do that, you've only to return with a void value after you catch an exception. Consider the following example: 
+/* ... */
+                     </artwork>
+				</t>
+			</section>
+			<section title="Throw back mechanism">
+				<t>
+			An important thing to take care of is the throw back mechanism. Even if with this proposed solution there 
+			is not a break in the program flow when an exception is raised, the Exceptions Handling System allows 
+			you to apply the concept of throwing back an exception. And it's also very simple to do that, you've only 
+			to return with a void value after you catch an exception. Consider the following example:
+			</t>
+				<t>
+					<artwork>
 function foo() { 
     $res = pnModAPIFunc('?MyModule', 'user', '?MyFunc');
     if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) {
@@ -123,97 +176,335 @@ function bar() {
         }
     }
 } 
-As you can see in the above example we're delegating to another piece of code the real exception handling. 
-3. PostNuke integration 
-To best integrate the Exceptions Handling System into PostNuke we need to define a superset of well known exceptions called System Exceptions and to make the PostNuke APIs compatible with Exceptions Handling System. Modifications to APIs involve the usage of System Exceptions. To get an example of what is a System Exception consider the case in which you're calling an API with a non existent user id. In that case you're violating the PostNuke integrity, so it makes sense to raise an exception of type ID_NOT_EXISTS internally in the API function. For another example you could recall the pnModAPIFunc function. Its purpose is to call an API module function and returns the outcome value of the called API module function. But what's happen if pnModAPIFunc can't call the function you've indicated. As you can read in PostNuke API Command Reference, pnModAPIFunc will return false if the module function does not exist or void for an internal error. By doing so pnModAPIFunc vincolates your module API functions to never return void or false because the caller can't distinguish these values from an error condition in pnModAPIFunc. In the other hand if pnModAPIFunc could raise exceptions your module API functions could return false and void as well, since you're allowed to discover error conditions with the Exception Handling System and not by relaying on return value. As you can see there are many advantages in exceptions but we must keep the PostNuke API as backward compatible as possible. Consider also that exceptions go well not for all error conditions, if you're doing that probably you're wrong. Boolean functions go very well in many cases, and most of PostNuke API functions can indicate particular errors with the false return value. Exceptions have to be used when there's a real needing of them, and not as a replacement for the false return value. The changes that have to be done in PostNuke API must be minimals, and relay only on System Exceptions. 
-3.1. PostNuke System Exceptions The Exceptions Handling System need to be closely integrated with PostNuke. To achieve this goal the well known System Exceptions take care of PostNuke architecture, so we will refer to them as PostNuke System Exceptions. A system exception always contains as exception value a PHP class so defined: 
+                                        </artwork>
+				</t>
+				<t>
+As you can see in the above example we're delegating to another piece of code the real exception handling.
+                    </t>
+			</section>
+		</section>
+		<section title="PostNuke integration">
+			<t>
+			To best integrate the Exceptions Handling System into PostNuke we need to define a superset of well 
+			known exceptions called System Exceptions and to make the PostNuke APIs compatible with Exceptions 
+			Handling System. Modifications to APIs involve the usage of System Exceptions. To get an example of 
+			what is a System Exception consider the case in which you're calling an API with a non existent user id. 
+			In that case you're violating the PostNuke integrity, so it makes sense to raise an exception of type 
+			ID_NOT_EXISTS internally in the API function. For another example you could recall the pnModAPIFunc 
+			function. Its purpose is to call an API module function and returns the outcome value of the called API 
+			module function. But what's happen if pnModAPIFunc can't call the function you've indicated. As you can 
+			read in PostNuke API Command Reference, pnModAPIFunc will return false if the module function does 
+			not exist or void for an internal error. By doing so pnModAPIFunc vincolates your module API functions to 
+			never return void or false because the caller can't distinguish these values from an error condition in 
+			pnModAPIFunc. In the other hand if pnModAPIFunc could raise exceptions your module API functions 
+			could return false and void as well, since you're allowed to discover error conditions with the Exception 
+			Handling System and not by relaying on return value. As you can see there are many advantages in 
+			exceptions but we must keep the PostNuke API as backward compatible as possible. Consider also that 
+			exceptions go well not for all error conditions, if you're doing that probably you're wrong. Boolean 
+			functions go very well in many cases, and most of PostNuke API functions can indicate particular errors 
+			with the false return value. Exceptions have to be used when there's a real needing of them, and not as a 
+			replacement for the false return value. The changes that have to be done in PostNuke API must be 
+			minimals, and relay only on System Exceptions.
+                    </t>
+			<section title="PostNuke System Exceptions">
+				<t>
+			The Exceptions Handling System need to be closely integrated with PostNuke. To achieve this goal the 
+			well known System Exceptions take care of PostNuke architecture, so we will refer to them as PostNuke 
+			System Exceptions. A system exception always contains as exception value a PHP class so defined:
+			</t>
+				<t>
+					<artwork>
 class ?SystemException { 
     var $message;
 } 
-where the message member is a language-sensitive error message associated with the particular system exception. 
-Here is a list of PostNuke System Exceptions: 
-UNKNOWN: indicates that something (unknown) was wrong 
-ID_NOT_EXIST: indicates that the identifier you provided is associated with no 
-                existing object
-BAD_PARAM: indicates that you are passing a bad parameter 
-DATABASE_ERROR: indicates a database operation failure 
-NO_PERMISSION: indicates that you don't have right permission to accede to a 
-                 particular resource (note that system exception is not raised
-                 from pnSecAuthAction API but from other functions in which
-                 pnSecAuthAction is called)
-MODULE_NOT_EXIST: 
-MODULE_FILE_NOT_EXIST: 
-MODULE_FUNC_NOT_EXIST: 
-TBD: extend this list 
-3.2. PostNuke API changes 
-Here is a list of modifications that should occur on current version of PostNuke API. Every modification exposed here is described by three fields: 
-api: the name of API function 
-changes: the modifications that will occur 
-exceptions: the exceptions that modified API function will raise (note that 
-              throwed back exceptions are excluded from this list)
-api: pnConfigGetVar changes: no changes on return value, add code to raise exceptions exceptions: ID_NOT_EXIST, DATABASE_ERROR 
-api: pnConfigSetVar changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnConfigDelVar changes: to be done 
-api: pnDBGetConn changes: no changes 
-api: pnDBGetTables changes: no changes 
-api: pnVarCleanFromInput changes: no changes on return value, add code to raise exceptions exceptions: ID_NOT_EXIST 
-api: pnVarPrepForDisplay changes: no changes 
-api: pnVarPrepHTMLDisplay changes: no changes, add code to throw back exceptions 
-api: pnVarPrepForStore changes: no changes 
-api: pnVarPrepForOS changes: no changes 
-api: pnVarCensor changes: no changes, add code to throw back exceptions 
-api: pnVarValidate changes: no changes 
-api: pnGetBaseURI changes: no changes 
-api: pnGetBaseURL changes: no changes 
-api: pnRedirect changes: no changes 
-api: pnBlockShow changes: no changes, add code to throw back exceptions 
-api: pnBlockLoad changes: no changes, add code to throw back exceptions 
-api: pnBlockGetInfo changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnModGetVar changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM 
-api: pnModSetVar changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM 
-api: pnModDelVar changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM 
-api: pnModGetIDFromName changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM 
-api: pnModGetInfo changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM 
-api: pnModGetUserMods changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnModGetAdminMods changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnModAPILoad changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST 
-api: pnModDBInfoLoad changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST 
-api: pnModLoad changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST 
-api: pnModAPIFunc changes: change to return void on error, add code to raise exceptions exceptions: BAD_PARAM, MODULE_FUNC_NOT_EXIST 
-api: pnModFunc changes: change to return void on error, add code to raise exceptions exceptions: BAD_PARAM, MODULE_FUNC_NOT_EXIST 
-api: pnModURL changes: change to return void on error, add code to raise exceptions exceptions: BAD_PARAM 
-api: pnModAvailable changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM 
-api: pnModGetName changes: to be done 
-api: pnModRegisterHook changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnModUnregisterHook changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnModCallHooks changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnSecAddSchema changes: no changes 
-api: pnSecAuthAction changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnSecGetAuthInfo changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnSecGetLevel changes: no changes 
-api: pnSecGenAuthKey changes: no changes 
-api: pnSecConfirmAuthKey changes: no changes 
-api: pnSessionGetVar changes: no changes 
-api: pnSessionSetVar changes: no changes 
-api: pnSessionDelVar changes: no changes 
-api: pnUserLogIn changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR, BAD_PARAM 
-api: pnUserLogOut changes: change to return void on error, add code to raise exceptions exceptions: DATABASE_ERROR 
-api: pnUserLoggedIn changes: no changes 
-api: pnUserGetTheme changes: no changes 
-api: pnUserGetLang changes: no changes 
-api: pnUserGetVar changes: change to return void on error, add code to raise exceptions exceptions: BAD_PARAM, ID_NOT_EXIST, NO_PERMISSION 
-api: pnUserSetVar changes: change to return void on error, add code to raise exceptions exceptions: BAD_PARAM, ID_NOT_EXIST, NO_PERMISSION 
-api: pnUserValidateVar changes: change to return void on error, add code to raise exceptions exceptions: BAD_PARAM, ID_NOT_EXIST 
-4. Changelog 
- 0.1 (May 8, 2002)
-   Extended PostNuke System Exceptions section.
-   Added PostNuke API changes section.
- pre-0.1 (May 5, 2002)
-   Initial Version by Marco Canini &lt;marco.canini@postnuke.com&gt;
-
-
-	</artwork>
-      </t>
-    </section>
-  </middle>
+                        </artwork>
+				</t>
+				<t>
+                   where the message member is a language-sensitive error message associated with the particular system 
+                   exception. 
+                    </t>
+				<t>
+                    Here is a list of PostNuke System Exceptions: 
+                    </t>
+				<t>
+					<list>
+						<t>
+                      UNKNOWN: indicates that something (unknown) was wrong
+                      </t>
+						<t>
+                      ID_NOT_EXIST: indicates that the identifier you provided is associated with no
+                      </t>
+						<t>
+							<list>
+								<t>
+                      existing object
+                      </t>
+							</list>
+						</t>
+					</list>
+				</t>
+				<t>
+					<list>
+						<t>
+                    BAD_PARAM: indicates that you are passing a bad parameter
+                    </t>
+						<t>
+                    DATABASE_ERROR: indicates a database operation failure 
+                    </t>
+						<t>
+                    NO_PERMISSION: indicates that you don't have right permission to accede to a
+                    </t>
+						<t>
+							<list>
+								<t>particular resource (note that system exception is not raised
+                    from pnSecAuthAction API but from other functions in which
+                    pnSecAuthAction is called)
+                    </t>
+							</list>
+						</t>
+					</list>
+				</t>
+				<t>
+					<list>
+						<t>
+                    MODULE_NOT_EXIST:
+                    </t>
+						<t>
+                    MODULE_FILE_NOT_EXIST:
+                    </t>
+						<t>
+                    MODULE_FUNC_NOT_EXIST:
+                    </t>
+					</list>
+				</t>
+				<t>
+                    TBD: extend this list
+                    </t>
+			</section>
+			<section title="PostNuke API changes">
+				<t>
+			Here is a list of modifications that should occur on current version of PostNuke API. Every modification 
+			exposed here is described by three fields: 
+                    </t>
+				<t>
+					<list>
+						<t>
+                    api: the name of API function
+                    </t>
+						<t>
+                    changes: the modifications that will occur
+                    </t>
+						<t>
+                    exceptions: the exceptions that modified API function will raise (note that 
+                     throwed back exceptions are excluded from this list)
+                    </t>
+					</list>
+				</t>
+				<t>
+                    api: pnConfigGetVar changes: no changes on return value, add code to raise exceptions exceptions:  
+                    ID_NOT_EXIST, DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnConfigSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnConfigDelVar changes: to be done 
+                    </t>
+				<t>
+                    api: pnDBGetConn changes: no changes 
+                    </t>
+				<t>
+                    api: pnDBGetTables changes: no changes 
+                    </t>
+				<t>
+                    api: pnVarCleanFromInput changes: no changes on return value, add code to raise exceptions 
+                    exceptions: ID_NOT_EXIST 
+                    </t>
+				<t>
+                    api: pnVarPrepForDisplay changes: no changes 
+                    </t>
+				<t>
+                    api: pnVarPrepHTMLDisplay changes: no changes, add code to throw back exceptions 
+                    </t>
+				<t>
+                    api: pnVarPrepForStore changes: no changes 
+                    </t>
+				<t>
+                    api: pnVarPrepForOS changes: no changes 
+                    </t>
+				<t>
+                    api: pnVarCensor changes: no changes, add code to throw back exceptions 
+                    </t>
+				<t>
+                    api: pnVarValidate changes: no changes 
+                    </t>
+				<t>
+                    api: pnGetBaseURI changes: no changes 
+                    </t>
+				<t>
+                    api: pnGetBaseURL changes: no changes 
+                    </t>
+				<t>
+                    api: pnRedirect changes: no changes 
+                    </t>
+				<t>
+                    api: pnBlockShow changes: no changes, add code to throw back exceptions 
+                    </t>
+				<t>
+                    api: pnBlockLoad changes: no changes, add code to throw back exceptions 
+                    </t>
+				<t>
+                    api: pnBlockGetInfo changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnModGetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnModSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnModDelVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnModGetIDFromName changes: change to return void on error, add code to raise exceptions 
+                    exceptions: DATABASE_ERROR, BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnModGetInfo changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnModGetUserMods changes: change to return void on error, add code to raise exceptions 
+                    exceptions: DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnModGetAdminMods changes: change to return void on error, add code to raise exceptions 
+                    exceptions: DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnModAPILoad changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST 
+                    </t>
+				<t>
+                    api: pnModDBInfoLoad changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST 
+                    </t>
+				<t>
+                    api: pnModLoad changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST 
+                    </t>
+				<t>
+                    api: pnModAPIFunc changes: change to return void on error, add code to raise exceptions exceptions: 
+                    BAD_PARAM, MODULE_FUNC_NOT_EXIST 
+                    </t>
+				<t>
+                    api: pnModFunc changes: change to return void on error, add code to raise exceptions exceptions: 
+                    BAD_PARAM, MODULE_FUNC_NOT_EXIST 
+                    </t>
+				<t>
+                    api: pnModURL changes: change to return void on error, add code to raise exceptions exceptions: 
+                    BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnModAvailable changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnModGetName changes: to be done 
+                    </t>
+				<t>
+                    api: pnModRegisterHook changes: change to return void on error, add code to raise exceptions 
+                    exceptions: DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnModUnregisterHook changes: change to return void on error, add code to raise exceptions 
+                    exceptions: DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnModCallHooks changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnSecAddSchema changes: no changes 
+                    </t>
+				<t>
+                    api: pnSecAuthAction changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnSecGetAuthInfo changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnSecGetLevel changes: no changes 
+                    </t>
+				<t>
+                    api: pnSecGenAuthKey changes: no changes 
+                    </t>
+				<t>
+                    api: pnSecConfirmAuthKey changes: no changes 
+                    </t>
+				<t>
+                    api: pnSessionGetVar changes: no changes 
+                    </t>
+				<t>
+                    api: pnSessionSetVar changes: no changes 
+                    </t>
+				<t>
+                    api: pnSessionDelVar changes: no changes 
+                    </t>
+				<t>
+                    api: pnUserLogIn changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR, BAD_PARAM 
+                    </t>
+				<t>
+                    api: pnUserLogOut changes: change to return void on error, add code to raise exceptions exceptions: 
+                    DATABASE_ERROR 
+                    </t>
+				<t>
+                    api: pnUserLoggedIn changes: no changes 
+                    </t>
+				<t>
+                    api: pnUserGetTheme changes: no changes 
+                    </t>
+				<t>
+                    api: pnUserGetLang changes: no changes 
+                    </t>
+				<t>
+                    api: pnUserGetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    BAD_PARAM, ID_NOT_EXIST, NO_PERMISSION 
+                    </t>
+				<t>
+                    api: pnUserSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    BAD_PARAM, ID_NOT_EXIST, NO_PERMISSION 
+                    </t>
+				<t>
+                    api: pnUserValidateVar changes: change to return void on error, add code to raise exceptions 
+                    exceptions: BAD_PARAM, ID_NOT_EXIST
+                    </t>
+			</section>
+			<section title="Changelog">
+				<t>
+                 0.1 (May 8, 2002)
+                 </t>
+				<t>
+                 Extended PostNuke System Exceptions section.
+                 </t>
+				<t>
+                 Added PostNuke API changes section.
+                 </t>
+				<t>
+                 pre-0.1 (May 5, 2002)
+                 </t>
+				<t>
+                 Initial Version by Marco Canini &lt;marco.canini@postnuke.com&gt;
+                 </t>
+			</section>
+		</section>
+	</middle>
 </rfc>

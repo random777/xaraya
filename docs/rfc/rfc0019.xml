@@ -1,170 +1,393 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
 <rfc number="0001" category="info">
-  <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="January" year="2002"/>
-    
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
-      </t>
-    </abstract>
-  </front>
-  
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-
-RFC-19 Help System 
-
-
- Postnuke                                              Gregor J. Rothfuss
- RFC-19 Help System
- Category: Informational                                     May 2002
- Version: 0.2
-                         RFC-19 Help System
-Table of Contents 
-   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
-   2.   List of requirements for the Help System . . . . . .  . . . 2
-   3.   Solution proposals - database tables . . . . . . . . . . . . 3
-   3a.      . . . . . . . . . .  . . . . . . . . . . .
-   4.   Solution proposals - functions . . . . . . . . . . . . . . .
-   4a.      . . . . . . . . . .  . . . . . . . . . . .
-   4b.      . . . . . . . . . .  . . . . .
-   5.   Relationship of the Help System to other areas . . . . . . . . . . .
-   6.   Code that will need to be rewritten  . . . . . . . . . . . .
-   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
-   8.   Tools that need to be created from scratch . . . . . . . . .
-   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
-   10.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
-                             Informational
-                            RFC-19 Help System                May 2002
-1. Introduction 
-   All ?xxx numbers refer to the basic documents in section 7.
-   We read through the articles on http://www.postnuke.com, its forum
-   threads, feature requests on sourceforge and the developers mailing
-   list.
-   The following RFC is a first summary and contains some solution
-   proposals either compiled from the basic documents or from general
-   definitions concerning comments systems / forums.
-2. List of requirements for the Help System 
-Use ?DocBook for the help text sources [1] 
-Have documenation in multiple formats: HTML, PDF 
-Allow context-sensitive help 
-seamless integration of support websites / irc / phplive 
-full text search 
-user feedback ala MSDN (see rate this page stuff) 
-ml support 
-newbie -> intermediate -> pro docs integrated (cross link to MDG from the installer docs, etc) 
-links to dev.pn.com or pnCommunity as appropriate 
-integrate feature requests / bug report links 
-have a support script that collects environmental data 
-fetch phpdoc comments for programming manuals 
-synchronize documenation with master copy over xmlrpc 
-3. Solution proposals - database tables 
-It remains to be determined if the contents of the help system are better stored in the file system according to the module directory structure standard, or in a table. There are pros and cons for storing the data in the database. 
-Pro 
-Easier to update the manual 
-Easier to perform full-text searches 
-Easier to translate 
-Easier to reference manual sections (for rating, comments etc) 
-Contra 
-Harder to provide content in standalone formats: PDF, HTML 
-Module vars: 
-Enable online help: Display help links throughout pn 
-4. Solution proposals - functions 
-pnModHelpURL(string module,string type, string topic) [2] provide a way to call into the help system (syntax very rudimentary, not final) 
+	<front>
+		<title>Help System</title>
+		<author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email>rothfuss@abstrakt.ch</email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<date month="May" year="2002"/>
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>The contents of this RFC contain the literal content of the old plain
+	             text version of RFC-0019
+	             </t>
+		      <t>
+		      When time is a less scarcer good, someone might convert the plain text
+	            into structured XML so we can benefit from it.
+                  </t>
+		</abstract>
+	</front>
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+		<!-- One content section is mandatory -->
+		<section title="Introduction">
+			<t>
+			All ?xxx numbers refer to the basic documents in section 7.    
+	             </t>
+		      <t>
+			We read through the articles on http://www.postnuke.com, its           
+			forum threads, feature requests on sourceforge and the developers mailing list.
+	             </t>
+		      <t>
+                    The following RFC is a first summary and contains some solution proposals either compiled from the basic  
+                    documents or from general definitions concerning comments systems / forums.
+                    </t>
+             </section>
+		<section title=" List of requirements for the Help System">
+		  <t>
+                 <list>		
+                    <t>
+			Use ?DocBook for the help text sources [1] 
+			</t>
+		       <t>
+                    Have documenation in multiple formats: HTML, PDF 
+	             </t>
+		      <t>
+                    Allow context-sensitive help 
+	             </t>
+		      <t>
+                    seamless integration of support websites / irc / phplive 
+	             </t>
+		      <t>
+                    full text search 
+	             </t>
+		      <t>
+                    user feedback ala MSDN (see rate this page stuff) 
+	             </t>
+		      <t>
+                    ml support 
+	             </t>
+		      <t>
+                    newbie -> intermediate -> pro docs integrated (cross link to MDG from the installer docs, etc) 
+	             </t>
+		      <t>
+                    links to dev.pn.com or pnCommunity as appropriate 
+	             </t>
+		      <t>
+                    integrate feature requests / bug report links 
+	             </t>
+		      <t>
+                    have a support script that collects environmental data 
+	             </t>
+		      <t>
+                    fetch phpdoc comments for programming manuals 
+	             </t>
+		      <t>
+                    synchronize documenation with master copy over xmlrpc
+                    </t>
+                 </list>
+                 </t>
+             </section>
+		<section title="Solution proposals - database tables">
+			<t>
+			It remains to be determined if the contents of the help system are better stored in the file system  
+			according to the module directory structure standard, or in a table. There are pros and cons for storing  
+			the data in the database. 
+			</t>
+			<t>
+			    <list>
+				<t>
+				Pro
+				</t>
+				<t>
+				<list>
+				<t>
+				Easier to update the manual
+				</t>
+				<t>
+				Easier to perform full-text searches
+				</t>
+				<t>
+				Easier to translate
+				</t>
+				<t>
+				Easier to reference manual sections (for rating, comments etc)
+				</t>
+				</list>
+				</t>
+				<t>
+				Contra
+				</t>
+				<t>
+				<list>
+				<t>
+				Harder to provide content in standalone formats: PDF, HTML
+				</t>
+				</list>
+				</t>
+				<t>
+				Module vars:
+				</t>
+				<t>
+				<list>
+				<t>
+				Enable online help: Display help links throughout pn
+				</t>
+				</list>
+				</t>
+    		          </list>
+			</t>
+             </section>
+		<section title="Solution proposals - functions">
+			<t>
+			pnModHelpURL(string module,string type, string topic) [2] provide a way to call into the help system (syntax very rudimentary, not final) 
+	             </t>
+		      <t>
 A proposal for a help module 
 with articles, categories, ratings and comments almost in place, its time to leverage them for a kick ass online help system. 
+	             </t>
+		      <t>
 http://www.drupal.org/node.php?id=284 has some nice ideas. 
+	             </t>
+		      <t>
 i suggest we create a help utility module that does the following: 
+	             </t>
+		      <t>
 - maintain global / module specific manuals - allow for notes on the manual - provide feedback links to bug trackers - allows for rating of content 
+	             </t>
+		      <t>
 this could be achieved by storing manuals as articles in the article module, with a category indicating that it is documentation. each module would add articles on module install. 
+	             </t>
+		      <t>
 the categories would look like this: 
-documentation 
-             surveys
-             downloads
-             nascar
-these categories would be set with permissions indicating they can only be seen by administrators. 
-the help utility module would leverage the articles module by calling its API to display articles, call the comments modules to add coments, same for ratings. additionally, the help module could add a hook for feedback, sending feedback to the module author (data collected from pnversion.php) 
-A propsal for the help structure 
-Good documentation is essential not only for PN "core" but also for modules. While installing, upgrading, removing a module should be intuitive, configurig right permissions to get the best from the script or understandig some tricky points or... require a good documentation. On the other side often good developers aren't good manuals writers ;-) 
-In my experience the most difficult part in writing manuals is organizing informations and guidelines: when you have done such a difficult work is only metter of filling in infos... more or less ;-) 
-So my idea: what about adding a "modules manual schema" in pndocs so that mods developers have only to fill in the section (and/or of course deleting/adding sects) ? 
-It could be just like a checklist or a summary with only chapter names. We could also add a reference to it in MDG chapter 7.12 and consider the implication with RFC 19 - Help System. 
-The first schema that comes to my mind is something like this: 
-1. OVERVIEW 
-   1.1 Purpose of this module
-   1.2 Requirements
-   1.3 Authors and credits
-   1.4 Obtaining latest version
-   1.5 Collaborate and bug catching and fixing
-2. INSTALLATION 
-   2.1 Fresh install
-   2.2 Upgrading
-3. CONFIGURATION 
-   3.1 Module configuration
-   3.2 Permissions
-   3.3 Block configuration
-4. ADMIN GUIDE 
-   4.1 Adding new items
-       4.1.1 How to
-       4.1.2 Input Labels explained
-   4.2 Editing items
-   4.3 Delete an item
-   4.4 Other options
-5. USER GUIDE 
-   5.1 View items
-   5.2 Display details
-   5.3 ....
-   5.4 ....
-6. FAQ 7. TO DO 
-5. Relationship of the Help System to other areas 
-Comments System: Used for user comments on the manual 
-Ratings Module: Used for rating of manuals 
-XML-RPC Module: Sync documentation with master copy 
-Tracking Module: Collect usability data (which module is used most etc) 
-Admin module: provide help display functionality 
-phpdoc parser: get API commentary for programmers reference 
- 6.  Code that will need to be rewritten
-Help system in admin module 
-7. Basic documents for this RFC 
-      [1] RE: ?pndev DOCUMENTATION: Preview PDF now available. pndev post 04/26/02 gregorrothfuss
-      [2] RE: ?pndev READ: New Block Stuff &amp; Revamp pndev post 05/13/02 Veres Ferenc
-8. Tools that need to be created from scratch 
-Docbook parser: We need to figure out a way to keep the docbook sources synced with the help system. 
-phpdoc parser: Is there a php-based phpdoc parser available? Check with PEAR. 
-9. Retractions 
-   We list features that were considered but rejected for this API below.
-10. Changelog 
-    0.1 (May 13, 2002) gregorrothfuss
-      Initial Version
-   0.2 (July 9, 2002) gregorrothfuss
-      Module Schema from Stefano Garubi added
-      Help System implementation notes added
-
-
-	</artwork>
-      </t>
-    </section>
-  </middle>
+	             </t>
+		      <t>
+		          <list>
+            			<t>
+            			documentation
+            			</t>
+            			<t>
+            			<list>
+            			<t>
+            			surveys
+            			</t>
+            			<t>
+            			downloads
+            			</t>
+            			<t>
+            			nascar
+            			</t>
+            			</list>
+            			</t>
+ 			   </list>
+ 			</t>
+		      <t>
+                    these categories would be set with permissions indicating they can only be seen by administrators. 
+	             </t>
+		      <t>
+                    the help utility module would leverage the articles module by calling its API to display articles, call the     
+                    comments modules to add coments, same for ratings. additionally, the help module could add a hook for 
+                    feedback, sending feedback to the module author (data collected from pnversion.php) 
+	             </t>
+		      <t>
+                   A propsal for the help structure 
+	            </t>
+		     <t>
+                  Good documentation is essential not only for PN "core" but also for modules. While installing, upgrading,  
+                  removing a module should be intuitive, configurig right permissions to get the best from the script or 
+                  understandig some tricky points or... require a good documentation. On the other side often good 
+                  developers aren't good manuals writers ;-) 
+	           </t>
+		    <t>
+                 In my experience the most difficult part in writing manuals is organizing informations and guidelines: when 
+                 you have done such a difficult work is only metter of filling in infos... more or less ;-) 
+	          </t>
+		   <t>
+                So my idea: what about adding a "modules manual schema" in pndocs so that mods developers have only to 
+                fill in the section (and/or of course deleting/adding sects) ? 
+	         </t>
+		  <t>
+                  It could be just like a checklist or a summary with only chapter names. We could also add a reference to it 
+                  in MDG chapter 7.12 and consider the implication with RFC 19 - Help System. 
+	            </t>
+		       <t>
+                    The first schema that comes to my mind is something like this: 
+	             </t>
+	          <t>
+	             <list>
+			  <t>
+			  <list>
+			  <t>
+                      1. OVERVIEW 
+	               </t>
+		        <t>
+                      1.1 Purpose of this module
+	               </t>
+		        <t>
+                     1.2 Requirements
+	               </t>
+		        <t>
+                     1.3 Authors and credits
+	              </t>
+		       <t>
+                    1.4 Obtaining latest version
+	             </t>
+		      <t>
+                   1.5 Collaborate and bug catching and fixing
+	             </t>
+	             </list>
+	             </t>
+		      <t>
+                   2. INSTALLATION 
+	             </t>
+		      <t>
+		         <list>
+		             <t>
+		             2.1 Fresh install
+		             </t>
+		             <t>
+		             2.2 Upgrading
+		             </t>
+		         </list>
+                   </t>
+		      <t>
+                    3. CONFIGURATION 
+	             </t>
+		      <t>
+		      <list>
+		      <t>
+                    3.1 Module configuration
+	             </t>
+		      <t>
+                    3.2 Permissions
+	             </t>
+		      <t>
+                    3.3 Block configuration
+	             </t>
+	             </list>
+	             </t>
+		      <t>
+                    4. ADMIN GUIDE 
+	             </t>
+		      <t>
+		      <list>
+		      <t>
+                   4.1 Adding new items
+	             </t>
+		      <t>
+                    4.1.1 How to
+	             </t>
+		      <t>
+                    4.1.2 Input Labels explained
+	             </t>
+		      <t>
+                    4.2 Editing items
+	             </t>
+		      <t>
+                   4.3 Delete an item
+	             </t>
+		      <t>
+                    4.4 Other options
+	             </t>
+	             </list>
+	             </t>
+		      <t>
+                   5. USER GUIDE 
+	             </t>
+		      <t>
+		      <list>
+		      <t>
+                    5.1 View items
+	             </t>
+		      <t>
+                    5.2 Display details
+	             </t>
+		      <t>
+                    5.3 ....
+	             </t>
+		      <t>
+                    5.4 ....
+	             </t>
+	             </list>
+	             </t>
+		      <t>
+                    6. FAQ 7. TO DO
+                    </t>
+                </list>
+               </t>
+             </section>
+		<section title="Relationship of the Help System to other areas">
+			<t>
+			<list>
+				<t>
+				Comments System: Used for user comments on the manual
+				</t>
+				<t>
+				Ratings Module: Used for rating of manuals
+				</t>
+				<t>
+				XML-RPC Module: Sync documentation with master copy
+				</t>
+				<t>
+				Tracking Module: Collect usability data (which module is used most etc)
+				</t>
+				<t>
+				Admin module: provide help display functionality
+				</t>
+				<t>
+				phpdoc parser: get API commentary for programmers reference
+				</t>
+			</list>
+                   </t>
+             </section>
+		<section title="Code that will need to be rewritten">
+			<t>
+			<list>
+			<t>
+			Help system in admin module
+			</t>
+			</list>
+			</t>
+             </section>
+		<section title="Basic documents for this RFC">
+			<t>
+			[1] RE: ?pndev DOCUMENTATION: Preview PDF now available. pndev post 04/26/02 gregorrothfuss
+     	             </t>
+		      <t>
+                    [2] RE: ?pndev READ: New Block Stuff &amp; Revamp pndev post 05/13/02 Veres Ferenc
+                   </t>
+             </section>
+		<section title="Tools that need to be created from scratch">
+			<t>
+			<list>
+			<t>
+			Docbook parser: We need to figure out a way to keep the docbook sources synced with the help system. 
+			</t>
+			<t>
+                    phpdoc parser: Is there a php-based phpdoc parser available? Check with PEAR.
+                    </t>
+                    </list>
+                    </t>
+             </section>
+		<section title="Retractions">
+			<t>
+			We list features that were considered but rejected for this API below.
+                    </t>
+             </section>
+		<section title="Changelog">
+			<t>
+			0.1 (May 13, 2002) gregorrothfuss
+	             </t>
+		      <t>
+                     Initial Version
+	             </t>
+		      <t>
+                    0.2 (July 9, 2002) gregorrothfuss
+	             </t>
+		      <t>
+                    Module Schema from Stefano Garubi added
+	             </t>
+		      <t>
+                    Help System implementation notes added
+                    </t>
+             </section>
+	</middle>
 </rfc>

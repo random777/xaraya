@@ -31,8 +31,10 @@
 
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>This RFC is the template for writing RFCs in XML or plain text for the 
-	Xaraya project.</t>
+      <t>The EU directive on data protection contains some requirements which may have
+	an impact on our code base. This  RFC documents these requirements and their
+	propasals on how to comply with them in Xaraya.
+      </t>
     </abstract>
   </front>
 
@@ -40,124 +42,112 @@
   <middle>
     <!-- Introduction is mandatory -->
     <section title="Introduction">
-      <t>Every RFC contains at least the following sections:
-	<list style="bullet">
-	  <t>Introduction</t>
-	  <t>at least one content section</t>
-	  <t>Revision History</t>
+      <t>
+	This document proposes certain changes to the Xaraya source code to make the
+	users module compliant with the EU directive on data protection. This does
+	not imply that Xaraya sites without these changes cannot comply with the
+	directive. The changes proposed simply make it easier to do so, primarily by
+	giving the users enhanced functionality to manage personal data they submit.
+	This makes life easier for the site administrator, who otherwise has the
+	onus to comply with user requests concerning personal data.
+      </t>
+      <t>
+	The directive is quite complex and, depending on the type and purpose of the
+	data collected, can be quite onerous. The changes proposed in this document
+	purport to take into account common situations encountered by most
+	organizations that will run Xaraya. With this in mind, what follows is a
+	simplified summary of the major points of the directive that will be used to
+	define the requirements of a compliant users module.
+      </t>
+      <t>
+	For special situations the directive in its entirety may need to be taken
+	into account. The directive can be found here:
+	http://www.privacy.org/pi/intl_orgs/ec/final_EU_Data_Protection.html
+      </t>
+    </section>
+
+    <section title="Implications of the Directive">
+      <t>
+	For the purpose at hand the directive distinguishes between the following
+	subjects (we take subject to mean a natural or legal person):
+	<list>
+	  <t>
+	    Data Subject: the natural person whose personal data is the object
+	    of the directive.
+	  </t>
+	  <t>
+	    Controller: the subject that determines the purposes and means of
+	    the processing of personal data.
+	  </t>
+	  <t>
+	    Processor: the subject that processes personal data on behalf of
+	    the controller.
+	  </t>
+	  <t>
+	    Recipient: the subject to whom data are disclosed.
+	  </t>
+	</list>
+      </t>
+      <t>
+	The directive applies to any and all processing of personal data, with some
+	exceptions. Exempted are a number of national or EU institutions themselves
+	(!), and strictly personal or household uses of personal data.
+      </t>
+      <t>
+	While we can make a module EU compliant, this does not necessarily mean that
+	any use of the module is necessarily legal in all cases. National
+	legislation may supercede the directive. What may be allowed by the
+	directive, e.g. processing of personal data "revealing racial or ethnic
+	origin, political opinions, religious or philosophical beliefs, trade-union
+	membership" with the user's consent, may be prohibited by national law. Such
+	considerations are excluded from this document.
+      </t>
+      <t>
+	Also excluded from this discussion is the obligation that a site may or may
+	not have to notify a supervisory authority as described by the directive.
+	[section IX]
+      </t>
+      <t>
+	The directive distinguishes between data collected from the user and data
+	about the user collected from other sources. For our purpose only the former
+	is relevant, i.e. data submitted by users registering on a site.
+      </t>
+    </section>
+
+    <section title="Main Points">
+      <t>
+	<list style="numbers">
+	  <t>
+	    The user must give his/her unambiguous consent to the processing
+	    of his/her personal data.
+	  </t>
+	  <t>
+	    The user must be told to what end the data will be used.
+	  </t>
+	  <t>
+	    The user must be told whether submitting the data is mandatory or
+	    not, and the consequences of submitting or not submitting the data.
+	  </t>
+	  <t>
+	    The user must be told who the recipients of the data will be.
+	  </t>
+	  <t>
+	    The user must have the right to access and modify the data.
+	  </t>
+	  <t>
+	    The user has the right to object at any time to the processing of
+	    the data. Accordingly "Where there is a justified objection, the processing
+	    instigated by the controller may no longer involve those data".
+	  </t>
 	</list>
       </t>
     </section>
 
-    <!-- One content section is mandatory -->
-    <section title="Introduction">
-      <t>
-This document proposes certain changes to the Xaraya source code to make the
-users module compliant with the EU directive on data protection. This does
-not imply that Xaraya sites without these changes cannot comply with the
-directive. The changes proposed simply make it easier to do so, primarily by
-giving the users enhanced functionality to manage personal data they submit.
-This makes life easier for the site administrator, who otherwise has the
-onus to comply with user requests concerning personal data.
-
-The directive is quite complex and, depending on the type and purpose of the
-data collected, can be quite onerous. The changes proposed in this document
-purport to take into account common situations encountered by most
-organizations that will run Xaraya. With this in mind, what follows is a
-simplified summary of the major points of the directive that will be used to
-define the requirements of a compliant users module.
-
-For special situations the directive in its entirety may need to be taken
-into account. The directive can be found here:
-http://www.privacy.org/pi/intl_orgs/ec/final_EU_Data_Protection.html
-</t>
-</section>
-
-    <section title="Implications of the Directive">
-      <t>
-For the purpose at hand the directive distinguishes between the following
-subjects (we take subject to mean a natural or legal person):
-
-§         Data Subject: the natural person whose personal data is the object
-of the directive.
-
-§         Controller: the subject that determines the purposes and means of
-the processing of personal data.
-
-§         Processor: the subject that processes personal data on behalf of
-the controller.
-
-§         Recipient: the subject to whom data are disclosed.
-
-The directive applies to any and all processing of personal data, with some
-exceptions. Exempted are a number of national or EU institutions themselves
-(!), and strictly personal or household uses of personal data.
-
-While we can make a module EU compliant, this does not necessarily mean that
-any use of the module is necessarily legal in all cases. National
-legislation may supercede the directive. What may be allowed by the
-directive, e.g. processing of personal data "revealing racial or ethnic
-origin, political opinions, religious or philosophical beliefs, trade-union
-membership" with the user's consent, may be prohibited by national law. Such
-considerations are excluded from this document.
-
-Also excluded from this discussion is the obligation that a site may or may
-not have to notify a supervisory authority as described by the directive.
-[section IX]
-
-The directive distinguishes between data collected from the user and data
-about the user collected from other sources. For our purpose only the former
-is relevant, i.e. data submitted by users registering on a site.
-</t>
-</section>
-
-
-    <section title="Main Points">
-      <t>
-1.        The user must give his/her unambiguous consent to the processing
-of his/her personal data.
-
-2.       The user must be told to what end the data will be used.
-
-3.       The user must be told whether submitting the data is mandatory or
-not, and the consequences of submitting or not submitting the data.
-
-4.       The user must be told who the recipients of the data will be.
-
-5.       The user must have the right to access and modify the data.
-
-6.       The user has the right to object at any time to the processing of
-the data. Accordingly "Where there is a justified objection, the processing
-instigated by the controller may no longer involve those data".
-</t>
-    </section>
-
     <!-- Revision history is mandatory -->
     <section title="Revision history">
-      <t>Put a summary of the major revisions to this document in here</t>
+      <t>2002-11-10: Initial revision</t>
     </section>
-
-  </middle>
-
-  <!-- Back matter is used for references and appendices which come after the references -->
-  <back>
-    <references title="Reference title">
-      <!-- Fill in references as needed -->
-      <reference>
-	<front>
-	  <title>Reference title</title>
-	  <author>
-	    <organization>Organization</organization>
-	  </author>
-	  <date year="2002"/>
-	</front>
-      </reference>
-      <!-- Repeat the aboven block if more references are needed -->
-    </references>
     
-    <!-- Any section after this will become an appendix -->
-    <section title="Example appendix">
-      <t>Any section which is present after the references will become an appendix</t>
-    </section>
-  </back>
+  </middle>
+  
 </rfc>

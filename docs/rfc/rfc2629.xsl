@@ -872,11 +872,11 @@
   <xsl:param name="mode" />
   <!-- default case -->
   <xsl:if test="not($private)">
-  	<myns:item>Network Working Group</myns:item>
+  	<myns:item>Xaraya Development Group</myns:item>
     <myns:item>
      	<xsl:choose>
-        <xsl:when test="/rfc/@ipr and $mode='nroff'">Internet Draft</xsl:when>
-        <xsl:when test="/rfc/@ipr">INTERNET DRAFT</xsl:when>
+        <xsl:when test="/rfc/@ipr and $mode='nroff'">Xaraya Draft</xsl:when>
+        <xsl:when test="/rfc/@ipr">XARAYA DRAFT</xsl:when>
         <xsl:otherwise>Request for Comments: <xsl:value-of select="/rfc/@number"/></xsl:otherwise>
       </xsl:choose>
     </myns:item>
@@ -1023,7 +1023,7 @@
   <section title="Full Copyright Statement" anchor="{$anchor-prefix}.copyright" myns:unnumbered="unnumbered" xmlns="">
 
 	<t>    
-		Copyright (C) The Internet Society (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
+		Copyright (C) The Xararya Development Group (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
 	</t>
 
 	<t>
@@ -1034,9 +1034,9 @@
     provided that the above copyright notice and this paragraph are included
     on all such copies and derivative works. However, this document itself
     may not be modified in any way, such as by removing the copyright notice
-    or references to the Internet Society or other Internet organizations,
-    except as needed for the purpose of developing Internet standards in
-    which case the procedures for copyrights defined in the Internet
+    or references to the Xaraya Development Group or other Internet organizations,
+    except as needed for the purpose of developing Xaraya standards in
+    which case the procedures for copyrights defined in the Xaraya
     Standards process must be followed, or as required to translate it into
     languages other than English.
 	</t>
@@ -1048,8 +1048,8 @@
 
 	<t>
 		This document and the information contained herein is provided on an
-    "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
-    TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT
+    "AS IS" basis and THE XARAYA DEVELOPMENT GROUP AND THE DIGITAL DEVELOPMENT 
+    FOUNDATION DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT
     NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL
     NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR
     FITNESS FOR A PARTICULAR PURPOSE.
@@ -1059,7 +1059,7 @@
 	<section title="Acknowledgement" myns:unnumbered="unnumbered" xmlns="" myns:notoclink="notoclink">
 	<t>
     	Funding for the RFC editor function is currently provided by the
-      Internet Society.
+      Digital Development Foundaton.
   </t>
   </section>
 
@@ -1298,7 +1298,7 @@ ins
 	<xsl:choose>
     <xsl:when test="/rfc/@ipr">
 			<t>
-				This document is an Internet-Draft and is 
+				This document is an Xaraya-Draft and is 
 				<xsl:choose>
 					<xsl:when test="/rfc/@ipr = 'full2026'">
 						in full conformance with all provisions of Section 10 of RFC2026.    
@@ -1310,7 +1310,7 @@ ins
 					<xsl:when test="/rfc/@ipr = 'noDerivativeWorksNow'">
 						in full conformance with all provisions of Section 10 of RFC2026
 						except that the right to produce derivative works is not granted.
-						(If this document becomes part of an IETF working group activity,
+						(If this document becomes part of an DDF working group activity,
 						then it will be brought into full compliance with Section 10 of RFC2026.)  
     				</xsl:when>
 					<xsl:when test="/rfc/@ipr = 'none'">
@@ -1321,64 +1321,64 @@ ins
 					<xsl:otherwise>CONFORMANCE UNDEFINED.</xsl:otherwise>
 				</xsl:choose>
 
-				Internet-Drafts are working documents of the Internet Engineering
-				Task Force (IETF), its areas, and its working groups.
+				Xaraya-Drafts are working documents of the Digital Development Foundation
+				(DDF), its areas, and its working groups.
 				Note that other groups may also distribute working documents as
-				Internet-Drafts.
+				Xaraya-Drafts.
       </t>
       <t>
-				Internet-Drafts are draft documents valid for a maximum of six months
+				Xaraya-Drafts are draft documents valid for a maximum of six months
 				and may be updated, replaced, or obsoleted by other documents at any time.
-				It is inappropriate to use Internet-Drafts as reference material or to cite
+				It is inappropriate to use Xaraya-Drafts as reference material or to cite
 				them other than as "work in progress".
 			</t>
 			<t>
-				The list of current Internet-Drafts can be accessed at
-				<eref target='http://www.ietf.org/ietf/1id-abstracts.txt'>http://www.ietf.org/ietf/1id-abstracts.txt</eref>.
+				The list of current Xaraya-Drafts can be accessed at
+                          <eref target='http://www.xaraya.com/ddf/rfcindex.html'>http://www.xaraya.com/ddf/rfcindex.html</eref>.
 			</t>
 			<t>
-				The list of Internet-Draft Shadow Directories can be accessed at
-				<eref target='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</eref>.
+				The list of Xaraya-Draft Shadow Directories can be accessed at
+				<eref target='http://www.xaraya.com/shadow.html'>http://www.xaraya.com/shadow.html</eref>.
 			</t>
 			<t>
-				This Internet-Draft will expire in <xsl:call-template name="expirydate" />.
+				This Xaraya-Draft will expire in <xsl:call-template name="expirydate" />.
 			</t>
     </xsl:when>
 
 		<xsl:when test="/rfc/@category='bcp'">
 			<t>
-        This document specifies an Internet Best Current Practice for the Internet
+        This document specifies an Xaraya Best Current Practice for the Xaraya
 				Community, and requests discussion and suggestions for improvements.
 				Distribution of this memo is unlimited.
       </t>
     </xsl:when>
 		<xsl:when test="/rfc/@category='exp'">
 			<t>
-        This memo defines an Experimental Protocol for the Internet community.
-				It does not specify an Internet standard of any kind.
+        This memo defines an Experimental Protocol for the Xaraya community.
+				It does not specify an Xaraya standard of any kind.
 				Discussion and suggestions for improvement are requested.
 				Distribution of this memo is unlimited.
       </t>
     </xsl:when>
 		<xsl:when test="/rfc/@category='historic'">
 			<t>
-        This memo describes a historic protocol for the Internet community.
-				It does not specify an Internet standard of any kind.
+        This memo describes a historic protocol for the Xaraya community.
+				It does not specify an Xaraya standard of any kind.
 				Distribution of this memo is unlimited.
       </t>
     </xsl:when>
 		<xsl:when test="/rfc/@category='info'">
 			<t>
-        This memo provides information for the Internet community.
-				It does not specify an Internet standard of any kind.	
+        This memo provides information for the Xaraya community.
+				It does not specify an Xaraya standard of any kind.	
 				Distribution of this memo is unlimited.
       </t>
     </xsl:when>
 		<xsl:when test="/rfc/@category='std'">
 		  <t>
-        This document specifies an Internet standards track protocol for the Internet
+        This document specifies an Xaraya standards track protocol for the Xaraya
 				community, and requests discussion and suggestions for improvements.
-				Please refer to the current edition of the &quot;Internet Official Protocol
+				Please refer to the current edition of the &quot;Xaraya Official Protocol
 				Standards&quot; (STD 1) for the standardization state and status of this	
 				protocol. Distribution of this memo is unlimited.
       </t>
@@ -1392,7 +1392,7 @@ ins
 
   <section title="Copyright Notice" myns:unnumbered="yes" xmlns="" myns:notoclink="notoclink">
 	<t>
-		Copyright (C) The Internet Society (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
+		Copyright (C) The Xaraya Development Group (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
   </t>
   </section>
   
@@ -1739,7 +1739,7 @@ ins
     <xsl:otherwise>
     	<xsl:choose>
         <xsl:when test="ancestor::back"><xsl:number count="ed:del|ed:ins|section" level="multiple" format="A.1.1.1.1.1.1.1" /></xsl:when>
-        <xsl:otherwise><xsl:number count="ed:del|ed:ins|section" level="multiple"/></xsl:otherwise>
+        <xsl:otherwise><xsl:number count="ed:del|ed:ins|section" level="multiple" /></xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>

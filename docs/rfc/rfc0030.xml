@@ -1032,7 +1032,7 @@
          Each mask that will be used for security checks needs to be registered. This is done with the function registerMask, which has the following syntax:
 
         <artwork>
-	     function registerMask($name,$realm,$module,$component,$instancetype,$instance,$level,
+	     function registerMask($name,$realm,$module,$component,$instance,$level,
 	     $description='')
 	     
 	     where:

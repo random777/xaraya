@@ -1,0 +1,81 @@
+This file contains some standard headers which we use in our code. You should 
+take the headers as a bare minimum, extend at will
+
+Fileheader:
+===========
+
+/**
+ * File: $Id$
+ *
+ * Short description of purpose of file
+ *
+ * @package Xaraya eXtensible Management System
+ * @copyright (C) 2002 by the Xaraya Development Team.
+ * @link http://www.xaraya.com
+ * 
+ * @subpackage <module name>
+ * @author <reponsible person>
+*/				
+
+Replace comment chars with appropriate characters depending if it's a php
+file, html file or other.
+
+
+
+PHPdoc header for functions:
+============================
+
+/**
+ * Short description of the function
+ *
+ * A somewhat longer description of the function which may be 
+ * multiple lines, can contain examples.
+ *
+ * @author  Name <email>
+ * @deprec  <insert this if function is deprecated>
+ * @access  <public / private>
+ * @param   param1 Description of parameter 1
+ * @param   param2 Description of parameter 2
+ * @return  <type to return> <description>
+ * @raise   <exception identifiers which can be raised>
+ * @todo    list of things which must be done to comply to RFC
+*/
+
+===========================
+
+Below is an example with all possible phpdoc tags.
+
+
+/**
+* The short description
+*
+* As many lines of extendend description as you want {@link element} links to an element
+* {@link http://www.example.com Example hyperlink inline link} links to a website
+* Below this goes the tags to further describe element you are documenting
+*
+* @param  	type	$varname	description
+* @return 	type	description
+* @access 	public or private
+* @author 	author name <author@email>
+* @copyright	name date
+* @version	version
+* @see		name of another element that can be documented, produces a link to it in the documentation
+* @link		a url
+* @since  	a version or a date
+* @deprecated	description
+* @deprec		alias for deprecated
+* @global	type	$globalvarname
+  or
+* @global	type	description of global variable usage in a function
+* @staticvar	type	description of static variable usage in a function
+* @name		procpagealias
+  or
+* @name		$globalvaralias
+* @magic		phpdoc.de compatibility
+* @todo		phpdoc.de compatibility
+* @exception	Javadoc-compatible, use as needed
+* @throws  	Javadoc-compatible, use as needed
+* @var		type	a data type for a class variable
+* @package	package name
+* @subpackage	sub package name, groupings inside of a project
+*/

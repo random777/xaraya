@@ -6,3 +6,5 @@ docs/rfc/*.html
 config.site.xml
 config.system.php
 html/modules/example/.pnadmin.php.swp
+html/modules/xproject
+html/modules/comments/old-pnuserapi.php

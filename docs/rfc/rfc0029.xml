@@ -568,7 +568,7 @@
     <section title="Implementation">
       <t>
         Preliminary class design:
-        <artwork src="images/rfc0029_1.png"/>
+        <artwork type="image/png" src="images/rfc0029_1.png"/>
       </t>
       
     </section>

@@ -39,7 +39,7 @@ information.</t>
 <section title="Data dictionary design">
 	<t>
 DB tables:
-       <figure preamble=" DB tables"><artwork src="images/rfc0034_1.png"/></figure>
+       <figure preamble=" DB tables"><artwork type="image/png" src="images/rfc0034_1.png"/></figure>
 <list style="bullet">
 	    <t>modid - module id</t>
 	    <t>type - type name</t>
@@ -50,7 +50,7 @@ DB tables:
 	
 	<t>
 API
-       <figure preamble="API"><artwork src="images/rfc0034_2.png"/></figure>
+       <figure preamble="API"><artwork type="image/png" src="images/rfc0034_2.png"/></figure>
       </t>
       </section>
     <section title="Relationship to other areas">

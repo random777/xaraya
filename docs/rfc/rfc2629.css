@@ -171,7 +171,8 @@ A:name {
 	font-weight: bold;
 	text-decoration: none;
 	font-family: verdana, arial, helvetica, sans-serif;
-	font-size: 9px 
+	font-size: 9px;
+  background-color: #191970;
 	}
 	
 .RFC { 
@@ -206,9 +207,19 @@ A:name {
 
 .toowide
     {
-    color: red;
-      font-weight: bold;
+    /*color: red;
+      font-weight: bold; */
     }
+
+.error
+{ 
+background-color: #191970;
+color: white;
+font-weight: bold;
+font-size: 10px;
+width: 550px;
+padding: 5pt;
+}
 
 .figure
     {

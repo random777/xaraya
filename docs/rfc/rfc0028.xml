@@ -221,7 +221,7 @@
           <section title="Normal scenario based development cycle">
             <t>During normal development the following process is  used:    
               <figure>
-                <artwork src="images/rfc0028_2.png"/>
+                <artwork type="image/png" src="images/rfc0028_2.png"/>
               </figure>
               <eref target="images/rfc0028_1.png">Large picture</eref>
             </t>
@@ -316,7 +316,7 @@
               When it is time to construct a release of the software
               the following process is used.
               <figure>
-                <artwork src="images/rfc0028_4.png"/>
+                <artwork type="image/png" src="images/rfc0028_4.png"/>
               </figure>
               <eref target="images/rfc0028_3.png">Large picture</eref>
             </t>
@@ -721,7 +721,7 @@
           </t>
           <t>Graphically the above works out as follows:</t>
           <figure>
-            <artwork src="images/rfc0028_5.png"/>
+            <artwork type="image/png" src="images/rfc0028_5.png"/>
           </figure>
         </section>
       </section>

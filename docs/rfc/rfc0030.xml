@@ -39,47 +39,66 @@
   <middle>
     <!-- Introduction is mandatory -->
     <section title="Introduction">
-<list style="symbols">
-	  <t>The main points of this RFC are:</t>
-	  <list style="symbols">
-	  <t>Permissions are defined as objects that can be manipulated independently of users and groups.
-	  </t><t>Users and groups are conceptually (and in the implementation) merged to a single class of objects called participants.
-	  </t><t>Both participants and permissions can have unlimited levels of subgoups of participants and permissions respectively.
-	  </t><t>Permission objects, i.e. objects that have permissions associated with them, are registered when a module is initiated.
-	  </t>
-	</list>
-<t>Benefits:</t>
-	  <list style="symbols">
-	  <t>Permissions can be manipulated independently of participants. We can create groups of permissions, adding or deleting the components.
-	  </t><t>We can then assign permissions groups to participants in a single statement.
-	  </t><t>Registering permissions objects allows us to make visible to the user the available permissions to be set.
-	  </t>
-	</list>
-<t>This RFC does not cover:</t>
-	  <list style="symbols">
-	  <t>The UI of the permissions system
-	  </t><t>The issue of translating the current system of using regex for permissions into the permissions of the proposed scheme.
-	  </t><t>Whether and how regex should be allowed in the new UI.
-	  </t>
-	</list>
-
-	  <t>Note: This RFC has borrowed generously from the concepts underlying the Java packages java,security and java.security.acl. These can be found at: 
-	  <eref 
-target="http://java.sun.com/j2se/1.3/docs/api">http://java.sun.com/j2se/1.3/docs/api</eref>
-</t>
-	</list>
+<t>
+				<list style="symbols">
+					<t>The main points of this RFC are:</t>
+					<t>	  
+						<list style="symbols">
+							<t>Permissions are defined as objects that can be manipulated independently of users and groups.</t>
+							<t>Users and groups are conceptually (and in the implementation) merged to a single class of objects called participants.</t>
+							<t>Both participants and permissions can have unlimited levels of subgoups of participants and permissions respectively.</t>
+							<t>Permission objects, i.e. objects that have permissions associated with them, are registered when a module is initiated.</t>
+						</list>
+					</t>
+					<t>Benefits:</t>
+					<t>
+						<list style="symbols">
+							<t>Permissions can be manipulated independently of participants. We can create groups of permissions, adding or deleting the components.
+							</t>
+							<t>We can then assign permissions groups to participants in a single statement.
+							</t>
+							<t>Registering permissions objects allows us to make visible to the user the available permissions to be set.
+							</t>
+						</list>
+					</t>
+					<t>This RFC does not cover:</t>
+					<t>
+						<list style="symbols">
+							<t>The UI of the permissions system
+							</t><t>The issue of translating the current system of using regex for permissions into the permissions of the proposed scheme.
+							</t><t>Whether and how regex should be allowed in the new UI.
+							</t>
+						</list>
+					</t>
+					<t>Note: This RFC has borrowed generously from the concepts underlying the Java packages java,security and java.security.acl. These can be found at: 
+						<eref target="http://java.sun.com/j2se/1.3/docs/api">http://java.sun.com/j2se/1.3/docs/api</eref>
+					</t>
+				</list>
+			</t>
     </section>
 
     <!-- One content section is mandatory -->
     <section title="Concept">
-     <t>The following presents the concepts underlying the proposal, as well as suggestions concerning the structure of database tables. A listing of pseudo-code covering the objects discussed can be found in the appendices.
-     </t><t>The permissions proposal revolves around the following objects:</t>
-	<section title="Participants">
-      <t>
-      A central repository of user and group definitions. Each user, group, group of groups etc. is a participant with an entry in this repository.
-	  <t>An implementation of the  Participants object conceptually replaces the tables pn_user and pn_group. The code for manipulating participants will deal with the issue of whether the participant is a group or a user and handle things accordingly.
-</t>
-<artwork>
+     <t>The following presents the concepts underlying the proposal,
+     as well as suggestions concerning the structure of database
+     tables. A listing of pseudo-code covering the objects discussed
+     can be found in the appendices.
+     </t>
+			<t>The permissions proposal revolves around the following objects:</t>
+			<section title="Participants">
+				<t>
+					A central repository of user and group definitions. Each user,
+					group, group of groups etc. is a participant with an entry in
+					this repository.
+				</t>
+				<t>An implementation of the Participants object conceptually
+				replaces the tables pn_user and pn_group. The code for
+				manipulating participants will deal with the issue of whether
+				the participant is a group or a user and handle things
+				accordingly.
+				</t>
+				<t>
+					<artwork>
 Methods:    listall            gets a list of all the participants
             getParticipant     get a participant based on its id
 </artwork>
@@ -295,7 +314,7 @@ Note there needs to be a translation layer which transforms any regular expressi
 </t>
     </section>
     <section title="Miscellaneous Notes To Do">
-		<list style="symbols">
+<t>	<list style="symbols">
 	  <t>
 Almost all the error checking still needs to be added.
 </t><t>Need to check that all the recursive functions don't crash if nothing is found.
@@ -305,7 +324,7 @@ Almost all the error checking still needs to be added.
 </t><t>The idea of using inheritance for schemas and permissions may be more hassle than it's worth in terms of contortions and readability.
 </t><t>Explore the fact that the recursive functions in permissions and participants COULD have different behaviors. A permission defined as a parent of another permission COULD have its own specific behavior, rather than just being a superset of other permissions. Also need to check whether the analogous behavior of the participant recursive functions is correct.
 </t><t>Include the descriptions in the code.
-</t></list>
+</t></list></t>
     </section>
     </section>
    <!-- Revision history is mandatory -->
@@ -333,7 +352,7 @@ Almost all the error checking still needs to be added.
     
     <!-- Any section after this will become an appendix -->
     <section title="Appendix: Pseudo code ">
-<artwork>
+<t><artwork>
     /*==============================================================================*
      |                            Static Classes	                                |
      *==============================================================================*/
@@ -1032,9 +1051,10 @@ class xarParticipant
 }
 
 </artwork>
+</t>
     </section>
     <section title="Appendix: Pseudo code for pnSecAuthAction">
-<artwork>
+<t><artwork>
 
 
 What to do with pnSecAuthAction()
@@ -1054,6 +1074,7 @@ function pnSecAuthAction($realm,$component,$instance,$level,$userid=NULL){
 	return false;
 	}
 }</artwork>
+</t>
     </section>
   </back>
 </rfc>

@@ -233,8 +233,8 @@
 		  // override.
 		  contentid   // unique long integer value
 		  conttypeid  // foreign key from table "Contenttype"
-		  status      // (draft, review phase 1, publishable)    <xref target="refs.1"/> <xref target="refs.11"/>
-		  version     // revision number of the content  <xref target="refs.1"/>
+		  status      // (draft, review phase 1, publishable)    
+		  version     // revision number of the content  
 		  lastedit    // timestamp of when the current version was saved
 		  preid       // id of the contents predecessor in the content life
 		  // cycle enables to rollback to an earlier version or
@@ -286,7 +286,7 @@
 		  // in the workflow to give a quick note what has to
 		  // be done
 		  pubdate     // date (timestamp) when the publication is
-		  // auto-published / was manually published   <xref target="refs.1"/>
+		  // auto-published / was manually published  
 		  expdate     // timestamp when the publication will be expired /
 		  // auto-archived
 		  </artwork>
@@ -317,7 +317,7 @@
 		  conttypeid  // primary key
 		  conttypname // name of the content type, e.g. [abstract, fulltext,
 		  // link, picture, downloads, pdf, worddoc]
-		  MIMEtype    // e.g. application/pdf or text/html <xref target="refs.1"/> <xref target="refs.3"/> <xref target="refs.5"/>
+		  MIMEtype    // e.g. application/pdf or text/html 
 		  </artwork>
 		</t>
 	  </section>
@@ -383,7 +383,7 @@
 		  // first, not all display modules will use this table.
 		  contentid  // ck (1of2), foreign key to the publications table
 		  weight     // ck (2of2), order in which the content will appear on
-		  // display                                        <xref target="refs.6"/>
+		  // display                                        
 		  promotexp  // expiration date (timestamp) when the weight looses
 		  // its effect and the content drops into normal order
 		  </artwork>

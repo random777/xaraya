@@ -71,6 +71,7 @@
 			<t>
     Am not entirely sure how to structure the database tables or really even which are needed.
 	</t>
+	<t>
 	<artwork>
 	Available events
 	----------------
@@ -100,6 +101,7 @@
 	eventid		event identifier
 	template	template text
 	</artwork>
+			</t>
 			<t>
 	Available events are created based on available hooks and/or other events defined by the module (e.g. publication of an article in a particular category). Event registration is done by users, signing up for a particular event (and specifying a particular action in the future). Event handling is filled in when an event is triggered for a particular item (e.g. via hooks), listing all user subscriptions that are affected by this event, the particular object ID for which action should be taken, and the status of that action. The actual handling of the actions for each user can then be done in background, or scheduled for later processing, or at the time the event was triggered (to be further defined).
 	</t>

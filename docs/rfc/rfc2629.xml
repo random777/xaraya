@@ -3,40 +3,43 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 <?rfc toc="yes"?>
 <rfc number="2629">
-<front>
-<title>Writing X-Ds and RFCs using XML</title>
-<author initials="M.T." surname="Rose" fullname="Marshall T. Rose">
-<organization>Invisible Worlds, Inc.</organization>
-<address>
-<postal>
-<street>660 York Street</street>
-<city>San Francisco</city> <region>CA</region> <code>94110</code>
-<country>US</country>
-</postal>
-<phone>+1 415 695 3975</phone>
-<email>mrose@not.invisible.net</email>
-<uri>http://invisible.net/</uri>
-</address>
-</author>
-<date month="June" year="1999" />
-<area>General</area>
-<keyword>RFC</keyword>
-<keyword>Request for Comments</keyword>
-<keyword>X-D</keyword>
-<keyword>Xaraya-Draft</keyword>
-<keyword>XML</keyword>
+	<front>
+		<title>Writing X-Ds and RFCs using XML</title>
+		<author initials="M.T." surname="Rose" fullname="Marshall T. Rose">
+			<organization>Invisible Worlds, Inc.</organization>
+			<address>
+				<postal>
+					<street>660 York Street</street>
+					<city>San Francisco</city> <region>CA</region> <code>94110</code>
+					<country>US</country>
+				</postal>
+				<phone>+1 415 695 3975</phone>
+				<email>mrose@not.invisible.net</email>
+				<uri>http://invisible.net/</uri>
+			</address>
+		</author>
+		<date month="June" year="1999" />
+		<area>General</area>
+		<keyword>RFC</keyword>
+		<keyword>Request for Comments</keyword>
+		<keyword>X-D</keyword>
+		<keyword>Xaraya-Draft</keyword>
+		<keyword>XML</keyword>
+		<keyword>Extensible Markup Language</keyword>
+		<abstract>
+			<t>This memo presents a technique for using XML
+				(Extensible Markup Language)
+				as a source format for documents in the Internet-Drafts (I-Ds) and
+				Request for Comments (RFC) series
+			</t>
+		</abstract>
     <note title="IMPORTANT">
       <t>Although the copyright notice above says Xaraya, this is not the case. The original author mentioned in the
-	header has copyright to this document. Because the RFC documents are automatically generated with a modified
-	script for out group, the copyright statement is automatically changed. I hope this note is sufficient and
-	gives the original author enough credit for this situation.</t>
+				header has copyright to this document. Because the RFC documents are automatically generated with a modified
+				script for out group, the copyright statement is automatically changed. I hope this note is sufficient and
+				gives the original author enough credit for this situation.</t>
     </note>
-<keyword>Extensible Markup Language</keyword>
-<abstract><t>This memo presents a technique for using XML
-(Extensible Markup Language)
-as a source format for documents in the Internet-Drafts (I-Ds) and
-Request for Comments (RFC) series.</t></abstract>
-</front>
+	</front>
 <middle>
 <section title="Introduction">
 <t>This memo describes how to write a document for the I-D and RFC series

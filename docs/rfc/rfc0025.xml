@@ -160,6 +160,7 @@
     </section>
 
     <section title="Requirements">
+<t>
       <artwork>
 ID  Measure                                         Critical Essential Optional  Nice
 -------------------------------------------------------------------------------------
@@ -205,7 +206,7 @@ ID  Measure                                         Critical Essential Optional 
 33  flow control                                          no      yes       yes   yes
 34  anyone can add comments to a bug                      no      yes       yes   yes
       </artwork>
-      
+   </t>   
       <section title="State is consistent with state of product sources">
 	<t>
 	  This requirement is critical. It means that the information in the bug

@@ -183,7 +183,7 @@
           xarTpl__executeFromFile(). In fact, there is much 
           commonality that should be brought together into shared 
           functions.</t>
-
+<t>
           <artwork>
           function xarTpl__executeFromString($sourceString, $tplData, $cache_flag=true)
 {
@@ -253,15 +253,16 @@
 }
 
           </artwork>
-        </section>
+					</t>   
+     </section>
 
         <section title="xarTplEval()">
           <t>The public function xarTplEval() will simply replace
           the current functionality of xarTplString().</t>
-
+<t>
           <artwork>function xarTplString($templateCode, $tplData) {
           return xarTpl__execute($templateCode, $tplData);
-          }</artwork>
+          }</artwork></t>
         </section>
       </section>
 
@@ -271,9 +272,9 @@
           Content. The current version of this function does not appear to be called from anywhere (at the moment), so 
           changes should have no impact on existing code.</t>
 
-          <artwork>function xarTplString($templateCode, $tplData, $cache_flag) {
+<t>          <artwork>function xarTplString($templateCode, $tplData, $cache_flag) {
           return xarTpl__executeFromString($templateCode, $tplData, $cache_flag);
-          }</artwork>
+          }</artwork></t>
         </section>
       </section>
     </section>
@@ -287,10 +288,12 @@
         <t>md5 is used against the template source string to provide a
         file name for the cache. Is the result of md5 distinct enough
         to:</t>
+				<t>
         <list style="bullet">
         <t>Change with minor amendments to sourceString? or</t>
         <t>Not conflict with other cached files?</t>
         </list>
+				</t>
       </section>
       <section title="Garbage Collection">
         <t>What requirements are there for garbage collection? i.e. 
@@ -330,7 +333,7 @@
       <t>This section lists and describes the players or roles
       involved in developing and running a Content Management
       System</t>
-
+			<t>
       <list style="bullet">
         <t>Developer: Creates and maintains core and module code
         for general public release. May also create themes which
@@ -357,6 +360,7 @@
         not be logged in, may occasionally submit content, but will
         not take any further part in it's publication.</t>
       </list>
+			</t>
     </section>
 
   </back>

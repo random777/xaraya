@@ -100,6 +100,7 @@ For our purpose only the former is relevant, i.e. data submitted by users regist
 </t>
 </section>
 <section title="Main Points">
+<t>
 		<list style="numbers">
 <t>The user must give his/her unambiguous consent to the processing of his/her personal data.
 </t>	  <t>The user must be told to what end the data will be used.
@@ -110,6 +111,7 @@ or not submitting the data.
 </t>	  <t>The user has the right to object at any time to the processing of the data. Accordingly "Where there is a 
 justified objection, the processing instigated by the controller may no longer involve those data".
 </t>	  </list>
+				</t>
 </section>
 </section>
 	
@@ -120,20 +122,21 @@ administrator of the site (as long as the administrator has the access rights to
 personal data). The Data Subject is any user that has registered and submitted personal data. The personal data is any 
 information relating to the user.
 	  </t>
-		<list style="symbols">
+<t>		<list style="symbols">
 <t>Controller, Processor = Administrator
 </t>	  <t>Data Subject, Recipient = User
 </t>	  </list>
-
+			</t>
 	  <t>
 Translating the above rights to a community oriented CMS environment, they can be summarized as:	  
 </t>	  
-		<list style="symbols">
+<t>		<list style="symbols">
 <t>The user can grant or waive consent that his/her data be collected.
 </t>	  <t>The user can modify his/her data at any time.
 </t>	  <t>The user can remove his/her data (or ask that it be removed) at any time.
 </t>	  </list>
-	  <t>
+	 </t>
+ <t>
 The "processing" of user data for the purposes of this proposal can be defined as the processing that occurs in Xaraya's 
 users module through the xarAPI. Compliance in this module will automatically extend compliance to any other module that 
 uses the xaruserapi and xaradminapi functions of the users module.	  
@@ -164,6 +167,7 @@ future lawsuits.
 As concerns consent and removal this is an all or nothing proposition. Those rights are applied to the user data as a 
 whole.
 	  </t>
+<t>
 		<list style="symbols">
 	  <t>	Consent: is given when the user registers.
 	  </t>
@@ -175,6 +179,7 @@ Removal: the user can "unregister", and his/her data will be removed.
 	  </t>
 
 			</list>
+				</t>
 			</section>
 	<section title="Database Tables">
 	  <t>
@@ -214,14 +219,17 @@ of these fields as visible to the recipients or not.
 	  <t>
 	  The site administrator:
 	  </t>
+<t>
 	  <list style="symbols">
 	  <t>
 Can define variable registration data fields (xar_user_property table). (current)
 </t><t>Can define for each data field whether it is to be mandatory (i.e. requires data to be entered) or not.	(new)
 </t><t>Can define for each data field whether its visibility is user optional or not.	(new)
 </t></list>
+				</t>
 	  <t>
 The user:	  </t>
+<t>
 	  <list style="symbols">
 	  <t>
 Can consent to the visible fields as a whole. (current)</t><t>
@@ -231,6 +239,7 @@ Can modify the data at any time. (current)
 </t><t>
 Can unregister from the site at any time. (new)
 </t></list>
+				</t>
 <t>
 The possible recipients for user data depend on the visibility setting and are either administrators or users (="All 
 Groups"). (see Open Issues D)
@@ -240,6 +249,7 @@ Groups"). (see Open Issues D)
 	  <t>
 Add the following database fields:
 </t>
+<t>
 <artwork><![CDATA[
         Table xar_user_property: 
         Field Name           Type          Contains
@@ -251,8 +261,10 @@ Add the following database fields:
         xar_fields_visible    varchar 255   1-dim array consisting of the xar_prop_id 
                                            of all xar_user_property fields set visible
 ]]></artwork>
+				</t>
 	</section>	
 	<section title="Code that will need to be rewritten">
+<t>
 		<list style="numbers">
 		<t>
 		Add appropriate code for xar_prop_mandatory and xar_prop_visible fields to the functions 
@@ -274,7 +286,7 @@ value is entered an error message is generated and the page re-presented.		</t>
 Create the "unregister" functionality as described above.
 		</t>
 		</list>
-
+				</t>
 	  
 
 	  </section>
@@ -323,6 +335,7 @@ invisible. A separate EU flag could be also created. The latter is the preferred
 Rather than stipulate that the field xar_prop_visible be a boolean, and therefore the recipients are either admins or 
 users, a more general solution would be:
 </t>
+<t>
 <artwork><![CDATA[
         Table xar_user_property: 
         Field Name          Type          Contains
@@ -336,6 +349,7 @@ users, a more general solution would be:
                                           and the xar_gid of the group each property field
                                           is visible to.
 ]]></artwork>
+</t>
 <t>
 If a group is deleted, any corresponding entries in xar_fields_visible must be changed to the xar_gid of the admins. The 
 admins group cannot be deleted.

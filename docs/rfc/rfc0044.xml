@@ -65,7 +65,7 @@
     
     <section title="PHP Code Tags">
       <t>
-        <em>Always<em> use <em>&amp;lt;?php ?&amp;gt;<em> to delimit PHP code, not 
+        <em>Always</em> use <em>&amp;lt;?php ?&amp;gt;</em> to delimit PHP code, not 
         the <em>&amp;lt;? ?&amp;gt;</em> shorthand. This is required for PEAR compliance and is 
         also the most portable way to include PHP code on differing operating systems and setups.
       </t>
@@ -239,11 +239,11 @@
 	    Arguments with default values go at the end of the argument list. Always attempt to return a 
 	    meaningful value from a function if one is appropriate. Here is a slightly longer example:
 	    <artwork>
-		  &amp;lt;?php
-		  function connect(&$dsn, $persistent = false)
+		  &lt;?php
+		  function connect(&amp;$dsn, $persistent = false)
 		  {
 		      if (is_array($dsn)) {
-		          $dsninfo = &$dsn;
+		          $dsninfo = &amp;$dsn;
 		      } else {
 		          $dsninfo = DB::parseDSN($dsn);
 		      }
@@ -254,7 +254,7 @@
 
 		      return true;
 		  }
-		  ?&amp;gt;
+		  ?&gt;
 	    </artwork>
 	  </t>
 	</section>

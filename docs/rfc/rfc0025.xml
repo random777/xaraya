@@ -194,7 +194,7 @@
   29  standards compliant                                           yes      yes       yes       yes
   30  open source                                                    no       no       yes       yes
   31  support multiple projects                                      no      yes       yes       yes
-  32  configurable auth system                                       no      yes       yes       yes
+  32  configurable auth system                                       no      no       yes       yes
   33  flow control                                                   no      yes       yes       yes
   34  anyone can add comments to a bug                               no      yes       yes       yes
       </artwork>
@@ -306,7 +306,7 @@
 	<t></t>
       </section>
       <section title="Configurable auth system">
-	<t></t>
+	<t>This is only an optional requirement as it is not necessary to be able to use the same ID for both the tracker and Bitkeeper. For instance ssh public/private keys could be used to authenticate instead. If every user has the tracker id's public key in their authorized_keys file then the tracker will be able to make any updates needed to Bitkeeper *as* the user specified. Commands running the other way should be much easier as tracker updates are just entries in a database and so do not need to run as any particular user. It would be nice to be able to use the same userid and password for both, but since not everyone who has a tracker id will have a bitkeeper id I'm not sure how well it would work in practice. Those who want to use the same ID can simply set the passwords to be the same or maybe a cron script could do it for them but its a bit hacky. </t>
       </section>
       <section title="Flow control">
 	<t></t>

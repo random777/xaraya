@@ -51,7 +51,7 @@ GLOBAL $HTTP_GET_VARS;
 if (empty($HTTP_GET_VARS['title'])) {
   $title="Xaraya scenario roadmap";
 }
-$revision="2002-11-12";
+$revision="2002-12-06";
 $revtext="(Revision: $revision)";
 $heightfactor=0.5;
 $groupbarheight=0.1;
@@ -112,12 +112,17 @@ $scenario=array();
 $latestdate = array();
 $targ=array(); // targets for image map
 $alts=array(); // alternatives for image map
+$indentlevel=0; // start with no indent
 
 while($record) {
   switch ($record['type']) {
   case 0: // Grouping record 
     // params: line, label, start, end, caption, heightfactor 
-    $bar = new GanttBar($db->recordNr,$record['label'],$record['start'],"",$record['lead'],$groupbarheight);
+    if ($record['part_of']!='') {
+      // Group record which is part of something, indent
+      $indent=' ';
+    }
+    $bar = new GanttBar($db->recordNr,$indent.$record['label'],$record['start'],"",$record['lead'],$groupbarheight);
     $bar->title->SetFont(FF_FONT1,FS_BOLD,8);
     $bar->title->SetColor($textcolor);
     $bar->SetColor($groupbarcolor);

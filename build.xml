@@ -27,8 +27,8 @@
 <project name="xaraya" basedir="." default="help">
   
   <!-- Some essential properties on which the rest really depends -->
-  <property name="version" value="0.9.1.0" />
-  <property name="releaselog" value="releaselog-0.906-0.910.txt" />
+  <property name="version" value="0.9.1.1" />
+  <property name="releaselog" value="releaselog-0.910-0.911.txt" />
   <property name="final.name" value="${phing.project.name}-${version}" />
   
   <!-- module lists -->   

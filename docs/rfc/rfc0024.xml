@@ -71,54 +71,35 @@
 			<t>
     Am not entirely sure how to structure the database tables or really even which are needed.
 	</t>
-			<t>
+	<artwork>
 	Available events
-    </t>
-			<t>
-      eventid		unique event identifier
-	</t>
-			<t>
-      modname	holds a reference to the module
-    </t>
-			<t>
-      eventtype	references an event type, either standard hook action or defined by the module
-    </t>
-			<t>
-      groupdescr	defines a group of items in the module (e.g. category), semantics are defined by the module
-    </t>
-			<t>
-      actionid		possible actions (only mail for v1)
-    </t>
-			<t>
+	----------------
+        eventid		unique event identifier
+        modname	        holds a reference to the module
+        eventtype	references an event type, either standard hook action or defined by the module
+        groupdescr	defines a group of items in the module (e.g. category), semantics are defined by the module
+        actionid		possible actions (only mail for v1)
+	
 	Event registration 
-    </t>
-			<t>
-      pubsubid		unique subscription identifier
-    </t>
-			<t>
-      eventid		event identifier
-    </t>
-			<t>
-      userid		user registered for this event
-    </t>
-			<t>
-      actionid		requested action for that user+event (only mail for v1)
-    </t>
-			<t>
+        ------------------
+        pubsubid	unique subscription identifier
+        eventid		event identifier
+        userid		user registered for this event
+        actionid	requested action for that user+event (only mail for v1)
+	
 	Event handling 
-    </t>
-			<t>
-      handlingid	unique identifier for handling a particular event for a particular item and a particular user
-    </t>
-			<t>
-      pubsubid		subscription identifier (= defines event + user + action)
-    </t>
-			<t>
-      objectid		references an individual item in the module, semantics are defined by the module
-    </t>
-			<t>
-      status		pending / done
-	</t>
+        --------------
+	handlingid	unique identifier for handling a particular event for a particular item and a particular user
+        pubsubid	subscription identifier (= defines event + user + action)
+        objectid	references an individual item in the module, semantics are defined by the module
+        status		pending / done
+
+	Event Template
+	--------------
+	templateid	unique identifier for this template
+	eventid		event identifier
+	template	template text
+	</artwork>
 			<t>
 	Available events are created based on available hooks and/or other events defined by the module (e.g. publication of an article in a particular category). Event registration is done by users, signing up for a particular event (and specifying a particular action in the future). Event handling is filled in when an event is triggered for a particular item (e.g. via hooks), listing all user subscriptions that are affected by this event, the particular object ID for which action should be taken, and the status of that action. The actual handling of the actions for each user can then be done in background, or scheduled for later processing, or at the time the event was triggered (to be further defined).
 	</t>
@@ -153,6 +134,15 @@
 	</t>
 			<t>
 	pnPubsubGetNotifyFormat - to retrieve the format in which a user has requested receiving the notification (e.g. HTML or plaintext) 
+	</t>
+			<t>
+	pnPubsubGetTemplate - get the template for this event 
+	</t>
+			<t>
+	pnPubsubDelTemplate - delete the template for this event 
+	</t>
+			<t>
+	pnPubsubUpdateTemplate - update the template for this event 
 	</t>
 			<t>
 	questions: 
@@ -192,7 +182,7 @@
 		</section>
 		<section title="Current issues">
 			<t>
-    need to define the database table layout and the functions in detail.
+    need to work out the queuing system - unsure how to do it in PHP.
 	</t>
 		</section>
 		<section title="Retractions">
@@ -204,6 +194,9 @@
 	</t>
 			<t>
 	0.2	(mikespub) revise point 3 and 5 - table design and use of hooks
+	</t>
+			<t>
+        0.3	(miko) added template functions and table
 	</t>
 		</section>
 	</middle>

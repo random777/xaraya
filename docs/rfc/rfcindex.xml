@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<?rfc toc='yes'?>
+
+<rfc number="index" category="info" ipr="none">
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>RFC-index</title>
+    <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>marcel@hsdev.com</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="October" year="2002"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+    
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>index</keyword>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>
+	This RFC contains the index of RFCs for Xaraya and an explanation
+	of terms.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <section title="RFC index">
+      <t>The following RFC document are available:
+	<list>
+	  <t>RFC-1 Content Management System</t>
+	  <t>RFC-2 Comments API</t>
+	  <t>RFC-3 Rating API</t>
+	  <t>RFC-4 Categories API</t> 
+	  <t>RFC-5 Cron System</t>
+	  <t>RFC-6 XML-RPC API</t>
+	  <t>RFC-7 Modularized User Data</t>
+	  <t>RFC-8 Install System</t> 
+	  <t>RFC-9 Xaraya Community Enhancements First Draft</t>
+	  <t>RFC-10 Xaraya Theme System</t>
+	  <t>RFC-11 Admin Redesign</t>
+	  <t>RFC-12 Multisites</t>
+	  <t>RFC-13 Module Classification System </t>
+	  <t>RFC-14 Modular Authentication System</t>
+	  <t>RFC-15 PostCalendar</t>
+	  <t>RFC-16 User System</t>
+	  <t>RFC-17 Module Information System</t>
+	  <t>RFC-18 Exceptions Handling System</t>
+	  <t>RFC-19 Help System</t>
+	  <t>RFC-20 Multi Language System</t>
+	  <t>RFC-21 Xaraya International</t>
+	  <t>RFC-22 PostNuke Security Vulnerabilities and Advisories</t>
+	  <t>RFC-23 Short URL Support</t>
+	  <t>RFC-24 Publish and Subscribe Engine.</t>
+	  <t>RFC-25 Bug tracker requirements</t>
+	  <t>RFC-26 Blocklayout for content</t>
+	  <t>RFC-27 EU Data Protection Compliant Users Module</t>
+	</list>
+      </t>
+    </section>
+    
+    <section title="Terminology">
+      <t>
+	Several terms are used in RFC documents. This section tries to explain them.
+      </t>
+      
+      <section title="RFC (Request For Comment)">
+	<t>
+	  Outlines the proposal/idea for comment. Stakeholders comment
+	  as needed. The lead author collects comments and incorporates
+	  them into the document. Through the RFC process, additional
+	  reviewers/stakeholders may be identified. In this case, the
+	  RFC is also submitted for their review. When all comments have
+	  been captured, integrated/addressed, the RFC should represent
+	  the best available solution. This final RFC is then submitted
+	  as an RFA (see below) for approval by voting stakeholders.
+	</t>
+      </section>
+      
+      <section title="RFA (Request For Approval)">
+	<t>
+	  In addition to the final RFC, the RFA should include a list of
+	  voting stakeholders and assignment of the prevailing decision
+	  rule (PDR). Generally, PDR will fall into one of the following
+	  categories: a. Project Sponsor (Approved by project sponsors)
+	  b. Project Leader (Approved by project leader) c. Simple
+	  Majority (Approved by 51+% of stakeholders) d. Unanimous
+	  Agreement (Approved by 100% of stakeholders) With the PDR in
+	  mind, voting stakeholder(s) review the RFA and exercise one of
+	  the following approval options. a. Unconditional Approval
+	  b. Conditional Approval (approved if XYZ conditions are met)
+	  c. Rejection If the RFA is not approved under the PDR, it is
+	  revised and resubmitted until approval is achieved. An
+	  approved RFA "rubber-stamps" a specific solution, it does not
+	  necessarily assign implementation resources and deadlines.
+	</t>
+      </section>
+      
+      <section title="RFI (Request For Implementation)">
+	<t>
+	  Once a solution is approved, the RFA is expanded to include
+	  relevant implementation information (resource assignments,
+	  deadlines, performance measures) ... thus becoming an
+	  RFI. Once completed, the RFI is submitted to the voting
+	  stakeholders for approval. Generally, the PDR and voting
+	  stakeholders do not change from RFA to RFI. In the rare case
+	  such a change occurs, it should be specifically noted in the
+	  RFI. Once and RFI is approved, implementation may proceed.
+	</t>
+      </section>
+    </section>
+    
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>
+	<list style="numbers">
+	  <t>Created</t>
+	</list>
+      </t>
+    </section>
+    
+  </middle>
+  
+</rfc>

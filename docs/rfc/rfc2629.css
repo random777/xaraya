@@ -111,13 +111,23 @@ H6 {
 	font-family: Verdana,Arial,Helvetica;
 	text-indent: 6em;}
 	
-TD.header { 
+.header { 
+  width: 66%;
+ }
+TD.header-l { 
 	color: #ffffff;
+    background-color: #666666;
 	font-size: 10px;
 	font-family: verdana, arial, helvetica, sans-serif
-	valign: top 
-	}
-	
+}
+
+TD.header-r { 
+   color: #ffffff;
+   background-color: #666666;
+   font-size: 10px;
+   font-family: verdana, arial, helvetica, sans-serif
+ }
+
 TD.author-text { 
 	color: #000000;
 	font-size: 10px;

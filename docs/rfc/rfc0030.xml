@@ -50,8 +50,12 @@
     </section>
 
     <!-- One content section is mandatory -->
-    <section title="At least one content section">
-      <t>At least one content section must be present in an RFC	</t>
+    <section title="Requirements for the Permission System">
+      <t>
+        This is the Drupal Permission GUI which might be an inspiration for an
+        easier Xaraya permissions GUI.
+                <figure><artwork src="images/rfc0030_1.png"/></figure>
+     </t>
     </section>
 
     <!-- Revision history is mandatory -->

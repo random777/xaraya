@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- 
+    Supported processing instructions, uncomment the ones you want
+-->
+
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
+<!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
+<!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
+<!-- <?rfc sortrefs="yes"?> Sort the references -->
+<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
+<!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
+
+<!-- I guess we always want a table of contents -->
+<?rfc toc="yes"?>
+
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0000" category="bcp">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+  
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Xaraya Coding standards</title>
+    <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>marcel@hsdev.com</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="March" year="2003"/>
+  
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+    
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>template</keyword>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC lists all the coding standards applicable for the Xaraya project.</t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>
+      </t>
+    </section>
+    
+    <section title="Headers">
+      <t>This section contains the standard phpdoc headers we use</t>
+      <section title="Fileheader">
+        <t>
+          <artwork>
+            /**
+             * File: $Id$
+             *
+             * Short description of purpose of file
+             *
+             * @package unassigned
+             * @copyright (C) 2002 by the Xaraya Development Team.
+             * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+             * @link http://www.xaraya.com
+             * 
+             * @subpackage module name
+             * @link  link to information for the subpackage
+             * @author author name &lt;author@email&gt; (this tag means responsible person)
+             */
+          </artwork>
+        </t>
+      </section>
+
+      <section title="Functionheader">
+        <t>The header below is used for all functions in the codebase:</t>
+        <t>
+          <artwork>
+            /**
+             * Short description of the function
+             *
+             * A somewhat longer description of the function which may be 
+             * multiple lines, can contain examples.
+             *
+             * @author  Author Name &lt;author@email&gt;
+             * @deprec  date since deprecated &lt;insert this if function is deprecated&gt;
+             * @access  public / private / protected
+             * @param   param1 type Description of parameter 1
+             * @param   param2 type Description of parameter 2
+             * @return  type to return description
+             * @throws  list of exception identifiers which can be thrown
+             * @todo    &lt;devname&gt; &lt;#&gt; list of things which must be done to comply to relevant RFC or fix a problem
+             */            
+          </artwork>
+        </t>
+      </section>
+
+      <section title="Classheader">
+        <t>
+          The header below is used for all classes in the Xaraya codebase
+        </t>
+        <t>
+          <artwork>
+            /**
+             * Short class description
+             *
+             * A somewhat longer description of the class which
+             * may be on multiple lines and can contain examples
+             *
+             * @package unassigned - replace with packagename
+             * @author Author Name &lt;author@email&gt;
+             * @deprec date since deprecated &lt;insert if class is deprecated&gt;
+             * @todo  todo-item, specify each with new tag
+             */
+          </artwork>
+        </t>
+      </section>
+    </section>
+ 
+    <section title="Naming">
+      <t>The following naming conventions are used:
+        <list style="numbers">
+          <t>public functions start with "xar"</t>
+          <t>protected functions start with "_" (one underscore)</t>
+          <t>private functions start with "__" (two underscores)</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Database">
+      <t>
+        The following rules are used in database related things:
+        <list style="numbers">
+          <t>indexes are added on primary keys</t>
+          <t>indexes are added on foreign keys</t>
+          <t>indexes are added of fields which have explicit sorting clauses</t>
+        </list>
+      </t>
+    </section>
+
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>2003-03-27: MrB - created</t>
+    </section>
+    
+  </middle>
+</rfc>

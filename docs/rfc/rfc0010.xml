@@ -410,14 +410,18 @@ html/
 					<t>Attributes:
             <list style="symbols">
 							<t>id: an identifier for the tag (optional)</t>
+							<t>depth: how many levels of enclosing loops to be broken out of (optional)</t>
 						</list>
 					</t>
 					<t>Description</t>
 					<t>
             Escapes the closest 
             <xref target="for">&lt;xar:for /&gt;</xref>, 
+            <xref target="foreach">&lt;xar:foreach /&gt;</xref>, 
             <xref target="loop">&lt;xar:loop /&gt;</xref>, or
-            <xref target="while">&lt;xar:while /&gt;</xref>
+            <xref target="while">&lt;xar:while /&gt;</xref>.
+            If the depth attribute is present and an integer 
+            greater than 1, an equal number of enclosing loops are broken out of.
 					</t>
 					<t>
             Parent tags: 
@@ -433,13 +437,18 @@ html/
 					<t>Attributes:
             <list style="symbols">
 							<t>id: an identifier for the tag (optional)</t>
+							<t>depth: how many levels of enclosing loops to skip to the end of (optional)</t>
 						</list>
 					</t>
 					<t>Description</t>
 					<t>
-            Ends the current iteration of a <xref target="for">&lt;xar:for /&gt;</xref>, 
+            Ends the current iteration of a 
+            <xref target="for">&lt;xar:for /&gt;</xref>, 
+            <xref target="foreach">&lt;xar:foreach /&gt;</xref>, 
             <xref target="loop">&lt;xar:loop /&gt;</xref>, or
             <xref target="while">&lt;xar:while /&gt;</xref>, and begins the next iteration.
+            If the depth attribute is present and an integer greater than 1, an equal number 
+            of enclosing loops are skipped to the end of their current iteration.
           </t>
 					<t>Syntax example:
             <artwork>

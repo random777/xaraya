@@ -1035,7 +1035,7 @@
          Each mask that will be used for security checks needs to be registered. This is done with the function registerMask, which has the following syntax:
 
         <artwork>
-	     function registerMask($name,$realm,$module,$component,$instance,$level,
+	     function xarRegisterMask($name,$realm,$module,$component,$instance,$level,
 	     $description='')
 	     
 	     where:
@@ -1055,7 +1055,7 @@
                 
         All fields except the description are mandatory. The values 'All' and 'None' can be used for realm, module, component, instancetype or instance. Here is an example of how a mask may be registered:
         <artwork>
-          registerMask('EditPrivileges','All','Privileges','All','All','All',ACCESS_ADD);
+          xarRegisterMask('EditPrivileges','All','Privileges','All','All','All',ACCESS_ADD);
         </artwork>
         This creates a mask named EditPrivileges for the privileges module. Security checks can invoke the mask as described below.
          
@@ -1077,7 +1077,7 @@
         <t>
         Instances conceptually are objects that a module deals with, e.g. articles, folders, download items, dynamic data fields. For instances to be recognized and checked against, they need to be defined at init time. Instances are defined by the defineInstance function:
         <artwork>
-        function defineInstance($module, $component, $appvar=0,$table2='',
+        function xaDefineInstance($module, $component, $querystring, $propagate=0,$table2='',
         $childID='',$parentID='',$description='')
         
         where

@@ -1368,33 +1368,62 @@ html/
         </section>
         <!-- xar:var -->
         <section anchor="var" title="&lt;xar:var /&gt;">
-          <t>Closed</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-              <t>scope: a string, one of config, module, block, theme, or user (optional)</t>
-              <t>name: the name of the variable within the given scope</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-            Var deals with variables in different scopes. If no scope is
+            &lt;xar:var&gt; deals with variables in different scopes. If no scope is
             specified, Blocklayout returns the contents of the local variable.
           </t>
           <t>
             Variables are referenced by name, without the preceeding "$". Arrays
             can be indexed via dot notation, i.e.: 
             <artwork>
-              &lt;xar:var  name="preformat.catandtitle" /&gt;
-            </artwork>
-                    </t>
-          <t>Syntax example:
-            <artwork>
               &lt;xar:var name="preformat.catandtitle" /&gt;
             </artwork>
-                    </t>
-          <t>Parent tag: none.</t>
-          <t>Child tags: none</t>
+          </t>
+          <t>
+            The 'scope' attribute value has the following effect:
+            <list style="symbols">
+              <t><em>local</em>: use the local scope of the template to get the variable;</t>
+              <t><em>config</em>: get the configuration variable with the specified name;</t>
+              <t><em>module</em>: get the module variable with the specified name;</t>
+              <t><em>block></em>: not implemented</t>
+              <t><em>theme</em> : get the theme variable with the specified name;</t>
+              <t><em>user</em>  : get the user variable with the specified name;</t>
+              <t><em>session</em> : get the session variable with the specified naem;</t>
+            </list>
+          </t>
+          <t>
+            The value of the 'scope' attribute does reasonably straighforward determine the
+            function which Xaraya uses to get the right variable
+          </t>
+          <section title="Forms">
+            <t>Only empty form is allowed</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>An identifier for the tag</t>
+              </t>
+              <t><em>[scope]</em> {(local)|config|module|block|theme|user}
+                <t>What kind of variable should we retrieve</t>
+              </t>
+              <t><em>name</em>
+                <t>String specifying the name of the variable to retrieve within 
+                   the given scope
+                </t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
+            <artwork>
+              &lt;xar:var name="preformat.catandtitle" /&gt;
+
+              Retrieves the local variable $preformat['catandtitle']
+            </artwork>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: none</t>
+          </section>
         </section>
         <!-- xar:while -->
         <section anchor="while" title="&lt;xar:while /&gt;">

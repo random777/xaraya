@@ -19,7 +19,9 @@
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>The contents of this RFC could not be found in the original documents.</t>
+      <t>
+	  The contents of this RFC could not be found in the original documents.
+	  </t>
     </abstract>
   </front>
   
@@ -28,9 +30,9 @@
     <!-- One content section is mandatory -->
     <section title="Original content">
       <t>
-	<artwork>
-	  RFC UNAVAILABLE
-	</artwork>
+	    <artwork>
+	    RFC UNAVAILABLE
+	    </artwork>
       </t>
     </section>
   </middle>

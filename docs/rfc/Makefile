@@ -18,8 +18,8 @@ txt : $(TXTS)
 
 # How to produce a html file
 %.html: %.xml $(xml2rfc)
-	#FIXME: this will get all images, we need only to get the images for current file
-	bk get -S $(images)
+	# Get the images explicitly otherwise make will removed them
+	$(GET) -S $(shell bk sfiles -g $(images) | grep "$(*F)")
 	$(xml2rfc) $< $(*F).html  
 
 # How to produce a txt file

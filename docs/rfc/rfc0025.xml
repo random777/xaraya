@@ -30,11 +30,11 @@
     
     <!-- Initiating team for this RFC -->
     <workgroup>Project Management Committee</workgroup>
-
+    
     <!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
     <keyword>bugtracker</keyword>
-
+    
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>This RFC documents the requirements for the implementation of a bugtracking application
@@ -46,7 +46,7 @@
       </t>
     </abstract>
   </front>
-
+  
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
     <!-- Introduction is mandatory -->
@@ -60,7 +60,7 @@
       <t>The requirements were gathered by open discussion on our IRC channels, by theoretical
 	analyses and by practical needs. 
       </t>
-
+      
       <t>The requirements are, as far as we can make them, an objective
 	measure of what we want from a bugtracker, and what would best contribute to the
 	projects goals.  They aren't a to-do list for the project.  
@@ -68,7 +68,7 @@
 	to measure the quality of our solutions. 
       </t>
     </section>
-
+    
     <section title="How to read the requirements">
       <t>We give the requirements a unique number so we can refer to them in our
 	documents and in our decisions. In the online representation of this document
@@ -227,7 +227,7 @@ ID  Measure                                         Critical Essential Optional 
 	  the information to estimate the amount of work needed to reach a certain goal.
 	</t>
       </section>
-
+      
       <section title="Makes the life of developers, users and managers easier">
 	<t>
 	  The bug tracker is a tool we want to use. If this tool doesn't make our life
@@ -254,7 +254,7 @@ ID  Measure                                         Critical Essential Optional 
 	  </list>
 	</t>
       </section>
-
+      
       <section title="Optimized to discover why the sources are the way they are and why they have changed.">
 	<t>
 	  There are a lot of attributes which can be attached to the unique identification of a bug. 
@@ -262,22 +262,22 @@ ID  Measure                                         Critical Essential Optional 
 	  to answer the question why sources are the way they are and why they have changed.
 	</t>
       </section>
-
+      
       <section title="Interfaces under our control are public,documented and maintained.">
 	<t>
-	The bugtracker should have a publically accessible API.  
+	  The bugtracker should have a publically accessible API.  
 	</t>
       </section>
-
+      
       <section title="Allows to ask questions involving both bugtracker and SCM system.">
 	<t>
 	</t>
       </section>
-
+      
       <section title="Interfaces">
 	<t>
 	</t>
-
+	
 	<section title="Cmdline interface">
 	  <t>
 	    Most of the bitkeeper interaction occurs on the command-line. It makes sense to have an
@@ -306,8 +306,8 @@ ID  Measure                                         Critical Essential Optional 
 	
 	<section title="Mail interface">
 	  <t>
-          The mail interface allows to reply to bug reports via mail or trigger state changes in
-          the bugtracker via mail.
+	    The mail interface allows to reply to bug reports via mail or trigger state changes in
+	    the bugtracker via mail.
 	  </t>
 	</section>
 	
@@ -316,44 +316,44 @@ ID  Measure                                         Critical Essential Optional 
 	  </t>
 	</section>
       </section>
-
+      
       <section title="Fields: id, state severity, type, description, comments(N),owner, submitter">
 	<t>
 	</t>
       </section>
-
+      
       <section title="Fields: notify list, related items">
 	<t>
 	</t>
       </section>
-
+      
       <section title="Quick filtering">
 	<t>
-        It should be possible to quickly filter bugs by various criteria, such as state,
-        submission date, severity.
+	  It should be possible to quickly filter bugs by various criteria, such as state,
+	  submission date, severity.
 	</t>
       </section>
-
+      
       <section title="Quick queries">
 	<t>
-        It should be possible to query the bugtracker for a list of bugs by specificing
-        various search terms.
+	  It should be possible to query the bugtracker for a list of bugs by specificing
+	  various search terms.
 	</t>
       </section>
-
+      
       <section title="Assign to components">
 	<t>
-        It should be possible to assign bugs to specific metadata, for instance components
-        that indicate a subsystem.
+	  It should be possible to assign bugs to specific metadata, for instance components
+	  that indicate a subsystem.
 	</t>
       </section>
-
+      
       <section title="Assign to developers">
 	<t>
-        Bugs should be assignable to developers, and the assignment needs to be changeable.
+	  Bugs should be assignable to developers, and the assignment needs to be changeable.
 	</t>
       </section>
-
+      
       <section title="Configurable notifications">
 	<t>
 	  The bugtracker should include a notification system, which at least can notify one email-address
@@ -365,14 +365,14 @@ ID  Measure                                         Critical Essential Optional 
 	  </list>
 	</t>
       </section>
-
+      
       <section title="Xaraya module ">
 	<t>
-        The bugtracker should integrate with Xaraya by being a module, or being wrapped into a module.
-        Sharing authentication with Xaraya would also be a welcome feature.
+	  The bugtracker should integrate with Xaraya by being a module, or being wrapped into a module.
+	  Sharing authentication with Xaraya would also be a welcome feature.
 	</t>
       </section>
-
+      
       <section title="Reference points in SCM on state changes of bugs">
 	<t>
 	  In addition to the first critical requirement that the state of the sources in the tree should be
@@ -388,7 +388,7 @@ ID  Measure                                         Critical Essential Optional 
 	  bug involved.
 	</t>
       </section>
-
+      
       <section title="Ability to hold patches against a bug">
 	<t>
 	  Ultimately a bug needs to be resolved. Ideally this would happen by applying a neatly packaged
@@ -401,7 +401,7 @@ ID  Measure                                         Critical Essential Optional 
 	  or failure.
 	</t>
       </section>
-
+      
       <section title="Register dependencies">
 	<t>
 	  Bugs may have dependencies. The following dependencies are considered:
@@ -414,7 +414,7 @@ ID  Measure                                         Critical Essential Optional 
 	
 	<section title="Blocking relationship">
 	  <t>
-          Bugs should be able to block other bugs from being resolved.
+	    Bugs should be able to block other bugs from being resolved.
 	  </t>
 	</section>
 	
@@ -446,65 +446,65 @@ ID  Measure                                         Critical Essential Optional 
 	
 	<section title="Meta relationship (a.k.a grouping)">
 	  <t>
-          It should be possible to assign bugs to groups to indicate a relationsship between them.
-          These assignments should be orthogonal to the rest of the system.
+	    It should be possible to assign bugs to groups to indicate a relationsship between them.
+	    These assignments should be orthogonal to the rest of the system.
 	  </t>
 	</section>
       </section>
-
-
+      
+      
       <section title="Statistics (specify what?)">
 	<t>
-        It should be possible to generate statistics from the bugtracker. Rather than specifying
-        the precise requirements (which are unknown), it makes sense to have a query interface
-        where the bug data is exposed and can be queried to generate statistics on the fly. 
+	  It should be possible to generate statistics from the bugtracker. Rather than specifying
+	  the precise requirements (which are unknown), it makes sense to have a query interface
+	  where the bug data is exposed and can be queried to generate statistics on the fly. 
         </t>
       </section>
-
+      
       <section title="Custom attributes">
 	<t>
-        The bugtracker should allow to add custom attributes to a bug to support
-        special needs. Examples are target releases, keywords etc.
-      </t>
+	  The bugtracker should allow to add custom attributes to a bug to support
+	  special needs. Examples are target releases, keywords etc.
+	</t>
       </section>
-
+      
       <section title="Configurable submission template">
 	<t>
-        The bug submission form should be configurable to target it better to
-        the different bug-entering audiences, not all of which are technically
-        adept and may need some help from the form.
-       </t>
-
+	  The bug submission form should be configurable to target it better to
+	  the different bug-entering audiences, not all of which are technically
+	  adept and may need some help from the form.
+	</t>
+	
       </section>
-
+      
       <section title="Mark custom attributes as required">
 	<t>
-        It should be possible to specify which attributes have to be filled out
-        when entering a bug.
+	  It should be possible to specify which attributes have to be filled out
+	  when entering a bug.
         </t>
       </section>
-
+      
       <section title="ACL">
 	<t>
-        The operations of the bugtracker should be controlled by ACL.
-       </t>
+	  The operations of the bugtracker should be controlled by ACL.
+	</t>
       </section>
-
+      
       <section title="As simple as possible, but not simpler">
 	<t>
-        The bugtracker should not cut corners to make it appear easier. For instance,
-        using a forum as a bugtracker because it is "convenient" would be wrong.
+	  The bugtracker should not cut corners to make it appear easier. For instance,
+	  using a forum as a bugtracker because it is "convenient" would be wrong.
         </t>
       </section>
-
+      
       <section title="Standards compliant">
 	<t>
-        The bugtracker should use standards where possible. For instance: XHTML or
-        HTML 4.01 for display, ANSI SQL for database schemas. The use of these standards should
-        be documented.
+	  The bugtracker should use standards where possible. For instance: XHTML or
+	  HTML 4.01 for display, ANSI SQL for database schemas. The use of these standards should
+	  be documented.
         </t>
       </section>
-
+      
       <section title="Open source">
 	<t>
 	  As Xaraya itself is an open source project, we strongly prefer open source 
@@ -512,14 +512,14 @@ ID  Measure                                         Critical Essential Optional 
 	  modify a package to our needs being one of the most important ones.
 	</t>
       </section>
-
+      
       <section title="Support multiple projects">
 	<t>
-         The bugtracker should support multiple projects. This means it should support
-         bugs from different source trees, and handle them seperately.
+	  The bugtracker should support multiple projects. This means it should support
+	  bugs from different source trees, and handle them seperately.
         </t>
       </section>
-
+      
       <section title="Configurable auth system">
 	<t>
 	  This is only an optional requirement as it is not necessary
@@ -539,19 +539,19 @@ ID  Measure                                         Critical Essential Optional 
 	  hacky. 
 	</t>
       </section>
-
+      
       <section title="Flow control">
 	<t>
-</t>
+	</t>
       </section>
     </section>
-
+    
     <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>2002-10-31: First revision</t>
       <t>2002-11-11: More details added</t>
     </section>
-
+    
   </middle>
-
+  
 </rfc>

@@ -38,33 +38,34 @@
     <section title="RFC index">
       <t>The following RFC document are available:
 	<list>
-	  <t>RFC-1 Content Management System</t>
-	  <t>RFC-2 Comments API</t>
-	  <t>RFC-3 Rating API</t>
-	  <t>RFC-4 Categories API</t> 
-	  <t>RFC-5 Cron System</t>
-	  <t>RFC-6 XML-RPC API</t>
-	  <t>RFC-7 Modularized User Data</t>
-	  <t>RFC-8 Install System</t> 
-	  <t>RFC-9 Xaraya Community Enhancements First Draft</t>
-	  <t>RFC-10 Xaraya Theme System</t>
-	  <t>RFC-11 Admin Redesign</t>
-	  <t>RFC-12 Multisites</t>
-	  <t>RFC-13 Module Classification System </t>
-	  <t>RFC-14 Modular Authentication System</t>
-	  <t>RFC-15 PostCalendar</t>
-	  <t>RFC-16 User System</t>
-	  <t>RFC-17 Module Information System</t>
-	  <t>RFC-18 Exceptions Handling System</t>
-	  <t>RFC-19 Help System</t>
-	  <t>RFC-20 Multi Language System</t>
-	  <t>RFC-21 Xaraya International</t>
-	  <t>RFC-22 PostNuke Security Vulnerabilities and Advisories</t>
-	  <t>RFC-23 Short URL Support</t>
-	  <t>RFC-24 Publish and Subscribe Engine.</t>
-	  <t>RFC-25 Bug tracker requirements</t>
-	  <t>RFC-26 Blocklayout for content</t>
-	  <t>RFC-27 EU Data Protection Compliant Users Module</t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0001.html">RFC-0001 Content Management System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0002.html">RFC-0002 Comments API</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0003.html">RFC-0003 Rating API</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0004.html">RFC-0004 Categories API</eref></t> 
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0005.html">RFC-0005 Cron System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0006.html">RFC-0006 XML-RPC API</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0007.html">RFC-0007 Modularized User Data</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0008.html">RFC-0008 Install System</eref></t> 
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0009.html">RFC-0009 Xaraya Community Enhancements First Draft</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0010.html">RFC-0010 Xaraya Theme System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0011.html">RFC-0011 Admin Redesign</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0012.html">RFC-0012 Multisites</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0013.html">RFC-0013 Module Classification System</eref> </t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0014.html">RFC-0014 Modular Authentication System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0015.html">RFC-0015 PostCalendar</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0016.html">RFC-0016 User System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0017.html">RFC-0017 Module Information System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0018.html">RFC-0018 Exceptions Handling System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0019.html">RFC-0019 Help System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0020.html">RFC-0020 Multi Language System</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0021.html">RFC-0021 Xaraya International</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0022.html">RFC-0022 PostNuke Security Vulnerabilities and Advisories</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0023.html">RFC-0023 Short URL Support</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0024.html">RFC-0024 Publish and Subscribe Engine.</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0025.html">RFC-0025 Bug tracker requirements</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0026.html">RFC-0026 Blocklayout for content</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0027.html">RFC-0027 EU Data Protection Compliant Users Module</eref></t>
+	  <t><eref target="http://docs.xaraya.com/docs/rfcs/rfc2629.html">RFC-2629 Writing I-Ds and RFCs using XML</eref></t>
 	</list>
       </t>
     </section>

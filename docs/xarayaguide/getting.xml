@@ -175,19 +175,22 @@
     consult your operating system manual for information about changing that.
     The best route is to change the group of the file and directories to the
     same group used by the web server (NOTE: This presents a reduced security
-    risk). Under Red Hat Linux, check the &#34;User&#34; and &#34;Group&#34;
+    risk). However the webserver user ID should not own the files, but the webserver's group ID can have group ownership. This gives the advantage that not everyone needs to have read access to the files - just those in the webserver group. It is best if the webserver user ID does not own the files itself because then the webserver could change the permissions of the files without your knowledge and that could make it easier to hack the site. Under Red Hat Linux, check the &#34;User&#34; and &#34;Group&#34;
     settings in <filename>/etc/httpd/conf/httpd.conf</filename> to determine
     the user &#38; group values. For example, under Linux and assuming that
     your user/group that is used by the webserver is user: &#34;web&#34; and
-    group: &#34;apache&#34;:<itemizedlist><listitem><para>&#34;<userinput>chown
-    -R web:apache &#60;xarroot&#62;</userinput>&#34;</para></listitem><listitem><para>&#34;<userinput>chown
-    -R web:apache &#60;xarroot&#62;</userinput>&#34;</para></listitem></itemizedlist></para>
+    group: &#34;apache&#34;:<itemizedlist><listitem><para>&#34;<userinput>chgrp
+    -R apache &#60;xarroot&#62;</userinput>&#34;</para></listitem></itemizedlist></para>
 
-    <para>There is a file and two directories to which the web server must
+    <para>There is a file and some directories to which the web server must
     have &#39;write&#39; access. They are:<itemizedlist><listitem><para>&#34;<filename>&#60;xarroot&#62;/var/config.system.php</filename>&#34;:
     Set with &#34;<userinput>chmod 666 &#60;xarroot&#62;/var/config.system.php</userinput>&#34;</para></listitem><listitem><para>&#34;<filename>&#60;xarroot&#62;/var/cache/templates</filename>&#34;:
     Set with &#34;<userinput>chmod -R 777
-    &#60;xarroot&#62;/var/cache/templates</userinput>&#34;</para></listitem><listitem><para>&#34;<filename>&#60;xarroot&#62;/var/cache/rss</filename>&#34;:
-    Set with &#34;<userinput>chmod -R 777 &#60;xarroot&#62;/var/cache/rss</userinput>&#34;</para></listitem></itemizedlist></para>
+    &#60;xarroot&#62;/var/cache/templates</userinput>&#34;</para></listitem>
+<listitem><para>&#34;<filename>&#60;xarroot&#62;/var/cache/rss</filename>&#34;:
+    Set with &#34;<userinput>chmod -R 777 &#60;xarroot&#62;/var/cache/rss</userinput>&#34;</para></listitem>
+<listitem><para>&#34;<filename>&#60;xarroot&#62;/var/cache/adodb</filename>&#34;:
+    Set with &#34;<userinput>chmod -R 777 &#60;xarroot&#62;/var/cache/adodb</userinput>&#34;</para></listitem></itemizedlist></para>
+<para>It is likely that these permissions are correct already because the installer checks them for you.</para>
   </sect1>
 </chapter>

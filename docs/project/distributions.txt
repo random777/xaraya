@@ -28,7 +28,6 @@ autolinks
 bloggerapi
 categories
 comments
-converter
 dyn_example
 ephemerids
 example
@@ -57,8 +56,10 @@ addressbook
 bbclick
 bbcode
 bkview
+calendar
 cast
 censor
+changelog
 contact
 figlet
 mybookmarks
@@ -95,7 +96,6 @@ metaweblogapi - does nothing
 soapserver - does nothing
 
 calendar 
-changelog
 dynamic_planning
 facilities
 imagefeed

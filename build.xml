@@ -27,8 +27,8 @@
 <project name="xaraya" basedir="." default="help">
   
   <!-- Some essential properties on which the rest really depends -->
-  <property name="version" value="0.9.1.3" />
-  <property name="releaselog" value="releaselog-0.912-0.913.txt" />
+  <property name="version" value="0.9.1.4" />
+  <property name="releaselog" value="releaselog-0.913-0.914.txt" />
   <property name="final.name" value="${phing.project.name}-${version}" />
   
   <!-- module lists -->   
@@ -84,6 +84,11 @@
       <fileset dir="${docs.dir}/xarayaguide" >
         <include name="XarayaGuide.txt"/>
       </fileset>
+      <fileset dir="${docs.dir}/xmdghtml" >
+        <include name="XarayaMDG.html"/>
+        <include name="XarayaMDG.pdf"/>
+      </fileset>
+
     </copy>
     
     <!-- Process docs directory -->

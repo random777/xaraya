@@ -25,18 +25,18 @@ Project Management Committee :
   John Cox (niceguyeddie)
 
   Marcel van der Boom (MrB)
-  
+
   Marc Lutolf (marcinmilan)
 
   Joanna Dalle Nogare (jojodee)
-  
+
 
 Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Alberto Cazzaniga (ftb)
-  
+
   Abraham Irawan (brumie)
-  
+
   Andrea Moro (andream)
 
   Andy Varganov (andyv)
@@ -52,15 +52,15 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Chris Dudley (miko)
 
   Chris van der Steeg (alley)
-  
+
   Court Shrock (cls)
 
   Curtis Hays (stratagem)
-  
+
   David Taylor (dtaylor)
 
   Doug Daulton (Apakuni)
-  
+
   Dorothy Crawford (brihana25)
 
   Drew Vogel (vogelap)
@@ -100,7 +100,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Mahmood Al Yousif (mahmood)
 
   Marc Lutolf (marcinmilan)
-  
+
   Marcel van der Boom (MrB)
 
   Marco Canini (marco)
@@ -108,7 +108,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Marie Altobelli (ladyofdragons)
 
   Marty Vance (Dracos)
-  
+
   Michael Cortez (mcortez)
 
   Michael Jansen (Mike)
@@ -118,7 +118,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Michel Dalle (mikespub)
 
   Pablo Roca (Proca)
-  
+
   Paul Crovella (Paul_C)
 
   Paul Rosania (paul)
@@ -130,11 +130,11 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Richard Cave (caveman)
 
   Roger Raymond (iansym)
-  
+
   Roger Keays (roger)
 
   Roy Murray (roy)
-  
+
   Sascha Endlicher (Karateka)
 
   Scot Gardner (XarayaGeek)
@@ -174,9 +174,9 @@ Translators:
   Ricardo J. Barrios Diaz (Spanish)
 
   Michal Dyro (Polish)
-  
+
   Abraham Irawan (Indonesian)
-  
+
 
 
 
@@ -190,6 +190,9 @@ Other development credits
    Marjolein Katsma (xar-bugzilla@javawoman.com) - Fix bug 1007 xarServerCurrentUrl Problem.
             - Fix bug 1002 link tags.
    Ben Page (benpage@chasquinet.net) Fixed bug 2889
+   Michael Haertl
+   Max Lapshin
+   Andy Staudacher
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

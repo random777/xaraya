@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<appendix>
+<appendix id="appendixc">
   <title>Enabling Short URL support in Apache</title>
 
-  <sect1>
+  <sect1 id="apache1urls">
     <title>Short URLs in Apache 1.x</title>
 
     <para>Short URLs work without modifying your Apache 1.x configuration.
     </para>
   </sect1>
 
-  <sect1>
+  <sect1 id="apache2urls">
     <title>Short URLs in Apache 2.x</title>
 
     <para>If you are running Apache 2.x on your webserver and wish to support

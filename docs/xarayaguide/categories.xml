@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="categories">
   <title>Categories in Xaraya</title>
 
   <para><firstterm>Articles</firstterm> are placed into
@@ -34,7 +34,7 @@
   be able to browse through any articles about good restaurants in Brussels,
   for instance.</para>
 
-  <sect1>
+  <sect1 id="editcats">
     <title>Editing and Creating Categories</title>
 
     <para>In this section, we explore how to edit pre-configured categories
@@ -79,7 +79,7 @@
       <listitem>
         <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
 
-        <figure>
+        <figure id="categoriestree">
           <title>Windows Explorer-like tree</title>
 
           <mediaobject>
@@ -232,7 +232,7 @@
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="catsconclusion">
     <title>Categories Conclusion</title>
 
     <para>Once you have defined your site&#39;s Categories, they can be

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="about">
   <title>Introduction &#38; Information about Xaraya</title>
 
   <para>This chapter will give you an introduction to Xaraya, it&#39;s
   features, the format of this Guide, and the assumptions under which this
   Guide was written. Also included is a handy Xaraya pronunciation guide!</para>
 
-  <sect1>
+  <sect1 id="introduction">
     <title>Introduction by John Cox</title>
 
     <para><emphasis>Building a better mouse trap</emphasis> has always been a
@@ -45,7 +45,7 @@
     Management Systems.</emphasis></para>
   </sect1>
 
-  <sect1>
+  <sect1 id="disclaimer">
     <title>Document Disclaimer</title>
 
     <para>While every reasonable precaution has been taken in the preparation
@@ -58,7 +58,7 @@
     own risk.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="aboutguide">
     <title>About this Guide</title>
 
     <para>This Guide will assist you with installing, configuring, running,
@@ -110,7 +110,7 @@
     http://www.mywebsite.com/xaraya.</para></listitem></itemizedlist></para>
   </sect1>
 
-  <sect1>
+  <sect1 id="thanks">
     <title>Document Thanks</title>
 
     <para>Xaraya was written by the Xaraya Team. Xaraya is, as with many
@@ -142,7 +142,7 @@
     &#34;Official&#34; guide.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="guidefiles">
     <title>Files Included with this Guide</title>
 
     <para>The following files are included with this guide.</para>
@@ -219,7 +219,7 @@
     </itemizedlist>
   </sect1>
 
-  <sect1>
+  <sect1 id="cmsintro">
     <title>An Introduction to Content Management Systems</title>
 
     <sect2>
@@ -456,7 +456,7 @@
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="overview">
     <title>An Overview of Xaraya</title>
 
     <subtitle>A quick look at how Xaraya works.</subtitle>
@@ -594,7 +594,7 @@
     </itemizedlist>
   </sect1>
 
-  <sect1>
+  <sect1 id="features">
     <title>Features of Xaraya</title>
 
     <para>Xaraya is a buzzword-compliant, extensible, open source
@@ -713,7 +713,7 @@
     of one another. As a result, you can expect the best from Xaraya.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="meaning">
     <title>What does Xaraya mean?</title>
 
     <para>The name <firstterm>Xaraya</firstterm> was selected by the
@@ -728,7 +728,7 @@
     Marty Vance, logo design by LaDalle Hunt.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="pronunciation">
     <title>How is Xaraya pronounced?</title>
 
     <para>It is not as difficult as it may look. In fact, saying Xaraya is
@@ -740,7 +740,7 @@
     url="http://www.xaraya.com/xcommon/media/xaraya.wav">http://www.xaraya.com/xcommon/media/xaraya.wav</ulink>.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="assumptions">
     <title>Assumptions</title>
 
     <para>Xaraya allows unprecedented levels of customization, it is therefore

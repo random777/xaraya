@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="publicationtypes">
   <title>Publication Types</title>
 
-  <sect1>
+  <sect1 id="pubsintro">
     <title>Introduction to Publication Types</title>
 
     <para>Xaraya&#39;s Articles module can manage &#39;articles&#39; of

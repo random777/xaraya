@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="privileges">
   <title>Privileges: Building Blocks for Site Access</title>
 
-  <sect1>
+  <sect1 id="introprivs">
     <title>Introduction to Privileges</title>
 
     <para>Through the use of <firstterm>privileges</firstterm> and

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="installing">
   <title>Installing Xaraya</title>
 
   <para>Once Xaraya has been moved onto your site (either via a copy command
@@ -17,7 +17,7 @@
     <listitem>
       <para>Select your language from the drop-down list. Click &#34;<guibutton>Continue</guibutton>&#34;.</para>
 
-      <figure>
+      <figure id="install-language">
         <title>Language selection.</title>
 
         <mediaobject>
@@ -33,7 +33,7 @@
       <para>Read &#38; agree to the license. Click &#34;<guibutton>Continue</guibutton>&#34;.
       If you do not agree to the license, you cannot install Xaraya.</para>
 
-      <figure>
+      <figure id="install-license">
         <title>Xaraya license agreement</title>
 
         <mediaobject>
@@ -55,7 +55,7 @@
       have fixed any issues, press &#34;<guibutton>Check Again</guibutton>&#34;
       to re-check the system settings.</para>
 
-      <figure>
+      <figure id="install-check">
         <title>System Settings Check.</title>
 
         <mediaobject>
@@ -111,7 +111,7 @@
       displayed on this panel come from the &#39;config.system.php&#39; file
       we edited above.</para>
 
-      <figure>
+      <figure id="install-database">
         <title>Database Settings Collection.</title>
 
         <mediaobject>
@@ -144,7 +144,7 @@
       Administrator&#39;s account. This account has unlimited access to the
       site.</para>
 
-      <figure>
+      <figure id="install-admin">
         <title>Administrator Account Creation</title>
 
         <mediaobject>
@@ -187,7 +187,7 @@
     <listitem>
       <para>Available Configurations.</para>
 
-      <figure>
+      <figure id="install-config">
         <title>Available Configurations</title>
 
         <mediaobject>
@@ -241,7 +241,7 @@
       starting place. For this example, select the installation defaults
       unless you have specific reasons to select otherwise.</para>
 
-      <figure>
+      <figure id="install-configoptions">
         <title>Choose Configuration Options</title>
 
         <mediaobject>
@@ -259,7 +259,7 @@
     <listitem>
       <para>Click &#34;<command>Continue</command>&#34;.</para>
 
-      <figure>
+      <figure id="install-complete">
         <title>Installation complete!</title>
 
         <mediaobject>
@@ -276,7 +276,7 @@
   site!</command>&#34; to go to your new Xaraya website, logged in as the
   Administrator.</para>
 
-  <sect1>
+  <sect1 id="security">
     <title>Increase site security</title>
 
     <para>There are two steps that are recommended after installation to
@@ -324,13 +324,13 @@
     </orderedlist>
   </sect1>
 
-  <sect1>
+  <sect1 id="interface">
     <title>A Quick Look at Xaraya&#39;s Interface</title>
 
     <para>After the first installation, Xaraya&#39;s interface looks similar
     to other Content Management Systems.</para>
 
-    <figure>
+    <figure id="install-postinstall">
       <title>Xaraya&#39;s interface after installation.</title>
 
       <mediaobject>
@@ -375,7 +375,7 @@
     top? No problem!</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="clickpaths">
     <title>Click-Paths</title>
 
     <para>For the remainder of this document, we indicate where to click by
@@ -393,7 +393,7 @@
     BLOCK, below.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="reminder">
     <title>Removing the Reminder Block</title>
 
     <para>There is a REMINDER block that is displayed on the left side menu of

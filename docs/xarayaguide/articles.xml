@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="articles">
   <title>Articles in Xaraya</title>
 
-  <sect1>
+  <sect1 id="articlesoverview">
     <title>OTTO: GENERAL OVERVIEW OF ARTICLES</title>
 
     <para>OTTO: CONFIGURE CATEGORIES</para>

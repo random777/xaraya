@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<appendix>
+<appendix id="appendixg">
   <title>Standards Compliance</title>
 
     <para>XHTML, RSS, CSS, and W3C accessibility standards.</para>

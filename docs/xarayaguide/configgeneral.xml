@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="config">
   <title>General Configuration</title>
 
   <para>Now that we&#39;ve installed Xaraya, we should begin to configure it.

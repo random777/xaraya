@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<appendix>
+<appendix id="appendixf">
   <title>Installing &#38; Configuring Red Hat 9.0 to run Xaraya</title>
 
     <para>NOTE: Though we install them, this appendix does NOT include

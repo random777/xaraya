@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="modules">
   <title>Modules in Xaraya</title>
 
   <para>Xaraya allows items to be virtually &#39;bolted on&#39; to its engine.
@@ -15,7 +15,7 @@
   Additional official modules and third-party modules for Xaraya may be
   downloaded from the official site at http://www.xaraya.com.</para>
 
-  <sect1>
+  <sect1 id="anewapproach">
     <title>Xaraya Modules -- A New Approach</title>
 
     <para>In other Content Management Systems, if, for example, you had a
@@ -48,7 +48,7 @@
     Xaraya site.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="modulelisting">
     <title>Module Listing: Display &#38; Navigation</title>
 
     <para><command>Admin-&#62;Modules-&#62;View All</command>: This
@@ -207,7 +207,7 @@
     </itemizedlist>
   </sect1>
 
-  <sect1>
+  <sect1 id="managingmods">
     <title>Managing Modules</title>
 
     <para>Below the display &#38; navigation section is the listing of the
@@ -320,7 +320,7 @@
     </itemizedlist>
   </sect1>
 
-  <sect1>
+  <sect1 id="xarayamodules">
     <title>Modules in Xaraya</title>
 
     <para>In this section of the Guide, we explore the individual modules that
@@ -412,7 +412,7 @@
 &mod-xslt;
   </sect1>
 
-  <sect1>
+  <sect1 id="kr-modules">
     <title>KNOWLEDGE REVIEW: Manipulating Modules (Adding and Removing
     Modules)</title>
 

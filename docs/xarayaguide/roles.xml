@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="roles">
   <title>Xaraya Roles: Users &#38; Groups</title>
 
   <para>Roles allow you to manage Users and Groups on your site. Roles are

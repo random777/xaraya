@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="maintenance">
   <title>Maintaining Your Xaraya Site</title>
 
   <para>This section deals the day-to-day operation of a Xaraya site. It is

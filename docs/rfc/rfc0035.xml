@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0035" category="std">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Query Abstraction</title>
+    <author initials="F.B." surname="Botelho" fullname="Flavio Borges Botelho">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>nuncanada@ig.com.br</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2003"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>template</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>
+        This RFC presents a proposal for Query Abstraction inside Xaraya Architeture.
+      </t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>
+        Query Abastraction has been made necessary to give us the hability to generate
+        efficient SQL queries which are portable across all our Database Pool. It will
+        provide us a way to create queries without any preocupations about the
+        underlying database.
+      </t>
+    </section>
+
+    <!-- One content section is mandatory -->
+    <section title="Wish List">
+      <t>The following is list for sugestions about the implementaion of the Query Abstraction</t>
+      <list style="numbers">
+        <t>As we already have a DB Abstraction Library (ADODB), this should be made as an add-on to it.</t>
+        <t>There should be two separate concepts, that of the query structure which preferebly would
+           be a class used only to hold the devs wishes, and drivers to take this annotated wish list
+           and transform it into a proper query.</t>
+        <t>Devs should be able to keep using their known SQL for simple queries, where portability is not
+           a problem</t>
+      </list>
+    </section>
+
+  </middle>
+
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    <references title="Relevant References">
+
+      <reference target="http://marc.theaimsgroup.com/?l=php-dev&#38;m=101753543913458&#38;w=2">
+        <front>
+          <title>Relevant discussion about query abstraction</title>
+          <author fullname="Daniel Lorch">
+            <organization>PHP Devs</organization>
+          </author>
+          <date year="2002"/>
+        </front>
+        <note>
+          <t></t>
+        </note>
+      </reference>
+
+      <reference target="http://marc.theaimsgroup.com/?l=php-dev&#38;m=101752997709709&#38;w=2">
+        <front>
+          <title>Relevant discussion about query abstraction</title>
+          <author fullname="Stig">
+            <organization>PHP Devs</organization>
+          </author>
+          <date year="2002"/>
+        </front>
+        <note>
+          <t></t>
+        </note>
+      </reference>
+
+      <reference target="http://marc.theaimsgroup.com/?l=php-dev&#38;m=101740330610221&#38;w=2">
+        <front>
+          <title>Relevant discussion about query abstraction</title>
+          <author fullname="Daniel Lorch">
+            <organization>PHP Devs</organization>
+          </author>
+          <date year="2002"/>
+        </front>
+        <note>
+          <t></t>
+        </note>
+      </reference>
+
+      <reference target="http://marc.theaimsgroup.com/?l=php-db&#38;m=100635358202596&#38;w=2">
+        <front>
+          <title>Jonh Lim stating that a SQL parser should be the solution</title>
+          <author fullname="Jonh Lim">
+            <organization>ADODB Main Developer</organization>
+          </author>
+          <date year="2002"/>
+        </front>
+        <note>
+          <t>
+            I personally think parsing SQL is the wrong way to do it.
+            There are too many inconsistent ways to do it, not to say it would be an unnecessary complex solution.
+          </t>
+        </note>
+      </reference>
+
+      <reference target="http://pear.php.net/package-info.php?pacid=80&#38;release=0.13&#38;PHPSESSID=18e4b1d53db182aceeeb2c1e0b92e399">
+        <front>
+          <title>Package to be used as a Query Abstraction for PEAR</title>
+          <author fullname="Jonh Lim">
+            <organization>ADODB Main Developer</organization>
+          </author>
+          <date year="2002"/>
+        </front>
+        <note>
+          <t>
+            The class is badly implemented in my opinion. Still there are things that can be reused.
+          </t>
+        </note>
+      </reference>
+
+      <reference target="http://phpclasses.thos.co.za/browse.html/package/20.html">
+        <front>
+          <title>Metabase DB Abstraction Library</title>
+          <author fullname="Manuel Lemos">
+            <organization>Metabase Dev</organization>
+          </author>
+          <date year="2002"/>
+        </front>
+        <note>
+          <t>
+          </t>
+        </note>
+      </reference>
+
+      <reference target="http://px.sklar.com/code.html?id=239">
+        <front>
+          <title>SubSelect Emulation for Mysql</title>
+          <author fullname="">
+            <organization></organization>
+          </author>
+          <date year="2002"/>
+        </front>
+        <note>
+          <t>
+            This is one of the features our query abstraction should have. It shows how the abstraction
+            can add value to the overall solution.
+          </t>
+        </note>
+      </reference>
+
+    </references>
+    
+    <!-- Any section after this will become an appendix -->
+    <section title="Example appendix">
+      <t>Any section which is present after the references will become an appendix</t>
+    </section>
+  </back>
+</rfc>

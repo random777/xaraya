@@ -12,41 +12,44 @@
   <para>From your browser, launch http://www.mywebsite.com/xaraya/install.php
   (replace with the correct path to your Xaraya installation&#39;s &#34;<filename>install.php</filename>&#34;
   file).</para>
-
-  <itemizedlist>
-    <listitem>
+<sect1 id="install-guide">
+    <title>Installation Guide</title>
+  <sect2 id="install-language">
+    <title>Choose a Language</title>
       <para>Select your language from the drop-down list. Click &#34;<guibutton>Continue</guibutton>&#34;.</para>
 
-      <figure id="install-language">
+      <figure id="install-languagefig">
         <title>Language selection.</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install01.jpg"
+            <imagedata fileref="sourceimages/install01.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
-    </listitem>
+    </sect2>
 
-    <listitem>
+    <sect2 id="install-license">
+    <title>License Acceptance</title>
       <para>Read &#38; agree to the license. Click &#34;<guibutton>Continue</guibutton>&#34;.
       If you do not agree to the license, you cannot install Xaraya.</para>
 
-      <figure id="install-license">
+      <figure id="install-licensefig">
         <title>Xaraya license agreement</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install02.jpg"
+            <imagedata fileref="sourceimages/install02.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
-    </listitem>
+    </sect2>
 
-    <listitem>
-      <para>System Settings Check. This panel tells you if you have set up
+    <sect2 id="install-check">
+     <title>System Settings Check</title>
+      <para>This panel tells you if you have set up
       Xaraya correctly. It runs checks and determines whether you&#39;re
       running the correct version of PHP and whether the permissions are set
       correctly, and more. If there is a problem then follow the advice given.
@@ -55,12 +58,12 @@
       have fixed any issues, press &#34;<guibutton>Check Again</guibutton>&#34;
       to re-check the system settings.</para>
 
-      <figure id="install-check">
+      <figure id="install-checkfig">
         <title>System Settings Check.</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install03.jpg"
+            <imagedata fileref="sourceimages/install03.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
@@ -103,20 +106,21 @@
           777 &#60;xarroot&#62;/var/cache/rss</userinput>&#34;.</para>
         </listitem>
       </itemizedlist>
-    </listitem>
+    </sect2>
 
-    <listitem>
-      <para>Database Settings Collection. Review (and edit if necessary) the
+    <sect2 id="install-database">
+     <title>Database Settings</title>
+      <para>Review (and edit if necessary) the
       Database Settings on the next panel. The default database settings
       displayed on this panel come from the &#39;config.system.php&#39; file
       we edited above.</para>
 
-      <figure id="install-database">
+      <figure id="install-databasefig">
         <title>Database Settings Collection.</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install04.jpg"
+            <imagedata fileref="sourceimages/install04.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
@@ -137,19 +141,20 @@
 
       <para>If Xaraya cannot create the database for you, see Appendix B:
       Creating the Xaraya database via phpMyAdmin.</para>
-    </listitem>
+    </sect2>
 
-    <listitem>
-      <para>Administrator Account Creation. This panel creates the site
+    <sect2 id="install-admin">
+     <title>Administrator Account Creation</title>
+      <para>This panel creates the site
       Administrator&#39;s account. This account has unlimited access to the
       site.</para>
 
-      <figure id="install-admin">
+      <figure id="install-adminfig">
         <title>Administrator Account Creation</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install05.jpg"
+            <imagedata fileref="sourceimages/install05.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
@@ -182,17 +187,17 @@
           <para>Click &#34;<guibutton>Continue</guibutton>&#34;.</para>
         </listitem>
       </itemizedlist>
-    </listitem>
+    </sect2>
 
-    <listitem>
-      <para>Available Configurations.</para>
+    <sect2 id="install-config">
+      <title>Available Configurations</title>
 
-      <figure id="install-config">
+      <figure id="install-configfig">
         <title>Available Configurations</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install06.jpg"
+            <imagedata fileref="sourceimages/install06.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
@@ -231,22 +236,23 @@
 
       <para>From the list of Available Configurations, select &#34;<command>Community
       Site</command>&#34;. Click &#34;<command>Continue</command>&#34;.</para>
-    </listitem>
+    </sect2>
 
-    <listitem>
-      <para>Choose Configuration Options. Once you&#39;ve chosen your
+    <sect2 id="install-configoptions">
+     <title>Choose Configuration Options</title>
+      <para>Once you&#39;ve chosen your
       configuration from the Available Configurations, specify which modules
       you wish to initialise via the installer. The listed modules are a
       subset of all the modules available for Xaraya, but this provides a nice
       starting place. For this example, select the installation defaults
       unless you have specific reasons to select otherwise.</para>
 
-      <figure id="install-configoptions">
+      <figure id="install-configoptionsfig">
         <title>Choose Configuration Options</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install07.jpg"
+            <imagedata fileref="sourceimages/install07.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
@@ -254,28 +260,29 @@
 
       <para>If you make a mistake or forget to install a module that you need,
       don&#39;t worry -- modules can be installed or removed at any time.</para>
-    </listitem>
+    </sect2>
 
-    <listitem>
+    <sect2 id="install-complete">
+      <title>Installation Complete</title>
       <para>Click &#34;<command>Continue</command>&#34;.</para>
 
-      <figure id="install-complete">
+      <figure id="install-completefig">
         <title>Installation complete!</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install08.jpg"
+            <imagedata fileref="sourceimages/install08.jpg"
             format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
-    </listitem>
-  </itemizedlist>
 
-  <para>Your Xaraya installation is complete! Click &#34;<command>Launch the
-  site!</command>&#34; to go to your new Xaraya website, logged in as the
-  Administrator.</para>
+       <para>Your Xaraya installation is complete! Click &#34;<command>Launch 
+       the site!</command>&#34; to go to your new Xaraya website, logged in as
+       the Administrator.</para>
+    </sect2>
 
+  </sect1>
   <sect1 id="security">
     <title>Increase site security</title>
 
@@ -335,7 +342,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata align="left" fileref="sourceimages/install10.jpg"
+          <imagedata fileref="sourceimages/install10.jpg"
           format="JPG" />
         </imageobject>
       </mediaobject>

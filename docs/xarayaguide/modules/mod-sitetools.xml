@@ -2,8 +2,8 @@
 <sect2>
   <title>SiteTools Module</title>
 
-  <subtitle>Set of tools for site and database maintenThis option allows you
-  to flush (delete) cache files in either of all of your Template, RSS or
+  <subtitle>Set of tools for site and database maintenance. This module allows 
+  you to flush (delete) cache files in either of all of your Template, RSS or
   adodb cache directories. <command>Admin-&#62;Sitetools</command>.</subtitle>
 
   <para>The Site Tools Module provides a set of utilities to assist in

@@ -134,9 +134,9 @@
     somewhat off the mark -- the author accepts full responsibility for the
     shortcomings.</para>
 
-    <para>This document was written using TextPad for Windows (<ulink
-    url="http://www.textpad.com">http://www.textpad.com</ulink>) and XMLmind
-    XML Editor (<ulink url="http://www.xmlmind.com">http://www.xmlmind.com</ulink>).</para>
+    <para>This document was written in docbook and then converted using XSLT 
+    to various output formats. Thanks to the Linux Documentation project for 
+    their docbook utils and stylesheets which made the process much easier.</para>
 
     <para>Thank you to the Xaraya Team for declaring this to be the
     &#34;Official&#34; guide.</para>

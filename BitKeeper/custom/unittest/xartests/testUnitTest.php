@@ -15,7 +15,9 @@ class testUnitTest extends xarTestCase {
     }
 
     function teardown () {
-        // not needed here
+        // As each test runs in it individual environment
+        // we need to reset the array
+        $this->mymethodlist=array();
     }
     
     function testTrue() {
@@ -27,8 +29,6 @@ class testUnitTest extends xarTestCase {
     }
     
     function testMethodList() {
-        print_r($this->mymethodlist);
-        print_r(array_keys($this->_tests));
         return $this->assertEquals($this->mymethodlist,array_keys($this->_tests),0,"Test Methods");
     }
 }

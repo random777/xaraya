@@ -138,13 +138,13 @@ class xarTest {
     var $_testmethod;
     var $_result;
 
-    function xarTest($container, $method) {
-        $this->_parentobject=$container;
+    function xarTest(&$container, $method) {
+        $this->_parentobject=& $container;
         $this->_testmethod=$method;
     }
 
     function run() {
-        $testcase=$this->_parentobject;
+        $testcase=& $this->_parentobject;
         $testmethod=$this->_testmethod;
         $testcase->setup();
         

@@ -39,6 +39,10 @@
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.base" 
     value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,polls,quotes,ratings,recommend,referer,search,stats,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+
+  <!-- Base modules, when added to the core modules, you get a base system -->
+  <property name="modules.full" 
+    value="addressbook,bbclick,bbcode,calendar,cast,censor,changelog,contact,figlet,mybookmarks,opentracker,pubsub,smilies,uploads,xarbb,xslt"/>
   
   <!-- source tree properties -->
   <property name="html.dir" value="html" />
@@ -146,6 +150,9 @@
     <!-- Base distro -->
     <phingcall target="basedist"/>
 
+    <!-- Full distro -->
+    <phingcall target="fulldist"/>
+
   </target>
 
   <!-- Core distribution -->
@@ -174,6 +181,20 @@
     
     <phingcall target="createzipball">
       <property name="zipball.name" value="${final.name}-base.zip"/>
+    </phingcall>
+  </target> 
+
+  <!-- Full distribution -->
+  <target name="fulldist" description="--> Creates the full distribution">
+   <!-- Modules are a bit separate -->
+    <foreach list="modules.full" target="copymodule" param="module.name"/>
+    
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-full.tar.gz"/>
+    </phingcall>
+    
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-full.zip"/>
     </phingcall>
   </target> 
   

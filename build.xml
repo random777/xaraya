@@ -45,25 +45,67 @@
   <property name="build.tests" value="${build.dir}/tests"/>
   <property name="build.html" value="${build.dir}/html"/>
   
-  <!--  Displays some help  -->
-  <target name="help" description=": displays a brief help">
-    <echo message="Please call 'bk build -projecthelp' for details" />
-  </target>
+  <!-- We need something extra until phing 2 can be used, which is php 5 only -->
+  <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
   
   <!--  Main target that runs the build  -->
-  <target name="all" description=": creates a distribution of Xaraya">
+  <target name="all" description=": creates all distributions of Xaraya">
     <echo message="Copying files to build dir" />
-    
+    <mkdir dir="${build.basedir}" />
+        
     <!-- Build all distributions -->
     <phingcall target="coredist"/>
     <phingcall target="basedist"/>
     <phingcall target="fulldist"/>
   </target>
   
+    <!-- Core distribution -->
+  <target name="coredist" depends="commonfiles, languages" description=": Creates the core distribution">
+    <!-- The common files actually does too much, it includes all config files, remove the invalid ones for core -->
+    <!-- TODO: this is lame, do it different -->
+    <delete>
+      <fileset dir="${build.html}/modules/installer/xarconfigurations">
+        <include name="*.conf.php"/>
+        <exclude name="core.conf.php"/>
+      </fileset>
+    </delete>
+   
+    <!--- here we can make the core distribution -->
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-core.tar.gz"/>
+    </phingcall>
+
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-core.zip"/>
+    </phingcall>
+  </target>
+  
+    <!-- Base distribution -->
+  <target name="basedist" depends="commonfiles, languages, basemodules" description=": Creates the base distribution">
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-base.tar.gz"/>
+    </phingcall>
+    
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-base.zip"/>
+    </phingcall>
+  </target> 
+  
+    <!-- Full distribution -->
+  <target name="fulldist" depends="commonfiles, languages, basemodules, fullmodules, fullthemes" description=": Creates the full distribution">
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-full.tar.gz"/>
+    </phingcall>
+    
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-full.zip"/>
+    </phingcall>
+  </target> 
+    
+    
   <!-- Common contents for each distribution -->
   <target name="commonfiles">
     <!-- Copy the usual suspects for GPL alike projects -->
-    <mkdir dir="${build.basedir}" />
     <mkdir dir="${build.dir}" />
     <copy todir="${build.dir}">
       <fileset dir="${docs.dir}">
@@ -107,15 +149,21 @@
     <mkdir dir="${build.html}"/>
     <copy todir="${build.html}">
       <fileset dir="${html.dir}">
+        <!-- Core files -->
         <include name="includes/**"/>
         <exclude name="includes/xml/**"/>
         <exclude name="includes/xartests/**"/>
         
+        <!-- Core modules -->
+        <include name="modules/**"/>
+        
+        <!-- Themes -->
         <include name="themes/print/**"/>
         <include name="themes/rss/**"/>
         <include name="themes/Xaraya_Classic/**"/>
         <include name="themes/index.html"/>
         
+        <!-- Necessary files from var -->
         <include name="var/index.html"/>
         <include name="var/**/index.html"/>
         <include name="var/rsd.xml"/>
@@ -153,81 +201,21 @@
     <foreach list="languages.installer" target="copylanguage" param="language.locale"/>
   </target>  
   
-  <!-- Core distribution -->
-  <target name="coredist" depends="commonfiles, languages" description=": Creates the core distribution">
-    <!-- Core modules -->
-    <foreach list="modules.core" target="copymodule" param="module.name"/>
-    
-    <!-- The above does actually to much, it includes all config files, remove the invalid ones for core -->
-    <!-- TODO: this is lame, do it different -->
-    <delete>
-      <fileset dir="${build.html}/modules/installer/xarconfigurations">
-        <include name="intranet.conf.php"/>
-        <include name="community.conf.php"/>
-        <include name="public.conf.php"/>
-      </fileset>
-    </delete>
-   
-    <!--- here we can make the core distribution -->
-    <phingcall target="createtarball">
-      <property name="tarball.name" value="${final.name}-core.tar.gz"/>
-    </phingcall>
-
-    <phingcall target="createzipball">
-      <property name="zipball.name" value="${final.name}-core.zip"/>
-    </phingcall>
-  </target>
-
-  <!-- Base distribution -->
-  <target name="basedist" depends="commonfiles, languages" description=": Creates the base distribution">
-   <!-- Modules are a bit separate -->
+  <!-- process the list of modules for base distro -->
+  <target name="basemodules">
     <foreach list="modules.base" target="copymodulefrommodrepo" param="module.name"/>
-    
-    <!-- Now we add the deleted configurations again -->
-    <copy todir="${build.html}/modules/installer/xarconfigurations">
-      <fileset dir="${html.dir}/modules/installer/xarconfigurations">
-        <include name="intranet.conf.php"/>
-        <include name="community.conf.php"/>
-        <include name="public.conf.php"/>
-        <exclude name="SCCS/**"/>
-      </fileset>
-    </copy>    
-    <phingcall target="createtarball">
-      <property name="tarball.name" value="${final.name}-base.tar.gz"/>
-    </phingcall>
-    
-    <phingcall target="createzipball">
-      <property name="zipball.name" value="${final.name}-base.zip"/>
-    </phingcall>
-  </target> 
-
-  <!-- Full distribution -->
-  <target name="fulldist" depends="commonfiles, languages" description=": Creates the full distribution">
-   <!-- Modules are a bit separate -->
-    <foreach list="modules.full" target="copymodulefrommodrepo" param="module.name"/>
-
-    <foreach list="themes.full" target="copythemefromthemerepo" param="theme.name"/>
-    
-    <phingcall target="createtarball">
-      <property name="tarball.name" value="${final.name}-full.tar.gz"/>
-    </phingcall>
-    
-    <phingcall target="createzipball">
-      <property name="zipball.name" value="${final.name}-full.zip"/>
-    </phingcall>
-  </target> 
-  
-  <!-- copy a module into the build tree -->
-  <target name="copymodule" if="module.name">
-    <echo msg="Copying module ${module.name} into build tree..."/>
-    <copy todir="${build.html}/modules/${module.name}">
-      <fileset dir="${html.dir}/modules/${module.name}">
-        <include name="**"/>
-        <exclude name="SCCS/**"/>
-      </fileset>
-    </copy>
   </target>
   
+  <!-- process the list of modules for full distro -->
+  <target name="fullmodules">
+    <foreach list="modules.full" target="copymodulefrommodrepo" param="module.name"/>
+  </target>
+  
+  <!-- process the list of themes for full distro -->
+  <target name="fullthemes">
+    <foreach list="themes.full" target="copythemefromthemerepo" param="theme.name"/>
+  </target>
+    
   <!-- copy a module into the build tree -->
   <target name="copymodulefrommodrepo" if="module.name">
     <echo msg="Copying module ${module.name} into build tree..."/>
@@ -253,15 +241,18 @@
   <!-- copy a language into the build tree -->
   <target name="copylanguage" if="language.locale">
     <echo msg="Copying installer locale ${language.locale} into build tree..."/>
-
-    <copy todir="${build.html}/var/locales/">
-      <!-- FIXME: this is way too slow -->
-      <!-- map nl/nl_NL.iso-8859-1/filename.xml onto filename.xml  -->
-      <mapper type="regex" from="^..\/(.*)" to="\1" /> 
-      <fileset dir="${languages.repo}/">
-        <include name="**/${language.locale}/xml/*/installer/**"/>
-        <include name="**/${language.locale}/xml/core/**"/>
-        <include name="**/${language.locale}/locale.xml"/>
+    
+    <!-- SPECIAL: backported from phin 2 to here, speeds up the stuff considerably -->
+    <php function="substr" returnProperty="language">
+        <param value="${language.locale}"/>
+        <param value="0"/>
+        <param value="2"/>
+    </php>
+    <copy todir="${build.html}/var/locales/${language.locale}">
+      <fileset dir="${languages.repo}/${language}/${language.locale}">
+        <include name="xml/*/installer/**"/>
+        <include name="xml/core/**"/>
+        <include name="locale.xml"/>
         <exclude name="SCCS/**"/>
       </fileset>
     </copy>
@@ -295,6 +286,11 @@
   <target name="rebuild" depends="clean" description=": rebuilds all targets">
     <echo msg="Starting new build..." />
     <phingcall target="makedist" />
+  </target>
+  
+    <!--  Displays some help  -->
+  <target name="help" description=": displays a brief help">
+    <echo message="Please call 'bk build -projecthelp' for details" />
   </target>
   
 </project>

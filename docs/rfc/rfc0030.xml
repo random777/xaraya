@@ -790,8 +790,152 @@
     </section>
 
     <section title="Architecture">
+      <section title="Admin and User APIs">
       <t>
-        The security system is implemented through the following objects:</t>
+      The following are the standard-type APIs used in Xaraya. The $args parameter represents an array of arguments to the function.
+      </t>
+      <section title="Admin API">
+          <list style="symbols">roles_adminapi_delete($args)
+          <t>              
+            <em>roles_adminapi_create($args)</em>: create a new user.
+          </t>
+          <t>              
+            <em>roles_adminapi_delete($args)</em>: delete a user.
+          </t>
+          <t>              
+            <em>roles_adminapi_update($args)</em>: update a user.
+          </t>
+          <t>              
+            <em>roles_adminapi_stateupdate($args)</em>: update a user's state.
+          </t>
+          <t>              
+            <em>roles_adminapi_getmenulinks()</em>: passmenulinks to the main menu.
+          </t>
+          <t>              
+            <em>roles_adminapi_addgroup($args)</em>: create a new group.
+          </t>
+          <t>              
+            <em>roles_adminapi_getallgroups()</em>: generate a listing of all groups.
+          </t>
+          <t>              
+            <em>roles_adminapi_deletegroup($args)</em>: delete a group.
+          </t>
+          <t>              
+            <em>roles_adminapi_renamegroup($args)</em>: rename a group.
+          </t>
+          <t>              
+            <em>roles_adminapi_viewgroup($args)</em>: view the users in a group.
+          </t>
+          <t>              
+            <em>roles_adminapi_deleteuser($args)</em>: delete a user from a group.
+          </t>
+          <t>              
+            <em>roles_adminapi_addmember($args)</em>: add a user to a group.
+          </t>
+          </list>
+      </section>
+      <section title="User API">
+          <list style="symbols">roles_adminapi_delete($args)
+          <t>              
+            <em>roles_userapi_getall($args)</em>: generate a listing of all the users..
+          </t>
+          <t>              
+            <em>roles_userapi_getallactive($args)</em>: generate a listing of all the active users.
+          </t>
+          <t>              
+            <em>roles_userapi_get($args)</em>: get a user.
+          </t>
+          <t>              
+            <em>roles_userapi_countitems()</em>: return the number of users.
+          </t>
+          <t>              
+            <em>roles_userapi_login($args)</em>: log a user in.
+          </t>
+          <t>              
+            <em>roles_userapi_makePass()</em>: generate a password.
+          </t>
+          <t>              
+            <em>roles_userapi_getmenulinks()</em>: return menulinks to the main menu.
+          </t>
+          <t>              
+            <em>roles_userapi_getallgroups()</em>: generate a listing of all the groups.
+          </t>
+          <t>              
+            <em>roles_userapi_getUsers($args)</em>: generate a listing of all the users in a given groups.
+          </t>
+          <t>              
+            <em>roles_userapi_countgroups()</em>: return the number of groups.
+          </t>
+          <t>              
+            <em>roles_userapi_addmember($args)</em>: add a user to a group.
+          </t>
+      </list>
+      </section>
+      </section>
+
+      <section title="Setup API">
+      <t>
+      The following functions should be used to create default roles and privileges in the init.php of a module.
+      </t>
+          <list style="symbols">roles_adminapi_delete($args)
+          <t>              
+            <em>xarMakeGroup</em>: create a new group.
+          </t>
+          <t>              
+            <em>xarMakeUser</em>: create a new user.
+          </t>
+          <t>              
+            <em>xarMakeRoleRoot</em>: define an entry in the roles repository that is the head of a roles hierarchy.
+          </t>
+          <t>              
+            <em>xarMakeRoleMemberByName</em>: make one role the child of another.
+          </t>
+          <t>              
+            <em>xarMakeRoleMemberByUname</em>: make one role the child of another.
+          </t>
+          <t>              
+            <em>xarMakeRoleMemberByID</em>: make one role the child of another.
+          </t>
+          <t>              
+            <em>xarRegisterPrivilege</em>: create a privilege in the rpivileges repository.
+          </t>
+          <t>              
+            <em>xarMakePrivilegeRoot</em>: define an entry in the privileges repository that is the head of a privileges hierarchy.
+          </t>
+          <t>              
+            <em>xarAssignPrivilege</em>: assign a privilege to a role.
+          </t>
+          <t>              
+            <em>xarDefineInstance</em>: create an instance in the instance repository.
+          </t>
+          <t>              
+            <em>xarRemoveInstances</em>: remove all the instances of a module from the instances repository.
+          </t>
+          <t>              
+            <em>xarGetGroups</em>: returns an array representing all the groups.
+          </t>
+          <t>              
+            <em>xarFindRole</em>: finds a role by its name.
+          </t>
+          <t>              
+            <em>xarRegisterMask</em>: register a mask in the mask repository.
+          </t>
+          <t>              
+            <em>xarUnregisterMask</em>: remove a mask from the mask repository.
+          </t>
+          <t>              
+            <em>xarRemoveMasks</em>: remove all the masks of a module from the masks repository.
+          </t>
+          <t>              
+            <em>xarSecurityCheck</em>: check a the current user's privilege against a mask.
+          </t>
+          </list>
+          </section>
+
+<section title="Classes and Methods">
+      <t>
+      The classes and class methods should in general not be accessed directly. Most of them return objects rather than arrays, so use them at your own risk.
+      </t>
       <section title="xarRoles">
         <t>
           A central repository of user and group definitions. Each
@@ -1034,7 +1178,7 @@
         </t>
       </section>
 
-      <section title="Mask">
+      <section title="xarMask">
         <t>
           An object representing a single mask.
           <t>
@@ -1110,6 +1254,7 @@
         </t>
       </section>
 
+    </section>
     </section>
 
     <section title="Database Tables">

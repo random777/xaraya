@@ -16,7 +16,7 @@
 <!-- I guess we always want a table of contents -->
 <?rfc toc="yes"?>
 
-<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0044" category="bcp">
+<rfc number="0044" category="bcp">
   <!-- number: Fill in the number for the RFC -->
   <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
   <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
@@ -482,6 +482,24 @@
         </t>
       </section>
 
+      <section title="Classes">
+        <t><em>Declarations</em>
+          <t>
+            Class declarations follow the "one true brace" convention:
+            <artwork>
+            &lt;?php
+            class fooClass extends barClass
+            {
+                function fooClass()
+                {
+                    statements;
+                }
+            }
+            ?&gt;
+            </artwork>
+          </t>
+        </t>
+      </section>
       <section title="Variables">
         <t>Consistant variable naming eases the readability of code. We recommend (fill in the blank)</t>
         <t>Variables should have English based names where at all possible to maintain consistency across the code base.</t>
@@ -641,16 +659,18 @@
         </list>
       </t>
     </section>
-
     <section title="To be included">
-      <list>
-        <t>Exception to direct output generation are some parts of the core (notably logger and exception subsystem) </t>
-        <t>Describe hook templates very clearly, as they are the one which always get contained in another template</t>
-      </list>
+      <t>
+        <list>
+          <t>Exception to direct output generation are some parts of the core (notably logger and exception subsystem) </t>
+          <t>Describe hook templates very clearly, as they are the one which always get contained in another template</t>
+        </list>
+      </t>
     </section>
 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2004-01-15: MrB - added class section</t>
       <t>2003-10-13: MrB - reorganized a bit, added some verbosity.</t>
       <t>2003-04-23: FB  - added PEAR coding standard</t>
       <t>2003-03-27: MrB - created</t>

@@ -45,7 +45,7 @@
     value="addressbook,authinvision,authphpbb2,authsso,bbclick,bbcode,censor,changelog,figlet,issueareapub,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,mime,images,window,workflow,xarbb,xarlinkme,xlink,xslt"/>
 
   <!-- Languages which get included in the distro -->
-  <property name="languages.installer" value="fr_FR.utf-8,nl_NL.utf-8,pt_BR.utf-8"/>
+  <property name="languages.installer" value="de_DE.utf-8,nl_NL.utf-8,pt_BR.utf-8,ru_RU.utf-8"/>
 
   <!-- theme lists -->
   <property name="themes.full"  value="XBlue_Pro,atom"/>

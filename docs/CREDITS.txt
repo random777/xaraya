@@ -186,3 +186,9 @@ AListApart <http://www.alistapart.com/stories/practicalcss/>
 
 * Reused the drivers from the Log Class from PEAR
 http://pear.php.net/package-info.php?package=Log
+
+* Reused Javascript confirmation:
+phpMyAdmin <http://www.phpmyadmin.net>
+
+* Javascript validation:
+Dynamic Drive <http://www.dynamicdrive.com>

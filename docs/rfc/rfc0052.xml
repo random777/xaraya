@@ -863,19 +863,50 @@
 <section title="Select">
   <section title="Description">
     <t>
+		By default provides a drop down list of options for the user to select from.
     </t>
   </section>
   <section title="Arguments">
-    <t>
-    </t>
+    <t>None.</t>
   </section>
   <section title="Validation/Configuration Options">
     <t>
+		You may specify the Values and Labels to be displayed in the drop down box via the Validation field.
+		There are 4 ways to specify the Values and Labels:
+        <list style="symbols">
+          <t>Explitly:  You may specify in the Validation field the options to display, using one of two formats.
+			<list style="symbols">
+			  <t>
+			  	Comma Seperated Labels: Simply specify the labels you wish to display 
+				deliniated by commas.  The values specified will be used as both the 
+				ID and the display Label.  Example: label1,label2,label3
+			  </t>
+			  <t>
+			  	Semicolon Seperated ID/Label pairs: 
+				Specify a list of ID/Label pairs seperated by semicolons.
+				Example: id1,label1;id2,label2;id3,label3
+			  </t>
+			</list>		
+		  </t>
+		  <t>xarAPIModFunc():  
+		  	You may specify a tarAPIModFunc() call to a function that returns an array of ID/Value pairs.  
+		  	The Key's in the array should be the ID's you wish to store.</t>
+		  <t>Data File (File System):
+		  	You may specify a data file containing the data you wish to display.
+			To specify the data file use the following signature in the validation field
+			"{file:pathToFile.dat}".
+			Each line of the file should consist of one ID/Value pair, seperated by a comma.
+		  </t>
+		  <t>Data File (Via Uploads Module):
+		    As per the Data File option, but the file is uploaded into the system via the 
+			Uploads module.  The use signature is: "{fileid:#}" where the number is the
+			Uploads' File ID.  (Not yet implimented as of 5/03/04)
+		  </t>
+		</list>		
     </t>
   </section>
   <section title="Requirements">
-    <t>
-    </t>
+    <t>None.</t>
   </section>
 </section>
 

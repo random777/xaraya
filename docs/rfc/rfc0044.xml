@@ -2,11 +2,11 @@
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<!-- 
+<!--
     Supported processing instructions, uncomment the ones you want
 -->
 
-<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard -->
 <!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
 <!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
 <!-- <?rfc sortrefs="yes"?> Sort the references -->
@@ -20,7 +20,7 @@
   <!-- number: Fill in the number for the RFC -->
   <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
   <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
-  
+
   <!-- Front matter is used for identification of author and organization -->
   <front>
     <title>Xaraya Coding standards</title>
@@ -62,7 +62,34 @@
       	PEAR coding standard</eref> and the specific Xaraya standards into one document.
       </t>
     </section>
-
+    <section title="BlockLayout Templating">
+         <t>See the BlockLayout Specification (<eref target="http://docs.xaraya.com/docs/rfcs/rfc0010.html">RFC 10</eref>) for further information.</t>
+        <section title="BlockLayout Rules">
+            <t><em>No output generation in code</em> Embedded HTML in Xaraya GUI functions prevents template overrides.</t>
+            <t><em></em></t>
+        </section>
+        <section title="Template Rules">
+        <t>All Templates must be self-containable.</t>
+        <t><em>Example:</em></t>
+        <t><artwork><![CDATA[
+         <tr>
+         <td>DATA</td>
+         </tr>
+         ]]></artwork></t>
+         <t>This is an example of a template that is not self-containable. A self-containable template would include the appropriate table tags
+         not leave them up to the template that it is contained in.</t>
+        </section>
+        <section title="Template Header Recommendation">
+            <t>
+                  All Templates should include the name of the license and a link to it so as to avoid legal ambiguity. You may also wish to add the
+                  author's name as well.
+            </t>
+            <t><artwork>
+            &lt;!--- License: GPL http://www.gnu.org/copyleft/gpl.html ---&gt;
+            </artwork></t>
+            <t><em>Note:</em>  Use the &lt;!--- ---&gt; form over the &lt;!-- --&gt; form so that it isn't added to the output stream (BL will not output it)</t>
+        </section>
+    </section>
     <section title="PHP Code Tags">
       <t>
         <em>Always</em> use <em>&lt;?php ?&gt;</em> to delimit PHP code, not
@@ -157,7 +184,7 @@
       <t>Variables should have English based names where at all possible to maintain consistency across the code base.</t>
       <t>Example:</t>
       <t><artwork>
-         Example array key and variable usage 
+         Example array key and variable usage
       </artwork></t>
     </section>
 	<section title="Control Structures">

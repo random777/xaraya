@@ -109,6 +109,7 @@ echo &#34;Xaraya backup complete!&#34;</literallayout></para>
 $systemConfiguration['Log.LoggerName'] = 'simple';
 $systemConfiguration['Log.LoggerArgs'] = array('fileName' =>  'var/logs/log.txt');</literallayout></para>
 <para>Changing the 'simple' to 'dummy' will disable the logger.</para>
+<para>[ marcel to add content here on other loggers ]</para>
  </sect1>
  <sect1 id="sitetools">
   <title>Sitetools Module</title>

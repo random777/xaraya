@@ -16,7 +16,7 @@
     <author initials="F.B." surname="Botelho" fullname="Flavio Borges Botelho">
       <organization>Xaraya Development Group</organization>
       <address>
-        <email>nuncanada@ig.com.br</email>
+        <email>nuncanada@xaraya.com</email>
         <uri>http://www.xaraya.com</uri>
       </address>
     </author>
@@ -166,7 +166,7 @@
     then you would have to set their respective tables:
 
     Suppose there is an alias field in the user table and a alias in the groups table
-    This way the bulder won´t know which alias to choose
+    This way the bulder wont know which alias to choose
 
     $query-&#62;select('username','groupname','alias');
 
@@ -337,7 +337,7 @@ class sql_case
 
 /**
  * Helper Class to mount a SQL Select Query
- * It´s a little more than a struct, keeping the different 'areas' from
+ * Its a little more than a struct, keeping the different 'areas' from
  * the Select Query separated. So tables, fields and join statements can be
  * easily exchanged between different parts of the code.
  */
@@ -411,7 +411,7 @@ class SQL_SELECT
     * @param string Where in the structure you want to add it? (select, from, join, where, groupby, having, orderby)
     *               SELECT ... FROM ... JOIN ... WHERE ... GROUPBY ... HABING ... ORDERBY
     *               This was made this way to make it easier to understand how to use it
-    * @params mixed The rest of the parameters depend on the chosen place of structure you´re adding to:
+    * @params mixed The rest of the parameters depend on the chosen place of structure youre adding to:
     *               SELECT  -&#62; any number of fields
     *               FROM    -&#62; any number of tables
     *               JOIN    -&#62; $table, $on, $jointype

@@ -64,7 +64,7 @@
             Masks are registered upon module initialisation.
           </t>
           <t>
-            Role: A named set of 1 or more users 
+            Role: A named set of 1 or more users. A role can be a group or a user.
           </t>
           <t>
             Privilege: specification of component-name, instance value(s), the
@@ -168,7 +168,7 @@
           hierarchy is a Role called "Everybody".
         </t>
         <t>
-          Note: Contrary to the PostNuke privileges system, the order
+          Note: Contrary to the PostNuke permissions system, the order
           in which multiple parents of a Role are defined is
           not relevant for the way privileges are applied and has no
           impact on whether access is granted or denied.
@@ -211,7 +211,7 @@
           have one member and "Group" for roles which have multiple
           members. Conceptually however there is no difference between
           the two, both are roles.  Since one can expect numerically
-          many more Users than Groups or, in other terms, more leafs
+          many more Users than Groups or, in other terms, more leaves
           then nodes, the former are not displayed by default. Rather,
           one can specifically request to see the Users belonging to a
           given Group.
@@ -332,7 +332,7 @@
           privileges. However, privileges do not live in a single
           hierarchy. Instead, the UI presents all the privileges in a
           list, with each privilege containing its children in a
-          separate tree,as the following example shows:
+          separate tree, as the following example shows:
           <artwork>
             NoPrivileges                a privilege with no children
             
@@ -358,19 +358,19 @@
         </t>
         <t>
           In Xaraya Privileges are defined without reference to any
-          group or user. They are objects with no impact until they
+          group or user. They are objects with no relevance until they
           are assigned to one or more Roles. As explained below,
           assigning the head of a Privileges tree to a Role assigns
-          ALL the components of the tree.
+          ALL the components of the tree of that Privilege.
         </t>
         <t>
           For convenience a number of privileges have been created
-          at initialization time. The following cannot be modified or
-          deleted. These are:
+          at initialization time. These are:
           <list style="symbols">
             <t>
               "NoPrivileges" is the privilege representing the lowest
-              level of access to all Xaraya modules, i.e. no access. It
+              level of access to all Xaraya modules, i.e. no access. This Privilege cannot be modified or
+          deleted. It
               has the attributes:
               <artwork>
                 Realm     Module    Component    Instance    Level
@@ -381,7 +381,8 @@
             <t>
               FullPrivileges is the privilege representing the highest
               level of access to all Xaraya modules, i.e. the ability to
-              do anything. It has the attributes:
+              do anything. This Privilege cannot be modified or
+          deleted. It has the attributes:
               <artwork>
                 Realm     Module    Component    Instance    Level
                 --------- --------- ------------ ----------- ------------
@@ -472,7 +473,7 @@
           none of the Privileges imply any of the others, as they
           refer to different modules and/or realms. We call such
           Privileges disjoint. (NOTE: This example contains a Realm which is a
-          feature which will not be used in the initial implementation.
+          feature which will not be used in the initial implementation.)
         </t>
         <t>
           Definition: An Irreducible Set of Privileges is a set in
@@ -483,7 +484,7 @@
       <section title="Winnowing">
         <t>
           Definition: Winnowing is the process by which the Xaraya
-          privileges system creates irreducuble sets of Privileges.
+          privileges system creates irreducible sets of Privileges.
         </t>
         <t>
           A privilege accumulates the attributes of its
@@ -527,7 +528,7 @@
         <t>
           During the winnowing process the privileges system compares
           each Privilege in a tree with all the others in the same
-          tree and discards those Privileges implied by others. In
+          tree and discards those Privileges implied by others. In particular duplicate Privileges are removed. In
           the example above winnowing would leaves us with the
           following Privileges:
           <artwork>    
@@ -748,7 +749,7 @@
           In the following example:
           <artwork>
             
-            Everybody           offspring distance 3
+            Everybody           offspring distance 2 or 3
             |
             |--Marketing        offspring distance 1
             |  |
@@ -768,37 +769,35 @@
           <list style="numbers">
             <t>
               The system gets the privileges of all ancestors of "Ana Fernandez" and
-              winnows the Privileges of them. In this case: Everybody, Marketing, Europe
-              and Spain. The privileges of the Role itself are also fetched. With the complete
-              set of these privileges the system winnows them to create irreducible sets.
+              winnows the Privileges of each of them. In this case: Everybody, Marketing, Europe
+              and Spain. The privileges of the Role itself are also fetched and winnowed. The result is that each node in the tree now has its irreducuble set of privileges assigned to it.
             </t>
             <t>
-              For each node in that list an irreducible set of
-              privileges is create, starting at the top level. (here:
+              Next, each irreducible set is looked at, starting at the top level. (here:
               Everybody).
             </t>
             <t>
-              This irreducable set is inherited by the offspring at the
+              The irreducible set is inherited by the offspring at the
               next distance. In this case "Europe" inherits the
-              irreducable set of "Everybody". (3->2 inheritance)
+              irreducible set of "Everybody". (3->2 inheritance), and "Marketing" also inherits the irreducible set of "Everybody" (2->1 inheritance).
             </t>
             <t>
               This process is repeated for the next distance level, so "Spain"
               inherits "Europe" (2->1)
             </t>
             <t>
-              The "Spain" and "Marketing" are then winnowed against each
+              The "Spain" and "Marketing" privileges are then winnowed against each
               other (both are at distance 1)
             </t>
             <t>
-              At this point we have irreducable sets for distance 1, so we can continue
-              to the requesting role. "Ana Fernandez" inherits the irreducable sets from
-              distance 1 (1->0) (which are created from the irreducable sets from the 
-              higher distances). This produces the irreducable set of privileges for the
+              At this point we have the irreducible sets for distance 1, so we can continue
+              to the requesting role. "Ana Fernandez" inherits the irreducable set from
+              distance 1 (1->0) (which have been created from the irreducable sets from the 
+              higher distances). This produces the irreducible set of privileges for the
               "Ana Fernandez" role.
             </t>
             <t>
-              That seet is compared against the mask of the security check needed for the
+              That set is compared against the mask of the security check needed for the
               requested action. If one of the privileges in the set implies the mask, the 
               check is passed and the user is granted to perform the action.
             </t>

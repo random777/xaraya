@@ -421,6 +421,43 @@ html/
                     <artwork>xmlns:xar="http://xaraya.com/2004/blocklayout"</artwork>
                   </t>
                 </t>
+                <t><em>[dtd]</em>()
+                  <t>
+                    The dtd attribute tells BlockLayout what type of document it should produce. Your
+                    BL template as such should NOT contain a DOCTYPE tag for reproduction in the output (although it
+                    will copy it to the output unmodified). The doctype of the (page-)template should be <em>before</em> the
+                    root tag and it should be:
+                    <artwork>
+&lt;!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://xaraya.com/bl1/DTD/bl1-strict.dtd"&gt;
+                    </artwork>
+                  </t>
+                  <t>
+                    The possible values for the dtd attribute are the valid document types listed at w3.org. The corresponding values 
+                    and what will be produced in the output document are as follows:
+                    <artwork>
+ 'html2'                : '&lt;!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN"&gt;',
+ 'html32'               : '&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"&gt;',
+ 'html401-strict'       : '&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd"&gt;',
+ 'html401-transitional' : '&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd"&gt;',
+ 'html401-frameset'     : '&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"  "http://www.w3.org/TR/html4/frameset.dtd"&gt;',
+ 'xhtml1-strict'        : '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;',
+ 'xhtml1-transitional'  : '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;',
+ 'xhtml1-frameset'      : '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"&gt;',
+ 'xhtml11'              : '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;',
+ 'mathml101'            : '&lt;!DOCTYPE math SYSTEM "http://www.w3.org/Math/DTD/mathml1/mathml.dtd"&gt;',
+ 'mathml2'              : '&lt;!DOCTYPE math PUBLIC "-//W3C//DTD MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/mathml2.dtd"&gt;',
+ 'svg10'                : '&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"&gt;',
+ 'svg11'                : '&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;',
+ 'svg11-basic'          : '&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Basic//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd"&gt;',
+ 'svg11-tiny'           : '&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd"&gt;',
+ 'xhtml-math-svg'       : '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd"&gt;',
+ 'svg-xhtml-math'       : '&lt;!DOCTYPE svg:svg PUBLIC  "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd"&gt;'
+                    </artwork>
+                  </t>
+                  <t>  
+                    At this point, there is no flexible mechanism to add other (valid) DTD specifiers, but to add them in the code.
+                  </t>
+                </t>                   
               </list>
             </t>
           </section>
@@ -428,7 +465,7 @@ html/
             <t>
             <artwork><![CDATA[
               <?xml version="1.0" encoding="utf-8"?>
-              <xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://www.xaraya.com/2004/blocklayout">
+              <xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://www.xaraya.com/2004/blocklayout" dtd="xhtml1-strict">
                 <!-- Rest of the page level template goes here -->
               </xar:blocklayout>]]>
             </artwork>

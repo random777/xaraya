@@ -1,0 +1,526 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Module Directory Structure</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Find Out What Utility Modules Are Available"
+HREF="x390.html"><LINK
+REL="NEXT"
+TITLE="Building Your Module"
+HREF="c490.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x390.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c490.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN395"
+></A
+>Chapter 6. Module Directory Structure</H1
+><P
+>&#13;
+      Xaraya modules have a very specific directory structure.  This allows
+      the Xaraya system to use a generic system to access all modules without
+      needing to know specific information about each separate module that is
+      built.  Following the directory structure as laid out below is an
+      absolute requirement of any Xaraya-compliant module.
+
+    </P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>&#13;
+        Extra files and directories in addition to those shown below are
+        allowed.  Also, if any of the files below are not required
+        (<I
+CLASS="foreignphrase"
+>e.g.</I
+> the module does not have database
+        tables of its own so it does not require the xartables.php file) then
+        they do not need to exist.  However, files that perform the functions
+        outlined below must comply with the file naming convention to allow the
+        Xaraya system to load the suitable files at the appropriate times to
+        ensure correct operation of the module.
+
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>&#13;
+        This shows the example layout that a gallery module might have.  Other
+        modules will have different names for their top-level directory and
+        blocks as appropriate for their specific functionality.
+
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN403"
+></A
+><PRE
+CLASS="screen"
+>&#13;        modules/                                <A
+NAME="dirtop"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts1.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(1)"></A
+>
+                gallery/                        <A
+NAME="dirmodname"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts2.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(2)"></A
+>
+                        xaradmin.php             <A
+NAME="dirxaradmin"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts3.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(3)"></A
+>
+                        xaradminapi.php          <A
+NAME="dirxaradminapi"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts4.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(4)"></A
+>
+                        xarblocks/               <A
+NAME="dirxarblocks"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts5.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(5)"></A
+>
+                                 snapshot.php   <A
+NAME="dirsnapshot"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts6.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(6)"></A
+>
+                        xarimages/               <A
+NAME="dirxarimages"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts7.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(7)"></A
+>
+                                 admin.xarg      <A
+NAME="diradminimg"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts8.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(8)"></A
+>
+                        xarinit.php              <A
+NAME="dirxarinit"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts9.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(9)"></A
+>
+
+                               ...
+                        xartables.php            <A
+NAME="dirxartables"
+><B
+>(23)</B
+></A
+>
+                        xaruser.php              <A
+NAME="dirxaruser"
+><B
+>(24)</B
+></A
+>
+                        xaruserapi.php           <A
+NAME="dirxaruserapi"
+><B
+>(25)</B
+></A
+>
+                        xarversion.php           <A
+NAME="dirxarversion"
+><B
+>(26)</B
+></A
+>
+      </PRE
+><DIV
+CLASS="calloutlist"
+><DL
+COMPACT="COMPACT"
+><DT
+><A
+HREF="c395.html#dirtop"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts1.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(1)"></A
+></DT
+><DD
+>&#13;
+            The top-level directory in Xaraya for modules
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirmodname"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts2.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(2)"></A
+></DT
+><DD
+>&#13;
+            The directory that contains all of the module code (in this case
+            the module is named 'gallery')
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxaradmin"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts3.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(3)"></A
+></DT
+><DD
+>&#13;
+            The file that contains all administrative GUI functions for the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxaradminapi"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts4.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(4)"></A
+></DT
+><DD
+>&#13;
+            The file that contains all administrative operational functions for the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxarblocks"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts5.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(5)"></A
+></DT
+><DD
+>&#13;
+            The directory that contains all blocks associated with the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirsnapshot"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts6.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(6)"></A
+></DT
+><DD
+>&#13;
+            A file that contains a block associated with this module; in this
+            case it displays a random snapshot from the gallery
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxarimages"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts7.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(7)"></A
+></DT
+><DD
+>&#13;
+            The directory that contains all images for the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#diradminimg"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts8.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(8)"></A
+></DT
+><DD
+>&#13;
+            The image for the administration icon of the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxarinit"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/callouts9.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(9)"></A
+></DT
+><DD
+>&#13;
+            The file that contains initialisation functions for the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxartables"
+><B
+>(23)</B
+></A
+></DT
+><DD
+>&#13;
+            The file that contains all information on database tables for the module.
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxaruser"
+><B
+>(24)</B
+></A
+></DT
+><DD
+>&#13;
+            The file that contains all user GUI functions for the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxaruserapi"
+><B
+>(25)</B
+></A
+></DT
+><DD
+>&#13;
+            The file that contains all user operational functions for the module
+
+          </DD
+><DT
+><A
+HREF="c395.html#dirxarversion"
+><B
+>(26)</B
+></A
+></DT
+><DD
+>&#13;
+            The file that contains all version and credit information for the module
+
+          </DD
+></DL
+></DIV
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x390.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c490.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Find Out What Utility Modules Are Available</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Building Your Module</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,446 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Use Standard Function Names</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Before Starting Your Module"
+HREF="c235.html"><LINK
+REL="PREVIOUS"
+TITLE="Consider Including the Standard Module Functions"
+HREF="x311.html"><LINK
+REL="NEXT"
+TITLE="Find Out What Utility Modules Are Available"
+HREF="x390.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x311.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Before Starting Your Module</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x390.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN317"
+>5.9. Use Standard Function Names</A
+></H1
+><P
+>&#13;
+        There are a number of function names that are considered standard
+        <I
+CLASS="foreignphrase"
+>i.e.</I
+> they have well-known meanings and
+        are used in a number of modules.  Using the standard function names
+        makes it easier for other module developers to use your module.  Some
+        of the standard functions are shown below.
+
+      </P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>&#13;
+          The below list is subject to addition as more standard functions are
+          introduced - the template module supplied with your copy of Xaraya
+          should have the most up-to-date set of standard functions available.
+
+        </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN323"
+>5.9.1. User Display Functions</A
+></H2
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>main()</CODE
+> - the default function to call,
+              normally just presents the user menu
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>view()</CODE
+> - display an overview of all items,
+              normally paged output
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>display()</CODE
+> - display a single item in detail,
+              given an identifier for that item
+
+            </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN335"
+>5.9.2. User API Functions</A
+></H2
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>getall()</CODE
+> - get basic information on all items,
+              can take optional parameters to obtain a subset of all items
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>get()</CODE
+> - get detailed information on a specific
+              item
+
+            </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN344"
+>5.9.3. Administration Display Functions</A
+></H2
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>main()</CODE
+> - the default function to call,
+              normally just presents the user menu
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>view()</CODE
+> - display an overview of all items,
+              normally paged output, with relevant administrative options.
+              Note that it is possible to combine this function with the user
+              <CODE
+CLASS="function"
+>view()</CODE
+> function
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>new()</CODE
+> - display a form to obtain enough
+              information from the user to create a new item
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>create()</CODE
+> - take the information from the form
+              displayed by the administration <CODE
+CLASS="function"
+>new()</CODE
+> function
+              and pass it on to the administration API for creating the item
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>modify()</CODE
+> - display the details of a current
+              item given the item description, and present the relevant fields
+              for modification
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>update()</CODE
+> - take the information from the form
+              displayed by the administration <CODE
+CLASS="function"
+>modify()</CODE
+>
+              function and pass it on to the administration API for modifying
+              the item
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>delete()</CODE
+> - display confirmation for deletion
+              of an item, and if confirmed pass the relevant information on to
+              the administration API for deleting the item
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>modifyconfig()</CODE
+> - display the details of the
+              module's current configuration, and present the relevant fields
+              for modification
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>updateconfig()</CODE
+> - take the information from the
+              form displayed by the administration
+              <CODE
+CLASS="function"
+>modifyconfig()</CODE
+> function and update the
+              relevant module configuration variables
+
+            </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN378"
+>5.9.4. Administration API Functions</A
+></H2
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>create()</CODE
+> - create a new item
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>delete()</CODE
+> - delete a current item
+
+            </P
+></LI
+><LI
+><P
+>&#13;
+              <CODE
+CLASS="function"
+>update()</CODE
+> -  update the information about a
+              current item
+
+            </P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x311.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x390.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Consider Including the Standard Module Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c235.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Find Out What Utility Modules Are Available</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,888 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Hooks</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Interacting With Other Modules"
+HREF="c574.html"><LINK
+REL="PREVIOUS"
+TITLE="Interacting With Other Modules"
+HREF="c574.html"><LINK
+REL="NEXT"
+TITLE="Function Calls"
+HREF="x747.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c574.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Interacting With Other Modules</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x747.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN579"
+>8.2. Hooks</A
+></H1
+><P
+>&#13;
+        <I
+CLASS="firstterm"
+>Hooks</I
+> are a way of adding functionality to
+        modules without the modules themselves knowing what the functions might
+        be.  The operation of hooks are controlled by the site administrator,
+        so the decision as to which pieces of extra functionality to use and
+        which not is in their hands rather than the module developer.
+
+      </P
+><P
+>&#13;
+        Hooks are called for specific actions that take place in a module.  At
+        current, the actions that hooks are enabled for are as follows:
+
+      </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+            Addition of a category
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            Deletion of a category
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            Transformation of category data into a standard Xaraya format
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            Display of a category
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            Addition of an item
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            Deletion of an item
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            Transformation of item data into a standard Xaraya format
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            Display of an item
+
+          </P
+></LI
+></UL
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>&#13;
+          The terms <I
+CLASS="firstterm"
+>category </I
+>and
+          <I
+CLASS="firstterm"
+>item</I
+> are quite broad.  Category is used to
+          define any database entity that contains other categories or items,
+          whilst item is used to define any database entity that holds content.
+          Due to this definition it is possible for an item to be a category as
+          well, although this is an unlikely state of affairs and it should be
+          obvious to a module developer which parts of the system deal with
+          categories and which with items.
+
+        </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;
+        Hooks are the recommended way of extending the functionality of your
+        module, and use of the appropriate xarAPI hook functions as described
+        below is considered mandatory for a compliant module.
+
+      </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN606"
+>8.2.1. Calling Hooks</A
+></H2
+><P
+>&#13;
+          If you are developing an item module then you should allow utility
+          modules to add functionality to the item module.  This is carried out
+          through use of the <CODE
+CLASS="function"
+>xarModCallHooks()</CODE
+> function.
+          This function should be placed wherever a specific action is carried
+          out by the item module, where the current specific actions that the
+          hooks system is able to operate on are:
+
+        </P
+><P
+>&#13;
+          The hook calls should be made at the appropriate level depending on
+          the action that is being taken.  With the current hooks, addition and
+          deletion hooks should be called at the API level, and display hooks
+          should be called at the GUI level.
+
+        </P
+><P
+>&#13;
+          The <CODE
+CLASS="function"
+>xarModCallHooks()</CODE
+> function takes a number of
+          parameters, which are explained below:
+
+        </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>hookobject</DT
+><DD
+><P
+>&#13;
+                The object for which the hooks are to be called -
+                currently either <VAR
+CLASS="parameter"
+>category</VAR
+>, or
+                <VAR
+CLASS="parameter"
+>item</VAR
+>, as described above
+
+              </P
+></DD
+><DT
+>hookaction</DT
+><DD
+><P
+>&#13;
+                The action for which the hooks are to be called - currently
+                one of <VAR
+CLASS="parameter"
+>create</VAR
+>,
+                <VAR
+CLASS="parameter"
+>delete</VAR
+>,
+                <VAR
+CLASS="parameter"
+>transform</VAR
+>, or
+                <VAR
+CLASS="parameter"
+>display</VAR
+>
+
+              </P
+></DD
+><DT
+>obid</DT
+><DD
+><P
+>&#13;
+                An ID that, within the scope of the module and object, uniquely
+                defines the entity for which the hook is being called
+
+              </P
+></DD
+><DT
+>extrainfo</DT
+><DD
+><P
+>&#13;
+                This is extra information that is required by the hook
+                function, and is dependent on the hook action being called.
+                Information on the information required by each hook is covered
+                below.
+
+              </P
+><P
+>&#13;
+                For <CODE
+CLASS="function"
+>create</CODE
+> hooks a string that can be used
+                in conjunction with the obid as part of a URL to access the
+                object.  For example, if your
+                <CODE
+CLASS="function"
+>gallery_user_display()</CODE
+> function uses a
+                variable <VAR
+CLASS="parameter"
+>picid</VAR
+> to define the particular
+                picture that a user wishes to look at then the URL would be
+                something like
+                'index.php?module=gallery&#38;func=display&#38;picid=4' and the
+                identification part of the URL would be something like
+                'picid=4' so you would pass 'picid' to this hook.
+
+              </P
+><P
+>&#13;
+                For <CODE
+CLASS="function"
+>display()</CODE
+> hooks a URL that can be used
+                by the hooks to return to a suitable page once they have
+                finished any work that they might have to do.  This is normally
+                just the standard display URL for this function.
+
+              </P
+><P
+>&#13;
+                For <CODE
+CLASS="function"
+>transform()</CODE
+> hooks an array of items that
+                contain text-based content that can be transformed.  This is
+                normally all text-based items.
+
+              </P
+></DD
+></DL
+></DIV
+><P
+>&#13;
+          The <CODE
+CLASS="function"
+>xarModCallHooks()</CODE
+> function returns different
+          information depending on value of <VAR
+CLASS="parameter"
+>hookaction</VAR
+>.
+          If <VAR
+CLASS="parameter"
+>hookaction</VAR
+> is
+          <VAR
+CLASS="parameter"
+>display</VAR
+> then the hook will return extra output
+          that should be displayed directly following the display for the item
+          itself.  If <VAR
+CLASS="parameter"
+>hookaction</VAR
+> is
+          <VAR
+CLASS="parameter"
+>create</VAR
+> or <VAR
+CLASS="parameter"
+>delete</VAR
+> then
+          the function will return either <VAR
+CLASS="parameter"
+>true</VAR
+> or
+          <VAR
+CLASS="parameter"
+>false</VAR
+> depending on the success or failure of
+          the hooks.  If <VAR
+CLASS="parameter"
+>hookaction</VAR
+> is
+          <VAR
+CLASS="parameter"
+>transform</VAR
+> then the hook will return an
+          equivalent array to that which was passed in, with the items suitable
+          transformed.
+
+        </P
+><P
+>&#13;
+          As an example of calling hooks, if you were developing the 'Gallery'
+          module and were displaying a picture, after the display of the
+          picture you would want to call the hooks to add any other
+          functionality available and required by the site administrator.  To
+          do this you would use the following lines:
+
+        </P
+><PRE
+CLASS="programlisting"
+>&#13;$output-&#62;Text(xarModCallHooks('item',
+                             'display',
+                             $pictureid,
+                             xarModURL('gallery',
+                                      'user',
+                                      'display',
+                                      array('pictureid' =&#62; $pictureid))));
+        </PRE
+><P
+>&#13;
+          which would add the verbatim output of the hooks to the current
+          output.  It is worth noting again here the from this code it can be
+          seen that the module itself needs no information on what hooks, if
+          any, exist, it just calls the function and lets the Xaraya core
+          deal with what extra output should be added to this item.
+
+        </P
+><P
+>&#13;
+          One important area to understand is where exactly in your code to
+          call hooks.  For example, if you were displaying a thumbnail view of
+          100 pictures from your Gallery module, should you call an item
+          display hook for each picture?  The answer to this is somewhat
+          dependent on the nature of your module, but in general you should
+          only call display hooks when you are displaying the details of a
+          single item rather than an overview of a large number of items (of
+          course, if all of those items are in a single category then you
+          should call a display hook for that category).  However, the
+          transform hook should be called whenever you are displaying content
+          regardless of it if is just an overview, as the overview information
+          could require transformation before display.
+
+        </P
+><P
+>&#13;
+          The annotated Template module in the standard Xaraya distribution
+          contains notes on calling hooks within an item module.
+
+        </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN661"
+>8.2.2. Writing Hooks</A
+></H2
+><P
+>&#13;
+          If you are developing a utility module then you probably want to
+          allow your module to be called as a hook.  This requires the module
+          functions to be able to be called as hooks, and the module to
+          register and unregister its hooks as required.
+          
+        </P
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN664"
+>8.2.2.1. Writing Hook Functions</A
+></H3
+><P
+>&#13;
+            Hook functions are very similar to standard module functions, but
+            they have a number of extra restrictions placed on them to be able
+            to work as hooks:
+
+          </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+                Hook functions must be able to operate correctly given only two
+                arguments in their arguments array -
+                <VAR
+CLASS="parameter"
+>obid</VAR
+> and
+                <VAR
+CLASS="parameter"
+>returnurl</VAR
+>, as these are the only
+                parameters that are passed to the function if it is called as a
+                hook.  Other parameters can be allowed by the function but they
+                must be optional, and default to suitable values if not present
+                such that the function will work appropriately.
+
+              </P
+></LI
+><LI
+><P
+>&#13;
+                Hook functions must not rely on other hooks to exist, or to
+                have been called already or in future.  The order of calling a
+                list of hooks is undefined, and depending on the site
+                administrator's preferences particular hooks might never be
+                called.
+
+              </P
+></LI
+><LI
+><P
+>&#13;
+                Hook functions must not call the
+                <CODE
+CLASS="function"
+>xarModCallHooks()</CODE
+> function, or functions
+                that might themselves call
+                <CODE
+CLASS="function"
+>xarModCallHooks()</CODE
+>.  If a hook does this it
+                risks getting the code into an infinite loop.
+
+              </P
+></LI
+></UL
+><P
+>&#13;
+            The Ratings module that comes with the core Xaraya distribution
+            has an example hook function that shows how to fit within these
+            guidelines whilst still producing a general-purpose function.
+
+          </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN679"
+>8.2.2.2. Registering Hooks</A
+></H3
+><P
+>&#13;
+            Once your module has hook-capable functions in place they need to
+            be registered on initialisation of the module so that the
+            administrator can configure their applicability, and other modules
+            can access them through the <CODE
+CLASS="function"
+>xarModCallHooks()</CODE
+>
+            function.  This is carried out through use of the
+            <CODE
+CLASS="function"
+>xarModRegisterHook()</CODE
+> function.  This function
+            should be placed within the
+            <CODE
+CLASS="function"
+><VAR
+CLASS="parameter"
+>modname</VAR
+>_init()</CODE
+> function
+            of your module and given appropriate parameters to register the
+            relevant hook-capable module functions within your module as
+            hooks.
+
+          </P
+><P
+>&#13;
+            The <CODE
+CLASS="function"
+>xarModRegisterHook()</CODE
+> function takes a
+            number of parameters, which are explained below:
+
+          </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>hookobject</DT
+><DD
+><P
+>&#13;
+                  The object for which the hook is to be registered - currently
+                  either <VAR
+CLASS="parameter"
+>category</VAR
+>, or
+                  <VAR
+CLASS="parameter"
+>item</VAR
+>, as described above
+
+                </P
+></DD
+><DT
+>hookaction</DT
+><DD
+><P
+>&#13;
+                  The action for which the hook is to be registered - currently
+                  one of <VAR
+CLASS="parameter"
+>create</VAR
+>,
+                  <VAR
+CLASS="parameter"
+>delete</VAR
+>,
+                  <VAR
+CLASS="parameter"
+>transform</VAR
+>, or
+                  <VAR
+CLASS="parameter"
+>display</VAR
+>
+
+                </P
+></DD
+><DT
+>hookarea</DT
+><DD
+><P
+>&#13;
+                  The area that the hook function covers - currently either
+                  <VAR
+CLASS="parameter"
+>GUI</VAR
+> (for functions that are in
+                  <TT
+CLASS="filename"
+>xaruser.php</TT
+> and
+                  <TT
+CLASS="filename"
+>xaradmin.php</TT
+>) or
+                  <VAR
+CLASS="parameter"
+>API</VAR
+> (for functions that are in
+                  <TT
+CLASS="filename"
+>xaruserapi.php</TT
+> and
+                  <TT
+CLASS="filename"
+>xaradminapi.php</TT
+>)
+
+                </P
+></DD
+><DT
+>hookmodule</DT
+><DD
+><P
+>&#13;
+                  The name of the module in which the hook function exists -
+                  normally the name of the module calling this function
+
+                </P
+></DD
+><DT
+>hooktype</DT
+><DD
+><P
+>&#13;
+                  The type of the hook function - currently either
+                  <TT
+CLASS="filename"
+>user</TT
+> or <TT
+CLASS="filename"
+>admin</TT
+>
+
+                </P
+></DD
+><DT
+>hookfunc</DT
+><DD
+><P
+>&#13;
+                  The name of the hook function
+
+                </P
+></DD
+></DL
+></DIV
+><P
+>&#13;
+            The <CODE
+CLASS="function"
+>xarModRegisterHook()</CODE
+> function returns
+            <VAR
+CLASS="parameter"
+>true</VAR
+> if the registration was successful, and
+            <VAR
+CLASS="parameter"
+>false</VAR
+> if the registration is unsuccessful.
+
+          </P
+><P
+>&#13;
+            As an example of registering hooks, if you were developing the
+            'globalid' utility module (which gives every piece of content in
+            Xaraya a separate ID) and had a
+            <CODE
+CLASS="function"
+>globalid_admin_create()</CODE
+> function which created
+            an entry in the global ID table for this particular piece of
+            content then you would register this as a creation hook.  To do
+            this you would use the following lines within
+            <CODE
+CLASS="function"
+>globalid_init()</CODE
+>:
+
+          </P
+><PRE
+CLASS="programlisting"
+>&#13;if (!xarModRegisterHook('item',
+                       'create',
+                       'API',
+                       'globalid',
+                       'admin',
+                       'create)) {
+    return false;
+}
+          </PRE
+><P
+>&#13;
+            which would register this hook to be called every time a
+            hook-enabled module someone creates an item (a similar but separate
+            call would be needed to register this hook for the creation of
+            categories as well).
+
+          </P
+><P
+>&#13;
+            The Ratings module that comes with the core Xaraya distribution
+            has detailed comments on registering hooks within a utility module.
+
+          </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN737"
+>8.2.2.3. Unregistering Hooks</A
+></H3
+><P
+>&#13;
+            If your module has hook-capable functions that are registered when
+            the module is initialised they need to be unregistered when the
+            module is deleted.  This is carried out through use of the
+            <CODE
+CLASS="function"
+>xarModUnregisterHook()</CODE
+> function.  This function
+            should be placed within the
+            <CODE
+CLASS="function"
+><VAR
+CLASS="parameter"
+>modname</VAR
+>_delete()</CODE
+>
+            function of your module and given appropriate parameters to
+            unregister the functions that were previously registered hooks when
+            the module was initialised.
+
+          </P
+><P
+>&#13;
+            The <CODE
+CLASS="function"
+>xarModUnregisterHook()</CODE
+> function takes the
+            same parameters as the <CODE
+CLASS="function"
+>xarModUnregisterHook()</CODE
+>
+            function.
+
+          </P
+><P
+>&#13;
+            The Ratings module that comes with the core Xaraya distribution has
+            detailed comments on unregistering hooks within a utility module.
+
+          </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c574.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x747.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Interacting With Other Modules</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c574.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Function Calls</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,551 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Xaraya Module Developers Guide</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="NEXT"
+TITLE="Introduction"
+HREF="c39.html"></HEAD
+><BODY
+CLASS="book"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN2"
+>Xaraya Module Developers Guide</A
+></H1
+><H3
+CLASS="author"
+><A
+NAME="AEN5"
+></A
+>Marco Canini</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN8"
+></A
+>Jim McDonald</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN11"
+></A
+>Gregor J. Rothfuss</H3
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>1. <A
+HREF="c39.html"
+>Introduction</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="c39.html#AEN41"
+>What is a Module?</A
+></DT
+><DT
+>1.2. <A
+HREF="x45.html"
+>Why Write a Module?</A
+></DT
+><DT
+>1.3. <A
+HREF="x49.html"
+>Status of the Module API</A
+></DT
+><DT
+>1.4. <A
+HREF="x52.html"
+>On-Going Work</A
+></DT
+><DT
+>1.5. <A
+HREF="x60.html"
+>This Document</A
+></DT
+><DT
+>1.6. <A
+HREF="x63.html"
+>Related Documents</A
+></DT
+><DT
+>1.7. <A
+HREF="x66.html"
+>Suggestions and Updates</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="c71.html"
+>Xaraya Architecture</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="c71.html#AEN74"
+>Variable handling</A
+></DT
+><DT
+>2.2. <A
+HREF="x77.html"
+>User variables</A
+></DT
+><DT
+>2.3. <A
+HREF="x133.html"
+>Variable validation</A
+></DT
+><DT
+>2.4. <A
+HREF="x161.html"
+>Error handling</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="c174.html"
+>Xaraya Module Design</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="c174.html#AEN177"
+>Separation of User and Administrator Functions</A
+></DT
+><DT
+>3.2. <A
+HREF="x182.html"
+>Separation of Display and Operational Functions</A
+></DT
+><DT
+>3.3. <A
+HREF="x185.html"
+>Single Directory Installation</A
+></DT
+><DT
+>3.4. <A
+HREF="x188.html"
+>External Access to Module Functions</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="c192.html"
+>Xaraya Module Operations</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="c192.html#AEN195"
+>Locating Modules</A
+></DT
+><DT
+>4.2. <A
+HREF="x198.html"
+>Working out Module Functionality</A
+></DT
+><DT
+>4.3. <A
+HREF="x201.html"
+>Initialising Modules</A
+></DT
+><DT
+>4.4. <A
+HREF="x206.html"
+>Activating/Deactivating Modules</A
+></DT
+><DT
+>4.5. <A
+HREF="x209.html"
+>Calling Module Functions</A
+></DT
+><DT
+>4.6. <A
+HREF="x214.html"
+>Creating Module URLs</A
+></DT
+><DT
+>4.7. <A
+HREF="x217.html"
+>Direct URLs to functions</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="c235.html"
+>Before Starting Your Module</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="c235.html#AEN238"
+>Choose a Name for Your Module</A
+></DT
+><DT
+>5.2. <A
+HREF="x242.html"
+>Decide on the Type of Your Module</A
+></DT
+><DT
+>5.3. <A
+HREF="x248.html"
+>Register Your Module Name</A
+></DT
+><DT
+>5.4. <A
+HREF="x253.html"
+>Obtain a Copy of The Xaraya API Reference Guide</A
+></DT
+><DT
+>5.5. <A
+HREF="x258.html"
+>Read the 'Notes on Developing Modules' Section</A
+></DT
+><DT
+>5.6. <A
+HREF="x261.html"
+>Understand the Following Areas</A
+></DT
+><DD
+><DL
+><DT
+>5.6.1. <A
+HREF="x261.html#AEN263"
+>Difference Between GUI and Operational Functions</A
+></DT
+><DT
+>5.6.2. <A
+HREF="x261.html#AEN266"
+>Difference Between User and Administrative Functions</A
+></DT
+><DT
+>5.6.3. <A
+HREF="x261.html#AEN269"
+>The Xaraya Security Model</A
+></DT
+><DT
+>5.6.4. <A
+HREF="x261.html#AEN274"
+>Function Return Codes</A
+></DT
+><DT
+>5.6.5. <A
+HREF="x261.html#AEN296"
+>Where Modules Fit in Xaraya</A
+></DT
+></DL
+></DD
+><DT
+>5.7. <A
+HREF="x301.html"
+>Design Your Module!</A
+></DT
+><DT
+>5.8. <A
+HREF="x311.html"
+>Consider Including the Standard Module Functions</A
+></DT
+><DT
+>5.9. <A
+HREF="x317.html"
+>Use Standard Function Names</A
+></DT
+><DD
+><DL
+><DT
+>5.9.1. <A
+HREF="x317.html#AEN323"
+>User Display Functions</A
+></DT
+><DT
+>5.9.2. <A
+HREF="x317.html#AEN335"
+>User API Functions</A
+></DT
+><DT
+>5.9.3. <A
+HREF="x317.html#AEN344"
+>Administration Display Functions</A
+></DT
+><DT
+>5.9.4. <A
+HREF="x317.html#AEN378"
+>Administration API Functions</A
+></DT
+></DL
+></DD
+><DT
+>5.10. <A
+HREF="x390.html"
+>Find Out What Utility Modules Are Available</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="c395.html"
+>Module Directory Structure</A
+></DT
+><DT
+>7. <A
+HREF="c490.html"
+>Building Your Module</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="c490.html#AEN492"
+>Make Your Initial Directory</A
+></DT
+><DT
+>7.2. <A
+HREF="x495.html"
+>Copy the Module Template</A
+></DT
+><DT
+>7.3. <A
+HREF="x498.html"
+>Code your Database Tables</A
+></DT
+><DT
+>7.4. <A
+HREF="x506.html"
+>Write your Initialisation Functions</A
+></DT
+><DT
+>7.5. <A
+HREF="x513.html"
+>Test Your Initialisation Routines</A
+></DT
+><DT
+>7.6. <A
+HREF="x516.html"
+>Write your Administration Functions</A
+></DT
+><DT
+>7.7. <A
+HREF="x535.html"
+>Test Your Administration Routines</A
+></DT
+><DT
+>7.8. <A
+HREF="x538.html"
+>Write your User Functions</A
+></DT
+><DT
+>7.9. <A
+HREF="x554.html"
+>Test Your User Routines</A
+></DT
+><DT
+>7.10. <A
+HREF="x557.html"
+>Write your Blocks</A
+></DT
+><DT
+>7.11. <A
+HREF="x564.html"
+>Test Your Blocks</A
+></DT
+><DT
+>7.12. <A
+HREF="x567.html"
+>Document Your Module</A
+></DT
+><DT
+>7.13. <A
+HREF="x571.html"
+>Package Your Module</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="c574.html"
+>Interacting With Other Modules</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="c574.html#AEN576"
+>Overview</A
+></DT
+><DT
+>8.2. <A
+HREF="x579.html"
+>Hooks</A
+></DT
+><DD
+><DL
+><DT
+>8.2.1. <A
+HREF="x579.html#AEN606"
+>Calling Hooks</A
+></DT
+><DT
+>8.2.2. <A
+HREF="x579.html#AEN661"
+>Writing Hooks</A
+></DT
+></DL
+></DD
+><DT
+>8.3. <A
+HREF="x747.html"
+>Function Calls</A
+></DT
+></DL
+></DD
+><DT
+>9. <A
+HREF="c753.html"
+>Upgrading Your Module</A
+></DT
+><DT
+>10. <A
+HREF="c758.html"
+>Notes on Developing Modules</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="c758.html#xarAPI"
+>Use xarAPI</A
+></DT
+><DT
+>10.2. <A
+HREF="x765.html"
+>Security</A
+></DT
+><DD
+><DL
+><DT
+>10.2.1. <A
+HREF="x765.html#AEN770"
+>Variable Handling</A
+></DT
+><DT
+>10.2.2. <A
+HREF="x765.html#AEN776"
+>Authorisation</A
+></DT
+><DT
+>10.2.3. <A
+HREF="x765.html#AEN780"
+>Reserved Variable Names</A
+></DT
+><DT
+>10.2.4. <A
+HREF="x765.html#AEN795"
+>Page Path</A
+></DT
+></DL
+></DD
+><DT
+>10.3. <A
+HREF="x800.html"
+>Output</A
+></DT
+><DT
+>10.4. <A
+HREF="x805.html"
+>Using OO Code</A
+></DT
+></DL
+></DD
+><DT
+>11. <A
+HREF="c809.html"
+>Module Developer's Checklist</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c39.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introduction</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Function Calls</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Interacting With Other Modules"
+HREF="c574.html"><LINK
+REL="PREVIOUS"
+TITLE="Hooks"
+HREF="x579.html"><LINK
+REL="NEXT"
+TITLE="Upgrading Your Module"
+HREF="c753.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x579.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Interacting With Other Modules</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c753.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN747"
+>8.3. Function Calls</A
+></H1
+><P
+>&#13;
+        Another way of accessing the functionality of other modules is by
+        calling their functions directly with the
+        <CODE
+CLASS="function"
+>xarModFunc()</CODE
+> function.  Doing this allows a number
+        of advantages over hooks, but also a number of disadvantages.  In
+        general, calling functions directly is more flexible as the module
+        developer understands exactly which functions they are calling and can
+        also pass additional arguments to the function to customise its
+        abilities.  The disadvantages are that the module named in the function
+        call needs to be installed and active on the system for the calls to
+        work, and if this is replace by a different module providing similar
+        functionality it will not work correctly.
+
+      </P
+><P
+>&#13;
+        Using direct function calls to other modules is fine within a module,
+        but the developer should consider the implications of this on systems
+        that might not have the modules that they are using installed.  Also,
+        even if direct function calls are used then the module developer should
+        still call hooks at the appropriate places in the code to allow for
+        other extended functionality to be added to the module.
+
+      </P
+><P
+>&#13;
+        An example of where direct function calls might be used within the
+        Gallery module would be if the module developer wanted users to be able
+        to rate various aspects of the picture displayed such as 'use of
+        colour' and 'originality'.  In this case a simple hook would not be
+        able to accommodate this requirement, so the developer would instead
+        make explicit calls to the 'Ratings' utility module to display a
+        number of separate ratings, each with its own identifier.  The hook
+        call would still be made, which might also add a rating to the picture,
+        but in this case the value could be considered as the overall rating
+        for the picture rather than that just for a specific part.
+
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x579.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c753.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Hooks</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c574.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Upgrading Your Module</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

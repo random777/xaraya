@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Understand the Following Areas</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Before Starting Your Module"
+HREF="c235.html"><LINK
+REL="PREVIOUS"
+TITLE="Read the 'Notes on Developing Modules' Section"
+HREF="x258.html"><LINK
+REL="NEXT"
+TITLE="Design Your Module!"
+HREF="x301.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x258.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Before Starting Your Module</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x301.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN261"
+>5.6. Understand the Following Areas</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN263"
+>5.6.1. Difference Between GUI and Operational Functions</A
+></H2
+><P
+>&#13;
+          Understanding the difference between GUI and operational functions is
+          critical when building a good module.  Proper separation of these
+          functions will allow other modules to be able to access the
+          functionality of your module and incorporate it into their modules.
+          It will also allow methods of access apart from those that the
+          standard web-based Xaraya system.
+
+        </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN266"
+>5.6.2. Difference Between User and Administrative Functions</A
+></H2
+><P
+>&#13;
+          Understanding the difference between user and administrative
+          functions is very important when building a good module.  The
+          separation of these types of actions allows for 
+
+        </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN269"
+>5.6.3. The Xaraya Security Model</A
+></H2
+><P
+>&#13;
+          The Xaraya security model is a very important area to understand
+          before coding a module.  Developers should understand which parts of
+          their module need to be protected, and exactly how this is
+          accomplished.
+
+        </P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>&#13;
+          Add description of the security model.
+        </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN274"
+>5.6.4. Function Return Codes</A
+></H2
+><P
+>&#13;
+          Every well-defined module function must return the appropriate return
+          codes.  Return codes are the main way in which a module communicates
+          with the Xaraya core, and as such it is vital that the correct
+          return codes are used.
+
+        </P
+><P
+>&#13;
+          The following return codes should be used when returning control to
+          the Xaraya core from any module function:
+
+        </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>text string</DT
+><DD
+><P
+>&#13;
+                Returning a text string implies that the module function has
+                finished its work and has output to be displayed in the
+                appropriate place on the Xaraya web page.  Xaraya will take
+                the returned output and display it as appropriate.  Note that
+                all output from modules is displayed verbatim, with no escaping
+                of HTML characters.  This is to allow for formatted output from
+                the module functions.
+
+              </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>true</VAR
+></DT
+><DD
+><P
+>&#13;
+                Returning boolean <VAR
+CLASS="parameter"
+>true</VAR
+> implies that the
+                module function has finished its work and set up an appropriate
+                redirect to send the user to a page that will have display
+                output.  The Xaraya core will take no further action as far
+                as this module is concerned.
+
+              </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>false</VAR
+></DT
+><DD
+><P
+>&#13;
+                Returning boolean <VAR
+CLASS="parameter"
+>false</VAR
+> implies that the
+                module function has finished its work but not set up an
+                appropriate redirect to send the user to a page that will have
+                display output.  The Xaraya core will set an appropriate
+                redirect for this module.
+
+              </P
+></DD
+></DL
+></DIV
+><P
+>&#13;
+          Note that none of these functions carry any information about the
+          success or failure of the attempted operation that the module
+          function was undertaking.
+
+        </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN296"
+>5.6.5. Where Modules Fit in Xaraya</A
+></H2
+><P
+>&#13;
+          Modules cover two separate areas of Xaraya.  The first is
+          administration of core functions,
+          (<I
+CLASS="foreignphrase"
+>e.g.</I
+> users, permissions), and the
+          second is extension of system functionality
+          (<I
+CLASS="foreignphrase"
+>e.g.</I
+> downloads, web links).  As each
+          of these areas are not core this implies two things.  First is that
+          no module is actually required - the Xaraya system would work
+          without anything in its modules directory, although its functionality
+          would be severely limited and there would be no configuration options
+          available.  Second is that modules should not remove any core
+          functionality when they are installed, operated, or removed.
+
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x258.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x301.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Read the 'Notes on Developing Modules' Section</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c235.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Design Your Module!</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -5,161 +5,1007 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc='yes'?>
 
-<rfc number="0001" category="info">
+<rfc number="0010" category="std">
   <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
+    <title>Xaraya Theme system (Blocklayout)</title>
+    <author initials="M." surname="Vance" fullname="Dracos">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
+	<email></email>
       </address>
     </author>
-    <date month="January" year="2002"/>
+
+    <author initials="P." surname="Rosania" fullname="Paul Rosania">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email></email>
+      </address>
+    </author>
+
+    <author initials="M." surname="Canini" fullname="Marco Canini">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email></email>
+      </address>
+    </author>
+
+    <date month="November" year="2002"/>
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
-      </t>
+      <t>The contents of this RFC describes the blocklayout templating system for xaraya.</t>
     </abstract>
   </front>
   
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
+    <section title="Introduction">
       <t>
+	Blocklayout is intended to give theme developers a maximum of control
+	over the appearance and functionality of their Xaraya website. This
+	file documents the structure and syntax of blocklayout, and details
+	required changes to themes and the core.
+      </t>
+      <t>
+	  Blocklayout is potentially a very powerful tool. However, modules and
+	blocks will need to be modified in order to take advantage of
+	Blocklayout's flexibility. In order to work with Blocklayout, module
+	functions and blocks must include templates which are compiled and
+	crocessed. The conversion process is not complicated. However, current
+	modules will be supported.
+      </t>
+      <t>
+	In addition, certain changes to the Xaraya directory structure are
+	also necessary to accomodate templates and their defaults. Those
+	structural changes are illustrated below.
+	<artwork><![CDATA[
+html/
+    |-- modules/
+    |       <module name>/
+    |           xartemplates/
+    |               <user|admin>-<module function>[-<template>].xd
+    |               blocks/
+    |                   <block name>-<template name>.xd
+    |               tags/
+    |                   <tag name>-<template name>.xd
+    |               includes/
+    |                   <file>.xd
+    |-- includes/
+    |       xarTemplate.php
+    |       xarBLCompiler.php
+    |-- themes/
+            <theme name>/        
+            |-- theme.php
+            |-- pages/
+            |       <master templates>.xt
+            |-- modules/
+            |       <module name>/
+            |           <user|admin>-<module function>[-<template name>].xt
+            |           blocks/
+            |               <block name>-<template name>.xt
+            |           borders/
+            |               <template name>.xt
+            |           tags/
+            |               <tag name>-<template name>.xt
+            |           includes/
+            |               <tag name>-<template name>.xt
+            |-- includes/
+                    <file>.xt
+	  ]]></artwork>
+      </t>
+      <t>
+	Theme.php contains metadata about the theme; no actual markup can
+	reside there. Such metadata includes:
+	<list style="bullet">
+	  <t>$themeinfo['name']</t>
+	  <t>$themeinfo['author']</t>
+	  <t>$themeinfo['homepage']</t>
+	  <t>$themeinfo['email']</t>
+	  <t>$themeinfo['description']</t>
+	  <t>$themeinfo['contact_info']</t>
+	  <t>$themeinfo['publish_date']</t>
+	  <t>$themeinfo['license']</t>
+	  <t>$themeinfo['version']</t>
+	  <t>$themeinfo['xaraya_version']</t>
+	  <t>$themeinfo['blocklayout_version']</t>
+	</list>
+      </t>
+    </section>
+
+    <section title="Required CSS Classes">
+      <t>
+	The following is a list of CSS classes which may be referenced by
+	module and block developers with assurance that their HTML will
+	integrate well with any Blocklayout theme. All Blocklayout themes must
+	define all of these classes.
+      </t>
+      <t>
+	The first group is standard classes. Selectors here will be applied to
+	every instance of a tag, unless overridden by a more specific class.
+	<list style="bullet">
+	  <t>A</t>
+	  <t>BLOCKQUOTE</t>
+	  <t>BODY</t>
+	  <t>CODE</t>
+	  <t>H1</t>
+	  <t>H2</t>
+	  <t>H3</t>
+	  <t>H4</t>
+	  <t>TH</t>
+	  <t>TD</t>
+	  <t>P</t>
+	  <t>PRE</t>
+	  <t>INPUT</t>
+	  <t>SELECT</t>
+	  <t>IMG</t>
+	  <t>LI</t>
+	  <t>UL</t>
+	  <t>OL</t>
+	</list>
+      </t>
+      <t>
+	Next are individual classes, mostly related to links. Parts of class
+	names enclosed within &lt;&gt; are variable.
+	<list style="bullet">
+	  <t>A.xar-title</t>
+	  <t>A.xar-title-block-&lt;group&gt;</t>
+	  <t>A.xar-title-&lt;block&gt;</t>
+	  <t>A.xar-normal</t>
+	  <t>A.xar-normal-block-&lt;group&gt;</t>
+	  <t>A.xar-normal-&lt;block&gt;</t>
+	  <t>A.xar-sub</t>
+	  <t>A.xar-sub-block-&lt;group&gt;</t>
+	  <t>A.xar-sub-&lt;block&gt;</t>
+	  <t>BLOCKQUOTE.xar-normal</t>
+	  <t>CODE.xar-normal</t>
+	  <t>TH.xar-normal</t>
+	  <t>TH.xar-normal-block-&lt;group&gt;</t>
+	  <t>TH.xar-normal-&lt;block&gt;</t>
+	  <t>TD.xar-normal</t>
+	  <t>TD.xar-normal-block-&lt;group&gt;</t>
+	  <t>TD.xar-normal-&lt;block&gt;</t>
+	  <t>TD.xar-alt</t>
+	  <t>TD.xar-alt-block-&lt;group&gt;</t>
+	  <t>TD.xar-alt-&lt;block&gt;</t>
+	  <t>SPAN.xar-normal</t>
+	  <t>SPAN.xar-normal-block-&lt;group&gt;</t>
+	  <t>SPAN.xar-normal-&lt;block&gt;</t>
+	  <t>P.xar-normal</t>
+	  <t>PRE.xar-normal</t>
+	  <t>IMG.xar-normal</t>
+	  <t>INPUT.xar-normal</t>
+	  <t>INPUT.xar-normal-block-&lt;group&gt;</t>
+	  <t>INPUT.xar-normal-&lt;block&gt;</t>
+	  <t>SELECT.xar-normal</t>
+	  <t>SELECT.xar-normal-block-&lt;group&gt;</t>
+	  <t>SELECT.xar-normal-&lt;block&gt;</t>
+	  <t>LI.xar-normal</t>
+	  <t>LI.xar-normal-block-&lt;group&gt;</t>
+	  <t>LI.xar-normal-&lt;block&gt;</t>
+	</list>
+      </t>
+      <t>
+	Finally are anonymous classes. Selectors here can be applied to any
+	tag.
+	<list style="bullet">
+	  <t>.xar-title</t>
+	  <t>.xar-title-block-&lt;group&gt;</t>
+	  <t>.xar-title-&lt;block&gt;</t>
+	  <t>.xar-normal</t>
+	  <t>.xar-alt</t>
+	  <t>.xar-quote</t>
+	  <t>.xar-normal-block-&lt;group&gt;</t>
+	  <t>.xar-normal-&lt;block&gt;</t>
+	  <t>.xar-sub</t>
+	  <t>.xar-sub-block-&lt;group&gt;</t>
+	  <t>.xar-sub-&lt;block&gt;</t>
+	</list>
+      </t>
+      <t>
+	Any theme developer may introduce their own classes through templates.
+	This practice should be avoided by module and block developers.
+	Extensions of the required classes list will most likely not be
+	supported by other themes or modules, and are not endorsed by Xaraya.
+      </t>
+      <t>
+	These classes allow each block or group of blocks to have a different
+	appearance than modules (normal).
+      </t>
+      <t>
+	It is suggested that the classes be defined in the given order, to
+	avoid odd results in different browsers.
+      </t>
+    </section>
+
+    <section title="Templates">
+      <t>
+	[templates.gif] Each page in Blocklayout is a collection of templates,
+	fitted with the necessary data. A "Master" template is loaded first,
+	and defines the basic layout of the page. It contains tags which
+	specify the data presented to the user. Each module function or block
+	called from the Master template has a child template associated with
+	it. The data it handles is parsed through this template before being
+	inserted into the Master. Templates can be "nested" any number of
+	levels deep.
+      </t>
+      <t>
+	Internal Templates (.xd) provide default output formatting for Xaraya
+	modules. Themes cannot alter these templates, but may contain their
+	own version of them. Be careful! Editing Internal Templates may cause
+	Xaraya to behave unexpectedly or not at all.
+      </t>
+      <t>
+	The first time a template is called, it is compiled into PHP code. It
+	will not be compiled again unless the original copy is updated. This
+	procedure allows a maximum of template flexibility without slowdown in
+	page generation time.
+      </t>
+    </section>
+
+    <section title="Blocklayout tags">
+      <t>
+	Tags in Blocklayout adhere to XML syntax, creating a namespace called
+	"xar". Each tag is converted to PHP code for processing. There are 20
+	top level core tags:
+	<list style="bullet">
+	  <t><xref target="blocklayout">&lt;xar:blocklayout /&gt;</xref></t>
+	  <t><xref target="block">&lt;xar:block /&gt;</xref></t>
+	  <t><xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref></t>
+	  <t><xref target="else">&lt;xar:else /&gt;</xref></t>
+	  <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
+	  <t><xref target="for">&lt;xar:for /&gt;</xref></t>
+	  <t><xref target="foreach">&lt;xar:foreach /&gt;</xref></t>
+	  <t><xref target="if">&lt;xar:if /&gt;</xref></t>
+	  <t><xref target="loop">&lt;xar:loop /&gt;</xref></t>
+	  <t><xref target="ml">&lt;xar:ml /&gt;</xref></t>
+	  <t><xref target="mlkey">&lt;xar:mlkey /&gt;</xref>(can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
+	  <t><xref target="mlstring">&lt;xar:mlstring /&gt;</xref> (can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
+	  <t><xref target="module">&lt;xar:module /&gt;</xref></t>
+	  <t><xref target="sec">&lt;xar:sec /&gt;</xref></t>
+	  <t><xref target="set">&lt;xar:set /&gt;</xref></t>
+	  <t><xref target="template">&lt;xar:template /&gt;</xref></t>
+	  <t><xref target="var">&lt;xar:var /&gt;</xref></t>
+	  <t><xref target="while">&lt;xar:while /&gt;</xref></t>
+	</list>
+      </t>
+      <t>
+	There are also several child tags:
+	<list style="bullet">
+	  <t><xref target="break">&lt;xar:break /&gt;</xref></t>
+	  <t><xref target="continue">&lt;xar:continue /&gt;</xref></t>
+	  <t><xref target="mlvar">&lt;xar:mlvar /&gt;</xref></t>
+	</list>
+      </t>
+
+      <section title="Referencing data within templates">
+	<t>
+	  Blocklayout uses a unified syntax to represent data in modules. All
+	  normal PHP variable syntax rules apply. Additionally, Blocklayout
+	  variables are delimited by # ... #. So, to access the PHP variable
+	  $foo, the template contains #$foo#. String keys into arrays should be
+	  single quoted #$foo['bar']# rather than #$foo["bar"]#. In addition to
+	  template variables, Blocklayout also allows direct access to a limited
+	  set of xarAPI functions (list to be determined). Function calls are
+	  represented as #xarAPIFunc($arg1, 'arg2')#. Function arguments should
+	  also be single quoted (as necessary).
+	</t>
+      </section>
+      
+      <section title="Comments in Templates">
+	<t>
+	  Placing comments in Blobklayout templates is done by surrounding the
+	  content in question with &lt;!--- ---&gt; (note three hyphens each). Content
+	  within these tags will be stripped from the final output stream.
+	  Standard two-hyphen comments (&lt;!-- --&gt;) will be passed on to the
+	  output stream.
+	</t>
+      </section>
+
+      <section title="Tag descriptions and Atrributes">
+	<t>
+	  A note on logic tags: The condition attribute present on most logic
+	  tags will frequently call for the use of &lt;, &gt;, and &amp; characters. These
+	  characters are illegal XML aside from delimiting tags and entities.
+	  Therefore, to present an easy, readable alternative to PHP comparison
+	  operators, Blocklayout uses Perl-like string operators within
+	  templates. Assignment operators are not affected. See below:
+	
+	  <artwork>
+	    BL operator PHP operator    English
+	    eq          ==              equal to
+	    id          ===             identical to
+	    lt          &lt;               less than
+	    gt          &gt;               greater than
+	    le          &lt;=              less or equal to
+	    ge          &gt;=              greater or equal to
+	    ne          !=              not equal to
+	    nd          !==             not identical to
+	    and         and             and
+	    or          or              or
+	    xor         xor             exclusive or
+	    not         not             not
+	  </artwork>
+	</t>
+	
+	<!-- xar:blocklayout -->
+	<section anchor="blocklayout" title="&lt;xar:blocklayout /&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    The root element of blocklayout.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      none yet
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: all</t>
+	</section>
+
+	<!-- xar:block -->
+	<section anchor="block" title="&lt;xar:block /&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>instance: if the block is dynamic, should be the value of the
+	        xar_id in nuke_block_instances</t>
+	      <t>name: the value of the xar_name field of the nuke_block_types db
+	        table</t>
+	      <t>module: the module that owns the given block.</t>
+	      <t>template: identifier for the appearance of a block, set in
+	        administration (optional, static blocks only)</t>
+	      <t>type: declares if the block has dynamic or static content. Static
+	        blocks are defined wholly within their template.</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    A block template requires title and content for display. Title may be
+	    an empty string.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:block type="dynamic" instance="2" module="base" /&gt;
+	      &lt;xar:block type="static" module="base" template="SeaBreeze_block_2" /&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:blockgroup -->
+	<section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">
+	  <t>Closed.</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional).</t>
+	      <t>name: the name of the block group (optional). If present,
+		specifies the blockgroup to display.</t>
+	      <t>template: identifier for the appearance of blocks in the group,
+		set in administration (optional). If present, overrides the
+		default template for all blocks in the group.</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    The Blockgroup tag is responsible for rendering a group of blocks. If
+	    empty, it renders the named group from the database.  Otherwise, it
+	    specifies the block border to use on all &lt;xar:block/&gt; tags within it.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:blockgroup name="left" template="SeaBreeze_left"/&gt;
+	        &lt;xar:blockgroup template="SeaBreeze_center"&gt;
+	        &lt;xar:block name="login" module="users" template="simple_login"/&gt;
+	      &lt;/xar:blockgroup&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none.</t>
+	</section>
+
+	<!-- xar:break -->
+	<section anchor="break" title="&lt;xar:break /&gt;">
+	  <t>Closed.</t>
+	  <t>Attributes: none</t>
+	  <t>Description</t>
+	  <t>
+	    Escapes the closest 
+	    <xref target="for">&lt;xar:for /&gt;</xref>, 
+	    <xref target="loop">&lt;xar:loop /&gt;</xref>, or
+	    <xref target="blocklayout">&lt;xar:while /&gt;</xref>
+	  </t>
+	  <t>
+	    Parent tags: 
+	    <xref target="for">&lt;xar:for /&gt;</xref>, 
+	    <xref target="loop">&lt;xar:loop /&gt;</xref>, or 
+	    <xref target="while">&lt;xar:while /&gt;</xref>.
+	  </t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:continue -->
+	<section anchor="continue" title="&lt;xar:continue&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>none</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Ends the current iteration of a <xref target="for">&lt;xar:for /&gt;</xref>, 
+	    <xref target="loop">&lt;xar:loop /&gt;</xref>, or
+	    <xref target="while">&lt;xar:while /&gt;</xref>, and begins the next iteration.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      none yet
+	    </artwork>
+	  </t>
+	  <t>Parent tags: <xref target="for">&lt;xar:for /&gt;</xref>, &lt;xar:loop /&gt;, or <xref target="while">&lt;xar:while /&gt;</xref>.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:else -->
+	<section anchor="else" title="&lt;xar:else /&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Separates template code within an <xref target="if">&lt;xar:if /&gt;</xref> tag. When the
+	    condition of the <xref target="if">&lt;xar:if /&gt;</xref> tag is true, the template content
+	    preceeding <xref target="else">&lt;xar:else /&gt;</xref> is executed. Otherwise, the template content
+	    after <xref target="if">&lt;xar:if /&gt;</xref> is executed. When <xref target="elseif">&lt;xar:elseif /&gt;</xref>is used
+	    within an <xref target="if">&lt;xar:if /&gt;</xref> block, <xref target="else">&lt;xar:else /&gt;</xref> must appear last.
+	  </t>
+	  <t>Syntax example:
+	    See <xref target="if">&lt;xar:if /&gt;</xref> for syntax.
+	  </t>
+	  <t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref></t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:elseif -->
+	<section anchor="elseif" title="&lt;xar:elseif /&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>condition: an expression to be evaluated</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Contains template code to be executed if all related preceeding
+	    <xref target="if">&lt;xar:if /&gt;</xref> and <xref target="elseif">&lt;xar:elseif /&gt;</xref> tag conditions evaluate to
+	    false. All instances of <xref target="elseif">&lt;xar:elseif /&gt;</xref>
+	    attached to <xref target="if">&lt;xar:if /&gt;</xref>must appear before <xref target="else">&lt;xar:else /&gt;</xref>
+	  </t>
+	  <t>Syntax example:
+	    See <xref target="if">&lt;xar:if /&gt;</xref> for syntax.
+	  </t>
+	  <t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref></t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:for -->
+	<section anchor="for" title="&lt;xar:for /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>start: the initial declaration of the variable to be iterated over</t>
+	      <t>test: the condition to test the iterated value against</t>
+	      <t>iter: the action to perform on the iterator variable at the end of
+		each pass through the loop</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Contains template data evaluated while "test" is true. The value of
+	    Test is raw PHP code, executed in safe mode.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:for start="$i = 0" test="$i &lt;= 10" iter="$i++"&gt;
+	      // stuff
+	      &lt;/xar:for&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:foreach -->
+	<section anchor="foreach" title="&lt;xar:foreach /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>var: the name of a template array variable (without $)</t>
+	      <t>as: the name of the variable (without $) to which the value of
+		each element of var is assigned</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	     Iterates over an array, assigning each element in var to as.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:foreach var="users" as="user"&gt;
+	      // stuff
+	      &lt;/xar:foreach&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:if -->
+	<section anchor="if" title="&lt;xar:if /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>condition: an expression to be evaluated (required)</t>
+	      <t>inline: specifies whether the statement should be in ternary form
+		(condition ? truepart:falsepart) (optional, default false)</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Contains template code processed if the condition evaluates to true.
+	    The value of Condition is raw PHP code, executed in safe mode.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:if condition="$func eq 'editStory'"&gt;
+	      // stuff
+	      &lt;xar:elseif condition="$func eq 'saveStory'"&gt;
+	      //more stuff
+	      &lt;xar:elseif condition="$func eq 'viewStory'"&gt;
+	      //still more stuff
+	      <xref target="else">&lt;xar:else /&gt;</xref>
+	      //even more stuff
+	      &lt;/xar:if&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: <xref target="else">&lt;xar:else /&gt;</xref> <xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
+	</section>
+
+	<!-- xar:loop -->
+	<section anchor="loop" title="&lt;xar:loop /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>name: the variable which the loop increments</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Loop allows theme authors to execute snippets of a template multiple
+	    times based on a condition.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:loop name="#$module_data#"&gt;
+	      // stuff
+	      &lt;/xar:loop&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:ml -->
+	<section anchor="ml" title="&lt;xar:ml /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Ml is a wrapper for <xref target="mlkey">&lt;xar:mlkey /&gt;</xref> and <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> when
+	    their values contain placeholders. These placeholders are replaced by
+	    the content of <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags in the order they appear in the
+	    template.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:ml&gt;
+	      &lt;xar:mlkey&gt;USERSONLINE&lt;/xar:mlkey&gt;
+	      &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
+	      &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
+	      &lt;/xar:ml&gt;
+
+	      &lt;xar:ml&gt;
+	      &lt;xar:mlstring&gt;There are #(1) members and #(2) guests online.&lt;/xar:mlstring&gt;
+	      &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
+	      &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
+	      &lt;/xar:ml&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: 
+	    <xref target="mlkey">&lt;xar:mlkey /&gt;</xref>, 
+	    <xref target="mlstring">&lt;xar:mlstring /&gt;</xref>, 
+	     <xref target="mlvar">&lt;xar:mlvar /&gt;</xref>, (optional)</t>
+	</section>
+
+	<!-- xar:mlkey -->
+	<section anchor="mlkey" title="&lt;xar:mlkey /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    <xref target="mlkey">&lt;xar:mlkey&gt;</xref> retrieves a multilanguage string based on the database key
+	    contained in the tag. If the resulting string does not use
+	    placeholders, mlkey may be used alone. Otherwise, mlkey must have
+	    <xref target="ml">&lt;xar:ml /&gt;</xref> as a parent tag, with  <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags as
+	    siblings. See <xref target="ml">&lt;xar:ml /&gt;</xref> for syntax examples using placeholders.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:mlkey&gt;LOGIN&lt;/xar:mlkey&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:mlstring -->
+	<section anchor="mlstring" title="&lt;xar:mlstring /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    &lt;xar:mstring&gt; processes a multilanguage string. It first finds the string
+	    in the db and, based on the string's key, returns the corresponding
+	    string in the current locale. If the resulting string does not use
+	    placeholders, mlstring may be used alone. Otherwise, mlstring must
+	    have <xref target="ml">&lt;xar:ml /&gt;</xref> as a parent tag, with  <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags as
+	    siblings. See <xref target="ml">&lt;xar:ml /&gt;</xref> for syntax examples using placeholders.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:mlstring&gt;Remember Me&lt;/xar:mlstring&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:mlvar -->
+	<section anchor="mlvar" title="&lt;xar:mlvar /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Contains a string passed to an accompanying <xref target="mlkey">&lt;xar:mlkey /&gt;</xref> or
+	    <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> to occupy a place holder. See <xref target="ml">&lt;xar:ml /&gt;</xref> for
+	    syntax examples using placeholders.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      none yet
+	    </artwork>
+	  </t>
+	  <t>Parent tag:  <xref target="ml">&lt;xar:ml /&gt</xref></t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:module -->
+	<section anchor="module" title="&lt;xar:module /&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>name: the name of the module</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Module loads and displays module output. The module gets all variables
+	    needed directly from the core.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:module name="News" /&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:sec -->
+	<section anchor="sec" title="&lt;xar:sec /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>realm: the realm which the permission checks</t>
+	      <t>component: the module/block which the permission checks</t>
+	      <t>instance: the specific data the permission checks</t>
+	      <t>level: the security level checked against</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Sec translates directly to a call to xarSecAuthAction(), and is
+	    treated as an 'if' clause. <xref target="else">&lt;xar:else /&gt;</xref> and <xref target="elseif">&lt;xar:elseif /&gt;</xref>
+	    tags may be attached as for an <xref target="if">&lt;xar:if /&gt;</xref>.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:sec
+	      realm="0"
+	      component="Menublock::"
+	      instance="Administration|Stats|Referers"
+	      level="none"
+	      &gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:set -->
+	<section anchor="set" title="&lt;xar:set /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>name: the name of the variable to be set</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Causes the variable identified by the 'name' attribute to be set to
+	    the value of the tag's body. The variable must be available in the
+	    scope of the tag.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:set name="$foo"&gt;bar&lt;/xar:set&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:template -->
+	<section anchor="template" title="&lt;xar:template /&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>file: the filename of the target template</t>
+	      <t>type: a switch that tells the engine what type of template is
+		being loaded, either 'module' or 'theme'.</t>
+	      <t>compile: a switch that tells the engine whether to compile the
+		file as a template. Defaults to true.</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Opens the file specified by "file" and processes it within the context
+	    of the calling template. Included templates are stored in:
+	    <list>
+	      <t>/modules/[module name]/xarincludes/</t>
+	      <t>/themes/[theme name]/modules/[module name]/xarincludes/</t>
+	      <t>/themes/[theme name]/xarincludes/</t>
+	    </list>
+	  </t>
+	  <t>
+	    The 'filename' only includes the basename of the file, e.g.
+	    'module_header'. The 'type' attribute tells the compiler where to look
+	    for the file. If 'module', looks in /themes/[theme
+	    name]/modules/[module name]/xarincludes/ first, then in
+	    /modules/[module name]/xarincludes/. If 'theme', it directs the
+	    compiler to look in /themes/[theme name]/xarincludes/. The compiler
+	    always assumes .xar for the file extension. The file is subject to PHP
+	    safe mode.
+	  </t>
+
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:template file="top_links" type="theme"/&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:var -->
+	<section anchor="var" title="&lt;xar:var /&gt;">
+	  <t>Closed</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>scope: a string, one of config, module, block, or user (optional)</t>
+	      <t>name: the name of the variable within the given scope</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Var deals with variables in different scopes. If no scope is
+	    specified, Blocklayout returns the contents of the local variable.
+	  </t>
+	  <t>
+	    Variables are referenced by name, without the preceeding "$". Arrays
+	    can be indexed via dot notation, i.e.: 
+	    <artwork>
+	      &lt;xar:var  name="preformat.catandtitle" /&gt;
+	    </artwork>
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:var name="preformat.catandtitle" /&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+
+	<!-- xar:while -->
+	<section anchor="while" title="&lt;xar:while /&gt;">
+	  <t>Open</t>
+	  <t>Attributes:
+	    <list style="bullet">
+	      <t>id: an identifier for the tag (optional)</t>
+	      <t>condition: the condition to test at the start of each iteration of
+		the tag</t>
+	    </list>
+	  </t>
+	  <t>Description</t>
+	  <t>
+	    Contains template data evaluated while "condition" is true. The value
+	    of condition is raw PHP code, executed in safe mode.
+	  </t>
+	  <t>Syntax example:
+	    <artwork>
+	      &lt;xar:while condition="list($uid, $uname) = each $user_result"&gt;
+	      // stuff
+	      &lt;/xar:while&gt;
+	    </artwork>
+	  </t>
+	  <t>Parent tag: none.</t>
+	  <t>Child tags: none</t>
+	</section>
+      </section>
+    </section>
+    
+    <section title="Notes">
+      <t>
+	It should be noted that due to the nature of Blocklayout's templates,
+	output is not restricted to HTML. Output can take on any form the
+	author desires, including but not limited to HTML, RSS, RDF, and any
+	other XML namespace.
+      </t>
+    </section>
+
+    <section title="Tag registration">
+      <t>
+	Each module may expand the list of available tags as necessary. For
+	example, the Reviews module may define &lt;xar:reviews-review /&gt;. Modules
+	must register their tags with the system in order for the compiler to
+	recognize them. Tag registration is best handled by a module's init()
+	function. Removing tags from the system (unregistration) is best
+	performed in the module's remove() function.
 	<artwork>
-
-RFC-10 Postnuke Theme System 
-
-
- stratagem   We need to decide what it is we want the theme/template
-system to do. Take out all the hardcore coding decisions and come up
-with a viable solution that will make themes easy to produce for the
-novice and powerful enough to satisfy the needs of the coder. Lets
-take all the talk of current available systems out of this
-discussion. I want theme guys to ring in with their thoughts on what
-they would like to see. Coders should provide these items as
-well. Then lets come to a common ground.   stratagem   We also need to
-create a matrix from this to test other systems to see if they will
-become a viable solution. If not then maybe we need to "roll" our own
-to get this accomplished.  
-1. Introduction 
-2. General Statements About
-Theme Systems 
-3. Requirements 
-4. Solution Proposal - Display
-Abstraction Layer &amp; Pluggable Theme Engines and Arrangement of files
-5. Code to be changed 
-5a. Desireable Data Structures 
-6. Code to be
-written 
-7. Basic documents for this RFC 
-8. Current issues 
-9. Tools
-that need to be written from scratch
- 10. Retractions 
-11. Changelog
-
-1. Introduction All ?xxx numbers refer to the basic documents in
-section 7. We read through the articles on http://www.postnuke.com,
-its forum threads, feature requests on sourceforge and the developers
-mailing list. The following RFC is a first summary and contains some
-solution proposals either compiled from the basic documents or from
-general definitions concerning comments systems / forums.
-
- 2. General
-Statements About Theme Systems A theme system acts as an intermediary
-between the program logic and the program's user, formatting and
-displaying data in ways the user can understand. Theme systems
-separate program logic from data presentation.  the problem with this
-definition is it seems to combine two different physical definitions,
-Themes and Templating Engines. perhaps:   Templating Engine:
-Class/Function which abstracts display functionality into editable
-template files and returns merged html/xhtml/xml string for output. 
- Themes: Sets of template files &amp; CSS files that create the layout &amp;
-color/style of the postnuke display- ?ladyofdragons''   I'll agree
-with that. - Dracos 
-
- The overall structure of PostNuke is causing the problems that this RFC is trying to address. The output generated is a document (HTML, RDF, XML) which has numerous blocks and modules. Yet, the generation of the document is driven from within the module. So the module needs to know about things outside of itself which requires us tto create templates and send data here and there. Instead, we need to change it so that the document is the driver and blocks and modules are the responders. - ?ColdRolledSteel 
-
- ?ColdRolledSteel has a good point. To allow complete customization, a page needs to be built from a document, not from a module. The designer should be able to specify what data/content is needed and the presentation layer should be able to communicate with the backend (modules, etc.) to retrieve it. - ?paul 
-
-3. Requirements 
- *Separate data from formatting. - (or content from presentation/layout) - ?mberkay 
-Revise current data structures to contain zero format/display information. 
-Identify other data structures as needed. 
-Improve PostNuke performance. 
- *be extensible to all smaller portions of postnuke, including modules and blocks. -?ladyofdragons 
-
- Modules should be looked at as APIs for working with their relevant data types, they should do no actual formatting. The presentation layer should be responsible for working with these APIs to retreive data. This way pages can be built that use different aspects of multiple modules. - ?paul 
-
-4. Solution Proposal - Display Abstraction Layer &amp; Pluggable Theme Engines 
-Several schools of thought exist within the PostNuke developer community concerning theme issues. Several discussions in various communication channels point to a "Display Abstraction Layer" as a solution. This would allow site administrators to choose what "Theme Engine" they prefer to use. 
- - (template engine is a fundamental part of an application platform. Although there are benefits of providing people choice of their favorite theme/template engine to work with, I believe benefits of having single, standard, well-defined system overweighs the choice. Choosing a time tested, solid existing template engine may also save development time.) - ?mberkay 
-This solution does not disallow the need for native functionality that may be required outside of the theme system (such as may be required internally by legacy modules). The current theme system along with pnHTML may fill this role, with modification. 
-A "Theme Engine" would be packaged similar to modules. Each "Theme Engine" would use its own templates and perform its own processing. 
-It may not be feasable to have multiple "Theme Engines" active at the same time. 
-It should be noted that only a site administrator could change the engine used by the site, which would in turn determine what themes are available to users. Users would not be able to use a theme which is installed, but developed for a different engine. 
-Arrangement of files 
-The file tree below is presented as a first proposal, and subject to change. 
- 	html/
- 		layout/
- 			&lt;theme engine&gt;/
- 				&lt;files as required&gt;
- 		themes/
- 			&lt;theme engine&gt;/
- 				&lt;theme name&gt;/
- 					&lt;files as required&gt;
-This structure allows several things: 
-separates engine code from its templates 
-keeps templates and engine code in standard locations 
-allows the same theme to exist under multiple engines 
-There are several problems with this approach which I think will hamper postnuke development far more than it helps it: 
- * Modules should be able to separate out their display with templating engines so site admins can change the layout of the module. this allows a site admin to choose exactly how the layout of a download item or web_link looks and acts in a way that works with THEIR site concept. This is really important. pnHTML doesn't do this, and can't do this. Only a templating engine can. but if we allow multiple templating engines, modules can't be sure which engine will be available to them. Believe me, there's enough work that goes into building a module without having to worry about building output for 5 different templating engines. And if modules aren't templated, that means that every postnuke site will still look just the same, because the internal module content of everyone's modules will be static in its layout. - ?ladyofdragons 
- * pluggable theme engines' will splinter theme development more than it already is. It's nice to say that a theme can be made for several different templating engines, but would you want to? why quadruple your workload just to make sure that all postnuke users can enjoy your theme? As is, we don't have nearly the number of themes that php-nuke has, and people DO comment on that fact and choose php-nuke because they get the impression it has more to offer - ?ladyofdragons 
- * Caching would be uncontrolable since each engine used by each module would have a separate and incompatible cache mechanism. - ?aidan 
- * Session management combined with incompatible caching would be totally broken. - ?aidan 
- * I would be next to imposssible to gather a consensus about the screen model from all the screen components - how do you build a screen from 20 blocks and a module if each block is using a different template engine? - ?aidan 
- ;:if a single templating engine is chosen for postnuke, purely on its merits based on benchmarking &amp; the fact that it has the minimal feature set that is necessary to fulfill its function, this will solve the 'plugin' problems. Can you imagine what would have happened if postnuke decided to go with both PEAR and ADODB? It would be a logistical nightmare trying to decide what module used what system. The same idea applies here. - ?ladyofdragons 
-
- Yes, modules must be templated. This is why we have a default/internal template engine. Modules don't have to look for it, and if an admin really wants to, they can switch all modules to use another engine with a single setting. I don't see this as really splintering theme development, but forking it n-times, where n is the number of template engines PostNuke works with. - Dracos 
-
-5. Code To Be Changed 
-Code that assembles data into a structure which is then passed to a Theme Engine. 
-Code that makes calls to theme-related functions. 
-Code that sends output directly to the user. 
-
-5a. Desireable Data Structures 
-PostNuke currently passes data as arrays, with keys acting both as real data and metadata. This is acceptable. However, some data structures embed formatting into the array values, which is unacceptable. This practice should only continue as long as there is a call for legacy compatibility. 
-
-6. Code To Be Written 
-Code that loads, initializes, administers, and executes Theme Engines. 
-A themeAPI which is Engine independant, allowing any module, block, or template to make direct calls to this set of functions. The themeAPI may act as a wrapper for other functions as necessary. 
-7. Basic Documents For This RFC 
-
-[1] RFC-10 Appendix 1 
-8. Current issues 
-The theme system currently used by PostNuke has both merits 
-Organizes data into recognizeable structures 
-Easy to learn 
-and flaws 
-Reliant on PHP knowledge 
-HTML-centric 
-Procedural nature hinders performance 
-Theme design steered toward 5 zones: header, left column, content, right column, footer 
-Theme design hampered/complicated by nonstandard data structures 
-9. Tools that need to be written from scratch 
-10. Retractions 
-11. Changelog 
-
-
+	  xarTplRegisterTag('module_name', 'tag_name', tag_object, 'handler_func_name');
+	  xarTplUnregisterTag('tag_name');
 	</artwork>
+      </t>
+      <t>
+	Non-core tags must adhere to some simple naming conventions. This is
+	to prevent conflicts between modules that implement different tags
+	with the same name. A non-core tag must be prefixed by a module
+	identifier (the name of the module, or another string assigned during
+	the module certification process), a hyphen, and a string which
+	loosely described the tags purpose. Tag names must begin with a
+	letter.
+      </t>
+      <t>Example:
+	<artwork>
+	  xarTplRegisterTag('reviews', 'reviews-review', ...);
+	</artwork>
+      </t>
+      <t>This would register the tag:
+	<artwork>
+	  &lt;xar:reviews-review/&gt;
+	</artwork>
+      </t>
+      <t>
+	Remember, xar is the name of the namespace, and is not part of the tag
+	name, even though blocklayout requires the namespace identifier to be
+	present in every tag.
       </t>
     </section>
   </middle>
+  <back>
+    <section title="Future features">
+      <t>
+	Widgets: This feature will abstract common User Interface components
+	into templatable tags.  The goal of such a feature is to give common
+	components a consistent look and feel and cut down on code duplication
+	while also making these features easy to use.
+      </t>
+      <t>
+	Because widgets are meant for common usage, it is good practice for
+	their output to take on a consistent appearance.  This makes for an
+	easier and more pleasant user experience, and assures some level of
+	consistency within a theme.
+      </t>
+      <t>
+	Widgets will have certain constraints on their design, such as:
+	<list style="numbers">
+	  <t>must generate a common piece of markup</t>
+	  <t>must be theoretically useable across modules</t>
+	  <t>must implement only a single template</t>
+	  <t>must present a point of interaction between the user and Xaraya, and/or</t>
+	  <t>must present markup that allows standard data to be returned to xaraya</t>
+	</list>
+      </t>
+
+      <t>
+	Dynamic Style Sheets: This feature would use server-side browser
+	sniffing to identify what CSS classes & attributes a given module can
+	render (reasonably) correctly. Based on the result, either a &lt;style&gt;
+	or &lt;link&gt; tag to the css would be output. The tag would reference a
+	php script (css.php) which would actually generate the style sheet
+	from database records.
+      </t>
+
+      <t>
+	Theme Management: Blocklayout will necessitate the creation of
+	administration tools to manage themes. These would include a template
+	manager, theme variable manager, and possibly a theme
+	installer/uninstaller (similar to what modules have).
+      </t>
+
+      <t>
+	Multi-module layouts: This feature would allow Xaraya to display
+	output from more than one module during a page request. Major core
+	changes are required; hooks may provide some insight into how to
+	implement this feature.
+      </t>
+      
+      <t>
+	The help system will add a new widget:
+	<artwork>
+	  &lt;xar:help /&gt; (scheduled beyond 1.0)
+	</artwork>
+      </t>
+    </section>
+  </back>
 </rfc>

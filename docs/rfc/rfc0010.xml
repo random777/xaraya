@@ -763,47 +763,81 @@ html/
         </section>
         <!-- xar:foreach -->
         <section anchor="foreach" title="&lt;xar:foreach /&gt;">
-                    <t>Open</t>
-                    <t>Attributes:
-            <list style="symbols">
-                            <t>id: an identifier for the tag (optional)</t>
-                            <t>in: the name of a template array variable</t>
-                            <t>key: variable name to assign the key to</t>
-                            <t>value: variable name to assign value to</t>
-                            <t>as: the name of the variable (without $) to which the value of  each element of <em>in</em> is assigned</t>
-                        </list>
-                    </t>
-                    <t>Description</t>
-                    <t>
-            Iterates over an array, assigning each element in <em>in</em> to <em>value</em> using <em>key</em>.
+          <t>
+            Iterates over an array, assigning each element in 
+            <em>in</em> to <em>value</em> using <em>key</em>.
+            Note that the order in which the elements are processed is 
+            <em>NOT GUARANTEED</em> to be the same order as the elements
+            of the 'in' attribute. If you absolutely want to make sure
+            the elements are processed in the order in which they are
+            stored in the array you should use the 
+            <xref target="loop">xar:loop</xref> element. 
           </t>
-                    <t>Syntax example:
+          <t>
+            The foreach construct operates on copies of the variables
+            specified in its attributes. A 'save scope' is created for 
+            them. This means, that whatever the value was for a variable
+            before the foreach construct, it's guaranteed to have the 
+            same value after the foreach construct.
+          </t>
+          <section title="Forms">
+            <t>Only allowed in block form</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag</t>
+              </t>
+              <t><em>in</em>
+                <t>An expression which evaluates to the name of an array
+                   containing the elements to process. Normally this will
+                   just be the array variable itself ($varname)
+                </t>
+              </t>
+              <t><em>[key]</em>
+                <t>Variable to assign the key of the array to. This attribute
+                   is optional. If it is not specified, no key is used in the 
+                   foreach loop. If it is not specified, the 'value' attribute
+                   is required.
+                </t>
+              </t>
+              <t><em>[value]</em>
+                <t>variable to assign value to. If this attribute is not specified
+                   the 'key' attribute is required and the key is used to loop 
+                   over the elements.
+                </t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
               &lt;xar:foreach in="hooks" key="hookmodule" value="hookoutput"&gt;
-              // stuff
+                // stuff to process
               &lt;/xar:foreach&gt;
             </artwork>
-                    </t>
-                    <t>Parent tag: none.</t>
-                    <t>Child tags: none</t>
-                </section>
-                <!-- xar:if -->
-                <section anchor="if" title="&lt;xar:if /&gt;">
-                    <t>Open</t>
-                    <t>Attributes:
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: none</t>
+          </section>
+        </section>
+        <!-- xar:if -->
+        <section anchor="if" title="&lt;xar:if /&gt;">
+          <t>Open</t>
+          <t>Attributes:
             <list style="symbols">
-                            <t>id: an identifier for the tag (optional)</t>
-                            <t>condition: an expression to be evaluated (required)</t>
-                            <t>inline: specifies whether the statement should be in ternary form
+              <t>id: an identifier for the tag (optional)</t>
+              <t>condition: an expression to be evaluated (required)</t>
+              <t>inline: specifies whether the statement should be in ternary form
                 (condition ? truepart:falsepart) (optional, default false)</t>
-                        </list>
+            </list>
                     </t>
-                    <t>Description</t>
-                    <t>
+          <t>Description</t>
+          <t>
             Contains template code processed if the condition evaluates to true.
             The value of Condition is raw PHP code, executed in safe mode.
           </t>
-                    <t>Syntax example:
+          <t>Syntax example:
             <artwork>
               &lt;xar:if condition="$func eq 'editStory'"&gt;
               // stuff
@@ -816,12 +850,12 @@ html/
               &lt;/xar:if&gt;
             </artwork>
                     </t>
-                    <t>Parent tag: none.</t>
-                    <t>Child tags: <xref target="else">&lt;xar:else /&gt;</xref>
+          <t>Parent tag: none.</t>
+          <t>Child tags: <xref target="else">&lt;xar:else /&gt;</xref>
                         <xref target="elseif">&lt;xar:elseif /&gt;</xref>
                     </t>
-                </section>
-                <!-- xar:loop -->
+        </section>
+        <!-- xar:loop -->
                 <section anchor="loop" title="&lt;xar:loop /&gt;">
                     <t>Open</t>
                     <t>Attributes:

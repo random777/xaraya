@@ -1,410 +1,153 @@
+Please read the credit files for the individual projects and softwares listed at the end of this file.  All acknowledgements for work prior to Xaraya should be included.  
+
+
 Xaraya Credits
 ================
 
-   Xaraya is, as with many successful open-source products, a huge
-collaborative effort spanning many diverse talents from across the globe.  The
-list below gives an idea of some of the people that have helped in.
+   Xaraya is, as many successful Open Source products, a huge collaborative effort spanning many diverse talents from across the globe.  The list below gives an accurate as possible picture of the people that have helped in the development of this software.
 
-   Xaraya was originally known as PostNuke, and was a fork of PHPNuke by 
-Francisco Burzi, and many of the concepts in that program survive even though 
-the code does not.  We (and PHPNuke, of course) were also influenced by earlier 
-products such as slash and thatware, and I'm sure that we could trace the lineage 
-back to the earliest weblog if we wanted to.  Open source at work is taking the 
-best ideas floating around the web and building a product out of them, and that's 
-where we hope that Xaraya is heading.
+   Xaraya was originally known as PostNuke, and was a fork of PHPNuke by Francisco Burzi.  Many of the concepts in that program survive even though the code does not.  We (and PHPNuke, of course) were also influenced by earlier products such as slash and thatware, and I'm sure that we could trace the lineage back to the earliest weblog if we wanted to.  Open Source at work is taking the best ideas floating around the web and building a product out of them, and that's where we hope that Xaraya is heading.
 
-If you feel you were not credited for any work that you did, please contact
-info@xaraya.com
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Jim McDonald
-
-
-     Based in the United Kingdom, is responsible for bits of the core and
-     modules architecture, and various security features  that seem to cause
-     more trouble than they're worth.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Greg Allan (adam_baum)
-
-     One of them there Canadian boys :)  General layabout/drifter within the
-     development framework. Other then that, one of the 4 who initially
-     launched Xaraya. Greg tragically passed away in June 2002. Xaraya is
-     his legacy.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Gregor J. Rothfuss
-
-     Hailing from Switzerland, is working on everything from bug hunting to
-     XML-RPC to architecture suggestions / core API implementations.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Marco Canini
-
-     Based in Italy, is working on Modular Authentication System, bug
-     hunting, Dynamic User Data implementation, users module.
-     Always searching for new ideas and features to get Xaraya to
-     another planet.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Jan Schrage
-
-     Based in Germany. CVS manager. Moves code around, tries to keep the
-     repository usable and does the occasional spot of bug fixing and 
-     coding. 
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Frank Besler (besfred)
-
-     Born, raised and still living in southern Germany, comes up occasionally
-     with new ideas for the architecture of PN, tests the development versions
-     and fixes bugs. He is also the Quality Manager of PN.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Sascha Endlicher (Karateka)
-
-     Is one of ze Germans (with his heart beating for Austin, Texas) and may
-     often be found on IRC or the website live support. Other than that, he
-     jumps in here and there, finds security holes, ports modules to postnuke
-     and is interested in content syndication and usability of websites.
-
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Carl P. Corliss (aka Rabbitt -- aka FrogBoy George)
-
-     Based in the scenic, Oil Rich, Heavily polluted area known as Martinez,
-     California USA (30 minutes north of San Fransisco). Carl is working on the
-     new Comments API and also works on bug hunting/fixing. Also well known for 
-     being a dirty hippie.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Michael M. Wechsler (aka Slinky)
-
-     Logging in from New York City, he is a lawyer-coder (really) and provides
-     support and docs for business and legal issues, including the occasional
-     code hack.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Steve MacGregor (aka Grape)
-
-     Gets the thankless task of running the entire documentation effort for the
-     project including hosting and maintaining the documentation web
-     presence along with his partner in crime, Stephen Feather (aka Wolf-).
-     Steve also provides live technical support on the IRC support channel.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Prateep Kulapalanont (Kulapalanont)
-
-     Thai/American working on Thai translation and multi-lingual Yellowpages
-     module (YellowPHP). Most of his work came from the beach in Phuket island.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Sebastian Fränk (Lothrien)
-
-     Living and working in Germany, is a originally a database coder, but works
-     on the postnuke project as bug fixer and is updating the german language
-     files.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Roger Mauseth (Rabalder)
-
-     Norwegian transalation, some documentation and bugtracking/testing.
-     <martyrblock>
-     the one that had to install PHPNuke for upgrade testing.
-     <martyrblock/>
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ingimar Robertsson
-
-     Icelander sitting in the snow^H^H^Hun, translating Xaraya to Icelandic.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Johnny Robeson
-
-    Living and studyin' in Virginia Beach, VA. Although not coder by trade,
-    I've been known to fix some bugs and provide support for users.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Andy Varganov
-
-    Lives in Manchester/UK, works with young people. In his free time, drinks
-    lots of beer - Guinness Original is his favourite, battles with MacOS X
-    (both server and client), programmes his own modules and decides which
-    (third party) module to release or not :)
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-John Cox
-
-    American, living just North of Philadelphia, PA, that mainly just reads
-    email now.  John's contribution to Xaraya is mainly towards the
-    administrative side, but has been known to fix a bug or two when football
-    season is over.  One of the original four to launch Xaraya.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Pedro Innecco
-
-    Responsible for Brazillian translation along with various changes to the
-    administration interface
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Hinrich Donner
-    Living close to the Baltic Sea in Germany. Made some parts more usable;
-    having the vision of anything configurable.
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Pablo Roca
-
-    Spanish, from the northwest (Galicia). An evil? Microsoft Most Valuable
-    Professional (MVP) in VisualFoxpro, responsible for database issues and
-    design, he integrated ADODB in Xaraya. Sometimes commits so big changes
-    that can cause all things gets broken. And always seeking testers in more
-    database systems.
+If you feel you were not credited for any work that you did, please contact info@xaraya.com.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-Everyone Else (The nameless fixers and translators, and especially the
-                            docs and support people)
+Xaraya Development Team ::
 
-    Thanks To all of you who have contributed to this project, it certainly
+  Greg Allan (adam_baum)
+
+     One of them there Canadian boys :)  General layabout/drifter within the development framework.
+     Greg tragically passed away in June 2002. Xaraya is his legacy.
+
+
+Project Management Committee :
+
+  John Cox (niceguyeddie)
+
+  Gregor J. Rothfuss (gregor)
+
+  Paul Rosania (paul)
+
+  Marcel van der Boom (MrB)
+
+
+Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
+
+  Abraham Irawan (brumie)
+
+  Andy Varganov (andyv)
+
+  Carl P. Corliss (Rabbitt)
+
+  Chad Kraeft (StEgo)
+
+  Chris Dudley (miko)
+
+  Curtis Hays (stratagem)
+
+  Doug Daulton (Apakuni)
+
+  Drew Vogel (vogelap)
+
+  Flavio Bothelho (nuncanada)
+
+  Frank Besler (besfred)
+
+  Gary Mitchell (wb9tpg)
+
+  Hinrich Donner (Hinrich)
+
+  Isaac Golding (isaac)
+
+  Jan Schrage (jan)
+
+  Jason Judge (judgej)
+
+  Jim McDonald (Jim)
+
+  Jim Starkweather (jims)
+
+  John Robeson (johnny)
+
+  Jon Todaro (BoNe)
+
+  Jorge Guttierez (j0taj0ta)
+
+  Mahmood Al Yousif (mahmood)
+
+  Marc Lutolf (marcinmilan)
+
+  Marco Canini (marco)
+
+  Marie Altobelli (ladyofdragons)
+
+  Marty Vance (Dracos)
+
+  Michael Wechsler (slinky)
+
+  Michel Dalle (mikespub)
+
+  Pablo Roca (Proca)
+
+  Philip Fletcher (stutchbury)
+
+  Richard Cave (caveman)
+
+  Roger Raymond (roger)
+  
+  Sascha Endlicher (Karateka)
+
+  Scot Gardner (XarayaGeek)
+
+  Steve Johnson (pawmarks)
+
+  Steve MacGregor (grape)
+
+  Voll Metenchuk (Voll)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Other development credits
+=========================
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Everyone Else (The countless fixers and bug hunters who have spent the past few months helping us realize our dream)
+
+    Thanks to everyone who has contributed to this project in any way, shape, or form.  It certainly
     could not have been done without you.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-Translation Teams Credits
-
-* Brazilian Portuguese Team:
-    CVS: Mikhail Miguel <mikhail@underpop.com> - http://www.underpop.com
-    Albert E. Mota de Souza <albert.einstein@ieg.com.br> - www.einstein.f2s.com
-    Alexandre Altair de Melo <am2net@ig.com.br> - http://www.pirabeiraba.com
-    Alexandre Morato <alex182br@yahoo.com.br> - http://www.putol.cjb.net
-    Átila Cavalcante <atila@interligados.net> - http://www.interligados.net
-    Fábio Akira Yoshida <fabioseno@hotmail.com>
-    Jonatas André Pabst <jonnyramones@bol.com.br> - http://www.pirabeiraba.com
-    Luciano Millnitz <millnitz@terra.com.br> - http://www.pirabeiraba.com
-    Marcelo Domingues <abroba@yahoo.com.br> - http://www.ciaencontro.com/oposicao
-    Mauricio Bonani <webmaster@aboutlinux.com.br> - http://www.aboutlinux.com.br
-    Newman <newman@engebras.com.br> - http://www.engebras.com.br
-    Tarcila Maciel Vel Broder <tarcila@belleatec.com> - http://www.belleatec.com
-    Pedro Innecco <pedro@innecco.com>
-
-* French Translation Team:
-    Albert Bruc (al@linuxfrench.net)
-    Philippe LEVIEZ (pleviez@vintagevw.org)
-    Fabian Rodriguez (Fabian.Rodriguez@toxik.com)
-    AmigaPhil (AmigaPhil@ping.be)
-    Philippe Belin (philippe@belin.fr)
-
-* German Translations:
-    Hinrich donner (hdonner@users.sourceforge.net)
-    Jan Huebener (www.nukethemes.de)
-
-* Icelandic Translation:
-    Ingimar Robertsson <iar@pjus.is>
-
-* Norwegian Transalation:
-    Roger Mauseth (Rabalder) <rabalder@users.sourceforge.net>
-
-* Russian Translation Team:
-    Volodymyr Metenchuk http://www.solidno.ru/
-    Vladimir Shundalov (navigator@pwp.ru)
-
-* Spanish Translation Team:
-    Amaya Rodrigo <amaya@debian.org> http://www.amayita.com/
-
-* Swedish Translations:
-    Joakim Schramm (moonwalker@users.sourceforge.net)
-
-* Thai Translations
-    Prateep Kulapalanont http://www.kul.com (kulapalanont@hotmail.com)
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-Other credits
+Other Credits
 =============
 
-(need to sort, and make a nice layout)
-
-Simon Wunderlin (Spliffster)
-    -- modified pnModInfo to grab information from pnversion.php
-
-Michael Cortez <mcortez@fullcoll.edu> - ( http://www.TiniResources.com )
-    -- user redirection fix for strange login problem with cookie not being set.
-    -- Links sub-section graphics
-    -- Advance FAQ
-
-Edgar Miller ( http://www.bosna.de/ )
-    -- from his post on PHP-Nuke for the module directory name hack.
-    ( http://phpnuke.org/article.php?sid=2010&mode=nested&order=0&thold=0 )
-
-Joao Inacio (jcinacio@icqmail.com)
-    -- quick fix on pollcomments.php in ReplyPreview function.
-    -- fixed downloads admin. Would not let you add downloads in some cases.
-    -- Corrections to lang_portuguese.php language file.
-
-Wandrer
-    -- changed the modules/Stats/index.php file to use a switch/case block at the core
-    -- changed the modules/Stats/index.php file to use a "select count(*) from"
-    clause instead of mysql_num_rows for counting records
-
-Mahmood ( http://www.mahmood.tv/ )
-    -- Updated the Arabic Translation
-
-Dai ( http://www.dezineasite.co.uk )
-    -- Updated the README-FIRST document for better instructions on upgrading.
-
-Michael Bäcker (michael@baecker.com)
-    -- Fix for German Language File on line 1036
-
-timlitw
-    -- error handling,  error.php
-    -- Netscape CSS
-
-Sire
-    -- Fix for advance headlines and php error call.
-
-tonypro
-    -- Fix for avantgo to point url to config variable.
-
-nemo ( cptnemo@subdimension.com )
-    -- Modified index.php to allow $morelink to be borken down to individual components
-    -- Addition of no comments per story.
-
-Andy Varganov <email@andyv.co.uk>
-    -- Fix for IE Mac display problem with search module.
-    -- FIX for ExtraLite theme css
-    -- FIX for Xaraya theme css
-
-messner_007
-    -- Added the functionality to view links in admin and edit from there, instead of looking up id number.
-
-Jens (jw@nusite.de)
-    -- AutoLink mod
-
-SMcD
-    -- Added changes for building the related links array in article.php - ereg replaced with stristr.
-
-Viking
-    -- Added Malay Translation
-
-Frank Besler <besler@web.de>
-    -- Updated the online manual files
-
-Magnus Skjegstad <magnus@skjegstad.com>
-    -- Alert and fix to article.php security hole.
-
-daviesjp (jon@blackfrock.com)
-	-- De-Hardcoded name of the Xaraya Theme
-
-Hinrich <hd@tiro.de>
-    -- Move config to table
-    -- More or less fixes
-
-Andrea M. (an_mo)
-    -- Added plural and singular translation to pmessages.
-
-Fred B.
-    -- TimeZone Fix for .71 Rogue.
-    -- Theme Upgrade Guide for .71
-
-Gösta Boström
-    -- New to the dev team.
-
-Pedro Innecco <pedro@innecco.com>
-    -- Revamped "My Account" and "Admin" icons, language flags
-    -- Brazilian Portuguese Installation script
-
-Tom O <tjsys@inetnebr.com>
-    -- Cleaned Icons for original .8 tarball release
-    -- Misc. bug fixes with the blocks admin.
-
-    
-PHPCollab http://sf.net/projects/phpcollab: System information    
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-CREDITS for PHP-NUKE
-====================
+* PostNuke
+Copyright (c) 2001-2002 PostNuke
+http://www.postnuke.com
 
 * PHP-Nuke
 Copyright (c) 2001 by Francisco Burzi (fbc@mandrakesoft.com)
-http://phpnuke.org
+http://www.phpnuke.org
 
 * Thatware
 Copyright (c) 2000 by David Norman
-http://thatware.org
-Note: Most of the code was based initialy on Thatware, PHP-Nuke 5.0 is
-practicaly a complete rewrite of the code to improve speed, performance,
-security, etc.
-
-* MandrakeSoft Inc.
-Special mention to the very cool folks at MandrakeSoft, creators or Linux
-Mandrake. Now they sponsor PHP-Nuke and thanks to this I can dedicate
-100% to this free software project for all you. Special thanks goes to
-Gael Duval (Co-Founder), Joel Flores Carpio (Community Management), Jacques
-LeMarois (President) and Charles Davant (System Administrator).
-http://www.mandrakesoft.com
-
-* File Manager
-Copyright (c) 2000 by Sune Alexandersen
-http://www.suneworld.com
-Note: File Manager is based on the excelent WebExplorer script, and was
-integrated into PHP-Nuke and adopted our GPL distribution model with the
-author permission. You can obtain this software in separate distribution
-from SuneWorld home page.
-
-* Web Links Hacks
-Copyright (c) 2000 by James Knickelbein
-Journey Milwaukee (http://www.journeymilwaukee.com)
-James did a very good job hacking on my initial Web Links code and added
-a lot of new and very cool features. I just take his changes and re-added
-to the core code.
-
-* FAQ Manager and Private Messages
-Copyright (c) 2000 by Richard Tirtadji
-http://www.nukeaddon.com
-Note: Richard is a very cool guy that ported phpBB to PHP-Nuke and did a very
-nice job. He also is the creator of Addons Website at http://www.nukeaddon.com
-So, if you want PHP-Nuke Addons you will love Richard's site.
-
-* Download Manager
-Copyright (c) 2001 by Francisco Burzi
-http://phpnuke.org
-Based on the Web Links hack
-Copyright (c) 2000 by James Knickelbein
-Journey Milwaukee (http://www.journeymilwaukee.com)
-
-* Multi Tier Admin
-Based on Multi Tier Admin addon
-Copyright (c) 2000 by Richard Tirtadji
-http://www.nukeaddon.com
-
-* Translations
-Thanks to all the people that translated PHP-Nuke, please see each
-translation file for credits.
+http://www.thatware.org
 
 * PHP
-Just a few words to the people who developed PHP: Thanks folks you're the
-best! PHP is easy to install, extremely easy to learn and use. Perl Sucks!
 http://www.php.net
 
-* MySQL
-One of the best database software I've ever seen. Flexible and powerfull.
-Thanks!!! for releasing it under GPL!!!
-http://www.mysql.com
-
-* Apache
-What can I say? The best Web server software.
-http://www.apache.org
-
-* Linux
-This software was made thanks to my love for Linux.
-Linux is a registered trademark of Linus Torvalds
-
 * ADODB
-This is a database library we integrated in Xaraya, done by John Slim,
-good work John!
 http://php.weblogs.com/ADODB
 
-* PhPLens free debug
-We use for the debug window to trace, we can trace the SQLs, time to
-render, ... Done by John Lim
+* PHPMailer
+http://phpmailer.sourceforge.net
+
+* xmlParser
+Copyright (c) 2000-2003 Reverend Jim
+http://revjim.net/code/xmlParser/
+
+* feedParser
+Copyright (c) 2000-2003 Reverend Jim
+http://revjim.net/code/feedParser/

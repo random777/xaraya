@@ -22,7 +22,7 @@
   
   <!-- Front matter is used for identification of author and organization -->
   <front>
-    <title>RFC-template</title>
+    <title>Dynamic Data Property Types</title>
     <author initials="M.C." surname="Cortez" fullname="Michael Cortez">
       <organization>Xaraya Development Group</organization>
       <address>

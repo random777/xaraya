@@ -57,8 +57,8 @@ The Official Xaraya Installation & Getting Started Guide is a work-in-progress a
 
 
 
-                                                           Guide version 0136
-                                                 Last updated: 22-August-2003
+                                                           Guide version 0137
+                                                 Last updated: 28-August-2003
                     Version 0136 sent to BitKeeper on 15-August-2003, 03:10pm
 INDEX
 =====
@@ -68,13 +68,13 @@ ABOUT THIS GUIDE
 
 FILES INCLUDED WITH THIS GUIDE
 
+DOCUMENT DISCLAIMER
+
 DOCUMENT THANKS
 
 FEATURES OF XARAYA
 
-DEDICATIONS
-
-DISCLAIMER
+PROJECT DEDICATIONS
 
 HOW IS XARAYA PRONOUNCED?
 
@@ -93,6 +93,7 @@ SYSTEM REQUIREMENTS
 
 GETTING XARAYA
 	Directories in the Xaraya distribution
+	Edit Xaraya's configuration file
 
 GETTING XARAYA ONTO THE WEBSERVER
 	Setting Permissions
@@ -327,6 +328,8 @@ PRIVILEGES: BUILDING BLOCKS FOR SITE ACCESS
 XARAYA ROLES: USERS & GROUPS
 	Introduction to Roles
 
+MAINTAINING YOUR XARAYA SITE
+
 CONCLUSION	
 
 APPENDIX A: Xaraya License
@@ -344,37 +347,51 @@ APPENDIX F: Converting from PostNuke to Xaraya
 ========================
 Someday...
 
-ABOUT THIS GUIDE:
-=================
+ABOUT THIS GUIDE
+================
 This Guide will assist you with installing, configuring, running, and maintaining a Xaraya Community Site. It is intended for Xaraya installers or those individuals interested in Xaraya installation and configuration issues.
 
-This Guide is designed to be read from start to finish. Certain sections may be skipped (for example, if you're upgrading, you do not need to read the first-time installation instructions). However, reading this entire Guide from start to finish will provide the maximum educational benefit.
+This Guide is designed to be read from start to finish. Certain sections may be skipped (for example, if you're upgrading, you may not need to read the first-time installation instructions). However, reading this entire Guide from start to finish will provide the maximum educational benefit.
 
-Throughout the Guide, we use several terms that should be understood.
-	* <webdir>: This is the local directory on your site from which pages are served by the webserver. If you're using a modern Red Hat installation, for example, your <webdir> is /var/www/html. Consult your operating system manual for information on determining your <webdir>.
+Throughout this Guide, we use several terms that should be understood.
+	* <webdir>: This is the local directory on your site from which pages are served by the webserver. If you're using a modern Red Hat installation, for example, your <webdir> is usually /var/www/html. Consult your operating system manual for information on determining your <webdir>.
 
-	* <xarroot>: This is the local directory on your site in which Xaraya is installed. If you install your <xarroot> into your <webdir>, then the two terms have the same meaning -- they point to the same directory. However, if your <webdir> is /var/www/html, and you install Xaraya into a sub-directory called "xaraya", then your <xarroot> is /var/www/html/xaraya.
+	* <xarroot>: This is the local directory on your site in which Xaraya is installed. If you choose to install your <xarroot> into your <webdir>, then the two terms have the same meaning -- they point to the same directory. However, if your <webdir> is /var/www/html, and you install Xaraya into a sub-directory called "xaraya", then your <xarroot> is /var/www/html/xaraya.
 
-FILES INCLUDED WITH THIS GUIDE:
-===============================
+	* http://www.mywebsite.com: This URL is used as a stand-in for your site's URL.
+
+	* Anonymous users: This is a site visitor that has not registered on the site or has not logged into the site.
+
+	* Registered users: This is a site visitor that has registered on the site and has logged in.
+
+	* Site administrator: This is a user that has been given administration access on the site. Most sites will have only one main site administrator. Some sites will have a site administration team.
+
+FILES INCLUDED WITH THIS GUIDE
+==============================
 The following files are included with this guide.
 
 	- guide_images directory -- These are graphic files used by this Guide. It is not necessary to copy these files to your Xaraya installation.
 
-	- images/recipes/NoPhoto.gif -- Used in the Recipe Publication Type example. Displayed when no recipe photograph is available. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
+	- images/recipes/NoPhoto.gif -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a new Publication Type that uses Dynamic Data). Displayed when no recipe photograph is available. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
 
-	- images/recipes/applechestnutsoup.jpg -- Used in the Recipe Publication Type example. Photograph for the SampleRecipe.txt file. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
+	- images/recipes/applechestnutsoup.jpg -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a new Publication Type that uses Dynamic Data). Photograph for the SampleRecipe.txt file. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
 
-	- modules/articles/xartemplates/user-display-recipes.xd -- Used in the Recipe Publication Type example. Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary. For a theme-specific template, rename to user-display-recipes.xt and copy to <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
+	- modules/articles/xartemplates/user-display-recipes.xd -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a new Publication Type that uses Dynamic Data). Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary.
 
-	- modules/articles/xartemplates/user-summary-recipes.xd -- Used in the Recipe Publication Type example. Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary. For a theme-specific template, rename to user-summary-recipes.xt and copy to <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
+	- modules/articles/xartemplates/user-summary-recipes.xd -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a new Publication Type that uses Dynamic Data). Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary.
 
-	- modules/categories/xarimages/*.jpg -- Category files for use with the categories created in the new Recipe Publication Type. For site-wide use, copy these files to <xarroot>/modules/categories/xarimages. Theme-specific icon files go in <xarroot>/themes/<theme name>/modules/categories/images directory.
+	- modules/categories/xarimages/*.jpg -- Category files for use with the categories created in the new Recipe Publication Type (see EXAMPLE: Adding a new Publication Type that uses Dynamic Data). For site-wide use, copy these files to <xarroot>/modules/categories/xarimages.
 
-	- Tutorials/PubType/SampleRecipe.txt -- Used in the Recipe Publication Type example. A sample recipe to add at the end of the Recipe Publication Type example (and a darned good recipe too!).
+	- Tutorials/PubType/SampleRecipe.txt -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a new Publication Type that uses Dynamic Data). A sample recipe to add at the end of the Recipe Publication Type example (and a darned good recipe too!).
 
-DOCUMENT THANKS:
-================
+DOCUMENT DISCLAIMER
+===================
+While every reasonable precaution has been taken in the preparation of this documentation, the author assumes no responsibility for errors or omissions, or for damages resulting from the use of the information contained herein.
+
+The information contained in this document is believed to be accurate. However, no guarantee is provided. Use this information at your own risk.
+
+DOCUMENT THANKS
+===============
 Xaraya was written by the Xaraya Team. Xaraya is, as with many successful open-source projects, a huge collaborative effort relying on many talented contributors from across the globe. Without their vision, this document would not exist.
 
 The Official Xaraya Installation and Getting Started Guide was written by Drew Vogel. Abundant thanks to the Xaraya development team for answering Drew's endless questions. Thanks to the contributing authors, reviewers, Greg Allen, John Cox, mikespub, Doug Daulton, Skribe, Craig Hamlin, Chris Dudley, Mahmood Al-Yousif, mcortez, marcinmilan, and Joanna Dalle Nogare. Special thanks to Gregor Rothfuss for many things.
@@ -383,14 +400,14 @@ This document was written using TextPad for Windows (http://www.textpad.com) and
 
 Thank you to the Xaraya Team for declaring this to be the "Official" guide.
 
-FEATURES OF XARAYA:
-===================
+FEATURES OF XARAYA
+==================
 Xaraya is extensible, open source web-development software platform written in PHP and licensed under the GNU General Public License. Xaraya utilizes robust permissions, data management and multilingual systems to dynamically integrate and manage content. 
 
 Xaraya's modular, database independent architecture introduces tools which separate form, function, content, and design. Xaraya delivers the requisite infrastructure for a fully dynamic multi-platform Content Management Solution (CMS).
 	* Database-driven website engine (PHP-ADODB compliant)
 
-	* Extensible through a wide variety of third-party modules
+	* Extensible through a variety of third-party modules
 
 	* Powerful security module for multi-level user/administrator logins
 
@@ -407,6 +424,8 @@ Xaraya's modular, database independent architecture introduces tools which separ
 	* Site Statistics: Tracks browser & operating system, top news & articles, and more
 
 	* Easy install on most Unix/Linux and Windows platforms
+
+	* Import information from PostNuke and Moveable Type installations
 
 Xaraya reduces web site development costs by introducing sophisticated administration tools & services which separate form, function, content, and design. With Xaraya, you work in a simple, structured environment to rapidly develop your website with diverse content, including:
 	* News Articles
@@ -429,17 +448,11 @@ Xaraya reduces web site development costs by introducing sophisticated administr
 
 With more than forty active developers spanning five continents and ten languages, the Xaraya Development Team is a blend of some of the best and brightest developers in the open source community. We expect the best of one another. As a result, you can expect the best from Xaraya.
 
-DEDICATIONS:
-============
+PROJECT DEDICATIONS
+===================
 The Xaraya Project is dedicated to the memory of Greg Allen (adam_baum), March 6, 1973-June 16, 2001. Xaraya is his legacy.
 
 Drew dedicates this Guide to my darling Wendy, the keeper of my heart and the delight of my eyes.
-
-DISCLAIMER
-==========
-While every reasonable precaution has been taken in the preparation of this documentation, the author assumes no responsibility for errors or omissions, or for damages resulting from the use of the information contained herein.
-
-The information contained in this document is believed to be accurate. However, no guarantee is provided. Use this information at your own risk.
 
 HOW IS XARAYA PRONOUNCED?
 =========================
@@ -453,8 +466,8 @@ The name Xaraya was selected by the development team after an internal contest. 
 
 That said, the word Xaraya is reminiscent of 'raya', the Spanish word for Manta Ray. The development team rather likes the nautical feel of that reference, particularly when one thinks of the Internet as an "ocean" of information. The Xaraya logo concept by Marty Vance, logo design by LaDalle Hunt.
 
-ASSUMPTIONS:
-============
+ASSUMPTIONS
+===========
 Xaraya allows unprecedented levels of customization, so it is impossible to list every possible configuration. "Anonymous users" are defined as users that have not registered/logged into an account on the site. "Registered users" are defined as users that have registered for an account on the site and have logged into the site with their username and password. The "Site Administrator" is a person or group of persons who have administrative access to the site.
 
 To provide familiarity with how Xaraya functions this Guide makes the following assumptions:
@@ -522,8 +535,8 @@ You may need the following applications to facilitate your installation. If you 
 
 	- Apache Toolbox (http://www.apachetoolbox.com) -- Apache Toolbox is a fully customizable and menu driven script for Linux that will install Apache / MySQL / PHP / PERL, and much more. Everything is compiled from source. This is an advanced tool for Linux. 
 
-GETTING XARAYA:
-===============
+GETTING XARAYA
+==============
 Xaraya is distributed in three pieces, the "Core", the "Base", and "Full". The most current version of Xaraya is always available at http://www.xaraya.com.
 
 	* The "Xaraya Core" distribution is the absolute minimum installation of Xaraya.
@@ -560,14 +573,16 @@ The Xaraya Base distribution consists of the following directory structure. In t
 
 	- tests: This directory contains code that is being tested and is usable at your own risk. Noteworthy in this directory is the 'import' sub-directory, which contains utilities to import data from other Content Management Systems into Xaraya. It is not necessary to copy this directory to the webserver. Pieces you wish to test can be copied individually to the webserver.
 
+Edit Xaraya's configuration file
+--------------------------------
 * Using your text editor, edit /tmp/xar/html/var/config.system.php and make the following changes as necessary:
-	- Database Username: The username that will be used to connect to the database. Do not use 'root' or 'admin' account names as they present a security risk. This user should already exist and have privileges in your database. For example, if the database user was to be "db-user", change the line to:
+	- Database Username: The username that will be used to connect to the database. Do not use 'root' or 'admin' account names as they present a security risk. This user should already exist and have privileges in your database. For example, if the database user is "db-user", change the line to:
 		$systemConfiguration['DB.UserName'] = 'db-user';
 
-	- Database Password: The password that will be used to connect to the database. For example, if the database password was to be "db-user-password", change the line to:
+	- Database Password: The password that will be used to connect to the database. For example, if the database password is "db-user-password", change the line to:
 		$systemConfiguration['DB.Password'] = 'db-user-password';
 
-	- Database Host: The host name where the database server is located. In most cases this will be 'localhost'. Otherwise, you need to include a fully qualified domain name (FQDN) here, for example, 'mybox.mydomain.com' or the IP number of the machine. For example, if the database host was to be "localhost" (meaning that the database is on the same server as Xaraya), change the line to:
+	- Database Host: The host name where the database server is located. In most cases this will be 'localhost'. Otherwise, you need to include a fully qualified domain name here, for example, 'mybox.mydomain.com' or the IP number of the machine. For example, if the database host is "localhost" (meaning that the database is on the same server as Xaraya), change the line to:
 		$systemConfiguration['DB.Host'] = 'localhost';
 
 	- Database Name: The name of the database to which to connect. Case-sensitive.
@@ -576,31 +591,38 @@ The Xaraya Base distribution consists of the following directory structure. In t
 	- Database Type: The database server type.
 		$systemConfiguration['DB.Type'] = 'mysql';
 
-	- Database TablePrefix: Used when you wish to run multiple sites off the same database. That way, user accounts will be available across all the sites. This feature is not currently implemented into Xaraya, but will be available in a future release. The prefix chosen here will be prepended to each of the tables of your database to give each a unique name across multiple installs. For example, if the database table prefix was to be "xar", change the line to look like this:
+	- Database TablePrefix: This feature is currently under development, and will be fully available in a future release. The tableprefix is used when you wish to run multiple sites off the same Xaraya database. The prefix specified here is prepended to each of the tables of your database to give each a unique name across multiple installs. For example, if the database table prefix was to be "xar", change the line to this:
 		$systemConfiguration['DB.TablePrefix'] = 'xar';
 
 	- Save your changes and exit the text editor.
 
-GETTING XARAYA ONTO THE WEBSERVER:
-==================================
-Move Xaraya Base from the temporary directory into your <webdir> (or a sub-directory of your <webdir>) to make Xaraya accessible to the web.
+GETTING XARAYA ONTO THE WEBSERVER
+=================================
+Move Xaraya Base from the temporary directory into your <webdir> (or a sub-directory of your <webdir>) to make Xaraya accessible to the web. The directory into which you move Xaraya is called the <xarroot> throughout this Guide.
 
-For example, under Linux, assuming that you wish to install Xaraya into a sub-directory of <webdir> called "xaraya", that your <webdir> is "/var/www/html" (as it is on modern Red Hat systems -- users of other operating systems should check their manual to find the path to the correct <xarroot> location and directory), and that you have extracted the XarayaBase archive to a temporary directory called "/tmp/xar":
-	- "cd /tmp/xar/html"
+For example, under Linux, with the following assumptions...
+	* You wish to install Xaraya into a sub-directory of <webdir> called "xaraya"
 
-	- "mkdir <webdir>/xaraya" (or the correct <xarroot> for your installation)
+	* That your <webdir> is "/var/www/html" (as it is on modern Red Hat systems -- users of other operating systems should check their manual to find the path to the correct <xarroot> location and directory)
 
-	- "cp -r /tmp/xar/html/* <webdir>/xaraya" (or the correct <xarroot> for your installation)
+	* That you have extracted the XarayaBase archive to a temporary directory called "/tmp/xar":
 
-If you need to UPLOAD your site, ensure that the files are transferred in ASCII or Text format.
+...perform these steps:
+	* "cd /tmp/xar/html"
+
+	* "mkdir <webdir>/xaraya" (or the <xarroot> for your installation)
+
+	* "cp -r /tmp/xar/html/* <webdir>/xaraya" (or the <xarroot> for your installation)
+
+If you need to UPLOAD your site, ensure that the files are transferred in 'ASCII' or 'Text' format.
 
 It may be necessary to set ownership & permissions for the directory where Xaraya is installed.
 
 Setting Permissions
 -------------------
-Now that you've installed the files in the correct place on your webserver, you need to ensure that all the files can be read by the web server. This should be the default situation, but if it isn't then consult your operating system manual for information about changing that.
+Now that you've installed the files in the correct place (the '<xarroot>') on your webserver, you need to ensure that all the files can be read by the web server. This is accomplished by setting ownership and permissions. Consult your operating system manual for information about setting permissions and ownership.
 
-The best route is to change the group of the file and directories to the same group used by the web server (NOTE: This presents a reduced security risk). Under Red Hat Linux, check the "User" and "Group" settings in /etc/httpd/conf/httpd.conf to determine the user & group values. For example, under Linux and assuming that your user/group that is used by the webserver is user: "web" and group: "apache":
+The recommended route is to change the group of the file and directories to the same group used by the web server. Under Red Hat Linux, check the "User" and "Group" settings in /etc/httpd/conf/httpd.conf to determine the user & group values. For example, under Linux and assuming that your user/group that is used by the webserver is user: "web" and group: "apache":
 	- "chown -R web:apache <xarroot>"
 
 	- "chmod -R 770 <xarroot>"
@@ -614,17 +636,17 @@ They are:
 
 	- "<xarroot>/var/cache/rss": Set with "chmod -R 777 <xarroot>/var/cache/rss"
 
-For other operating systems, check your manual.
+To set permissions and ownership on other operating systems, please check your manual.
 
 * Clean up your files from the temporary directory. For example, under Linux:
 	- "cd /tmp"
 
-	CAUTION: Be aware that the next command will delete the entire Xaraya TEMPORARY directory.
+	CAUTION: Be aware that the next command will recursively delete the entire Xaraya TEMPORARY directory.
 	- "rm -R xar"
 
-XARAYA INSTALLATION:
-====================
-Once Xaraya has been moved onto your site (either via a copy command or an upload), you must install it before using the site. Follow these steps to install Xaraya.
+XARAYA INSTALLATION
+===================
+Once Xaraya has been moved onto your site, you must install it before the site is available for use & configuration. Follow these steps to install Xaraya.
 
 SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also use ZoneAlarm, be sure to DISABLE or EXIT ZoneAlarm before installing Xaraya on a Windows machine. ZoneAlarm may cause problems when installing Xaraya on a Windows machine.
 
@@ -632,11 +654,11 @@ SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also 
 
 	- Select your language from the drop-down list. Click "Continue".
 
-	- Read & agree to the license. Click "Continue". If you do not agree to the license, you cannot install Xaraya.
+	- Read & agree to the license. Click "Continue". If you do not agree to the license, you may not install Xaraya.
 
-	- System Settings Check. This panel tells you if you have set up Xaraya correctly. It runs checks and determines whether you're running the correct version of PHP and whether the permissions are set correctly, and more. If there is a problem then follow the advice given. If no failures or warnings are reported, click "Continue". If an error or problem is reported, fix it before continuing. Once you have fixed any issues, press "Check Again" to re-check the system settings.
+	- System Settings Check. This panel tells you if you have set up your system correctly to run Xaraya. It runs checks and determines whether you're running the correct version of PHP and whether Xaraya's permissions are set correctly, and more. If there is a problem, follow the advice given. If no failures or warnings are reported, click "Continue". If an error or problem is reported, fix it before continuing. Once you have fixed any issues, press "Check Again" to re-check the system settings.
 		- FAILURE: PHP Version is less than 4.1.2.
-			- This error can be fixed by installing an updated version of PHP that is equal to or greater than version 4.1.2.
+			- This error can be fixed by installing a version of PHP that is equal to or greater than version 4.1.2.
 
 		- FAILURE: The installer cannot write to the configuration file. Please verify that your webserver has write access to the var/config.system.php file.
 			- This error can be fixed by changing the permissions of the <xarroot>/var/config.system.php" file, for example, "chmod 666 <xarroot>/var/config.system.php".
@@ -647,7 +669,7 @@ SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also 
 		- FAILURE: The installer cannot write to the var/cache/rss directory.
 			- This error can be fixed by changing the permissions of the <xarroot>/var/cache/rss" directory, for example, "chmod 777 <xarroot>/var/cache/rss".
 
-	- Database Settings Collection. Review (and edit if necessary) the Database Settings on the next panel. The default database settings displayed on this panel come from the 'config.system.php' file we edited above.
+	- Database Settings Collection. Review (and edit if necessary) the Database Settings on the next panel. The default database settings displayed on this panel come from the 'config.system.php' file that we edited in 'Edit Xaraya's configuration file', above.
 		- The database types currently supported by Xaraya are MySQL or PostGRESQL. Choose the one that you are using.
 
 		- Click "Create the database" to have the Xaraya installer attempt to create the database. Click "Continue".
@@ -726,15 +748,15 @@ For the remainder of this document, we indicate where to click by using "click-p
 
 This example click-path instructs you that while logged in as the Administrator (‘Admin’), click the link for 'Blocks'; and finally on the next page click ‘View Instances’. Generally, the click-path is followed with a specific instruction, as you see in REMOVING THE REMINDER BLOCK, below.
 
-REMOVING THE REMINDER BLOCK:
-============================
+REMOVING THE REMINDER BLOCK
+===========================
 There is a REMINDER block that is displayed on the left side menu of a newly-installed or updated Xaraya site which reminds the Administrator to delete the install.php and upgrade.php files from <xarroot>. Since we've already deleted those files, we can safely remove the REMINDER block. Follow the steps below to remove the REMINDER block.
 
 Admin->Blocks->View Instances:
 	- In the line with REMINDER in the title, click the "Delete" operation and "OK" to confirm deletion. The REMINDER block is deleted.
 
-GENERAL CONFIGURATION:
-======================
+GENERAL CONFIGURATION
+=====================
 Now that we've installed Xaraya, we should begin to configure it. The Community Site installation, by default, does not permit Registered users to change their theme, to post comments, or to submit articles for publication (all features that we set forth as configuration goals in Assumptions, above) so these features need to be implemented.
 
 Admin->Themes->Modify config:
@@ -800,8 +822,8 @@ This panel displays a variety of information about the PHP installation on the s
 
 OTTO: CATEGORIES -> MODULES -> HOOKS -> ARTICLES -> PUBLICATION TYPES -> DYNAMIC DATA -> ROLES
 
-CATEGORIES IN XARAYA:
-=====================
+CATEGORIES IN XARAYA
+====================
 Articles are placed into Publication Types which contain Categories. Categories are an easy way to provide hierarchical categorization for all information on your site. You could use one or more common Categories across different Publication Types, or use specific Categories for each type of article, or any combination that you prefer for your site.
 
 Before specifying which Publication Types will be using what Categories, create the categorization you want via the Categories Administration Menu. To get you started, a default set of categories was defined for articles when Xaraya was installed. You can adapt the existing categories to your specific needs, of course, or remove them altogether.
@@ -892,8 +914,8 @@ Categories Conclusion
 ---------------------
 Once you have defined your site's Categories, they can be assigned to one or more Publication Types. We'll learn how to assign Categories to Publication Types, and what that means, later in this Guide. First, though, let's look at the modules of Xaraya.
 
-TEMPLATES IN XARAYA:
-====================
+TEMPLATES IN XARAYA
+===================
 OTTO Need a graphic or something showing the 'pecking order' of templates.
 OTTO Describe how BLOCK & FUNCTION templates can be built into PAGE templates.
 http://www.thedragonsforge.com/projectX/blocklayout_spec.html
@@ -918,8 +940,8 @@ Function templates, block templates, page templates, and block group templates c
 
 If template files exist in both site-wide, theme-specific locations, the theme-specific templates take precedence over site-wide templates.
 
-MODULES IN XARAYA:
-==================
+MODULES IN XARAYA
+=================
 Xaraya allows items to be virtually 'bolted on' to its engine. These items, called "modules", add features or functionality to Xaraya. Because it is important to understand how modules function within Xaraya, in this section we explain how any Xaraya module can be installed, configured, deactivated, upgraded, and completely removed (deleted!). Any of these actions may be taken on any non-core Xaraya module. Xaraya's Core modules make up the distribution of Xaraya, and are not user modifiable.
 
 The Xaraya Base distribution comes with a selection of popular modules available for use with your site. The Site Administrator may choose additional modules to use on the site. Additional official modules and third-party modules for Xaraya may be downloaded from the official site at http://www.xaraya.com.
@@ -2687,7 +2709,7 @@ To delete an HTML tag from the table, click "Delete" next to the tag. Confirm yo
 Click "Submit" to save changes.
 
 - Imagefeed Module (Mod distro): Show an image feed. No administration panel.
-This module connects to http://www.coolpick.com and displays their "Babe of the Day" image on your site. These images are "adult-only", but are not explicit.
+This module connects to http://www.coolpick.com and displays their "Babe of the Day" image on your site. These images are considered to be "adults-only", and while frequently sexy are not explicit.
 
 - Images Module (Mod distro): DEGRADED. Handle images. No administration panel.
 
@@ -3459,8 +3481,8 @@ To remove a module from Xaraya, follow these steps:
 
 	- If you wish to remove the module completely from your Xaraya site, delete the module's directory from <xarroot>/modules. Consult your webserver's operating system documentation for how to accomplish this.
 
-HOOKS:
-======
+HOOKS
+=====
 An Introduction to Hooks
 ------------------------
 Hooks extend the functionality of modules by allowing site resources to be re-used in a variety of ways across the site. Hooks increase the interoperability and efficiency of Xaraya. For example, a site resource is BBCODE (which allows bbcode-style formatting to be used in text entry). Rather than code BBCODE for articles and re-code it again for comments, we can simply "hook" BBCODE functionality into the articles and comments modules, and any other modules we wish.
@@ -3520,8 +3542,8 @@ OTTO:
 
 (optional: The above should be included LATER in the docs, after the user has had a chance to read all the module overviews)
 
-ARTICLES:
-=========
+ARTICLES
+========
 OTTO: GENERAL OVERVIEW OF ARTICLES
 	- Admin->Categories->Modify config:
 
@@ -3554,8 +3576,8 @@ OTTO: CONFIGURE CATEGORIES
 
 		- Click "Update Configuration" to save changes.
 
-PUBLICATION TYPES:
-==================
+PUBLICATION TYPES
+=================
 Introduction to Publication Types
 ---------------------------------
 Xaraya's Articles module can manage 'articles' of different types at the same time, for instance news articles, longer documents in different sections, frequently asked questions, and so on.
@@ -3988,8 +4010,8 @@ KNOWLEDGE REVIEW: Publication Types
 -----------------------------------
 OTTO:
 
-DYNAMIC DATA:
-=============
+DYNAMIC DATA
+============
 Introduction to Dynamic Data
 ----------------------------
 With other CMS products, if, for example, you wanted to display Recipes on your site, you had to wait for a Recipes module to be developed. Xaraya is a Content Management System that is capable of showing almost any data in almost any way that you desire. No more waiting for someone else to modify the guestbook, no more waiting for someone else to develop a recipe module, no more waiting for someone to add categories to the reviews module, no more waiting for a module to display user portraits or additional user information. Xaraya gives the site administrator the power to be self-sufficient and the flexibility to extend Xaraya without coding.
@@ -4052,8 +4074,8 @@ KNOWLEDGE REVIEW: Dealing with Dynamic Data
 -------------------------------------------
 OTTO:
 
-MODULES: COMMENTS:
-==================
+MODULES: COMMENTS
+=================
 Admin->Comments->Modify config:
 	Default Rendering Depth: 1
 		Options are 1...9.
@@ -4418,8 +4440,8 @@ KNOWLEDGE REVIEW: Reviewing Roles
 ---------------------------------
 OTTO: Add a new Category and limit it so only Joe and Jane can see it but Bob can't.
 
-MISCELLANIOUS:
-==============
+MISCELLANIOUS
+=============
 * Admin->Bloggerapi->Modify config:
 	- Set Blogger API publication type to "news: News Articles"
 
@@ -4491,8 +4513,107 @@ MISCELLANIOUS:
 
 OTTO: ADD HOOKS FROM MODULE DISTRIBUTION?
 
-CONCLUSION:
-===========
+MAINTAINING YOUR XARAYA SITE
+============================
+This section deals the day-to-day operation of a Xaraya site. It is under development.
+
+OTTO: Does Xaraya have a best practices for routine maintence?
+
+In general, Xaraya runs without any need for pre-emptive or recurring maintenance. However, some things that Xaraya does need recurring maintenance. Here are a few things that should be done on a regular basis:
+
+* Print and clear web statistics. The statistics and log files can grow without limit and needs to be cleared from time to time.
+
+To clear the log files, log in as Administrator and go to the Administration menu. Go to Admin->Referer->View (note that the misspelling is intentional). A listing of site referrers is displayed. Click the "Delete Referers" button to clear the referrers list. NOTE: You are not asked to confirm your intention to delete. New referrers will be added to the cleared list. Generally, the referrers list should be cleared about once a week, or on an interval that is suitable for your site.
+
+* Optimize tables. As tables grow, they can become fragmented and need to be optimized to improve performance.
+
+You must use an external utility to optimize the database tables.
+
+* Backup the database. Although many webmasters have copies of their website on their local workstations, they often neglect to make a copy of their database. A backup of both website and database needs to be done regularly to protect against catastrophic data-loss situations.
+
+You must use an external utility to optimize the database tables. Drew Vogel has written a useful script for backing up the web site's database and files. This script is available below.
+
+# xaraya-bu.sh | 1.12
+#==============+ by Drew Vogel (drew@xaraya.com)
+# This script will:
+#       * Backup files from the <webdir> (recursive) into a file in the
+#         root directory called webdir.tar.gz
+#       * Perform a dump of the Xaraya database into a file
+#         called Xaraya.sql in the root directory,
+#       * Archive all backup up files into one archive,
+#       * Copy the archive to a specified location, and
+#       * Clean up all its temp files.
+#
+# Define some variables
+#
+# In BACKUP_TABS, put a list of database table names, separated by a space,
+# that you would like to backup from MySQL.
+BACKUP_TABS="Xaraya"
+#
+# MYSQL_USER is your MySQL administrator username.
+#
+MYSQL_USER=username
+#
+# MYSQL_PASSWORD is your MySQL administrator password.
+#
+MYSQL_PASSWORD=password
+#
+# DATE stores the format of the filename. In this case, it results in a XAR prefix with
+# a date string, like: XAR-23Oct2002.
+#
+DATE=$(date +XAR-%d%b%Y)
+#
+# Change the two lines below to the directory you want to backup.
+#
+cd /var/www/html
+#
+# The script itself
+#
+echo "Backing up /var/www/html/ directory to archive webdir.tar.gz..."
+tar -cpzvf ~/webdir.tar.gz *
+echo "...done."
+cd ~/
+        for TAB in $BACKUP_TABS;do
+                echo "Creating dump of $TAB database..."
+                mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD -B $TAB -c -a --add-drop-table >~/$TAB.sql
+                echo "...done."
+        done
+echo "Adding the files to archive $DATE.tar.gz..."
+cd ~/
+#
+# Edit the line below to include the tablenames from the database.
+#
+tar -czvf $DATE.tar.gz Xaraya.sql
+echo "...done."
+#
+# Edit the line below to specify the destination directory.
+#
+echo "Copying $DATE.tar.gz archive to /var/www..."
+cd ~/
+#
+# Edit the line below to specify the destination directory.
+#
+cp $DATE.tar.gz /var/www/
+chmod 770 /var/www/$DATE.tar.gz
+#
+# Edit the line below to specify the destination directory.
+#
+echo "...done."
+echo "Cleaning up..."
+cd ~/
+        for TAB in $BACKUP_TABS;do
+                echo "CLEAN UP: Deleting $TAB..."
+                /bin/rm $TAB.sql
+                echo "...done."
+        done
+rm webdir.tar.gz
+rm $DATE.tar.gz
+ls -l /var/www/$DATE.tar.gz
+echo "...done."
+echo "Xaraya backup complete!"
+
+CONCLUSION
+==========
 Thank you for reading the Official Xaraya Installation and Getting Started Guide! 
 
 I sincerely hope that this Guide has increased your understanding of how Xaraya functions, and that it has helped you to install and configure your own Xaraya site. Writing this Guide has been largely a solo effort that I undertook gladly. It is my pleasure to be able to give something back to the Xaraya community; the community has provided a product with which it has been a great pleasure to work.
@@ -4534,7 +4655,6 @@ Finally, any free program is threatened constantly by software patents.  We wish
 The precise terms and conditions for copying, distribution and modification follow.
 
 GNU GENERAL PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-------------------------------------------------------------------------------------------
 0. This License applies to any program or other work which contains a notice placed by the copyright holder saying it may be distributed under the terms of this General Public License.  The "Program", below, refers to any such program or work, and a "work based on the Program" means either the Program or any derivative work under copyright law: that is to say, a work containing the Program or a portion of it, either verbatim or with modifications and/or translated into another language.  (Hereinafter, translation is included without limitation in the term "modification".)  Each licensee is addressed as "you".
 
 Activities other than copying, distribution and modification are not covered by this License; they are outside its scope.  The act of running the Program is not restricted, and the output from the Program is covered only if its contents constitute a work based on the Program (independent of having been made by running the Program). Whether that is true depends on what the Program does.

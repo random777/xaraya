@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- 
+    Supported processing instructions, uncomment the ones you want
+-->
+
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
+<!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
+<!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
+<!-- <?rfc sortrefs="yes"?> Sort the references -->
+<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
+<!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
+
+<!-- I guess we always want a table of contents -->
+<?rfc toc="yes"?>
+
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0046" category="info">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+  
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>The Xaraya XML parser</title>
+    <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>marcel@xaraya.com</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="October" year="2002"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+    
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>parser</keyword>
+    <keyword>xml</keyword>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC documents the implementation of the central XML parser for Xaraya. 
+        As XML based services grow, a central place to parse XML based documents and data
+        is more than warranted.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>Every RFC contains at least the following sections:
+        <list style="symbols">
+          <t>Introduction</t>
+          <t>at least one content section</t>
+          <t>Revision History</t>
+        </list>
+      </t>
+    </section>
+    
+   
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>Put a summary of the major revisions to this document in here</t>
+    </section>
+    
+    <section title="Phases of development">
+      <t>
+        As the xml parser will likely be a central part of all content
+        handling, we want it as robust a humanly possible within our
+        development environment. We chose to use the W3 XML test suite
+        as a reference for testing the behaviour of the XML parser.
+        This suite contains lots of tests testing all kinds of aspects of 
+        XML implementations. This suite has been inserted into our unit test
+        framework and we will incrementally run the tests contained in that suite
+        to validate our parsers behaviour.
+      <t>
+        <list>
+          <t>phase 0: Get a working parser interface</t>
+          <t>phase 1: Pass all binary tests in the W3 test suite for valid documents</t>
+          <t>phase 2: Pass all binary tests in the W3 test suite for not well formed documents</t>
+          <t>phase 3: Pass all binary tests in the W3 test suite for invalid documents</t>
+        </list>
+      </t>
+    </section>
+  </middle>
+  
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    <references title="References">
+      <!-- Fill in references as needed -->
+      <reference>
+        <front>
+          <title>XML Conformance Test Suites</title>
+          <author>
+            <organization>W3</organization>
+            <address>
+              <uri>http://www.w3.org/XML/Test/</uri>
+            </address>
+          </author>
+          <date year="2002"/>
+        </front>
+      </reference>
+      <!-- Repeat the aboven block if more references are needed -->
+    </references>
+    
+    <!-- Any section after this will become an appendix -->
+    <section title="Example appendix">
+      <t>Any section which is present after the references will become an appendix</t>
+    </section>
+  </back>
+</rfc>

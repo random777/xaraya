@@ -32,4 +32,8 @@
   <title>Example Module</title>
 &mod-example;
  </sect1>
+ <sect1 id="dynexample">
+  <title>Dyn_Example Module</title>
+&mod-dyn_example;
+ </sect1>
 </chapter>

@@ -24,35 +24,28 @@
 <!ENTITY mod-blocks SYSTEM "modules/mod-blocks.xml">
 <!ENTITY mod-bloggerapi SYSTEM "modules/mod-bloggerapi.xml">
 <!ENTITY mod-calendar SYSTEM "modules/mod-calendar.xml">
-<!ENTITY mod-cast SYSTEM "modules/mod-cast.xml">
 <!ENTITY mod-categorymodule SYSTEM "modules/mod-categories.xml">
 <!ENTITY mod-censor SYSTEM "modules/mod-censor.xml">
 <!ENTITY mod-changelog SYSTEM "modules/mod-changelog.xml">
 <!ENTITY mod-comments SYSTEM "modules/mod-comments.xml">
 <!ENTITY mod-contact SYSTEM "modules/mod-contact.xml">
-<!ENTITY mod-converter SYSTEM "modules/mod-converter.xml">
 <!ENTITY mod-dynamicdata SYSTEM "modules/mod-dynamicdata.xml">
-<!ENTITY mod-dynamic_planning SYSTEM "modules/mod-dynamic_planning.xml">
 <!ENTITY mod-dyn_example SYSTEM "modules/mod-dyn_example.xml">
-<!ENTITY mod-ephemerids SYSTEM "modules/mod-ephemerids.xml">
 <!ENTITY mod-example SYSTEM "modules/mod-example.xml">
 <!ENTITY mod-facilities SYSTEM "modules/mod-facilities.xml">
 <!ENTITY mod-figlet SYSTEM "modules/mod-figlet.xml">
-<!ENTITY mod-formcontrols SYSTEM "modules/mod-formcontrols.xml">
 <!ENTITY mod-headlines SYSTEM "modules/mod-headlines.xml">
 <!ENTITY mod-hitcount SYSTEM "modules/mod-hitcount.xml">
 <!ENTITY mod-html SYSTEM "modules/mod-html.xml">
-<!ENTITY mod-imagefeed SYSTEM "modules/mod-imagefeed.xml">
 <!ENTITY mod-installer SYSTEM "modules/mod-installer.xml">
-<!ENTITY mod-issueareapub SYSTEM "modules/mod-issueareapub.xml">
 <!ENTITY mod-keywords SYSTEM "modules/mod-keywords.xml">
-<!ENTITY mod-latestcomments SYSTEM "modules/mod-latestcomments.xml">
 <!ENTITY mod-mail SYSTEM "modules/mod-mail.xml">
 <!ENTITY mod-messages SYSTEM "modules/mod-messages.xml">
 <!ENTITY mod-metaweblogapi SYSTEM "modules/mod-metaweblogapi.xml">
 <!ENTITY mod-modules SYSTEM "modules/mod-modules.xml">
 <!ENTITY mod-multisites SYSTEM "modules/mod-multisites.xml">
 <!ENTITY mod-mybookmarks SYSTEM "modules/mod-mybookmarks.xml">
+<!ENTITY mod-newsletter SYSTEM "modules/mod-newsletter.xml">
 <!ENTITY mod-newsgroups SYSTEM "modules/mod-newsgroups.xml">
 <!ENTITY mod-opentracker SYSTEM "modules/mod-opentracker.xml">
 <!ENTITY mod-overlib SYSTEM "modules/mod-overlib.xml">
@@ -60,25 +53,18 @@
 <!ENTITY mod-polls SYSTEM "modules/mod-polls.xml">
 <!ENTITY mod-privileges SYSTEM "modules/mod-privileges.xml">
 <!ENTITY mod-pubsub SYSTEM "modules/mod-pubsub.xml">
-<!ENTITY mod-quotes SYSTEM "modules/mod-quotes.xml">
 <!ENTITY mod-ratings SYSTEM "modules/mod-ratings.xml">
 <!ENTITY mod-recommend SYSTEM "modules/mod-recommend.xml">
 <!ENTITY mod-referer SYSTEM "modules/mod-referer.xml">
-<!ENTITY mod-release SYSTEM "modules/mod-release.xml">
-<!ENTITY mod-reports SYSTEM "modules/mod-reports.xml">
-<!ENTITY mod-reviews SYSTEM "modules/mod-reviews.xml">
 <!ENTITY mod-roles SYSTEM "modules/mod-roles.xml">
 <!ENTITY mod-search SYSTEM "modules/mod-search.xml">
-<!ENTITY mod-shopping SYSTEM "modules/mod-shopping.xml">
 <!ENTITY mod-sitetools SYSTEM "modules/mod-sitetools.xml">
 <!ENTITY mod-smilies SYSTEM "modules/mod-smilies.xml">
 <!ENTITY mod-sniffer SYSTEM "modules/mod-sniffer.xml">
 <!ENTITY mod-soapserver SYSTEM "modules/mod-soapserver.xml">
 <!ENTITY mod-stats SYSTEM "modules/mod-stats.xml">
 <!ENTITY mod-subitems SYSTEM "modules/mod-subitems.xml">
-<!ENTITY mod-tasks SYSTEM "modules/mod-tasks.xml">
 <!ENTITY mod-themes SYSTEM "modules/mod-themes.xml">
-<!ENTITY mod-todolist SYSTEM "modules/mod-todolist.xml">
 <!ENTITY mod-trackback SYSTEM "modules/mod-trackback.xml">
 <!ENTITY mod-translations SYSTEM "modules/mod-translations.xml">
 <!ENTITY mod-uploads SYSTEM "modules/mod-uploads.xml">
@@ -92,7 +78,6 @@
 <!ENTITY mod-xmlrpcserver SYSTEM "modules/mod-xmlrpcserver.xml">
 <!ENTITY mod-xmlrpcsystemapi SYSTEM "modules/mod-xmlrpcsystemapi.xml">
 <!ENTITY mod-xmlrpcvalidatorapi SYSTEM "modules/mod-xmlrpcvalidatorapi.xml">
-<!ENTITY mod-xproject SYSTEM "modules/mod-xproject.xml">
 <!ENTITY mod-xslt SYSTEM "modules/mod-xslt.xml">
 
 <!ENTITY hooks SYSTEM "hooks.xml">
@@ -101,6 +86,7 @@
 <!ENTITY dynamicdata SYSTEM "dynamicdata.xml">
 <!ENTITY roles SYSTEM "roles.xml">
 <!ENTITY privileges SYSTEM "privileges.xml">
+<!ENTITY auth SYSTEM "auth.xml">
 <!ENTITY managecontent SYSTEM "managecontent.xml">
 <!ENTITY transformcontent SYSTEM "transformcontent.xml">
 <!ENTITY maintenance SYSTEM "maintenance.xml">
@@ -236,6 +222,8 @@
   &roles;
  
   &privileges;
+  
+  &auth;
 
   &managecontent;
 

@@ -68,6 +68,10 @@
   <title>XLink Module</title>
 &mod-xlink;
  </sect1>
+ <sect1 id="xarlinkme">
+  <title>XarLinkMe Module</title>
+&mod-xarlinkme;
+ </sect1>
  <sect1 id="xslt">
   <title>XSLT Module</title>
 &mod-xslt;
@@ -75,5 +79,13 @@
  <sect1 id="figlet">
   <title>Figlet Module</title>
 &mod-figlet;
+ </sect1>
+ <sect1 id="mybookmarks">
+  <title>MyBookmarks Module</title>
+&mod-mybookmarks;
+ </sect1>
+ <sect1 id="overlib">
+  <title>Overlib Module</title>
+&mod-overlib;
  </sect1>
 </chapter>

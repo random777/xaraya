@@ -24,9 +24,9 @@
   <title>Contact Module</title>
 &mod-contact;
  </sect1>
- <sect1 id="issueareapub">
-  <title>IssueAreaPub Module</title>
-&mod-issueareapub;
+ <sect1 id="newsletter">
+  <title>Newsletter Module</title>
+&mod-newsletter;
  </sect1>
  <sect1 id="newsgroups">
   <title>Newsgroups Module</title>
@@ -35,5 +35,13 @@
  <sect1 id="uploads">
   <title>Uploads Module</title>
 &mod-uploads;
+ </sect1>
+ <sect1 id="calendar">
+  <title>Calendar Module</title>
+&mod-calendar;
+ </sect1>
+ <sect1 id="messages">
+  <title>Messages Module</title>
+&mod-messages;
  </sect1>
 </chapter>

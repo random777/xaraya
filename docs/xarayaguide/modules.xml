@@ -323,38 +323,12 @@
   <sect1 id="xarayamodules">
     <title>Modules in Xaraya</title>
 
-    <para>In this section of the Guide, we explore the individual modules that
+    <para>In later sections of the Guide, we will explore the individual modules that
     are included with Xaraya. Most modules support Dynamic Data. If you have
-    Dynamic Data fields defined for a module, you will have additional
-    configuration options beyond what is covered in this Guide. Not all site
-    administrators will use all of these features, so feel free to skip
-    around!</para>
-&mod-authinvision;
-&mod-authldap;
-&mod-authsso;
-&mod-authsystem;
-&mod-calendar;
-&mod-cast;
-&mod-converter;
-&mod-dynamic_planning;
-&mod-dyn_example;
-&mod-ephemerids;
-&mod-formcontrols;
-&mod-imagefeed;
-&mod-latestcomments;
-&mod-messages;
-&mod-modules;
-&mod-mybookmarks;
-&mod-overlib;
-&mod-quotes;
-&mod-release;
-&mod-reports;
-&mod-reviews;
-&mod-shopping;
-&mod-tasks;
-&mod-todolist;
-&mod-xarlinkme;
-&mod-xproject;
+    Dynamic Data fields defined for a module, you will have additional 
+    configuration options beyond what is covered in this Guide. There are other modules which
+    can provide functionality to extend existing modules. This is normally done 
+    via hooks, which will be covered next. Not all site administrators will use all of these features, so feel free to skip around!</para>
   </sect1>
 
   <sect1 id="kr-modules">

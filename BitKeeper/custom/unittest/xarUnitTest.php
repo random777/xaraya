@@ -86,7 +86,6 @@ class xarTestSuite {
  *
  */
 class xarTestReport {
-
     /**
      * Abstract presentation function, this should be implemented in 
      * the subclasses
@@ -96,18 +95,24 @@ class xarTestReport {
 
     /**
      * Constructor instantiates the right type of object
-     *
+     * make it a singleton, so the constructor is actually called only once
+     * during a test run. 
      */
     function xarTestReport($type='text') {
+        static $instance=NULL;
+
         // what type to instantiate
-        switch($type) {
-        case 'html':
-            $this= new xarHTMLTestReport();
-            break;
-        default:
-            $this = new xarTextTestReport();
-            break;
+        if(!isset($instance)) {
+            switch($type) {
+            case 'html':
+                $instance = new xarHTMLTestReport();
+                break;
+            default:
+                $instance = new xarTextTestReport();
+                break;
+            }
         }
+        $this = $instance;
     }
 
     /**
@@ -123,33 +128,41 @@ class xarTestReport {
 class xarTextTestReport extends xarTestReport {
     
     // Constructor must be here, otherwise we get into a loop
-    function xarTextTestReport() { }
+    function xarTextTestReport() {
+        // Because the constructor is only called once (singleton) during a test
+        // run, the per testrun output should go in here. In this case, a simple
+        // header which tells us at which point in the repository we're running the tests
+        echo "Running tests for top of tree revision: ".$this->getTopOfTrunk()."\n";
+        
+    }
 
     // Presentation function
     function present($testsuites) {
-        echo "Running tests for top of tree revision: ".$this->getTopOfTrunk()."\n";
         foreach($testsuites as $testsuite) {
-            echo "TestSuite: ".$testsuite->_name."\n";
-            $nroftestcases = $testsuite->CountTestCases();
-            foreach (array_keys($testsuite->_testcases) as $casekey) {
-                echo "|- TestCase: ".$testsuite->_testcases[$casekey]->_name."\n";
-                $tests =& $testsuite->_testcases[$casekey]->_tests;
-                foreach (array_keys($tests) as $key ) {
-                    $result =& $tests[$key]->_result;
-                    if ($nroftestcases != 1) {
-                        echo "|";
-                    } else {
-                        echo " ";
+            // Only include suites with testcases
+            if($testsuite->countTestCases() > 0) {
+                echo "TestSuite: ".$testsuite->_name."\n";
+                $nroftestcases = $testsuite->CountTestCases();
+                foreach (array_keys($testsuite->_testcases) as $casekey) {
+                    echo "|- TestCase: ".$testsuite->_testcases[$casekey]->_name."\n";
+                    $tests =& $testsuite->_testcases[$casekey]->_tests;
+                    foreach (array_keys($tests) as $key ) {
+                        $result =& $tests[$key]->_result;
+                        if ($nroftestcases != 1) {
+                            echo "|";
+                        } else {
+                            echo " ";
+                        }
+                        if (!empty($result->_message)) {
+                            echo " |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
+                                (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
+                        } else {
+                            echo " |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
+                                (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
+                        }
                     }
-                    if (!empty($result->_message)) {
-                        echo " |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
-                            (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
-                    } else {
-                        echo " |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
-                            (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
-                    }
+                    $nroftestcases--;
                 }
-                $nroftestcases--;
             }
         }
     }
@@ -158,7 +171,7 @@ class xarTextTestReport extends xarTestReport {
 class xarHTMLTestReport extends xarTestReport {
 
     // Constructor must be here, otherwize we get into a loop
-    function xaHTMLTestReport() { }
+    function xarHTMLTestReport() { }
 }
 
 /**

@@ -97,7 +97,9 @@ while (list($key, $dir) = each($dirs)) {
  * 
  */
 foreach ($suites as $torun) {
+    // Run the testsuite
     $torun->run();
+    // and report the results
     $torun->report('text');
 }
 

@@ -89,18 +89,24 @@ while (list($key, $dir) = each($dirs)) {
         }
     }
 }
-//die("Includes done\n");
+
 /**
  * Cycle through all suites found 
  *
- * Run all the tests found in their testsuites and 
- * output a testreport. The output is sent to stdout
- * so we can redirect the output to anything we like
- *
+ * The foreach loop gathers the results from all testsuites
+ * 
  */
 foreach ($suites as $torun) {
     $torun->run();
-    $torun->report('text');
+    //$torun->report('text');
 }
+
+/**
+ * Output the result in a nice testreport
+ *
+ * @todo Base reporttype on commandline parameters
+ */
+$report = new xarTestReport('text');
+$report->present($suites);
 
 ?>

@@ -43,22 +43,22 @@ class xarTestSuite {
      */
     function AddTestCase($testClass,$name='') {
         // Make sure the class exist
-        if (class_exists($testClass) && 
-            (get_parent_class($testClass) == 'xartestcase')) {
+        if (class_exists($testClass) && (get_parent_class($testClass) == 'xartestcase')) {
             if ($name=='') { $name=$testClass; }
-            // Base dir is one dir up from the testsdir
-            // strip everthing after the 
+            // Base dir is one dir up from the testsdir 
             $basedir = $this->_parentdir(getcwd());
+            // Add a new testCase object into the array.
             $this->_testcases[$name]=new xarTestCase($testClass,$name,true,$basedir);
         }
     }
 
-    function CountTestCases() {
-        return count($this->_testcases);
-    }
+    /**
+     * Count the number of testcases in this suite
+     */
+    function CountTestCases() { return count($this->_testcases); }
 
     /**
-     * Run the testcase 
+     * Run the testcases
      */
     function run() {
         foreach($this->_testcases as $testcase) {
@@ -66,44 +66,94 @@ class xarTestSuite {
         }
     }
 
-    /**
-     * Report the results of this suite
-     */
-    function report($type='text') {
-        $tot = exec('bk changes -r+ -d:REV:');
-        echo "Running tests for top of tree revision: ".$tot."\n";
-        echo "TestSuite: ".$this->_name."\n";
-        $nroftestcases = $this->CountTestCases();
-        foreach (array_keys($this->_testcases) as $casekey) {
-            echo "|- TestCase: ".$this->_testcases[$casekey]->_name."\n";
-            $tests =& $this->_testcases[$casekey]->_tests;
-            foreach (array_keys($tests) as $key ) {
-                $result =& $tests[$key]->_result;
-	        if ($nroftestcases != 1) {
-                    echo "|";
-                } else {
-                    echo " ";
-                }
-                if (!empty($result->_message)) {
-                    echo " |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
-                        (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
-                } else {
-                   echo " |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
-                        (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
-                }
-            }
-            $nroftestcases--;
-        }
-    }
-
     function _parentdir($dir) {
-        // Get the parent dir of the dir inserted, dirty hack
+        // FIXME :Get the parent dir of the dir inserted, dirty hack
         chdir('..');
         $toreturn=getcwd();
         chdir($dir);
         return $toreturn;
     }
 
+}
+
+/** 
+ * Base class for reporters
+ *
+ */
+class xarTestReport {
+
+    /**
+     * Abstract presentation function, this should be implemented in 
+     * the subclasses
+     *
+     */
+    // function present(array $testsuites=array()) {}
+
+    /**
+     * Constructor instantiates the right type of object
+     *
+     */
+    function xarTestReport($type='text') {
+        // what type to instantiate
+        switch($type) {
+        case 'html':
+            $this= new xarHTMLTestReport();
+            break;
+        default:
+            $this = new xarTextTestReport();
+            break;
+        }
+    }
+
+    /**
+     * For which revision marker are we running the testreport
+     */
+    function getTopOfTrunk() {
+        $tot = exec('bk changes -r+ -d:REV:');
+        return $tot;
+    }
+
+}
+
+class xarTextTestReport extends xarTestReport {
+    
+    // Constructor must be here, otherwise we get into a loop
+    function xarTextTestReport() { }
+
+    // Presentation function
+    function present($testsuites) {
+        echo "Running tests for top of tree revision: ".$this->getTopOfTrunk()."\n";
+        foreach($testsuites as $testsuite) {
+            echo "TestSuite: ".$testsuite->_name."\n";
+            $nroftestcases = $testsuite->CountTestCases();
+            foreach (array_keys($testsuite->_testcases) as $casekey) {
+                echo "|- TestCase: ".$testsuite->_testcases[$casekey]->_name."\n";
+                $tests =& $testsuite->_testcases[$casekey]->_tests;
+                foreach (array_keys($tests) as $key ) {
+                    $result =& $tests[$key]->_result;
+                    if ($nroftestcases != 1) {
+                        echo "|";
+                    } else {
+                        echo " ";
+                    }
+                    if (!empty($result->_message)) {
+                        echo " |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
+                            (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
+                    } else {
+                        echo " |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
+                            (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
+                    }
+                }
+                $nroftestcases--;
+            }
+        }
+    }
+}
+
+class xarHTMLTestReport extends xarTestReport {
+
+    // Constructor must be here, otherwize we get into a loop
+    function xaHTMLTestReport() { }
 }
 
 /**

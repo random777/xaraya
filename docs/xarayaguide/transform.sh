@@ -24,6 +24,10 @@ docbook2html -d ldp.dsl\#html --nochunks -o $OUTPUT make.xml
 mv $OUTPUT/make.html $OUTPUT/xarayaguide.html
 tidy -asxhtml -q -m -i $OUTPUT/xarayaguide.html
 
+# make the plaintext output
+docbook2txt -d ldp.dsl\#html -o $OUTPUT make.xml
+mv $OUTPUT/make.txt $OUTPUT/xarayaguide.txt
+
 # make the PDF output
 if [ "X$1" = 'X--nopdf' ] 
 then

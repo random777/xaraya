@@ -167,6 +167,8 @@ html/
 					<t>.xar-mod-title</t>
 					<t>.xar-mod-body</t>
 					<t>.xar-mod-foot</t>
+					<t>.xar-norm</t>
+					<t>.xar-accent</t>
 					<t>.xar-alt</t>
 					<t>.xar-sub</t>
 					<t>.xar-menu-section</t>

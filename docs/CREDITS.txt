@@ -126,7 +126,8 @@ Other development credits
    David Parvin (admin@ads-tracker.net) Fixed bug 742 FeedParser Problem.
    Marjolein Katsma (xar-bugzilla@javawoman.com) - Fix bug 1007 xarServerCurrentUrl Problem.
 						 - Fix bug 1002 link tags.
-
+   David Taylor (marsel@phatcom.net) added TIME field to mySQL data structure.
+   Kams (kams@fnac.net) - Various Language Bugs.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

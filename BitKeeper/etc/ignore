@@ -468,3 +468,5 @@ html/themes/Caxa-02/tables.php
 html/themes/Caxa-02/temp.php
 html/themes/Caxa-02/theme.php
 html/themes/Caxa-02/xartheme.php
+html/modules/release/xartemplates/user-getdoc.xd
+html/modules/release/xartemplates/user-rssviewthemes.xd

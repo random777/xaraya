@@ -163,3 +163,10 @@ templates_c
 test.php
 xCode.apf
 ~*
+html/modules/articles
+html/modules/bkview
+html/modules/categories
+html/modules/images
+html/modules/mime
+html/modules/translations
+html/modules/uploads

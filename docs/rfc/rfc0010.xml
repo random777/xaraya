@@ -6,47 +6,47 @@
 <?rfc toc="yes"?>
 
 <rfc number="0010" category="std">
-	<front>
-		<title>Block Layout (Xaraya Theme System)</title>
-		<author initials="M." surname="Vance" fullname="Dracos">
-			<organization>Xaraya Development Group</organization>
-			<address>
-				<email>dracos@thedragonsforge.com</email>
-			</address>
-		</author>
-		<author initials="P." surname="Rosania" fullname="Paul Rosania">
-			<organization>Xaraya Development Group</organization>
-			<address>
-				<email>prosania@attbi.com</email>
-			</address>
-		</author>
-		<author initials="M." surname="Canini" fullname="Marco Canini">
-			<organization>Xaraya Development Group</organization>
-			<address>
-				<email>m.canini@libero.it</email>
-			</address>
-		</author>
-		<date month="November" year="2002"/>
-		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-		<abstract>
-			<t>The contents of this RFC describes the blocklayout templating system for xaraya.</t>
-		</abstract>
-	</front>
-	<!-- The middle section is used for the actual content of the RFC -->
-	<middle>
-		<section title="Introduction">
-			<t>
+    <front>
+        <title>Block Layout (Xaraya Theme System)</title>
+        <author initials="M." surname="Vance" fullname="Dracos">
+            <organization>Xaraya Development Group</organization>
+            <address>
+                <email>dracos@thedragonsforge.com</email>
+            </address>
+        </author>
+        <author initials="P." surname="Rosania" fullname="Paul Rosania">
+            <organization>Xaraya Development Group</organization>
+            <address>
+                <email>prosania@attbi.com</email>
+            </address>
+        </author>
+        <author initials="M." surname="Canini" fullname="Marco Canini">
+            <organization>Xaraya Development Group</organization>
+            <address>
+                <email>m.canini@libero.it</email>
+            </address>
+        </author>
+        <date month="November" year="2002"/>
+        <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+        <abstract>
+            <t>The contents of this RFC describes the blocklayout templating system for xaraya.</t>
+        </abstract>
+    </front>
+    <!-- The middle section is used for the actual content of the RFC -->
+    <middle>
+        <section title="Introduction">
+            <t>
         Blocklayout is intended to give theme developers a maximum of control
         over the appearance and functionality of their Xaraya website. This
         file documents the structure and syntax of blocklayout, and details
         required changes to themes and the core.
       </t>
-			<t>
+            <t>
         Blocklayout is potentially a very powerful tool. However, modules and
         blocks need to be modified somewhat in order to take advantage of
         Blocklayout's flexibility. The conversion process is not complicated.
       </t>
-			<t>
+            <t>
         In addition, certain changes to the Xaraya directory structure are
         necessary to accomodate templates and their defaults. Those
         structural changes are illustrated below.
@@ -84,129 +84,129 @@ html/
             |-- includes/
                     <file>.xt
       ]]></artwork>
-			</t>
-			<t>
+            </t>
+            <t>
         html/themes/&lt;theme name&gt;/theme.php contains metadata about the theme;
         no actual markup can reside there. Such metadata includes:
         <list style="symbols">
-					<t>$themeinfo['name']</t>
-					<t>$themeinfo['author']</t>
-					<t>$themeinfo['homepage']</t>
-					<t>$themeinfo['email']</t>
-					<t>$themeinfo['description']</t>
-					<t>$themeinfo['contact_info']</t>
-					<t>$themeinfo['publish_date']</t>
-					<t>$themeinfo['license']</t>
-					<t>$themeinfo['version']</t>
-					<t>$themeinfo['xaraya_version']</t>
-					<t>$themeinfo['blocklayout_version']</t>
-				</list>
-			</t>
-		</section>
-		<section title="Required CSS Classes">
-			<t>
+                    <t>$themeinfo['name']</t>
+                    <t>$themeinfo['author']</t>
+                    <t>$themeinfo['homepage']</t>
+                    <t>$themeinfo['email']</t>
+                    <t>$themeinfo['description']</t>
+                    <t>$themeinfo['contact_info']</t>
+                    <t>$themeinfo['publish_date']</t>
+                    <t>$themeinfo['license']</t>
+                    <t>$themeinfo['version']</t>
+                    <t>$themeinfo['xaraya_version']</t>
+                    <t>$themeinfo['blocklayout_version']</t>
+                </list>
+            </t>
+        </section>
+        <section title="Required CSS Classes">
+            <t>
         The following is a list of CSS classes which may be referenced by
         module and block developers with assurance that their output will
         integrate well with any Blocklayout theme. Blocklayout themes must
         define all of these classes.
       </t>
-			<t>
+            <t>
         The first group is standard classes. Selectors here will be applied to
         every instance of a tag, unless overridden by a more specific class.
         <list style="symbols">
-					<t>A</t>
-					<t>BLOCKQUOTE</t>
-					<t>BODY</t>
-					<t>CODE</t>
-					<t>H1</t>
-					<t>H2</t>
-					<t>H3</t>
-					<t>H4</t>
-					<t>TH</t>
-					<t>TD</t>
-					<t>TABLE</t>
-					<t>THEAD</t>
-					<t>TBODY</t>
-					<t>TFOOT</t>
-					<t>P</t>
-					<t>PRE</t>
-					<t>INPUT</t>
-					<t>BUTTON</t>
-					<t>SELECT</t>
-					<t>OPTION</t>
-					<t>OPTGROUP</t>
-					<t>TEXTAREA</t>
-					<t>LABEL</t>
-					<t>IMG</t>
-					<t>LI</t>
-					<t>UL</t>
-					<t>OL</t>
-					<t>SUB</t>
-					<t>SUP</t>
-				</list>
-			</t>
-			<t>
+                    <t>A</t>
+                    <t>BLOCKQUOTE</t>
+                    <t>BODY</t>
+                    <t>CODE</t>
+                    <t>H1</t>
+                    <t>H2</t>
+                    <t>H3</t>
+                    <t>H4</t>
+                    <t>TH</t>
+                    <t>TD</t>
+                    <t>TABLE</t>
+                    <t>THEAD</t>
+                    <t>TBODY</t>
+                    <t>TFOOT</t>
+                    <t>P</t>
+                    <t>PRE</t>
+                    <t>INPUT</t>
+                    <t>BUTTON</t>
+                    <t>SELECT</t>
+                    <t>OPTION</t>
+                    <t>OPTGROUP</t>
+                    <t>TEXTAREA</t>
+                    <t>LABEL</t>
+                    <t>IMG</t>
+                    <t>LI</t>
+                    <t>UL</t>
+                    <t>OL</t>
+                    <t>SUB</t>
+                    <t>SUP</t>
+                </list>
+            </t>
+            <t>
         Next are individual classes, mostly related to tables. Unlike previous 
         versions, Blocklayout 1.1 relies on CSS inheritance to style 
         individual tags; this makes many inidividual rules unnecessary.
         <list style="symbols">
-					<t>TD.xar-norm</t>
-					<t>TD.xar-alt</t>
-				</list>
-			</t>
-			<t>
+                    <t>TD.xar-norm</t>
+                    <t>TD.xar-alt</t>
+                </list>
+            </t>
+            <t>
         Finally are anonymous classes. Selectors here can be applied to any tag.
         <list style="symbols">
-					<t>.xar-block-head</t>
-					<t>.xar-block-head-[block group]</t>
-					<t>.xar-block-title</t>
-					<t>.xar-block-title-[block group]</t>
-					<t>.xar-block-body</t>
-					<t>.xar-block-body-[block group]</t>
-					<t>.xar-block-foot</t>
-					<t>.xar-block-foot-[block group]</t>
-					<t>.xar-mod-head</t>
-					<t>.xar-mod-title</t>
-					<t>.xar-mod-body</t>
-					<t>.xar-mod-foot</t>
-					<t>.xar-norm</t>
-					<t>.xar-norm-outline</t>
-					<t>.xar-accent</t>
-					<t>.xar-accent-outline</t>
-					<t>.xar-alt</t>
-					<t>.xar-alt-outline</t>
-					<t>.xar-sub</t>
-					<t>.xar-menu-section</t>
-					<t>.xar-menu-item</t>
-					<t>.xar-menu-subitem</t>
-					<t>.xar-menu-section-current</t>
-					<t>.xar-menu-item-current</t>
-					<t>.xar-menu-subitem-current</t>
-					<t>.xar-error</t>
-				</list>
-			</t>
-			<t>
+                    <t>.xar-block-head</t>
+                    <t>.xar-block-head-[block group]</t>
+                    <t>.xar-block-title</t>
+                    <t>.xar-block-title-[block group]</t>
+                    <t>.xar-block-body</t>
+                    <t>.xar-block-body-[block group]</t>
+                    <t>.xar-block-foot</t>
+                    <t>.xar-block-foot-[block group]</t>
+                    <t>.xar-mod-head</t>
+                    <t>.xar-mod-title</t>
+                    <t>.xar-mod-body</t>
+                    <t>.xar-mod-foot</t>
+                    <t>.xar-norm</t>
+                    <t>.xar-norm-outline</t>
+                    <t>.xar-accent</t>
+                    <t>.xar-accent-outline</t>
+                    <t>.xar-alt</t>
+                    <t>.xar-alt-outline</t>
+                    <t>.xar-sub</t>
+                    <t>.xar-menu-section</t>
+                    <t>.xar-menu-item</t>
+                    <t>.xar-menu-subitem</t>
+                    <t>.xar-menu-section-current</t>
+                    <t>.xar-menu-item-current</t>
+                    <t>.xar-menu-subitem-current</t>
+                    <t>.xar-error</t>
+                </list>
+            </t>
+            <t>
         Rules with partially bracketed names are optional. Rules applied to 
         individual blocks are left up to the theme author.  Additional menu item 
         rules may be devised as necessary to satisfy the depth of the menu.
       </t>
-			<t>
+            <t>
         Theme developers may introduce their own classes in their templates.
         This practice should be avoided by module and block developers.
         Extensions of the required classes list will not be    supported by other
         themes or modules, and are not endorsed by Xaraya.
       </t>
-			<t>
+            <t>
         These classes allow each block or group of blocks to have a different
         appearance than modules (normal).
       </t>
-			<t>
+            <t>
         It is suggested that the classes be defined in the given order, to
         avoid odd results in different browsers.
       </t>
-		</section>
-		<section title="Templates">
-			<t>
+        </section>
+        <section title="Templates">
+            <t>
         Each page in Blocklayout is assembled from a collection of templates and
         fitted with the necessary data. A "Master" template is loaded first.
         This template defines the basic layout of the page and what information
@@ -215,95 +215,95 @@ html/
         is parsed through this template before being inserted into the Master.
         In this manner, templates can be nested any number of levels deep.
         <figure>
-					<artwork src="images/rfc0010_1.gif"/>
-				</figure>
-			</t>
-			<t>
+                    <artwork src="images/rfc0010_1.gif"/>
+                </figure>
+            </t>
+            <t>
         Internal Templates (.xd) provide default output formatting for Xaraya
         modules. Themes cannot alter these templates, but may contain their
         own version of them. Be careful! Editing Internal Templates may cause
         Xaraya to behave unexpectedly or not at all.
       </t>
-			<t>
+            <t>
         The first time a template is called, it is compiled into PHP code. It
         will not be compiled again unless the original copy is updated. This
         procedure allows a maximum of template flexibility without slowdown in
         page generation time.
       </t>
-		</section>
-		<section title="Blocklayout tags">
-			<t>
+        </section>
+        <section title="Blocklayout tags">
+            <t>
         Tags in Blocklayout adhere to XML syntax. The standard Blocklayout
         namespace is "xar" and at this time that may not be changed. There are 20
         top level core tags:
         <list style="symbols">
-					<t>
-						<xref target="block">&lt;xar:block /&gt;</xref>
-					</t>
-					<t>
-						<xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref>
-					</t>
-					<t>
-						<xref target="else">&lt;xar:else /&gt;</xref>
-					</t>
-					<t>
-						<xref target="elseif">&lt;xar:elseif /&gt;</xref>
-					</t>
-					<t>
-						<xref target="for">&lt;xar:for /&gt;</xref>
-					</t>
-					<t>
-						<xref target="foreach">&lt;xar:foreach /&gt;</xref>
-					</t>
-					<t>
-						<xref target="if">&lt;xar:if /&gt;</xref>
-					</t>
-					<t>
-						<xref target="loop">&lt;xar:loop /&gt;</xref>
-					</t>
-					<t>
-						<xref target="ml">&lt;xar:ml /&gt;</xref>
-					</t>
-					<t>
-						<xref target="mlkey">&lt;xar:mlkey /&gt;</xref>(can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
-					<t>
-						<xref target="mlstring">&lt;xar:mlstring /&gt;</xref> (can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
-					<t>
-						<xref target="module">&lt;xar:module /&gt;</xref>
-					</t>
-					<t>
-						<xref target="sec">&lt;xar:sec /&gt;</xref>
-					</t>
-					<t>
-						<xref target="set">&lt;xar:set /&gt;</xref>
-					</t>
-					<t>
-						<xref target="template">&lt;xar:template /&gt;</xref>
-					</t>
-					<t>
-						<xref target="var">&lt;xar:var /&gt;</xref>
-					</t>
-					<t>
-						<xref target="while">&lt;xar:while /&gt;</xref>
-					</t>
-				</list>
-			</t>
-			<t>
+                    <t>
+                        <xref target="block">&lt;xar:block /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="else">&lt;xar:else /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="elseif">&lt;xar:elseif /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="for">&lt;xar:for /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="foreach">&lt;xar:foreach /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="if">&lt;xar:if /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="loop">&lt;xar:loop /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="ml">&lt;xar:ml /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="mlkey">&lt;xar:mlkey /&gt;</xref>(can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
+                    <t>
+                        <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> (can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
+                    <t>
+                        <xref target="module">&lt;xar:module /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="sec">&lt;xar:sec /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="set">&lt;xar:set /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="template">&lt;xar:template /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="var">&lt;xar:var /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="while">&lt;xar:while /&gt;</xref>
+                    </t>
+                </list>
+            </t>
+            <t>
         There are also several child tags:
         <list style="symbols">
-					<t>
-						<xref target="break">&lt;xar:break /&gt;</xref>
-					</t>
-					<t>
-						<xref target="continue">&lt;xar:continue /&gt;</xref>
-					</t>
-					<t>
-						<xref target="mlvar">&lt;xar:mlvar /&gt;</xref>
-					</t>
-				</list>
-			</t>
-			<section title="Referencing data within templates">
-				<t>
+          <t>
+            <xref target="break">&lt;xar:break /&gt;</xref>
+          </t>
+          <t>
+            <xref target="continue">&lt;xar:continue /&gt;</xref>
+          </t>
+          <t>
+            <xref target="mlvar">&lt;xar:mlvar /&gt;</xref>
+          </t>
+        </list>
+            </t>
+            <section title="Referencing data within templates">
+                <t>
           Blocklayout variables are delimited by # ... #. For example, the variable
           $foo is accessed by the #$foo# directive. String keys in arrays should be
           single quoted (#$foo['bar']#) rather than double (#$foo["bar"]#). In
@@ -312,18 +312,18 @@ html/
           calls are represented as #xarAPIFunc($arg1, 'arg2')#. Function arguments
           should also be single quoted (as necessary).
         </t>
-			</section>
-			<section title="Comments in Templates">
-				<t>
+            </section>
+            <section title="Comments in Templates">
+                <t>
           Placing comments in Blocklayout templates is done by surrounding the
           content in question with &lt;!--- ---&gt; (note three hyphens each). Content
           within these tags will be stripped from the final output stream.
           Standard two-hyphen comments (&lt;!-- --&gt;) will be passed on to the
           output stream.
         </t>
-			</section>
-			<section title="Tag descriptions and Atrributes">
-				<t>
+            </section>
+            <section title="Tag descriptions and Atrributes">
+                <t>
           A note on logic tags: The condition attribute present on most logic
           tags will frequently call for the use of &lt;, &gt;, and &amp; characters. These
           characters are restricted in XML documents and may not be used in this context.
@@ -346,7 +346,7 @@ html/
         xor         xor             exclusive or
         not         not             not
       </artwork>
-				</t>
+                </t>
         <t>
           For the description of the tag attributes the following conventions are used:
           <list>
@@ -367,21 +367,21 @@ html/
           before the closing tag, again in terms of required
           structure.
         </t>
-				<!-- xar:block -->
-				<section anchor="block" title="&lt;xar:block /&gt;">
+        <!-- xar:block -->
+        <section anchor="block" title="&lt;xar:block /&gt;">
           <t>
             The xar:block tag places a "block" of content into the
             output. A block is always owned by a module, which is
             responsible for feeding the block with the appropriate
-            information to produce its output. There are a number
-            of flexible ways to control what a block contains and how 
-            it will appear in the output. 
+            information to produce its output. There are a number of
+            flexible ways to control what a block contains and how it
+            will appear in the output.
             <note>
               <t>The block tag is one of the most flexible constructs
-                in blocklayout (how surprising). We haven't even touched
-                at all the possibilities ourselves yet. Unfortunately this
-                makes it also the most untested area in blocklayout and 
-                vulnerable for surprises. 
+              in blocklayout (how surprising). We haven't even touched
+              at all the possibilities ourselves yet. Unfortunately
+              this makes it also the most untested area in blocklayout
+              and vulnerable for surprises.
               </t>
             </note>
           </t>
@@ -407,19 +407,25 @@ html/
           <section title="Forms">
             <t>Empty form:
               <t>
-                When a block is specified in empty form, the contents of the block are <em>implicit</em>
-                i.e. the contents will be produced by another part of xaraya.
+                When a block is specified in empty form, the contents
+                of the block are <em>implicit</em> i.e. the contents
+                will be produced by another part of xaraya.
               </t>
             </t>
             <t>Block form:
               <t>
-                When the block element is specified with an opening tag, 1 or more content producing 
-                child tags and a closing tag, the children of the block tag are taken as the content
-                of the block, overriding the implicit mechanism of the empty form. Note that the module
-                and name attribute have a different meaning when a block is specified in this way.
-                The system will still try to search the specified module for a display function to get
-                the appropriate data for it. That display function may or may not exist. If it does
-                not exist, the content provided by the child tags is used to render the block contents.
+                When the block element is specified with an opening
+                tag, 1 or more content producing child tags and a
+                closing tag, the children of the block tag are taken
+                as the content of the block, overriding the implicit
+                mechanism of the empty form. Note that the module and
+                name attribute have a different meaning when a block
+                is specified in this way.  The system will still try
+                to search the specified module for a display function
+                to get the appropriate data for it. That display
+                function may or may not exist. If it does not exist,
+                the content provided by the child tags is used to
+                render the block contents.
               </t>
               <t>Note: especially this area is largely untested at this time</t>
             </t>
@@ -429,25 +435,30 @@ html/
               <t><em>[id]</em><t> an identifier for the tag</t></t>
               <t><em>[instance]</em>
                 <t>
-                  If instance is specified, it's value is used to look up the 
-                  the specific block in the database. The rest of the attributes is
-                  ignored when instance is specified.
+                  If instance is specified, it's value is used to look
+                  up the the specific block in the database. The rest
+                  of the attributes is ignored when instance is
+                  specified.
                 </t>
               </t>
               <t>
-                For the description of the rest of the attributes, we will assume that the instance
-                attribute was not specified, including the optional specification for the attributes.
+                For the description of the rest of the attributes, we
+                will assume that the instance attribute was not
+                specified, including the optional specification for
+                the attributes.
               </t>
               <t><em>module</em>
                 <t>
-                  Name of the module which owns the block. In the administration part of Xaraya this is visible when 
-                  looking at the block types. 
+                  Name of the module which owns the block. In the
+                  administration part of Xaraya this is visible when
+                  looking at the block types.
                 </t>
               </t>
               <t><em>name</em>
                 <t>
-                  Name of the block to display. The name is the value of the field filled in by the site manager
-                  in the administration part of Xaraya.
+                  Name of the block to display. The name is the value
+                  of the field filled in by the site manager in the
+                  administration part of Xaraya.
                 </t>
               </t>
               <t><em>[title]</em>
@@ -455,14 +466,16 @@ html/
               </t>
               <t><em>[template]</em>(default)
                 <t>
-                  Name of a template to use for the block. The template is best viewed as a template for the box
-                  surrounding the block. The contents of the block itself is produced on the basis of other sources,
-                  depending on what is inside the block. 
+                  Name of a template to use for the block. The
+                  template is best viewed as a template for the box
+                  surrounding the block. The contents of the block
+                  itself is produced on the basis of other sources,
+                  depending on what is inside the block.
                 </t>
               </t>
             </list>
           </section>
-					<section title="Syntax examples">
+          <section title="Syntax examples">
             <artwork>
               &lt;xar:block instance="2" module="base" /&gt; // module attribute ignored here
               
@@ -489,10 +502,10 @@ html/
                 is used in block form.</t>
             <t>Child tags: none</t>
           </section>
-				</section>
-				<!-- xar:blockgroup -->
-				<section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">
-					<t>
+                </section>
+        <!-- xar:blockgroup -->
+        <section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">
+          <t>
             The Blockgroup tag is responsible for rendering a group of
             blocks. If empty, it renders the named group from the
             database.  Otherwise, it specifies the block border to use
@@ -511,12 +524,12 @@ html/
               </t>
             </t>
           </section>
-					<section title="Attributes">
+          <section title="Attributes">
             <list>
-							<t><em>[id]</em>
+              <t><em>[id]</em>
                 <t>an identifier for the tag.</t>
               </t>
-							<t><em>name</em> 
+              <t><em>name</em> 
                 <t>The name of the block group to render. When the tag is
                   used in its empty form this attribute is required. The attribute is
                   ignored when the tag is used in its block form.
@@ -530,9 +543,9 @@ html/
                   of the attribute. (the same holds for the name attribute above.
                 </t>
               </t>
-						</list>
-					</section>
-					<section title="Syntax examples">
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
               &lt;xar:blockgroup name="left" template="SeaBreeze_left"/&gt;
                 
@@ -546,15 +559,15 @@ html/
                 Renders the block 'login' in a blockgroup using the template 'SeaBreeze_center' for the
                 blockgroup.
            </artwork>
-					</section>
+          </section>
           <section title="Context">
             <t>Parent tag: none.</t>
             <t>Child tags: in block form at least one <xref target="block">&lt;xar:block&gt;</xref> tag.</t>
           </section>
         </section>
-				<!-- xar:break -->
-				<section anchor="break" title="&lt;xar:break /&gt;">
-					<t>
+        <!-- xar:break -->
+        <section anchor="break" title="&lt;xar:break /&gt;">
+          <t>
             Escapes the closest 
             <xref target="for">&lt;xar:for /&gt;</xref>, 
             <xref target="foreach">&lt;xar:foreach /&gt;</xref>, 
@@ -562,20 +575,20 @@ html/
             <xref target="while">&lt;xar:while /&gt;</xref>.
             The depth attribute, if present and an integer 
             greater than 1, an equal number of enclosing loops are broken out of.
-					</t>
+          </t>
           <section title="Forms">
             <t>Only in empty form</t>
           </section>
           <section title="Attributes">
             <list>
-							<t><em>[id]</em>
+              <t><em>[id]</em>
                 <t>an identifier for the tag (optional)</t>
               </t>
-							<t><em>[depth]</em> (1)
+              <t><em>[depth]</em> (1)
                 <t>how many levels of enclosing loops to be broken out of.</t>
               </t>
-						</list>
-					</section>
+            </list>
+          </section>
           <section title="Syntax examples">
             <artwork>
               &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
@@ -602,9 +615,9 @@ html/
             <t>Child tags: none</t>
           </section>
         </section>
-				<!-- xar:continue -->
-				<section anchor="continue" title="&lt;xar:continue&gt;">
-					<t>
+        <!-- xar:continue -->
+        <section anchor="continue" title="&lt;xar:continue&gt;">
+          <t>
             Ends the current iteration of a 
             <xref target="for">&lt;xar:for /&gt;</xref>, 
             <xref target="foreach">&lt;xar:foreach /&gt;</xref>, 
@@ -618,15 +631,15 @@ html/
           </section>
           <section title="Attributes">
             <list>
-							<t><em>[id]</em>
+              <t><em>[id]</em>
                 <t>an identifier for the tag (optional)</t>
               </t>
-							<t><em>[depth]</em> (1)
+              <t><em>[depth]</em> (1)
                 <t>how many levels of enclosing loops to skip to the end of (optional)</t>
               </t>
-						</list>
+            </list>
           </section>
-					<section title="Syntax examples">
+          <section title="Syntax examples">
             <artwork>
               &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
                 &lt;xar:if condition="$i eq 5"&gt;
@@ -642,132 +655,144 @@ html/
                 </artwork>
               </t>
             </section>
-            <section title="Context">
-              <t>Parent tags:
+          <section title="Context">
+            <t>Parent tags:
                 <t><xref target="for">&lt;xar:for /&gt;</xref>
                   <xref target="loop">&lt;xar:loop /&gt;</xref>, or 
                   <xref target="while">&lt;xar:while /&gt;</xref>.
                 </t>
               </t>
-              <t>Child tags: none</t>
-            </section>
+            <t>Child tags: none</t>
           </section>
-				<!-- xar:else -->
-				<section anchor="else" title="&lt;xar:else /&gt;">
-					<t>Closed</t>
-					<t>Attributes:
-            <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
-            Separates template code within an <xref target="if">&lt;xar:if /&gt;</xref> tag. When the
-            condition of the <xref target="if">&lt;xar:if /&gt;</xref> tag is true, the template content
-            preceeding <xref target="else">&lt;xar:else /&gt;</xref> is executed. Otherwise, the template content
-            after <xref target="if">&lt;xar:if /&gt;</xref> is executed. When <xref target="elseif">&lt;xar:elseif /&gt;</xref>is used
-            within an <xref target="if">&lt;xar:if /&gt;</xref> block, <xref target="else">&lt;xar:else /&gt;</xref> must appear last.
+        </section>
+        <!-- xar:else -->
+        <section anchor="else" title="&lt;xar:else /&gt;">
+          <t>
+            Separates template code within an <xref
+            target="if">&lt;xar:if /&gt;</xref> tag. When the
+            condition of the <xref target="if">&lt;xar:if /&gt;</xref>
+            tag is true, the template content preceeding <xref
+            target="else">&lt;xar:else /&gt;</xref> is
+            executed. Otherwise, the template content after <xref
+            target="if">&lt;xar:if /&gt;</xref> is executed. When
+            <xref target="elseif">&lt;xar:elseif /&gt;</xref>is used
+            within an <xref target="if">&lt;xar:if /&gt;</xref> block,
+            <xref target="else">&lt;xar:else /&gt;</xref> must appear
+            last.
           </t>
-					<t>Syntax example:
-            See <xref target="if">&lt;xar:if /&gt;</xref> for syntax.
-          </t>
-					<t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref>
-					</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:elseif -->
-				<section anchor="elseif" title="&lt;xar:elseif /&gt;">
-					<t>Closed</t>
-					<t>Attributes:
+          <section title="Forms">
+            <t>This tag has only an empty form</t>
+          </section>
+          <section tile="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag (optional)</t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
+            <t>
+              See <xref target="if">&lt;xar:if /&gt;</xref> for syntax.
+            </t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref></t>
+            <t>Child tags: none</t>
+          </section>
+        </section>
+        <!-- xar:elseif -->
+        <section anchor="elseif" title="&lt;xar:elseif /&gt;">
+          <t>Closed</t>
+          <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>condition: an expression to be evaluated</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+              <t>id: an identifier for the tag (optional)</t>
+              <t>condition: an expression to be evaluated</t>
+            </list>
+                    </t>
+          <t>Description</t>
+          <t>
             Contains template code to be executed if all related preceeding
             <xref target="if">&lt;xar:if /&gt;</xref> and <xref target="elseif">&lt;xar:elseif /&gt;</xref> tag conditions evaluate to
             false. All instances of <xref target="elseif">&lt;xar:elseif /&gt;</xref>
             attached to <xref target="if">&lt;xar:if /&gt;</xref>must appear before <xref target="else">&lt;xar:else /&gt;</xref>
-					</t>
-					<t>Syntax example:
+                    </t>
+                    <t>Syntax example:
             See <xref target="if">&lt;xar:if /&gt;</xref> for syntax.
           </t>
-					<t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref>
-					</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:for -->
-				<section anchor="for" title="&lt;xar:for /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    <t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref>
+                    </t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:for -->
+                <section anchor="for" title="&lt;xar:for /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>start: the initial declaration of the variable to be iterated over</t>
-							<t>test: the condition to test the iterated value against</t>
-							<t>iter: the action to perform on the iterator variable at the end of
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>start: the initial declaration of the variable to be iterated over</t>
+                            <t>test: the condition to test the iterated value against</t>
+                            <t>iter: the action to perform on the iterator variable at the end of
                 each pass through the loop</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Contains template data evaluated while "test" is true. The value of
             Test is raw PHP code, executed in safe mode.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:for start="$i = 0" test="$i &lt;= 10" iter="$i++"&gt;
               // stuff
               &lt;/xar:for&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:foreach -->
-				<section anchor="foreach" title="&lt;xar:foreach /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:foreach -->
+                <section anchor="foreach" title="&lt;xar:foreach /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>in: the name of a template array variable</t>
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>in: the name of a template array variable</t>
                             <t>key: variable name to assign the key to</t>
                             <t>value: variable name to assign value to</t>
-							<t>as: the name of the variable (without $) to which the value of  each element of <em>in</em> is assigned</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                            <t>as: the name of the variable (without $) to which the value of  each element of <em>in</em> is assigned</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Iterates over an array, assigning each element in <em>in</em> to <em>value</em> using <em>key</em>.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:foreach in="hooks" key="hookmodule" value="hookoutput"&gt;
               // stuff
               &lt;/xar:foreach&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:if -->
-				<section anchor="if" title="&lt;xar:if /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:if -->
+                <section anchor="if" title="&lt;xar:if /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>condition: an expression to be evaluated (required)</t>
-							<t>inline: specifies whether the statement should be in ternary form
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>condition: an expression to be evaluated (required)</t>
+                            <t>inline: specifies whether the statement should be in ternary form
                 (condition ? truepart:falsepart) (optional, default false)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Contains template code processed if the condition evaluates to true.
             The value of Condition is raw PHP code, executed in safe mode.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:if condition="$func eq 'editStory'"&gt;
               // stuff
@@ -779,34 +804,34 @@ html/
               //even more stuff
               &lt;/xar:if&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: <xref target="else">&lt;xar:else /&gt;</xref>
-						<xref target="elseif">&lt;xar:elseif /&gt;</xref>
-					</t>
-				</section>
-				<!-- xar:loop -->
-				<section anchor="loop" title="&lt;xar:loop /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: <xref target="else">&lt;xar:else /&gt;</xref>
+                        <xref target="elseif">&lt;xar:elseif /&gt;</xref>
+                    </t>
+                </section>
+                <!-- xar:loop -->
+                <section anchor="loop" title="&lt;xar:loop /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>name: the variable which the loop increments</t>
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>name: the variable which the loop increments</t>
               <t>prefix: DEPRECATED - not supported anymore)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Loop allows theme authors to execute snippets of a template multiple
             times based on a condition.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:loop name="#$module_data#"&gt;
               // stuff
               &lt;/xar:loop&gt;
             </artwork>
-					</t>
+                    </t>
           <t>
             The variables are accessed as follows in the loop:
             <artwork>
@@ -819,25 +844,25 @@ html/
               #$loop:[id:]key#         : the key of the item being referenced
             </artwork>
           </t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:ml -->
-				<section anchor="ml" title="&lt;xar:ml /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:ml -->
+                <section anchor="ml" title="&lt;xar:ml /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                            <t>id: an identifier for the tag (optional)</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Ml is a wrapper for <xref target="mlkey">&lt;xar:mlkey /&gt;</xref> and <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> when
             their values contain placeholders. These placeholders are replaced by
             the content of <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags in the order they appear in the
             template.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:ml&gt;
               &lt;xar:mlkey&gt;USERSONLINE&lt;/xar:mlkey&gt;
@@ -851,47 +876,47 @@ html/
               &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
               &lt;/xar:ml&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: 
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: 
             <xref target="mlkey">&lt;xar:mlkey /&gt;</xref>, 
             <xref target="mlstring">&lt;xar:mlstring /&gt;</xref>, 
             <xref target="mlvar">&lt;xar:mlvar /&gt;</xref>, (optional)</t>
-				</section>
-				<!-- xar:mlkey -->
-				<section anchor="mlkey" title="&lt;xar:mlkey /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                </section>
+                <!-- xar:mlkey -->
+                <section anchor="mlkey" title="&lt;xar:mlkey /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
-						<xref target="mlkey">&lt;xar:mlkey&gt;</xref> retrieves a multilanguage string based on the database key
+                            <t>id: an identifier for the tag (optional)</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
+                        <xref target="mlkey">&lt;xar:mlkey&gt;</xref> retrieves a multilanguage string based on the database key
             contained in the tag. If the resulting string does not use
             placeholders, mlkey may be used alone. Otherwise, mlkey must have
             <xref target="ml">&lt;xar:ml /&gt;</xref> as a parent tag, with  <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags as
             siblings. See <xref target="ml">&lt;xar:ml /&gt;</xref> for syntax examples using placeholders.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:mlkey&gt;LOGIN&lt;/xar:mlkey&gt;
             </artwork>
-					</t>
-					<t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:mlstring -->
-				<section anchor="mlstring" title="&lt;xar:mlstring /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:mlstring -->
+                <section anchor="mlstring" title="&lt;xar:mlstring /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                            <t>id: an identifier for the tag (optional)</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             &lt;xar:mstring&gt; processes a multilanguage string. It first finds the string
             in the db and, based on the string's key, returns the corresponding
             string in the current locale. If the resulting string does not use
@@ -899,88 +924,88 @@ html/
             have <xref target="ml">&lt;xar:ml /&gt;</xref> as a parent tag, with  <xref target="mlvar">&lt;xar:mlvar /&gt;</xref> tags as
             siblings. See <xref target="ml">&lt;xar:ml /&gt;</xref> for syntax examples using placeholders.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:mlstring&gt;Remember Me&lt;/xar:mlstring&gt;
             </artwork>
-					</t>
-					<t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:mlvar -->
-				<section anchor="mlvar" title="&lt;xar:mlvar /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:mlvar -->
+                <section anchor="mlvar" title="&lt;xar:mlvar /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                            <t>id: an identifier for the tag (optional)</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Contains a string passed to an accompanying <xref target="mlkey">&lt;xar:mlkey /&gt;</xref> or
             <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> to occupy a place holder. 
             See <xref target="ml">&lt;xar:ml /&gt;</xref> for  syntax examples using placeholders.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               none yet
             </artwork>
-					</t>
-					<t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref>
-					</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:module -->
-				<section anchor="module" title="&lt;xar:module /&gt;">
-					<t>Closed</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: <xref target="ml">&lt;xar:ml /&gt;</xref>
+                    </t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:module -->
+                <section anchor="module" title="&lt;xar:module /&gt;">
+                    <t>Closed</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>main: boolean specifying whether this is for the main module output or not</t>
-							<t>module: module to call if this is not the main module tag (optional)</t>
-							<t>type: type of function to call (optional, default is 'user')</t>
-							<t>func: function to call (optional, default is 'main')</t>
-							<t>args: array of arguments to pass to the function (optional), or</t>
-							<t>any other: individual arguments to pass to the function (optional)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>main: boolean specifying whether this is for the main module output or not</t>
+                            <t>module: module to call if this is not the main module tag (optional)</t>
+                            <t>type: type of function to call (optional, default is 'user')</t>
+                            <t>func: function to call (optional, default is 'main')</t>
+                            <t>args: array of arguments to pass to the function (optional), or</t>
+                            <t>any other: individual arguments to pass to the function (optional)</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             When 'main' is true, this tag acts as a placeholder for the output of the main module function, and the module gets all variables
             needed directly from the core. The main module function itself will be executed by the core *before* template loading.
           </t>
                                         <t>On the other hand, if a module and optional other attributes are specified, this
             tag will call the corresponding module function during the template loading, and insert its output here.</t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:module main="true" /&gt;
               &lt;xar:module main="false" module="polls" /&gt;
               &lt;xar:module main="false" module="$mymodule" type="user" func="$func" args="$args" /&gt;
               &lt;xar:module main="false" module="articles" type="user" func="view" ptid="1" numitems="10" startnum="$startnum" ... /&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:sec -->
-				<section anchor="sec" title="&lt;xar:sec /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:sec -->
+                <section anchor="sec" title="&lt;xar:sec /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional, no default)</t>
-							<t>mask: the mask for which to check the privileges (required)</t>
+                            <t>id: an identifier for the tag (optional, no default)</t>
+                            <t>mask: the mask for which to check the privileges (required)</t>
                             <t>catch : show exception or not (optional, default: "true")</t>
                             <t>component : for which component is this check? (optional, default: "")</t>
                             <t>instance : for which instance is this check? (optional, default: "")</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Sec translates directly to a call to xarSecurityCheck(), and is
             treated as an 'if' clause. <xref target="else">&lt;xar:else /&gt;</xref> and <xref target="elseif">&lt;xar:elseif /&gt;</xref>
             tags may be attached as for an <xref target="if">&lt;xar:if /&gt;</xref>.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
 
             &lt;xar:sec id="unique1" mask="EditCategories" catch="false" component="mycomponent" &gt;
@@ -989,59 +1014,59 @@ html/
                 &lt;p&gt;Sorry, no can do &lt;/p&gt;
             &lt;/xar:sec&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: &lt;xar:else /&gt;  &lt;xar:elseif /&gt;</t>
-				</section>
-				<!-- xar:set -->
-				<section anchor="set" title="&lt;xar:set /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: &lt;xar:else /&gt;  &lt;xar:elseif /&gt;</t>
+                </section>
+                <!-- xar:set -->
+                <section anchor="set" title="&lt;xar:set /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>scope: a string, module, block, or theme (optional)</t>
-							<t>name: the name of the variable to be set</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>scope: a string, module, block, or theme (optional)</t>
+                            <t>name: the name of the variable to be set</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Causes the variable identified by the 'name' attribute to be set to
             the value of the tag's body. The variable must be available in the
             scope of the tag.  Values set this way do not persist beyond the current page load.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:set name="$foo"&gt;bar&lt;/xar:set&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:template -->
-				<section anchor="template" title="&lt;xar:template /&gt;">
-					<t>Closed</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:template -->
+                <section anchor="template" title="&lt;xar:template /&gt;">
+                    <t>Closed</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>file: the filename of the target template</t>
-							<t>type: a switch that tells the engine what type of template is
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>file: the filename of the target template</t>
+                            <t>type: a switch that tells the engine what type of template is
                 being loaded, either 'module' or 'theme'. (optional, default: module)</t>
-							<t>compile: a switch that tells the engine whether to compile the
+                            <t>compile: a switch that tells the engine whether to compile the
                 file as a template. (optional, default: true [not implemented].</t>
               <t>subdata: array to pass to subtemplate (optional, default to data of current template)</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Opens the file specified by "file" and processes it within the context
             of the calling template. Included templates are stored in:
             <list>
-							<t>/modules/[module name]/xartemplates/includes/</t>
-							<t>/themes/[theme name]/modules/[module name]/includes/</t>
-							<t>/themes/[theme name]/includes/</t>
-						</list>
-					</t>
-					<t>
+                            <t>/modules/[module name]/xartemplates/includes/</t>
+                            <t>/themes/[theme name]/modules/[module name]/includes/</t>
+                            <t>/themes/[theme name]/includes/</t>
+                        </list>
+                    </t>
+                    <t>
             The 'filename' only includes the basename of the file, e.g.
             'module_header'. The 'type' attribute tells the compiler where to look
             for the file. If 'module', looks in /themes/[theme
@@ -1051,158 +1076,158 @@ html/
             always assumes .xd for the file extension. The file is subject to PHP
             safe mode.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:template file="top_links" type="theme"/&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:var -->
-				<section anchor="var" title="&lt;xar:var /&gt;">
-					<t>Closed</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:var -->
+                <section anchor="var" title="&lt;xar:var /&gt;">
+                    <t>Closed</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>scope: a string, one of config, module, block, theme, or user (optional)</t>
-							<t>name: the name of the variable within the given scope</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>scope: a string, one of config, module, block, theme, or user (optional)</t>
+                            <t>name: the name of the variable within the given scope</t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Var deals with variables in different scopes. If no scope is
             specified, Blocklayout returns the contents of the local variable.
           </t>
-					<t>
+                    <t>
             Variables are referenced by name, without the preceeding "$". Arrays
             can be indexed via dot notation, i.e.: 
             <artwork>
               &lt;xar:var  name="preformat.catandtitle" /&gt;
             </artwork>
-					</t>
-					<t>Syntax example:
+                    </t>
+                    <t>Syntax example:
             <artwork>
               &lt;xar:var name="preformat.catandtitle" /&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-				<!-- xar:while -->
-				<section anchor="while" title="&lt;xar:while /&gt;">
-					<t>Open</t>
-					<t>Attributes:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+                <!-- xar:while -->
+                <section anchor="while" title="&lt;xar:while /&gt;">
+                    <t>Open</t>
+                    <t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>condition: the condition to test at the start of each iteration of
+                            <t>id: an identifier for the tag (optional)</t>
+                            <t>condition: the condition to test at the start of each iteration of
                 the tag</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
+                        </list>
+                    </t>
+                    <t>Description</t>
+                    <t>
             Contains template data evaluated while "condition" is true. The value
             of condition is raw PHP code, executed in safe mode.
           </t>
-					<t>Syntax example:
+                    <t>Syntax example:
             <artwork>
               &lt;xar:while condition="list($uid, $uname) = each $user_result"&gt;
               // stuff
               &lt;/xar:while&gt;
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
-				</section>
-			</section>
-		</section>
-		<section title="Tags Interdependence">
-			<t>Logical Tags:
+                    </t>
+                    <t>Parent tag: none.</t>
+                    <t>Child tags: none</t>
+                </section>
+            </section>
+        </section>
+        <section title="Tags Interdependence">
+            <t>Logical Tags:
         <list style="symbols">
-					<t>
-						<xref target="for">&lt;xar:for /&gt;</xref>
-					</t>
-					<t>
-						<xref target="foreach">&lt;xar:foreach /&gt;</xref>
-					</t>
-					<t>
-						<xref target="if">&lt;xar:if /&gt;</xref>
-					</t>
-					<t>
-						<xref target="loop">&lt;xar:loop /&gt;</xref>
-					</t>
-					<t>
-						<xref target="while">&lt;xar:while /&gt;</xref>
-					</t>
-				</list>
-			</t>
-			<t>Value Returning Tags (isAssignable()):
+                    <t>
+                        <xref target="for">&lt;xar:for /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="foreach">&lt;xar:foreach /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="if">&lt;xar:if /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="loop">&lt;xar:loop /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="while">&lt;xar:while /&gt;</xref>
+                    </t>
+                </list>
+            </t>
+            <t>Value Returning Tags (isAssignable()):
         <list style="symbols">
-					<t>
-						<xref target="block">&lt;xar:block /&gt;</xref>
-					</t>
-					<t>
-						<xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref>
-					</t>
-					<t>
-						<xref target="ml">&lt;xar:ml /&gt;</xref>
-					</t>
-					<t>
-						<xref target="mlkey">&lt;xar:mlkey /&gt;</xref>(can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
-					<t>
-						<xref target="mlstring">&lt;xar:mlstring /&gt;</xref> (can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
-					<t>
-						<xref target="ml">&lt;xar:module /&gt;</xref>
-					</t>
-					<t>
-						<xref target="sec">&lt;xar:sec /&gt;</xref>
-					</t>
-					<t>
-						<xref target="module">&lt;xar:module /&gt;</xref>
-					</t>
-					<t>
-						<xref target="template">&lt;xar:template /&gt;</xref>
-					</t>
-					<t>
-						<xref target="var">&lt;xar:var /&gt;</xref>
-					</t>
-				</list>
-			</t>
-			<t>Child only tags:
+                    <t>
+                        <xref target="block">&lt;xar:block /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="ml">&lt;xar:ml /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="mlkey">&lt;xar:mlkey /&gt;</xref>(can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
+                    <t>
+                        <xref target="mlstring">&lt;xar:mlstring /&gt;</xref> (can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
+                    <t>
+                        <xref target="ml">&lt;xar:module /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="sec">&lt;xar:sec /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="module">&lt;xar:module /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="template">&lt;xar:template /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="var">&lt;xar:var /&gt;</xref>
+                    </t>
+                </list>
+            </t>
+            <t>Child only tags:
         <list style="symbols">
-					<t>
-						<xref target="else">&lt;xar:else /&gt;</xref>
-					</t>
-					<t>
-						<xref target="elseif">&lt;xar:elseif /&gt;</xref>
-					</t>
-					<t>
-						<xref target="break">&lt;xar:break /&gt;</xref>
-					</t>
-					<t>
-						<xref target="continue">&lt;xar:continue /&gt;</xref>
-					</t>
-					<t>
-						<xref target="mlvar">&lt;xar:mlvar /&gt;</xref>
-					</t>
-				</list>
-			</t>
-			<t>Variable Value Setting (needParameter()):
+                    <t>
+                        <xref target="else">&lt;xar:else /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="elseif">&lt;xar:elseif /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="break">&lt;xar:break /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="continue">&lt;xar:continue /&gt;</xref>
+                    </t>
+                    <t>
+                        <xref target="mlvar">&lt;xar:mlvar /&gt;</xref>
+                    </t>
+                </list>
+            </t>
+            <t>Variable Value Setting (needParameter()):
         <list style="symbols">
-					<t>
-						<xref target="set">&lt;xar:set /&gt;</xref>
-					</t>
-				</list>
-			</t>
-		</section>
-		<section title="Notes">
-			<t>
+                    <t>
+                        <xref target="set">&lt;xar:set /&gt;</xref>
+                    </t>
+                </list>
+            </t>
+        </section>
+        <section title="Notes">
+            <t>
         Blocklayout    output is not restricted to HTML. Potential output formats
         include HTML, RSS, and RDF.
       </t>
-		</section>
-		<section title="Tag registration">
-			<t>
+        </section>
+        <section title="Tag registration">
+            <t>
         Each module may expand the list of available tags as necessary. For
         example, the Reviews module may define &lt;xar:reviews-review /&gt;. Modules
         must register their tags with the system in order for the compiler to
@@ -1213,8 +1238,8 @@ html/
           xarTplRegisterTag('module_name', 'tag_name', tag_object, 'handler_func_name');
           xarTplUnregisterTag('tag_name');
         </artwork>
-			</t>
-			<t>
+            </t>
+            <t>
         Non-core tags must adhere to some simple naming conventions. This is
         to prevent conflicts between modules that implement different tags
         with the same name. A non-core tag must be prefixed by a module
@@ -1223,48 +1248,48 @@ html/
         loosely described the tags purpose. Tag names must begin with a
         letter.
       </t>
-			<t>Example:
+            <t>Example:
         <artwork>
           xarTplRegisterTag('reviews', 'reviews-review', ...);
         </artwork>
-			</t>
-			<t>This would register the tag:
+            </t>
+            <t>This would register the tag:
         <artwork>
           &lt;xar:reviews-review/&gt;
         </artwork>
-			</t>
-			<t>
+            </t>
+            <t>
         Remember, "xar" is the namespace, and is not part of the tag
         name, even though blocklayout requires the namespace identifier to be
         present in every tag.
       </t>
-		</section>
-	</middle>
-	<back>
-		<section title="Future features">
-			<t>
+        </section>
+    </middle>
+    <back>
+        <section title="Future features">
+            <t>
         Widgets: This feature will abstract common User Interface components
         into templatable tags.  The goal of such a feature is to give common
         components a consistent look and feel and cut down on code duplication
         while also making these features easy to use.
       </t>
-			<t>
+            <t>
         Because widgets are meant for common usage, it is good practice for
         their output to take on a consistent appearance.  This makes for an
         easier and more pleasant user experience, and assures some level of
         consistency within a theme.
       </t>
-			<t>
+            <t>
         Widgets will have certain constraints on their design, such as:
         <list style="numbers">
-					<t>must generate a common piece of markup</t>
-					<t>must be theoretically useable across modules</t>
-					<t>must implement only a single template</t>
-					<t>must present a point of interaction between the user and Xaraya, and/or</t>
-					<t>must present markup that allows standard data to be returned to xaraya</t>
-				</list>
-			</t>
-			<t>
+                    <t>must generate a common piece of markup</t>
+                    <t>must be theoretically useable across modules</t>
+                    <t>must implement only a single template</t>
+                    <t>must present a point of interaction between the user and Xaraya, and/or</t>
+                    <t>must present markup that allows standard data to be returned to xaraya</t>
+                </list>
+            </t>
+            <t>
         Dynamic Style Sheets: This feature would use server-side browser
         sniffing to identify what CSS classes &amp; attributes a given module can
         render (reasonably) correctly. Based on the result, either a &lt;style&gt;
@@ -1272,25 +1297,25 @@ html/
         php script (css.php) which would actually generate the style sheet
         from database records.
       </t>
-			<t>
+            <t>
         Theme Management: Blocklayout will necessitate the creation of
         administration tools to manage themes. These would include a template
         manager, theme variable manager, and possibly a theme
         installer/uninstaller (similar to what modules have).
       </t>
-			<t>
+            <t>
         Multi-module layouts: This feature would allow Xaraya to display
         output from more than one module during a page request. Major core
         changes are required; hooks may provide some insight into how to
         implement this feature. At the moment, simple multi-module layouts
         are possible via the xar:module tag.
       </t>
-			<t>
+            <t>
         The help system will add a new widget:
         <artwork>
           &lt;xar:help /&gt; (scheduled beyond 1.0)
         </artwork>
-			</t>
-		</section>
-	</back>
+            </t>
+        </section>
+    </back>
 </rfc>

@@ -2852,3 +2852,6 @@ html/themes/buddha/xartheme.php
 html/modules/figlet/xarclass/index.html
 html/modules/figlet/xarfonts/index.html
 html/modules/figlet/xartemplates/index.html
+html/logs/xaraya-access.log
+html/logs/xaraya.dev.log
+html/logs/xaraya.log

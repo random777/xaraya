@@ -124,6 +124,7 @@ Other development credits
 
    Lane Allen (lane@stimulilab.com) created the icon set for the roles module.
    David Parvin (admin@ads-tracker.net) Fixed bug 742 FeedParser Problem.
+   Marjolein Katsma (xar-bugzilla@javawoman.com) Fix bug 1007 xarServerCurrentUrl Problem.
 
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

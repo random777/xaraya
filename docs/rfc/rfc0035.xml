@@ -703,6 +703,283 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         </artwork>
       </t>
     </section>
+    <section title="Example Implementation Idea">
+    <section title="Description">
+      <t>The following describes an implmentation of a subst of the query abstraction described in this document.
+      This implementation does SELECTS, INSERTS, UPDATES and DELETES. Further extensions can bee added.</t>
+      <t>
+         The exposee is divided into 2 parts: a short description of the API and a number of examples. Further xamples of how this code works can be found in the roles and ledger modules.
+      </t>
+      <t> 
+      By way of a general description the query abstraction consists of a single class xarQuery, of which a given instance can contain and manage a single SQL statement. The class represents a standardized layer between the code and adodb. The different class methods can be used to: 
+      <list style="symbols">   
+      <t>
+      Accept whole SQL statements.or in parts in different imput syntax.
+      </t>
+      <t>
+      Assemble and hold the SQL statement and its parts.
+      </t>
+      <t>
+      Execute the statement.
+      </t>
+      <t>
+      Produce the output.
+      </t>
+      </list>
+      </t>
+      <t>
+      Some of the benefits of this approach are:
+      <list style="symbols">   
+      <t>
+      Assemble SQL statements dynamically, i.e. when needed.
+      </t>
+      <t>
+      Reuse statements by modifying them.
+      </t>
+      <t>
+      Reduce and standardize the code by incorporating some common features of queries into the class, e.g. number of rows sought for pager output, qstr() etc.
+      </t>
+      </list>
+      </t>
+      <t>
+      Input of tables and fields to the class can be as strings, lists of strings or arrays. This makes it possible to keep the syntax reasonably simple for simple queries.
+      </t>
+      <t>
+      The xarQuery class can coexist with the adodb syntax. For special cases or simple queries the adodb syntax may be a bit easier.
+      </t>
+    </section>
+    <section title="API">
+	<t>
+		Example: Recalling a user's data from the database. The data of the user with the uname $this->uname is returned as an array.
+	</t>
+	  <artwork>
+        $q = new xarQuery('SELECT',$this->rolestable);
+        $q->eq('xar_uname',$this->uname);
+        if (!$q->run()) return;
+        $foo = $q->output();      
+	  </artwork>
+	<t>
+		The syntax of the class call is
+	</t>
+	  <artwork>
+        $q = new xarQuery('SELECT'|'INSERT'|'UPDATE'|'DELETE',
+                          {array of query tables},
+                          {array of fields}
+        );
+	  </artwork>
+      <t>
+      The class methods (to be completed):
+      </t>
+      <t>
+      Tables and Fields:
+      <list style="symbols">   
+		<t>
+		<em>addfields($fields):</em> add an array of fields to the query.
+      </t><t>
+        <em>addtables($tables):</em> add an array of tables to thte query.
+      </t><t>
+        <em>getfield($myfield):</em>  return  a field from the statement.
+      </t><t>
+        <em>removefield($myfield):</em> remove a field from the statement.
+      </t>
+      </list>
+      </t>
+
+      <t>
+      Conditions:
+      <list style="symbols">   
+      <t>
+        <em>getcondition($mycondition):</em> return  a condition from the statement.
+      </t><t>
+        <em>removecondition($mycondition):</em> remove a condition from the statement.
+      </t><t>
+        <em>eq($field1,$field2):</em> add a EQ condition to the query.
+      </t><t>
+        <em>gt($field1,$field2):</em> add a GT condition to the query.
+      </t><t>
+        <em>ge($field1,$field2):</em> add a GE condition to the query.
+      </t><t>
+        <em>le($field1,$field2):</em> add a LE condition to the query.
+      </t><t>
+        <em>lt($field1,$field2):</em> add a LT condition to the query.
+      </t><t>
+        <em>like($field1,$field2):</em> add a LIKE condition to the query.
+      </t>
+      </list>
+      </t>
+
+      <t>
+      Query output:
+      <list style="symbols">   
+      <t>
+        <em>run($statement=''):</em> assemble and execute an SQL statement. If a string with a statement is given it is directly executed.
+      </t><t>
+        <em>output():</em> return the query output as a 2 dimensional array where the keys of row elements corespond to the field names in the datatbase.
+      </t><t>
+        <em>row():</em> return a single output row as a 1 dimensional array.
+    	</t>
+      </list>
+      </t>
+      <t>
+      Miscellaneous:
+      <list style="symbols">   
+      <t>
+        <em>gettype():</em> return the typ of the query, e.g. SELECT.
+      </t><t>
+        <em>getstartat():</em> return the record to start the query at.
+      </t><t>
+        <em>getto():</em> return the records to end the query at.
+      </t><t>
+        <em>getpagerows():</em> return the number of records to be displayeed on a page.
+      </t><t>
+        <em>getrows():</em> return the total number of reecords the query found
+      </t><t>
+        <em>addorder($x = '', $y = 'ASC'):</em> add an ordering to the query results
+      </t><t>
+        <em>setorder($x = '',$y = 'ASC'):</em> set the ordering of the query results
+      </t><t>
+        <em>setstartat($x = 0):</em> set the record number to begin the query at.
+      </t><t>
+        <em>setrowstodo($x = 0):</em> set the number of records to b returned.
+      </t><t>
+        <em>statement():</em> return a string representation of the SQL query.
+      </t>
+      </list>
+      </t>
+    </section>
+    <section title="Examples">
+	<t>
+		The following are equivalent:
+	</t>
+	  <artwork>
+        $dbconn = xarDBGetConn();
+        $query = "SELECT * FROM $this->rolestable WHERE xar_name = '$this->name'";
+        if(!$dbconn->Execute($query)) return;
+        
+        AND
+        
+        $q = new xarQuery('SELECT',$this->rolestable);
+        $q->eq('xar_name',$this->name);
+        if (!$q->run()) return;
+        
+        AND
+        
+        $q = new xarQuery();
+        if (!$q->run("SELECT * FROM $this->rolestable WHERE xar_name = '$this->name'")) return;        
+		</artwork>	
+		<t>
+		Check if a role already exists:
+	</t>
+	  <artwork>
+        Old code:
+         
+        $this-&gt;dbconn = xarDBGetConn();
+        // Confirm that this group or user does not already exist
+        if ($this->type == 1) {
+            $query = "SELECT COUNT(*) FROM $this->rolestable
+                  WHERE xar_name = '$this->name'";
+        } else {
+            $query = "SELECT COUNT(*) FROM $this->rolestable
+                  WHERE xar_uname = '$this->uname'";
+        }
+
+        $result = $this->dbconn->Execute($query);
+        if (!$result) return;
+
+        list($count) = $result->fields;
+
+        if ($count == 1) {//error message}
+        
+        
+        New code: Note only the WHERE clause changes dpending on the role type
+         
+        // Confirm that this group or user does not already exist
+        $q = new xarQuery('SELECT',$this->rolestable);
+        if ($this->type == 1) {
+            $q->eq('xar_name',$this->name);
+        } else {
+            $q->eq('xar_uname',$this->uname);
+        }
+
+        if (!$q->run()) return;
+
+        if ($q->getrows() == 1) {//error message}
+		</artwork>
+	<t>
+		Adding a group or user to the roles table
+	</t>
+	  <artwork>
+        Old code:
+         
+        $this-&gt;dbconn = xarDBGetConn();
+        $nextId = $this->dbconn->genID($this->rolestable);
+        $createdate = mktime();
+
+        if ($this->type == 1) {
+            $nextIdprep = xarVarPrepForStore($nextId);
+            $nameprep = xarVarPrepForStore($this->name);
+            $typeprep = xarVarPrepForStore($this->type);
+            $unameprep = xarVarPrepForStore($this->uname);
+            $valcodeprep = xarVarPrepForStore($this->val_code);
+            $dateregprep = xarVarPrepForStore($createdate);
+            $query = "INSERT INTO $this->rolestable
+                        (xar_uid, xar_name, xar_type, xar_uname, xar_valcode, xar_date_reg)
+                      VALUES ($nextIdprep, '$nameprep', $typeprep, '$unameprep', '$valcodeprep', '$dateregprep')";
+        } else {
+            $nextIdprep = xarVarPrepForStore($nextId);
+            $nameprep = xarVarPrepForStore($this->name);
+            $typeprep = xarVarPrepForStore($this->type);
+            $unameprep = xarVarPrepForStore($this->uname);
+            $emailprep = xarVarPrepForStore($this->email);
+            $passprep = xarVarPrepForStore(md5($this->pass));
+            $dateregprep = xarVarPrepForStore($createdate);
+            $stateprep = xarVarPrepForStore($this->state);
+            $valcodeprep = xarVarPrepForStore($this->val_code);
+            $authmodprep = xarVarPrepForStore($this->auth_module);
+            $query = "INSERT INTO $this->rolestable
+                        (xar_uid, xar_name, xar_type, xar_uname, xar_email, xar_pass,
+                        xar_date_reg, xar_state, xar_valcode, xar_auth_module)
+                      VALUES ($nextIdprep, '$nameprep', $typeprep, '$unameprep', '$emailprep',
+                      '$passprep', '$dateregprep', $stateprep, '$valcodeprep', '$authmodprep')";
+        }
+        // Execute the query, bail if an exception was thrown
+        if (!$this->dbconn->Execute($query)) return;
+        
+        
+        New code: Note the query is assembled incrementally
+         
+        $nextId = $this->dbconn->genID($this->rolestable);
+
+        $tablefields = array(
+            array('name' => 'xar_uid',      'value' => $nextId),
+            array('name' => 'xar_name',     'value' => $this->name),
+            array('name' => 'xar_uname',    'value' => $this->uname),
+            array('name' => 'xar_date_reg', 'value' => mktime()),
+            array('name' => 'xar_valcode',  'value' => $this->val_code)
+        );
+        $q = new xarQuery('INSERT',$this->rolestable);
+        $q->addfields($tablefields);
+        if ($this->type == 1) {
+            $groupfields = array(
+                array('name' => 'xar_type', 'value' => 1)
+            );
+            $q->addfields($groupfields);
+        } else {
+            $userfields = array(
+                array('name' => 'xar_type',       'value' => 0),
+                array('name' => 'xar_email',      'value' => $this->email),
+                array('name' => 'xar_pass',       'value' => md5($this->pass)),
+                array('name' => 'xar_state',      'value' => $this->state),
+                array('name' => 'xar_auth_module','value' => $this->auth_module)
+            );
+            $q->addfields($userfields);
+        }
+        // Execute the query, bail if an exception was thrown
+        if (!$q->run()) return;
+		</artwork>
+    </section>
+    </section>
+
   </middle>
 
   <!-- Back matter is used for references and appendices which come after the references -->

@@ -33,7 +33,7 @@ mv $OUTPUT/make.txt $OUTPUT/xarayaguide.txt
 # make the PDF output
 if [ "X$1" = 'X--nopdf' ] 
 then
-  rm $OUTPUT/xarayaguide.pdf	
+  rm $OUTPUT/xarayaguide.pdf    
 else
   docbook2pdf -d ldp.dsl\#print -o $OUTPUT make.xml
   mv $OUTPUT/make.pdf $OUTPUT/xarayaguide.pdf

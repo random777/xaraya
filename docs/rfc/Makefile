@@ -18,8 +18,7 @@ txt : $(TXTS)
 
 # How to produce a html file
 %.html: %.xml $(xml2rfc)
-	# Get the images explicitly otherwise make will removed them
-	$(GET) -S $(shell bk sfiles -g $(images) | grep "$(*F)")
+	$(GET) -Sq $(shell bk sfiles -g $(images) | grep "$(*F)")
 	$(xml2rfc) $< $(*F).html  
 
 # How to produce a txt file

@@ -66,6 +66,7 @@
          The following is list for sugestions about the implementaion of the Query Abstraction.
          Please add your own.
       </t>
+      <t>
       <list style="numbers">
         <t>Turn Xaraya completely database agnostic. [Main reason to be implementing this]</t>
         <t>As we already have a DB Abstraction Library (ADODB), this should be an extension of it. [Gary]</t>
@@ -74,6 +75,7 @@
         <t>The query structure should be able to be passed around the program and receive input from
            many different modules. [Nuncanada]</t>
       </list>
+        </t>
     </section>
 
     <section title="Possible Implementations Reasearch">
@@ -86,6 +88,7 @@
          Research done in other languages for inspiration has shown that most query abstractor out there
          have too simplistic approaches, mainly:
       </t>
+      <t>
       <list style="numbers">
         <t>Simplistic - They simply support the most basic features of the SELECT query, where the own SQL
            language is already the basic abstraction.</t>
@@ -97,6 +100,7 @@
            support more complex queries than the simplitic approach, it still falls short from being
            able to translate the hairy stuff</t>
       </list>
+      </t>
     </section>
 
     <!-- One content section is mandatory -->
@@ -130,34 +134,46 @@
             <organization></organization>
           </author>
           <date year="2001"/>
-        </front>
-        <note>
-          <t>
-             He tried to do what we want in Perl. Still to achive that he only made possible simple queries,
-             where the Standard SQL is already the de facto needed abstraction.
-          </t>
-        </note>
+          <note title="earlier implementation in perl">
+            <t>
+              He tried to do what we want in Perl. Still to achive that he only made possible simple queries,
+              where the Standard SQL is already the de facto needed abstraction.
+            </t>
+          </note>
+      </front>
       </reference>
 
 
       <reference target="http://arxiv.org/abs/cs.db/0110044">
         <front>
           <title>EquiX--A Search and Query Language for XML</title>
-          <author fullname="Sara Cohen"></author>
-          <author fullname="Yaron Kanza"></author>
-          <author fullname="Yakov Kogan"></author>
-          <author fullname="Werner Nutt"></author>
-          <author fullname="Alexander Serebrenik"></author>
-          <author fullname="Yehoshua Sagiv"></author>
+          <author initials="S" surname="Cohen" fullname="Sara Cohen">
+            <organization></organization>
+          </author>
+          <author initials="Y" surname="Kanza" fullname="Yaron Kanza">
+            <organization></organization>
+          </author>
+          <author initials="Y" surname="Kogan" fullname="Yakov Kogan">
+            <organization></organization>
+          </author>
+          <author initials="W" surname="Werner" fullname="Werner Nutt">
+            <organization></organization>
+          </author>
+          <author initials="A" surname="Serebrenik" fullname="Alexander Serebrenik">
+            <organization></organization>
+          </author>
+          <author initials="Y" surname="Sagiv" fullname="Yehoshua Sagiv">
+            <organization></organization>
+          </author>
           <date year="2003"/>
-        </front>
-        <note>
+        <note title="proxy database">
           <t>
              Although the research is towards a proxy for the database system, our query abstraction
              could be able to modularly inform supposed proxies our query pattern / structure
              for better query prediction.
           </t>
         </note>
+        </front>
       </reference>
 
       <reference target="http://www.cs.duke.edu/~junyi/cps216/report.pdf">
@@ -167,14 +183,14 @@
             <organization>PHP Devs</organization>
           </author>
           <date year="2003"/>
+          <note title="proxy database">
+            <t>
+              Although the research is towards a proxy for the database system, our query abstraction
+              could be able to modularly inform supposed proxies our query pattern / structure
+              for better query prediction.
+            </t>
+          </note>
         </front>
-        <note>
-          <t>
-             Although the research is towards a proxy for the database system, our query abstraction
-             could be able to modularly inform supposed proxies our query pattern / structure
-             for better query prediction.
-          </t>
-        </note>
       </reference>
 
       <reference target="http://marc.theaimsgroup.com/?l=php-dev&#38;m=101753543913458&#38;w=2">
@@ -185,9 +201,6 @@
           </author>
           <date year="2002"/>
         </front>
-        <note>
-          <t></t>
-        </note>
       </reference>
 
       <reference target="http://marc.theaimsgroup.com/?l=php-dev&#38;m=101752997709709&#38;w=2">
@@ -198,9 +211,6 @@
           </author>
           <date year="2002"/>
         </front>
-        <note>
-          <t></t>
-        </note>
       </reference>
 
       <reference target="http://marc.theaimsgroup.com/?l=php-dev&#38;m=101740330610221&#38;w=2">
@@ -211,9 +221,6 @@
           </author>
           <date year="2002"/>
         </front>
-        <note>
-          <t></t>
-        </note>
       </reference>
 
       <reference target="http://marc.theaimsgroup.com/?l=php-db&#38;m=100635358202596&#38;w=2">
@@ -223,13 +230,13 @@
             <organization>PHP Devs</organization>
           </author>
           <date year="2002"/>
+          <note title="parsing">
+            <t>
+              I personally think parsing SQL is the wrong way to do it.
+              There are too many inconsistent ways to do it, not to say it would be an unnecessary complex solution.
+            </t>
+          </note>
         </front>
-        <note>
-          <t>
-            I personally think parsing SQL is the wrong way to do it.
-            There are too many inconsistent ways to do it, not to say it would be an unnecessary complex solution.
-          </t>
-        </note>
       </reference>
 
       <reference target="http://pear.php.net/package-info.php?pacid=80&#38;release=0.13&#38;PHPSESSID=18e4b1d53db182aceeeb2c1e0b92e399">
@@ -239,12 +246,12 @@
             <organization></organization>
           </author>
           <date year="2002"/>
+          <note title="class badly implemented">
+            <t>
+              The class is badly implemented in my opinion. Still there are things that can be reused.
+            </t>
+          </note>
         </front>
-        <note>
-          <t>
-            The class is badly implemented in my opinion. Still there are things that can be reused.
-          </t>
-        </note>
       </reference>
 
       <reference target="http://px.sklar.com/code.html?id=239">
@@ -254,13 +261,13 @@
             <organization></organization>
           </author>
           <date year="2002"/>
+          <note title="should have this feature">
+            <t>
+              This is one of the features our query abstraction should have. It shows how the abstraction
+              can add value to the overall solution.
+            </t>
+          </note>
         </front>
-        <note>
-          <t>
-            This is one of the features our query abstraction should have. It shows how the abstraction
-            can add value to the overall solution.
-          </t>
-        </note>
       </reference>
 
     </references>

@@ -212,7 +212,7 @@
     All       All       All          All         ACCESS_NONE
     
 </artwork>
-/t>
+</t>
         <t>
           FullPermissions is the permission representing the highest
           level of access to all Xaraya modules, i.e. the ability to

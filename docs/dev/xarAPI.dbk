@@ -1249,7 +1249,7 @@ if (!xarConfigDelVar('locale')) {
       <refsynopsisdiv>
         <funcsynopsis>
           <funcprototype>
-            <funcdef>array <function>xarDBGetConn</function></funcdef>
+            <funcdef>objectref <function>xarDBGetConn</function></funcdef>
             <void/>
           </funcprototype>
         </funcsynopsis>
@@ -1267,7 +1267,7 @@ if (!xarConfigDelVar('locale')) {
         <title>Return Values</title>
         <para>
 
-          This function returns an array of database connection values.  At
+          This function returns a reference to a list of database connection objects.  At
           current the only active value is the first one, which should be used
           for all database interaction.
 
@@ -1287,7 +1287,7 @@ if (!xarConfigDelVar('locale')) {
         <title>Examples</title>
         <programlisting>
 // Get database connection
-list($dbconn) = xarDBGetConn();
+$dbconn =& xarDBGetConn();
         </programlisting>
       </refsect1>
       <refsect1>

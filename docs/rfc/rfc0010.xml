@@ -629,7 +629,7 @@ html/
             <list style="symbols">
 							<t>id: an identifier for the tag (optional)</t>
 							<t>name: the variable which the loop increments</t>
-              <t>prefix: prefix to use when extracting the loop variables (default: _bl_loop_$id if id is set, otherwise $id is the loopnumber)</t>
+              <t>prefix: DEPRECATED - not supported anymore)</t>
 						</list>
 					</t>
 					<t>Description</t>

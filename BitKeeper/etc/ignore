@@ -12,6 +12,7 @@ BitKeeper/writer/*
 PENDING/*
 apiref.pd
 apiref.pdf
+apiref.pdfhtml/var/logs/SCCS
 config.site.xml
 config.system.php
 docs/rfc/*.html
@@ -21,8 +22,12 @@ html/modules/base/xartemplates/blocks/finclude-modify.xd
 html/modules/comments/old-pnuserapi.php
 html/modules/example/.pnadmin.php.swp
 html/modules/xproject
+html/var/cache/rss/2902564af7e1c5772965d729b5d17026.xml
+html/var/cache/rss/5bf8638b87eeef49e5e9799354bb9dec.xml
 html/var/cache/templates/*
 html/var/locales/*
+html/var/logs/log.html
+html/var/logs/log.txt
 templates_c
 test.php
 ~*

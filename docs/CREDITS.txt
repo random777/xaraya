@@ -260,3 +260,6 @@ Dynamic Drive <http://www.dynamicdrive.com>
 
 * The roles and privileges tree code adapted from the NavMenu script
 Peter Bailey <http://www.peterbailey.net>
+
+* Initial code for xarCharset class
+Mikolaj Jedrzejak <http://www.mikkom.pl>

@@ -69,7 +69,7 @@
                     newbie -> intermediate -> pro docs integrated (cross link to MDG from the installer docs, etc) 
 	             </t>
 					<t>
-                    links to dev.pn.com or pnCommunity as appropriate 
+                    links to developer.xaraya.com or xCommunity as appropriate 
 	             </t>
 					<t>
                     integrate feature requests / bug report links 
@@ -129,7 +129,7 @@
 					<t>
 						<list>
 							<t>
-				Enable online help: Display help links throughout pn
+				Enable online help: Display help links throughout xaraya
 				</t>
 						</list>
 					</t>
@@ -138,7 +138,7 @@
 		</section>
 		<section title="Solution proposals - functions">
 			<t>
-			pnModHelpURL(string module,string type, string topic) [2] provide a way to call into the help system (syntax very rudimentary, not final) 
+			xarModHelpURL(string module,string type, string topic) [2] provide a way to call into the help system (syntax very rudimentary, not final) 
 	             </t>
 			<t>
 A proposal for a help module 
@@ -185,13 +185,13 @@ the categories would look like this:
 			<t>
                     the help utility module would leverage the articles module by calling its API to display articles, call the     
                     comments modules to add coments, same for ratings. additionally, the help module could add a hook for 
-                    feedback, sending feedback to the module author (data collected from pnversion.php) 
+                    feedback, sending feedback to the module author (data collected from xarversion.php) 
 	             </t>
 			<t>
                    A propsal for the help structure 
 	            </t>
 			<t>
-                  Good documentation is essential not only for PN "core" but also for modules. While installing, upgrading,  
+                  Good documentation is essential not only for Xaraya "core" but also for modules. While installing, upgrading,  
                   removing a module should be intuitive, configurig right permissions to get the best from the script or 
                   understandig some tricky points or... require a good documentation. On the other side often good 
                   developers aren't good manuals writers ;-) 
@@ -201,7 +201,7 @@ the categories would look like this:
                  you have done such a difficult work is only metter of filling in infos... more or less ;-) 
 	          </t>
 			<t>
-                So my idea: what about adding a "modules manual schema" in pndocs so that mods developers have only to 
+                So my idea: what about adding a "modules manual schema" in xardocs so that mods developers have only to 
                 fill in the section (and/or of course deleting/adding sects) ? 
 	         </t>
 			<t>
@@ -349,10 +349,10 @@ the categories would look like this:
 		</section>
 		<section title="Basic documents for this RFC">
 			<t>
-			[1] RE: ?pndev DOCUMENTATION: Preview PDF now available. pndev post 04/26/02 gregorrothfuss
+			[1] RE: ?xardev DOCUMENTATION: Preview PDF now available. xardev post 04/26/02 gregorrothfuss
      	             </t>
 			<t>
-                    [2] RE: ?pndev READ: New Block Stuff &amp; Revamp pndev post 05/13/02 Veres Ferenc
+                    [2] RE: ?xardev READ: New Block Stuff &amp; Revamp xardev post 05/13/02 Veres Ferenc
                    </t>
 		</section>
 		<section title="Tools that need to be created from scratch">

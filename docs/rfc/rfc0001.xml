@@ -35,7 +35,7 @@
 	<section title="Introduction">
 	  <t>
 		I read through the articles on http://www.postnuke.com, its
-		forum threads, feature request on sourceforge, the pn
+		forum threads, feature request on sourceforge, the xaraya
 		developpers mailing list and reviewed some of the other open
 		source web content management systems on the market.  The
 		following RFC is a summary and contains some solution
@@ -95,9 +95,9 @@
 		want to develop a true Web Content Management System?  Or
 		do we want to stay a Web Portal / Community Management
 		System?  For the following RFC I assume the first one
-		because it is stated everywhere (e.g. the PN logo, the PN
+		because it is stated everywhere (e.g. the Xaraya logo, the Xaraya
 		admin message, the description on HotScripts).  If the
-		project managers of PN dont share my basic assumption, then
+		project managers of Xaraya dont share my basic assumption, then
 		I will adjust this RFC.
 	  </t>
 	</section>
@@ -438,7 +438,7 @@
 		  // to be able to assign the content to more than 1 category
 		  // see requirement 3                       <xref target="refs.1"/> <xref target="refs.7"/> <xref target="refs.9"/> <xref target="refs.14"/>
 		  The details on this issue will be part of the categorization RFC
-		  whose content is currently discussed on the pn-data list.
+		  whose content is currently discussed on the xaraya-data list.
 		  We might want to be able to categorize the content components in
 		  the content repository so that it is easier to search in.
 		  We definately want to be able to assign the publications to one or

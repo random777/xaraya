@@ -28,7 +28,7 @@
 		<!-- One content section is mandatory -->
 		<section title="Introduction">
 			<t>
-			The following RFC is a first summary and describes some solution proposals based on the articles on search-engine-friendly URLs at 	             http://www.postnuke.com/, on discussions regarding user-friendly URLs in the pndev mailing list, and on a test implementation by mcanini and mikespub for the 
+			The following RFC is a first summary and describes some solution proposals based on the articles on search-engine-friendly URLs at 	             http://www.postnuke.com/, on discussions regarding user-friendly URLs in the xardev mailing list, and on a test implementation by mcanini and mikespub for the 
 	             articles module in the .8 branch.  All ?xxx numbers refer to the basic documents in section 7.
 	           </t>
 		</section>
@@ -87,8 +87,8 @@
 		<section title="Solution proposals - functions">
 			<section title="Design used for the test implementation">
 				<t>
-                           The Postnuke API provides two unique places where URLs are respectively generated and interpreted : pnModURL() and pnGetRequestInfo(). This means that 
-                           any modification of the URL format can be limited to those two functions, for any module supporting the PN API.
+                           The Postnuke API provides two unique places where URLs are respectively generated and interpreted : xarModURL() and xarGetRequestInfo(). This means that 
+                           any modification of the URL format can be limited to those two functions, for any module supporting the Xaraya API.
 	                    </t>
 			       <t>
 	                    This gives us a very easy way to start using short URLs, without affecting anything else from the Postnuke core or modules.
@@ -111,17 +111,17 @@
                           In practice, a further distinction is made between user-related functions and URLs, and admin-related functions and URLs :
 	                   </t>
 			     <t>
-                         index.php/&lt;modulename&gt;/&lt;something defined in pnuserapi.php&gt;, and
+                         index.php/&lt;modulename&gt;/&lt;something defined in xaruserapi.php&gt;, and
 	                  </t>
 			     <t>
-                         index.php/&lt;modulename&gt;/admin/&lt;something defined in pnadminapi.php&gt;
+                         index.php/&lt;modulename&gt;/admin/&lt;something defined in xaradminapi.php&gt;
 	                  </t>
 			     <t>
                          (Note : in the short term, we don't expect to see many short URLs for admin-related links, but allowing this distinction from the start makes things easier to plan 
                          for)
 	                  </t>
 			     <t>
-	                  In order to generate a short URL for a particular set of module parameters, pnModURL() will call the function &lt;module&gt;_&lt;type&gt;_encode_shorturl, pass it  	                  the module function and parameters to be encoded, and expect back a virtual path for the short URL. If no path is returned, this means this particular combination 
+	                  In order to generate a short URL for a particular set of module parameters, xarModURL() will call the function &lt;module&gt;_&lt;type&gt;_encode_shorturl, pass it  	                  the module function and parameters to be encoded, and expect back a virtual path for the short URL. If no path is returned, this means this particular combination 
 	                  of parameters doesn't have an equivalent short URL, e.g. because there is no reasonable meaningful short URL for it.
 	                  </t>
 			    <t>
@@ -129,13 +129,13 @@
 	                 several categories at the same time may not really have a meaningful equivalent short URL.
 	                 </t>
 			   <t>
-	                In the other direction, pnGetRequestInfo() will call the module-specific &lt;module&gt;_&lt;type&gt;_decode_shorturl() function, pass it the virtual path and expect 
+	                In the other direction, xarGetRequestInfo() will call the module-specific &lt;module&gt;_&lt;type&gt;_decode_shorturl() function, pass it the virtual path and expect 
 	                back an array with the corresponding module parameters. Again, there may not be a reasonable equivalent, e.g. if a user tries to play a bit with the short URL.
 	                </t>
 			</section>
 			<section title="&lt;module&gt;_&lt;type&gt;_encode_shorturl() function">
 				<t>
-                           The following example is taken from modules/articles/pnuserapi.php, and generates the following short URLs :
+                           The following example is taken from modules/articles/xaruserapi.php, and generates the following short URLs :
 	                     </t>
 			        <t>
                             index.php/articles/index.html (default index view)
@@ -160,8 +160,8 @@
 	                     </t>
 			        <t>
 	                      /** 
-	                     * return the path for a short URL to pnModURL for this module
-	                     * @param $args the function and arguments passed to pnModURL
+	                     * return the path for a short URL to xarModURL for this module
+	                     * @param $args the function and arguments passed to xarModURL
 	                     * @returns string
 	                     * @return path to be added to index.php for a short URL, or empty if failed
 	                     */
@@ -184,10 +184,10 @@ function articles_userapi_encode_shorturl($args) {
     $path = '';
     // if we want to add some common arguments as URL parameters below
     $join = '?';
-    // we can't rely on pnModGetName() here (yet) !
+    // we can't rely on xarModGetName() here (yet) !
     $module = 'articles';
     
-	$pubtypes = pnModAPIFunc('articles','user','getpubtypes');
+	$pubtypes = xarModAPIFunc('articles','user','getpubtypes');
     
 	// specify some short URLs relevant to your module
     if ($func == 'main') {
@@ -236,7 +236,7 @@ function articles_userapi_encode_shorturl($args) {
 			</section>
 			<section title="&lt;module&gt;_&lt;type&gt;_decode_shorturl() function">
 				<t>
-                           The following example is taken from modules/articles/pnuserapi.php, and in addition to the short URLs mentioned above, it also supports URLs like :
+                           The following example is taken from modules/articles/xaruserapi.php, and in addition to the short URLs mentioned above, it also supports URLs like :
 	                    </t>
 			       <t>
                            index.php/articles
@@ -250,7 +250,7 @@ function articles_userapi_encode_shorturl($args) {
 			       <t>
                            /** 
                            * extract function and arguments from short URLs for this module, and pass
-                           * them back to pnGetRequestInfo()
+                           * them back to xarGetRequestInfo()
                            * @param $params array containing the elements of PATH_INFO
                            * @returns array
                            * @return array containing func the function to be called and args the query
@@ -277,7 +277,7 @@ function articles_userapi_decode_shorturl($params) {
         $args['cids'] = $cids;
         return array('view', $args);
     } else {
-        $pubtypes = pnModAPIFunc('articles','user','getpubtypes');
+        $pubtypes = xarModAPIFunc('articles','user','getpubtypes');
         foreach ($pubtypes as $id =&gt; $pubtype) {
             if ($params[1] == $pubtype['name']) {
                 $args['ptid'] = $id;
@@ -307,25 +307,25 @@ function articles_userapi_decode_shorturl($params) {
 			<t>
 			In the test implementation, the following functions were adapted :
 	             </t>
-	                    <section title="pnModURL() in includes/pnMod.php (encoding)">
+	                    <section title="xarModURL() in includes/xarMod.php (encoding)">
 			       <t>
                            This function now checks if 'System.UseShortURLsIfPossible' is set, then checks if 'SupportShortURLs' is set for that particular module, and then tries to call 
-                           pnModAPIFunc($modname, $type, 'encode_shorturl', $args) in order to encode the parameters into a short URL.
+                           xarModAPIFunc($modname, $type, 'encode_shorturl', $args) in order to encode the parameters into a short URL.
 	                     </t>
 		              </section>
-	             	        <section title="pnGetRequestInfo() in includes/pnAPI.php (decoding)">
+	             	        <section title="xarGetRequestInfo() in includes/xarAPI.php (decoding)">
 			        <t>
-                            If no module is specified in the 'regular' way and there is a virtual path appended to index.php, this function now performs the same checks as pnModURL() 
-                            and then calls pnModAPIFunc($modname, $type, 'decode_shorturl', $params) in order to decode the virtual URL path into parameters. The resulting parameters 
-                            are stored in $pnAPI_?RequestVariables for further processing.
+                            If no module is specified in the 'regular' way and there is a virtual path appended to index.php, this function now performs the same checks as xarModURL() 
+                            and then calls xarModAPIFunc($modname, $type, 'decode_shorturl', $params) in order to decode the virtual URL path into parameters. The resulting parameters 
+                            are stored in $xarAPI_?RequestVariables for further processing.
 	                      </t>
 		              </section>
-	        		 <section title="pnVarCleanFromInput() in includes/pnAPI.php (decoding)">
+	        		 <section title="xarVarCleanFromInput() in includes/xarAPI.php (decoding)">
 			        <t>
-                            This function now also checks if the requested variable is found in $pnAPI_?RequestVariables.
+                            This function now also checks if the requested variable is found in $xarAPI_?RequestVariables.
 	                     </t>
 		              </section>
-	            		<section title="pnModGetAlias(), pnModSetAlias, pnModDelAlias() in includes/pnMod.php (both)">
+	            		<section title="xarModGetAlias(), xarModSetAlias, xarModDelAlias() in includes/xarMod.php (both)">
 			       <t>
                            These functions were added to allow module developers / site admins to define aliases for module names, in the context of short URL support.
 	                    </t>
@@ -357,7 +357,7 @@ function articles_userapi_decode_shorturl($params) {
                     Credits to Jakob Nielsen
 	              </t>
 			<t>
-                    TODO: add links to search engine articles at http://www.postnuke.com/ and user-friendly URLs in pndev mailing list
+                    TODO: add links to search engine articles at http://www.postnuke.com/ and user-friendly URLs in xardev mailing list
 	              </t>
 		</section>
 		<section title="Tools that need to be created from scratch">
@@ -422,7 +422,7 @@ function articles_userapi_decode_shorturl($params) {
 	                       </t>
 			          <t>
                               For people who have control over the configuration of their own website, you can get rid of that index.php by defining virtual paths in your webserver - but 
-                              that would require using mod_rewrite again, or mapping something like /pnsite to /index.php, or some similar server-side mapping.
+                              that would require using mod_rewrite again, or mapping something like /xarsite to /index.php, or some similar server-side mapping.
 	                      </t>
 		               </section>
 		</section>

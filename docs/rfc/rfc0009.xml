@@ -63,16 +63,16 @@ Table of Contents
 
 01. Introduction 
     The main objective of this project is to rethink, redesign and
-    redeploy support.postnuke.com.  This RFC will outline a variety
+    redeploy support.xaraya.com.  This RFC will outline a variety
     of proposed changes to the functionality, use and therefore
-    underlying architecture of support.postnuke.com.
+    underlying architecture of support.xaraya.com.
 02. Known Issues 
     A. General Usability
        1. Confused links down the sidebars
        2. Too many sites to go to without explanations of what they are
-          (All the pn sites plus all the Sourceforge areas)
-       3. Scattered support services from Sourceforge to support.postnuke.com
-          to ice-interactive.com to postnuke.com as well as docs, themes,
+          (All the Xaraya sites plus all the Sourceforge areas)
+       3. Scattered support services from Sourceforge to support.xaraya.com
+          to ice-interactive.com to xaraya.com as well as docs, themes,
           modules, and blocks.
        4. Inconsistent theme = inconsistent "mind share"
     B. PostNuke Theme
@@ -111,27 +111,27 @@ Table of Contents
  The issue of irc not being addressed while at work is near being solved though the use of a special proxy system that will run acorss port 80 just like http. Once myself and Harry work the final details out we should be installing and testing just such a system out. 
 
  Isaac 
- The use of one on one tools while great ofr nich industries such as online support while buying products, does not lend itself tyo an open community structure such as the one that has allready been established here with PostNuke. one on one relies very heavily on the support of highly trained and skilled people who can answer everything trwon at them while with postnuke those people are not willing to lend themselfs to helping users while wrting code for those same users next edition of the software. Furhter more as this system was tested once before it failed before making it out of the gate because none of the staff wanted to sit alone in a html window just waiting for users to show up. If this application was focused just on supporting say the Documentation site and the ability to help users find documents It might prove to be usefull. If you can find staff to man it in the long run. 
+ The use of one on one tools while great ofr nich industries such as online support while buying products, does not lend itself tyo an open community structure such as the one that has allready been established here with PostNuke. one on one relies very heavily on the support of highly trained and skilled people who can answer everything trwon at them while with Xaraya those people are not willing to lend themselfs to helping users while wrting code for those same users next edition of the software. Furhter more as this system was tested once before it failed before making it out of the gate because none of the staff wanted to sit alone in a html window just waiting for users to show up. If this application was focused just on supporting say the Documentation site and the ability to help users find documents It might prove to be usefull. If you can find staff to man it in the long run. 
 
  Karateka 
- This system was never tested on postnuke.com before. You are talking about quite a different system and that particular system wasn't really tested. Further on, with this system, you don't need to just sit and wait. 
+ This system was never tested on xaraya.com before. You are talking about quite a different system and that particular system wasn't really tested. Further on, with this system, you don't need to just sit and wait. 
 
  Isaac 
- As I have stated numerous times in the past, After 7 years of lending myself to tech support in many different areas for many different systems a community type system that relies on not only staff supporting users but Users supporting users in an open support envirnment as compared to that of a closed one to one environment such as a "live support program" Is the generally best method. with thousands of small to medium sized IRC networks and around 200 large irc network alive and well in the world wide web and several Million people using these system the system is tested. If you want some examples of support systems take a look at irc.openprojects.net or go a step further and goto efnet.net irc.galaxy.net or irc.dal.net and load up their 10,000 plus channels and find some support rooms that are active. Take phplive or some other "live support program" and apply it speciicly to http://docs.postnuke.com and use it specificly for documentation support as it is good for very focused support of single topics such as documentation. In the proccess make very very sure you dont confuse the general public with several different "live support systems" Most importantly make sure that the system used is GPL or GNU and not commercial in nature. 
+ As I have stated numerous times in the past, After 7 years of lending myself to tech support in many different areas for many different systems a community type system that relies on not only staff supporting users but Users supporting users in an open support envirnment as compared to that of a closed one to one environment such as a "live support program" Is the generally best method. with thousands of small to medium sized IRC networks and around 200 large irc network alive and well in the world wide web and several Million people using these system the system is tested. If you want some examples of support systems take a look at irc.openprojects.net or go a step further and goto efnet.net irc.galaxy.net or irc.dal.net and load up their 10,000 plus channels and find some support rooms that are active. Take phplive or some other "live support program" and apply it speciicly to http://docs.xaraya.com and use it specificly for documentation support as it is good for very focused support of single topics such as documentation. In the proccess make very very sure you dont confuse the general public with several different "live support systems" Most importantly make sure that the system used is GPL or GNU and not commercial in nature. 
 
  Karateka 
  1-1 systems such a Human Click got about 1 Million websites to use it in one year. Anyway, PHP Live! is an extra layer for support. It's the easiest and fastest method for users to seek support, they don't need java in their browser or start up their irc client. It works with the click of a mouse. By default, I am inviting users to join the irc-chat at the end of each chat session. I am not trying to take anyone away his favourite toy. I *do* know that some people more or less disapprove it without even looking at it. That's ok for me. I am still hanging out on irc and answer questions there and talk with them and help them solve problems. As I said, it could replace some irc-stuff, but at the same time I say a directly and fast established 1-1 chat does not suit all support needs and there are many situations where irc-channel-based support just fits better. I have no understanding for closed-mindedness though. PHP Live! is a tool, it's not a general problem solver, just as irc isn't. It is a new tool. So, for some areas it's a matter of experimenting with it, however, for others, it has proven already that it does the job in an excellent way. Those people I helped so far were saying that this tool is incredibly cool. Some people said they'd need to tell their friends about PostNuke first before they'd join the irc. If it's not in our goal to have such excited minds, then I am sorry. And yes, sorry again, but I couldn't help myself, but I added myself not only to the support department, but also to the documentation department and the marketing department to answers calls there and got nice results. 
    B. PostNuke Theme
       1. Theme issues described above need to be resolved ASAP.
-      2. Core PN theme must be made extensibile in a manner that allows Site
+      2. Core Xaraya theme must be made extensibile in a manner that allows Site
          Managers to customize aspects of thier site/subdomain so it is clearly
-         part of the PN family yet has retain its own personality.
+         part of the Xaraya family yet has retain its own personality.
       3. To be an "official" PostNuke site, it must run the current approved
-         PN Family theme.
+         Xaraya Family theme.
  Wolf- 
- And, since the release of the 'PN family theme' has been regulated to one server, it would follow that ALL 'official' sites need to be hosted on said server. 
+ And, since the release of the 'Xaraya family theme' has been regulated to one server, it would follow that ALL 'official' sites need to be hosted on said server. 
  Grape 
- Docs will keep it's own theme and will be introducing a more documentation oriented theme in the future. The 'PN Family Theme' will not be used. 
+ Docs will keep it's own theme and will be introducing a more documentation oriented theme in the future. The 'Xaraya Family Theme' will not be used. 
  stratagem 
  I think each site should have a unique look. I believe that some users get confused without knowing which site they are on exactly. 
    C. Forums
@@ -139,13 +139,13 @@ Table of Contents
          All forums to sit on a common table set with specific forum views
          displayed at each subdomain or sister site.  This allows
       2. Forums - Subdomains &amp; Topics
-         www.postnuke.com (Home)
+         www.xaraya.com (Home)
             Feature Requests   -  Core Functionality (for non devs)
-            Info Requests      -  Materials used to explain/market PN
-            Developer Market   -  Promote folks who can implement and modify PN
+            Info Requests      -  Materials used to explain/market Xaraya
+            Developer Market   -  Promote folks who can implement and modify Xaraya
  gregorrothfuss 
- while i like the idea to have a directory of postnuke implementors, i think a forum is a very bad fit for that. a directory with a few required fields would be far better suited 
-          support.postnuke.com
+ while i like the idea to have a directory of Xaraya implementors, i think a forum is a very bad fit for that. a directory with a few required fields would be far better suited 
+          support.xaraya.com
             Installation(win)  -  Installation for Wintel environments
             Installation(lin)  -  Installation of Linux/Unix environments
             General Support    -  Core Functionality (for non devs)
@@ -156,29 +156,29 @@ Table of Contents
  there's a good idea gregor -- a module that acts as a forum of sorts and takes bug requests and submits them to sourceforge automatically... hmmm... 
             Core Modules       -  Subforums addressing issues and hacks for
                                   any module distributed as part of the core
-         dev.postnuke.com (new ???)
+         developer.xaraya.com (new ???)
             Developer (Core)     -  Core Functionality (for devs only)
             Developer (Markets)  -  Develop "Marketing/Sales" materials
             Core Modules         -  Subforums addressing issues and hacks for
                                     any module distributed as part of the core
  gregorrothfuss 
- this may be a good home for the new mailing lists that are being set up on the pn server. provide web-based search facilities etc. It would be an advantage if interested parties could follow the lists from there, but would need an account to post. 
+ this may be a good home for the new mailing lists that are being set up on the Xaraya server. provide web-based search facilities etc. It would be an advantage if interested parties could follow the lists from there, but would need an account to post. 
  Grape 
  would be an excelent home for the mailing lists. 
-         themes.postnuke.com
+         themes.xaraya.com
             Requests (Core)    -  Core Theme System Features
             Request (Themes)   -  Specific theme mods or new themes
             Public Support     -  Theme Installation &amp; Mod (for non-devs)
             Developer Support  -  Theme Installation &amp; Mod  (for devs only)
             Core Modules       -  Subforums for individual themes &amp; developers
-         mods.postnuke.com
+         mods.xaraya.com
             Requests (Core)    -  Core Module System Features
             Request (Mods)     -  Specific module hacks mods or new mods
             Public Support     -  Mod Installation &amp; Mod (for non-devs)
             Developer Support  -  Mod Installation &amp; Mod  (for devs only)
             Core Modules       -  Subforums for individual modules &amp; module
                                   development crews
-         blocks.postnuke.com
+         blocks.xaraya.com
             Requests (Core)    -  Core Block System Features
             Request (Blocks)   -  Specific theme mods or new themes
             Public Support     -  Block Installation &amp; Mod (for non-devs)
@@ -186,7 +186,7 @@ Table of Contents
             Core Modules       -  Subforums for individual blocks &amp; developers
       3. Forums - Architecture
          a. Port PostBoard to use Comments API as its core.  Leverages core
-            functionality and PB built from ground up as PN Mod.
+            functionality and PB built from ground up as Xaraya Mod.
  Wolf- 
  POSTBOARD?? If we are going to the trouble of porting and rewriting, there why not just emulate some of the better forums out there? 
  Grape 
@@ -235,7 +235,7 @@ It should increase efficiency and effectiveness 
 05. Issue Resolution 
     A. Active Issues
        1.  Multilingual Support
-      The current support architecture is focussing on english support. The postnuke support infrastructure needs to
+      The current support architecture is focussing on english support. The Xaraya support infrastructure needs to
       scale out to third party sites to provide multilangual support. The formation of a Multilingual Support Council
       is proposed.
  jotajota 

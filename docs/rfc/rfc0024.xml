@@ -106,43 +106,43 @@
 		</section>
 		<section title="Solution proposals - functions">
 			<t>
-    pnPubsubAddEvent - add a new event
+    xarPubsubAddEvent - add a new event
     </t>
 			<t>
-	pnPubsubEditEvent - edit the event (to add or remove a new user for example)
+	xarPubsubEditEvent - edit the event (to add or remove a new user for example)
 	</t>
 			<t>
-	pnPubsubDelEvent - delete the specified event
+	xarPubsubDelEvent - delete the specified event
 	</t>
 			<t>
-	pnPubsubGetEvent - return the specified event, when only given a module name will return all events for that module for example. or if given an event id will return a specific event. 
+	xarPubsubGetEvent - return the specified event, when only given a module name will return all events for that module for example. or if given an event id will return a specific event. 
 	</t>
 			<t>
-	pnPubsubSearchEvents - search all events for matches (e.g. all events for a specified user or module) 
+	xarPubsubSearchEvents - search all events for matches (e.g. all events for a specified user or module) 
 	</t>
 			<t>
-	pnPubsubGetUsers - return the list of users subscribed to a specific event 
+	xarPubsubGetUsers - return the list of users subscribed to a specific event 
 	</t>
 			<t>
-	pnPubsubGetNextUser - return next user subscribed to a specific event 
+	xarPubsubGetNextUser - return next user subscribed to a specific event 
 	</t>
 			<t>
-	pnPubsubGetPrevUser - return previous user subscribed to a specific event 
+	xarPubsubGetPrevUser - return previous user subscribed to a specific event 
 	</t>
 			<t>
-	pnPubsubNotifyUser - actually send the notification 
+	xarPubsubNotifyUser - actually send the notification 
 	</t>
 			<t>
-	pnPubsubGetNotifyFormat - to retrieve the format in which a user has requested receiving the notification (e.g. HTML or plaintext) 
+	xarPubsubGetNotifyFormat - to retrieve the format in which a user has requested receiving the notification (e.g. HTML or plaintext) 
 	</t>
 			<t>
-	pnPubsubGetTemplate - get the template for this event 
+	xarPubsubGetTemplate - get the template for this event 
 	</t>
 			<t>
-	pnPubsubDelTemplate - delete the template for this event 
+	xarPubsubDelTemplate - delete the template for this event 
 	</t>
 			<t>
-	pnPubsubUpdateTemplate - update the template for this event 
+	xarPubsubUpdateTemplate - update the template for this event 
 	</t>
 			<t>
 	questions: 

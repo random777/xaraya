@@ -52,29 +52,29 @@
 			</t>
 			<t>
 			Callers can notice of exceptions firstly by checking the called function return value and secondly by 
-			calling the pnExceptionMajor function.
+			calling the xarExceptionMajor function.
 			</t>
 			<t>
 			The PostNuke Exception Handling System provides useful functions to deal with exceptions. Their 
 			signatures are: 
 			</t>
 			<t>
-			void pnExceptionSet($major, $exception_id, $param = NULL); integer pnExceptionMajor(); string 
-			pnExceptionId(); object pnExceptionValue(); void pnExceptionFree();
+			void xarExceptionSet($major, $exception_id, $param = NULL); integer xarExceptionMajor(); string 
+			xarExceptionId(); object xarExceptionValue(); void xarExceptionFree();
                     </t>
-			<section title="pnExceptionSet">
+			<section title="xarExceptionSet">
 				<t>
-			pnExceptionSet allows a function to raise an exception. The caller must supply a value for the major 
-			parameter. The major parameter can have one of the values PN_NO_EXCEPTION, PN_USER_EXCEPTION, 
-			or PN_SYSTEM_EXCEPTION. The value of the major parameter constrains the other parameters in the call 
+			xarExceptionSet allows a function to raise an exception. The caller must supply a value for the major 
+			parameter. The major parameter can have one of the values XAR_NO_EXCEPTION, XAR_USER_EXCEPTION, 
+			or XAR_SYSTEM_EXCEPTION. The value of the major parameter constrains the other parameters in the call 
 			as follows: 
 			</t>
 				<t>
-			If the major parameter has the value PN_NO_EXCEPTION, this is a normal outcome 
+			If the major parameter has the value XAR_NO_EXCEPTION, this is a normal outcome 
 			</t>
 				<t>
                     to the operation. In this case, both exception_id and param must be NULL.
-                    Note that it is not necessary to invoke pnExceptionSet to indicate a normal
+                    Note that it is not necessary to invoke xarExceptionSet to indicate a normal
                     outcome; it is the default behavior if the method simply returns.
 			</t>
 				<t>
@@ -87,28 +87,28 @@ For any other value of major it specifies either a user-defined or system
                    If the exception has no members, param must be NULL.
                     </t>
 			</section>
-			<section title="pnExceptionMajor">
+			<section title="xarExceptionMajor">
 				<t>
-			pnExceptionMajor allows the caller to establish whether an exception was raised, and to get the type of 
-			raised exception. The major PN_NO_EXCEPTION identifies the state in which no exception was raised.
+			xarExceptionMajor allows the caller to establish whether an exception was raised, and to get the type of 
+			raised exception. The major XAR_NO_EXCEPTION identifies the state in which no exception was raised.
                     </t>
 			</section>
-			<section title="pnExceptionId ">
+			<section title="xarExceptionId ">
 				<t>
-			pnExceptionId returns the string identifying the exception. The character string contains the ID for the 
+			xarExceptionId returns the string identifying the exception. The character string contains the ID for the 
 			exception (its PHP class name). If invoked when no exception was raised a void value is returned.
                     </t>
 			</section>
-			<section title="pnExceptionValue">
+			<section title="xarExceptionValue">
 				<t>
-			pnExceptionValue returns an object corresponding to this exception. If invoked when no exception or an 
+			xarExceptionValue returns an object corresponding to this exception. If invoked when no exception or an 
 			exception for which there is no associated information was raised, a void value is returned.
                     </t>
 			</section>
-			<section title="pnExceptionFree">
+			<section title="xarExceptionFree">
 				<t>
-			pnExceptionFree makes a reset of current exception status, it's a shortcut for pnExceptionSet
-			(PN_NO_EXCEPTION, NULL, NULL). You must always call this function when you handle a catched 
+			xarExceptionFree makes a reset of current exception status, it's a shortcut for xarExceptionSet
+			(XAR_NO_EXCEPTION, NULL, NULL). You must always call this function when you handle a catched 
 			exception or equivalently you don't throw the exception back to the callers chain.
                     </t>
 			</section>
@@ -124,17 +124,17 @@ class ?MyException {
 function ?MyModule_userapi_?MyFunc() { /* Called */ /* ... */ } 
 ?... 
 /* Caller */ /* ... */ 
-$res = pnModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) { 
+$res = xarModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) { 
     // Got an exception
-    switch (pnExceptionMajor()) {
-       case PN_USER_EXCEPTION:
-           if (pnExceptionId() == '?MyException') {
-	      $value = pnExceptionValue();
+    switch (xarExceptionMajor()) {
+       case XAR_USER_EXCEPTION:
+           if (xarExceptionId() == '?MyException') {
+	      $value = xarExceptionValue();
 	      die("Caught ?MyException, msg: ".$value-&gt;msg);
 	   }
        break;
-       case PN_SYSTEM_EXCEPTION:
-           die("Caught system exception: ".pnExceptionId());
+       case XAR_SYSTEM_EXCEPTION:
+           die("Caught system exception: ".xarExceptionId());
        break;
     }
 } 
@@ -152,26 +152,26 @@ $res = pnModAPIFunc('?MyModule', 'user', '?MyFunc'); if (!isset($res) &amp;&amp;
 				<t>
 					<artwork>
 function foo() { 
-    $res = pnModAPIFunc('?MyModule', 'user', '?MyFunc');
-    if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) {
+    $res = xarModAPIFunc('?MyModule', 'user', '?MyFunc');
+    if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
         // Got an exception, throw it back
         return;
     }
 } 
 function bar() { 
     $res = foo();
-    if (!isset($res) &amp;&amp; pnExceptionMajor() != PN_NO_EXCEPTION) {
+    if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
         // Got an exception
 	// Real exception handling
-        switch (pnExceptionMajor()) {
-           case PN_USER_EXCEPTION:
-               if (pnExceptionId() == '?MyException') {
-	          $value = pnExceptionValue();
+        switch (xarExceptionMajor()) {
+           case XAR_USER_EXCEPTION:
+               if (xarExceptionId() == '?MyException') {
+	          $value = xarExceptionValue();
 	          die("Caught ?MyException, msg: ".$value-&gt;msg);
                }
            break;
-           case PN_SYSTEM_EXCEPTION:
-               die("Caught system exception: ".pnExceptionId());
+           case XAR_SYSTEM_EXCEPTION:
+               die("Caught system exception: ".xarExceptionId());
            break;
         }
     }
@@ -190,13 +190,13 @@ As you can see in the above example we're delegating to another piece of code th
 			Handling System. Modifications to APIs involve the usage of System Exceptions. To get an example of 
 			what is a System Exception consider the case in which you're calling an API with a non existent user id. 
 			In that case you're violating the PostNuke integrity, so it makes sense to raise an exception of type 
-			ID_NOT_EXISTS internally in the API function. For another example you could recall the pnModAPIFunc 
+			ID_NOT_EXISTS internally in the API function. For another example you could recall the xarModAPIFunc 
 			function. Its purpose is to call an API module function and returns the outcome value of the called API 
-			module function. But what's happen if pnModAPIFunc can't call the function you've indicated. As you can 
-			read in PostNuke API Command Reference, pnModAPIFunc will return false if the module function does 
-			not exist or void for an internal error. By doing so pnModAPIFunc vincolates your module API functions to 
+			module function. But what's happen if xarModAPIFunc can't call the function you've indicated. As you can 
+			read in PostNuke API Command Reference, xarModAPIFunc will return false if the module function does 
+			not exist or void for an internal error. By doing so xarModAPIFunc vincolates your module API functions to 
 			never return void or false because the caller can't distinguish these values from an error condition in 
-			pnModAPIFunc. In the other hand if pnModAPIFunc could raise exceptions your module API functions 
+			xarModAPIFunc. In the other hand if xarModAPIFunc could raise exceptions your module API functions 
 			could return false and void as well, since you're allowed to discover error conditions with the Exception 
 			Handling System and not by relaying on return value. As you can see there are many advantages in 
 			exceptions but we must keep the PostNuke API as backward compatible as possible. Consider also that 
@@ -257,8 +257,8 @@ class ?SystemException {
 						<t>
 							<list>
 								<t>particular resource (note that system exception is not raised
-                    from pnSecAuthAction API but from other functions in which
-                    pnSecAuthAction is called)
+                    from xarSecAuthAction API but from other functions in which
+                    xarSecAuthAction is called)
                     </t>
 							</list>
 						</t>
@@ -301,190 +301,190 @@ class ?SystemException {
 					</list>
 				</t>
 				<t>
-                    api: pnConfigGetVar changes: no changes on return value, add code to raise exceptions exceptions:  
+                    api: xarConfigGetVar changes: no changes on return value, add code to raise exceptions exceptions:  
                     ID_NOT_EXIST, DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnConfigSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarConfigSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnConfigDelVar changes: to be done 
+                    api: xarConfigDelVar changes: to be done 
                     </t>
 				<t>
-                    api: pnDBGetConn changes: no changes 
+                    api: xarDBGetConn changes: no changes 
                     </t>
 				<t>
-                    api: pnDBGetTables changes: no changes 
+                    api: xarDBGetTables changes: no changes 
                     </t>
 				<t>
-                    api: pnVarCleanFromInput changes: no changes on return value, add code to raise exceptions 
+                    api: xarVarCleanFromInput changes: no changes on return value, add code to raise exceptions 
                     exceptions: ID_NOT_EXIST 
                     </t>
 				<t>
-                    api: pnVarPrepForDisplay changes: no changes 
+                    api: xarVarPrepForDisplay changes: no changes 
                     </t>
 				<t>
-                    api: pnVarPrepHTMLDisplay changes: no changes, add code to throw back exceptions 
+                    api: xarVarPrepHTMLDisplay changes: no changes, add code to throw back exceptions 
                     </t>
 				<t>
-                    api: pnVarPrepForStore changes: no changes 
+                    api: xarVarPrepForStore changes: no changes 
                     </t>
 				<t>
-                    api: pnVarPrepForOS changes: no changes 
+                    api: xarVarPrepForOS changes: no changes 
                     </t>
 				<t>
-                    api: pnVarCensor changes: no changes, add code to throw back exceptions 
+                    api: xarVarCensor changes: no changes, add code to throw back exceptions 
                     </t>
 				<t>
-                    api: pnVarValidate changes: no changes 
+                    api: xarVarValidate changes: no changes 
                     </t>
 				<t>
-                    api: pnGetBaseURI changes: no changes 
+                    api: xarGetBaseURI changes: no changes 
                     </t>
 				<t>
-                    api: pnGetBaseURL changes: no changes 
+                    api: xarGetBaseURL changes: no changes 
                     </t>
 				<t>
-                    api: pnRedirect changes: no changes 
+                    api: xarRedirect changes: no changes 
                     </t>
 				<t>
-                    api: pnBlockShow changes: no changes, add code to throw back exceptions 
+                    api: xarBlockShow changes: no changes, add code to throw back exceptions 
                     </t>
 				<t>
-                    api: pnBlockLoad changes: no changes, add code to throw back exceptions 
+                    api: xarBlockLoad changes: no changes, add code to throw back exceptions 
                     </t>
 				<t>
-                    api: pnBlockGetInfo changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarBlockGetInfo changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnModGetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModGetVar changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM 
                     </t>
 				<t>
-                    api: pnModSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM 
                     </t>
 				<t>
-                    api: pnModDelVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModDelVar changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM 
                     </t>
 				<t>
-                    api: pnModGetIDFromName changes: change to return void on error, add code to raise exceptions 
+                    api: xarModGetIDFromName changes: change to return void on error, add code to raise exceptions 
                     exceptions: DATABASE_ERROR, BAD_PARAM 
                     </t>
 				<t>
-                    api: pnModGetInfo changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModGetInfo changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM 
                     </t>
 				<t>
-                    api: pnModGetUserMods changes: change to return void on error, add code to raise exceptions 
+                    api: xarModGetUserMods changes: change to return void on error, add code to raise exceptions 
                     exceptions: DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnModGetAdminMods changes: change to return void on error, add code to raise exceptions 
+                    api: xarModGetAdminMods changes: change to return void on error, add code to raise exceptions 
                     exceptions: DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnModAPILoad changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModAPILoad changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST 
                     </t>
 				<t>
-                    api: pnModDBInfoLoad changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModDBInfoLoad changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST 
                     </t>
 				<t>
-                    api: pnModLoad changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModLoad changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST 
                     </t>
 				<t>
-                    api: pnModAPIFunc changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModAPIFunc changes: change to return void on error, add code to raise exceptions exceptions: 
                     BAD_PARAM, MODULE_FUNC_NOT_EXIST 
                     </t>
 				<t>
-                    api: pnModFunc changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModFunc changes: change to return void on error, add code to raise exceptions exceptions: 
                     BAD_PARAM, MODULE_FUNC_NOT_EXIST 
                     </t>
 				<t>
-                    api: pnModURL changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModURL changes: change to return void on error, add code to raise exceptions exceptions: 
                     BAD_PARAM 
                     </t>
 				<t>
-                    api: pnModAvailable changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModAvailable changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM 
                     </t>
 				<t>
-                    api: pnModGetName changes: to be done 
+                    api: xarModGetName changes: to be done 
                     </t>
 				<t>
-                    api: pnModRegisterHook changes: change to return void on error, add code to raise exceptions 
+                    api: xarModRegisterHook changes: change to return void on error, add code to raise exceptions 
                     exceptions: DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnModUnregisterHook changes: change to return void on error, add code to raise exceptions 
+                    api: xarModUnregisterHook changes: change to return void on error, add code to raise exceptions 
                     exceptions: DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnModCallHooks changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarModCallHooks changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnSecAddSchema changes: no changes 
+                    api: xarSecAddSchema changes: no changes 
                     </t>
 				<t>
-                    api: pnSecAuthAction changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarSecAuthAction changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnSecGetAuthInfo changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarSecGetAuthInfo changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnSecGetLevel changes: no changes 
+                    api: xarSecGetLevel changes: no changes 
                     </t>
 				<t>
-                    api: pnSecGenAuthKey changes: no changes 
+                    api: xarSecGenAuthKey changes: no changes 
                     </t>
 				<t>
-                    api: pnSecConfirmAuthKey changes: no changes 
+                    api: xarSecConfirmAuthKey changes: no changes 
                     </t>
 				<t>
-                    api: pnSessionGetVar changes: no changes 
+                    api: xarSessionGetVar changes: no changes 
                     </t>
 				<t>
-                    api: pnSessionSetVar changes: no changes 
+                    api: xarSessionSetVar changes: no changes 
                     </t>
 				<t>
-                    api: pnSessionDelVar changes: no changes 
+                    api: xarSessionDelVar changes: no changes 
                     </t>
 				<t>
-                    api: pnUserLogIn changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarUserLogIn changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR, BAD_PARAM 
                     </t>
 				<t>
-                    api: pnUserLogOut changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarUserLogOut changes: change to return void on error, add code to raise exceptions exceptions: 
                     DATABASE_ERROR 
                     </t>
 				<t>
-                    api: pnUserLoggedIn changes: no changes 
+                    api: xarUserLoggedIn changes: no changes 
                     </t>
 				<t>
-                    api: pnUserGetTheme changes: no changes 
+                    api: xarUserGetTheme changes: no changes 
                     </t>
 				<t>
-                    api: pnUserGetLang changes: no changes 
+                    api: xarUserGetLang changes: no changes 
                     </t>
 				<t>
-                    api: pnUserGetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarUserGetVar changes: change to return void on error, add code to raise exceptions exceptions: 
                     BAD_PARAM, ID_NOT_EXIST, NO_PERMISSION 
                     </t>
 				<t>
-                    api: pnUserSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
+                    api: xarUserSetVar changes: change to return void on error, add code to raise exceptions exceptions: 
                     BAD_PARAM, ID_NOT_EXIST, NO_PERMISSION 
                     </t>
 				<t>
-                    api: pnUserValidateVar changes: change to return void on error, add code to raise exceptions 
+                    api: xarUserValidateVar changes: change to return void on error, add code to raise exceptions 
                     exceptions: BAD_PARAM, ID_NOT_EXIST
                     </t>
 			</section>

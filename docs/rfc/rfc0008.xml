@@ -105,7 +105,7 @@ Installer Design Tenets
 </t>
 <t>
 <list>
-	<t>Use pnAPI as early as possible</t>
+	<t>Use xarAPI as early as possible</t>
 	<t>Seperate throw-away parts from reusable parts: Bootstrapping vs Module Install</t>
 	<t>Integrate Module Installer into Modules module</t>
 </list>
@@ -145,7 +145,7 @@ Implementation Considerations
 			<list>
 				<t>Modules module: Is invoked for module installs / upgrades</t>
 				<t>Module registry: Check for new versions, download modules</t>
-				<t>pnDDL: Table creation support for different database types</t>
+				<t>xarDDL: Table creation support for different database types</t>
 			</list>
 			</t>
 		</section>

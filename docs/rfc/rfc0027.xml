@@ -135,8 +135,8 @@ Translating the above rights to a community oriented CMS environment, they can b
 </t>	  </list>
 	  <t>
 The "processing" of user data for the purposes of this proposal can be defined as the processing that occurs in Xaraya's 
-users module through the pnAPI. Compliance in this module will automatically extend compliance to any other module that 
-uses the pnuserapi and pnadminapi functions of the users module.	  
+users module through the xarAPI. Compliance in this module will automatically extend compliance to any other module that 
+uses the xaruserapi and xaradminapi functions of the users module.	  
 </t>
 	  <t>
 Strictly speaking, the rights above go a bit further than the letter of the directive in that the user is not just given 
@@ -216,7 +216,7 @@ of these fields as visible to the recipients or not.
 	  </t>
 	  <list style="symbols">
 	  <t>
-Can define variable registration data fields (pn_user_property table). (current)
+Can define variable registration data fields (xar_user_property table). (current)
 </t><t>Can define for each data field whether it is to be mandatory (i.e. requires data to be entered) or not.	(new)
 </t><t>Can define for each data field whether its visibility is user optional or not.	(new)
 </t></list>
@@ -241,34 +241,34 @@ Groups"). (see Open Issues D)
 Add the following database fields:
 </t>
 <artwork><![CDATA[
-        Table pn_user_property: 
+        Table xar_user_property: 
         Field Name           Type          Contains
-        pn_prop_mandatory    boolean       True = field must contain a non-null value
-        pn_prop_visible      boolean       True = field visibility can be set by user
+        xar_prop_mandatory    boolean       True = field must contain a non-null value
+        xar_prop_visible      boolean       True = field visibility can be set by user
 	
-        Table pn_users: 
+        Table xar_users: 
         Field Name           Type          Contains
-        pn_fields_visible    varchar 255   1-dim array consisting of the pn_prop_id 
-                                           of all pn_user_property fields set visible
+        xar_fields_visible    varchar 255   1-dim array consisting of the xar_prop_id 
+                                           of all xar_user_property fields set visible
 ]]></artwork>
 	</section>	
 	<section title="Code that will need to be rewritten">
 		<list style="numbers">
 		<t>
-		Add appropriate code for pn_prop_mandatory and pn_prop_visible fields to the functions 
-users_admin_newvar() in pnadmin.php. The same for updating or deleting entries to pn_user_property.
+		Add appropriate code for xar_prop_mandatory and xar_prop_visible fields to the functions 
+users_admin_newvar() in xaradmin.php. The same for updating or deleting entries to xar_user_property.
 		</t>
 		<t>
-		Add a checkbox to each user definable field in users_user_new() and users_user_modify() in pnuser.php in 
+		Add a checkbox to each user definable field in users_user_new() and users_user_modify() in xaruser.php in 
 the users module that lets the user define whether the field will be visible or not. Same thing for when the user 
 modifies the personal data.
 		</t>
 		<t>
-Modify function users_userapi_getall and users_userapi_get in pnuserapi.php to select those fields included in the 
-pn_fields_visible array.
+Modify function users_userapi_getall and users_userapi_get in xaruserapi.php to select those fields included in the 
+xar_fields_visible array.
 	</t>
 		<t>
-If the pn_prop_mandatory field is set true the user must enter a value upon registering or modifying his/her data. If no 
+If the xar_prop_mandatory field is set true the user must enter a value upon registering or modifying his/her data. If no 
 value is entered an error message is generated and the page re-presented.		</t>
 		<t>
 Create the "unregister" functionality as described above.
@@ -283,8 +283,8 @@ Create the "unregister" functionality as described above.
 	<section title="Appendix - Open Issues">
 	<section title="Currently hard-coded fields">
 <t>
-The approach described above could be extended to include all user fields. This would mean merging most of the pn_users 
-table fields (except: uid, username, pass) into the pn_user-property table, thereby allowing the admin complete freedom 
+The approach described above could be extended to include all user fields. This would mean merging most of the xar_users 
+table fields (except: uid, username, pass) into the xar_user-property table, thereby allowing the admin complete freedom 
 in deciding which user fields will be user optional.
 </t>
 <t>
@@ -296,11 +296,11 @@ choice (exception: url?) that will no doubt work in most cases.
 	<section title="Removal of Users">
 <t>
 When a user unregisters, his/her data can either be inactivated or physically deleted. Inactivation could be implemented 
-through an additional boolean field in the pn_users table, which would be checked by the appropriate api functions in 
+through an additional boolean field in the xar_users table, which would be checked by the appropriate api functions in 
 the users module whenever getting data.
 </t>
 <t>
-Another approach would be to combine the inactivation with whatever variable (pn_active in pn_userblocks? [check this]) 
+Another approach would be to combine the inactivation with whatever variable (xar_active in xar_userblocks? [check this]) 
 drives the visibility of the user in the members list, as they are really different aspects of the same property.
 </t>
 <t>
@@ -320,24 +320,24 @@ invisible. A separate EU flag could be also created. The latter is the preferred
 	</section>
 	<section title="Admin can set user fields to visible per group">
 <t>
-Rather than stipulate that the field pn_prop_visible be a boolean, and therefore the recipients are either admins or 
+Rather than stipulate that the field xar_prop_visible be a boolean, and therefore the recipients are either admins or 
 users, a more general solution would be:
 </t>
 <artwork><![CDATA[
-        Table pn_user_property: 
+        Table xar_user_property: 
         Field Name          Type          Contains
-        pn_prop_visible     integer       pn_gid of the group that the property field
+        xar_prop_visible     integer       xar_gid of the group that the property field
                                           is visible to.
 
-        Table pn_users: 
+        Table xar_users: 
         Field Name          Type          Contains
-        pn_fields_visible   varchar 255   2-dim array consisting of the pn_prop_id
-                                          of all pn_user_property fields to be visible
-                                          and the pn_gid of the group each property field
+        xar_fields_visible   varchar 255   2-dim array consisting of the xar_prop_id
+                                          of all xar_user_property fields to be visible
+                                          and the xar_gid of the group each property field
                                           is visible to.
 ]]></artwork>
 <t>
-If a group is deleted, any corresponding entries in pn_fields_visible must be changed to the pn_gid of the admins. The 
+If a group is deleted, any corresponding entries in xar_fields_visible must be changed to the xar_gid of the admins. The 
 admins group cannot be deleted.
 </t>
 <t>

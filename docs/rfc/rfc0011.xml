@@ -76,7 +76,7 @@
  each modules needs to have some sort of categorisation
  information available to make it easy to arrange these
  items in a more structured way.
- In pnversion.php:
+ In xarversion.php:
  </t>
 <t>
 $modversion?'category' = 1; 

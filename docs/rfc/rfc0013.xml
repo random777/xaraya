@@ -31,15 +31,15 @@
 			The postnuke modules are there to extend the functionality of this content management system (we assume that you are already familiar with the PostNuke Module Developers Guide by Jim McDonald - link). 
 </t>
 <t>
-Traditionally, the modules have been added to /modules directory and activated/deactivated via the admin interface. However, they didn't have any particular weight, class or identity, which could have helped to quickly and unmistakably determine (both programmatically and visually) the module's purpose, role and hierarchy within the pn system. 
+Traditionally, the modules have been added to /modules directory and activated/deactivated via the admin interface. However, they didn't have any particular weight, class or identity, which could have helped to quickly and unmistakably determine (both programmatically and visually) the module's purpose, role and hierarchy within the xaraya system. 
 </t>
 <t>
-The aim of this document is to set module classification standards for ALL pn modules, including old style (pre pn 0.7), new style and future versions.
+The aim of this document is to set module classification standards for ALL xaraya modules, including old style (pre pn 0.7), new style and future versions.
 			</t>
 		</section>
 		<section title="How to identify a module? ">
 			<t>
-			A module can be identified by way it interacts with the core and other modules. Additionally, we need to identify modules by their virtual categories within the pn administration system. In this document, we are going to use and combine both approaches to form a generic set of classes and categories for all the modules.
+			A module can be identified by way it interacts with the core and other modules. Additionally, we need to identify modules by their virtual categories within the xaraya administration system. In this document, we are going to use and combine both approaches to form a generic set of classes and categories for all the modules.
 			</t>
 		</section>
 		<section title="Module Classes">
@@ -80,12 +80,12 @@ Misc Classes: all other modules which don't fit into the first two groups of cla
 </list>
 </t>
 <t>    
-Note: Each group of the above module classes can be modified, edited or removed, subject to approval by the pn-dev group.
+Note: Each group of the above module classes can be modified, edited or removed, subject to approval by the xaraya-dev group.
 			</t>
 		</section>
 		<section title="Module Categories">
 			<t>
-			Within each of the module classes, we suggest a detailed categorization in the form of 'category' system variable, which would determine the module's place and hierarchy at the pn administration system level. 
+			Within each of the module classes, we suggest a detailed categorization in the form of 'category' system variable, which would determine the module's place and hierarchy at the Xaraya administration system level. 
 </t>
 <t>    
 Examples: 
@@ -133,7 +133,7 @@ Category: 'Miscellaneous'
 Note: If a module is not classified and categorized yet, it is auto-assigned the class 'Miscellaneous' and the category 'Miscellaneous' 
 </t>
 <t>    
-Note: Each group of the above categories can be modified, edited or removed, subject to approval by the pn-dev group.
+Note: Each group of the above categories can be modified, edited or removed, subject to approval by the xaraya-dev group.
 			</t>
 		</section>
 		<section title="Module Classification IDs">
@@ -144,7 +144,7 @@ Note: Each group of the above categories can be modified, edited or removed, sub
 Example: 
 </t>
 <t>    
-Module 'Modules' of the class 'Core Admin' and category 'Global' would have its IDs encoded into pnversion.php (or Version.php) file as follows: 
+Module 'Modules' of the class 'Core Admin' and category 'Global' would have its IDs encoded into xarversion.php (or Version.php) file as follows: 
 </t>
 <t>    
 $modversion['class'] = 'Core Admin';

@@ -118,13 +118,13 @@
 	  is completely handled by the following routines.
 	  List of Functions:
 	  <artwork>
-	  pnComments_Get(modname, hookid, CommentId=0, depth=-1, sort='ASC')
-	  pnComments_Add(modname, hookid, ParentId, author, title, comment, hostname)
-	  pnComments_Delete(CommentId, delkids=true)
-	  pnComments_Modify(CommentId, title, comment) {
-	  pnComment_Search(searchstring [,module] [,hook]);
-	  pnComment_Stats([module, [hook]]);
-	  pnComments_MoveThread(AttachToId, CommentId, IncludeParent=true);
+	  xarComments_Get(modname, hookid, CommentId=0, depth=-1, sort='ASC')
+	  xarComments_Add(modname, hookid, ParentId, author, title, comment, hostname)
+	  xarComments_Delete(CommentId, delkids=true)
+	  xarComments_Modify(CommentId, title, comment) {
+	  xarComment_Search(searchstring [,module] [,hook]);
+	  xarComment_Stats([module, [hook]]);
+	  xarComments_MoveThread(AttachToId, CommentId, IncludeParent=true);
 	  </artwork>
 	</t>
 	<t>Details of Functions:</t>
@@ -164,7 +164,7 @@
 	<t>Function Descriptions:</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentGet
+	    FUNCTION: xarCommentGet
 	    RETURN: commentarray OR array of commentarrays
 	    PARAMETERS:
 			$module:     see above;
@@ -179,16 +179,16 @@
 	  parameter allows us to only acquire comments to (n) levels deep. A value of 0
 	  would acquire the sole comment specified by the comment id and -1 would
 	  acquire all comments down to the deepest level. If both the commentid and the
-	  level are ommitted from the function call (ie., pnCommentGet('News','1') ),
+	  level are ommitted from the function call (ie., xarCommentGet('News','1') ),
 	  all comments for the given module/hook are retrieved.  To retrieve a single
-	  comment the call would be:  pnCommentGet('News',1,5,0) 1 being the storyid,
+	  comment the call would be:  xarCommentGet('News',1,5,0) 1 being the storyid,
 	  5 being the commentid, and 0 telling the function to only return that one
 	  comment. If sort is specified, the top most parents are sorted by date in the
 	  direction specified, otherwise they are sorted in ascending order by date.
 	</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentGetKids
+	    FUNCTION: xarCommentGetKids
 	    RETURN: commentarray OR array of commentarrays
 	    PARAMETERS:
 			$module:	 see above;
@@ -201,13 +201,13 @@
 	  Acquires a list of comments based on a particular thread. This is similiar to
 	  the current ?DisplayKids(...) function. The level parameter keeps track of how
 	  many levels deep in the the parent/child tree we are.  This function is
-	  intended to be nested and will be utilized in the function pnCommentGet(...)
+	  intended to be nested and will be utilized in the function xarCommentGet(...)
 	  as a means of acquiring comments down to a particular depth.  If there are
 	  no children for the particular comment, an empty array is returned.
 	</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentAdd
+	    FUNCTION: xarCommentAdd
 	    RETURN: bool (True or False)
 	    PARAMETERS:
 			$module: see above;
@@ -221,7 +221,7 @@
 	</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentDel
+	    FUNCTION: xarCommentDel
 	    RETURN: bool (True or False)
 	    PARAMETERS:
 			$module: see above;
@@ -239,7 +239,7 @@
 	</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentModify
+	    FUNCTION: xarCommentModify
 	    RETURN: bool (True or False)
 	    PARAMETERS:
 			$module: see above;
@@ -254,7 +254,7 @@
 	</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentSearch
+	    FUNCTION: xarCommentSearch
 	    RETURN: commentarray OR array of commentarrays
 	    PARAMETERS:
 			$module: see above;
@@ -274,7 +274,7 @@
 	</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentNext
+	    FUNCTION: xarCommentNext
 	    RETURN: commentarray
 	    PARAMETERS:
 	                $commentarray: named array
@@ -282,14 +282,14 @@
 	</t>
 	<t>
 	  Returns the next comment in the comments array - this function and it's
-	  counterpart, pnCommentPrev(...) are helper functions similar in concept to
+	  counterpart, xarCommentPrev(...) are helper functions similar in concept to
 	  adodb's ?MoveNext() function. Each time this function is called, the array
 	  pointer is moved ahead one comment traversing all branches (ie., children) of
 	  the tree one at a time until the end is reached (ie., the last comment).
 	</t>
 	<t>
 	  <artwork>	  
-	    FUNCTION: pnCommentNext
+	    FUNCTION: xarCommentNext
 	    RETURN: commentarray
 	    PARAMETERS:
 			$commentarray: named array
@@ -298,7 +298,7 @@
 	<t>returns the previous comment in the comments array.</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentStats
+	    FUNCTION: xarCommentStats
 	    RETURN: statsarray
 	    PARAMETERS:
 			$module: see above;
@@ -317,12 +317,12 @@
 	<t>List of Functions</t>
 	<t>
 	  <artwork>
-	  pnCommentRenderFactory($type) &lt;-- Constructor
+	  xarCommentRenderFactory($type) &lt;-- Constructor
 	  Class Renderer
 	  Renderer() &lt;-- Constructor
-	  pnCommentDraw($commentarray, $optionsarray)
-	  pnCommentDrawInput()
-	    pnCommentDrawEdit($commentid)
+	  xarCommentDraw($commentarray, $optionsarray)
+	  xarCommentDrawInput()
+	    xarCommentDrawEdit($commentid)
 	  </artwork>
 	</t>
 	<t>Details of Functions</t>
@@ -340,7 +340,7 @@
 	<t>Function Descriptions</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentRenderFactory
+	    FUNCTION: xarCommentRenderFactory
 	    RETURN: renderer class
 	    PARAMETERS:
 			$type: the name of the renderer to use.
@@ -349,7 +349,7 @@
 	<t>returns the chosen renderer class.</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentDraw
+	    FUNCTION: xarCommentDraw
 	    RETURN: XHTML
 	    PARAMETERS:
 			$commentarray: named array.
@@ -359,7 +359,7 @@
 	<t>returns the comments specfied rendered in XHTML.</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentDrawInput
+	    FUNCTION: xarCommentDrawInput
 	    RETURN: XHTML
 	    PARAMETERS:
 	  </artwork>
@@ -367,7 +367,7 @@
 	<t>returns the comment input form rendered in XHTML.</t>
 	<t>
 	  <artwork>
-	    FUNCTION: pnCommentDrawInput
+	    FUNCTION: xarCommentDrawInput
 	    RETURN: XHTML
 	    PARAMETERS:
 			$commentid: id of the comment to edit.
@@ -476,8 +476,8 @@
 	<artwork>
 	  4.1 (January 7, 2002) modified by Carl P. Corliss (aka Rabbitt)
 	  Added 'haskids' field to db table scheme
-	  Added function pnCommentSearch to Section 4a (Function List and Description)
-	  Modified function pnCommentGet -- added parameter 'sort'
+	  Added function xarCommentSearch to Section 4a (Function List and Description)
+	  Modified function xarCommentGet -- added parameter 'sort'
 	  4.0 (January 6, 2002) modified by Gregor J. Rothfuss
 	  Section 4b extended.
 	  Formatting cleanups.

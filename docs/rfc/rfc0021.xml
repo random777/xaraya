@@ -89,9 +89,9 @@
                     </t>
 			<t>
 				<list>
-					<t>Syndication of news, forums (Mailbag?) to exchange news, forward interesting threads for archival or as input for pnFeedback (bug                  
+					<t>Syndication of news, forums (Mailbag?) to exchange news, forward interesting threads for archival or as input for xarFeedback (bug                  
 				 tracker / feature request). close the loop with the documentation / FAQ team</t>
-					<t>Heavy, deep interlinking (not just in the web links section) for instance on pn.it forum: go to the same forum on pn.com etc</t>
+					<t>Heavy, deep interlinking (not just in the web links section) for instance on xaraya.it forum: go to the same forum on xaraya.com etc</t>
 					<t>Adopt a similar structure for the support forums so that they can be mapped from language to language, from main site to 3rd party  
 				 sites etc</t>
 					<t>Make documentation readily available (people have trouble finding our docs, including translations</t>
@@ -104,7 +104,7 @@
 		</section>
 		<section title="Relationship of Postnuke International to other areas">
 			<t>
-	             pnCommunity: Postnuke International should plug into pnCommunity for User Feedback and other areas
+	             xarCommunity: Postnuke International should plug into xarCommunity for User Feedback and other areas
 	             </t>
 		</section>
 		<section title="Code that will need to be rewritten">

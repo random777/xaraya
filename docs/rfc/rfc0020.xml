@@ -38,36 +38,36 @@
 		<section title="Architecture">
 			<t>
 			Even by supporting string-base and key-based access to translations, MLS keeps very distinct the mode you use it. MLS has two entry point                     
-			functions, they are pnML and pnMLByKey. The first function (pnML) is chosen for string-based translations, the latter function (pnMLByKey) 
+			functions, they are xarML and xarMLByKey. The first function (xarML) is chosen for string-based translations, the latter function (xarMLByKey) 
 			is chosen for key-based translations. You can also use both model in the same fragment of code. The MLS architecture is modularized 
 			through the use of backends. A backend is an entity capable of managing string-based and key-based translations.  	Currently implemented 
 			backends are the XML backend and the PHP backend. In the future will be developed the DBM backend, the GetText backend. Implementation 
 			of a backend is currently delegated to a PHP class, however we are evaluating to use the PostNuke Module System also for MLS backend 
 			implementations. We said that a backend manages translations, this is done by exposing a well known interface: 
                     <artwork>                    
-                    interface pnML_?TranslationsBackend { 
+                    interface xarML_?TranslationsBackend { 
                     string translate($string);
                     string translateByKey($key);
                     bool load($translation_ctx);
                     } 
                     </artwork>                    
-                    The load method is called when a call pnModLoad or pnModAPILoad occurs. Translations are identified by a translation context, in that way 
+                    The load method is called when a call xarModLoad or xarModAPILoad occurs. Translations are identified by a translation context, in that way 
                     only needed translations will be load during the page generation process. A translation context is made of a module name, a module action 
                     type (user, userapi, admin, adminapi) and a language identifier. The backend can load more than one translation context per time, loaded 
                     translations are managed (merged) by the backend. 
 			</t>
 			<t>
-                    The translate method is called by pnML function. 
+                    The translate method is called by xarML function. 
 			</t>
 			<t>
-                    The translateByKey method is called by pnMLByKey function. 
+                    The translateByKey method is called by xarMLByKey function. 
 			</t>
 			<t>
                     The XML language has been chosen as the intermediate translations language, because of that the XML backend is a special backend. The 
                     intermediate translations language is used to store translations and references to occurrences of strings and keys. It's used to generate 
                     translations for other backends through the translations module, but you'll see that later. The XML backend implements another two interfaces: 
                    <artwork> 
-                   interface pnML_?ReferencesBackend { 
+                   interface xarML_?ReferencesBackend { 
                    array entry($string);
                    array entryByKey($key);
                    } 
@@ -78,7 +78,7 @@
 			<t>
                     The entryByKey is the analogous case for key-based translation. 
                     <artwork>
-                    interface pnML_EnumerableTranslationsBackend { 
+                    interface xarML_EnumerableTranslationsBackend { 
                     array enumTranslation($reset = false);
                     array enumKeyTranslations($reset = false);
                     }
@@ -93,23 +93,23 @@
 	      </section>
 		<section title="MLS API ">
 			<t>
-			The MLS exposes an API that will integrate into PostNuke API. We've yet discussed two functions (pnML and pnMLByKey), now we'll see  
+			The MLS exposes an API that will integrate into PostNuke API. We've yet discussed two functions (xarML and xarMLByKey), now we'll see  
 			other API functions: 
 			</t>
 			<t>
-                    pnMLInit() Used to initialized the MLS. 
+                    xarMLInit() Used to initialized the MLS. 
 			</t>
 			<t>
-                    pnMLRegisterListener($modname) Register a listener into MLS. A listener is notified by MLS of certain events like missing translations. 
+                    xarMLRegisterListener($modname) Register a listener into MLS. A listener is notified by MLS of certain events like missing translations. 
 			</t>
 			<t>
-                    pnMLGetXMLBackend($modname, $type, $lang) Return an XML backend with the specified translation context loaded, it's used mainly by the  
+                    xarMLGetXMLBackend($modname, $type, $lang) Return an XML backend with the specified translation context loaded, it's used mainly by the  
                     translations module.
 			</t>
 	      </section>
 		<section title="MLS from the developer point of view">
 			<t>
-			What developers should know is a very little part of MLS: pnML and pnMLByKey. Developers will use those function when they need to have  
+			What developers should know is a very little part of MLS: xarML and xarMLByKey. Developers will use those function when they need to have  
 			internationalization support in their modules. 
 			</t>
 	      </section>

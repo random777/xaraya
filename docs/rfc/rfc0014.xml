@@ -47,7 +47,7 @@
 			</t>
 			<section title="Module Interfaces">
 				<t>
-			     A generic authentication module must implement at least the Authentication interface. Other interfaces extend the exported module API and add new feautures to this module. Incarnation of interfaces is done by defining and implementing one or more module API functions (If you can't understand what is a module API function you're strongly encouraged to read the pnMDG documentation before proceding). The name of one authentication module API function, for its first part, is submitted to module API naming rules. The rest of the name is an underscore plus the interface method name. In this section are described all authentication interfaces currently supported by PostNuke.
+			     A generic authentication module must implement at least the Authentication interface. Other interfaces extend the exported module API and add new feautures to this module. Incarnation of interfaces is done by defining and implementing one or more module API functions (If you can't understand what is a module API function you're strongly encouraged to read the xarMDG documentation before proceding). The name of one authentication module API function, for its first part, is submitted to module API naming rules. The rest of the name is an underscore plus the interface method name. In this section are described all authentication interfaces currently supported by PostNuke.
 			     </t>
 				<section title="Interface Authentication">
 					<section title="Definition ">
@@ -75,7 +75,7 @@ This function will receive the following parameters:
   </artwork>
 </t>
 <t>
-  This function MUST return a valid system user id IF and ONLY IF the user credentials are considered valid (the user is authenticated sucessfully) or _PNAUTH_FAILED for invalid credentials or false for bad parameters.
+  This function MUST return a valid system user id IF and ONLY IF the user credentials are considered valid (the user is authenticated sucessfully) or _XARAUTH_FAILED for invalid credentials or false for bad parameters.
   Here is important to explain what a valid system user id is.
   PostNuke keeps a reference to all system users notwithstanding they're authenticated by different authentication modules.
   The section 5. User IDs mapping explains how to return a valid system user id.
@@ -86,11 +86,11 @@ function authgen_userapi_has_capability($args)
 </t>
 <t>
 <artwork>  $args?'capability': the required capability, it's an identifier for another interface
-                       possible values are: _PNAUTH_USER_DATA_HANDLER
-                                            _PNAUTH_PERMISSIONS_OVERRIDER
-                                            _PNAUTH_USER_CREATEABLE
-                                            _PNAUTH_USER_DELETEABLE
-                                            _PNAUTH_USER_ENUMERABLE
+                       possible values are: _XARAUTH_USER_DATA_HANDLER
+                                            _XARAUTH_PERMISSIONS_OVERRIDER
+                                            _XARAUTH_USER_CREATEABLE
+                                            _XARAUTH_USER_DELETEABLE
+                                            _XARAUTH_USER_ENUMERABLE
 </artwork>
   </t>
 <t>

@@ -151,48 +151,48 @@
       <section title="BlockLayout Interface Changes">
         <t>The following public interfaces to BlockLayout are:</t>
 
-        <section title="pnTplString()">
-          <t>Due to it's similar naming convention to pnTplFile(),
+        <section title="xarTplString()">
+          <t>Due to it's similar naming convention to xarTplFile(),
           this function appears to do what this proposal requires,
           but the two functions do not behave the same.</t>
 
-          <t>pnTplFile() will accept a BlockLayout Template file
+          <t>xarTplFile() will accept a BlockLayout Template file
           name; if that file has not already been compiled, then
           the blCompiler will be invoked and a cache file
           created.</t>
 
-          <t>pnTplString(), however will only accept the equivalent
+          <t>xarTplString(), however will only accept the equivalent
           of the contents of a BlockLayout cache file i.e. valid
           PHP code, not BlockLayout code.</t>
 
           <t>For consistency, the functionality offered by
-          pnTplString() should be the same as that offered by
-          pnTplFile i.e. the input should the an uncompiled
+          xarTplString() should be the same as that offered by
+          xarTplFile i.e. the input should the an uncompiled
           BlockLayout Template. An appropriately named new function
-          should be created to implement the current pnTplString()
-          functionality e.g. pnTplEval()</t>
+          should be created to implement the current xarTplString()
+          functionality e.g. xarTplEval()</t>
         </section>
       </section>
     </section>
 
     <section title="Code that will need to be written">
       <section title="New Functions">
-        <section title="pnTpl__executeFromString()">
+        <section title="xarTpl__executeFromString()">
           <t>This new private function will implement cacheing for
           string based template parsing. It is loosely based around
-          pnTpl__executeFromFile(). In fact, there is much 
+          xarTpl__executeFromFile(). In fact, there is much 
           commonality that should be brought together into shared 
           functions.</t>
 
           <artwork>
-          function pnTpl__executeFromString($sourceString, $tplData, $cache_flag=true)
+          function xarTpl__executeFromString($sourceString, $tplData, $cache_flag=true)
 {
-    global $pnTpl_cacheTemplates;
+    global $xarTpl_cacheTemplates;
 
     $needCompilation = true;
 
-    if ($pnTpl_cacheTemplates && $cache_flag) {
-        $varDir = pnCoreGetVarDirPath();
+    if ($xarTpl_cacheTemplates && $cache_flag) {
+        $varDir = xarCoreGetVarDirPath();
         $cacheKey = md5($sourceString);
         $cachedFileName = $varDir . '/cache/templates/' . $cacheKey . '.php';
         //
@@ -205,19 +205,19 @@
         }
     }
 
-    //pnLogVariable('needCompilation', $needCompilation, PNLOG_LEVEL_ERROR);
+    //xarLogVariable('needCompilation', $needCompilation, XARLOG_LEVEL_ERROR);
     if ($needCompilation) {
-        $blCompiler = pnTpl__getCompilerInstance();
+        $blCompiler = xarTpl__getCompilerInstance();
         $templateCode = $blCompiler->compile($sourceString);
         if (!isset($templateCode)) {
             return; // exception! throw back
         }
-        if ($pnTpl_cacheTemplates && $cache_flag) {
+        if ($xarTpl_cacheTemplates && $cache_flag) {
             $fd = fopen($cachedFileName, 'w');
             fwrite($fd, $templateCode);
             fclose($fd);
         } else {
-            return pnTpl__execute($templateCode, $tplData);
+            return xarTpl__execute($templateCode, $tplData);
         }
     }
         $tplData['_bl_data'] = $tplData;
@@ -227,7 +227,7 @@
         extract($tplData, EXTR_OVERWRITE);
     } else {
         $msg = 'Incorrect format for tplData, it must be an associative array of arguments';
-        pnExceptionSet(PN_SYSTEM_EXCEPTION, 'BAD_PARAM',
+        xarExceptionSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                        new SystemException($msg));
         return;
     }
@@ -236,7 +236,7 @@
     ob_start();
 
     // Load cached template file
-    if (pnCoreIsDebuggerActive()) {
+    if (xarCoreIsDebuggerActive()) {
         $res = include $cachedFileName;
     } else {
         // Suppress error report when debugger is not active to prevent
@@ -255,24 +255,24 @@
           </artwork>
         </section>
 
-        <section title="pnTplEval()">
-          <t>The public function pnTplEval() will simply replace
-          the current functionality of pnTplString().</t>
+        <section title="xarTplEval()">
+          <t>The public function xarTplEval() will simply replace
+          the current functionality of xarTplString().</t>
 
-          <artwork>function pnTplString($templateCode, $tplData) {
-          return pnTpl__execute($templateCode, $tplData);
+          <artwork>function xarTplString($templateCode, $tplData) {
+          return xarTpl__execute($templateCode, $tplData);
           }</artwork>
         </section>
       </section>
 
       <section title="Modified Functions">
-        <section title="pnTplString()">
+        <section title="xarTplString()">
           <t>This will become the public interface to BlockLayout for
           Content. The current version of this function does not appear to be called from anywhere (at the moment), so 
           changes should have no impact on existing code.</t>
 
-          <artwork>function pnTplString($templateCode, $tplData, $cache_flag) {
-          return pnTpl__executeFromString($templateCode, $tplData, $cache_flag);
+          <artwork>function xarTplString($templateCode, $tplData, $cache_flag) {
+          return xarTpl__executeFromString($templateCode, $tplData, $cache_flag);
           }</artwork>
         </section>
       </section>

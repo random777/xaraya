@@ -98,7 +98,7 @@
 				Security - ensure the module uses the API security functions and check 777 access requirements
 				</t>
 				<t>
-				Standards compliance - ensure the module meets current ADODB, pnAPI, pnMDG, and other 
+				Standards compliance - ensure the module meets current xarADODB, xarAPI, xarMDG, and other 
 				standards.
 				</t>
 				<t>

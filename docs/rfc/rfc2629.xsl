@@ -273,7 +273,9 @@
          </xsl:if>
          <xsl:choose>
            <xsl:when test="@src!=''">
-             <img src="{@src}"/>
+             <div class="image">
+               <img src="{@src}"/>
+             </div>
            </xsl:when>
            <xsl:otherwise>
              <pre>

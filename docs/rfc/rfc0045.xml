@@ -65,8 +65,18 @@
         </list>
 
         <t>4. Index Names</t>
-        <t>Index names must be unique across all Xaraya modules.  To guarantee that an index name will be unique, the index should include the table name and column name.</t>
-        <t>For example: "xar_reports_name_idx" - an index on table xar_reports, column "name"
+        <t>Index names must be unique across all Xaraya modules.  To guarantee that an index name will be unique, the index should include the site table prefix returned from xarDBGetSiteTablePrefix(), module name or abbreviated module name, table name and/or column name.</t>
+        <t>For example:
+        <figure>
+          <artwork><![CDATA[
+          $index = array('name'   => 'i_' . xarDBGetSiteTablePrefix() . '_cat_cid',
+                         'fields' => array('xar_cid'),
+                         'unique' => FALSE);
+
+          Creates the non-unique index "i_xar_cat_cid"
+          ]]>
+          </artwork>
+        </figure>
         </t>
         
         <t>5. Looping Over Results</t>
@@ -123,6 +133,17 @@
       <list>
         <t>1. Sequences on Module Initialization</t>
         <t>PostgreSQL sequences are not created when a table is created on module initialization but are created when the sequence is first called by the ADODB function GenID().  If a module needs to insert initial records into a table on initialization, the initial value of the sequence must be determined by calling GenID().  You cannot INSERT the initial rows into the table as an error will occur because the sequence value returned from GenID() will be incorrect.</t>      
+        <t>2. SELECT DISTINCT with ORDER BY</t>
+        <t>The results of a SELECT can be returned in sorted order or with duplicate rows removed but the ORDER BY columns must appear in SELECT DISTINCT target list.</t>
+        <t>For example:</t>
+        <figure>
+          <artwork><![CDATA[
+          SELECT DISTINCT firstname, lastname, address
+          FROM customer
+          ORDER BY lastname;
+          ]]>
+          </artwork>
+        </figure>
       </list>
     </section>
   
@@ -162,6 +183,7 @@
           <t>2003-04-18: MrB: created</t>
           <t>2003-05-05: Richard Cave: First stab at database requirements.</t>
           <t>2003-05-14: Richard Cave: Added MySQL multi-table DELETE.</t>
+          <t>2003-06-12: Richard Cave: Added PostgreSQL SELECT DISTINCT with ORDER BY and updated index names.</t>
         </list>
       </t>
     </section>

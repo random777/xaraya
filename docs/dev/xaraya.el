@@ -56,12 +56,32 @@
 					)
 	)
 
+(defun xar-classheader ()
+  "Insert a xaraya standard phpdoc classheader"
+  (interactive)
+  (insert "
+/**
+ * Short class description
+ *
+ * A somewhat longer description of the class which
+ * may be on multiple lines and can contain examples
+ *
+ * @package unassigned - replace with packagename
+ * @author Author Name <author@email>
+ * @deprec date since deprecated <insert if class is deprecated>
+ * @todo  todo-item, specify each with new tag
+ */"
+)
+)
+
+
 ;
 ; Control-Meta-f : fileheader
-; Control-Meta-h : funcheader
-;
+; Control-Meta-p : funcheader
+; Contral-Meta-a : classheader 
 (global-set-key [(control meta f)] 'xar-fileheader)
 (global-set-key [(control meta p)] 'xar-funcheader)
+(global-set-key [(control meta a)] 'xar-classheader)
 
 
 ;

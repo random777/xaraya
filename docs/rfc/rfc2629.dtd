@@ -147,7 +147,7 @@
           anchor      ID                 #IMPLIED
           title       %ATEXT;            #REQUIRED>
 
-<!ELEMENT t           (%TEXT;|list|figure|xref|eref|iref|vspace|artwork|em)*>
+<!ELEMENT t           (%TEXT;|list|figure|xref|eref|iref|vspace|artwork|em|t)*>
 <!ATTLIST t
           hangText    %ATEXT;            #IMPLIED>
 

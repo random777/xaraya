@@ -47,6 +47,11 @@ Upgrades
 ========
 Please visit the #support channel for information on upgrading from PostNuke or PHP-Nuke to Xaraya.
 
+   Template Changes between versions (please check your theme overrides for these)
+   ----------------------------------------------------
+   .9.10.0 -> .?.?.? modules/xarbb/xartemplates/user-newreply.xd : the input form
+                     includes an additional hidden input field for header[itemtype]
+
    DB Changes between versions
    ----------------------------------------------------
    .9.0.0 -> .9.0.2 Small article and permissions changes.

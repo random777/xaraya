@@ -79,3 +79,4 @@ html/themes/diner-casual/style/default.css
 html/themes/diner-casual/xartheme.php
 build/*
 html/var/logs/html-log.html
+html/modules/calendar

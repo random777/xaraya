@@ -7,7 +7,7 @@
 <rfc number="0029" category="exp">
   <!-- Front matter is used for identification of author and organization -->
   <front>
-    <title>Unit testing for Xaraya</title>
+    <title>Automated Unit testing for Xaraya</title>
     <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
       <organization>Xaraya Development Group</organization>
       <address>

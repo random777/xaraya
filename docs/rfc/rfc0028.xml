@@ -12,14 +12,14 @@
     <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>marcel@xaraya.com</email>
-	<uri>http://www.xaraya.com</uri>
+        <email>marcel@xaraya.com</email>
+        <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <author initials="J" surname="Schrage" fullname="Jan Schrage">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>jan@xaraya.com</email>
+        <email>jan@xaraya.com</email>
       </address>
     </author>
     <date month="November" year="2002"/>
@@ -30,35 +30,35 @@
     <!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
     <keyword>repository</keyword>
-       
+    
     <!-- The abstract summarises in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>This RFC describes the development process used by the Xaraya development Group, 
-	both in general process terms as in explicit tool usage terms.
+        both in general process terms as in explicit tool usage terms.
       </t>
     </abstract>
-
+    
     <note title="Implementation of policy">
       <t>
-	With hindsight, since the first revision of this document, the described policy has 
-	not been completely implemented so far. My personal opinion is that this is due to
-	the following factors:
-	<list style="bullets">
-	  <t>learning curve for bitkeeper</t>
-	  <t>code is still in flux</t>
-	  <t>eagerness for producing code</t>
-	</list>
-	The policy described in (part a) of this document is still the desired policy and
-	I will be working on that process to asymptotically reach the process as described
-	in this document.
+        With hindsight, since the first revision of this document, the described policy has 
+        not been completely implemented so far. My personal opinion is that this is due to
+        the following factors:
+        <list style="bullets">
+          <t>learning curve for bitkeeper</t>
+          <t>code is still in flux</t>
+          <t>eagerness for producing code</t>
+        </list>
+        The policy described in (part a) of this document is still the desired policy and
+        I will be working on that process to asymptotically reach the process as described
+        in this document.
       </t>
       <t>
-	However, the most important parts of the process are in place such as the scenario
-	analogy. With the bitkeeper suite of tools, most of this process is not visible but
-	automatically arranged for.
+        However, the most important parts of the process are in place such as the scenario
+        analogy. With the bitkeeper suite of tools, most of this process is not visible but
+        automatically arranged for.
       </t>
     </note>
-
+    
   </front>
   
   <!-- The middle section is used for the actual content of the RFC -->
@@ -67,875 +67,874 @@
       <t>Repository supported scenario based development</t>
       
       <t>
-	The first part of this document describes the policy for the Xaraya source
-	repository. It is written with no particular repository tool in
-	mind. (At the time of writing we use CVS) We will refer to the tool
-	used as SCM (Software Configuration Manager for lack of a better
-	term) to keep this part of the document valid when we decide to switch to
-	another tool. We are evaluating subversion
-	(<eref target="http://subversion.tigris.org">http://subversion.tigris.org</eref>)
-	, bitkeeper
-	(<eref target="http://www.bitkeeper.com">http://www.bitkeeper.com</eref>)
-	as replacements for CVS to give us more efficient process
-	support.
-      </t>
-	
-      <t>
-	To keep the policy readable, the terms used are the ones which
-	are common to CVS. Other SCM tools might use other words to
-	describe the same principles. The actual implementation of
-	this policy with the tool of our choice in in <xref
-	target="scmusage">part B</xref> of this document.
+        The first part of this document describes the policy for the Xaraya source
+        repository. It is written with no particular repository tool in
+        mind. (At the time of writing we use CVS) We will refer to the tool
+        used as SCM (Software Configuration Manager for lack of a better
+        term) to keep this part of the document valid when we decide to switch to
+        another tool. We are evaluating subversion
+        (<eref target="http://subversion.tigris.org">http://subversion.tigris.org</eref>)
+        , bitkeeper
+        (<eref target="http://www.bitkeeper.com">http://www.bitkeeper.com</eref>)
+        as replacements for CVS to give us more efficient process
+        support.
       </t>
       
       <t>
-	The document assumes you know how to use a SCM. The text
-	focuses on the rules to guarantee a pristine
-	repository supporting our development team instead of
-	obstructing it. If the SCM cannot support our process,
-	we&#39;ll have to come up with some kind of self-discipline
-	guidelines to implement our process. If possible and
-	reasonable we will let the SCM do some sanity checks to keep
-	developers on the right track. Please read these guidelines
-	and stick to them. Each section is accompanied by a section
-	&quot;Possible support/enforcement&quot; which lists a
-	possibility to be able to support the guideline. It does not
-	mean that these measure are in fact in place, but they might
-	be some day!
+        To keep the policy readable, the terms used are the ones which
+        are common to CVS. Other SCM tools might use other words to
+        describe the same principles. The actual implementation of
+        this policy with the tool of our choice in in <xref
+                                                            target="scmusage">part B</xref> of this document.
       </t>
-       
+      
+      <t>
+        The document assumes you know how to use a SCM. The text
+        focuses on the rules to guarantee a pristine
+        repository supporting our development team instead of
+        obstructing it. If the SCM cannot support our process,
+        we&#39;ll have to come up with some kind of self-discipline
+        guidelines to implement our process. If possible and
+        reasonable we will let the SCM do some sanity checks to keep
+        developers on the right track. Please read these guidelines
+        and stick to them. Each section is accompanied by a section
+        &quot;Possible support/enforcement&quot; which lists a
+        possibility to be able to support the guideline. It does not
+        mean that these measure are in fact in place, but they might
+        be some day!
+      </t>
+      
       <section anchor="Formats" title="Formats">
-	<t>
-	  The file format used in the Xaraya repository tree is Unix,
-	  i.e. lines end with LF. If you are not using a *nix system please
-	  turn off any auto-conversion-to-proprietary-format in your editor,
-	  as this will mess up things for other developers and will lead to
-	  php execution errors.
-	</t>
-	
-	<t>
-	  Take special care in naming files. Although a *nix file-system
-	  is generally case-sensitive and won&#39;t complain if you commit a
-	  FILE and a file and a FiLe. Windows and Mac systems will not be
-	  able to distinguish these files and will not be able to use the
-	  repository.
-	</t>
-	
-	<t>
-	  Xaraya uses the PEAR coding standard
-	  (<eref target="http://pear.php.net">http://pear.php.net</eref>).
-	  Please read these guidelines and follow them when you code. This
-	  includes using phpdoc tags for documenting your code
-	  (<eref target="http://www.phpdoc.de">http://www.phpdoc.de</eref>)
-	</t>
-	
-	<t>Possible support by SCM:
-	  <list style="bullet">
-	    <t>check for CR/LF Action: warn/cancel commit;</t>
-	    <t>signal on pre-commit that same name (case-insensitive)
-	      exists, Action: warn/cancel commit</t>
-	    <t>lint-like tool: Action: warn only</t>
-	    <t>basic check for documentation tags Action: warn only</t>
-	  </list>
-	</t>
+        <t>
+          The file format used in the Xaraya repository tree is Unix,
+          i.e. lines end with LF. If you are not using a *nix system please
+          turn off any auto-conversion-to-proprietary-format in your editor,
+          as this will mess up things for other developers and will lead to
+          php execution errors.
+        </t>
+        
+        <t>
+          Take special care in naming files. Although a *nix file-system
+          is generally case-sensitive and won&#39;t complain if you commit a
+          FILE and a file and a FiLe. Windows and Mac systems will not be
+          able to distinguish these files and will not be able to use the
+          repository.
+        </t>
+        
+        <t>
+          Xaraya uses the PEAR coding standard
+          (<eref target="http://pear.php.net">http://pear.php.net</eref>).
+          Please read these guidelines and follow them when you code. This
+          includes using phpdoc tags for documenting your code
+          (<eref target="http://www.phpdoc.de">http://www.phpdoc.de</eref>)
+        </t>
+        
+        <t>Possible support by SCM:
+          <list style="bullet">
+            <t>check for CR/LF Action: warn/cancel commit;</t>
+            <t>signal on pre-commit that same name (case-insensitive)
+              exists, Action: warn/cancel commit</t>
+            <t>lint-like tool: Action: warn only</t>
+            <t>basic check for documentation tags Action: warn only</t>
+          </list>
+        </t>
       </section>
-
+      
       <section anchor="Development_process" title="Development process">
-	<t>
-	  The development in Xaraya is a team effort. We all agree
-	  that the quality of our code needs to be as high as
-	  possible. To support this goal we have defined a development
-	  process which will be supported by the SCM tool.
-	</t>
-	
-	<t>
-	  Before we describe the process let&#39;s define the terms we
-	  use to describe it.
-	</t>
-	
-	<section title="Trees, trunks, scenarios, branches, tags and others">
-	  <t>
-	    <list>
-	      <t>Tree:</t>
-	      <t>
-		The tree is the total of all elements, typically files,
-		containing the sources of the project, which we want to manage. The
-		files are not limited to source code; it is even recommended that
-		all information which is more or less part of the project will be
-		placed under control of the SCM. Think of documents, static
-		web-pages, test-scripts, sql-scripts etcetera.
-	      </t>
-	      <t>Trunk:</t>
-	      <t>
-		The trunk represents the main line of development and always
-		contains the latest approved changes in development.
-	      </t>
-	      <t>Branch:</t>
-	      <t>
-		A branch is a (temporary) (partial) copy of the tree which is
-		created with a specific purpose. Changes made
-		in a branch do not appear on the trunk unless they are merged back
-		in.
-	      </t>
-	      <t>Scenario:</t>
-	      <t>
-		A scenario is a specific development task. A scenario always
-		lives on a branch and is created by the repository managers in the
-		repository.
-	      </t>
-	      <t>Tags:</t>
-	      <t>
-		Tags are created in the tree to represent a specific state of
-		the tree which might be needed in the future. For example, you
-		might tag the tree before you commit a very complex change.
-	      </t>
-	      <t>Releases:</t>
-	      <t>
-		Releases are basically the same as tags, with the exception
-		that they are permanent,
-		read-only and occur always on a release
-		branch. They represent the known state of the tree and contains the
-		exact contents for a certain release of the software.
-	      </t>
-	    </list>
-	  </t>
-	</section>
-	
-	<section anchor="Development_process_description" title="Development process description">
-	  
-	  <t>
-	    We use a development process we call &quot;scenario
-	    based development&quot;. In short this means that all
-	    development takes place in scenarios (which always live on a
-	    branch, remember?). No development takes place on the trunk. I
-	    repeat, no development takes place on the trunk ;-)
-	  </t>
-	  
-	  <t>The process consists of two main activities:	  
-	    <list style="numbers">
-	      <t>Normal scenario based development cycle</t>
-	      <t>Release scenario</t>
-	    </list>
-	  </t>
-	  
-	  <section title="Normal scenario based development cycle">
-	    <t>During normal development the following process is  used:    
-	      <figure>
-		<artwork src="images/rfc0028_2.png"/>
-	      </figure>
-	      <eref target="images/rfc0028_1.png">Large picture</eref>
-	    </t>
-	    <t>
-	      To describe the process we&#39;ll use an example of a
-	      (group of) developer(s) developing a GUI for the
-	      permission administration in Xaraya.
-	    </t>
-	    
-	    <t>
-	      Let&#39;s start with the normal development cycle. Each
-	      development task is described in a scenario and assigned
-	      a name (([perm_gui]). When the developer(s) are ready to
-	      start developing this scenario a tag is created in the
-	      trunk ([perm_gui-start]) and a branch for the
-	      development effort is created ([perm_gui-branch]).
-	      Developers check out a working copy of this branch and
-	      start developing.
-	    </t>
-	    
-	    <t>
-	      After a while the developers feel that the scenario is
-	      finished and want to have it integrated into the
-	      project. For this to happen they start with so called
-	      &quot;catch-up&quot; with the trunk, to merge in other
-	      approved scenarios. The scenario developers resolve all
-	      interoperability problems with their scenario and the
-	      others. The &quot;catch-up&quot; with the trunk might be
-	      necessary more than once, depending on approval of other
-	      scenarios.
-	    </t>
-	    
-	    <t>
-	      Let&#39;s assume they have resolved the conflicts and
-	      want to finish the scenario. They tag their branch with
-	      the ([perm_gui-end]). At this point, the formal work of
-	      the developers for this scenario is temporary
-	      completed. At the tag-point a working installation of
-	      Xaraya is left for others to review and test for
-	      approval.
-	    </t>
-	    
-	    <t>
-	      When tests are finished, the scenario branch can be
-	      merged back into the trunk and the integrators make sure
-	      the trunk is updated to a stable state. Just before
-	      merging a tag ([merge_of-perm_gui]) is created in the
-	      trunk.
-	    </t>
-	    
-	    <t>
-	      If tests fail and it is necessary to continue
-	      development on the scenario the ([perm_gui-end]) tag is
-	      removed and scenario developers continue their
-	      work. This cycle is repeated as necessary to ensure that
-	      the trunk always receives a working system state. It is
-	      the responsibility of the integrator to leave the trunk
-	      in a working state after integrating a finished
-	      scenario.  You see that the process always ends up with
-	      a working software package, whether it be in a scenario
-	      branch, the trunk or a release branch. After closing up,
-	      a working system is left behind at all times. This helps
-	      the team isolating problems and steering the project on
-	      feature inclusion instead of time. The project is at all
-	      times in such a state that a release branch can be
-	      started.
-	    </t>
-	    
-	    <t>
-	      During the normal development cycle multiple scenarios
-	      may be active at any given moment. Obviously the
-	      &quot;scenario scheme&quot; will be chosen intelligently
-	      as to minimise the number of conflicts expected. Crucial
-	      in this respect is communication between different
-	      scenario developers. Scenario developers are free to
-	      merge in code from other active scenarios if they see
-	      good reason to do so. In practice try to avoid this
-	      situation. It is better to finish one of the scenarios
-	      first, get it approved, do a catch-up with the trunk and
-	      then finish the second scenario.
-	    </t>
-	    
-	    <t>
-	      The scenario branch is closed for development after a
-	      successful merge and may even be removed if
-	      appropriate.
-	    </t>
-	  </section>
-	  
-	  <section anchor="Release_scenario" title="Release scenario">
-	    <t>
-	      When it is time to construct a release of the software
-	      the following process is used.
-	      <figure>
-		<artwork src="images/rfc0028_4.png"/>
-	      </figure>
-	      <eref target="images/rfc0028_3.png">Large picture</eref>
-	    </t>
-
-	    <t>
-	      The release scenario isn&#39;t that much different from a
-	      normal development cycle. When we think a release is warranted a
-	      tag is created in the trunk
-	      ([release_2_1_2-start]) and a release branch is
-	      created ([rel-2_1_2]). Note that this is the same
-	      procedure as any normal development scenario, so far.
-	    </t>
-	    
-	    <t>
-	      The first difference is that in a release branch, the
-	      development of new features is forbidden. It is a preparation for
-	      release and not a new development effort.
-	    </t>
-	    
-	    <t>
-	      Second, no &quot;catch-ups&quot; occurs
-	      in a release branch. In the ([rel-2_1_2]) branch
-	      the release people start preparing the code for release, in this
-	      case release 2.1.2. No merging of the trunk will happen in the
-	      branch. The test team can check out a copy of the release branch to
-	      do formal testing. When all is ready, the release manager approves
-	      the creation of a tag in the branch named
-	      ([release-2_1_2]). The state of the tree as it
-	      appears when the tag is created is the
-	      release. Any change after the tag is there is considered a bug fix
-	      after release.
-	    </t>
-	    
-	    <t>
-	      The distribution activities operate on the tree tagged with
-	      the ([rel-2_1_2]) tag. Actual distribution
-	      activities take place outside the tree, unless they can be done
-	      partially before the tag is created. In that case they are
-	      considered as release preparation and need to be tested as
-	      rigorously as all other features of a release.
-	    </t>
-	    
-	    <t>
-	      The release branch continues to exist after release, but only
-	      bug-fixing is done on the branch. At no point in time on a release
-	      branch is a merge done from any other branch including the
-	      trunk.
-	    </t>
-	    
-	    <t>Possible support by SCM:
-	      <list style="bullet">
-		<t>access privileges to prevent commits in wrong branches.</t>
-		<t>
-		  automatic regression testing on scenario-branches and
-		  trunk Action: warn/cancel commit (depending on how this will be
-		  implemented)
-		</t>
-		<t>
-		  implement multiple stage commit (like review/integrate/commit
-		  cycle) Action: depending on SCM
-		</t>
-	      </list>
-	    </t>
-	    
-	    <t>
-	      From developers it is expected they can dream the above
-	      process.
-	    </t>
-	  </section>
-	</section>
+        <t>
+          The development in Xaraya is a team effort. We all agree
+          that the quality of our code needs to be as high as
+          possible. To support this goal we have defined a development
+          process which will be supported by the SCM tool.
+        </t>
+        
+        <t>
+          Before we describe the process let&#39;s define the terms we
+          use to describe it.
+        </t>
+        
+        <section title="Trees, trunks, scenarios, branches, tags and others">
+          <t>
+            <list>
+              <t>Tree:</t>
+              <t>
+                The tree is the total of all elements, typically files,
+                containing the sources of the project, which we want to manage. The
+                files are not limited to source code; it is even recommended that
+                all information which is more or less part of the project will be
+                placed under control of the SCM. Think of documents, static
+                web-pages, test-scripts, sql-scripts etcetera.
+              </t>
+              <t>Trunk:</t>
+              <t>
+                The trunk represents the main line of development and always
+                contains the latest approved changes in development.
+              </t>
+              <t>Branch:</t>
+              <t>
+                A branch is a (temporary) (partial) copy of the tree which is
+                created with a specific purpose. Changes made
+                in a branch do not appear on the trunk unless they are merged back
+                in.
+              </t>
+              <t>Scenario:</t>
+              <t>
+                A scenario is a specific development task. A scenario always
+                lives on a branch and is created by the repository managers in the
+                repository.
+              </t>
+              <t>Tags:</t>
+              <t>
+                Tags are created in the tree to represent a specific state of
+                the tree which might be needed in the future. For example, you
+                might tag the tree before you commit a very complex change.
+              </t>
+              <t>Releases:</t>
+              <t>
+                Releases are basically the same as tags, with the exception
+                that they are permanent,
+                read-only and occur always on a release
+                branch. They represent the known state of the tree and contains the
+                exact contents for a certain release of the software.
+              </t>
+            </list>
+          </t>
+        </section>
+        
+        <section anchor="Development_process_description" title="Development process description">
+          
+          <t>
+            We use a development process we call &quot;scenario
+            based development&quot;. In short this means that all
+            development takes place in scenarios (which always live on a
+            branch, remember?). No development takes place on the trunk. I
+            repeat, no development takes place on the trunk ;-)
+          </t>
+          
+          <t>The process consists of two main activities:	  
+            <list style="numbers">
+              <t>Normal scenario based development cycle</t>
+              <t>Release scenario</t>
+            </list>
+          </t>
+          
+          <section title="Normal scenario based development cycle">
+            <t>During normal development the following process is  used:    
+              <figure>
+                <artwork src="images/rfc0028_2.png"/>
+              </figure>
+              <eref target="images/rfc0028_1.png">Large picture</eref>
+            </t>
+            <t>
+              To describe the process we&#39;ll use an example of a
+              (group of) developer(s) developing a GUI for the
+              permission administration in Xaraya.
+            </t>
+            
+            <t>
+              Let&#39;s start with the normal development cycle. Each
+              development task is described in a scenario and assigned
+              a name (([perm_gui]). When the developer(s) are ready to
+              start developing this scenario a tag is created in the
+              trunk ([perm_gui-start]) and a branch for the
+              development effort is created ([perm_gui-branch]).
+              Developers check out a working copy of this branch and
+              start developing.
+            </t>
+            
+            <t>
+              After a while the developers feel that the scenario is
+              finished and want to have it integrated into the
+              project. For this to happen they start with so called
+              &quot;catch-up&quot; with the trunk, to merge in other
+              approved scenarios. The scenario developers resolve all
+              interoperability problems with their scenario and the
+              others. The &quot;catch-up&quot; with the trunk might be
+              necessary more than once, depending on approval of other
+              scenarios.
+            </t>
+            
+            <t>
+              Let&#39;s assume they have resolved the conflicts and
+              want to finish the scenario. They tag their branch with
+              the ([perm_gui-end]). At this point, the formal work of
+              the developers for this scenario is temporary
+              completed. At the tag-point a working installation of
+              Xaraya is left for others to review and test for
+              approval.
+            </t>
+            
+            <t>
+              When tests are finished, the scenario branch can be
+              merged back into the trunk and the integrators make sure
+              the trunk is updated to a stable state. Just before
+              merging a tag ([merge_of-perm_gui]) is created in the
+              trunk.
+            </t>
+            
+            <t>
+              If tests fail and it is necessary to continue
+              development on the scenario the ([perm_gui-end]) tag is
+              removed and scenario developers continue their
+              work. This cycle is repeated as necessary to ensure that
+              the trunk always receives a working system state. It is
+              the responsibility of the integrator to leave the trunk
+              in a working state after integrating a finished
+              scenario.  You see that the process always ends up with
+              a working software package, whether it be in a scenario
+              branch, the trunk or a release branch. After closing up,
+              a working system is left behind at all times. This helps
+              the team isolating problems and steering the project on
+              feature inclusion instead of time. The project is at all
+              times in such a state that a release branch can be
+              started.
+            </t>
+            
+            <t>
+              During the normal development cycle multiple scenarios
+              may be active at any given moment. Obviously the
+              &quot;scenario scheme&quot; will be chosen intelligently
+              as to minimise the number of conflicts expected. Crucial
+              in this respect is communication between different
+              scenario developers. Scenario developers are free to
+              merge in code from other active scenarios if they see
+              good reason to do so. In practice try to avoid this
+              situation. It is better to finish one of the scenarios
+              first, get it approved, do a catch-up with the trunk and
+              then finish the second scenario.
+            </t>
+            
+            <t>
+              The scenario branch is closed for development after a
+              successful merge and may even be removed if
+              appropriate.
+            </t>
+          </section>
+          
+          <section anchor="Release_scenario" title="Release scenario">
+            <t>
+              When it is time to construct a release of the software
+              the following process is used.
+              <figure>
+                <artwork src="images/rfc0028_4.png"/>
+              </figure>
+              <eref target="images/rfc0028_3.png">Large picture</eref>
+            </t>
+            
+            <t>
+              The release scenario isn&#39;t that much different from a
+              normal development cycle. When we think a release is warranted a
+              tag is created in the trunk
+              ([release_2_1_2-start]) and a release branch is
+              created ([rel-2_1_2]). Note that this is the same
+              procedure as any normal development scenario, so far.
+            </t>
+            
+            <t>
+              The first difference is that in a release branch, the
+              development of new features is forbidden. It is a preparation for
+              release and not a new development effort.
+            </t>
+            
+            <t>
+              Second, no &quot;catch-ups&quot; occurs
+              in a release branch. In the ([rel-2_1_2]) branch
+              the release people start preparing the code for release, in this
+              case release 2.1.2. No merging of the trunk will happen in the
+              branch. The test team can check out a copy of the release branch to
+              do formal testing. When all is ready, the release manager approves
+              the creation of a tag in the branch named
+              ([release-2_1_2]). The state of the tree as it
+              appears when the tag is created is the
+              release. Any change after the tag is there is considered a bug fix
+              after release.
+            </t>
+            
+            <t>
+              The distribution activities operate on the tree tagged with
+              the ([rel-2_1_2]) tag. Actual distribution
+              activities take place outside the tree, unless they can be done
+              partially before the tag is created. In that case they are
+              considered as release preparation and need to be tested as
+              rigorously as all other features of a release.
+            </t>
+            
+            <t>
+              The release branch continues to exist after release, but only
+              bug-fixing is done on the branch. At no point in time on a release
+              branch is a merge done from any other branch including the
+              trunk.
+            </t>
+            
+            <t>Possible support by SCM:
+              <list style="bullet">
+                <t>access privileges to prevent commits in wrong branches.</t>
+                <t>
+                  automatic regression testing on scenario-branches and
+                  trunk Action: warn/cancel commit (depending on how this will be
+                  implemented)
+                </t>
+                <t>
+                  implement multiple stage commit (like review/integrate/commit
+                  cycle) Action: depending on SCM
+                </t>
+              </list>
+            </t>
+            
+            <t>
+              From developers it is expected they can dream the above
+              process.
+            </t>
+          </section>
+        </section>
       </section>
       
       <section anchor="Handling_commits" title="Handling commits">
-	<t>
-	  The basic action for changing the repository is a commit of
-	  one or more changes made to files in the repository. While the
-	  development process assures that commits are isolated to a
-	  scenario, some guidelines how to manage your commits are in
-	  order.
-	</t>
-	
-	<t>
-	  A commit is forever! Period. That&#39;s why commits must not
-	  be done without any thinking up front. Even if you decide something
-	  is wrong and a commit must be rolled back, history shows that it
-	  has been done. A rollback doesn&#39;t exist; it consists of (at
-	  least) two commits.
-	</t>
-	
-	<section anchor="Where_to_commit" title="Where to commit">
-	  <t>
-	    The development process creates at least three tags for each
-	    scenario and at least 2 for each release cycle. Make absolutely
-	    sure you are committing your work to the right branch/tag
-	    combination. Triple check it! If things are unclear, ask one of the
-	    repository managers for help. Backup your own stuff. Quadruple
-	    check your commits if you are working on multiple scenarios at
-	    once. The SCM tool will support this by setting the appropriate
-	    permissions on the scenarios you are working on.
-	  </t>
-	</section>
-	
-	<section anchor="When_to_commit" title="When to commit">
-	  <t>
-	    All work is done on a scenario branch and the work you commit
-	    is limited to that branch. The scenario developers can work out a
-	    commit policy. A review will take place at the end of the scenario
-	    before the scenario is merged back into the trunk.
-	  </t>
-	</section>
-	
-	<section anchor="What_to_commit" title="What to commit">
-	  <t>
-	    Honour the scenario scheme! Don&#39;t start working on the
-	    great new feature in a release branch! If you want to work on that
-	    feature, that is ok, describe the scenario, get it approved and a
-	    new scenario will be created from the trunk to work on that great
-	    new feature.
-	  </t>
-	</section>
-	
-	<section anchor="How_to_commit" title="How to commit">
-	  <t>
-	    Each commit requires a log message. Use this log feature
-	    intelligently. The SCM tool might enforce you to enter certain
-	    information: (for example a reference to a test procedure). This
-	    will be determined as needed. At the time of writing the log
-	    message is free for you to fill with useful information. Why you
-	    made a change is a good question to answer in a log message for a
-	    commit.
-	  </t>
-	  
-	  <t>Possible support by SCM:
-	    <list style="bullets">
-	      <t>use templates for the log messages Action: none</t>
-	      <t>check content of log messages for minimal content. Action: defer commit</t>
-	      <t>Integration with tracker facility Action: scan log message /
-		enter tickets directly in repository (investigate this!)</t>
-	    </list>
-	  </t>
-	</section>
+        <t>
+          The basic action for changing the repository is a commit of
+          one or more changes made to files in the repository. While the
+          development process assures that commits are isolated to a
+          scenario, some guidelines how to manage your commits are in
+          order.
+        </t>
+        
+        <t>
+          A commit is forever! Period. That&#39;s why commits must not
+          be done without any thinking up front. Even if you decide something
+          is wrong and a commit must be rolled back, history shows that it
+          has been done. A rollback doesn&#39;t exist; it consists of (at
+          least) two commits.
+        </t>
+        
+        <section anchor="Where_to_commit" title="Where to commit">
+          <t>
+            The development process creates at least three tags for each
+            scenario and at least 2 for each release cycle. Make absolutely
+            sure you are committing your work to the right branch/tag
+            combination. Triple check it! If things are unclear, ask one of the
+            repository managers for help. Backup your own stuff. Quadruple
+            check your commits if you are working on multiple scenarios at
+            once. The SCM tool will support this by setting the appropriate
+            permissions on the scenarios you are working on.
+          </t>
+        </section>
+        
+        <section anchor="When_to_commit" title="When to commit">
+          <t>
+            All work is done on a scenario branch and the work you commit
+            is limited to that branch. The scenario developers can work out a
+            commit policy. A review will take place at the end of the scenario
+            before the scenario is merged back into the trunk.
+          </t>
+        </section>
+        
+        <section anchor="What_to_commit" title="What to commit">
+          <t>
+            Honour the scenario scheme! Don&#39;t start working on the
+            great new feature in a release branch! If you want to work on that
+            feature, that is ok, describe the scenario, get it approved and a
+            new scenario will be created from the trunk to work on that great
+            new feature.
+          </t>
+        </section>
+        
+        <section anchor="How_to_commit" title="How to commit">
+          <t>
+            Each commit requires a log message. Use this log feature
+            intelligently. The SCM tool might enforce you to enter certain
+            information: (for example a reference to a test procedure). This
+            will be determined as needed. At the time of writing the log
+            message is free for you to fill with useful information. Why you
+            made a change is a good question to answer in a log message for a
+            commit.
+          </t>
+          
+          <t>Possible support by SCM:
+            <list style="bullets">
+              <t>use templates for the log messages Action: none</t>
+              <t>check content of log messages for minimal content. Action: defer commit</t>
+              <t>Integration with tracker facility Action: scan log message /
+                enter tickets directly in repository (investigate this!)</t>
+            </list>
+          </t>
+        </section>
       </section>
       
-
+      
     </section>
-  <!-- Start of part B -->
+    <!-- Start of part B -->
     
-  <section anchor="scmusage" title="Repository tool usage">
+    <section anchor="scmusage" title="Repository tool usage">
       <t>
-	The second part of this document describes how we implement the repository
-	policy described in the first part with our tool of choice:
-	<eref target="http://www.bitkeeper.com">Bitkeeper</eref> [BK].
-	Everything in this part is BK specific.
+        The second part of this document describes how we implement the repository
+        policy described in the first part with our tool of choice:
+        <eref target="http://www.bitkeeper.com">Bitkeeper</eref> [BK].
+        Everything in this part is BK specific.
       </t>
       
       <section anchor="Bitkeeper_philosophy" title="BitKeeper philosophy">
-	<t>
-	  If you are used to working with CVS, forget what you know
-	  about it. BK works different in most respects although the actual
-	  commands used to work with repositories are very much like their
-	  CVS counterparts. This part will be easier to understand if you
-	  don&#39;t translate what is said here to a CVS world.
-	</t>
-	
-	<t>
-	  Probably the biggest thing to get used to is that with BK
-	  developers are always working with multiple repositories
-	  which have parent-child relationships with
-	  each other. Typically you clone a parent repository to a
-	  child repository, start working for a while and submit a
-	  changeset to the parent repos. At any given moment you may
-	  pull changes from a parent to a child or push changes from a
-	  child to a parent. If you&#39;ve read part A of this RFC you
-	  will notice that a changeset corresponds in a very intuitive
-	  way to a scenario and a pull can be seen equivalent to a
-	  catch-up.
-	</t>
-	
-	<t>
-	  Bitkeeper will keep track of all changesets for you. When you
-	  try to push a changeset into a parent repository while other
-	  changeset have been pushed while you were developing it will tell
-	  you to do a pull first to get synchronised with the parent
-	  repository. Again, a inherent quality assurance check will be done
-	  automatically for you, to prevent pushing changes in the wrong
-	  order.
-	</t>
+        <t>
+          If you are used to working with CVS, forget what you know
+          about it. BK works different in most respects although the actual
+          commands used to work with repositories are very much like their
+          CVS counterparts. This part will be easier to understand if you
+          don&#39;t translate what is said here to a CVS world.
+        </t>
+        
+        <t>
+          Probably the biggest thing to get used to is that with BK
+          developers are always working with multiple repositories
+          which have parent-child relationships with
+          each other. Typically you clone a parent repository to a
+          child repository, start working for a while and submit a
+          changeset to the parent repos. At any given moment you may
+          pull changes from a parent to a child or push changes from a
+          child to a parent. If you&#39;ve read part A of this RFC you
+          will notice that a changeset corresponds in a very intuitive
+          way to a scenario and a pull can be seen equivalent to a
+          catch-up.
+        </t>
+        
+        <t>
+          Bitkeeper will keep track of all changesets for you. When you
+          try to push a changeset into a parent repository while other
+          changeset have been pushed while you were developing it will tell
+          you to do a pull first to get synchronised with the parent
+          repository. Again, a inherent quality assurance check will be done
+          automatically for you, to prevent pushing changes in the wrong
+          order.
+        </t>
       </section>
       
       <section anchor="The_overall_process" title="The overall process">
-	<t>
-	  In a BK world you typically clone a repository once and it
-	  will live a very long time from that time onwards. BK provides very
-	  powerful commands to modify your local repository to synchronise
-	  it with parent repositories or peer repositories.
-	</t>
-	
-	<t>
-	  Once you have cloned the parent repository you are in total
-	  control how to proceed. You may work directly in the child
-	  repository or clone this local repository again and start working
-	  in the grandchild, thus using the child as your own
-	  stable repository. It&#39;s up to each
-	  developer how to organise his/her work.
-	</t>
-	
-	<t>
-	  Bitkeeper is very good at merging changes. In nearly all
-	  cases it will automatically merge all changes right, even when your
-	  repository hasn&#39;t been pushed for a long time. (We will dig
-	  into this some more later on).
-	</t>
-	
-	<t>
-	  For describing how to use BK in practice we have two
-	  situations:	
-	  <list style="numbers">
-	    <t>Developing as a single developer</t>
-	    <t>Developing with a group of developers</t>
-	  </list>
-	
-	  Note that even if you work in a group you always work in or
-	  with your own repository and that if you work alone the description given
-	  for the group can equally well be applied when you are working alone. The 
-	  alone and group descriptions are used to clarify the process rather than describe
-	  your ability to make friends with people.
-	</t>
-	
-	<section anchor="rollingyourown" title="Developing on your own (direct child of Xaraya)">
-	  <t>The following steps describe in short how you would work when rolling your own repository:
-	    <list style="numbers">
-	      <t>Clone the Xaraya repository:
-		<artwork>
-		  bk clone user@xaraya.com:/repositories/xaraya [local-name]
-		</artwork>
-		This creates a local repository with its parent set to the xaraya repository 
-		at the host xaraya.com identified  with the specified user.
-	      </t>
-	      <t>
-		Make changes to the code in whatever way you are used to. You
-		are automatically working in a scenario now. No further work on
-		your part is necessary for this. Note that this is best though of as an
-		implicit scenario. It's not named, nor are the tags explicitly created, the 
-		process is preserved however, your changes are local to you and not directly
-		merged into a central repository.
-	      </t>
-	      <t>
-		When you are finished with the changes to the scenario you
-		can check in your changes. Note that your are checking in your
-		changes to your own repository and not to the parent repository you
-		originally cloned from.
-		<artwork>
-		  bk ci 
-		  bk commit
-		  or 
-		  bk citool (GUI)
-		</artwork>
-	    
-		BK will ask you for comments on the changes you made. We
-		recommend using the citool command first as this will guide you
-		through the construction of the changeset. The construction of a
-		changeset is finishing up your scenario and making sensible
-		comments about it. Within the citool you can commit the changeset.
-		Note that this step can be repeated for every scenario you want to
-		make. It allows for intuitive division of work into logical steps,
-		please make sure that you do. Note also that this can all be done
-		off-line on the beach in Florida. No contact is needed with the
-		parent repository.
-	      </t>
-	      <t>
-		After a number of changesets you can decide to
-		push your changes to the parent repository, after which they can be
-		made visible to other developers.
-		<artwork>
-		  bk push
-		</artwork>
-	      </t>
-	      <t>
-		If during your development other changesets (new scenarios,
-		bug fixes etc.) have been pushed to the xaraya repository BK will
-		notify you of that and will force you to do a bk pull first.
-		<artwork>
-		  bk pull
-		</artwork>
-	
-		Bitkeeper will notify you if there are conflicts and aid you
-		in resolving them with a graphical merge tool. After all conflicts
-		have been resolved, push your change set to the parent repository
-		again. BK will resolve far more conflicts automatically for you
-		than CVS does. For example, when files have been moved, CVS will be
-		stymified, but bitkeeper will still merge your changes to the right
-		place, even if your repository is way behind in directory and file
-		reorganisation (can you say NS-module?)
-	      </t>
-	      <t>
-		For how to add, delete and move files and directories have a
-		look at <xref target="commands">the survival guide</xref>.
-	      </t>
-	    </list>
-	  </t>
-	</section>
-
-	<section anchor="working_in_groups" title="Working in groups (grandchildren of xaraya)">
-	  <t>
-	    Essentially the same things apply as for working as an
-	    individual. The main difference is: If you are working within a
-	    group the parent repository may or may not live on xaraya.com. Say
-	    developers A,B and C are working on &#39;blocklayout&#39;,
-	    coordinated by A.
-	    <list style="numbers">
-	      <t>
-		A super-scenario (i.e. a new repository)
-		&#39;blocklayout&#39; is created on xaraya.com by the
-		repository managers (by cloning the xaraya repository in a special
-		way)
-	      </t>
-	      <t>
-		All developers who work on that scenario clone (an extra)
-		local repository from xaraya.com:
-		<artwork>
-		  bk clone user@xaraya.com:/usr/local/repositories/xaraya-blocklayout
-		</artwork>
-		Note the different name of the repository
-	      </t>
-	      <t>
-		The same steps as in
-		<xref target="rollingyourown">Developing on your own</xref> apply.
-		Of course you should take care to coordinate development somehow.
-		Even the best tool cannot replace that. During the group
-		development of the super-scenario your parent is the blocklayout
-		repository and not the normal xaraya repository.
-	      </t>
-	      <t>
-		When work on the blocklayout super-scenario is finished, the
-		changesets in the special blocklayout repository can be pushed by
-		the repository managers at once to the xaraya repository. (which is
-		the parent of blocklayout) The same rules apply here for pulling
-		and pushing. In the case of a super-scenario, it is sometimes
-		(depending on the scenario topic) advisable to let the repository
-		managers regularly do a pull from the xaraya repository which the
-		developers can pull to their local repository.
-	      </t>
-	    </list>
-	  </t>  
-	  <t>Alternatively:	  
-	    <list style="numbers">
-	      <t>
-		Developer A clones the xaraya repository from xaraya.com
-		for work on the scenario.\
-	      </t>
-	      <t>
-		A&#39;s clone becomes the parent repository. B and C clone
-		their repository from A&#39;s machine:
-		<artwork>
-		  bk clone user@A.somewhere:/path/to/repository
-		</artwork>
-		It is A&#39;s responsibility to ensure a secure setup: A
-		has to create ssh accounts for B and C on his machine.
-	      </t>
-	      <t>
-		The same steps as in <xref target="rollingyourown">Working
-		  with your own repository</xref> apply.
-	      </t>
-	      <t>
-		When work on the scenario is finished, A pushes the
-		changesets from his/her repository to the parent: bk
-		push.
-	      </t>
-	    </list>
-	  </t>
-	  <t>
-	    Please note: BitKeeper supports a star topology. It is
-	    possible to change parents for your repository. We strongly
-	    discourage that except for very special occasions, as it tends to
-	    make development and conflict resolution much harder. It is easy to
-	    get confused, too. To give an example where re-parenting makes
-	    sense:
-	    <list style="numbers">
-	      <t>
-		A wishes to leave the scenario and work on something else. B
-		takes over.
-	      </t>
-	      <t>
-		All change sets are pushed to A&#39;s repository so that the
-		repositories of A,B and C are in sync. (This is technically not
-		necessary but it does make life easier.)
-	      </t>
-	      <t>
-		B sets the parent of his repository to the development
-		repository on xaraya.com:
-		<artwork>
-		  bk parent user@xaraya.com:/usr/local/repositories/xaraya
-		</artwork>
-	      </t>
-	      <t>C sets the parent of her repository to B:
-		<artwork>
-		  bk parent user@B.somewhere:/path/to/repository
-		</artwork>
-	      </t>
-	      <t>B has to create an ssh account for C on that machine.</t>
-	    </list>
-	  </t>
-	  <t>Graphically the above works out as follows:</t>
-	    <figure>
-	      <artwork src="images/rfc0028_5.png"/>
-	    </figure>
-	</section>
+        <t>
+          In a BK world you typically clone a repository once and it
+          will live a very long time from that time onwards. BK provides very
+          powerful commands to modify your local repository to synchronise
+          it with parent repositories or peer repositories.
+        </t>
+        
+        <t>
+          Once you have cloned the parent repository you are in total
+          control how to proceed. You may work directly in the child
+          repository or clone this local repository again and start working
+          in the grandchild, thus using the child as your own
+          stable repository. It&#39;s up to each
+          developer how to organise his/her work.
+        </t>
+        
+        <t>
+          Bitkeeper is very good at merging changes. In nearly all
+          cases it will automatically merge all changes right, even when your
+          repository hasn&#39;t been pushed for a long time. (We will dig
+          into this some more later on).
+        </t>
+        
+        <t>
+          For describing how to use BK in practice we have two
+          situations:	
+          <list style="numbers">
+            <t>Developing as a single developer</t>
+            <t>Developing with a group of developers</t>
+          </list>
+          
+          Note that even if you work in a group you always work in or
+          with your own repository and that if you work alone the description given
+          for the group can equally well be applied when you are working alone. The 
+          alone and group descriptions are used to clarify the process rather than describe
+          your ability to make friends with people.
+        </t>
+        
+        <section anchor="rollingyourown" title="Developing on your own (direct child of Xaraya)">
+          <t>The following steps describe in short how you would work when rolling your own repository:
+            <list style="numbers">
+              <t>Clone the Xaraya repository:
+                <artwork>
+                  bk clone user@xaraya.com:/repositories/xaraya [local-name]
+                </artwork>
+                This creates a local repository with its parent set to the xaraya repository 
+                at the host xaraya.com identified  with the specified user.
+              </t>
+              <t>
+                Make changes to the code in whatever way you are used to. You
+                are automatically working in a scenario now. No further work on
+                your part is necessary for this. Note that this is best though of as an
+                implicit scenario. It's not named, nor are the tags explicitly created, the 
+                process is preserved however, your changes are local to you and not directly
+                merged into a central repository.
+              </t>
+              <t>
+                When you are finished with the changes to the scenario you
+                can check in your changes. Note that your are checking in your
+                changes to your own repository and not to the parent repository you
+                originally cloned from.
+                <artwork>
+                  bk ci 
+                  bk commit
+                  or 
+                  bk citool (GUI)
+                </artwork>
+                
+                BK will ask you for comments on the changes you made. We
+                recommend using the citool command first as this will guide you
+                through the construction of the changeset. The construction of a
+                changeset is finishing up your scenario and making sensible
+                comments about it. Within the citool you can commit the changeset.
+                Note that this step can be repeated for every scenario you want to
+                make. It allows for intuitive division of work into logical steps,
+                please make sure that you do. Note also that this can all be done
+                off-line on the beach in Florida. No contact is needed with the
+                parent repository.
+              </t>
+              <t>
+                After a number of changesets you can decide to
+                push your changes to the parent repository, after which they can be
+                made visible to other developers.
+                <artwork>
+                  bk push
+                </artwork>
+              </t>
+              <t>
+                If during your development other changesets (new scenarios,
+                bug fixes etc.) have been pushed to the xaraya repository BK will
+                notify you of that and will force you to do a bk pull first.
+                <artwork>
+                  bk pull
+                </artwork>
+                
+                Bitkeeper will notify you if there are conflicts and aid you
+                in resolving them with a graphical merge tool. After all conflicts
+                have been resolved, push your change set to the parent repository
+                again. BK will resolve far more conflicts automatically for you
+                than CVS does. For example, when files have been moved, CVS will be
+                stymified, but bitkeeper will still merge your changes to the right
+                place, even if your repository is way behind in directory and file
+                reorganisation (can you say NS-module?)
+              </t>
+              <t>
+                For how to add, delete and move files and directories have a
+                look at <xref target="commands">the survival guide</xref>.
+              </t>
+            </list>
+          </t>
+        </section>
+        
+        <section anchor="working_in_groups" title="Working in groups (grandchildren of xaraya)">
+          <t>
+            Essentially the same things apply as for working as an
+            individual. The main difference is: If you are working within a
+            group the parent repository may or may not live on xaraya.com. Say
+            developers A,B and C are working on &#39;blocklayout&#39;,
+            coordinated by A.
+            <list style="numbers">
+              <t>
+                A super-scenario (i.e. a new repository)
+                &#39;blocklayout&#39; is created on xaraya.com by the
+                repository managers (by cloning the xaraya repository in a special
+                way)
+              </t>
+              <t>
+                All developers who work on that scenario clone (an extra)
+                local repository from xaraya.com:
+                <artwork>
+                  bk clone user@xaraya.com:/usr/local/repositories/xaraya-blocklayout
+                </artwork>
+                Note the different name of the repository
+              </t>
+              <t>
+                The same steps as in
+                <xref target="rollingyourown">Developing on your own</xref> apply.
+                Of course you should take care to coordinate development somehow.
+                Even the best tool cannot replace that. During the group
+                development of the super-scenario your parent is the blocklayout
+                repository and not the normal xaraya repository.
+              </t>
+              <t>
+                When work on the blocklayout super-scenario is finished, the
+                changesets in the special blocklayout repository can be pushed by
+                the repository managers at once to the xaraya repository. (which is
+                the parent of blocklayout) The same rules apply here for pulling
+                and pushing. In the case of a super-scenario, it is sometimes
+                (depending on the scenario topic) advisable to let the repository
+                managers regularly do a pull from the xaraya repository which the
+                developers can pull to their local repository.
+              </t>
+            </list>
+          </t>  
+          <t>Alternatively:	  
+            <list style="numbers">
+              <t>
+                Developer A clones the xaraya repository from xaraya.com
+                for work on the scenario.\
+              </t>
+              <t>
+                A&#39;s clone becomes the parent repository. B and C clone
+                their repository from A&#39;s machine:
+                <artwork>
+                  bk clone user@A.somewhere:/path/to/repository
+                </artwork>
+                It is A&#39;s responsibility to ensure a secure setup: A
+                has to create ssh accounts for B and C on his machine.
+              </t>
+              <t>
+                The same steps as in <xref target="rollingyourown">Working
+                  with your own repository</xref> apply.
+              </t>
+              <t>
+                When work on the scenario is finished, A pushes the
+                changesets from his/her repository to the parent: bk
+                push.
+              </t>
+            </list>
+          </t>
+          <t>
+            Please note: BitKeeper supports a star topology. It is
+            possible to change parents for your repository. We strongly
+            discourage that except for very special occasions, as it tends to
+            make development and conflict resolution much harder. It is easy to
+            get confused, too. To give an example where re-parenting makes
+            sense:
+            <list style="numbers">
+              <t>
+                A wishes to leave the scenario and work on something else. B
+                takes over.
+              </t>
+              <t>
+                All change sets are pushed to A&#39;s repository so that the
+                repositories of A,B and C are in sync. (This is technically not
+                necessary but it does make life easier.)
+              </t>
+              <t>
+                B sets the parent of his repository to the development
+                repository on xaraya.com:
+                <artwork>
+                  bk parent user@xaraya.com:/usr/local/repositories/xaraya
+                </artwork>
+              </t>
+              <t>C sets the parent of her repository to B:
+                <artwork>
+                  bk parent user@B.somewhere:/path/to/repository
+                </artwork>
+              </t>
+              <t>B has to create an ssh account for C on that machine.</t>
+            </list>
+          </t>
+          <t>Graphically the above works out as follows:</t>
+          <figure>
+            <artwork src="images/rfc0028_5.png"/>
+          </figure>
+        </section>
       </section>
       
       <section anchor="BK_survival_guide" title="BK survival guide">
-	<t>
-	  We advise you to print out the BitKeeper reference card. It
-	  is located in your local installation directory and called
-	  bk_refcard.ps or bk_refcard.pdf.
-	</t>
-	<t>
-	  BitKeeper has an integrated graphical, hyperlinked help tool
-	  which can be called with the command:
-	  <artwork>
-	    bk helptool
-	  </artwork>
-	</t>
-	<t>
-	  A quick help for each command is available with:
-	  <artwork>
-	    bk help [command]
-	  </artwork>
-	</t>
-	<t>
-	  What is below as a quick-quick-reference for survival
-	</t>
-	
-	<section anchor="commands" title="Commonly used commands">
-	  <t>
-	    <list>
-	      <t>bk pull: Get updates from the parent repository.</t>
-	      <t>bk push: Push change sets to the parent repository.</t>
-	      <t>bk mv [source] [destination]: Move file, recording the move</t>
-	      <t>bk mvdir [source] [destination]: Move directory, recording the move</t>
-	      <t>bk new [files]: Add file(s) to the repository</t>
-	      <t>bk rm [files]: Remove file(s) (recoverable)</t>
-	      <t>bk rmdir [dir]: Remove directory (recoverable)</t>
-	      <t>bk status: Show status information</t>
-	      <t>bk grep [pattern] [files]: Search some/all revisions of file(s) for a pattern</t>
-	      <t>
-		bk delta [file]: check in a change to a file to the local repository, 
-		to be added to change sets later on. This can (but need not) be used prior to bk citool: it
-		allows you to enter descriptions for the changes made to single
-		files, in addition to the description the whole change set gets
-		anyway.
-	      </t>
-	      <t>bk ci: check in the all changes in current dir into the repository</t>
-	      <t>bk commit: create a changeset from the pending deltas</t>
-	      <t>bk revtool [filename]: GUI for browsing changesets</t>
-	      <t>bk difftool [left] [right]: Graphical diff tool</t>
-	      <t>bk csettool: Graphical change set browser</t>
-	    </list>
-	  </t>
-	  <t>
-	    In summary, bk delta and bk ci register changes to files, bk commit groups them into a 
-	    changeset, bk push publishes those changesets to the parent repository.
-	  </t>
-	</section>
+        <t>
+          We advise you to print out the BitKeeper reference card. It
+          is located in your local installation directory and called
+          bk_refcard.ps or bk_refcard.pdf.
+        </t>
+        <t>
+          BitKeeper has an integrated graphical, hyperlinked help tool
+          which can be called with the command:
+          <artwork>
+            bk helptool
+          </artwork>
+        </t>
+        <t>
+          A quick help for each command is available with:
+          <artwork>
+            bk help [command]
+          </artwork>
+        </t>
+        <t>
+          What is below as a quick-quick-reference for survival
+        </t>
+        
+        <section anchor="commands" title="Commonly used commands">
+          <t>
+            <list>
+              <t>bk pull: Get updates from the parent repository.</t>
+              <t>bk push: Push change sets to the parent repository.</t>
+              <t>bk mv [source] [destination]: Move file/dir, recording the move</t>
+              <t>bk new [files]: Add file(s) to the repository</t>
+              <t>bk rm [files]: Remove file(s) (recoverable)</t>
+              <t>bk rmdir [dir]: Remove directory (recoverable)</t>
+              <t>bk status: Show status information</t>
+              <t>bk grep [pattern] [files]: Search some/all revisions of file(s) for a pattern</t>
+              <t>
+                bk delta [file]: check in a change to a file to the local repository, 
+                to be added to change sets later on. This can (but need not) be used prior to bk citool: it
+                allows you to enter descriptions for the changes made to single
+                files, in addition to the description the whole change set gets
+                anyway.
+              </t>
+              <t>bk ci: check in the all changes in current dir into the repository</t>
+              <t>bk commit: create a changeset from the pending deltas</t>
+              <t>bk revtool [filename]: GUI for browsing changesets</t>
+              <t>bk difftool [left] [right]: Graphical diff tool</t>
+              <t>bk csettool: Graphical change set browser</t>
+            </list>
+          </t>
+          <t>
+            In summary, bk delta and bk ci register changes to files, bk commit groups them into a 
+            changeset, bk push publishes those changesets to the parent repository.
+          </t>
+        </section>
       </section>
-
-      <section anchor="Use_cases" title="Use cases">
-	<t>
-	  This section will describe some use cases, sometimes made up,
-	  sometimes shamelessly copied from other documents on the internet,
-	  sometimes real author experience. The examples are meant both as
-	  well, err examples and to show that bitkeeper can solve real
-	  problems
-	</t>
       
-	<section anchor="Bug_hunting" title="Bug hunting">
-	  <t>
-	    Bug fixing can vary from making a quick fix from totally
-	    overhauling a set of files to overcome a design flaw.
-	  </t>
-	  <t>
-	    Suppose you found a bug in the session management code.
-	    Apparently it has been introduced a long time ago (it used to work)
-	    and you are not sure when it was introduced. You try some versions
-	    released earlier but you cannot figure out how or what.
-	  </t>
-	  <t>
-	    Using bk revtool session.php you quickly glance over all
-	    changes made to the file in the past. You find a couple of
-	    suspicious changesets based on their comments. Playing with the
-	    revtool narrows it down to a changeset which put a brace in the
-	    wrong place. You fix the bug in a new changeset, refer in your
-	    comment to the old changeset and commit your changes.
-	  </t>
-	  <t>
-	    If the bug were introduced in a changeset and was isolated,
-	    you could have reverted that changeset without touching anything
-	    else in the repository, only revoking that particular change
-	  </t>
-	</section>
-	
-	<section anchor="Creating_a_patch" title="Creating a patch">
-	  <t>
-	    While working on the 300% speed increase scenario, you need
-	    the exception handler code from another developer group. The code
-	    is in the tree with several other unrelated changes that they
-	    don&#39;t want to send to anyone.
-	  </t>
-	  <t>
-	    Run bk revtool to find the changeset which introduced the
-	    exception handler code. Then run 
-	    <artwork>
-	      bk export -tpatch -r1.234  &gt; exceptionhandler.diff
-	    </artwork> 
-	    If the changeset properly
-	    grouped the relevant changes this patch can be applied to another
-	    tree which needs those changes.
-	  </t>
-	</section>
-	
-	<section anchor="Sharing_changes" title="Sharing changes">
-	  <t>
-	    If another group is working on some changes, but they are not
-	    ready yet to be pushed to the xaraya repository, how do you prevent
-	    redundant work, so your development can continue?
-	  </t>
-	  <t>
-	    If the other developer (group) has made their repository
-	    publicly available you don&#39;t even need the help of the other
-	    group. You create the patch yourself by cloning their repository.
-	    In most cases different developers are working with the same parent
-	    (the default xaraya repository) and don&#39;t even need to make a
-	    patch. They can do a sideways pull from their
-	    repository to incorporate the changes.
-	  </t>
-	</section>
-
-	<section title="Returning from the beach from florida ;-)">
-	  <t>
-	    You have tanned in Florida for three months without internet
-	    access, because your psychiatrist has told you to do so. He
-	    didn&#39;t know you were using bitkeeper, so you happily developed
-	    a great new thing. Returning from Florida you notice that 50
-	    changesets have been pushed while you were away. First, you think
-	    about returning to Florida immediately with the 
-	    <artwork>
-	      find . -name *.rej
-	    </artwork> 
-	    in the back of your head, but you give it a  try anyway.
-	  </t>
-	  <t>
-	    bk pull downloads and applies all changes which you missed,
-	    regardless how long you have been away. Your repository will never
-	    get corrupted by bitkeepers data-integrity checking at every step.
-	    You notices that most of the changes are auto-merged with yours,
-	    even the complete directory organization you did on the module
-	    system. The conflicts which come up are easily resolved using the
-	    3-way merge tool.
-	  </t>
-	</section>
-	
-	<section anchor="New_functionality" title="New functionality">
-	  
-	  <t>
-	    Developing new functionality is probably the most common
-	    activity. For this, a child of the normal xaraya repository must be
-	    cloned in which the changesets can be developed. If the new
-	    scenario is big enough a central child may be created which may
-	    function as a parent for the specific scenario itself. (See
-	    <xref target="working_in_groups">Working in groups</xref>)
-	  </t>
-	  
-	</section>
-
-	<section anchor="Releasing_version_1.2" title="Releasing version 1.2">
-	  
-	  <t>
-	    The PMC decides it&#39;s time to release. From the xaraya
-	    repository a special clone is made (xaraya-1.2) to which only
-	    reviewed changesets can be pushed, typically last minute fixes.
-	    When the release is ready the repository is cloned another time
-	    (xaraya-1.2-bugfixes) to have a bug-fix repository for the release.
-	    The xaraya-1.2 repository is closed for all changes, but can be
-	    pulled for changesets from other repositories. Bugfixing for the
-	    release occurs in the bug-fixing child xaraya-1.2-bugfixes.
-	  </t>
-	  
-	  <t>
-	    When it is necessary to release a version 1.21 for example
-	    the whole process is repeated only with different names. After time
-	    some repositories will eventually disappear.
-	  </t>
-	  
-	  <t>If you think bitkeeper is disk hungry that way, you are
-	    right. By using hard-links this can be reduced significantly. If
-	    you&#39;re in a windows world this is not possible, but that is
-	    hardly a surprise.
-	  </t>
-	</section>
+      <section anchor="Use_cases" title="Use cases">
+        <t>
+          This section will describe some use cases, sometimes made up,
+          sometimes shamelessly copied from other documents on the internet,
+          sometimes real author experience. The examples are meant both as
+          well, err examples and to show that bitkeeper can solve real
+          problems
+        </t>
+        
+        <section anchor="Bug_hunting" title="Bug hunting">
+          <t>
+            Bug fixing can vary from making a quick fix from totally
+            overhauling a set of files to overcome a design flaw.
+          </t>
+          <t>
+            Suppose you found a bug in the session management code.
+            Apparently it has been introduced a long time ago (it used to work)
+            and you are not sure when it was introduced. You try some versions
+            released earlier but you cannot figure out how or what.
+          </t>
+          <t>
+            Using bk revtool session.php you quickly glance over all
+            changes made to the file in the past. You find a couple of
+            suspicious changesets based on their comments. Playing with the
+            revtool narrows it down to a changeset which put a brace in the
+            wrong place. You fix the bug in a new changeset, refer in your
+            comment to the old changeset and commit your changes.
+          </t>
+          <t>
+            If the bug were introduced in a changeset and was isolated,
+            you could have reverted that changeset without touching anything
+            else in the repository, only revoking that particular change
+          </t>
+        </section>
+        
+        <section anchor="Creating_a_patch" title="Creating a patch">
+          <t>
+            While working on the 300% speed increase scenario, you need
+            the exception handler code from another developer group. The code
+            is in the tree with several other unrelated changes that they
+            don&#39;t want to send to anyone.
+          </t>
+          <t>
+            Run bk revtool to find the changeset which introduced the
+            exception handler code. Then run 
+            <artwork>
+              bk export -tpatch -r1.234  &gt; exceptionhandler.diff
+            </artwork> 
+            If the changeset properly
+            grouped the relevant changes this patch can be applied to another
+            tree which needs those changes.
+          </t>
+        </section>
+        
+        <section anchor="Sharing_changes" title="Sharing changes">
+          <t>
+            If another group is working on some changes, but they are not
+            ready yet to be pushed to the xaraya repository, how do you prevent
+            redundant work, so your development can continue?
+          </t>
+          <t>
+            If the other developer (group) has made their repository
+            publicly available you don&#39;t even need the help of the other
+            group. You create the patch yourself by cloning their repository.
+            In most cases different developers are working with the same parent
+            (the default xaraya repository) and don&#39;t even need to make a
+            patch. They can do a sideways pull from their
+            repository to incorporate the changes.
+          </t>
+        </section>
+        
+        <section title="Returning from the beach from florida ;-)">
+          <t>
+            You have tanned in Florida for three months without internet
+            access, because your psychiatrist has told you to do so. He
+            didn&#39;t know you were using bitkeeper, so you happily developed
+            a great new thing. Returning from Florida you notice that 50
+            changesets have been pushed while you were away. First, you think
+            about returning to Florida immediately with the 
+            <artwork>
+              find . -name *.rej
+            </artwork> 
+            in the back of your head, but you give it a  try anyway.
+          </t>
+          <t>
+            bk pull downloads and applies all changes which you missed,
+            regardless how long you have been away. Your repository will never
+            get corrupted by bitkeepers data-integrity checking at every step.
+            You notices that most of the changes are auto-merged with yours,
+            even the complete directory organization you did on the module
+            system. The conflicts which come up are easily resolved using the
+            3-way merge tool.
+          </t>
+        </section>
+        
+        <section anchor="New_functionality" title="New functionality">
+          
+          <t>
+            Developing new functionality is probably the most common
+            activity. For this, a child of the normal xaraya repository must be
+            cloned in which the changesets can be developed. If the new
+            scenario is big enough a central child may be created which may
+            function as a parent for the specific scenario itself. (See
+            <xref target="working_in_groups">Working in groups</xref>)
+          </t>
+          
+        </section>
+        
+        <section anchor="Releasing_version_1.2" title="Releasing version 1.2">
+          
+          <t>
+            The PMC decides it&#39;s time to release. From the xaraya
+            repository a special clone is made (xaraya-1.2) to which only
+            reviewed changesets can be pushed, typically last minute fixes.
+            When the release is ready the repository is cloned another time
+            (xaraya-1.2-bugfixes) to have a bug-fix repository for the release.
+            The xaraya-1.2 repository is closed for all changes, but can be
+            pulled for changesets from other repositories. Bugfixing for the
+            release occurs in the bug-fixing child xaraya-1.2-bugfixes.
+          </t>
+          
+          <t>
+            When it is necessary to release a version 1.21 for example
+            the whole process is repeated only with different names. After time
+            some repositories will eventually disappear.
+          </t>
+          
+          <t>If you think bitkeeper is disk hungry that way, you are
+            right. By using hard-links this can be reduced significantly. If
+            you&#39;re in a windows world this is not possible, but that is
+            hardly a surprise.
+          </t>
+        </section>
       </section>
       
       <section anchor="Conclusion" title="Conclusion">
-	<t>
-	  The described process is the backbone of our development
-	  progress. Before this process was accepted it has been reviewed
-	  extensively and voted upon by all relevant people. This process
-	  will not change lightly (although improvements will always be
-	  looked for).
-	</t>	
-           
-	<t>
-	  As you may have noticed, bitkeeper is far more advanced than
-	  CVS. This is meant to make our life easier. The repository managers
-	  have tried to configure bitkeeper in such a way that it is most
-	  easy to use, not necessarily the most efficient way. In time we
-	  will probably change some configuration items of our repository
-	  management. This RFC (both part A and B will be maintained by the
-	  repository managers, to always reflect the latest state of
-	  things.
-	</t>
+        <t>
+          The described process is the backbone of our development
+          progress. Before this process was accepted it has been reviewed
+          extensively and voted upon by all relevant people. This process
+          will not change lightly (although improvements will always be
+          looked for).
+        </t>	
+        
+        <t>
+          As you may have noticed, bitkeeper is far more advanced than
+          CVS. This is meant to make our life easier. The repository managers
+          have tried to configure bitkeeper in such a way that it is most
+          easy to use, not necessarily the most efficient way. In time we
+          will probably change some configuration items of our repository
+          management. This RFC (both part A and B will be maintained by the
+          repository managers, to always reflect the latest state of
+          things.
+        </t>
       </section>
     </section>
     
@@ -944,9 +943,9 @@
       <t>2002-11-27: converted private documents to RFC, small corrections and review, no major changes from original</t>
       <t>before 2002-11-27: Private documents</t>
     </section>
-
+    
   </middle>
-
+  
   <!-- Back matter is used for references and appendices which come after the references -->
   <back>
     

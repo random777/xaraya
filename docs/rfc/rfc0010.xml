@@ -1556,6 +1556,9 @@ html/
             location in the theme.
           </t>
           <t>
+            The 'module' attribute defines which module the template file is located in, in conjunction with the 'type' attribute as described below. If this attribute is omitted the module where the tag resides is assumed.
+          </t>
+          <t>
             The 'type' attribute tells the compiler where to look for
             the file. If the value is 'module', the template to be included
             belongs to the module and Xaraya looks in (in this order):
@@ -1581,6 +1584,9 @@ html/
                 </t>
                 <t><em>file</em>
                   <t>the basename of the file to include.</t>
+                </t>
+                <t><em>[module]</em>
+                  <t>module where the file resides.</t>
                 </t>
                 <t><em>[type]</em> {(module)|theme}
                   <t>A string which tells Xaraya what kind of template to include.
@@ -1623,7 +1629,10 @@ html/
               Looks for file /themes/[themename]/modules/[module name]/includes/top_links.xt
               and, when found, uses it. If not found it looks for
               /modules/[module name]/xartemplates/includes/top_links.xd and uses that file
-              Looks for file /modules/[modulename]/xartemplates/includes
+
+              &lt;xar:template file="top_links" module="categories" type="module" /&gt;
+
+              Looks for file /modules/categories/xartemplates/includes/top_links.xd.
             </artwork>
             </t>
           </section>

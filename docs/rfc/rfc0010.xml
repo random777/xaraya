@@ -130,73 +130,65 @@ html/
 	  <t>H4</t>
 	  <t>TH</t>
 	  <t>TD</t>
+	  <t>TABLE</t>
+	  <t>THEAD</t>
+	  <t>TBODY</t>
+	  <t>TFOOT</t>
 	  <t>P</t>
 	  <t>PRE</t>
 	  <t>INPUT</t>
+	  <t>BUTTON</t>
 	  <t>SELECT</t>
+	  <t>OPTION</t>
+	  <t>OPTGROUP</t>
+	  <t>TEXTAREA</t>
+	  <t>LABEL</t>
 	  <t>IMG</t>
 	  <t>LI</t>
 	  <t>UL</t>
 	  <t>OL</t>
+	  <t>SUB</t>
+	  <t>SUP</t>
 	</list>
       </t>
       <t>
-	Next are individual classes, mostly related to links. Parts of class
-	names enclosed within &lt;&gt; are variable.
+	Next are individual classes, mostly related to tables. Unlike previous 
+	versions, Blocklayout 1.1 relies on CSS inheritance to style 
+	individual tags; this makes many inidividual rules unnecessary.
 	<list style="symbols">
-	  <t>A.xar-title</t>
-	  <t>A.xar-title-block-&lt;group&gt;</t>
-	  <t>A.xar-title-&lt;block&gt;</t>
-	  <t>A.xar-normal</t>
-	  <t>A.xar-normal-block-&lt;group&gt;</t>
-	  <t>A.xar-normal-&lt;block&gt;</t>
-	  <t>A.xar-sub</t>
-	  <t>A.xar-sub-block-&lt;group&gt;</t>
-	  <t>A.xar-sub-&lt;block&gt;</t>
-	  <t>BLOCKQUOTE.xar-normal</t>
-	  <t>CODE.xar-normal</t>
-	  <t>TH.xar-normal</t>
-	  <t>TH.xar-normal-block-&lt;group&gt;</t>
-	  <t>TH.xar-normal-&lt;block&gt;</t>
-	  <t>TD.xar-normal</t>
-	  <t>TD.xar-normal-block-&lt;group&gt;</t>
-	  <t>TD.xar-normal-&lt;block&gt;</t>
+	  <t>TD.xar-norm</t>
 	  <t>TD.xar-alt</t>
-	  <t>TD.xar-alt-block-&lt;group&gt;</t>
-	  <t>TD.xar-alt-&lt;block&gt;</t>
-	  <t>SPAN.xar-normal</t>
-	  <t>SPAN.xar-normal-block-&lt;group&gt;</t>
-	  <t>SPAN.xar-normal-&lt;block&gt;</t>
-	  <t>P.xar-normal</t>
-	  <t>PRE.xar-normal</t>
-	  <t>IMG.xar-normal</t>
-	  <t>INPUT.xar-normal</t>
-	  <t>INPUT.xar-normal-block-&lt;group&gt;</t>
-	  <t>INPUT.xar-normal-&lt;block&gt;</t>
-	  <t>SELECT.xar-normal</t>
-	  <t>SELECT.xar-normal-block-&lt;group&gt;</t>
-	  <t>SELECT.xar-normal-&lt;block&gt;</t>
-	  <t>LI.xar-normal</t>
-	  <t>LI.xar-normal-block-&lt;group&gt;</t>
-	  <t>LI.xar-normal-&lt;block&gt;</t>
 	</list>
       </t>
       <t>
-	Finally are anonymous classes. Selectors here can be applied to any
-	tag.
+	Finally are anonymous classes. Selectors here can be applied to any tag.
 	<list style="symbols">
-	  <t>.xar-title</t>
-	  <t>.xar-title-block-&lt;group&gt;</t>
-	  <t>.xar-title-&lt;block&gt;</t>
-	  <t>.xar-normal</t>
-	  <t>.xar-alt</t>
-	  <t>.xar-quote</t>
-	  <t>.xar-normal-block-&lt;group&gt;</t>
-	  <t>.xar-normal-&lt;block&gt;</t>
-	  <t>.xar-sub</t>
-	  <t>.xar-sub-block-&lt;group&gt;</t>
-	  <t>.xar-sub-&lt;block&gt;</t>
+	<t>.xar-block-head</t>
+	<t>.xar-block-head-[block group]</t>
+	<t>.xar-block-title</t>
+	<t>.xar-block-title-[block group]</t>
+	<t>.xar-block-body</t>
+	<t>.xar-block-body-[block group]</t>
+	<t>.xar-block-foot</t>
+	<t>.xar-block-foot-[block group]</t>
+	<t>.xar-mod-head</t>
+	<t>.xar-mod-title</t>
+	<t>.xar-mod-body</t>
+	<t>.xar-mod-foot</t>
+	<t>.xar-alt</t>
+	<t>.xar-sub</t>
+	<t>.xar-menu-section</t>
+	<t>.xar-menu-item</t>
+	<t>.xar-menu-subitem</t>
+	<t>.xar-menu-section-current</t>
+	<t>.xar-menu-item-current</t>   
+	<t>.xar-menu-subitem-current</t>
 	</list>
+      </t>
+      <t>
+	Rules with partially bracketed names are optional. Rules applied to 
+	individual blocks are left up to the theme author.  Additional menu item 
+	rules may be devised as necessary to satisfy the depth of the menu.
       </t>
       <t>
 	Theme developers may introduce their own classes in their templates.
@@ -387,7 +379,11 @@ html/
 	<!-- xar:break -->
 	<section anchor="break" title="&lt;xar:break /&gt;">
 	  <t>Closed.</t>
-	  <t>Attributes: none</t>
+	  <t>Attributes:
+	    <list style="symbols">
+	      <t>id: an identifier for the tag (optional)</t>
+	    </list>
+	  </t>
 	  <t>Description</t>
 	  <t>
 	    Escapes the closest 
@@ -409,7 +405,7 @@ html/
 	  <t>Closed</t>
 	  <t>Attributes:
 	    <list style="symbols">
-	      <t>none</t>
+	      <t>id: an identifier for the tag (optional)</t>
 	    </list>
 	  </t>
 	  <t>Description</t>

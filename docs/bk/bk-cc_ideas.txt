@@ -1,0 +1,72 @@
+Some ideas for custom commands:
+
+bk panic
+--------
+not to be used lightly, calls upon the local bk guru to solve an immediate problem
+
+
+bk decision
+-----------
+See bk-decision.txt
+
+bk tarball
+----------
+create a tarball from the repository, optionally specifying a revision up to which
+changeset should be included
+
+
+bk stats
+--------
+gather all kinds of statistics and produce some sensible output
+
+- total nr of files managed
+- total nr of changesets
+- total nr of deltas
+- changes per hour,day,week,month,any period specified
+- csets per user
+- most changed file
+- most changed dir
+- least changed file
+- conflict analysis
+- 
+
+bk bugs
+-------
+see separate document for this
+
+bk findclones
+-------------
+Find clones on the current machine. This command could search the 
+local disk for the dir struct 'BitKeeper/etc' This will probably be
+a repository. For each repository found a parent can be retrieved and
+the hierarchy can be displayed on screen. It would be really nice if
+we also could do this remote to produce something like the image which
+is on the bk.xaraya.com page. Even better would be to automatically 
+generate this image.
+ 
+
+Undocumented commands:
+======================
+
+The following commands are undocumented, don't know exactly what they do, they seem
+usefull.
+
+bk _lines
+---------
+Usage: _lines [-ut] [-n<n>] [-r<r> | -R<r>] file.
+Gives info about cset revs in which file has been changed?
+
+bk shrink
+---------
+it shrinks something, dunno what looks like size of ChangeSet file
+
+bk hostme
+---------
+Usage: bk hostme [-h<host>] -d -q -p<project> -r<repo> -s<identity.pub>>
+
+This is probably in use at the central bitkeeper site which hosts projects
+
+bk graft
+--------
+Usage: graft file file
+

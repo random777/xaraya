@@ -16,13 +16,21 @@ Xaraya: adam_baum Beta (.9.0.6)
 New Installation
 ================
 
+   First Xaraya needs to be copied to your webserver. Not all files need to be copied - just the contents of the html subdirectory included in this package. The contents of that directory can be copied directly to your webserver document root or they can be put in a subdirectory.
+
    Xaraya has a fully graphical install process to provide a simple set of steps to get your site up and running.
 
-   To install your Xaraya system, run install.php from your browser to start the installation process.  The exact URL depends on your site, but if, for example, your site is http://www.foo.com and Xaraya is installed in the 'bar' directory then the URL will be
+   Then, we can run the installation, depening on what you copied where:
+  [everything in docroot]         http://www.foo.com/html/install.php
+  [only html content in docroot]  http://www.foo.com/install.php
+  [everything in subdir]          http://www.foo.com/bar/html/install.php
+  [only html content in subdir]   http://www.foo.com/bar/install.php
 
-   http://www.foo.com/bar/install.php
+   To install your Xaraya system, run the appropriate path to install.php from your browser to start the installation process.  The exact URL depends on your site, but the examples above should illustrate how to workout what the correct path will be.
 
    Follow the instructions in the installation script and when prompted for either a new install or an upgrade select 'new install'.  The installer will create the required database tables and set up the account for the person who will act as the administrator of the site.  Once complete you should be able to start using your Xaraya site immediately.
+
+   Please note that the option to "create the database" is related to whether you need the installer to create the database itself first or whether it can just go ahead and populate an already existing database.
 
 Upgrades
 ========

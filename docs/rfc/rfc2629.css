@@ -42,7 +42,8 @@ ul.text {
 	
 pre { 
 	margin-left: 3em;
-	color: #333333 
+	color: #333333;
+  background-color: lightyellow;
 	}
 	
 ul.toc {

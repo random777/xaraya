@@ -4,6 +4,7 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc editing="yes"?>
 <?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
 
 <rfc number="0010" category="std">
     <front>

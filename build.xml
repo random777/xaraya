@@ -38,11 +38,11 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.base" 
-    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,polls,quotes,ratings,recommend,referer,search,stats,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,multisites,polls,quotes,ratings,recommend,referer,search,stats,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.full" 
-    value="addressbook,bbclick,bbcode,calendar,cast,censor,changelog,contact,figlet,messages,mybookmarks,opentracker,pubsub,smilies,uploads,xarbb,xslt"/>
+    value="addressbook,authinvision,bbclick,bbcode,calendar,cast,censor,changelog,contact,davedap,events,figlet,icalendar,messages,mybookmarks,opentracker,pubsub,smilies,uploads,window,xarbb,xarlinkme,xslt"/>
 
   <!-- theme lists -->
   <property name="themes.full"

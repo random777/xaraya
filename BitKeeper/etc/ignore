@@ -5,3 +5,4 @@ html/var/cache/templates/*
 docs/rfc/*.html
 config.site.xml
 config.system.php
+html/modules/example/.pnadmin.php.swp

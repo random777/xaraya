@@ -2,7 +2,7 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 
 
-Xaraya: adam_baum Beta (.900)
+Xaraya: adam_baum Beta (.902)
 ==================================
 
    Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
@@ -27,7 +27,10 @@ Upgrades
 
    Please visit the #support channel for information on upgrading from PostNuke to Xaraya.
 
-   To upgrade from .900 to .901 replace all files and modules.  The go into the the modules module, and regenerate.  You will see that the roles and the articles module will need to be upgraded.  Click the link for "upgrade" for each module.  DB upgrades are complete after this step.
+   To upgrade from .900 to .902 replace all files and modules.
+   Log in with administration rights.
+   Point your directory to upgrade.php in your root directory.  
+   Follow instructions from there.
 
 Caution
 =======

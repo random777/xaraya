@@ -1,5 +1,3 @@
-
-
 PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 
@@ -7,56 +5,35 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 Xaraya: adam_baum Beta (.900)
 ==================================
 
-   Xaraya is an open source extensible management system
-(CMS).  Xaraya started as a fork from PostNuke (http://www.postnuke.com) and
-PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and 
-improvements over the the two systems and is a complete rewrite from the ground up.
-Xaraya is still undergoing development but a large number of core functions are now
-stabilising and a complete API for third-party developers is now in place.
+   Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
 
-   If you would like to help develop this software, please visit our homepage
-at http://www.Xaraya.com, or send email to info@xaraya.com .
+   If you would like to help develop this software, please visit our homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
 
-   You can also visit us on our IRC Server irc.Xaraya.com channel
-#Xaraya-support
+   You can also visit us in channel #support, on our IRC Server irc.Xaraya.com.
 
 New Installation
 ================
 
-   Xaraya has a fully graphical install process to provide a simple set of
-steps to get your site up and running.
+   Xaraya has a fully graphical install process to provide a simple set of steps to get your site up and running.
 
-   To install your Xaraya system run install.php from your browser to start
-the installation process.  The exact url depends on your site, but for example
-if your site is www.foo.com and Xaraya is installed in the 'bar' directory
-then the URL will be
+   To install your Xaraya system, run install.php from your browser to start the installation process.  The exact URL depends on your site, but if, for example, your site is http://www.foo.com and Xaraya is installed in the 'bar' directory then the URL will be
 
    http://www.foo.com/bar/install.php
 
-   Follow the instructions in the installation script and when prompted for
-either a new install or an upgrade select 'new install'.  The installer will
-create the rquired database tables and obtain information about the super-user
-login.  Once complete you should be able to start using your Xaraya site
-immediately.
+   Follow the instructions in the installation script and when prompted for either a new install or an upgrade select 'new install'.  The installer will create the required database tables and set up the account for the person who will act as the administrator of the site.  Once complete you should be able to start using your Xaraya site immediately.
 
 Upgrades
 ========
 
-Please visit the Xaraya Support Channel for information on upgrading from 
-PostNuke to Xaraya.
+   Please visit the #support channel for information on upgrading from PostNuke to Xaraya.
 
 Caution
 =======
 
-   Versions of PostNuke and other derivatives often include plugins
-that alter the database core tables through adding fields, changing names, etc.
-It should be noted that Xaraya does not support any modification of the core
-tables (those that come with this Xaraya distribution) or direct access to
-the core database tables.  APIs are provided for developers to use for these
-purposes, so that future planned changes will have a minimal impact on
-third-party added functionality, and should be used at all times.
+   Versions of PostNuke and other derivatives often include plugins that alter the database core tables through adding fields, changing names, etc. It should be noted that Xaraya does not support any modification of the core tables (those that come with this Xaraya distribution) or direct access to the core database tables.  APIs are provided for developers to use for these purposes, so that future planned changes will have a minimal impact on third-party added functionality, and these APIs should be used at all times.
 
 Common Installation Errors
 ==========================
 
-None noted with first Beta release.
+   If you are having difficulties getting past the boot phase, specifically errors about not being able to open the CACHEKEYS file for writing, try deleting the file:
+	html/var/templates/CACHEKEYS

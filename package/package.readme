@@ -1,0 +1,33 @@
+Producing Xaraya Packaging
+==========================
+
+Xaraya will be distributed as .tar.gz, .zip and in installable binary package form.
+This file will explain how to produce the installable packages.
+
+RPM Package
+-----------
+All configuration for the rpm is in the .spec file.
+Each time the version changes the .spec file will need to be changed too.
+The main thing to remember is that the contents of the main xaraya repos need some tweaking before they can be converted into a .tar.bz2 and then packaged.
+I decided to supply all files as a single .tar.bz2 file which gets extracted during the build step, rather than listing each file in the spec file to allow for flexibility and files being renamed and moved around.
+
+No file should be listed twice in the .spec file.
+So if the config files are listed seperately (as they should be as this means they will be treated differently to normal files and wont be overwritten if edited) then they shouldn't be included in the main .tar.bz2 file too.
+The documentation should be listed seperately too - but isnt currently.
+When producing the .tar.bz2 file care should be made over the permissions, ownership and content of the directories. For instance there should be no SCCS directories. The tests, and scripts directories should also be removed.
+
+In order to build the package copy the spec file to the /usr/src/RPM/SPECS directory on your machine. Create the .tar.bz2 file. It should be called Xaraya-${version}-tar.bz2 and the contents should be within a xaraya toplevel directory. This file should then be placed in the /usr/src/RPM/SOURCES directory.
+
+Then run (as root): rpmbuild -ba /usr/src/RPM/SPECS/Xaraya.spec
+
+You should now have .src.rpm and .rpm packages in the /usr/src/RPM/RPMS directory.
+
+Debian .deb
+-----------
+
+TBA
+
+Gentoo
+------
+
+TBA

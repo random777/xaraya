@@ -42,7 +42,7 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.full" 
-    value="addressbook,bbclick,bbcode,calendar,cast,censor,changelog,contact,figlet,mybookmarks,opentracker,pubsub,smilies,uploads,xarbb,xslt"/>
+    value="addressbook,bbclick,bbcode,calendar,cast,censor,changelog,contact,figlet,messages,mybookmarks,opentracker,pubsub,smilies,uploads,xarbb,xslt"/>
   
   <!-- source tree properties -->
   <property name="html.dir" value="html" />

@@ -36,7 +36,47 @@ class testBLCompiler extends xarTestCase {
     function testCompilenotnull() {
         return $this->assertnotNull($this->myBLC->compileFile('xartests/test.xt'),"Return not null on compile of a valid file");
     }
-    
+
+    function testWinHTMLComments() {
+        $tplString="<!-- \r\n#\$foo#\r\n  -->";
+        $expected="<!-- \r\n#\$foo#\r\n  --><?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        return $this->assertSame($out,$expected,"HTML multiline comments windows CR");
+    }
+
+    function testMacHTMLComments() {
+        $tplString="<!-- \r#\$foo#\r  -->";
+        $expected="<!-- \r#\$foo#\r  --><?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        return $this->assertSame($out,$expected,"HTML multiline comments mac CR");
+    }
+
+    function testUnixHTMLComments() {
+        $tplString="<!-- \n#\$foo#\n  -->";
+        $expected="<!-- \n#\$foo#\n  --><?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        return $this->assertSame($out,$expected,"HTML multiline comments unix CR");
+    }
+
+    function testWinBLComments() {
+        $tplString="<!--- \r\n#\$foo#\r\n  --->";
+        $expected="<?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        return $this->assertSame($out,$expected,"BL multiline comments windows CR");
+    }
+    function testMacBLComments() {
+        $tplString="<!--- \r#\$foo#\r  --->";
+        $expected="<?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        return $this->assertSame($out,$expected,"BL multiline comments mac CR");
+    }
+    function testUnixBLComments() {
+        $tplString="<!--- \n#\$foo#\n  --->";
+        $expected="<?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        return $this->assertSame($out,$expected,"BL multiline comments unix CR");
+    }
+
 }
 //$tmp = new xarTestSuite('Blocklayout compiler tests');
 //$tmp->AddTestCase('testBLCompiler','Instantiation and file compiling');

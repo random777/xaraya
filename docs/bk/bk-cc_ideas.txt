@@ -44,6 +44,38 @@ we also could do this remote to produce something like the image which
 is on the bk.xaraya.com page. Even better would be to automatically 
 generate this image.
  
+bk mv2newrepo
+-------------
+Moving files between repositories is no longer supported. The steps to
+do this manually would look something like this:
+
+
+01.      cp ~/oldrepo/SCCS/s.foo ~/newrepo/SCCS/s.foo
+02.      cd ~/oldrepo
+03.      ROOTKEY=`bk prs -hr+ -d:KEY: foo`
+04.      rm SCCS/s.foo
+05.      bk gone $ROOTKEY
+06.      bk commit -y"moved foo to newrepo"
+07.      cd ~/newrepo
+08.      bk admin -D foo       # remove cset marks
+09.      bk admin -C`bk id` foo
+10.      bk sfiles -P          # create pending marks
+11.      bk commit -y"add foo from oldrepo"
+
+01. -> Copy over the raw SCCS stuff to the new repo (change history)
+03. -> set ROOTKEY of the foo file.
+04. -> remove the file hard
+05. -> register the ROOTKEY of the file foo as gone so bk won't complain
+06. -> commit that
+08. -> remove the changeset marks in the new repo (they won't match the ones in the oldrepo)
+09. -> register the file as now belonging to the repo with `bk id` (aka register the ChangeSet pointer)
+10. -> generate the marks for pending deltas using the s.foo file copied in step 01. (d.file cannot be trusted )
+11. -> commit the pending deltas.
+
+Notes:
+- complex
+- dangerous
+- needs definitely a wrapper in custom command form.
 
 Undocumented commands:
 ======================

@@ -9,7 +9,7 @@
 		<author initials="" surname="" fullname="">
 			<organization>Xaraya Development Group</organization>
 			<address>
-				<email></email>
+				<email/>
 				<uri>http://www.xaraya.com</uri>
 			</address>
 		</author>
@@ -31,6 +31,8 @@
 			   The following RFC is a first summary and contains some solution
    proposals either compiled from the basic documents or from general
    definitions concerning Install Sytems in other CMSs
+</t>
+<t>
  Our install system is currently the best install system of all the free CMSs that already exist, and prolly better than
  the commercial ones. But, let's face facts, it needs some serious work to make it change with the times. Many things
  are changing within PostNuke. Our install system needs to be updated to keep up with these, and expandible for
@@ -39,21 +41,22 @@
 		</section>
 		<section title="List of requirements for the Install System">
 			<t>
-			SECURITY...many users do not delete the install directory...let's make sure it can't be used again if possible 
-MORE MODULAR...let's make it pluginable or even scriptable to do the things we want it to do. 
-SMALLER...let's follow through and use our new userapi, and adminapi functions to do the real work 
-EASIER TO MODIFY...a must..it shall be coded using pnHTML as much as possible. 
-More userfriendly: Add much more helpful texts to the installer 
-Signed modules: Sign modules with a MD5 or equivalent to prevent hacks 
-Database abstraction: Support different databases in the install 
-Upgrades: Add more CMS systems to the upgrade scripts 
-Themes install: Use the installer to also add themes 
-Provide optional signup for support forums
+			<list>
+				<t>SECURITY...many users do not delete the install directory...let's make sure it can't be used again if possible</t>
+				<t>MORE MODULAR...let's make it pluginable or even scriptable to do the things we want it to do.</t>
+				<t>SMALLER...let's follow through and use our new userapi, and adminapi functions to do the real work </t>
+				<t>EASIER TO MODIFY...a must..it shall be coded using pnHTML as much as possible.</t>
+				<t>More userfriendly: Add much more helpful texts to the installer</t>
+				<t>Signed modules: Sign modules with a MD5 or equivalent to prevent hacks</t>
+				<t>Database abstraction: Support different databases in the install </t>
+				<t>Upgrades: Add more CMS systems to the upgrade scripts</t>
+				<t>Themes install: Use the installer to also add themes</t>
+				<t>Provide optional signup for support forums</t>
+			</list>
 			</t>
 		</section>
 		<section title="Solution proposals - database tables ADD">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Solution proposals - functions ADD">
 			<t>
@@ -62,34 +65,58 @@ Provide optional signup for support forums
  list of Modules that are "Official" and validated to run off this system. If I wanted to install the
  module then it would be just the matter of pushing an "Install Module" form button and I allow the script to
  do the rest of the work.
+</t>
+<t>
  The script would then initiate the server to server transfer (we might have to force a chmod here, or have
  a chmod check). This grabs the files and installs the module. Once the files are installed, we would
  probably have to push another button to continue the install. With that the Modules Admin grabs the
  version file and does two things. It will first propegate the modules vars table, and it will check to
  see if the install variable is active. If active, it also installs the SQL necessary for the module.
+</t>
+<t>
  What this will do is neccessitate the need for a modules repository, which is what we wanted way back
  in the planning stage of PostNuke. It will need to be maintained. I also believe that we will need to have
  a file that each site will load to check to see the official modules that are available. I believe that
  we could just load this on request and not on each page load of modules admin.
- Anyway some thoughts on a way to go. I'd really invite anyone to comment. I might not be grounded
+ </t>
+<t>
+Anyway some thoughts on a way to go. I'd really invite anyone to comment. I might not be grounded
  completely with the install process, but I really think that it would be a pretty cool thing to do, and
  would be unique.
+</t>
+<t>
  Installer Flow of Events
-1.Select Language 
-2.Do Environment checks 
-3.Enter Database information 
-4.Create / Modify database (core only) 
-5.Switch to module installer 
-6.Select modules to download 
-7.Download modules 
-8.Install / Upgrade modules 
-9.Configure modules 
+</t>
+<t>
+<list>
+	<t>1.Select Language</t>
+	<t>2.Do Environment checks</t>
+	<t>3.Enter Database information</t>
+	<t>4.Create / Modify database (core only) </t>
+	<t>5.Switch to module installer</t>
+	<t>6.Select modules to download </t>
+	<t>7.Download modules</t>
+	<t>8.Install / Upgrade modules</t>
+	<t>9.Configure modules</t>
+</list>
+</t>
+<t>
 Installer Design Tenets 
-Use pnAPI as early as possible 
-Seperate throw-away parts from reusable parts: Bootstrapping vs Module Install 
-Integrate Module Installer into Modules module 
+</t>
+<t>
+<list>
+	<t>Use pnAPI as early as possible</t>
+	<t>Seperate throw-away parts from reusable parts: Bootstrapping vs Module Install</t>
+	<t>Integrate Module Installer into Modules module</t>
+</list>
+</t>
+<t>
 Implementation Considerations 
+</t>
+<t>
  (Francisco Sam Castillo)
+</t>
+<t>
  An addendum to my prior post would be that the normal php limitations
  that are imposed Under php safe mode and other possible constrains that are available and
  needed by Sysadmins that aim to lock down domains and secure the virtual users
@@ -103,33 +130,41 @@ Implementation Considerations
  available to them And in that case uid/gid  issues are no relevant because NT / w2k or XP
  do not have Such security layouts in them in such a greater detail as a unix system
  has.
+</t>
+<t>
  Thus maybe if the win32 user base is big enough or has problems in
  getting perl support But has php, then a second engine for this in php would work under this
  types of servers.
+</t>
+<t>
  This would cover all possibilities IMHO.
 			</t>
 		</section>
 		<section title="Relationship of the System to other areas">
 			<t>
-			Modules module: Is invoked for module installs / upgrades 
-Module registry: Check for new versions, download modules 
-pnDDL: Table creation support for different database types
+			<list>
+				<t>Modules module: Is invoked for module installs / upgrades</t>
+				<t>Module registry: Check for new versions, download modules</t>
+				<t>pnDDL: Table creation support for different database types</t>
+			</list>
 			</t>
 		</section>
 		<section title="Code that will need to be rewritten">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Basic documents for this RFC">
 			<t>
 			[1] Module Dependencies: http://groups.yahoo.com/group/pndev/message/10572 
+</t>
+<t>
 [2] Modules Remote Install: http://groups.yahoo.com/group/pndev/message/8725 
+</t>
+<t>
 [3] Securiy Issues with Remote Install: http://groups.yahoo.com/group/pndev/message/8739
 			</t>
 		</section>
 		<section title="Tools that need to be created from scratch">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Retractions ">
 			<t>
@@ -139,36 +174,52 @@ pnDDL: Table creation support for different database types
 		<section title="Open Issues">
 			<t>
 			Write access to modules directory. Autoinstalling modules is fraught with many security issues. 
+</t>
+<t>
  Jim McDonald writes:
+</t>
+<t>
  My two biggest worries are that unauthorised uses could get to this through
  some sort of security hole and really trash the PostNuke install, and
  that it will require the modules directory to be set to an insecure
  setting to accomplish this. Bad directory permissions is one of the
  current outstanding areas where PostNuke doesn't look good, and this
  will just make it worse.
+</t>
+<t>
  If we are going to do this I'd prefer to see it as an option at
  install-time rather than something that is automatically ready to go.
 			</t>
 		</section>
 		<section title="Acknowledgements ">
 			<t>
-			 Jim McDonald
- John Cox
- Andy Varganov
- Jim Barchuk
- Lawrence Akka
- Greg Allan
- Aidan Humphreys
- Scott Kindley
- Francisco Sam Castillo
+			<list>
+				<t> Jim McDonald</t>
+				<t>John Cox</t>
+				<t>Andy Varganov</t>
+				<t>Jim Barchuk</t>
+				<t>Lawrence Akka</t>
+				<t>Greg Allan</t>
+				<t>Aidan Humphreys</t>
+				<t>Scott Kindley</t>
+				<t>Francisco Sam Castillo</t>
+			</list>
 			</t>
 		</section>
 		<section title="Changelog ">
 			<t>
 			    0.1 (Febuary 3, 2002) John Robeson
+</t>
+<t>
        Initial Version
+</t>
+<t>
     0.2 (June 23, 2002) gregorrothfuss
+</t>
+<t>
         Resources added
+</t>
+<t>
         Use Cases
 			</t>
 		</section>

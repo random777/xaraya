@@ -9,7 +9,7 @@
 		<author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
 			<organization>Xaraya Development Group</organization>
 			<address>
-				<email></email>
+				<email/>
 				<uri>http://www.xaraya.com</uri>
 			</address>
 		</author>
@@ -29,9 +29,13 @@
 		<section title="Introduction ">
 			<t>
 			   All ?xxx numbers refer to the basic documents in section 7.
+</t>
+<t>
    We read through the articles on http://www.postnuke.com, its forum
    threads, feature requests on sourceforge and the developers mailing
    list.
+</t>
+<t>
    The following RFC is a first summary and contains some solution
    proposals either compiled from the basic documents or from general
    definitions concerning comments systems / forums.
@@ -41,25 +45,23 @@
 			<t>
 			    Implement a system to run cron-like jobs within PostNuke,
      simliar to Drupal.
+</t>
+<t>
     Following is a list of requirements broadly grouped into
     categories.
 			</t>
 		</section>
 		<section title="Solution proposals - database tables">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Solution proposals - functions">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Relationship of the API to other areas">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Code that will need to be rewritten">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Basic documents for this RFC">
 			<t>
@@ -67,8 +69,7 @@
 			</t>
 		</section>
 		<section title="Tools that need to be created from scratch">
-			<t>
-			</t>
+			<t/>
 		</section>
 		<section title="Retractions">
 			<t>
@@ -78,6 +79,8 @@
 		<section title="Changelog ">
 			<t>
 			    1.0 (January 9, 2002)
+</t>
+<t>
       Initial Version
 			</t>
 		</section>

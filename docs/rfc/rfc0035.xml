@@ -50,17 +50,17 @@
         underlying storage system.
       </t>
     </section>
-    <!-- One content section is mandatory -->
+
     <section title="Pros">
       <t>
          "Allows for the creation of queries in a persistent storage neutral manner.
          Expressed as objects, queries remain consistent across multiple persistent
          storage solutions. Should the database change from RDB to an OODB " or even to
-         XML Based Query Languages (A lot of research is being done in the field[?,?,?]),
-         "no part of the application will need to be modified." Reference [?]
+         XML Based Query Languages (A lot of research is being done in the field - References [3,4]),
+         "no part of the application will need to be modified." - Reference [2]
       </t>
     </section>
-    <!-- One content section is mandatory -->
+
     <section title="Requirements List">
       <t>
          The following is list for sugestions about the implementaion of the Query Abstraction.
@@ -87,23 +87,31 @@
       <t>
          Research done in other languages for inspiration has shown that most query abstractor out there
          have too simplistic approaches, mainly:
-      </t>
-      <t>
-      <list style="numbers">
-        <t>Simplistic - They simply support the most basic features of the SELECT query, where the own SQL
-           language is already the basic abstraction.</t>
-        <t>Placeholders - They simply store 'common' queries with wildcards showing where the input values
-           should be added. Clearly this doesnt produce DB independent SQL. </t>
-        <t>Stored queries - They store the DB-specific query in files to be called, would be a similar system
-           to that of using our MLS system to translate SQL queries to a specific DB dialect.
-           This requires you to know how to implement the query in every DB, and although it is able to
-           support more complex queries than the simplitic approach, it still falls short from being
-           able to translate the hairy stuff</t>
-      </list>
+         <list style="numbers">
+           <t>Simplistic - They simply support the most basic features of the SELECT query, where the own SQL
+              language is already the basic abstraction.</t>
+           <t>Placeholders - They simply store 'common' queries with wildcards showing where the input values
+              should be added. Clearly this doesnt produce DB independent SQL. </t>
+           <t>Stored queries - They store the DB-specific query in files to be called, would be a similar system
+              to that of using our MLS system to translate SQL queries to a specific DB dialect.
+              This requires you to know how to implement the query in every DB, and although it is able to
+              support more complex queries than the simplitic approach. It is not able to translate
+              dynamic queries.</t>
+          </list>
+          
+          So there are two possible implementaions:
+         <list style="numbers">
+           <t>Stored queries - It's not able to translate dynamic queries. And it will probably create
+              bigger problems than translations themselves (as i think it is easier to find a translator than
+              a DB specialist). Requiring that the Mod Dev himself creates the translation to all possible DBs
+              doesnt seem like a good idea.</t>
+           <t>OO Query Abstraction - The good part is that it can implement all our requirements and could
+              be a link towards future storage systems. Still it will obligate Mod Devs to learn it (for
+              more complex queries) instead of using the well known SQL.</t>
+          </list>
       </t>
     </section>
 
-    <!-- One content section is mandatory -->
     <section title="Implementation Idea">
       <t>The following is where the proposed implementation itself is shown</t>
       <t>
@@ -118,7 +126,12 @@
           structured list will be passed over to a specific DB driver which will translate the given
           structure in the best possible query for the developer.
        </t>
-          
+    </section>
+
+    <section title="Concept sketch of the proposed code">
+      <t>
+      
+      </t>
     </section>
 
   </middle>
@@ -130,7 +143,7 @@
       <reference target="http://www.ling.uni-potsdam.de/~moocow/projects/diplom/html-plain/node1.html">
         <front>
           <title>relational query feature structures</title>
-          <author fullname="Bryan Jurish">
+          <author initials="B" surname="Jurish" fullname="Bryan Jurish">
             <organization></organization>
           </author>
           <date year="2001"/>
@@ -140,9 +153,44 @@
               where the Standard SQL is already the de facto needed abstraction.
             </t>
           </note>
-      </front>
+        </front>
       </reference>
 
+      <reference target="http://www.objectwave.com/pdf/tools/JGrinder.pdf">
+        <front>
+          <title>ObjectWave JGrinder</title>
+          <author initials="" surname="" fullname="">
+            <organization>ObjectWave</organization>
+          </author>
+          <date year="2002"/>
+          <note title="Proprietary Java implementation without much technical detail (vaporware?)">
+            <t>
+            </t>
+          </note>
+        </front>
+      </reference>
+
+      <reference target="http://cobase-www.cs.ucla.edu/tech-docs/cqa.ps">
+        <front>
+          <title>CoBase: A Cooperative Database System</title>
+          <author initials="W." surname="Chu" fullname="Wesley W. Chu">
+            <organization>Computer Science Department University of California, Los Angeles</organization>
+          </author>
+          <author initials="Q." surname="Chen" fullname="Qiming Chen">
+            <organization>Computer Science Department University of California, Los Angeles</organization>
+          </author>
+          <author initials="M." surname="Merzbacher" fullname="Matthew Merzbacher">
+            <organization>Computer Science Department University of California, Los Angeles</organization>
+          </author>
+          <date year="2002"/>
+          <note title="Cooperative Database System">
+            <t>
+                How having queries abstracted might help us communicate with future technology. We could
+                create a CSQL driver for instance.
+            </t>
+          </note>
+        </front>
+      </reference>
 
       <reference target="http://arxiv.org/abs/cs.db/0110044">
         <front>
@@ -168,9 +216,6 @@
           <date year="2003"/>
         <note title="proxy database">
           <t>
-             Although the research is towards a proxy for the database system, our query abstraction
-             could be able to modularly inform supposed proxies our query pattern / structure
-             for better query prediction.
           </t>
         </note>
         </front>
@@ -179,8 +224,11 @@
       <reference target="http://www.cs.duke.edu/~junyi/cps216/report.pdf">
         <front>
           <title>An Approach Towards Web Caching and Prefetching for Database Management Systems</title>
-          <author fullname="Dazhi Wang, Junyi Xie">
-            <organization>PHP Devs</organization>
+          <author initials="D" surname="Wang" fullname="Dazhi Wang">
+            <organization>??</organization>
+          </author>
+          <author initials="J" surname="Xie" fullname="Junyi Xie">
+            <organization>??</organization>
           </author>
           <date year="2003"/>
           <note title="proxy database">
@@ -188,6 +236,21 @@
               Although the research is towards a proxy for the database system, our query abstraction
               could be able to modularly inform supposed proxies our query pattern / structure
               for better query prediction.
+            </t>
+          </note>
+        </front>
+      </reference>
+
+      <reference target="http://arxiv.org/ftp/cs/papers/0301/0301009.pdf">
+        <front>
+          <title>A Script Language for Data Integration in Database</title>
+          <author fullname="Qingguo Zheng">
+            <organization>National Lab. of Software Development Enviroment, Beihang University</organization>
+          </author>
+          <date year="2003"/>
+          <note title="script language">
+            <t>
+                Script Language as a query abstraction.
             </t>
           </note>
         </front>
@@ -248,7 +311,7 @@
           <date year="2002"/>
           <note title="class badly implemented">
             <t>
-              The class is badly implemented in my opinion. Still there are things that can be reused.
+              The class doesnt fullfill our needs. Still there are things that can be reused.
             </t>
           </note>
         </front>
@@ -264,11 +327,25 @@
           <note title="should have this feature">
             <t>
               This is one of the features our query abstraction should have. It shows how the abstraction
-              can add value to the overall solution.
+              can add value to the overall solution. Metabase implements it too.
             </t>
           </note>
         </front>
       </reference>
+
+      <reference target="http://www.oreilly.com/news/sqlnut_1200.html">
+        <front>
+          <title>Article showing difference between db queries</title>
+          <author fullname="">
+            <organization></organization>
+          </author>
+          <date year="2002"/>
+          <note title="helpful article">
+            <t>helpful for writing the drivers</t>
+          </note>
+        </front>
+      </reference>
+
 
     </references>
     

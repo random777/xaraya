@@ -39,10 +39,12 @@ PHPdoc header for functions:
  * @param   param2 type Description of parameter 2
  * @return  type to return description
  * @throws  list of exception identifiers which can be thrown
- * @todo    list of things which must be done to comply to relevant RFC
+ * @todo    <devname> <#> list of things which must be done to comply to relevant RFC or fix a problem
 */
 
-
+  @todo should contain the developers name who is asking for the todo.. the text should be containted in the 
+  @todo tag... the # attribute is optional.. but makes it easier to search where the todo is in the file
+  mark the area in the code where the todo is contained by using // TODO: X where X = #
 PHPdoc header for classes
 =========================
 /**

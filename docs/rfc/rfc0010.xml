@@ -372,52 +372,56 @@ html/
             <t>This tag only has an open form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>version</em>
-                <t>required attribute. At the moment of writing blocklayout is at version 1.0 or
-                  below, since we are still in beta. When new versions of the blocklayout language
-                  are released this attribute is used for compatability issues. The version number
-                  indicates what version of the blocklayout syntax to expect in the templates.
+            <t>
+              <list>
+                <t><em>version</em>
+                  <t>required attribute. At the moment of writing blocklayout is at version 1.0 or
+                    below, since we are still in beta. When new versions of the blocklayout language
+                    are released this attribute is used for compatability issues. The version number
+                    indicates what version of the blocklayout syntax to expect in the templates.
+                  </t>
                 </t>
-              </t>
-              <t><em>[content]</em>(text/html)
-                <t>
-                  The content attribute denotes the type of content the page template describes. The 
-                  value of this attribute is a legal string according to the IETF RFC describing 
-                  mime-types. The default content type is "text/html"
+                <t><em>[content]</em>(text/html)
+                  <t>
+                    The content attribute denotes the type of content the page template describes. The 
+                    value of this attribute is a legal string according to the IETF RFC describing 
+                    mime-types. The default content type is "text/html"
+                  </t>
+                  <t>
+                    The complete MIME type functionality is described in several IETF RFCs. The most
+                    relevant one for this RFC is: http://www.ietf.org/rfc/rfc2046.txt There are a large
+                    number of content types which can be specified. The most relevant ones for blocklayout
+                    are in the 'text' type of content. Examples:
+                    <list>
+                      <t>text/html  - plain old html</t>
+                      <t>text/plain - plain text</t>
+                      <t>text/xml   - xml data</t>
+                      <t>application/vnd.mozilla.xul+xml - more complicated mime type, identifying a xul document.</t>
+                    </list>
+                  </t>
+                  <t>
+                    In theory, blocklayout could support any mimetype, but the text and application types will
+                    be the two types, with their respective subtypes which will be used most frequently
+                  </t>
                 </t>
-                <t>
-                  The complete MIME type functionality is described in several IETF RFCs. The most
-                  relevant one for this RFC is: http://www.ietf.org/rfc/rfc2046.txt There are a large
-                  number of content types which can be specified. The most relevant ones for blocklayout
-                  are in the 'text' type of content. Examples:
-                  <list>
-                    <t>text/html  - plain old html</t>
-                    <t>text/plain - plain text</t>
-                    <t>text/xml   - xml data</t>
-                    <t>application/vnd.mozilla.xul+xml - more complicated mime type, identifying a xul document.</t>
-                  </list>
+                <t><em>xmlns:xar</em>
+                  <t>declaration of the xar namespace. As we currently hardcode the namespace this
+                    attribute can only have the value:
+                    <artwork>xmlns:xar="http://www.xaraya.com/2004/blocklayout"</artwork>
+                  </t>
                 </t>
-                <t>
-                  In theory, blocklayout could support any mimetype, but the text and application types will
-                  be the two types, with their respective subtypes which will be used most frequently
-                </t>
-              </t>
-              <t><em>xmlns:xar</em>
-                <t>declaration of the xar namespace. As we currently hardcode the namespace this
-                  attribute can only have the value:
-                  <artwork>xmlns:xar="http://www.xaraya.com/2004/blocklayout"</artwork>
-                </t>
-              </t>
-            </list>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork><![CDATA[
               <?xml version="1.0" encoding="utf-8"?>
               <xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://www.xaraya.com/2004/blocklayout">
                 <!-- Rest of the page level template goes here -->
               </xar:blocklayout>]]>              
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>
@@ -489,51 +493,54 @@ html/
             </t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em><t> an identifier for the tag</t></t>
-              <t><em>[instance]</em>
-                <t>
-                  If instance is specified, it's value is used to look
-                  up the the specific block in the database. The rest
-                  of the attributes is ignored when instance is
-                  specified.
+            <t>
+              <list>
+                <t><em>[id]</em><t> an identifier for the tag</t></t>
+                <t><em>[instance]</em>
+                  <t>
+                    If instance is specified, it's value is used to look
+                    up the the specific block in the database. The rest
+                    of the attributes is ignored when instance is
+                    specified.
+                  </t>
                 </t>
-              </t>
-              <t>
-                For the description of the rest of the attributes, we
-                will assume that the instance attribute was not
-                specified, including the optional specification for
-                the attributes.
-              </t>
-              <t><em>module</em>
                 <t>
-                  Name of the module which owns the block. In the
-                  administration part of Xaraya this is visible when
-                  looking at the block types.
+                  For the description of the rest of the attributes, we
+                  will assume that the instance attribute was not
+                  specified, including the optional specification for
+                  the attributes.
                 </t>
-              </t>
-              <t><em>name</em>
-                <t>
-                  Name of the block to display. The name is the value
-                  of the field filled in by the site manager in the
-                  administration part of Xaraya.
+                <t><em>module</em>
+                  <t>
+                    Name of the module which owns the block. In the
+                    administration part of Xaraya this is visible when
+                    looking at the block types.
+                  </t>
                 </t>
-              </t>
-              <t><em>[title]</em>
-                <t>The title to use for the block.</t>
-              </t>
-              <t><em>[template]</em>(default)
-                <t>
-                  Name of a template to use for the block. The
-                  template is best viewed as a template for the box
-                  surrounding the block. The contents of the block
-                  itself is produced on the basis of other sources,
-                  depending on what is inside the block.
+                <t><em>name</em>
+                  <t>
+                    Name of the block to display. The name is the value
+                    of the field filled in by the site manager in the
+                    administration part of Xaraya.
+                  </t>
                 </t>
-              </t>
-            </list>
+                <t><em>[title]</em>
+                  <t>The title to use for the block.</t>
+                </t>
+                <t><em>[template]</em>(default)
+                  <t>
+                    Name of a template to use for the block. The
+                    template is best viewed as a template for the box
+                    surrounding the block. The contents of the block
+                    itself is produced on the basis of other sources,
+                    depending on what is inside the block.
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:block instance="2" module="base" /&gt; // module attribute ignored here
               
@@ -554,6 +561,7 @@ html/
                 be rendered by applying the default block template from the 'base' module and block 'goodie'
                 (which may still be overridden by the theme)
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: <xref target="blockgroup">&lt;xar:blockgroup&gt;</xref> when that tag 
@@ -583,27 +591,30 @@ html/
             </t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag.</t>
-              </t>
-              <t><em>name</em> 
-                <t>The name of the block group to render. When the tag is
-                  used in its empty form this attribute is required. The attribute is
-                  ignored when the tag is used in its block form.
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag.</t>
                 </t>
-              </t>
-              <t><em>template</em>
-                <t>Name of the template to use when using the blockgroup tag in its
-                  block form. In that case it is a required atribute. When the tag is
-                  used in its empty form, the attribute is ignored. We may choose
-                  to have a strict rendering mode which explicitly forbids the use
-                  of the attribute. (the same holds for the name attribute above.
+                <t><em>name</em> 
+                  <t>The name of the block group to render. When the tag is
+                    used in its empty form this attribute is required. The attribute is
+                    ignored when the tag is used in its block form.
+                  </t>
                 </t>
-              </t>
-            </list>
+                <t><em>template</em>
+                  <t>Name of the template to use when using the blockgroup tag in its
+                    block form. In that case it is a required atribute. When the tag is
+                    used in its empty form, the attribute is ignored. We may choose
+                    to have a strict rendering mode which explicitly forbids the use
+                    of the attribute. (the same holds for the name attribute above.
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:blockgroup name="left" template="SeaBreeze_left"/&gt;
                 
@@ -617,6 +628,7 @@ html/
                 Renders the block 'login' in a blockgroup using the template 'SeaBreeze_center' for the
                 blockgroup.
            </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -638,16 +650,19 @@ html/
             <t>Only in empty form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag (optional)</t>
-              </t>
-              <t><em>[depth]</em> (1)
-                <t>how many levels of enclosing loops to be broken out of.</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag (optional)</t>
+                </t>
+                <t><em>[depth]</em> (1)
+                  <t>how many levels of enclosing loops to be broken out of.</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
                 &lt;xar:if condition="$i eq 5"&gt;
@@ -656,6 +671,7 @@ html/
                 #$i#
               &lt;/xar:for&gt;
             </artwork>
+            </t>
             <t>
               The above will generate:
               <artwork>
@@ -688,16 +704,19 @@ html/
             <t>Only to be used in empty form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag (optional)</t>
-              </t>
-              <t><em>[depth]</em> (1)
-                <t>how many levels of enclosing loops to skip to the end of (optional)</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag (optional)</t>
+                </t>
+                <t><em>[depth]</em> (1)
+                  <t>how many levels of enclosing loops to skip to the end of (optional)</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
                 &lt;xar:if condition="$i eq 5"&gt;
@@ -706,6 +725,7 @@ html/
                 #$i#
               &lt;/xar:for&gt;
             </artwork>
+              </t>
               <t>
                 The above will generate:
                 <artwork>
@@ -742,11 +762,13 @@ html/
             <t>This tag has only an empty form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag (optional)</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag (optional)</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
             <t>
@@ -773,20 +795,22 @@ html/
             <t>This tag has only the empty form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag (optional)</t>
-              </t>
-              <t><em>condition</em>
-                <t>The condition attribute is specified as a PHP expression
-                   which should evaluate to false or true. Within the condition
-                   attribute, normal php expressions can be used with one exception.
-                   When comparing values, the &lt; and &gt; would conflict with XML
-                   syntax. See <xref target="tagdescriptions">the note on logic tags</xref>
-                   above for the details.
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag (optional)</t>
                 </t>
-              </t>
-            </list>
+                <t><em>condition</em>
+                  <t>The condition attribute is specified as a PHP expression
+                    which should evaluate to false or true. Within the condition
+                    attribute, normal php expressions can be used with one exception.
+                    When comparing values, the &lt; and &gt; would conflict with XML
+                    syntax. See <xref target="tagdescriptions">the note on logic tags</xref>
+                    above for the details.
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
             <t>
@@ -810,41 +834,45 @@ html/
             <t>Only allowed in block form.</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-              <t><em>start</em>
-                <t>An expression which should evaluate to a value, which 
-                   is taken as the initial value of the loop variable to iterate
-                   over.
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
                 </t>
-              </t>
-              <t><em>test</em>
-                <t>The condition to test the iterated value against. This attribute
-                   is a php expression which should evaluate to false or true on each
-                   iteration. The for loop stops iterating when the value of the 
-                   'test' attributes is false. Again, when using comparison operators
-                   refer to the <xref target="tagdescription">note on logictags</xref>
+                <t><em>start</em>
+                  <t>An expression which should evaluate to a value, which 
+                    is taken as the initial value of the loop variable to iterate
+                    over.
+                  </t>
                 </t>
-              </t>
-              <t><em>iter</em>
-                <t>The action to perform at the end of each pass through the loop. 
-                   The blocklayout for construct is just as susceptible to infinite
-                   looping as any for construct in another language. In fact, the 'for'
-                   tag is almost literally translated into a for construct in php. Anything
-                   which can go wrong with a php for loop, also holds for the blocklayout
-                   variety of it.
+                <t><em>test</em>
+                  <t>The condition to test the iterated value against. This attribute
+                    is a php expression which should evaluate to false or true on each
+                    iteration. The for loop stops iterating when the value of the 
+                    'test' attributes is false. Again, when using comparison operators
+                    refer to the <xref target="tagdescriptions">note on logictags</xref>
+                  </t>
                 </t>
-              </t>
-            </list>
+                <t><em>iter</em>
+                  <t>The action to perform at the end of each pass through the loop. 
+                    The blocklayout for construct is just as susceptible to infinite
+                    looping as any for construct in another language. In fact, the 'for'
+                    tag is almost literally translated into a for construct in php. Anything
+                    which can go wrong with a php for loop, also holds for the blocklayout
+                    variety of it.
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:for start="$i = 0" test="$i le 10" iter="$i++"&gt;
                 // stuff which gets process during $i &lt;= 10
               &lt;/xar:for&gt;
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -874,37 +902,41 @@ html/
             <t>Only allowed in block form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-              <t><em>in</em>
-                <t>An expression which evaluates to the name of an array
-                   containing the elements to process. Normally this will
-                   just be the array variable itself ($varname)
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
                 </t>
-              </t>
-              <t><em>[key]</em>
-                <t>Variable to assign the key of the array to. This attribute
-                   is optional. If it is not specified, no key is used in the 
-                   foreach loop. If it is not specified, the 'value' attribute
-                   is required.
+                <t><em>in</em>
+                  <t>An expression which evaluates to the name of an array
+                    containing the elements to process. Normally this will
+                    just be the array variable itself ($varname)
+                  </t>
                 </t>
-              </t>
-              <t><em>[value]</em>
-                <t>variable to assign value to. If this attribute is not specified
-                   the 'key' attribute is required and the key is used to loop 
-                   over the elements.
+                <t><em>[key]</em>
+                  <t>Variable to assign the key of the array to. This attribute
+                    is optional. If it is not specified, no key is used in the 
+                    foreach loop. If it is not specified, the 'value' attribute
+                    is required.
+                  </t>
                 </t>
-              </t>
-            </list>
+                <t><em>[value]</em>
+                  <t>variable to assign value to. If this attribute is not specified
+                    the 'key' attribute is required and the key is used to loop 
+                    over the elements.
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:foreach in="hooks" key="hookmodule" value="hookoutput"&gt;
                 // stuff to process
               &lt;/xar:foreach&gt;
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -921,27 +953,30 @@ html/
             <t>Only allowed in block form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-              <t><em>condition</em>
-                <t>A php an expression evaluating to false or true. When
-                   it evaluates to true, the children of this element are
-                   processed. For comparison operators refer to 
-                   <xref target="tagdescriptions">the note on logic tags</xref>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
                 </t>
-              </t>
-              <t><em>[inline]</em> {true|(false)}
-                <t>Defaulting to false, this attribute specifies whether the
-                   condition should be in assignable (inline) form. This
-                   correspond to the php expression : (condition ? truepart:falsepart) 
+                <t><em>condition</em>
+                  <t>A php an expression evaluating to false or true. When
+                    it evaluates to true, the children of this element are
+                    processed. For comparison operators refer to 
+                    <xref target="tagdescriptions">the note on logic tags</xref>
+                  </t>
                 </t>
-                <t>Note: this attribute is not implemented yet</t>
-              </t>
-            </list>
+                <t><em>[inline]</em> {true|(false)}
+                  <t>Defaulting to false, this attribute specifies whether the
+                    condition should be in assignable (inline) form. This
+                    correspond to the php expression : (condition ? truepart:falsepart) 
+                  </t>
+                  <t>Note: this attribute is not implemented yet</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:if condition="$func eq 'editStory'"&gt;
                 // stuff
@@ -953,6 +988,7 @@ html/
                 //even more stuff
               &lt;/xar:if&gt;
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -972,18 +1008,20 @@ html/
             <t>Only allowed in block form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-              <t><em>name</em>
-                <t>The name of an array variable over which the loop executes. The 
-                   elements are guaranteed to be processed in the same order as they
-                   are stored in this array.
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
                 </t>
-              </t>
-              <t><em>[prefix]</em> DEPRECATED - not supported anymore)</t>
-            </list>
+                <t><em>name</em>
+                  <t>The name of an array variable over which the loop executes. The 
+                    elements are guaranteed to be processed in the same order as they
+                    are stored in this array.
+                  </t>
+                </t>
+                <t><em>[prefix]</em> DEPRECATED - not supported anymore)</t>
+              </list>
+            </t>
             <t>
               In the body of the loop, a number of special variables are accessible
               to access the loop variables:
@@ -1006,12 +1044,14 @@ html/
             </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:loop name="$module_data"&gt;
                 // stuff
                 &lt;p&gt;#$loop:item.title#&lt;/p&gt;
               &lt;/xar:loop&gt;
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -1039,13 +1079,16 @@ html/
             <t>Only allowed in block form</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:ml&gt;
                 &lt;xar:mlkey&gt;USERSONLINE&lt;/xar:mlkey&gt;
@@ -1065,6 +1108,7 @@ html/
 
               Same as first example, but with the &lt;xar:mlstring&gt; form.
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -1092,19 +1136,23 @@ html/
             <t>Only block form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:mlkey&gt;LOGIN&lt;/xar:mlkey&gt;
 
               Retrieves the 'LOGIN' key in the appropriate language and puts its
               contents in the current context.
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: 
@@ -1131,19 +1179,23 @@ html/
             <t>Only block form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]></em>
-                <t>an identifier for the tag (optional)</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]></em>
+                  <t>an identifier for the tag (optional)</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:mlstring&gt;Remember Me&lt;/xar:mlstring&gt;
 
               The string 'Remember Me' is looked up and translated
               into the appropriate language.
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag:
@@ -1164,11 +1216,13 @@ html/
             <t>Only block form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
             <t>
@@ -1203,51 +1257,54 @@ html/
             <t>Only empty form is allowed</t>
           </section>
           <section title="Attributes">
-            <list >
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-              <t><em>main</em> {true|false}
-                <t>Boolean specifying whether this is for the main module output or not.
-                   The attribute is required, but the actual value isn't used. See below.
+            <t>
+              <list >
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
                 </t>
-                <t>Note: this attribute is likely to be deprecated, because it is redundant,
-                   the presence / absence of the module attribute is enough to decided whether
-                   the default module should be used or not. At this point, the 'main' attribute
-                   is required, but the code actually checks the presence of the 'module' 
-                   attribute to decide what to do. If this attribute is not specified the rest of
-                   the attributes is ignored, and the main module output is used.
+                <t><em>main</em> {true|false}
+                  <t>Boolean specifying whether this is for the main module output or not.
+                    The attribute is required, but the actual value isn't used. See below.
+                  </t>
+                  <t>Note: this attribute is likely to be deprecated, because it is redundant,
+                    the presence / absence of the module attribute is enough to decided whether
+                    the default module should be used or not. At this point, the 'main' attribute
+                    is required, but the code actually checks the presence of the 'module' 
+                    attribute to decide what to do. If this attribute is not specified the rest of
+                    the attributes is ignored, and the main module output is used.
+                  </t>
                 </t>
-              </t>
-              <t><em>[module]</em>
-                <t>Name of the module to call, if it is not the main module.</t>
-              </t>
-              <t><em>[type]</em> (user)
-                <t>The type of function to call, if this attribute isn't specified the value
-                   defaults to 'user'
+                <t><em>[module]</em>
+                  <t>Name of the module to call, if it is not the main module.</t>
                 </t>
-              </t>
-              <t><em>[func]</em> (main)
-                <t>Name of the function to call. The value defaults to 'main' if not 
-                   specified.
+                <t><em>[type]</em> (user)
+                  <t>The type of function to call, if this attribute isn't specified the value
+                    defaults to 'user'
+                  </t>
                 </t>
-              </t>
-              <t><em>[args]</em>
-                <t>array of arguments to pass to the function, or</t>
-              </t>
-              <t><em>[any other attribute]</em>
-                <t>Individual arguments to pass to the function. This means if you specify
-                   param="4", test="yes", the attributes are translated by blocklayout into an
-                   argument array and passed to the function. In this example:
-                   <artwork>
-                     array('param' => '4', 'test' => 'yes)
-                   </artwork>
-                   would be passed to the function
+                <t><em>[func]</em> (main)
+                  <t>Name of the function to call. The value defaults to 'main' if not 
+                    specified.
+                  </t>
                 </t>
-              </t>
-            </list>
+                <t><em>[args]</em>
+                  <t>array of arguments to pass to the function, or</t>
+                </t>
+                <t><em>[any other attribute]</em>
+                  <t>Individual arguments to pass to the function. This means if you specify
+                    param="4", test="yes", the attributes are translated by blocklayout into an
+                    argument array and passed to the function. In this example:
+                    <artwork>
+                      array('param' => '4', 'test' => 'yes)
+                    </artwork>
+                    would be passed to the function
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:module main="true" /&gt;
 
@@ -1267,6 +1324,7 @@ html/
 
               From the 'articles' module, the 'user' 'view' function is called, with parameters ptid,numitems and startnum
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -1287,33 +1345,36 @@ html/
             <t>Only block form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>an identifier for the tag</t>
-              </t>
-              <t><em>mask</em>
-                <t>The mask for which to check the privileges. This is a required 
-                   attribute. Refer to RFC-0030 for the full details on the 
-                   security system.
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>an identifier for the tag</t>
                 </t>
-              </t>
-              <t><em>[catch]</em> ({(true)|false} 
-                <t>Sometimes it may be necessary to check for a certain security
-                   privilege, but not raise an exception if the privileg check 
-                   fails. In those cases, specify catch="false" and no exception will
-                   be raised. By default, if a security check fails, an exception will
-                   be raised.
+                <t><em>mask</em>
+                  <t>The mask for which to check the privileges. This is a required 
+                    attribute. Refer to RFC-0030 for the full details on the 
+                    security system.
+                  </t>
                 </t>
-              </t>
-              <t><em>[component]</em>
-                <t>For which component will the security check be done? Defaults to empty.</t>
-              </t>
-              <t><em>[instance]</em>
-                <t>For which instance will this check be made? Defaults to empty</t>
-              </t>
-            </list>
+                <t><em>[catch]</em> ({(true)|false} 
+                  <t>Sometimes it may be necessary to check for a certain security
+                    privilege, but not raise an exception if the privileg check 
+                    fails. In those cases, specify catch="false" and no exception will
+                    be raised. By default, if a security check fails, an exception will
+                    be raised.
+                  </t>
+                </t>
+                <t><em>[component]</em>
+                  <t>For which component will the security check be done? Defaults to empty.</t>
+                </t>
+                <t><em>[instance]</em>
+                  <t>For which instance will this check be made? Defaults to empty</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
             &lt;xar:sec id="unique1" mask="EditCategories" catch="false" component="mycomponent" &gt;
               &lt;p&gt;You are granted access&lt;/p&gt;
@@ -1324,6 +1385,7 @@ html/
             Checks for the 'EditCategories' mask on 'mycomponent'. If the check fails (no privilege)
             no exception is raised but the text 'Sorry, no can do' is added to the output.
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -1351,24 +1413,28 @@ html/
             <t>Only block form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>An identifier for the tag</t>
-              </t>
-              <t><em>name</em>
-                <t>The name of the variable to be set</t>
-              </t>
-              <t><em>[scope]</em> {module|block|theme}
-                <t>Note: this attribute is not implemented</t>
-              </t>
-            </list>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>An identifier for the tag</t>
+                </t>
+                <t><em>name</em>
+                  <t>The name of the variable to be set</t>
+                </t>
+                <t><em>[scope]</em> {module|block|theme}
+                  <t>Note: this attribute is not implemented</t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:set name="$foo"&gt;'bar'&lt;/xar:set&gt;
 
               Sets the value of variable $foo to 'bar'
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -1412,33 +1478,44 @@ html/
             <t>Only the empty form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>An identifier for the tag</t>
-              </t>
-              <t><em>file</em>
-                <t>the basename of the file to include.</t>
-              </t>
-              <t><em>[type]</em> {(module)|theme}
-                <t>A string which tells Xaraya what kind of template to include.
-                   If mainly affects the locations where Xaraya looks for the file.
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>An identifier for the tag</t>
                 </t>
-              </t>
-              <t><em>[compile]</em> {(true)|false}
-                <t>A swithc which tells Xaraya whether to compile the included template
-                   or not.
+                <t><em>file</em>
+                  <t>the basename of the file to include.</t>
                 </t>
-                <t>Note: not implemented</t>
-              </t> 
-              <t><em>[subdata]</em> (container data array)
-                <t>This allows to pass in an array with data which should be known in
-                   the included template. By default, the data of the containing template
-                   will also be available in the included template
+                <t><em>[type]</em> {(module)|theme}
+                  <t>A string which tells Xaraya what kind of template to include.
+                    If mainly affects the locations where Xaraya looks for the file.
+                  </t>
                 </t>
-              </t>
-            </list>
+                <t><em>[compile]</em> {(true)|false}
+                  <t>A swithc which tells Xaraya whether to compile the included template
+                    or not.
+                  </t>
+                  <t>Note: not implemented</t>
+                </t> 
+                <t><em>[subdata]</em> (container data array)
+                  <t>
+                    This allows to pass in an array with data which should be known in
+                    the included template. When this attribut <em>is not</em> specified the included
+                    template will inherit the data known to the parent template.
+                  </t>
+                  <t>
+                    When the subdata attribute <em>is</em> specified, only the data in the array 
+                    designated by subdata will be known by the included template. This is the only
+                    way to shield data from an included template (to prevent variable collisions for 
+                    example). If you want the included template to know about the parent template 
+                    variables, use xar:set of pass them in from the code.
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:template file="top_links" type="theme"/&gt;
 
@@ -1452,6 +1529,7 @@ html/
               /modules/[module name]/xartemplates/includes/top_links.xd and uses that file
               Looks for file /modules/[modulename]/xartemplates/includes
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -1491,26 +1569,30 @@ html/
             <t>Only empty form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>An identifier for the tag</t>
-              </t>
-              <t><em>[scope]</em> {(local)|config|module|block|theme|user}
-                <t>What kind of variable should we retrieve</t>
-              </t>
-              <t><em>name</em>
-                <t>String specifying the name of the variable to retrieve within 
-                   the given scope
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>An identifier for the tag</t>
                 </t>
-              </t>
-            </list>
+                <t><em>[scope]</em> {(local)|config|module|block|theme|user}
+                  <t>What kind of variable should we retrieve</t>
+                </t>
+                <t><em>name</em>
+                  <t>String specifying the name of the variable to retrieve within 
+                    the given scope
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:var name="preformat.catandtitle" /&gt;
 
               Retrieves the local variable $preformat['catandtitle']
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
@@ -1527,26 +1609,30 @@ html/
             <t>Only block form is allowed</t>
           </section>
           <section title="Attributes">
-            <list>
-              <t><em>[id]</em>
-                <t>An identifier for the tag</t>
-              </t>
-              <t><em>condition</em>
-                <t>PHP expression evaluating to true or false. During the while
-                   loop this expression is evaluated each time at the start of the
-                   loop and while the value is true, the child tags are added to the
-                   output repeatedly. For comparison operators see the 
-                   <xref target="tagdescriptions">Note on logic tags</xref>
+            <t>
+              <list>
+                <t><em>[id]</em>
+                  <t>An identifier for the tag</t>
                 </t>
-              </t>
-            </list>
+                <t><em>condition</em>
+                  <t>PHP expression evaluating to true or false. During the while
+                    loop this expression is evaluated each time at the start of the
+                    loop and while the value is true, the child tags are added to the
+                    output repeatedly. For comparison operators see the 
+                    <xref target="tagdescriptions">Note on logic tags</xref>
+                  </t>
+                </t>
+              </list>
+            </t>
           </section>
           <section title="Syntax examples">
+            <t>
             <artwork>
               &lt;xar:while condition="list($uid, $uname) = each($user_result)"&gt;
                 // stuff executing as long a the expression is true
               &lt;/xar:while&gt;
             </artwork>
+            </t>
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>

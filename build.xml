@@ -122,15 +122,18 @@
       <fileset dir="${docs.dir}">
         <include name="bk/*.txt" />
         <exclude name="SCCS/**" />
+        <exclude name=".DS_Store"/>
       </fileset>
       <fileset dir="${docs.dir}/xarayaguide" >
         <include name="XarayaGuide.txt"/>
         <exclude name="SCCS/**" />
+        <exclude name=".DS_Store"/>
       </fileset>
       <fileset dir="${docs.dir}/xmdghtml" >
         <include name="XarayaMDG.html"/>
         <include name="XarayaMDG.pdf"/>
         <exclude name="SCCS/**" />
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
     
@@ -142,6 +145,7 @@
         <include name="import/**"/>
         <include name="modwizard/**"/>
         <exclude name="SCCS/**"/>
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
     
@@ -180,6 +184,7 @@
         <include name="val.php"/>
         
         <exclude name="SCCS/**"/>
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
     
@@ -189,6 +194,7 @@
       <fileset dir="${sql.dir}">
         <include name="*.sql"/>
         <exclude name="SCCS/**"/>
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
     
@@ -223,6 +229,7 @@
       <fileset dir="${modules.repo}/${module.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
   </target>
@@ -234,6 +241,7 @@
       <fileset dir="${themes.repo}/${theme.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
   </target>
@@ -254,6 +262,7 @@
         <include name="xml/core/**"/>
         <include name="locale.xml"/>
         <exclude name="SCCS/**"/>
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
   </target>

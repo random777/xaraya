@@ -356,6 +356,15 @@
       </t>
     </section>
 
+    <section title="To be included">
+      <list>
+        <t>Exception to direct output generation are some parts of the core (notably logger and exception subsystem) </t>
+        <t>Describe hook templates very clearly, as they are the one which always get contained in another template</t>
+        <t>Use the xar:template tag if two templates are the same, don't copy and paste</t>
+        <t>Organize the templates with the xar:template tag</t>
+      </list>
+    </section>
+
     <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>2003-04-23: FB  - added PEAR coding standard</t>

@@ -162,3 +162,6 @@ http://phpxmlrpc.sourceforge.net
 * SOAP classes
 Copyright (c) 2002 Nusphere Corporation
 http://www.nusphere.com
+
+* The BBCode Picker from the PHPBB Team:
+PHPBB <http://www.phpbb.com/credits.php>

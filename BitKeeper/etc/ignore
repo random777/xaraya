@@ -2855,3 +2855,12 @@ html/modules/figlet/xartemplates/index.html
 html/logs/xaraya-access.log
 html/logs/xaraya.dev.log
 html/logs/xaraya.log
+html/themes/atom/index.html
+html/themes/atom/modules/articles/index.html
+html/themes/atom/modules/articles/user-summary-blog.xt
+html/themes/atom/modules/articles/user-summary-news.xt
+html/themes/atom/modules/articles/user-view.xt
+html/themes/atom/modules/base/pager-default.xt
+html/themes/atom/pages/default.xt
+html/themes/atom/pages/index.html
+html/themes/atom/xartheme.php

@@ -24,31 +24,13 @@
   - do something clever with the release log
   - extract the version automatically somehow
 -->
-<project name="xaraya" basedir="." default="help">
+<project name="xaraya" basedir="." default="all" >
+  <!-- The main property file -->
+  <property file="build.properties"/>
   
-  <!-- Some essential properties on which the rest really depends -->
-  <property name="version" value="0.9.9" />
-  <property name="releaselog" value="releaselog-0.98-0.99.txt" />
+  <!-- Build some properties based on the settings in the build.properties file -->
+  <property name="releaselog" value="releaselog-${lastversion}-${version}.txt" />
   <property name="final.name" value="${phing.project.name}-${version}" />
-  
-  <!-- module lists -->   
-
-  <!-- The core modules, should be in every distro, it just doesn't work without them -->
-  <property name="modules.core" value="adminpanels,authsystem,base,blocks,dynamicdata,installer,mail,modules,privileges,roles,themes"/>
-
-  <!-- Base modules, when added to the core modules, you get a base system -->
-  <property name="modules.base" 
-    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,multisites,polls,ratings,recommend,referer,search,scheduler,sniffer,stats,translations,wiki,xarcachemanager,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
-
-  <!-- Full distro modules, when added to the core modules, you get a full system -->
-  <property name="modules.full" 
-    value="addressbook,authinvision,authphpbb2,authsso,bbclick,bbcode,censor,changelog,figlet,newsletter,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,ping,pubsub,sitetools,smilies,subitems,trackback,uploads,mime,images,window,workflow,xarbb,xarlinkme,xlink,xslt"/>
-
-  <!-- Languages which get included in the distro -->
-  <property name="languages.installer" value="de_DE.utf-8,nl_NL.utf-8,pt_BR.utf-8,ru_RU.utf-8"/>
-
-  <!-- theme lists -->
-  <property name="themes.full"  value="XBlue_Pro,atom"/>
 
   <!-- source tree properties -->
   <property name="html.dir" value="html" />
@@ -57,24 +39,31 @@
   <property name="sql.dir" value="sql"/>
   
   <!-- build tree properties -->
-  <property name="build.basedir" value="build"/>
   <property name="build.dir" value="${build.basedir}/${final.name}"/>
   <property name="build.docs" value="${build.dir}/docs"/>
   <property name="build.sql" value="${build.dir}/sql" />
   <property name="build.tests" value="${build.dir}/tests"/>
   <property name="build.html" value="${build.dir}/html"/>
   
-  
-  <!--  Default target that only displays some help  -->
-  <target name="help" description="--> displays a brief help">
+  <!--  Displays some help  -->
+  <target name="help" description=": displays a brief help">
     <echo message="Please call 'bk build -projecthelp' for details" />
   </target>
   
   <!--  Main target that runs the build  -->
-  <target name="makedist" description="--> creates a distribution of Xaraya">
+  <target name="all" description=": creates a distribution of Xaraya">
     <echo message="Copying files to build dir" />
     
+    <!-- Build all distributions -->
+    <phingcall target="coredist"/>
+    <phingcall target="basedist"/>
+    <phingcall target="fulldist"/>
+  </target>
+  
+  <!-- Common contents for each distribution -->
+  <target name="commonfiles">
     <!-- Copy the usual suspects for GPL alike projects -->
+    <mkdir dir="${build.basedir}" />
     <mkdir dir="${build.dir}" />
     <copy todir="${build.dir}">
       <fileset dir="${docs.dir}">
@@ -83,7 +72,6 @@
         <include name="LICENSE.txt" />
         <include name="${releaselog}" />
       </fileset>
-
     </copy>
     
     <!-- Process docs directory -->
@@ -108,7 +96,7 @@
     <mkdir dir="${build.tests}"/>
     <copy todir="${build.tests}">
       <fileset dir="${tests.dir}">
-        <include name="caching/**"/>
+        <!-- <include name="caching/**"/> -->
         <include name="import/**"/>
         <include name="modwizard/**"/>
         <exclude name="SCCS/**"/>
@@ -123,7 +111,6 @@
         <exclude name="includes/xml/**"/>
         <exclude name="includes/xartests/**"/>
         
-        <include name="themes/installer/**"/>
         <include name="themes/print/**"/>
         <include name="themes/rss/**"/>
         <include name="themes/Xaraya_Classic/**"/>
@@ -159,23 +146,15 @@
     
     <!-- Copy config.system.php.dist to config.system.php -->
     <copy file="${html.dir}/var/config.system.php.dist" tofile="${build.html}/var/config.system.php"/>
-    
-    <!-- Handle languages -->
-    <foreach list="languages.installer" target="copylanguage" param="language.locale"/>
-
-    <!-- Core distro -->
-    <phingcall target="coredist"/>
-    
-    <!-- Base distro -->
-    <phingcall target="basedist"/>
-
-    <!-- Full distro -->
-    <phingcall target="fulldist"/>
-
   </target>
 
+  <!-- Installer languages target -->
+  <target name="languages" depends="commonfiles">
+    <foreach list="languages.installer" target="copylanguage" param="language.locale"/>
+  </target>  
+  
   <!-- Core distribution -->
-  <target name="coredist" description="--> Creates the core distribution">
+  <target name="coredist" depends="commonfiles, languages" description=": Creates the core distribution">
     <!-- Core modules -->
     <foreach list="modules.core" target="copymodule" param="module.name"/>
     
@@ -189,7 +168,6 @@
       </fileset>
     </delete>
    
-
     <!--- here we can make the core distribution -->
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-core.tar.gz"/>
@@ -201,7 +179,7 @@
   </target>
 
   <!-- Base distribution -->
-  <target name="basedist" description="--> Creates the base distribution">
+  <target name="basedist" depends="commonfiles, languages" description=": Creates the base distribution">
    <!-- Modules are a bit separate -->
     <foreach list="modules.base" target="copymodulefrommodrepo" param="module.name"/>
     
@@ -224,7 +202,7 @@
   </target> 
 
   <!-- Full distribution -->
-  <target name="fulldist" description="--> Creates the full distribution">
+  <target name="fulldist" depends="commonfiles, languages" description=": Creates the full distribution">
    <!-- Modules are a bit separate -->
     <foreach list="modules.full" target="copymodulefrommodrepo" param="module.name"/>
 
@@ -254,7 +232,7 @@
   <target name="copymodulefrommodrepo" if="module.name">
     <echo msg="Copying module ${module.name} into build tree..."/>
     <copy todir="${build.html}/modules/${module.name}">
-      <fileset dir="../../modules/${module.name}">
+      <fileset dir="${modules.repo}/${module.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
       </fileset>
@@ -265,7 +243,7 @@
   <target name="copythemefromthemerepo" if="theme.name">
     <echo msg="Copying theme ${theme.name} into build tree..."/>
     <copy todir="${build.html}/themes/${theme.name}">
-      <fileset dir="../../themes/${theme.name}">
+      <fileset dir="${themes.repo}/${theme.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
       </fileset>
@@ -277,9 +255,10 @@
     <echo msg="Copying installer locale ${language.locale} into build tree..."/>
 
     <copy todir="${build.html}/var/locales/">
+      <!-- FIXME: this is way too slow -->
       <!-- map nl/nl_NL.iso-8859-1/filename.xml onto filename.xml  -->
       <mapper type="regex" from="^..\/(.*)" to="\1" /> 
-      <fileset dir="../../languages/">
+      <fileset dir="${languages.repo}/">
         <include name="**/${language.locale}/xml/*/installer/**"/>
         <include name="**/${language.locale}/xml/core/**"/>
         <include name="**/${language.locale}/locale.xml"/>
@@ -292,48 +271,28 @@
   <target name="createtarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
     <exec dir="${build.basedir}" command="tar -czf ${tarball.name} ${final.name}"/>
-<!-- This just takes too much memory
-    <tar outfile="${build.basedir}/${tarball.name}" usegzip="true">
-      <fileset dir="${build.basedir}">
-        <include name="${final.name}/**"/>
-      </fileset>
-    </tar>
--->
   </target>
 
   <!-- Create a zipball from the current contents of the build tree -->
   <target name="createzipball" if="zipball.name">
     <echo msg="Creating zip archive ${zipball.name}"/>
     <exec dir="${build.basedir}" command="zip -rq ${zipball.name} ${final.name}"/>
-<!-- This just takes too much memory
-    <zip outfile="${build.basedir}/${zipball.name}">
-      <fileset dir="${build.basedir}">
-        <include name="${final.name}/**"/>
-      </fileset>
-    </zip>
--->
   </target>
   
   <!-- Clean target, removes only the copied build tree -->
-  <target name="clean" description="--> cleans up the buildtree">
+  <target name="clean" description=": cleans up the buildtree, but does not remove older builds">
     <echo msg="Cleaning up buildtree..." />
     <delete dir="${build.dir}" />
   </target>
 
   <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
-  <target name="realclean" depends="clean" description="--> also cleans the produced archives">
+  <target name="realclean" depends="clean" description=": removes the whole build structure">
     <echo msg="Real clean..."/>
-    <delete>
-      <fileset dir="${build.basedir}">
-        <include name="*.tar.gz"/>
-        <include name="*.zip"/>
-      </fileset>
-    </delete>
-    <!-- <delete dir="${build.basedir}" /> -->
+    <delete dir="${build.basedir}" />
   </target>
   
   <!-- Rebuild target, depends on clean -->
-  <target name="rebuild" depends="clean, realclean" description="--> rebuilds all Xaraya distributions">
+  <target name="rebuild" depends="clean" description=": rebuilds all targets">
     <echo msg="Starting new build..." />
     <phingcall target="makedist" />
   </target>

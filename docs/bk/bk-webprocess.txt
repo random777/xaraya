@@ -233,12 +233,4 @@ DNS/HTTPD changes to create the subdomain.
 COMMENTS:
 - Can we leave out the dev environment? If things get more complex
 later on we can always add a layer.
-- Not all sites will want this process. For instance the bugs site will not use it. Therefore there must be a mechanism for site admins to be able to check changes direct into the production repository.
-- Hows this process apply when using database backed sites? I assume it will 
-only apply to the files. However if the sites are using Xaraya themselves I'm 
-not convinced we would want to put those files into BK as they would have 
-already come from one repository so it would be unnecessary change control. 
-We also do not necessarily want to use database replication - so will database 
-content changes just be made on the live site like normal CMS backed sites? 
-If we need more then that then others will too and so we should add missing 
-functionality to Xaraya itself.
+- Not all sites will want this process. For instance the bugs site will not use it. Therefore there must be a mechanism for site admins to be able to check changes direct into the production repository, if they have permission.

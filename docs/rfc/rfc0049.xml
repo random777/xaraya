@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc editing="yes" ?>
+<?rfc toc="yes" ?>
+<?rfc tocdepth="2"?>
+<rfc category="bcp" number="0049" xmlns:ed="http://greenbytes.de/2002/rfcedit">
+  <front><title>Writing X-Ds and RFCs using XML</title><author
+  fullname="Johnny Robeson" initials="J.W.R." surname="Rose">
+  <organization>Xaraya Development Group</organization> <address><email>johnny@xaraya.com</email>
+  </address> </author> <date month="January" year="2004"></date> <area>General</area>
+  <keyword>myXaraya</keyword> <keyword>Xaraya-Draft</keyword>
+  <abstract> <t>myXaraya is a user homepage system similiar to myYahoo</t>
+  </abstract> <note title="IMPORTANT"> <t> Although the copyright notice above
+  says <em>Xaraya</em>, this is not the case. The original author mentioned in
+  the header has copyright to this document. Because the RFC documents are
+  automatically generated with a modified script for out group, the copyright
+  statement is automatically changed. I hope this note is sufficient and gives
+  the original author enough credit for this situation. </t> </note></front>
+
+  <middle><section title="Introduction"> <t> This memo describes how to write
+  a document for the I-D and RFC series using <xref target="XML">the
+  Extensible Markup Language</xref> (XML). This memo has three goals: </t>
+  </section> <section title="Security Considerations"> <figure>
+  <preamble> This memo raises no security issues; however, , your document
+  should contain a section near the end that discusses the security
+  considerations of the protocol or procedures that are the main topic of your
+  document, e.g., </preamble> </figure> </section></middle>
+
+  <back><references> <reference anchor="XML"
+  target="http://www.w3.org/TR/1998/REC-xml-19980210"> <front> <title>Extensible
+  Markup Language (XML) 1.0</title> <author> <organization abbrev="W3C">World
+  Wide Web Consortium</organization> <address> <postal> <street>MIT Laboratory
+  for Computer Science</street> <street>545 Technology Square</street>
+  <city>Cambridge</city> <region>MA</region> <code>02139</code>
+  <country>US</country> </postal> <phone>+ 1 617 253 2613</phone>
+  <facsimile>+ 1 617 258 5999</facsimile> <email>timbl@w3.org</email>
+  <uri>http://www.w3c.org</uri> </address> </author> <date month="February"
+  year="1998"></date> </front> <seriesInfo name="W3C" value="XML"></seriesInfo>
+  </reference> <reference anchor="refs.RFC2223"> <front> <title>Instructions
+  to RFC Authors</title> <author fullname="Jon Postel" initials="J."
+  surname="Postel"> <organization abbrev="ISI">USC/Information Sciences
+  Institute</organization> <address> <postal> <street>4676 Admiralty Way</street>
+  <city>Marina del Rey</city> <region>CA</region> <code>90292</code>
+  <country>US</country> </postal> <phone>+1 310 822 1511</phone>
+  <facsimile>+1 310 823 6714</facsimile> <email>Postel@ISI.EDU</email>
+  </address> </author> <date month="October" year="1997"></date> </front>
+  <seriesInfo name="RFC" value="2223"></seriesInfo> </reference> <reference
+  anchor="refs.RFC2026"> <front> <title>The Internet Standards Process --
+  Revision 3</title> <author fullname="Scott O. Bradner" initials="S.O."
+  surname="Bradner"> <organization>Harvard University</organization>
+  <address> <postal> <street>Holyoke Center, Room 813</street>
+  <street>1350 Massachusettes Avenue</street> <city>Cambridge</city>
+  <region>MA</region> <code>02138</code> <country>US</country> </postal>
+  <phone>+1 617 495 3864</phone> <email>sob@harvard.edu</email> </address>
+  </author> <date month="October" year="1996"></date> </front> <seriesInfo
+  name="RFC" value="2026"></seriesInfo> <seriesInfo name="BCP" value="9"></seriesInfo>
+  </reference> </references> <section title="Acknowledgements"> <t>The author
+  gratefully acknowledges the contributions of: Joanna Dalle Nogare, Marcel
+  Van Der Boom, and Marc Luetolf</t> </section></back>
+</rfc>

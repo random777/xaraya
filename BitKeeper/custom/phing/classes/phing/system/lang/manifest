@@ -1,0 +1,10 @@
+<?php
+/* manifest */
+import("phing.system.lang.Exception");
+import("phing.system.lang.ArrayIndexOutOfBoundsException");
+import("phing.system.lang.NullPointerException");
+import("phing.system.lang.RuntimeException");
+import("phing.system.lang.EventObject");
+import("phing.system.lang.Character");
+import("phing.system.lang.System");
+?>

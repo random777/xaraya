@@ -1,0 +1,1 @@
+Phing version 1.0-rc2, released on May 15 2003

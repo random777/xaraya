@@ -1,0 +1,16 @@
+<?php
+/** manifest file for package phing */
+import('phing.parser.Location');
+import('phing.parser.AbstractSAXParser');
+import('phing.parser.ExpatParser');
+import('phing.parser.ExpatParseException');
+import('phing.parser.AbstractFilter');
+import('phing.parser.ProjectConfigurator');
+import('phing.parser.RootFilter');
+import('phing.parser.ProjectFilter');
+import('phing.parser.TaskFilter');
+import('phing.parser.TargetFilter');
+import('phing.parser.DataTypeFilter');
+import('phing.parser.NestedElementFilter');
+define('XML_VAR_REGEX', '/\${((\w+\.?)\[*\'*(\w*)\'*\]*)}/U');
+?>

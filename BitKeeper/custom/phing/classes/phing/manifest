@@ -1,0 +1,10 @@
+<?php
+/** manifest file for package phing */
+import('phing.Project');
+import('phing.ProjectComponent');
+import('phing.Target');
+import('phing.Task');
+import('phing.BuildException');
+import('phing.BuildEvent');
+import('phing.BuildListener');
+?>

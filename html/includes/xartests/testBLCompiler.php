@@ -90,7 +90,6 @@ class testBLCompiler extends xarTestCase {
         $tplString="#\$foo###";
         $expected="<?php echo \$foo; ?>#<?php return true;?>";
         $out = $this->myBLC->compile($tplString);
-        var_dump($out);
         return $this->assertSame($out,$expected,"Triple hash after variable should return 1 back");
     }
 }

@@ -743,13 +743,19 @@
 			</style>
 		</head>
 		<body>
-			<xsl:include src="/xcommom/includes/main_header.html"> 
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr valign="top"><td align="left" background="/xcommon/images/header_fill.gif"><table width="732" border="0" cellspacing="0" cellpadding="0"><tr><td valign=top width=144><a href="http://www.xaraya.com" target="_top"><img src="/xcommon/images/header_logo.gif" alt="Xaraya :: Content Management Solutions" width="732" height="53" border="0" align="top"></a></td></tr>
+			</table></td><td width="100%" background="/xcommon/images/header_fill.gif"><img src="/xcommon/images/dot.gif" alt="" width="1" height="1" border="0" align="top"></td></tr></table>
 			<!-- insert diagnostics -->
-			<xsl:call-template name="insertDiagnostics"/>			
+			<xsl:call-template name="insertDiagnostics"/>
+			
 			<xsl:apply-templates select="front" />
 			<xsl:apply-templates select="middle" />
 			<xsl:apply-templates select="back" />
-			<xsl:include src="/xcommom/includes/main_footer.html"> 		
+			<table width=100% border=0 cellpadding=0 cellspacing=0>
+			<tr bgcolor="#E5E5E5"><td width="730" align="right" valign="middle" class="main_copy"></td>&nbsp;&nbsp;<b><i>Sponsored by <!--<a href="http://www.ddfoundation.org" target="_blank">-->The Digital Development Foundation<!--</a>--></i></b>&nbsp;&nbsp;</td><td><img src="/xcommon/images/dot.gif" alt="" width="1" height="22" border="0" align="top"></td></tr>
+			<tr><td width="730" align="right" valign="middle" class="copyright" td="">&copy; 2002 Xaraya All rights reserved.&nbsp;&nbsp;</td><td><img src="/xcommon/images/dot.gif" alt="" width="1" height="22" border="0" align="top"></td></tr>
+			</table>
+			<br /><br />		
 		</body>
 	</html>
 </xsl:template>               

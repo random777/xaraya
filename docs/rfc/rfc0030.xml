@@ -1052,16 +1052,13 @@
                 
         All fields except the description are mandatory. The values 'All' and 'None' can be used for realm, module, component, instancetype or instance. Here is an example of how a mask may be registered:
         <artwork>
-          registerMask('AssignAll','All','Privileges','Assign','All','All',ACCESS_ADD);
+          registerMask('EditPrivileges','All','Privileges','All','All','All',ACCESS_ADD);
         </artwork>
-        This creates a mask named AssignAll for the privileges module. Security checks can invoke the mask by calling the component it belongs to, as described below.
+        This creates a mask named EditPrivileges for the privileges module. Security checks can invoke the mask as described below.
          
         </t>
         <t> 
         Masks need to be registered at init time. In other words, for each mask to be registered, invoke the registerMask function in the init.php of the module the mask belongs to.
-        </t>
-        <t> 
-        A component may have one or more masks assigned to it (as long as the mask names are unique). During a security check each of the masks in turn will be checked against a user's privileges.
         </t>
         <t>
         Such a call could also be inserted when a new instance is
@@ -1077,18 +1074,15 @@
         <t>
         Instances conceptually are objects that a module deals with, e.g. articles, folders, download items, dynamic data fields. For instances to be recognized and checked against, they need to be defined at init time. Instances are defined by the defineInstance function:
         <artwork>
-        function defineInstance($name, $module,$table1,$valuefield,$displayfield,$appvar=0,$table2='',
+        function defineInstance($module, $component, $appvar=0,$table2='',
         $childID='',$parentID='',$description='')
         
         where
         
-        $name        : name by which the instance is called.
         $module      : module to which the instance applies.
-        $table1      : the instance table.
-        $valuefield  : the index of the instances, generally the ID field of the instance 
-                       table.
-        $displayfield: the field of the instance table to be displayed in dropdowns, 
-                       generally a name field.
+        $component   : component which the instance is part of.
+        $querystring : a string that represents an sql query. When the query is executed
+                       it returns a recordset of instances.
         $propate     : a flag defining whether privilege checks should include items
                        upstream or downstream in a hierarchy.
         $table2      : the name of the table defining the instance hierarchy.         
@@ -1098,17 +1092,14 @@
         </artwork>
         Each instance to be defined must invoke this function in the init.php file of the module it refers to.
         
-        [marc: we might not need the $module variable].
         </t>
         <t>
         An example of how this might be used:
         <artwork>
-        defineInstance('projects','xproject','xar_xproject','xar_projectid','xar_name',0);
+	    $query = "SELECT xar_name,xar_id FROM xar_block_groups";
+        xarDefineInstance('blocks','BlockGroups',$query);
         </artwork>
-        This defines an instance called projects. The definition will allow security checks to include references to specific projects in the xprojects module. If a mask contains this instance definition, it will check the values in the field xarname of table xarproject against the user's privileges.
-        </t>
-        <t>
-        As an illustration, one might assign a user ACCESS_EDIT privileges to a project 'HighSchoolReunion' and ACCESS_READ privileges to all other projects. With an instance definition above, a security check in the code allowing users to modify projects would allow the user access to only the 'HighSchoolReunion' project.
+        This defines an instance called BlockGroups in the blocks mnodule. The query string will return a recordset of all blockgroups in the xar_block_groups table. When defining privileges specific records from the recordset can be chosen, allowing granular security over single instance. During a security check such an instance will be checked against the definition contained in the check's mask. 
         </t>
         <t>
         For collections in which objects are arranged in a hierarchy, the defineInstance function can be expanded to include other members of the hierarchy. The $propagate parameter defines this behavior.
@@ -1128,10 +1119,14 @@
         <t>
         Here is an example:
         <artwork>
-        defineInstance('special','categories','xar_categories','xar_cid','xar_name',1,'xar_categories',
-        'cid','xar_parent');
+        $query = "SELECT xar_name,xar_cid FROM xar_categories";
+        xarDefineInstance('categories','Category',$query,1,'xar_categories','xar_cid',
+            'xar_parent','Instances of the categories module, including multilevel nesting');
         </artwork>
         This defines an instance called special in the categories module. The instance definition will ensure that privileges with respect to a category also apply to any subcategory.
+        </t>
+        <t>
+        [Note: this doesn't work yet.]
         </t>
       </section>
     <section title="Security Checks">
@@ -1160,11 +1155,11 @@
          function securitycheck($component,$showexception=1,$instancetype='',$instance='',$role='',$module='')
          
          where
-         
-         $component    : the name of the component whose masks are to be checked.
+          
+         $name         : name of the  mask to be checked.
          $showexception: 1 = show the exception message if the check fails.
                          0 = do not show an exception message
-         $instancetype : name of an instance type to be checked against.
+         $component    : name of a component to be checked against.
          $instance     : name of an instance to be checked against.
          $role         : name of a role to be checked against.
          $module       : name of a modules to be checked against.
@@ -1179,6 +1174,169 @@
       </section>
       </t>
     </section>
+    <section title="Converting Modules from the Old to the New System">
+        <t>
+        Here is a step by step guide to switching modules from Postnuke's (or Xaraya's previous) permissions system to the Xaraya security system.        
+		<list style="numbers">
+		  <t>
+		  Create the necessary instance definitions
+		  </t>
+		  <t>
+		  Create the necessary mask definitions
+		  </t>
+		  <t>
+		  Change the pnSecAuthAction or xarSecAuthAction calls to xarSecurityCheck calls
+		  </t>
+		  <t>
+		  Remove redundant code
+		  </t>
+		  </list>
+
+    <section title="Creating Instance definitions">
+		  <t>
+		  Defining instances is a bit of work. The good news is that there are probably not more than 3 of these in any given module.
+		  </t>
+		  <t>
+		  The first question to answer is: what instances do I have or need? Instance definitions ("security schemas") can generally be found in the version.php file of the module. However, you'll probably also want to look thorugh the module code for calls of the pnSecAddSchema or xarSecAddSchema function, which also defines security schemas. Ypu'll need to create an instance definition for each of the entries in a security schema.
+		  </t>
+		  <t>
+		  Security schemas have the form:
+        <artwork>
+         $modversion['securityschema'] = array('categories::category' => 
+                                               'Category name::Category ID',
+                                      'categories::item' => 
+                                               'Category ID:Module ID:Item ID');
+        </artwork>
+		 In this case we have a schema with two entries, which will call for two instance definitions. In the first entry the line 
+        <artwork>
+         'categories::category' 
+        </artwork>
+        refers to the module name ("categories") and the component name ("category"). Both of these can be inserted into the instance definition as shown below. If there is no component name, insert "All" in the definition instead.
+		  </t>
+		  <t>
+		The second part of the entry is a bit more complicated:
+        <artwork>
+         'Category name::Category ID' 
+        </artwork>
+        This part of the schema consists of up to 3 names of database fields which make up the instance definition. You need to define an sql query string which returns a recordset with of these fields from the database. In this case the query string is:
+        <artwork>
+         $query = "SELECT xar_name,xar_cid FROM xar_categories";        
+        </artwork>
+        Note you'll have to look in the database a bit to identify the correct table and field names. Unfortunately this is not clearly documented anywhere, but in most cases the table will be one of those belonging to the module itself, and the field names can be identified fairly easily. 
+		  </t>
+		  Once you have the module, component names and the query string these can be inserted in instance definition:
+		  <t>
+        <artwork>
+        Syntax: xarDefineInstance(Module,Component,Querystring)
+        
+        Example:
+        $query = "SELECT xar_name,xar_cid FROM xar_categories";
+        xarDefineInstance('categories','Category',$query);
+        </artwork>
+        [Note: for the moment forget about the other parameters to this function call as described above. These can be added later.]
+		  </t>
+    </section>
+                
+    <section title="Creating Mask Definitions">
+        <t>
+        The next step is to create masks for all the security checks in the code. These are privilege definitions which are referenced whenever a security check is called: the check compares the user's privileges with the privilege defined by the mask and decides whether the user passes the check or not.
+        </t>
+        <t>
+        There are typically 3-6 different masks for any given module. How do I know what masks to define? Unfortunately the only way to figure that out is to go through the code searching for pnSecAuthAction or xarSecAuthAction calls and seeing how many different types there are.
+        </t>
+        <t>
+        Here is a useful rule: Assume 1 mask to be created for each security level you find in the *SecAuthAction calls.
+        </t>
+        <t>
+        Once you have identified the different calls, create a mask definition for each of them in the init.php of the module. Use the following form:
+        <artwork>
+        Syntax: xarRegisterMask(Name,Realm,Module,Component,Instance,Level,Description)
+        
+        Example:
+        xarRegisterMask('EditCategories','All','categories','All','All',ACCESS_EDIT);
+        </artwork>
+        "Editcategories" is the name we give the mask. This is referenced in the code when performing security checks. "Categories" is the name of the module the mask belongs to. The Description parameter is optional.
+        </t>
+        <t>
+		Note that we put "All" for the Realm, Component and Instance parameters. This is done on purpose. While you could create a mask definition for a specif component, for example, it is preferable to create one of the general form above and override it as called for in the security check calls. This is described below.
+        </t>
+      </section>
+    <section title="Changing the Security Check Calls">
+        <t>
+        The next step is the most labor intensive: changing the *SecAuthAction calls to the new system using xarSecurityCheck. A module may contain literally dozens of these calls sprinkled through the code. Unfortunately each needs to be visually examined and appropriately modified.
+		</t>
+		<t>
+		Here are some examples:
+    <section title="Security Check with Exception Catching">
+        <t>
+        <artwork>
+        if (!xarSecAuthAction(0, 'categories::', "::", ACCESS_EDIT)) { return;}
+        
+        becomes
+        
+        if (xarSecurityCheck('EditCategories')) return;
+        </artwork>
+        The xarSecuritCheck call references the mask we defined above via the mask name. The module name and access level information is stored in the mask, so there is no need for them as parameters in the call. If the security chekc fails the system will automatically generate an exception message.
+        </t>
+      </section>
+    <section title="Security Check with Exception Catching Suppressed">
+        <t>
+        <artwork>
+        if (xarSecAuthAction(0, 'categories::', "::", ACCESS_EDIT)) {
+        
+        becomes
+        
+        if (xarSecurityCheck('EditCategories',0)) {
+        </artwork>
+        This is identical to the previous call except that the exception message that would be generated in the case of a failed security check is suppressed by setting the second parameter to 0.
+		</t>
+		<t>
+        This call is useful when you want to loop through a series of security checks in the code without halting execution if the check fails.
+        </t>
+      </section>
+    <section title="Security Check with Dynamic Components or Instances">
+		<t>
+        <artwork>
+        if (!xarSecAuthAction(0, "categories::item", "$name::$id", ACCESS_EDIT)) 
+           { return; }
+        
+        becomes
+        
+        if (!xarSecurityCheck('EditCategories',0,'item','$name::$id')) return;
+        </artwork>
+        In this example we override some of the mask definition parameters with dynamic values. Recall that the mask definition above is:
+        <artwork>
+        Syntax: xarRegisterMask(Name,Realm,Module,Component,Instance,Level,Description)
+        
+        Example:
+        xarRegisterMask('EditCategories','All','categories','All','All',ACCESS_EDIT);
+        </artwork>
+        In this definition both the Component and Instance parameters are "All". By adding the paramters "item" and "$name::$id" to the xarSecurityCheck call we replace the values "All" by dynamic values to be checked against.
+		</t>
+		<t>
+		It is important for there to be consistency among instances, masks and security checks. If a security check does not find a mask of the name called, it will throw an exception. If the check includes dynamic component and/or instance values that do not coincide with an instance definition, it may fail.
+		</t>
+      </section>
+        </t>
+		<t>
+      <section title="Removing Redundant Code">
+		<t>
+		The following code becomes redundant after the conversion and can be removed:
+		<list style="numbers">
+		  <t>
+		  The old *SecAuthAction calls: can be removed immediately after being replaced by xarSecurityCheck. These calls need to be removed for the system to work.
+		  </t>
+		  <t>
+		  Any calls to *SecAddSchema in the code: the calls do nothing; if left the new system still works.
+		  </t>
+		  </list>
+		  We recommend leaving the security schema definitions in the version.php files for documentation purposes. However, they should accurately reflect the instances used in the xarSecurityCheck calls.
+        </t>
+      </section>
+		</t>
+      </section>
+      </t>
+      </section>
 
     <section title="Open Issues">
       <section title="Regex">

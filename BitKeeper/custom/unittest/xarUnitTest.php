@@ -42,7 +42,8 @@ class xarTestSuite {
      */
     function AddTestCase($testClass,$name='') {
         // Make sure the class exist
-        if (class_exists($testClass)) {
+        if (class_exists($testClass) && 
+            (get_parent_class($testClass) == 'xartestcase')) {
             if ($name=='') { $name=$testClass; }
             $this->_testcases[$name]=new xarTestCase($testClass,$name,true);
         }
@@ -89,10 +90,12 @@ class xarTestCase extends xarTestAssert {
      * array of test objects once 
      */
     function xarTestCase($testClass='',$name='',$init=false) {
-        if ($init) {
-            $this = new $testClass();
-            $this->_name=$name;
-            $this->_collecttests();
+        if (get_parent_class($testClass) == 'xartestcase') {
+            if ($init) {
+                $this = new $testClass();
+                $this->_name=$name;
+                $this->_collecttests();
+            }
         }
     }
 
@@ -292,6 +295,12 @@ class xarTestAssert {
         }
         return $this->pass($msg);
     }
-}
 
+    function assertEmpty($expected,$msg='Test for empty array') {
+        if (is_array($expected) && empty($expected)) {
+            return $this->pass($msg);
+        }
+        return $this->fail($msg);
+    }
+} 
 ?>

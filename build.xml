@@ -187,7 +187,7 @@
   <!-- Full distribution -->
   <target name="fulldist" description="--> Creates the full distribution">
    <!-- Modules are a bit separate -->
-    <foreach list="modules.full" target="copymodule" param="module.name"/>
+    <foreach list="modules.full" target="copymodulefrommodrepo" param="module.name"/>
     
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-full.tar.gz"/>

@@ -90,8 +90,8 @@
              * @author  Author Name &lt;author@email&gt;
              * @deprec  date since deprecated &lt;insert this if function is deprecated&gt;
              * @access  public / private / protected
-             * @param   param1 type Description of parameter 1
-             * @param   param2 type Description of parameter 2
+             * @param   type param1 Description of parameter 1
+             * @param   type param2 Description of parameter 2
              * @return  type to return description
              * @throws  list of exception identifiers which can be thrown
              * @todo    &lt;devname&gt; &lt;#&gt; list of things which must be done to comply to relevant RFC or fix a problem

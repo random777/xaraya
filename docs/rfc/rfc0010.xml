@@ -54,6 +54,8 @@
         Blocklayout's flexibility. The conversion process is not complicated.
       </t>
       <t>
+        <xref target="ddproperties">Dynamic data properties</xref>, like modules and blocks, can also provide a flexible templated output after a conversion process.</t>
+      <t>
         In addition, certain changes to the Xaraya directory structure are
         necessary to accomodate templates and their defaults. Those
         structural changes are illustrated below.
@@ -71,7 +73,7 @@ html/
     |       xarTemplate.php
     |       xarBLCompiler.php
     |-- themes/
-            <theme name>/        
+            <theme name>/
             |-- theme.php
             |-- pages/
             |       <master templates>.xt
@@ -86,6 +88,7 @@ html/
                     <file>.xt
       ]]></artwork>
             </t>
+
       <t>
         html/themes/&lt;theme name&gt;/theme.php contains metadata about the theme;
         no actual markup can reside there. Such metadata includes:
@@ -147,8 +150,8 @@ html/
         </list>
       </t>
       <t>
-        Next are individual classes, mostly related to tables. Unlike previous 
-        versions, Blocklayout 1.1 relies on CSS inheritance to style 
+        Next are individual classes, mostly related to tables. Unlike previous
+        versions, Blocklayout 1.1 relies on CSS inheritance to style
         individual tags; this makes many inidividual rules unnecessary.
         <list style="symbols">
           <t>TD.xar-norm</t>
@@ -187,8 +190,8 @@ html/
         </list>
       </t>
       <t>
-        Rules with partially bracketed names are optional. Rules applied to 
-        individual blocks are left up to the theme author.  Additional menu item 
+        Rules with partially bracketed names are optional. Rules applied to
+        individual blocks are left up to the theme author.  Additional menu item
         rules may be devised as necessary to satisfy the depth of the menu.
       </t>
       <t>
@@ -300,7 +303,7 @@ html/
           like the &lt;--- tag.
         </t>
       </section>
-      <section anchor="tagdescriptions" title="Tag descriptions and Atrributes">
+      <section anchor="tagdescriptions" title="Tag descriptions and Attributes">
         <t>
           A note on logic tags: The condition attribute present on most logic
           tags will frequently call for the use of &lt;, &gt;, and &amp; characters. These
@@ -308,7 +311,7 @@ html/
           Therefore, to present an easy, readable alternative to PHP comparison
           operators, Blocklayout uses Perl-like string operators within
           templates. Assignment operators are not affected. See below:
-          
+
           <artwork>
         BL operator PHP operator    English
         eq          ==              equal to
@@ -333,7 +336,7 @@ html/
             <t><em>[attribute]</em> (defaultvalue) indicates an optional attribute, the default value is
               given between the brackets
             </t>
-            <t><em>attribute</em> {(value)|value2} indicates that the attribute can have the values 'value' and 
+            <t><em>attribute</em> {(value)|value2} indicates that the attribute can have the values 'value' and
               'value2' of which 'value' is the default if none is specified.
             </t>
           </list>
@@ -378,8 +381,8 @@ html/
                 </t>
                 <t><em>[content]</em>(text/html)
                   <t>
-                    The content attribute denotes the type of content the page template describes. The 
-                    value of this attribute is a legal string according to the IETF RFC describing 
+                    The content attribute denotes the type of content the page template describes. The
+                    value of this attribute is a legal string according to the IETF RFC describing
                     mime-types. The default content type is "text/html"
                   </t>
                   <t>
@@ -414,7 +417,7 @@ html/
               <?xml version="1.0" encoding="utf-8"?>
               <xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://www.xaraya.com/2004/blocklayout">
                 <!-- Rest of the page level template goes here -->
-              </xar:blocklayout>]]>              
+              </xar:blocklayout>]]>
             </artwork>
             </t>
           </section>
@@ -451,7 +454,7 @@ html/
           </t>
           <t>
             Static blocks are defined completely within their
-            template file, and are not dependent on any other 
+            template file, and are not dependent on any other
             information. A block containing a piece of html to render
             is an example of such a block. Dynamic blocks however,
             have dynamic contents. This means that their content
@@ -538,9 +541,9 @@ html/
             <t>
             <artwork>
               &lt;xar:block instance="2" module="base" /&gt; // module attribute ignored here
-              
+
                 This renders block instance number 2 directly. All other attributes are ignored.
-            
+
               &lt;xar:block module="base" name="goodie" template="SeaBreeze_block_2" /&gt;
 
                 Look for block 'goodie' owned by module 'base' (this provides the implicit content) and
@@ -559,7 +562,7 @@ html/
             </t>
           </section>
           <section title="Context">
-            <t>Parent tag: <xref target="blockgroup">&lt;xar:blockgroup&gt;</xref> when that tag 
+            <t>Parent tag: <xref target="blockgroup">&lt;xar:blockgroup&gt;</xref> when that tag
                 is used in block form.</t>
             <t>Child tags: none</t>
           </section>
@@ -591,7 +594,7 @@ html/
                 <t><em>[id]</em>
                   <t>an identifier for the tag.</t>
                 </t>
-                <t><em>name</em> 
+                <t><em>name</em>
                   <t>The name of the block group to render. When the tag is
                     used in its empty form this attribute is required. The attribute is
                     ignored when the tag is used in its block form.
@@ -612,14 +615,14 @@ html/
             <t>
             <artwork>
               &lt;xar:blockgroup name="left" template="SeaBreeze_left"/&gt;
-                
+
                 Renders the blockgroup 'left'. The template attribute is ignored or, when in strict
                 rendering creates an exception.
 
               &lt;xar:blockgroup template="SeaBreeze_center"&gt;
                 &lt;xar:block name="login" module="users" template="simple_login"/&gt;
               &lt;/xar:blockgroup&gt;
-              
+
                 Renders the block 'login' in a blockgroup using the template 'SeaBreeze_center' for the
                 blockgroup.
            </artwork>
@@ -633,12 +636,12 @@ html/
         <!-- xar:break -->
         <section anchor="break" title="&lt;xar:break /&gt;">
           <t>
-            Escapes the closest 
-            <xref target="for">&lt;xar:for /&gt;</xref>, 
-            <xref target="foreach">&lt;xar:foreach /&gt;</xref>, 
+            Escapes the closest
+            <xref target="for">&lt;xar:for /&gt;</xref>,
+            <xref target="foreach">&lt;xar:foreach /&gt;</xref>,
             <xref target="loop">&lt;xar:loop /&gt;</xref>, or
             <xref target="while">&lt;xar:while /&gt;</xref>.
-            The depth attribute, if present and an integer 
+            The depth attribute, if present and an integer
             greater than 1, an equal number of enclosing loops are broken out of.
           </t>
           <section title="Forms">
@@ -676,9 +679,9 @@ html/
           </section>
           <section title="Context">
             <t>
-              Parent tags: 
-              <xref target="for">&lt;xar:for /&gt;</xref>, 
-              <xref target="loop">&lt;xar:loop /&gt;</xref>, or 
+              Parent tags:
+              <xref target="for">&lt;xar:for /&gt;</xref>,
+              <xref target="loop">&lt;xar:loop /&gt;</xref>, or
               <xref target="while">&lt;xar:while /&gt;</xref>.
             </t>
             <t>Child tags: none</t>
@@ -717,12 +720,12 @@ html/
         <!-- xar:continue -->
         <section anchor="continue" title="&lt;xar:continue&gt;">
           <t>
-            Ends the current iteration of a 
-            <xref target="for">&lt;xar:for /&gt;</xref>, 
-            <xref target="foreach">&lt;xar:foreach /&gt;</xref>, 
+            Ends the current iteration of a
+            <xref target="for">&lt;xar:for /&gt;</xref>,
+            <xref target="foreach">&lt;xar:foreach /&gt;</xref>,
             <xref target="loop">&lt;xar:loop /&gt;</xref>, or
             <xref target="while">&lt;xar:while /&gt;</xref>, and begins the next iteration.
-            If the depth attribute is present and an integer greater than 1, an equal number 
+            If the depth attribute is present and an integer greater than 1, an equal number
             of enclosing loops are skipped to the end of their current iteration.
           </t>
           <section title="Forms">
@@ -761,7 +764,7 @@ html/
           <section title="Context">
             <t>Parent tags:
                 <t><xref target="for">&lt;xar:for /&gt;</xref>
-                  <xref target="loop">&lt;xar:loop /&gt;</xref>, or 
+                  <xref target="loop">&lt;xar:loop /&gt;</xref>, or
                   <xref target="while">&lt;xar:while /&gt;</xref>.
                 </t>
               </t>
@@ -850,10 +853,10 @@ html/
         <!-- xar:for -->
         <section anchor="for" title="&lt;xar:for /&gt;">
           <t>
-            The &lt;xar:for&gt; tag is a control structure which emulates a 
+            The &lt;xar:for&gt; tag is a control structure which emulates a
             for loop, like encountered in most programming languages. Based
-            on a 'start', 'test' and 'iter' attribute, the child tags of the 
-            tag are processed zero or more times. 
+            on a 'start', 'test' and 'iter' attribute, the child tags of the
+            tag are processed zero or more times.
           </t>
           <section title="Forms">
             <t>Only allowed in block form.</t>
@@ -865,7 +868,7 @@ html/
                   <t>an identifier for the tag</t>
                 </t>
                 <t><em>start</em>
-                  <t>An expression which should evaluate to a value, which 
+                  <t>An expression which should evaluate to a value, which
                     is taken as the initial value of the loop variable to iterate
                     over.
                   </t>
@@ -873,13 +876,13 @@ html/
                 <t><em>test</em>
                   <t>The condition to test the iterated value against. This attribute
                     is a php expression which should evaluate to false or true on each
-                    iteration. The for loop stops iterating when the value of the 
+                    iteration. The for loop stops iterating when the value of the
                     'test' attributes is false. Again, when using comparison operators
                     refer to the <xref target="tagdescriptions">note on logictags</xref>
                   </t>
                 </t>
                 <t><em>iter</em>
-                  <t>The action to perform at the end of each pass through the loop. 
+                  <t>The action to perform at the end of each pass through the loop.
                     The blocklayout for construct is just as susceptible to infinite
                     looping as any for construct in another language. In fact, the 'for'
                     tag is almost literally translated into a for construct in php. Anything
@@ -907,20 +910,20 @@ html/
         <!-- xar:foreach -->
         <section anchor="foreach" title="&lt;xar:foreach /&gt;">
           <t>
-            Iterates over an array, assigning each element in 
+            Iterates over an array, assigning each element in
             <em>in</em> to <em>value</em> using <em>key</em>.
-            Note that the order in which the elements are processed is 
+            Note that the order in which the elements are processed is
             <em>NOT GUARANTEED</em> to be the same order as the elements
             of the 'in' attribute. If you absolutely want to make sure
             the elements are processed in the order in which they are
-            stored in the array you should use the 
-            <xref target="loop">xar:loop</xref> element. 
+            stored in the array you should use the
+            <xref target="loop">xar:loop</xref> element.
           </t>
           <t>
             The foreach construct operates on copies of the variables
-            specified in its attributes. A 'save scope' is created for 
+            specified in its attributes. A 'save scope' is created for
             them. This means, that whatever the value was for a variable
-            before the foreach construct, it's guaranteed to have the 
+            before the foreach construct, it's guaranteed to have the
             same value after the foreach construct.
           </t>
           <section title="Forms">
@@ -940,14 +943,14 @@ html/
                 </t>
                 <t><em>[key]</em>
                   <t>Variable to assign the key of the array to. This attribute
-                    is optional. If it is not specified, no key is used in the 
+                    is optional. If it is not specified, no key is used in the
                     foreach loop. If it is not specified, the 'value' attribute
                     is required.
                   </t>
                 </t>
                 <t><em>[value]</em>
                   <t>variable to assign value to. If this attribute is not specified
-                    the 'key' attribute is required and the key is used to loop 
+                    the 'key' attribute is required and the key is used to loop
                     over the elements.
                   </t>
                 </t>
@@ -986,14 +989,14 @@ html/
                 <t><em>condition</em>
                   <t>A php an expression evaluating to false or true. When
                     it evaluates to true, the children of this element are
-                    processed. For comparison operators refer to 
+                    processed. For comparison operators refer to
                     <xref target="tagdescriptions">the note on logic tags</xref>
                   </t>
                 </t>
                 <t><em>[inline]</em> {true|(false)}
                   <t>Defaulting to false, this attribute specifies whether the
                     condition should be in assignable (inline) form. This
-                    correspond to the php expression : (condition ? truepart:falsepart) 
+                    correspond to the php expression : (condition ? truepart:falsepart)
                   </t>
                   <t>Note: this attribute is not implemented yet</t>
                 </t>
@@ -1017,7 +1020,7 @@ html/
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
-            <t>Child tags: 
+            <t>Child tags:
                <t><xref target="else">&lt;xar:else /&gt;</xref></t>
                <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
             </t>
@@ -1039,7 +1042,7 @@ html/
                   <t>an identifier for the tag</t>
                 </t>
                 <t><em>name</em>
-                  <t>The name of an array variable over which the loop executes. The 
+                  <t>The name of an array variable over which the loop executes. The
                     elements are guaranteed to be processed in the same order as they
                     are stored in this array.
                   </t>
@@ -1052,16 +1055,16 @@ html/
               to access the loop variables:
               <artwork>
                 #$loop:[id:]item['var']# ; or
-                #$loop:[id:]item.var#    : if you created the $module_data array and put in a 
-                                           variable call 'var' the value of this variable is 
-                                           displayed. Optionally  you can specify id: to reference 
+                #$loop:[id:]item.var#    : if you created the $module_data array and put in a
+                                           variable call 'var' the value of this variable is
+                                           displayed. Optionally  you can specify id: to reference
                                            other loop constructs.
                 #$loop:[id:]index#       : the numeric loop index (of loop with id 'id'
                 #$loop:[id:]number#      : the loop number
                 #$loop:[id:]key#         : the key of the item being referenced
               </artwork>
-              <t>The 'id' part in these variables refers to other loops. 
-                When nesting loops, the right variables from the right loops can be 
+              <t>The 'id' part in these variables refers to other loops.
+                When nesting loops, the right variables from the right loops can be
                 accessed this way. As for the foreach construct the loops are executed
                 in a 'save scope'; the values outside the loops are not affected by
                 the loops.
@@ -1096,9 +1099,9 @@ html/
           <t>
             The enclosing &lt;xar:mlstring&gt; or &lt;xar:mlkey&gt; should have
             placeholders in its definition of the form #(1)..#(n) if there are
-            'n' variables to be replaced. The contents of th first 
+            'n' variables to be replaced. The contents of th first
             &lt;xar:mlvar&gt; tag is put in the place of #(1), the second in the
-            location of #(2) etcetera. 
+            location of #(2) etcetera.
           </t>
           <section title="Forms">
             <t>Only allowed in block form</t>
@@ -1121,10 +1124,10 @@ html/
                 &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
               &lt;/xar:ml&gt;
 
-              The values '78' and '120' are put in the place of 
+              The values '78' and '120' are put in the place of
               #(1) and #(2) in the definition of the key 'USERSONLINE'.
               Note that these aren't visible in the template itself.
-        
+
               &lt;xar:ml&gt;
                 &lt;xar:mlstring&gt;There are #(1) members and #(2) guests online.&lt;/xar:mlstring&gt;
                 &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
@@ -1137,9 +1140,9 @@ html/
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
-            <t>Child tags: 
+            <t>Child tags:
               <t><xref target="mlkey">&lt;xar:mlkey /&gt;</xref>,</t>
-              <t><xref target="mlstring">&lt;xar:mlstring /&gt;</xref>,</t> 
+              <t><xref target="mlstring">&lt;xar:mlstring /&gt;</xref>,</t>
               <t><xref target="mlvar">&lt;xar:mlvar /&gt;</xref>, (optional)</t>
             </t>
           </section>
@@ -1180,7 +1183,7 @@ html/
             </t>
           </section>
           <section title="Context">
-            <t>Parent tag: 
+            <t>Parent tag:
              <t><xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
             </t>
             <t>Child tags: none</t>
@@ -1251,7 +1254,7 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-              See <xref target="ml">&lt;xar:ml /&gt;</xref> for 
+              See <xref target="ml">&lt;xar:ml /&gt;</xref> for
               syntax examples using placeholders.
             </t>
           </section>
@@ -1294,7 +1297,7 @@ html/
                   <t>Note: this attribute is likely to be deprecated, because it is redundant,
                     the presence / absence of the module attribute is enough to decided whether
                     the default module should be used or not. At this point, the 'main' attribute
-                    is required, but the code actually checks the presence of the 'module' 
+                    is required, but the code actually checks the presence of the 'module'
                     attribute to decide what to do. If this attribute is not specified the rest of
                     the attributes is ignored, and the main module output is used.
                   </t>
@@ -1308,7 +1311,7 @@ html/
                   </t>
                 </t>
                 <t><em>[func]</em> (main)
-                  <t>Name of the function to call. The value defaults to 'main' if not 
+                  <t>Name of the function to call. The value defaults to 'main' if not
                     specified.
                   </t>
                 </t>
@@ -1376,14 +1379,14 @@ html/
                   <t>an identifier for the tag</t>
                 </t>
                 <t><em>mask</em>
-                  <t>The mask for which to check the privileges. This is a required 
-                    attribute. Refer to RFC-0030 for the full details on the 
+                  <t>The mask for which to check the privileges. This is a required
+                    attribute. Refer to RFC-0030 for the full details on the
                     security system.
                   </t>
                 </t>
-                <t><em>[catch]</em> ({(true)|false} 
+                <t><em>[catch]</em> ({(true)|false}
                   <t>Sometimes it may be necessary to check for a certain security
-                    privilege, but not raise an exception if the privileg check 
+                    privilege, but not raise an exception if the privileg check
                     fails. In those cases, specify catch="false" and no exception will
                     be raised. By default, if a security check fails, an exception will
                     be raised.
@@ -1414,7 +1417,7 @@ html/
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
-            <t>Child tags: 
+            <t>Child tags:
               <t><xref target="else">&lt;xar:else /&gt;</xref></t>
               <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
             </t>
@@ -1521,7 +1524,7 @@ html/
                     or not.
                   </t>
                   <t>Note: not implemented</t>
-                </t> 
+                </t>
                 <t><em>[subdata]</em> (container data array)
                   <t>
                     This allows to pass in an array with data which should be known in
@@ -1529,10 +1532,10 @@ html/
                     template will inherit the data known to the parent template.
                   </t>
                   <t>
-                    When the subdata attribute <em>is</em> specified, only the data in the array 
+                    When the subdata attribute <em>is</em> specified, only the data in the array
                     designated by subdata will be known by the included template. This is the only
-                    way to shield data from an included template (to prevent variable collisions for 
-                    example). If you want the included template to know about the parent template 
+                    way to shield data from an included template (to prevent variable collisions for
+                    example). If you want the included template to know about the parent template
                     variables, use xar:set of pass them in from the code.
                   </t>
                 </t>
@@ -1569,7 +1572,7 @@ html/
           </t>
           <t>
             Variables are referenced by name, without the preceeding "$". Arrays
-            can be indexed via dot notation, i.e.: 
+            can be indexed via dot notation, i.e.:
             <artwork>
               &lt;xar:var name="preformat.catandtitle" /&gt;
             </artwork>
@@ -1603,7 +1606,7 @@ html/
                   <t>What kind of variable should we retrieve</t>
                 </t>
                 <t><em>name</em>
-                  <t>String specifying the name of the variable to retrieve within 
+                  <t>String specifying the name of the variable to retrieve within
                     the given scope
                   </t>
                 </t>
@@ -1643,7 +1646,7 @@ html/
                   <t>PHP expression evaluating to true or false. During the while
                     loop this expression is evaluated each time at the start of the
                     loop and while the value is true, the child tags are added to the
-                    output repeatedly. For comparison operators see the 
+                    output repeatedly. For comparison operators see the
                     <xref target="tagdescriptions">Note on logic tags</xref>
                   </t>
                 </t>
@@ -1661,7 +1664,7 @@ html/
           </section>
           <section title="Context">
             <t>Parent tag: none.</t>
-            <t>Child tags: 
+            <t>Child tags:
               <t><xref target="break">&lt;xar:break&gt;</xref> (optional)</t>
               <t><xref target="break">&lt;xar:continue&gt;</xref> (optional).</t>
             </t>
@@ -1708,6 +1711,37 @@ html/
         </list>
       </t>
     </section>
+    <section anchor="ddproperties" title="Dynamic Data Property Templates">
+      <t>
+        Dynamic Data Properties can also provide templated output. It is a simple process to make the required changes to the data property itself, and supply appropriately named templates.
+      </t>
+      <t>At the present time the <em>showInput()</em> and <em>showOutput()</em> functions of each dynamic property may return data to a corresponding template in the modules/dynamicdata/xartemplate directory.
+      </t>
+      <t>
+        The directory structure and changes required for dynamic data property templates are illustrated below. The <em>propertyname</em> used for the specific template name is taken from the corresponding property array in the GetPropertyTypes() function in the modules/dynamicdata/class/properties.php file.
+    <artwork><![CDATA[
+html/
+    |-- modules/
+    |       dynamicdata/
+    |           xartemplates/
+    |               <admin-showinput|user-showoutput>[-<propertyname>].xd
+    |
+    |-- includes/
+    |       properties/
+    |           Dynamic_<propertydescription>_property.php
+    |
+    |-- themes/
+            <theme name>/
+            |-- modules/
+                    dynamicdata/
+                        <admin-showinput|user-showoutput>[-<propertyname>].xt
+
+      ]]></artwork>
+      </t>
+      <t>Details of specific tags used to retrieve and display dynamic property data within module templates is documented in RFC0007 Modularized Data. Further details on retrieval and display of dynamic property data can be found in the overview and templates (as comments) of the Dyn_Example module.
+      </t>
+    </section>
+
     <section title="Notes">
       <t>
         Blocklayout output is not restricted to HTML. Potential output formats

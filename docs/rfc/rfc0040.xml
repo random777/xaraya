@@ -15,6 +15,7 @@
 
 <!-- I guess we always want a table of contents -->
 <?rfc toc="yes"?>
+<?rfc editing="yes"?>
 
 <rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0000" category="bcp">
   <!-- number: Fill in the number for the RFC -->
@@ -23,7 +24,7 @@
   
   <!-- Front matter is used for identification of author and organization -->
   <front>
-    <title>RFC-template</title>
+    <title>Configuration system</title>
     <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
       <organization>Xaraya Development Group</organization>
       <address>
@@ -31,67 +32,34 @@
         <uri>http://www.xaraya.com</uri>
       </address>
     </author>
-    <date month="October" year="2002"/>
+    <date month="February" year="2003"/>
     
     <!-- Initiating team for this RFC -->
     <workgroup>Project Management Committee</workgroup>
     
     <!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
-    <keyword>template</keyword>
+    <keyword>configuration</keyword>
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>This RFC is the template for writing RFCs in XML or plain text for the 
-        Xaraya project.
+      <t>
+        This RFC describes the configuration system used by Xaraya. The different configuration
+        files are describes with their appropriate uses. Alse the configuration variables on site
+        level and module level are described. At this point in time (2003-02-18) the 
+        relationship with RFC0007 is not yet clear.
       </t>
     </abstract>
   </front>
   
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
-    <!-- Introduction is mandatory -->
-    <section title="Introduction">
-      <t>Every RFC contains at least the following sections:
-        <list style="symbols">
-          <t>Introduction</t>
-          <t>at least one content section</t>
-          <t>Revision History</t>
-        </list>
-      </t>
-    </section>
-    
-    <!-- One content section is mandatory -->
-    <section title="At least one content section">
-      <t>At least one content section must be present in an RFC	</t>
-    </section>
-    
+  
     <!-- Revision history is mandatory -->
     <section title="Revision history">
-      <t>Put a summary of the major revisions to this document in here</t>
+      <t>2003-02-28 : Created</t>
     </section>
     
   </middle>
   
-  <!-- Back matter is used for references and appendices which come after the references -->
-  <back>
-    <references title="Reference title">
-      <!-- Fill in references as needed -->
-      <reference>
-        <front>
-          <title>Reference title</title>
-          <author>
-            <organization>Organization</organization>
-          </author>
-          <date year="2002"/>
-        </front>
-      </reference>
-      <!-- Repeat the aboven block if more references are needed -->
-    </references>
-    
-    <!-- Any section after this will become an appendix -->
-    <section title="Example appendix">
-      <t>Any section which is present after the references will become an appendix</t>
-    </section>
-  </back>
 </rfc>

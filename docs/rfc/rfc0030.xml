@@ -1534,7 +1534,7 @@
           The full syntax of the xarSecurityCheck function is:
 
         <artwork>
-         function xarSecurityCheck($name,$catch=1,$component='',$instance='',$role='',$module='')
+         function xarSecurityCheck($name,$catch=1,$component='',$instance='',$module='',$role='')
          
          where
           

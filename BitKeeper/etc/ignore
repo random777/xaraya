@@ -185,3 +185,4 @@ html/modules/html/xartemplates/admin-view.xd
 html/modules/html/xartemplates/index.html
 html/modules/html/xaruserapi.php
 html/modules/html/xarversion.php
+html/modules/headlines/xartemplates/admin-modifyconfig.xd

@@ -38,14 +38,14 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.base" 
-    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,sniffer,stats,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,sniffer,stats,translations,wiki,xarcachemanager,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
 
   <!-- Full distro modules, when added to the core modules, you get a full system -->
   <property name="modules.full" 
-    value="addressbook,authinvision,authphpbb2,authsso,bbclick,bbcode,censor,changelog,figlet,issueareapub,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,mime,images,window,workflow,xarbb,xarcachemanager,xarlinkme,xlink,xslt"/>
+    value="addressbook,authinvision,authphpbb2,authsso,bbclick,bbcode,censor,changelog,figlet,issueareapub,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,mime,images,window,workflow,xarbb,xarlinkme,xlink,xslt"/>
 
   <!-- Languages which get included in the distro -->
-  <property name="languages.installer" value="nl_NL.iso-8859-1"/>
+  <property name="languages.installer" value="fr_FR.utf-8,nl_NL.utf-8,pt_BR.utf-8"/>
 
   <!-- theme lists -->
   <property name="themes.full"  value="XBlue_Pro,atom"/>

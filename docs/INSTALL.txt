@@ -27,6 +27,8 @@ Upgrades
 
    Please visit the #support channel for information on upgrading from PostNuke to Xaraya.
 
+   To upgrade from .900 to .901 replace all files and modules.  The go into the the modules module, and regenerate.  You will see that the roles and the articles module will need to be upgraded.  Click the link for "upgrade" for each module.  DB upgrades are complete after this step.
+
 Caution
 =======
 

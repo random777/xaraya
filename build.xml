@@ -42,7 +42,7 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.full" 
-    value="addressbook,authinvision,bbclick,bbcode,calendar,cast,censor,changelog,contact,davedap,events,figlet,icalendar,messages,mybookmarks,opentracker,pubsub,smilies,uploads,window,xarbb,xarlinkme,xslt"/>
+    value="addressbook,authinvision,bbclick,bbcode,calendar,cast,censor,changelog,contact,davedap,events,figlet,icalendar,messages,mybookmarks,opentracker,overlib,pubsub,smilies,uploads,window,xarbb,xarlinkme,xslt"/>
 
   <!-- theme lists -->
   <property name="themes.full"

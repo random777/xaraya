@@ -286,6 +286,40 @@
             Use an indent of 4 spaces. Do not use the tab character for
             indentation. Most editors will have a configuration option for this.
           </t>
+          <t>
+            Indentation is intended to convey structural meaning, not just to
+            line up items on adjacent lines. Structural indentation should take
+            priority over visual layout indentation. For example, this indentation
+            style is just visual; the indentation happens to reflect the length of
+            a function names:
+          </t>
+          <artwork>
+            list($p1,
+                 $p2) = xarVarCleanFromInput('name',
+                                             'module');
+          </artwork>
+          <t>
+            A better style would convey more meaning of the structure. Examples
+            could include the following, depending on the numbers and sizes of
+            the tokens. Note that braces and brackets are closed either on the
+            same indentation level they are opened, or on the same line they are
+            opened:
+          </t>
+          <artwork>
+            list($p1, $p2) = xarVarCleanFromInput('name', 'module');
+
+			list($p1, $p2) =
+                xarVarCleanFromInput('name', 'module');
+
+			list(
+               $p1, $p2, $p3, $p4
+            ) = xarVarCleanFromInput(
+               'name',
+               'module',
+               'a_really_long_token_indeed',
+               'something_shorter'
+            );
+          </artwork>
         </t>
         <t><em>File and line endings</em>
           <t>

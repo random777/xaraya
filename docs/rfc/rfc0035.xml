@@ -958,35 +958,37 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         $createdate = mktime();
 
         if ($this->type == 1) {
-            $nextIdprep = xarVarPrepForStore($nextId);
-            $nameprep = xarVarPrepForStore($this->name);
-            $typeprep = xarVarPrepForStore($this->type);
-            $unameprep = xarVarPrepForStore($this->uname);
-            $valcodeprep = xarVarPrepForStore($this->val_code);
-            $dateregprep = xarVarPrepForStore($createdate);
             $query = "INSERT INTO $this->rolestable
                         (xar_uid, xar_name, xar_type, xar_uname, xar_valcode, xar_date_reg)
-                      VALUES ($nextIdprep, '$nameprep', $typeprep, '$unameprep', '$valcodeprep', '$dateregprep')";
+                      VALUES (?, ?, ?, ?, ?, ?)";
+            $bindvars = array(
+                $nextId, 
+                $this->name, 
+                $this->type, 
+                $this->uname, 
+                $this->val_code,
+                $createdate,
+            );
         } else {
-            $nextIdprep = xarVarPrepForStore($nextId);
-            $nameprep = xarVarPrepForStore($this->name);
-            $typeprep = xarVarPrepForStore($this->type);
-            $unameprep = xarVarPrepForStore($this->uname);
-            $emailprep = xarVarPrepForStore($this->email);
-            $passprep = xarVarPrepForStore(md5($this->pass));
-            $dateregprep = xarVarPrepForStore($createdate);
-            $stateprep = xarVarPrepForStore($this->state);
-            $valcodeprep = xarVarPrepForStore($this->val_code);
-            $authmodprep = xarVarPrepForStore($this->auth_module);
             $query = "INSERT INTO $this->rolestable
                         (xar_uid, xar_name, xar_type, xar_uname, xar_email, xar_pass,
                         xar_date_reg, xar_state, xar_valcode, xar_auth_module)
-                      VALUES ($nextIdprep, '$nameprep', $typeprep, '$unameprep', '$emailprep',
-                      '$passprep', '$dateregprep', $stateprep, '$valcodeprep', '$authmodprep')";
+                      VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $bindvars = array(
+                $nextId,
+                $this->name,
+                $this->type,
+                $this->uname,
+                $this->email,
+                md5($this->pass),
+                $createdate,
+                $this->state,
+                $this->val_code,
+                $this->auth_module,
+            );
         }
         // Execute the query, bail if an exception was thrown
-        if (!$this->dbconn->Execute($query)) return;
-        
+        if (!$this->dbconn->Execute($query, $bindvars)) return;
         
         New code: Note the query is assembled incrementally
          

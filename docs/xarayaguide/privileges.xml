@@ -2,9 +2,6 @@
 <chapter id="privileges">
   <title>Privileges: Building Blocks for Site Access</title>
 
-  <sect1 id="introprivs">
-    <title>Introduction to Privileges</title>
-
     <para>Through the use of <firstterm>privileges</firstterm> and
     <firstterm>roles</firstterm>, Xaraya provides very fine-grained access
     control for site users on either a Group or individual User level. Many of
@@ -23,6 +20,10 @@
     Access Levels are the basis for the access control system in Xaraya. Users
     are placed into Roles and have permission to do whatever the Privileges
     associated with that Role permit them to do on the site.</para>
+
+  <sect1 id="usingprivs">
+
+    <title>How to use Privileges</title>
 
     <sect2>
       <title>Terminology</title>

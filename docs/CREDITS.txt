@@ -24,18 +24,24 @@ Project Management Committee :
 
   John Cox (niceguyeddie)
 
-  Gregor J. Rothfuss (gregor)
-
-  Paul Rosania (paul)
-
   Marcel van der Boom (MrB)
+  
+  Marc Lutolf (marcinmilan)
 
+  Joanna Dalle Nogare (jojodee)
+  
 
 Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
+  Alberto Cazzaniga (ftb)
+  
   Abraham Irawan (brumie)
+  
+  Andrea Moro (andream)
 
   Andy Varganov (andyv)
+  
+  Brian McGilligan (?)
 
   Camille Périnel (kams)
 
@@ -46,10 +52,16 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Chris Dudley (miko)
 
   Chris van der Steeg (alley)
+  
+  Court Shrock (cls)
 
   Curtis Hays (stratagem)
+  
+  David Taylor (dtaylor)
 
   Doug Daulton (Apakuni)
+  
+  Dorothy Crawford (brihana25)
 
   Drew Vogel (vogelap)
 
@@ -60,6 +72,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Gary Mitchell (wb9tpg)
 
   Garrett Hunter (Garrett)
+
+  Gregor J. Rothfuss (gregor)
 
   Hinrich Donner (Hinrich)
 
@@ -86,12 +100,16 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Mahmood Al Yousif (mahmood)
 
   Marc Lutolf (marcinmilan)
+  
+  Marcel van der Boom (MrB)
 
   Marco Canini (marco)
 
   Marie Altobelli (ladyofdragons)
 
   Marty Vance (Dracos)
+  
+  Michael Cortez (mcortez)
 
   Michael Jansen (Mike)
 
@@ -100,12 +118,22 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Michel Dalle (mikespub)
 
   Pablo Roca (Proca)
+  
+  Paul Crovella (Paul_C)
+
+  Paul Rosania (paul)
+  
+  Pedro Innecco (?)
 
   Philip Fletcher (stutchbury)
 
   Richard Cave (caveman)
 
-  Roger Raymond (roger)
+  Roger Raymond (iansym)
+  
+  Roger Keays (roger)
+  
+  Roy Murray (roy)
   
   Sascha Endlicher (Karateka)
 
@@ -132,7 +160,6 @@ Other development credits
    David Parvin (admin@ads-tracker.net) Fixed bug 742 FeedParser Problem.
    Marjolein Katsma (xar-bugzilla@javawoman.com) - Fix bug 1007 xarServerCurrentUrl Problem.
 						 - Fix bug 1002 link tags.
-   David Taylor (marsel@phatcom.net) added TIME field to mySQL data structure.
    Ben Page (benpage@chasquinet.net) Fixed bug 2889
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

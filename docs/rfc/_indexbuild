@@ -8,6 +8,6 @@ for i in $sources; do
   title=`xsltproc --novalid _rfctitle.xslt $i`
 
   rfcnr=${i:3:4}
-  echo "<t><eref target=\"http://docs.xaraya.com/docs/rfcs/$htmlfile\">RFC-$rfcnr : $title</eref></t>"
+  echo "<t><eref target=\"http://www.xaraya.com/documentation/rfcs/$htmlfile\">RFC-$rfcnr : $title</eref></t>"
 ) 
 done

@@ -106,7 +106,7 @@
 
     <!-- URL prefix for RFCs. -->
     
-    <xsl:param name="rfcUrlPrefix" select="'http://docs.xaraya.com/docs/rfcs'" />
+    <xsl:param name="rfcUrlPrefix" select="'http://www.xaraya.com/documentation/rfcs'" />
     
     
     <!-- build help keys for indices -->

@@ -1,7 +1,7 @@
 Crypt example....
 
 Insert a record...<br>
-<?
+<?php
   include("textdb.php");
   
   $test = New textDB("test_crypt.txt", "fe54ksdfk");

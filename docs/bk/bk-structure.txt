@@ -10,14 +10,14 @@ On the server under /usr/local/repositories:
 
  1.   /ddf
  2.   /xaraya
- 3.     /main
+ 3.     /core
  4.     /modules
  5.     /websites
  6.       /www.xaraya.com
  7.       /...
  8.     /scenarios
- 9.       /blocklayout
-10.       /permissions
+ 9.       /scenario1
+10.       /scenario2
 11.       /...
 12.   /project2
 13.       /main

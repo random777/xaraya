@@ -243,7 +243,7 @@ ID  Measure                                         Critical Essential Optional 
 	      wrong. The interface to the source tree and to the bug database need to 
 	      be highly integrated and well connected. On discovery of an error the 
 	      developer should be able to register the discovery directly from the source
-	      tree, after which the bug enters a know state into the bug database.
+	      tree, after which the bug enters a known state in the bug database.
 	    </t>
 	    <t>
 	      Managers: need to be able to analyze the bug database and from that information
@@ -265,12 +265,13 @@ ID  Measure                                         Critical Essential Optional 
       
       <section title="Interfaces under our control are public,documented and maintained.">
 	<t>
-	  The bugtracker should have a publically accessible API.  
+	  The bugtracker should have a publically accessible API and if the interfaces need to be expanded then the source needs to be neatly laid out and well commented to allow easy expansion.  
 	</t>
       </section>
       
       <section title="Allows to ask questions involving both bugtracker and SCM system.">
 	<t>
+	  A question of one system should give the same result on the other. This ensures consistency between the two systems.
 	</t>
       </section>
       
@@ -295,35 +296,38 @@ ID  Measure                                         Critical Essential Optional 
 	    for people to use it. 
 	  </t>
 	  <t>
-	    Also, the flexibility of a web interface allows probably to satisfy the requirements 
+	    Also, the flexibility of a web interface probably satisfies the requirements of
 	    dealing with searching and filtering while keeping an accessible system for most users.
 	    Although the command-line interface may be more powerfull and offer more options, for 
 	    most users command-line usage is often arcane and counterproductive. Also, a web-interface
-	    only needs a reasonable web-browser to use where as other interface might have more
+	    only needs a reasonable web-browser to use where as other interfaces might have more
 	    requirements (such as an installation of bitkeeper)
 	  </t>
 	</section>
 	
 	<section title="Mail interface">
 	  <t>
-	    The mail interface allows to reply to bug reports via mail or trigger state changes in
-	    the bugtracker via mail.
+	    The mail interface allows developers to reply to bug reports via mail or trigger state changes in
+	    the bugtracker via mail. It should also allow for quick, easy and common tasks to be carried out - like returning a bug as "fixed", "not a problem", etc..
 	  </t>
 	</section>
 	
 	<section title="GUI client interface">
 	  <t>
+	    This would entail a standalone custom client. This is unlikely to be implemented and wouldn't be all that useful if it was, since it would entail users and developers downloading the custom client software.
 	  </t>
 	</section>
       </section>
       
       <section title="Fields: id, state severity, type, description, comments(N),owner, submitter">
 	<t>
+	  These are the basic attributes of a bug and are all essential to effective bug management and categorisation.
 	</t>
       </section>
       
       <section title="Fields: notify list, related items">
 	<t>
+	  This allows interested parties to subscribe themselves to a bug so that they automatically receive notifications about any updates to it. The related items field would indicate any other bugs which may have an impact on the current one.
 	</t>
       </section>
       
@@ -337,20 +341,20 @@ ID  Measure                                         Critical Essential Optional 
       <section title="Quick queries">
 	<t>
 	  It should be possible to query the bugtracker for a list of bugs by specificing
-	  various search terms.
+	  various search terms. This information should then help the Project Managers organise the project and allocate resources as needed. The bugs database will rapidly start to hold an huge amount of information and so without good filtering and queries that information is not as useful as it could be and could become rather unwieldly.
 	</t>
       </section>
       
       <section title="Assign to components">
 	<t>
 	  It should be possible to assign bugs to specific metadata, for instance components
-	  that indicate a subsystem.
+	  that indicate a subsystem. Each component should have a default owner who gets assigned the bug when the bug is assigned to that component (this ensures the right people are automatically notified about new bugs).
 	</t>
       </section>
       
       <section title="Assign to developers">
 	<t>
-	  Bugs should be assignable to developers, and the assignment needs to be changeable.
+	  Bugs should be assignable to developers, and the assignment needs to be changeable. This allows people other then the default component owner to take ownership and work on bugs.
 	</t>
       </section>
       
@@ -360,7 +364,7 @@ ID  Measure                                         Critical Essential Optional 
 	  on bug information changes. Possible notifications are:
 	  <list style="numbers">
 	    <t>on state change</t>
-	    <t>notify list for users which to keep track on one specific bug</t>
+	    <t>notify list for users who wish to keep track on one specific bug</t>
 	    <t>notification when a bug hasn't been touched for a while</t>
 	  </list>
 	</t>
@@ -457,7 +461,7 @@ ID  Measure                                         Critical Essential Optional 
 	<t>
 	  It should be possible to generate statistics from the bugtracker. Rather than specifying
 	  the precise requirements (which are unknown), it makes sense to have a query interface
-	  where the bug data is exposed and can be queried to generate statistics on the fly. 
+	  where the bug data is exposed and can be queried to generate statistics on the fly. These statistics could be presented in a tabular or graphical form (or preferably both). They should also be easily printable for reference.
         </t>
       </section>
       
@@ -486,21 +490,21 @@ ID  Measure                                         Critical Essential Optional 
       
       <section title="ACL">
 	<t>
-	  The operations of the bugtracker should be controlled by ACL.
+	  The operations of the bugtracker should be controlled by ACL. It should also be possible to specify a regular expression so that new users can be automatically added to the appropriate access groups.
 	</t>
       </section>
       
       <section title="As simple as possible, but not simpler">
 	<t>
 	  The bugtracker should not cut corners to make it appear easier. For instance,
-	  using a forum as a bugtracker because it is "convenient" would be wrong.
+	  using a forum as a bugtracker because it is "convenient" would be wrong. However, it should be simple, intuitive and easy to use. If it isn't easy to use then people will be less inclined to submit bugs, thereby impacting code quality.
         </t>
       </section>
       
       <section title="Standards compliant">
 	<t>
 	  The bugtracker should use standards where possible. For instance: XHTML or
-	  HTML 4.01 for display, ANSI SQL for database schemas. The use of these standards should
+	  HTML 4.01 and CSS for display, ANSI SQL for database schemas. The use of these standards should
 	  be documented.
         </t>
       </section>
@@ -542,6 +546,7 @@ ID  Measure                                         Critical Essential Optional 
       
       <section title="Flow control">
 	<t>
+	The ability to assign a bug from one owner to another does imply some form of flow control. However it should also be possible to specify that all bugs need to be passed by a Quality Assurance Team before being certified as closed and fixed.
 	</t>
       </section>
     </section>
@@ -550,6 +555,7 @@ ID  Measure                                         Critical Essential Optional 
     <section title="Revision history">
       <t>2002-10-31: First revision</t>
       <t>2002-11-11: More details added</t>
+      <t>2002-11-13: Filled out the remaining sections</t>
     </section>
     
   </middle>

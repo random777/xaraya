@@ -1,14 +1,14 @@
 .title { 
-	color: #990000;
+	color: #191970;
 	font-size: 22px;
 	line-height: 22px;
 	font-weight: bold;
-	text-align: right;
+	text-align: left;
 	font-family: verdana, arial, helvetica, sans-serif
 	}
 	
 .filename { 
-	color: #666666;
+	color: #336699;
 	font-size: 18px;
 	line-height: 28px;
 	font-weight: bold;
@@ -80,7 +80,6 @@ H4 {
 	font-size: 12px;
 	font-weight: bold;
 	font-family: Verdana,Arial,Helvetica;
-	border-bottom : thin double #191970;
 	line-height : 170%;}
 	
 H5, H6 {
@@ -112,7 +111,6 @@ TD.author {
 	
 A:link {	
 	color: #333399; 
-	/*#6A5ACD*/
 	font-weight: bold;
 	text-decoration: none 
 	}
@@ -125,17 +123,20 @@ A:hover {
 A:active { 
 	color: #330066;
 	font-weight: bold;
+	text-decoration: none 
 	}		
 	
 A:visited { 
-	color: #000033;
+	color: #003366;
 	font-weight: bold;
+	text-decoration: none 
 	}	
-	
+
 A:name { 
 	color: #3333CC;
 	font-weight: bold;
-	}
+	text-decoration: none 
+	}	
 	
 .link2 { 
 	color:#ffffff;
@@ -146,7 +147,7 @@ A:name {
 	}
 	
 .RFC { 
-	color:#666666;
+	color:#336699;
 	font-weight: bold;
 	text-decoration: none;
 	font-family: verdana, arial, helvetica, sans-serif;

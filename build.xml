@@ -166,21 +166,27 @@ This is the xaraya buildfile. It builds anything needed building:
   <!-- Create a tarball from the current contents of the build tree -->
   <target name="createtarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir}" command="tar -czf ${tarball.name} ${final.name}"/>
+<!-- This just takes too much memory
     <tar outfile="${build.basedir}/${tarball.name}" usegzip="true">
       <fileset dir="${build.basedir}">
         <include name="${final.name}/**"/>
       </fileset>
     </tar>
+-->
   </target>
 
   <!-- Create a zipball from the current contents of the build tree -->
   <target name="createzipball" if="zipball.name">
     <echo msg="Creating zip archive ${zipball.name}"/>
+    <exec dir="${build.basedir}" command="zip -rq ${zipball.name} ${final.name}"/>
+<!-- This just takes too much memory
     <zip outfile="${build.basedir}/${zipball.name}">
       <fileset dir="${build.basedir}">
         <include name="${final.name}/**"/>
       </fileset>
     </zip>
+-->
   </target>
   
   <!-- Clean target, removes only the copied build tree -->

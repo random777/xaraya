@@ -42,35 +42,35 @@
     CATEGORY</firstterm></emphasis>, with additional Categories placed below
     the ROOT CATEGORY. For example, if the site is &#34;<userinput>MySite.COM</userinput>&#34;:</para>
 
-    <para><literallayout>	MySite.COM (root category)
-	|
-	|---World News (sub-category)
-	|   |
-	|   |---North American News (sub-sub-category)
-	|   |   |
-	|   |   |---United States News (sub-sub-sub-category)
-	|   |       |
-	|   |       |---Ohio News (sub-sub-sub-sub-category)
-	|   |       |
-	|   |       |---Nevada News (sub-sub-sub-sub-category)
-	|   |       |
-	|   |       |---etc...
-	|   |
-	|   |---Asian News (sub-sub-category)
-	|       |
-	|       |---China News (sub-sub-sub-category)
-	|       |
-	|       |---Japan News (sub-sub-sub-category)
-	|       |
-	|       |---etc...
-	|
-	|---Sports News (sub-category)
-	|
-	|---Music News (sub-category)
-	|
-	|---Entertainment News (sub-category)
-	|
-	|---etc...</literallayout></para>
+    <para><literallayout>    MySite.COM (root category)
+    |
+    |---World News (sub-category)
+    |   |
+    |   |---North American News (sub-sub-category)
+    |   |   |
+    |   |   |---United States News (sub-sub-sub-category)
+    |   |       |
+    |   |       |---Ohio News (sub-sub-sub-sub-category)
+    |   |       |
+    |   |       |---Nevada News (sub-sub-sub-sub-category)
+    |   |       |
+    |   |       |---etc...
+    |   |
+    |   |---Asian News (sub-sub-category)
+    |       |
+    |       |---China News (sub-sub-sub-category)
+    |       |
+    |       |---Japan News (sub-sub-sub-category)
+    |       |
+    |       |---etc...
+    |
+    |---Sports News (sub-category)
+    |
+    |---Music News (sub-category)
+    |
+    |---Entertainment News (sub-category)
+    |
+    |---etc...</literallayout></para>
 
     <para><emphasis>PUBLICATION TYPES CAN BE USED ONLY BY ARTICLES. CATEGORIES
     CAN BE USED BY ALL MODULES.</emphasis> A module that cannot fit into a

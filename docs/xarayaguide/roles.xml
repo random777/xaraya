@@ -34,15 +34,15 @@
     <para>Xaraya comes preconfigured with a minimal set of Roles that are
     loaded when you run the installer. This configuration is shown below:</para>
 
-    <para><literallayout>				Everybody
-				|
-				|---Anonymous
-				|
-				|---Administrators
-				|   |
-				|   |---Admin
-				|
-				|---Users</literallayout></para>
+    <para><literallayout>                Everybody
+                |
+                |---Anonymous
+                |
+                |---Administrators
+                |   |
+                |   |---Admin
+                |
+                |---Users</literallayout></para>
 
     <itemizedlist>
       <listitem>

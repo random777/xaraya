@@ -1,185 +1,374 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 THE OFFICIAL XARAYA INSTALLATION AND GETTING STARTED GUIDE
 ==========================================================
-Installing & Configuring a Xaraya Community Site
+          Installing & Configuring a Xaraya Community Site
+                           by Drew Vogel <drew@xaraya.com>
 
-by Drew Vogel <drew@xaraya.com>
-Last updated: 15-August-2003
-Guide version 0128
 
-XARAYA LICENSE:
-===============
-Xaraya is licensed and distributed under the GNU General Public License.
 
-DOCUMENT LICENSE:
-=================
-Copyright (c) 2003 Drew Vogel <drew@xaraya.com>
 
-Parts are copyright (c) 2003 mikespub <postnuke@mikespub.net>. Used with permission.
-Parts are copyright (c) 2003 Skribe <skribe@plug.linux.org.au>. Used with permission.
-Parts are copyright (c) 2003 Mahmood Al-Yousif <mahmood@alyousif.tv>. Used with permission.
-Parts are copyright (c) 2003 John Cox <niceguyeddie@xaraya.com>. Used with permission.
 
-Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with the Invariant Sections being "Introduction by John Cox", "Document Thanks", and "Dedications", no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is available at http://www.gnu.org/licenses/fdl.html.
 
-INTRODUCTION BY JOHN COX
-========================
 
-INDEX
+
+
+
+
+
+
+IMPORTANT NOTE ABOUT THIS EDITION OF THE GUIDE:
+The Official Xaraya Installation & Getting Started Guide is a work-in-progress and is currently undergoing heavy development. It is not yet content-complete, but should be useful to users as an introduction and overview of Xaraya. If you find errors, omissions, spelling or grammar issues, please contact Drew Vogel <drew@xaraya.com> so they can be corrected. Please note that occurances of the word "OTTO" (in all caps) are placemarkers for the author and should be disregarded.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                           Guide version 0135
+                                                 Last updated: 22-August-2003
+                    Version 0135 sent to BitKeeper on 15-August-2003, 12:25pm
+INDEX
 =====
-XARAYA LICENSE
-DOCUMENT LICENSE
 INTRODUCTION BY JOHN COX
-INDEX
-DOCUMENT THANKS
-DEDICATIONS
-DISCLAIMER
-HOW IS XARAYA PRONOUNCED?
-WHAT DOES "XARAYA" MEAN?
-FEATURES OF XARAYA
+
 ABOUT THIS GUIDE
+
 FILES INCLUDED WITH THIS GUIDE
+
+DOCUMENT THANKS
+
+FEATURES OF XARAYA
+
+DEDICATIONS
+
+DISCLAIMER
+
+HOW IS XARAYA PRONOUNCED?
+
+WHAT DOES "XARAYA" MEAN?
+
 ASSUMPTIONS
+
+SYSTEM REQUIREMENTS
+	Hardware Requirements
+
+	Software Requirements
+
+	Software Recommendations
+
+	Tools You Can Use
+
 GETTING XARAYA
+	Directories in the Xaraya distribution
+
 GETTING XARAYA ONTO THE WEBSERVER
 	Setting Permissions
+
 XARAYA INSTALLATION
 	Increase Site Security
+
 	A Quick Look at Xaraya's Interface
+
 	SPECIAL NOTE: Click-paths
+
 REMOVING THE REMINDER BLOCK
+
 GENERAL CONFIGURATION
 	Website Display Configuration
 		IMPORTANT NOTE about Short URL support in Apache 2.x
+
 	Sessions and Security
+
 	Multi-Language Configuration
+
 	Legacy Configuration
+
 CATEGORIES IN XARAYA
 	Editing an Existing Category
+
 	Adding a New Category
+
 	KNOWLEDGE REVIEW: Create Your Own Categories
+
 	Categories Conclusion
+
 MODULES IN XARAYA
 	Xaraya Modules -- A New Approach
+
 	Module Listing: Display and Navigation
+
 	Managing Modules
-	Module Types
+
 	Modules in Xaraya
 		- Addressbook Module
+
 		- Adminpanels Module (core)
+
 		- Articles Module
+			EXAMPLE: Adding a new Publication Type
+
+			EXAMPLE: Adding a new Publication Type that uses Dynamic Data
+
 		- Authldap Module
+
 		- Authsystem Module (core)
+
 		- Autolinks Module
 			EXAMPLE: Adding AutoLinks to a Publication Type
+
 		- Base Module (core)
+
 		- Bbclick Module
+
 		- Bbcode Module
 			EXAMPLE: Adding BBCode to a Publication Type
+
 		- Bkview Module
+
 		- Blocks Module
-			EXAMPLE: Adding block instances
+			EXAMPLE: Adding, modifying, and deleting a Block Group
+
 			EXAMPLE: Changing the order of blocks within Groups
-			EXAMPLE: Deleting block instances
-			EXAMPLE: Adding/Editing/Deleting a Block Group
+
 		- Bloggerapi Module
+
 		- Calendar Module
+
 		- Cast Module
+
 		- Categories Module
-			EXAMPLE: Adding sub-sub-categories (etc) to a Category
+			EXAMPLE: Adding sub-sub-categories (etc.) to a Category
+
 		- Censor Module
+
 		- Changelog Module
+
 		- Comments Module
+
 		- Converter Module
+
 		- Dynamicdata Module (core)
+
 		- Dynamic_planning Module
+
 		- Dyn_example Module
+
 		- Ephemerids Module
 			EXAMPLE: Adding an Ephemerids block
+
 		- Example Module
+
 		- Facilities Module
+
 		- Figlet Module
+
 		- Headlines Module
+
 		- Hitcount Module
+
 		- Html Module
+
 		- Imagefeed Module
+
 		- Images Module: DEGRADED
+
 		- Installer Module (core)
+
 		- Latestcomments Module
+
 		- Mail Module (core)
+
 		- Messages Module
+
 		- Metaweblogapi Module
+
 		- Modules Module (core)
+
 		- Multisites Module
+
 		- Mybookmarks Module
+
 		- Opentracker Module
+
 		- Polls Module
 			EXAMPLE: Adding Polls to the site
+
 		- Postboard Module
+
 		- Privileges Module (core)
+
 		- Pubsub Module
+
 		- Quotes Module
+
 		- Ratings Module
 			EXAMPLE: Adding Ratings to a Publication Type
+
 		- Recommend Module
+
 		- Referer Module
+
 		- Release Module
+
 		- Reports Module
+
 		- Reviews Module
+
 		- Roles Module (core)
+
 		- Search Module
+
 		- Smilies Module
 			EXAMPLE: Adding Smilies to a Publication Type
+
 		- Sniffer Module
+
 		- Soapserver Module
+
 		- Stats Module
+
 		- Tasks Module
+
 		- Themes Module (core)
+
 		- Todolist Module
+
 		- Trackback Module
+
 		- Translations Module
+
 		- Uploads Module
 			EXAMPLE: Adding Image Uploads to a Publication Type
+
 		- Wiki Module
+
 		- Xarbb Module
 			EXAMPLE: Configuring forums with XarBB
+
 		- Xmlrpcserver Module
+
 		- Xmlrpcsystemapi Module
+
 		- Xmlrpcvalidatorapi Module
+
 		- Xproject Module
+
 		- Xslt Module
 
-	KNOWLEDGE REVIEW: Manipulating Modules
+	KNOWLEDGE REVIEW: Manipulating Modules (Adding and Removing Modules)
+
 HOOKS
-	Introduction to Hooks
+	An Introduction to Hooks
+
 	KNOWLEDGE REVIEW: Handling Hooks
+
 ARTICLES
+
 PUBLICATION TYPES
 	Introduction to Publication Types
+
 	EXAMPLE: New Publication Type: A Simple Guestbook
+
 	EXAMPLE: New Publication Type: A Blogger
+
 	EXAMPLE: New Publication Type: A Recipe Category
+
 	KNOWLEDGE REVIEW: Publication Types
+
 DYNAMIC DATA
 	Introduction to Dynamic Data
+
 	EXAMPLE: Dynamic Data: Adding a Picture to User Info
+
 	KNOWLEDGE REVIEW: Dealing with Dynamic Data
+
 PRIVILEGES: BUILDING BLOCKS FOR SITE ACCESS
 	Introduction to Privileges
+
 	Terminology
+
 	KNOWLEDGE REVIEW: Reviewing Roles
+
 XARAYA ROLES: USERS & GROUPS
 	Introduction to Roles
+
 CONCLUSION	
 
-APPENDIX A: System Requirements
-	Hardware Requirements
-	Software Requirements
-	Software Recommendations
-	Tools You Can Use
-APPENDIX B: Creating the Xaraya database via phpMyAdmin
-APPENDIX C: Enabling Short URL support in Apache 2.x
-APPENDIX D: Creating a Xaraya Theme
-APPENDIX E: Converting from PostNuke to Xaraya
+APPENDIX A: Xaraya License
+
+APPENDIX B: Document License
+
+APPENDIX C: Creating the Xaraya database via phpMyAdmin
+
+APPENDIX D: Enabling Short URL support in Apache 2.x
+
+APPENDIX E: Creating a Xaraya Theme
+
+APPENDIX F: Converting from PostNuke to Xaraya
+INTRODUCTION BY JOHN COX
+========================
+
+ABOUT THIS GUIDE:
+=================
+This Guide will assist you with installing, configuring, running, and maintaining a Xaraya Community Site. It is intended for Xaraya installers or those individuals interested in Xaraya installation and configuration issues.
+
+This Guide is designed to be read from start to finish. Certain sections may be skipped (for example, if you're upgrading, you do not need to read the first-time installation instructions). However, reading this entire Guide from start to finish will provide the maximum educational benefit.
+
+Throughout the Guide, we use several terms that should be understood.
+	* <webdir>: This is the local directory on your site from which pages are served by the webserver. If you're using a modern Red Hat installation, for example, your <webdir> is /var/www/html. Consult your operating system manual for information on determining your <webdir>.
+
+	* <xarroot>: This is the local directory on your site in which Xaraya is installed. If you install your <xarroot> into your <webdir>, then the two terms have the same meaning -- they point to the same directory. However, if your <webdir> is /var/www/html, and you install Xaraya into a sub-directory called "xaraya", then your <xarroot> is /var/www/html/xaraya.
+
+FILES INCLUDED WITH THIS GUIDE:
+===============================
+The following files are included with this guide.
+
+	- guide_images directory -- These are graphic files used by this Guide. It is not necessary to copy these files to your Xaraya installation.
+
+	- images/recipes/NoPhoto.gif -- Used in the Recipe Publication Type example. Displayed when no recipe photograph is available. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
+
+	- images/recipes/applechestnutsoup.jpg -- Used in the Recipe Publication Type example. Photograph for the SampleRecipe.txt file. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
+
+	- modules/articles/xartemplates/user-display-recipes.xd -- Used in the Recipe Publication Type example. Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary. For a theme-specific template, rename to user-display-recipes.xt and copy to <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
+
+	- modules/articles/xartemplates/user-summary-recipes.xd -- Used in the Recipe Publication Type example. Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary. For a theme-specific template, rename to user-summary-recipes.xt and copy to <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
+
+	- modules/categories/xarimages/*.jpg -- Category files for use with the categories created in the new Recipe Publication Type. For site-wide use, copy these files to <xarroot>/modules/categories/xarimages. Theme-specific icon files go in <xarroot>/themes/<theme name>/modules/categories/images directory.
+
+	- Tutorials/PubType/SampleRecipe.txt -- Used in the Recipe Publication Type example. A sample recipe to add at the end of the Recipe Publication Type example (and a darned good recipe too!).
 
 DOCUMENT THANKS:
 ================
@@ -190,30 +379,6 @@ The Official Xaraya Installation and Getting Started Guide was written by Drew V
 This document was written using TextPad for Windows (http://www.textpad.com) and XMLmind XML Editor (http://www.xmlmind.com).
 
 Thank you to the Xaraya Team for declaring this to be the "Official" guide.
-
-DEDICATIONS:
-============
-The Xaraya Project is dedicated to the memory of Greg Allen (adam_baum), March 6, 1973-June 16, 2001. Xaraya is his legacy.
-
-Drew dedicates this Guide to my darling Wendy, the keeper of my heart and the delight of my eyes.
-
-DISCLAIMER
-==========
-While every reasonable precaution has been taken in the preparation of this documentation, the author assumes no responsibility for errors or omissions, or for damages resulting from the use of the information contained herein.
-
-The information contained in this document is believed to be accurate. However, no guarantee is provided. Use this information at your own risk.
-
-HOW IS XARAYA PRONOUNCED?
-=========================
-It is not as difficult as it may look. In fact, saying Xaraya is actually sort of fun. Phonetically, it looks like this: Zuh-rye-ah.
-
-To hear Xaraya pronounced by Xaraya Team member Marie Altobelli (LadyofDragons), visit http://www.xaraya.com/xcommon/media/xaraya.wav.
-
-WHAT DOES "XARAYA" MEAN?
-========================
-The name Xaraya was selected by the development team after an internal contest. Submitted by Marty Vance (Dracos), Xaraya does not really mean anything. We were looking for a name which was both interesting and unique. Xaraya certainly fit the bill. 
-
-That said, the word Xaraya is reminiscent of 'raya', the Spanish word for Manta Ray. The development team rather likes the nautical feel of that reference, particularly when one thinks of the Internet as an "ocean" of information. The Xaraya logo concept by Marty Vance, logo design by LaDalle Hunt.
 
 FEATURES OF XARAYA:
 ===================
@@ -261,39 +426,35 @@ Xaraya reduces web site development costs by introducing sophisticated administr
 
 With more than forty active developers spanning five continents and ten languages, the Xaraya Development Team is a blend of some of the best and brightest developers in the open source community. We expect the best of one another. As a result, you can expect the best from Xaraya.
 
-ABOUT THIS GUIDE:
-=================
-This Guide will assist you with installing, configuring, running, and maintaining a Xaraya Community Site. It is intended for Xaraya installers or those individuals interested in Xaraya installation and configuration issues.
+DEDICATIONS:
+============
+The Xaraya Project is dedicated to the memory of Greg Allen (adam_baum), March 6, 1973-June 16, 2001. Xaraya is his legacy.
 
-This Guide is designed to be read from start to finish. Certain sections may be skipped (for example, if you're upgrading, you do not need to read the first-time installation instructions). However, reading this entire Guide from start to finish will provide the maximum educational benefit.
+Drew dedicates this Guide to my darling Wendy, the keeper of my heart and the delight of my eyes.
 
-Throughout the Guide, we use several terms that should be understood.
-	* <webdir>: This is the local directory on your site from which pages are served by the webserver. If you're using a modern Red Hat installation, for example, your <webdir> is /var/www/html. Consult your operating system manual for information on determining your <webdir>.
+DISCLAIMER
+==========
+While every reasonable precaution has been taken in the preparation of this documentation, the author assumes no responsibility for errors or omissions, or for damages resulting from the use of the information contained herein.
 
-	* <xarroot>: This is the local directory on your site in which Xaraya is installed. If you install your <xarroot> into your <webdir>, then the two terms have the same meaning -- they point to the same directory. However, if your <webdir> is /var/www/html, and you install Xaraya into a sub-directory called "xaraya", then your <xarroot> is /var/www/html/xaraya.
+The information contained in this document is believed to be accurate. However, no guarantee is provided. Use this information at your own risk.
 
-FILES INCLUDED WITH THIS GUIDE:
-===============================
-The following files are included with this guide.
+HOW IS XARAYA PRONOUNCED?
+=========================
+It is not as difficult as it may look. In fact, saying Xaraya is actually sort of fun. Phonetically, it looks like this: Zuh-rye-ah.
 
-	- guide_images directory -- These are graphic files used by this Guide. It is not necessary to copy these files to your Xaraya installation.
+To hear Xaraya pronounced by Xaraya Team member Marie Altobelli (LadyofDragons), visit http://www.xaraya.com/xcommon/media/xaraya.wav.
 
-	- images/recipes/NoPhoto.gif -- Used in the Recipe Publication Type example. Displayed when no recipe photograph is available. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
+WHAT DOES "XARAYA" MEAN?
+========================
+The name Xaraya was selected by the development team after an internal contest. Submitted by Marty Vance (Dracos), Xaraya does not really mean anything. We were looking for a name which was both interesting and unique. Xaraya certainly fit the bill. 
 
-	- images/recipes/applechestnutsoup.jpg -- Used in the Recipe Publication Type example. Photograph for the SampleRecipe.txt file. Copy to <xarroot>/images/recipes directory, creating directories as necessary.
-
-	- modules/articles/xartemplates/user-display-recipes.xd -- Used in the Recipe Publication Type example. Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary. For a theme-specific template, rename to user-display-recipes.xt and copy to <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
-
-	- modules/articles/xartemplates/user-summary-recipes.xd -- Used in the Recipe Publication Type example. Template for displaying the new Recipe Publication Type. For a default site-wide template, copy to <xarroot>/modules/articles/xartemplates directory, creating directories as necessary. For a theme-specific template, rename to user-summary-recipes.xt and copy to <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
-
-	- modules/categories/xarimages/*.jpg -- Category files for use with the categories created in the new Recipe Publication Type. For site-wide use, copy these files to <xarroot>/modules/categories/xarimages. Theme-specific icon files go in <xarroot>/themes/<theme name>/modules/categories/images directory.
-
-	- Tutorials/PubType/SampleRecipe.txt -- Used in the Recipe Publication Type example. A sample recipe to add at the end of the Recipe Publication Type example (and a darned good recipe too!).
+That said, the word Xaraya is reminiscent of 'raya', the Spanish word for Manta Ray. The development team rather likes the nautical feel of that reference, particularly when one thinks of the Internet as an "ocean" of information. The Xaraya logo concept by Marty Vance, logo design by LaDalle Hunt.
 
 ASSUMPTIONS:
 ============
-Xaraya allows unprecidented levels of customization, so it is impossible to list every possible configuration. Therefore, to provide familiarity with how Xaraya functions this Guide makes the following assumptions:
+Xaraya allows unprecedented levels of customization, so it is impossible to list every possible configuration. "Anonymous users" are defined as users that have not registered/logged into an account on the site. "Registered users" are defined as users that have registered for an account on the site and have logged into the site with their username and password. The "Site Administrator" is a person or group of persons who have administrative access to the site.
 
+To provide familiarity with how Xaraya functions this Guide makes the following assumptions:
 * That you plan to run a Community Site and:
 	* Do not permit anonymous users to submit articles or post comments until they register.
 
@@ -304,9 +465,59 @@ Xaraya allows unprecidented levels of customization, so it is impossible to list
 
 		- Post comments.
 
-* That you have created a web-readable "images" directory in your Xaraya installatation directory (<xarroot>/images). We will store any non-core and non-module images needed by the site in this directory.
+	* Site Administrator(s) have complete access to the site.
+
+* That you have created a web-readable "images" directory in your Xaraya installation directory (<xarroot>/images). We will store any non-core and non-module images needed by the site in this directory.
 
 * That you already have a working webserver (Apache or IIS), PHP 4.1.2 or higher (4.2.x or higher is strongly recommended), an email subsystem, and a database (currently MySQL) installed, configured, and operating correctly. The installation and configuration of these tools are beyond the scope of this Guide.
+
+SYSTEM REQUIREMENTS
+===================
+The general requirements for Xaraya are driven by the software that you wish to run on the computer. If your computer is capable of running PHP, MySQL, and the webserver (Apache / IIS / etc.), then it can certainly run Xaraya. More generous hardware configurations, additional memory, and increased storage space will improve the performance and capabilities of the system. 
+
+Make sure that your system meets or exceeds these requirements.
+* Hardware Requirements
+	- Processor & memory: Xaraya's requirements are less than the requirements of the software used to run Xaraya. So, if your computer can run an operating system that will run PHP, MySQL, and a webserver, it should be able to run Xaraya.
+
+	- Network connection: A network connection, either Internet or Intranet, is very highly recommended, but technically, it is not required -- Xaraya will run on a computer without network access.
+
+	- Storage: The minimum storage space for an installation of Xaraya is approximately 8 megabytes. However, this amount of storage leaves little room for expansion. It is therefore recommended that Xaraya is allocated at LEAST 25 megabytes of storage space.
+
+* Software Requirements
+Before Xaraya can be run, it first needs to be installed or upgraded from a previous version. Before Xaraya can be installed, there are other pieces of software that must be installed and functioning on your system, and additional pieces of software that you may wish to install.
+	- Supported operating systems include: Linux, BSD, MacOSX, Solaris, HP-UX, AIX, Win98/NT/2000/XP, Sun Cobalt OS (RAQ4)
+
+	- A functioning webserver (Apache or IIS, among others).
+
+	- A working installation of PHP (version 4.1.2 or higher) compiled with MySQL support. PHP is the language in which Xaraya is written. Without PHP support, the web server would not be able to parse the PHP files and your site would not function.
+
+	- A working database management system (MySQL 3.23 or higher or PostGRESQL). If you want to install Xaraya on PostGRESQL, you have to switch on TCP/IP Connection Support in the PostGRESQL server configuration.
+
+* Software Recommendations
+Some additional software packages will speed up your web site or offer enhanced features. You may wish to install these packages.
+	- phpMyAdmin (http://phpmyadmin.sourceforge.net) -- recommended only if the site will be using the MySQL database system -- phpMyAdmin is a cross-platform free utility that can manage an entire MySQL server. Many users may not have root (administrator) access to the database of their hosted site. If that is the case, you will need to create the database using an online tool such as phpMyAdmin.
+
+	- It is strongly recommended that a properly configured & working email subsystem (for example, SendMail, PostFix, QMail, ProcMail, etc) is installed on your server. Most hosted sites will provide this subsystem. It is beyond the scope of this document to cover the installation and configuration of this software.
+
+	- PHP Accelerator (http://www.php-accelerator.co.uk) -- PHP Accelerator is free, able to deliver performance gains & load average reduction to rival or exceed the very best alternatives, and is the intelligent choice of script caching solutions for PHP-based sites.
+		
+* Tools You Can Use
+You may need the following applications to facilitate your installation. If you need to download any of these programs, check http://www.download.com or http://www.tucows.com.
+	- An FTP program
+
+	- A Telnet program that supports SSH
+
+	- An ASCII text editor
+
+	- A compression tool (TAR, ZIP, etc.)
+
+	- PHPdev (http://www.firepages.com.au) -- PHPdev preconfigured version of Apache / PHP / MySQL for Windows. After installing you should be able to start creating PHP / MySQL web-applications right away.
+
+	- PHPTriad (http://sourceforge.net/projects/phptriad) -- PHPTriad installs a complete working PHP/MySQL server environment on Windows platforms (9x/NT). Installs PHP, Perl, MySQL, Apache, and PHPMyAdmin. 
+		
+	- FoxServ (http://www.foxserv.net) -- FoxServ is an extremely handy tool for Xaraya users to get Apache / MySQL / PHP / Perl up and running quickly, particularly for Windows servers. 
+
+	- Apache Toolbox (http://www.apachetoolbox.com) -- Apache Toolbox is a fully customizable and menu driven script for Linux that will install Apache / MySQL / PHP / PERL, and much more. Everything is compiled from source. This is an advanced tool for Linux. 
 
 GETTING XARAYA:
 ===============
@@ -314,15 +525,15 @@ Xaraya is distributed in three pieces, the "Core", the "Base", and "Full". The m
 
 	* The "Xaraya Core" distribution is the absolute minimum installation of Xaraya.
 
-	* The "Xaraya Base" distribution is the recommended installation for most users because it includes all the files of the "Base" distribution, plus several useful modules.
+	* The "Xaraya Base" distribution is the recommended installation for most users because it includes all the files of the "Base" distribution, plus several useful modules. This Guide recommends installation of the Xaraya Base distribution.
 
 	* The "Xaraya Full" distribution contains more modules that further extend the functionality of Xaraya beyond the "Core" or "Base" installation.
 
 Modules may be added to your site at any time after installation.
 
-The Xaraya Base, Core, and Full distributions are available in ZIP (Windows) & TAR.GZ (Linux/OSX/BSD/Unix) format. Download the Xaraya Base distribution distribution from the Downloads section of http://www.xaraya.com.
+The Xaraya Base, Core, and Full distributions are available in ZIP (Windows) & TAR.GZ (Linux/OSX/BSD/Unix) format. Download the Xaraya Base distribution from the Downloads section of http://www.xaraya.com.
 
-This document shows how to install & configure the Xaraya Base distribution on your website. Later in this document, you are taught how to integrate additional modules into your Xaraya Base installation.
+This Guide demonstrates the installation & configuration of the Xaraya Base distribution on your website. Later in this Guide, you are taught how to integrate additional modules into your Xaraya Base installation.
 
 * Using the appropriate unarchiving utility, unarchive the Xaraya Base distribution into a temporary directory. Consult the manual for the unarchiving utility if you're unfamiliar with how to extract archives. For example, on Linux:
 	- "mkdir /tmp/xar"
@@ -330,6 +541,21 @@ This document shows how to install & configure the Xaraya Base distribution on y
 	- "cd /tmp/xar"
 
 	- "tar -xzvf </path/to/XarayaBase.tar.gz>"
+
+Directories in the Xaraya distribution
+--------------------------------------
+The Xaraya Base distribution consists of the following directory structure. In this section of the Guide, we briefly explore these directories.
+	- docs: The documentation for Xaraya and components. It is not necessary to copy this directory to the webserver.
+
+	- html: This directory contains the files and sub-directories that comprise Xaraya. For Xaraya to function, these files and sub-directories must be copied to the webserver.
+
+	These files and sub-directories can be copied either to a sub-directory of the webserver's <webdir> (for example, <webdir>/<subdir>) or directly to the webserver's <webdir> (for example, <webdir>/).
+
+	If you install Xaraya into a sub-directory of the <webdir>, your users will have to type the sub-directory name in the URL. For example, if you install Xaraya into <webdir>/xaraya, your users will have to visit "http://www.yoursite.com/xaraya" to get to Xaraya. If you wish for Xaraya to exist in the <webdir> (so that users will visit "http://www.yoursite.com" to get to Xaraya), copy Xaraya's files & sub-directories to <webdir>.
+
+	- sql: Contains empty database definition files that correctly configure Xaraya's databases. Xaraya's installer creates the databases, but if the site administrator wishes to examine the data structure, these files can be useful. It is not necessary to copy this directory to the webserver.
+
+	- tests: This directory contains code that is being tested and is usable at your own risk. Noteworthy in this directory is the 'import' sub-directory, which contains utilities to import data from other Content Management Systems into Xaraya. It is not necessary to copy this directory to the webserver. Pieces you wish to test can be copied individually to the webserver.
 
 * Using your text editor, edit /tmp/xar/html/var/config.system.php and make the following changes as necessary:
 	- Database Username: The username that will be used to connect to the database. Do not use 'root' or 'admin' account names as they present a security risk. This user should already exist and have privileges in your database. For example, if the database user was to be "db-user", change the line to:
@@ -423,7 +649,7 @@ SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also 
 
 		- Click "Create the database" to have the Xaraya installer attempt to create the database. Click "Continue".
 
-	If Xaraya cannot create the database for you, see Appendix B: Creating the Xaraya database via phpMyAdmin.
+	If Xaraya cannot create the database for you, see Appendix C: Creating the Xaraya database via phpMyAdmin.
 
 	- Administrator Account Creation. This panel creates the site Administrator's account. This account has unlimited access to the site.
 		- Enter Full Name -- the Administrator's full name.
@@ -449,7 +675,7 @@ SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also 
 
 		- From the list of Available Configurations, select "Community Site". Click "Continue".
 
-	- Choose Configuration Options. Once you've chosen your configuration from the Available Configurations, specify which modules you wish to initialise via the installer. The listed modules are a subset of all the modules available for Xaraya, but this provides a nice starting place. For this example, select the installation defaults unless you have specific reasons to select otherwise.
+	- Choose Configuration Options. Once you've chosen your configuration from the Available Configurations, specify which modules you wish to initialize via the installer. The listed modules are a subset of all the modules available for Xaraya, but this provides a nice starting place. For this example, select the installation defaults unless you have specific reasons to select otherwise.
 
 	If you make a mistake or forget to install a module that you need, don't worry -- modules can be installed or removed at any time.
 
@@ -485,7 +711,7 @@ At the bottom of the browser window is Xaraya's 'footer' region. After installat
 
 The large pane that uses most of the browser window is the content region. This is where the majority of site information is displayed to users.
 
-Everything you see in Xaraya is configurable. Xaraya's powerful theming engine, BlockLayout, makes it easy to customize your site to your exact specifications. The colors, the fonts, the placement of information is all configurable by changing themes or templates on your Xaraya site. Don't like the Administration menu on the left? It's quite simple to move it. Want to put your own logo in place of the Xaraya logo at the top? No problem!
+Everything you see in Xaraya is configurable. Xaraya's powerful theme engine, BlockLayout, makes it easy to customize your site to your exact specifications. The colors, the fonts, the placement of information is all configurable by changing themes or templates on your Xaraya site. Don't like the Administration menu on the left? It's quite simple to move it. Want to put your own logo in place of the Xaraya logo at the top? No problem!
 
 SPECIAL NOTE: Click-paths:
 --------------------------
@@ -539,7 +765,7 @@ See the section on the Base Module (below) for more information about these sett
 
 	Website Display Configuration
 	-----------------------------
-	- For this example, set the Default Module to "articles" so that the articles module is displayed when a vistor hits the site. Select "articles" from the drop-down list of available modules.
+	- For this example, set the Default Module to "articles" so that the articles module is displayed when a visitor hits the site. Select "articles" from the drop-down list of available modules.
 
 	- Default Module Type: From the drop-down list, "User".
 
@@ -558,7 +784,7 @@ See the section on the Base Module (below) for more information about these sett
 
 		- Medium: Users stay logged on for the number of days specified in Session Duration, below.
 
-		- Low: Users stay logged in forever.
+		- Low: Users stay logged in 'forever' (well, it's not actually FOREVER, but a really long time!).
 
 	- Session duration (in days): This setting determines how long (in days) a user's session will last before it expires, forcing the user to re-log in with their existing username and password. Set the session duration to "7" days.
 
@@ -579,7 +805,7 @@ Before specifying which Publication Types will be using what Categories, create 
 
 Once you have a set of categories you would like to use for your articles, go to Admin->Articles->Modify config, and specify the number of categories that can be used for each Publication Type, and the 'base categories' to be used.
 
-A 'base category' is any starting point somewhere in your tree of categories, below which you will have the actual list (or subtree) of categories people can choose from when they submit or view articles. 
+A 'base category' is any starting point somewhere in your tree of categories, below which you will have the actual list (or sub-tree) of categories people can choose from when they submit or view articles. 
 
 For example, you could have a 'base category' called Topics, with a list of different topics relevant to your site below it, and another 'base category' called Cities, with a list of cities or places for which you would provide regional news. One topic might be 'Good Restaurants', and one category might 'Brussels', so people would be able to browse through any articles about good restaurants in Brussels, for instance.
 
@@ -608,7 +834,7 @@ To edit an existing category, click on the "Modify" link on the same line as the
 	- Description: A description of the category that is displayed to users. For this example, change it to "Interesting topics on this website.".
 
 The next two options determine the position of the new/edited category in the category tree, and specifies if the category is a top-level category or a sub-category.
-	- In relation to this category: Select an existing category from the drop-down list. This existing category serves as the reference point for the Postion function, below. For this example, since we don't want to move this category, just leave this field as it is.
+	- In relation to this category: Select an existing category from the drop-down list. This existing category serves as the reference point for the Position function, below. For this example, since we don't want to move this category, just leave this field as it is.
 
 	- Position: Determines the placement of the new/edited category in conjunction with the "In relation to this category" field above. For this example, since we don't want to move this category, just leave this field as it is.
 		- Right before, in the same level: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
@@ -632,26 +858,26 @@ To add a new Category, click Admin->Categories->Add Category. Complete the field
 
 If you are adding a large number of categories at one time, you can do so in a batch. Enter the number of categories you'd like to create in the "Create in a Batch" field and click "Reassign". This will refresh the panel with the specified number of category slots. Complete the fields and click "Add" to batch-create the categories.
 
-	- Name: The name of the category.
+	- Name: The name of the category that is displayed to users.
 
 	- Description: A description of the category that is displayed to users.
 
-The next two options determine the position of the new/edited category in the category tree, and specifies if the category is a top-level category or a sub-category.
-	- In relation to this category: Select an existing category from the drop-down list. This existing category serves as the reference point for the Postion function, below.
+The next two options determine the position of the new category in the category tree, and specifies if the category is a top-level category or a sub-category.
+	- In relation to this category: Select an existing category from the drop-down list. This existing category serves as the reference point for the Position function, below.
 
 	- Position: Determines the placement of the new/edited category in conjunction with the "In relation to this category" field above.
-		- Above - Same level: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
+		- Right before, in the same level: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
 
-		- Below - Same level: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
+		- Rigth after, in the same level: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
 
-		- Above - Child Category: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and to be a child category of the category referenced in "In relation to this category", select this option.
+		- The first child category: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and to be a child category of the category referenced in "In relation to this category", select this option.
 
-		- Below - Child Category: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and to be a child category of the category referenced in "In relation to this category", select this option.
+		- The last child category: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and to be a child category of the category referenced in "In relation to this category", select this option.
 
 	- Optional image: From this drop-down list, select the image associated with this category. The image format can be any popular image file format (JPG, GIF, PNG, etc) and must exist in one of two directories:
-		- "modules/categories/xarimages" or
+		- "<xarroot>/modules/categories/xarimages" or
 
-		- "themes/[theme name]/modules/categories/images" for theme-dependent versions
+		- "<xarroot>/themes/[theme name]/modules/categories/images" for theme-dependent versions
 
 	- Click "Modify" to save changes.
 
@@ -687,34 +913,34 @@ This configuration area of Xaraya focuses on the modules of your site.
 Module Listing: Display and Navigation
 --------------------------------------
 	- Style: Defines the display of the module list.
-		- Plain (fast): Default. Displays an unadorned listing of Modules. Options (activate, deactive, hooks, etc.) are listed as clickable text.
+		- Plain (fast): Default. Displays an unadorned listing of Modules. Options (activate, deactivate, hooks, etc.) are listed as clickable text.
 		
-		- Icons: Displays a listing of Modules adorned with icons. Options (activate, deactive, hooks, etc.) are listed as clickable icons.
+		- Icons: Displays a listing of Modules adorned with icons. Options (activate, deactivate, hooks, etc.) are listed as clickable icons.
 			
 		- Compact-A: Displays a listing of modules in a compact, two-column "over then down" format. The action & status list is displayed at the top of the screen. The letter indicators are as follows:
-			- [A]ctivate
-			- [C]ore Module
-			- [D]eactivate
-			- [H]ooks
 			- [I]nstall
-			- [M]issing
-			- [R]emove
 			- [U]pgrade
+			- [D]eactivate
+			- [A]ctivate
+			- [R]emove
+			- [M]issing
 			- [V]iew Info
-			
+			- [H]ooks
+			- [C]ore Module
+
 		- Compact-B: Displays a listing of modules in a compact, two-column "down then over" format. The letter indicators are the same as for "Compact-A" display style, above.
 
 	- View: Filters the display to modules of a certain type as selected from the drop-down list.
 		- All modules: Default. Shows all modules on the system.
-	
+
 		- All Installed: Shows only modules that have been installed.
-	
+
 		- All Active: Shows only modules that have been activated.
-			
+
 		- All Inactive: Shows only modules that have not been activated.
-	
+
 		- Not Installed: Shows only modules that have not been installed.
-	
+
 		- Missing files: Shows any modules with missing files.
 
 	- Sort by: The sort order for displayed modules.
@@ -761,21 +987,9 @@ Below the display & navigation section is the listing of the modules on the site
 		
 		- Activate: If a module has previously been deactivated and you wish to re-activate it for use on the site, click "Activate".
 
-Module Types
-------------
-- Create Hooks: Create hooks enable a module to create data.
-
-- Delete Hooks: Delete hooks enable a module to delete data.
-
-- Display Hooks: Display hooks enable a module to change the way an item is displayed.
-
-- Transform Hooks: Transform hooks enable a module to change text into something else. For example, the Smilies module transforms ASCII smiles like :) into graphic images.
-
-- Utility Modules: OTTO
-
 Modules in Xaraya
 -----------------
-In this section of the Guide, we explore individual modules included with Xaraya. Not all Administrators will use all of these features, so feel free to skip around! 
+In this section of the Guide, we explore the individual modules that are included with Xaraya. Not all site administrators will use all of these features, so feel free to skip around!
 
 - Addressbook Module (Mod distro): Xaraya address book module. Admin->Addressbook.
 The Addressbook module provides a configurable address book for your site. Entries in the address book can be made private (viewable only by the person who entered the item) or public (viewable by all users with access to this module).
@@ -794,7 +1008,7 @@ The Addressbook module provides a configurable address book for your site. Entri
 
 		Other Settings
 		--------------
-		- Title of this Address book: In this field, nter the name of the address book as it will be displayed to users.
+		- Title of this Address book: In this field, enter the name of the address book as it will be displayed to users.
 
 		- Default sort order / List View: Select two columns of your choice. This setting affects not only the sort order but also the display of columns in the list view. Users may select between the Default and Alternate sort orders.
 
@@ -893,7 +1107,7 @@ The Addressbook module provides a configurable address book for your site. Entri
 		
 		- Click "Commit Changes" to save changes.
 
-	- Admin Docs: Click this link to view adminstration documentation for this module.
+	- Admin Docs: Click this link to view administration documentation for this module.
 
 - Adminpanels Module (core): Displays the Administration menu block. Admin->Adminpanels.
 The Adminpanels module configures how the Administration menu block is displayed to your site administrators.
@@ -908,11 +1122,13 @@ The Adminpanels module configures how the Administration menu block is displayed
 		- Mark active item: CHECK if you would like a marker displayed next to the active menu item. UNCHECK if you do not wish to have a marker displayed next to the active menu item.
 
 		- Specify marker: Specify the marker to be used if "Mark active item" (above) is CHECKED. Default is "[x]".
+		
+		AN EASTER EGG: What version of Xaraya was first the PUBlic release? Type your answer in this field. If your answer is right, as site administrator, you'll catch sight of the elusive 'red manta'. This easter egg exists in version .906.
 
 		- Sort admin menu items:
 			- By Name: Displays the Administration menu sorted alphabetically.
 
-			- By Category: The Administration menu is displayed by category (Content, Global, Users & Groups, Miscellanious, etc.).
+			- By Category: The Administration menu is displayed by category (Content, Global, Users & Groups, Miscellaneous, etc.).
 
 			- By Weight: Not currently implemented.
 
@@ -947,6 +1163,7 @@ The Adminpanels module configures how the Administration menu block is displayed
 		- Click "Submit" to save changes.
 
 - Articles Module: Display articles. Admin->Articles.
+The Articles module is possibly the most often-accessed part of a community site, since nearly all of the site's content will be placed into Article sub-categories.
 	- View Articles:
 	Click View Articles to view a listing of articles on the site by Publication Type. If there are multiple pages of articles, page navigation links are displayed at the bottom of the panel. (The number of articles displayed per page is defined in Admin->Articles->Modify config. Click the Publication Type and set "Items per page" to the number of articles to be displayed. Click "Update Configuration" to save changes.)
 		- Publication Type: From the listing of available Publication Types, click the Publication Type for which you would like to display articles. For example, to display articles in the Web Links Publication Type, click "Web Links".
@@ -986,13 +1203,13 @@ The Adminpanels module configures how the Administration menu block is displayed
 				- Delete: To delete a specific article, click this link next to the article. Confirm your intention to delete the article on the following panel. If you choose to delete an article, all comments associated with the article are deleted at the same time.
 
 			- Change checked article status to:
-				- Submitted: The article has been submitted to the site, but has not yet been rejected or approved. This article is visable only to the site administrator; it is not visable to users.
+				- Submitted: The article has been submitted to the site, but has not yet been rejected or approved. This article is visible only to the site administrator; it is not visible to users.
 
-				- Rejected: The article has been submitted to the site, but has not been approved for publication. This article is visable only to the site administrator; it is not visable to users.
+				- Rejected: The article has been submitted to the site, but has not been approved for publication. This article is visible only to the site administrator; it is not visible to users.
 
-				- Approved: The article has been submitted to the site and has been approved for publication. This article is visable to site visitors and the site administrator. To view this article, navigate to the Publication Type and Category of the article, then click the title of the article to display.
+				- Approved: The article has been submitted to the site and has been approved for publication. This article is visible to site visitors and the site administrator. To view this article, navigate to the Publication Type and Category of the article, then click the title of the article to display.
 
-				- Frontpage: The article has been submitted to the site and has been approved for publication. This article is visable to site vistors and the site administrator. The article is displayed on the front page of the site, and may also be viewed by navigating to the Publication Type and Category of the article, then clicking the title of the article to display.
+				- Frontpage: The article has been submitted to the site and has been approved for publication. This article is visible to site visitors and the site administrator. The article is displayed on the front page of the site, and may also be viewed by navigating to the Publication Type and Category of the article, then clicking the title of the article to display.
 
 				- Click "Change Status" to save changes.	
 
@@ -1031,95 +1248,105 @@ The Adminpanels module configures how the Administration menu block is displayed
 	- Publication Types:
 	This portion of the panel displays existing Publication Types with options to edit or delete.
 		- New Publication Type: Click this link to add a new Publication Type.
+			New Publication Type
+			--------------------
+			- Type: The title of the new Publication Type. This is the "system" name of the Publication Type, and is also the name used when referring to this Publication Type in a Short URL.
 
-		- Name:
+			- Description: A description of the Publication Type. The description is used on the site to denote the Publication Type. The contents of this field are displayed to site visitors.
 
-		- Description:
+			Configuration
+			-------------
+			- Field: The field name for the new Publication Type. This field name is used by themes to denote where pieces of content are displayed within the theme. For example, the field named "title" is displayed through placement of the string "#$title#" within the theme definition.
+
+			- Label: The label for the new Publication Type. The label serves as a description of the Publication Type, and is displayed to users. Leave the Label field blank if you do not want to use a particular field in your new Publication Type.
+
+			- Format: From this drop-down list, select the format for the field.
+				- Static Text:
+
+				- Text Box:
+
+				- Small Text Area:
+
+				- Medium Text Area:
+
+				- Large Text Area:
+
+				- Username:
+
+				- Calendar:
+
+				- File Upload:
+
+				- Status:
+
+				- URL:
+
+				- Image:
+
+				- HTML Page:
+
+			- Input: CHECK this box if you would like the field to accept input. If you do not with for the field to accept input, UNCHECK this box.
+
+			- Type: A reference area displaying the database type for the field.
+
+			- Click "Create" to save changes.
+
+		Existing Publication Types
+		--------------------------
+		Existing Publication Types are listed in the bottom portion of this panel, with the following information & options.
+		- Name: The name of the Publication Type.
+
+		- Description: A description of the Publication Type.
 
 		- Options:
 			- Edit:
-				Edit Publication Type
-				---------------------
-				- Type:
-				
-				- Description:
-				
-				Configuration
-				-------------
-				- Field:
-
-				- Label:
-
-				- Format:
-					- Static Text:
-
-					- Text Box:
-
-					- Small Text Area:
-
-					- Medium Text Area:
-
-					- Large Text Area:
-
-					- Username:
-
-					- Calendar:
-
-					- File Upload:
-
-					- Status:
-
-					- URL:
-
-					- Image:
-
-					- HTML Page:
-
-				- Input:
-
-				- Type:
-
-				- Click "Modify" to save changes.
 
 			- Delete: To delete a Publication Type, click this link next to the Publication Type to be deleted. Confirm your intention to delete on the next panel. If you delete a Publication Type, all articles contained in the Publication Type are also deleted.
 
 			- Article Config:
-				Global Configuration (Default Publication Type only)
+				Global Configuration ('Default' Publication Type only)
 				--------------------
-				- Default Publication Type for the Articles "Front Page": DDL
+				- Default Publication Type for the Articles "Front Page": From this drop-down list, select the Publication Type to which a "frontpage" alias will be assigned. Generally, "News" is an appropriate Publication Type for this field.
 
-				- Support Short URLs:
-				
+				- Support Short URLs: This box is the 'master switch' for Short URL support in articles. CHECK this box to enable Short URL support for articles. UNCHECK this box to disable Short URL support for modules. Short URL support may be enabled or disabled for individual Publication Types, so it is possible to have some Publication Types support Short URLs while others do not. In order for Short URL support to function, the 'master switch' for Short URLs must be CHECKED in Admin->Base->Modify config.
+
 				Website Configuration
 				---------------------
-				- Use <alias> as alias in short URLs:
+				- Use <alias> as alias in Short URLs: CHECK this box to use the Publication Type's type as the Short URL for this Publication Type. The Type is configured when adding a new Publication Type under Admin->Articles->Publication Types. To turn off Short URL support for this specific Publication Type, UNCHECK this box.
 
-				- Use different page template:
+				- Use different page template: Enter the name of the template file to use instead of the default page template. The template file must exist in <xarroot>/ OTTO -- where do templates go? To use the default page template, leave this field blank.
 
 				Overview Configuration
 				----------------------
-				NOTE: The ($...) indicates the name of the variable used to display this feature in the templates.
-				- Default start view: DDL
+				NOTE: The ($...) indicates the name of the variable used to display this feature in site templates. If you wish to enable a specific feature to a template, add the name of the variable to the template at the location where you want the feature to appear.
+				- Default start view: From this drop-down list, select the default behavior of Xaraya when a user clicks on the name of a Publication Type from the user's (not the Administration) main menu.
+					- Latest items:
 
-				- Number of columns ($numcols):
+					- Browse in...: (recommended)
 
-				- Items per page ($number):
+				- Number of columns ($numcols): The number of columns that will display the data to site visitors. If you would like a traditional, single-column display, enter "1" in this field. If you would like a two-column display, enter "2" in this field, and so on.
 
-				- Show category links in article summaries ($categories):
+				- Items per page ($number): Determines the maximum number of items to display per page in the overview panel. If you would like to display 25 items per page, enter "25" here. Xaraya provides page navigation links if there are more than this number of items.
 
-				- Show previous/next catagory ($showprevnext):
+				- Show category links in article summaries ($categories): If CHECKED, category links are displayed in article summaries in the overview panel. If UNCHECKED, category links are not displayed in article summaries.
 
-				- Show number of comments ($comments):
+				- Show previous/next category ($showprevnext): If CHECKED, previous/next category links are displayed on the overview, which allow a site visitor to move more easily between categories. If UNCHECKED, previous/next category links are not displayed.
 
-				- Show hit counts ($counter):
+				- Show number of comments ($comments): If CHECKED, the number of comments associated with the article are displayed in the overview panel. If UNCHECKED, the number of comments are not displayed.
 
-				- Show ratings ($rating):
+				- Show hit counts ($counter): If CHECKED, the number of hits received by the article are displayed in the overview panel. If UNCHECKED, the article's hits are not displayed.
 
-				- Show links to Publication Types ($showpublinks + includes/publinks.xd):
+				- Show ratings ($rating): If CHECKED, article ratings are displayed on the article overview panel. If UNCHECKED, article ratings are not displayed.
 
-				- Show link to archives ($archivelink + $archivelabel):
+				- Show links to Publication Types ($showpublinks + includes/publinks.xd): If CHECKED, a link-bar is displayed near the top of the center panel of the site that displays quick links to Publication Types and, in parenthesis, the number of articles within the Publication Type, for example:
+				
+				News Articles (403) - Documents (28) - FAQs (16) - Web Links (310) 
+				
+				If UNCHECKED, the links are not displayed.
 
-				- Show link to article map ($maplink + $maplabel):
+				- Show link to archives ($archivelink + $archivelabel): If CHECKED, a link to the site's archives is displayed in the overview. In the default Xaraya theme, this link is at the bottom of the page. The Archives show a listing of the stories published per month. If UNCHECKED, the link to the archives is not displayed.
+
+				- Show link to article map ($maplink + $maplabel): If CHECKED, a link to the site's article map is displayed in the overview. In the default Xaraya theme, this link is at the bottom of the page. If UNCHECKED, the link to the article map is not displayed.
 
 				- Call transform hooks in summaries: To display text with the output of any 'transforming' hooks, CHECK this box. For example, if you have hooked BBCODE into ARTICLES and would like the Article summary page (typically Frontpage or Article overview) to show the output of BBCODE, CHECK this box. If you wish to show the raw text, UNCHECK this box.
 
@@ -1143,6 +1370,161 @@ The Adminpanels module configures how the Administration menu block is displayed
 
 	- Modify config:
 	This panel allows modification of configuration options for this module.
+
+EXAMPLE: Adding a new Publication Type
+--------------------------------------
+
+EXAMPLE: Adding a new Publication Type that uses Dynamic Data
+-------------------------------------------------------------
+This tutorial assumes you are starting from a fresh, brand-spanking-new, just-installed Xaraya Base installation.
+
+1. LOG IN AS A XARAYA ADMINISTRATOR: This is done any time you wish to have Administrator access to your Xaraya site.
+
+2. CREATE A NEW PUBLICATION TYPE: This is done for each custom Publication Type you create.
+
+To create the new Publication Type, go to Admin->Articles->Publication Types. Click "New". Complete the fields as follows:
+	Type: recipes (NOTE: Lower case.)
+	Description: Recipe Collection
+
+	Field: title
+	Label: Recipe Title
+	Format: Text Box
+	Input: CHECKED
+
+	Field: summary
+	Label: Description
+	Format: Small Text Area
+	Input: CHECKED
+
+	Field: bodytext
+	Label: Ingredients
+	Format: Large Text Area
+	Input: CHECKED
+
+	Field: bodyfile
+	Label: (this field should be blank)
+	Format: (as long as Label, above, is blank and Input, below is UNCHECKED, it does not matter what this field contains)
+	Input: UNCHECKED
+
+	Field: notes
+	Label: Instructions
+	Format: Large Text Area
+	Input: CHECKED
+
+Do not modify the last 3 fields (authorid, pubdate, and status); leave them as they are.
+
+Click "Create" to save changes.
+
+3. ENABLE DYNAMIC DATA FOR ARTICLES/RECIPES: This is done for each custom Publication Type using Dynamic Data you create, unless Dynamic Data has previously been enabled for the module.
+
+To enable Dynamic Data for a Publication Type, go to Admin->Modules->Configure Hooks. We want to enable Dynamic Data within Articles, so click "dynamicdata" and CHECK the box for Articles and the 'Recipe Collection' sub-category under Articles. Click "Save Changes".
+
+4. ADD DYNAMIC DATA FIELD(S) TO THE NEW PUBLICATION TYPE: This is done for each custom Publication Type using Dynamic Data you create.
+
+To add dynamic data field(s) to the new publication type, go to Admin->Articles->Publication Types. Find the 'recipes' Publication Type that we created in CREATE A NEW PUBLICATION TYPE, above, and click Article Config next to it. Near the bottom of the next screen, you'll see "Dynamic Data Fields [modify]". Click "[modify]" and in the new window that opens, enter the Dynamic Data as follows:
+	Label: photo (NOTE: Lower case.)
+	Property Type: Image
+	Data Source: dynamic_data
+	Status: Active
+
+Click "Update Properties" to save changes. Close the window and return to the previous browser window for the rest of the steps.
+
+5. ADD A NEW CATEGORY (AND OPTIONAL SUB-CATEGORIES) FOR THE NEW PUBLICATION TYPE: This is done for each custom Publication Type you create.
+
+To add the new category (and optional sub-categories), go to Admin->Categories. Click "Add Category" to add a new Category. For this example:
+
+Create a new Category called "Recipes Category" by following the steps below:
+	- Name: Recipes Category
+	- Description: This is the recipes category for this site.
+	- In relation to this category: Generic1
+	- Position: Right before, in the same level
+	- Optional image: categoryrecipes_top.jpg
+	- Click "Add" to add the new category.
+
+Create three sub-categories: "Appetizers & Soups", "Breads & Baked Goods", and finally "Desserts". To create the "Appetizers & Soups" sub-category, click "Add Category" and follow these steps:
+	- Name: Appetizers & Soups
+	- Description: Soups and Appetizer recipes go here.
+	- In relation to this category: Recipes Category
+	- Position: The first child category
+	- Optional image: categorysoups.jpg
+	- Click "Add" to add the new category.
+
+To create the next two sub-categories, click "Add Category" and follow these steps:
+	- Name: Breads & Baked Goods
+	- Description: Breads & baked goods recipes go here.
+	- In relation to this category: Recipes Category / Appetizers & Soups
+	- Position: Right after, in the same level
+	- Optional image: categorybaked.jpg
+	- Click "Add" to add the new category.
+
+Create another sub-category, typing "Desserts" in the Name field, "Dessert recipes go here" for the Description, and "categorydesserts.jpg" as the image.
+
+6. ADD THE NEW PUBLICTION TYPE TO A CATAGORY: This is done for each custom Publication Type you create.
+
+To add Publication Types to Categories, go to Admin->Articles->Modify Config and click on the description of the Publication Type we created (in this example, it's "Recipe Collection"). Scroll down, and you'll see:
+
+	Number of possible categories: 0
+
+	Change the "0" to "1". 
+
+Click "Update Configuration" to save changes.
+
+After the screen refreshes, scroll to the bottom of the center section and select the Category for the new Publication Type. In this example, if it's not already selected, select "Recipes Category" that we created above. Click "Update Configuration" to save changes.
+
+7. CONFIGURE THE NEW PUBLICATION TYPE: This is done for each custom Publication Type you create.
+
+Still in Admin->Articles->Modify Config, click on the description of the publication type we just created (in this example, it's "Recipe Collection"). Make the following changes:
+	Use 'recipes' as alias in short URLs: CHECKED
+	Default start view: Browse in Recipes Category
+	Number of columns ($numcols): 1
+	Items per page ($number): 10
+	Show category links in article summaries ($categories): CHECKED
+	Show previous/next category ($showprevnext): CHECKED
+	Show number of comments ($comments): CHECKED
+	Show hit counts ($counter): CHECKED
+	Show ratings ($rating): CHECKED
+	Show links to publication types ($showpublinks + includes/publinks.xd): CHECKED
+	Show link to archives ($archivelink + $archivelabel): CHECKED
+	Show link to article map ($maplink + $maplabel): CHECKED
+	Call transform hooks in summaries: UNCHECKED
+	Show link to previous/next article in display ($prevart + $nextart): CHECKED
+
+NOTE: Items enclosed in parenthesis above are the names of the variables used in templates.
+
+Click "Update Configuration" to save changes.
+
+8. ADD TEMPLATES FOR THE NEW PUBLICTION TYPE: This can be done for each custom Publication Type you create.
+
+We can create up to three custom display templates to tell Xaraya specifically how to display this new Publication Type. Example files are included in this tutorial distribution. If you do not create a template, Xaraya will attempt to display the Publication Type using a default template.
+
+Template files are placed into the <webdir>/modules/articles/xartemplates directory, and should be called 'user-display-<pubtype>.xd', 'user-summary-<pubtype>.xd', and (optionally) 'user-view-<pubtype>.xd', where <pubtype> is the name of the Publication Type (in this tutorial, <pubtype> is "recipes" as created in step #2 above):
+
+	user-display-recipes.xd -- this is the main view of the data
+	user-summary-recpies.xd -- this is a summary view of the data
+	user-view-recipes.xd (optional)
+
+If you wish to create theme-specific versions of these files, rename the files from *.xd to *.xt and place the theme-specific version in the <webdir>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
+
+It is recommended that you begin by examining the example files included with this tutorial, or open one of the sample templates provided with Xaraya and make changes as necessary using your favorite HTML editor. Where ever you want to display the fields in the new Publication Type, enter "#$fieldname#" (no quotes) in the template. Xaraya will replace "#$fieldname#" with the contents of the field as stored in the database. In this tutorial, we created the following fields, which are available for display in the template using the #$fieldname# indicated in parenthesis:
+
+	- title (#$title#)
+	- summary (#$summary#)
+	- bodytext (#$bodytext#)
+	- notes (#$notes#)
+	- photo (#$photo#)
+
+The templates included with this tutorial distribution expect to find a file called "NoPhoto.gif" in the <webdir>/images/recipes/ directory of your website. This file is displayed if a Photograph URL is not provided in the article submission, and is included with this tutorial distribution. Copy NoPhoto.gif to the <webdir>/images/recipes/ directory, creating directories as necessary.
+
+9. ADD AN ARTICLE TO THE NEW PUBLICATION TYPE: This is done for each custom Publication Type you create.
+
+Now you can add articles to the new publication type. Click Admin->Articles->Add Article and click on the name of the new Publication Type (in this example, it's Recipe Collection). A sample recipe is included with this tutorial (SampleRecipe.txt).
+
+Enter the Recipe Title, Description, Ingredients, Directions, and a URL for the photograph for the recipe. Select the appropriate Category for the recipe, and click "Preview" to see what the recipe will look like, or click "Add Article" to save it.
+
+On the following page, approve the article by putting a CHECK in the STATUS box, and selecting "Approved" from the drop-down list at the bottom of the page. Click "Change Status" to save changes.
+
+10. LOGOUT FROM THE ADMINISTRATOR ACCOUNT
+It is a wise idea, though technically not required, to log out of your administrator account at the end of each session. To log out of your Xaraya administrator account, click [admin logout], which appears at the bottom of the Administration menu. Confirm your intention to log out by clicking "Logout", or click "Cancel" to abort the logout.
 
 - Authldap Module: Xaraya LDAP authentication module. Admin->Authldap.
 This module provides LDAP authentication services for Xaraya.
@@ -1194,7 +1576,7 @@ When Autolinks are installed, the option to hook Autolinks into particular modul
 
 	If the URL is located on your web site, enter the path to the file or the complete URL. For example, if the file is on your site, enter "music.html" and Autolinks will automatically prepend the "http://www.yoursite.com", resulting in an Autolink of "http://www.yoursite.com/music.html". To be more specific, you could also enter "http://www.yoursite.com/music.html" instead of "music.html".
 
-	- Comments: Use the Comments field to enter optional free-form alphanumeric comments about the link. Comments are visable only to the Site Administrator.
+	- Comments: Use the Comments field to enter optional free-form alphanumeric comments about the link. Comments are visible only to the Site Administrator.
 
 Click "Create Autolink" to add the Autolink to the database.
 
@@ -1237,6 +1619,11 @@ Click "Submit" to save changes.
 
 EXAMPLE: Adding AutoLinks to a Publication Type
 -----------------------------------------------
+Adding AutoLinks to a Publication Type is very easy. There are two different methods for accomplishing this task, and we will cover them both in this example. Be sure you have some Autolinks defined (go to Admin->Autolinks->Add and add a few) and an article that contains Autolink text so you can see the results of your work.
+
+Method 1. Go to Admin->Modules->View All. Next to the Articles line in the panel, click "On/Off" under the Hooks heading. On the next panel that appears, CHECK to enable Autolinks in specific Publication Type(s), or CHECK the ALL box to enable Autolinks in all Publication Types. Click "Save Changes" to save changes. You have just enabled Autolinks to Publication Type(s)!
+
+Method 2. Go to Admin->Modules->Configure Hooks. In the next panel, click Autolinks. CHECK the specific Publication Types in which you wish to enable Autolinks, or CHECK the ALL ARTICLES box to enable Autolinks in all Publication Types. Click "Save Changes" to save changes. You have just enabled Autolinks to Publication Type(s)!
 
 - Base Module (core): Home page. Admin->Base.
 	- System: Displays system information about your site. The information may be sorted by the following fields:
@@ -1272,11 +1659,11 @@ EXAMPLE: Adding AutoLinks to a Publication Type
 
 	- Default module function: Default="main". This is an advanced field -- most site administrators will not change this value. Enter the name of a specific function of the default module (above) to be launched when a user visits the site.
 
-	- Default theme directory: The local path to your Xaraya theme directory. By default, it is "themes", which equates to <xarroot>/themes, but can be any local path.
+	- Default theme directory: The local path to your Xaraya theme directory, relative to <xarroot>. By default, it is "themes", which equates to <xarroot>/themes, but can be any local path where your theme files & sub-directories are stored..
 
 	- Enable Short URL support: This is the 'master switch' for Short URL support on your site. If this option is CHECKED, Short URL Support is enabled site-wide, though it must be specifically enabled in each module (and each Publication Type under the Articles module) that you wish to support Short URLs.
 	
-	IMPORTANT NOTE: Short URLs work without modifying your Apache 1.x configuration. If you are running Apache 2.x, see Appendix C for important information about enabling Short URL support.
+	IMPORTANT NOTE: Short URLs work without modifying your Apache 1.x configuration. If you are running Apache 2.x, see Appendix D: Enabling Short URL support in Apache 2.x for important information about enabling Short URL support.
 
 	Short URLs are easier for search engines that crawl & catalog your site, and are easier for your users to understand & remember.
 
@@ -1318,13 +1705,13 @@ EXAMPLE: Adding AutoLinks to a Publication Type
 	- Available locales (comma-delimited): This field indicates which locales/languages are available for users on the site. For example, if you're testing a new locale (Klingon) you may not want users to see that Klingon is an option in the list of available locales until you are ready. When Klingon is added to this field, it is displayed as a choice for users. Separate entries in this field with a comma.
 
 	- Translations backed: A backend is an entity capable of managing string-based and key-based translations. DDL
-		- XML:
+		- XML: Use XML for management of translations.
 
-		- PHP: (default)
+		- PHP: Use PHP for management of translations (default).
 
 	Legacy Configuration
 	--------------------
-	- Load legacy support: Load Legacy allows the use of pnHTML and and other legacy PostNuke functions. Xaraya itself is completely legacy free, but other modules may still yet use these functions. CHECK this box if your site will use any PostNuke functions. UNCHECK this box if you don't run any PostNuke functions to reduce the system load and improve performance.
+	- Load legacy support: Load Legacy allows the use of pnHTML and other legacy PostNuke functions. Xaraya itself is completely legacy free, but other modules may still yet use these functions. CHECK this box if your site will use any PostNuke functions. UNCHECK this box if you don't run any PostNuke functions to reduce the system load and improve performance.
 	
 	- Click "Update Base Configuration" to save changes.
 
@@ -1340,7 +1727,9 @@ EXAMPLE: Adding BBCode / BBClick to a Publication Type
 ------------------------------------------------------
 To add BBCode formatting capability or BBClick transformation to a Publication Type, follow these steps:
 	- Go to Admin->Modules->Configure Hooks.
+
 	- Click BBCode to select it as the module providing extra functionality. The panel will refresh, and you will see a list of modules to which the BBCode module can be hooked.
+
 	- CHECK the module(s) in which you would like to enable BBCode formatting. For our example, CHECK "all articles" and "comments". Click "Save Changes" to save changes.
 
 Go to Admin->Articles->Add Article. Click the "News Articles" Publication Type. On the resulting panel, the BBCode Form Controls are displayed above the Category selector box. Using these controls, or by manually entering BBCode formatting markup, BBCode can be used in articles.
@@ -1375,7 +1764,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 			- Right: The new block instance is displayed on the right side of the site.
 
-			- Header: The header group gets put inside the <head></head> in the template. This is useful, for example, to place JavaScript or other miscellanious features on the site.
+			- Header: The header group gets put inside the <head></head> in the template. This is useful, for example, to place JavaScript or other miscellaneous features on the site.
 
 			- Syndicate:
 
@@ -1389,7 +1778,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 		- Type: The type of the block instance. To view a listing of all available block types, click any block type or click Admin->Blocks->View Types.
 
-		- Template:
+		- Template: OTTO -- where do templates go?
 
 		- State: Default state for the block instance.
 			- Hidden: The block instance is not displayed. Setting a block instance's state to "Hidden" makes the block instance inactive.
@@ -1432,7 +1821,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 				- Members: Change the order of presentation of member block instances by left-clicking on the block instance to be moved and clicking on the UP or DOWN arrows to move the block instance up or down.
 
-				- Template: OTTO
+				- Template: OTTO -- where do templates go?
 
 				- Click "Update" to save changes.
 
@@ -1508,7 +1897,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 				- Click "Update" to save changes.
 
-			- articles/topitems: Block instance containing the top items for a particlar Publication Type (or for the currently-displayed Publication Type) based on administrator-defined criteria.
+			- articles/topitems: Block instance containing the top items for a particular Publication Type (or for the currently-displayed Publication Type) based on administrator-defined criteria.
 				- Number of items: Enter the number of items to be displayed in this field. For example, enter "5" to display the top 5 items.
 
 				- Publication Type: From this drop-down list, select the Publication Type for which the top items are displayed.
@@ -1529,7 +1918,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 				- Click "Update" to save changes.
 
 			- base/finclude: Block instance that includes a file from the website.
-				- File: OTTO -- where does the file exist?
+				- File: OTTO -- where is the file location?
 
 			- base/html: Block instance that displays HTML-formatted code. Permitted HTML codes are defined in Admin->HTML.
 				- Block Expiration: From this drop-down list, select the expiration date for this block instance.
@@ -1569,9 +1958,9 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 				- Block Expiration: From this drop-down list, select the expiration date for this block instance.
 					- Unlimited: This block instance does not expire, and will always be displayed.
 
-					- 1, 2, 5, 15, 30 Days: Select the number of days that this block instance will be displayed. When the block expires, it is not displayed anymore.
+					- 1, 2, 5, 15, 30 Days: Select the number of days that this block instance will be displayed. When the block expires, it is no longer displayed.
 
-				- Text: Enter the text content in this block.
+				- Text: Enter the text content in this block. This text will be displayed to site visitors.
 
 				- Click "Update" to save changes.
 
@@ -1622,7 +2011,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 			- roles/online: Block instance that displays a count of users & guests who are currently visiting the site. No additional configuration options.
 
-			- roles/user:
+			- roles/user: OTTO -- description. No additional configuration options.
 
 			- search/search: Block instance that displays a Search box on the site. No additional configuration options.
 
@@ -1681,17 +2070,67 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 		- Click "Create Group" to save changes.
 
-EXAMPLE: Adding block instances
--------------------------------
+EXAMPLE: Adding, modifying, and deleting block instances
+--------------------------------------------------------
+Adding block instances
+----------------------
+For these examples, we'll add a few block instances to work with. Following the instructions in Admin->Blocks->Add Instance (above), add the following three blocks:
+	- Block #1:
+		- Title: Base HTML Block 1
+
+		- Type: Base \ HTML
+
+		- Group: Center
+
+		- Leave the other items set at their default.
+
+		- Click "Create Instance" to save changes.
+
+		- In the HTML field that appears in the next panel, type:
+			"<b>This is BASE HTML BLOCK # 1.</b>" (no quotes)
+
+		- Click "Update" to save changes.
+
+	- Block #2:
+		- Do the same steps as with Block #1, substituting "Base HTML Block 2" for the title and "<b>This is BASE HTML BLOCK # 2.</b>" for the HTML field.
+
+	- Block #3:
+		- Do the same steps as with Block #1, substituting "Base HTML Block 3" for the title and "<b>This is BASE HTML BLOCK # 3.</b>" for the HTML field.
+
+If you go to the front page of the site (click the Xaraya logo in the top left corner of the default theme), you'll see these three blocks displayed in ascending numerical order.
+
+Modifying block instances
+-------------------------
+If you wish to modify a block instance, go to Admin->Blocks->View Instances. Click "Edit" on the line next to the block instance you wish to modify. On the next panel, make your changes and click the "Update" button to save changes.
+	- For our example, edit Block #2's title to read "The Second Base HTML Block" and the HTML to read "Here's the second HTML block". Be sure to "Update" to save your changes.
+
+Deleting block instances
+------------------------
+To delete a block instance, go to Admin->Blocks->View Instances. Click "Delete" on the line next to the block instance you wish to delete. On the next panel, confirm your intention to delete.
 
 EXAMPLE: Changing the order of blocks within Groups
 ---------------------------------------------------
+Follow this example, using the three blocks we added in "Adding block instances", above, to learn how to change the order of block instances within Groups,
+	- If you don't have the three sample block instances from "Adding block instances", above, create them now.
+	
+	- Go to Admin->Blocks->View Groups. Click "Edit" on the line next to the block group you wish to modify. In this example, click "Edit" on the line next to the "Center" block group. On the next panel, modify the order of block instances. Left-click on an instance to select it, then use the UP and DOWN arrow icons to change the placement of the selected block instance in the block group. Click the "Update" button to save changes.
+		- For our example, move the block instances we created into the following orders, saving changes between each:
+			- 3, 2, 1
 
-EXAMPLE: Deleting block instances
----------------------------------
+			- 1, 3, 2
 
-EXAMPLE: Adding/Editing/Deleting a Block Group
-----------------------------------------------
+			- 2, 1, 3
+
+	- When you have finished this example, delete the three block instances. Follow instructions in 'Deleting block instances', above.
+
+Adding a Block Group
+--------------------
+
+Modifying a Block Group
+-----------------------
+
+Deleting a Block Group
+----------------------
 
 - Bloggerapi Module: Blogger API implementation for Xaraya. Admin->Bloggerapi.
 	- Modify config:
@@ -1792,7 +2231,7 @@ EXAMPLE: Adding/Editing/Deleting a Block Group
 
 		- Constitution:
 
-		- Intellegence:
+		- Intelligence:
 
 		- Will:
 
@@ -1800,24 +2239,24 @@ EXAMPLE: Adding/Editing/Deleting a Block Group
 
 		- Action check score:
 
-		- Strength, Dexterity, Consitution, Intellegence, Will, and Personality Skills
+		- Strength, Dexterity, Constitution, Intelligence, Will, and Personality Skills
 			- Click "Add Character" to save changes.
 
 	- View Cast:
 
 	- Modify config:
 	This panel allows modification of configuration options for this module.
-		- Skills per page: How many items of this type to display per page.
+		- Skills per page: How many items of this type to display per page. If you wish to display, for example, 25 skills per page, enter "25" in this field.
 
 		- Classes per page: How many items of this type to display per page.
 
 		- Careers per page: How many items of this type to display per page.
 
-		- Portrait upload path: The local path to the directory to which portraits will be uploaded. Must be readable and writeable by the website.
+		- Portrait upload path: The local path to the directory to which portraits will be uploaded. Must be readable and writable by the website.
 
 		- Portrait size: The maximum filesize for the portrait file.
 
-		- Portrait dimensions: The maximum dimensions for the portrait file.
+		- Portrait dimensions: The maximum dimensions (height, width) for the portrait file.
 
 		- Enable Short URLs: CHECK to enable Short URLs for this module.
 
@@ -1829,13 +2268,13 @@ EXAMPLE: Adding/Editing/Deleting a Block Group
 
 		- Click "Update Configuration" to save changes.
 
-- Categories Module: Categorised data utility. Admin->Categories.
+- Categories Module: Categorized data utility. Admin->Categories.
 	- Add Category:
-		- Name: The name of the category.
+		- Name: The name of the category that is displayed to users.
 
 		- Description: A description of the category that is displayed to users.
 
-		- In relation to this category: Select an existing category from the drop-down list. This existing category serves as the reference point for the Postion function, below.
+		- In relation to this category: Select an existing category from the drop-down list. This existing category serves as the reference point for the Position function, below.
 
 		- Position:
 		It is possible to make sub-sub-categories (etc). Select a category / sub-category from the "In relation to this category" drop-down list above, then select the Position below.
@@ -1855,35 +2294,36 @@ EXAMPLE: Adding/Editing/Deleting a Block Group
 		- Click "Add" to add category.
 		
 		- Create in a batch:
+
 		- Click "Reassign".
 
 	- View Categories:
 		- Add Category:
 
 		- Category list:
-			- Name:
+			- Name: The name of the category.
 
-			- Description:
+			- Description: The description of the category.
 
-			- Image:
+			- Image: The optional image associated with the category. See Optional image, above, for information on the location for the image file.
 
-			- Options:
-				- Modify:
+			- Options: Using these options, you can modify or delete categories.
+				- Modify: Click the Modify link on the line of the category you wish to modify. On the next panel, you can edit the Name, Description, Position, and Image for the selected category.
 
-				- Delete:
+				- Delete: Click the Delete link on the line of the category you wish to delete. On the next panel, you are asked to confirm your intention by clicking "Yes" to delete.
 
 			- Categories per page: Click "Reload" to reload page with new value for this field.
 
 	- Modify config:
 	This panel allows modification of configuration options for this module.
-		- Default number of categories per page:
+		- Default number of categories per page: In this field, enter the number of categories to be displayed per page in the administration panel. For example, to display up to 100 categories, enter "100" in this field.
 
-		- Windows Explorer like tree? (requires JavaScript enabled browser):
+		- Windows Explorer like tree? (requires JavaScript enabled browser): If you have a JavaScript-enabled browser and would like to display collapsible menu tress, set this field to YES. The default setting, NO, does not rely on JavaScript.
 
 		- Click "Submit" to save changes.
 
-EXAMPLE: Adding sub-sub-categories (etc) to a Category
-------------------------------------------------------
+EXAMPLE: Adding sub-sub-categories (etc.) to a Category
+-------------------------------------------------------
 Xaraya allows the site administrator to make categories with sub-sub-categories and sub-sub-categories (see below). In this example, we'll make a category with two sub-categories, and two sub-sub-categories.
 
 		Animals of all sorts
@@ -1933,7 +2373,7 @@ Create a main category called "Animals". Create a sub-category of Animals called
 
 		- Click "Add" to save category.
 
-	- Add the Jack Russell Terrriers sub-sub-category. Admin->Categories->Add Category. Enter the main category with the following parameters:
+	- Add the Jack Russell Terriers sub-sub-category. Admin->Categories->Add Category. Enter the main category with the following parameters:
 		- Name: Jack Russell Terriers
 
 		- Description: "Terriers!"
@@ -1968,8 +2408,8 @@ This module allows a site administrator to automatically filter -- or 'censor' -
 		- Key word: Each objectionable word/phrase is listed alphabetically.
 
 		- Options: For each word/phrase, the following options are available.
-			- Edit: Permits modficiation of an objectionable word/phrase. Click "Modify Censor" to save changes.
-			- Delete: Permits deltion of an objectionable word/phrase. Confirm your intention to delete the item on the next panel.
+			- Edit: Permits modification of an objectionable word/phrase. Click "Modify Censor" to save changes.
+			- Delete: Permits deletion of an objectionable word/phrase. Confirm your intention to delete the item on the next panel.
 
 	- Modify config:
 	This panel allows modification of configuration options for this module.
@@ -2089,7 +2529,7 @@ This module will assist in the conversion of PostNuke or PHPnuke themes to Xaray
 - Dyn_example Module: Dynamic Data example for new modules.
 
 - Ephemerids Module: Admin->Ephemerids. A "This day in history" module. Admin->Ephemerids.
-Ephemerids is a small "Today In History"-type module. Once Ephermids are installed and a few ephermids are added, they can be displayed on the site by placing an Ephemerid block wherever you wish to display the Ephemerid.
+Ephemerids is a small "Today In History"-type module. Once Ephemerids are installed and a few ephermids are added, they can be displayed on the site by placing an Ephemerid block wherever you wish to display the Ephemerid.
 
 To add a new Ephemerid, click Admin->Ephemerids->Add. Enter the day, the month, the year, and a description of the Ephemerid in the fields.
 
@@ -2109,6 +2549,11 @@ Click Admin->Ephemerids->Modify config to modify the number of ephemerids displa
 
 EXAMPLE: Adding an Ephemerids block
 -----------------------------------
+In this example, we'll add an Ephemerid block to the front page of the site. The process for adding an Ephemerid block is the same as adding any other block instance. If you're comfortable with adding block instances, you can skip this example.
+
+First we must make sure that Ephemerids are installed & stocked with data. Install the Ephemerid module if necessary. Go to Admin->Ephemerids->Add and add a few ephemerids. In order to see the results of your work, enter at least one ephemerid with today's date.
+
+Next, go to Admin->Blocks->Add Instance. Enter the title of your new block ("Today in history..."), select "ephemerids \ ephem" from the Type drop-down list, select the Group for the block (right), and click "Create Instance". To check that your new block instance has been created, go to Admin->Blocks->View Instances. You will see "Today in history..." (or whatever you called your block) listed. To view the Ephemerid, go to the front page of the site. You'll see the ephemerid block displayed there!
 
 - Example Module: Example for new modules. Admin->Example.
 	- Add Item:
@@ -2147,7 +2592,7 @@ EXAMPLE: Adding an Ephemerids block
 		- Click "Update config" to save changes.
 
 - Figlet Module (Mod distro): TRANSFORM. Transform text to ASCII art. Admin->Figlet.
-This is an EXTREMELY important module for Xaraya. Perhaps the single most important module, because no other Xaraya module allows a user to enter plain old text and convert it to nice ASCII art.
+This is an EXTREMELY important module for Xaraya. Perhaps the single most important module, because no other Xaraya module allows a user to enter plain old text and convert it to nice, useless ASCII art. Just kidding. This is a fun module, nothing more.
 	- Modify config:
 	This panel allows modification of configuration options for this module.
 		- Available fonts: This drop-down list is simply a DISPLAY of fonts that are available for the Figlet module. Fonts must exist in the <xarroot>/modules/figlet/xarfonts directory, and any new fonts you wish to install go into that directory. Note that Figlet uses FLF-format font files. Check http://www.figlet.org for information on fonts for use with Figlet.
@@ -2919,6 +3364,7 @@ To allow users to upload images to the site and include the uploaded images in a
 
 EXAMPLE: Configuring forums with XarBB
 --------------------------------------
+OTTO
 
 - Xmlrpcserver Module: Base XML-RPC server, support for multiple APIs through other modules. No administration panel.
 
@@ -2951,14 +3397,43 @@ You can find a validation service at http://validator.xmlrpc.com. You can use th
 - Xslt Module (Mod distro): TRANSFORM. XSLT transform hook.
 If Xaraya returns an error when you attempt to install this module, you may not have the necessary PHP extension installed. Refer to http://www.php.net/manual/en/ref.xslt.php for instructions on how to install the necessary extensions.
 
-KNOWLEDGE REVIEW: Manipulating Modules
---------------------------------------
-OTTO:
+KNOWLEDGE REVIEW: Manipulating Modules (Adding and Removing Modules)
+--------------------------------------------------------------------
+It is easy to add or remove modules at any time after Xaraya installation.
+- Adding a new module:
+To add a new module to Xaraya, follow these steps:
+	- Download the new module.
+
+	- Un-archive the new module into a temporary directory (if necessary).
+
+	- Configure the module (read the module's documentation to determine what pre-installation configuration, if any, is necessary).
+
+	- Copy (or upload) the module directory & sub-directory from the temporary directory to <xarroot>/modules.
+
+	- Assign appropriate ownership and permissions (if necessary).
+
+	- As the site administrator, go to Admin->Modules->View All. CHECK the Regenerate box at the top right of the panel and click the "Reload" button. Xaraya will scan the <xarroot>/modules directory and display all modules that are available, including the new module.
+
+	- Click "Install" on the line next to the new module you wish to install. The module will be installed.
+
+	- Perform any post-installation configuration of the module (if necessary). If a module has post-installation configuration options available, you can click on the module name in Admin->Modules->View All to go to the module's configuration panel. You may also click on the module name in the Admin menu on the left of the browser window.
+
+- Removing a module:
+To remove a module from Xaraya, follow these steps:
+	- Identify the module you wish to remove.
+
+	- As the site administrator, go to Admin->Modules->View All.
+
+	- If the module is active, click "Deactivate" on the line with the module to be removed. When a  module has been deactivated, it is no longer available to users but no module data is removed. If you intend to make the module active again in the future but do not want the module to be available to users at the moment, it is advised to leave the module in a deactivated state.
+
+	- To completely remove the module's data, click "Remove". The module's data is removed from the database (including configuration settings and stored information). Once a module has been "Removed", it is necessary to re-install and re-configure the module if you intend to use it again.
+
+	- If you wish to remove the module completely from your Xaraya site, delete the module's directory from <xarroot>/modules. Consult your webserver's operating system documentation for how to accomplish this.
 
 HOOKS:
 ======
-Introduction to Hooks
----------------------
+An Introduction to Hooks
+------------------------
 Hooks extend the functionality of modules by allowing site resources to be re-used in a variety of ways across the site. Hooks increase the interoperability and efficiency of Xaraya. For example, a site resource is BBCODE (which allows bbcode-style formatting to be used in text entry). Rather than code BBCODE for articles and re-code it again for comments, we can simply "hook" BBCODE functionality into the articles and comments modules, and any other modules we wish.
 
 Xaraya provides two different methods to view or edit hooks.
@@ -2978,19 +3453,30 @@ Each of these two methods serve the same purpose -- to display hooked modules an
 				- or -
 				Check the Article Types for which you'd like Autolinks to be activated, for example:
 					- CHECK News Articles
+
 					- CHECK Reviews
+
 					- CHECK FAQs
+
 					- Check any additional Article Types as you wish.
+
 			CHECK Comments
+
 			CHECK Wiki
+
 			Click "Save Changes" to save changes.
+
 		- COMMENTS:
 			CHECK Articles
 				Check the Article Types for which you'd like Autolinks to be activated, for example:
 					- CHECK News Articles
+
 					- CHECK Reviews
+
 					- CHECK FAQs
+
 					- Check any additional Article Types as you wish.
+
 			Click "Save Changes" to save changes.
 
 KNOWLEDGE REVIEW: Handling Hooks
@@ -3000,7 +3486,9 @@ OTTO:
 (optional: The below should be included LATER in the docs, after the user has had a chance to read all the module overviews)
 	- Admin->Adminpanels->Modify config:
 		- CHECK Disable Module Overviews
+
 		- Click "Submit" to save changes.
+
 (optional: The above should be included LATER in the docs, after the user has had a chance to read all the module overviews)
 
 ARTICLES:
@@ -3010,21 +3498,31 @@ OTTO: GENERAL OVERVIEW OF ARTICLES
 
 OTTO: CONFIGURE CATEGORIES
 		- Set Default number of categories per page to "50"
+
 		- Click "Submit" to save changes.
 
 	- ARTICLES->Modify config:
 		- CHECK Use 'frontpage' as alias in short URLs
+
 		- Set Number of Columns to "1" (single column display)
+
 		- Set Items per Page to "15"
+
 		- CHECK Show category links in article summaries
+
 		- CHECK Show previous/next category
+
 		- CHECK Show ratings
+
 		- CHECK Show links to publication types
+
 		- CHECK Show link to previous/next article in display
+
 		- Click "Update Configuration" to save changes.
 
 	- COMMENTS->Modify config:
 		- Set Default Rendering Style to "Nested"
+
 		- Click "Update Configuration" to save changes.
 
 PUBLICATION TYPES:
@@ -3043,7 +3541,36 @@ A default set of publication types and templates (corresponding to the old News,
 
 Want to display recipes on your site? Create a new Publication Type, and Xaraya can do that.
 
-OTTO: Joe Admin might want to have a Category called <sitename>, and below that are grouped all the PubTypes for that site...  This "<sitename>" category could be called the ROOT CATEGORY.
+A good strategy for configuration of Categories is to create a top-level Category called <sitename>, and below that group all the sub-categories for the site. This "<sitename>" top-level category could be considered to be the ROOT CATEGORY, with additional Categories placed below the ROOT CATEGORY. For example, if the site is "MySite.COM":
+	MySite.COM (root category)
+	|
+	|---World News (sub-category)
+	|   |
+	|   |---North American News (sub-sub-category)
+	|   |   |
+	|   |   |---United States News (sub-sub-sub-category)
+	|   |       |
+	|   |       |---Ohio News (sub-sub-sub-sub-category)
+	|   |       |
+	|   |       |---Nevada News (sub-sub-sub-sub-category)
+	|   |       |
+	|   |       |---etc...
+	|   |
+	|   |---Asian News (sub-sub-category)
+	|       |
+	|       |---China News (sub-sub-sub-category)
+	|       |
+	|       |---Japan News (sub-sub-sub-category)
+	|       |
+	|       |---etc...
+	|
+	|---Sports News (sub-category)
+	|
+	|---Music News (sub-category)
+	|
+	|---Entertainment News (sub-category)
+	|
+	|---etc...
 
 PUBLICATION TYPES CAN BE USED ONLY BY ARTICLES. CATEGORIES CAN BE USED BY ALL MODULES. A module that cannot fit into a Publication Type can still use Categories if they want. Plus 'Site News' could be a Category; you can put news articles in there... But you might ALSO have a 'Software News' Category.
 
@@ -3154,16 +3681,18 @@ EXAMPLE: New Publication Type: A Blogger
 
 	FILES INCLUDED WITH THIS TUTORIAL:
 	----------------------------------
-	The following files are included with this tutorial.
-
+	The following files are included with this tutorial. OTTO: Move to FILES INCLUDED WITH THIS GUIDE, above, when complete.
 		-
 
 	ACTIVATING NECESSARY MODULES FOR BLOGGING:
 	------------------------------------------
 	In order to configure our Xaraya site for blogging, it is necessary to ensure that certain modules are activated. We need to activate at least three (and, optionally, a fourth) modules:
 		- articles -- storage of the blog entries
+
 		- bloggerapi -- the central axis for blogging in Xaraya
+
 		- categories -- categorization of blogs
+
 		- comments (optional) -- provides the ability to comment on blog entries
 
 	To activate the modules, log in as Administrator and go to Admin->Modules->View All. Some of the modules listed above may already be active on your site. If the modules listed above are not shown with a Status of "Active", they each need to be installed by clicking "Install" on their line.
@@ -3286,8 +3815,11 @@ This advanced example shows how to create a new Publication Type (Recipes) using
 	To add dynamic data field(s) to the new publication type, go to Admin->Articles->Publication Types. Find the 'recipes' Publication Type that we created in CREATE A NEW PUBLICATION TYPE, above, and click Article Config next to it. Near the bottom of the next screen, you'll see "Dynamic Data Fields [modify]". Click "[modify]" and in the new window that opens, enter the Dynamic Data as follows:
 	
 		Label: photo (NOTE: Lower case.)
+
 		Property Type: Image
+
 		Data Source: dynamic_data
+
 		Status: Active
 	
 	Click "Update Properties" to save changes. Close the window and return to the previous browser window for the rest of the steps.
@@ -3297,30 +3829,42 @@ This advanced example shows how to create a new Publication Type (Recipes) using
 	To add the new cateory (and optional sub-categories), go to Admin->Categories. Click "Add Category" to add a new Category. For this example:
 	
 	Create a new Category called "Recipes Category" by following the steps below:
-	
 		- Name: Recipes Category
+
 		- Description: This is the recipes category for this site.
+
 		- In relation to this category: Generic1
+
 		- Position: Right before, in the same level
+
 		- Optional image: categoryrecipes_top.jpg
+
 		- Click "Add" to add the new category.
 	
 	Create three sub-categories: "Appetizers & Soups", "Breads & Baked Goods", and finally "Desserts". To create the "Appetizers & Soups" sub-category, click "Add Category" and follow these steps:
-	
 		- Name: Appetizers & Soups
+
 		- Description: Soups and Appetizer recipes go here.
+
 		- In relation to this category: Recipes Category
+
 		- Position: The first child category
+
 		- Optional image: categorysoups.jpg
+
 		- Click "Add" to add the new category.
 	
 	To create the next two sub-categories, click "Add Category" and follow these steps:
-	
 		- Name: Breads & Baked Goods
+
 		- Description: Breads & baked goods recipes go here.
+
 		- In relation to this category: Recipes Category / Appetizers & Soups
+
 		- Position: Right after, in the same level
+
 		- Optional image: categorybaked.jpg
+
 		- Click "Add" to add the new category.
 	
 	Create another sub-category, typing "Desserts" in the Name field, "Dessert recipes go here" for the Description, and "categorydesserts.jpg" as the image.
@@ -3342,18 +3886,31 @@ This advanced example shows how to create a new Publication Type (Recipes) using
 	Still in Admin->Articles->Modify config, click on the description of the publication type we just created (in this example, it's "Recipe Collection"). Make the following changes:
 	
 		Use 'recipes' as alias in short URLs: CHECKED
+
 		Default start view: Browse in Recipes Category
+
 		Number of columns ($numcols): 1
+
 		Items per page ($number): 10
+
 		Show category links in article summaries ($categories): CHECKED
+
 		Show previous/next category ($showprevnext): CHECKED
+
 		Show number of comments ($comments): CHECKED
+
 		Show hit counts ($counter): CHECKED
+
 		Show ratings ($rating): CHECKED
+
 		Show links to publication types ($showpublinks + includes/publinks.xd): CHECKED
+
 		Show link to archives ($archivelink + $archivelabel): CHECKED
+
 		Show link to article map ($maplink + $maplabel): CHECKED
+
 		Call transform hooks in summaries: UNCHECKED
+
 		Show link to previous/next article in display ($prevart + $nextart): CHECKED
 		
 		NOTE: Items enclosed in parenthesis above are the names of the variables used in templates.
@@ -3367,17 +3924,22 @@ This advanced example shows how to create a new Publication Type (Recipes) using
 	Template files are placed into the <xarroot>/modules/articles/xartemplates directory, and should be called 'user-display-<pubtype>.xd', 'user-summary-<pubtype>.xd', and  (optionally) 'user-view-<pubtype>.xd', where <pubtype> is the name of the Publication Type (in this tutorial, <pubtype> is "recipes" as created in step #2 above):
 	
 		user-display-recipes.xd -- this is the main view of the data
+
 		user-summary-recpies.xd -- this is a summary view of the data
+
 		user-view-recipes.xd (optional)
 	
 	If you wish to create theme-specific versions of these files, rename the files from *.xd to *.xt and place the theme-specific version in the <xarroot>/themes/<theme_name>/modules/articles directory, creating directories as necessary.
 	
 	It is recommended that you begin by examining the example files included with this tutorial, or open one of the sample templates provided with Xaraya and make changes as necessary using your favorite HTML editor. Where ever you want to display the fields in the new Publication Type, enter "#$fieldname#" (no quotes) in the template. Xaraya will replace "#$fieldname#" with the contents of the field as stored in the database. In this tutorial, we created the following fields, which are available for display in the template using the #$fieldname# indicated in parenthesis:
-	
 		- title (#$title#)
+
 		- summary (#$summary#)
+
 		- bodytext (#$bodytext#)
+
 		- notes (#$notes#)
+
 		- photo (#$photo#)
 	
 	The templates included with this tutorial distribution expect to find a file called "NoPhoto.gif" in the <xarroot>/images/recipes/ directory of your website. This file is displayed if a Photograph URL is not provided in the article submission, and is included with this tutorial distribution. Copy NoPhoto.gif to the <xarroot>/images/recipes/ directory, creating directories as necessary.
@@ -3466,21 +4028,34 @@ MODULES: COMMENTS:
 Admin->Comments->Modify config:
 	Default Rendering Depth: 1
 		Options are 1...9.
+
 	Default Rendering Style: Nested
 		Nested:
+
 		Flat:
+
 		Threaded:
+
 		No Comments:
+
 	Default Sorting Mode: Thread
 		Author:
+
 		Date:
+
 		Thread:
+
 		Title:
+
 	Default Sorting Order: Ascending
 		Ascending:
+
 		Descending:
+
 	Allow registered users to post anonymously?: CHECKED
+
 	Authorize comments before they show up?: UNCHECKED
+
 	Click "Update Configuration" to save.
 
 PRIVILEGES: BUILDING BLOCKS FOR SITE ACCESS
@@ -3594,9 +4169,13 @@ Xaraya comes preconfigured with a minimal set of Roles that are loaded when you 
 				|---Users
 
 	- Everybody: The Role containing all other roles. This Role has no access privileges.
+
 	- Anonymous: A user that represents ALL unregistered users on your site. This Role is initially configured with Privileges only to access the front page of the site and the login block.
+
 	- Administrators: A group that has administration privileges.
+
 	- Admin: A member of Administrators group. This is the Admin role you create with the Xaraya installer.
+
 	- Users: A group that normally holds registered users of the site. This role is not preconfigured with any privileges. Members of this Group will not have access to the site until you assign privileges.
 
 The preconfigured Roles cannot be changed or removed. However, you can add members to them. You can also define as many more Roles in the tree as you wish in whatever configuration you choose.
@@ -3609,8 +4188,11 @@ This panel displays a tree-view of all Roles on the site. The following options 
 
 	- Admin->Roles->View All Groups->"Two people" icon: Display users assigned to this Role.
 		- View All: View all users in this Role.
+
 		- View Inactive: View inactive users in this Role.
+
 		- View Not Validated: View users in this Role who have not yet validated their account.
+
 		- View Active: View only active users in this Role.
 		
 	Click the name of a specific user to go to a Modify User Role panel where the selected user can be edited, or added to (or removed from) a particular Role.
@@ -3620,7 +4202,9 @@ This panel displays a tree-view of all Roles on the site. The following options 
 	- Admin->Roles->View All Groups->"Envelope" icon: Send a plain-text email to all members of this Role.
 	The following variables are available to be used in the Subject or Body of the email (see Site Emails, below, for more information on using variables):
 		%%name%% 	Display name for the user on the site
+
 		%%sitename%% 	Site Name
+
 		%%siteadmin%% 	Name of the site administrator
 
 		- Subject: Enter the subject of your email message in this field.
@@ -3633,22 +4217,33 @@ This panel displays a tree-view of all Roles on the site. The following options 
 		Privileges are displayed in two categories:
 			- Inherited Privileges
 				- Name: The name of the privilege
+
 				- Realm: The realm in which the privilege exists
+
 				- Module: The specific module affected by the privilege
+
 				- Component: The module component affected by the privilege
+
 				- Instance: The instance affected by the privilege
+
 				- Level: The access level of the privilege
+
 				- From Group: The group from which the privileges were inherited. Click the privilege name to view it.
 
 			- Assigned Privileges
 				- Name: The name of the privilege
+
 				- Realm: The realm in which the privilege exists
+
 				- Module: The specific module affected by the privilege
+
 				- Component: The module component affected by the privilege
+
 				- Instance: The instance affected by the privilege
+
 				- Level: The access level of the privilege
 				
-				- If a privilege can be removed, a "Remove" link is displayed in the far right column. Click "Remove" to delete the privilege. Only directly-assigned privileges can be removed from this panel.
+			- If a privilege can be removed, a "Remove" link is displayed in the far right column. Click "Remove" to delete the privilege. Only directly-assigned privileges can be removed from this panel.
 
 		Assign a Privilege to Role <rolename>:
 			- Privilege Drop-down list
@@ -3673,12 +4268,12 @@ This panel displays a tree-view of all Roles on the site. The following options 
 
 	- Email: Email address of the user to be added.
 
-	- State:
+	- State: From this drop-down list, select the state for the new user's account.
 		- Inactive:
 
 		- Not Validated:
 
-		- Active:
+		- Active: The user's account is validated and fully activated.
 
 		- Pending:
 
@@ -3696,9 +4291,13 @@ The next few options allow customization of the site emails.
 
 The following variables can be included in the email (either subject or body) and are replaced in the text with specific information:
 	%%username%% 	User's username on the site
+
 	%%name%% 	Display name for the user on the site
+
 	%%sitename%% 	Site Name
+
 	%%siteadmin%% 	Name of the site administrator
+
 	%%password%% 	User's password
 
 Additionally, if you have configured Dynamic Data for the Roles module, available Dynamic Date objects are listed as variables.
@@ -3711,8 +4310,11 @@ Additionally, if you have configured Dynamic Data for the Roles module, availabl
   	The following variables are available in this message body or subject:
 
 	    	%%link%%: The link on which the the user must click to complete registration
+
 	    	%%ipaddr%%: The IP address of the person registering
+
 	    	%%name%%: Name given by user during registration
+
 	    	%%valcode%%: Validation code to activate the user's account
 
 	- Admin->Roles->Welcome Email:
@@ -3876,55 +4478,111 @@ Happy Xaraya-ing!
 
 -drew vogel 
 
-APPENDIX A: System Requirements
-===============================
-The general requirements for Xaraya are driven by the software that you wish to run on the computer. If your computer is capable of running PHP, MySQL, and the webserver (Apache / IIS / etc.), then it can certainly run Xaraya. More generous hardware configurations, additional memory, and increased storage space will improve the performance and capabilities of the system. 
+APPENDIX A: XARAYA LICENSE
+==========================
+Xaraya is licensed and distributed under the GNU General Public License. The text of the GNU General Public License is below.
 
-Make sure that your system meets or exceeds these requirements.
-* Hardware Requirements
-	- Processor & memory: Xaraya's requirements are less than the requirements of the software used to run Xaraya. So, if your computer can run an operating system that will run PHP, MySQL, and a webserver, it should be able to run Xaraya.
+GNU GENERAL PUBLIC LICENSE Version 2, June 1991
 
-	- Network connection: A network connection, either Internet or Intranet, is very highly recommended, but technically, it is not required -- Xaraya will run on a computer without network access.
+Copyright (C) 1989, 1991 Free Software Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
 
-	- Storage: The minimum storage space for an installation of Xaraya is approximately 8 megabytes. However, this amount of storage leaves little room for expansion. It is therefore recommended that Xaraya is allocated at LEAST 25 megabytes of storage space.
+Preamble
+--------
+The licenses for most software are designed to take away your freedom to share and change it.  By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users.  This General Public License applies to most of the Free Software Foundation's software and to any other program whose authors commit to using it.  (Some other Free Software Foundation software is covered by the GNU Library General Public License instead.)  You can apply it to your programs, too.
 
-* Software Requirements
-Before Xaraya can be run, it first needs to be installed or upgraded from a previous version. Before Xaraya can be installed, there are other pieces of software that must be installed and functioning on your system, and additional pieces of software that you may wish to install.
-	- Supported operating systems include: Linux, BSD, MacOSX, Solaris, HP-UX, AIX, Win98/NT/2000/XP, Sun Cobalt OS (RAQ4)
+When we speak of free software, we are referring to freedom, not price.  Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software (and charge for this service if you wish), that you receive source code or can get it if you want it, that you can change the software or use pieces of it in new free programs; and that you know you can do these things.
 
-	- A functioning webserver (Apache or IIS, among others).
+To protect your rights, we need to make restrictions that forbid anyone to deny you these rights or to ask you to surrender the rights. These restrictions translate to certain responsibilities for you if you distribute copies of the software, or if you modify it.
 
-	- A working installation of PHP (version 4.1.2 or higher) compiled with MySQL support. PHP is the language in which Xaraya is written. Without PHP support, the web server would not be able to parse the PHP files and your site would not function.
+For example, if you distribute copies of such a program, whether gratis or for a fee, you must give the recipients all the rights that you have.  You must make sure that they, too, receive or can get the source code.  And you must show them these terms so they know their rights.
 
-	- A working database management system (MySQL 3.23 or higher or PostGRESQL). If you want to install Xaraya on PostGRESQL, you have to switch on TCP/IP Connection Support in the PostGRESQL server configuration.
+We protect your rights with two steps: (1) copyright the software, and (2) offer you this license which gives you legal permission to copy, distribute and/or modify the software.
 
-* Software Recommendations
-Some additional software packages will speed up your web site or offer enhanced features. You may wish to install these packages.
-	- phpMyAdmin (http://phpmyadmin.sourceforge.net) -- recommended only if the site will be using the MySQL database system -- phpMyAdmin is a cross-platform free utility that can manage an entire MySQL server. Many users may not have root (administrator) access to the database of their hosted site. If that is the case, you will need to create the database using an online tool such as phpMyAdmin.
+Also, for each author's protection and ours, we want to make certain that everyone understands that there is no warranty for this free software.  If the software is modified by someone else and passed on, we want its recipients to know that what they have is not the original, so that any problems introduced by others will not reflect on the original authors' reputations.
 
-	- It is strongly recommended that a properly configured & working email subsystem (for example, SendMail, PostFix, QMail, ProcMail, etc) is installed on your server. Most hosted sites will provide this subsystem. It is beyond the scope of this document to cover the installation and configuration of this software.
+Finally, any free program is threatened constantly by software patents.  We wish to avoid the danger that redistributors of a free program will individually obtain patent licenses, in effect making the program proprietary.  To prevent this, we have made it clear that any patent must be licensed for everyone's free use or not licensed at all.
 
-	- PHP Accelerator (http://www.php-accelerator.co.uk) -- PHP Accelerator is free, able to deliver performance gains & load average reduction to rival or exceed the very best alternatives, and is the intelligent choice of script caching solutions for PHP-based sites.
-		
-* Tools You Can Use
-You may need the following applications to facilitate your installation. If you need to download any of these programs, check http://www.download.com or http://www.tucows.com.
-	- An FTP program
+The precise terms and conditions for copying, distribution and modification follow.
 
-	- A Telnet program that supports SSH
+GNU GENERAL PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+------------------------------------------------------------------------------------------
+0. This License applies to any program or other work which contains a notice placed by the copyright holder saying it may be distributed under the terms of this General Public License.  The "Program", below, refers to any such program or work, and a "work based on the Program" means either the Program or any derivative work under copyright law: that is to say, a work containing the Program or a portion of it, either verbatim or with modifications and/or translated into another language.  (Hereinafter, translation is included without limitation in the term "modification".)  Each licensee is addressed as "you".
 
-	- An ASCII text editor
+Activities other than copying, distribution and modification are not covered by this License; they are outside its scope.  The act of running the Program is not restricted, and the output from the Program is covered only if its contents constitute a work based on the Program (independent of having been made by running the Program). Whether that is true depends on what the Program does.
 
-	- A compression tool (TAR, ZIP, etc.)
+1. You may copy and distribute verbatim copies of the Program's source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and give any other recipients of the Program a copy of this License along with the Program.
 
-	- PHPdev (http://www.firepages.com.au) -- PHPdev preconfigured version of Apache / PHP / MySQL for Windows. After installing you should be able to start creating PHP / MySQL web-applications right away.
+You may charge a fee for the physical act of transferring a copy, and you may at your option offer warranty protection in exchange for a fee.
 
-	- PHPTriad (http://sourceforge.net/projects/phptriad) -- PHPTriad installs a complete working PHP/MySQL server environment on Windows platforms (9x/NT). Installs PHP, Perl, MySQL, Apache, and PHPMyAdmin. 
-		
-	- FoxServ (http://www.foxserv.net) -- FoxServ is an extremely handy tool for Xaraya users to get Apache / MySQL / PHP / Perl up and running quickly, particularly for Windows servers. 
+2. You may modify your copy or copies of the Program or any portion of it, thus forming a work based on the Program, and copy and distribute such modifications or work under the terms of Section 1 above, provided that you also meet all of these conditions:
 
-	- Apache Toolbox (http://www.apachetoolbox.com) -- Apache Toolbox is a fully customizable and menu driven script for Linux that will install Apache / MySQL / PHP / PERL, and much more. Everything is compiled from source. This is an advanced tool for Linux. 
+a) You must cause the modified files to carry prominent notices stating that you changed the files and the date of any change.
 
-APPENDIX B: Creating the Xaraya database via phpMyAdmin
+b) You must cause any work that you distribute or publish, that in whole or in part contains or is derived from the Program or any part thereof, to be licensed as a whole at no charge to all third parties under the terms of this License.
+
+c) If the modified program normally reads commands interactively when run, you must cause it, when started running for such interactive use in the most ordinary way, to print or display an announcement including an appropriate copyright notice and a notice that there is no warranty (or else, saying that you provide a warranty) and that users may redistribute the program under these conditions, and telling the user how to view a copy of this License.  (Exception: if the Program itself is interactive but does not normally print such an announcement, your work based on the Program is not required to print an announcement.)
+
+These requirements apply to the modified work as a whole.  If identifiable sections of that work are not derived from the Program, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works.  But when you distribute the same sections as part of a whole which is a work based on the Program, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it.
+
+Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Program.
+
+In addition, mere aggregation of another work not based on the Program with the Program (or with a work based on the Program) on a volume of a storage or distribution medium does not bring the other work under the scope of this License.
+
+3. You may copy and distribute the Program (or a work based on it, under Section 2) in object code or executable form under the terms of Sections 1 and 2 above provided that you also do one of the following:
+
+a) Accompany it with the complete corresponding machine-readable source code, which must be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
+
+b) Accompany it with a written offer, valid for at least three years, to give any third party, for a charge no more than your cost of physically performing source distribution, a complete machine-readable copy of the corresponding source code, to be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
+
+c) Accompany it with the information you received as to the offer to distribute corresponding source code.  (This alternative is allowed only for noncommercial distribution and only if you received the program in object code or executable form with such an offer, in accord with Subsection b above.)
+
+The source code for a work means the preferred form of the work for making modifications to it.  For an executable work, complete source code means all the source code for all modules it contains, plus any associated interface definition files, plus the scripts used to control compilation and installation of the executable.  However, as a special exception, the source code distributed need not include anything that is normally distributed (in either source or binary form) with the major components (compiler, kernel, and so on) of the operating system on which the executable runs, unless that component itself accompanies the executable.
+
+If distribution of executable or object code is made by offering access to copy from a designated place, then offering equivalent access to copy the source code from the same place counts as distribution of the source code, even though third parties are not compelled to copy the source along with the object code.
+
+4. You may not copy, modify, sublicense, or distribute the Program except as expressly provided under this License.  Any attempt otherwise to copy, modify, sublicense or distribute the Program is void, and will automatically terminate your rights under this License. However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance.
+
+5. You are not required to accept this License, since you have not signed it.  However, nothing else grants you permission to modify or distribute the Program or its derivative works.  These actions are prohibited by law if you do not accept this License.  Therefore, by modifying or distributing the Program (or any work based on the Program), you indicate your acceptance of this License to do so, and all its terms and conditions for copying, distributing or modifying the Program or works based on it.
+
+6. Each time you redistribute the Program (or any work based on the Program), the recipient automatically receives a license from the original licensor to copy, distribute or modify the Program subject to these terms and conditions.  You may not impose any further restrictions on the recipients' exercise of the rights granted herein. You are not responsible for enforcing compliance by third parties to this License.
+
+7. If, as a consequence of a court judgment or allegation of patent infringement or for any other reason (not limited to patent issues), conditions are imposed on you (whether by court order, agreement or otherwise) that contradict the conditions of this License, they do not excuse you from the conditions of this License.  If you cannot distribute so as to satisfy simultaneously your obligations under this License and any other pertinent obligations, then as a consequence you may not distribute the Program at all.  For example, if a patent license would not permit royalty-free redistribution of the Program by all those who receive copies directly or indirectly through you, then the only way you could satisfy both it and this License would be to refrain entirely from distribution of the Program.
+
+If any portion of this section is held invalid or unenforceable under any particular circumstance, the balance of the section is intended to apply and the section as a whole is intended to apply in other circumstances.
+
+It is not the purpose of this section to induce you to infringe any patents or other property right claims or to contest validity of any such claims; this section has the sole purpose of protecting the integrity of the free software distribution system, which is implemented by public license practices.  Many people have made generous contributions to the wide range of software distributed through that system in reliance on consistent application of that system; it is up to the author/donor to decide if he or she is willing to distribute software through any other system and a licensee cannot impose that choice.
+
+This section is intended to make thoroughly clear what is believed to be a consequence of the rest of this License.
+
+8. If the distribution and/or use of the Program is restricted in certain countries either by patents or by copyrighted interfaces, the original copyright holder who places the Program under this License may add an explicit geographical distribution limitation excluding those countries, so that distribution is permitted only in or among countries not thus excluded.  In such case, this License incorporates the limitation as if written in the body of this License.
+
+9. The Free Software Foundation may publish revised and/or new versions of the General Public License from time to time.  Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.
+
+Each version is given a distinguishing version number.  If the Program specifies a version number of this License which applies to it and "any later version", you have the option of following the terms and conditions either of that version or of any later version published by the Free Software Foundation.  If the Program does not specify a version number of this License, you may choose any version ever published by the Free Software Foundation.
+
+10. If you wish to incorporate parts of the Program into other free programs whose distribution conditions are different, write to the author to ask for permission.  For software which is copyrighted by the Free Software Foundation, write to the Free Software Foundation; we sometimes make exceptions for this.  Our decision will be guided by the two goals of preserving the free status of all derivatives of our free software and of promoting the sharing and reuse of software generally.
+
+NO WARRANTY
+-----------
+11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+
+12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+END OF TERMS AND CONDITIONS
+
+APPENDIX B: DOCUMENT LICENSE
+============================
+Copyright (c) 2003 Drew Vogel <drew@xaraya.com>.
+The Official Xaraya Installation & Getting Started Guide is licensed and distributed under the GNU Free Documentation License.
+
+Parts are copyright (c) 2003 mikespub <postnuke@mikespub.net>. Used with permission.
+Parts are copyright (c) 2003 Skribe <skribe@plug.linux.org.au>. Used with permission.
+Parts are copyright (c) 2003 Mahmood Al-Yousif <mahmood@alyousif.tv>. Used with permission.
+Parts are copyright (c) 2003 John Cox <niceguyeddie@xaraya.com>. Used with permission.
+
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with the Invariant Sections being "Introduction by John Cox", "Document Thanks", and "Dedications", no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is available at http://www.gnu.org/licenses/fdl.html.
+
+APPENDIX C: Creating the Xaraya database via phpMyAdmin
 =======================================================
 If Xaraya successfully created your database, skip to "Administrator Account Creation", below. If Xaraya cannot create the database for you, you should use phpMyAdmin to create an empty database called "Xaraya" and configure access permissions. This can be a two-step process:
 	- Using phpMyAdmin, create a user in the database if necessary
@@ -3962,7 +4620,7 @@ If Xaraya successfully created your database, skip to "Administrator Account Cre
 
 	- Once the empty "Xaraya" database has been created, re-run the Xaraya installer and UNCHECK "Create the database" under Database Settings Collection.
 
-APPENDIX C: Enabling Short URL support in Apache 2.x
+APPENDIX D: Enabling Short URL support in Apache 2.x
 ====================================================
 Short URLs work without modifying your Apache 1.x configuration.
 
@@ -3970,9 +4628,9 @@ If you are running Apache 2.x on your webserver and wish to support Short URLs, 
 	AcceptPathInfo On
 to your httpd.conf file (usually /etc/httpd/conf/httpd.conf on RedHat systems). Restart Apache once the change has been saved ("apachectl graceful" on RedHat systems). See the documentation on the Apache website for more information about adding this directive.
 
-APPENDIX D: Creating a Xaraya Theme
+APPENDIX E: Creating a Xaraya Theme
 ===================================
-How to create a Xaraya Theme 
+How to create a Xaraya Theme
 http://www.mahmood.tv/index.php/docs/20
 
 I gave http://www.computerpoint.tv a make-over in less than a couple of hours, and that included installing Xaraya, importing the previous PostNuke 0.723 data AND creating the theme! Themes with BlockLayout are extremely easy. I am sure I haven't even scratched the surface or capabilities of the BlockLayout templating engine, but I got it done, here's how:
@@ -3980,22 +4638,22 @@ I gave http://www.computerpoint.tv a make-over in less than a couple of hours, a
 1. Copy the Xaraya_Classic theme into whatever name you like your new theme to be, let's say 'MacyGray':
 
 # cd <xarroot>/themes
-# cp -R Xaraya_Classic MacyGray 
+# cp -R Xaraya_Classic MacyGray
 
-2. Reserve an ID on Xaraya.com and note the ID you've chosen. Edit the <xarroot>/themes/MacyGray/xartheme.php file and enter your Theme ID there. While in that file, change all other information that needs to change like the theme name, directory etc. In vi I do: 
+2. Reserve an ID on Xaraya.com and note the ID you've chosen. Edit the <xarroot>/themes/MacyGray/xartheme.php file and enter your Theme ID there. While in that file, change all other information that needs to change like the theme name, directory etc. In vi I do:
 
-:g/Xaraya_Classic/s//MacyGray/g 
+:g/Xaraya_Classic/s//MacyGray/g
 
 that will replace all occurances of 'Xaraya_Classic' with 'MacyGray'
 
-To do the same for all other files in <xarroot>/themes/MacyGray, do a grep to see where 'Xaraya_Classic' occurs then change that as I've done above in vi or whatever editor you use: 
+To do the same for all other files in <xarroot>/themes/MacyGray, do a grep to see where 'Xaraya_Classic' occurs then change that as I've done above in vi or whatever editor you use:
 
 # cd themes/MacyGray
-# grep -R Xaraya_Classic * 
+# grep -R Xaraya_Classic *
 
-This will spew all occurances of Xaraya_Classic in all the files in the directory and the subdirectories, then go to each file and do a replace as above. 
+This will spew all occurances of Xaraya_Classic in all the files in the directory and the subdirectories, then go to each file and do a replace as above.
 
-3. Now that you have the basic framework for MacyGray, it is time to get creative!! 
+3. Now that you have the basic framework for MacyGray, it is time to get creative!
 
 Use your HTML editor to load <xarroot>/themes/MacyGray/default.xt.
 
@@ -4009,13 +4667,13 @@ Place graphics and other elements. Basically, create your theme here then save t
 
 6. Go to the Admin->Themes->View Themes. CHECK "Regenerate" and click "Reload". Then initialize and activate your new theme.
 
-7. Go to Admin->Themes->Modify config and set your new theme as the default... 
+7. Go to Admin->Themes->Modify config and set your new theme as the default...
 
-et voila! Now you have a new theme for Xaraya!! 
+et voila! Now you have a new theme for Xaraya!!
 
-For variables and tags to use (if you need more that is, you could check the BlockLayout RFC on Xaraya.com) 
+For variables and tags to use (if you need more that is, you could check the BlockLayout RFC on Xaraya.com)
 
-APPENDIX E: Converting from PostNuke to Xaraya
+APPENDIX F: Converting from PostNuke to Xaraya
 ==============================================
 Conversion of an existing PostNuke site to Xaraya is easy.
 
@@ -4034,8 +4692,11 @@ To convert from PostNuke to Xaraya, follow the steps below.
 
 	5. Copy the import_pn*.php files from the Xaraya Base distribution's "/tests/import/postnuke" directory to your <xarroot> directory. Give the <xarroot>/import_pn*.php files appropriate system permissions and ownership so they can be accessed via the web. For example:
 		- "cp /test/import/postnuke/import_pn*.php <xarroot>"
+
 		- "cd <xarroot>"
+
 		- "chown -R web:apache import_pn*.php"
+
 		- "chmod -R 770 import_pn*.php"
 
 	6. From a browser, go to http://www.yourwebsite.com/<xarroot>/import_pn.php. Follow the on-screen steps to import each area of the PostNuke site into Xaraya.
@@ -4047,5 +4708,6 @@ To convert from PostNuke to Xaraya, follow the steps below.
 	9. If you no longer intend to run PostNuke, the PostNuke tables can be deleted from the database using the command line or phpMyAdmin.
 
 After conversion, the PostNuke tables in the database may be deleted, if desired.
+
 =-=-=-
 EOF

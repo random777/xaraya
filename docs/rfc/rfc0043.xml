@@ -94,6 +94,23 @@
         
       </t>
     </section>
+
+    <section title="Alternative Approach">
+      <t>
+       An alternative approach consists of using the (module + item type + item id)
+       combination as unique identifier, and to rely on the original module to provide
+       a relevant title and link to that module item via a standard user API function :
+       &lt;module>_userapi_getitemlinks().
+      </t>
+      <t>
+       This allows hook modules (or any other module) to present titles and links of
+       other module items when they want to, without paying the price mentioned above
+       for all queries.
+      </t>
+      <t>
+       See also RFC 42 about the module hooks system.
+      </t>
+    </section>
   </middle>
 
   <!-- Back matter is used for references and appendices which come after the references -->

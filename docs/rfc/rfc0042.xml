@@ -604,6 +604,171 @@ function &lt;module&gt;_adminapi_removehook($args)
             </section>
     </section>
 
+    <section title="Hints on using different item types in your modules">
+<t>
+Many of the more complex modules deal with different types of items.
+For instance : articles, calendar, cast, contact, events, issueareapub,
+nascar, shopping, todolist, workflow, xarbb or xproject.
+</t>
+<t>
+Unfortunately, they often don't make use of the notion of item types,
+which means that they (and your future module users) can't really benefit
+from Xaraya's hook system. Wouldn't it be nice if you could enable
+categories just for one item type, or extend your item types in distinct
+ways via dynamicdata, or enable transformations for some item types
+but not for others, etc. ? :-)
+</t>
+<t>
+Here's a little overview on how to adapt your modules to use item types,
+so that you can make full use of the Xaraya hook system.
+</t>
+<section title="Identify your item types">
+<t>
+This is generally pretty easy - just see how many different module tables
+that you have in your module. Each of those is probably a good candidate
+for becoming a separate item type.
+</t>
+<t>
+Or if you have lots of similar functions like create_this, create_that, etc., 
+that's another indicator for spotting item types.
+</t>
+</section>
+<section title="Make them known to Xaraya">
+<t>
+All you need for that is to provide a user API function getitemtypes(), in
+modules/&lt;mymodule>/xaruserapi/getitemtypes.php or in your global
+modules/&lt;mymodule>/xaruserapi.php file.
+</t>
+<t>
+This way, the hook system will know your module handles different
+item types, and it will present them as separate checkboxes to the
+site admin in the hooks configuration screens.
+</t>
+<t>
+Your getitemtypes() function should return an array of
+                 <artwork>
+$itemtypes[$itemtype] = array('label' => 'some label to display',
+                              'title' => 'some link title to use',
+                              'url' => &lt;url to view them (if relevant)>);
+                 </artwork>
+</t>
+<t>
+In some cases, this array will be static (e.g. one per module table),
+or in others this may be built up dynamically - like for articles pubtypes
+or dynamicdata objects for instance.
+</t>
+</section>
+<section title="Call the right hooks with the right arguments">
+<t>
+Many modules still don't specify the calling module or item type
+in their hook calls, or don't even call hooks at all. This makes it
+impossible for Xaraya to figure out which hooks it should actually call,
+so you'll want to go through your code and adapt the xarModCallHooks()
+calls if necessary.
+</t>
+<t>
+This RFC explains the
+different hook calls and what parameters they expect. In most cases,
+adaptation is pretty straight-forward : just create an array with the
+item information, the module and the itemtype, and pass that as $extrainfo
+argument instead of (whatever).
+</t>
+</section>
+<section title="Sit back and relax :-)">
+</section>
+<t>
+========================== extra credit ==========================
+</t>
+<t>
+There are a few other things you can do to make life easier for your
+module users later on :
+</t>
+<section title="Provide links to your items in top hits, top ratings, categories etc.">
+<t>
+For this, you'll need to have a user API function getitemlinks(), that
+accepts the itemtype and an array of itemids as input, and returns an
+array of
+                 <artwork>
+$itemlinks[$itemid] =  array('label' => 'some text/title to display',
+                             'title' => 'some link title to use',
+                             'url' => &lt;url to display it (if relevant)>);
+                 </artwork>
+</t>
+</section>
+<section title="Working with categories">
+<t>
+Now that the categories module supports different item types per module,
+you can re-use it more easily to let your users navigate through your
+items by category.
+</t>
+<t>
+The easiest approach would be to define a dynamic object for each of your
+item types, and to let DD handle the selection for you. For that, all you
+need to do is fetch the 'catid' variable from the input, and pass it along
+to your DD function call or BL tag, together with the item type that you're
+dealing with. You'll find some different ways to do that in the dyn_example
+module.
+</t>
+<t>
+Slightly more difficult is when you're doing your own database queries etc.
+In that case, you can retrieve the relevant pieces of SQL from the categories
+module, and include them in your queries. For instance :
+
+                 <artwork>
+if (xarModIsHooked('categories','mymodule',$thistype)) {
+    // Get the LEFT JOIN ... ON ...  and WHERE parts from categories
+    $categoriesdef = xarModAPIFunc('categories','user','leftjoin',
+                                   array('modid' => 
+                                          xarModGetIDFromName('mymodule'),
+                                         'itemtype' => $type,
+                                         'catid' => $catid));
+    $query = "SELECT xar_this, xar_that
+              FROM ( $mytable
+              LEFT JOIN $categoriesdef[table]
+              ON $categoriesdef[field] = xar_myitemid )
+              $categoriesdef[more]
+              WHERE xar_whatever = 'something'
+              AND $categoriesdef[where]";
+} else {
+    $query = "SELECT xar_this, xar_that
+              FROM $mytable
+              WHERE xar_whatever = 'something'";
+}
+                 </artwork>
+</t>
+<t>
+And retrieving the categories for some items can be done with :
+
+                 <artwork>
+$cids = xarModAPIFunc('categories','user','getlinks',
+                      array('iids' => array($item1, $item2, ...),
+                            'itemtype' => $mytype,
+                            'modid' => xarModGetIDFromName('mymodule'),
+                            'reverse' => 1));
+                 </artwork>
+</t>
+<t>
+Now all you need to do is add some categories navigation tag in your
+templates, and people will be able to browse through your items too :
+
+                 <artwork>
+&lt;xar:if condition="xarModIsHooked('categories','mymodule',$thistype)">
+  &lt;xar:categories-navigation layout="trails" showchildren="1" 
+  module="mymodule" itemtype="$thistype" catid="$catid" />
+&lt;/xar:if>
+                 </artwork>
+</t>
+<t>
+Note: all of that is done automagically by the dynamicdata module
+if you let it handle the selection and display :-)
+</t>
+</section>
+<t>
+That's about all I can think of regarding item types, and how
+you can benefit from Xaraya's hook system by using them...
+</t>
+    </section>
+
     <section title="When (not) to use hooks">
         <t>Comparison with API calls and the event system...</t>
     </section>
@@ -630,6 +795,7 @@ function &lt;module&gt;_adminapi_removehook($args)
 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2003-10-24: Add Hints on using different item types in your modules</t>
       <t>2003-06-28: Add comments on how to call hooks on behalf of a particular module, and how to specify the item type (if any)</t>
       <t>2003-03-27: Start filling in some sections</t>
       <t>2003-02-27: Created</t>

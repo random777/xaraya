@@ -338,5 +338,29 @@ $modversion['dependency'] = $mastermodules;
         </artwork>
       </t>
     </section>
+    <section title="Required PHP extensions">
+      <t>
+        Some modules may require specific PHP extensions that aren't included in
+        standard PHP installations. In order to allow the modules system to identify
+        those extensions, a module with such requirements must have the following
+        definition in its xarversion.php file:
+      </t>
+      <t>
+        if the module requires a single extension:
+        <artwork>
+$modversion['extensions'] = array('ldap');
+        </artwork>
+      </t>
+      <t>
+        if the module requires several extensions:
+        <artwork>
+$modversion['extensions'] = array('ldap','xslt');
+        </artwork>
+      </t>
+      <t>
+        if $modversion['extensions'] is not defined the system will assume
+        that your module does not require any specific PHP extensions
+      </t>
+    </section>
   </back>
 </rfc>

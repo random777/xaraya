@@ -2,12 +2,20 @@ This file explains how our patch system works.
 
 
 Patches can be submitted by anyone, not having an account on our server but able
-to clone the repository at
+to clone our main repository.
 
-http://bk.xaraya.com/xaraya-patches (FIXME: this url currently doesn't work bu we want it to be)
+The patches repository is server at:
 
+http://xaraya.com:15000/xaraya-patches 
 
-we configured this repository that anybody can push changes to the repository, but 
+for the log files (the normal location) and at
+
+http://xaraya.com:16000 for the patch submission
+
+(NOTE: your webbrowser won't have a lot to see on that page though, I used
+the http protocol, so most people behind a firewall can also submit patches)
+
+We configured this repository that anybody can push changes to the repository, but 
 the changes are put into a PENDING queue pending for review. Cloning this repository 
 is not possible.
 

@@ -105,6 +105,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Voll Metenchuk (Voll)
 
+  Vassilis Stratigakis (GabrielConnor)
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 Other development credits

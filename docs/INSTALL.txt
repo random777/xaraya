@@ -1,104 +1,51 @@
 PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
-NOTE: Detailed installation instructions can be found in the Official
-Xaraya Installation & Getting Started Guide, in the XarayaGuide.txt
-file which is included in the root directory of this release. The
-Guide will provide a clear understanding of installation and
-configuration of Xaraya.
+NOTE: Detailed installation instructions can be found in the Official Xaraya Installation & Getting Started Guide, in the XarayaGuide.txt file which is included in the root directory of this release. The Guide will provide a clear understanding of installation and configuration of Xaraya.
 
 Xaraya: adam_baum Beta (.9.8.0)
-=============================== 
+===============================
+Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
 
-Xaraya is an Open Source application framework.  Xaraya started as a
-fork of PostNuke (http://www.postnuke.com) and PHPNuke
-(http://www.phpnuke.org).  Xaraya provides many enhancements and
-improvements over the two systems and is a complete rewrite from the
-ground up. Xaraya is still undergoing development, but a large number
-of core functions are now stabilizing and a complete API for
-third-party developers is now in place.
+If you would like to help develop this software, please visit our homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
 
-If you would like to help develop this software, please visit our
-homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
-
-You can also visit us in channel #support or #chat, on our IRC Server
-irc.Xaraya.com.
+You can also visit us in channel #support or #chat, on our IRC Server irc.Xaraya.com.
 
 Directories in the Xaraya distribution
 ======================================
-
 The Xaraya distributions consist of the following directory structure.
+	- docs: The documentation for Xaraya and components. It is not necessary to copy this directory to the webserver.
 
-- docs: The documentation for Xaraya and components. It is not
-necessary to copy this directory to the webserver.
-- html: This directory contains the files and sub-directories that
-comprise Xaraya. For Xaraya to function, these files and
-sub-directories must be copied to the webserver.
+	- html: This directory contains the files and sub-directories that comprise Xaraya. For Xaraya to function, these files and sub-directories must be copied to the webserver.
 
-These files and sub-directories can be copied either to a
-sub-directory of the webserver's <webdir> (for example,
-<webdir>/<subdir>) or directly to the webserver's <webdir> (for
-example, <webdir>/).
+	These files and sub-directories can be copied either to a sub-directory of the webserver's <webdir> (for example, <webdir>/<subdir>) or directly to the webserver's <webdir> (for example, <webdir>/).
 
-If you install Xaraya into a sub-directory of the <webdir>, your users
-will have to type the sub-directory name in the URL. For example, if
-you install Xaraya into <webdir>/xaraya, your users will have to visit
-"http://www.yoursite.com/xaraya" to get to Xaraya. If you wish for
-Xaraya to exist in the <webdir> (so that users will visit
-"http://www.yoursite.com" to get to Xaraya), copy Xaraya's files &
-sub-directories to <webdir>.
+	If you install Xaraya into a sub-directory of the <webdir>, your users will have to type the sub-directory name in the URL. For example, if you install Xaraya into <webdir>/xaraya, your users will have to visit "http://www.yoursite.com/xaraya" to get to Xaraya. If you wish for Xaraya to exist in the <webdir> (so that users will visit "http://www.yoursite.com" to get to Xaraya), copy Xaraya's files & sub-directories to <webdir>.
 
-- sql: Contains empty database definition files that correctly
-configure Xaraya's databases. Xaraya's installer creates the databases
-without using these files, but if the site administrator wishes to
-examine the data structure, these files can be useful. It is not
-necessary to copy this directory to the webserver.
+	- sql: Contains empty database definition files that correctly configure Xaraya's databases. Xaraya's installer creates the databases without using these files, but if the site administrator wishes to examine the data structure, these files can be useful. It is not necessary to copy this directory to the webserver.
 
-- tests: This directory contains code that is being tested and is
-usable at your own risk. Noteworthy in this directory is the 'import'
-sub-directory, which contains utilities to import data from other
-Content Management Systems into Xaraya. It is not necessary to copy
-this directory to the webserver. Pieces you wish to test can be copied
-individually to the webserver.
+	- tests: This directory contains code that is being tested and is usable at your own risk. Noteworthy in this directory is the 'import' sub-directory, which contains utilities to import data from other Content Management Systems into Xaraya. It is not necessary to copy this directory to the webserver. Pieces you wish to test can be copied individually to the webserver.
 
 New Installation
 ================
+First Xaraya needs to be copied to your webserver. Not all files need to be copied - just the contents of the html subdirectory included in this package. The contents of that directory can be copied directly to your webserver document root or they can be put in a subdirectory.
 
-First Xaraya needs to be copied to your webserver. Not all files need
-to be copied - just the contents of the html subdirectory included in
-this package. The contents of that directory can be copied directly to
-your webserver document root or they can be put in a subdirectory.
-
-Xaraya has a fully graphical install process to provide a simple set
-of steps to get your site up and running.
+Xaraya has a fully graphical install process to provide a simple set of steps to get your site up and running.
 
 Then, we can run the installation, depending on what you copied where:
 	[everything in webdir]         	http://www.foo.com/html/install.php
 	[only html content in webdir]  	http://www.foo.com/install.php
-	[everything in subdir]		http://www.foo.com/bar/html/install.php
-	[only html content in subdir]   http://www.foo.com/bar/install.php
+  	[everything in subdir]		http://www.foo.com/bar/html/install.php
+  	[only html content in subdir]   http://www.foo.com/bar/install.php
 
-To install your Xaraya system, run the appropriate path to install.php
-from your browser to start the installation process.  The exact URL
-depends on your site, but the examples above should illustrate how to
-work out what the correct path will be.
+To install your Xaraya system, run the appropriate path to install.php from your browser to start the installation process.  The exact URL depends on your site, but the examples above should illustrate how to work out what the correct path will be.
 
-Follow the instructions in the installation script and when prompted
-for either a new install or an upgrade select 'new install'.  The
-installer will create the required database tables and set up the
-account for the person who will act as the administrator of the site.
-Once complete you should be able to start using your Xaraya site
-immediately.
+Follow the instructions in the installation script and when prompted for either a new install or an upgrade select 'new install'.  The installer will create the required database tables and set up the account for the person who will act as the administrator of the site.  Once complete you should be able to start using your Xaraya site immediately.
 
-Please note that the option to "create the database" is related to
-whether you need the installer to create the database itself first or
-whether it can just go ahead and populate an already existing
-database.
+Please note that the option to "create the database" is related to whether you need the installer to create the database itself first or whether it can just go ahead and populate an already existing database.
 
 Upgrades
 ========
-
-Please visit the #support channel for information on upgrading from
-PostNuke to Xaraya.
+Please visit the #support channel for information on upgrading from PostNuke or PHP-Nuke to Xaraya.
 
    DB Changes between versions
    ----------------------------------------------------
@@ -114,79 +61,45 @@ PostNuke to Xaraya.
    .9.1.2 -> .9.1.3 None
    .9.1.3 -> .9.1.4 None
    .9.1.4 -> .9.7.0 Various mod and configure mod changes
-                    to core module.  Various Time functions 
-	                  upgraded.
-   .9.7.0 -> .9.8.0 none
-  ----------------------------------------------------
+	    to core module.  Various Time functions 
+	    upgraded.
+   .9.7.0 -> .9.8.0 None
+   ----------------------------------------------------
 
 - To upgrade Xaraya to a new version:
+	* Backup the old Xaraya installation & database
 
-* Backup the old Xaraya installation & database
+	* Log in to your existing Xaraya site with administration rights.
 
-* Log in to your existing Xaraya site with administration rights.
+	* Ensure that your existing Publication Type configurations are up-to-date with the older version of Xaraya. While logged in as Administrator, go to Admin->Articles->Modify config and click the "Update Configuration" button to ensure that old Publication Type configurations are updated to the current version states.
 
-* Ensure that your existing Publication Type configurations are
-up-to-date with the older version of Xaraya. While logged in as
-Administrator, go to Admin->Articles->Modify config and click the
-"Update Configuration" button to ensure that old Publication Type
-configurations are updated to the current version states.
+	* Replace all existing files, directories, and modules _EXCEPT_ <xarroot>/var/config.system.php with the new Xaraya files. The existing <xarroot>/var/config.system.php must be retained; the upgrade script reads database settings from this file.
 
-* Replace all existing files, directories, and modules _EXCEPT_
-<xarroot>/var/config.system.php with the new Xaraya files. The
-existing <xarroot>/var/config.system.php must be retained; the upgrade
-script reads database settings from this file.
+	* Check permissions and ownership of the new files.
 
-* Check permissions and ownership of the new files.
-
-* In the same browser window, point your browser to upgrade.php in your
-root directory. For example, http://www.mywebsite.com/upgrade.php.
+	* In the same browser window, point your browser to upgrade.php in your root directory. For example, http://www.mywebsite.com/upgrade.php.
 	
-* Follow the instructions in the upgrade script.
+	* Follow the instructions in the upgrade script.
 	
-* After the upgrade has completed, remove upgrade.php and install.php
-from your web directory and ensure that
-<xarroot>/var/config.system.php has appropriate permissions. See
-Increase Site Security, below.
+	* After the upgrade has completed, remove upgrade.php and install.php from your web directory and ensure that <xarroot>/var/config.system.php has appropriate permissions. See Increase Site Security, below.
 
-* Go to Admin->Modules->View All, CHECK the Regenerate box and click
-RELOAD. Upgrade required modules that are indicated by the status of
-UPGRADE.
+	* Go to Admin->Modules->View All, CHECK the Regenerate box and click RELOAD. Upgrade required modules that are indicated by the status of UPGRADE.
 
 Caution
 =======
-
-Versions of PostNuke and other derivatives often include plugins that
-alter the database core tables through adding fields, changing names,
-etc. It should be noted that Xaraya does not support any modification
-of the core tables (those that come with this Xaraya distribution) or
-direct access to the core database tables.  APIs are provided for
-developers to use for these purposes, so that future planned changes
-will have a minimal impact on third-party added functionality, and
-these APIs should be used at all times.
+Versions of PostNuke and other derivatives often include plugins that alter the database core tables through adding fields, changing names, etc. It should be noted that Xaraya does not support any modification of the core tables (those that come with this Xaraya distribution) or direct access to the core database tables.  APIs are provided for developers to use for these purposes, so that future planned changes will have a minimal impact on third-party added functionality, and these APIs should be used at all times.
 
 Common Installation Errors
 ==========================
 
-If you are having difficulties getting past the boot phase,
-specifically errors about not being able to open the CACHEKEYS file
-for writing, try deleting the file: html/var/templates/CACHEKEYS
+If you are having difficulties getting past the boot phase, specifically errors about not being able to open the CACHEKEYS file for writing, try deleting the file:
+    html/var/templates/CACHEKEYS
 
-Installer stops during bootphase.  This could be a multitude of
-problems with our compatibility with your server configuration.
-Please log the error messages to the Users newsgroup as well as
-http://bugs.xaraya.com .  The SQL file has been refreshed for .9.7.0
-so you can try a manual installation of the database.
+Installer stops during bootphase.  This could be a multitude of problems with our compatibility with your server configuration.  Please log the error messages to the Users newsgroup as well as http://bugs.xaraya.com .  The SQL file has been refreshed for .9.7.0 so you can try a manual installation of the database.
 
-The html/var/cache/rss and html/var/cache/templates both need to be
-writable and executable, along with the config.system.php file.
+The html/var/cache/rss and html/var/cache/templates both need to be writable and executable, along with the config.system.php file.
 
-If you have a problem with install of your databases, and you recieve
-a message: ErrorNo: 1142, Message:Database error while executing:
-'CREATE INDEX i_base_xar_uid ON xar_session_info (xar_uid)'; error
-description is: 'index command denied to user: 'debeemster@localhost'
-for table 'xar_session_info''.
+If you have a problem with install of your databases, and you recieve a message:
+	ErrorNo: 1142, Message:Database error while executing: 'CREATE INDEX i_base_xar_uid ON xar_session_info (xar_uid)'; error description is: 'index command denied to user: 'debeemster@localhost' for table 'xar_session_info''.
 
-This is an indication that you or your host does not allow the
-permission in the database to create indexes.  The system will suffer
-from slow performance without the DB index, and it is in your host's
-best interest to allow them.
+This is an indication that you or your host does not allow the permission in the database to create indexes.  The system will suffer from slow performance without the DB index, and it is in your host's best interest to allow them.

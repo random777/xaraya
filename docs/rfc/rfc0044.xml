@@ -539,6 +539,98 @@
  
     </section>
 
+    <section title="Helper docs">
+      <section title="Scenario status report">
+        <t>
+          When working in a scenario it is necessary to give some status back to the group every
+          now and then. A biweekly or monthly status report is the suggested schedule. Use the 
+          template below for submitting status reports.
+          <artwork>
+            Scenario status report
+            ======================
+
+            1. Scenario
+            -----------
+            &lt;Try to use the name as in roadmap&gt;
+
+            2. Developers change
+            --------------------
+            2.1 Developer name (both Real name and irc nick)
+            2.2 Developer emailaddress
+            2.3 Added/Removed/Away till:__/__/____/
+
+            3. Status changes
+            -----------------
+            Date of effect:
+            Percentage complete:
+            Duration:
+            Dependency:
+
+            4. Remarks
+            ---------- 
+              &lt;Anything missed above &gt;
+
+            Mail this template:
+              - to: xaraya_pmc@xaraya.com
+              - cc: xaraya_committers@xaraya.com
+            You will get notification when the roadmap has been updated with the info, 
+            so you can check if we've done it right.
+          </artwork>
+        </t>
+    </section>
+      <section title="Scenario assignment">
+        <t>
+          When starting a new scenario (locally, in a group) you can
+          use the template below to register it. This will trigger the 
+          following actions:
+          <list style="numbers">
+            <t>check in bugzilla if the appropriate components are available</t>
+            <t>allocate a repository area on the server, if applicable</t>
+            <t>creating the right accounts, if necessary</t>
+            <t>...</t>
+          </list>
+          <artwork>
+            Scenario assigment template
+            ===========================
+
+            1. Scenario
+            -----------
+            &lt;This name will be used in the roadmap&gt;
+
+            2. Names of developers working in the scenario
+            ----------------------------------------------
+            2.1 Developer name (both Real name and irc nick)
+            2.2 Developer emailaddress
+            &lt;only team lead is necessary, rest is optional&gt;
+
+            3. Scenario data
+            ----------------
+            3.1 Description
+              &lt;Give a short paragraph on the what and why&gt;
+            3.2 start date
+            3.3 estimated amount of time needed in total
+            3.4 percentage complete
+            3.5 dependencies 
+              (as in: which scenarios do you need to be complete first before you can finish)
+            
+            4. Infrastructure
+            -----------------
+            4.1 Server scenario needed: yes/no
+            4.2 Web interface needed: yes/no
+            4.3 Triggers needed: yes/no
+              &gt;Specify if you have special wishes&gt;
+
+            5. Remarks
+            ---------- 
+              &lt;Anything missed above &gt;
+
+            Mail this template to: xaraya_pmc@xaraya.com
+            You will get notification whether we can include the scenario and 
+            where the updated roadmap is available.
+          </artwork>
+        </t>
+      </section>
+    </section>
     <section title="Database">
       <t>
         The following rules are used in database related things:

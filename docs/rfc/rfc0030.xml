@@ -50,27 +50,38 @@
         we use in relation to the security system.
         <list style="symbols">
           <t>
-            Component: The name for an object-type that can be protected with
-            the security system.
+            Role: refers to a named set of 1 or more users. A role can correspond to a group or a user. Role names are unique.
+            <t>
+            Example: the site administrator or the group of registered users are both roles.
+            </t>
           </t>
           <t>
-            Instance: The name for an identifier for a specific instance of a
-            component.
+            Privilege: refers to an object that can grant a particular kind of access to a module component (see below).
+            <t>
+            Example: the ability to see the front page, or its login block is a privilege.
+            </t>
           </t>
           <t>
-            Access level: A number that defines the level of access in a privilege or a mask.
+            Module: refers to a functional unit of a Xaraya site.
           </t>
           <t>
-            Privilege: An object defined by a component, instance and an access level that together define the access to the component.
+            Component: refers to a group of resources that can be protected with
+            the security system. Components are defined by the modules they reside in. Components can be visually discrete resources, such as blocks or web pages, or they can be functionality resources, such as the ability to add or edit items.
           </t>
           <t>
-            Mask: A tuple for a component specifying how it can be protected.
-            The tuple consists of a component name, an instance name and an access level. The mask specifies how a privilege need be defined for access to the component.
-            Masks are registered upon module initialisation.
+            Instance: refers to a specific instance of a
+            component. 
+          <t>
+            Example: the login block on the front page of a Xaraya site is an instance of the Block component in the Roles module. An administrator might choose to create more than one such instance e.g. in a multilingual site.
+          </t>
           </t>
           <t>
-            Role: A named set of 1 or more users. A role can correspond to a group or a user.
+            Mask: refers to a special kind of privilege used to check other privileges. Each mask protects one or more components. When a mask is encountered it is checked against the user's privileges to see whether access to the component in question is granted.
+         </t>
+          <t>
+            Access level: refers to the type of access granted by a privilege or required by a mask.
           </t>
+
         </list>
       </t>
     </section>
@@ -139,14 +150,6 @@
           </t>
         </list>
       </t>
-      <t>
-        Note on usage: the code is currently implemented as two Xaraya
-        modules: Roles and Privileges. The modules can be
-        loaded in the normal way. They interact only with each other
-        and therefore can be tested freely. Each module can also be
-        disinstalled independently. The underlying database tables
-        should only be manipulated through the module interface.
-      </t>
     </section>
     
     <!-- One content section is mandatory -->
@@ -179,7 +182,7 @@
           <list style="numbers">
             <t>
               Roles defined as Users cannot themselves have children.
-              (i.e. a role which has one user is a leaf of the roles tree)
+              (i.e. a role which is a user is a leaf of the roles tree)
             </t>
             <t>
               A role cannot be a parent of one of its
@@ -222,21 +225,15 @@
           initialization time. They are:
           <artwork>
           
-            Everybody (Group)
+            Everybody           (Group)
             |
-            |--Administrators (Group)
+            |--Administrators   (Group)
             |  |
-            |  |--Admin (User)
-            |  
-            |--Oversight (Group)
-            |  |
-            |  |--Overseer (User)
+            |  |--Admin         (User)
+            |               
+            |--Users            (Group)
             |
-            |--Users (Group)
-            |
-            |--Anonymous (User)
-            |
-            |--Current (User)
+            |--Anonymous        (User)
           </artwork>
         </t>
         <t>
@@ -252,38 +249,25 @@
           deleted.
         </t>
         <t>
-          Oversight: This is a group that contains users that are
-          administrators of the site. The group contains one such user, the Overseer. 
-          Members of this group have ADMIN access to the entire site, with exception to the Roles and Privileges modules. 
-          This role may be modified or deleted.
-        </t>
-        <t>
           Users: This is a group that represents users of the
-          site. This role may be modified or deleted.
+          site. This role may not be modified or deleted.
         </t>
         <t>
           Anonymous: This is a user that represents users of the site
-          that are not logged in. This role may be modified or
+          that are not logged in. This role may not be modified or
           deleted.
-        </t>
-        <t>
-          Current: This is a user that represents the current user of
-          the system. At runtime Current is the user querying the
-          privileges system. This role cannot be modified or deleted.
         </t>
       </section>
 
       <section title="Privileges">
         <t>
           The Xaraya concept of privileges has a structure similar to
-          privileges in PostNuke. A privilege is an object that
-          incorporates:
+          privileges in PostNuke. A privilege is an object grants a particular type of access to a resource. Every privilege incorporates:
           <list style="symbols">
 <!--
             <t>
               A reference to the Realm it applies to. In addition to
-              the list of available realms, a privilegep can also apply to
-              "None" or "All".  
+              the list of available realms, a privilege can also apply to "All".  
             </t> 
 -->
             <t>
@@ -291,17 +275,17 @@
               for the UI however it is convenient. For the privilege it is not
               relevant which module has registered the component etc.]
               applies to. In addition to the list of available modules, a
-              privilege can also apply to "None" or "All".  
+              privilege can also apply to "All".  
             </t> 
             <t>
               A reference to the Component within the Module it applies
               to. In addition to the list of available components of a
-              module, a privilege can also apply to "None" or "All".
+              module, a privilege can also apply to "All".
             </t> 
             <t>
               A reference to the Instance of the Component it
               applies to. In addition to the list of available instances,
-              a privilege can also apply to "None" or "All".  
+              a privilege can also apply to "All".  
             </t> 
             <t>
               A privileges Level it refers to. The levels have the
@@ -317,8 +301,8 @@
               A name which identifies it. The name is used as a
               shorthand reference to the privilege in the UI and must
               be unique. It is good practice to use names that help
-              understand what a privilege gives away on protection, such 
-              as "ReadAll" or  "DeleteExamplesAll".  
+              understand the rights a privilege grants, such 
+              as "ReadArticleItems" or  "DeleteExamplesBlocks".  
             </t> 
             <t>
               A description that contains detail information about the
@@ -332,30 +316,36 @@
           Similar to roles, privileges can be composed of other
           privileges. In addition to the attributes described above a
           privilege can have any number of subprivileges. A privilege
-          can also be a component of any number of "parent"
+          can also be a part of any number of "parent"
           privileges. However, privileges do not live in a single
           hierarchy. Instead, the UI presents all the privileges in a
-          list, with each privilege containing its children in a
-          separate tree, as the following example shows:
+          list, with each privilege containing its subprivileges in a
+          separate list, as the following example shows:
           <artwork>
-            NoPrivileges                a privilege with no children
+            NoPrivileges                a privilege with no subprivileges
             
-            Administration              another privilege with no children
+            Administration              another privilege with no subprivileges
             
-            ReadAll                     a privilege with 2 children and a grandchild
-            |
-            |--DeleteExamplesAll
-            |  |
-            |  |--CommentArticles
-            |  
-            |--AddContact
+            CasualAccess                a privilege with 2 subprivileges, 
+             contains:                  
+               ViewRolesBlock           one of which itself contains 
+                contains:
+                  ViewLoginBlock        2 subprivileges.
+                  ViewOnlineBlock
+               ViewThemes
           </artwork>
+        </t>
+        <t>
+          N.B.: Privileges can be defined as empty containers, i.e. not themselves granting any rights. This is useful if they only serve to group other privileges. In the example above the privilege CasualAccess is an empty container that holds its 2 subprivileges.
         </t>
         <t>
           In the above example note that although the names are
           suggestive of certain behaviour there is no fixed naming
           rule. You can assign any names you want as long as they are
-          unique. Furthermore there is no rule for how to group
+          unique within their module. 
+        </t>
+        <t>
+          Furthermore there is no rule for how to group
           privileges, for instance by module. A good administrator
           will structure his privileges according to the roles he
           wants to assign them to, rather than by component or level.
@@ -364,16 +354,16 @@
           In Xaraya privileges are defined without reference to any
           group or user. They are objects with no relevance until they
           are assigned to one or more roles. As explained below,
-          assigning the head of a privileges tree to a role assigns
-          ALL the components of the tree of that privilege.
+          assigning a privilege to a role also assigns
+          ALL the subprivileges of that privilege to the role.
         </t>
         <t>
           For convenience a number of privileges have been created
           at initialization time. These are:
           <list style="symbols">
             <t>
-              "NoPrivileges" is the privilege representing the lowest
-              level of access to all Xaraya modules, i.e. no access. This Privilege cannot be modified or
+              "NoAccess" is the privilege representing the lowest
+              level of access to all Xaraya modules, i.e. no access. This privilege cannot be modified or
           deleted. It
               has the attributes:
               <artwork>
@@ -383,7 +373,7 @@
               </artwork>
             </t>
             <t>
-              Administration is the privilege representing the highest
+              "Administration" is the privilege representing the highest
               level of access to all Xaraya modules, i.e. the ability to
               do anything. This privilege cannot be modified or
           deleted. It has the attributes:
@@ -393,23 +383,10 @@
                 All       All       All          All         ACCESS_ADMIN    
               </artwork>
             </t>
+        <t>
+          "CasualAccess" is the privilege defined for the unregistered user Anonymous. Unregistered users initially have access only to the front page of the site and the login block.
+        </t>
           </list>
-        </t>
-        <t>
-          The following privileges are also created but can be
-          modified or deleted
-          <artwork>
-            Name     Realm     Module    Component    Instance    Level
-            -------- --------- --------- ------------ ----------- ------------
-            ReadAll  All       All       All          All         ACCESS_READ    
-            EditAll  All       All       All          All         ACCESS_EDIT    
-            AddAll   All       All       All          All         ACCESS_ADD    
-          </artwork>
-        </t>
-        <t>
-          Note Version 1.0: A privilege can also be empty, i.e. not
-          have any attributes. In this case it is just a container for
-          other privileges.
         </t>
       </section>
 
@@ -453,10 +430,10 @@
           example two privileges are defined on the Examples module:
           
           <artwork>
-            Name     Realm     Module    Component    Instance    Level
-            -------- --------- --------- ------------ ----------- ------------
-            ReadExp  All       Examples  All          All         ACCESS_READ    
-            EditExp  All       Examples  All          All         ACCESS_EDIT    
+            Name              Realm     Module    Component    Instance    Level
+            ----------------- --------- --------- ------------ ----------- ------------
+            ReadExampleBlock  All       Examples  Block        All         ACCESS_READ    
+            EditExampleBlock  All       Examples  Block        All         ACCESS_EDIT    
           </artwork>
           
           The privilege EditExp implies ReadExp.
@@ -468,11 +445,11 @@
         <t>
           In the following example, however:
           <artwork>
-            Name     Realm     Module    Component    Instance    Level
-            -------- --------- --------- ------------ ----------- ------------
-            ReadExp  All       Examples  All          All         ACCESS_READ    
-            EditArt  All       Articles  All          All         ACCESS_EDIT    
-            EditArt1 1         Articles  All          All         ACCESS_EDIT    
+            Name              Realm     Module    Component    Instance    Level
+            ----------------- --------- --------- ------------ ----------- ------------
+            ReadExampleBlock  All       Examples  Block        All         ACCESS_READ    
+            EditArticleBlock  All       Articles  Block        All         ACCESS_EDIT    
+            EditArticleItem   1         Articles  Item         All         ACCESS_EDIT    
           </artwork>
           none of the privileges imply any of the others, as they
           refer to different modules and/or realms. We call such
@@ -495,7 +472,7 @@
           children. As mentioned above since each privilege refers
           to a single realm/module/component/instance combination, you
           create more complex privilege-schemes by successively
-          adding privileges to the tree. During a security check all
+          adding privileges to other privileges. During a security check all
           the component privileges in the tree will be taken into
           account.
         </t>
@@ -967,14 +944,16 @@
           
           <artwork>
             Table xar_roles     Table xar_rolemembers
-            xar_rid                    xar_rid
+            xar_uid                    xar_uid
             xar_name                   xar_parentid
             xar_type
-            xar_parent
+            xar_users
             xar_uname
             xar_email
             xar_pass
-            xar_url
+            xar_date_reg
+            xar_valcode
+            xar_state
             xar_auth_module
           </artwork>
           The field xar_type is 0 implies child is a user, 1 implies
@@ -984,11 +963,11 @@
         </t>
       </section>
 
-      <section title="Security masks Table">
+      <section title="Masks Table">
         <t>
           <artwork>
-            Table xar_securitymasks
-            xar_mid
+            Table xar_security_masks
+            xar_sid
             xar_name
             xar_realm  [MrB: leave it for now, don't use it]
             xar_module 
@@ -1000,7 +979,22 @@
         </t>
       </section>
 
-      <section title="Privileges Table">
+      <section title="Instances Table">
+        <t>
+          <artwork>
+            Table xar_security_instances
+            xar_iid
+            xar_module 
+            xar_component
+            xar_header
+            xar_query
+            xar_limit
+            xar_description
+          </artwork>
+        </t>
+      </section>
+
+      <section title="Privileges Tables">
         <t>
           <artwork>
             Table xar_privileges      Table xar_permmembers
@@ -1019,7 +1013,7 @@
       <section title="ACL Table">
         <t>
           <artwork>
-            Table xar_acl
+            Table xar_security_acl
             xar_partid
             xar_privid
           </artwork>
@@ -1030,8 +1024,11 @@
     
     <section title="Syntax">
       <t>
-      <section title="Registering Components and Masks">
+      <section title="Registering Masks">
       <t>
+         A mask is a special kind of privilege used to check other privileges. When a mask is encountered it is checked against the user's privileges to see whether access to the resource in question is granted. The resource a mask protects is called a component.
+         </t>
+         <t>
          Each mask that will be used for security checks needs to be registered. This is done with the function registerMask, which has the following syntax:
 
         <artwork>

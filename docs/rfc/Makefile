@@ -15,10 +15,10 @@ html: $(HTMLS)
 txt : $(TXTS)
 
 
-%.html: %.xml
+%.html: %.xml $(xml2rfc)
 	$(xml2rfc) $< $(*F).html  
 
-%.txt: %.xml
+%.txt: %.xml $(xml2rfc)
 	$(xml2rfc) $< $(*F).txt
 
 clean:

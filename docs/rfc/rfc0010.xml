@@ -219,7 +219,7 @@ html/
 
     <section title="Templates">
       <t>
-	[templates.gif] Each page in Blocklayout is a collection of templates,
+	Each page in Blocklayout is a collection of templates,
 	fitted with the necessary data. A "Master" template is loaded first,
 	and defines the basic layout of the page. It contains tags which
 	specify the data presented to the user. Each module function or block
@@ -227,6 +227,7 @@ html/
 	it. The data it handles is parsed through this template before being
 	inserted into the Master. Templates can be "nested" any number of
 	levels deep.
+	<figure><artwork src="images/rfc0010_1.gif"/></figure>
       </t>
       <t>
 	Internal Templates (.xd) provide default output formatting for Xaraya

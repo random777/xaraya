@@ -757,3 +757,15 @@ html/modules/release/xaruserapi/index.html
 html/modules/release/xaruserapi/updateid.php
 html/modules/release/xarversion.php
 html/themes/rss/xarthemeapi.php
+html/modules/hitcount/xaradminapi/create.php
+html/modules/hitcount/xaradminapi/delete.php
+html/modules/hitcount/xaradminapi/deleteall.php
+html/modules/hitcount/xaradminapi/getmenulinks.php
+html/modules/hitcount/xaradminapi/index.html
+html/modules/hitcount/xaradminapi/update.php
+html/modules/release/xaradmin/modifyconfig.php
+html/modules/release/xartemplates/admin-modifyconfig.xd
+html/modules/release/xartemplates/user-browse.xd
+html/modules/release/xaruser/browse.php
+html/modules/release/xaruserapi/getitemlinks.php
+html/modules/release/xaruserapi/getitemtypes.php

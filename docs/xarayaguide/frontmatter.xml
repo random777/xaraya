@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="about">
-  <title>Introduction &#38; Information about Xaraya</title>
+  <title>Introduction &amp; Information about Xaraya</title>
 
-  <para>This chapter will give you an introduction to Xaraya, it&#39;s
-  features, the format of this Guide, and the assumptions under which this
-  Guide was written. Also included is a handy Xaraya pronunciation guide!</para>
+  <para>This chapter will give you an introduction to Xaraya, it's features,
+  the format of this Guide, and the assumptions under which this Guide was
+  written. Also included is a handy Xaraya pronunciation guide!</para>
 
   <sect1 id="introduction">
     <title>Introduction by John Cox</title>
@@ -15,10 +15,10 @@
     <para>For the Xaraya team that was the motivation. Our desire and drive
     came from the idea of doing something that has not been done before, which
     in my opinion has been accomplished. Xaraya is the culmination of the work
-    of several of the world&#39;s best software designers working within the
-    PHP language at this time.</para>
+    of several of the world's best software designers working within the PHP
+    language at this time.</para>
 
-    <para>The Official Xaraya Installation &#38; Getting Started Guide will
+    <para>The Official Xaraya Installation &amp; Getting Started Guide will
     introduce you to concepts that are, most likely, unfamiliar to you. Having
     complete control over the output of the software is the nirvana that most
     designers of Open Source Content Management Systems only dream of. Beyond
@@ -30,19 +30,22 @@
     Content Management Systems can -- <emphasis>and should</emphasis> -- offer
     you.</para>
 
-    <para>The Official Xaraya Installation &#38; Getting Started Guide itself
-    is the culmination of well over a year&#39;s worth of work to not only
+    <para>The Official Xaraya Installation &amp; Getting Started Guide itself
+    is the culmination of well over a year's worth of work to not only
     document what can be done, but to explain in common terms and phrases what
     Xaraya will do for you. It is not only the comprehensive guide to Xaraya,
     but it is a narrative which will walk you through the collective knowledge
     of the Xaraya team. The guide has been written by Drew Vogel (and others)
-    who have likely spent more time documenting than others have spent coding.</para>
+    who have likely spent more time documenting than others have spent
+    coding.</para>
 
-    <para>Welcome to the Official Xaraya Installation &#38; Getting Started
+    <para>Welcome to the Official Xaraya Installation &amp; Getting Started
     Guide.</para>
 
     <para><emphasis>And welcome to Xaraya -- the next generation of Content
     Management Systems.</emphasis></para>
+
+    <para>- John Cox</para>
   </sect1>
 
   <sect1 id="disclaimer">
@@ -67,7 +70,7 @@
     configuration issues.</para>
 
     <para>This Guide is designed to be read from start to finish. Certain
-    sections may be skipped (for example, if you&#39;re upgrading, you may not
+    sections may be skipped (for example, if you're upgrading, you may not
     need to read the first-time installation instructions). However, reading
     this entire Guide from start to finish will provide the maximum
     educational benefit.</para>
@@ -75,39 +78,70 @@
     <para>Throughout the Guide, there are examples for you to follow. The
     examples add new features or illustrate concepts and are all designed to
     work together. Generally, the examples include Animals, Music, or Food but
-    the concepts that they teach can be customized to your particular tastes.</para>
+    the concepts that they teach can be customized to your particular
+    tastes.</para>
 
     <para>Throughout this Guide, we use several terms that you should
-    understand. <itemizedlist><listitem><para>&#34;<firstterm>Anonymous users</firstterm>&#34;
-    are defined as users that have not registered/logged into an account on
-    the site.</para></listitem><listitem><para>&#34;<firstterm>Registered
-    users</firstterm>&#34; are defined as users that have registered for an
-    account on the site and have logged into the site with their username and
-    password.</para></listitem><listitem><para>&#34;<firstterm>Site
-    Administrators</firstterm>&#34; are defined as one or more individuals who
-    have administrative access to the site. Many sites have only one site
-    administrator while some sites have an site administration team.</para></listitem><listitem><para><firstterm>&#60;webdir&#62;</firstterm>:
-    This is the local directory on your site from which pages are served by
-    the webserver. For example, if you&#39;re using a modern Red Hat
-    installation your &#60;webdir&#62; is usually /var/www/html. Consult your
-    operating system manual for information on determining your
-    &#60;webdir&#62;.</para></listitem><listitem><para><firstterm>&#60;xarroot&#62;</firstterm>:
-    This is the local directory on your site in which Xaraya is installed. If
-    you choose to install your &#60;xarroot&#62; into your &#60;webdir&#62;,
-    then the two terms have the same meaning -- they point to the same
-    directory. However, if your &#60;webdir&#62; is /var/www/html, and you
-    install Xaraya into a sub-directory called &#34;xaraya&#34;, then your
-    &#60;xarroot&#62; is /var/www/html/xaraya.</para></listitem><listitem><para><firstterm>&#60;theme_dir&#62;</firstterm>:
-    This is the local directory on your site in which Xaraya themes are
-    stored. This directory location is defined in the
-    Admin-&#62;Base-&#62;Modify config, Default Theme Directory field.</para></listitem><listitem><para><firstterm>&#60;theme_name&#62;</firstterm>:
-    This is the name of a theme on your Xaraya site.</para></listitem><listitem><para><firstterm>http://www.mywebsite.com</firstterm>:
-    This URL is used as a stand-in for your site&#39;s URL. If you install
-    Xaraya into a sub-directory of &#60;webdir&#62;, your site&#39;s URL will
-    include the sub-directory. So, for example, if your &#60;webdir&#62; is
-    /var/www/html, and you install Xaraya into a sub-directory called
-    &#34;xaraya&#34;, then your site&#39;s URL will be
-    http://www.mywebsite.com/xaraya.</para></listitem></itemizedlist></para>
+    understand. <itemizedlist>
+        <listitem>
+          <para>"<firstterm>Anonymous users</firstterm>" are defined as users
+          that have not registered/logged into an account on the site.</para>
+        </listitem>
+
+        <listitem>
+          <para>"<firstterm>Registered users</firstterm>" are defined as users
+          that have registered for an account on the site and have logged into
+          the site with their username and password.</para>
+        </listitem>
+
+        <listitem>
+          <para>"<firstterm>Site Administrators</firstterm>" are defined as
+          one or more individuals who have administrative access to the site.
+          Many sites have only one site administrator while some sites have an
+          site administration team.</para>
+        </listitem>
+
+        <listitem>
+          <para><firstterm>&lt;webdir&gt;</firstterm>: This is the local
+          directory on your site from which pages are served by the webserver.
+          For example, if you're using a modern Red Hat installation your
+          &lt;webdir&gt; is usually /var/www/html. Consult your operating
+          system manual for information on determining your
+          &lt;webdir&gt;.</para>
+        </listitem>
+
+        <listitem>
+          <para><firstterm>&lt;xarroot&gt;</firstterm>: This is the local
+          directory on your site in which Xaraya is installed. If you choose
+          to install your &lt;xarroot&gt; into your &lt;webdir&gt;, then the
+          two terms have the same meaning -- they point to the same directory.
+          However, if your &lt;webdir&gt; is /var/www/html, and you install
+          Xaraya into a sub-directory called "xaraya", then your
+          &lt;xarroot&gt; is /var/www/html/xaraya.</para>
+        </listitem>
+
+        <listitem>
+          <para><firstterm>&lt;theme_dir&gt;</firstterm>: This is the local
+          directory on your site in which Xaraya themes are stored. This
+          directory location is defined in the Admin-&gt;Base-&gt;Modify
+          config, Default Theme Directory field.</para>
+        </listitem>
+
+        <listitem>
+          <para><firstterm>&lt;theme_name&gt;</firstterm>: This is the name of
+          a theme on your Xaraya site.</para>
+        </listitem>
+
+        <listitem>
+          <para><firstterm>http://www.mywebsite.com</firstterm>: This URL is
+          used as a stand-in for your site's URL. If you install Xaraya into a
+          sub-directory of &lt;webdir&gt;, your site's URL will include the
+          sub-directory. So, for example, if your &lt;webdir&gt; is
+          /var/www/html, and you install Xaraya into a sub-directory called
+          "xaraya", then your site's URL will be
+          http://www.mywebsite.com/xaraya.</para>
+        </listitem>
+      </itemizedlist></para>
   </sect1>
 
   <sect1 id="thanks">
@@ -120,26 +154,27 @@
 
     <para>The Official Xaraya Installation and Getting Started Guide was
     written by Drew Vogel. Abundant thanks to the Xaraya development team for
-    answering Drew&#39;s endless questions. Thanks to the contributing
-    authors, reviewers, Greg Allen (adam_baum), John Cox, mikespub, Doug
-    Daulton (Apakuni), Skribe, Craig Hamlin, Chris Dudley (Miko), Carl Corliss
+    answering Drew's endless questions. Thanks to the contributing authors,
+    reviewers, Greg Allen (adam_baum), John Cox, mikespub, Doug Daulton
+    (Apakuni), Skribe, Craig Hamlin, Chris Dudley (Miko), Carl Corliss
     (Rabbitt), Mahmood Al-Yousif, Michael Cortez (mcortez), marcinmilan,
     Joanna Dalle Nogare (jojodee), Marcel van der Boom (MrB), Jason Judge,
     Marjolein Katsma, SpiritTech, and Pedro Innecco. Special thanks to Gregor
     Rothfuss (thalinor) for many things.</para>
 
-    <para>If this Guide is sucessful, proving to be useful in helping you
+    <para>If this Guide is sucessful and proves to be useful in helping you
     install, configure, and manage your Xaraya site, a healthy measure of
-    credit will be due the individuals listed above. If not -- if the Guide is
+    credit is due the individuals listed above. If not -- if the Guide is
     somewhat off the mark -- the author accepts full responsibility for the
     shortcomings.</para>
 
-    <para>This document was written in docbook and then converted using XSLT 
-    to various output formats. Thanks to the Linux Documentation project for 
-    their docbook utils and stylesheets which made the process much easier.</para>
+    <para>This document was written in DocBook and then converted using XSLT
+    to various output formats. Thanks to the Linux Documentation project for
+    their docbook utils and stylesheets which made the process much
+    easier.</para>
 
-    <para>Thank you to the Xaraya Team for declaring this to be the
-    &#34;Official&#34; guide.</para>
+    <para>Thank you to the Xaraya Team for declaring this to be the "Official"
+    guide.</para>
   </sect1>
 
   <sect1 id="guidefiles">
@@ -162,14 +197,15 @@
 
       <listitem>
         <para><command>html.css</command> -- This file is used by this Guide.
-        It is not necessary to copy this file to your Xaraya installation.</para>
+        It is not necessary to copy this file to your Xaraya
+        installation.</para>
       </listitem>
 
       <listitem>
         <para><command>images/recipes/NoPhoto.gif </command>-- Used in the
         Recipe Publication Type example (see EXAMPLE: Adding a new Publication
         Type that uses Dynamic Data). Displayed when no recipe photograph is
-        available. Copy to <filename>&#60;xarroot&#62;/images/recipes</filename>
+        available. Copy to <filename>&lt;xarroot&gt;/images/recipes</filename>
         directory, creating directories as necessary.</para>
       </listitem>
 
@@ -178,7 +214,7 @@
         in the Recipe Publication Type example (see EXAMPLE: Adding a new
         Publication Type that uses Dynamic Data). Photograph for the
         <filename>SampleRecipe.txt</filename> file. Copy to
-        <filename>&#60;xarroot&#62;/images/recipes</filename> directory,
+        <filename>&lt;xarroot&gt;/images/recipes</filename> directory,
         creating directories as necessary.</para>
       </listitem>
 
@@ -187,7 +223,8 @@
         -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a
         new Publication Type that uses Dynamic Data). Template for displaying
         the new Recipe Publication Type. For a default site-wide template,
-        copy to <filename>&#60;xarroot&#62;/modules/articles/xartemplates</filename>
+        copy to
+        <filename>&lt;xarroot&gt;/modules/articles/xartemplates</filename>
         directory, creating directories as necessary.</para>
       </listitem>
 
@@ -196,7 +233,8 @@
         -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a
         new Publication Type that uses Dynamic Data). Template for displaying
         the new Recipe Publication Type. For a default site-wide template,
-        copy to <filename>&#60;xarroot&#62;/modules/articles/xartemplates</filename>
+        copy to
+        <filename>&lt;xarroot&gt;/modules/articles/xartemplates</filename>
         directory, creating directories as necessary.</para>
       </listitem>
 
@@ -205,7 +243,7 @@
         Category files for use with the categories created in the new Recipe
         Publication Type (see EXAMPLE: Adding a new Publication Type that uses
         Dynamic Data). For site-wide use, copy these files to the
-        <filename>&#60;xarroot&#62;/modules/categories/xarimages</filename>
+        <filename>&lt;xarroot&gt;/modules/categories/xarimages</filename>
         directory.</para>
       </listitem>
 
@@ -227,12 +265,13 @@
 
       <para>As the internet and world-wide web started to emerge as a major
       repository for storage, retrieval, and display of data, the main avenue
-      for accessing that data was static, hand-coded, <firstterm>HTML</firstterm>
-      (Hyper-Text Markup Language). <firstterm>Static HTML</firstterm> means
-      that each and every web page on a site is created individually; links
-      between content elements are managed by hand; and changes can be made
-      only by a site administrator following a multiple-step process involving
-      the downloading, editing, and uploading of new or modified pages.</para>
+      for accessing that data was static, hand-coded,
+      <firstterm>HTML</firstterm> (Hyper-Text Markup Language).
+      <firstterm>Static HTML</firstterm> means that each and every web page on
+      a site is created individually; links between content elements are
+      managed by hand; and changes can be made only by a site administrator
+      following a multiple-step process involving the downloading, editing,
+      and uploading of new or modified pages.</para>
 
       <para>For users with moderate technical skills, the creation of web
       pages using static HTML is fairly easy. But because the
@@ -245,7 +284,8 @@
       primary goal: to provide content.</para>
 
       <sect3>
-        <title>Challenges of developing and maintaining a static HTML website</title>
+        <title>Challenges of developing and maintaining a static HTML
+        website</title>
 
         <para>Without the separation of code and content, many aspects of
         managing a static HTML site are difficult. It is complicated to
@@ -281,7 +321,7 @@
         updated frequently, is updated by a limited number of individuals,
         does not need to be searchable, does not require pleasant
         presentation, and if there is a technical individual who is willing to
-        edit HTML and download &#38; upload changes, you may not need the
+        edit HTML and download &amp; upload changes, you may not need the
         advanced features of a Content Management System. However, before you
         put this book down and walk away, understand this: on the same
         hardware that runs your static HTML site, you can have a
@@ -412,12 +452,12 @@
         <para>So far in this discussion, we have discussed only the most basic
         functions of a CMS, but there are hundreds of different functions
         available in an advanced Content Management System like Xaraya.
-        Fortunately, it&#39;s fairly easy to learn the main functions,
-        ignoring the rest of the features until you need to use them. This is
-        another advantage of using a CMS instead of ordinary HTML pages: the
-        advanced functionality allows users to search the site, post on
-        forums, leave user information which is easily manageable -- in short,
-        anything that can be done with advanced database management.</para>
+        Fortunately, it's fairly easy to learn the main functions, ignoring
+        the rest of the features until you need to use them. This is another
+        advantage of using a CMS instead of ordinary HTML pages: the advanced
+        functionality allows users to search the site, post on forums, leave
+        user information which is easily manageable -- in short, anything that
+        can be done with advanced database management.</para>
 
         <para>A CMS implementation provides a win-win solution for business
         end-users, webmasters, and business management. It provides a complete
@@ -448,7 +488,8 @@
         conventional software development, may seem astonishing.</para>
 
         <para>And you guessed it: the Xaraya Content Management System and all
-        the pieces of software required to make it work are Open Source!</para>
+        the pieces of software required to make it work are Open
+        Source!</para>
 
         <para>In the next section we'll take a closer look at Xaraya and
         explore some of the many features that it has to offer.</para>
@@ -461,19 +502,20 @@
 
     <subtitle>A quick look at how Xaraya works.</subtitle>
 
-    <para>The documentation for this part of the Guide is being developed.</para>
+    <para>The documentation for this part of the Guide is being
+    developed.</para>
 
     <itemizedlist>
       <listitem>
         <para>What are the basic building blocks of Xaraya? How do they
         interoperate?</para>
 
-        <para>The Core (the files in the <filename>&#60;xarroot&#62;/includes</filename>
-        directory) handles each page request. Modules provide units of
-        functionality, and can be added, extended, or disabled as required.
-        Some modules are mandatory, meaning that the core expects them to be
-        available on the site. Other modules are optional and can be turned on
-        or off as needed.</para>
+        <para>The Core (the files in the
+        <filename>&lt;xarroot&gt;/includes</filename> directory) handles each
+        page request. Modules provide units of functionality, and can be
+        added, extended, or disabled as required. Some modules are mandatory,
+        meaning that the core expects them to be available on the site. Other
+        modules are optional and can be turned on or off as needed.</para>
       </listitem>
 
       <listitem>
@@ -483,11 +525,11 @@
       <listitem>
         <para>What is a Publication Type?</para>
 
-        <para>Publication Types are specific &#34;types&#34; of Articles on
-        the site (for example, News Articles, Frequently Asked Questions,
-        Pictures, or Recipes are all examples of specific Article
-        &#34;types&#34;). See the overview on <command>Admin-&#62;Articles</command>
-        for more information.</para>
+        <para>Publication Types are specific "types" of Articles on the site
+        (for example, News Articles, Frequently Asked Questions, Pictures, or
+        Recipes are all examples of specific Article "types"). See the
+        overview on <command>Admin-&gt;Articles</command> for more
+        information.</para>
       </listitem>
 
       <listitem>
@@ -515,11 +557,10 @@
         directory, and possibly some overrides for default module and block
         templates.</para>
 
-        <para>Special themes include the &#34;print&#34; theme, where the page
+        <para>Special themes include the "print" theme, where the page
         template does not include any blocks and so will only show the output
-        of the main module function, and the &#34;rss&#34; theme, that
-        doesn&#39;t generate XHTML at all but XML for syndication by other
-        sites.</para>
+        of the main module function, and the "rss" theme, that doesn't
+        generate XHTML at all but XML for syndication by other sites.</para>
       </listitem>
 
       <listitem>
@@ -540,12 +581,12 @@
         Articles module contains a set of Categories familiar to
         administrators of other Open Source CMS products (PHP-Nuke, PostNuke,
         Envolution, etc.) where news articles are categorised in two
-        independent ways (Topics &#38; Categories) and documents are
+        independent ways (Topics &amp; Categories) and documents are
         categoriesed into Sections.</para>
 
         <para>New Xaraya sites will often use generic categories across all
         Publication Types, instead of having separate hierarchies for each of
-        them. See overview on <command>Admin-&#62;Articles</command> for more
+        them. See overview on <command>Admin-&gt;Articles</command> for more
         information.</para>
       </listitem>
 
@@ -553,8 +594,8 @@
         <para>How, and by what, are Articles displayed?</para>
 
         <para>Articles are displayed by the Articles module, in cooperation
-        with a bunch of &#39;hooked&#39; utility modules (categories,
-        hitcount, ratings, comments, and other modules).</para>
+        with a bunch of 'hooked' utility modules (categories, hitcount,
+        ratings, comments, and other modules).</para>
       </listitem>
 
       <listitem>
@@ -566,7 +607,8 @@
         modified, extended, or completely removed as you require.</para>
 
         <para>Articles can be browsed by Publication Type, by Category, and/or
-        by Author, and sort the results by date, title, and other criteria.</para>
+        by Author, and sort the results by date, title, and other
+        criteria.</para>
       </listitem>
 
       <listitem>
@@ -575,17 +617,17 @@
         into several independent hierarchies simultaneously or using category
         flags instead of a hierarchy at all?</para>
 
-        <para>Each &#34;base category&#34; is organised as a hierarchy, but
-        several independent base categories (and their hierarchies) can be
-        assigned to each of the Publication Types in Articles.</para>
+        <para>Each "base category" is organised as a hierarchy, but several
+        independent base categories (and their hierarchies) can be assigned to
+        each of the Publication Types in Articles.</para>
 
         <para>For instance, a travel site might have one hierarchy with
         countries and cities, and another hierarchy with particular interests
         (for example, culture, sports, restaurants, etc.). An Article about a
         restaurant in Brussels can, for example, be placed in the category
-        &#34;Brussels&#34; and <emphasis>also</emphasis> in the category
-        &#34;Restaurants&#34;, and people can then view all articles about
-        Brussels, about restaurants, or about restaurants in Brussels.</para>
+        "Brussels" and <emphasis>also</emphasis> in the category
+        "Restaurants", and people can then view all articles about Brussels,
+        about restaurants, or about restaurants in Brussels.</para>
 
         <para>And if you work by Publication Type, you could let people browse
         only through reviews (a particular Publication Type) about restaurants
@@ -603,10 +645,10 @@
     management, and multilingual systems to dynamically integrate and manage
     content.</para>
 
-    <para>Xaraya&#39;s modular, database-independent architecture provides
-    tools which separate form, function, content, and design on the site.
-    Xaraya delivers the requisite infrastructure for a fully dynamic
-    multi-platform Content Management Solution (CMS).</para>
+    <para>Xaraya's modular, database-independent architecture provides tools
+    which separate form, function, content, and design on the site. Xaraya
+    delivers the requisite infrastructure for a fully dynamic multi-platform
+    Content Management Solution (CMS).</para>
 
     <itemizedlist>
       <listitem>
@@ -623,7 +665,8 @@
       </listitem>
 
       <listitem>
-        <para>Distribute workload using User/Administrator management tools</para>
+        <para>Distribute workload using User/Administrator management
+        tools</para>
       </listitem>
 
       <listitem>
@@ -631,7 +674,7 @@
       </listitem>
 
       <listitem>
-        <para>Fully editable &#38; manageable News, Links, Downloads, and FAQ
+        <para>Fully editable &amp; manageable News, Links, Downloads, and FAQ
         Sections</para>
       </listitem>
 
@@ -640,12 +683,13 @@
       </listitem>
 
       <listitem>
-        <para>News Feed Manager: Access thousands of RSS-compliant news feeds</para>
+        <para>News Feed Manager: Access thousands of RSS-compliant news
+        feeds</para>
       </listitem>
 
       <listitem>
-        <para>Site Statistics: Tracks browser &#38; operating system, top news
-        &#38; articles, and more</para>
+        <para>Site Statistics: Tracks browser &amp; operating system, top news
+        &amp; articles, and more</para>
       </listitem>
 
       <listitem>
@@ -653,7 +697,8 @@
       </listitem>
 
       <listitem>
-        <para>Import information from PostNuke and Moveable Type installations</para>
+        <para>Import information from PostNuke and Moveable Type
+        installations</para>
       </listitem>
 
       <listitem>
@@ -663,7 +708,7 @@
     </itemizedlist>
 
     <para>Xaraya reduces web site development costs by introducing
-    sophisticated administration tools &#38; services which separate form,
+    sophisticated administration tools &amp; services which separate form,
     function, content, and design. With Xaraya, you work in a simple,
     structured environment to rapidly develop your website with diverse
     content, including:</para>
@@ -719,13 +764,15 @@
     <para>The name <firstterm>Xaraya</firstterm> was selected by the
     development team after an internal contest. Submitted by Marty Vance
     (Dracos), Xaraya does not really mean anything. We were looking for a name
-    which was both interesting and unique. Xaraya certainly fit the bill.</para>
+    which was both interesting and unique. Xaraya certainly fit the
+    bill.</para>
 
-    <para>That said, the word Xaraya is reminiscent of &#39;<foreignphrase>raya</foreignphrase>&#39;,
-    the Spanish word for Manta Ray. The development team rather likes the
-    nautical feel of that reference, particularly when one thinks of the
-    Internet as an &#34;ocean&#34; of information. The Xaraya logo concept by
-    Marty Vance, logo design by LaDalle Hunt.</para>
+    <para>That said, the word Xaraya is reminiscent of
+    '<foreignphrase>raya</foreignphrase>', the Spanish word for Manta Ray. The
+    development team rather likes the nautical feel of that reference,
+    particularly when one thinks of the Internet as an "ocean" of information.
+    The Xaraya logo concept by Marty Vance, logo design by LaDalle
+    Hunt.</para>
   </sect1>
 
   <sect1 id="pronunciation">
@@ -745,7 +792,8 @@
 
     <para>Xaraya allows unprecedented levels of customization, it is therefore
     impossible to list every possible configuration. To provide familiarity
-    with how Xaraya functions this Guide makes the following assumptions:</para>
+    with how Xaraya functions this Guide makes the following
+    assumptions:</para>
 
     <para>* That you plan to run a Community Site and:</para>
 
@@ -756,7 +804,7 @@
       </listitem>
 
       <listitem>
-        <para>Allow ALL users to read all articles &#38; related comments on
+        <para>Allow ALL users to read all articles &amp; related comments on
         the site.</para>
       </listitem>
 
@@ -779,10 +827,11 @@
       </listitem>
 
       <listitem>
-        <para>That you have created a web-readable &#34;<filename>images</filename>&#34;
-        directory in your Xaraya installation directory (<filename>&#60;xarroot&#62;/images</filename>).
-        We will store any non-core and non-module images needed by the site in
-        this directory.</para>
+        <para>That you have created a web-readable
+        "<filename>images</filename>" directory in your Xaraya installation
+        directory (<filename>&lt;xarroot&gt;/images</filename>). We will store
+        any non-core and non-module images needed by the site in this
+        directory.</para>
       </listitem>
     </itemizedlist>
 

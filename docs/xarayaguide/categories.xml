@@ -2,82 +2,80 @@
 <chapter id="categories">
   <title>Categories in Xaraya</title>
 
-  <para><firstterm>Articles</firstterm> are placed into
-  <firstterm>Publication Types</firstterm> which can contain
-  <firstterm>Categories</firstterm>. Categories are an easy way to provide
-  hierarchical categorization for all information on your site. You could use
-  one or more common Categories across different Publication Types, or use
-  specific Categories for each type of article, or any combination that you
-  prefer for your site.</para>
+  <para><firstterm>Articles</firstterm> are placed into <firstterm>Publication
+  Types</firstterm> which can contain <firstterm>Categories</firstterm>.
+  Categories are an easy way to provide hierarchical categorization for all
+  information on your site. You could use one or more common Categories across
+  different Publication Types, or use specific Categories for each type of
+  article, or any combination that you prefer for your site.</para>
 
   <para>Before specifying which Publication Types will be using what
   Categories, create the categorization you want via the Categories
   Administration Menu. To get you started, a default set of categories was
   defined for articles when Xaraya was installed. You can adapt the existing
-  categories to your specific needs, of course, or remove them altogether.</para>
+  categories to your specific needs, of course, or remove them
+  altogether.</para>
 
   <para>Once you have a set of categories you would like to use for your
-  articles, go to <command>Admin-&#62;Articles-&#62;Modify config</command>,
-  and specify the number of categories that can be used for each Publication
-  Type, and select the &#39;<firstterm>base categories</firstterm>&#39; to be
-  used.</para>
+  articles, go to <command>Admin-&gt;Articles-&gt;Modify config</command>, and
+  specify the number of categories that can be used for each Publication Type,
+  and select the '<firstterm>base categories</firstterm>' to be used.</para>
 
-  <para>A &#39;base category&#39; is any starting point somewhere in your tree
-  of categories, below which you will have the actual list (or sub-tree) of
+  <para>A 'base category' is any starting point somewhere in your tree of
+  categories, below which you will have the actual list (or sub-tree) of
   categories people can choose from when they submit or view articles.</para>
 
-  <para>For example, you could have a &#39;base category&#39; called Topics,
-  with a list of different topics relevant to your site below it, and another
-  &#39;base category&#39; called Cities, with a list of cities or places for
-  which you would provide regional news. One topic might be &#39;Good
-  Restaurants&#39;, and one category might &#39;Brussels&#39;, so people would
-  be able to browse through any articles about good restaurants in Brussels,
-  for instance.</para>
+  <para>For example, you could have a 'base category' called Topics, with a
+  list of different topics relevant to your site below it, and another 'base
+  category' called Cities, with a list of cities or places for which you would
+  provide regional news. One topic might be 'Good Restaurants', and one
+  category might 'Brussels', so people would be able to browse through any
+  articles about good restaurants in Brussels, for instance.</para>
 
   <sect1 id="editcats">
     <title>Editing and Creating Categories</title>
 
     <para>In this section, we explore how to edit pre-configured categories
     and create new categories. Categories are displayed to the site
-    administrator in a &#34;<firstterm>category tree</firstterm>&#34;, a
-    listing that shows categories and sub-categories in an easy-to-understand
+    administrator in a "<firstterm>category tree</firstterm>", a listing that
+    shows categories and sub-categories in an easy-to-understand
     format.</para>
 
-    <para><command>Admin-&#62;Categories-&#62;Modify config</command>:</para>
+    <para><command>Admin-&gt;Categories-&gt;Modify config</command>:</para>
 
     <itemizedlist>
       <listitem>
-        <para>If you wish to display categories in a Windows Explorer-like tree
-        view, click &#34;<guibutton>Yes</guibutton>&#34;. Displaying
-        categories in this way requires a JavaScript-enabled browser. If you
-        use this display method, the icons in <command>Admin-&#62;Categories-&#62;View
+        <para>If you wish to display categories in a Windows Explorer-like
+        tree view, click "<guibutton>Yes</guibutton>". Displaying categories
+        in this way requires a JavaScript-enabled browser. If you use this
+        display method, the icons in <command>Admin-&gt;Categories-&gt;View
         Categories</command> have the following meaning:</para>
 
         <itemizedlist>
           <listitem>
-            <para>The &#34;<guibutton>+</guibutton>&#34; icon to the left of
-            the category name &#38; description expands or collapses the tree
-            for the category.</para>
+            <para>The "<guibutton>+</guibutton>" icon to the left of the
+            category name &amp; description expands or collapses the tree for
+            the category.</para>
           </listitem>
 
           <listitem>
-            <para>The &#34;<guibutton>X</guibutton>&#34; icon to the right of
-            the category name &#38; description deletes the category and any
+            <para>The "<guibutton>X</guibutton>" icon to the right of the
+            category name &amp; description deletes the category and any
             sub-categories under it. If you wish to delete the category and
-            any sub-categories, click &#34;<guibutton>Yes</guibutton>&#34; on
-            the confirmation screen.</para>
+            any sub-categories, click "<guibutton>Yes</guibutton>" on the
+            confirmation screen.</para>
           </listitem>
 
           <listitem>
-            <para>The &#34;<guibutton>pencil</guibutton>&#34; icon to the
-            right of the &#34;<guibutton>X</guibutton>&#34; icon allows
-            modification of category properties.</para>
+            <para>The "<guibutton>pencil</guibutton>" icon to the right of the
+            "<guibutton>X</guibutton>" icon allows modification of category
+            properties.</para>
           </listitem>
         </itemizedlist>
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Submit</guibutton>" to save changes.</para>
 
         <figure id="categoriestree">
           <title>Windows Explorer-like tree</title>
@@ -85,38 +83,38 @@
           <mediaobject>
             <imageobject>
               <imagedata fileref="sourceimages/categoriestree.jpg"
-              format="JPG" width="450" />
+                         format="JPG" width="450" />
             </imageobject>
           </mediaobject>
         </figure>
       </listitem>
     </itemizedlist>
 
-    <para><command>Admin-&#62;Categories-&#62;View Categories</command>:</para>
+    <para><command>Admin-&gt;Categories-&gt;View Categories</command>:</para>
 
     <para>This panel displays all the Categories that are pre-configured by
-    the Xaraya Base installation. Let&#39;s edit an existing category, and
-    then add a few new categories from scratch.</para>
+    the Xaraya Base installation. Let's edit an existing category, and then
+    add a few new categories from scratch.</para>
 
     <sect2 id="editingexistingcat">
       <title>Editing an existing Category</title>
 
-      <para>To edit an existing category, click on the &#34;<guibutton>Modify</guibutton>&#34;
-      link on the same line as the Name of the category you wish to edit. For
-      this example, click &#34;<guibutton>Modify</guibutton>&#34; on the
-      &#34;Topics&#34; line. This edits the top-level category called
-      &#34;Topics&#34;.</para>
+      <para>To edit an existing category, click on the
+      "<guibutton>Modify</guibutton>" link on the same line as the Name of the
+      category you wish to edit. For this example, click
+      "<guibutton>Modify</guibutton>" on the "Topics" line. This edits the
+      top-level category called "Topics".</para>
 
       <itemizedlist>
         <listitem>
           <para>Name: The name of the category. For this example, change it to
-          &#34;Topics of Interest&#34;.</para>
+          "Topics of Interest".</para>
         </listitem>
 
         <listitem>
           <para>Description: A description of the category that is displayed
-          to users. For this example, change it to &#34;<userinput>Interesting
-          topics on this website.</userinput>&#34;.</para>
+          to users. For this example, change it to "<userinput>Interesting
+          topics on this website.</userinput>".</para>
         </listitem>
       </itemizedlist>
 
@@ -129,49 +127,49 @@
           <para><emphasis>In relation to this category</emphasis>: Select an
           existing category from the drop-down list. This existing category
           serves as the reference point for the Position function, below. For
-          this example, since we don&#39;t want to move this category, just
-          leave this field as it is.</para>
+          this example, since we don't want to move this category, just leave
+          this field as it is.</para>
         </listitem>
 
         <listitem>
           <para><emphasis>Position</emphasis>: Determines the placement of the
-          new/edited category in conjunction with the &#34;In relation to this
-          category&#34; field above. For this example, since we don&#39;t want
-          to move this category, just leave this field as it is.</para>
+          new/edited category in conjunction with the "In relation to this
+          category" field above. For this example, since we don't want to move
+          this category, just leave this field as it is.</para>
 
           <itemizedlist>
             <listitem>
               <para><emphasis>Right before, in the same level</emphasis>: If
               you want the new/edited category to be placed ABOVE the category
-              specified in &#34;In relation to this category&#34; and be on
-              the same level (for example, if the category selected in &#34;In
-              relation to this category&#34; is a top-level category, this
-              new/edited category will also be top-level), select this option.</para>
+              specified in "In relation to this category" and be on the same
+              level (for example, if the category selected in "In relation to
+              this category" is a top-level category, this new/edited category
+              will also be top-level), select this option.</para>
             </listitem>
 
             <listitem>
               <para><emphasis>Right after, in the same level</emphasis>: If
               you want the new/edited category to be placed BELOW the category
-              specified in &#34;In relation to this category&#34; and be on
-              the same level (for example, if the category selected in &#34;In
-              relation to this category&#34; is a top-level category, this
-              new/edited category will also be top-level), select this option.</para>
+              specified in "In relation to this category" and be on the same
+              level (for example, if the category selected in "In relation to
+              this category" is a top-level category, this new/edited category
+              will also be top-level), select this option.</para>
             </listitem>
 
             <listitem>
               <para><emphasis>The first child category</emphasis>: If you want
               the new/edited category to be placed ABOVE the category
-              specified in &#34;In relation to this category&#34; and to be a
-              child category of the category referenced in &#34;In relation to
-              this category&#34;, select this option.</para>
+              specified in "In relation to this category" and to be a child
+              category of the category referenced in "In relation to this
+              category", select this option.</para>
             </listitem>
 
             <listitem>
               <para><emphasis>The last child category</emphasis>: If you want
               the new/edited category to be placed BELOW the category
-              specified in &#34;In relation to this category&#34; and to be a
-              child category of the category referenced in &#34;In relation to
-              this category&#34;, select this option.</para>
+              specified in "In relation to this category" and to be a child
+              category of the category referenced in "In relation to this
+              category", select this option.</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -184,19 +182,19 @@
 
           <itemizedlist>
             <listitem>
-              <para>&#34;<filename>&#60;xarroot&#62;/modules/categories/xarimages</filename>&#34;
+              <para>"<filename>&lt;xarroot&gt;/modules/categories/xarimages</filename>"
               or</para>
             </listitem>
 
             <listitem>
-              <para>&#34;<filename>&#60;xarroot&#62;/themes/&#60;theme_name&#62;/modules/categories/images</filename>&#34;
+              <para>"<filename>&lt;xarroot&gt;/themes/&lt;theme_name&gt;/modules/categories/images</filename>"
               for theme-dependent versions</para>
             </listitem>
           </itemizedlist>
         </listitem>
 
         <listitem>
-          <para>Click &#34;<guibutton>Modify</guibutton>&#34; to save changes.</para>
+          <para>Click "<guibutton>Modify</guibutton>" to save changes.</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -204,29 +202,29 @@
     <sect2 id="addnewcat">
       <title>Adding a new Category</title>
 
-      <para>To add a new Category, click <command>Admin-&#62;Categories-&#62;Add
+      <para>To add a new Category, click <command>Admin-&gt;Categories-&gt;Add
       Category</command>. Complete the fields on the next panel, and click
-      &#34;<guibutton>Add</guibutton>&#34; to create the new category. If you
-      are adding a large number of categories at one time, you can do so in a
-      batch. Enter the number of categories you&#39;d like to create in the
-      &#34;<guibutton>Create in a Batch</guibutton>&#34; field and click &#34;<guibutton>Reassign</guibutton>&#34;.
-      This will refresh the panel with the specified number of category slots.
-      Complete the fields and click &#34;<guibutton>Add</guibutton>&#34; to
-      batch-create the categories.</para>
+      "<guibutton>Add</guibutton>" to create the new category. If you are
+      adding a large number of categories at one time, you can do so in a
+      batch. Enter the number of categories you'd like to create in the
+      "<guibutton>Create in a Batch</guibutton>" field and click
+      "<guibutton>Reassign</guibutton>". This will refresh the panel with the
+      specified number of category slots. Complete the fields and click
+      "<guibutton>Add</guibutton>" to batch-create the categories.</para>
 
       <sect3>
         <title>EXAMPLE: Add your own Categories</title>
 
         <para>For this example, using the methods detailed above (editing or
         adding categories as necessary), create the following categories under
-        &#34;Topics of Interest&#34; (to create this category, see
-        &#34;Editing an Existing Category&#34;, above):
-        <userinput>News</userinput>, <userinput>Announcements</userinput>,
-        <userinput>System Information</userinput>, <userinput>Xaraya</userinput>,
-        and <userinput>Internet</userinput>. Enter any text in the Description
+        "Topics of Interest" (to create this category, see "Editing an
+        Existing Category", above): <userinput>News</userinput>,
+        <userinput>Announcements</userinput>, <userinput>System
+        Information</userinput>, <userinput>Xaraya</userinput>, and
+        <userinput>Internet</userinput>. Enter any text in the Description
         field. Also, put these new categories in alphabetical order under
-        &#34;Topics of Interest&#34; either by manipulating the placement
-        using the available category positioning tools or by creating them in
+        "Topics of Interest" either by manipulating the placement using the
+        available category positioning tools or by creating them in
         alphabetical order.</para>
       </sect3>
     </sect2>
@@ -235,9 +233,9 @@
   <sect1 id="catsconclusion">
     <title>Categories Conclusion</title>
 
-    <para>Once you have defined your site&#39;s Categories, they can be
-    assigned to one or more Publication Types. We&#39;ll learn how to assign
-    Categories to Publication Types, and what that means, later in this Guide.
-    First, though, let&#39;s look at the modules of Xaraya.</para>
+    <para>Once you have defined your site's Categories, they can be assigned
+    to one or more Publication Types. We'll learn how to assign Categories to
+    Publication Types, and what that means, later in this Guide. First,
+    though, let's look at the modules of Xaraya.</para>
   </sect1>
 </chapter>

@@ -1,14 +1,5 @@
 BitKeeper/*/*
 PENDING/*
-html/var/cache/templates/49015bed50271a1cb2bb961afc43803d.php
-html/var/cache/templates/e9ca2b824b14e38088ac463410508f48.php
-html/var/cache/templates/537589715b159630bbc9029eb2cd084f.php
-html/var/cache/templates/700ef94380f6ba4b155fcc05cb590e89.php
+html/var/cache/templates/*
+*.DS_Store
 *~
-html/var/cache/templates/2a1a30baf623425e742bca1a83a012d4.php
-html/var/cache/templates/4598e9f04e60558d5dc4b51c2234952b.php
-html/var/cache/templates/535e9bdc28049c3e85e4e83a7acfeb99.php
-html/var/cache/templates/5a52b482c6046df331fe4b21b94fb166.php
-html/var/cache/templates/9b02688848dd117b5de495523c421b27.php
-html/var/cache/templates/9c96d5e17255b0f805091fce10db731c.php
-html/var/cache/templates/c2e234ee8078767ff8527b109e956e05.php

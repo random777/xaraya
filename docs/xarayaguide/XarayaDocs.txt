@@ -57,9 +57,9 @@ The Official Xaraya Installation & Getting Started Guide is a work-in-progress a
 
 
 
-                                                           Guide version 0135
+                                                           Guide version 0136
                                                  Last updated: 22-August-2003
-                    Version 0135 sent to BitKeeper on 15-August-2003, 12:25pm
+                    Version 0136 sent to BitKeeper on 15-August-2003, 03:10pm
 INDEX
 =====
 INTRODUCTION BY JOHN COX
@@ -124,6 +124,8 @@ CATEGORIES IN XARAYA
 	KNOWLEDGE REVIEW: Create Your Own Categories
 
 	Categories Conclusion
+
+TEMPLATES IN XARAYA
 
 MODULES IN XARAYA
 	Xaraya Modules -- A New Approach
@@ -340,6 +342,7 @@ APPENDIX E: Creating a Xaraya Theme
 APPENDIX F: Converting from PostNuke to Xaraya
 INTRODUCTION BY JOHN COX
 ========================
+Someday...
 
 ABOUT THIS GUIDE:
 =================
@@ -374,7 +377,7 @@ DOCUMENT THANKS:
 ================
 Xaraya was written by the Xaraya Team. Xaraya is, as with many successful open-source projects, a huge collaborative effort relying on many talented contributors from across the globe. Without their vision, this document would not exist.
 
-The Official Xaraya Installation and Getting Started Guide was written by Drew Vogel. Abundant thanks to the Xaraya development team for answering Drew's endless questions. Thanks to the contributing authors, reviewers, Greg Allen, John Cox, mikespub, Doug Daulton, Skribe, Craig Hamlin, Chris Dudley, Mahmood Al-Yousif, MCortez, and MarcInMilan. Special thanks to Gregor Rothfuss for many things.
+The Official Xaraya Installation and Getting Started Guide was written by Drew Vogel. Abundant thanks to the Xaraya development team for answering Drew's endless questions. Thanks to the contributing authors, reviewers, Greg Allen, John Cox, mikespub, Doug Daulton, Skribe, Craig Hamlin, Chris Dudley, Mahmood Al-Yousif, mcortez, marcinmilan, and Joanna Dalle Nogare. Special thanks to Gregor Rothfuss for many things.
 
 This document was written using TextPad for Windows (http://www.textpad.com) and XMLmind XML Editor (http://www.xmlmind.com).
 
@@ -385,28 +388,28 @@ FEATURES OF XARAYA:
 Xaraya is extensible, open source web-development software platform written in PHP and licensed under the GNU General Public License. Xaraya utilizes robust permissions, data management and multilingual systems to dynamically integrate and manage content. 
 
 Xaraya's modular, database independent architecture introduces tools which separate form, function, content, and design. Xaraya delivers the requisite infrastructure for a fully dynamic multi-platform Content Management Solution (CMS).
-	* Database-driven website engine (PHP-ADODB compliant) 
+	* Database-driven website engine (PHP-ADODB compliant)
 
-	* Extensible through a wide variety of third-party modules 
+	* Extensible through a wide variety of third-party modules
 
-	* Powerful security module for multi-level user/administrator logins 
+	* Powerful security module for multi-level user/administrator logins
 
 	* Distribute workload using User/Administrator management tools
 
-	* Robust article management system.
+	* Robust article management system
 
 	* Fully editable & manageable News, Links, Downloads, and FAQ Sections
 
 	* BlockLayout Theme Engine: Display your site your way
 
-	* News Feed Manager: Access thousands of RSS-compliant news feeds 
+	* News Feed Manager: Access thousands of RSS-compliant news feeds
 
-	* Site Statistics: Tracks browser & operating system, top news & articles, and more 
+	* Site Statistics: Tracks browser & operating system, top news & articles, and more
 
-	* Easy install on most Unix/Linux and Windows platforms 
+	* Easy install on most Unix/Linux and Windows platforms
 
 Xaraya reduces web site development costs by introducing sophisticated administration tools & services which separate form, function, content, and design. With Xaraya, you work in a simple, structured environment to rapidly develop your website with diverse content, including:
-	* News Articles 
+	* News Articles
 
 	* Web Links Directory
 
@@ -889,6 +892,32 @@ Categories Conclusion
 ---------------------
 Once you have defined your site's Categories, they can be assigned to one or more Publication Types. We'll learn how to assign Categories to Publication Types, and what that means, later in this Guide. First, though, let's look at the modules of Xaraya.
 
+TEMPLATES IN XARAYA:
+====================
+OTTO Need a graphic or something showing the 'pecking order' of templates.
+OTTO Describe how BLOCK & FUNCTION templates can be built into PAGE templates.
+http://www.thedragonsforge.com/projectX/blocklayout_spec.html
+
+Xaraya displays information to site visitors by using TEMPLATES. Templates are available in the following varieties: "function templates", "block templates", "page templates", or "block group templates".
+	- "Function Templates" are Content Layout templates that display a view of a particular function of Xaraya. Xaraya separates function templates for users and administrators. User function templates have "user-" at the beginning of the template filename, and administrator function templates have "admin-" at the beginning of the template filename. For example, one of Xaraya's default function templates is called 'user-display-news'. This template defines the the layout of the news area in your page as it is displayed to users of the site. The administrator view is defined by the 'admin-display-news' template).
+
+	- "Page Templates" are Content Layout templates that display a view of a whole page, which can include function and block templates. These files reside in the <xarroot>/themes/<theme_name>/pages directory.
+
+	- "Block Templates" are Block Layout templates that display a view of a particular block within Xaraya. Block templates exist in <xarroot>/modules/<module_name>/xartemplates/blocks, creating directories as necessary (give new directories appropriate permissions). So, for articles, the block templates exist in <xarroot>/modules/articles/xartemplates/blocks.
+
+	Customize default block templates with the equivalent ".xt" override template in the <xarroot>/<theme_name>/modules/<module_name>/blocks directory, creating directories as necessary (give new directories appropriate permissions). You also have specific override custom block templates that you name when you create a new block. The name of the template file (without the ".xt" extension) is entered into the custom template field when creating a block instance. These specific override template files are in the <xarroot>/<theme_name>/blocks directory.
+
+	- "Block Group Templates" are Block Layout templates that contain a collection of individual block templates. The Block Group template files reside in the <xarroot>/themes/<theme_name>/blocks directory.
+
+	- "<module_name>.xt Template" is a Content Layout template that overrides the default page template for <module_name>. These files reside in the <xarroot>/themes/<theme_name>/pages directory.
+
+Function templates, block templates, page templates, and block group templates can be defined as either site-wide or theme-specific. It is advisable to make template files theme-specific by default. By doing so, you minimize the amount of work necessary if you decide to add additional themes to the site later.
+	- Site-Wide templates: A site-wide template is used to change the look & feel of the site, no matter what theme is being used. Site-wide templates are overridden by theme-specific templates, if one exists. These files exist in the <xarroot>/modules/<module_name>/xartemplates directory.
+
+	- Theme-specific templates: Theme-specific templates change the look & feel of the site only when displayed through a particular theme. These files exist in the <xarroot>/themes/<theme_name>/modules/<module_name> directory.
+
+If template files exist in both site-wide, theme-specific locations, the theme-specific templates take precedence over site-wide templates.
+
 MODULES IN XARAYA:
 ==================
 Xaraya allows items to be virtually 'bolted on' to its engine. These items, called "modules", add features or functionality to Xaraya. Because it is important to understand how modules function within Xaraya, in this section we explain how any Xaraya module can be installed, configured, deactivated, upgraded, and completely removed (deleted!). Any of these actions may be taken on any non-core Xaraya module. Xaraya's Core modules make up the distribution of Xaraya, and are not user modifiable.
@@ -1314,7 +1343,7 @@ The Articles module is possibly the most often-accessed part of a community site
 				---------------------
 				- Use <alias> as alias in Short URLs: CHECK this box to use the Publication Type's type as the Short URL for this Publication Type. The Type is configured when adding a new Publication Type under Admin->Articles->Publication Types. To turn off Short URL support for this specific Publication Type, UNCHECK this box.
 
-				- Use different page template: Enter the name of the template file to use instead of the default page template. The template file must exist in <xarroot>/ OTTO -- where do templates go? To use the default page template, leave this field blank.
+				- Use different page template: You can define custom display templates for each Publication Type. To tell Xaraya to use a different template for a Publication Type, enter the name of the template file in this field. Enter the filename without the ".xt" extension. To use the default page template, leave this field blank. See TEMPLATES IN XARAYA for a thorough discussion of templates.
 
 				Overview Configuration
 				----------------------
@@ -1778,7 +1807,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 		- Type: The type of the block instance. To view a listing of all available block types, click any block type or click Admin->Blocks->View Types.
 
-		- Template: OTTO -- where do templates go?
+		- Template: You can define custom display templates for each Block. To tell Xaraya to use a different template for a Block, enter the name of the template file in this field. Enter the filename without the ".xt" extension. To use the default page template, leave this field blank. See TEMPLATES IN XARAYA for a thorough discussion of templates.
 
 		- State: Default state for the block instance.
 			- Hidden: The block instance is not displayed. Setting a block instance's state to "Hidden" makes the block instance inactive.
@@ -1821,7 +1850,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 				- Members: Change the order of presentation of member block instances by left-clicking on the block instance to be moved and clicking on the UP or DOWN arrows to move the block instance up or down.
 
-				- Template: OTTO -- where do templates go?
+				- Template: You can define custom display templates for each Block Group. To tell Xaraya to use a different template for a Blockl Group, enter the name of the template file in this field. Enter the filename without the ".xt" extension. To use the default page template, leave this field blank. See TEMPLATES IN XARAYA for a thorough discussion of templates.
 
 				- Click "Update" to save changes.
 

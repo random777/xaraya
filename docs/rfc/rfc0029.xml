@@ -5,7 +5,7 @@
 <?rfc toc="yes"?>
 <?rfc editing="yes"?>
 
-<rfc number="0029" category="exp">
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0029" category="exp">
   <!-- Front matter is used for identification of author and organization -->
   <front>
     <title>Automated Unit testing for Xaraya</title>
@@ -14,6 +14,19 @@
       <address>
 				<email>marcel@hsdev.com</email>
 				<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <author initials="J" surname="Schrage" fullname="Jan Schrage">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>jan@xaraya.com</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>besfred@xaraya.com</email>
       </address>
     </author>
     <date month="December" year="2002"/>
@@ -90,10 +103,14 @@
               most important thing to watch out for is a false sense of
               security. The fact that an automated system is available
               doesn't, as such, improve the quality of the code
-              produced. 
+              produced. For example it's pretty easy to write useless tests
+              which pass. The writing of tests is that important that a complete
+              section of this document is devoted to it.
             </t>
             <t>
-              The above actually means: it will be hard to make tests pass;
+              The above actually means: it will be hard to make tests pass; 
+              (under the assumption that the tests are well written and reflect
+              the intent of the developer what the code should do)
               if a test passes it will be a reliable measure that the code
               actually does what it was designed for.
             </t>
@@ -256,18 +273,84 @@
       </t>
 
       <section title="General design">
+        <t>
+          Instead of reinventing a whole new philosophy for a testing framework, 
+          we basically will implement the system according to the 
+          <xref target="junit">jUnit test framework</xref>.
+        </t>
+        <t>
+          The test writer will be able to write a special sort of
+          "program" which is targeted specifically for
+          testing. Envisioned is the instantation of a special
+          "testCase" class which holds methods for setting up the test
+          environment, evaluating the precondition(s), running the
+          tests and cleaning up afterwards.  After writing the
+          testcases, the writer will be able to group the testcases
+          into testsuites, which logically group tests together. These
+          two activities are the extra work the developer is supposed
+          to do.
+        </t>
+        <t>
+          Given the written testSuites and testCases a "runner"
+          program can be executed to actually run the tests over the
+          current state of the codebase.  The runner executes the
+          tests and reports the result in a specified format. This
+          report will contain the names of the suites and cases and
+          will report passes and failures in a convenient way, so the
+          developer can quickly check whether the tests pass or fail.
+        </t>
+        <t>
+          For using the test system in a "development mode" a simple
+          text format report will be used. The automated environment
+          will most likely present the results in a web page and store
+          those in a predefined place for later inspection. Other
+          report formats (for example in a dedicated XML format) are
+          planned but won't be available in the first implementation.
+        </t>
       </section>
       
       <section title="Requirements specific design">
         <t>
-          This section will focus on the specific design consequences directly 
-          related to eacht separate requirement.
+          This section will focus on the specific design consequences
+          directly related to eacht separate requirements. This
+          sections details the overview given in the previous section.
         </t>
 
         <t><em>Tests are conservative, defaulting the result to "failed"</em></t>
-        
+        <t>
+          This means that tests will only pass when a very specific
+          test condition has been met, in all other cases the test
+          will fail (regardless its cause, which could actually also
+          be a fault in the test system itself). In other words, tests
+          will only pass if we've made sure that the exact
+          testcondition evaluates to true, in all other cases tests
+          will fail.
+        </t>
+        <t>
+          In the preliminary design, we've taken into account that it
+          might be convenient to have a "tri-state" result. PASS,
+          FAIL, EXCEPTION, the latter being that the test didn't even
+          start for some strange reason.  For practical purposes
+          exceptions should be viewed as failures nonetheless.
+        </t>
+
         <t><em>The test system can test itself</em></t>
-        
+        <t>
+          This is kind of a tricky requirement. If worked out in full
+          it creates an endless loop of tests. We are going to make an
+          effort tho to use the mechanisms described in this RFC for
+          the unit testing code itself.
+        </t>
+        <t>
+          The results of that 'special' testing should be interpreted
+          a bit differently than normal tests. While in normal test we
+          assume that the test system is running perfectly, in the
+          tests for the test system itself both the test code as well
+          as the code tested use the same functions. If a test fails
+          this can both mean that the test code or the code tested is
+          broken. In any case there is something wrong which needs to
+          be fixed.
+        </t>
 
         <t><em>Tests are as close as possible to the code for which they are designed</em></t>
         <t>
@@ -280,7 +363,7 @@
             </t>
             <t>
               a subdirectory below the directory which contains the
-              original code (for example /includes/.tests/* files in
+              original code (for example /includes/xartests/* files in
               the includes directory )
             </t>
             <t>directly in the code</t> 
@@ -289,32 +372,70 @@
               for the code in that file
             </t>
           </list>
+          The first option would be convenient for test writers, but
+          it will be hard to see which tests belong to which part of
+          the code. The second option satisfies the "closeness"
+          criterium better, but will scatter the tests all over the
+          repository, albeit in a predefined place for each
+          directory. Embedding tests directly into the code would be
+          the ideal situation theoretically, but frankly, we don't
+          have a clue how to do that in PHP. Someday maybe PHP will
+          include an <em>ensure()</em> operation which allows tests to
+          be embedded into the code. The last option is somewhat like
+          the second with the advantage that it's very clear for which 
+          file the tests are written. This advantage is not that high that we
+          are prepared to double the number of files and have no predefined 
+          place for the tests.
+        </t>
+        <t>
+          Weighing the above, we chose option number 2.
         </t>
 
         <t><em>Tests are grouped into testcases and testsuites, which can both be run separately</em></t>
+        <t>
+          A testcase tests a number of features for a piece of
+          functionality, typically one class or one function.  The
+          testcase may consist of a number of tests which logically
+          belong into one group.
+        </t>
+        <t>
+          By default all testcases fall under the testsuite:
+          "default". It is however possible to create new testsuites
+          and assign new testcases to these testsuites.
+        </t>
 
         <t><em>Tests can be run directly from the development environment</em></t>
         <t>
           Effectively this means that a bk command is defined to run 
           the tests. The proposed syntax for this command is:
           <artwork>
-            bk runtests [-s&lt;suitelist&gt;] [-c&lt;caselist&gt;] -o [html|text]
+            bk [-r] tests [-s&lt;suitelist&gt;] [-c&lt;caselist&gt;] [-o[html|text]] &lt;dirs&gt;
+            
+            Description:
+            The 'bk tests' command runs the registered unittests for a certain 
+            part of code. By default it looks for testsuites and testcases from
+            the current directory downwards in directories named 'xartests'.
+            If -r is specified the command runs from the root of the repository 
+            and traverses all directories for xartests directories to look for tests.
 
             Options:
-            -s  : only run the tests registered in the list of testsuites specified
-                  The &lt;suitelist&gt; is a comma separated list of suitenames.
-                  Default: run all testsuites.
-            -c  : only run the testcases specified in the list on the command line.
-                  The actual list of testcases is determined as follows:
-                  - if the -s option is not specified only the specified testcases are run (for all 
-                    testsuites)
-                  - if the -s option is specified the testcases are first filtered by the specified
-                    testsuites. From that list only the specified cases are executed.
-                  Default: run all testcases
-            -f  : specify the output format to be generated
-                  - html : generate html
-                  - text : generate plain text
-                  Default: text
+            -s     : only run the tests registered in the list of testsuites specified
+                     The &lt;suitelist&gt; is a comma separated list of suitenames.
+                     Default: run all testsuites.
+            -c     : only run the testcases specified in the list on the command line.
+                     The actual list of testcases is determined as follows:
+                     - if the -s option is not specified only the specified testcases 
+                       are run (for all testsuites)
+                     - if the -s option is specified the testcases are first filtered 
+                       by the specified testsuites. From that list only the specified 
+                       cases are executed.
+                     Default: run all testcases
+            -o     : specify the output format to be generated
+                     - html : generate html
+                     - text : generate plain text
+                     Default: text
+            &lt;dirs&gt; : Process the specified directories.
+                     Default: current directory
           </artwork>
         </t>
 
@@ -330,50 +451,116 @@
         
         <t><em>Tests are run before a commit into the repository</em></t>
         <t>
-          BitKeeper supports a mechanism called triggers which can run at certain
-          defined events using the repository. We want to run the tests which
-          are related to the changes being committed. The events which we could use are:
+          BitKeeper supports a mechanism called triggers which can run
+          at certain defined events using the repository. We want to
+          run the tests which are related to the changes being
+          committed. The events which we could use are:
           <list style="symbols">
             <t>pre-commit: called before a changeset is committed</t>
             <t>pre-delta : called before a change to a file is registered</t>
           </list>
-          The difference between these two is that in the first case the changes have already been 
-          committed to a changeset, leading to a changeset for which the tests might fail, without 
-          the direct possibility to undo it. So, at first glance we need the pre-delta trigger.
+          The difference between these two is that in the first case
+          the changes have already been committed to a changeset,
+          leading to a changeset for which the tests might fail,
+          without the direct possibility to undo it. So, at first
+          glance we need the pre-delta trigger.
         </t>
         <t>
           There are a couple of issues which need further investigation:
           <list style="numbers">
-            <t>deltas are very numerous, so tests will be run often. This is a good thing, but might
-              be a performance killer</t>
-            <t>When pulling changes from a remote repository new changeset(s) are created when doing conflict
-              resolving. This leads to two questions:
+            <t>
+              deltas are very numerous, so tests will be run
+              often. This is a good thing, but might be a performance
+              killer. Also, not all tests are suitable to run a the
+              delta level because they involve changes from multiple
+              files. In theory this shouldn't matter because tests are
+              written before the code is written ;-) and just keep
+              failing until the code is right. 
+            </t>
+            <t>
+              If we run tests before or while committing code, how do
+              we know whether a test is committed or a piece of code
+              is committed. Does it matter?
+            </t>
+            <t>
+              When pulling changes from a remote
+              repository new changeset(s) are created when doing
+              conflict resolving. This leads to two questions:
               <list style="numbers">
-                <t>does the trigger run in this case, or do both triggers not run in the RESYNC dir</t>
-                <t>do we want them to run while merging?, it is the critical point and tests are more likely to
-                  fail during merges than during normal development so they are more valuable at that point
+                <t>
+                  does the trigger run in this case, or do both
+                  triggers not run in the RESYNC dir. What if the RESYNC
+                  dir contains changes to the triggers?
+                </t> 
+                <t>
+                  do we want them to run while merging?, it is the
+                  critical point and tests are more likely to fail
+                  during merges than during normal development so they
+                  are more valuable at that point. 
                 </t>
               </list>
             </t>
-            <t>When we run changes at the "delta-boundaries" instead of the "changeset-boundaries" we might have
-              two conflicting requirements (this one and the unique point in time marker)
+            <t>
+              When we run tests at the "delta-boundaries" instead of
+              the "changeset-boundaries" we might have two conflicting
+              requirements (this one and the unique point in time
+              marker)
             </t>
           </list>
+          Obviously the above is a bit complex, especially if the
+          complex details of bitkeeper come into play. The current
+          plan is to move forward slowly. Implement the basic
+          framework, use it, get feedback and decide whether further
+          integration; or more strict integration, is warranted.
         </t>
         
         <t><em>A testrun has a unique "point in time" marker</em></t>
         <t>
-          By specifying a unique point in time marker on each testresult produced
-          testresults can be linked to a certain state of the codebase. The options we 
-          have for this marker are:
+          By specifying a unique point in time marker on each
+          testresult produced testresults can be linked to a certain
+          state of the codebase. The options we have for this marker
+          are:
           <list style="numbers">
             <t>the latest changeset revision number (TOT Top Of Trunk) in the repository</t>
             <t>a timestamp</t>
           </list>
+          The latest changeset revision number is nice, in that we
+          directly have the information to restore a repository to a
+          certain state to run the tests in, if we want. The
+          disadvantage is that it is bitkeeper specific and might not
+          be supported in other repository systems. We chose to use
+          the bitkeeper specific implementation first and optionally
+          generalize later on.
         </t>
         <t><em>The testing framework has no impact at runtime requirements</em></t>
+        <t>
+          The current idea of implementation implies that the test
+          framework <em>pulls in</em> the necessary code which need to
+          be tested. As such it can be seen as a separate system in
+          the code base. No extra code will be added to the actual
+          product. The first estimate for the runtime impact is
+          therefore: zero!
+        </t>
         
         <t><em>Unattended operation</em></t>
+        <t>
+          The implemented system must support unattended
+          operation. This means that the tests must be able to run
+          from an automated task scheduler (like cron for example) and
+          allow fairly failsafe operation in that mode. In particular,
+          attention should be paid to:
+          <list style="symbols">
+            <t>avoiding interactivity as much as possible</t>
+            <t>allowing tests to be skipped, and be marked as such if a certain precondition is not met</t>
+            <t>some sort of monitoring, possibly provided by the operating system, that the test system doesn't lock up</t>
+          </list>
+          The main reason we want unattended operation is that we are
+          able to run test indefinitely and also catch "repeat causes
+          error"-type of bugs. A test might run 1,2, 3 or even 100
+          times. The 101st time the test might fail. Running the tests
+          manually will hardly ever catch those type of
+          bugs. Automated running of tests will.
+        </t>
       </section>
 
     </section>
@@ -388,13 +575,23 @@
 
     
     <section title="Integration">
+      <t>Describe what the consequences are in starting to use the system. 
+        At first glance no integration issues, only some requirements for being able to run it
+        (bk, php, sh, bash that sort of stuff)
+      </t>
     </section>
 
+    <section title="How to write tests">
+      <t>rather verbose description of a testfile, including code snippets,
+        also section on what to test for, maybe cite from document from jan
+      </t>
+    </section>
     <section title="Remaining issues">
     </section>
 
 		<!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2002-03-17: MrB : Requirements basically complete</t>
       <t>2002-12-28: MrB : initial revision, just a reservation for the RFC</t>
     </section>
 
@@ -409,6 +606,30 @@
             <organization>Eiffel Software</organization>
             <address>
               <uri>http://docs.eiffel.com/general/guided_tour/language/invitation-07.html#pgfId-445192</uri>
+            </address>
+          </author>
+          <date year="2003"/>
+        </front>
+      </reference>
+      <reference anchor="testfoundations">
+        <front>
+          <title>Testing foundations</title>
+          <author fullname="Brian Marck">
+            <organization>Testing foundations</organization>
+            <address>
+              <uri>http://testing.com</uri>
+            </address>
+          </author>
+          <date year="2003"/>
+        </front>
+      </reference>
+      <reference anchor="junit">
+        <front>
+          <title>The jUnit test framework</title>
+          <author>
+            <organization>junit.org</organization>
+            <address>
+              <uri>http://www.junit.org</uri>
             </address>
           </author>
           <date year="2003"/>

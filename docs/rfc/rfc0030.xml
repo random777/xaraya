@@ -175,7 +175,7 @@
           Note: Contrary to the PostNuke permissions system, the order
           in which multiple parents of a role are defined is
           not relevant for the way privileges are applied and has no
-          impact on whether access is granted or denied.
+          impact on whether access is granted or denied. Specifically, there is no "first encountered wins" rule in Xaraya. ALL the privileges available will be checked for access.
         </t>
         <t>
           The following rules apply to the roles hierarchy:
@@ -207,7 +207,7 @@
             |                  |
             |--Role C          |--John Doe
           </artwork>
-          John both reports to "Big Boss" and "Small Boss" and has as such two roles
+          John both reports to "Big Boss" and "Small Boss" and as such has two roles
           in the system.
         </t>
         <t>
@@ -238,31 +238,30 @@
         </t>
         <t>
           Everybody: This is the root of the roles tree and is defined
-          as a group that contains all other subgroups and users. This
-          role cannot be deleted or modified.
+          as a group that contains all other subgroups and users.
         </t>
         <t>
           Administrators: This is a group that contains those users that
           can do anything in the system, a sort of superuser. The
-          Administrators group contains one such user, the Admin. The Admin is the default user logged on when Xaraya is installed .Both
-          the Administrators group and the Admin cannot be modified or
-          deleted.
+          Administrators group contains one such user, the Admin. The Admin is the default user logged on when Xaraya is installed.
         </t>
         <t>
           Users: This is a group that represents users of the
-          site. This role may not be modified or deleted.
+          site. By default new users that register on the site become members of this group. This default can be changed by modifying the configuration settings of the Base module.
         </t>
         <t>
           Anonymous: This is a user that represents users of the site
-          that are not logged in. This role may not be modified or
-          deleted.
+          that are not logged in.
+        </t>
+        <t>
+          Anonymous: This is a special "meta-user" that represents the current user. Myself can be used to create special privileges that allow, for instance, only the author of an article to modify the article.
         </t>
       </section>
 
       <section title="Privileges">
         <t>
           The Xaraya concept of privileges has a structure similar to
-          privileges in PostNuke. A privilege is an object grants a particular type of access to a resource. Every privilege incorporates:
+          privileges in PostNuke. A privilege is an object that grants a particular type of access to a resource. Every privilege incorporates:
           <list style="symbols">
 <!--
             <t>
@@ -271,11 +270,7 @@
             </t> 
 -->
             <t>
-              A reference to the Module it [MrB: this is strictly not necessary,
-              for the UI however it is convenient. For the privilege it is not
-              relevant which module has registered the component etc.]
-              applies to. In addition to the list of available modules, a
-              privilege can also apply to "All".  
+              A reference to the Module it applies to. In addition to the list of available modules, a privilege can also apply to "All".  
             </t> 
             <t>
               A reference to the Component within the Module it applies
@@ -339,6 +334,9 @@
           N.B.: Privileges can be defined as empty containers, i.e. not themselves granting any rights. This is useful if they only serve to group other privileges. In the example above the privilege CasualAccess is an empty container that holds its 2 subprivileges.
         </t>
         <t>
+          It's important to understand that grouping privileges like this does <strong>not</strong> imply that "parent" privileges are in any way "stronger" than "children". Making privileges subprivileges to other privileges is just a convenient way of grouping them, so that bundles of them can be assigned at a time.
+        </t>
+        <t>
           In the above example note that although the names are
           suggestive of certain behaviour there is no fixed naming
           rule. You can assign any names you want as long as they are
@@ -358,25 +356,12 @@
           ALL the subprivileges of that privilege to the role.
         </t>
         <t>
-          For convenience a number of privileges have been created
-          at initialization time. These are:
+          For convenience a number of privileges are created with each installer configuration at initialization time. Examples of these are:
           <list style="symbols">
-            <t>
-              "NoAccess" is the privilege representing the lowest
-              level of access to all Xaraya modules, i.e. no access. This privilege cannot be modified or
-          deleted. It
-              has the attributes:
-              <artwork>
-                Realm     Module    Component    Instance    Level
-                --------- --------- ------------ ----------- -----------
-                All       All       All          All         ACCESS_NONE   
-              </artwork>
-            </t>
             <t>
               "Administration" is the privilege representing the highest
               level of access to all Xaraya modules, i.e. the ability to
-              do anything. This privilege cannot be modified or
-          deleted. It has the attributes:
+              do anything. It has the attributes:
               <artwork>
                 Realm     Module    Component    Instance    Level
                 --------- --------- ------------ ----------- ------------
@@ -411,13 +396,8 @@
         <t>
           The levels are cumulative. A given level implies the right
           to all the levels below it. The right to DELETE implies the
-          rights to ADD, EDIT, MODERATE etc.
+          rights to ADD, EDIT, MODERATE etc. An exception is ACCESS_NONE, which can override any other access right.
         </t>
-        <t>
-          There is also no provision for ALLOW and DENY, as in some
-          other ACL systems.
-        </t>
-        
       </section>
 
       <section title="Irreducible Sets">
@@ -555,10 +535,10 @@
         </t>
         <t>
           Suppose I have a role FOO and the tree of privileges in the
-          example above. The following operation:
+          example above. The operation:
         </t>
         <t>
-          "assign ReadAll to FOO" [MrB: in abstract: assign [privilege] to [role], good example for adding a domain language for it later on]
+          "assign ReadAll to FOO"
         </t>
         <t>
           will assign all 5 of the privilege in the tree to
@@ -602,21 +582,15 @@
       <section title="Default Assignments">
         <t>
           For convenience a number of assignments are made at
-          initialization time. These cannot be changed.
+          initialization time.
         </t>
         <t> 
-          The role "Everybody" is assigned the privilege
-          "NoAccess". In other words, Everybody can do nothing.
-        </t>
-        <t> 
-          Open Issue: should Everybody be assigned a higher
-          privileges level, such as ACCESS_OVERVIEW?
-          [MrB: no, not by the system, but maybe in the deployment]
-        </t>
-        <t> 
-          The role Administrators is assigned the privilege
-          FullAccess. In other words, members of the Administrators
+          For instance, the role Administrators is assigned the privilege
+          Administration. In other words, members of the Administrators
           group can do anything.
+        </t>
+        <t> 
+          In addition, a special privilege called GeneralLock is also assigned to the roles created at installation. GeneralLock contains privileges that stop you from changing or deleting basic roles and privileges such as the site Admin or Everybody. Removing or altering GeneralLock makes it possible to make such changes. This should only be done in special cases and with an understanding of how the system works, however, as such changes can damage the site in ways difficult to recover from.
         </t>
       </section>
 
@@ -633,7 +607,7 @@
             |  |--AddExamples                               AddExamples
             |                                               EditArticles
             |--EditArticles                                 AddArticles
-            |  
+            |  											and ReadAll (if it is not empty)
             |--AddArticles
           </artwork>
           Role FOO will have 5 privileges assigned to him. However the

@@ -291,7 +291,7 @@
             line up items on adjacent lines. Structural indentation should take
             priority over visual layout indentation. For example, this indentation
             style is just visual; the indentation happens to reflect the length of
-            a function names:
+            a function names, and nothing of the structure:
           </t>
           <artwork>
             list($p1,
@@ -308,16 +308,16 @@
           <artwork>
             list($p1, $p2) = xarVarCleanFromInput('name', 'module');
 
-			list($p1, $p2) =
+            list($p1, $p2) =
                 xarVarCleanFromInput('name', 'module');
 
-			list(
-               $p1, $p2, $p3, $p4
+            list(
+                $p1, $p2, $p3, $p4
             ) = xarVarCleanFromInput(
-               'name',
-               'module',
-               'a_really_long_token_indeed',
-               'something_shorter'
+                'name',
+                'module',
+                'a_really_long_token_indeed',
+                'something_shorter'
             );
           </artwork>
         </t>

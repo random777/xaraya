@@ -902,6 +902,20 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </reference>
 
 
+      <reference target="http://ccm.redhat.com/bboard-archive/acs_design/000818.html">
+        <front>
+          <title>Discussion about Query Abstraction in another CMS</title>
+          <author fullname="">
+            <organization></organization>
+          </author>
+          <date year="2002"/>
+          <note title="Discussion right to the point">
+            <t>Very insightful comments, read till the end.</t>
+          </note>
+        </front>
+      </reference>
+
+
     </references>
     
     <!-- Any section after this will become an appendix -->

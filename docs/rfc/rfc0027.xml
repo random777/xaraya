@@ -2,7 +2,6 @@
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc='yes'?>
 
 <rfc number="0027" category="bcp">
@@ -28,126 +27,334 @@
     <!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
     <keyword>template</keyword>
-
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    
+	<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>The EU directive on data protection contains some requirements which may have
-	an impact on our code base. This  RFC documents these requirements and their
-	propasals on how to comply with them in Xaraya.
+      <t>
+		This RFC describes a possible Xaraya users module that complies with the EU Directive on Data 
+Protection.
+	  </t>
+      <t>
+		The proposed modifications to the current users module involve giving the user the ability to control 
+how his/her personal data is displayed, and to remove his/her personal data from the site.
       </t>
     </abstract>
   </front>
-
+  
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
-    <!-- Introduction is mandatory -->
-    <section title="Introduction">
-      <t>
-	This document proposes certain changes to the Xaraya source code to make the
-	users module compliant with the EU directive on data protection. This does
-	not imply that Xaraya sites without these changes cannot comply with the
-	directive. The changes proposed simply make it easier to do so, primarily by
-	giving the users enhanced functionality to manage personal data they submit.
-	This makes life easier for the site administrator, who otherwise has the
-	onus to comply with user requests concerning personal data.
-      </t>
-      <t>
-	The directive is quite complex and, depending on the type and purpose of the
-	data collected, can be quite onerous. The changes proposed in this document
-	purport to take into account common situations encountered by most
-	organizations that will run Xaraya. With this in mind, what follows is a
-	simplified summary of the major points of the directive that will be used to
-	define the requirements of a compliant users module.
-      </t>
-      <t>
-	For special situations the directive in its entirety may need to be taken
-	into account. The directive can be found here:
-	http://www.privacy.org/pi/intl_orgs/ec/final_EU_Data_Protection.html
-      </t>
-    </section>
+	<section title="Introduction">
+	  <t>
+This document proposes certain changes to the Xaraya source code to make the users module compliant with the EU 
+directive on data protection. This does not imply that Xaraya sites without these changes cannot comply with the 
+directive. The changes proposed simply make it easier to do so, primarily by giving the users enhanced functionality 
+concerning the data they submit.
+	  </t>
+  <t>
+The directive is quite complex and, depending on the type and purpose of the data collected, can be quite onerous. The 
+changes proposed in this document purport to take into account common situations encountered by most organizations that 
+will run Xaraya. With this in mind, what follows is a simplified summary of the major points of the directive that will 
+be used to define the requirements of a compliant users module.
+	  </t>
+  <t>
+For special situations the directive in its entirety may need to be taken into account. The directive can be found here: 
+<eref 
+target="http://www.privacy.org/pi/intl_orgs/ec/final_EU_Data_Protection..html">http://www.privacy.org/pi/intl_orgs/ec/final_EU_Data_Protection.html</eref>
+	  </t>
+			<section title="Implications of the Directive">
+	  <t>
+For the purpose at hand the directive distinguishes between the following subjects (we take subject to mean a natural or 
+legal person):
+		<list style="symbols">
+	  <t>
+Data Subject: the natural person whose personal data is the object of the directive.
+</t>	  <t>
+Controller: the subject that determines the purposes and means of the processing of personal data.
+</t>	  <t>
+Processor: the subject that processes personal data on behalf of the controller.
+</t>	  <t>
+Recipient: the subject to whom data are disclosed.
+</t></list>
+The directive distinguishes between data collected from the user and data about the user collected from other sources. 
+For our purpose only the former is relevant, i.e. data submitted by users registering on a site. The directive applies 
+to any and all processing of personal data, with some exceptions. Exempted are a number of national or EU institutions 
+themselves (!), and strictly personal or household uses of personal data.
+	  </t>
+<t>
+The directive distinguishes between data collected from the user and data about the user collected from other sources. 
+For our purpose only the former is relevant, i.e. data submitted by users registering on a site.
+While we can make a module EU compliant, this does not necessarily mean that any use of the module is necessarily legal 
+in all cases. National legislation may supercede the directive. What may be allowed by the directive, e.g. processing of 
+personal data "revealing racial or ethnic origin, political opinions, religious or philosophical beliefs, trade-union 
+membership" with the user's consent, may be prohibited by national law. Such considerations are excluded from this 
+document.	
 
-    <section title="Implications of the Directive">
-      <t>
-	For the purpose at hand the directive distinguishes between the following
-	subjects (we take subject to mean a natural or legal person):
-	<list>
+</t>
+<t>
+Also excluded from this discussion is the obligation that a site may or may not have to notify a supervisory authority 
+as described by the directive. [section IX]
+</t>
+<t>
+The directive distinguishes between data collected from the user and data about the user collected from other sources. 
+For our purpose only the former is relevant, i.e. data submitted by users registering on a site.
+</t>
+</section>
+<section title="Main Points">
+		<list style="numbers">
+<t>The user must give his/her unambiguous consent to the processing of his/her personal data.
+</t>	  <t>The user must be told to what end the data will be used.
+</t>	  <t>The user must be told whether submitting the data is mandatory or not, and the consequences of submitting 
+or not submitting the data.
+</t>	  <t>The user must be told who the recipients of the data will be.
+</t>	  <t>The user must have the right to access and modify the data.
+</t>	  <t>The user has the right to object at any time to the processing of the data. Accordingly "Where there is a 
+justified objection, the processing instigated by the controller may no longer involve those data".
+</t>	  </list>
+</section>
+</section>
+	
+	<section title="List of Requirements for the EU Compliant Module">
 	  <t>
-	    Data Subject: the natural person whose personal data is the object
-	    of the directive.
+For the purpose of this document we will take the Controller/Processor to mean the owner of a Xaraya site, or any 
+administrator of the site (as long as the administrator has the access rights to view, modify, delete or publish 
+personal data). The Data Subject is any user that has registered and submitted personal data. The personal data is any 
+information relating to the user.
 	  </t>
-	  <t>
-	    Controller: the subject that determines the purposes and means of
-	    the processing of personal data.
-	  </t>
-	  <t>
-	    Processor: the subject that processes personal data on behalf of
-	    the controller.
-	  </t>
-	  <t>
-	    Recipient: the subject to whom data are disclosed.
-	  </t>
-	</list>
-      </t>
-      <t>
-	The directive applies to any and all processing of personal data, with some
-	exceptions. Exempted are a number of national or EU institutions themselves
-	(!), and strictly personal or household uses of personal data.
-      </t>
-      <t>
-	While we can make a module EU compliant, this does not necessarily mean that
-	any use of the module is necessarily legal in all cases. National
-	legislation may supercede the directive. What may be allowed by the
-	directive, e.g. processing of personal data "revealing racial or ethnic
-	origin, political opinions, religious or philosophical beliefs, trade-union
-	membership" with the user's consent, may be prohibited by national law. Such
-	considerations are excluded from this document.
-      </t>
-      <t>
-	Also excluded from this discussion is the obligation that a site may or may
-	not have to notify a supervisory authority as described by the directive.
-	[section IX]
-      </t>
-      <t>
-	The directive distinguishes between data collected from the user and data
-	about the user collected from other sources. For our purpose only the former
-	is relevant, i.e. data submitted by users registering on a site.
-      </t>
-    </section>
+		<list style="symbols">
+<t>Controller, Processor = Administrator
+</t>	  <t>Data Subject, Recipient = User
+</t>	  </list>
 
-    <section title="Main Points">
-      <t>
-	<list style="numbers">
 	  <t>
-	    The user must give his/her unambiguous consent to the processing
-	    of his/her personal data.
+Translating the above rights to a community oriented CMS environment, they can be summarized as:	  
+</t>	  
+		<list style="symbols">
+<t>The user can grant or waive consent that his/her data be collected.
+</t>	  <t>The user can modify his/her data at any time.
+</t>	  <t>The user can remove his/her data (or ask that it be removed) at any time.
+</t>	  </list>
+	  <t>
+The "processing" of user data for the purposes of this proposal can be defined as the processing that occurs in Xaraya's 
+users module through the pnAPI. Compliance in this module will automatically extend compliance to any other module that 
+uses the pnuserapi and pnadminapi functions of the users module.	  
+</t>
+	  <t>
+Strictly speaking, the rights above go a bit further than the letter of the directive in that the user is not just given 
+the right to object, but also the right to implement his/her objection (by unregistering). 
 	  </t>
 	  <t>
-	    The user must be told to what end the data will be used.
+EU compliant users modules are therefore solutions that implement these 3 rights. Two such proposals are described 
+below.
 	  </t>
-	  <t>
-	    The user must be told whether submitting the data is mandatory or
-	    not, and the consequences of submitting or not submitting the data.
-	  </t>
-	  <t>
-	    The user must be told who the recipients of the data will be.
-	  </t>
-	  <t>
-	    The user must have the right to access and modify the data.
-	  </t>
-	  <t>
-	    The user has the right to object at any time to the processing of
-	    the data. Accordingly "Where there is a justified objection, the processing
-	    instigated by the controller may no longer involve those data".
-	  </t>
-	</list>
-      </t>
-    </section>
+	</section>
 
-    <!-- Revision history is mandatory -->
-    <section title="Revision history">
-      <t>2002-11-10: Initial revision</t>
-    </section>
-    
+	<section title="Solution Proposal 1: Simple Compliance">
+	<section title="Example: P2 Masonic Lodge">
+	  <t>
+Having been attacked in the press, P2 is opening a Xaraya site to convince the public that they're just a social club 
+with funny hats and really not out to control the Italian government. Being something of a secretive organization, 
+registrations will be vetted and the members' list is only accessible to registered members. Within the restricted 
+members' area, however, information such as name, secret code name and ICQ number is made available to all fellow 
+members. Members who resign from the lodge are keen to have their data removed from the site, so as to avoid possible 
+future lawsuits.
+	  </t>
+	</section>
+	<section title="Overview">
+	  <t>
+As concerns consent and removal this is an all or nothing proposition. Those rights are applied to the user data as a 
+whole.
+	  </t>
+		<list style="symbols">
+	  <t>	Consent: is given when the user registers.
+	  </t>
+	  <t>
+Modification: the user can modify his/her data in the user account area.
+	  </t>
+	  <t>
+Removal: the user can "unregister", and his/her data will be removed.
+	  </t>
+
+			</list>
+			</section>
+	<section title="Database Tables">
+	  <t>
+No change required.
+	  </t>
+	</section>	
+	<section title="Code that will need to be rewritten">
+	  <t>
+<list style="symbols">
+<t>Consent: Appropriate statements concerning rights and obligations under the EU directive can be inserted under the 
+terms and conditions as currently implemented. 
+</t><t>Modification: As currently implemented.
+</t><t>Removal: Add an additional button "Unregister" to the user account area. Clicking displays a confirmation page 
+explaining that all data will be removed and the user unregistered. Confirmation deletes the user's entry in the 
+relevant tables. (see Open Issue B)
+</t></list>	  </t>
+	</section>	
+		</section>
+	<section title="Solution Proposal 2: Differentiated Compliance">
+	<section title="Example: AC Milan Football Club">
+	  <t>
+AC Milan, which has done quite well in the Champion's League lately, is opening a Xaraya site with up to date 
+information about the Club and its players, including a feedback area. The members' list is public and contains such 
+basic information as name and telephone number. The owner of AC Milan, Silvio Berlusconi, is also Prime Minister of 
+Italy. While he is interested in getting feedback on what fans think about the Club and having his secretary field calls 
+on his business number, he'd rather make his private number available only to the site's admins, to avoid crank 
+political calls on the government's upcoming budget.
+  </t>
+	</section>	
+	<section title="Overview">
+	  <t>
+In this solution the functionality is applied to single data elements, rather than the user data as a whole. The site 
+administrator can define a subset of the user data as mandatory. For this subset this solution is the same as the 
+previous one (i.e. an all or nothing proposition). The remaining data fields are user optional. The user can define each 
+of these fields as visible to the recipients or not. 
+	  </t>
+	  <t>
+	  The site administrator:
+	  </t>
+	  <list style="symbols">
+	  <t>
+Can define variable registration data fields (pn_user_property table). (current)
+</t><t>Can define for each data field whether it is to be mandatory (i.e. requires data to be entered) or not.	(new)
+</t><t>Can define for each data field whether its visibility is user optional or not.	(new)
+</t></list>
+	  <t>
+The user:	  </t>
+	  <list style="symbols">
+	  <t>
+Can consent to the visible fields as a whole. (current)</t><t>
+Can define the user optional data fields visible or not at any time.	(new)
+</t><t>
+Can modify the data at any time. (current)
+</t><t>
+Can unregister from the site at any time. (new)
+</t></list>
+<t>
+The possible recipients for user data depend on the visibility setting and are either administrators or users (="All 
+Groups"). (see Open Issues D)
+</t>
+</section>	
+	<section title="Database Tables">
+	  <t>
+Add the following database fields:
+</t>
+<artwork><![CDATA[
+        Table pn_user_property: 
+        Field Name           Type          Contains
+        pn_prop_mandatory    boolean       True = field must contain a non-null value
+        pn_prop_visible      boolean       True = field visibility can be set by user
+	
+        Table pn_users: 
+        Field Name           Type          Contains
+        pn_fields_visible    varchar 255   1-dim array consisting of the pn_prop_id 
+                                           of all pn_user_property fields set visible
+]]></artwork>
+	</section>	
+	<section title="Code that will need to be rewritten">
+		<list style="numbers">
+		<t>
+		Add appropriate code for pn_prop_mandatory and pn_prop_visible fields to the functions 
+users_admin_newvar() in pnadmin.php. The same for updating or deleting entries to pn_user_property.
+		</t>
+		<t>
+		Add a checkbox to each user definable field in users_user_new() and users_user_modify() in pnuser.php in 
+the users module that lets the user define whether the field will be visible or not. Same thing for when the user 
+modifies the personal data.
+		</t>
+		<t>
+Modify function users_userapi_getall and users_userapi_get in pnuserapi.php to select those fields included in the 
+pn_fields_visible array.
+	</t>
+		<t>
+If the pn_prop_mandatory field is set true the user must enter a value upon registering or modifying his/her data. If no 
+value is entered an error message is generated and the page re-presented.		</t>
+		<t>
+Create the "unregister" functionality as described above.
+		</t>
+		</list>
+
+	  
+
+	  </section>
+	</section>
+
+	<section title="Appendix - Open Issues">
+	<section title="Currently hard-coded fields">
+<t>
+The approach described above could be extended to include all user fields. This would mean merging most of the pn_users 
+table fields (except: uid, username, pass) into the pn_user-property table, thereby allowing the admin complete freedom 
+in deciding which user fields will be user optional.
+</t>
+<t>
+In practice, however, this probably doesn't make sense. A minimum of mandatory user fields will always be necessary 
+simply to make it possible to do something meaningful. The currently chosen fields seem to be a sensible minimalist 
+choice (exception: url?) that will no doubt work in most cases.
+</t>
+	</section>
+	<section title="Removal of Users">
+<t>
+When a user unregisters, his/her data can either be inactivated or physically deleted. Inactivation could be implemented 
+through an additional boolean field in the pn_users table, which would be checked by the appropriate api functions in 
+the users module whenever getting data.
+</t>
+<t>
+Another approach would be to combine the inactivation with whatever variable (pn_active in pn_userblocks? [check this]) 
+drives the visibility of the user in the members list, as they are really different aspects of the same property.
+</t>
+<t>
+On the face of it inactivation complies with the directive (there would be no further processing of the data), and may 
+be the wiser choice, as authorities will probably continue to put in place regulation requiring certain data to be 
+archived for extended periods. On the other hand it isn't clear that Xaraya needs to address such requirements (rather 
+than, say, the ISP the site runs on). The EU directive does not cover this area, and it is beyond the scope of this 
+document.
+</t>
+	</section>
+	<section title="Overlap with allowinvisible">
+<t>
+Xaraya allows for the functionality that the user can be set invisible in user view. This flag could  be redefined so as 
+to allow or not the EU compliant functionality, i.e. allowing the user to define his/her user fields as visible or 
+invisible. A separate EU flag could be also created. The latter is the preferred solution.
+</t>
+	</section>
+	<section title="Admin can set user fields to visible per group">
+<t>
+Rather than stipulate that the field pn_prop_visible be a boolean, and therefore the recipients are either admins or 
+users, a more general solution would be:
+</t>
+<artwork><![CDATA[
+        Table pn_user_property: 
+        Field Name          Type          Contains
+        pn_prop_visible     integer       pn_gid of the group that the property field
+                                          is visible to.
+
+        Table pn_users: 
+        Field Name          Type          Contains
+        pn_fields_visible   varchar 255   2-dim array consisting of the pn_prop_id
+                                          of all pn_user_property fields to be visible
+                                          and the pn_gid of the group each property field
+                                          is visible to.
+]]></artwork>
+<t>
+If a group is deleted, any corresponding entries in pn_fields_visible must be changed to the pn_gid of the admins. The 
+admins group cannot be deleted.
+</t>
+<t>
+Creating an easy to use interface for this solution would be more complicated, as it probably involves either a scheme 
+with multiple dropdowns or having the user input a list of group names (with the appropriate parsing for errors).
+</t>
+<t>While situations can be imagined in which this functionality might be useful, they probably won't apply to the 
+majority of Xaraya sites.
+</t>
+	</section>
+
+
+	</section>
+
   </middle>
   
+  <back>
+  </back>
 </rfc>
+

@@ -1,46 +1,1299 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
-<?rfc toc="yes"?>
+<?rfc toc='yes'?>
 
 <rfc number="0032" category="info">
-  <front>
-    <title>Xaraya Usability Reccomendations</title>
-    <author initials="DAD" surname="Daulton" fullname="Douglas">
-      <organization>Xaraya Development Group</organization>
-      <address>
-	<email>apakuni@xaraya.com</email>
-	<uri>http://www.xaraya.com</uri>
-      </address>
-    </author>
-    <date month="December" year="2002"/>
+	<front>
+		<title>Xaraya Usability Recommendations</title>
+		<author initials="D." surname="Daulton" fullname="Douglas Daulton">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email>apakuni@xaraya.com</email>
+				<uri>http://www.xaraya.com</uri>
+			</address>
+		</author>
+		<author initials="D." surname="Vogel" fullname="Drew Vogel">
+			<organization>Xaraya Development Group</organization>
+			<address>
+				<email>drew@drewvogel.com</email>
+				<uri>http://www.drewvogel.com</uri>
+			</address>
+		</author>
+		
+		<date month="February" year="2003"/>	
+		
+		<!-- Initiating team for this RFC -->
+		<workgroup>Documentation Team</workgroup>
+		
+		<!-- List keywords for the RFC here -->
+		<keyword>rfc</keyword>
+		<keyword>template</keyword>
+		
+		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+		<abstract>
+			<t>
+		        This document is intended to be the starting point of a specific series
+		        of initiatives designed to improve overall usability of Xaraya from all
+		        points-of-view (POV).  This is a living document and, as such, is subject 
+		        to change.  
+			</t>
+			<t>
+		        Specifically, we expect that some of the issues raised herein may have 
+		        already been addressed and/or are in the process of being resolved.  As
+		        these issues are resolved, they will be moved to the "Resolved Issues"
+		        Appendix.  They will not be removed as this document is intended to be 
+		        the document of record for all usability concerns.
+			</t>
+		</abstract>
+	</front>
+	
+	<!-- The middle section is used for the actual content of the RFC -->
+	<middle>
+    <!-- One content section is mandatory -->		
+		<section title="Preface">		      
+			<section title="Underlying Assumptions">
+				<t>
+					<list style="numbers">
+						<t><em>Markets and User Base Defined</em>
+							<t> 
+							Xaraya's target markets/user base are as follows:
+								<t></t>
+								<list style="numbers">
+									<t><em>Web Designers/Developers: </em>
+										Arguably the largest immediate audience of Xaraya,
+										independent Web Designers/Developers are looking for 
+										tool that will allow them to quickly deploy a 
+										robust, yet simple-to-use content management system
+										for their customers. This market will act as
+										Administrators for client sites and their clients will
+										act as Editors/Members.									
+									</t>	
+									<t><em>Individuals, Clubs &amp; Special Interest Groups (SIGs): </em>
+										This market likely mirrors Web Designers/Devs closely.
+										The differentiator is, in most cases, a small
+										group or individual will be primarily responsible for
+										application, content and user administrations
+									</t>	
+									<t><em>Small-Medium Sized Business Web Presence: </em>
+										The end-customer of the Web Designers/Developers who
+										have enough knowledge in house to install and administer
+										Xaraya as a public web presence.  In addition to core
+										CMS and User Management functionality, this market will
+										be looking for 3PD eCommerce Plugins as well to allow 
+										them to conduct business on the web.
+									</t>	
+									<t><em>Corporate Intranet: </em>
+										Like the Small-Medium Business market, the Corporate
+										Intranet market has the technical know-how on staff
+										to install and administer Xaraya themselves.  This 
+										market will look for specific Core and Plug-In 
+										components to enable Interop with existing systems. 
+										Examples include extending Core User components to
+										use LDAP authentication and support for Oracle and 
+										Microsoft SQL Server. 
+									</t>	
+								</list>  
+							</t>	
+						</t>
+						<t><em>90% of end-users never touch code</em>
+							<t> 
+							As developers first, we all tend to think too technically
+							and, as a result, assume too much know-how on the part of the
+							end-users of the code.  While 3PDs are a valuable audience which
+							needs active and agressive support, they will be best served
+							if we make the underlying Xaraya platform as user-friendly as
+							possible for the non-technical browser/member and content owner/editor.
+							</t>					  	
+						</t>
+						
+						<t><em>Clear, Common Nomenclature Required</em>
+							<t>
+								To create clear, effective documentation which enhances usability
+								for all target audiences, clear and consistent nomenclature is  
+								required.  Where appropriate, we have attempted to establish
+								naming conventions and labels we think will be most effective.
+								All of this terminology is open for discussion.  In the end,
+								we need simple, concise definitions that work.
+							</t>	
+						</t>
+						
+					</list>
+				</t>	
+			</section>	
+			
+			<section title="Terminology">
+				<t>
+					<list style="numbers">
+						<t>
+							<em>Xaraya Components</em>
+							<t></t>
+							Common terminology is a critical component to effectively communicating
+							with one another and with the end-user.  In the past, we have used 
+							the term <em>Module</em> relatively loosely.  As we more definitively
+							isolate core components more clearly from add-on components, we suggest
+							deprecating the term <em>Module</em> and adopting the term 
+							<em>Component</em>.  With this change, we further define Xaraya 
+							Components as follows:
+							<t></t>
+							<list style="numbers">
+								<t><em>Core: </em> 
+								Core components include all files (module, SQL, docs, 
+								themes, etc.) considered an essential part of the core 
+								distribution of Xaraya.
+								</t>
+								<t><em>Plugins: </em>
+								Commonly referred to as <em>Modules</em>, Plugins include
+								any add-on which either extends a core Component or adds
+								entirely new functionality to Xaraya.
+								</t>
+								<t><em>Themes: </em>
+								Also referred to as <em>Skins</em>, Themes use BlockLayout
+								to reconfigure the visual user interface (UI) of Xaraya. 
+								Themes can be as subtle as a simple color change and as 
+								radical as a complete redesign of the way th page functions
+								and how information is arranged.						  		
+								</t>
+							</list>
+							<t></t>
+						</t>	            
+						<t><em>General Terms Used in this Document</em>
+							<t></t>
+							<list style="numbers">
+								<t><em>Interop: </em>
+									Short for <em>Inter-Operability</em>, Interop refers to 
+									the increasing need for Web Services in general and 
+									Websites in specific, to interact with one another
+									in meaningful ways.  The primary goals of Interop 
+									initiatives generally serve both the developer and the
+									end-user by establishing standards which make it 
+									simpler to share data and eliminate repetitive tasks.
+								</t>
+								<t><em>Third Party Developer (3PD): </em>
+									Any individual or team that develops Plugins and/or 
+									Themes yet is not member of the Xaraya Development Team.
+								</t>
+								<t><em>xApproved: </em>
+									Working name for "blessed" Plugins and Themes.  xApproved
+									components have be reviewed by the Xaraya Team and are
+									certified as compliant with the standards outlined in
+									the Xaraya Developer's Guide.
+								</t>
+							</list>
+						</t>	
+					</list>
+				</t>	
+			</section>	      
+		</section>	
     
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-    <abstract>
-      <t></t>
-    </abstract>
-  </front>
+		<section title="Developer POV">
+			<section title="Core Architecture">
+			
+				<section anchor="General Issues" title="General Issues">	
+					<list style="numbers">
+					<t><em>Platform Awareness:</em>
+						<t></t>
+						To enable ease of installation and a variety of administrative 
+						utilities, Xaraya needs to auto-detect the following information
+						about the installation environment. <em>Note:</em> This need 
+						may already be addressed by calling PHPInfo in the installer.
+						<t></t>
+						<list style="numbers">
+							<t><em>Operating System: </em>Brand &amp; Version</t>
+							<t><em>Database Platform: </em>Brand &amp; Version</t> 
+							<t><em>Site Kit Dependencies: </em> Any packages which may 
+								be required for components of a specific site kit.</t>
+							<t><em>???: </em></t>
+						</list> 	
+						<t></t>					
+					</t>	
+					<t><xref target="Appendix B"><em>Component Subcategories:</em></xref>
+						<t></t>
+						In addition to the macro-level classification of Xaraya Components 
+						(Core, Plug-In &amp; Theme), Core &amp; Plug-In Components can
+						and should be further subcategorized to facilitate several
+						initiatives.  Refer to <xref target="Appendix B">Appendix B</xref>
+						for proposed Component Subcategories.  Initiatives enabled by 
+						Component Subcategories include:		 
+						<t></t>
+						<list style="numbers">
+							<t>xApproved Component Registration</t>	
+							<t>Auto-generated Component Information/Download/Install Directory</t>
+							<t>Automated Component Update</t>	
+							<t>Site Kit Development &amp; Distribution</t>	
+							<t>Default Component Permissions based on User Role</t>
+							<t>???</t>					
+						</list> 	
+						<t></t>	
+					</t>
+					</list>
+				</section>	  
+				
+				<section anchor="Directory Structure" title="Directory Structure">
+					<t>					
+					To enable quick, selective back ups, the application should be
+					organized within a simple, yet specific directory structure. As
+					new components (Core or Plug-In) are created, they should adhere
+					to this directory structure.  One possible solution is listed below.
+					Within <em>/var/www/html</em>, the top-level directories would be:
+					<t></t>
+					<list style="numbers">
+					  <t><em>/backups: </em> 
+					  		If a backup utility is included in the Core, this would be 
+							the target directory for the local tar/zip files created.
+					  </t>
+					  <t><em>/core: </em> 
+					  		Only Core components and their supporting files are held here.
+							Subdirectories may include:
+							<t></t>
+							<list style="numbers"> 							  
+								<t>/core/components</t>
+								<t>/core/language</t>
+								<t>/core/sql</t>	
+								<t>???</t>							
+							</list> 
+							<t></t>
+					  </t>
+					  <t><em>/configs: </em> 
+					  		Xaraya's analog to /etc, this directory 
+					  		includes all custom configuration files.
+					  </t>
+					  <t><em>/content: </em> Isolated primarily to give one central, 
+					  		standard location for developers to put user-added content.
+							By centralizing user added content in one standard directory,
+							we enable simpler back-ups of content not contained within the DB.
+							One simple example would be <em>/albums</em> created by <em>Gallery</em>.
+							Additional detailed examples include ...
+							<t></t>
+							<list style="numbers"> 							  
+								<t>/content/articles</t> 
+								<t>/content/albums</t>
+								<t>/content/downloads</t>	
+								<t>/content/home/*.username/ <em>(possibly used by Dynamic User Data)</em></t>
+								<t>/content/images</t> 
+								<t>/content/music</t>
+								<t>/content/reviews</t>
+								<t>/content/uploads</t>
+								<t>???</t>							
+							</list> 
+							<t></t>
+					  </t> 
+					  <t><em>/docs: </em> 
+					  		This directory holds all docs for Xaraya.	It would NOT 
+							contain docs for individual Plugins or Themes.  Those
+							docs would be held in a subdir of the directory created by 
+							and containing the Plug-In or theme.  					  		
+					  </t>
+					  <t><em>/plugins: </em> All 3PD Plugins and their supporting 
+					  		files (/docs, /lang, etc.) go here. This isolates them from 
+							Core components and reduces the opportunity for corruption 
+							of Core by accidental overwrites or installs gone awry.
+							Unless installing a Site Kit containing non-Core Plugins,
+							this directory would be empty with the base Xaraya installation.
+					  </t>
+					  <t><em>/themes: </em>
+						 	This directory would initially contain the default Xaraya
+							theme and would be the target directory for installation of 
+							all 3PD Themes.
+					  </t>
+					</list>
+					</t>
+				</section> 			
+		
+				<section anchor="ui_overall" title="BlockLayout and Overall UI Issues">	
+					<t>
+					</t>
+					<list style="numbers">
+						<t>
+							<em>Typeface: </em>
+							Theme templates should consistently apply typeface across the 
+							application.  Basically, all fonts should be controlled by the
+							theme CSS. This may already have been addressed in the BL
+							implementation.  If so, we still need to keep an eye out for
+							legacy font controls from PN which had very inconsistent font
+							controls.
+						</t> 
+						<t>
+							<em>Link Style: </em>
+							If links are not underlined in theme CSS definition, rollover 
+							must include underline.
+						</t>
+						<t>
+							<em>Supported Browsers: </em>	
+							The following list covers all browsers in which Xaraya has been
+							developed and tested.  This does not mean Xaraya will not function
+							in older browsers, only that it has been designed to leverage
+							technologies available in more current offerings.  Browsers not
+							on this list are not officially support by Xaraya.	  
+							<t></t>
+							<list style="numbers">
+								 <t>Internet Explorer 5.5+</t>
+								 <t>Mozilla 0.9.8+</t>
+								 <t>Netscape 6.2+</t>	
+								 <t>Opera 6.5+</t>									 
+							</list>	
+							<t></t>  
+						</t>
+						<t>
+							<em>Proprietary CSS Attributes: </em>
+							Xaraya does not endorse proprietary CSS attributes such as 
+							<em>scrollbar-*s</em> in Internet Explorer, or <em>-moz-*</em> 
+							in Mozilla.
+						</t>	
+						<t>
+							<em>General Enhancements to "How To" Language: </em>
+							There are some changes that should be made to the English 
+							language file that will make X more clearly understandable. 
+							<em>See Drew.</em>
+						</t>  
+						<t>
+							<em>Use Non-technical Language: </em>
+							Remove all techno-speak from site.  Example: Don't refer 
+							to things as "date/timestamp" -- say "date field", "time field", etc. 
+						</t>	
+						<t>
+							<em>Input Field Width: </em>
+							Width of text input fields should be configurable by the 
+							Administrator in Site Settings.
+						</t>
+						<t>
+							<em>Breadcrumb Support: </em>
+							Not sure if bread crumb support is planned as a BL Widget.  If not, it should
+							be.
+						</t>		
+						<t>
+							<em>Page Weight: </em>
+							Page weight on an un-modified configuration should be 
+							~50K. Exceptions include articles, reviews, etc.</t>								
+						<t>
+							<em>Consistent Element Labels: </em>
+							Consistent use and guidelines for naming of all UI elements,
+							including, but not limited to buttons (SEARCH, GO, BACK, etc)
+							and Field Names (ex. Username, Password, Address, etc.)
+							Final approved list to be determined.
+						</t>						
+						<t>
+							<em>Delete Confirmations: </em>
+							Confirm <em>ALL</em> deletions from the site database.
+						</t>							
+						<t>
+							<em>HTML Language: </em>
+							All text in lang/xxx.php should be parsed as HTML, and 
+							displayed in HTML if codes are present. There are a few 
+							locations in which this is not the case. <em>See Drew</em>
+						</t>
+             			<t>
+							<em>Printer Friendliness: </em>
+							All pages should offer a link to a printer friendly version.
+						</t>
+						<t>
+							<em>Consistent Content Add/Delete Process: </em>
+							With the exception of content-specific fields, the UI
+							tools used to add content should have conistent look-and-feel,
+							instructions and other UI elements and processes. In short,
+							adding WebLinks should function the same as adding Reviews.
+						</t>							
+					</list>
+					<t></t>			
+				</section>
+		</section>
   
-  <!-- The middle section is used for the actual content of the RFC -->
-  <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
+		<section title="Third Party Developer (3PD) Standards">
+			<section title="xApproved Plugins">
+				<t>Plug-In standards still need to be defined in the Xaraya Developer's 
+					Guide.  Once established, we need an infrastructure to review
+					and approve new <em>xApproved</em> Plugins.	  
+					<t>
+					<list style="numbers">
+						<t><em>xarAPI Compliance:</em> 
+							All xApproved Plugins must comply with the xarAPI as outlined
+							in the forthcoming Xaraya Developer's Guide.
+						</t> 
+						<t><em>phpDoc Style Comments:</em> 
+							All xApproved Plugins must be suitably commented in the phpDoc
+							style so comments can be extracted as needed for further 
+							development by Xaraya and/or other 3PDs.
+						</t>
+					</list>
+					</t>
+				</t>
+			</section>	
+		
+			<section title="xApproved Themes">
+				<t>Theme standards still need to be defined in the Xaraya Developer's 
+					Guide.  Once established, we need an infrastructure to review
+					and approve new <em>xApproved</em> Themes. Some preliminary standards
+					include:
+					<t>
+					<list style="numbers">
+						<t><em>Web Standards:</em> 
+						  	XHTML 1.0 (Strict) and CSS 2.0 compliant
+						</t>
+					</list>
+					</t>
+				</t>
+			</section>							
+		</section>
+      
+		</section>			
+		
+		<section title="Administrator (GOD) POV">
+			<section title="Installation and Upgrades">
+				<t>
+					The following describes the ideal Installation experience.  Some features
+					may not be feasible by Release 1.0 and/or may not make sense when
+					described technically. New steps/screens/functionality are 
+					<em>emphasized</em> and, as a rule, are explained in greater detail 
+					later in the document.
+				</t>
+				
+				<section title="BASE INSTALLATION">					
+					<list style="numbers">
+						<t><em>Pre-Install Questions/Checks</em>
+			            <t></t>
+			              <list style="numbers"> 
+			                <t><em>Pre-Install Checklist</em></t>
+			                <t>Language</t>							  
+			                <t>Accept GPL?</t>
+			                <t><xref target="Appendix A"><em>Permit Installation Logging?</em></xref></t>	
+			                <t>Systems Setting Check</t>							  
+			                <t>Database Settings</t>
+			                <t><xref target="Appendix C"><em>Site Kit Selection</em></xref></t>				
+			              </list>
+							  <t></t>		
+						</t>
+					
+						<t><em>Base Configuration</em>
+							<t></t>
+								<list style="numbers"> 								  
+									<t>
+										<em>Pre-Install Checklist: </em> Collect any non-automated 
+									  	configurations processes into one printable <em>DO-THIS-FIRST</em>
+									  	file, and tell the user what they have to do (chmod, 
+									  	etc). Strongly recommend they print it out before proceeding
+									</t>
+									<t>
+										<em>phpMyAdmin: </em> In either basic or xModular form, 
+										phpMyAdmin should be distributed and installed with Xaraya 
+										Core. It is a very mature and useful tool for Administrators. 
+									  	As such, we should embrace it.  As phpMyAdmin is a MySQL-specific
+										tool, it would need adapted (presumably via ADODB) to work
+										with other Xaraya-supported databases (PostGRESQL, Oracle).
+										If this is not possible, the feature would only be made
+										available for MySQL users or an alternative tool would
+										be used							 							
+									</t>		
+									<t>
+										<em>Default Theme: </em> Xaraya distribution should contain
+										only <em>ONE</em> default theme.  Other themes may be readily
+										available on Xaraya.com, but the single default theme is 
+										required to create a consistent set of documentation and 
+										help reduce the learning curve.
+									</t>	
+									<t>
+										<em>Default Core Modules: </em>	
+										<t></t>
+										<list style="numbers">	 
+											<t>Articles</t>
+											<t>
+												<em>Credits: </em> A simple way to put ALL 
+												credits for EVERYTHING on the site in one place.	
+											</t>		
+											<t>Comments</t>
+											<t>Help</t>
+											<t>?</t>
+											<t>?</t>
+											<t>Search</t>
+											<t>Site Map <em>(NEW)</em></t>
+										</list>
+										<t></t>
+									</t> 
+									<t>
+										<em>Component Configuration: </em>	
+										Remove the LIST option from the start of Component (Modules) 
+										configuration in AdminPanels. Use "Regenerate" every time.
+									</t>
+									<t>
+										<em>Lorem Ipsum (Default Content): </em>
+										At installation, there should be default data in ALL areas of 
+										the site -- Reviews, Topics, Articles, FAQs, Sections, etc. -- 
+										if for no other reason than it provides the documentation team 
+										material with which to work when teaching how to edit or delete 
+										stuff.
+									</t> 	
+									<t>
+										<em>??? </em>	
+									</t>
+								</list> 
+							<t></t>		
+						</t>		 					
+						
+						<t><em>Site Kits</em> 				
+							<t></t>
+							<t>
+								Site Kits are explained in far greater detail in 
+								<xref target="Appendix C">Appendix C</xref>.  The following
+								are high-level reccommended behaviors of Site Kits.
+								<t></t>		
+								<list style="numbers"> 
+									<t> Install ALL approved Modules, but only activate/configure
+									 	those defined in the Site Kit.</t>
+									<t> Tell the user what modules will be ACTIVATED (all are installed, 
+										selection above determines which are activated by the installer)</t>
+									<t> Display INACTIVE modules (with descriptions) and allow user to add them.</t>
+									<t> Any modules that are activated which require additional configuration, 
+										the configuration of that module is added to the installation process.</t>										
+									<t>???</t>							  													
+								</list>              
+							</t>
+						</t>
+					</list>
+				</section>	
+				
+				<section title="Upgrades and Additions">
+					<t>
+						Again, Red Hat Network and MS Windows Update are the functionality
+						benchmarks for ease of use. Specifically, Xaraya would ideally
+						have a built in mechanism through which the Administrator can 
+						click a button and have their installation compared to a database
+						residing on Xaraya servers.  Once this comparison is complete,  a 
+						report is generated describing available updates and giving the 
+						Administrator the option of downloading and installing the updates 
+						automatically.
+					</t>
+					<t>
+					<list style="numbers"> 
+						<t><em>Overall Considerations</em>
+						<t></t>						
+						<list style="numbers"> 						
+							<t><em>Xaraya Registration DB: </em>
+								Centralized database housed on the Xaraya web server 
+								(Sasquatch).  This DB contains two primary types of 
+								information:
+								<t></t>
+								<t>
+								<list style="numbers"> 
+									<t><em>Component Registration:</em>
+										All Xaraya components (Core, as well as Official/Approved
+										Plugins and Themes) require registration with a
+										unique identifier in the Xaraya Registration DB.
+									</t>
+									<t><em>Install Registration:</em>
+										If we elect to go this route, the Registration DB
+										would also contain unique registration keys for each 
+										Xaraya installation.
+									</t>
+								</list>
+								</t>
+								<t></t>
+							</t>	
+							<t><em>Available Updates Profile (Xaraya Server): </em>
+								Profile derived from Component Registration tables.  Used in
+								Comparison Pass to determine which updates are available
+								for installation.
+							</t>						
+							<t><em>Installation Profile (Local Install): </em>
+								After install/update is completed, an Installation Profile
+								is created/modified on the user's server. This file
+								will be used in the Comparison Pass and, optionally, it
+								could be pushed to the Install Registration tables as well.
+							</t>
+							
+							<t><em>Comparison Script: </em>
+								Admin Panels provides <em>Check for Updates</em>
+								button.  When clicked, the following occurs:
+								<t></t>
+								<t>
+								<list style="numbers"> 
+									<t><em>Pre-Upgrade Checklist: </em>
+										Check list is displayed which includes, among 
+										other things, a detailed description of what is 
+										about to occur and what, if any, server configurations 
+										(ex. Enable write permissions) are required to proceed.
+										It also includes links to reccommended pre-upgrade
+										utilities (ex. <xref target="backup">File/DB Backup</xref>).
+										After reviewing this checklist and taking action 
+										as needed, the user clicks the <em>Next</em> button.
+										<em>Note: </em>All Upgrade screens have and
+										<em>Cancel</em> button which exits out to AdminPanels.
+									</t>	
+									<t><em>Pass Installation Profile to Server</em>
+										Passes the local Installation Profile to the Comparison 
+										Script on Xaraya's server.  Script compares profiles 
+										and reports on available updates.
+									</t>
+									<t><em>Select Desired Updates: </em>
+										From the report, user uses checkboxes to select
+										desired updates for installation.
+									</t>
+									<t><em>Package and Transfer Files: </em>
+										Based on user selection, script builds a tar/zip file 
+										containing the selected updates and writes it
+										to the install directory on the target server.
+									</t>
+									<t><em>Install Updates: </em>
+										Once the file has transferred, the script expands 
+										the archive and writes files to the appropriate 
+										location.  If needed, the script also updates the 
+										*SQL server    
+									</t>
+								</list>
+								</t>
+								<t></t>
+							</t>						
+						</list> 
+						</t>		
+				
+						<t><em>Core Specific</em>
+							<t></t>
+							<list style="numbers"> 
+								<t><em>TBD As Needed</em></t>
+							</list>	
+							<t></t>	
+          			</t>
+						
+						<t><em>Plug-In Specific</em> 
+							<t></t>
+							<list style="numbers"> 
+								<t><em>TBD As Needed</em></t>
+							</list>	
+							<t></t>		
+          			</t>
+						
+						<t><em>Theme Specific</em>
+							<t></t>
+							<list style="numbers"> 
+								<t><em>TBD As Needed</em></t>
+							</list>		
+						</t>
+					</list>
+					<t></t>
+					</t>
+				</section>						
+			</section>
+      				
+			<section title="Administrative Utilities Toolset">
+				<t> 
+				To truly administer a Xaraya site well, the Administrator needs a strong toolset.  Some
+				of the tools are be discussed elsewhere in this document. The following is a current best
+				guess at the desired Administrative Utilities Toolset.
+				
+				<list style="numbers">
+					<t><em anchor="backup">Backup Utilities: </em>
+						Using platform awareness and available tools, the Administrator need the ability
+						to quickly and efficiently back up his site prior to upgrading.  These tools
+						include Database Backup (phpMyAdmin or similar tool) and File Back Up for the 
+						following Xaraya directories (at a minimum). 
+						<t></t>
+						<list style="numbers">
+							 <t>/configs</t>
+							 <t>/content</t>
+							 <t>/plugins</t>
+							 <t>/themes</t>
+						</list>	
+						<t></t>
+					</t> 
+					<t><em>Custom Language Editor: </em>		
+						  	One interface to edit ALL language files, even those in 
+							component directories (Plugins &amp; Themes). As part of the component registration 
+							process, it would announce the presence/location of the 
+							component language files.
+							<t></t>
+							<em>Drew's Notes: </em>  
+							<t></t>
+							It would be great if there was a default file, say <em>eng_override.php</em> 
+							(different prefix for other languages, of course) in the 
+							<em>/configs</em> that would allow over-ride of what's in the language 
+							files, to prevent having to edit the distribution files directly. 
+							For example, in /plugins/<em>&lt;plugin_name&gt;</em>/lang/eng/global.php, 
+							it has	<em>'define("_PRODUCTTITLE","Product title");'</em>, but I would 
+							like to override that. 
+							<t></t>
+							So, in eng_override.php, I would be able to do 
+							<em>'define("_PRODUCTTITLE","Product/Event title");'</em> and have 
+							eng_override.php included at the appropriate times to override 
+							what's in the distribution file if the eng_override.php file 
+							exists. As I edit my distribution language files more and more, 
+							the more I think this feature would be very helpful. If the 
+							eng_override.php file doesn't exist, it would just use the 
+							defaults in the distribution language file.
+							<t></t>  
+					</t>	 
+					<t>
+						<em>Groups &amp; Permissions GUI: </em>
+						Groups &amp; Permissions GUI was badly in need of an overhaul.
+						Marcinmilan is already hard at work on this.  We are just calling it
+						out here to support his work in progress.
+					</t> 
+					<t>
+						<em>Administration Menu Block: </em>		
+						The default installation should display Administration menu 
+						items in a menu block, not as a module list. Everyone uses 						
+						the menu block method; it's the most powerful option. 
+						<em>Note: </em> This method is already being employed in 
+						AdminPanels.  Like Permissions GUI, we are calling it out 
+						here as a show of support.
+					</t>					
+					<t><em>??? </em>		
+						  
+					</t>
 
-RFC 0032 Xaraya Usability Reccomendations
+				</list>
+				</t>	
+			</section>					
 
+			<section title="Default User Roles">
+				<t>
+          		One of the core failings of the *Nuke platform is that it only provided
+					two default user roles (Administrator and User).  This approach assumes
+					that the Administrator was also the Content editor in all cases.  
+					Regular usage of *Nukes and user feedback indicates the need for a 
+					third default role (Editor).  Each proposed user role is defined below.
+        		</t>
+				<section title="Administrator (GOD User)">
+					<t>	
+						No real role change here.  This is the Xaraya equivalent of 
+						<em>/root</em>.  Just as no Server Admin will give out <em>/root</em>
+						to just anyone, so to should the Administrator role be tightly
+						guarded.	By default, the Administrator can do <em>anything</em> 
+						on the system.
+					</t>
+				</section>	
+        
+				<section title="Editor (Super User)">
+					<t>
+						 This is an entirely new default role.  Most Administrators end
+						 up creating this sort of role anyway, so it makes sense to 
+						 include it as a default.  By default, this role has 
+						 <em>ONLY</em> content and user management (add/approve/modify/delete) 
+						 rights.  They have no system configuration, install/upgrade,
+						 database access or other global rights to impact the system.						 
+					</t>
+				</section>		
+        
+				<section title="Member (Base User)">
+					<t>
+						 In the past, this role has been generically referred to as
+						 <em>User</em>.  This level of access gives permission to
+						 additional content and/or services and local user configuration
+						 options.  This role has no Administrator/Editor rights.	 This
+						 role can submit content for publication, but it must be 
+						 approved by an Administrator or Editor.
+					</t>
+				</section>	
+				<section title="Anonymous (Guest User)">
+					<t>
+						 No real change here. This is a single account which is used by
+						 generic browsers.  Beyond accessing publicly available content 
+						 and services, this user has <em>NO</em> rights on the system.
+					</t>
+				</section>	
+			</section>		
+		</section>				
+		
+		<section title="End-User (Member/Editor) POV">		
+      
+			<section title="Role-Specific Behaviors">	  
+			
+				<section title="Editor Role">
+					<t>
+						<list style="numbers"> 
+							<t>
+								<em>Context Sensitive Editing Tools: </em>
+								All Components should provide access to Administrator/Editor tools 
+								from <em>WITHIN</em> the module if the user logged in is an
+								Administrator or Editor with the appropriate permissions for that 
+								Component.	
+							</t> 
+							<t>
+								<em>Reorganize Content Management Links/Pages: </em>
+								Organize Editor pages by long-term usability and 
+								put the options that are most likely to be frequently used 
+								at the top of the page. For example, WebLinks is currently 
+								ordered as follows:
+								<t></t>	
+								<list style="numbers"> 
+									<t>Add a category</t> 
+									<t>Modify a category</t>
+									<t>Add a new link</t>
+									<t>Modify a link</t>
+									<t>Web Links Configuration</t>
+								</list>
+								<t></t>
+								It is more logical, when long-term usage is considered, 
+								to order it as follows:			
+								<t></t>	
+								<list style="numbers"> 
+									<t>Add a new link</t> 
+									<t>Modify a link</t>
+									<t>Add a category</t>
+									<t>Modify a category</t>
+									<t>Web Links Configuration</t>
+								</list>
+								<t></t>	
+								Alternatively, it would be very useful (though probably 
+								difficult to implement) to track usage of Editing Tools 
+								based, perhaps, on page hits.  Armed with this usage data,
+								the system could, upon logon, present the Editor with a 
+								<em>Frequently Used Tools</em> Menu Block or AdminPanel.	
+								<t></t>
+							</t>									
+							<t>
+								<em>Article MetaCommands: </em>
+								<t></t>	
+								<list style="numbers"> 
+									<t>
+										<em>Story Links: </em>
+										Provide an easy method within an article to link to another 
+										article on the same site. Metacommands like "&lt;readprev=520&gt;" 
+										and "&lt;readnext=525&gt;" would be VERY useful. Each metacommand 
+										would be replaced as follows:
+										<t></t>		
+										<list style="numbers"> 
+											<t>
+												<em>"&lt;readfirst=519&gt;"</em> would display user-defined text (like 
+												"&lt;i&gt;Click &lt;b&gt;here&lt;/b&gt; to read the first article&lt;/i&gt;") 
+												in this series link to article #519. 
+											</t>
+											<t>
+												<em>"&lt;readprev=520&gt;"</em> would display user-defined text (like 
+												"&lt;i&gt;Click &lt;b&gt;here&lt;/b&gt; to read the previous article&lt;/i&gt;") 
+												and link to article #520.
+											</t>
+											<t>
+												<em>"&lt;readnext=525&gt;"</em> would display user-defined text (like 
+												"&lt;i&gt;Click &lt;b&gt;here&lt;/b&gt; to read the next article&lt;/i&gt;") and 
+												link to article #525. 
+											</t>
+											
+										</list>
+										<t></t>	
+									</t>
+									<t>
+										<em>Read More: </em>
+										Add a metacommand for NEWS STORIES like "&lt;readmore&gt;". When 
+										this text is found in the body of an article, automatically 
+										replace it with a user-defined string (like "&lt;i&gt;Click 
+										&lt;b&gt;here&lt;/b&gt; to read more...&lt;/i&gt;") that links to the full 
+										article view. In the full article view or in print view, 
+										the &lt;readmore&gt; string is NOT displayed.
+									</t>
+									<t>
+										<em>Page Break: </em>
+										Where ever this appears, a single article is broken into 
+										multiple pages with auto-generated navigation links (ex. PREV, NEXT, etc.) 
+									</t>
+									<t>
+										<em>Configurable URL/HREF Targets: </em>
+										Ideally, Xaraya would be aware if the contents of
+										an HREF are local (onsite) or external (offsite)
+										as determined by the presence or absence of 
+										<em>http://</em>. The Administrator/Editor would be 
+										then be able to set a configuration variable which 
+										would determine if the HREF should pop a new window 
+										to display the target URL (analagous to target="blank").  
+										This seting would be global across the site, but 
+										could be over-ridden on a case-by-case basis.										
+									</t>
+								</list>
+								<t></t>	
+								<t></t>						
+							</t>	
+						</list>
+					</t>		
+				</section>	
+				
+				<section title="Member Role">
+					<t>
+						<list style="numbers"> 
+							<t>
+								<em>my.&lt;domainname&gt;.com: </em> 
+								On login, default page is <em>my.&lt;domainname&gt;.com</em>.
+								This page would display things like:
+								<t></t>
+								<list style="numbers"> 	
+									<t>Waiting private messages,</t>
+									<t>Custom RSS feeds,</t>
+									<t>User's admin tools (gallery upload, change password, etc),</t>
+									<t><em>New Items</em> (See Below)</t>	  
+									<t>Bookmarked Forums, Links etc (see vBulletin)</t>
+									<t>
+										<em>Alerts &amp; Notifications: </em> 
+										Derived from choices made in Pub/Sub/Unsub component.
+									</t>	 
+									<t>Other Dynamic User Data (DUD) enabled content</t>
+									<t>???</t>
+								</list>
+								<t></t>
+							</t>	
+							<t>
+								<em>"NEW" Block: </em>
+								A category called "NEW" that displays, based on item timestamp 
+								and date/time of user's last login, new items. Period of time 
+								for "new" status is configurable by admin.
+							</t>
+							<t>
+								<em>Content Sorting: </em>
+								Users can set PRIORITY of items on the site (display SPORTS topic 
+								items first, display ARTS topic items second, etc.) and the page 
+								will show only the items that the user has configured to see (turn 
+								OFF SPORTS topics (they are not displayed)..
+							</t>	
+						</list>
+						<t></t>
+					</t>		
+				</section>	
+				
+			</section>
+			
+			<section title="Module-Specific Behaviors">
+				<section title="Articles">
+					<t>
+						<list style="numbers">
+							<t>
+								<em>PREVIOUS, NEXT, and TOP Links : </em>
+								Display these at the bottom of the front page. 
+								Get the count of the number of articles to display from the 
+								value in Administration --&gt; Settings --&gt; Stories # on homepage.
+							</t>
+							<t>
+								<em>???</em>
+								
+							</t>							
+						</list>			
+					</t>
+				</section>	
+			
+				<section title="Content Management">
+					<t>
+						<list style="numbers">
+							<t>
+								<em>DMOZ/Yahoo Index: </em>	
+								All modules which gather and classify information (links, 
+								downloads, etc) should use a DMOZ/Yahoo style index. 								
+							</t>	
+							<t>
+								<em>New Item Indicator: </em>
+								New items in sub-categories need some "new" indicator (icon, font color, 
+								etc.) which is configurable at the Administrator and/or Theme level.
+							</t>	
+							<t>
+								<em>???</em>
+								
+							</t>							
+						</list>			
+					</t>
+				</section> 
+				
+				<section title="Community Management">
+					<t>
+						<list style="numbers">
+							<t>
+								<em>User/Context Sensitive Help System: </em>
+								Ideally, the help system will be aware of both the Component it is being
+								called from (to determine Help Content) and the Role of the User logged in
+								(Admin, Editor, Member) and display the appropriate level of Help detail
+								based on user Role.
+							</t>
+							<t>
+								<em>??? </em>
+								
+							</t>			
+						</list>	             
+					</t>
+				</section>
+	
+				<section title="Dynamic User Data">
+					<t>
+						<list style="numbers">
+							<t>
+								<em>??? </em>
+								
+							</t>					
+						</list>	             
+					</t>
+				</section>	
+		</section>	
+	</section>  		   
+   
+   <section title="Revision history">
+      <t>2003-01-15: First Draft (Daulton/Vogel)</t>
+		<t>2003-02-03: Second Draft (Daulton/Vogel)</t>
+      <t>2003-02-11: Release 0.9 (Daulton/Vogel)</t>
+   </section>    
+</middle>
 
-REQUEST FOR COMMENTS (0032)
-Xaraya Usability Reccomendations
-
-VISION
-
-
-	</artwork>
-      </t>
+<back>
+	<section anchor="Appendix A" title="Installation Reporting and Automated Update Tools">
+	<t>
+         It has been suggested that, upon completion of a Xaraya install, the 
+         application either automatically ping Xaraya's server and collect information 
+         (perceived as spyware by many) or we ask users to register which does the 
+         same thing.  For real world examples ... think Windows Update, Red Hat Network
+         and the Eclipse Updater Tool.
+	</t>
+	<t>
+         This Reporting Installer could collect all sorts of valuable information
+         which, if positioned correctly and paired with a clean and simple opt-out
+         process could achieve the following goals:
+         <list style="numbers">	 
+           	<t>Accurate Install/Usage statistics with which we can use in ...
+					<t></t>
+					<list style="numbers">
+						<t>Forecasting future installs,</t>
+						<t>Defining Market Share,</t>
+						<t>Fund-raising,</t>
+						<t>Marketing</t>
+					</list>
+					<t></t>
+	           	</t>
+	           	<t>
+		             Establishes useful user database with as much (or as little) information
+		             as we feel is appropriate to maintain about our install base.  This would
+		             not be spyware because we would allow folks a simple way to opt-out at the
+		             beginning (no optin by default) and if they optout, we would simply add a
+		             install tick to the counter and collect no data.
+	           	</t>
+         </list>	
+         <t>
+           As users elect to opt-in, they share more information about their install
+           and intended usage which allows us to do some really cool stuff like ...
+         </t>
+         <list style="numbers">
+           <t>Automated core updates (again, think Eclipse Updater, RHN, WU)</t>
+			    <t>Detailed market analysis (who is using the site for what ... blogs, music sites, pron, etc)</t>
+			    <t>Detailed system stats for install base (windows, LAMP, etc)</t>
+			    <t>Automated YANXS directory</t>
+			    <t>Security Alerts and Patch Notices via email even SMS or pager</t>
+         </list>	
+         <t>
+           We can work out the details, but you get the idea.  It is not spyware if we
+           give them the option to opt-out and tell them if they do, no information
+           beyond a "Install Counter tick" will be passed and we could even forgo that
+           if we wanted.  IMO, the benefits to everyone (core, user and dev communities
+           alike) and hurts no one.
+         </t>
+       </t>
+	</section>		
+     
+	<section anchor="Appendix B" title="Proposed Component Subcategories">
+       <t>
+         <list style="numbers">
+           <t>
+             <em>Core Components</em> 
+             <t></t>
+             <list style="numbers">							
+               <t><em>Setup  (Base??): </em>
+                 Single or infrequent-use tools for configuring the site
+                 ex. Site Configuration, Theme Selection
+               </t>
+               <t><em>Utilities (AdminPanels): </em>
+                 Backend Management (db adds, cleanup, archiving, etc)
+                 ex. Translations, Autolinks, Web Services, Categories
+               </t>
+               <t><em>Content Admin: </em>
+                 Any tools which setup how content is viewed/managed
+                 ex. Articles, Links, Downloads, RSS, Pubsub, Polls Reviews, 
+                 WSW Editor
+               </t>
+               <t><em>Membership (Users): </em>
+                 Any and all tools for user management
+                 ex. Groups, Permissions, DUD, Messages, Mail Blast
+               </t>	
+               <t><em>Site Promotion: </em>
+                 ex. Recommend, Stats, HitCount, Keywords, Mail Blast
+               </t>	
+               <t><em>Online Help: </em>
+                 ex. Search, FAQs, Help
+                 <t></t>
+               </t>						
+             </list>					
+           </t>
+           
+           <t>
+             <em>Plug-In Components</em> 
+             <t></t>				
+             <list style="numbers">
+               <t><em>eBusiness/eCommerce: </em>
+                 ex. OpenRealty, OSCommerce, CafePress, Amazon bookstore, etc.
+               </t>
+               <t><em>Scheduling/PIM: </em>
+                 ex. xCalendar, xProject, ToDo List, BKView, Seminar Scheduler
+               </t>
+               <t><em>Communication/Social Networking: </em>
+                 ex. Forums, NNTP UI, Chat/ShoutBox, WebRing
+               </t>
+               <t><em>Content Expansions: </em>
+                 ex. Pinup, Gallery, MeG, Comic, AvantGo, MP3 Managers/Streamers, Fan
+                 Fiction, Collaborative Stories, MyHaiku, Bible/Torah/Quran Verse DB,
+                 pnEncyclopedia, pnDictionary, CookBook/Recipe Modules
+               </t>
+               <t><em>Games: </em>
+                 ex. Nascar, Fantasy Football, Flash Games, Half-Life/Counterstrike/Unreal Server Stats
+               </t>
+               <t><em>Data Collection: </em>
+                 ex. Surveys, Quizzes, Extended Polls
+               </t>
+               <t><em>Dynamic User Data: </em>
+                 ex. xResume, xPortfolio, My <em>&lt;sitename&gt;</em> HomePage, Blog, DUD DB 
+                 Expansions for specific groups (Church, School, Club, Game Clan, etc)
+               </t>
+               <t><em>Core Extensions: </em>
+                 These are really Core Components Hacks and/or Replacements.  May not be
+                 prudent to list them, but would include stuff like ... Advanced Search, 
+                 Mass Mailer, KnowledgeBase(expanded FAQs)
+                 <t></t>
+               </t>
+             </list>	
+           </t>
+         </list>
+       </t>
+	</section>			
+		
+	<section anchor="Appendix C" title="Site Kits">
+	<t>
+         As the name implies, <em>Site Kits</em> are a series of pre-configured 
+         Xaraya tarballs	(Core + Modules).  As frame of reference, think of the
+         Red Hat GUI-based Installer. For example ...
+			</t>
+			<t> <em>Red Hat:</em> What sort of install is this?
+				<list style="numbers">
+					<t><em>Server</em></t>
+					<t><em>Workstation</em></t>
+					<t><em>Laptop</em></t>
+					<t><em>Custom</em></t>
+					<t><em>Everything</em></t>
+				</list>						
+			</t>
+			
+			<t>
+				Like the Red Hat example, Xaraya Site Kits would install and configure
+				pre-built packages based on user choice.  The Xaraya example may look like this ...
+			</t>
+			
+			<t>	<em>Xaraya:</em> How will you use your Xaraya installation?						
+				<list style="numbers">
+					<t><em>Generic Community :</em> Includes Links, Calendar, Downloads, Forum, Articles, Users</t>
+					<t><em>News Site:</em> Includes Articles, Users, Reviews, Calendar</t>
+					<t><em>Personal Site:</em> Includes News, BLOG, Links, Gallery</t>
+					<t><em>Family Site:</em> Includes Users, Gallery, Articles, Reviews, Links</t>
+					<t><em>Online Store:</em> Includes Users, Forums, OSCommerce, Reviews</t>
+					<t><em>Gaming Clan:</em> Includes Calendar, Articles, Reviews, Forums, Users, Half-Life Server Stats (or other game server stats)</t>
+					<t><em>Corporate Intranet:</em> Includes LDAP, SQL2000 support, Forums, Articles, Gallery, FAQs, Calendar, etc.</t>
+					<t><em>School Homeroom:</em> Includes Users /Students, GradeBook, Forums, Articles, Reviews, Gallery, etc.</t>
+					<t><em>Non-Profit:</em> Includes Users, Forums, Paypal Donations, Reviews, Articles, etc.</t>
+           			<t><em>INFINITE COMBINATIONS:</em> This list can (and will) grow.</t>
+					<t><em>Custom</em> </t>
+					<t><em>Everything</em> </t>
+				</list>
+			</t>
+			<t>
+         As you can see, the possibilities are boundless.  The advantages of this sort of functionality are manifold ...
+         <list style="numbers">
+           <t>
+             It engages 3PDs in much the same way the Red Hat installer and RHN does.
+             It gives them a framework within which to simply distribute their work and a
+             clear incentive to use that framework guidelines (xDeveloper Guide) to the
+             letter.
+           </t>
+           <t>
+             It provides a distinct competitive advantage over other OS CMS as it
+             makes us the most configurable tool while making said configuration as
+             simple for the end user as possible.
+           </t>
+           <t>
+             It shows foresight and planning which will invite/attract other, bigger
+             development partners (IBM, etc) and helps us cement Xaraya as something more
+             than garage project like PN or PHP-Nuke.
+           </t>
+           <t>
+             Along with things like LDAP authentication, SOAP support and other
+             Interop tools, it provides a possible entree into larger corporate install
+             base.
+           </t>
+           <t>
+             Driven by BL, it makes Xaraya the platform of choice for independent
+             small to medium sized web developers looking for a way to provide dynamic
+             websites without knowing how to code.  They do the install, retheme and
+             viola.
+           </t>
+           <t>
+             It makes us a viable option for small to medium business owners looking
+             for a way to establish a web presence at low cost.  If they have a bit of
+             tech savvy they can do it themselves.
+           </t>
+           <t>
+             Opens the doors for schools (K through University) and other Non-Profits
+             to establish web presence is a simple, cost-efficient manner. They may pay
+             their ad agency to develop their theme/look, or better yet call on the body
+             of Xaraya developers/designers to do so, and save the development costs.  At
+             the HS and University level, they may also grow a new generation of  Xaraya
+             devs by engaging their students in module development.
+           </t>
+           <t>
+             Instantly breaks the current OS CMS mold which will certainly lead to
+             considerable positive exposure for this project in the OS media and in
+           </t>
+         </list>
+         <t>
+           Lots of food for thought here ... but the bottom line is this sort of
+           feature/module will go a long way to further killing installer usability
+           concerns, maintaining an active, engaged an loyal community and rebuilding a
+           loyal install base for Xaraya.	
+         </t>
+       </t>
+	</section>		
+     
+	<section anchor="Appendix D" title="References and Resources">
+       <t>
+         <list style="numbers">
+           <t><eref target="http://developer.apple.com/techpubs/macosx/Essentials/AquaHIGuidelines/index.html">AQUA: Apple's Human Interface Guidelines</eref></t>
+           <t><eref target="http://www.nngroup.com/reports/">Nielsen Norman Group: Web Usability Guidelines</eref></t>
+           <t><eref target="http://www.webmasterbase.com/article/744/16">SitePoint: Do-It-Yourself Accessibility</eref></t>
+           <t><eref target="http://psychology.wichita.edu/optimalweb/default.htm">Software Usability Research Lab: Wichita State University</eref></t>
+           <t><eref target="http://www.cs.waikato.ac.nz/~daven/docs/oss-wp.html">Usability and Open Source Software by David M. Nichols and Michael B. Twidale</eref></t>
+           <t><eref target="http://www.w3.org/TR/UAAG10/">WC3: User Agent Accessibility Guidelines 1.0</eref></t>
+           <t><eref target="http://www.useit.com">www.useit.com: Usability Guru Jakob Nielsen</eref></t>
+         </list>
+       </t>
+	</section>
+	
+	<section anchor="Appendix E" title="Package Installations (RPM/MSI Format)">
+		<t>
+			These ideas require a more mature, stable Xaraya release to begin feasibility
+			review.  They are captured here because ultimately, they serve both the project 
+			(wider distribution channels) and the end-users (ease of installation).
+			<list style="numbers">
+				<t><em>Linux Distributions: </em>
+					Work with Red Hat &amp; other major Linux distros to integrate 
+					Xaraya into their distribution as an on-install package that check 
+					dependencies, etc.
+				</t>
+				<t><em>Windows Distributions: </em>
+					Work with FoxServ project to integrate Xaraya into their installation.
+				</t>
+         	</list>
+		</t>
+	</section>
+    
+	<section anchor="Appendix F" title="Resolved Issues">
+		<t>
+			This space reserved for future use.
+		</t>
+	</section>
+		
+    <section anchor="Appendix G" title="Additional Credits">
+      <t>Many thanks to the following folks who helped research or otherwise prepare these materials.
+        <list style="symbols">
+          <t>Chris Dudley (Miko)</t>	          
+          <t>Marcel Van der Boom (MrB)</t>  
+			 <t>Marty Vance (Dracos)</t> 
+			 <t>Tomislav Grabic (Tomi)</t>
+	      </list>
+		  </t>
     </section>
-  </middle>
+</back>
+
 </rfc>

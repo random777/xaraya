@@ -1,7 +1,7 @@
 <?php
 // Gantt example 30
 // $Id: ganttex30.php,v 1.3 2002/05/14 07:26:20 aditus Exp $
-error_reporting(E_NONE);
+//error_reporting(E_NONE);
 
 include ("jpgraph.php");
 include ("jpgraph_gantt.php");
@@ -10,7 +10,8 @@ include ("textdb.php");
 // Some global configs
 $heightfactor=0.5;
 $groupbarheight=0.1;
-$revision="2002-10-14";
+$revision="2002-10-20";
+$dependencylag="1"; // Allow 1 day for depency lag
 
 // Standard calls to create a new graph
 $graph = new GanttGraph(0,0,"auto");
@@ -88,22 +89,31 @@ while($record) {
 }
 
 // Now we have all plots in an array in memory and we can do some processing based on
-// dependencies
+// dependencies between the tasks
 // $plots contains all plot objects
-// 1. Adjust begin dates for objects when they have a predecessor
+// 1. Adjust end dates for objects when they have a predecessor
 // 2. Add lines from predecessor to successor and add them to the plot array
 // 3. Adjust end date of grouping records so line will extend to whole project
 $record = $db->first();
 while($record) {
+  // make the record end after its predecessor
   if ($record[predecessor]) {
     // Predecessor found, get enddate for that record and set 
     // begindate of current record at least to that date
     $searchrec=array('id' => $record[predecessor]);
     $pred = $db->search($searchrec);
+    // Get the end date for the predecessor
     $earliest = $plots[$pred[id]]->GetMaxDate();
-    // Set the begindate of this record to that date
-    $plots[$record[id]]->iStart=$earliest;
-    $plots[$record[id]]->iEnd=($earliest + $record[duration]*24*60*60);
+    
+    // if no start date was give, plan after dependency
+    if ($record[start]=='') {
+      $plots[$record[id]]->iStart=$earliest;
+      $plots[$record[id]]->iEnd=($earliest + $record[duration]*24*60*60);
+    } else {
+      // Set the end date at least equal to enddate of predecessor, add dependency lag
+      $plots[$record[id]]->iEnd=$earliest + $dependencylag*24*60*60;
+    }
+    
     // Adjust scenario dates if necessary
     if (date("Y-m-d",$plots[$record[id]]->iEnd) > $latestdate[$plots[$record[partof]]]) {
       $plots[$record[part_of]]->iEnd = $plots[$record[id]]->iEnd;

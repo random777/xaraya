@@ -10,12 +10,13 @@ admsys;Administration system;2002-11-20;30      ;           ;0       ;1   ;andyv
 prmsys;Permission system    ;          ;14      ;           ;0       ;1   ;?         ;scn1.0
 instal;Local installer	    ;	       ;7	;	    ;0	     ;1	  ;johnny    ;scn1.0
 modcon;Module conversion    ;2002-11-15;14	;	    ;0	     ;1	  ;xarayageek;scn1.0
+statsm;Statistics module    ;2002-10-02;40      ;blyout     ;70      ;1   ;besfred   ;scn1.0
 1.0frz;1.0 Freeze           ;          ;14      ;admsys     ;0       ;1   ;paul      ;scn1.0
 1.0rel;1.0 Release          ;          ;1       ;1.0frz     ;0       ;2   ;john      ;scn1.0
 
 scn1.1;Release 1.1 scenarios;          ;        ;           ;0       ;0   ;john      ;
 blwidg;Blocklayout widget   ;	       ;14	;blyout	    ;0	     ;1	  ;dracos    ;scn1.1
-submod;Subscription modules ;	       ;14	;	    ;0	     ;1	  ;miko      ;scn1.1
+submod;Subscription modules ;2002-10-14;21	;	    ;0	     ;1	  ;miko      ;scn1.1
 unitst;Integrated testing   ;	       ;21	;blwidg	    ;0	     ;1	  ;marcel    ;scn1.1
 multdb;Multidatabase support;	       ;21	;	    ;0	     ;1	  ;gary	     ;scn1.1
 hlpsys;Help system          ;	       ;21	;	    ;0	     ;1	  ;?	     ;scn1.1

@@ -577,14 +577,14 @@ html/
           <section title="Syntax examples">
             <t>
               <t>
-              This renders block instance number 2, or the block instance named 'blockx', directly.
+              This renders block instance number 2, or the block instance named 'block_x', directly.
               The 'module' and 'type' attributes are ignored, since we are using the instance
               attribute to identify a block that has been pre-defined though the admin screens.
               </t>
 
               <artwork><![CDATA[
                 <xar:block instance="2" module="base" />
-                <xar:block instance="blockx" type="random" />
+                <xar:block instance="block_x" type="random" />
               ]]></artwork>
 
               <t>
@@ -622,7 +622,7 @@ html/
 
               <artwork><![CDATA[
                 <xar:block module="articles" type="topitems" title="Standalone Topitems"
-                    state="3" numitems="2" dynamictitle="0" name="standalone_topitems" 
+                    state="3" numitems="2" dynamictitle="false" name="standalone_topitems" 
                     template="right;mytop" />
               ]]></artwork>
             </t>

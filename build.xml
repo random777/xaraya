@@ -43,7 +43,11 @@
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.full" 
     value="addressbook,bbclick,bbcode,calendar,cast,censor,changelog,contact,figlet,messages,mybookmarks,opentracker,pubsub,smilies,uploads,xarbb,xslt"/>
-  
+
+  <!-- theme lists -->
+  <property name="themes.full"
+    value="XBlue_Pro"/>
+
   <!-- source tree properties -->
   <property name="html.dir" value="html" />
   <property name="docs.dir" value="docs" />
@@ -76,6 +80,9 @@
         <include name="INSTALL.txt" />
         <include name="LICENSE.txt" />
         <include name="${releaselog}" />
+      </fileset>
+      <fileset dir="${docs.dir}/xarayaguide" >
+        <include name="XarayaDocs.txt"/>
       </fileset>
     </copy>
     
@@ -188,6 +195,8 @@
   <target name="fulldist" description="--> Creates the full distribution">
    <!-- Modules are a bit separate -->
     <foreach list="modules.full" target="copymodulefrommodrepo" param="module.name"/>
+
+    <foreach list="themes.full" target="copythemefromthemerepo" param="theme.name"/>
     
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-full.tar.gz"/>
@@ -214,6 +223,17 @@
     <echo msg="Copying module ${module.name} into build tree..."/>
     <copy todir="${build.html}/modules/${module.name}">
       <fileset dir="../../modules/${module.name}">
+        <include name="**"/>
+        <exclude name="SCCS/**"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- copy a theme into the build tree -->
+  <target name="copythemefromthemerepo" if="theme.name">
+    <echo msg="Copying theme ${theme.name} into build tree..."/>
+    <copy todir="${build.html}/themes/${theme.name}">
+      <fileset dir="../../themes/${theme.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
       </fileset>

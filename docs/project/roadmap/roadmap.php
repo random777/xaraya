@@ -51,7 +51,7 @@ GLOBAL $HTTP_GET_VARS;
 if (empty($HTTP_GET_VARS['title'])) {
   $title="Xaraya scenario roadmap";
 }
-$revision="2002-10-20";
+$revision="2002-10-29";
 $revtext="(Revision: $revision)";
 $heightfactor=0.5;
 $groupbarheight=0.1;
@@ -61,6 +61,11 @@ $dependencylag="1"; // Allow 1 day for depency lag
 $defaultfile="roadmap.txt";
 $todaylabel="today";
 $todaycolor="darkred";
+$barpattern=BAND_RDIAG;
+$barcolor="#4363E3";
+$textcolor="#000088";
+$mstextcolor="#E47C55";
+
 //$cachetimeout=60; // If we change the roadmap more than once an hour, we'd better step back from PMC ;-)
 $cachetimeout=0;  // Unless we're debugging this script
 // End global configs
@@ -114,6 +119,7 @@ while($record) {
     // params: line, label, start, end, caption, heightfactor 
     $bar = new GanttBar($db->recordNr,$record['label'],$record['start'],"",$record['lead'],$groupbarheight);
     $bar->title->SetFont(FF_FONT1,FS_BOLD,8);
+    $bar->title->SetColor($textcolor);
     $bar->SetColor($groupbarcolor);
     $bar->SetPattern(BAND_SOLID, $groupbarcolor);
     $bar->rightMark->Show();  $bar->rightMark->SetType($groupbarmarker);
@@ -133,6 +139,9 @@ while($record) {
     if ($enddate > $latestdate[$record['part_of']] ) $latestdate[$record['part_of']]=$enddate;
     $bar = new GanttBar($db->recordNr," ".$record['label'],$record['start'],$enddate,"[".$record['progress']."%] ".$record['lead'],$heightfactor);
     $bar->progress->Set($record['progress']/100);
+    $bar->SetColor($barcolor);
+    $bar->title->SetColor($textcolor);
+    $bar->SetPattern($barpattern,$barcolor);
     $targs[]="http://www.hsdev.com";
     $alts[]=$record['label'];
     $plots[$record['id']]=$bar;
@@ -142,6 +151,7 @@ while($record) {
     $ms = new MileStone($db->recordNr,$record['label'],$record['start'],$record['lead']);
     if ($record['start'] > $latestdate[$record['part_of']]) $latestdate[$record['part_of']]=$record['start'];
     $ms->title->Setfont(FF_FONT1,FS_BOLD,8);
+    $ms->title->SetColor($mstextcolor);
     $plots[$record['id']]=$ms;
     break;
   }

@@ -1,0 +1,340 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0025" category="info">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Bug tracker requirements and selection</title>
+    <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>marcel@hsdev.com</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="October" year="2002"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>bugtracker</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC documents the requirements for the implementation of a bugtracking application
+	used by the Xaraya group. Focus will be on ease of use and integration with our SCM. It is
+	expected that implementation of the bugtracker will happen in stages.
+      </t>
+      <t>The second part of this RFC describes the preselected solutions which are thought to qualify, and
+	a comparison is made between suggested solutions.
+      </t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>This document defines the requirements of the envisioned bugtracker application.
+	The purpose of the document is to record and maintain our current best idea of 
+	what we want from a bugtracker, so we can justify project decisions in terms of 
+	those requirements, review project decisions, and achieve quality by meeting those 
+	requirements.
+      </t>
+      <t>The requirements were gathered by open discussion or our IRC channels, by theoretical
+	analyses and by practical needs. 
+      </t>
+
+      <t>The requirements are, as far as we can make them, an objective
+	measure of what we want from a bugtracker, and what would best contribute to the
+	projects goals.  They aren't a to-do list for the project.  
+	Meeting some of them may not be	feasible, but we should still use them 
+	to measure the quality of our solutions. 
+      </t>
+    </section>
+
+    <section title="How to read the requirements">
+      <t>We give the requirements a unique number so we can refer to them in our
+	documents and in our decisions. In the online representation of this document
+	the requirements will be given anchors so we can explicitly link to them
+      </t>
+      
+      <t>The requirements are listed in a table with the following columns:
+	<list style="numbers">
+	  <t>the requirement identifier</t>
+	  <t>the measure for the requirement</t>
+	  <t>critical,essential,optional and nice flags</t>
+	  <t>remarks</t>
+	</list>
+      </t>
+
+      <t>For function requirements the measure is just a statement which is true or false. 
+	For attribute requirements it's typically a scale of some sort and a unit.
+      </t>
+
+      <t>The terms "critical", "essential", "optional" and "nice" have the following meanings:
+	<list style="numbers">
+	  <t>critical: The project would fail to reach its goals. If the requirement were not 
+	    met at this level.</t>
+	  <t>essential: The project should meet the requirement at this level, but could still
+	    reach its goals without it.</t>
+	  <t>optional: The project will try to meet this level, but product quality will not suffer
+	    directly if the requirement is not met at this level.</t>
+	  <t>nice: Meeting the requirement will help the project, but in general it should only be
+	    met if it can be done cheaply (mostly in time resource domain)
+	  </t>
+	</list>
+      </t>
+
+      <t>The entry iin each cell is a level for the measure; either a minimum level (for measures
+      like likeability where higher levels are better) or a maximum level (for measures like cost
+      where lower levels are better). Then entries for an attribute requirement look like this:
+
+	<artwork><![CDATA[
+	  Measure                           Critical Essential Optional  Nice
+	  -------------------------------------------------------------------
+	  Cost of the product, in dollars.  < 1000   < 500     < 100     < 50
+	  -------------------------------------------------------------------
+	]]></artwork>
+      </t>
+
+      <t>The above entries mean that it is critical that the cost of the product
+	be less than 1000 dollars, essential that it stays below 500, optional 
+	that it be less than 100 dollars and really nice if it would drop below 50 
+	dollars.
+      </t>
+
+      <t>The entries for a functional requirement look like this:
+	<artwork><![CDATA[
+	  Measure                           Critical Essential Optional  Nice
+	  -------------------------------------------------------------------
+	  Product is blue                   maybe    yes       yes       yes
+	  -------------------------------------------------------------------
+        ]]></artwork>
+      </t>
+      
+      <t>The above entries mean that it is essential that the product be blue
+	(and therefore it is also optional and nice that it be blue) but it is not
+	critical that it is blue (or that it is not blue).
+      </t>
+    </section>
+    
+    <section title="Summary">
+      <t>For the people who don't want to go through the whole list of requirments 
+	this is the list of 5 most critical requirements:
+	<list style="numbers">
+	  <t>Bugtracker state is consistent with state of product sources</t>
+	  <t>Bugtracker makes the life of developers, users and managers easier
+	  (i.e. it helps them to make a quality product more easy and more quickly</t>
+	  <t>Bugtracker is optimized to discover why the sources are the way they
+	    are and why they have changed </t>
+	  <t>Bugtracker interfaces under our control are public, documented and maintained</t>
+	  <t>Bugtracker allows to ask questions involving both bugtracker and SCM system</t>
+	</list>
+      </t>
+
+      <t>The most compelling functional requirement is that users must be able to carry
+	out routine tasks using either the SCM systems interface, the native bugtracker 
+	interface or any other interface which has access to bugtracking information. That is,
+	user must not be required to switch interfaces to carry out routine development tasks
+	like registering new bugs or resolving issues. Meeting this requirement makes it
+	much easier for developers to keep bug information up to date.
+      </t>
+      <t>List other compelling requirements here</t>
+    </section>
+
+    <section title="Requirements">
+      <artwork>
+  ID  Measure                                                       Critical Essential Optional  Nice
+  ---------------------------------------------------------------------------------------------------
+   1  state is consistent with state of product sources             yes      yes       yes       yes
+   2  makes the life of developers, users and managers              yes      yes       yes       yes
+      easier (helps them to make a quality product more easy and 
+      more quickly)
+   3  optimized to discover why the sources are the                 yes      yes       yes       yes
+      way they are and why they have changed.
+   4  interfaces under our control are public,                      yes      yes       yes       yes
+      documented and maintained.
+   5  Bugtracker allows to ask questions involving both bugtracker  yes      yes       yes       yes
+      and SCM system.
+   6  cmdline interface                                              no      yes       yes       yes
+   7  web interface                                                 yes      yes       yes       yes 
+   8  mail interface                                                 no      yes       yes       yes
+   9  gui client interface                                           no       no       yes       yes
+  10  Fields: id, state severity, type, description, comments(N)    yes      yes       yes       yes
+      owner, submitter, 
+  11  Fields: notify list, related items                             no       no       yes       yes
+  12  quick filtering                                               yes      yes       yes       yes
+  13  quick queries                                                 yes      yes       yes       yes
+  14  assign to components                                           no      yes       yes       yes
+  15  assign to developers                                          yes      yes       yes       yes
+  16  configurable notifications                                     no      yes       yes       yes
+  17  xaraya module                                                  no       no       yes       yes
+  18  reference points in SCM on state changes of bugs               no      yes       yes       yes
+  19  ability to hold patches against a bug                          no      yes       yes       yes
+  20  register duplicates                                           yes      yes       yes       yes
+  21  register dependencies                                         yes      yes       yes       yes
+  22  register meta bugs (grouping)                                  no       no       yes       yes
+  23  statistics (specify what?)                                     no       no       yes       yes
+  24  custom attributes                                              no       no       yes       yes
+  25  configurable submission template                               no       no       yes       yes
+  26  mark custom attributes as required                             no       no       yes       yes
+  27  ACL lists                                                      no       no       yes       yes
+  28  as simple as possible, but not simpler                        yes      yes       yes       yes
+  29  standards compliant                                           yes      yes       yes       yes
+  30  open source                                                    no       no       yes       yes
+  31  support multiple projects                                      no      yes       yes       yes
+  32  configurable auth system                                       no      yes       yes       yes
+  33  flow control                                                   no      yes       yes       yes
+  34  anyone can add comments to a bug                               no      yes       yes       yes
+      </artwork>
+      
+      <section title="State is consistent with state of product sources">
+	<t></t>
+      </section>
+
+      <section title="Makes the life of developers, users and managers easier">
+	<t></t>
+      </section>
+
+      <section title="Optimized to discover why the sources are the way they are and why they have changed.">
+	<t></t>
+      </section>
+
+      <section title="Interfaces under our control are public,documented and maintained.">
+	<t></t>
+      </section>
+
+      <section title="Allows to ask questions involving both bugtracker and SCM system.">
+	<t></t>
+      </section>
+
+      <section title="Cmdline interface">
+	<t></t>
+      </section>
+
+      <section title="Web interface">
+	<t></t>
+      </section>
+
+      <section title="Mail interface">
+	<t></t>
+      </section>
+
+      <section title="GUI client interface">
+	<t></t>
+      </section>
+
+      <section title="Fields: id, state severity, type, description, comments(N),owner, submitter">
+	<t></t>
+      </section>
+
+      <section title="Fields: notify list, related items">
+	<t></t>
+      </section>
+
+      <section title="Quick filtering">
+	<t></t>
+      </section>
+
+      <section title="Quick queries">
+	<t></t>
+      </section>
+      <section title="Assign to components">
+	<t></t>
+      </section>
+      <section title="Assign to developers">
+	<t></t>
+      </section>
+      <section title="Configurable notifications">
+	<t></t>
+      </section>
+      <section title="Xaraya module ">
+	<t></t>
+      </section>
+      <section title="Reference points in SCM on state changes of bugs">
+	<t></t>
+      </section>
+      <section title="Ability to hold patches agaiinst a bug">
+	<t></t>
+      </section>
+
+      <section title="Register duplicates">
+	<t></t>
+      </section>
+      <section title="Register dependencies">
+	<t></t>
+      </section>
+      <section title="Register meta bugs (grouping)">
+	<t></t>
+      </section>
+      <section title="Statistics (specify what?)">
+	<t></t>
+      </section>
+      <section title="Custom attributes">
+	<t></t>
+      </section>
+      <section title="Configurable submission template">
+	<t></t>
+      </section>
+      <section title="Mark custom attributes as required">
+	<t></t>
+      </section>
+      <section title="ACL lists">
+	<t></t>
+      </section>
+      <section title="As simple as possible, but not simpler">
+	<t></t>
+      </section>
+      <section title="Standards compliant">
+	<t></t>
+      </section>
+      <section title="Open source">
+	<t></t>
+      </section>
+      <section title="Support multiple projects">
+	<t></t>
+      </section>
+      <section title="Configurable auth system">
+	<t></t>
+      </section>
+      <section title="Flow control">
+	<t></t>
+      </section>
+    </section>
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>2002-10-31: First revision</t>
+    </section>
+
+  </middle>
+
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    <references title="Reference title">
+      <!-- Fill in references as needed -->
+      <reference>
+	<front>
+	  <title>Reference title</title>
+	  <author>
+	    <organization>Organization</organization>
+	  </author>
+	  <date year="2002"/>
+	</front>
+      </reference>
+      <!-- Repeat the aboven block if more references are needed -->
+    </references>
+    
+    <!-- Any section after this will become an appendix -->
+  </back>
+</rfc>

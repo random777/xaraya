@@ -2,14 +2,14 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 
 
-Xaraya: adam_baum Beta (.9.0.4)
+Xaraya: adam_baum Beta (.9.0.5)
 ==================================
 
    Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
 
    If you would like to help develop this software, please visit our homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
 
-   You can also visit us in channel #support, on our IRC Server irc.Xaraya.com.
+   You can also visit us in channel #support or #chat, on our IRC Server irc.Xaraya.com.
 
 New Installation
 ================
@@ -32,7 +32,14 @@ Upgrades
    .9.0.0 -> .9.0.2 Small article and permissions changes.
    .9.0.2 -> .9.0.3 Added syndication block for RSS output.
    .9.0.3 -> .9.0.4 Small changes to article masks
+   .9.0.4 -> .9.0.5 Changes to the priviliges.  
+		    Removal of the old waiting content ideas 
+		    for new and improved version.
    ----------------------------------------------------
+
+   - Before upgrading:
+     Back-up all old files and the database.
+     Go to your articles module and press "update" in the config section to ensure that old pubtype configs are updated from their .900 states.
 
    - To upgrade from a previous Xaraya Version replace all files and modules EXCEPT /html/var/config.system.php .
    - Please note the upgrade script looks at the current DB settings and loads the site so maintaining the config.system.php is necessary to upgrade between versions.
@@ -40,7 +47,10 @@ Upgrades
    - Point your directory to upgrade.php in your root directory.  
    - Follow instructions from there.
    - Remember to remove upgrade.php and install.php from your installation.
+   - Go to your modules admin and regenerate.
+   - Upgrade the required modules that are indicated by the status of upgrade.
 
+   
 Caution
 =======
 

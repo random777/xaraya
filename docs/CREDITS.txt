@@ -107,6 +107,14 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Vassilis Stratigakis (GabrielConnor)
 
+  Chris van der Steeg (alley)
+
+  Michael Jansen (Mike)
+
+  Garrett Hunter (Garrett)
+
+  Joanna Dalle Nogare (jojodee)
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 Other development credits

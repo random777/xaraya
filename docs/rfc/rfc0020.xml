@@ -1,138 +1,311 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
+
 <?rfc toc='yes'?>
 <rfc number="0020" category="info">
 	<front>
-		<title>Multi Language System
-</title>
+		<title>Multi Language System</title>
 		<author initials="M." surname="Canini" fullname="Marco Canini">
 			<organization>Xaraya Development Group</organization>
 			<address>
 				<email>unknown</email>
 				<uri>http://www.xaraya.com</uri>
-			</address>
-		</author>
-		<date month="May" year="2002"/>
-		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-		<abstract>
+      </address>
+    </author>
+	  <date month="August" year="2002"/>
+		
+    <abstract>
 			<t>
-			This document describes the Multi Language System technology that will provide internationalization support for PostNuke. This document  
-			is constantly subject to revisions. This isn't the final version of the document.
+				This document describes the Multi Language System technology
+				that will provide internationalization support for
+				Xaraya. This document is constantly subject to
+				revisions. This isn't the final version of the document.
 			</t>
 		</abstract>
 	</front>
-	<!-- The middle section is used for the actual content of the RFC -->
+	
 	<middle>
-		<!-- One content section is mandatory -->
 		<section title=" Introduction">
 			<t>
-			Internationalization of software is one of the more common problem when you are developing web-based software. Solutions for this 
-			problem exist, and they are often a library that let you get rid of translations details by using plain text into code. Instead other solutions take 
-			the developer at a lower level by using key-based access to translations. The current ML system is very closed to second model. From the 
-			performance perspective the second model is faster, but the first model is really comfortable. The Multi Language System comes up with an 
-			hybrid solution: both models are supported. 
+				Internationalization of software is one of the more common problem
+				when you are developing web-based software.  Solutions for this
+				problem exist, and they are often a library that let you get rid
+				of translations details by using plain text into code.  Instead
+				other solutions take the developer at a lower level by using
+				key-based access to translations.  The current ML system is very
+				closed to second model.  From the performance perspective the
+				second model is faster, but the first model is really comfortable.
+				The Multi Language System comes up with an hybrid solution: both
+				models are supported.
 			</t>
-	      </section>
+		</section>
+
+		<section title="Working mode">
+			<t>
+				Since MLS is not a so low level layer (it's written in PHP) and
+				due to the lack of a great support of different charsets than
+				iso-8859-1 by the PHP language (mb_string extension won't be
+				built in by default till PHP 4.3), MLS can work by three
+				different ways.  They're SINGLE language, BOXED MULTI language,
+				UNBOXED MULTI language.  TFe modus operandi of MLS is determined
+				at installation time and can't be changed with ease later, a
+				specific tool should be created for this.  The MLS mode can be
+				queried at run time by the pnMLGetMode() API function.  Here's a
+				brief description for each MLS mode: SINGLE: MLS uses only one
+				charset, typically single byte but potentially multi byte if
+				mb_string is built in. Every information is stored coherently
+				with the chosen charset (installation time), and also user data
+				is meaningful in the chosen charset.  BOXED MULTI: MLS uses more
+				than one charset (same consideration for the single or multi
+				byte matter as above can be applied here), but only one charset
+				per page is used (this is a obvious concept, but important to
+				understand). Due to this fact the content is not sharable
+				through different language areas (for example an Arabic comment
+				won't be shown in the English area even if refereed to the same
+				object, say an article available in both English and
+				Arabic). Another point is that every operation involves only a
+				single language. This mode can produce unexpected results if
+				mb_string is not installed, the motivation is described later.
+				UNBOXED MULTI: MLS uses an universal charset to represent
+				everything (read it as UTF-8). This guarantees that no
+				conversion is need. Every page is always shown according to the
+				user chosen language, but the page can contain texts in other
+				languages (for example a French article and comments inside an
+				English page).
+			</t>
+			<t>
+				The following table describes whether some variable/object is
+				meaningful or not when MLS is running in a certain mode:
+				<artwork>
+                       | SINGLE  |  BOXED  | UNBOXED |
+User Locale            |         |    X    |    X    |
+User Timezone          |    X    |    X    |    X    |
+User Data (in general) |    X    |    O    |    X    |
+Site Locale            |    X    |         |         |
+Site Default Locale    |         |    X    |    X    |
+Site Locales           |         |    X    |    X    |
+Navigation Locale      |         |    X    |    X    |
+Current    Locale      |    X    |    X    |    X    |
+System Timezone        |    X    |    X    |    X    |
+Site Timezone          |         |    X    |    X    |
+mb_string required     |         |         |    X    |
+
+Legend
+X means yes
+O means yes, but perhaps with troubles
+blank means no
+				</artwork>
+			</t>
+			<t>
+				An important thing to know at this point is that MLS doesn't deal with language
+				strings, but only with locale strings.
+				A Xaraya locale string could be seen as the union of language, country,
+				charset and an optional specializer.
+				This is the grammar for a valid Xaraya locale string:
+				<artwork>
+					locale := language [+ '_' + country ] [+ '@' + specializer] [+ '.' + charset]
+				</artwork>
+			</t>
+			
+			<t>
+				Now I'll spend some words to describe the table above.  User Locale
+				and User Timezone are part of User Data, User Timezone is an optional
+				field (Xaraya uses Site Timezone if not present) but is asked by
+				default at registration time.  On the other hand User Locale is always
+				asked when MLS mode is not SINGLE, and can assume one of the values
+				listed in Site Locales.  The default value is represented by Site
+				Default Locale.  Notwithstanding both User Locale and User Timezone
+				are part of User Data, they are always meaningful even in BOXED MULTI
+				mode, while other User Data could be meaningless, depending on the
+				used charset.  Due to this problem all textual User Data variables are
+				exposed to the possibility to appear as strange characters in the end
+				user browser.  Xaraya will try to use mb_string to solve this
+				problem, however if mb_string is not available Xaraya won't take
+				care of that matter.  So for the BOXED MULTI mode (if mb_string is
+				present), since the User Locale (read it as preferred user language)
+				is required, all the User Data will be stored encoded with the chosen
+				charset (User Locale) and will be converted on the fly to the right
+				charset by pnUser*Var API functions.  Navigation Locale is a session
+				variable used to represent the locale of this session.  The current
+				locale is fundamental to get MLS load the right set of translations.
+				To achieve this pnML_load* functions will use pnMLGetCurrentLocale API
+				function.  Its behavior is described as follow: * Logged user: SINGLE:
+				Site Locale is returned.  BOXED MULTI: Navigation Locale is set to
+				User Locale at the first call, Navigation Locale is returned.  UNBOXED
+				MULTI: User Locale is returned.  * Anonymous user: SINGLE: Site Locale
+				is returned.  BOXED &amp; UNBOXED MULTI: Navigation Locale is set to Site
+				Default Locale at the first call, Navigation Locale is returned.
+			</t>
+			<t>So Navigation Locale is used in these cases:</t>
+			<t>
+				<artwork>
+                       | SINGLE  |  BOXED  | UNBOXED |
+Logged user            |         |    X    |         |
+Anonymous user         |         |    X    |    X    |
+				</artwork>
+			</t>
+			<t>
+				The API function pnMLSetCurrentLocale will operate directly on Navigation
+				Locale, so it performs something only in the cases written before.
+			</t>
+			<t>
+				Considering that a Xaraya is represented by the number of seconds since
+				UNIX epoch (1/1/1970 00:00:00 GMT), the value of System Timezone is used to
+				convert the timestamp obtained by the time() function to the GMT timestamp.
+				Site Timezone is used by pnLocaleFormatDate API function; in particular Site
+				Timezone is used when not overridden by User Timezone.
+			</t>
+		</section>
 		<section title="Architecture">
 			<t>
-			Even by supporting string-base and key-based access to translations, MLS keeps very distinct the mode you use it. MLS has two entry point                     
-			functions, they are xarML and xarMLByKey. The first function (xarML) is chosen for string-based translations, the latter function (xarMLByKey) 
-			is chosen for key-based translations. You can also use both model in the same fragment of code. The MLS architecture is modularized 
-			through the use of backends. A backend is an entity capable of managing string-based and key-based translations.  	Currently implemented 
-			backends are the XML backend and the PHP backend. In the future will be developed the DBM backend, the GetText backend. Implementation 
-			of a backend is currently delegated to a PHP class, however we are evaluating to use the PostNuke Module System also for MLS backend 
-			implementations. We said that a backend manages translations, this is done by exposing a well known interface: 
-                    <artwork>                    
-                    interface xarML_?TranslationsBackend { 
-                    string translate($string);
-                    string translateByKey($key);
-                    bool load($translation_ctx);
-                    } 
-                    </artwork>                    
-                    The load method is called when a call xarModLoad or xarModAPILoad occurs. Translations are identified by a translation context, in that way 
-                    only needed translations will be load during the page generation process. A translation context is made of a module name, a module action 
-                    type (user, userapi, admin, adminapi) and a language identifier. The backend can load more than one translation context per time, loaded 
-                    translations are managed (merged) by the backend. 
+				Even by supporting string-base and key-based access to translations, MLS keeps
+				very distinct the mode you use it.
+				MLS has two entry point functions, they are pnML and pnMLByKey.
+				The first function (pnML) is chosen for string-based translations, the latter
+				function (pnMLByKey) is chosen for key-based translations.
+				You can also use both model in the same fragment of code.
+				The MLS architecture is modularized through the use of backends.
+				A backend is an entity capable of managing string-based and key-based
+				translations.
+				Currently implemented backends are the XML backend and the PHP backend.
+				In the future will be developed the DBM backend, the GetText backend.
+				Implementation of a backend is currently delegated to a PHP class, however we
+				are evaluating to use the Xaraya Module System also for MLS backend
+				implementations.
+				We said that a backend manages translations, this is done by exposing a well
+				known interface:
+				<artwork>                    
+interface pnML_TranslationsBackend
+{
+    /**
+     * Gets the string based translation associated to the string param.
+     */
+    string translate($string);
+    /**
+     * Gets the key based translation associated to the key param.
+     */
+    string translateByKey($key);
+    /**
+     * Loads a set of translations into the backend. This set is identified
+     * by a translation context that contains an object name, base directory,
+     * type and locale.
+     */
+    bool load($translation_ctx);
+}
+				</artwork> 
+			</t>
+			<t>                   
+				The load method is called when a call pnModLoad, pnModAPILoad,
+				pnBlockLoad, pnTplModule occurs.  Translations are identified by a
+				translation context, in that way only needed translations will be load
+				during the page generation process.  A translation context is made of
+				a module name, a module action type (user, userapi, admin, adminapi)
+				and a language identifier.  The backend can load more than one
+				translation context per time, loaded translations are managed (merged)
+				by the backend. 
 			</t>
 			<t>
-                    The translate method is called by xarML function. 
+				The translate method is called by xarML function. 
 			</t>
 			<t>
-                    The translateByKey method is called by xarMLByKey function. 
+				The translateByKey method is called by xarMLByKey function. 
 			</t>
 			<t>
-                    The XML language has been chosen as the intermediate translations language, because of that the XML backend is a special backend. The 
-                    intermediate translations language is used to store translations and references to occurrences of strings and keys. It's used to generate 
-                    translations for other backends through the translations module, but you'll see that later. The XML backend implements another two interfaces: 
-                   <artwork> 
-                   interface xarML_?ReferencesBackend { 
-                   array entry($string);
-                   array entryByKey($key);
-                   } 
-                   </artwork> 
-                   The entry method return an array that contains the translation for that such string and an array of references of occurrences for that such 
-                    string. 
+				The XML language has been chosen as the intermediate translations language,
+				because of that the XML backend is a special backend.
+				The intermediate translations language is used to store translations and
+				references to occurrences of strings and keys.
+				It's used to generate translations for other backends through the translations
+				module, but you'll see that later.
+				The XML backend implements another two interfaces:
 			</t>
 			<t>
-                    The entryByKey is the analogous case for key-based translation. 
-                    <artwork>
-                    interface xarML_EnumerableTranslationsBackend { 
-                    array enumTranslation($reset = false);
-                    array enumKeyTranslations($reset = false);
-                    }
-                    </artwork>
+				<artwork> 
+interface xarML_?ReferencesBackend { 
+    /**
+     * Gets a translation entry for a string based translation.
+     */
+    array entry($string);
+    /**
+     * Gets a translation entry for a key based translation.
+     */
+    array entryByKey($key);
+    /**
+     * Gets a transient identifier (integer) that is guaranteed to identify
+     * the translation entry for the string based translation in the next HTTP request.
+     */
+    int transient_id($string)
+    /**
+     * Gets the translation entry identified by the passed transient identifier.
+     */
+    array lookup($transient_id)
+} 
+				</artwork> 
 			</t>
 			<t>
-                    The enumTranslation method is used to enumerate all loaded translations, it's used by the translations module. 
+				The entry method return an array that contains the translation for that such string and an array of references of occurrences for that such 
+				string. 
 			</t>
 			<t>
-                    The enumKeyTranslations method is the analogous case for key-based translation.
+				The entryByKey is the analogous case for key-based translation. 
+				<artwork>
+interface xarML_EnumerableTranslationsBackend { 
+				array enumTranslation($reset = false);
+				array enumKeyTranslations($reset = false);
+}
+				</artwork>
 			</t>
-	      </section>
+			<t>
+				The enumTranslation method is used to enumerate all loaded translations, it's used by the translations module. 
+			</t>
+			<t>
+				The enumKeyTranslations method is the analogous case for key-based translation.
+			</t>
+		</section>
 		<section title="MLS API ">
 			<t>
-			The MLS exposes an API that will integrate into PostNuke API. We've yet discussed two functions (xarML and xarMLByKey), now we'll see  
-			other API functions: 
+				The MLS exposes an API that will integrate into Xaraya API. We've yet discussed two functions (xarML and xarMLByKey), now we'll see  
+				other API functions: 
 			</t>
 			<t>
-                    xarMLInit() Used to initialized the MLS. 
+				xarMLInit() Used to initialized the MLS. 
 			</t>
 			<t>
-                    xarMLRegisterListener($modname) Register a listener into MLS. A listener is notified by MLS of certain events like missing translations. 
+				xarMLRegisterListener($modname) Register a listener into MLS. A listener is notified by MLS of certain events like missing translations. 
 			</t>
 			<t>
-                    xarMLGetXMLBackend($modname, $type, $lang) Return an XML backend with the specified translation context loaded, it's used mainly by the  
-                    translations module.
+				xarMLGetXMLBackend($modname, $type, $lang) Return an XML backend with the specified translation context loaded, it's used mainly by the  
+				translations module.
 			</t>
-	      </section>
+		</section>
 		<section title="MLS from the developer point of view">
 			<t>
-			What developers should know is a very little part of MLS: xarML and xarMLByKey. Developers will use those function when they need to have  
-			internationalization support in their modules. 
+				What developers should know is a very little part of MLS: xarML and xarMLByKey. Developers will use those function when they need to have  
+				internationalization support in their modules. 
 			</t>
-	      </section>
+		</section>
 		<section title="MLS from the translator point of view">
 			<t>
-			Translators will mainly use the translations module. The actions that they will perform are very similar to this sequence:
+				Translators will mainly use the translations module. The actions that they will perform are very similar to this sequence:
 			</t>
 			<t>
-			   <list>
-				  <t>Choose a module, a module action type and a language</t>
-				  <t>Generate translations skels files (XML files) </t>
-				  <t>Use a context driven web-based view to add and edit translation or edit by hand XML files</t>
-				  <t>Choose the generate translations action to generate translations for a chosen backend (not the XML one)</t>
-			   </list>
-      			</t>
-	      </section>
+				<list style="numbers">
+					<t>Choose a module, a module action type and a language</t>
+					<t>Generate translations skels files (XML files) </t>
+					<t>Use a context driven web-based view to add and edit translation or edit by hand XML files</t>
+					<t>Choose the generate translations action to generate translations for a chosen backend (not the XML one)</t>
+				</list>
+			</t>
+		</section>
 		<section title="Changelog">
 			<t>
-			pre-0.1 (May 19, 2002)
+				<list>
+					<t>0.9 (Aug 14, 2002)</t>
+					<t>pre-0.1 (May 19, 2002)</t>
+					<t>Initial Version by Marco Canini &lt;marco.canini@xaraya.com&gt;</t>
+				</list>
 			</t>
-			<t>
-                    Initial Version by Marco Canini &lt;marco.canini@postnuke.com&gt;
-			</t>
-	      </section>
+		</section>
 	</middle>
 </rfc>

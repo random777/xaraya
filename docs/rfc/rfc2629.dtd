@@ -184,7 +184,7 @@
 <!ELEMENT preamble    (%TEXT;|xref|eref|iref)*>
 <!ELEMENT artwork     (%TEXT;)*>
 <!ATTLIST artwork
-          xml:space   (default|preserve) "preserve"
+          xml-space   (default|preserve) "preserve"
           name        %ATEXT;            ""
           type        %ATEXT;            ""
 	  src         %ATEXT;		 "">

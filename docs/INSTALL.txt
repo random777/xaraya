@@ -20,13 +20,13 @@ New Installation
 
    Xaraya has a fully graphical install process to provide a simple set of steps to get your site up and running.
 
-   Then, we can run the installation, depening on what you copied where:
+   Then, we can run the installation, depending on what you copied where:
   [everything in docroot]         http://www.foo.com/html/install.php
   [only html content in docroot]  http://www.foo.com/install.php
   [everything in subdir]          http://www.foo.com/bar/html/install.php
   [only html content in subdir]   http://www.foo.com/bar/install.php
 
-   To install your Xaraya system, run the appropriate path to install.php from your browser to start the installation process.  The exact URL depends on your site, but the examples above should illustrate how to workout what the correct path will be.
+   To install your Xaraya system, run the appropriate path to install.php from your browser to start the installation process.  The exact URL depends on your site, but the examples above should illustrate how to work out what the correct path will be.
 
    Follow the instructions in the installation script and when prompted for either a new install or an upgrade select 'new install'.  The installer will create the required database tables and set up the account for the person who will act as the administrator of the site.  Once complete you should be able to start using your Xaraya site immediately.
 
@@ -42,9 +42,9 @@ Upgrades
    .9.0.0 -> .9.0.2 Small article and permissions changes.
    .9.0.2 -> .9.0.3 Added syndication block for RSS output.
    .9.0.3 -> .9.0.4 Small changes to article masks
-   .9.0.4 -> .9.0.5 Changes to the priviliges.  
-		    Removal of the old waiting content ideas 
-		    for new and improved version.
+   .9.0.4 -> .9.0.5 Changes to the priviliges.
+            Removal of the old waiting content ideas
+            for new and improved version.
    .9.0.5 -> .9.0.6 None
    ----------------------------------------------------
 
@@ -55,13 +55,13 @@ Upgrades
    - To upgrade from a previous Xaraya Version replace all files and modules EXCEPT /html/var/config.system.php .
    - Please note the upgrade script looks at the current DB settings and loads the site so maintaining the config.system.php is necessary to upgrade between versions.
    - Log in with administration rights.
-   - Point your directory to upgrade.php in your root directory.  
+   - Point your directory to upgrade.php in your root directory.
    - Follow instructions from there.
    - Remember to remove upgrade.php and install.php from your installation.
    - Go to your modules admin and regenerate.
    - Upgrade the required modules that are indicated by the status of upgrade.
 
-   
+
 Caution
 =======
 
@@ -71,12 +71,12 @@ Common Installation Errors
 ==========================
 
    If you are having difficulties getting past the boot phase, specifically errors about not being able to open the CACHEKEYS file for writing, try deleting the file:
-	html/var/templates/CACHEKEYS
+    html/var/templates/CACHEKEYS
 
    The html/var/cache/rss and html/var/cache/templates both need to be writable and executable, along with the config.system.php file.
 
    If you have a problem with install of your databases, and you recieve a message:
 
-	ErrorNo: 1142, Message:Database error while executing: 'CREATE INDEX i_base_xar_uid ON xar_session_info (xar_uid)'; error description is: 'index command denied to user: 'debeemster@localhost' for table 'xar_session_info''.
-   
+    ErrorNo: 1142, Message:Database error while executing: 'CREATE INDEX i_base_xar_uid ON xar_session_info (xar_uid)'; error description is: 'index command denied to user: 'debeemster@localhost' for table 'xar_session_info''.
+
    This is an indication that you or your host does not allow the permission in the database to create indexes.  The system will suffer from slow performance without the DB index, and it is in your host's best interest to allow them.

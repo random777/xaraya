@@ -1677,6 +1677,7 @@ html/
             objects can be specifiek using colon notation, i.e:
             <artwork>
               &lt;xar:var name="preformat:catandtitle /&gt; ( meaning: $preformat-&gt;catandtitle )
+            </artwork>
           </t>
           <t>
             The 'scope' attribute value has the following effect:

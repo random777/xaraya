@@ -3,6 +3,7 @@
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <?rfc toc="yes"?>
+<?rfc editing="yes"?>
 
 <rfc number="0029" category="exp">
   <!-- Front matter is used for identification of author and organization -->
@@ -28,21 +29,369 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>
-				This RFC contains a proposal for a design of a (partially) automated test framework.
-				The design was inspired by Xtreme programming, design by contract and the jUnit testing
-				framework. The ideas are slightly adapted to make it more suitable for the Xaraya System.
-			</t>
-			<t> 
-				Finally a not so real world example is given to explain the workings of the system.
-			</t>
-			<t>
-				The RFC has no content yet, the number is reserved for it.
+				This RFC contains a a design of a (partially) automated test
+				framework.  The design was inspired by Xtreme programming,
+				design by contract and the jUnit testing framework. The ideas
+				are slightly adapted to make it more suitable for the Xaraya
+				System.
 			</t>
     </abstract>
   </front>
 
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
+    <section title="Introduction">
+      <t>
+        Any sufficiently large software project with enough people
+        making changes to the same code base has a control problem:
+        "How to make sure that everything keeps working after i push
+        my great new thing?". This RFC deals with this problem from
+        the point of view of providing a mechanism to be able to test
+        whether things which worked in the past still work when a new
+        feature is added to the codebase.
+      </t>
+      <t>
+        This problem is basically a problem of developer
+        mindset. Every developer needs to really want things to be
+        top-notch for any system to work. The solution presented is no
+        magic bullet which keeps people from doing the wrong
+        thing. What it does provide is a method to be able to check
+        early and check often whether anything will break when
+        introducing a new code-snippet.
+      </t>
+      <t>
+        The solution proposed borrows from ideas of eXtreme
+        Programming as a foundation for the solution, meaning you
+        write tests for the new feature before writing the new feature
+        itself and the feature isn't finished untill all existing
+        tests and the new tests run successfully.
+      </t>
+      <t>
+        The remainder of this RFC follows a rather classic line of
+        describing the requirements to make up a certain design,
+        implemented in a certain way predicting the integration issues
+        while gathering unknowns and postponed items in a remaining
+        issues section.
+      </t>
+    </section>
+    
+    <section title="Requirements">
+      <t>
+        We've limited ourselves to specifying at most 10
+        requirements. A testing framework can be very complex if
+        wanted to. By limiting ourself to the ten top priority
+        requirements we ensure a reasonable implementation time to put
+        the system to use.  The listed requirements are not sorted,
+        all 10 requirements are of equal importance.
+        <list style="numbers">
+          <t><em>Tests are conservative, defaulting the result to "failed"</em>
+            <t>
+              With the implementation of automated systems in general the
+              most important thing to watch out for is a false sense of
+              security. The fact that an automated system is available
+              doesn't, as such, improve the quality of the code
+              produced. 
+            </t>
+            <t>
+              The above actually means: it will be hard to make tests pass;
+              if a test passes it will be a reliable measure that the code
+              actually does what it was designed for.
+            </t>
+          </t>
+          <t><em>The test system can test itself</em>
+            <t>
+              To prevent having a test system which fails rather then
+              the code to be tested, the system should be as simple as
+              possible. Ideally the system should be nearly bug free,
+              thus giving a reasonable guarantee that when a test fails
+              it's the tested code which needs reviewing, not the test
+              system itself. While this is a good requirement, it's not
+              quantitatively measurable. It's better to have a different
+              perspective on this: "make the test system test
+              itself". These tests are a precondition before the test
+              system can be used. All self-tests should "pass" before
+              the system can be used.
+            </t>
+          </t>
+          <t><em>Tests are as close as possible to the code for which they are designed</em>
+            <t>
+              Adopting a unit test system <em>will</em> will create
+              extra work for the developer, but also yields an extra
+              gain in terms of the quality of their code. The tests
+              should be as close to the code tested as possible, to make
+              both the developers life as easy as possible and to be
+              able to check the tests with the code and maintain them in
+              the same place.  
+            </t>
+            <t>
+              Ideally there should be native support in the programming
+              language for integrated testing. See <xref
+                target="eiffel">EIF</xref> for an example of how implicit
+              testing can be built into a programming language . (In
+              this case: design by contract). For PHP this is not (yet?)
+              available as native language constructs so we'll have to
+              come up with something for ourselves.
+            </t>
+          </t>
+          <t><em>Tests are grouped into testcases in testsuites, which can both be run separately</em>
+            <t>
+              The perceived method for using the test system is that the
+              tests are written before the code itself is written and
+              the developer continues to write the code untill all tests
+              for that unit pass. This means that it must be easy to run
+              that specific tests repeatedly without running other
+              registered tests. For this we define a concept of
+              "testcases" (tests one specific piece of functionality)
+              and "testsuites" (groups testcases which belong logically
+              together)
+            </t>
+          </t>
+          <t><em>Tests can be run directly from the development environment</em>
+            <t>
+              While developing code a developer must be able to run the written tests
+              for that piece of functionality. This means that the testruns must be
+              highly integrated with the development environment.
+            </t>
+          </t>
+          <t><em>Tests are distributed</em>
+            <t>
+              To increase the use of the system the tests should be able to
+              run in each developers environment, and be replicated to other
+              developers environments. This allows tests to run in all 
+              used environments and to be run more often.
+            </t>
+            <t>
+              To anticipate inter-unit testcases the
+              testsystem is distributed accross all
+              developers. Assuming we have a central place which contains a
+              consolidated version of the codebase (for example the
+              repository on our server) the testcases must also be able to
+              run remotely, or at least the results must be remotely
+              accessible (for example by accessing a web page).
+            </t>
+          </t>
+          <t><em>Tests are run before a commit into the repository</em>
+            <t>
+              Before committing anything the system should give the developer
+              a warning when one or more test do not pass. In "strict" mode
+              the commit will be prevented even. This setting can for example
+              be applied to a "stable" tree, while a "development" tree might
+              have a more relaxed setting, allowing commits even when tests fail.
+            </t>
+          </t>
+          <t><em>A testrun has a unique "point in time" marker</em>
+            <t>           
+              As the time of running the testcases and the time of
+              presenting the consolidated results may differ, a "marker" of
+              some sort must be attached to the results of each testrun., 
+              so a developer can
+              check easily at which point in time a certain test started to
+              fail and reproduce that situation
+            </t>
+            <t>
+              In our case this "marker" would probably be a changeset
+              revision number, as this presents exactly one state of the
+              codebase at a certain point in time and allows for creating
+              that specific state at any time.
+            </t>
+          </t>
+          <t><em>The testing framework has no impact at runtime requirements</em>
+            <t>
+              While using the software the availability of a testing
+              framework should have no impact at runtime. Although a
+              minimal influence is allowed and expected, no extra
+              requirements for software, hardware can be imposed by the
+              mere fact the testing framework is there. When this
+              influence is necessary, the system must provide a switch
+              to disable it during runtime. It is however allowed that
+              the testing system has an impact during runtime when it is
+              actively being used.
+            </t>
+          </t>
+          <t><em>Unattended operation</em>
+            <t>
+              The system must actively support a mode in which tests can
+              run unattended logging the results in a file, database or
+              another storage vault for later examination.
+            </t>
+            <t>
+              The rational behind this is that a test may pass when it
+              is run once, twice or multiple time and it will only fail
+              at the 77th run. By allowing unattended operation these
+              bugs can also be catched by the system.
+            </t>
+            <t>
+              In addition to loggin the results a possibility for active
+              signalling must also be available, for example posting an
+              email messag saying that a certain test has failed.
+            </t>
+            <t>
+              The unattended operation must be controllable by a number
+              of configuration parameters specifying how to run the
+              tests and how to create the circumstances to be able to
+              start the testruns (for example creating the codebase at
+              the time of the changeset revision number).
+            </t>
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Design">
+      <t>
+        Based on the 10 requirements in the first section:
+        <list style="numbers">
+            <t>Tests are conservative, defaulting the result to "failed"</t>
+            <t>The test system can test itself</t>
+            <t>Tests are as close as possible to the code for which they are designed</t>
+            <t>Tests are grouped into testcases and testsuites, which can both be run separately</t>
+            <t>Tests can be run directly from the development environment</t>
+            <t>Tests are distributed</t>
+            <t>Tests are run before a commit into the repository</t>
+            <t>A testrun has a unique "point in time" marker</t>
+            <t>The testing framework has no impact at runtime requirements</t>
+            <t>Unattended operation</t>
+        </list>
+        this section will deal with the design implications for all those criteria.
+      </t>
+
+      <section title="General design">
+      </section>
+      
+      <section title="Requirements specific design">
+        <t>
+          This section will focus on the specific design consequences directly 
+          related to eacht separate requirement.
+        </t>
+
+        <t><em>Tests are conservative, defaulting the result to "failed"</em></t>
+        
+        <t><em>The test system can test itself</em></t>
+        
+
+        <t><em>Tests are as close as possible to the code for which they are designed</em></t>
+        <t>
+          For storing the tests we have roughly the following choices,
+          assuming we store the tests in the repository.
+          <list style="numbers">
+            <t>
+              fixed place in the repository (for example
+              BitKeeper/tests/*) in the repository
+            </t>
+            <t>
+              a subdirectory below the directory which contains the
+              original code (for example /includes/.tests/* files in
+              the includes directory )
+            </t>
+            <t>directly in the code</t> 
+            <t>
+              for each file there is a file which contains the test
+              for the code in that file
+            </t>
+          </list>
+        </t>
+
+        <t><em>Tests are grouped into testcases and testsuites, which can both be run separately</em></t>
+
+        <t><em>Tests can be run directly from the development environment</em></t>
+        <t>
+          Effectively this means that a bk command is defined to run 
+          the tests. The proposed syntax for this command is:
+          <artwork>
+            bk runtests [-s&lt;suitelist&gt;] [-c&lt;caselist&gt;] -o [html|text]
+
+            Options:
+            -s  : only run the tests registered in the list of testsuites specified
+                  The &lt;suitelist&gt; is a comma separated list of suitenames.
+                  Default: run all testsuites.
+            -c  : only run the testcases specified in the list on the command line.
+                  The actual list of testcases is determined as follows:
+                  - if the -s option is not specified only the specified testcases are run (for all 
+                    testsuites)
+                  - if the -s option is specified the testcases are first filtered by the specified
+                    testsuites. From that list only the specified cases are executed.
+                  Default: run all testcases
+            -f  : specify the output format to be generated
+                  - html : generate html
+                  - text : generate plain text
+                  Default: text
+          </artwork>
+        </t>
+
+        <t><em>Tests are distributed</em></t>
+        <t>
+          This requirement should be interpreted as that the testcode
+          is distributed, allowing it to run everywhere where the
+          original code is. In our current infrastructure this
+          translates to the tests being registered and maintained
+          within the repository. We make a habit of maintaining all
+          sources in bk repositories so this shouldn't be a problem.
+        </t>
+        
+        <t><em>Tests are run before a commit into the repository</em></t>
+        <t>
+          BitKeeper supports a mechanism called triggers which can run at certain
+          defined events using the repository. We want to run the tests which
+          are related to the changes being committed. The events which we could use are:
+          <list style="symbols">
+            <t>pre-commit: called before a changeset is committed</t>
+            <t>pre-delta : called before a change to a file is registered</t>
+          </list>
+          The difference between these two is that in the first case the changes have already been 
+          committed to a changeset, leading to a changeset for which the tests might fail, without 
+          the direct possibility to undo it. So, at first glance we need the pre-delta trigger.
+        </t>
+        <t>
+          There are a couple of issues which need further investigation:
+          <list style="numbers">
+            <t>deltas are very numerous, so tests will be run often. This is a good thing, but might
+              be a performance killer</t>
+            <t>When pulling changes from a remote repository new changeset(s) are created when doing conflict
+              resolving. This leads to two questions:
+              <list style="numbers">
+                <t>does the trigger run in this case, or do both triggers not run in the RESYNC dir</t>
+                <t>do we want them to run while merging?, it is the critical point and tests are more likely to
+                  fail during merges than during normal development so they are more valuable at that point
+                </t>
+              </list>
+            </t>
+            <t>When we run changes at the "delta-boundaries" instead of the "changeset-boundaries" we might have
+              two conflicting requirements (this one and the unique point in time marker)
+            </t>
+          </list>
+        </t>
+        
+        <t><em>A testrun has a unique "point in time" marker</em></t>
+        <t>
+          By specifying a unique point in time marker on each testresult produced
+          testresults can be linked to a certain state of the codebase. The options we 
+          have for this marker are:
+          <list style="numbers">
+            <t>the latest changeset revision number (TOT Top Of Trunk) in the repository</t>
+            <t>a timestamp</t>
+          </list>
+        </t>
+        <t><em>The testing framework has no impact at runtime requirements</em></t>
+        
+        <t><em>Unattended operation</em></t>
+      </section>
+
+    </section>
+
+    <section title="Implementation">
+      <t>
+        Preliminary class design:
+        <artwork src="images/rfc0029_1.png"/>
+      </t>
+      
+    </section>
+
+    
+    <section title="Integration">
+    </section>
+
+    <section title="Remaining issues">
+    </section>
 
 		<!-- Revision history is mandatory -->
     <section title="Revision history">
@@ -50,4 +399,36 @@
     </section>
 
   </middle>
+
+  <back>
+    <references>
+      <reference anchor="eiffel">
+        <front>
+          <title>Design by contract and assertions in the  Eiffel programming language</title>
+          <author>
+            <organization>Eiffel Software</organization>
+            <address>
+              <uri>http://docs.eiffel.com/general/guided_tour/language/invitation-07.html#pgfId-445192</uri>
+            </address>
+          </author>
+          <date year="2003"/>
+        </front>
+      </reference>
+    </references>
+    <section title="Glossary">
+      <t><em>expected result</em>: 
+        a defined outcome of a test. (note
+        that it can be possible to expect negative results from a
+        test. The result fails, the test passes
+      </t> 
+      <t><em>failed</em>:
+        The result of a test is not conform the expected result
+      </t>
+      <t><em>passed</em>: 
+        The result of a test is conform the expected
+        result
+      </t>
+    </section>
+
+  </back>
 </rfc>

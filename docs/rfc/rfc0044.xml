@@ -61,60 +61,141 @@
       	In this RFC we pull together the general <eref target="http://pear.php.net/manual/en/standards.php">
       	PEAR coding standard</eref> and the specific Xaraya standards into one document.
       </t>
-    </section>
-    <section title="BlockLayout Templating">
-         <t>See the BlockLayout Specification (<eref target="http://docs.xaraya.com/docs/rfcs/rfc0010.html">RFC 10</eref>) for further information.</t>
-        <section title="BlockLayout Rules">
-            <t><em>No output generation in code</em> Embedded HTML in Xaraya GUI functions prevents template overrides.</t>
-            <t><em></em></t>
-        </section>
-        <section title="Template Rules">
-        <t>All Templates must be self-containable.</t>
-        <t><em>Example:</em></t>
-        <t><artwork><![CDATA[
-         <tr>
-         <td>DATA</td>
-         </tr>
-         ]]></artwork></t>
-         <t>This is an example of a template that is not self-containable. A self-containable template would include the appropriate table tags
-         not leave them up to the template that it is contained in.</t>
-        </section>
-        <section title="Template Header Recommendation">
-            <t>
-                  All Templates should include the name of the license and a link to it so as to avoid legal ambiguity. You may also wish to add the
-                  author's name as well.
-            </t>
-            <t><artwork>
-            &lt;!--- License: GPL http://www.gnu.org/copyleft/gpl.html ---&gt;
-            </artwork></t>
-            <t><em>Note:</em>  Use the &lt;!--- ---&gt; form over the &lt;!-- --&gt; form so that it isn't added to the output stream (BL will not output it)</t>
-        </section>
-    </section>
-    <section title="PHP Code Tags">
       <t>
-        <em>Always</em> use <em>&lt;?php ?&gt;</em> to delimit PHP code, not
-        the <em>&lt;? ?&gt;</em> shorthand. This is required for PEAR compliance and is
-        also the most portable way to include PHP code on differing operating systems and setups.
+        The RFC does not only contain coding standards as perceived in the normal way, but does also
+        touch on standards for creating templates, themes, modules and  general rules of engagement etc., 
+        which are not perceived as coding activities by some people. We think that any activity which
+        touches the repository or influences the use of Xaraya needs to be considered as a
+        coding activity.
       </t>
-      <t></t>
-      <t><em>Note:</em>Short tags will also cause the php parser to choke on &lt;?xml ?&gt; tags</t>
     </section>
 
-    <section title="Indenting">
-      <t>Use an indent of 4 spaces, with no tabs.</t>
+    <section title="BlockLayout Templating">
+      <t>
+        See the BlockLayout Specification (<eref
+        target="http://docs.xaraya.com/docs/rfcs/rfc0010.html">RFC
+        10</eref>) for detailed information.
+      </t>
+      <t>
+        This section focussed on general rules to follow when writing
+        templates for the blocklayout engine for use in Xaraya.
+      </t>
+      <t><em>No output generation in code</em> 
+          <t>
+            Any output generated, whether this is HTML, XML or any
+            other output format used to render a page, block or other
+            part of the output, goes through a template. Embedded
+            output in code prevents overriding the output in a theme
+            and is as such 'hard-coded'. For some areas of Xaraya it
+            is difficult to comply with this at the moment (hooks,
+            exceptions, xmlrpc), but eventually this will all go
+            through a template.
+          </t>
+          <t>
+            For certain parts the obligation for output to go through
+            templates generates additional complexity in code and to
+            Xaraya in general. This is the price to be paid for a
+            completely templated system. The additional flexibility
+            during the deployment at (potentially lots of) user sites
+            warrants this.
+          </t>
+        </t>
+      <t><em>Minimize duplication</em>
+          <t>
+            Try to use the &lt;xar:template /&gt; tag to organize the
+            templates you are working on. If some "common" part of the
+            output exists (like headers, footers, forms and menus for
+            example), isolate those templates in a separate file and
+            use &lt;xar:template /&gt; to pull them into the templates
+            where the output is needed.
+          </t>
+        </t>
+      <t><em>Minimize PHP usage</em>
+          <t>
+            While possible, PHP usage in templates is highly discouraged
+            and can often be solved in a templatable way. If a solution
+            cannot be found, we will first look whether the problem can be
+            genaralized, so we can adapt blocklayout to cater for the 
+            general problem and solve it like that. It is our expectation
+            that we can catch 95% of the situations this way.
+          </t>
+          <t>
+            Keep in mind that PHP usage in blocklayout templates might
+            be dissallowed in the future, as it leads to all kinds of
+            problems (security related mostly) which are not easy to
+            solve if PHP usage is allowed. There is enough knowledge
+            in our group to help out on solving the issues which involve
+            the use of PHP in templates.
+          </t>
+          <t>
+            Note: the PHP usage in certain blocklayout attributes is 
+            another matter. These are inheritly built into blocklayout 
+            (for example the condition attribute in the logic tags).
+            The fact that these attributes are PHP expressions is merely
+            an easy way to have expressions available, using the language 
+            used to write Xaraya. (We could have used another language in those
+            attributes to express the conditions).
+          </t>
+        </t>
+      <t><em>Templates must be self-containable.</em>
+          <t>
+            <artwork><![CDATA[
+            Wrong:
+              <tr>
+                <td>DATA</td>
+              </tr>
+              ]]>
+            </artwork>
+          </t>
+          <t>
+            <artwork><![CDATA[
+            Better:
+              <table>
+                <tr>
+                  <td>DATA</td>
+                </tr>
+              </table>
+              ]]>
+            </artwork>
+          </t>
+          <t>
+            This rule is 'fuzzy' at least. The 'right' example is also not completely
+            containable. (can't appear inside 'head' for example) The actual rule is
+            dependent on the output format (for clear text, there is no such thing at all)
+            and how that output format defines it's context rules. A more loose definition
+            could be: "Maximize the scope of containability". The first example can <em>only</em>
+            be embedded inside a template with a &lt;table&gt; tag surrounding it at its 
+            ancestor level, while the second example can be contained in any place where a 
+            block level element is valid.
+          </t>
+          <t>
+            Another way of saying the above would be: "Try to minimize the requirements on the
+            container template within the context of the output domain".
+          </t>          
+          <t>
+            Yet another way of saying it is: "Use common sense" (which is by the way the overall 
+            rule which applies to everything said in this RFC )
+          </t>
+        </t>
     </section>
-
-	<section title="File ending">
-	  <t>
-	    Use unix file endings, not dos ones. Most editors and IDEs on WindowsOS will provide a choice
-	    to save a file as unix file.
-	  </t>
-	</section>
 
     <section title="Headers">
-      <t>This section contains the standard phpdoc headers we use</t>
-      <section title="File header">
+      <t>This section contains the standard headers we use</t>
+      <t><em>Template Header Recommendation</em>
         <t>
+          All Templates should include the name of the license and a link to it so as to avoid legal ambiguity. You may also wish to add the
+          author's name as well.
+        </t>
+        <t>
+          <artwork>
+            &lt;!--- License: GPL http://www.gnu.org/copyleft/gpl.html ---&gt;
+          </artwork>
+        </t>
+        <t><em>Note:</em>  Use the &lt;!--- ---&gt; form over the &lt;!-- --&gt; form so that it isn't added to the output stream (BL will not output it)</t>
+      </t>
+      <t><em>File header</em>
+        <t>
+          This header is for all php files in the codebases.
           <artwork>
             /**
              * File: $Id$
@@ -132,10 +213,12 @@
              */
           </artwork>
         </t>
-      </section>
-
-      <section title="Function header">
-        <t>The header below is used for all functions in the codebase:</t>
+      </t>
+      <t><em>Function and class method header</em>
+        <t>
+          The header below is used for all functions in the codebase
+          including methods in class defintions:
+        </t>
         <t>
           <artwork>
             /**
@@ -155,9 +238,8 @@
              */
           </artwork>
         </t>
-      </section>
-
-      <section title="Class header">
+      </t>
+      <t><em>Class header</em>
         <t>
           The header below is used for all classes in the Xaraya codebase
         </t>
@@ -176,173 +258,251 @@
              */
           </artwork>
         </t>
-      </section>
-    </section>
-
-    <section title="Variable Naming">
-      <t>Consistant variable naming eases the readability of code. We recommend (fill in the blank)</t>
-      <t>Variables should have English based names where at all possible to maintain consistency across the code base.</t>
-      <t>Example:</t>
-      <t><artwork>
-         Example array key and variable usage
-      </artwork></t>
-    </section>
-	<section title="Control Structures">
-	  <t>
-	    These include if, for, while, switch, etc. Here is an example if statement, since it is the
-	    most complicated of them:
-	    <artwork>
-	      &lt;?php
-		  if ((condition1) || (condition2)) {
-		      action1;
-		  } elseif ((condition3) &amp;&amp; (condition4)) {
-		      action2;
-		  } else {
-		      defaultaction;
-		  }
-		  ?&gt;
-	    </artwork>
-        Control statements should have one space between the control keyword and opening parenthesis,
-        to distinguish them from function calls.
-	  </t>
-	  <t>
-	    You are strongly encouraged to always use curly braces even in situations where they are
-	    technically optional. Having them increases readability and decreases the likelihood of
-	    logic errors being introduced when new lines are added.
-		For switch statements:
-		<artwork>
-		  &lt;?php
-		  switch (condition) {
-		  case 1:
-		      action1;
-		      break;
-
-		  case 2:
-		      action2;
-		      break;
-
-		  default:
-		      defaultaction;
-		      break;
-		  }
-		  ?&gt;
-		</artwork>
-	  </t>
-	</section>
-
-	<section title="Function Calls">
-	  <t>
-	    Functions should be called with no spaces between the function name, the opening parenthesis, 
-	    and the first parameter; spaces between commas and each parameter, and no space between the 
-	    last parameter, the closing parenthesis, and the semicolon. Here's an example:
-	    <artwork>
-	      &lt;?php
-		  $var = foo($bar, $baz, $quux);
-		  ?&gt;
-	    </artwork>
-	  </t>
-	  <t>
-	    As displayed above, there should be one space on either side of an equals sign used to assign 
-	    the return value of a function to a variable. In the case of a block of related assignments, 
-	    more space may be inserted to promote readability:
-	    <artwork>
-		  &lt;?php
-		  $short         = foo($bar);
-		  $long_variable = foo($baz);
-		  ?&gt;
-	    </artwork>
-	  </t>
-	</section>
- 
-	<section title="Function Definitions">
-	  <t>
-		Function declarations follow the "one true brace" convention:
-		<artwork>
-		  &lt;?php
-		  function fooFunction($arg1, $arg2 = '')
-		  {
-		      if (condition) {
-		          statement;
-		      }
-		      return $val;
-		  }
-		  ?&gt;
-		</artwork>
-	  </t>
-	</section>
- 
-	<section title="Arguments">
-	  <t>
-	    Arguments with default values go at the end of the argument list. Always attempt to return a 
-	    meaningful value from a function if one is appropriate. Here is a slightly longer example:
-	    <artwork>
-		  &lt;?php
-		  function connect(&amp;$dsn, $persistent = false)
-		  {
-		      if (is_array($dsn)) {
-		          $dsninfo = &amp;$dsn;
-		      } else {
-		          $dsninfo = DB::parseDSN($dsn);
-		      }
-
-		      if (!$dsninfo || !$dsninfo['phptype']) {
-		          return $this->raiseError();
-		      }
-
-		      return true;
-		  }
-		  ?&gt;
-	    </artwork>
-	  </t>
-	</section>
-
-	<section title="Comments">
-	  <t>
-		Inline documentation for classes should follow the PHPDoc convention, similar to Javadoc. 
-		More information about PHPDoc can be found here: http://www.phpdoc.de/
-	  </t>
-	  <t>
-		Non-documentation comments are strongly encouraged. A general rule of thumb is that if you 
-		look at a section of code and think "Wow, I don't want to try and describe that", you need 
-		to comment it before you forget how it works.
-	  </t>
-	  <t>
-		C style comments (/* */) and standard C++ comments (//) are both fine. Use of Perl/shell 
-		style comments (#) is discouraged. 
-	  </t>
-          <t>
-		In order to maintain consistency across the code base all comments should be in English 
-		where possible - feel free to ask for help with translating if you need it.
-          </t>
-	</section>
-
-	<section title="Including Code">
-	  <t>
-	    Anywhere you are unconditionally including a class file, use <em>require_once()</em>. 
-	    Anywhere you are conditionally including a class file (for example, factory methods), 
-	    use <em>include_once()</em>. Either of these will ensure that class files are included 
-	    only once. They share the same file list, so you don't need to worry about mixing them - 
-	    a file included with <em>require_once()</em> will not be included again by 
-	    <em>include_once()</em>.
-	  </t>
-	  <t>
-	    <em>Note:  include_once()</em> and <em>require_once()</em> are statements, not functions. 
-	    You don't need parentheses around the filename to be included.
-	  </t>
-	</section>
- 
-<!-- http://pear.php.net/manual/en/standards.naming.php -->	
- 
-    <section title="Naming">
-      <t>
-        The following naming conventions are used:
-        <list style="numbers">
-          <t>public functions start with "xar"</t>
-          <t>protected functions start with "xarFoo_" (one underscore)</t>
-          <t>private functions start with "xarFoo__" (two underscores)</t>
-        </list>
-	Functions should have English based names where at all possible to maintain consistency across the code base.
       </t>
+    </section>
+
+    <section title="Xaraya coding style">
+      <t>
+        This section deals with standards for coding php files 
+        in Xaraya
+      </t>
+      <section title="General">
+        <t><em>Use &lt;?php ... ?&gt; instead of &lt;? ... ?&gt;</em>
+          <t>
+            Use the long form of identifying the start of a php section in
+            a file. We follow the PEAR standard in this; it is
+            also the most portable way to include PHP code on differing 
+            operating systems and setups.
+          </t>
+          <t><em>Note:</em>
+            <t>
+              Short tags will also cause php to choke on &lt;?xml ?&gt; tags
+              if the short notation is allowed in the php setup. 
+            </t>
+          </t>
+        </t>
+        <t><em>Indenting</em>
+          <t>
+            Use an indent of 4 spaces. Do not use the tab character for
+            indentation. Most editors will have a configuration option for this.
+          </t>
+        </t>
+        <t><em>File and line endings</em>
+          <t>
+            Use unix file and line endings, not dos/windows ones. Most editors and IDEs 
+            on Windows will provide a choice to save a file as unix file. To some extent
+            BitKeeper will provide the necessary conversions if necessary.
+          </t>
+        </t>
+        <t><em>Comments</em>
+          <t>
+            Inline documentation for classes should follow the PHPDoc
+            convention, similar to Javadoc. More information about
+            PHPDoc can be found here: http://www.phpdoc.de/
+          </t>
+          <t>
+            Non-documentation comments are strongly encouraged. A
+            general rule of thumb is that if you look at a section of
+            code and think "Wow, I don't want to try and describe
+            that", you need to comment it before you forget how it
+            works.
+          </t>
+          <t>
+            C style comments (/* */) and standard C++ comments (//)
+            are both fine. Use of Perl/shell style comments (#) is
+            discouraged.
+          </t>
+          <t>
+            In order to maintain consistency across the code base all
+            comments should be in English where possible - feel free
+            to ask for help with translating if you need it.
+          </t>
+        </t>
+        <t><em>Including Code</em>
+          <t>
+            The inclusion of files should in most cases be done with
+            the API function:
+            <artwork>
+              xarInclude($filename, $flags);
+            </artwork>
+          </t>
+          <t>
+            This function is part of the Xaraya API and tries hard to
+            safely include certain files. For "normal includes" this
+            function should be used.
+          </t>
+          <t>
+            If you cannot use xarInclude() for some reason, the normal
+            php functions can also be used, but you are responsible
+            for handling the exceptions or any other errors caused by
+            the direct inclusion.
+          </t>
+          <t>
+            Anywhere you are unconditionally including a class file,
+            use <em>require_once()</em>. Anywhere you are
+            conditionally including a class file (for example, factory
+            methods), use <em>include_once()</em>. Either of these
+            will ensure that class files are included only once. They
+            share the same file list, so you don't need to worry about
+            mixing them - a file included with <em>require_once()</em>
+            will not be included again by <em>include_once()</em>.
+          </t>
+          <t>
+            <em>Note: include_once()</em> and <em>require_once()</em>
+            are statements, not functions. You don't need parentheses
+            around the filename to be included.
+          </t>
+        </t>
+      </section>
+    
+      <section title="Functions">
+        <t><em>Calling</em>
+          <t>
+            Functions should be called with no spaces between the
+            function name, the opening parenthesis, and the first
+            parameter; spaces between commas and each parameter, and
+            no space between the last parameter, the closing
+            parenthesis, and the semicolon. Here's an example:
+            <artwork>
+            &lt;?php
+              $var = foo($bar, $baz, $quux);
+            ?&gt;
+            </artwork>
+          </t>
+          <t>
+            As displayed above, there should be one space on either
+            side of an equals sign used to assign the return value of
+            a function to a variable. In the case of a block of
+            related assignments, more space may be inserted to promote
+            readability:
+            <artwork>
+            &lt;?php
+              $short         = foo($bar);
+              $long_variable = foo($baz);
+            ?&gt;
+            </artwork>
+          </t>
+        </t>
+        <t><em>Declarations</em>
+          <t>
+            Function declarations follow the "one true brace" convention:
+            <artwork>
+            &lt;?php
+            function fooFunction($arg1, $arg2 = '')
+            {
+                if (condition) {
+                    statement;
+                }
+                return $val;
+            }
+            ?&gt;
+            </artwork>
+          </t>
+        </t>
+        <t><em>Arguments</em>
+          <t>
+            Arguments with default values go at the end of the
+            argument list. Always attempt to return a meaningful value
+            from a function if one is appropriate. Here is a slightly
+            longer example:
+            <artwork>
+            &lt;?php
+            function connect(&amp;$dsn, $persistent = false)
+            {
+                if (is_array($dsn)) {
+                    $dsninfo = &amp;$dsn;
+                } else {
+                    $dsninfo = DB::parseDSN($dsn);
+                }
+            
+                if (!$dsninfo || !$dsninfo['phptype']) {
+                    return $this->raiseError();
+                }
+                return true;
+            }
+            ?&gt;
+            </artwork>
+          </t>
+        </t>
+        <t><em>Nameing</em>
+          <t>
+            The following naming conventions are used in general. The module functions
+            are required to have certain specific names if they are used in API parts or
+            interface parts of that function. The specific rules for these are described
+            in the "Xaraya Module Developers Guide" (need to have a permalink for this)
+            <list style="numbers">
+              <t>public functions start with "xar"</t>
+              <t>protected functions start with "xarFoo_" (one underscore)</t>
+              <t>private functions start with "xarFoo__" (two underscores)</t>
+            </list>
+          </t>
+          <t>
+            Functions should have English based names where at all
+            possible to maintain consistency across the code base.
+          </t>
+          <t>
+            Note that php (version 4 or lower) has no notion of 'public', 'protected',
+            'private' or 'abstract' access specifiers, i.e. php will NOT enforce that
+            a private function is not called from a callee outside the 'private' scope.
+          </t>
+        </t>
+      </section>
+
+      <section title="Variables">
+        <t>Consistant variable naming eases the readability of code. We recommend (fill in the blank)</t>
+        <t>Variables should have English based names where at all possible to maintain consistency across the code base.</t>
+        <t>Example:</t>
+        <t><artwork>
+            Example array key and variable usage
+          </artwork></t>
+      </section>
+
+      <section title="Control Structures">
+        <t>
+          These include if, for, while, switch, etc. Here is an example if statement, since it is the
+          most complicated of them:
+          <artwork>
+            &lt;?php
+            if ((condition1) || (condition2)) {
+                action1;
+            } elseif ((condition3) &amp;&amp; (condition4)) {
+                action2;
+            } else {
+                defaultaction;
+            }
+            ?&gt;
+          </artwork>
+        </t>
+        <t>
+          Control statements should have one space between the control
+          keyword and opening parenthesis, to distinguish them from
+          function calls.
+        </t>
+        <t>
+          You are strongly encouraged to always use curly braces even
+          in situations where they are technically optional. Having
+          them increases readability and decreases the likelihood of
+          logic errors being introduced when new lines are added.  For
+          switch statements:
+          <artwork>
+            &lt;?php
+            switch (condition) {
+                case 1:
+                    action1;
+                    break;
+                case 2:
+                    action2;
+                    break;
+                default:
+                    defaultaction;
+            }
+            ?&gt;
+          </artwork>
+        </t>
+      </section>
+ 
+      <!-- http://pear.php.net/manual/en/standards.naming.php -->	
+ 
     </section>
 
     <section title="Database">
@@ -360,13 +520,12 @@
       <list>
         <t>Exception to direct output generation are some parts of the core (notably logger and exception subsystem) </t>
         <t>Describe hook templates very clearly, as they are the one which always get contained in another template</t>
-        <t>Use the xar:template tag if two templates are the same, don't copy and paste</t>
-        <t>Organize the templates with the xar:template tag</t>
       </list>
     </section>
 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2003-10-13: MrB - reorganized a bit, added some verbosity.</t>
       <t>2003-04-23: FB  - added PEAR coding standard</t>
       <t>2003-03-27: MrB - created</t>
     </section>

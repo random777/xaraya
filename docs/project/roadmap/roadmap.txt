@@ -14,11 +14,11 @@ links ;Links		            ;2002-10-01;7	      ;artmod	    ;80      ;1	  ;stego  
 admsys;Administration system;          ;30      ;blyout     ;40      ;1   ;andyv     ;scn1.0
 instal;Local installer	    ;2002-10-05;21	    ;	          ;80	     ;1	  ;johnny    ;scn1.0
 modcon;Module conversion    ;2002-11-15;14	    ;blyout	    ;0	     ;1	  ;xarayageek;scn1.0
-statsm;Statistics module    ;2002-10-02;65      ;blyout     ;80      ;1   ;besfred   ;scn1.0
+statsm;Statistics module    ;2002-10-02;65      ;blyout     ;100     ;1   ;besfred   ;scn1.0
 xardocs;xarAPI/xarMDG sync  ;2002-10-01;40	    ;	          ;50	     ;1	  ;drew	     ;scn1.0
 usrdoc;User doc. sync	      ;2002-10-01;40	    ;	          ;50	     ;1	  ;drew	     ;scn1.0
 market;Marketing scenario   ;2002-10-01;40	    ;	          ;50	     ;1	  ;apakuni   ;scn1.0
-ldap  ;LDAP authentication  ;2002-11-21;14			;						;100			 ;1   ;miko			 ;scn1.0
+ldap  ;LDAP authentication  ;2002-11-21;14			;						;100		 ;1   ;miko			 ;scn1.0
 1.0frz;1.0 Freeze           ;          ;14      ;admsys     ;0       ;1   ;paul      ;scn1.0
 1.0rel;1.0 Release          ;          ;1       ;1.0frz     ;0       ;2   ;john      ;scn1.0
 

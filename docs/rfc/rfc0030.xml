@@ -9,365 +9,539 @@
   <!-- number: Fill in the number for the RFC -->
   <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
   <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
-  
+
   <!-- Front matter is used for identification of author and organization -->
   <front>
     <title>Permission System</title>
     <author initials="M." surname="Lutolf" fullname="Marc Lutolf">
       <organization>Xaraya Development Group</organization>
       <address>
-        <email>marcinmilan@xaraya.com</email>
-        <uri>http://www.xaraya.com</uri>
+	<email>marcinmilan@xaraya.com</email>
+	<uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="November" year="2002"/>
     
     <!-- Initiating team for this RFC -->
     <workgroup>Project Management Committee</workgroup>
-    
+
     <!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
     <keyword>template</keyword>
-    
+
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>
-        This RFC presents a proposal for the Xaraya permissions
-        system. The main difference with respect to the PN permissions
-        system is that permissions are defined as objects independent of
-        users and groups. As a corollary, the structure of users and
-        groups is also revisited.
-      </t>
+      <t>This RFC presents a proposal for the Xaraya permissions system. The main difference with respect to the PN permissions system is that permissions are defined as objects independent of users and groups. As a corollary, the structure of users and groups is also revisited.</t>
     </abstract>
   </front>
-  
+
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
     <!-- Introduction is mandatory -->
     <section title="Introduction">
-      <t>
-        Users and groups are merged in the implementation into a
-        single class of objects called participants.
-      </t>
-      <t>
-        The issue of translating the current system of using regex for
-        permissions into the permissions of the proposed scheme.
-      </t>
-      <t>
-        Note on usage: the code is currently implemented as two Xaraya
-        modules: Participants and Security (the latter name to avoid
-        conflict with the Permissions module). The modules can be
-        loaded in the normal way. The interact only with each other
-        and therefore can be tested freely. Each module can also be
-        disinstalled independently. The underlying database tables
-        should only be manipulated through the module interface.
-      </t>
-      <t>
-				<list style="symbols">
-					<t>The main points of this RFC are:</t>
-					<t>	  
-						<list style="symbols">
-							<t>
-                Permissions are defined as objects that can be
-                manipulated independently of users and groups.
-              </t>
-							<t>
-                Users and groups are conceptually (and in the
-                implementation) merged to a single class of objects
-                called participants.
-              </t> 
-              <t>
-                Both participants and permissions can have unlimited
-                levels of subgoups of participants and permissions
-                respectively.
-              </t>
-							<t>
-                Permission objects, i.e. objects that have permissions
-                associated with them, are registered when a module is
-                initiated.
-              </t>
-						</list>
-					</t>
-					<t>Benefits:</t>
-					<t>
-						<list style="symbols">					
-              <t>
-                Permissions can be manipulated independently of participants. We
-                can create groups of permissions, adding or deleting the components.
-							</t>
-							<t>
-                We can then assign permissions groups to participants
-                in a single statement.
-							</t>
-							<t>
-                Registering permissions objects allows us to make
-                visible to the user the available permissions to be
-                set.
-							</t>
-						</list>
-					</t>
-					<t>This RFC does not cover:</t>
-					<t>
-						<list style="symbols">
-							<t>The UI of the permissions system</t>
-              <t>The issue of translating the current system of using regex for permissions into the permissions of the proposed scheme.</t>
-              <t>Whether and how regex should be allowed in the new UI.</t>
-						</list>
-					</t>
-					<t>
-            Note: This RFC has borrowed generously from the concepts
-            underlying the Java packages java,security and
-            java.security.acl. These can be found at: <eref
-            target="http://java.sun.com/j2se/1.3/docs/api">http://java.sun.com/j2se/1.3/docs/api</eref>
-					</t>
-				</list>
-			</t>
+<list style="symbols">
+	  <t>The main points of this RFC are:</t>
+	  <list style="symbols">
+	  <t>Permissions are defined as objects that can be manipulated independently of users and groups.
+	  </t><t>Users and groups are  merged in the implementation into a single class of objects called participants.
+	  </t><t>Both participants and permissions can have unlimited levels of subgoups of participants and permissions respectively.
+	  </t><t>Permission objects, i.e. objects that have permissions associated with them, are registered when a module is initiated.
+	  </t>
+	</list>
+<t>Benefits:</t>
+	  <list style="symbols">
+	  <t>Permissions can be manipulated independently of participants. We can create groups of permissions, adding or deleting the components.
+	  </t><t>We can then assign permissions groups to participants in a single statement.
+	  </t><t>Registering permissions objects allows us to make visible to the user the available permissions to be set.
+	  </t>
+	</list>
+<t>This RFC does not cover:</t>
+	  <list style="symbols">
+	  <t>The issue of translating the current system of using regex for permissions into the permissions of the proposed scheme.
+	  </t><t>Whether and how regex should be allowed in the new UI.
+	  </t>
+	</list>
+
+	  <t>Note: This RFC has borrowed generously from the concepts underlying the Java packages java,security and java.security.acl. These can be found at: 
+	  <eref 
+target="http://java.sun.com/j2se/1.3/docs/api">http://java.sun.com/j2se/1.3/docs/api</eref>
+</t>
+	</list>
+	<t>
+	Note on usage: the code is currently implemented as two Xaraya modules: Participants and Security (the latter name to avoid conflict with the Permissions module). The modules can be loaded in the normal way. The interact only with each other and therefore can be tested freely. Each module can also be disinstalled independently. The underlying database tables should only be manipulated through the module interface. 
+	</t>
     </section>
-    
+
     <!-- One content section is mandatory -->
-    <section title="Concept">
-      <section title="Permissions">
-        <t>
-          Permissions are defined as objects without reference to any
-          group. A permission is an object that incorporates:
-        </t>
-        <t>
-          <list style="symbols">
-            <t>
-              A reference to the Realm it applies to. In addition to
-              the list of available realms, a permission can also
-              apply to "None" or "All".
-            </t>
-            <t>
-              A reference to the Module it applies to. In addition to
-              the list of available modules, a permission can also
-              apply to "None" or "All".  
-            </t>
-            <t>
-              A reference to the Component within the Module it
-              applies to. In addition to the list of available
-              components of a module, a permission can also apply to
-              "None" or "All".
-            </t>
-            <t>
-              A reference to the Instance of the Component it applies
-              to. In addition to the list of available instances, a
-              permission can also apply to "None" or "All".  
-            </t>
-            <t>
-              A permissions Level it refers to. The levels have the
-              usual.values of ACCESS_NONE to ACCESS_ADMIN (numeric 0 -
-              800).
-            </t>
-          </list>
-        </t>
-        <t>
-          Permissions can contain other permissions. All the
-          permissions in the system are grouped in a tree. In addition
-          to the attributes described above a permission can have any
-          number of "child" permissions. A permission can also have
-          any number of "parent" permissions.
-        </t>
-        <t>
-          A permission accumulates the attributes of its
-          parent(s). During a security check all the parent
-          permissions will be taken into account. Since each
-          permission refers to a single
-          realm/module/component/instance combination, you create more
-          complex permissions schemes by successively adding
-          permissions to the tree.
-        </t>
-        <t>
-          For a given realm/module/component/instance combination the
-          child permission will override any parent. For permissions
-          not overriden, the highest permission "wins".
-        </t>
-        <t>
-          Note Version 1.0: The code doesn't yet support multiple
-          parents.
-        </t>
-        <t>
-          For convenience two permissions are created at
-          initialization time. They cannot be modified or
-          deleted. These are:
-        </t>
-        <t>
-        <artwork>
-          
-          NoPermissions
-          |
-          |--FullPermissions
-          
-          
-        </artwork>
-        </t>
-        <t>
-          NoPermissions is the permission at the root of the
-          permissions tree, representing the lowest level of access to
-          all Xaraya modules, i.e. no access. It has the attributes:
+    <section title="Concepts of the Xaraya Permissions System">
+        <section title="Participants">
+	<t>
+    Participants is a generalization of the Users and Groups concepts in PostNuke. In Xaraya both Users and Groups of users are implemented as Participants. As in PostNuke, Participants that are Users can be members of other Participants that are Groups. The difference to the PostNuke concepts is that there is no limit to the levels of nesting available. In addition, a Participant can be a member of any number of other Participants.
+    </t>
+    <t>
+    The Participants in Xaraya are arranged in a hierarchy or tree, and every Participant defined must be a member of at least one already existing Participant. At the top of the hierarchy is a Participant called Everybody.
+	</t>
+	<t>
+Note: Contrary to the PostNuke permissions system, the order in which multiple parents of a Participant are defined is not relevant for the way permissions are applied.</t>
+
+    <t>The following rules apply to the Participants hierarchy:
+<list style="numbers">
+    <t>
+    Participants defined as Users cannot themselves have children.
+	</t>
+    <t>
+    A Participants cannot be a parent of one of its ancestors in the hierarchy. A Participant also cannot be its own child.
+	</t>
+    <t>
+    A Participant cannot have another Participant as a child more than once. (This is not strictly necessary, but it avoids confusion.) Note, however, that it is possible for a Participant to be a child and simultaneously a grandchild of another Participant, as the following example shows.
+	</t>
+	</list>
+	</t>
 <artwork>
 
-    Realm     Module    Component    Instance    Level
-    --------- --------- ------------ ----------- -----------
-    All       All       All          All         ACCESS_NONE
-    
-</artwork>
-</t>
-        <t>
-          FullPermissions is the permission representing the highest
-          level of access to all Xaraya modules, i.e. the ability to
-          do anything. It has the attributes:
-<artwork>
-
-    Realm     Module    Component    Instance    Level
-    --------- --------- ------------ ----------- ------------
-    All       All       All          All         ACCESS_ADMIN
-    
-    </artwork>
-</t>
-</section>
-
-      <section title="Users/Groups">
-        <t>
-          Users and Groups of users are implemented as a single object
-          type: Participants. Like permissions, participants are
-          arranged in a tree. A given participant that is defined as a
-          group can have any number of subgroups or users under
-          it. Users can have no children.
-        </t>
-        <t>
-          In the UI the more familiar terms Users and Groups are used
-          in order to avoid confusion. In addition, since one can
-          expect numerically many more Users than Groups, the former
-          are not displayed by default. Rather, one can specifically
-          request to see the Users belonging to a given Group.
-        </t>
-        <t>
-          Note Version 1.0: The code doesn't yet support multiple parents.
-        </t>
-        <t>
-          For convenience a number of participants are created at
-          initialization time. They are:
-        </t>
-        <t>
-<artwork>
-
-    Everybody (G)
+    Participant A
     |
-    |--Oversight (G)
+    |--Participant B
     |  |
-    |  |--Overseer (U)
+    |  |--Participant C
     |  
-    |--Admins (G)
-    |
-    |--Users (G)
-    |
-    |--Anonymous (U)
-    |
-    |--Current (U)
+    |--Participant C
         
 </artwork>
-        </t>
-        <t>
-          Everybody: This is the root of the participants tree and is
-          defined as a group that contains all other subgroups and
-          users. This participant cannot be deleted or modified.
-        </t>
-        <t>
-          Oversight: This is a group that contains those users that
-          can do anything in the system, a sort of superuser. The
-          Oversight group contains one such user, the Overseer. Both
-          the Oversight group and the Overseer cannot be modified or
-          deleted.
-        </t>
-        <t>
-          Admins: This is a group that contains users that are
-          administrators of the site. This participant may be modified
-          or deleted.
-        </t>
-        <t>
-          Users: This is a group that represents users of the
-          site. This participant may be modified or deleted.
-        </t>
-        <t>
-          Anonymous: This is a user that represents users of the site
-          that are not logged in. This participant may be modified or
-          deleted.
-        </t>
-        <t>
-          Current: This is a user that represents the current user of
-          the system. At runtime Current is the user querying the
-          permissions system. This participant cannot be modified or
-          deleted.
-        </t>
-      </section>
-      <section title="Default Assignments">
-        <t>
-          In order for the permissions system to do something useful,
-          permissions need to apply to users and groups. This is done
-          by assigning permission objects to participants in the
-          UI. Theoretically any permission can be assigned to any
-          participant. Configuration of permissions is the
-          responsibility of the site administrator.
-        </t>
-        <t>
-          For convenience a number of assignments are made at
-          initialization time. These cannot be changed.
-        </t>
-        <t> 
-          The participant Everybody is assigned the permission
-          NoPermissions. In other words, Everybody can do nothing.
-        </t>
-        <t> 
-          Open Issue: should Everybody be assigned a higher
-          permissions level, such as ACCESS_OVERVIEW?
-        </t>
-        <t> 
-          The participant Oversight is assigned the permission
-          FullPermissions. In other words, members of the Oversight
-          group can do anything.
-        </t>
-        <t>	
-          Version 1.0: The code doesn't yet deal with inheritance. For illustration's sake the user Overseer is also assigned FullPermissions.
-        </t>
-      </section>
+	
+	<t>
+    In the UI the more familiar terms Users and Groups are used in order to avoid confusion. In addition, since one can expect numerically many more Users than Groups, the former are not displayed by default. Rather, one can specifically request to see the Users belonging to a given Group.
+	</t>
+	<t>
+	For convenience a number of participants are created at initialization time. They are:
+	</t>
+
+<artwork>
+
+    Everybody (Group)
+    |
+    |--Oversight (Group)
+    |  |
+    |  |--Overseer (User)
+    |  
+    |--Admins (Group)
+    |
+    |--Users (Group)
+    |
+    |--Anonymous (User)
+    |
+    |--Current (User)
+        
+</artwork>
+	<t>
+    Everybody: This is the root of the participants tree and is defined as a group that contains all other subgroups and users. This participant cannot be deleted or modified.
+	</t>
+	<t>
+    Oversight: This is a group that contains those users that can do anything in the system, a sort of superuser. The Oversight group contains one such user, the Overseer. Both the Oversight group and the Overseer cannot be modified or deleted.
+	</t>
+	<t>
+    Admins: This is a group that contains users that are administrators of the site. This participant may be modified or deleted.
+	</t>
+	<t>
+    Users: This is a group that represents users of the site. This participant may be modified or deleted.
+	</t>
+	<t>
+    Anonymous: This is a user that represents users of the site that are not logged in. This participant may be modified or deleted.
+	</t>
+	<t>
+    Current: This is a user that represents the current user of the system. At runtime Current is the user querying the permissions system. This participant cannot be modified or deleted.
+	</t>
+
+    </section>
+    <section title="Permissions">
+	<t>
+    The Xaraya concept of permissions has a structure similar to permissions in PostNuke. A Permission is an object that incorporates:
+	</t>
+	<list style="symbols">
+	  <t>A reference to the Realm it applies to. In addition to the list of available realms, a permission can also apply to "None" or "All".
+	  </t>	
+	  <t>A reference to the Module it applies to. In addition to the list of available modules, a permission can also apply to "None" or "All".
+	  </t>	
+	  <t>A reference to the Component within the Module it applies to. In addition to the list of available components of a module, a permission can also apply to "None" or "All".
+	  </t>	
+	  <t>A reference to the Instance of the Component it applies to. In addition to the list of available instances, a permission can also apply to "None" or "All".
+	  </t>	
+	  <t>A permissions Level it refers to. The levels have the usual.values of ACCESS_NONE to ACCESS_ADMIN (numeric 0 - 800).
+	  </t>	
+  	</list>
+	<t>
+	In addition, each Permission also has:
+	<list style="symbols">
+	  <t>A name which identifies it. The name is used as a shorthand reference to the Permission in the UI and must be unique. It is good practice to use names that help understand what a Permission does, such as "ReadAll" or "DeleteExamplesAll".
+	  </t>	
+	  <t>A Description that contains detail information about the Permission. The description is meant as documentation to developers and is not referenced in the UI. It is not mandatory.
+	  </t>	
+  	</list>
+	</t>
+  	
+	<t>
+	In Xaraya Permissions are defined without reference to any group or user. They are objects with no relevance until they are assigned to one or more Participants.
+	</t>
+	<t>
+	Similar to Participants, Permissions can be composed of other permissions. In addition to the attributes described above a permission can have any number of component permissions. A permission can also be a component of any number of "parent" permissions.However, Permissions do not live in a single hierarchy. Instead, the UI presents all the Permissions in a list, with each Permission containing its children components in a separate tree,as the following example shows:
+	</t>
+<artwork>
+
+    NoPermissions                a permission with no children
+    
+    FullPermissions              another permission with no children
+    
+    ReadAll                      a permission with 2 children and a grandchild
+    |
+    |--DeleteExamplesAll
+    |  |
+    |  |--CommentArticles
+    |  
+    |--AddContact
+        
+</artwork>
+	<t>
+	In the above example note that although the names are suggestive of certain behaviour there is no fixed naming rule. You can assign any names you want as long as they are unique. Furthermore there is no rule for how to group Permissions, for instance by module. A good administrator will structure his Permissions according to the Participants he wants to assign them to, rather than by component or level.
+	</t>
+	<t>
+	In Xaraya Permissions are defined without reference to any group or user. They are objects with no impact until they are assigned to one or more Participants. As explained below, assigning the head of a Permissions tree to a Participant assigns ALL the components of the tree.
+	</t>
+	<t>
+	For convenience a number of permissions are created at initialization time. The following cannot be modified or deleted. These are:
+	</t>
+	<t>
+	NoPermissions is the permission representing the lowest level of access to all Xaraya modules, i.e. no access. It has the attributes:
+<artwork>
+    Realm     Module    Component    Instance    Level
+    --------- --------- ------------ ----------- -----------
+    All       All       All          All         ACCESS_NONE   
+    </artwork>
+	
+	</t>
+	<t>
+	FullPermissions is the permission representing the highest level of access to all Xaraya modules, i.e. the ability to do anything. It has the attributes:
+<artwork>
+    Realm     Module    Component    Instance    Level
+    --------- --------- ------------ ----------- ------------
+    All       All       All          All         ACCESS_ADMIN    
+    </artwork>
+	
+	</t>
+	<t>
+The following permissions are also created bur can be modified or deleted
+<artwork>
+    Name     Realm     Module    Component    Instance    Level
+    -------- --------- --------- ------------ ----------- ------------
+    ReadAll  All       All       All          All         ACCESS_READ    
+    EditAll  All       All       All          All         ACCESS_EDIT    
+    AddAll   All       All       All          All         ACCESS_ADD    
+    </artwork>
+	
+	</t>
+	<t>
+	Note Version 1.0: A permission can also be empty, i.e. not have any attributes. In this case it is just a container for other permissions.
+	</t>
+	</section>
+    <section title="Permission Levels">
+	<t>
+	As mentioned above Xaraya uses the permissions levels originally defined in PostNuke. These are:
+	<artwork>
+    Name              Level
+    --------------    -----
+    ACCESS_NONE          0
+    ACCESS_OVERVIEW    100
+    ACCESS_READ        200
+    ACCESS_COMMENT     300
+    ACCESS_MODERATE    400
+    ACCESS_EDIT        500
+    ACCESS_ADD         600
+    ACCESS_DELETE      700
+    ACCESS_ADMIN       800
+    </artwork>
+	</t>
+	<t>
+	The levels are cumulative. A given level implies the right to all the levels below it. The right to DELETE implies the rights to ADD, EDIT, MODERATE etc.
+	</t>
+	<t>
+	There is also no provision for ALLOW and DENY, as in some other ACL systems.
+	</t>
+    
+    </section>
+    <section title="Irreducible Sets">
+	<t>
+	As noted above, when two Permissions are defined on the same realm, module, component and instance the one with the higher access level includes the right to the one with the less higher level. We say that the Permission with the higher access level implies the other. In the following example two Permissions are defined on the Examples module:
+	
+<artwork>
+    Name     Realm     Module    Component    Instance    Level
+    -------- --------- --------- ------------ ----------- ------------
+    ReadExp  All       Examples  All          All         ACCESS_READ    
+    EditExp  All       Examples  All          All         ACCESS_EDIT    
+    </artwork>
+    
+	The Permission EditExp implies ReadExp.
+	</t>
+	<t>
+	Note that two Permissions A and B are considered equal (identical) if A implies B and B implies A.
+	</t>
+	<t>
+	In the following example, however:
+<artwork>
+    Name     Realm     Module    Component    Instance    Level
+    -------- --------- --------- ------------ ----------- ------------
+    ReadExp  All       Examples  All          All         ACCESS_READ    
+    EditArt  All       Articles  All          All         ACCESS_EDIT    
+    EditArt1 1         Articles  All          All         ACCESS_EDIT    
+ </artwork>
+    none of the Permissions imply any of the others, as they refer to different modules and/or realms. We call such Permissions disjoint.
+	</t>
+	<t>
+	Definition: An Irreducible Set of Permissions is a set in which all the Permissions are disjoint.
+	</t>
+    </section>
+
+    <section title="Winnowing">
+	<t>
+	Definition: Winnowing is the process by which the Xaraya permissions system creates irreducuble sets of Permissions.
+	</t>
+	<t>
+	A permission accumulates the attributes of its components. As mentioned above since each permission refers to a single realm/module/component/instance combination, you create more complex permissions schemes by  successively adding permissions to the tree. During a security check all the component permissions in the tree will be taken into account.
+	</t>
+
+	<t>
+	However, in any given tree not all the Permissions will necessarily be relevant. Take the following example:
+<artwork>    
+    ReadAll                      
+    |
+    |--DelExp
+    |  |
+    |  |--AddExp
+    |  
+    |--EditArt
+    |  
+    |--AddArt
+        
+    with the following definitions:
+    
+       Name     Realm     Module    Component    Instance    Level
+       -------- --------- --------- ------------ ----------- ------------
+    1. ReadAll  All       All       All          All         ACCESS_READ    
+    2. DelExp   All       Examples  All          All         ACCESS_DELETE    
+    3. AddExp   All       Examples  All          All         ACCESS_ADD    
+    4. EditArt  All       Articles  All          All         ACCESS_EDIT    
+    5. AddArt   All       Articles  All          All         ACCESS_ADD   
+</artwork>
+    It can be seen that, with the definitions given above, 2 implies 3 and 5 implies 4. Therefore when comparing all the Permissions in the set, Permissions 3 and 4 are not relevant, because they are superceded by 2 and 5 respectively.
+	</t>
+	<t>
+	During the winnowing process the permissions system compares each Permission in a tree with all the others in the same tree and discards those Permissions implied by others. In the example above winnowing would leaves us with the following Permissions:
+<artwork>    
+    ReadAll
+    DelExp
+    AddArt
+</artwork>
+	</t>
+	<t>
+	As can be seen, all the Permissions left in the example above after winnowing are disjoint. The set is irreducible.
+	</t>
+	<t>
+	Note also that the system doesn't care what the tree looks like. The same result would be gotten with the following tree, among others:
+<artwork>    
+    ReadAll                      
+    |
+    |--DelExp
+       |
+       |--AddExp
+          |  
+          |--EditArt
+             |  
+             |--AddArt
+</artwork>
+	</t>
+
+    </section>
+    <section title="Assigning Permissions">
+	<t>
+	In order for the permissions system to do something useful, Permissions need to apply to users and groups. This is done by assigning Permissions to Participants in the UI. Theoretically any Permission can be assigned to any Participant.
+	</t>
+	<t>
+    Suppose I have a Participant FOO and the tree of Permissions in the example above. The following operation:	
+    </t>
+	<t>
+    "assign ReadAll to FOO"
+    </t>
+	<t>
+    will assign all 5 of the Permission in the tree to FOO. (Note the notation for assignment shown here is only for convenience; the permissions UI is graphical)
+    </t>
+	<t>
+	However, note that the operation:
+	</t>
+	<t>
+    "assign DelExp to FOO"
+	</t>
+	<t>
+	will give a different result depending on the shape of the tree, as the following examples show:
+	</t>
+<artwork>    
+    ReadAll                     "assign DelExp to FOO"
+    |
+    |--DelExp
+       |                         Permissions assigned: DelExp
+       |--AddExp                                       AddExp
+          |                                            EditArt
+          |--EditArt                                   AddArt
+             |  
+             |--AddArt
+</artwork>
+<artwork>    
+    
+    ReadAll                     "assign DelExp to FOO"                
+    |
+    |--DelExp                    Permissions assigned: DelExp
+    |  |                                               AddExp
+    |  |--AddExp
+    |  
+    |--EditArt
+    |  
+    |--AddArt
+</artwork>
+    </section>
+    <section title="Default Assignments">
+	<t>
+	For convenience a number of assignments are made at initialization time. These cannot be changed.
+	</t>
+	<t>	
+	The Participant Everybody is assigned the Permission NoPermissions. In other words, Everybody can do nothing.
+	</t>
+	<t>	
+	Open Issue: should Everybody be assigned a higher permissions level, such as ACCESS_OVERVIEW?
+	</t>
+	<t>	
+	The Participant Oversight is assigned the Permission FullPermissions. In other words, members of the Oversight group can do anything.
+	</t>
+    </section>
+    <section title="Inheriting Permissions">
+	<t>	
+    A Permission assigned to a Participant is automatically inherited by all the Participant's descendants. For example, using the previous example:
+<artwork>    
+    ReadAll                     "assign ReadAll to FOO"
+    |
+    |--DelExp
+       |                         Permissions assigned: DelExp
+       |--AddExp                                       AddExp
+          |                                            EditArt
+          |--EditArt                                   AddArt
+             |  
+             |--AddArt
+</artwork>
+    Participant FOO will have 5 Permissions assigned to him. However the same Permissions will also be assigned to a child of FOO:
+    
+<artwork>    
+    FOO                     
+    |
+    |--BAR
+</artwork>
+    We say that BAR has inherited the Permissions of FOO. Note that BAR may also have Permissions assigned to him. The UI of the permissions system will show for each Participant which Permissions have been assigned and which inherited.    
+	</t>
+	<t>	
+	It's pretty apparent that if an inherited and an assigned Permission are disjoint, then nothing will happen. Essentially the two Permissions have nothing to do with each other. But what happens when one of them implies the other? To wit:
+<artwork>    
+    FOO                 has assigned DelExp                
+    |
+    |--BAR              has assigned ReadExp
+    
+    where
+
+       Name     Realm     Module    Component    Instance    Level
+       -------- --------- --------- ------------ ----------- ------------
+    2. DelExp   All       Examples  All          All         ACCESS_DELETE    
+    3. ReadExp  All       Examples  All          All         ACCESS_READ    
+</artwork>
+
+    In this case the relevant Permission for BAR would be ReadExp, even though its access level is lower, because
+	</t>
+	<t>	
+    Rule: For Permissions that are not disjoint, those of the children take precendence over those of the parents. We say that BAR's Permission "trumps" that of his parent FOO.
+	</t>
+
+    </section>
+    <section title="Security Schemas">
+	<t>	
+    A Security Schema, or simply Schema, is a special type of Permission in the Xaraya permissions system. Each Schema refers to one or more security checks in the code. When a security check is encountered, the system gets the relevant Schema and compares it to the Permissions of the user. A green light is given if the Schema is implied by one of the user's Permissions. Otherwise an exception is thrown.
+	</t>
+	<t>	
+    The structure of a Schema corresponds to that of a Permission. For example the following Schema
+	</t>
+<artwork>
+    Name     Realm     Module    Component    Instance    Level
+    -------- --------- --------- ------------ ----------- ------------
+    ReadExp  All       Examples  All          All         ACCESS_READ    
+    </artwork>
+	<t>	
+    requires that a user have a Permission assigned with at least ACCESS_READ in order to pass a given security check.
+	</t>
+    </section>
+    <section title="How the System checks Permissions">
+	<t>	
+    When a security check is encountered in the code, the permissions system goes through the following steps:
+	</t>
+	  <list style="numbers">
+	  <t>It identifies the Participant encountering the check and gets all his ancestors.
+	  </t>
+	  <t>For each ancestor it creates an irreducible set by finding all the assigned Permissions and winnowing them. 
+	  </t>
+	  <t>Next, for each ancestor level the Permissions inherited to the next level, where they are winnowed again, until the Participant is reached. The result of this process is an irreducible set of Permissions specific to that Participant.
+	  </t>
+	  <t>
+	  In a final step the Permissions of the set are compared ome by one against the Schema of the security. If any of the Permissions implies the Schema, the security check is passed.
+	  </t>
+	</list>
+	  <t>
+	  In the following example
+<artwork>
+
+    Everybody           level 3
+    |
+    |--Marketing        level 1
+    |  |
+    |  |--Ana Fernandez
+    |  
+    |--Europe           level 2
+       |
+       |--Spain         level 1
+          |
+          |--Ana Fernandez
+</artwork>
+
+	  <list style="numbers">
+	  <t>
+	  The system winnows the Permissions of Everybody, Europe, Marketing, Spain adn Ana Fernandez to create irreducible sets.
+	  </t>
+	  <t>Participant Europe next inherits the irreducible set of Permissions of Everybody (level 2 inherits level 3).
+	  </t>
+	  <t>Next Spain inherits Europe (level 1 inherits level 2)
+	  </t>
+	  <t>The Spain and Marketing are then winnowed against each other (both are level 1)
+	  </t>
+	  <t>
+      The Participant Ana Fernandez inherits the irreducible set from level 1 and the results are winnowed. This creates the irreducible set of Ana's Permissions.
+	  </t>
+	  <t>
+      Ana's set is compared against the Schema of the security check. If one of the Permissions implies the Schema, the check is passed.
+	  </t>
+	</list>
+	  </t>
+    
+    </section>
     </section>
     <section title="Architecture">
+	<t>
+	The permissions system is implemented through the following objects:</t>
+	<section title="Participants">
       <t>
-        The permissions system is implemented through the following
-        objects:
-      </t>
-      <t>
-        An implementation of the Participants object conceptually
-        replaces the tables xar_user and xar_groups. The code for
-        manipulating participants will deal with the issue of whether
-        the participant is a group or a user and handle things
-        accordingly.
-      </t> 
-      <t>
-        The following presents the concepts underlying the proposal,
-        as well as suggestions concerning the structure of database
-        tables. A listing of pseudo-code covering the objects
-        discussed can be found in the appendices.
-     </t>
-			<t>
-        The permissions proposal revolves around the following objects:
-      </t>
-			<section title="Participants">
-				<t>
-					A central repository of user and group definitions. Each user,
-					group, group of groups etc. is a participant with an entry in
-					this repository.
-				</t>
-				<t>
-          An implementation of the Participants object conceptually
-          replaces the tables pn_user and pn_group. The code for
-          manipulating participants will deal with the issue of
-          whether the participant is a group or a user and handle
-          things accordingly.
-				</t>
-				<t>
-					<artwork>
+      A central repository of user and group definitions. Each user, group, group of groups etc. is a participant with an entry in this repository.
+	  <t>An implementation of the  Participants object conceptually replaces the tables xar_user and xar_groups. The code for manipulating participants will deal with the issue of whether the participant is a group or a user and handle things accordingly.
+</t>
+<artwork>
 Methods:    getgroups          returns an array representing all the participants
                                of type group in the system.
                                Note: should be private.
@@ -381,26 +555,19 @@ Methods:    getgroups          returns an array representing all the participant
             drawtree           returns a crude HTML drawing of a tree generated by maketree.
                                Note: needs to be moved out to the templates.
 </artwork>
-        </t>
-      </section>
-      <section title="SecuritySchemas">
-        <t>
-          A central repository of permissions schemas (policies). The
-          schemas are normally defined and registered as entries with
-          Schemas upon installation of a module. There needs to be a
-          restricion that assigned names for components need to be
-          unique within a module.
+     </t>
+    </section>
+	<section title="SecuritySchemas">
+      <t>A central repository of permissions schemas (policies). The schemas are normally defined and registered as entries with Schemas upon installation of a module. There needs to be a restricion that assigned names for components need to be unique within a module.
 
 <artwork>
 Methods:    listall            gets a list of all the schema entries
             getEntry           get a schema based on its id or its name
 </artwork>
-        </t>
-      </section>
-      <section title="Permissions">
-        <t>
-          A central repository for permissions defined at any given
-          time. No duplicate permissions are allowed.
+     </t>
+    </section>
+	<section title="Permissions">
+      <t>A central repository for permissions defined at any given time. No duplicate permissions are allowed.
 
 <artwork>
 Methods:    getpermissions     returns an array representing all the permissions
@@ -420,11 +587,10 @@ Methods:    getpermissions     returns an array representing all the permissions
             drawtree           returns a crude HTML drawing of a tree generated by maketree.
                                Note: needs to be moved out to the templates.
 </artwork>
-        </t>
-      </section>
-      <section title="Participant">
-      <t>
-          An object representing a single group or user.
+     </t>
+    </section>
+	<section title="Participant">
+      <t>An object representing a single group or user.
 
 <artwork>
 Methods:            
@@ -456,11 +622,10 @@ Methods:
      setInfo           set an information field of the participant (user)
 
 </artwork>
-        </t>
-      </section>
-      <section title="SecuritySchema">
-        <t>
-          An object representing a single permission schema.
+     </t>
+    </section>
+	<section title="SecuritySchema">
+      <t>An object representing a single permission schema.
 <artwork>
 Methods:            
      constructor            
@@ -472,11 +637,10 @@ Methods:
      sets           all the interesting variables except the ID
      challenge      check the permisssions of a participant
 </artwork>
-        </t>
-      </section>
-      <section title="Permission">
-      <t>
-          An object representing a single permission. This extends SecuritySchema
+     </t>
+    </section>
+	<section title="Permission">
+      <t>An object representing a single permission. This extends SecuritySchema
 <artwork>
 Methods:            
      constructor
@@ -490,15 +654,12 @@ Methods:
      getAncestors    recursive getParents
      getDescendants  recursive getChildren
 </artwork>
-        </t>
-      </section>
+     </t>
     </section>
-    <section title="Database Tables">
-      <section title="Group and Users Tables">
-      <t>
-          The tables xar_groups and xar_users can be merged into a new
-          Participants table. The table xar_group_membership also
-          changes:
+    </section>
+	<section title="Database Tables">
+	<section title="Group and Users Tables">
+      <t>The tables xar_groups and xar_users can be merged into a new Participants table. The table xar_group_membership also changes:
 
 <artwork>
 Table xar_participants     Table xar_partmembers
@@ -512,14 +673,11 @@ xar_pass
 xar_url
 xar_auth_module
 </artwork>
-
-          The field xar_type is 0 implies child is a user, 1 implies child is a
-          group. Calls to groups and users in the API have to be appropriately
-          modified to look up the new table.
-        </t>
-      </section>
-      <section title="SecuritySchema Table">
-        <t>
+The field xar_type is 0 implies child is a user, 1 implies child is a group. Calls to groups and users in the API have to be appropriately modified to look up the new table.
+     </t>
+    </section>
+	<section title="SecuritySchema Table">
+      <t>
 <artwork>
 Table xar_securityschemas
 xar_pid
@@ -532,9 +690,9 @@ xar_level
 xar_description
 </artwork>
 </t>
-      </section>
-      <section title="Permissions Table">
-        <t>
+    </section>
+	<section title="Permissions Table">
+      <t>
 <artwork>
 Table xar_permissions      Table xar_permmembers
 xar_pid                    xar_pid
@@ -546,25 +704,21 @@ xar_instance
 xar_level
 xar_description
 </artwork>
-        </t>
-      </section>
-      <section title="ACL Table">
-        <t>
+</t>
+    </section>
+	<section title="ACL Table">
+      <t>
 <artwork>
 Table xar_acl
 xar_partid
 xar_permid
 </artwork>
-        </t>
-      </section>
+</t>
     </section>
-    
-    <section title="Syntax">
-      <t>
-        The module developer needs to register each permissons obect
-        in his module as a SecuritySchema object. This is done by
-        placing something like the following line in the xarinit.php
-        file:
+    </section>
+
+ 	<section title="Syntax">
+      <t>The module developer needs to register each permissons obect in his module as a SecuritySchema object. This is done by placing something like the following line in the xarinit.php file:
 
 <artwork>
 new xarSecuritySchema(  "addadownload",      // what I'm going to call this schema
@@ -574,10 +728,7 @@ new xarSecuritySchema(  "addadownload",      // what I'm going to call this sche
                         ACCESS_ADMIN,        // the threshold permission level
                         "admins only")       // an explanatory comment
 </artwork>
-
-Such a call can also be inserted when a new instance is created. This
-would let have the user define permissions at run time. (can of worms,
-here)
+Such a call can also be inserted when a new instance is created. This would let have the user define permissions at run time. (can of worms, here)
 
 Checking a permission is done with:
 
@@ -600,95 +751,58 @@ function xarSecAuthAction($realm,$component,$instance,$level,$userid=NULL){
             return false;
 }
 </artwork>
-
-Note there needs to be a translation layer which transforms any
-regular expressions in the call into schemas compatible with what's in
-the xar_securityschemas table. Since this problem was implicitly
-solved in the current version of the permissions system I'm assuming
-we'll just borrow from that code.
-      </t>
+Note there needs to be a translation layer which transforms any regular expressions in the call into schemas compatible with what's in the xar_securityschemas table. Since this problem was implicitly solved in the current version of the permissions system I'm assuming we'll just borrow from that code.
+</t>
     </section>
     <section title="Open Issues">
-      <section title="Regex">
-        <t>
-          I'd rather dispense with this and run the UI through
-          dropdowns and checkboxes, but I understand that some people
-          are clamoring for an "advanced user" UI for the permissions
-          system. There may also be some performance considerations
-          here, trading CPU processing for DB hits. And then there's
-          backwards compatibility. Well, OK.  
-        </t>
-        <t>
-          My suggestion for the future would be to limit the advanced
-          UI to entering lists into the appropriate form fields, say a
-          "Component" or "Instance" field in the UI. On submitting,
-          the list(s) would be disassembled to records in the
-          permissions table with one component/instance per
-          record. This in itself is not trivial, because the user
-          would be entering some sort of name, and you'd have to parse
-          the name, make sure it corrsponded to a real object
-          registered in the permissions system, and then translate it
-          to a numeric ID.
-        </t>
-      </section>
-      <section title="Multi-language">
-      <t>
-          Need to check to make sure any calls using the name of an
-          object rather than its ID don't screw up the ML
-          capabilities.
-        </t>
-      </section>
-      <section title="Future Implementation">
-        <t>
-          The issues encountered in Version 1.0 suggest merging the
-          Participants and Security modules into a single module in
-          the future.
-        </t>
-      </section>
-      <section title="Miscellaneous Notes To Do">
-        <t>	
-          <list style="symbols">
-            <t>
-              Need to check that all the recursive functions don't
-              crash if nothing is found.  
-            </t>
-            <t>
-              Need to optimize the functions so as to cut down the
-              number of DB calls where possible.
-            </t>
-            <t>
-              Need to integrate a regex translation
-              layer for backward compatibility.
-            </t>
-          </list>
-        </t>
-      </section>
+    <section title="Regex">
+      <t>I'd rather dispense with this and run the UI through dropdowns and checkboxes, but I understand that some people are clamoring for an "advanced user" UI for the permissions system. There may also be some performance considerations here, trading CPU processing for DB hits. And then there's backwards compatibility. Well, OK.
+</t><t>My suggestion for the future would be to limit the advanced UI to entering lists into the appropriate form fields, say a "Component" or "Instance" field in the UI. On submitting, the list(s) would be disassembled to records in the permissions table with one component/instance per record. This in itself is not trivial, because the user would be entering some sort of name, and you'd have to parse the name, make sure it corrsponded to a real object registered in the permissions system, and then translate it to a numeric ID.
+
+</t>
     </section>
-    <!-- Revision history is mandatory -->
+    <section title="Multi-language">
+      <t>Need to check to make sure any calls using the name of an object rather than its ID don't screw up the ML capabilities.
+</t>
+    </section>
+    <section title="Future Implementation">
+      <t>The issues encountered in Version 1.0 suggest merging the Participants and Security modules into a single module in the future.
+</t>
+    </section>
+    <section title="Miscellaneous Notes To Do">
+		<list style="symbols">
+	<t>Need to check that all the recursive functions don't crash if nothing is found.
+</t><t>Need to optimize the functions so as to cut down the number of DB calls where possible.
+</t><t>Need to integrate a regex translation layer for backward compatibility.
+</t>
+</list>
+    </section>
+    </section>
+   <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>Version 0.9, Dec 15, 2002: First release of this document</t>
       <t>Version 1.0, Jan 15, 2003: Major rewrite based on the first version of the code. Clearer definition of the architecture, implementation and UI.</t>
     </section>
-    
+
   </middle>
-  
+
   <!-- Back matter is used for references and appendices which come after the references -->
   <back>
     <references title="Reference title">
       <!-- Fill in references as needed -->
       <reference>
-        <front>
-          <title>Reference title</title>
-          <author>
-            <organization>Organization</organization>
-          </author>
-          <date year="2002"/>
-        </front>
+	<front>
+	  <title>Reference title</title>
+	  <author>
+	    <organization>Organization</organization>
+	  </author>
+	  <date year="2002"/>
+	</front>
       </reference>
       <!-- Repeat the aboven block if more references are needed -->
     </references>
     
     <!-- Any section after this will become an appendix -->
-    
+
   </back>
 </rfc>

@@ -49,6 +49,10 @@ class xarTestSuite {
         }
     }
 
+    function CountTestCases() {
+        return count($this->_testcases);
+    }
+
     /**
      * Run the testcase 
      */
@@ -62,20 +66,29 @@ class xarTestSuite {
      * Report the results of this suite
      */
     function report($type='text') {
+        $tot = exec('bk changes -r+ -d:REV:');
+        echo "Running tests for top of tree revision: ".$tot."\n";
         echo "TestSuite: ".$this->_name."\n";
+        $nroftestcases = $this->CountTestCases();
         foreach (array_keys($this->_testcases) as $casekey) {
             echo "|- TestCase: ".$this->_testcases[$casekey]->_name."\n";
             $tests =& $this->_testcases[$casekey]->_tests;
             foreach (array_keys($tests) as $key ) {
                 $result =& $tests[$key]->_result;
+	        if ($nroftestcases != 1) {
+                    echo "|";
+                } else {
+                    echo " ";
+                }
                 if (!empty($result->_message)) {
-                    echo "  |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
+                    echo " |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
                         (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
                 } else {
-                   echo "  |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
+                   echo " |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
                         (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
                 }
             }
+            $nroftestcases--;
         }
     }
 

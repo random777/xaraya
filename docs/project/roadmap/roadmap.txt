@@ -23,7 +23,7 @@ market;Marketing scenario   ;2002-10-01;40	;	    ;50	     ;1	  ;apakuni   ;scn1.
 
 scn1.1;Release 1.1 scenarios;          ;        ;           ;0       ;0   ;john      ;
 blwidg;Blocklayout widget   ;	       ;14	;blyout	    ;0	     ;1	  ;dracos    ;scn1.1
-submod;Subscription modules ;2002-10-14;35	;	    ;45	     ;1	  ;miko      ;scn1.1
+submod;Subscription modules ;2002-10-14;35	;	    ;75	     ;1	  ;miko      ;scn1.1
 unitst;Integrated testing   ;	       ;21	;blwidg	    ;0	     ;1	  ;marcel    ;scn1.1
 multdb;Multidatabase support;	       ;21	;	    ;0	     ;1	  ;gary	     ;scn1.1
 prmsys;Permission system    ;          ;        ;           ;0       ;1   ;?         ;scn1.1

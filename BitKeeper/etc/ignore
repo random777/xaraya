@@ -872,3 +872,17 @@ html/var/cache/adodb/fd/adodb_fd39d92c10299edf86a947a590e2cf0e.cache
 html/var/cache/adodb/fd/adodb_fd54f94b5ce0f7444b7404c4176fe396.cache
 html/var/cache/adodb/21/adodb_21812b47bc0ccab15dad31f225e98994.cache
 html/var/cache/adodb/a0/adodb_a090703173d83014232cadb72cf944f9.cache
+html/modules/referer/xaradmin.php
+html/modules/referer/xaradminapi.php
+html/modules/referer/xardocs/ChangeLog.txt
+html/modules/referer/xardocs/LICENSE
+html/modules/referer/xardocs/README
+html/modules/referer/xareventapi.php
+html/modules/referer/xarinit.php
+html/modules/referer/xartables.php
+html/modules/referer/xartemplates/admin-main.xd
+html/modules/referer/xartemplates/admin-modifyconfig.xd
+html/modules/referer/xartemplates/admin-view.xd
+html/modules/referer/xaruserapi.php
+html/modules/referer/xarversion.php
+html/var/cache/adodb/bc/adodb_bcf0af0dfebbc10cc887de0461f779d3.cache

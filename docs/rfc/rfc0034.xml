@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0034" category="info">
+  <front>
+    <title>Data Dictionary</title>
+    <author initials="J." surname="Schrage" fullname="Jan Schrage">
+      <organization>Xaraya Development Team</organization>
+      <address>
+	<email>jan@xaraya.com</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC proposes a data dictionary as a generic way to implement
+type checking in xaraya.</t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Introduction">
+      <t>The data dictionary should handle basic and module 
+dependent types and provide an interface for type checking to modules. 
+Modules shall be able to register their own types with validation and display
+information.</t>
+    </section>
+    <section title="List of requirements for a data dictionary">
+      <t></t>
+    </section>
+<section title="Data dictionary design">
+	<t>
+DB tables:
+       <figure preamble=" DB tables"><artwork src="images/rfc0034_1.png"/></figure>
+<list style="bullet">
+	    <t>modid - module id</t>
+	    <t>type - type name</t>
+	    <t>maxlen - maximum storage length</t>
+	    <t>blwidget - blocklayout widget to handle this type</t>
+	  </list>
+      </t>
+	
+	<t>
+API
+       <figure preamble="API"><artwork src="images/rfc0034_2.png"/></figure>
+      </t>
+      </section>
+    <section title="Relationship to other areas">
+    <section title="Relation to Dynamic Data (RFC 7)">
+	<t>The data dictionary provides basic type checking and type
+handling to all modules, including the dynamic data module. Properties
+handled by the dynamic data module should be derived from basic types.
+It is, however, intended that display and validation information provided 
+by the data
+dictionary may be overridden or extended by the property information 
+stored in the
+dynamic data module to cater to special needs. Example: Derived type jpeg with
+basic type binary. Data dictionary validation (binary, maxlen) 
+can still be used and complemented by DD validation that checks for 
+jpeg headers.</t>
+      </section>
+    </section>
+    <section title="Code that will need to be rewritten">
+      <t>xarUserGetVar, xarUserSetVar and xarUserValidateVar will go away, to be replaced
+      by xarModGetVar, xarModSetVar, xarVarValidate respectively.</t>
+    </section>
+    <section title="Tools that need to be created from scratch">
+      <t></t>
+    </section>
+    <section title="Basic documents for this RFC 34">
+      <t></t>
+    </section>
+    <section title="Retractions">
+      <t></t>
+    </section>
+    <section title="Author contact">
+      <t></t>
+    </section>
+    <section title="Changelog">
+      <t></t>
+    </section>
+  </middle>
+</rfc>

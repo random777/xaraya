@@ -11,14 +11,6 @@ class testxarMod extends xarTestCase {
     include_once 'xarMod.php';
     }
     
-    function precondition() {
-        return true;
-    }
-
-    function teardown () {
-        // not needed here
-    }
-
     function testInit() {
         return $this->assertTrue(xarMod_init('',''),"Module System Initialisation");
     }

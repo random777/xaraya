@@ -61,7 +61,7 @@ x*   - return true; if ok
 
     function testCheckEventFalse() {
         unset($GLOBALS['xarEvt_knownEvents']['unregEvt']);
-        return $this->assertFalse(xarEvt__checkEvent('unregEvt'),"Check unregistered event");
+        return $this->assertNull(xarEvt__checkEvent('unregEvt'),"Check unregistered event");
     }
 
     function testCheckEventTrue() {

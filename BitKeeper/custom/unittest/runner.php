@@ -38,34 +38,62 @@ include_once "$bkroot/".UT_FRAMWDIR."xarUnitTest.php";
 /** 
  * Define the array which holds the testsuites
  *
- * Define a default suite which normally holds tests which are not in another testsuite
+ * Define a default suite which normally holds tests which are not 
+ * put into another testsuite explicitly
  */
 $suites= array();
 $suites[] = new xarTestSuite();
 $suite=&$suites[0];
 
 /**
- * Include all files found in the UT_TESTSDIR directory
+ * Include all files found in the UT_TESTSDIR directories 
  * it is assumed they are conforming files.
+ *
  */
-if (is_dir(UT_TESTSDIR)) {
-    // Open the dir and include the testfiles
-    if ($dir = opendir(UT_TESTSDIR)) {
-        while ($file = readdir($dir) ) {
-            // Now, we get also ., .. and subdirs, let's filter out some stuff
-            // the testfiles are php scripts, so let's require them to have the
-            // php extension
-            if (preg_match('/\.php$/',$file)) {
-                //echo $file."\n";
-                include_once(UT_TESTSDIR."/$file");
+
+// Traverse the subtree from the current directory downwards
+// For each tests directory include the tests found
+$findcmd='bk sfiles -gd | grep ' .UT_TESTSDIR;
+$dirs=array();
+exec($findcmd,$dirs,$return_status);
+
+while (list($key, $dir) = each($dirs)) {
+    // In this dir, check for the existance of the special tests folder UT_TESTSDIR
+    if (is_dir($dir)) {
+        // Open the dir and include the testfiles
+        if ($testsdir = opendir($dir)) {
+            while ($file = readdir($testsdir) ) {
+                // Now, we get also ., .. and subdirs, let's filter out some stuff
+                // the testfiles are php scripts, so let's require them to have the
+                // php extension
+                if (preg_match('/\.php$/',$file)) {
+                    if ($file !='') {
+                        // The chdir juggling is necessary to set the 
+                        // property _basedir of each testcase.
+                        $savedir = getcwd();
+                        chdir($savedir."/".$dir);
+                        include_once($file);
+                        chdir($savedir);
+                    }
+                }
             }
+        } else {
+            // No tests found, skip this directory
+            // Do not die, as we might have other tests in 
+            // other directories
+            //die("No tests found\n");
         }
     }
-} else {
-    die("No tests found\n");
 }
-
-// Cycle through all suites
+//die("Includes done\n");
+/**
+ * Cycle through all suites found 
+ *
+ * Run all the tests found in their testsuites and 
+ * output a testreport. The output is sent to stdout
+ * so we can redirect the output to anything we like
+ *
+ */
 foreach ($suites as $torun) {
     $torun->run();
     $torun->report('text');

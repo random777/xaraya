@@ -45,7 +45,10 @@ class xarTestSuite {
         if (class_exists($testClass) && 
             (get_parent_class($testClass) == 'xartestcase')) {
             if ($name=='') { $name=$testClass; }
-            $this->_testcases[$name]=new xarTestCase($testClass,$name,true);
+            // Base dir is one dir up from the testsdir
+            // strip everthing after the 
+            $basedir = $this->_parentdir(getcwd());
+            $this->_testcases[$name]=new xarTestCase($testClass,$name,true,$basedir);
         }
     }
 
@@ -92,6 +95,14 @@ class xarTestSuite {
         }
     }
 
+    function _parentdir($dir) {
+        // Get the parent dir of the dir inserted, dirty hack
+        chdir('..');
+        $toreturn=getcwd();
+        chdir($dir);
+        return $toreturn;
+    }
+
 }
 
 /**
@@ -102,16 +113,18 @@ class xarTestSuite {
 class xarTestCase extends xarTestAssert {
     var $_name;           // Name of this testcase
     var $_tests=array();  // xarTest objects
+    var $_basedir;        // from which directory should tests be running
   
     /**
      * Construct the testCase, make sure we only construct the 
      * array of test objects once 
      */
-    function xarTestCase($testClass='',$name='',$init=false) {
+    function xarTestCase($testClass='',$name='',$init=false, $basedir='') {
         if (get_parent_class($testClass) == 'xartestcase') {
             if ($init) {
                 $this = new $testClass();
                 $this->_name=$name;
+                $this->_basedir=$basedir;
                 $this->_collecttests();
             }
         }
@@ -124,9 +137,12 @@ class xarTestCase extends xarTestAssert {
     function teardown() {}
 
     function runTests() {
+        $savedir=getcwd();
+        chdir($this->_basedir);
         foreach(array_keys($this->_tests) as $key) {
             $this->_tests[$key]->run();
         }
+        chdir($savedir);
     }
 
     function pass($msg='Passed') {

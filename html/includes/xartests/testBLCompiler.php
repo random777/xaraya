@@ -30,18 +30,17 @@ class testBLCompiler extends xarTestCase {
     }
     
     function testnoData() {
-        return $this->assertNull($this->myBLC->compileFile('doesntexist'),"Compile on bogus file");
+        return $this->assertNull($this->myBLC->compileFile('doesntexist'),"Don't compile on bogus file");
     }
     
     function testCompilenotnull() {
-        return $this->assertnotNull($this->myBLC->compileFile('xartests/test.xt'),"Compile valid file");
+        return $this->assertnotNull($this->myBLC->compileFile('xartests/test.xt'),"Return not null on compile of a valid file");
     }
     
-    function testCompile() {
-        return $this->assertTrue($this->myBLC->compileFile('xartests/test.xt'),"Compile valid file(2)");
-    }
 }
-
-$suite->AddTestCase('testBLCompiler','Testing Blocklayout compiler');
+//$tmp = new xarTestSuite('Blocklayout compiler tests');
+//$tmp->AddTestCase('testBLCompiler','Instantiation and file compiling');
+$suite->AddTestCase('testBLCompiler','Instantiation and file compiling');
+//$suites[] = $tmp;
 
 ?>

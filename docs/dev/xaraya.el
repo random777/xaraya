@@ -61,5 +61,22 @@
 ; Control-Meta-h : funcheader
 ;
 (global-set-key [(control meta f)] 'xar-fileheader)
-(global-set-key [(control meta h)] 'xar-funcheader)
+(global-set-key [(control meta p)] 'xar-funcheader)
 
+
+;
+; Hook advised by pear standards
+;
+; I think this is not necessary with the newer emacsen as they 
+; have a php mode force pear option. If not set this function 
+; as a hook when editting php files and your fine.
+;
+(defun php-mode-hook ()
+  (setq tab-width 4
+        c-basic-offset 4
+        c-hanging-comment-ender-p nil
+        indent-tabs-mode
+        (not
+         (and (string-match "/\\(PEAR\\|pear\\)/" (buffer-file-name))
+              (string-match "\.php$" (buffer-file-name)))))
+  )

@@ -22,6 +22,33 @@
 define('UT_TESTSDIR','xartests'); // subdirectory holding tests
 define('UT_FRAMWDIR','BitKeeper/custom/unittest/'); 
 
+// Get the command line args in here, trus the callee to have parsed
+// it properly into neatly space separated stuff
+$args=$_SERVER['argv'];
+array_shift($args);
+
+// Rudimentary parsing of what we need
+$testfilter=array();
+$testfilter['output']='text';
+for($index=0;$index<count($args);$index++) {
+    switch($args[$index]) {
+    case '-c':
+    case'--cases':
+        $cases=explode(",",trim($args[$index+1],"'"));
+        foreach($cases as $case) $testfilter['cases'][]=$case;
+        break;
+    case '-s':
+    case '--suites':
+        $suites=explode(",",trim($args[$index+1],"'"));
+        foreach($suites as $suite) $testfilter['suites'][]=$suite;
+        break;
+    case '-o': 
+    case '--output':
+        $testfilter['output'] = $args[$index+1];
+        break;
+    }
+}
+
 // Get the current repository root directory
 exec('bk root',$output,$return_status);
 $bkroot=$output[0];
@@ -98,9 +125,19 @@ while (list($key, $dir) = each($dirs)) {
  */
 foreach ($suites as $torun) {
     // Run the testsuite
-    $torun->run();
-    // and report the results
-    $torun->report('text');
+    // If $testfilter['suites'] is empty, run all suites
+    // if it's not run only the suites specified
+    if(empty($testfilter['suites'])) {
+        $torun->run();
+        $torun->report($testfiler['output']);
+    } else {
+        // Only run the testsuite if it's mentions
+        if(in_array($torun->_name,$testfilter['suites'])) {
+            $torun->run();
+            $torun->report($testfilter['output']);
+        }
+    } 
+    
 }
 
 ?>

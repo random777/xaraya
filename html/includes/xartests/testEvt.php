@@ -4,6 +4,7 @@ class testEvt extends xarTestCase {
     
     function setup() {
         $GLOBALS['xarDebug'] = false;
+        include_once 'xarCore.php';
         include_once 'xarException.php';
         include_once 'xarEvt.php';
         include_once 'xarMLS.php';
@@ -64,7 +65,7 @@ x*   - return true; if ok
         return $this->assertTrue(xarEvt__checkEvent('regEvt'),"Check registered event");
     }
 
-// function xarEvt_registerEvent
+// // function xarEvt_registerEvent
     function testRegisterEventFalse() {
         return $this->assertFalse(xarEvt_registerEvent(''),"Register Event without specifiying a name");
     }
@@ -73,10 +74,6 @@ x*   - return true; if ok
         return $this->assertTrue(xarEvt_registerEvent('regEvt'),"Register Event with name");
     }
 
-// function xar
-
-
-// function xar
 }
 
 $l_suite = new xarTestSuite('Events');

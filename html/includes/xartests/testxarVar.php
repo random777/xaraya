@@ -19,13 +19,13 @@ class testxarVar extends xarTestCase {
     
     
     function testCleanUntrusted() {
-        $var = '\.\.\.';
-        return $this->assertEmpty(xarVarCleanUntrusted($var),"Clean var from untrusted source");
+        $var = '<script>';
+        return $this->assertFalse(xarVarCleanUntrusted($var),"Clean var from untrusted source");
     }
 
     function testCleanFromInput() {
         $var = '<script>';
-        return $this->assertEmpty(xarVarCleanFromInput($var),"Clean var from input");
+        return $this->assertFalse(xarVarCleanFromInput($var),"Clean var from input");
     }
 }
 

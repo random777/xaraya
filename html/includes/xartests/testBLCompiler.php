@@ -77,6 +77,22 @@ class testBLCompiler extends xarTestCase {
         return $this->assertSame($out,$expected,"BL multiline comments unix CR");
     }
 
+    function testDoubleHash() {
+        // Test for bug 694 and 695
+        $tplString="#\$foo##";
+        $expected="<?php echo \$foo; ?>#<?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        return $this->assertSame($out,$expected,"Double hash after variable should return 1 back");
+    }
+
+    function testTripleHash() {
+        // Test for bug 694 and 695
+        $tplString="#\$foo###";
+        $expected="<?php echo \$foo; ?>#<?php return true;?>";
+        $out = $this->myBLC->compile($tplString);
+        var_dump($out);
+        return $this->assertSame($out,$expected,"Triple hash after variable should return 1 back");
+    }
 }
 //$tmp = new xarTestSuite('Blocklayout compiler tests');
 //$tmp->AddTestCase('testBLCompiler','Instantiation and file compiling');

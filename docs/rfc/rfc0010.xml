@@ -1584,7 +1584,6 @@ html/
             unless the theme overrides the container template which does away 
             with the xar:template tag in the overridden template.
            </t>
-          </t>
           <section title="Forms">
             <t>Only the empty form is allowed</t>
           </section>

@@ -916,6 +916,19 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </reference>
 
 
+      <reference target="http://www.javaworld.com/javaworld/jw-03-2002/jw-0301-dao-p2.html">
+        <front>
+          <title>DAO Pattern implentation in Java</title>
+          <author fullname="">
+            <organization></organization>
+          </author>
+          <date year="2002"/>
+          <note title="Other atempts">
+            <t>This DAO implementation PARSES(!) only very specifc SQL queries to abstract them. What is the point?</t>
+          </note>
+        </front>
+      </reference>
+
       <reference target="http://ccm.redhat.com/bboard-archive/acs_design/000818.html">
         <front>
           <title>Discussion about Query Abstraction in another CMS</title>
@@ -928,6 +941,48 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
           </note>
         </front>
       </reference>
+
+      <reference target="http://www.joeyoder.com/papers/patterns/Reports/">
+        <front>
+          <title>Ideas on how to abstract SQL queries from 1997</title>
+          <author fullname="">
+            <organization></organization>
+          </author>
+          <date year="2002"/>
+          <note title="SQL abstraction">
+            <t>Too hardcoded to work out for us.</t>
+          </note>
+        </front>
+      </reference>
+
+
+      <reference target="http://db.apache.org/ojb/">
+        <front>
+          <title>Apache Object Relational Mapper</title>
+          <author fullname="">
+            <organization></organization>
+          </author>
+          <date year="2002"/>
+          <note title="SQL abstraction just like what i suggested">
+            <t>A full Object Relational Mapper, with an SQL abstraction very close to what is suggested here</t>
+          </note>
+        </front>
+      </reference>
+
+      <reference target="http://www.lap.ttu.ee/erki/failid/konspekt/bakalaureusetoo/thesis.pdf">
+        <front>
+          <title>Thesis on Object Relational Mapping</title>
+          <author fullname="">
+            <organization></organization>
+          </author>
+          <date year="2002"/>
+          <note title="Thesis on the subject">
+            <t>How to abstract all object operations thru a simple interface (CRUD)</t>
+          </note>
+        </front>
+      </reference>
+
+
 
 
     </references>

@@ -446,14 +446,14 @@ html/
             and vulnerable for surprises.
           </t>
           <t>
-            There are two types of blocks:
+            There are two approaches to content that blocks take. They are:
             <list style="numbers">
-              <t>static blocks</t>
-              <t>dynamic blocks</t>
+              <t>static content</t>
+              <t>dynamic content</t>
             </list>
           </t>
           <t>
-            Static blocks are defined completely within their
+            Static content blocks are defined completely within their
             template file, and are not dependent on any other
             information. A block containing a piece of html to render
             is an example of such a block. Dynamic blocks however,
@@ -463,6 +463,10 @@ html/
             posted on site", "Currently logged on users"
             etcetera. Each block consist of a title and content. The
             title may be an empty string.
+          </t>
+          <t>
+            In essense though, there is no difference in the way that
+            blocks with static or dynamic content are managed.
           </t>
           <section title="Forms">
             <t>Empty form:
@@ -535,6 +539,9 @@ html/
                 <t><em>[title]</em>
                   <t>The title to use for the block.</t>
                 </t>
+                <t><em>[state]</em>
+                  <t>The state of the block (0 is hidden, 3 is maximized).</t>
+                </t>
                 <t><em>[template]</em>
                   <t>
                     Name of a template to use for the block. The
@@ -567,26 +574,55 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:block instance="2" module="base" /&gt; // module attribute ignored here
+              <t>
+              This renders block instance number 2, or the block instance named 'blockx', directly.
+              The 'module' and 'type' attributes are ignored, since we are using the instance
+              attribute to identify a block that has been pre-defined though the admin screens.
+              </t>
 
-                This renders block instance number 2 directly. All other attributes are ignored.
+              <artwork><![CDATA[
+                <xar:block instance="2" module="base" />
+                <xar:block instance="blockx" type="random" />
+              ]]></artwork>
 
-              &lt;xar:block module="base" name="goodie" template="SeaBreeze_block_2" /&gt;
+              <t>
+              Look for block 'goodie' owned by module 'base' (this provides the implicit content) and
+              try to render it with box template 'block_2'. The block will execute with it's default
+              parameters.
+              </t>
 
-                Look for block 'goodie' owned by module 'base' (this provides the implicit content) and
-                try to render it with template 'SeaBreeze_block_2'
+              <artwork><![CDATA[
+                <xar:block module="base" name="goodie" template="block_2" />
+              ]]></artwork>
 
-              &lt;xar:block module="base" name="goodie" &gt;
-                &lt;p&gt;
-                  This block temporarily out of order
-                &lt;/p&gt;
-              &lt;/xar:block&gt;
+              <t>
+              This block has explicit contents specified directly in the block tag. That content will
+              be rendered by applying the default block template from the 'base' module and block 'goodie'
+              (which may still be overridden by the theme). It will also be enclosed in the default
+              box template from the current theme (usually blocks/default.xt).
+              </t>
 
-                This block has explicit contents specified directly in the block tag. That content will
-                be rendered by applying the default block template from the 'base' module and block 'goodie'
-                (which may still be overridden by the theme)
-            </artwork>
+              <artwork><![CDATA[
+                <xar:block module="base" name="goodie" />
+              ]]></artwork>
+
+              <t>
+              This example will render the articles/topitems block, displaying just two items, with
+              a static (i.e. non-dynamic) title 'Standalone Topitems', and a default state of 3
+              (maximised). The block will be named 'standalone_topitems', and that name can be
+              used to hide that block from some users through the permissions system. The box (outer) template
+              will be 'right' (in {current-theme}/blocks/right.xt, falling back to default.xt if that
+              template cannot be found). The block (inner) template is specified as 'mytop'.
+              The customised block template will be {current-theme}/modules/articles/blocks/topitems-mytop.xt,
+              falling back to topitems.xt and then modules/articles/xartemplates/xarblocks/topitems.xd.
+              This block has not been pre-defined through the block admin screens.
+              </t>
+
+              <artwork><![CDATA[
+                <xar:block module="articles" type="topitems" title="Standalone Topitems"
+                    state="3" numitems="2" dynamictitle="0" name="standalone_topitems" 
+                    template="right;mytop" />
+              ]]></artwork>
             </t>
           </section>
           <section title="Context">

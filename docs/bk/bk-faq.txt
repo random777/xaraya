@@ -13,6 +13,7 @@ Questions:
    path/to/some/file/SCCS/s.somefile.php is edited and modified; unsafe to overwrite. What does that mean?
 8. Can I move files from one repository to another?
 9. I'm on Windows.  How can I automagically export my repository into my Apache htdocs directory?
+
 Answers:
 ========
 
@@ -154,7 +155,7 @@ the config files).  Now we can begin.
 Steps:
 1. Open a MS-DOS window and cd to your repository
 2. Copy config.system.php and config.site.xml from your Apache htdocs folder 
-into the html/var/ directory of your repository.
+into a temporary location: c:\tmp for example.
 3. Copy the batch file below and save it in a convenient place.  Edit the paths 
 as required by your BitKeeper/Apache setup.
 
@@ -165,7 +166,7 @@ cd C:\PATH\TO\HTDOCS\FOLDER
 deltree /Y *
 move C:\PATH\TO\TEMPORARY\FOLDER\html\* .\
 deltree /y C:\PATH\TO\TEMPORARY\FOLDER
-copy C:\PATH\TO\REPOSITORY\html\var\config.site.xml C:\PATH\TO\HTDOCS\FOLDER\var
-copy C:\PATH\TO\REPOSITORY\html\var\config.system.php C:\PATH\TO\HTDOCS\FOLDER\var
+copy C:\tmp\config.site.xml C:\PATH\TO\HTDOCS\FOLDER\var
+copy C:\tmp\config.system.php C:\PATH\TO\HTDOCS\FOLDER\var
 del C:\PATH\TO\HTDOCS\FOLDER\var\*.dist
 cd C:\PATH\TO\REPOSITORY

@@ -160,8 +160,8 @@
         <artwork>
           function sniffer_eventapi_OnSessionCreate($arg)
           {
-		  	    // browsersniffing
-		      }
+                  // browsersniffing
+              }
         </artwork>
       </t>
     </section>

@@ -34,8 +34,8 @@
     <author initials="F.B." surname="Besler" fullname="Frank Besler">
       <organization>Xaraya Development Group</organization>
       <address>
-      	<email>besfred@xaraya.com</email>
-      	<uri>http://www.xaraya.com</uri>
+          <email>besfred@xaraya.com</email>
+          <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="March" year="2003"/>
@@ -58,8 +58,8 @@
     <!-- Introduction is mandatory -->
     <section title="Introduction">
       <t>
-      	In this RFC we pull together the general <eref target="http://pear.php.net/manual/en/standards.php">
-      	PEAR coding standard</eref> and the specific Xaraya standards into one document.
+          In this RFC we pull together the general <eref target="http://pear.php.net/manual/en/standards.php">
+          PEAR coding standard</eref> and the specific Xaraya standards into one document.
       </t>
       <t>
         The RFC does not only contain coding standards as perceived in the normal way, but does also
@@ -553,7 +553,7 @@
         </t>
       </section>
  
-      <!-- http://pear.php.net/manual/en/standards.naming.php -->	
+      <!-- http://pear.php.net/manual/en/standards.naming.php -->    
  
     </section>
 

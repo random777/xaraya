@@ -51,7 +51,7 @@
     
     <!-- One content section is mandatory -->
     <section title="At least one content section">
-      <t>At least one content section must be present in an RFC	</t>
+      <t>At least one content section must be present in an RFC    </t>
     </section>
     
     <!-- Revision history is mandatory -->

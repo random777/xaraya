@@ -749,32 +749,32 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </t>
     </section>
     <section title="API">
-	<t>
-		Example: Recalling a user's data from the database. The data of the user with the uname $this->uname is returned as an array.
-	</t>
-	  <artwork>
+    <t>
+        Example: Recalling a user's data from the database. The data of the user with the uname $this->uname is returned as an array.
+    </t>
+      <artwork>
         $q = new xarQuery('SELECT',$this->rolestable);
         $q->eq('xar_uname',$this->uname);
         if (!$q->run()) return;
         $foo = $q->output();      
-	  </artwork>
-	<t>
-		The syntax of the class call is
-	</t>
-	  <artwork>
+      </artwork>
+    <t>
+        The syntax of the class call is
+    </t>
+      <artwork>
         $q = new xarQuery('SELECT'|'INSERT'|'UPDATE'|'DELETE',
                           {array of query tables},
                           {array of fields}
         );
-	  </artwork>
+      </artwork>
       <t>
       The class methods (to be completed):
       </t>
       <t>
       Tables and Fields:
       <list style="symbols">   
-		<t>
-		<em>addfields($fields):</em> add an array of fields to the query.
+        <t>
+        <em>addfields($fields):</em> add an array of fields to the query.
       </t><t>
         <em>addtables($tables):</em> add an array of tables to thte query.
       </t><t>
@@ -819,7 +819,7 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         <em>output():</em> return the query output as a 2 dimensional array where the keys of row elements corespond to the field names in the datatbase.
       </t><t>
         <em>row($row=0):</em> return a single output row as a 1 dimensional array.
-    	</t>
+        </t>
       </list>
       </t>
       <t>
@@ -868,10 +868,10 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </t>
     </section>
     <section title="Examples">
-	<t>
-		The following are equivalent:
-	</t>
-	  <artwork>
+    <t>
+        The following are equivalent:
+    </t>
+      <artwork>
         $dbconn = xarDBGetConn();
         $query = "SELECT * FROM $this->rolestable WHERE xar_name = '$this->name'";
         if(!$dbconn->Execute($query)) return;
@@ -886,33 +886,33 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         
         $q = new xarQuery();
         if (!$q->run("SELECT * FROM $this->rolestable WHERE xar_name = '$this->name'")) return;        
-		</artwork>	
-	<t>
-		The following are equivalent:
-	</t>
-	  <artwork>
-		if (!$q->run($query)) return;
-		$invoices = array();
-		foreach ($q->output() as $out)
-			$invoices[] = array_pop($out);
-		return $invoices;
+        </artwork>    
+    <t>
+        The following are equivalent:
+    </t>
+      <artwork>
+        if (!$q->run($query)) return;
+        $invoices = array();
+        foreach ($q->output() as $out)
+            $invoices[] = array_pop($out);
+        return $invoices;
         
         AND
         
-		$result = $dbconn->Execute($query);
-		if (!$result) return;
-		$invoices = array();
-		while(!$result->EOF) {
-			list($this->id) = $result->fields;
-			$invoices[] = $this->id;
-			$result->MoveNext();
-		}
-		return $invoices;
-		</artwork>	
-		<t>
-		Check if a role already exists:
-	</t>
-	  <artwork>
+        $result = $dbconn->Execute($query);
+        if (!$result) return;
+        $invoices = array();
+        while(!$result->EOF) {
+            list($this->id) = $result->fields;
+            $invoices[] = $this->id;
+            $result->MoveNext();
+        }
+        return $invoices;
+        </artwork>    
+        <t>
+        Check if a role already exists:
+    </t>
+      <artwork>
         Old code:
          
         $this-&gt;dbconn = xarDBGetConn();
@@ -946,11 +946,11 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         if (!$q->run()) return;
 
         if ($q->getrows() == 1) {//error message}
-		</artwork>
-	<t>
-		Adding a group or user to the roles table
-	</t>
-	  <artwork>
+        </artwork>
+    <t>
+        Adding a group or user to the roles table
+    </t>
+      <artwork>
         Old code:
          
         $this-&gt;dbconn = xarDBGetConn();
@@ -1020,7 +1020,7 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         }
         // Execute the query, bail if an exception was thrown
         if (!$q->run()) return;
-		</artwork>
+        </artwork>
     </section>
     </section>
 

@@ -5941,7 +5941,7 @@ proc figure_html {tag lines anchor src title} {
             if {[string compare $anchor ""]} {
                 puts $stdout "<a name=\"$anchor\"></a>"
             }
-	    # support images also when we are not making slides
+        # support images also when we are not making slides
             # $options(.SLIDES) was deleted
             if {([string compare $src ""])} {
                 puts $stdout "<img src=\"$src\"></img>"

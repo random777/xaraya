@@ -253,7 +253,7 @@
 }
 
           </artwork>
-					</t>   
+                    </t>   
      </section>
 
         <section title="xarTplEval()">
@@ -288,12 +288,12 @@
         <t>md5 is used against the template source string to provide a
         file name for the cache. Is the result of md5 distinct enough
         to:</t>
-				<t>
+                <t>
         <list style="symbols">
         <t>Change with minor amendments to sourceString? or</t>
         <t>Not conflict with other cached files?</t>
         </list>
-				</t>
+                </t>
       </section>
       <section title="Garbage Collection">
         <t>What requirements are there for garbage collection? i.e. 
@@ -333,7 +333,7 @@
       <t>This section lists and describes the players or roles
       involved in developing and running a Content Management
       System</t>
-			<t>
+            <t>
       <list style="bullet">
         <t>Developer: Creates and maintains core and module code
         for general public release. May also create themes which
@@ -360,7 +360,7 @@
         not be logged in, may occasionally submit content, but will
         not take any further part in it's publication.</t>
       </list>
-			</t>
+            </t>
     </section>
 
   </back>

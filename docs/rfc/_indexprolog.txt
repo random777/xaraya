@@ -11,8 +11,8 @@
     <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
       <organization>Xaraya Development Group</organization>
       <address>
-				<email>marcel@hsdev.com</email>
-				<uri>http://www.xaraya.com</uri>
+                <email>marcel@hsdev.com</email>
+                <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="October" year="2002"/>
@@ -27,8 +27,8 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>
-				This RFC contains the index of RFCs for Xaraya and an explanation
-				of terms.
+                This RFC contains the index of RFCs for Xaraya and an explanation
+                of terms.
       </t>
     </abstract>
   </front>
@@ -37,4 +37,4 @@
   <middle>
     <section title="RFC index">
       <t>The following RFC document are available:
-				<list>
+                <list>

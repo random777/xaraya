@@ -4,30 +4,30 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc="yes"?>
 <rfc number="0013" category="info">
-	<front>
-		<title>Module Classification System</title>
-		<author initials="A" surname="Varganov" fullname="Andy Varganov">
-			<organization>Xaraya Development Group</organization>
-			<address>
-				<email>andyv@msph.com</email>
-				<uri>http://www.xaraya.com</uri>
-			</address>
-		</author>
-		<date month="January" year="2002"/>
-		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
-		<abstract>
-			<t>The contents of this RFC contain the literal content of the old plain
+    <front>
+        <title>Module Classification System</title>
+        <author initials="A" surname="Varganov" fullname="Andy Varganov">
+            <organization>Xaraya Development Group</organization>
+            <address>
+                <email>andyv@msph.com</email>
+                <uri>http://www.xaraya.com</uri>
+            </address>
+        </author>
+        <date month="January" year="2002"/>
+        <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+        <abstract>
+            <t>The contents of this RFC contain the literal content of the old plain
         text version of RFC-0013</t>
-			<t>When time is a less scarcer good, someone might convert the plain text
+            <t>When time is a less scarcer good, someone might convert the plain text
         into structured XML so we can benefit from it.
       </t>
-		</abstract>
-	</front>
-	<!-- The middle section is used for the actual content of the RFC -->
-	<middle>
-		<!-- One content section is mandatory -->
-		<section title="Introduction">
-			<t>
+        </abstract>
+    </front>
+    <!-- The middle section is used for the actual content of the RFC -->
+    <middle>
+        <!-- One content section is mandatory -->
+        <section title="Introduction">
+            <t>
         The Xaraya modules are there to extend the functionality of
         this content management system (we assume that you are already
         familiar with the Xaraya Module Developers Guide by Jim
@@ -46,20 +46,20 @@
         The aim of this document is to set module classification standards for
         ALL xaraya modules, including old style (pre pn 0.7), new style and
         future versions.
-			</t>
-		</section>
-		<section title="How to identify a module? ">
-			<t>
+            </t>
+        </section>
+        <section title="How to identify a module? ">
+            <t>
         A module can be identified by way it interacts with the core and
         other modules. Additionally, we need to identify modules by
         their virtual categories within the xaraya administration
         system. In this document, we are going to use and combine both
         approaches to form a generic set of classes and categories for
         all the modules.
-			</t>
-		</section>
-		<section title="Module Classes">
-			<t>
+            </t>
+        </section>
+        <section title="Module Classes">
+            <t>
         We suggest the following list of possible module classes:
         Format of presentation: long name | short identifier |
         description | notes
@@ -99,10 +99,10 @@
       </t>
       <t>    
         Note: Each group of the above module classes can be modified, edited or removed, subject to approval by the xaraya-dev group.
-			</t>
-		</section>
-		<section title="Module Categories">
-			<t>
+            </t>
+        </section>
+        <section title="Module Categories">
+            <t>
         Within each of the module classes, we suggest a detailed categorization in the form of 'category' system variable, which would determine the module's place and hierarchy at the Xaraya administration system level. 
       </t>
       <t>    
@@ -155,10 +155,10 @@
       <t> 
         Note: Each group of the above categories can be modified,
         edited or removed, subject to approval by the xaraya-dev group.
-			</t>
-		</section>
-		<section title="Module Classification IDs">
-			<t>
+            </t>
+        </section>
+        <section title="Module Classification IDs">
+            <t>
         A module's IDs within this classification system is a
         combination of its class and category short identifiers
         accessible by all core and non-core functions.
@@ -176,17 +176,17 @@
       </t>
       <t>    
         $modversion['category'] = 'Global';
-			</t>
-		</section>
-		<section title="Module Unique ID">
-			<t>
+            </t>
+        </section>
+        <section title="Module Unique ID">
+            <t>
         It has also been suggested that each module should be
         registered with its unique ID. When designing the module
         registration system, we suggest that this module
         classification system is taken into consideration.
-			</t>
-		</section>
-	</middle>
+            </t>
+        </section>
+    </middle>
   <back>
     <section title="Module dependencies">
       <t>

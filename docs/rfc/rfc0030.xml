@@ -607,7 +607,7 @@
             |  |--AddExamples                               AddExamples
             |                                               EditArticles
             |--EditArticles                                 AddArticles
-            |  											and ReadAll (if it is not empty)
+            |                                              and ReadAll (if it is not empty)
             |--AddArticles
           </artwork>
           Role FOO will have 5 privileges assigned to him. However the
@@ -661,7 +661,7 @@
           light is given if the mask is implied by one of the user's
           privileges. Otherwise an exception is thrown.
         </t>
-        <t>	
+        <t>    
           The structure of a Schema corresponds to that of a privilege. For example the following Schema
           <artwork>
             Name          Realm     Module    Component    Instance    Level
@@ -1340,22 +1340,22 @@
           which has the following syntax:
 
         <artwork>
-	     function xarRegisterMask($name,$realm,$module,$component,$instance,$level,
-	     $description='')
-	     
-	     where:
-	     
-	     $name        : a name given to the mask. The name needs to be unique within the 
-	                    module.
-	     $realm       : the realm the mask applies to.
-	     $module      : the name of the module the mask applies to.
-	     $component   : the name of the component the mask belongs to. The component name is
-	                    referenced during security checks.
-	     $instance    : the name of the instance the mask applies to. This refers to an 
-	                    instance that has been defined at runtime (see below),
-	     $level       : the security level a privilege must have to pass the check. These
-	                    are the usual values 0 - 800.
-	     $description : a text field that describes the mask.
+         function xarRegisterMask($name,$realm,$module,$component,$instance,$level,
+         $description='')
+         
+         where:
+         
+         $name        : a name given to the mask. The name needs to be unique within the 
+                        module.
+         $realm       : the realm the mask applies to.
+         $module      : the name of the module the mask applies to.
+         $component   : the name of the component the mask belongs to. The component name is
+                        referenced during security checks.
+         $instance    : the name of the instance the mask applies to. This refers to an 
+                        instance that has been defined at runtime (see below),
+         $level       : the security level a privilege must have to pass the check. These
+                        are the usual values 0 - 800.
+         $description : a text field that describes the mask.
         </artwork>
                 
         All fields except the description are mandatory. The value
@@ -1519,8 +1519,8 @@
 
         <artwork>
         if (xarSecurityCheck('EditArticles',0)) {
-	    
-	       ...code to edit an article in the articles module
+        
+           ...code to edit an article in the articles module
 
         }
         </artwork>
@@ -1584,7 +1584,7 @@
             Remove redundant code
           </t>
         </list>
-		  </t>
+          </t>
 
       <section title="Creating Instance definitions">
         <t>

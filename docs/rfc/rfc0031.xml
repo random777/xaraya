@@ -11,8 +11,8 @@
     <author initials="DAD" surname="Daulton" fullname="Douglas">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>apakuni@xaraya.com</email>
-	<uri>http://www.xaraya.com</uri>
+    <email>apakuni@xaraya.com</email>
+    <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="January" year="2002"/>
@@ -20,7 +20,7 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
+    into structured XML so we can benefit from it.
       </t>
     </abstract>
   </front>
@@ -30,7 +30,7 @@
     <!-- One content section is mandatory -->
     <section title="Original content">
       <t>
-	<artwork>
+    <artwork>
 
 RFC 0031 xDeveloper Community Tools
 
@@ -38,9 +38,9 @@ RFC 0031 xDeveloper Community Tools
 REQUEST FOR COMMENTS (0031)
 xDeveloper :: Community Tools
  Previously Known as ...
- 	Xaraya Community Enhancements (RFC0009)
-	and
-	xarCommunity
+     Xaraya Community Enhancements (RFC0009)
+    and
+    xarCommunity
 
 VISION 
 xDeveloper is a "super-module" or suite of modules which will
@@ -390,7 +390,7 @@ Release: 06/03/2002
 Author: Doug Daulton - Xaraya Marketing Lead
 © 2002 (GPL) - Doug Daulton/Xaraya Team
 
-	</artwork>
+    </artwork>
       </t>
     </section>
   </middle>

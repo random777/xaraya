@@ -211,7 +211,7 @@
             repeat, no development takes place on the trunk ;-)
           </t>
           
-          <t>The process consists of two main activities:	  
+          <t>The process consists of two main activities:      
             <list style="numbers">
               <t>Normal scenario based development cycle</t>
               <t>Release scenario</t>
@@ -532,7 +532,7 @@
         
         <t>
           For describing how to use BK in practice we have two
-          situations:	
+          situations:    
           <list style="numbers">
             <t>Developing as a single developer</t>
             <t>Developing with a group of developers</t>
@@ -661,7 +661,7 @@
               </t>
             </list>
           </t>  
-          <t>Alternatively:	  
+          <t>Alternatively:      
             <list style="numbers">
               <t>
                 Developer A clones the xaraya repository from xaraya.com
@@ -923,7 +923,7 @@
           extensively and voted upon by all relevant people. This process
           will not change lightly (although improvements will always be
           looked for).
-        </t>	
+        </t>    
         
         <t>
           As you may have noticed, bitkeeper is far more advanced than

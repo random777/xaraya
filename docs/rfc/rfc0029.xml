@@ -12,8 +12,8 @@
     <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
       <organization>Xaraya Development Group</organization>
       <address>
-				<email>marcel@hsdev.com</email>
-				<uri>http://www.xaraya.com</uri>
+                <email>marcel@hsdev.com</email>
+                <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <author initials="J" surname="Schrage" fullname="Jan Schrage">
@@ -37,17 +37,17 @@
     <!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
     <keyword>unit</keyword>
-		<keyword>testing</keyword>
-		
+        <keyword>testing</keyword>
+        
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>
-				This RFC contains a design of a (partially) automated test
-				framework.  The design was inspired by eXtreme programming,
-				design by contract and the jUnit testing framework. The ideas
-				have been slightly adapted to make it more suitable for the Xaraya
-				System.
-			</t>
+                This RFC contains a design of a (partially) automated test
+                framework.  The design was inspired by eXtreme programming,
+                design by contract and the jUnit testing framework. The ideas
+                have been slightly adapted to make it more suitable for the Xaraya
+                System.
+            </t>
     </abstract>
   </front>
 
@@ -589,7 +589,7 @@
     <section title="Remaining issues">
     </section>
 
-		<!-- Revision history is mandatory -->
+        <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>2002-03-17: MrB : Requirements basically complete</t>
       <t>2002-12-28: MrB : initial revision, just a reservation for the RFC</t>

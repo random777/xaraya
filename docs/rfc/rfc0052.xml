@@ -42,9 +42,9 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>This RFC extends RFC 0007 - Modularized User Data, by providing specific
-	  instructions on how Dynamic Data Property Types are added to the system, how to create
-	  new ones, and provides documentation on all the properties provided by the Xaraya Core
-	  Distribuation.
+      instructions on how Dynamic Data Property Types are added to the system, how to create
+      new ones, and provides documentation on all the properties provided by the Xaraya Core
+      Distribuation.
       </t>
     </abstract>
   </front>
@@ -68,7 +68,7 @@
     <!-- One content section is mandatory -->
     <section title="The Property Master Class">
       <t>The Dynamic Data Module provides a base Property Class that all Properties extend, "Dynamic_Property".  
-	  The Dynamic_Property class is located within /modules/dynamicdata/class/properties.php &lt;Link to PHPDoc for Dynamic Property Class&gt;</t>
+      The Dynamic_Property class is located within /modules/dynamicdata/class/properties.php &lt;Link to PHPDoc for Dynamic Property Class&gt;</t>
       <t>The Dynamic_Property classes consists of the following base functions that may be overidden:
         <list style="symbols">
           <t>getValue()</t>
@@ -79,17 +79,17 @@
           <t>setItemValue($itemid, $value)</t>
           <t>showInput($args = array())</t>
           <t>showOutput($args = array())</t>
-		  <t>showLabel($label = null)</t>
-		  <t>showHidden($args = array())</t>
-		  <t>getBasePropertyInfo() - Get the base information for this property.</t>
+          <t>showLabel($label = null)</t>
+          <t>showHidden($args = array())</t>
+          <t>getBasePropertyInfo() - Get the base information for this property.</t>
         </list>
-	  </t>
+      </t>
     </section>
     <section title="Creating a new Property">
       <t></t>
-	  <t>You must overide the getBasePropertyInfo() method to return an array consisting of data values 
-	     specific to your property, specifically:
-		 
+      <t>You must overide the getBasePropertyInfo() method to return an array consisting of data values 
+         specific to your property, specifically:
+         
         <list style="symbols">
           <t>id - Unique Identifier</t>
           <t>name - Internal Name of this Property</t>
@@ -99,19 +99,19 @@
           <t>source - (optional) What provides this property, commonly specifies the custom module that provides this property</t>
           <t>dependancies - (optional) Semicolon seperated list of files that must be present for this property to be available </t>
           <t>requiresmodule - (optional) this module must be available before this property is enabled</t>
-		  <t>aliases - (optional) If the same property class is reused directly with just different base info, and arguments then supply the alternate base arrays here</t>
-		  <t>args - (optional) An array of the default arguments to be passed to this class' contructor.</t>
+          <t>aliases - (optional) If the same property class is reused directly with just different base info, and arguments then supply the alternate base arrays here</t>
+          <t>args - (optional) An array of the default arguments to be passed to this class' contructor.</t>
         </list>
-	  </t>
+      </t>
     </section>
     <section title="The Property Loading Mechanism">
       <t>
-	     The Dynamic_Property_Master will scan the Xaraya file system and automatically load properties 
-		 into the system, to be made available to site administrators while configuring Xaraya objects.  
-		 The Dynamic_Property_Master will verify that the specified dependancies and required modules
-		 specified by each property's getBasePropertyInfo() method are present and available prior to
-		 adding the property to the list of available properties.
-	  </t>
+         The Dynamic_Property_Master will scan the Xaraya file system and automatically load properties 
+         into the system, to be made available to site administrators while configuring Xaraya objects.  
+         The Dynamic_Property_Master will verify that the specified dependancies and required modules
+         specified by each property's getBasePropertyInfo() method are present and available prior to
+         adding the property to the list of available properties.
+      </t>
     </section>
     
     <!-- Revision history is mandatory -->
@@ -862,7 +862,7 @@
 <section title="Select">
   <section title="Description">
     <t>
-		By default provides a drop down list of options for the user to select from.
+        By default provides a drop down list of options for the user to select from.
     </t>
   </section>
   <section title="Arguments">
@@ -870,38 +870,38 @@
   </section>
   <section title="Validation/Configuration Options">
     <t>
-		You may specify the Values and Labels to be displayed in the drop down box via the Validation field.
-		There are 4 ways to specify the Values and Labels:
+        You may specify the Values and Labels to be displayed in the drop down box via the Validation field.
+        There are 4 ways to specify the Values and Labels:
         <list style="symbols">
           <t>Explitly:  You may specify in the Validation field the options to display, using one of two formats.
-			<list style="symbols">
-			  <t>
-			  	Comma Seperated Labels: Simply specify the labels you wish to display 
-				deliniated by commas.  The values specified will be used as both the 
-				ID and the display Label.  Example: label1,label2,label3
-			  </t>
-			  <t>
-			  	Semicolon Seperated ID/Label pairs: 
-				Specify a list of ID/Label pairs seperated by semicolons.
-				Example: id1,label1;id2,label2;id3,label3
-			  </t>
-			</list>		
-		  </t>
-		  <t>xarAPIModFunc():  
-		  	You may specify a tarAPIModFunc() call to a function that returns an array of ID/Value pairs.  
-		  	The Key's in the array should be the ID's you wish to store.</t>
-		  <t>Data File (File System):
-		  	You may specify a data file containing the data you wish to display.
-			To specify the data file use the following signature in the validation field
-			"{file:pathToFile.dat}".
-			Each line of the file should consist of one ID/Value pair, seperated by a comma.
-		  </t>
-		  <t>Data File (Via Uploads Module):
-		    As per the Data File option, but the file is uploaded into the system via the 
-			Uploads module.  The use signature is: "{fileid:#}" where the number is the
-			Uploads' File ID.  (Not yet implimented as of 5/03/04)
-		  </t>
-		</list>		
+            <list style="symbols">
+              <t>
+                  Comma Seperated Labels: Simply specify the labels you wish to display 
+                deliniated by commas.  The values specified will be used as both the 
+                ID and the display Label.  Example: label1,label2,label3
+              </t>
+              <t>
+                  Semicolon Seperated ID/Label pairs: 
+                Specify a list of ID/Label pairs seperated by semicolons.
+                Example: id1,label1;id2,label2;id3,label3
+              </t>
+            </list>        
+          </t>
+          <t>xarAPIModFunc():  
+              You may specify a tarAPIModFunc() call to a function that returns an array of ID/Value pairs.  
+              The Key's in the array should be the ID's you wish to store.</t>
+          <t>Data File (File System):
+              You may specify a data file containing the data you wish to display.
+            To specify the data file use the following signature in the validation field
+            "{file:pathToFile.dat}".
+            Each line of the file should consist of one ID/Value pair, seperated by a comma.
+          </t>
+          <t>Data File (Via Uploads Module):
+            As per the Data File option, but the file is uploaded into the system via the 
+            Uploads module.  The use signature is: "{fileid:#}" where the number is the
+            Uploads' File ID.  (Not yet implimented as of 5/03/04)
+          </t>
+        </list>        
     </t>
   </section>
   <section title="Requirements">

@@ -102,7 +102,7 @@
                         languages/en_GB.utf-8-1.1.tar.gz
                                   en_GB.iso8859-1-1.1.zip
         </artwork>
-      </t>	    
+      </t>        
       <t>Each directory could contain an index.php file which loaded a prettier looking directory index in a style that matched the look and feel of xaraya.com. It could also load in information about the module/item in question from the registered extensions entries in the database.</t>
     </section>
     <!-- Revision history is mandatory -->

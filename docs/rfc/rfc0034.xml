@@ -11,8 +11,8 @@
     <author initials="J." surname="Schrage" fullname="Jan Schrage">
       <organization>Xaraya Development Team</organization>
       <address>
-	<email>jan@xaraya.com</email>
-	<uri>http://www.xaraya.com</uri>
+    <email>jan@xaraya.com</email>
+    <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="January" year="2002"/>
@@ -37,25 +37,25 @@ information.</t>
       <t></t>
     </section>
 <section title="Data dictionary design">
-	<t>
+    <t>
 DB tables:
        <figure preamble=" DB tables"><artwork type="image/png" src="images/rfc0034_1.png"/></figure>
 <list style="bullet">
-	    <t>modid - module id</t>
-	    <t>type - type name</t>
-	    <t>maxlen - maximum storage length</t>
-	    <t>blwidget - blocklayout widget to handle this type</t>
-	  </list>
+        <t>modid - module id</t>
+        <t>type - type name</t>
+        <t>maxlen - maximum storage length</t>
+        <t>blwidget - blocklayout widget to handle this type</t>
+      </list>
       </t>
-	
-	<t>
+    
+    <t>
 API
        <figure preamble="API"><artwork type="image/png" src="images/rfc0034_2.png"/></figure>
       </t>
       </section>
     <section title="Relationship to other areas">
     <section title="Relation to Dynamic Data (RFC 7)">
-	<t>The data dictionary provides basic type checking and type
+    <t>The data dictionary provides basic type checking and type
 handling to all modules, including the dynamic data module. Properties
 handled by the dynamic data module should be derived from basic types.
 It is, however, intended that display and validation information provided 

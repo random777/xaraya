@@ -11,15 +11,15 @@
     <author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
       <organization>Project Management Core</organization>
       <address>
-	<email>gregor@xaraya.com</email>
-	<uri>http://www.xaraya.com</uri>
+    <email>gregor@xaraya.com</email>
+    <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <author initials="J." surname="Schrage" fullname="Jan Schrage">
       <organization>Xaraya Development Team</organization>
       <address>
-	<email>jan@xaraya.com</email>
-	<uri>http://www.xaraya.com</uri>
+    <email>jan@xaraya.com</email>
+    <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="January" year="2002"/>
@@ -61,7 +61,7 @@
         Variables. Values are serialized to support transparent storage of complex
         types (arrays etc). Each type has a default BL tag for rendering, which can
         be overwritten in the property. Properties are referenced by module name.
-			</t>
+            </t>
       <figure><artwork type="image/png" src="images/rfc0007_5.png"/></figure>
       <t>Proposed change: Remove field "validation": 
         Validation aspects should be handled by the data dictionary.
@@ -85,7 +85,7 @@
         <figure><artwork type="image/png" src="images/rfc0007_4.png"/></figure>
       </t>
       <section title="Review of the current DD API with extension proposals">
-        <list style="hanging">	
+        <list style="hanging">    
           <t>
             function dynamicdata_adminapi_createprop($args)
             <list>

@@ -11,8 +11,8 @@
     <author initials="J." surname="Doe" fullname="John Doe">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>johndoe@xaraya.com</email>
-	<uri>http://www.xaraya.com</uri>
+    <email>johndoe@xaraya.com</email>
+    <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="October" year="2002"/>
@@ -20,8 +20,8 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>
-	  The contents of this RFC could not be found in the original documents.
-	  </t>
+      The contents of this RFC could not be found in the original documents.
+      </t>
     </abstract>
   </front>
   
@@ -30,9 +30,9 @@
     <!-- One content section is mandatory -->
     <section title="Original content">
       <t>
-	    <artwork>
-	    RFC UNAVAILABLE
-	    </artwork>
+        <artwork>
+        RFC UNAVAILABLE
+        </artwork>
       </t>
     </section>
   </middle>

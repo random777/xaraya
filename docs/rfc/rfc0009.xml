@@ -11,8 +11,8 @@
     <author initials="DAD" surname="Daulton" fullname="Douglas">
       <organization>Xaraya Development Group</organization>
       <address>
-				<email>apakuni@xaraya.com</email>
-				<uri>http://www.xaraya.com</uri>
+                <email>apakuni@xaraya.com</email>
+                <uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="January" year="2002"/>
@@ -20,60 +20,60 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>The contents of this RFC contain the literal content of the old plain
-				text version of RFC-0001</t>
+                text version of RFC-0001</t>
       <t>When time is a less scarcer good, someone might convert the plain text
-				into structured XML so we can benefit from it.
+                into structured XML so we can benefit from it.
       </t>
     </abstract>
-		<note title="Note">
-			<t>This RFC will be replaced by RFC0031 (xDeveloper Community Tools)</t>
-		</note>
+        <note title="Note">
+            <t>This RFC will be replaced by RFC0031 (xDeveloper Community Tools)</t>
+        </note>
   </front>
   
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
     <!-- One content section is mandatory -->
-		<section title="Introduction">
-			<t>
-				The main objective of this project is to rethink, redesign and
-				redeploy support.xaraya.com.  This RFC will outline a variety
-				of proposed changes to the functionality, use and therefore
-				underlying architecture of support.xaraya.com.
-			</t>
-		</section>
+        <section title="Introduction">
+            <t>
+                The main objective of this project is to rethink, redesign and
+                redeploy support.xaraya.com.  This RFC will outline a variety
+                of proposed changes to the functionality, use and therefore
+                underlying architecture of support.xaraya.com.
+            </t>
+        </section>
 
-		<section title="Known Issues ">
-			<t>General Usability</t>
-			<t>
-				<list style="numbers">
-					<t>Confused links down the sidebars</t>
-					<t>Too many sites to go to without explanations of what they are
-						(All the Xaraya sites plus all the Sourceforge areas)</t>
-					<t>Scattered support services from Sourceforge to support.xaraya.com
-						to ice-interactive.com to xaraya.com as well as docs, themes,
-						modules, and blocks.</t>
-					<t>Inconsistent theme = inconsistent "mind share"</t>
-				</list>
-			</t>
-			<t>Xaraya Theme</t>
-			<t>
-				<list style="numbers">
-					<t>The links at the top of each site do not always go anywhere.</t>
-					<t>The switching graphic takes you to a different place depending
-						upon what site you are at.</t>
-					<t>The sites all look the same (not true)</t>
-					<t>The sites have different navigation</t>
-				</list>
-			</t>
-		</section>
-		<section title="Proposed Solution">
-			<t>Proposed Platform</t>
-			<list style="numbers">
-				<t>Xaraya:      Rogue .703+</t>
-				<t>Forum:       PostBoard 3.0  (see 3C4. Forums - Architechture)</t>
-				<t>Live Support:  ?PhpLive (www.livepeople.info/support/web/Xaraya)</t>
-				<t>IM/IRC:        Trillian (client - www.trillian.cc) / Jabber (server - www.jabber.com)</t>
-			</list>
+        <section title="Known Issues ">
+            <t>General Usability</t>
+            <t>
+                <list style="numbers">
+                    <t>Confused links down the sidebars</t>
+                    <t>Too many sites to go to without explanations of what they are
+                        (All the Xaraya sites plus all the Sourceforge areas)</t>
+                    <t>Scattered support services from Sourceforge to support.xaraya.com
+                        to ice-interactive.com to xaraya.com as well as docs, themes,
+                        modules, and blocks.</t>
+                    <t>Inconsistent theme = inconsistent "mind share"</t>
+                </list>
+            </t>
+            <t>Xaraya Theme</t>
+            <t>
+                <list style="numbers">
+                    <t>The links at the top of each site do not always go anywhere.</t>
+                    <t>The switching graphic takes you to a different place depending
+                        upon what site you are at.</t>
+                    <t>The sites all look the same (not true)</t>
+                    <t>The sites have different navigation</t>
+                </list>
+            </t>
+        </section>
+        <section title="Proposed Solution">
+            <t>Proposed Platform</t>
+            <list style="numbers">
+                <t>Xaraya:      Rogue .703+</t>
+                <t>Forum:       PostBoard 3.0  (see 3C4. Forums - Architechture)</t>
+                <t>Live Support:  ?PhpLive (www.livepeople.info/support/web/Xaraya)</t>
+                <t>IM/IRC:        Trillian (client - www.trillian.cc) / Jabber (server - www.jabber.com)</t>
+            </list>
 <artwork>
 stratagem
 I think the relaunch should be via .71
@@ -218,23 +218,23 @@ I think each site should have a unique look. I
 believe that some users get confused without knowing which site they
 are on exactly.
 
-			</artwork>
-		</section>
+            </artwork>
+        </section>
 
-		<section title="Forums">
-			<t>
-				<list style="numbers">
-						<t>Forums - Overview All forums to sit on a
-						common table set with specific forum views displayed at each subdomain
-						or sister site.  This allows </t>
-					<t>Forums - Subdomains &amp;Topics
-				www.xaraya.com (Home) Feature Requests 
-				- Core Functionality (for non	devs) 
-				Info Requests 
-				- Materials used to explain/market Xaraya
-				Developer Market 
-				- Promote folks who can implement and modify Xaraya
-			</t>
+        <section title="Forums">
+            <t>
+                <list style="numbers">
+                        <t>Forums - Overview All forums to sit on a
+                        common table set with specific forum views displayed at each subdomain
+                        or sister site.  This allows </t>
+                    <t>Forums - Subdomains &amp;Topics
+                www.xaraya.com (Home) Feature Requests 
+                - Core Functionality (for non    devs) 
+                Info Requests 
+                - Materials used to explain/market Xaraya
+                Developer Market 
+                - Promote folks who can implement and modify Xaraya
+            </t>
 <t>
 <artwork>
 :gregorrothfuss
@@ -242,7 +242,7 @@ while i like the idea to have a directory of Xaraya
 implementors, i think a forum is a very bad fit for that. a directory
 with a few required fields would be far better suited 
 -support.xaraya.com 
-- Installation(win) Installation for Wintel	environments 
+- Installation(win) Installation for Wintel    environments 
 - Installation(lin) Installation of Linux/Unix environments 
 - General Support 
 - Core Functionality (for non devs) Bug
@@ -358,37 +358,37 @@ community  gregorrothfuss   IM may be a useful way to escalate
 issues. I dont want to idle in the support rooms all the time when i
 am working on something, but I would not mind if a select group of
 people could IM me with urgent questions. \
-						</artwork>
-					</t>
-				</list>
-			</t>
-	
-		</section>
+                        </artwork>
+                    </t>
+                </list>
+            </t>
+    
+        </section>
 
-		<section title="Requirements ">
-			<t>
-				<list style="symbols">
-					<t>Database Tables: TBD </t>
-					<t>Code Base
-						<list style="numbers">
-							<t>Rewrites</t>
-							<t>New Code </t>
-						</list>
-					</t>
-				</list>
-			</t>
-		</section>
+        <section title="Requirements ">
+            <t>
+                <list style="symbols">
+                    <t>Database Tables: TBD </t>
+                    <t>Code Base
+                        <list style="numbers">
+                            <t>Rewrites</t>
+                            <t>New Code </t>
+                        </list>
+                    </t>
+                </list>
+            </t>
+        </section>
 
-		<section title="Issue Resolution">
-			<section title="Active issues">
-				<t>
-					<list style="numbers">
-						<t>Multilingual Support - 
-							The current support architecture is focussing on english
-							support. The Xaraya support infrastructure needs to scale out to third
-							party sites to provide multilangual support. The formation of a
-							Multilingual Support Council is proposed.
-							<artwork>
+        <section title="Issue Resolution">
+            <section title="Active issues">
+                <t>
+                    <list style="numbers">
+                        <t>Multilingual Support - 
+                            The current support architecture is focussing on english
+                            support. The Xaraya support infrastructure needs to scale out to third
+                            party sites to provide multilangual support. The formation of a
+                            Multilingual Support Council is proposed.
+                            <artwork>
 :jotajota   
 Why use third
 party sites instead of people speaking different languages giving
@@ -397,45 +397,45 @@ allows for more supporters online on the site giving sinergy (what
 supporter A doesn't know can be asked to B by the supporter himself)
 and more opportunities to get help (I preffer to get help on my mother
 tgongue but I could get it in French if I had to...)   
-								
+                                
 :gregorrothfuss 
 People want to have local communities, and centralizising everything
 on one site is not going to happen. we may as well take this into
 account, and try to come to an understanding with 3rd party sites. 
-						
+                        
 :mrherald   How about both? If an outside site wishes to provide
 support (we cannot stop them from doing it and we cannot force them to
 use what we have here) let them offer support, but be sure to link to
 it and have them link back to our support area. Support forums on the
 Xaraya family of sites should not be the only ones available to the
 user, but in the absence of other support it should be provided here.
-							</artwork>
-						</t>
-						<t>Parking Lot 1. Home for issues which will not be addressed in this
-							revision/release</t>
-					</list>
-				</t>
-			</section>
-		</section>
-		<section title="Document Changelog">
-			<t>
-				<list>
-					<t>1.0 (February 2, 2002) Douglas A. Daulton (aka Apakuni)</t>
-					<t>Initial Version 1.1 (February 6 2002) Gregor J. Rothfuss Multilingual Support Council added</t>
-				</list>
-			</t>
-		</section>
-		<section title="Credits &amp; Supporting Documents">
-			<t>
-				<list>
-					<t>Bob Brown (MrHerald / apt419)</t>
-					<t>E-mail: Issues and Concerns Sascha Endlicher (karateka)</t>
-					<t>E-mail: Live Support Gregor J. Rothfuss (gregor): </t>
-					<t>IRC Log: Support Discussion Carl P. Corliss (rabbitt): </t>
-					<t>IRC Log: Support Discussion</t>
-				</list>
-			</t>
-		</section>
-	</middle>
+                            </artwork>
+                        </t>
+                        <t>Parking Lot 1. Home for issues which will not be addressed in this
+                            revision/release</t>
+                    </list>
+                </t>
+            </section>
+        </section>
+        <section title="Document Changelog">
+            <t>
+                <list>
+                    <t>1.0 (February 2, 2002) Douglas A. Daulton (aka Apakuni)</t>
+                    <t>Initial Version 1.1 (February 6 2002) Gregor J. Rothfuss Multilingual Support Council added</t>
+                </list>
+            </t>
+        </section>
+        <section title="Credits &amp; Supporting Documents">
+            <t>
+                <list>
+                    <t>Bob Brown (MrHerald / apt419)</t>
+                    <t>E-mail: Issues and Concerns Sascha Endlicher (karateka)</t>
+                    <t>E-mail: Live Support Gregor J. Rothfuss (gregor): </t>
+                    <t>IRC Log: Support Discussion Carl P. Corliss (rabbitt): </t>
+                    <t>IRC Log: Support Discussion</t>
+                </list>
+            </t>
+        </section>
+    </middle>
 </rfc>
 

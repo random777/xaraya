@@ -3,7 +3,7 @@
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
-<?rfc toc='yes'?>
+<?rfc toc="yes"?>
 
 <rfc number="0025" category="info">
   <!-- number: Fill in the number for the RFC -->

@@ -12,7 +12,7 @@ Questions:
 7. When I pull I get the error: 
    path/to/some/file/SCCS/s.somefile.php is edited and modified; unsafe to overwrite. What does that mean?
 8. Can I move files from one repository to another?
-
+9. I'm on Windows.  How can I automagically export my repository into my Apache htdocs directory?
 Answers:
 ========
 
@@ -146,3 +146,26 @@ remove the directory '<dir_to_move>' and all the files in it.
 
 To make the changes permanent you can issue 'bk push' in both repositories and the move is done. 
 
+9. I'm on Windows.  How can I automagically export my repository into my Apache htdocs directory?
+-------------------------------------------------------------------------------------------------
+This is possible, if a little complex.  Install your site (including editing 
+the config files).  Now we can begin.
+
+Steps:
+1. Open a MS-DOS window and cd to your repository
+2. Copy config.system.php and config.site.xml from your Apache htdocs folder 
+into the html/var/ directory of your repository.
+3. Copy the batch file below and save it in a convenient place.  Edit the paths 
+as required by your BitKeeper/Apache setup.
+
+cls
+cd c:\PATH\TO\REPOSITORY
+bk export -tplain -vw -ihtml/* xaraya C:\PATH\TO\TEMPORARY\FOLDER
+cd C:\PATH\TO\HTDOCS\FOLDER
+deltree /Y *
+move C:\PATH\TO\TEMPORARY\FOLDER\html\* .\
+deltree /y C:\PATH\TO\TEMPORARY\FOLDER
+copy C:\PATH\TO\REPOSITORY\html\var\config.site.xml C:\PATH\TO\HTDOCS\FOLDER\var
+copy C:\PATH\TO\REPOSITORY\html\var\config.system.php C:\PATH\TO\HTDOCS\FOLDER\var
+del C:\PATH\TO\HTDOCS\FOLDER\var\*.dist
+cd C:\PATH\TO\REPOSITORY

@@ -271,6 +271,13 @@ function &lt;module&gt;_adminapi_delete($args)
     ...
 }
                     </artwork>
+                    <t>Note:  in some cases, you may want to call update hooks even when you're only
+                       updating part of a module item (e.g. the status of several articles, or the password
+                       of a user). In that case, you should signal the hook modules that they should
+                       not update any hooked values because they won't be available :</t>
+                    <artwork>
+xarVarSetCached('Hooks.all','noupdate',1);
+                    </artwork>
             </section>
 
             <section title="Calling Item New/Modify Hooks (GUI)">
@@ -450,6 +457,16 @@ function &lt;module&gt;_&lt;type&gt;api_&lt;hookfunc&gt;($args)
     ...
 }
                  </artwork>
+                    <t>Note:  in some cases, people may want to call update hooks even when they're only
+                       updating part of a module item (e.g. the status of several articles, or the password
+                       of a user). In that case, your hook module should not update any hooked values
+                       because they won't be available :</t>
+                    <artwork>
+    if (xarVarIsCached('Hooks.all','noupdate')) {
+        // return without updating any values
+        return $args['extrainfo'];
+    }
+                    </artwork>
             </section>
 
             <section title="Writing a GUI hook function">

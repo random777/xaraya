@@ -952,3 +952,11 @@ templates_c
 test.php
 xCode.apf
 ~*
+html/modules/advanced_polls/pnlang/eng/admin.php
+html/modules/advanced_polls/pnlang/eng/init.php
+html/modules/advanced_polls/pnlang/eng/poll.php
+html/modules/advanced_polls/pnlang/eng/polllist.php
+html/modules/advanced_polls/pnlang/eng/pollresults.php
+html/modules/advanced_polls/pnlang/eng/pollwarn.php
+html/modules/advanced_polls/pnlang/eng/user.php
+html/modules/modules/xaradminapi/verifydependents.php

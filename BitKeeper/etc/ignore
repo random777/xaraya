@@ -8,3 +8,5 @@ config.system.php
 html/modules/example/.pnadmin.php.swp
 html/modules/xproject
 html/modules/comments/old-pnuserapi.php
+.directory
+html/.directory

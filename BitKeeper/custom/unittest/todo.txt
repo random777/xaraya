@@ -1,0 +1,57 @@
+For lack of a better place a short(?) tasklist to implement the RFC to completion:
+
+- precondition() runs now for each test. It was my understanding the
+  precondtion should run only once for the testcase while as setup() 
+  should run for each test.
+- we should handle xarTestException better. It it set a bit differently than
+  xarTestFailure and xarTestSuccess now. The consequence is that the message
+  for xarTest* is empty. Jan: you test for the message, but actually the 
+  message may never be empty, either the msg from the test should be in there
+  or the exception msg.
+- the system fails ungracefully now when encountering php errors. We should
+  define a php-error handler which catches these and reroute them into a 
+  xarTestException object
+- the xarTestReport classes are absent
+- bk -r test goes to the root of repositor and produces the right output, but
+  it also produces: "output error: Broken pipe". I have no idea what bk does
+  besides cd-ing to the root of the repository. It seems to want to pipe the
+  result output into something.
+- command-line options aren't implemented yet. I'd love to use getopt php 
+  function for that, but this is not available on windows, we could use the
+  PEAR getopt package for it.
+- bk tests should actually look for testcases in all directories below the 
+  current directory (see RFC for exact definition)
+- is there a way to implement "-" commandline option (stdin input) so the 
+  command is actually scriptable?
+- trigger for global tests on pre-commit is absent
+- we haven't thought about overrides, however clever our test system is, we
+  want to be able to override stuff.
+  Example: "push it and i have a look at your problem" will be impossible if
+  we require the tests to run before a commit. We can either:
+  1. comments the offending test, which is dangerous if we forget to uncomment it
+  2. do some special magic to be able to  circumvent tests on a one time basis
+     which might also generate a msg to somewhere exposing that a commit was
+     done without running tests, so /abusers/ will be exposed.
+- we have to think about a reasonably generic server setup to run tests 
+  automatically.
+- an explanation of how to write tests and what unit tests are is *very* 
+  necessary to prevent people trying to write integration tests with the system.
+  maybe a rule of thumb: if a test method has more than 20 lines of code it's 
+  probably to large. Does that sound reasonable?
+- it would be nice to extend the bkview module to be able to run tests online
+  the bkview has a complete historical picture of the files in the repository
+  so it is theoretically capable of running tests at eacht changeset TOT 
+  revisions number (that is from the point on where we actually have the 
+  unit testing in place)
+- should we also override any possible assert-handlers? At this moment there
+  aren't any in the codebase. Idea is to have all output including exceptions,
+  errors and assertion info available to the test system.
+- the testcases dependencies haven't been implemented yet, not sure whether we
+  actually want that, it would speed things up and save changing back and
+  forth between directories, just convenience i guess. Once all the planned
+  command line options are in place we can specify it on the commands line from
+  which base directories the tests should be started.
+- some quicktest mode would be convenient imo just giving the nr of test, nr of
+  success and nr of failures. This would stimulate lots of test runs. Not very
+  high priority i guess.
+- 

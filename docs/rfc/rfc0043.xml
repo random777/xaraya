@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc="yes"?>
+
+<rfc number="0043" category="std">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Unique ID for any object</title>
+    <author initials="F.B." surname="Botelho" fullname="Flavio Borges Botelho">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>nuncanada@ig.com.br</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="March" year="2003"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Developer Pool</workgroup>
+
+    <!-- List keywords for the RFC here -->
+    <keyword>Unique</keyword>
+    <keyword>Identification</keyword>
+    <keyword>ID</keyword>
+    <keyword>database</keyword>
+    <keyword>scheme</keyword>
+    <keyword>relational</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>
+        This RFC presents a proposal for a Unique Identification System for Abstract
+        Objects inside the Xaraya Architeture.
+      </t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>
+        Across many of our database tables is perceptive the many cases where
+        module name, and some other information like module item, or module variable
+        is being used for uniquely identify a given set of informations.
+        There are other cases using as much as 3 different inputs to generate a
+        unique ID.
+        The idea is to abstract this
+      </t>
+    </section>
+
+    <section title="Pros">
+      <t>
+        The possibility of having the same unique identifier for an object across
+        all of stored information in the Xaraya Architeture
+      </t>
+    </section>
+
+    <section title="Cons">
+      <t>
+        There is a performance hit from bring this unique lookup from
+        the particular table to a general system.
+      </t>
+      <t>
+        This will double the number of SQL queries of the use cases, unless there is
+        a query abstraction system present.
+      </>
+    </section>
+
+    <section title="Implementation Idea">
+      <t>
+        The input is an associative array. For example:
+        array( 'module'    => 'articles',
+               'variable'  => 'pubtype1');
+
+        or:
+        array( 'module'    => 'articles',
+               'object'    => 'pubtype1',
+               'action'    => 'display');
+
+        So there would be a table for 2*n number of inputs.
+        (the key is one string to be looked for, and the values are other)
+        All which will be assigned id numbers.
+
+        And then select on a specialized table for the given number of
+        inputs the unique ID looked for.
+        
+      </t>
+    </section>
+  </middle>
+
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    <references title="Relevant References">
+    </references>
+    
+    <!-- Any section after this will become an appendix -->
+    <section title="Example appendix">
+      <t>Any section which is present after the references will become an appendix</t>
+    </section>
+  </back>
+</rfc>

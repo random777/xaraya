@@ -133,34 +133,29 @@ Module code in xaruser.php :
 function &lt;module&gt;_user_display($args)
 {
     ...
-    list($some,$pieces,$of,$text) = xarModCallHooks('item', 'transform', $itemid,
-                                                    // TODO: add itemtype
-                                                    // the pieces of text you want to transform here
-                                                    array($some,$pieces,$of,$text));
-/*  // alternatives - to be evaluated
-
-    // a) still pass the pieces of text separately
-    $result = xarModCallHooks('item', 'transform', $itemid,
-                              array(// if your module deals with different types of items
-                                    'itemtype'  =&gt; $itemtype,
-                                    // the pieces of text you want to transform here
-                                    'transform' =&gt; array($some,$pieces,$of,$text)));
-    list($some,$pieces,$of,$text) = $result['transform'];
-
-    // or b) specify *which* pieces of text are to be transformed, and pass the item information (same as other hooks)
     // get the item information
     $item = xarModAPIFunc('&lt;module&gt;', 'user', 'get',
                           array('someid' => $itemid, ...));
     ...
+/* old-style transform hooks
+    list($item['some'],
+         $item['pieces'],
+         $item['of'],
+         $item['text']) = xarModCallHooks('item', 'transform', $itemid,
+                                          // the pieces of text you want to transform here
+                                          array($item['some'],
+                                                $item['pieces'],
+                                                $item['of'],
+                                                $item['text']));
+*/
     // add some arguments for this hook
     $item['module'] = '&lt;module&gt;';
     $item['itemtype'] = $itemtype;
     // the fields (array keys) corresponding to the pieces of text you want to transform here
     $item['transform'] = array('some', 'pieces', 'of', 'text');
 
-    // transformed item
+    // transform item
     $item = xarModCallHooks('item', 'transform', $itemid, $item);
-*/
     ...
 }
                     </artwork>

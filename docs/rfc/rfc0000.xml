@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0000" obsoletes="0000" category="bcp">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>RFC-template</title>
+    <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>marcel@hsdev.com</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="October" year="2002"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>template</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>This RFC is the template for writing RFCs in XML or plain text for the 
+	Xaraya project.</t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>Every RFC contains at least the following sections:
+	<list style="bullet">
+	  <t>Introduction</t>
+	  <t>at least one content section</t>
+	  <t>Revision History</t>
+	</list>
+      </t>
+    </section>
+
+    <!-- One content section is mandatory -->
+    <section title="At least one content section">
+      <t>At least one content section must be present in an RFC	</t>
+    </section>
+
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>Put a summary of the major revisions to this document in here</t>
+    </section>
+
+  </middle>
+
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>
+    <references title="Reference title">
+      <!-- Fill in references as needed -->
+      <reference>
+	<front>
+	  <title>Reference title</title>
+	  <author>
+	    <organization>Organization</organization>
+	  </author>
+	  <date year="2002"/>
+	</front>
+      </reference>
+      <!-- Repeat the aboven block if more references are needed -->
+    </references>
+    
+    <!-- Any section after this will become an appendix -->
+    <section title="Example appendix">
+      <t>Any section which is present after the references will become an appendix</t>
+    </section>
+  </back>
+</rfc>

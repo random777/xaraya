@@ -7,6 +7,10 @@ Questions:
 4. I'm looking for changesets with revtool, the dates and times are all wrong, what's happening?
 5. I'm a scenario lead and have my own repository for the big change I'm making. I want the 'catch-up'
    with the main tree. How do I do that?
+6. I'm getting errors on pull that files are in the changeset but not in the repository. What does it
+   mean and what can I do to make it go away.
+7. When I pull I get the error: 
+   path/to/some/file/SCCS/s.somefile.php is edited and modified; unsafe to overwrite. What does that mean?
 
 
 Answers:
@@ -73,3 +77,18 @@ Or perhaps easier:
 bk pull yourname@xaraya.com:/path/to/main-tree
 
 This will do all of the above in one go. The parent is only changed for this command.
+
+6. I'm getting errors on pull that files are in the changeset but not in the repository. What does it
+   mean and what can I do to make it go away.
+-----------------------------------------------------------------------------------------------------
+It means that you are pulling files with changes in them but your local copy doesn't have the file 
+while it should have a copy. This can be caused by a number of problems, one of which is a bitkeeper
+bug (identified on windows version 3.0). Contact you local bitkeeper guru to help you out.
+
+7. When I pull I get the error: 
+   path/to/some/file/SCCS/s.somefile.php is edited and modified; unsafe to overwrite. What does that mean?
+---------------------------------------------------------------------------------------------------------
+This message is a little bit confusing. The file somefile.php is in /path/to/somefile/ and is checked out 
+from the repository and modified. Run bk citool to check this file in and then pull again. For a pull to 
+automatically resolve differences between the remote repository and your local one, all files need to be
+checked in, so bitkeeper knows what changes have been made.

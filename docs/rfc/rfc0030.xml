@@ -58,17 +58,18 @@
             component.
           </t>
           <t>
+            Access level: A number that defines the level of access in a privilege or a mask.
+          </t>
+          <t>
+            Privilege: An object defined by a component, instance and an access level that together define the access to the component.
+          </t>
+          <t>
             Mask: A tuple for a component specifying how it can be protected.
-            It consists of a pair specifyiing a component-name and an instance-
-            name. The mask specifies how a privilege can be applied to components.
+            The tuple consists of a component name, an instance name and an access level. The mask specifies how a privilege need be defined for access to the component.
             Masks are registered upon module initialisation.
           </t>
           <t>
-            Role: A named set of 1 or more users. A role can be a group or a user.
-          </t>
-          <t>
-            Privilege: specification of component-name, instance value(s), the
-            role and the allowed access level for the users in that role.
+            Role: A named set of 1 or more users. A role can correspond to a group or a user.
           </t>
         </list>
       </t>
@@ -105,7 +106,7 @@
               <t>
                 Privileges can be manipulated independently of
                 roles. We can create groups of privileges, adding or
-                deleting the components.  
+                deleting their components.  
               </t>
               <t>
                 We can then assign (compound) privileges to roles in a
@@ -140,7 +141,7 @@
       </t>
       <t>
         Note on usage: the code is currently implemented as two Xaraya
-        modules: Roles and Privileges The modules can be
+        modules: Roles and Privileges. The modules can be
         loaded in the normal way. They interact only with each other
         and therefore can be tested freely. Each module can also be
         disinstalled independently. The underlying database tables
@@ -149,48 +150,48 @@
     </section>
     
     <!-- One content section is mandatory -->
-    <section title="Concepts of the Xaraya Privileges System">
+    <section title="Concepts of the Xaraya Security System">
       <section title="Roles">
         <t>
           Roles is a generalization of the Users and Groups
           concepts in PostNuke. In Xaraya both Users and Groups of
-          users are implemented as Roles. As in PostNuke,
-          Roles that are Users can be members of other
-          Roles that are Groups. The difference to the PostNuke
+          users are implemented as roles. As in PostNuke,
+          roles that are Users can be members of other
+          roles that are Groups. The difference to the PostNuke
           concepts is that there is no limit to the levels of nesting
-          available. In addition, a Role can be a member of any
-          number of other Roles.
+          available. In addition, a role can be a member of any
+          number of other roles.
         </t>
         <t>
-          The Roles in Xaraya are arranged in a hierarchy or
-          tree, and every Role defined must be a member of at
-          least one already existing Role. At the top of the
-          hierarchy is a Role called "Everybody".
+          The roles in Xaraya are arranged in a hierarchy or
+          tree, and every role defined must be a member of at
+          least one already existing role. At the top of the
+          hierarchy is a role called "Everybody".
         </t>
         <t>
           Note: Contrary to the PostNuke permissions system, the order
-          in which multiple parents of a Role are defined is
+          in which multiple parents of a role are defined is
           not relevant for the way privileges are applied and has no
           impact on whether access is granted or denied.
         </t>
         <t>
-          The following rules apply to the Roles hierarchy:
+          The following rules apply to the roles hierarchy:
           <list style="numbers">
             <t>
               Roles defined as Users cannot themselves have children.
               (i.e. a role which has one user is a leaf of the roles tree)
             </t>
             <t>
-              A Role cannot be a parent of one of its
+              A role cannot be a parent of one of its
               ancestors in the hierarchy; obviously to prevent endless loops. 
-              A Role also cannot be its own child.
+              A role also cannot be its own child.
             </t>
             <t>
-              A Role cannot have another Role as a child
+              A role cannot have another role as a child
               more than once. (This is not strictly necessary, but it
               avoids confusion.) Note, however, that it is possible
-              for a Role to be a child and simultaneously a
-              grandchild of another Role, as the following
+              for a role to be a child and simultaneously a
+              grandchild of another role, as the following
               example shows.
             </t>
           </list>
@@ -325,7 +326,7 @@
           </list>
         </t>
         <t>
-          Similar to Roles, Privileges can be composed of other
+          Similar to roles, privileges can be composed of other
           privileges. In addition to the attributes described above a
           privilege can have any number of subprivileges. A privilege
           can also be a component of any number of "parent"
@@ -352,16 +353,16 @@
           suggestive of certain behaviour there is no fixed naming
           rule. You can assign any names you want as long as they are
           unique. Furthermore there is no rule for how to group
-          Privileges, for instance by module. A good administrator
-          will structure his Privileges according to the Roles he
+          privileges, for instance by module. A good administrator
+          will structure his privileges according to the roles he
           wants to assign them to, rather than by component or level.
         </t>
         <t>
-          In Xaraya Privileges are defined without reference to any
+          In Xaraya privileges are defined without reference to any
           group or user. They are objects with no relevance until they
-          are assigned to one or more Roles. As explained below,
-          assigning the head of a Privileges tree to a Role assigns
-          ALL the components of the tree of that Privilege.
+          are assigned to one or more roles. As explained below,
+          assigning the head of a privileges tree to a role assigns
+          ALL the components of the tree of that privilege.
         </t>
         <t>
           For convenience a number of privileges have been created
@@ -381,7 +382,7 @@
             <t>
               FullPrivileges is the privilege representing the highest
               level of access to all Xaraya modules, i.e. the ability to
-              do anything. This Privilege cannot be modified or
+              do anything. This privilege cannot be modified or
           deleted. It has the attributes:
               <artwork>
                 Realm     Module    Component    Instance    Level
@@ -409,9 +410,9 @@
         </t>
       </section>
 
-      <section title="Privilege Levels">
+      <section title="Access Levels">
         <t>
-          As mentioned above Xaraya uses the privileges levels
+          As mentioned above Xaraya uses the access levels
           originally defined in PostNuke. These are:
           <artwork>
             Name              Level
@@ -441,12 +442,12 @@
 
       <section title="Irreducible Sets">
         <t>
-          As noted above, when two Privileges are defined on the same
+          As noted above, when two privileges are defined on the same
           module, component and instance the one with the
           higher access level includes the right to the one with the
-          lower level. We say that the Privilege with the
+          lower level. We say that the privilege with the
           higher access level implies the other. In the following
-          example two Privileges are defined on the Examples module:
+          example two privileges are defined on the Examples module:
           
           <artwork>
             Name     Realm     Module    Component    Instance    Level
@@ -455,10 +456,10 @@
             EditExp  All       Examples  All          All         ACCESS_EDIT    
           </artwork>
           
-          The Privilege EditExp implies ReadExp.
+          The privilege EditExp implies ReadExp.
         </t>
         <t>
-          Note that two Privileges A and B are considered equal
+          Note that two privileges A and B are considered equal
           (identical) if A implies B and B implies A.
         </t>
         <t>
@@ -470,21 +471,21 @@
             EditArt  All       Articles  All          All         ACCESS_EDIT    
             EditArt1 1         Articles  All          All         ACCESS_EDIT    
           </artwork>
-          none of the Privileges imply any of the others, as they
+          none of the privileges imply any of the others, as they
           refer to different modules and/or realms. We call such
-          Privileges disjoint. (NOTE: This example contains a Realm which is a
+          privileges disjoint. (NOTE: This example contains a Realm which is a
           feature which will not be used in the initial implementation.)
         </t>
         <t>
-          Definition: An Irreducible Set of Privileges is a set in
-          which all the Privileges are disjoint.
+          Definition: An Irreducible Set of privileges is a set in
+          which all the privileges are disjoint.
         </t>
       </section>
       
       <section title="Winnowing">
         <t>
           Definition: Winnowing is the process by which the Xaraya
-          privileges system creates irreducible sets of Privileges.
+          privileges system creates irreducible sets of privileges.
         </t>
         <t>
           A privilege accumulates the attributes of its
@@ -496,7 +497,7 @@
           account.
         </t>
         <t>
-          However, in any given tree not all the Privileges will
+          However, in any given tree not all the privileges will
           necessarily be relevant. Take the following example:
           <artwork>    
             ReadAll                      
@@ -521,16 +522,16 @@
           </artwork>
           It can be seen that, with the definitions given above, 2
           implies 3 and 5 implies 4. Therefore when comparing all the
-          Privileges in the set, Privileges 3 and 4 are not
+          privileges in the set, privileges 3 and 4 are not
           relevant, because they are superceded by 2 and 5
           respectively.
         </t>
         <t>
           During the winnowing process the privileges system compares
-          each Privilege in a tree with all the others in the same
-          tree and discards those Privileges implied by others. In particular duplicate Privileges are removed. In
+          each privilege in a tree with all the others in the same
+          tree and discards those privileges implied by others. In particular duplicate privileges are removed. In
           the example above winnowing would leaves us with the
-          following Privileges:
+          following privileges:
           <artwork>    
             ReadAll
             DelExp
@@ -538,7 +539,7 @@
           </artwork>
         </t>
         <t>
-          As can be seen, all the Privileges left in the example
+          As can be seen, all the privileges left in the example
           above after winnowing are disjoint. The set is irreducible.
         </t>
         <t>
@@ -568,19 +569,19 @@
       <section title="Assigning Privileges">
         <t>
           In order for the privileges system to do something useful,
-          Privileges need to apply for users and groups. This is done
-          by assigning Privileges to Roles in the UI. Theoretically
-          any Privilege can be assigned to any Role.
+          privileges need to apply for users and groups. This is done
+          by assigning privileges to roles in the UI. Theoretically
+          any privilege can be assigned to any role.
         </t>
         <t>
-          Suppose I have a Role FOO and the tree of Privileges in the
+          Suppose I have a role FOO and the tree of privileges in the
           example above. The following operation:
         </t>
         <t>
           "assign ReadAll to FOO" [MrB: in abstract: assign [privilege] to [role], good example for adding a domain language for it later on]
         </t>
         <t>
-          will assign all 5 of the Privilege in the tree to
+          will assign all 5 of the privilege in the tree to
           FOO. (Note the notation for assignment shown here is only
           for convenience; the privileges UI is graphical)
         </t>
@@ -593,13 +594,13 @@
         <t>
           will give a different result depending on the shape of the tree, as the following examples show:
           <artwork>    
-            ReadAll                     "assign DelExp to FOO"
+            ReadAll                  "assign DelExp to FOO"
             |
             |--DelExp
             |                         Privileges assigned: DelExp
-            |--AddExp                                       AddExp
-               |                                            EditArt
-               |--EditArt                                   AddArt
+            |--AddExp                                      AddExp
+               |                                           EditArt
+               |--EditArt                                  AddArt
                |  
                |--AddArt
           </artwork>
@@ -608,7 +609,7 @@
             ReadAll                     "assign DelExp to FOO"                
             |
             |--DelExp                    Privileges assigned: DelExp
-            |  |                                               AddExp
+            |  |                                              AddExp
             |  |--AddExp
             |  
             |--EditArt
@@ -624,7 +625,7 @@
           initialization time. These cannot be changed.
         </t>
         <t> 
-          The Role "Everybody" is assigned the Privilege
+          The role "Everybody" is assigned the privilege
           "NoPrivileges". In other words, Everybody can do nothing.
         </t>
         <t> 
@@ -633,7 +634,7 @@
           [MrB: no, not by the system, but maybe in the deployment]
         </t>
         <t> 
-          The Role Oversight is assigned the Privilege
+          The role Oversight is assigned the privilege
           FullPrivileges. In other words, members of the Oversight
           group can do anything.
         </t>
@@ -641,36 +642,36 @@
 
       <section title="Inheriting Privileges">
         <t> 
-          A Privilege assigned to a Role is automatically inherited
-          by all the Role's descendants. For example, using the previous
+          A privilege assigned to a role is automatically inherited
+          by all the role's descendants. For example, using the previous
           example:
           <artwork>    
-            ReadAll                     "assign ReadAll to FOO"
+            ReadAll                   "assign ReadAll to FOO"
             |
             |--DelExp
             |  |                       Privileges assigned: DelExp
-            |  |--AddExp                                       AddExp
+            |  |--AddExp                                    AddExp
             |                                               EditArt
             |--EditArt                                      AddArt
             |  
             |--AddArt
           </artwork>
-          Role FOO will have 5 Privileges assigned to him. However the
-          same Privileges will also be assigned to a child of FOO:
+          Role FOO will have 5 privileges assigned to him. However the
+          same privileges will also be assigned to a child of FOO:
           <artwork>    
             FOO                     
             |
             |--BAR
           </artwork>
-          We say that BAR has inherited the Privileges of FOO. Note
-          that BAR may also have Privileges assigned to it. The UI
-          of the privileges system will show for each Role which
-          Privileges have been assigned and which inherited.
+          We say that BAR has inherited the privileges of FOO. Note
+          that BAR may also have privileges assigned to it. The UI
+          of the privileges system will show for each role which
+          privileges have been assigned and which inherited.
         </t>
         <t> 
           It's pretty apparent that if an inherited and an assigned
-          Privilege are disjoint, then nothing will happen. Essentially
-          the two Privileges have nothing to do with each other. But
+          privilege are disjoint, then nothing will happen. Essentially
+          the two privileges have nothing to do with each other. But
           what happens when one of them implies the other? To wit:
           
           <artwork>    
@@ -686,34 +687,34 @@
             3. ReadExp  All       Examples  All          All         ACCESS_READ    
           </artwork>
           
-          In this case the relevant Privilege for BAR would be
+          In this case the relevant privilege for BAR would be
           ReadExp, even though its access level is lower, because
         </t>
         <t> 
-          Rule: For Privileges that are not disjoint, those of the
+          Rule: For privileges that are not disjoint, those of the
           children take precendence over those of the parents. We say
-          that BAR's Privilege "trumps" that of his parent FOO.
+          that BAR's privilege "trumps" that of his parent FOO.
         </t>
       </section>
 
-      <section title="Security Schemas">
+      <section title="Masks">
         <t> 
-          A Security Schema, or simply Schema, is a special type of
-          Privilege in the Xaraya security system. Each Schema
+          A mask is a special type of
+          privilege in the Xaraya security system. Each mask
           refers to one or more security checks in the code. When a
           security check is encountered, the system gets the relevant
-          Schema and compares it to the Privileges of the user. A green
-          light is given if the Schema is implied by one of the user's
-          Privileges. Otherwise an exception is thrown.
+          mask and compares it to the privileges of the user. A green
+          light is given if the mask is implied by one of the user's
+          privileges. Otherwise an exception is thrown.
         </t>
         <t>	
-          The structure of a Schema corresponds to that of a Privilege. For example the following Schema
+          The structure of a Schema corresponds to that of a privilege. For example the following Schema
           <artwork>
             Name     Realm     Module    Component    Instance    Level
             -------- --------- --------- ------------ ----------- ------------
             ReadExp  All       Examples  All          All         ACCESS_READ    
           </artwork>
-          requires that a user has a Privilege assigned with at
+          requires that a user has a privilege assigned with at
           least ACCESS_READ in order to pass a given security check.
         </t>
       </section>
@@ -724,23 +725,23 @@
           privileges system goes through the following steps:
           <list style="numbers">
             <t>
-              It identifies the Role encountering the check and gets
+              It identifies the role encountering the check and gets
               all his ancestors.
             </t>
             <t>
               For each ancestor it creates an irreducible set by finding
-              all the assigned Privileges and winnowing them.
+              all the assigned privileges and winnowing them.
             </t>
             <t>
-              Next, for each ancestor level the Privileges inherited
+              Next, for each ancestor level the privileges inherited
               to the next level, where they are winnowed again, until the
-              Role is reached. The result of this process is an
-              irreducible set of Privileges specific to that Role.
+              role is reached. The result of this process is an
+              irreducible set of privileges specific to that role.
             </t>
             <t>
-              In a final step the Privileges of the set are compared
+              In a final step the privileges of the set are compared
               ome by one against the Schema of the security. If any of
-              the Privileges implies the Schema, the security check is
+              the privileges implies the Schema, the security check is
               passed.
             </t>
           </list>
@@ -753,24 +754,24 @@
             |
             |--Marketing        offspring distance 1
             |  |
-            |  |--Ana Fernandez
+            |  |--Product Mgr
             |  
             |--Europe           offspring distance 2
                |
                |--Spain         offspring distance 1
                   |
-                  |--Ana Fernandez
+                  |--Product Mgr
           </artwork>
-          Let's assume the user logged in has the "Ana Fernandez" role and an action is
+          Let's assume the user logged in has the Product Mgr role and an action is
           requested by that user which is protected by the security system. Below are the 
           steps what happens. Look at this example from the point of view of the actual
-          role requesting the protected action (here: Ana Fernandez). The offspring distance is
-          the ancestry relative to "Ana Fernandez" (the maximum value for it)
+          role requesting the protected action (here: Product Mgr). The offspring distance is
+          the ancestry relative to Product Mgr (the maximum value for it)
           <list style="numbers">
             <t>
-              The system gets the privileges of all ancestors of "Ana Fernandez" and
-              winnows the Privileges of each of them. In this case: Everybody, Marketing, Europe
-              and Spain. The privileges of the Role itself are also fetched and winnowed. The result is that each node in the tree now has its irreducuble set of privileges assigned to it.
+              The system gets the privileges of all ancestors of Product Mgr and
+              winnows the privileges of each of them. In this case: Everybody, Marketing, Europe
+              and Spain. The privileges of the role itself are also fetched and winnowed. The result is that each node in the tree now has its irreducuble set of privileges assigned to it.
             </t>
             <t>
               Next, each irreducible set is looked at, starting at the top level. (here:
@@ -791,10 +792,10 @@
             </t>
             <t>
               At this point we have the irreducible sets for distance 1, so we can continue
-              to the requesting role. "Ana Fernandez" inherits the irreducable set from
+              to the requesting role. Product Mgr inherits the irreducable set from
               distance 1 (1->0) (which have been created from the irreducable sets from the 
               higher distances). This produces the irreducible set of privileges for the
-              "Ana Fernandez" role.
+              Product Mgr role.
             </t>
             <t>
               That set is compared against the mask of the security check needed for the
@@ -818,7 +819,7 @@
           this repository.
         </t>
         <t>
-          An implementation of the Roles object
+          An implementation of the roles object
           conceptually replaces the tables xar_user and
           xar_groups. The code for manipulating roles will deal with
           the issue of whether the role is a group or a user and
@@ -838,7 +839,7 @@
         </t>
       </section>
 
-      <section title="Security masks">
+      <section title="Masks">
         <t>
           A central repository of privilege masks (policies?). The
           masks are normally defined and registered as entries upon
@@ -917,14 +918,14 @@
         </t>
       </section>
 
-      <section title="Security mask">
+      <section title="Mask">
         <t>
-          An object representing a single privilege mask
+          An object representing a single mask
           <artwork>
             Methods:            
             constructor            
-            add            add this schema to the Schemas repository
-            remove         remove this schema from the Schemas repository
+            add            add this mask to the Masks repository
+            remove         remove this mask from the Masks repository
             equals         check whether a role is the same as this role
             implies        check whether an entry implies this entry
             gets           all the interesting variables
@@ -936,7 +937,7 @@
 
       <section title="Privilege">
         <t>
-          An object representing a single privilege. This extends SecuritySchema
+          An object representing a single privilege. This extends Mask
           <artwork>
             Methods:            
             constructor
@@ -1122,7 +1123,7 @@
       <section title="Future Implementation">
         <t>
           The issues encountered in Version 1.0 suggest merging the
-          Roles and Security modules into a single module in the
+          Roles and Privileges modules into a single module in the
           future.
         </t>
         <t>
@@ -1137,14 +1138,6 @@
       <section title="Miscellaneous Notes To Do">
         <t>
           <list style="symbols">
-            <t>
-              Need to check that all the recursive functions don't
-              crash if nothing is found.  
-            </t>
-            <t>
-              Need to optimize the functions so as to cut down the
-              number of DB calls where possible.  
-            </t>
             <t>
               Need to integrate a regex translation layer for backward
               compatibility.

@@ -64,8 +64,6 @@ html/
     |               <user|admin>-<module function>[-<template>].xd
     |               blocks/
     |                   <block name>-<template name>.xd
-    |               tags/
-    |                   <tag name>-<template name>.xd
     |               includes/
     |                   <file>.xd
     |-- includes/
@@ -81,12 +79,8 @@ html/
             |           <user|admin>-<module function>[-<template name>].xt
             |           blocks/
             |               <block name>-<template name>.xt
-            |           borders/
-            |               <template name>.xt
-            |           tags/
-            |               <tag name>-<template name>.xt
             |           includes/
-            |               <tag name>-<template name>.xt
+            |               <file>.xt
             |-- includes/
                     <file>.xt
       ]]></artwork>

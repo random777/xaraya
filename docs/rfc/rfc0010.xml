@@ -361,9 +361,11 @@ html/
           </list>
         </t>
         <t>
-          The 'context' section for each tag description describes to which 'parent' tag the described tag 
-          belong, in the sense of required structure, and the child tags which are expected before the closing
-          tag, again in terms of required structure.
+          The 'context' section for each tag description describes to
+          which 'parent' tag the described tag belong, in the sense of
+          required structure, and the child tags which are expected
+          before the closing tag, again in terms of required
+          structure.
         </t>
 				<!-- xar:block -->
 				<section anchor="block" title="&lt;xar:block /&gt;">
@@ -483,40 +485,73 @@ html/
             </artwork>
           </section>
           <section title="Context">
-            <t>Parent tag: none.</t>
+            <t>Parent tag: <xref target="blockgroup">&lt;xar:blockgroup&gt;</xref> when that tag 
+                is used in block form.</t>
             <t>Child tags: none</t>
           </section>
 				</section>
 				<!-- xar:blockgroup -->
 				<section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">
-					<t>Closed.</t>
-					<t>Attributes:
-            <list style="symbols">
-							<t>id: an identifier for the tag (optional).</t>
-							<t>name: the name of the block group (optional). If present,
-                specifies the blockgroup to display.</t>
-							<t>template: identifier for the appearance of blocks in the group,
-                set in administration (optional). If present, overrides the
-                default template for all blocks in the group.</t>
-						</list>
-					</t>
-					<t>Description</t>
 					<t>
-            The Blockgroup tag is responsible for rendering a group of blocks. If
-            empty, it renders the named group from the database.  Otherwise, it
-            specifies the block border to use on all &lt;xar:block/&gt; tags within it.
+            The Blockgroup tag is responsible for rendering a group of
+            blocks. If empty, it renders the named group from the
+            database.  Otherwise, it specifies the block border to use
+            on all &lt;xar:block/&gt; tags within it.
           </t>
-					<t>Syntax example:
+          <section title="Forms">
+            <t>Empty form
+              <t>The group of blocks is determined at runtime based on the
+                value of the name attribute. The name references a value entered
+                in the blocks adminstration indicating which block group to render.
+              </t>
+              <t>Block form
+                <t>When specified as a block tag all the block tags specified within the
+                  blockgroup are rendered.
+                </t>
+              </t>
+            </t>
+          </section>
+					<section title="Attributes">
+            <list>
+							<t><em>[id]</em>
+                <t>an identifier for the tag.</t>
+              </t>
+							<t><em>name</em> 
+                <t>The name of the block group to render. When the tag is
+                  used in its empty form this attribute is required. The attribute is
+                  ignored when the tag is used in its block form.
+                </t>
+              </t>
+              <t><em>template</em>
+                <t>Name of the template to use when using the blockgroup tag in its
+                  block form. In that case it is a required atribute. When the tag is
+                  used in its empty form, the attribute is ignored. We may choose
+                  to have a strict rendering mode which explicitly forbids the use
+                  of the attribute. (the same holds for the name attribute above.
+                </t>
+              </t>
+						</list>
+					</section>
+					<section title="Syntax examples">
             <artwork>
               &lt;xar:blockgroup name="left" template="SeaBreeze_left"/&gt;
+                
+                Renders the blockgroup 'left'. The template attribute is ignored or, when in strict
+                rendering creates an exception.
+
               &lt;xar:blockgroup template="SeaBreeze_center"&gt;
-              &lt;xar:block name="login" module="users" template="simple_login"/&gt;
+                &lt;xar:block name="login" module="users" template="simple_login"/&gt;
               &lt;/xar:blockgroup&gt;
-            </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none.</t>
-				</section>
+              
+                Renders the block 'login' in a blockgroup using the template 'SeaBreeze_center' for the
+                blockgroup.
+           </artwork>
+					</section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: in block form at least one <xref target="block">&lt;xar:block&gt;</xref> tag.</t>
+          </section>
+        </section>
 				<!-- xar:break -->
 				<section anchor="break" title="&lt;xar:break /&gt;">
 					<t>Closed.</t>

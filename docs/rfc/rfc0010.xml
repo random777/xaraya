@@ -708,36 +708,61 @@ html/
             <t>Child tags: none</t>
           </section>
         </section>
-      
-                <!-- xar:for -->
-                <section anchor="for" title="&lt;xar:for /&gt;">
-                    <t>Open</t>
-                    <t>Attributes:
-            <list style="symbols">
-                            <t>id: an identifier for the tag (optional)</t>
-                            <t>start: the initial declaration of the variable to be iterated over</t>
-                            <t>test: the condition to test the iterated value against</t>
-                            <t>iter: the action to perform on the iterator variable at the end of
-                each pass through the loop</t>
-                        </list>
-                    </t>
-                    <t>Description</t>
-                    <t>
-            Contains template data evaluated while "test" is true. The value of
-            Test is raw PHP code, executed in safe mode.
+        <!-- xar:for -->
+        <section anchor="for" title="&lt;xar:for /&gt;">
+          <t>
+            The &lt;xar:for&gt; tag is a control structure which emulates a 
+            for loop, like encountered in most programming languages. Based
+            on a 'start', 'test' and 'iter' attribute, the child tags of the 
+            tag are processed zero or more times. 
           </t>
-                    <t>Syntax example:
+          <section title="Forms">
+            <t>Only allowed in block form.</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag</t>
+              </t>
+              <t><em>start</em>
+                <t>An expression which should evaluate to a value, which 
+                   is taken as the initial value of the loop variable to iterate
+                   over.
+                </t>
+              </t>
+              <t><em>test</em>
+                <t>The condition to test the iterated value against. This attribute
+                   is a php expression which should evaluate to false or true on each
+                   iteration. The for loop stops iterating when the value of the 
+                   'test' attributes is false. Again, when using comparison operators
+                   refer to the <xref target="tagdescription">note on logictags</xref>
+                </t>
+              </t>
+              <t><em>iter</em>
+                <t>The action to perform at the end of each pass through the loop. 
+                   The blocklayout for construct is just as susceptible to infinite
+                   looping as any for construct in another language. In fact, the 'for'
+                   tag is almost literally translated into a for construct in php. Anything
+                   which can go wrong with a php for loop, also holds for the blocklayout
+                   variety of it.
+                </t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
-              &lt;xar:for start="$i = 0" test="$i &lt;= 10" iter="$i++"&gt;
-              // stuff
+              &lt;xar:for start="$i = 0" test="$i le 10" iter="$i++"&gt;
+                // stuff which gets process during $i &lt;= 10
               &lt;/xar:for&gt;
             </artwork>
-                    </t>
-                    <t>Parent tag: none.</t>
-                    <t>Child tags: none</t>
-                </section>
-                <!-- xar:foreach -->
-                <section anchor="foreach" title="&lt;xar:foreach /&gt;">
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: none</t>
+          </section>
+        </section>
+        <!-- xar:foreach -->
+        <section anchor="foreach" title="&lt;xar:foreach /&gt;">
                     <t>Open</t>
                     <t>Attributes:
             <list style="symbols">

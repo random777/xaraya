@@ -9,6 +9,7 @@ OUTPUT=/var/www/ddf/common/documentation/rfcs
 # make sure the clone is up to date
 bk pull
 
+make clean
 make html
 
 mv *.html $OUTPUT

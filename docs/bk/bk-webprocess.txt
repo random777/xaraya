@@ -181,8 +181,8 @@ Site: www.xaraya.com
 --------------------
 
 [DONE] Repository : /usr/local/repositories/websites/www, level : 20
-[DONE] Development clone: /var/www-ssl/ddf/concept.xaraya.com/www/, level : 15
-[DONE] Staging clone: /var/www-ssl/ddf/staging.xaraya.com/www/, level : 10
+[DONE] Development clone: /var/www-ssl/ddf/concept.xaraya.com/www/, level : 20
+[DONE] Staging clone: /var/www-ssl/ddf/staging.xaraya.com/www/, level : 15
 Production clone: /var/www/ddf/www.xaraya.com/
 
 Site: developer.xaraya.com
@@ -195,7 +195,7 @@ Production clone: /var/www-ssl/ddf/developer.xaraya.com, level : 10
 Site : news.xaraya.com
 ----------------------
 [DONE] Repository : /usr/local/repositories/websites/news, level : 20
-Development clone : N/A
+[DONE] Development clone : /var/www-ssl/ddf/concept.xaraya.com/news: level 20
 [DONE] Staging clone: /var/www-ssl/ddf/staging.xaraya.com/news, level : 15
 Production clone: /var/www/ddf/news.xaraya.com, level : 10
 

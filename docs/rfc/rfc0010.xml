@@ -467,71 +467,99 @@ html/
           <section title="Forms">
             <t>Empty form:
               <t>
-                When a block is specified in empty form, the contents
-                of the block are <em>implicit</em> i.e. the contents
-                will be produced by another part of xaraya.
+                Since a block accepts structured data in its overriding
+                parameters, this tag only supports the empty form at 
+                present.
               </t>
             </t>
             <t>Block form:
               <t>
-                When the block element is specified with an opening
-                tag, 1 or more content producing child tags and a
-                closing tag, the children of the block tag are taken
-                as the content of the block, overriding the implicit
-                mechanism of the empty form. Note that the module and
-                name attribute have a different meaning when a block
-                is specified in this way.  The system will still try
-                to search the specified module for a display function
-                to get the appropriate data for it. That display
-                function may or may not exist. If it does not exist,
-                the content provided by the child tags is used to
-                render the block contents.
+                This is for future expansion. Although the empty form
+                of this tag allows attributes to over-ride any default
+                or pre-defined parameter of the block, attributes are
+                not suitable for passing in all types of data. We
+                envisage a method of allowing overriding block parameter 
+                data to be passed in through the block content, perhaps
+                using a child tag. It could look something like this:
+                <artwork><![CDATA[
+                    <xar:block instance="123">
+                        <xar:param name="category">42</xar:param>
+                        <xar:param name="alt_title">My News Stories</xar:param>
+                    </xar:block>
+                ]]></artwork>
               </t>
-              <t>Note: especially this area is largely untested at this time</t>
             </t>
           </section>
           <section title="Attributes">
             <t>
+              <t>
+                A block is identified by its instance or by the module and type.
+                A block identified by its instance, will have been created
+                through the blocks administration screens, and will have custom
+                content set. A block identified by its module/type does not need
+                to created first through the blocks admin screens, and will
+                initially contain default content for that block type.
+              </t>
               <list>
                 <t><em>[id]</em><t> an identifier for the tag</t></t>
                 <t><em>[instance]</em>
                   <t>
                     If instance is specified, it's value is used to look
-                    up the the specific block in the database. The rest
-                    of the attributes is ignored when instance is
-                    specified.
+                    up the the specific block in the database. The instance
+                    can take the form of a block ID or a block name.
                   </t>
                 </t>
-                <t>
-                  For the description of the rest of the attributes, we
-                  will assume that the instance attribute was not
-                  specified, including the optional specification for
-                  the attributes.
-                </t>
-                <t><em>module</em>
+                <t><em>[module]</em>
                   <t>
                     Name of the module which owns the block. In the
                     administration part of Xaraya this is visible when
-                    looking at the block types.
+                    looking at the block types. This attribute must be
+                    used in conjunction with the [type] attribute.
                   </t>
                 </t>
-                <t><em>name</em>
+                <t><em>[type]</em>
                   <t>
                     Name of the block to display. The name is the value
                     of the field filled in by the site manager in the
-                    administration part of Xaraya.
+                    administration part of Xaraya. This attibute must
+                    be used in conjunction with the [module] attribute.
+                  </t>
+                </t>
+                <t><em>[name]</em>
+                  <t>
+                    The name of the block to display. The name is used
+                    only for security checks, to determine whether the
+                    block should be loaded at run-time.
                   </t>
                 </t>
                 <t><em>[title]</em>
                   <t>The title to use for the block.</t>
                 </t>
-                <t><em>[template]</em>(default)
+                <t><em>[template]</em>
                   <t>
                     Name of a template to use for the block. The
-                    template is best viewed as a template for the box
-                    surrounding the block. The contents of the block
-                    itself is produced on the basis of other sources,
-                    depending on what is inside the block.
+                    template attribute can define two templates: the
+                    box template and the block template. Essentially
+                    the block template defines the layout within a block
+                    and the box template defines a wrapper to go around
+                    the block. The format of this attribute is:
+                    box-template;block-template - both of which are
+                    optional. Default templates will be used if none
+                    are specified with this attribute.
+                  </t>
+                </t>
+                <t><em>[*]</em>
+                  <t>
+                    All other attributes are passed to the block as
+                    overriding parameters. The attribute names are
+                    specific to each block. A system for allowing a
+                    block to declare which attributes are available, 
+                    and what kind of validation will be performed on
+                    them, will also be in place. Blocks not declaring
+                    allowed attributes will not have any restrictions
+                    placed on the overriding parameters passed in to
+                    them, so be aware that without validation, rendering
+                    results can be undefined.
                   </t>
                 </t>
               </list>

@@ -470,3 +470,4 @@ html/themes/Caxa-02/theme.php
 html/themes/Caxa-02/xartheme.php
 html/modules/release/xartemplates/user-getdoc.xd
 html/modules/release/xartemplates/user-rssviewthemes.xd
+html/modules/release/xartemplates/user-rssviewids.xd

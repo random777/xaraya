@@ -171,6 +171,7 @@
         <include name="var/index.html"/>
         <include name="var/**/index.html"/>
         <include name="var/rsd.xml"/>
+        <include name="var/messaging/**/*.xd" />
         
         <include name="var/locales/en_US.iso-8859-1/**"/>
         <include name="var/locales/en_US.utf-8/**"/>

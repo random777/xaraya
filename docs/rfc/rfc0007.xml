@@ -61,6 +61,9 @@
         be overwritten in the property. Properties are referenced by module name.
 			</t>
 		<figure><artwork src="images/rfc0007_5.png"/></figure>
+      <t>Proposed change: Remove field "validation": 
+Validation aspects should be handled by the data dictionary.
+</t>
     </section>
     <section title="Table 'Content'">
       <t></t>
@@ -80,108 +83,102 @@
 		<figure><artwork src="images/rfc0007_4.png"/></figure>
       </t>
       <section title="Review of the current DD API with extension proposals">
-	
+<list style="hanging">	
 	<t>
 function dynamicdata_adminapi_createprop($args)
-/**
- * create a new property field
- *
- * @author the DynamicData module development team
- * @param $args['modid'] module id of the item field to create
- * @param $args['itemtype'] item type of the item field to create
- * @param $args['label'] name of the field to create
- * @param $args['type'] type of the field to create
- * @param $args['default'] default of the field to create
- * @param $args['validation'] validation of the field to create
- * @returns int
- * @return dynamicdata prop ID on success, false on failure
- * @raise BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
- */
-
-Proposed extentions:
-
-* @param $args['active'] boolean: is this property active, i.e. usable?
-* @param $args['order']  int: sort order for display
-* @param $args['tag'] string: BL tag that handles the output
+<list>
+<t>modid - module id of the item field to create</t>
+<t>itemtype - item type of the item field to create</t>
+<t>label - name of the field to create</t>
+<t>type - type of the field to create</t>
+<t>default - default of the field to create</t>
+<t>validation - validation of the field to create</t>
+</list>
+Proposed changes:
+Add
+<list>
+<t>active - boolean: is this property active, i.e. usable?</t>
+<t>order -  int: sort order for display</t>
+<t>tag - string: BL tag that handles the output</t>
+</list>
+Delete
+<list>
+<t>validation: handled by data dictionary</t>
+</list>
        </t>
 	<t>
 function dynamicdata_adminapi_updateprop($args)
-/**
- * update a property field
- *
- * @author the DynamicData module development team
- * @param $args['prop_id'] property id of the item field to update
- * @param $args['modid'] module id of the item field to update (optional)
- * @param $args['itemtype'] item type of the item field to update (optional)
- * @param $args['label'] name of the field to update
- * @param $args['type'] type of the field to update
- * @param $args['default'] default of the field to update (optional)
- * @param $args['validation'] validation of the field to update (optional)
- * @returns bool
- * @return true on success, false on failure
- * @raise BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
- */
+<list>
+<t>prop_id - property id of the item field to update</t>
+<t>modid - module id of the item field to update (optional)</t>
+<t>itemtype - item type of the item field to update (optional)</t>
+<t>label - name of the field to update</t>
+<t>type - type of the field to update</t>
+<t>default - default of the field to update (optional)</t>
+<t>validation - validation of the field to update (optional)</t>
+</list>
 
 Proposed changes:
 
 Add:
-* @param $args['active'] boolean: is this property active, i.e. usable?
-* @param $args['order']  int: sort order for display
-* @param $args['tag'] string: BL tag that handles the output
+<list>
+<t>active - boolean: is this property active, i.e. usable?</t>
+<t>order -  int: sort order for display</t>
+<t>tag - string: BL tag that handles the output</t>
+</list>
 
 Delete: 
-* modid: A property that belongs to a specific module should remain there
-* itemtype: Update of item types may break the module logic. Should be handled 
-            by deletion and new creation
-* type: Likewise.
+<list>
+<t>modid: A property that belongs to a specific module should remain there</t>
+<t>itemtype: Update of item types may break the module logic. 
+Should be handled by deletion and new creation</t>
+<t>type: Likewise.</t>
+<t>validation: handled by data dictionary</t>
+</list>
        </t>
 	<t>
 function dynamicdata_adminapi_deleteprop($args)
-/**
- * delete a property field
- *
- * @author the DynamicData module development team
- * @param $args['prop_id'] property id of the item field to delete
-// TODO: do we want those for security check ? Yes, but the original values...
- * @param $args['modid'] module id of the item field to delete
- * @param $args['itemtype'] item type of the item field to delete
- * @param $args['label'] name of the field to delete
- * @param $args['type'] type of the field to delete
- * @param $args['default'] default of the field to delete
- * @param $args['validation'] validation of the field to delete
- * @returns bool
- * @return true on success, false on failure
- * @raise BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
- */
-
+<list>
+<t>prop_id - property id of the item field to delete</t>
+<t>modid - module id of the item field to delete</t>
+<t>itemtype - item type of the item field to delete</t>
+<t>label - name of the field to delete</t>
+<t>type - type of the field to delete</t>
+<t>default - default of the field to delete</t>
+<t>validation - validation of the field to delete</t>
+</list>
 Proposed changes:
-
-Delete all parameters except prop_id and modid.
+<list style="bullet">
+	      <t>Delete all parameters except prop_id and modid:
 For security check ensure a module can delete only its own properties.
 It should, however, be allowed to delete any of them.
+</t>
+	    </list>
         </t>
+</list>
 <t>
 Proposed new functions:
-</t>
+
+<list>
 <t>
-function getAllProperties(modid)
-/**
-* get a list of all properties for module $modid
-* and their basic type and BL tags
-* @returns array(propid,type,tag)
-*/
+function getAllProperties(modid):
+get a list of all properties for module $modid
+and their basic type and BL tags.
+returns array(propid,type,tag)
+</t>
+</list>
 </t>
       </section>
     </section>
     <section title="Proposal for a data dictionary">
       <t>
-       DB tables: TODO
-       <figure><artwork src=""/></figure>
+DB tables:
+       <figure preamble=" DB tables"><artwork src="images/rfc0007_7.png"/></figure>
       </t>
 
       <t>
-       API: TODO
-       <figure><artwork src="images/rfc0007_6.png"/></figure>
+API
+       <figure preamble="API"><artwork src="images/rfc0007_6.png"/></figure>
       </t>
 </section>
 

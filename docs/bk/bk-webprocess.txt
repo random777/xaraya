@@ -158,7 +158,9 @@ Examples for use:
 Make the change in local clone and push
 
 - publishing the site on server: 
-in web-staging: bk push remote: 
+in web-staging: bk push 
+
+remote: 
  - bk pull web-staging
  - bk parent web-production
  - bk pull (should not do anything, just a check)
@@ -232,5 +234,11 @@ DNS/HTTPD changes to create the subdomain.
 
 COMMENTS:
 - Can we leave out the dev environment? If things get more complex
-later on we can always add a layer.
-- Not all sites will want this process. For instance the bugs site will not use it. Therefore there must be a mechanism for site admins to be able to check changes direct into the production repository, if they have permission.
+  later on we can always add a layer.
+- Not all sites will want this process. For instance the bugs site will not use it. 
+  Therefore there must be a mechanism for site admins to be able to check changes direct 
+  into the production repository, if they have permission.
+  With the above process this can be done by cloning the production repository directly.
+  The "central" part of these sites which don't need the layered process is just one
+  level higher than the others. 
+- 

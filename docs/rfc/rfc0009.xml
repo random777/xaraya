@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
@@ -75,59 +75,59 @@
 				<t>IM/IRC:        Trillian (client - www.trillian.cc) / Jabber (server - www.jabber.com)</t>
 			</list>
 <artwork>
-:stratagem 
-I think the relaunch should be via .71 
+stratagem
+I think the relaunch should be via .71
 
-:stratagem  
+stratagem
 The forum used should be able to evolve to a point where
 all views are available to the users. Be it the dreaded threaded views
-or the current postboard views. 
+or the current postboard views.
 
-:stratagem 
-I'm still not sold on PHPLive - but will see where this goes. 
+stratagem
+I'm still not sold on PHPLive - but will see where this goes.
 
-:stratagem  
+stratagem
 I think a site specific IM tool would be better than third
-party IM proggies/networks. 
+party IM proggies/networks.
 
-:Wolf-  
+:Wolf-
 Can't cover the existing 3 areas of support effectively. And
-now we want to add IM and live support? 
+now we want to add IM and live support?
 
-:jotajota  
+:jotajota
 Different ways to cover support lead to different people
 giving support. I can't be in IRC while in working hours but I can
-surely be on IM 
+surely be on IM
 
-:Karateka  
+:Karateka
 Different needs need to be covered by different
 methods. PHP Live should not be used to replace the current IRC, but
 it could be well used as a distributor of people seeking help to
 streamline them into whatever suits them best. One example: even
 sending someone who would have ended up on irc with a question that
 could be easily answered in the docs could be considered an act of
-live support. 
+live support.
 
-:Karateka  
+:Karateka
 PHP Live should be used as the primary layer that works on
 top of the real support structure and it should be available to
 everyone, since it needs (just like the boards) no additional software
-like Java or an IRC client. 
+like Java or an IRC client.
 
-:Karateka  
+:Karateka
 The usage of PHP Live is an incredible useful method to
 enhance the usability of the website itself. Thus, in the long run,
 PHP Live! usage might actually decrease, as the website becomes more
-self-explanatory (if we listen to the feedback we get). 
+self-explanatory (if we listen to the feedback we get).
 
-:Isaac  
+:Isaac
 The issue of irc not being addressed while at work is near
 being solved though the use of a special proxy system that will run
 acorss port 80 just like http. Once myself and Harry work the final
 details out we should be installing and testing just such a system
-out. 
+out.
 
-:Isaac   
+:Isaac
 The use of one on one tools while great ofr nich industries
 such as online support while buying products, does not lend itself tyo
 an open community structure such as the one that has allready been
@@ -141,15 +141,15 @@ staff wanted to sit alone in a html window just waiting for users to
 show up. If this application was focused just on supporting say the
 Documentation site and the ability to help users find documents It
 might prove to be usefull. If you can find staff to man it in the long
-run. 
+run.
 
-:Karateka  
+:Karateka
 This system was never tested on xaraya.com before. You are
 talking about quite a different system and that particular system
 wasn't really tested. Further on, with this system, you don't need to
-just sit and wait. 
+just sit and wait.
 
-:Isaac  
+:Isaac
 As I have stated numerous times in the past, After 7 years of
 lending myself to tech support in many different areas for many
 different systems a community type system that relies on not only
@@ -168,9 +168,9 @@ documentation support as it is good for very focused support of single
 topics such as documentation. In the proccess make very very sure you
 dont confuse the general public with several different "live support
 systems" Most importantly make sure that the system used is GPL or GNU
-and not commercial in nature. 
+and not commercial in nature.
 
-:Karateka  
+:Karateka
 1-1 systems such a Human Click got about 1 Million websites
 to use it in one year. Anyway, PHP Live! is an extra layer for
 support. It's the easiest and fastest method for users to seek
@@ -194,26 +194,29 @@ about Xaraya first before they'd join the irc. If it's not in our goal
 to have such excited minds, then I am sorry. And yes, sorry again, but
 I couldn't help myself, but I added myself not only to the support
 department, but also to the documentation department and the marketing
-department to answers calls there and got nice results.  B. Xaraya
-Theme 
+department to answers calls there and got nice results.
+B. Xaraya Theme
 1. Theme issues described above need to be resolved ASAP.
 2. Core Xaraya theme must be made extensibile in a manner that allows
 Site Managers to customize aspects of thier site/subdomain so it is
 clearly part of the Xaraya family yet has retain its own personality.
 3. To be an "official" Xaraya site, it must run the current approved
-Xaraya Family theme.   
+Xaraya Family theme.
 
-:Wolf-   
+:Wolf-
 And, since the release of the 'Xaraya
 family theme' has been regulated to one server, it would follow that
-ALL 'official' sites need to be hosted on said server.   
+ALL 'official' sites need to be hosted on said server.
 
-:Grape   
+:Grape
 Docs will keep it's own theme and will be introducing a more documentation
 oriented theme in the future. The 'Xaraya Family Theme' will not be
-used.   stratagem   I think each site should have a unique look. I
+used.
+
+:stratagem
+I think each site should have a unique look. I
 believe that some users get confused without knowing which site they
-are on exactly.  
+are on exactly.
 
 			</artwork>
 		</section>
@@ -234,7 +237,7 @@ are on exactly. 
 			</t>
 <t>
 <artwork>
-:gregorrothfuss   
+:gregorrothfuss
 while i like the idea to have a directory of Xaraya
 implementors, i think a forum is a very bad fit for that. a directory
 with a few required fields would be far better suited 

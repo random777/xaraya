@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
@@ -42,37 +42,71 @@ xDeveloper :: Community Tools
 	and
 	xarCommunity
 
-VISION
-xDeveloper is a "super-module" or suite of modules which will serve to strengthen the entire Xaraya Community - developers and end-users alike. On many levels, xDeveloper serves as a replacement to SourceForge.net built around the PN Core. While initially built to serve the Xaraya Community, xDeveloper will also be an aggressive first step towards a corporate "killer app". 
+VISION 
+xDeveloper is a "super-module" or suite of modules which will
+serve to strengthen the entire Xaraya Community - developers and
+end-users alike. On many levels, xDeveloper serves as a replacement to
+SourceForge.net built around the PN Core. While initially built to
+serve the Xaraya Community, xDeveloper will also be an aggressive
+first step towards a corporate "killer app".
 
-Note: Our friends at Xoops have a similar initiative underway called Xoopsforge. I'd advise anyone involved with the project to look there for additional inspiration.
+Note: Our friends at Xoops have a similar initiative underway called
+Xoopsforge. I'd advise anyone involved with the project to look there
+for additional inspiration.
 
 
-PLANNING & EXECUTION
-Many of the components listed below exist either as current PN or PHPNuke modules or as other open-source projects. To build xDeveloper, we need to bring the best elements of each of these apps together under a common, tightly integrated platform. To accomplish this, we will need to complete the following steps ...
+PLANNING &amp; EXECUTION
 
-01. Review & Select Best of Class Components
-Review all relevant, pre-existing modules and or non-PN Apps (complete list below). Where more than one candidate exists to fill a particular component niche (ie. BugTracker), select one app to act as our core component for that niche. From the remaining apps in that niche, select the features we want to pull into the core component for that niche.
+Many of the components listed below exist either as current PN or
+PHPNuke modules or as other open-source projects. To build xDeveloper,
+we need to bring the best elements of each of these apps together
+under a common, tightly integrated platform. To accomplish this, we
+will need to complete the following steps ...
+
+01. Review &amp; Select Best of Class Components
+
+Review all relevant, pre-existing modules and or non-PN Apps (complete
+list below). Where more than one candidate exists to fill a particular
+component niche (ie. BugTracker), select one app to act as our core
+component for that niche. From the remaining apps in that niche,
+select the features we want to pull into the core component for that
+niche.
 
 02. Establish Standard Component Architecture
-Clearly, xarAPI and xarModule API are the core standards. However, as xDeveloper is a suite of inter-related components, we will also need to 
-architect 
-the relationships across components. Perhaps this is more simple than I anticipate. Erring on the side of caution, I think we should at least discuss the common component framework before we dive into building xDeveloper. It is likely to save us some headaches down the line.
 
-Initial core architecture considerations for non-PN apps (including PHPNuke modules not-yet ported) include:
-Adapting user tables to use the Xaraya user tables & permissions schema
-Adapting SQL to Xaraya's ADODB standards and inclusion in Xaraya DB as opposed to an independent DB instance.
-Adapting code to xarModule API standards (wrappers, function calls, theme calls, etc.)
+Clearly, xarAPI and xarModule API are the core standards. However, as
+xDeveloper is a suite of inter-related components, we will also need
+to architect the relationships across components. Perhaps this is more
+simple than I anticipate. Erring on the side of caution, I think we
+should at least discuss the common component framework before we dive
+into building xDeveloper. It is likely to save us some headaches down
+the line.
+
+Initial core architecture considerations for non-PN apps (including
+PHPNuke modules not-yet ported) include: Adapting user tables to use
+the Xaraya user tables &amp; permissions schema Adapting SQL to
+Xaraya's ADODB standards and inclusion in Xaraya DB as opposed to an
+independent DB instance.  Adapting code to xarModule API standards
+(wrappers, function calls, theme calls, etc.)
 
 03. Build Project Plan
-Pretty straight-forward. Determine what are the most crucial milestones from Release 0.01 through Release 1.0. Put resources and timelines against each component.
+
+Pretty straight-forward. Determine what are the most crucial
+milestones from Release 0.01 through Release 1.0. Put resources and
+timelines against each component.
 
 04. Execute Plan
+
 Build, test, tweak, release cycle.
 
 
 xDeveloper COMPONENTS
-The following list is by no means exhaustive. It is simply a "first cut" at what might be the core components of the xDeveloper platform. After the initial listing, descriptions of each component are provided along with links to relevant OSS archives/websites for apps under consideration as xDeveloper components.
+
+The following list is by no means exhaustive. It is simply a "first
+cut" at what might be the core components of the xDeveloper
+platform. After the initial listing, descriptions of each component
+are provided along with links to relevant OSS archives/websites for
+apps under consideration as xDeveloper components.
  
 01. xarCVS  
 02. xarFunctions  
@@ -91,11 +125,19 @@ The following list is by no means exhaustive. It is simply a "first cut" at what
 
 
 COMPONENT DESCRIPTIONS:
-Detailed descriptions of each proposed component. As available, I have included links to OSS projects that may serve as the core component once adapted to PN standards. Where more than app exists for a component, the first app listed is the one I think is best suited for the task at hand.
 
-Note: Some of these apps have functionality that crosses over. Where this occurs, we would ideally incorporate the best features of each app.
+Detailed descriptions of each proposed component. As available, I have
+included links to OSS projects that may serve as the core component
+once adapted to PN standards. Where more than app exists for a
+component, the first app listed is the one I think is best suited for
+the task at hand.
+
+Note: Some of these apps have functionality that crosses over. Where
+this occurs, we would ideally incorporate the best features of each
+app.
 
 01. xarCVS
+
 Pretty self-explanatory. 
 
 Possible core component:
@@ -104,7 +146,9 @@ Chora CVS Viewer
 
 
 02. xarFunctions
-Think of the Function List available at PHP.NET. This tool would list all PN functions complete with user supplied comments and examples. 
+
+Think of the Function List available at PHP.NET. This tool would list
+all PN functions complete with user supplied comments and examples.
 
 Possible core component:
 RFC 0019 from CHV 
@@ -114,7 +158,10 @@ PHPDoc
 
 
 03. xarProject
-Developers and project managers would use this tool. It would provide a central task list complete with resource assignments, milestones, etc. 
+
+Developers and project managers would use this tool. It would provide
+a central task list complete with resource assignments, milestones,
+etc.
 
 Possible core components:
 PHPCollab
@@ -125,9 +172,18 @@ ZenTrack
 
 
 04. xarFeedback 
-Bug Report/Feature Request/Documentation Requests ... Traditionally managed by bug tracking software (eg, Bugzilla), each of the above tools would be a form available to developers and end users. Each would have specific attributes but could be simply reclassified as one of the other types by admins as needed. Once confirmed by an admin, each of these would be come a task in the project manager. Each report type would have tracking reports associated with them for admin use.
 
-Note: Documentation Requests are perhaps a little less obvious than the other two types. Doc Requests would be calls for new FAQ, manual additions, new inline help etc.
+Bug Report/Feature Request/Documentation Requests ... Traditionally
+managed by bug tracking software (eg, Bugzilla), each of the above
+tools would be a form available to developers and end users. Each
+would have specific attributes but could be simply reclassified as one
+of the other types by admins as needed. Once confirmed by an admin,
+each of these would be come a task in the project manager. Each report
+type would have tracking reports associated with them for admin use.
+
+Note: Documentation Requests are perhaps a little less obvious than
+the other two types. Doc Requests would be calls for new FAQ, manual
+additions, new inline help etc.
 
 Possible core component:
 Mantis Bug Tracker
@@ -136,24 +192,52 @@ PHP BugTracker
 
 
 05. xarForums
-Redeployment of existing support and development forums based on Comments API. Key to success is tight integration with other components to facilitate efficient project management and documentation. The forums should be a place where the components below can be easily fed as needed from forum posts by forum moderators. Conceptually, this would be a series of admin/moderator-only buttons along these lines ... 
+
+Redeployment of existing support and development forums based on
+Comments API. Key to success is tight integration with other
+components to facilitate efficient project management and
+documentation. The forums should be a place where the components below
+can be easily fed as needed from forum posts by forum
+moderators. Conceptually, this would be a series of
+admin/moderator-only buttons along these lines ...
+
 Make Bug Report
 Make Feature Request
 Make Doc Request
 
 
-Clicking one of these buttons would be similar to "Post Reply", except it would direct the admin/moderator to appropriate form within the Feedback Component (see above). This would auto-populate the feedback form and include an admin comment field OR just provide the admin comment form and a link to the post in the forums. 
+Clicking one of these buttons would be similar to "Post Reply", except
+it would direct the admin/moderator to appropriate form within the
+Feedback Component (see above). This would auto-populate the feedback
+form and include an admin comment field OR just provide the admin
+comment form and a link to the post in the forums.
 
-Submitting the forum-fed feedback form would also somehow flag the originating forum post as referred to the feedback component with a link to the to Bug/Request in the queue. This would reduce repetitive posts and reinforce the feeling among end-users that the forums are monitored, used and therefore useful/valuable.
+Submitting the forum-fed feedback form would also somehow flag the
+originating forum post as referred to the feedback component with a
+link to the to Bug/Request in the queue. This would reduce repetitive
+posts and reinforce the feeling among end-users that the forums are
+monitored, used and therefore useful/valuable.
 
 Core component:
-Comments API derived forum (includes threaded & flat views at user discretion)
+
+Comments API derived forum (includes threaded &amp; flat views at user
+discretion)
 
 
 06. xarKnowledge
-Knowledge Management/Knowledgebase/Help Desk Tools ... Fed in large part by the Feedback: Documentation Requests, the xarKnowledgebase is an extension and possible next generation of Documentation Central. The objective is to make life easier for the Docs Team by giving them strong online tools. Doc Requests would help queue and prioritize documentation needs both for FAQs and more expansive docs like User Guides.
 
-Ideal features would include an updated, sitewide search engine; feeds from the knowledge base to PHPLive and or IRC.xar.com to help live support staff push repetitive answers to end-users; and context sensitive help driven by an Autolinks style module.
+Knowledge Management/Knowledgebase/Help Desk Tools ... Fed in large
+part by the Feedback: Documentation Requests, the xarKnowledgebase is
+an extension and possible next generation of Documentation
+Central. The objective is to make life easier for the Docs Team by
+giving them strong online tools. Doc Requests would help queue and
+prioritize documentation needs both for FAQs and more expansive docs
+like User Guides.
+
+Ideal features would include an updated, sitewide search engine; feeds
+from the knowledge base to PHPLive and or IRC.xar.com to help live
+support staff push repetitive answers to end-users; and context
+sensitive help driven by an Autolinks style module.
 
 Possible core components:
 WIKI Module (xarCore)
@@ -167,7 +251,16 @@ Drupal KMS
 
 
 07. xarDevelopers 
-A directory of PN Developers that serves several purposes. First, it provides the developer community with a central list of developer profiles which includes their skills, interests, etc.. Think of the dev profiles on www.sourceforge.net. Second, this directory provides end-users the same directory so they can direct their inquiries to the appropriate developer. Finally, when tied to Xaraya Portfolio, it provides developers a place to "hang their shingle" for potential clients who may want to hire them to install/manage a PN site and/or create custom themes, content or modules.
+
+A directory of PN Developers that serves several purposes. First, it
+provides the developer community with a central list of developer
+profiles which includes their skills, interests, etc.. Think of the
+dev profiles on www.sourceforge.net. Second, this directory provides
+end-users the same directory so they can direct their inquiries to the
+appropriate developer. Finally, when tied to Xaraya Portfolio, it
+provides developers a place to "hang their shingle" for potential
+clients who may want to hire them to install/manage a PN site and/or
+create custom themes, content or modules.
 
 Possible core components:
 X-User Module
@@ -176,9 +269,18 @@ Dynamic User Data
 
 
 08. xarPortfolio
-YAPNS/Weblinks/Gallery combo ... similar to many of the themes galleries available online now. This is YAPNS on steroids. It provides a small thumbnail of the site (or not ... user decided). A brief description of the site which might include a list of the modules installed, custom work done on the site and other credit information. Also applies categories to YAPNS so they are simpler to surf for those looking for ideas and or devs for their site. 
 
-Finally, once a YAPNS addition is added to the PN Portfolio ... it automatically creates a brief news story (abstract) on the site where the "Read More..." link points to the Portfolio Entry.
+YAPNS/Weblinks/Gallery combo ... similar to many of the themes
+galleries available online now. This is YAPNS on steroids. It provides
+a small thumbnail of the site (or not ... user decided). A brief
+description of the site which might include a list of the modules
+installed, custom work done on the site and other credit
+information. Also applies categories to YAPNS so they are simpler to
+surf for those looking for ideas and or devs for their site.
+
+Finally, once a YAPNS addition is added to the PN Portfolio ... it
+automatically creates a brief news story (abstract) on the site where
+the "Read More..." link points to the Portfolio Entry.
 
 Possible core components:
 Weblinks (xarCore)
@@ -187,9 +289,21 @@ My eGallery
 
 
 09. xarLibrary
-This idea comes from Module Submissions (http://mods.Xaraya.com/mod-submit.php) at mods.xar.com. Rather than providing an HTML template for a Module Release news item, we provide a form which captures all the same information, uploads the file to the PN site (if allowed - security issues to be fleshed out) or verifies link out to the source site. Adds submission to the Downloads Library and, like pnPortfolio, automatically creates a brief news story (abstract) on the site where the "Read More..." link points to the Download Library Entry. 
 
-If the module was developed by some one in the Developer Directory, it would automatically provide a link to the developer's profile(s). If it is in use at a site found in xarPortfolio, links could be autogenerated to Portfolio sites.
+This idea comes from Module Submissions
+(http://mods.Xaraya.com/mod-submit.php) at mods.xar.com. Rather than
+providing an HTML template for a Module Release news item, we provide
+a form which captures all the same information, uploads the file to
+the PN site (if allowed - security issues to be fleshed out) or
+verifies link out to the source site. Adds submission to the Downloads
+Library and, like pnPortfolio, automatically creates a brief news
+story (abstract) on the site where the "Read More..." link points to
+the Download Library Entry.
+
+If the module was developed by some one in the Developer Directory, it
+would automatically provide a link to the developer's profile(s). If
+it is in use at a site found in xarPortfolio, links could be
+autogenerated to Portfolio sites.
 
 Possible core components:
 Downloads (xarCore)
@@ -199,9 +313,19 @@ Weeble File Manager
 
 
 10. xarJobBoards
-Human Resources Management ... As an adjunct to the Developer Directory and xarPortfolio, the PN Job Boards would be a place where folks could post Xaraya-related jobs for developers to review and apply or bid on. This tool would also be key for PN Project Managers who need to assemble a team to address an issue on the core product.
 
-In a "Monster.com" sort of twist, it would be cool if the person posting the job could rate the desired level of skill for the job (eg. PHP - Advanced) and run a query which would return a list of PN developers who meet the minimum requirements. In addition, developers could set up an agent/bot that pinged them with an email, IM or PM when new jobs went on the board that matched their skills.
+Human Resources Management ... As an adjunct to the Developer
+Directory and xarPortfolio, the PN Job Boards would be a place where
+folks could post Xaraya-related jobs for developers to review and
+apply or bid on. This tool would also be key for PN Project Managers
+who need to assemble a team to address an issue on the core product.
+
+In a "Monster.com" sort of twist, it would be cool if the person
+posting the job could rate the desired level of skill for the job
+(eg. PHP - Advanced) and run a query which would return a list of PN
+developers who meet the minimum requirements. In addition, developers
+could set up an agent/bot that pinged them with an email, IM or PM
+when new jobs went on the board that matched their skills.
 
 Possible core components:
 PHProfession
@@ -211,17 +335,30 @@ XML Resume Library
 
 
 11. xarRatings 
-Uses existing PN Ratings API to apply ratings to everything from Project Tasks (priority rating), Developer Profiles (Skills Rating), Module Submissions (Quality Ratings), etc.
+
+Uses existing PN Ratings API to apply ratings to everything from
+Project Tasks (priority rating), Developer Profiles (Skills Rating),
+Module Submissions (Quality Ratings), etc.
 
 12. xarPrinter
-Printer-Friendly Tools Online resources (particularly documentation) will be made readily available in a printer-friendly format generated via a print-friendly XML/XLST and or PHP's built in PDF functions. The end-user would realize this through a ubiquitous "Print This Page" button which would reformat pages as needed for optimal printing.
+
+Printer-Friendly Tools Online resources (particularly documentation)
+will be made readily available in a printer-friendly format generated
+via a print-friendly XML/XLST and or PHP's built in PDF functions. The
+end-user would realize this through a ubiquitous "Print This Page"
+button which would reformat pages as needed for optimal printing.
 
 Possible core component:
 PHP PDF Class
 
 
 xDeveloper DEVELOPERS
-As with components, this is not an exhaustive list. Many developers will be required to make xDeveloper happen. The more, the merrier. The names listed below have either already committed to the project or have been recommended based on a current work in progress that may dovetail nicely into xDeveloper.
+
+As with components, this is not an exhaustive list. Many developers
+will be required to make xDeveloper happen. The more, the merrier. The
+names listed below have either already committed to the project or
+have been recommended based on a current work in progress that may
+dovetail nicely into xDeveloper.
  
 NAME (NICK)  ROLE - COMPONENT 
 Gregor Rothfuss (Gregor)  Project Sponsor 
@@ -235,10 +372,17 @@ Veres Ferenc  Lead Dev - Xaraya Library (Downloads)
 Volodymyr Metenchuk (Voll)  Lead Dev- MantisBT Conversion 
 Vladimir Shundalov(CHV)  Lead Dev - Documentation Module 
 
-Note: Johnny, Gregor, Rabbitt and I will be the project council that makes key personnel decisions for xDeveloper. Please do not take that to mean we are on a power trip . It is simply a matter of someone needng to lead the project. All point's ove view will be considered and factored into our decisions.
+Note: Johnny, Gregor, Rabbitt and I will be the project council that
+makes key personnel decisions for xDeveloper. Please do not take that
+to mean we are on a power trip . It is simply a matter of someone
+needng to lead the project. All point's ove view will be considered
+and factored into our decisions.
 
 REFERENCE DOCUMENTS
-Additional information (complete with comments) regarding the drivers behind xDeveloper may be found at Xaraya Documentation Central: RFC9 - Xaraya Community Enhancements.
+
+Additional information (complete with comments) regarding the drivers
+behind xDeveloper may be found at Xaraya Documentation Central: RFC9 -
+Xaraya Community Enhancements.
 
 COPYRIGHT
 Document: xDeveloper Vision Document

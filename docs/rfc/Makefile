@@ -1,7 +1,10 @@
 # Makefile for generating rfcs from xml
 
-xml2rfc=./xml2rfc.tcl
+xsltproc=xsltproc
+xml2rfc=xml2rfc.tcl
 images=images
+
+xstyle=rfc2629.xsl
 
 SOURCES=$(shell bk sfiles -g | grep ".xml")
 SOURCENAMES = $(basename $(notdir $(SOURCES)))
@@ -19,7 +22,7 @@ txt : $(TXTS)
 # How to produce a html file
 %.html: %.xml $(xml2rfc)
 	$(GET) -Sq $(shell bk sfiles -g $(images) | grep "$(*F)")
-	$(xml2rfc) $< $(*F).html  
+	$(xsltproc) $(xstyle) $< > $(*F).html
 
 # How to produce a txt file
 %.txt: %.xml $(xml2rfc)

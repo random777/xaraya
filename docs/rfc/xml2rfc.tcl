@@ -4873,6 +4873,11 @@ proc t_txt {tag counter style hangText editNo} {
         set pos [pop_indent]
         set l [split $counter .]
         switch -- $style {
+            lc_alpha {
+                set counter [offset2letters [lindex $l end] [llength $l]]
+                append counter ". "
+            }
+
             letters {
                 set counter [offset2letters [lindex $l end] [llength $l]]
                 append counter ". "
@@ -4932,6 +4937,10 @@ proc list_txt {tag counters style hangIndent hangText} {
     switch -- $tag {
         begin {
             switch -- $style {
+                lc_alpha {
+                  set i [expr int(log([llength $counters])/log(26))+2]
+                }
+
                 letters {
                   set i [expr int(log([llength $counters])/log(26))+2]
                 }
@@ -5840,6 +5849,14 @@ proc t_html {tag counter style hangText editNo} {
         puts -nonewline $stdout "<${s}dd>"
 
         set hangP 1
+    } elseif {![string compare $style "lc_alpha"]} {
+        if {![string compare $tag begin]} {
+            set l [split $counter .]
+            puts $stdout "<dt>[offset2letters [lindex $l end] [llength $l]]</dt>"
+        }
+        puts -nonewline $stdout "<${s}dd>"
+
+        set hangP 1
     } elseif {![string compare $style "letters"]} {
         if {![string compare $tag begin]} {
             set l [split $counter .]
@@ -5887,6 +5904,8 @@ proc list_html {tag counters style hangIndent hangText} {
             puts -nonewline $stdout "<${s}ul$c>"
         }
 
+        lc_alpha
+            -
         letters
             -
         hanging {
@@ -6909,6 +6928,10 @@ proc t_nr {tag counter style hangText editNo} {
         set l [split $counter .]
         set left -1
         switch -- $style {
+            lc_alpha {
+                set counter [offset2letters [lindex $l end] [llength $l]]
+                append counter ". "
+            }
             letters {
                 set counter [offset2letters [lindex $l end] [llength $l]]
                 append counter ". "
@@ -6959,6 +6982,10 @@ proc list_nr {tag counters style hangIndent hangText} {
     switch -- $tag {
         begin {
             switch -- $style {
+                lc_alpha {
+                  set i [expr int(log([llength $counters])/log(26))+2]
+                }
+
                 letters {
                   set i [expr int(log([llength $counters])/log(26))+2]
                 }

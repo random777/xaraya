@@ -4,6 +4,7 @@ error_reporting(E_ERROR);
 include ("jpgraph.php");
 include ("jpgraph_gantt.php");
 include ("textdb.php");
+
 // Some collected ideas for sophistication:
 // - DONE: keep log of the latest date, so end-date can be set properly
 // - DONE: keep track of predecessors and adjust the dates of successors
@@ -82,8 +83,8 @@ $graph->title->Set($title);
 $graph->subtitle->Set($revtext);
 $graph->title->SetFont(FF_FONT1,FS_BOLD,12);
 
-// For illustration we enable all headers. 
-$graph->ShowHeaders(GANTT_HYEAR | GANTT_HMONTH | GANTT_HDAY | GANTT_HWEEK);
+// Which headers do we want in the chart?
+$graph->ShowHeaders(GANTT_HYEAR | GANTT_HMONTH | GANTT_HWEEK);
 
 // For the week we choose to show the start date of the week
 // the default is to show week number (according to ISO 8601)

@@ -18,6 +18,11 @@ apiref/*html/modules/authldap
 config.site.xml
 config.system.php
 docs/rfc/*.html
+docs/rfc/RFC32.apf
+docs/rfc/rfc0032.txt
+docs/rfc/rfc0032_validated.xml
+docs/rfc/rfc0032a.txt
+docs/rfc/rfc0032a.xml
 html/.directory
 html/dba/*
 html/modules/base/xartemplates/blocks/finclude-modify.xd
@@ -67,4 +72,5 @@ html/var/logs/log.html
 html/var/logs/log.txt
 templates_c
 test.php
+xCode.apf
 ~*

@@ -27,8 +27,8 @@
 <project name="xaraya" basedir="." default="help">
   
   <!-- Some essential properties on which the rest really depends -->
-  <property name="version" value="0.9.1.2" />
-  <property name="releaselog" value="releaselog-0.910-0.912.txt" />
+  <property name="version" value="0.9.1.3" />
+  <property name="releaselog" value="releaselog-0.912-0.913.txt" />
   <property name="final.name" value="${phing.project.name}-${version}" />
   
   <!-- module lists -->   
@@ -42,7 +42,7 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.full" 
-    value="addressbook,authinvision,bbclick,bbcode,calendar,cast,censor,changelog,contact,davedap,events,figlet,icalendar,messages,mybookmarks,opentracker,overlib,pubsub,smilies,uploads,window,xarbb,xarlinkme,xslt"/>
+    value="addressbook,authinvision,bbclick,bbcode,calendar,cast,censor,changelog,contact,xarldap,events,figlet,icalendar,messages,mybookmarks,opentracker,overlib,pubsub,smilies,uploads,window,xarbb,xarlinkme,xslt"/>
 
   <!-- theme lists -->
   <property name="themes.full"

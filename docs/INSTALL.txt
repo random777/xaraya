@@ -45,10 +45,17 @@ Upgrades
 ========
 Please visit the #support channel for information on upgrading from PostNuke or PHP-Nuke to Xaraya.
 
-   Template Changes between versions (please check your theme overrides for these)
+   Template Changes between versions (please check your modules and theme overrides for these)
    ----------------------------------------------------
-   .9.10.0 -> .?.?.? modules/xarbb/xartemplates/user-newreply.xd : the input form
-                     includes an additional hidden input field for header[itemtype]
+   .9.10.0 -> .9.11.0 modules/xarbb/xartemplates/user-newreply.xd : the input form
+                      includes an additional hidden input field for header[itemtype]
+   .9.11.0 -> .9.12.0 templates must validate as XML, i.e. you need to replace all
+                      & with &amp; etc.
+   .9.12.0 -> .?.??.? in articles, fields of type Calendar (other than pubdate) are
+                      no longer pre-formatted in the view and display functions, so
+                      you should now use xarLocaleGetFormattedDate('long',$myfield)
+                      and xarLocaleGetFormattedTime('long',$myfield), or for custom
+                      formats xarLocaleFormatDate('...',$myfield) in those templates
 
    DB Changes between versions
    ----------------------------------------------------

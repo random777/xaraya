@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Messages Module</title>
+
+  <subtitle>Xaraya Messages module. <command>Admin-&#62;Messages</command>.</subtitle>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>Modify config</guibutton>: This panel allows
+      modification of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Configure Module</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Short URL Support: If you wish to enable Short URL support
+              for this module, CHECK this box. If you do not wish to enable
+              Short URL support for this module, UNCHECK this box.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Modify</guibutton>&#34; to save
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

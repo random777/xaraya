@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Facilities Module</title>
+
+  <subtitle>Facility management module. <command>Admin-&#62;Facilities</command>.</subtitle>
+
+  <para>The DocBook for this Guide is being developed.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Modify config</command>: This panel allows modification
+      of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Number of facilities to display per page:</para>
+        </listitem>
+
+        <listitem>
+          <para>Show top menu:</para>
+        </listitem>
+
+        <listitem>
+          <para>Configuration of hooked modules</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update config</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

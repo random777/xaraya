@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>BBCode Module</title>
+
+  <subtitle>Enables BBCode formatting.</subtitle>
+
+  <para>This module does not have an administration panel.</para>
+
+  <para>Enables BBCode formatting markup tags in text fields on the site. When
+  BBCode is activated for a module, that module will allow entry &#38; display
+  of BBCode tags. BBCode is a markup language that allows, among other
+  options, making text bold by enclosing it in &#34;[b]&#34; and
+  &#34;[/b]&#34; markups (for example, &#34;[b]Bold Text[/b]&#34;).</para>
+
+  <para>When this module has been hooked to another module (for example, if
+  you enable BBCode in Articles), an editor page will display BBCode
+  formatting quick-buttons. If text in a text field is highlighted, it can be
+  transformed by clicking one of the BBCode quick-buttons. For example, if
+  text was highlighted in a text area and the &#34;I&#34; (italics) BBCode
+  quick-button was clicked, the italics tags would be added before and after
+  the highlighted text.</para>
+
+  <sect3>
+    <title>EXAMPLE: Adding BBCode / BBClick to a Publication Type</title>
+
+    <para>To add BBCode formatting capability or BBClick transformation to a
+    Publication Type, follow these steps:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Go to <command>Admin-&#62;Modules-&#62;Configure Hooks</command>.</para>
+      </listitem>
+
+      <listitem>
+        <para>Click BBCode to select it as the module providing extra
+        functionality. The panel will refresh, and you will see a list of
+        modules to which the BBCode module can be hooked.</para>
+      </listitem>
+
+      <listitem>
+        <para>CHECK the module(s) in which you would like to enable BBCode
+        formatting. For our example, CHECK &#34;<guibutton>all articles</guibutton>&#34;
+        and &#34;<guibutton>comments</guibutton>&#34;. Click &#34;<guibutton>Save
+        Changes</guibutton>&#34; to save changes.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Go to <command>Admin-&#62;Articles-&#62;Add Article</command>. Click
+    the &#34;<guibutton>News Articles</guibutton>&#34; Publication Type. On
+    the resulting panel, the BBCode Form Controls are displayed above the
+    Category selector box. Using these controls, or by manually entering
+    BBCode formatting markup, BBCode can be used in articles.</para>
+
+    <para>To add BBClick capability, just go through the steps again
+    substituting BBClick for BBCode.</para>
+  </sect3>
+</sect2>

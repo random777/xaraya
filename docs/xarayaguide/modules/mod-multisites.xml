@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Multisites Module</title>
+
+  <subtitle>Basic installation of a multisite Xaraya. <command>Admin-&#62;Multisites</command>.</subtitle>
+
+  <para>The documentation for this part of the Guide is being developed.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>Add Site</guibutton>: Configure the Master Site from
+      <command>Admin-&#62;Multisites-&#62;Master config</command>.</para>
+
+      <para>You can then add new sites through the menu option
+      <command>Admin-&#62;Multisites-&#62;Add Sites</command>.</para>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>View Sites</guibutton>:</para>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>Admin config</guibutton>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Number of site listings per page: In this field, enter the
+          number of site listings to display per page. For example, if you
+          wish to display 10 site listings per page, enter &#34;<userinput>10</userinput>&#34;
+          in this box.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Admin Configuraration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>Master config</guibutton>: This panel allows
+      modification of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Server config: Multisites can use one of 2 possible variables
+          either HTTP_HOST or SERVER_NAME. One or the other may not always
+          work on your system, depending on the way the server is configured.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>HTTP_HOST:</para>
+            </listitem>
+
+            <listitem>
+              <para>SERVER_NAME:</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>File Paths &#38; Domain Types</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Default Master Data Directory Path:</para>
+            </listitem>
+
+            <listitem>
+              <para>Domain &#38; subdomain extensions: The common extensions
+              are <userinput>.com</userinput>, <userinput>.net</userinput>,
+              and <userinput>.org</userinput>. If, for example, you use a
+              subdomain or domain such as <userinput>www.domain.biz</userinput>
+              as a site, you will need to add the <userinput>.biz</userinput>
+              extension to the list.</para>
+
+              <para>If you want to use domain extensions to discriminate your
+              sites (for example, <userinput>mysite.com</userinput> is a
+              different site than <userinput>mysite.net</userinput>), make
+              sure the text box is blank.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Set multisite configuration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

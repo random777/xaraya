@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Categories Module</title>
+
+  <subtitle>Categorized data utility. <command>Admin-&#62;Categories</command>.</subtitle>
+
+  <para>In this section, we discuss the configuration and operation of the
+  Categories module.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Add Category</command></para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Name: The name of the category that is displayed to users.</para>
+        </listitem>
+
+        <listitem>
+          <para>Description: A description of the category that is displayed
+          to users.</para>
+        </listitem>
+
+        <listitem>
+          <para>In relation to this category: Select an existing category from
+          the drop-down list. This existing category serves as the reference
+          point for the Position function, below.</para>
+        </listitem>
+
+        <listitem>
+          <para>Position: It is possible to make sub-sub-categories (etc).
+          Select a category / sub-category from the &#34;In relation to this
+          category&#34; drop-down list above, then select the Position below.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Right before, in the same level: If you want the
+              new/edited category to be placed ABOVE the category specified in
+              &#34;In relation to this category&#34; and be on the same level
+              (for example, if the category selected in &#34;In relation to
+              this category&#34; is a top-level category, this new/edited
+              category will also be top-level), select this option.</para>
+            </listitem>
+
+            <listitem>
+              <para>Right after, in the same level: If you want the new/edited
+              category to be placed BELOW the category specified in &#34;In
+              relation to this category&#34; and be on the same level (for
+              example, if the category selected in &#34;In relation to this
+              category&#34; is a top-level category, this new/edited category
+              will also be top-level), select this option.</para>
+            </listitem>
+
+            <listitem>
+              <para>The first child category: If you want the new/edited
+              category to be placed ABOVE the category specified in &#34;In
+              relation to this category&#34; and to be a child category of the
+              category referenced in &#34;In relation to this category&#34;,
+              select this option.</para>
+            </listitem>
+
+            <listitem>
+              <para>The last child category: If you want the new/edited
+              category to be placed BELOW the category specified in &#34;In
+              relation to this category&#34; and to be a child category of the
+              category referenced in &#34;In relation to this category&#34;,
+              select this option.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Optional image: From this drop-down list, select the image
+          associated with this category. The image format can be any popular
+          image file format (JPG, GIF, PNG, etc) and must exist in one of two
+          directories:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><filename>&#60;xarroot&#62;/modules/categories/xarimages</filename></para>
+
+              <para>or</para>
+            </listitem>
+
+            <listitem>
+              <para><filename>&#60;xarroot&#62;/themes/[theme
+              name]/modules/categories/images</filename> for theme-dependent
+              versions</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Add</guibutton>&#34; to add category.</para>
+        </listitem>
+
+        <listitem>
+          <para>Create in a batch:</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Reassign</guibutton>&#34;.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>View Categories</command></para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Add Category:</para>
+        </listitem>
+
+        <listitem>
+          <para>Category list:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Name: The name of the category.</para>
+            </listitem>
+
+            <listitem>
+              <para>Description: The description of the category.</para>
+            </listitem>
+
+            <listitem>
+              <para>Image: The optional image associated with the category.
+              See Optional image, above, for information on the location for
+              the image file.</para>
+            </listitem>
+
+            <listitem>
+              <para>Options: Using these options, you can modify or delete
+              categories.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Modify: Click the Modify link on the line of the
+                  category you wish to modify. On the next panel, you can edit
+                  the Name, Description, Position, and Image for the selected
+                  category.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Delete: Click the Delete link on the line of the
+                  category you wish to delete. On the next panel, you are
+                  asked to confirm your intention by clicking &#34;<guibutton>Yes</guibutton>&#34;
+                  to delete.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Categories per page: Click &#34;<guibutton>Reload</guibutton>&#34;
+              to reload page with new value for this field.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command></para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Default number of categories per page: In this field, enter
+          the number of categories to be displayed per page in the
+          administration panel. For example, to display up to 100 categories,
+          enter &#34;<userinput>100</userinput>&#34; in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Windows Explorer like tree? (requires JavaScript enabled
+          browser): If you have a JavaScript-enabled browser and would like to
+          display collapsible menu tress, set this field to YES. The default
+          setting, NO, does not rely on JavaScript.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <sect3>
+    <title>EXAMPLE: Adding sub-sub-categories (etc.) to a Category</title>
+
+    <para>Xaraya allows the site administrator to make categories with
+    sub-sub-categories and sub-sub-categories (etc.), as shown below. In this
+    example, we&#39;ll make a category with two sub-categories, and two
+    sub-sub-categories. There are extra categories in the diagram below;
+    create them on your own if you wish.</para>
+
+    <literallayout>		Animals of all sorts (top-level category)
+		|
+		|---Dogs (sub-category)
+		|   |
+		|   |---Jack Russell Terriers (sub-sub-category)
+		|   |
+		|   |---Greyhounds (sub-sub-category)
+		|
+		|---Cats (sub-category)
+		|   |
+		|   |---Domestic Long Hair (sub-sub-category)
+		|   |
+		|   |---Domestic Short Hair (sub-sub-category)
+		|
+		|---etc...</literallayout>
+
+    <para>Create a main category called &#34;<userinput>Animals</userinput>&#34;.
+    Create a sub-category of Animals called &#34;<userinput>Dogs</userinput>&#34;
+    and another called &#34;<userinput>Cats</userinput>&#34;. Create two
+    sub-sub-categories of Animals, in Dogs, called &#34;<userinput>Jack
+    Russell Terriers</userinput>&#34; and &#34;<userinput>Greyhounds</userinput>&#34;.
+    Here&#39;s how to do it...</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Add Animals category. <command>Admin-&#62;Categories-&#62;Add
+        Category</command>. Enter main category with the following parameters:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Name: <userinput>Animals</userinput></para>
+          </listitem>
+
+          <listitem>
+            <para>Description: &#34;<userinput>Animals of all sorts!</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>In relation to this category: Select &#34;Categories&#34;
+            from the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Position: Select &#34;Right after, in the same level&#34;
+            from the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Add</guibutton>&#34; to save category.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Add Dogs sub-category. <command>Admin-&#62;Categories-&#62;Add
+        Category</command>. Enter main category with the following parameters:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Name: <userinput>Dogs</userinput></para>
+          </listitem>
+
+          <listitem>
+            <para>Description: &#34;<userinput>All about dogs!</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>In relation to this category: Select &#34;Animals&#34; from
+            the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Position: Select &#34;The first child category&#34; from the
+            drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Add</guibutton>&#34; to save category.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Add Cats sub-category. <command>Admin-&#62;Categories-&#62;Add
+        Category</command>. Enter main category with the following parameters:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Name: <userinput>Cats</userinput></para>
+          </listitem>
+
+          <listitem>
+            <para>Description: &#34;<userinput>Felines!</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>In relation to this category: Select &#34;Animals /
+            Dogs&#34; from the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Position: Select &#34;Right after, in the same level&#34;
+            from the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Add</guibutton>&#34; to save category.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Add the Jack Russell Terriers sub-sub-category.
+        <command>Admin-&#62;Categories-&#62;Add Category</command>. Enter the
+        main category with the following parameters:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Name: <userinput>Jack Russell Terriers</userinput></para>
+          </listitem>
+
+          <listitem>
+            <para>Description: &#34;<userinput>Terriers!</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>In relation to this category: Select &#34;Animals /
+            Dogs&#34; from the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Position: Select &#34;The first child category&#34; from the
+            drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Add</guibutton>&#34; to save category.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Add the Greyhounds sub-sub-category. <command>Admin-&#62;Categories-&#62;Add
+        Category</command>. Enter the main category with the following
+        parameters:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Name: <userinput>Greyhounds</userinput></para>
+          </listitem>
+
+          <listitem>
+            <para>Description: &#34;<userinput>Greyhounds category</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>In relation to this category: Select &#34;Animals / Dogs /
+            Jack Russell Terrier&#34; from the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Position: Select &#34;Right after, in the same level&#34;
+            from the drop-down list.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Add</guibutton>&#34; to save category.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </sect3>
+</sect2>

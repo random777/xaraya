@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>BKView Module</title>
+
+  <subtitle>BitKeeper repository viewer. <command>Admin-&#62;Bkview</command>.</subtitle>
+
+  <para>This module permits viewing of a BitKeeper repository. If you use
+  BitKeeper, this module will be useful for viewing items. If you do not use
+  BitKeeper, this module will be of little use.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>View repositories</command>:</para>
+    </listitem>
+
+    <listitem>
+      <para><command>Add repository</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Repository name: Enter the name of the repository as you want
+          it displayed on the site.</para>
+        </listitem>
+
+        <listitem>
+          <para>Path: Enter the complete path to the BitKeeper repository.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Add repository</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

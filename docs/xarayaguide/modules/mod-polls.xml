@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Polls Module</title>
+
+  <subtitle>Conduct polls. <command>Admin-&#62;Polls</command>.</subtitle>
+
+  <para>Polls allow you to gather information from your site visitors using a
+  &#39;voting booth&#39; method. Xaraya supports an unlimited number of
+  different polls, and polls optionally support selection of multiple options
+  (for example, for surveys like &#39;Which of these items do you own?&#39;).</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>New Poll</guibutton>: To create a new Poll for the
+      site, click &#34;<guibutton>New Poll</guibutton>&#34;. The next panel
+      offers the following options.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Poll title: Enter the name of the poll in this field, which is
+          displayed to site visitors.</para>
+        </listitem>
+
+        <listitem>
+          <para>Poll type: If you want your users to be able to select only
+          one option, choose &#34;<guibutton>Single vote</guibutton>&#34; (for
+          example, &#34;Ringo&#34;). If you want your users to be able to
+          select multiple options (for example, &#34;John&#34; and
+          &#34;Paul&#34;), choose &#34;<guibutton>Multiple vote</guibutton>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Private: CHECK this box to make this poll private. UNCHECK
+          this box to make the poll public, which means any site visitor with
+          privileges can view and vote in this poll.</para>
+        </listitem>
+
+        <listitem>
+          <para>Poll options: Enter each available poll option, one option per
+          line. Move from field to field using the TAB key.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create Poll</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>List Polls</guibutton>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Title: The title of the poll.</para>
+        </listitem>
+
+        <listitem>
+          <para>Actions:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Edit Options: To add, modify, or delete options for the
+              selected Poll, click the &#34;<guibutton>Edit options</guibutton>&#34;
+              link.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Option: The poll option.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Order: To move a poll option up or down, click the
+                  corresponding arrow next to it.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Actions:</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Modify: To modify a poll option, click the &#34;<guibutton>Modify</guibutton>&#34;
+                      link next to the option to be modified. Make any
+                      modifications and click &#34;<guibutton>Modify Option</guibutton>&#34;
+                      to save changes.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Delete: To delete a poll option, click the &#34;<guibutton>Delete</guibutton>&#34;
+                      link next to the option to be deleted. Confirm your
+                      intention to delete the poll option by clicking &#34;<guibutton>Delete
+                      Option</guibutton>&#34; on the next panel. The poll
+                      option is removed.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>New option: Click &#34;<guibutton>New Option</guibutton>&#34;
+                  to add a new poll option to an existing poll. Enter the
+                  option text to be displayed to site visitors, and click
+                  &#34;<guibutton>Create Option</guibutton>&#34; to save
+                  changes.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Close: Closes the poll so no more votes can be submitted.</para>
+            </listitem>
+
+            <listitem>
+              <para>Modify: The modify option allows the title, type, privacy
+              setting, and options to be changed on an existing poll. Click
+              &#34;<guibutton>Modify Poll</guibutton>&#34; to save changes.</para>
+            </listitem>
+
+            <listitem>
+              <para>Reset: Click this option to reset the polling data for an
+              exsiting poll. Confirm your intention on the next panel. If you
+              click &#34;<guibutton>Reset Poll</guibutton>&#34;, any existing
+              votes are removed for the selected Poll.</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete: Deletes the poll and all responses from the site.
+              Click &#34;Delete Poll&#34; to confirm your intention to delete
+              the poll.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>Modify config</guibutton>: This panel allows
+      modification of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Scale of result bar: OTTO</para>
+        </listitem>
+
+        <listitem>
+          <para>Number of options for new polls: Sets the default number of
+          options available when a new poll is created. If you only ask &#34;<userinput>Yes</userinput>&#34;
+          or &#34;<userinput>No</userinput>&#34; polls, it is safe to set this
+          to &#34;<userinput>2</userinput>&#34; options. Only the poll options
+          that you use are displayed to site visitors. No matter the value in
+          this setting, new options can be added to polls easily. A suggested
+          setting for this field is &#34;<userinput>10</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Number of polls per list page: This setting defines the number
+          of polls to display per page. To display 20 polls per page, enter
+          &#34;<userinput>20</userinput>&#34; in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Activate comments in polls?: CHECK this box to permit comments
+          on polls. The Comments module must be installed for this option to
+          function.</para>
+        </listitem>
+
+        <listitem>
+          <para>Use images for graph display: From this drop-down list, select
+          if you would like to use images for poll results graphs.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Never: Select this option to NEVER display images in the
+              poll results graph.</para>
+            </listitem>
+
+            <listitem>
+              <para>Blocks only: Select this option to display images in the
+              poll results graph only when the poll is displayed within a
+              block.</para>
+            </listitem>
+
+            <listitem>
+              <para>Module space only: Select this option to display images in
+              the poll results graph only within the Polls module, but not in
+              blocks. For example, selecting this option displays images in
+              the poll results graph only when a site visitor clicks the Polls
+              module.</para>
+            </listitem>
+
+            <listitem>
+              <para>Always: Always display images for the poll results graph.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Allow users to vote (per poll): From this drop-down list,
+          select the frequency with which a site visitor is permitted to vote
+          in a poll.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Once: The site visitor is permitted to vote in a poll only
+              once.</para>
+            </listitem>
+
+            <listitem>
+              <para>Once per day: The site visitor is permitted to vote in a
+              poll once per day.</para>
+            </listitem>
+
+            <listitem>
+              <para>Once per week: The site visitor is permitted to vote in a
+              poll once per week.</para>
+            </listitem>
+
+            <listitem>
+              <para>Once per month: The site visitor is permitted to vote in a
+              poll once per month.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Allow users to see results before voting: CHECK this box to
+          allow site visitors to view poll results, even if they have not yet
+          voted in a poll. UNCHECK this box to hide poll results until a user
+          has voted in a specific poll.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
+    </listitem>
+  </itemizedlist>
+
+  <sect3>
+    <title>EXAMPLE: Creating a Poll</title>
+
+    <para>To create a Poll, follow these steps:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Go to <command>Admin-&#62;Polls-&#62;New Poll</command>.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>In Poll Title, type &#34;<userinput>Who is your favorite
+            Beatle?</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>Select SINGLE in Poll Type, since we want our site visitors
+            to select only ONE Beatle. If you wanted to allow them to select
+            multiple options, set this field to Multiple vote. For this
+            example, set it to Single vote.</para>
+          </listitem>
+
+          <listitem>
+            <para>Leave Private UNCHECKED.</para>
+          </listitem>
+
+          <listitem>
+            <para>Options: Add the following options, moving from field to
+            field by pressing the TAB key.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>John</para>
+              </listitem>
+
+              <listitem>
+                <para>Paul</para>
+              </listitem>
+
+              <listitem>
+                <para>George</para>
+              </listitem>
+
+              <listitem>
+                <para>Ringo</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Click &#34;<guibutton>Create Poll</guibutton>&#34; to create the
+        poll.</para>
+      </listitem>
+    </itemizedlist>
+  </sect3>
+</sect2>

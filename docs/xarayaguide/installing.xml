@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Installing Xaraya</title>
+
+  <para>Once Xaraya has been moved onto your site (either via a copy command
+  or an upload), you must install it before using the site. Follow these steps
+  to install Xaraya.<note><para>If you are a Windows user and also use
+  ZoneAlarm, be sure to DISABLE or EXIT ZoneAlarm before installing Xaraya on
+  a Windows machine. ZoneAlarm may cause problems when installing Xaraya on a
+  Windows machine.</para></note></para>
+
+  <para>From your browser, launch http://www.mywebsite.com/xaraya/install.php
+  (replace with the correct path to your Xaraya installation&#39;s &#34;<filename>install.php</filename>&#34;
+  file).</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Select your language from the drop-down list. Click &#34;<guibutton>Continue</guibutton>&#34;.</para>
+
+      <figure>
+        <title>Language selection.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install01.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>Read &#38; agree to the license. Click &#34;<guibutton>Continue</guibutton>&#34;.
+      If you do not agree to the license, you cannot install Xaraya.</para>
+
+      <figure>
+        <title>Xaraya license agreement</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install02.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>System Settings Check. This panel tells you if you have set up
+      Xaraya correctly. It runs checks and determines whether you&#39;re
+      running the correct version of PHP and whether the permissions are set
+      correctly, and more. If there is a problem then follow the advice given.
+      If no failures or warnings are reported, click &#34;<guibutton>Continue</guibutton>&#34;.
+      If an error or problem is reported, fix it before continuing. Once you
+      have fixed any issues, press &#34;<guibutton>Check Again</guibutton>&#34;
+      to re-check the system settings.</para>
+
+      <figure>
+        <title>System Settings Check.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install03.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>FAILURE: PHP Version is less than 4.1.2.</emphasis></para>
+
+          <para>This error can be fixed by installing an updated version of
+          PHP that is equal to or greater than version 4.1.2.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>FAILURE: The installer cannot write to the
+          configuration file. Please verify that your webserver has write
+          access to the var/config.system.php file.</emphasis></para>
+
+          <para>This error can be fixed by changing the permissions of the
+          &#60;xarroot&#62;/var/config.system.php&#34; file, for example,
+          &#34;<userinput>chmod 666 &#60;xarroot&#62;/var/config.system.php</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>FAILURE: The installer cannot write to
+          var/cache/templates. Please verify that your webserver has write
+          access to the var/cache/templates directory.</emphasis></para>
+
+          <para>This error can be fixed by changing the permissions of the
+          &#60;xarroot&#62;/var/cache/templates&#34; directory, for example,
+          &#34;<userinput>chmod 777 &#60;xarroot&#62;/var/cache/templates</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>FAILURE: The installer cannot write to the
+          var/cache/rss directory.</emphasis></para>
+
+          <para>This error can be fixed by changing the permissions of the
+          &#60;xarroot&#62;/var/cache/rss&#34; directory, for example, &#34;<userinput>chmod
+          777 &#60;xarroot&#62;/var/cache/rss</userinput>&#34;.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Database Settings Collection. Review (and edit if necessary) the
+      Database Settings on the next panel. The default database settings
+      displayed on this panel come from the &#39;config.system.php&#39; file
+      we edited above.</para>
+
+      <figure>
+        <title>Database Settings Collection.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install04.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <itemizedlist>
+        <listitem>
+          <para>The database types currently supported by Xaraya are MySQL or
+          PostGRESQL. Choose the one that you are using.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create the database</guibutton>&#34; to
+          have the Xaraya installer attempt to create the database. Click
+          &#34;<guibutton>Continue</guibutton>&#34;.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>If Xaraya cannot create the database for you, see Appendix B:
+      Creating the Xaraya database via phpMyAdmin.</para>
+    </listitem>
+
+    <listitem>
+      <para>Administrator Account Creation. This panel creates the site
+      Administrator&#39;s account. This account has unlimited access to the
+      site.</para>
+
+      <figure>
+        <title>Administrator Account Creation</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install06.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <itemizedlist>
+        <listitem>
+          <para>Enter Full Name -- the Administrator&#39;s full name.</para>
+        </listitem>
+
+        <listitem>
+          <para>Enter Username -- (<emphasis>required</emphasis>) used by the
+          Administrator to log into the site.</para>
+        </listitem>
+
+        <listitem>
+          <para>Enter Password -- (<emphasis>required</emphasis>) used by the
+          Administrator to log into the site.</para>
+        </listitem>
+
+        <listitem>
+          <para>Enter Password again to verify (<emphasis>required</emphasis>).</para>
+        </listitem>
+
+        <listitem>
+          <para>Enter Administrator Email address (<emphasis>required</emphasis>).</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Continue</guibutton>&#34;.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Available Configurations.</para>
+
+      <figure>
+        <title>Available Configurations</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install07.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <itemizedlist>
+        <listitem>
+          <para>&#39;<guibutton>Community Site</guibutton>&#39; prepares a
+          site where Registered users have read access to all modules and
+          Anonymous users can either read non-core modules or be limited
+          essentially to the first panel (depending on the configuration
+          option selected at installation).</para>
+        </listitem>
+
+        <listitem>
+          <para>&#39;<guibutton>Intranet</guibutton>&#39; configuration is
+          very restrictive where users who aren&#39;t logged in (Anonymous
+          users) are limited to the first panel. Registered users have read
+          access to non-core modules. There is also another group of users
+          called &#39;Oversight&#39; that have Administrative rights to
+          everything except the Roles and Privileges modules.</para>
+        </listitem>
+
+        <listitem>
+          <para>&#39;<guibutton>Public</guibutton>&#39; assumes a site where
+          Anonymous users can do more than just read. They have the option to
+          post comments to articles in non-core modules, while Registered
+          users can be given moderate rights to all modules.</para>
+        </listitem>
+
+        <listitem>
+          <para>&#39;<guibutton>Upgrade from Postnuke</guibutton>&#39; is
+          currently not available.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>From the list of Available Configurations, select &#34;<command>Community
+      Site</command>&#34;. Click &#34;<command>Continue</command>&#34;.</para>
+    </listitem>
+
+    <listitem>
+      <para>Choose Configuration Options. Once you&#39;ve chosen your
+      configuration from the Available Configurations, specify which modules
+      you wish to initialise via the installer. The listed modules are a
+      subset of all the modules available for Xaraya, but this provides a nice
+      starting place. For this example, select the installation defaults
+      unless you have specific reasons to select otherwise.</para>
+
+      <figure>
+        <title>Choose Configuration Options</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install08.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>If you make a mistake or forget to install a module that you need,
+      don&#39;t worry -- modules can be installed or removed at any time.</para>
+    </listitem>
+
+    <listitem>
+      <para>Click &#34;<command>Continue</command>&#34;.</para>
+
+      <figure>
+        <title>Installation complete!</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="left" fileref="SourceImages/Install09.jpg"
+            format="JPG" width="450" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </listitem>
+  </itemizedlist>
+
+  <para>Your Xaraya installation is complete! Click &#34;<command>Launch the
+  site!</command>&#34; to go to your new Xaraya website, logged in as the
+  Administrator.</para>
+
+  <sect1>
+    <title>Increase site security</title>
+
+    <para>There are two steps that are recommended after installation to
+    increase the security of the website.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>To increase site security after installation, delete the &#39;<filename>install.php</filename>&#39;
+        and &#39;<filename>upgrade.php</filename>&#39; files from the Xaraya
+        installation directory (&#34;&#60;xarroot&#62;&#34;). These two files
+        are not needed for normal site operation. For example, on Linux:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>&#34;<userinput>cd &#60;xarroot&#62;</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>&#34;<userinput>rm install.php</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>&#34;<userinput>rm upgrade.php</userinput>&#34;</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Change the file permissions for <filename>&#60;xarroot&#62;/var/config.system.php</filename>
+        to &#34;444&#34; (read-only). This can be done by using the command
+        &#34;<userinput>chmod 444 config.system.php</userinput>&#34; from
+        within the Xaraya&#39;s <filename>/var</filename> directory. For
+        example, on Linux:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>&#34;<userinput>cd &#60;xarroot&#62;/va</userinput>r&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>&#34;<userinput>chmod 444 config.system.php</userinput>&#34;</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </orderedlist>
+  </sect1>
+
+  <sect1>
+    <title>A Quick Look at Xaraya&#39;s Interface</title>
+
+    <para>After the first installation, Xaraya&#39;s interface looks similar
+    to other Content Management Systems.</para>
+
+    <figure>
+      <title>Xaraya&#39;s interface after installation.</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata align="left" fileref="SourceImages/Install10.jpg"
+          format="JPG" width="450" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>At the top is the title bar of the browser which says, &#34;Your
+    Site Name :: Base :: Welcome&#34; by default. Below that, at the top left
+    of the screen, is the Xaraya logo which is part of the &#39;<firstterm>header</firstterm>&#39;
+    region. Click the logo at any time to go to the front page of your site.</para>
+
+    <para>Down the left side, since you&#39;re logged in as an Administrator,
+    appears the Administration menu which may be divided into groups (Global,
+    Content, Users &#38; Groups, etc.) depending on your configuration
+    selection in Admin-&#62;Adminpanels-&#62;Modify config. The Administration
+    menu appears only for members of the Administrator group; regular users
+    (anonymous and registered users) do not see this menu. At the bottom of
+    the Administration menu is the &#34;[admin logout]&#34; link which should
+    be used to log out of the site when you&#39;re done administrating Xaraya.
+    Below the Administration menu is the Main Menu as it is displayed for
+    regular users.</para>
+
+    <para>At the bottom of the browser window is Xaraya&#39;s &#39;<firstterm>footer</firstterm>&#39;
+    region. After installation, you&#39;ll see the Xaraya &#34;powered by&#34;
+    logo, copyright statement, and your site slogan (which is &#34;Your Site
+    Slogan&#34; after installation).</para>
+
+    <para>The large pane that uses most of the browser window is the content
+    region. This is where the majority of site information is displayed to
+    users.</para>
+
+    <para>Everything you see in Xaraya is configurable. Xaraya&#39;s powerful
+    theming engine, BlockLayout, makes it easy to customize your site to your
+    exact specifications. The colors, the fonts, the placement of information
+    is all configurable by changing themes or templates on your Xaraya site.
+    Don&#39;t like the Administration menu on the left? It&#39;s quite simple
+    to move it. Want to put your own logo in place of the Xaraya logo at the
+    top? No problem!</para>
+  </sect1>
+
+  <sect1>
+    <title>Click-Paths</title>
+
+    <para>For the remainder of this document, we indicate where to click by
+    using &#34;<firstterm>click-paths</firstterm>&#34;.</para>
+
+    <para>&#34;Click-paths&#34; are a series of clicks you make in your web
+    browser. An example of a &#34;click-path&#34; is indicated as follows:</para>
+
+    <para><command>Admin-&#62;Blocks-&#62;View Instances</command></para>
+
+    <para>This example click-path instructs you that while logged in as the
+    Administrator (&#39;Admin&#39;), click the link for Blocks and finally on
+    the next page click &#39;View Instances&#39;. Generally, the click-path is
+    followed with a specific instruction, as you see in REMOVING THE REMINDER
+    BLOCK, below.</para>
+  </sect1>
+
+  <sect1>
+    <title>Removing the Reminder Block</title>
+
+    <para>There is a REMINDER block that is displayed on the left side menu of
+    a newly-installed or updated Xaraya site which reminds the Administrator
+    to delete the install.php and upgrade.php files from <command>&#60;xarroot&#62;</command>.
+    Since we&#39;ve already deleted those files, we can safely remove the
+    REMINDER block. Follow the steps below to remove the REMINDER block.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><command>Admin-&#62;Blocks-&#62;View Instances</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>In the line with REMINDER in the title, click the &#34;<command>Delete</command>&#34;
+            operation and &#34;<command>OK</command>&#34; to confirm deletion.
+            The REMINDER block is deleted.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</chapter>

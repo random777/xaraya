@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>PubSub Module</title>
+
+  <subtitle>Allow users to subscribe to updates to site items.
+  <command>Admin-&#62;Pubsub</command>.</subtitle>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>View All</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Module name:</para>
+        </listitem>
+
+        <listitem>
+          <para>Category:</para>
+        </listitem>
+
+        <listitem>
+          <para>Subscribers:</para>
+        </listitem>
+
+        <listitem>
+          <para>Action:</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Wiki Module</title>
+
+  <subtitle>Allow Wiki formatting in Xaraya items. No administration panel.</subtitle>
+
+  <para>This module does not have an administration panel.</para>
+</sect2>

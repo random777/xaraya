@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Uploads Module</title>
+
+  <subtitle>Upload handler module for Xaraya. <command>Admin-&#62;Uploads</command>.</subtitle>
+
+  <para>Using the Uploads module, the Site Administrator may permit uploads in
+  a protected fashion. For example, if the Site Administrator configures
+  Uploads in a certain way (see examples, below), users can submit images
+  along with article submissions. These user-sent images can be displayed
+  within articles.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>View uploads:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>View All:</para>
+        </listitem>
+
+        <listitem>
+          <para>Waiting for approval:</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Upload file:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Browse:</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Submit Query</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Import files:</para>
+    </listitem>
+
+    <listitem>
+      <para>Modify config:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Primary configuration:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Uploads directory: This must be the full path to a folder
+              on your server, including ending slash.</para>
+            </listitem>
+
+            <listitem>
+              <para>Maximum Upload Size (in bytes): This number may be ignored
+              if it is greater than your PHP maximum upload size.</para>
+            </listitem>
+
+            <listitem>
+              <para>Allowed File Extensions: This list should be semicolon (;)
+              delimited. Do not use dots (.) unless it is a multi-part
+              extension like <userinput>tar.gz</userinput>. Do not put a
+              semicolon on the end unless you wish to accept uploads without
+              extensions.</para>
+            </listitem>
+
+            <listitem>
+              <para>Confirm Deletes/Rejects: Specifies if confirmation must be
+              provided before files are deleted. Check YES to turn on
+              confirmation. Check NO to turn off confirmation.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Submit Query</guibutton>&#34; to
+              save changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Images configuration:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Maximum Image Width (in pixels):</para>
+            </listitem>
+
+            <listitem>
+              <para>Maximum Image Height (in pixels):</para>
+            </listitem>
+
+            <listitem>
+              <para>Thumbnails:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Kept with original file:</para>
+                </listitem>
+
+                <listitem>
+                  <para>Kept in thumbnail folder:</para>
+                </listitem>
+
+                <listitem>
+                  <para>None:</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Thumbnail path: In this field, enter the local path where
+              (optionally, depending on the setting of &#34;Thumbnails&#34;,
+              above) thumbnails are stored, including the trailing slash. The
+              directory must be writable by PHP.</para>
+            </listitem>
+
+            <listitem>
+              <para>NetPBM path: Enter the path to the NetPBM installation,
+              including the trailing slash (for example, <filename>/usr/local/bin/</filename>).
+              If this field is populated, the Uploads module will use NetPBM
+              to generate thumbnails. If this field is not populated (or the
+              NetPBM files cannot be found), the Uploads module will use
+              PHP&#39;s GD interface which requires PHP to be compiled with
+              support for GD 1.8+. See <command>Admin-&#62;Base-&#62;System</command>
+              for information.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Import configuration:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Import directory: Enter the local path where you&#39;ve
+              placed files that you wish to import via <command>Admin-&#62;Uploads-&#62;Import</command>.
+              This must be the full path to the folder on the server,
+              including trailing slash.</para>
+            </listitem>
+
+            <listitem>
+              <para>Obfuscate/Secure imported files: Check YES to obfuscate
+              the imported files. Check NO and the files will not be
+              obfuscated.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Submit Query</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <sect3>
+    <title>EXAMPLE: Adding Image Uploads to a Publication Type</title>
+
+    <para>To allow users to upload images to the site and include the uploaded
+    images in articles, we must complete several steps. These steps are listed
+    below.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Create a directory where uploaded images will be stored. Default
+        is &#34;<filename>&#60;xarroot&#62;/var/uploads</filename>&#34;, but
+        the directory can be anywhere you&#39;d like.</para>
+      </listitem>
+
+      <listitem>
+        <para>Change the permissions on the UPLOAD directory to world-readable
+        &#38; world-writable. On Linux systems, this is done by &#34;<userinput>chmod
+        777 &#60;path_to_upload_dir&#62;</userinput>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>Install the Uploads module. Go to <command>Admin-&#62;Modules-&#62;View
+        All</command>. CHECK &#34;<guibutton>Regenerate</guibutton>&#34; and
+        click the &#34;<guibutton>Reload</guibutton>&#34; button to refresh
+        the page. Click &#34;<guibutton>Install</guibutton>&#34; next to the
+        Uploads module if necessary.</para>
+      </listitem>
+
+      <listitem>
+        <para>Go to <command>Admin-&#62;Uploads-&#62;Modify Config</command>.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>In the &#34;Uploads Directory&#34; field, enter the full
+            path to the uploaded images folder on your server, including
+            ending slash.</para>
+          </listitem>
+
+          <listitem>
+            <para>Ensure that you&#39;re satisfied with the permitted
+            extensions in the Allowed File Extensions field. For example,
+            &#34;<userinput>gif;jpg;png;zip;tar.gz;tgz</userinput>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Edit the other settings in this panel to your preferences.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Submit Query</guibutton>&#34; to save
+            changes.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>We want to enable Uploads in Articles Publication Type, so we
+        must hook the Uploads module to the Publication Type(s) of the
+        Articles module. Go to <command>Admin-&#62;Articles-&#62;Publication
+        Types</command>. Select the Publication Type to which you would like
+        to hook Uploads and click &#34;<guibutton>Article Config</guibutton>&#34;
+        next to it.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>If you do not see &#34;<computeroutput>Dynamic Data Fields
+            [modify]</computeroutput>&#34; at the bottom of the panel, you
+            need to enable Dynamic Data for the Articles module before you can
+            continue. To enable Dynamic Data for the Articles module, do the
+            following:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Go to <command>Admin-&#62;Modules-&#62;View All</command>.
+                Locate the Articles module in the panel. Click &#34;<guibutton>On/Off</guibutton>&#34;
+                under Hooks next to the Articles module.</para>
+              </listitem>
+
+              <listitem>
+                <para>On the panel that appears, place a CHECK in the box next
+                to Uploads to enable Uploads in Articles. You can select
+                either ALL Publication Types in Articles (by CHECKing the
+                &#34;<userinput>All</userinput>&#34; column) or select
+                specific Publication Type(s) by CHECKing their individual
+                boxes.</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Save Changes</guibutton>&#34; to
+                save changes.</para>
+              </listitem>
+
+              <listitem>
+                <para>Go back to <command>Admin-&#62;Articles-&#62;Publication
+                Types</command>. Select the Publication Type to which you
+                would like to hook Uploads and click &#34;<guibutton>Article
+                Config</guibutton>&#34; next to it.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>If you see &#34;<computeroutput>Dynamic Data Fields [modify]</computeroutput>&#34;
+            at the bottom of the panel, click &#34;<guibutton>[modify]</guibutton>&#34;.
+            A new browser window will open. In this new window we define the
+            Dynamic Data field that will hold the uploaded image filename.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Enter text to be displayed to the user in the
+                &#34;Label&#34; field. For example, &#34;<userinput>Image</userinput>&#34;.</para>
+              </listitem>
+
+              <listitem>
+                <para>From the Property Type drop-down list, select &#34;<userinput>File
+                Upload</userinput>&#34;.</para>
+              </listitem>
+
+              <listitem>
+                <para>The remaining fields should be set as follows:</para>
+
+                <itemizedlist>
+                  <listitem>
+                    <para>Default is blank.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Data source is set to &#34;dynamic_data&#34;.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Validation is blank.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Status is Active.</para>
+                  </listitem>
+                </itemizedlist>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Update Properties</guibutton>&#34;
+                to save changes. The new Dynamic Data field is added to the
+                Publication Type.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Go to <command>Admin-&#62;Articles-&#62;Add Article</command>.
+        Select a Publication Type for which you have enabled Upload hooks. You
+        should see at the bottom of the page the new Image field.</para>
+      </listitem>
+    </itemizedlist>
+  </sect3>
+</sect2>

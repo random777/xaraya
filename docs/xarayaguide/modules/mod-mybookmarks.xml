@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>MyBookMarks Module</title>
+
+  <subtitle>MyBookmarks allows sharing of your favorite URLs.
+  <command>Admin-&#62;Mybookmarks</command>.</subtitle>
+
+  <para>The MyBookmarks module gives your users a way to add their favorite
+  bookmarks to a sitewide database. The Bookmarks block with each user&#39;s
+  personal bookmarks, will be displayed on thier Roles My Account page. The
+  Random Bookmarks block will pull a random link from the master database of
+  all user&#39;s bookmarks.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>Overview</guibutton>: Provides a general overview of
+      the module.</para>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>Main page</guibutton>: OTTO</para>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>View bookmarks</guibutton>: From this panel, you can
+      view all bookmarks on the site. You have options for maintaining the
+      bookmarks and adding new ones from this panel.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>ID: The ID number of the bookmark.</para>
+        </listitem>
+
+        <listitem>
+          <para>Username: The username of the user who added the bookmark.
+          Click the username to view User Information.</para>
+        </listitem>
+
+        <listitem>
+          <para>Link name: The name of the bookmark as entered by the user who
+          added it.</para>
+        </listitem>
+
+        <listitem>
+          <para>URL: The URL for the bookmark as entered by the user who added
+          it. Click the URL to visit the page.</para>
+        </listitem>
+
+        <listitem>
+          <para>Options:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>View: Displays another view of the bookmark entry in the
+              site&#39;s database, but does not view the actual bookmarked
+              page.</para>
+            </listitem>
+
+            <listitem>
+              <para>Modify: Click this link to modify the link name and/or
+              URL. From this panel, you may view the profile of the user who
+              added the bookmark. Click &#34;<guibutton>[ check ]</guibutton>&#34;
+              to open the URL in a new window. Modify the values as necessary,
+              then click &#34;<guibutton>Modify</guibutton>&#34; to save
+              changes, &#34;<guibutton>Preview</guibutton>&#34; to preview the
+              changes without saving, or &#34;<guibutton>Cancel</guibutton>&#34;
+              to abort the modification without saving.</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete: Click &#34;<guibutton>Delete</guibutton>&#34; to
+              delete an existing bookmark.</para>
+
+              <note>
+                <para>You are not asked to confirm your intention to delete an
+                item when clicking this link.</para>
+              </note>
+            </listitem>
+
+            <listitem>
+              <para>New: Click &#34;New&#34; to add a new bookmark to the
+              site. On the following panel, enter the Link Name &#38; URL for
+              the link you wish to add. Click &#34;<guibutton>Create</guibutton>&#34;
+              to save changes, &#34;<guibutton>Preview</guibutton>&#34; to
+              preview the database entry without saving, or &#34;<guibutton>Cancel</guibutton>&#34;
+              to abort the addition without saving.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>Modify config</guibutton>: This panel allows
+      modification of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Configure Module</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Short URL support: </para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Modify</guibutton>&#34; to save
+              changes, or &#34;<guibutton>Cancel</guibutton>&#34; to cancel
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Bookmark configuration</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Modules per page:</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Modify</guibutton>&#34; to save
+              changes, or &#34;<guibutton>Cancel</guibutton>&#34; to cancel
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

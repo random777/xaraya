@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Headlines Module</title>
+
+  <subtitle>Generates a list of RSS news feeds. <command>Admin-&#62;Headlines</command>.</subtitle>
+
+  <para>RSS is a Web content syndication format. Using RSS, your site can
+  &#39;pull&#39; content in the form of headlines from selected websites and
+  display that content on your site. If a user of your site is interested in
+  reading the article, they can click a link to be taken to the other site.
+  The Headlines modules facilitates this process.</para>
+
+  <para>Your site can be syndicated assuming that you have configured
+  <command>Admin-&#62;Bloggerapi</command>. The link for syndication of your
+  site is
+  &#34;www.yoursite.com/index.php?module=articles&#38;func=view&#38;theme=rss&#34;.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>Add</guibutton>: In this section of the Headlines
+      module, we specify the news feeds that we want to syndicate.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>List of available feeds: Click this link to open a new browser
+          window with <ulink url="http://www.syndic8.com">http://www.syndic8.com</ulink>.
+          Click &#34;<guibutton>Feeds</guibutton>&#34; at the top of the
+          Syndic8 site to display a list of available feeds, or enter search
+          criteria and search for feeds. Once you have found a feed you wish
+          to syndicate, copy the Feed URL from Syndic8 into Xaraya&#39;s URL
+          field, below.</para>
+        </listitem>
+
+        <listitem>
+          <para>URL: Once you know the URL for the news feed you wish to
+          syndicate, enter the complete URL (including &#34;<userinput>http://</userinput>&#34;)
+          in this space.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create Headline</guibutton>&#34; to save
+          changes. The news feed is added to the site&#39;s Headlines list.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>View</guibutton>: This link allows you to view news
+      feeds which you are syndicating, and to edit or delete them.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>URL: The complete URL for the news feed, including &#34;<userinput>http://</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Order: Defines the order in which syndicated news feeds are
+          displayed in the module. News feeds are displayed in ascending
+          numeric order by order number. From 0 to 999, you may assign an
+          order number to your news feeds to arrange them in your preferred
+          order. These numbers do not need to be consecutive; it is perfectly
+          acceptable to number your news feeds by 5&#39;s or 10&#39;s as you
+          see fit. If you do not assign order numbers, sites are displayed in
+          the order in which they were added.</para>
+        </listitem>
+
+        <listitem>
+          <para>Options:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Edit: Permits modification of a news feed.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>URL: Enter the complete URL (including &#34;<userinput>http://</userinput>&#34;)
+                  for the news feed.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Alternate Title: To override the title of the feed
+                  that is provided by the feed, enter the title of the feed in
+                  this field. Leave this field blank to use the feed-supplied
+                  title information.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Alternate Description: To override the description of
+                  the feed that is provided by the feed, enter the description
+                  of the feed in this field. Leave this field blank to use the
+                  feed-supplied description information.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Order: Modify the order number of the news feed in
+                  this field. Enter a number, from 0-999, in this field.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Click &#34;<guibutton>Modify Headline</guibutton>&#34;
+                  to save changes.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Delete: To delete a news feed from your site, click this
+              link next to the feed to be deleted. You will be asked to
+              confirm your intention to delete, and the feed will be deleted
+              from your site.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>Modify config</guibutton>: This panel allows
+      modification of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Items per page: In this field, enter the number of headlines
+          to display per page. For example, to display 20 headlines per page,
+          enter &#34;<userinput>20</userinput>&#34; in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Headlines Configuration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

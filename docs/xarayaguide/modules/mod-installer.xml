@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Installer Module</title>
+
+  <subtitle>Install and customize Xaraya. No administration panel.</subtitle>
+
+  <para>The installer module is used by Xaraya during installation and for
+  upgrades to the site. This module must not be deleted from your system after
+  installation or Xaraya will not function properly.</para>
+</sect2>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY frontmatter SYSTEM "frontmatter.xml">
+<!ENTITY getting SYSTEM "getting.xml">
+<!ENTITY installing SYSTEM "installing.xml">
+<!ENTITY config-general SYSTEM "configgeneral.xml">
+<!ENTITY categories SYSTEM "categories.xml">
+<!ENTITY templates SYSTEM "templates.xml">
+<!ENTITY modules SYSTEM "modules.xml">
+
+<!ENTITY mod-addressbook SYSTEM "modules/mod-addressbook.xml">
+<!ENTITY mod-adminpanels SYSTEM "modules/mod-adminpanels.xml">
+<!ENTITY mod-articles SYSTEM "modules/mod-articles.xml">
+<!ENTITY mod-authinvision SYSTEM "modules/mod-authinvision.xml">
+<!ENTITY mod-authldap SYSTEM "modules/mod-authldap.xml">
+<!ENTITY mod-authsso SYSTEM "modules/mod-authsso.xml">
+<!ENTITY mod-authsystem SYSTEM "modules/mod-authsystem.xml">
+<!ENTITY mod-autolinks SYSTEM "modules/mod-autolinks.xml">
+<!ENTITY mod-bbclick SYSTEM "modules/mod-bbclick.xml">
+<!ENTITY mod-bbcode SYSTEM "modules/mod-bbcode.xml">
+<!ENTITY mod-bkview SYSTEM "modules/mod-bkview.xml">
+<!ENTITY mod-blocks SYSTEM "modules/mod-blocks.xml">
+<!ENTITY mod-bloggerapi SYSTEM "modules/mod-bloggerapi.xml">
+<!ENTITY mod-calendar SYSTEM "modules/mod-calendar.xml">
+<!ENTITY mod-cast SYSTEM "modules/mod-cast.xml">
+<!ENTITY mod-categorymodule SYSTEM "modules/mod-categories.xml">
+<!ENTITY mod-censor SYSTEM "modules/mod-censor.xml">
+<!ENTITY mod-changelog SYSTEM "modules/mod-changelog.xml">
+<!ENTITY mod-comments SYSTEM "modules/mod-comments.xml">
+<!ENTITY mod-converter SYSTEM "modules/mod-converter.xml">
+<!ENTITY mod-dynamicdata SYSTEM "modules/mod-dynamicdata.xml">
+<!ENTITY mod-dynamic_planning SYSTEM "modules/mod-dynamic_planning.xml">
+<!ENTITY mod-dyn_example SYSTEM "modules/mod-dyn_example.xml">
+<!ENTITY mod-ephemerids SYSTEM "modules/mod-ephemerids.xml">
+<!ENTITY mod-example SYSTEM "modules/mod-example.xml">
+<!ENTITY mod-facilities SYSTEM "modules/mod-facilities.xml">
+<!ENTITY mod-figlet SYSTEM "modules/mod-figlet.xml">
+<!ENTITY mod-formcontrols SYSTEM "modules/mod-formcontrols.xml">
+<!ENTITY mod-headlines SYSTEM "modules/mod-headlines.xml">
+<!ENTITY mod-hitcount SYSTEM "modules/mod-hitcount.xml">
+<!ENTITY mod-html SYSTEM "modules/mod-html.xml">
+<!ENTITY mod-imagefeed SYSTEM "modules/mod-imagefeed.xml">
+<!ENTITY mod-installer SYSTEM "modules/mod-installer.xml">
+<!ENTITY mod-issueareapub SYSTEM "modules/mod-issueareapub.xml">
+<!ENTITY mod-keywords SYSTEM "modules/mod-keywords.xml">
+<!ENTITY mod-latestcomments SYSTEM "modules/mod-latestcomments.xml">
+<!ENTITY mod-mail SYSTEM "modules/mod-mail.xml">
+<!ENTITY mod-messages SYSTEM "modules/mod-messages.xml">
+<!ENTITY mod-metaweblogapi SYSTEM "modules/mod-metaweblogapi.xml">
+<!ENTITY mod-modules SYSTEM "modules/mod-modules.xml">
+<!ENTITY mod-multisites SYSTEM "modules/mod-multisites.xml">
+<!ENTITY mod-mybookmarks SYSTEM "modules/mod-mybookmarks.xml">
+<!ENTITY mod-newsgroups SYSTEM "modules/mod-newsgroups.xml">
+<!ENTITY mod-opentracker SYSTEM "modules/mod-opentracker.xml">
+<!ENTITY mod-overlib SYSTEM "modules/mod-overlib.xml">
+<!ENTITY mod-polls SYSTEM "modules/mod-polls.xml">
+<!ENTITY mod-privileges SYSTEM "modules/mod-privileges.xml">
+<!ENTITY mod-pubsub SYSTEM "modules/mod-pubsub.xml">
+<!ENTITY mod-quotes SYSTEM "modules/mod-quotes.xml">
+<!ENTITY mod-ratings SYSTEM "modules/mod-ratings.xml">
+<!ENTITY mod-recommend SYSTEM "modules/mod-recommend.xml">
+<!ENTITY mod-referer SYSTEM "modules/mod-referer.xml">
+<!ENTITY mod-release SYSTEM "modules/mod-release.xml">
+<!ENTITY mod-reports SYSTEM "modules/mod-reports.xml">
+<!ENTITY mod-reviews SYSTEM "modules/mod-reviews.xml">
+<!ENTITY mod-roles SYSTEM "modules/mod-roles.xml">
+<!ENTITY mod-search SYSTEM "modules/mod-search.xml">
+<!ENTITY mod-shopping SYSTEM "modules/mod-shopping.xml">
+<!ENTITY mod-sitetools SYSTEM "modules/mod-sitetools.xml">
+<!ENTITY mod-smilies SYSTEM "modules/mod-smilies.xml">
+<!ENTITY mod-sniffer SYSTEM "modules/mod-sniffer.xml">
+<!ENTITY mod-soapserver SYSTEM "modules/mod-soapserver.xml">
+<!ENTITY mod-stats SYSTEM "modules/mod-stats.xml">
+<!ENTITY mod-subitems SYSTEM "modules/mod-subitems.xml">
+<!ENTITY mod-tasks SYSTEM "modules/mod-tasks.xml">
+<!ENTITY mod-themes SYSTEM "modules/mod-themes.xml">
+<!ENTITY mod-todolist SYSTEM "modules/mod-todolist.xml">
+<!ENTITY mod-trackback SYSTEM "modules/mod-trackback.xml">
+<!ENTITY mod-translations SYSTEM "modules/mod-translations.xml">
+<!ENTITY mod-uploads SYSTEM "modules/mod-uploads.xml">
+<!ENTITY mod-wiki SYSTEM "modules/mod-wiki.xml">
+<!ENTITY mod-window SYSTEM "modules/mod-window.xml">
+<!ENTITY mod-workflow SYSTEM "modules/mod-workflow.xml">
+<!ENTITY mod-xarbb SYSTEM "modules/mod-xarbb.xml">
+<!ENTITY mod-xarlinkme SYSTEM "modules/mod-xarlinkme.xml">
+<!ENTITY mod-xlink SYSTEM "modules/mod-xlink.xml">
+<!ENTITY mod-xmlrpcserver SYSTEM "modules/mod-xmlrpcserver.xml">
+<!ENTITY mod-xmlrpcsystemapi SYSTEM "modules/mod-xmlrpcsystemapi.xml">
+<!ENTITY mod-xmlrpcvalidatorapi SYSTEM "modules/mod-xmlrpcvalidatorapi.xml">
+<!ENTITY mod-xproject SYSTEM "modules/mod-xproject.xml">
+<!ENTITY mod-xslt SYSTEM "modules/mod-xslt.xml">
+
+<!ENTITY hooks SYSTEM "hooks.xml">
+<!ENTITY articles SYSTEM "articles.xml">
+<!ENTITY publicationtypes SYSTEM "publicationtypes.xml">
+<!ENTITY dynamicdata SYSTEM "dynamicdata.xml">
+<!ENTITY privileges SYSTEM "privileges.xml">
+<!ENTITY maintenance SYSTEM "maintenance.xml">
+<!ENTITY conclusion SYSTEM "conclusion.xml">
+
+<!ENTITY appendix-a SYSTEM "appendixa-xarayalicense.xml">
+<!ENTITY appendix-b SYSTEM "appendixb-createdatabase.xml">
+<!ENTITY appendix-c SYSTEM "appendixc-shorturl.xml">
+<!ENTITY appendix-d SYSTEM "appendixd-createtheme.xml">
+<!ENTITY appendix-e SYSTEM "appendixe-pntoxar.xml">
+<!ENTITY appendix-f SYSTEM "appendixf-redhat9.xml">
+<!ENTITY appendix-g SYSTEM "appendixg-standards.xml">
+]>
+<book lang="en">
+  <bookinfo>
+    <title>The Official Xaraya Installation &#38; Getting Started Guide</title>
+
+    <subtitle>Installing &#38; Configuring a Xaraya Community Site</subtitle>
+
+    <author>
+      <lineage>Drew Vogel</lineage>
+    </author>
+
+    <authorinitials>DPV</authorinitials>
+
+    <abstract>
+      <para>This Guide provides instruction on obtaining the Xaraya software
+      and installing, configuring, and maintaining a Xaraya website.</para>
+    </abstract>
+
+    <authorblurb>
+      <para>Drew Vogel has been involved with Xaraya since its inception --
+      when it was known by the code-name &#34;ProjectX&#34;. In fact, Drew
+      hosted the first-ever ProjectX Summit (August 23-28, 2002) in Cincinnati
+      Ohio.</para>
+
+      <para>Drew earned a Bachelor of Fine Arts in Theater Directing &#38;
+      Performance with a minor in English Literature focusing on Shakespearean
+      literature from Northern Kentucky University (1991). He works at the
+      University of Cincinnati College of Pharmacy as Manager of Professional
+      Programs. His outside interests include gourmet cooking, fine dining,
+      scuba diving, urban exploration, sports cars, computer technology,
+      animals, reading, movies, travel, music, and humor. And more.</para>
+
+      <para>Drew's interest in documentation is an effort to bridge the gap
+      between developers and users of software. He acts as an intermediary between
+      these groups with their seperate needs.</para>
+
+      <para>When not working on documentation projects, Drew is typically 
+      reading cookbooks or other food-related books &#38; magazines, or
+      creating culinary masterpieces in his home kitchen.</para>
+
+      <para>Drew lives in Cincinnati, Ohio with his fiancee Wendy, four cats,
+      and two dogs. His website is at <ulink url="http://www.drewvogel.com">http://www.drewvogel.com</ulink>.</para>
+    </authorblurb>
+
+    <copyright>
+      <year>2002-2003</year>
+
+      <holder>Drew Vogel <ulink url="mailto:drew@xaraya.com">drew@xaraya.com</ulink>.</holder>
+    </copyright>
+
+    <date>February 2, 2004</date>
+
+    <releaseinfo>Guide version: 0161. Built 04-February-2004, 08:45am.</releaseinfo>
+
+    <legalnotice>
+      <para>The Official Xaraya Installation &#38; Getting Started Guide is
+      licensed and distributed under the GNU Free Documentation License.</para>
+
+      <para>Parts are copyright (c) 2003 mikespub <email>postnuke@mikespub.net</email>.
+      Used with permission.</para>
+
+      <para>Parts are copyright (c) 2003 Skribe <email>skribe@plug.linux.org.au</email>.
+      Used with permission.</para>
+
+      <para>Parts are copyright (c) 2003 Mahmood Al-Yousif <email>mahmood@alyousif.tv</email>.
+      Used with permission.</para>
+
+      <para>Parts are copyright (c) 2003 John Cox <email>niceguyeddie@xaraya.com</email>.
+      Used with permission.</para>
+
+      <para>Permission is granted to copy, distribute and/or modify this
+      document under the terms of the GNU Free Documentation License, Version
+      1.2 or any later version published by the Free Software Foundation; with
+      the Invariant Sections being &#34;Introduction by John Cox&#34;,
+      &#34;Document Thanks&#34;, &#34;About the Author&#34;, and
+      &#34;Dedications&#34;, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is available at <ulink
+      url="http://www.gnu.org/licenses/fdl.html">http://www.gnu.org/licenses/fdl.html</ulink>.</para>
+    </legalnotice>
+  </bookinfo>
+
+  <dedication>
+    <para>The Xaraya Project is dedicated to the memory of Greg Allen
+    (adam_baum), March 6, 1973-June 16, 2001. Xaraya is his legacy.</para>
+
+    <para>Drew dedicates this Guide to my darling Wendy, the keeper of my
+    heart and the delight of my eyes.<figure><title>Powered by Xaraya</title><mediaobject><imageobject><imagedata
+    align="center" fileref="xaraya_logo_250.jpg" format="JPG" /></imageobject></mediaobject></figure></para>
+  </dedication>
+
+  <toc></toc>
+
+  &frontmatter;
+
+  &getting;
+
+  &installing;
+
+  &config-general;
+
+  &categories;
+
+  &templates;
+
+  &modules;
+
+  &hooks;
+
+  &articles;
+
+  &publicationtypes;
+
+  &dynamicdata;
+
+  &privileges;
+
+  &maintenance;
+
+  &conclusion;
+
+  &appendix-a;
+
+  &appendix-b;
+
+  &appendix-c;
+
+  &appendix-d;
+
+  &appendix-e;
+
+  &appendix-f;
+
+  &appendix-g;
+</book>

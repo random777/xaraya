@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Ratings Module</title>
+
+  <subtitle>Rate Xaraya items. <command>Admin-&#62;Ratings</command>.</subtitle>
+
+  <para>The ratings module allows users to submit their rating of site
+  content. There is a default configuration set, followed by a specific
+  configuration set for any modules to which the Ratings module is hooked. It
+  is recommended that you select one rating style for your whole site to avoid
+  confusion.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>View Statistics</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Module Name:</para>
+        </listitem>
+
+        <listitem>
+          <para>Module Items:</para>
+        </listitem>
+
+        <listitem>
+          <para>Total Ratings:</para>
+        </listitem>
+
+        <listitem>
+          <para>Action:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Delete: By clicking &#34;<guibutton>Delete</guibutton>&#34;
+              you can delete all ratings associated with a particular module.
+              Clicking on a module&#39;s name takes you to that module&#39;s
+              statistics panel which contains the figures for each of that
+              module&#39;s items that have ratings associated with them. From
+              there you can delete all ratings associated with a particular
+              item.</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete All:</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Grand Total:</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Default configuration</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Rating Style: Select the rating style from the drop-down
+              list.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Percentage: The user enters a value from &#34;<userinput>0</userinput>&#34;
+                  to &#34;<userinput>100</userinput>&#34; to indicate their
+                  satisfaction with the content. The rating is displayed as a
+                  percentage out of 100.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Number out of five: Users select a value from &#34;<userinput>0</userinput>&#34;
+                  through &#34;<userinput>5</userinput>&#34; from the
+                  drop-down list to indicate their satisfaction with the
+                  content. &#34;<userinput>5</userinput>&#34; is the most
+                  satisfied, &#34;<userinput>0</userinput>&#34; is the least.
+                  The rating is displayed as a number out of five.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Stars out of five: Users select a value from &#34;<userinput>0</userinput>&#34;
+                  through &#34;<userinput>5</userinput>&#34; from the
+                  drop-down list to indicate their satisfaction with the
+                  content. &#34;<userinput>5</userinput>&#34; is the most
+                  satisfied, &#34;<userinput>0</userinput>&#34; is the least.
+                  The rating is displayed as stars out of five.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Number out of ten: Users select a value from &#34;<userinput>0</userinput>&#34;
+                  through &#34;<userinput>10</userinput>&#34; from the
+                  drop-down list to indicate their satisfaction with the
+                  content. &#34;<userinput>10</userinput>&#34; is the most
+                  satisfied, &#34;<userinput>0</userinput>&#34; is the least.
+                  The rating is displayed as a number out of ten.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Stars out of ten: Users select a value from &#34;<userinput>0</userinput>&#34;
+                  through &#34;<userinput>10</userinput>&#34; from the
+                  drop-down list to indicate their satisfaction with the
+                  content. &#34;<userinput>10</userinput>&#34; is the most
+                  satisfied, &#34;<userinput>0</userinput>&#34; is the least.
+                  The rating is displayed as stars out of ten.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Security Level: Select the security level for ratings from
+              the drop-down list.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Low: Users can submit a rating multiple times.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Medium: Users can submit a rating once per day.</para>
+                </listitem>
+
+                <listitem>
+                  <para>High: Users must be logged in and can only submit a
+                  rating once.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Configuration for hooked modules: A specific Rating Style and
+          Security Level may be configured independently for each hooked
+          module. Hooked modules are listed below Default Configuration, and
+          the Rating Style and Security Levels function in the same way as in
+          Default configuration, above.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <sect3>
+    <title>EXAMPLE: Adding Ratings to a Publication Type</title>
+
+    <para>OTTO</para>
+  </sect3>
+</sect2>

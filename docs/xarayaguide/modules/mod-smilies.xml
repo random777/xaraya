@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Smilies Module</title>
+
+  <subtitle>Transform smilies to images. <command>Admin-&#62;Smilies</command>.</subtitle>
+
+  <para>The Smilies module transforms text that uses smilies code into
+  graphical images.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Add</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Smiley Code: The text entered by a site visitor to generate
+          the smiley.</para>
+        </listitem>
+
+        <listitem>
+          <para>Smiley Icon Path: The path to the smiley image file.</para>
+        </listitem>
+
+        <listitem>
+          <para>Smiley Emotion: Text describing the emotion conveyed via the
+          smiley. Used as mouseover text if a user hovers over the smiley.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create Smiley</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>View</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Smiley Code: The text entered by a site visitor to generate
+          the smiley.</para>
+        </listitem>
+
+        <listitem>
+          <para>Smiley Icon: The smiley itself.</para>
+        </listitem>
+
+        <listitem>
+          <para>Smiley Icon Path: The path to the smiley image file.</para>
+        </listitem>
+
+        <listitem>
+          <para>Smiley Emotion: Text describing the emotion conveyed via the
+          smiley.</para>
+        </listitem>
+
+        <listitem>
+          <para>Options:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Edit: Click the &#34;<guibutton>Edit</guibutton>&#34; link
+              next to the smiley you wish to edit. Make any required changes
+              and click &#34;<guibutton>Modify Smiley</guibutton>&#34; to save
+              changes.</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete: Click &#34;<guibutton>Delete</guibutton>&#34; next
+              to the smiley you wish to delete. On the next panel, confirm
+              your intention to delete and the smiley is deleted.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <sect3>
+    <title>EXAMPLE: Adding Smilies to a Publication Type</title>
+
+    <para>OTTO: To be written.</para>
+  </sect3>
+</sect2>

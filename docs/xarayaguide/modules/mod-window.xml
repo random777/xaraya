@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Window Module</title>
+
+  <subtitle>Incorporate external sites or stand-alone apps.
+  <command>Admin-&#62;Window</command>.</subtitle>
+
+  <para>The Window module is a port of the popular PostWrap module (for
+  PostNuke) to Xaraya. It lets you display stand-alone external web pages from
+  within your Xaraya site.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>The Window module uses the center block to display external
+      page(s).</para>
+    </listitem>
+
+    <listitem>
+      <para>Pages correspond to URLs. You can display pages off your local
+      server, or from the Internet.</para>
+    </listitem>
+
+    <listitem>
+      <para>You can define a number of different options for your external
+      page(s), among them the height and width of the display, whether only
+      registered users may see them, and so on.</para>
+    </listitem>
+
+    <listitem>
+      <para>You can display as many pages as you like, each with its own
+      settings.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>The following options are available under <command>Admin-&#62;Window</command>:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>General settings: These are the general, default settings for the
+      URLs that are entered in this module. Specific overrides are available
+      for URLs; see &#34;URL-specific settings&#34;, below.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Display off-site pages:</para>
+        </listitem>
+
+        <listitem>
+          <para>Use buffering of output before sending:</para>
+        </listitem>
+
+        <listitem>
+          <para>Allow input from browser address bar:</para>
+        </listitem>
+
+        <listitem>
+          <para>Compare URL against URL security in database:</para>
+        </listitem>
+
+        <listitem>
+          <para>Only for registered users:</para>
+        </listitem>
+
+        <listitem>
+          <para>Add link for &#34;Open in new window&#34;:</para>
+        </listitem>
+
+        <listitem>
+          <para>Use fixed title:</para>
+        </listitem>
+
+        <listitem>
+          <para>Auto-resize window:</para>
+        </listitem>
+
+        <listitem>
+          <para>Height of viewing window (in pixels). Only if Auto-resize
+          window, above, is set to NO, in which case this field specifies the
+          height of the content window.</para>
+        </listitem>
+
+        <listitem>
+          <para>Width of viewing window (in pixels or percent). If you&#39;re
+          entering a percent, enter it with the &#34;<userinput>%</userinput>&#34;
+          symbol, for example, &#34;<userinput>75%</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Save changes</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>URL-specific settings: The site administrator can configure
+      options on a URL-by-URL basis in this panel.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Existing URLs: View, edit, or delete existing URL records in
+          this section of the panel.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>URL address: The complete URL (including &#34;<userinput>http://</userinput>&#34;)
+              for the site.</para>
+            </listitem>
+
+            <listitem>
+              <para>Alias: The alias for the site as displayed to site
+              visitors.</para>
+            </listitem>
+
+            <listitem>
+              <para>Options:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Edit: To edit a specific URL, click &#34;Edit&#34;
+                  next to it.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Delete:</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>New URL: Add a new URL to the module &#38; set options.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>URL address field: The complete URL (including &#34;<userinput>http://</userinput>&#34;)
+              for the site you wish to add. For example, &#34;<userinput>http://www.bluesnews.com</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Alias field: The alias for the site as displayed to site
+              visitors. For example, &#34;<userinput>BluesNews</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Only for registered users:</para>
+            </listitem>
+
+            <listitem>
+              <para>Add link for &#34;Open in new window&#34;:</para>
+            </listitem>
+
+            <listitem>
+              <para>Use fixed title:</para>
+            </listitem>
+
+            <listitem>
+              <para>Auto-resize window:</para>
+            </listitem>
+
+            <listitem>
+              <para>Height of viewing window (in pixels). Only if Auto-resize
+              window, above, is set to NO, in which case this field specifies
+              the height of the content window.</para>
+            </listitem>
+
+            <listitem>
+              <para>Width of viewing window (in pixels or percent). If
+              you&#39;re entering a percent, enter it with the &#34;<userinput>%</userinput>&#34;
+              symbol, for example, &#34;<userinput>75%</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Add</guibutton>&#34; to save
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <para>Once URLs are populated in the Window module, you may open them in
+  your site by linking to
+  &#34;http://www.mysite.com/index.php?module=window&#38;page=&#60;your
+  page&#62;&#34;. For example, &#34;<userinput>http://www.yoursite.com/index.php?module=window&#38;page=http://www.bluesnews.com</userinput>&#34;.
+  or &#34;<userinput>http://www.yoursite.com/index.php?module=window&#38;page=BluesNews</userinput>&#34;.</para>
+</sect2>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Changelog Module</title>
+
+  <subtitle>Tracks changes to module items. <command>Admin-&#62;Changelog</command>.</subtitle>
+
+  <para>The DocBook for this Guide is being developed.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Fields (comma-separated list):</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Change Log Configuration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

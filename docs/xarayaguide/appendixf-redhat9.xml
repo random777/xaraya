@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix>
+  <title>Installing &#38; Configuring Red Hat 9.0 to run Xaraya</title>
+
+    <para>NOTE: Though we install them, this appendix does NOT include
+    information on configuring email services (Sendmail, Postfix,
+    Squirrelmail, SpamAssassin, etc.). Configuration of this type is beyond
+    the scope of this document.</para>
+
+    <para>To install RED HAT LINUX 9.0 to run Xaraya, follow these steps.</para>
+
+    <para><emphasis>CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+    * CAUTION *</emphasis></para>
+
+    <para>=============================================================================</para>
+
+    <para>This procedure will COMPLETELY ERASE HARD DRIVES INSTALLED ON THIS
+    SYSTEM. Be sure there is no important data on the drives; EVERYTHING WILL
+    BE LOST.</para>
+
+    <para>Use these instructions at your own risk.</para>
+
+    <para>=============================================================================</para>
+
+    <para><emphasis>CAUTION * CAUTION * CAUTION * CAUTION * CAUTION * CAUTION
+    * CAUTION *</emphasis></para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Get the RED HAT 9.0 installation CDs.</para>
+      </listitem>
+
+      <listitem>
+        <para>Boot the system from the RED HAT 9.0 installation CD. Launch the
+        Red Hat Installer.</para>
+      </listitem>
+
+      <listitem>
+        <para>Perform the (optional) media check to test your installation
+        CDs. This is strongly recommended the first time you install from a
+        particular CD set, to make sure that it does not contain any errors.
+        Select &#34;<guibutton>OK</guibutton>&#34; to perform the media check.
+        Once you have checked each CD set once, it is generally not necessary
+        to check it again and you may &#34;<guibutton>Skip</guibutton>&#34;
+        this step.</para>
+      </listitem>
+
+      <listitem>
+        <para>WELCOME TO RED HAT LINUX: Click &#34;<guibutton>Next</guibutton>&#34;
+        at the Welcome screen.</para>
+      </listitem>
+
+      <listitem>
+        <para>LANGUAGE SELECTION: Select the language to use during
+        installation. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>KEYBOARD CONFIGURATION: Select your Keyboard Configuration.
+        Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>MOUSE CONFIGURATION: Select your Mouse Configuration. Click
+        &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>INSTALLATION TYPE: If there is already a Linux operating system
+        installed on this machine, select &#34;<guibutton>Perform a new Red
+        Hat Linux installation</guibutton>&#34; and click &#34;<guibutton>Next</guibutton>&#34;.
+        Select &#34;<guibutton>SERVER</guibutton>&#34;. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>DISK PARTITIONING SETUP: Select &#34;<guibutton>Automatically
+        Partition</guibutton>&#34; and click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>AUTOMATIC PARTITIONING: Select &#34;<guibutton>Remove ALL
+        partitions on this system</guibutton>&#34;. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+
+        <para>A warning window gives you the opportunity to change your mind.
+        If you are certain that you want to remove all partitions on this
+        system, click &#34;<guibutton>Yes</guibutton>&#34;. If you do not want
+        to remove all partitions on this system, click &#34;<guibutton>No</guibutton>&#34;.</para>
+
+        <para><emphasis>CAUTION * CAUTION * CAUTION * CAUTION * CAUTION *
+        CAUTION * CAUTION *</emphasis>
+        =============================================================================</para>
+
+        <para>Selecting &#34;<guibutton>Yes</guibutton>&#34; will erase
+        <emphasis>EVERYTHING</emphasis> on this system.</para>
+
+        <para>=============================================================================</para>
+
+        <para><emphasis>CAUTION * CAUTION * CAUTION * CAUTION * CAUTION *
+        CAUTION * CAUTION *</emphasis></para>
+      </listitem>
+
+      <listitem>
+        <para>DISK SETUP: You can review the changes that Red Hat will make to
+        your computer&#39;s hard drive partitions here. Click &#34;<guibutton>Next</guibutton>&#34;
+        to continue.</para>
+      </listitem>
+
+      <listitem>
+        <para>BOOT LOADER CONFIGURATION: Leave set to defaults unless you wish
+        to change the settings. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>NETWORK CONFIGURATION: Leave set to defaults unless you wish to
+        change the settings. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>FIREWALL CONFIGURATION: Select Medium (or High) Security, CHECK
+        your network device (usually &#34;<guibutton>eth0</guibutton>&#34;) as
+        a Trusted device, CHECK <guibutton>WWW (HTTP)</guibutton>,
+        <guibutton>FTP</guibutton>, <guibutton>SSH</guibutton>,
+        <guibutton>DHCP</guibutton>, and <guibutton>MAIL (SMTP)</guibutton>.
+        Do <emphasis>NOT</emphasis> check <guibutton>Telnet</guibutton> unless
+        you have a specific need to support it. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>ADDITIONAL LANGUAGE SUPPORT: If you wish for your Red Hat
+        installation to support multiple languages, select them from the
+        listing under Additional Languages. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>TIME ZONE SELECTION: Select your Time zone. Click &#34;<guibutton>Next</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>SET ROOT PASSWORD: Enter the root user&#39;s password twice.
+        Remember this password -- it is the key to administrator access to
+        this server. Click &#34;<guibutton>Next</guibutton>&#34;. Be patient
+        -- the installer will read package information for a while, then
+        display the next step.</para>
+      </listitem>
+
+      <listitem>
+        <para>PACKAGE GROUP SELECTION:</para>
+
+        <para>The only items that should be CHECKED for this installation are
+        as follows. UNCHECK any other package sets. If you need to install
+        additional features (such as Printing Support), you may do so.</para>
+
+        <para>Check:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>X Window System</para>
+          </listitem>
+
+          <listitem>
+            <para>GNOME Desktop Environment</para>
+          </listitem>
+
+          <listitem>
+            <para>Graphical Internet</para>
+          </listitem>
+
+          <listitem>
+            <para>Text Based Internet -- click &#34;<guimenu>Details</guimenu>&#34;
+            In addition to those items already checked,</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Check epic</para>
+              </listitem>
+
+              <listitem>
+                <para>Check lynx</para>
+              </listitem>
+
+              <listitem>
+                <para>Check ncftp</para>
+              </listitem>
+
+              <listitem>
+                <para>Check pine</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Server Configuration Tools</para>
+          </listitem>
+
+          <listitem>
+            <para>Web Server -- click &#34;<guimenu>Details</guimenu>&#34; In
+            addition to those items already checked,</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Check mod_auth_mysql</para>
+              </listitem>
+
+              <listitem>
+                <para>Check mod_auth_pgsql</para>
+              </listitem>
+
+              <listitem>
+                <para>Check php-mysql</para>
+              </listitem>
+
+              <listitem>
+                <para>Check php-odbc</para>
+              </listitem>
+
+              <listitem>
+                <para>Check php-pgsql</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Mail Server -- click &#34;<guimenu>Details</guimenu>&#34;.
+            This appendix does NOT include information on configuring email
+            services (Sendmail, Postfix, Squirrelmail, SpamAssassin, etc.).
+            This configuration is beyond the scope of this document. In
+            addition to those items already checked,</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Check postfix</para>
+              </listitem>
+
+              <listitem>
+                <para>Check spamassassin</para>
+              </listitem>
+
+              <listitem>
+                <para>Check squirrelmail</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>SQL Database Server -- click &#34;<guimenu>Details</guimenu>&#34;</para>
+
+            <para>In addition to those items already checked,</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Check mysql-server</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Administration Tools</para>
+          </listitem>
+
+          <listitem>
+            <para>System Tools</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Click &#34;<command>Next</command>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>As configured above, the installation is approximately 1235
+        megabytes.</para>
+
+        <para><emphasis>CAUTION * CAUTION * CAUTION * CAUTION * CAUTION *
+        CAUTION * CAUTION *</emphasis></para>
+
+        <para>=============================================================================</para>
+
+        <para>Continuing through the next step will DESTROY ANY DATA on the
+        system.</para>
+
+        <para>=============================================================================</para>
+
+        <para><emphasis>CAUTION * CAUTION * CAUTION * CAUTION * CAUTION *
+        CAUTION * CAUTION *</emphasis></para>
+      </listitem>
+
+      <listitem>
+        <para>ABOUT TO INSTALL: Click &#34;<command>Next</command>&#34; to
+        begin the installation.</para>
+      </listitem>
+
+      <listitem>
+        <para>INSTALLING PACKAGES: The system will install from the Red Hat
+        CDs. Insert installation CDs them as you are prompted for them, and
+        click &#34;<command>OK</command>&#34; to continue installation when
+        each CD has been inserted.</para>
+      </listitem>
+
+      <listitem>
+        <para>BOOT DISKETTE CREATION: After installation completes, the
+        installer will offer to make a boot floppy. If your system has a
+        floppy drive, it is <emphasis>highly recommended</emphasis> that you
+        create a boot floppy. Select &#34;<command>Yes</command>&#34; to
+        create a boot floppy. You need a floppy disk -- it will be
+        <emphasis>completely erased</emphasis>. Select &#34;<command>No</command>&#34;
+        to skip the creation of a boot floppy.</para>
+      </listitem>
+
+      <listitem>
+        <para>GRAPHICAL INTERFACE (X) CONFIGURATION: The Red Hat installer
+        will attempt to detect your video card and monitor type. Click &#34;<command>Next</command>&#34;
+        to move through these configuration options.</para>
+      </listitem>
+
+      <listitem>
+        <para>CUSTOMIZE GRAPHICS CONFIGURATION: Select your Color Depth and
+        Screen Resolution from the drop-down lists.</para>
+
+        <para><emphasis>IMPORTANT</emphasis>: At the bottom of this screen,
+        set &#34;<guibutton>Please choose your login type</guibutton>&#34; to
+        <guibutton>TEXT</guibutton>. We select &#34;<guibutton>Text</guibutton>&#34;
+        because the text mode login requires fewer system resources. Click
+        &#34;&#34;<command>Next</command>&#34;&#34; to continue.</para>
+      </listitem>
+
+      <listitem>
+        <para>You see &#34;Congratulations, the installation is complete&#34;.
+        Remove all media -- the CD and the boot floppy. Click &#34;<command>Exit</command>&#34;
+        to exit the installer and reboot into your new Red Hat 9.0 server.</para>
+      </listitem>
+
+      <listitem>
+        <para>When the system reboots, log in as root with the password you
+        selected above. In the root directory, you should see a file called
+        &#34;<filename>anaconda-ks.cfg</filename>&#34;. This is a record of
+        the installation that was just performed. It is recommended that you
+        keep this file somewhere safe -- the boot floppy is a good suggestion.
+        Insert the floppy disk, making sure it is write-enabled.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Type &#34;<userinput>mount /mnt/floppy</userinput>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Type &#34;<userinput>cp anaconda-ks.cfg /mnt/floppy/ks.cfg</userinput>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Type &#34;<userinput>umount /mnt/floppy</userinput>&#34;.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>When the floppy drive&#39;s activity light goes out, remove the
+        floppy disk, write-protect it, and keep it in a safe place,
+        preferrably away from this server since the file we just copied
+        contains password information. You should also delete the
+        <filename>anaconda-ks.cfg</filename> file from your server (&#34;<userinput>rm
+        anaconda-ks.cfg</userinput>&#34;). If you ever wish to perform this
+        exact installation again, you can do so by booting from the boot CD,
+        inserting the floppy with <filename>ks.cfg</filename> on it, and
+        typing &#34;<userinput>linux ks=floppy</userinput>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>Still logged in as root, type &#34;<userinput>setup</userinput>&#34;
+        at the command line. Use the cursor keys to move the lightbar down to
+        &#34;<guibutton>System services</guibutton>&#34;. Press
+        <keycap>ENTER</keycap>. Scroll down and press the <keycap>SPACEBAR</keycap>
+        next to &#34;<guibutton>httpd</guibutton>&#34; (web server), &#34;<guibutton>mysqld</guibutton>&#34;
+        (MySQL database server), and &#34;<guibutton>squid</guibutton>&#34;
+        (WWW proxy cache). Press <keycap>TAB</keycap> to move the lightbar to
+        <command>OK</command>, then press <keycap>ENTER</keycap>. Press
+        <keycap>TAB</keycap> two times to move the lightbar to
+        <command>Quit</command>, and press <keycap>ENTER</keycap> to leave
+        Setup.</para>
+      </listitem>
+
+      <listitem>
+        <para>Type &#34;<userinput>reboot</userinput>&#34; at the command line
+        to reboot your server. When the server reboots, the items we selected
+        above will automatically launch during boot.</para>
+      </listitem>
+
+      <listitem>
+        <para>UP2DATE:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>When the system has rebooted, make sure that the server is
+            connected to the internet. Then, log in as root and type &#34;<userinput>up2date</userinput>&#34;.
+            Because Red Hat is a constantly evolving product, there are new
+            releases of component software on a frequent basis. The Up2Date
+            program keeps your system updated by communicating with Red Hat
+            Network. If necessary, edit the settings that are displayed,
+            however, generally, the defaults are acceptable. Press
+            <keycap>ENTER</keycap> to save and exit, or press &#34;<keycap>q</keycap>&#34;
+            to quit without saving.</para>
+          </listitem>
+
+          <listitem>
+            <para>From the command line, type &#34;<userinput>rpm --import
+            /usr/share/rhn/RPM-GPG-KEY</userinput>&#34; to import your Red Hat
+            Network information into your installation.</para>
+          </listitem>
+
+          <listitem>
+            <para>From the command line, type &#34;<userinput>up2date</userinput>&#34;
+            again. Read the information and click &#34;<command>Next</command>&#34;
+            twice. If you are an existing Red Hat Network user, enter your
+            username, password, and email address in the fields. If you are
+            not an existing Red Hat Network user, choose a username and
+            password and enter them and your email address in the fields. Use
+            <keycap>TAB</keycap> to move forward through the fields and
+            <keycap>SHIFT-TAB</keycap> to move backward. Using
+            <keycap>TAB</keycap>, move the lightbar to &#34;<guibutton>Next</guibutton>&#34;
+            and press <keycap>ENTER</keycap> to continue.</para>
+          </listitem>
+
+          <listitem>
+            <para>Read the next screen, and click &#34;<command>Next</command>&#34;
+            to continue. Red Hat will build a package list and ask if it can
+            send information about your installed packages. It is suggested
+            that you allow this information to be sent. Click &#34;<command>Next</command>&#34;
+            to continue, and click &#34;<command>Next</command>&#34; again to
+            send the system profile to Red Hat Network. Click &#34;<command>Finish</command>&#34;
+            when the profile has been sent.</para>
+          </listitem>
+
+          <listitem>
+            <para>From the command line, type &#34;<userinput>up2date -l</userinput>&#34;
+            to see a listing of packages available for updating. There may be
+            a lot of packages, so it is recommended that you type &#34;<userinput>up2date
+            -l &#62;update.txt</userinput>&#34; to save the list of files to
+            &#34;<filename>update.txt</filename>&#34;. View the list by typing
+            &#34;<userinput>more update.txt</userinput>&#34;. Each item on the
+            list indicates a package that has been updated since the creation
+            of the CDs from which you installed.</para>
+          </listitem>
+
+          <listitem>
+            <para>To tell Red Hat to update packages, type the following at
+            the command line: &#34;<userinput>up2date &#60;packagename&#62;
+            &#60;packagename&#62; ...</userinput>&#34;. You can put several
+            packages on one line. Press <keycap>ENTER</keycap> and up2date
+            will download, verify, and install the packages you specified. If
+            an updated kernel (the core of the Linux operating system) is
+            available and you wish to update your kernel, type &#34;<userinput>up2date
+            -f kernel</userinput>&#34; to force the update of the kernel.</para>
+          </listitem>
+
+          <listitem>
+            <para>Once your system is completely up-to-date, type &#34;<userinput>reboot</userinput>&#34;
+            to reboot your server.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>IFCONFIG: From the command line, type &#34;<userinput>ifconfig</userinput>&#34;
+        to see the internet protocol (IP) address for this system. Make a note
+        of the IP address.</para>
+      </listitem>
+
+      <listitem>
+        <para>phpMyAdmin: Download the latest stable version of phpMyAdmin (in
+        tar.gz/PHP files format) from http://phpmyadmin.sourceforge.net to a
+        temporary directory. From the command line, type &#34;<userinput>cd
+        /tmp</userinput>&#34;, then &#34;<userinput>lynx
+        http://phpmyadmin.sourceforge.net</userinput>&#34; to connect to the
+        site then select the latest version of phpMyAdmin for download. Press
+        <keycap>ENTER</keycap> on the file. Select a download mirror and press
+        <keycap>ENTER</keycap>. Press &#34;<keycap>d</keycap>&#34; to begin
+        the download. When it completes, click on &#34;<guibutton>Save to disk</guibutton>&#34;,
+        and press <keycap>ENTER</keycap> to retain the default filename. Press
+        &#34;<keycap>q</keycap>&#34; and &#34;<keycap>y</keycap>&#34;es to
+        exit Lynx.</para>
+
+        <para>To extract the archive, type &#34;<userinput>tar -xzvf
+        &#60;phpmyadmin&#62;.tar.gz</userinput>&#34; (replace
+        &#60;phpmyadmin&#62; with the name and version of phpMyAdmin that you
+        just downloaded). When the extraction is complete, type &#34;<userinput>cd
+        &#60;phpmyadmin-dir&#62;</userinput>&#34; (replace
+        &#60;phpmyadmin-dir&#62; with the name of the directory where
+        phpMyAdmin was extracted). Type &#34;<userinput>pico config.inc.php</userinput>&#34;.
+        This is the main configuration file for phpMyAdmin.</para>
+
+        <para>There are four places we need to edit. Change the values for
+        host, user, password and authentication mode to fit your environment.
+        &#34;Host&#34; means the MySQL server and is usually
+        &#34;localhost&#34;. Also insert the correct value for
+        $cfg[&#39;PmaAbsoluteUri&#39;]. Save the file and exit the editor.</para>
+
+        <para>Now we need to copy phpMyAdmin directory to the
+        <command>&#60;webdir&#62;</command>. From within the
+        &#60;phpmyadmin-dir&#62;, type &#34;<userinput>mkdir
+        &#60;webdir&#62;/phpmyadmin</userinput>&#34;, then type &#34;<userinput>cp
+        * &#60;webdir&#62;/phpmyadmin</userinput>&#34;.</para>
+
+        <para>It is recommended that you protect the directory in which you
+        installed phpMyAdmin. Read phpMyAdmin&#39;s Documentation.html file in
+        the phpMyAdmin directory for more information on doing so. phpMyAdmin
+        is now ready for use.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>* MySQL: MySQL is the database that drives Xaraya. In order to
+    configure MySQL for use, we must accomplish two things: Set a root
+    password for the database, and create a database user &#38; password.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Set a root password for the database: When Red Hat installs
+        MySQL, it is not password protected, making it vulnerable. To assign a
+        password of &#34;yourpass&#34; for the root user, enter the following
+        at the command line:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>&#34;<userinput>mysqladmin -u root password yourpass</userinput>&#34;</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Create a database user: We must create a database user that
+        Xaraya will use to access the database. We&#39;ll use phpMyAdmin for
+        this. To launch Red Hat&#39;s Desktop, type &#34;<userinput>startx</userinput>&#34;
+        at the command line. When the desktop appears, click the icon at the
+        lower left of your screen that looks like a globe with a computer
+        mouse coiled around it to launch Mozilla browser.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>From within the broswer, visit the directory where you
+            installed phpMyAdmin. In this example, it should be
+            &#34;http://localhost/phpmyadmin&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click Privileges-&#62;Add a new User</para>
+          </listitem>
+
+          <listitem>
+            <para>Enter the following information:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>User Name: Enter the name for the database user, for
+                example, &#34;<userinput>dbuser</userinput>&#34;.</para>
+              </listitem>
+
+              <listitem>
+                <para>Host: Enter the host where the database resides. Since
+                we&#39;re hosting the database on the same site as the
+                webserver, select &#34;<guibutton>Local</guibutton>&#34; from
+                the drop-down list.</para>
+              </listitem>
+
+              <listitem>
+                <para>Password: Enter the password for the database user.</para>
+              </listitem>
+
+              <listitem>
+                <para>Re-type: Enter the same password again, to verify.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Under Global Privileges, CHECK all the items in each column.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Go</guibutton>&#34; to save changes.</para>
+          </listitem>
+
+          <listitem>
+            <para>VERY IMPORTANT: Click the &#34;<guibutton>Home</guibutton>&#34;
+            link under the phpMyAdmin logo in the top-left corner of your
+            screen, then click &#34;<guibutton>Reload MySQL</guibutton>&#34;.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>To exit the Red Hat Desktop, click the Red Hat icon in the lower
+        left corner of the screen and select &#34;<guibutton>Log out</guibutton>&#34;.
+        Click &#34;<guibutton>Log Out</guibutton>&#34; and &#34;<guibutton>OK</guibutton>&#34;
+        in the confirmation window, and you are returned to the command line.</para>
+      </listitem>
+
+      <listitem>
+        <para>Sendmail: Sendmail is the email agent on your server. Check with
+        your service provider for tips on configuring Sendmail.</para>
+      </listitem>
+
+      <listitem>
+        <para>Postfix: Postfix is another email agent on your server. Check
+        with your service provider for tips on configuring Postfix.</para>
+      </listitem>
+
+      <listitem>
+        <para>SpamAssassin: SpamAssassin is a mail filter to identify spam.
+        Check with your service provider for tips on configuring SpamAssassin.</para>
+      </listitem>
+
+      <listitem>
+        <para>SquirrelMail: SquirrelMail is a webmail package. Check with your
+        service provider for tips on configuring SquirrelMail.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Your system is now ready for the installation of Xaraya.</para>
+</appendix>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Articles in Xaraya</title>
+
+  <sect1>
+    <title>OTTO: GENERAL OVERVIEW OF ARTICLES</title>
+
+    <para>OTTO: CONFIGURE CATEGORIES</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><command>Admin-&#62;Categories-&#62;Modify config</command>:</para>
+      </listitem>
+
+      <listitem>
+        <para>OTTO: CONFIGURE CATEGORIES</para>
+      </listitem>
+
+      <listitem>
+        <para><command>Admin-&#62;Articles-&#62;Modify config</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>CHECK Use &#39;frontpage&#39; as alias in short URLs</para>
+          </listitem>
+
+          <listitem>
+            <para>Set Number of Columns to &#34;<userinput>1</userinput>&#34;
+            (single column display) or to &#34;<userinput>2</userinput>&#34;
+            (or higher) for a multi-column display.</para>
+          </listitem>
+
+          <listitem>
+            <para>Set Items per Page to &#34;<userinput>15</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>CHECK Show category links in article summaries</para>
+          </listitem>
+
+          <listitem>
+            <para>CHECK Show previous/next category</para>
+          </listitem>
+
+          <listitem>
+            <para>CHECK Show ratings</para>
+          </listitem>
+
+          <listitem>
+            <para>CHECK Show links to publication types</para>
+          </listitem>
+
+          <listitem>
+            <para>CHECK Show link to previous/next article in display</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34;
+            to save changes.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><command>Admin-&#62;Comments-&#62;Modify config</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Set Default Rendering Style to &#34;<userinput>Nested</userinput>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34;
+            to save changes.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</chapter>

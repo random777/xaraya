@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>General Configuration</title>
+
+  <para>Now that we&#39;ve installed Xaraya, we should begin to configure it.
+  The Community Site installation, by default, does not permit Registered
+  users to change their theme, to post comments, or to submit articles for
+  publication (all features that we set forth as configuration goals in
+  Assumptions, above) so these features need to be implemented.
+  <command>Admin-&#62;Themes-&#62;Modify config</command>:</para>
+
+  <para>See the section on the Themes Module (below) for more information
+  about these settings.</para>
+
+  <para>Let&#39;s personalize the site a bit before we get started --
+  we&#39;ll do additional personalization later on. For now, we can change the
+  name, slogan, copyright statement, footer, and default theme of the site
+  from the <command>Admin-&#62;Themes-&#62;Modify config</command> panel.
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Select default theme from drop-down list. The Xaraya Base
+      installation provides only one theme, so until you&#39;ve installed
+      additional themes, this should be an easy selection.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>In the title bar of your browser window, you should see the following:
+  <guilabel>Your Site Name :: Your Site Slogan</guilabel></para>
+
+  <para>This is your Site Name &#38; Site Slogan, respectively, separated by
+  the Title Separator. Edit these using the Site Name &#38; Site Slogan fields
+  below.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Type your <emphasis>Site Name</emphasis> -- whatever you&#39;d
+      like the name of your site to be.</para>
+    </listitem>
+
+    <listitem>
+      <para>Type your <emphasis>Site Slogan</emphasis> -- this field defines
+      the site&#39;s slogan. This slogan is displayed at the top of the page
+      under the site name in some themes, and in the title bar of the browser
+      by default.</para>
+    </listitem>
+
+    <listitem>
+      <para>Type the <emphasis>Copyright statement</emphasis> -- defaults to
+      &#34;<userinput>&#38;copy; Copyright 2003 &#60;administrator name&#62;</userinput>&#34;.
+      Change it as necessary.</para>
+    </listitem>
+
+    <listitem>
+      <para>Edit the <emphasis>Footer</emphasis>. The &#39;footer&#39; is
+      displayed at the bottom (the &#39;foot&#39;) of each and every page on
+      your site. This is an excellent place to give credit, state copyright,
+      or put links that you wish to appear on every page of the site. While we
+      appreciate credit being given to Xaraya in the footer, it is by no means
+      compulsory so the &#34;Powered by Xaraya&#34; graphic can be removed if
+      you wish.</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>Page Title Separator</emphasis>: Default is &#34; ::
+      &#34;, but you can make it anything you wish by editing this field.</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>Page Title Order</emphasis>: Determines how the page
+      title is displayed. You can experiment wiht the page display order to
+      find the one that suits your site best. For now, though, leave it set to
+      the default.</para>
+    </listitem>
+
+    <listitem>
+      <para>Click &#34;<command>Submit</command>&#34; to save changes</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><command>Admin-&#62;Base-&#62;Modify config</command>:</para>
+
+  <para>See the section on the Base Module (below) for more information about
+  these settings.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Website display configuration:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>For this example, set the <emphasis>Default Module</emphasis>
+          to &#34;<guibutton>articles</guibutton>&#34; so that the articles
+          module is displayed when a visitor hits the site. Select &#34;<guibutton>articles</guibutton>&#34;
+          from the drop-down list of available modules.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>Default Module Type</emphasis>: From the drop-down
+          list, &#34;<guibutton>User</guibutton>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>Default Module Function</emphasis>: &#34;<guibutton>main</guibutton>&#34;</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>Default Theme Directory</emphasis> (relative to
+          <command>&#60;xarroot&#62;</command>): &#34;<guibutton>themes</guibutton>&#34;</para>
+        </listitem>
+
+        <listitem>
+          <para>CHECK &#34;<emphasis>Enable Short URL Support</emphasis>&#34;
+          -- this is the &#39;master switch&#39; for Short URL support on your
+          site.</para>
+        </listitem>
+
+        <listitem>
+          <para>CHECK &#34;<emphasis>Fix HTML Entities</emphasis>&#34; -- this
+          will ensure that characters such as the copyright sign and
+          international symbols like umlauts are displayed correctly.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Sessions and Security</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Security level: From this drop-down list, configure the
+          general security level for your site. If a user CHECKS the
+          &#34;Remember Me&#34; box displayed in the login panel when logging
+          in, the user&#39;s session is not purged for the duration set in the
+          settings below. If a user does NOT check the &#34;Remember Me&#34;
+          box when logging in, they must log into the site each time they
+          visit. For our example, select &#34;Medium&#34; security.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>High: Users must log on each time they return to the site.</para>
+            </listitem>
+
+            <listitem>
+              <para>Medium: Users stay logged on for the number of days
+              specified in Session Duration, below.</para>
+            </listitem>
+
+            <listitem>
+              <para>Low: Users stay logged in &#39;forever&#39; (well,
+              it&#39;s not actually <emphasis>FOREVER</emphasis>, but a really
+              long time!).</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Session duration (in days): This setting determines how long
+          (in days) a user&#39;s session will last before it expires, forcing
+          the user to re-log in with their existing username and password. Set
+          the session duration to &#34;<userinput>7</userinput>&#34; days.</para>
+        </listitem>
+
+        <listitem>
+          <para>Session inactivity time out: If Xaraya detects that a
+          user&#39;s session has been idle for a certain period of time and
+          that the Security level is High or Medium, it will expire the
+          session. This setting determines how many minutes Xaraya will wait
+          before expiring the session due to inactivity. Set the inactivity
+          time to &#34;<userinput>90</userinput>&#34; minutes.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Base Configuration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <para><command>Admin-&#62;Base-&#62;System Information</command>: This panel
+  displays a variety of information about the PHP installation on the site.
+  Should you ever need to determine what version of PHP the site is running,
+  or what modules are compiled into PHP, this is where to find that
+  information. This information may be helpful if you need to submit a Xaraya
+  bug report or a feature request.</para>
+</chapter>

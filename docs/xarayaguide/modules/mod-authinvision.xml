@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>AuthInvision Module</title>
+
+  <subtitle>Xaraya/Invision Board authentication module. <command>Admin-&#62;Authinvision</command>.</subtitle>
+
+  <para>When this module is activated and configured and a user logs into your
+  site, Xaraya looks at the Invision Power Board (IPB) database for the
+  user&#39;s registration information. If the user&#39;s information is in
+  IPB&#39;s database, the user is authenticated and their registration
+  information is copied into Xaraya&#39;s database if it doesn&#39;t already
+  exist.</para>
+
+  <para>Before starting, make sure that you&#39;ve got your IPB forums set up
+  and configured. The set up and configuration of IPB forums is beyond the
+  scope of this document. Before the AuthInvision module can be activated, you
+  have to manipulate a file and a database entry so that everything is
+  properly configured.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Copy the <filename>&#60;xarroot&#62;/modules/roles/xartemplates/login.xd</filename>
+      file to <filename>&#60;xarroot&#62;/themes/&#60;theme_name&#62;/modules/roles/xartemplates/login.xt</filename>
+      (creating directories as needed) and edit the links in
+      <filename>&#60;xarroot&#62;/themes/&#60;theme_name&#62;/modules/roles/xartemplates/login.xt</filename>
+      to point to your IPB registration page (usually <userinput>http://www.yoursite.com/forum/index.php?act=Reg&#38;Code=00</userinput>,
+      depending on where your forum is installed).</para>
+    </listitem>
+
+    <listitem>
+      <para>Using phpMyAdmin, go into your Xaraya database and edit the
+      <filename>xar_config_vars</filename> table and change the
+      <filename>Site.User.AuthenticationModules</filename> value to
+      <userinput>a:1:{r0;s:12:&#34;authinvision&#34;;}</userinput>. That is
+      all that should be in that value; no more, no less. Be careful with this
+      command; if you get it wrong, you will break your site.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Now install &#38; activate the module and you&#39;re all set!</para>
+</sect2>

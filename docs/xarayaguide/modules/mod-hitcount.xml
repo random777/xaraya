@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Hitcount Module</title>
+
+  <subtitle>Count displays of module items. <command>Admin-&#62;Hitcount</command>.</subtitle>
+
+  <para>The Hitcount module is a utility module that counts the number of hits
+  on items on the site.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>View Statistics</guibutton>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Module name: Click on a module name to go to that module&#39;s
+          statistics page containing figures for each of that module&#39;s
+          items that have hit counts associated with them.</para>
+
+          <para>If you click the name of a module, the next panel displays a
+          listing of items (and, if you&#39;ve CHECKED &#34;Show the item
+          title in statistics&#34; in <command>Admin-&#62;Hitcount-&#62;Modify
+          config</command>, the title of the item).</para>
+
+          <para>Click &#34;<guibutton>Total hits</guibutton>&#34; to sort the
+          list by hits.</para>
+
+          <para>Click &#34;<guibutton>Delete</guibutton>&#34; to delete the
+          hit counts associated with a particular module or item. Note that
+          the module and module contents <emphasis>are not deleted</emphasis>
+          by this function. On the next panel you are asked to confirm your
+          intention to delete. Once you confirm, the hit counts are deleted
+          for the item.</para>
+        </listitem>
+
+        <listitem>
+          <para>Module items: The total number of items associated with the
+          module.</para>
+        </listitem>
+
+        <listitem>
+          <para>Total hits: The total hits for all items within the module.</para>
+        </listitem>
+
+        <listitem>
+          <para>Grand total: The grand total of each column.</para>
+        </listitem>
+
+        <listitem>
+          <para>Action:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Delete: By clicking <guibutton>Delete</guibutton> you can
+              delete the hit counts associated with a particular module or
+              item. Note that the module and module contents
+              <emphasis>are not deleted</emphasis> by this function. On the
+              next panel you are asked to confirm your intention to delete.
+              Once you confirm, the hit counts are deleted for the item.</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete All: By clicking <guibutton>Delete All</guibutton>
+              you can delete all hit counts. Note that module and module
+              contents <emphasis>are not deleted</emphasis> by this function.
+              On the next panel you are asked to confirm your intention to
+              delete. Once you confirm, the hit counts are deleted for
+              <emphasis>all</emphasis> items.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><guibutton>Modify config</guibutton>: This panel allows
+      modification of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Count Administrator Hits: If you would like for the
+          Administrator&#39;s hits to increment the counter, CHECK this box.
+          If you do not wish for the Administrator&#39;s hits to increment the
+          counter, UNCHECK this box.</para>
+        </listitem>
+
+        <listitem>
+          <para>Number of top items shown to users: In this field, select the
+          number of top items to display to site visitors. For example, if you
+          wish to display the top 10 items, enter &#34;<userinput>10</userinput>&#34;
+          in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Number of items shown in statistics: In this field, enter the
+          number of items shown per page in the administrator&#39;s statistics
+          view (<command>Admin-&#62;Hitcount-&#62;View
+          Statistics-&#62;&#60;category_name&#62;</command>). If you wish to
+          display 50 items per page, enter &#34;<userinput>50</userinput>&#34;
+          in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Show the item title in statistics: CHECK this box to display
+          the item title in <command>Admin-&#62;Hitcount-&#62;View
+          Statistics-&#62;&#60;category_name&#62;</command>. If this box is
+          UNCHECKED, only the item number (and not the title) is displayed in
+          the statistics view.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Users Configuration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

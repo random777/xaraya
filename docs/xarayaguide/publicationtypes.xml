@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Publication Types</title>
+
+  <sect1>
+    <title>Introduction to Publication Types</title>
+
+    <para>Xaraya&#39;s Articles module can manage &#39;articles&#39; of
+    different types at the same time, for instance news articles, longer
+    documents in different sections, frequently asked questions, and so on.</para>
+
+    <para>These types are called &#39;<firstterm>Publication Types</firstterm>&#39;,
+    and each type of article can utilize a different set of data fields, with
+    a different meaning for each data field. For example, the
+    &#39;summary&#39; field could be used for an Introduction in News
+    articles, for providing some Details about a question in FAQs, or not be
+    used at all for Section documents.</para>
+
+    <para>There is a specific menu for management of Publication Types which
+    allows you to change the description that appears in navigation menus,
+    enable &#38; disable dynamic data fields, or change their meaning for a
+    particular type, or create or delete publication types according to your
+    needs.</para>
+
+    <para>Each publication type also has its own templates, so that the look
+    &#38; feel of each publication type can be customized. Until you define
+    templates for the new publication type, Xaraya will display items using
+    default templates (and a warning).</para>
+
+    <para>A default set of publication types and templates (corresponding to
+    the old News, Sections and FAQs modules of PostNuke or PHP-Nuke) is
+    included as part of the installation.</para>
+
+    <para>Want to display recipes on your site? Create a new Publication Type,
+    and Xaraya can do that.</para>
+
+    <para>A good strategy for configuration of Categories is to create a
+    top-level Category called &#60;sitename&#62;, and below that group all the
+    sub-categories for the site. This &#34;<userinput>&#60;sitename&#62;</userinput>&#34;
+    top-level category could be considered to be the <emphasis><firstterm>ROOT
+    CATEGORY</firstterm></emphasis>, with additional Categories placed below
+    the ROOT CATEGORY. For example, if the site is &#34;<userinput>MySite.COM</userinput>&#34;:</para>
+
+    <para><literallayout>	MySite.COM (root category)
+	|
+	|---World News (sub-category)
+	|   |
+	|   |---North American News (sub-sub-category)
+	|   |   |
+	|   |   |---United States News (sub-sub-sub-category)
+	|   |       |
+	|   |       |---Ohio News (sub-sub-sub-sub-category)
+	|   |       |
+	|   |       |---Nevada News (sub-sub-sub-sub-category)
+	|   |       |
+	|   |       |---etc...
+	|   |
+	|   |---Asian News (sub-sub-category)
+	|       |
+	|       |---China News (sub-sub-sub-category)
+	|       |
+	|       |---Japan News (sub-sub-sub-category)
+	|       |
+	|       |---etc...
+	|
+	|---Sports News (sub-category)
+	|
+	|---Music News (sub-category)
+	|
+	|---Entertainment News (sub-category)
+	|
+	|---etc...</literallayout></para>
+
+    <para><emphasis>PUBLICATION TYPES CAN BE USED ONLY BY ARTICLES. CATEGORIES
+    CAN BE USED BY ALL MODULES.</emphasis> A module that cannot fit into a
+    Publication Type can still use Categories if they want. Plus &#39;Site
+    News&#39; could be a Category; you can put news articles in there... But
+    you might ALSO have a &#39;Software News&#39; Category.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><command>Admin-&#62;Articles-&#62;Publication Types</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>New: Add a new Publication Type</para>
+
+            <para>NOTE: Articles of this Publication Type will use the
+            templates &#34;<filename>user-display-[publicationtype].xd</filename>&#34;
+            and &#34;<filename>user-summary-[publicationtype].xd</filename>&#34;
+            by default. Provide those templates before adding new articles.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>New PublicationType:</para>
+
+                <itemizedlist>
+                  <listitem>
+                    <para>Type:</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Description:</para>
+                  </listitem>
+                </itemizedlist>
+              </listitem>
+
+              <listitem>
+                <para>Configuration:</para>
+
+                <para>If the Label is empty, the field will not be used.</para>
+
+                <itemizedlist>
+                  <listitem>
+                    <para>Field:</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Label:</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Format:</para>
+
+                    <itemizedlist>
+                      <listitem>
+                        <para>Static text:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Text box:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Small text area:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Medium text area:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Large text area:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Username:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Calendar:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>File upload:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Status:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>URL:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>Image:</para>
+                      </listitem>
+
+                      <listitem>
+                        <para>HTML page:</para>
+                      </listitem>
+                    </itemizedlist>
+                  </listitem>
+
+                  <listitem>
+                    <para>Input:</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Type:</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Click &#34;<guibutton>Create</guibutton>&#34; to
+                    save changes.</para>
+                  </listitem>
+                </itemizedlist>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Edit: Click &#34;<guibutton>Edit</guibutton>&#34; next to a
+            Publication Type you wish to modify. On the next panel, you may
+            modify the settings (as defined in New, above) for the selected
+            Publication Type.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Click &#34;<guibutton>Modify</guibutton>&#34; to save
+                changes.</para>
+              </listitem>
+
+              <listitem>
+                <para>Export definition to XML: Click this link to export the
+                definition of the Publication Type. On the next panel, the
+                Publication Type is displayed in XML format.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Delete: If you wish to delete an existing Publication Type,
+            click &#34;<guibutton>Delete</guibutton>&#34; next to the
+            Publication Type you want to delete. <emphasis>Note that all
+            articles associated with the selected Publication Type will be
+            deleted if the Publication Type is deleted.</emphasis> The next
+            panel asks you to confirm your intention to delete the Publication
+            Type. Click &#34;<guibutton>Delete</guibutton>&#34; to confirm and
+            the Publication Type is deleted.</para>
+          </listitem>
+
+          <listitem>
+            <para>Article config: Click this link to go to the Article
+            configuration panel for the selected Publication Type.</para>
+          </listitem>
+
+          <listitem>
+            <para>View articles: Click this link to display the articles
+            associated with the selected Publication Type.</para>
+          </listitem>
+
+          <listitem>
+            <para>Add article: To add an article to a particular Publication
+            Type, click this link next to the Publication Type to which you
+            wish to add the article.</para>
+          </listitem>
+
+          <listitem>
+            <para>Import definition from XML: Importing XML deifintions of
+            Publication Types can be done in two ways:</para>
+
+            <orderedlist>
+              <listitem>
+                <para>XML-format Publication Type definition files are placed
+                into the <filename>&#60;xarroot&#62;/modules/articles</filename>
+                directory with appropriate ownership &#38; permissions.</para>
+              </listitem>
+
+              <listitem>
+                <para>The XML definition is pasted into a text field on the
+                <guibutton>Admin-&#62;Articles-&#62;Publication
+                Types-&#62;Import definition from XML</guibutton> panel.</para>
+              </listitem>
+            </orderedlist>
+
+            <para>If you wish to import a Publication Type in XML format,
+            follow these steps:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Obtain the XML definition(s) for the Publication Type(s)
+                you wish to import.</para>
+              </listitem>
+
+              <listitem>
+                <para>Go to <command>Admin-&#62;Articles-&#62;Publication
+                Types</command> and click &#34;<guibutton>Import definition
+                from XML</guibutton>&#34;.</para>
+              </listitem>
+
+              <listitem>
+                <para>On the next panel, specify the XML to import.</para>
+
+                <itemizedlist>
+                  <listitem>
+                    <para>From the drop-down list of <filename>*.xml</filename>
+                    files in the <filename>&#60;xarroot&#62;/modules/articles</filename>
+                    directory, select the file to import.</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Paste the XML-format definition into the large text
+                    box.</para>
+                  </listitem>
+                </itemizedlist>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Import</guibutton>&#34; to import
+                the Publication Type. The new Publication Type is added to
+                your site.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+
+    <sect2>
+      <title>EXAMPLE: New Publication Type: A Simple Guestbook for Xaraya</title>
+
+      <para>A simple Guestbook can be made with the Articles module. Follow
+      this example to create your own Guestbook. A sample of the finished
+      Guestbook is visible at <ulink
+      url="http://www.alyousif.tv/index.php/guestbook">http://www.alyousif.tv/index.php/guestbook</ulink>.</para>
+
+      <para>Go to Admin-&#62;Articles-&#62;Publication Types. Click &#34;New
+      Publication Type&#34;. On the next panel, enter the following: </para>
+
+      <para>FIELD: title LABEL: Entry FORMAT: Medium Text Area INPUT: checked
+      TYPE: string FIELD: authorid LABEL: Author FORMAT: Username INPUT:
+      checked TYPE: integer FIELD: pubdate LABEL: Publication Date FORMAT:
+      Calendar INPUT: checked TYPE: integer </para>
+
+      <para>Here&#39;s the template that should be placed in
+      <filename>&#60;xarroot&#62;/modules/articles/xartemplates/user-summary-guestbook.xd</filename>:
+      <literallayout>&#60;div class=&#34;xar-alt&#34; style=&#34;margin: 0px 3px 6px 3px;padding: 1px;text-align: left;&#34;&#62; &#60;div class=&#34;xar-norm&#34; style=&#34;padding: 3px;&#34;&#62;
+            &#60;xar:if condition=&#34;!empty($categories) and count($categories) gt 0&#34;&#62;
+                [ &#60;xar:loop name=&#34;$categories&#34;&#62;
+                    #$cjoin# &#60;a href=&#34;#$clink#&#34;&#62;#$cname#&#60;/a&#62;
+                &#60;/xar:loop&#62; ]
+            &#60;/xar:if&#62;
+                                                                                                                                                             
+          &#60;div class=&#34;xar-accent&#34;&#62;
+            &#60;xar:mlstring&#62;Posted by&#60;/xar:mlstring&#62;:
+            &#60;b&#62;#$author#&#60;/b&#62;
+            &#60;xar:mlstring&#62;on&#60;/xar:mlstring&#62;
+            &#60;b&#62;#$date#&#60;/b&#62;
+                    &#60;xar:if condition=&#34;!empty($counter)&#34;&#62;
+                       (#$counter# &#60;xar:mlstring&#62;Reads&#60;/xar:mlstring&#62;)
+                    &#60;/xar:if&#62;
+                                                                                                                                                             
+          &#60;/div&#62;
+          &#60;br /&#62;
+          #$title#
+          &#60;br /&#62;
+          &#60;div class=&#34;xar-sub&#34; align=&#34;right&#34;&#62;
+            &#60;xar:if condition=&#34;!empty($comments)&#34;&#62;
+                #$comments#
+            &#60;/xar:if&#62;
+          &#60;/div&#62;
+&#60;/div&#62;
+&#60;/div&#62;</literallayout></para>
+    </sect2>
+
+    <sect2>
+      <title>EXAMPLE: New Publication Type: A Blogger</title>
+
+      <para>This example will guide you through the process of adding a
+      Blogger Publication Type to your Xaraya site.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>WHAT IS A BLOG? WHAT IS BLOGGING?:</para>
+
+          <para><command>blog n.: [common] Short for &#34;weblog&#34;, an
+          on-line web-zine or diary (usually with facilities for reader
+          comments and discussion threads) made accessible through the World
+          Wide Web.</command> </para>
+
+          <para>The term &#34;blog&#34; is widespread and readily forms
+          derivatives, of which the best known may be &#34;<firstterm>blogosphere</firstterm>&#34;
+          (the hyperlinked totality of all blogs and the culture surrounding
+          blogs).</para>
+
+          <para>There are tens of thousands of weblogs (&#34;Blogs&#34;) on
+          the Internet, many of them updated daily -- some of them many times
+          a day. Some Blogs are public diaries while others are the
+          authoritative or idiosyncratic musings of experts and cranks.</para>
+
+          <para>&#34;Blogging&#34; is the process of turning one&#39;s own
+          filter on news and the world into something others might want to
+          read, link to, and write about themselves.</para>
+
+          <para>Blogging is facilitated by desktop BlogTools --
+          word-processor-like tools that are created to encourage frequent
+          updates of a blog by providing an easy interface, specialized tools,
+          and a moment&#39;s readiness -- without the need to open your
+          browser.</para>
+        </listitem>
+
+        <listitem>
+          <para>FILES INCLUDED WITH THIS TUTORIAL:</para>
+
+          <para>The following files are included with this tutorial.</para>
+
+          <para>OTTO: Move to FILES INCLUDED WITH THIS GUIDE, above, when
+          complete.</para>
+        </listitem>
+
+        <listitem>
+          <para>ACTIVATING NECESSARY MODULES FOR BLOGGING:</para>
+
+          <para>In order to configure our Xaraya site for blogging, it is
+          necessary to ensure that certain modules are activated. We need to
+          activate at least three (and, optionally, a fourth) modules:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>articles -- storage of the blog entries</para>
+            </listitem>
+
+            <listitem>
+              <para>bloggerapi -- the central axis for blogging in Xaraya</para>
+            </listitem>
+
+            <listitem>
+              <para>categories -- categorization of blogs</para>
+            </listitem>
+
+            <listitem>
+              <para>comments (<emphasis>optional but recommended</emphasis>)
+              -- provides site visitors the ability to comment on blog entries</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>To activate the modules, log in as Administrator and go to
+          <command>Admin-&#62;Modules-&#62;View All</command>. Some of the
+          modules listed above may already be active on your site. If the
+          modules listed above are not shown with a Status of
+          &#34;Active&#34;, they each need to be installed by clicking &#34;<guibutton>Install</guibutton>&#34;
+          on their line.</para>
+
+          <para>Once you have ensured that the modules listed above are Active
+          on your site, we can move forward to the next step.</para>
+        </listitem>
+
+        <listitem>
+          <para>CREATING A PUBLICATION TYPE FOR THE BLOG:</para>
+
+          <para>While not required, it is recommended that you create a
+          specific Publication Type for your blog in articles configuration.
+          Doing so allows us to use the site first for blogging only and
+          offers the flexibility of adding additional types of content later.
+          If you do not wish to create a specific Publication Type for your
+          blog, simply use one of the existing Publication Types -- for
+          example, &#34;<userinput>news</userinput>&#34;.</para>
+
+          <para>Go to <command>Admin-&#62;Articles-&#62;Publication Types</command>.
+          Click &#34;<guibutton>New</guibutton>&#34; to begin adding a new
+          Publication Type with the following values:</para>
+
+          <graphic fileref="SourceImages/PubType.jpg" format="JPG" width="450" />
+
+          <para>Click &#34;<guibutton>Create</guibutton>&#34; to save changes.</para>
+        </listitem>
+
+        <listitem>
+          <para>ADD CATEGORIES TO THE NEW PUBLICATION TYPE:</para>
+
+          <para>Go to <command>Admin-&#62;Articles-&#62;Publication Types</command>.
+          Click &#34;<guibutton>Article Config</guibutton>&#34; on the
+          &#39;blog&#39; line. At the bottom of the panel, change Number of
+          possible categories to &#34;<userinput>1</userinput>&#34;. Click
+          &#34;<guibutton>Update Configuration</guibutton>&#34; to save
+          changes.</para>
+
+          <para>When the panel refreshes, select a category for blog entries
+          from the &#39;Base category for articles&#39; drop-down list. Click
+          &#34;<guibutton>Update Configuration</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+
+        <listitem>
+          <para>ACTIVATING HOOKS:</para>
+
+          <para>Go to <command>Admin-&#62;Modules-&#62;Configure Hooks</command>.
+          Click on &#39;<guibutton>categories</guibutton>&#39;, then CHECK
+          &#39;blog&#39;. You could CHECK &#39;all articles&#39; instead of
+          &#39;blog&#39; if you want categories to be enabled for every
+          article Publication Type. For the purpose of this tutorial, it
+          doesn&#39;t matter which of the two options you choose as long as
+          you choose one. Click &#34;<guibutton>Save Changes</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+
+        <listitem>
+          <para>LINK BLOGGERAPI TO THE BLOG PUBLICATION TYPE:</para>
+
+          <para>This step connects the incoming data from your BlogTool to the
+          correct Publication Type in Xaraya.</para>
+
+          <para>Click <command>Admin-&#62;Bloggerapi-&#62;Modify config</command>.
+          On the panel that appears, select the Publication Type to which you
+          would like to point your Blog entries. Select &#39;blog : Weblog on
+          this site&#39;, which is the Publication Type we created in CREATING
+          A PUBLICATION TYPE FOR THE BLOG, above, and click &#34;<guibutton>Update
+          bloggerapi Configuration</guibutton>&#34; to save changes.</para>
+
+          <para>We&#39;re now done with the Xaraya-side configuration of your
+          blog. Let&#39;s move to the BlogTool configuration.</para>
+        </listitem>
+
+        <listitem>
+          <para>CONFIGURING YOUR BLOGTOOL:</para>
+
+          <para>For Windows we recommend <ulink url="http://www.wbloggar.com">w.bloggar</ulink>.
+          For other operating systems, <ulink url="http://mozblog.mozdev.org">MozBlog</ulink>
+          is the recommended tool.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Configuring w.bloggar -- <ulink
+              url="http://www.wbloggar.com">http://www.wbloggar.com</ulink>:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Download the latest version of w.bloggar from the site
+                  above. Install it on any computer(s) from which you&#39;d
+                  like to be able to update your Xaraya site.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Start w.bloggar. A small account manager window will
+                  open for you to configure the site to which you wish to send
+                  the blog entries.</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Account: &#60;&#60;New&#62;&#62;</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>User: Enter the user name of a user on your Xaraya
+                      site. Any blog entries made through this BlogTool will
+                      be posted as this user.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Password: Enter the corresponding password for the
+                      user above.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Click &#34;<guibutton>Okay</guibutton>&#34;. You
+                      will be asked if you want to create this new account.
+                      Click &#34;<guibutton>Yes</guibutton>&#34; and
+                      you&#39;re taken to the Account Properties screen.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Blog Tool: &#62;&#62;Custom&#60;&#60;</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Account Alias: The display name for this account,
+                      shown in the drop-down account selection list of this
+                      BlogTool. &#34;<userinput>Xaraya weblog</userinput>&#34;
+                      is a good choice, but you can enter whatever you want
+                      here.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Ping Weblogs.com: If you would like a notification
+                      sent to <ulink url="http://www.weblogs.com">weblogs.com</ulink>
+                      each time you use this BlogTool to update your site,
+                      check this box.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>API SERVER:</para>
+
+                      <itemizedlist>
+                        <listitem>
+                          <para>Host: <userinput>your.xarayaserver.com</userinput>
+                          (note: Do not put &#34;<userinput>http://</userinput>&#34;!)</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Page: <userinput>ws.php?type=xmlrpc</userinput></para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Port: <userinput>80</userinput></para>
+                        </listitem>
+
+                        <listitem>
+                          <para>HTTPS: UNCHECKED</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Timeout: <userinput>30 seconds</userinput></para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+
+                    <listitem>
+                      <para>Click &#34;<guibutton>OK</guibutton>&#34; to save
+                      changes and connect to your Xaraya site.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Configuring MozBlog -- <ulink
+              url="http://mozblog.mozdev.org">http://mozblog.mozdev.org</ulink>:</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+
+    <sect2>
+      <title>EXAMPLE: New Publication Type: A Recipe Category for Xaraya</title>
+
+      <para>This advanced example shows how to create a new Publication Type
+      (called Recipes) in Xaraya using Dynamic Data. We cover Dynamic Data in
+      depth later in this Guide.</para>
+
+      <orderedlist>
+        <listitem>
+          <para>LOG IN AS A XARAYA ADMINISTRATOR: This is done any time you
+          wish to have Administrator access to your Xaraya site.</para>
+        </listitem>
+
+        <listitem>
+          <para>CREATE A NEW PUBLICATION TYPE: This is done for each custom
+          Publication Type you create.</para>
+
+          <para>To create the new Publication Type, go to <command>Admin-&#62;Articles-&#62;Publication
+          Types</command>. Click &#34;<guibutton>New</guibutton>&#34;.
+          Complete the fields as follows:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Type: <userinput>recipes</userinput> <emphasis>(NOTE:
+              Lower case.)</emphasis></para>
+            </listitem>
+
+            <listitem>
+              <para>Description: <userinput>Recipe Collection</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Field: title</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Label: <userinput>Recipe Title</userinput></para>
+                </listitem>
+
+                <listitem>
+                  <para>Format: Text Box</para>
+                </listitem>
+
+                <listitem>
+                  <para>Input: CHECKED</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Field: summary</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Label: <userinput>Description</userinput></para>
+                </listitem>
+
+                <listitem>
+                  <para>Format: Small Text Area</para>
+                </listitem>
+
+                <listitem>
+                  <para>Input: CHECKED</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Field: bodytext</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Label: <userinput>Ingredients</userinput></para>
+                </listitem>
+
+                <listitem>
+                  <para>Format: Large Text Area</para>
+                </listitem>
+
+                <listitem>
+                  <para>Input: CHECKED</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Field: bodyfile</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Label: <userinput>(this field should be blank)</userinput></para>
+                </listitem>
+
+                <listitem>
+                  <para>Format: (as long as Label, above, is blank and Input,
+                  below is UNCHECKED, it does not matter what this field
+                  contains)</para>
+                </listitem>
+
+                <listitem>
+                  <para>Input: UNCHECKED</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Field: notes</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Label: <userinput>Instructions</userinput></para>
+                </listitem>
+
+                <listitem>
+                  <para>Format: Large Text Area</para>
+                </listitem>
+
+                <listitem>
+                  <para>Input: CHECKED</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Do not modify the last 3 fields (authorid, pubdate, and
+              status); leave them as they are.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Create</guibutton>&#34; to save
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>ENABLE DYNAMIC DATA FOR ARTICLES/RECIPES: This is done for
+          each custom Publication Type using Dynamic Data you create, unless
+          Dynamic Data has previously been enabled for the module.</para>
+
+          <para>To enable Dynamic Data for a Publication Type, go to
+          <command>Admin-&#62;Modules-&#62;Configure Hooks</command>. We want
+          to enable Dynamic Data within Articles, so click &#34;<guibutton>dynamicdata</guibutton>&#34;
+          and CHECK the box for Articles and the &#39;Recipe Collection&#39;
+          sub-category under Articles. Click &#34;<guibutton>Save Changes</guibutton>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>ADD DYNAMIC DATA FIELD(S) TO THE NEW PUBLICATION TYPE: This is
+          done for each custom Publication Type using Dynamic Data you create.</para>
+
+          <para>To add dynamic data field(s) to the new publication type, go
+          to <command>Admin-&#62;Articles-&#62;Publication Types</command>.
+          Find the &#39;recipes&#39; Publication Type that we created in
+          CREATE A NEW PUBLICATION TYPE, above, and click Article Config next
+          to it. Near the bottom of the next screen, you&#39;ll see
+          &#34;Dynamic Data Fields [modify]&#34;. Click &#34;<guibutton>[modify]</guibutton>&#34;
+          and in the new window that opens, enter the Dynamic Data as follows:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Label: <userinput>photo</userinput> <emphasis>(NOTE: Lower
+              case.)</emphasis></para>
+            </listitem>
+
+            <listitem>
+              <para>Property Type: Image</para>
+            </listitem>
+
+            <listitem>
+              <para>Data Source: <userinput>dynamic_data</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Status: Active</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Click &#34;<guibutton>Update Properties</guibutton>&#34; to
+          save changes. Close the window and return to the previous browser
+          window for the rest of the steps.</para>
+        </listitem>
+
+        <listitem>
+          <para>ADD A NEW CATEGORY (AND OPTIONAL SUB-CATEGORIES) FOR THE NEW
+          PUBLICATION TYPE: This is done for each custom Publication Type you
+          create.</para>
+
+          <para>To add the new cateory (and optional sub-categories), go to
+          <command>Admin-&#62;Categories</command>. Click &#34;<guibutton>Add
+          Category</guibutton>&#34; to add a new Category. For this example:</para>
+
+          <para>Create a new Category called &#34;<userinput>Recipes Category</userinput>&#34;
+          by following the steps below:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Name: <userinput>Recipes Category</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Description: <userinput>This is the recipes category for
+              this site.</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>In relation to this category: Generic1</para>
+            </listitem>
+
+            <listitem>
+              <para>Position: Right before, in the same level</para>
+            </listitem>
+
+            <listitem>
+              <para>Optional image: <filename>categoryrecipes_top.jpg</filename></para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Add</guibutton>&#34; to add the new
+              category.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Create three sub-categories: &#34;<userinput>Appetizers &#38;
+          Soups</userinput>&#34;, &#34;<userinput>Breads &#38; Baked Goods</userinput>&#34;,
+          and finally &#34;<userinput>Desserts</userinput>&#34;. To create the
+          &#34;<userinput>Appetizers &#38; Soups</userinput>&#34;
+          sub-category, click &#34;<guibutton>Add Category</guibutton>&#34;
+          and follow these steps:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Name: <userinput>Appetizers &#38; Soups</userinput></para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Description: <userinput>Soups and Appetizer recipes go
+                  here.</userinput></para>
+                </listitem>
+
+                <listitem>
+                  <para>In relation to this category: Recipes Category</para>
+                </listitem>
+
+                <listitem>
+                  <para>Position: The first child category</para>
+                </listitem>
+
+                <listitem>
+                  <para>Optional image: <filename>categorysoups.jpg</filename></para>
+                </listitem>
+
+                <listitem>
+                  <para>Click &#34;<guibutton>Add</guibutton>&#34; to add the
+                  new category.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+
+          <para>To create the next two sub-categories, click &#34;<guibutton>Add
+          Category</guibutton>&#34; and follow these steps:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Name: Breads &#38; Baked Goods</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Description: <userinput>Breads &#38; baked goods
+                  recipes go here.</userinput></para>
+                </listitem>
+
+                <listitem>
+                  <para>In relation to this category: Recipes Category /
+                  Appetizers &#38; Soups</para>
+                </listitem>
+
+                <listitem>
+                  <para>Position: Right after, in the same level</para>
+                </listitem>
+
+                <listitem>
+                  <para>Optional image: <filename>categorybaked.jpg</filename></para>
+                </listitem>
+
+                <listitem>
+                  <para>Click &#34;<guibutton>Add</guibutton>&#34; to add the
+                  new category.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Create another sub-category, typing &#34;<userinput>Desserts</userinput>&#34;
+              in the Name field, &#34;<userinput>Dessert recipes go here</userinput>&#34;
+              for the Description, and &#34;<filename>categorydesserts.jpg</filename>&#34;
+              as the image.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>ADD THE NEW PUBLICTION TYPE TO A CATAGORY: This is done for
+          each custom Publication Type you create.</para>
+
+          <para>To add Publication Types to Categories, go to
+          <command>Admin-&#62;Articles-&#62;Modify config</command> and click
+          on the description of the Publication Type we created (in this
+          example, it&#39;s &#34;<userinput>Recipe Collection</userinput>&#34;).
+          Scroll down, and you&#39;ll see:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Number of possible categories: 0. Change the &#34;0&#34;
+              to &#34;<userinput>1</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34;
+              to save changes.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>After the screen refreshes, scroll to the bottom of the center
+          section and select the Category for the new Publication Type. In
+          this example, if it&#39;s not already selected, select &#34;<userinput>Recipes
+          Category</userinput>&#34; that we created above. Click &#34;<guibutton>Update
+          Configuration</guibutton>&#34; to save changes.</para>
+        </listitem>
+
+        <listitem>
+          <para>CONFIGURE THE NEW PUBLICATION TYPE: This is done for each
+          custom Publication Type you create.</para>
+
+          <para>Still in <command>Admin-&#62;Articles-&#62;Modify config</command>,
+          click on the description of the publication type we just created (in
+          this example, it&#39;s &#34;<userinput>Recipe Collection</userinput>&#34;).
+          Make the following changes (NOTE: Items enclosed in parenthesis
+          below are the names of the variables used in templates.):</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Use &#39;recipes&#39; as alias in short URLs: CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Default start view: Browse in Recipes Category</para>
+            </listitem>
+
+            <listitem>
+              <para>Number of columns ($numcols): <userinput>1</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Items per page ($number): <userinput>10</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Show category links in article summaries ($categories):
+              CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show previous/next category ($showprevnext): CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show number of comments ($comments): CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show hit counts ($counter): CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show ratings ($rating): CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show links to publication types ($showpublinks +
+              includes/publinks.xd): CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show link to archives ($archivelink + $archivelabel):
+              CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show link to article map ($maplink + $maplabel): CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Call transform hooks in summaries: UNCHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Show link to previous/next article in display ($prevart +
+              $nextart): CHECKED</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34;
+              to save changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>ADD TEMPLATES FOR THE NEW PUBLICTION TYPE: This can be done
+          for each custom Publication Type you create.</para>
+
+          <para>We can create up to three custom display templates to tell
+          Xaraya specifically how to display this new Publication Type.
+          Example files are included in this tutorial distribution. If you do
+          not create a template, Xaraya will attempt to display the
+          Publication Type using a default template.</para>
+
+          <para>Template files are placed into the <filename>&#60;xarroot&#62;/modules/articles/xartemplates</filename>
+          directory, and should be called &#39;<filename>user-display-&#60;pubtype&#62;.xd</filename>&#39;,
+          &#39;<filename>user-summary-&#60;pubtype&#62;.xd</filename>&#39;,
+          and (optionally) &#39;<filename>user-view-&#60;pubtype&#62;.xd</filename>&#39;,
+          where <varname>&#60;pubtype&#62;</varname> is the name of the
+          Publication Type (in this tutorial, <varname>&#60;pubtype&#62;</varname>
+          is &#34;<userinput>recipes</userinput>&#34; as created in step #2
+          above):</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>user-display-recipes.xd -- this is the main view of the
+              data</para>
+            </listitem>
+
+            <listitem>
+              <para>user-summary-recpies.xd -- this is a summary view of the
+              data</para>
+            </listitem>
+
+            <listitem>
+              <para>user-view-recipes.xd <emphasis>(optional)</emphasis> --
+              </para>
+            </listitem>
+          </itemizedlist>
+
+          <para>If you wish to create theme-specific versions of these files,
+          rename the files from <filename>*.xd</filename> to
+          <filename>*.xt</filename> and place the theme-specific version in
+          the <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/articles</filename>
+          directory, creating directories as necessary.</para>
+
+          <para>It is recommended that you begin by examining the example
+          files included with this tutorial, or open one of the sample
+          templates provided with Xaraya and make changes as necessary using
+          your favorite HTML editor. Where ever you want to display the fields
+          in the new Publication Type, enter &#34;<userinput>#$fieldname#</userinput>&#34;
+          (no quotes) in the template. Xaraya will replace &#34;<userinput>#$fieldname#</userinput>&#34;
+          with the contents of the field as stored in the database. In this
+          tutorial, we created the following fields, which are available for
+          display in the template using the <userinput>#$fieldname#</userinput>
+          indicated in parenthesis:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>title (#$title#)</para>
+            </listitem>
+
+            <listitem>
+              <para>summary (#$summary#)</para>
+            </listitem>
+
+            <listitem>
+              <para>bodytext (#$bodytext#)</para>
+            </listitem>
+
+            <listitem>
+              <para>notes (#$notes#)</para>
+            </listitem>
+
+            <listitem>
+              <para>photo (#$photo#)</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The templates included with this tutorial distribution expect
+          to find a file called &#34;<filename>NoPhoto.gif</filename>&#34; in
+          the <filename>&#60;xarroot&#62;/images/recipes</filename> directory
+          of your website. This file is displayed if a Photograph URL is not
+          provided in the article submission, and is included with this
+          tutorial distribution. Copy <filename>NoPhoto.gif</filename> to the
+          <filename>&#60;xarroot&#62;/images/recipes</filename> directory,
+          creating directories as necessary.</para>
+        </listitem>
+
+        <listitem>
+          <para>ADD AN ARTICLE TO THE NEW PUBLICATION TYPE: This is done for
+          each custom Publication Type you create.</para>
+
+          <para>Now articles can be added to the new publication type. Click
+          <command>Admin-&#62;Articles-&#62;Add Article</command> and click on
+          the name of the new Publication Type (in this example, it&#39;s
+          Recipe Collection). A sample recipe is included with this tutorial (<filename>SampleRecipe.txt</filename>).</para>
+
+          <para>Enter the Recipe Title, Description, Ingredients, Directions,
+          and a URL for the photograph for the recipe. Select the appropriate
+          Category for the recipe, and click &#34;<guibutton>Preview</guibutton>&#34;
+          to see what the recipe will look like, or click &#34;<guibutton>Add
+          Article</guibutton>&#34; to save it.</para>
+
+          <para>On the following panel, approve the article by putting a CHECK
+          in the STATUS box, and selecting &#34;<guibutton>Approved</guibutton>&#34;
+          from the drop-down list at the bottom of the panel. Click &#34;<guibutton>Change
+          Status</guibutton>&#34; to save changes.</para>
+        </listitem>
+
+        <listitem>
+          <para>LOGOUT FROM THE ADMINISTRATOR ACCOUNT</para>
+
+          <para>It is a wise idea, though technically not required, to log out
+          of your administrator account at the end of each session. To log out
+          of your Xaraya administrator account, click <guibutton>[admin
+          logout]</guibutton>, which appears at the bottom of the
+          Administration menu. Confirm your intention to log out on the next
+          panel by clicking &#34;<guibutton>Logout</guibutton>&#34;, or click
+          &#34;<guibutton>Cancel</guibutton>&#34; to abort the logout.</para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2>
+      <title>KNOWLEDGE REVIEW: Publication Types</title>
+
+      <para>OTTO:</para>
+    </sect2>
+  </sect1>
+</chapter>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Maintaining Your Xaraya Site</title>
+
+  <para>This section deals the day-to-day operation of a Xaraya site. It is
+  under development.</para>
+
+  <para>OTTO: Does Xaraya have a best practices for routine maintence?</para>
+
+  <para>In general, Xaraya runs without any need for pre-emptive or recurring
+  maintenance. However, some things that Xaraya does need recurring
+  maintenance. Here are a few things that should be done on a regular basis:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Print and clear web statistics.</para>
+
+      <para>The statistics and log files can grow without limit and needs to
+      be cleared from time to time.</para>
+
+      <para>To clear the log files, log in as Administrator and go to the
+      Administration menu. Go to <command>Admin-&#62;Referer-&#62;View</command>
+      (note that the misspelling is intentional). A listing of site referrers
+      is displayed. Click the &#34;<guibutton>Delete Referers</guibutton>&#34;
+      button to clear the referrers list.</para>
+
+      <note>
+        <para>You are not asked to confirm your intention to delete.</para>
+      </note>
+
+      <para>New referrers will be added to the cleared list. Generally, the
+      referrers list should be cleared about once a week, or on an interval
+      that is suitable for your site.</para>
+    </listitem>
+
+    <listitem>
+      <para>Optimize tables.</para>
+
+      <para>As tables grow, they can become fragmented and need to be
+      optimized to improve performance.</para>
+
+      <para>You can use the SiteTools module to optimize your database tables.</para>
+    </listitem>
+
+    <listitem>
+      <para>Backup the database.</para>
+
+      <para>Although many webmasters have copies of their website on their
+      local workstations, they often neglect to make a copy of their database.
+      A backup of both website and database needs to be done regularly to
+      protect against catastrophic data-loss situations. You must use an
+      external utility to optimize the database tables. Drew Vogel has written
+      a useful script for backing up the web site&#39;s database and files.
+      This script is available below.</para>
+
+      <para><literallayout># xaraya-bu.sh | 1.12
+#==============+ by Drew Vogel (drew@xaraya.com)
+# This script will:
+#       * Backup files from the &#60;webdir&#62; (recursive) into a file in the
+#         root directory called webdir.tar.gz
+#       * Perform a dump of the Xaraya database into a file
+#         called Xaraya.sql in the root directory,
+#       * Archive all backup up files into one archive,
+#       * Copy the archive to a specified location, and
+#       * Clean up all its temp files.
+#
+# Define some variables
+#
+# In BACKUP_TABS, put a list of database table names, separated by a space,
+# that you would like to backup from MySQL.
+BACKUP_TABS=&#34;Xaraya&#34;
+#
+# MYSQL_USER is your MySQL administrator username.
+#
+MYSQL_USER=username
+#
+# MYSQL_PASSWORD is your MySQL administrator password.
+#
+MYSQL_PASSWORD=password
+#
+# DATE stores the format of the filename. In this case, it results in a XAR prefix with
+# a date string, like: XAR-23Oct2002.
+#
+DATE=$(date +XAR-%d%b%Y)
+#
+# Change the two lines below to the directory you want to backup.
+#
+cd /var/www/html
+#
+# The script itself
+#
+echo &#34;Backing up /var/www/html/ directory to archive webdir.tar.gz...&#34;
+tar -cpzvf ~/webdir.tar.gz *
+echo &#34;...done.&#34;
+cd ~/
+        for TAB in $BACKUP_TABS;do
+                echo &#34;Creating dump of $TAB database...&#34;
+                mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD -B $TAB -c -a --add-drop-table &#62;~/$TAB.sql
+                echo &#34;...done.&#34;
+        done
+echo &#34;Adding the files to archive $DATE.tar.gz...&#34;
+cd ~/
+#
+# Edit the line below to include the tablenames from the database.
+#
+tar -czvf $DATE.tar.gz Xaraya.sql
+echo &#34;...done.&#34;
+#
+# Edit the line below to specify the destination directory.
+#
+echo &#34;Copying $DATE.tar.gz archive to /var/www...&#34;
+cd ~/
+#
+# Edit the line below to specify the destination directory.
+#
+cp $DATE.tar.gz /var/www/
+chmod 770 /var/www/$DATE.tar.gz
+#
+# Edit the line below to specify the destination directory.
+#
+echo &#34;...done.&#34;
+echo &#34;Cleaning up...&#34;
+cd ~/
+        for TAB in $BACKUP_TABS;do
+                echo &#34;CLEAN UP: Deleting $TAB...&#34;
+                /bin/rm $TAB.sql
+                echo &#34;...done.&#34;
+        done
+rm webdir.tar.gz
+rm $DATE.tar.gz
+ls -l /var/www/$DATE.tar.gz
+echo &#34;...done.&#34;
+echo &#34;Xaraya backup complete!&#34;</literallayout></para>
+    </listitem>
+  </itemizedlist>
+</chapter>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>MetaWebLogAPI Module</title>
+
+  <subtitle>Metaweblog API implementation. No administration panel.</subtitle>
+
+  <para>This module does not have any configurable options.</para>
+</sect2>

@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Modules in Xaraya</title>
+
+  <para>Xaraya allows items to be virtually &#39;bolted on&#39; to its engine.
+  These items, called &#34;<firstterm>modules</firstterm>&#34;, add features
+  or functionality to Xaraya. Because it is important to understand how
+  modules function within Xaraya, in this section we explain how any Xaraya
+  module can be installed, configured, deactivated, upgraded, and completely
+  removed (deleted!). Any of these actions may be taken on any non-core Xaraya
+  module. Xaraya&#39;s Core modules make up the distribution of Xaraya, and
+  can not be deactivated, edited, or removed. The Xaraya Base distribution
+  comes with a selection of popular modules available for use with your site.
+  The Site Administrator may choose additional modules to add to the site.
+  Additional official modules and third-party modules for Xaraya may be
+  downloaded from the official site at http://www.xaraya.com.</para>
+
+  <sect1>
+    <title>Xaraya Modules -- A New Approach</title>
+
+    <para>In other Content Management Systems, if, for example, you had a
+    Reviews module and a Gallery module, they exist on the site as two
+    separate entities that do not communicate with each other. If, for
+    example, you wanted a Gallery that allowed users to post Reviews, you had
+    to write your own custom module to integrate the two pieces, or duplicate
+    the functionality of each module in a new custom module.</para>
+
+    <para>Modules in Xaraya are different than modules in any other Content
+    Management System because when they are &#39;bolted on&#39; to the Xaraya
+    engine, they can communicate with any other part of Xaraya,
+    <emphasis>including other modules</emphasis>. These communication paths
+    are easily built using &#34;<firstterm>hooks</firstterm>&#34; within
+    Xaraya -- without coding -- by the site administrator.</para>
+
+    <para>In our example, within Xaraya, Review functionality could be
+    combined with the Gallery without writing any code at all, allowing users
+    to post Reviews of items in the Gallery. Further in this Guide, we will
+    explore specific examples of how to combine the function of modules within
+    Xaraya.</para>
+
+    <para>SPECIAL NOTE: Xaraya doesn&#39;t need an external &#34;Gallery&#34;
+    module... Using Publication Types, Xaraya can be configured to display
+    nearly any kind of data -- without requiring a special module to do so.
+    We&#39;ll explore this more later in the Guide.</para>
+
+    <para>This section of the Guide shows how to initialize, activate, edit,
+    deactivate, upgrade, and completely remove (delete!) modules from your
+    Xaraya site.</para>
+  </sect1>
+
+  <sect1>
+    <title>Module Listing: Display &#38; Navigation</title>
+
+    <para><command>Admin-&#62;Modules-&#62;View All</command>: This
+    configuration area of Xaraya focuses on the modules of your site.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Style: Defines the display of the module list.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Plain (fast): Default. Displays an unadorned listing of
+            Modules. Options (activate, deactivate, hooks, etc.) are listed as
+            clickable text.</para>
+          </listitem>
+
+          <listitem>
+            <para>Icons: Displays a listing of Modules adorned with icons.
+            Options (activate, deactivate, hooks, etc.) are listed as
+            clickable icons.</para>
+          </listitem>
+
+          <listitem>
+            <para>Compact-A: Displays a listing of modules in a compact,
+            two-column &#34;over then down&#34; format. The action &#38;
+            status list is displayed at the top of the screen. The letter
+            indicators are as follows:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>[I]nstall</para>
+              </listitem>
+
+              <listitem>
+                <para>[U]pgrade</para>
+              </listitem>
+
+              <listitem>
+                <para>[D]eactivate</para>
+              </listitem>
+
+              <listitem>
+                <para>[A]ctivate</para>
+              </listitem>
+
+              <listitem>
+                <para>[R]emove</para>
+              </listitem>
+
+              <listitem>
+                <para>[M]issing</para>
+              </listitem>
+
+              <listitem>
+                <para>[V]iew Info</para>
+              </listitem>
+
+              <listitem>
+                <para>[H]ooks</para>
+              </listitem>
+
+              <listitem>
+                <para>[C]ore Module</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Compact-B: Displays a listing of modules in a compact,
+            two-column &#34;down then over&#34; format. The letter indicators
+            are the same as for &#34;Compact-A&#34; display style, above.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>View: Filters the display to modules of a certain type as
+        selected from the drop-down list.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>All modules: Default. Shows all modules on the system.</para>
+          </listitem>
+
+          <listitem>
+            <para>All Installed: Shows only modules that have been installed.</para>
+          </listitem>
+
+          <listitem>
+            <para>All Active: Shows only modules that have been activated.</para>
+          </listitem>
+
+          <listitem>
+            <para>All Inactive: Shows only modules that have not been
+            activated.</para>
+          </listitem>
+
+          <listitem>
+            <para>Not Installed: Shows only modules that have not been
+            installed.</para>
+          </listitem>
+
+          <listitem>
+            <para>Missing files: Shows any modules with missing files.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Sort by: The sort order for displayed modules.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Name [a-z]: Default. Alphabetical ordering of modules.</para>
+          </listitem>
+
+          <listitem>
+            <para>Name [z-a]: Reverse alphabetical ordering of modules.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Hide: Because we cannot change any Core modules within Xaraya,
+        we may choose to hide them from the module list to reduce clutter. If
+        the &#34;<guibutton>Hide Core Modules</guibutton>&#34; box is CHECKED,
+        Core modules are filtered from the module list and not displayed. To
+        hide the Core modules, CHECK &#34;<guibutton>Hide Core Modules</guibutton>&#34;
+        and click &#34;<guibutton>Reload</guibutton>&#34;. Core modules can be
+        displayed by UNCHECKING &#34;<guibutton>Hide Core Modules</guibutton>&#34;
+        and clicking &#34;<guibutton>Reload</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>Force:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Regenerate: When a module is added to or deleted from the
+            site&#39;s module directory, the system needs to
+            &#39;Regenerate&#39; the file structure to recognize the change in
+            the module directory. To force the system to regenerate the
+            modules list, CHECK &#34;<guibutton>Regenerate</guibutton>&#34;
+            and click &#34;<guibutton>Reload</guibutton>&#34;. This is
+            necessary only when modules have been added to or deleted from the
+            site&#39;s module directory.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><guibutton>Reload</guibutton>: Applies any changes you&#39;ve
+        made to Style, View, Sort by, Hide, or Force and reloads the module
+        listing.</para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+
+  <sect1>
+    <title>Managing Modules</title>
+
+    <para>Below the display &#38; navigation section is the listing of the
+    modules on the site. Each module has a variety of information displayed
+    next to the name of the module. We explore the definition of each piece of
+    information, below.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><emphasis>Name</emphasis>: The name of the module. When the
+        module has an &#34;Active&#34; status, click the name of the module to
+        go to the module&#39;s administration screen. If you click the name of
+        the module and nothing happens, the module does not have an
+        administration screen. The administration screen of inactive modules
+        is not available.</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis>Version</emphasis>: The version number of the module.</para>
+      </listitem>
+
+      <listitem>
+        <para>Upgrade: If an upgraded version of the module that is newer than
+        the installed version is available, this field displays notification.</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis>Info</emphasis>: Click the &#34;<guibutton>Info</guibutton>&#34;
+        link for information about the module, including contact information.</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis>Status</emphasis>: Displays the status of the module.
+        Status can be one of the following items:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>Not Installed</emphasis>: The files for this
+            module exist in Xaraya&#39;s installation, but the module has not
+            been installed. Modules that have a status of Not Installed cannot
+            be used on the site until they are installed.</para>
+          </listitem>
+
+          <listitem>
+            <para><emphasis>Active</emphasis>: The module has been placed into
+            Xaraya&#39;s modules directory and has been installed. The module
+            is ready for use on the site.</para>
+          </listitem>
+
+          <listitem>
+            <para><emphasis>Inactive</emphasis>: The module is not available
+            for use on the site but the module&#39;s database and
+            configuration settings have NOT been removed. Click &#34;<guibutton>Activate</guibutton>&#34;
+            to make the module available on the site.</para>
+          </listitem>
+
+          <listitem>
+            <para><emphasis>Missing Files</emphasis>: This module has files
+            missing and will likely not function. Remove and reinstall the
+            module to correct the problem.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Actions:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>[Core module]</emphasis>: Denotes a core module.
+            Since core modules are not configurable, no actions are available
+            for this module.</para>
+          </listitem>
+
+          <listitem>
+            <para><emphasis>Install</emphasis>: Indicates that the module
+            exists in Xaraya&#39;s module directory but is not yet ready for
+            use. Click &#34;<guibutton>Install</guibutton>&#34; to initialize
+            and activate the module, which creates any database tables that
+            the module needs and prepares the module for use on the site.</para>
+          </listitem>
+
+          <listitem>
+            <para><emphasis>Deactivate</emphasis>: If you wish to make a
+            module unavailable, click &#34;<guibutton>Deactivate</guibutton>&#34;.
+            This sets the module to an unavailable setting, but does not
+            remove any data or database tables.</para>
+          </listitem>
+
+          <listitem>
+            <para><emphasis>Remove</emphasis>: If you wish to remove the
+            module from your site and remove all configuration information and
+            database tables associated with the module, click &#34;<guibutton>Deactivate</guibutton>&#34;
+            (if necessary) and click &#34;<guibutton>Remove</guibutton>&#34;.
+            Clicking &#34;<guibutton>Remove</guibutton>&#34; removes all the
+            module&#39;s data and database tables from the site&#39;s database
+            and makes the module unavailable to site visitors. The module is
+            NOT removed from Xaraya&#39;s modules directory. Modules must be
+            manually deleted from Xaraya&#39;s modules directory to completely
+            remove them from the site.</para>
+          </listitem>
+
+          <listitem>
+            <para><emphasis>Activate</emphasis>: If a module has previously
+            been deactivated and you wish to re-activate it for use on the
+            site, click &#34;<guibutton>Activate</guibutton>&#34;.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+
+  <sect1>
+    <title>Modules in Xaraya</title>
+
+    <para>In this section of the Guide, we explore the individual modules that
+    are included with Xaraya. Most modules support Dynamic Data. If you have
+    Dynamic Data fields defined for a module, you will have additional
+    configuration options beyond what is covered in this Guide. Not all site
+    administrators will use all of these features, so feel free to skip
+    around!</para>
+&mod-addressbook;
+&mod-adminpanels;
+&mod-articles;
+&mod-authinvision;
+&mod-authldap;
+&mod-authsso;
+&mod-authsystem;
+&mod-autolinks;
+&mod-bbclick;
+&mod-bbcode;
+&mod-bkview;
+&mod-blocks;
+&mod-bloggerapi;
+&mod-calendar;
+&mod-cast;
+&mod-categorymodule;
+&mod-censor;
+&mod-changelog;
+&mod-comments;
+&mod-converter;
+&mod-dynamicdata;
+&mod-dynamic_planning;
+&mod-dyn_example;
+&mod-ephemerids;
+&mod-example;
+&mod-facilities;
+&mod-figlet;
+&mod-formcontrols;
+&mod-headlines;
+&mod-hitcount;
+&mod-html;
+&mod-imagefeed;
+&mod-installer;
+&mod-issueareapub;
+&mod-keywords;
+&mod-latestcomments;
+&mod-mail;
+&mod-messages;
+&mod-metaweblogapi;
+&mod-modules;
+&mod-multisites;
+&mod-mybookmarks;
+&mod-newsgroups;
+&mod-opentracker;
+&mod-overlib;
+&mod-polls;
+&mod-privileges;
+&mod-pubsub;
+&mod-quotes;
+&mod-ratings;
+&mod-recommend;
+&mod-referer;
+&mod-release;
+&mod-reports;
+&mod-reviews;
+&mod-roles;
+&mod-search;
+&mod-shopping;
+&mod-sitetools;
+&mod-smilies;
+&mod-sniffer;
+&mod-soapserver;
+&mod-stats;
+&mod-subitems;
+&mod-tasks;
+&mod-themes;
+&mod-todolist;
+&mod-trackback;
+&mod-translations;
+&mod-uploads;
+&mod-wiki;
+&mod-window;
+&mod-workflow;
+&mod-xarbb;
+&mod-xarlinkme;
+&mod-xlink;
+&mod-xmlrpcserver;
+&mod-xmlrpcsystemapi;
+&mod-xmlrpcvalidatorapi;
+&mod-xproject;
+&mod-xslt;
+  </sect1>
+
+  <sect1>
+    <title>KNOWLEDGE REVIEW: Manipulating Modules (Adding and Removing
+    Modules)</title>
+
+    <para>It is easy to add or remove modules at any time after Xaraya
+    installation.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Adding a new module:</para>
+
+        <para>To add a new module to Xaraya, follow these steps:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Download the new module.</para>
+          </listitem>
+
+          <listitem>
+            <para>Un-archive the new module into a temporary directory (if
+            necessary).</para>
+          </listitem>
+
+          <listitem>
+            <para>Configure the module (read the module&#39;s documentation to
+            determine what pre-installation configuration, if any, is
+            necessary).</para>
+          </listitem>
+
+          <listitem>
+            <para>Copy (or upload) the module directory &#38; sub-directory
+            from the temporary directory to <filename>&#60;xarroot&#62;/modules</filename>.</para>
+          </listitem>
+
+          <listitem>
+            <para>Assign appropriate ownership and permissions (if necessary).</para>
+          </listitem>
+
+          <listitem>
+            <para>As the site administrator, go to <command>Admin-&#62;Modules-&#62;View
+            All</command>. CHECK the <guibutton>Regenerate</guibutton> box at
+            the top right of the panel and click the &#34;<guibutton>Reload</guibutton>&#34;
+            button. Xaraya will scan the <filename>&#60;xarroot&#62;/modules</filename>
+            directory and display all modules that are available, including
+            the new module.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Install</guibutton>&#34; on the line
+            next to the new module you wish to install. The module will be
+            installed.</para>
+          </listitem>
+
+          <listitem>
+            <para>Perform any post-installation configuration of the module
+            (if necessary). If a module has post-installation configuration
+            options available, you can click on the module name in
+            <command>Admin-&#62;Modules-&#62;View All</command> to go to the
+            module&#39;s configuration panel. You may also click on the module
+            name in the Admin menu on the left of the browser window.</para>
+          </listitem>
+        </orderedlist>
+      </listitem>
+
+      <listitem>
+        <para>Removing a module:</para>
+
+        <para>To remove a module from Xaraya, follow these steps:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Identify the module you wish to remove.</para>
+          </listitem>
+
+          <listitem>
+            <para>As the site administrator, go to <command>Admin-&#62;Modules-&#62;View
+            All</command>.</para>
+          </listitem>
+
+          <listitem>
+            <para>If the module is active, click &#34;<guibutton>Deactivate</guibutton>&#34;
+            on the line with the module to be removed. When a module has been
+            deactivated, it is no longer available to users but the module
+            data is <emphasis>not</emphasis> removed. If you intend to make
+            the module active again in the future but do not want the module
+            to be available to users at the moment, it is advised to leave the
+            module in a deactivated state.</para>
+          </listitem>
+
+          <listitem>
+            <para>To completely remove the module&#39;s data, click &#34;<guibutton>Remove</guibutton>&#34;.
+            The module&#39;s data is removed from the database (including
+            configuration settings and stored information). Once a module has
+            been &#34;Removed&#34;, it is necessary to re-install and
+            re-configure the module if you intend to use it again.</para>
+          </listitem>
+
+          <listitem>
+            <para>If you wish to remove the module completely from your Xaraya
+            site, delete the module&#39;s directory from <filename>&#60;xarroot&#62;/modules</filename>.
+            Consult your webserver&#39;s operating system documentation for
+            how to accomplish this.</para>
+          </listitem>
+        </orderedlist>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</chapter>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Comments Module</title>
+
+  <subtitle>Allows users to post comments in any module that uses hooks.
+  <command>Admin-&#62;Comments</command>.</subtitle>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Overview</command>: Displays the overview panel for this
+      module. This panel contains information about the module and how to use
+      it.</para>
+    </listitem>
+
+    <listitem>
+      <para><command>View Statistics</command>: This panel displays statistics
+      about all comments on the site. From this panel the administrator can
+      see the total number of comments and where the comments are located.
+      Additional actions allow deletion of comments, either selective or
+      complete.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Module name: The name of the module containing comments. Click
+          the module name to go to that module&#39;s statistics panel
+          containing figures for each of that module&#39;s pages that have
+          comments associated with them. From that panel, you can delete all
+          comments associated with a particular page.</para>
+        </listitem>
+
+        <listitem>
+          <para>Module pages: Displays a count of the pages within a
+          particular module which contain comments.</para>
+        </listitem>
+
+        <listitem>
+          <para>Total comments: Displays a count of total comments.</para>
+        </listitem>
+
+        <listitem>
+          <para>Inactive comments: Displays a count of inactive comments.</para>
+        </listitem>
+
+        <listitem>
+          <para>Action:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Delete: By clicking &#34;<guibutton>Delete</guibutton>&#34;
+              you can delete all comments associated with a particular module.
+              To delete all comments associated with a particular module,
+              click &#34;<guibutton>Delete</guibutton>&#34; and confirm your
+              intention to delete on the following panel.</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete All: Click this link to delete ALL comments
+              associated with ALL modules. On the following panel, confirm
+              your intention to delete all comments from all modules.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command>: This panel allows modification
+      of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Default rendering depth:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>1...9: From this drop-down list, select the default
+              rendering depth for comments on the site. This setting
+              determines how many levels of comments are displayed. For
+              example, if you set it to &#34;<userinput>2</userinput>&#34;,
+              Xaraya will show the top 2 levels of comments and a setting of
+              &#34;<userinput>9</userinput>&#34; will show up to 9 levels of
+              nested comments. It is unlikely that you&#39;ll experience 9
+              nested levels of comments. An example of 9 nested comments is a
+              reply to a reply to a reply to a reply to a reply to a reply to
+              a reply to a reply to a reply!</para>
+
+              <para>If a message&#39;s comments go beyond the default
+              rendering depth, a message is displayed notifying the user that
+              the particular message has additional comments that are not
+              displayed, and that the user can click the message to display
+              all the comments. Suggested setting is &#34;<userinput>9</userinput>&#34;.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Default rendering style:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Nested: Comments are displayed with child comments
+              &#39;nested&#39; (indented slightly) underneath their parent
+              comments. This is a recommended setting, as it is easy to
+              visually track comments and sub-comments. Comments are displayed
+              expanded.</para>
+            </listitem>
+
+            <listitem>
+              <para>Flat: Comments are displayed with child comments in the
+              same level (no indentation) as their parents. Comments are
+              displayed expanded.</para>
+            </listitem>
+
+            <listitem>
+              <para>Threaded: Threaded view displays comments in a tree-like
+              structure with the parent comment at the top with child comments
+              below. The threaded view is similar to the default view in many
+              mail readers, along with cute threaded images. Comments are
+              displayed collapsed.</para>
+            </listitem>
+
+            <listitem>
+              <para>No comments: Do not display comments. If a user turns off
+              comments while reading comments (not in user preferences but on
+              an actual page with comments) the only way to turn them back on
+              at the moment is by going to user preferences.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Default sorting mode: Defines the default sorting mode for
+          comments. Registered users can change their sort order if they wish.
+          Default sorting mode relies on Default sorting order, below, to
+          determine if the items are displayed in ascending or descending
+          order.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Author: Sort comments by the author&#39;s username.</para>
+            </listitem>
+
+            <listitem>
+              <para>Date: Sort comments by the date/time of the comment.</para>
+            </listitem>
+
+            <listitem>
+              <para>Thread: Sort comments into threads.</para>
+            </listitem>
+
+            <listitem>
+              <para>Title: Sort comments by the title of the comment.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Default sorting order: Defines the sorting order for comments.
+          Registered users can change their sort order if they wish. Default
+          sorting order relies on Default sorting mode, above, to determine if
+          the mode for sorting.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Ascending: Display oldest-to-newest / alphabetical order.</para>
+            </listitem>
+
+            <listitem>
+              <para>Descending: Display newest-to-oldest / reverse
+              alphabetical order.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Allow registered users to post anonymously?: If CHECKED, an
+          option is provided whereby a registered user can post a comment
+          anonymously. The user name is always displayed to the site
+          administrator.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<command>Update Configuration</command>&#34; to
+          save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Subitems Module</title>
+
+  <subtitle>Dynamic data subitems. <command>Admin-&#62;Subitems</command>.</subtitle>
+
+  <para>The documentation for this part of the Guide is being developed.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Add link:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Dynamicdata ObjectId:</para>
+        </listitem>
+
+        <listitem>
+          <para>Hook-Module Name:</para>
+        </listitem>
+
+        <listitem>
+          <para>Hook-Module Itemtype:</para>
+        </listitem>
+
+        <listitem>
+          <para>Hook-Module Template:</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create New DDSubobjectlink</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>View links:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Module:</para>
+        </listitem>
+
+        <listitem>
+          <para>ItemType:</para>
+        </listitem>
+
+        <listitem>
+          <para>ObjectID:</para>
+        </listitem>
+
+        <listitem>
+          <para>Template:</para>
+        </listitem>
+
+        <listitem>
+          <para>Actions:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Edit:</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete:</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Modify config:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Enable Short URLs?: CHECK this box to enable Short URLs for
+          this module. UNCHECK this box to disable Short URLs for this module.
+          Short URL support must be enabled in <command>Admin-&#62;Base-&#62;Modify
+          config</command> for Short URLs to function.</para>
+        </listitem>
+
+        <listitem>
+          <para>Check &#34;<guibutton>Update Configuration</guibutton>&#34; to
+          save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Newsgroups Module</title>
+
+  <subtitle>Read and post to NNTP. <command>Admin-&#62;Newsgroups</command>.</subtitle>
+
+  <para>The NewsGroups module provides the basic functionality to read and
+  post to NNTP.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>Modify config</guibutton>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>News server: Enter the name of the news server from which you
+          wish to pull news. For example, &#34;<userinput>news.xaraya.com</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Port: Enter the port on the news server through which news
+          will flow. Generally &#34;<userinput>119</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Topics per page: Enter the number of topics to display per
+          page. If, for example, you wish to display 50 topics per page, enter
+          &#34;<userinput>50</userinput>&#34; in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34; to
+          save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

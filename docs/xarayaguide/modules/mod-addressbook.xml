@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Addressbook Module</title>
+
+  <subtitle>Modules Distribution, Xaraya address book module.
+  <command>Admin-&#62;Addressbook</command>.</subtitle>
+
+  <para>The Addressbook module provides a configurable address book for your
+  site. Entries in the address book can be made private (viewable only by the
+  person who entered the item) or public (viewable by all users with access to
+  this module).</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Access level:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Grant Rights for an unregistered user:</para>
+            </listitem>
+
+            <listitem>
+              <para>Grant Rights for a registered user:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>View: To give unregistered/registered users VIEW
+                  access to the address book, CHECK this box. To prohibit
+                  unregistered/registered users from VIEWING the address book,
+                  UNCHECK this box.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Create: To allow unregistered/registered users to
+                  CREATE entries in the address book, CHECK this box. To
+                  prohibit unregistered/registered users from CREATING entries
+                  in the address book, UNCHECK this box.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Edit/Delete: To allow unregistered/registered users
+                  EDIT/DELETE access to the address book, CHECK this box. To
+                  prohibit unregistered/registered users from EDITING/DELETING
+                  items from the address book, UNCHECK this box.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Other settings:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Title of this Address book: In this field, enter the name
+              of the address book as it will be displayed to users.</para>
+            </listitem>
+
+            <listitem>
+              <para>Default sort order / List View: Select two columns of your
+              choice. This setting affects not only the sort order but also
+              the display of columns in the list view. Users may select
+              between the Default and Alternate sort orders.</para>
+            </listitem>
+
+            <listitem>
+              <para>Alternate sort order / List View: Select two columns of
+              your choice. This setting affects not only the sort order but
+              also the display of columns in the list view. Users may select
+              between the Default and Alternate sort orders.</para>
+            </listitem>
+
+            <listitem>
+              <para>Name display in list view and sort order for name
+              information: This setting determines the sort order and display
+              of names in the list view. You can change the default «Last
+              Name, First Name» to «First Name Last Name».</para>
+            </listitem>
+
+            <listitem>
+              <para>Special character (Umlauts) replacement for sort columns:
+              Names and companies are stored in special sort columns for
+              correct sorting when special characters (such as Umlauts) are
+              used. This Admin setting allows you to set up the character
+              replacement to correct the sort for each language.</para>
+            </listitem>
+
+            <listitem>
+              <para>Personal address book mode: The Address Book module may be
+              used as a Global address book (UNCHECKED (default)) or a
+              Personal address book (CHECKED). As a Global address book
+              (UNCHECKED) all users with appropriate access may view records
+              that are NOT marked Private. As a Personal address book
+              (CHECKED) users may only view entries they have created and
+              unregistered users may not view or create any entries.</para>
+            </listitem>
+
+            <listitem>
+              <para>Do you want to use a prefix field?: Prefix/Title (Mr.,
+              Mrs., etc.) values can be set in <command>Admin-&#62;Addressbook-&#62;Name
+              Prefixes</command> panel and are optionally selected via a
+              drop-down list when creating/editing an entry. This field is
+              hidden (UNCHECKED) by default. If you wish to use a prefix
+              field, CHECK this box.</para>
+            </listitem>
+
+            <listitem>
+              <para>Do you want to use images/logos?: Administrators will see
+              a selection box of all files in the <filename>&#60;xarroot&#62;/modules/Addressbook/xarimages</filename>
+              and can assign an image to a record. The image is shown in the
+              upper right corner of the detail page. Currently, all pictures
+              must be manually uploaded into the <filename>&#60;xarroot&#62;/modules/Addressbook/xarimages</filename>
+              directory. This field is hidden (UNCHECKED) by default. If you
+              wish to use images/logos, CHECK this box.</para>
+            </listitem>
+
+            <listitem>
+              <para>Disable the menu: If you wish to use the Addressbook
+              module as a simple contact list, you can disable the menu
+              completely. You can also disable it for guests only. Note,
+              Administrators always see the full menu, regardless of this
+              setting. Select from the drop-down list.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Enabled for all: Everyone can see the menu.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Disabled for all: No one can see the menu.
+                  Administrators always see the full menu.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Disabled only for guests: The menu is disabled for
+                  unregistered users, but displayed to registered users.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Disable the second line of the main menu: Disables the
+              display of the second menu line only. Users have access to the
+              categories, sort order, and the search field, but not to Private
+              records, A-Z / Complete list view switch, and the Add New Record
+              link.</para>
+            </listitem>
+
+            <listitem>
+              <para>Show zip before city: If you would like to display the
+              postal/zip code before the city, CHECK this box. Otherwise,
+              UNCHECK this box.</para>
+            </listitem>
+
+            <listitem>
+              <para>Records viewed per page: How many Addresses would you like
+              to display per page? Enter that value into this field, for
+              example, &#34;<userinput>25</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Hide the Copyright and Version Note: If you wish to hide
+              the version number and copyright notice of this module, CHECK
+              this box. To display the version number and copyright notice of
+              this module, UNCHECK this box.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Custom labels:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Custom tab (if empty, no custom fields are displayed):
+              Name of the Custom Fields tab and the headline for custom fields
+              in the detail panel. Leave blank if you do not use custom
+              fields.</para>
+            </listitem>
+
+            <listitem>
+              <para>Width of TEXTAREA fields: The width of the TEXTAREA field
+              can change depending on the settings of your theme. Sometimes
+              this results in a very bad layout for your form. You can set the
+              HTML COLS of a TEXTAREA field in this box. Valid size ranges
+              from 4 to 100.</para>
+            </listitem>
+
+            <listitem>
+              <para>Format for date entries: Select the format for date entry
+              and display.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>MM.DD.YYYY: Displays September 14, 1971 as
+                  &#34;09.14.1971&#34;.</para>
+                </listitem>
+
+                <listitem>
+                  <para>DD.MM.YYYY: Displays September 14, 1971 as
+                  &#34;14.09.1971&#34;.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Format for numeric values: Select the format for numeric
+              entry and display, either &#34;9,999.99&#34; or
+              &#34;9.999,99&#34;.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Administrative Messages</para>
+
+          <para>Administrative messages are sent whenever Addressbook catches
+          an error that forces the user to start over.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Send messages to Site Admin if error encountered?: This
+              option enables error messages to be emailed directly to the site
+              administrator email account. UNCHECK to disable this feature.</para>
+            </listitem>
+
+            <listitem>
+              <para>Different email address if not the default Site Admin:
+              Choose an alternate email address if the Site Administrator does
+              not wish to receive error notifications from Addressbook.</para>
+            </listitem>
+
+            <listitem>
+              <para>Send error reports to Addressbook developer?: Recommended
+              for quality assurance purposes. Only the contents of the error
+              message are sent. This option sends an email to the Addressbook
+              developers with the error message, date &#38; time of
+              occurrence, and the fully qualified host name of the server
+              running the Addressbook module. NO OTHER INFORMATION IS SENT.
+              This information is used solely for the purpose of fixing issues
+              encountered in the Addressbook module. UNCHECK to disable this
+              feature.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Commit Changes</guibutton>&#34; to
+              save changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Categories</command>:</para>
+
+      <para>Your Addressbook entries can be assigned to a single category for
+      organizational purposes. Example categories: &#34;Business&#34;,
+      &#34;Personal&#34;, etc. You may add as many categories as necessary.
+      The category is assigned to an entry by selecting it from the drop-down
+      listing during entry creation or editing.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Category: Enter the name of the category you wish to add.</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete: To delete an existing category, CHECK the box on the
+          line with the category to be deleted.</para>
+
+          <note>
+            <para>When you click &#34;<guibutton>Commit Changes</guibutton>&#34;
+            to delete an existing category, you are NOT asked for confirmation
+            before deletion.</para>
+          </note>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Commit Changes</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Contact labels</command>:</para>
+
+      <para>Contact labels allow specification of different contact methods
+      for an entry in the address book. Example contact labels: Phone, Mobile,
+      Pager, Fax, E-Mail, Web, Other. You may add as many contact labels as
+      necessary. The contact labels are available as drop-down lists when
+      adding/editing a contact.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Label: Enter the name for the contact label you wish to add.</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete: To delete an existing contact label, CHECK the box on
+          the line with the contact label to be deleted.</para>
+
+          <para><note><para>When you click &#34;<guibutton>Commit Changes</guibutton>&#34;
+          to delete an existing contact label, you are NOT asked for
+          confirmation before deletion.</para></note></para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Commit Changes</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Name Prefixes</command>:</para>
+
+      <para>Honorary titles, or name prefixes, such as &#34;Mr.&#34;,
+      &#34;Sir&#34;, &#34;Mrs.&#34;, &#34;Professor&#34;, or &#34;Dr.&#34; can
+      be specified in these fields. You may add as many name prefixes as
+      necessary. You must have CHECKED &#34;Do you wish to use a prefix
+      field?&#34; in <command>Admin-&#62;Addressbook-&#62;Modify config</command>
+      for this field to be displayed during creation/editing of a contact.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Prefix: Enter the prefix in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete: To delete an existing prefix, CHECK the box on the
+          line with the prefix to be deleted.</para>
+
+          <note>
+            <para>When you click &#34;<guibutton>Commit Changes</guibutton>&#34;
+            to delete an existing prefix, you are NOT asked for confirmation
+            before deletion.</para>
+          </note>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Commit Changes</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Custom Fields</command>:</para>
+
+      <para>If you wish to add custom fields for your contacts, do so using
+      this panel.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Custom label: Enter the display text for the custom label in
+          this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Data type: From the drop-down list, select the data type for
+          the new custom field. A special data type, &#34;<guibutton>Horizontal
+          Rule</guibutton>&#34;, simply draws a horizontal line and does not
+          accept data entry.</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete: To delete an existing custom data type, CHECK the box
+          on the line with the custom field to be deleted.</para>
+
+          <note>
+            <para>When you click &#34;<guibutton>Commit Changes</guibutton>&#34;
+            to delete an existing custom field, you are NOT asked for
+            confirmation before deletion.</para>
+          </note>
+        </listitem>
+
+        <listitem>
+          <para>Order: Set the order in which the custom fields are displayed
+          by clicking the UP arrow to move a field up in the order. Click the
+          DOWN arrow to move a field down in the order.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Commit Changes</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Admin Docs</command>: Click this link to view
+      administration documentation for this module.</para>
+    </listitem>
+  </itemizedlist>
+</sect2>

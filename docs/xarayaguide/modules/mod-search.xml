@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Search Module</title>
+
+  <subtitle>Search for data on a Xaraya site. No administration panel.</subtitle>
+
+  <para>The Search module provides site visitors full-site text search
+  capability. The searches may be limited by Author, Publication Type, and
+  Category. The search phrase is entered into the &#34;<prompt>Search for:</prompt>&#34;
+  box and the &#34;<guibutton>Search</guibutton>&#34; button is pressed, the
+  search is executed and a clickable list of results is displayed.</para>
+</sect2>

@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Articles Module</title>
+
+  <subtitle>Display articles. <command>Admin-&#62;Articles</command>.</subtitle>
+
+  <para>The Articles module is possibly the most often-accessed part of a
+  community site, since nearly all of the site&#39;s content will be placed
+  into Article sub-categories.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>View Articles</command></para>
+
+      <para>Click View Articles to view a listing of articles on the site by
+      Publication Type. If there are multiple pages of articles, navigation
+      links are displayed at the bottom of the panel. (The number of articles
+      displayed per page is defined in <command>Admin-&#62;Articles-&#62;Modify
+      config</command>. Click the Publication Type and set &#34;<guibutton>Items
+      per page</guibutton>&#34; to the number of articles to be displayed.
+      Click &#34;<guibutton>Update Configuration</guibutton>&#34; to save
+      changes.)</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Publication Type: From the listing of available Publication
+          Types, click the Publication Type for which you would like to
+          display articles. For example, to display articles in the Web Links
+          Publication Type, click &#34;<guibutton>Web Links</guibutton>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Status: This is a filter that displays articles in the
+          selected Publication Type that match one of the following options.
+          Following our example above, to display Approved articles in the Web
+          Links Publication Type, click &#34;<guibutton>Approved</guibutton>&#34;.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>All: Display all articles in the currently-selected
+              Publication Type.</para>
+            </listitem>
+
+            <listitem>
+              <para>Submitted: Display articles in the currently-selected
+              Publication Type that have been submitted for publication.</para>
+            </listitem>
+
+            <listitem>
+              <para>Rejected: Display articles in the currently-selected
+              Publication Type that have been rejected for publication.</para>
+            </listitem>
+
+            <listitem>
+              <para>Approved: Display articles in the currently-selected
+              Publication Type that have been approved for publication.</para>
+            </listitem>
+
+            <listitem>
+              <para>Frontpage: Display articles in the currently-selected
+              Publication Type that have been approved for publication and are
+              displayed on the front page of the module. If this module is the
+              current default starting module (set in <command>Admin-&#62;Base-&#62;Modify
+              config</command>), then articles with this status will also be
+              displayed on the front page of the site.</para>
+            </listitem>
+
+            <listitem>
+              <para>Browse in: This is a filter that displays articles in the
+              selected Publication Type based on the Category to which the
+              article is assigned. Click the Category next to &#34;Browse
+              in&#34; to display a panel with available Categories. Click a
+              Category to display its articles.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>New Article: Click New Article to add a new article to the
+          site as administrator. In the panel that appears, select the
+          Publication Type for the new article. Enter the article in the text
+          fields. The available text fields may be different between
+          Publication Types, but Publication Types will have a Categories box
+          at the bottom of the panel. From the Categories box, select the
+          Categories to which the new article will be assigned. Click &#34;<guibutton>Preview</guibutton>&#34;
+          to display the article without saving, and click &#34;<guibutton>Add
+          Article</guibutton>&#34; to save changes.</para>
+        </listitem>
+
+        <listitem>
+          <para>List of articles on the site. The bottom of this panel
+          displays a listing of articles on the site for the
+          currently-selected Publication Type.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Title: The title of the article.</para>
+            </listitem>
+
+            <listitem>
+              <para>Publication Date: The article&#39;s publication date and
+              time.</para>
+            </listitem>
+
+            <listitem>
+              <para>Status: The status of the article. Status can be
+              &#34;Submitted&#34;, &#34;Rejected&#34;, &#34;Approved&#34;, or
+              &#34;Frontpage&#34;. See below for information about these
+              statuses.</para>
+            </listitem>
+
+            <listitem>
+              <para>Checkbox: To change the status of currently-listed
+              articles in a batch, place a CHECK in this box next to each
+              article you wish to add to the batch. From the &#34;Change
+              checked article status to&#34; drop-down list, below, select the
+              status to which the checked articles will be changed. Click
+              &#34;Change Status&#34; to change the status of all checked
+              articles.</para>
+            </listitem>
+
+            <listitem>
+              <para>Options:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>View: Click this link to view the article as it is
+                  displayed to a user of the site. An &#34;[Edit]&#34; link
+                  displayed at the top of the article is shown only to users
+                  with appropriate editing privileges.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Edit: Click this link to edit the article. Make
+                  changes to the article in the panel and click
+                  &#34;Preview&#34; to display the modified article without
+                  saving, and click &#34;Update Article&#34; to save changes.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Delete: To delete a specific article, click this link
+                  next to the article. Confirm your intention to delete the
+                  article on the following panel. If you choose to delete an
+                  article, all comments associated with the article are
+                  deleted at the same time.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Change checked article status to:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Submitted: The article has been submitted to the site,
+                  but has not yet been rejected or approved. This article is
+                  visible only to the site administrator; it is not visible to
+                  users.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Rejected: The article has been submitted to the site,
+                  but has not been approved for publication. This article is
+                  visible only to the site administrator; it is not visible to
+                  users.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Approved: The article has been submitted to the site
+                  and has been approved for publication. This article is
+                  visible to site visitors and the site administrator. To view
+                  this article, navigate to the Publication Type and Category
+                  of the article, then click the title of the article to
+                  display.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Frontpage: The article has been submitted to the site
+                  and has been approved for publication. This article is
+                  visible to site visitors and the site administrator. The
+                  article is displayed on the front page of the module, and if
+                  this module is the default starting module, then it will be
+                  on the front page of the site. Articles with this status may
+                  also be displayed by navigating to the Publication Type and
+                  Category of the article, then clicking the title of the
+                  article.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Click &#34;<command>Change Status</command>&#34; to
+                  save changes.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Add Article</command></para>
+
+      <para>Click Add Article to add a new article to the site as
+      administrator. In the panel that appears, select the Publication Type
+      for the new article. Enter the article in the text fields. The available
+      text fields may be different between Publication Types, but Publication
+      Types will have a Categories box at the bottom of the panel. From the
+      Categories box, select the Categories to which the new article will be
+      assigned. Click &#34;<guibutton>Preview</guibutton>&#34; to display the
+      article without saving, and click &#34;<guibutton>Add Article</guibutton>&#34;
+      to save changes.</para>
+
+      <para>If you wish to insert a PAGE BREAK in an article, enter
+      <userinput>&#60;!--pagebreak--&#62;</userinput> in the article text
+      (either the Introduction or Body Text) where you&#39;d like the break to
+      appear. Xaraya automatically manages the page break.</para>
+    </listitem>
+
+    <listitem>
+      <para><command>Import Webpages</command></para>
+
+      <para>If you need to import any existing HTML pages into your Xaraya
+      site (for example, if you are converting your site from a &#39;flat&#39;
+      HTML site to a content management system), the Import Webpages tool will
+      facilitate the process. Use this tool to define existing HTML page(s) to
+      import into the Xaraya database structure. The imported pages become
+      available as articles in the Publication Type selected during import.
+      The Import Webpages tool provides filtering and replacement options
+      during import.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Base Directory: This is the local directory which is
+          recursively searched for pages ending with &#34;<filename>HTML</filename>&#34;
+          or &#34;<filename>HTM</filename>&#34; (<emphasis>case insensitive</emphasis>).
+          The resulting HTML pages are listed in this box. If you change the
+          directory, click &#34;<guibutton>Refresh</guibutton>&#34; to reload
+          the listing of available files.</para>
+        </listitem>
+
+        <listitem>
+          <para>Available HTML Pages: Highlight the HTML page or pages you
+          would like to import in this box. You can select multiple individual
+          pages by holding the CTRL key down and left-clicking on the desired
+          HTML pages. To select a range of pages, left-click the first page in
+          the range, hold the SHIFT key down while left-clicking the last page
+          in the range. Selected pages are highlighted.</para>
+        </listitem>
+
+        <listitem>
+          <para>Publication Type: From this drop-down list, select the
+          Publication Type to which the imported HTML page will be assigned.
+          Once the Publication Type is selected, the panel will refresh,
+          showing additional options.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Insert Page Title into field: From this drop-down list of
+              fields available in the selected Publication Type, select the
+              field into which the HTML page&#39;s title will be inserted.</para>
+            </listitem>
+
+            <listitem>
+              <para>Insert Content into Field: From this drop-down list of
+              fields available in the selected Publication Type, select the
+              field into which the HTML page&#39;s content will be inserted.</para>
+            </listitem>
+
+            <listitem>
+              <para>Initial Categories: Select the categories to which the
+              imported article will be assigned. If multiple HTML pages are
+              imported, all will be assigned to the same category.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Filter Start of Page: This page indicates material to be
+          filtered (removed) from the imported webpage. The default regular
+          expression is &#34;<userinput>#^.*&#60;body[^&#62;]*&#62;#is</userinput>&#34;
+          (no quotes), which removes everything before the HTML &#60;body&#62;
+          tag. The original HTML page is not modified.</para>
+        </listitem>
+
+        <listitem>
+          <para>Filer End of Page: The default regular expression is &#34;<userinput>#&#60;/body.*$#is</userinput>&#34;
+          (no quotes), which removes everything after the HTML &#60;/body&#62;
+          tag. The original HTML page is not modified.</para>
+        </listitem>
+
+        <listitem>
+          <para>Find Page Title: The default regular expression is &#34;<userinput>#&#60;title&#62;(.*?)&#60;/title&#62;#is</userinput>&#34;
+          (no quotes), which indicates that the page title is between the
+          &#60;title&#62; and &#60;/title&#62; HTML tags.</para>
+        </listitem>
+
+        <listitem>
+          <para>Replacement Rules: Xaraya will search your source HTML page
+          and replace matching search text with replacement text. This is
+          useful, for example, if you&#39;ve changed the path to graphic
+          files.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Search for: Enter the text to be replaced.</para>
+            </listitem>
+
+            <listitem>
+              <para>Replace with: Enter the text to replace found text.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Test Import button: Click this button to perform a test import
+          of the HTML page without adding the article to the site. Examine the
+          resulting page to insure that everything worked as expected.</para>
+        </listitem>
+
+        <listitem>
+          <para>Import Webpages button: When ready to perform the import of
+          HTML pages into Xaraya, click this button. The HTML pages are
+          imported and the article is added to the site. The original HTML
+          pages are not modified.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Publication Types</command></para>
+
+      <para>This portion of the panel displays existing Publication Types with
+      options to edit or delete.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>New Publication Type: Click this link to add a new Publication
+          Type.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>New Publication Type</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Type: The title of the new Publication Type. This is
+                  the &#34;system&#34; name of the Publication Type, and is
+                  also the name used when referring to this Publication Type
+                  in a Short URL.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Description: A description of the Publication Type.
+                  The description is used on the site to denote the
+                  Publication Type. The contents of this field are displayed
+                  to site visitors.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Configuration</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Field: The field name for the new Publication Type.
+                  This field name is used by themes to denote where pieces of
+                  content are displayed within the theme. For example, the
+                  field named &#34;title&#34; is displayed through placement
+                  of the string &#34;#$title#&#34; within the theme
+                  definition.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Label: The label for the new Publication Type. The
+                  label serves as a description of the Publication Type, and
+                  is displayed to users. Leave the Label field blank if you do
+                  not want to use a particular field in your new Publication
+                  Type.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Format: From this drop-down list, select the format
+                  for the field.</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Static Text:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Text Box:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Small Text Area:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Medium Text Area:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Large Text Area:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Username:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Calendar:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>File Upload:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Status:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>URL:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Image:</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>HTML Page:</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>Input: CHECK this box if you would like the field to
+                  accept input. If you do not with for the field to accept
+                  input, UNCHECK this box.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Type: A reference area displaying the database type
+                  for the field.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Click &#34;<guibutton>Create</guibutton>&#34; to save
+                  changes.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Existing Publication Types</para>
+
+          <para>Existing Publication Types are listed in the bottom portion of
+          this panel, with the following information &#38; options.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Name: The name of the Publication Type.</para>
+            </listitem>
+
+            <listitem>
+              <para>Description: A description of the Publication Type.</para>
+            </listitem>
+
+            <listitem>
+              <para>Options:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Edit:</para>
+                </listitem>
+
+                <listitem>
+                  <para>Delete: To delete a Publication Type, click this link
+                  next to the Publication Type to be deleted. Confirm your
+                  intention to delete on the next panel. If you delete a
+                  Publication Type, all articles contained in the Publication
+                  Type are also deleted.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Article Config:</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Global Configuration (&#39;Default&#39;
+                      Publication Type only)</para>
+
+                      <itemizedlist>
+                        <listitem>
+                          <para>Default Publication Type for the Articles
+                          &#34;Front Page&#34;: From this drop-down list,
+                          select the Publication Type to which a
+                          &#34;frontpage&#34; alias will be assigned.
+                          Generally, &#34;<guibutton>News</guibutton>&#34; is
+                          an appropriate Publication Type for this field.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Support Short URLs: This box is the
+                          &#39;master switch&#39; for Short URL support in
+                          articles. CHECK this box to enable Short URL support
+                          for articles. UNCHECK this box to disable Short URL
+                          support for modules. Short URL support may be
+                          enabled or disabled for individual Publication
+                          Types, so it is possible to have some Publication
+                          Types support Short URLs while others do not. In
+                          order for Short URL support to function, the
+                          &#39;master switch&#39; for Short URLs must be
+                          CHECKED in <command>Admin-&#62;Base-&#62;Modify
+                          config</command>.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+
+                    <listitem>
+                      <para>Website Configuration</para>
+
+                      <itemizedlist>
+                        <listitem>
+                          <para>Use &#60;alias&#62; as alias in Short URLs:
+                          CHECK this box to use the Publication Type&#39;s
+                          type as the Short URL for this Publication Type. The
+                          Type is configured when adding a new Publication
+                          Type under <command>Admin-&#62;Articles-&#62;Publication
+                          Types</command>. To turn off Short URL support for
+                          this specific Publication Type, UNCHECK this box.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Use different page template: You can define
+                          custom display templates for each Publication Type.
+                          To tell Xaraya to use a different template for a
+                          Publication Type, enter the name of the template
+                          file in this field. Enter the filename without the
+                          &#34;<userinput>.xt</userinput>&#34; extension. To
+                          use the default page template, leave this field
+                          blank. See TEMPLATES IN XARAYA for a thorough
+                          discussion of templates.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+
+                    <listitem>
+                      <para>Overview Configuration</para>
+
+                      <note>
+                        <para>The ($...) indicates the name of the variable
+                        used to display this feature in site templates. If you
+                        wish to enable a specific feature to a template, add
+                        the name of the variable to the template at the
+                        location where you want the feature to appear.</para>
+                      </note>
+
+                      <itemizedlist>
+                        <listitem>
+                          <para>Default start view: From this drop-down list,
+                          select the default behavior of Xaraya when a user
+                          clicks on the name of a Publication Type from the
+                          user&#39;s (not the Administration) main menu.</para>
+
+                          <itemizedlist>
+                            <listitem>
+                              <para>Latest items:</para>
+                            </listitem>
+
+                            <listitem>
+                              <para>Browse in...: <emphasis>(recommended)</emphasis></para>
+                            </listitem>
+                          </itemizedlist>
+                        </listitem>
+
+                        <listitem>
+                          <para>Number of columns ($numcols): The number of
+                          columns that will display the data to site visitors.
+                          If you would like a traditional, single-column
+                          display, enter &#34;<userinput>1</userinput>&#34; in
+                          this field. If you would like a two-column display,
+                          enter &#34;<userinput>2</userinput>&#34; in this
+                          field, and so on.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Items per page ($number): Determines the
+                          maximum number of items to display per page in the
+                          overview panel. If you would like to display 25
+                          items per page, enter &#34;<userinput>25</userinput>&#34;
+                          here. Xaraya provides page navigation links if there
+                          are more than this number of items.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show category links in article summaries
+                          ($categories): If CHECKED, category links are
+                          displayed in article summaries in the overview
+                          panel. If UNCHECKED, category links are not
+                          displayed in article summaries.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show previous/next category ($showprevnext):
+                          If CHECKED, previous/next category links are
+                          displayed on the overview, which allow a site
+                          visitor to move more easily between categories. If
+                          UNCHECKED, previous/next category links are not
+                          displayed.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show number of comments ($comments): If
+                          CHECKED, the number of comments associated with the
+                          article are displayed in the overview panel. If
+                          UNCHECKED, the number of comments are not displayed.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show hit counts ($counter): If CHECKED, the
+                          number of hits received by the article are displayed
+                          in the overview panel. If UNCHECKED, the
+                          article&#39;s hits are not displayed.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show ratings ($rating): If CHECKED, article
+                          ratings are displayed on the article overview panel.
+                          If UNCHECKED, article ratings are not displayed.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show links to Publication Types ($showpublinks
+                          + includes/publinks.xd): If CHECKED, a link-bar is
+                          displayed near the top of the center panel of the
+                          site that displays quick links to Publication Types
+                          and, in parenthesis, the number of articles within
+                          the Publication Type, for example:</para>
+
+                          <para><emphasis>News Articles (403) - Documents (28)
+                          - FAQs (16) - Web Links (310)</emphasis></para>
+
+                          <para>If UNCHECKED, the links are not displayed.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show link to archives ($archivelink +
+                          $archivelabel): If CHECKED, a link to the site&#39;s
+                          archives is displayed in the overview. In the
+                          default Xaraya theme, this link is at the bottom of
+                          the page. The Archives show a listing of the stories
+                          published per month. If UNCHECKED, the link to the
+                          archives is not displayed.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Show link to article map ($maplink +
+                          $maplabel): If CHECKED, a link to the site&#39;s
+                          article map is displayed in the overview. In the
+                          default Xaraya theme, this link is at the bottom of
+                          the page. If UNCHECKED, the link to the article map
+                          is not displayed.</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Call transform hooks in summaries: To display
+                          text with the output of any &#39;transforming&#39;
+                          hooks, CHECK this box. For example, if you have
+                          hooked BBCODE into ARTICLES and would like the
+                          Article summary page (typically Frontpage or Article
+                          overview) to show the output of BBCODE, CHECK this
+                          box. If you wish to show the raw text, UNCHECK this
+                          box.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+
+                    <listitem>
+                      <para>Article Display Configuration</para>
+
+                      <itemizedlist>
+                        <listitem>
+                          <para>Show link to previous/next article in display
+                          ($prevart + $nextart): OTTO</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+
+                    <listitem>
+                      <para>Configuration of Hooked Modules</para>
+
+                      <para>OTTO</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Categories</para>
+
+                      <itemizedlist>
+                        <listitem>
+                          <para>[New]:</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Number of possible categories:</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Base category for articles (#):</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34;
+                          to save changes.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Modify config:</para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+    </listitem>
+  </itemizedlist>
+
+  <sect3>
+    <title>EXAMPLE: Adding a new Publication Type</title>
+
+    <para>OTTO</para>
+  </sect3>
+
+  <sect3>
+    <title>EXAMPLE: Adding a new Publication Type that uses Dynamic Data</title>
+
+    <para>In this advanced example, we will configure a new Publication Type
+    for Recipes. We will add the new Publication Type, enable Dynamic Data,
+    add Dynamic Data fields to our new Publication Type, add appropriate
+    Categories, attach the new Publication Type to the new Categories, add
+    Templates for the new Publication Type, and finally, add an article (a
+    recipe!) to the new Publication Type. This example assumes you are
+    starting from a fresh, brand-spanking-new, just-installed Xaraya Base
+    installation.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>LOG IN AS A XARAYA ADMINISTRATOR: This is done any time you wish
+        to have Administrator access to your Xaraya site.</para>
+      </listitem>
+
+      <listitem>
+        <para>CREATE A NEW PUBLICATION TYPE: This is done for each custom
+        Publication Type you create.</para>
+
+        <para>To create the new Publication Type, go to
+        Admin-&#62;Articles-&#62;Publication Types. Click &#34;New&#34;.
+        Complete the fields as follows:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Type: recipes <emphasis>(NOTE: Lower case.)</emphasis></para>
+          </listitem>
+
+          <listitem>
+            <para>Description: Recipe Collection</para>
+          </listitem>
+
+          <listitem>
+            <para>Field: title</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Label: Recipe Title</para>
+              </listitem>
+
+              <listitem>
+                <para>Format: Text Box</para>
+              </listitem>
+
+              <listitem>
+                <para>Input: CHECKED</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Field: summary</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Label: Description</para>
+              </listitem>
+
+              <listitem>
+                <para>Format: Small Text Area</para>
+              </listitem>
+
+              <listitem>
+                <para>Input: CHECKED</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Field: bodytext</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Label: Ingredients</para>
+              </listitem>
+
+              <listitem>
+                <para>Format: Large Text Area</para>
+              </listitem>
+
+              <listitem>
+                <para>Input: CHECKED</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Field: bodyfile</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Label: <emphasis>(this field should be blank)</emphasis></para>
+              </listitem>
+
+              <listitem>
+                <para>Format: <emphasis>(as long as Label, above, is blank and
+                Input, below is UNCHECKED, it does not matter what this field
+                contains)</emphasis></para>
+              </listitem>
+
+              <listitem>
+                <para>Input: UNCHECKED</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Field: notes</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Label: Instructions</para>
+              </listitem>
+
+              <listitem>
+                <para>Format: Large Text Area</para>
+              </listitem>
+
+              <listitem>
+                <para>Input: CHECKED</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+
+        <para>Do not modify the last 3 fields (authorid, pubdate, and status);
+        leave them as they are. Click &#34;<guibutton>Create</guibutton>&#34;
+        to save changes.</para>
+      </listitem>
+
+      <listitem>
+        <para>ENABLE DYNAMIC DATA FOR ARTICLES/RECIPES: This is done for each
+        custom Publication Type using Dynamic Data you create, unless Dynamic
+        Data has previously been enabled for the module.</para>
+
+        <para>To enable Dynamic Data for a Publication Type, go to
+        <command>Admin-&#62;Modules-&#62;Configure Hooks</command>. We want to
+        enable Dynamic Data within Articles, so click &#34;<guibutton>dynamicdata</guibutton>&#34;
+        and CHECK the box for Articles and the &#39;Recipe Collection&#39;
+        sub-category under Articles. Click &#34;<guibutton>Save Changes</guibutton>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>ADD DYNAMIC DATA FIELD(S) TO THE NEW PUBLICATION TYPE: This is
+        done for each custom Publication Type using Dynamic Data you create.</para>
+
+        <para>To add dynamic data field(s) to the new publication type, go to
+        <command>Admin-&#62;Articles-&#62;Publication Types</command>. Find
+        the &#39;recipes&#39; Publication Type that we created in CREATE A NEW
+        PUBLICATION TYPE, above, and click Article Config next to it. Near the
+        bottom of the next screen, you&#39;ll see &#34;Dynamic Data Fields
+        [modify]&#34;. Click &#34;<guibutton>[modify]</guibutton>&#34; and in
+        the new window that opens, enter the Dynamic Data as follows:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Label: photo <emphasis>(NOTE: Lower case.)</emphasis></para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Property Type: Image</para>
+              </listitem>
+
+              <listitem>
+                <para>Data Source: dynamic_data</para>
+              </listitem>
+
+              <listitem>
+                <para>Status: Active</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+
+        <para>Click &#34;<guibutton>Update Properties</guibutton>&#34; to save
+        changes. Close the window and return to the previous browser window
+        for the rest of the steps.</para>
+      </listitem>
+
+      <listitem>
+        <para>ADD A NEW CATEGORY (AND OPTIONAL SUB-CATEGORIES) FOR THE NEW
+        PUBLICATION TYPE: This is done for each custom Publication Type you
+        create.</para>
+
+        <para>To add the new category (and optional sub-categories), go to
+        <command>Admin-&#62;Categories</command>. Click &#34;<guibutton>Add
+        Category</guibutton>&#34; to add a new Category. For this example:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Create a new Category called &#34;Recipes Category&#34; by
+            following the steps below.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Name: Recipes Category</para>
+              </listitem>
+
+              <listitem>
+                <para>Description: This is the recipes category for this site.</para>
+              </listitem>
+
+              <listitem>
+                <para>In relation to this category: Generic1</para>
+              </listitem>
+
+              <listitem>
+                <para>Position: Right before, in the same level</para>
+              </listitem>
+
+              <listitem>
+                <para>Optional image: categoryrecipes_top.jpg</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Add</guibutton>&#34; to add the
+                new category.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Create three sub-categories: &#34;Appetizers &#38;
+            Soups&#34;, &#34;Breads &#38; Baked Goods&#34;, and finally
+            &#34;Desserts&#34;. To create the &#34;Appetizers &#38; Soups&#34;
+            sub-category, click &#34;Add Category&#34; and follow these steps:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Name: Appetizers &#38; Soups</para>
+              </listitem>
+
+              <listitem>
+                <para>Description: Soups and Appetizer recipes go here.</para>
+              </listitem>
+
+              <listitem>
+                <para>In relation to this category: Recipes Category</para>
+              </listitem>
+
+              <listitem>
+                <para>Position: The first child category</para>
+              </listitem>
+
+              <listitem>
+                <para>Optional image: categorysoups.jpg</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Add</guibutton>&#34; to add the
+                new category.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>To create the next two sub-categories, click &#34;Add
+            Category&#34; and follow these steps:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Name: Breads &#38; Baked Goods</para>
+              </listitem>
+
+              <listitem>
+                <para>Description: Breads &#38; baked goods recipes go here.</para>
+              </listitem>
+
+              <listitem>
+                <para>In relation to this category: Recipes Category /
+                Appetizers &#38; Soups</para>
+              </listitem>
+
+              <listitem>
+                <para>Position: Right after, in the same level</para>
+              </listitem>
+
+              <listitem>
+                <para>Optional image: categorybaked.jpg</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;Add&#34; to add the new category.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Create another sub-category, typing &#34;Desserts&#34; in
+            the Name field, &#34;Dessert recipes go here&#34; for the
+            Description, and &#34;categorydesserts.jpg&#34; as the image.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>ADD THE NEW PUBLICTION TYPE TO A CATAGORY: This is done for each
+        custom Publication Type you create.</para>
+
+        <para>To add Publication Types to Categories, go to
+        <command>Admin-&#62;Articles-&#62;Modify config</command> and click on
+        the description of the Publication Type we created (in this example,
+        it&#39;s &#34;Recipe Collection&#34;). Scroll down, and you&#39;ll
+        see:</para>
+
+        <para><emphasis>Number of possible categories: 0</emphasis></para>
+
+        <para>Change the &#34;<userinput>0</userinput>&#34; to &#34;<userinput>1</userinput>&#34;.</para>
+
+        <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34; to
+        save changes.</para>
+
+        <para>After the screen refreshes, scroll to the bottom of the center
+        section and select the Category for the new Publication Type. In this
+        example, if it&#39;s not already selected, select &#34;Recipes
+        Category&#34; that we created above. Click &#34;<guibutton>Update
+        Configuration</guibutton>&#34; to save changes.</para>
+      </listitem>
+
+      <listitem>
+        <para>CONFIGURE THE NEW PUBLICATION TYPE: This is done for each custom
+        Publication Type you create.</para>
+
+        <para>Still in <command>Admin-&#62;Articles-&#62;Modify config</command>,
+        click on the description of the publication type we just created (in
+        this example, it&#39;s &#34;Recipe Collection&#34;). Make the
+        following changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Use &#39;recipes&#39; as alias in short URLs: CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Default start view: Browse in Recipes Category</para>
+          </listitem>
+
+          <listitem>
+            <para>Number of columns ($numcols): 1</para>
+          </listitem>
+
+          <listitem>
+            <para>Items per page ($number): 10</para>
+          </listitem>
+
+          <listitem>
+            <para>Show category links in article summaries ($categories):
+            CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show previous/next category ($showprevnext): CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show number of comments ($comments): CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show hit counts ($counter): CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show ratings ($rating): CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show links to publication types ($showpublinks +
+            includes/publinks.xd): CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show link to archives ($archivelink + $archivelabel):
+            CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show link to article map ($maplink + $maplabel): CHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Call transform hooks in summaries: UNCHECKED</para>
+          </listitem>
+
+          <listitem>
+            <para>Show link to previous/next article in display ($prevart +
+            $nextart): CHECKED</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>NOTE: Items enclosed in parenthesis above are the names of the
+        variables used in templates.</para>
+
+        <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34; to
+        save changes.</para>
+      </listitem>
+
+      <listitem>
+        <para>ADD TEMPLATES FOR THE NEW PUBLICTION TYPE: This can be done for
+        each custom Publication Type you create.</para>
+
+        <para>We can create up to three custom display templates to tell
+        Xaraya specifically how to display this new Publication Type. Example
+        files are included in this tutorial distribution. If you do not create
+        a template, Xaraya will attempt to display the Publication Type using
+        a default template.</para>
+
+        <para>Template files are placed into the <filename>&#60;webdir&#62;/modules/articles/xartemplates</filename>
+        directory, and should be called &#39;<filename>user-display-&#60;pubtype&#62;.xd</filename>&#39;,
+        &#39;<filename>user-summary-&#60;pubtype&#62;.xd</filename>&#39;, and
+        (optionally) &#39;<filename>user-view-&#60;pubtype&#62;.xd</filename>&#39;,
+        where <filename>&#60;pubtype&#62;</filename> is the name of the
+        Publication Type (in this tutorial, <filename>&#60;pubtype&#62;</filename>
+        is &#34;recipes&#34; as created in step #2 above):</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>user-display-recipes.xd -- this is the main view of the data</para>
+          </listitem>
+
+          <listitem>
+            <para>user-summary-recpies.xd -- this is a summary view of the
+            data</para>
+          </listitem>
+
+          <listitem>
+            <para>user-view-recipes.xd <emphasis>(optional)</emphasis></para>
+          </listitem>
+        </itemizedlist>
+
+        <para>If you wish to create theme-specific versions of these files,
+        rename the files from <filename>*.xd</filename> to
+        <filename>*.xt</filename> and place the theme-specific version in the
+        <filename>&#60;webdir&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/articles</filename>
+        directory, creating directories as necessary. It is recommended that
+        you begin by examining the example files included with this tutorial,
+        or open one of the sample templates provided with Xaraya and make
+        changes as necessary using your favorite HTML editor. Where ever you
+        want to display the fields in the new Publication Type, enter
+        &#34;#$fieldname#&#34; (no quotes) in the template. Xaraya will
+        replace &#34;#$fieldname#&#34; with the contents of the field as
+        stored in the database. In this tutorial, we created the following
+        fields, which are available for display in the template using the
+        #$fieldname# indicated in parenthesis:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>title (#$title#)</para>
+          </listitem>
+
+          <listitem>
+            <para>summary (#$summary#)</para>
+          </listitem>
+
+          <listitem>
+            <para>bodytext (#$bodytext#)</para>
+          </listitem>
+
+          <listitem>
+            <para>notes (#$notes#)</para>
+          </listitem>
+
+          <listitem>
+            <para>photo (#$photo#)</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>The templates included with this tutorial distribution expect to
+        find a file called &#34;<filename>NoPhoto.gif</filename>&#34; in the
+        <filename>&#60;webdir&#62;/images/recipes/</filename> directory of
+        your website. This file is displayed if a Photograph URL is not
+        provided in the article submission, and is included with this tutorial
+        distribution. Copy <filename>NoPhoto.gif</filename> to the
+        <filename>&#60;webdir&#62;/images/recipes/</filename> directory,
+        creating directories as necessary.</para>
+      </listitem>
+
+      <listitem>
+        <para>ADD AN ARTICLE TO THE NEW PUBLICATION TYPE: This is done for
+        each custom Publication Type you create.</para>
+
+        <para>Now you can add articles to the new publication type. Click
+        <command>Admin-&#62;Articles-&#62;Add Article</command> and click on
+        the name of the new Publication Type (in this example, it&#39;s Recipe
+        Collection). A sample recipe is included with this tutorial (<filename>SampleRecipe.txt</filename>).</para>
+
+        <para>Enter the Recipe Title, Description, Ingredients, Directions,
+        and a URL for the photograph for the recipe. Select the appropriate
+        Category for the recipe, and click &#34;<guibutton>Preview</guibutton>&#34;
+        to see what the recipe will look like, or click &#34;<guibutton>Add
+        Article</guibutton>&#34; to save it.</para>
+
+        <para>On the following page, approve the article by putting a CHECK in
+        the STATUS box, and selecting &#34;<guibutton>Approved</guibutton>&#34;
+        from the drop-down list at the bottom of the page. Click &#34;<guibutton>Change
+        Status</guibutton>&#34; to save changes.</para>
+      </listitem>
+
+      <listitem>
+        <para>LOGOUT FROM THE ADMINISTRATOR ACCOUNT: It is a wise idea, though
+        technically not required, to log out of your administrator account at
+        the end of each session. To log out of your Xaraya administrator
+        account, click <guibutton>[admin logout]</guibutton>, which appears at
+        the bottom of the Administration menu. Confirm your intention to log
+        out by clicking &#34;<guibutton>Logout</guibutton>&#34;, or click
+        &#34;<guibutton>Cancel</guibutton>&#34; to abort the logout.</para>
+      </listitem>
+    </orderedlist>
+  </sect3>
+
+  <sect3>
+    <title>EXAMPLE: Extending the Gallery Publication Type</title>
+
+    <para>OTTO: Speak with mcortez about adding thumbnails, importing, etc.</para>
+  </sect3>
+</sect2>

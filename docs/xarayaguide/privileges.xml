@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Privileges: Building Blocks for Site Access</title>
+
+  <sect1>
+    <title>Introduction to Privileges</title>
+
+    <para>Through the use of <firstterm>privileges</firstterm> and
+    <firstterm>roles</firstterm>, Xaraya provides very fine-grained access
+    control for site users on either a Group or individual User level. Many of
+    the concepts behind user roles and privileges are based in Object Oriented
+    Programming.</para>
+
+    <para>Privileges are individual access levels (example: Allow Comments on
+    Articles; example: Do not allow access to administration options) that can
+    be used as building blocks and collected together into
+    <firstterm>Compound Privileges</firstterm>.</para>
+
+    <para>Any combination of <firstterm>Individual Privileges</firstterm> and
+    Compound Privileges can be placed into <firstterm>Site Roles</firstterm>.
+    Site Roles are built from existing Individual Privileges or Compound
+    Privileges. Privileges are made from <firstterm>Access Levels</firstterm>.
+    Access Levels are the basis for the access control system in Xaraya. Users
+    are placed into Roles and have permission to do whatever the Privileges
+    associated with that Role permit them to do on the site.</para>
+
+    <sect2>
+      <title>Terminology</title>
+
+      <para>Because Xaraya&#39;s Roles &#38; Privileges are considerably
+      different from user rights features in other Content Management Systems,
+      let&#39;s first define some terminology that will be used in this
+      section of the Guide.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Role: A uniquely-named set of one or more users. A Role can
+          correspond to a User or Group of users.</para>
+        </listitem>
+
+        <listitem>
+          <para>Privilege: An object that can grant or deny a particular kind
+          of access to a module component. For example, the ability to view
+          the Login Block is a privilege, the ability to edit an Article is a
+          privilege, and the ability to post a comment is a privilege.</para>
+        </listitem>
+
+        <listitem>
+          <para>Module: A functional unit of a Xaraya site -- a module of the
+          Xaraya system (articles, polls, messages, ratings, quotes,
+          headlines, etc).</para>
+        </listitem>
+
+        <listitem>
+          <para>Component: A group of resources that can be protected with the
+          security system. Components are defined by the modules in which they
+          reside. Components can be VISUALLY DISCRETE resources, such as
+          blocks or web pages, or they can be FUNCTIONALITY resources, such as
+          the ability to add or edit items. Components can be defined in any
+          way the module developer wishes, for example, &#34;adding an
+          article&#34;, &#34;viewing a link&#34;, &#34;displaying a menu&#34;,
+          etc, could all be designed as components by the module author. Some
+          components coincide with concepts known outside the security system,
+          such as blocks, but this is not necessarily the case.</para>
+        </listitem>
+
+        <listitem>
+          <para>Instance: A specific instance of a component. For example, the
+          login block on the front page of a Xaraya site is an instance of the
+          Block component in the Roles module. Another example of a
+          &#39;Component&#39; and an &#39;Instance&#39;: the Component might
+          be menus in a module while the Instance would be &#34;menu number
+          7&#34;. Think of Components as classes of Privilege objects and
+          Instances as specific examples of those objects.</para>
+        </listitem>
+
+        <listitem>
+          <para>Mask: A special kind of privilege used to check other
+          privileges. Each mask protects one or more components. When a mask
+          is encountered, it is checked against the user&#39;s privileges to
+          see whether access to the component in question is permitted.</para>
+        </listitem>
+
+        <listitem>
+          <para>Access level: The type of access granted by a privilege or
+          required by a mask. An access level is the right to access a
+          resource. Security levels in Xaraya go from 0 (no access) to 800
+          (admin or full access).</para>
+        </listitem>
+
+        <listitem>
+          <para>Realms: Realms are a way of creating different security views
+          of the same Xaraya site. They are an &#34;extra dimension&#34; used
+          to make finely-grained security schemes.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>EXAMPLE: If you would like anonymous users to be able to view
+      items on your website (but be unable to post comments), add the
+      following privilege:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><command>Admin-&#62;Privileges-&#62;Add Privilege</command>:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Click &#34;<guibutton>with rights</guibutton>&#34; radio
+              button -- the panel will reload with additional options</para>
+            </listitem>
+
+            <listitem>
+              <para>Name: ViewTopics</para>
+            </listitem>
+
+            <listitem>
+              <para>Member of: CasualAccess (If you DO NOT select an existing
+              privilege of which the new privilege is a member, the new
+              privilege will appear in the top level. If you select a Member
+              from the drop-down list, the privilege appears in TWO places:</para>
+
+              <orderedlist>
+                <listitem>
+                  <para>Top level</para>
+                </listitem>
+
+                <listitem>
+                  <para>Under the privilege selected from the drop-down list</para>
+                </listitem>
+              </orderedlist>
+
+              <para>This configuration is in place so the privilege may be
+              re-used. It also prevents the privilege from being
+              &#34;lost&#34;.)</para>
+            </listitem>
+
+            <listitem>
+              <para>Realm: <userinput>All</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Module: <userinput>Articles</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Component: <userinput>All</userinput></para>
+            </listitem>
+
+            <listitem>
+              <para>Level: Set to &#34;<userinput>Read</userinput>&#34;</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Add</guibutton>&#34;</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+
+    <sect2>
+      <title>Explanation of privilege levels</title>
+
+      <para>OTTO verify with John Cox or Dracos</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>None: User has no access to this item.</para>
+        </listitem>
+
+        <listitem>
+          <para>Overview: User can see the SUMMARY of an article, or be shown
+          a link but not the article/link itself.</para>
+        </listitem>
+
+        <listitem>
+          <para>Read: User has READ ONLY access to this item.</para>
+        </listitem>
+
+        <listitem>
+          <para>Comment: User can POST COMMENTS about this item.</para>
+        </listitem>
+
+        <listitem>
+          <para>Moderate: Used for functions that require moderation, such as
+          Comments, or in Forums. An example is granting a user moderation
+          abilities within a message board but nowhere else on the site.</para>
+        </listitem>
+
+        <listitem>
+          <para>Edit: &#34;Edit&#34; is a permission for users that may not be
+          permitted to Add, but are allowed to Edit. Example: An Article
+          Administrator that is permitted to edit stories, but is not
+          permitted to post Articles.</para>
+        </listitem>
+
+        <listitem>
+          <para>Add: &#34;Add&#34; grants permission to either add or approve
+          content.</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete: &#34;Delete&#34; is the opposite of &#34;Add&#34;. You
+          are granting someone the ability to remove content.</para>
+        </listitem>
+
+        <listitem>
+          <para>Admin: User has ADMINISTRATOR ACCESS to this item.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+
+    <sect2>
+      <title>Container Types</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>Empty: It&#39;s possible to create a Privilege which has no
+          access rights itself, but is just a container for others. Selecting
+          EMPTY can to create a &#39;master container&#39; for other
+          Privileges. ADVANCED: It is possible for a &#39;master
+          container&#39; to contain access rights. We&#39;ll explore that more
+          later. OTTO</para>
+        </listitem>
+
+        <listitem>
+          <para>With Rights: This Privilege, unlike an Empty Privilege, has
+          access rights.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+
+    <sect2>
+      <title>EXAMPLE: Read-access for Anonymous users</title>
+
+      <para>To grant Anonymous users read access to the site, add the
+      following privilege:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Go to <command>Admin-&#62;Privileges</command>.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>CasualAccess</guibutton>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Under the Privilege drop-down list below Add Privilege To
+          &#39;<guibutton>CasualAccess</guibutton>&#39;, select &#34;<guibutton>ReadAccess</guibutton>&#34;</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Add</guibutton>&#34; to save changes.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Unregistered and Anonymous users now have read access to the site.</para>
+    </sect2>
+
+    <sect2>
+      <title>Allow Registered Users to modify their account</title>
+
+      <para>To allow Registered users to change their theme, post comments,
+      and submit articles, add the following privilege:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Go to <command>Admin-&#62;Privileges-&#62;Add Privilege</command></para>
+        </listitem>
+
+        <listitem>
+          <para>Admin-&#62;Privileges-&#62;View Privileges-&#62;View Topics:</para>
+
+          <para>If you would like anonymous users to be able to post comments,
+          change the &#34;<guibutton>Level</guibutton>&#34; field to &#34;<guibutton>Comment</guibutton>&#34;
+          and click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+</chapter>

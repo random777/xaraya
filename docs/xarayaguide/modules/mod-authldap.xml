@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Authldap Module</title>
+
+  <subtitle>Xaraya LDAP authentication module. <command>Admin-&#62;Authldap</command>.</subtitle>
+
+  <para>This module provides LDAP authentication services for Xaraya.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>LDAP Server Name or IP: Enter the complete server name or IP
+          address for the LDAP server.</para>
+        </listitem>
+
+        <listitem>
+          <para>LDAP Server Port Number: Enter the port number for the LDAP
+          server.</para>
+        </listitem>
+
+        <listitem>
+          <para>Anonymously Bind to Server:</para>
+        </listitem>
+
+        <listitem>
+          <para>LDAP bind DN:</para>
+        </listitem>
+
+        <listitem>
+          <para>LDAP UserID Field Name:</para>
+        </listitem>
+
+        <listitem>
+          <para>Search User DN:</para>
+        </listitem>
+
+        <listitem>
+          <para>LDAP Admin ID:</para>
+        </listitem>
+
+        <listitem>
+          <para>LDAP Admin Password:</para>
+        </listitem>
+
+        <listitem>
+          <para>Add LDAP User to Xaraya Database on Login: If a user exists in
+          LDAP but does not have a login account for Xaraya the user will be
+          unable to login. By CHECKING this option and entering the attribute
+          values, a user that has account information in LDAP will be
+          automatically added to the Xaraya database and permitted to login.
+          If you do not wish to add LDAP users automatically to Xaraya&#39;s
+          database, UNCHECK this option.</para>
+        </listitem>
+
+        <listitem>
+          <para>LDAP Username Attribute Name:</para>
+        </listitem>
+
+        <listitem>
+          <para>LDAP Email Attribute Name:</para>
+        </listitem>
+
+        <listitem>
+          <para>Default Group: DDL</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix>
+  <title>Enabling Short URL support in Apache</title>
+
+  <sect1>
+    <title>Short URLs in Apache 1.x</title>
+
+    <para>Short URLs work without modifying your Apache 1.x configuration.
+    </para>
+  </sect1>
+
+  <sect1>
+    <title>Short URLs in Apache 2.x</title>
+
+    <para>If you are running Apache 2.x on your webserver and wish to support
+    Short URLs, you must add the directive: <function><userinput>AcceptPathInfo
+    On</userinput></function> to your <filename>httpd.conf</filename> file
+    (usually <filename>/etc/httpd/conf/httpd.conf</filename> on RedHat
+    systems). Restart Apache once the change has been saved (&#34;<userinput><command>apachectl
+    graceful</command></userinput>&#34; on RedHat systems). See the
+    documentation on the <ulink url="http://www.apache.org">Apache website</ulink>
+    for more information about adding this directive.</para>
+  </sect1>
+</appendix>

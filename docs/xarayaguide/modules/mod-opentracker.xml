@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>OpenTracker Module</title>
+
+  <subtitle>Xaraya wrapper around phpOpenTracker statistics tracking system (<ulink
+  url="http://www.phpopentracker.de">http://www.phpopentracker.de</ulink>). No
+  administration panel.</subtitle>
+
+  <para>This module does not contain any administrator-modifiable settings, so
+  has no administration panel.</para>
+</sect2>

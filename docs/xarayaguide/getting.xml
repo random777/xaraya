@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Getting Xaraya</title>
+
+  <para>Xaraya is distributed in three pieces, the &#34;Core&#34;, the
+  &#34;Base&#34;, and &#34;Full&#34;. The most current version of Xaraya is
+  always available at <ulink url="http://www.xaraya.com">http://www.xaraya.com</ulink>.
+  <itemizedlist><listitem><para>The &#34;<firstterm>Xaraya Core</firstterm>&#34;
+  distribution is the absolute minimum installation of Xaraya.</para></listitem><listitem><para>The
+  &#34;<firstterm>Xaraya Base</firstterm>&#34; distribution is the
+  <emphasis>recommended installation for most users</emphasis> because it
+  includes all the files of the &#34;Base&#34; distribution, plus several
+  useful modules.</para></listitem><listitem><para>The &#34;<firstterm>Xaraya
+  Full</firstterm>&#34; distribution contains more modules that further extend
+  the functionality of Xaraya beyond the &#34;Core&#34; or &#34;Base&#34;
+  installation.</para></listitem></itemizedlist></para>
+
+  <para>Modules may be added to your site at any time after installation.</para>
+
+  <para>The Xaraya Base, Core, and Full distributions are available in ZIP
+  (Windows) &#38; TAR.GZ (Linux/OSX/BSD/Unix) format.</para>
+
+  <para>Download the Xaraya Base distribution distribution from the Downloads
+  section of <ulink url="http://www.xaraya.com">http://www.xaraya.com</ulink>.</para>
+
+  <para>This document shows how to install &#38; configure the Xaraya Base
+  distribution on your website. Later in this document, you are taught how to
+  integrate additional modules into your Xaraya Base installation.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Using the appropriate unarchiving utility, unarchive the Xaraya
+      Base distribution into a temporary directory. Consult the manual for the
+      unarchiving utility if you&#39;re unfamiliar with how to extract
+      archives. For example, on Linux:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>&#34;<userinput>mkdir /tmp/xar</userinput>&#34;</para>
+        </listitem>
+
+        <listitem>
+          <para>&#34;<userinput>cd /tmp/xar</userinput>&#34;</para>
+        </listitem>
+
+        <listitem>
+          <para>&#34;<userinput>tar -xzvf &#60;/path/to/XarayaBase.tar.gz&#62;</userinput>&#34;</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <itemizedlist>
+    <listitem>
+      <para>Using your text editor, edit <filename>/tmp/xar/html/var/config.system.php</filename>
+      and make the following changes as necessary:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Database Username: The username that will be used to connect
+          to the database. Do not use &#39;root&#39; or &#39;admin&#39;
+          account names as they present a security risk. This user should
+          already exist and have privileges in your database. For example, if
+          the database user was to be &#34;db-user&#34;, change the line to:</para>
+
+          <para><command>$systemConfiguration[&#39;DB.UserName&#39;] =
+          &#39;db-user&#39;;</command></para>
+        </listitem>
+
+        <listitem>
+          <para>Database Password: The password that will be used to connect
+          to the database. For example, if the database password was to be
+          &#34;db-user-password&#34;, change the line to:</para>
+
+          <para><command>$systemConfiguration[&#39;DB.Password&#39;] =
+          &#39;db-user-password&#39;;</command></para>
+        </listitem>
+
+        <listitem>
+          <para>Database Host: The host name where the database server is
+          located. In most cases this will be &#39;localhost&#39;. Otherwise,
+          you need to include a fully qualified domain name (FQDN) here, for
+          example, &#39;mybox.mydomain.com&#39; or the IP number of the
+          machine. For example, if the database host was to be
+          &#34;localhost&#34; (meaning that the database is on the same server
+          as Xaraya), change the line to:</para>
+
+          <para><command>$systemConfiguration[&#39;DB.Host&#39;] =
+          &#39;localhost&#39;;</command></para>
+        </listitem>
+
+        <listitem>
+          <para>Database Name: The name of the database to which to connect.
+          Case-sensitive.</para>
+
+          <para><command>$systemConfiguration[&#39;DB.Name&#39;] =
+          &#39;Xaraya&#39;;</command></para>
+        </listitem>
+
+        <listitem>
+          <para>Database Type: The database server type.</para>
+
+          <para><command>$systemConfiguration[&#39;DB.Type&#39;] =
+          &#39;mysql&#39;;</command></para>
+        </listitem>
+
+        <listitem>
+          <para>Database TablePrefix: Used when you wish to run multiple sites
+          off the same database. That way, user accounts will be available
+          across all the sites. This feature is not currently implemented into
+          Xaraya, but will be available in a future release. The prefix chosen
+          here will be prepended to each of the tables of your database to
+          give each a unique name across multiple installs. For example, if
+          the database table prefix was to be &#34;xar&#34;, change the line
+          to look like this:</para>
+
+          <para><command>$systemConfiguration[&#39;DB.TablePrefix&#39;] =
+          &#39;xar&#39;;</command></para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Save your changes and exit the text editor.</para>
+    </listitem>
+  </itemizedlist>
+
+  <sect1>
+    <title>Getting Xaraya onto the webserver</title>
+
+    <para>Move Xaraya Base from the temporary directory into your
+    <command>&#60;webdir&#62;</command> (or a sub-directory of your
+    &#60;webdir&#62;) to make Xaraya accessible to the web.</para>
+
+    <para>For example, under Linux, assuming that you wish to install Xaraya
+    into a sub-directory of <command>&#60;webdir&#62;</command> called &#34;<filename>xaraya</filename>&#34;,
+    that your <command>&#60;webdir&#62;</command> is &#34;<filename>/var/www/html</filename>&#34;
+    (as it is on modern Red Hat systems -- users of other operating systems
+    should check their manual to find the path to the correct
+    <command>&#60;xarroot&#62;</command> location and directory), and that you
+    have extracted the XarayaBase archive to a temporary directory called
+    &#34;<filename>/tmp/xar</filename>&#34;:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>&#34;<userinput>cd /tmp/xar/html</userinput>&#34;</para>
+      </listitem>
+
+      <listitem>
+        <para>&#34;<userinput>mkdir &#60;webdir&#62;/xaraya</userinput>&#34;
+        (or the correct <command>&#60;xarroot&#62;</command> for your
+        installation)</para>
+      </listitem>
+
+      <listitem>
+        <para>&#34;<userinput>cp -r /tmp/xar/html/* &#60;webdir&#62;/xaraya</userinput>&#34;
+        (or the correct <command>&#60;xarroot&#62;</command> for your
+        installation)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>If you need to UPLOAD your site, ensure that the files are
+    transferred in ASCII or Text format.</para>
+
+    <para>It may be necessary to set ownership &#38; permissions for the
+    directory where Xaraya is installed.</para>
+  </sect1>
+
+  <sect1>
+    <title>Setting Permissions</title>
+
+    <para>Now that you&#39;ve installed the files in the correct place on your
+    webserver, you need to ensure that all the files can be read by the web
+    server. This should be the default situation, but if it isn&#39;t then
+    consult your operating system manual for information about changing that.
+    The best route is to change the group of the file and directories to the
+    same group used by the web server (NOTE: This presents a reduced security
+    risk). Under Red Hat Linux, check the &#34;User&#34; and &#34;Group&#34;
+    settings in <filename>/etc/httpd/conf/httpd.conf</filename> to determine
+    the user &#38; group values. For example, under Linux and assuming that
+    your user/group that is used by the webserver is user: &#34;web&#34; and
+    group: &#34;apache&#34;:<itemizedlist><listitem><para>&#34;<userinput>chown
+    -R web:apache &#60;xarroot&#62;</userinput>&#34;</para></listitem><listitem><para>&#34;<userinput>chown
+    -R web:apache &#60;xarroot&#62;</userinput>&#34;</para></listitem></itemizedlist></para>
+
+    <para>There is a file and two directories to which the web server must
+    have &#39;write&#39; access. They are:<itemizedlist><listitem><para>&#34;<filename>&#60;xarroot&#62;/var/config.system.php</filename>&#34;:
+    Set with &#34;<userinput>chmod 666 &#60;xarroot&#62;/var/config.system.php</userinput>&#34;</para></listitem><listitem><para>&#34;<filename>&#60;xarroot&#62;/var/cache/templates</filename>&#34;:
+    Set with &#34;<userinput>chmod -R 777
+    &#60;xarroot&#62;/var/cache/templates</userinput>&#34;</para></listitem><listitem><para>&#34;<filename>&#60;xarroot&#62;/var/cache/rss</filename>&#34;:
+    Set with &#34;<userinput>chmod -R 777 &#60;xarroot&#62;/var/cache/rss</userinput>&#34;</para></listitem></itemizedlist></para>
+  </sect1>
+</chapter>

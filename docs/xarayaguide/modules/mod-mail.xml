@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Mail Module</title>
+
+  <subtitle>Mail handling utility module. <command>Admin-&#62;Mail</command>.</subtitle>
+
+  <para>The Mail module controls how your Xaraya system sends mail to users or
+  groups of users. This module is a utility module that takes information from
+  other modules installed on your Xaraya system and formats mail messages for
+  them. This module allows you to use SMTP, SendMail, or the normal PHP Mail
+  functions to send mail to site visitors.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><guibutton>Modify config</guibutton>: This panel allows
+      modification of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Modify Mail Configuration</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Admin Name: Enter the name of the site administrator here.
+              For example, &#34;<userinput>Joe Admin</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Admin Email: Enter the site administrator&#39;s complete
+              email address in this field.</para>
+            </listitem>
+
+            <listitem>
+              <para>Add different reply-to: If CHECKED, email messages from
+              the site are sent with a different Reply-To Name &#38; Address.
+              Two additional fields become available:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Reply To Name: Enter the name that replaces the Admin
+                  Name, above.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Reply To Email: Enter the email address that replaces
+                  the Admin Email, above.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Send HTML Emails?: If CHECKED, HTML formatted emails will
+              be sent, and two additional fields become available after
+              clicking the &#34;<guibutton>Update Mail Configuration</guibutton>&#34;
+              button.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>HTML Email Header: In this field, enter the complete
+                  HTML header for emails sent from this site.</para>
+                </listitem>
+
+                <listitem>
+                  <para>HTML Email Footer: In this field, enter the complete
+                  HTML footer for emails sent from this site.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Default Word Wrap Size: Set the word-wrap size for emails
+              sent from this site in this field. For example, set to &#34;<userinput>78</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Default Priority to send messages: From the drop-down
+              list, select the default priority for messages that are sent
+              from the site. Some email readers handle messages with higher
+              priorities in different ways, marking them with a flag or
+              playing a sound, for example.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>High: Send email messages from the site marked as high
+                  priority.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Normal: Send email messages from the site marked as
+                  high priority. This is the recommendation, and the default.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Low: Send email messages from the site marked as low
+                  priority.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Default method to send mail: From the drop-down list,
+              select the default method to be used for sending messages from
+              the site. Use the email sub-system on the site, or select Mail
+              to use PHP&#39;s built-in mail handling system.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>SMTP: Use SMTP to send email from the site.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Sendmail: Use Sendmail to send email from the site.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Mail: Use PHP&#39;s mail functions to send email from
+                  the site.</para>
+                </listitem>
+
+                <listitem>
+                  <para>QMail: Use QMail to send email from the site.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Filtering Options</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Strings for search: You can specify custom strings of text
+              that will be replaced in site emails. Enter each string on a
+              single line. Do not separate with commas or other punctuation.
+              Suggested format is &#34;<userinput>%%string%%</userinput>&#34;
+              (without quotes) to ensure that no conflict exists.</para>
+            </listitem>
+
+            <listitem>
+              <para>Strings for replacement: Enter each string on a single
+              line in the same order as the search (above). Do not separate
+              with comma, etc.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Mail Configuration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

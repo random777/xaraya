@@ -1,0 +1,158 @@
+<sect2>
+  <title>Adminpanels Module</title>
+
+  <subtitle>Core Module, Displays the Administration menu block.
+  <command>Admin-&#62;Adminpanels</command>.</subtitle>
+
+  <para>The Adminpanels module configures how the Administration menu block is
+  displayed to the site administrators.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Configure Adminmenu</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Always on top: Sets position of administration menu in
+              block group. If CHECKED, the Administration menu is always at
+              the top of the block group in which it is placed. If UNCHECKED,
+              the Administration menu&#39;s position is determined by its
+              order in <command>Admin-&#62;Blocks-&#62;View Instances</command>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Mark active item: CHECK if you would like a marker
+              displayed next to the active menu item. UNCHECK if you do not
+              wish to have a marker displayed next to the active menu item.</para>
+            </listitem>
+
+            <listitem>
+              <para>Specify marker: Specify the marker to be used if &#34;Mark
+              active item&#34; (above) is CHECKED. Default is &#34;[x]&#34;.</para>
+
+              <para>AN EASTER EGG: What version of Xaraya was first the PUBlic
+              release? Type your answer in this field. If your answer is
+              right, as site administrator, you may catch sight of the elusive
+              &#39;red manta&#39;. This Easter egg exists in versions .906 and
+              later.</para>
+            </listitem>
+
+            <listitem>
+              <para>Sort admin menu items:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>By Name: Displays the Administration menu sorted
+                  alphabetically.</para>
+                </listitem>
+
+                <listitem>
+                  <para>By Category: The Administration menu is displayed by
+                  category (Content, Global, Users &#38; Groups,
+                  Miscellaneous, etc.).</para>
+                </listitem>
+
+                <listitem>
+                  <para>By Weight: Not currently implemented.</para>
+                </listitem>
+
+                <listitem>
+                  <para>By Group: Not currently implemented.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Sort order &#34;By Weight&#34; configuration: Not
+              currently implemented.</para>
+            </listitem>
+
+            <listitem>
+              <para>Sort order &#34;By Group&#34; configuration: Not currently
+              implemented.</para>
+            </listitem>
+
+            <listitem>
+              <para>Groups configuration: Not currently implemented.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Add: Not currently implemented.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Delete: Not currently implemented.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Modify: Not currently implemented.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Position admin menu: The Administration menu can be
+              displayed in the center or on the left or right side of the
+              page. Select the placement of the Administration by selecting
+              from the drop-down list.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Left: Display the Administration menu on the left side
+                  of the screen.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Center: Display the Administration menu in the center
+                  of the screen. Not currently implemented.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Right: Display the Administration menu on the right
+                  side of the screen.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Display &#34;Help&#34; link: Not currently implemented.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Configure Overviews</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Disable Module Overviews: By default, Xaraya displays an
+              overview panel when you click on any module in the
+              Administration menu. This overview panel contains useful
+              information about the module, but after you&#39;ve read it
+              several times, you may wish to turn it off. CHECK this box to
+              skip the module overview. UNCHECK the box to display module
+              overviews.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

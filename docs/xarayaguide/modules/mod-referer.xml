@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Referer Module</title>
+
+  <subtitle>Referer Tracking. Statistics extension. <command>Admin-&#62;Referer</command>.</subtitle>
+
+  <para>This panel shows who has been linking to your site and how they are
+  locating your site. It provides an interesting look at how your site is
+  being accessed from the internet.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>View</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>URL: Displays the URL from which your site is linked, or
+          &#34;Bookmark&#34; if the requests originate from a user&#39;s
+          bookmark file.</para>
+        </listitem>
+
+        <listitem>
+          <para>Frequency: The number of unique requests from the particular
+          URL.</para>
+        </listitem>
+
+        <listitem>
+          <para>Delete Referers: Click this link to clear the listing of
+          referers. You are asked to confirm your intention to delete and, if
+          you confirm, the existing referers are cleared.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Items per page: In this field, specify the number of referers
+          to display per page. For example, if you wish to display 100
+          referers, enter &#34;<userinput>100</userinput>&#34; in this field.
+          Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix>
+  <title>Converting from PostNuke to Xaraya</title>
+
+    <para>Conversion of an existing PostNuke site to Xaraya is easy. A
+    conversion script facilitates the conversion process for PostNuke versions
+    . The import script will not import PostNuke items if there is no specific
+    script that handles that part of the data. During conversion, PostNuke
+    data is converted and stored in the new Xaraya tables. The original
+    PostNuke data is not modified in any way.</para>
+
+    <para>To convert from PostNuke to Xaraya, follow the steps below.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Backup existing PN database to a file, just to be safe. For
+        example:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>&#34;<command>mysqldump -u &#60;username&#62; -p -B
+            &#60;PostNuke_dbase_name&#62; -c -a --add-drop-table
+            &#62;PNbackup.sql</command>&#34;</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>If you have many articles (more than 250 or so) on your PostNuke
+        site, it may be necessary to increase PHP&#39;s <constant>max_execution_time</constant>
+        to prevent timeouts when converting and importing data. If
+        max_execution_time is too low, PHP may &#39;time out&#39; before the
+        articles can be imported successfully.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>To adjust the max_execution_time, edit <filename>/etc/php.ini</filename>
+            and set <constant>max_execution_time</constant> to
+            <constant>120</constant>, making a note of the previous value.
+            Save the file and exit the editor. Restart your webserver so the
+            changes are implemented (&#34;<command>apachectl restart</command>&#34;,
+            for example).</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>From the Xaraya Base distribution, install a Xaraya Community
+        site. In the Database Name field of Xaraya&#39;s installer, specify
+        the name of your existing PostNuke database (case-sensitive). Specify
+        a different prefix for Xaraya&#39;s tables (&#34;<constant>xar</constant>&#34;
+        is recommended) than was used for PostNuke.</para>
+      </listitem>
+
+      <listitem>
+        <para>Install the POLLS module in Xaraya. If you skip this step, the
+        importer will present an error when it tries to import any polls that
+        exist on your PostNuke site.</para>
+      </listitem>
+
+      <listitem>
+        <para>Copy the <filename>import_pn*.php</filename> files from the
+        Xaraya Base distribution&#39;s &#34;<filename>/tests/import/postnuke</filename>&#34;
+        directory to your <command>&#60;xarroot&#62;</command> directory. Give
+        the <filename>&#60;xarroot&#62;/import_pn*.php</filename> files
+        appropriate system permissions and ownership so they can be accessed
+        via the web. For example:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>&#34;<command>cp /test/import/postnuke/import_pn*.php
+            &#60;xarroot&#62;</command>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>&#34;<command>cd &#60;xarroot&#62;</command>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>&#34;<command>chown -R web:apache import_pn*.php</command>&#34;</para>
+          </listitem>
+
+          <listitem>
+            <para>&#34;<command>chmod -R 770 import_pn*.php</command>&#34;</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>From a browser, go to <command>http://www.yourwebsite.com/&#60;xarroot&#62;/import_pn.php</command>.
+        Follow the on-screen steps to import each area of the PostNuke site
+        into Xaraya.</para>
+      </listitem>
+
+      <listitem>
+        <para>After the conversion is complete, delete the
+        <filename>import_pn*.php</filename> files from your
+        <command>&#60;xarroot&#62;</command> directory. Leaving these files
+        can present a security risk.</para>
+      </listitem>
+
+      <listitem>
+        <para>Edit <filename>/etc/php.ini</filename> and set
+        <constant>max_execution_time</constant> back to the previous value.
+        Save and exit the editor. Restart your webserver so the changes are
+        implemented (&#34;<command>apachectl restart</command>&#34;, for
+        example).</para>
+      </listitem>
+
+      <listitem>
+        <para>If you no longer intend to run PostNuke, the PostNuke tables can
+        be deleted from the database using the command line or phpMyAdmin.</para>
+      </listitem>
+    </orderedlist>
+
+    <para>After conversion, the PostNuke tables in the database may be
+    deleted, if desired.</para>
+</appendix>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix>
+  <title>Creating the Xaraya database via phpMyAdmin</title>
+
+    <para>If Xaraya successfully created your database, skip to
+    &#34;Administrator Account Creation&#34;. If Xaraya cannot create the
+    database for you, you should use phpMyAdmin to create an empty database
+    called &#34;Xaraya&#34; and configure access permissions. This can be a
+    two-step process:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Using phpMyAdmin, create a user in the database if necessary</para>
+
+        <para>If you already have a database username &#38; password, skip
+        this step. To create a database user <varname>&#60;db-user&#62;</varname>
+        with password <varname>&#60;db-user-password&#62;</varname>, follow
+        these steps in phpMyAdmin:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Click &#34;<guibutton>Privileges</guibutton>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Add new User</guibutton>&#34; and
+            complete the fields.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>User name: Use text field: Type the name for the user in
+                the text field. This is the same value as <varname>&#60;db-user&#62;</varname>,
+                above.</para>
+              </listitem>
+
+              <listitem>
+                <para>Host: If the database is running on the same server as
+                the website (this is the most common scenario), select &#34;<guimenuitem>Local</guimenuitem>&#34;
+                from the drop-down list.</para>
+              </listitem>
+
+              <listitem>
+                <para>Password: Use text field: Type the password for this
+                user in the text field. This is the same value as
+                <varname>&#60;db-user-password&#62;</varname>, above.</para>
+              </listitem>
+
+              <listitem>
+                <para>Re-type the password to verify.</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Go</guibutton>&#34; to save
+                changes.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Using phpMyAdmin, create the empty Xaraya database (called
+        &#34;Xaraya&#34;)</para>
+
+        <para>In phpMyAdmin, follow these steps to create the database that
+        Xaraya will use:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Create a new database called &#34;Xaraya&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click the &#34;<guibutton>Home</guibutton>&#34; link near
+            the top left of the phpMyAdmin page.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Databases</guibutton>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Next to the line for Xaraya, click &#34;<guibutton>Check
+            Privileges</guibutton>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Next to <varname>&#60;db-user&#62;</varname>, click &#34;<guibutton>Edit</guibutton>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Check all in &#34;<guibutton>Edit Privileges</guibutton>&#34;
+            and click &#34;<guibutton>Go</guibutton>&#34;.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click the &#34;<guibutton>Home</guibutton>&#34; link near
+            the top left of the phpMyAdmin page.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Reload MySQL</guibutton>&#34;.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+
+    <para>Once the empty &#34;Xaraya&#34; database has been created, re-run
+    the Xaraya installer and UNCHECK &#34;<guibutton>Create the database</guibutton>&#34;
+    under Database Settings Collection.</para>
+</appendix>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Dynamicdata Module</title>
+
+  <subtitle>Dynamic Data module. <command>Admin-&#62;Dynamicdata</command>.</subtitle>
+
+  <itemizedlist>
+    <listitem>
+      <para>View Objects:</para>
+    </listitem>
+
+    <listitem>
+      <para>Property types:</para>
+    </listitem>
+
+    <listitem>
+      <para>Utilities:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Import object definitions and data:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>File: DDL. File must exist in <filename>&#60;xarroot&#62;/modules/dynamicdata</filename>
+              and must be an .XML file.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Import Definition</guibutton>&#34;
+              to save changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Export object definitions and data: When this link is clicked,
+          all dynamic data object definitions and data are displayed on the
+          following panel.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Export data for all items to browser: All dynamic data
+              object definitions and data are displayed in the current browser
+              window.</para>
+            </listitem>
+
+            <listitem>
+              <para>Export data for all items to file: All dynamic data object
+              definitions and data are saved to <filename>&#60;xarroot&#62;/var/cache/templates/objects.data.xml</filename>.
+              An existing file with this name will be overwritten.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Static table definition:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>xar_dynamic_objects:</para>
+            </listitem>
+
+            <listitem>
+              <para>Add relation:</para>
+            </listitem>
+
+            <listitem>
+              <para>Import table xar_dynamic_objects button:</para>
+            </listitem>
+
+            <listitem>
+              <para>Export to XML:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Show table definitions:</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Relations between objects: Not implemented.</para>
+        </listitem>
+
+        <listitem>
+          <para>Meta table definitions: Displays data for all tables in your
+          database with the option to export to XML or to add a relation. If
+          your database has many tables, you may need to increase the PHP
+          memory limit for this.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Export to XML: Displays the object definitions and data
+              for the selected database table in the current browser window.</para>
+            </listitem>
+
+            <listitem>
+              <para>Add relation:</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

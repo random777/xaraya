@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Example Module</title>
+
+  <subtitle>Example for new modules. <command>Admin-&#62;Example</command>.</subtitle>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Add Item</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Add Item:</para>
+        </listitem>
+
+        <listitem>
+          <para>Example name:</para>
+        </listitem>
+
+        <listitem>
+          <para>Example number:</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Add Example</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>View items</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Example Name:</para>
+        </listitem>
+
+        <listitem>
+          <para>Example Number:</para>
+        </listitem>
+
+        <listitem>
+          <para>Example Options:</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command>: This panel allows modification
+      of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Display example items in bold?:</para>
+        </listitem>
+
+        <listitem>
+          <para>Example items per page?:</para>
+        </listitem>
+
+        <listitem>
+          <para>Enable Short URLs?:</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34; to
+          save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Roles Module</title>
+
+  <subtitle>Roles Module: User &#38; Group registration and handling.
+  <command>Admin-&#62;Roles</command>.</subtitle>
+
+  <para>Please see XARAYA ROLES: USERS &#38; GROUPS for a thorough discussion
+  of the Roles module.</para>
+</sect2>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Privileges Module</title>
+
+  <subtitle>Modify privileges security. <computeroutput>Admin-&#62;Privileges</computeroutput>.</subtitle>
+
+  <para>See PRIVILEGES: BUILDING BLOCKS FOR SITE ACCESS, below, for a thorough
+  discussion of Xaraya&#39;s Privileges module.</para>
+</sect2>

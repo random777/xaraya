@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>TrackBack Module</title>
+
+  <subtitle>(Modules distribution): Implements the Trackback specification for
+  Xaraya. No administration panel.</subtitle>
+
+  <para>This module does not have an administration panel.</para>
+</sect2>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>BloggerAPI Module</title>
+
+  <subtitle>Blogger API implementation for Xaraya. <command>Admin-&#62;Bloggerapi</command>.</subtitle>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Blogger API publication type: From the drop-down list, select
+          the Publiction Type for which BloggerAPI is activated, or &#34;<guibutton>None</guibutton>&#34;
+          if you do not wish to activate BloggerAPI.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>None: Not configured: If you do not wish to use
+              BloggerAPI, select this option.</para>
+            </listitem>
+
+            <listitem>
+              <para>&#60;publication type&#62;: From the drop-down list,
+              select the Publiction Type for which BloggerAPI is activated.</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Update bloggerapi Configuration</guibutton>&#34;
+              to save changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

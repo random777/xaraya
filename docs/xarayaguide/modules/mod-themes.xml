@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Themes Module</title>
+
+  <subtitle>Enable/disable themes to change site appearance.
+  <command>Admin-&#62;Themes</command>.</subtitle>
+
+  <para>Make your selected theme load as default by selecting it in the
+  <command>Admin-&#62;Themes-&#62;Modify config</command> panel.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>View Themes</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Style: Defines the display of the module list. Select the
+          display style from the drop-down list.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Plain (fast): Default. Displays an unadorned listing of
+              Themes. Options (activate, deactivate, etc.) are listed as
+              clickable text.</para>
+            </listitem>
+
+            <listitem>
+              <para>Pro Icons: Displays a listing of Themes adorned with
+              icons. Options (activate, deactivate, etc.) are listed as
+              clickable icons, with a legend at the bottom.</para>
+            </listitem>
+
+            <listitem>
+              <para>Developer: Not currently implemented.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>View: To limit the types of themese that are displayed, select
+          from the drop-down list.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>All Themes: <emphasis>Default</emphasis>. Shows all themes
+              on the system.</para>
+            </listitem>
+
+            <listitem>
+              <para>Active: Shows only themes that have been activated.</para>
+            </listitem>
+
+            <listitem>
+              <para>Inactive: Shows only themes that have not been activated.</para>
+            </listitem>
+
+            <listitem>
+              <para>Uninitialized: Shows only themes that have not been
+              initialized.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Sort by:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Name [a-z]: Sort the display in alphabetical order of
+              theme name.</para>
+            </listitem>
+
+            <listitem>
+              <para>Name [z-a]: Sort the display in reverse alphabetical order
+              of theme name.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Regenerate: When a theme is added to or deleted from the
+          site&#39;s theme directory, the system needs to &#39;Regenerate&#39;
+          the file structure to recognize the change in the theme directory.
+          To force the system to regenerate the themes list, CHECK
+          &#34;Regenerate&#34; and click &#34;<guibutton>Refresh</guibutton>&#34;.
+          Regeneration is necessary only when themes have been added to or
+          deleted from the site&#39;s theme directory.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Refresh</guibutton>&#34; to reload panel
+          with new display settings.</para>
+        </listitem>
+
+        <listitem>
+          <para>Theme list:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Name: The name of the theme as it is displayed to users.</para>
+            </listitem>
+
+            <listitem>
+              <para>Version: The version number of the theme.</para>
+            </listitem>
+
+            <listitem>
+              <para>Reg.ID: Shows the Registered ID of the theme. Each theme
+              is assigned a unique Registered ID.</para>
+            </listitem>
+
+            <listitem>
+              <para>Upgrade: If an upgrade to this theme is available, you are
+              notified in this field. If no upgrade is available,
+              &#34;n/a&#34; is displayed.</para>
+            </listitem>
+
+            <listitem>
+              <para>Info: Shows information about the theme, including
+              creator, description, installation directory, version, and more.</para>
+            </listitem>
+
+            <listitem>
+              <para>Status: Shows the status of the theme.</para>
+            </listitem>
+
+            <listitem>
+              <para>Actions:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Initialize:</para>
+                </listitem>
+
+                <listitem>
+                  <para>Deactivate:</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command>: This panel allows modification
+      of configuration options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Site Display Options:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Default Theme: From this drop-down list, select the theme
+              to be used as the site&#39;s default. A theme will be displayed
+              in this drop-down list only after it has been installed and
+              initialized. Themes are placed into the <filename>&#60;xarroot&#62;/themes</filename>
+              directory by default.</para>
+            </listitem>
+
+            <listitem>
+              <para>Site Name - Module Name - Page Name: Displays as &#34;<computeroutput>Your
+              Site Name :: Themes :: Your Site Slogan</computeroutput>&#34; by
+              default.</para>
+            </listitem>
+
+            <listitem>
+              <para>Site Name - Page Name: Displays as &#34;<computeroutput>Your
+              Site Name :: Your Site Slogan</computeroutput>&#34; by default.</para>
+            </listitem>
+
+            <listitem>
+              <para>Copyright: Defaults to &#34;<computeroutput>&#38;copy;
+              Copyright 2003 &#60;administrator name&#62;</computeroutput>&#34;.
+              Change the text as necessary.</para>
+            </listitem>
+
+            <listitem>
+              <para>Footer note: The &#39;footer&#39; is displayed at the
+              bottom (the &#39;foot&#39;) of each and every page on your site.
+              This is an excellent place to give credit, state copyright, or
+              put links that you wish to appear on every page of the site.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Page Title Options</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Module Name - Page Name - Site Name: Displays as &#34;<computeroutput>Themes
+              :: Your Site Slogan :: Your Site Name</computeroutput>&#34;</para>
+            </listitem>
+
+            <listitem>
+              <para>Page Name - Module Name - Site Name: Displays as &#34;<computeroutput>Your
+              Site Slogan :: Themes :: Your Site Name</computeroutput>&#34;</para>
+            </listitem>
+
+            <listitem>
+              <para>Theme Driven: The page title order is determined by the
+              theme&#39;s configuration.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Page Title Options</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Page Title Separator:</para>
+            </listitem>
+
+            <listitem>
+              <para>Page Title Order: Determines how the page title is
+              displayed. The results of the display options are:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Site Name - Module Name - Page Name: Displays as &#34;<computeroutput>Your
+                  Site Name :: Themes :: Your Site Slogan</computeroutput>&#34;</para>
+                </listitem>
+
+                <listitem>
+                  <para>Site Name - Page Name: Displays as &#34;<computeroutput>Your
+                  Site Name :: Your Site Slogan</computeroutput>&#34;</para>
+                </listitem>
+
+                <listitem>
+                  <para>Module Name - Page Name - Site Name: Displays as &#34;<computeroutput>Themes
+                  :: Your Site Slogan :: Your Site Name</computeroutput>&#34;</para>
+                </listitem>
+
+                <listitem>
+                  <para>Page Name - Module Name - Site Name: Displays as &#34;<computeroutput>Your
+                  Site Slogan :: Themes :: Your Site Name</computeroutput>&#34;</para>
+                </listitem>
+
+                <listitem>
+                  <para>Theme Driven: The page title order is determined by
+                  the theme&#39;s configuration.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Template Debugging Options</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Show template filenames in HTML comments:</para>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save
+              changes.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Certified Releases</command>:</para>
+    </listitem>
+  </itemizedlist>
+</sect2>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Hooks in Xaraya</title>
+
+  <subtitle>An Introduction to Hooks</subtitle>
+
+  <para>Hooks extend the functionality of modules by allowing site resources
+  to be re-used in a variety of ways across the site. Hooks increase the
+  interoperability and efficiency of Xaraya. For example, a site resource is
+  BBCODE (which allows bbcode-style formatting to be used in text entry).
+  Rather than code BBCODE for articles and re-code it again for comments, we
+  can simply &#34;hook&#34; BBCODE functionality into the articles and
+  comments modules, as well as any other modules we wish! Xaraya provides
+  unparalleled levels of interoperability by truly modularizing functions.</para>
+
+  <para>Xaraya provides two different methods to view or edit hooks.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Admin-&#62;Modules-&#62;View All</command>: Click &#34;<guibutton>On/Off</guibutton>&#34;
+      under the Hooks heading for the module to view or edit hooks that are
+      enabled for the particular module. So, for example, if you wanted to
+      view the active hooks for the Articles module, click &#34;<guibutton>On/Off</guibutton>&#34;
+      under the Hooks heading for the Articles module. You see the modules
+      that are &#39;hooked&#39; into this module, and can add or remove hooks.
+      Be sure to click &#34;<guibutton>Save Changes</guibutton>&#34; to save
+      changes.</para>
+    </listitem>
+
+    <listitem>
+      <para><command>Admin-&#62;Modules-&#62;Configure Hooks</command>: The
+      simplest way to determine the order in which to click items to activate
+      hooks is to fill in the blanks of this sentence: &#34;<userinput>I want
+      to enable ____ in ____.</userinput>&#34; So, for example, if you wanted
+      to enable <emphasis>comments</emphasis> in <emphasis>articles</emphasis>,
+      you would first click <guibutton>comments</guibutton>, then CHECK
+      <guibutton>articles</guibutton>. Be sure to click &#34;<guibutton>Save
+      Changes</guibutton>&#34; to save changes.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>These two methods serve the same purpose -- to display hooked modules
+  and allow modification of hooks. Work with each of them to determine which
+  of the methods suits you best.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Admin-&#62;Modules-&#62;Configure Hooks</command>:</para>
+
+      <para>Using &#39;hooks&#39; in Xaraya, you can extend the functionality
+      of your modules.</para>
+
+      <para>Select the hook module providing the extra functionality and then
+      check the box(es) of the module(s) in which you would like to enable
+      that functionality (For example, select &#34;<command>Comments</command>&#34;
+      and then check &#34;<command>Articles</command>&#34; to enable
+      <emphasis>Comments</emphasis> within the <emphasis>Articles</emphasis>
+      module.)</para>
+    </listitem>
+  </itemizedlist>
+
+  <sect1>
+    <title>KNOWLEDGE REVIEW: Handling Hooks</title>
+
+    <para>OTTO:</para>
+
+    <para>(optional: The below should be included LATER in the docs, after the
+    user has had a chance to read all the module overviews)</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><command>Admin-&#62;Adminpanels-&#62;Modify config</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>CHECK Disable Module Overviews</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;Submit&#34; to save changes.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</chapter>

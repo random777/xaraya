@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Autolinks Module</title>
+
+  <subtitle>TRANSFORM. Automatically link key words. <command>Admin-&#62;Autolinks</command>.</subtitle>
+
+  <para>Autolinks is a feature that, when installed, generates web links
+  related to text content on-the-fly. If you have Autolinks turned on &#38;
+  configured properly, &#34;Beatles&#34; defined as a Keyword, and &#34;<ulink
+  url="http://www.beatles.com">http://www.beatles.com</ulink>&#34; as the
+  auto-link URL, Autolinks in Xaraya can automatically replace occurrences of
+  &#34;Beatles&#34; within your articles with &#34;&#60;a
+  href=&#34;http://www.beatles.com&#34;&#62;Beatles&#60;/a&#62;&#34;.</para>
+
+  <para>When the Autolinks module is installed, the option to hook Autolinks
+  into particular modules appears in <command>Admin-&#62;Modules-&#62;Configure
+  Hooks</command>. Hook Autolinks into the modules you wish (such as Articles,
+  Comments, Ephemerids, Messages, and XarBB). See the section on Hooks for
+  information about hooking modules together.</para>
+
+  <para>There are five &#39;levels&#39; of use for the Autolinks module on
+  your site.</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Beginner: Create Autolinks based on previously-defined Autolink
+      Types without using Dynamic Data. If you just want to create Autolinks,
+      this is the simplest level. The default Autolink Types &#38; templates
+      are reasonably comprehensive.</para>
+    </listitem>
+
+    <listitem>
+      <para>Intermediate #1: Using Dynamic Data to allow over-ride of global
+      settings for individual links (for example, named targets for links,
+      etc).</para>
+    </listitem>
+
+    <listitem>
+      <para>Intermediate #2: Using dynamic data to access optional features of
+      the standard templates (features such as an alternative icon in the
+      &#39;external&#39; link type).</para>
+    </listitem>
+
+    <listitem>
+      <para>Advanced #1: Adding new Autolink Types and creating templates for
+      the new types.</para>
+    </listitem>
+
+    <listitem>
+      <para>Advanced #2: Using regular expression (regex) matching.</para>
+    </listitem>
+  </orderedlist>
+
+  <para>Let&#39;s examine the options available within Autolinks.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>View Links</command></para>
+
+      <para>To view, edit, or delete Autolinks, click <command>Admin-&#62;Autolinks-&#62;View
+      Links</command>. On the next panel, the following options are displayed.
+      Autolinks in your database are displayed sorted by Name.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Type: Displays the Autolink Type. Click the Autolink Type text
+          to go to the Modify Autolink Type panel.</para>
+        </listitem>
+
+        <listitem>
+          <para>Name: Displays the name of the Autolink. Names are unique
+          across all Autolinks on a site. Click the Name text to go to the
+          Modify Autolink panel.</para>
+        </listitem>
+
+        <listitem>
+          <para>Matching key: Xaraya searches content items for this text. If
+          matching text is located, it is replaced with an autolink. If the
+          Autolink has the &#34;Match as regular expression&#34; field
+          CHECKED, the matching key is considered to be a
+          <firstterm>regular expression (regex)</firstterm> and, so that you
+          can tell it&#39;s a regex, is displayed on the listing as emphasised
+          (which may be italics or other text formatting based on the theme).</para>
+        </listitem>
+
+        <listitem>
+          <para>URL: The URL to which this autolink points.</para>
+        </listitem>
+
+        <listitem>
+          <para>Options:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Disable: If you wish to disable an Autolink but not delete
+              it from the Autolinks database, click &#34;Disable&#34;. The
+              Autolink will not appear as a link when matching text is found.
+              To enable an Autolink, click &#34;Enable&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Edit: If you wish to edit an Autolink, click on the
+              &#34;Edit&#34; link for that Autolink. A panel is displayed
+              allowing you to edit all the information about the selected
+              Autolink.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Type: Displays the Autolink Type. If you wish to move
+                  an existing Autolink to a different Autolink Type, select
+                  the &#34;Move&#34; command under <command>Admin-&#62;Autolinks-&#62;View
+                  Links-&#62;Options</command>.</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Edit: If you wish to edit the Autolink Type, click
+                      this link to go to the Modify Autolink Type panel.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>Security</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Name: Type the name of the Autolink as it will be
+                      displayed in the Autolink administration panels of the
+                      site. Names are unique across all Autolinks on a site.
+                      The name field exists because the Keyword may be a
+                      regular expression (see below) instead of a simple name.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Enabled: If this box is CHECKED, the Autolink.is
+                      enabled and will be displayed if a matching key is found
+                      content. If this field is UNCHECKED, the Autolink is not
+                      displayed if a matching key is found in content. The
+                      &#34;Example&#34; field is displayed regardless of the
+                      setting of this field. Toggling this field will
+                      recompile the autolink from the template.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>Matching</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Matching key: Xaraya searches content items for
+                      this text, which must be enclosed by white space, tags,
+                      or punctuation. The punctuation characters are defined
+                      in <command>Admin-&#62;Autolinks-&#62;Modify config</command>.
+                      If matching text is located, it is replaced with the
+                      autolink.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Match as regular expression: This is an advanced
+                      option within Xaraya. CHECK this box to cause the
+                      Autolink to be evaluated as a regular expression instead
+                      of a string. UNCHECK this box (default) to evaluate the
+                      Autolink as a string. A regular expression (frequently
+                      abbreviated to &#34;regex&#34;) is a way for a site
+                      administrator to express how Xaraya should look for a
+                      specified pattern in Autolink text and then what to do
+                      when each pattern match is found. For example, a regular
+                      expression could tell a program to search for all text
+                      lines that contain the word &#34;Windows 95&#34; and
+                      then to print out each line in which a match is found or
+                      substitute another text sequence (for example, just
+                      &#34;Windows&#34;) where any match occurs.</para>
+
+                      <para>Regular expression matching is very powerful in
+                      that a single regular expression will match more than
+                      just one word. For example, you may want to match
+                      &#34;Windows 98&#34;, &#34;Windows 95&#34;, and
+                      &#34;Windows 9X&#34; as a single autolink with the same
+                      URL. Another reason for using a regex is to split the
+                      matched string into sub-strings. For example, you may
+                      wish to match the text &#60;article:aid&#62; (e.g.,
+                      &#34;&#60;article:123&#62;&#34;) and replace it with a
+                      link. The template would need to know just the
+                      &#34;123&#34; portion. The regex can split the matched
+                      string into the required parts, allowing the seperate
+                      components to be passed to the template.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>Replacing</para>
+
+                  <para>Everything in this section depends on the template.
+                  This section describes the &#39;standard&#39; template;
+                  other templates may do something completely different with
+                  these fields. The sample templates included with Autolinks
+                  will adhere to the standards described below.</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Title: Enter the title of the Autolink in this
+                      field. The title is displayed to site visitors as a
+                      tool-tip.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>URL: Enter the complete URL for the Autolink in
+                      this field. For external sites, always include
+                      &#34;http://&#34; at the beginning of the link. For
+                      local links, just the path to the page is sufficient
+                      (remember that you can use Short URLs if they are
+                      enabled).</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Comment: An optional comment on the Autolink. The
+                      Comment field is not currently used in any of the
+                      default Autolink templates, however, it is passed to the
+                      template in case someone wants to use it.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>Other</para>
+
+                  <para>Sample text to test link: In this field, enter sample
+                  text to test the link. The sample text (and resulting links)
+                  are displayed on the <command>Admin-&#62;Autolinks-&#62;View
+                  Links</command> panel. In <command>Admin-&#62;Autolinks-&#62;Modify
+                  config</command>, you can specify how the sample text will
+                  be displayed (sample, result, both, or none).</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Sample: (displayed in <command>Admin-&#62;Autolinks-&#62;View
+                      Links</command>)</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Result: (displayed in <command>Admin-&#62;Autolinks-&#62;View
+                      Links</command>)</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Click &#34;<guibutton>Modify Autolink</guibutton>&#34; to
+              save changes.</para>
+            </listitem>
+
+            <listitem>
+              <para>Move:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Move to Autolink Type:</para>
+                </listitem>
+
+                <listitem>
+                  <para>Click &#34;<guibutton>Move</guibutton>&#34; to save
+                  changes.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Delete: To delete an Autolink, click on the &#34;<guibutton>Delete</guibutton>&#34;
+              link for that Autolink. A panel will be displayed asking you to
+              confirm your request to delete the Autolink. If you wish to
+              delete the Autolink, click &#34;<guibutton>Confirm</guibutton>&#34;;
+              otherwise click &#34;<guibutton>Cancel deletion of Autolink</guibutton>&#34;
+              and the link will not be removed.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Add Link</command></para>
+
+      <para>To add a new Autolink, click this link. On the next panel, the
+      following options are displayed.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Autolink Type: From this drop-down list, select the Autolink
+          Type from the previously-defined Autolink Types.</para>
+        </listitem>
+
+        <listitem>
+          <para>Name: Enter the title of the site in the Name field (for
+          example, &#34;The Beatles Site&#34;). If the name is left blank on
+          the first panel, the value is taken from the matching key field.
+          This is the name that will be displayed as a tool-tip and in the
+          listing of all Autolinks.</para>
+        </listitem>
+
+        <listitem>
+          <para>Matching key: Enter the keyword or regex in the Matching key
+          field. This is the text that will be matched in an article (for
+          example, &#34;beatles&#34;).</para>
+
+          <note>
+            <para>Capitalization is not important in the Key (link) Word
+            field.</para>
+          </note>
+        </listitem>
+
+        <listitem>
+          <para>URL: Enter the complete URL for the site in the URL field (for
+          example, &#34;<ulink url="http://www.beatles.com">http://www.beatles.com</ulink>&#34;).
+          For external sites, always include &#34;<userinput>http://</userinput>&#34;
+          at the beginning of the link. For local links, just the path to the
+          page is sufficient (remember that you can use Short URLs if they are
+          enabled).</para>
+
+          <para>If the URL is located on your web site, enter the path to the
+          file or the complete URL. For example, if the file is on your site,
+          enter &#34;<filename>music.html</filename>&#34; and Autolinks will
+          automatically prepend the &#34;<filename>http://www.yoursite.com</filename>&#34;,
+          resulting in an Autolink of &#34;<filename>http://www.yoursite.com/music.html</filename>&#34;.
+          To be more specific, you could also enter &#34;<filename>http://www.yoursite.com/music.html</filename>&#34;
+          instead of just &#34;<filename>music.html</filename>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Comments: Use the Comments field to enter optional free-form
+          alphanumeric comments about the link. The Comment field is not
+          currently used in any of the default Autolink templates, however, it
+          is passed to the template in case someone wants to use it.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create</guibutton>&#34; to save changes.
+          You are displayed a second panel where there may be additional
+          fields to be populated, including any dynamic data fields defined
+          for the Autolink Type. Creation of a new Autolink must be two-stage
+          because dynamic data fields presented will depend on the chosen
+          Autolink Type.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>View Types</command></para>
+
+      <para>To view, modify, or delete existing Autolink Types, click this
+      link. On the next panel, the following options are displayed.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Name: The name of the Autolink Type as it is displayed in the
+          <command>Admin-&#62;Autolinks</command> panel. Must be unique.</para>
+        </listitem>
+
+        <listitem>
+          <para>Template: Enter the name of the template file for this
+          Autolink Type (link-{name}.xd). If you enter &#34;<userinput>underlined</userinput>&#34;
+          in this field, Xaraya looks for a file called &#34;<filename>link-underlined.xd</filename>&#34;.
+          The file must exist with appropriate permissions and ownership in
+          one of two locations on the site:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><filename>&#60;xarroot&#62;/modules/autolinks/xartemplates/</filename>
+              for a site-wide template</para>
+
+              <para>or</para>
+            </listitem>
+
+            <listitem>
+              <para><filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/autolinks/</filename>
+              for a theme-specific template</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Method: Either &#34;Static&#34; or &#34;Dynamic&#34;, based
+          upon the Execute Template Dynamically setting. It is useful to
+          understand the difference between these two methods.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Static: A Method of Static will execute the template the
+              moment that &#34;Modify&#34; or &#34;Save&#34; is clicked. The
+              results are then stored away and used to replace linked text.</para>
+            </listitem>
+
+            <listitem>
+              <para>Dynamic: A Method of Dynamic does not execute the template
+              when &#34;Modify&#34; or &#34;Save&#34; is clicked. Instead,
+              Dynamic will execute the template when matching text is found.
+              If the same matching text appears ten times in a page, a Dynamic
+              type is executed ten times. There are two main reasons why you
+              might use the Dynamic Method:</para>
+
+              <orderedlist>
+                <listitem>
+                  <para>The template performs some kind of lookup to get
+                  additional details related to what has just been matched, so
+                  that details can be displayed that are not known at the time
+                  the autolink is created (an article title, for example).</para>
+                </listitem>
+
+                <listitem>
+                  <para>You may have different autolink templates in different
+                  themes and want to use the appropriate template for the
+                  theme. This will execute the theme template based on the
+                  theme being viewed by the site visitor. By contrast, a
+                  Static Method will &#39;freeze&#39; the template based on
+                  the theme the site administrator is using at that time.</para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Description: Description of the Autolink Type. This is
+          displayed within <command>Admin-&#62;Autolinks</command> as a bit of
+          information for the site administrator.</para>
+        </listitem>
+
+        <listitem>
+          <para>Options: To edit or delete an existing Autolink Type, click
+          the appropriate link next to the Autolink Type to edit or delete. If
+          you choose to delete an Autolink Type, you are asked to confirm your
+          choice on the next panel. If the Autolink Type contains autolinks,
+          you are asked to confirm the intention to delete these Autolinks as
+          well. Autolinks that are not assigned to an Autolink Type are not
+          permitted.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Add Type</command></para>
+
+      <para>Autolink Types are a group of similar-style or
+      similar-functionality links based on a shared template for formatting,
+      and sharing the same dynamic data properties if dynamic data is enabled.
+      To add a new Autolink Type, click this link. This panel is also
+      displayed when Modifying an Autolink Type. On the next panel, the
+      following options are displayed.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Name: Type the name of the Autolink Type in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Template name: Enter the name of the template file for this
+          Autolink Type (link-{name}.xd). If you enter &#34;underlined&#34; in
+          this field, Xaraya looks for a file called
+          &#34;link-underlined.xd&#34;. The file must exist with appropriate
+          permissions and ownership in one of two locations on the site:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><filename>&#60;xarroot&#62;/modules/autolinks/xartemplates/</filename>
+              for a site-wide template</para>
+
+              <para>or</para>
+            </listitem>
+
+            <listitem>
+              <para><filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/autolinks/</filename>
+              for a theme-specific template</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Execute Template Dynamically: For default Autolinks operation
+          (non-regular expression), leave this box UNCHECKED. To execute the
+          template dynamically, CHECK this box.</para>
+        </listitem>
+
+        <listitem>
+          <para>Description: Description of the Autolink Type. This is
+          displayed within <command>Admin-&#62;Autolinks</command>.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create</guibutton>&#34; to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command></para>
+
+      <para>This section allows configuration of how Autolinks appear on your
+      site.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Matching Rule Options</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Punctuation characters: This list defines characters that
+              are allowed to border a linked word. For example, if you want to
+              match the word &#34;<userinput>site</userinput>&#34; but not in
+              the word &#34;<userinput>my-site</userinput>&#34;, do
+              <emphasis>not</emphasis> define &#34;<userinput>-</userinput>&#34;
+              as an allowed punctuation character.</para>
+            </listitem>
+
+            <listitem>
+              <para>Match non-breaking space entity as white space: &#34;<userinput>&#38;nbsp;</userinput>&#34;
+              is an entity that represents &#39; &#39;, while &#39; &#39; is
+              just a space. To match &#34;<userinput>$nbsp;</userinput>&#34;
+              to a space, CHECK this box. It is generally recommended that
+              this option be CHECKED unless you have a specific reason to
+              uncheck it. For example, if this box is CHECKED, a link that
+              matches &#34;<userinput>my site</userinput>&#34; will also match
+              &#34;<userinput>my&#38;nbsp;site</userinput>&#34; as well as
+              &#34;<userinput>my site</userinput>&#34; and &#34;<userinput>my
+              &#38;nbsp; site</userinput>&#34;. All of these links will
+              display the same if the field is CHECKED, but you may not wish
+              to match non-breaking spaces. White space in non-matching
+              regular expressions is treated as white space, regardless of
+              what type or how long it is.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Action Options</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Limit on number of times each link is used in a piece of
+              text: Enter the number of times in a particular article that
+              matching text will be converted to an Autolink. For example, if
+              you would like a matching piece of text to be converted to an
+              Autolink twice in a single article and subsequent matches would
+              not be converted, enter &#34;<userinput>2</userinput>&#34; in
+              this field. To convert ALL matching text within a particular
+              article to Autolinks, leave this field blank.</para>
+            </listitem>
+
+            <listitem>
+              <para>Autolink decoration (style will override class): From the
+              drop-down list, select the type of decoration displayed for
+              autolinks. This field may be depreciated at some point, but it
+              is currently implemented for legacy reasons. The definitions
+              below are used on the default templates. It is possible to
+              over-ride these settings in a link by using a dynamic data
+              property field called &#34;style&#34;.</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Default: The default decoration style as defined in
+                  the site&#39;s theme will be used.</para>
+                </listitem>
+
+                <listitem>
+                  <para>None: The autolink is displayed without any
+                  decoration.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Underline: The autolink text is underlined.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Overline: The autolink text is overlined (the opposite
+                  of underlining).</para>
+                </listitem>
+
+                <listitem>
+                  <para>Both: Both Underline &#38; Overline decorations are
+                  used to display the autolink.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Open links in new window: CHECK this box if you would like
+              Autolinks to open in a new window. UNCHECK it to open Autolinks
+              in the current browser window. It is possible to over-ride this
+              setting in a link by using a dynamic data property field called
+              &#34;target&#34;, where your own targets may be defined.</para>
+            </listitem>
+
+            <listitem>
+              <para>Show template errors inline (errors shown in content): Use
+              this while debugging. If a link does not execute the template
+              properly, then it will generate an error message. CHECKING this
+              field will show the error message as a tool-tip over the matched
+              text (the text showing as an error class). UNCHECKING this field
+              will leave words that link to an erroneous template intact -
+              unmatched. The error message does not look good on a site, so it
+              should be UNCHECKED once debugging is complete.</para>
+            </listitem>
+
+            <listitem>
+              <para>Template base name (affects all templates used): Don&#39;t
+              touch this unless you want to see what template errors look
+              like. Seemed like a good option so an admin can switch between
+              different sets of links without changing theme.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Admin Options</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Items per page: How many Autolinks would you like to
+              display per page? Enter that value into this field, for example,
+              &#34;<userinput>25</userinput>&#34;.</para>
+            </listitem>
+
+            <listitem>
+              <para>Show sample links in list:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>None:</para>
+                </listitem>
+
+                <listitem>
+                  <para>Results only:</para>
+                </listitem>
+
+                <listitem>
+                  <para>Sample only:</para>
+                </listitem>
+
+                <listitem>
+                  <para>Sample and Results:</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Click &#34;<guibutton>Create Autolink</guibutton>&#34; to add the
+      Autolink to the database.</para>
+    </listitem>
+  </itemizedlist>
+
+  <sect3>
+    <title>EXAMPLE: Adding AutoLinks to a Publication Type</title>
+
+    <para>Adding AutoLinks to a Publication Type is very easy. There are two
+    different methods for accomplishing this task, and we will cover them both
+    in this example. Be sure you have some Autolinks defined (go to
+    <command>Admin-&#62;Autolinks-&#62;Add</command> and add a few) and an
+    article that contains Autolink text so you can see the results of your
+    work.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><emphasis>Method 1</emphasis>. Go to <command>Admin-&#62;Modules-&#62;View
+        All</command>. Next to the Articles line in the panel, click &#34;<guibutton>On/Off</guibutton>&#34;
+        under the Hooks heading. On the next panel that appears, CHECK to
+        enable Autolinks in specific Publication Type(s), or CHECK the ALL box
+        to enable Autolinks in all Publication Types. Click &#34;<guibutton>Save
+        Changes</guibutton>&#34; to save changes. You have just enabled
+        Autolinks to Publication Type(s)!</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis>Method 2</emphasis>. Go to <command>Admin-&#62;Modules-&#62;Configure
+        Hooks</command>. In the next panel, click Autolinks. CHECK the
+        specific Publication Types in which you wish to enable Autolinks, or
+        CHECK the ALL ARTICLES box to enable Autolinks in all Publication
+        Types. Click &#34;<guibutton>Save Changes</guibutton>&#34; to save
+        changes. You have just enabled Autolinks to Publication Type(s)!</para>
+      </listitem>
+    </itemizedlist>
+  </sect3>
+</sect2>

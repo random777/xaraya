@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix>
+  <title>Creating a Xaraya Theme</title>
+
+    <para>For the original article, see <ulink
+    url="http://www.mahmood.tv/index.php/docs/20">http://www.mahmood.tv/index.php/docs/20</ulink></para>
+
+    <para>I gave <ulink url="http://www.computerpoint.tv">http://www.computerpoint.tv</ulink>
+    a make-over in less than a couple of hours, and that included installing
+    Xaraya, importing the previous PostNuke 0.723 data AND creating the theme!
+    Themes with BlockLayout are extremely easy. I am sure I haven&#39;t even
+    scratched the surface or capabilities of the BlockLayout templating
+    engine, but I got it done, and here&#39;s how: </para>
+
+    <orderedlist>
+      <listitem>
+        <para>Copy the Xaraya_Classic theme into whatever name you like your
+        new theme to be, let&#39;s say &#39;MacyGray&#39;:</para>
+
+        <para><command># cd &#60;xarroot&#62;/themes # cp -R Xaraya_Classic
+        MacyGray</command></para>
+      </listitem>
+
+      <listitem>
+        <para>Reserve an ID on <ulink url="http://www.xaraya.com">Xaraya.com</ulink>
+        and note the ID you&#39;ve chosen. Edit the <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/MacyGray/xartheme.php</filename>
+        file and enter your Theme ID there. While in that file, change all
+        other information that needs to change like the theme name, directory
+        etc. In vi I do: <command>:g/Xaraya_Classic/s//MacyGray/g</command></para>
+
+        <para>that will replace all occurances of &#39;Xaraya_Classic&#39;
+        with &#39;MacyGray&#39; </para>
+
+        <para>To do the same for all other files in
+        &#60;xarroot&#62;/&#60;themes_dir&#62;/MacyGray, do a grep to see
+        where &#39;Xaraya_Classic&#39; occurs then change that as I&#39;ve
+        done above in vi or whatever editor you use: </para>
+
+        <para><command># cd themes/MacyGray # grep -R Xaraya_Classic *</command>
+        </para>
+
+        <para>This will spew all occurances of Xaraya_Classic in all the files
+        in the directory and the subdirectories, then go to each file and do a
+        replace as above.</para>
+      </listitem>
+
+      <listitem>
+        <para>Now that you have the basic framework for MacyGray, it is time
+        to get creative!</para>
+
+        <para>Use your HTML editor to load <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/MacyGray/default.xt</filename>.</para>
+
+        <para>Load up <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/MacyGray/style.css</filename>
+        file to ensure that you&#39;re working on the complete theme and to
+        avoid surprises! There is a <emphasis>LOT</emphasis> of information
+        and control in the <filename>style.css</filename> file and you can
+        change just about anything in the theme by changing values in the
+        <filename>style.css</filename> file. It is also here that you would
+        change the page background color, fonts to use, font attributes, etc.
+        Again your HTML editor should give you a way to change things in the
+        stylesheet in a graphical environment.</para>
+
+        <para>Place graphics and other elements. Basically, create your theme
+        here then save the files.</para>
+      </listitem>
+
+      <listitem>
+        <para>Check that your HTML editor didn&#39;t change the graphic paths,
+        make sure that your graphics are in &#34;<filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/MacyGray/images/</filename>&#34;
+        directory, rather than &#34;<filename>file:///</filename>&#34;.</para>
+      </listitem>
+
+      <listitem>
+        <para>Everything saved, make sure that the permissions on the files
+        and directories are set appropriately.</para>
+      </listitem>
+
+      <listitem>
+        <para>Go to the Admin-&#62;Themes-&#62;View Themes. CHECK &#34;<guibutton>Regenerate</guibutton>&#34;
+        and click &#34;<guibutton>Reload</guibutton>&#34;. Then initialize and
+        activate your new theme.</para>
+      </listitem>
+
+      <listitem>
+        <para>Go to Admin-&#62;Themes-&#62;Modify config and set your new
+        theme as the default.</para>
+      </listitem>
+    </orderedlist>
+
+    <para>...<foreignphrase>et voila</foreignphrase>! Now you have a new theme
+    for Xaraya!</para>
+
+    <para>For variables and tags to use (if you need more that is, you could
+    check the BlockLayout RFC on <ulink url="http://www.xaraya.com">Xaraya.com</ulink>)</para>
+</appendix>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Censor Module</title>
+
+  <subtitle>Censor objectionable words. <command>Admin-&#62;Censor</command>.</subtitle>
+
+  <para>This module allows a site administrator to automatically filter -- or
+  &#39;censor&#39; -- objectionable words or phrases from the site.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Add Censored Word</command></para>
+
+      <para>Add items to the list of objectionable words to be filtered by
+      clicking <command>Admin-&#62;Censor-&#62;Add</command>.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Keyword: Enter the keyword/phrase (the objectionable
+          word/phrase) to be filtered in this field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Create Censor</guibutton>&#34; to save
+          changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>View</command></para>
+
+      <para>View items on the list of objectionable words/phrases by clicking
+      <command>Admin-&#62;Censor-&#62;View</command>.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Key word: Each objectionable word/phrase is listed
+          alphabetically.</para>
+        </listitem>
+
+        <listitem>
+          <para>Options: For each word/phrase, the following options are
+          available.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Edit: Permits modification of an objectionable
+              word/phrase. Click &#34;<guiicon>Modify Censor</guiicon>&#34; to
+              save changes.</para>
+            </listitem>
+
+            <listitem>
+              <para>Delete: Permits deletion of an objectionable word/phrase.
+              Confirm your intention to delete the item on the next panel.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command></para>
+
+      <para>This panel allows modification of configuration options for this
+      module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Replace censored word with: If the Censor module finds
+          objectionable text, it will be replaced with the text entered in
+          this field. For example, &#34;<userinput>****</userinput>&#34; will
+          replace any objectionable word/phrase with &#34;****&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Items per page: How many objectionable items would you like to
+          have displayed per page. Enter that value in this field. For
+          example, &#34;<userinput>20</userinput>&#34;.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

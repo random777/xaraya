@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Introduction &#38; Information about Xaraya</title>
+
+  <para>This chapter will give you an introduction to Xaraya, it&#39;s
+  features, the format of this Guide, and the assumptions under which this
+  Guide was written. Also included is a handy Xaraya pronunciation guide!</para>
+
+  <sect1>
+    <title>Introduction by John Cox</title>
+
+    <para><emphasis>Building a better mouse trap</emphasis> has always been a
+    desire for inventors since the beginning of time.</para>
+
+    <para>For the Xaraya team that was the motivation. Our desire and drive
+    came from the idea of doing something that has not been done before, which
+    in my opinion has been accomplished. Xaraya is the culmination of the work
+    of several of the world&#39;s best software designers working within the
+    PHP language at this time.</para>
+
+    <para>The Official Xaraya Installation &#38; Getting Started Guide will
+    introduce you to concepts that are, most likely, unfamiliar to you. Having
+    complete control over the output of the software is the nirvana that most
+    designers of Open Source Content Management Systems only dream of. Beyond
+    the control of the output, though, is the control of the
+    <emphasis>input</emphasis> as well, which to my knowledge has not been
+    attempted.</para>
+
+    <para>Xaraya will ask you to re-examine your expectations as to what
+    Content Management Systems can -- <emphasis>and should</emphasis> -- offer
+    you.</para>
+
+    <para>The Official Xaraya Installation &#38; Getting Started Guide itself
+    is the culmination of well over a year&#39;s worth of work to not only
+    document what can be done, but to explain in common terms and phrases what
+    Xaraya will do for you. It is not only the comprehensive guide to Xaraya,
+    but it is a narrative which will walk you through the collective knowledge
+    of the Xaraya team. The guide has been written by Drew Vogel (and others)
+    who have likely spent more time documenting than others have spent coding.</para>
+
+    <para>Welcome to the Official Xaraya Installation &#38; Getting Started
+    Guide.</para>
+
+    <para><emphasis>And welcome to Xaraya -- the next generation of Content
+    Management Systems.</emphasis></para>
+  </sect1>
+
+  <sect1>
+    <title>Document Disclaimer</title>
+
+    <para>While every reasonable precaution has been taken in the preparation
+    of this document, neither the author nor the Xaraya development team
+    assumes responsibility for errors or omissions, or for damages resulting
+    from the use of the information contained herein.</para>
+
+    <para>The information contained in this document is believed to be
+    accurate. However, no guarantee is provided. Use this information at your
+    own risk.</para>
+  </sect1>
+
+  <sect1>
+    <title>About this Guide</title>
+
+    <para>This Guide will assist you with installing, configuring, running,
+    and maintaining a Xaraya Community Site. It is intended for Xaraya
+    installers or those individuals interested in Xaraya installation and
+    configuration issues.</para>
+
+    <para>This Guide is designed to be read from start to finish. Certain
+    sections may be skipped (for example, if you&#39;re upgrading, you may not
+    need to read the first-time installation instructions). However, reading
+    this entire Guide from start to finish will provide the maximum
+    educational benefit.</para>
+
+    <para>Throughout the Guide, there are examples for you to follow. The
+    examples add new features or illustrate concepts and are all designed to
+    work together. Generally, the examples include Animals, Music, or Food but
+    the concepts that they teach can be customized to your particular tastes.</para>
+
+    <para>Throughout this Guide, we use several terms that you should
+    understand. <itemizedlist><listitem><para>&#34;<firstterm>Anonymous users</firstterm>&#34;
+    are defined as users that have not registered/logged into an account on
+    the site.</para></listitem><listitem><para>&#34;<firstterm>Registered
+    users</firstterm>&#34; are defined as users that have registered for an
+    account on the site and have logged into the site with their username and
+    password.</para></listitem><listitem><para>&#34;<firstterm>Site
+    Administrators</firstterm>&#34; are defined as one or more individuals who
+    have administrative access to the site. Many sites have only one site
+    administrator while some sites have an site administration team.</para></listitem><listitem><para><firstterm>&#60;webdir&#62;</firstterm>:
+    This is the local directory on your site from which pages are served by
+    the webserver. For example, if you&#39;re using a modern Red Hat
+    installation your &#60;webdir&#62; is usually /var/www/html. Consult your
+    operating system manual for information on determining your
+    &#60;webdir&#62;.</para></listitem><listitem><para><firstterm>&#60;xarroot&#62;</firstterm>:
+    This is the local directory on your site in which Xaraya is installed. If
+    you choose to install your &#60;xarroot&#62; into your &#60;webdir&#62;,
+    then the two terms have the same meaning -- they point to the same
+    directory. However, if your &#60;webdir&#62; is /var/www/html, and you
+    install Xaraya into a sub-directory called &#34;xaraya&#34;, then your
+    &#60;xarroot&#62; is /var/www/html/xaraya.</para></listitem><listitem><para><firstterm>&#60;theme_dir&#62;</firstterm>:
+    This is the local directory on your site in which Xaraya themes are
+    stored. This directory location is defined in the
+    Admin-&#62;Base-&#62;Modify config, Default Theme Directory field.</para></listitem><listitem><para><firstterm>&#60;theme_name&#62;</firstterm>:
+    This is the name of a theme on your Xaraya site.</para></listitem><listitem><para><firstterm>http://www.mywebsite.com</firstterm>:
+    This URL is used as a stand-in for your site&#39;s URL. If you install
+    Xaraya into a sub-directory of &#60;webdir&#62;, your site&#39;s URL will
+    include the sub-directory. So, for example, if your &#60;webdir&#62; is
+    /var/www/html, and you install Xaraya into a sub-directory called
+    &#34;xaraya&#34;, then your site&#39;s URL will be
+    http://www.mywebsite.com/xaraya.</para></listitem></itemizedlist></para>
+  </sect1>
+
+  <sect1>
+    <title>Document Thanks</title>
+
+    <para>Xaraya was written by the Xaraya Team. Xaraya is, as with many
+    successful open-source projects, a huge collaborative effort relying on
+    many talented contributors from across the globe. Without their vision,
+    this document would not exist.</para>
+
+    <para>The Official Xaraya Installation and Getting Started Guide was
+    written by Drew Vogel. Abundant thanks to the Xaraya development team for
+    answering Drew&#39;s endless questions. Thanks to the contributing
+    authors, reviewers, Greg Allen (adam_baum), John Cox, mikespub, Doug
+    Daulton (Apakuni), Skribe, Craig Hamlin, Chris Dudley (Miko), Carl Corliss
+    (Rabbitt), Mahmood Al-Yousif, Michael Cortez (mcortez), marcinmilan,
+    Joanna Dalle Nogare (jojodee), Marcel van der Boom (MrB), Jason Judge,
+    Marjolein Katsma, SpiritTech, and Pedro Innecco. Special thanks to Gregor
+    Rothfuss (thalinor) for many things.</para>
+
+    <para>If this Guide is sucessful, proving to be useful in helping you
+    install, configure, and manage your Xaraya site, a healthy measure of
+    credit will be due the individuals listed above. If not -- if the Guide is
+    somewhat off the mark -- the author accepts full responsibility for the
+    shortcomings.</para>
+
+    <para>This document was written using TextPad for Windows (<ulink
+    url="http://www.textpad.com">http://www.textpad.com</ulink>) and XMLmind
+    XML Editor (<ulink url="http://www.xmlmind.com">http://www.xmlmind.com</ulink>).</para>
+
+    <para>Thank you to the Xaraya Team for declaring this to be the
+    &#34;Official&#34; guide.</para>
+  </sect1>
+
+  <sect1>
+    <title>Files Included with this Guide</title>
+
+    <para>The following files are included with this guide.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><command>callouts directory</command> -- These are files used by
+        this Guide. It is not necessary to copy these files to your Xaraya
+        installation.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>resources directory</command> -- These are files used
+        by this Guide. It is not necessary to copy these files to your Xaraya
+        installation.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>html.css</command> -- This file is used by this Guide.
+        It is not necessary to copy this file to your Xaraya installation.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>images/recipes/NoPhoto.gif </command>-- Used in the
+        Recipe Publication Type example (see EXAMPLE: Adding a new Publication
+        Type that uses Dynamic Data). Displayed when no recipe photograph is
+        available. Copy to <filename>&#60;xarroot&#62;/images/recipes</filename>
+        directory, creating directories as necessary.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>images/recipes/applechestnutsoup.jpg</command> -- Used
+        in the Recipe Publication Type example (see EXAMPLE: Adding a new
+        Publication Type that uses Dynamic Data). Photograph for the
+        <filename>SampleRecipe.txt</filename> file. Copy to
+        <filename>&#60;xarroot&#62;/images/recipes</filename> directory,
+        creating directories as necessary.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>modules/articles/xartemplates/user-display-recipes.xd</command>
+        -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a
+        new Publication Type that uses Dynamic Data). Template for displaying
+        the new Recipe Publication Type. For a default site-wide template,
+        copy to <filename>&#60;xarroot&#62;/modules/articles/xartemplates</filename>
+        directory, creating directories as necessary.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>modules/articles/xartemplates/user-summary-recipes.xd</command>
+        -- Used in the Recipe Publication Type example (see EXAMPLE: Adding a
+        new Publication Type that uses Dynamic Data). Template for displaying
+        the new Recipe Publication Type. For a default site-wide template,
+        copy to <filename>&#60;xarroot&#62;/modules/articles/xartemplates</filename>
+        directory, creating directories as necessary.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>modules/categories/xarimages/*.jpg</command> --
+        Category files for use with the categories created in the new Recipe
+        Publication Type (see EXAMPLE: Adding a new Publication Type that uses
+        Dynamic Data). For site-wide use, copy these files to the
+        <filename>&#60;xarroot&#62;/modules/categories/xarimages</filename>
+        directory.</para>
+      </listitem>
+
+      <listitem>
+        <para><command>Tutorials/PubType/SampleRecipe.txt</command> -- Used in
+        the Recipe Publication Type example (see EXAMPLE: Adding a new
+        Publication Type that uses Dynamic Data). A sample recipe to add at
+        the end of the Recipe Publication Type example (and a darned good
+        recipe by Drew Vogel, too!).</para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+
+  <sect1>
+    <title>An Introduction to Content Management Systems</title>
+
+    <sect2>
+      <title>A glance toward the past...</title>
+
+      <para>As the internet and world-wide web started to emerge as a major
+      repository for storage, retrieval, and display of data, the main avenue
+      for accessing that data was static, hand-coded, <firstterm>HTML</firstterm>
+      (Hyper-Text Markup Language). <firstterm>Static HTML</firstterm> means
+      that each and every web page on a site is created individually; links
+      between content elements are managed by hand; and changes can be made
+      only by a site administrator following a multiple-step process involving
+      the downloading, editing, and uploading of new or modified pages.</para>
+
+      <para>For users with moderate technical skills, the creation of web
+      pages using static HTML is fairly easy. But because the
+      <emphasis>content</emphasis> is not separated from the
+      <emphasis>code</emphasis>, a lot of time is spent wrapping the content
+      with HTML code so that it can be presented in a meaningful way.
+      Composing pages in static HTML is time-intensive and can interfere with
+      content; it’s comparable to asking a book author to tackle typesetting,
+      printing, and binding, which would certainly detract from the writer’s
+      primary goal: to provide content.</para>
+
+      <sect3>
+        <title>Challenges of developing and maintaining a static HTML website</title>
+
+        <para>Without the separation of code and content, many aspects of
+        managing a static HTML site are difficult. It is complicated to
+        establish the ‘look’ of a site, and not easy to change that look once
+        set. Searching for information on a site, even one with a limited
+        number of pages, is an inaccurate, time-consuming task. It is
+        impractical to collaborate on pages with colleagues unless additional
+        administrative (FTP) accounts are configured or access codes are
+        shared; both scenarios present a security risk.</para>
+
+        <para>For many people, HTML editing programs like FrontPage and
+        DreamWeaver present a better approach to website design,
+        implementation, and maintenance. These programs offer tools for
+        defining a site-wide ‘look’ using site templates, as well as
+        additional features to make it easier to create and edit static HTML
+        pages. However, even when using these tools, adding or modifying
+        content still requires a combination of writing and coding, which can
+        be tricky and time consuming difficult to accomplish for anyone with
+        lower than moderate technical skills.</para>
+
+        <para>For example typical publication cycle for a static HTML site
+        might follow this pattern: An article is written; then passed to the
+        web maintainer who creates a new page (following the site’s design)
+        either from a template or from scratch. The article is converted to
+        HTML code and pasted into the new page; which, depending on the
+        maintainer’s workload may take several hours or more to be posted on
+        the website. The new page is uploaded to the website and then manually
+        linked to other pages as necessary, with related pages updated as
+        necessary. That’s a lot of time and a lot of work.</para>
+
+        <para>In a limited number of contexts, static HTML may be quite
+        suitable for a website. If the content on the site does not get
+        updated frequently, is updated by a limited number of individuals,
+        does not need to be searchable, does not require pleasant
+        presentation, and if there is a technical individual who is willing to
+        edit HTML and download &#38; upload changes, you may not need the
+        advanced features of a Content Management System. However, before you
+        put this book down and walk away, understand this: on the same
+        hardware that runs your static HTML site, you can have a
+        full-featured, easy-to-use Content Management System that makes
+        updating content much easier and allows a huge variety of advanced
+        features that simply were not available with static HTML sites.</para>
+
+        <para>This represents a glance toward the past -- or maybe this is a
+        look at the way you’re currently doing things, and you have found
+        yourself with too much data to manage effectively. But there is a
+        better way. A way that will allow you create and present meaningful
+        content on your website without downloading, coding, and uploading --
+        from anywhere on the Internet. A way that will allow advanced features
+        -- features like site-wide searches, user accounts, private messages,
+        and much more -- features that are simply not possible with static
+        HTML.</para>
+
+        <para>A <firstterm>Content Management System</firstterm> could be the
+        solution to your problems.</para>
+      </sect3>
+    </sect2>
+
+    <sect2>
+      <title>...a step toward the future.</title>
+
+      <para>The answer to all the wasted time and effort of maintaining static
+      HTML websites is to use a Content Management System. Static HTML was
+      insufficient for the management of content on even a modest website; it
+      was clearly too much data and too much work. Though HTML editing tools
+      streamlined the procedure for maintaining a static HTML site, a better
+      method of data management was necessary.</para>
+
+      <para>Web technology unveiled new competitive scenarios for companies:
+      improved customer interaction, better business-to-business
+      communication, and a more vibrant distribution of internal information.
+      Today, many companies are turning to the web as a new playing field for
+      innovation; tapping a wide variety of content and delivering it
+      instantly to users around the globe. Some of the key goals of a Content
+      Management System (CMS) are to provide users with personalized,
+      transparent access to relevant information inside and outside of the
+      organization; and to allow authors to easily contribute information to
+      the knowledge base by managing content in a reliable, secure, and
+      dependable way.</para>
+
+      <sect3>
+        <title>Dynamic Content Management as the way of the future</title>
+
+        <para>Content Management Systems allow content to be handled and
+        updated dynamically and makes it easy for non-technical people to
+        create and modify content. What is ‘dynamic content’? Dynamic content
+        is content that may change frequently, is separated from the display
+        (HTML) code, and is made into an ‘element’ that can be manipulated by
+        the Content Management System. Dynamic content elements are usually
+        stored in a database which is running the website.</para>
+
+        <para>Good Content Management Systems are designed so that nearly
+        anyone can publish, browse, and revise information without knowing
+        much more than how to use a browser or a word processor. The technical
+        details are hidden from site users, thus eliminating their need to
+        learn about software programming, HTML, network protocols, or how and
+        where to publish and retrieve files to work on them. With a click of a
+        button, authorized users can contribute any content to areas of the
+        site to which they have been granted access.</para>
+
+        <para>Compared with static HTML, Content Management Systems:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Separate code from content making it easier to focus on
+            content</para>
+          </listitem>
+
+          <listitem>
+            <para>Offer a consistent, non-technical, easy-to-use interface for
+            both users and administrators. Content contributors log into a
+            secure area of the website, enter the date, title, and body of
+            their news submission, and click submit, and the news article is
+            published to the website with no hassle.</para>
+          </listitem>
+
+          <listitem>
+            <para>The entire look and feel of a website can be changed very
+            easily. Some CMS packages even allow users to customize the way
+            they see a website -- everything from language to colors to the
+            on-screen placement of features.</para>
+          </listitem>
+
+          <listitem>
+            <para>Are feature-rich, and support additional, specialized
+            features -- forums, galleries, live chat boards, private
+            messaging, local weather, and more.</para>
+          </listitem>
+
+          <listitem>
+            <para>Are searchable because they rely on a database. This feature
+            alone makes CMS an exceptional choice when compared to static
+            HTML.</para>
+          </listitem>
+
+          <listitem>
+            <para>Allow for community involvement and collaboration. While
+            CMS-based sites can be run effectively by one person, the
+            community can easily comment on a website’s content without
+            requiring special access.</para>
+          </listitem>
+
+          <listitem>
+            <para>Gives administrators complete control over what each user or
+            group of users can do within a web site. Administrators can
+            control access to sections of a site, and assign user privileges
+            and permissions to individuals or groups as we’ll see in Chapter
+            XX.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Once users have made the transition to a CMS, they will no
+        longer feel incapacitated and unable to contribute to the website
+        community. Often, the availability of all the new features provided by
+        a CMS can be intimidating at first, and the learning curve can appear
+        rather steep when compared to a static HTML page because while a
+        static HTML page does not allow community involvement, CMS readily
+        welcome it. CMS managed sites are simply so much easier to maintain
+        than static HTML sites. To update a CMS site, all you need to do is
+        surf to it and click on links to update the site. So, if you know how
+        to surf the ‘Net, you can maintain the site; very little other work is
+        necessary!</para>
+
+        <para>So far in this discussion, we have discussed only the most basic
+        functions of a CMS, but there are hundreds of different functions
+        available in an advanced Content Management System like Xaraya.
+        Fortunately, it&#39;s fairly easy to learn the main functions,
+        ignoring the rest of the features until you need to use them. This is
+        another advantage of using a CMS instead of ordinary HTML pages: the
+        advanced functionality allows users to search the site, post on
+        forums, leave user information which is easily manageable -- in short,
+        anything that can be done with advanced database management.</para>
+
+        <para>A CMS implementation provides a win-win solution for business
+        end-users, webmasters, and business management. It provides a complete
+        environment that brings the power of distributed content management
+        down to the average end-user, while at the same time addressing the
+        most important requirements of the IT department, webmasters, and
+        business management to provide a secure, fast, and effective portal;
+        however commercial CMS packages (like Microsoft Content Management
+        Server, Vignette, Stellent, and Obtree) can be prohibitively
+        expensive. A quick internet search for commercial CMS packages reveals
+        prices ranging from less than $99 through hundreds of thousands of
+        dollars. Fortunately, there are several Open Source Software CMS
+        solutions that cost very little or are completely free to use. Xaraya
+        is a robust, free Content Management System that runs on all platforms
+        that support the PHP scripting language, a web server, and a
+        relational database management system (RDBMS).</para>
+
+        <para>Open Source software is software which may be freely distributed
+        and whose programming code is available and also modifiable by anyone,
+        within the terms of a particular license.</para>
+
+        <para>The basic idea behind Open Source Software is very simple: When
+        programmers can study, redistribute, and modify the source code for a
+        piece of software, that software evolves. People improve it, people
+        adapt it, and people fix bugs. These modifications can be folded back
+        into the development community, benefiting everyone. And this can
+        happen at a speed that, if one is used to the slower pace of
+        conventional software development, may seem astonishing.</para>
+
+        <para>And you guessed it: the Xaraya Content Management System and all
+        the pieces of software required to make it work are Open Source!</para>
+
+        <para>In the next section we’ll take a closer look at Xaraya and
+        explore some of the many features that it has to offer.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>An Overview of Xaraya</title>
+
+    <subtitle>A quick look at how Xaraya works.</subtitle>
+
+    <para>The documentation for this part of the Guide is being developed.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>What are the basic building blocks of Xaraya? How do they
+        interoperate?</para>
+
+        <para>The Core (the files in the <filename>&#60;xarroot&#62;/includes</filename>
+        directory) handles each page request. Modules provide units of
+        functionality, and can be added, extended, or disabled as required.
+        Some modules are mandatory, meaning that the core expects them to be
+        available on the site. Other modules are optional and can be turned on
+        or off as needed.</para>
+      </listitem>
+
+      <listitem>
+        <para>What is an Article?</para>
+      </listitem>
+
+      <listitem>
+        <para>What is a Publication Type?</para>
+
+        <para>Publication Types are specific &#34;types&#34; of Articles on
+        the site (for example, News Articles, Frequently Asked Questions,
+        Pictures, or Recipes are all examples of specific Article
+        &#34;types&#34;). See the overview on <command>Admin-&#62;Articles</command>
+        for more information.</para>
+      </listitem>
+
+      <listitem>
+        <para>What is a Template?</para>
+
+        <para>A Template is a file that defines how content items on the site
+        are displayed (rendered). A Template receives output from a module and
+        formats the output according to various rules. Templates can be very
+        simple or very sophisticated. A normal page typically consists of many
+        templates, each nested within another.</para>
+
+        <para>Each module has a default set of templates that it uses, but
+        templates can be over-ridden by creating a Theme. You can switch
+        Themes at will, and each request for a particular page will check if
+        there is an over-riding Template in the current Theme before using a
+        default template.</para>
+      </listitem>
+
+      <listitem>
+        <para>What is a Theme?</para>
+
+        <para>Themes are a collection of templates, images, etc. that
+        represent a particular Theme (layout, style, or skin) for your site.
+        Typically, you would have at least the page templates in the Theme
+        directory, and possibly some overrides for default module and block
+        templates.</para>
+
+        <para>Special themes include the &#34;print&#34; theme, where the page
+        template does not include any blocks and so will only show the output
+        of the main module function, and the &#34;rss&#34; theme, that
+        doesn&#39;t generate XHTML at all but XML for syndication by other
+        sites.</para>
+      </listitem>
+
+      <listitem>
+        <para>Are Articles, Publication Types, and Templates related? If so,
+        how?</para>
+
+        <para>Each Publication Type uses a specific template to display
+        content of a particular type. This means each Publication Type can
+        have a different layout or format.</para>
+      </listitem>
+
+      <listitem>
+        <para>How are Articles sorted into Sections/Categories/Topics?</para>
+
+        <para>Articles can be placed into Categories (one or more). The
+        Categories may mean different things from site to site, depending on
+        how they were configured. The default Xaraya installation of the
+        Articles module contains a set of Categories familiar to
+        administrators of other Open Source CMS products (PHP-Nuke, PostNuke,
+        Envolution, etc.) where news articles are categorised in two
+        independent ways (Topics &#38; Categories) and documents are
+        categoriesed into Sections.</para>
+
+        <para>New Xaraya sites will often use generic categories across all
+        Publication Types, instead of having separate hierarchies for each of
+        them. See overview on <command>Admin-&#62;Articles</command> for more
+        information.</para>
+      </listitem>
+
+      <listitem>
+        <para>How, and by what, are Articles displayed?</para>
+
+        <para>Articles are displayed by the Articles module, in cooperation
+        with a bunch of &#39;hooked&#39; utility modules (categories,
+        hitcount, ratings, comments, and other modules).</para>
+      </listitem>
+
+      <listitem>
+        <para>What do Categories do? Are they the only way of sorting
+        Articles, or are they just an example?</para>
+
+        <para>You can organize your Categories however you see fit -- the
+        Categories provided at installation are just an example which may be
+        modified, extended, or completely removed as you require.</para>
+
+        <para>Articles can be browsed by Publication Type, by Category, and/or
+        by Author, and sort the results by date, title, and other criteria.</para>
+      </listitem>
+
+      <listitem>
+        <para>Do Articles need to be sorted into a simple hierarchy or can
+        they be sorted into a multidimensional array with each Article fitting
+        into several independent hierarchies simultaneously or using category
+        flags instead of a hierarchy at all?</para>
+
+        <para>Each &#34;base category&#34; is organised as a hierarchy, but
+        several independent base categories (and their hierarchies) can be
+        assigned to each of the Publication Types in Articles.</para>
+
+        <para>For instance, a travel site might have one hierarchy with
+        countries and cities, and another hierarchy with particular interests
+        (for example, culture, sports, restaurants, etc.). An Article about a
+        restaurant in Brussels can, for example, be placed in the category
+        &#34;Brussels&#34; and <emphasis>also</emphasis> in the category
+        &#34;Restaurants&#34;, and people can then view all articles about
+        Brussels, about restaurants, or about restaurants in Brussels.</para>
+
+        <para>And if you work by Publication Type, you could let people browse
+        only through reviews (a particular Publication Type) about restaurants
+        in Brussels.</para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+
+  <sect1>
+    <title>Features of Xaraya</title>
+
+    <para>Xaraya is a buzzword-compliant, extensible, open source
+    web-development software platform written in PHP and licensed under the
+    GNU General Public License. Xaraya utilizes robust permissions, data
+    management, and multilingual systems to dynamically integrate and manage
+    content.</para>
+
+    <para>Xaraya&#39;s modular, database-independent architecture provides
+    tools which separate form, function, content, and design on the site.
+    Xaraya delivers the requisite infrastructure for a fully dynamic
+    multi-platform Content Management Solution (CMS).</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Database-driven website engine (PHP-ADODB compliant)</para>
+      </listitem>
+
+      <listitem>
+        <para>Extensible through a variety of third-party modules</para>
+      </listitem>
+
+      <listitem>
+        <para>Powerful security module for multi-level user/administrator
+        logins</para>
+      </listitem>
+
+      <listitem>
+        <para>Distribute workload using User/Administrator management tools</para>
+      </listitem>
+
+      <listitem>
+        <para>Robust article management system</para>
+      </listitem>
+
+      <listitem>
+        <para>Fully editable &#38; manageable News, Links, Downloads, and FAQ
+        Sections</para>
+      </listitem>
+
+      <listitem>
+        <para>BlockLayout Theme Engine: Display your site your way</para>
+      </listitem>
+
+      <listitem>
+        <para>News Feed Manager: Access thousands of RSS-compliant news feeds</para>
+      </listitem>
+
+      <listitem>
+        <para>Site Statistics: Tracks browser &#38; operating system, top news
+        &#38; articles, and more</para>
+      </listitem>
+
+      <listitem>
+        <para>Easy install on most Unix/Linux and Windows platforms</para>
+      </listitem>
+
+      <listitem>
+        <para>Import information from PostNuke and Moveable Type installations</para>
+      </listitem>
+
+      <listitem>
+        <para>Xaraya is compliant with RSS, CSS, XHTML, and W3C accessibility
+        standards.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Xaraya reduces web site development costs by introducing
+    sophisticated administration tools &#38; services which separate form,
+    function, content, and design. With Xaraya, you work in a simple,
+    structured environment to rapidly develop your website with diverse
+    content, including:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>News Articles</para>
+      </listitem>
+
+      <listitem>
+        <para>Web Links Directory</para>
+      </listitem>
+
+      <listitem>
+        <para>Job Boards</para>
+      </listitem>
+
+      <listitem>
+        <para>Frequently Asked Questions</para>
+      </listitem>
+
+      <listitem>
+        <para>File Downloads</para>
+      </listitem>
+
+      <listitem>
+        <para>Photo Gallery</para>
+      </listitem>
+
+      <listitem>
+        <para>Member profiles</para>
+      </listitem>
+
+      <listitem>
+        <para>Web forums (message boards)</para>
+      </listitem>
+
+      <listitem>
+        <para>Articles Repository (i.e.: Knowledge base, cooking recipes,
+        product reviews, news articles, etc.)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>With more than forty active developers spanning five continents and
+    ten languages, the Xaraya Development Team is a blend of some of the best
+    and brightest developers in the open source community. We expect the best
+    of one another. As a result, you can expect the best from Xaraya.</para>
+  </sect1>
+
+  <sect1>
+    <title>What does Xaraya mean?</title>
+
+    <para>The name <firstterm>Xaraya</firstterm> was selected by the
+    development team after an internal contest. Submitted by Marty Vance
+    (Dracos), Xaraya does not really mean anything. We were looking for a name
+    which was both interesting and unique. Xaraya certainly fit the bill.</para>
+
+    <para>That said, the word Xaraya is reminiscent of &#39;<foreignphrase>raya</foreignphrase>&#39;,
+    the Spanish word for Manta Ray. The development team rather likes the
+    nautical feel of that reference, particularly when one thinks of the
+    Internet as an &#34;ocean&#34; of information. The Xaraya logo concept by
+    Marty Vance, logo design by LaDalle Hunt.</para>
+  </sect1>
+
+  <sect1>
+    <title>How is Xaraya pronounced?</title>
+
+    <para>It is not as difficult as it may look. In fact, saying Xaraya is
+    actually sort of fun. Phonetically, it looks like this:
+    <firstterm>Zuh-rye-ah</firstterm>.</para>
+
+    <para>To hear Xaraya pronounced by Xaraya Team member Marie Altobelli
+    (LadyofDragons), visit <ulink
+    url="http://www.xaraya.com/xcommon/media/xaraya.wav">http://www.xaraya.com/xcommon/media/xaraya.wav</ulink>.</para>
+  </sect1>
+
+  <sect1>
+    <title>Assumptions</title>
+
+    <para>Xaraya allows unprecedented levels of customization, it is therefore
+    impossible to list every possible configuration. To provide familiarity
+    with how Xaraya functions this Guide makes the following assumptions:</para>
+
+    <para>* That you plan to run a Community Site and:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Do not permit anonymous users to submit articles or post
+        comments until they register.</para>
+      </listitem>
+
+      <listitem>
+        <para>Allow ALL users to read all articles &#38; related comments on
+        the site.</para>
+      </listitem>
+
+      <listitem>
+        <para>Allow Registered users to:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Submit articles to the site.</para>
+          </listitem>
+
+          <listitem>
+            <para>Post comments.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Site Administrator(s) have complete access to the site.</para>
+      </listitem>
+
+      <listitem>
+        <para>That you have created a web-readable &#34;<filename>images</filename>&#34;
+        directory in your Xaraya installation directory (<filename>&#60;xarroot&#62;/images</filename>).
+        We will store any non-core and non-module images needed by the site in
+        this directory.</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>That you already have a working webserver (Apache or IIS), PHP
+        4.1.2 or higher (4.2.x or higher is strongly recommended), an email
+        subsystem, and a database (currently MySQL) installed, configured, and
+        operating correctly. The installation and configuration of these tools
+        are beyond the scope of this Guide. See <ulink
+        url="http://www.php.net">http://www.php.net</ulink> and <ulink
+        url="http://www.mysql.com">http://www.mysql.com</ulink> for assistance
+        with these issues.</para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</chapter>

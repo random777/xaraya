@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>Stats Module</title>
+
+  <subtitle>Site statistics. <command>Admin-&#62;Stats</command>.</subtitle>
+
+  <para>The Statistics module collects data about visitors to your website. To
+  use the Stats module, install the module, set the configuration options as
+  you would like, and the Stats module begins to collect data.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Modify config: This panel allows modification of configuration
+      options for this module.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Count Administrator Hits: If you wish for the hits made by the
+          site administrator to increment the statistics, CHECK this box. If
+          you do not wish for hits made by the site administrator to increment
+          the stats, UNCHECK this box.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Users Configuration</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

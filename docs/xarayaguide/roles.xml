@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Xaraya Roles: Users &#38; Groups</title>
+
+  <para>Roles allow you to manage Users and Groups on your site. Roles are
+  representations of Users and the different Groups to which they can belong.</para>
+
+  <para>Roles can be members of other Roles, to any degree. You can, for
+  instance, use Roles to represent a company&#39;s organization chart, or the
+  set of classes at a university. A Role can be a member of as many other
+  Roles as you like (as long as the parents are Groups).</para>
+
+  <para>Roles can be assigned Privileges. By doing so, you define what a given
+  Role may or may not do on the site. You can use the test function of the
+  Roles module to see what parts of the site a Role with a given set of
+  Privileges has access to.</para>
+
+  <para>Roles have inheritance. A Role inherits all the Privileges of all of
+  its parents, but can override these inherited privileges. If you give a
+  group editing privileges, for instance, any other Role that is a member of
+  that Group inherits the editing privileges. If you want to restrict the
+  privileges of some of the members, simply assign them a different set of
+  privileges, and the privileges of the parent will be overridden.</para>
+
+  <sect1>
+    <title>How to use Roles?</title>
+
+    <para>The Roles on your site are displayed in a tree under
+    <command>Admin-&#62;Roles-&#62;View All Groups</command>. At the top of
+    the tree is a Role called Everybody, which represents the &#34;group of
+    all groups&#34; on your site. Every User and every Group is a member or
+    descendent of the Everybody Role.</para>
+
+    <para>Xaraya comes preconfigured with a minimal set of Roles that are
+    loaded when you run the installer. This configuration is shown below:</para>
+
+    <para><literallayout>				Everybody
+				|
+				|---Anonymous
+				|
+				|---Administrators
+				|   |
+				|   |---Admin
+				|
+				|---Users</literallayout></para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Everybody: The Role containing all other roles. This Role has no
+        access privileges.</para>
+      </listitem>
+
+      <listitem>
+        <para>Anonymous: A user that represents ALL unregistered users on your
+        site. This Role is initially configured with Privileges only to access
+        the front page of the site and the login block.</para>
+      </listitem>
+
+      <listitem>
+        <para>Administrators: A group that has administration privileges.</para>
+      </listitem>
+
+      <listitem>
+        <para>Admin: A member of Administrators group. This is the Admin role
+        you create with the Xaraya installer.</para>
+      </listitem>
+
+      <listitem>
+        <para>Users: A group that normally holds registered users of the site.
+        This role is not preconfigured with any privileges. Members of this
+        Group will not have access to the site until you assign privileges.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>The preconfigured Roles cannot be changed or removed. However, you
+    can add members to them. You can also define as many more Roles in the
+    tree as you wish in whatever configuration you choose.</para>
+
+    <para>Always keep in mind: When you create a role, until you&#39;ve
+    assigned privileges to it, the role will only have the privileges it
+    inherited from its parents.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><command>Admin-&#62;Roles-&#62;View All Groups</command>:</para>
+
+        <para>This panel displays a tree-view of all Roles on the site. The
+        following options are available for each Role:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;X&#34;
+            icon: Delete this Role. It is not possible to delete a Role that
+            contains any users. If you wish to delete a Role, first remove all
+            the users from the Role. When there are no users assigned to a
+            Role, the Delete icon becomes available.</para>
+          </listitem>
+
+          <listitem>
+            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Two
+            people&#34; icon: Display users assigned to this Role.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>View All: View all users in this Role.</para>
+              </listitem>
+
+              <listitem>
+                <para>View Inactive: View inactive users in this Role.</para>
+              </listitem>
+
+              <listitem>
+                <para>View Not Validated: View users in this Role who have not
+                yet validated their account.</para>
+              </listitem>
+
+              <listitem>
+                <para>View Active: View only active users in this Role.</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>Click the name of a specific user to go to a Modify User
+            Role panel where the selected user can be edited, or added to (or
+            removed from) a particular Role.</para>
+
+            <para>The Show Users screen allows you to delete a specific user,
+            view the privileges assigned to a specific user, or to test the
+            privileges of a specific user. Click the icon for the function you
+            wish to utilize. See below for an explanation of these functions.</para>
+          </listitem>
+
+          <listitem>
+            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Envelope&#34;
+            icon: Send a plain-text email to all members of this Role.</para>
+
+            <para>The following variables are available to be used in the
+            Subject or Body of the email (see Site Emails, below, for more
+            information on using variables):</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>%%name%% -- Display name for the user on the site</para>
+              </listitem>
+
+              <listitem>
+                <para>%%sitename%% -- Site Name</para>
+              </listitem>
+
+              <listitem>
+                <para>%%siteadmin%% -- Name of the site administrator</para>
+              </listitem>
+
+              <listitem>
+                <para>Subject: Enter the subject of your email message in this
+                field.</para>
+              </listitem>
+
+              <listitem>
+                <para>Message: Enter the body of your email message in this
+                field.</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Submit</guibutton>&#34; to send
+                email.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Arrow
+            pointing down at person&#34; icon: Show the Privileges assigned to
+            this Role.</para>
+
+            <para>Privileges are displayed in two categories:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Inherited Privileges</para>
+
+                <itemizedlist>
+                  <listitem>
+                    <para>Name: The name of the privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Realm: The realm in which the privilege exists</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Module: The specific module affected by the
+                    privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Component: The module component affected by the
+                    privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Instance: The instance affected by the privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Level: The access level of the privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>From Group: The group from which the privileges were
+                    inherited. Click the privilege name to view it.</para>
+                  </listitem>
+                </itemizedlist>
+              </listitem>
+
+              <listitem>
+                <para>Assigned Privileges</para>
+
+                <itemizedlist>
+                  <listitem>
+                    <para>Name: The name of the privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Realm: The realm in which the privilege exists</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Module: The specific module affected by the
+                    privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Component: The module component affected by the
+                    privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Instance: The instance affected by the privilege</para>
+                  </listitem>
+
+                  <listitem>
+                    <para>Level: The access level of the privilege</para>
+                  </listitem>
+                </itemizedlist>
+              </listitem>
+
+              <listitem>
+                <para>If a privilege can be removed, a &#34;<guibutton>Remove</guibutton>&#34;
+                link is displayed in the far right column. Click &#34;<guibutton>Remove</guibutton>&#34;
+                to delete the privilege. Only directly-assigned privileges can
+                be removed from this panel.</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>Assign a Privilege to Role &#60;rolename&#62;:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Privilege Drop-down list</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;Add&#34; to assign privilege.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Arrows
+            swirling around person&#34; icon: Test this Role&#39;s Privileges</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Registered Masks for this Module: Select a module from
+                the drop-down list. The screen will update with a list of
+                Masks for the module. Click the mask against which you want to
+                test privileges. The selected user/group is tested against
+                that mask, and if the user/group is permitted to perform the
+                action, a PERMITTED message is displayed. If the user/group is
+                not permitted to perform the action, a NOT PERMITTED message
+                is displayed.</para>
+              </listitem>
+
+              <listitem>
+                <para>Click &#34;<guibutton>Test</guibutton>&#34; to perform
+                test.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><command>Admin-&#62;Roles-&#62;Add Group/User</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Display name: The display name for the User/Group.</para>
+          </listitem>
+
+          <listitem>
+            <para>Type: From the drop-down list, choose if you wish to add a
+            new User or Group.</para>
+          </listitem>
+
+          <listitem>
+            <para>Member of: From this drop-down list, select the default Role
+            for this new User or Group.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>The following fields are required if &#34;Type&#34; (above) is
+        &#34;User&#34;. If you are adding a Group, these fields are not
+        available.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>User Name: The username of the user to be added.</para>
+          </listitem>
+
+          <listitem>
+            <para>Email: Email address of the user to be added.</para>
+          </listitem>
+
+          <listitem>
+            <para>State: From this drop-down list, select the state for the
+            new user&#39;s account.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Inactive:</para>
+              </listitem>
+
+              <listitem>
+                <para>Not Validated:</para>
+              </listitem>
+
+              <listitem>
+                <para>Active: The user&#39;s account is validated and fully
+                activated.</para>
+              </listitem>
+
+              <listitem>
+                <para>Pending:</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Password: The password for the user to be added.</para>
+          </listitem>
+
+          <listitem>
+            <para>Confirm Password: Confirm the user&#39;s password by
+            entering it here.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Add</guibutton>&#34; to save changes.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><command>Admin-&#62;Roles-&#62;Purge Users</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Select Status Type:</para>
+
+            <para>From the drop-down list, select the type of users you would
+            like to purge.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Inactive: This classification is for users that have
+                been inactive on the site for a specific period of time. If
+                you wish to purge users of this status type, select this value
+                from the drop-down list. OTTO: Where is inactive timeout set?</para>
+              </listitem>
+
+              <listitem>
+                <para>Not Validated: This classification is for users that
+                have registered an account but have not validated their
+                account. If you wish to purge users of this status type,
+                select this value from the drop-down list.</para>
+              </listitem>
+
+              <listitem>
+                <para>Pending:</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Click &#34;<guibutton>Submit</guibutton>&#34; to perform
+            purge.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><command>Admin-&#62;Roles-&#62;Modify config</command>:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Page Layout:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Number of Users to View Per Page to &#34;<userinput>25</userinput>&#34;</para>
+              </listitem>
+
+              <listitem>
+                <para>Enabled Short URLs: CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Show Terms of Service: CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Show Privacy Policy: CHECKED</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>User Registration Options:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Allow Registration: CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Minimum age to be a user: &#34;<userinput>13</userinput>&#34;</para>
+              </listitem>
+
+              <listitem>
+                <para>Allow users to choose their own password when
+                registering: CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Minimum length for password: &#34;<userinput>5</userinput>&#34;</para>
+              </listitem>
+
+              <listitem>
+                <para>Send notice to admin when new user registers: CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Require explicit administrator approval before
+                activating new user: CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Require validation of new user: CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Show dynamic properties on registration (if enabled):
+                CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Send welcome email on successful registration of user:
+                CHECKED</para>
+              </listitem>
+
+              <listitem>
+                <para>Default group for new users: From the drop-down list,
+                select the default group to which new users will be assigned
+                after successfully registering (and, if enabled, validating)
+                their account.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Filtering Options:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Disallowed user names: Enter usernames that are
+                forbidden for use on the site.</para>
+              </listitem>
+
+              <listitem>
+                <para>Disallowed email addresses: Enter email addresses that
+                are forbidden for use on the site.</para>
+              </listitem>
+
+              <listitem>
+                <para>Disallowed IP addresses: Enter IP addresses that are
+                forbidden for use on the site.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+
+        <para>Click &#34;<guibutton>Update Users Configuration</guibutton>&#34;
+        to save changes.</para>
+      </listitem>
+    </itemizedlist>
+
+    <sect2>
+      <title>Site Emails</title>
+
+      <para>The site can automatically send email messages to users at various
+      stages of user registration. Emails can be sent for to confirm a new
+      user, welcome a confirmed user to the site, remind a registered user of
+      their password, or to re-validate a user who has changed email
+      addresses.</para>
+
+      <para>The next few options allow customization of the site emails.</para>
+
+      <para>The following variables can be included in the email (either
+      subject or body) and are replaced in the text with specific information:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>%%username%% -- User&#39;s username on the site</para>
+        </listitem>
+
+        <listitem>
+          <para>%%name%% -- Display name for the user on the site</para>
+        </listitem>
+
+        <listitem>
+          <para>%%sitename%% -- Site Name</para>
+        </listitem>
+
+        <listitem>
+          <para>%%siteadmin%% -- Name of the site administrator</para>
+        </listitem>
+
+        <listitem>
+          <para>%%password%% -- User&#39;s password</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Additionally, if you have configured Dynamic Data for the Roles
+      module, available Dynamic Date objects are listed as variables.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><command>Admin-&#62;Roles-&#62;Confirmation Email</command>:</para>
+
+          <para>This email is sent to users to complete their registration by
+          clicking a link in the email.</para>
+
+          <para>The confirmation email is plain text. Edit the subject and
+          body as necessary, and click &#34;<guibutton>Submit new confirmation
+          email</guibutton>&#34; to save changes.</para>
+
+          <para>The following variables are available in this message body or
+          subject:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>%%link%%: The link on which the the user must click to
+              complete registration</para>
+            </listitem>
+
+            <listitem>
+              <para>%%ipaddr%%: The IP address of the person registering</para>
+            </listitem>
+
+            <listitem>
+              <para>%%name%%: Name given by user during registration</para>
+            </listitem>
+
+            <listitem>
+              <para>%%valcode%%: Validation code to activate the user&#39;s
+              account</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para><command>Admin-&#62;Roles-&#62;Welcome Email</command>:</para>
+
+          <para>This email is sent to users to welcome them to the site.</para>
+
+          <para>The welcome email is plain text. Edit the subject and body as
+          necessary, and click &#34;<guibutton>Submit new welcome email</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+
+        <listitem>
+          <para><command>Admin-&#62;Roles-&#62;Reminder Email</command>:</para>
+
+          <para>This email is sent to users who indicate that they have lost
+          their password.</para>
+
+          <para>The reminder email is plain text or HTML depending on your
+          settings in <command>Admin-&#62;Mail-&#62;Modify config</command>.
+          Edit the subject and body as necessary, and click &#34;<guibutton>Submit</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+
+        <listitem>
+          <para><command>Admin-&#62;Roles-&#62;Validation Email</command>:</para>
+
+          <para>This email is sent to users when they re-validate their
+          account (for example, change email address).</para>
+
+          <para>The validation email is sent as plain text or HTML depending
+          on your settings in <command>Admin-&#62;Mail-&#62;Modify config</command>.
+          Edit the subject and body as necessary, and click &#34;<guibutton>Submit</guibutton>&#34;
+          to save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+
+    <sect2>
+      <title>KNOWLEDGE REVIEW: Reviewing Roles</title>
+
+      <para>OTTO: Add a new Category and limit it so only Joe and Jane can see
+      it but Bob can&#39;t.</para>
+    </sect2>
+  </sect1>
+</chapter>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>HTML Module</title>
+
+  <subtitle>Configure the allowed HTML for your site. <command>Admin-&#62;Html</command>.</subtitle>
+
+  <para>This table displays the HTML tags that Xaraya will accept in content
+  submissions, either from users or from Administrators. All content entry
+  areas accept HTML tags based on the specifications in this table. To modify
+  the settings, click <command>Admin-&#62;Html-&#62;Set Allowed</command>.
+  Specify if the tag is &#39;<guibutton>Not Allowed</guibutton>&#39;, &#39;<guibutton>Allowed</guibutton>&#39;,
+  or &#39;<guibutton>Allow Parameters</guibutton>&#39;.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Not allowed: The HTML tag is never allowed and will be ignored in
+      the post.</para>
+    </listitem>
+
+    <listitem>
+      <para>Allowed: The HTML tag is allowed without any parameters. This is
+      useful for on-or-off text-formatting tags (for example, &#60;b&#62; and
+      &#60;/b&#62; for BOLD, &#60;i&#62; and &#60;/i&#62; for ITALICS, etc.).</para>
+    </listitem>
+
+    <listitem>
+      <para>Allow parameters: The HTML tag is allowed with parameters. An
+      example of a tag with parameters is &#60;font type=&#34;Arial&#34;
+      color=&#34;#FF0000&#34;&#62;.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>If you would like to add an HTML tag that is not in the table, click
+  <command>Admin-&#62;Html-&#62;Add</command> and enter the HTML tag into the
+  text box. It is not necessary to enclose the tag in &#34;<userinput>&#60;</userinput>&#34;
+  and &#34;<userinput>&#62;</userinput>&#34;. Click &#34;<guibutton>Create
+  HTML Tag</guibutton>&#34; to save changes. The new tag is inserted into the
+  HTML tag list as &#34;<guibutton>Not allowed</guibutton>&#34;. Edit the
+  setting as necessary.</para>
+
+  <para>To delete an HTML tag from the table, click &#34;<guibutton>Delete</guibutton>&#34;
+  next to the tag. Confirm your intention to delete the tag by clicking &#34;<guibutton>Submit</guibutton>&#34;,
+  or click &#34;<guibutton>Cancel deletion of HTML Tag</guibutton>&#34; to
+  abort deletion.</para>
+
+  <para>Click &#34;<guibutton>Submit</guibutton>&#34; to save changes.</para>
+</sect2>

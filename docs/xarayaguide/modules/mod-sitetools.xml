@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect2>
+  <title>SiteTools Module</title>
+
+  <subtitle>Set of tools for site and database maintenThis option allows you
+  to flush (delete) cache files in either of all of your Template, RSS or
+  adodb cache directories. <command>Admin-&#62;Sitetools</command>.</subtitle>
+
+  <para>The Site Tools Module provides a set of utilities to assist in
+  managing cache files, and databases for your site, from within Xaraya. As
+  time progresses, other site utilities may be added to this module, so you
+  should check for an upgrade in <command>Admin-&#62;Modules</command>
+  listings when installing new versions of Xaraya or this module.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><command>Optimize database</command>:</para>
+
+      <para>This utility allows you to optimize your database. Tables are
+      listed with optimization status, and the amount of space saved through
+      an optimization. At this time only MySQL databases are supported, but we
+      expect this will be expanded to other database types with time, as well
+      as the ability to choose from one or more databases.</para>
+
+      <para>Click &#34;<guibutton>Optimize Now!</guibutton>&#34; to optimize
+      your database. Optimization totals are displayed on the next panel when
+      optimization has completed.</para>
+    </listitem>
+
+    <listitem>
+      <para><command>Backup database</command>:</para>
+
+      <para>Before this option can be used, a Backup Path must be configured
+      in <command>Admin-&#62;Sitetools-&#62;Modify config</command>. The path
+      must exist and be world-writable. The backup database utility allows you
+      to create one of four different types of database backups:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Full backup with complete inserts</para>
+        </listitem>
+
+        <listitem>
+          <para>Full backup with standard inserts (a smaller file)</para>
+        </listitem>
+
+        <listitem>
+          <para>Partial backup: all tables are listed with their number of
+          records and you can choose the tables to backup.</para>
+        </listitem>
+
+        <listitem>
+          <para>Structure only: only the structure of your database will be
+          backed up. No content.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>In all options, you can choose to create a compressed gz file, or
+      text sql file. The gz option will only be effective if your server has
+      gz option available.</para>
+
+      <para>At this time only MySQL databases are supported, but we expect
+      this will be expanded to other database types with time, as well as the
+      ability to choose from one or more databases.</para>
+
+      <note>
+        <para>Do not leave your backup file on the server in a web browsable
+        directory. Remember to move it to a secure directory, or delete the
+        file when you have saved it to your local computer.</para>
+      </note>
+    </listitem>
+
+    <listitem>
+      <para><command>Clear Cache files</command>:</para>
+
+      <para>This option allows you to flush (delete) cache files in any/all of
+      your Template, RSS, or ADODB cache directories. To select the caches to
+      be flushed, CHECK the box. If a box is left UNCHECKED, the cache files
+      for that directory will not be removed. Click &#34;<guibutton>Confirm
+      deletion</guibutton>&#34; to perform the deletion of cache files.</para>
+    </listitem>
+
+    <listitem>
+      <para><command>Browse Cache files</command>:</para>
+
+      <para>This option allows you to list and browse all cache files in your
+      Template cache directory, with the corresponding template file listed.
+      By clicking on a listed file you can browse the contents which are
+      displayed with line numbering. This is useful when debugging new
+      templates, or isolating problems with existing templates.</para>
+    </listitem>
+
+    <listitem>
+      <para><command>Modify config</command>:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Cache file options: Set paths to your template, RSS, and ADODB
+          caches. These should not be changed unless you physically configure
+          new directories for cache files. Unless you did this through the
+          Multisite Module, you would have to make changes to the Xaraya code
+          for this.</para>
+        </listitem>
+
+        <listitem>
+          <para>Backup Options: You must enter the path to the directory where
+          your backup files will be created. The default is the
+          <filename>&#60;xarroot&#62;/var/uploads</filename> directory as this
+          is writeable (chmod 777). If you change this, make sure your backup
+          directory exists and is writeable.</para>
+        </listitem>
+
+        <listitem>
+          <para>Use timestamps in backup files: By checking this, a time stamp
+          will be written into the name of any backup files that are created.</para>
+        </listitem>
+
+        <listitem>
+          <para>Columns for display: For partial backups, all tables are
+          displayed for selection and inclusion into the backup. This option
+          allows you to change the number of columns used for display.</para>
+        </listitem>
+
+        <listitem>
+          <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34; to
+          save changes.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</sect2>

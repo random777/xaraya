@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+"/usr/share/sgml/docbook/xml-dtd-4.2/docbookx.dtd" [
 <!ENTITY frontmatter SYSTEM "frontmatter.xml">
 <!ENTITY getting SYSTEM "getting.xml">
 <!ENTITY installing SYSTEM "installing.xml">

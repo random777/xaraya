@@ -442,7 +442,7 @@
           Click &#34;<guibutton>New</guibutton>&#34; to begin adding a new
           Publication Type with the following values:</para>
 
-          <graphic fileref="SourceImages/PubType.jpg" format="JPG" width="450" />
+          <graphic fileref="sourceimages/pubtype.jpg" format="JPG" width="450" />
 
           <para>Click &#34;<guibutton>Create</guibutton>&#34; to save changes.</para>
         </listitem>

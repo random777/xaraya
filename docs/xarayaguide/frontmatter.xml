@@ -240,8 +240,8 @@
       <emphasis>code</emphasis>, a lot of time is spent wrapping the content
       with HTML code so that it can be presented in a meaningful way.
       Composing pages in static HTML is time-intensive and can interfere with
-      content; it’s comparable to asking a book author to tackle typesetting,
-      printing, and binding, which would certainly detract from the writer’s
+      content; it's comparable to asking a book author to tackle typesetting,
+      printing, and binding, which would certainly detract from the writer's
       primary goal: to provide content.</para>
 
       <sect3>
@@ -249,7 +249,7 @@
 
         <para>Without the separation of code and content, many aspects of
         managing a static HTML site are difficult. It is complicated to
-        establish the ‘look’ of a site, and not easy to change that look once
+        establish the 'look' of a site, and not easy to change that look once
         set. Searching for information on a site, even one with a limited
         number of pages, is an inaccurate, time-consuming task. It is
         impractical to collaborate on pages with colleagues unless additional
@@ -259,7 +259,7 @@
         <para>For many people, HTML editing programs like FrontPage and
         DreamWeaver present a better approach to website design,
         implementation, and maintenance. These programs offer tools for
-        defining a site-wide ‘look’ using site templates, as well as
+        defining a site-wide 'look' using site templates, as well as
         additional features to make it easier to create and edit static HTML
         pages. However, even when using these tools, adding or modifying
         content still requires a combination of writing and coding, which can
@@ -268,13 +268,13 @@
 
         <para>For example typical publication cycle for a static HTML site
         might follow this pattern: An article is written; then passed to the
-        web maintainer who creates a new page (following the site’s design)
+        web maintainer who creates a new page (following the site's design)
         either from a template or from scratch. The article is converted to
         HTML code and pasted into the new page; which, depending on the
-        maintainer’s workload may take several hours or more to be posted on
+        maintainer's workload may take several hours or more to be posted on
         the website. The new page is uploaded to the website and then manually
         linked to other pages as necessary, with related pages updated as
-        necessary. That’s a lot of time and a lot of work.</para>
+        necessary. That's a lot of time and a lot of work.</para>
 
         <para>In a limited number of contexts, static HTML may be quite
         suitable for a website. If the content on the site does not get
@@ -290,7 +290,7 @@
         features that simply were not available with static HTML sites.</para>
 
         <para>This represents a glance toward the past -- or maybe this is a
-        look at the way you’re currently doing things, and you have found
+        look at the way you're currently doing things, and you have found
         yourself with too much data to manage effectively. But there is a
         better way. A way that will allow you create and present meaningful
         content on your website without downloading, coding, and uploading --
@@ -331,9 +331,9 @@
 
         <para>Content Management Systems allow content to be handled and
         updated dynamically and makes it easy for non-technical people to
-        create and modify content. What is ‘dynamic content’? Dynamic content
+        create and modify content. What is 'dynamic content'? Dynamic content
         is content that may change frequently, is separated from the display
-        (HTML) code, and is made into an ‘element’ that can be manipulated by
+        (HTML) code, and is made into an 'element' that can be manipulated by
         the Content Management System. Dynamic content elements are usually
         stored in a database which is running the website.</para>
 
@@ -384,7 +384,7 @@
           <listitem>
             <para>Allow for community involvement and collaboration. While
             CMS-based sites can be run effectively by one person, the
-            community can easily comment on a website’s content without
+            community can easily comment on a website's content without
             requiring special access.</para>
           </listitem>
 
@@ -392,7 +392,7 @@
             <para>Gives administrators complete control over what each user or
             group of users can do within a web site. Administrators can
             control access to sections of a site, and assign user privileges
-            and permissions to individuals or groups as we’ll see in Chapter
+            and permissions to individuals or groups as we'll see in Chapter
             XX.</para>
           </listitem>
         </itemizedlist>
@@ -406,7 +406,7 @@
         welcome it. CMS managed sites are simply so much easier to maintain
         than static HTML sites. To update a CMS site, all you need to do is
         surf to it and click on links to update the site. So, if you know how
-        to surf the ‘Net, you can maintain the site; very little other work is
+        to surf the 'Net, you can maintain the site; very little other work is
         necessary!</para>
 
         <para>So far in this discussion, we have discussed only the most basic
@@ -450,7 +450,7 @@
         <para>And you guessed it: the Xaraya Content Management System and all
         the pieces of software required to make it work are Open Source!</para>
 
-        <para>In the next section we’ll take a closer look at Xaraya and
+        <para>In the next section we'll take a closer look at Xaraya and
         explore some of the many features that it has to offer.</para>
       </sect3>
     </sect2>

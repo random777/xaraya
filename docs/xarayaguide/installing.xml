@@ -22,7 +22,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install01.jpg"
+            <imagedata align="left" fileref="sourceimages/install01.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -38,7 +38,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install02.jpg"
+            <imagedata align="left" fileref="sourceimages/install02.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -60,7 +60,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install03.jpg"
+            <imagedata align="left" fileref="sourceimages/install03.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -116,7 +116,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install04.jpg"
+            <imagedata align="left" fileref="sourceimages/install04.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -149,7 +149,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install06.jpg"
+            <imagedata align="left" fileref="sourceimages/install06.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -192,7 +192,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install07.jpg"
+            <imagedata align="left" fileref="sourceimages/install07.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -246,7 +246,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install08.jpg"
+            <imagedata align="left" fileref="sourceimages/install08.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -264,7 +264,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="SourceImages/Install09.jpg"
+            <imagedata align="left" fileref="sourceimages/install09.jpg"
             format="JPG" width="450" />
           </imageobject>
         </mediaobject>
@@ -335,7 +335,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata align="left" fileref="SourceImages/Install10.jpg"
+          <imagedata align="left" fileref="sourceimages/install10.jpg"
           format="JPG" width="450" />
         </imageobject>
       </mediaobject>

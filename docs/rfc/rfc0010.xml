@@ -347,36 +347,145 @@ html/
         not         not             not
       </artwork>
 				</t>
+        <t>
+          For the description of the tag attributes the following conventions are used:
+          <list>
+            <t><em>attributename</em> indicates the name of the attribute described</t>
+            <t><em>[attribute]</em> when square brackets surround the attribute this indicates an optional attribute</t>
+            <t><em>[attribute]</em> (defaultvalue) indicates an optional attribute, the default value is
+              given between the brackets
+            </t>
+            <t><em>attribute</em> {(value)|value2} indicates that the attribute can have the values 'value' and 
+              'value2' of which 'value' is the default if none is specified.
+            </t>
+          </list>
+        </t>
+        <t>
+          The 'context' section for each tag description describes to which 'parent' tag the described tag 
+          belong, in the sense of required structure, and the child tags which are expected before the closing
+          tag, again in terms of required structure.
+        </t>
 				<!-- xar:block -->
 				<section anchor="block" title="&lt;xar:block /&gt;">
-					<t>Closed</t>
-					<t>Attributes:
-            <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>instance: if the block is dynamic, should be the value of the
-                xar_id in nuke_block_instances</t>
-							<t>name: the value of the xar_name field of the nuke_block_types db
-                table</t>
-							<t>module: the module that owns the given block.</t>
-							<t>template: identifier for the appearance of a block, set in
-                administration (optional, static blocks only)</t>
-							<t>type: declares if the block has dynamic or static content. Static
-                blocks are defined wholly within their template.</t>
-						</list>
-					</t>
-					<t>Description</t>
-					<t>
-            A block template requires title and content for display. Title may be
-            an empty string.
+          <t>
+            The xar:block tag places a "block" of content into the
+            output. A block is always owned by a module, which is
+            responsible for feeding the block with the appropriate
+            information to produce its output. There are a number
+            of flexible ways to control what a block contains and how 
+            it will appear in the output. 
+            <note>
+              <t>The block tag is one of the most flexible constructs
+                in blocklayout (how surprising). We haven't even touched
+                at all the possibilities ourselves yet. Unfortunately this
+                makes it also the most untested area in blocklayout and 
+                vulnerable for surprises. 
+              </t>
+            </note>
           </t>
-					<t>Syntax example:
+          <t>
+            There are two types of blocks:
+            <list style="numbers">
+              <t>static blocks</t>
+              <t>dynamic blocks</t>
+            </list>
+          </t>
+          <t>
+            Static blocks are defined completely within their
+            template file, and are not dependent on any other 
+            information. A block containing a piece of html to render
+            is an example of such a block. Dynamic blocks however,
+            have dynamic contents. This means that their content
+            depends on a certain state of the site at a certain
+            moment in time. Examples of this type are: "Last 5 items
+            posted on site", "Currently logged on users"
+            etcetera. Each block consist of a title and content. The
+            title may be an empty string.
+          </t>
+          <section title="Forms">
+            <t>Empty form:
+              <t>
+                When a block is specified in empty form, the contents of the block are <em>implicit</em>
+                i.e. the contents will be produced by another part of xaraya.
+              </t>
+            </t>
+            <t>Block form:
+              <t>
+                When the block element is specified with an opening tag, 1 or more content producing 
+                child tags and a closing tag, the children of the block tag are taken as the content
+                of the block, overriding the implicit mechanism of the empty form. Note that the module
+                and name attribute have a different meaning when a block is specified in this way.
+                The system will still try to search the specified module for a display function to get
+                the appropriate data for it. That display function may or may not exist. If it does
+                not exist, the content provided by the child tags is used to render the block contents.
+              </t>
+              <t>Note: especially this area is largely untested at this time</t>
+            </t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em><t> an identifier for the tag</t></t>
+              <t><em>[instance]</em>
+                <t>
+                  If instance is specified, it's value is used to look up the 
+                  the specific block in the database. The rest of the attributes is
+                  ignored when instance is specified.
+                </t>
+              </t>
+              <t>
+                For the description of the rest of the attributes, we will assume that the instance
+                attribute was not specified, including the optional specification for the attributes.
+              </t>
+              <t><em>module</em>
+                <t>
+                  Name of the module which owns the block. In the administration part of Xaraya this is visible when 
+                  looking at the block types. 
+                </t>
+              </t>
+              <t><em>name</em>
+                <t>
+                  Name of the block to display. The name is the value of the field filled in by the site manager
+                  in the administration part of Xaraya.
+                </t>
+              </t>
+              <t><em>[title]</em>
+                <t>The title to use for the block.</t>
+              </t>
+              <t><em>[template]</em>(default)
+                <t>
+                  Name of a template to use for the block. The template is best viewed as a template for the box
+                  surrounding the block. The contents of the block itself is produced on the basis of other sources,
+                  depending on what is inside the block. 
+                </t>
+              </t>
+            </list>
+          </section>
+					<section title="Syntax examples">
             <artwork>
-              &lt;xar:block type="dynamic" instance="2" module="base" /&gt;
-              &lt;xar:block type="static" module="base" template="SeaBreeze_block_2" /&gt;
+              &lt;xar:block instance="2" module="base" /&gt; // module attribute ignored here
+              
+                This renders block instance number 2 directly. All other attributes are ignored.
+            
+              &lt;xar:block module="base" name="goodie" template="SeaBreeze_block_2" /&gt;
+
+                Look for block 'goodie' owned by module 'base' (this provides the implicit content) and
+                try to render it with template 'SeaBreeze_block_2'
+
+              &lt;xar:block module="base" name="goodie" &gt;
+                &lt;p&gt;
+                  This block temporarily out of order
+                &lt;/p&gt;
+              &lt;/xar:block&gt;
+
+                This block has explicit contents specified directly in the block tag. That content will
+                be rendered by applying the default block template from the 'base' module and block 'goodie'
+                (which may still be overridden by the theme)
             </artwork>
-					</t>
-					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: none</t>
+          </section>
 				</section>
 				<!-- xar:blockgroup -->
 				<section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">

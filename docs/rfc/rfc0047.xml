@@ -205,7 +205,7 @@
             <t>
                The response to this request will either be an error in the same format as returned 
                from the above request, or the list of TrackBack pings for that item in RSS markup, 
-               wrapped in &lt;response$gt; tags.
+               wrapped in &lt;response&gt; tags.
             </t>
             <t>For example:</t>
             <t><artwork>
@@ -234,56 +234,130 @@
         </section>
         
         <section title="TrackBack Auto-Discovery">
+            <t>
+               TrackBack clients need a method of determining the TrackBack Ping URL for a particular URL 
+               or weblog entry. Server implementations should include embedded RDF in the pages they 
+               produce; the RDF represents metadata about an entry, allowing clients to auto-discover 
+               the TrackBack Ping URL.
+            </t>
+            <t>Sample RDF looks like this:</t>
+            <t><artwork>
+                &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+                      xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
+                      xmlns:trackback=&quot;http://madskills.com/public/xml/rss/module/trackback/&quot;&gt;
+
+                &lt;rdf:Description
+                rdf:about=&quot;http://www.foo.com/archive.html#foo&quot;
+                dc:identifer=&quot;http://www.foo.com/archive.html#foo&quot;
+                dc:title=&quot;Foo Bar&quot;
+                trackback:ping=&quot;http://www.foo.com/tb.cgi/5&quot; /&gt;
+                &lt;/rdf:RDF&gt;
+            </artwork></t>
+            <t>
+               The dc: elements are standard Dublin Core elements; the trackback:ping element comes from the 
+               TrackBack Module for RSS 1.0/2.0 at http://madskills.com/public/xml/rss/module/trackback/.
+            </t>
+            <t>Given a URL my_url, clients should follow these steps:</t>
+            <list style="numbers">
+                <t>Send an HTTP GET request to retrieve the contents of the page at my_url.</t>
+                <t>
+                   Scan the page contents for embedded RDF. Pages can contain multiple instances of 
+                   embedded RDF--clients should pick the block whose dc:identifier matches my_url.
+                </t>
+                <t>Extract the trackback:ping value from the block of RDF. This is the TrackBack Ping URL.</t>
+            </list>
+            <t>
+               Once the client has determined the TrackBack Ping URL, it can send a TrackBack ping 
+               see Sending a TrackBack Ping.
+            </t>
+            
             <t>Example Auto-Discovery</t>
             <t><artwork>
                example in javascript:
                window.open('http://your.xaraya.com/ws.php?type=trackback&amp;url=currenturl');
             </artwork></t>
         </section>
-        
-        <section title="What is a Permalink?">
+
+        <section title="Solution proposals - database tables">
+            <t>xar_trackback_pings:</t>
             <t><artwork>
-               permalink (pûrma-lingk) n. 
-               A permanent marker or reference point to a certain document on the world wide web. 
-               Most commonly used for weblogs, news sites and newspapers. 
-               A permalink is denoted through the use of a symbol (pound sign, arrow, dot), 
-               date of content creation, the word permalink or image.
+                CREATE TABLE xar_trackback_pings (
+                    pingid INT(11) NOT NULL AUTO_INCREMENT,
+                    modid INT(11) NOT NULL DEFAULT 0,
+                    itemid INT(11) NOT NULL DEFAULT 0,
+                    url INT(255) NOT NULL DEFAULT '',
+                    blog_name VARCHAR(255) NOT NULL DEFAULT '',
+                    title VARCHAR(255) NOT NULL DEFAULT '',
+                    excerpt TEXT,
+                    created_by INT(11) NOT NULL DEFAULT 0,
+                    created_on INT(11) UNSIGNED NOT NULL DEFAULT 0,
+                    modified_by INT(11) NOT NULL DEFAULT 0,
+                    modified_on INT(11) UNSIGNED NOT NULL DEFAULT 0,
+                    PRIMARY KEY(pingid),
+                    INDEX(xar_trackback_pings_modid),
+                    INDEX(xar_trackback_pings_itemid),
+                    INDEX(xar_trackback_pings_url)
+                }
             </artwork></t>
         </section>
-        
-        <section title="Solution proposals - database tables">
-            <t>
-            </t>
-        </section>
-        
+
         <section title="Solution proposals - functions">
-            <t>
-            </t>
+            <t>user:</t>
+            <t><artwork>
+                trackback_user_display();
+            </artwork></t>
+
+            <t>userapi:</t>
+            <t><artwork>
+                trackback_userapi_getpings();
+            </artwork></t>
+            <t>admin:</t>
+            <t><artwork>
+            </artwork></t>
+
+            <t>adminapi:</t>
+            <t><artwork>
+                trackback_adminapi_sendping();
+                trackback_adminapi_
+                trackback_adminapi_create();
+                trackback_adminapi_delete();
+                trackback_adminapi_deleteall();
+            </artwork></t>
         </section>
-        
+
         <section title="Code that will need to be rewritten">
             <t>
             </t>
         </section>
-        
+
         <section title="Tools that need to be written from scratch">
             <t>
             </t>
         </section>
-        
+
         <section title="Current Issues">
             <t>
             </t>
         </section>
-        
+
+        <section title="What is a Permalink?">
+            <t><artwork>
+               permalink (pûrma-lingk) n.
+               A permanent marker or reference point to a certain document on the world wide web.
+               Most commonly used for weblogs, news sites and newspapers.
+               A permalink is denoted through the use of a symbol (pound sign, arrow, dot),
+               date of content creation, the word permalink or image.
+            </artwork></t>
+        </section>
+
         <!-- Revision history is mandatory -->
         <section title="Revision history">
             <t>2003-07-25: MrB: added TrackBack explanation</t>
             <t>2003-07-24: MrB: created</t>
         </section>
-        
+
     </middle>
-    
+
     <!-- Back matter is used for references and appendices which come after the references -->
     <back>
         <references title="Reference title">

@@ -35,14 +35,14 @@
   <!-- source tree properties -->
   <property name="html.dir" value="html" />
   <property name="docs.dir" value="docs" />
-  <property name="tests.dir" value="tests" />
+  <property name="tools.dir" value="tools" />
   <property name="sql.dir" value="sql"/>
   
   <!-- build tree properties -->
   <property name="build.dir" value="${build.basedir}/${final.name}"/>
   <property name="build.docs" value="${build.dir}/docs"/>
   <property name="build.sql" value="${build.dir}/sql" />
-  <property name="build.tests" value="${build.dir}/tests"/>
+  <property name="build.tools" value="${build.dir}/tools"/>
   <property name="build.html" value="${build.dir}/html"/>
   
   <!-- We need something extra until phing 2 can be used, which is php 5 only -->
@@ -137,11 +137,10 @@
       </fileset>
     </copy>
     
-    <!-- Proces tests directory -->
-    <mkdir dir="${build.tests}"/>
-    <copy todir="${build.tests}">
-      <fileset dir="${tests.dir}">
-        <!-- <include name="caching/**"/> -->
+    <!-- Proces tools directory -->
+    <mkdir dir="${build.tools}"/>
+    <copy todir="${build.tools}">
+      <fileset dir="${tools.dir}">
         <include name="import/**"/>
         <include name="modwizard/**"/>
         <exclude name="SCCS/**"/>

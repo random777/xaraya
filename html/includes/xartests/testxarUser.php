@@ -14,34 +14,10 @@ class testxarUser extends xarTestCase {
         include_once 'xarServer.php';
     }
     
-    function precondition() {
-        return true;
+    function testEmptyUserVar() {
+        return $this->assertNull(xarUserGetVar(''),"Passing empty user var should return null");
     }
 
-    function teardown () {
-        // not needed here
-    }
-    
-    /*
-    function testUserLogin() {
-        $GLOBALS['xarUser_authenticationModules'] = '';
-        $username = 'Admin';
-        $password = 'password';
-        return $this->assertTrue(xarUserLogIn($username, $password, $rememberme = 0),"Check a user logging in");
-    }
-    */
-    /*
-    function testInit() {
-        return $this->assertTrue(xarUser_init('',''),"User System Initialisation");
-    }
-    */
-    function testUserVar() {
-        return $this->assertFalse(xarUserGetVar(''),"Check for a non-existant user var");
-    }
-
-    function testLogOut() {
-        return $this->assertTrue(xarUserLogOut('1'),"Test for logout");
-    }
 }
 
 $suite->AddTestCase('testxarUser','Testing xarUser.php');

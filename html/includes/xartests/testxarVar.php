@@ -9,23 +9,18 @@ class testxarVar extends xarTestCase {
         include_once 'xarServer.php';
     }
     
-    function precondition() {
-        return true;
-    }
-
-    function teardown () {
-        // not needed here
-    }
-    
-    
     function testCleanUntrusted() {
+        // TODO: define more input and make them all pass
         $var = '<script>';
-        return $this->assertFalse(xarVarCleanUntrusted($var),"Clean var from untrusted source");
+        $res =xarVarCleanUntrusted($var);
+        return $this->assertEquals(strlen($res),0,0,"<script> is cleaned from untrusted");
     }
 
     function testCleanFromInput() {
+        // TODO: define more input and make them all pass
         $var = '<script>';
-        return $this->assertFalse(xarVarCleanFromInput($var),"Clean var from input");
+        $res=xarVarCleanFromInput($var);
+        return $this->assertEquals(strlen($res),0,0,"<script> is cleaned from input");
     }
 }
 

@@ -1,34 +1,33 @@
 <?php
 
 class testxarMod extends xarTestCase {
-    var $myBLC;
-    
+       
     function setup() {
-    include_once 'xarCore.php';
-    include_once 'xarLog.php';
-    include_once 'xarDB.php';
-    include_once 'xarServer.php';
-    include_once 'xarMod.php';
+        include_once 'xarCore.php';
+        include_once 'xarLog.php';
+        include_once 'xarDB.php';
+        include_once 'xarServer.php';
+        include_once 'xarMod.php';
+        include_once 'xarEvt.php';
+        include_once 'xarMLS.php';
     }
     
     function testInit() {
         return $this->assertTrue(xarMod_init('',''),"Module System Initialisation");
     }
     
-    /* Doesn't work.
-    function testLoadAPI() {
-        return $this->assertTrue(xarModAPIFunc($modName = 'base', $modType = 'user', $funcName = 'handleBaseURLTag'),"Load an API File");
-    }
-    */
-    function testLoadAPI() {
-        return $this->assertTrue(xarMod_getFileInfo('base'),"Check File Info");
+    function testGetFileInfo() {
+        $savedir=getcwd();
+        // We must be in the root of the webserver directory
+        $dir=exec('bk root')."/html";
+        chdir($dir);
+        $info = xarMod_getFileInfo('base');
+        // The returned array should contain 15 entries
+        $res = $this->assertEquals(count($info),15,0,"GetFileInfo should return 15 entries");
+        chdir($savedir);
+        return $res;
     }
 
-    /*
-    function testLoadAPI() {
-        return $this->assertTrue(xarModIsAvailable('base'),"Check File Info");
-    }
-    */
 }
 
 $suite->AddTestCase('testxarMod','Testing xarMod.php');

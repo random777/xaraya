@@ -22,6 +22,7 @@
 define('UT_PREFIXTESTMETHOD','test'); // functions starting with this prefix are considered tests
 define('UT_OUTLENGTH',50);            // width of the text output in text reporting mode
 
+
 /**
   * class xarTestSuite
   * 
@@ -331,7 +332,8 @@ class xarTestAssert {
         return $this->fail($msg);
     }
 
-
+    // TODO: This is a confusing assertion, if will fail for all other
+    //       datatypes, which is good, but not very intuitive
     function assertEmpty($expected,$msg='Test for empty array') {
         if (is_array($expected) && empty($expected)) {
             return $this->pass($msg);

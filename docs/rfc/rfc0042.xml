@@ -98,7 +98,7 @@
                    for each module that is hooked to them. This type of hook will automatically insert those options
                    within the rest of the module configuration screen, and update them when the module configuration itself is being updated.</t>
             </section>
-            <section title="Special-Purpose Hooks : Search, UserMenu, ...">
+            <section title="Special-Purpose Hooks : Search, UserMenu, WaitingContent, ...">
                 <t>All the hook types described above provide some common add-on features that can be used to extend different modules.
                    So a utility module like autolinks, that provides an Item Transform hook, can be used by any module that calls the standard Item Transform hooks, e.g. in articles, xproject, xarbb, ...</t>
                 <t>There is another type of hooks that works the other way around : those hooks are only called in one particular place, by one particular module,
@@ -109,12 +109,22 @@
                 <t>Another example is the UserMenu hook, which is used by the roles module to call any hook function that provides a user menu, for integration in "Your Account".
                    So the articles module may provide a user menu function, and the xarbb module may provide one, and the roles module as well, and it's up to the site administrator
                    to decide which user menu functions he wants to allow by enabling the corresponding hooks.</t>
+                <t>The WaitingContent hook is another example, which is used by the adminpanels module to call any hook function that provides a list of waiting content, for use in the waitingcontent block.
+                   So the articles module may provide a list of waiting content, and the xarbb module may provide one, and the polls module as well, and it's up to the site administrator
+                   to decide which waiting content he wants to see by enabling the corresponding hooks.</t>
+                <t>The Module Remove hook functions are called by Xaraya when a particular module is being removed, so that hook modules can perform some clean-up of their own table(s) if necessary.</t>
             </section>
     </section>
     
     <section title="Enabling or disabling hooks">
-        <t>Site administrators can enable hooks via the Modules administration...</t>
+        <t>Site administrators can enable hooks via the Modules administration :
+           <list style="symbols">
+           <t>if you want to enable some hooks for a particular module (e.g. articles), you can do that via Modules -&gt; View All -&gt; extend that particular module</t>
+           <t>if on the other hand, you want to enable/disable a particular hook (e.g. comments) for several modules at once (e.g. articles, example, polls, ...), you should do that via Modules -&gt; Configure hooks -&gt; choose that particular hook module</t>
+           </list>
+        </t>
         <t>If you want to enable or disable hooks via code, see also below.</t>
+        <t>Note : some modules handle more than one type of items (e.g. articles has different publication types), and you may want to enable hooks for one particular item type in that module. You can do this in the Modules administration as well.</t>
     </section>
 
     <section title="Designing your module to make use of hooks">
@@ -126,6 +136,9 @@ $outputarray = xarModCallHooks('&lt;hookobject&gt;', '&lt;hookaction&gt;', $obje
         <t>In general, API hooks expect an associative array containing the current item information as $extrainfo,
            and return that array with extended or transformed information.
            GUI hooks expect the same item information as $extrainfo, and return an associative array of hookmodule => hookoutput pairs        </t>
+        <t>By default, hooks are always called for the current "main module". If you need to call the hooks for another module, e.g. in a block or API function,
+           you can specify the caller module in $extrainfo['module']. If your module deals with different item types, you should pass on the
+           currently relevant item type via $extrainfo['itemtype'].</t>
 
             <section title="Calling Item Transform Hooks (API)">
                     <artwork>
@@ -364,7 +377,7 @@ function &lt;module&gt;_admin_updateconfig($args)
 }
                     </artwork>
             </section>
-            <section title="Providing Special-Purpose Hooks : Search, UserMenu, ...">
+            <section title="Providing Special-Purpose Hooks : Search, UserMenu, WaitingContent, ...">
                  <t>In this case, you'll need to create a hook function and register it at initialisation - see next section</t>
             </section>
 
@@ -373,6 +386,22 @@ function &lt;module&gt;_admin_updateconfig($args)
                     <artwork>
    ...
    if (xarModIsHooked('&lt;hookmodule&gt;')) {
+   }
+   ...
+                    </artwork>
+                    If you want to use this in places where your module may not be the current "main module", e.g. in blocks or API functions,
+                    you should specify the caller module as an extra parameter :
+                    <artwork>
+   ...
+   if (xarModIsHooked('&lt;hookmodule&gt;', '&lt;yourmodule&gt;')) {
+   }
+   ...
+                    </artwork>
+                    And if you want to check if a hook is enabled for a particular item type in your module, you should specify the item type
+                    as the third argument :
+                    <artwork>
+   ...
+   if (xarModIsHooked('&lt;hookmodule&gt;', '&lt;yourmodule&gt;', $thistype)) {
    }
    ...
                     </artwork>
@@ -392,6 +421,7 @@ function &lt;module&gt;_admin_updateconfig($args)
                   array('callerModName' => '&lt;yourmodule&gt;', 'hookModName' => '&lt;hookmodule&gt;'));
    ...
                     </artwork>
+                   To specify a particular item type in one of those two functions, you can use the extra parameter 'callerItemType' here.
                 </t>
             </section>
 
@@ -399,6 +429,10 @@ function &lt;module&gt;_admin_updateconfig($args)
 
     <section title="Providing hook functions in your module">
         <t>Decide what functionality you want to offer first, then see what type(s) of hooks you need to provide for that...</t>
+        <t>Please note that your hook function may be called by modules other than the current "main module", so you should check for any optional $extrainfo['module']
+           parameter if your hook module stores information regarding particular modules or module items. Some modules calling your hook functions might also be handling
+           several item types, which they will pass as an optional $extrainfo['itemtype'] parameter. So your module should take into account that item type as well, if
+           relevant.</t>
             <section title="Writing an API hook function">
                  <artwork>
 Module code in xaruserapi.php or xaradminapi.php :
@@ -596,6 +630,7 @@ function &lt;module&gt;_adminapi_removehook($args)
 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2003-06-28: Add comments on how to call hooks on behalf of a particular module, and how to specify the item type (if any)</t>
       <t>2003-03-27: Start filling in some sections</t>
       <t>2003-02-27: Created</t>
     </section>

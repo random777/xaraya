@@ -692,7 +692,7 @@ html/
 	      none yet
 	    </artwork>
 	  </t>
-	  <t>Parent tag:  <xref target="ml">&lt;xar:ml /&gt</xref></t>
+	  <t>Parent tag:  <xref target="ml">&lt;xar:ml /&gt;</xref></t>
 	  <t>Child tags: none</t>
 	</section>
 
@@ -950,7 +950,7 @@ html/
 
       <t>
 	Dynamic Style Sheets: This feature would use server-side browser
-	sniffing to identify what CSS classes & attributes a given module can
+	sniffing to identify what CSS classes &amp; attributes a given module can
 	render (reasonably) correctly. Based on the result, either a &lt;style&gt;
 	or &lt;link&gt; tag to the css would be output. The tag would reference a
 	php script (css.php) which would actually generate the style sheet

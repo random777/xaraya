@@ -13,7 +13,6 @@
 <!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
 <!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
 
-<?-- I guess we always want a table of contents --?>
 <?rfc toc="yes"?>
 
 <rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0052" category="exp">

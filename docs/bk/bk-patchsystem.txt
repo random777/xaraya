@@ -1,0 +1,242 @@
+This file explains how our patch system works.
+
+
+Patches can be submitted by anyone, not having an account on our server but able
+to clone the repository at
+
+http://bk.xaraya.com/xaraya-patches (FIXME: this url currently doesn't work bu we want it to be)
+
+
+we configured this repository that anybody can push changes to the repository, but 
+the changes are put into a PENDING queue pending for review. Cloning this repository 
+is not possible.
+
+Use cases:
+1. Submitting a patch
+2. Handling patches:
+   2.1 On patch server
+   2.2 In your own tree (REGISTERED patches only)
+
+
+1. Submitting a patch
+=====================
+To be able to submit patches you need to clone the main repository.
+This can be done by:
+
+bk clone http://bk.xaraya.com/xaraya
+
+This will give you a copy of the main repository in which the transient
+code is available. 
+
+Now you can start developing and starting making changes. Some rules on
+when to submit a patch.
+- don't make huge patches, it makes it more difficult to analyze them for us,
+  group changes together. Remember the patch system is meant for pathes, not
+  for new developments.
+- Try to announce patches first before you submit them, give people a chance 
+  to react, once a patch is in our system, it's in forever and puts a load
+  on our services.
+- Pull regularly to have the most current version of the main tree. Just before 
+  submitting your patch make sure that you have the latest changes in and that
+  they don't create conflicts. If they do, solve them first. Repeat this process
+  untill it is reasonable conflict free a number of times. Clean patches are far
+  more likely to be accepted than patches which create conflicts. 
+
+When you have finished making the changes you think are necessary you can submit
+the patch. The patch submitting is integrated in our repository system.
+
+The command for submitting your patch is:
+
+bk push http://bk.xaraya.com/xaraya-patches
+
+This command effectively groups the changes which are unique to your local repository
+and sends them to our patch system in a way which makes it very easy for us to 
+analyze them. If you have a good patch, chances are they are applied immediately on
+reception.
+
+When you issue the command you will see something like this:
+
+
+01  ----------------------- Sending the following csets -----------------------
+02  1.240 1.239
+03  ---------------------------------------------------------------------------
+04  makepatch: patch contains 4 revisions from 3 files
+05  ---------------------------------------------------------------------------
+06  takepatch: saved entire patch in PENDING/2002-11-05.01
+07  ---------------------------------------------------------------------------
+08  Applying   2 revisions to ChangeSet
+09  Applying   1 revisions to BitKeeper/triggers/pre-apply.savetopending
+10  Applying   1 revisions to tests/bk/placeholder.for.testing
+11  takepatch: 4 new revisions, 0 conflicts in 3 files
+12  Running resolve to apply new work...
+13  ------------------------- Remote trigger message --------------------------
+14  Welcome to the xaraya patch receiving system.
+15  =============================================
+16  Thanks for submitting your patch!
+17
+18  Your patch will be saved in our patch system
+19  for review. You can continue to work in your
+20  normal way. Once your patch is accepted it
+21  will be automatically integrated with your
+22  tree on subsequent pulls.
+23  Patch system status:
+24  ---------------------------------------------
+25  PENDING    (      2)
+26  REGISTERED (      1)
+27  ---------------------------------------------
+28  ---------------------------------------------------------------------------
+
+[obviously without the line numbers]
+
+Some explanation on what's happening, the number refer to the line numbers above:
+
+01: The system has constructed a list of changesets and is ready to send them
+02: These are the revision numbers of the changeset, effectively the groups of changes
+    you have made.
+04: A complete patch is constructed which contains all the listed changesets
+06: The receiving end has received the patch file and stores it in its PENDING queue.
+08: The system analyses the patch for integrity and compares them to the remote tree
+    if nothing funny happens the patch is copied into the PENDING queue with a unique 
+    name. It is not actually applied to the code in the remote tree, but left in the
+    PENDING queue to be reviewed.
+13: Integrity-check has passed and your patch is stored.
+25: The number after PENDIG is the number of patches in the PENDING queue which have 
+    not been registered into our system, it should at least say "1" because your patch
+    should be in there.
+26: The number after REGISTERED gives the number of patches which are registered into
+    the system and are distributed over our repositories. If you work longer with our
+    tree you will have those patches yourself in the PENDING directory of your tree.
+    The patches are distributed like this for a number of reasons:
+    a) It allows our developers to handle patches remotely
+    b) It gives every developer the chance to analyze patches and possibly wait until
+       it is applied. Or even better, apply those patches locally and continu work while
+       the patch is being analyzed. Be a bit carefull with this though and remember what
+       you are doing.
+    In the future we are looking for a way to identify your patches and show them in the list
+    as a separate entry so you can easily follow the number of patches you have provided are
+    still in the PENDING queue.
+28: Patch submission is finished.
+
+Once your patch gets accepted it will be merged with the main tree. Our system will recognize
+the patch when you pull the repository for updates and your change will automatically be 
+merged into your tree. So, you don't have to do anything.
+
+If your patch is rejected for some reason it actually will be applied twice. First in it's original
+submission form and twice as the exact opposite. We do this for the following reasons:
+   a) It's the easiest way to back out those changes centrally without bothering anyone.
+   b) It gives a checkpoint in the tree and a possibility to comment on the reason why the 
+      patch was rejected.
+   c) If you carefully watch your changeset revision number it will be easy for you to identify  
+      your submitted patches and track them.
+   d) If we later decide that the patch was actually very good, we can apply still apply it by 
+      reverting the revert action mentioned above.
+
+The submission of a patch triggers a notification on our patch list, so our development crew get
+notified about the patch.
+The goal is to have the REGISTERED number as low as possible. If a patch is registered that means it
+needs further investigation and is checked in for that. If a patch is clean and has a clear fix, it
+will be applied immediately without ever entering the REGISTERED state.
+
+2.1 Reviewing a patch, on server
+================================
+This section applies only to people in the committers group who have secure repository access
+on our server. 
+
+The submission of patches is announced on the patch list (unified with committer list?)
+The message will contain information about the patch and looks something like this:
+
+<--snip-->
+Subject: New patch: 2002-11-05:11:45:34 PENDING.
+
+A patch was submitted to the patch system:
+by a user marcel at host hsdev.com
+This patch is now in the PENDING state and 
+needs to be applied, checked in or rejected.
+
+For this you need to log on to the server and execute
+the following commands in the xaraya-patches repository:
+
+Applying:
+1. bk takepatch -vvvf PENDING/<patchname>
+Analyze the patch and if it's ok:
+2. bk resolve
+If all goes well:
+3. bk push
+
+Checking in: (set to REGISTERED state)
+1. cd PENDING
+2. bk new <patchname>
+3. bk commit
+4. bk push
+
+This will change the state of the patch to REGISTERED
+it wil *NOT* apply the patch. Alternatively, you may
+wait for the next run of the cron job which will 
+automatically check in PENDING patches after they have not
+gotten the attention they deserve. 
+
+Once a patch is in the REGISTERED state it will be 
+propagated by push/pull operations and patch handling
+can be done remotely from that point on in any clone
+from the main repository once properly synchronized.
+
+Rejecting:
+1. bk takepatch -vvvf PENDING/><patchname>
+Analyze the patch and if it's ok:
+2. bk resolve
+If all goes well:
+3. bk cset -x<csetnr> [ revert the changeset, rejecting the patch]
+Give good comments why the patch was rejected and if you feel it 
+should be permanent or a temporary rejection.
+3. bk push
+
+Patch system status:
+---------------------------------------------
+PENDING   :       2
+REGISTERED:       1
+---------------------------------------------
+
+<--snip-->
+
+The interval at which PENDING patches will automatically
+be moved to the REGISTERED state will be determined by
+using the system. Intially NO automatic check-in will be
+done.
+
+2.2 Reviewing a patch, locally
+==============================
+The process of reviewing a patch in your local tree is exactly the same with 
+a number of exceptions.
+
+- Once a patch is applied, either add the patchfilename to ignore with bk ignore
+  or remove the patch file with bk rm, so the patch will not show up on subsequent
+  pulls and pushes anymore. Once in a while the repository administrator will do
+  some bk gone magic and fysically deleting the patches (or moving to the archive 
+  rather)
+- analyzing on the server is a bit more difficult than locally. Once you have the 
+  patch locally in your PENDING directory and have typed the bk takepatch 
+  command, a RESUNC directory is created which holds the changed files in a 
+  "mini-repository" If you go into the RESYNC directory and type  bk csets you 
+  will have a graphical changeset analyzer at your disposal, which makes it 
+  rather easy to analyze patches.
+
+
+The patch system took a while to figure out, and we think it can be rather powerfull
+if it is used the right way. 
+
+Things to remember:
+===================
+- Obviously this system is highly integrated with bitkeeper, make sure you know how
+  to use it's features well.
+- If you submit a second patch, your earlier changes will also be included in sending
+  that patch. This cannot be avoided at the moment. Although it's not harmfull, it 
+  will make analyzing patches a bit more difficult. If possible and reasonable, wait
+  for your patch to be applied rejected or registered after submitting another patch.
+  As it makes the process for us more difficult when we neglect patches for too long
+  it will also help us paying attention to patches regularly.
+- it will help us communicate with you if you set the BK_USER and BK_HOST varables to
+  the parts before and after the "@"-sign of your email-address. This way we can construct
+  your email-address and ask questions directly to you if we have any.
+
+If you have any question about the above system contact: scmadmin@xaraya.com
+

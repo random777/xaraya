@@ -882,9 +882,9 @@ html/
             The 'filename' only includes the basename of the file, e.g.
             'module_header'. The 'type' attribute tells the compiler where to look
             for the file. If 'module', looks in /themes/[theme
-            name]/modules/[module name]/xarincludes/ first, then in
+            name]/modules/[module name]/includes/ first, then in
             /modules/[module name]/xartemplates/includes/. If 'theme', it directs the
-            compiler to look in /themes/[theme name]/xarincludes/. The compiler
+            compiler to look in /themes/[theme name]/includes/. The compiler
             always assumes .xd for the file extension. The file is subject to PHP
             safe mode.
           </t>

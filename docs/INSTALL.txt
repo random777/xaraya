@@ -2,7 +2,7 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 
 
-Xaraya: adam_baum Beta (.902)
+Xaraya: adam_baum Beta (.9.0.3)
 ==================================
 
    Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
@@ -27,11 +27,17 @@ Upgrades
 
    Please visit the #support channel for information on upgrading from PostNuke to Xaraya.
 
-   To upgrade from .900 to .902 replace all files and modules.
-   Please note that this will replace config.system.php too and so you should have a backup handy to restore your database settings (the site wont work otherwise :-).
-   Log in with administration rights.
-   Point your directory to upgrade.php in your root directory.  
-   Follow instructions from there.
+   DB Changes between versions
+   ----------------------------------------------------
+   .9.0.0 -> .9.0.2 Small article and permissions changes.
+   .9.0.2 -> .9.0.3 Added syndication block for RSS output.
+   ----------------------------------------------------
+
+   - To upgrade from a previous Xaraya Version replace all files and modules EXCEPT /html/var/config.system.php .
+   - Please note the upgrade script looks at the current DB settings and loads the site so maintaining the config.system.php is necessary to upgrade between versions.
+   - Log in with administration rights.
+   - Point your directory to upgrade.php in your root directory.  
+   - Follow instructions from there.
 
 Caution
 =======
@@ -43,3 +49,5 @@ Common Installation Errors
 
    If you are having difficulties getting past the boot phase, specifically errors about not being able to open the CACHEKEYS file for writing, try deleting the file:
 	html/var/templates/CACHEKEYS
+
+   The html/var/cache/rss and html/var/cache/templates both need to be writable and executable, along with the config.system.php file.

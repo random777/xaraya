@@ -1,11 +1,28 @@
 <?xml version="1.0" ?>
 <!--
-$Id$
+  This is the xaraya buildfile. It builds anything needed building:
+  - the tarballs
+  - release files
+  - documentation
 
-This is the xaraya buildfile. It builds anything needed building:
-- the tarballs
-- release files
-- documentation
+  This build.xml file is a phing build file. The phing make system
+  is like ant, but then implemented in php. For xaraya we stubbed
+  the phing system into a bk custom command: bk build which has the 
+  same interface as the original phing. 
+
+  TODO:
+  - sql files automatically so they are always in sync
+  - phpdoc documentation
+  - deb package generation
+  - rpm package generation
+  - get the dependencies straight.
+  - use recursive build files, so we can package modules by just inspecting the build.xml 
+    file for each module, instead of hardcoding the list in here (? would that work)
+  - use the zip and tar task from phing once their mem requirements are below 8M (which is php std. mem setting)
+    or at least independent of the number of files packaging
+  - make this run on all platforms
+  - do something clever with the release log
+  - extract the version automatically somehow
 -->
 <project name="xaraya" basedir="." default="help">
   
@@ -15,11 +32,12 @@ This is the xaraya buildfile. It builds anything needed building:
   <property name="final.name" value="${phing.project.name}-${version}" />
   
   <!-- module lists -->   
+
   <!-- The core modules, should be in every distro, it just doesn't work without them -->
   <property name="modules.core" value="adminpanels,authsystem,base,blocks,dynamicdata,installer,mail,modules,privileges,roles,themes,sniffer"/>
+
   <!-- Base modules, when added to the core modules, you get a base system -->
-  <property 
-    name="modules.base" 
+  <property name="modules.base" 
     value="articles,authldap,autolinks,bloggerapi,categories,comments,example,formcontrols,hitcount,metaweblogapi,ratings,search,soapserver,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
   
   <!-- source tree properties -->
@@ -37,16 +55,12 @@ This is the xaraya buildfile. It builds anything needed building:
   <property name="build.html" value="${build.dir}/html"/>
   
   
-  <!--
-  Default target that only displays some help
-  -->
+  <!--  Default target that only displays some help  -->
   <target name="help" description="--> displays a brief help">
     <echo message="Please call 'bk build -projecthelp' for details" />
   </target>
   
-  <!-- 
-  Main target that runs the build
-  -->
+  <!--  Main target that runs the build  -->
   <target name="makedist" description="--> creates a distribution of Xaraya">
     <echo message="Copying files to build dir" />
     
@@ -126,7 +140,17 @@ This is the xaraya buildfile. It builds anything needed building:
     <!-- Copy config.system.php.dist to config.system.php -->
     <copy file="${html.dir}/var/config.system.php.dist" tofile="${build.html}/var/config.system.php"/>
     
-    <!-- Modules are a bit separate -->
+    <!-- Core distro -->
+    <phingcall target="coredist"/>
+    
+    <!-- Base distro -->
+    <phingcall target="basedist"/>
+
+  </target>
+
+  <!-- Core distribution -->
+  <target name="coredist" description="--> Creates the core distribution">
+    <!-- Core modules -->
     <foreach list="modules.core" target="copymodule" param="module.name"/>
     
     <!--- here we can make the core distribution -->
@@ -137,20 +161,21 @@ This is the xaraya buildfile. It builds anything needed building:
     <phingcall target="createzipball">
       <property name="zipball.name" value="${final.name}-core.zip"/>
     </phingcall>
-    
-    <!-- Modules are a bit separate -->
+  </target>
+
+  <!-- Base distribution -->
+  <target name="basedist" description="--> Creates the base distribution">
+   <!-- Modules are a bit separate -->
     <foreach list="modules.base" target="copymodule" param="module.name"/>
     
-    <!-- here we can make the base distribution -->
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-base.tar.gz"/>
     </phingcall>
-
+    
     <phingcall target="createzipball">
       <property name="zipball.name" value="${final.name}-base.zip"/>
     </phingcall>
-    
-  </target>
+  </target> 
   
   <!-- copy a module into the build tree -->
   <target name="copymodule" if="module.name">

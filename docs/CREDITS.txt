@@ -49,7 +49,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Drew Vogel (vogelap)
 
-  Flavio Bothelho (nuncanada)
+  Flavio Botelho (nuncanada)
 
   Frank Besler (besfred)
 
@@ -181,5 +181,8 @@ http://www.nusphere.com
 * The BBCode Picker from the PHPBB Team:
 PHPBB <http://www.phpbb.com/credits.php>
 
-CSS HelpTips from A List Apart, Mark Newhouse
+* CSS HelpTips from A List Apart, Mark Newhouse
 AListApart <http://www.alistapart.com/stories/practicalcss/>
+
+* Reused the drivers from the Log Class from PEAR
+http://pear.php.net/package-info.php?package=Log

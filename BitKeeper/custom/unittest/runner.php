@@ -9,9 +9,11 @@ $suite=&$suites[0];
 
 
 //Include all specified testcases
+include_once "./xartests/testUnitTest.php";
+
+
 include_once "../../../html/includes/xartests/testBLCompiler.php";
 chdir("../../../html/includes/xartests");
-
 // Cycle through all suites
 foreach ($suites as $torun) {
     $torun->run();

@@ -13,10 +13,10 @@
   <!-- Front matter is used for identification of author and organization -->
   <front>
     <title>Permission System</title>
-    <author initials="C.P." surname="Corliss" fullname="Carl P. Corliss">
+    <author initials="M." surname="Lutolf" fullname="Marc Lutolf">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>rabbitt@xaraya.com</email>
+	<email>marcinmilan@xaraya.com</email>
 	<uri>http://www.xaraya.com</uri>
       </address>
     </author>
@@ -31,8 +31,7 @@
 
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>This RFC is the template for writing RFCs in XML or plain text for the 
-	Xaraya project.</t>
+      <t>This RFC presents a proposal for the Xaraya permissions system. The main difference with respect to the PN permissions system is that permissions are defined as objects independent of users and groups. As a corollary, the structure of users and groups is also revisited.</t>
     </abstract>
   </front>
 
@@ -40,25 +39,269 @@
   <middle>
     <!-- Introduction is mandatory -->
     <section title="Introduction">
-      <t>Every RFC contains at least the following sections:
-	<list style="bullet">
-	  <t>Introduction</t>
-	  <t>at least one content section</t>
-	  <t>Revision History</t>
+<list style="symbols">
+	  <t>The main points of this RFC are:</t>
+	  <list style="symbols">
+	  <t>Permissions are defined as objects that can be manipulated independently of users and groups.
+	  </t><t>Users and groups are conceptually (and in the implementation) merged to a single class of objects called participants.
+	  </t><t>Both participants and permissions can unlimited levels of subgoups of participants and permissions respectively.
+	  </t><t>Permission objects, i.e. objects that have permissions associated with them, are registered when a module is initiated.
+	  </t>
 	</list>
-      </t>
+<t>This RFC does not cover:</t>
+	  <list style="symbols">
+	  <t>The UI of the permissions system
+	  </t><t>The issue of translating the current system of using regex for permissions into the permissions of the proposed scheme.
+	  </t><t>Whether and how regex should be allowed in the new UI.
+	  </t>
+	</list>
+
+	  <t>Note: This RFC has borrowed generously from the concepts underlying the Java packages java,security and java.security.acl. These can be found at: 
+	  <eref 
+target="http://java.sun.com/j2se/1.3/docs/api">http://java.sun.com/j2se/1.3/docs/api</eref>
+</t>
+	</list>
     </section>
 
     <!-- One content section is mandatory -->
-    <section title="Requirements for the Permission System">
+    <section title="Concept">
+     <t>The following presents the concepts underlying the proposal, as well as suggestions concerning the structure of database tables. A listing of pseudo-code covering the objects discussed can be found in the appendices.
+     </t><t>The permissions proposal revolves around the following objects:</t>
+	<section title="Participants">
       <t>
-        This is the Drupal Permission GUI which might be an inspiration for an
-        easier Xaraya permissions GUI.
-                <figure><artwork src="images/rfc0030_1.png"/></figure>
+      A central repository of user and group definitions. Each user, group, group of groups etc. is a participant with an entry in this repository.
+	  <t>An implementation of the  Participants object conceptually replaces the tables pn_user and pn_group. The code for manipulating participants will deal with the issue of whether the participant is a group or a user and handle things accordingly.
+</t>
+<artwork>
+Methods:    listall            gets a list of all the participants
+            getParticipant     get a participant based on its id
+</artwork>
      </t>
     </section>
+	<section title="SecuritySchemas">
+      <t>A central repository of permissions schemas (policies). The schemas are normally defined and registered as entries with Schemas upon installation of a module. There needs to be a restricion that assigned names for components need to be unique within a module.
 
-    <!-- Revision history is mandatory -->
+<artwork>
+Methods:    listall            gets a list of all the schema entries
+            getEntry           get a schema based on its id or its name
+</artwork>
+     </t>
+    </section>
+	<section title="Permissions">
+      <t>A central repository for permissions defined at any given time. This extends SecuritySchemas. No duplicate permissions are allowed.
+
+<artwork>
+Methods:            methods of the parent
+</artwork>
+     </t>
+    </section>
+	<section title="ACL">
+      <t>A central ACL with a single entry for each participant/permission combination.
+The ACL object is implemented as a database table xar_ACL. This object is consulted whenever a permission is checked. Actually, it's looking like we don't need this object. Rather, the relevant methods bypass this and just go directly to the xar_acl table.
+
+<artwork>
+Methods:            none
+</artwork>
+The (static) objects described above are never manipulated directly, except for reading information. Instead, they are manipulated through the following objects:
+     </t>
+    </section>
+	<section title="Participant">
+      <t>An object representing a single group or user.
+
+<artwork>
+Methods:            
+     constructor
+     add            add this participant to the Participants repository
+     remove         remove this participant from the Participants repository
+     addMember      add a participant to this participant
+     remMember      remove a participant from this participant
+     getChildren    gets a list of the participants who are members of this participant
+     getParents     gets a list of the participants who this participant is a member of
+     getAncestors   recursive getParents
+     getDescendants recursive getChildren
+     isMember       check whether a participant is a member of this participant
+     isUser         check whether this participant is a user
+     equals         check whether a participant is the same as this participant
+     gets           all the interesting variables
+     sets           all the interesting variables except the ID
+     addPermission  add a permission to this participant
+     remPermission  remove a permission from this participant            
+     //Methods that are useful but have no bearing on the permissions problem.
+     getInfo        get an information field of the participant (user)
+     setInfo        set an information field of the participant (user)
+
+</artwork>
+     </t>
+    </section>
+	<section title="SecuritySchema">
+      <t>An object representing a single permission schema.
+<artwork>
+Methods:            
+     constructor            
+     add            add this schema to the Schemas repository
+     remove         remove this schema from the Schemas repository
+     equals         check whether a participant is the same as this participant
+     implies        check whether an entry implies this entry
+     gets           all the interesting variables
+     sets           all the interesting variables except the ID
+     challenge      check the permisssions of a participant
+</artwork>
+     </t>
+    </section>
+	<section title="Permission">
+      <t>An object representing a single permission. This extends SecuritySchema
+<artwork>
+Methods:            
+     constructor
+     methods of the parent            
+     clone           make a copy of this permission
+     addMember       add a permission to this permission
+     remMember       remove a permission from this permission
+     getChildren     gets a list of the participants who are members of this participant
+     getParents      gets a list of the participants who this participant is a member of
+     getAncestors    recursive getParents
+     getDescendants  recursive getChildren
+</artwork>
+     </t>
+    </section>
+    </section>
+	<section title="Database Tables">
+	<section title="Group and Users Tables">
+      <t>The tables pn_group and pn_user can be merged into a new Participants table. The table pn_group_membership also changes:
+
+<artwork>
+Table xar_participants     Table xar_partmembers
+xar_pid                    xar_parentid
+xar_name                   xar_childid
+xar_type
+xar_parent
+xar_uname
+xar_email
+xar_pass
+xar_url
+xar_auth_module
+</artwork>
+The field xar_type is 0 = child is a user, 1 = child is a group. Calls to groups and users in the API have to be appropriately modified to look up the new table.
+     </t>
+    </section>
+	<section title="SecuritySchema Table">
+      <t>
+<artwork>
+Table xar_securityschemas
+xar_pid
+xar_name
+xar_realm
+xar_module
+xar_$component
+xar_$instance
+xar_level
+xar_description
+</artwork>
+</t>
+    </section>
+	<section title="Permissions Table">
+      <t>
+<artwork>
+Table xar_permissions      Table xar_permmembers
+xar_pid                    xar_parentid
+xar_name                   xar_childid
+xar_realm
+xar_module
+xar_$component
+xar_$instance
+xar_level
+xar_description
+</artwork>
+</t>
+    </section>
+	<section title="ACL Table">
+      <t>
+<artwork>
+Table xar_acl
+xar_partid
+xar_permid
+</artwork>
+</t>
+    </section>
+    </section>
+
+ 	<section title="Syntax">
+      <t>The module developer needs to register each permissons obect in his module as a SecuritySchema object. This is done by placing something like the following line in the pninit.php file:
+
+<artwork>
+new xarSecuritySchema(  "addadownload",      // what I'm going to call this schema
+                        0,                   // the realm
+                        "AddDownload",       // the component
+                        "*",                 // the instance
+                        ACCESS_ADMIN,        // the threshold permission level
+                        "admins only")       // an explanatory comment
+</artwork>
+Such a call can also be inserted when a new instance is created. This would let have the user define permissions at run time. (can of worms, here)
+
+Checking a permission is done with:
+
+xarSecuritySchemas.getEntry("addadownload").challenge();
+
+Note in this call both the module and the participant are implied, because we can get both from session vars (?). A more complete call would be:
+
+xarSecuritySchemas.getEntry("Downloads","addadownload").challenge($thisparticipant);
+
+
+To ensure backward compatibility we define something like:
+<artwork>
+function pnSecAuthAction($realm,$component,$instance,$level,$userid=NULL){
+            //..preparatory stuff to find the right schema
+            // if it doesn't exist we'll have to create it
+            // IMPORTANT: need explode any regex...
+            if (xarSecuritySchemas.getEntry($schema).challenge()) {
+            return true;
+            }
+            return false;
+}
+</artwork>
+Note there needs to be a translation layer which transforms any regular expressions in the call into schemas compatible with what's in the xar_securityschemas table. Since this problem was implicitly solved in the current version of the permissions system I'm assuming we'll just borrow from that code.
+</t>
+    </section>
+    <section title="Open Issues">
+    <section title="Cascading Permissions">
+      <t>Since the static classes themselves are permissions objects, there will have to be some sort of bootstrapping process. This means for instance giving the initial admin at install time ACCESS_ADMIN to these objects. Care must then be taken to formulate rules so that the users cannot hack the permissions through some weird combination, and that they can't get into a situation where they're completely blocked. Probably one thing that needs to be done is make it impossible to delete the initial admin (just let them change his name), nor his ACCESS_ADMIN to the static classes.
+</t>
+    </section>
+    <section title="Regex">
+      <t>I'd rather dispense with this and run the UI through dropdowns and checkboxes, but I understand that some people are clamoring for an "advanced user" UI for the permissions system. There may also be some performance considerations here, trading CPU processing for DB hits. And then there's backwards compatibility. Well, OK.
+</t><t>My suggestion for the future would be to limit the advanced UI to entering lists into the appropriate form fields, say a "Component" or "Instance" field in the UI. On submitting, the list(s) would be disassembled to records in the permissions table with one component/instance per record. This in itself is not trivial, because the user would be entering some sort of name, and you'd have to parse the name, make sure it corrsponded to a real object registered in the permissions system, and then translate it to a numeric ID.
+
+</t>
+    </section>
+    <section title="Multi-language">
+      <t>Need to check to make sure any calls using the name of an object rather than its ID don't screw up the ML capabilities.
+
+</t>
+    </section>
+    <section title="The UI">
+      <t>Nothing here covers the UI, this is just the guts of the permissions system.
+</t>
+    </section>
+    <section title="Permissions at Runtime">
+      <t>Need to think through the required behavior to ensure that challenges find are the registered schemas and permissions when running.
+
+</t>
+    </section>
+    <section title="Miscellaneous Notes To Do">
+		<list style="symbols">
+	  <t>
+Almost all the error checking still needs to be added.
+</t><t>Need to check that all the recursive functions don't crash if nothing is found.
+</t><t>Need to optimize the functions so as to cut down the number of DB calls where possible.
+</t><t>Need to integrate a regex translation layer for backward compatibility.
+</t><t>Need to check the behavior of the constructors. Right now they include an add(), which is not a good idea.
+</t><t>The idea of using inheritance for schemas and permissions may be more hassle than it's worth in terms of contortions and readability.
+</t><t>Explore the fact that the recursive functions in permissions and participants COULD have different behaviors. A permission defined as a parent of another permission COULD have its own specific behavior, rather than just being a superset of other permissions. Also need to check whether the analogous behavior of the participant recursive functions is correct.
+</t><t>Include the descriptions in the code.
+</t></list>
+    </section>
+    </section>
+   <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>Put a summary of the major revisions to this document in here</t>
     </section>
@@ -82,8 +325,728 @@
     </references>
     
     <!-- Any section after this will become an appendix -->
-    <section title="Example appendix">
-      <t>Any section which is present after the references will become an appendix</t>
+    <section title="Appendix: Pseudo code ">
+<artwork>
+    /*==============================================================================*
+     |                            Static Classes	                                |
+     *==============================================================================*/
+
+class xarSecuritySchemas
+{
+    var $dbtable = "securityschemas";
+
+    function listall()
+    {
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "SELECT xar_pid FROM " . $xartable['$dbtable'] . " ORDER BY xar_pid";
+		$result = $dbconn->Execute($query);
+		while(!$result->EOF) {
+			list($xar_pid) = $result->fields;
+			$result->MoveNext();
+		}
+		return list($xar_pid);
+    }
+
+	function getEntry($passxar_pid)
+	{
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "SELECT * FROM " . $xartable['$dbtable'] . " WHERE xar_pid = $passxar_pid";
+		$result = $dbconn->Execute($query);
+		return newEntry($result);
+	}
+
+	function newEntry($result)
+	{
+		list($xar_pid, $realm, $component, $instance, $level) = $result->fields;
+		$thispermission = new xarPermission($xar_pid, $realm, $component, $instance, $level);
+		//insert a check for failed read
+		return $thispermission;
+	)
+}
+
+//---------------------------------------------------------------------
+
+class xarPermissions extends xarSecuritySchemas
+{
+    var $dbtable = "permissions";
+
+	function newEntry($result)
+	{
+		list($xar_pid, $realm, $component, $instance, $level) = $result->fields;
+		$thispermission = new xarPermission($xar_pid, $realm, $component, $instance, $level);
+		//insert a check for failed read
+		return $thispermission;
+	)
+}
+
+//---------------------------------------------------------------------
+
+class xarParticipants
+{
+    function listall($set=-1)
+    {
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$participantstable = $xartable['participants'];
+		switch ($set) {
+		case -1:
+	// get everybody
+			$query = "SELECT xar_pid
+				  FROM $participantstable
+				  ORDER BY xar_pid";
+			break;
+		case 0:
+	// make it pull out all the users
+			$query = "SELECT xar_pid
+                      FROM $participantstable
+                      WHERE xar_type = 0
+                      ORDER BY xar_pid";
+			break;
+	// here have it get the membership of the group with xar_pid
+		}
+		$result = $dbconn->Execute($query);
+		while(!$result->EOF) {
+			list($xar_pid) = $result->fields;
+			$result->MoveNext();
+		}
+		return list($xar_pid);
+    }
+
+	function getParticipant($pid)
+	{
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$participantstable = $xartable['participants'];
+		$query = "SELECT *
+                  FROM $participantstable
+                  WHERE xar_pid = $pid";
+		$result = $dbconn->Execute($query);
+
+		list($xar_pid, $xar_name, $xar_type, $xar_uname, $xar_email, $xar_pass, $xar_url, 
+		$xar_auth_module) = $result->fields;
+		$thisparticipant = new xarParticipant($xar_pid, $xar_name, $xar_type, $xar_uname, 
+		$xar_email, $xar_pass, $xar_url, $xar_auth_module);
+		//insert a check for failed read
+		return $thisparticipant;
+	}
+}
+
+//---------------------------------------------------------------------
+
+class xarACL
+{
+    function listall($set=-1)
+    {
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$acltable = $xartable['acl'];
+		switch ($set) {
+		case -1:
+	// get everybody
+			$query = "SELECT xar_partid
+				  FROM $acltable
+				  ORDER BY xar_partid";
+			break;
+		case 0:
+	// make it pull out all the users
+			$query = "SELECT xar_partid
+				  FROM $acltable
+				  WHERE xar_type = 0
+				  ORDER BY xar_partid";
+			break;
+	// here have it get the membership of the group with xar_pid
+		}
+		$result = $dbconn->Execute($query);
+		while(!$result->EOF) {
+			list($xar partid, $permid) = $result->fields;
+			$result->MoveNext();
+		}
+		return listlist($xar partid, $permid);
+    }
+}
+
+    /*==============================================================================*
+     |                            Where the action is                               |
+     *==============================================================================*/
+
+class xarSecuritySchema
+{
+	var $sid;           //the id of this schema
+	var $realm; 		//the realm the permission belongs to
+	var $module; 		//the module the permission belongs to, defaults to current module
+	var $component; 	//the component the permission belongs to, where a component
+						//is any object/element that can have permissions
+	var $instance; 		//the instance of the permission
+	var $level; 		//the permission level
+	var $name; 			//the short name of the permission
+	var $description; 	//a description of the permission
+
+    var $dbtable = "securityschema";
+
+	/**
+     * Constructor
+     *
+     * @access public
+     * @return boolean Always returns true
+     */
+    function xarSecuritySchema($name, $realm, $component, $instance, $level, $description, 
+    module="")
+    {
+        $this->name 		= $name;
+        $this->realm 		= $realm;
+        $this->module 		= //TODO: make this the current module name
+        $this->component 	= $component;
+        $this->instance 	= $instance;
+        $this->level		= $level;
+        $this->description 	= $description;
+        this->add();
+		return true;
+    }
+
+    /**
+     * Add this permission to the Permissions table
+     * @return boolean	result of the operation
+     *					true=added, false=failed
+     * Duplicate schemas are not allowed
+     */
+    function add()
+    {
+        $didit = false;
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+
+		// First make sure this schema doesn't already exist
+		reset $arr;
+		while (SecuritySchemas->listall(,$id) = each($arr)){
+			if (this->equals(getEntry($id)) {
+				return false;	// or sumpn
+			}
+		}
+
+		// Now insert the new schema
+		$query = "INSERT INTO " . $xartable['$dbtable'] . " (xarname,xarrealm,xarmodule,
+		xarcomponent,xarinstance,xarlevel,xardescription) VALUES ($name, $realm, $module, 
+		$component, $instance,$description)";
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+        return $didit;
+    }
+
+    /**
+     * Remove this permission from the Permissions table
+     * @return boolean	result of the operation
+     *					true=removed, false=failed
+     */
+    function remove()
+    {
+        $didit = false;
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "DELETE xar_sid FROM " . $xartable['$dbtable'] . " WHERE xar_sid =" . 
+		this->.getID();
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+        return $didit;
+    }
+
+    /**
+     * Update this permission in the Permissions table
+     * @return boolean	result of the operation
+     *					true=added, false=failed
+     * This function is only meant to be called internally
+     */
+    function update()
+    {
+        $didit = false;
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = 	"UPDATE " . $xartable['$dbtable'] .
+					"SET ".
+					"xarname = $name," .
+					"xarrealm = $realm," .
+					"xarmodule = $module," .
+					"xarcomponent = $component," .
+					"xarcomponent = $component," .
+					"xarcomponent = $instance," .
+					"xarcomponent = $component," .
+					"xarcomponent = $level," .
+					"xarcomponent = $description," .
+					"xarcomponent = $component" .
+					" WHERE xar_pid" . this->.getID();
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+        return $didit;
+    }
+
+    /**
+     * Check whether this schema implies another schema
+     *   this->implies($someschema) is true means that this schema "contains" $someschema
+     *
+     * @return boolean	result of the operation
+     */
+	function implies($permobject)
+	{
+		//make this recursive by calling getDescendants() and checking each one
+
+		return	(this->$realm == $permobject->$realm) and
+				(this->$module == $permobject->$realm) and
+				(this->$component == $permobject->$realm) and
+				(this->$instance == $permobject->$realm) and
+				(this->$level >= $permobject->$level);
+	}
+
+	function equals($permobject)
+	{
+		return 	this->implies($permobject) and
+				$permobject->implies($this);
+	}
+
+    /**
+     * Check this schema  against the permissions of a participant
+     *
+     * @return boolean	result of the operation
+     */
+	function challenge()
+	{
+		$partid = //return the id of this user
+		$participants = explode(",",Participants.getEntry($partid).getAncestors());
+		//Get the permissions for each participant
+		foreach ($participants as $participant) {
+			$perms = explode(",",xarParticipants.getEntry($participant).getPermissions());
+		// insert a check here to filter out permissions we already have
+		// add them to a list of valid permissions for the challenge
+		}
+		$permissions = //all the valid ones we found
+
+		//Now check them against the schema
+		foreach ($permissions as $permission) {
+			if (this->implies($permission) {return true;}
+		}
+		// the challenge failed
+		return false;
+	}
+
+    function getID()            {return $this->$sid;}
+    function getName()          {return $this->$name;}
+    function getRealm()         {return $this->$realm;}
+    function getModule()        {return $this->$module;}
+    function getComponent()     {return $this->$component;}
+    function getInstance()      {return $this->$instance;}
+    function getLevel()         {return $this->$level;}
+
+    function setName($var)      {$this->$name = $var;}
+    function setRealm($var)     {$this->$realm = $var;}
+    function setModule($var)    {$this->$module = $var;}
+    function setComponent($var) {$this->$component = $var;}
+    function setInstance($var)  {$this->$instance = $var;}
+    function setLevel($var)     {$this->$level = $var;}
+}
+
+//---------------------------------------------------------------------
+
+class xarPermission extends xarSecuritySchema
+{
+    var $dbtable = "securityschema";
+
+
+	/**
+     * Constructor
+     *
+     * @access public
+     * @return boolean Always returns true
+     */
+    function xarPermission($name, $realm, $module, $component, $instance, $description))
+    {
+        $this->xarSecuritySchema($name, $realm, $module, $component, $instance, $description);
+    	return true;
+    }
+
+    function addMember($permission)
+    {
+		$didit = false;
+
+		// check id this makes an ancestor a child
+        if (in_array(explode(",",this->ancestors()), $permission>getID()){
+        // scream and bail
+        }
+
+		// Now insert the new schema
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "INSERT INTO " . $xartable['permmembers'] .
+		(xar_parentid,xar_childid) VALUES ($this->getID(), $permission>getID())";
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+    	return $didit;
+    }
+
+    function remMember($permission)
+    {
+		$didit = false;
+
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "DELETE xar_pid " .
+				"FROM " . $xartable['permmembers'] .
+				" WHERE xar_childd =" . this->.getID() .
+				"AND xar_parentid =" . $permission>getID();
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+		return $didit;
+    }
+
+    function getParents($pid)
+    {
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$membertable = $xartable['permissions'];
+		$query = "SELECT *
+				  FROM $membertable
+				  WHERE xar_childid = $pid";
+		$result = $dbconn->Execute($query);
+		while(!$result->EOF) {
+		list($xar_pid) = $result->fields;
+		$result->MoveNext();
+		}
+		return list($xar_pid);
+	}
+
+    function getChildren($pid)
+    {
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$membertable = $xartable['permissions'];
+		$query = "SELECT *
+				  FROM $membertable
+				  WHERE xar_parentid = $pid";
+		$result = $dbconn->Execute($query);
+		while(!$result->EOF) {
+		list($xar_pid) = $result->fields;
+		$result->MoveNext();
+		}
+		return list($xar_pid);
+	}
+
+        function ancestors()
+	    {
+	        $parents = explode(",",this->getParents());
+	        //Get the parent field for each parent
+	        foreach ($parents as $parentid) {
+			    $ancestors = explode(",",xarPermissions.getEntry($parentid).getParents());
+	        	foreach ($ancestors as $ancestorid) {
+	        //If this is a new ancestor add to the end of the array
+	        	if (! in_array($ancestorid, $parents))
+	        		array_push($parents, $ancestorid)
+	        	}
+			}
+	    	return $parents;
+	    }
+
+	    function descendants()
+	    {
+	        $children = explode(",",this->getChildren());
+	        //Get the children for each parent
+	        foreach ($children as $childid) {
+			    $descendants = explode(",",xarPermisssions.getEntry($childid).getChildren());
+	        	foreach ($descendants as $descendantid) {
+	        //If this is a new descendant add to the end of the array
+	        	if (! in_array($descendantid, $children))
+	        		array_push($children, $ancestorid)
+	        	}
+			}
+	    	return $children;
+	    }
+}
+
+//---------------------------------------------------------------------
+
+class xarParticipant
+{
+	var $pid;           //the id of this user or group
+	var $name;          //the name of this user or group
+	var $type;          //the type of this participant (0=user, 1=group)
+	var $uname;         //the user name (not used by groups)
+	var $email;         //the email address (not used by groups)
+	var $pass;          //the password (not used by groups)
+	var $url;           //the url (not used by groups)
+	var $auth_module;   //no idea what this is (not used by groups)
+
+	/**
+     * Constructor
+     *
+     * @access public
+     * @return boolean Always returns true
+     */
+    function xarParticipant($name, $type=0, $uname="", $email="", $pass="", $url="", $auth_module="")
+    {
+        $this->name         = $name;
+        $this->type         = $type;
+        $this->parent       = $parent;
+        $this->uname        = $uname;
+        $this->email        = $email;
+        $this->pass         = $pass;
+        $this->url          = $url;
+        $this->auth_module  = $auth_module;
+        this->add();
+		return true;
+    }
+
+    /**
+     * Add this participant to the Participants table
+     * @return boolean	result of the operation
+     *					true=added, false=failed
+     * Duplicate schemas are not allowed
+     */
+    function add()
+    {
+        $didit = false;
+
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+
+		// First make sure this participant doesn't already exist
+		foreach (explode(",",xarParticipants->listall()) as $id {
+			if (this->equals(getEntry($id)) {
+				return false;	// or sumpn
+			}
+		}
+
+		// Now insert the new schema
+		$query = "INSERT INTO " . $xartable['participant'] .
+		(xar_name,xar_type,xar_uname,xar_email,xar_pass,xar_url,xar_auth_module) VALUES ($name, 
+		$type, $uname, $email, $pass,$url, $auth_module)";
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+        return $didit;
+    }
+
+    /**
+     * Remove this permission from the Permissions table
+     * @return boolean	result of the operation
+     *					true=removed, false=failed
+     */
+    function remove()
+    {
+        $didit = false;
+
+		//TODO: cycle through the parent fields of all participants and remove me
+
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "DELETE xar_pid FROM " . $xartable['participant'] ." WHERE xar_pid =" . 
+		this->.getID();
+		$result = $dbconn->Execute($query);
+		//do another sql to delete me from the partmembers table
+		//what do do with my children? probably nothing.
+
+		//insert a check to make sure it worked
+        return $didit;
+    }
+
+    /**
+     * Update this permission in the Permissions table
+     * @return boolean	result of the operation
+     *					true=added, false=failed
+     * This function is only meant to be called internally
+     * Doesn't update the type. No changing users to groups or vice-versa.
+     */
+    function update()
+    {
+        $didit = false;
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = 	"UPDATE " . $xartable['participant'] .
+					"SET ".
+					"xar_name = $name," .
+					"xar_type = $type," .
+					"xar_uname = $uname," .
+					"xar_email = $email," .
+					"xar_pass = $pass," .
+					"xar_url = $url," .
+					"xar_auth_module = $auth_module" .
+					" WHERE xar_pid" . this->.getID();
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+        return $didit;
+    }
+
+    function addMember($participant)
+    {
+		$didit = false;
+
+		// check id this makes an ancestor a child
+        if (in_array(explode(",",this->ancestors()), $participant->getID()){
+        // scream and bail
+        }
+
+		// Now insert the new schema
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "INSERT INTO " . $xartable['partmembers'] .
+		(xar_parentid,xar_childid) VALUES ($this->getID(), $participant->getID())";
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+    	return $didit;
+    }
+
+    function remMember($participant)
+    {
+		$didit = false;
+
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "DELETE xar_pid " .
+				"FROM " . $xartable['partmembers'] .
+				" WHERE xar_childid =" . this->.getID() .
+				"AND xar_parentid =" . $participant->getID();
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+		return $didit;
+    }
+
+    function getParents($pid)
+    {
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$membertable = $xartable['partmembers'];
+		$query = "SELECT *
+				  FROM $membertable
+				  WHERE xar_childid = $pid";
+		$result = $dbconn->Execute($query);
+		while(!$result->EOF) {
+		list($xar_pid) = $result->fields;
+		$result->MoveNext();
+		}
+		return list($xar_pid);
+	}
+
+    function getChildren($pid)
+    {
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$membertable = $xartable['partmembers'];
+		$query = "SELECT *
+				  FROM $membertable
+				  WHERE xar_parentid = $pid";
+		$result = $dbconn->Execute($query);
+		while(!$result->EOF) {
+		list($xar_pid) = $result->fields;
+		$result->MoveNext();
+		}
+		return list($xar_pid);
+	}
+
+    function ancestors()
+    {
+        $parents = explode(",",this->getParents());
+        //Get the parent field for each parent
+        foreach ($parents as $parentid) {
+		    $ancestors = explode(",",xarParticipants.getEntry($parentid).getParents());
+        	foreach ($ancestors as $ancestorid) {
+        //If this is a new ancestor add to the end of the array
+        	if (! in_array($ancestorid, $parents))
+        		array_push($parents, $ancestorid)
+        	}
+		}
+    	return $parents;
+    }
+
+    function descendants()
+    {
+        $children = explode(",",this->getChildren());
+        //Get the children for each parent
+        foreach ($children as $childid) {
+		    $descendants = explode(",",xarParticipants.getEntry($childid).getChildren());
+        	foreach ($descendants as $descendantid) {
+        //If this is a new descendant add to the end of the array
+        	if (! in_array($descendantid, $children))
+        		array_push($children, $ancestorid)
+        	}
+		}
+    	return $children;
+    }
+
+    function isMember($participant)
+    {
+        $parentarray = explode($participant->getParents());
+        return in_array(this->getID(), $parentarray);
+    }
+
+    function addPermission($permission)
+    {
+		$didit = false;
+
+		// insert a check here to see whether this permission is already implied
+
+
+		// Now insert the new schema
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "INSERT INTO " . $xartable['acl'] .
+		(xar_partid,xar_permid) VALUES ($this->getID(), $permission->getID())";
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+    	return $didit;
+    }
+
+    function remPermission($permission)
+    {
+		$didit = false;
+
+		list($dbconn) = pnDBGetConn();
+		$xartable = pnDBGetTables();
+		$query = "DELETE xar_partid " .
+				"FROM " . $xartable['acl'] .
+				" WHERE xar_partid =" . this->.getID() .
+				"AND xar_permid =" . $permission->getID();
+		$result = $dbconn->Execute($query);
+		//insert a check to make sure it worked
+		return $didit;
+    }
+
+    function isUser()           {return this->getType() == 0;}
+
+	function getID()            {return $this->$pid;}
+    function getName()          {return $this->$name;}
+    function getType()          {return $this->$type;}
+    function getUser()          {return $this->$uname;}
+    function getEmail()         {return $this->$email;}
+    function getPass()          {return $this->$pass;}
+    function getAuthModule()    {return $this->$auth_module;}
+
+    function setName($var)      {$this->$name = $var;}
+    function setParents($var)   {$this->$rparent = $var;}
+    function setUser($var)      {$this->$uname = $var;}
+    function setEmail($var)     {$this->$email = $var;}
+    function setPass($var)      {$this->$pass = $var;}
+    function setAuthModule($var) {$this->$auth_module = $var;}
+}
+
+</artwork>
+    </section>
+    <section title="Appendix: Pseudo code for pnSecAuthAction">
+<artwork>
+
+
+What to do with pnSecAuthAction()
+
+function pnSecAuthAction($realm,$component,$instance,$level,$userid=NULL){
+	$schemalist = xarSecuritySchemas.listall($module),
+	foreach (explode(",",$schemalist)) as  $schema){
+	//find which one this is in the xar_securityschema by DB calls filtering on $realm, 
+	$component etc. AND the current module
+	// also need explode any regex...
+	// if the schema doesn't exist we'll have to create it
+	// in the end we get to $schema = ...
+
+	if (xarSecuritySchemas.getEntry($schema).challenge()) {
+		return true;
+	}
+	return false;
+	}
+}</artwork>
     </section>
   </back>
 </rfc>

@@ -74,9 +74,9 @@ class xarTestSuite {
         return $toreturn;
     }
     
-    function report($type) {
+    function report($type,$show_results=true) {
         $report = new xarTestReport($type);
-        $report->present(array($this));
+        $report->present(array($this),$show_results);
     }
 
 }
@@ -137,7 +137,7 @@ class xarTextTestReport extends xarTestReport {
     }
 
     // Presentation function
-    function present($testsuites) {
+    function present($testsuites,$show_results=true) {
         foreach($testsuites as $testsuite) {
             // Only include suites with testcases
             if($testsuite->countTestCases() > 0) {
@@ -145,20 +145,22 @@ class xarTextTestReport extends xarTestReport {
                 $nroftestcases = $testsuite->CountTestCases();
                 foreach (array_keys($testsuite->_testcases) as $casekey) {
                     echo "|- TestCase: ".$testsuite->_testcases[$casekey]->_name."\n";
-                    $tests =& $testsuite->_testcases[$casekey]->_tests;
-                    foreach (array_keys($tests) as $key ) {
-                        $result =& $tests[$key]->_result;
-                        if ($nroftestcases != 1) {
-                            echo "|";
-                        } else {
-                            echo " ";
-                        }
-                        if (!empty($result->_message)) {
-                            echo " |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
-                                (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
-                        } else {
-                            echo " |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
-                                (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
+                    if($show_results) {
+                        $tests =& $testsuite->_testcases[$casekey]->_tests;
+                        foreach (array_keys($tests) as $key ) {
+                            $result =& $tests[$key]->_result;
+                            if ($nroftestcases != 1) {
+                                echo "|";
+                            } else {
+                                echo " ";
+                            }
+                            if (!empty($result->_message)) {
+                                echo " |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
+                                    (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
+                            } else {
+                                echo " |- ". str_pad("WARNING: invalid result in $key()",UT_OUTLENGTH,".",STR_PAD_RIGHT) .
+                                    (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n"; 
+                            }
                         }
                     }
                     $nroftestcases--;

@@ -30,6 +30,8 @@ array_shift($args);
 // Rudimentary parsing of what we need
 $testfilter=array();
 $testfilter['output']='text';
+$show_results=true;
+$do_run=true;
 for($index=0;$index<count($args);$index++) {
     switch($args[$index]) {
     case '-c':
@@ -45,6 +47,15 @@ for($index=0;$index<count($args);$index++) {
     case '-o': 
     case '--output':
         $testfilter['output'] = $args[$index+1];
+        break;
+    case '-n':
+    case '--noresults':
+        $show_results=false;
+        break;
+    case '-l':
+    case '--list':
+        $show_results=false;
+        $do_run=false;
         break;
     }
 }
@@ -125,19 +136,17 @@ while (list($key, $dir) = each($dirs)) {
  */
 foreach ($suites as $torun) {
     // Run the testsuite
-    // If $testfilter['suites'] is empty, run all suites
     // if it's not run only the suites specified
     if(empty($testfilter['suites'])) {
-        $torun->run();
-        $torun->report($testfiler['output']);
+        if($do_run) $torun->run();
+        $torun->report($testfiler['output'],$show_results);
     } else {
         // Only run the testsuite if it's mentions
-        if(in_array($torun->_name,$testfilter['suites'])) {
-            $torun->run();
-            $torun->report($testfilter['output']);
+        if(in_array(str_replace(' ','_',$torun->_name),$testfilter['suites'])) {
+            if($do_run) $torun->run();
+            $torun->report($testfilter['output'],$show_results);
         }
-    } 
-    
+    }
 }
 
 ?>

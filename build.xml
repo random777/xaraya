@@ -308,11 +308,11 @@
         <include name="*.zip"/>
       </fileset>
     </delete>
-    <delete dir="${build.basedir}" />
+    <!-- <delete dir="${build.basedir}" /> -->
   </target>
   
   <!-- Rebuild target, depends on clean -->
-  <target name="rebuild" depends="clean" description="--> rebuilds all Xaraya distributions">
+  <target name="rebuild" depends="clean, realclean" description="--> rebuilds all Xaraya distributions">
     <echo msg="Starting new build..." />
     <phingcall target="makedist" />
   </target>

@@ -18,7 +18,9 @@ This is the xaraya buildfile. It builds anything needed building:
   <!-- The core modules, should be in every distro, it just doesn't work without them -->
   <property name="modules.core" value="adminpanels,authsystem,base,blocks,dynamicdata,installer,mail,modules,privileges,roles,themes,sniffer"/>
   <!-- Base modules, when added to the core modules, you get a base system -->
-  <property name="modules.base" value="articles,autolinks,bloggerapi,categories,comments,example,formcontrols,hitcount,metaweblogapi,ratings,search,soapserver,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+  <property 
+    name="modules.base" 
+    value="articles,authldap,autolinks,bloggerapi,categories,comments,example,formcontrols,hitcount,metaweblogapi,ratings,search,soapserver,translations,wiki,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
   
   <!-- source tree properties -->
   <property name="html.dir" value="html" />
@@ -131,6 +133,10 @@ This is the xaraya buildfile. It builds anything needed building:
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-core.tar.gz"/>
     </phingcall>
+
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-core.zip"/>
+    </phingcall>
     
     <!-- Modules are a bit separate -->
     <foreach list="modules.base" target="copymodule" param="module.name"/>
@@ -138,6 +144,10 @@ This is the xaraya buildfile. It builds anything needed building:
     <!-- here we can make the base distribution -->
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-base.tar.gz"/>
+    </phingcall>
+
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-base.zip"/>
     </phingcall>
     
   </target>
@@ -158,30 +168,41 @@ This is the xaraya buildfile. It builds anything needed building:
     <echo msg="Creating tar archive ${tarball.name}"/>
     <tar outfile="${build.basedir}/${tarball.name}" usegzip="true">
       <fileset dir="${build.basedir}">
-        <include name="${final.name}/**" />
+        <include name="${final.name}/**"/>
       </fileset>
     </tar>
   </target>
+
+  <!-- Create a zipball from the current contents of the build tree -->
+  <target name="createzipball" if="zipball.name">
+    <echo msg="Creating zip archive ${zipball.name}"/>
+    <zip outfile="${build.basedir}/${zipball.name}">
+      <fileset dir="${build.basedir}">
+        <include name="${final.name}/**"/>
+      </fileset>
+    </zip>
+  </target>
   
-  <!--
-  Helper targets
-  -->
+  <!-- Clean target, removes only the copied build tree -->
   <target name="clean" description="--> cleans up the buildtree">
     <echo msg="Cleaning up buildtree..." />
     <delete dir="${build.dir}" />
   </target>
 
+  <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
   <target name="realclean" depends="clean" description="--> also cleans the produced archives">
     <echo msg="Real clean..."/>
     <delete>
       <fileset dir="${build.basedir}">
         <include name="*.tar.gz"/>
+        <include name="*.zip"/>
       </fileset>
     </delete>
     <delete dir="${build.basedir}" />
   </target>
   
-  <target name="rebuild" depends="clean" description="--> rebuilds Xaraya">
+  <!-- Rebuild target, depends on clean -->
+  <target name="rebuild" depends="clean" description="--> rebuilds all Xaraya distributions">
     <echo msg="Starting new build..." />
     <phingcall target="makedist" />
   </target>

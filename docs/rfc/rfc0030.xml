@@ -1027,56 +1027,156 @@
     
     <section title="Syntax">
       <t>
-        The module developer needs to register each component
-        in his module as a SecurityMask object. This is done by
-        placing something like the following line in the xarinit.php
-        file:
-        
+      <section title="Registering Components and Masks">
+      <t>
+         Each mask that will be used for security checks needs to be registered. This is done with the function registerMask, which has the following syntax:
+
         <artwork>
-          new xarSecurityMask(  "addadownload",      // what I'm going to call this mask
-          0,                   // the realm [MrB: either don't use or force to 0]
-          "AddDownload",       // the component
-          "*",                 // the instance
-          ACCESS_ADMIN,        // the threshold privilege level
-          "admins only")       // an explanatory comment
+	     function registerMask($name,$realm,$module,$component,$instancetype,$instance,$level,
+	     $description='')
+	     
+	     where:
+	     
+	     $name        : a name given to the mask. The name needs to be unique within the 
+	                    module.
+	     $realm       : the realm the mask applies to.
+	     $module      : the name of the module the mask applies to.
+	     $component   : the name of the component the mask belongs to. The component name is
+	                    referenced during security checks.
+	     $instance    : the name of the instance the mask applies to. This refers to an 
+	                    instance that has been defined at runtime (see below),
+	     $level       : the security level a privilege must have to pass the check. These
+	                    are the usual values 0 - 800.
+	     $description : a text field that describes the mask.
         </artwork>
-        Such a call can also be inserted when a new instance is
-        created. This would let have the user define privileges at
+                
+        All fields except the description are mandatory. The values 'All' and 'None' can be used for realm, module, component, instancetype or instance. Here is an example of how a mask may be registered:
+        <artwork>
+          registerMask('AssignAll','All','Privileges','Assign','All','All',ACCESS_ADD);
+        </artwork>
+        This creates a mask named AssignAll for the privileges module. Security checks can invoke the mask by calling the component it belongs to, as described below.
+         
+        </t>
+        <t> 
+        Masks need to be registered at init time. In other words, for each mask to be registered, invoke the registerMask function in the init.php of the module the mask belongs to.
+        </t>
+        <t> 
+        A component may have one or more masks assigned to it (as long as the mask names are unique). During a security check each of the masks in turn will be checked against a user's privileges.
+        </t>
+        <t>
+        Such a call could also be inserted when a new instance is
+        created. This would let have the user define masks at
         run time. (can of worms, here)
         [MrB: yeah, don't allow it initially till we have worked it out how exactly to do that]
-        
-        Checking a privilege is done with:
+        </t>
+      </section>
+    <section title="Defining Instances">
+        <t>
+        If the security checks in a module need to check against specific instances, we need to define what these instance look like. 
+        </t>
+        <t>
+        Instances conceptually are objects that a module deals with, e.g. articles, folders, download items, dynamic data fields. For instances to be recognized and checked against, they need to be defined at init time. Instances are defined by the defineInstance function:
         <artwork>
-        xarSecurityMasks.getEntry("addadownload").challenge();
+        function defineInstance($name, $module,$table1,$valuefield,$displayfield,$appvar=0,$table2='',
+        $childID='',$parentID='',$description='')
+        
+        where
+        
+        $name        : name by which the instance is called.
+        $module      : module to which the instance applies.
+        $table1      : the instance table.
+        $valuefield  : the index of the instances, generally the ID field of the instance 
+                       table.
+        $displayfield: the field of the instance table to be displayed in dropdowns, 
+                       generally a name field.
+        $propate     : a flag defining whether privilege checks should include items
+                       upstream or downstream in a hierarchy.
+        $table2      : the name of the table defining the instance hierarchy.         
+        $childID     : the name of the field of $table2 that contains child references.
+        $parentID    : the name of the field of $table2 that contains parent references.
+        $description : a text field describing the instance definition.
         </artwork>
+        Each instance to be defined must invoke this function in the init.php file of the module it refers to.
+        
+        [marc: we might not need the $module variable].
+        </t>
+        <t>
+        An example of how this might be used:
+        <artwork>
+        defineInstance('projects','xproject','xar_xproject','xar_projectid','xar_name',0);
+        </artwork>
+        This defines an instance called projects. The definition will allow security checks to include references to specific projects in the xprojects module. If a mask contains this instance definition, it will check the values in the field xarname of table xarproject against the user's privileges.
+        </t>
+        <t>
+        As an illustration, one might assign a user ACCESS_EDIT privileges to a project 'HighSchoolReunion' and ACCESS_READ privileges to all other projects. With an instance definition above, a security check in the code allowing users to modify projects would allow the user access to only the 'HighSchoolReunion' project.
+        </t>
+        <t>
+        For collections in which objects are arranged in a hierarchy, the defineInstance function can be expanded to include other members of the hierarchy. The $propagate parameter defines this behavior.
+        <artwork>
+        $propagate = 
+        
+        0    implies security checks only include the object specifically referenced.
+        +1   implies security checks include the object referenced.and children or 
+             objects downstream, e.g. subacategories in the categories module, users
+             that are members of a group or later items in a workflow.
+        -1   implies security checks include the object referenced.and parents or 
+             objects upstream, e.g. super-categories in the categories module, super-groups
+             in the roles module or earlier items in a workflow.
+        </artwork>
+        The parameters $table2, $childID and $parentID are references to the table that contains the hierarchy definitions, e.g. in the case of categories the table xar_categories and the fields xar_cid and xar_parent.
+        </t>
+        <t>
+        Here is an example:
+        <artwork>
+        defineInstance('special','categories','xar_categories','xar_cid','xar_name',1,'xar_categories',
+        'cid','xar_parent');
+        </artwork>
+        This defines an instance called special in the categories module. The instance definition will ensure that privileges with respect to a category also apply to any subcategory.
+        </t>
+      </section>
+    <section title="Security Checks">
+        <t>
+        Security checks are the way the system checks a user's a privileges against the masks of a component. Security checks replace the previous xarSecAuthAction function. A simple example of a security check is:
+        <artwork>
+        if(!securitycheck('Admin')) return;
+        </artwork>
+        
+        On encountering this line in the code, the system will check the user's privileges against those of all the masks registered with the component 'Admin' in the current module and realm. If each of the masks is implied by at least one of the user's privileges, the function returns true. If the security check fails the function returns false. Like the xarSecAuthAction function, securitycheck will also display a standard error message if the check fails.
+        </t>
+        The error message can also be suppressed, as shown in the following example:
+        <t>
+        <artwork>
+        if (securitycheck('Add',0)) {
+	    
+	       ...code to add an article to the articles module
 
-        Note in this call both the module and the role are implied,
-        because we can get both during runtime. A more complete
-        call would be:
-        <artwork>
-        xarSecurityMasks.getEntry("Downloads","addadownload").challenge($thisrole);
+        }
         </artwork>
-        [MrB: can $thisrole have anothervalue then "the current role"?]
+        Here the user's privileges are checked against the masks of a component 'Add' to see whether the user may add an article. The 0 value tells the function not to display an error message if the check fails.
+        </t>
+        <t>
+        The full syntax of the securitycheck function is:
+        <artwork>
+         function securitycheck($component,$showexception=1,$instancetype='',$instance='',$role='',$module='')
+         
+         where
+         
+         $component    : the name of the component whose masks are to be checked.
+         $showexception: 1 = show the exception message if the check fails.
+                         0 = do not show an exception message
+         $instancetype : name of an instance type to be checked against.
+         $instance     : name of an instance to be checked against.
+         $role         : name of a role to be checked against.
+         $module       : name of a modules to be checked against.
+         
+        </artwork>
+        The instancetype, instance, role and module values are used to override values defined in a modules masks. For instance, entering a value for $instancetype and $instance lets you check against an instance defined at runtime, rather than when the mask is registered.
+        </t>
+        <t>
+        The default values for $role and $module are the current user and the module in which the security check is encountered. Entering a value for $role lets you check against the privileges of a user other than the current user.
+        </t>
         
-        To ensure backward compatibility we define something like:
-        <artwork>
-          function xarSecAuthAction($realm,$component,$instance,$level,$userid=NULL){
-          //..preparatory stuff to find the right mask
-          // if it doesn't exist we'll have to create it
-          // IMPORTANT: need explode any regex...
-          if (xarSecurityMasks.getEntry($mask).challenge()) {
-          return true;
-          }
-          return false;
-          }
-        </artwork>
-        Note there needs to be a translation layer which transforms
-        any regular expressions in the call into masks compatible
-        with what's in the xar_securitymasks table. Since this
-        problem was implicitly solved in the current version of the
-        privileges system I'm assuming we'll just borrow from that
-        code.
-        [MrB: work this out a bit more, not high prio in my opinion, but endusers prolly will challenge that ;-) ]
+      </section>
       </t>
     </section>
 

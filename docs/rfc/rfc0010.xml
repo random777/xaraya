@@ -526,23 +526,6 @@ html/
                 present.
               </t>
             </t>
-            <t>Block form:
-              <t>
-                This is for future expansion. Although the empty form
-                of this tag allows attributes to over-ride any default
-                or pre-defined parameter of the block, attributes are
-                not suitable for passing in all types of data. We
-                envisage a method of allowing overriding block parameter 
-                data to be passed in through the block content, perhaps
-                using a child tag. It could look something like this:
-                <artwork><![CDATA[
-                    <xar:block instance="123">
-                        <xar:param name="category">42</xar:param>
-                        <xar:param name="alt_title">My News Stories</xar:param>
-                    </xar:block>
-                ]]></artwork>
-              </t>
-            </t>
           </section>
           <section title="Attributes">
             <t>

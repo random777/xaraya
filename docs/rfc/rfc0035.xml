@@ -781,6 +781,8 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         <em>getfield($myfield):</em>  return  a field from the statement.
       </t><t>
         <em>removefield($myfield):</em> remove a field from the statement.
+      </t><t>
+        <em>join($field1,$field2):</em> join 2 tables via their respective fields..
       </t>
       </list>
       </t>
@@ -812,7 +814,7 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       Query output:
       <list style="symbols">   
       <t>
-        <em>run($statement=''):</em> assemble and execute an SQL statement. If a string with a statement is given it is directly executed.
+        <em>run($statement='', $flag=1):</em> assemble and execute an SQL statement. If a string with a statement is given it is directly executed. If $flag is 1 then the method output() contains the resultset. If $flag is 0 then the public variable $result contains the adodb resultset. 
       </t><t>
         <em>output():</em> return the query output as a 2 dimensional array where the keys of row elements corespond to the field names in the datatbase.
       </t><t>
@@ -821,8 +823,20 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </list>
       </t>
       <t>
-      Miscellaneous:
+      Database Connection:
       <list style="symbols">   
+      <t>
+        <em>open():</em> Open the default db connection.
+      </t><t>
+        <em>close():</em> Close the default db connection.
+      </t><t>
+        <em>openconnection($connction):</em> open a db connection.
+      </t>
+      </list>
+      </t>
+      <t>
+      Miscellaneous:
+      <list style="symbols"> 
       <t>
         <em>gettype():</em> return the typ of the query, e.g. SELECT.
       </t><t>
@@ -830,7 +844,7 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </t><t>
         <em>getto():</em> return the records to end the query at.
       </t><t>
-        <em>getpagerows():</em> return the number of records to be displayeed on a page.
+        <em>getpagerows():</em> return the number of records to be displayed on a page.
       </t><t>
         <em>getrows():</em> return the total number of reecords the query found
       </t><t>
@@ -842,7 +856,13 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </t><t>
         <em>setrowstodo($x = 0):</em> set the number of records to b returned.
       </t><t>
-        <em>statement():</em> return a string representation of the SQL query.
+        <em>uselimits():</em> turn on the limit filters, i.e. the query will start at a given record and return a certain number of records, depending on the setstartat() and setrowstodo() methods respectively.
+      </t><t>
+        <em>nolimits():</em> turn off the limit filters, i.e the query will return all the records found.
+      </t><t>
+        <em>setstatement($x = ''):</em> create a string representation of the SQL query. If $x is empty the query statement is assembled from the data in the query object.
+      </t><t>
+        <em>getstatement():</em> return a string representation of the SQL query.
       </t>
       </list>
       </t>
@@ -866,6 +886,28 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
         
         $q = new xarQuery();
         if (!$q->run("SELECT * FROM $this->rolestable WHERE xar_name = '$this->name'")) return;        
+		</artwork>	
+	<t>
+		The following are equivalent:
+	</t>
+	  <artwork>
+		if (!$q->run($query)) return;
+		$invoices = array();
+		foreach ($q->output() as $out)
+			$invoices[] = array_pop($out);
+		return $invoices;
+        
+        AND
+        
+		$result = $dbconn->Execute($query);
+		if (!$result) return;
+		$invoices = array();
+		while(!$result->EOF) {
+			list($this->id) = $result->fields;
+			$invoices[] = $this->id;
+			$result->MoveNext();
+		}
+		return $invoices;
 		</artwork>	
 		<t>
 		Check if a role already exists:

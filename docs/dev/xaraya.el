@@ -1,14 +1,15 @@
 ;
 ; This file contains handy stuff while developing for xaraya
+; provided you are using a (x)emacs like editor. ;-)
 ;
-; TODO: in long term make this into a xaraya-mode package
+; It's the intention to gather handy functions for editting
+; xaraya files in this package, maybe even make it into a xaraya-mode 
+; who knows.
 ;
 
 ;
 ; Standard file header
 ;
-; TODO: assign insertion of this to key combo
-
 (defun xar-fileheader ()
 	"Insert a xaraya standard phpdoc fileheader"
 	(interactive)
@@ -33,8 +34,6 @@
 ;
 ; Standard function header
 ;
-; TODO: assign insertion of this to a key combo
-
 (defun xar-funcheader ()
 	"Insert a xaraya standard phpdoc fileheader"
 	(interactive)

@@ -849,8 +849,24 @@
     </t>
   </section>
   <section title="Validation/Configuration Options">
-    <t>
-    </t>
+      <t>You may specify the Values and Labels to be displayed in the list of Radio Buttons via the Validation field. The way to specify the Values and Labels:
+      <list style="symbols">
+      <t>Explicitly:  You may specify in the Validation field the options to display, using one of two formats.
+          <list style="symbols">
+             <t>
+                   Comma Seperated Labels: Simply specify the labels you wish to display
+                   delineated by commas.  The values specified will be used as both the
+                   ID and the display Label.  Example: label1,label2,label3
+              </t>
+              <t>
+                   Semicolon Seperated ID/Label pairs:
+                   Specify a list of ID/Label pairs seperated by semicolons.
+                   Example: id1,label1;id2,label2;id3,label3
+               </t>
+           </list>
+      </t>
+      </list>
+      </t>
   </section>
   <section title="Requirements">
     <t>
@@ -873,15 +889,15 @@
         You may specify the Values and Labels to be displayed in the drop down box via the Validation field.
         There are 4 ways to specify the Values and Labels:
         <list style="symbols">
-          <t>Explitly:  You may specify in the Validation field the options to display, using one of two formats.
+          <t>Explicitly:  You may specify in the Validation field the options to display, using one of two formats.
             <list style="symbols">
               <t>
-                  Comma Seperated Labels: Simply specify the labels you wish to display 
-                deliniated by commas.  The values specified will be used as both the 
+                  Comma Seperated Labels: Simply specify the labels you wish to display
+                delineated by commas.  The values specified will be used as both the 
                 ID and the display Label.  Example: label1,label2,label3
               </t>
               <t>
-                  Semicolon Seperated ID/Label pairs: 
+                  Semicolon Separated ID/Label pairs: 
                 Specify a list of ID/Label pairs seperated by semicolons.
                 Example: id1,label1;id2,label2;id3,label3
               </t>
@@ -894,7 +910,7 @@
               You may specify a data file containing the data you wish to display.
             To specify the data file use the following signature in the validation field
             "{file:pathToFile.dat}".
-            Each line of the file should consist of one ID/Value pair, seperated by a comma.
+            Each line of the file should consist of one ID/Value pair, separated by a comma.
           </t>
           <t>Data File (Via Uploads Module):
             As per the Data File option, but the file is uploaded into the system via the 

@@ -224,11 +224,13 @@
           
             Everybody (Group)
             |
+            |--Administrators (Group)
+            |  |
+            |  |--Admin (User)
+            |  
             |--Oversight (Group)
             |  |
             |  |--Overseer (User)
-            |  
-            |--Admins (Group)
             |
             |--Users (Group)
             |
@@ -243,16 +245,17 @@
           role cannot be deleted or modified.
         </t>
         <t>
-          Oversight: This is a group that contains those users that
+          Administrators: This is a group that contains those users that
           can do anything in the system, a sort of superuser. The
-          Oversight group contains one such user, the Overseer. Both
-          the Oversight group and the Overseer cannot be modified or
+          Administrators group contains one such user, the Admin. The Admin is the default user logged on when Xaraya is installed .Both
+          the Administrators group and the Admin cannot be modified or
           deleted.
         </t>
         <t>
-          Admins: This is a group that contains users that are
-          administrators of the site. This role may be modified or
-          deleted.
+          Oversight: This is a group that contains users that are
+          administrators of the site. The group contains one such user, the Overseer. 
+          Members of this group have ADMIN access to the entire site, with exception to the Roles and Privileges modules. 
+          This role may be modified or deleted.
         </t>
         <t>
           Users: This is a group that represents users of the
@@ -337,7 +340,7 @@
           <artwork>
             NoPrivileges                a privilege with no children
             
-            FullPrivileges              another privilege with no children
+            Administration              another privilege with no children
             
             ReadAll                     a privilege with 2 children and a grandchild
             |
@@ -380,7 +383,7 @@
               </artwork>
             </t>
             <t>
-              FullPrivileges is the privilege representing the highest
+              Administration is the privilege representing the highest
               level of access to all Xaraya modules, i.e. the ability to
               do anything. This privilege cannot be modified or
           deleted. It has the attributes:

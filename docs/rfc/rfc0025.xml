@@ -23,6 +23,9 @@
     <author initials="C." surname="Dudley" fullname="Chris Dudley">
       <organization>Xaraya Development Group</organization>
     </author>
+    <author initials="G.J." surname="Rothfuss" fullname="Gregor J. Rothfuss">
+      <organization>Xaraya Development Group</organization>
+    </author>
     <date month="October" year="2002"/>
     
     <!-- Initiating team for this RFC -->
@@ -54,7 +57,7 @@
 	those requirements, review project decisions, and achieve quality by meeting those 
 	requirements.
       </t>
-      <t>The requirements were gathered by open discussion or our IRC channels, by theoretical
+      <t>The requirements were gathered by open discussion on our IRC channels, by theoretical
 	analyses and by practical needs. 
       </t>
 
@@ -69,7 +72,7 @@
     <section title="How to read the requirements">
       <t>We give the requirements a unique number so we can refer to them in our
 	documents and in our decisions. In the online representation of this document
-	the requirements will be given anchors so we can explicitly link to them
+	the requirements will be given anchors so we can explicitly link to them.
       </t>
       
       <t>The requirements are listed in a table with the following columns:
@@ -87,19 +90,19 @@
 
       <t>The terms "critical", "essential", "optional" and "nice" have the following meanings:
 	<list style="numbers">
-	  <t>critical: The project would fail to reach its goals. If the requirement were not 
+	  <t>critical: The project would fail to reach its goals if the requirement were not 
 	    met at this level.</t>
 	  <t>essential: The project should meet the requirement at this level, but could still
 	    reach its goals without it.</t>
 	  <t>optional: The project will try to meet this level, but product quality will not suffer
 	    directly if the requirement is not met at this level.</t>
 	  <t>nice: Meeting the requirement will help the project, but in general it should only be
-	    met if it can be done cheaply (mostly in time resource domain)
+	    met if it can be done cheaply (mostly in the time resource domain)
 	  </t>
 	</list>
       </t>
 
-      <t>The entry iin each cell is a level for the measure; either a minimum level (for measures
+      <t>The entry in each cell is a level for the measure; either a minimum level (for measures
       like likeability where higher levels are better) or a maximum level (for measures like cost
       where lower levels are better). Then entries for an attribute requirement look like this:
 
@@ -149,7 +152,7 @@
       <t>The most compelling functional requirement is that users must be able to carry
 	out routine tasks using either the SCM systems interface, the native bugtracker 
 	interface or any other interface which has access to bugtracking information. That is,
-	user must not be required to switch interfaces to carry out routine development tasks
+	users must not be required to switch interfaces to carry out routine development tasks
 	like registering new bugs or resolving issues. Meeting this requirement makes it
 	much easier for developers to keep bug information up to date.
       </t>
@@ -174,7 +177,7 @@ ID  Measure                                         Critical Essential Optional 
  6  cmdline interface                                     no      yes       yes   yes
  7  web interface                                        yes      yes       yes   yes 
  8  mail interface                                        no      yes       yes   yes
- 9  gui client interf                                     no       no       yes   yes
+ 9  gui client interface                                  no       no       yes   yes
 10  Fields: id, state severity, type, description,       yes      yes       yes   yes
     comments(N), owner, submitter, 
 11  Fields: notify list, related items                    no       no       yes   yes
@@ -193,7 +196,7 @@ ID  Measure                                         Critical Essential Optional 
 24  custom attributes                                     no       no       yes   yes
 25  configurable submission template                      no       no       yes   yes
 26  mark custom attributes as required                    no       no       yes   yes
-27  ACL lists                                             no       no       yes   yes
+27  ACL                                                   no       no       yes   yes
 28  as simple as possible, but not simpler               yes      yes       yes   yes
 29  standards compliant                                  yes      yes       yes   yes
 30  open source                                           no       no       yes   yes
@@ -262,7 +265,7 @@ ID  Measure                                         Critical Essential Optional 
 
       <section title="Interfaces under our control are public,documented and maintained.">
 	<t>
-	  
+	The bugtracker should have a publically accessible API.  
 	</t>
       </section>
 
@@ -303,6 +306,8 @@ ID  Measure                                         Critical Essential Optional 
 	
 	<section title="Mail interface">
 	  <t>
+          The mail interface allows to reply to bug reports via mail or trigger state changes in
+          the bugtracker via mail.
 	  </t>
 	</section>
 	
@@ -324,21 +329,28 @@ ID  Measure                                         Critical Essential Optional 
 
       <section title="Quick filtering">
 	<t>
+        It should be possible to quickly filter bugs by various criteria, such as state,
+        submission date, severity.
 	</t>
       </section>
 
       <section title="Quick queries">
 	<t>
+        It should be possible to query the bugtracker for a list of bugs by specificing
+        various search terms.
 	</t>
       </section>
 
       <section title="Assign to components">
 	<t>
+        It should be possible to assign bugs to specific metadata, for instance components
+        that indicate a subsystem.
 	</t>
       </section>
 
       <section title="Assign to developers">
 	<t>
+        Bugs should be assignable to developers, and the assignment needs to be changeable.
 	</t>
       </section>
 
@@ -356,6 +368,8 @@ ID  Measure                                         Critical Essential Optional 
 
       <section title="Xaraya module ">
 	<t>
+        The bugtracker should integrate with Xaraya by being a module, or being wrapped into a module.
+        Sharing authentication with Xaraya would also be a welcome feature.
 	</t>
       </section>
 
@@ -400,6 +414,7 @@ ID  Measure                                         Critical Essential Optional 
 	
 	<section title="Blocking relationship">
 	  <t>
+          Bugs should be able to block other bugs from being resolved.
 	  </t>
 	</section>
 	
@@ -431,38 +446,63 @@ ID  Measure                                         Critical Essential Optional 
 	
 	<section title="Meta relationship (a.k.a grouping)">
 	  <t>
+          It should be possible to assign bugs to groups to indicate a relationsship between them.
+          These assignments should be orthogonal to the rest of the system.
 	  </t>
 	</section>
       </section>
 
 
       <section title="Statistics (specify what?)">
-	<t></t>
+	<t>
+        It should be possible to generate statistics from the bugtracker. Rather than specifying
+        the precise requirements (which are unknown), it makes sense to have a query interface
+        where the bug data is exposed and can be queried to generate statistics on the fly. 
+        </t>
       </section>
 
       <section title="Custom attributes">
-	<t></t>
+	<t>
+        The bugtracker should allow to add custom attributes to a bug to support
+        special needs. Examples are target releases, keywords etc.
+      </t>
       </section>
 
       <section title="Configurable submission template">
-	<t></t>
+	<t>
+        The bug submission form should be configurable to target it better to
+        the different bug-entering audiences, not all of which are technically
+        adept and may need some help from the form.
+       </t>
 
       </section>
 
       <section title="Mark custom attributes as required">
-	<t></t>
+	<t>
+        It should be possible to specify which attributes have to be filled out
+        when entering a bug.
+        </t>
       </section>
 
-      <section title="ACL lists">
-	<t></t>
+      <section title="ACL">
+	<t>
+        The operations of the bugtracker should be controlled by ACL.
+       </t>
       </section>
 
       <section title="As simple as possible, but not simpler">
-	<t></t>
+	<t>
+        The bugtracker should not cut corners to make it appear easier. For instance,
+        using a forum as a bugtracker because it is "convenient" would be wrong.
+        </t>
       </section>
 
       <section title="Standards compliant">
-	<t></t>
+	<t>
+        The bugtracker should use standards where possible. For instance: XHTML or
+        HTML 4.01 for display, ANSI SQL for database schemas. The use of these standards should
+        be documented.
+        </t>
       </section>
 
       <section title="Open source">
@@ -475,7 +515,9 @@ ID  Measure                                         Critical Essential Optional 
 
       <section title="Support multiple projects">
 	<t>
-</t>
+         The bugtracker should support multiple projects. This means it should support
+         bugs from different source trees, and handle them seperately.
+        </t>
       </section>
 
       <section title="Configurable auth system">
@@ -507,6 +549,7 @@ ID  Measure                                         Critical Essential Optional 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>2002-10-31: First revision</t>
+      <t>2002-11-11: More details added</t>
     </section>
 
   </middle>

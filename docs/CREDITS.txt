@@ -103,7 +103,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Steve MacGregor (grape)
 
-  Voll Metenchuk (Voll)
+  Volodymyr Metenchuk (voll)
 
   Vassilis Stratigakis (GabrielConnor)
 

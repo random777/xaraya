@@ -166,3 +166,5 @@ templates_c
 test.php
 xCode.apf
 ~*
+html/modules/release/xartemplates/admin-deleteid.xd
+html/modules/release/xartemplates/admin-viewids.xd

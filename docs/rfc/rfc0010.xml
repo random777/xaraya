@@ -26,6 +26,12 @@
                 <email>m.canini@libero.it</email>
             </address>
         </author>
+        <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+            <organization>Xaraya Development Group</organization>
+            <address>
+                <email>marcel@hsdev.com</email>
+            </address>
+        </author>
         <date month="November" year="2002"/>
         <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
         <abstract>

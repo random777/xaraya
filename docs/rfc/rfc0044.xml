@@ -154,6 +154,7 @@
 
     <section title="Variable Naming">
       <t>Consistant variable naming eases the readability of code. We recommend (fill in the blank)</t>
+      <t>Variables should have English based names where at all possible to maintain consistency across the code base.</t>
       <t>Example:</t>
       <t><artwork>
          Example array key and variable usage 
@@ -282,6 +283,10 @@
 		C style comments (/* */) and standard C++ comments (//) are both fine. Use of Perl/shell 
 		style comments (#) is discouraged. 
 	  </t>
+          <t>
+		In order to maintain consistency across the code base all comments should be in English 
+		where possible - feel free to ask for help with translating if you need it.
+          </t>
 	</section>
 
 	<section title="Including Code">
@@ -309,6 +314,7 @@
           <t>protected functions start with "xarFoo_" (one underscore)</t>
           <t>private functions start with "xarFoo__" (two underscores)</t>
         </list>
+	Functions should have English based names where at all possible to maintain consistency across the code base.
       </t>
     </section>
 

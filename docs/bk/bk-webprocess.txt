@@ -237,3 +237,58 @@ COMMENTS:
   With the above process this can be done by cloning the production repository directly.
   The "central" part of these sites which don't need the layered process is just one
   level higher than the others. 
+
+  
+*************************************
+ BK PROMOTION FOR IDIOTS (like Apak)
+*************************************
+by Apakuni (with MrB's Gracious Help
+*************************************
+ 
+  GOTO LOCAL REPOS
+> cd /path/to/local/repos
+
+  SET PARENT TO BASE REPOS/DEV	
+> bk parent username@xaraya.com:/usr/local/repositories/websites/www
+
+  CHECK LEVEL IS 20 (DEV)
+> bk level 
+Repository level is 20
+
+  PULL FOR OTHER CHANGES
+> bk pull 
+
+  PUSH TO DEV REPOS (Autopopulates concept.xaraya.com)
+> bk push
+
+  SET PARENT TO STAGING CLONE
+> bk parent username@xaraya.com:/var/www-ssl/ddf/staging.xaraya.com/www/
+
+  SET LEVEL TO 15 (STAGING)
+> bk level 15
+
+  PULL FOR OTHER CHANGES (should be none)
+> bk pull 
+
+  PUSH TO STAGING (Autopopulates staging.xaraya.com)
+> bk push
+
+  SET PARENT TO PRODUCTION CLONE
+> bk parent username@xaraya.com:/var/www/ddf/www.xaraya.com/
+
+  SET LEVEL TO 10 (PRODUCTION)
+> bk level 10
+
+  PULL FOR OTHER CHANGES (should be none)
+> bk pull 
+
+  PUSH TO PRODUCTION (Autopopulates www.xaraya.com)
+> bk push
+
+  RESET PARENT TO BASE REPOS/DEV	
+> bk parent username@xaraya.com:/usr/local/repositories/websites/www
+
+  RESET LEVEL TO 20 (DEV)
+> bk level 20  
+
+DONE!!!

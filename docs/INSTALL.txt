@@ -28,6 +28,7 @@ Upgrades
    Please visit the #support channel for information on upgrading from PostNuke to Xaraya.
 
    To upgrade from .900 to .902 replace all files and modules.
+   Please note that this will replace config.system.php too and so you should have a backup handy to restore your database settings (the site wont work otherwise :-).
    Log in with administration rights.
    Point your directory to upgrade.php in your root directory.  
    Follow instructions from there.

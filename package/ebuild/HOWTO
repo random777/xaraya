@@ -1,0 +1,14 @@
+
+TO USE THIS EBUILD:
+ NOTE: we won't have to do anything but #5 once xaraya is included in gentoo proper 
+ REQUIREMENTS: Apache (will be removed when i find a webserver eclass)
+
+ INSTRUCTIONS
+ 1. uncomment and set PORTDIR_OVERLAY to /usr/local/portage
+ 2. # mkdir -p /usr/local/portage/net-www/xaraya
+ 3. copy ebuild to xaraya-x.x.x.x.ebuild where xs' are version numbers 
+ 3. copy xaraya ebuild and metadata.xml to /usr/local/portage/net-www/xaraya
+ 3. # ebuild /usr/local/portage/net-www/xaraya/xaraya-x.x.x.x.ebuild digest
+ 5. # emerge xaraya
+ 6. Done 
+   

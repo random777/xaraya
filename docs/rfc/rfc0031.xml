@@ -5,7 +5,7 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc='yes'?>
 
-<rfc number="0001" category="info">
+<rfc number="0031" category="info">
   <front>
     <title>xDeveloper Community Tools</title>
     <author initials="DAD" surname="Daulton" fullname="Douglas">

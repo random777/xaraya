@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0032" category="info">
+  <front>
+    <title>Xaraya Usability Reccomendations</title>
+    <author initials="DAD" surname="Daulton" fullname="Douglas">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>apakuni@xaraya.com</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="December" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t></t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC 0032 Xaraya Usability Reccomendations
+
+
+REQUEST FOR COMMENTS (0032)
+Xaraya Usability Reccomendations
+
+VISION
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

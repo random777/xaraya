@@ -51,28 +51,33 @@
 				UNBOXED MULTI language.  TFe modus operandi of MLS is determined
 				at installation time and can't be changed with ease later, a
 				specific tool should be created for this.  The MLS mode can be
-				queried at run time by the pnMLGetMode() API function.  Here's a
-				brief description for each MLS mode: SINGLE: MLS uses only one
-				charset, typically single byte but potentially multi byte if
-				mb_string is built in. Every information is stored coherently
-				with the chosen charset (installation time), and also user data
-				is meaningful in the chosen charset.  BOXED MULTI: MLS uses more
-				than one charset (same consideration for the single or multi
-				byte matter as above can be applied here), but only one charset
-				per page is used (this is a obvious concept, but important to
-				understand). Due to this fact the content is not sharable
-				through different language areas (for example an Arabic comment
-				won't be shown in the English area even if refereed to the same
-				object, say an article available in both English and
-				Arabic). Another point is that every operation involves only a
-				single language. This mode can produce unexpected results if
-				mb_string is not installed, the motivation is described later.
-				UNBOXED MULTI: MLS uses an universal charset to represent
-				everything (read it as UTF-8). This guarantees that no
-				conversion is need. Every page is always shown according to the
-				user chosen language, but the page can contain texts in other
-				languages (for example a French article and comments inside an
-				English page).
+				queried at run time by the xarMLSGetMode() API function.  Here's a
+				brief description for each MLS mode: 
+				
+				<list>
+				    <t>SINGLE: MLS uses only one charset, typically single byte
+				    but potentially multi byte if mb_string is built in. Every
+				    information is stored coherently with the chosen charset
+				    (installation time), and also user data is meaningful in
+				    the chosen charset.</t>
+				    <t>BOXED MULTI: MLS uses more than one charset (same
+				    consideration for the single or multi byte matter as above
+				    can be applied here), but only one charset per page is used
+				    (this is a obvious concept, but important to understand).
+				    Due to this fact the content is not sharable through different
+				    language areas (for example an Arabic comment won't be shown
+				    in the English area even if refereed to the same object, say
+				    an article available in both English and Arabic). Another
+				    point is that every operation involves only a single language.
+				    This mode can produce unexpected results if	mb_string is not
+				    installed, the motivation is described later.</t>
+				    <t>UNBOXED MULTI: MLS uses an universal charset to represent
+				    everything (read it as UTF-8). This guarantees that no
+				    conversion is need. Every page is always shown according
+				    to the user chosen language, but the page can contain texts
+				    in other languages (for example a French article and comments
+				    inside an English page).</t>
+				</list>
 			</t>
 			<t>
 				The following table describes whether some variable/object is
@@ -104,7 +109,7 @@ blank means no
 				charset and an optional specializer.
 				This is the grammar for a valid Xaraya locale string:
 				<artwork>
-					locale := language [+ '_' + country ] [+ '@' + specializer] [+ '.' + charset]
+	locale := language [+ '_' + country ] [+ '@' + specializer] [+ '.' + charset]
 				</artwork>
 			</t>
 			
@@ -126,16 +131,21 @@ blank means no
 				present), since the User Locale (read it as preferred user language)
 				is required, all the User Data will be stored encoded with the chosen
 				charset (User Locale) and will be converted on the fly to the right
-				charset by pnUser*Var API functions.  Navigation Locale is a session
+				charset by xarUser*Var API functions.  Navigation Locale is a session
 				variable used to represent the locale of this session.  The current
 				locale is fundamental to get MLS load the right set of translations.
-				To achieve this pnML_load* functions will use pnMLGetCurrentLocale API
-				function.  Its behavior is described as follow: * Logged user: SINGLE:
-				Site Locale is returned.  BOXED MULTI: Navigation Locale is set to
-				User Locale at the first call, Navigation Locale is returned.  UNBOXED
-				MULTI: User Locale is returned.  * Anonymous user: SINGLE: Site Locale
-				is returned.  BOXED &amp; UNBOXED MULTI: Navigation Locale is set to Site
-				Default Locale at the first call, Navigation Locale is returned.
+				To achieve this xarMLS_load* functions will use xarMLSGetCurrentLocale API
+				function.  Its behavior is described as follow: 
+				<artwork>
+* Logged user: 
+SINGLE: Site Locale is returned.
+BOXED MULTI: Navigation Locale is set to User Locale at the first call, Navigation Locale is returned.
+UNBOXED MULTI: User Locale is returned.
+
+* Anonymous user:
+SINGLE: Site Locale is returned.
+BOXED &amp; UNBOXED MULTI: Navigation Locale is set to Site Default Locale at the first call, Navigation Locale is returned.
+				</artwork>
 			</t>
 			<t>So Navigation Locale is used in these cases:</t>
 			<t>
@@ -146,14 +156,14 @@ Anonymous user         |         |    X    |    X    |
 				</artwork>
 			</t>
 			<t>
-				The API function pnMLSetCurrentLocale will operate directly on Navigation
+				The API function xarMLS_setCurrentLocale will operate directly on Navigation
 				Locale, so it performs something only in the cases written before.
 			</t>
 			<t>
 				Considering that a Xaraya is represented by the number of seconds since
 				UNIX epoch (1/1/1970 00:00:00 GMT), the value of System Timezone is used to
 				convert the timestamp obtained by the time() function to the GMT timestamp.
-				Site Timezone is used by pnLocaleFormatDate API function; in particular Site
+				Site Timezone is used by xarLocaleFormatDate API function; in particular Site
 				Timezone is used when not overridden by User Timezone.
 			</t>
 		</section>
@@ -161,10 +171,12 @@ Anonymous user         |         |    X    |    X    |
 			<t>
 				Even by supporting string-base and key-based access to translations, MLS keeps
 				very distinct the mode you use it.
-				MLS has two entry point functions, they are pnML and pnMLByKey.
-				The first function (pnML) is chosen for string-based translations, the latter
-				function (pnMLByKey) is chosen for key-based translations.
+				MLS has two entry point functions, they are xarnML and xarMLByKey.
+				The first function (xarML) is chosen for string-based translations, the latter
+				function (xarMLByKey) is chosen for key-based translations.
 				You can also use both model in the same fragment of code.
+			</t>
+			<t>
 				The MLS architecture is modularized through the use of backends.
 				A backend is an entity capable of managing string-based and key-based
 				translations.
@@ -176,7 +188,7 @@ Anonymous user         |         |    X    |    X    |
 				We said that a backend manages translations, this is done by exposing a well
 				known interface:
 				<artwork>                    
-interface pnML_TranslationsBackend
+interface xarMLS_TranslationsBackend
 {
     /**
      * Gets the string based translation associated to the string param.
@@ -191,13 +203,13 @@ interface pnML_TranslationsBackend
      * by a translation context that contains an object name, base directory,
      * type and locale.
      */
-    bool load($translation_ctx);
+    bool loadContext($ctxType,$ctxName);
 }
 				</artwork> 
 			</t>
 			<t>                   
-				The load method is called when a call pnModLoad, pnModAPILoad,
-				pnBlockLoad, pnTplModule occurs.  Translations are identified by a
+				The load method is called when a call xarModLoad, xarModAPILoad,
+				xarBlockLoad, xarTplModule occurs.  Translations are identified by a
 				translation context, in that way only needed translations will be load
 				during the page generation process.  A translation context is made of
 				a module name, a module action type (user, userapi, admin, adminapi)
@@ -222,33 +234,33 @@ interface pnML_TranslationsBackend
 			</t>
 			<t>
 				<artwork> 
-interface xarML_?ReferencesBackend { 
+interface xarMLS_ReferencesBackend { 
     /**
      * Gets a translation entry for a string based translation.
      */
-    array entry($string);
+    array getEntry($string);
     /**
      * Gets a translation entry for a key based translation.
      */
-    array entryByKey($key);
+    array getEntryByKey($key);
     /**
      * Gets a transient identifier (integer) that is guaranteed to identify
      * the translation entry for the string based translation in the next HTTP request.
      */
-    int transient_id($string)
+    int getTransientId($string)
     /**
      * Gets the translation entry identified by the passed transient identifier.
      */
-    array lookup($transient_id)
+    array lookupTransientId($transient_id)
 } 
 				</artwork> 
 			</t>
 			<t>
-				The entry method return an array that contains the translation for that such string and an array of references of occurrences for that such 
+				The getEntry method return an array that contains the translation for that such string and an array of references of occurrences for that such 
 				string. 
 			</t>
 			<t>
-				The entryByKey is the analogous case for key-based translation. 
+				The getEntryByKey is the analogous case for key-based translation. 
 				<artwork>
 interface xarML_EnumerableTranslationsBackend { 
 				array enumTranslation($reset = false);
@@ -269,7 +281,7 @@ interface xarML_EnumerableTranslationsBackend {
 				other API functions: 
 			</t>
 			<t>
-				xarMLInit() Used to initialized the MLS. 
+				xarMLS_init() Used to initialized the MLS. 
 			</t>
 			<t>
 				xarMLRegisterListener($modname) Register a listener into MLS. A listener is notified by MLS of certain events like missing translations. 

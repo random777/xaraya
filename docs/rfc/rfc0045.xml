@@ -65,11 +65,19 @@
       </t>
     </section>
     
+    <section title="Overall consideration">
+      <t></t>
+    </section>
+
     <section title="MySQL">
       <t></t>
     </section>
 
     <section title="PostGreSQL">
+      <t></t>
+    </section>
+  
+    <section title="Oracle">
       <t></t>
     </section>
     

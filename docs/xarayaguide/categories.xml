@@ -47,7 +47,7 @@
 
     <itemizedlist>
       <listitem>
-        <para>f you wish to display categories in a Windows Explorer-like tree
+        <para>If you wish to display categories in a Windows Explorer-like tree
         view, click &#34;<guibutton>Yes</guibutton>&#34;. Displaying
         categories in this way requires a JavaScript-enabled browser. If you
         use this display method, the icons in <command>Admin-&#62;Categories-&#62;View

@@ -425,10 +425,15 @@
                     <xsl:when test="function-available('xalan:nodeset')">
                         <xsl:apply-templates select="xalan:nodeset($copyright)" />
                     </xsl:when>
+                    <xsl:when test="system-property('xsl:vendor')='Transformiix' and system-property('xsl:vendor-url')='http://www.mozilla.org/projects/xslt/'">
+                        <!--special case for Transformiix as of Mozilla release 1.2b -->
+                        <!--see http://bugzilla.mozilla.org/show_bug.cgi?id=143668 -->
+                        <xsl:call-template name="insertCopyright"/>
+                    </xsl:when>
                     <xsl:otherwise> <!--proceed with fingers crossed-->
-                    
+                    <!-- This is likely to cause the error in mozilla direct rendering -->
                     <xsl:apply-templates select="$copyright" />
-                </xsl:otherwise>
+                    </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
         
@@ -504,8 +509,13 @@
                         <xsl:with-param name="rc" select="xalan:nodeset($rightColumn)" />    
                     </xsl:call-template>
                 </xsl:when>    
+                <xsl:when test="system-property('xsl:vendor')='Transformiix' and system-property('xsl:vendor-url')='http://www.mozilla.org/projects/xslt/'">
+                    <!--special case for Transformiix as of Mozilla release 1.2b -->
+                    <!--see http://bugzilla.mozilla.org/show_bug.cgi?id=143668 -->
+                </xsl:when>
+
                 <xsl:otherwise>    
-                <xsl:call-template name="emitheader">
+                <xsl:call-template name="emitheader"> 
                     <xsl:with-param name="lc" select="$leftColumn" />    
                     <xsl:with-param name="rc" select="$rightColumn" />    
                 </xsl:call-template>
@@ -538,7 +548,9 @@
             <xsl:when test="system-property('xsl:vendor')='Transformiix' and system-property('xsl:vendor-url')='http://www.mozilla.org/projects/xslt/'">
                 <!--special case for Transformiix as of Mozilla release 1.2b -->
                 <!--see http://bugzilla.mozilla.org/show_bug.cgi?id=143668 -->
-                <xsl:apply-templates select="$preamble/node()" />
+                <!-- <xsl:apply-templates select="$preamble/node()" /> -->
+                <!-- The above didnt work, just call the template directly -->
+                <xsl:call-template name="insertPreamble"/>
             </xsl:when>
             <xsl:otherwise> <!--proceed with fingers crossed-->
             <xsl:apply-templates select="$preamble" />

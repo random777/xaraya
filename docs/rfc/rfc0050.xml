@@ -413,7 +413,7 @@ exist among Xaraya components as they do between OO objects, the two are not ide
 		<section title="Hierarchy Overview">
 		<t>
 		  The following diagram shows the topmost portion of the object hierarchy (core modules). <em>Only member assignments are shown.</em>
-		  [random: this is still largely in flux.]
+		  [rndom: this is still largely in flux.]
 		</t>
 		<artwork>    
 		xarHierarchy                   

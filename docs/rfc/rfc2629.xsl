@@ -516,6 +516,14 @@
   </blockquote>
 </xsl:template>
 
+<xsl:template match="list[@style='bullets']">
+	<blockquote>
+    <ul class="text">
+    	<xsl:apply-templates />
+	  </ul>
+  </blockquote>
+</xsl:template>
+
 <!-- numbered list inside numbered list -->
 <xsl:template match="list[@style='numbers']/t/list[@style='numbers']" priority="9">
 	<blockquote>

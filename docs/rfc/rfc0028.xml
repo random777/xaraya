@@ -43,7 +43,7 @@
         With hindsight, since the first revision of this document, the described policy has 
         not been completely implemented so far. My personal opinion is that this is due to
         the following factors:
-        <list style="bullets">
+        <list style="symbols">
           <t>learning curve for bitkeeper</t>
           <t>code is still in flux</t>
           <t>eagerness for producing code</t>
@@ -84,53 +84,52 @@
         To keep the policy readable, the terms used are the ones which
         are common to CVS. Other SCM tools might use other words to
         describe the same principles. The actual implementation of
-        this policy with the tool of our choice in in <xref
-                                                            target="scmusage">part B</xref> of this document.
+        this policy with the tool of our choice in in <xref target="scmusage">part B</xref> of this document.
       </t>
       
       <t>
         The document assumes you know how to use a SCM. The text
-        focuses on the rules to guarantee a pristine
-        repository supporting our development team instead of
-        obstructing it. If the SCM cannot support our process,
-        we&#39;ll have to come up with some kind of self-discipline
-        guidelines to implement our process. If possible and
-        reasonable we will let the SCM do some sanity checks to keep
-        developers on the right track. Please read these guidelines
-        and stick to them. Each section is accompanied by a section
-        &quot;Possible support/enforcement&quot; which lists a
-        possibility to be able to support the guideline. It does not
-        mean that these measure are in fact in place, but they might
-        be some day!
+        focuses on the rules to guarantee a pristine repository
+        supporting our development team instead of obstructing it. If
+        the SCM cannot support our process, we&#39;ll have to come up
+        with some kind of self-discipline guidelines to implement our
+        process. If possible and reasonable we will let the SCM do
+        some sanity checks to keep developers on the right
+        track. Please read these guidelines and stick to them. Each
+        section is accompanied by a section &quot;Possible
+        support/enforcement&quot; which lists a possibility to be able
+        to support the guideline. It does not mean that these measure
+        are in fact in place, but they might be some day!
       </t>
       
       <section anchor="Formats" title="Formats">
         <t>
           The file format used in the Xaraya repository tree is Unix,
-          i.e. lines end with LF. If you are not using a *nix system please
-          turn off any auto-conversion-to-proprietary-format in your editor,
-          as this will mess up things for other developers and will lead to
-          php execution errors.
+          i.e. lines end with LF. If you are not using a *nix system
+          please turn off any auto-conversion-to-proprietary-format in
+          your editor, as this will mess up things for other
+          developers and will lead to php execution errors.
         </t>
         
         <t>
-          Take special care in naming files. Although a *nix file-system
-          is generally case-sensitive and won&#39;t complain if you commit a
-          FILE and a file and a FiLe. Windows and Mac systems will not be
-          able to distinguish these files and will not be able to use the
-          repository.
+          Take special care in naming files. Although a *nix
+          file-system is generally case-sensitive and won&#39;t
+          complain if you commit a FILE and a file and a FiLe. Windows
+          and Mac systems will not be able to distinguish these files
+          and will not be able to use the repository.
         </t>
         
         <t>
-          Xaraya uses the PEAR coding standard
-          (<eref target="http://pear.php.net">http://pear.php.net</eref>).
-          Please read these guidelines and follow them when you code. This
-          includes using phpdoc tags for documenting your code
-          (<eref target="http://www.phpdoc.de">http://www.phpdoc.de</eref>)
+          Xaraya uses the PEAR coding standard (<eref
+          target="http://pear.php.net">http://pear.php.net</eref>).
+          Please read these guidelines and follow them when you
+          code. This includes using phpdoc tags for documenting your
+          code (<eref
+          target="http://www.phpdoc.de">http://www.phpdoc.de</eref>)
         </t>
         
         <t>Possible support by SCM:
-          <list style="bullet">
+          <list style="symbols">
             <t>check for CR/LF Action: warn/cancel commit;</t>
             <t>signal on pre-commit that same name (case-insensitive)
               exists, Action: warn/cancel commit</t>
@@ -156,40 +155,41 @@
         <section title="Trees, trunks, scenarios, branches, tags and others">
           <t>
             <list>
-              <t>Tree:</t>
+              <t><em>Tree:</em></t>
               <t>
-                The tree is the total of all elements, typically files,
-                containing the sources of the project, which we want to manage. The
-                files are not limited to source code; it is even recommended that
-                all information which is more or less part of the project will be
-                placed under control of the SCM. Think of documents, static
-                web-pages, test-scripts, sql-scripts etcetera.
+                The tree is the total of all elements, typically
+                files, containing the sources of the project, which we
+                want to manage. The files are not limited to source
+                code; it is even recommended that all information
+                which is more or less part of the project will be
+                placed under control of the SCM. Think of documents,
+                static web-pages, test-scripts, sql-scripts etcetera.
               </t>
-              <t>Trunk:</t>
+              <t><em>Trunk:</em></t>
               <t>
                 The trunk represents the main line of development and always
                 contains the latest approved changes in development.
               </t>
-              <t>Branch:</t>
+              <t><em>Branch:</em></t>
               <t>
                 A branch is a (temporary) (partial) copy of the tree which is
                 created with a specific purpose. Changes made
                 in a branch do not appear on the trunk unless they are merged back
                 in.
               </t>
-              <t>Scenario:</t>
+              <t><em>Scenario:</em></t>
               <t>
                 A scenario is a specific development task. A scenario always
                 lives on a branch and is created by the repository managers in the
                 repository.
               </t>
-              <t>Tags:</t>
+              <t><em>Tags:</em></t>
               <t>
                 Tags are created in the tree to represent a specific state of
                 the tree which might be needed in the future. For example, you
                 might tag the tree before you commit a very complex change.
               </t>
-              <t>Releases:</t>
+              <t><em>Releases:</em></t>
               <t>
                 Releases are basically the same as tags, with the exception
                 that they are permanent,
@@ -367,7 +367,7 @@
             </t>
             
             <t>Possible support by SCM:
-              <list style="bullet">
+              <list style="symbols">
                 <t>access privileges to prevent commits in wrong branches.</t>
                 <t>
                   automatic regression testing on scenario-branches and
@@ -450,7 +450,7 @@
           </t>
           
           <t>Possible support by SCM:
-            <list style="bullets">
+            <list style="symbols">
               <t>use templates for the log messages Action: none</t>
               <t>check content of log messages for minimal content. Action: defer commit</t>
               <t>Integration with tracker facility Action: scan log message /
@@ -550,7 +550,7 @@
             <list style="numbers">
               <t>Clone the Xaraya repository:
                 <artwork>
-                  bk clone user@xaraya.com:/repositories/xaraya [local-name]
+                  bk clone user@xaraya.com:/usr/local/repositories/xaraya/core/stable [local-name]
                 </artwork>
                 This creates a local repository with its parent set to the xaraya repository 
                 at the host xaraya.com identified  with the specified user.
@@ -637,7 +637,7 @@
                 All developers who work on that scenario clone (an extra)
                 local repository from xaraya.com:
                 <artwork>
-                  bk clone user@xaraya.com:/usr/local/repositories/xaraya-blocklayout
+                  bk clone user@xaraya.com:/usr/local/repositories/xaraya/core/scenarios/blocklayout
                 </artwork>
                 Note the different name of the repository
               </t>
@@ -940,14 +940,10 @@
     
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2003-07-26: updated paths to reflect new repository organisation, some minor fixes</t>
       <t>2002-11-27: converted private documents to RFC, small corrections and review, no major changes from original</t>
       <t>before 2002-11-27: Private documents</t>
     </section>
     
   </middle>
-  
-  <!-- Back matter is used for references and appendices which come after the references -->
-  <back>
-    
-  </back>
 </rfc>

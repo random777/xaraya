@@ -234,7 +234,7 @@
 	  </t>
 	</section>
  
-	<section>
+	<section title="Arguments">
 	  <t>
 	    Arguments with default values go at the end of the argument list. Always attempt to return a 
 	    meaningful value from a function if one is appropriate. Here is a slightly longer example:

@@ -271,14 +271,21 @@
              </xsl:if>
            </xsl:if>
          </xsl:if>
-         <pre>
-           <!--<xsl:value-of select="." />-->
-           <xsl:call-template name="showArtwork">
-             <xsl:with-param name="mode" select="'html'" />
-             <xsl:with-param name="text" select="." />
-             <xsl:with-param name="initial" select="'yes'" />
-           </xsl:call-template>
-         </pre>
+         <xsl:choose>
+           <xsl:when test="@src!=''">
+             <img src="{@src}"/>
+           </xsl:when>
+           <xsl:otherwise>
+             <pre>
+               <!--<xsl:value-of select="." />-->
+               <xsl:call-template name="showArtwork">
+                 <xsl:with-param name="mode" select="'html'" />
+                 <xsl:with-param name="text" select="." />
+                 <xsl:with-param name="initial" select="'yes'" />
+               </xsl:call-template>
+             </pre>
+           </xsl:otherwise>
+         </xsl:choose>
        </xsl:template>
        
        <xsl:template match="author">

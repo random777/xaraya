@@ -47,7 +47,8 @@
 	</front>
   <middle>
     <section title="Introduction">
-      <t>This memo describes how to write a document for the I-D and RFC series
+      <t>
+        This memo describes how to write a document for the I-D and RFC series
         using <xref target="XML">the Extensible Markup Language</xref> (XML).
         This memo has three goals:
         <list>
@@ -74,79 +75,104 @@
           </t>
         </list>
       </t>
-      <t>It is beyond the scope of this memo to discuss the political
+      <t>
+        It is beyond the scope of this memo to discuss the political
         ramifications of using XML as a source format for RFC-like documents.
         Rather,
         it is simply noted that adding minimal markup to plain text:
         <list style="symbols">
-          <t>allows the traditional production of textual RFC-like documents using
-            familiar editors;</t>
-          <t>requires some, albeit minimal, additions to existing software
-            environments; and,</t>
-          <t>permits information to be organized, searched, and retrieved
-            using both unstructured and structured mechanisms.</t>
+          <t>
+            allows the traditional production of textual RFC-like documents using
+            familiar editors;
+          </t>
+          <t>
+            requires some, albeit minimal, additions to existing software
+            environments; and,
+          </t>
+          <t
+            >permits information to be organized, searched, and retrieved
+            using both unstructured and structured mechanisms.
+          </t>
         </list>
       </t>
     </section>
     <section title="Using the DTD to Write I-Ds and RFCs">
-      <t>We do not provide a formal or comprehensive description of XML.
+      <t>
+        We do not provide a formal or comprehensive description of XML.
         Rather,
         this section discusses just enough XML to use a Document Type
-        Declaration (DTD) to write RFC-like documents.</t>
-      <t>If you're already familiar with XML,
-        skip to <xref target="dtdrfc.dtd" /> to look at the DTD.</t>
+        Declaration (DTD) to write RFC-like documents.
+      </t>
+      <t>
+        If you're already familiar with XML,
+        skip to <xref target="dtdrfc.dtd" /> to look at the DTD.
+      </t>
       <section anchor="xml_basics" title="XML basics">
-        <t>There are very few rules when writing in XML,
+        <t>
+          There are very few rules when writing in XML,
           as the syntax is simple.
           There are five terms you'll need to know:
           <list style="numbers">
-            <t>An "element" usually refers to a start tag, an end tag, and all the
+            <t>
+              An "element" usually refers to a start tag, an end tag, and all the
               characters in between,
               e.g.,
-              "&lt;example&gt;text and/or nested elements&lt;/example&gt;"</t>
-            <t>An "empty element" combines the start tag and the end tag,
-              e.g.,
-              "&lt;empty/&gt;".
-              You don't find these in HTML.</t>
-            <t>An "attribute" is part of an element.
+              "&lt;example&gt;text and/or nested elements&lt;/example&gt;"
+            </t>
+            <t>
+              An "empty element" combines the start tag and the end tag,
+              e.g., "&lt;empty/&gt;".  You don't find these in HTML.
+            </t>
+            <t>
+              An "attribute" is part of an element.
               If present, they occur in the start tag, e.g.,
               "&lt;example name='value'&gt;".
               Of course,
               they can also appear in empty elements, e.g.,
-              "&lt;empty name='value'/&gt;".</t>
-            <t>An "entity" is a textual macro that starts with "&amp;".
+              "&lt;empty name='value'/&gt;".
+            </t>
+            <t>
+              An "entity" is a textual macro that starts with "&amp;".
               Don't worry about these,
               you'll only use them whenever you want to put a "&amp;" or a "&lt;" in
-              your text.</t>
-            <t>A "token" is a string of characters.
+              your text.
+            </t>
+            <t>
+              A "token" is a string of characters.
               The first character is either a letter or an underscore ("_").
               Any characters that follow are either letters, numbers, an
-              underscore, or a period (".").</t>
+              underscore, or a period (".").
+            </t>
           </list>
         </t>
         <figure>
           <preamble>First,
             start your source file with an XML declaration,
             a reference to the DTD,
-            and the "rfc" element:</preamble>
+            and the "rfc" element:
+          </preamble>
           <artwork><![CDATA[
             <?xml version="1.0"?>
             <!DOCTYPE rfc SYSTEM "rfc]]>&amp;rfc.number;<![CDATA[.dtd">
             <rfc>
             ...
           </rfc>
-            ]]></artwork>
+            ]]>
+          </artwork>
           <postamble>Ignore the first two lines
             -- the declaration and the reference --
             and simply treat them as opaque strings.
-            Nothing else should be present after the "&lt;/rfc&gt;" tag.</postamble>
+            Nothing else should be present after the "&lt;/rfc&gt;" tag.
+          </postamble>
         </figure>
-        <t>Second,
+        <t>
+          Second,
           make sure that all elements are properly matched and nested.
           A properly matched element that starts with
           "&lt;example&gt;" is eventually followed with "&lt;/example&gt;".
           (Empty elements are always matched.)
-          Elements are properly nested when they don't overlap.</t>
+          Elements are properly nested when they don't overlap.
+        </t>
         <figure>
           <preamble>For example,</preamble>
           <artwork><![CDATA[
@@ -157,7 +183,8 @@
           </inner>
             ...
           </outer>
-            ]]></artwork>
+            ]]>
+          </artwork>
           <postamble>is properly nested.</postamble>
         </figure>
         <figure>
@@ -170,34 +197,42 @@
           </outer>
             ...
           </inner>
-            ]]></artwork>
+            ]]>
+          </artwork>
           <postamble>overlaps, so the elements aren't properly nested.</postamble>
         </figure>
-        <t>Third,
+        <t>
+          Third,
           never use "&lt;" or "&amp;" in your text.
-          Instead, use either "&amp;lt;" or "&amp;amp;", respectively.</t>
-        <t>Fourth,
-          there are two quoting characters in XML, 'apostrophe' and "quotation".
-          Make sure that all attributes values are quoted,
-          e.g., "&lt;example name='value'&gt;",
-          If the value contains one of the quoting characters,
-          then use the other to quote the value,
-          e.g., "&lt;example name='"'&gt;",
-          If the value contains both quoting characters,
-          then use one of them to quote the value,
-          and replace occurrances of that character in the attribute value with
-          either '&amp;apos;' (apostrophe) or "&amp;quot;" (quotation),
-          e.g., "&lt;example name='"&amp;apos;"'&gt;".</t>
+          Instead, use either "&amp;lt;" or "&amp;amp;", respectively.
+        </t>
+        <t>
+          Fourth, there are two quoting characters in XML,
+          'apostrophe' and "quotation".  Make sure that all attributes
+          values are quoted, e.g., "&lt;example name='value'&gt;", If
+          the value contains one of the quoting characters, then use
+          the other to quote the value, e.g., "&lt;example
+          name='"'&gt;", If the value contains both quoting
+          characters, then use one of them to quote the value, and
+          replace occurrances of that character in the attribute value
+          with either '&amp;apos;' (apostrophe) or "&amp;quot;"
+          (quotation), e.g., "&lt;example name='"&amp;apos;"'&gt;".
+        </t>
         <figure>
-          <preamble>If you want to put a comment in your source file,
-            here's the syntax:</preamble>
-          <artwork><![CDATA[
+          <preamble>
+            If you want to put a comment in your source file,
+            here's the syntax:
+          </preamble>
+          <artwork>
+            <![CDATA[
             <!-- comments can be multiline,
             if you wish -->
-            ]]></artwork>
+            ]]>
+          </artwork>
         </figure>
-        <t>Finally,
-          XML is case sensitive.</t>
+        <t>
+          Finally, XML is case sensitive.
+        </t>
       </section>
       <section anchor="front_matter" title="Front matter">
         <figure>
@@ -864,33 +899,43 @@
       </section>
     </section>
     <section title="Processing the XML Source File">
-      <t>This section concerns itself with applications that operate on
+      <t>
+        This section concerns itself with applications that operate on
         an XML source file.
         A lot of XML tools are available,
         as are many lists of XML resources,
         e.g.,
-        <eref target="http://metalab.unc.edu/xml/">Cafe con Leche</eref>.</t>
-      <t>There are two kinds of XML tools: validating and non-validating.
+        <eref target="http://metalab.unc.edu/xml/">Cafe con Leche</eref>.
+      </t>
+      <t>
+        There are two kinds of XML tools: validating and non-validating.
         Both check that the source file conforms to the rules given in
         <xref target="xml_basics" />.
         However,
         in addition to making sure that the source file is well-formed,
         a validating tool also reads the DTD referenced by the source file
         to make sure that they match.
-        There are a number of both validating and non-validating tools available.</t>
+        There are a number of both validating and non-validating tools available.
+      </t>
       <section title="Editing">
-        <t>There are several XML editors available.
+        <t>
+          There are several XML editors available.
           Ideally,
           you want an editor that validates.
           This has two advantages:
           <list style="symbols">
-            <t>the editor provides guidance in fleshing-out the document structure;
-              and,</t>
-            <t>the editor validates that the source file matches the rules in the DTD.</t>
+            <t>
+              the editor provides guidance in fleshing-out the document structure;
+              and,
+            </t>
+            <t>
+              the editor validates that the source file matches the rules in the DTD.
+            </t>
           </list>
         </t>
         <figure>
-          <preamble>There are two major modes in Emacs that support XML:
+          <preamble>
+            There are two major modes in Emacs that support XML:
             <eref target="http://www.mulberrytech.com/tdtd/">tdtd</eref> and
             <eref target="http://www.inria.fr/koala/plh/sxml.html">psgml</eref>.
             The latter mode allows you to validate the source file
@@ -898,76 +943,93 @@
             If you visit the source file in Emacs and the major mode isn't
             "SGML" or "XML", 
             then usually all it takes is adding these lines to your ".emacs"
-            file:</preamble>
-          <artwork><![CDATA[
+            file:
+          </preamble>
+          <artwork>
+            <![CDATA[
             (setq auto-mode-alist
             (cons (cons "\\.xml$" 'sgml-mode) auto-mode-alist))
-            ]]></artwork>
-          <postamble>and then restarting Emacs.
+            ]]>
+          </artwork>
+          <postamble>
+            and then restarting Emacs.
             If this doesn't work,
-            try one of the sources above.</postamble>
+            try one of the sources above.
+          </postamble>
         </figure>
-        <t>The author uses both sgml-mode in Emacs,
+        <t>
+          The author uses both sgml-mode in Emacs,
           and a commercial validating editor,
           <eref target="http://www.t2000-usa.com/">Clip! version 1.5</eref>,
           when editing source
-          files.</t>
+          files.
+        </t>
         <section title="Checking">
-          <t>If your editor doesn't validate,
-            then you should run a program to validate the source file.</t>
-          <t>The author uses
+          <t>
+            If your editor doesn't validate,
+            then you should run a program to validate the source file.
+          </t>
+          <t>
+            The author uses
             <eref target="http://www.alphaworks.ibm.com/formula/xml/">the
               AlphaWorks XML parser</eref> for this purpose.
             It requires that your system have a Java virtual machine.
             In addition to Java,
-            there are validating parsers written in C, Perl, Python, and Tcl.</t>
+            there are validating parsers written in C, Perl, Python, and Tcl.
+          </t>
         </section>
       </section>
       <section anchor="xml2rfc" title="Converting to Text Format">
-        <t>The author has written
+        <t>
+          The author has written
           <eref target="http://memory.palace.org/authoring/">the xml2rfc tool</eref>,
           which reads the source file and produces both a text and HTML version
           of the document.
           (This memo was produced using the xml2rfc tool.)
           Note that xml2rfc isn't a validating tool,
           so it's a good idea to use either a validating editor or run a stand-alone
-          validating parser prior to using the tool.</t>
+          validating parser prior to using the tool.
+        </t>
       </section>
       <section title="Converting to HTML Format">
-        <t>The XML Style Language (XSL) is used to describe transformations
-          from the source file into some other structured file.
-          So,
-          ideally you should use an XSL-capable formatter to convert an XML source
-          file to HTML.</t>
-        <t>However,
-          as of this writing XSL is still in considerable flux.
-          (Hence,
-          no reference was included in this memo,
-          as by the time you read this section,
-          the reference would be outdated.)
-          So,
-          in the interim,
-          the author uses the xml2rfc tool for this purpose,
-          even though this tool doesn't provide much flexibility in its HTML layout.</t>
+        <t>
+          The XML Style Language (XSL) is used to describe
+          transformations from the source file into some other
+          structured file.  So, ideally you should use an XSL-capable
+          formatter to convert an XML source file to HTML.
+        </t>
+        <t>
+          However, as of this writing XSL is still in considerable
+          flux.  (Hence, no reference was included in this memo, as by
+          the time you read this section, the reference would be
+          outdated.)  So, in the interim, the author uses the xml2rfc
+          tool for this purpose, even though this tool doesn't provide
+          much flexibility in its HTML layout.
+        </t>
       </section>
       <section title="Viewing">
-        <t>Browsers that support either XSL or Cascading Style Sheets (CSS)
-          are able to view the source file directly.</t>
-        <t>At present,
+        <t>
+          Browsers that support either XSL or Cascading Style Sheets (CSS)
+          are able to view the source file directly.
+        </t>
+        <t>
+          At present,
           the author doesn't use any of these browsers,
-          instead converting source files to either text or HTML.</t>
+          instead converting source files to either text or HTML.
+        </t>
       </section>
       <section title="Searching">
-        <t>As with text editors,
-          any text-oriented search tool (e.g., grep) can be used on the source file.
-          However,
-          there are search tools available that understand structured source.</t>
+        <t>
+          As with text editors, any text-oriented search tool (e.g.,
+          grep) can be used on the source file.  However, there are
+          search tools available that understand structured source.
+        </t>
         <figure>
-          <preamble>The author uses 
-            <eref target="http://www.cs.helsinki.fi/~jjaakkol/sgrep.html">sgrep
-              version 1.9</eref>
-            for this purpose,
-            e.g.</preamble>
+          <preamble>
+            The author uses <eref
+            target="http://www.cs.helsinki.fi/~jjaakkol/sgrep.html">sgrep
+            version 1.9</eref> for this purpose, e.g.
+          </preamble>
           <artwork>
             sgrep -g xml 'ELEMENTS("title") not in ELEMENTS("back")' \
             writing-rfcs.xml
@@ -978,12 +1040,13 @@
     </section>
     <section title="Security Considerations">
       <figure>
-        <preamble>This memo raises no security issues;
-          however,
-          according to <xref target="refs.RFC2223" />,
-          your document should contain a section near the end that discusses the
-          security considerations of the protocol or procedures that are the
-          main topic of your document, e.g.,</preamble>
+        <preamble>
+          This memo raises no security issues; however, according to
+          <xref target="refs.RFC2223" />, your document should contain
+          a section near the end that discusses the security
+          considerations of the protocol or procedures that are the
+          main topic of your document, e.g.,
+        </preamble>
         <artwork><![CDATA[
           <middle>
           ...
@@ -997,7 +1060,8 @@
           document.</t>
         </section>
         </middle>
-          ]]></artwork>
+          ]]>
+        </artwork>
       </figure>
     </section>
   </middle>

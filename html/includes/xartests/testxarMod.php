@@ -29,7 +29,8 @@ class testxarMod extends xarTestCase {
     }
 
 }
-
-$suite->AddTestCase('testxarMod','Testing xarMod.php');
+$tmp = new xarTestSuite('Module system tests');
+$tmp->AddTestCase('testxarMod','Testing xarMod.php');
+$suites[] = $tmp;
 
 ?>

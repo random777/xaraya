@@ -80,8 +80,6 @@ x*   - return true; if ok
 }
 
 $l_suite = new xarTestSuite('Events');
-
 $l_suite->AddTestCase('testEvt','Testing Events System');
-
-$suites[] =& $l_suite;
+$suites[] = $l_suite;
 ?>

@@ -23,7 +23,7 @@ class testxarVar extends xarTestCase {
         return $this->assertEquals(strlen($res),0,0,"<script> is cleaned from input");
     }
 }
-
-$suite->AddTestCase('testxarVar','Testing xarVar.php');
-
+$tmp = new xarTestSuite('Variable system tests');
+$tmp->AddTestCase('testxarVar','Testing xarVar.php');
+$suites[] = $tmp;
 ?>

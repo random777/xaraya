@@ -92,10 +92,11 @@ class testBLCompiler extends xarTestCase {
         $out = $this->myBLC->compile($tplString);
         return $this->assertSame($out,$expected,"Triple hash after variable should return 1 back");
     }
+
 }
-//$tmp = new xarTestSuite('Blocklayout compiler tests');
-//$tmp->AddTestCase('testBLCompiler','Instantiation and file compiling');
-$suite->AddTestCase('testBLCompiler','Instantiation and file compiling');
-//$suites[] = $tmp;
+
+$tmp = new xarTestSuite('Blocklayout compiler tests');
+$tmp->AddTestCase('testBLCompiler','Instantiation and file compiling');
+$suites[] = $tmp;
 
 ?>

@@ -20,6 +20,8 @@ class testxarUser extends xarTestCase {
 
 }
 
-$suite->AddTestCase('testxarUser','Testing xarUser.php');
+$tmp = new xarTestSuite('User system tests');
+$tmp->AddTestCase('testxarUser','Testing xarUser.php');
+$suites[] = $tmp;
 
 ?>

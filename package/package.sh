@@ -22,6 +22,7 @@ function preparefiles()
         chmod 777 $DEST/html/var/cache
 	mkdir $DEST/html/var/cache/templates
         chmod 777 $DEST/html/var/cache/templates
+	find . -type d -name xartests | xargs rm -rf
 }
 
 for i in $REPNAME; do

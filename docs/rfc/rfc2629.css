@@ -1,21 +1,9 @@
-.title { 
-	color: #191970;
-	font-size: 22px;
-	line-height: 22px;
-	font-weight: bold;
-	text-align: left;
-	font-family: verdana, arial, helvetica, sans-serif
+BODY {
+	font-size:11px; 
+	font-family: verdana, arial, helvetica, sans-serif;
+	background-color: #FFFFFF
 	}
-	
-.filename { 
-	color: #336699;
-	font-size: 18px;
-	line-height: 28px;
-	font-weight: bold;
-	text-align: right;
-	font-family: verdana, arial, helvetica, sans-serif
-	}
-	
+		
 p.copyright { 
 	color: #000000;
 	font-size: 10px;
@@ -24,8 +12,7 @@ p.copyright {
 	
 p { 
 	margin-left: 2em;
-	margin-right: 2em;
-	
+	margin-right: 2em;	
 	}
 	
 li { 
@@ -38,6 +25,7 @@ ol {
 	}
 	
 ul.text { 
+	list-style-type:square;
 	margin-left: 2em;
 	margin-right: 2em;
 	
@@ -49,11 +37,19 @@ pre {
 	}
 	
 ul.toc { 
-	color: #000000;
 	line-height: 16px;
 	font-family: verdana, arial, helvetica, sans-serif 
 	}
 
+.title { 
+	color: #191970;
+	font-size: 22px;
+	line-height: 22px;
+	font-weight: bold;
+	text-align: left;
+	font-family: verdana, arial, helvetica, sans-serif
+	}
+		
 H1 {
 	color: #191970;
 	font-size: 16px;
@@ -166,3 +162,12 @@ A:name {
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 9px 
 	}
+	
+.filename { 
+	color: #336699;
+	font-size: 18px;
+	line-height: 28px;
+	font-weight: bold;
+	text-align: right;
+	font-family: verdana, arial, helvetica, sans-serif
+	}	

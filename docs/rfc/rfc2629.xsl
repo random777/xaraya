@@ -1077,137 +1077,218 @@
 <!-- insert CSS style info -->
 
 <xsl:template name="insertCss">
-a
-{
-	text-decoration: none
-}
-a:hover
-{
-	text-decoration: underline
-}
-a:active
-{
-	text-decoration: underline
-}
-body
-{
+.title { 
+	color: #191970;
+	font-size: 22px;
+	line-height: 22px;
+	font-weight: bold;
+	text-align: left;
+	font-family: verdana, arial, helvetica, sans-serif
+	}
+	
+.filename { 
+	color: #336699;
+	font-size: 18px;
+	line-height: 28px;
+	font-weight: bold;
+	text-align: right;
+	font-family: verdana, arial, helvetica, sans-serif
+	}
+	
+p.copyright { 
 	color: #000000;
-  font-family: helvetica, arial, sans-serif;
-  font-size: 13px;
-}
-h1
-{
-	color: #333333;
-  font-size: 16px;
-  line-height: 16px;
-  font-family: helvetica, arial, sans-serif;
-	page-break-after: avoid;
-}
-h2
-{
-	color: #000000;
-  font-size: 14px;
-  font-family: helvetica, arial, sans-serif;
-	page-break-after: avoid;
-}
-h3
-{
-	color: #000000;
-  font-size: 13px;
-  font-family: helvetica, arial, sans-serif;
-	page-break-after: avoid;
-}
-p
-{
+	font-size: 10px;
+	font-family: verdana, arial, helvetica, sans-serif 
+	}
+	
+p { 
 	margin-left: 2em;
-  margin-right: 2em;
-}
-pre
-{
+	margin-right: 2em;	
+	}
+	
+li { 
 	margin-left: 3em;
-  background-color: lightgrey;
-}
-table
-{
-	font-size: 13px
-}
-td.header
-{
+	}
+	
+ol { 
+	margin-left: 2em;
+	margin-right: 2em;
+	}
+	
+ul.text { 
+	list-style-type:square;
+	margin-left: 2em;
+	margin-right: 2em;
+	
+	}
+	
+pre { 
+	margin-left: 3em;
+	color: #333333 
+	}
+	
+ul.toc { 
+	color: #000000;
+	line-height: 16px;
+	font-family: verdana, arial, helvetica, sans-serif 
+	}
+
+H1 {
+	color: #191970;
+	font-size: 16px;
+	font-weight: bolder;
+	font-family: Verdana,Arial,Helvetica;}
+		
+H2 {
+	color: #191970;
+	font-size: 14px;
+	font-weight: bolder;
+	font-family: Verdana,Arial,Helvetica;
+	border-bottom : thin double #191970;
+	line-height : 170%;}
+
+H3 {
+	color: #191970;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana,Arial,Helvetica;
+	line-height : 100%;}
+	
+H4 {
+	color: #191970;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana,Arial,Helvetica;
+	line-height : 170%;}
+	
+H5, H6 {
+	color: #191970;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana,Arial,Helvetica;}
+	
+TD.header { 
 	color: #ffffff;
-  font-size: 10px;
-  font-family: arial, helvetica, sans-serif;
-  valign: top
-}
-.editingmark
-{
-	background-color: khaki;
-}
-.hotText
-{
-	color:#ffffff;
-  font-weight: normal;
-  text-decoration: none;
-  font-family: chelvetica, arial, sans-serif;
-	font-size: 9px
-}
-.link2
-{
-	color:#ffffff;
-  font-weight: bold;
-  text-decoration: none;
-  font-family: helvetica, arial, sans-serif;
-  font-size: 9px
-}
-.toowide
-{
-	color: red;
-  font-weight: bold;
-}
-.RFC
-{
-	color:#666666;
-  font-weight: bold;
-  text-decoration: none;
-  font-family: helvetica, arial, sans-serif;
-	font-size: 9px
-}
-.title
-{
+	font-size: 10px;
+	font-family: verdana, arial, helvetica, sans-serif
+	valign: top 
+	}
+	
+TD.author-text { 
+	color: #000000;
+	font-size: 10px;
+	font-family: verdana, arial, helvetica, sans-serif 
+	}
+	
+TD.author { 
+	color: #000000;
+	font-weight: bold;
+	margin-left: 4em;
+	font-size: 10px;
+	font-family: verdana, arial, helvetica, sans-serif 
+	}
+
+HR {
+	width:100%;
+	color:#C0C0C0
+	}
+		
+A:link {	
+	color: #333399; 
+	font-weight: bold;
+	text-decoration: none 
+	}
+
+A:hover {	
+	color: #333399; 
+	font-weight: bold;
+	}	
+
+A:active { 
+	color: #330066;
+	font-weight: bold;
+	text-decoration: none 
+	}		
+	
+A:visited { 
 	color: #003366;
-  font-size: 22px;
-  line-height: 22px;
-  font-weight: bold;
-  text-align: right;
-  font-family: helvetica, arial, sans-serif
-}
+	font-weight: bold;
+	text-decoration: none 
+	}	
+
+A:name { 
+	color: #3333CC;
+	font-weight: bold;
+	text-decoration: none 
+	}	
+	
+.link2 { 
+	color:#FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 9px 
+	}
+	
+.RFC { 
+	color:#336699;
+	font-weight: bold;
+	text-decoration: none;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 9px 
+	}
+	
+.hotText { 
+	color:#ffffff;
+	font-weight: normal;
+	text-decoration: none;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 9px 
+	}
+
+body {
+	font-size:11px; 
+	font-family: verdana, arial, helvetica, sans-serif;
+	background-color: #FFFFFF
+	}
+
+table
+	{
+	font-size: 13px
+	}
+
+.editingmark
+	{
+	background-color: khaki;
+	}
+
+.toowide
+	{
+	color: red;
+  	font-weight: bold;
+	}
+
 .figure
-{
-  font-weight: bold;
-  text-align: center;
-  font-size: 9x;
-}
-.filename
-{
-	color: #333333;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 24px;
-  font-family: helvetica, arial, sans-serif;
-}
+	{
+  	font-weight: bold;
+  	text-align: center;
+  	font-size: 9x;
+	}
 
 del
-{
-  color: red;
-}
+	{
+  	color: red;
+	}
 
 ins
-{
-  color: blue;
-}
+	{
+  	color: blue;
+	}
 
-@media print {
-         .noprint {display:none}
-}
+@media print 
+	{
+    .noprint {display:none}
+	}
 </xsl:template>
 
 

@@ -1,6 +1,92 @@
-Release notes for release B912.
-Changes from B910 to B912:
+Release notes for release BETA0912.
+Changes from BETA0910 to BETA0912:
 
+2003-09-07: marcel@hsdev.com: ChangeSet 1.1414
+  Merge marcel@xaraya.com:/usr/local/repositories/xaraya/core/stableinto hsdev.com:/home/mrb/dev/ddf/xar/core/stable
+ 2003-09-07: marc@marclaptop.: ChangeSet 1.1401.5.2
+  admin-modifyprivilege.xd:  <form> fix
+  	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  <form> fix 
+2003-09-07: marc@marclaptop.: ChangeSet 1.1401.5.1
+  updateprivilege.php:  redirect fix
+ 2003-09-07: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1409.1.4
+  keep track of field name for file uploads
+  	* html/modules/dynamicdata/class/properties.php:
+	  keep track of field name for file uploads 
+ 	* html/modules/privileges/xaradmin/updateprivilege.php:
+	  redirect fix 
+2003-09-07: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.1409.2.1
+  keep track of field name for file uploads
+  	* html/includes/properties/Dynamic_Upload_Property.php:
+	  keep track of field name for file uploads 
+ 	* html/includes/properties/Dynamic_TextUpload_Property.php:
+	  keep track of field name for file uploads 
+ 	* html/includes/properties/Dynamic_FileUpload_Property.php:
+	  keep track of field name for file uploads 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1409.1.2
+  user-usermenu_form.xd, admin-modifyconfig.xd, admin-modify.xd:  <form> needs block level tag
+  	* html/modules/themes/xartemplates/user-usermenu_form.xd:
+	  <form> needs block level tag 
+ 	* html/modules/themes/xartemplates/admin-modifyconfig.xd:
+	  <form> needs block level tag 
+ 	* html/modules/themes/xartemplates/admin-modify.xd:
+	  <form> needs block level tag 
+2003-09-07: marcel@hsdev.com: ChangeSet 1.1411
+  Bringing in the releaselog
+  	* docs/releaselog-0.910-0.912.txt:
+	   
+ 	* docs/releaselog-0.910-0.912.txt:
+	  BitKeeper file /home/mrb/dev/ddf/xar/core/stable/docs/releaselog-0.910-0.912.txt 
+2003-09-07: miko@power.dudleynet: ChangeSet 1.1407.1.1
+  Many files:  <form> needs block level tag
+  	* html/modules/roles/xartemplates/user-view.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-user_menu_form.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-startvalidation.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-showloginform.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-requestpw.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-registerform.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-new.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-email.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-confirmregistration.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/user-choices.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-welcomeemail.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-validationemail.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-testprivileges.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-removeprivilege.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-reminderemail.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-purge.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-modifyconfig.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-deleterole.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-createmail.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/admin-confirmationemail.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/blocks/login.xd:
+	  <form> needs block level tag 
+ 	* html/modules/roles/xartemplates/blocks/language.xd:
+	  <form> needs block level tag 
 2003-09-07: marcel@hsdev.com: ChangeSet 1.1410
   Merge marcel@xaraya.com:/usr/local/repositories/xaraya/core/stableinto hsdev.com:/home/mrb/dev/ddf/xar/core/stable
   	* build.xml:

@@ -70,6 +70,9 @@
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0030.html">RFC-0030 Permission system</eref></t>
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0031.html">RFC-0031 xDeveloper Community Tools</eref></t>
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0032.html">RFC-0032 Xaraya Usability Reccomendations</eref></t>
+					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0033.html">RFC-0033 Upload module</eref></t>
+					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0034.html">RFC-0034 Data dictionary</eref></t>
+					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc0035.html">RFC-0035 Query abstraction</eref></t>
 					<t><eref target="http://docs.xaraya.com/docs/rfcs/rfc2629.html">RFC-2629 Writing I-Ds and RFCs using XML</eref></t>
 	</list>
       </t>

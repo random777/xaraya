@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- 
+    Supported processing instructions, uncomment the ones you want
+-->
+
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
+<!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
+<!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
+<!-- <?rfc sortrefs="yes"?> Sort the references -->
+<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
+<!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
+
+<!-- I guess we always want a table of contents -->
+<?rfc toc="yes"?>
+<?rfc editing="yes"?>
+
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0041" category="bcp">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+  
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Event messaging system</title>
+    <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>marcel@hsdev.com</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="February" year="2003"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+    
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>configuration</keyword>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>
+        This RFC describes the event messaging system used by Xaraya. The different core 
+        package may fire events. The modules may define event handlers to react to these 
+        events. 
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+  
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>2003-02-23 : Created</t>
+    </section>
+    
+  </middle>
+  
+</rfc>

@@ -1,0 +1,769 @@
+Release notes for release BETA902.
+Changes from BETA901 to BETA902:
+
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.754
+  small upgrade change.
+  	* docs/releasenotes-0.900-0.902.txt:
+	   
+ 	* html/upgrade.php:
+	  small upgrade change. 
+ 	* docs/releasenotes-0.900-0.902.txt:
+	  BitKeeper file C:/cygwin/home/phpdev/www/dev/xaraya-stable/docs/releasenotes-0.900-0.902.txt 
+2003-05-04: marc@marclaptop.: ChangeSet 1.750.1.2
+  xarprivileges.php:   speed up ACCESS_NONE loop
+  	* html/modules/privileges/xarprivileges.php:
+	  speed up ACCESS_NONE loop 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.752
+  Merge niceguyeddie@xaraya.com:/usr/local/repositories/xaraya-stable into mcnabb.:C:/cygwin/home/phpdev/www/dev/xaraya-stable
+ 2003-05-04: John.Cox@mcnabb.: ChangeSet 1.751
+  Release note for 902
+  	* docs/INSTALL.txt:
+	  Release note for 902 
+2003-05-04: marc@marclaptop.: ChangeSet 1.749.1.1
+  xarprivileges.php:   remove slow security check
+  	* html/modules/privileges/xarprivileges.php:
+	  remove slow security check 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.748.1.1
+  fix for the adminmenu and short urls.
+  	* html/includes/xarMod.php:
+	  fix for the adminmenu and short urls. 
+2003-05-04: marc@marclaptop.: ChangeSet 1.746.1.2
+  xarsetup.php:   remove the NoAcess privilege xarprivileges.php:   adjust logic for ACCESS_NONE
+  	* html/modules/privileges/xarsetup.php:
+	  remove the NoAcess privilege 
+ 	* html/modules/privileges/xarprivileges.php:
+	  adjust logic for ACCESS_NONE 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.746.2.1
+  Upgraded Upgrades.
+  	* html/upgrade.php:
+	  Upgraded Upgrades. 
+2003-05-04: marc@marclaptop.: ChangeSet 1.745.2.1
+  admin-modifyprivilege.xd:   put spaces into the html
+  	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  put spaces into the html 
+2003-05-04: andyv@andyv.plus.com: ChangeSet 1.745.1.1
+  formatting bug fix
+  	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  reverting formatting to table (for release) will look for CSS hack later, to go fully tableless 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.740.1.2
+  reverted upgrades to upgrade file for the time being.
+  	* html/upgrade.php:
+	  reverted upgrades to upgrade file for the time being. 
+ 	* html/modules/roles/xarversion.php:
+	  reverted upgrades to upgrade file for the time being. 
+ 	* html/modules/roles/xarinit.php:
+	  reverted upgrades to upgrade file for the time being. 
+ 	* html/modules/articles/xarversion.php:
+	  reverted upgrades to upgrade file for the time being. 
+ 	* html/modules/articles/xarinit.php:
+	  reverted upgrades to upgrade file for the time being. 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.740.1.1
+  Upgrade functions.
+  	* html/upgrade.php:
+	   
+ 	* html/upgrade.php:
+	  BitKeeper file C:/cygwin/home/phpdev/www/dev/xaraya-stable/html/upgrade.php 
+ 	* html/modules/themes/xaradmin.php:
+	  added empty checks on theme mod vars. 
+ 	* html/modules/base/xartemplates/user-main.xd:
+	  added blurb on how to change the template. 
+2003-05-04: marc@marclaptop.: ChangeSet 1.745
+  xarprivileges.php:   fix for tesprivilege loop
+  	* html/modules/privileges/xarprivileges.php:
+	  fix for tesprivilege loop 
+2003-05-04: miko@miko.homelinux.org: ChangeSet 1.744
+  xarinit.php:   change timezone to NY   update version number to 0.902
+  	* html/modules/base/xarinit.php:
+	  change timezone to NY 
+ 	* html/modules/base/xarinit.php:
+	  update version number to 0.902 
+2003-05-04: marc@marclaptop.: ChangeSet 1.743
+  xaradmin.php:   fix for deleterole: added type to distinguish users and groups
+  	* html/modules/roles/xaradmin.php:
+	  fix for deleterole: added type to distinguish users and groups 
+2003-05-04: marc@marclaptop.: ChangeSet 1.742
+  xaradmin.php:   fixed bad uname check
+  	* html/modules/roles/xaradmin.php:
+	  fixed bad uname check 
+2003-05-04: marc@marclaptop.: ChangeSet 1.735.1.17
+  fixes for roles module
+  	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  added spaces to template 
+ 	* html/modules/roles/xarroles.php:
+	  added more defaults to role constructor 
+ 	* html/modules/roles/xaradmin.php:
+	  fixed bad uname variable 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.735.7.1
+  Fixed problem with user and anon news submissions.  Works as advertised now.
+  	* html/modules/articles/xartemplates/admin-new.xd:
+	  Fixed problem with user and anon news submissions.  Works as advertised now. 
+2003-05-04: andyv@andyv.plus.com: ChangeSet 1.739
+  minor changes, not committing a bulk of changes yet.. still messing around
+  	* html/modules/modules/xartemplates/admin-list.xd:
+	  better labels for clarity - if somebody doesnt like them.. stuff it 
+ 	* html/modules/modules/xartemplates/admin-expertlist.xd:
+	  manual corrections after unsuccessful auto-merge 
+ 	* html/modules/modules/xaradmin.php:
+	  better labels for clarity - if somebody doesnt like them.. stuff it 
+ 	* html/modules/adminpanels/xarimages/marker.gif:
+	  we didnt have red mantas yet:) 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.5.4
+  sync the modify config label with the rest of the modules
+  	* html/modules/adminpanels/xaradminapi.php:
+	  sync the modify config label with the rest of the modules 
+2003-05-04: miko@miko.homelinux.org: ChangeSet 1.735.5.3
+  right.xt:   remove extraneous <p> tags - w00t now XHTML compliant :)
+  	* html/themes/Xaraya_Classic/blocks/right.xt:
+	  remove extraneous <p> tags - w00t now XHTML compliant :) 
+2003-05-04: miko@miko.homelinux.org: ChangeSet 1.735.6.2
+  xarinit.php:   xhtml compliance changes - border attribute not allowed here
+  	* html/modules/themes/xarinit.php:
+	  xhtml compliance changes - border attribute not allowed here 
+2003-05-04: miko@miko.homelinux.org: ChangeSet 1.735.6.1
+  right.xt:   xhtml validation compliance
+  	* html/themes/Xaraya_Classic/blocks/right.xt:
+	  xhtml validation compliance 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.5.1
+  extrainfo for this hook is an array with categories, if it's not an array, pretend it's empty
+  	* html/modules/categories/xaradminapi.php:
+	  extrainfo for this hook is an array with categories, if it's not an array, pretend it's empty 
+2003-05-04: marc@marclaptop.: ChangeSet 1.735.1.16
+  Merge marcinmilan@xaraya.com:/usr/local/repositories/xaraya-stable into marclaptop.:C:/inetpub/wwwroot/xaraya-stable
+  	* html/modules/privileges/xartemplates/admin-newprivilege.xd:
+	  Auto merged 
+2003-05-04: marc@marclaptop.: ChangeSet 1.735.3.2
+  remove restriction of assigning privileges to Everybody
+  	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  remove restriction of assigning privileges to Everybody and clean up html 
+ 	* html/modules/roles/xaradmin.php:
+	  remove restriction of assigning privileges to Everybody 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.4.1
+  displayname is not returned from xarThemeGetinfo
+  	* html/modules/themes/xaradmin.php:
+	  displayname is not returned from xarThemeGetinfo 
+2003-05-04: miko@miko.homelinux.org: ChangeSet 1.735.1.14
+  user-user_menu_form.xd:   missing </p>
+  	* html/modules/roles/xartemplates/user-user_menu_form.xd:
+	  missing </p> 
+2003-05-04: marc@marclaptop.: ChangeSet 1.735.3.1
+  Merge
+  	* html/modules/roles/xarroles.php:
+	  SCCS merged 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.13
+  Sort parameter in dynamic data was omitted
+  	* html/modules/dynamicdata/xaradmin.php:
+	  sort parameter was forgotten 
+2003-05-04: marc@marclaptop.: ChangeSet 1.733.2.1
+  rework privileges logic and fix small roles bug
+  	* html/modules/roles/xarroles.php:
+	  cosmetics 
+ 	* html/modules/roles/xaradmin.php:
+	  put in a check to stop assigning the same privilege twice 
+ 	* html/modules/privileges/xartemplates/admin-newprivilege.xd:
+	  fix lil html bug BL finally caught 
+ 	* html/modules/privileges/xarprivileges.php:
+	  rework the privilege logic completely 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.12
+  added the module var selsort for themes module, was missing
+  	* html/modules/themes/xarinit.php:
+	  added the module var selsort for themes module, was missing 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.735.1.10
+  fixed error.
+  	* html/modules/themes/xarinit.php:
+	  fixed error. 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.2.1
+  xarVarPrepForStore borks on arrays, intented, not very friendly tho. File a bug on that: # 516
+  	* html/modules/comments/xarinit.php:
+	  add a serialize to the array 
+ 	* html/includes/xarVar.php:
+	  Added a FIXME, xarVarPrepForStore could easily support arrays and objects with abstracting the serialize function in it. That way module developers would be shielded from thinking about the variable type. That would also include xarMod*GetVar() functions, which would involve some more surgery.  I adapted the comments init to do the serialized itself for now. 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.735.1.9
+  small template fix
+  	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  small template fix 
+2003-05-04: John.Cox@mcnabb.: ChangeSet 1.735.1.8
+  small template fix.
+  	* html/modules/privileges/xartemplates/admin-newprivilege.xd:
+	  small template fix. 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.7
+  Embedded javascript generates tag embedding exceptions.
+  	* html/modules/blocks/xarincludes/blocks.js:
+	   
+ 	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  Moved embedded javascript out 
+ 	* html/modules/blocks/xarincludes/blocks.js:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/blocks/xarincludes/blocks.js 
+ 	* html/includes/xarBLCompiler.php:
+	  spacing 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.6
+  inserted getmenulinks to return empty array, prevents exception
+  	* html/modules/translations/xaradminapi.php:
+	  inserted getmenulinks to return empty array, prevents exception 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.5
+  - xarModUrl has a side effect that wrong api was used in getting short url support - adminpanel adminmenu block constructed the link to early when in category viewing mode
+  	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  Construct the link only when we know it's a module 
+ 	* html/includes/xarMod.php:
+	  when asking whether a module supports short urls, don't use the passed int modtype, but use the userapi where shorurl encode resides. 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.4
+  register experlist as module var to prevent exceptions on it Andyv: this is pending functionality i guess?
+  	* html/modules/modules/xarinit.php:
+	  register experlist as module var to prevent exceptions on it Andyv: this is pending functionality i guess? 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.3
+  Quick fixes for php errors in the roles module during install.  Commented out unreachable code. Marc : here's some checking to do for you ;-)
+  	* html/modules/roles/xarroles.php:
+	  provided defaults for the pargs parameters, Marc: PLEASE CHECK THESE 
+ 	* html/modules/installer/xaradmin.php:
+	  commented out unreachable code 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.735.1.2
+  Unjustified eating of whitespace removed
+  	* html/includes/xarBLCompiler.php:
+	  Unjustified eating of whitespace removed 
+2003-05-04: marcel@hsdev.com: ChangeSet 1.733.1.1
+  Commented out some code, which hides php errors, let's not do that.  Maybe i'm opening up a can of worms here, but the errors should really be solved, not ignored, even if the  system seems to be working.
+  	* html/includes/xarMod.php:
+	  the exceptionfree hides php errors, commented out for now, we have to redesign the exception system with a more  stack oriented approach. Popping off one exception at a time.  Free-ing exceptions now clears the whole stack, no way to traverse them and to inspect whether they can be  cleared. 
+ 	* html/includes/xarException.php:
+	  don't include the xdebug_enable check here, too early 
+2003-05-03: andyv@andyv.plus.com: ChangeSet 1.736
+  using local copy (for now) because miko's changes conflict badly, no chance to resolve it without blood ;-)
+  	* html/modules/modules/xartemplates/admin-expertlist.xd:
+	  using local copy (for now) because miko's changes conflict badly, no chance to resolve it without blood ;-) 
+ 	* html/modules/modules/xaradmin.php:
+	  Auto merged 
+2003-05-03: andyv@andyv.plus.com: ChangeSet 1.710.1.1
+  resolving conflics
+  	* html/modules/modules/xartemplates/admin-expertlist.xd:
+	  resolving conflics 
+ 	* html/modules/modules/xaradmin.php:
+	  resolving conflics 
+2003-05-02: John.Cox@mcnabb.: ChangeSet 1.735
+  multiple bug fixes
+  	* html/modules/ratings/xartemplates/user-display.xd:
+	  multiple bug fixes 
+ 	* html/modules/modules/xaradmin.php:
+	  multiple bug fixes 
+ 	* html/modules/comments/xartemplates/includes/view-nested.xd:
+	  multiple bug fixes 
+ 	* html/modules/comments/xartemplates/includes/view-flat.xd:
+	  multiple bug fixes 
+ 	* html/modules/comments/xartemplates/includes/input-box.xd:
+	  multiple bug fixes 
+2003-05-02: John.Cox@mcnabb.: ChangeSet 1.734
+  Fix for bug 504
+  	* html/modules/roles/xaruser.php:
+	  Fix for bug 504 
+ 	* html/modules/roles/xartemplates/user-user_menu_form.xd:
+	  Fix for bug 504 
+ 	* BitKeeper/deleted/.del-user-user_menu_formenhanced.xd~dc118f13:
+	  Delete: html/modules/roles/xartemplates/user-user_menu_formenhanced.xd 
+ 	* BitKeeper/deleted/.del-user-modify.xd~7fb1631ae87c71bf:
+	  Delete: html/modules/roles/xartemplates/user-modify.xd 
+2003-05-02: marcel@hsdev.com: ChangeSet 1.733
+  Update RFC10 with continue and break tag documentation and the loop variables documentation.
+  	* docs/rfc/rfc0010.xml:
+	  - updated with xar:break and xar:continue documentation - added documentation about loop variables 
+2003-05-02: miko@power.dudleynet: ChangeSet 1.732
+  grammatical typo fix
+  	* html/modules/mail/xartemplates/admin-main.xd:
+	  grammatical typo fix 
+2003-05-01: miko@power.dudleynet: ChangeSet 1.731
+  change ## to # for colours
+  	* html/modules/themes/xartemplates/admin-modinfo.xd:
+	  change ## to # for colours 
+ 	* html/modules/themes/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/themes/xartemplates/admin-list.xd:
+	  change ## to # for colours 
+ 	* html/modules/roles/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/privileges/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/blanktpl.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/admin-tools.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/admin-prefs.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/admin-pref.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/admin-modinfo.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/admin-list.xd:
+	  change ## to # for colours 
+ 	* html/modules/modules/xartemplates/admin-expertlist.xd:
+	  change ## to # for colours 
+ 	* html/modules/mail/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/dynamicdata/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/comments/xartemplates/user-delete.xd:
+	  change ## to # for colours 
+ 	* html/modules/comments/xartemplates/includes/option_bar.xd:
+	  change ## to # for colours 
+ 	* html/modules/comments/xartemplates/admin-stats.xd:
+	  change ## to # for colours 
+ 	* html/modules/comments/xartemplates/admin-module_stats.xd:
+	  change ## to # for colours 
+ 	* html/modules/comments/xartemplates/admin-delete.xd:
+	  change ## to # for colours 
+ 	* html/modules/blocks/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/base/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/articles/xartemplates/user-display-pictures.xd:
+	  change ## to # for colours 
+ 	* html/modules/articles/xartemplates/user-display-pages.xd:
+	  change ## to # for colours 
+ 	* html/modules/articles/xartemplates/user-display-faqs.xd:
+	  change ## to # for colours 
+ 	* html/modules/articles/xartemplates/user-display-docs.xd:
+	  change ## to # for colours 
+ 	* html/modules/articles/xartemplates/user-archive.xd:
+	  change ## to # for colours 
+ 	* html/modules/articles/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+ 	* html/modules/adminpanels/xartemplates/admin-view.xd:
+	  change ## to # for colours 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  change ## to # for colours 
+ 	* html/modules/adminpanels/xartemplates/admin-main.xd:
+	  change ## to # for colours 
+2003-05-01: miko@power.dudleynet: ChangeSet 1.730
+  remove ## now it isnt needed anymore
+  	* html/themes/Xaraya_Classic/pages/default.xt:
+	  remove ## now it isnt needed anymore 
+ 	* html/themes/Xaraya_Classic/pages/admin.xt:
+	  remove ## now it isnt needed anymore 
+ 	* html/themes/Xaraya_Classic/modules/example/user-main.xt:
+	  remove ## now it isnt needed anymore 
+ 	* html/themes/Xaraya_Classic/blocks/right.xt:
+	  remove ## now it isnt needed anymore 
+2003-05-01: Dracos@numenor.: ChangeSet 1.729
+  --add <xar:break /> and <xar: continue /> tags --kill bug #11 --remove old sk00l widget code
+  	* html/includes/xarTemplate.php:
+	  NOTE:  widget code is dead, but do not remove it yet 
+ 	* html/includes/xarBLCompiler.php:
+	  --add <xar:break /> and <xar: continue /> tags --kill bug #11 --remove old sk00l widget code 
+2003-04-30: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.728
+  keep properties in sync with object for DD - bug # 476
+  	* html/modules/dynamicdata/xaradminapi.php:
+	  keep properties in sync with object for DD - bug # 476 
+ 	* html/modules/dynamicdata/xaradmin.php:
+	  keep properties in sync with object for DD - bug # 476 
+2003-04-30: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.727
+  remove masks and instances in articles upgrade + add TODO for privileges
+  	* html/modules/articles/xarinit.php:
+	  remove masks and instances in articles upgrade + add TODO for privileges 
+2003-04-30: miko@miko.homelinux.org: ChangeSet 1.715.1.1
+  missing alt text
+  	* html/themes/Xaraya_Classic/blocks/top.xt:
+	  missing alt text 
+ 	* html/modules/themes/xarinit.php:
+	  missing alt text 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.725
+  label tags
+  	* html/modules/webservices/xartemplates/user-view.xd:
+	  label tags 
+ 	* html/modules/translations/xartemplates/admin-translate_subtype.xd:
+	  label tags 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.724
+  rework generator tag and slightly alter version number
+  	* html/modules/themes/xarblocks/meta.php:
+	  put meta generator tag strings in correct order 
+ 	* html/modules/base/xarinit.php:
+	  change verstion to be 0.901 not .901 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.723
+  add "Xaraya" to the meta[generator] tag and label tags
+  	* html/modules/themes/xartemplates/blocks/metaAdmin.xd:
+	  add label tags 
+ 	* html/modules/themes/xarblocks/meta.php:
+	  add "Xaraya" to the meta[generator] tag 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.722
+  more label tags and some general template cleanup
+  	* html/modules/search/xartemplates/user-main.xd:
+	  more label tags 
+ 	* html/modules/search/xartemplates/blocks/search.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/user-user_menu_form.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/user-startvalidation.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/user-requestpw.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/user-registerform.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/user-new.xd:
+	  more label tags 
+ 	* BitKeeper/deleted/.del-user-modify.xd~7fb1631ae87c71bf:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/user-email.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/admin-welcomeemail.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/admin-newrole.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/admin-createmail.xd:
+	  more label tags 
+ 	* html/modules/roles/xartemplates/admin-confirmationemail.xd:
+	  more label tags 
+ 	* html/modules/privileges/xartemplates/admin-newprivilege.xd:
+	  more label tags 
+ 	* html/modules/privileges/xartemplates/admin-modifyprivilegealt.xd:
+	  more label tags 
+ 	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  more label tags 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.721
+  label tags
+  	* html/modules/comments/xartemplates/user-search.xd:
+	  label tags 
+ 	* html/modules/comments/xartemplates/admin-modifyconfig.xd:
+	  label tags 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.720
+  tabs -> spaces
+  	* html/modules/bloggerapi/xartemplates/admin-modifyconfig.xd:
+	  tabs -> spaces 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.719
+  label tags
+  	* html/modules/blocks/xartemplates/admin-new_instance.xd:
+	  label tags 
+ 	* html/modules/blocks/xartemplates/admin-new_group.xd:
+	  label tags 
+ 	* html/modules/blocks/xartemplates/admin-modify_instance.xd:
+	  label tags 
+ 	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  label tags 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.718
+  label tags
+  	* html/modules/base/xartemplates/blocks/textAdmin.xd:
+	  label tags 
+ 	* html/modules/base/xartemplates/blocks/htmlAdmin.xd:
+	  label tags 
+ 	* html/modules/base/xartemplates/blocks/fincludeAdmin.xd:
+	  label tags 
+ 	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  label tags 
+2003-04-29: miko@power.dudleynet: ChangeSet 1.717
+  label tags
+  	* html/modules/autolinks/xartemplates/admin-new.xd:
+	  label tags 
+ 	* html/modules/autolinks/xartemplates/admin-modifyconfig.xd:
+	  label tags 
+ 	* html/modules/autolinks/xartemplates/admin-modify.xd:
+	  label tags 
+2003-04-29: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.716
+  show current time in timezone select
+  	* html/modules/dynamicdata/class/properties.php:
+	  show current time in timezone select 
+2003-04-29: marc@marclaptop.: ChangeSet 1.715
+  password encryption and inital privileges to Everybody instead of Anonymous
+  	* html/modules/roles/xarroles.php:
+	  make encryption only in the sql statements 
+ 	* html/modules/installer/xarconfigurations/public.conf.php:
+	  reassign initial privileges to Everbody, not Anonymous 
+ 	* html/modules/installer/xarconfigurations/intranet.conf.php:
+	  reassign initial privileges to Everbody, not Anonymous 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  reassign initial privileges to Everbody, not Anonymous 
+ 	* html/modules/installer/xaradmin.php:
+	  make encryption only in the sql statements 
+2003-04-28: miko@power.dudleynet: ChangeSet 1.713
+  add label tags
+  	* html/modules/example/xartemplates/user-usermenu_form.xd:
+	  add label tags 
+ 	* html/modules/example/xartemplates/blocks/othersAdmin.xd:
+	  add label tags 
+ 	* html/modules/example/xartemplates/blocks/firstAdmin.xd:
+	  add label tags 
+ 	* html/modules/example/xartemplates/blocks/example-firstblock-modify.xd:
+	  add label tags 
+ 	* html/modules/example/xartemplates/admin-new.xd:
+	  add label tags 
+ 	* html/modules/example/xartemplates/admin-modifyconfig.xd:
+	  add label tags 
+ 	* html/modules/example/xartemplates/admin-modify.xd:
+	  add label tags 
+2003-04-28: miko@power.dudleynet: ChangeSet 1.703.9.1
+  add label tags to mail module
+  	* html/modules/mail/xartemplates/admin-modifyconfig.xd:
+	  add label tags to mail module 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.27
+  moving methodhelp over
+  	* html/modules/xmlrpcsystemapi/xaruserapi.php:
+	  moving methodhelp over 
+ 	* html/modules/webservices/lib/xmlrpcs.inc:
+	  moving methodhelp over 
+2003-04-28: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.703.8.2
+  add disallowedips mod var
+  	* html/modules/roles/xaruser.php:
+	  add disallowedips mod var 
+ 	* html/modules/roles/xarinit.php:
+	  add disallowedips mod var 
+2003-04-28: andyv@andyv.plus.com: ChangeSet 1.710
+  resolving conflict
+  	* html/modules/modules/xartemplates/admin-list.xd:
+	  resolving conflict - using local copy, because remote changes dont seem to be relevant, yet interfering with recent changes 
+ 	* html/modules/modules/xartemplates/admin-modify.xd:
+	  Auto merged 
+2003-04-28: andyv@andyv.plus.com: ChangeSet 1.709
+  needed to disable a couple of things before pushing - safe commit for release
+  	* html/modules/modules/xartemplates/admin-list.xd:
+	  no need to specify which list it is yet 
+ 	* html/modules/modules/xaradminapi.php:
+	  needed to disable this menu links before pushing (not finished but safe for release) 
+2003-04-28: andyv@andyv.plus.com: ChangeSet 1.708
+  bug fix and working on feature request - actual functionality should not be affected - safe changes for (this/next) release
+  	* html/modules/adminpanels/xartemplates/admin-main.xd:
+	   
+ 	* html/modules/modules/xartemplates/admin-expertlist.xd:
+	  working on feature request - actual functionality should not be affected yet 
+ 	* html/modules/modules/xaradminapi.php:
+	  working on feature request - actual functionality should not be affected yet 
+ 	* html/modules/modules/xaradmin.php:
+	  working on feature request - actual functionality should not be affected yet 
+ 	* html/modules/adminpanels/xartemplates/admin-main.xd:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/adminpanels/xartemplates/admin-main.xd 
+ 	* html/modules/adminpanels/xartemplates/blocks/sidemenu.xd:
+	  still bug fix #472 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  bug fix #472 
+ 	* html/modules/adminpanels/xaradmin.php:
+	  s 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.26
+  typo
+  	* html/modules/xmlrpcsystemapi/xaruserapi.php:
+	  typo 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.25
+  debugging statements
+  	* html/modules/webservices/lib/xmlrpcs.inc:
+	  debugging statements 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.24
+  moving over the methodsignature system method
+  	* html/modules/xmlrpcsystemapi/xaruserapi.php:
+	  - moving over the methodsignature system method - no ddistinction between system dmap and normal dmap 
+ 	* html/modules/webservices/lib/xmlrpcs.inc:
+	  moving over the methodsignature system method 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.23
+  no difference anymore in the dispatch map
+  	* html/modules/webservices/lib/xmlrpcs.inc:
+	  no difference anymore in the dispatch map 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.22
+  Moving over the listmethods method
+  	* html/modules/xmlrpcsystemapi/xaruserapi.php:
+	  Moving over the listmethods method 
+ 	* html/modules/webservices/xaruserapi.php:
+	  correcting typos and making the messages the same 
+ 	* html/modules/webservices/lib/xmlrpcs.inc:
+	  moving over the listmethods method for testing. 
+2003-04-28: BRUMDall@brumdall2m.bru.fsc.net: ChangeSet 1.703.7.1
+  undo double MD5 hashing of passwords - to be fixed wherever it goes wrong, not here
+  	* html/modules/roles/xarroles.php:
+	  undo double MD5 hashing of passwords - to be fixed wherever it goes wrong, not here 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.21
+  another typo
+  	* html/modules/webservices/xaruserapi.php:
+	  another typo 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.20
+  typo
+  	* html/modules/webservices/lib/xmlrpcs.inc:
+	  typo 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.19
+  Initial step in xmlrpc server system.* methods
+  	* html/modules/xmlrpcsystemapi/xarversion.php:
+	   
+ 	* html/modules/xmlrpcsystemapi/xaruserapi.php:
+	   
+ 	* html/modules/xmlrpcsystemapi/xartemplates/admin-main.xd:
+	   
+ 	* html/modules/xmlrpcsystemapi/xarinit.php:
+	   
+ 	* html/modules/xmlrpcsystemapi/xarimages/admin.gif:
+	   
+ 	* html/modules/xmlrpcsystemapi/xaradminapi.php:
+	   
+ 	* html/modules/xmlrpcsystemapi/xaradmin.php:
+	   
+ 	* html/modules/xmlrpcsystemapi/xarversion.php:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/xmlrpcsystemapi/xarversion.php 
+ 	* html/modules/xmlrpcsystemapi/xaruserapi.php:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/xmlrpcsystemapi/xaruserapi.php 
+ 	* html/modules/xmlrpcsystemapi/xartemplates/admin-main.xd:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/xmlrpcsystemapi/xartemplates/admin-main.xd 
+ 	* html/modules/xmlrpcsystemapi/xarinit.php:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/xmlrpcsystemapi/xarinit.php 
+ 	* html/modules/xmlrpcsystemapi/xarimages/admin.gif:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/xmlrpcsystemapi/xarimages/admin.gif 
+ 	* html/modules/xmlrpcsystemapi/xaradminapi.php:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/xmlrpcsystemapi/xaradminapi.php 
+ 	* html/modules/xmlrpcsystemapi/xaradmin.php:
+	  BitKeeper file /var/www/xar/stable/main/html/modules/xmlrpcsystemapi/xaradmin.php 
+ 	* html/modules/webservices/xaruserapi.php:
+	  system api loading the new way 
+ 	* html/modules/webservices/xaradminapi.php:
+	  stub for the menulinks 
+ 	* html/modules/webservices/lib/xmlrpcs.inc:
+	  commented out the dispatch map to be able to test it in the separate module 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.1.18
+  Release note a bit more nice
+  	* BitKeeper/custom/releaselog:
+	  Make it a bit nicer 
+2003-04-28: marcel@hsdev.com: ChangeSet 1.703.6.1
+  Custom command to generate release notes from one release to the other
+  	* BitKeeper/custom/releaselog:
+	   
+ 	* BitKeeper/custom/releaselog:
+	  BitKeeper file /var/www/xar/stable/main/BitKeeper/custom/releaselog 
+2003-04-28: marc@marclaptop.: ChangeSet 1.703.1.16
+  public.conf.php:   forgot a privilege
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  forgot a privilege 
+2003-04-28: marc@marclaptop.: ChangeSet 1.703.5.1
+  added public site configuration
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	   
+ 	* html/modules/installer/xarconfigurations/public.conf.php:
+	  BitKeeper file C:/inetpub/wwwroot/xaraya-stable/html/modules/installer/xarconfigurations/public.conf.php 
+2003-04-27: andyv@andyv.plus.com: ChangeSet 1.706
+  Merge andyv@xaraya.com:/usr/local/repositories/xaraya-stable into andyv.plus.com:/Users/andyv/Sites/xaraya-stable
+  	* html/modules/mail/xartemplates/admin-main.xd:
+	  Auto merged 
+2003-04-27: andyv@andyv.plus.com: ChangeSet 1.705
+  work in progress
+  	* html/modules/modules/xartemplates/admin-prefs.xd:
+	   
+ 	* html/modules/modules/xartemplates/admin-expertlist.xd:
+	   
+ 	* html/modules/themes/xartemplates/admin-main.xd:
+	  conditional generic icon display 
+ 	* html/modules/themes/xartemplates/admin-list.xd:
+	  not modules, themes.. note correction 
+ 	* html/modules/roles/xartemplates/admin-main.xd:
+	  conditional generic icon display 
+ 	* html/modules/modules/xartemplates/admin-prefs.xd:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/modules/xartemplates/admin-prefs.xd 
+ 	* html/modules/modules/xartemplates/admin-expertlist.xd:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/modules/xartemplates/admin-expertlist.xd 
+ 	* html/modules/privileges/xartemplates/admin-main.xd:
+	  conditional generic icon display 
+ 	* html/modules/modules/xartemplates/admin-tools.xd:
+	  started working on the modules developers toolbox (not sure if it's going to be finished before 2nd or 3rd beta release) 
+ 	* html/modules/modules/xartemplates/admin-main.xd:
+	  conditional generic icon display 
+ 	* html/modules/modules/xartemplates/admin-list.xd:
+	  some corrections in labeling 
+ 	* html/modules/modules/xaradminapi.php:
+	  submenu links re-arrangement 
+ 	* html/modules/modules/xaradmin.php:
+	  started working on expert modules list - feature request implementation 
+ 	* html/modules/mail/xartemplates/admin-main.xd:
+	  conditional generic icon display 
+ 	* html/modules/dynamicdata/xartemplates/admin-main.xd:
+	  conditional generic icon display 
+ 	* html/modules/base/xartemplates/admin-main.xd:
+	  conditional generic icon display 
+2003-04-26: andyv@andyv.plus.com: ChangeSet 1.695.4.1
+  Merge andyv@xaraya.com:/usr/local/repositories/xaraya-stable into andyv.plus.com:/Users/andyv/Sites/xaraya-stable
+  	* html/modules/modules/xartemplates/admin-list.xd:
+	  Auto merged 
+ 	* html/modules/modules/xaradmin.php:
+	  Auto merged 
+2003-04-26: andyv@andyv.plus.com: ChangeSet 1.687.1.2
+  new template, stub function and general re-arrangements
+  	* html/modules/modules/xartemplates/admin-tools.xd:
+	   
+ 	* html/modules/modules/xartemplates/blanktpl.xd:
+	  template header standardized 
+ 	* html/modules/modules/xartemplates/admin-tools.xd:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/modules/xartemplates/admin-tools.xd 
+ 	* html/modules/modules/xartemplates/admin-release.xd:
+	  template header standardized 
+ 	* html/modules/modules/xartemplates/admin-pref.xd:
+	  template header standardized 
+ 	* html/modules/modules/xartemplates/admin-modinfo.xd:
+	  template header standardized 
+ 	* html/modules/modules/xartemplates/admin-modify.xd:
+	  template header standardized 
+ 	* html/modules/modules/xartemplates/admin-main.xd:
+	  template header standardized 
+ 	* html/modules/modules/xartemplates/admin-list.xd:
+	  template header standardized 
+ 	* html/modules/modules/xartemplates/admin-hooks.xd:
+	  template header standardized 
+ 	* html/modules/modules/xaradminapi.php:
+	  new function stub 
+ 	* html/modules/modules/xaradmin.php:
+	  new function and some re-arrangement 
+2003-04-26: andyv@andyv.plus.com: ChangeSet 1.687.1.1
+  some minor fixes and shuffle things around
+  	* html/modules/wiki/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/webservices/xarimages/index.html:
+	   
+ 	* html/modules/webservices/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/wiki/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/wiki/xarimages/admin_generic.gif 
+ 	* html/modules/webservices/xarimages/index.html:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/webservices/xarimages/index.html 
+ 	* html/modules/webservices/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/webservices/xarimages/admin_generic.gif 
+ 	* html/modules/translations/xarimages/index.html:
+	   
+ 	* html/modules/translations/xarimages/index.html:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/translations/xarimages/index.html 
+ 	* html/modules/translations/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/translations/index.html:
+	   
+ 	* html/modules/themes/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/translations/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/translations/xarimages/admin_generic.gif 
+ 	* html/modules/translations/index.html:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/translations/index.html 
+ 	* html/modules/themes/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/themes/xarimages/admin_generic.gif 
+ 	* html/modules/roles/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/roles/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/roles/xarimages/admin_generic.gif 
+ 	* html/modules/ratings/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/privileges/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/ratings/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/ratings/xarimages/admin_generic.gif 
+ 	* html/modules/privileges/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/privileges/xarimages/admin_generic.gif 
+ 	* html/modules/mail/xarimages/index.html:
+	   
+ 	* html/modules/mail/xarimages/index.html:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/mail/xarimages/index.html 
+ 	* html/modules/mail/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/mail/index.html:
+	   
+ 	* html/modules/installer/xarimages/index.html:
+	   
+ 	* html/modules/mail/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/mail/xarimages/admin_generic.gif 
+ 	* html/modules/mail/index.html:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/mail/index.html 
+ 	* html/modules/installer/xarimages/index.html:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/installer/xarimages/index.html 
+ 	* html/modules/installer/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/installer/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/installer/xarimages/admin_generic.gif 
+ 	* html/modules/example/xarimages/admin_generic.gif:
+	   
+ 	* html/modules/modules/xartemplates/admin-list.xd:
+	  fixed formatting a bit, tried to find problem with anchors and opera - not found yet 
+ 	* html/modules/modules/xaradmin.php:
+	  fiddling with admin icons 
+ 	* html/modules/example/xarimages/admin_generic.gif:
+	  BitKeeper file /Users/andyv/Sites/xaraya-stable/html/modules/example/xarimages/admin_generic.gif 

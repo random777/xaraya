@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="auth">
+  <title>Xaraya Authentication Modules</title>
+
+  <para>This section describes some the Xaraya authentication system works and some of the plugins available for it.</para>
+
+ <sect1 id="authsystem">
+  <title>AuthSystem Module</title>
+&mod-authsystem;
+ </sect1>
+ <sect1 id="authldap">
+  <title>AuthLDAP Module</title>
+&mod-authldap;
+ </sect1>
+ <sect1 id="authinvision">
+  <title>AuthInvision Module</title>
+&mod-authinvision;
+ </sect1>
+ <sect1 id="authsso">
+  <title>AuthSSO Module</title>
+&mod-authsso;
+ </sect1>
+</chapter>

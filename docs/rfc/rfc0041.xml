@@ -32,30 +32,72 @@
         <uri>http://www.xaraya.com</uri>
       </address>
     </author>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+		<email>besfred@xaraya.com</email>
+		<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
     <date month="February" year="2003"/>
     
     <!-- Initiating team for this RFC -->
     <workgroup>Project Management Committee</workgroup>
     
     <!-- List keywords for the RFC here -->
-    <keyword>rfc</keyword>
-    <keyword>configuration</keyword>
+    <keyword>events</keyword>
+    <keyword>trigger</keyword>
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>
-        This RFC describes the event messaging system used by Xaraya. The different core 
-        package may fire events. The modules may define event handlers to react to these 
-        events. 
+        This RFC describes the event messaging system used by Xaraya to date. The
+        different core packages may register events and trigger them at a certain
+        point in the system load process. The modules may define event handlers to
+        react to these events. 
       </t>
     </abstract>
   </front>
   
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
+
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>
+        In this RFC the mechanisms will be described which are currently used in the
+        event messaging system of Xaraya.        
+      </t>
+    </section>
+  
+    <section title="Body">
+      <t>
+		Any core package can define events, also known as registering them, by calling
+		the function 
+		<artwork>
+		  xarEvt_RegisterEvent('eventname')
+		</artwork>
+		The naming convention says that the event name starts with the core package
+		name that registers it, beginning with a capital letter. The specific name
+		then follows directly, also beginning with a capital letter. No spaces or
+		special characters are allowed.
+		Example:
+		<artwork>
+		  xarEvt_RegisterEvent('ServerRequest');
+		</artwork>
+      </t>
+      <t>
+        talk about xarEvt_Trigger (was xarEvt_fire)
+      </t>
+      <t>
+        talk about scanning through apis and calling correctly named functions
+        also show the example ServerRequest in stats module
+      </t>
+    </section>
   
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2003-02-26 : First Edition</t>
       <t>2003-02-23 : Created</t>
     </section>
     

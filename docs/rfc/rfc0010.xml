@@ -48,15 +48,12 @@
       </t>
       <t>
 	  Blocklayout is potentially a very powerful tool. However, modules and
-	blocks will need to be modified in order to take advantage of
-	Blocklayout's flexibility. In order to work with Blocklayout, module
-	functions and blocks must include templates which are compiled and
-	crocessed. The conversion process is not complicated. However, current
-	modules will be supported.
+	blocks need to be modified somewhat in order to take advantage of
+	Blocklayout's flexibility. The conversion process is not complicated.
       </t>
       <t>
 	In addition, certain changes to the Xaraya directory structure are
-	also necessary to accomodate templates and their defaults. Those
+	necessary to accomodate templates and their defaults. Those
 	structural changes are illustrated below.
 	<artwork><![CDATA[
 html/
@@ -94,8 +91,8 @@ html/
 	  ]]></artwork>
       </t>
       <t>
-	Theme.php contains metadata about the theme; no actual markup can
-	reside there. Such metadata includes:
+	html/themes/<theme name>/theme.php contains metadata about the theme;
+    no actual markup can reside there. Such metadata includes:
 	<list style="bullet">
 	  <t>$themeinfo['name']</t>
 	  <t>$themeinfo['author']</t>
@@ -115,8 +112,8 @@ html/
     <section title="Required CSS Classes">
       <t>
 	The following is a list of CSS classes which may be referenced by
-	module and block developers with assurance that their HTML will
-	integrate well with any Blocklayout theme. All Blocklayout themes must
+	module and block developers with assurance that their output will
+	integrate well with any Blocklayout theme. Blocklayout themes must
 	define all of these classes.
       </t>
       <t>
@@ -202,10 +199,10 @@ html/
 	</list>
       </t>
       <t>
-	Any theme developer may introduce their own classes through templates.
+	Theme developers may introduce their own classes in their templates.
 	This practice should be avoided by module and block developers.
-	Extensions of the required classes list will most likely not be
-	supported by other themes or modules, and are not endorsed by Xaraya.
+	Extensions of the required classes list will not be	supported by other
+    themes or modules, and are not endorsed by Xaraya.
       </t>
       <t>
 	These classes allow each block or group of blocks to have a different
@@ -219,14 +216,13 @@ html/
 
     <section title="Templates">
       <t>
-	Each page in Blocklayout is a collection of templates,
-	fitted with the necessary data. A "Master" template is loaded first,
-	and defines the basic layout of the page. It contains tags which
-	specify the data presented to the user. Each module function or block
-	called from the Master template has a child template associated with
-	it. The data it handles is parsed through this template before being
-	inserted into the Master. Templates can be "nested" any number of
-	levels deep.
+	Each page in Blocklayout is assembled from a collection of templates and
+	fitted with the necessary data. A "Master" template is loaded first.
+	This template defines the basic layout of the page and what information
+    will be presented. Each module function or block called from the Master
+    template has a child template associated with it. The data it handles
+    is parsed through this template before being inserted into the Master.
+    In this manner, templates can be nested any number of levels deep.
 	<figure><artwork src="images/rfc0010_1.gif"/></figure>
       </t>
       <t>
@@ -245,11 +241,10 @@ html/
 
     <section title="Blocklayout tags">
       <t>
-	Tags in Blocklayout adhere to XML syntax, creating a namespace called
-	"xar". Each tag is converted to PHP code for processing. There are 20
+	Tags in Blocklayout adhere to XML syntax. The standard Blocklayout
+    namespace is "xar" and at this time that may not be changed. There are 20
 	top level core tags:
 	<list style="bullet">
-	  <t><xref target="blocklayout">&lt;xar:blocklayout /&gt;</xref></t>
 	  <t><xref target="block">&lt;xar:block /&gt;</xref></t>
 	  <t><xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref></t>
 	  <t><xref target="else">&lt;xar:else /&gt;</xref></t>
@@ -280,21 +275,19 @@ html/
 
       <section title="Referencing data within templates">
 	<t>
-	  Blocklayout uses a unified syntax to represent data in modules. All
-	  normal PHP variable syntax rules apply. Additionally, Blocklayout
-	  variables are delimited by # ... #. So, to access the PHP variable
-	  $foo, the template contains #$foo#. String keys into arrays should be
-	  single quoted #$foo['bar']# rather than #$foo["bar"]#. In addition to
-	  template variables, Blocklayout also allows direct access to a limited
-	  set of xarAPI functions (list to be determined). Function calls are
-	  represented as #xarAPIFunc($arg1, 'arg2')#. Function arguments should
-	  also be single quoted (as necessary).
+	  Blocklayout variables are delimited by # ... #. For example, the variable
+      $foo is accessed by the #$foo# directive. String keys in arrays should be
+      single quoted (#$foo['bar']#) rather than double (#$foo["bar"]#). In
+      addition to template variables, Blocklayout also allows direct access
+      to a limited set of xarAPI functions (list to be determined). Function
+      calls are represented as #xarAPIFunc($arg1, 'arg2')#. Function arguments
+      should also be single quoted (as necessary).
 	</t>
       </section>
       
       <section title="Comments in Templates">
 	<t>
-	  Placing comments in Blobklayout templates is done by surrounding the
+	  Placing comments in Blocklayout templates is done by surrounding the
 	  content in question with &lt;!--- ---&gt; (note three hyphens each). Content
 	  within these tags will be stripped from the final output stream.
 	  Standard two-hyphen comments (&lt;!-- --&gt;) will be passed on to the
@@ -306,7 +299,7 @@ html/
 	<t>
 	  A note on logic tags: The condition attribute present on most logic
 	  tags will frequently call for the use of &lt;, &gt;, and &amp; characters. These
-	  characters are illegal XML aside from delimiting tags and entities.
+	  characters are restricted in XML documents and may not be used in this context.
 	  Therefore, to present an easy, readable alternative to PHP comparison
 	  operators, Blocklayout uses Perl-like string operators within
 	  templates. Assignment operators are not affected. See below:
@@ -328,27 +321,6 @@ html/
 	  </artwork>
 	</t>
 	
-	<!-- xar:blocklayout -->
-	<section anchor="blocklayout" title="&lt;xar:blocklayout /&gt;">
-	  <t>Closed</t>
-	  <t>Attributes:
-	    <list style="bullet">
-	      <t>id: an identifier for the tag (optional)</t>
-	    </list>
-	  </t>
-	  <t>Description</t>
-	  <t>
-	    The root element of blocklayout.
-	  </t>
-	  <t>Syntax example:
-	    <artwork>
-	      none yet
-	    </artwork>
-	  </t>
-	  <t>Parent tag: none.</t>
-	  <t>Child tags: all</t>
-	</section>
-
 	<!-- xar:block -->
 	<section anchor="block" title="&lt;xar:block /&gt;">
 	  <t>Closed</t>
@@ -907,10 +879,8 @@ html/
     
     <section title="Notes">
       <t>
-	It should be noted that due to the nature of Blocklayout's templates,
-	output is not restricted to HTML. Output can take on any form the
-	author desires, including but not limited to HTML, RSS, RDF, and any
-	other XML namespace.
+	Blocklayout	output is not restricted to HTML. Potential output formats
+    include HTML, RSS, and RDF.
       </t>
     </section>
 
@@ -947,7 +917,7 @@ html/
 	</artwork>
       </t>
       <t>
-	Remember, xar is the name of the namespace, and is not part of the tag
+	Remember, "xar" is the namespace, and is not part of the tag
 	name, even though blocklayout requires the namespace identifier to be
 	present in every tag.
       </t>

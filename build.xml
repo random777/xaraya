@@ -34,13 +34,13 @@
   <!-- module lists -->   
 
   <!-- The core modules, should be in every distro, it just doesn't work without them -->
-  <property name="modules.core" value="adminpanels,authsystem,base,blocks,dynamicdata,installer,mail,modules,privileges,roles,themes,sniffer"/>
+  <property name="modules.core" value="adminpanels,authsystem,base,blocks,dynamicdata,installer,mail,modules,privileges,roles,themes"/>
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.base" 
-    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,stats,timezone,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,sniffer,stats,timezone,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
 
-  <!-- Base modules, when added to the core modules, you get a base system -->
+  <!-- Full distro modules, when added to the core modules, you get a full system -->
   <property name="modules.full" 
     value="addressbook,authinvision,authsso,bbclick,bbcode,calendar,cast,censor,changelog,contact,xarldap,events,figlet,icalendar,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,window,workflow,xarbb,xarldap,xarlinkme,xlink,xslt"/>
 

@@ -736,21 +736,28 @@
 
 <xsl:template match="rfc">
 	<html>
-    <head>
-      <title><xsl:value-of select="front/title" /></title>
- 			<style type="text/css">
-        <xsl:call-template name="insertCss" />
-      </style>
-    </head>
+		<head>
+			<title><xsl:value-of select="front/title" /></title>
+			<style type="text/css">
+			<xsl:call-template name="insertCss" />
+			</style>
+		</head>
 		<body>
-      <!-- insert diagnostics -->
-      <xsl:call-template name="insertDiagnostics"/>
-    
-      <xsl:apply-templates select="front" />
-      <xsl:apply-templates select="middle" />
-      <xsl:apply-templates select="back" />
-    </body>
-  </html>
+			<table width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top><td align=left background='/xcommon/images/header_fill.gif'><table width=732 border=0 cellpadding=0 cellspacing=0><tr><td valign=top width=144><a href='http://www.xaraya.com' target=_top><img src='/xcommon/images/header_logo.gif' alt='Xaraya :: Content Management Solutions' width=732 height=53 border=0 align=top></a></td></tr>
+			</table></td><td width=100% background='/xcommon/images/header_fill.gif'><img src='/xcommon/images/dot.gif' alt='' width=1 height=1 border=0 align=top></td></tr></table>
+			<!-- insert diagnostics -->
+			<xsl:call-template name="insertDiagnostics"/>
+			
+			<xsl:apply-templates select="front" />
+			<xsl:apply-templates select="middle" />
+			<xsl:apply-templates select="back" />
+			<table width=100% border=0 cellpadding=0 cellspacing=0>
+			<tr bgcolor=#E5E5E5><td width=730 valign=middle align=right class=main_copy>&nbsp;&nbsp;<b><i>Sponsored by <!--<a href='http://www.ddfoundation.org' target=_blank'>-->The Digital Development Foundation<!--</a>--></i></b>&nbsp;&nbsp;</td><td><img src='/xcommon/images/dot.gif' alt='' width='1' height='22' border='0' align='top'></td></tr>
+			<tr><td td width=730 align=right valign=middle class=copyright>&copy; 2002 Xaraya All rights reserved.&nbsp;&nbsp;</td><td><img src='/xcommon/images/dot.gif' alt='' width=1 height=22 border=0 align=top></td></tr>
+			</table>
+			<br /><br />		
+		</body>
+	</html>
 </xsl:template>               
 
 
@@ -965,8 +972,8 @@
     <xsl:variable name="pos" select="position()" />
     <xsl:if test="$pos &lt; count($lc/myns:item) + 1 or $pos &lt; count($rc/myns:item) + 1"> 
       <tr>
-        <td width="33%" bgcolor="#666666" class="header"><xsl:copy-of select="$lc/myns:item[$pos]/node()" />&#0160;</td>
-			  <td width="33%" bgcolor="#666666" class="header"><xsl:copy-of select="$rc/myns:item[$pos]/node()" />&#0160;</td>
+        <td width="33%" bgcolor="#336699" class="header"><xsl:copy-of select="$lc/myns:item[$pos]/node()" />&#0160;</td>
+			  <td width="33%" bgcolor="#336699" class="header"><xsl:copy-of select="$rc/myns:item[$pos]/node()" />&#0160;</td>
       </tr>
     </xsl:if>
 	</xsl:for-each>
@@ -1666,7 +1673,7 @@ ins
   	<table class="noprint" border="0" cellpadding="0" cellspacing="2" width="30" height="15" align="right">
       <xsl:if test="$includeTitle">
         <tr>
-          <td bgcolor="#000000" align="center" valign="center" width="30" height="30">
+          <td bgcolor="#003366" align="center" valign="center" width="30" height="30">
             <b><span class="RFC">&#0160;RFC&#0160;</span></b><br />
             <span class="hotText"><xsl:value-of select="/rfc/@number"/></span>
           </td>
@@ -1674,7 +1681,7 @@ ins
       </xsl:if>
   		<xsl:if test="$includeToc='yes'">
       	<tr>
-          <td bgcolor="#003366" align="center" width="30" height="15">
+          <td bgcolor="#333399" align="center" width="30" height="15">
              		<a href="#{$anchor-prefix}.toc" CLASS="link2"><b class="link2">&#0160;TOC&#0160;</b></a>
   			  </td>
         </tr>

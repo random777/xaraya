@@ -1127,8 +1127,8 @@ html/
                                            variable call 'var' the value of this variable is
                                            displayed. Optionally  you can specify id: to reference
                                            other loop constructs.
-                #$loop:[id:]index#       : the numeric loop index (of loop with id 'id'
-                #$loop:[id:]number#      : the loop number
+                #$loop:[id:]index#       : the numeric loop index (of loop with id 'id')
+                #$loop:[id:]number#      : the loop number in the current context. This can also be interpreted as the current loop nesting level
                 #$loop:[id:]key#         : the key of the item being referenced
               </artwork>
               <t>The 'id' part in these variables refers to other loops.

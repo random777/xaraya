@@ -749,31 +749,31 @@ html/
 					<t>Open</t>
 					<t>Attributes:
             <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>realm: the realm which the permission checks</t>
-							<t>component: the module/block which the permission checks</t>
-							<t>instance: the specific data the permission checks</t>
-							<t>level: the security level checked against</t>
+							<t>id: an identifier for the tag (optional, no default)</t>
+							<t>mask: the mask for which to check the privileges (required)</t>
+                            <t>catch : show exception or not (optional, default: "true")</t>
+                            <t>component : for which component is this check? (optional, default: "")</t>
+                            <t>instance : for which instance is this check? (optional, default: "")</t>
 						</list>
 					</t>
 					<t>Description</t>
 					<t>
-            Sec translates directly to a call to xarSecAuthAction(), and is
+            Sec translates directly to a call to xarSecurityCheck(), and is
             treated as an 'if' clause. <xref target="else">&lt;xar:else /&gt;</xref> and <xref target="elseif">&lt;xar:elseif /&gt;</xref>
             tags may be attached as for an <xref target="if">&lt;xar:if /&gt;</xref>.
           </t>
 					<t>Syntax example:
             <artwork>
-              &lt;xar:sec
-              realm="0"
-              component="Menublock::"
-              instance="Administration|Stats|Referers"
-              level="none"
-              &gt;
+
+            &lt;xar:sec id="unique1" mask="EditCategories" catch="false" component="mycomponent" &gt;
+                &lt;p&gt;You are granted access&lt;/p&gt;
+            &lt;xar:else/&gt;
+                &lt;p&gt;Sorry, no can do &lt;/p&gt;
+            &lt;/xar:sec&gt;
             </artwork>
 					</t>
 					<t>Parent tag: none.</t>
-					<t>Child tags: none</t>
+					<t>Child tags: &lt;xar:else /&gt;  &lt;xar:elseif /&gt;</t>
 				</section>
 				<!-- xar:set -->
 				<section anchor="set" title="&lt;xar:set /&gt;">

@@ -5,7 +5,7 @@
 <?rfc toc='yes'?>
 <rfc number="0006" category="info">
 	<front>
-		<title>XML-RPC API</title>
+		<title>Webservices Subsystem</title>
 		<author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
 			<organization>Xaraya Development Group</organization>
 			<address>
@@ -41,10 +41,10 @@
    definitions concerning comments systems / forums.
 			</t>
 		</section>
-		<section title="List of requirements for the XML-RPC API">
+		<section title="List of requirements for the Webservices Subsystem">
 			<t>
-			    Implement a system to let modules register XML-RPC functions calls,
-     simliar to Drupal.
+         Implement a system to let modules expose selected API functions as SOAP web services. Module authors will create WSDL files to specifiy their 
+interfaces. The Webservices Subsystem will feature a single entry point for both XML-RPC and SOAP.
 </t>
 <t>
     Following is a list of requirements broadly grouped into

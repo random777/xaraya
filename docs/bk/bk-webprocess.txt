@@ -101,12 +101,12 @@ website managed by this process, currently it has the
 following layout:
 
 reposroot/
-	bk/        ---> content for bk.xaraya.com (ultimately)
-	bugs/      ---> content for bugs.xaraya.com (ultimately)
+    bk/        ---> content for bk.xaraya.com (ultimately)
+    bugs/      ---> content for bugs.xaraya.com (ultimately)
     www/       ---> content for www.xaraya.com (ultimately)
     developer/ ---> content for developer.xaraya.com (ultimately)
-    news/  	   ---> content for news.xaraya.com (ultimately)
-	scripts	   ---> scripts which glue web repositories to other repositories (if necessary)
+    news/      ---> content for news.xaraya.com (ultimately)
+    scripts    ---> scripts which glue web repositories to other repositories (if necessary)
 
 If both webs-staging and webs-production repositories are in place
 there is a nice structure to edit the content and make sure it's 
@@ -121,14 +121,14 @@ bk-space : /usr/local/repositories and below
 
 Option for creating a relation between the two
 
-1. (sym)links from the webspace to the appropriate subdirs in the bk-space
-2. (l)clone in the web-space (copy or hardlinks)
+1. (sym)links from the webspace to the appropriate subdirs in the bk-space or apache Alias directive
+2. (l)clone in the web-space (copy)
 3. script which extracts files from the repository and copies them to
    the web-space
 
 A simple table with capabilities of each option:
  
-			        1	2	3
+		        1	2	3
 ------------------------------------------
 Immediate result	++	+	-	(optional)
 Remote management	+	++	-
@@ -172,7 +172,7 @@ Actual Web Implementation(s):
 
 DEVELOPEMENT SITE for *.xaraya.com
 ------------------------------------------
-URL: https://dev.xaraya.com  (was https://concept.xaraya.com)
+URL: https://concept.xaraya.com
 DIR: /var/www-ssl/ddf/concept.xaraya.com
 
 Relevant Subdirs
@@ -215,7 +215,7 @@ DIR: /var/www/ddf/news.xaraya.com
 
 NOTE: In the dev and staging environments, the 
 webroot contains a simple index.html file with 
-pointer links to the various subdires that comprise
+pointer links to the various subdirs that comprise
 the dev/staging environment for a given subdomain 
 (*.xaraya.com).  This allows us to avoid tons of 
 subdomains (e.g. dev-bugs.xaraya.com, 
@@ -232,4 +232,13 @@ DNS/HTTPD changes to create the subdomain.
 
 COMMENTS:
 - Can we leave out the dev environment? If things get more complex
-later on we can always add a layer. 
+later on we can always add a layer.
+- Not all sites will want this process. For instance the bugs site will not use it. Therefore there must be a mechanism for site admins to be able to check changes direct into the production repository.
+- Hows this process apply when using database backed sites? I assume it will 
+only apply to the files. However if the sites are using Xaraya themselves I'm 
+not convinced we would want to put those files into BK as they would have 
+already come from one repository so it would be unnecessary change control. 
+We also do not necessarily want to use database replication - so will database 
+content changes just be made on the live site like normal CMS backed sites? 
+If we need more then that then others will too and so we should add missing 
+functionality to Xaraya itself.

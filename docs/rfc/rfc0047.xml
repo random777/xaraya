@@ -128,50 +128,127 @@
         
         <section title="Requirements List">
             <t>
-                The main objective of this API is to allow a Trackback enabled site to send Trackback pings
+                The main objective of this API is to allow a TrackBack enabled site to send TrackBack pings
                 and recieve them. Then the system must route them to the appropriate Xaraya content item.
+            </t>
                 <list style="numbers">
                     <t>Send Trackback Pings</t>
                     <list style="symbols">
-                        <t>Trackback module send out the Trackback ping</t>
+                        <t>TrackBack module send out the TrackBack ping</t>
                         <t>Pings are triggered by:</t>
 												<list style="symbols">
-														<t>creation of an item</t>
+														<t>creating an item</t>
 														<t>modifying an item</t>
 														<t>deleting an item</t>
 												</list>
                     </list>
-                    <t>Receive Trackback Pings</t>
+                    <t>Receive TrackBack Pings</t>
                     <t>
                         When items on other sites change or are created as a
-                        trackback to a xaraya item a trackback ping is received
+                        TrackBack to a xaraya item a TrackBack ping is received
                         This ping needs to be handled by xaraya and stored in relation
                         to the item remotely referenced.
                     </t>
                     <list>
-                        <t>Receive and parse Trackback ping</t>
+                        <t>Receive and parse TrackBack ping</t>
                         <t>Route information (based on URL) to the right module and store the info there</t>
-                        <t>Use display hook to display Trackbacks link and show the trackbacks</t>
+                        <t>Use display hook to display TrackBack links and show the TrackBacks</t>
                     </list>
-                    <t>Auto-Discovery of Trackback Ping URLs</t>
-                    <t><artwork>
-
-                            Make xaraya retrieve trackback urls
-                            ===================================
-                            When creating a new item, the trackback module should offer the 
-                            possibility to retrieve trackback info from an url. This can be both
-                            manually or automatically 
-
-                            example in javascript:
-                            window.open('http://your.xaraya.com/ws.php?type=trackback&amp;url=currenturl');
-
-
-                            Xaraya trackback module can then inspect /currenturl/ and extract the entries on which
-                            trackback should refer to.
-                        </artwork></t>
                     
-                </list>
+                    <t>Auto-Discovery of TrackBack Ping URLs</t>
+                       <list>
+                           <t>
+                              When creating a new item, the TrackBack module should offer the 
+                              possibility to retrieve trackback info from an url. This can be both
+                              manually or automatically 
+                           </t>
+                       </list>
+              </list> 
+        </section>
+        
+        <section title="Sending a TrackBack ping">
+            <t><artwork>
+                   POST http://www.foo.com/ws.php?type=trackback&amp;tbid=1
+                   Content-Type: application/x-www-form-urlencoded
+                   title=Foo+Bar&amp;url=http://www.bar.com/&amp;excerpt=My+Excerpt&amp;blog_name=Foo
+            </artwork></t>
+         
+            <t>Successful Response:</t>
+            <t><artwork>
+                   &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
+                      &lt;response&gt;
+                          &lt;error&gt;0&lt;/error&gt;
+                      &lt;/response&gt;
+            </artwork></t>
+            
+            <t>Failed Response:</t>
+            <t><artwork>
+                    &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
+                        &lt;response&gt;
+                            &lt;error&gt;1&lt;/error&gt;
+                            &lt;message&gt;The error message&lt;/message&gt;
+                        &lt;/response&gt;
+            </artwork></t>
+        </section>
+        
+        <section title="Receiving a TrackBack ping">
+        
+            <t>Example TrackBack ping receive</t>
+            <t>
+               To retrieve the list of pings sent to a particular Xaraya TrackBack Ping URL, 
+               send an HTTP GET request to the TrackBack Ping URL with the query string ?__mode=rss
             </t>
+            <t>A sample GET request might look like this:</t>
+            <t><artwork>
+                GET http://www.foo.com/ws.php?type=trackback&amp;tbid=3?__mode=rss
+            </artwork></t>
+            <t>
+               The response to this request will either be an error in the same format as returned 
+               from the above request, or the list of TrackBack pings for that item in RSS markup, 
+               wrapped in &lt;response$gt; tags.
+            </t>
+            <t>For example:</t>
+            <t><artwork>
+                &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
+                    &lt;response&gt;
+                        &lt;error&gt;0&lt;/error&gt;
+                        &lt;rss version=&quot;0.91&quot;&gt;
+                            &lt;channel&gt;
+                                &lt;title&gt;TrackBack Test&lt;/title&gt;
+                                &lt;link&gt;http://this.is/the/trackback/item/link/&lt;/link&gt;
+                                &lt;description&gt;Description of the TrackBack item&lt;/description&gt;
+                                &lt;language&gt;en-us&lt;/language&gt;
+                                &lt;item&gt;
+                                    &lt;title&gt;TrackBack Demo&lt;/title&gt;
+                                    &lt;link&gt;http://this.is/the/permalink/&lt;/link&gt;
+                                    &lt;description&gt;Excerpt&lt;/description&gt;
+                                &lt;/item&gt;
+                            &lt;/channel&gt;      
+                        &lt;/rss&gt;
+                    &lt;/response&gt;            
+            </artwork></t>
+            <t>
+                The portions between &lt;rss&gt; and &lt;/rss&gt; are the actual RSS data; the rest is simply 
+                the response wrapper, and can be discarded.
+            </t>
+        </section>
+        
+        <section title="TrackBack Auto-Discovery">
+            <t>Example Auto-Discovery</t>
+            <t><artwork>
+               example in javascript:
+               window.open('http://your.xaraya.com/ws.php?type=trackback&amp;url=currenturl');
+            </artwork></t>
+        </section>
+        
+        <section title="What is a Permalink?">
+            <t><artwork>
+               permalink (pûrma-lingk) n. 
+               A permanent marker or reference point to a certain document on the world wide web. 
+               Most commonly used for weblogs, news sites and newspapers. 
+               A permalink is denoted through the use of a symbol (pound sign, arrow, dot), 
+               date of content creation, the word permalink or image.
+            </artwork></t>
         </section>
         
         <section title="Solution proposals - database tables">
@@ -201,6 +278,7 @@
         
         <!-- Revision history is mandatory -->
         <section title="Revision history">
+            <t>2003-07-25: MrB: added TrackBack explanation</t>
             <t>2003-07-24: MrB: created</t>
         </section>
         

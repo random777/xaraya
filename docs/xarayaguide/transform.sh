@@ -2,7 +2,7 @@
 
 # script to generate the Xaraya User Guide Output
 
-STYLESHEET_IMAGES=/usr/share/sgml/docbook/dsssl-stylesheets/images
+STYLESHEET_IMAGES=/usr/share/sgml/docbook/xsl-stylesheets/images
 OUTPUT=/var/www/ddf/downloads/documentation
 
 # make the HTML output

@@ -5629,42 +5629,7 @@ proc rfc_html {irefs copying} {
 global htmlstyle
 
 set htmlstyle \
-"<STYLE type='text/css'>
-    .title { color: #990000; font-size: 22px; line-height: 22px; font-weight: bold; text-align: right;
-             font-family: helvetica, arial, sans-serif }
-    .filename { color: #666666; font-size: 18px; line-height: 28px; font-weight: bold; text-align: right;
-                  font-family: helvetica, arial, sans-serif }
-    p.copyright { color: #000000; font-size: 10px;
-                  font-family: verdana, charcoal, helvetica, arial, sans-serif }
-    p { margin-left: 2em; margin-right: 2em; }
-    li { margin-left: 3em;  }
-    ol { margin-left: 2em; margin-right: 2em; }
-    ul.text { margin-left: 2em; margin-right: 2em; }
-    pre { margin-left: 3em; color: #333333 }
-    ul.toc { color: #000000; line-height: 16px;
-             font-family: verdana, charcoal, helvetica, arial, sans-serif }
-    H3 { color: #333333; font-size: 16px; line-height: 16px; font-family: helvetica, arial, sans-serif }
-    H4 { color: #000000; font-size: 14px; font-family: helvetica, arial, sans-serif }
-    TD.header { color: #ffffff; font-size: 10px; font-family: arial, helvetica, san-serif; valign: top }
-    TD.author-text { color: #000000; font-size: 10px;
-                     font-family: verdana, charcoal, helvetica, arial, sans-serif }
-    TD.author { color: #000000; font-weight: bold; margin-left: 4em; font-size: 10px; font-family: verdana, charcoal, helvetica, arial, sans-serif }
-     A:link { color: #990000; font-weight: bold;
-              font-family: MS Sans Serif, verdana, charcoal, helvetica, arial, sans-serif }
-     A:visited { color: #333333; font-weight: bold;
-                 font-family: MS Sans Serif, verdana, charcoal, helvetica, arial, sans-serif }
-     A:name { color: #333333; font-weight: bold;
-              font-family: MS Sans Serif, verdana, charcoal, helvetica, arial, sans-serif }
-    .link2 { color:#ffffff; font-weight: bold; text-decoration: none;
-             font-family: monaco, charcoal, geneva, MS Sans Serif, helvetica, monotype, verdana, sans-serif;
-             font-size: 9px }
-    .RFC { color:#666666; font-weight: bold; text-decoration: none;
-           font-family: monaco, charcoal, geneva, MS Sans Serif, helvetica, monotype, verdana, sans-serif;
-           font-size: 9px }
-    .hotText { color:#ffffff; font-weight: normal; text-decoration: none;
-               font-family: charcoal, monaco, geneva, MS Sans Serif, helvetica, monotype, verdana, sans-serif;
-               font-size: 9px }
-</style>"
+"<link rel=\"stylesheet\" HREF=\"rfc2629.css\" name=\"default\" title=\"default\" type=\"text/css\">"
 
 
 proc front_html_begin {left right top bottom title status copying} {

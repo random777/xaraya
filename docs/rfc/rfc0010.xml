@@ -91,7 +91,7 @@ html/
 	  ]]></artwork>
       </t>
       <t>
-	html/themes/<theme name>/theme.php contains metadata about the theme;
+	html/themes/&lt;theme name&gt;/theme.php contains metadata about the theme;
     no actual markup can reside there. Such metadata includes:
 	<list style="bullet">
 	  <t>$themeinfo['name']</t>
@@ -393,7 +393,7 @@ html/
 	    Escapes the closest 
 	    <xref target="for">&lt;xar:for /&gt;</xref>, 
 	    <xref target="loop">&lt;xar:loop /&gt;</xref>, or
-	    <xref target="blocklayout">&lt;xar:while /&gt;</xref>
+	    <xref target="while">&lt;xar:while /&gt;</xref>
 	  </t>
 	  <t>
 	    Parent tags: 

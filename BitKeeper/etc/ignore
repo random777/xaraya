@@ -769,3 +769,4 @@ html/modules/release/xartemplates/user-browse.xd
 html/modules/release/xaruser/browse.php
 html/modules/release/xaruserapi/getitemlinks.php
 html/modules/release/xaruserapi/getitemtypes.php
+html/debug.php

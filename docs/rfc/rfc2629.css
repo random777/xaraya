@@ -3,6 +3,12 @@ body {
 	font-family: verdana, arial, helvetica, sans-serif;
 	background-color: #FFFFFF
 	}
+
+table
+    {
+    font-size: 13px
+    }
+
 		
 p.copyright { 
 	color: #000000;
@@ -17,13 +23,14 @@ p {
 	
 li { 
 	margin-left: 3em;
+  margin-bottom: 6px;
 	line-height: 125%;
 	}
 	
 ol { 
 	margin-left: 2em;
 	margin-right: 2em;
-	line-height: 150%;
+	line-height: 125%;
 	}
 	
 ul.text { 
@@ -38,7 +45,8 @@ pre {
 	color: #333333 
 	}
 	
-ul.toc { 
+ul.toc {
+  color: #000000;
 	line-height: 16px;
 	font-family: verdana, arial, helvetica, sans-serif 
 	}
@@ -54,9 +62,10 @@ ul.toc {
 		
 H1 {
 	color: #191970;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bolder;
 	font-family: Verdana,Arial,Helvetica;
+  
 	}
 		
 H2 {
@@ -82,14 +91,24 @@ H4 {
 	font-weight: bold;
 	font-family: Verdana,Arial,Helvetica;
 	line-height : 170%;
-	text-indent: 2em;}
-	
-H5, H6 {
+	text-indent: 2em;
+  border-bottom: thing double #191970;
+}
+
+H5 { 
+    color: #191970;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: Verdana,Arial,Helvetica;
+  text-indent: 4em;
+ }	
+
+H6 {
 	color: #191970;
 	font-size: 11px;
 	font-weight: bold;
 	font-family: Verdana,Arial,Helvetica;
-	text-indent: 2em;}
+	text-indent: 6em;}
 	
 TD.header { 
 	color: #ffffff;
@@ -178,3 +197,36 @@ A:name {
 	text-align: right;
 	font-family: verdana, arial, helvetica, sans-serif
 	}	
+
+.editingmark
+    {
+    background-color: khaki;
+    }
+
+.toowide
+    {
+    color: red;
+      font-weight: bold;
+    }
+
+.figure
+    {
+      font-weight: bold;
+      text-align: center;
+      font-size: 9x;
+    }
+
+del
+    {
+      color: red;
+    }
+
+ins
+    {
+      color: blue;
+    }
+
+@media print 
+    {
+    .noprint {display:none}
+    }

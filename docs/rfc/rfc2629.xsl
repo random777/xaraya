@@ -509,22 +509,22 @@
 </xsl:template>
 
 <xsl:template match="list[@style='numbers']">
-    <ol>
-        <xsl:apply-templates />
-      </ol>
+  <ol>
+    <xsl:apply-templates />
+  </ol>
 </xsl:template>
 
 <xsl:template match="list[@style='bullets']">
-    <ul class="text">
-        <xsl:apply-templates />
-    </ul>
+  <ul class="text">
+    <xsl:apply-templates />
+  </ul>
 </xsl:template>
 
 <!-- LC alpha list -->
 <xsl:template match="list[@style='lc_alpha']">
-    <ol type="a">
-        <xsl:apply-templates />
-    </ol>
+  <ol type="a">
+    <xsl:apply-templates />
+  </ol>
 </xsl:template>
 
 <!-- numbered list inside numbered list -->
@@ -776,9 +776,7 @@
     <html>
     <head>
       <title><xsl:value-of select="front/title" /></title>
-             <style type="text/css">
-        <xsl:call-template name="insertCss" />
-      </style>
+      <link rel="stylesheet" HREF="rfc2629.css" name="default" title="default" type="text/css"/>
     </head>
         <body>
       <!-- insert diagnostics -->
@@ -1109,237 +1107,6 @@
   </t>
   </section>
 
-</xsl:template>
-
-
-<!-- insert CSS style info -->
-
-<xsl:template name="insertCss">
-.title { 
-    color: #191970;
-    font-size: 22px;
-    line-height: 22px;
-    font-weight: bold;
-    text-align: left;
-    font-family: verdana, arial, helvetica, sans-serif
-    }
-    
-.filename { 
-    color: #336699;
-    font-size: 18px;
-    line-height: 28px;
-    font-weight: bold;
-    text-align: right;
-    font-family: verdana, arial, helvetica, sans-serif
-    }
-    
-p.copyright { 
-    color: #000000;
-    font-size: 10px;
-    font-family: verdana, arial, helvetica, sans-serif 
-    }
-    
-p { 
-    margin-left: 2em;
-    margin-right: 2em;    
-    }
-    
-li { 
-    margin-left: 3em;
-	margin-bottom: 6px;
-	line-height: 150%;
-    }
-    
-ol { 
-    margin-left: 2em;
-    margin-right: 2em;
-    }
-    
-ul.text { 
-    list-style-type:square;
-    margin-left: 2em;
-    margin-right: 2em;
-    
-    }
-    
-pre { 
-    margin-left: 3em;
-    color: #333333 
-    }
-    
-ul.toc { 
-    color: #000000;
-    line-height: 16px;
-    font-family: verdana, arial, helvetica, sans-serif 
-    }
-
-H1 {
-    color: #191970;
-    font-size: 18px;
-    font-weight: bolder;
-    font-family: Verdana,Arial,Helvetica;}
-        
-H2 {
-    color: #191970;
-    font-size: 14px;
-    font-weight: bolder;
-    font-family: Verdana,Arial,Helvetica;
-    line-height : 170%;
-	text-indent: 2em;}
-
-H3 {
-    color: #191970;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: Verdana,Arial,Helvetica;
-    line-height : 100%;
-	text-indent: 2em;}
-    
-H4 {
-    color: #191970;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: Verdana,Arial,Helvetica;
-    border-bottom : thin double #191970;
-    line-height : 170%;
-	text-indent: 2em;}
-    
-H5, {
-    color: #191970;
-    font-size: 11px;
-    font-weight: bold;
-    font-family: Verdana,Arial,Helvetica;
-	text-indent: 4em;}
-
-H6 {
-    color: #191970;
-    font-size: 11px;
-    font-weight: bold;
-    font-family: Verdana,Arial,Helvetica;
-	text-indent: 6em;}	
-    
-TD.header { 
-    color: #ffffff;
-    font-size: 10px;
-    font-family: verdana, arial, helvetica, sans-serif
-    valign: top 
-    }
-    
-TD.author-text { 
-    color: #000000;
-    font-size: 10px;
-    font-family: verdana, arial, helvetica, sans-serif 
-    }
-    
-TD.author { 
-    color: #000000;
-    font-weight: bold;
-    margin-left: 4em;
-    font-size: 10px;
-    font-family: verdana, arial, helvetica, sans-serif 
-    }
-
-HR {
-    width:100%;
-    color:#C0C0C0
-    }
-        
-A:link {    
-    color: #333399; 
-    font-weight: bold;
-    text-decoration: none 
-    }
-
-A:hover {    
-    color: #333399; 
-    font-weight: bold;
-    }    
-
-A:active { 
-    color: #330066;
-    font-weight: bold;
-    text-decoration: none 
-    }        
-    
-A:visited { 
-    color: #003366;
-    font-weight: bold;
-    text-decoration: none 
-    }    
-
-A:name { 
-    color: #3333CC;
-    font-weight: bold;
-    text-decoration: none 
-    }    
-    
-.link2 { 
-    color:#FFFFFF;
-    font-weight: bold;
-    text-decoration: none;
-    font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 9px 
-    }
-    
-.RFC { 
-    color:#336699;
-    font-weight: bold;
-    text-decoration: none;
-    font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 9px 
-    }
-    
-.hotText { 
-    color:#ffffff;
-    font-weight: normal;
-    text-decoration: none;
-    font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 9px 
-    }
-
-body {
-    font-size:11px; 
-    font-family: verdana, arial, helvetica, sans-serif;
-    background-color: #FFFFFF
-    }
-
-table
-    {
-    font-size: 13px
-    }
-
-.editingmark
-    {
-    background-color: khaki;
-    }
-
-.toowide
-    {
-    color: red;
-      font-weight: bold;
-    }
-
-.figure
-    {
-      font-weight: bold;
-      text-align: center;
-      font-size: 9x;
-    }
-
-del
-    {
-      color: red;
-    }
-
-ins
-    {
-      color: blue;
-    }
-
-@media print 
-    {
-    .noprint {display:none}
-    }
 </xsl:template>
 
 

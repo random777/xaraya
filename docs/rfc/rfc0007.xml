@@ -50,6 +50,21 @@
     <section title="Table 'Content'">
       <t></t>
     </section>
+    <section title=" Solution proposals - APIs">
+      <t>
+      Dynamic User Data will use two sets of APIs. Creation and Deletion of of variables is done within
+      a module, while reading and writing variable contents is done in the core.
+
+      There are currently discussions whether to combine Dynamic User Data with generalized
+      Dynamic Data, in essence abstracting away the relationship between users and dynamic
+      data, and allowing every module to define its own dynamic data. This brings up the question
+      if module variables are being reinvented, and what should happen with the functionality
+      to assign responsibility for storing user variables to authentication modules. 
+
+      The current core API functions are:
+		<figure><artwork src="images/rfc0007_4.png"/></figure>
+      </t>
+    </section>
     <section title="Relationship to other areas">
       <t></t>
     </section>

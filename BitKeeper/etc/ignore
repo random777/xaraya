@@ -6,6 +6,7 @@ config.site.xml
 config.system.php
 docs/rfc/*.html
 html/.directory
+html/dba/*
 html/modules/base/xartemplates/blocks/finclude-modify.xd
 html/modules/comments/old-pnuserapi.php
 html/modules/example/.pnadmin.php.swp

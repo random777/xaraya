@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # script to generate the Xaraya User Guide Output
+# can be called with --nopdf to skip producing the PDF.
 
 STYLESHEET_IMAGES=/usr/share/sgml/docbook/xsl-stylesheets/images
 OUTPUT=/var/www/ddf/downloads/documentation
@@ -24,5 +25,10 @@ mv $OUTPUT/make.html $OUTPUT/xarayaguide.html
 tidy -asxhtml -q -m -i $OUTPUT/xarayaguide.html
 
 # make the PDF output
-docbook2pdf -d ldp.dsl\#print -o $OUTPUT make.xml
-mv $OUTPUT/make.pdf $OUTPUT/xarayaguide.pdf
+if [ "X$1" = 'X--nopdf' ] 
+then
+  docbook2pdf -d ldp.dsl\#print -o $OUTPUT make.xml
+  mv $OUTPUT/make.pdf $OUTPUT/xarayaguide.pdf
+else
+  rm $OUTPUT/xarayaguide.pdf	
+fi

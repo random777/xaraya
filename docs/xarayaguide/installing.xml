@@ -105,6 +105,14 @@
           &#60;xarroot&#62;/var/cache/rss&#34; directory, for example, &#34;<userinput>chmod
           777 &#60;xarroot&#62;/var/cache/rss</userinput>&#34;.</para>
         </listitem>
+        <listitem>
+          <para><emphasis>FAILURE: The installer cannot write to the
+          var/cache/adodb directory.</emphasis></para>
+
+          <para>This error can be fixed by changing the permissions of the
+          &#60;xarroot&#62;/var/cache/adodb&#34; directory, for example, &#34;<userinput>chmod
+          777 &#60;xarroot&#62;/var/cache/adodb</userinput>&#34;.</para>
+        </listitem>
       </itemizedlist>
     </sect2>
 

@@ -8,50 +8,18 @@
   <para>OTTO: Does Xaraya have a best practices for routine maintence?</para>
 
   <para>In general, Xaraya runs without any need for pre-emptive or recurring
-  maintenance. However, some things that Xaraya does need recurring
-  maintenance. Here are a few things that should be done on a regular basis:</para>
+  maintenance. However, some features could benefit from some attention to keep your site running smoothly. This section contains a few things that could be done on a regular basis.</para>
 
   <itemizedlist>
     <listitem>
-      <para>Print and clear web statistics.</para>
-
-      <para>The statistics and log files can grow without limit and needs to
-      be cleared from time to time.</para>
-
-      <para>To clear the log files, log in as Administrator and go to the
-      Administration menu. Go to <command>Admin-&#62;Referer-&#62;View</command>
-      (note that the misspelling is intentional). A listing of site referrers
-      is displayed. Click the &#34;<guibutton>Delete Referers</guibutton>&#34;
-      button to clear the referrers list.</para>
-
-      <note>
-        <para>You are not asked to confirm your intention to delete.</para>
-      </note>
-
-      <para>New referrers will be added to the cleared list. Generally, the
-      referrers list should be cleared about once a week, or on an interval
-      that is suitable for your site.</para>
-    </listitem>
-
-    <listitem>
-      <para>Optimize tables.</para>
-
-      <para>As tables grow, they can become fragmented and need to be
-      optimized to improve performance.</para>
-
-      <para>You can use the SiteTools module to optimize your database tables.</para>
-    </listitem>
-
-    <listitem>
-      <para>Backup the database.</para>
+      <para>Example backup script</para>
 
       <para>Although many webmasters have copies of their website on their
       local workstations, they often neglect to make a copy of their database.
       A backup of both website and database needs to be done regularly to
-      protect against catastrophic data-loss situations. You must use an
-      external utility to optimize the database tables. Drew Vogel has written
-      a useful script for backing up the web site&#39;s database and files.
-      This script is available below.</para>
+      protect against catastrophic data-loss situations. Included below is
+      a useful script for backing up the web site's database and files.
+      </para>
 
       <para><literallayout># xaraya-bu.sh | 1.12
 #==============+ by Drew Vogel (drew@xaraya.com)
@@ -133,6 +101,15 @@ echo &#34;...done.&#34;
 echo &#34;Xaraya backup complete!&#34;</literallayout></para>
     </listitem>
   </itemizedlist>
+ <sect1 id="logging">
+  <title>Logging</title>
+  <para>Logging your site can often help with tracking down problems and odd behaviour.</para>
+  <para>To enable basic logging on your Xaraya site edit var/config.system.php and make sure the following lines exist and are not commented out: (the filename can be changed as appropriate)</para>
+  <para><literallayout>$systemConfiguration['Log.LogLevel'] = 'DEBUG';
+$systemConfiguration['Log.LoggerName'] = 'simple';
+$systemConfiguration['Log.LoggerArgs'] = array('fileName' =>  'var/logs/log.txt');</literallayout></para>
+<para>Changing the 'simple' to 'dummy' will disable the logger.</para>
+ </sect1>
  <sect1 id="sitetools">
   <title>Sitetools Module</title>
 &mod-sitetools;

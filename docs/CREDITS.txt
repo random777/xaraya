@@ -197,3 +197,6 @@ phpMyAdmin <http://www.phpmyadmin.net>
 
 * Javascript validation:
 Dynamic Drive <http://www.dynamicdrive.com>
+
+* The roles and privileges tree code adapted from the NavMenu script
+Peter Bailey <http://www.peterbailey.net>

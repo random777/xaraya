@@ -1692,6 +1692,15 @@ html/
                 <t><em>[scope]</em> {(local)|config|module|block|theme|user}
                   <t>What kind of variable should we retrieve</t>
                 </t>
+                <t><em>[prep]</em> {(false)|true}
+                  <t>If the prep attribute has the value 'true' the contents of
+                    the variable are prepared for displaying. Normally it is the 
+                    responsibility of the developer to supply reasonable values to
+                    a template and preparing them if necessary. This attribute gives
+                    the theme designer an option to use this tag to explicitly prepare 
+                    values for displaying. The attribute is optional and defaults to false.
+                   </t>
+                </t>
                 <t><em>name</em>
                   <t>String specifying the name of the variable to retrieve within
                     the given scope

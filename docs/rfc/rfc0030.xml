@@ -480,10 +480,10 @@
             4. EditArticles     All       Articles  All          All         ACCESS_EDIT    
             5. AddArticles      All       Articles  All          All         ACCESS_ADD   
           </artwork>
-          It can be seen that, with the definitions given above, 2
-          implies 3 and 5 implies 4. Therefore when comparing all the
-          privileges in the set, privileges 3 and 4 are not
-          relevant, because they are superceded by 2 and 5
+          It can be seen that, with the definitions given above, 3
+          implies 2 and 5 implies 4. Therefore when comparing all the
+          privileges in the set, privileges 2 and 4 are not
+          relevant, because they are superceded by 3 and 5
           respectively.
         </t>
         <t>
@@ -557,12 +557,12 @@
             ReadAll                  "assign DeleteExamples to FOO"
             |
             |--DeleteExamples
-            |                         Privileges assigned: DeleteExamples
-            |--AddExamples                                 AddExamples
-               |                                           EditArticles
-               |--EditArticles                             AddArticles
-               |  
-               |--AddArticles
+               |                     Privileges assigned: DeleteExamples
+               |--AddExamples                             AddExamples
+                  |                                       EditArticles
+                  |--EditArticles                         AddArticles
+                  |  
+                  |--AddArticles
           </artwork>
           <artwork>    
             

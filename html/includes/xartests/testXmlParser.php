@@ -41,7 +41,7 @@ class testXmlTestSuite extends xarTestCase {
         $this->testcases=array();
         $this->xmltestbase='includes/xartests/xmltestsuite/xmlconf/xmltest/';
         if($this->xarXml->parseFile($this->xmltestbase . 'xmltest.xml')) {
-            $this->testcases= $this->xarXml->handler->_tree[0]['children'][0]['children'];
+            $this->testcases= $this->xarXml->tree[0]['children'][0]['children'];
         } else {
             return false;
         }
@@ -62,6 +62,8 @@ class testXmlTestSuite extends xarTestCase {
                 if(!$this->xarXml->parseFile($testfile)) {
                     $this->errors[]= $test['attributes']['URI'].":".$this->xarXml->lastmsg;
                 }
+                //echo $testfile;
+                //print_r($this->xarXml->tree);
             }
         }
         
@@ -72,36 +74,47 @@ class testXmlTestSuite extends xarTestCase {
 
     function testParseNotWellFormedFromW3TestSuite() {
         $this->errors=array();
+        $testcounter=0; $errorcounter=0;
         foreach($this->testcases as $test) {
             if($test['attributes']['TYPE'] =='not-wf') {
                 // Not wellformed document *should* produce errors
                 $testfile = $this->xmltestbase . $test['attributes']['URI'];
                 if($this->xarXml->parseFile($testfile)) {
+                    $errorcounter++;
                     $this->errors[]= $test['attributes']['URI'].": parsed ok, but is not well-formed\n"
                         . $test['content'];
+                    //echo "$testfile\n";
+                    //print_r($this->xarXml->tree);
+                    //die();
+                } else {
+                    $testcounter++;
                 }
+                
             }
         }
         
-        $msgtoreturn="Not well formed documents should give errors";
+        $msgtoreturn="Not well formed documents should give errors ($errorcounter/$testcounter)";
         //if(!empty($this->errors)) $msgtoreturn .= "\n" . implode("\n",$this->errors);
         return $this->AssertTrue(empty($this->errors),$msgtoreturn);
     }
 
     function testParseInvalidFromW3TestSuite() {
         $this->errors=array();
+        $testcounter=0; $errorcounter=0;
         foreach($this->testcases as $test) {
             if($test['attributes']['TYPE'] =='invalid') {
-                // Not wellformed document *should* produce errors
+                // Invalid documents *should* produce errors
                 $testfile = $this->xmltestbase . $test['attributes']['URI'];
+                $testcounter++;
                 if($this->xarXml->parseFile($testfile)) {
+                    $errorcounter++;
                     $this->errors[]= $test['attributes']['URI'].": parsed ok, but is invalid\n"
                         . $test['content'];
                 }
             }
         }
         
-        $msgtoreturn="Invalid documents should give errors";
+        $msgtoreturn="Invalid documents should give errors ($errorcounter/".$testcounter.")";
         //if(!empty($this->errors)) $msgtoreturn .= "\n" . implode("\n",$this->errors);
         return $this->AssertTrue(empty($this->errors),$msgtoreturn);
     }

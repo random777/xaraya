@@ -31,14 +31,21 @@
         <uri>http://www.xaraya.com</uri>
       </address>
     </author>
+    <author initials="F.B." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+      	<email>besfred@xaraya.com</email>
+      	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
     <date month="March" year="2003"/>
   
     <!-- Initiating team for this RFC -->
     <workgroup>Project Management Committee</workgroup>
     
     <!-- List keywords for the RFC here -->
-    <keyword>rfc</keyword>
-    <keyword>template</keyword>
+    <keyword>coding</keyword>
+    <keyword>standard</keyword>
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
@@ -51,12 +58,33 @@
     <!-- Introduction is mandatory -->
     <section title="Introduction">
       <t>
+      	In this RFC we pull together the general <eref target="http://pear.php.net/manual/en/standards.php">
+      	PEAR coding standard</eref> and the specific Xaraya standards into one document.
       </t>
     </section>
     
+    <section title="PHP Code Tags">
+      <t>
+        <em>Always<em> use <em>&amp;lt;?php ?&amp;gt;<em> to delimit PHP code, not 
+        the <em>&amp;lt;? ?&amp;gt;</em> shorthand. This is required for PEAR compliance and is 
+        also the most portable way to include PHP code on differing operating systems and setups.
+      </t>
+    </section>
+
+    <section title="Indenting">
+      <t>Use an indent of 4 spaces, with no tabs.</t>
+    </section>
+ 
+	<section title="File ending">
+	  <t>
+	    Use unix file endings, not dos ones. Most editors and IDEs on WindowsOS will provide a choice
+	    to save a file as unix file.
+	  </t>
+	</section>
+
     <section title="Headers">
       <t>This section contains the standard phpdoc headers we use</t>
-      <section title="Fileheader">
+      <section title="File header">
         <t>
           <artwork>
             /**
@@ -71,13 +99,13 @@
              * 
              * @subpackage module name
              * @link  link to information for the subpackage
-             * @author author name &lt;author@email&gt; (this tag means responsible person)
+             * @author author name &amp;lt;author@email&amp;gt; (this tag means responsible person)
              */
           </artwork>
         </t>
       </section>
 
-      <section title="Functionheader">
+      <section title="Function header">
         <t>The header below is used for all functions in the codebase:</t>
         <t>
           <artwork>
@@ -87,20 +115,20 @@
              * A somewhat longer description of the function which may be 
              * multiple lines, can contain examples.
              *
-             * @author  Author Name &lt;author@email&gt;
-             * @deprec  date since deprecated &lt;insert this if function is deprecated&gt;
+             * @author  Author Name &amp;lt;author@email&amp;gt;
+             * @deprec  date since deprecated &amp;lt;insert this if function is deprecated&amp;gt;
              * @access  public / private / protected
              * @param   type param1 Description of parameter 1
              * @param   type param2 Description of parameter 2
              * @return  type to return description
              * @throws  list of exception identifiers which can be thrown
-             * @todo    &lt;devname&gt; &lt;#&gt; list of things which must be done to comply to relevant RFC or fix a problem
+             * @todo    &amp;lt;devname&amp;gt; &amp;lt;#&amp;gt; list of things which must be done to comply to relevant RFC or fix a problem
              */            
           </artwork>
         </t>
       </section>
 
-      <section title="Classheader">
+      <section title="Class header">
         <t>
           The header below is used for all classes in the Xaraya codebase
         </t>
@@ -113,17 +141,160 @@
              * may be on multiple lines and can contain examples
              *
              * @package unassigned - replace with packagename
-             * @author Author Name &lt;author@email&gt;
-             * @deprec date since deprecated &lt;insert if class is deprecated&gt;
+             * @author Author Name &amp;lt;author@email&amp;gt;
+             * @deprec date since deprecated &amp;lt;insert if class is deprecated&amp;gt;
              * @todo  todo-item, specify each with new tag
              */
           </artwork>
         </t>
       </section>
     </section>
+
+	<section title="Control Structures">
+	  <t>
+	    These include if, for, while, switch, etc. Here is an example if statement, since it is the
+	    most complicated of them:
+	    <artwork>
+	      &amp;lt;?php
+		  if ((condition1) || (condition2)) {
+		      action1;
+		  } elseif ((condition3) &amp;&amp; (condition4)) {
+		      action2;
+		  } else {
+		      defaultaction;
+		  }
+		  ?&amp;gt;
+	    </artwork>
+        Control statements should have one space between the control keyword and opening parenthesis, 
+        to distinguish them from function calls.
+	  </t>
+	  <t>
+	    You are strongly encouraged to always use curly braces even in situations where they are 
+	    technically optional. Having them increases readability and decreases the likelihood of 
+	    logic errors being introduced when new lines are added.
+		For switch statements:
+		<artwork>
+		  &amp;lt;?php
+		  switch (condition) {
+		  case 1:
+		      action1;
+		      break;
+
+		  case 2:
+		      action2;
+		      break;
+
+		  default:
+		      defaultaction;
+		      break;
+		  }
+		  ?&amp;gt;
+		</artwork>
+	  </t>
+	</section>
+
+	<section title="Function Calls">
+	  <t>
+	    Functions should be called with no spaces between the function name, the opening parenthesis, 
+	    and the first parameter; spaces between commas and each parameter, and no space between the 
+	    last parameter, the closing parenthesis, and the semicolon. Here's an example:
+	    <artwork>
+	      &amp;lt;?php
+		  $var = foo($bar, $baz, $quux);
+		  ?&amp;gt;
+	    </artwork>
+	  </t>
+	  <t>
+	    As displayed above, there should be one space on either side of an equals sign used to assign 
+	    the return value of a function to a variable. In the case of a block of related assignments, 
+	    more space may be inserted to promote readability:
+	    <artwork>
+		  &amp;lt;?php
+		  $short         = foo($bar);
+		  $long_variable = foo($baz);
+		  ?&amp;gt;
+	    </artwork>
+	  </t>
+	</section>
+ 
+	<section title="Function Definitions">
+	  <t>
+		Function declarations follow the "one true brace" convention:
+		<artwork>
+		  &amp;lt;?php
+		  function fooFunction($arg1, $arg2 = '')
+		  {
+		      if (condition) {
+		          statement;
+		      }
+		      return $val;
+		  }
+		  ?&amp;gt;
+		</artwork>
+	  </t>
+	</section>
+ 
+	<section>
+	  <t>
+	    Arguments with default values go at the end of the argument list. Always attempt to return a 
+	    meaningful value from a function if one is appropriate. Here is a slightly longer example:
+	    <artwork>
+		  &amp;lt;?php
+		  function connect(&$dsn, $persistent = false)
+		  {
+		      if (is_array($dsn)) {
+		          $dsninfo = &$dsn;
+		      } else {
+		          $dsninfo = DB::parseDSN($dsn);
+		      }
+
+		      if (!$dsninfo || !$dsninfo['phptype']) {
+		          return $this->raiseError();
+		      }
+
+		      return true;
+		  }
+		  ?&amp;gt;
+	    </artwork>
+	  </t>
+	</section>
+
+	<section title="Comments">
+	  <t>
+		Inline documentation for classes should follow the PHPDoc convention, similar to Javadoc. 
+		More information about PHPDoc can be found here: http://www.phpdoc.de/
+	  </t>
+	  <t>
+		Non-documentation comments are strongly encouraged. A general rule of thumb is that if you 
+		look at a section of code and think "Wow, I don't want to try and describe that", you need 
+		to comment it before you forget how it works.
+	  </t>
+	  <t>
+		C style comments (/* */) and standard C++ comments (//) are both fine. Use of Perl/shell 
+		style comments (#) is discouraged. 
+	  </t>
+	</section>
+
+	<section title="Including Code">
+	  <t>
+	    Anywhere you are unconditionally including a class file, use <em>require_once()</em>. 
+	    Anywhere you are conditionally including a class file (for example, factory methods), 
+	    use <em>include_once()</em>. Either of these will ensure that class files are included 
+	    only once. They share the same file list, so you don't need to worry about mixing them - 
+	    a file included with <em>require_once()</em> will not be included again by 
+	    <em>include_once()</em>.
+	  </t>
+	  <t>
+	    <em>Note:  include_once()</em> and <em>require_once()</em> are statements, not functions. 
+	    You don't need parentheses around the filename to be included.
+	  </t>
+	</section>
+ 
+<!-- http://pear.php.net/manual/en/standards.naming.php -->	
  
     <section title="Naming">
-      <t>The following naming conventions are used:
+      <t>
+        The following naming conventions are used:
         <list style="numbers">
           <t>public functions start with "xar"</t>
           <t>protected functions start with "_" (one underscore)</t>
@@ -145,6 +316,7 @@
 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2003-04-23: FB  - added PEAR coding standard</t>
       <t>2003-03-27: MrB - created</t>
     </section>
     

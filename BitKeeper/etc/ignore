@@ -2946,3 +2946,4 @@ html/modules/trackback/xaruserapi/index.html
 html/modules/trackback/xaruserapi/receive.php
 html/modules/trackback/xarversion.php
 PATCHES/roottag.patch
+error.log

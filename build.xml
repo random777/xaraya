@@ -82,7 +82,7 @@
         <include name="${releaselog}" />
       </fileset>
       <fileset dir="${docs.dir}/xarayaguide" >
-        <include name="XarayaDocs.txt"/>
+        <include name="XarayaGuide.txt"/>
       </fileset>
     </copy>
     

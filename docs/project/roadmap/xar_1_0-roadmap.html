@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Xaraya Development Roadmap</title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta name="author" content="Marcel van der Boom">
+</head>
+<body id="www-mozilla-org" class="deepLevel">
+<div id="mainContent">
+<h1 align="center">Xaraya development roadmap</h1>
+<p>
+</p>
+<center><a href="mailto:marcel@xaraya.com">Marcel van der Boom</a></center>
+<p style="text-align: justify;">
+Welcome to the xaraya development roadmap. This document briefly
+describes
+where the xaraya project has been, and then details where it is going.
+It
+proposes key "road rules" and a release schedule for ongoing xaraya
+source milestone releases, from which anyone can build commercial and
+other
+products. It also hints at how xaraya-the-platform should evolve,
+again from
+an operational or "release process" point of view.
+<!--
+<p>
+See the <a href="faq.html">roadmap FAQ</a> for up-to-the-minute answers
+to frequently-asked questions.
+--></p>
+<h2 style="text-align: left;"><a name="background">Background</a></h2>
+<div style="text-align: justify;">
+The <a href="http://docs.xaraya.com/docs/roadmap.php">original roadmap</a>
+recorded
+the active tasks and their developers into considerable detail. It
+turned out to be impossible to maintain that detailed roadmap. With
+hindsight, most of the tasks depicted in that roadmap to 1.0 have now
+been completed. Theoretically we're halfway between 1.1 and 1.2 at this
+point.<br>
+</div>
+<div style="text-align: justify;"><span style="font-weight: bold;">This</span>
+roadmap pinpoints the switch
+from 4 digit releases to 3 digit
+releases; this can loosely be interpreted as the <span
+ style="font-weight: bold;">R</span>elease <span
+ style="font-weight: bold;">C</span>andidate turning point. <br>
+</div>
+<p style="text-align: justify;">This means that the rules for changes
+will be more strict starting with
+<span style="font-weight: bold;">milestone 0.9.7</span>. The repository
+receiving the changes will be open for
+developers for a relatively short period of time allowing changes
+without direct approval. After that period, the repository will be
+closed for any changes and all patches will be reviewed. (The above is
+valid for our main line of development. With bitkeeper it is possible
+to keep working in your own scenarios for other work. If you think this
+situation applies to you, and you need advice on how to set up those
+scenarios with bitkeeper, contact <a href="mailto:marcel@xaraya.com">me</a>.)<br>
+</p>
+<h2 style="text-align: left;"><a name="tree-management">Scenario
+management</a></h2>
+<p>
+Here is a depiction of the latest thinking on scenario management:
+</p>
+<center><img style="border: 0pt none ; width: 700px; height: 270px;"
+ src="roadmap.png" alt="Tree Management Diagram"></center>
+<div style="margin-left: 160px;"><small><small>Diagram by Rolf Meiier, <a
+ href="http://www.karu.nl">Studio Karu</a></small></small><br>
+</div>
+<p style="text-align: justify;">Each RC period lasts for about 3 weeks
+in total. The RC period starts
+with an open period in which normal check-in rules apply, albeit only
+for changes which are necessary to realize the milestone. <br>
+</p>
+<div style="text-align: justify;">Halfway through the period the
+repository will be closed for automatic
+changes and be managed by the PMC for a duration of about 10 days.. All
+changes pushed will be reviewed and, if applicable to the milestone,
+applied to the repository. During this period, non relevant changes wil
+not be applied. The repositories will obviously still be <span
+ style="font-style: italic;">pullable</span> so everyone involved can
+continue testing.</div>
+<p style="text-align: justify;">After this restricted period a
+milestone release will be built and
+the repository will be opened up again, starting the next RC period. It
+is expected that the period from milestone 0.9.9 to release 1.0 will
+take slightly longer, partly because we want to make sure everything is
+very
+solid in the 1.0 release, but also because the repository will be
+branched to a 1.0 maintenance tree. (or put into a scenario, in our own
+terminology)<br>
+</p>
+<p>During this whole release trajectory the <a
+ href="http://bugs.xaraya.com">xaraya bug tracking
+system</a> plays a crucial role. The registration of the info in
+bugzilla
+should be a reflection of what was written in the <a
+ href="http://www.xaraya.com/index.php/docs/580">Xaraya 1.0 manifesto</a>
+published earlier. Most of the decisions for applying or holding
+patches
+will be based on the manifesto combined with the information available
+in bugzilla. It is therefore, now more than ever, crucial that the
+information in bugzilla is correct, verbose and up to date to be able
+to make the right decisions.</p>
+<div style="text-align: justify;">Thus we hope to match the rhythm of
+the xaraya community, which
+seems to have
+resulted in an odd-even pattern of "alpha-ness" and "beta-ness"
+observed since
+at least xaraya 0.9.0.5.&nbsp;
+</div>
+<p style="text-align: justify;">Finally, we are rationalizing our
+release numbering to 3 digits, to
+mark the countdown to 1.0, logically substracting another digit from
+the version number at 1.0 release time. After that point the 1.0.x
+branch (scenario) will appear to hold fixes to the 1.0 line while more
+aggressive development continues in the main repository. The long-lived
+1.0.x branch should host conservative development of bug
+fixes
+that may also be appropriate for the main repository,
+per the xaraya 1.0 manifesto's
+<a href="http://www.xaraya.com/index.php/docs/580#why">rationale</a>,
+</p>
+<p><a name="new-milestones">Tabulating the milestones to show the
+proposed
+dates, with repository freeze&nbsp; and milestone release dates
+distinguished from one another yields:
+</a></p>
+<table align="center" border="1" bgcolor="#eeeeee">
+  <tbody>
+    <tr>
+      <th align="center">milestone</th>
+      <th align="center">start</th>
+      <th align="center">freeze</th>
+      <th align="center">scenario</th>
+      <th align="center">ideal release</th>
+      <th align="center">actual release</th>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-family: monospace;">0.9.1.4</span></td>
+      <td style="vertical-align: top;">20-Oct-2003<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">n/a<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">core/stable<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">27-Oct-2003<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">29-Oct-2003<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><span style="font-family: monospace;">0.9.7</span><br>
+      </td>
+      <td align="center">18-Nov-2003<br>
+      </td>
+      <td align="center">02-Dec-2003<br>
+      </td>
+      <td align="center">core/stable<br>
+      </td>
+      <td align="center">12-Dec-2003<br>
+      </td>
+      <td align="center">?<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><span style="font-family: monospace;">0.9.8</span><br>
+      </td>
+      <td align="center">03-Dec-2003<br>
+      </td>
+      <td align="center">23-Dec-2003<br>
+      </td>
+      <td align="center">core/stable<br>
+      </td>
+      <td align="center">02-Jan-2004<br>
+      </td>
+      <td align="center">?<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><span style="font-family: monospace;">0.9.9</span><br>
+      </td>
+      <td align="center">24-Dec-2004<br>
+      </td>
+      <td align="center">13-Jan-2004<br>
+      </td>
+      <td align="center">core/stable<br>
+      </td>
+      <td align="center">23-Jan-2004<br>
+      </td>
+      <td align="center">?<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><tt>1.0</tt></td>
+      <td align="center">14-Jan-2004<br>
+      </td>
+      <td align="center">03-Feb-2004</td>
+      <td align="center">core/xar_1.0<br>
+      </td>
+      <td align="center">13-Feb-2004</td>
+      <td align="center">?</td>
+    </tr>
+  </tbody>
+</table>
+<p style="text-align: justify;">
+The milestone freeze will be announced on the developer lists ahead of
+time, so people know when to expect it.
+During the freeze, only bugs deemed "must-fix-for-this-milestone",
+typically
+last minute regressions, are fixed in the repository, as everyone tries
+to
+qualify
+the continuing pulls as release-worthy,
+leading to a release at the earliest 10 days after the freeze. If
+deemed necessary, a short-lived scenario can be created for the RC
+releases (one of the advantages of BitKeeper, is that <span
+ style="font-style: italic;">branching</span> is very cheap); at this
+time, we dont expect this to happen as the release is created from a
+freezed scenario to start with. One situation when the scenario might
+be
+necessary is when one or two particularly nasty bugs need to be fixed
+in the milestone and we do not want the main line to wait for them to
+be fixed, so the delay will not directly affect the next milestone.<br>
+</p>
+<p style="text-align: justify;">We have tried, and sometimes failed, to
+avoid slipping any release
+and to
+avoid extending the life of a milestone scenario.
+In spite of the past, we aim to release 10 days after the freeze. So,
+any not-quite-showstopper bugs unfixed by that time should be
+targeted at
+the next xaraya milestone and fixed ASAP.
+</p>
+<p style="text-align: justify;">If you are planning a xaraya-based
+product release whose schedule does
+not
+jibe well with the above milestones, we welcome your
+<a href="mailto:xaraya_pmc@xaraya.com">feedback</a> (we will keep
+confidential
+information to ourselves, making the proper arrangements, so your
+schedule can run independantly of ours, while remaining integratability
+(this requires a bitkeeper installation at your end))<br>
+</p>
+<h2 style="text-align: left;"><a name="how-you-can-help">How you can
+help</a></h2>
+<p style="text-align: justify;">
+<b>Xaraya developers</b>: we need your input to Bugzilla, marking bugs
+with <tt>performance</tt>, <tt>security</tt>, <tt>blcdesign</tt>,
+<tt>xaraya1.0 </tt>and other relevant
+keywords. <a href="#project-management">xaraya project management</a>
+will help
+ensure
+that bugs are assigned to developers who can target their fixes so as
+to
+satisfy
+as many milestone-keyword nominations as possible.
+</p>
+<p style="text-align: justify;"><b>Bug assignees</b>, and especially
+helpers who can offload <tt>Future</tt>d
+or untargeted bugs from their nominal assignees and fix those bugs:
+please make
+a pass at targeting your assigned bugs across the <tt>xaraya1.1</tt>
+and <tt>xaraya1.2</tt> milestones, using the criteria in the xaraya
+1.0
+manifesto.
+Please try to offload bugs to helpers, pinging <a
+ href="mailto:xaraya_pmc@lists.xaraya.com">xaraya_pmc@xaraya.com</a> if
+you
+cannot find
+anyone to help fix futured or untargeted bugs that you believe should
+be fixed
+soon.
+</p>
+<p style="text-align: justify;"><b>Community members</b>: please use
+the <tt>xaraya1.</tt><i>x</i>
+milestone-keyword
+nomination system wisely, and do not change the Target Milestone of
+anyone
+else's bug without the assignee's consent.
+The keyword-proposal/target-milestone-disposal system will continue
+beyond 1.0
+to help inform prioritization by bug assignees. Also, please keep
+advocacy out of the bug
+system.
+</p>
+<h2 style="text-align: left;"><a name="project-management">Project
+management</a></h2>
+<p style="text-align: justify;">
+Xaraya.com has a project management team to coordinate the process
+described above.&nbsp; Amongst other things they will focus in this
+phase on:<br>
+</p>
+<ul>
+  <li>drive developers wanting to help out toward bugs which need
+fixing in a
+timely
+fashion;</li>
+  <li>moderate risk of the project</li>
+  <li>aid commercial projects based on
+xaraya in
+managing their product releases</li>
+  <li>building a team structure with team leads in the different key
+areas of the product suite</li>
+</ul>
+We are currently <a
+ href="http://www.xaraya.com/index.php?module=roles&amp;func=viewtree&amp;uid=948">configuring
+our own roles module</a> on www.xaraya.com to
+depict the membership and lead information of the teams involved in
+building xaraya.
+<p style="text-align: justify;"></p>
+<ul>
+</ul>
+<p>
+I hope, in the not too distant future, to update the
+roadmap with some thoughts on the future of the xaraya project after
+1.0.
+Clearly, bug fixes, architectural changes, and new code waved off from <tt>xaraya1.0</tt>
+will want to land during <tt>the 1.1 period</tt>. Xaraya also needs to
+support the "xaraya-the-platform" side of the
+coin for
+more applications than the default-built
+news-like-site.
+I hope too that the use of xaraya technologies by innovators can make
+significant
+qualitative improvements (e.g., via things like RSS, SOAP, XML-RPC
+etc.)
+in how we all plan, build and organize them in our web-applications,
+in our
+file systems, and locked into application data formats, wherever such
+data
+may live.
+There is life after 1.0 -- stay tuned!<br>
+</p>
+<p>Xaraya PMC<br>
+</p>
+</div>
+</body>
+</html>

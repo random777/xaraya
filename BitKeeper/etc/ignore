@@ -2864,3 +2864,5 @@ html/themes/atom/modules/base/pager-default.xt
 html/themes/atom/pages/default.xt
 html/themes/atom/pages/index.html
 html/themes/atom/xartheme.php
+html/themes/atom/modules/articles/user-summary-docs.xt
+html/themes/atom/modules/articles/user-summary-downloads.xt

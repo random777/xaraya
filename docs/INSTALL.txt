@@ -11,7 +11,7 @@ Xaraya: adam_baum Beta (.9.1.0)
 
    You can also visit us in channel #support or #chat, on our IRC Server irc.Xaraya.com.
 
-   More detailed installation instructions can be found in XarayaDocs.txt, included with this release. Before installing, read that document for a clearer understanding of the directory structure of this distribution and installation options available to you.
+   NOTE: More detailed installation instructions can be found in XarayaGuide.txt, included with this release. Before installing, read that document for a clearer understanding of the directory structure of this distribution and installation options available to you.
 
 New Installation
 ================
@@ -50,17 +50,23 @@ Upgrades
    ----------------------------------------------------
 
    - Before upgrading:
-     Back-up all old files and the database.
-     Go to your articles module and press "update" in the config section to ensure that old pubtype configs are updated from their .900 states.
+     - Backup all old files and the database.
 
-   - To upgrade from a previous Xaraya Version replace all files and modules EXCEPT /html/var/config.system.php .
-   - Please note the upgrade script looks at the current DB settings and loads the site so maintaining the config.system.php is necessary to upgrade between versions.
-   - Log in with administration rights.
-   - Point your directory to upgrade.php in your root directory.
+     - Logged in as Administrator, go to Admin->Articles->Modify config and click the "Update Configuration" button to ensure that old Publication Type configurations are updated with the current version states.
+
+   - To upgrade from a previous Xaraya Version replace all existing files and modules _EXCEPT_ /html/var/config.system.php. Because the upgrade script looks at the current DB settings and loads the site from the existing config.system.php, it is necessary to maintain the existing config.system.php.
+
+   - Log in to the site with administration rights.
+
+   - Point your browser to upgrade.php in your root directory.
+
    - Follow instructions from there.
-   - Remember to remove upgrade.php and install.php from your installation.
-   - Go to your modules admin and regenerate.
-   - Upgrade the required modules that are indicated by the status of upgrade.
+
+   - After the upgrade has completed, remove upgrade.php and install.php from your web directory.
+
+   - Go to Admin->Modules->View All, CHECK the Regenerate box and click RELOAD.
+
+   - Upgrade required modules that are indicated by the status of UPGRADE in Admin->Modules->View All.
 
 
 Caution

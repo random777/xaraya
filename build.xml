@@ -219,9 +219,9 @@
       <fileset dir="${modules.repo}/${module.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
-		<exclude name="BitKeeper/**"/>
-		<exclude name="PENDING/**"/>
-		<exclude name=".DS_Store"/>
+        <exclude name="BitKeeper/**"/>
+        <exclude name="PENDING/**"/>
+        <exclude name=".DS_Store"/>
       </fileset>
     </copy>
   </target>
@@ -233,8 +233,8 @@
       <fileset dir="${themes.repo}/${theme.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
-		<exclude name="BitKeeper/**"/>
-		<exclude name="PENDING/**"/>
+        <exclude name="BitKeeper/**"/>
+        <exclude name="PENDING/**"/>
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>
@@ -256,8 +256,8 @@
         <include name="xml/core/**"/>
         <include name="locale.xml"/>
         <exclude name="SCCS/**"/>
-		<exclude name="BitKeeper/**"/>
-		<exclude name="PENDING/**"/>
+        <exclude name="BitKeeper/**"/>
+        <exclude name="PENDING/**"/>
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>

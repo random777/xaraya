@@ -71,7 +71,7 @@
       <t>
         This will double the number of SQL queries of the use cases, unless there is
         a query abstraction system present.
-      </>
+      </t>
     </section>
 
     <section title="Implementation Idea">

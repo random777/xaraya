@@ -266,7 +266,7 @@ html/
       </t>
       <t>
 	There are also several child tags:
-	<list style="bullet">
+	<list style="symbols">
 	  <t><xref target="break">&lt;xar:break /&gt;</xref></t>
 	  <t><xref target="continue">&lt;xar:continue /&gt;</xref></t>
 	  <t><xref target="mlvar">&lt;xar:mlvar /&gt;</xref></t>
@@ -325,7 +325,7 @@ html/
 	<section anchor="block" title="&lt;xar:block /&gt;">
 	  <t>Closed</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>instance: if the block is dynamic, should be the value of the
 	        xar_id in nuke_block_instances</t>
@@ -357,7 +357,7 @@ html/
 	<section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">
 	  <t>Closed.</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional).</t>
 	      <t>name: the name of the block group (optional). If present,
 		specifies the blockgroup to display.</t>
@@ -408,7 +408,7 @@ html/
 	<section anchor="continue" title="&lt;xar:continue&gt;">
 	  <t>Closed</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>none</t>
 	    </list>
 	  </t>
@@ -431,7 +431,7 @@ html/
 	<section anchor="else" title="&lt;xar:else /&gt;">
 	  <t>Closed</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	    </list>
 	  </t>
@@ -454,7 +454,7 @@ html/
 	<section anchor="elseif" title="&lt;xar:elseif /&gt;">
 	  <t>Closed</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>condition: an expression to be evaluated</t>
 	    </list>
@@ -477,7 +477,7 @@ html/
 	<section anchor="for" title="&lt;xar:for /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>start: the initial declaration of the variable to be iterated over</t>
 	      <t>test: the condition to test the iterated value against</t>
@@ -505,7 +505,7 @@ html/
 	<section anchor="foreach" title="&lt;xar:foreach /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>var: the name of a template array variable (without $)</t>
 	      <t>as: the name of the variable (without $) to which the value of
@@ -531,7 +531,7 @@ html/
 	<section anchor="if" title="&lt;xar:if /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>condition: an expression to be evaluated (required)</t>
 	      <t>inline: specifies whether the statement should be in ternary form
@@ -564,7 +564,7 @@ html/
 	<section anchor="loop" title="&lt;xar:loop /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>name: the variable which the loop increments</t>
 	    </list>
@@ -589,7 +589,7 @@ html/
 	<section anchor="ml" title="&lt;xar:ml /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	    </list>
 	  </t>
@@ -626,7 +626,7 @@ html/
 	<section anchor="mlkey" title="&lt;xar:mlkey /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	    </list>
 	  </t>
@@ -651,7 +651,7 @@ html/
 	<section anchor="mlstring" title="&lt;xar:mlstring /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	    </list>
 	  </t>
@@ -677,7 +677,7 @@ html/
 	<section anchor="mlvar" title="&lt;xar:mlvar /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	    </list>
 	  </t>
@@ -700,7 +700,7 @@ html/
 	<section anchor="module" title="&lt;xar:module /&gt;">
 	  <t>Closed</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>name: the name of the module</t>
 	    </list>
@@ -723,7 +723,7 @@ html/
 	<section anchor="sec" title="&lt;xar:sec /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>realm: the realm which the permission checks</t>
 	      <t>component: the module/block which the permission checks</t>
@@ -755,7 +755,7 @@ html/
 	<section anchor="set" title="&lt;xar:set /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>name: the name of the variable to be set</t>
 	    </list>
@@ -779,7 +779,7 @@ html/
 	<section anchor="template" title="&lt;xar:template /&gt;">
 	  <t>Closed</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>file: the filename of the target template</t>
 	      <t>type: a switch that tells the engine what type of template is
@@ -822,7 +822,7 @@ html/
 	<section anchor="var" title="&lt;xar:var /&gt;">
 	  <t>Closed</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>scope: a string, one of config, module, block, or user (optional)</t>
 	      <t>name: the name of the variable within the given scope</t>
@@ -853,7 +853,7 @@ html/
 	<section anchor="while" title="&lt;xar:while /&gt;">
 	  <t>Open</t>
 	  <t>Attributes:
-	    <list style="bullet">
+	    <list style="symbols">
 	      <t>id: an identifier for the tag (optional)</t>
 	      <t>condition: the condition to test at the start of each iteration of
 		the tag</t>

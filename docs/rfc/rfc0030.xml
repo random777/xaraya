@@ -334,7 +334,7 @@
           N.B.: Privileges can be defined as empty containers, i.e. not themselves granting any rights. This is useful if they only serve to group other privileges. In the example above the privilege CasualAccess is an empty container that holds its 2 subprivileges.
         </t>
         <t>
-          It's important to understand that grouping privileges like this does <strong>not</strong> imply that "parent" privileges are in any way "stronger" than "children". Making privileges subprivileges to other privileges is just a convenient way of grouping them, so that bundles of them can be assigned at a time.
+          It's important to understand that grouping privileges like this does <em>not</em> imply that "parent" privileges are in any way "stronger" than "children". Making privileges subprivileges to other privileges is just a convenient way of grouping them, so that bundles of them can be assigned at a time.
         </t>
         <t>
           In the above example note that although the names are
@@ -368,9 +368,9 @@
                 All       All       All          All         ACCESS_ADMIN    
               </artwork>
             </t>
-        <t>
-          "CasualAccess" is the privilege defined for the unregistered user Anonymous. Unregistered users initially have access only to the front page of the site and the login block.
-        </t>
+            <t>
+              "CasualAccess" is the privilege defined for the unregistered user Anonymous. Unregistered users initially have access only to the front page of the site and the login block.
+            </t>
           </list>
         </t>
       </section>
@@ -765,470 +765,478 @@
 
     <section title="Architecture">
       <section title="Admin and User APIs">
-      <t>
-      The following are the standard-type APIs used in Xaraya. The $args parameter represents an array of arguments to the function.
-      </t>
-      <section title="Admin API">
-          <list style="symbols">roles_adminapi_delete($args)
-          <t>              
-            <em>roles_adminapi_create($args)</em>: create a new user.
+        <t>
+          The following are the standard-type APIs used in Xaraya. The $args parameter represents an array of arguments to the function.
+        </t>
+        <section title="Admin API">
+          <t>
+            <list style="symbols">
+                <t>              
+                  <em>roles_adminapi_create($args)</em>: create a new user.
+                </t>
+                <t>              
+                  <em>roles_adminapi_delete($args)</em>: delete a user.
+                </t>
+                <t>              
+                  <em>roles_adminapi_update($args)</em>: update a user.
+                </t>
+                <t>              
+                  <em>roles_adminapi_stateupdate($args)</em>: update a user's state.
+                </t>
+                <t>              
+                  <em>roles_adminapi_getmenulinks()</em>: passmenulinks to the main menu.
+                </t>
+                <t>              
+                  <em>roles_adminapi_addgroup($args)</em>: create a new group.
+                </t>
+                <t>              
+                  <em>roles_adminapi_getallgroups()</em>: generate a listing of all groups.
+                </t>
+                <t>              
+                  <em>roles_adminapi_deletegroup($args)</em>: delete a group.
+                </t>
+                <t>              
+                  <em>roles_adminapi_renamegroup($args)</em>: rename a group.
+                </t>
+                <t>              
+                  <em>roles_adminapi_viewgroup($args)</em>: view the users in a group.
+                </t>
+                <t>              
+                  <em>roles_adminapi_deleteuser($args)</em>: delete a user from a group.
+                </t>
+                <t>              
+                  <em>roles_adminapi_addmember($args)</em>: add a user to a group.
+                </t>
+            </list>
           </t>
-          <t>              
-            <em>roles_adminapi_delete($args)</em>: delete a user.
+        </section>
+        <section title="User API">
+          <t>
+            <list style="symbols">
+              <t>              
+                <em>roles_userapi_getall($args)</em>: generate a listing of all the users..
+              </t>
+              <t>              
+                <em>roles_userapi_getallactive($args)</em>: generate a listing of all the active users.
+              </t>
+              <t>              
+                <em>roles_userapi_get($args)</em>: get a user.
+              </t>
+              <t>              
+                <em>roles_userapi_countitems()</em>: return the number of users.
+              </t>
+              <t>              
+                <em>roles_userapi_login($args)</em>: log a user in.
+              </t>
+              <t>              
+                <em>roles_userapi_makePass()</em>: generate a password.
+              </t>
+              <t>              
+                <em>roles_userapi_getmenulinks()</em>: return menulinks to the main menu.
+              </t>
+              <t>              
+                <em>roles_userapi_getallgroups()</em>: generate a listing of all the groups.
+              </t>
+              <t>              
+                <em>roles_userapi_getUsers($args)</em>: generate a listing of all the users in a given groups.
+              </t>
+              <t>              
+                <em>roles_userapi_countgroups()</em>: return the number of groups.
+              </t>
+              <t>              
+                <em>roles_userapi_addmember($args)</em>: add a user to a group.
+              </t>
+            </list>
           </t>
-          <t>              
-            <em>roles_adminapi_update($args)</em>: update a user.
-          </t>
-          <t>              
-            <em>roles_adminapi_stateupdate($args)</em>: update a user's state.
-          </t>
-          <t>              
-            <em>roles_adminapi_getmenulinks()</em>: passmenulinks to the main menu.
-          </t>
-          <t>              
-            <em>roles_adminapi_addgroup($args)</em>: create a new group.
-          </t>
-          <t>              
-            <em>roles_adminapi_getallgroups()</em>: generate a listing of all groups.
-          </t>
-          <t>              
-            <em>roles_adminapi_deletegroup($args)</em>: delete a group.
-          </t>
-          <t>              
-            <em>roles_adminapi_renamegroup($args)</em>: rename a group.
-          </t>
-          <t>              
-            <em>roles_adminapi_viewgroup($args)</em>: view the users in a group.
-          </t>
-          <t>              
-            <em>roles_adminapi_deleteuser($args)</em>: delete a user from a group.
-          </t>
-          <t>              
-            <em>roles_adminapi_addmember($args)</em>: add a user to a group.
-          </t>
-          </list>
-      </section>
-      <section title="User API">
-          <list style="symbols">roles_adminapi_delete($args)
-          <t>              
-            <em>roles_userapi_getall($args)</em>: generate a listing of all the users..
-          </t>
-          <t>              
-            <em>roles_userapi_getallactive($args)</em>: generate a listing of all the active users.
-          </t>
-          <t>              
-            <em>roles_userapi_get($args)</em>: get a user.
-          </t>
-          <t>              
-            <em>roles_userapi_countitems()</em>: return the number of users.
-          </t>
-          <t>              
-            <em>roles_userapi_login($args)</em>: log a user in.
-          </t>
-          <t>              
-            <em>roles_userapi_makePass()</em>: generate a password.
-          </t>
-          <t>              
-            <em>roles_userapi_getmenulinks()</em>: return menulinks to the main menu.
-          </t>
-          <t>              
-            <em>roles_userapi_getallgroups()</em>: generate a listing of all the groups.
-          </t>
-          <t>              
-            <em>roles_userapi_getUsers($args)</em>: generate a listing of all the users in a given groups.
-          </t>
-          <t>              
-            <em>roles_userapi_countgroups()</em>: return the number of groups.
-          </t>
-          <t>              
-            <em>roles_userapi_addmember($args)</em>: add a user to a group.
-          </t>
-      </list>
-      </section>
+        </section>
       </section>
 
       <section title="Setup API">
-      <t>
-      The following functions should be used to create default roles and privileges in the init.php of a module.
-      </t>
-          <list style="symbols">roles_adminapi_delete($args)
-          <t>              
-            <em>xarMakeGroup</em>: create a new group.
-          </t>
-          <t>              
-            <em>xarMakeUser</em>: create a new user.
-          </t>
-          <t>              
-            <em>xarMakeRoleRoot</em>: define an entry in the roles repository that is the head of a roles hierarchy.
-          </t>
-          <t>              
-            <em>xarMakeRoleMemberByName</em>: make one role the child of another.
-          </t>
-          <t>              
-            <em>xarMakeRoleMemberByUname</em>: make one role the child of another.
-          </t>
-          <t>              
-            <em>xarMakeRoleMemberByID</em>: make one role the child of another.
-          </t>
-          <t>              
-            <em>xarRegisterPrivilege</em>: create a privilege in the rpivileges repository.
-          </t>
-          <t>              
-            <em>xarMakePrivilegeRoot</em>: define an entry in the privileges repository that is the head of a privileges hierarchy.
-          </t>
-          <t>              
-            <em>xarAssignPrivilege</em>: assign a privilege to a role.
-          </t>
-          <t>              
-            <em>xarDefineInstance</em>: create an instance in the instance repository.
-          </t>
-          <t>              
-            <em>xarRemoveInstances</em>: remove all the instances of a module from the instances repository.
-          </t>
-          <t>              
-            <em>xarGetGroups</em>: returns an array representing all the groups.
-          </t>
-          <t>              
-            <em>xarFindRole</em>: finds a role by its name.
-          </t>
-          <t>              
-            <em>xarRegisterMask</em>: register a mask in the mask repository.
-          </t>
-          <t>              
-            <em>xarUnregisterMask</em>: remove a mask from the mask repository.
-          </t>
-          <t>              
-            <em>xarRemoveMasks</em>: remove all the masks of a module from the masks repository.
-          </t>
-          <t>              
-            <em>xarSecurityCheck</em>: check a the current user's privilege against a mask.
-          </t>
-          </list>
-          </section>
-
-<section title="Classes and Methods">
-      <t>
-      The classes and class methods should in general not be accessed directly. Most of them return objects rather than arrays, so use them at your own risk.
-      </t>
-      <section title="xarRoles">
         <t>
-          A central repository of user and group definitions. Each
-          user, group, group of groups etc. is a role with an entry in
-          this repository.
+          The following functions should be used to create default roles and privileges in the init.php of a module.
         </t>
         <t>
-          An implementation of the roles object
-          conceptually replaces the tables xar_user and
-          xar_groups. The code for manipulating roles will deal with
-          the issue of whether the role is a group or a user and
-          handle things accordingly.  
-          <t>
-          Methods:
-          </t>
           <list style="symbols">
-          <t>              
-            <em>constructor</em>
-          </t>
-          <t>              
-            <em>getgroups</em>: returns an array representing all the groups in the system.
-            Note: should be private.
-          </t>
-          <t>            
-            <em>getgroup</em>: returns a single role of type group based on its ID.
-            Note: should be private.
-          </t>
-          <t>                        
-            <em>getsubgroups</em>: returns all the subgroups of a given role based on its ID.
-          </t>
-          <t>                        
-            <em>makeTree</em>: returns a tree representation of the roles of type group.
-          </t>
-          <t>                        
-            <em>drawtree</em>: returns a crude HTML drawing of a tree generated by maketree.
-            Note: needs to be moved out to the templates.
-          </t>
-          <t>                        
-            <em>getRole</em>: returns a a role object based on its ID.
-          </t>
-          <t>                        
-            <em>findRole</em>: returns a role object based on its name.
-          </t>
-          <t>                        
-            <em>makeMemberByName</em>: makes one role a child of another. Uses the names as inputs.
-          </t>
-          <t>                        
-            <em>isRoot</em>: creates an entry in the repository that is the head of the roles hierarchy.
-          </t>
-          <t>                        
-            <em>makeUser</em>: creates a role object of type user in the repository.
-          </t>
-          <t>                        
-            <em>makeGroup</em>: creates a role object of type group in the repository.
-          </t>
+              <t>              
+                <em>xarMakeGroup</em>: create a new group.
+              </t>
+              <t>              
+                <em>xarMakeUser</em>: create a new user.
+              </t>
+              <t>              
+                <em>xarMakeRoleRoot</em>: define an entry in the roles repository that is the head of a roles hierarchy.
+              </t>
+              <t>              
+                <em>xarMakeRoleMemberByName</em>: make one role the child of another.
+              </t>
+              <t>              
+                <em>xarMakeRoleMemberByUname</em>: make one role the child of another.
+              </t>
+              <t>              
+                <em>xarMakeRoleMemberByID</em>: make one role the child of another.
+              </t>
+              <t>              
+                <em>xarRegisterPrivilege</em>: create a privilege in the rpivileges repository.
+              </t>
+              <t>              
+                <em>xarMakePrivilegeRoot</em>: define an entry in the privileges repository that is the head of a privileges hierarchy.
+              </t>
+              <t>              
+                <em>xarAssignPrivilege</em>: assign a privilege to a role.
+              </t>
+              <t>              
+                <em>xarDefineInstance</em>: create an instance in the instance repository.
+              </t>
+              <t>              
+                <em>xarRemoveInstances</em>: remove all the instances of a module from the instances repository.
+              </t>
+              <t>              
+                <em>xarGetGroups</em>: returns an array representing all the groups.
+              </t>
+              <t>              
+                <em>xarFindRole</em>: finds a role by its name.
+              </t>
+              <t>              
+                <em>xarRegisterMask</em>: register a mask in the mask repository.
+              </t>
+              <t>              
+                <em>xarUnregisterMask</em>: remove a mask from the mask repository.
+              </t>
+              <t>              
+                <em>xarRemoveMasks</em>: remove all the masks of a module from the masks repository.
+              </t>
+              <t>              
+                <em>xarSecurityCheck</em>: check a the current user's privilege against a mask.
+              </t>
           </list>
         </t>
       </section>
 
-      <section title="xarRole">
+      <section title="Classes and Methods">
         <t>
-          An object representing a single group or user.
-          
-          <t>
-          Methods:
-          </t>
-          <list style="symbols">
-          <t>              
-            <em>constructor</em>
-          </t>
-          <t>              
-            <em>add</em>: add this role to the roles repository.
-          </t>
-          <t>              
-            <em>addMember</em>: add a child role to this role.
-          </t>
-          <t>              
-            <em>removeMember</em>: remove a child role from this role.
-          </t>
-          <t>              
-            <em>remove</em>: remove this role from the roles repository.
-          </t>
-          <t>              
-            <em>update</em>: update this role in the roles repository..
-          </t>
-          <t>              
-            <em>remove</em>: remove this role from the Roles repository.
-          </t>
-          <t>              
-            <em>getAllPrivileges</em>: get an array representing all the privileges defined. 
-          </t>
-          <t>              
-            <em>getAssignedPrivileges</em>: get an array of privilege objects assigned to this role. 
-          </t>
-          <t>              
-            <em>getInheritedPrivileges</em>: get an array of privilege objects assigned to this role's ancestors. 
-          </t>
-          <t>              
-            <em>assignPrivilege</em>: assign a privilege to this role 
-          </t>
-          <t>              
-            <em>removePrivilege</em>: remove a privilege from this role
-          </t>
-          <t>              
-            <em>getUsers</em>: get the children of this role that are users.
-          </t>
-          <t>              
-            <em>getParents</em>: gets an array of the role objects this role is a member of
-          </t>
-          <t>              
-            <em>getAncestors</em>:  recursive getParents.
-          </t>
-          <t>              
-            <em>isEqual</em>: check whether this role is the same as another.
-          </t>
-          <t>              
-            <em>isUser</em>: check whether this role is a user
-          </t>
-          <t>              
-            <em>isParent</em>: check whether a role is a parent of this role
-          </t>
-          <t>              
-            <em>isAncestor</em>: check whether a role is an ancestor of this role
-          </t>
-          <t>              
-            <em>getPrivileges</em>: get an array of all the privilege objects defined.
-          </t>
-          <t>              
-            <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarRole object.
-          </t>         
-          </list>
+          The classes and class methods should in general not be
+          accessed directly. Most of them return objects rather than
+          arrays, so use them at your own risk.
         </t>
-      </section>
-
-      <section title="xarMasks">
-        <t>
-          A central repository of privilege masks (policies?). The
-          masks are normally defined and registered as entries upon
-          installation of a module. There needs to be a restriction
-          that assigned names for components need to be unique within
-          a module.
-          
+        <section title="xarRoles">
           <t>
-          Methods:
+            A central repository of user and group definitions. Each
+            user, group, group of groups etc. is a role with an entry in
+            this repository.
           </t>
-          <list style="symbols">
-          <t>              
-            <em>constructor</em>
-          </t>
-          <t>              
-            <em>getmasks</em>: returns an array of mask objects for a given module and component.
-          </t>
-          <t>              
-            <em>register</em>: create an entry in the masks repository.
-          </t>
-          <t>              
-            <em>unregister</em>: remove an entry from the masks repository. (this method is deprecated)
-          </t>
-          <t>              
-            <em>removemasks</em>: removes all the masks of a given module from the masks repository.
-          </t>
-          <t>              
-            <em>winnow</em>: merges 2 arrays of mask objects (same level behavior).
-          </t>
-          <t>              
-            <em>trump</em>: merges 2 arrays of mask objects (inheritance behavior).
-          </t>
-          <t>              
-            <em>xarSecurityCheck</em>: checks a privilege against a mask.
-          </t>
-          <t>              
-            <em>getmask</em>: returns a single mask object based on its name.
-          </t>
-          </list>
-        </t>
-      </section>
-
-      <section title="xarPrivileges">
-        <t>
-          A central repository for privileges defined at any given
-          time. No duplicate privileges are allowed. This object extends the xarMasks object.
-          
           <t>
-          Methods:
+            An implementation of the roles object
+            conceptually replaces the tables xar_user and
+            xar_groups. The code for manipulating roles will deal with
+            the issue of whether the role is a group or a user and
+            handle things accordingly.  
+            <t>
+              Methods:
+            </t>
+            <list style="symbols">
+              <t>              
+                <em>constructor</em>
+              </t>
+              <t>              
+                <em>getgroups</em>: returns an array representing all the groups in the system.
+                Note: should be private.
+              </t>
+              <t>            
+                <em>getgroup</em>: returns a single role of type group based on its ID.
+                Note: should be private.
+              </t>
+              <t>                        
+                <em>getsubgroups</em>: returns all the subgroups of a given role based on its ID.
+              </t>
+              <t>                        
+                <em>makeTree</em>: returns a tree representation of the roles of type group.
+              </t>
+              <t>                        
+                <em>drawtree</em>: returns a crude HTML drawing of a tree generated by maketree.
+                Note: needs to be moved out to the templates.
+              </t>
+              <t>                        
+                <em>getRole</em>: returns a a role object based on its ID.
+              </t>
+              <t>                        
+                <em>findRole</em>: returns a role object based on its name.
+              </t>
+              <t>                        
+                <em>makeMemberByName</em>: makes one role a child of another. Uses the names as inputs.
+              </t>
+              <t>                        
+                <em>isRoot</em>: creates an entry in the repository that is the head of the roles hierarchy.
+              </t>
+              <t>                        
+                <em>makeUser</em>: creates a role object of type user in the repository.
+              </t>
+              <t>                        
+                <em>makeGroup</em>: creates a role object of type group in the repository.
+              </t>
+            </list>
           </t>
-          <list style="symbols">
-          <t>              
-            <em>defineInstance</em>: creates an instance definition in the instance repository.
-          </t>
-          <t>              
-            <em>removeInstances</em>: removes all the instance definitions of a given module from the instance repository.
-          </t>
-          <t>              
-            <em>register</em>: create an entry in the privileges repository.
-          </t>
-          <t>              
-            <em>assign</em>: assign a privilege to a role.
-          </t>
-          <t>              
-            <em>getprivileges</em>: returns an array representing all the privileges in the system.
-          </t>
-          <t>              
-            <em>gettoplevelprivileges</em>: returns an array representing all the privileges in the system that heads of a compound privilege (this function is deprecated)..
-          </t>
-          <t>              
-            <em>getrealms</em>: returns an array representing all the realms in the system.
-          </t>
-          <t>              
-            <em>getmodules</em>: returns an array representing all the modules in the system.
-          </t>
-          <t>              
-            <em>getcomponents</em>: returns an array representing all the components of a module.
-          </t>
-          <t>              
-            <em>getinstances</em>: returns an array representing all the instances of a module and component.
-          </t>
-          <t>              
-            <em>getsubprivileges</em>: returns all the child privileges of a given privilege  based on its ID.
-          </t>
-          <t>              
-            <em>getprivilegefast</em>: returns an array representing a single privilege  based on its ID.
-            Note: should be private.
-          </t>
-          <t>              
-            <em>tree functions</em>: a number of help functions for displaying compound privileges.
-          </t>
-          <t>              
-            <em>getPrivilege</em>: retrieves a privilege object from the privileges repository based on its ID.
-          </t>
-          <t>              
-            <em>findPrivilege</em>: retrieves a privilege object from the privileges repository based on its name.
-          </t>
-          <t>              
-            <em>makemember</em>:  makes a privilege a component of another privilege.
-          </t>
-          <t>              
-            <em>makeentry</em>:  defines a top-level entry in the privileges repository.
-          </t>
-         </list>
-        </t>
-      </section>
+        </section>
 
-      <section title="xarMask">
-        <t>
-          An object representing a single mask.
+        <section title="xarRole">
           <t>
-          Methods:
+            An object representing a single group or user.
+            
+            <t>
+              Methods:
+            </t>
+            <list style="symbols">
+              <t>              
+                <em>constructor</em>
+              </t>
+              <t>              
+                <em>add</em>: add this role to the roles repository.
+              </t>
+              <t>              
+                <em>addMember</em>: add a child role to this role.
+              </t>
+              <t>              
+                <em>removeMember</em>: remove a child role from this role.
+              </t>
+              <t>              
+                <em>remove</em>: remove this role from the roles repository.
+              </t>
+              <t>              
+                <em>update</em>: update this role in the roles repository..
+              </t>
+              <t>              
+                <em>remove</em>: remove this role from the Roles repository.
+              </t>
+              <t>              
+                <em>getAllPrivileges</em>: get an array representing all the privileges defined. 
+              </t>
+              <t>              
+                <em>getAssignedPrivileges</em>: get an array of privilege objects assigned to this role. 
+              </t>
+              <t>              
+                <em>getInheritedPrivileges</em>: get an array of privilege objects assigned to this role's ancestors. 
+              </t>
+              <t>              
+                <em>assignPrivilege</em>: assign a privilege to this role 
+              </t>
+              <t>              
+                <em>removePrivilege</em>: remove a privilege from this role
+              </t>
+              <t>              
+                <em>getUsers</em>: get the children of this role that are users.
+              </t>
+              <t>              
+                <em>getParents</em>: gets an array of the role objects this role is a member of
+              </t>
+              <t>              
+                <em>getAncestors</em>:  recursive getParents.
+              </t>
+              <t>              
+                <em>isEqual</em>: check whether this role is the same as another.
+              </t>
+              <t>              
+                <em>isUser</em>: check whether this role is a user
+              </t>
+              <t>              
+                <em>isParent</em>: check whether a role is a parent of this role
+              </t>
+              <t>              
+                <em>isAncestor</em>: check whether a role is an ancestor of this role
+              </t>
+              <t>              
+                <em>getPrivileges</em>: get an array of all the privilege objects defined.
+              </t>
+              <t>              
+                <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarRole object.
+              </t>         
+            </list>
           </t>
-          <list style="symbols">
-          <t>              
-            <em>constructor</em>
-          </t>
-          <t>              
-            <em>implies</em>: compares two masks or privileges.
-          </t>
-          <t>              
-            <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarMask object.
-          </t>
-          </list>
-        </t>
-      </section>
+        </section>
 
-      <section title="xarPrivilege">
-        <t>
-          An object representing a single privilege. This object extends xarMask.
+        <section title="xarMasks">
           <t>
-          Methods:
+            A central repository of privilege masks (policies?). The
+            masks are normally defined and registered as entries upon
+            installation of a module. There needs to be a restriction
+            that assigned names for components need to be unique within
+            a module.
+            
+            <t>
+              Methods:
+            </t>
+            <list style="symbols">
+              <t>              
+                <em>constructor</em>
+              </t>
+              <t>              
+                <em>getmasks</em>: returns an array of mask objects for a given module and component.
+              </t>
+              <t>              
+                <em>register</em>: create an entry in the masks repository.
+              </t>
+              <t>              
+                <em>unregister</em>: remove an entry from the masks repository. (this method is deprecated)
+              </t>
+              <t>              
+                <em>removemasks</em>: removes all the masks of a given module from the masks repository.
+              </t>
+              <t>              
+                <em>winnow</em>: merges 2 arrays of mask objects (same level behavior).
+              </t>
+              <t>              
+                <em>trump</em>: merges 2 arrays of mask objects (inheritance behavior).
+              </t>
+              <t>              
+                <em>xarSecurityCheck</em>: checks a privilege against a mask.
+              </t>
+              <t>              
+                <em>getmask</em>: returns a single mask object based on its name.
+              </t>
+            </list>
           </t>
-          <list style="symbols">
-          <t>              
-            <em>constructor</em>
-          </t>
-          <t>              
-            <em>add</em>: add this privilege to the Privileges repository.
-          </t>
-          <t>              
-            <em>makeEntry</em>: adds this privilege as a toplevel entry to the privileges repository.
-          </t>
-          <t>              
-            <em>addMember</em>: adds a component to this privilege.
-          </t>
-          <t>              
-            <em>removeMember</em>: removes a component of this privilege.
-          </t>
-          <t>              
-            <em>update</em>: updates this privilege in the privileges repository.
-          </t>
-          <t>              
-            <em>remove</em>: removes this privilege from the privileges repository.
-          </t>
-          <t>              
-            <em>getRoles</em>: returns an array of roles objects this privilege is assigned to.
-          </t>
-          <t>              
-            <em>removeRole</em>: removes an ssignation of this privilege to a role.
-          </t>
-          <t>              
-            <em>getParents</em>: returns an array of privilege objects this privilege is a component of.
-          </t>
-          <t>              
-            <em>getAncestors</em>: recursive getParents.
-          </t>
-          <t>              
-            <em>getChildren</em>: returns an array of privilege objects that are components of this privilege.
-          </t>
-          <t>              
-            <em>getDescendants</em>: recursive getChildren.
-          </t>
-          <t>              
-            <em>isEqual</em>: compares this privilege object to another.
-          </t>
-          <t>              
-            <em>isEmpty</em>: returns true if this privilege is an empty container.
-          </t>
-          </list>
-        </t>
-      </section>
+        </section>
 
-    </section>
+        <section title="xarPrivileges">
+          <t>
+            A central repository for privileges defined at any given
+            time. No duplicate privileges are allowed. This object extends the xarMasks object.
+            
+            <t>
+              Methods:
+            </t>
+            <list style="symbols">
+              <t>              
+                <em>defineInstance</em>: creates an instance definition in the instance repository.
+              </t>
+              <t>              
+                <em>removeInstances</em>: removes all the instance definitions of a given module from the instance repository.
+              </t>
+              <t>              
+                <em>register</em>: create an entry in the privileges repository.
+              </t>
+              <t>              
+                <em>assign</em>: assign a privilege to a role.
+              </t>
+              <t>              
+                <em>getprivileges</em>: returns an array representing all the privileges in the system.
+              </t>
+              <t>              
+                <em>gettoplevelprivileges</em>: returns an array representing all the privileges in the system that heads of a compound privilege (this function is deprecated)..
+              </t>
+              <t>              
+                <em>getrealms</em>: returns an array representing all the realms in the system.
+              </t>
+              <t>              
+                <em>getmodules</em>: returns an array representing all the modules in the system.
+              </t>
+              <t>              
+                <em>getcomponents</em>: returns an array representing all the components of a module.
+              </t>
+              <t>              
+                <em>getinstances</em>: returns an array representing all the instances of a module and component.
+              </t>
+              <t>              
+                <em>getsubprivileges</em>: returns all the child privileges of a given privilege  based on its ID.
+              </t>
+              <t>              
+                <em>getprivilegefast</em>: returns an array representing a single privilege  based on its ID.
+                Note: should be private.
+              </t>
+              <t>              
+                <em>tree functions</em>: a number of help functions for displaying compound privileges.
+              </t>
+              <t>              
+                <em>getPrivilege</em>: retrieves a privilege object from the privileges repository based on its ID.
+              </t>
+              <t>              
+                <em>findPrivilege</em>: retrieves a privilege object from the privileges repository based on its name.
+              </t>
+              <t>              
+                <em>makemember</em>:  makes a privilege a component of another privilege.
+              </t>
+              <t>              
+                <em>makeentry</em>:  defines a top-level entry in the privileges repository.
+              </t>
+            </list>
+          </t>
+        </section>
+
+        <section title="xarMask">
+          <t>
+            An object representing a single mask.
+            <t>
+              Methods:
+            </t>
+            <list style="symbols">
+              <t>              
+                <em>constructor</em>
+              </t>
+              <t>              
+                <em>implies</em>: compares two masks or privileges.
+              </t>
+              <t>              
+                <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarMask object.
+              </t>
+            </list>
+          </t>
+        </section>
+        
+        <section title="xarPrivilege">
+          <t>
+            An object representing a single privilege. This object extends xarMask.
+            <t>
+              Methods:
+            </t>
+            <list style="symbols">
+              <t>              
+                <em>constructor</em>
+              </t>
+              <t>              
+                <em>add</em>: add this privilege to the Privileges repository.
+              </t>
+              <t>              
+                <em>makeEntry</em>: adds this privilege as a toplevel entry to the privileges repository.
+              </t>
+              <t>              
+                <em>addMember</em>: adds a component to this privilege.
+              </t>
+              <t>              
+                <em>removeMember</em>: removes a component of this privilege.
+              </t>
+              <t>              
+                <em>update</em>: updates this privilege in the privileges repository.
+              </t>
+              <t>              
+                <em>remove</em>: removes this privilege from the privileges repository.
+              </t>
+              <t>              
+                <em>getRoles</em>: returns an array of roles objects this privilege is assigned to.
+              </t>
+              <t>              
+                <em>removeRole</em>: removes an ssignation of this privilege to a role.
+              </t>
+              <t>              
+                <em>getParents</em>: returns an array of privilege objects this privilege is a component of.
+              </t>
+              <t>              
+                <em>getAncestors</em>: recursive getParents.
+              </t>
+              <t>              
+                <em>getChildren</em>: returns an array of privilege objects that are components of this privilege.
+              </t>
+              <t>              
+                <em>getDescendants</em>: recursive getChildren.
+              </t>
+              <t>              
+                <em>isEqual</em>: compares this privilege object to another.
+              </t>
+              <t>              
+                <em>isEmpty</em>: returns true if this privilege is an empty container.
+              </t>
+            </list>
+          </t>
+        </section>
+
+      </section>
     </section>
 
     <section title="Database Tables">
@@ -1319,11 +1327,17 @@
     
     <section title="Syntax">
       <section title="Registering Masks">
-      <t>
-         A mask is a special kind of privilege used to check other privileges. When a mask is encountered it is checked against the user's privileges to see whether access to the resource in question is granted. The resource a mask protects is called a component.
-         </t>
-         <t>
-         Each mask that will be used for security checks needs to be registered. This is done with the function xarRegisterMask, which has the following syntax:
+        <t>
+          A mask is a special kind of privilege used to check other
+          privileges. When a mask is encountered it is checked against
+          the user's privileges to see whether access to the resource
+          in question is granted. The resource a mask protects is
+          called a component.
+        </t>
+        <t>
+          Each mask that will be used for security checks needs to be
+          registered. This is done with the function xarRegisterMask,
+          which has the following syntax:
 
         <artwork>
 	     function xarRegisterMask($name,$realm,$module,$component,$instance,$level,
@@ -1344,15 +1358,23 @@
 	     $description : a text field that describes the mask.
         </artwork>
                 
-        All fields except the description are mandatory. The value 'All' can be used for realm, module, component, instancetype or instance. In the case of instances, expanding 'All' to the number of instance types makes your definition clearer, as shown in the example below:
-        <artwork>
+        All fields except the description are mandatory. The value
+        'All' can be used for realm, module, component, instancetype
+        or instance. In the case of instances, expanding 'All' to the
+        number of instance types makes your definition clearer, as
+        shown in the example below:
+   
+       <artwork>
           xarRegisterMask('EditClassification','All','articles','Classiciation','All:All:All',ACCESS_EDIT);
         </artwork>
-        This creates a mask named EditClassification for the articles module. Security checks can invoke the mask as described below.
+
+        This creates a mask named EditClassification for the articles
+        module. Security checks can invoke the mask as described
+        below.
          
         </t>
         <t> 
-        Masks need to be registered at init time. In other words, for each mask to be registered, invoke the xarRegisterMask function in the init.php of the module the mask belongs to.
+          Masks need to be registered at init time. In other words, for each mask to be registered, invoke the xarRegisterMask function in the init.php of the module the mask belongs to.
         </t>
         <t>
         Such a call could also be inserted when a new instance is
@@ -1361,22 +1383,37 @@
         [MrB: yeah, don't allow it initially till we have worked it out how exactly to do that]
         </t>
       </section>
-    <section title="Defining Instances">
+
+      <section title="Defining Instances">
         <t>
-        Security checks in a module need to check against specific instances. We therefore want to ensure that the instances administrators include in the privileges they create are well formed. This is done by registering the instance definitions with the system, 
+          Security checks in a module need to check against specific
+          instances. We therefore want to ensure that the instances
+          administrators include in the privileges they create are
+          well formed. This is done by registering the instance
+          definitions with the system,
         </t>
         <t>
-        Instance definitions are not strictly necessary to make the security system work, but they help make creating privileges easier.
+          Instance definitions are not strictly necessary to make the
+          security system work, but they help make creating privileges
+          easier.
         </t>
         <t>
-        Instances conceptually are objects that a module deals with, e.g. articles, folders, download items, dynamic data fields. They can be created initially or at run time.
+          Instances conceptually are objects that a module deals with,
+          e.g. articles, folders, download items, dynamic data
+          fields. They can be created initially or at run time.
         </t>
         <t>
-        An instance can usually be defined by one or more database fields. For example an instance in the categories module, a category, can be defined by its title, or even more precisely by its ID, which is a unique reference. Module developers will use several such "filters" to define instances. Postnuke limited their number to 3, but Xaraya allows any number.
+          An instance can usually be defined by one or more database
+          fields. For example an instance in the categories module, a
+          category, can be defined by its title, or even more precisely
+          by its ID, which is a unique reference. Module developers will
+          use several such "filters" to define instances. Postnuke
+          limited their number to 3, but Xaraya allows any number.
         </t>
         <t>
-        Instances are defined by the xarDefineInstance function:
+          Instances are defined by the xarDefineInstance function:
         </t>
+        <t>
         <artwork>
         function xarDefineInstance($module, $component, $instancedefinition)
         
@@ -1391,14 +1428,27 @@
                                - a parameter giving the maximum number of instance items
                                  to be shown.
         </artwork>
-        <t>
-        Each instance to be defined must invoke this function in the init.php file of the module it refers to.
-        </t>        
-        <t>
-        Each entry in the instance definition array defines one "filter" for the instance (such as a category title). The elements in the array entry let the UI create a dropdown that is used when creating privileges. The header text can be displayed to indicate the type of "filter". The sql statement defines what database entries will be shown in the dropdown. The limit parameter can be set by the module developer to limit the number of dropdown items. If the actual number of instances is greater than the limit, the UI will show an empty text field for manual entry instead of a dropdown.
         </t>
         <t>
-        An example of how this might be used:
+          Each instance to be defined must invoke this function in the
+          init.php file of the module it refers to.  
+        </t>
+        <t>
+          Each entry in the instance definition array defines one
+          "filter" for the instance (such as a category title). The
+          elements in the array entry let the UI create a dropdown
+          that is used when creating privileges. The header text can
+          be displayed to indicate the type of "filter". The sql
+          statement defines what database entries will be shown in the
+          dropdown. The limit parameter can be set by the module
+          developer to limit the number of dropdown items. If the
+          actual number of instances is greater than the limit, the UI
+          will show an empty text field for manual entry instead of a
+          dropdown.
+        </t>
+        <t>
+          An example of how this might be used:
+
         <artwork>
         $query1 = "SELECT DISTINCT xar_pubtypeid FROM xar_articles";
         $query2 = "SELECT DISTINCT xar_cid FROM xar_categories";
@@ -1419,26 +1469,54 @@
                               )
                      );
         </artwork>
-        With this definition (which is created in the init.php of the articles module) the UI will create 3 dropdowns for defining instances that are article, namely publication type, category and author, all given by their respective IDs. The option 'All' is automatically added to each dropdown.
+
+          With this definition (which is created in the init.php of
+          the articles module) the UI will create 3 dropdowns for
+          defining instances that are article, namely publication
+          type, category and author, all given by their respective
+          IDs. The option 'All' is automatically added to each
+          dropdown.
         </t>
         <t>
-        If more than, for instance, 20 categories have been defined, the UI will substitute a text box for the second dropdown, requiring the administrator to manually enter a category ID when defining a privilege. Note that no validity checks are performed on such input.
+          If more than, for instance, 20 categories have been defined,
+          the UI will substitute a text box for the second dropdown,
+          requiring the administrator to manually enter a category ID
+          when defining a privilege. Note that no validity checks are
+          performed on such input.
         </t>
         <t>
-        Note that, although the UI can ensure that the ID choices for publication type, category and author are valid, there is no guarantee that an article corresponding to a given combination exists or will exist. In other words, with instance definitions the UI can ensure that privileges contain well formed instances, but it <em>cannot</em> ensure that the instances are valid.
+          Note that, although the UI can ensure that the ID choices
+          for publication type, category and author are valid, there
+          is no guarantee that an article corresponding to a given
+          combination exists or will exist. In other words, with
+          instance definitions the UI can ensure that privileges
+          contain well formed instances, but it <em>cannot</em> ensure
+          that the instances are valid.
         </t>
       </section>
-    <section title="Security Checks">
+
+      <section title="Security Checks">
         <t>
-        Security checks are the way the system checks a user's a privileges against a mask of a component. Security checks replace the previous xarSecAuthAction function. A simple example of a security check is:
+          Security checks are the way the system checks a user's a
+          privileges against a mask of a component. Security checks
+          replace the previous xarSecAuthAction function. A simple
+          example of a security check is:
         <artwork>
         if(!xarSecurityCheck('EditArticles')) return;
         </artwork>
         
-        On encountering this line in the code, the system will check the user's privileges against those of the mask 'EditArticles'. If the mask is implied by at least one of the user's privileges, the function returns true. If the security check fails the function returns false. Like the xarSecAuthAction function, securitycheck will also display a standard error message if the check fails.
+          On encountering this line in the code, the system will check
+          the user's privileges against those of the mask
+          'EditArticles'. If the mask is implied by at least one of the
+          user's privileges, the function returns true. If the security
+          check fails the function returns false. Like the
+          xarSecAuthAction function, securitycheck will also display a
+          standard error message if the check fails.
         </t>
         <t>
-        The error message can also be suppressed, as shown in the following example:
+          The error message can also be suppressed, as shown in the
+          following example:
+
         <artwork>
         if (xarSecurityCheck('EditArticles',0)) {
 	    
@@ -1446,10 +1524,15 @@
 
         }
         </artwork>
-        Here the user's privileges are again checked against 'EditArticles' to see whether the user may add an article. The 0 value tells the function not to display an error message if the check fails.
+
+          Here the user's privileges are again checked against
+          'EditArticles' to see whether the user may add an
+          article. The 0 value tells the function not to display an
+          error message if the check fails.
         </t>
         <t>
-        The full syntax of the xarSecurityCheck function is:
+          The full syntax of the xarSecurityCheck function is:
+
         <artwork>
          function xarSecurityCheck($name,$catch=1,$component='',$instance='',$role='',$module='')
          
@@ -1464,68 +1547,115 @@
          $module       : name of a modules to be checked against.
          
         </artwork>
-        The component, instance, role and module values are used to override values defined in the mask's definition. For instance, entering a value for $component and $instance lets you check against an instance defined at runtime, rather than when the mask is registered.
+
+          The component, instance, role and module values are used to
+          override values defined in the mask's definition. For
+          instance, entering a value for $component and $instance lets
+          you check against an instance defined at runtime, rather
+          than when the mask is registered.
         </t>
         <t>
-        The default values for $role and $module are the current user and the module in which the security check is encountered. Entering a value for $role lets you check against the privileges of a user other than the current user.
+          The default values for $role and $module are the current
+          user and the module in which the security check is
+          encountered. Entering a value for $role lets you check
+          against the privileges of a user other than the current
+          user.
         </t>
         
       </section>
     </section>
+
     <section title="Converting Modules from the Old to the New System">
-        <t>
-        Here is a step by step guide to switching modules from Postnuke's (or Xaraya's previous) permissions system to the Xaraya security system.        
-		<list style="numbers">
-		  <t>
-		  Create the necessary instance definitions
-		  </t>
-		  <t>
-		  Create the necessary mask definitions
-		  </t>
-		  <t>
-		  Change the pnSecAuthAction or xarSecAuthAction calls to xarSecurityCheck calls
-		  </t>
-		  <t>
-		  Remove redundant code
-		  </t>
-		  </list>
+      <t>
+        Here is a step by step guide to switching modules from
+        Postnuke's (or Xaraya's previous) permissions system to the
+        Xaraya security system.
+        <list style="numbers">
+          <t>
+            Create the necessary instance definitions
+          </t>
+          <t>
+            Create the necessary mask definitions
+          </t>
+          <t>
+            Change the pnSecAuthAction or xarSecAuthAction calls to xarSecurityCheck calls
+          </t>
+          <t>
+            Remove redundant code
+          </t>
+        </list>
 		  </t>
 
-    <section title="Creating Instance definitions">
-		  <t>
-		  Defining instances is a bit of work. The good news is that there are probably not more than 3 of these in any given module.
-		  </t>
-		  <t>
-		  The first question to answer is: what instances do I have or need? Instance definitions ("security schemas") can generally be found in the version.php file of the module. However, you'll probably also want to look through the module code for calls of the pnSecAddSchema or xarSecAddSchema function, which also define security schemas. You'll need to create an instance definition for each of the entries in a security schema.
-		  </t>
-		  <t>
-		  Security schemas have the form:
+      <section title="Creating Instance definitions">
+        <t>
+          Defining instances is a bit of work. The good news is that
+          there are probably not more than 3 of these in any given
+          module.
+        </t>
+        <t>
+          The first question to answer is: what instances do I have or
+          need? Instance definitions ("security schemas") can
+          generally be found in the version.php file of the
+          module. However, you'll probably also want to look through
+          the module code for calls of the pnSecAddSchema or
+          xarSecAddSchema function, which also define security
+          schemas. You'll need to create an instance definition for
+          each of the entries in a security schema.
+        </t>
+        <t>
+          Security schemas have the form:
+
         <artwork>
          $modversion['securityschema'] = array('categories::category' => 
                                                'Category name::Category ID',
                                                'categories::item' => 
                                                'Category ID:Module ID:Item ID');
         </artwork>
-		 In this case we have a schema with two entries, which will call for two instance definitions. In the first entry the line 
+
+          In this case we have a schema with two entries, which will
+          call for two instance definitions. In the first entry the
+          line
+
         <artwork>
          'categories::category' 
         </artwork>
-        refers to the module name ("categories") and the component name ("category"). Both of these can be inserted into the instance definition as shown below. If there is no component name, insert "All" in the definition instead.
-		  </t>
-		  <t>
-		The second part of the entry is a bit more complicated:
+
+          refers to the module name ("categories") and the component
+          name ("category"). Both of these can be inserted into the
+          instance definition as shown below. If there is no component
+          name, insert "All" in the definition instead.
+        </t>
+        <t>
+          The second part of the entry is a bit more complicated:
+
         <artwork>
          'Category name::Category ID' 
         </artwork>
-        This part of the schema consists of up to 3 names of database fields which make up the instance definition. You need to define the sql query strings which return a recordset with each of these fields from the database. In this case the query strings would be:
+
+          This part of the schema consists of up to 3 names of
+          database fields which make up the instance definition. You
+          need to define the sql query strings which return a
+          recordset with each of these fields from the database. In
+          this case the query strings would be:
+
         <artwork>
          $query1 = "SELECT DISTINCT xar_name FROM xar_categories";        
          $query2 = "SELECT DISTINCT xar_cid FROM xar_categories";        
         </artwork>
-        Note you'll have to look in the database a bit to identify the correct table and field names. Unfortunately this is not clearly documented anywhere, but in most cases the table will be one of those belonging to the module itself, and the field names can be identified fairly easily. 
-		  </t>
-		  <t>
-		  Once you have the module, component names and the query strings these can be inserted in the instance definition. The definition for the first entry in the security schema above is shown below, with appropriate values for the header and limit parameters included:
+
+          Note you'll have to look in the database a bit to identify
+          the correct table and field names. Unfortunately this is not
+          clearly documented anywhere, but in most cases the table
+          will be one of those belonging to the module itself, and the
+          field names can be identified fairly easily.
+        </t>
+        <t>
+          Once you have the module, component names and the query
+          strings these can be inserted in the instance
+          definition. The definition for the first entry in the
+          security schema above is shown below, with appropriate
+          values for the header and limit parameters included:
+
         <artwork>
         $query1 = "SELECT DISTINCT xar_name FROM xar_categories";
         $query2 = "SELECT DISTINCT xar_cid FROM xar_categories";
@@ -1541,60 +1671,98 @@
                            );
         xarDefineInstance('categories','Category',$instances);
         </artwork>
-		  </t>
-    </section>
+
+        </t>
+      </section>
                 
-    <section title="Creating Mask Definitions">
+      <section title="Creating Mask Definitions">
         <t>
-        The next step is to create masks for all the security checks in the code. These are privilege definitions which are referenced whenever a security check is called: the check compares the user's privileges with the privilege defined by the mask and decides whether the user passes the check or not.
+          The next step is to create masks for all the security checks
+          in the code. These are privilege definitions which are
+          referenced whenever a security check is called: the check
+          compares the user's privileges with the privilege defined by
+          the mask and decides whether the user passes the check or
+          not.
         </t>
         <t>
-        There are typically 3-6 different masks for any given module. How do I know what masks to define? Unfortunately the only way to figure that out is to go through the code searching for pnSecAuthAction or xarSecAuthAction calls and seeing how many different types there are.
+          There are typically 3-6 different masks for any given
+          module. How do I know what masks to define? Unfortunately
+          the only way to figure that out is to go through the code
+          searching for pnSecAuthAction or xarSecAuthAction calls and
+          seeing how many different types there are.
         </t>
         <t>
-        Here is a useful rule: Assume 1 mask to be created for each security level you find in the *SecAuthAction calls.
+          Here is a useful rule: Assume 1 mask to be created for each
+          security level you find in the *SecAuthAction calls.
         </t>
         <t>
-        Once you have identified the different calls, create a mask definition for each of them in the init.php of the module. Use the following function:
+          Once you have identified the different calls, create a mask
+          definition for each of them in the init.php of the
+          module. Use the following function:
+
         <artwork>
         Syntax: xarRegisterMask(Name,Realm,Module,Component,Instance,Level,Description)
         
         Example:
         xarRegisterMask('ReadCategoryBlock','All','categories','Block','All:All:All',ACCESS_READ);
         </artwork>
-        <list style="symbols">
-        <t>
-        "ReadCategoryBlock" is the name we give the mask. This is referenced in the code when performing security checks. The name must be unique within the module the mask applies to, in this case categories. It is also wise to choose a name that describes the rights the mask contains. 
-        </t>
-        <t>
-        The realm parameter indicates which realm the mask belongs to.
-        </t>
-        <t>
-		"Categories", as noted, is the name of the module the mask belongs to. Module names by convention are spelled in lowercase.
-        </t>
-        <t>
-        "Block" is the name of the component the mask belongs to. Component names by convention are spelled in uppercase.
-        </t>
-        <t>
-        The instance parameter in general is left at 'All' and overriden at run time. In this example 'All:All:All' indicates that this component supports 3 instance "filters". ('All' would also be valid)
-        </t>
-        <t>
-        The level parameter indicates the kind of access required for the check to be successful.
-        </t>
-        <t>
-        The Description parameter is optional.
-        </t>
-        </list>
+
+          <list style="symbols">
+            <t>
+              "ReadCategoryBlock" is the name we give the mask. This
+              is referenced in the code when performing security
+              checks. The name must be unique within the module the
+              mask applies to, in this case categories. It is also
+              wise to choose a name that describes the rights the mask
+              contains.
+            </t>
+            <t>
+              The realm parameter indicates which realm the mask belongs to.
+            </t>
+            <t>
+              "Categories", as noted, is the name of the module the
+              mask belongs to. Module names by convention are spelled
+              in lowercase.
+            </t>
+            <t>
+              "Block" is the name of the component the mask belongs
+              to. Component names by convention are spelled in
+              uppercase.
+            </t>
+            <t>
+              The instance parameter in general is left at 'All' and
+              overriden at run time. In this example 'All:All:All'
+              indicates that this component supports 3 instance
+              "filters". ('All' would also be valid)
+            </t>
+            <t>
+              The level parameter indicates the kind of access
+              required for the check to be successful.
+            </t>
+            <t>
+              The Description parameter is optional.
+            </t>
+          </list>
         </t>
       </section>
-    <section title="Changing the Security Check Calls">
+
+      <section title="Changing the Security Check Calls">
         <t>
-        The next step is the most labor intensive: changing the *SecAuthAction calls to the new system using xarSecurityCheck. A module may contain literally dozens of these calls sprinkled through the code. Unfortunately each needs to be visually examined and appropriately modified.
-		</t>
-		<t>
-		Some examples are shown below. In each of these we assume an appropriate mask has been created based on the information in the old call, and that can be referenced by the new call.
-    <section title="Security Check with Exception Catching">
+          The next step is the most labor intensive: changing the
+          *SecAuthAction calls to the new system using
+          xarSecurityCheck. A module may contain literally dozens of
+          these calls sprinkled through the code. Unfortunately each
+          needs to be visually examined and appropriately modified.
+        </t>
         <t>
+          Some examples are shown below. In each of these we assume an
+          appropriate mask has been created based on the information
+          in the old call, and that can be referenced by the new call.
+        </t>
+
+        <section title="Security Check with Exception Catching">
+          <t>
+
         <artwork>
         if (!xarSecAuthAction('All', 'categories::', "::", ACCESS_EDIT)) { return;}
         
@@ -1602,11 +1770,19 @@
         
         if (xarSecurityCheck('EditCategories')) return;
         </artwork>
-        The xarSecuritCheck call references the mask we defined above via the mask name. The module name and access level information is stored in the mask, so there is no need for them as parameters in the call. If the security chekc fails the system will automatically generate an exception message.
-        </t>
-      </section>
-    <section title="Security Check with Exception Catching Suppressed">
-        <t>
+
+            The xarSecuritCheck call references the mask we defined
+            above via the mask name. The module name and access level
+            information is stored in the mask, so there is no need for
+            them as parameters in the call. If the security chekc
+            fails the system will automatically generate an exception
+            message.
+          </t>
+        </section>
+
+        <section title="Security Check with Exception Catching Suppressed">
+          <t>
+
         <artwork>
         if (xarSecAuthAction('All', 'categories::', "::", ACCESS_EDIT)) {
         
@@ -1614,14 +1790,22 @@
         
         if (xarSecurityCheck('EditCategories',0)) {
         </artwork>
-        This is identical to the previous call except that the exception message that would be generated in the case of a failed security check is suppressed by setting the second parameter to 0.
-		</t>
-		<t>
-        This call is useful when you want to loop through a series of security checks in the code without halting execution if the check fails.
-        </t>
-      </section>
-    <section title="Security Check with Dynamic Components or Instances">
-		<t>
+
+            This is identical to the previous call except that the
+            exception message that would be generated in the case of a
+            failed security check is suppressed by setting the second
+            parameter to 0.
+          </t>
+          <t>
+            This call is useful when you want to loop through a series
+            of security checks in the code without halting execution
+            if the check fails.
+          </t>
+        </section>
+
+        <section title="Security Check with Dynamic Components or Instances">
+          <t>
+
         <artwork>
         if (!xarSecAuthAction(0, "categories::item", "$name::$id", ACCESS_EDIT)) 
            { return; }
@@ -1630,41 +1814,63 @@
         
         if (!xarSecurityCheck('EditCategories',0,'Item','$name:All:$id')) return;
         </artwork>
-        In this example we override some of the mask definition parameters with dynamic values. Recall that the mask definition above is:
+
+            In this example we override some of the mask definition
+            parameters with dynamic values. Recall that the mask
+            definition above is:
+
         <artwork>
         Syntax: xarRegisterMask(Name,Realm,Module,Component,Instance,Level,Description)
         
         Example:
         xarRegisterMask('EditCategories','All','categories','All','All',ACCESS_EDIT);
         </artwork>
-        In this definition both the Component and Instance parameters are "All". By adding the parameters "item" and "$name::$id" to the xarSecurityCheck call we replace the values "All" by dynamic values to be checked against.
-		</t>
-		<t>
-		Note that "$name::$id" in the old call becomes "$name:All:$id" in the new call. We explicitly list all of the instances "filters", even those that in the old call are not mentioned.
-		</t>
-		<t>
-		It is important for there to be consistency among instances, masks and security checks. If a security check does not find a mask of the name called, it will throw an exception. If the check includes dynamic component and/or instance values that do not coincide with an instance definition, it may fail.
-		</t>
+
+            In this definition both the Component and Instance
+            parameters are "All". By adding the parameters "item" and
+            "$name::$id" to the xarSecurityCheck call we replace the
+            values "All" by dynamic values to be checked against.
+          </t>
+          <t>
+            Note that "$name::$id" in the old call becomes
+            "$name:All:$id" in the new call. We explicitly list all of
+            the instances "filters", even those that in the old call
+            are not mentioned.
+          </t>
+          <t>
+            It is important for there to be consistency among
+            instances, masks and security checks. If a security check
+            does not find a mask of the name called, it will throw an
+            exception. If the check includes dynamic component and/or
+            instance values that do not coincide with an instance
+            definition, it may fail.
+          </t>
+        </section>
+
+        <section title="Removing Redundant Code">
+          <t>
+            The following code becomes redundant after the conversion and can be removed:
+            <list style="numbers">
+              <t>
+                The old *SecAuthAction calls: can be removed
+                immediately after being replaced by
+                xarSecurityCheck. These calls need to be removed for
+                the system to work.
+              </t>
+              <t>
+                Any calls to *SecAddSchema in the code: the calls do
+                nothing; if left the new system still works.
+              </t>
+            </list>
+
+            We recommend leaving the security schema definitions in
+            the version.php files for documentation purposes. However,
+            they should accurately reflect the instances used in the
+            xarSecurityCheck calls.
+          </t>
+        </section>
       </section>
-        </t>
-		<t>
-      <section title="Removing Redundant Code">
-		<t>
-		The following code becomes redundant after the conversion and can be removed:
-		<list style="numbers">
-		  <t>
-		  The old *SecAuthAction calls: can be removed immediately after being replaced by xarSecurityCheck. These calls need to be removed for the system to work.
-		  </t>
-		  <t>
-		  Any calls to *SecAddSchema in the code: the calls do nothing; if left the new system still works.
-		  </t>
-		  </list>
-		  We recommend leaving the security schema definitions in the version.php files for documentation purposes. However, they should accurately reflect the instances used in the xarSecurityCheck calls.
-        </t>
-      </section>
-		</t>
-      </section>
-      </section>
+    </section>
 
     <section title="Open Issues">
       <section title="Regex">

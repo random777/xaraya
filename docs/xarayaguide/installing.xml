@@ -23,7 +23,7 @@
         <mediaobject>
           <imageobject>
             <imagedata align="left" fileref="sourceimages/install01.jpg"
-            format="JPG" width="450" />
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -39,7 +39,7 @@
         <mediaobject>
           <imageobject>
             <imagedata align="left" fileref="sourceimages/install02.jpg"
-            format="JPG" width="450" />
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -61,7 +61,7 @@
         <mediaobject>
           <imageobject>
             <imagedata align="left" fileref="sourceimages/install03.jpg"
-            format="JPG" width="450" />
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -117,7 +117,7 @@
         <mediaobject>
           <imageobject>
             <imagedata align="left" fileref="sourceimages/install04.jpg"
-            format="JPG" width="450" />
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -149,8 +149,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install06.jpg"
-            format="JPG" width="450" />
+            <imagedata align="left" fileref="sourceimages/install05.jpg"
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -192,8 +192,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install07.jpg"
-            format="JPG" width="450" />
+            <imagedata align="left" fileref="sourceimages/install06.jpg"
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -246,8 +246,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install08.jpg"
-            format="JPG" width="450" />
+            <imagedata align="left" fileref="sourceimages/install07.jpg"
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -264,8 +264,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="left" fileref="sourceimages/install09.jpg"
-            format="JPG" width="450" />
+            <imagedata align="left" fileref="sourceimages/install08.jpg"
+            format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -336,7 +336,7 @@
       <mediaobject>
         <imageobject>
           <imagedata align="left" fileref="sourceimages/install10.jpg"
-          format="JPG" width="450" />
+          format="JPG" />
         </imageobject>
       </mediaobject>
     </figure>

@@ -133,6 +133,14 @@
 <style-specification id="html" use="docbook">
 <style-specification-body> 
 
+(define %html40%
+  ;; Generate HTML 4.0
+  #t)
+
+(define %css-decoration%
+  ;; Enable CSS decoration of elements
+  #t)
+
 (declare-characteristic preserve-sdata?
   ;; this is necessary because right now jadetex does not understand
   ;; symbolic entities, whereas things work well with numeric entities.
@@ -357,7 +365,14 @@
    (list "WIDTH" ($table-width$))))
 
 ;; End of $verbatim-display$ redefinition
+(define %stylesheet-type%
+  ;; The type of the stylesheet to use
+  "text/css")
 
+(define %stylesheet%
+  ;; Name of the css stylesheet to use, use value #f if you don't want to
+  ;; use css stylesheets
+  "style.css")
 </style-specification-body>
 </style-specification>
 

@@ -19,11 +19,7 @@
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
-      </t>
+      <t>This RFC contains a proposal for the implementation of a comments API.</t>
     </abstract>
   </front>
   
@@ -43,423 +39,637 @@
 
     <section title="List of requirements for the Comments API">
       <t>
+	The main objective of this API is to provide a small, yet flexible
+	codebase for adding comment functionality to modules. This API will
+	not replace a full-blown forum, but will rather aim to implement
+	core functionality. A forum could conceivably make use of this API
+	to extend on it and provide advanced functionality. It might be
+	feasible to make parts of this API pluggable to allow for the
+	addition of more rendering types for instance.<xref target="refs.8"/>
+	Following is a list of requirements broadly grouped into
+	categories.
+	<list style="numbers">
+	  <t>Backend</t>
+	  <t>Keep the codebase small to make maintenance easier</t>
+	  <t>Separate display and core functionality code</t>
+	  <t>The API should be completely transparent for the modules, and
+	    vice versa. There should be no dependencies between a module
+	    and the API.</t>
+	  <t>Provide gateway functions to
+	    <list>
+	      <t>Email</t>
+	      <t>NNTP</t>
+	    </list>
+	    Authors of posts can opt to receive replies to their posts via
+	    email. Maybe allow others to subscribe to a thread.
+	    Note that this is closely related to a generic Notification API.
+	    See section 5 for more information
+	  </t>
+	  <t>Make comments url-addressable <xref target="refs.5"/>. This allows to refer to
+	    individual comments with hyperlinks.</t>
+	  <t>Provide several search &amp; summary functions, like the date of the
+	    last comment for a given discussion <xref target="refs.11"/>.</t>
+	  <t>Moderation</t>
+	  <t>Rely on permissons system for moderation access <xref target="refs.2"/></t>
+	  <t>Implement a bot posting prevention system <xref target="refs.4"/>, <xref target="refs.15"/></t>
+	  <t>Allow the deletion of subcomments. <xref target="refs.6"/> This raises a lot
+	    of questions what should happen to child comments if a
+	    parent comment is deleted.</t>
+	  <t>Rendering</t>
+	  <t>Provide pluggable rendering modules, maybe from other forums <xref target="refs.3"/>
+	    The comments API will ship with a few basic rendering modules such
+	    as threaded and flat views.</t>
+	  <t>Implement pagination so that long lists of comments do not
+	    overwhelm the layout.
+	  </t>
+	</list>
       </t>
     </section>
 
     <section title="Solution proposals - database tables">
-      <t>
-      </t>
-      
-      <section title="Table Comments">
+      <t>This is just one proposal for a table structure, the one chosen
+	by the XOOPS project can be found in [21].</t>
+      <section title="Table Comment">
 	<t>
+	  <artwork>
+	    // as the comment repository
+	    commentid        unique long integer value
+	    modname          holds a reference to the module (see section 5g)
+	    hookid           references an item in the module, semantics are
+	                     defined by the module.
+	    author           foreign key to the users table
+	    title            the title of the comment
+	    comment          the comment, maximum size to be determined
+	    comdate          the date of the comment as UTC timestamp
+	    hostname         records the hostname of the poster
+	    lineage          the family tree upto and including the current comment
+	  </artwork>
 	</t>
       </section>
     </section>
 
     <section title="Solution proposals - functions">
-      <t>
-      </t>
+      <t>This is just one proposal for an implementation, the one chosen
+	by the XOOPS project can be found in [20].</t>
       
       <section title="Backend Code">
-	<t>
+	<t>The Backend API gives the developer a means in which s/he can
+	  seamlessly interact with the database. All database interaction
+	  is completely handled by the following routines.
+	  List of Functions:
+	  <artwork>
+	  pnComments_Get(modname, hookid, CommentId=0, depth=-1, sort='ASC')
+	  pnComments_Add(modname, hookid, ParentId, author, title, comment, hostname)
+	  pnComments_Delete(CommentId, delkids=true)
+	  pnComments_Modify(CommentId, title, comment) {
+	  pnComment_Search(searchstring [,module] [,hook]);
+	  pnComment_Stats([module, [hook]]);
+	  pnComments_MoveThread(AttachToId, CommentId, IncludeParent=true);
+	  </artwork>
 	</t>
-      </section>
-
-      <section title="Rendering Code">
+	<t>Details of Functions:</t>
 	<t>
+	  In these functions you will notice the parameter 'hook' -- this
+	  parameter is the itemid of the module in question (ie., the
+	  'hook' into the module).
 	</t>
-      </section>
-    </section>
-
-    <section title="Relationship of the API to other areas">
-      <t>
-      </t>
-    </section>
-
-    <section title="Code that will need to be rewritten">
-      <t>
-      </t>
-    </section>
-
-    <section title="Basic documents for this RFC">
-      <t>
-      </t>
-    </section>
-
-    <section title="Tools that need to be written from scratch">
-      <t>
-      </t>
-    </section>
-
-    <section title="Current Issues">
-      <t>
-      </t>
-    </section>
-
-    <section title="Retractions">
-      <t>
-      </t>
-    </section>
-    
-    <section title="Changelog">
-      <t>
-      </t>
-    </section>
-
-     <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-   
-2. List of requirements for the Comments API 
-    The main objective of this API is to provide a small, yet flexible
-    codebase for adding comment functionality to modules. This API will
-    not replace a full-blown forum, but will rather aim to implement
-    core functionality. A forum could conceivably make use of this API
-    to extend on it and provide advanced functionality. It might be
-    feasible to make parts of this API pluggable to allow for the
-    addition of more rendering types for instance. [8]
-    Following is a list of requirements broadly grouped into
-    categories.
-    Backend
-    1.  Keep the codebase small to make maintenance easier
-    2.  Separate display and core functionality code
-    3.  The API should be completely transparent for the modules, and
-        vice versa. There should be no dependencies between a module
-        and the API.
-    4.  Provide gateway functions to
-    	  Email
-                       NNTP
-        Authors of posts can opt to receive replies to their posts via
-        email. Maybe allow others to subscribe to a thread.
-        Note that this is closely related to a generic Notification API.
-        See section 5 for more information.
-    5.  Make comments url-addressable [5]. This allows to refer to
-        individual comments with hyperlinks.
-    6.  Provide several search &amp; summary functions, like the date of the
-        last comment for a given discussion [11].
-    Moderation
-    7.  Rely on permissons system for moderation access [2]
-    8.  Implement a bot posting prevention system [4], [15]
-    9.  Allow the deletion of subcomments. [6] This raises a lot
-        of questions what should happen to child comments if a
-        parent comment is deleted.
-    Rendering
-    10. Provide pluggable rendering modules, maybe from other forums [3]
-        The comments API will ship with a few basic rendering modules such
-        as threaded and flat views.
-    11. Implement pagination so that long lists of comments do not
-        overwhelm the layout.
-
-3. Solution proposals - database tables 
-    This is just one proposal for a table structure, the one chosen
-    by the XOOPS project can be found in [21].
-   3a.  Table "Comment"
-      // as the comment repository
-      commentid        unique long integer value
-      modname          holds a reference to the module (see section 5g)
-      hookid               references an item in the module, semantics are
-                                defined by the module.
-      author               foreign key to the users table
-      title                   the title of the comment
-      comment           the comment, maximum size to be determined
-      comdate            the date of the comment as UTC timestamp
-      hostname          records the hostname of the poster
-      lineage              the family tree upto and including the current comment
-4. Solution proposals - functions 
-    This is just one proposal for an implementation, the one chosen
-    by the XOOPS project can be found in [20].
-   4a. Backend Code
-      Description
-      The Backend API gives the developer a means in which s/he can
-      seamlessly interact with the database. All database interaction
-      is completely handled by the following routines.
-      List of Functions:
-	 pnComments_Get(modname, hookid, CommentId=0, depth=-1, sort='ASC')
-	 pnComments_Add(modname, hookid, ParentId, author, title, comment, hostname)
-	 pnComments_Delete(CommentId, delkids=true)
-	 pnComments_Modify(CommentId, title, comment) {
-	 pnComment_Search(searchstring [,module] [,hook]);
-	 pnComment_Stats([module, [hook]]);
-	 pnComments_MoveThread(AttachToId, CommentId, IncludeParent=true);
-      Details of Functions:
-	In these functions you will notice the parameter 'hook' -- this
-        parameter is the itemid of the module in question (ie., the
-        'hook' into the module).
-      Common Function Parameters:
-	$module:  string (or integer), module name or possibly
-                  the registered id of the module.
-	$hook:    integer, itemid of the module. (ie., for
-                  News module it would be the storyid)
-      Common Return:
-        The initial proposal is to have a named array for the comments,
-        the structure of the array is shown below:
-        commentarray(
-	  "CommentId" =&gt; 423,
-	  "author" =&gt; "Joey Butta",       // name of the author
-	  "title" =&gt; "Booga Booga",       // title of the comment
-	  "date" =&gt; "(timestamp)",        // date the comment was made
-	  "comment" =&gt; "Nothing to say.", // the comment itself.
-	  "depth" =&gt; "3",                 // level depth in the parent/child tree
-	  "hostname" =&gt; "192.168.1.9",    // hostname or ip of the author
-	  "lineage" =&gt; "23:64:234:322:328:423", // "family tree" for this comment
-	  "haskids" =&gt; false
-        );
-      Function Descriptions:
-        FUNCTION: pnCommentGet
-        RETURN: commentarray OR array of commentarrays
-	PARAMETERS:
+	<t>Common Function Parameters:</t>
+	<t>
+	  <artwork>
+	    $module:  string (or integer), module name or possibly
+	              the registered id of the module.
+	    $hook:    integer, itemid of the module. (ie., for
+                      News module it would be the storyid)
+	  </artwork>
+	</t>
+	<t>Common Return:</t>
+	<t>
+	  The initial proposal is to have a named array for the comments,
+	  the structure of the array is shown below:</t>
+	<t>
+	  <artwork>
+	  commentarray(
+	    "CommentId" =&gt; 423,
+	    "author" =&gt; "Joey Butta",       // name of the author
+	    "title" =&gt; "Booga Booga",       // title of the comment
+	    "date" =&gt; "(timestamp)",        // date the comment was made
+	    "comment" =&gt; "Nothing to say.", // the comment itself.
+	    "depth" =&gt; "3",                 // level depth in the parent/child tree
+	    "hostname" =&gt; "192.168.1.9",    // hostname or ip of the author
+	    "lineage" =&gt; "23:64:234:322:328:423", // "family tree" for this comment
+	    "haskids" =&gt; false
+          );
+	  </artwork>
+	</t>
+	<t>Function Descriptions:</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentGet
+	    RETURN: commentarray OR array of commentarrays
+	    PARAMETERS:
 			$module:     see above;
 			$hook:       see above;
                         $sort:       string ("ASC" or "DESC")
 			$commentid:  integer (0 or greater)
 			$depth:	     integer (-1, 0 or &gt;0)
-            Acquires comments based on the module/hook and the comment id. The depth
-            parameter allows us to only acquire comments to (n) levels deep. A value of 0
-            would acquire the sole comment specified by the comment id and -1 would
-            acquire all comments down to the deepest level. If both the commentid and the
-            level are ommitted from the function call (ie., pnCommentGet('News','1') ),
-            all comments for the given module/hook are retrieved.  To retrieve a single
-            comment the call would be:  pnCommentGet('News',1,5,0) 1 being the storyid,
-            5 being the commentid, and 0 telling the function to only return that one
-            comment. If sort is specified, the top most parents are sorted by date in the
-            direction specified, otherwise they are sorted in ascending order by date.
-        FUNCTION: pnCommentGetKids
-        RETURN: commentarray OR array of commentarrays
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>
+	  Acquires comments based on the module/hook and the comment id. The depth
+	  parameter allows us to only acquire comments to (n) levels deep. A value of 0
+	  would acquire the sole comment specified by the comment id and -1 would
+	  acquire all comments down to the deepest level. If both the commentid and the
+	  level are ommitted from the function call (ie., pnCommentGet('News','1') ),
+	  all comments for the given module/hook are retrieved.  To retrieve a single
+	  comment the call would be:  pnCommentGet('News',1,5,0) 1 being the storyid,
+	  5 being the commentid, and 0 telling the function to only return that one
+	  comment. If sort is specified, the top most parents are sorted by date in the
+	  direction specified, otherwise they are sorted in ascending order by date.
+	</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentGetKids
+	    RETURN: commentarray OR array of commentarrays
+	    PARAMETERS:
 			$module:	 see above;
 			$hook:	 see above;
 			$parent:	 integer (1 or greater)
 			$level:	 integer (0 or greater)
-	    Acquires a list of comments based on a particular thread. This is similiar to
-	    the current ?DisplayKids(...) function. The level parameter keeps track of how
-	    many levels deep in the the parent/child tree we are.  This function is
-	    intended to be nested and will be utilized in the function pnCommentGet(...)
-	    as a means of acquiring comments down to a particular depth.  If there are
-	    no children for the particular comment, an empty array is returned.
-        FUNCTION: pnCommentAdd
-        RETURN: bool (True or False)
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>
+	  Acquires a list of comments based on a particular thread. This is similiar to
+	  the current ?DisplayKids(...) function. The level parameter keeps track of how
+	  many levels deep in the the parent/child tree we are.  This function is
+	  intended to be nested and will be utilized in the function pnCommentGet(...)
+	  as a means of acquiring comments down to a particular depth.  If there are
+	  no children for the particular comment, an empty array is returned.
+	</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentAdd
+	    RETURN: bool (True or False)
+	    PARAMETERS:
 			$module: see above;
 			$hook:	   see above;
 			$commentarray: named array
-	    Adds a Comment to the database based on the module/hook and returns
-	    a true or false on success. The commentarray contains the actual comment.
-        FUNCTION: pnCommentDel
-        RETURN: bool (True or False)
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>
+	  Adds a Comment to the database based on the module/hook and returns
+	  a true or false on success. The commentarray contains the actual comment.
+	</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentDel
+	    RETURN: bool (True or False)
+	    PARAMETERS:
 			$module: see above;
 			$hook:	 see above;
 			$commentid:	 integer (0 or greater)
-	    Deletes comment(s) from the database. If the comment has children and
-	    boolchildren is false, all first level children's parent ids are reset to the
-	    grandparent's id or zero if the parent is a toplevel comment. Note: this does
-	    not affect the relationship between the first level children and any children
-	    they might have. Otherwise, if boolchildren is set to true, the comment and
-	    =all= it's children are deleted from the database.
-        FUNCTION: pnCommentModify
-        RETURN: bool (True or False)
-        PARAMETERS:
+	    </artwork>
+	</t>
+	<t>
+	  Deletes comment(s) from the database. If the comment has children and
+	  boolchildren is false, all first level children's parent ids are reset to the
+	  grandparent's id or zero if the parent is a toplevel comment. Note: this does
+	  not affect the relationship between the first level children and any children
+	  they might have. Otherwise, if boolchildren is set to true, the comment and
+	  =all= it's children are deleted from the database.
+	</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentModify
+	    RETURN: bool (True or False)
+	    PARAMETERS:
 			$module: see above;
 			$hook:	   see above;
 			$commentid:	   integer (0 or greater)
 			$commentarray: named array
-	    Modifies a comment in the database based on the module/hook/commentid. The
-	    commentarray contains the actual comment.
-        FUNCTION: pnCommentSearch
-        RETURN: commentarray OR array of commentarrays
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>
+	  Modifies a comment in the database based on the module/hook/commentid. The
+	  commentarray contains the actual comment.
+	</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentSearch
+	    RETURN: commentarray OR array of commentarrays
+	    PARAMETERS:
 			$module: see above;
 			$hook:	   see above;
 			$searchstring: string
-	    Returns a comment or array of comments based on the search string.  If the
-            module/hook is given, it searches only the specific module/hook for the
-            searchstring. If the module is given and not the hook, it searchs for all
-            comments matching the searchstring for the given module only, likewise if
-            the hook is given without the module.  If both the module/hook are not
-            given, it returns ALL comments. Note The comment array structure
-            returned by this function is slightly different as it would include the
-            module/hook as key elements.
-        FUNCTION: pnCommentNext
-        RETURN: commentarray
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>
+	  Returns a comment or array of comments based on the search string.  If the
+	  module/hook is given, it searches only the specific module/hook for the
+	  searchstring. If the module is given and not the hook, it searchs for all
+	  comments matching the searchstring for the given module only, likewise if
+	  the hook is given without the module.  If both the module/hook are not
+	  given, it returns ALL comments. Note The comment array structure
+	  returned by this function is slightly different as it would include the
+	  module/hook as key elements.
+	</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentNext
+	    RETURN: commentarray
+	    PARAMETERS:
+	                $commentarray: named array
+	  </artwork>
+	</t>
+	<t>
+	  Returns the next comment in the comments array - this function and it's
+	  counterpart, pnCommentPrev(...) are helper functions similar in concept to
+	  adodb's ?MoveNext() function. Each time this function is called, the array
+	  pointer is moved ahead one comment traversing all branches (ie., children) of
+	  the tree one at a time until the end is reached (ie., the last comment).
+	</t>
+	<t>
+	  <artwork>	  
+	    FUNCTION: pnCommentNext
+	    RETURN: commentarray
+	    PARAMETERS:
 			$commentarray: named array
-	    Returns the next comment in the comments array - this function and it's
-	    counterpart, pnCommentPrev(...) are helper functions similar in concept to
-	    adodb's ?MoveNext() function. Each time this function is called, the array
-	    pointer is moved ahead one comment traversing all branches (ie., children) of
-	    the tree one at a time until the end is reached (ie., the last comment).
-        FUNCTION: pnCommentNext
-        RETURN: commentarray
-        PARAMETERS:
-			$commentarray: named array
-	    returns the previous comment in the comments array.
-        FUNCTION: pnCommentStats
-        RETURN: statsarray
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>returns the previous comment in the comments array.</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentStats
+	    RETURN: statsarray
+	    PARAMETERS:
 			$module: see above;
 			$hook:	 see above;
-	    Returns an array with last comment, date of last comment, # of comments etc
-   4b. Rendering Code
-	Description
-	Rendering will be done through the use of a class factory. This
-        allows for the implemenation of different renderers without changing
-        the API. Each renderer has the exact same methods.
-	List of Functions
-	    pnCommentRenderFactory($type) &lt;-- Constructor
-	    Class Renderer
-		Renderer() &lt;-- Constructor
-		pnCommentDraw($commentarray, $optionsarray)
-		pnCommentDrawInput()
-		pnCommentDrawEdit($commentid)
-	Details of Functions
-	Common Function Parameters
-        $commentarray   This array holds the comments to be drawn. See
-                        above for its structure.
-        $optionsarray   This array holds the renderer-specific options
-                        in key-&gt;value form.
-	Common Return
-        All functions in the rendering code return XHTML in a variable.
-	Function Descriptions
-        FUNCTION: pnCommentRenderFactory
-        RETURN: renderer class
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>
+	  Returns an array with last comment, date of last comment, # of comments etc
+	</t>
+      </section>
+
+      <section title="Rendering Code">
+	<t>Rendering will be done through the use of a class factory. This
+	  allows for the implemenation of different renderers without changing
+	  the API. Each renderer has the exact same methods.</t>
+	<t>List of Functions</t>
+	<t>
+	  <artwork>
+	  pnCommentRenderFactory($type) &lt;-- Constructor
+	  Class Renderer
+	  Renderer() &lt;-- Constructor
+	  pnCommentDraw($commentarray, $optionsarray)
+	  pnCommentDrawInput()
+	    pnCommentDrawEdit($commentid)
+	  </artwork>
+	</t>
+	<t>Details of Functions</t>
+	<t>Common Function Parameters</t>
+	<t>
+	  <artwork>
+	  $commentarray   This array holds the comments to be drawn. See
+                          above for its structure.
+          $optionsarray   This array holds the renderer-specific options
+                          in key-&gt;value form.
+	  </artwork>
+	</t>
+	<t>Common Return</t>
+	<t>All functions in the rendering code return XHTML in a variable.</t>
+	<t>Function Descriptions</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentRenderFactory
+	    RETURN: renderer class
+	    PARAMETERS:
 			$type: the name of the renderer to use.
-	    returns the chosen renderer class.
-        FUNCTION: pnCommentDraw
-        RETURN: XHTML
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>returns the chosen renderer class.</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentDraw
+	    RETURN: XHTML
+	    PARAMETERS:
 			$commentarray: named array.
                         $optionsarray: named array.
-	    returns the comments specfied rendered in XHTML.
-        FUNCTION: pnCommentDrawInput
-        RETURN: XHTML
-        PARAMETERS:
-	    returns the comment input form rendered in XHTML.
-        FUNCTION: pnCommentDrawInput
-        RETURN: XHTML
-        PARAMETERS:
+	  </artwork>
+	</t>
+	<t>returns the comments specfied rendered in XHTML.</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentDrawInput
+	    RETURN: XHTML
+	    PARAMETERS:
+	  </artwork>
+	</t>
+	<t>returns the comment input form rendered in XHTML.</t>
+	<t>
+	  <artwork>
+	    FUNCTION: pnCommentDrawInput
+	    RETURN: XHTML
+	    PARAMETERS:
 			$commentid: id of the comment to edit.
-	    returns the comment edit form for the specified
-            comment rendered in XHTML.
-5. Relationship of the API to other areas 
-    5a Textsanitizer
-    The comments should go through a foul language filter before
-    being posted. That filter should not be part of the comments system
-    though. Also, support for various text encoding systems (HTML, bbcode,
-    wikicode) will be provided by the Textsanitizer.
-    5b Permissions
-    The Comments API will make extensive use of the Permissions system to
-    implement access control and the display of elements [7]. The option
-    to turn comments on or off for a given module [10] will also be
-    handled by the Permissions system. It remains to be seen whether
-    extensive use of the Permissions system will lead to an overload
-    within that system.
-    5c Categories
-    It might be beneficial to attach metadata to comments via the
-    Categories system.
-    5d Users
-    What should happen with orphaned content? [12]
-    5e Hooks to external editors
-    Spell checkers [14] and WYSIWYG editors will be hooked in via the
-    standard methods.
-    5f Notification systems
-    Several aspects of the Comments API would benefit from plugging into a
-    Notification system. This would regularly update subscribed parties on
-    the status of comments.
-    5g Module system
-    The Comments API needs a reliable way to refer to modules. Currently
-    this issue remains unresolved. [17]
-6. Code that will need to be rewritten 
-      /modules/Downloads
-      /modules/News
-      /modules/NS-Comments
-      /modules/Polls
-      /modules/Reviews
-      /modules/Search
-      /modules/Sections
-      /modules/Top_List
-      /modules/Topics
-      /modules/Web_Links
-      and some blocks
-7. Basic documents for this RFC 
-      [1] http://groups.yahoo.com/group/pndev/message/8069
-            Credits to jstarkweather
-      [2] http://groups.yahoo.com/group/pndev/message/5845
-            Credits to Jim McDonald
-      [3] http://groups.yahoo.com/group/pndev/message/5791
-            Credits to chv, hzink
-      [4] http://groups.yahoo.com/group/pndev/message/5465
-            Credits to electric monk
-      [5] http://sourceforge.net/tracker/index.php?
-            func=detail&amp;aid=485710&amp;group_id=27927&amp;atid=392231
-            Credits to goosepro
-      [6] http://sourceforge.net/tracker/index.php?
-            func=detail&amp;aid=456931&amp;group_id=27927&amp;atid=392231
-      [7] http://sourceforge.net/tracker/index.php?
-            func=detail&amp;aid=477620&amp;group_id=27927&amp;atid=392231
-      [8] http://sourceforge.net/tracker/index.php?
-            func=detail&amp;aid=484304&amp;group_id=27927&amp;atid=392231
-      [9] http://sourceforge.net/tracker/?
-            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=440629
-      [10] http://sourceforge.net/tracker/?
-            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=442294
-      [11] http://sourceforge.net/tracker/?
-            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=442947
-      [12] http://sourceforge.net/tracker/?
-            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=445490
-      [13] http://sourceforge.net/tracker/?
-            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=455164
-      [14] http://sourceforge.net/tracker/?
-            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=460677
-      [15] http://sourceforge.net/tracker/?
-            group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=477934
-      [16] http://groups.yahoo.com/group/pndev/message/5718
-      [17] http://groups.yahoo.com/group/pndev/message/8363
-      [18] http://www.cgsa.net/php/identifierShow.php
-      [19] http://groups.yahoo.com/group/PN-Data/message/288
-8. Tools that need to be created from scratch 
-    1. A helper function to determine the real IP address of a user.
-       This function can make use of the Forwarded-for header. [18]
-9. Current Issues 
-    1. Current proposal for retrieving comments from the database is
-       very expensive  Possible fix: encode the parent/child hierarchy
-       in the key. [19]
-10. Retractions 
-   We list features that were considered but rejected for this API below.
-   1.  Let anonymous users specify a name [13]
-       The reasoning was that we do not want to establish a secondary
-       way of registering with Postnuke, an account light of sorts.
-       Experience with live sites has shown that appending the name to
-       a post works well.
-   2.  Implement core functionality for a moderation system.
-        There are lots of different ways to implement moderation
-        systems: Karma (ala slashdot.org), Network of Trust
-        (ala advogato.org) [9]. Provide a simple field to
-        record the score of a comment regardless of the means
-        by which this score was calculated.
-        ?Not implemented due to upcoming Rating System RFC/API
-11. Changelog 
-   4.1 (January 7, 2002) modified by Carl P. Corliss (aka Rabbitt)
-      Added 'haskids' field to db table scheme
-      Added function pnCommentSearch to Section 4a (Function List and Description)
-      Modified function pnCommentGet -- added parameter 'sort'
-   4.0 (January 6, 2002) modified by Gregor J. Rothfuss
-      Section 4b extended.
-      Formatting cleanups.
-   3.5 (January 6, 2002) modified by Carl P. Corliss (aka Rabbitt)
-      Sections 4a, 4b &amp; 9 added.
-      #2 of Section 10:Retractions moved from Section 5:Moderation.
-      'rating' removed from comment table layout.
-   3.0 (January 4, 2002) modified by Gregor J. Rothfuss
-      Section 8 added.
-    2.0 (January 4, 2002) modified by Gregor J. Rothfuss
-      Database schema added.
-      Section 5g added.
-    1.0 (January 3, 2002)
-      Initial Version
+	  </artwork>
+	</t>
+	<t>returns the comment edit form for the specified
+	  comment rendered in XHTML
+	</t>
+      </section>
+    </section>
+
+    <section title="Relationship of the API to other areas">
+      <t>Textsanitizer</t>
+      <t>
+	The comments should go through a foul language filter before
+	being posted. That filter should not be part of the comments system
+	though. Also, support for various text encoding systems (HTML, bbcode,
+	wikicode) will be provided by the Textsanitizer.
+      </t>
+      <t>Permissions</t>
+      <t>
+	The Comments API will make extensive use of the Permissions system to
+	implement access control and the display of elements <xref target="refs.7"/>. The option
+	to turn comments on or off for a given module <xref target="refs.10"/> will also be
+	handled by the Permissions system. It remains to be seen whether
+	extensive use of the Permissions system will lead to an overload
+	within that system.
+      </t>
+      <t>Categories</t>
+      <t>
+	It might be beneficial to attach metadata to comments via the
+	Categories system.
+      </t>
+      <t>Users</t>
+      <t>What should happen with orphaned content? <xref target="refs.12"/></t>
+      <t>Hooks to external editors</t>
+      <t>
+	Spell checkers <xref target="refs.14"/> and WYSIWYG editors will be hooked in via the
+	standard methods.
+      </t>
+      <t>Notification systems</t>
+      <t>
+	Several aspects of the Comments API would benefit from plugging into a
+	Notification system. This would regularly update subscribed parties on
+	the status of comments.
+      </t>
+      <t>Module system</t>
+      <t>
+	The Comments API needs a reliable way to refer to modules. Currently
+	this issue remains unresolved. <xref target="refs.17"/>
+      </t>
+    </section>
+
+    <section title="Code that will need to be rewritten">
+      <t>
+	<artwork>
+	  /modules/Downloads
+	  /modules/News
+	  /modules/NS-Comments
+	  /modules/Polls
+	  /modules/Reviews
+	  /modules/Search
+	  /modules/Sections
+	  /modules/Top_List
+	  /modules/Topics
+	  /modules/Web_Links
+	  and some blocks
+	</artwork>
+      </t>
+    </section>
+
+    <section title="Tools that need to be written from scratch">
+      <t>A helper function to determine the real IP address of a user.
+	This function can make use of the Forwarded-for header. <xref target="refs.18"/></t>
+    </section>
+
+    <section title="Current Issues">
+      <t>Current proposal for retrieving comments from the database is
+	very expensive  Possible fix: encode the parent/child hierarchy
+	in the key. <xref target="refs.19"/>
+      </t>
+    </section>
+
+    <section title="Retractions">
+      <t>We list features that were considered but rejected for this API below.
+	<list style="numbers">
+	    <t>Let anonymous users specify a name <xref target="refs.13"/>
+	    The reasoning was that we do not want to establish a secondary
+	    way of registering with Postnuke, an account light of sorts.
+	    Experience with live sites has shown that appending the name to
+	    a post works well.</t>
+	  <t>Implement core functionality for a moderation system.
+	    There are lots of different ways to implement moderation
+	    systems: Karma (ala slashdot.org), Network of Trust
+	    (ala advogato.org) <xref target="refs.9"/>. Provide a simple field to
+	    record the score of a comment regardless of the means
+	    by which this score was calculated.
+	    ?Not implemented due to upcoming Rating System RFC/API
+	  </t>
+	</list>
+      </t>
+    </section>
+    
+    <section title="Changelog">
+      <t>
+	<artwork>
+	  4.1 (January 7, 2002) modified by Carl P. Corliss (aka Rabbitt)
+	  Added 'haskids' field to db table scheme
+	  Added function pnCommentSearch to Section 4a (Function List and Description)
+	  Modified function pnCommentGet -- added parameter 'sort'
+	  4.0 (January 6, 2002) modified by Gregor J. Rothfuss
+	  Section 4b extended.
+	  Formatting cleanups.
+	  3.5 (January 6, 2002) modified by Carl P. Corliss (aka Rabbitt)
+	  Sections 4a, 4b &amp; 9 added.
+	  #2 of Section 10:Retractions moved from Section 5:Moderation.
+	  'rating' removed from comment table layout.
+	  3.0 (January 4, 2002) modified by Gregor J. Rothfuss
+	  Section 8 added.
+	  2.0 (January 4, 2002) modified by Gregor J. Rothfuss
+	  Database schema added.
+	  Section 5g added.
+	  1.0 (January 3, 2002)
+	  Initial Version
 	</artwork>
       </t>
     </section>
   </middle>
+
+  <back>
+    <references>
+      <reference anchor="refs.1">
+	<front>
+	  <title>http://groups.yahoo.com/group/pndev/message/8069</title>
+	  <author>
+	    <organization>jstarkweather</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.2">
+	<front>
+	  <title> http://groups.yahoo.com/group/pndev/message/5845</title>
+	  <author>
+	    <organization>Jim McDonald</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.3">
+	<front>
+	  <title> http://groups.yahoo.com/group/pndev/message/5791</title>
+	  <author>
+	    <organization> chv, hzink</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.4">
+	<front>
+	  <title>http://groups.yahoo.com/group/pndev/message/5465</title>
+	  <author>
+	    <organization>electric monk</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.5">
+	<front>
+	  <title>http://sourceforge.net/tracker/index.php?func=detail&amp;aid=485710&amp;group_id=27927&amp;atid=392231</title>
+	  <author>
+	    <organization>goosepro</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.6">
+	<front>
+	  <title>http://sourceforge.net/tracker/index.php?func=detail&amp;aid=456931&amp;group_id=27927&amp;atid=392231</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.7">
+	<front>
+	  <title> http://sourceforge.net/tracker/index.php?func=detail&amp;aid=477620&amp;group_id=27927&amp;atid=392231</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.8">
+	<front>
+	  <title>http://sourceforge.net/tracker/index.php?func=detail&amp;aid=484304&amp;group_id=27927&amp;atid=392231</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.9">
+	<front>
+	  <title>http://sourceforge.net/tracker/?group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=440629</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.10">
+	<front>
+	  <title> http://sourceforge.net/tracker/?group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=442294</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.11">
+	<front>
+	  <title>http://sourceforge.net/tracker/?group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=442947</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.12">
+	<front>
+	  <title> http://sourceforge.net/tracker/?group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=445490</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.13">
+	<front>
+	  <title>http://sourceforge.net/tracker/?group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=455164</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.14">
+	<front>
+	  <title> http://sourceforge.net/tracker/?group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=460677</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.15">
+	<front>
+	  <title> http://sourceforge.net/tracker/?group_id=27927&amp;atid=392231&amp;func=detail&amp;aid=477934</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.16">
+	<front>
+	  <title>http://groups.yahoo.com/group/pndev/message/5718</title>
+	  <author>
+	    <organization></organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.17">
+	<front>
+	  <title>http://groups.yahoo.com/group/pndev/message/8363</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.18">
+	<front>
+	  <title> http://www.cgsa.net/php/identifierShow.php</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+      <reference anchor="refs.19">
+	<front>
+	  <title>http://groups.yahoo.com/group/PN-Data/message/28</title>
+	  <author>
+	    <organization>unknown</organization>
+	  </author>
+	  <date year="unknown"/>
+	</front>
+      </reference>
+    </references>
+  </back>
 </rfc>

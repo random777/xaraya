@@ -35,7 +35,8 @@ frmgen;Form generator	    ;	       ;	;	    ;0	     ;1	  ;?	     ;scn1.1
 trswed;Swedish translation  ;	       ;	;	    ;0	     ;1	  ;bjarne    ;scn1.1
 trnorw;Norwegian translation;	       ;	;	    ;0	     ;1	  ;bjarne    ;scn1.1
 dyndat;Dynamic data module  ;	       ;	;prmsys	    ;3	     ;1   ;lady	     ;scn1.1
-upload;Down/Upload module   ;	       ;	;prmsys	    ;3	     ;1	  ;lady	     ;scn1.1
+upload;Upload module        ;2002-11-11;	;prmsys	    ;3	     ;1	  ;lady	     ;scn1.1
+downlo;Download module	    ;	       ;	;prmsys	    ;3       ;1   ;lady      ;scn1.1
 forum ;Forum modules (capi) ;	       ;	;comapi	    ;3	     ;1	  ;lady	     ;scn1.1
 1.1frz;1.1 Freeze           ;          ;14      ;1.0rel     ;0       ;1   ;paul      ;scn1.1
 1.1rel;1.1 Release          ;          ;1       ;1.1frz     ;0       ;2   ;john      ;scn1.1

@@ -56,7 +56,7 @@ Core Classes: these modules should stay with the core to provide basic functiona
 	<t>- core user modules | 'Core User' | user system functions</t>
 	<t> - complete core modules | 'Core Complete' | user and admin functions</t>
 	<t>- core utility modules | 'Core Utility' | cross-module functions</t>
-	<t>- other core modules | 'Core Other' | functions other than above</t>
+	<t>- other core modules | 'Core Miscellaneous' | functions other than above</t>
 </list>    
 </t>
 <t>    
@@ -68,7 +68,7 @@ General Classes: these modules can be added and removed as necessary
 	<t> - general user modules | 'User' | user functions only</t>
 	<t> - general complete modules | 'Complete' | user and admin functions</t>
 	<t>- general utility modules | 'Utility' | cross-module functions</t>
-	<t>- general other modules | 'Other' | functions other than above</t>
+	<t>- general other modules | 'Miscellaneous' | functions other than above</t>
 </list>
 </t>
 <t>    
@@ -130,7 +130,7 @@ Category: 'Content'
 Category: 'Miscellaneous' 
 </t>
 <t>    
-Note: If a module is not classified and categorized yet, it is auto-assigned the class 'Miscellaneous' and the category 'Miscellaneous' 
+Note: If a module is not classified and categorized yet, it is auto-assigned the class 'Unclassified' and the category 'Unclassified' 
 </t>
 <t>    
 Note: Each group of the above categories can be modified, edited or removed, subject to approval by the xaraya-dev group.

@@ -436,7 +436,7 @@
             EditExampleBlock  All       Examples  Block        All         ACCESS_EDIT    
           </artwork>
           
-          The privilege EditExp implies ReadExp.
+          The privilege EditExamples implies ReadExamples.
         </t>
         <t>
           Note that two privileges A and B are considered equal
@@ -482,23 +482,23 @@
           <artwork>    
             ReadAll                      
             |
-            |--DelExp
+            |--DeleteExamples
             |  |
-            |  |--AddExp
+            |  |--AddExamples
             |  
-            |--EditArt
+            |--EditArticles
             |  
-            |--AddArt
+            |--AddArticles
             
             with the following definitions:
             
-            Name     Realm     Module    Component    Instance    Level
-            -------- --------- --------- ------------ ----------- ------------
-            1. ReadAll  All       All       All          All         ACCESS_READ    
-            2. DelExp   All       Examples  All          All         ACCESS_DELETE    
-            3. AddExp   All       Examples  All          All         ACCESS_ADD    
-            4. EditArt  All       Articles  All          All         ACCESS_EDIT    
-            5. AddArt   All       Articles  All          All         ACCESS_ADD   
+            Name                Realm     Module    Component    Instance    Level
+            ------------------- --------- --------- ------------ ----------- ------------
+            1. ReadAll          All       All       All          All         ACCESS_READ    
+            2. DeleteExamples   All       Examples  All          All         ACCESS_DELETE    
+            3. AddExamples      All       Examples  All          All         ACCESS_ADD    
+            4. EditArticles     All       Articles  All          All         ACCESS_EDIT    
+            5. AddArticles      All       Articles  All          All         ACCESS_ADD   
           </artwork>
           It can be seen that, with the definitions given above, 2
           implies 3 and 5 implies 4. Therefore when comparing all the
@@ -514,8 +514,8 @@
           following privileges:
           <artwork>    
             ReadAll
-            DelExp
-            AddArt
+            DeleteExamples
+            AddArticles
           </artwork>
         </t>
         <t>
@@ -530,17 +530,17 @@
           <artwork>    
             ReadAll                      
             |
-            |--DelExp
+            |--DeleteExamples
             |
-            |--AddExp
+            |--AddExamples
             |  
-            |--EditArt
+            |--EditArticles
             |  
-            |--AddArt
+            |--AddArticles
           </artwork>
           [NOTE: MrB: This is somewhat counterintuitive. I would expect the shape of
           the tree to have influence. I understand it technically doesn't, but by 
-          representing it as a tree the user expects AddExp to be "a part of" DelExp, 
+          representing it as a tree the user expects AddExamples to be "a part of" DeleteExamples, 
           whatever that means to him. The difference between "defining" the tree and
           "checking the tree is a concept which is mentally merged for the user.]
         </t>
@@ -569,32 +569,32 @@
           However, note that the operation:
         </t>
         <t>
-          "assign DelExp to FOO"  
+          "assign DeleteExamples to FOO"  
         </t>
         <t>
           will give a different result depending on the shape of the tree, as the following examples show:
           <artwork>    
-            ReadAll                  "assign DelExp to FOO"
+            ReadAll                  "assign DeleteExamples to FOO"
             |
-            |--DelExp
-            |                         Privileges assigned: DelExp
-            |--AddExp                                      AddExp
-               |                                           EditArt
-               |--EditArt                                  AddArt
+            |--DeleteExamples
+            |                         Privileges assigned: DeleteExamples
+            |--AddExamples                                 AddExamples
+               |                                           EditArticles
+               |--EditArticles                             AddArticles
                |  
-               |--AddArt
+               |--AddArticles
           </artwork>
           <artwork>    
             
-            ReadAll                     "assign DelExp to FOO"                
+            ReadAll                     "assign DeleteExamples to FOO"                
             |
-            |--DelExp                    Privileges assigned: DelExp
-            |  |                                              AddExp
-            |  |--AddExp
+            |--DeleteExamples            Privileges assigned: DeleteExamples
+            |  |                                              AddExamples
+            |  |--AddExamples
             |  
-            |--EditArt
+            |--EditArticles
             |  
-            |--AddArt
+            |--AddArticles
           </artwork>
         </t>
       </section>
@@ -606,7 +606,7 @@
         </t>
         <t> 
           The role "Everybody" is assigned the privilege
-          "NoPrivileges". In other words, Everybody can do nothing.
+          "NoAccess". In other words, Everybody can do nothing.
         </t>
         <t> 
           Open Issue: should Everybody be assigned a higher
@@ -614,8 +614,8 @@
           [MrB: no, not by the system, but maybe in the deployment]
         </t>
         <t> 
-          The role Oversight is assigned the privilege
-          FullPrivileges. In other words, members of the Oversight
+          The role Administrators is assigned the privilege
+          FullAccess. In other words, members of the Administrators
           group can do anything.
         </t>
       </section>
@@ -628,13 +628,13 @@
           <artwork>    
             ReadAll                   "assign ReadAll to FOO"
             |
-            |--DelExp
-            |  |                       Privileges assigned: DelExp
-            |  |--AddExp                                    AddExp
-            |                                               EditArt
-            |--EditArt                                      AddArt
+            |--DeleteExamples
+            |  |                       Privileges assigned: DeleteExamples
+            |  |--AddExamples                               AddExamples
+            |                                               EditArticles
+            |--EditArticles                                 AddArticles
             |  
-            |--AddArt
+            |--AddArticles
           </artwork>
           Role FOO will have 5 privileges assigned to him. However the
           same privileges will also be assigned to a child of FOO:
@@ -655,20 +655,20 @@
           what happens when one of them implies the other? To wit:
           
           <artwork>    
-            FOO                 has assigned DelExp                
+            FOO                 has assigned DeleteExamples               
             |
-            |--BAR              has assigned ReadExp
+            |--BAR              has assigned ReadExamples
             
             where
             
-            Name     Realm     Module    Component    Instance    Level
-            -------- --------- --------- ------------ ----------- ------------
-            2. DelExp   All       Examples  All          All         ACCESS_DELETE    
-            3. ReadExp  All       Examples  All          All         ACCESS_READ    
+            Name                Realm     Module    Component    Instance    Level
+            ------------------- --------- --------- ------------ ----------- ------------
+            2. DeleteExamples   All       Examples  All          All         ACCESS_DELETE    
+            3. ReadExamples     All       Examples  All          All         ACCESS_READ    
           </artwork>
           
           In this case the relevant privilege for BAR would be
-          ReadExp, even though its access level is lower, because
+          ReadExamples, even though its access level is lower, because
         </t>
         <t> 
           Rule: For privileges that are not disjoint, those of the
@@ -690,9 +690,9 @@
         <t>	
           The structure of a Schema corresponds to that of a privilege. For example the following Schema
           <artwork>
-            Name     Realm     Module    Component    Instance    Level
-            -------- --------- --------- ------------ ----------- ------------
-            ReadExp  All       Examples  All          All         ACCESS_READ    
+            Name          Realm     Module    Component    Instance    Level
+            ------------- --------- --------- ------------ ----------- ------------
+            ReadExamples  All       Examples  All          All         ACCESS_READ    
           </artwork>
           requires that a user has a privilege assigned with at
           least ACCESS_READ in order to pass a given security check.

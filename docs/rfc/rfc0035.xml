@@ -816,7 +816,7 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       </t><t>
         <em>output():</em> return the query output as a 2 dimensional array where the keys of row elements corespond to the field names in the datatbase.
       </t><t>
-        <em>row():</em> return a single output row as a 1 dimensional array.
+        <em>row($row=0):</em> return a single output row as a 1 dimensional array.
     	</t>
       </list>
       </t>

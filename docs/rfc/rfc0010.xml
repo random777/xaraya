@@ -277,13 +277,19 @@ html/
         </list>
       </t>
       <section title="Referencing data within templates">
-        <t>
+          <t>
           Blocklayout variables are delimited by # ... #. For example, the variable
-          $foo is accessed by the #$foo# directive. String keys in arrays should be
-          single quoted (#$foo['bar']#) rather than double (#$foo["bar"]#).
-        <t>
+          $foo is accessed by the #$foo# directive.
         </t>
-		  In addition to template variables, Blocklayout also allows direct access
+        <t>
+          String keys in arrays should be
+          single quoted (#$foo['bar']#) rather than double (#$foo["bar"]#). An
+          alternative syntax for constant keys uses a 'dot' to specify the keys.
+          #$foo.bar# is equivalent to #$foo['bar']#. These can go down to any
+          level and can include numbers, for example, $foo.bar.dee.2
+        </t>
+        <t>
+          In addition to template variables, Blocklayout also allows direct access
           to a limited set of xarAPI functions (list to be determined). Function
           calls are represented as #xarAPIFunc($arg1, 'arg2')#. Function arguments
           should also be single quoted (as necessary).
@@ -927,7 +933,7 @@ html/
             <artwork>
               &lt;xar:loop name="$module_data"&gt;
                 // stuff
-				&lt;p&gt;#$loop:item.title#&lt;/p&gt;
+                &lt;p&gt;#$loop:item.title#&lt;/p&gt;
               &lt;/xar:loop&gt;
             </artwork>
           </section>

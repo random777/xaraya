@@ -496,3 +496,5 @@ tests/modwizard/lib/.xarmodule.xsl.swp
 tests/modwizard/lib/xaradminapi/.getmenulinks.xsl.swp
 xCode.apf
 ~*
+project.index
+.project

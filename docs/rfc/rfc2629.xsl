@@ -1058,9 +1058,12 @@
   <html lang="{$lang}">
     <head>
       <title><xsl:value-of select="front/title" /></title>
+      <link rel="stylesheet" href="rfc2629.css" name="xaraya" title="Xaraya styled RFC" type="text/css"/>
+      <!--
       <style type="text/css" title="Xml2Rfc (sans serif)">
         <xsl:call-template name="insertCss" />
       </style>
+      -->
       <!-- <link rel="alternate stylesheet" type="text/css" media="screen" title="Plain (typewriter)" href="rfc2629tty.css" /> -->
             
       <!-- link elements -->
@@ -1617,6 +1620,7 @@
 <!-- insert CSS style info -->
 
 <xsl:template name="insertCss">
+    
 a {
   text-decoration: none
 }
@@ -2222,7 +2226,7 @@ table.closedissue {
       </xsl:if>
       <xsl:if test="$xml2rfc-toc='yes'">
         <tr>
-          <td style="background-color: #990000; text-align: center; height: 1.5em;">
+          <td class="link2" style="text-align: center; height: 1.5em;">
             <a href="#{$anchor-prefix}.toc"><b class="link2">&#0160;TOC&#0160;</b></a>
           </td>
         </tr>
@@ -2883,5 +2887,11 @@ table.closedissue {
   </xsl:if>
 </xsl:template>
 
+<!-- Some Xaraya additions -->
+<xsl:template match="em">
+    <b>
+        <xsl:copy><xsl:apply-templates select="node()" /></xsl:copy>
+    </b>
+</xsl:template>
 
 </xsl:stylesheet>

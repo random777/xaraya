@@ -9,6 +9,7 @@ include ("textdb.php");
 // - DONE: keep log of the latest date, so end-date can be set properly
 // - DONE: keep track of predecessors and adjust the dates of successors
 // - DONE: generate basic image map for the gantt chart
+// - DONE: look into caching, to speed things up // cannot be combined with image maps
 // - FIXME: draw arrows from end of predecessor to successors:
 //   This is somewhat complex as we can have several constraints:
 //   a. date constraints
@@ -29,7 +30,6 @@ include ("textdb.php");
 //
 // - FIXME: task can have multiple predecessors, how to handle that 
 // - FIXME: resources available in a separate table
-// - DONE: look into caching, to speed things up // cannot be combined with image maps
 // - FIXME: allow interactive filtering on field to produce subgantts
 // - FIXME: what about PERT-charts
 // - FIXME: define a structured solution for tasks, subtasks etc.
@@ -53,7 +53,7 @@ GLOBAL $HTTP_GET_VARS;
 if (empty($HTTP_GET_VARS['title'])) {
   $title="Xaraya scenario roadmap";
 }
-$revision="2003-02-04";
+$revision="2003-06-25";
 $revtext="(Revision: $revision)";
 $heightfactor=0.5;
 $groupbarheight=0.1;
@@ -67,10 +67,10 @@ $barpattern=BAND_RDIAG;
 $barcolor="#4363E3";
 $textcolor="#000088";
 $mstextcolor="#E47C55";
-$startdate="2002-10-01";
+$startdate="2003-03-01";
 
-//$cachetimeout=60; // If we change the roadmap more than once an hour, we'd better step back from PMC ;-)
-$cachetimeout=0;  // Unless we're debugging this script
+$cachetimeout=60; // If we change the roadmap more than once an hour, we'd better step back from PMC ;-)
+//$cachetimeout=0;  // Unless we're debugging this script
 // End global configs
 
 // Standard calls to create a new graph

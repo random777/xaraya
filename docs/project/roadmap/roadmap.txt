@@ -6,19 +6,19 @@ comapi;Comments API         ;2002-11-01;        ;blyout     ;99      ;1   ;rabbi
 usrsys;User system          ;2002-11-05;        ;blyout     ;90      ;1   ;jan       ;scn1.0;0016
 mlsyst;ML system            ;2002-11-19;        ;blyout     ;90      ;1   ;paul      ;scn1.0;0020
 hooks ;Hooks system         ;2003-01-20;        ;           ;99      ;1	  ;nuncanada ;scn1.0;index
-catego;Categories           ;2002-10-16;        ;           ;99	     ;1	  ;rabbitt   ;scn1.0;index
+catego;Categories           ;2002-10-16;        ;           ;99	     ;1	  ;rabbitt   ;scn1.0;0004
 artmod;Articles module      ;2002-10-20;        ;comapi     ;90      ;1   ;mikespub  ;scn1.0;index
-rating;Ratings              ;2002-11-04;        ;artmod	    ;100     ;1	  ;stego     ;scn1.0;index
+rating;Ratings              ;2002-11-04;        ;artmod	    ;100     ;1	  ;stego     ;scn1.0;0003
 admsys;Administration system;2002-11-18;        ;blyout     ;90      ;1   ;andyv     ;scn1.0;0011
-instal;Local installer	    ;2002-10-05;        ;           ;85	     ;1	  ;johnny    ;scn1.0;index
+instal;Local installer	    ;2002-10-05;        ;           ;85	     ;1	  ;johnny    ;scn1.0;0008
 modcon;Module conversion    ;2002-11-15;120     ;blyout	    ;100     ;1	  ;xarayageek;scn1.0;0017
 statsm;Statistics module    ;2002-10-02;125     ;blyout     ;100     ;1   ;besfred   ;scn1.0;index
-xardocs;xarAPI/xarMDG sync  ;2002-10-01;        ;           ;50	     ;1	  ;drew	     ;scn1.0;index
-usrdoc;User doc. sync       ;2002-10-01;        ;           ;30	     ;1	  ;drew	     ;scn1.0;index
+xardocs;xarAPI/xarMDG sync  ;2002-10-01;        ;           ;50	     ;1	  ;drew	     ;scn1.0;0039
+usrdoc;User doc. sync       ;2002-10-01;        ;           ;30	     ;1	  ;drew	     ;scn1.0;0038
 market;Marketing scenario   ;2002-10-01;        ;           ;40	     ;1	  ;?         ;scn1.0;index
 ldap  ;LDAP authentication  ;2002-11-21;14      ;           ;100     ;1   ;miko	     ;scn1.0;0014
 dyndat;Dynamic data module  ;2002-11-01;        ;prmsys	    ;90	     ;1   ;mike	     ;scn1.0;0007
-unitst;Integrated testing   ;          ;        ;     	    ;90	     ;1	  ;marcel    ;scn1.1;0029
+unitst;Integrated testing   ;2003-03-13;        ;     	    ;90	     ;1	  ;marcel    ;scn1.1;0029
 prmsys;Permission system    ;2002-12-01;        ;           ;90      ;1   ;marc      ;scn1.0;0030
 1.0frz;1.0 Freeze           ;          ;14      ;admsys     ;0       ;1   ;paul      ;scn1.0;0028
 1.0rel;1.0 Release          ;          ;1       ;1.0frz     ;0       ;2   ;john      ;scn1.0;0028
@@ -26,19 +26,19 @@ prmsys;Permission system    ;2002-12-01;        ;           ;90      ;1   ;marc 
 scn1.1;Release 1.1 scenarios;          ;        ;           ;0       ;0   ;john      ;      ;index
 blwidg;Blocklayout widget   ;          ;        ;blyout	    ;0	     ;1	  ;dracos    ;scn1.1;0010
 submod;Subscription modules ;2002-10-14;        ;           ;75	     ;1	  ;miko      ;scn1.1;0024
-multdb;Multidatabase support;          ;21      ;           ;0	     ;0	  ;gary	     ;scn1.1;index
-dbpg  ;Postgres support     ;2002-11-01;21      ;           ;80	     ;1	  ;gary	     ;multdb;index
-dbor  ;Oracle support       ;          ;21      ;dbpg       ;40      ;1   ;gary	     ;multdb;index
-dbms  ;Mssql support        ;          ;21      ;dbor       ;0	     ;1	  ;gary	     ;multdb;index
+multdb;Multidatabase support;          ;21      ;           ;0	     ;0	  ;gary	     ;scn1.1;0045
+dbpg  ;Postgres support     ;2002-11-01;21      ;           ;80	     ;1	  ;jason     ;multdb;0045
+dbor  ;Oracle support       ;          ;21      ;dbpg       ;40      ;1   ;gary	     ;multdb;0045
+dbms  ;Mssql support        ;          ;21      ;dbor       ;0	     ;1	  ;gary	     ;multdb;0045
 xarpro;xProject             ;2002-10-01;35      ;prmsys	    ;70      ;1	  ;stego     ;scn1.1;0009
 hlpsys;Help system          ;2002-12-01;21      ;blwidg	    ;80	     ;1	  ;gregor    ;scn1.1;0019
 clntef;Client efforts       ;	         ;        ;           ;0	     ;1   ;?	       ;scn1.1;index
-modgen;Module generator	    ;	         ;        ;          ;60	     ;1	  ;?	       ;scn1.1;index
+modgen;Module generator	    ;2003-03-01;        ;           ;60	     ;1	  ;mjansen   ;scn1.1;index
 frmgen;Form generator       ;	         ;        ;           ;0	     ;1	  ;?	       ;scn1.1;index
-trswed;Swedish translation  ;	         ;        ;           ;0	     ;1	  ;bjarne    ;scn1.1;index
-trnorw;Norwegian translation;	         ;        ;           ;0	     ;1	  ;bjarne    ;scn1.1;index
-upload;Upload module        ;2002-11-11;        ;prmsys	    ;90	     ;1	  ;lady	     ;scn1.1;index
-downlo;Download module	    ;	         ;        ;prmsys	    ;3       ;1   ;lady      ;scn1.1;index
+trswed;Swedish translation  ;	         ;        ;           ;0	     ;1	  ;bjarne    ;scn1.1;0020
+trnorw;Norwegian translation;	         ;        ;           ;0	     ;1	  ;bjarne    ;scn1.1;0020
+upload;Upload module        ;2002-11-11;        ;prmsys	    ;90	     ;1	  ;lady	     ;scn1.1;0033
+downlo;Download module	    ;	         ;        ;prmsys	    ;3       ;1   ;lady      ;scn1.1;0033
 forum ;Forum modules (capi) ;	         ;        ;comapi	    ;60	     ;1	  ;john	     ;scn1.1;index
 1.1frz;1.1 Freeze           ;          ;14      ;1.0rel     ;0       ;1   ;paul      ;scn1.1;0028
 1.1rel;1.1 Release          ;          ;1       ;1.1frz     ;0       ;2   ;john      ;scn1.1;0028
@@ -46,10 +46,10 @@ forum ;Forum modules (capi) ;	         ;        ;comapi	    ;60	     ;1	  ;john	
 scn1.2;Release 1.2 scenarios;          ;        ;           ;0       ;0   ;john      ;      ;0028
 pckrpm;Packaging into RPM   ;          ;28      ;submod	    ;0	     ;1	  ;miko	     ;scn1.2;index
 pckdeb;Packaging into DEB   ;	         ;21      ;pckrpm	    ;0	     ;1	  ;miko	     ;scn1.2;index
-modupg;Module install/upg.  ;	         ;        ;           ;0	     ;1	  ;?	       ;scn1.2;index
+modupg;Module install/upg.  ;	         ;        ;           ;0	     ;1	  ;?	       ;scn1.2;0017
 webdav;WebDAV support	      ;	         ;28      ;           ;0	     ;1	  ;?	       ;scn1.2;index
 syncml;SyncML support	      ;	         ;28      ;           ;0	     ;1	  ;?	       ;scn1.2;index
-workfl;Workflow engine	    ;	         ;49      ;           ;0	     ;1	  ;marcel    ;scn1.2;index
+workfl;Workflow engine	    ;	         ;49      ;           ;0	     ;1	  ;marcel    ;scn1.2;0037
 docman;Document management  ;	         ;        ;           ;	       ;1   ;miko	     ;scn1.2;index
 1.2frz;1.2 Freeze           ;          ;14      ;1.1rel     ;0       ;1   ;paul      ;scn1.2;0028
 1.2rel;1.2 Release          ;          ;1       ;1.2frz     ;0       ;2   ;john      ;scn1.2;0028

@@ -39,20 +39,20 @@
       </address>
     </author>
     <date month="March" year="2003"/>
-  
+
     <!-- Initiating team for this RFC -->
     <workgroup>Project Management Committee</workgroup>
-    
+
     <!-- List keywords for the RFC here -->
     <keyword>coding</keyword>
     <keyword>standard</keyword>
-    
+
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>This RFC lists all the coding standards applicable for the Xaraya project.</t>
     </abstract>
   </front>
-  
+
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
     <!-- Introduction is mandatory -->
@@ -62,19 +62,21 @@
       	PEAR coding standard</eref> and the specific Xaraya standards into one document.
       </t>
     </section>
-    
+
     <section title="PHP Code Tags">
       <t>
-        <em>Always</em> use <em>&amp;lt;?php ?&amp;gt;</em> to delimit PHP code, not 
-        the <em>&amp;lt;? ?&amp;gt;</em> shorthand. This is required for PEAR compliance and is 
+        <em>Always</em> use <em>&lt;?php ?&gt;</em> to delimit PHP code, not
+        the <em>&lt;? ?&gt;</em> shorthand. This is required for PEAR compliance and is
         also the most portable way to include PHP code on differing operating systems and setups.
       </t>
+      <t></t>
+      <t><em>Note:</em>Short tags will also cause the php parser to choke on &lt;?xml ?&gt; tags</t>
     </section>
 
     <section title="Indenting">
       <t>Use an indent of 4 spaces, with no tabs.</t>
     </section>
- 
+
 	<section title="File ending">
 	  <t>
 	    Use unix file endings, not dos ones. Most editors and IDEs on WindowsOS will provide a choice
@@ -96,10 +98,10 @@
              * @copyright (C) 2002 by the Xaraya Development Team.
              * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
              * @link http://www.xaraya.com
-             * 
+             *
              * @subpackage module name
              * @link  link to information for the subpackage
-             * @author author name &amp;lt;author@email&amp;gt; (this tag means responsible person)
+             * @author author name &lt;author@email&gt; (this tag means responsible person)
              */
           </artwork>
         </t>
@@ -112,18 +114,18 @@
             /**
              * Short description of the function
              *
-             * A somewhat longer description of the function which may be 
+             * A somewhat longer description of the function which may be
              * multiple lines, can contain examples.
              *
-             * @author  Author Name &amp;lt;author@email&amp;gt;
-             * @deprec  date since deprecated &amp;lt;insert this if function is deprecated&amp;gt;
+             * @author  Author Name &lt;author@email&gt;
+             * @deprec  date since deprecated &lt;insert this if function is deprecated&gt;
              * @access  public / private / protected
              * @param   type param1 Description of parameter 1
              * @param   type param2 Description of parameter 2
              * @return  type to return description
              * @throws  list of exception identifiers which can be thrown
-             * @todo    &amp;lt;devname&amp;gt; &amp;lt;#&amp;gt; list of things which must be done to comply to relevant RFC or fix a problem
-             */            
+             * @todo    &lt;devname&gt; &lt;#&gt; list of things which must be done to comply to relevant RFC or fix a problem
+             */
           </artwork>
         </t>
       </section>
@@ -141,8 +143,8 @@
              * may be on multiple lines and can contain examples
              *
              * @package unassigned - replace with packagename
-             * @author Author Name &amp;lt;author@email&amp;gt;
-             * @deprec date since deprecated &amp;lt;insert if class is deprecated&amp;gt;
+             * @author Author Name &lt;author@email&gt;
+             * @deprec date since deprecated &lt;insert if class is deprecated&gt;
              * @todo  todo-item, specify each with new tag
              */
           </artwork>
@@ -150,12 +152,19 @@
       </section>
     </section>
 
+    <section title="Variable Naming">
+      <t>Consistant variable naming eases the readability of code. We recommend (fill in the blank)</t>
+      <t>Example:</t>
+      <t><artwork>
+         Example array key and variable usage 
+      </artwork></t>
+    </section>
 	<section title="Control Structures">
 	  <t>
 	    These include if, for, while, switch, etc. Here is an example if statement, since it is the
 	    most complicated of them:
 	    <artwork>
-	      &amp;lt;?php
+	      &lt;?php
 		  if ((condition1) || (condition2)) {
 		      action1;
 		  } elseif ((condition3) &amp;&amp; (condition4)) {
@@ -163,18 +172,18 @@
 		  } else {
 		      defaultaction;
 		  }
-		  ?&amp;gt;
+		  ?&gt;
 	    </artwork>
-        Control statements should have one space between the control keyword and opening parenthesis, 
+        Control statements should have one space between the control keyword and opening parenthesis,
         to distinguish them from function calls.
 	  </t>
 	  <t>
-	    You are strongly encouraged to always use curly braces even in situations where they are 
-	    technically optional. Having them increases readability and decreases the likelihood of 
+	    You are strongly encouraged to always use curly braces even in situations where they are
+	    technically optional. Having them increases readability and decreases the likelihood of
 	    logic errors being introduced when new lines are added.
 		For switch statements:
 		<artwork>
-		  &amp;lt;?php
+		  &lt;?php
 		  switch (condition) {
 		  case 1:
 		      action1;
@@ -188,7 +197,7 @@
 		      defaultaction;
 		      break;
 		  }
-		  ?&amp;gt;
+		  ?&gt;
 		</artwork>
 	  </t>
 	</section>
@@ -199,9 +208,9 @@
 	    and the first parameter; spaces between commas and each parameter, and no space between the 
 	    last parameter, the closing parenthesis, and the semicolon. Here's an example:
 	    <artwork>
-	      &amp;lt;?php
+	      &lt;?php
 		  $var = foo($bar, $baz, $quux);
-		  ?&amp;gt;
+		  ?&gt;
 	    </artwork>
 	  </t>
 	  <t>
@@ -209,10 +218,10 @@
 	    the return value of a function to a variable. In the case of a block of related assignments, 
 	    more space may be inserted to promote readability:
 	    <artwork>
-		  &amp;lt;?php
+		  &lt;?php
 		  $short         = foo($bar);
 		  $long_variable = foo($baz);
-		  ?&amp;gt;
+		  ?&gt;
 	    </artwork>
 	  </t>
 	</section>
@@ -221,7 +230,7 @@
 	  <t>
 		Function declarations follow the "one true brace" convention:
 		<artwork>
-		  &amp;lt;?php
+		  &lt;?php
 		  function fooFunction($arg1, $arg2 = '')
 		  {
 		      if (condition) {
@@ -229,7 +238,7 @@
 		      }
 		      return $val;
 		  }
-		  ?&amp;gt;
+		  ?&gt;
 		</artwork>
 	  </t>
 	</section>
@@ -297,8 +306,8 @@
         The following naming conventions are used:
         <list style="numbers">
           <t>public functions start with "xar"</t>
-          <t>protected functions start with "_" (one underscore)</t>
-          <t>private functions start with "__" (two underscores)</t>
+          <t>protected functions start with "xarFoo_" (one underscore)</t>
+          <t>private functions start with "xarFoo__" (two underscores)</t>
         </list>
       </t>
     </section>

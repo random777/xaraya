@@ -8,43 +8,53 @@ placeholders for web-applications.
 We treat the maintenance process for websites basically the
 same as the process for maintaining the source code. This means
 that bk will play an important role in it. As the setup can
-be fairly comples, this document contains information for 
+be fairly complex, this document contains information for 
 maintainers and developers to be able to use it.
 
-------------------------------------------
+-------------------------------------------------------------
 Overview
-------------------------------------------
-For the websites we use a staging, production process which
+-------------------------------------------------------------
+The basic principle is simple. We put the files which represent
+the content of a website in a bk repository. This repository 
+is then cloned to locations where it needs to be viewable.
+Some websites may be subject to a staged process for increased
+control over their changes. The thing to remember is that work
+is done in the repository and from their the stuff gets "promoted"
+to clones in which testing can be done. This promotion can be
+manually or automatic. Currently we expect only the www.xaraya.com
+website to fall under this process.
+
+-------------------------------------------------------------
+Process details
+-------------------------------------------------------------
+For websites we may use a staging, production process which
 means that all changes are made in a staging environment, 
 which is used to gather all improvements and when stable 
 enough will be published to the production environment.
 
-So the basic hierarchy which holds the content for *all* 
-sites needed by the Xaraya group is as follows:
+So the basic hierarchy which holds the content for a
+website needed by the Xaraya group is as follows:
 
-            webs-production
+            web-production
                   ^
-                  |
-                  |
-		  |    (publish)
-		  ^
-		  |
-		  |
-             webs-staging
+                  | 
+                  | (publish)
+		              |
+		              |
+             web-staging
                   ^
-	          |
-		  |
-		  |    (promote)
-		  ^
-		  |
-		  |
-             webs-development (concept)
+	                |
+		              | (promote)
+		              | 
+		              ^
+		              |
+		              |
+             web-development (concept)
 			 
-
-------------------------------------------
+--------------------------------------------------------------
 Why Three Environments?
-------------------------------------------
-While on the surface, the 3-stage evironment may
+--------------------------------------------------------------
+While on the surface, the 3-stage environment may
 may appear to be an unneccesary layer of bueracracy, it 
 serves several very important functions:
 
@@ -60,15 +70,14 @@ Once the developer is comfortable that his changes are
 ready for review, he promotes them to Staging for review
 by the appropriate stakeholders.
 
-Xaraya Code BK Analog :: Xaraya-main repos
-
-Xaraya Code BK Analog :: developers clone  ?
+Xaraya Code BK Analog :: developers clone  
+URL: https://concept.xaraya.com/<subdir>
 
 STAGING = Pre-Release Review [TWEAK]
 ------------------------------------------
 Once proven and fixed in DEV, code and content is pushed
-to Staging, which is an exact mirror of Production.  This 
-is the environment where folks are asked to look at pending
+to Staging, which is ultimately an exact mirror of Production.  
+This is the environment where folks are asked to look at pending
 releases (code, content, graphics) for a pre-release sanity 
 check.  It exists so reviewers can see the release precisely 
 as it is intended to appear in production. Typos and minor
@@ -78,9 +87,8 @@ back to DEV if needed.
 Once all stakeholders have reviewed and signed off, the
 content can be published to production.
 
-Xaraya Code BK Analog :: Xaraya-stable repos
-
-Xaraya Code BK Analog :: Xaraya-main repos ?
+Xaraya Code BK Analog :: Xaraya-main repos
+URL: https://staging.xaraya.com/<subdir>
 
 PRODUCTION = Live to the Web [RELEASE]
 ------------------------------------------
@@ -89,24 +97,23 @@ we caught everything in Dev/Staging.  If not, bugs are
 fixed as needed in DEV and pushed back up through STAGING
 for review and publication.
 
-Xaraya Code BK Analog :: NONE [Release 1.0]
-
 Xaraya Code BK Analog :: Xaraya-stable repos
+URL: diverse
 
-------------------------------------------
+----------------------------------------------------------
 Web Repositories
------------------------------------------- 
-The web repository contains a subdir for each 
-website managed by this process, currently it has the 
-following layout:
+---------------------------------------------------------- 
+Each website has its own repository and as such is viewed as
+a computer program with sources to be managed.
 
-reposroot/
-    bk/        ---> content for bk.xaraya.com (ultimately)
-    bugs/      ---> content for bugs.xaraya.com (ultimately)
-    www/       ---> content for www.xaraya.com (ultimately)
-    developer/ ---> content for developer.xaraya.com (ultimately)
-    news/      ---> content for news.xaraya.com (ultimately)
-    scripts    ---> scripts which glue web repositories to other repositories (if necessary)
+Currently the following repositories are needed:
+
+bk         ---> bk.xaraya.com 
+bugs       ---> bugs.xaraya.com
+www        ---> www.xaraya.com 
+developer  ---> developer.xaraya.com 
+news       ---> news.xaraya.com
+docs       ---> docs.xaraya.com
 
 If both webs-staging and webs-production repositories are in place
 there is a nice structure to edit the content and make sure it's 
@@ -116,106 +123,89 @@ so we have to define a relation between the "bk-space" and the "web-space"
 ------------------------------------------
 Relation between bk and web-space
 ------------------------------------------
-web-space: /var/www and below (http)
-bk-space : /usr/local/repositories and below
+web-space: /var/www(-ssl) and below (http(s))
+bk-space : /usr/local/repositories/websites and below
 
-Option for creating a relation between the two
+The web-space is created  by cloning the repository into
+the right location (either www or www-ssl)
 
-1. (sym)links from the webspace to the appropriate subdirs in the bk-space or apache Alias directive
-2. (l)clone in the web-space (copy)
-3. script which extracts files from the repository and copies them to
-   the web-space
-
-A simple table with capabilities of each option:
- 
-		        1	2	3
-------------------------------------------
-Immediate result	++	+	-	(optional)
-Remote management	+	++	-
-Easy to customize	+	-	++
-Scalable		-	++	-
-Easy to secure		+	+	++
-Relation		+	++	-
-Code integration	+	-	++
-Dynamic sites		++	+	++
-Per site updates	+	-	++
-
-This list was created in 2 minutes, so don't assign
-too much value to it. 
-
-Because currently the sites are all in one repository
-per site publishing is more difficult. Because we only
-need the process (at this time) for the www site, it
-is not really a problem at this time. If we want per
-site control we either have to create a repository 
-for each site, or wait for the nested repositories 
-feature of bk.
+The files which don't need to be version controlled should
+be outside the clone as much as possible. It should be 
+no problem in principle to have files in the clone space
+which are not under version control. They will be ignored
+by the publishing process.
 
 ------------------------------------------
 Examples for use:
 ------------------------------------------
 - making changes to websites:
-Make the change in local clone and push
+Make the change in local clone and push to
+relevant repository on server.
 
 - publishing the site on server: 
-in web-staging: bk push 
-
-remote: 
- - bk pull web-staging
- - bk parent web-production
- - bk pull (should not do anything, just a check)
- - bk push
- - bk parent web-staging
-
+-- staging views are handled by a push trigger, reflecting
+   each change immediately in the staging environment
+-- production views are handled manually by pulling into 
+   the web-space or doing a controlled push remotely
+   (contact Marcel first if you haven't done this before)
 
 ------------------------------------------
 Actual Web Implementation(s):
 ------------------------------------------
 
-DEVELOPEMENT SITE for *.xaraya.com
-------------------------------------------
-URL: https://concept.xaraya.com
-DIR: /var/www-ssl/ddf/concept.xaraya.com
-
-Relevant Subdirs
-	1. /var/www-ssl/ddf/dev.xaraya.com/www/
-	2. /var/www-ssl/ddf/dev.xaraya.com/developer/
-	3. /var/www-ssl/ddf/dev.xaraya.com/bk/
-	4. /var/www-ssl/ddf/dev.xaraya.com/bugs/	
-	5. /var/www-ssl/ddf/dev.xaraya.com/news/
+Site: bk.xaraya.com
+--------------------
+Repository : /usr/local/repositories/websites/bk
+Development clone: N/A
+Staging clone: /var/www-ssl/ddf/staging.xaraya.com/bk/
+Production clone: /var/www/ddf/bk.xaraya.com
 
 
-STAGING SITE for *.xaraya.com
-------------------------------------------
-URL: https://staging.xaraya.com 
-DIR: /var/www-ssl/ddf/staging.xaraya.com
+Site: bugs.xaraya.com
+---------------------
+Repository : /usr/local/repositories/websites/bugs
+Development clone: N/A
+Staging clone: 	/var/www-ssl/ddf/staging.xaraya.com/bugs/
+Production clone: /var/www/ddf/bugs.xaraya.com
 
-Relevant Subdirs
-	1. /var/www-ssl/ddf/staging.xaraya.com/www/
-	2. /var/www-ssl/ddf/staging.xaraya.com/developer/
-	3. /var/www-ssl/ddf/staging.xaraya.com/bk/
-	4. /var/www-ssl/ddf/staging.xaraya.com/bugs/	
-	5. /var/www-ssl/ddf/staging.xaraya.com/news/
+As this site is bugzilla, this might need some extra stuff.
+Problems observed:
+- some program (either bk or a perl module) is creating SCCS dirs
+  which confuses the publishing process.
+
+Site: www.xaraya.com
+--------------------
+Repository : /usr/local/repositories/websites/www
+Development clone: /var/www-ssl/ddf/concept.xaraya.com/www/
+Staging clone: /var/www-ssl/ddf/staging.xaraya.com/www/
+Production clone: /var/www/ddf/www.xaraya.com/
+
+
+Site: developer.xaraya.com
+--------------------------
+Repository : /usr/local/repositories/websites/developer
+Development clone: N/A
+Staging clone : /var/www-ssl/ddf/staging.xaraya.com/www/
+Production clone: /var/www-ssl/ddf/developer.xaraya.com
+
+Site : news.xaraya.com
+----------------------
+Repository : /usr/local/repositories/websites/news
+Staging clone: /var/www-ssl/ddf/staging.xaraya.com/news
+Production clone: /var/www/ddf/news.xaraya.com
+
+Site: docs.xaraya.com
+--------------------
+Repository : /usr/local/repositories/websites/docs
+Development clone: N/A
+Staging clone:  /var/www-ssl/ddf/staging.xaraya.com/docs
+Production clone: /var/www/ddf/docs.xaraya.com
+
 
 	
-PRODUCTION SITES (*.xaraya.com)
-------------------------------------------
-URL: http://www.xaraya.com
-DIR: /var/www/ddf/www.xaraya.com	
+NOTES: 
 
-URL: https://developer.xaraya.com
-DIR: /var/www-ssl/ddf/www.xaraya.com	
-
-URL: http://bk.xaraya.com
-DIR: /var/www/ddf/bk.xaraya.com	
-
-URL: http://bugs.xaraya.com
-DIR: /var/www/ddf/bugs.xaraya.com	
-
-URL: http://news.xaraya.com
-DIR: /var/www/ddf/news.xaraya.com	
-
-NOTE: In the dev and staging environments, the 
+- In the dev and staging environments, the 
 webroot contains a simple index.html file with 
 pointer links to the various subdirs that comprise
 the dev/staging environment for a given subdomain 
@@ -234,11 +224,11 @@ DNS/HTTPD changes to create the subdomain.
 
 COMMENTS:
 - Can we leave out the dev environment? If things get more complex
-  later on we can always add a layer.
+  later on we can always add a layer. -> dev environment is optional, don't clone if not needed.
 - Not all sites will want this process. For instance the bugs site will not use it. 
   Therefore there must be a mechanism for site admins to be able to check changes direct 
-  into the production repository, if they have permission.
+  into the production repository, if they have permission. -> one staging site is higly recommended,
+  but it can be done by cloning the repository directly into the productionn environment.
   With the above process this can be done by cloning the production repository directly.
   The "central" part of these sites which don't need the layered process is just one
   level higher than the others. 
-- 

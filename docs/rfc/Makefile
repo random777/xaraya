@@ -8,7 +8,7 @@ xdtd=rfc2629.dtd
 xindex=rfcindex
 
 SOURCES=$(shell bk sfiles -g | grep ".xml")
-IDXSOURCES= _indexprolog.txt _indexepilog.txt _indexbuild
+IDXSOURCES= _indexprolog.txt _indexepilog.txt _indexbuild _rfctitle.xslt
 
 SOURCENAMES = $(basename $(notdir $(SOURCES)))
 

@@ -1087,9 +1087,9 @@ html/
             <artwork>
               &lt;xar:if condition="$func eq 'editStory'"&gt;
                 // stuff
-              &lt;xar:elseif condition="$func eq 'saveStory'"&gt;
+              &lt;xar:elseif condition="$func eq 'saveStory'" /&gt;
                 //more stuff
-              &lt;xar:elseif condition="$func eq 'viewStory'"&gt;
+              &lt;xar:elseif condition="$func eq 'viewStory'" /&gt;
                 //still more stuff
               &lt;xar:else /&gt;
                 //even more stuff

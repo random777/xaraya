@@ -148,17 +148,17 @@
       <t>
         Each module, in turn, can implement an event handler function, that will be
         executed as soon as the corresponding event is being triggered by the core.
-        The function must be situated in the file xaruserapi.php of the module and
+        The function must be situated in the file xareventapi.php of the module and
         must adhere the following naming convention:
         <artwork>
-          function {$modName}_userapievt_on$EventName($arg)
+          function {$modName}_eventapi_On$EventName($arg)
           {
             // event handler code, e.g. db interaction, ...
           }
         </artwork>
         Example:
         <artwork>
-          function sniffer_userapievt_OnSessionCreate($arg)
+          function sniffer_eventapi_OnSessionCreate($arg)
           {
 		  	    // browsersniffing
 		      }

@@ -960,7 +960,7 @@ html/
           <section title="Syntax examples">
             <t>
             <artwork>
-              &lt;xar:foreach in="hooks" key="hookmodule" value="hookoutput"&gt;
+              &lt;xar:foreach in="$hooks" key="$hookmodule" value="$hookoutput"&gt;
                 // stuff to process
               &lt;/xar:foreach&gt;
             </artwork>

@@ -1,7 +1,7 @@
 *id;label;start;duration;predecessor;progress;type;lead;part_of;
 
 scn1.0;Release 1.0 scenarios;2002-10-01;        ;           ;0       ;0   ;john      ;
-blyout;Blocklayout          ;2002-10-01;49      ;           ;30      ;1   ;dracos    ;scn1.0
+blyout;Blocklayout          ;2002-10-01;49      ;           ;75      ;1   ;dracos    ;scn1.0
 comapi;Comments API         ;2002-11-01;14      ;blyout     ;30      ;1   ;rabbitt   ;scn1.0
 usrsys;User system          ;2002-10-21;14      ;blyout     ;30      ;1   ;jan       ;scn1.0
 mlsyst;ML system            ;          ;30      ;blyout     ;70      ;1   ;marco     ;scn1.0
@@ -9,8 +9,8 @@ hooks ;Hooks system	    ;	       ;	;	    ;	     ;1	  ;?	     ;scn1.0
 catego;Categories	    ;2002-10-16;21	;	    ;40	     ;1	  ;rabbitt   ;scn1.0
 artmod;Articles module      ;2002-10-20;14      ;comapi     ;30      ;1   ;mikespub  ;scn1.0
 rating;Ratings		    ;2002-11-04;5	;artmod	    ;30	     ;1	  ;stego     ;scn1.0
-faqsys;FAQ		    ;2002-10-25;7	;hooks	    ;80%     ;1	  ;stego     ;scn1.0
-links ;Links		    ;2002-10-01;7	;artmod	    ;80%     ;1	  ;stego     ;scn1.0
+faqsys;FAQ		    ;2002-10-25;7	;hooks	    ;80      ;1	  ;stego     ;scn1.0
+links ;Links		    ;2002-10-01;7	;artmod	    ;80      ;1	  ;stego     ;scn1.0
 admsys;Administration system;          ;30      ;blyout     ;40      ;1   ;andyv     ;scn1.0
 instal;Local installer	    ;2002-10-05;21	;	    ;30	     ;1	  ;johnny    ;scn1.0
 modcon;Module conversion    ;2002-11-15;14	;blyout	    ;0	     ;1	  ;xarayageek;scn1.0
@@ -27,11 +27,16 @@ submod;Subscription modules ;2002-10-14;35	;	    ;45	     ;1	  ;miko      ;scn1.
 unitst;Integrated testing   ;	       ;21	;blwidg	    ;0	     ;1	  ;marcel    ;scn1.1
 multdb;Multidatabase support;	       ;21	;	    ;0	     ;1	  ;gary	     ;scn1.1
 prmsys;Permission system    ;          ;        ;           ;0       ;1   ;?         ;scn1.1
-pnproj;pnProject	    ;2002-10-01;35	;prmsys	    ;70%     ;1	  ;stego     ;scn1.1
+pnproj;pnProject	    ;2002-10-01;35	;prmsys	    ;70      ;1	  ;stego     ;scn1.1
 hlpsys;Help system          ;2002-12-01;21	;blwidg	    ;0	     ;1	  ;gregor    ;scn1.1
 clntef;Client efforts	    ;	       ;	;	    ;0	     ;1   ;?	     ;scn1.1
 modgen;Module generator	    ;	       ;	;	    ;0	     ;1	  ;?	     ;scn1.1
 frmgen;Form generator	    ;	       ;	;	    ;0	     ;1	  ;?	     ;scn1.1
+trswed;Swedish translation  ;	       ;	;	    ;0	     ;1	  ;bjarne    ;scn1.1
+trnorw;Norwegian translation;	       ;	;	    ;0	     ;1	  ;bjarne    ;scn1.1
+dyndat;Dynamic data module  ;	       ;	;prmsys	    ;3	     ;1   ;lady	     ;scn1.1
+upload;Down/Upload module   ;	       ;	;prmsys	    ;3	     ;1	  ;lady	     ;scn1.1
+forum ;Forum modules (capi) ;	       ;	;comapi	    ;3	     ;1	  ;lady	     ;scn1.1
 1.1frz;1.1 Freeze           ;          ;14      ;1.0rel     ;0       ;1   ;paul      ;scn1.1
 1.1rel;1.1 Release          ;          ;1       ;1.1frz     ;0       ;2   ;john      ;scn1.1
 

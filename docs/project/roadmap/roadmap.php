@@ -51,7 +51,7 @@ GLOBAL $HTTP_GET_VARS;
 if (empty($HTTP_GET_VARS['title'])) {
   $title="Xaraya scenario roadmap";
 }
-$revision="2002-10-29";
+$revision="2002-11-12";
 $revtext="(Revision: $revision)";
 $heightfactor=0.5;
 $groupbarheight=0.1;

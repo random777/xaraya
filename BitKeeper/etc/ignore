@@ -2669,3 +2669,4 @@ html/modules/scheduler/xaruserapi/index.html
 html/modules/scheduler/xaruserapi/intervals.php
 html/modules/scheduler/xaruserapi/runjobs.php
 html/modules/scheduler/xarversion.php
+html/modules/authsso

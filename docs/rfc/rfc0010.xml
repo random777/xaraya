@@ -1649,7 +1649,7 @@ html/
               <t><em>local</em>: use the local scope of the template to get the variable;</t>
               <t><em>config</em>: get the configuration variable with the specified name;</t>
               <t><em>module</em>: get the module variable with the specified name;</t>
-              <t><em>block></em>: not implemented</t>
+              <t><em>block</em>: not implemented</t>
               <t><em>theme</em> : get the theme variable with the specified name;</t>
               <t><em>user</em>  : get the user variable with the specified name;</t>
               <t><em>session</em> : get the session variable with the specified naem;</t>
@@ -1673,6 +1673,12 @@ html/
                 </t>
                 <t><em>name</em>
                   <t>String specifying the name of the variable to retrieve within
+                    the given scope
+                  </t>
+                </t>
+                <t><em>module</em>
+                  <t>String specifying the modulename to get the variable from; this is only
+                    applicable when scope is module. Otherwise the value is ignored.
                     the given scope
                   </t>
                 </t>

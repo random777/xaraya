@@ -1,9 +1,8 @@
 <?php
 
-class testBLCompiler extends xarTest {
-
+class testBLCompiler extends xarTestCase {
     var $myBLC;
-
+    
     function setup() {
         include_once '../xarCore.php';
         include_once '../xarVar.php';
@@ -11,7 +10,7 @@ class testBLCompiler extends xarTest {
         include_once '../xarBLCompiler.php';
         $this->myBLC = new xarTpl__Compiler;
     }
-
+    
     function precondition() {
         // Abort on bogus file: must not exist
         if (file_exists('doesntexist')) return false;
@@ -20,26 +19,35 @@ class testBLCompiler extends xarTest {
         return true;
     }
 
-    function testnotNull() { 
-	$this->label('BL Compiler Instantiation');
-        $this->assertNotNull($this->myBLC);
+    function teardown () {
+        // not needed here
     }
-
+    
+    function testTrue() {
+        return $this->assertTrue(true,"Should always pass");
+    }
+    
+    function testFailure() {
+        return $this->assertTrue(1==2,"Should always fail");
+    }
+    
+    function testnotNull() { 
+        return $this->assertNotNull($this->myBLC,"BL Compiler Instantiation");
+    }
+    
     function testnoData() {
-	$this->label('Abort on bogus file');
-        $this->assertNull($this->myBLC->compileFile('doesntexist'));
+        return $this->assertNull($this->myBLC->compileFile('doesntexist'),"Compile on bogus file");
     }
     
     function testCompilenotnull() {
-        $this->assertnotNull($this->myBLC->compileFile('test.xt'));
+        return $this->assertnotNull($this->myBLC->compileFile('test.xt'),"Compile valid file");
     }
-
+    
     function testCompile() {
-        $this->assertTrue($this->myBLC->compileFile('test.xt'));
+        return $this->assertTrue($this->myBLC->compileFile('test.xt'),"Compile valid file(2)");
     }
 }
 
-$suite->AddTestCase('testBLCompiler');
-
+$suite->AddTestCase('testBLCompiler','Testing Blocklayout compiler');
 
 ?>

@@ -14,49 +14,59 @@
  * @author Marcel van der Boom <marcel@xaraya.com>
  */
 
-// Prefix of testmethods
+/**
+ * Prefix of testmethods which can be added automatically
+ *
+ */
 define('UT_PREFIXTESTMETHOD','test');
-define('UT_SUCCESS',1);
-define('UT_FAILURE',2);
-define('UT_EXCEPTION',3);
-
+define('UT_OUTLENGTH',50);
 /**
   * class xarTestSuite
   * 
   */
-
-class xarTestSuite
-{
-    var $_name;
+class xarTestSuite {
+    var $_name;                // Name of this testsuite
+    var $_testcases = array(); // array which holds all testcases
     
     /**
-     * Array of testCase objects in this testsuite
+     * Constructor just sets the name attribute
      */
-    var $_testcases = array();
-    
-    
-    /**Attributes: */
-    
-
     function xarTestSuite($name='default') {
         $this->_name=$name;
     }
     
-    function addtestcase($testCase,$name='') {
-        if (class_exists($testCase)) {
-            $this->TestCases[]=new xarTestCase($testcase,$name);
+    /**
+     * Add a testcase object to the testsuite
+     */
+    function AddTestCase($testClass,$name='') {
+        // Make sure the class exist
+        if (class_exists($testClass)) {
+            if ($name=='') { $name=$testClass; }
+            $this->_testcases[$name]=new xarTestCase($testClass,$name,true);
         }
     }
 
+    /**
+     * Run the testcase 
+     */
     function run() {
         foreach($this->_testcases as $testcase) {
             $testcase->runTests();
         }
     }
+
+    /**
+     * Report the results of this suite
+     */
     function report($type='text') {
-        foreach ($this->_testcases as $tests) {
-            foreach ($tests as $test ) {
-                echo "$test->label : $test->_result \n";
+        echo "TestSuite: ".$this->_name."\n";
+        foreach (array_keys($this->_testcases) as $casekey) {
+            echo "|- TestCase: ".$this->_testcases[$casekey]->_name."\n";
+            $tests =& $this->_testcases[$casekey]->_tests;
+            foreach (array_keys($tests) as $key ) {
+                $result =& $tests[$key]->_result;
+                echo "  |- ". str_pad($result->_message,UT_OUTLENGTH,".",STR_PAD_RIGHT) . 
+                    (get_class($result)=="xartestsuccess"?"Passed":"FAILED") . "\n";
             }
         }
     }
@@ -68,38 +78,52 @@ class xarTestSuite
  *
  *
  */
-class xarTestCase {
-    
-    var $name;
-    var $testClass;
-    var $_tests;  // xarTest
-    var $_result; // xarTestResult
+class xarTestCase extends xarTestAssert {
+    var $_name;           // Name of this testcase
+    var $_tests=array();  // xarTest objects
   
     /**
      * Construct the testCase, make sure we only construct the 
      * array of test objects once 
      */
-    function xarTestCase($testClass,$name='') {
-        $this->name=$name;
-        $this->testClass=$testClass;
-        $this->_collecttests();
-    }
-    
-    function runTests(){
-        foreach ($this->_tests as $test) {
-            $test->run();
+    function xarTestCase($testClass='',$name='',$init=false) {
+        if ($init) {
+            $this = new $testClass();
+            $this->_name=$name;
+            $this->_collecttests();
         }
     }
 
+    // Abstract functions, these should be implemented in the actual test class
+    function setup() {} 
+    // Precondition for a testcase default to true when not defined 
+    function precondition() { return true; }
+    function teardown() {}
+
+    function runTests() {
+        foreach(array_keys($this->_tests) as $key) {
+            $this->_tests[$key]->run();
+        }
+    }
+
+    function pass($msg='Passed') {
+        $res = array('value' => true, 'msg' => $msg);
+        return $res;
+    }
+
+    function fail($msg='Failed') {
+        $res = array('value' => false, 'msg' => $msg);
+        return $res;
+    }
+
     // private functions
-    function _collecttests() {      
-        if (class_exists($this->testClass)) {
-            $methods = get_class_methods($testClass);
-            print_r($methods); die(": methods");
-            foreach ($methods as $method) {
-                if (substr($method, 0, strlen(UT_PREFIXTESTMETHOD) == UT_PREFIXTESTMETHOD)) {
-                    $this->addTest(new xarTest($testClass, $method, true));
-                }
+    function _collecttests() {
+        $methods = get_class_methods($this);
+            
+        foreach ($methods as $method) {
+            if (substr($method, 0, strlen(UT_PREFIXTESTMETHOD)) == UT_PREFIXTESTMETHOD && 
+                strtolower($method) != strtolower(get_class($this))) {
+                $this->_tests[$method] =& new xarTest($this, $method);
             }
         }
     }
@@ -107,110 +131,80 @@ class xarTestCase {
 }
 
 /**
- * Class to hold the actual tests 
+ * Class to hold the actual test
  */
-class xarTest extends xarTestAssert {
+class xarTest {
+    var $_parentobject;
     var $_testmethod;
-    var $_label;
     var $_result;
 
-    function xarTest($testClass, $method, $init=false) {
-        if ($init) {
-            if (class_exists($testClass)) {
-                $tmp= new $testClass($testClass, $method, false);
-                $tmp->_testmethod=$method;
-                return $tmp;
-            } else {
-                // make this test except, wrong derivation
-            }
-        }
-    }
-    // Abstract functions
-    function setup() {}
-
-    // Precondition default to true, meaning, preconditions passed
-    function precondition() {
-        return true;
-    }
-
-    function teardown() {}
- 
-    function pass() {
-        return true;
-    }
-
-    function fail() {
-        return false;
-    }
-
-    function label($thelabel) {
-        $this->_label=$thelabel;
+    function xarTest($container, $method) {
+        $this->_parentobject=$container;
+        $this->_testmethod=$method;
     }
 
     function run() {
-        // does this work?
-        $this->setup();
-        $this->_result = new TestResult($this);
+        $testcase=$this->_parentobject;
+        $testmethod=$this->_testmethod;
+        $testcase->setup();
+        
+        if($testcase->precondition()) {
+            // Run the actual testmethod
+            $result=$testcase->$testmethod();
+            $this->_result = new xarTestResult($result);
+        } else {
+            $this->_result = new xarTestException($result);
+        }
+        
+        $testcase->teardown();
     }
 }
 
-
+/**
+ * Testresults
+ *
+ * This class constructs the xarTestResult object in the xarTest object
+ * depending on the outcome of the called testmethod a different object
+ * is created
+ *
+ */
 class xarTestResult {
     var $_message;
-    var $_type;
-    
-    function xarTestResult($testObject) {
-        if($testObject->precondition()) {
-            $result=$testObject->_testmethod();
-            if ($result) {
-                $ret =new xarTestSucces();
-            } else {
-                $ret = new xarTestFailure();
-            }
+
+    function xarTestResult($result) {
+        if ($result['value'] === true) {
+            $this = new xarTestSuccess($result['msg']);
         } else {
-            $ret= new xarTestException();
+            $this = new xarTestFailure($result['msg']);
         }
-        return $ret;
-        
     }
 }
 
 class xarTestSuccess extends xarTestResult {
-    
-    function xarTestSucces() {
-        $this->_type=UT_SUCCESS;
+    function xarTestSuccess($msg) { 
+        $this->_message=$msg;
     }
 }
 
 class xarTestFailure extends xarTestResult {
-    function xarTestFailure() {
-        $this->_type=UT_FAILURE;
+    function xarTestFailure($msg) {
+        $this->_message=$msg;
     }
 }
 
 class xarTestException extends xarTestResult {
-    function xarTestException() {
-        $this->_type=UT_EXCEPTION;
+    function xarTestException($result) { 
+        $this->_message=$result['msg'];
     }
 }
     
-    
-/**
- *  xarTestAssert
- *
- */
 class xarTestAssert {
     
-    /**
-     * Asserts that two variables are equal.
-     *
-     * @param  mixed
-     * @param  mixed
-     * @param  string
-     * @param  mixed
-     * @access public
-     */
-    function assertEquals($expected, $actual, $delta = 0) {
+    // Abstract functions which should be implemented in subclasses
+    // function fail($msg='no message') {}
+    // function pass($msg='no message') {}
+
+    function assertEquals($expected, $actual, $delta = 0,$msg='Test for Equals') {
         if ((is_array($actual)  && is_array($expected)) ||
             (is_object($actual) && is_object($expected))) {
             if (is_array($actual) && is_array($expected)) {
@@ -221,142 +215,81 @@ class xarTestAssert {
             $actual   = serialize($actual);
             $expected = serialize($expected);
             
-            if (serialize($actual) != serialize($expected)) {
-                return $this->fail($message);
+            if (serialize($actual) == serialize($expected)) {
+                return $this->pass($msg);
             }
-        }
+        } 
 
-        elseif (is_numeric($actual) && is_numeric($expected)) {
-            if (!($actual >= ($expected - $delta) && $actual <= ($expected + $delta))) {
-                return $this->fail();
+        // Compare delta values
+        if (is_numeric($actual) && is_numeric($expected)) {
+            if (($actual >= ($expected - $delta) && $actual <= ($expected + $delta))) {
+                return $this->pass($msg);
             }
+        } 
+
+        // Compare the direct values
+        if ($actual == $expected) {
+            return $this->pass($msg);
+        } 
+
+        // Couldn't find a combination which works
+        return $this->fail($msg);
+    }
+
+    
+    function assertNotNull($object,$msg='Test for Not Null') {
+        if ($object !== null) { 
+            return $this->pass($msg); 
         }
-        
-        else {
-            if ($actual != $expected) {
-                return $this->fail($message);
-            }
+        return $this->fail($msg);
+    }
+
+
+    function assertNull($object,$msg='Test for Null') {
+        if ($object === null) {
+            return $this->pass($msg);
+        } 
+        return $this->fail($msg);
+    }
+
+
+    function assertSame($expected, $actual,$msg='Test for Same') {
+        if ($actual === $expected) {
+            return $this->pass($msg);
         }
-        
-        return $this->pass();
+        return $this->pass($msg);
+    }
+
+    function assertNotSame($expected, $actual,$msg='Test for Not Same') {
+        if ($actual !== $expected) {
+            return $this->pass($msg);
+        } 
+        return $this->fail($msg);
     }
     
-    /**
-    * Asserts that an object isn't null.
-    *
-    * @param  object
-    * @param  string
-    * @access public
-    */
-    function assertNotNull($object) {
-        if ($object === null) {
-            return $this->fail();
-        }
 
-        return $this->pass();
-    }
-
-    /**
-    * Asserts that an object is null.
-    *
-    * @param  object
-    * @param  string
-    * @access public
-    */
-    function assertNull($object) {
-        if ($object !== null) {
-            return $this->fail();
-        }
-
-        return $this->pass();
-    }
-
-    /**
-    * Asserts that two objects refer to the same object.
-    * This requires the Zend Engine 2 (to work properly).
-    *
-    * @param  object
-    * @param  object
-    * @param  string
-    * @access public
-    */
-    function assertSame($expected, $actual) {
-        if ($actual !== $expected) {
-            return $this->fail();
-        }
-
-        return $this->pass();
-    }
-
-    /**
-    * Asserts that two objects refer not to the same object.
-    * This requires the Zend Engine 2 (to work properly).
-    *
-    * @param  object
-    * @param  object
-    * @param  string
-    * @access public
-    */
-    function assertNotSame($expected, $actual) {
-
-        if ($actual === $expected) {
-            return $this->fail();
-        }
-
-        return $this->pass();
-    }
-
-    /**
-    * Asserts that a condition is true.
-    *
-    * @param  boolean
-    * @param  string
-    * @access public
-    */
-    function assertTrue($condition) {
-        if (!$condition) {
-            return $this->fail();
-        }
-
-        return $this->pass();
-    }
-
-    /**
-    * Asserts that a condition is false.
-    *
-    * @param  boolean
-    * @param  string
-    * @access public
-    */
-    function assertFalse($condition) {
+    function assertTrue($condition,$msg='Test for True') {
         if ($condition) {
-            return $this->fail();
+            return $this->pass($msg);
         }
-
-        return $this->pass();
+        return $this->fail($msg);
     }
 
-    /**
-    * Asserts that a string matches a given
-    * regular expression.
-    *
-    * @param string
-    * @param string
-    * @access public
-    * @author Sébastien Hordeaux <marms@marms.com>
-    */
-    function assertRegExp($expected, $actual) {
-        if (!preg_match($expected, $actual)) {
-            return $this->fail();
-        }
 
-        return $this->pass();
+    function assertFalse($condition,$msg='Test for False') {
+        if (!$condition) {
+            return $this->pass($msg);
+        } 
+        return $this->fail($msg);
     }
-        
-    function fail() { /* abstract */ }
-    function pass() { /* abstract */ }
 
 
+    function assertRegExp($expected, $actual,$msg='Test for Regular Expression') {
+        if (preg_match($expected, $actual)) {
+            return $this->pass($msg);
+        }
+        return $this->pass($msg);
+    }
 }
 
 ?>

@@ -26,6 +26,62 @@
 	<!-- The middle section is used for the actual content of the RFC -->
 	<middle>
 		<!-- One content section is mandatory -->
+		<section title="Re-evaluation of this RFC">
+			<t>
+	Since this RFC was first written, Xaraya has gone through many changes, and thanks to the
+	initial implementations of authsystem and authldap, it's time to re-evaluate some of the
+	strengths and weaknesses of the initial design. Here are a few issues we noted :
+			<list>
+				<t>External authentication and external user data may be related
+				in the sense that they both come from outside Xaraya, but there are
+				many issues concerning retrieval, synchronisation or overriding of
+				user data that do not apply to the "simple" action of authenticating
+				a user at logon.</t>
+				<t>Usage scenarios for combining different authentication methods
+				and/or distributed user data are not well defined, with the result
+				that design and implementation are limited to certain basic scenarios.</t>
+				<t>At the moment (April 2003), only authenticate_user() is in active use,
+				and this only for the login process. There is no link or verification during
+				user registration.</t>
+				<t>User data from external authentication sources is only used at login,
+				in order to create a local user if one doesn't exist. There are no further
+				queries, updates or synchronisation of external user data besides that at
+				the moment.</t>
+				<t>Current implementation in the auth* modules does not allow an
+				easy centralised management of the different authentication methods, nor
+				of any adequate handling of external user data.</t>
+			</list>
+			</t>
+			<t>
+	Some usage scenarios for authentication (to be expanded and evaluated) :
+			<list>
+				<t>local users, local authentication (obviously)</t>
+				<t>local users, external authentication : i.e. at first login, a local user is
+				created based on external user information (e.g. LDAP or non-Xaraya DB).
+				Local user registration can be disabled via privileges (?)</t>
+				<t>local users, multiple authentications (local or external) : potential conflict situations - who gets priority for (unique) username, or check against external auth at registration, or treat username+auth method as unique in the future, ...</t>
+				<t>external users, external authentication : not supported at the moment - see below</t>
+			</list>
+			</t>
+			<t>
+	Some usage scenarios for user data (to be expanded and evaluated) :
+			<list>
+				<t>local user data (obviously)</t>
+				<t>local user data, created once from external user data (e.g. LDAP or non-Xaraya DB)</t>
+				<t>local user data, resynchronised from external user data at every login (or some other event)</t>
+				<t>external user data, requested on demand - note : still a need for local core user fields</t>
+				<t>external user data gets resynchronised from local user data on user update</t>
+				<t>bi-directional synchronisation nightmare</t>
+				<t>multiple sources of user data (local or external), with any or all of the above + possible overlap/overriding of one by the other</t>
+			</list>
+			</t>
+			<t>
+	To be continued...
+			</t>
+			<t>
+	Note : add link with DD
+			</t>
+		</section>
 		<section title="Introduction ">
 			<t>
         Integration of older systems with new ones is a crucial point
@@ -338,6 +394,12 @@
 			</t>
 		</section>
 		<section title="Changelog ">
+			<t>
+        1.0 (April 14, 2003)
+      </t>
+      <t>
+        Re-evaluation of the RFC
+      </t>
 			<t>
         0.9 (April 27, 2002)
       </t>

@@ -38,18 +38,17 @@
 
   <!-- Base modules, when added to the core modules, you get a base system -->
   <property name="modules.base" 
-    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,metaweblogapi,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,sniffer,stats,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
+    value="articles,authldap,autolinks,bloggerapi,categories,comments,dyn_example,ephemerids,example,headlines,hitcount,html,multisites,polls,quotes,ratings,recommend,referer,search,scheduler,sniffer,stats,translations,wiki,xarldap,xmlrpcserver,xmlrpcsystemapi,xmlrpcvalidatorapi"/>
 
   <!-- Full distro modules, when added to the core modules, you get a full system -->
   <property name="modules.full" 
     value="addressbook,authinvision,authsso,bbclick,bbcode,censor,changelog,xarldap,figlet,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,window,workflow,xarbb,xarldap,xarlinkme,xlink,xslt"/>
 
   <!-- Languages which get included in the distro -->
-  <property name="languages.installer" value="nl_NL.iso8859-1"/>
+  <property name="languages.installer" value="nl_NL.iso-8859-1"/>
 
   <!-- theme lists -->
-  <property name="themes.full"
-    value="XBlue_Pro,atom"/>
+  <property name="themes.full"  value="XBlue_Pro,atom"/>
 
   <!-- source tree properties -->
   <property name="html.dir" value="html" />
@@ -276,19 +275,16 @@
   <!-- copy a language into the build tree -->
   <target name="copylanguage" if="language.locale">
     <echo msg="Copying installer locale ${language.locale} into build tree..."/>
-    <copy todir="${build.html}/var/locales/${language.locale}">
-      <fileset dir="../../languages/${language.locale}/xml/core">
-        <include name="**"/>
+
+    <copy todir="${build.html}/var/locales/">
+      <!-- map nl/nl_NL.iso-8859-1/filename.xml onto filename.xml  -->
+      <mapper type="regex" from="^..\/(.*)" to="\1" /> 
+      <fileset dir="../../languages/">
+        <include name="**/${language.locale}/xml/*/installer/**"/>
+        <include name="**/${language.locale}/xml/core/**"/>
+        <include name="**/${language.locale}/locale.xml"/>
         <exclude name="SCCS/**"/>
       </fileset>
-      <fileset dir="../../languages/${language.locale}/xml/modules/installer">
-        <include name="**"/>
-        <exclude name="SCCS/**/>
-      </fileset>
-      <fileset dire="../../languages/${language.locale}/xml/themes/installer">
-        <include name="**"/>
-        <exclude name="SCCS/**"/>
-      </fileset>  
     </copy>
   </target>
 

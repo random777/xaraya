@@ -31,7 +31,7 @@ Use cases:
 To be able to submit patches you need to clone the main repository.
 This can be done by:
 
-bk clone http://bk.xaraya.com/xaraya
+bk clone http://xaraya.com:15000/xaraya
 
 This will give you a copy of the main repository in which the transient
 code is available. 
@@ -55,7 +55,7 @@ the patch. The patch submitting is integrated in our repository system.
 
 The command for submitting your patch is:
 
-bk push http://bk.xaraya.com/xaraya-patches
+bk push http://xaraya.com:16000
 
 This command effectively groups the changes which are unique to your local repository
 and sends them to our patch system in a way which makes it very easy for us to 

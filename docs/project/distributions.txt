@@ -1,0 +1,118 @@
+Second proposal, taking the repository discussion into account:
+
+1. Core distribution
+====================
+Goal: Minimal distribution for framework 
+----------------------------------------
+adminpanels
+authsystem
+base
+blocks
+dynamicdata
+installer
+mail
+modules
+privileges
+roles
+sniffer
+themes
+
+2. Classic distribution (or base distribution)
+==============================================
+Goal: basic distribution to set up a 'typical portal'
+-----------------------------------------------------
+Contains core plus:
+articles
+authldap
+autolinks
+bloggerapi
+categories
+comments
+converter
+dyn_example
+ephemerids
+example
+headlines
+hitcount
+html
+messages
+polls
+quotes
+ratings
+recommend
+referer
+search
+stats
+translations
+xmlrpcserver
+xmlrpcsystemapi
+xmlrpcvalidatorapi
+
+3. Full distribution
+====================
+Goal: Distribution of all 'working' modules, to be decided by PMC.
+Contains core
+Contains classic plus:
+addressbook
+bbclick
+bbcode
+bkview
+cast
+censor
+contact
+figlet
+mybookmarks
+opentracker
+pubsub
+release
+smilies
+uploads
+wiki
+xarbb
+xslt
+
+
+4. Language packs
+=================
+Language packs are distributed separately. All other distributions 
+are based on the english language with two locales: en_US.iso8859-1 
+and en_US.utf-8.
+
+5. Theme packs
+==============
+Theme packs are distributed separately. All other distribution are 
+based on Xaraya_Classic theme.
+
+
+Modules which are not in 'working' condition, by my poor judgement 
+(it can mean both 'unknown' and 'not working')
+and thus are not registered for any distribution yet. Please prove 
+me wrong if your module is listed and you want to have it included 
+in one of the distributions.
+
+formcontrols - ? no xarversion
+metaweblogapi - does nothing
+soapserver - does nothing
+
+calendar 
+changelog
+dynamic_planning
+facilities
+imagefeed
+images
+latestcomments
+multisites
+nameday
+nascar
+postboard
+postcalendar
+relations
+reports
+reviews
+soapserver
+tasks
+todolist
+trackback
+uniqueid
+xproject
+

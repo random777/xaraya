@@ -51,11 +51,15 @@ Please visit the #support channel for information on upgrading from PostNuke or 
                       includes an additional hidden input field for header[itemtype]
    .9.11.0 -> .9.12.0 templates must validate as XML, i.e. you need to replace all
                       & with &amp; etc.
-   .9.12.0 -> .?.??.? in articles, fields of type Calendar (other than pubdate) are
+   .9.12.0 -> .?.??.? 1) in articles, fields of type Calendar (other than pubdate) are
                       no longer pre-formatted in the view and display functions, so
                       you should now use xarLocaleGetFormattedDate('long',$myfield)
                       and xarLocaleGetFormattedTime('long',$myfield), or for custom
                       formats xarLocaleFormatDate('...',$myfield) in those templates
+                      2) in comments, blocks/latestcommentsblock.xd and 
+                      user-displayall.xd the variable $comment['daychange'] is no 
+                      longer supported; array $commentlist is now an array of arrays.
+                      $commentlist[$daylabel] is the array of all comments posted on $daylabel.
 
    DB Changes between versions
    ----------------------------------------------------

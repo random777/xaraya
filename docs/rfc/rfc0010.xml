@@ -793,7 +793,7 @@ html/
 	    Opens the file specified by "file" and processes it within the context
 	    of the calling template. Included templates are stored in:
 	    <list>
-	      <t>/modules/[module name]/xarincludes/</t>
+	      <t>/modules/[module name]/xartemplates/includes/</t>
 	      <t>/themes/[theme name]/modules/[module name]/xarincludes/</t>
 	      <t>/themes/[theme name]/xarincludes/</t>
 	    </list>
@@ -803,9 +803,9 @@ html/
 	    'module_header'. The 'type' attribute tells the compiler where to look
 	    for the file. If 'module', looks in /themes/[theme
 	    name]/modules/[module name]/xarincludes/ first, then in
-	    /modules/[module name]/xarincludes/. If 'theme', it directs the
+	    /modules/[module name]/xartemplates/includes/. If 'theme', it directs the
 	    compiler to look in /themes/[theme name]/xarincludes/. The compiler
-	    always assumes .xar for the file extension. The file is subject to PHP
+	    always assumes .xd for the file extension. The file is subject to PHP
 	    safe mode.
 	  </t>
 

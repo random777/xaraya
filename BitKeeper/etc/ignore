@@ -242,3 +242,22 @@ html/modules/shoutfilter/xarimages/admin.gif
 html/modules/shoutfilter/xarinit.php
 html/modules/shoutfilter/xaruserapi.php
 html/modules/shoutfilter/xarversion.php
+html/modules/pmember/xaradmin/view.php
+html/modules/pmember/xaradminapi/create.php
+html/modules/pmember/xaradminapi/delete.php
+html/modules/pmember/xarblocks/index.html
+html/modules/pmember/xarblocks/subscription.php
+html/modules/pmember/xardocs/Paid Membership Module.pdf
+html/modules/pmember/xardocs/license.txt
+html/modules/pmember/xarimages/admin.gif
+html/modules/pmember/xarimages/index.html
+html/modules/pmember/xarschedulerapi/index.html
+html/modules/pmember/xarschedulerapi/unsubscribe.php
+html/modules/pmember/xartemplates/admin-view.xd
+html/modules/pmember/xartemplates/blocks/subscription.xd
+html/modules/pmember/xartemplates/user-user_menu_form.xd
+html/modules/pmember/xartemplates/user-user_menu_icon.xd
+html/modules/pmember/xaruser/usermenu.php
+html/modules/pmember/xaruserapi/countitems.php
+html/modules/pmember/xaruserapi/get.php
+html/modules/pmember/xaruserapi/getall.php

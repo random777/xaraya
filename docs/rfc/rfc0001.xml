@@ -2,626 +2,793 @@
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc='yes'?>
 
 <rfc number="0001" category="info">
-  <!-- number: Fill in the number for the RFC -->
-  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
-  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
-
   <!-- Front matter is used for identification of author and organization -->
   <front>
     <title>Content Management System</title>
     <author initials="F." surname="Besler" fullname="Frank Besler">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>besfred@gmx.net</email>
-	<uri>http://www.xaraya.com</uri>
+		<email>besfred@gmx.net</email>
+		<uri>http://www.xaraya.com</uri>
       </address>
     </author>
     <date month="January" year="2002"/>
     
-   <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+	<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain
-      text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
+      <t>
+		The contents of this RFC contain the literal content of the old plain
+		text version of RFC-0001
+	  </t>
+      <t>
+		When time is a less scarcer good, someone might convert the plain text
+		into structured XML so we can benefit from it.
       </t>
     </abstract>
   </front>
-
+  
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
-    <!-- One content section is mandatory -->
-    <section title="Original content">
-      <t>
-	<artwork>
-	RFC - Request for Comments 
+	<section title="Introduction">
+	  <t>
+		I read through the articles on http://www.postnuke.com, its
+		forum threads, feature request on sourceforge, the pn
+		developpers mailing list and reviewed some of the other open
+		source web content management systems on the market.  The
+		following RFC is a summary and contains some solution
+		proposals either compiled from the basic documents or from
+		general definitions concerning content management systems.
+		This is not a static document but work in progress
+	  </t>
+	</section>
+	
+	<section title="General statements about Content Management">
+	  <t>
+		"Web content can be articles, pictures, products, email
+		archives, Flash presentations, streaming audio, whatever. This
+		content needs a lot of things done to it. You might need
+		systems for creating the content (authoring), describing it
+		(metadata tagging), changing and updating it (editing),
+		letting several people edit it together (collaboration),
+		letting the right people do the right things to it (workflow),
+		stopping the wrong people from manipulating it (security),
+		keeping track of how it has changed (versioning), deciding
+		when to display it (scheduling), displaying it in the right
+		standard format (templating), allowing it to be displayed by
+		others (syndication), allowing it be displayed differently to
+		different visitors (personalisation) and more." <xref target="refs.13"/>
+	  </t>
 
+	  <t>
+		"... The content of an online learning community always
+		includes questions and answers in a discussion forum. A
+		programmer might start by building a table for discussion
+		forum postings. ...  Most online learning communities offer
+		published articles that are distinguished from
+		user-contributed questions. A programmer would therefore
+		create a separate table to hold articles. Any wellcrafted site
+		that publishes articles provides a facility for users to
+		contribute comments on those articles. This will be another
+		separate table.
+	  </t>
+	  
+	  <t>
+		Is a pattern emerging here? We distinguish a question in the
+		discussion forum table because it is an item of content that
+		is not a response to any other discussion forum posting. We
+		distinguish articles from comments because an article is an
+		item of content that is not a response to any other content
+		item. Perhaps the representation of articles, comments on
+		articles, questions, answers, etc. should be unified to the
+		maximum extent possible. Each is a content item. Each has one
+		or more authors. Each may optionally be a response to another
+		content item.  Here are some services that would be nice to
+		centralize in a single content repository within the content
+		database: ..."  [17]
+	  </t>
 
-1. RFC (Request for Comment) Outlines the proposal/idea for
-comment. Stakeholders comment as needed. The lead author collects
-comments and incorporates them into the document. Through the RFC
-process, additional reviewers/stakeholders may be identified. In this
-case, the RFC is also submitted for their review. When all comments
-have been captured, integrated/addressed, the RFC should represent the
-best available solution. This final RFC is then submitted as an RFA
-(see below) for approval by voting stakeholders.
+	  <t>
+		We now have to step back and think about our goal: Do we
+		want to develop a true Web Content Management System?  Or
+		do we want to stay a Web Portal / Community Management
+		System?  For the following RFC I assume the first one
+		because it is stated everywhere (e.g. the PN logo, the PN
+		admin message, the description on HotScripts).  If the
+		project managers of PN dont share my basic assumption, then
+		I will adjust this RFC.
+	  </t>
+	</section>
 
-2. RFA (Request for Approval) In addition to the final RFC, the RFA
-should include a list of voting stakeholders and assignment of the
-prevailing decision rule (PDR). Generally, PDR will fall into one of
-the following categories: a. Project Sponsor (Approved by project
-sponsors) b. Project Leader (Approved by project leader) c. Simple
-Majority (Approved by 51+% of stakeholders) d. Unanimous Agreement
-(Approved by 100% of stakeholders) With the PDR in mind, voting
-stakeholder(s) review the RFA and exercise one of the following
-approval options. a. Unconditional Approval b. Conditional Approval
-(approved if XYZ conditions are met) c. Rejection If the RFA is not
-approved under the PDR, it is revised and resubmitted until approval
-is achieved. An approved RFA "rubber-stamps" a specific solution, it
-does not necessarily assign implementation resources and deadlines.
+	<section title="List of requirements for our Content Management Engine">
+	  <t>
+		<list style="numbers">
+		  <t>
+			incorporate the content management in the core, and just have
+			the display of the content / publications handled by different
+			modules &amp; blocks.<xref target="refs.4"/>
+			<list style="numbers">
+			  <t>this is more template system related: be able to combine
+				different content items with a template, that can be predefined
+				online. (extending some phpwebsite feature)
+			  </t>
+			  <t>
+				defining publications as composition of content components +
+				templates, we have to create separate tools for creating/editing
+				content components (online editors, upload), templates (online
+				editors, upload) and publications + tools for archiving,
+				recovering and deleting content components, templates and
+				publications
+			  </t>
+			  <t>have different editing tools in place, like wiki,bbcode, wysiwyg
+				(that uses the CSS of the selected template for display), ... <xref target="refs.6"/><xref target="refs.8"/>
+			  </t>
+			  <t>
+				a secure way to upload binary content (images, pdf, worddoc, ...)
+				into the file system and manage them. (using the official MIME
+				types and having special security checks!) <xref target="refs.12"/>
+			  </t>
+			</list>
+		  </t>
+		  <t>
+			basically we want to move away from articles system towards a
+			more generic content system <xref target="refs.4"/><xref target="refs.7"/>. in order to accomplish
+			this we need to unify the content management of current articles,
+			sections, reviews and news system. if possible, the content of
+			some additional modules such as admin_messages, downloads,
+			weblinks, quotes ...
+			it needs to be discussed whether the comments system should stay
+			separated (my favorite) or whether it shall be part of the
+			unified content (both options have advantages and disadvantages).
 
-3. RFI (Request For Implementation) Once a solution is approved, the
-RFA is expanded to include relevant implementation information
-(resource assignments, deadlines, performance measures) ... thus
-becoming an RFI. Once completed, the RFI is submitted to the voting
-stakeholders for approval. Generally, the PDR and voting stakeholders
-do not change from RFA to RFI. In the rare case such a change occurs,
-it should be specifically noted in the RFI. Once and RFI is approved,
-implementation may proceed.
+			<list>
+			  <t>
+				if a separate comment system is our choice: assign comments to
+				every content fragment (-> contentid as foreign key in the
+				comments table)
+			  </t>
+			</list>
+		  </t>
+		  <t>
+			fine grained categorization of content with subcategories of
+			unlimited depth (-> lets get rid of topics)      <xref target="refs.5"/><xref target="refs.7"/><xref target="refs.14"/>
+			<list>
+			  <t>
+				have different weights for the categories (for display search or
+				listing results) <xref target="refs.9"/>
+			  </t>
+			</list>
+		  </t>
+		  <t>
+			enable a better structuring of content (-> tree structure)   <xref target="refs.2"/>
+		  </t>
+		  <t>
+			implementation of a content life cycle -> status (draft, reviewed,
+			published, archived), workflow and approval processes (different
+			queues for users with special roles/permissions, e.g. writers,
+			reviewers, publishers)
+			<list>
+			  <t>
+				record the different editors (table content_editors)   <xref target="refs.1"/> <xref target="refs.6"/>
+			  </t>
+			  <t>
+				no content editing without either increasing the version or
+				changing the status. in both cases a new contentid will be
+				generated. this behaviour is the only way to enable true
+				versioning and content life cycle including rollbacks.
+				the downside is that the database will have to hold much more
+				information. to cut down this bloat, the older versions / status
+				of a content component could consist of only diffs.
+				Another way to speed up the database is to have 2 tables of each
+				proposed table in chapter 4, i.e. have one set of tables to hold
+				the live content and publications of the website, and another set
+				of tables to hold all work in progress and outdated versions.	
+			  </t>
+			  <t>
+				have an archiving mechanism                                 <xref target="refs.11"/>
+			  </t>
+			</list>
+		  </t>
+		  <t>
+			add a rating system so that ratings can be assigned to each and
+			every content component. (i.e. separate rating from comment
+			system)                                                <xref target="refs.1"/> <xref target="refs.10"/>
+		  </t>
+		  <t>
+			the ability to have promoted publications, i.e. e.g. stick a
+			certain article to the top of a list for a while.            <xref target="refs.5"/>
+		  </t>
+		</list>
+	  </t>
+	</section>
 
-RFC-1 Content Management System 
-RFC-2 Comments API 
-RFC-3 Rating API 
-RFC-4 Categories API 
-RFC-5 Cron System 
-RFC-6 XML-RPC API 
-RFC-7 Modularized User Data 
-RFC-8 Install System (Unfinished) 
-RFC-9 Xaraya Community Enhancements First Draft 
-RFC-10 Xaraya Theme System 
-RFC-11 Admin Redesign 
-RFC-12 Multisites 
-RFC-13 Module Classification System 
-RFC-14 Modular Authentication System 
-RFC-15 PostCalendar 
-RFC-16 User System 
-RFC-17 Module Information System 
-RFC-18 Exceptions Handling System 
-RFC-19 Help System 
-RFC-20 Multi Language System 
-RFC-21 Xaraya International 
-RFC-22 PostNuke Security Vulnerabilities and Advisories 
-RFC-23 Short URL Support 
-RFC-24 Publish and Subscribe Engine 
+	<section title="Solution proposals - database tables">
+	  <t>
+		<artwork>
+		// Lets think of the tables contenttype and publicationtype to
+		// contain the classes (structures) and content and publications to
+		// contain the instances.
+		// there are relation tables for the classes and instances, and there
+		// are relation tables that combine instances with users, comments,
+		// ratings, ...
+		// In the following text whenever "timestamp" or "date" is mentioned,
+		// this will mean an int(10) field holding the UTC unix timestamp.
+		</artwork>
+	  </t>
+	  
+	  <section title="Table content">
+		<t>
+		  <artwork>
+		  // as the content repository
+		  // you may note that there is no field that indicates the
+		  // formating of textual content. this is intentional and my
+		  // thought is that we should store these content components using
+		  // html and to convert wiki and bbcode on creation / editing time.
+		  // i was considering xml as storage format but since our main
+		  // target medium is the web, storing in html gives cheapest
+		  // rendering while still able to separate content and layout using
+		  // only allowed html tags with css that the template system can
+		  // override.
+		  contentid   // unique long integer value
+		  conttypeid  // foreign key from table "Contenttype"
+		  status      // (draft, review phase 1, publishable)    <xref target="refs.1"/> <xref target="refs.11"/>
+		  version     // revision number of the content  <xref target="refs.1"/>
+		  lastedit    // timestamp of when the current version was saved
+		  preid       // id of the contents predecessor in the content life
+		  // cycle enables to rollback to an earlier version or
+		  // delete the oldest version of a certain content
+		  // (purge)
+		  language    // self-explanatory
+		  editorsnote // message from the last editor for the next editor
+		  // in the workflow to give a quick note what has to
+		  // be done
+		  caption     // depends on the content type. (title, link text,
+		  // alt text of images, name of a binary content)
+		  content     // the text itself, i.e. a chapter of a document, an
+		  // article a sections content, an abstract, a title.
+		  // for binary content like worddocs, pdfs and images
+		  // the entry could either be a link to the document
+		  // in the file system or the document itself (with
+		  // the former being my favorite method.
+		  </artwork>
+		</t>
+	  </section>
+	  
+	  <section title="Table Publications">
+		<t>
+		  <artwork>
+		  Table "Publications"
+		  // this is the point of contact to the templating system
+		  // every publication uses a unique template from the template
+		  // repository. every publication has a status similar to the
+		  // status of a content component.
+		  // publication types define howmany and what content components
+		  // are allowed or required.
+		  pubid       // publication id, primary key
+		  templateid  // unique identifier for a template, requirement 1a
+		  pubtypeid   // publication types are defined in a separate table.
+		  // they are equal to a type field.
+		  parentid    // id of the parent content to be able to structure
+		  // the content into chapters, subchapters, pages...
+		  // the structure can be different for each publication
+		  // see requirement 4
+		  status      // (draft, review phase, published, archived)
+		  version     // version of the current publication
+		  preid       // id of the publications predessesor id in terms of
+		  // status (workflow) or version (-> versioning)
+		  language    // self-explanatory. have the publishing tool making
+		  // sure automatically, that only content components
+		  // with corresponding languages are able to be tied
+		  // together
+		  editorsnote // message from the last editor for the next editor
+		  // in the workflow to give a quick note what has to
+		  // be done
+		  pubdate     // date (timestamp) when the publication is
+		  // auto-published / was manually published   <xref target="refs.1"/>
+		  expdate     // timestamp when the publication will be expired /
+		  // auto-archived
+		  </artwork>
+		</t>
+	  </section>
 
-RFC-1 Content Management System 
- Xaraya                                       Frank Besler (besfred)
- Request for Comments: 1
- Version: 7
- Category: Informational                                  January 2002
-                         Article system rewrite
- Table of Contents
-   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
-   2.   General statements about Content Management  . . . . . . . . 2
-   3.   List of requirements for our Content Management Engine . . . 3
-   4.   Solution proposals - database tables . . . . . . . . . . . . 4
-   4a.   Table "Content" . . . . . . . . . . . . . . . . . . . . . . 4
-   4b.   Table "Publications"  . . . . . . . . . . . . . . . . . . . 5
-   4c.   Table "Content_Publication" . . . . . . . . . . . . . . . . 6
-   4d.   Table "Contenttype" (ct)  . . . . . . . . . . . . . . . . . 6
-   4e.   Table "Publicationtype" (pt)  . .  . . . . . . . . . . . . 6
-   4f.   Table "PT_CT" . . . . . . . . . . . . . . . . . . . . . . . 6
-   4g.   Table "Content_Editors" . . . . . . . . . . . . . . . . . . 6
-   4h.   Table "Publications_Editors"  . . . . . . . . . . . . . . . 7
-   4i.   Table "Publications_Promote"  . . . . . . . . . . . . . . . 7
-   5.   User-authored content  . . . . . . . . . . . . . . . . . . . 7
-   6.   Relationship to other areas  . . . . . . . . . . . . . . . . 8
-   6a.   Categorization system . . . . . . . . . . . . . . . . . . . 8
-   6b.   Permissions system  . . . . . . . . . . . . . . . . . . . . 8
-   6c.   Comments system . . . . . . . . . . . . . . . . . . . . . . 9
-   6d.   Rating / voting system  . . . . . . . . . . . . . . . . . . 9
-   6e.   Multisites system . . . . . . . . . . . . . . . . . . . . . 9
-   7.   Code that will need to be rewritten  . . . . . . . . . . . . 9
-   8.   Tools that need to be created from scratch . . . . . . . .  10
-   9.   Basic documents for this RFC 1 . . . . . . . . . . . . . .  10
-  10.   Retractions  . . . . . . . . . . . . . . . . . . . . . . .  12
-  11.   Author contact . . . . . . . . . . . . . . . . . . . . . .  12
-  12.   Changelog  . . . . . . . . . . . . . . . . . . . . . . . .  12
- besfred                      Informational                    [Page 1]
-                                                                
-RFC-1 Page 2 
- RFC 1                    Article system rewrite             January 2002
+	  <section title="Table Content_Publication">
+		<t>
+		  <artwork>
+		  Table "Content_Publication"
+		  // this table provides the ability to join 1 or more content
+		  // components to one or more publications. you can only choose
+		  // a content component whose status is "publishable"
+		  pubid       // publication id, foreign key to table publications
+		  contentid   // foreign key to content table
+		  has_child   // boolean value to determine whether a content
+		  // component has a child component in the present
+		  // publication: for faster content structure parsing
+		  </artwork>
+		</t>
+	  </section>
+	  
+	  <section title="Table Contenttype (ct)">
+		<t>
+		  <artwork>
+		  Table "Contenttype" (ct)
+		  // most content types are predefined in a standard installation
+		  conttypeid  // primary key
+		  conttypname // name of the content type, e.g. [abstract, fulltext,
+		  // link, picture, downloads, pdf, worddoc]
+		  MIMEtype    // e.g. application/pdf or text/html <xref target="refs.1"/> <xref target="refs.3"/> <xref target="refs.5"/>
+		  </artwork>
+		</t>
+	  </section>
+	  
+	  <section title="Table Publicationtype (pt)">
+		<t>
+		  <artwork>
+		  Table "Publicationtype" (pt)
+		  // there are predefined ones like article, news, ... and custom
+		  // pts. while templates are for display and formatting the
+		  // output, pts are for the structure of publications.
+		  pubtypeid   // primary key for the pts
+		  pubtypename // name for the pt, e.g. article, document
+		  </artwork>
+		</t>
+		</section>
+	  
+	  <section title="Table PT_CT">
+		<t>
+		  <artwork>
+		  Table "PT_CT"
+		  // this table defines the structure of a pt: which and howmany
+		  // content components are required / allowed.
+		  pubtypeid   // compound key (1of2), foreign key to pt table
+		  conttypeid  // ---- " ---- (2of2), ----- " ----- ct table
+		  itemsmin    // minimum amount of the specific content component
+		  itemsmax    // maximum ------------------ " ------------------
+		  </artwork>
+		</t>
+	  </section>
 
- 1.  Introduction
-   I read through the articles on http://www.postnuke.com, its forum
-   threads, feature request on sourceforge, the pn developpers mailing
-   list and reviewed some of the other open source web content
-   management systems on the market.
-   The following RFC is a summary and contains some solution proposals
-   either compiled from the basic documents or from general definitions
-   concerning content management systems.
-   This is not a static document but work in progress.
+	  <section title="Table Content_Editors">
+		<t>
+		  <artwork>
+		  Table "Content_Editors"
+		  // see requirement 5a, the version the user has edited is
+		  // reflected by the unique contentid
+		  contentid   // compound key (1of2), foreign key to content table
+		  editorid    // ---- " ---- (2of2), ----- " ----- users table
+		  </artwork>
+		</t>
+	  </section>
 
- 2.  General statements about Content Management
-   "Web content can be articles, pictures, products, email archives,
-   Flash presentations, streaming audio, whatever. This content needs a
-   lot of things done to it. You might need systems for creating the
-   content (authoring), describing it (metadata tagging), changing and
-   updating it (editing), letting several people edit it together
-   (collaboration), letting the right people do the right things to it
-   (workflow), stopping the wrong people from manipulating it
-   (security), keeping track of how it has changed (versioning),
-   deciding when to display it (scheduling), displaying it in the right
-   standard format (templating), allowing it to be displayed by others
-   (syndication), allowing it be displayed differently to different
-   visitors (personalisation) and more." [13]
-   "... The content of an online learning community always includes
-   questions and answers in a discussion forum. A programmer might start
-   by building a table for discussion forum postings. ...
-   Most online learning communities offer published articles that are
-   distinguished from user-contributed questions. A programmer would
-   therefore create a separate table to hold articles. Any wellcrafted
-   site that publishes articles provides a facility for users to
-   contribute comments on those articles. This will be another separate
-   table.
-   Is a pattern emerging here? We distinguish a question in the
-   discussion forum table because it is an item of content that is not a
-   response to any other discussion forum posting. We distinguish
-   articles from comments because an article is an item of content that
-   is not a response to any other content item. Perhaps the
-   representation of articles, comments on articles, questions, answers,
-   etc. should be unified to the maximum extent possible. Each is a
-   content item. Each has one or more authors. Each may optionally be a
-   response to another content item.
-   Here are some services that would be nice to centralize in a single
-   content repository within the content database: ..."          [17]
- besfred                      Informational                    [Page 2]
- 
-RFC-1 Page 3 
- RFC 1                    Article system rewrite             January 2002
+	  <section title="Table Publications_Editors">
+		<t>
+		  <artwork>
+		  Table "Publications_Editors"
+		  // see requirement 5a, the version the user has edited is
+		  // reflected by the unique pubid
+		  editorid    // compound key (1of2), foreign key to users table
+		  pubid       // ---- " ---- (2of2), ----- " ----- the
+		  // publications table
+		  </artwork>
+		</t>
+	  </section>
+	  
+	  <section title="Table Publications_Promote">
+		<t>
+		  <artwork>
+		  Table "Publications_Promote"
+		  // see requirement 7
+		  // the modules to display the publications will check this table
+		  // first, not all display modules will use this table.
+		  contentid  // ck (1of2), foreign key to the publications table
+		  weight     // ck (2of2), order in which the content will appear on
+		  // display                                        <xref target="refs.6"/>
+		  promotexp  // expiration date (timestamp) when the weight looses
+		  // its effect and the content drops into normal order
+		  </artwork>
+		</t>
+	  </section>
+	</section>
 
-   We now have to step back and think about our goal:
-   Do we want to develop a true Web Content Management System?
-   Or do we want to stay a Web Portal / Community Management System?
-   For the following RFC I assume the first one because it is stated
-   everywhere (e.g. the PN logo, the PN admin message, the description
-   on HotScripts).
-   If the project managers of PN dont share my basic assumption, then I
-   will adjust this RFC.
+	<section title="User-authored content">
+	  <t>
+		Everything in 4 relates to publisher-authored content <xref target="refs.15"/>. But the
+		strength of the nuke-alikes is that users can also contribute to the
+		sites content. This is called user-authored content.
+		So how can we handle this valuable source of website content?
+		My proposal is to make a module that provides a combination of
+		content editors (online editors, uploads) for a predefined
+		set of content components and a predefined form of publication
+		(-> publication templates).
+	  </t>
+	  <t>
+		So the user will find a "Submit content" that gives them the choice
+		of publication form, i.e. article, faq, weblink, and maybe custom
+		publication templates. This must hide the complexity of splitting up
+		the submission into content components using simple forms that are
+		composed by reusable predefined form components. The delivered system
+		should also hide complexity to the admin by providing completely
+		predefined forms.
+	  </t>
+	  <t>
+		Then the site admin can either let those publications automatically
+		be published (shortcut in the workflow) or he can have them dropped
+		into a workflow so that anyone responsible for publishing can review
+		the user-authored content and decide to either publish it in the
+		current form, or edit the content, or rearrange the content, or
+		change the publication form from, say, an article submission, to,
+		say, a forum entry if we can regard a top level forum entry to be
+		equal to an article and the forum replies as equal to comments.
+		Again, content can be published in more than one form and in more
+		than one structure -> you can have an article and a forum entry that
+		share one or more content components, while only one copy of each
+		version of the component is stored in the database.             <xref target="refs.16"/>
+		I hope i could show the flexibility of the proposed system
+	  </t>
+	</section>
 
- 3.  List of requirements for our Content Management Engine
-   1. incorporate the content management in the core, and just have
-      the display of the content / publications handled by different
-      modules &amp; blocks.                                            [4]
-   1a. this is more template system related: be able to combine
-       different content items with a template, that can be predefined
-       online. (extending some phpwebsite feature)
-   1b. defining publications as composition of content components +
-       templates, we have to create separate tools for creating/editing
-       content components (online editors, upload), templates (online
-       editors, upload) and publications + tools for archiving,
-       recovering and deleting content components, templates and
-       publications.
-   1c. have different editing tools in place, like wiki,bbcode, wysiwyg
-      (that uses the CSS of the selected template for display), ... [6][8]
-   1d. a secure way to upload binary content (images, pdf, worddoc, ...)
-       into the file system and manage them. (using the official MIME
-       types and having special security checks!)                  [12]
-   2. basically we want to move away from articles system towards a
-      more generic content system [4][7]. in order to accomplish
-      this we need to unify the content management of current articles,
-      sections, reviews and news system. if possible, the content of
-      some additional modules such as admin_messages, downloads,
-      weblinks, quotes ...
-      it needs to be discussed whether the comments system should stay
-      separated (my favorite) or whether it shall be part of the
-      unified content (both options have advantages and disadvantages).
-   2a. if a separate comment system is our choice: assign comments to
-       every content fragment (-> contentid as foreign key in the
-       comments table)
-   3. fine grained categorization of content with subcategories of
-      unlimited depth (-> lets get rid of topics)      [5][7][14]
-   3a. have different weights for the categories (for display search or
-       listing results)                                            [9]
-   4. enable a better structuring of content (-> tree structure)   [2]
- besfred                      Informational                    [Page 3]
-                                                                  
-RFC-1 Page 4 
- RFC 1                    Article system rewrite             January 2002
+	<section title="Relationship to other areas">
+	  <t>
+	  </t>
+	  
+	  <section title="Categorization system">
+		<t>
+		  Categorization system
+		  // to be able to assign the content to more than 1 category
+		  // see requirement 3                       <xref target="refs.1"/> <xref target="refs.7"/> <xref target="refs.9"/> <xref target="refs.14"/>
+		  The details on this issue will be part of the categorization RFC
+		  whose content is currently discussed on the pn-data list.
+		  We might want to be able to categorize the content components in
+		  the content repository so that it is easier to search in.
+		  We definately want to be able to assign the publications to one or
+		  more categories.
+		  We should be able to have an hierarchical structure of categories
+		  of unlimited depth.
+		  To cut down the size of a centralized relation table, every module
+		  should provide its own category_content relation table using the
+		  centralized categories and API.
+		</t>
+	  </section>
 
-   5. implementation of a content life cycle -> status (draft, reviewed,
-      published, archived), workflow and approval processes (different
-      queues for users with special roles/permissions, e.g. writers,
-      reviewers, publishers)
-   5a. record the different editors (table content_editors)   [1] [6]
-   5b. no content editing without either increasing the version or
-       changing the status. in both cases a new contentid will be
-       generated. this behaviour is the only way to enable true
-       versioning and content life cycle including rollbacks.
-       the downside is that the database will have to hold much more
-       information. to cut down this bloat, the older versions / status
-       of a content component could consist of only diffs.
-       Another way to speed up the database is to have 2 tables of each
-       proposed table in chapter 4, i.e. have one set of tables to hold
-       the live content and publications of the website, and another set
-       of tables to hold all work in progress and outdated versions.
-   5c. have an archiving mechanism                                 [11]
-   6. add a rating system so that ratings can be assigned to each and
-      every content component. (i.e. separate rating from comment
-      system)                                                [1] [10]
-   7. the ability to have promoted publications, i.e. e.g. stick a
-      certain article to the top of a list for a while.            [5]
- 4.  Solution proposals - database tables
-   // Lets think of the tables contenttype and publicationtype to
-   // contain the classes (structures) and content and publications to
-   // contain the instances.
-   // there are relation tables for the classes and instances, and there
-   // are relation tables that combine instances with users, comments,
-   // ratings, ...
-   // In the following text whenever "timestamp" or "date" is mentioned,
-   // this will mean an int(10) field holding the UTC unix timestamp.
-   4a.  Table "Content"
-      // as the content repository
-      // you may note that there is no field that indicates the
-      // formating of textual content. this is intentional and my
-      // thought is that we should store these content components using
-      // html and to convert wiki and bbcode on creation / editing time.
-      // i was considering xml as storage format but since our main
-      // target medium is the web, storing in html gives cheapest
-      // rendering while still able to separate content and layout using
-      // only allowed html tags with css that the template system can
-      // override.
- besfred                      Informational                      [Page 4]
-                                                                   
-RFC-1 Page 5 
- RFC 1                    Article system rewrite             January 2002
+	  <section title="Permissions system">
+		<t>
+		  Permissions system
+		  // this is essential for security, workflow and publishing.
+		  The details on this issue should be part of an RFC on the
+		  permissions system.
+		  It is obvious that the permissions system is strongly linked with
+		  access control to different versions and status of content
+		  components and publications. Permissions are essential to the
+		  realization of a content life cycle, workflow and publication and
+		  therefore should be automatically adjusted by the system.
+		  Permissions should be on a group and single user basis.
+		  To implement a workflow ability each content component and
+		  publication needs to have at least 2-3 permissions: "admin"
+		  for the user/user-group that has to edit / review the item in the
+		  current state of the workflow, "read" for all others (or those
+		  intended to view the content) and none for those who shouldnt be
+		  allowed to view the publication (even when the status of it is
+		  "published", the publication date is reached and the expiration
+		  date has not yet been reached.
+		  In order to not having one really big permissions table the core
+		  system should only provide the most basic permissions while each
+		  module that uses content from the content repository should
+		  provide its own permission table using the core APIs for handling
+		  the permissions for the content it displays and edits.
+		  -> decentralizing the permissions table like e.g. the lang files.
+		  credits for the modularization idea to: BlackV_Li from PostTEP
+		</t>
+	  </section>
 
-      contentid   // unique long integer value
-      conttypeid  // foreign key from table "Contenttype"
-      status      // (draft, review phase 1, publishable)    [1] [11]
-      version     // revision number of the content  [1]
-      lastedit    // timestamp of when the current version was saved
-      preid       // id of the contents predecessor in the content life
-                  // cycle enables to rollback to an earlier version or
-                  // delete the oldest version of a certain content
-                  // (purge)
-      language    // self-explanatory
-      editorsnote // message from the last editor for the next editor
-                  // in the workflow to give a quick note what has to
-                  // be done
-      caption     // depends on the content type. (title, link text,
-                  // alt text of images, name of a binary content)
-      content     // the text itself, i.e. a chapter of a document, an
-                  // article a sections content, an abstract, a title.
-                  // for binary content like worddocs, pdfs and images
-                  // the entry could either be a link to the document
-                  // in the file system or the document itself (with
-                  // the former being my favorite method.
-   4b.   Table "Publications"
-      // this is the point of contact to the templating system
-      // every publication uses a unique template from the template
-      // repository. every publication has a status similar to the
-      // status of a content component.
-      // publication types define howmany and what content components
-      // are allowed or required.
-      pubid       // publication id, primary key
-      templateid  // unique identifier for a template, requirement 1a
-      pubtypeid   // publication types are defined in a separate table.
-                  // they are equal to a type field.
-      parentid    // id of the parent content to be able to structure
-                  // the content into chapters, subchapters, pages...
-                  // the structure can be different for each publication
-                  // see requirement 4
-      status      // (draft, review phase, published, archived)
-      version     // version of the current publication
-      preid       // id of the publications predessesor id in terms of
-                  // status (workflow) or version (-> versioning)
-      language    // self-explanatory. have the publishing tool making
-                  // sure automatically, that only content components
-                  // with corresponding languages are able to be tied
-                  // together
-      editorsnote // message from the last editor for the next editor
-                  // in the workflow to give a quick note what has to
-                  // be done
-      pubdate     // date (timestamp) when the publication is
-                  // auto-published / was manually published   [1]
-      expdate     // timestamp when the publication will be expired /
-                  // auto-archived   [1]
- besfred                      Informational                      [Page 5]
-                                                                   
-RFC-1 Page 6 
- RFC 1                    Article system rewrite             January 2002
-   4c.  Table "Content_Publication"
-      // this table provides the ability to join 1 or more content
-      // components to one or more publications. you can only choose
-      // a content component whose status is "publishable"
-      pubid       // publication id, foreign key to table publications
-      contentid   // foreign key to content table
-      has_child   // boolean value to determine whether a content
-                  // component has a child component in the present
-                  // publication: for faster content structure parsing
-   4d.  Table "Contenttype" (ct)
-      // most content types are predefined in a standard installation
-      conttypeid  // primary key
-      conttypname // name of the content type, e.g. [abstract, fulltext,
-                  // link, picture, downloads, pdf, worddoc]
-      MIMEtype    // e.g. application/pdf or text/html [1] [3] [5]
-   4e.  Table "Publicationtype" (pt)
-      // there are predefined ones like article, news, ... and custom
-      // pts. while templates are for display and formatting the
-      // output, pts are for the structure of publications.
-      pubtypeid   // primary key for the pts
-      pubtypename // name for the pt, e.g. article, document
-   4f.  Table "PT_CT"
-      // this table defines the structure of a pt: which and howmany
-      // content components are required / allowed.
-      pubtypeid   // compound key (1of2), foreign key to pt table
-      conttypeid  // ---- " ---- (2of2), ----- " ----- ct table
-      itemsmin    // minimum amount of the specific content component
-      itemsmax    // maximum ------------------ " ------------------
-   4g.  Table "Content_Editors"
-      // see requirement 5a, the version the user has edited is
-      // reflected by the unique contentid
- besfred                      Informational                      [Page 6]
-                                                               
-RFC-1 Page 7 
- RFC 1                    Article system rewrite             January 2002
-      contentid   // compound key (1of2), foreign key to content table
-      editorid    // ---- " ---- (2of2), ----- " ----- users table
-   4h.  Table "Publications_Editors"
-      // see requirement 5a, the version the user has edited is
-      // reflected by the unique pubid
-      editorid    // compound key (1of2), foreign key to users table
-      pubid       // ---- " ---- (2of2), ----- " ----- the
-                  // publications table
-   4i.  Table "Publications_Promote"
-      // see requirement 7
-      // the modules to display the publications will check this table
-      // first, not all display modules will use this table.
-      contentid  // ck (1of2), foreign key to the publications table
-      weight     // ck (2of2), order in which the content will appear on
-                 // display                                        [6]
-      promotexp  // expiration date (timestamp) when the weight looses
-                 // its effect and the content drops into normal order
- 5.  User-authored content
-   Everything in 4 relates to publisher-authored content [15]. But the
-   strength of the nuke-alikes is that users can also contribute to the
-   sites content. This is called user-authored content.
-   So how can we handle this valuable source of website content?
-   My proposal is to make a module that provides a combination of
-   content editors (online editors, uploads) for a predefined
-   set of content components and a predefined form of publication
-   (-> publication templates).
-   So the user will find a "Submit content" that gives them the choice
-   of publication form, i.e. article, faq, weblink, and maybe custom
-   publication templates. This must hide the complexity of splitting up
-   the submission into content components using simple forms that are
-   composed by reusable predefined form components. The delivered system
-   should also hide complexity to the admin by providing completely
-   predefined forms.
-   Then the site admin can either let those publications automatically
-   be published (shortcut in the workflow) or he can have them dropped
-   into a workflow so that anyone responsible for publishing can review
-   the user-authored content and decide to either publish it in the
-   current form, or edit the content, or rearrange the content, or
-   change the publication form from, say, an article submission, to,
-   say, a forum entry if we can regard a top level forum entry to be
-   equal to an article and the forum replies as equal to comments.
-   Again, content can be published in more than one form and in more
-   than one structure -> you can have an article and a forum entry that
-   share one or more content components, while only one copy of each
-   version of the component is stored in the database.             [16]
- besfred                      Informational                      [Page 7]
-                                                                 
-RFC-1 Page 8 
- RFC 1                    Article system rewrite             January 2002
-   I hope i could show the flexibility of the proposed system.
- 6.  Relationship to other areas
-   6a.  Categorization system
-      // to be able to assign the content to more than 1 category
-      // see requirement 3                       [1] [7] [9] [14]
-      The details on this issue will be part of the categorization RFC
-      whose content is currently discussed on the pn-data list.
-      We might want to be able to categorize the content components in
-      the content repository so that it is easier to search in.
-      We definately want to be able to assign the publications to one or
-      more categories.
-      We should be able to have an hierarchical structure of categories
-      of unlimited depth.
-      To cut down the size of a centralized relation table, every module
-      should provide its own category_content relation table using the
-      centralized categories and API.
-   6b.  Permissions system
-      // this is essential for security, workflow and publishing.
-      The details on this issue should be part of an RFC on the
-      permissions system.
-      It is obvious that the permissions system is strongly linked with
-      access control to different versions and status of content
-      components and publications. Permissions are essential to the
-      realization of a content life cycle, workflow and publication and
-      therefore should be automatically adjusted by the system.
-      Permissions should be on a group and single user basis.
-      To implement a workflow ability each content component and
-      publication needs to have at least 2-3 permissions: "admin"
-      for the user/user-group that has to edit / review the item in the
-      current state of the workflow, "read" for all others (or those
-      intended to view the content) and none for those who shouldnt be
-      allowed to view the publication (even when the status of it is
-      "published", the publication date is reached and the expiration
-      date has not yet been reached.
+	  <section title="Comments system">
+		<t>
+		  Comments system
+		  // this will allow a unified comment system to attach a set of
+		  // comments to each publication. see requirement 2a
+		  The details on this issue will be part of the comment system RFC
+		  which is currently written by Carl P. Corliss (rabbitt) and Gregor
+		  J. Rothfuss.
+		</t>
+	  </section>
+	  
+	  <section title="Rating / voting system">
+		<t>
+		  Rating / voting system
+		  // see requirement 6
+		  The details on this issue should be part of a rating system RFC.
+		  Here are some thoughts for someone who wants to write it.
+		  We should be able to have a per user rating for each publication.
+		  Maybe we want only authorized users being able to vote, maybe we
+		  want also anonymous user votes.
+		  We might want to allow multiple votes or only 1 vote per user.
+		  A scale has to be defined: from 1 to 5, from 1 to 10, ...
+		  One interesting side effect of a separated rating system comes up:
+		  What about the ability to rate registered users by registered
+		  users ? A big community plus!
+		</t>
+	  </section>
 
- besfred                      Informational                      [Page 8]
-                                                                    
-RFC-1 Page 9 
- RFC 1                    Article system rewrite             January 2002
-      In order to not having one really big permissions table the core
-      system should only provide the most basic permissions while each
-      module that uses content from the content repository should
-      provide its own permission table using the core APIs for handling
-      the permissions for the content it displays and edits.
-      -> decentralizing the permissions table like e.g. the lang files.
-      credits for the modularization idea to: BlackV_Li from PostTEP
-   6c.  Comments system
-      // this will allow a unified comment system to attach a set of
-      // comments to each publication. see requirement 2a
-      The details on this issue will be part of the comment system RFC
-      which is currently written by Carl P. Corliss (rabbitt) and Gregor
-      J. Rothfuss.
-   6d.  Rating / voting system
-      // see requirement 6
-      The details on this issue should be part of a rating system RFC.
-      Here are some thoughts for someone who wants to write it.
-      We should be able to have a per user rating for each publication.
-      Maybe we want only authorized users being able to vote, maybe we
-      want also anonymous user votes.
-      We might want to allow multiple votes or only 1 vote per user.
-      A scale has to be defined: from 1 to 5, from 1 to 10, ...
-      One interesting side effect of a separated rating system comes up:
-      What about the ability to rate registered users by registered
-      users ? A big community plus!
-   6e.  Multisites system
-      The details on this issue should be discussed.
-      We definately want to be able to assign the publications to one or more
-      subsites using the built-in multisites module.
-      We might want to redesign the implementation of the current
-      multisites system and think of it as just another categorization.
- 7.  Code that will need to be rewritten
-   /backend.php
-   /print.php
-   /themes/
-   /modules/Avantgo
+	  <section title="Multisites system">
+		<t>
+		  Multisites system
+		  The details on this issue should be discussed.
+		  We definately want to be able to assign the publications to one or more
+		  subsites using the built-in multisites module.
+		  We might want to redesign the implementation of the current
+		  multisites system and think of it as just another categorization.
+		</t>
+	  </section>
+	</section>
 
- besfred                      Informational                      [Page 9]
-                                                                   
-RFC-1 Page 10 
- RFC 1                    Article system rewrite             January 2002
-   /modules/Downloads
-   /modules/News
-   /modules/NS-Addstory
-   /modules/NS-Admin_Messages        // if included in the content table
-   /modules/NS-Autolink
-   /modules/NS-Blocks
-   /modules/NS-Comments
-   /modules/NS-Ephemerids            // if included in the content table
-   /modules/NS-Multisites
-   /modules/NS-Quotes                // if included in the content table
-   /modules/Reviews
-   /modules/Search
-   /modules/Sections
-   /modules/Submit_News
-   /modules/Top_List
-   /modules/Topics
-   /modules/Web_Links                // if included in the content table
-   and some blocks
- 8.  Tools that need to be created from scratch
-   1. Text editor modules for creating (publisher- and user-authored
-      content) and editing (publisher-authored only) textual content,
-      that provide APIs for categorizing, versioning, access control and
-      workflow.
-      // see requirement 1c
-   2. A secure file upload (publisher- and user-authored) and managing
-      (publisher-authored only) module for binary content, that
-      provides APIs for categorizing, versioning, access control and
-      workflow.
-      // see requirement 1d
-   3. A workflow editor module to create specific workflows (default, or
-      per publication type), that provides APIs for access control.
-   4. A publicationtype editor module to create and edit different
-      publication types, that provides APIs for access control
-   5. A publication module for assembling publications and putting them
-      on the website, that provides APIs for categorization, versioning,
-      access control and workflow.
-   // please add here
- 9.  Basic documents for this RFC 1
-   [1] http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1354
-         credits to: newbienetwork and spannah
-   [2] http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1376
-         credits to: Yagi
- besfred                      Informational                     [Page 10]
-                                                                
-RFC-1 Page 11 
-RFC 1 Article system rewrite January 2002 
-   [3] http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1211
-         credits to: toph
-   [4] http://www.postnuke.com/modules.php?op=modload&amp;name=Sections&amp;file=index&amp;req=viewarticle&amp;artid=9
-         credits to: alarion
-   [5] http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=935
-         credits to: jerryj, toph and Landi
-   [6] http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=562
-         credits to: nekvasilt, malexandria, ED and alarion
-   [7] http://groups.yahoo.com/group/pndev/message/2952
-         credits to: Florian Bruckner
-   [8] http://sourceforge.net/tracker/index.php?func=detail&amp;aid=438855&amp;group_id=27927&amp;atid=392231
-         credits to: niceguyeddie, alarion, jimbeam, gregor, bradnickel,
-                     ranrinc (KR) and spliffster
-   [9] http://sourceforge.net/tracker/index.php?func=detail&amp;aid=441077&amp;group_id=27927&amp;atid=392231
-         credits to: Asparagirl
-   [10] http://sourceforge.net/tracker/index.php?func=detail&amp;aid=459239&amp;group_id=27927&amp;atid=392231
-         credits to: bam-bam
-   [11] http://sourceforge.net/tracker/index.php?func=detail&amp;aid=465973&amp;group_id=27927&amp;atid=392231
-         credits to: simmayor
-   [12] http://sourceforge.net/tracker/index.php?func=detail&amp;aid=473841&amp;group_id=27927&amp;atid=392231
-         credits to: anonymous, Tobias, Andy, mulpinsf and duup
-   [13] http://www.shorewalker.com/pages/cms_woes-1.html
-         credits to: David Walker
-   [14] http://sourceforge.net/tracker/index.php?func=detail&amp;aid=439872&amp;group_id=27927&amp;atid=392231
-         credits to: ncwbiz, clnelson and jnlewis
-   [15] http://philip.greenspun.com/internet-application-workbook/planning
-         credits to: Philip Greenspun
-   [16] http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1471
-         credits to: nickrazer, JM (Jun)
-   [17] http://philip.greenspun.com/internet-application-workbook/software-structure
-         credits to: Philip Greenspun
- besfred                      Informational                     [Page 11]
-                                                              
-RFC-1 Page 12 
- RFC 1                    Article system rewrite             January 2002
- 10.  Retractions
-    We list features that were considered but rejected for this system
-    below.
- 11. Author contact
- Frank Besler
- Germany
- EMail: besfred@GMX.NET
- 12.  Changelog
-   7  (2002-01-06)
-      Added the idea of predefined input forms for hiding complexity.
-      moved the parentid from table "Content_Publication" to table
-         "Publication"
-   6  (2002-01-05)
-      Added proposal for modularizing the permissions and categorizing.
-   5  (2002-01-05)
-      Added "Author contact"
-      Added "Retractions"
-         credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
-   4  (2002-01-04)
-      Added the quotation [17]
-      Added the tools that need to be created.
-      Added the publication type, content type tables.
-      Added the user-authored content
-      Added the permissions system in the "Relationship ..." section
-   3  (2002-01-03)
-      Reorganized the requirements.
-      Moved the tables concerning comments, ratings, categories and
-         multisites to the new "Relationship ..." section
-      Added the "Relationship to other areas"
-         credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
-      Dropped the container idea in the content table in favour of the
-         notion of having "Publications" introduced in version 2
-      Added the "Changelog"
-   2  (2002-01-03)
-      Reorganized the content repository
-      Introduced the "Publications" table and its implications
-   1  (2002-01-02)
-      Initial version
- besfred                      Informational                     [Page 12]
-	</artwork>
+	<section title="Code that will need to be rewritten">
+	  <t>
+		<artwork>
+		Code that will need to be rewritten
+		/backend.php
+		/print.php
+		/themes/
+		/modules/Avantgo
+		/modules/Downloads
+		/modules/News
+		/modules/NS-Addstory
+		/modules/NS-Admin_Messages        // if included in the content table
+		/modules/NS-Autolink
+		/modules/NS-Blocks
+		/modules/NS-Comments
+		/modules/NS-Ephemerids            // if included in the content table
+		/modules/NS-Multisites
+		/modules/NS-Quotes                // if included in the content table
+		/modules/Reviews
+		/modules/Search
+		/modules/Sections
+		/modules/Submit_News
+		/modules/Top_List
+		/modules/Topics
+		/modules/Web_Links                // if included in the content table
+		and some blocks
+		  </artwork>
+	  </t>
+	</section>
 
-      </t>
-    </section>
+	<section title="Tools that need to be created from scratch">
+	  <t>
+		Tools that need to be created from scratch
+		<list style="numbers">
+		  <t>
+			Text editor modules for creating (publisher- and user-authored
+			content) and editing (publisher-authored only) textual content,
+			that provide APIs for categorizing, versioning, access control and
+			workflow.
+			// see requirement 1c
+		  </t>
+		  <t>
+			A secure file upload (publisher- and user-authored) and managing
+			(publisher-authored only) module for binary content, that
+			provides APIs for categorizing, versioning, access control and
+			workflow.
+			// see requirement 1d
+		  </t>
+		  <t>
+			A workflow editor module to create specific workflows (default, or
+			per publication type), that provides APIs for access control.
+		  </t>
+		  <t>
+			A publicationtype editor module to create and edit different
+			publication types, that provides APIs for access control
+		  </t>
+		  <t>
+			A publication module for assembling publications and putting them
+			on the website, that provides APIs for categorization, versioning,
+			access control and workflow.
+			// please add here
+		  </t>
+		</list>
+	  </t>
+	</section>
+
+	<section title="Retractions">
+	  <t>
+		We list features that were considered but rejected for this system
+		below.
+	  </t>
+	</section>
+
+	<section title="Changelog">
+	  <t>
+		<artwork>
+		  7  (2002-01-06)
+		  Added the idea of predefined input forms for hiding complexity.
+		  moved the parentid from table "Content_Publication" to table
+		  "Publication"
+		  6  (2002-01-05)
+		  Added proposal for modularizing the permissions and categorizing.
+		  5  (2002-01-05)
+		  Added "Author contact"
+		  Added "Retractions"
+		  credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
+		  4  (2002-01-04)
+		  Added the quotation [17]
+		  Added the tools that need to be created.
+		  Added the publication type, content type tables.
+		  Added the user-authored content
+		  Added the permissions system in the "Relationship ..." section
+		  3  (2002-01-03)
+		  Reorganized the requirements.
+		  Moved the tables concerning comments, ratings, categories and
+		  multisites to the new "Relationship ..." section
+		  Added the "Relationship to other areas"
+		  credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
+		  Dropped the container idea in the content table in favour of the
+		  notion of having "Publications" introduced in version 2
+		  Added the "Changelog"
+		  2  (2002-01-03)
+		  Reorganized the content repository
+		  Introduced the "Publications" table and its implications
+		  1  (2002-01-02)
+		  Initial version
+		</artwork>
+	  </t>
+	</section>
   </middle>
+  
+  <back>
+	<references title="Reference title">
+      <!-- Fill in references as needed -->
+	  <reference anchor="refs.1">
+		<front>
+		  <title>http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1354</title>
+		  <author>
+			<organization>newbienetwork and spannah</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.2">
+		<front>
+		  <title> http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1376</title>
+		  <author>
+			<organization>Yagi</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.3">
+		<front>
+		  <title> http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1211</title>
+		  <author>
+			<organization>toph</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.4">
+		<front>
+		  <title> http://www.postnuke.com/modules.php?op=modload&amp;name=Sections&amp;file=index&amp;req=viewarticle&amp;artid=9</title>
+		  <author>
+			<organization>alarion</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.5">
+		<front>
+		  <title> http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=935</title>
+		  <author>
+			<organization>jerryj, toph and Landi</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.6">
+		<front>
+		  <title> http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=562</title>
+		  <author>
+			<organization>nekvasilt, malexandria, ED and alarion</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.7">
+		<front>
+		  <title> http://groups.yahoo.com/group/pndev/message/295</title>
+		  <author>
+			<organization>Florian Bruckner</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.8">
+		<front>
+		  <title>http://sourceforge.net/tracker/index.php?func=detail&amp;aid=438855&amp;group_id=27927&amp;atid=39223</title>
+		  <author>
+			<organization>niceguyeddie, alarion, jimbeam, gregor, bradnickel,
+                     ranrinc (KR) and spliffster</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.9">
+		<front>
+		  <title> http://sourceforge.net/tracker/index.php?func=detail&amp;aid=441077&amp;group_id=27927&amp;atid=39223</title>
+		  <author>
+			<organization>Asparagirl</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.10">
+		<front>
+		  <title> http://sourceforge.net/tracker/index.php?func=detail&amp;aid=459239&amp;group_id=27927&amp;atid=392231</title>
+		  <author>
+			<organization>bam-bam</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.11">
+		<front>
+		  <title>http://sourceforge.net/tracker/index.php?func=detail&amp;aid=465973&amp;group_id=27927&amp;atid=392231</title>
+		  <author>
+			<organization>simmayor</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.12">
+		<front>
+		  <title>http://sourceforge.net/tracker/index.php?func=detail&amp;aid=473841&amp;group_id=27927&amp;atid=392231</title>
+		  <author>
+			<organization>anonymous, Tobias, Andy, mulpinsf and duup</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.13">
+		<front>
+		  <title>http://www.shorewalker.com/pages/cms_woes-1.html</title>
+		  <author>
+			<organization>David Walker</organization>
+		  </author>
+		  <date year="unkwown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.14">
+		<front>
+		  <title>http://sourceforge.net/tracker/index.php?func=detail&amp;aid=439872&amp;group_id=27927&amp;atid=392231</title>
+		  <author>
+			<organization> ncwbiz, clnelson and jnlewis</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.15">
+		<front>
+		  <title> http://philip.greenspun.com/internet-application-workbook/planning</title>
+		  <author>
+			<organization>Philip Greenspun</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.16">
+		<front>
+		  <title>http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1471</title>
+		  <author>
+			<organization>nickrazer, JM (Jun)</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+	  <reference anchor="refs.17">
+		<front>
+		  <title>http://philip.greenspun.com/internet-application-workbook/software-structure</title>
+		  <author>
+			<organization> Philip Greenspun</organization>
+		  </author>
+		  <date year="unknown"/>
+		</front>
+	  </reference>
+    </references>
+  </back>
 </rfc>

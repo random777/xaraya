@@ -44,8 +44,15 @@
 	  <list style="symbols">
 	  <t>Permissions are defined as objects that can be manipulated independently of users and groups.
 	  </t><t>Users and groups are conceptually (and in the implementation) merged to a single class of objects called participants.
-	  </t><t>Both participants and permissions can unlimited levels of subgoups of participants and permissions respectively.
+	  </t><t>Both participants and permissions can have unlimited levels of subgoups of participants and permissions respectively.
 	  </t><t>Permission objects, i.e. objects that have permissions associated with them, are registered when a module is initiated.
+	  </t>
+	</list>
+<t>Benefits:</t>
+	  <list style="symbols">
+	  <t>Permissions can be manipulated independently of participants. We can create groups of permissions, adding or deleting the components.
+	  </t><t>We can then assign permissions groups to participants in a single statement.
+	  </t><t>Registering permissions objects allows us to make visible to the user the available permissions to be set.
 	  </t>
 	</list>
 <t>This RFC does not cover:</t>

@@ -37,11 +37,15 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Andy Varganov (andyv)
 
+  Camille Périnel (kams)
+
   Carl P. Corliss (Rabbitt)
 
   Chad Kraeft (StEgo)
 
   Chris Dudley (miko)
+
+  Chris van der Steeg (alley)
 
   Curtis Hays (stratagem)
 
@@ -55,6 +59,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Gary Mitchell (wb9tpg)
 
+  Garrett Hunter (Garrett)
+
   Hinrich Donner (Hinrich)
 
   Isaac Golding (isaac)
@@ -67,9 +73,13 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Jim Starkweather (jims)
 
+  Joanna Dalle Nogare (jojodee)
+
   John Robeson (johnny)
 
   Jon Todaro (BoNe)
+
+  Jonn Beames (jsb)
 
   Jorge Guttierez (j0taj0ta)
 
@@ -82,6 +92,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Marie Altobelli (ladyofdragons)
 
   Marty Vance (Dracos)
+
+  Michael Jansen (Mike)
 
   Michael Wechsler (slinky)
 
@@ -99,6 +111,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Scot Gardner (XarayaGeek)
 
+  Simon Wunderlin (spiffster)
+
   Steve Johnson (pawmarks)
 
   Steve MacGregor (grape)
@@ -107,15 +121,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Vassilis Stratigakis (GabrielConnor)
 
-  Chris van der Steeg (alley)
 
-  Michael Jansen (Mike)
-
-  Garrett Hunter (Garrett)
-
-  Joanna Dalle Nogare (jojodee)
-
-  Jason Judge (judgej)
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -127,7 +133,6 @@ Other development credits
    Marjolein Katsma (xar-bugzilla@javawoman.com) - Fix bug 1007 xarServerCurrentUrl Problem.
 						 - Fix bug 1002 link tags.
    David Taylor (marsel@phatcom.net) added TIME field to mySQL data structure.
-   Kams (kams@fnac.net) - Various Language Bugs.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

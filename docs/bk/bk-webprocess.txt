@@ -114,11 +114,15 @@ www        ---> www.xaraya.com
 developer  ---> developer.xaraya.com 
 news       ---> news.xaraya.com
 docs       ---> docs.xaraya.com
+xcommon    ---> N/A (xcommon holds web sources common to different sites)
 
 If both webs-staging and webs-production repositories are in place
 there is a nice structure to edit the content and make sure it's 
 revision controlled and all that, but that doesn't give you a website,
 so we have to define a relation between the "bk-space" and the "web-space"
+
+The xcommon repository holds source common to multiple websites. This
+repository needs to be cloned to the web-space as well.
 
 ------------------------------------------
 Relation between bk and web-space

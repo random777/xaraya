@@ -1,0 +1,25 @@
+PostNuke Quality Document
+====================
+
+This documents the quality assurance process for the .71 Rogue Release for 
+PostNuke.  The following release has been tested in both a closed testing process
+and open testing process.  During the process several problems that normally would
+have been missed have been identified and corrected.
+
+Though there are still minor bugs documented on our Bug Tracker, the PostNuke
+Quality Team feels comfortable in saying that there are no major bugs with functionality,
+security, or system integrity.  This process began in late January, and lasted until the 
+middle of March to ensure the quality of PostNuke over multiple platforms, and
+builds.
+
+Even with the extensive testing process instituted with this release, we are providing
+this software AS IS.  We provide no warranty, nor guarantee that this software will
+operate as intended.
+
+We hope that you appreciate the efforts of all involved, and invite you to take 
+part in the next testing phase.
+
+Signed:
+
+John Cox            PostNuke Project Manager
+Frank Besler        Quality Manager

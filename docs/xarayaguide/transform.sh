@@ -27,8 +27,8 @@ tidy -asxhtml -q -m -i $OUTPUT/xarayaguide.html
 # make the PDF output
 if [ "X$1" = 'X--nopdf' ] 
 then
+  rm $OUTPUT/xarayaguide.pdf	
+else
   docbook2pdf -d ldp.dsl\#print -o $OUTPUT make.xml
   mv $OUTPUT/make.pdf $OUTPUT/xarayaguide.pdf
-else
-  rm $OUTPUT/xarayaguide.pdf	
 fi

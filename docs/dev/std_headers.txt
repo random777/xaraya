@@ -13,8 +13,8 @@ Fileheader:
  * @copyright (C) 2002 by the Xaraya Development Team.
  * @link http://www.xaraya.com
  * 
- * @subpackage <module name>
- * @author <reponsible person>
+ * @subpackage module name
+ * @author author name <author@email> (this tag means responsible person)
 */				
 
 PHPdoc header for functions:
@@ -26,14 +26,14 @@ PHPdoc header for functions:
  * A somewhat longer description of the function which may be 
  * multiple lines, can contain examples.
  *
- * @author  Name <email>
+ * @author  Author Name <author@email>
  * @deprec  <insert this if function is deprecated>
- * @access  <public / private>
+ * @access  public / private
  * @param   param1 Description of parameter 1
  * @param   param2 Description of parameter 2
- * @return  <type to return> <description>
- * @raise   <exception identifiers which can be raised>
- * @todo    list of things which must be done to comply to RFC
+ * @return  type to return description
+ * @throws  list of exception identifiers which can be thrown
+ * @todo    list of things which must be done to comply to relevant RFC
 */
 
 ===========================

@@ -28,7 +28,7 @@
 		<!-- One content section is mandatory -->
 		<section title="Introduction">
 			<t>
-			The postnuke modules are there to extend the functionality of this content management system (we assume that you are already familiar with the PostNuke Module Developers Guide by Jim McDonald - link). 
+			The Xaraya modules are there to extend the functionality of this content management system (we assume that you are already familiar with the Xaraya Module Developers Guide by Jim McDonald - link). 
 </t>
 <t>
 Traditionally, the modules have been added to /modules directory and activated/deactivated via the admin interface. However, they didn't have any particular weight, class or identity, which could have helped to quickly and unmistakably determine (both programmatically and visually) the module's purpose, role and hierarchy within the xaraya system. 

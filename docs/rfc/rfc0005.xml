@@ -43,7 +43,7 @@
 		</section>
 		<section title="List of requirements for the Cron System">
 			<t>
-			    Implement a system to run cron-like jobs within PostNuke,
+			    Implement a system to run cron-like jobs within Xaraya,
      simliar to Drupal.
 </t>
 <t>

@@ -35,7 +35,7 @@
 <t>
  Our install system is currently the best install system of all the free CMSs that already exist, and prolly better than
  the commercial ones. But, let's face facts, it needs some serious work to make it change with the times. Many things
- are changing within PostNuke. Our install system needs to be updated to keep up with these, and expandible for
+ are changing within Xaraya. Our install system needs to be updated to keep up with these, and expandible for
  later use.
 			</t>
 		</section>
@@ -75,7 +75,7 @@
 </t>
 <t>
  What this will do is neccessitate the need for a modules repository, which is what we wanted way back
- in the planning stage of PostNuke. It will need to be maintained. I also believe that we will need to have
+ in the planning stage of Xaraya. It will need to be maintained. I also believe that we will need to have
  a file that each site will load to check to see the official modules that are available. I believe that
  we could just load this on request and not on each page load of modules admin.
  </t>
@@ -180,10 +180,10 @@ Implementation Considerations
 </t>
 <t>
  My two biggest worries are that unauthorised uses could get to this through
- some sort of security hole and really trash the PostNuke install, and
+ some sort of security hole and really trash the Xaraya install, and
  that it will require the modules directory to be set to an insecure
  setting to accomplish this. Bad directory permissions is one of the
- current outstanding areas where PostNuke doesn't look good, and this
+ current outstanding areas where Xaraya doesn't look good, and this
  will just make it worse.
 </t>
 <t>

@@ -33,7 +33,7 @@
 			In the case of CORBA the C language mapping imposes that every IDL method accept as last parameter a 
 			CORBA_Environment type. We can avoid to use a CORBA_Environment-like parameter for all functions, 
 			thanks to, firstly, the non-strongly-typed return values we have in PHP, and secondly, the single threaded 
-			policy we adopted in PostNuke.
+			policy we adopted in Xaraya.
                     </t>
 		</section>
 		<section title="Handling exceptions">
@@ -55,7 +55,7 @@
 			calling the xarExceptionMajor function.
 			</t>
 			<t>
-			The PostNuke Exception Handling System provides useful functions to deal with exceptions. Their 
+			The Xaraya Exception Handling System provides useful functions to deal with exceptions. Their 
 			signatures are: 
 			</t>
 			<t>
@@ -183,33 +183,33 @@ As you can see in the above example we're delegating to another piece of code th
                     </t>
 			</section>
 		</section>
-		<section title="PostNuke integration">
+		<section title="Xaraya integration">
 			<t>
-			To best integrate the Exceptions Handling System into PostNuke we need to define a superset of well 
-			known exceptions called System Exceptions and to make the PostNuke APIs compatible with Exceptions 
+			To best integrate the Exceptions Handling System into Xaraya we need to define a superset of well 
+			known exceptions called System Exceptions and to make the Xaraya APIs compatible with Exceptions 
 			Handling System. Modifications to APIs involve the usage of System Exceptions. To get an example of 
 			what is a System Exception consider the case in which you're calling an API with a non existent user id. 
-			In that case you're violating the PostNuke integrity, so it makes sense to raise an exception of type 
+			In that case you're violating the Xaraya integrity, so it makes sense to raise an exception of type 
 			ID_NOT_EXISTS internally in the API function. For another example you could recall the xarModAPIFunc 
 			function. Its purpose is to call an API module function and returns the outcome value of the called API 
 			module function. But what's happen if xarModAPIFunc can't call the function you've indicated. As you can 
-			read in PostNuke API Command Reference, xarModAPIFunc will return false if the module function does 
+			read in Xaraya API Command Reference, xarModAPIFunc will return false if the module function does 
 			not exist or void for an internal error. By doing so xarModAPIFunc vincolates your module API functions to 
 			never return void or false because the caller can't distinguish these values from an error condition in 
 			xarModAPIFunc. In the other hand if xarModAPIFunc could raise exceptions your module API functions 
 			could return false and void as well, since you're allowed to discover error conditions with the Exception 
 			Handling System and not by relaying on return value. As you can see there are many advantages in 
-			exceptions but we must keep the PostNuke API as backward compatible as possible. Consider also that 
+			exceptions but we must keep the Xaraya API as backward compatible as possible. Consider also that 
 			exceptions go well not for all error conditions, if you're doing that probably you're wrong. Boolean 
-			functions go very well in many cases, and most of PostNuke API functions can indicate particular errors 
+			functions go very well in many cases, and most of Xaraya API functions can indicate particular errors 
 			with the false return value. Exceptions have to be used when there's a real needing of them, and not as a 
-			replacement for the false return value. The changes that have to be done in PostNuke API must be 
+			replacement for the false return value. The changes that have to be done in Xaraya API must be 
 			minimals, and relay only on System Exceptions.
                     </t>
-			<section title="PostNuke System Exceptions">
+			<section title="Xaraya System Exceptions">
 				<t>
-			The Exceptions Handling System need to be closely integrated with PostNuke. To achieve this goal the 
-			well known System Exceptions take care of PostNuke architecture, so we will refer to them as PostNuke 
+			The Exceptions Handling System need to be closely integrated with Xaraya. To achieve this goal the 
+			well known System Exceptions take care of Xaraya architecture, so we will refer to them as Xaraya 
 			System Exceptions. A system exception always contains as exception value a PHP class so defined:
 			</t>
 				<t>
@@ -224,7 +224,7 @@ class ?SystemException {
                    exception. 
                     </t>
 				<t>
-                    Here is a list of PostNuke System Exceptions: 
+                    Here is a list of Xaraya System Exceptions: 
                     </t>
 				<t>
 					<list>
@@ -281,9 +281,9 @@ class ?SystemException {
                     TBD: extend this list
                     </t>
 			</section>
-			<section title="PostNuke API changes">
+			<section title="Xaraya API changes">
 				<t>
-			Here is a list of modifications that should occur on current version of PostNuke API. Every modification 
+			Here is a list of modifications that should occur on current version of Xaraya API. Every modification 
 			exposed here is described by three fields: 
                     </t>
 				<t>
@@ -493,10 +493,10 @@ class ?SystemException {
                  0.1 (May 8, 2002)
                  </t>
 				<t>
-                 Extended PostNuke System Exceptions section.
+                 Extended Xaraya System Exceptions section.
                  </t>
 				<t>
-                 Added PostNuke API changes section.
+                 Added Xaraya API changes section.
                  </t>
 				<t>
                  pre-0.1 (May 5, 2002)

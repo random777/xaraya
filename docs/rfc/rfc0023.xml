@@ -37,7 +37,7 @@
 			Short URL support should cover 2 important (but slightly different) goals :
 	             </t>
 			<t>
-			* user-friendly URLs : for exchanging URLs, manual linking and more intuitive navigation inside a Postnuke site
+			* user-friendly URLs : for exchanging URLs, manual linking and more intuitive navigation inside a Xaraya site
 	             </t>
 			<t>
 			* search engine-friendly URLs : for facilitating crawling/spidering by robots, and automated linking by search engines, newsfeeds etc.
@@ -87,11 +87,11 @@
 		<section title="Solution proposals - functions">
 			<section title="Design used for the test implementation">
 				<t>
-                           The Postnuke API provides two unique places where URLs are respectively generated and interpreted : xarModURL() and xarGetRequestInfo(). This means that 
+                           The Xaraya API provides two unique places where URLs are respectively generated and interpreted : xarModURL() and xarGetRequestInfo(). This means that 
                            any modification of the URL format can be limited to those two functions, for any module supporting the Xaraya API.
 	                    </t>
 			       <t>
-	                    This gives us a very easy way to start using short URLs, without affecting anything else from the Postnuke core or modules.
+	                    This gives us a very easy way to start using short URLs, without affecting anything else from the Xaraya core or modules.
 	                    </t>
 			       <t>
 	                    The one major open issue for the test implementation was how to make sure we can generate short URLs that fit the 2 design goals mentioned above.
@@ -299,7 +299,7 @@ function articles_userapi_decode_shorturl($params) {
                     supporting short URLs. No other areas should be affected.
 	             </t>
 			<t>
-                    One possible extension could be a better use of caching by intermediate cache devices, proxies etc. For this, further optimisation of Postnuke performance by using 
+                    One possible extension could be a better use of caching by intermediate cache devices, proxies etc. For this, further optimisation of Xaraya performance by using 
                     Last-Modified headers would definitely be a good idea.
 	             </t>
 		</section>
@@ -417,8 +417,8 @@ function articles_userapi_decode_shorturl($params) {
                               The index.php (or at least *some* PHP script) is necessary if you don't want to (or can't easily) change your webserver configuration.
 	                       </t>
 			          <t>
-                              Doing a straight mapping of /articles to /index.php/articles (or to /index.php?module=articles or whatever) is not something Postnuke can handle - it must be 
-                              done by the webserver *before* the request even gets handed over to Postnuke...
+                              Doing a straight mapping of /articles to /index.php/articles (or to /index.php?module=articles or whatever) is not something Xaraya can handle - it must be 
+                              done by the webserver *before* the request even gets handed over to Xaraya...
 	                       </t>
 			          <t>
                               For people who have control over the configuration of their own website, you can get rid of that index.php by defining virtual paths in your webserver - but 

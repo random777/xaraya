@@ -41,25 +41,25 @@
 			Developers to announce new modules, upgrades or new versions.
 			</t>
 			<t>
-			Allow the Postnuke staff a place to manage module attributes (status, test results, security review, etc).
+			Allow the Xaraya staff a place to manage module attributes (status, test results, security review, etc).
 			</t>
 			<t>
 			A RSS Feed to list new module announcements
 			</t>
 			<t>
-			Tools so a Postnuke Admin can check for new or updates modules for their site.
+			Tools so a Xaraya Admin can check for new or updates modules for their site.
 			</t>
 			</list> 
 			</t>
 		</section>
 		<section title="Module Information Repository">
 			<t>
-			Today, information about what Postnuke modules are available is widely dispersed. Users have difficulty  
+			Today, information about what Xaraya modules are available is widely dispersed. Users have difficulty  
 			finding available modules, updates and support.
 			</t>
 			<t>
 			We're going solve that problem by creating a Central Module Repository (database). The repository will 
-			reside on postnuke.com and provide the following functionality: 
+			reside on xaraya.com and provide the following functionality: 
 			</t>
 			<t>
 			<list>
@@ -69,7 +69,7 @@
 			<list>
 			<t>Assigns an unique module ID and prevent duplicate module names.
 			</t>
-			<t>Allows the developer to announce new versions of a module, Postnuke version supported, and the 
+			<t>Allows the developer to announce new versions of a module, Xaraya version supported, and the 
 			download location for that version.
 			</t>
 			<t>Query the develop on a number of questions related on the module (security, etc).
@@ -124,7 +124,7 @@
 		</section>
 		<section title="Site Administration Functions">
 			<t>
-			Additional functionality will be added to the Postnuke code to allow the site admin to query the modules 
+			Additional functionality will be added to the Xaraya code to allow the site admin to query the modules 
 			repository for updates to modules installed on their site. The query would be done via XML or MySQL 
 			dababase call. The admin will be provided a link to download updated modules (to avoid 777 permission 
 			problems).

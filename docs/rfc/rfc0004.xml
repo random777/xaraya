@@ -49,7 +49,7 @@
     to people like Jorge Gutierrez. Thank you.
 </t>
 <t>
-    PostNuke needs a better way to handle the metadata about the
+    Xaraya needs a better way to handle the metadata about the
     content it manages. This metadata is currently held in the 'topic',
     'category' and to some extent 'language' attributes of the stories,
     the 'category' of the links and FAQs etc. There is a need to have a

@@ -42,7 +42,7 @@
 
   <!-- Full distro modules, when added to the core modules, you get a full system -->
   <property name="modules.full" 
-    value="addressbook,authinvision,authphpbb2,authsso,bbclick,bbcode,censor,changelog,xarldap,figlet,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,mime,images,window,workflow,xarbb,xarldap,xarlinkme,xlink,xslt"/>
+    value="addressbook,authinvision,authphpbb2,authsso,bbclick,bbcode,censor,changelog,figlet,issueareapub,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,mime,images,window,workflow,xarbb,xarlinkme,xlink,xslt"/>
 
   <!-- Languages which get included in the distro -->
   <property name="languages.installer" value="nl_NL.iso-8859-1"/>

@@ -10,6 +10,7 @@ BitKeeper/tmp/*
 BitKeeper/triggers/*
 BitKeeper/writer/*
 PENDING/*
+apiref.pdf
 config.site.xml
 config.system.php
 docs/rfc/*.html

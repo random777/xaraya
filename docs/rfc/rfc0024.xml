@@ -73,29 +73,29 @@
 	</t>
 	<t>
 	<artwork>
-	Available events
+	Available events (pubsub_events)
 	----------------
         eventid		unique event identifier
-        modname	        holds a reference to the module
-        eventtype	references an event type, either standard hook action or defined by the module
+        modid	        holds a reference to the module
+        cid		category ID	
+        iid		item ID
         groupdescr	defines a group of items in the module (e.g. category), semantics are defined by the module
-        actionid		possible actions (only mail for v1)
 	
-	Event registration 
+	Event registration (pubsub_reg)
         ------------------
         pubsubid	unique subscription identifier
         eventid		event identifier
         userid		user registered for this event
         actionid	requested action for that user+event (only mail for v1)
 	
-	Event handling 
+	Event handling (pubsub_process)
         --------------
 	handlingid	unique identifier for handling a particular event for a particular item and a particular user
         pubsubid	subscription identifier (= defines event + user + action)
         objectid	references an individual item in the module, semantics are defined by the module
         status		pending / done
 
-	Event Template
+	Event Template (pubsub_template)
 	--------------
 	templateid	unique identifier for this template
 	eventid		event identifier

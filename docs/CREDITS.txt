@@ -151,3 +151,12 @@ http://revjim.net/code/xmlParser/
 * feedParser
 Copyright (c) 2000-2003 Reverend Jim
 http://revjim.net/code/feedParser/
+
+* xmlrpc server and client
+Copyright (c) 1999,2000,2001 Edd Dumbill
+http://phpxmlrpc.sourceforge.net
+
+* SOAP classes
+Copyright (c) 2002 Nusphere Corporation
+http://www.nusphere.com
+

@@ -7,11 +7,11 @@
 
 <rfc number="0007" category="info">
   <front>
-    <title>Modularized User Data</title>
+    <title>Modularized Data</title>
     <author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
       <organization>Project Management Core</organization>
       <address>
-	<email>rothfuss@abstrakt.ch</email>
+	<email>gregor@xaraya.com</email>
 	<uri>http://www.xaraya.com</uri>
       </address>
     </author>
@@ -19,8 +19,7 @@
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>The contents of this RFC contain the literal content of the old plain text version of RFC-0001</t>
-      <t>When time is a less scarcer good, someone might convert the plain text	into structured XML so we can benefit from it.</t>
+      <t>This RFC proposes to have a unified mechanism to extend modules with custom data.</t>
     </abstract>
   </front>
   
@@ -30,29 +29,36 @@
     <section title="Introduction">
       <t></t>
     </section>
-    <section title="General statements about Modularized User Data">
+    <section title="General statements about Modularized Data">
       <t></t>
     </section>
-    <section title="List of requirements for Modularized User Data">
+    <section title="List of requirements for Modularized Data">
       <t></t>
     </section>
     <section title=" Solution proposals - database tables">
       <t>
         This is the DB setup as extracted from the admin API.
 		<figure><artwork src="images/rfc0007_2.png"/></figure>
-        This design is for text-based dynamic user data.
+     </t>
+     <t>   
+     This design is for text-based dynamic data.
 		<figure><artwork src="images/rfc0007_1.png"/></figure>
 		This design is for user data that can be assigned to groups,
         with optional selection lists for fields, i.e. for dropdowns.
 		<figure><artwork src="images/rfc0007_3.png"/></figure>
 	  </t>
+          <t>
+	This design attempts to merge Dynamic Data, Dynamic User Data and Module
+        Variables. Values are serialized to support transparent storage of complex
+        types (arrays etc).
+		<figure><artwork src="images/rfc0007_4.png"/></figure>
     </section>
     <section title="Table 'Content'">
       <t></t>
     </section>
     <section title=" Solution proposals - APIs">
       <t>
-      Dynamic User Data will use two sets of APIs. Creation and Deletion of of variables is done within
+      Dynamic Data will use two sets of APIs. Creation and Deletion of of variables is done within
       a module, while reading and writing variable contents is done in the core.
 
       There are currently discussions whether to combine Dynamic User Data with generalized
@@ -66,10 +72,11 @@
       </t>
     </section>
     <section title="Relationship to other areas">
-      <t></t>
-    </section>
-    <section title="">
-      <t></t>
+      <t>It will need to be determined if it makes sense to allow storage of certain properties
+      via the modular authentication system. For instance, it could be beneficial to store
+      dynamic properties for the users module in LDAP. Also, it needs to be determined how and
+      if dynamic properties integrate with the Multilangue system. Marco has some thoughts about
+      this, i hope he will share them soon.</t>
     </section>
     <section title="Code that will need to be rewritten">
       <t></t>

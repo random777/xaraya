@@ -102,7 +102,7 @@
 			<t>Uploading a file that is saved to a folder:</t>
 			<t>Using this method, the form control is passed to the uploads module.  The file is
 			pulled from the temp folder using _$FILES and is_uploaded_file for maximum security.  
-			The name of the file is scrambled through MD5 using a random salt obtained by time & pid.  
+			The name of the file is scrambled through MD5 using a random salt obtained by time &amp; pid.  
 			a URL to a placeholder page is passed back to the calling module.  The placeholder page 
 			will notify someone who tries it that the file has not been approved, and to try back later.
 			The site admin can then download it for examination, approve the file, and rename it back 

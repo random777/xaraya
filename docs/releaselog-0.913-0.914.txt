@@ -1,6 +1,22 @@
 Release notes for release B914.
 Changes from B913 to B914:
 
+2003-10-29: mikespub@fully.qualified.hostname: ChangeSet 1.1647
+  Merge mikespub@xaraya.com:/usr/local/repositories/xaraya/core/stableinto fully.qualified.hostname:D:/wintools/cygwin/home/stable
+ 2003-10-29: mikespub@fully.qualified.hostname: ChangeSet 1.1645.1.1
+  some more showOutput() changes - note that all this requires deleting your old var/cache/templates files
+  	* html/modules/dynamicdata/xaruserapi/showoutput.php:
+	  some more showOutput() changes - note that all this requires deleting your old var/cache/templates files 
+ 	* html/modules/dynamicdata/class/properties.php:
+	  some more showOutput() changes - note that all this requires deleting your old var/cache/templates files 
+ 	* html/modules/dynamicdata/class/objects.php:
+	  some more showOutput() changes - note that all this requires deleting your old var/cache/templates files 
+2003-10-29: marcel@hsdev.com: ChangeSet 1.1646
+  Bringing in the releasenotes
+  	* docs/releaselog-0.913-0.914.txt:
+	   
+ 	* docs/releaselog-0.913-0.914.txt:
+	  BitKeeper file /home/mrb/dev/ddf/xar/core/stable/docs/releaselog-0.913-0.914.txt 
 2003-10-29: marcel@hsdev.com: ChangeSet 1.1645
   Adapt the build file, so sniffer will be included in base distro instead of core distro
   	* build.xml:

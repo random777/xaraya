@@ -27,8 +27,8 @@
 <project name="xaraya" basedir="." default="help">
   
   <!-- Some essential properties on which the rest really depends -->
-  <property name="version" value="0.9.0.5" />
-  <property name="releaselog" value="releaselog-0.904-0.905.txt" />
+  <property name="version" value="0.9.0.6" />
+  <property name="releaselog" value="releaselog-0.905-0.906.txt" />
   <property name="final.name" value="${phing.project.name}-${version}" />
   
   <!-- module lists -->   
@@ -166,7 +166,7 @@
   <!-- Base distribution -->
   <target name="basedist" description="--> Creates the base distribution">
    <!-- Modules are a bit separate -->
-    <foreach list="modules.base" target="copymodule" param="module.name"/>
+    <foreach list="modules.base" target="copymodulefrommodrepo" param="module.name"/>
     
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-base.tar.gz"/>
@@ -188,6 +188,17 @@
     </copy>
   </target>
   
+  <!-- copy a module into the build tree -->
+  <target name="copymodulefrommodrepo" if="module.name">
+    <echo msg="Copying module ${module.name} into build tree..."/>
+    <copy todir="${build.html}/modules/${module.name}">
+      <fileset dir="../../modules/${module.name}">
+        <include name="**"/>
+        <exclude name="SCCS/**"/>
+      </fileset>
+    </copy>
+  </target>
+
   <!-- Create a tarball from the current contents of the build tree -->
   <target name="createtarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>

@@ -2,13 +2,11 @@
 
 sources=`bk sfiles -g | grep ".xml"`
 
-
 for i in $sources; do
 (
   htmlfile=`echo $i | sed s/xml/html/`
-  title=$i
-  echo "<t>"
-  echo "<eref target=\"http://docs.xaraya.com/docs/rfcs/$htmlfile\">$title</eref>"
-  echo "</t>"
+  title=`xsltproc --novalid _rfctitle.xslt $i`
+  rfcnr=${i:3:4}
+  echo "<t><eref target=\"http://docs.xaraya.com/docs/rfcs/$htmlfile\">RFC-$rfcnr : $title</eref></t>"
 ) 
 done

@@ -188,16 +188,6 @@
       </fileset>
     </copy>
     
-    <!-- Handle the sql directory -->
-    <mkdir dir="${build.sql}"/>
-    <copy todir="${build.sql}">
-      <fileset dir="${sql.dir}">
-        <include name="*.sql"/>
-        <exclude name="SCCS/**"/>
-        <exclude name=".DS_Store"/>
-      </fileset>
-    </copy>
-    
     <!-- Copy config.system.php.dist to config.system.php -->
     <copy file="${html.dir}/var/config.system.php.dist" tofile="${build.html}/var/config.system.php"/>
   </target>
@@ -229,7 +219,9 @@
       <fileset dir="${modules.repo}/${module.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
-        <exclude name=".DS_Store"/>
+		<exclude name="BitKeeper/**"/>
+		<exclude name="PENDING/**"/>
+		<exclude name=".DS_Store"/>
       </fileset>
     </copy>
   </target>
@@ -241,6 +233,8 @@
       <fileset dir="${themes.repo}/${theme.name}">
         <include name="**"/>
         <exclude name="SCCS/**"/>
+		<exclude name="BitKeeper/**"/>
+		<exclude name="PENDING/**"/>
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>
@@ -262,6 +256,8 @@
         <include name="xml/core/**"/>
         <include name="locale.xml"/>
         <exclude name="SCCS/**"/>
+		<exclude name="BitKeeper/**"/>
+		<exclude name="PENDING/**"/>
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>

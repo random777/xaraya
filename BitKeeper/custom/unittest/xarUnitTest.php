@@ -280,7 +280,7 @@ class xarTestAssert {
         if ($actual === $expected) {
             return $this->pass($msg);
         }
-        return $this->pass($msg);
+        return $this->fail($msg);
     }
 
 
@@ -312,7 +312,7 @@ class xarTestAssert {
         if (preg_match($expected, $actual)) {
             return $this->pass($msg);
         }
-        return $this->pass($msg);
+        return $this->fail($msg);
     }
 
 

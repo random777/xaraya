@@ -1,0 +1,167 @@
+<xar:set name="context">2</xar:set> ;-)
+
+Problem:
+--------
+Assigning (some types of) variables in BL templates sucks
+
+Problem cases:
+--------------
+$myvar['this']['that'] = whatever
+$myvar['this'] = whatever (maybe not a problem, but check)
+$myvar = $object->property
+$myvar = $object->method()
+$myobject->property = whatever
+$myvar = Class::method
+$myvar = Class::property (only for php 5)
+
+The last two are not a problem as we hardly use those anyway.
+
+Principles we already have in some form or another:
+---------------------------------------------------
+- arrays can be indexed (in some places) with the dot notation
+- the xar:set tag is unmanaged, i.e.:
+<xar:set name="hack">
+'';$anyphp= construct($compiles[$but][$not])->acceptable()
+</xar:set>
+will compile but is obviously not what we want (i hope)
+
+So, this really focusses around arrays and objects and how to model them in BL
+
+Proposal:
+--------
+- array members can be selected with the dot notation, both for numeric arrays and associactive arrays
+$myvar['this']['that'] ~ myvar.this.that
+$myvar[1][4]           ~ myvar.1.4
+- object members can be selected with the : notation
+$object->property      ~ object:property
+$object->method        ~ object:method()
+(yes, i know this conflicts with the special variables)
+- class members can be selected with the :: notation
+class::method()        ~ class::method()
+class::property        ~ class::property
+
+
+Now, we need to distinguish 2 cases (at least):
+
+1. These constructs are on the "right hand side" of the equation
+2. These constructs are on the "left hand side" of the equation
+Note that these are quoted because "left hand side" and "right hand side" are 
+at least blurry in an xml like environment.
+Typically the second is modelled in xml by specifying an attribute
+and the first by a (set of) children of a tag.
+
+Examples: (easiest first, tricky ones later)
+
+1. "right hand side" of the equation
+a.  Simple cases: 
+    $test = 'text';
+    <xar:set name="test">'text'</xar:set>
+    $test = 1;
+    <xar:set name="test">1</xar:set>
+    $test = true;
+    <xar:set name="test">true</xar:set>
+
+    $test = $myvar;
+    <xar:set name="test">$myvar</xar:set>
+    <xar:set name="test">#$myvar#</xar:set>
+    Note: both types work and longer term, i would like to deprecate the first
+
+    These are all working at the moment, so not much to be said here except that
+    the <xar:set name="test">$myvar</xar:set> is not the way i would like it to
+    work longer term.
+
+b.  Array cases:
+    $test = $myvar['this']['that'];
+    <xar:set name="test">#$myvar.this.that#</xar:set>
+    Note: this already works
+
+
+c.  Property cases:
+    $test = $object->property
+    <xar:set name="test">#$object:property#</xar:set>
+
+    $test = $object->object->property
+    <xar:set name="test">#$object:object:property#</xar:set>
+
+
+    This would clash at the moment with the special variables resolver. I dont
+    view that as a problem really. Those 'specials' are a pain in the ass anyway ;-)
+
+d.  Method cases:
+    $test = $object->method();
+    <xar:set name="test">#$object:method()#</xar:set>
+
+    This is consistent with c. and will also clash with the special variables.
+    Other than that i like the construct
+
+e.  Class method:
+    $test = class::method();
+    <xar:set name="test">#$class::method()#</xar:set>
+
+    This is where things get trickier. First, the $ seems out of place for 
+    a PHP programmer, but might be considered consistent by a template designer.
+    From a php point of view <xar:set name="test">#class::method()#</xar:set>
+    would be better. Without the $ the parsing would be slightly easier.
+
+f.  Class variable:
+    $test = class::property;
+    <xar:set name="test">#$class::property#</xar:set>
+
+    Same analysis as above. Lose the $ or not, that is the question. Note that this
+    case (as is e.) would be rare. class statics are only supported in php5.
+
+
+Now, the above is 'relatively' easy. The trickery really starts when considering the 
+"left hand side" 
+
+1. "left hand side" of the equation
+a.  Array cases:
+    $myvar['this']['that'] = 4;
+    <xar:set name="myvar.this.that">4</xar:set>
+
+    This has a couple of problems:
+    - the name needs to be resolved, yet we don't have #...# in the attribute, but then again
+      we *do* mean the name of the variable here, NOT the value
+    - luckily '.' is prohibited in a variable name in php, so that's good
+    - *if* we decided to allow #$...# constructs in attributes we also would need a 
+      "reverse resolve" say: $test = $myarray[14]['apples'] at some point and we say
+      <xar:set name="#$test#">4</xar:set>
+      This would mean: $myarray[14]['apples'] = 4; or, in newspeak:
+      <xar:set name="myarray.14.apples">4</xar:set>
+      so we would need something which turns this:
+      $myarray['14']['apples'] into this:
+      myarray.14.apples
+
+b.  Property cases:
+    $object->property = 4;
+    <xar:set name="object:property">4</xar:set>
+
+    $object->property->property = 4;
+    <xar:set name="object:property:property">4</xar:set>
+
+
+    Notes:
+    - this creates perhaps confusion with namespace separators? i dunno
+    - : is also prohibited in vars (although some error appears, it's pakistani by the looks of it)
+
+c.  Method cases:
+    do not apply
+   
+
+
+In general:
+
+- myarray.apples. could mean $myarray['apples'][]
+- myarray..apples could mean $myarray[]['apples']
+- myarray.apples:property could mean $myarray['apples']->property
+
+
+
+
+      
+
+
+
+
+
+

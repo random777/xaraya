@@ -1,0 +1,198 @@
+Bugzilla maintenance:
+
+Resolve items in the sanity check
+---------------------------------
+Make sure the red items in the sanity check are resolved first
+
+* Bug(s) found with invalid op_sys value: 
+23, 36, 66, 67, 106, 110, 148, 149, 220, 221, 227, 
+240, 241, 242, 243, 244, 245, 246, 247, 249, 250, 251
+--> field has 0 value which translates to 'all'
+[WONTFIX]
+
+* Bug(s) found with invalid priority value: 
+3, 4, 5, 6, 7, 8, 9, 10, 12, 16, 24, 29, 32, 33, 36, 39, 46
+see above
+[WONTFIX]
+
+* Bug(s) found with invalid rep_platform value: 
+2, 3, 12, 23, 36, 43, 48, 50, 52, 53, 55, 56, 59, 
+66, 67, 73, 74, 76, 78, 79, 80, 110, 120, 148, 149, 
+163, 166, 167, 168, 170, 171, 172, 173, 176, 177, 191, 
+192, 193, 210, 218, 240, 241, 242, 243, 244, 245, 246, 
+247, 249, 250, 251, 260, 270, 274, 290 
+see above
+[WONTFIX]
+
+* seems that owner_id=1 doesn't exist (should be admin)
+  lowest userid = 2 (miko) 
+  adapt the bugzilla bitkeeper script for this
+[SOLVED]
+
+* ... from attachments.submitter_id
+  --> UPDATE attachments SET submitter_id=2 WHERE submitter_id=1;
+[SOLVED]
+
+* ... from longdescs.who
+  --> UPDATE longdescs SET who=2 WHERE who=1;
+[SOLVED]
+
+* Bad value 240 found in longdescs.who
+  --> UPDATE longdescs SET who=2 WHERE who=240;
+[SOLVED]
+
+* Bugs with open status and a resolution: 1466
+[SOLVED]
+
+* Bugs that have changes but no mail sent for at least half an hour: 933, 1478
+--> forced a change
+[SOLVED]
+
+Component juggling
+------------------
+
+Some components do not reflect the current naming in the repository, therefore
+creating confusion
+See table below
+
+Goals: 
+- have bugzilla products reflect the core/module repository organization
+
+For each module which needs to be re-assigned:
+
+UPDATE components SET program='App - Modules' WHERE value='Articles';
+UPDATE bugs SET program='App - Modules' WHERE component='Articles';
+
+Caveats:
+- watch out for duplicate component names (security and miscelaneous)!!!!
+- make sure the program value is properly quotes when running the query
+
+
+[ ONLY REQUIRED CHANGES ARE SHOWN ]
+  CURRENT assignment of components:    NEW assignment of components:
+
+  +---------------+-----------------+  +---------------+-------------------+
+  | program       | value           |  | program       | value             |
+  +---------------+-----------------+  +---------------+-------------------+
+  | App - Core    | Look & Feel     |  |               |                   | [DONE] Add keyword LOOKANDFEEL, reassign bugs, remove old component
+  | App - Core    | Miscellaneous   |  | App - Core    | Miscellaneous     |        leave this around?
+  | App - Core    | Performance     |  |               |                   | [DONE] Add keyword PERFORMANCE, reassing bugs, remove old component
+  | App - Core    | Security        |  |               |                   | [DONE] Add keyword SECURITY, reassign bugs , remove old component
+  |               |                 |  | App - Core    | Base              | [DONE]
+  |               |                 |  | App - Core    | Modules           | [DONE]
+  | App - Core    | Admin Interface |  | App - Core    | Adminpanels       | [DONE]
+  | App - Core    | Blocks System   |  | App - Core    | Blocks            | [DONE]
+  | App - Core    | Install         |  | App - Core    | Installer         | [DONE]
+  | App - Core    | Permissions     |  | App - Core    | Privileges        | [DONE]
+  | App - Core    | User System     |  | App - Core    | Roles             | [DONE]
+  | App - Modules | Themes          |  | App - Core    | Themes            | [DONE]
+  | App - Core    | Example         |  | App - Modules | Example           | [DONE]
+  | App - Core    | Pubsub          |  | App - Modules | Pubsub            | [DONE]
+  | App - Core    | Articles        |  | App - Modules | Articles          | [DONE]
+  | App - Core    | Autolinks       |  | App - Modules | Autolinks         | [DONE]
+  | App - Core    | Categories      |  | App - Modules | Categories        | [DONE]
+  | App - Core    | Comments        |  | App - Modules | Comments          | [DONE]
+  | App - Core    | Hitcount        |  | App - Modules | Hitcount          | [DONE]
+  | App - Core    | Multi-Sites     |  | App - Modules | Multisites        | [DONE] reassign product, rename component
+  | App - Core    | Ratings         |  | App - Modules | Ratings           | [DONE]
+  | App - Core    | WebServices     |  | App - Modules | XmlRpcServer      | [DONE] reassign product, rename component
+  | App - Core    | Wiki            |  | App - Modules | Wiki              | [DONE]
+  | App - Modules | Other Module    |  |               |                   |        other module isn't an option, reassign 82 bugs, then remove component
+  | App - Modules | Web Links       |  |               |                   | [DONE] this module doesn't exist anymore, reassign bugs and remove component
+  |               |                 |  | App - Modules | Reports           | [DONE]
+  |               |                 |  | App - Modules | BloggerAPI        | [DONE]
+  |               |                 |  | App - Modules | Cast              | [DONE]
+  |               |                 |  | App - Modules | ChangeLog         | [DONE]
+  |               |                 |  | App - Modules | Converter         | [DONE]
+  |               |                 |  | App - Modules | Dyn_Example       | [DONE]
+  |               |                 |  | App - Modules | Dynamic_planning  | [DONE]
+  |               |                 |  | App - Modules | Events            | [DONE]
+  |               |                 |  | App - Modules | Figlet            | [DONE]
+  |               |                 |  | App - Modules | Formcontrols      | [DONE]
+  |               |                 |  | App - Modules | iCalendar         | [DONE]
+  |               |                 |  | App - Modules | Images            |        ?
+  |               |                 |  | App - Modules | Ledger            | [DONE]
+  |               |                 |  | App - Modules | Metaweblogapi     | [DONE]
+  |               |                 |  | App - Modules | Mime              | [DONE]
+  |               |                 |  | App - Modules | MyBookmarks       | [DONE]
+  |               |                 |  | App - Modules | Overlib           | [DONE]
+  |               |                 |  | App - Modules | Paypalipn         | [DONE]
+  |               |                 |  | App - Modules | Paypalsetup       | [DONE]
+  |               |                 |  | App - Modules | phpldapadmin      | [DONE]
+  |               |                 |  | App - Modules | Recommend         | [DONE]
+  |               |                 |  | App - Modules | Relations         | [DONE]
+  |               |                 |  | App - Modules | Scheduler         | [DONE]
+  |               |                 |  | App - Modules | Search            | [DONE]
+  |               |                 |  | App - Modules | Shopping          | [DONE]
+  |               |                 |  | App - Modules | Sniffer           | [DONE]
+  |               |                 |  | App - Modules | Soapserver        | [DONE]
+  |               |                 |  | App - Modules | Subitems          | [DONE]
+  |               |                 |  | App - Modules | Tasks             | [DONE]
+  |               |                 |  | App - Modules | Timezone          | [DONE]
+  |               |                 |  | App - Modules | Trackback         | [DONE]
+  |               |                 |  | App - Modules | Userpoints        | [DONE]
+  |               |                 |  | App - Modules | Wyomese           | [DONE]
+  |               |                 |  | App - Modules | XarCachemanager   | [DONE]
+  |               |                 |  | App - Modules | XarLDAP           | [DONE]
+  |               |                 |  | App - Modules | XarLinkMe         | [DONE]
+  |               |                 |  | App - Modules | XmlRpcSystemAPI   | [DONE]
+  |               |                 |  | App - Modules | XmlRpcValidatorAPI| [DONE]
+  |               |                 |  | App - Modules | Xslt              | [DONE]
+  |               |                 |  | App - Modules | Photoshare        | [DONE]
+  +---------------+-----------------+  +---------------+-------------------+
+
+
+
+New Keywords:
+=============
+PERFORMANCE    [DONE]
+LOOKANDFEEL    [DONE]
+DATABASE
+API
+
+
+Registered developer accounts:
+
++--------------------------+
+| login_name               |
++--------------------------+
+| alley@xaraya.com         |
+| andyv@xaraya.com         |
+| apakuni@xaraya.com       |
+| besfred@xaraya.com       |
+| bjarne@xaraya.com        |
+| bone@xaraya.com          |
+| brihana25@xaraya.com     |
+| dracos@xaraya.com        |
+| drew@xaraya.com          |
+| gabrielconnor@xaraya.com |
+| garrett@xaraya.com       |
+| gary@xaraya.com          |
+| grape@xaraya.com         |
+| gregor@xaraya.com        |
+| hinrich@xaraya.com       |
+| j0taj0ta@xaraya.com      |
+| jan@xaraya.com           |
+| johnny@xaraya.com        |
+| jojodee@xaraya.com       |
+| jsb@xaraya.com           |
+| judgej@xaraya.com        |
+| kams@xaraya.com          |
+| marcel@xaraya.com        |
+| marcinmilan@xaraya.com   |
+| marco@xaraya.com         |
+| mcortez@xaraya.com       |
+| mikespub@xaraya.com      |
+| miko@xaraya.com          |
+| niceguyeddie@xaraya.com  |
+| nuncanada@xaraya.com     |
+| paul@xaraya.com          |
+| proca@xaraya.com         |
+| rabbitt@xaraya.com       |
+| rcave@xaraya.com         |
+| roger@xaraya.com         |
+| stego@xaraya.com         |
+| stratagem@xaraya.com     |
+| voll@xaraya.com          |
+| XarayaGeek@Xaraya.com    |
++--------------------------+

@@ -1,0 +1,2 @@
+Procedure for installer translation to be included in distribution:
+

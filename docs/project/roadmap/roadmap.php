@@ -4,7 +4,6 @@ error_reporting(E_ERROR);
 include ("jpgraph.php");
 include ("jpgraph_gantt.php");
 include ("textdb.php");
-
 // Some collected ideas for sophistication:
 // - DONE: keep log of the latest date, so end-date can be set properly
 // - DONE: keep track of predecessors and adjust the dates of successors
@@ -44,6 +43,8 @@ include ("textdb.php");
 // - FIXME: right margin overlaps with text attached to tasks
 // - FIXME: generating imagemap kills manual get parameters, fix this
 // - FIXME: if no begin date is given for a group bar take the earliest date of the tasks in that group
+// - FIXME: limit the scope a bit for start date, fleshing out the beginning
+// - FIXME: extend the scope a bit at the end, so the labels are included in the graph
 
 // Some global configs
 // FIXME: read at least some of this from db/file so this file can be standalone for several projects.
@@ -51,7 +52,7 @@ GLOBAL $HTTP_GET_VARS;
 if (empty($HTTP_GET_VARS['title'])) {
   $title="Xaraya scenario roadmap";
 }
-$revision="2002-12-06";
+$revision="2003-02-04";
 $revtext="(Revision: $revision)";
 $heightfactor=0.5;
 $groupbarheight=0.1;
@@ -65,6 +66,7 @@ $barpattern=BAND_RDIAG;
 $barcolor="#4363E3";
 $textcolor="#000088";
 $mstextcolor="#E47C55";
+$startdate="2002-10-01";
 
 //$cachetimeout=60; // If we change the roadmap more than once an hour, we'd better step back from PMC ;-)
 $cachetimeout=0;  // Unless we're debugging this script
@@ -130,8 +132,8 @@ while($record) {
     $bar->rightMark->SetFillColor($groupbarcolor);
     $bar->leftMark->Show();  $bar->leftMark->SetType($groupbarmarker);
     $bar->leftMark->SetFillColor($groupbarcolor);
-    $targs[]="http://www.hsdev.com";
-    $alts[]=$record['label'];
+    //$targs[]="http://docs.xaraya.com/docs/rfcs/rfc".$record['rfc'].".html";
+    //$alts[]=$record['label'];
     $scenario[$record['id']]=$bar;
     $plots[$record['id']]=$bar;
     break;
@@ -148,8 +150,8 @@ while($record) {
     $bar->SetColor($barcolor);
     $bar->title->SetColor($textcolor);
     $bar->SetPattern($barpattern,$barcolor);
-    $targs[]="http://www.hsdev.com";
-    $alts[]=$record['label'];
+    //$targs[]="http://www.hsdev.com";
+    //$alts[]=$record['label'];
     $plots[$record['id']]=$bar;
     break;
   case 2: // Milestone
@@ -161,6 +163,8 @@ while($record) {
     $plots[$record['id']]=$ms;
     break;
   }
+  $targs[]="http://docs.xaraya.com/docs/rfcs/rfc".$record['rfc'].".html";
+  $alts[]=$record['label'] . ": RFC-".$record['rfc'];
   $record= $db->next();
 }
 
@@ -198,7 +202,6 @@ while($record) {
   $record=$db->next();
 }
 
-
 // Add things for which date doesn't change anymore to the graph here.
 // Add a baseline for today
 $vl = new GanttVLine(date("Y-m-d"),$todaylabel,$todaycolor);
@@ -208,6 +211,11 @@ $graph->Add($vl);
 while (list($key, $object) = each($plots)) {
   $graph->Add($object);
 }
+
+// Limit the date range a bit, manual inspection needed
+$range=array();
+$range = $graph->GetBarMinMax();
+$graph->SetDateRange($startdate,$range[1]);
 
 // Add the image map data to the output
 $graph->SetCSIMTargets($targs,$alts);

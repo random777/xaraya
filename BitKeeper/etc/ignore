@@ -3,3 +3,5 @@ PENDING/*
 html/var/cache/templates/*
 *.DS_Store
 docs/rfc/*.html
+config.site.xml
+config.system.php

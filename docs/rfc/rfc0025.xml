@@ -20,6 +20,9 @@
 	<uri>http://www.xaraya.com</uri>
       </address>
     </author>
+    <author initials="C." surname="Dudley" fullname="Chris Dudley">
+      <organization>Xaraya Development Group</organization>
+    </author>
     <date month="October" year="2002"/>
     
     <!-- Initiating team for this RFC -->
@@ -155,163 +158,352 @@
 
     <section title="Requirements">
       <artwork>
-  ID  Measure                                                       Critical Essential Optional  Nice
-  ---------------------------------------------------------------------------------------------------
-   1  state is consistent with state of product sources             yes      yes       yes       yes
-   2  makes the life of developers, users and managers              yes      yes       yes       yes
-      easier (helps them to make a quality product more easy and 
-      more quickly)
-   3  optimized to discover why the sources are the                 yes      yes       yes       yes
-      way they are and why they have changed.
-   4  interfaces under our control are public,                      yes      yes       yes       yes
-      documented and maintained.
-   5  Bugtracker allows to ask questions involving both bugtracker  yes      yes       yes       yes
-      and SCM system.
-   6  cmdline interface                                              no      yes       yes       yes
-   7  web interface                                                 yes      yes       yes       yes 
-   8  mail interface                                                 no      yes       yes       yes
-   9  gui client interface                                           no       no       yes       yes
-  10  Fields: id, state severity, type, description, comments(N)    yes      yes       yes       yes
-      owner, submitter, 
-  11  Fields: notify list, related items                             no       no       yes       yes
-  12  quick filtering                                               yes      yes       yes       yes
-  13  quick queries                                                 yes      yes       yes       yes
-  14  assign to components                                           no      yes       yes       yes
-  15  assign to developers                                          yes      yes       yes       yes
-  16  configurable notifications                                     no      yes       yes       yes
-  17  xaraya module                                                  no       no       yes       yes
-  18  reference points in SCM on state changes of bugs               no      yes       yes       yes
-  19  ability to hold patches against a bug                          no      yes       yes       yes
-  20  register duplicates                                           yes      yes       yes       yes
-  21  register dependencies                                         yes      yes       yes       yes
-  22  register meta bugs (grouping)                                  no       no       yes       yes
-  23  statistics (specify what?)                                     no       no       yes       yes
-  24  custom attributes                                              no       no       yes       yes
-  25  configurable submission template                               no       no       yes       yes
-  26  mark custom attributes as required                             no       no       yes       yes
-  27  ACL lists                                                      no       no       yes       yes
-  28  as simple as possible, but not simpler                        yes      yes       yes       yes
-  29  standards compliant                                           yes      yes       yes       yes
-  30  open source                                                    no       no       yes       yes
-  31  support multiple projects                                      no      yes       yes       yes
-  32  configurable auth system                                       no      no       yes       yes
-  33  flow control                                                   no      yes       yes       yes
-  34  anyone can add comments to a bug                               no      yes       yes       yes
+ID  Measure                                         Critical Essential Optional  Nice
+-------------------------------------------------------------------------------------
+ 1  state is consistent with state of product            yes      yes       yes   yes
+    sources
+ 2  makes the life of developers, users and managers     yes      yes       yes   yes
+    easier (helps them to make a quality product more 
+    easy and  more quickly)
+ 3  optimized to discover why the sources are the        yes      yes       yes   yes
+    way they are and why they have changed.
+ 4  interfaces under our control are public,             yes      yes       yes   yes
+    documented and maintained.
+ 5  Bugtracker allows to ask questions involving both    yes      yes       yes   yes
+    bugtracker and SCM system.
+ 6  cmdline interface                                     no      yes       yes   yes
+ 7  web interface                                        yes      yes       yes   yes 
+ 8  mail interface                                        no      yes       yes   yes
+ 9  gui client interf                                     no       no       yes   yes
+10  Fields: id, state severity, type, description,       yes      yes       yes   yes
+    comments(N), owner, submitter, 
+11  Fields: notify list, related items                    no       no       yes   yes
+12  quick filtering                                      yes      yes       yes   yes
+13  quick queries                                        yes      yes       yes   yes
+14  assign to components                                  no      yes       yes   yes
+15  assign to developers                                 yes      yes       yes   yes
+16  configurable notifications                            no      yes       yes   yes
+17  xaraya module                                         no       no       yes   yes
+18  reference points in SCM on state changes of bugs      no      yes       yes   yes
+19  ability to hold patches against a bug                 no      yes       yes   yes
+20  register duplicates                                  yes      yes       yes   yes
+21  register dependencies                                yes      yes       yes   yes
+22  register meta bugs (grouping)                         no       no       yes   yes
+23  statistics (specify what?)                            no       no       yes   yes
+24  custom attributes                                     no       no       yes   yes
+25  configurable submission template                      no       no       yes   yes
+26  mark custom attributes as required                    no       no       yes   yes
+27  ACL lists                                             no       no       yes   yes
+28  as simple as possible, but not simpler               yes      yes       yes   yes
+29  standards compliant                                  yes      yes       yes   yes
+30  open source                                           no       no       yes   yes
+31  support multiple projects                             no      yes       yes   yes
+32  configurable auth system                              no       no       yes   yes
+33  flow control                                          no      yes       yes   yes
+34  anyone can add comments to a bug                      no      yes       yes   yes
       </artwork>
       
       <section title="State is consistent with state of product sources">
-	<t></t>
+	<t>
+	  This requirement is critical. It means that the information in the bug
+	  tracker database is at all times consistent with the current state of the
+	  source tree, so you can trust both on what should be done to fix issues
+	  with the current tree. This means in practice that BitKeeper should enter
+	  information into the bugtracker database when sources are changed to 
+	  which a bug is attached. 
+	  This can be implemented for example by giving signals to users when changing
+	  files to which a bug is registered, giving them a chance to look into the 
+	  bug database.
+	</t>
+	<t>
+	  Without this requirement the information in the bug tracker database will not
+	  only loose quality, when the project grows it will be near to impossible to
+	  estimate the amount of work which is needed to reach a certain goal, without 
+	  expert knowledge of the source tree. The use of the bugtracker and the source
+	  tree alone should be sufficient for any party competent enough to interpret
+	  the information to estimate the amount of work needed to reach a certain goal.
+	</t>
       </section>
 
       <section title="Makes the life of developers, users and managers easier">
-	<t></t>
+	<t>
+	  The bug tracker is a tool we want to use. If this tool doesn't make our life
+	  easier it's a bad tool. Three groups need to profit from this tool:
+	  <list>
+	    <t>Users: need to be able to search and filter the bug database to discover
+	      what the state is of the source tree, so a decision for using a certain
+	      feature can be made.
+	    </t>
+	    <t>
+	      Developers: need to be able to discover by working the source tree or 
+	      querying the bug database what area needs work and what things are going 
+	      wrong. The interface to the source tree and to the bug database need to 
+	      be highly integrated and well connected. On discovery of an error the 
+	      developer should be able to register the discovery directly from the source
+	      tree, after which the bug enters a know state into the bug database.
+	    </t>
+	    <t>
+	      Managers: need to be able to analyze the bug database and from that information
+	      make a translation to the work needed on the source tree. This will allow them
+	      to make educated estimates for planning, resources and other project information
+	      needed to manage the project.
+	    </t>
+	  </list>
+	</t>
       </section>
 
       <section title="Optimized to discover why the sources are the way they are and why they have changed.">
-	<t></t>
+	<t>
+	  There are a lot of attributes which can be attached to the unique identification of a bug. 
+	  Initially those attributes will be chosed which help optimize the bug tracker tool to be used
+	  to answer the question why sources are the way they are and why they have changed.
+	</t>
       </section>
 
       <section title="Interfaces under our control are public,documented and maintained.">
-	<t></t>
+	<t>
+	  
+	</t>
       </section>
 
       <section title="Allows to ask questions involving both bugtracker and SCM system.">
-	<t></t>
+	<t>
+	</t>
       </section>
 
-      <section title="Cmdline interface">
-	<t></t>
-      </section>
+      <section title="Interfaces">
+	<t>
+	</t>
 
-      <section title="Web interface">
-	<t></t>
-      </section>
-
-      <section title="Mail interface">
-	<t></t>
-      </section>
-
-      <section title="GUI client interface">
-	<t></t>
+	<section title="Cmdline interface">
+	  <t>
+	    Most of the bitkeeper interaction occurs on the command-line. It makes sense to have an
+	    interface to the bugtracker database which can be used from the command-line as well. 
+	    Although not a critical requirement this will highly influence the usage of the bug-tracker
+	    by the developers themselves. It allows them to update the bug information while working
+	    with bitkeeper. 
+	  </t>
+	</section>
+	
+	<section title="Web interface">
+	  <t>
+	    This requirement is listed as critical for a number of reasons. Most people are used
+	    to using a bugtracker with a web interface, so this interface has the lowest threshold 
+	    for people to use it. 
+	  </t>
+	  <t>
+	    Also, the flexibility of a web interface allows probably to satisfy the requirements 
+	    dealing with searching and filtering while keeping an accessible system for most users.
+	    Although the command-line interface may be more powerfull and offer more options, for 
+	    most users command-line usage is often arcane and counterproductive. Also, a web-interface
+	    only needs a reasonable web-browser to use where as other interface might have more
+	    requirements (such as an installation of bitkeeper)
+	  </t>
+	</section>
+	
+	<section title="Mail interface">
+	  <t>
+	  </t>
+	</section>
+	
+	<section title="GUI client interface">
+	  <t>
+	  </t>
+	</section>
       </section>
 
       <section title="Fields: id, state severity, type, description, comments(N),owner, submitter">
-	<t></t>
+	<t>
+	</t>
       </section>
 
       <section title="Fields: notify list, related items">
-	<t></t>
+	<t>
+	</t>
       </section>
 
       <section title="Quick filtering">
-	<t></t>
+	<t>
+	</t>
       </section>
 
       <section title="Quick queries">
-	<t></t>
-      </section>
-      <section title="Assign to components">
-	<t></t>
-      </section>
-      <section title="Assign to developers">
-	<t></t>
-      </section>
-      <section title="Configurable notifications">
-	<t></t>
-      </section>
-      <section title="Xaraya module ">
-	<t></t>
-      </section>
-      <section title="Reference points in SCM on state changes of bugs">
-	<t></t>
-      </section>
-      <section title="Ability to hold patches agaiinst a bug">
-	<t></t>
+	<t>
+	</t>
       </section>
 
-      <section title="Register duplicates">
-	<t></t>
+      <section title="Assign to components">
+	<t>
+	</t>
       </section>
+
+      <section title="Assign to developers">
+	<t>
+	</t>
+      </section>
+
+      <section title="Configurable notifications">
+	<t>
+	  The bugtracker should include a notification system, which at least can notify one email-address
+	  on bug information changes. Possible notifications are:
+	  <list style="numbers">
+	    <t>on state change</t>
+	    <t>notify list for users which to keep track on one specific bug</t>
+	    <t>notification when a bug hasn't been touched for a while</t>
+	  </list>
+	</t>
+      </section>
+
+      <section title="Xaraya module ">
+	<t>
+	</t>
+      </section>
+
+      <section title="Reference points in SCM on state changes of bugs">
+	<t>
+	  In addition to the first critical requirement that the state of the sources in the tree should be
+	  synchronized with the information int the bugtracker, this requirement formulates the most 
+	  important consequence for this. On each state change of a bug, a reference point in the source
+	  tree should be linked in, created or otherwise made avialable to the bug-tracker.
+	</t>
+	<t>
+	  The fix-process of a bug will be highly simplified by this. It allows developers to check the 
+	  sources at the specific reference points, to gather information on how to fix the bug. By rolling 
+	  back the source tree to a certain reference point the described behaviour in the bug can be reproduced
+	  so a check is possible which changes have occurred after that reference point which might affect the 
+	  bug involved.
+	</t>
+      </section>
+
+      <section title="Ability to hold patches against a bug">
+	<t>
+	  Ultimately a bug needs to be resolved. Ideally this would happen by applying a neatly packaged
+	  patch to the source tree. The bugtracker should be able to hold a patch against a bug. This patch 
+	  should be configured in such a way that it can be applied to the source tree without repackaging, so
+	  integration with our patch system is trivial. As an alternative to holding a patch against a bug 
+	  directly into the bugtracker, is to store a reference to a patch in the patch system. If both are 
+	  supported, the patch can either be applied directly from the bugtracker, thus interfacing with the 
+	  patch system, or the patch can be applied from the patch system which notifies the bugtracker of success
+	  or failure.
+	</t>
+      </section>
+
       <section title="Register dependencies">
-	<t></t>
+	<t>
+	  Bugs may have dependencies. The following dependencies are considered:
+	  <list style="numbers">
+	    <t>bugs block other bugs and vice versa</t>
+	    <t>bugs are duplicates</t>
+	    <t>bugs are meta-bugs</t>
+	  </list>
+	</t>
+	
+	<section title="Blocking relationship">
+	  <t>
+	  </t>
+	</section>
+	
+	<section title="Duplicate relationship">
+	  <t>
+	    Due to the nature of a complex hierarcy of folders and files in the sources
+	    it often happens that bugs get registered twice. This happens often when at first
+	    it seems that two problems are unrelated and it is discovered later that two
+	    registered bugs actually are two different descriptions of the same problem.
+	  </t>
+	  <t>
+	    The bugtracker should allow modifying the information of a registered bug in 
+	    such a way that either:
+	    <list style="numbers">
+	      <t>
+		the identical bugs are merged into one and the information from both bugs 
+		is merged into one bug
+	      </t>
+	      <t>
+		the bugs will be registered as duplicates and information changes on the first
+		are automatically reflected in the other
+	      </t>
+	    </list>
+	  </t>
+	  <t>
+	    The first situation is preferred
+	  </t>
+	</section>
+	
+	<section title="Meta relationship (a.k.a grouping)">
+	  <t>
+	  </t>
+	</section>
       </section>
-      <section title="Register meta bugs (grouping)">
-	<t></t>
-      </section>
+
+
       <section title="Statistics (specify what?)">
 	<t></t>
       </section>
+
       <section title="Custom attributes">
 	<t></t>
       </section>
+
       <section title="Configurable submission template">
 	<t></t>
+
       </section>
+
       <section title="Mark custom attributes as required">
 	<t></t>
       </section>
+
       <section title="ACL lists">
 	<t></t>
       </section>
+
       <section title="As simple as possible, but not simpler">
 	<t></t>
       </section>
+
       <section title="Standards compliant">
 	<t></t>
       </section>
+
       <section title="Open source">
-	<t></t>
+	<t>
+	  As Xaraya itself is an open source project, we strongly prefer open source 
+	  solutions. Open Source software generates a lot of advantages for us. Being able to
+	  modify a package to our needs being one of the most important ones.
+	</t>
       </section>
+
       <section title="Support multiple projects">
-	<t></t>
+	<t>
+</t>
       </section>
+
       <section title="Configurable auth system">
-	<t>This is only an optional requirement as it is not necessary to be able to use the same ID for both the tracker and Bitkeeper. For instance ssh public/private keys could be used to authenticate instead. If every user has the tracker id's public key in their authorized_keys file then the tracker will be able to make any updates needed to Bitkeeper *as* the user specified. Commands running the other way should be much easier as tracker updates are just entries in a database and so do not need to run as any particular user. It would be nice to be able to use the same userid and password for both, but since not everyone who has a tracker id will have a bitkeeper id I'm not sure how well it would work in practice. Those who want to use the same ID can simply set the passwords to be the same or maybe a cron script could do it for them but its a bit hacky. </t>
+	<t>
+	  This is only an optional requirement as it is not necessary
+	  to be able to use the same ID for both the tracker and
+	  Bitkeeper. For instance ssh public/private keys could be used
+	  to authenticate instead. If every user has the tracker id's
+	  public key in their authorized_keys file then the tracker will
+	  be able to make any updates needed to Bitkeeper *as* the user
+	  specified. Commands running the other way should be much
+	  easier as tracker updates are just entries in a database and
+	  so do not need to run as any particular user. It would be nice
+	  to be able to use the same userid and password for both, but
+	  since not everyone who has a tracker id will have a bitkeeper
+	  id I'm not sure how well it would work in practice. Those who
+	  want to use the same ID can simply set the passwords to be the
+	  same or maybe a cron script could do it for them but its a bit
+	  hacky. 
+	</t>
       </section>
+
       <section title="Flow control">
-	<t></t>
+	<t>
+</t>
       </section>
     </section>
+
     <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>2002-10-31: First revision</t>
@@ -319,22 +511,4 @@
 
   </middle>
 
-  <!-- Back matter is used for references and appendices which come after the references -->
-  <back>
-    <references title="Reference title">
-      <!-- Fill in references as needed -->
-      <reference>
-	<front>
-	  <title>Reference title</title>
-	  <author>
-	    <organization>Organization</organization>
-	  </author>
-	  <date year="2002"/>
-	</front>
-      </reference>
-      <!-- Repeat the aboven block if more references are needed -->
-    </references>
-    
-    <!-- Any section after this will become an appendix -->
-  </back>
 </rfc>

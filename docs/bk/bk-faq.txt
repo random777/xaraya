@@ -11,7 +11,7 @@ Questions:
    mean and what can I do to make it go away.
 7. When I pull I get the error: 
    path/to/some/file/SCCS/s.somefile.php is edited and modified; unsafe to overwrite. What does that mean?
-
+8. Can I move files from one repository to another?
 
 Answers:
 ========
@@ -91,4 +91,58 @@ bug (identified on windows version 3.0). Contact you local bitkeeper guru to hel
 This message is a little bit confusing. The file somefile.php is in /path/to/somefile/ and is checked out 
 from the repository and modified. Run bk citool to check this file in and then pull again. For a pull to 
 automatically resolve differences between the remote repository and your local one, all files need to be
-checked in, so bitkeeper knows what changes have been made.
+checked in, so bitkeeper knows what changes have been made. If the message says the the file is writable 
+but not checked out you can rename it, do a 'bk edit' with the original filename and see if there are 
+differences between them. If not, you can safely delete it. If there are differences merge the contents
+by hand or run bk fmtool on the two files to merge them.
+
+
+8. Can I move files from one repository to another?
+---------------------------------------------------
+Yes, you can, but it is a bit confusing. Maybe it's best explained by an example.
+Say you want to move a directory and all its files from the main repository to the modules repository
+
+Thus:
+All files below <main_repo>/<path_to_dir>/<dir_to_move> to <modules_repo>/<path_to_dir>/<dir_to_create>
+
+There is a command 'bk mvdir', but this will only work within one repository, so we are going to 'simulate'
+the move by copying the files and then removing them in the original repository. The 'bk cp' command however
+does only copy 1 file so we need to do something extra to copy multiple files. 
+
+First let's do a copy of 1 file 'test.txt'
+
+Steps:
+1. Go to the destination repository and create the directory <modules_repo>/<path_to_dir>/<dir_to_create>
+2. Go to the source repository and cd into the directory which contains the file 'test.txt'
+3. Issue: bk cp test.txt <modules_repo>/<path_to_dir>/<dir_to_create>/
+
+This will make a copy of the file and 're-create' all changes made to it in the past, you will see that 
+happen on the screen. This is necessary, so all file-history of the file is preserved. Once the 'bk cp' action
+is done you will have the file in the new repository with all changes registered as deltas on that file.
+You can of course repeat the process for several files and commit them to a changeset when you're done.
+
+If you are comfortable with the unix shell (or cygwin for windows users) you can also copy all files at 
+once.
+
+Steps:
+1. Go to the destination repository and create the directory <dir_to_create>
+2. Go to the source repository and cd into the directory which contains the files and directories
+3. Issue:
+bk sfiles -g | xargs -n1 -i bk cp {} <modules_repo>/<path_to_dir>/<dir_to_create>/{}
+
+Explanation:
+'bk sfiles -g' will list all files in the source repository which are under revision control, this list 
+gets fed into the xargs command which will in turn run the bk cp command on each file in that list. It does
+the same as the example with 1 file, only for all the files in the directory at once.
+
+
+If the 'bk cp' action is successfull, go into the destination repository and check if all is well:
+1. bk -r check -ac
+2. bk sane
+
+If not messages are given, you can run 'bk citool' and create a changeset. The copy action is now complete.
+To complete the move action go back to the source repository and issue: 'bk rmdir <dir_to_move>'. This will
+remove the directory '<dir_to_move>' and all the files in it. 
+
+To make the changes permanent you can issue 'bk push' in both repositories and the move is done. 
+

@@ -17,11 +17,6 @@ Fileheader:
  * @author <reponsible person>
 */				
 
-Replace comment chars with appropriate characters depending if it's a php
-file, html file or other.
-
-
-
 PHPdoc header for functions:
 ============================
 

@@ -43,6 +43,7 @@ referer
 search
 stats
 translations
+wiki
 xmlrpcserver
 xmlrpcsystemapi
 xmlrpcvalidatorapi
@@ -68,7 +69,6 @@ pubsub
 release
 smilies
 uploads
-wiki
 xarbb
 xslt
 

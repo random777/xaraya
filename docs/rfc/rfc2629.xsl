@@ -1134,7 +1134,7 @@
 <xsl:template name="insertCopyright">
     <section title="Full Copyright Statement" anchor="{$anchor-prefix}.copyright" myns:unnumbered="unnumbered" xmlns="">
         <t>    
-            Copyright (C) The Xararya Development Group (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
+            Copyright (C) The Xaraya Development Group (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
         </t>
         <t>
             This document and translations of it may be copied and furnished to

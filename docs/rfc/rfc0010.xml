@@ -240,14 +240,16 @@ html/
     <section title="Blocklayout tags">
       <t>
         Tags in Blocklayout adhere to XML syntax. The standard Blocklayout
-        namespace is "xar" and at this time that may not be changed. There are 20
-        top level core tags:
+        namespace is "xar" and at this time that may not be changed. There is one
+        root tag:
         <list style="symbols">
-          <t><xref target="blocklayout">&lt;blocklayout /&gt;</xref></t>
+          <t><xref target="blocklayout">&lt;xar:blocklayout /&gt;</xref></t>
+        </list>
+        The following tags can be used in any context:
+        <list style="symbols">
           <t><xref target="block">&lt;xar:block /&gt;</xref></t>
           <t><xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref></t>
-          <t><xref target="else">&lt;xar:else /&gt;</xref></t>
-          <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
+          <t><xref target="comment">&lt;xar:comment /&gt;</xref></t>
           <t><xref target="for">&lt;xar:for /&gt;</xref></t>
           <t><xref target="foreach">&lt;xar:foreach /&gt;</xref></t>
           <t><xref target="if">&lt;xar:if /&gt;</xref></t>
@@ -262,19 +264,13 @@ html/
           <t><xref target="var">&lt;xar:var /&gt;</xref></t>
           <t><xref target="while">&lt;xar:while /&gt;</xref></t>
         </list>
-      </t>
-      <t>
-        There are also several child tags:
+        The following tags have a specific context:
         <list style="symbols">
-          <t>
-            <xref target="break">&lt;xar:break /&gt;</xref>
-          </t>
-          <t>
-            <xref target="continue">&lt;xar:continue /&gt;</xref>
-          </t>
-          <t>
-            <xref target="mlvar">&lt;xar:mlvar /&gt;</xref>
-          </t>
+          <t><xref target="else">&lt;xar:else /&gt;</xref></t>
+          <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
+          <t><xref target="break">&lt;xar:break /&gt;</xref></t>
+          <t><xref target="continue">&lt;xar:continue /&gt;</xref></t>
+          <t><xref target="mlvar">&lt;xar:mlvar /&gt;</xref></t>
         </list>
       </t>
       <section title="Referencing data within templates">
@@ -303,6 +299,10 @@ html/
           within these tags will be stripped from the final output stream.
           Standard two-hyphen comments (&lt;!-- --&gt;) will be passed on to the
           output stream.
+        </t>
+        <t>
+          Alternatively you can use the &lt;xar:comment /&gt; tag, which behaves exactly
+          like the &lt;--- tag.
         </t>
       </section>
       <section anchor="tagdescriptions" title="Tag descriptions and Atrributes">
@@ -686,6 +686,36 @@ html/
               <xref target="loop">&lt;xar:loop /&gt;</xref>, or 
               <xref target="while">&lt;xar:while /&gt;</xref>.
             </t>
+            <t>Child tags: none</t>
+          </section>
+        </section>
+        <!-- xar:comment -->
+        <section anchor="comment" title="&lt;xar:comment /&gt;">
+          <t>
+            Marks a block of a template as being a comment, which will not
+            result in any output. The tag is primarly used to supply templates
+            with comments for developers and theme designers. Anything inside
+            the xar:comment block will be ignored.
+          </t>
+          <section title="Forms">
+            <t>Only to be used in open form</t>
+          </section>
+          <section title="Attributes">
+            <t>
+              none
+            </t>
+          </section>
+          <section title="Syntax examples">
+            <t>
+            <artwork>
+              &lt;xar:comment&gt;
+                The contents of the comment tag will be ignored completely
+              &lt;/xar:comment&gt;
+            </artwork>
+            </t>
+            </section>
+          <section title="Context">
+            <t>Parent tags: none</t>
             <t>Child tags: none</t>
           </section>
         </section>

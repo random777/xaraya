@@ -24,13 +24,20 @@
     <!-- Front matter is used for identification of author and organization -->
 		<front>
 				<title>Trackback in Xaraya</title>
-				<author initials="J." surname="Robeson" fullname="Johnny Robeson">
+				<author initials="J." surname="Robeson" fullname="Johnny Robeson">				
 						<organization>Xaraya Development Group</organization>
 						<address>
 								<email>johnny@xaraya.com</email>
 								<uri>http://www.xaraya.com</uri>
 						</address>
-        </author>
+		        </author>
+				<author initials="D." surname="Daulton" fullname="Doug Daulton">
+						<organization>Xaraya Development Group</organization>
+						<address>
+								<email>apakuni@xaraya.com</email>
+								<uri>http://dougdaulton.com</uri>
+						</address>
+		        </author>
         <date month="July" year="2003"/>
         
         <!-- Initiating team for this RFC -->
@@ -84,11 +91,11 @@
                 <t>
                     From the MT website:
                     <artwork>
-                In a nutshell, TrackBack was designed to provide a
-                method of notification between websites: it is a
-                method of person A saying to person B, "This is
-                something you may be interested in." To do that,
-                person A sends a TrackBack ping to person B.
+	                In a nutshell, TrackBack was designed to provide a
+	                method of notification between websites: it is a
+	                method of person A saying to person B, "This is
+	                something you may be interested in." To do that,
+	                person A sends a TrackBack ping to person B.
                     </artwork>
                 </t>
                 <t>
@@ -136,11 +143,11 @@
                     <list style="symbols">
                         <t>TrackBack module send out the TrackBack ping</t>
                         <t>Pings are triggered by:</t>
-												<list style="symbols">
-														<t>creating an item</t>
-														<t>modifying an item</t>
-														<t>deleting an item</t>
-												</list>
+							<list style="symbols">
+									<t>creating an item</t>
+									<t>modifying an item</t>
+									<t>deleting an item</t>
+							</list>
                     </list>
                     <t>Receive TrackBack Pings</t>
                     <t>

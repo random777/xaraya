@@ -407,7 +407,7 @@ html/
                 <t><em>xmlns:xar</em>
                   <t>declaration of the xar namespace. As we currently hardcode the namespace this
                     attribute can only have the value:
-                    <artwork>xmlns:xar="http://www.xaraya.com/2004/blocklayout"</artwork>
+                    <artwork>xmlns:xar="http://xaraya.com/2004/blocklayout"</artwork>
                   </t>
                 </t>
               </list>

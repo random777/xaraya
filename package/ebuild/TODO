@@ -1,0 +1,10 @@
+#All TODOSs are related to GLEP 11 (Gentoo Linux Enhancement Proposal)
+ http://www.gentoo.org/proj/en/glep/glep-0011.html
+1. depend on virtual/httpd-php instead of both apache (directly)
+   and php (virtually)
+2. add vhost useflag to support multiple installations
+3. use ${PV} (package version) for slots
+4. use proper eclasses when they appear
+5. install to /usr/share/webapp
+6. flesh out post install instructions
+

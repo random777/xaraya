@@ -1285,45 +1285,86 @@ html/
         </section>
         <!-- xar:template -->
         <section anchor="template" title="&lt;xar:template /&gt;">
-          <t>Closed</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional)</t>
-              <t>file: the filename of the target template</t>
-              <t>type: a switch that tells the engine what type of template is
-                being loaded, either 'module' or 'theme'. (optional, default: module)</t>
-              <t>compile: a switch that tells the engine whether to compile the
-                file as a template. (optional, default: true [not implemented].</t>
-              <t>subdata: array to pass to subtemplate (optional, default to data of current template)</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-            Opens the file specified by "file" and processes it within the context
-            of the calling template. Included templates are stored in:
+            Opens the file specified by the 'file' attribute and
+            processes it within the context of the calling
+            template. Included templates are stored in:
             <list>
               <t>/modules/[module name]/xartemplates/includes/</t>
               <t>/themes/[theme name]/modules/[module name]/includes/</t>
               <t>/themes/[theme name]/includes/</t>
             </list>
-                    </t>
-          <t>
-            The 'filename' only includes the basename of the file, e.g.
-            'module_header'. The 'type' attribute tells the compiler where to look
-            for the file. If 'module', looks in /themes/[theme
-            name]/modules/[module name]/includes/ first, then in
-            /modules/[module name]/xartemplates/includes/. If 'theme', it directs the
-            compiler to look in /themes/[theme name]/includes/. The compiler
-            always assumes .xd for the file extension. The file is subject to PHP
-            safe mode.
           </t>
-          <t>Syntax example:
+          <t>
+            The 'file' attribute determines the basename of the file to
+            be included, the extension will be filled in by xaraya whether
+            the template is included from an internal source or an overridden
+            location in the theme.
+          </t>
+          <t>
+            The 'type' attribute tells the compiler where to look for
+            the file. If the value is 'module', the template to be included
+            belongs to the module and Xaraya looks in (in this order):
+            <list style="numbers">
+              <t>/themes/[themename]/modules/[module name]/includes/file.xt</t>
+              <t>/modules/[module name]/xartemplates/includes/file.xd</t>
+            </list>
+          </t>
+          <t>
+            If the value is 'theme', Xaraya uses the following locations:
+            <list style="numbers">
+              <t>/themes/[themename]/includes/file.xt</t>
+            </list>
+          </t>
+          <section title="Forms">
+            <t>Only the empty form is allowed</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>An identifier for the tag</t>
+              </t>
+              <t><em>file</em>
+                <t>the basename of the file to include.</t>
+              </t>
+              <t><em>[type]</em> {(module)|theme}
+                <t>A string which tells Xaraya what kind of template to include.
+                   If mainly affects the locations where Xaraya looks for the file.
+                </t>
+              </t>
+              <t><em>[compile]</em> {(true)|false}
+                <t>A swithc which tells Xaraya whether to compile the included template
+                   or not.
+                </t>
+                <t>Note: not implemented</t>
+              </t> 
+              <t><em>[subdata]</em> (container data array)
+                <t>This allows to pass in an array with data which should be known in
+                   the included template. By default, the data of the containing template
+                   will also be available in the included template
+                </t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
               &lt;xar:template file="top_links" type="theme"/&gt;
+
+              Looks for file /theme/[themename]/includes/top_links.xt and includes
+              it in the current template.
+
+              &lt;xar:template file="top_links" /&gt;
+
+              Looks for file /themes/[themename]/modules/[module name]/includes/top_links.xt
+              and, when found, uses it. If not found it looks for
+              /modules/[module name]/xartemplates/includes/top_links.xd and uses that file
+              Looks for file /modules/[modulename]/xartemplates/includes
             </artwork>
-                    </t>
-          <t>Parent tag: none.</t>
-          <t>Child tags: none</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: none</t>
+          </section>
         </section>
         <!-- xar:var -->
         <section anchor="var" title="&lt;xar:var /&gt;">

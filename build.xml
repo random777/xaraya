@@ -167,6 +167,17 @@
     <!-- Core modules -->
     <foreach list="modules.core" target="copymodule" param="module.name"/>
     
+    <!-- The above does actually to much, it includes all config files, remove the invalid ones for core -->
+    <!-- TODO: this is lame, do it different -->
+    <delete>
+      <fileset dir="${build.html}/modules/installer/xarconfigurations">
+        <include name="intranet.conf.php"/>
+        <include name="community.conf.php"/>
+        <include name="public.conf.php"/>
+      </fileset>
+    </delete>
+   
+
     <!--- here we can make the core distribution -->
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-core.tar.gz"/>
@@ -182,6 +193,15 @@
    <!-- Modules are a bit separate -->
     <foreach list="modules.base" target="copymodulefrommodrepo" param="module.name"/>
     
+    <!-- Now we add the deleted configurations again -->
+    <copy todir="${build.html}/modules/installer/xarconfigurations">
+      <fileset dir="${html.dir}/modules/installer/xarconfigurations">
+        <include name="intranet.conf.php"/>
+        <include name="community.conf.php"/>
+        <include name="public.conf.php"/>
+        <exclude name="SCCS/**"/>
+      </fileset>
+    </copy>    
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-base.tar.gz"/>
     </phingcall>

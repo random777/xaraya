@@ -293,14 +293,16 @@ html/
       <section title="Comments in Templates">
         <t>
           Placing comments in Blocklayout templates is done by surrounding the
-          content in question with &lt;!--- ---&gt; (note three hyphens each). Content
+          content in question with &lt;xar:comment&gt; .... &lt;/xar:comment&gt; Content
           within these tags will be stripped from the final output stream.
           Standard two-hyphen comments (&lt;!-- --&gt;) will be passed on to the
           output stream.
         </t>
         <t>
-          Alternatively you can use the &lt;xar:comment /&gt; tag, which behaves exactly
-          like the &lt;--- tag.
+          We used to have the &lt;--- ---&gt; construct, but this is invalid XML, do NOT USE this
+          anymore. Note that inside &lt;xar:comment/&gt; tags, things will still have to be valid
+          XML. If you want complete freedom on what to put inside your comments, you'll have to experiment
+          with CDATA sections and &lt;-- style comments inside the &lt;xar:comment&gt; tag.
         </t>
       </section>
       <section anchor="tagdescriptions" title="Tag descriptions and Attributes">

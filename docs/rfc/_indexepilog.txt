@@ -1,0 +1,66 @@
+        </list>
+      </t>
+    </section>
+    
+    <section title="Terminology">
+      <t>
+        Several terms are used in RFC documents. This section tries to explain them.
+      </t>
+      
+      <section title="RFC (Request For Comment)">
+        <t>
+          Outlines the proposal/idea for comment. Stakeholders comment
+          as needed. The lead author collects comments and incorporates
+          them into the document. Through the RFC process, additional
+          reviewers/stakeholders may be identified. In this case, the
+          RFC is also submitted for their review. When all comments have
+          been captured, integrated/addressed, the RFC should represent
+          the best available solution. This final RFC is then submitted
+          as an RFA (see below) for approval by voting stakeholders.
+        </t>
+      </section>
+      
+      <section title="RFA (Request For Approval)">
+        <t>
+          In addition to the final RFC, the RFA should include a list of
+          voting stakeholders and assignment of the prevailing decision
+          rule (PDR). Generally, PDR will fall into one of the following
+          categories: a. Project Sponsor (Approved by project sponsors)
+          b. Project Leader (Approved by project leader) c. Simple
+          Majority (Approved by 51+% of stakeholders) d. Unanimous
+          Agreement (Approved by 100% of stakeholders) With the PDR in
+          mind, voting stakeholder(s) review the RFA and exercise one of
+          the following approval options. a. Unconditional Approval
+          b. Conditional Approval (approved if XYZ conditions are met)
+          c. Rejection If the RFA is not approved under the PDR, it is
+          revised and resubmitted until approval is achieved. An
+          approved RFA "rubber-stamps" a specific solution, it does not
+          necessarily assign implementation resources and deadlines.
+        </t>
+      </section>
+      
+      <section title="RFI (Request For Implementation)">
+        <t>
+          Once a solution is approved, the RFA is expanded to include
+          relevant implementation information (resource assignments,
+          deadlines, performance measures) ... thus becoming an
+          RFI. Once completed, the RFI is submitted to the voting
+          stakeholders for approval. Generally, the PDR and voting
+          stakeholders do not change from RFA to RFI. In the rare case
+          such a change occurs, it should be specifically noted in the
+          RFI. Once and RFI is approved, implementation may proceed.
+        </t>
+      </section>
+    </section>
+    
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>
+        <list style="numbers">
+          <t>Created</t>
+        </list>
+      </t>
+    </section>
+    
+  </middle>
+</rfc>

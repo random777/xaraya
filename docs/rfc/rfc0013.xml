@@ -6,10 +6,10 @@
 <rfc number="0013" category="info">
 	<front>
 		<title>Module Classification System</title>
-		<author initials="" surname="" fullname="Unknown">
+		<author initials="A" surname="Varganov" fullname="Andy Varganov">
 			<organization>Xaraya Development Group</organization>
 			<address>
-				<email>unknown</email>
+				<email>andyv@msph.com</email>
 				<uri>http://www.xaraya.com</uri>
 			</address>
 		</author>

@@ -191,7 +191,7 @@
 
     $needCompilation = true;
 
-    if ($xarTpl_cacheTemplates && $cache_flag) {
+    if ($xarTpl_cacheTemplates &amp;&amp; $cache_flag) {
         $varDir = xarCoreGetVarDirPath();
         $cacheKey = md5($sourceString);
         $cachedFileName = $varDir . '/cache/templates/' . $cacheKey . '.php';
@@ -212,7 +212,7 @@
         if (!isset($templateCode)) {
             return; // exception! throw back
         }
-        if ($xarTpl_cacheTemplates && $cache_flag) {
+        if ($xarTpl_cacheTemplates &amp;&amp; $cache_flag) {
             $fd = fopen($cachedFileName, 'w');
             fwrite($fd, $templateCode);
             fclose($fd);
@@ -289,7 +289,7 @@
         file name for the cache. Is the result of md5 distinct enough
         to:</t>
 				<t>
-        <list style="bullet">
+        <list style="symbols">
         <t>Change with minor amendments to sourceString? or</t>
         <t>Not conflict with other cached files?</t>
         </list>

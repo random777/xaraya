@@ -36,7 +36,22 @@ bk clone http://xaraya.com:15000/xaraya
 This will give you a copy of the main repository in which the transient
 code is available. 
 
-Now you can start developing and starting making changes. Some rules on
+Now you can start developing and starting making changes. For how to use
+bitkeeper managing your changes and making sure they are integrated in the
+patch, read the online documentation and especially RFC0028 on our documentation
+website.
+
+The process for the quick and impatient (assumiing anonymous user):
+
+bk clone http://xaraya.com:15000/xaraya
+bk pull (get latest changes)
+[hack]...[hack]...[hack]
+bk citool (make changesets en checks everything in)
+bk pull (to get latest changes and resolve conflicts)
+bk push
+bk beer
+
+Some rules on
 when to submit a patch.
 - don't make huge patches, it makes it more difficult to analyze them for us,
   group changes together. Remember the patch system is meant for pathes, not

@@ -43,7 +43,7 @@ THE OFFICIAL XARAYA INSTALLATION AND GETTING STARTED GUIDE
 
 
 IMPORTANT NOTE ABOUT THIS EDITION OF THE GUIDE:
-The Official Xaraya Installation & Getting Started Guide is a work-in-progress and is currently undergoing heavy development. It is not yet content-complete, but should be useful to users as an introduction and overview of Xaraya. If you find errors, omissions, spelling or grammar issues, please contact Drew Vogel <drew@xaraya.com> so they can be corrected. Please note that occurances of the word "OTTO" (in all caps) are placemarkers for the author and should be disregarded.
+The Official Xaraya Installation & Getting Started Guide is a work-in-progress and is currently undergoing heavy development. It is not yet content-complete, but should be useful to users as an introduction and overview of Xaraya. If you find errors, omissions, spelling or grammar issues, please contact Drew Vogel <drew@xaraya.com> so they can be corrected. Please note that occurrences of the word "OTTO" (in all caps) are place markers for the author and should be disregarded.
 
 
 
@@ -57,9 +57,9 @@ The Official Xaraya Installation & Getting Started Guide is a work-in-progress a
 
 
 
-                                                           Guide version 0137
+                                                           Guide version 0140
                                                  Last updated: 28-August-2003
-                    Version 0136 sent to BitKeeper on 15-August-2003, 03:10pm
+                    Version 0140 sent to BitKeeper on 28-August-2003, 04:28pm
 INDEX
 =====
 INTRODUCTION BY JOHN COX
@@ -145,6 +145,8 @@ MODULES IN XARAYA
 
 			EXAMPLE: Adding a new Publication Type that uses Dynamic Data
 
+			EXAMPLE: Extending the Gallery Publication Type
+
 		- Authldap Module
 
 		- Authsystem Module (core)
@@ -154,12 +156,12 @@ MODULES IN XARAYA
 
 		- Base Module (core)
 
-		- Bbclick Module
+		- BBClick Module
 
-		- Bbcode Module
+		- BBCode Module
 			EXAMPLE: Adding BBCode to a Publication Type
 
-		- Bkview Module
+		- BKview Module
 
 		- Blocks Module
 			EXAMPLE: Adding, modifying, and deleting a Block Group
@@ -228,8 +230,6 @@ MODULES IN XARAYA
 
 		- Polls Module
 			EXAMPLE: Adding Polls to the site
-
-		- Postboard Module
 
 		- Privileges Module (core)
 
@@ -394,7 +394,7 @@ DOCUMENT THANKS
 ===============
 Xaraya was written by the Xaraya Team. Xaraya is, as with many successful open-source projects, a huge collaborative effort relying on many talented contributors from across the globe. Without their vision, this document would not exist.
 
-The Official Xaraya Installation and Getting Started Guide was written by Drew Vogel. Abundant thanks to the Xaraya development team for answering Drew's endless questions. Thanks to the contributing authors, reviewers, Greg Allen, John Cox, mikespub, Doug Daulton, Skribe, Craig Hamlin, Chris Dudley, Mahmood Al-Yousif, mcortez, marcinmilan, and Joanna Dalle Nogare. Special thanks to Gregor Rothfuss for many things.
+The Official Xaraya Installation and Getting Started Guide was written by Drew Vogel. Abundant thanks to the Xaraya development team for answering Drew's endless questions. Thanks to the contributing authors, reviewers, Greg Allen (adam_baum), John Cox, mikespub, Doug Daulton (Apakuni), Skribe, Craig Hamlin, Chris Dudley (Miko), Carl Corliss (Rabbitt), Mahmood Al-Yousif, Michael Cortez (mcortez), marcinmilan, Joanna Dalle Nogare (jojodee), and Marcel van der Boom (MrB). Special thanks to Gregor Rothfuss (thalinor) for many things.
 
 This document was written using TextPad for Windows (http://www.textpad.com) and XMLmind XML Editor (http://www.xmlmind.com).
 
@@ -468,7 +468,7 @@ That said, the word Xaraya is reminiscent of 'raya', the Spanish word for Manta 
 
 ASSUMPTIONS
 ===========
-Xaraya allows unprecedented levels of customization, so it is impossible to list every possible configuration. "Anonymous users" are defined as users that have not registered/logged into an account on the site. "Registered users" are defined as users that have registered for an account on the site and have logged into the site with their username and password. The "Site Administrator" is a person or group of persons who have administrative access to the site.
+Xaraya allows unprecedented levels of customization, so it is impossible to list every possible configuration. "Anonymous users" are defined as users that have not registered/logged into an account on the site. "Registered users" are defined as users that have registered for an account on the site and have logged into the site with their username and password. The "Site Administrator" is one or more people who have administrative access to the site.
 
 To provide familiarity with how Xaraya functions this Guide makes the following assumptions:
 * That you plan to run a Community Site and:
@@ -485,7 +485,7 @@ To provide familiarity with how Xaraya functions this Guide makes the following 
 
 * That you have created a web-readable "images" directory in your Xaraya installation directory (<xarroot>/images). We will store any non-core and non-module images needed by the site in this directory.
 
-* That you already have a working webserver (Apache or IIS), PHP 4.1.2 or higher (4.2.x or higher is strongly recommended), an email subsystem, and a database (currently MySQL) installed, configured, and operating correctly. The installation and configuration of these tools are beyond the scope of this Guide.
+* That you already have a working webserver (Apache or IIS), PHP 4.1.2 or higher (4.2.x or higher is strongly recommended), an email subsystem, and a database (currently MySQL) installed, configured, and operating correctly. The installation and configuration of these tools are beyond the scope of this Guide. See http://www.php.net and http://www.mysql.com for assistance with these issues.
 
 SYSTEM REQUIREMENTS
 ===================
@@ -505,7 +505,7 @@ Before Xaraya can be run, it first needs to be installed or upgraded from a prev
 
 	- A functioning webserver (Apache or IIS, among others).
 
-	- A working installation of PHP (version 4.1.2 or higher) compiled with MySQL support. PHP is the language in which Xaraya is written. Without PHP support, the web server would not be able to parse the PHP files and your site would not function.
+	- A working installation of PHP (version 4.1.2 or higher) compiled with XML support and support for your database management system (MySQL or PostGRESQL). PHP is the language in which Xaraya is written. Without PHP support, the web server would not be able to parse the PHP files and your site would not function.
 
 	- A working database management system (MySQL 3.23 or higher or PostGRESQL). If you want to install Xaraya on PostGRESQL, you have to switch on TCP/IP Connection Support in the PostGRESQL server configuration.
 
@@ -529,21 +529,21 @@ You may need the following applications to facilitate your installation. If you 
 
 	- PHPdev (http://www.firepages.com.au) -- PHPdev preconfigured version of Apache / PHP / MySQL for Windows. After installing you should be able to start creating PHP / MySQL web-applications right away.
 
-	- PHPTriad (http://sourceforge.net/projects/phptriad) -- PHPTriad installs a complete working PHP/MySQL server environment on Windows platforms (9x/NT). Installs PHP, Perl, MySQL, Apache, and PHPMyAdmin. 
+	- PHPTriad (http://sourceforge.net/projects/phptriad) -- PHPTriad installs a complete working PHP/MySQL server environment on Windows platforms (9x/NT). Installs PHP, Perl, MySQL, Apache, and PHPMyAdmin.
 		
-	- FoxServ (http://www.foxserv.net) -- FoxServ is an extremely handy tool for Xaraya users to get Apache / MySQL / PHP / Perl up and running quickly, particularly for Windows servers. 
+	- FoxServ (http://www.foxserv.net) -- FoxServ is an extremely handy tool for Xaraya users to get Apache / MySQL / PHP / Perl up and running quickly, particularly for Windows servers.
 
-	- Apache Toolbox (http://www.apachetoolbox.com) -- Apache Toolbox is a fully customizable and menu driven script for Linux that will install Apache / MySQL / PHP / PERL, and much more. Everything is compiled from source. This is an advanced tool for Linux. 
+	- Apache Toolbox (http://www.apachetoolbox.com) -- Apache Toolbox is a fully customizable and menu driven script for Linux that will install Apache / MySQL / PHP / PERL, and much more. Everything is compiled from source. This is an advanced tool for Linux.
 
 GETTING XARAYA
 ==============
-Xaraya is distributed in three pieces, the "Core", the "Base", and "Full". The most current version of Xaraya is always available at http://www.xaraya.com.
+Xaraya is available in three distributions, the "Core", the "Base", and "Full". To install Xaraya, you need to download only one of the distributions. The notes below will assist you in selecting the correct distribution for your needs. The most current version of Xaraya is always available at http://www.xaraya.com.
 
-	* The "Xaraya Core" distribution is the absolute minimum installation of Xaraya.
+	* The "Xaraya Core" distribution is the absolute minimum installation of Xaraya. Only the 'essentials' of Xaraya are included in this distribution. This distribution is intended for users who want to use Xaraya as a platform for doing custom implementations.
 
-	* The "Xaraya Base" distribution is the recommended installation for most users because it includes all the files of the "Base" distribution, plus several useful modules. This Guide recommends installation of the Xaraya Base distribution.
+	* The "Xaraya Base" distribution is the recommended installation for most users because it includes all the files of the "Core" distribution, plus several useful modules. This distribution is useful for first-time Xaraya administrators as well as individuals transitioning from other Content Management Systems. This Guide assumes installation of the Xaraya Base distribution.
 
-	* The "Xaraya Full" distribution contains more modules that further extend the functionality of Xaraya beyond the "Core" or "Base" installation.
+	* The "Xaraya Full" distribution builds on the Base distribution and contains additional modules that further extend the functionality of Xaraya. This distribution is well-suited for users who wish to evaluate Xaraya. Because this distribution contains all available Xaraya modules, it is more for testing Xaraya's capabilities than for production usage.
 
 Modules may be added to your site at any time after installation.
 
@@ -569,13 +569,13 @@ The Xaraya Base distribution consists of the following directory structure. In t
 
 	If you install Xaraya into a sub-directory of the <webdir>, your users will have to type the sub-directory name in the URL. For example, if you install Xaraya into <webdir>/xaraya, your users will have to visit "http://www.yoursite.com/xaraya" to get to Xaraya. If you wish for Xaraya to exist in the <webdir> (so that users will visit "http://www.yoursite.com" to get to Xaraya), copy Xaraya's files & sub-directories to <webdir>.
 
-	- sql: Contains empty database definition files that correctly configure Xaraya's databases. Xaraya's installer creates the databases, but if the site administrator wishes to examine the data structure, these files can be useful. It is not necessary to copy this directory to the webserver.
+	- sql: Contains empty database definition files that correctly configure Xaraya's databases. Xaraya's installer creates the databases without using these files, but if the site administrator wishes to examine the data structure, these files can be useful. It is not necessary to copy this directory to the webserver.
 
 	- tests: This directory contains code that is being tested and is usable at your own risk. Noteworthy in this directory is the 'import' sub-directory, which contains utilities to import data from other Content Management Systems into Xaraya. It is not necessary to copy this directory to the webserver. Pieces you wish to test can be copied individually to the webserver.
 
 Edit Xaraya's configuration file
 --------------------------------
-* Using your text editor, edit /tmp/xar/html/var/config.system.php and make the following changes as necessary:
+* Using your text editor, edit /tmp/xar/html/var/config.system.php and make the following changes as necessary (consult your web host for the correct values to use):
 	- Database Username: The username that will be used to connect to the database. Do not use 'root' or 'admin' account names as they present a security risk. This user should already exist and have privileges in your database. For example, if the database user is "db-user", change the line to:
 		$systemConfiguration['DB.UserName'] = 'db-user';
 
@@ -588,7 +588,7 @@ Edit Xaraya's configuration file
 	- Database Name: The name of the database to which to connect. Case-sensitive.
 		$systemConfiguration['DB.Name'] = 'Xaraya';
 
-	- Database Type: The database server type.
+	- Database Type: The database server type. Either "mysql" or "pgsql".
 		$systemConfiguration['DB.Type'] = 'mysql';
 
 	- Database TablePrefix: This feature is currently under development, and will be fully available in a future release. The tableprefix is used when you wish to run multiple sites off the same Xaraya database. The prefix specified here is prepended to each of the tables of your database to give each a unique name across multiple installs. For example, if the database table prefix was to be "xar", change the line to this:
@@ -614,7 +614,7 @@ For example, under Linux, with the following assumptions...
 
 	* "cp -r /tmp/xar/html/* <webdir>/xaraya" (or the <xarroot> for your installation)
 
-If you need to UPLOAD your site, ensure that the files are transferred in 'ASCII' or 'Text' format.
+If you need to UPLOAD your site, ensure that the files are transferred in 'ASCII' or 'Text' format, except for image files (.jpg, .gif, and .png) which need to be transferred in BINARY format, Most modern FTP clients will set the transfer type automatically.
 
 It may be necessary to set ownership & permissions for the directory where Xaraya is installed.
 
@@ -623,9 +623,9 @@ Setting Permissions
 Now that you've installed the files in the correct place (the '<xarroot>') on your webserver, you need to ensure that all the files can be read by the web server. This is accomplished by setting ownership and permissions. Consult your operating system manual for information about setting permissions and ownership.
 
 The recommended route is to change the group of the file and directories to the same group used by the web server. Under Red Hat Linux, check the "User" and "Group" settings in /etc/httpd/conf/httpd.conf to determine the user & group values. For example, under Linux and assuming that your user/group that is used by the webserver is user: "web" and group: "apache":
-	- "chown -R web:apache <xarroot>"
+	- "chgrp -R apache <xarroot>"
 
-	- "chmod -R 770 <xarroot>"
+	- "chmod -R a+r <xarroot>"
 
 There is a file and two directories to which the web server must have 'write' access.
 
@@ -646,9 +646,9 @@ To set permissions and ownership on other operating systems, please check your m
 
 XARAYA INSTALLATION
 ===================
-Once Xaraya has been moved onto your site, you must install it before the site is available for use & configuration. Follow these steps to install Xaraya.
+Once Xaraya has been moved onto your site (either via a copy command or an upload), you must run the installation script before the site can be used. Follow these steps to install Xaraya.
 
-SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also use ZoneAlarm, be sure to DISABLE or EXIT ZoneAlarm before installing Xaraya on a Windows machine. ZoneAlarm may cause problems when installing Xaraya on a Windows machine.
+SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also use ZoneAlarm, be sure to DISABLE or EXIT ZoneAlarm for the duration of the Xaraya installation on a Windows machine. This is because ZoneAlarm may cause problems when installing Xaraya on a Windows machine.
 
 * From your browser, launch http://www.mywebsite.com/xaraya/install.php (replace with the correct path to your Xaraya installation's "install.php" file).
 
@@ -672,7 +672,7 @@ SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also 
 	- Database Settings Collection. Review (and edit if necessary) the Database Settings on the next panel. The default database settings displayed on this panel come from the 'config.system.php' file that we edited in 'Edit Xaraya's configuration file', above.
 		- The database types currently supported by Xaraya are MySQL or PostGRESQL. Choose the one that you are using.
 
-		- Click "Create the database" to have the Xaraya installer attempt to create the database. Click "Continue".
+		- CHECK "Create the database" to have the Xaraya installer attempt to create an empty database for you before populating it. This option is not needed if the installer will be populating an already existing database.
 
 	If Xaraya cannot create the database for you, see Appendix C: Creating the Xaraya database via phpMyAdmin.
 
@@ -698,9 +698,9 @@ SPECIAL NOTE FOR WINDOWS USERS OF ZONEALARM: If you are a Windows user and also 
 
 			- 'Upgrade from Postnuke' is currently not available.
 
-		- From the list of Available Configurations, select "Community Site". Click "Continue".
+		- This Guide assumes you are using a "Community Site". From the list of Available Configurations, select "Community Site" and click "Continue".
 
-	- Choose Configuration Options. Once you've chosen your configuration from the Available Configurations, specify which modules you wish to initialize via the installer. The listed modules are a subset of all the modules available for Xaraya, but this provides a nice starting place. For this example, select the installation defaults unless you have specific reasons to select otherwise.
+	- Choose Configuration Options. Once you've chosen your configuration from the Available Configurations, specify which modules you wish to initialize via the installer. The listed modules are a subset of all the modules available for Xaraya, but this provides a nice starting place. For this example, keep the installation defaults unless you have specific reasons to select otherwise.
 
 	If you make a mistake or forget to install a module that you need, don't worry -- modules can be installed or removed at any time.
 
@@ -736,7 +736,7 @@ At the bottom of the browser window is Xaraya's 'footer' region. After installat
 
 The large pane that uses most of the browser window is the content region. This is where the majority of site information is displayed to users.
 
-Everything you see in Xaraya is configurable. Xaraya's powerful theme engine, BlockLayout, makes it easy to customize your site to your exact specifications. The colors, the fonts, the placement of information is all configurable by changing themes or templates on your Xaraya site. Don't like the Administration menu on the left? It's quite simple to move it. Want to put your own logo in place of the Xaraya logo at the top? No problem!
+Everything you see in Xaraya is configurable. Xaraya's powerful theme engine, BlockLayout, makes it easy to customize your site to your exact specifications. The colors, the fonts, the placement of information is all configurable by changing themes or templates on your Xaraya site. Don't like the Administration menu on the left? It's quite simple to move it or remove it altogether. Want to put your own logo in place of the Xaraya logo at the top? No problem!
 
 SPECIAL NOTE: Click-paths:
 --------------------------
@@ -777,7 +777,7 @@ This is your Site Name & Site Slogan, respectively, separated by the Title Separ
 
 	- Type the Copyright statement -- defaults to "&copy; Copyright 2003 <administrator name>". Change it as necessary.
 
-	- Edit the Footer. The 'footer' is displayed at the bottom (the 'foot') of each and every page on your site. This is an excellent place to give credit, state copyright, or put links that you wish to appear on every page of the site.
+	- Edit the Footer. The 'footer' is displayed at the bottom (the 'foot') of each and every page on your site. This is an excellent place to give credit, state copyright, or put links that you wish to appear on every page of the site. While we appreciate credit being given here to Xaraya, it is by no means compulsory and so the "Powered by Xaraya" graphic can be removed if you wish.
 
 	- Page Title Separator: Default is " :: ", but you can make it anything you wish by editing this field.
 
@@ -800,7 +800,7 @@ See the section on the Base Module (below) for more information about these sett
 
 	- CHECK "Enable Short URL Support" -- this is the 'master switch' for Short URL support on your site.
 
-	- CHECK "Fix HTML Entities".
+	- CHECK "Fix HTML Entities" -- this will ensure that characters such as the copyright sign and international symbols like umlauts are displayed correctly.
 
 	Sessions and Security
 	---------------------
@@ -813,12 +813,12 @@ See the section on the Base Module (below) for more information about these sett
 
 	- Session duration (in days): This setting determines how long (in days) a user's session will last before it expires, forcing the user to re-log in with their existing username and password. Set the session duration to "7" days.
 
-	- Session inactivity time out: If Xaraya detects that a user's session has been idle for a certain period of time, it will expire the session. This setting determines how many minutes Xaraya will wait before expiring the session due to inactivity. Set the inactivity time to "90" minutes.
+	- Session inactivity time out: If Xaraya detects that a user's session has been idle for a certain period of time and that the Security level is High or Medium, it will expire the session. This setting determines how many minutes Xaraya will wait before expiring the session due to inactivity. Set the inactivity time to "90" minutes.
 
 	- Click "Update Base Configuration" to save changes.
 
 Admin->Base->System Information:
-This panel displays a variety of information about the PHP installation on the site. Should you ever need to determine what version of PHP the site is running, or what modules are compiled into PHP, this is where to find that information. This information may be helpful if you submit a Xaraya bug report or a feature request.
+This panel displays a variety of information about the PHP installation on the site. Should you ever need to determine what version of PHP the site is running, or what modules are compiled into PHP, this is where to find that information. This information may be helpful if you need to submit a Xaraya bug report or a feature request.
 
 OTTO: CATEGORIES -> MODULES -> HOOKS -> ARTICLES -> PUBLICATION TYPES -> DYNAMIC DATA -> ROLES
 
@@ -873,7 +873,7 @@ The next two options determine the position of the new/edited category in the ca
 	- Optional image: From this drop-down list, select the image associated with this category. The image format can be any popular image file format (JPG, GIF, PNG, etc) and must exist in one of two directories:
 		- "modules/categories/xarimages" or
 
-		- "themes/[theme name]/modules/categories/images" for theme-dependent versions
+		- "themes/<theme_name>/modules/categories/images" for theme-dependent versions
 
 	- Click "Modify" to save changes.
 
@@ -893,7 +893,7 @@ The next two options determine the position of the new category in the category 
 	- Position: Determines the placement of the new/edited category in conjunction with the "In relation to this category" field above.
 		- Right before, in the same level: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
 
-		- Rigth after, in the same level: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
+		- Right after, in the same level: If you want the new/edited category to be placed BELOW the category specified in "In relation to this category" and be on the same level (for example, if the category selected in "In relation to this category" is a top-level category, this new/edited category will also be top-level), select this option.
 
 		- The first child category: If you want the new/edited category to be placed ABOVE the category specified in "In relation to this category" and to be a child category of the category referenced in "In relation to this category", select this option.
 
@@ -902,7 +902,7 @@ The next two options determine the position of the new category in the category 
 	- Optional image: From this drop-down list, select the image associated with this category. The image format can be any popular image file format (JPG, GIF, PNG, etc) and must exist in one of two directories:
 		- "<xarroot>/modules/categories/xarimages" or
 
-		- "<xarroot>/themes/[theme name]/modules/categories/images" for theme-dependent versions
+		- "<xarroot>/themes/<theme_name>/modules/categories/images" for theme-dependent versions
 
 	- Click "Modify" to save changes.
 
@@ -921,7 +921,7 @@ OTTO Describe how BLOCK & FUNCTION templates can be built into PAGE templates.
 http://www.thedragonsforge.com/projectX/blocklayout_spec.html
 
 Xaraya displays information to site visitors by using TEMPLATES. Templates are available in the following varieties: "function templates", "block templates", "page templates", or "block group templates".
-	- "Function Templates" are Content Layout templates that display a view of a particular function of Xaraya. Xaraya separates function templates for users and administrators. User function templates have "user-" at the beginning of the template filename, and administrator function templates have "admin-" at the beginning of the template filename. For example, one of Xaraya's default function templates is called 'user-display-news'. This template defines the the layout of the news area in your page as it is displayed to users of the site. The administrator view is defined by the 'admin-display-news' template).
+	- "Function Templates" are Content Layout templates that display a view of a particular function of Xaraya. Xaraya separates function templates for users and administrators. User function templates have "user-" at the beginning of the template filename, and administrator function templates have "admin-" at the beginning of the template filename. For example, one of Xaraya's default function templates is called 'user-display-news'. This template defines the layout of the news area in your page as it is displayed to users of the site. The administrator view is defined by the 'admin-display-news' template).
 
 	- "Page Templates" are Content Layout templates that display a view of a whole page, which can include function and block templates. These files reside in the <xarroot>/themes/<theme_name>/pages directory.
 
@@ -942,9 +942,9 @@ If template files exist in both site-wide, theme-specific locations, the theme-s
 
 MODULES IN XARAYA
 =================
-Xaraya allows items to be virtually 'bolted on' to its engine. These items, called "modules", add features or functionality to Xaraya. Because it is important to understand how modules function within Xaraya, in this section we explain how any Xaraya module can be installed, configured, deactivated, upgraded, and completely removed (deleted!). Any of these actions may be taken on any non-core Xaraya module. Xaraya's Core modules make up the distribution of Xaraya, and are not user modifiable.
+Xaraya allows items to be virtually 'bolted on' to its engine. These items, called "modules", add features or functionality to Xaraya. Because it is important to understand how modules function within Xaraya, in this section we explain how any Xaraya module can be installed, configured, deactivated, upgraded, and completely removed (deleted!). Any of these actions may be taken on any non-core Xaraya module. Xaraya's Core modules make up the distribution of Xaraya, and can not be deactivated, edited, or removed.
 
-The Xaraya Base distribution comes with a selection of popular modules available for use with your site. The Site Administrator may choose additional modules to use on the site. Additional official modules and third-party modules for Xaraya may be downloaded from the official site at http://www.xaraya.com.
+The Xaraya Base distribution comes with a selection of popular modules available for use with your site. The Site Administrator may choose additional modules to add to the site. Additional official modules and third-party modules for Xaraya may be downloaded from the official site at http://www.xaraya.com.
 
 Xaraya Modules -- A New Approach
 --------------------------------
@@ -1042,7 +1042,7 @@ Modules in Xaraya
 -----------------
 In this section of the Guide, we explore the individual modules that are included with Xaraya. Not all site administrators will use all of these features, so feel free to skip around!
 
-- Addressbook Module (Mod distro): Xaraya address book module. Admin->Addressbook.
+- Addressbook Module (Modules distribution): Xaraya address book module. Admin->Addressbook.
 The Addressbook module provides a configurable address book for your site. Entries in the address book can be made private (viewable only by the person who entered the item) or public (viewable by all users with access to this module).
 	- Modify config:
 	This panel allows modification of configuration options for this module.
@@ -1174,7 +1174,7 @@ The Adminpanels module configures how the Administration menu block is displayed
 
 		- Specify marker: Specify the marker to be used if "Mark active item" (above) is CHECKED. Default is "[x]".
 		
-		AN EASTER EGG: What version of Xaraya was first the PUBlic release? Type your answer in this field. If your answer is right, as site administrator, you'll catch sight of the elusive 'red manta'. This easter egg exists in version .906.
+		AN EASTER EGG: What version of Xaraya was first the PUBlic release? Type your answer in this field. If your answer is right, as site administrator, you may catch sight of the elusive 'red manta'. This Easter egg exists in versions .906 and later.
 
 		- Sort admin menu items:
 			- By Name: Displays the Administration menu sorted alphabetically.
@@ -1229,7 +1229,7 @@ The Articles module is possibly the most often-accessed part of a community site
 
 			- Approved: Display articles in the currently-selected Publication Type that have been approved for publication.
 
-			- Frontpage: Display articles in the currently-selected Publication Type that have been approved for publication and are displayed on the front page of the site.
+			- Frontpage: Display articles in the currently-selected Publication Type that have been approved for publication and are displayed on the front page of the module. If this module is the current default starting module (set in Admin->Base->Modify config), then articles with this status will also be displayed on the front page of the site.
 			
 			- Browse in: This is a filter that displays articles in the selected Publication Type based on the Category to which the article is assigned. Click the Category next to "Browse in" to display a panel with available Categories. Click a Category to display its articles.
 
@@ -1260,7 +1260,7 @@ The Articles module is possibly the most often-accessed part of a community site
 
 				- Approved: The article has been submitted to the site and has been approved for publication. This article is visible to site visitors and the site administrator. To view this article, navigate to the Publication Type and Category of the article, then click the title of the article to display.
 
-				- Frontpage: The article has been submitted to the site and has been approved for publication. This article is visible to site visitors and the site administrator. The article is displayed on the front page of the site, and may also be viewed by navigating to the Publication Type and Category of the article, then clicking the title of the article to display.
+				- Frontpage: The article has been submitted to the site and has been approved for publication. This article is visible to site visitors and the site administrator. The article is displayed on the front page of the module, and if this module is the default starting module, then it will be on the front page of the site. Articles with this status may also be displayed by navigating to the Publication Type and Category of the article, then clicking the title of the article.
 
 				- Click "Change Status" to save changes.	
 
@@ -1427,7 +1427,9 @@ EXAMPLE: Adding a new Publication Type
 
 EXAMPLE: Adding a new Publication Type that uses Dynamic Data
 -------------------------------------------------------------
-This tutorial assumes you are starting from a fresh, brand-spanking-new, just-installed Xaraya Base installation.
+In this advanced example, we will configure a new Publication Type for Recipes. We will add the new Publication Type, enable Dynamic Data, add Dynamic Data fields to our new Publication Type, add appropriate Categories, attach the new Publication Type to the new Categories, add Templates for the new Publication Type, and finally, add an article (a recipe!) to the new Publication Type.
+
+This example assumes you are starting from a fresh, brand-spanking-new, just-installed Xaraya Base installation.
 
 1. LOG IN AS A XARAYA ADMINISTRATOR: This is done any time you wish to have Administrator access to your Xaraya site.
 
@@ -1576,6 +1578,10 @@ On the following page, approve the article by putting a CHECK in the STATUS box,
 
 10. LOGOUT FROM THE ADMINISTRATOR ACCOUNT
 It is a wise idea, though technically not required, to log out of your administrator account at the end of each session. To log out of your Xaraya administrator account, click [admin logout], which appears at the bottom of the Administration menu. Confirm your intention to log out by clicking "Logout", or click "Cancel" to abort the logout.
+
+EXAMPLE: Extending the Gallery Publication Type
+-----------------------------------------------
+OTTO: Speak with mcortez about adding thumbnails, etc.
 
 - Authldap Module: Xaraya LDAP authentication module. Admin->Authldap.
 This module provides LDAP authentication services for Xaraya.
@@ -1730,26 +1736,17 @@ Method 2. Go to Admin->Modules->Configure Hooks. In the next panel, click Autoli
 	
 	Sessions and Security
 	---------------------
-	- Security level: From this drop-down list, configure the general security level for your site. If a user CHECKS the "Remember Me" box displayed in the login panel when logging in, the user's session is not purged for the duration set in the settings below. If a user does NOT check the "Remember Me" box when logging in, they must log into the site each time they visit.
-		- High: Users must log on each time they return to the site.
-
-		- Medium: Users stay logged on for the number of days specified in Session Duration, below.
-
-		- Low: Users stay logged in forever.
-
-	- Session duration (in days): This setting determines how long (in days) a user's session will last before it expires, forcing the user to re-log in with their existing username and password.
-
-	- Session inactivity time out: If Xaraya detects that a user's session has been idle for a certain period of time, it will expire the session. This setting determines how many minutes Xaraya will wait before expiring the session due to inactivity.
+	See Sessions and Security, above.
 
 	Multi-language configuration
 	----------------------------
 	In this section of configuration, we configure multi-language support settings.
 	- Mode: DDL
-		- Single: The multi-language system uses only one charset, typically single byte but potentially multi-byte if 'mb_string' is built in. Information is stored coherently with the charset chosen at installation time.
+		- Single: The multi-language system uses only one character set, typically single byte but potentially multi-byte if 'mb_string' is built in. Information is stored coherently with the character set chosen at installation time.
 		
-		- Boxed: The multi-language system uses more than one charset (same consideration for the single or multi-byte matter as in Single), but only one charset per page is used (this should be an obvious concept, but it is important to understand). Content is not sharable between different language areas (for example an Arabic comment will not be shown in the English area even if refereed to the same object, say an article available in both English and Arabic). Another point is that every operation involves only a single language. This mode can produce unexpected results if 'mb_string' is not installed.
+		- Boxed: The multi-language system uses more than one character set (same consideration for the single or multi-byte matter as in Single), but only one character set per page is used (this should be an obvious concept, but it is important to understand). Content is not sharable between different language areas (for example an Arabic comment will not be shown in the English area even if referred to the same object, say an article available in both English and Arabic). Another point is that every operation involves only a single language. This mode can produce unexpected results if 'mb_string' is not installed.
 		
-		- Unboxed: The multi-language system uses a universal charset to represent everything (read it as UTF-8). This guarantees that no conversion is needed between languages. Every page is always shown according to the user chosen language, but the page may contain text in other languages (for example a French article and comments inside an English page). You cannot use the UNBOXED mode of the multi-language system unless you have PHP 4.3.0 with the mbstring extension compiled in.
+		- Unboxed: The multi-language system uses a universal character set to represent everything (read it as UTF-8). This guarantees that no conversion is needed between languages. Every page is always shown according to the user-selected language, but the page may contain text in other languages (for example a French article and comments inside an English page). You cannot use the UNBOXED mode of the multi-language system unless you have PHP 4.3.0 with the mbstring extension compiled in.
 
 	- Default locale: From this drop-down list, select the default locale/language for your site. This setting defines the default language of the site. Unless support for additional languages is installed, the drop-down list will contain only one item. Support for additional languages is available from http://www.xaraya.com.
 
@@ -1848,9 +1845,9 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 					- Click "Update" to save changes.
 
 				- Template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
-					- Module-dependant: Module-dependant file must exist in <xarroot>/<modulename>/xartemplates/blocks
+					- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 					
-					- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<themename>/modules/<modulename>.
+					- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
 						- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
 
 						- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
@@ -1891,9 +1888,9 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 			- Group: The group to which the new block instance will be added. See the description of Groups, above.
 
 			- Template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
-				- Module-dependant: Module-dependant file must exist in <xarroot>/<modulename>/xartemplates/blocks
+				- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 				
-				- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<themename>/modules/<modulename>.
+				- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
 					- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
 
 					- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
@@ -2019,7 +2016,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 				- Category Layout:
 					- Tree (side block): Displays a vertical 'tree' structure of the site's categories; most useful along the side of a page.
 
-					- Crumbtrail (top block): Displays a 'crumbtrail'-type horizontal structure of the site's categories; most useful at the top of a page.
+					- Crumbtrail (top block): Displays a 'crumb trail'-type horizontal structure of the site's categories; most useful at the top of a page.
 
 					- Prev/Next (bottom block): Displays previous- and next-type links; most useful at the bottom of a page.
 
@@ -2082,7 +2079,7 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 
 					- Your Latitude: In this field, enter your latitude in the format "N 39.283899".
 
-				- Use Dyanamic Keywords: In addition to defining your own keywords for your site (in Meta keywords, above), you can choose to have meta keywords generated dynamically. When this option is CHECKED, meta keywords are generated dynamically whenever the full text of an article is displayed. All the words in the article are used as meta keywords. CHECKING this function has a small performance cost. 
+				- Use Dynamic Keywords: In addition to defining your own keywords for your site (in Meta keywords, above), you can choose to have meta keywords generated dynamically. When this option is CHECKED, meta keywords are generated dynamically whenever the full text of an article is displayed. All the words in the article are used as meta keywords. CHECKING this function has a small performance cost. 
 
 				- Copyright page: OTTO
 
@@ -2097,9 +2094,9 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 		- Group: From this drop-down list, select the grouping to which the new block instance will be added. See the description of Groups, above.
 
 		- Template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
-			- Module-dependant: Module-dependant file must exist in <xarroot>/<modulename>/xartemplates/blocks
+			- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 				
-			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<themename>/modules/<modulename>.
+			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
 				- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
 
 				- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
@@ -2112,9 +2109,9 @@ Go to Admin->Blocks and use the sub-functions to add, edit, view, or delete Bloc
 		- Name: Enter the name for the new Block Group in this field.
 
 		- Default template (optional): Type the filename of the template to be used when displaying this block instance. The file must exist in one of two places:
-			- Module-dependant: Module-dependant file must exist in <xarroot>/<modulename>/xartemplates/blocks
+			- Module-dependant: Module-dependant file must exist in <xarroot>/<module_name>/xartemplates/blocks
 				
-			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<themename>/modules/<modulename>.
+			- Theme-dependant: Theme-dependant file must exist in: <xarroot>/themes/<theme_name>/modules/<module_name>.
 				- Theme dependant templates override module templates in <xarroot>/themes/<theme_name>/modules/<module_name>
 
 				- Theme dependant templates override module blocks in <xarroot>/themes/<theme_name>/modules/<module_name>/blocks
@@ -2191,7 +2188,7 @@ Deleting a Block Group
 
 		- Click "Update bloggerapi Configuration" to save changes.
 
-- Calendar Module (Mod distro): Calendar module. Admin->Calendar.
+- Calendar Module (Modules distribution): Calendar module. Admin->Calendar.
 
 - Cast Module: Supporting cast display gallery module for tequilastarrise.net. Admin->Cast.
 	- Add Skill:
@@ -2305,7 +2302,7 @@ Deleting a Block Group
 
 		- Portrait upload path: The local path to the directory to which portraits will be uploaded. Must be readable and writable by the website.
 
-		- Portrait size: The maximum filesize for the portrait file.
+		- Portrait size: The maximum file size for the portrait file.
 
 		- Portrait dimensions: The maximum dimensions (height, width) for the portrait file.
 
@@ -2446,7 +2443,7 @@ Create a main category called "Animals". Create a sub-category of Animals called
 
 		- Click "Add" to save category.
 
-- Censor Module (Mod distro): Censor objectionable words. Admin->Censor.
+- Censor Module (Modules distribution): Censor objectionable words. Admin->Censor.
 This module allows a site administrator to automatically filter -- or 'censor' -- objectionable words or phrases from the site.
 	- Add Censored Word:
 	Add items to the list of objectionable words to be filtered by clicking Admin->Censor->Add.
@@ -2470,7 +2467,7 @@ This module allows a site administrator to automatically filter -- or 'censor' -
 
 		- Click "Submit" to save changes.
 
-- Changelog Module (Mod distro): Tracks changes to module items. Admin->Changelog.
+- Changelog Module (Modules distribution): Tracks changes to module items. Admin->Changelog.
 	- Modify config:
 	This panel allows modification of configuration options for this module.
 		- Fields (comma-separated list):
@@ -2575,7 +2572,7 @@ This module will assist in the conversion of PostNuke or PHPnuke themes to Xaray
 
 			- Add relation:
 
-- Dynamic_planning Module (Mod distro): Project planning module.
+- Dynamic_planning Module (Modules distribution): Project planning module.
 
 - Dyn_example Module: Dynamic Data example for new modules.
 
@@ -2604,7 +2601,7 @@ In this example, we'll add an Ephemerid block to the front page of the site. The
 
 First we must make sure that Ephemerids are installed & stocked with data. Install the Ephemerid module if necessary. Go to Admin->Ephemerids->Add and add a few ephemerids. In order to see the results of your work, enter at least one ephemerid with today's date.
 
-Next, go to Admin->Blocks->Add Instance. Enter the title of your new block ("Today in history..."), select "ephemerids \ ephem" from the Type drop-down list, select the Group for the block (right), and click "Create Instance". To check that your new block instance has been created, go to Admin->Blocks->View Instances. You will see "Today in history..." (or whatever you called your block) listed. To view the Ephemerid, go to the front page of the site. You'll see the ephemerid block displayed there!
+Next, go to Admin->Blocks->Add Instance. Enter the title of your new block ("Today in history..."), select "ephemerids/ephem" from the Type drop-down list, select the Group for the block (right), and click "Create Instance". To check that your new block instance has been created, go to Admin->Blocks->View Instances. You will see "Today in history..." (or whatever you called your block) listed. To view the Ephemerid, go to the front page of the site. You'll see the ephemerid block displayed there!
 
 - Example Module: Example for new modules. Admin->Example.
 	- Add Item:
@@ -2631,7 +2628,7 @@ Next, go to Admin->Blocks->Add Instance. Enter the title of your new block ("Tod
 
 		- Click "Update Configuration" to save changes.
 
-- Facilities Module (Mod distro): Facility management module. Admin->Facilities.
+- Facilities Module (Modules distribution): Facility management module. Admin->Facilities.
 	- Modify config:
 	This panel allows modification of configuration options for this module.
 		- Number of facilities to display per page:
@@ -2642,7 +2639,7 @@ Next, go to Admin->Blocks->Add Instance. Enter the title of your new block ("Tod
 
 		- Click "Update config" to save changes.
 
-- Figlet Module (Mod distro): TRANSFORM. Transform text to ASCII art. Admin->Figlet.
+- Figlet Module (Modules distribution): TRANSFORM. Transform text to ASCII art. Admin->Figlet.
 This is an EXTREMELY important module for Xaraya. Perhaps the single most important module, because no other Xaraya module allows a user to enter plain old text and convert it to nice, useless ASCII art. Just kidding. This is a fun module, nothing more.
 	- Modify config:
 	This panel allows modification of configuration options for this module.
@@ -2708,15 +2705,15 @@ To delete an HTML tag from the table, click "Delete" next to the tag. Confirm yo
 
 Click "Submit" to save changes.
 
-- Imagefeed Module (Mod distro): Show an image feed. No administration panel.
+- Imagefeed Module (Modules distribution): Show an image feed. No administration panel.
 This module connects to http://www.coolpick.com and displays their "Babe of the Day" image on your site. These images are considered to be "adults-only", and while frequently sexy are not explicit.
 
-- Images Module (Mod distro): DEGRADED. Handle images. No administration panel.
+- Images Module (Modules distribution): DEGRADED. Handle images. No administration panel.
 
 - Installer Module (core): Install and customize Xaraya. No administration panel.
 The installer module is used by Xaraya during installation and for upgrades to the site. This module must not be deleted from your system after installation or Xaraya will not function properly.
 
-- Latestcomments Module (Mod distro): Display latest comments from many sources. Admin->Latestcomments.
+- Latestcomments Module (Modules distribution): Display latest comments from many sources. Admin->Latestcomments.
 
 - Mail Module (core): Mail handling utility module. Admin->Mail.
 	- Modify config:
@@ -2828,7 +2825,7 @@ The installer module is used by Xaraya during installation and for upgrades to t
 
 	- Certified Releases:
 
-- Multisites Module (Mod distro): Basic installation of a multisite Xaraya. Admin->Multisites.
+- Multisites Module (Modules distribution): Basic installation of a multisite Xaraya. Admin->Multisites.
 	- Add:
 
 	- View:
@@ -2874,7 +2871,7 @@ The installer module is used by Xaraya during installation and for upgrades to t
 
 		- Click "Modify" to save changes, or "Cancel" to cancel changes.
 
-- Opentracker Module (Mod distro): Wrapper around phpOpenTracker (http://www.phpopentracker.de) for Xaraya. No administration panel.
+- Opentracker Module (Modules distribution): Wrapper around phpOpenTracker (http://www.phpopentracker.de) for Xaraya. No administration panel.
 
 - Polls Module: Conduct polls. Admin->Polls.
 	- New Poll:
@@ -2960,11 +2957,11 @@ The installer module is used by Xaraya during installation and for upgrades to t
 EXAMPLE: Adding Polls to the site
 ---------------------------------
 
-- Postboard Module (Mod distro): PostBoard forum.
+- Postboard Module (Modules distribution): PostBoard forum.
 
 - Privileges Module (core): Modify privileges security. Admin->Privileges.
 
-- Pubsub Module (Mod distro): Allow users to subscribe to updates to site items. Admin->Pubsub.
+- Pubsub Module (Modules distribution): Allow users to subscribe to updates to site items. Admin->Pubsub.
 
 - Quotes Module: Random quotes administration. Admin->Quotes.
 Once quotes have been installed, and a few quotes have been added, they can be displayed one at a time in random order on the site by placing a Quote block.
@@ -3055,7 +3052,7 @@ To reset the referers list, click "Delete Referers".
 
 		- Options:
 
-- Reports Module (Mod distro): Web-based reporting. Admin->Reports.
+- Reports Module (Modules distribution): Web-based reporting. Admin->Reports.
 	- View connections:
 		- Connection name: Click the name of the connection to edit the connection's settings.
 
@@ -3102,7 +3099,7 @@ To reset the referers list, click "Delete Referers".
 
 		- Click "Update config" to save changes.
 
-- Reviews Module (Mod distro): Reviews module. No administration panel.
+- Reviews Module (Modules distribution): Reviews module. No administration panel.
 
 - Roles Module (core): User & Group registration and handling. Admin->Roles.
 Please see XARAYA ROLES: USERS & GROUPS for a thorough discussion of the Roles module.
@@ -3112,31 +3109,32 @@ The Search module provides users a full-site text search capability. The searche
 
 - Smilies Module: TRANSFORM. Transform smilies to images. Admin->Smilies.
 	- Add:
-		- Smily Code: The text that a user enters to generate the smily.
+		- Smiley Code: The text that a user enters to generate the smiley.
 
-		- Smily Icon Path: The local path to the smily image file.
+		- Smiley Icon Path: The local path to the smiley image file.
 
-		- Smily Emotion: Text describing the emotion conveyed via the smily. Used as mouseover text if a user hovers over the smily.
+		- Smiley Emotion: Text describing the emotion conveyed via the smiley. Used as mouseover text if a user hovers over the smiley.
 
-		- Click "Create Smily" to save changes.
+		- Click "Create Smiley" to save changes.
 
 	- View:
-		- Smily Code:
+		- Smiley Code:
 
-		- Smily Icon:
+		- Smiley Icon:
 
-		- Smily Icon Path:
+		- Smiley Icon Path:
 
-		- Smily Emotion:
+		- Smiley Emotion:
 
 		- Options:
 			- Edit:
-				- Click "Modify Smily" to save changes.
+				- Click "Modify Smiley" to save changes.
 
 			- Delete:
 
 EXAMPLE: Adding Smilies to a Publication Type
 ---------------------------------------------
+OTTO: To be written.
 
 - Sniffer Module: Used for browser detection. No administration panel.
 
@@ -3150,7 +3148,7 @@ The Statistics module collects data about incoming visitors to your website. To 
 
 		- Click "Update Users Configuration" to save changes.
 
-- Tasks Module (Mod distro): Basic task manager for Xaraya. Admin->Tasks.
+- Tasks Module (Modules distribution): Basic task manager for Xaraya. Admin->Tasks.
 	- Add task:
 		- Task name:
 
@@ -3197,9 +3195,9 @@ The Statistics module collects data about incoming visitors to your website. To 
 You can make your theme load as default by selecting it in Themes->Modify config panel.
 	- View Themes:
 		- Style: Defines the display of the module list.
-			- Plain (fast): Default. Displays an unadorned listing of Themes. Options (activate, deactive, etc.) are listed as clickable text.
+			- Plain (fast): Default. Displays an unadorned listing of Themes. Options (activate, deactivate, etc.) are listed as clickable text.
 		
-			- Pro Icons: Displays a listing of Themes adorned with icons. Options (activate, deactive, etc.) are listed as clickable icons, with a legend at the bottom.
+			- Pro Icons: Displays a listing of Themes adorned with icons. Options (activate, deactivate, etc.) are listed as clickable icons, with a legend at the bottom.
 
 			- Developer: Not currently implemented.
 
@@ -3284,9 +3282,9 @@ You can make your theme load as default by selecting it in Themes->Modify config
 
 	- Certified Releases:
 
-- Todolist Module (Mod distro): To-do list module for Xaraya. Admin->Todolist.
+- Todolist Module (Modules distribution): To-do list module for Xaraya. Admin->Todolist.
 
-- Trackback Module (Mod distro): Implements the Trackback specification for Xaraya. No administration panel.
+- Trackback Module (Modules distribution): Implements the Trackback specification for Xaraya. No administration panel.
 
 - Translations Module: Translation handling for Xaraya. Admin->Translations.
 	- Choose the working locale:
@@ -3361,7 +3359,7 @@ To allow users to upload images to the site and include the uploaded images in a
 		- If you do not see "Dynamic Data Fields [modify]" at the bottom of the panel, you need to enable Dynamic Data for the Articles module before you can continue. To enable Dynamic Data for the Articles module, do the following:
 			- Admin->Modules->View All. Locate the Articles module in the panel. Click "On/Off" under Hooks next to the Articles module.
 
-			- On the panel that appears, place a CHECK in the box next to Uploads to enable Uploads in Articles. You can select either ALL Publication Types in Articles (by CHECKING the "All" column) or select specific Publication Type(s) by CHECKing their individual boxes.
+			- On the panel that appears, place a CHECK in the box next to Uploads to enable Uploads in Articles. You can select either ALL Publication Types in Articles (by CHECKing the "All" column) or select specific Publication Type(s) by CHECKing their individual boxes.
 
 			- Click "Save Changes" to save changes.
 			
@@ -3433,7 +3431,7 @@ In Xaraya the webservices module is responsible for providing the xmlrpc transpo
 
 You can find a validation service at http://validator.xmlrpc.com. You can use this to validate whether the Xaraya XML-RPC server conforms to the standard.
 
-- Xproject Module (Mod distro): Basic Task/Project Manager. Admin->Xproject.
+- Xproject Module (Modules distribution): Basic Task/Project Manager. Admin->Xproject.
 	- Overview:
 
 	- New Project:
@@ -3445,7 +3443,7 @@ You can find a validation service at http://validator.xmlrpc.com. You can use th
 	- Modify config:
 	This panel allows modification of configuration options for this module.
 
-- Xslt Module (Mod distro): TRANSFORM. XSLT transform hook.
+- Xslt Module (Modules distribution): TRANSFORM. XSLT transform hook.
 If Xaraya returns an error when you attempt to install this module, you may not have the necessary PHP extension installed. Refer to http://www.php.net/manual/en/ref.xslt.php for instructions on how to install the necessary extensions.
 
 KNOWLEDGE REVIEW: Manipulating Modules (Adding and Removing Modules)
@@ -3681,7 +3679,7 @@ EXAMPLE: New Publication Type: A Simple Guestbook for Xaraya
 ------------------------------------------------------------
 A very simple Guestbook can be made with the Articles module. Follow this example to create your own Guestbook.
 
-	A sample of the finished Guestbook is visable at http://www.alyousif.tv/index.php/guestbook.
+	A sample of the finished Guestbook is visible at http://www.alyousif.tv/index.php/guestbook.
 
 	FIELD - LABEL - FORMAT - INPUT - TYPE
 	title - Entry - Medium Text Area - checked - string
@@ -3752,7 +3750,7 @@ EXAMPLE: New Publication Type: A Blogger
 
 	CREATING A PUBLICATION TYPE FOR THE BLOG:
 	-----------------------------------------
-	While not required, it is recommended that you create a specific Publication Type for your blog in articles configuration. Doing so allows us to use the site first for blogging only and offers the flexibility of adding additonal types of content later on. If you do not wish to create a specific Publication Type for your blog, simply use one of the existing Publication Types -- for example, "news".
+	While not required, it is recommended that you create a specific Publication Type for your blog in articles configuration. Doing so allows us to use the site first for blogging only and offers the flexibility of adding additional types of content later. If you do not wish to create a specific Publication Type for your blog, simply use one of the existing Publication Types -- for example, "news".
 	
 	Go to Admin->Articles->Publication Types. Click "New" to begin adding a new Publication Type with the following values:
 	
@@ -3859,7 +3857,7 @@ This advanced example shows how to create a new Publication Type (Recipes) using
 	
 	3. ENABLE DYNAMIC DATA FOR ARTICLES/RECIPES: This is done for each custom Publication Type using Dynamic Data you create, unless Dynamic Data has previously been enabled for the module.
 	
-	To enable Dynamic Data for a Publiction Type, go to Admin->Modules->Configure Hooks. We want to enable Dynamic Data within Articles, so click "dynamicdata" and CHECK the box for Articles and the 'Recipe Collection' sub-category under Articles. Click "Save Changes".
+	To enable Dynamic Data for a Publication Type, go to Admin->Modules->Configure Hooks. We want to enable Dynamic Data within Articles, so click "dynamicdata" and CHECK the box for Articles and the 'Recipe Collection' sub-category under Articles. Click "Save Changes".
 	
 	4. ADD DYNAMIC DATA FIELD(S) TO THE NEW PUBLICATION TYPE: This is done for each custom Publication Type using Dynamic Data you create.
 	
@@ -4115,9 +4113,9 @@ Introduction to Privileges
 --------------------------
 Xaraya provides tools for very fine-grained access control for site users on either a Group or individual User level. Many of the concepts behind user roles and privileges are based in Object Oriented Programming.
 
-Privileges are individual access rights (Example: Allow Comments on Articles. Example: Do not allow access to administration options.) that can be used as building blocks and collected together into Compound Priviliges.
+Privileges are individual access rights (Example: Allow Comments on Articles. Example: Do not allow access to administration options.) that can be used as building blocks and collected together into Compound Privileges.
 
-Individual Privileges or Compound Privileges are placed into Roles on the site. Site Roles are built from specific Privileges or Compound Privileges. Privileges are made from Access Levels. Access Levels are the basis for the access control system in Xaraya. Users are placed into Roles and have permission to do whatever the Priviliges associated with that Role permit them to do on the site.
+Individual Privileges or Compound Privileges are placed into Roles on the site. Site Roles are built from specific Privileges or Compound Privileges. Privileges are made from Access Levels. Access Levels are the basis for the access control system in Xaraya. Users are placed into Roles and have permission to do whatever the Privileges associated with that Role permit them to do on the site.
 
 Terminology
 -----------
@@ -4248,7 +4246,7 @@ This panel displays a tree-view of all Roles on the site. The following options 
 		
 	Click the name of a specific user to go to a Modify User Role panel where the selected user can be edited, or added to (or removed from) a particular Role.
 
-	The Show Users screen allows you to delete a specific user, view the privileges assigned to a specific user, or to test the privileges of a specific user. Click the icon for the function you wish to utilize. See below for an explaination of these functions.
+	The Show Users screen allows you to delete a specific user, view the privileges assigned to a specific user, or to test the privileges of a specific user. Click the icon for the function you wish to utilize. See below for an explanation of these functions.
 	
 	- Admin->Roles->View All Groups->"Envelope" icon: Send a plain-text email to all members of this Role.
 	The following variables are available to be used in the Subject or Body of the email (see Site Emails, below, for more information on using variables):
@@ -4492,7 +4490,7 @@ MISCELLANIOUS
 
 		- "rm -R xar-mod"
 
-	- CENSOR (this is an optinally-installed module from the Xaraya Modules distribution):
+	- CENSOR (this is an optionally installed module from the Xaraya Modules distribution):
 		CHECK Articles
 			Check the Article Types for which you'd like the Censor module be activated, for example:
 				- CHECK News Articles

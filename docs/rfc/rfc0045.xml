@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<!-- 
-    Supported processing instructions, uncomment the ones you want
--->
-
-<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
-<?rfc editing="yes"?>  <!-- Insert a number in each paragraph to ease review comments -->
-<!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
-<!-- <?rfc sortrefs="yes"?> Sort the references -->
-<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
-<!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
-
-<!-- I guess we always want a table of contents -->
+<?rfc editing="yes"?>
 <?rfc toc="yes"?>
 
 <rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0000" category="bcp">
-  <!-- number: Fill in the number for the RFC -->
-  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
-  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
-  
+
   <!-- Front matter is used for identification of author and organization -->
   <front>
     <title>Multi database considerations</title>
@@ -43,10 +29,7 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>
-        This RFC documents the considerations we take into account for supporting
-        multiple databases. Each database has its own peculiarities and specific requirements.
-        The document will be helpfull to developers to ensure the code runs with all
-        supported databases.
+        This RFC documents the considerations we take into account for supporting multiple databases. Each database has its own peculiarities and specific requirements. The document will be helpful to developers to ensure the code runs with all supported databases.
       </t>
     </abstract>
   </front>
@@ -56,9 +39,7 @@
     <!-- Introduction is mandatory -->
     <section title="Introduction">
       <t>
-        For each database we support there is a section in this document containing
-        information which needs to be taken into account writing portable code for
-        all supported databases.
+        For each database we support there is a section in this document containing information which needs to be taken into account writing portable code for all supported databases.
       </t>
       <t>
         Also some dedicated sections will be written for special situations.
@@ -66,19 +47,110 @@
     </section>
     
     <section title="Overall consideration">
-      <t></t>
+      <list>
+        <t>1. Naming Rules</t>
+        <t>Since ADODB supports many databases, database objects (tables, rows, indexes, etc.) must be restricted to no more than twenty-six (26) characters. An object must start with a letter or an underscore; the rest of the string can contain letters, digits, and underscores.  Special characters are not permitted.</t>
+
+        <t>2. Default Values</t>
+        <t>When a non-null string column is created in MySQL, the default value for that column will be '' if not specified. For other databases, such as Oracle and PostGreSQL, the default value will be NULL.  If you do not specify a default value in Oracle or PostGreSQL and try to inserting NULL values in non-NULL columns, the database will give errors.</t>
+        <t>To resolve this problem, always set a default value in the table definition when creating a table.  All NOT NULL columns must have an explicit default value declared unless you can be sure that column will always be explicitly set when the table is updated.</t>
+
+        <t>3. Reserved Words</t>
+        <t> Every database reserves certain words and you cannot use those words to name objects.  Because ADODB supports a variety of databases, it is important not to use a generic name on an object (e.g. "type").  Always include the prefix "xar_" on column names and indexes.</t>
+        <t>A complete list of the reserved words for each database can be found at:</t>
+        <list style="symbols">
+            <t>MySQL documentation - Section 6.1.7 "Is MySQL Picky About Reserved Words?"</t>
+            <t>PostGreSQL User's Guide - Appendix B.</t>
+            <t>Oracle - Oracle9i SQL Reference and the PL/SQL User's Guide and Reference.</t>
+        </list>
+
+        <t>4. Index Names</t>
+        <t>Index names must be unique across all Xaraya modules.  To guarantee that an index name will be unique, the index should include the table name and column name.</t>
+        <t>For example: "xar_reports_name_idx" - an index on table xar_reports, column "name"
+        </t>
+        
+        <t>5. Looping Over Results</t>
+        <t>Correctly loop over the result set returned from the database.  Otherwise the internal cursor may return a database error.</t>
+        <t>Incorrect:</t>
+        <figure>
+          <artwork><![CDATA[
+          if (!$result->EOF) {
+            while(!$result->EOF) {
+              list($value1, $value2) = $result->fields;
+              $result->MoveNext();
+              processValues($value1, $value2);
+              ...
+            }
+          }
+          ]]>
+          </artwork>
+        </figure>
+        <t>Correct:</t>
+        <figure>
+          <artwork><![CDATA[
+          while(!$result->EOF) {
+            list($value1, $value2) = $result->fields;                 
+            processValues($value1, $value2);
+            ...
+            $result->MoveNext();
+          }
+          ]]>
+          </artwork>
+        </figure>
+      </list>
     </section>
 
     <section title="MySQL">
-      <t></t>
+      <list>
+        <t>1.  Group By</t>
+        <t>In MYSQL, you can use columns or calculations in the SELECT expressions that don't appear in the GROUP BY part.  This is not true for other databases.  When writing a SELECT using GROUP BY, you must include the columns or calculations in the GROUP BY that appear in the SELECT expression.</t>
+        <t>For example:</t>
+        <figure>
+          <artwork><![CDATA[
+          SELECT order.custid, customer.name
+          FROM order, customer
+          WHERE order.custid = customer.custid
+          GROUP BY order.custid, customer.name;
+          ]]>
+          </artwork>
+        </figure>
+      </list>
     </section>
 
     <section title="PostGreSQL">
-      <t></t>
+      <list>
+        <t>1. Sequences on Module Initialization</t>
+        <t>PostGreSQL sequences are not created when a table is created on module initialization but are created when the sequence is first called by the ADODB function GenID().  If a module needs to insert initial records into a table on initialization, the initial value of the sequence must be determined by calling GenID().  You cannot INSERT the initial rows into the table as an error will occur because the sequence value returned from GenID() will be incorrect.</t>      
+      </list>
     </section>
   
     <section title="Oracle">
-      <t></t>
+      <list>
+                <t>1.  Outer Joins</t>
+        <t>Not all databases support outer joins. Furthermore the syntax for outer joins differs dramatically between database vendors. One portable (and possibly slower) method of implementing outer joins is using UNION:</t>
+        <t>For example an ANSI-92 left outer join between two tables t1 and t2 could look like:</t>
+        <figure>
+          <artwork><![CDATA[
+          SELECT t1.col1, t1.col2, t2.cola
+          FROM t1 
+          LEFT JOIN t2 ON t1.col = t2.col
+          ]]>
+          </artwork>
+        </figure>
+        <t>This can be re-written using UNION:</t>
+        <figure>
+          <artwork><![CDATA[
+          SELECT t1.col1, t1.col2, t2.cola 
+          FROM t1, t2
+          WHERE t1.col = t2.col 
+          UNION ALL
+              SELECT col1, col2, null 
+              FROM t1
+              WHERE t1.col NOT IN (SELECT DISTINCT col FROM t2)
+          ]]>
+          </artwork>
+        </figure>
+      </list>
     </section>
     
     <!-- Revision history is mandatory -->
@@ -86,6 +158,7 @@
       <t>
         <list>
           <t>2003-04-18: MrB: created</t>
+          <t>2003-05-05: Richard Cave: First stab at database requirements.</t>
         </list>
       </t>
     </section>

@@ -458,7 +458,7 @@
             </artwork>
           </t>
         </t>
-        <t><em>Nameing</em>
+        <t><em>Naming</em>
           <t>
             The following naming conventions are used in general. The module functions
             are required to have certain specific names if they are used in API parts or

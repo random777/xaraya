@@ -114,10 +114,11 @@
       <list>
         <t>1.  Group By</t>
         <t>In MYSQL, you can use columns or calculations in the SELECT expressions that don't appear in the GROUP BY part.  This is not true for other databases.  When writing a SELECT using GROUP BY, you must include the columns or calculations in the GROUP BY that appear in the SELECT expression.</t>
+        <t>In general GROUP BY is used with group functions, such as MAX, MIN, SUM and COUNT.</t>
         <t>For example:</t>
         <figure>
           <artwork><![CDATA[
-          SELECT order.custid, customer.name
+          SELECT order.custid, customer.name, SUM(order.value) AS total_value
           FROM order, customer
           WHERE order.custid = customer.custid
           GROUP BY order.custid, customer.name;
@@ -175,7 +176,88 @@
         </figure>
       </list>
     </section>
-    
+
+    <section title="Data Binding">
+      <list>
+        <t>Data binding concerns the linking of data in PHP to database queries. Binding can work in either direction - passing data from PHP variables to queries, and passing query results direct to PHP variables. For maximum portability, Xaraya only supports the passing of data from PHP into queries.</t>
+      </list>
+      <list>
+        <t>1. Direct Query Building</t>
+        <t>One way of binding data to queries is to insert the data directly into a query. The result of this method is a complete query, ready to execute.</t>
+        <t>Data inserted into a query will be either numeric or a string (we will disregard BLOBs for now, as these require special handling). Numeric values can be inserted directly into a query. Strings need to be quoted, and quoted strings need internal quotes escaped, the escaping method being particular to the type of database. The ADODB database connection object provides a method for quoting and escaping a string.</t>
+        <t>Example: the following query selects the 'xar_name' column from table 'xar_table' for a given ID:</t>
+        <figure>
+          <artwork><![CDATA[
+          // $id must be numeric - make sure it gets validated.
+          $id = 123;
+          $dbconn =& xarDBGetConn();
+          $query = 'select xar_name from xar_table where xar_id = ' . $id;
+          $dbconn->Execute($query);
+          ]]>
+          </artwork>
+        </figure>
+        <t>Example: the following query selects the 'xar_id' column from table 'xar_table' for a given name. Note that it is not necessary to add further quotes to the string in the WHERE-clause, as the qstr() method does that. The method will also esacape any quotes or special characters that may be present in $name:</t>
+        <figure>
+          <artwork><![CDATA[
+          // $name is a string variable, so it will get quoted.
+          $name = 'a_name';
+          $dbconn =& xarDBGetConn();
+          $query = 'select xar_id from xar_table where xar_name = ' . $dbconn->qstr($name);
+          $dbconn->Execute($query);
+          ]]>
+          </artwork>
+        </figure>
+        <t>With this method, you retain control over whether a value is treated as numeric or a string, regardless of the real data type of the variable that is being inserted into the query. It is therefore important to ensure variables are properly validated, as an unquoted string being treated as a numeric value could allow various exploits to be used against the database.</t>
+        <t>The qstr() method supercedes the deprecated xarVarPrepForStore(), but is not a direct replacement without some effort to remove the extra quotes around strings, from queries that used xarVarPrepForStore().</t>
+      </list>
+
+      <list>
+        <t>2. Bind Variables</t>
+        <t>The second (and preferred) method of binding PHP data to queries, is to used the ADODB bind variable syntax. This method allows you to put placeholders in your query, and bind data to those placeholders during the parse stage when executing the query. Some database types support this kind of data binding natively, some do not. Either way, the method is the same as ADODB will provide emulation for bind variables where necessary.</t>
+        <t>A placeholder is the '?' character. Any number of placeholders can be added to a query, and they will be parsed in order, from left to right. If you need to use a literal '?' in a query, then it can be passed in as bind data. This does not affect the use of '?' within bind data itself.</t>
+        <t>The data for binding takes the form of an ordered array, that is passed in to the Execute() or SelectLimit() methods of the database connection object. The datatype of the data will be used to determine how that data will be bound to the query: PHP strings will be bound as query strings, PHP integers as query integers etc. It is therefore important to ensure the datatypes are correct when the query is executed.</t>
+        <t>String quoting is not necessary when using bind variables, nor is escaping of special characters within a string value.</t>
+        <t>Example: this query uses two bind variables, a string in the SELECT-clause and an integer in the WHERE-clause. In this example, if $id happened to be a string (even though it contains numeric data), then the database would need to perform an implicit type conversion. Normally this is not an issue, but some complex queries can result in type conversions being less predictable then you would hope for.</t>
+        <figure>
+          <artwork><![CDATA[
+          // $notes is a string and $id is numeric
+          $notes = 'This is a "note"';
+          $id = 123;
+          $dbconn =& xarDBGetConn();
+          $query = 'select xar_name, ? as notes from xar_table where xar_id = ?';
+          $dbconn->Execute($query, array($notes, $id));
+          ]]>
+          </artwork>
+        </figure>
+        <t>Example: the following query demonstrates one way to handle a common need to build queries dynamically. Because the bind variables are added dynamically, the bind values must also be built up the same way. Note: error handling is omited for clarity.</t>
+        <figure>
+          <artwork><![CDATA[
+          $name = 'a_name';
+          $id = 123;
+          $dbconn =& xarDBGetConn();
+          // Initialise the where-clause and bind data arrays.
+          $where = array();
+          $bind = array();
+          // Add some where-clause conditions (one or the other or both)
+          if (test1) {
+             $where[] = 'xar_name = ?';
+             $bind[] = $name;
+          }
+          if (test2) {
+             $where[] = 'xar_id = ?';
+             $bind[] = $id;
+          }
+          // Execute the query
+          $query = 'select * from xar_table where ' . implode(' and ', $where);
+          $dbconn->Execute($query, $bind);
+          ]]>
+          </artwork>
+        </figure>
+        <t>With this method, queries can be smaller and more legible, though it can sometimes be difficult to match the placeholders to the bind array elements when debugging. Although these examples are SELECT statements, the binding method applies equally to other DML statements, such as UPDATE, INSERT and DELETE.</t>
+        <t>Databases that support data binding natively can take advantage of query caching, where a single parsed query can be brought back from cache for execution many times, using different bound values. This can improve performance considerably.</t>
+      </list>
+    </section>
+
     <!-- Revision history is mandatory -->
     <section title="Revision history">
       <t>
@@ -184,6 +266,7 @@
           <t>2003-05-05: Richard Cave: First stab at database requirements.</t>
           <t>2003-05-14: Richard Cave: Added MySQL multi-table DELETE.</t>
           <t>2003-06-12: Richard Cave: Added PostgreSQL SELECT DISTINCT with ORDER BY and updated index names.</t>
+          <t>2003-02-21: Jason Judge: Added section on data binding.</t>
         </list>
       </t>
     </section>

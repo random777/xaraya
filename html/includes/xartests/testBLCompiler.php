@@ -4,6 +4,7 @@ class testBLCompiler extends xarTestCase {
     var $myBLC;
     
     function setup() {
+		$GLOBALS['xarDebug'] = false;
         include_once 'xarCore.php';
         include_once 'xarVar.php';
         include_once 'xarException.php';

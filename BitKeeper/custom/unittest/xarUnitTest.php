@@ -283,6 +283,7 @@ class xarTestAssert {
         return $this->pass($msg);
     }
 
+
     function assertNotSame($expected, $actual,$msg='Test for Not Same') {
         if ($actual !== $expected) {
             return $this->pass($msg);
@@ -292,7 +293,7 @@ class xarTestAssert {
     
 
     function assertTrue($condition,$msg='Test for True') {
-        if ($condition) {
+        if ($condition === true) {
             return $this->pass($msg);
         }
         return $this->fail($msg);
@@ -300,7 +301,7 @@ class xarTestAssert {
 
 
     function assertFalse($condition,$msg='Test for False') {
-        if (!$condition) {
+        if ($condition === false) {
             return $this->pass($msg);
         } 
         return $this->fail($msg);
@@ -314,11 +315,14 @@ class xarTestAssert {
         return $this->pass($msg);
     }
 
+
     function assertEmpty($expected,$msg='Test for empty array') {
         if (is_array($expected) && empty($expected)) {
             return $this->pass($msg);
         }
         return $this->fail($msg);
     }
-} 
+
+}
+
 ?>

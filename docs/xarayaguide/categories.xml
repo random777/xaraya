@@ -98,7 +98,7 @@
     the Xaraya Base installation. Let&#39;s edit an existing category, and
     then add a few new categories from scratch.</para>
 
-    <sect2>
+    <sect2 id="editingexistingcat">
       <title>Editing an existing Category</title>
 
       <para>To edit an existing category, click on the &#34;<guibutton>Modify</guibutton>&#34;
@@ -201,7 +201,7 @@
       </itemizedlist>
     </sect2>
 
-    <sect2>
+    <sect2 id="addnewcat">
       <title>Adding a new Category</title>
 
       <para>To add a new Category, click <command>Admin-&#62;Categories-&#62;Add

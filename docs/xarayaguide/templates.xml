@@ -93,4 +93,16 @@
 
   <para>If template files exist in both site-wide, theme-specific locations,
   the theme-specific templates take precedence over site-wide templates.</para>
+  <sect1 id="themes">
+    <title>Xaraya Themes Module</title>
+&mod-themes;
+  </sect1>
+  <sect1 id="blocks">
+    <title>Xaraya Blocks Module</title>
+&mod-blocks;
+  </sect1>
+  <sect1 id="adminpanels">
+    <title>Xaraya Adminpanels Module</title>
+&mod-adminpanels;
+  </sect1>
 </chapter>

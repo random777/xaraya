@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="webservices">
+  <title>Using Web Services with Xaraya</title>
+
+  <para>OTTO: explain webservices usage with Xaraya</para>
+
+ <sect1 id="metaweblogapi">
+  <title>MetaWeblogApi Module</title>
+&mod-metaweblogapi;
+ </sect1>
+ <sect1 id="bloggerapi">
+  <title>BloggerApi Module</title>
+&mod-bloggerapi;
+ </sect1>
+ <sect1 id="soapserver">
+  <title>Soapserver Module</title>
+&mod-soapserver;
+ </sect1>
+ <sect1 id="xmlrpcserver">
+  <title>XMLRPCServer Module</title>
+&mod-xmlrpcserver;
+ </sect1>
+ <sect1 id="xmlrpcsystemapi">
+  <title>XMLRPCSystemApi Module</title>
+&mod-xmlrpcsystemapi;
+ </sect1>
+ <sect1 id="xmlrpcvalidatorapi">
+  <title>XMLRPCValidatorApi Module</title>
+&mod-xmlrpcvalidatorapi;
+ </sect1>
+ <sect1 id="trackback">
+  <title>Trackback Module</title>
+&mod-trackback;
+ </sect1>
+ <sect1 id="ping">
+  <title>Ping Module</title>
+&mod-ping;
+ </sect1>
+</chapter>

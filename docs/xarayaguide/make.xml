@@ -17,6 +17,7 @@
 <!ENTITY mod-authsso SYSTEM "modules/mod-authsso.xml">
 <!ENTITY mod-authsystem SYSTEM "modules/mod-authsystem.xml">
 <!ENTITY mod-autolinks SYSTEM "modules/mod-autolinks.xml">
+<!ENTITY mod-base SYSTEM "modules/mod-base.xml">
 <!ENTITY mod-bbclick SYSTEM "modules/mod-bbclick.xml">
 <!ENTITY mod-bbcode SYSTEM "modules/mod-bbcode.xml">
 <!ENTITY mod-bkview SYSTEM "modules/mod-bkview.xml">
@@ -54,6 +55,7 @@
 <!ENTITY mod-newsgroups SYSTEM "modules/mod-newsgroups.xml">
 <!ENTITY mod-opentracker SYSTEM "modules/mod-opentracker.xml">
 <!ENTITY mod-overlib SYSTEM "modules/mod-overlib.xml">
+<!ENTITY mod-ping SYSTEM "modules/mod-ping.xml">
 <!ENTITY mod-polls SYSTEM "modules/mod-polls.xml">
 <!ENTITY mod-privileges SYSTEM "modules/mod-privileges.xml">
 <!ENTITY mod-pubsub SYSTEM "modules/mod-pubsub.xml">
@@ -95,8 +97,10 @@
 <!ENTITY articles SYSTEM "articles.xml">
 <!ENTITY publicationtypes SYSTEM "publicationtypes.xml">
 <!ENTITY dynamicdata SYSTEM "dynamicdata.xml">
+<!ENTITY roles SYSTEM "roles.xml">
 <!ENTITY privileges SYSTEM "privileges.xml">
 <!ENTITY maintenance SYSTEM "maintenance.xml">
+<!ENTITY webservices SYSTEM "webservices.xml">
 <!ENTITY conclusion SYSTEM "conclusion.xml">
 
 <!ENTITY appendix-a SYSTEM "appendixa-xarayalicense.xml">
@@ -221,9 +225,13 @@
 
   &dynamicdata;
 
+  &roles;
+ 
   &privileges;
 
   &maintenance;
+
+  &webservices;
 
   &conclusion;
 

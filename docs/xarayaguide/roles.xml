@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="roles">
-  <title>Xaraya Roles: Users &#38; Groups</title>
+  <title>Roles: Users &#38; Groups</title>
 
   <para>Roles allow you to manage Users and Groups on your site. Roles are
   representations of Users and the different Groups to which they can belong.</para>
@@ -22,7 +22,7 @@
   privileges of some of the members, simply assign them a different set of
   privileges, and the privileges of the parent will be overridden.</para>
 
-  <sect1>
+  <sect1 id="roleshowto">
     <title>How to use Roles?</title>
 
     <para>The Roles on your site are displayed in a tree under

@@ -185,4 +185,8 @@
   or what modules are compiled into PHP, this is where to find that
   information. This information may be helpful if you need to submit a Xaraya
   bug report or a feature request.</para>
+ <sect1 id="base">
+  <title>Xaraya Base Module</title>
+&mod-base;
+ </sect1>
 </chapter>

@@ -133,4 +133,20 @@ echo &#34;...done.&#34;
 echo &#34;Xaraya backup complete!&#34;</literallayout></para>
     </listitem>
   </itemizedlist>
+ <sect1 id="sitetools">
+  <title>Sitetools Module</title>
+&mod-sitetools;
+ </sect1>
+ <sect1 id="sniffer">
+  <title>Sniffer Module</title>
+&mod-sniffer;
+ </sect1>
+ <sect1 id="stats">
+  <title>Stats Module</title>
+&mod-stats;
+ </sect1>
+ <sect1 id="opentracker">
+  <title>Opentracker Module</title>
+&mod-opentracker;
+ </sect1>
 </chapter>

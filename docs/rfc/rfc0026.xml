@@ -1,85 +1,363 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
-    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-
-<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc='yes'?>
-
-<rfc number="0026" category="bcp">
-  <!-- number: Fill in the number for the RFC -->
-  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
-  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
-
-  <!-- Front matter is used for identification of author and organization -->
+<rfc number="0026" category="std">
+<!-- number: Fill in the number for the RFC -->
+<!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+<!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+<!-- Front matter is used for identification of author and organization -->
   <front>
     <title>BlockLayout for Content</title>
-    <author initials="PF" surname="Fletcher" fullname="Philip Fletcher">
-      <organization>Xaraya Development Group</organization>
+
+    <author initials="P" surname="Fletcher"
+    fullname="Philip Fletcher">
+      <organization>Stutchbury</organization>
+
       <address>
-	<email>philip@stutchbury.com</email>
-	<uri>http://www.xaraya.com</uri>
+        <email>philip@stutchbury.com</email>
+
+        <uri>http://www.stutchbury.com</uri>
       </address>
     </author>
-    <date month="November" year="2002"/>
-    
-    <!-- Initiating team for this RFC -->
+
+    <date month="November" year="2002" />
+
+<!-- Initiating team for this RFC -->
     <workgroup>Project Management Committee</workgroup>
 
-    <!-- List keywords for the RFC here -->
+<!-- List keywords for the RFC here -->
     <keyword>rfc</keyword>
+
     <keyword>template</keyword>
 
-    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <keyword>BlockLayout</keyword>
+
+<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>This RFC is the template for writing RFCs in XML or plain text for the 
-	Xaraya project.</t>
+      <t>This rfc describes the concept of allowing content to be
+      parsed as a BlockLayout template.</t>
+
+      <t>It attempts to address the scope and implications of the
+      changes required to implement this proposal.</t>
     </abstract>
   </front>
 
-  <!-- The middle section is used for the actual content of the RFC -->
+<!-- The middle section is used for the actual content of the RFC -->
   <middle>
-    <!-- Introduction is mandatory -->
+<!-- Introduction is mandatory -->
     <section title="Introduction">
-      <t>Every RFC contains at least the following sections:
-	<list style="bullet">
-	  <t>Introduction</t>
-	  <t>at least one content section</t>
-	  <t>Revision History</t>
-	</list>
-      </t>
+      <t>This RFC is a first draft proposing the benefits and flexibility
+      of parsing Xaraya content for BlockLayout tags. Please see 
+      the Appendix for a definition of terms used in the context of this 
+      document.  </t>
     </section>
 
-    <!-- One content section is mandatory -->
-    <section title="At least one content section">
-      <t>At least one content section must be present in an RFC	</t>
+    <section title="Current Implementation">
+      <t>The rendering of current Xaraya content is currently
+      defined by one or more template files. Although the content
+      can vary, the format in which it is presented is determined
+      by one or more template files which, by their very nature,
+      are static. BlockLayout provides an enormous amount of
+      flexibility for implementors to create a unique website for a
+      client. Template files will usually be created by the
+      implementor for a client site and will not normally be
+      modified by admins or editors.</t>
     </section>
 
-    <!-- Revision history is mandatory -->
+    <section title="BlockLayout Rendering for Content">
+      <t>This RFC proposes that, in addition to providing the
+      rendering for Master, Slave and Internal blocks, BlockLayout
+      should also be able to provide rendering for Content. It is
+      adding a lower level of granularity to BlockLayout. This
+      means that specifed content would be parsed as if it were a
+      Template file. All BlockLayout tags would be valid.</t>
+
+      <t>For the purposes of this document, content is defined as
+      any data stored in the database for the purpose of display,
+      usually on a web site but could be published by any other
+      means.</t>
+
+      <t>By using the BlockLayout DTD (or XML schema), Xaraya will
+      define a standard structure for all dynamic content. Module
+      developers will not have to re-invent the wheel, but will
+      have a clearly documented, flexible and proven framework to
+      build their data around.</t>
+
+      <t>Authorized admins, editors and even authors would be able
+      to create content that is rendered in a truly unique fashion,
+      within the defined boundaries of the static template
+      files.</t>
+
+      <t>Third party modules, such as WYSIWYG editors or
+      FormExpress :) would use the BlockLayout DTD to structure the
+      storage and presentation of their content.</t>
+
+      <t>Changes required to the BlockLayout interfaces would
+      greatly ease the creation of a database backed template
+      editor in the future.</t>
+    </section>
+
+    <section title="Security">
+      <t>In a CMS which accepts contributions from insecure (public) 
+      sources, one would not want all contributors to be able
+      to include BlockLevel tags in their text which might reveal
+      sensitive information or destroy the formatting of a page.
+      This would have to be addressed at the data entry stage,
+      preferably by providing a core function/method that module
+      developers would call before committing content to the
+      database.</t>
+
+      <t>The granularity of allowable BlockLayout tags could be
+      developed over time, with a simple boolean value to begin
+      with (i.e. all or nothing) and then extending the current
+      'Allowable HTML tags' functionality to include BlockLayout
+      tags.</t>
+
+      <t>As an aside, it would be useful for implementors and
+      admins to be able to specify custom 'Allowable Tags' and to
+      be able to define wildcard matches to be permitted or
+      denied.</t>
+
+      <t>On the display side, only content flagged for parsing by 
+      BlockLayout would be processed.</t>
+    </section>
+
+    <section title="Performance">
+      <t>Assuming that BlockLayout has already been designed for
+      performance, this proposal should not significantly impact
+      page rendering speed.</t>
+
+      <t>Not all content would need to be parsed. A flag or code
+      placed against a content column would instruct a module to
+      submit the content to BlockLayout before rendering.
+      Alternativley, an xml declaration could be made at the head
+      of the content.</t>
+
+      <t>The same cacheing principals would apply - except that the
+      md5 checksum would be applied to the content string rather
+      than the template file. It would be beneficial (although
+      initially not essential) for the module to request that
+      BlockLayout does not cache the results. The implementation of
+      cacheing rules for content could warrent further
+      investigation, especially when combined with widget tags.</t>
+    </section>
+
+    <section title="Solution Proposal">
+      <t>This section discusses how the BlockLayout for Content
+      proposal could be implemented.</t>
+
+      <section title="BlockLayout Interface Changes">
+        <t>The following public interfaces to BlockLayout are:</t>
+
+        <section title="pnTplString()">
+          <t>Due to it's similar naming convention to pnTplFile(),
+          this function appears to do what this proposal requires,
+          but the two functions do not behave the same.</t>
+
+          <t>pnTplFile() will accept a BlockLayout Template file
+          name; if that file has not already been compiled, then
+          the blCompiler will be invoked and a cache file
+          created.</t>
+
+          <t>pnTplString(), however will only accept the equivalent
+          of the contents of a BlockLayout cache file i.e. valid
+          PHP code, not BlockLayout code.</t>
+
+          <t>For consistency, the functionality offered by
+          pnTplString() should be the same as that offered by
+          pnTplFile i.e. the input should the an uncompiled
+          BlockLayout Template. An appropriately named new function
+          should be created to implement the current pnTplString()
+          functionality e.g. pnTplEval()</t>
+        </section>
+      </section>
+    </section>
+
+    <section title="Code that will need to be written">
+      <section title="New Functions">
+        <section title="pnTpl__executeFromString()">
+          <t>This new private function will implement cacheing for
+          string based template parsing. It is loosely based around
+          pnTpl__executeFromFile(). In fact, there is much 
+          commonality that should be brought together into shared 
+          functions.</t>
+
+          <artwork>
+          function pnTpl__executeFromString($sourceString, $tplData, $cache_flag=true)
+{
+    global $pnTpl_cacheTemplates;
+
+    $needCompilation = true;
+
+    if ($pnTpl_cacheTemplates && $cache_flag) {
+        $varDir = pnCoreGetVarDirPath();
+        $cacheKey = md5($sourceString);
+        $cachedFileName = $varDir . '/cache/templates/' . $cacheKey . '.php';
+        //
+        //Need to check if source string has changed - is md5 distinct enough to:
+        //a) Change with minor amendments to sourceString? or
+        //b) Not conflict with other cached files?
+        //
+        if (file_exists($cachedFileName) ) {
+            $needCompilation = false;
+        }
+    }
+
+    //pnLogVariable('needCompilation', $needCompilation, PNLOG_LEVEL_ERROR);
+    if ($needCompilation) {
+        $blCompiler = pnTpl__getCompilerInstance();
+        $templateCode = $blCompiler->compile($sourceString);
+        if (!isset($templateCode)) {
+            return; // exception! throw back
+        }
+        if ($pnTpl_cacheTemplates && $cache_flag) {
+            $fd = fopen($cachedFileName, 'w');
+            fwrite($fd, $templateCode);
+            fclose($fd);
+        } else {
+            return pnTpl__execute($templateCode, $tplData);
+        }
+    }
+        $tplData['_bl_data'] = $tplData;
+    // $__tplData should be an array (-even-if- it only has one value in it),
+    // if it's not throw an exception.
+    if (is_array($tplData)) {
+        extract($tplData, EXTR_OVERWRITE);
+    } else {
+        $msg = 'Incorrect format for tplData, it must be an associative array of arguments';
+        pnExceptionSet(PN_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                       new SystemException($msg));
+        return;
+    }
+
+    // Start output buffering
+    ob_start();
+
+    // Load cached template file
+    if (pnCoreIsDebuggerActive()) {
+        $res = include $cachedFileName;
+    } else {
+        // Suppress error report when debugger is not active to prevent
+        // that the var dir hash key could be stolen
+        $res = @include $cachedFileName;
+    }
+
+    // Fetch output and clean buffer
+    $output = ob_get_contents();
+    ob_end_clean();
+
+    // Return output
+    return $output;
+}
+
+          </artwork>
+        </section>
+
+        <section title="pnTplEval()">
+          <t>The public function pnTplEval() will simply replace
+          the current functionality of pnTplString().</t>
+
+          <artwork>function pnTplString($templateCode, $tplData) {
+          return pnTpl__execute($templateCode, $tplData);
+          }</artwork>
+        </section>
+      </section>
+
+      <section title="Modified Functions">
+        <section title="pnTplString()">
+          <t>This will become the public interface to BlockLayout for
+          Content. The current version of this function does not appear to be called from anywhere (at the moment), so 
+          changes should have no impact on existing code.</t>
+
+          <artwork>function pnTplString($templateCode, $tplData, $cache_flag) {
+          return pnTpl__executeFromString($templateCode, $tplData, $cache_flag);
+          }</artwork>
+        </section>
+      </section>
+    </section>
+
+    <section title="Open Issues">
+      <t>This section lists some of the things I might not yet 
+      have a handle on or that may need to be investigated by
+      someone who has a better understanding of the core
+      Xaraya code</t>
+      <section title="md5">
+        <t>md5 is used against the template source string to provide a
+        file name for the cache. Is the result of md5 distinct enough
+        to:</t>
+        <list style="bullet">
+        <t>Change with minor amendments to sourceString? or</t>
+        <t>Not conflict with other cached files?</t>
+        </list>
+      </section>
+      <section title="Garbage Collection">
+        <t>What requirements are there for garbage collection? i.e. 
+        removing stale content cache files.</t>
+      </section>
+    </section>
+
+
+<!-- Revision history is mandatory -->
     <section title="Revision history">
-      <t>Put a summary of the major revisions to this document in here</t>
+      <t>Version 1.0 First Draft.</t>
     </section>
-
   </middle>
 
-  <!-- Back matter is used for references and appendices which come after the references -->
+<!-- Back matter is used for references and appendices which come after the references -->
   <back>
     <references title="Reference title">
-      <!-- Fill in references as needed -->
+<!-- Fill in references as needed -->
       <reference>
-	<front>
-	  <title>Reference title</title>
-	  <author>
-	    <organization>Organization</organization>
-	  </author>
-	  <date year="2002"/>
-	</front>
+        <front>
+          <title>Reference title</title>
+
+          <author>
+            <organization>Organization</organization>
+          </author>
+
+          <date year="2002" />
+        </front>
       </reference>
-      <!-- Repeat the aboven block if more references are needed -->
+
+<!-- Repeat the aboven block if more references are needed -->
     </references>
-    
-    <!-- Any section after this will become an appendix -->
-    <section title="Example appendix">
-      <t>Any section which is present after the references will become an appendix</t>
+
+<!-- Any section after this will become an appendix -->
+
+    <section title="Definitions of the the Players">
+      <t>This section lists and describes the players or roles
+      involved in developing and running a Content Management
+      System</t>
+
+      <list style="bullet">
+        <t>Developer: Creates and maintains core and module code
+        for general public release. May also create themes which
+        are made available to others.</t>
+
+        <t>Implementor: Installs and customizes Xaraya for clients.
+        The customizations will be client specific such as
+        modifying the BlockLayout templates to alter the look and
+        feel of the site. Changes to core or module code will not
+        always be rolled back into the Xaraya core.</t>
+
+        <t>Admin: Looks after the day to day maintenance of an
+        implemented site. Often a senior, technically competent
+        user.</t>
+
+        <t>Editor: Creates and approves articles and other content
+        for publishing. Not necesarily technically minded.</t>
+
+        <t>Author: A user who submits articles or other content for
+        publication on a regular basis and would be trusted to
+        maintain or amend existing content that they 'own'.</t>
+
+        <t>Contributor or User: A visitor to the site. May or may
+        not be logged in, may occasionally submit content, but will
+        not take any further part in it's publication.</t>
+      </list>
     </section>
+
   </back>
 </rfc>

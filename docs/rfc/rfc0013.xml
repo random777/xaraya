@@ -17,9 +17,9 @@
 		<!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
 		<abstract>
 			<t>The contents of this RFC contain the literal content of the old plain
-	text version of RFC-0013</t>
+        text version of RFC-0013</t>
 			<t>When time is a less scarcer good, someone might convert the plain text
-	into structured XML so we can benefit from it.
+        into structured XML so we can benefit from it.
       </t>
 		</abstract>
 	</front>
@@ -28,135 +28,315 @@
 		<!-- One content section is mandatory -->
 		<section title="Introduction">
 			<t>
-			The Xaraya modules are there to extend the functionality of this content management system (we assume that you are already familiar with the Xaraya Module Developers Guide by Jim McDonald - link). 
-</t>
-<t>
-Traditionally, the modules have been added to /modules directory and activated/deactivated via the admin interface. However, they didn't have any particular weight, class or identity, which could have helped to quickly and unmistakably determine (both programmatically and visually) the module's purpose, role and hierarchy within the xaraya system. 
-</t>
-<t>
-The aim of this document is to set module classification standards for ALL xaraya modules, including old style (pre pn 0.7), new style and future versions.
+        The Xaraya modules are there to extend the functionality of
+        this content management system (we assume that you are already
+        familiar with the Xaraya Module Developers Guide by Jim
+        McDonald - link).
+      </t>
+      <t>
+        Traditionally, the modules have been added to /modules
+        directory and activated/deactivated via the admin
+        interface. However, they didn't have any particular weight,
+        class or identity, which could have helped to quickly and
+        unmistakably determine (both programmatically and visually)
+        the module's purpose, role and hierarchy within the xaraya
+        system.
+      </t>
+      <t>
+        The aim of this document is to set module classification standards for
+        ALL xaraya modules, including old style (pre pn 0.7), new style and
+        future versions.
 			</t>
 		</section>
 		<section title="How to identify a module? ">
 			<t>
-			A module can be identified by way it interacts with the core and other modules. Additionally, we need to identify modules by their virtual categories within the xaraya administration system. In this document, we are going to use and combine both approaches to form a generic set of classes and categories for all the modules.
+        A module can be identified by way it interacts with the core and
+        other modules. Additionally, we need to identify modules by
+        their virtual categories within the xaraya administration
+        system. In this document, we are going to use and combine both
+        approaches to form a generic set of classes and categories for
+        all the modules.
 			</t>
 		</section>
 		<section title="Module Classes">
 			<t>
-			We suggest the following list of possible module classes: 
-Format of presentation: long name | short identifier | description | notes 
-</t>
-<t>
-Core Classes: these modules should stay with the core to provide basic functionality 
-</t>
-<t>
-<list>
-	<t>- core admin modules | 'Core Admin' | admin system functions</t>
-	<t>- core user modules | 'Core User' | user system functions</t>
-	<t> - complete core modules | 'Core Complete' | user and admin functions</t>
-	<t>- core utility modules | 'Core Utility' | cross-module functions</t>
-	<t>- other core modules | 'Core Miscellaneous' | functions other than above</t>
-</list>    
-</t>
-<t>    
-General Classes: these modules can be added and removed as necessary 
-</t>
-<t>    
-<list>
-	<t>- general admin modules | 'Admin' | admin functions only</t>
-	<t> - general user modules | 'User' | user functions only</t>
-	<t> - general complete modules | 'Complete' | user and admin functions</t>
-	<t>- general utility modules | 'Utility' | cross-module functions</t>
-	<t>- general other modules | 'Miscellaneous' | functions other than above</t>
-</list>
-</t>
-<t>    
-Misc Classes: all other modules which don't fit into the first two groups of classes 
-</t>
-<t>    
-<list>
-	<t> - miscellaneous other modules | 'Miscellaneous' | all other modules</t>
-</list>
-</t>
-<t>    
-Note: Each group of the above module classes can be modified, edited or removed, subject to approval by the xaraya-dev group.
+        We suggest the following list of possible module classes:
+        Format of presentation: long name | short identifier |
+        description | notes
+      </t>
+      <t>
+        Core Classes: these modules should stay with the core to
+        provide basic functionality
+      </t>
+      <t>
+        <list>
+          <t>- core admin modules | 'Core Admin' | admin system functions</t>
+          <t>- core user modules | 'Core User' | user system functions</t>
+          <t> - complete core modules | 'Core Complete' | user and admin functions</t>
+          <t>- core utility modules | 'Core Utility' | cross-module functions</t>
+          <t>- other core modules | 'Core Miscellaneous' | functions other than above</t>
+        </list>    
+      </t>
+      <t>    
+        General Classes: these modules can be added and removed as necessary 
+      </t>
+      <t>    
+        <list>
+          <t>- general admin modules | 'Admin' | admin functions only</t>
+          <t> - general user modules | 'User' | user functions only</t>
+          <t> - general complete modules | 'Complete' | user and admin functions</t>
+          <t>- general utility modules | 'Utility' | cross-module functions</t>
+          <t>- general other modules | 'Miscellaneous' | functions other than above</t>
+        </list>
+      </t>
+      <t> Misc Classes: all other modules which don't fit into the
+        first two groups of classes
+      </t>
+      <t>    
+        <list>
+          <t> - miscellaneous other modules | 'Miscellaneous' | all other modules</t>
+        </list>
+      </t>
+      <t>    
+        Note: Each group of the above module classes can be modified, edited or removed, subject to approval by the xaraya-dev group.
 			</t>
 		</section>
 		<section title="Module Categories">
 			<t>
-			Within each of the module classes, we suggest a detailed categorization in the form of 'category' system variable, which would determine the module's place and hierarchy at the Xaraya administration system level. 
-</t>
-<t>    
-Examples: 
-</t>
-<t>    
-Category: 'Global' 
-</t>
-<t>    
-<list>
-	<t>- Settings</t>
-	<t>- Banners</t>
-	<t>- Languages</t>
-	<t>- Modules</t>
-	<t>- Blocks</t>
-</list>
-</t>
-<t>    
-Category: 'Users &amp; Groups' 
-</t>
-<t> 
-<list>
-	<t>- Permissions</t>
-	<t>- User Manager</t>
-	<t>- Groups</t>
-</list>   
-</t>
-<t>    
-Category: 'Content' 
-</t>
-<t> 
-<list>
-	<t>- Add Story</t>
-	<t>- Admin Messages</t>
-	<t>- FAQ</t>
-	<t>- Polls</t>
-	<t>- Reviews</t>
-	<t>- Sections</t>
-	<t> - Topics</t>
-</list>   
-</t>
-<t>    
-Category: 'Miscellaneous' 
-</t>
-<t>    
-Note: If a module is not classified and categorized yet, it is auto-assigned the class 'Unclassified' and the category 'Unclassified' 
-</t>
-<t>    
-Note: Each group of the above categories can be modified, edited or removed, subject to approval by the xaraya-dev group.
+        Within each of the module classes, we suggest a detailed categorization in the form of 'category' system variable, which would determine the module's place and hierarchy at the Xaraya administration system level. 
+      </t>
+      <t>    
+        Examples: 
+      </t>
+      <t>    
+        Category: 'Global' 
+      </t>
+      <t>    
+        <list>
+          <t>- Settings</t>
+          <t>- Banners</t>
+          <t>- Languages</t>
+          <t>- Modules</t>
+          <t>- Blocks</t>
+        </list>
+      </t>
+      <t>    
+        Category: 'Users &amp; Groups' 
+      </t>
+      <t> 
+        <list>
+          <t>- Permissions</t>
+          <t>- User Manager</t>
+          <t>- Groups</t>
+        </list>   
+      </t>
+      <t>    
+        Category: 'Content' 
+      </t>
+      <t> 
+        <list>
+          <t>- Add Story</t>
+          <t>- Admin Messages</t>
+          <t>- FAQ</t>
+          <t>- Polls</t>
+          <t>- Reviews</t>
+          <t>- Sections</t>
+          <t> - Topics</t>
+        </list>   
+      </t>
+      <t>    
+        Category: 'Miscellaneous' 
+      </t>
+      <t> 
+        Note: If a module is not classified and categorized yet, it
+        is auto-assigned the class 'Unclassified' and the category
+        'Unclassified'
+      </t>
+      <t> 
+        Note: Each group of the above categories can be modified,
+        edited or removed, subject to approval by the xaraya-dev group.
 			</t>
 		</section>
 		<section title="Module Classification IDs">
 			<t>
-			A module's IDs within this classification system is a combination of its class and category short identifiers accessible by all core and non-core functions. 
-</t>
-<t>    
-Example: 
-</t>
-<t>    
-Module 'Modules' of the class 'Core Admin' and category 'Global' would have its IDs encoded into xarversion.php (or Version.php) file as follows: 
-</t>
-<t>    
-$modversion['class'] = 'Core Admin';
-</t>
-<t>    
-$modversion['category'] = 'Global';
+        A module's IDs within this classification system is a
+        combination of its class and category short identifiers
+        accessible by all core and non-core functions.
+      </t>
+      <t>    
+        Example: 
+      </t>
+      <t> 
+        Module 'Modules' of the class 'Core Admin' and category
+        'Global' would have its IDs encoded into xarversion.php (or
+        Version.php) file as follows:
+      </t>
+      <t>    
+        $modversion['class'] = 'Core Admin';
+      </t>
+      <t>    
+        $modversion['category'] = 'Global';
 			</t>
 		</section>
 		<section title="Module Unique ID">
 			<t>
-			It has also been suggested that each module should be registered with its unique ID. When designing the module registration system, we suggest that this module classification system is taken into consideration.
+        It has also been suggested that each module should be
+        registered with its unique ID. When designing the module
+        registration system, we suggest that this module
+        classification system is taken into consideration.
 			</t>
 		</section>
 	</middle>
+  <back>
+    <section title="Module dependencies">
+      <t>
+        In order to allow the modules system identify module
+        dependencies and deal with them, every module must have the
+        following definitions in it's xarversion.php file:
+      </t>
+      <t>
+        if module is self-sufficient (only depends on the core and core mods):
+        <artwork>
+$modversion['dependency'] = array(); // empty array
+        </artwork>
+      </t>
+      <t>
+        if $modversion['dependency'] is not defined the system will assume
+        that your module is not dependent on any other non-core modules
+      </t>
+      <t>
+        NOTE: all definitions below contain extra variables; this is done
+        for sole purpose of simplified formatting and to avoid complexity
+        of writing multi-dimensional arrays. However it's up to the module
+        developer how to format the definition, as long as the meaning
+        remains the same.
+      </t>
+      <t>
+        if dependent on a module (SINGLE), the short version definition:
+        <artwork>
+$mastermodules = array(333);
+$modversion['dependency'] = $mastermodules;
+        </artwork>
+      </t>
+      <t>
+        where 333 is the registered ID of the 'master' module
+        upon which your module's life depends
+      </t>
+      <t>
+        if dependent on a number of modules (SEVERAL), the short version
+        definition:
+        <artwork>
+$mastermodules = array(333, 444, 555);
+$modversion['dependency'] = $mastermodules;
+        </artwork>
+      </t>
+      <t>
+        where 333, 444, 555 are the registered IDs of the 'master' modules
+        upon which your module's life depends
+      </t>
+      <t>
+        if dependent on a module (SINGLE), the expanded version definition:
+        NOTE: we add this dimension to the definition so that we could
+        facilitate users with extended warnings via the module system
+        <artwork>
+$conditions = array(    'minversion' => '1.25',
+                        'maxversion' => '2.1',
+                        'effect'     => 'max',
+                        'activate'   => 'before');
+
+$mastermodules = array(333 => $conditions);
+$modversion['dependency'] = $mastermodules;
+        </artwork>
+      </t>
+      <t>
+        where 333 is the registered ID of the 'master' module
+        $conditions is an (optional) array of parameters
+        which indicate degree of dependency of your module
+      </t>
+<t>
+<artwork>
+  PARAMETERS (all optional):
+
+   'minversion' 
+   // minimum version number of the 'master' module
+   // with which your module is guaranteed to work (was tested)
+   // default is '' (empty string)
+
+   'maxversion' 
+   // maximum version number of the 'master' module
+   // with which your module is guaranteed to work (was tested)
+   // default is '' (empty string)
+
+   'effect' 
+   // values can be 'max', 'min' or 'much'
+   // default is 'max'
+
+   // 'max' == your module cannot work without the 'master'
+   // so the system will not allow user to activate your module
+   // if the 'master' is not present/activated
+
+   // 'min' == your module can be activated without 'master'
+   // but then it will work with limited functionality
+   // in other words the 'master' doesn't have much effect on yours
+   // so the system will present a 'mild suggestion' to a user
+   // with an 'option' to activate the 'master' module
+
+   // 'much' == your module can be activated without 'master'
+   // but you would prefer if user opt to activate 'master' as well
+   // in other words the 'master' has much effect on yours
+   // so the system will present a 'strong suggestion' to a user
+   // with an 'option' to activate the 'master' module
+
+   'activate' 
+   // values can be 'before', 'after' or 'anytime'
+   // order in which the 'master' should be activated
+   // in relation to your module
+   // default is 'before'
+
+    1c). if dependent on other modules (SEVERAL), the expanded definition:
+
+$mod_A = 333;
+$mod_B = 444;
+$mod_C = 555;
+
+$conditions_mod_A = array(  'minversion' => '1.25',
+                            'maxversion' => '2.1',
+                            'effect'     => 'max',
+                            'activate'   => 'before');
+
+$conditions_mod_B = array(  'minversion' => '1.0',
+                            'maxversion' => '2.0',
+                            'effect'     => 'min',
+                            'activate'   => 'after');
+
+$conditions_mod_C = array(  'minversion' => '0.1',
+                            'maxversion' => '0.2',
+                            'effect'     => 'much',
+                            'activate'   => 'anytime');
+
+$mastermodules = array( $mod_A => $conditions_mod_A,
+                        $mod_B => $conditions_mod_B,
+                        $mod_C => $conditions_mod_C);
+
+   // and finally define the total dependency scheme
+$modversion['dependency'] = $mastermodules;
+
+    2) the module system scans thru the above array at the initialization time
+    and ensures that ALL listed 'masters' loaded in defined order. It also puts
+    forward 'warnings' if the 'master' mod's parameters are outside the ones
+    stipulated in $modversion['dependency'] as above.
+
+    3) at the deactivation/uninstallation time the modules system checks for
+    presence of dependent 'children' mods and provides appropriate warnings if
+    any found
+
+    4) it is responsibility of the module developer to make sure that the
+    supplied information is correct. The module system itself does not (and
+    cannot) care which module depends on which another and how such dependency
+    occurs. Rather the module system simply processes the supplied information
+    and acts accordingly.
+        </artwork>
+      </t>
+    </section>
+  </back>
 </rfc>

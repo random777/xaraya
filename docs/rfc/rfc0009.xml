@@ -7,11 +7,11 @@
 
 <rfc number="0001" category="info">
   <front>
-    <title>Content Management System</title>
-    <author initials="F." surname="Besler" fullname="Frank Besler">
+    <title>Postnuke Community Enhancements (aka pnCommunity)</title>
+    <author initials="DAD" surname="Daulton" fullname="Douglas">
       <organization>Xaraya Development Group</organization>
       <address>
-	<email>besfred@gmx.net</email>
+	<email>apakuni@xaraya.com</email>
 	<uri>http://www.xaraya.com</uri>
       </address>
     </author>
@@ -34,10 +34,11 @@
       <t>
 	<artwork>
 
-RFC-9 Postnuke Community Enhancements 
+NOTE :: This RFC will be replaced by RFC 0031 (xDeveloper Community Tools)	
+	
+RFC-09 Postnuke Community Enhancements 
 
-
-REQUEST FOR COMMENTS (9)
+REQUEST FOR COMMENTS (09)
 PostNuke Community Enhancements 
 
 Table of Contents 

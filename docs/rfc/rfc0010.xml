@@ -1183,34 +1183,63 @@ html/
         </section>
         <!-- xar:sec -->
         <section anchor="sec" title="&lt;xar:sec /&gt;">
-          <t>Open</t>
-          <t>Attributes:
-            <list style="symbols">
-              <t>id: an identifier for the tag (optional, no default)</t>
-              <t>mask: the mask for which to check the privileges (required)</t>
-              <t>catch : show exception or not (optional, default: "true")</t>
-              <t>component : for which component is this check? (optional, default: "")</t>
-              <t>instance : for which instance is this check? (optional, default: "")</t>
-            </list>
-                    </t>
-          <t>Description</t>
           <t>
-            Sec translates directly to a call to xarSecurityCheck(), and is
-            treated as an 'if' clause. <xref target="else">&lt;xar:else /&gt;</xref> and <xref target="elseif">&lt;xar:elseif /&gt;</xref>
-            tags may be attached as for an <xref target="if">&lt;xar:if /&gt;</xref>.
+            &lt;xar:sec&gt; translates directly to a call to
+            xarSecurityCheck(), and is treated like an 'if'
+            clause. <xref target="else">&lt;xar:else /&gt;</xref> and
+            <xref target="elseif">&lt;xar:elseif /&gt;</xref> tags may
+            be attached as for an <xref target="if">&lt;xar:if
+            /&gt;</xref>.
           </t>
-          <t>Syntax example:
+          <section title="Forms">
+            <t>Only block form is allowed</t>
+          </section>
+          <section title="Attributes">
+            <list>
+              <t><em>[id]</em>
+                <t>an identifier for the tag</t>
+              </t>
+              <t><em>mask</em>
+                <t>The mask for which to check the privileges. This is a required 
+                   attribute. Refer to RFC-0030 for the full details on the 
+                   security system.
+                </t>
+              </t>
+              <t><em>[catch]</em> ({(true)|false} 
+                <t>Sometimes it may be necessary to check for a certain security
+                   privilege, but not raise an exception if the privileg check 
+                   fails. In those cases, specify catch="false" and no exception will
+                   be raised. By default, if a security check fails, an exception will
+                   be raised.
+                </t>
+              </t>
+              <t><em>[component]</em>
+                <t>For which component will the security check be done? Defaults to empty.</t>
+              </t>
+              <t><em>[instance]</em>
+                <t>For which instance will this check be made? Defaults to empty</t>
+              </t>
+            </list>
+          </section>
+          <section title="Syntax examples">
             <artwork>
-
             &lt;xar:sec id="unique1" mask="EditCategories" catch="false" component="mycomponent" &gt;
-                &lt;p&gt;You are granted access&lt;/p&gt;
+              &lt;p&gt;You are granted access&lt;/p&gt;
             &lt;xar:else/&gt;
                 &lt;p&gt;Sorry, no can do &lt;/p&gt;
             &lt;/xar:sec&gt;
+
+            Checks for the 'EditCategories' mask on 'mycomponent'. If the check fails (no privilege)
+            no exception is raised but the text 'Sorry, no can do' is added to the output.
             </artwork>
-                    </t>
-          <t>Parent tag: none.</t>
-          <t>Child tags: &lt;xar:else /&gt;  &lt;xar:elseif /&gt;</t>
+          </section>
+          <section title="Context">
+            <t>Parent tag: none.</t>
+            <t>Child tags: 
+              <t><xref target="else">&lt;xar:else /&gt;</xref></t>
+              <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
+            </t>
+          </section>
         </section>
         <!-- xar:set -->
         <section anchor="set" title="&lt;xar:set /&gt;">

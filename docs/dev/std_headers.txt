@@ -1,22 +1,27 @@
 This file contains some standard headers which we use in our code. You should 
 take the headers as a bare minimum, extend at will
 
-Fileheader:
-===========
+PHPdoc header for files:
+========================
 
 /**
  * File: $Id$
  *
  * Short description of purpose of file
  *
- * @package Xaraya eXtensible Management System
+ * @package unassigned
  * @copyright (C) 2002 by the Xaraya Development Team.
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * 
  * @subpackage module name
  * @link  link to information for the subpackage
  * @author author name <author@email> (this tag means responsible person)
 */				
+
+Make sure that the fileheader is immediately followed by another docblock, 
+otherwise you'll get errors and the docblock is interpreted as the documentation
+for the first php code encountered in the file.
 
 PHPdoc header for functions:
 ============================
@@ -37,7 +42,22 @@ PHPdoc header for functions:
  * @todo    list of things which must be done to comply to relevant RFC
 */
 
-===========================
+
+PHPdoc header for classes
+=========================
+/**
+ * Short class description
+ *
+ * A somewhat longer description of the class which
+ * may be on multiple lines and can contain examples
+ *
+ * @package unuassigned - replace with packagename
+ * @author Author Name <author@email>
+ * @deprec date since deprecated <insert if class is deprecated>
+ * @todo  todo-item, specify each with new tag
+ */
+
+
 
 Below is an example with all possible phpdoc tags.
 

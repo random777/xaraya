@@ -81,13 +81,6 @@
         <include name="LICENSE.txt" />
         <include name="${releaselog}" />
       </fileset>
-      <fileset dir="${docs.dir}/xarayaguide" >
-        <include name="XarayaGuide.txt"/>
-      </fileset>
-      <fileset dir="${docs.dir}/xmdghtml" >
-        <include name="XarayaMDG.html"/>
-        <include name="XarayaMDG.pdf"/>
-      </fileset>
 
     </copy>
     
@@ -96,6 +89,15 @@
     <copy todir="${build.docs}">
       <fileset dir="${docs.dir}">
         <include name="bk/*.txt" />
+        <exclude name="SCCS/**" />
+      </fileset>
+      <fileset dir="${docs.dir}/xarayaguide" >
+        <include name="XarayaGuide.txt"/>
+        <exclude name="SCCS/**" />
+      </fileset>
+      <fileset dir="${docs.dir}/xmdghtml" >
+        <include name="XarayaMDG.html"/>
+        <include name="XarayaMDG.pdf"/>
         <exclude name="SCCS/**" />
       </fileset>
     </copy>

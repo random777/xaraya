@@ -69,11 +69,11 @@
         <section title="Introduction">
             <t>
                 As blogging has become very popular (quick search for
-                estimate: between 2.4 and 2.9 million webloggers), it's time to 
-                have xaraya be a good backend for blogging.
+                estimate: between 2.4 and 2.9 million webloggers), it's time to give
+                Xaraya a good backend for blogging.
             </t>
             <t>
-                An important part of blogging is the so-called trackback
+                An important part of blogging is the so-called TrackBack
                 facility. In short it can be described as linking the weblogs
                 together in a special way to created an <em>interlinked</em> space
                 of the weblog entries. It appears that the concept of trackback creates
@@ -143,11 +143,11 @@
                     <list style="symbols">
                         <t>TrackBack module send out the TrackBack ping</t>
                         <t>Pings are triggered by:</t>
-							<list style="symbols">
-									<t>creating an item</t>
-									<t>modifying an item</t>
-									<t>deleting an item</t>
-							</list>
+                                                <list style="symbols">
+                                                        <t>creating an item</t>
+                                                        <t>modifying an item</t>
+                                                        <t>deleting an item</t>
+                                                </list>
                     </list>
                     <t>Receive TrackBack Pings</t>
                     <t>
@@ -165,17 +165,17 @@
                     <t>Auto-Discovery of TrackBack Ping URLs</t>
                        <list>
                            <t>
-                              When creating a new item, the TrackBack module should offer the 
+                              When creating a new item, the TrackBack module should offer the
                               possibility to retrieve trackback info from an url. This can be both
-                              manually or automatically 
+                              manually or automatically
                            </t>
                        </list>
-              </list> 
+              </list>
         </section>
-        
+
         <section title="Sending a TrackBack ping">
             <t><artwork>
-                   POST http://www.foo.com/ws.php?type=trackback&amp;tbid=1
+                   POST http://www.foo.com/index.php?module=trackback&amp;type=user&amp;func=ping&amp;tbid=1
                    Content-Type: application/x-www-form-urlencoded
                    title=Foo+Bar&amp;url=http://www.bar.com/&amp;excerpt=My+Excerpt&amp;blog_name=Foo
             </artwork></t>
@@ -202,7 +202,7 @@
         
             <t>Example TrackBack ping receive</t>
             <t>
-               To retrieve the list of pings sent to a particular Xaraya TrackBack Ping URL, 
+               To retrieve the list of pings sent to a particular Xaraya TrackBack Ping URL,
                send an HTTP GET request to the TrackBack Ping URL with the query string ?__mode=rss
             </t>
             <t>A sample GET request might look like this:</t>
@@ -210,8 +210,8 @@
                 GET http://www.foo.com/ws.php?type=trackback&amp;tbid=3?__mode=rss
             </artwork></t>
             <t>
-               The response to this request will either be an error in the same format as returned 
-               from the above request, or the list of TrackBack pings for that item in RSS markup, 
+               The response to this request will either be an error in the same format as returned
+               from the above request, or the list of TrackBack pings for that item in RSS markup,
                wrapped in &lt;response&gt; tags.
             </t>
             <t>For example:</t>
@@ -261,23 +261,23 @@
                 &lt;/rdf:RDF&gt;
             </artwork></t>
             <t>
-               The dc: elements are standard Dublin Core elements; the trackback:ping element comes from the 
+               The dc: elements are standard Dublin Core elements; the trackback:ping element comes from the
                TrackBack Module for RSS 1.0/2.0 at http://madskills.com/public/xml/rss/module/trackback/.
             </t>
             <t>Given a URL my_url, clients should follow these steps:</t>
             <list style="numbers">
                 <t>Send an HTTP GET request to retrieve the contents of the page at my_url.</t>
                 <t>
-                   Scan the page contents for embedded RDF. Pages can contain multiple instances of 
+                   Scan the page contents for embedded RDF. Pages can contain multiple instances of
                    embedded RDF--clients should pick the block whose dc:identifier matches my_url.
                 </t>
                 <t>Extract the trackback:ping value from the block of RDF. This is the TrackBack Ping URL.</t>
             </list>
             <t>
-               Once the client has determined the TrackBack Ping URL, it can send a TrackBack ping 
+               Once the client has determined the TrackBack Ping URL, it can send a TrackBack ping
                see Sending a TrackBack Ping.
             </t>
-            
+
             <t>Example Auto-Discovery</t>
             <t><artwork>
                example in javascript:
@@ -359,6 +359,7 @@
 
         <!-- Revision history is mandatory -->
         <section title="Revision history">
+            <t>2003-08-04: Johnny: added info from trackback spec</t>
             <t>2003-07-25: MrB: added TrackBack explanation</t>
             <t>2003-07-24: MrB: created</t>
         </section>

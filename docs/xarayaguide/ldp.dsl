@@ -157,7 +157,7 @@
 
 (define %admon-graphics-path%
   ;; use graphics in admonitions, set their
-  "../images/")
+  "stylesheet-images/")
 
 (define %admon-graphics%
   #t)

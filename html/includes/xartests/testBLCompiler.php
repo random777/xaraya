@@ -4,18 +4,18 @@ class testBLCompiler extends xarTestCase {
     var $myBLC;
     
     function setup() {
-        include_once '../xarCore.php';
-        include_once '../xarVar.php';
-        include_once '../xarException.php';
-        include_once '../xarBLCompiler.php';
+        include_once 'xarCore.php';
+        include_once 'xarVar.php';
+        include_once 'xarException.php';
+        include_once 'xarBLCompiler.php';
         $this->myBLC = new xarTpl__Compiler;
     }
     
     function precondition() {
         // Abort on bogus file: must not exist
-        if (file_exists('doesntexist')) return false;
+        if (file_exists('xartests/doesntexist')) return false;
         // Testdata for BL
-        if (!file_exists('test.xt')) return false;
+        if (!file_exists('xartests/test.xt')) return false;
         return true;
     }
 
@@ -40,11 +40,11 @@ class testBLCompiler extends xarTestCase {
     }
     
     function testCompilenotnull() {
-        return $this->assertnotNull($this->myBLC->compileFile('test.xt'),"Compile valid file");
+        return $this->assertnotNull($this->myBLC->compileFile('xartests/test.xt'),"Compile valid file");
     }
     
     function testCompile() {
-        return $this->assertTrue($this->myBLC->compileFile('test.xt'),"Compile valid file(2)");
+        return $this->assertTrue($this->myBLC->compileFile('xartests/test.xt'),"Compile valid file(2)");
     }
 }
 

@@ -15,11 +15,13 @@
  */
 
 /**
- * Prefix of testmethods which can be added automatically
+ * Defines which offer some rudimentory support for
+ * customizing the test framework.
  *
  */
-define('UT_PREFIXTESTMETHOD','test');
-define('UT_OUTLENGTH',50);
+define('UT_PREFIXTESTMETHOD','test'); // functions starting with this prefix are considered tests
+define('UT_OUTLENGTH',50);            // width of the text output in text reporting mode
+
 /**
   * class xarTestSuite
   * 

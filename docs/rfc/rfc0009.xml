@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0001" category="info">
+  <front>
+    <title>Content Management System</title>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>besfred@gmx.net</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0001</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC-9 Postnuke Community Enhancements 
+
+
+REQUEST FOR COMMENTS (9)
+PostNuke Community Enhancements 
+
+Table of Contents 
+01. Introduction
+02. Known Issues
+03. Proposed Solution 
+    A. Proposed Platform
+    B. Forums
+    C. Live Support
+    D. FAQs & Documentation
+    E. IM & IRC
+04. Requirements 
+    A. Database Tables
+    B. Functions
+    C. Code Base
+       1.  Rewrites
+       2.  New Code
+05. Issue Resolution 
+    A. Active Issues
+    B. Parking Lot
+06. Document Changelog
+07. Credits & Supporting Documents 
+
+01. Introduction 
+    The main objective of this project is to rethink, redesign and
+    redeploy support.postnuke.com.  This RFC will outline a variety
+    of proposed changes to the functionality, use and therefore
+    underlying architecture of support.postnuke.com.
+02. Known Issues 
+    A. General Usability
+       1. Confused links down the sidebars
+       2. Too many sites to go to without explanations of what they are
+          (All the pn sites plus all the Sourceforge areas)
+       3. Scattered support services from Sourceforge to support.postnuke.com
+          to ice-interactive.com to postnuke.com as well as docs, themes,
+          modules, and blocks.
+       4. Inconsistent theme = inconsistent "mind share"
+    B. PostNuke Theme
+          1 The links at the top of each site do not always go anywhere.
+          2. The switching graphic takes you to a different place depending
+             upon what site you are at.
+          3. The sites all look the same (not true)
+          4. The sites have different navigation
+03. Proposed Solution 
+   A. Proposed Platform
+      1. PostNuke:      Rogue .703+
+      2. Forum:         PostBoard 3.0  (see 3C4. Forums - Architechture)
+      3. Live Support:  ?PhpLive (www.livepeople.info/support/web/Postnuke)
+      4. IM/IRC:        Trillian (client - www.trillian.cc)
+                        Jabber (server - www.jabber.com)
+ stratagem 
+ I think the relaunch should be via .71 
+ stratagem 
+ The forum used should be able to evolve to a point where all views are available to the users. Be it the dreaded threaded views or the current postboard views. 
+ stratagem 
+ I'm still not sold on PHPLive - but will see where this goes. 
+ stratagem 
+ I think a site specific IM tool would be better than third party IM proggies/networks. 
+ Wolf- 
+ Can't cover the existing 3 areas of support effectively. And now we want to add IM and live support? 
+ jotajota 
+ Different ways to cover support lead to different people giving support. I can't be in IRC while in working hours but I can surely be on IM 
+ Karateka 
+ Different needs need to be covered by different methods. PHP Live should not be used to replace the current IRC, but it could be well used as a distributor of people seeking help to streamline them into whatever suits them best. One example: even sending someone who would have ended up on irc with a question that could be easily answered in the docs could be considered an act of live support. 
+ Karateka 
+ PHP Live should be used as the primary layer that works on top of the real support structure and it should be available to everyone, since it needs (just like the boards) no additional software like Java or an IRC client. 
+ Karateka 
+ The usage of PHP Live is an incredible useful method to enhance the usability of the website itself. Thus, in the long run, PHP Live! usage might actually decrease, as the website becomes more self-explanatory (if we listen to the feedback we get). 
+
+ Isaac 
+ The issue of irc not being addressed while at work is near being solved though the use of a special proxy system that will run acorss port 80 just like http. Once myself and Harry work the final details out we should be installing and testing just such a system out. 
+
+ Isaac 
+ The use of one on one tools while great ofr nich industries such as online support while buying products, does not lend itself tyo an open community structure such as the one that has allready been established here with PostNuke. one on one relies very heavily on the support of highly trained and skilled people who can answer everything trwon at them while with postnuke those people are not willing to lend themselfs to helping users while wrting code for those same users next edition of the software. Furhter more as this system was tested once before it failed before making it out of the gate because none of the staff wanted to sit alone in a html window just waiting for users to show up. If this application was focused just on supporting say the Documentation site and the ability to help users find documents It might prove to be usefull. If you can find staff to man it in the long run. 
+
+ Karateka 
+ This system was never tested on postnuke.com before. You are talking about quite a different system and that particular system wasn't really tested. Further on, with this system, you don't need to just sit and wait. 
+
+ Isaac 
+ As I have stated numerous times in the past, After 7 years of lending myself to tech support in many different areas for many different systems a community type system that relies on not only staff supporting users but Users supporting users in an open support envirnment as compared to that of a closed one to one environment such as a "live support program" Is the generally best method. with thousands of small to medium sized IRC networks and around 200 large irc network alive and well in the world wide web and several Million people using these system the system is tested. If you want some examples of support systems take a look at irc.openprojects.net or go a step further and goto efnet.net irc.galaxy.net or irc.dal.net and load up their 10,000 plus channels and find some support rooms that are active. Take phplive or some other "live support program" and apply it speciicly to http://docs.postnuke.com and use it specificly for documentation support as it is good for very focused support of single topics such as documentation. In the proccess make very very sure you dont confuse the general public with several different "live support systems" Most importantly make sure that the system used is GPL or GNU and not commercial in nature. 
+
+ Karateka 
+ 1-1 systems such a Human Click got about 1 Million websites to use it in one year. Anyway, PHP Live! is an extra layer for support. It's the easiest and fastest method for users to seek support, they don't need java in their browser or start up their irc client. It works with the click of a mouse. By default, I am inviting users to join the irc-chat at the end of each chat session. I am not trying to take anyone away his favourite toy. I *do* know that some people more or less disapprove it without even looking at it. That's ok for me. I am still hanging out on irc and answer questions there and talk with them and help them solve problems. As I said, it could replace some irc-stuff, but at the same time I say a directly and fast established 1-1 chat does not suit all support needs and there are many situations where irc-channel-based support just fits better. I have no understanding for closed-mindedness though. PHP Live! is a tool, it's not a general problem solver, just as irc isn't. It is a new tool. So, for some areas it's a matter of experimenting with it, however, for others, it has proven already that it does the job in an excellent way. Those people I helped so far were saying that this tool is incredibly cool. Some people said they'd need to tell their friends about PostNuke first before they'd join the irc. If it's not in our goal to have such excited minds, then I am sorry. And yes, sorry again, but I couldn't help myself, but I added myself not only to the support department, but also to the documentation department and the marketing department to answers calls there and got nice results. 
+   B. PostNuke Theme
+      1. Theme issues described above need to be resolved ASAP.
+      2. Core PN theme must be made extensibile in a manner that allows Site
+         Managers to customize aspects of thier site/subdomain so it is clearly
+         part of the PN family yet has retain its own personality.
+      3. To be an "official" PostNuke site, it must run the current approved
+         PN Family theme.
+ Wolf- 
+ And, since the release of the 'PN family theme' has been regulated to one server, it would follow that ALL 'official' sites need to be hosted on said server. 
+ Grape 
+ Docs will keep it's own theme and will be introducing a more documentation oriented theme in the future. The 'PN Family Theme' will not be used. 
+ stratagem 
+ I think each site should have a unique look. I believe that some users get confused without knowing which site they are on exactly. 
+   C. Forums
+      1. Forums - Overview
+         All forums to sit on a common table set with specific forum views
+         displayed at each subdomain or sister site.  This allows
+      2. Forums - Subdomains & Topics
+         www.postnuke.com (Home)
+            Feature Requests   -  Core Functionality (for non devs)
+            Info Requests      -  Materials used to explain/market PN
+            Developer Market   -  Promote folks who can implement and modify PN
+ gregorrothfuss 
+ while i like the idea to have a directory of postnuke implementors, i think a forum is a very bad fit for that. a directory with a few required fields would be far better suited 
+          support.postnuke.com
+            Installation(win)  -  Installation for Wintel environments
+            Installation(lin)  -  Installation of Linux/Unix environments
+            General Support    -  Core Functionality (for non devs)
+            Bug Reports        -  Core Functionality (for non devs)
+ gregorrothfuss 
+ this needs to be pondered further. as long as we have no better alternative than the SourceForge Trackers, we should stick with them. As it stands, nobody bothers to resubmit bugs that are marooned on the forums. 
+ Rabbitt 
+ there's a good idea gregor -- a module that acts as a forum of sorts and takes bug requests and submits them to sourceforge automatically... hmmm... 
+            Core Modules       -  Subforums addressing issues and hacks for
+                                  any module distributed as part of the core
+         dev.postnuke.com (new ???)
+            Developer (Core)     -  Core Functionality (for devs only)
+            Developer (Markets)  -  Develop "Marketing/Sales" materials
+            Core Modules         -  Subforums addressing issues and hacks for
+                                    any module distributed as part of the core
+ gregorrothfuss 
+ this may be a good home for the new mailing lists that are being set up on the pn server. provide web-based search facilities etc. It would be an advantage if interested parties could follow the lists from there, but would need an account to post. 
+ Grape 
+ would be an excelent home for the mailing lists. 
+         themes.postnuke.com
+            Requests (Core)    -  Core Theme System Features
+            Request (Themes)   -  Specific theme mods or new themes
+            Public Support     -  Theme Installation & Mod (for non-devs)
+            Developer Support  -  Theme Installation & Mod  (for devs only)
+            Core Modules       -  Subforums for individual themes & developers
+         mods.postnuke.com
+            Requests (Core)    -  Core Module System Features
+            Request (Mods)     -  Specific module hacks mods or new mods
+            Public Support     -  Mod Installation & Mod (for non-devs)
+            Developer Support  -  Mod Installation & Mod  (for devs only)
+            Core Modules       -  Subforums for individual modules & module
+                                  development crews
+         blocks.postnuke.com
+            Requests (Core)    -  Core Block System Features
+            Request (Blocks)   -  Specific theme mods or new themes
+            Public Support     -  Block Installation & Mod (for non-devs)
+            Developer Support  -  Block Installation & Mod  (for devs only)
+            Core Modules       -  Subforums for individual blocks & developers
+      3. Forums - Architecture
+         a. Port PostBoard to use Comments API as its core.  Leverages core
+            functionality and PB built from ground up as PN Mod.
+ Wolf- 
+ POSTBOARD?? If we are going to the trouble of porting and rewriting, there why not just emulate some of the better forums out there? 
+ Grape 
+ similarly, one might appreciate the aesthetics of postboard prior to a full-on installation of it 
+ mrherald 
+ Perhaps we should discuss what is so great about each forum in detail at, I don't know, how about here: WhatForum 
+         b. Common tableset and architecture will allow for ease of
+            management of threads among appropriate forum by Moderators
+         c. Thread movement/deletion should fire e-mail to author with new
+            location (URL) or reason for deletion
+         d. Forum architecture should allow for moving
+            thread into docs dev queue for conversion to FAQ or other doc.
+ Wolf- 
+ This item is ambiguous. Clarification is needed. 
+ jotajota 
+ e. Forum threads should be subscribible by email and (ideally) answerable by email too 
+   D. Live Support
+ Grape 
+ what are you talking about? 
+      a. Enables solutions to be pushed from forums, docs and other sources
+ Grape 
+ i can push a broom and it might be a solution, but what solutions do you intend to push? 
+      b. Enables pushing support chat logs to docs dev queue, forums and/or
+         bug tracker
+   E. FAQs & Documentation
+      a. Document Development Forum is fed by Forums, Bug Tracker, an Live Support
+ Wolf- 
+ This is the first mention of the 'Document Development Forum' It has not been defined anywhere else. 
+ Grape 
+ what is this? i think a document development forum would be pointless and would rather have people simply email requests. 
+ mrherald 
+ A good reason for a docs forum would be to get everyone communicating someplace other than the wiki and e-mail. 
+This can be used to openly discuss issues such as what pages need work and who knows about what. 
+It is much better than just assuming that everyone knows what is going on in the wiki and 
+is more open than plain e-mails. 
+It should increase efficiency and effectiveness 
+   F. IM & IRC
+      a. becomes general chat channel for the community
+ gregorrothfuss 
+ IM may be a useful way to escalate issues. I dont want to idle in the support rooms all the time when i am working on something, but I would not mind if a select group of people could IM me with urgent questions. 
+04. Requirements 
+    A.  Database Tables:   TBD
+    B.  Code Base
+         1.  Rewrites
+         2.  New Code
+05. Issue Resolution 
+    A. Active Issues
+       1.  Multilingual Support
+      The current support architecture is focussing on english support. The postnuke support infrastructure needs to
+      scale out to third party sites to provide multilangual support. The formation of a Multilingual Support Council
+      is proposed.
+ jotajota 
+ Why use third party sites instead of people speaking different languages giving support in the same place? Not only is that less confusing but it also allows for more supporters online on the site giving sinergy (what supporter A doesn't know can be asked to B by the supporter himself) and more opportunities to get help (I preffer to get help on my mother tongue but I could get it in French if I had to...) 
+ gregorrothfuss 
+ People want to have local communities, and centralizising everything on one site is not going to happen. we may as well take this into account, and try to come to an understanding with 3rd party sites. 
+ mrherald 
+ How about both? If an outside site wishes to provide support (we cannot stop them from doing it and we cannot force them to use what we have here) let them offer support, but be sure to link to it and have them link back to our support area. 
+Support forums on the PostNuke family of sites should not be the only ones available to the user, but in the absence of other support it should be provided here. 
+    B. Parking Lot
+       1. Home for issues which will not be addressed in this revision/release
+06. Document Changelog 
+    1.0 (February 2, 2002)  Douglas A. Daulton (aka Apakuni)
+        Initial Version
+    1.1 (February 6 2002)  Gregor J. Rothfuss
+        Multilingual Support Council added
+07. Credits & Supporting Documents 
+    Bob Brown (MrHerald / apt419)             E-mail: Issues and Concerns
+    Sascha Endlicher (karateka)     E-mail: Live Support
+    Gregor J. Rothfuss (gregor):       IRC Log: Support Discussion
+    Carl P. Corliss (rabbitt):         IRC Log: Support Discussion
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0001" category="info">
+  <front>
+    <title>Content Management System</title>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>besfred@gmx.net</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0001</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC-3 Rating API 
+
+
+Postnuke Gregor J. Rothfuss RFC-3 Rating API Category: Informational January 2002 Version: 2.0 
+                         RFC-3 Rating API
+Table of Contents 
+   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
+   2.   List of requirements for the Rating API . . . . . . .  . . . 2
+   3.   Solution proposals - database tables . . . . . . . . . . . . 3
+   3a.    Trust Networks  . . . . . . . . . .  . . . . . . . . . . .
+   4.   Solution proposals - functions . . . . . . . . . . . . . . .
+   4a.    Trust Networks  . . . . . . . . . .  . . . . . . . . . . .
+   4b.    Distributed Trust Networks  . . . . . . . . . .  . . . . .
+   5.   Relationship of the API to other areas . . . . . . . . . . .
+   6.   Code that will need to be rewritten  . . . . . . . . . . . .
+   7.   Basic documents for this RFC . . .  . . . . . . . . . . . .
+   8.   Tools that need to be created from scratch . . . . . . . . .
+   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
+   10.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
+                             Informational                      ?Page 1
+                            RFC-3 Rating API                January 2002
+1. Introduction 
+   All ?xxx numbers refer to the basic documents in section 7.
+   We read through the articles on http://www.postnuke.com, its forum
+   threads, feature requests on sourceforge and the developers mailing
+   list.
+   The following RFC is a first summary and contains some solution
+   proposals either compiled from the basic documents or from general
+   definitions concerning comments systems / forums.
+2. List of requirements for the Rating API 
+    The main objective of this API is to provide a small, yet flexible
+    codebase for adding rating functionality to modules. Rating is a
+    powerful organisational concept, and goes well together with
+    categories to sift through large amounts of content. In a community
+    setting, it helps to identify valuable elements of the community,
+    and to protect the community from disturbances.
+    That said, there are a lot of approaches to rating, from the very
+    simple to the highly sophisticated. [1], [4]
+    Not all rating types are suited for the same problems so it would be
+    feasible to make parts of this API pluggable to allow for the
+    addition of different rating types.
+    The API should be transparent to all modules that want to use it,
+    and vice versa.
+    Following is a list of requirements broadly grouped into
+    categories.
+    - let users rate articles [5]
+    - let users rate submissions [6]
+    - provide a moderation system based on Karma [7]
+    - promote user permissions by various measures [8]
+    - approve new users [9]
+    - give points to users based on activity [10]
+    - create friends / foes list [12], [13]
+    - select site content by rating for syndication [16]
+    - let users rate an item only once [17]
+    - customize display of content based on rating [17]
+    - devise anti-groupthink measures [17]
+3. Solution proposals - database tables 
+    3a. Trust Networks
+    See Appendix 1 [14] for one possible approach. It is
+    straight out of the sourceforge.net code [2] Its just
+    one idea.
+4. Solution proposals - functions 
+    4a. Trust Networks
+    Networks of Trust have been shown to be rather resilient
+    to attack. [3] It may be feasible to reuse the PHP
+    port of the advogato.org Network of Trust that sourceforge.net
+    uses. [2] See Appendix 2 [15] for the code.
+    4b. Distributed Trust Networks
+    [4] Takes the notion of Trust Network one step further
+    by suggesting to distribute the Trust Network over several
+    sites.
+drupal rating: [18] 
+5. Relationship of the API to other areas 
+    5a. Categories API
+    There seem to be some overlaps with the Categories API,
+    as both Ratings and Categories can be thought of as
+    metadata. [11]
+    5b. Permissions System
+    Ratings have to have an impact on user permissions in the
+    end to be effective. There should be ways to assign permissions
+    based on ratings. This is a difficult area fraught with pitfalls,
+    as Jim McDonald has pointed out. Worth considering though.
+6. Code that will need to be rewritten 
+    /Modules/News
+    /Modules/Submit_News
+    /Modules/NS-Comments/
+    /Modules/Downloads
+    /Modules/Web_Links/
+    /Modules/Member_List/
+    /Modules/Top_List/
+    /Modules/Stats/
+    /Modules/Messages/
+    /Modules/Users
+7. Basic documents for this RFC 
+      [1] http://www.meridianvault.com/rate-it.zip
+      [2] http://sourceforge.net/project/showfiles.php?
+            group_id=39306&release_id=60003
+      [3] http://xmlvl.net/article/index.xvl?acct=article:_02
+      [4] http://advogato.org/article/176.html
+      [5] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=459239&group_id=27927&atid=392231
+            Credits to: Pim van der Zwet
+      [6] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=448439&group_id=27927&atid=392231
+            Credits to: Anonymous
+      [7] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=487384&group_id=27927&atid=392231
+            Credits to: Steven Hilton, Kevin Fogleman
+      [8] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=440463&group_id=27927&atid=392231
+            Credits to: Simon Troup
+      [9] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=461559&group_id=27927&atid=392231
+            Credits to:
+      [10] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=440629&group_id=27927&atid=392231
+            Credits to: Anonymous
+      [11] http://groups.yahoo.com/group/pndev/message/5723
+            Credits to: jojajota
+      [12] http://slashdot.org/article.pl?
+            sid=02/01/03/1812245&mode=thread
+      [13] http://cvs.slashcode.com/index.cgi/slash/plugins/
+            Zoo/zoo.pl?rev=1.11&content-type=text/x-cvsweb-markup
+      [14] RFC-3 Appendix 1
+      [15] RFC-3 Appendix 2
+      [16] http://groups.yahoo.com/group/pndev/message/4768
+      [17] http://groups.yahoo.com/group/PN-Data/message/67
+      [18] http://cvs.drupal.org/viewcvs.cgi/drupal/
+            modules/rating.module?rev=1.39&content-type=text/
+            vnd.viewcvs-markup
+8. Tools that need to be created from scratch 
+9. Retractions 
+   We list features that were considered but rejected for this API below.
+10. Changelog 
+   2.0 (January 6, 2002)
+      Integrated contributions from Kevin Fogleman.
+    1.1 (January 6, 2002)
+      Moved implementation details out into Appendices.
+      Integrated contributions from Jeremy Coates.
+    1.0 (January 6, 2002)
+      Initial Version
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0001" category="info">
+  <front>
+    <title>Content Management System</title>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>besfred@gmx.net</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0001</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC-21 Postnuke International 
+
+
+ Postnuke
+ RFC-21 Postnuke International              Category: Informational
+ Version: 0.5                                             June 2002
+                         RFC-21 Postnuke International
+Table of Contents 
+   1.   Introduction
+   2.   List of requirements for Postnuke International
+   3.   Solution proposals
+   5.   Relationships to other Systems
+   6.   Code that will need to be rewritten
+   7.   Basic documents for this RFC
+   8.   Tools that need to be created from scratch
+   9.   Retractions
+   10.  Acknowledgements
+   11.  Open Issues
+   12.  Changelog
+                             Informational
+                           RFC-21 Postnuke International June 2002
+1. Introduction 
+ The goal of Postnuke International is to leverage the international nature of the
+ PostNuke project to further various aspects of the project, including, but not limited to:
+Support 
+PR 
+User Feedback 
+Documentation 
+Having Fun 
+2. List of requirements for Postnuke International 
+Provide Support in many languages 
+Share experiences 
+Have a common backend to share content 
+Create an escalation procedure for unresolved problems 
+Increase traffic to partner sites 
+Resolve scalability issues with the main support site 
+Foster local communities 
+Attract talent to PostNuke 
+Spread the word about PostNuke 
+Raise quality accross all sites 
+ Some of the problems we want to address with Postnuke International are:
+Language barriers: not everyone speaks / understands english 
+Support information is hard to find 
+It is hard to discover language / country specific PostNuke sites 
+Problem reports tend not to flow back to the developers 
+Translated documenation is sometimes hard to find 
+International Support without support 
+News of Postnuke only in Postnuke site and not translated and put i all sites 
+Developpers, maybe other country have a good developper but they not speak/understand english 
+Postnuke project don't have Official International Support site 
+Comunication with Official Postnuke and other support site 
+News: Postnuke.com -> International sites (by hand, webmasters checking postnuke.com, modules.*, blocks.* themes.*, mailing lists..., broswing forums..., other international sites...) 
+Documentation: Flow broken. There are part of documentation on docs.postnuke.com, part on international sites. Without consistency of content and/or look. 
+Feedback: Needs to be more dinamic. Bug report on a non english site by a non english speaker right now means webmaster to understand completely bug to submit it. Some bug fixing is done on the fly on country/language specific sites 
+FAQ: Make a real FAQs based on experience of language-based support teams. It'll help on the way of developing end user and administrator documentation 
+3. Solution proposals 
+ Here are some partial solution ideas. Those need to be fleshed out a lot more.
+Syndication of news, forums (Mailbag?) to exchange news, forward interesting threads for archival or as input for pnFeedback (bug tracker / feature request). close the loop with the documentation / FAQ team 
+Heavy, deep interlinking (not just in the web links section) for instance on pn.it forum: go to the same forum on pn.com etc 
+Adopt a similar structure for the support forums so that they can be mapped from language to language, from main site to 3rd party sites etc 
+Make documentation readily available (people have trouble finding our docs, including translations 
+Make sure people read the FAQ before they ask problems, and related, create escalation steps to verify issues so that they can be tackled by developers. 
+Work with documentation people to continually identify top issues, and make FAQ / docs out of them 
+Create language-specific IRC channels on the PostNuke IRC Network 
+5. Relationship of Postnuke International to other areas 
+pnCommunity: Postnuke International should plug into pnCommunity for User Feedback and other areas 
+ 6.  Code that will need to be rewritten
+News submission should support multiple destinations 
+7. Basic documents for this RFC 
+ Postnuke International Council
+ Potential Members of Postnuke International
+Postnuke Italy 
+Postnuke France 
+Postnuke Thailand 
+Postnuke Germany I 
+Postnuke Germany II 
+Postnuke Finland 
+Postnuke Denmark 
+Postnuke Espanol 
+Postnuke Netherlands 
+Postnuke Norway 
+Postnuke India 
+Postnuke Russia 
+Postnuke Romania 
+Postnuke Iceland 
+Postnuke Sweden 
+Postnuke Tokelau (domain for sale) 
+Postnuke Brazil 
+Postnuke Poland 
+Postnuke China 
+Postnuke Middle East 
+Postnuke Tunisia 
+Related Sourceforge Projects 
+Project of Documentation of PostNuke in Spanish seems dead 
+POST-Nuke Brasil 
+PostNuke Collaboration Project dead? 
+Russian Postnuke 
+Finish Postnuke 
+(Yet) a(nother) norwegian translation of postNuke 
+PN-Espanol es un proyecto de adaptacion de PostNuke a español 
+8. Tools that need to be created from scratch 
+Site synchronization tools 
+Update notification tools 
+9. Retractions 
+   We list features that were considered but rejected for Postnuke International below.
+PHP Nuke sites: It was felt that PHP Nuke sites do not fit into Postnuke International unless they have substantial Postnuke resources. 
+10. Acknowledgements 
+Timax 
+Zoom 
+Xaplo 
+Almer (Russia) 
+?NukeZine 
+11. Open Issues 
+Contested Sites 
+ In many cases there are two or more Postnuke sites per country. Agreeing on one official site per
+ country is highly unlikely. The goal should be to have as many sites as part of Postnuke International
+ as possible while still maintaining the quality of the network. Examples of contested sites include:
+postnuke.de versus post-nuke.com 
+various french sites - Do anybody have links of french sites besides Boomtchak? 
+various scandinavian sites - This issue was solved imho? 
+pure PostNuke sites vs sites with mixed content 
+Uniformity vs Creative Freedom 
+ The wish to achieve some level of uniformity among sites of Postnuke International might
+ clash with the wish to do things differently.
+12. Changelog 
+    0.1 (June 14, 2002) Gregor J. Rothfuss
+    Initial Version
+    0.2 (June 14, 2002) Timax
+    Add some support site
+    0.3  (June 14, 2002) Gregor J. Rothfuss
+    Open Issues added
+    0.4  (June 15, 2002) Almer
+    List of requirements updated
+    0.5  (June 15, 2002) Gregor J. Rothfuss
+    More resources added
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

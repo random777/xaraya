@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0001" category="info">
+  <front>
+    <title>Content Management System</title>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>besfred@gmx.net</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0001</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC-17 Module Information System 
+
+
+ Postnuke                                                              Gary Mitchell
+ RFC-17 Module Information System
+ Category: Informational                                               May 2002
+ Version: 0.1
+1. Introduction 
+This paper presents a vision of an integrated Module Information System. This system would allow: 
+A central repository to store module information. 
+Developers to announce new modules, upgrades or new versions. 
+Allow the Postnuke staff a place to manage module attributes (status, test results, security review, etc). 
+A RSS Feed to list new module announcements 
+Tools so a Postnuke Admin can check for new or updates modules for their site. 
+2. Module Information Repository 
+Today, information about what Postnuke modules are available is widely dispersed. Users have difficulty finding available modules, updates and support. 
+We're going solve that problem by creating a Central Module Repository (database). The repository will reside on postnuke.com and provide the following functionality: 
+Provide a place for module developers to announce new or updated modules. 
+Assigns an unique module ID and prevent duplicate module names. 
+Allows the developer to announce new versions of a module, Postnuke version supported, and the download location for that version. 
+Query the develop on a number of questions related on the module (security, etc). 
+Allow the Quality staff to record information about the module version such as: 
+Documentation - Does the module come with quality installation and usage documentation 
+Installation - Did the module install cleanly and were core changes required 
+Quality - Is there any obvious bugs in the module or installation 
+Security - ensure the module uses the API security functions and check 777 access requirements 
+Standards compliance - ensure the module meets current ADODB, pnAPI, pnMDG, and other standards. 
+Module Status - Official, Beta, Alpha, Non-standard 
+Use the Comments API to provide a place to discussion and support of each module. 
+Use the Ratings/Rankings API to give the everyone a place to Rate a module. (optional) 
+3. RSS Feed 
+Module announcements will be made available on an RSS feed. 
+4. Site Administration Functions 
+Additional functionality will be added to the Postnuke code to allow the site admin to query the modules repository for updates to modules installed on their site. The query would be done via XML or MySQL dababase call. The admin will be provided a link to download updated modules (to avoid 777 permission problems). 
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

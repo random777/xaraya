@@ -4,7 +4,7 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc='yes'?>
 
-<rfc number="0000" obsoletes="0000" category="bcp">
+<rfc number="0000" category="bcp">
   <!-- number: Fill in the number for the RFC -->
   <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes
   <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->

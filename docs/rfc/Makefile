@@ -22,4 +22,4 @@ txt : $(TXTS)
 	$(xml2rfc) $< $(*F).txt
 
 clean:
-	rm -f rfc*.txt rfc*.html *.*~ *~
+	rm -f rfc*.html rfc*.txt *.*~ *~

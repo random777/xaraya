@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0015" category="info">
+  <front>
+    <title>Postcalendar</title>
+    <author initials="R" surname="Raymond" fullname="Roger Raymond">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email></email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="October" year="2002"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0015</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+ Postnuke                                                Roger Raymond
+ RFC PostCalendar
+ Category: Informational                                     April 2002
+ Version: 1.0
+
+                         RFC PostCalendar
+
+Table of Contents
+
+   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
+   2.   List of requirements for PostCalendar  . . . . . . . . . . . 2
+   3.   Solution proposals - database tables . . . . . . . . . . . . 3
+   3a.      . . . . . . . . . .  . . . . . . . . . . .
+   4.   Solution proposals - functions . . . . . . . . . . . . . . .
+   4a.      . . . . . . . . . .  . . . . . . . . . . .
+   4b.      . . . . . . . . . .  . . . . .
+   5.   Relationship to other areas . . . . . . . . . . .
+   6.   Code that will need to be rewritten  . . . . . . . . . . . .
+   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
+   8.   Tools that need to be created from scratch . . . . . . . . .
+   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
+   10.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
+
+                             Informational
+
+                            RFC PostCalendar                 April 2002
+
+1. Introduction
+
+   All ?xxx numbers refer to the basic documents in section 7.
+
+   We read through the articles on http://www.bahraini.tv and
+   http://www.alyousif.tv, bahraini.tv's forum threads, and feature
+   requests on sourceforge.
+
+   The following RFC is a first summary and contains some solution
+   proposals either compiled from feature requests received through
+   the forums and sf tracker or other general comments.
+
+2. List of requirements for PostCalendar
+
+    Following is a list of requirements broadly grouped into
+    categories.
+
+    Same as PostNuke .71+
+
+3. Solution proposals - database tables
+
+    The following is the current table structure, which I honestly feel
+    needs to go through a redesign.
+
+    CREATE TABLE $prefix_postcalendar_events (
+        pc_eid bigint(20) NOT NULL auto_increment,
+        pc_aid varchar(30) NOT NULL default '',
+        pc_title varchar(150) default NULL,
+        pc_time datetime default NULL,
+        pc_hometext text,
+        pc_comments int(11) default '0',
+        pc_counter mediumint(8) unsigned default NULL,
+        pc_topic int(3) NOT NULL default '1',
+        pc_informant varchar(20) NOT NULL default '',
+        pc_eventDate date NOT NULL default '0000-00-00',
+        pc_endDate date NOT NULL default '0000-00-00',
+        pc_recurrtype int(1) NOT NULL default '0',
+        pc_recurrspec int(3) default NULL,
+        pc_startTime time default NULL,
+        pc_endTime time default NULL,
+        pc_alldayevent int(1) NOT NULL default '0',
+        pc_barcolor char(1) default NULL,
+        pc_location varchar(50) default NULL,
+        pc_conttel varchar(12) default NULL,
+        pc_contname varchar(50) default NULL,
+        pc_contemail varchar(50) default NULL,
+        pc_website varchar(50) default '',
+        pc_fee varchar(50) default NULL,
+        pc_recurrfreq int(3) NOT NULL default '0',
+        pc_eventstatus int(3) NOT NULL default '0',
+        PRIMARY KEY  (pc_eid)
+    ) TYPE=MyISAM;
+
+    Proposed changes are :
+
+    + Store all dates as UNIX Timestamps.
+
+    + change the table design.
+
+    + add new columns for better repeating events handling
+      (duration, etc.)
+
+    + Add a new $prefix_postcalendar_user_settings table to store
+      a user's personal calendar settings.
+
+    + Add a new $prefix_postcalendar_event_type table to store
+      the categories/event type descriptions
+      can this use any core functionality? topics/section?
+
+4. Solution proposals - functions
+
+    Integrate a better date checker in pcAPI.
+    See http://www.phpinsider.com/php/code/Date_Calc/
+
+    Integrate a template system for calendar display?
+    See http://www.phpinsider.com/php/code/Smarty/
+
+    Creation of a more robust pcAPI that can be used in other modules.
+
+
+5. Relationship to other areas
+
+    Add ability to submit event as a story
+    Integrate with user settings for calendar prefs
+
+
+ 6.  Code that will need to be rewritten
+
+    Event edit/submit form to be more intuitive and also support
+    a more robust repeating events system
+
+    SQL routines for SELECT,UPDATE,INSERT,DELETE in order to accomodate
+    the new repeating events functionality.
+
+    Display routines.
+
+7. Basic documents for this RFC
+
+      [1]
+
+8. Tools that need to be created from scratch
+
+9. Retractions
+
+   We list features that were considered but rejected for this API below.
+
+10. Changelog
+
+    1.0 (April 5, 2002)
+
+      Initial Version
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

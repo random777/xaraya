@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0001" category="info">
+  <front>
+    <title>Content Management System</title>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>besfred@gmx.net</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0001</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC-20 Multi Language System 
+
+
+ PostNuke                                                            Marco Canini
+ RFC-20 Multi Language System
+ Category: Informational                                                 May 2002
+ Version: pre-0.1
+Abstract 
+This document describes the Multi Language System technology that will provide internationalization support for PostNuke. This document is constantly subject to revisions. This isn't the final version of the document. 
+Table of Contents 
+ 1.    Introduction
+ 2.    Architecture
+ 3.    MLS API
+ 4.    MLS from the developer point of view
+ 5.    MLS from the translator point of view
+ 6.    Changelog
+1. Introduction 
+Internationalization of software is one of the more common problem when you are developing web-based software. Solutions for this problem exist, and they are often a library that let you get rid of translations details by using plain text into code. Instead other solutions take the developer at a lower level by using key-based access to translations. The current ML system is very closed to second model. From the performance perspective the second model is faster, but the first model is really comfortable. The Multi Language System comes up with an hybrid solution: both models are supported. 
+2. Architecture 
+Even by supporting string-base and key-based access to translations, MLS keeps very distinct the mode you use it. MLS has two entry point functions, they are pnML and pnMLByKey. The first function (pnML) is chosen for string-based translations, the latter function (pnMLByKey) is chosen for key-based translations. You can also use both model in the same fragment of code. The MLS architecture is modularized through the use of backends. A backend is an entity capable of managing string-based and key-based translations. Currently implemented backends are the XML backend and the PHP backend. In the future will be developed the DBM backend, the ?GetText backend. Implementation of a backend is currently delegated to a PHP class, however we are evaluating to use the PostNuke Module System also for MLS backend implementations. We said that a backend manages translations, this is done by exposing a well known interface: 
+interface pnML_?TranslationsBackend { 
+    string translate($string);
+    string translateByKey($key);
+    bool load($translation_ctx);
+} 
+The load method is called when a call pnModLoad or pnModAPILoad occurs. Translations are identified by a translation context, in that way only needed translations will be load during the page generation process. A translation context is made of a module name, a module action type (user, userapi, admin, adminapi) and a language identifier. The backend can load more than one translation context per time, loaded translations are managed (merged) by the backend. 
+The translate method is called by pnML function. 
+The translateByKey method is called by pnMLByKey function. 
+The XML language has been chosen as the intermediate translations language, because of that the XML backend is a special backend. The intermediate translations language is used to store translations and references to occurrences of strings and keys. It's used to generate translations for other backends through the translations module, but you'll see that later. The XML backend implements another two interfaces: 
+interface pnML_?ReferencesBackend { 
+    array entry($string);
+    array entryByKey($key);
+} 
+The entry method return an array that contains the translation for that such string and an array of references of occurrences for that such string. 
+The entryByKey is the analogous case for key-based translation. 
+interface pnML_?EnumerableTranslationsBackend { 
+    array enumTranslation($reset = false);
+    array enumKeyTranslations($reset = false);
+} 
+The enumTranslation method is used to enumerate all loaded translations, it's used by the translations module. 
+The enumKeyTranslations method is the analogous case for key-based translation. 
+3. MLS API 
+The MLS exposes an API that will integrate into PostNuke API. We've yet discussed two functions (pnML and pnMLByKey), now we'll see other API functions: 
+pnMLInit() Used to initialized the MLS. 
+pnMLRegisterListener($modname) Register a listener into MLS. A listener is notified by MLS of certain events like missing translations. 
+pnMLGetXMLBackend($modname, $type, $lang) Return an XML backend with the specified translation context loaded, it's used mainly by the translations module. 
+4. MLS from the developer point of view 
+What developers should know is a very little part of MLS: pnML and pnMLByKey. Developers will use those function when they need to have internationalization support in their modules. 
+5. MLS from the translator point of view 
+Translators will mainly use the translations module. The actions that they will perform are very similar to this sequence: 
+Choose a module, a module action type and a language 
+Generate translations skels files (XML files) 
+Use a context driven web-based view to add and edit translation or edit by hand XML files 
+Choose the generate translations action to generate translations for a chosen backend (not the XML one) 
+6. Changelog 
+ pre-0.1 (May 19, 2002)
+   Initial Version by Marco Canini &lt;marco.canini@postnuke.com&gt;
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0001" category="info">
+  <front>
+    <title>Content Management System</title>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>besfred@gmx.net</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0001</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC-4 Categories API 
+
+
+Postnuke Gregor J. Rothfuss RFC-4 Category API Category: Informational January 2002 Version: 1.1 
+                         RFC-4 Category API
+Table of Contents 
+   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 2
+   2.   List of requirements for the Category API . . . . . .  . . . 2
+   3.   Solution proposals - database tables . . . . . . . . . . . . 3
+   3a.      . . . . . . . . . .  . . . . . . . . . . .
+   4.   Solution proposals - functions . . . . . . . . . . . . . . .
+   4a.      . . . . . . . . . .  . . . . . . . . . . .
+   4b.      . . . . . . . . . .  . . . . .
+   5.   Relationship of the API to other areas . . . . . . . . . . .
+   6.   Code that will need to be rewritten  . . . . . . . . . . . .
+   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
+   8.   Tools that need to be created from scratch . . . . . . . . .
+   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
+   10.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
+                             Informational                      ?Page 1
+                            RFC-4 Category API                January 2002
+1. Introduction 
+   All ?xxx numbers refer to the basic documents in section 7.
+   We read through the articles on http://www.postnuke.com, its forum
+   threads, feature requests on sourceforge and the developers mailing
+   list.
+   The following RFC is a first summary and contains some solution
+   proposals either compiled from the basic documents or from general
+   definitions concerning comments systems / forums.
+2. List of requirements for the Category API 
+    The history of Postnuke has seen several attempts at defining
+    a metadata system. This RFC tries to put together all thoughts
+    and issues that came up in these discussions. It owes a lot
+    to people like Jorge Gutierrez. Thank you.
+    PostNuke needs a better way to handle the metadata about the
+    content it manages. This metadata is currently held in the 'topic',
+    'category' and to some extent 'language' attributes of the stories,
+    the 'category' of the links and FAQs etc. There is a need to have a
+    powerful API that would let the core and modules developers to add
+    metadata support to their code. The system should be developed with
+    the tier separation in mind (content separated from display).
+    "A good metadata implementation leads to better searches within
+    the site, finer categorization, and easier navigation, by letting
+    the visitor decide exactly what content is (s)he interested in.
+    It will also add the chance to our users to upgrade their use of
+    PN from a CMS (Content Management System) to a KMS
+    (Knowledge Management System)." [1]
+    Following is a list of requirements broadly grouped into
+    categories.
+    - Possibility to address every object in PN uniquely [1], [18]
+    - Possibility to have multiple dimensions [1]
+    - Hierarchies [1], [21], [27], [28], [30], [31]
+    - Keep multi-language issues in mind [3], [16], [17]
+    - Allow for multiple parents of an item [4]
+    - Good performance [5], [9]
+    - A sane solution for orphaned content [8]
+    - Nesting level unlimited [10], [11]
+    - Assign more than one category to an item [12], [13]
+    - Replace current Topics & Categories [22], [32]
+3. Solution proposals - database tables 
+    3a. Encoded Hierarchies
+    See [14] for one possible approach. It is taken from
+    Marie Altobellis Amazon Module. It is focussing on
+    performance.
+4. Solution proposals - functions 
+    4a. Encoded Hierarchies
+    See [15] for one possible approach. It is taken from
+    Marie Altobellis Amazon Module. It is focussing on
+    performance.
+5. Relationship of the API to other areas 
+    5a. Permissions System
+    Categories may form an element of a Permission string. Interactions
+    between Categories and Permissions have to be figured out. [7]
+    5b. User System
+    There are various interesting possibilities in the interaction between
+    Categories and Users. User Profiles [19], [20], [23], [26], [29]
+    are one example.
+    5c. Content Syndication System
+    Interesting possibilities emerge when you syndicate content with other
+    sites based on a common category schema. [24], [25]
+6. Code that will need to be rewritten 
+    /Modules/News
+    /Modules/Submit_News
+    /Modules/NS-AddStory/
+    /Modules/NS-Comments/
+    /Modules/Downloads
+    /Modules/Web_Links/
+    /Modules/Member_List/
+    /Modules/Top_List/
+    /Modules/Stats/
+    /Modules/Messages/
+    and some blocks
+7. Basic documents for this RFC 
+      [1] http://groups.yahoo.com/group/PN-Data/message/32
+            Credits to: Jorge Gutierrez
+      [2] ftp://ftp.dev.4arrow.com/zip/xpc/releases/distro/
+      [3] http://groups.yahoo.com/group/PN-Data/message/40
+            Credits to: Pascal Riva
+      [4] http://groups.yahoo.com/group/PN-Data/message/194
+            Credits to: Jim McDonald
+      [5] http://groups.yahoo.com/group/PN-Data/message/219
+            Credits to: Jim McDonald
+      [6] http://groups.yahoo.com/group/PN-Data/message/251
+            Credits to: Jorge Gutierrez
+      [7] http://groups.yahoo.com/group/PN-Data/message/255
+            Credits to: Jim McDonald
+      [8] http://groups.yahoo.com/group/PN-Data/message/268
+            Credits to: Jim McDonald
+      [9] http://groups.yahoo.com/group/PN-Data/message/288
+            Credits to: Marie Altobelli
+      [10] http://www.postnuke.com/modules.php
+            ?op=modload&name=News&file=article&sid=935
+            Credits to: jerryj
+      [11] http://groups.yahoo.com/group/pndev/message/2952
+            Credits to: Florian Bruckner
+      [12] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1354
+            Credits to: Jason Lotito
+      [13] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=441077&group_id=27927&atid=392231
+            Credits to: Asparagirl
+      [14] http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/
+            post-nuke/postnuke_official/tests/category_api/
+            categories.sql?rev=1.1&content-type=text/
+            vnd.viewcvs-markup
+            Credits to: Marie Altobelli
+      [15] http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/
+            post-nuke/postnuke_official/tests/category_api/
+            category.php?rev=1.1&content-type=text/
+            vnd.viewcvs-markup
+            Credits to: Marie Altobelli
+      [16] http://www.geocrawler.com/archives/3/12620/2001/
+            9/100/6581303/
+            Credits to: John Crocket
+      [17] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=498872&group_id=27927&atid=392231
+            Credits to: Kristjan
+      [18] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=496842&group_id=27927&atid=392231
+            Credits to: Mark S. Miller
+      [19] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=445240&group_id=27927&atid=392231
+            Credits to: Justin G. Zaun
+      [20] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=442991&group_id=27927&atid=392231
+            Credits to: Francisco
+      [21] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=442657&group_id=27927&atid=392231
+            Credits to: Anonymous
+      [22] http://sourceforge.net/tracker/index.php?
+            func=detail&aid=439872&group_id=27927&atid=392231
+            Credits to: ncwbiz, clnelson, jnlewis
+      [23] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1457
+            Credits to: greggish
+      [24] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1451
+            Credits to: Reginald
+      [25] http://groups.yahoo.com/group/pndev/message/7531
+      [26] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1278
+            Credits to: karstenj
+      [27] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1255
+            Credits to: ma_gius, stodge
+      [28] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1225
+            Credits to: machine, stodge, Jukap
+      [29] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1220
+            Credits to: Anonymous, Aidan Humphrey
+      [30] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=1211
+            Credits to: Christoph Fischer, sunheadweb,
+                        php_me
+      [31] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=935
+            Credits to: jerryj, ?LinuxDeveloper,
+                        Christoph Fischer
+      [32] http://www.postnuke.com/modules.php?
+            op=modload&name=News&file=article&sid=650
+            Credits to: Hercules
+8. Tools that need to be created from scratch 
+9. Retractions 
+   We list features that were considered but rejected for this API below.
+10. Changelog 
+    1.1 (January 7, 2002)
+      More basic documents added.
+    1.0 (January 6, 2002)
+      Initial Version
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+    <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc toc='yes'?>
+
+<rfc number="0001" category="info">
+  <front>
+    <title>Content Management System</title>
+    <author initials="F." surname="Besler" fullname="Frank Besler">
+      <organization>Xaraya Development Group</organization>
+      <address>
+	<email>besfred@gmx.net</email>
+	<uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2002"/>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>The contents of this RFC contain the literal content of the old plain
+	text version of RFC-0001</t>
+      <t>When time is a less scarcer good, someone might convert the plain text
+	into structured XML so we can benefit from it.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- One content section is mandatory -->
+    <section title="Original content">
+      <t>
+	<artwork>
+
+RFC-8 Install System 
+
+
+ Postnuke
+ RFC-8 Install System
+ Category: Informational
+ Version: 0.2
+ June 2002
+                         RFC-8 Install System
+Table of Contents 
+   1.   Introduction . . . . . . . . . . . .  . . . . . . . . . . . 2
+   2.   List of requirements for the Install System. . . . . . . . . 2
+   3.   Solution proposals - ADD. . . . . . . . . . 3
+   3a.      . . . . . . . . . .  . . . . . . . . . . .
+   4.   Solution proposals - ADD . . . . . . . . . . . . . . .
+   4a.      . . . . . . . . . .  . . . . . . . . . . .
+   4b.      . . . . . . . . . .  . . . . .
+   5.   Relationship of the Install System .
+   6.   Code that will need to be rewritten  . . . . . . . . . . . .
+   7.   Basic documents for this RFC . . . . . . . . . . . . . . . .
+   8.   Tools that need to be created from scratch . . . . . . . . .
+   9.   Retractions . . . . . . . . . . . . .  . . . . . . . . . . .
+   10.  Open Issues . . . . . . . . . . . . .  . . . . . . . . . . . .
+   11.  Acknowledgements . . . . . . . . . . . . .  . . . . . . . . . . . .
+   12.  Changelog . . . . . . . . . . . . .  . . . . . . . . . . . .
+                             Informational
+                            RFC-8 Install System
+1. Introduction 
+   The following RFC is a first summary and contains some solution
+   proposals either compiled from the basic documents or from general
+   definitions concerning Install Sytems in other CMSs
+ Our install system is currently the best install system of all the free CMSs that already exist, and prolly better than
+ the commercial ones. But, let's face facts, it needs some serious work to make it change with the times. Many things
+ are changing within PostNuke. Our install system needs to be updated to keep up with these, and expandible for
+ later use.
+2. List of requirements for the Install System 
+SECURITY...many users do not delete the install directory...let's make sure it can't be used again if possible 
+MORE MODULAR...let's make it pluginable or even scriptable to do the things we want it to do. 
+SMALLER...let's follow through and use our new userapi, and adminapi functions to do the real work 
+EASIER TO MODIFY...a must..it shall be coded using pnHTML as much as possible. 
+More userfriendly: Add much more helpful texts to the installer 
+Signed modules: Sign modules with a MD5 or equivalent to prevent hacks 
+Database abstraction: Support different databases in the install 
+Upgrades: Add more CMS systems to the upgrade scripts 
+Themes install: Use the installer to also add themes 
+Provide optional signup for support forums 
+3. Solution proposals - database tables ADD 
+4. Solution proposals - functions ADD 
+ Installer Use Case (John Cox)
+ I go to Modules Admin in my site. With the listing of modules that I already have installed, there is also a
+ list of Modules that are "Official" and validated to run off this system. If I wanted to install the
+ module then it would be just the matter of pushing an "Install Module" form button and I allow the script to
+ do the rest of the work.
+ The script would then initiate the server to server transfer (we might have to force a chmod here, or have
+ a chmod check). This grabs the files and installs the module. Once the files are installed, we would
+ probably have to push another button to continue the install. With that the Modules Admin grabs the
+ version file and does two things. It will first propegate the modules vars table, and it will check to
+ see if the install variable is active. If active, it also installs the SQL necessary for the module.
+ What this will do is neccessitate the need for a modules repository, which is what we wanted way back
+ in the planning stage of PostNuke. It will need to be maintained. I also believe that we will need to have
+ a file that each site will load to check to see the official modules that are available. I believe that
+ we could just load this on request and not on each page load of modules admin.
+ Anyway some thoughts on a way to go. I'd really invite anyone to comment. I might not be grounded
+ completely with the install process, but I really think that it would be a pretty cool thing to do, and
+ would be unique.
+ Installer Flow of Events
+1.Select Language 
+2.Do Environment checks 
+3.Enter Database information 
+4.Create / Modify database (core only) 
+5.Switch to module installer 
+6.Select modules to download 
+7.Download modules 
+8.Install / Upgrade modules 
+9.Configure modules 
+Installer Design Tenets 
+Use pnAPI as early as possible 
+Seperate throw-away parts from reusable parts: Bootstrapping vs Module Install 
+Integrate Module Installer into Modules module 
+Implementation Considerations 
+ (Francisco Sam Castillo)
+ An addendum to my prior post would be that the normal php limitations
+ that are imposed Under php safe mode and other possible constrains that are available and
+ needed by Sysadmins that aim to lock down domains and secure the virtual users
+ data are not in Effect under perl with the same scope, thus you really benefit from
+ having the best Of this 2 wounderfull languages one for all database, web processes and
+ another for Backend services and maintenance, of course this can also be
+ accomplished by using The cgi or stand alone php but that is a questionable solution since you
+ are not always Granted this option in all servers and even when you could in fact
+ compile your own Php cgi binary not all hosts allow this now, and all of them no matter
+ which architecture Of *nix use perl, and if talking about win32 systems well ?ActivePerl is
+ available to them And in that case uid/gid  issues are no relevant because NT / w2k or XP
+ do not have Such security layouts in them in such a greater detail as a unix system
+ has.
+ Thus maybe if the win32 user base is big enough or has problems in
+ getting perl support But has php, then a second engine for this in php would work under this
+ types of servers.
+ This would cover all possibilities IMHO.
+5. Relationship of the System to other areas 
+Modules module: Is invoked for module installs / upgrades 
+Module registry: Check for new versions, download modules 
+pnDDL: Table creation support for different database types 
+ 6.  Code that will need to be rewritten
+7. Basic documents for this RFC 
+
+[1] Module Dependencies: http://groups.yahoo.com/group/pndev/message/10572 
+[2] Modules Remote Install: http://groups.yahoo.com/group/pndev/message/8725 
+[3] Securiy Issues with Remote Install: http://groups.yahoo.com/group/pndev/message/8739 
+8. Tools that need to be created from scratch 
+9. Retractions 
+   We list features that were considered but rejected for this Install System below.
+10. Open Issues 
+Write access to modules directory. Autoinstalling modules is fraught with many security issues. 
+ Jim McDonald writes:
+ My two biggest worries are that unauthorised uses could get to this through
+ some sort of security hole and really trash the PostNuke install, and
+ that it will require the modules directory to be set to an insecure
+ setting to accomplish this. Bad directory permissions is one of the
+ current outstanding areas where PostNuke doesn't look good, and this
+ will just make it worse.
+ If we are going to do this I'd prefer to see it as an option at
+ install-time rather than something that is automatically ready to go.
+11. Acknowledgements 
+ Jim McDonald
+ John Cox
+ Andy Varganov
+ Jim Barchuk
+ Lawrence Akka
+ Greg Allan
+ Aidan Humphreys
+ Scott Kindley
+ Francisco Sam Castillo
+12. Changelog 
+    0.1 (Febuary 3, 2002) John Robeson
+       Initial Version
+    0.2 (June 23, 2002) gregorrothfuss
+        Resources added
+        Use Cases
+
+
+	</artwork>
+      </t>
+    </section>
+  </middle>
+</rfc>

@@ -108,7 +108,12 @@ TD.author {
 	font-size: 10px;
 	font-family: verdana, arial, helvetica, sans-serif 
 	}
-	
+
+HR {
+	width:100%;
+	color:#C0C0C0
+	}
+		
 A:link {	
 	color: #333399; 
 	font-weight: bold;
@@ -139,7 +144,7 @@ A:name {
 	}	
 	
 .link2 { 
-	color:#ffffff;
+	color:#FFFFFF;
 	font-weight: bold;
 	text-decoration: none;
 	font-family: verdana, arial, helvetica, sans-serif;

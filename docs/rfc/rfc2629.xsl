@@ -1173,7 +1173,7 @@ td.header
 }
 .title
 {
-	color: #990000;
+	color: #003366;
   font-size: 22px;
   line-height: 22px;
   font-weight: bold;
@@ -1593,7 +1593,7 @@ ins
       </xsl:if>
   		<xsl:if test="$includeToc='yes'">
       	<tr>
-          <td bgcolor="#990000" align="center" width="30" height="15">
+          <td bgcolor="#003366" align="center" width="30" height="15">
              		<a href="#{$anchor-prefix}.toc" CLASS="link2"><b class="link2">&#0160;TOC&#0160;</b></a>
   			  </td>
         </tr>

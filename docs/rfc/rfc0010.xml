@@ -604,14 +604,6 @@ html/
         </section>
 				<!-- xar:continue -->
 				<section anchor="continue" title="&lt;xar:continue&gt;">
-					<t>Closed</t>
-					<t>Attributes:
-            <list style="symbols">
-							<t>id: an identifier for the tag (optional)</t>
-							<t>depth: how many levels of enclosing loops to skip to the end of (optional)</t>
-						</list>
-					</t>
-					<t>Description</t>
 					<t>
             Ends the current iteration of a 
             <xref target="for">&lt;xar:for /&gt;</xref>, 
@@ -621,7 +613,20 @@ html/
             If the depth attribute is present and an integer greater than 1, an equal number 
             of enclosing loops are skipped to the end of their current iteration.
           </t>
-					<t>Syntax example:
+          <section title="Forms">
+            <t>Only to be used in empty form</t>
+          </section>
+          <section title="Attributes">
+            <list>
+							<t><em>[id]</em>
+                <t>an identifier for the tag (optional)</t>
+              </t>
+							<t><em>[depth]</em> (1)
+                <t>how many levels of enclosing loops to skip to the end of (optional)</t>
+              </t>
+						</list>
+          </section>
+					<section title="Syntax examples">
             <artwork>
               &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
                 &lt;xar:if condition="$i eq 5"&gt;
@@ -630,16 +635,23 @@ html/
                 #$i#
               &lt;/xar:for&gt;
             </artwork>
-					</t>
-          <t>
-            The above will generate:
-            <artwork>
-              012346789
-            </artwork>
-          </t>
-					<t>Parent tags: <xref target="for">&lt;xar:for /&gt;</xref>, &lt;xar:loop /&gt;, or <xref target="while">&lt;xar:while /&gt;</xref>.</t>
-					<t>Child tags: none</t>
-				</section>
+              <t>
+                The above will generate:
+                <artwork>
+                  012346789
+                </artwork>
+              </t>
+            </section>
+            <section title="Context">
+              <t>Parent tags:
+                <t><xref target="for">&lt;xar:for /&gt;</xref>
+                  <xref target="loop">&lt;xar:loop /&gt;</xref>, or 
+                  <xref target="while">&lt;xar:while /&gt;</xref>.
+                </t>
+              </t>
+              <t>Child tags: none</t>
+            </section>
+          </section>
 				<!-- xar:else -->
 				<section anchor="else" title="&lt;xar:else /&gt;">
 					<t>Closed</t>

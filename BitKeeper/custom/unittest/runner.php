@@ -33,6 +33,7 @@ assert($bkroot!='');
  *
  * We can/should the absolute path here as we don't know where we are
  */
+exec("bk get -Sq $bkroot/".UT_FRAMWDIR."xarUnitTest.php");
 include_once "$bkroot/".UT_FRAMWDIR."xarUnitTest.php";
 
 /** 
@@ -62,16 +63,19 @@ while (list($key, $dir) = each($dirs)) {
     if (is_dir($dir)) {
         // Open the dir and include the testfiles
         if ($testsdir = opendir($dir)) {
+            exec("bk get -Sq $dir");
             while ($file = readdir($testsdir) ) {
                 // Now, we get also ., .. and subdirs, let's filter out some stuff
                 // the testfiles are php scripts, so let's require them to have the
                 // php extension
+                
                 if (preg_match('/\.php$/',$file)) {
                     if ($file !='') {
                         // The chdir juggling is necessary to set the 
                         // property _basedir of each testcase.
                         $savedir = getcwd();
                         chdir($savedir."/".$dir);
+                        exec("bk get -Sq $file");
                         include_once($file);
                         chdir($savedir);
                     }

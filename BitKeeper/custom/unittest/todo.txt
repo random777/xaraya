@@ -11,16 +11,17 @@ For lack of a better place a short(?) tasklist to implement the RFC to completio
 - the system fails ungracefully now when encountering php errors. We should
   define a php-error handler which catches these and reroute them into a 
   xarTestException object
+  [Not entirely possible without local machine config changes]
+  
 - the xarTestReport classes are absent
 - bk -r test goes to the root of repositor and produces the right output, but
   it also produces: "output error: Broken pipe". I have no idea what bk does
   besides cd-ing to the root of the repository. It seems to want to pipe the
   result output into something.
+  [The recursive running has been implemented, the -r error is still there tho]
 - command-line options aren't implemented yet. I'd love to use getopt php 
   function for that, but this is not available on windows, we could use the
   PEAR getopt package for it.
-- bk tests should actually look for testcases in all directories below the 
-  current directory (see RFC for exact definition)
 - is there a way to implement "-" commandline option (stdin input) so the 
   command is actually scriptable?
 - trigger for global tests on pre-commit is absent
@@ -54,4 +55,17 @@ For lack of a better place a short(?) tasklist to implement the RFC to completio
 - some quicktest mode would be convenient imo just giving the nr of test, nr of
   success and nr of failures. This would stimulate lots of test runs. Not very
   high priority i guess.
+- think about conditional test runner, for example, only run some tests on windows
+  or some other platform specified, the class hierarchy allows for this, but i can
+  imagine that's rather hard to implement
+- the way things are done now is to gather *all* info from all tests and then produce
+  the output in one sweep. While this is clean, it leaves the user wondering what 
+  happens. If we want to stick to the architecture as we have now we can start two 
+  threads communicating (output thread reading the results buffer and the test thread
+  writing to it) This is of course impossible with php ;-)
+- abstract the "bk specific commands out of the actual testcode, so we could use it
+  with other repository systems as well (cvs and subversion come to mind)
+- make sure that everytime we need a certain file, we do a bk get silently on it, so
+  we can run the test system on a "clean" repository as well.
+  [DONE for the tests itself, for the files the tests need this is more difficult]
 - 

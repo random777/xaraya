@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Error handling</title>
+	
+	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
+	<meta name="CREATED" content="20030928;11144100">
+	<meta name="CHANGEDBY" content="Scot Gardner">
+	<meta name="CHANGED" content="20030928;11144200">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
+<div align="center" type="HEADER"><big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big></div>
+<ul>
+	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Error
+	handling</h1>
+</li></ul>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">Xaraya is capable of error handling through a
+powerful exception handling system. Since the <b>PHP</b> language
+does not support language-level exceptions, Xaraya provides an
+artificial mechanism to deal with exceptions. Xaraya divides
+exceptions into two types: system exceptions and user exceptions.
+System exceptions are used by Xaraya <b>API</b> functions, but you
+can use them if it's meaningful in that such situation; for example
+consider the DATABASE_ERROR exception, you are strongly encouraged to
+use this exception when a database error occurs and not to use your
+own exception. </font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">As another example considers the BAD_PARAM
+exception, you should choose to use that exception in your module
+functions and <b>API</b> functions when passed parameters are wrong.
+Finally, system exceptions are well known exceptions for which Xaraya
+can undertake. Xaraya does not know particular actions like logging,
+emailing, or user exceptions, and since they are indistinguishable,
+Xaraya will treat them, as they were all the same thing. </font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Another good point of distinction between system and user exceptions
+is the fact that you should not leave uncaught user exceptions as you
+can do for system exceptions. Hence, you should catch all user
+exceptions instead of throwing them back to Xaraya, this is because
+user exceptions are the same as soft exceptions, so you could be in
+the position of doing other actions and/or returning a properly
+formatted error message that will look better than the default Xaraya
+exception caught error message. However, it is not illegal to throw
+back user exceptions to Xaraya, so fell free to do that if it is the
+case. 
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+You should avoid catching system exceptions, except in particular
+cases. A system exception is a hard exception, this means that
+something very wrong happened and Xaraya should be notified. You can
+achieve this simply by throwing back system exceptions. In addition,
+there are particular circumstances in which you could and perhaps
+should catch system exceptions. 
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">For example consider the <font size="2"><font face="Courier New, monospace">xarUserGetVar()</font></font>
+<b>API</b> function: it raises a NO_PERMISSION system exception in
+the case you don't have right permission, however you weren't in the
+position to get access level for user variables, so it's perfectly
+acceptable here to catch this exception and go ahead when it's
+meaningful to do so. </font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">Now is the moment to explore how Xaraya permits
+you to deal with exceptions. Here we begin by exposing how to catch
+exceptions. When a function that potentially can raise exceptions,
+outcomes with a void value you MUST check if some exception was
+raised. You can do that by calling the <font size="2"><font face="Courier New, monospace">xarExceptionMajor()</font></font>
+function and comparing its return value with the XAR_NO_EXCEPTION
+constant. If they are different, you know that an exception has been
+raised. </font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The <font size="2"><font face="Courier New, monospace">xarExceptioMajor()</font></font>
+return value can assume one of these values: XAR_NO_EXCEPTION,
+XAR_USER_EXCEPTION, XAR_SYSTEM_EXCEPTION. The value XAR_NO_EXCEPTION
+indicates that no exception was raised, and XAR_USER_EXCEPTION stands
+for user exception was raised and XAR_SYSTEM_EXCEPTION stands for
+system exception was raised. </font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+When you see that an exception was raised you have two options: throw
+it back or handle it. To throw back an exception you have only to
+return with a void value. To handle an exception you have to check
+for the exception type, id and value if one. 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Consider the following example: 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt;"><font color="#800000">$res</font><font color="#008080">
+</font><font color="#000000">=</font><font color="#008080">
+</font><font color="#000000">xarModFunc(</font><font color="#008000">'MyModule'</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">'user'</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">'MyFunc'</font><font color="#000000">);<br><b>if</b></font><font color="#008080">
+</font><font color="#000000">(!<b>isset</b>(</font><font color="#800000">$res</font><font color="#000000">)</font><font color="#008080">
+</font><font color="#000000">&amp;&amp;</font><font color="#008080">
+</font><font color="#000000">xarExceptionMajor()</font><font color="#008080">
+</font><font color="#000000">!=</font><font color="#008080">
+</font><font color="#000000">XAR_NO_EXCEPTION)</font><font color="#008080">
+</font><font color="#000000">{<br></font><font color="#008080">    </font><font color="#ff9900"><i>//
+Got an exception</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><b><font color="#000000">if</font></b><font color="#008080">
+</font><font color="#000000">(xarExcepionMajor()</font><font color="#008080">
+</font><font color="#000000">==</font><font color="#008080">
+</font><font color="#000000">XAR_SYSTEM_EXCEPTION)</font><font color="#008080">
+</font><font color="#000000">{<br></font><font color="#008080">      
+ </font><font color="#000000"><b>return</b>;</font><font color="#008080">
+</font><font color="#ff9900"><i>// throw back</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><font color="#000000">}<br></font><font color="#008080">   
+</font><font color="#ff9900"><i>// Got a user exception</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><b><font color="#000000">if</font></b><font color="#008080">
+</font><font color="#000000">(xarExceptionId()</font><font color="#008080">
+</font><font color="#000000">==</font><font color="#008080">
+</font><font color="#008000">'MyException1'</font><font color="#000000">)</font><font color="#008080">
+</font><font color="#000000">{<br></font><font color="#008080">      
+ </font><font color="#800000">$value</font><font color="#008080"> </font><font color="#000000">=</font><font color="#008080">
+</font><font color="#000000">xarExceptionValue();<br></font><font color="#008080">
+       </font><font color="#800000">$output</font><font color="#000000">-&gt;Text(</font><font color="#008000">"Syntax
+error at line: "</font><font color="#000000">.</font><font color="#800000">$value</font><font color="#000000">-&gt;lineNumber);<br></font><font color="#008080">
+   </font><font color="#000000">}</font><font color="#008080"> </font><b><font color="#000000">elseif</font></b><font color="#008080">
+</font><font color="#000000">(xarExceptionId()</font><font color="#008080">
+</font><font color="#000000">==</font><font color="#008080">
+</font><font color="#008000">'MyException2'</font><font color="#000000">)</font><font color="#008080">
+</font><font color="#000000">{<br></font><font color="#008080">      
+ </font><font color="#ff9900"><i>/*</i></font><font color="#ff9900">
+</font><i><font color="#ffff00"><font color="#ff9900">Do something useful *</font>/</font></i><font color="#000000"><br></font><font color="#008080">
+   </font><font color="#000000">}</font><font color="#008080"> </font><b><font color="#000000">else</font></b><font color="#008080">
+</font><font color="#000000">{</font><font color="#008080"> </font><font color="#ff9900"><i>//
+MyException3</i></font><font color="#ff9900"><br></font><font color="#ff9900">
+       <i>/*</i></font><font color="#ff9900">
+<i>Do something useful */</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><font color="#000000">}<br></font><font color="#008080">   
+</font><font color="#ff9900"><i>// reset exception status</i></font><font color="#ff9900"><br></font><font color="#ff9900">
+   <i>// NOTE: it's of vital importance
+to call this function</i></font><font color="#ff9900"><br></font><font color="#ff9900">
+   <i>//       before returning<br>
+<br>
+</i></font><font color="#008080">
+   </font><font color="#000000">xarExceptionFree();<br></font><font color="#008080">
+   </font><b><font color="#000000">return</font></b><font color="#008080">
+</font><font color="#800000">$output</font><font color="#000000">-&gt;GetOutput();<br>}<br></font></font><font color="#000000"><font size="2">
+     </font></font></font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000">To throw exception you use a unique function:
+<font size="2"><font face="Courier New, monospace">xarExceptionSet()</font></font>.
+You simply call it by passing the exception major, id and value if
+one; and after this call, you return void. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Consider the following example: 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font color="#008080">   </font><font face="Courier New, monospace"><font size="2" style="font-size: 9pt;"><b><font color="#000000">class</font></b><font color="#008080">
+</font><font color="#000000">MyException1<br>{<br></font><font color="#008080">
+   </font><b><font color="#000000">var</font></b><font color="#008080">
+</font><font color="#800000">$lineNumber</font><font color="#000000">;<br>}<br><br></font><font color="#ff9900"><i>/*</i></font><font color="#ff9900">
+</font><i><font color="#ffff00"><font color="#ff9900">... */</font><br></font></i><font color="#000000"><br>MyModule_user_MyFunc()<br><font color="#ff9900">{<br>
+</font></font><font color="#ff9900">
+   <i>/*</i></font><font color="#ff9900">
+<i>... */</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><b><font color="#000000">if</font></b><font color="#008080">
+</font><font color="#000000">(</font><font color="#800000">$syntax</font><font color="#008080">
+</font><font color="#000000">==</font><font color="#008080"> </font><font color="#000000"><b>false</b>)</font><font color="#008080">
+</font><font color="#000000">{<br></font><font color="#008080">      
+ </font><font color="#ff9900"><i>// Syntax error</i></font><font color="#000000"><br></font><font color="#008080">
+       </font><font color="#800000">$exc</font><font color="#008080">
+</font><font color="#000000">=</font><font color="#008080"> </font><b><font color="#000000">new</font></b><font color="#008080">
+</font><font color="#000000">MyException1;<br></font><font color="#008080">
+       </font><font color="#800000">$exc</font><font color="#000000">-&gt;lineNumber</font><font color="#008080">
+</font><font color="#000000">=</font><font color="#008080"> </font><font color="#800000">$line</font><font color="#000000">;<br></font><font color="#008080">
+       </font><font color="#000000">xarExceptionSet(XAR_USER_EXCEPTION,</font><font color="#008080">
+</font><font color="#008000">'MyException1'</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#800000">$exc</font><font color="#000000">);<b>return</b>;<br></font><font color="#008080">
+   </font><font color="#000000">}<br></font><font color="#008080">   
+</font><font color="#ff9900"><i>/*</i></font><font color="#ff9900">
+<i>... */</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><font color="#000000">xarExceptionSet(XAR_USER_EXCEPTION,</font><font color="#008080">
+</font><font color="#008000">'MyException2'</font><font color="#000000">);<br></font><font color="#008080">
+   </font><font color="#ff9900"><i>/*</i></font><font color="#ff9900">
+<i>... */</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><font color="#ff9900">xarExceptionSet(XAR_USER_EXCEPTION,</font><font color="#ff9900">
+</font><font color="#ff9900">'MyException3'</font><font color="#ff9900">);<br></font><font color="#ff9900">
+   <i>/*</i></font><font color="#ff9900">
+<i>... */</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><b><font color="#000000">return</font></b><font color="#008080">
+</font><font color="#000000"><b>true</b>;<br>}</font></font><font color="#000000"><font size="2">
+     </font></font></font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Note that no value is associated to MyException2 and MyException3, so
+there is no need to create a class for exception value. As you can
+see exception, handling is very powerful but also boring and tedious.
+However, you can always choose not to use user exceptions and always
+throw back system exceptions. 
+</p>
+<p class="western" style="text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000">Keep in mind that good error handling is not
+something that to leave for last. It should be part of the
+development process. Note that it is wrong not to check exception
+status after a call to a function that can potentially raise
+something. And note also that if you choose to handle one or more
+exceptions you MUST call <font size="2"><font face="Courier New, monospace">xarExceptionFree()</font></font>
+before exiting, otherwise the trust relationship on which the
+exception handling mechanism is based won't work and you will produce
+very bad things. </font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000">An ulterior thing for those of you wanting to
+code an official Xaraya module: you MUST always check for possibly
+raised exceptions and not code with the thought that something will
+never happen; you MUST also raise DATABASE_ERROR in every function
+that does queries. To get a better understanding of exception
+handling functions you should refer to the Xaraya <b>API</b> Command
+Reference.<br>
+<br>
+</font></p>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="XarayaMDG13.html">Prev</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG15.html">Next</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div type="FOOTER">
+	<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2">All
+	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
+</div>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Administration Display Functions</title>
+	
+	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
+	<meta name="CREATED" content="20030928;11145900">
+	<meta name="CHANGEDBY" content="Scot Gardner">
+	<meta name="CHANGED" content="20030928;11145900">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
+<div align="center" type="HEADER">
+	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
+
+	
+</div>
+<ul>
+	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Administration
+	Display Functions</h1>
+</li></ul>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">main()</font></font>
+- the default function to call, normally just presents the user menu 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">view()</font></font>
+- display an overview of all items, normally paged output, with
+relevant administrative options. Note that it is possible to combine
+this function with the user <font face="Courier New, monospace"><font size="2">view()</font></font>
+function 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">new()</font></font>
+- display a form to obtain enough information from the user to create
+a new item 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">create()</font></font>
+- take the information from the form displayed by the administration
+<font face="Courier New, monospace"><font size="2">new()</font></font>
+function and pass it on to the administration API for creating the
+item 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">modify()</font></font>
+- display the details of a current item given the item description,
+and present the relevant fields for modification 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">update()</font></font>
+- take the information from the form displayed by the administration
+<font face="Courier New, monospace"><font size="2">modify()</font></font>
+function and pass it on to the administration API for modifying the
+item 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">delete()</font></font>
+- display confirmation for deletion of an item, and if confirmed pass
+the relevant information on to the administration API for deleting
+the item 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">modifyconfig()</font></font>
+- display the details of the module's current configuration, and
+present the relevant fields for modification 
+</p>
+<p style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">updateconfig()</font></font>
+- take the information from the form displayed by the administration
+<font face="Courier New, monospace"><font size="2">modifyconfig()</font></font>
+function and update the relevant module configuration variables 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<div type="FOOTER">
+<div align="center">
+	</div>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="XarayaMDG42.html">Prev</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG44.html">Next</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2"><br>
+All
+	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
+
+</div>
+</body></html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Xaraya Developers Guide</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.0  (Linux)">
+	<META NAME="CREATED" CONTENT="20030928;11143300">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20030928;11143300">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" ALIGN=CENTER STYLE="page-break-inside: auto">
+	Xaraya Developers Guide</H1>
+</UL>
+<P CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B>Table of Contents</B></P>
+<DIV ID="Table of Contents1" DIR="LTR">
+	<P STYLE="margin-bottom: 0in">Xaraya Developers Guide	2</P>
+	<P STYLE="margin-bottom: 0in">Abstract	3</P>
+	<P STYLE="margin-bottom: 0in">Introduction	4</P>
+	<P STYLE="margin-bottom: 0in">Discussion	5</P>
+	<P STYLE="margin-bottom: 0in">What is a module?	5</P>
+	<P STYLE="margin-bottom: 0in">Why write a module?	5</P>
+	<P STYLE="margin-bottom: 0in">Related Documents	6</P>
+	<P STYLE="margin-bottom: 0in">Suggestions and Updates	6</P>
+	<P STYLE="margin-bottom: 0in">Xaraya Architecture	6</P>
+	<P STYLE="margin-bottom: 0in">Variable handling	6</P>
+	<P STYLE="margin-bottom: 0in">User Variables	6</P>
+	<P STYLE="margin-bottom: 0in">Variable validation	8</P>
+	<P STYLE="margin-bottom: 0in">Error handling	10</P>
+	<P STYLE="margin-bottom: 0in">Xaraya Module Design	12</P>
+	<P STYLE="margin-bottom: 0in">Separation of User and Administrator
+	Functions	12</P>
+	<P STYLE="margin-bottom: 0in">Separation of Display and Operational
+	Functions	13</P>
+	<P STYLE="margin-bottom: 0in">Single Directory Installation	13</P>
+	<P STYLE="margin-bottom: 0in">External Access to Module Functions	13</P>
+	<P STYLE="margin-bottom: 0in">Xaraya Module Operations	13</P>
+	<P STYLE="margin-bottom: 0in">Locating Modules	13</P>
+	<P STYLE="margin-bottom: 0in">Working out Module Functionality	13</P>
+	<P STYLE="margin-bottom: 0in">Initializing Modules	14</P>
+	<P STYLE="margin-bottom: 0in">Activating/Deactivating Modules	14</P>
+	<P STYLE="margin-bottom: 0in">Calling Module Functions	14</P>
+	<P STYLE="margin-bottom: 0in">Creating Module URLs	14</P>
+	<P STYLE="margin-bottom: 0in">Direct URLs to functions	14</P>
+	<P STYLE="margin-bottom: 0in">Before Starting Your Module	15</P>
+	<P STYLE="margin-bottom: 0in">Choosing a Name for Your Module	15</P>
+	<P STYLE="margin-bottom: 0in">Decide on the Type of Your Module	15</P>
+	<P STYLE="margin-bottom: 0in">Register Your Module Name	15</P>
+	<P STYLE="margin-bottom: 0in">Obtain a Copy of the Xaraya API
+	Reference Guide	16</P>
+	<P STYLE="margin-bottom: 0in">Read the Notes on Developing Modules
+	Section	16</P>
+	<P STYLE="margin-bottom: 0in">Understand the Following Areas	16</P>
+	<P STYLE="margin-bottom: 0in">Difference between GUI and Operational
+	Functions	16</P>
+	<P STYLE="margin-bottom: 0in">The Xaraya Security Model	16</P>
+	<P STYLE="margin-bottom: 0in">Function Return Codes	17</P>
+	<P STYLE="margin-bottom: 0in">Where Modules Fit in Xaraya	17</P>
+	<P STYLE="margin-bottom: 0in">Design Your Module	17</P>
+	<P STYLE="margin-bottom: 0in">Consider Including the Standard Module
+	Functions	18</P>
+	<P STYLE="margin-bottom: 0in">Use Standard Function Names	18</P>
+	<P STYLE="margin-bottom: 0in">User Display Functions	18</P>
+	<P STYLE="margin-bottom: 0in">User API Functions	19</P>
+	<P STYLE="margin-bottom: 0in">Administration Display Functions	19</P>
+	<P STYLE="margin-bottom: 0in">Administration API Functions	19</P>
+	<P STYLE="margin-bottom: 0in">Find out What Utility Modules are
+	Available	20</P>
+	<P STYLE="margin-bottom: 0in">Module Directory Structure	20</P>
+	<P STYLE="margin-bottom: 0in">Building Your Module	29</P>
+	<P STYLE="margin-bottom: 0in">Make Your Initial Directory	29</P>
+	<P STYLE="margin-bottom: 0in">Copy the Module Example	29</P>
+	<P STYLE="margin-bottom: 0in">Code your Database Tables	29</P>
+	<P STYLE="margin-bottom: 0in">Write your Initialization Functions	29</P>
+	<P STYLE="margin-bottom: 0in">Test Your Initialization Routines	30</P>
+	<P STYLE="margin-bottom: 0in">Write Your Administration Functions	30</P>
+	<P STYLE="margin-bottom: 0in">Test Your Administration Functions	30</P>
+	<P STYLE="margin-bottom: 0in">Write Your User Functions	31</P>
+	<P STYLE="margin-bottom: 0in">Test Your User Functions	31</P>
+	<P STYLE="margin-bottom: 0in">Write Your Blocks	31</P>
+	<P STYLE="margin-bottom: 0in">Test Your Blocks	32</P>
+	<P STYLE="margin-bottom: 0in">Document Your Module	32</P>
+	<P STYLE="margin-bottom: 0in">Packaging Your Module	32</P>
+	<P STYLE="margin-bottom: 0in">Interacting With Other Modules	32</P>
+	<P STYLE="margin-bottom: 0in">Overview	32</P>
+	<P STYLE="margin-bottom: 0in">Hooks	33</P>
+	<P STYLE="margin-bottom: 0in">Calling Hooks	33</P>
+	<P STYLE="margin-bottom: 0in">Writing Hooks	35</P>
+	<P STYLE="margin-bottom: 0in"> Writing Hook Functions	35</P>
+	<P STYLE="margin-bottom: 0in">Registering Hooks	36</P>
+	<P STYLE="margin-bottom: 0in">Un-registering Hooks	37</P>
+	<P STYLE="margin-bottom: 0in">Function Calls	37</P>
+	<P STYLE="margin-bottom: 0in">Upgrading Your Module	38</P>
+	<P STYLE="margin-bottom: 0in">Notes in Developing Modules	38</P>
+	<P STYLE="margin-bottom: 0in">Use xarAPI	38</P>
+	<P STYLE="margin-bottom: 0in">Security	38</P>
+	<P STYLE="margin-bottom: 0in">Variable Handling	39</P>
+	<P STYLE="margin-bottom: 0in">Authorization	39</P>
+	<P STYLE="margin-bottom: 0in">Reserved Variable Names	39</P>
+	<P STYLE="margin-bottom: 0in">Page Path	39</P>
+	<P STYLE="margin-bottom: 0in">Output	40</P>
+	<P STYLE="margin-bottom: 0in">Using Object Oriented Code	40</P>
+	<P STYLE="margin-bottom: 0in">Recommendations	40</P>
+	<P STYLE="margin-bottom: 0in">Glossary	41</P>
+	<P STYLE="margin-bottom: 0in">Appendix A	43</P>
+	<P STYLE="margin-bottom: 0in">Module Developers Check List	43</P>
+</DIV>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

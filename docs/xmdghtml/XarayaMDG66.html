@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Registering Hooks</title>
+	
+	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
+	<meta name="CREATED" content="20030928;11151400">
+	<meta name="CHANGEDBY" content="Scot Gardner">
+	<meta name="CHANGED" content="20030928;11151400">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
+<div align="center" type="HEADER">
+	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
+
+	
+</div>
+<ul>
+	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Registering
+	Hooks</h1>
+</li></ul>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">	Once your module has hook-capable functions in
+place they need to be registered on initialization of the module so
+that the administrator can configure their applicability, and other
+modules can access them through the <font size="2"><font face="Courier New, monospace">xarModCallHooks()</font></font>
+function. This is carried out through use of the <font size="2"><font face="Courier New, monospace">xarModRegisterHook()</font></font>
+function. This function should be placed within the <font size="2"><font face="Courier New, monospace"><i>modname</i>_init()</font></font>
+function of your module and given appropriate parameters to register
+the relevant hook-capable module functions within your module as
+hooks. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The <font size="2"><font face="Courier New, monospace">xarModRegisterHook()</font></font>
+function takes a number of parameters, which are explained below: </font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><b>
+hookobject</b> 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The object for which the hook is to be
+registered - currently either <i>category</i>, or <i>item</i>, as
+described above </font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><b>
+hookaction</b> 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The action for which the hook is to be
+registered - currently one of <i>create</i>, <i>delete</i>,
+<i>transform</i>, or <i>display</i> </font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><b>
+hookarea</b> 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The area that the hook function covers -
+currently either <b><i>GUI</i></b> (for functions that are in
+<font size="2"><font face="Courier New, monospace">xaruser.php</font></font>
+and <font size="2"><font face="Courier New, monospace">xaradmin.php</font></font>)
+or <b><i>API</i> </b>(for functions that are in <font size="2"><font face="Courier New, monospace">xaruserapi.php</font></font>
+and <font size="2"><font face="Courier New, monospace">xaradminapi.php</font></font>)
+</font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><b>
+hookmodule</b> 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+The name of the module in which the hook function exists - normally
+the name of the module calling this function 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><b>
+hooktype</b> 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The type of the hook function - currently
+either <font size="2"><font face="Courier New, monospace">user</font></font>
+or <font size="2"><font face="Courier New, monospace">admin</font></font>
+</font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><b>
+hookfunc</b> 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+The name of the hook function 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The <font size="2"><font face="Courier New, monospace">xarModRegisterHook()</font></font>
+function returns <i>true</i> if the registration was successful, and
+<i>false</i> if the registration is unsuccessful. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">As an example of registering hooks, if you were
+developing the 'globalid' utility module (which gives every piece of
+content in Xaraya a separate ID) and had a <font size="2"><font face="Courier New, monospace">globalid_admin_create()</font></font>
+function which created an entry in the global ID table for this
+particular piece of content then you would register this as a
+creation hook. To do this you would use the following lines within
+<font size="2"><font face="Courier New, monospace">globalid_init()</font></font>:
+</font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font size="2" style="font-size: 9pt;"><font face="Courier New, monospace"><b><font color="#000000">if</font></b><font color="#008080">
+</font><font color="#000000">(!xarModRegisterHook(</font><font color="#008000">'item'</font><font color="#000000">,<br></font><font color="#008080">
+                      </font><font color="#008000">'create'</font><font color="#000000">,<br></font><font color="#008080">
+                      </font><font color="#008000">'API'</font><font color="#000000">,<br></font><font color="#008080">
+                      </font><font color="#008000">'globalid'</font><font color="#000000">,<br></font><font color="#008080">
+                      </font><font color="#008000">'admin'</font><font color="#000000">,<br></font><font color="#008080">
+                      </font><font color="#008000">'create)) {</font><font color="#000000"><br></font><font color="#008080">
+   </font><font color="#008000">return false;</font><font color="#000000"><br></font><font color="#008000">}<br></font></font></font><br>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+          
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	Which would register this hook to be called every time a
+hook-enabled module someone creates an item (a similar but separate
+call would be needed to register this hook for the creation of
+categories as well). 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	The Ratings module that comes with the core Xaraya distribution has
+detailed comments on registering hooks within a utility module. 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<div type="FOOTER">
+<div align="center">
+	</div>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="XarayaMDG65.html">Prev</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG67.html">Next</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2"><br>
+All
+	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
+
+</div>
+</body></html>

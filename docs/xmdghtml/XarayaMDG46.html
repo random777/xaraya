@@ -1,0 +1,1825 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Module Directory Structure</title>
+	
+	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
+	<meta name="CREATED" content="20030928;11150100">
+	<meta name="CHANGEDBY" content="Scot Gardner">
+	<meta name="CHANGED" content="20030928;11150100">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
+<div align="center" type="HEADER">
+	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
+
+	
+</div>
+<ul>
+	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Module
+	Directory Structure</h1>
+</li></ul>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	Xaraya modules have a very specific directory structure. This allows
+the Xaraya system to use a generic system to access all modules
+without needing to know specific information about each separate
+module that is built. Following the directory structure as laid out
+below is an absolute requirement of any Xaraya-compliant module. 
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">Extra files and directories in addition to
+those shown below are allowed. In addition, if any of the files below
+are not required (<i>e.g.</i> the module does not have database
+tables of its own so it does not require the xartables.php file) then
+they do not need to exist. However, files that perform the functions
+outlined below must comply with the file naming convention to allow
+the Xaraya system to load the suitable files at the appropriate times
+to ensure correct operation of the module.</font></p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+This shows the layout of the example module directory. Other modules
+will have different names for their top-level directory and blocks as
+appropriate for their specific functionality<br>
+</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="1">
+  <tbody>
+    <tr>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">modules/</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#1">(1)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">example/</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#2">(2)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">			xaradmin/</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#3">(3)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				create.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#4">(4)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				delete.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#5">(5)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				main.php			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#6">(6)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				modify.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#7">(7)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				modifyconfig.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#8">(8)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				new.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#9">(9)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				update.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#10">(10)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				updateconfig.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#11">(11)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				view.php			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#12">(12)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				index.html			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#13">(13)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">			xaradminapi/</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#14">(14)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				create.php <br>
+</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#15"><font size="2"><font face="Courier New, monospace">(15)</font></font></a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				delete.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#16">(16)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				getmenulinks.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#17">(17)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				menu.php			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#18">(18)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				update.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#19">(19)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				index.html			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#20">(20)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">			xarblocks/</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#21">(21)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				first.php 
+			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#22">(22)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				others.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#23">(23)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				index.html</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#24">(24)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">			xarimages/				</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#25">(25)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin.gif</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#26">(26)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin_generic.gif</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#27">(27)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				preferences.gif</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#28">(28)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				index.html</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#29">(29)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">			xartemplates/				</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#30">(30)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				blocks/</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#31">(31)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				  
+first.xd			</font></font></td>
+      <td align="center" valign="top"><a href="#32">(32)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				  
+firstAdmin.xd</font></font></td>
+      <td align="center" valign="top"><a href="#33">(33)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				  
+othersAdmin.xd		</font></font></td>
+      <td align="center" valign="top"><a href="#34">(34)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				  
+example-firstblock-modify.xd</font></font></td>
+      <td align="center" valign="top"><a href="#35">(35)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin-delete.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#36">(36)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin-main.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#37">(37)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin-menu.xd			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#38_">(38)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">admin-modify.xd			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#39">(39)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin-modifyconfig.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#40">(40)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin-new.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#41">(41)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				admin-view.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#42">(42)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				index.html</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#43">(43)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				user-display.xd			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#44">(44)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				user-main.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#45">(45)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				user-menu.xd			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#46">(46)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				user-usermenu_icon.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="$47">(47)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				user-view.xd			</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#48">(48)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				user-usermenu_form.xd</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#49">(49)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">			xaruser/				</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#50">(50)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				display.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#51">(51)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				main.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#52">(52)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				usermenu.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#53">(53)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				view.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#54">(54)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				index.html</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#55">(55)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">xaruserapi/				</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#56">(56)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				encode_shorturl.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#57">(57)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				countitems.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#58">(58)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				decode_shorturl.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#59">(59)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				get.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#60">(60)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				getall.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#61">(61)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				getmenulinks.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#62">(62)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				menu.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#63">(63)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				validateitem.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#64">(64)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				index.html</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#65">(65)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2"><br>
+</font></font></td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">				getitemlinks.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#66">(66)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		xareventapi.php					</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#67">(67)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		xarinit.php					</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#68">(68)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		xartables.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#69">(69)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		example.wsdl					</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#70">(70)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		index.html</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#71">(71)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		xaradmin.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#72">(72)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">xaradminapi.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#73">(73)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		xaruser.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#74">(74)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		xaruserapi.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#75">(75)</a><br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><font face="Courier New, monospace"><font size="2">		xarversion.php</font></font></td>
+      <td valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top"><a href="#76">(76)</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;"><br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="1"></a>
+<b>(1)</b> The top-level directory in Xaraya for modules 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="2"></a>
+<b>(2)</b> The directory that contains all of the module code (in this case
+the module is named 'example') 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="3"></a>
+<b>(3)</b> The directory that contains all administrative GUI functions for
+the module	 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="4"></a>
+<b>(4) create.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This a standard function that is called with the results of the form
+supplied by xarModFunc(&#8216;example&#8217;,&#8217;admin&#8217;,&#8217;new&#8217;)
+to create a new item.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Syntax: @param $&#8217;name&#8217; &#8211; The name of the item to be
+created</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+	 @param $&#8217;number&#8217; &#8211; The number of the item to be
+created</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="5"></a>
+<b>(5) delete.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+ This standard function is called whenever an administrator wishes to
+delete a current module item. Note that this function is the
+equivalent of both the modify() and update() functions as it operates
+a form and processes its output. This is fine for simpler functions,
+but for complex operations such as creation and modification it is
+generally easier to separate them into separate functions. There is
+no requirement in the Xaraya MDG to use one or the other, so either
+or both can be used as seen appropriate by the module developer.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Syntax: @param $&#8217;exid&#8217; - The id of the item to be deleted</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+	 @param $&#8217;confirm&#8217; &#8211; Confirm that this item can be
+deleted</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="6"></a>
+<b>(6) main.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This function is the default function, and is called whenever the
+module is initiated without defining arguments. As such, it can be
+used for a number of things, but most commonly, it either shows the
+module menu and returns or calls whatever the module designer feels
+should be the default function. (This is often the view function)</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="7"></a>
+<b>(7) modify.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a standard admin function that is called whenever an
+administrator whishes to modify a current module item.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Syntax: @param $&#8217;exid&#8217; the id of the item to be modified</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="8"></a>
+<b>(8) modifyconfig.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is the standard function to modify the configuration parameters
+for the module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="9"></a>
+<b>(9) new.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function is called whenever the administrator wishes to
+create a new module item.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="10"></a>
+<b>(10) update.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is the standard function that is called with the results of the
+form supplied by xarModFunc(&#8216;example&#8217;, &#8216;admin&#8217;,&#8217;modify&#8217;)
+to update a current item.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Syntax: @param $ &#8216;exid&#8217; &#8211; The id of the item to be
+updated</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+	 @param $ &#8216;name&#8217; &#8211; The name of the item to be
+updated</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+	 @param $ &#8216;number&#8217; &#8211; The number of the item to be
+updated</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="11"></a><b>
+(11) updateconfig.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function updates the configuration parameters of the
+module given the information passed back by the modification form.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="12"></a>
+<b>(12) view.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function is called whenever the administrator wishes to
+view a module item.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="13"></a>
+<b>(13) index.html</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="14"></a>
+<b>(14) xaradminapi</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+The directory that contains all administrative database functions for
+the module. 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="15"></a>
+<b>(15) create.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function creates an item when the administrator wants
+to create an item in the database. Parameters are passed from the
+xaradmin/create.php. This function returns the example item upon
+success, or raises an exception error upon failing.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000">Syntax: <i><b>@</b>param</i>  <i>$args ['exid']
+the ID of the item</i></font></p>
+<p class="western" style="margin-left: 0.5in; text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000"> <i>@param $args [&#8216;name&#8217;] name of
+the item</i></font></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<i>	 @param $args[&#8216;number&#8217;] number of the item</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns the example item ID as integer on success, returns false on
+failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="16"></a>
+<b>(16) delete.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function deletes an item in the database. Parameters
+are passed from the xaradmin/delete.php. This function returns true
+upon success, or raises an exception error upon failing.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000">Syntax: <i>@param $args [&#8216;exid&#8217;]
+name of the item</i></font></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns the example item ID as integer on success, returns false on
+failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="17"></a>
+<b>(17) getmenulinks.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a utility function that passes individual menu items to the
+main menu.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns array containing the menulinks for the admin menu items.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="18"></a>
+<b>(18) menu.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This function generates the common admin menu configuration</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="19"></a>
+<b>(19) update.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function updates an item when the administrator wants
+to change an item in the database. Parameters are passed from the
+xaradmin/update.php. This function returns the example item upon
+success, or raises an exception error upon failing.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000">Syntax: <i><b>@</b>param</i>  <i>$args ['exid']
+the ID of the item</i></font></p>
+<p class="western" style="margin-left: 0.5in; text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000"> <i>@param $args [&#8216;name&#8217;] name of
+the item</i></font></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<i>	 @param $args[&#8216;number&#8217;] number of the item</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns the example item ID as integer on success, returns false on
+failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="20"></a><b>
+(20) <font color="#000000">index.html</font></b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="21"></a>
+<b>(21) xarblocks/</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This directory contains the files for generating blocks for the
+module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="22"></a>
+<b>(22) first.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is the code for the example block for the example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="23"></a>
+<b>(23) others.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is the code for the example block for the example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="24"></a><b>
+(24) index.html</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="25"></a>
+<b>(25) xarimages/</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This directory contains image files that are associated with the
+example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="26"></a>
+<b>(26) admin.gif</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is the image that is displayed in the example module
+administration overview.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="27"></a>
+<b>(27) admin_generic.gif</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is an optional image that can be displayed in the example module
+administration overview.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="28"></a>
+<b>(28) preferences.gif</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This preferences image is used in the example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="29"></a>
+<b>(29) index.html</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="30"></a>
+<b>(30) xartemplates/</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This directory contains the template files used by blocklayout for
+displaying pages within the example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="31"></a>
+<b>(31) blocks/</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This directory contains the template files used by blocklayout to
+display the blocks for the example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="32"></a>
+<b>(32) first.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the first block in the example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="33"></a>
+<b>(33) firstAdmin.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the first block administration page for the
+example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="34"></a><b>
+(34) othersAdmin.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the others block administration page for the
+example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="35"></a>
+<b>(35) example-firstblock-modify.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the first block administration modify settings
+page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="36"></a>
+<b>(36) admin-delete.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for administration delete function.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="37_"></a>
+<b>(37) admin-main.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for administration main function.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="38"></a>
+<b>(38) admin-menu.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the administration menu for Example module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="39"></a>
+<b>(39) admin-modify.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for administration modify item page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="40"></a>
+<b>(40) admin-modifyconfig.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for administration modify configuration page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="41"></a>
+<b>(41) admin-new.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for administration new item page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="42"></a>
+<b>(42) admin-view.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for administration view item page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="43"></a>
+<b>(43) index.html</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="44"></a><b>
+(44) user-display.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the user display page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="45"></a><b>
+(45) user-main.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the users main page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="46_"></a>
+<b>(46) user-menu.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the users menu.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="47"></a>
+<b>(47) user-usermenu_icon.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Template file for example user menu hook.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="48"></a>
+<b>(48) user-view.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for the user display items page.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="49"></a>
+<b>(49) user-usermenu_form.xd</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Templates file for example hook for user menu.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="50"></a>
+<b>(50) xaruser/</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+The directory that contains all users GUI functions for the module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="51"></a>
+<b>(51) display.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function provides detailed information on a single item
+available from the module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<font color="#000000">Syntax: <i>@param $args an array of arguments
+(if called by other modules)</i></font></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<i>	 @param $args [&#8216;objectid&#8217;] &#8211; A generic objected
+(if called by other modules)</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<i>	 @param $args [&#8216;exid&#8217;] &#8211; The item id used for
+this module</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="52"></a>
+<b>(52) main.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function is the default function, and is called
+whenever the module is initiated without defining arguments. As such,
+it can be used for a number of things, most commonly, it either shoes
+the module menu and returns or calls whatever the module designer
+feels should be the default function. (This is often the view()
+function)</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="53"></a><b>
+(53) user-menu.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function is used to display the user menu hook.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="54"></a>
+<b>(54) view.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function is used to provide an overview of all the
+items available from the module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="55"></a>
+<b>(55) index.html</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="56"></a>
+<b>(56) xaruserapi/</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+The directory that contains all user database functions for the
+module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="57_"></a>
+<b>(57) encode_shorturl.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+The standard functions that encode module parameters into some
+virtual path that will be added to index.php, and decode a virtual
+path back to the original module parameters.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="58"></a>
+<b>(58) countitems.php</b></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+	This utility function counts the number of items held by the module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns the number of items as an integer type with the number of
+items held by this module.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="59"></a>
+<b>(59) decode_shorturl.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This function extracts arguments from short urls and passes them back
+to the xarGetRequestInfo() api function.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="60"></a>
+<b>(60) get.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function retrieves a specific example item from the
+database.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Syntax: <i>@param $args [&#8216;exid&#8217; &#8211; Id of example
+item to get</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns item array, or false on failure</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Raises exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="61"></a>
+<b>(61) getall.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function retrieves all example items from the database.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Syntax: <i>@param $ numitems &#8211; The number of items to retrieve
+(default -1 = all)</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<i>	 @param $ startnum &#8211; Start with this item number (default
+1)</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns an array of items, or false on failure</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Raises exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="62"></a>
+<b>(62) getmenulinks.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This utility function will pass individual menu items to the main
+menu.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns an array containing the menu links for the main menu.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="63"></a>
+<b>(63) menu.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function will generate the common menu configuration.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="64"></a><b>
+(64) validateitem.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function validates argument arrays that are passed for
+writing to the database.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="65"></a>
+<b>(65) <font color="#000000">index.html</font></b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="66"></a>
+<b>(66) getitemlinks.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This utility function passes individual item links to other calling
+functions</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Syntax: <i>@param $args [&#8216;itemtype&#8217;] &#8211; Item type
+(optional)</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<i>	 @param $args [&#8216;itemids&#8217;] &#8211; array of item ids
+to get</i></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns an array containing the itemlink(s) for the item(s)</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="67"></a>
+<b>(67) xareventapi.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This standard function is the event handler for the system event
+ServerRequest</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+Returns bool 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="68"></a>
+<b>(68) xarinit.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This file contains the initialization, upgrade, and delete functions
+for the example module. Functions include</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+example_init() &#8211; example_upgrade() &#8211; example_delete()</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="69"></a>
+<b>(69) xartables.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This file contains the table definitions for the example module/</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="70"></a><b>
+(70) example.wsdl</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This file contains an example soap xml schema that connects and
+returns the number of items in the example database.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="71"></a>
+<b>(71) index.html</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="72"></a>
+<b>(72) xaradmin.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+A depreciated file; all admin functions should be separated into
+individual files and placed into the xaradmin/ directory. 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="73"></a>
+<b>(73) xaradminapi.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+A depreciated file; all adminapi functions should be separated into
+individual files and placed into the xaradminapi/ directory. 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="74"></a>
+<b>(74) xaruser.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+A depreciated file; all user functions should be separated into
+individual files and placed into the xaruser/ directory.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="75"></a>
+<b>(75) xaruserapi.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+A depreciated file; all userapi functions should be separated into
+individual files and placed into the xaruserapi/ directory.</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;"><a name="76"></a>
+<b>(76) xarversion.php</b></p>
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;">
+This file contains the module ID number, author, and version
+information for the example module.<br>
+<br>
+</p>
+<div type="FOOTER">
+<div align="center">
+	</div>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="XarayaMDG45.html">Prev</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG47.html">Next</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2"><br>
+All
+	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
+
+</div>
+</body></html>

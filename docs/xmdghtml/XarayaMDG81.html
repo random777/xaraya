@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta content="text/html; charset=iso-8859-1" http-equiv="CONTENT-TYPE"><title>Module Developers Check List</title>
+	
+	<meta content="OpenOffice.org 1.1.0  (Linux)" name="GENERATOR">
+	<meta content="20030928;11152200" name="CREATED">
+	<meta content="Scot Gardner" name="CHANGEDBY">
+	<meta content="20030928;11152200" name="CHANGED">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head>
+
+<body dir="ltr" link="#000000" text="#000000" lang="en-US">
+<div type="HEADER" align="center">
+	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
+
+	
+</div>
+<ul>
+	<li><h1 style="page-break-inside: auto;" class="western">&nbsp;&nbsp;&nbsp; Module
+	Developers Check List</h1>
+</li></ul>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+	The following checklist presents a number of items that need
+checking throughout the process of designing, building, and releasing
+your module.</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<ul>
+	<li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+	Initial</p>
+	<ol>
+		<li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Decide on the module type</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Choose a name for your module</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Register your module name 
+		</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Obtain and read the Module Developers Guide</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Obtain and read the API Documentation</p>
+	</li></ol>
+	</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+	Module Design</p>
+	<ol>
+		<li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Separate User and Administration Functions</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Separate GUI and API functions</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Design data tables</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Note, which utility modules are of use</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Note, which standard module functions apply</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Create module security schema</p>
+	</li></ol>
+	</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+	Module Build</p>
+	<ol>
+		<li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Copy the example module directory</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Create database tables</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Create database initialization routines</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Test database initialization routines</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Write administration functions</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Test administration functions</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Write user functions</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Test user functions</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Write blocks</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Test blocks</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Document module API</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Package your module</p>
+	</li></ol>
+	</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+	Module Checks</p>
+	<ol>
+		<li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		No global variables used</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		No Xaraya reserved variable names used</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		No echo() or print() statements used</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		All operations protected by xarSecAuthAction()</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		All form results protected by xarSecConfirmAuthKey()</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		All form variables obtained by xarVarCleanFromInput()</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		All output parsed through xarVarPrepForDisplay() or
+		xarVarPrepForHTMLDisplay()</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		All suitable output censored by xarVarCensor()</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		All variables in SQL queries protected by xarVarPrepForStore()</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		All variables in filesystem access protected by xarVarPrepForOS()</p>
+		</li><li><p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+		Calls to xarModCallHooks() in appropriate locations</p>
+	</li></ol>
+</li></ul>
+<p style="margin-left: 1in; margin-right: 0.5in; margin-bottom: 0in; page-break-inside: auto; page-break-before: always;" align="center" class="western">
+<font face="Arial, sans-serif"><b>Sources Cited</b></font></p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+<u>SearchWebServices.</u></p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+	SearchWebServices. 22 Sept 2003</p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+	&lt;http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html&gt;</p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+<u>Telecom Glossary 2k.</u> 
+</p>
+<p style="margin-left: 0.5in; margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+Telecom Glossary 2k. 29 Feb. 2001 
+</p>
+<p style="margin-left: 0.5in; margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+&lt; <u><a href="http://www.atis.org/tg2k/_irc.html">http://www.atis.org/tg2k/_irc.html</a></u>&gt;</p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+<u>W3C Technology and Society Domain.</u></p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+	W3C Technology and Society Domain. 05 April 2001</p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+	&lt; http://www.w3.org/Metadata/&gt;</p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+Xaraya Development Team <u>About Xaraya</u></p>
+<p style="margin-left: 0.5in; margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+John Cox. 27 April. 2003 
+</p>
+<p style="margin-left: 0.5in; margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+&lt; <u><a href="http://www.xaraya.com/index.php/news/c28/"><font face="Arial, sans-serif">http://www.xaraya.com/index.php/news/c28/</font></a></u><font face="Arial, sans-serif">&gt;</font></p>
+<p style="margin-bottom: 0in; line-height: 200%; page-break-inside: auto;" class="western">
+<font face="Arial, sans-serif"><u>Xaraya Documentation.</u></font></p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+	Xaraya Documentation. O1 Oct 2002</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto;" class="western">
+&lt; http://docs.xaraya.com/docs/rfcs/rfcindex.html&gt;</p>
+<p style="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western">
+<br>
+</p>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western" align="center">
+</p>
+<table cellpadding="2" cellspacing="2" border="0" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top" align="center"><a href="XarayaMDG80.html">Prev</a><br>
+      </td>
+      <td valign="top" align="center"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td valign="top" align="center"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p style="margin-bottom: 0in; page-break-inside: auto;" class="western" align="center"><br>
+</p>
+
+<div type="FOOTER">
+	<p style="margin-top: 0.29in; margin-bottom: 0in;" align="center"><font size="2">All
+	boldface terms are defined in the Glossary beginning on page 42</font></p>
+</div>
+</body></html>

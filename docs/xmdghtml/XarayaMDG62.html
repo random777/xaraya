@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Hooks</title>
+	
+	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
+	<meta name="CREATED" content="20030928;11151100">
+	<meta name="CHANGEDBY" content="Scot Gardner">
+	<meta name="CHANGED" content="20030928;11151100">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
+<div align="center" type="HEADER">
+	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
+
+	
+</div>
+<ul>
+	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Hooks</h1>
+</li></ul>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000"><i>Hooks</i> are a way of adding functionality
+to modules without the modules themselves knowing what the functions
+might be. The site administrator controls the operations of hooks, so
+the decision as to which pieces of extra functionality to use and
+which not is in their hands rather than the module developer. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Hooks are called for specific actions that take place in a module. At
+current, the actions that hooks are enabled for are as follows: 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Addition of a category 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Deletion of a category 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Transformation of category data into a standard Xaraya format 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Display of a category 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Addition of an item 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Deletion of an item 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Transformation of item data into a standard Xaraya format 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Display of an item 
+</p>
+<p class="western" style="margin-left: 0.25in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The terms <i>category </i>and <i>item</i> are
+quite broad. Category is used to define any database entity that
+contains other categories or items, whilst item is used to define any
+database entity that holds content. Due to this definition it is
+possible for an item to be a category as well, although this is an
+unlikely state of affairs and it should be obvious to a module
+developer which parts of the system deal with categories and which
+with items.</font></p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Hooks are the recommended way of extending the functionality of your
+module, and use of the appropriate xarAPI hook functions as described
+below is mandatory for a compliant module. 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<div type="FOOTER">
+<div align="center">
+	</div>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="XarayaMDG61.html">Prev</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG63.html">Next</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2"><br>
+All
+	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
+
+</div>
+</body></html>

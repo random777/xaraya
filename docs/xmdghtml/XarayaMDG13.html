@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Variable validation</title>
+	
+	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
+	<meta name="CREATED" content="20030928;11144100">
+	<meta name="CHANGEDBY" content="Scot Gardner">
+	<meta name="CHANGED" content="20030928;11144100">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
+<div align="center" type="HEADER">
+	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
+
+	
+</div>
+<ul>
+	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Variable
+	validation</h1>
+</li></ul>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">Xaraya includes a transparent mechanism for
+variable validation. It's currently used by two <b>API</b> functions:
+<font size="2"><font face="Courier New, monospace">xarUserValidateVar()</font></font>
+and <font size="2"><font face="Courier New, monospace">xarUserSetVar()</font></font>.
+The validation works thanks to the Dynamic User Data architecture. As
+you saw in the above section, with Dynamic User Data you can register
+new user variables simply by providing its metadata. That metadata
+can also contain a special field denoted by the validation key. A
+powerful syntax exists for this field. All what you need to do is to
+follow the right syntax and write your own validator(s), later you
+register it with user variable <b>metadata</b> and now you can get
+rid of validation in your module functions. Simply when you call
+<font size="2"><font face="Courier New, monospace">xarUserSetVar()</font></font>,
+Xaraya will automatically apply your validator(s) and if the check
+fails you will be notified of that by the return value. </font>
+</p>
+<p class="western" style="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">To compensate for all this loss of control on
+validation, a new <b>API</b> function exists. You can validate an
+user variable value with the <font size="2"><font face="Courier New, monospace">xarUserValidateVar()</font></font>
+function. That gives you the possibility to first validate all
+variables from user input and second update them if all validation
+checks have succeeded. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Here is the syntax for the validation string: 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+         <font face="Courier New, monospace"><font size="2">validation_string
+:= validator_list</font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+         <font face="Courier New, monospace"><font size="2">validator_list
+:= validator [ + '&amp;' + validator_list ]</font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+         <font face="Courier New, monospace"><font size="2">validator
+:= ['!' +] type + ':' + operator + ':' + param</font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">	 </font></font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+Reserved characters to be escaped with a preceding '\' are: ':' and
+'&amp;' 
+</p>
+<ul>
+	<li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	<font color="#000000"><i>type</i> can be one of these values: 'num',
+	'string', 'stringlen', 'func' </font>
+	</p>
+	</li><li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	<font color="#000000"><i>operator</i> is type-sensitive: </font>
+	</p>
+	</li><li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	<font color="#000000">valid operators for <i>num</i> type are: ==,
+	!=, &lt;, &gt;, &lt;=, &gt;= </font>
+	</p>
+	</li><li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	<font color="#000000">valid operators for <i>string</i> type are:
+	is, contains, starts, ends, regex </font>
+	</p>
+	</li><li><p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	<font color="#000000">valid operators for <i>stringlen</i> are the
+	same as <i>num</i> type. </font>
+	</p>
+</li></ul>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">there is only one valid operator for <i>func</i>
+type: it's a string composed from ModName + ',' + FuncName. FuncName
+MUST be exported as an user API function from ModName module. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000"><i>param</i> is the second parameter to be used
+with operator, except for the <i>func</i> type: here param is the
+second parameter that will be passed to FuncName function. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+You can create complex validators simply by concatenating them with
+the logic &amp; (AND) operator. 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+Here are some examples: 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt;"><font color="#ff9900"><i>//
+validation string = "string:starts:foo bar"</i></font><font color="#ff9900"><br><i>//
+validation will succeed</i></font><font color="#000000"><br>xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"foo bar is better than bar
+foo"</font><font color="#000000">);<br></font><font color="#ff9900"><i>//
+validation will fail</i></font><font color="#000000"><br>xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"bar foo is ugly"</font><font color="#000000">);<br><br></font><font color="#ff9900"><i>//
+validation string = "string:starts:foo\\:
+bar&amp;stringlen:&lt;=:16"</i></font><font color="#ff9900"><br><i>//
+NOTE: if you need to use the ':' character you have to</i></font><font color="#ff9900"><br><i>//
+      escape it with a preceding '\'</i></font><font color="#ff9900"><br><i>//
+validation will succeed</i></font><font color="#000000"><br>xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"foo: bar is good"</font><font color="#000000">);<br></font><font color="#ff9900"><i>//
+validation will fail, the string is too long</i></font><font color="#000000"><br>xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"foo: bar is better"</font><font color="#000000">);<br><br></font><font color="#ff9900"><i>//
+validation string = "!string:regex:/(censored1|censored2)/"</i></font><font color="#ff9900"><br><i>//
+NOTE: the negation operator before the string type</i></font><font color="#ff9900"><br><i>//
+validation will succeed</i></font></font><font size="2"><font color="#000000"><br>
+</font></font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><font face="Courier New, monospace"><font size="2"><font color="#000000">xarUserSetVar(<font color="#006600">"myVar",
+"i'm a good boy, i'm not posting something bad"</font>);</font></font></font></p>
+
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font color="#ff9900" face="Courier New, monospace"><font size="2">// validation will
+fail</font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font face="Courier New, monospace"><font size="2">xarUserSetVar(<font color="#006600">"myVar",
+"i'm a bad boy, you are a censored1"</font>);</font></font></p>
+
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font size="2" style="font-size: 9pt;"><font face="Courier New, monospace"><font color="#ff9900"><i>//
+validation string = "num:&gt;=:1&amp;num:&lt;=:10"</i></font><font color="#ff9900"><br><i>//
+validation will succeed</i></font><font color="#000000"><br></font></font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><font size="2" style="font-size: 9pt;"><font face="Courier New, monospace"><font color="#000000">xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"5"</font><font color="#000000">);<br></font><font color="#ff9900"><i><br>
+//
+validation will fail</i></font><font color="#000000"><br></font></font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><font size="2" style="font-size: 9pt;"><font face="Courier New, monospace"><font color="#000000">xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"12"</font><font color="#000000">);<br><font color="#ff9900"><br>
+</font></font><font color="#ff9900"><i>//
+validation string = "func:MyModule,MyFunc:none"</i></font><font color="#ff9900"><br><i>//
+IMPORTANT: if your validation function works only with the</i></font><font color="#ff9900"><br><i>//
+           variable value you must specify that param has not</i></font><font color="#ff9900"><br><i>//
+           to be passed to function.</i></font><font color="#ff9900"><br><i>//
+           You achieve that by simply setting it to 'none'</i></font><font color="#ff9900"><br><i>//
+validation will succeed</i></font><font color="#000000"><br></font></font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><font size="2" style="font-size: 9pt;"><font face="Courier New, monospace"><font color="#000000">xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"Homer Simpson"</font><font color="#000000">);<br></font><font color="#ff9900"><i><br>
+//
+validation will fail</i></font><font color="#000000"><br></font></font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;"><font size="2" style="font-size: 9pt;"><font face="Courier New, monospace"><font color="#000000">xarUserSetVar(</font><font color="#008000">"myVar"</font><font color="#000000">,</font><font color="#008080">
+</font><font color="#008000">"Marco Canini"</font><font color="#000000">);<br><font color="#ff9900"><br>
+</font></font><i><font color="#ffff00"><font color="#ff9900">//
+MyModule user API</font><br></font></i><font color="#000000"><br><b>function</b></font><font color="#008080">
+</font><font color="#000000">MyModule_userapi_MyFunc(</font><font color="#800000">$args</font><font color="#000000">)<br>{<br></font><font color="#008080">
+   </font><font color="#0000ff">extract</font><font color="#000000">(</font><font color="#800000">$args</font><font color="#000000">);</font><font color="#ff9900">
+ <i>// $value</i></font><font color="#000000"><br></font><font color="#008080">
+   </font><font color="#800000">$ssconn</font><font color="#008080">
+</font><font color="#000000">=</font><font color="#008080">
+</font><font color="#000000">StarShip::openConnection();<br></font><font color="#008080">
+   </font><b><font color="#000000">return</font></b><font color="#008080">
+</font><font color="#000000">!</font><font color="#800000">$ssconn</font><font color="#000000">-&gt;isAlienLifeForm(</font><font color="#800000">$value</font><font color="#000000">);<br>}<br></font></font></font><br>
+</p>
+
+<div type="FOOTER">
+<div align="center">
+	</div>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="XarayaMDG12.html">Prev</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG14.html">Next</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2">All
+	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
+
+</div>
+</body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1"><title>Calling Hooks</title>
+	
+	<meta name="GENERATOR" content="OpenOffice.org 1.1.0  (Linux)">
+	<meta name="CREATED" content="20030928;11151200">
+	<meta name="CHANGEDBY" content="Scot Gardner">
+	<meta name="CHANGED" content="20030928;11151200">
+	<style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</style></head><body lang="en-US" text="#000000" link="#000000" dir="ltr">
+<div align="center" type="HEADER">
+	<big><big><b><font face="bitstream-bellgothic blk bt-iso10646-1">Xaraya Module Developers Guide</font></b></big></big><br>
+
+	
+</div>
+<ul>
+	<li><h1 class="western" style="page-break-inside: auto;">&nbsp;&nbsp;&nbsp; Calling
+	Hooks</h1>
+</li></ul>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">	You are developing an item module then you
+should allow utility modules to add functionality to the item module.
+This is carried out through use of the <font size="2"><font face="Courier New, monospace">xarModCallHooks()</font></font>
+function. This function placed wherever a specific action is required
+by the item module, where the current specific actions that the hooks
+system is able to operate on are: </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">	The hook calls made at the appropriate level
+depending on the action taken. With the current hooks, addition and
+deletion hooks called at the <b>API</b> level, and display hooks
+called at the <b>GUI</b> level. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The <font size="2"><font face="Courier New, monospace">xarModCallHooks()</font></font>
+function takes a number of parameters, which are explained below: </font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+hookobject 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The object for which the hooks are called -
+currently either <i>category</i>, or <i>item</i>, as described above </font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+hookaction 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">The action for which the hooks are to be called
+- currently one of <i>create</i>, <i>delete</i>, <i>transform</i>, or
+<i>display</i> </font>
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+obid 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+An ID that, within the scope of the module and object, uniquely
+defines the entity for which the hook is called 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+extrainfo 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+This is extra information that is required by the hook function, and
+is dependent on the hook action being called. Information on the
+information required by each hook is covered below. 
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">For <font size="2"><font face="Courier New, monospace">create</font></font>
+hooks a string that can be used in conjunction with the obid as part
+of a URL to access the object. For example, if your
+<font size="2"><font face="Courier New, monospace">example_user_display()</font></font>
+function uses a variable <i>picid</i> to define the particular
+picture that a user wishes to look at then the URL would be something
+like 'index.php?module=example&amp;func=display&amp;picid=4' and the
+identification part of the URL would be something like 'picid=4' so
+you would pass 'picid' to this hook. </font>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">For <font size="2"><font face="Courier New, monospace">display()</font></font>
+hooks a URL that can be used by the hooks to return to a suitable
+page once they have finished any work that they might have to do.
+This is normally just the standard display URL for this function. </font>
+</p>
+<p class="western" style="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">For <font size="2"><font face="Courier New, monospace">transform()</font></font>
+hooks an array of items that contain text-based content that can be
+transformed. This is normally all text-based items. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+<font color="#000000">	The <font size="2"><font face="Courier New, monospace">xarModCallHooks()</font></font>
+function returns different information depending on value of
+<i>hookaction</i>. If <i>hookaction</i> is <i>display</i> then the
+hook will return extra output to display directly following the
+display for the item itself. If <i>hookaction</i> is <i>create</i> or
+<i>delete</i> then the function will return either <i>true</i> or
+<i>false</i> depending on the success or failure of the hooks. If
+<i>hookaction</i> is <i>transform</i> then the hook will return an
+equivalent array to that which was passed in, with the items suitable
+transformed. </font>
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	As an example of calling hooks, if you were developing the 'Example'
+module and were displaying a picture, after the display of the
+picture you would want to call the hooks to add any other
+functionality available and required by the site administrator. To do
+this you would use the following lines: 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<font size="2" style="font-size: 9pt;"><font face="Courier New, monospace"><font color="#800000">$output</font><font color="#000000">-&gt;Text(xarModCallHooks(</font><font color="#008000">'item'</font><font color="#000000">,<br></font><font color="#008080">
+                            </font><font color="#008000">'display'</font><font color="#000000">,<br></font><font color="#008080">
+                            </font><font color="#800000">$pictureid</font><font color="#000000">,<br></font><font color="#008080">
+                            </font><font color="#000000">xarModURL(</font><font color="#008000">'example'</font><font color="#000000">,<br></font><font color="#008080">
+                                     </font><font color="#008000">'user'</font><font color="#000000">,<br></font><font color="#008080">
+                                     </font><font color="#008000">'display'</font><font color="#000000">,<br></font><font color="#008080">
+                                     </font><font color="#000000"><b>array</b>(</font><font color="#008000">'pictureid'</font><font color="#008080">
+</font><font color="#000000">=&gt;</font><font color="#008080">
+</font><font color="#800000">$pictureid</font><font color="#000000">))));</font></font></font></p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+        
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	This would add the verbatim output of the hooks to the current
+output. It is worth noting again here the from this code it can be
+seen that the module itself needs no information on what hooks, if
+any, exist, it just calls the function and lets the Xaraya core deal
+with what extra output should be added to this item. 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	One important area to understand is where exactly in your code to
+call hooks. For example, if you were displaying a thumbnail view of
+100 pictures from your Example module, should you call an item
+display hook for each picture? The answer to this is somewhat
+dependent on the nature of your module. In general you should only
+call display hooks when you are displaying the details of a single
+item rather than an overview of a large number of items (of course,
+if all of those items are in a single category then you should call a
+display hook for that category). However, the transform hook should
+be called whenever you are displaying content regardless of it if is
+just an overview, as the overview information could require
+transformation before display. 
+</p>
+<p class="western" style="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto;">
+	The annotated Example module in the standard Xaraya distribution
+contains notes on calling hooks within an item module. 
+</p>
+<p class="western" style="margin-bottom: 0in; page-break-inside: auto;">
+<br>
+</p>
+<div type="FOOTER">
+<div align="center">
+	</div>
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="XarayaMDG62.html">Prev</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG.html">Home</a><br>
+      </td>
+      <td align="center" valign="top"><a href="XarayaMDG64.html">Next</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p align="center" style="margin-top: 0.29in; margin-bottom: 0in;"><font size="2"><br>
+All
+	boldface terms are defined in the <a href="XarayaMDG80.html#Glossary">Glossary</a> beginning on page 80</font></p>
+
+</div>
+</body></html>

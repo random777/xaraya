@@ -68,7 +68,8 @@
     <!-- One content section is mandatory -->
     <section title="Types of hooks">
         <t>There are 5 main types of hooks that are currently used to extend module functionality, plus some special-purpose hooks.
-           Some hooks will provide part of the graphical user interface (GUI) to the user, while others will only operate on the API level.
+           Some hooks will provide part of the graphical user interface (GUI) to the user, while others will only operate on the API level.</t>
+
             <section title="Item Transform Hooks (API)">
                 <t>This type of hook allows you to transform some pieces of text of your module items
                    (e.g. the summary and body of articles, or the description of a project, ...)
@@ -109,11 +110,11 @@
                    So the articles module may provide a user menu function, and the xarbb module may provide one, and the roles module as well, and it's up to the site administrator
                    to decide which user menu functions he wants to allow by enabling the corresponding hooks.</t>
             </section>
-        </t>
     </section>
     
     <section title="Enabling or disabling hooks">
         <t>Site administrators can enable hooks via the Modules administration...</t>
+        <t>If you want to enable or disable hooks via code, see also below.</t>
     </section>
 
     <section title="Designing your module to make use of hooks">
@@ -124,9 +125,9 @@ $outputarray = xarModCallHooks('&lt;hookobject&gt;', '&lt;hookaction&gt;', $obje
            </artwork></t>
         <t>In general, API hooks expect an associative array containing the current item information as $extrainfo,
            and return that array with extended or transformed information.
-           GUI hooks expect the same item information as $extrainfo, and return an associative array of hookmodule => hookoutput pairs
+           GUI hooks expect the same item information as $extrainfo, and return an associative array of hookmodule => hookoutput pairs        </t>
 
-            <section title="Item Transform Hooks (API)">
+            <section title="Calling Item Transform Hooks (API)">
                     <artwork>
 Module code in xaruser.php :
 
@@ -136,6 +137,10 @@ function &lt;module&gt;_user_display($args)
     // get the item information
     $item = xarModAPIFunc('&lt;module&gt;', 'user', 'get',
                           array('someid' => $itemid, ...));
+    ...
+    // add some arguments for hooks
+    $item['module'] = '&lt;module&gt;';
+    $item['itemtype'] = $itemtype;
     ...
 /* old-style transform hooks
     list($item['some'],
@@ -148,9 +153,6 @@ function &lt;module&gt;_user_display($args)
                                                 $item['of'],
                                                 $item['text']));
 */
-    // add some arguments for this hook
-    $item['module'] = '&lt;module&gt;';
-    $item['itemtype'] = $itemtype;
     // the fields (array keys) corresponding to the pieces of text you want to transform here
     $item['transform'] = array('some', 'pieces', 'of', 'text');
 
@@ -161,34 +163,33 @@ function &lt;module&gt;_user_display($args)
                     </artwork>
             </section>
 
-            <section title="Item Display Hooks (GUI)">
+            <section title="Calling Item Display Hooks (GUI)">
                     <artwork>
 Module code in xaruser.php :
 
 function &lt;module&gt;_user_display($args)
 {
     ...
-    $hookoutput = xarModCallHooks('item', 'display', $itemid,
-                                  array(// if your module deals with different types of items
-                                        'itemtype'  =&gt; $itemtype,
-                                        // the URL to return to e.g. after rating the item, or commenting on it, or ...
-                                        'returnurl' =&gt; xarModURL('&lt;module&gt;', 'user', 'display',
-                                                                 array('someid' =&gt; $itemid, ...))
-                                       ));
-/*  // alternative - to be evaluated
     // get the item information
     $item = xarModAPIFunc('&lt;module&gt;', 'user', 'get',
                           array('someid' => $itemid, ...));
     ...
-    // add some arguments for this hook
+    // add some arguments for hooks
     $item['module'] = '&lt;module&gt;';
     $item['itemtype'] = $itemtype;
-    // specify the return URL in the item information, and pass that as $extrainfo (same as other hooks)
-    $item['returnurl'] = xarModURL('&lt;module&gt;', 'user', 'display',
-                                   array('someid' =&gt; $itemid, ...))
-    // get hook output
-    $hookoutput = xarModCallHooks('item', 'display', $itemid, $item);
+    ...
+/* old-style display hooks
+    $hookoutput = xarModCallHooks('item', 'display', $itemid,
+                                  // the URL to return to e.g. after rating the item, or commenting on it, or ...
+                                  xarModURL('&lt;module&gt;', 'user', 'display',
+                                            array('someid' =&gt; $itemid, ...))
+                                 );
 */
+    // the URL to return to e.g. after rating the item, or commenting on it, or ...
+    $item['returnurl'] = xarModURL('&lt;module&gt;', 'user', 'display',
+                                   array('someid' =&gt; $itemid, ...));
+    // get display hook output
+    $hookoutput = xarModCallHooks('item', 'display', $itemid, $item);
 
     if (empty($hookoutput)) {
        $data['hooks'] = '';
@@ -208,7 +209,7 @@ function &lt;module&gt;_user_display($args)
                     </artwork>
             </section>
 
-            <section title="Item Create/Update/Delete Hooks (API)">
+            <section title="Calling Item Create/Update/Delete Hooks (API)">
                     <artwork>
 Module code in xaradminapi.php :
 
@@ -217,11 +218,12 @@ function &lt;module&gt;_adminapi_create($args)
     ...
     // create the item first
     ...
-    // then add some arguments, including the newly created itemid
+    // then add some arguments for hooks, including the newly created itemid
     $args['module'] = '&lt;module&gt;';
     // adapt if you're dealing with several types of items in your module
     $args['itemtype'] = 0;
     $args['itemid'] = $itemid;
+    // then call the create hooks
     $result = xarModCallHooks('item', 'create', $itemid, $args);
     ...
 }
@@ -231,10 +233,12 @@ function &lt;module&gt;_adminapi_update($args)
     ...
     // update the item first
     ...
+    // then add some arguments for hooks
     $args['module'] = '&lt;module&gt;';
     // adapt if you're dealing with several types of items in your module
     $args['itemtype'] = 0;
     $args['itemid'] = $itemid;
+    // then call the update hooks
     $result = xarModCallHooks('item', 'update', $itemid, $args);
     ...
 }
@@ -242,19 +246,21 @@ function &lt;module&gt;_adminapi_update($args)
 function &lt;module&gt;_adminapi_delete($args)
 {
     ...
+    // add some arguments for hooks
     $args['module'] = '&lt;module&gt;';
     // adapt if you're dealing with several types of items in your module
     $args['itemtype'] = 0;
     $args['itemid'] = $itemid;
+    // then call the delete hooks
     $result = xarModCallHooks('item', 'delete', $itemid, $args);
     ...
-    // delete the item last (!)
+    // then delete the item itself at last
     ...
 }
                     </artwork>
             </section>
 
-            <section title="Item New/Modify Hooks (GUI)">
+            <section title="Calling Item New/Modify Hooks (GUI)">
                     <artwork>
 Module code in xaradmin.php :
 
@@ -317,7 +323,7 @@ function &lt;module&gt;_admin_modify($args)
                     </artwork>
             </section>
 
-            <section title="Module Configuration Hooks (GUI/API)">
+            <section title="Calling Module Configuration Hooks (GUI/API)">
                     <artwork>
 Module code in xaradmin.php :
 
@@ -358,14 +364,210 @@ function &lt;module&gt;_admin_updateconfig($args)
 }
                     </artwork>
             </section>
-            <section title="Special-Purpose Hooks : Search, UserMenu, ...">
-                 <t>In this case, you need to create a hook function and register it at initialisation - see next point</t>
+            <section title="Providing Special-Purpose Hooks : Search, UserMenu, ...">
+                 <t>In this case, you'll need to create a hook function and register it at initialisation - see next section</t>
             </section>
-        </t>
+
+            <section title="Other hook-related functions">
+                <t>You can check if a particular hook module is enabled for your module by using the xarModIsHooked() function :
+                    <artwork>
+   ...
+   if (xarModIsHooked('&lt;hookmodule&gt;')) {
+   }
+   ...
+                    </artwork>
+                </t>
+                <t>You can enable hooks to your module via code, e.g. at initialisation, by using one of the API functions provided by the 'modules' module :
+                    <artwork>
+   ...
+    xarModAPIFunc('modules', 'admin', 'enablehooks',
+                  array('callerModName' => '&lt;yourmodule&gt;', 'hookModName' => '&lt;hookmodule&gt;'));
+   ...
+                    </artwork>
+                </t>
+                <t>To disable hooks via code, you can use the corresponding function as well :
+                    <artwork>
+   ...
+    xarModAPIFunc('modules', 'admin', 'disablehooks',
+                  array('callerModName' => '&lt;yourmodule&gt;', 'hookModName' => '&lt;hookmodule&gt;'));
+   ...
+                    </artwork>
+                </t>
+            </section>
+
     </section>
 
     <section title="Providing hook functions in your module">
         <t>Decide what functionality you want to offer first, then see what type(s) of hooks you need to provide for that...</t>
+            <section title="Writing an API hook function">
+                 <artwork>
+Module code in xaruserapi.php or xaradminapi.php :
+
+/**
+ * The hook function you want to provide, e.g. for 'item' 'transform' 'API'
+ *
+ * @param $args['objectid'] ID of the object
+ * @param $args['extrainfo'] extra information
+ * @returns array
+ * @return extrainfo the updated extrainfo array
+ */
+function &lt;module&gt;_&lt;type&gt;api_&lt;hookfunc&gt;($args)
+{
+    ...
+}
+                 </artwork>
+            </section>
+
+            <section title="Writing a GUI hook function">
+                 <artwork>
+Module code in xaruser.php or xaradmin.php :
+
+/**
+ * The hook function you want to provide, e.g. for 'item' 'display' 'GUI'
+ *
+ * @param $args['objectid'] ID of the object
+ * @param $args['extrainfo'] extra information
+ * @returns string
+ * @return the HTML output for this hook function
+ */
+function &lt;module&gt;_&lt;type&gt;_&lt;hookfunc&gt;($args)
+{
+    ...
+}
+                 </artwork>
+            </section>
+
+            <section title="Registering hook functions">
+                 <artwork>
+Module code in xarinit.php :
+
+function &lt;module&gt;_init()
+{
+    ...
+    xarModRegisterHook(// the type of hook you want to register
+                       'item', 'display', 'GUI',
+                       // the hook function to be called
+                       '&lt;module&gt;', '&lt;type&gt;', '&lt;hookfunc&gt;');
+    ...
+}
+
+function &lt;module&gt;_delete()
+{
+    ...
+    xarModUnregisterHook(// the type of hook you want to unregister
+                         'item', 'display', 'GUI',
+                         // the hook function to be called
+                         '&lt;module&gt;', '&lt;type&gt;', '&lt;hookfunc&gt;');
+    ...
+}
+                 </artwork>
+            </section>
+
+            <section title="Creating a Search hook function (GUI)">
+                 <t>A search hook function is only going to be invoked by the search module. Next to the standard $args['objectid'] and $args['extrainfo'] arguments,
+                    which are not going to contain anything interesting here, your search hook function will be able to retrieve the current search query via the input variable 'q'.</t>
+                     <artwork>
+Module code in xaruser.php :
+
+/**
+ * The hook function you want to provide for 'item' 'search' 'GUI'
+ *
+ * @param $args['objectid'] ID of the object
+ * @param $args['extrainfo'] extra information
+ * @returns string
+ * @return the HTML output for this hook function
+ */
+function &lt;module&gt;_user_search($args)
+{
+    list($q,
+         $author,
+         $...) = xarVarCleanFromInput('q',
+                                      'author',
+                                      '...');
+    if (empty($q)) {
+        // return part of a search form, with input fields relevant to your module
+        ...
+    } else {
+        // return the results for your module
+        ...
+    }
+}
+                     </artwork>
+                 <t>You can add other input fields of your own in the GUI output, but make sure they don't create a conflict with input fields from other modules.
+                    Note that the same function will be invoked by the search module to show (part of) the search form, but also to show (part of) the result page.</t>
+            </section>
+
+            <section title="Creating a User Menu hook function (GUI)">
+                 <t>A user menu hook function is only going to be invoked by the roles module, to generate some user menu in the "Your Account" page.
+                    You can use this e.g. to allow users to change their preferences for your module from within the "Your Account" page.</t>
+                     <artwork>
+Module code in xaruser.php :
+
+/**
+ * The hook function you want to provide for 'item' 'usermenu' 'GUI'
+ *
+ * @param $args['objectid'] ID of the object
+ * @param $args['extrainfo'] extra information
+ * @returns string
+ * @return the HTML output for this hook function
+ */
+function &lt;module&gt;_user_usermenu($args)
+{
+    list($update,
+         $bold,
+         $itemsperpage,
+         $...) = xarVarCleanFromInput('update',
+                                      'bold',
+                                      'itemsperpage',
+                                      '...');
+    if (!empty($update)) {
+        // update the user preferences
+        if (isset($bold)) {
+            xarModSetUserVar('&lt;module&gt;', 'bold', 1);
+        } else {
+            xarModSetUserVar('&lt;module&gt;', 'bold', 0);
+        }
+        ...
+    } else {
+        // get the current user preferences
+        $bold = xarModGetUserVar('&lt;module&gt;', 'bold');
+        ...
+    }
+    // show an input form where the user can change his preferences for your module
+    // Tip : include a hidden field called 'update' in the form, so that you know
+    //       when to update the user preferences, and when to simply show them
+    ...
+}
+                     </artwork>
+                 <t>Note that the same function will be invoked by the roles module to show the current preferences of the user, and also to update them.</t>
+            </section>
+
+            <section title="Creating a Module Remove hook function (API)">
+                 <t>If your hook module keeps track of some information for module items of different modules, you may want to do some clean-up in your own table(s)
+                    when some hooked module gets deleted by the site administrator. In this case, you can define a 'module' 'remove' 'API' function
+                    that will be automatically invoked by Xaraya.</t>
+                 <artwork>
+Module code in xaradminapi.php :
+
+/**
+ * The hook function you want to provide for 'module' 'remove' 'API'
+ *
+ * @param $args['objectid'] ID of the object
+ * @param $args['extrainfo'] extra information
+ * @returns array
+ * @return extrainfo the updated extrainfo array
+ */
+function &lt;module&gt;_adminapi_removehook($args)
+{
+    extract($args);
+    ...
+    // in this case, $objectid will contain the name of the module that is being removed
+    $modid = xarModGetIDFromName($objectid);
+    // do some clean-up in your table(s) for that module
+    ...
+}
+                 </artwork>
+            </section>
     </section>
 
     <section title="When (not) to use hooks">

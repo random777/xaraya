@@ -21,9 +21,7 @@ The Xaraya distributions consist of the following directory structure.
 
     If you install Xaraya into a sub-directory of the <webdir>, your users will have to type the sub-directory name in the URL. For example, if you install Xaraya into <webdir>/xaraya, your users will have to visit "http://www.yoursite.com/xaraya" to get to Xaraya. If you wish for Xaraya to exist in the <webdir> (so that users will visit "http://www.yoursite.com" to get to Xaraya), copy Xaraya's files & sub-directories to <webdir>.
 
-    - sql: Contains empty database definition files that correctly configure Xaraya's databases. Xaraya's installer creates the databases without using these files, but if the site administrator wishes to examine the data structure, these files can be useful. It is not necessary to copy this directory to the webserver.
-
-    - tests: This directory contains code that is being tested and is usable at your own risk. Noteworthy in this directory is the 'import' sub-directory, which contains utilities to import data from other Content Management Systems into Xaraya. It is not necessary to copy this directory to the webserver. Pieces you wish to test can be copied individually to the webserver.
+    - tools: This directory contains utility code. Noteworthy in this directory is the 'import' sub-directory, which contains utilities to import data from other Content Management Systems into Xaraya. It is not necessary to copy this directory to the webserver. Pieces you wish to use can be copied individually to the webserver. The 'modwizard' directory contains an xml/xslt application that can be used to generate a Xaraya module with standard functions.
 
 New Installation
 ================

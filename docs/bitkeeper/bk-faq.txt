@@ -1,0 +1,75 @@
+Questions:
+==========
+
+1. How do I jump to a certain point, do some coding and merge this back into the main tree?
+2. How can I see what will be send out if i do bk push?
+3. I'm on windows and I can't clone, something with rsh not found. What do I do?
+4. I'm looking for changesets with revtool, the dates and times are all wrong, what's happening?
+5. I'm a scenario lead and have my own repository for the big change I'm making. I want the 'catch-up'
+   with the main tree. How do I do that?
+
+
+Answers:
+========
+
+1. How do I jump to a certain point, do some coding and merge this back into the main tree?
+-------------------------------------------------------------------------------------------
+Suppose changeset 1.156 is in the past and you want to fix things from there.
+
+a.) bk clone -r1.156 ~/bk/main ~/bk/bugfix
+This will get you a repository as it was during changeset 1.156 in the bugfix directory
+
+b.) cd ~/bk/bugfix
+   
+c.) hack hack hack
+
+[time passes, main is ready for bugfix]
+   
+d.) cd ~/bk/main
+
+e.) bk pull ../bugfix
+Get only the bugfixes back into your local main tree. Any conflicts can be resolved now
+If you've cloned your main tree from a central one, a bk push will send the bugfix over to
+that repository as well
+
+Remarks:
+	- why not use clone -l ?
+
+
+2. How can I see what will be send out/in if i do bk push/pull?
+---------------------------------------------------------------
+
+bk changes -L  (list changes which are only in local an not in remote)
+bk changes -R  (list changes which are only in remote and not in local)
+
+3. I'm on windows and I can't clone, something with rsh not found. What do I do?
+--------------------------------------------------------------------------------
+It seems that in the cygwin install, ssh and friends are not included. Here's what 
+you can do.
+1. Get the webinstaller for cygwin from cygwin.com
+2. Fire it up and look for the openssh and openssl package, install them both
+3. try it again
+
+4. I'm looking for changesets with revtool, the dates and times are all wrong, what's happening?
+------------------------------------------------------------------------------------------------
+Because developer groups can consist of people in different timezone all date and timestamps are
+in UTC time. 
+
+5. I'm a scenario lead and have my own repository for the big change I'm making. I want the 'catch-up'
+   with the main tree. How do I do that?
+-----------------------------------------------------------------------------------------------------
+The scenario tree you are working in is a child of the actual scenario tree and has a different (higher)
+level. For getting changes into the scenario (for example, just before finishing up the scenario and 
+putting it up for review) do the following:
+
+a.) bk parent yourname@xaraya.com:/path/to/main-tree
+This will set your parent to the main repository
+b.) bk pull
+This will get the changes from the main tree which you don't have and apply them.
+c.) bk parent yourname@xaraya.com:/path/to/scenario-tree
+
+Or perhaps easier:
+
+bk pull yourname@xaraya.com:/path/to/main-tree
+
+This will do all of the above in one go. The parent is only changed for this command.

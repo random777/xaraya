@@ -1,0 +1,2531 @@
+Release notes for release B9130.
+Changes from B9120 to B9130:
+
+2005-04-10: jojodee@ahaadev.net: ChangeSet 1.1944
+  A few bug fixes courtesy MrB - short url workaround for 3603 and an upgrade issue bug.
+  	* html/upgrade.php:
+	  Comment out CatchOutput(); to stop the blank screen problem??courtesy MrB 
+ 	* html/includes/xarMod.php:
+	  Duplicating MrB's workaround for bug 3603 and the short url problem.Get it to work until we decide what to do here. 
+2005-04-10: jojodee@ahaadev.net: ChangeSet 1.1943
+  Up the version numbers to 0.9.13 and edit the build.properties fileto reflect the new directory structure for the Release scenarioUpdate with a few new mods and take out Navigator at Rabbitt's request.
+  	* html/includes/xarCore.php:
+	  Up the version number in core to 0.9.13 
+ 	* build.properties:
+	  Change the release number - up to 0.9.13 in build.propertiesAdd in a few new and stable mods, remove navigator 
+2005-04-06: epicsaga@u15150233.onlinehome-server.com: ChangeSet 1.1942
+  admin-validation-subform.xd:  Change to reflect current code, uses the field named 'itemid' in the children for linkage rather then a dummystore (memory only storage)admin-showinput-subform.xd:  updating ToDo commentTutorials for usage of subforms to be posted to kb mailing list as time permits
+  	* html/modules/dynamicdata/xartemplates/admin-validation-subform.xd:
+	  Change to reflect current code, uses the field named 'itemid' in the children for linkage rather then a dummystore (memory only storage) 
+ 	* html/modules/dynamicdata/xartemplates/admin-showinput-subform.xd:
+	  updating ToDo comment 
+2005-04-06: epicsaga@u15150233.onlinehome-server.com: ChangeSet 1.1941
+  admin-showinput-subform.xd:  added a hidden field to enable ChildList to be able to Add/Edit
+  	* html/modules/dynamicdata/xartemplates/admin-showinput-subform.xd:
+	  added a hidden field to enable ChildList to be able to Add/Edit 
+2005-04-06: epicsaga@u15150233.onlinehome-server.com: ChangeSet 1.1940
+  Dynamic_SubForm_Property.php:  Added the ability for ChildList mode to create and edit children.
+  	* html/includes/properties/Dynamic_SubForm_Property.php:
+	  Added the ability for ChildList mode to create and edit children. 
+2005-04-06: voll@yahoo.com: ChangeSet 1.1939
+  Fix bug with quote in xml files
+  	* tools/mls/convertors/xml2php.php:
+	  Fix bug with quote in xml files 
+2005-04-06: voll@yahoo.com: ChangeSet 1.1938
+  Add credits to Mikolaj Jedrzejak (Initial code for xarCharset class)
+  	* docs/CREDITS.txt:
+	  Add credits to Mikolaj Jedrzejak (Initial code for xarCharset class) 
+2005-04-06: voll@yahoo.com: ChangeSet 1.1937
+  Fix MLS call
+  	* html/modules/roles/xaruser/login.php:
+	  Fix MLS call 
+2005-04-05: voll@yahoo.com: ChangeSet 1.1934.1.1
+  fix bug with quote in xml files
+  	* html/includes/xarMod.php:
+	  fix bug with quote in xml files 
+ 	* html/includes/xarMLS.php:
+	  fix bug with quote in xml files 
+2005-04-05: mikespub@fully.qualified.hostname: ChangeSet 1.1935
+  bug 4301 - get rid of blank lines at the end of user-showoutput*
+  	* html/modules/dynamicdata/xartemplates/user-showoutput-webpage.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-username.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-userlist.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-urltitle.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-urlicon.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-timezone.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-subform.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-statelist.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-itemtype.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-imagelist.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-image.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-grouplist.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-dropdown.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-countrylist.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-combobox.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-checkbox.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-array.xd:
+	  bug 4301 - get rid of blank lines at the end of user-showoutput* 
+2005-04-05: voll@yahoo.com: ChangeSet 1.1934
+  fix url to validator.w3.org
+  	* html/themes/Xaraya_Classic/pages/default.xt:
+	  fix url to validator.w3.org 
+2005-04-04: John.Cox@mcnabb.: ChangeSet 1.1933
+  quick comment
+  	* html/modules/roles/xaruser/register.php:
+	  quick comment 
+2005-04-04: John.Cox@mcnabb.: ChangeSet 1.1928.1.1
+  fix minage
+  	* html/modules/roles/xaruser/register.php:
+	  fix minage 
+2005-04-04: marcel@hsdev.com: ChangeSet 1.1925.1.2
+  Maintenance for copyright helper command
+  	* BitKeeper/custom/authors:
+	  document the -w option 
+ 	* BitKeeper/custom/author_map:
+	  Mapping some unknown id's to known authors, sorting 
+2005-04-04: marcel@hsdev.com: ChangeSet 1.1925.1.1
+  Signalling stratagem has signed the JCA
+  	* BitKeeper/custom/author_map:
+	  Signalling stratagem has signed the JCA 
+2005-04-04: miko@newton.xaraya.com: ChangeSet 1.1929
+  admin-phase3.xd:  grammatical and mlstring fixes
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  grammatical and mlstring fixes 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1928
+  bug 2838
+  	* html/includes/xarServer.php:
+	  bug 2838 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1927
+  fix for 4155
+  	* html/modules/themes/xaradmin/setdefault.php:
+	   
+ 	* html/modules/themes/xartemplates/admin-modifyconfig.xd:
+	  fix for 4155 
+ 	* html/modules/themes/xartemplates/admin-list.xd:
+	  fix for 4155 
+ 	* html/modules/themes/xaradmin/setdefault.php:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/modules/themes/xaradmin/setdefault.php 
+ 	* html/modules/themes/xaradmin/updateconfig.php:
+	  fix for 4155 
+ 	* html/modules/themes/xaradmin/modifyconfig.php:
+	  fix for 4155 
+ 	* html/modules/themes/xaradmin/list.php:
+	  fix for 4155 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1926
+  Verbage.
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  Upgrading and Importing text. 
+ 	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  Little more explanation for extensions. 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1925
+  bug 1302
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  bug 1302 
+ 	* html/modules/installer/xaradmin.php:
+	  bug 1302 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1924
+  qa
+  	* html/themes/Xaraya_Classic/style/verticlemenu.css:
+	  qa 
+ 	* html/themes/Xaraya_Classic/style/admin.css:
+	  qa 
+ 	* html/themes/Xaraya_Classic/scripts/nav.js:
+	  qa 
+ 	* html/themes/Xaraya_Classic/modules/adminpanels/blocks/verticallistbycats-top.xt:
+	  qa 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1923
+  make loading admin.xt configurable.  added admin theme with compact menu in Xaraya_Classic.  All configurable from the admin panels before you start yelling....
+  	* html/themes/Xaraya_Classic/style/verticlemenu.css:
+	   
+ 	* html/themes/Xaraya_Classic/style/admin.css:
+	   
+ 	* html/themes/Xaraya_Classic/style/verticlemenu.css:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/style/verticlemenu.css 
+ 	* html/themes/Xaraya_Classic/style/admin.css:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/style/admin.css 
+ 	* html/themes/Xaraya_Classic/scripts/nav.js:
+	   
+ 	* html/themes/Xaraya_Classic/pages/admin.xt:
+	   
+ 	* html/themes/Xaraya_Classic/modules/adminpanels/blocks/verticallistbycats-top.xt:
+	   
+ 	* html/themes/Xaraya_Classic/blocks/top.xt:
+	   
+ 	* html/themes/Xaraya_Classic/scripts/nav.js:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/scripts/nav.js 
+ 	* html/themes/Xaraya_Classic/pages/admin.xt:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/pages/admin.xt 
+ 	* html/themes/Xaraya_Classic/modules/adminpanels/blocks/verticallistbycats-top.xt:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/modules/adminpanels/blocks/verticallistbycats-top.xt 
+ 	* html/themes/Xaraya_Classic/blocks/top.xt:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/blocks/top.xt 
+ 	* html/themes/Xaraya_Classic/blocks/mainnavbubble.xt:
+	   
+ 	* html/themes/Xaraya_Classic/blocks/mainnavbubble.xt:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/blocks/mainnavbubble.xt 
+ 	* html/modules/base/xaradmin/release.php:
+	  make loading admin.xt configurable.  added admin theme with compact menu in Xaraya_Classic.  All configurable from the admin panels before you start yelling.... 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  make loading admin.xt configurable.  added admin theme with compact menu in Xaraya_Classic.  All configurable from the admin panels before you start yelling.... 
+ 	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  make loading admin.xt configurable.  added admin theme with compact menu in Xaraya_Classic.  All configurable from the admin panels before you start yelling.... 
+ 	* html/modules/adminpanels/xaradmin/modifyconfig.php:
+	  make loading admin.xt configurable.  added admin theme with compact menu in Xaraya_Classic.  All configurable from the admin panels before you start yelling.... 
+ 	* html/index.php:
+	  make loading admin.xt configurable.  added admin theme with compact menu in Xaraya_Classic.  All configurable from the admin panels before you start yelling.... 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1922
+  Add descriptions for configurations.
+  	* html/modules/installer/xarconfigurations/public.conf.php:
+	  Add descriptions for configurations. 
+ 	* html/modules/installer/xarconfigurations/intranet.conf.php:
+	  Add descriptions for configurations. 
+ 	* html/modules/installer/xarconfigurations/core.conf.php:
+	  Add descriptions for configurations. 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  Add descriptions for configurations. 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1921
+  update to installer theme.
+  	* html/themes/Xaraya_Classic/modules/installer/images/installerbg.png:
+	   
+ 	* html/themes/Xaraya_Classic/style/installer.css:
+	  update to installer theme. 
+ 	* html/themes/Xaraya_Classic/pages/installer.xt:
+	  update to installer theme. 
+ 	* html/themes/Xaraya_Classic/modules/installer/images/installerbg.png:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/themes/Xaraya_Classic/modules/installer/images/installerbg.png 
+ 	* html/themes/Xaraya_Classic/modules/installer/images/completed.gif:
+	  update to installer theme. 
+ 	* html/themes/Xaraya_Classic/modules/installer/images/active.gif:
+	  update to installer theme. 
+ 	* BitKeeper/deleted/.del-top.gif~c3cfbad27ef18057:
+	  Delete: html/themes/Xaraya_Classic/modules/installer/images/top.gif 
+ 	* BitKeeper/deleted/.del-bottom.gif~93bf963b199609fc:
+	  Delete: html/themes/Xaraya_Classic/modules/installer/images/bottom.gif 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1920
+  bug 4195
+  	* html/modules/installer/xartemplates/admin-create_administrator.xd:
+	  bug 4195 
+2005-04-03: John.Cox@mcnabb.: ChangeSet 1.1917.1.1
+  usability improvement to installer.  don't install modules outside of configurations at install time.bug 4280bug 3092bug 3785bug 4055bug 4202bug 4203bug 4231
+  	* html/modules/installer/xartemplates/admin-confirm_configuration.xd:
+	  usability improvement to installer.  don't install modules outside of configurations at install time.bug 4280bug 3092bug 3785bug 4055bug 4202bug 4203bug 4231 
+ 	* html/modules/installer/xaradmin.php:
+	  usability improvement to installer.  don't install modules outside of configurations at install time.bug 4280bug 3092bug 3785bug 4055bug 4202bug 4203bug 4231 
+2005-04-03: johnny@echo.pengo.lan: ChangeSet 1.1918
+  adding checkbox validation 
+  	* html/modules/base/xartemplates/includes/formcheck.js:
+	  adding checkbox validation  
+2005-04-02: rabbitt@nioka.tranquillo.net: ChangeSet 1.1917
+  class.phpmailer.php:  tabs -> spaces
+  	* html/modules/mail/xarclass/class.phpmailer.php:
+	  tabs -> spaces 
+2005-04-02: rabbitt@newton.xaraya.com: ChangeSet 1.1914.1.1
+  author_map:  updated author map adding entry for Carl
+  	* BitKeeper/custom/author_map:
+	  updated author map adding entry for Carl 
+2005-04-02: rabbitt@nioka.tranquillo.net: ChangeSet 1.1915
+  Merge rabbitt@xaraya.com:/var/bk/xaraya/core/stableinto nioka.tranquillo.net:/work/projects/xaraya/core/stable
+  	* html/modules/mail/xaradminapi/_sendmail.php:
+	  Auto merged 
+ 	* BitKeeper/etc/logging_ok:
+	  auto-union 
+2005-04-02: rabbitt@nioka.tranquillo.net: ChangeSet 1.1886.161.3
+  Added From header for originating ipMade mail module handle display of template names in emails
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/modules/mail/xartemplates/admin-modifyconfig.xd:
+	  Mail module now handles turning on/off display of template names in emails (done via turning on/off showtemplates in the themes module before handling the mail template) 
+ 	* html/modules/mail/xarclass/class.phpmailer.php:
+	  Mail module now appends a FROM header line containing the IP of the user who sent the email. 
+ 	* html/modules/mail/xaradminapi/_sendmail.php:
+	  Mail module now handles turning on/off display of template names in emails (done via turning on/off showtemplates in the themes module before handling the mail template) 
+ 	* html/modules/mail/xaradmin/updateconfig.php:
+	  Mail module now handles turning on/off display of template names in emails (done via turning on/off showtemplates in the themes module before handling the mail template) 
+2005-04-02: mikespub@fully.qualified.hostname: ChangeSet 1.1914
+  create dedicated table for dynamic object
+  	* html/modules/dynamicdata/xarutil/export.php:
+	  create dedicated table for dynamic object 
+ 	* html/modules/dynamicdata/xartemplates/util-export.xd:
+	  create dedicated table for dynamic object 
+ 	* html/modules/dynamicdata/class/objects.php:
+	  create dedicated table for dynamic object 
+ 	* html/modules/dynamicdata/xarutilapi/maketable.php:
+	   
+ 	* html/modules/dynamicdata/xarutilapi/maketable.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xarutilapi/maketable.php 
+ 	* html/includes/datastores/Dynamic_FlatTable_DataStore.php:
+	  support non-autoincrement primary fields 
+2005-04-02: mikespub@fully.qualified.hostname: ChangeSet 1.1913
+  bug 3998 - items per page
+  	* html/modules/dynamicdata/xaruser/view.php:
+	  bug 3998 - items per page 
+ 	* html/modules/dynamicdata/xartemplates/user-view.xd:
+	  bug 3998 - items per page 
+ 	* html/modules/dynamicdata/xartemplates/admin-view.xd:
+	  bug 3998 - items per page 
+ 	* html/modules/dynamicdata/xaradmin/view.php:
+	  bug 3998 - items per page 
+2005-04-01: marcel@hsdev.com: ChangeSet 1.1910.1.1
+  Set rel attribute according to latest atom spec
+  	* html/modules/themes/xartemplates/blocks/meta.xd:
+	  Set rel attribute according to latest atom spec 
+2005-04-01: marcel@hsdev.com: ChangeSet 1.1910
+  Bug in CDATA parsing fixed
+  	* html/includes/xarBLCompiler.php:
+	  DOH! no one noticed this before?  
+2005-03-29: voll@yahoo.com: ChangeSet 1.1908.1.2
+  add script for PHP translations files generation
+  	* tools/mls/convertors/xml2php.php:
+	   
+ 	* tools/mls/convertors/xml2php.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/mls/convertors/xml2php.php 
+2005-03-29: jojodee@ahaadev.net: ChangeSet 1.1886.1.191
+  Make existing login lockout use, lockout time, and lockout tries configurable
+  	* html/modules/roles/xaruser/login.php:
+	  Make existing login lockout use, lockout time, and lockout tries configurable 
+ 	* html/modules/roles/xartemplates/admin-modifyconfig.xd:
+	  Make existing login lockout use, lockout time, and lockout tries configurable 
+ 	* html/modules/roles/xaradmin/modifyconfig.php:
+	  Make existing login lockout use, lockout time, and lockout tries configurable 
+2005-03-28: marcel@hsdev.com: ChangeSet 1.1909
+  remove dtd attribute from rss page template
+  	* html/themes/rss/pages/default.xt:
+	  remove dtd attribute 
+2005-03-28: voll@yahoo.com: ChangeSet 1.1908
+  Bug 4261 fixed - bad data
+  	* html/modules/roles/xartemplates/admin-testprivileges.xd:
+	  Bug 4261 fixed - bad data 
+2005-03-27: voll@yahoo.com: ChangeSet 1.1907
+  mls and charset changes
+  	* html/includes/xarMLS.php:
+	  load locale data for non utf-8 locale 
+ 	* html/includes/transforms/xarCharset.php:
+	  add header 
+ 	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  Delete: html/includes/transforms/ConvertCharset.php 
+2005-03-27: marcel@hsdev.com: ChangeSet 1.1886.168.3
+  - at least one implementation of xmlhttp has no property notion in the function object handler (safari), go back to the global.
+  	* html/modules/base/xartemplates/includes/xmlhttprequest.js:
+	  - at least one implementation of xmlhttp has no property notion in the function object handler (safari), go back to the global. 
+2005-03-27: marcel@hsdev.com: ChangeSet 1.1886.168.2
+  slight simplification and dont let the block break on creation
+  	* html/modules/base/xarblocks/html.php:
+	  slight simplification and dont let the block break on creation 
+2005-03-27: marcel@hsdev.com: ChangeSet 1.1886.168.1
+  turck mmcache kept crashing on this line, this apparently solves it, <shrug>
+  	* html/includes/log/loggers/simple.php:
+	  turck mmcache kept crashing on this line, this apparently solves it, <shrug> 
+2005-03-26: marc@marclaptop.: ChangeSet 1.1886.167.1
+  register.php:  bug 4259
+  	* html/modules/roles/xaruser/register.php:
+	  bug 4259 
+2005-03-25: voll@yahoo.com: ChangeSet 1.1905
+  xarCharset improvements
+  	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  xarCharset improvements 
+2005-03-25: voll@yahoo.com: ChangeSet 1.1904
+  xarCharset improvements
+  	* html/includes/transforms/xarCharset.php:
+	  xarCharset improvements 
+ 	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  xarCharset improvements 
+2005-03-25: voll@yahoo.com: ChangeSet 1.1903
+  xarCharset improvements
+  	* BitKeeper/deleted/.del-mazovia~6096b3e3:
+	  Delete: html/includes/transforms/convtables/mazovia 
+ 	* html/includes/transforms/xarCharset.txt:
+	  Rename: html/includes/transforms/ConvertCharset.txt -> html/includes/transforms/xarCharset.txt 
+ 	* html/includes/transforms/xarCharset.txt:
+	  xarCharset improvements 
+ 	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  xarCharset improvements 
+ 	* html/includes/transforms/xarCharset.php:
+	   
+ 	* html/includes/transforms/xarCharset.php:
+	  BitKeeper file /var/bk/xaraya/core/userlocale/html/includes/transforms/xarCharset.php 
+ 	* html/includes/xarMLS.php:
+	  xarCharset improvements 
+2005-03-25: marcel@plato.hsdev.com: ChangeSet 1.1886.156.23
+  Merge xaraya.com:/var/bk/xar/core/stableinto hsdev.com:/var/bk/xar/core/xartest
+  	* html/modules/dynamicdata/class/objects.php:
+	  Auto merged 
+2005-03-25: marcel@hsdev.com: ChangeSet 1.1886.166.2
+  Two minor changes:- pass objectid to list templates- template fix 
+  	* html/modules/dynamicdata/xartemplates/admin-showinput-subform.xd:
+	  - make sure we complete the table we're in when we insert the data form 
+ 	* html/modules/dynamicdata/class/objects.php:
+	  Pass objectid to the list template, comfy for customizing 
+2005-03-25: marcel@hsdev.com: ChangeSet 1.1886.166.1
+  bindvar remnant
+  	* html/modules/roles/xaradmin/modifyconfig.php:
+	  bindvar remnant 
+2005-03-24: mikespub@fully.qualified.hostname: ChangeSet 1.1886.165.1
+  bug 4222 - add primary field to datastore fields if necessary
+  	* html/modules/dynamicdata/class/objects.php:
+	  bug 4222 - add primary field to datastore fields if necessary 
+2005-03-24: marcel@hsdev.com: ChangeSet 1.1886.156.21
+  Fix httprequest code. 
+  	* html/modules/base/xartemplates/includes/xmlhttprequest.js:
+	  - eliminate a global- registering a handler is something different than calling a function, this was the bug- add paranoid try/catch clauses- add some TODO's 
+2005-03-24: johnny@echo.pengo.lan: ChangeSet 1.1886.156.20
+  added xmlhttprequest code, taken from bkview modulenothin too special yet, just somethin to start from
+  	* html/modules/base/xartemplates/includes/xmlhttprequest.js:
+	   
+ 	* html/modules/base/xartemplates/includes/xmlhttprequest.js:
+	  BitKeeper file /home/johnny/projects/xaraya/test/html/modules/base/xartemplates/includes/xmlhttprequest.js 
+2005-03-24: marcel@hsdev.com: ChangeSet 1.1886.156.19
+  There was a bug in the notation resolver where a notation like:  $a[$b].c would fail. In fact, lots of mixed notations would fail.This changeset fixes this.As it turned out it wasnt something of a type of some sort, but a conceptual mistake in the resolving logic. PLEASE TEST THIS THOROUGHLY!  The change will affect nothing as far as i can see, and i've tested all the notation shapes i could think of,but obviously this can break stuff bigtime if i made a mistake. 
+  	* tests/objectnotation.php:
+	  Update of testfile for notation resolver to make it in sync with BLCompiler 
+ 	* html/includes/xarBLCompiler.php:
+	  Solved an expression resolving bug where the mixed usage of [ ] and the colon notation caused the resolver to fail 
+2005-03-22: marcel@hsdev.com: ChangeSet 1.1886.156.18
+  Allow extra parameters after '[]' notation in the menu block
+  	* html/modules/blocks/xaradmin/update_instance.php:
+	  - make testing for the checkbox value a bit more robust 
+ 	* html/modules/base/xarblocks/menu.php:
+	  - allow extra stuff after the ] in the menu block- make testing for the checkbox value a bit more robust. 
+2005-03-21: marc@marclaptop.: ChangeSet 1.1886.164.2
+  purge.php:  bug 3535
+  	* html/modules/roles/xaradmin/purge.php:
+	  bug 3535 
+2005-03-20: marc@marclaptop.: ChangeSet 1.1886.164.1
+  recall.php:  bug 3535
+  	* html/modules/roles/xaradminapi/recall.php:
+	  bug 3535 
+2005-03-20: John.Cox@mcnabb.: ChangeSet 1.1886.156.16
+  qa
+  	* html/themes/rss/pages/default.xt:
+	  qa 
+2005-03-20: John.Cox@mcnabb.: ChangeSet 1.1886.163.3
+  attempt to fix rss theme
+  	* html/themes/rss/pages/default.xt:
+	  attempt to fix rss theme 
+2005-03-20: marc@marclaptop.: ChangeSet 1.1886.156.14
+  rfc0042.xml:  QA tabs again
+  	* docs/rfc/rfc0042.xml:
+	  QA tabs again 
+2005-03-20: marc@marclaptop.: ChangeSet 1.1886.156.13
+  rfc0042.xml:  document solution for FR 3535
+  	* docs/rfc/rfc0042.xml:
+	  document solution for FR 3535 
+2005-03-20: marc@marclaptop.: ChangeSet 1.1886.156.12
+  user-view.xd:  QA tabs
+  	* html/modules/roles/xartemplates/user-view.xd:
+	  QA tabs 
+2005-03-20: marc@marclaptop.: ChangeSet 1.1886.156.11
+  user-view.xd:  QA stuff
+  	* html/modules/roles/xartemplates/user-view.xd:
+	  QA stuff 
+2005-03-20: marc@marclaptop.: ChangeSet 1.1886.156.9
+  recall.php, purge.php, delete.php:  bug 3535
+  	* html/modules/roles/xaradminapi/recall.php:
+	  bug 3535 
+ 	* html/modules/roles/xaradminapi/purge.php:
+	  bug 3535 
+ 	* html/modules/roles/xaradminapi/delete.php:
+	  bug 3535 
+2005-03-20: marc@marclaptop.: ChangeSet 1.1886.156.8
+  purge.php, delete.php:  fix bug 3535
+  	* html/modules/roles/xaradminapi/purge.php:
+	  fix bug 3535 
+ 	* html/modules/roles/xaradminapi/delete.php:
+	  fix bug 3535 
+2005-03-19: John.Cox@mcnabb.: ChangeSet 1.1886.163.2
+  bug 4219
+  	* html/modules/mail/xaradminapi/_sendmail.php:
+	  bug 4219 
+2005-03-19: John.Cox@mcnabb.: ChangeSet 1.1886.162.1
+  submit once javascript
+  	* html/modules/base/xartemplates/includes/submitonce.js:
+	   
+ 	* html/modules/base/xartemplates/includes/submitonce.js:
+	  BitKeeper file C:/cygwin/home/dev/www/xaraya/xaraya/html/modules/base/xartemplates/includes/submitonce.js 
+2005-03-18: voll@yahoo.com: ChangeSet 1.1902
+  fix file name
+  	* html/includes/xarMLS.php:
+	  fix file name 
+2005-03-18: voll@yahoo.com: ChangeSet 1.1901
+  convertCharset - xaraized directory name
+  	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  convertCharset - xaraized directory name 
+ 	* html/includes/transforms/convtables/zdingbat:
+	  mvdir 
+ 	* html/includes/transforms/convtables/x-mac-roman:
+	  mvdir 
+ 	* html/includes/transforms/convtables/x-mac-icelandic:
+	  mvdir 
+ 	* html/includes/transforms/convtables/x-mac-greek:
+	  mvdir 
+ 	* html/includes/transforms/convtables/x-mac-cyrillic:
+	  mvdir 
+ 	* html/includes/transforms/convtables/x-mac-ce:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1258:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1257:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1256:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1255:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1254:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1253:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1252:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1251:
+	  mvdir 
+ 	* html/includes/transforms/convtables/windows-1250:
+	  mvdir 
+ 	* html/includes/transforms/convtables/us-ascii:
+	  mvdir 
+ 	* html/includes/transforms/convtables/us-ascii-quotes:
+	  mvdir 
+ 	* html/includes/transforms/convtables/turkish:
+	  mvdir 
+ 	* html/includes/transforms/convtables/symbol:
+	  mvdir 
+ 	* html/includes/transforms/convtables/stdenc:
+	  mvdir 
+ 	* html/includes/transforms/convtables/nextstep:
+	  mvdir 
+ 	* BitKeeper/deleted/.del-mazovia~6096b3e3:
+	  mvdir 
+ 	* html/includes/transforms/convtables/koi8-u:
+	  mvdir 
+ 	* html/includes/transforms/convtables/koi8-r:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-9:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-8:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-7:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-6:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-5:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-4:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-3:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-2:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-1:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-16:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-15:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-14:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-13:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-11:
+	  mvdir 
+ 	* html/includes/transforms/convtables/iso-8859-10:
+	  mvdir 
+ 	* html/includes/transforms/convtables/gsm0338:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp875:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp874:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp869:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp866:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp865:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp864:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp863:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp862:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp861:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp860:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp857:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp856:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp855:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp852:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp850:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp775:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp737:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp500:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp437:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp424:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp1026:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp1006:
+	  mvdir 
+ 	* html/includes/transforms/convtables/cp037:
+	  mvdir 
+ 	* html/includes/transforms/xarCharset.txt:
+	  Rename: html/includes/transforms/ConvertCharset.class.txt -> html/includes/transforms/ConvertCharset.txt 
+ 	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  Rename: html/includes/transforms/ConvertCharset.class.php -> html/includes/transforms/ConvertCharset.php 
+2005-03-18: voll@yahoo.com: ChangeSet 1.1900
+  convertCharset - simplification and performance
+  	* html/includes/transforms/xarCharset.txt:
+	  convertCharset - simplification and performance 
+ 	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  convertCharset - simplification and performance 
+2005-03-18: marcel@hsdev.com: ChangeSet 1.1886.156.6
+  We can simplify here a bit and reuse the data-input dd tag for the module list.
+  	* html/modules/blocks/xartemplates/admin-new_type.xd:
+	  using the data-input dd tag for the module list 
+ 	* html/modules/blocks/xaradmin/new_type.php:
+	  - changes related to using data-input/module dd tag 
+ 	* BitKeeper/deleted/.del-ConvertCharset.class.orig.php~606c9160:
+	  Delete: html/includes/transforms/ConvertCharset.class.orig.php 
+2005-03-18: voll@yahoo.com: ChangeSet 1.1899
+  CharsetConvert QA fixes
+  	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  CharsetConvert QA fixes 
+2005-03-18: voll@yahoo.com: ChangeSet 1.1898
+  CharsetConvert QA fixes
+  	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  CharsetConvert QA fixes 
+2005-03-18: voll@yahoo.com: ChangeSet 1.1897
+  CharsetConvert some improvments
+  	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  CharsetConvert some improvments 
+ 	* html/includes/transforms/xarCharset.txt:
+	   
+ 	* html/includes/transforms/xarCharset.txt:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertCharset.class.txt 
+2005-03-15: voll@yahoo.com: ChangeSet 1.1886.161.2
+  postnuke import: add downloads and phpBB_14 forum
+  	* tools/import/postnuke/import_pn_cleanup.php:
+	  postnuke import: add downloads and phpBB_14 forum 
+ 	* tools/import/postnuke/import_pn_cleanup.php:
+	  postnuke import: add downloads and phpBB_14 forum 
+ 	* tools/import/postnuke/import_pn.php:
+	  postnuke import: add downloads and phpBB_14 forum 
+ 	* tools/import/postnuke/import_pn_phpbb14_topics.php:
+	   
+ 	* tools/import/postnuke/import_pn_phpbb14_pubtype.php:
+	   
+ 	* tools/import/postnuke/import_pn_phpbb14_posts.php:
+	   
+ 	* tools/import/postnuke/import_pn_phpbb14_forums.php:
+	   
+ 	* tools/import/postnuke/import_pn_phpbb14_categories.php:
+	   
+ 	* tools/import/postnuke/import_pn_downloads_downloads.php:
+	   
+ 	* tools/import/postnuke/import_pn_phpbb14_topics.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/import/postnuke/import_pn_phpbb14_topics.php 
+ 	* tools/import/postnuke/import_pn_phpbb14_pubtype.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/import/postnuke/import_pn_phpbb14_pubtype.php 
+ 	* tools/import/postnuke/import_pn_phpbb14_posts.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/import/postnuke/import_pn_phpbb14_posts.php 
+ 	* tools/import/postnuke/import_pn_phpbb14_forums.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/import/postnuke/import_pn_phpbb14_forums.php 
+ 	* tools/import/postnuke/import_pn_phpbb14_categories.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/import/postnuke/import_pn_phpbb14_categories.php 
+ 	* tools/import/postnuke/import_pn_downloads_downloads.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/import/postnuke/import_pn_downloads_downloads.php 
+ 	* tools/import/postnuke/import_pn_downloads_categories.php:
+	   
+ 	* tools/import/postnuke/import_pn_downloads_categories.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/tools/import/postnuke/import_pn_downloads_categories.php 
+2005-03-14: judgej@acadweb.co.uk: ChangeSet 1.1886.160.1
+  modulefile.php:  Bug 4215: make JavaScript URLs absolute.
+  	* html/modules/base/xarjavascriptapi/modulefile.php:
+	  Bug 4215: make JavaScript URLs absolute. 
+2005-03-14: marc@marclaptop.: ChangeSet 1.1886.159.2
+  view.php, user-view.xd:  bug 3981
+  	* html/modules/roles/xaruser/view.php:
+	  bug 3981 
+ 	* html/modules/roles/xartemplates/user-view.xd:
+	  bug 3981 
+2005-03-14: marcel@hsdev.com: ChangeSet 1.1886.156.4
+  Overlooked prep
+  	* html/modules/modules/xaradmin/hooks.php:
+	  Overlooked prep 
+2005-03-14: marc@marclaptop.: ChangeSet 1.1886.158.2
+  usermenu.php:  bug 4110
+  	* html/modules/roles/xaruser/usermenu.php:
+	  bug 4110 
+2005-03-14: marc@marclaptop.: ChangeSet 1.1886.158.1
+  usermenu.php:  check for unique email address only if the uniqueemail modvar is true
+  	* html/modules/roles/xaruser/usermenu.php:
+	  check for unique email address only if the uniqueemail modvar is true 
+2005-03-14: marcel@hsdev.com: ChangeSet 1.1886.157.1
+  - if it isnt included yet, do it here (installer for example, i suspect upgrade.php and ws.php too)
+  	* html/includes/xarCore.php:
+	  - if it isnt included yet, do it here (installer for example, i suspect upgrade.php and ws.php too) 
+2005-03-13: mikespub@fully.qualified.hostname: ChangeSet 1.1886.156.2
+  newsgroups rss
+  	* html/themes/rss/modules/newsgroups/user-group.xt:
+	   
+ 	* html/themes/rss/modules/newsgroups/user-group.xt:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/themes/rss/modules/newsgroups/user-group.xt 
+2005-03-13: marc@marclaptop.: ChangeSet 1.1886.155.1
+  register.php, getvalidation.php, online.php:  bug 3894createmail.php:  bug 3891register.php:  bug 4206admin-modifyemail.xd:  cosmetics. forgot to push this earlier
+  	* html/modules/roles/xaruser/register.php:
+	  bug 3894 
+ 	* html/modules/roles/xaruser/getvalidation.php:
+	  bug 3894 
+ 	* html/modules/roles/xarblocks/online.php:
+	  bug 3894 
+ 	* html/modules/roles/xaradmin/createmail.php:
+	  bug 3891 
+ 	* html/modules/roles/xaruser/register.php:
+	  bug 4206 
+ 	* html/modules/roles/xartemplates/admin-modifyemail.xd:
+	  cosmetics. forgot to push this earlier 
+2005-03-13: voll@medoc.solidno.ru: ChangeSet 1.1895
+  Merge voll@xaraya.com:/var/bk/xaraya/core/stableinto yahoo.com:/var/bk/xaraya/core/userlocale
+  	* html/includes/xarMLS.php:
+	  Auto merged 
+2005-03-13: voll@yahoo.com: ChangeSet 1.1894
+  XML2PHP further improvement
+  	* html/includes/xarMLS.php:
+	  XML2PHP further improvement 
+2005-03-13: judgej@acadweb.co.uk: ChangeSet 1.1886.1.186
+  _fnmatch.php:  QA
+  	* html/includes/phpcompat/stubs/functions/_fnmatch.php:
+	  QA 
+2005-03-13: judgej@acadweb.co.uk: ChangeSet 1.1886.1.185
+  _fnmatch.php, fnmatch.php:  new file
+  	* html/includes/phpcompat/stubs/functions/_fnmatch.php:
+	   
+ 	* html/includes/phpcompat/stubs/functions/_fnmatch.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/stable/html/includes/phpcompat/stubs/functions/_fnmatch.php 
+ 	* html/includes/phpcompat/stubs/fnmatch.php:
+	   
+ 	* html/includes/phpcompat/stubs/fnmatch.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/stable/html/includes/phpcompat/stubs/fnmatch.php 
+2005-03-12: marcel@hsdev.com: ChangeSet 1.1886.154.1
+  If child tags of xar:set have isAssignable, and that tag uses templates in some way (either direct or indirect), the set will includetemplate comments. The nonmarkup="no" attribute prevents this. It's a rare case, but this gives at least some way out. Most likely to happen in dd property templating (if you happen to have the flags changed for some, like i have)
+  	* html/includes/blnodes/tags/set.php:
+	  If child tags of xar:set have isAssignable, and that tag uses templates in some way (either direct or indirect), the set will includetemplate comments. The nonmarkup="no" attribute prevents this. It's a rare case, but this gives at least some way out. Most likely to happen in dd property templating (if you happen to have the flags changed for some, like i have) 
+2005-03-12: jsb@newton.xaraya.com: ChangeSet 1.1886.1.183
+  Merge
+  	* html/includes/xarCore.php:
+	  manual merge: went with remote (stable) version.my changes were only trailing space removal. 
+ 	* html/includes/xarMLS.php:
+	  Auto merged 
+ 	* html/includes/xarCache.php:
+	  Auto merged 
+2005-03-12: marcel@hsdev.com: ChangeSet 1.1886.1.182
+  typo
+  	* html/includes/xarBLCompiler.php:
+	  typo 
+2005-03-12: voll@medoc.solidno.ru: ChangeSet 1.1893
+  Merge voll@xaraya.com:/var/bk/xaraya/core/stableinto yahoo.com:/var/bk/xaraya/core/userlocale
+  	* html/includes/xarUser.php:
+	  Auto merged 
+ 	* BitKeeper/etc/logging_ok:
+	  auto-union 
+2005-03-12: jojodee@ahaadev.net: ChangeSet 1.1886.153.1
+  Block priv syntax so choice of Block works in setting a priv.
+  	* html/modules/adminpanels/xarblocks/waitingcontent.php:
+	  Block priv syntax so choice of Block works in setting a priv. 
+2005-03-11: marcel@hsdev.com: ChangeSet 1.1886.1.181
+  Make the objectlist family of templates manageable.
+  	* html/modules/dynamicdata/xartemplates/includes/objectlist-table.xd:
+	   
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-subform.xd:
+	   
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-list.xd:
+	   
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-default.xd:
+	   
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-table.xd:
+	  BitKeeper file /var/bk/xar/core/xartest/html/modules/dynamicdata/xartemplates/includes/objectlist-table.xd 
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-subform.xd:
+	  BitKeeper file /var/bk/xar/core/xartest/html/modules/dynamicdata/xartemplates/includes/objectlist-subform.xd 
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-list.xd:
+	  BitKeeper file /var/bk/xar/core/xartest/html/modules/dynamicdata/xartemplates/includes/objectlist-list.xd 
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-default.xd:
+	  BitKeeper file /var/bk/xar/core/xartest/html/modules/dynamicdata/xartemplates/includes/objectlist-default.xd 
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-cells.xd:
+	   
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-cells.xd:
+	  BitKeeper file /var/bk/xar/core/xartest/html/modules/dynamicdata/xartemplates/includes/objectlist-cells.xd 
+ 	* html/modules/dynamicdata/xartemplates/admin-objectlist.xd:
+	  - put the different layouts in subtemplates so templates are more manageable- also create the objectlist-default.xd template which in turn includes the current default layout. If another layout is needed by defaultoverriding that template is enough, which adds another road to changing the default, next to the url parameter. 
+2005-03-11: marcel@hsdev.com: ChangeSet 1.1886.152.1
+  Miscelaneous template related things when working on serving content as xml across the board.
+  	* html/modules/dynamicdata/xaradmin/view.php:
+	  - users & groups still not prepped everywhere 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  - users & groups still not prepped everywhere 
+ 	* html/includes/xarTemplate.php:
+	  produce a bit less space. 
+ 	* html/includes/xarBLCompiler.php:
+	  - relax the first line requirement a bit, so we can start playing with multiple xml headers (like stylesheets). they still need to occur before the root tag though. (this cycle is a repeat of the doctype story, which was fine, the xml headers locationis actually wrong, because they ultimately belong to the output format and not to the template. For now we ignore that fact for a whilejust like we did with the doctype. ) 
+2005-03-10: voll@yahoo.com: ChangeSet 1.1886.151.1
+  Fixed bug 3164 - add moduservar for user locale, add checks for wrong locale
+  	* html/upgrade.php:
+	  Fixed bug 3164 - add moduservar for user locale, add checks for wrong locale 
+ 	* html/modules/roles/xarinit.php:
+	  Fixed bug 3164 - add moduservar for user locale, add checks for wrong locale 
+ 	* html/includes/xarUser.php:
+	  Fixed bug 3164 - add moduservar for user locale, add checks for wrong locale 
+2005-03-09: jojodee@ahaadev.net: ChangeSet 1.1886.150.1
+  Comment out the insertion of tinymce template that loads the js. Now done with event.We still need the attribute taging for tinymce to work in Specific Label mode.Leave the comments for people using versions less than 0.4.0 
+  	* html/modules/dynamicdata/xartemplates/admin-showinput-tinymce.xd:
+	  Comment out the insertion of tinymce template that loads the js. Now done with event.We still need the attribute taging for tinymce to work in Specific Label mode. 
+2005-03-08: judgej@acadweb.co.uk: ChangeSet 1.1886.149.1
+  adodb-mysql.inc.php:  Bug 4192: replace SelectLimit() with corrected version from adodb 4.60
+  	* html/xaradodb/drivers/adodb-mysql.inc.php:
+	  Bug 4192: replace SelectLimit() with corrected version from adodb 4.60 
+2005-03-08: marc@marclaptop.: ChangeSet 1.1886.148.1
+  build.properties:  add Japanse to the list of installer languages
+  	* build.properties:
+	  add Japanse to the list of installer languages 
+2005-03-08: judgej@acadweb.co.uk: ChangeSet 1.1886.1.175
+  _findfile.php:  Allow javascript to be located in a sub-directory of the templates include directory.
+  	* html/modules/base/xarjavascriptapi/_findfile.php:
+	  Allow javascript to be located in a sub-directory of the templates include directory. 
+2005-03-07: marcel@newton.xaraya.com: ChangeSet 1.1886.1.174
+  deep:  Make deep script aware whether it is in a repo, both should work  Change mode to -rwxrwxrwx
+  	* BitKeeper/custom/deep:
+	  Make deep script aware whether it is in a repo, both should work 
+2005-03-07: marc@marclaptop.: ChangeSet 1.1886.1.173
+  .del-releaselog.txt~f20cc8de:  Delete: BitKeeper/custom/releaselog.txt
+  	* BitKeeper/deleted/.del-releaselog.txt~f20cc8de:
+	  Delete: BitKeeper/custom/releaselog.txt 
+ 	* BitKeeper/custom/deep:
+	  Change mode to -rwxrwxrwx 
+2005-03-07: marc@marclaptop.: ChangeSet 1.1886.1.172
+  releaselog.txt, deep:  new file
+  	* BitKeeper/deleted/.del-releaselog.txt~f20cc8de:
+	   
+ 	* BitKeeper/deleted/.del-releaselog.txt~f20cc8de:
+	  BitKeeper file C:/Program Files/Apache Group/Apache2/htdocs/stable/BitKeeper/custom/releaselog.txt 
+ 	* BitKeeper/custom/deep:
+	   
+ 	* BitKeeper/custom/deep:
+	  BitKeeper file C:/Program Files/Apache Group/Apache2/htdocs/stable/BitKeeper/custom/deep 
+2005-03-06: jsb@sting.in-beames.net: ChangeSet 1.1886.1.171
+  Change the default behavior on reusing client cache without revalidation.Least surprising default behavior.
+  	* html/includes/caching/page.php:
+	  Change the default behavior on reusing client cache without revalidation.This means a user will have to enable this feature specifically to allow clients to reuse cache without revalidation.  Hopefully this will mean people will know what behavior to expect when this feature is enabled. 
+2005-03-06: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.170
+  fix logout link in account page
+  	* html/modules/roles/xartemplates/user-account.xd:
+	  fix logout link in account page 
+2005-03-06: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.169
+  bug 4141 - data label template
+  	* html/modules/dynamicdata/xaruserapi/handlelabeltag.php:
+	  bug 4141 - data label template 
+ 	* html/modules/dynamicdata/class/properties.php:
+	  bug 4141 - data label template 
+ 	* html/modules/dynamicdata/xartemplates/user-label.xd:
+	   
+ 	* html/modules/dynamicdata/xartemplates/user-label.xd:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xartemplates/user-label.xd 
+2005-03-06: jojodee@ahaadev.net: ChangeSet 1.1886.147.1
+  Remove exta authid from template as only one form here now.Set default value of $overview - should be zero and mod var set to true when $overview is 1
+  	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  Remove extrnious $authid - not longer reqired as there is only one form here now. 
+ 	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  Set correct default value for $overview and set modvar true if $overview equals 1 
+2005-03-06: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.167
+  bug 1575 - Oracle tweaks
+  	* html/includes/datastores/Dynamic_VariableTable_DataStore.php:
+	  bug 1575 - Oracle tweaks 
+ 	* html/includes/datastores/Dynamic_FlatTable_DataStore.php:
+	  bug 1575 - Oracle tweaks 
+2005-03-05: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.166
+  bug 1575 - Oracle installation (not supported)
+  	* html/includes/xarSession.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/includes/xarSession.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/modules/roles/xaruserapi/get.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/modules/privileges/xarprivileges.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/modules/roles/xarroles.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/modules/blocks/xaruserapi/getall.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/modules/installer/xaradmin.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/modules/modules/xaradminapi/getlist.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/modules/adminpanels/xarinit.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/includes/xarTableDDL.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/includes/xarMod.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/includes/xarDB.php:
+	  bug 1575 - Oracle installation (not supported) 
+ 	* html/includes/xarBlocks.php:
+	  bug 1575 - Oracle installation (not supported) 
+2005-03-05: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.165
+  mysterious Document contains no data error with eAccelerator
+  	* html/includes/log/loggers/simple.php:
+	  mysterious Document contains no data error with eAccelerator 
+ 	* html/includes/xarLog.php:
+	  mysterious Document contains no data error with eAccelerator 
+2005-03-03: marcel@hsdev.com: ChangeSet 1.1886.1.164
+  Backport of patch applied to xar.com for dtd less serving. (RSS in this case)
+  	* html/includes/xarBLCompiler.php:
+	  backport of patch applied to xar.com for dtd less serving 
+ 	* html/includes/blnodes/tags/blocklayout.php:
+	  backport of patch applied to www.xar.com repo for dtd less serving 
+2005-03-03: marcel@hsdev.com: ChangeSet 1.1886.1.163
+  plain view had far right shift, <br/> fixes it for me, improve as see fitapparently this is a FF bug.
+  	* html/modules/blocks/xartemplates/includes/plain.xd:
+	  plain view had far right shift, <br/> fixes it for me, improve as see fit 
+2005-03-03: andyv@andyv.plus.com: ChangeSet 1.1886.1.162
+  missing background image - happened on the backport from corecss
+  	* html/themes/Xaraya_Classic/images/itemarrowdown.gif:
+	   
+ 	* html/themes/Xaraya_Classic/images/itemarrowdown.gif:
+	  BitKeeper file /Users/andyv/Sites/stable/html/themes/Xaraya_Classic/images/itemarrowdown.gif 
+2005-03-01: John.Cox@mcnabb.: ChangeSet 1.1886.1.161
+  commenting out the transforms from earlier.
+  	* html/modules/base/xarblocks/text.php:
+	  commenting out the transforms from earlier. 
+ 	* html/modules/base/xarblocks/html.php:
+	  commenting out the transforms from earlier. 
+2005-03-01: John.Cox@mcnabb.: ChangeSet 1.1886.146.1
+  I know I saw some bugs on this, but can't find them now...
+  	* html/modules/base/xarblocks/text.php:
+	  transforms for html and text blocks. 
+ 	* html/modules/base/xarblocks/html.php:
+	  transforms for html and text blocks. 
+2005-03-01: marcel@hsdev.com: ChangeSet 1.1886.91.18
+  the hardcoded numitems prevented the datalist from using the url for getting the numitems param
+  	* html/modules/dynamicdata/xartemplates/admin-view.xd:
+	  the hardcoded numitems prevented the datalist from using the url for getting the numitems param 
+2005-02-28: John.Cox@mcnabb.: ChangeSet 1.1886.145.1
+  bug 4159 disable minage when set to 0.
+  	* html/modules/roles/xaruser/register.php:
+	  bug 4159 disable minage when set to 0. 
+2005-02-28: rabbitt@newton.xaraya.com: ChangeSet 1.1886.1.157
+  login.php:  Comments say 15 minutes but 54000 seconds is 15 hours.  Did a little simplification as well.  (ie: store the time to unlock instead of the time it was locked)
+  	* html/modules/roles/xaruser/login.php:
+	  Comments say 15 minutes but 54000 seconds is 15 hours.Did a little simplification as well.(ie: store the time to unlock instead of the time it was locked) 
+2005-02-28: rabbitt@newton.xaraya.com: ChangeSet 1.1886.1.156
+  xaradmin.php:  Please be careful in the future with merging stuff locally.  when you merged your stuff locally marcel, you completely wiped out my fix for postgresql install (which should work fine with SQLite as well).  Just reintroducing that fix (which imo, is cleaner and should work on all dbs we use -without- having to add another case statement to the switch that was introduced).
+  	* html/modules/installer/xaradmin.php:
+	  Please be careful in the future with merging stuff locally.when you merged your stuff locally marcel, you completely wiped out my fix for postgresql install (which should work fine with SQLite as well).Just reintroducing that fix (which imo, is cleaner and should work on all dbs we use -without- having to add another case statement to the switch that was introduced). 
+2005-02-27: John.Cox@mcnabb.: ChangeSet 1.1886.1.155
+  fixed bug 3420 potential security enhancement.  used session vars, so original user is not screwed by hacker.
+  	* html/modules/roles/xaruser/login.php:
+	  fixed bug 3420 potential security enhancement.  used session vars, so original user is not screwed by hacker. 
+2005-02-27: John.Cox@mcnabb.: ChangeSet 1.1886.1.154
+  bug 2773 disable email from users
+  	* html/modules/roles/xartemplates/user-view.xd:
+	  bug 2773 disable email from users 
+ 	* html/modules/roles/xartemplates/user-display.xd:
+	  bug 2773 disable email from users 
+ 	* html/modules/roles/xartemplates/admin-modifyconfig.xd:
+	  bug 2773 disable email from users 
+ 	* html/modules/roles/xaradmin/modifyconfig.php:
+	  bug 2773 disable email from users 
+2005-02-27: John.Cox@mcnabb.: ChangeSet 1.1886.1.153
+  bug 2367 error message for double validationerror message for double validation
+  	* html/modules/roles/xaruser/getvalidation.php:
+	  bug 2367  
+2005-02-27: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.152
+  articles sequence number FIXME
+  	* tools/import/slashcode/import_slashcode_stories.php:
+	  articles sequence number FIXME 
+2005-02-27: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.151
+  bug 3907 - make ADODB errors less apparent again to allow Postgres installations
+  	* html/xaradodb/adodb.inc.php:
+	  bug 3907 - make ADODB errors less apparent again to allow Postgres installations 
+2005-02-27: mikespub@xaraya-gw.sourceforge.net: ChangeSet 1.1886.1.150
+  fix Postgres DB create/select at installation
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/modules/installer/xaradmin.php:
+	  fix Postgres DB create/select at installation 
+2005-02-27: voll@yahoo.com: ChangeSet 1.1890.1.4
+  qa - delete tabs
+  	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  xml2php - new features 
+ 	* BitKeeper/deleted/.del-ConvertCharset.class.orig.php~606c9160:
+	  xml2php - new features 
+2005-02-27: voll@ashman.center.parex.net: ChangeSet 1.1890.1.3
+  Merge voll@xaraya.com:/var/bk/xaraya/core/stableinto yahoo.com:C:/cygwin/var/bk/xaraya/core/userlocale
+  	* html/modules/base/xartemplates/includes/modifyconfig-locales.xd:
+	  Auto merged 
+ 	* html/modules/base/xaradmin/updateconfig.php:
+	  Auto merged 
+ 	* BitKeeper/etc/logging_ok:
+	  auto-union 
+2005-02-27: voll@yahoo.com: ChangeSet 1.1890.1.2
+  xml2php - new features
+  	* html/includes/transforms/convtables/zdingbat:
+	   
+ 	* html/includes/transforms/convtables/x-mac-roman:
+	   
+ 	* html/includes/transforms/convtables/x-mac-icelandic:
+	   
+ 	* html/includes/transforms/convtables/x-mac-greek:
+	   
+ 	* html/includes/transforms/convtables/x-mac-cyrillic:
+	   
+ 	* html/includes/transforms/convtables/x-mac-ce:
+	   
+ 	* html/includes/transforms/convtables/windows-1258:
+	   
+ 	* html/includes/transforms/convtables/windows-1257:
+	   
+ 	* html/includes/transforms/convtables/windows-1256:
+	   
+ 	* html/includes/transforms/convtables/windows-1255:
+	   
+ 	* html/includes/transforms/convtables/windows-1254:
+	   
+ 	* html/includes/transforms/convtables/windows-1253:
+	   
+ 	* html/includes/transforms/convtables/windows-1252:
+	   
+ 	* html/includes/transforms/convtables/windows-1251:
+	   
+ 	* html/includes/transforms/convtables/windows-1250:
+	   
+ 	* html/includes/transforms/convtables/us-ascii:
+	   
+ 	* html/includes/transforms/convtables/us-ascii-quotes:
+	   
+ 	* html/includes/transforms/convtables/turkish:
+	   
+ 	* html/includes/transforms/convtables/symbol:
+	   
+ 	* html/includes/transforms/convtables/stdenc:
+	   
+ 	* html/includes/transforms/convtables/nextstep:
+	   
+ 	* BitKeeper/deleted/.del-mazovia~6096b3e3:
+	   
+ 	* html/includes/transforms/convtables/koi8-u:
+	   
+ 	* html/includes/transforms/convtables/koi8-r:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-9:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-8:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-7:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-6:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-5:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-4:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-3:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-2:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-1:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-16:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-15:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-14:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-13:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-11:
+	   
+ 	* html/includes/transforms/convtables/iso-8859-10:
+	   
+ 	* html/includes/transforms/convtables/gsm0338:
+	   
+ 	* html/includes/transforms/convtables/cp875:
+	   
+ 	* html/includes/transforms/convtables/cp874:
+	   
+ 	* html/includes/transforms/convtables/cp869:
+	   
+ 	* html/includes/transforms/convtables/cp866:
+	   
+ 	* html/includes/transforms/convtables/cp865:
+	   
+ 	* html/includes/transforms/convtables/cp864:
+	   
+ 	* html/includes/transforms/convtables/cp863:
+	   
+ 	* html/includes/transforms/convtables/cp862:
+	   
+ 	* html/includes/transforms/convtables/cp861:
+	   
+ 	* html/includes/transforms/convtables/cp860:
+	   
+ 	* html/includes/transforms/convtables/cp857:
+	   
+ 	* html/includes/transforms/convtables/cp856:
+	   
+ 	* html/includes/transforms/convtables/zdingbat:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/zdingbat 
+ 	* html/includes/transforms/convtables/x-mac-roman:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/x-mac-roman 
+ 	* html/includes/transforms/convtables/x-mac-icelandic:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/x-mac-icelandic 
+ 	* html/includes/transforms/convtables/x-mac-greek:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/x-mac-greek 
+ 	* html/includes/transforms/convtables/x-mac-cyrillic:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/x-mac-cyrillic 
+ 	* html/includes/transforms/convtables/x-mac-ce:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/x-mac-ce 
+ 	* html/includes/transforms/convtables/windows-1258:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1258 
+ 	* html/includes/transforms/convtables/windows-1257:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1257 
+ 	* html/includes/transforms/convtables/windows-1256:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1256 
+ 	* html/includes/transforms/convtables/windows-1255:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1255 
+ 	* html/includes/transforms/convtables/windows-1254:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1254 
+ 	* html/includes/transforms/convtables/windows-1253:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1253 
+ 	* html/includes/transforms/convtables/windows-1252:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1252 
+ 	* html/includes/transforms/convtables/windows-1251:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1251 
+ 	* html/includes/transforms/convtables/windows-1250:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/windows-1250 
+ 	* html/includes/transforms/convtables/us-ascii:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/us-ascii 
+ 	* html/includes/transforms/convtables/us-ascii-quotes:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/us-ascii-quotes 
+ 	* html/includes/transforms/convtables/turkish:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/turkish 
+ 	* html/includes/transforms/convtables/symbol:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/symbol 
+ 	* html/includes/transforms/convtables/stdenc:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/stdenc 
+ 	* html/includes/transforms/convtables/nextstep:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/nextstep 
+ 	* BitKeeper/deleted/.del-mazovia~6096b3e3:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/mazovia 
+ 	* html/includes/transforms/convtables/koi8-u:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/koi8-u 
+ 	* html/includes/transforms/convtables/koi8-r:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/koi8-r 
+ 	* html/includes/transforms/convtables/iso-8859-9:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-9 
+ 	* html/includes/transforms/convtables/iso-8859-8:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-8 
+ 	* html/includes/transforms/convtables/iso-8859-7:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-7 
+ 	* html/includes/transforms/convtables/iso-8859-6:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-6 
+ 	* html/includes/transforms/convtables/iso-8859-5:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-5 
+ 	* html/includes/transforms/convtables/iso-8859-4:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-4 
+ 	* html/includes/transforms/convtables/iso-8859-3:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-3 
+ 	* html/includes/transforms/convtables/iso-8859-2:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-2 
+ 	* html/includes/transforms/convtables/iso-8859-1:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-1 
+ 	* html/includes/transforms/convtables/iso-8859-16:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-16 
+ 	* html/includes/transforms/convtables/iso-8859-15:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-15 
+ 	* html/includes/transforms/convtables/iso-8859-14:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-14 
+ 	* html/includes/transforms/convtables/iso-8859-13:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-13 
+ 	* html/includes/transforms/convtables/iso-8859-11:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-11 
+ 	* html/includes/transforms/convtables/iso-8859-10:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/iso-8859-10 
+ 	* html/includes/transforms/convtables/gsm0338:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/gsm0338 
+ 	* html/includes/transforms/convtables/cp875:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp875 
+ 	* html/includes/transforms/convtables/cp874:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp874 
+ 	* html/includes/transforms/convtables/cp869:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp869 
+ 	* html/includes/transforms/convtables/cp866:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp866 
+ 	* html/includes/transforms/convtables/cp865:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp865 
+ 	* html/includes/transforms/convtables/cp864:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp864 
+ 	* html/includes/transforms/convtables/cp863:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp863 
+ 	* html/includes/transforms/convtables/cp862:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp862 
+ 	* html/includes/transforms/convtables/cp861:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp861 
+ 	* html/includes/transforms/convtables/cp860:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp860 
+ 	* html/includes/transforms/convtables/cp857:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp857 
+ 	* html/includes/transforms/convtables/cp856:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp856 
+ 	* html/includes/transforms/convtables/cp855:
+	   
+ 	* html/includes/transforms/convtables/cp852:
+	   
+ 	* html/includes/transforms/convtables/cp850:
+	   
+ 	* html/includes/transforms/convtables/cp775:
+	   
+ 	* html/includes/transforms/convtables/cp737:
+	   
+ 	* html/includes/transforms/convtables/cp500:
+	   
+ 	* html/includes/transforms/convtables/cp437:
+	   
+ 	* html/includes/transforms/convtables/cp424:
+	   
+ 	* html/includes/transforms/convtables/cp1026:
+	   
+ 	* html/includes/transforms/convtables/cp1006:
+	   
+ 	* html/includes/transforms/convtables/cp037:
+	   
+ 	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	   
+ 	* BitKeeper/deleted/.del-ConvertCharset.class.orig.php~606c9160:
+	   
+ 	* html/includes/transforms/convtables/cp855:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp855 
+ 	* html/includes/transforms/convtables/cp852:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp852 
+ 	* html/includes/transforms/convtables/cp850:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp850 
+ 	* html/includes/transforms/convtables/cp775:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp775 
+ 	* html/includes/transforms/convtables/cp737:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp737 
+ 	* html/includes/transforms/convtables/cp500:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp500 
+ 	* html/includes/transforms/convtables/cp437:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp437 
+ 	* html/includes/transforms/convtables/cp424:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp424 
+ 	* html/includes/transforms/convtables/cp1026:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp1026 
+ 	* html/includes/transforms/convtables/cp1006:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp1006 
+ 	* html/includes/transforms/convtables/cp037:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertTables/cp037 
+ 	* BitKeeper/deleted/.del-ConvertCharset.php~6072a86f:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertCharset.class.php 
+ 	* BitKeeper/deleted/.del-ConvertCharset.class.orig.php~606c9160:
+	  BitKeeper file C:/cygwin/var/bk/xaraya/core/userlocale/html/includes/transforms/ConvertCharset.class.orig.php 
+ 	* html/modules/base/xartemplates/includes/modifyconfig-locales.xd:
+	  xml2php - new features 
+ 	* html/modules/base/xaradmin/updateconfig.php:
+	  xml2php - new features 
+ 	* html/includes/xarMLS.php:
+	  xml2php - new features 
+2005-02-26: voll@yahoo.com: ChangeSet 1.1886.144.1
+  bug 4051 - moved timezone from locales tab to other one in the modifyconfig panel
+  	* html/modules/base/xartemplates/includes/modifyconfig-locales.xd:
+	  bug 4051 - moved timezone from locales tab to other one in the modifyconfig panel 
+ 	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  bug 4051 - moved timezone from locales tab to other one in the modifyconfig panel 
+ 	* html/modules/base/xaradmin/updateconfig.php:
+	  bug 4051 - moved timezone from locales tab to other one in the modifyconfig panel 
+2005-02-26: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.148
+  support un-instantiated DD form blocks
+  	* html/modules/dynamicdata/xarblocks/form.php:
+	  support un-instantiated DD form blocks 
+2005-02-26: mikespub@fully.qualified.hostname: ChangeSet 1.1886.1.147
+  import slashcode from a different database
+  	* tools/import/slashcode/import_slashcode_users.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_topicscat.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_submissions.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_stories.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_poll_questions.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_poll_answers.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_discussions.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_comments.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode_cleanup.php:
+	  import slashcode from a different database 
+ 	* tools/import/slashcode/import_slashcode.php:
+	  import slashcode from a different database 
+2005-02-25: marc@marclaptop.: ChangeSet 1.1886.1.146
+  comment.php, xarCore.php:  QAstuff
+  	* html/includes/blnodes/tags/comment.php:
+	  QAstuff 
+ 	* html/includes/xarCore.php:
+	  QAstuff 
+2005-02-25: marc@marclaptop.: ChangeSet 1.1886.1.145
+  merge 0912 into current stable
+  	* html/includes/xarCore.php:
+	  merge 0912 into current stable 
+ 	* html/includes/xarBLCompiler.php:
+	  merge 0912 into current stable 
+ 	* html/includes/blnodes/tags/comment.php:
+	  merge 0912 into current stable 
+ 	* docs/INSTALL.txt:
+	  merge 0912 into current stable 
+2005-02-25: random@newton.xaraya.com: ChangeSet 1.1886.143.1
+  comment.php, INSTALL.txt:  release0912xarCore.php:  re[C[C[release 0912xarBLCompiler.php, build.properties:  release 0912
+  	* html/includes/blnodes/tags/comment.php:
+	  release0912 
+ 	* docs/INSTALL.txt:
+	  release0912 
+ 	* html/includes/xarCore.php:
+	  re[C[C[release 0912 
+ 	* html/includes/xarBLCompiler.php:
+	  release 0912 
+ 	* build.properties:
+	  release 0912 
+2005-02-25: marc@marclaptop.: ChangeSet 1.1886.1.144
+  merge release candidate into local stable
+  	* html/includes/xarCore.php:
+	  merge release candidate into local stable 
+ 	* BitKeeper/etc/logging_ok:
+	  auto-union 
+2005-02-22: marcel@hsdev.com: ChangeSet 1.1886.91.17
+  Use same logic for bycat and byname
+  	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  Use same logic for bycat and byname 
+2005-02-22: marcel@hsdev.com: ChangeSet 1.1886.91.16
+  some remnants of ap2block scenario
+  	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  some remnants of ap2block scenario 
+ 	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  some remnants of ap2block scenario 
+2005-02-21: marcel@hsdev.com: ChangeSet 1.1886.135.51
+  workaround for the validation part of bug #4110 (i thought we had this fixed earlier, i.e. the space issues in plain text templates) Apparently not.
+  	* html/var/messaging/roles/validation-message.xd:
+	  workaround for the validation part of bug #4110 (i thought we had this fixed earlier, i.e. the space issues in plain text templates) Apparently not. 
+2005-02-21: marcel@hsdev.com: ChangeSet 1.1886.135.50
+  Don't send the template comments with the templated messages, while still being able to use them in the messaging templates.There was a bug for this, or at least related to it. This change was pending in one of my local clones. Can't find the bug anymore now.
+  	* html/modules/roles/xaradmin/sendmail.php:
+	  Don't send the template comments with the templated messages, while still being able to use them in the messaging templates. 
+2005-02-21: marcel@hsdev.com: ChangeSet 1.1886.91.14
+  Merging stable into sqlite scenario (which includes the ap2block scenario now)
+  	* html/includes/xarTableDDL.php:
+	  Merging stable into sqlite scenario (which includes the ap2block scenario now) 
+2005-02-21: marcel@hsdev.com: ChangeSet 1.1886.135.49
+  Inserting a note that the xarTableDDL subsystem is scheduled for demolition to make way for a hyperspace bypass.Resolvement for bug #3980 for now.
+  	* html/includes/xarTableDDL.php:
+	  Inserting a note that this subsystem is scheduled for demolition to make way for a hyperspace bypass. 
+2005-02-21: marcel@hsdev.com: ChangeSet 1.1886.91.13
+  - replacing a & with @ to suppress the error which will be generated if the changeTable method is used to create tables (yes, that sound unintuitive, but apparently that is the case). This fixes the blocker for installing xarpages with sqliteand should not hurt other databases (logic didnt change)I'll let jason reconfirm this for other databases.
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  Inserting a comment related to the change in the datadict file. 
+ 	* html/xaradodb/adodb-datadict.inc.php:
+	  - replacing a & with @ to suppress the error which will be generated if the changeTable method is used to create tables (yes, that sound unintuitive, but apparently that is the case). This fixes the blocker for installing xarpages with sqliteand should not hurt other databases (logic didnt change)I'll let jason reconfirm this for other databases. 
+2005-02-20: amoro@homespooky.: ChangeSet 1.1886.142.1
+  [comments] change to report incompatibility from fixing bug 3306
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* docs/INSTALL.txt:
+	  change to report incompatibility from fixing bug 3306 
+2005-02-20: marcel@hsdev.com: ChangeSet 1.1886.135.47
+  Merge
+  	* html/modules/adminpanels/xaradminapi/getmenulinks.php:
+	  Merge 
+2005-02-20: marcel@hsdev.com: ChangeSet 1.1886.91.9
+  - put the most global setting on top- add a hint that for SQlite host is a directory
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  - put the most global setting on top- add a hint that for SQlite host is a directory 
+2005-02-19: mikespub@fully.qualified.hostname: ChangeSet 1.1886.141.10
+  parse enum values for dropdown validation
+  	* html/modules/dynamicdata/xarutilapi/getmeta.php:
+	  parse enum values for dropdown validation 
+2005-02-19: mikespub@fully.qualified.hostname: ChangeSet 1.1886.141.9
+  bug 4101 - skip initialisation for importpropertytypes
+  	* html/includes/properties/Dynamic_Upload_Property.php:
+	  bug 4101 - skip initialisation for importpropertytypes 
+2005-02-19: marcel@hsdev.com: ChangeSet 1.1886.91.8
+  Make errors more apparent for sqlite (and show the right error at that)
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  make errors more apparent 
+ 	* html/xaradodb/adodb.inc.php:
+	  - make errors more apparent  
+2005-02-19: marcel@hsdev.com: ChangeSet 1.1886.91.7
+  Strip out backquotes from sql statements. Obviously this should be a bit more intelligent, if bindvars are not use for all queries, a backquote in content could produce interesting results :-)
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  Strip out backquotes from sql statements. Obviously this should be a bit more intelligent, if bindvars are not use for all queries, a backquote in content could produce interesting results :-) 
+2005-02-18: marcel@hsdev.com: ChangeSet 1.1886.91.6
+  Reintroduce Mike's changes for checking whether a database type is available. In a merge i choose the local changes for the installer. The reimplementation is slightly different.
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  adjustment for the db available changes 
+ 	* html/modules/installer/xaradmin.php:
+	  pass info to the template whether a certain database is available or not 
+2005-02-18: marcel@plato.hsdev.com: ChangeSet 1.1886.91.5
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/sqlite
+  	* html/modules/installer/xaradmin.php:
+	  Auto merged 
+2005-02-18: marcel@hsdev.com: ChangeSet 1.1886.141.8
+  - Simplification for installing the default block groups- forgot to remove one of the double password thingies
+  	* html/modules/installer/xartemplates/admin-phase5.xd:
+	  forgot one 
+ 	* html/modules/installer/xaradmin.php:
+	  lil simplification 
+2005-02-18: marcel@plato.hsdev.com: ChangeSet 1.1886.91.4
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/sqlite
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  Auto merged 
+ 	* html/modules/installer/xaradmin.php:
+	  Auto merged 
+2005-02-18: marcel@hsdev.com: ChangeSet 1.1886.141.7
+  Installer connects to db with existing password, we're not creating one, so asking confirmation doesnt add anything valuable.
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  No need for the second password on db connection 
+ 	* html/modules/installer/xaradmin.php:
+	  - when connecting to the db, no need to confirm pass, we're not creating a password here. 
+2005-02-18: marcel@plato.hsdev.com: ChangeSet 1.1886.91.3
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/sqlite
+  	* html/modules/base/xarinit.php:
+	  Auto merged 
+ 	* html/includes/xarTableDDL.php:
+	  Auto merged 
+2005-02-17: mikespub@fully.qualified.hostname: ChangeSet 1.1886.141.6
+  ignore http:// as URL on output
+  	* html/includes/properties/Dynamic_URL_Property.php:
+	  ignore http:// as URL on output 
+ 	* html/includes/properties/Dynamic_URLTitle_Property.php:
+	  ignore http:// as URL on output 
+ 	* html/includes/properties/Dynamic_URLIcon_Property.php:
+	  ignore http:// as URL on output 
+2005-02-16: dracos@mordor.arda: ChangeSet 1.1886.141.5
+  admin-list.xd:  fix entity for form action url
+  	* html/modules/modules/xartemplates/admin-list.xd:
+	  fix entity for form action url 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.141.4
+  lil typo in login block
+  	* html/modules/roles/xarblocks/modify-login.php:
+	  lil typo in login block 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.141.3
+  Let getmenulinks return an array, like it should.
+  	* html/modules/themes/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+ 	* html/modules/roles/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+ 	* html/modules/privileges/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+ 	* html/modules/modules/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+ 	* html/modules/mail/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+ 	* html/modules/blocks/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+ 	* html/modules/base/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+ 	* html/modules/adminpanels/xaradminapi/getmenulinks.php:
+	  return an array like we should 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.141.2
+  slight error in trigger
+  	* BitKeeper/triggers/pre-apply.qa:
+	  slight error in trigger 
+2005-02-16: johnny@echo.pengo.lan: ChangeSet 1.1886.141.1
+  fixed a broken entity
+  	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  added missing function to modurl entity 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.45
+  Small corrections, further removal of things not used.
+  	* html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd:
+	  Corrected a copy/paste remnant. 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  - added a FIXME- removed the unused $menustyle variable- removed the unused menustyle switch branches 
+ 	* html/modules/adminpanels/xaradminapi/buildmenu.php:
+	  add a note 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.44
+  Housecleaning
+  	* html/modules/adminpanels/xaradminapi/getmenulinks.php:
+	  remove some old stuff, return an array always, why was this? <shrug/> 
+ 	* html/modules/adminpanels/xaradminapi/create.php:
+	  inserting a question 
+ 	* html/modules/adminpanels/xaradmin/loadnewmod.php:
+	  inserting a question 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.43
+  I have been told the marker stuff is a styling issue, css can take care of it then.
+  	* html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd:
+	  I have been told the marker stuff is a styling issue, css can take care of it then. 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  I have been told the marker stuff is a styling issue, css can take care of it then. 
+ 	* html/modules/adminpanels/xarblocks/modify-adminmenu.php:
+	  I have been told the marker stuff is a styling issue, css can take care of it then. 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  I have been told the marker stuff is a styling issue, css can take care of it then. 
+ 	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  I have been told the marker stuff is a styling issue, css can take care of it then. 
+ 	* html/modules/adminpanels/xaradmin/modifyconfig.php:
+	  I have been told the marker stuff is a styling issue, css can take care of it then. 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.42
+  Simplify the modify config.
+  	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  Make the changes into one form. 
+ 	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  - check authcode first, before doing anything else- lets not make it more complicated than it needs to be 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.41
+  Changes related to allowing menustyle per block instance
+  	* html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd:
+	  Add the new config param to the block config screen 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  Change the text according to the change 
+ 	* html/modules/adminpanels/xarblocks/modify-adminmenu.php:
+	  add the menustyle parameter to the block instance configuration, revert to mod default when not found 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  Add menustyle parameter to block instance configuration, but leave the modvar, so it can be configured as default and helps migrating from older installs. 
+ 	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  clean the showmarker from the mod config 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.40
+  use the same template as the rest of the block page
+  	* html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd:
+	  use the same template as the rest of the block page 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.39
+  Showmarker to block instance config
+  	* html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd:
+	  Showmarker to block instance config 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  Showmarker to block instance config 
+ 	* html/modules/adminpanels/xarblocks/modify-adminmenu.php:
+	  Showmarker to block instance config 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  Showmarker to block instance config 
+ 	* html/modules/adminpanels/xaradmin/modifyconfig.php:
+	  Showmarker to block instance config 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.38
+  Cleaning out some remnant of my blunt copy and paste action.
+  	* html/modules/adminpanels/xarblocks/modify-adminmenu.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/updateconfig.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/modifyconfig.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/main.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/loadnewmod.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/confirmlogout.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/config_modgroups.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/config_byweight.php:
+	  Cleaning 
+ 	* html/modules/adminpanels/xaradmin/config_bygroup.php:
+	  Cleaning 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.37
+  Simplifying the logout confirmation.
+  	* html/modules/adminpanels/xartemplates/admin-confirmlogout.xd:
+	  No need for coding the link, moving hardcoded javascript out of the code. 
+ 	* html/modules/adminpanels/xaradmin/confirmlogout.php:
+	  Let the template do the work 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.36
+  Moving cancel label to the template space, no need to code it up.
+  	* html/modules/adminpanels/xartemplates/admin-confirmlogout.xd:
+	  Moving out cancel label 
+ 	* html/modules/adminpanels/xaradmin/confirmlogout.php:
+	  Moving out cancel label. 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.35
+  Moving out logout url to the template space, no need to code it up.
+  	* html/modules/adminpanels/xartemplates/blocks/verticallistbyname.xd:
+	  Moving out logout url 
+ 	* html/modules/adminpanels/xartemplates/blocks/verticallistbycats.xd:
+	  Moving out logout url 
+ 	* html/modules/adminpanels/xartemplates/blocks/sidemenu.xd:
+	  Moving out logout url 
+ 	* html/modules/adminpanels/xartemplates/admin-confirmlogout.xd:
+	  Moving out logout url 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  Moving out logout url 
+ 	* html/modules/adminpanels/xaradmin/confirmlogout.php:
+	  Moving out logout url 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.34
+  Move the logout label to the template domain. No need to code it up.
+  	* html/modules/adminpanels/xartemplates/blocks/verticallistbyname.xd:
+	  - moving out logout label 
+ 	* html/modules/adminpanels/xartemplates/blocks/verticallistbycats.xd:
+	  - moving out logout label 
+ 	* html/modules/adminpanels/xartemplates/blocks/sidemenu.xd:
+	  moving out logoutlabel 
+ 	* html/modules/adminpanels/xartemplates/admin-confirmlogout.xd:
+	  - moving out logoutlabel 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  - some comments- moving out logoutlabel 
+ 	* html/modules/adminpanels/xaradmin/confirmlogout.php:
+	  Moving out logoutlabel 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.33
+  Moving the 'show logout' setting to a block setting per instance.
+  	* html/modules/adminpanels/xartemplates/blocks/verticallistbyname.xd:
+	  adjust for the block parameter instead of the module parameter 
+ 	* html/modules/adminpanels/xartemplates/blocks/verticallistbycats.xd:
+	  adjust for the block parameter instead of the module parameter 
+ 	* html/modules/adminpanels/xartemplates/admin-modifyconfig.xd:
+	  Inform the user that the setting can now be adjusted in the block instance 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  adjustments for making the 'show logout' setting a per instance setting 
+ 	* html/modules/adminpanels/xaradmin/modifyconfig.php:
+	  moving the show logout setting to a per instance setting 
+2005-02-16: marcel@hsdev.com: ChangeSet 1.1886.135.32
+  Preparation cset for moving some setting from global adminpanels level to block instance level. 
+  	* html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd:
+	   
+ 	* html/modules/adminpanels/xarblocks/modify-adminmenu.php:
+	   
+ 	* html/modules/roles/xarblocks/login.php:
+	  adding a FIXME 
+ 	* html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd:
+	  BitKeeper file /var/bk/xar/core/xartest/html/modules/adminpanels/xartemplates/blocks/modify-adminmenu.xd 
+ 	* html/modules/adminpanels/xarblocks/modify-adminmenu.php:
+	  BitKeeper file /var/bk/xar/core/xartest/html/modules/adminpanels/xarblocks/modify-adminmenu.php 
+2005-02-15: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.31
+  import slashcode changes
+  	* tools/import/slashcode/import_slashcode_users.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_topicscat.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_submissions.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_stories.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_poll_questions.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_poll_answers.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_comments.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_cleanup.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode.php:
+	  import slashcode changes 
+ 	* tools/import/slashcode/import_slashcode_discussions.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_discussions.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/tools/import/slashcode/import_slashcode_discussions.php 
+2005-02-14: voll@yahoo.com: ChangeSet 1.1886.140.2
+  add missed mls
+  	* html/modules/roles/xartemplates/admin-displayrole.xd:
+	  add missed mls 
+2005-02-14: voll@yahoo.com: ChangeSet 1.1886.139.1
+  Fix bug with getting info about themes
+  	* html/includes/xarMod.php:
+	  Fix bug with getting info about themes 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.29
+  Yes, theme names and theme dirs are still not correctly handled, this is just a consequence of it.This change fixes bug 4000 for now, but really bug 2953 should be fixed.
+  	* html/modules/themes/xartemplates/admin-themesinfo.xd:
+	  Yes, theme names and theme dirs are still not correctly handled, this is just a consequence of it.This change fixes bug 4000 for now, but really bug 2953 should be fixed. 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.28
+  Issue an error when we cant complete the changing of modifying the email templates. I long for try/catch, although this code could be a bit more relaxed. Not as if 500 admins concurrently will change the template. The write permission on the directory could be dropped.Fix for bug 4039
+  	* html/modules/roles/xaradmin/modifyemail.php:
+	  Issue an error when we cant complete the changing of modifying the email templates. I long for try/catch, although this code could be a bit more relaxed. Not as if 500 admins concurrently will change the template. The write permission on the directory could be dropped. 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.27
+  typosrelated to changes for bug 3677
+  	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  typo 
+ 	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  typo 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.26
+  xarmodurl -> entity replacement for consistency (see bug 3677)
+  	* html/modules/themes/xartemplates/user-usermenu_icon.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/themes/xartemplates/user-usermenu_form.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/themes/xartemplates/blocks/meta.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/themes/xartemplates/admin-themesinfo.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/themes/xartemplates/admin-modifyconfig.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/themes/xartemplates/admin-list.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-view.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-user_menu_icon.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-user_menu_form.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-startvalidation.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-showloginform.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-search.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-requestpw.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-registerform.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-new.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-email.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-display.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-confirmregistration.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-choices.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-checkage.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/user-account.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/blocks/online.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/blocks/logout.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/blocks/login.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-welcomeemail.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-updatestate.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-testprivileges.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-sitelock.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-showusers.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-removeprivilege.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-purge.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-modifyrole.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-modifynotice.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-modifyemail.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-modifyconfig.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-displayrole.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-deleterole.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-createpassword.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-createmail.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/roles/xartemplates/admin-asknotification.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/privileges/xartemplates/admin-viewroles.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/privileges/xartemplates/admin-modifyconfig.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/privileges/xartemplates/admin-displayprivilege.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-upgrade.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-remove.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-modifyproperties.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-modify.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-list.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-install.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-errorupdate.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/modules/xartemplates/admin-deactivate.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/mail/xartemplates/admin-template.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/mail/xartemplates/admin-modifyconfig.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/mail/xartemplates/admin-compose.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/util-static.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/util-relations.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/util-migrate.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/util-meta.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/util-main.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/util-import.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/user-view.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-userlist.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-grouplist.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/blocks/form.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/admin-utilities.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/admin-showpropval.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/admin-query.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/admin-new.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/admin-modify.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/dynamicdata/xartemplates/admin-form.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/includes/plain.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/includes/compact.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-view_instances.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-view_groups.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-new_type.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-new_instance.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-new_group.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-modify_instance.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-modify_group.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-delete_instance.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/blocks/xartemplates/admin-delete_group.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/base/xartemplates/admin-sysinfo.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+ 	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  xarmodurl -> entity replacement for consistency (see bug 3677) 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.25
+  what the hell, lets push it. Tried to come up with a situation that would cause breakage, as I recall this breaking in the past, but failed to do it.Fixes bug #4040
+  	* html/includes/blnodes/tags/set.php:
+	  what the hell, lets push it. Tried to come up with a situation that would cause breakage, as I recall this breaking in the past, but failed to do it. 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.24
+  Check that the ID attribute does not start with a number.] random: Your repository should be back to where it was before undo startedFixes bug #4050
+  	* html/includes/blnodes/tags/loop.php:
+	  Check that the ID attribute does not start with a number.] random: Your repository should be back to where it was before undo started 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.23
+  Removing the block form from the RFC for the xar:block tag.Fix for bug #2809
+  	* docs/rfc/rfc0010.xml:
+	  Removing the block form from the RFC for the xar:block tag. 
+2005-02-14: marcel@hsdev.com: ChangeSet 1.1886.135.22
+  explain missing xarvar flags (however illogical they may be, that's another bug)Fixes bug 2564
+  	* html/includes/xarVar.php:
+	  explain missing xarvar flags (however illogical they may be, that's another bug) 
+2005-02-13: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.21
+  only show form in first step
+  	* tools/import/slashcode/import_slashcode.php:
+	  only show form in first step 
+2005-02-13: mikespub@fully.qualified.hostname: ChangeSet 1.1886.138.1
+  bug 3183 - replace NULL by empty string when uploading nothing
+  	* html/includes/properties/Dynamic_Upload_Property.php:
+	  bug 3183 - replace NULL by empty string when uploading nothing 
+ 	* html/includes/properties/Dynamic_FileUpload_Property.php:
+	  bug 3183 - replace NULL by empty string when uploading nothing 
+2005-02-13: judgej@acadweb.co.uk: ChangeSet 1.1886.135.19
+  xarCore.php:  Bug 4061: handle other separators from php_ini()
+  	* html/includes/xarCore.php:
+	  Bug 4061: handle other separators from php_ini() 
+2005-02-12: caveman@rcave01.schwabfoundation.org: ChangeSet 1.1886.135.18
+  Added polls and general code cleanup.  Still need to add discussions and poll comments.
+  	* tools/import/slashcode/import_slashcode_poll_questions.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_poll_answers.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_users.php:
+	  Code cleanup 
+ 	* tools/import/slashcode/import_slashcode_topicscat.php:
+	  Code cleanup 
+ 	* tools/import/slashcode/import_slashcode_submissions.php:
+	  Code cleanup 
+ 	* tools/import/slashcode/import_slashcode_stories.php:
+	  Code cleanup 
+ 	* tools/import/slashcode/import_slashcode_poll_questions.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_poll_questions.php 
+ 	* tools/import/slashcode/import_slashcode_poll_answers.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_poll_answers.php 
+ 	* tools/import/slashcode/import_slashcode_cleanup.php:
+	  Added table names for dropping temporary tables. 
+ 	* tools/import/slashcode/import_slashcode.php:
+	  Added discussions and polls - discussions not finished yet. 
+2005-02-13: voll@yahoo.com: ChangeSet 1.1886.137.1
+  fix typo in the comment
+  	* html/themes/Xaraya_Classic/pages/default.xt:
+	  fix typo in the comment 
+2005-02-12: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.16
+  bug 3921 - do not pre-format Calendar fields in articles
+  	* docs/INSTALL.txt:
+	  bug 3921 - do not pre-format Calendar fields in articles 
+2005-02-12: voll@yahoo.com: ChangeSet 1.1886.135.15
+  comments to phpnuke import
+  	* tools/import/phpnuke/README:
+	  comments to phpnuke import 
+ 	* BitKeeper/deleted/.del-import_nuke_users.php~1a13f2fb:
+	  Delete: tools/import/altnuke65/import_nuke_users.php 
+ 	* BitKeeper/deleted/.del-import_nuke_topicscat.php~1a08ad63:
+	  Delete: tools/import/altnuke65/import_nuke_topicscat.php 
+ 	* BitKeeper/deleted/.del-import_nuke_stories.php~19fda99b:
+	  Delete: tools/import/altnuke65/import_nuke_stories.php 
+ 	* BitKeeper/deleted/.del-import_nuke_sections.php~19f308ab:
+	  Delete: tools/import/altnuke65/import_nuke_sections.php 
+ 	* BitKeeper/deleted/.del-import_nuke_seccont.php~19e8b19f:
+	  Delete: tools/import/altnuke65/import_nuke_seccont.php 
+ 	* BitKeeper/deleted/.del-import_nuke_queue.php~19de6e69:
+	  Delete: tools/import/altnuke65/import_nuke_queue.php 
+ 	* BitKeeper/deleted/.del-import_nuke_pollcomments.php~19cf5c6f:
+	  Delete: tools/import/altnuke65/import_nuke_pollcomments.php 
+ 	* BitKeeper/deleted/.del-import_nuke_poll_desc.php~19c34bd3:
+	  Delete: tools/import/altnuke65/import_nuke_poll_desc.php 
+ 	* BitKeeper/deleted/.del-import_nuke_poll_data.php~19b90ec0:
+	  Delete: tools/import/altnuke65/import_nuke_poll_data.php 
+ 	* BitKeeper/deleted/.del-import_nuke_links_links.php~19ada91b:
+	  Delete: tools/import/altnuke65/import_nuke_links_links.php 
+ 	* BitKeeper/deleted/.del-import_nuke_links_categories.php~19a00806:
+	  Delete: tools/import/altnuke65/import_nuke_links_categories.php 
+ 	* BitKeeper/deleted/.del-import_nuke_faqcategories.php~199531bf:
+	  Delete: tools/import/altnuke65/import_nuke_faqcategories.php 
+ 	* BitKeeper/deleted/.del-import_nuke_faqanswer.php~198a93a8:
+	  Delete: tools/import/altnuke65/import_nuke_faqanswer.php 
+ 	* BitKeeper/deleted/.del-import_nuke_comments.php~197fe0ae:
+	  Delete: tools/import/altnuke65/import_nuke_comments.php 
+ 	* BitKeeper/deleted/.del-import_nuke_cleanup.php~19756398:
+	  Delete: tools/import/altnuke65/import_nuke_cleanup.php 
+ 	* BitKeeper/deleted/.del-import_nuke.php~196acca9:
+	  Delete: tools/import/altnuke65/import_nuke.php 
+ 	* BitKeeper/deleted/.del-README~196062df:
+	  Delete: tools/import/altnuke65/README 
+ 	* BitKeeper/deleted/.del-import_nuke_users.php~b52bbfac:
+	  Delete: tools/import/phpnuke60/import_nuke_users.php 
+ 	* BitKeeper/deleted/.del-import_nuke_topicscat.php~b520c87e:
+	  Delete: tools/import/phpnuke60/import_nuke_topicscat.php 
+ 	* BitKeeper/deleted/.del-import_nuke_stories.php~b51500ea:
+	  Delete: tools/import/phpnuke60/import_nuke_stories.php 
+ 	* BitKeeper/deleted/.del-import_nuke_sections.php~b509f622:
+	  Delete: tools/import/phpnuke60/import_nuke_sections.php 
+ 	* BitKeeper/deleted/.del-import_nuke_seccont.php~b4fe8fe0:
+	  Delete: tools/import/phpnuke60/import_nuke_seccont.php 
+ 	* BitKeeper/deleted/.del-import_nuke_queue.php~b4f3793a:
+	  Delete: tools/import/phpnuke60/import_nuke_queue.php 
+ 	* BitKeeper/deleted/.del-import_nuke_pollcomments.php~b4e862ae:
+	  Delete: tools/import/phpnuke60/import_nuke_pollcomments.php 
+ 	* BitKeeper/deleted/.del-import_nuke_poll_desc.php~b4dd771e:
+	  Delete: tools/import/phpnuke60/import_nuke_poll_desc.php 
+ 	* BitKeeper/deleted/.del-import_nuke_poll_data.php~b4d27882:
+	  Delete: tools/import/phpnuke60/import_nuke_poll_data.php 
+ 	* BitKeeper/deleted/.del-import_nuke_links_links.php~b4c78a8a:
+	  Delete: tools/import/phpnuke60/import_nuke_links_links.php 
+ 	* BitKeeper/deleted/.del-import_nuke_links_categories.php~b4bc8e3e:
+	  Delete: tools/import/phpnuke60/import_nuke_links_categories.php 
+ 	* BitKeeper/deleted/.del-import_nuke_faqcategories.php~b4b1b338:
+	  Delete: tools/import/phpnuke60/import_nuke_faqcategories.php 
+ 	* BitKeeper/deleted/.del-import_nuke_faqanswer.php~b4a6cb8c:
+	  Delete: tools/import/phpnuke60/import_nuke_faqanswer.php 
+ 	* BitKeeper/deleted/.del-import_nuke_comments.php~b49be533:
+	  Delete: tools/import/phpnuke60/import_nuke_comments.php 
+ 	* BitKeeper/deleted/.del-import_nuke_cleanup.php~b490f070:
+	  Delete: tools/import/phpnuke60/import_nuke_cleanup.php 
+ 	* BitKeeper/deleted/.del-import_nuke.php~b4861a16:
+	  Delete: tools/import/phpnuke60/import_nuke.php 
+2005-02-12: voll@yahoo.com: ChangeSet 1.1886.135.14
+  I am trying to merge 4 different php-nuke import scripts to single one
+  	* tools/import/phpnuke/import_nuke_users.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/import_nuke_stories.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/import_nuke_pollcomments.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/import_nuke_links_links.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/import_nuke_faqcategories.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/import_nuke_faqanswer.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/import_nuke_comments.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/import_nuke.php:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+ 	* tools/import/phpnuke/README:
+	  I am trying to merge 4 different php-nuke import scripts to single one 
+2005-02-11: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.13
+  make persistent database connections configurable
+  	* html/var/config.system.php.dist:
+	  make persistent database connections configurable 
+ 	* html/includes/xarDB.php:
+	  make persistent database connections configurable 
+ 	* html/includes/xarCore.php:
+	  make persistent database connections configurable 
+2005-02-11: caveman@rcave01.schwabfoundation.org: ChangeSet 1.1886.135.12
+  Slashcode import scripts - still more work to be done (e.g. polls).
+  	* tools/import/slashcode/import_slashcode_users.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_topicscat.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_users.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_users.php 
+ 	* tools/import/slashcode/import_slashcode_topicscat.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_topicscat.php 
+ 	* tools/import/slashcode/import_slashcode_submissions.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_stories.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_submissions.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_submissions.php 
+ 	* tools/import/slashcode/import_slashcode_stories.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_stories.php 
+ 	* tools/import/slashcode/import_slashcode_comments.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_cleanup.php:
+	   
+ 	* tools/import/slashcode/import_slashcode_comments.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_comments.php 
+ 	* tools/import/slashcode/import_slashcode_cleanup.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode_cleanup.php 
+ 	* tools/import/slashcode/import_slashcode.php:
+	   
+ 	* tools/import/slashcode/README:
+	   
+ 	* tools/import/slashcode/import_slashcode.php:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/import_slashcode.php 
+ 	* tools/import/slashcode/README:
+	  BitKeeper file /var/schwabfoundation/projects/xaraya/core/proto/tools/import/slashcode/README 
+2005-02-11: caveman@rcave01.schwabfoundation.org: ChangeSet 1.1886.135.11
+  Check that a timezone array was returned from base xar_userapi_timezones().
+  	* html/modules/base/xaruserapi/dstadjust.php:
+	  Check that a timezone was returned. 
+2005-02-11: miko@miko.homelinux.org: ChangeSet 1.1886.135.10
+  roles.xml, publicationtypes.xml:  die evil tabs
+  	* docs/xarayaguide/roles.xml:
+	  die evil tabs 
+ 	* docs/xarayaguide/publicationtypes.xml:
+	  die evil tabs 
+2005-02-11: miko@miko.homelinux.org: ChangeSet 1.1886.135.9
+  docs updates - bug 3743
+  	* docs/xarayaguide/roles.xml:
+	  docs updates - bug 3743 
+ 	* docs/xarayaguide/publicationtypes.xml:
+	  docs updates - bug 3743 
+ 	* docs/xarayaguide/modules/mod-mybookmarks.xml:
+	  docs updates - bug 3743 
+ 	* docs/xarayaguide/modules/mod-blocks.xml:
+	  docs updates - bug 3743 
+ 	* docs/xarayaguide/modules/mod-autolinks.xml:
+	  docs updates - bug 3743 
+ 	* docs/xarayaguide/frontmatter.xml:
+	  docs updates - bug 3743 
+ 	* docs/xarayaguide/articles.xml:
+	  docs updates - bug 3743 
+2005-02-11: miko@miko.homelinux.org: ChangeSet 1.1886.136.1
+  INSTALL.txt:  bug 4041 - update install.txt
+  	* docs/INSTALL.txt:
+	  bug 4041 - update install.txt 
+2005-02-10: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.7
+  bug 4051 - daylight saving time v0.0.1
+  	* html/modules/dynamicdata/xartemplates/admin-showinput-timezone.xd:
+	  daylight saving time v0.0.1 
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-timezone.xd:
+	   
+ 	* html/modules/dynamicdata/xartemplates/user-showoutput-timezone.xd:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xartemplates/user-showoutput-timezone.xd 
+ 	* html/includes/xarMLS.php:
+	  daylight saving time v0.0.1 
+ 	* html/includes/xarCore.php:
+	  daylight saving time v0.0.1 
+ 	* html/includes/properties/Dynamic_TimeZone_Property.php:
+	  daylight saving time v0.0.1 
+ 	* html/includes/properties/Dynamic_Calendar_Property.php:
+	  daylight saving time v0.0.1 
+ 	* html/upgrade.php:
+	  daylight saving time v0.0.1 
+ 	* html/modules/base/xaruserapi/timezones.php:
+	  daylight saving time v0.0.1 
+ 	* html/modules/base/xaruserapi/dstrules.php:
+	  daylight saving time v0.0.1 
+ 	* html/modules/base/xartemplates/includes/modifyconfig-locales.xd:
+	  daylight saving time v0.0.1 
+ 	* html/modules/base/xarinit.php:
+	  daylight saving time v0.0.1 
+ 	* html/modules/base/xaradmin/updateconfig.php:
+	  daylight saving time v0.0.1 
+ 	* html/modules/base/xaradmin/modifyconfig.php:
+	  daylight saving time v0.0.1 
+ 	* html/modules/base/xaruserapi/dstadjust.php:
+	   
+ 	* html/modules/base/xaruserapi/dstadjust.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/base/xaruserapi/dstadjust.php 
+2005-02-10: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.6
+  fix roles search QA
+  	* html/modules/roles/xartemplates/user-search.xd:
+	  fix roles search QA 
+2005-02-10: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.5
+  fix roles search
+  	* html/modules/roles/xaruser/search.php:
+	  fix roles search 
+ 	* html/modules/roles/xartemplates/user-search.xd:
+	  fix roles search 
+2005-02-09: voll@medoc.solidno.ru: ChangeSet 1.1890
+  Merge voll@xaraya.com:/var/bk/xaraya/core/stableinto yahoo.com:/var/bk/xaraya/core/userlocale
+  	* html/includes/xarUser.php:
+	  Auto merged 
+2005-02-09: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.4
+  oops - tz offset is in hours
+  	* html/modules/base/xaradmin/updateconfig.php:
+	  oops - tz offset is in hours 
+ 	* html/includes/xarMLS.php:
+	  oops - tz offset is in hours 
+2005-02-09: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.3
+  comment out 14 unused register_shutdown_function() calls in core
+  	* html/includes/xarVar.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarUser.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarTemplate.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarServer.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarSecurity.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarMod.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarMLS.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarException.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarEvt.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarDB.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarCore.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarConfig.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarCache.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+ 	* html/includes/xarBlocks.php:
+	  comment out 14 unused register_shutdown_function() calls in core 
+2005-02-08: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.2
+  bug 4051 - show timezones instead of time offsets in modify config
+  	* html/modules/base/xartemplates/includes/modifyconfig-locales.xd:
+	  bug 4051 - show timezones instead of time offsets in modify config 
+ 	* html/modules/base/xaradmin/updateconfig.php:
+	  bug 4051 - show timezones instead of time offsets in modify config 
+ 	* html/modules/base/xaradmin/modifyconfig.php:
+	  bug 4051 - show timezones instead of time offsets in modify config 
+ 	* html/modules/base/xaruserapi/timezones.php:
+	   
+ 	* html/modules/base/xaruserapi/dstrules.php:
+	   
+ 	* html/modules/base/xaruserapi/timezones.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/base/xaruserapi/timezones.php 
+ 	* html/modules/base/xaruserapi/dstrules.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/base/xaruserapi/dstrules.php 
+2005-02-08: mikespub@fully.qualified.hostname: ChangeSet 1.1886.135.1
+  bug 3854 - default timezone offset
+  	* html/modules/base/xartemplates/includes/modifyconfig-locales.xd:
+	  bug 3854 - default timezone offset 
+ 	* html/modules/base/xarinit.php:
+	  bug 3854 - default timezone offset 
+ 	* html/modules/base/xaradmin/updateconfig.php:
+	  bug 3854 - default timezone offset 
+ 	* html/modules/base/xaradmin/modifyconfig.php:
+	  bug 3854 - default timezone offset 
+ 	* html/includes/xarUser.php:
+	  bug 3854 - default timezone offset 
+ 	* html/includes/xarMLS.php:
+	  bug 3854 - default timezone offset 
+ 	* html/includes/xarCore.php:
+	  bug 3854 - default timezone offset 
+ 	* html/upgrade.php:
+	  bug 3854 - default timezone offset 
+2005-02-06: jsb@sting.in-beames.net: ChangeSet 1.1886.92.134
+  making the var directory movable outside of the web root.
+  	* html/var/example.key.php:
+	   
+ 	* html/includes/xarPreCore.php:
+	   
+ 	* html/var/example.key.php:
+	  BitKeeper file /home/jonn/projects/jsb/core/movablevar/html/var/example.key.php 
+ 	* html/index.php:
+	  load preCoreremove hardcoded var path 
+ 	* html/includes/xarPreCore.php:
+	  BitKeeper file /home/jonn/projects/jsb/core/movablevar/html/includes/xarPreCore.php 
+ 	* html/includes/xarMLS.php:
+	  Hey, I thought I'd fixed this in stable already?!replacing hardcoded var path 
+ 	* html/includes/xarCore.php:
+	  alias the xarCoreGetVarDirPath to xarPreCoreGetVarDirPaththe other diffs aren't changes... my editor is removing trailing spaces. 
+ 	* html/includes/xarCache.php:
+	  we won't need our copied GetVarDirPath function if there is a pre-core way to get it. 
+2005-02-07: mikespub@fully.qualified.hostname: ChangeSet 1.1886.134.1
+  migrate items to/from xarbb (e.g. turn article into topic or vice-versa)
+  	* html/modules/dynamicdata/xarutilapi/migrate.php:
+	  migrate items from/to xarbb 
+ 	* html/modules/dynamicdata/xarutil/migrate.php:
+	  migrate items from/to xarbb 
+ 	* html/modules/dynamicdata/xartemplates/util-migrate.xd:
+	  migrate items from/to xarbb 
+2005-02-06: andyv@andyv.plus.com: ChangeSet 1.1886.133.2
+  what tabs?
+  	* html/themes/Xaraya_Classic/style/layout.css:
+	  what tabs? 
+2005-02-06: andyv@andyv.plus.com: ChangeSet 1.1886.133.1
+  minor ie-win related tweaks
+  	* html/themes/Xaraya_Classic/style/style.css:
+	  minor ie-win related tweaks, while corecss isnt here the missing classes are re-added 
+ 	* html/themes/Xaraya_Classic/style/layout.css:
+	  minor ie-win related tweaks 
+ 	* html/themes/Xaraya_Classic/style/ie_win.css:
+	  minor ie-win related tweaks 
+ 	* html/themes/Xaraya_Classic/modules/base/user-main.xt:
+	  minor ie-win related tweaks 
+ 	* html/modules/roles/xartemplates/blocks/login.xd:
+	  removed inline styles mainly 
+2005-02-06: mikespub@fully.qualified.hostname: ChangeSet 1.1886.92.130
+  xmlParseEntityRef
+  	* html/modules/dynamicdata/xartemplates/util-migrate.xd:
+	  xmlParseEntityRef 
+2005-02-06: mikespub@fully.qualified.hostname: ChangeSet 1.1886.132.2
+  bug 3156 - migrate module items
+  	* html/modules/dynamicdata/xarutilapi/migrate.php:
+	  migrate module items 
+ 	* html/modules/dynamicdata/xarutil/migrate.php:
+	  migrate module items 
+ 	* html/modules/dynamicdata/xartemplates/util-migrate.xd:
+	  migrate module items 
+ 	* html/modules/dynamicdata/xarutilapi/updatehooks.php:
+	   
+ 	* html/modules/dynamicdata/xarutilapi/updatehooks.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xarutilapi/updatehooks.php 
+2005-02-06: voll@medoc.solidno.ru: ChangeSet 1.1889
+  Merge voll@xaraya.com:/var/bk/xaraya/core/stableinto yahoo.com:/var/bk/xaraya/core/userlocale
+  	* html/includes/xarUser.php:
+	  Auto merged 
+ 	* BitKeeper/etc/logging_ok:
+	  auto-union 
+2005-02-06: voll@yahoo.com: ChangeSet 1.1888
+  xaruser.php resolving
+  	* html/includes/xarUser.php:
+	  xaruser.php resolving 
+2005-02-06: mikespub@fully.qualified.hostname: ChangeSet 1.1886.132.1
+  add getitemfields + start migrate
+  	* html/modules/dynamicdata/xartemplates/admin-utilities.xd:
+	  add getitemfields + start migrate 
+ 	* html/modules/dynamicdata/xarutilapi/migrate.php:
+	   
+ 	* html/modules/dynamicdata/xarutil/migrate.php:
+	   
+ 	* html/modules/dynamicdata/xaruserapi/getitemfields.php:
+	   
+ 	* html/modules/dynamicdata/xartemplates/util-migrate.xd:
+	   
+ 	* html/modules/dynamicdata/xarutilapi/migrate.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xarutilapi/migrate.php 
+ 	* html/modules/dynamicdata/xarutil/migrate.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xarutil/migrate.php 
+ 	* html/modules/dynamicdata/xaruserapi/getitemfields.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xaruserapi/getitemfields.php 
+ 	* html/modules/dynamicdata/xartemplates/util-migrate.xd:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xartemplates/util-migrate.xd 
+2005-02-05: iansym@howler.simiansynapse.com: ChangeSet 1.1886.92.128
+  Merge iansym@xaraya.com:/var/bk/xaraya/core/stableinto simiansynapse.com:/usr/local/repos/xaraya/core/stable
+  	* html/modules/themes/xarblocks/meta.php:
+	  Auto merged 
+2005-02-05: iansym@simiansynapse.com: ChangeSet 1.1886.131.1
+  Fix so meta tag settings stick on modify
+  	* html/modules/themes/xarblocks/meta.php:
+	  Fix so meta tag settings stick on modify 
+2005-02-05: mikespub@fully.qualified.hostname: ChangeSet 1.1886.92.127
+  support empty list of itemids in DD getitemlinks
+  	* html/modules/dynamicdata/xaruserapi/getitemlinks.php:
+	  support empty list of itemids in DD getitemlinks 
+2005-02-05: mikespub@fully.qualified.hostname: ChangeSet 1.1886.92.126
+  preview input form
+  	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  preview input form 
+ 	* html/modules/dynamicdata/xartemplates/admin-form.xd:
+	   
+ 	* html/modules/dynamicdata/xaradmin/form.php:
+	   
+ 	* html/modules/dynamicdata/xartemplates/admin-form.xd:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xartemplates/admin-form.xd 
+ 	* html/modules/dynamicdata/xaradmin/form.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/dynamicdata/xaradmin/form.php 
+2005-02-05: mikespub@fully.qualified.hostname: ChangeSet 1.1886.92.125
+  bug 2589 - preset cache settings for some blocks
+  	* html/modules/themes/xarblocks/meta.php:
+	  preset cache settings for blocks 
+ 	* html/modules/roles/xarblocks/user.php:
+	  preset cache settings for blocks 
+ 	* html/modules/roles/xarblocks/online.php:
+	  preset cache settings for blocks 
+ 	* html/modules/roles/xarblocks/login.php:
+	  preset cache settings for blocks 
+ 	* html/modules/roles/xarblocks/language.php:
+	  preset cache settings for blocks 
+ 	* html/modules/blocks/xaradminapi/create_instance.php:
+	  preset cache settings for blocks 
+ 	* html/modules/base/xarblocks/text.php:
+	  preset cache settings for blocks 
+ 	* html/modules/base/xarblocks/menu.php:
+	  preset cache settings for blocks 
+ 	* html/modules/base/xarblocks/html.php:
+	  preset cache settings for blocks 
+ 	* html/modules/base/xarblocks/finclude.php:
+	  preset cache settings for blocks 
+ 	* html/modules/base/xarblocks/content.php:
+	  preset cache settings for blocks 
+ 	* html/modules/adminpanels/xarblocks/waitingcontent.php:
+	  preset cache settings for blocks 
+ 	* html/modules/adminpanels/xarblocks/adminmenu.php:
+	  preset cache settings for blocks 
+2005-02-04: mikespub@fully.qualified.hostname: ChangeSet 1.1886.92.124
+  return distinct keys
+  	* html/includes/caching/storage.php:
+	  return distinct keys 
+2005-02-04: mikespub@fully.qualified.hostname: ChangeSet 1.1886.92.123
+  add mmcache and eaccelerator as cache storage options
+  	* html/includes/caching/storage/memcached.php:
+	  add mmcache and eaccelerator as cache storage options 
+ 	* html/includes/caching/storage/filesystem.php:
+	  add mmcache and eaccelerator as cache storage options 
+ 	* html/includes/caching/storage/database.php:
+	  add mmcache and eaccelerator as cache storage options 
+ 	* html/includes/caching/page.php:
+	  add mmcache and eaccelerator as cache storage options 
+ 	* html/includes/caching/storage/mmcache.php:
+	   
+ 	* html/includes/caching/storage/eaccelerator.php:
+	   
+ 	* html/includes/caching/storage/mmcache.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/includes/caching/storage/mmcache.php 
+ 	* html/includes/caching/storage/eaccelerator.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/includes/caching/storage/eaccelerator.php 
+ 	* html/includes/xarCache.php:
+	  add mmcache and eaccelerator as cache storage options 
+2005-02-03: marcel@hsdev.com: ChangeSet 1.1886.92.122
+  - simplify the return of the windTo method- reformulate the loop, so loop invariant actually holds at the end.Elaboration: The reason that the previous code worked was a coincedence. For needles of length one there was no difference plus for the xar:comment tag (which uses a longer needle) in most cases it didnt really matter cos we skip that anyway.Fix for bugs 4032, 3977, 4013, 4020 and 3997
+  	* html/includes/xarBLCompiler.php:
+	  - simplify the return of the windTo method- reformulate the loop, so loop invariant actually holds at the end.Elaboration: The reason that the previous code worked was a coincedence. For needles of length one there was no difference plus for the xar:comment tag (which uses a longer needle) in most cases it didnt really matter cos we skip that anyway. 
+ 	* html/includes/blnodes/tags/comment.php:
+	  initial code was actually good, revert back to that, the problem was deeper down in windTo method for needles longer than 1 
+2005-02-03: marcel@hsdev.com: ChangeSet 1.1886.130.1
+  Cset exclude: marcel@hsdev.com|ChangeSet|20050202171043|34774
+  	* BitKeeper/triggers/pre-apply.qa:
+	  Exclude 
+2005-02-03: miko@miko.homelinux.org: ChangeSet 1.1886.129.1
+  fix xmlparse command and fix XML error in mail template
+  	* BitKeeper/custom/xmlparse:
+	  make command work in RHEL 
+ 	* html/modules/mail/xartemplates/admin-sendmail-html.xd:
+	  remove doctype as not valid here 
+2005-02-03: marcel@hsdev.com: ChangeSet 1.1886.91.2
+  Merging stable into the sqlite scenario
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  related to the extension availability testing, which need to be remerged 
+ 	* html/modules/installer/xaradmin.php:
+	  - For now, use the install logic of sqlite installer, the installer has been cleaned UP- To remerge: extension availability testing for the database drivers 
+ 	* html/modules/base/xarinit.php:
+	  - version number of themes mod changed, reflect this in base init 
+ 	* html/modules/dynamicdata/xarinit.php:
+	  Auto merged 
+ 	* html/includes/xarTableDDL.php:
+	  Auto merged 
+2005-02-03: andyv@andyv.plus.com: ChangeSet 1.1886.92.118
+  eliminating discrepancy between current stable and 0911 release
+  	* html/themes/Xaraya_Classic/style/ie_win.css:
+	   
+ 	* html/themes/Xaraya_Classic/includes/content_3col.xt:
+	   
+ 	* html/themes/Xaraya_Classic/style/ie_win.css:
+	  BitKeeper file /Users/andyv/Sites/post0911/html/themes/Xaraya_Classic/style/ie_win.css 
+ 	* html/themes/Xaraya_Classic/includes/content_3col.xt:
+	  BitKeeper file /Users/andyv/Sites/post0911/html/themes/Xaraya_Classic/includes/content_3col.xt 
+ 	* html/themes/Xaraya_Classic/includes/content_2col_lc.xt:
+	   
+ 	* html/themes/Xaraya_Classic/includes/content_2col_lc.xt:
+	  BitKeeper file /Users/andyv/Sites/post0911/html/themes/Xaraya_Classic/includes/content_2col_lc.xt 
+ 	* html/themes/Xaraya_Classic/includes/content_2col_cr.xt:
+	   
+ 	* html/themes/Xaraya_Classic/includes/content_1col.xt:
+	   
+ 	* html/themes/Xaraya_Classic/style/style.css:
+	  eliminating discrepancy between current stable and 0911 release 
+ 	* html/themes/Xaraya_Classic/style/menus.css:
+	  eliminating discrepancy between current stable and 0911 release 
+ 	* html/themes/Xaraya_Classic/includes/content_2col_cr.xt:
+	  BitKeeper file /Users/andyv/Sites/post0911/html/themes/Xaraya_Classic/includes/content_2col_cr.xt 
+ 	* html/themes/Xaraya_Classic/includes/content_1col.xt:
+	  BitKeeper file /Users/andyv/Sites/post0911/html/themes/Xaraya_Classic/includes/content_1col.xt 
+ 	* html/themes/Xaraya_Classic/style/layout.css:
+	  eliminating discrepancy between current stable and 0911 release 
+ 	* html/themes/Xaraya_Classic/style/colstyle_orange.css:
+	  eliminating discrepancy between current stable and 0911 release 
+ 	* html/themes/Xaraya_Classic/style/colstyle_highcontrast.css:
+	  eliminating discrepancy between current stable and 0911 release 
+ 	* html/themes/Xaraya_Classic/style/colstyle_green.css:
+	  eliminating discrepancy between current stable and 0911 release 
+ 	* html/themes/Xaraya_Classic/pages/default.xt:
+	  eliminating discrepancy between current stable and 0911 release 
+ 	* html/modules/roles/xartemplates/blocks/login.xd:
+	  what tabs? :) 
+2005-02-03: mikespub@fully.qualified.hostname: ChangeSet 1.1886.124.3
+  add getCachedKeys method
+  	* html/includes/caching/storage.php:
+	  add getCachedKeys method 
+2005-02-02: mikespub@fully.qualified.hostname: ChangeSet 1.1886.124.2
+  getCachedList
+  	* html/includes/caching/storage/memcached.php:
+	  getCachedList 
+ 	* html/includes/caching/storage/filesystem.php:
+	  getCachedList 
+ 	* html/includes/caching/storage/database.php:
+	  getCachedList 
+ 	* html/includes/caching/storage.php:
+	  getCachedList 
+ 	* html/includes/xarCache.php:
+	  mod fix 
+2005-02-02: mikespub@fully.qualified.hostname: ChangeSet 1.1886.124.1
+  cache storage live
+  	* html/includes/caching/storage/memcached.php:
+	  cache storage live 
+ 	* html/includes/caching/storage/filesystem.php:
+	  cache storage live 
+ 	* html/includes/caching/storage/database.php:
+	  cache storage live 
+ 	* html/includes/caching/storage.php:
+	  cache storage live 
+ 	* html/includes/caching/page.php:
+	  cache storage live 
+ 	* html/includes/caching/block.php:
+	  cache storage live 
+ 	* html/includes/xarCache.php:
+	  cache storage live 
+ 	* html/index.php:
+	  cache storage live 
+2005-02-01: andyv@andyv.plus.com: ChangeSet 1.1886.92.116
+  detable-ized for easier cross-browser life
+  	* html/modules/roles/xartemplates/blocks/login.xd:
+	  was there ever a genuine need to use tables for the login form? doubt it.. caused a few ie-win related bugs for people though 
+2004-12-23: marcel@plato.hsdev.com: ChangeSet 1.1886.59.17
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/sqlite
+  	* html/modules/base/xarinit.php:
+	  Auto merged 
+2004-12-12: marcel@hsdev.com: ChangeSet 1.1886.59.13
+  Not merging the dbconnecting logic, as that changed anyway in sqlite scenario. Need to check this again for postgres before merging, but i think the same bug was solved in another way
+  	* html/modules/installer/xaradmin.php:
+	  Not merging the dbconnecting logic, as that changed anyway in sqlite scenario. Need to check this again for postgres before merging, but i think the same bug was solved in another way 
+2004-12-06: marcel@plato.hsdev.com: ChangeSet 1.1886.59.10
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/sqlite
+  	* html/modules/adminpanels/xarinit.php:
+	  Auto merged 
+2004-11-29: marcel@plato.hsdev.com: ChangeSet 1.1886.57.1
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/sqlite
+  	* html/modules/privileges/xarinit.php:
+	  Auto merged 
+2004-11-09: marcel@hsdev.com: ChangeSet 1.1886.23.30
+  tabs
+  	* html/xaradodb/datadict/datadict-sqlite.inc.php:
+	  tabs 
+2004-11-09: marcel@hsdev.com: ChangeSet 1.1886.23.29
+  brace
+  	* html/xaradodb/datadict/datadict-sqlite.inc.php:
+	  brace 
+2004-11-09: marcel@hsdev.com: ChangeSet 1.1886.23.28
+  Initial subclass for datadict for sqlite backend, need more modules which use this
+  	* html/xaradodb/datadict/datadict-sqlite.inc.php:
+	   
+ 	* html/xaradodb/datadict/datadict-sqlite.inc.php:
+	  BitKeeper file /var/bk/xar/core/sqlite/html/xaradodb/datadict/datadict-sqlite.inc.php 
+2004-11-07: marcel@hsdev.com: ChangeSet 1.1886.23.26
+  Implementing the xarDB__sqliteAlterTable() function for SQLiteThis concludes the needed functionality.
+  	* html/includes/xarTableDDL.php:
+	  Implementing the xarDB__sqliteAlterTable() function for SQLiteThis concludes the needed functionality. 
+2004-11-07: marcel@hsdev.com: ChangeSet 1.1886.23.25
+  - Adding code for ALTER TABLE <sometable> RENAME TO <newtablename>- refactoring the var naming for it
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  - Adding code for ALTER TABLE <sometable> RENAME TO <newtablename>- refactoring the var naming for it 
+2004-11-07: marcel@hsdev.com: ChangeSet 1.1886.23.24
+  ALTER TABLE emulation for SQLite.- Initial implementation- Does not use an atomic transaction yet, and as such i didnt use a temp table yet, so no data will be lost if something goes wrong
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  ALTER TABLE emulation for SQLite.- Initial implementation- Does not use an atomic transaction yet, and as such i didnt use a temp table yet, so no data will be lost if something goes wrong 
+2004-11-07: marcel@hsdev.com: ChangeSet 1.1886.23.23
+  Dont put the serialized value direct into the function.xarConfigSetVar serializes internally. 
+  	* html/modules/base/xarinit.php:
+	  Dont put the serialized value direct into the function. 
+2004-11-06: marcel@hsdev.com: ChangeSet 1.1886.23.22
+  Bring in the framework for an ALTER TABLE emulation for SQLite, all other functionality should NOT be affected by this. Hence me pushing, so there can be some usage over time, before the _altertable() method is implemented.Hopefully we've caught possible errors by then.
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  Bring in the framework for an ALTER TABLE emulation for SQLite, all other functionality should NOT be affected by this. Hence me pushing, so there can be some usage over time, before the _altertable() method is implemented.Hopefully we've caught possible errors by then. 
+2004-11-06: marcel@hsdev.com: ChangeSet 1.1886.23.21
+  cleaning up a little plus adding some phpdoc to clarify what it is all about.
+  	* html/includes/xarTableDDL.php:
+	  clean up a little 
+2004-11-06: marcel@hsdev.com: ChangeSet 1.1886.23.20
+  Also retrieve the dbtype and use it in the template
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  use the retrieved db type to signal which option is selected 
+ 	* html/modules/installer/xaradmin.php:
+	  also retrieve the db type 
+2004-11-06: marcel@hsdev.com: ChangeSet 1.1886.29.1
+  Minimal changes, to let installer use SQLite and end up with a working XarayaObviously lots of issues, the bigger ones are:- SQLite has no ALTER TABLE, so forget upgrading for the moment- SQLite autocreates databases, so when connecting and using SelectDB method, an empty database will *always* exist, which might confuse the users when installing (overwrite my database? huh? etc. )
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  Xaraya modifications for the SQLite driver:- return null for the GenId method instead of emulating sequences- missing dataProvider property (bug in adodb?)- interpret host as directory and dbname as the filename, makes more sense than putting it all in hostname (upstream?)- Implement the SelectDB function (this is kinda moot, because SQLite autocreates databases when they dont exist) 
+ 	* html/modules/privileges/xarinit.php:
+	  - Use bindvars, required for SQLite 
+ 	* html/modules/modules/xarinit.php:
+	  - Use bindvars, required for SQLite 
+ 	* html/modules/installer/xaradmin.php:
+	  - Adding SQLite as install option- The connect method for SQLite needs the dbname, i think it could be used for the others too (i.e. specified, not used) 
+ 	* html/modules/dynamicdata/xarinit.php:
+	  Use bindvars where possible  
+ 	* html/modules/blocks/xaradminapi/update_instance_groups.php:
+	  - Reformulate the update instances function, so it bails out earlier if something goes wrong- Use bindvars in the queries, for SQLite, its not an option but a requirement 
+ 	* html/modules/base/xarinit.php:
+	  - Do the config var like the others- bindvars are required for SQLite 
+ 	* html/modules/adminpanels/xarinit.php:
+	  bindvars, needed for SQLite 
+ 	* html/includes/xarTableDDL.php:
+	  SQLite DDL function added in their absolute minimal form. Based off the mysql varieties. As SQLite is typeless, almost anything goes. Obviously we have to optimize that later, but TableDDL is deprecated anyway ;-) 
+2004-10-11: m.lapshin@marclaptop.: ChangeSet 1.1887
+  Merge random@xaraya.com:/var/bk/xaraya/core/userlocaleinto konliga.ru:C:/inetpub/wwwroot/userlocale
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+2004-10-11: m.lapshin@konliga.ru: ChangeSet 1.1883.4.1
+  xarUser.php:  define a user var that holds the users preferred locale across sessions
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+ 	* html/includes/xarUser.php:
+	  define a user var that holds the users preferred locale across sessions 

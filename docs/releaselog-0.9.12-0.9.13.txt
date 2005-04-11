@@ -1,6 +1,50 @@
 Release notes for release B9130.
 Changes from B9120 to B9130:
 
+2005-04-11: jojodee@ahaadev.net: ChangeSet 1.1948
+  Merge jojodee@xaraya.com:/var/bk/xaraya/release/coreinto ahaadev.net:C:/servroot/cygwin/home/jojodee/bk/release/core
+  	* build.properties:
+	  Auto merged 
+ 	* BitKeeper/deleted/.del-releaselog-0.9.12-0.9.13.txt:
+	  Delete: docs/releaselog-0.9.12-0.9.13.txt 
+2005-04-10: jojodee@newton.xaraya.com: ChangeSet 1.1945.1.1
+  build.properties:  Corerect build properties filereleaselog-0.9.12-0.9.13.txt:  new file
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+2005-04-11: jojodee@ahaadev.net: ChangeSet 1.1947
+  Correct build file, update version in install.txt and a bug.
+  	* html/modules/themes/xaradmin/setdefault.php:
+	  Bug #4318 Update the database as well - install the theme   if it is no matter :) 
+ 	* docs/INSTALL.txt:
+	  Update version 
+ 	* build.properties:
+	  Correct build file for the release 
+2005-04-11: jojodee@ahaadev.net: ChangeSet 1.1946
+  Check for dashboard activated first bug #4319  
+  	* html/modules/dynamicdata/xarutil/static.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/relations.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/meta.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/import.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/export.php:
+	  Check for dashboard activated first 
+ 	* build.properties:
+	  Corerect build properties file 
+2005-04-10: jojodee@ahaadev.net: ChangeSet 1.1945
+  Update build - see if this works with new dir structure
+  	* build.properties:
+	  Update build - see if this works with new dir structure 
+ 	* docs/releaselog-0.9.12-0.9.13.txt:
+	   
+ 	* docs/releaselog-0.9.12-0.9.13.txt:
+	  BitKeeper file /var/bk/xaraya/release/core/docs/releaselog-0.9.12-0.9.13.txt 
+ 	* BitKeeper/deleted/.del-releaselog-0.9.12-0.9.13.txt:
+	   
+ 	* BitKeeper/deleted/.del-releaselog-0.9.12-0.9.13.txt:
+	  BitKeeper file C:/servroot/cygwin/home/jojodee/bk/release/core/docs/releaselog-0.9.12-0.9.13.txt 
 2005-04-10: jojodee@ahaadev.net: ChangeSet 1.1944
   A few bug fixes courtesy MrB - short url workaround for 3603 and an upgrade issue bug.
   	* html/upgrade.php:

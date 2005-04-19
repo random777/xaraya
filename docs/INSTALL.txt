@@ -2,8 +2,8 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 NOTE: Detailed installation instructions can be found in the Official Xaraya Installation & Getting Started Guide, in the XarayaGuide.txt file which is included in the root directory of this release. The Guide will provide a clear understanding of installation and configuration of Xaraya.
 
-Xaraya: adam_baum Beta (.9.13.0)
-===============================
+Xaraya: adam_baum 1.0.0 Release Candidate 1 (1.0.0-rc1)
+=======================================================
 Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
 
 If you would like to help develop this software, please visit our homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
@@ -81,6 +81,7 @@ Please visit the #support channel for information on upgrading from PostNuke or 
    .9.8.0 -> .9.9.0 None
    .9.9.0 -> .9.10.0 New index on module states table
    .9.10.0 -> .9.12.0 None
+   .9.13.0 -> 1.0.0 None
    ----------------------------------------------------
 
 - To upgrade Xaraya to a new version:

@@ -1,0 +1,839 @@
+Release notes for release RC1_1.0.0.
+Changes from BETA0913 to RC1_1.0.0:
+
+2005-04-19: marcel@newton.xaraya.com: ChangeSet 1.1938
+  INSTALL.txt:  Version numberingCREDITS.txt:  Update to current situation
+  	* docs/INSTALL.txt:
+	  Version numbering 
+ 	* docs/CREDITS.txt:
+	  Update to current situation 
+2005-04-18: marcel@newton.xaraya.com: ChangeSet 1.1937
+  Creating 1.0.0-rc1 designator
+  	* html/includes/xarCore.php:
+	   
+ 	* build.properties:
+	   
+2005-04-17: jsb@sting.in-beames.net: ChangeSet 1.1936
+  Make this silent so people don't get freaked out if the config.caching.php file is missing after they upgrade and report like bugs 3269 & 4308.
+  	* html/includes/xarCache.php:
+	  Make this silent so people don't get freaked out if the config.caching.php file is missing after they upgrade and report like bugs 3269 & 4308.We really need to make sure people understand that the var directory is a system/site specific data store and not source code.  It should be handled more like the database during upgrade.  If cache or other files need to be cleaned out then the upgrade script should do this, not the process of users removing the var directory and copying in a new one from distro. 
+2005-04-17: marcel@hsdev.com: ChangeSet 1.1935
+  the underlying problem for bug #4361
+  	* html/includes/blnodes/entities/var.php:
+	  the underlying problem for bug #4361 
+2005-04-16: mikespub@fully.qualified.hostname: ChangeSet 1.1934
+  bug 4299 - show display name
+  	* html/modules/roles/xartemplates/user-display.xd:
+	  bug 4299 - show display name 
+2005-04-16: mikespub@fully.qualified.hostname: ChangeSet 1.1933
+  bug 4156 - add Brasilia as alias for Sao Paulo
+  	* html/modules/base/xaruserapi/timezones.php:
+	  bug 4156 - add Brasilia as alias for Sao Paulo 
+2005-04-16: mikespub@fully.qualified.hostname: ChangeSet 1.1932
+  bug 4004 - initialise closeitem and closetag variables
+  	* html/modules/dynamicdata/xarutilapi/import.php:
+	  bug 4004 - initialise closeitem and closetag variables 
+2005-04-15: caveman@rcave01.schwabfoundation.org: ChangeSet 1.1931
+  Additional fixes to slashcode import.
+  	* tools/import/slashcode/import_slashcode_topicscat.php:
+	  Allow categories to be created even if the data is not reset.  Also fixed UPDATE SQL. 
+ 	* tools/import/slashcode/import_slashcode_stories.php:
+	  Added additional comments for checking of article sequences. 
+2005-04-15: John.Cox@mcnabb.: ChangeSet 1.1927.1.1
+  bug 3382
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  bug 3382 
+ 	* html/modules/installer/xaradmin.php:
+	  bug 3382 
+2005-04-15: mikespub@fully.qualified.hostname: ChangeSet 1.1929
+  get rid of default type & func values in URLs again
+  	* html/includes/xarMod.php:
+	  get rid of default type & func values in URLs again 
+2005-04-15: mikespub@fully.qualified.hostname: ChangeSet 1.1928
+  bug 2206 - trigger scheduler via CLI
+  	* tools/run_scheduler.php:
+	   
+ 	* tools/run_scheduler.php:
+	  BitKeeper file D:/wintools/cygwin/home/stable/tools/run_scheduler.php 
+2005-04-15: John.Cox@mcnabb.: ChangeSet 1.1912.15.1
+  bug 4321
+  	* html/modules/installer/xartemplates/admin-phase4.xd:
+	  bug 4321 
+2005-04-15: jojodee@ahaadev.net: ChangeSet 1.1926
+  Already fixed in bug 4323 in stable
+  	* html/modules/roles/xaruser/register.php:
+	  Already fixed in bug 4323 in stable 
+2005-04-15: jojodee@ahaadev.net: ChangeSet 1.1925
+  Bug #4366 Uncomment minage var so it is available in function
+  	* html/modules/roles/xaruser/register.php:
+	  Uncomment minage var so it is available in function 
+2005-04-14: mikespub@fully.qualified.hostname: ChangeSet 1.1922.1.1
+  migration from/to/in xarpages
+  	* html/modules/dynamicdata/xarutilapi/migrate.php:
+	  migration from/to/in xarpages 
+ 	* html/modules/dynamicdata/xarutil/migrate.php:
+	  migration from/to/in xarpages 
+2005-04-13: ccorliss@schwabfoundation.org: ChangeSet 1.1923
+  view.php:  * added list of groups a user belongs to, to each user's array
+  	* html/modules/roles/xaruser/view.php:
+	  * added list of groups a user belongs to, to each user's array 
+2005-04-13: marcel@hsdev.com: ChangeSet 1.1922
+  Now, that the file is ours, we can do the braces and the tabsRelated to bug #4344
+  	* html/xaradodb/drivers/adodb-xarsqlite.inc.php:
+	  Now, that the file is ours, we can do the braces and the tabs 
+2005-04-13: marcel@hsdev.com: ChangeSet 1.1921
+  include the base class, fix for bug #4344
+  	* html/xaradodb/drivers/adodb-xarsqlite.inc.php:
+	  include the base class, fix for bug #4344 
+2005-04-12: judgej@acadweb.co.uk: ChangeSet 1.1920
+  xarMod.php:  Stuff that got missed out of the extraget merge
+  	* html/includes/xarMod.php:
+	  Stuff that got missed out of the extraget merge 
+2005-04-12: kams@webu.homelinux.net: ChangeSet 1.1919
+  Merge kams@xaraya.com:/var/bk/xaraya/core/stableinto webu.homelinux.net:/var/noyaux/xaraya/stable
+  	* BitKeeper/etc/logging_ok:
+	  Logging to logging@openlogging.org accepted 
+2005-04-12: marcel@hsdev.com: ChangeSet 1.1917.1.1
+  Registering id for Kams
+  	* BitKeeper/custom/author_map:
+	  Registering id for Kams 
+2005-04-12: kams@webu.homelinux.net: ChangeSet 1.1918
+  Add modInfo to display error msg
+  	* html/modules/modules/xaradminapi/activate.php:
+	  Add modInfo to display error msg 
+2005-04-11: marcel@hsdev.com: ChangeSet 1.1917
+  Fix the typo as indicated in bug #3771, not that it helps, but one less L to worry about
+  	* html/modules/dynamicdata/xarinit.php:
+	  Fix the typo as indicated in bug #3771, not that it helps, but one less L to worry about 
+2005-04-11: jojodee@ahaadev.net: ChangeSet 1.1912.1.14
+  Merge 0.9.13 release changes back to stable
+  	* html/modules/themes/xaradmin/setdefault.php:
+	  Resolve release and stable 
+ 	* html/modules/dynamicdata/xarutil/meta.php:
+	  Resolve release and stable 
+ 	* html/includes/xarMod.php:
+	  Resolve release and stable 
+ 	* html/modules/dynamicdata/xarutil/static.php:
+	  Auto merged 
+ 	* html/modules/dynamicdata/xarutil/relations.php:
+	  Auto merged 
+ 	* html/modules/dynamicdata/xarutil/import.php:
+	  Auto merged 
+ 	* html/modules/dynamicdata/xarutil/export.php:
+	  Auto merged 
+ 	* html/upgrade.php:
+	  Auto merged 
+2005-04-11: jojodee@newton.xaraya.com: ChangeSet 1.1912.10.7
+  releaselog-0.9.12-0.9.13.txt:  Final release log
+  	* docs/releaselog-0.9.12-0.9.13.txt:
+	  Final release log 
+2005-04-10: John.Cox@mcnabb.: ChangeSet 1.1912.14.1
+  bug 4323 minage screw up.
+  	* html/modules/roles/xaruser/register.php:
+	  bug 4323 minage screw up. 
+2005-04-11: jojodee@ahaadev.net: ChangeSet 1.1912.12.1
+  Check for dashboard activated first bug #4319
+  	* html/modules/dynamicdata/xarutil/static.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/relations.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/meta.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/import.php:
+	  Check for dashboard activated first 
+ 	* html/modules/dynamicdata/xarutil/export.php:
+	  Check for dashboard activated first 
+2005-04-10: John.Cox@mcnabb.: ChangeSet 1.1912.11.1
+  .del-admin.xt~6f3cc9df:  Delete: html/themes/Xaraya_Classic/pages/admin.xt
+  	* BitKeeper/deleted/.del-admin.xt~6f3cc9df:
+	  Delete: html/themes/Xaraya_Classic/pages/admin.xt 
+2005-04-10: jojodee@ahaadev.net: ChangeSet 1.1912.1.10
+  Bug #4318 Update the database as well - install the theme 
+  	* html/modules/themes/xaradmin/setdefault.php:
+	  Bug #4318 Update the database as well - install the theme if it is no matter :)  
+2005-04-10: voll@yahoo.com: ChangeSet 1.1912.1.9
+  Split xarMLS.php to 3 part: MLS, Locale and Backends
+  	* html/includes/xarMLS.php:
+	  Split xarMLS.php to 3 part: MLS, Locale and Backends 
+ 	* html/includes/xarMLSXML2PHPBackend.php:
+	   
+ 	* html/includes/xarMLSXML2PHPBackend.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/html/includes/xarMLSXML2PHPBackend.php 
+ 	* html/includes/xarMLSPHPBackend.php:
+	   
+ 	* html/includes/xarMLSPHPBackend.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/html/includes/xarMLSPHPBackend.php 
+ 	* html/includes/xarLocale.php:
+	   
+ 	* html/includes/xarLocale.php:
+	  BitKeeper file /var/bk/xaraya/core/stable/html/includes/xarLocale.php 
+2005-04-09: marcel@hsdev.com: ChangeSet 1.1912.1.8
+  proposed adjustment for bug #4023
+  	* html/includes/xarServer.php:
+	  proposed adjustment for bug #4023 
+2005-04-09: marcel@hsdev.com: ChangeSet 1.1912.9.1
+  Implement workaround for bug 3603226 to 1 against and falling...
+  	* html/includes/xarMod.php:
+	  Implement workaround for bug 3603 
+2005-04-08: caveman@rcave01.schwabfoundation.org: ChangeSet 1.1912.1.6
+  Add ability to override the maximum_execution_time specified in php.ini
+  	* tools/import/slashcode/import_slashcode_cleanup.php:
+	  Cleanup for max execution time override. 
+ 	* tools/import/slashcode/import_slashcode.php:
+	  Add ability to override the maximum_execution_time specified in php.ini 
+2005-04-08: marcel@hsdev.com: ChangeSet 1.1912.1.5
+  Only allow preview on activated themes, partial fix for bug #3712
+  	* html/modules/themes/xartemplates/admin-themesinfo.xd:
+	  - only allow preview on activated themes 
+ 	* html/modules/themes/xaradmin/themesinfo.php:
+	  - provide state info to the template 
+2005-04-08: marcel@hsdev.com: ChangeSet 1.1912.1.4
+  Inserting a Note here, so we can revisit bug #1507 later 
+  	* html/modules/modules/xaradminapi/remove.php:
+	  Inserting a Note here, so we can revisit bug #1507 later  
+2005-04-08: marcel@plato.hsdev.com: ChangeSet 1.1912.2.10
+  Merge hsdev.com:/var/bk/xar/core/propsinplaceinto hsdev.com:/var/bk/xar/core/xartest
+  	* html/modules/roles/xartemplates/properties/showoutput-username.xd:
+	  Auto merged 
+ 	* html/modules/roles/xartemplates/properties/showoutput-userlist.xd:
+	  Auto merged 
+ 	* html/modules/roles/xartemplates/properties/showoutput-grouplist.xd:
+	  Auto merged 
+ 	* html/modules/base/xartemplates/properties/showoutput-timezone.xd:
+	  Auto merged 
+ 	* html/modules/roles/xartemplates/properties/showoutput-username.xd:
+	  Merge rename: html/modules/dynamicdata/xartemplates/user-showoutput-username.xd -> html/modules/roles/xartemplates/properties/showoutput-username.xd 
+ 	* html/modules/roles/xartemplates/properties/showoutput-userlist.xd:
+	  Merge rename: html/modules/dynamicdata/xartemplates/user-showoutput-userlist.xd -> html/modules/roles/xartemplates/properties/showoutput-userlist.xd 
+ 	* html/modules/roles/xartemplates/properties/showoutput-grouplist.xd:
+	  Merge rename: html/modules/dynamicdata/xartemplates/user-showoutput-grouplist.xd -> html/modules/roles/xartemplates/properties/showoutput-grouplist.xd 
+ 	* html/modules/base/xartemplates/properties/showoutput-timezone.xd:
+	  Merge rename: html/modules/dynamicdata/xartemplates/user-showoutput-timezone.xd -> html/modules/base/xartemplates/properties/showoutput-timezone.xd 
+2005-04-07: epicsaga@u15150233.onlinehome-server.com: ChangeSet 1.1912.5.25
+  Dynamic_SubForm_Property.php:  lil'bug where the array of children could be empty
+  	* html/includes/properties/Dynamic_SubForm_Property.php:
+	  lil'bug where the array of children could be empty 
+2005-04-07: judgej@acad-ajp.: ChangeSet 1.1912.1.2
+  Merge judgej@xaraya.com:/var/bk/xaraya/core/stableinto acad-ajp.:F:/bk/core/extraget
+  	* html/includes/xarMod.php:
+	  Auto merged 
+2005-04-07: judgej@acad-ajp.: ChangeSet 1.1915
+  Merge judgej@xaraya.com:/var/bk/xaraya/core/stableinto acad-ajp.:F:/bk/core/adodbupdate
+  	* html/modules/installer/xaradmin.php:
+	  Auto merged 
+2005-04-07: marcel@hsdev.com: ChangeSet 1.1912.2.9
+  Add flush property cache to the upgradeFix blank screen issue (have I?)
+  	* html/upgrade.php:
+	  - add a generic upgrades section at the end, which flushes the property cache- dont catch the output nor return, so the upgrade *can* be run multiple times 
+2005-03-31: johnny@echo.pengo.lan: ChangeSet 1.1886.146.25
+  updated properties to be stored in their respective modules
+  	* html/modules/roles/xarproperties/Dynamic_Username_Property.php:
+	  updating property to use xarTplProperty function 
+ 	* html/modules/roles/xarproperties/Dynamic_UserList_Property.php:
+	  updating property to use xarTplProperty function 
+ 	* html/modules/roles/xarproperties/Dynamic_GroupList_Property.php:
+	  updating property to use xarTplProperty function 
+ 	* html/modules/modules/xarproperties/Dynamic_Module_Property.php:
+	  updating property to use xarTplProperty function 
+ 	* html/modules/base/xarproperties/Dynamic_TimeZone_Property.php:
+	  updating property to use xarTplProperty function 
+ 	* html/modules/base/xarproperties/Dynamic_TColorPicker_Property.php:
+	  updating property to use xarTplProperty function 
+ 	* html/modules/base/xarproperties/Dynamic_Calendar_Property.php:
+	  updating property to use xarTplProperty function 
+ 	* html/includes/xarTemplate.php:
+	  updating function definition 
+ 	* html/includes/properties/Dynamic_ExtendedDate_Property.php:
+	  changing path name .. could use a better way to load these tho 
+ 	* html/modules/roles/xartemplates/properties/validation-userlist.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-validation-userlist.xd -> html/modules/roles/xartemplates/properties/validation-userlist.xd 
+ 	* html/modules/base/xartemplates/properties/validation-calendar.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-validation-calendar.xd -> html/modules/base/xartemplates/properties/validation-calendar.xd 
+ 	* html/modules/base/xartemplates/showoutput-tcolorpicker.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/user-showoutput-tcolorpicker.xd -> html/modules/base/xartemplates/showoutput-tcolorpicker.xd 
+ 	* html/modules/base/xartemplates/properties/showinput-tcolorpicker.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-showinput-tcolorpicker.xd -> html/modules/base/xartemplates/properties/showinput-tcolorpicker.xd 
+ 	* html/modules/base/xarproperties/Dynamic_TColorPicker_Property.php:
+	  Rename: html/includes/properties/Dynamic_TColorPicker_Property.php -> html/modules/base/xarproperties/Dynamic_TColorPicker_Property.php 
+ 	* html/modules/base/xartemplates/properties/showoutput-timezone.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/user-showoutput-timezone.xd -> html/modules/base/xartemplates/properties/showoutput-timezone.xd 
+ 	* html/modules/base/xartemplates/properties/showinput-timezone.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-showinput-timezone.xd -> html/modules/base/xartemplates/properties/showinput-timezone.xd 
+ 	* html/modules/base/xarproperties/Dynamic_TimeZone_Property.php:
+	  Rename: html/includes/properties/Dynamic_TimeZone_Property.php -> html/modules/base/xarproperties/Dynamic_TimeZone_Property.php 
+ 	* html/modules/base/xartemplates/properties/showinput-calendar.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-showinput-calendar.xd -> html/modules/base/xartemplates/properties/showinput-calendar.xd 
+ 	* html/modules/base/xartemplates/properties/showoutput-calendar.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/user-showoutput-calendar.xd -> html/modules/base/xartemplates/properties/showoutput-calendar.xd 
+ 	* html/modules/base/xarproperties/Dynamic_Calendar_Property.php:
+	  Rename: html/modules/base/properties -> html/modules/base/xarproperties/Dynamic_Calendar_Property.php 
+ 	* html/modules/base/xarproperties/Dynamic_Calendar_Property.php:
+	  Rename: html/includes/properties/Dynamic_Calendar_Property.php -> html/modules/base/properties 
+ 	* html/modules/modules/xarproperties/Dynamic_Module_Property.php:
+	  Rename: html/includes/properties/Dynamic_Module_Property.php -> html/modules/modules/xarproperties/Dynamic_Module_Property.php 
+ 	* html/modules/roles/xartemplates/properties/showoutput-username.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/user-showoutput-username.xd -> html/modules/roles/xartemplates/properties/showoutput-username.xd 
+ 	* html/modules/roles/xartemplates/properties/showinput-username.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-showinput-username.xd -> html/modules/roles/xartemplates/properties/showinput-username.xd 
+ 	* html/modules/roles/xartemplates/properties/showoutput-userlist.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/user-showoutput-userlist.xd -> html/modules/roles/xartemplates/properties/showoutput-userlist.xd 
+ 	* html/modules/roles/xartemplates/properties/showinput-userlist.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-showinput-userlist.xd -> html/modules/roles/xartemplates/properties/showinput-userlist.xd 
+ 	* html/modules/roles/xarproperties/Dynamic_Username_Property.php:
+	  Rename: html/includes/properties/Dynamic_Username_Property.php -> html/modules/roles/xarproperties/Dynamic_Username_Property.php 
+ 	* html/modules/roles/xarproperties/Dynamic_UserList_Property.php:
+	  Rename: html/includes/properties/Dynamic_UserList_Property.php -> html/modules/roles/xarproperties/Dynamic_UserList_Property.php 
+ 	* html/modules/roles/xartemplates/properties/showinput-grouplist.xd:
+	  Rename: html/modules/roles/xartemplates/properties/admin-showinput-grouplist.xd -> html/modules/roles/xartemplates/properties/showinput-grouplist.xd 
+ 	* html/modules/roles/xartemplates/properties/showoutput-grouplist.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/user-showoutput-grouplist.xd -> html/modules/roles/xartemplates/properties/showoutput-grouplist.xd 
+ 	* html/modules/roles/xartemplates/properties/showinput-grouplist.xd:
+	  Rename: html/modules/dynamicdata/xartemplates/admin-showinput-grouplist.xd -> html/modules/roles/xartemplates/properties/admin-showinput-grouplist.xd 
+ 	* html/modules/roles/xarproperties/Dynamic_GroupList_Property.php:
+	  Rename: html/includes/properties/Dynamic_GroupList_Property.php -> html/modules/roles/xarproperties/Dynamic_GroupList_Property.php 
+2005-03-29: judgej@acadweb.co.uk: ChangeSet 1.1886.178.1
+  adodb-xarpostgres7.inc.php:  Typo (bug 4071)
+  	* html/xaradodb/drivers/adodb-xarpostgres7.inc.php:
+	  Typo (bug 4071) 
+2005-03-26: judgej@acadweb.co.uk: ChangeSet 1.1886.176.1
+  encode_shorturl.php:  'roles' short URL encoding to take advantage of automatic additional GET parameters
+  	* html/modules/roles/xaruserapi/encode_shorturl.php:
+	  'roles' short URL encoding to take advantage of automatic additional GET parameters 
+2005-03-25: marcel@plato.hsdev.com: ChangeSet 1.1886.146.24
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/propsinplace
+  	* html/includes/xarTemplate.php:
+	  Auto merged 
+2005-03-10: judgej@acadweb.co.uk: ChangeSet 1.1886.152.19
+  xarMod.php:  Few bug fixes.  Do not allow empty path parts (prevents // appearing in a short URL path)
+  	* html/includes/xarMod.php:
+	  Few bug fixes.Do not allow empty path parts (prevents // appearing in a short URL path) 
+2005-03-10: judgej@acadweb.co.uk: ChangeSet 1.1886.152.18
+  xarMod.php:  Doh - one more
+  	* html/includes/xarMod.php:
+	  Doh - one more 
+2005-03-10: judgej@acadweb.co.uk: ChangeSet 1.1886.152.17
+  xarMod.php:  Restore a DB fix accidently overwritten
+  	* html/includes/xarMod.php:
+	  Restore a DB fix accidently overwritten 
+2005-03-10: judgej@acadweb.co.uk: ChangeSet 1.1886.152.16
+  xarMod.php:  Allow short URLs to be used with custom entry point.
+  	* html/includes/xarMod.php:
+	  Allow short URLs to be used with custom entry point. 
+2005-03-09: judgej@acad-ajp.: ChangeSet 1.1886.152.15
+  Merge judgej@xaraya.com:/var/bk/xaraya/core/stableinto acad-ajp.:F:/bk/core/extraget
+  	* html/includes/xarMod.php:
+	  Auto merged 
+2005-03-09: judgej@acad-ajp.: ChangeSet 1.1886.1.165
+  Customisations remain in the overload script.
+  	* html/xaradodb/drivers/adodb-mysql.inc.php:
+	  Customisations remain in the overload script. 
+ 	* html/modules/installer/xaradmin.php:
+	  Auto merged 
+ 	* html/includes/xarDB.php:
+	  Auto merged 
+2005-03-09: marcel@plato.hsdev.com: ChangeSet 1.1886.146.23
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/propsinplace
+  	* html/modules/dynamicdata/class/properties.php:
+	  Auto merged 
+2005-03-06: marcel@hsdev.com: ChangeSet 1.1886.146.21
+  - reverse the meaning of tpltype and propertyname, so we can have fallback behaviour similar to user-showinput.xd etc.
+  	* html/includes/xarTemplate.php:
+	  - reverse the meaning of tpltype and propertyname, so we can have fallback behaviour similar to user-showinput.xd etc. 
+2005-03-04: marcel@hsdev.com: ChangeSet 1.1886.146.20
+  Basic completion of allowing properties in a modules/xarproperties directory, with the templates being in xartemplates/properties.The templates are named:- propname-showoutput.xd- propname-showinput.xd- propname-validation.xd(or any other type the dev wants to pass in through xarTplProperty)
+  	* html/modules/dynamicdata/xaradminapi/importpropertytypes.php:
+	  - doh, look in the right directories- update the aliases first, then the base, cos only then the aliaseslist will be a list (did this work before?)- when using bindvars, need to pass them to the db to. 
+ 	* html/includes/xarTemplate.php:
+	  Bring in xarTplProperty() analogous to xarTplBlock 
+2005-03-03: marcel@hsdev.com: ChangeSet 1.1886.146.19
+  Make sure the filepath is also returned, if the db doesnt have the props yetWork for bug #4056
+  	* html/modules/dynamicdata/xaradminapi/importpropertytypes.php:
+	  Make sure the filepath is also returned, if the db doesnt have the props yet 
+2005-03-03: marcel@hsdev.com: ChangeSet 1.1886.146.18
+  Using bindvars. Work for bug #4056
+  	* html/modules/dynamicdata/xaradminapi/importpropertytypes.php:
+	  Using bindvars. Work for bug #4056 
+2005-03-03: judgej@acad-ajp.: ChangeSet 1.1886.1.164
+  Merge from stable
+  	* html/xaradodb/adodb.inc.php:
+	  No real changes 
+ 	* html/modules/installer/xaradmin.php:
+	  Various 
+2005-03-03: marcel@hsdev.com: ChangeSet 1.1886.146.17
+  typochanges for bug #4056
+  	* html/modules/dynamicdata/xaradminapi/importpropertytypes.php:
+	  typo 
+2005-03-03: marcel@hsdev.com: ChangeSet 1.1886.146.16
+  Check for properties in modules/modname/xarproperties in the same way as in the includes/properties directoryChanges for bug #4056
+  	* html/modules/dynamicdata/xaradminapi/importpropertytypes.php:
+	  Check in all the detected directories 
+ 	* html/modules/dynamicdata/class/properties.php:
+	  typo 
+2005-03-03: marcel@hsdev.com: ChangeSet 1.1886.146.15
+  Return the filepath from the database, part of bug #4056
+  	* html/modules/dynamicdata/class/properties.php:
+	  Return the filepath from the database, part of bug #4056 
+2005-03-02: judgej@acadweb.co.uk: ChangeSet 1.1886.151.1
+  xarMod.php:  First stab at modifyin xarMod.php  I'm sure there is some array trickery we can use to make this a little more efficient.
+  	* html/includes/xarMod.php:
+	  First stab at modifyin xarMod.phpI'm sure there is some array trickery we can use to make this a little more efficient. 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.163
+  adodb-xarpostgres64.inc.php:  QA: tab character
+  	* html/xaradodb/drivers/adodb-xarpostgres64.inc.php:
+	  QA: tab character 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.162
+  adodb-xarpostgres64.inc.php:  QA: braces
+  	* html/xaradodb/drivers/adodb-xarpostgres64.inc.php:
+	  QA: braces 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.161
+  adodb-xarpostgres64.inc.php:  Parent class typo.
+  	* html/xaradodb/drivers/adodb-xarpostgres64.inc.php:
+	  Parent class typo. 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.160
+  adodb-xarpostgres7.inc.php:  Correction to driver name - perhaps we should just use 'parent::...' here?
+  	* html/xaradodb/drivers/adodb-xarpostgres7.inc.php:
+	  Correction to driver name - perhaps we should just use 'parent::...' here? 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.159
+  adodb-xarpostgres7.inc.php:  Parent driver is postges7, not postgres64adodb.inc.php:  Correction to cut-and-paste typo
+  	* html/xaradodb/drivers/adodb-xarpostgres7.inc.php:
+	  Parent driver is postges7, not postgres64 
+ 	* html/xaradodb/adodb.inc.php:
+	  Correction to cut-and-paste typo 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.158
+  adodb.inc.php:  Xaraya mod to disable the Xaraya error handler during genid creation.
+  	* html/xaradodb/adodb.inc.php:
+	  Xaraya mod to disable the Xaraya error handler during genid creation. 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.157
+  adodb-xarpostgres8.inc.php, adodb-xarpostgres.inc.php:  new file
+  	* html/xaradodb/drivers/adodb-xarpostgres8.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-xarpostgres.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-xarpostgres8.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-xarpostgres8.inc.php 
+ 	* html/xaradodb/drivers/adodb-xarpostgres.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-xarpostgres.inc.php 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.156
+  adodb-xarpostgres7.inc.php:  QA - now a rogue tab
+  	* html/xaradodb/drivers/adodb-xarpostgres7.inc.php:
+	  QA - now a rogue tab 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.155
+  adodb-xarpostgres7.inc.php:  QA braces
+  	* html/xaradodb/drivers/adodb-xarpostgres7.inc.php:
+	  QA braces 
+2005-03-01: judgej@acadweb.co.uk: ChangeSet 1.1886.1.154
+  adodb-xarpostgres7.inc.php:  new file
+  	* html/xaradodb/drivers/adodb-xarpostgres7.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-xarpostgres7.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-xarpostgres7.inc.php 
+2005-02-28: judgej@acadweb.co.uk: ChangeSet 1.1886.1.153
+  xaradminapi.php:  Doh - checked for the xar- driver then forgot to use it.
+  	* html/modules/installer/xaradminapi.php:
+	  Doh - checked for the xar- driver then forgot to use it. 
+2005-02-28: judgej@acadweb.co.uk: ChangeSet 1.1886.147.1
+  xaradminapi.php:  Check for a xar driver before attempting to load the ADOdb driver (directly).
+  	* html/modules/installer/xaradminapi.php:
+	  Check for a xar driver before attempting to load the ADOdb driver (directly). 
+2005-02-28: rabbitt@newton.xaraya.com: ChangeSet 1.1886.1.151
+  xaradmin.php:  reimplement the fix for postgres installer. This should work for sqlite as well as any other db that requires the dbname when connecting.
+  	* html/modules/installer/xaradmin.php:
+	  reimplement the fix for postgres installer. This should work for sqlite as well as any other db that requires the dbname when connecting. 
+2005-02-24: judgej@acadweb.co.uk: ChangeSet 1.1886.91.20
+  xarException.php:  Send @suppressed error messages to the system log.xaradmin.php:  Load the Xaraya database driver, if present, during the install process.
+  	* html/includes/xarException.php:
+	  Send @suppressed error messages to the system log. 
+ 	* html/modules/installer/xaradmin.php:
+	  Load the Xaraya database driver, if present, during the install process. 
+2005-02-22: judgej@acad-ajp.: ChangeSet 1.1886.91.19
+  Merge
+ 2005-02-22: judgej@acad-ajp.: ChangeSet 1.1886.91.18
+  Merge stable to adodbupdate.
+  	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  Remove Xaraya customisations, as they are now overloaded from a custom class. 
+ 	* html/xaradodb/adodb.inc.php:
+	  An '@' seems to have been lost somewhere here, perhaps part of debugging? 
+ 	* html/xaradodb/adodb-datadict.inc.php:
+	  Remove comment 
+ 	* BitKeeper/deleted/.del-datadict-sqlite.inc.php:
+	  Delete: html/xaradodb/datadict/datadict-sqlite.inc.php 
+2005-02-22: judgej@acadweb.co.uk: ChangeSet 1.1886.143.8
+  datadict-sqlite.inc.php:  new file
+  	* BitKeeper/deleted/.del-datadict-sqlite.inc.php:
+	   
+ 	* BitKeeper/deleted/.del-datadict-sqlite.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/datadict/datadict-sqlite.inc.php 
+2005-02-22: judgej@acadweb.co.uk: ChangeSet 1.1886.143.7
+  adodb-xarsqlite.inc.php:  new file
+  	* html/xaradodb/drivers/adodb-xarsqlite.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-xarsqlite.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-xarsqlite.inc.php 
+2005-02-22: judgej@acadweb.co.uk: ChangeSet 1.1886.143.6
+  .del-adodb-sqlite.inc.php.bak~1786450882576e63:  Delete: html/xaradodb/drivers/adodb-sqlite.inc.php.bak
+  	* BitKeeper/deleted/.del-adodb-sqlite.inc.php.bak~1786450882576e63:
+	  Delete: html/xaradodb/drivers/adodb-sqlite.inc.php.bak 
+2005-02-22: judgej@acadweb.co.uk: ChangeSet 1.1886.143.5
+  ADOdb.php:  new fileadodb-session.php, adodb-session-clob.php, adodb-cryptsession.php:  ADOdb4.60adodb-perf.inc.php:  Added quoting to string bind variables.
+  	* html/xaradodb/pear/Auth/Container/ADOdb.php:
+	   
+ 	* html/xaradodb/pear/Auth/Container/ADOdb.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/pear/Auth/Container/ADOdb.php 
+ 	* html/xaradodb/session/old/adodb-session.php:
+	  ADOdb4.60 
+ 	* html/xaradodb/session/old/adodb-session-clob.php:
+	  ADOdb4.60 
+ 	* html/xaradodb/session/old/adodb-cryptsession.php:
+	  ADOdb4.60 
+ 	* html/xaradodb/adodb-perf.inc.php:
+	  Added quoting to string bind variables. 
+2005-02-22: judgej@acadweb.co.uk: ChangeSet 1.1886.143.4
+  adodb-datadict.inc.php:  Suppress logging of database errors when checking meta columns in ChangeTable()
+  	* html/xaradodb/adodb-datadict.inc.php:
+	  Suppress logging of database errors when checking meta columns in ChangeTable() 
+2005-02-22: judgej@acadweb.co.uk: ChangeSet 1.1886.143.3
+  adodb-xarmysql.inc.php:  Small typo
+  	* html/xaradodb/drivers/adodb-xarmysql.inc.php:
+	  Small typo 
+2005-02-21: judgej@acadweb.co.uk: ChangeSet 1.1886.143.2
+  xarDB.php:  ADOdb 4.60 - provide customisations by class overrides
+  	* html/includes/xarDB.php:
+	  ADOdb 4.60 - provide customisations by class overrides 
+2005-02-21: judgej@acadweb.co.uk: ChangeSet 1.1886.143.1
+  Many files:  new file  ADOdb 4.60
+  	* html/xaradodb/xsl/remove-0.2.xsl:
+	   
+ 	* html/xaradodb/tests/pdo.php:
+	   
+ 	* html/xaradodb/pear/readme.Auth.txt:
+	   
+ 	* html/xaradodb/lang/adodb-ro.inc.php:
+	   
+ 	* html/xaradodb/lang/adodb-pl.inc.php:
+	   
+ 	* html/xaradodb/lang/adodb-nl.inc.php:
+	   
+ 	* html/xaradodb/lang/adodb-hu.inc.php:
+	   
+ 	* html/xaradodb/lang/adodb-esperanto.inc.php:
+	   
+ 	* html/xaradodb/lang/adodb-bgutf8.inc.php:
+	   
+ 	* html/xaradodb/lang/adodb-bg.inc.php:
+	   
+ 	* html/xaradodb/lang/adodb-ar.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-xarpostgres64.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-xaroci8.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-xarmysql.inc.php:
+	   
+ 	* html/xaradodb/xsl/remove-0.2.xsl:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/xsl/remove-0.2.xsl 
+ 	* html/xaradodb/tests/pdo.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/tests/pdo.php 
+ 	* html/xaradodb/pear/readme.Auth.txt:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/pear/readme.Auth.txt 
+ 	* html/xaradodb/lang/adodb-ro.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-ro.inc.php 
+ 	* html/xaradodb/lang/adodb-pl.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-pl.inc.php 
+ 	* html/xaradodb/lang/adodb-nl.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-nl.inc.php 
+ 	* html/xaradodb/lang/adodb-hu.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-hu.inc.php 
+ 	* html/xaradodb/lang/adodb-esperanto.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-esperanto.inc.php 
+ 	* html/xaradodb/lang/adodb-bgutf8.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-bgutf8.inc.php 
+ 	* html/xaradodb/lang/adodb-bg.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-bg.inc.php 
+ 	* html/xaradodb/lang/adodb-ar.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/lang/adodb-ar.inc.php 
+ 	* html/xaradodb/drivers/adodb-xarpostgres64.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-xarpostgres64.inc.php 
+ 	* html/xaradodb/drivers/adodb-xaroci8.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-xaroci8.inc.php 
+ 	* html/xaradodb/drivers/adodb-xarmysql.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-xarmysql.inc.php 
+ 	* html/xaradodb/drivers/adodb-sqlitepo.inc.php:
+	   
+ 	* BitKeeper/deleted/.del-adodb-sqlite.inc.php.bak~1786450882576e63:
+	   
+ 	* html/xaradodb/drivers/adodb-pdo.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-odbtp_unicode.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-odbtp.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-netezza.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-ldap.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-ado5.inc.php:
+	   
+ 	* html/xaradodb/docs/tute.htm:
+	   
+ 	* html/xaradodb/docs/tips_portable_sql.htm:
+	   
+ 	* html/xaradodb/docs/readme.htm:
+	   
+ 	* html/xaradodb/docs/old-changelog.htm:
+	   
+ 	* html/xaradodb/docs/docs-session.htm:
+	   
+ 	* html/xaradodb/docs/docs-perf.htm:
+	   
+ 	* html/xaradodb/docs/docs-oracle.htm:
+	   
+ 	* html/xaradodb/docs/docs-datadict.htm:
+	   
+ 	* html/xaradodb/docs/docs-adodb.htm:
+	   
+ 	* html/xaradodb/datadict/datadict-sapdb.inc.php:
+	   
+ 	* html/xaradodb/datadict/datadict-firebird.inc.php:
+	   
+ 	* html/xaradodb/drivers/adodb-sqlitepo.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-sqlitepo.inc.php 
+ 	* BitKeeper/deleted/.del-adodb-sqlite.inc.php.bak~1786450882576e63:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-sqlite.inc.php.bak 
+ 	* html/xaradodb/drivers/adodb-pdo.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-pdo.inc.php 
+ 	* html/xaradodb/drivers/adodb-odbtp_unicode.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-odbtp_unicode.inc.php 
+ 	* html/xaradodb/drivers/adodb-odbtp.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-odbtp.inc.php 
+ 	* html/xaradodb/drivers/adodb-netezza.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-netezza.inc.php 
+ 	* html/xaradodb/drivers/adodb-ldap.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-ldap.inc.php 
+ 	* html/xaradodb/drivers/adodb-ado5.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/drivers/adodb-ado5.inc.php 
+ 	* html/xaradodb/docs/tute.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/tute.htm 
+ 	* html/xaradodb/docs/tips_portable_sql.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/tips_portable_sql.htm 
+ 	* html/xaradodb/docs/readme.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/readme.htm 
+ 	* html/xaradodb/docs/old-changelog.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/old-changelog.htm 
+ 	* html/xaradodb/docs/docs-session.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/docs-session.htm 
+ 	* html/xaradodb/docs/docs-perf.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/docs-perf.htm 
+ 	* html/xaradodb/docs/docs-oracle.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/docs-oracle.htm 
+ 	* html/xaradodb/docs/docs-datadict.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/docs-datadict.htm 
+ 	* html/xaradodb/docs/docs-adodb.htm:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/docs/docs-adodb.htm 
+ 	* html/xaradodb/datadict/datadict-sapdb.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/datadict/datadict-sapdb.inc.php 
+ 	* html/xaradodb/datadict/datadict-firebird.inc.php:
+	  BitKeeper file /home/e-smith/files/ibays/bk/files/core/adodbupdate/html/xaradodb/datadict/datadict-firebird.inc.php 
+ 	* html/xaradodb/tests/testsessions.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testpear.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testpaging.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testoci8cursor.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testoci8.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testmssql.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testgenid.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testdatabases.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/testcache.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test5.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test4.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test3.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test2.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test-xmlschema.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test-php5.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/test-datadict.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/client.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tests/benchmark.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-session.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-session-clob.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-encrypt-secret.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-encrypt-md5.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-encrypt-mcrypt.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-cryptsession.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-compress-gzip.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/session/adodb-compress-bzip2.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/perf/perf-postgres.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/perf/perf-oci8.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/perf/perf-mysql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/perf/perf-mssql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/perf/perf-informix.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/perf/perf-db2.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/lang/adodb-sv.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/lang/adodb-da.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-vfp.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-sybase.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-sqlite.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-sqlanywhere.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-sapdb.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-proxy.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-postgres7.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-postgres64.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-postgres.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-oracle.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-odbc_oracle.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-odbc_mssql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-odbc.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-oci8po.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-oci805.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-oci8.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-mysqlt.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-mysqli.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-mysql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-mssqlpo.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-mssql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-informix72.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-informix.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-ibase.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-firebird.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-fbsql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-db2.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-csv.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-borland_ibase.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-ado_mssql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-ado_access.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-ado.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/drivers/adodb-access.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-sybase.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-postgres.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-oci8.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-mysql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-mssql.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-informix.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-ibase.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-generic.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-db2.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/datadict/datadict-access.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/xmlschema.dtd:
+	  ADOdb 4.60 
+ 	* html/xaradodb/readme.txt:
+	  ADOdb 4.60 
+ 	* html/xaradodb/license.txt:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-time.zip:
+	  ADOdb 4.60 
+ 	* html/xaradodb/tohtml.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/toexport.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/server.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/rsfilter.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/pivottable.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-xmlschema.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-time.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-php4.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-perf.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-pear.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-pager.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-lib.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-iterator.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-exceptions.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-errorpear.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-errorhandler.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-error.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-datadict.inc.php:
+	  ADOdb 4.60 
+ 	* html/xaradodb/adodb-csvlib.inc.php:
+	  ADOdb 4.60 

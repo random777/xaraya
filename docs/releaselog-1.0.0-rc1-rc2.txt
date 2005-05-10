@@ -1,0 +1,423 @@
+Release notes for release RC2_1.0.0.
+Changes from RC1_1.0.0 to RC2_1.0.0:
+
+2005-05-10: marcel@plato.hsdev.com: ChangeSet 1.1959
+  Merge xaraya.com:/var/bk/xar/release/coreinto hsdev.com:/var/bk/xar/core/release
+ 2005-05-10: marcel@hsdev.com: ChangeSet 1.1955.1.11
+  - Add a check for memory limit, this is enough for now to close bug #4440
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  - Add a check for memory limit, this is enough for now to close bug #4440 
+ 	* html/modules/installer/xaradmin.php:
+	  - Add a check for memory limit, this is enough for now to close bug #4440 
+2005-05-10: marcel@hsdev.com: ChangeSet 1.1955.1.10
+  Only make the privs when we havent already done so.Fix for bug #4494
+  	* html/modules/installer/xarconfigurations/community.conf.php:
+	  Only make the privs when we havent already done so.Fix for bug #4494 
+2005-05-10: marcel@plato.hsdev.com: ChangeSet 1.1957
+  Merge hsdev.com:/var/bk/xar/core/xartestinto hsdev.com:/var/bk/xar/core/release
+  	* html/includes/xarCore.php:
+	  Auto merged 
+2005-05-10: marcel@hsdev.com: ChangeSet 1.1955.2.1
+  Reinstating the removed admin.xt, so dashboard option actually does something. Couldn't find when or why it was (accidentally) deleted.
+  	* html/themes/Xaraya_Classic/pages/admin.xt:
+	  Rename: BitKeeper/deleted/.del-admin.xt~6f3cc9df -> html/themes/Xaraya_Classic/pages/admin.xt 
+2005-05-10: voll@yahoo.com: ChangeSet 1.1955.1.8
+  Bug 3264
+  	* html/includes/xarMod.php:
+	  Bug 3264 
+ 	* html/includes/xarMLSXML2PHPBackend.php:
+	  Bug 3264 
+ 	* html/includes/xarMLS.php:
+	  Bug 3264 
+2005-05-08: voll@yahoo.com: ChangeSet 1.1955.1.7
+  Bug 4512
+  	* html/modules/roles/xartemplates/user-privacy.xd:
+	  Bug 4512 
+2005-05-08: voll@yahoo.com: ChangeSet 1.1955.1.6
+  bug 4486
+  	* html/modules/themes/xartemplates/blocks/metaAdmin.xd:
+	  bug 4486 
+2005-05-08: voll@yahoo.com: ChangeSet 1.1955.1.5
+  FILE_NOT_EXIST -> MODULE_FILE_NOT_EXIST
+  	* html/includes/xarMod.php:
+	  FILE_NOT_EXIST -> MODULE_FILE_NOT_EXIST 
+2005-05-08: voll@yahoo.com: ChangeSet 1.1955.1.4
+  fixed typo
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  fixed typo 
+2005-05-08: voll@yahoo.com: ChangeSet 1.1955.1.3
+  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+2005-05-08: voll@medoc.solidno.ru: ChangeSet 1.1955.1.2
+  Merge voll@xaraya.com:/var/bk/xaraya/core/stableinto yahoo.com:/var/bk/xaraya/core/stable
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  Auto merged 
+ 	* html/modules/installer/xaradmin.php:
+	  Auto merged 
+ 	* html/modules/base/xaradmin/modifyconfig.php:
+	  Auto merged 
+2005-05-08: voll@yahoo.com: ChangeSet 1.1917.10.3
+  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+2005-05-08: voll@yahoo.com: ChangeSet 1.1917.10.2
+  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/modules/installer/xaradmin.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/modules/base/xartemplates/includes/modifyconfig-locales.xd:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/modules/base/xarinit.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/modules/base/xaradmin/updateconfig.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/modules/base/xaradmin/modifyconfig.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/install.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/includes/xarMLSXML2PHPBackend.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/includes/xarMLS.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/includes/xarLocale.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+ 	* html/includes/xarCore.php:
+	  Set translations backend to xml2php only (xml as store format and php as working format). Check for translations files and directories writability in the installer module 
+2005-05-07: mikespub@fully.qualified.hostname: ChangeSet 1.1955.1.1
+  bugs 3180 3626 - alternate syntax with contrib/tablefunc.sql
+  	* html/includes/datastores/Dynamic_VariableTable_DataStore.php:
+	  bugs 3180 3626 - alternate syntax with contrib/tablefunc.sql 
+2005-05-07: mikespub@fully.qualified.hostname: ChangeSet 1.1955
+  bugs 3180 3626 - fix DD HAVING issue for Postgres
+  	* html/includes/datastores/Dynamic_VariableTable_DataStore.php:
+	  bugs 3180 3626 - fix DD HAVING issue for Postgres 
+2005-05-07: mikespub@fully.qualified.hostname: ChangeSet 1.1954
+  bug 4436 - showoutput template for color picker
+  	* html/modules/base/xartemplates/properties/showoutput-tcolorpicker.xd:
+	   
+ 	* html/modules/base/xartemplates/properties/showoutput-tcolorpicker.xd:
+	  BitKeeper file D:/wintools/cygwin/home/stable/html/modules/base/xartemplates/properties/showoutput-tcolorpicker.xd 
+2005-05-07: mikespub@fully.qualified.hostname: ChangeSet 1.1953
+  remove restriction on validation field size (no upgrade)
+  	* html/modules/dynamicdata/xarinit.php:
+	  remove restriction on validation field size 
+ 	* html/includes/properties/Dynamic_SubForm_Property.php:
+	  remove restriction on validation field size 
+2005-05-07: mikespub@fully.qualified.hostname: ChangeSet 1.1952
+  bug 2916 - support item function to check/get individual option
+  	* html/modules/dynamicdata/xartemplates/admin-validation-dropdown.xd:
+	  bug 2916 - support item function to check/get individual option 
+ 	* html/includes/properties/Dynamic_Select_Property.php:
+	  bug 2916 - support item function to check/get individual option 
+2005-05-07: mikespub@fully.qualified.hostname: ChangeSet 1.1951
+  bug 2916 - load select options on demand
+  	* html/includes/properties/Dynamic_Select_Property.php:
+	  bug 2916 - load select options on demand 
+ 	* html/includes/properties/Dynamic_RadioButtons_Property.php:
+	  bug 2916 - load select options on demand 
+ 	* html/includes/properties/Dynamic_MultiSelect_Property.php:
+	  bug 2916 - load select options on demand 
+ 	* html/includes/properties/Dynamic_ImageList_Property.php:
+	  bug 2916 - load select options on demand 
+ 	* html/includes/properties/Dynamic_HTMLPage_Property.php:
+	  bug 2916 - load select options on demand 
+ 	* html/includes/properties/Dynamic_Combo_Property.php:
+	  bug 2916 - load select options on demand 
+ 	* html/includes/properties/Dynamic_CheckboxMask_Property.php:
+	  bug 2916 - load select options on demand 
+ 	* html/includes/properties/Dynamic_CheckboxList_Property.php:
+	  bug 2916 - load select options on demand 
+2005-05-06: mikespub@fully.qualified.hostname: ChangeSet 1.1950
+  bug 4504 - define filepath for aliases too
+  	* html/modules/dynamicdata/xaradminapi/importpropertytypes.php:
+	  bug 4504 - define filepath for aliases too 
+ 	* html/modules/installer/xaradmin.php:
+	  bug 4504 - import property types at finish 
+2005-05-06: mikespub@fully.qualified.hostname: ChangeSet 1.1949
+  bug 4408 - initialize variables
+  	* html/modules/base/xarblocks/html.php:
+	  bug 4408 - initialize variables 
+2005-05-06: mikespub@fully.qualified.hostname: ChangeSet 1.1948
+  bug 4408 - fix html block without content
+  	* html/modules/base/xarblocks/html.php:
+	  bug 4408 - fix html block without content 
+2005-05-06: mikespub@fully.qualified.hostname: ChangeSet 1.1947
+  bug 4375 - default block style plain
+  	* html/modules/blocks/xarinit.php:
+	  bug 4375 - default block style plain 
+2005-05-06: mikespub@fully.qualified.hostname: ChangeSet 1.1946
+  bug 4436 - wrong element id
+  	* html/modules/base/xartemplates/properties/showinput-tcolorpicker.xd:
+	  bug 4436 - wrong element id 
+2005-05-06: mikespub@fully.qualified.hostname: ChangeSet 1.1944
+  bug 2585 - skip session variables containing |
+  	* html/includes/xarSession.php:
+	  bug 2585 - skip session variables containing | 
+2005-05-06: marcel@hsdev.com: ChangeSet 1.1940.1.3
+  Preparing for 1.0.0.rc-2 build
+  	* html/includes/xarCore.php:
+	  Preparing for 1.0.0.rc-2 build 
+ 	* docs/INSTALL.txt:
+	  Preparing for 1.0.0.rc-2 build 
+ 	* build.properties:
+	  Preparing for 1.0.0.rc-2 build 
+2005-05-05: marcel@hsdev.com: ChangeSet 1.1940.1.2
+  Show version information in base modify config.Fixes bug 4453
+  	* html/modules/base/xartemplates/admin-modifyconfig.xd:
+	  Addition for bug 4453 
+ 	* html/modules/base/xaradmin/modifyconfig.php:
+	  Addition for bug 4453 
+2005-05-05: mikespub@fully.qualified.hostname: ChangeSet 1.1942
+  bug 4478 - check for existing module alias
+  	* html/modules/modules/xaradminapi/add_module_alias.php:
+	  bug 4478 - check for existing module alias 
+2005-05-05: jojodee@ahaadev.net: ChangeSet 1.1940.1.1
+  Add bmann's authinvision2 to full module build now installer stops loading options for additional modules outside of set configs.
+  	* build.properties:
+	  Add bmann's authinvision2 to full module build now installer stops loading options for additional modules outside of set configs. 
+2005-05-05: mikespub@fully.qualified.hostname: ChangeSet 1.1939.1.1
+  fix tab indexes
+  	* html/modules/privileges/xartemplates/admin-newprivilege.xd:
+	  fix tab indexes 
+ 	* html/modules/privileges/xartemplates/admin-modifyprivilege.xd:
+	  fix tab indexes 
+2005-05-04: marc@marclaptop.: ChangeSet 1.1936.1.1
+  intranet.conf.php, core.conf.php, community.conf.php:  bug 4440
+  	* html/modules/installer/xarconfigurations/intranet.conf.php:
+	  bug 4440 
+ 	* html/modules/installer/xarconfigurations/core.conf.php:
+	  bug 4440 
+ 	* html/modules/installer/xarconfigurations/community.conf.php:
+	  bug 4440 
+2005-05-04: marcel@hsdev.com: ChangeSet 1.1939
+  Fix for bug 4480, condition should include testing for another flag
+  	* html/modules/installer/xartemplates/admin-phase3.xd:
+	  Fix for bug 4480, condition should include testing for another flag 
+2005-05-04: marcel@hsdev.com: ChangeSet 1.1938
+  If something is empty, refer to the name, not the content because erm.... it's emptyFixes bug 4459
+  	* html/includes/xarTheme.php:
+	  lets try to be actually helpful with the name of what is emptybug 4459 
+ 	* html/includes/xarMod.php:
+	  lets try to be actually helpful with the name of what is emptybug 4459 
+ 	* html/includes/validations/notempty.php:
+	  lets try to be actually helpful with the name of what is emptybug 4459 
+2005-05-04: marcel@plato.hsdev.com: ChangeSet 1.1937
+  Merge xaraya.com:/var/bk/xar/core/stableinto hsdev.com:/var/bk/xar/core/xartest
+  	* html/modules/dynamicdata/xaradmin/modifyprop.php:
+	  Auto merged 
+2005-05-04: marcel@hsdev.com: ChangeSet 1.1932.1.1
+  Think i got them all, fixes bug 3925
+  	* html/modules/roles/xaruser/usermenu.php:
+	  - work on bug 3925 
+ 	* html/modules/roles/xaruser/display.php:
+	  - work on bug 3925 
+ 	* html/modules/roles/xaruser/account.php:
+	  - work on bug 3925 
+ 	* html/modules/roles/xartemplates/user-user_menu_form.xd:
+	  - work on bug 3925 
+ 	* html/modules/roles/xartemplates/user-display.xd:
+	  - work on bug 3925 
+ 	* html/modules/roles/xartemplates/user-account.xd:
+	  - work on bug 3925 
+ 	* html/modules/roles/xartemplates/admin-modifynotice.xd:
+	  - work on bug 3925 
+ 	* html/modules/roles/xartemplates/admin-displayrole.xd:
+	  - work on bug 3925 
+ 	* html/modules/roles/xaradmin/modifynotice.php:
+	  - work on bug 3925 
+ 	* html/modules/roles/xaradmin/modifyconfig.php:
+	  - work on bug 3925 
+ 	* html/modules/roles/xaradmin/displayrole.php:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xaruser/display.php:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xartemplates/user-display.xd:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xartemplates/admin-new.xd:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xartemplates/admin-modify.xd:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xaradmin/update.php:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xaradmin/new.php:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xaradmin/modifyprop.php:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xaradmin/modify.php:
+	  - work on bug 3925 
+ 	* html/modules/dynamicdata/xaradmin/create.php:
+	  - work on bug 3925 
+ 	* html/modules/blocks/xartemplates/admin-modify_instance.xd:
+	  - work on bug 3925 
+ 	* html/modules/blocks/xaradmin/modify_instance.php:
+	  - work on bug 3925 
+ 	* html/modules/adminpanels/xartemplates/blocks/waitingcontent.xd:
+	  - work on bug 3925 
+ 	* html/modules/adminpanels/xaradminapi/waitingcontent.php:
+	  - work on bug 3925 
+2005-05-03: caveman@rcave01.schwabfoundation.org: ChangeSet 1.1936
+  Fix for Bug #4479 - cannot create dynamic data for a new publication type.
+  	* html/modules/dynamicdata/xaradmin/modifyprop.php:
+	  Changed $data['urlform'] to user $data['objectid'] instead of $objectid.  $data['objectid'] is set earlier in the code based on isset($objectid), so this value will be valid or will contain 0. 
+2005-05-03: voll@yahoo.com: ChangeSet 1.1917.10.1
+  Fixed typo
+  	* html/includes/xarTableDDL.php:
+	  Fixed typo 
+2005-05-03: marc@marclaptop.: ChangeSet 1.1935
+  admin-showprivileges.xd:  QA tabs
+  	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  QA tabs 
+2005-05-03: marc@marclaptop.: ChangeSet 1.1934
+  admin-showprivileges.xd:  bug 4474
+  	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  bug 4474 
+2005-05-03: marc@marclaptop.: ChangeSet 1.1933
+  admin-showprivileges.xd:  bug 4474
+  	* html/modules/roles/xartemplates/admin-showprivileges.xd:
+	  bug 4474 
+2005-05-01: marc@marclaptop.: ChangeSet 1.1932
+  installer.xt:  Replacing import with link.  Lets you access the installer theme via symlinks.
+  	* html/themes/Xaraya_Classic/pages/installer.xt:
+	  Replacing import with link.Lets you access the installer theme via symlinks. 
+2005-04-30: jsb@sting.in-beames.net: ChangeSet 1.1931
+  Fix for bug 4456
+  	* html/includes/xarCache.php:
+	  Allow config.caching.php to be included even if some other function has already included it out side of the current scope. 
+2005-04-30: jsb@sting.in-beames.net: ChangeSet 1.1930
+  Fix for bug 4435.
+  	* html/includes/caching/page.php:
+	  Fix call to missing function. 
+2005-04-28: marcel@hsdev.com: ChangeSet 1.1929
+  better alternative for bug #4432
+  	* html/modules/roles/xarblocks/online.php:
+	  better alternative for bug #4432 
+ 	* html/includes/datastores/Dynamic_VariableTable_DataStore.php:
+	  better alternative for bug #4432 
+ 	* html/includes/datastores/Dynamic_FlatTable_DataStore.php:
+	  better alternative for bug #4432 
+2005-04-28: marcel@hsdev.com: ChangeSet 1.1928
+  instance of bug #4232, sqlite doesnt support SELECT COUNT(DISTINCT somefield) ....
+  	* html/includes/datastores/Dynamic_VariableTable_DataStore.php:
+	  3 instances of bug #4232, sqlite doesnt support SELECT COUNT(DISTINCT somefield) .... 
+ 	* html/includes/datastores/Dynamic_FlatTable_DataStore.php:
+	  instance of bug #4232, sqlite doesnt support SELECT COUNT(DISTINCT somefield) .... 
+2005-04-28: marcel@hsdev.com: ChangeSet 1.1924.1.1
+  Sqlite doesnt support SELECT COUNT(DISTINCT fieldname)One instance of bug #4232
+  	* html/modules/roles/xarblocks/online.php:
+	  Sqlite doesnt support SELECT COUNT(DISTINCT fieldname)One instance of bug #4232 
+2005-04-28: marc@marclaptop.: ChangeSet 1.1923.1.2
+  login.php:  expand error message
+  	* html/modules/roles/xaruser/login.php:
+	  expand error message 
+2005-04-28: marc@marclaptop.: ChangeSet 1.1923.1.1
+  login.php:  fix for bug 2489. Thanks and credit to Lutz Meyer
+  	* html/modules/roles/xaruser/login.php:
+	  fix for bug 2489. Thanks and credit to Lutz Meyer 
+2005-04-27: mikespub@fully.qualified.hostname: ChangeSet 1.1925
+  bug 4433 - support importing table definition from a different database
+  	* html/modules/dynamicdata/xartemplates/util-meta.xd:
+	  bug 4433 - support importing table definition from a different database 
+2005-04-27: marcel@hsdev.com: ChangeSet 1.1924
+  Daniel J. Barabas has signed the JCA
+  	* BitKeeper/custom/author_map:
+	  Daniel J. Barabas has signed the JCA 
+2005-04-25: marcel@hsdev.com: ChangeSet 1.1917.1.35
+  Portable alternative for showing the 'other' roles.This fixes bug #4252
+  	* html/modules/roles/xaruser/view.php:
+	  Portable alternative for showing the 'other' roles.This fixes bug #4252 
+2005-04-25: marc@marclaptop.: ChangeSet 1.1921
+  register.php:  Removing comments
+  	* html/modules/roles/xaruser/register.php:
+	  Removing comments 
+2005-04-25: marcel@hsdev.com: ChangeSet 1.1917.1.34
+  Let CSS handle formatting, fixes bug #4030
+  	* html/modules/dynamicdata/xartemplates/user-search.xd:
+	  Let CSS handle formatting, fixes bug #4030 
+2005-04-25: marcel@hsdev.com: ChangeSet 1.1917.1.33
+  Added new ID for Joanna Dalle Nogare
+  	* BitKeeper/custom/author_map:
+	  Added new ID for Joanna Dalle Nogare 
+2005-04-25: marcel@hsdev.com: ChangeSet 1.1917.1.32
+  - Dorothy Crawford signed the JCA- Tormi Tabor signed the JCA- Registered a new ID for Camille Perinel
+  	* BitKeeper/custom/author_map:
+	  - Dorothy Crawford signed the JCA- Tormi Tabor signed the JCA- Registered a new ID for Camille Perinel 
+2005-04-25: marcel@hsdev.com: ChangeSet 1.1917.9.1
+  Reformulate => in templates and adapt where necessary, this fixes bug #3677
+  	* html/modules/themes/xaruser/usermenu.php:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/themes/xartemplates/user-usermenu_icon.xd:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/roles/xaruser/usermenu.php:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/roles/xaruser/account.php:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/roles/xartemplates/user-user_menu_icon.xd:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/roles/xartemplates/user-account.xd:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/dynamicdata/xarutil/relations.php:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/dynamicdata/xarutil/meta.php:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/dynamicdata/xartemplates/util-relations.xd:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/dynamicdata/xartemplates/util-meta.xd:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/dynamicdata/xartemplates/admin-modifyprop.xd:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/dynamicdata/xaradmin/modifyprop.php:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+ 	* html/modules/base/xartemplates/blocks/content.xd:
+	  Reformulate => in templates and adapt where necessary, this fixes bug #3677 
+2005-04-25: jojodee@ahaadev.net: ChangeSet 1.1917.1.30
+  Merge jojodee@xaraya.com:/var/bk/xaraya/core/stableinto ahaadev.net:C:/servroot/cygwin/home/jojodee/bk/xarcore/stable
+  	* docs/CREDITS.txt:
+	  Auto merged 
+2005-04-25: jojodee@ahaadev.net: ChangeSet 1.1917.8.1
+  Update 
+  	* docs/CREDITS.txt:
+	  Update  
+2005-04-25: marcel@hsdev.com: ChangeSet 1.1917.1.29
+  Improved version of workaround for bug #3603- Compiler: register whether something is specified after an entity: for now, just &amp; (would there be a need for anything else?)- Entity handlers: use the hasExtras flag to notify xarModUrl for the extra stuffTODO: would this apply to xar-baseurl entity too? (doest not occur in repo now)
+  	* html/modules/roles/xartemplates/user-user_menu_icon.xd:
+	  Related to bug #3603, make the template simpler, and make sure we generate the url in the same way, so we can compare the two 
+ 	* html/includes/xarBLCompiler.php:
+	  Improved version of workaround for bug #3603 
+ 	* html/includes/blnodes/entities/url.php:
+	  Improved version of workaround for bug #3603 
+ 	* html/includes/blnodes/entities/modurl.php:
+	  Improved version of workaround for bug #3603 
+2005-04-23: judgej@acadweb.co.uk: ChangeSet 1.1917.1.28
+  decode_shorturl.php, encode_shorturl.php:  Bug 4404Make phase 'registerform' and 'registration' aliases of each other.The registration URLs are being called up in different ways, for the same action.Probably need to look at the workflow here in a bit more detail.
+  	* html/modules/roles/xaruserapi/decode_shorturl.php:
+	  Bug 4404 
+ 	* html/modules/roles/xaruserapi/encode_shorturl.php:
+	  Bug 4404 
+2005-04-22: judgej@acadweb.co.uk: ChangeSet 1.1917.1.27
+  xarMod.php:  Bug 3603 - guarantee GET paramaters are open if a URL arg of null=>null is present
+  	* html/includes/xarMod.php:
+	  Bug 3603 - guarantee GET paramaters are open if a URL arg of null=>null is present 
+2005-04-22: mikespub@fully.qualified.hostname: ChangeSet 1.1917.7.1
+  DD subform property revisited - distinguish between parentid vs. childlist
+  	* html/modules/dynamicdata/xartemplates/user-showoutput-subform.xd:
+	  DD subform property revisited - distinguish between parentid vs. childlist 
+ 	* html/modules/dynamicdata/xartemplates/includes/objectlist-subform.xd:
+	  DD subform property revisited - distinguish between parentid vs. childlist 
+ 	* html/modules/dynamicdata/xartemplates/admin-validation-subform.xd:
+	  DD subform property revisited - distinguish between parentid vs. childlist 
+ 	* html/modules/dynamicdata/xartemplates/admin-showinput-subform.xd:
+	  DD subform property revisited - distinguish between parentid vs. childlist 
+ 	* html/includes/properties/Dynamic_SubForm_Property.php:
+	  DD subform property revisited - distinguish between parentid vs. childlist 
+2005-04-21: marcel@hsdev.com: ChangeSet 1.1917.6.3
+  Yes, dorothy has signed the JCA
+  	* BitKeeper/custom/author_map:
+	  Yes, dorothy has signed the JCA 
+2005-03-28: marc@marclaptop.: ChangeSet 1.1907.1.1
+  menu.php:  make comment clearer
+  	* html/modules/base/xarblocks/menu.php:
+	  make comment clearer 

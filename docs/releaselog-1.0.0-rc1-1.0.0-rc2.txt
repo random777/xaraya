@@ -1,6 +1,26 @@
 Release notes for release RC2_1.0.0.
 Changes from RC1_1.0.0 to RC2_1.0.0:
 
+2005-05-10: marcel@newton.xaraya.com: ChangeSet 1.1963
+  Merge newton.xaraya.com:/var/bk/xaraya/core/stableinto newton.xaraya.com:/var/bk/xaraya/release/core
+ 2005-05-10: marc@marclaptop.: ChangeSet 1.1955.1.12
+  xaradmin.php:  fix for bug 4440
+  	* html/modules/installer/xaradmin.php:
+	  fix for bug 4440 
+2005-05-10: marcel@hsdev.com: ChangeSet 1.1962
+  build.properties:  Fix type in version ident
+  	* build.properties:
+	  Fix type in version ident 
+2005-05-10: marcel@hsdev.com: ChangeSet 1.1961
+  releaselog-1.0.0-rc1-1.0.0-rc2.txt:  Rename: docs/releaselog-1.0.0-rc1-rc2.txt -> docs/releaselog-1.0.0-rc1-1.0.0-rc2.txt
+  	* docs/releaselog-1.0.0-rc1-1.0.0-rc2.txt:
+	  Rename: docs/releaselog-1.0.0-rc1-rc2.txt -> docs/releaselog-1.0.0-rc1-1.0.0-rc2.txt 
+2005-05-10: marcel@hsdev.com: ChangeSet 1.1960
+  Bringing in the release log file
+  	* docs/releaselog-1.0.0-rc1-1.0.0-rc2.txt:
+	   
+ 	* docs/releaselog-1.0.0-rc1-1.0.0-rc2.txt:
+	  BitKeeper file /var/bk/xar/core/release/docs/releaselog-1.0.0-rc1-rc2.txt 
 2005-05-10: marcel@plato.hsdev.com: ChangeSet 1.1959
   Merge xaraya.com:/var/bk/xar/release/coreinto hsdev.com:/var/bk/xar/core/release
  2005-05-10: marcel@hsdev.com: ChangeSet 1.1955.1.11

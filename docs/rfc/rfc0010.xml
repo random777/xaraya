@@ -147,6 +147,8 @@ html/
           <t>OL</t>
           <t>SUB</t>
           <t>SUP</t>
+          <t>FIELDSET</t>
+          <t>LEGEND</t>
         </list>
       </t>
       <t>

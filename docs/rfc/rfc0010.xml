@@ -33,6 +33,12 @@
                 <email>marcel@hsdev.com</email>
             </address>
         </author>
+        <author initials="J." surname="Dalle Nogare" fullname="Jo Dalle Nogare">
+            <organization>Xaraya Development Group</organization>
+            <address>
+                <email>jojodee@xaraya.com</email>
+            </address>
+        </author>
         <date month="November" year="2002"/>
         <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
         <abstract>
@@ -54,7 +60,10 @@
         Blocklayout's flexibility. The conversion process is not complicated.
       </t>
       <t>
-        <xref target="ddproperties">Dynamic data properties</xref>, like modules and blocks, can also provide a flexible templated output after a conversion process.</t>
+        <xref target="ddproperties">Dynamic data properties</xref>, like modules 
+        and blocks, can also provide a flexible templated output after a conversion 
+        process.
+      </t>
       <t>
         In addition, certain changes to the Xaraya directory structure are
         necessary to accomodate templates and their defaults. Those
@@ -69,6 +78,8 @@ html/
     |                   <block name>-<template name>.xd
     |               includes/
     |                   <file>.xd
+    |               properties/
+    |                   <admin-showinput|user-showoutput>[-<propertyname>].xd
     |-- includes/
     |       xarTemplate.php
     |       xarBLCompiler.php
@@ -84,6 +95,8 @@ html/
             |               <block name>-<template name>.xt
             |           includes/
             |               <file>.xt
+            |           properties/
+            |               <admin-showinput|user-showoutput>[-<propertyname>].xt
             |-- includes/
                     <file>.xt
       ]]></artwork>
@@ -1852,12 +1865,48 @@ html/
     </section>
     <section anchor="ddproperties" title="Dynamic Data Property Templates">
       <t>
-        Dynamic Data Properties can also provide templated output. It is a simple process to make the required changes to the data property itself, and supply appropriately named templates.
-      </t>
-      <t>At the present time the <em>showInput()</em> and <em>showOutput()</em> functions of each dynamic property may return data to a corresponding template in the modules/dynamicdata/xartemplate directory.
+        Dynamic Data Properties can also provide templated output. It is a simple process 
+        to make the required changes to the data property itself, and supply appropriately 
+        named templates.
       </t>
       <t>
-        The directory structure and changes required for dynamic data property templates are illustrated below. The <em>propertyname</em> used for the specific template name is taken from the corresponding property array in the GetPropertyTypes() function in the modules/dynamicdata/class/properties.php file.
+        The <em>showInput()</em> and <em>showOutput()</em> functions of each
+        dynamic property return data to a corresponding template in the respective
+        modules/[modulename]/xartemplate/properties directory.
+        Previously the <em>showInput()</em> and <em>showOutput()</em> functions
+        of each dynamic property returned data to a corresponding template in the
+        modules/dynamicdata/xartemplate directory. These are slowly being moved to
+        the new location in the properties' respective modules.
+      </t>
+      <t>
+        The directory structure and changes required for dynamic data property templates are illustrated below. 
+        The <em>propertyname</em> used for the specific template name is taken from the corresponding property 
+        array in the getBasePropertyInfo() function in the dynamic property itself at modules/[modulename]/xarproperties/Dynamic_[propertydescription]_property.php.
+    <artwork><![CDATA[
+html/
+    |-- modules/
+    |       <module name>/
+    |           xarproperties/
+    |               Dynamic_<propertydescription>_property.php
+    |           xartemplates/
+    |               properties/
+    |                   <admin-showinput|user-showoutput>[-<propertyname>].xd
+    |
+    |-- themes/
+            <theme name>/
+            |-- modules/
+                    <module name>/
+                        <admin-showinput|user-showoutput>[-<propertyname>].xt
+
+      ]]></artwork>
+      </t>
+      <t>
+        The current directory structure for dynamic data property templates has changed with the
+        old structure illustrated in the diagram below. The dynamic data properties are in the 
+        process of being moved from the old, to the new directory structure illustrated above.
+        The following diagram is left for the purpose of reference where dynamic data properties 
+        are still to be moved to the new structure. It should be used only in those specific cases 
+        until those properties are relocated to their respective module under the new structure.
     <artwork><![CDATA[
 html/
     |-- modules/
@@ -1877,6 +1926,7 @@ html/
 
       ]]></artwork>
       </t>
+
       <t>Details of specific tags used to retrieve and display dynamic property data within module templates is documented in RFC0007 Modularized Data. Further details on retrieval and display of dynamic property data can be found in the overview and templates (as comments) of the Dyn_Example module.
       </t>
     </section>

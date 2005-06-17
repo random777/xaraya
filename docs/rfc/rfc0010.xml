@@ -96,7 +96,7 @@ html/
             |           includes/
             |               <file>.xt
             |           properties/
-            |               <admin-showinput|user-showoutput>[-<propertyname>].xt
+            |               <showinput|showoutput>[-<propertyname>].xt
             |-- includes/
                     <file>.xt
       ]]></artwork>
@@ -1896,7 +1896,7 @@ html/
             <theme name>/
             |-- modules/
                     <module name>/
-                        <admin-showinput|user-showoutput>[-<propertyname>].xt
+                        <showinput|showoutput>[-<propertyname>].xt
 
       ]]></artwork>
       </t>

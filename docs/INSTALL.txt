@@ -60,6 +60,9 @@ Please visit the #support channel for information on upgrading from PostNuke or 
                       user-displayall.xd the variable $comment['daychange'] is no 
                       longer supported; array $commentlist is now an array of arrays.
                       $commentlist[$daylabel] is the array of all comments posted on $daylabel.
+
+   1.0.0-RC1 -> 1.0.0-RC2 uiscrub scenario integration - please check your templates !
+
    1.0.0-RC2 -> 1.0.0-RC3 1) the templates for DD properties have been moved as follows :
                       * modules/dynamicdata/xartemplates/admin-showinput-[property type].xd
                         -> modules/[module]/xartemplates/properties/showinput-[property type].xd
@@ -71,6 +74,17 @@ Please visit the #support channel for information on upgrading from PostNuke or 
                         -> modules/dynamicdata/xartemplates/properties/showhidden.xd
                       * modules/dynamicdata/xartemplates/user-label.xd
                         -> modules/dynamicdata/xartemplates/properties/label.xd
+                      2) the templates for DD objects have been moved as follows :
+                      * modules/dynamicdata/xartemplates/admin-objectform.xd
+                        -> modules/dynamicdata/xartemplates/objects/showform.xd
+                      * modules/dynamicdata/xartemplates/admin-objectlist.xd
+                        -> modules/dynamicdata/xartemplates/objects/showlist.xd
+                      * modules/dynamicdata/xartemplates/user-objectdisplay.xd
+                        -> modules/dynamicdata/xartemplates/objects/showdisplay.xd
+                      * modules/dynamicdata/xartemplates/user-objectform.xd
+                        -> modules/dynamicdata/xartemplates/objects/showview.xd
+                      DD object templates can now be overridden with show*-[objectname].xd
+                      in the DD xartemplates/objects directory and/or in your own module
 
    DB Changes between versions
    ----------------------------------------------------

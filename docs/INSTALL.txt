@@ -51,7 +51,7 @@ Please visit the #support channel for information on upgrading from PostNuke or 
                       includes an additional hidden input field for header[itemtype]
    .9.11.0 -> .9.12.0 templates must validate as XML, i.e. you need to replace all
                       & with &amp; etc.
-   .9.12.0 -> .?.??.? 1) in articles, fields of type Calendar (other than pubdate) are
+   .9.12.0 -> .9.13.0 1) in articles, fields of type Calendar (other than pubdate) are
                       no longer pre-formatted in the view and display functions, so
                       you should now use xarLocaleGetFormattedDate('long',$myfield)
                       and xarLocaleGetFormattedTime('long',$myfield), or for custom
@@ -60,6 +60,17 @@ Please visit the #support channel for information on upgrading from PostNuke or 
                       user-displayall.xd the variable $comment['daychange'] is no 
                       longer supported; array $commentlist is now an array of arrays.
                       $commentlist[$daylabel] is the array of all comments posted on $daylabel.
+   1.0.0-RC2 -> 1.0.0-RC3 1) the templates for DD properties have been moved as follows :
+                      * modules/dynamicdata/xartemplates/admin-showinput-[property type].xd
+                        -> modules/[module]/xartemplates/properties/showinput-[property type].xd
+                      * modules/dynamicdata/xartemplates/admin-validation-[property type].xd
+                        -> modules/[module]/xartemplates/properties/validation-[property type].xd
+                      * modules/dynamicdata/xartemplates/user-showoutput-[property type].xd
+                        -> modules/[module]/xartemplates/properties/showoutput-[property type].xd
+                      * modules/dynamicdata/xartemplates/admin-showhidden.xd
+                        -> modules/dynamicdata/xartemplates/properties/showhidden.xd
+                      * modules/dynamicdata/xartemplates/user-label.xd
+                        -> modules/dynamicdata/xartemplates/properties/label.xd
 
    DB Changes between versions
    ----------------------------------------------------

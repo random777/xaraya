@@ -197,6 +197,12 @@
         <t>You need to use UpdateBlob() to insert data into a binary field (cfr. xarSession__phpWrite). Try to avoid binary fields and use text fields where possible.</t>
         <t>5.  Text Data (TEXT)</t>
         <t>You may need to CAST text fields to VARCHAR(8000) [or smaller] when mixing data types (cfr. Dynamic_VariableTable_DataStore). No cross-database recommendations yet.</t>
+        <t>6.  Empty Strings</t>
+        <t>From the Transact-SQL user guide : The empty string is interpreted as a single space in all char, varchar, nchar, nvarchar, and text concatenation, and in varchar insert and assignment statements.</t>
+        <t>From the SQL Server 2000 help : Interpretation of an empty string is controlled by the compatibility level, which is set with the sp_dbcmptlevel system stored procedure. If the compatibility level is 65 or lower, SQL Server interprets empty strings as single spaces. If the compatibility level is 70 or 80, SQL Server interprets empty strings as empty strings. For more information, see sp_dbcmptlevel. 
+        Expect differences in interpretation of empty strings compared to earlier versions of SQL Server. </t>
+        <t>In short, you have no idea what will be stored or what you'll get back. The good news is that SELECT ... FROM ... WHERE myfield = '' will work either way.
+        The bad news is that if you try to check for empty($myfield) in PHP afterwards, you may get a difference since a single space is ... not empty. Solution is to trim($myfield) first...</t>
       </list>
     </section>
 

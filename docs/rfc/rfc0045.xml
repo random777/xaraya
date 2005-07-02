@@ -107,6 +107,8 @@
           ]]>
           </artwork>
         </figure>
+        <t>6. Binary Data (BLOB)</t>
+        <t>They require special treatment for several databases. Try to avoid them where possible.</t>
       </list>
     </section>
 
@@ -145,6 +147,8 @@
           ]]>
           </artwork>
         </figure>
+        <t>3.  HAVING Clauses</t>
+        <t>You cannot use column aliases for expressions in HAVING clauses, but you can use that same expresssion in the HAVING clause.</t>
       </list>
     </section>
   
@@ -174,6 +178,25 @@
           ]]>
           </artwork>
         </figure>
+        <t>2.  Binary Data (BLOB)</t>
+        <t>You need to use UpdateBlob() to insert data into a binary field (cfr. xarSession__phpWrite). Try to avoid binary fields and use text fields where possible.</t>
+        <t>3.  Text Data (TEXT)</t>
+        <t>You may need to TO_CHAR text fields when mixing data types (cfr. Dynamic_VariableTable_DataStore). No cross-database recommendations yet.</t>
+      </list>
+    </section>
+
+    <section title="MS SQL Server">
+      <list>
+        <t>1.  IDENTITY</t>
+        <t>IDENTITY fields cannot be used - use the normal Xaraya GenID() approach (cfr. ADODB xarmssql driver).</t>
+        <t>2.  GROUP BY Fields</t>
+        <t>You cannot use column aliases for expressions in GROUP BY fields, but you can use that same expresssion as a GROUP BY field.</t>
+        <t>3.  Data Types</t>
+        <t>Numeric values cannot be inserted directly in varchar/text fields. Use bind variables and type casting (cfr. xarVar__SetVarByAlias and modules_init()).</t>
+        <t>4.  Binary Data (BLOB)</t>
+        <t>You need to use UpdateBlob() to insert data into a binary field (cfr. xarSession__phpWrite). Try to avoid binary fields and use text fields where possible.</t>
+        <t>5.  Text Data (TEXT)</t>
+        <t>You may need to CAST text fields to VARCHAR(8000) [or smaller] when mixing data types (cfr. Dynamic_VariableTable_DataStore). No cross-database recommendations yet.</t>
       </list>
     </section>
 
@@ -267,6 +290,7 @@
           <t>2003-05-14: Richard Cave: Added MySQL multi-table DELETE.</t>
           <t>2003-06-12: Richard Cave: Added PostgreSQL SELECT DISTINCT with ORDER BY and updated index names.</t>
           <t>2003-02-21: Jason Judge: Added section on data binding.</t>
+          <t>2005-07-02: Mike's Pub: Added section on MS SQL Server and comments about Binary Data/Text Data/HAVING</t>
         </list>
       </t>
     </section>

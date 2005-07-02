@@ -109,6 +109,19 @@
         </figure>
         <t>6. Binary Data (BLOB)</t>
         <t>They require special treatment for several databases. Try to avoid them where possible.</t>
+        <t>7. Table and Column Aliases</t>
+        <t>Never use AS for table aliases - always use AS for column aliases (for now).</t>
+        <t>Example:</t>
+        <figure>
+          <artwork><![CDATA[
+          SELECT a.myverylongfieldname AS afield1, b.myotherlongfield AS bfield2, COUNT(*) AS mycount
+          FROM myverylongtablename a, myotherlongtablename b [Oracle constraint]
+          WHERE afield1 = ...
+          GROUP BY a.myverylongfieldname, b.myotherlongtablename [SQL Server constraint]
+          ORDER BY mycount DESC
+          ]]>
+          </artwork>
+        </figure>
       </list>
     </section>
 

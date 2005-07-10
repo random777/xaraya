@@ -167,7 +167,7 @@ Translators:
 
   Marcel Van Der Boom (Dutch)
 
-  Xiaoyu & BBChen (Chinese)
+  Xiaoyu & BBChen (Standard Chinese)
 
   Thomas Marczinkowski (German)
 

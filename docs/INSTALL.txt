@@ -2,7 +2,7 @@ PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 NOTE: Detailed installation instructions can be found in the Official Xaraya Installation & Getting Started Guide, in the XarayaGuide.txt file which is included in the root directory of this release. The Guide will provide a clear understanding of installation and configuration of Xaraya.
 
-Xaraya: adam_baum 1.0.0 Release Candidate 2 (1.0.0-rc2)
+Xaraya: adam_baum 1.0.0 Release Candidate 3 (1.0.0-rc3)
 =======================================================
 Xaraya is an Open Source application framework.  Xaraya started as a fork of PostNuke (http://www.postnuke.com) and PHPNuke (http://www.phpnuke.org).  Xaraya provides many enhancements and improvements over the two systems and is a complete rewrite from the ground up. Xaraya is still undergoing development, but a large number of core functions are now stabilizing and a complete API for third-party developers is now in place.
 
@@ -85,6 +85,10 @@ Please visit the #support channel for information on upgrading from PostNuke or 
                         -> modules/dynamicdata/xartemplates/objects/showview.xd
                       DD object templates can now be overridden with show*-[objectname].xd
                       in the DD xartemplates/objects directory and/or in your own module
+                      3) All properties previously in includes/properties have been moved
+                         to their respective module 'xarproperty' directory:
+                         -> modules/[module name]/xarproperties
+                      4) Further scrubbing of templates - - please check your templates.
 
    DB Changes between versions
    ----------------------------------------------------

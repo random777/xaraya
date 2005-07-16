@@ -89,6 +89,8 @@ Please visit the #support channel for information on upgrading from PostNuke or 
                          to their respective module 'xarproperty' directory:
                          -> modules/[module name]/xarproperties
                       4) Further scrubbing of templates - - please check your templates.
+   1.0.0-RC3 -> 1.0.0-RC4 the input template for the DD SubForm property type
+                      now uses a field prefix for all input fields
 
    DB Changes between versions
    ----------------------------------------------------

@@ -230,5 +230,12 @@
 			of the user is a separate thing. 
 			</t>
 		</section>
+		<section title="Solution Proposals - Functions">
+                <t>
+                Modules should be able to plug into the users module to offer configuration screens. This could be 
+                accomplished with a hook that is registered by the module for the display of the user settings 
+                screen in the users module. The search module uses a similar implementation.
+                </t>
+		</section>
 	</middle>
 </rfc>

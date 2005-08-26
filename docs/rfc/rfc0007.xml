@@ -7,7 +7,7 @@
 
 <rfc number="0007" category="info">
   <front>
-    <title>Content Management System</title>
+    <title>Modularized User Data</title>
     <author initials="G." surname="Rothfuss" fullname="Gregor J. Rothfuss">
       <organization>Project Management Core</organization>
       <address>

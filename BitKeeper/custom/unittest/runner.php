@@ -19,8 +19,6 @@
  * @author Frank Besler <besfred@xaraya.com>
 */
 
-echo "Starting tests...\n";
-
 define('UT_TESTSDIR','xartests'); // subdirectory holding tests
 define('UT_FRAMWDIR','BitKeeper/custom/unittest/'); 
 

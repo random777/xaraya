@@ -42,7 +42,7 @@
 
   <!-- Full distro modules, when added to the core modules, you get a full system -->
   <property name="modules.full" 
-    value="addressbook,authinvision,authsso,bbclick,bbcode,calendar,cast,censor,changelog,contact,xarldap,events,figlet,icalendar,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,window,workflow,xarbb,xarldap,xarlinkme,xlink,xslt"/>
+    value="addressbook,authinvision,authsso,bbclick,bbcode,calendar,censor,changelog,contact,xarldap,events,figlet,icalendar,keywords,messages,mybookmarks,newsgroups,opentracker,overlib,paypalsetup,phpldapadmin,pubsub,sitetools,smilies,subitems,uploads,window,workflow,xarbb,xarldap,xarlinkme,xlink,xslt"/>
 
   <!-- theme lists -->
   <property name="themes.full"

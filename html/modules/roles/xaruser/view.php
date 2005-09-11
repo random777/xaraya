@@ -23,7 +23,11 @@ function roles_user_view($args)
     if(!xarVarFetch('phase', 'enum:active:viewall', $phase, 'active', XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('name', 'notempty', $data['name'], '', XARVAR_NOT_REQUIRED)) {return;}
 
-    if(!xarVarFetch('letter', 'str:1', $letter, NULL, XARVAR_NOT_REQUIRED)) {return;}
+    // This $filter variable isnt being used for anything...
+    // It is set later on.
+    if(!xarVarFetch('filter', 'str', $filter, NULL, XARVAR_DONT_SET)) {return;}
+
+    if(!xarVarFetch('letter', 'str:1:2', $letter, NULL, XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('search', 'str:1:100', $search, NULL, XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('order', 'enum:name:uname:email:uid:state:date_reg', $order, 'name', XARVAR_NOT_REQUIRED)) {return;}
 
@@ -39,51 +43,34 @@ function roles_user_view($args)
     // Security Check
     if (!xarSecurityCheck('ReadRole')) return;
 
-    // Need the database connection for quoting strings.
-    $dbconn =& xarDBGetConn();
-
-    // FIXME: SQL injection risk here - use bind variables.
-    // NOTE: Cannot use bind variables here, until we know the knock-on
-    // effect of changing the get*() API functions to accept bind variables.
+    $q = new xarQuery();
     if ($letter) {
         if ($letter == 'Other') {
             // TODO: check for syntax in other databases or use a different matching method.
-            $selection = " AND ("
-                .$dbconn->substr."(".$dbconn->upperCase."(xar_name),1,1) < 'A' OR "
-                .$dbconn->substr."(".$dbconn->upperCase."(xar_name),1,1) > 'Z')";
-            // TODO: move these messages to the template (and shorten it a bit;-).
+            $q->regexp('xar_name','^[^A-Z]');
             $data['msg'] = xarML(
                 'Members whose Display Name begins with character not listed in alphabet above (labeled as "Other")'
             );
         } else {
         // TODO: handle case-sensitive databases
-            $selection = ' AND xar_name LIKE ' . $dbconn->qstr($letter.'%');
-            if(strtolower($phase) == 'active') {
-                $data['msg'] = xarML('Members Online whose Display Name begins with "#(1)"', $letter);
-            } else {
-                $data['msg'] = xarML('Members whose Display Name begins with "#(1)"', $letter);
-            }
+            $q->like('xar_name',$letter.'%');
+            $data['msg'] = xarML('Members whose Display Name begins with "#(1)"', $letter);
         }
     } elseif ($search) {
         // Quote the search string
-        $qsearch = $dbconn->qstr('%'.$search.'%');
+        $qsearch = '%'.$search.'%';
 
-        $selection = ' AND (';
-        $selection .= '(xar_name LIKE ' . $qsearch . ')';
-        $selection .= ' OR (xar_uname LIKE ' . $qsearch . ')';
+        $cond[1] = $q->like('xar_name', $qsearch);
+        $cond[2] = $q->like('xar_uname', $qsearch);
         if (xarModGetVar('roles', 'searchbyemail')) {
-            $selection .= ' OR (xar_email LIKE ' . $qsearch . ')';
+            $cond[3] = $q->like('xar_email', $qsearch);
             $data['msg'] = xarML('Members whose Display Name or User Name or Email Address contains "#(1)"', $search);
         } else {
             $data['msg'] = xarML('Members whose Display Name or User Name "#(1)"', $search);
         }
-        $selection .= ")";
+        $q->qor($cond);
     } else {
-        if(strtolower($phase) == 'active') {
-            $data['msg'] = xarML("All members online");
-        } else {
-            $data['msg'] = xarML("All members");
-        }
+        $data['msg'] = xarML("All members");
     }
 
     $data['order'] = $order;
@@ -99,80 +86,63 @@ function roles_user_view($args)
         'Y', 'Z'
     );
 
+    $filter['startnum'] = $startnum;
+
     switch(strtolower($phase)) {
         case 'active':
             $data['phase'] = 'active';
             $filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
             $data['title'] = xarML('Online Members');
-
-            $data['total'] = xarModAPIFunc(
-                'roles', 'user', 'countallactive',
-                array(
-                    'filter'   => $filter,
-                    'selection'   => $selection,
-                    'include_anonymous' => false,
-                    'include_myself' => false
-                )
-            );
             xarTplSetPageTitle(xarVarPrepForDisplay(xarML('Active Members')));
 
-            if (!$data['total']) {
-                $data['message'] = xarML('There are no online members selected');
-                $data['total'] = 0;
-                return $data;
-            }
-
-            // Now get the actual records to be displayed
-            $items = xarModAPIFunc(
+            // Get the records to be displayed
+            $queryresult = xarModAPIFunc(
                 'roles', 'user', 'getallactive',
                 array(
                     'startnum' => $startnum,
                     'filter'   => $filter,
                     'order'   => $order,
-                    'selection'   => $selection,
+                    'selection'   => $q,
                     'include_anonymous' => false,
                     'include_myself' => false,
                     'numitems' => xarModGetVar('roles', 'rolesperpage')
                 )
             );
+            $data['message'] = xarML('There are no online members selected');
             break;
 
         case 'viewall':
             $data['phase'] = 'viewall';
             $data['title'] = xarML('All Members');
 
-            $data['total'] = xarModAPIFunc(
-                'roles', 'user', 'countall',
-                array(
-                    'selection' => $selection,
-                    'include_anonymous' => false,
-                    'include_myself' => false
-                )
-            );
-
-            xarTplSetPageTitle(xarVarPrepForDisplay(xarML('All Members')));
-
-            if (!$data['total']) {
-                $data['message'] = xarML('There are no members selected');
-                $data['total'] = 0;
-                return $data;
-            }
+            xarTplSetPageTitle(xarML('All Members'));
 
             // Now get the actual records to be displayed
-            $items = xarModAPIFunc(
+            $queryresult = xarModAPIFunc(
                 'roles', 'user', 'getall',
                 array(
                     'startnum' => $startnum,
                     'order' => $order,
-                    'selection' => $selection,
+                    'selection' => $q,
                     'include_anonymous' => false,
                     'include_myself' => false,
                     'numitems' => xarModGetVar('roles', 'rolesperpage')
                 )
             );
+            $data['message'] = xarML('There are no members selected');
             break;
     }
 
+    // display the query
+    $queryresult->qecho();
+
+    $totalitems = $queryresult->getrows();
+    $data['total'] = $totalitems;
+    if ($totalitems == 0) {
+        return $data;
+    }
+
+    $items = $queryresult->output();
     // keep track of the selected uid's
     $data['uidlist'] = array();
 
@@ -181,13 +151,8 @@ function roles_user_view($args)
         $item = $items[$i];
         $data['uidlist'][] = $item['uid'];
 
-        // Grab the list of groups this role belongs to
-        $groups = xarModAPIFunc('roles', 'user', 'getancestors', array('uid' => $item['uid']));
-        foreach ($groups as $group) {
-            $items[$i]['groups'][$group['uid']] = $group['name'];
-        }
-
         // Change email to a human readible entry.  Anti-Spam protection.
+
         if (xarUserIsLoggedIn()) {
             $items[$i]['emailurl'] = xarModURL(
                 'roles', 'user', 'email',
@@ -206,7 +171,6 @@ function roles_user_view($args)
     $data['pmicon'] = '';
     // Add the array of items to the template variables
     $data['items'] = $items;
-
     $numitems = xarModGetVar('roles', 'rolesperpage');
     $pagerfilter['phase'] = $phase;
     $pagerfilter['order'] = $order;
@@ -223,4 +187,3 @@ function roles_user_view($args)
     return $data;
 }
 
-?>

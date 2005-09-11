@@ -122,6 +122,4 @@ function roles_userapi_getallactive($args)
     return $sessions;
 }
 
-
-
 ?>

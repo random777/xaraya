@@ -72,6 +72,11 @@ function privileges_admin_addprivilege()
 //Try to add the privilege and bail if an error was thrown
     if (!$priv->add()) {return;}
 
+    $pargs['module'] = 'privileges';
+    $pargs['itemtype'] = 0;
+    $pargs['itemid'] = $priv->getID();
+    xarModCallHooks('item', 'create', $priv->getID(), $pargs);
+
     xarSessionSetVar('privileges_statusmsg', xarML('Privilege Added',
                     'privileges'));
 

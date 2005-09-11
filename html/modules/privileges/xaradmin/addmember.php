@@ -64,6 +64,12 @@ function privileges_admin_addmember()
     foreach ($children as $child) if ($child->getID() == $member->getID()) $found = true;
     if (!$found) if (!$priv->addMember($member)) {return;}
 
+    $pargs = array();
+    $pargs['module'] = 'privileges';
+    $pargs['itemtype'] = 0;
+    $pargs['itemid'] = $pid;
+    xarModCallHooks('item', 'update', $pid, $pargs);
+
 // set the session variable
     xarSessionSetVar('privileges_statusmsg', xarML('Added to Privilege',
                     'privileges'));

@@ -27,7 +27,8 @@ function roles_user_showloginform($args = array())
       // Security check
       if (!xarSecurityCheck('ViewRoles')) return;
       $data['loginlabel'] = xarML('Log In');
-
+      $data['loginhead'] = xarML('Roles');
+      $data['loginbody'] = xarML('Registration / Login');
 
       return $data;
     } else {

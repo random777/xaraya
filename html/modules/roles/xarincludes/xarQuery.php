@@ -12,14 +12,15 @@
 class xarQuery
 {
 
-    var $version = "1.3";
-    var $id;
+    var $version = "1.4";
+    var $key;
     var $type;
     var $tables;
     var $fields;
     var $conditions;
     var $conjunctions;
     var $bindings;
+    var $tablelinks;
     var $sorts;
     var $result;
     var $rows = 0;
@@ -33,12 +34,15 @@ class xarQuery
     var $bindvars;
     var $bindstring;
     var $limits = 1;
+    var $uniqueselect = false;
 
 // Flags
 // Set to true to use binding variables supported by some dbs
     var $usebinding = true;
 // Two unrelated conditions will be inserted into the query as AND or OR
     var $implicitconjunction = "AND";
+// Use JOIN...ON.. syntax (automatic for left or right joins)
+    var $on_syntax = false;
 
 //---------------------------------------------------------
 // Constructor
@@ -52,29 +56,33 @@ class xarQuery
             return;
         }
 
-        $this->key = mktime();
         $this->tables = array();
-        $this->_addtables($tables);
+        $this->addtables($tables);
         $this->fields = array();
-        $this->_addfields($fields);
+        $this->addfields($fields);
         $this->conditions = array();
         $this->conjunctions = array();
         $this->bindings = array();
+        $this->tablelinks = array();
         $this->sorts = array();
         $this->result = array();
-        $this->output = array();
+        $this->output;
         $this->row = array();
         $this->bindvars = array();
-        $this->dbconn =& xarDBGetConn();
+        $str = (int)$this;
+        // Use this in PHP5
+        //usleep(1);
+        $start = mktime();
+        do
+        {
+        }
+        while (mktime() <= $start);
+        $this->key = mktime();
     }
 
-//---------------------------------------------------------
-// Execute a query
-//---------------------------------------------------------
     function run($statement='',$display=1)
     {
-        //FIXME: PHP5 hack
-        $this->open();
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
         $this->setstatement($statement);
         if ($this->type != 'SELECT') {
             if ($this->usebinding) {
@@ -153,7 +161,9 @@ class xarQuery
 
     function close()
     {
-        return $this->dbconn->close();
+        if (isset($this->dbconn)) unset($this->dbconn);
+        return true;
+//        return $this->dbconn->close();
     }
 
     function open()
@@ -179,6 +189,7 @@ class xarQuery
 
     function output()
     {
+        if ($this->output == NULL) $this->run();
         return $this->output;
     }
 
@@ -220,8 +231,7 @@ class xarQuery
         $notdone = true;
         $limit = count($this->tables);
         for ($i=0;$i<$limit;$i++) {
-            if ($this->tables[$i]['name'] == $argsarray['name'] &&
-                $this->tables[$i]['alias'] == $argsarray['alias']) {
+            if ($this->tables[$i]['name'] == $argsarray['name']) {
                 $this->tables[$i] = $argsarray;
                 $notdone = false;
                 break;
@@ -272,31 +282,74 @@ class xarQuery
         $this->fields[$argsarray['name']] = $argsarray;
     }
 
-    function addfields($tables)
+    function addfields($fields)
     {
-        $this->_addfields($tables);
-    }
-    function addtables($tables)
-    {
-        $this->_addtables($tables);
+        if (!is_array($fields)) {
+            if (!is_string($fields)) {
+            //error msg
+            }
+            else {
+                if ($fields != '') {
+                    $newfields = explode(',',$fields);
+                    foreach ($newfields as $field) $this->addfield($field);
+                }
+            }
+        }
+        else {
+            if ($this->type == 'SELECT') {
+                foreach ($fields as $field) $this->addfield($field);
+            }
+            else {
+                foreach ($fields as $field) $this->addfield($field);
+//            $this->fields = array_merge($this->fields,$fields);
+            }
+        }
     }
 
-    function join($field1,$field2)
+    function addtables($tables)
+    {
+        if (!is_array($tables)) {
+            if (!is_string($tables)) {
+            //error msg
+            }
+            elseif ($tables=='') {}//error msg
+            else {$this->addtable($tables);}
+        }
+        else {
+            foreach ($tables as $table) $this->addtable($table);
+//            $this->tables = array_merge($this->tables,$tables);
+        }
+    }
+
+    function addtablelink($args)
     {
         $key = $this->key;
         $this->key++;
         $numargs = func_num_args();
+        $link = func_get_arg(0);
         if ($numargs == 2) {
-            $this->bindings[$key]=array('field1' => $field1,
-                                      'field2' => $field2,
-                                      'op' => 'join');
+            $this->tablelinks[$key]=array('field1' => $link['field1'],
+                                      'field2' => $link['field2'],
+                                      'op' => $link['op']);
         }
         elseif ($numargs == 4) {
-            $this->bindings[$key]=array('field1' => func_get_arg(0) . "." . func_get_arg(1),
+            $this->tablelinks[$key]=array('field1' => func_get_arg(0) . "." . func_get_arg(1),
                                       'field2' => func_get_arg(2) . "." . func_get_arg(3),
                                       'op' => 'join');
         }
         return $key;
+    }
+    function join($field1,$field2,$active=1)
+    {
+        return $this->addtablelink(array('field1' => $field1,
+                                  'field2' => $field2,
+                                  'type' => 'join'),$active);
+    }
+    function leftjoin($field1,$field2,$active=1)
+    {
+        return $this->addtablelink(array('field1' => $field1,
+                                  'field2' => $field2,
+                                  'type' => 'leftjoin'),$active);
     }
     function eq($field1,$field2)
     {
@@ -317,73 +370,51 @@ class xarQuery
     }
     function ne($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
+        return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => '!=');
-        return $key;
+                                  'op' => '!='));
     }
     function gt($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
+        return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => '>');
-        return $key;
+                                  'op' => '>'));
     }
     function ge($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
+        return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => '>=');
-        return $key;
+                                  'op' => '>='));
     }
     function le($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
+        return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => '<=');
-        return $key;
+                                  'op' => '<='));
     }
     function lt($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
+        return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => '<');
-        return $key;
+                                  'op' => '<'));
     }
     function like($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
+        return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => 'like');
-        return $key;
+                                  'op' => 'LIKE'));
     }
     function in($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
-                                  'field2' => $field2,
-                                  'op' => 'in');
-        return $key;
-    }
-    function notin($field1,$field2,$active=1)
-    {
         return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => 'NOT IN'),$active);
+                                  'op' => 'IN'));
     }
     function regex($field1,$field2)
     {
-        $key = $this->_addcondition();
-        $this->conditions[$key]=array('field1' => $field1,
+        return $this->addcondition(array('field1' => $field1,
                                   'field2' => $field2,
-                                  'op' => 'regexp');
-        return $key;
+                                  'op' => 'REGEXP'));
     }
     function qand()
     {
@@ -466,7 +497,7 @@ class xarQuery
     function getcondition($mycondition)
     {
         foreach ($this->conditions as $condition)
-            if ($condition['field1'] == $mycondition) return $condition['field2'];
+            if ($condition['field1'] == $mycondition) return $condition;
         return '';
     }
     function removecondition($mycondition)
@@ -483,6 +514,12 @@ class xarQuery
 
     function getconditions()
     {
+        return $this->conditions;
+    }
+/*
+    function getconditions()
+    {
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
         $c = "";
         foreach ($this->conditions as $condition) {
             if (is_array($condition)) {
@@ -501,49 +538,68 @@ class xarQuery
         if ($c != "") $c = substr($c,0,strlen($c)-5);
         return $c;
     }
-
-// ------ Private methods -----
-    function _addfields($fields)
+*/
+    function addsecuritycheck($args)
     {
-        if (!is_array($fields)) {
-            if (!is_string($fields)) {
-            //error msg
-            }
-            else {
-                if ($fields != '') {
-                    $newfields = explode(',',$fields);
-                    foreach ($newfields as $field) $this->addfield($field);
+        $numargs = func_num_args();
+        if ($numargs == 2) {
+            $fields = func_get_arg(0);
+            if (is_string($fields)) $fields = array($fields);
+            $conditions = func_get_arg(1);
+//            echo var_dump($conditions);exit;
+            if (isset($conditions['deny'])) {
+                foreach ($conditions['deny'] as $condition) {
+                    $limit = count($condition);
+                    if (count($fields) != count($condition)) {
+                        $msg = xarML('Cannot match #(1) fields with #(2) conditions in addsecuritycheck().', count($fields), $limit);
+                        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'DATABASE_ERROR_QUERY', new SystemMessage($msg));
+                        return;
+                    }
+                    for ($i=0;$i<$limit;$i++) $this->ne($fields[$i],$condition[$i]);
                 }
             }
+/*            if (isset($conditions['allow'])) {
+                if (!isset($conditions['allow']['all'])) {
+                    foreach ($conditions['allow'] as $condition) {
+                        $limit = count($condition);
+                        if (count($fields) != count($condition)) {
+                            $msg = xarML('Cannot match #(1) fields with #(2) conditions in addsecuritycheck().', count($fields), $limit);
+                            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'DATABASE_ERROR_QUERY', new SystemMessage($msg));
+                            return;
+                        }
+                        for ($i=0;$i<$limit;$i++) $this->eq($fields[$i],$condition[$i]);
+                    }
+                }
+            }
+            */
         }
         else {
-            if ($this->type == 'SELECT') {
-                foreach ($fields as $field) $this->addfield($field);
-            }
-            else {
-                foreach ($fields as $field) $this->addfield($field);
-//            $this->fields = array_merge($this->fields,$fields);
-            }
+            $msg = xarML('The addsecuritycheck method can only take 2 parameters');
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemMessage($msg));
+            return;
         }
     }
 
-    function _addtables($tables)
+    function addcondition($x)
     {
-        if (!is_array($tables)) {
-            if (!is_string($tables)) {
-            //error msg
-            }
-            elseif ($tables=='') {}//error msg
-            else {$this->addtable($tables);}
-        }
-        else {
-            foreach ($tables as $table) $this->addtable($table);
-//            $this->tables = array_merge($this->tables,$tables);
-        }
+        $key = $this->_getkey();
+        $this->conjunctions[$key]=array('conditions' => $key,
+                                        'conj' => 'IMPLICIT');
+        $this->conditions[$key] = $x;
+        return $key;
     }
 
+    function addconditions($x)
+    {
+        foreach ($x as $condition); $this->addcondition($condition);
+    }
+
+/*
+// ------ Private methods --------------------------------------------------------
+*/
     function _getbinding($key)
     {
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
         $binding = $this->binding[$key];
         if (gettype($binding['field2']) == 'string' && $binding['op'] != 'join') {
             $sqlfield = $this->dbconn->qstr($binding['field2']);
@@ -554,6 +610,7 @@ class xarQuery
         }
         return $binding['field1'] . " " . $binding['op'] . " " . $sqlfield;
     }
+
     function _getbindings()
     {
         $this->bstring = "";
@@ -564,8 +621,10 @@ class xarQuery
         if ($this->bstring != "") $this->bstring = substr($this->bstring,0,strlen($this->bstring)-5);
         return $this->bstring;
     }
+
     function _getcondition($key)
     {
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
         $condition = $this->conditions[$key];
         if (gettype($condition['field2']) == 'string' && $condition['op'] != 'join') {
             $sqlfield = $this->dbconn->qstr($condition['field2']);
@@ -574,10 +633,7 @@ class xarQuery
             $sqlfield = $condition['field2'];
             $condition['op'] = $condition['op'] == 'join' ? '=' : $condition['op'];
         }
-        if ($condition['op'] == 'in') {
-            foreach ($condition['field2'] as $element) $elements[] = $this->dbconn->qstr($element);
-            $sqlfield = '(' . implode(',',$elements) . ')';
-        }
+        if ($condition['op'] == 'in') $sqlfield = '(' . $sqlfield . ')';
         return $condition['field1'] . " " . $condition['op'] . " " . $sqlfield;
     }
 
@@ -615,6 +671,7 @@ class xarQuery
                                         'conj' => 'IMPLICIT');
         return $key;
     }
+
     function _getkey()
     {
         $key = $this->key;
@@ -622,31 +679,12 @@ class xarQuery
         return $key;
     }
 
-    function __sleep()
-    {
-        // Return array of variables to be serialized.
-        $vars = array_keys(get_object_vars($this));
-
-        // Strip out the variables we don't want serialized, but don't
-        // destroy anything yet, as this object may still be needed.
-        foreach(array('dbconn', 'result', 'output') as $var) {
-            if (($key = array_search($var, $vars)) !== FALSE) {
-                unset($vars[$key]);
-            }
-        }
-        return($vars);
-    }
-
-    function __wakeup()
-    {
-        $this->openconnection();
-    }
-
     function _statement()
     {
         $st =  $this->type . " ";
         switch ($this->type) {
         case "SELECT" :
+            if ($this->uniqueselect) $st .= " DISTINCT ";
             $st .= $this->assembledfields("SELECT");
             $st .= " FROM ";
             $st .= $this->assembledtables();
@@ -694,6 +732,7 @@ class xarQuery
     }
     function assembledfields($type)
     {
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
         $f = "";
         $this->bindstring = "";
         switch ($this->type) {
@@ -780,20 +819,33 @@ class xarQuery
         }
         return $this->bindstring;
     }
+
     function assembledconditions()
     {
+        $temp1 = $this->conditions;
+        $temp2 = $this->conjunctions;
         $c = "";
+        if (!$this->on_syntax) {
+            foreach ($this->tablelinks as $link)
+            $o = $this->addcondition(array('field1' => $link['field1'],
+                                  'field2' => $link['field2'],
+                                  'op' => $link['op']),1);
+        }
         if (count($this->bindings)>0) {
             $c = " WHERE ";
             $c .= $this->_getbindings();
         }
         if (count($this->conditions)>0) {
-            if ($c == '') $c = " WHERE ";
-            else $c .= " AND ";
-            $c .= $this->_getconditions();
+            $conditions = $this->_getconditions();
+            if ($conditions == '') return $c;
+            if ($c == '') $c = " WHERE " . $conditions;
+            else $c .= " AND "  . $conditions;
         }
+        $this->conditions = $temp1;
+        $this->conjunctions = $temp2;
         return $c;
     }
+
     function assembledsorts()
     {
         $s = "";
@@ -812,14 +864,35 @@ class xarQuery
         return $s;
     }
 
-    // ------ Gets and sets -----
-    function cleartables()
+/*
+// ------ Gets and sets and other public methods --------------------------------------------------------
+*/
+    function addorder($x = '', $y = 'ASC')
     {
-        $this->tables = array();
+        if ($x != '') {
+            $this->sorts[] = array('name' => $x, 'order' => $y);
+        }
     }
-    function clearfields()
+    function clearconditions()
     {
-        $this->fields = array();
+        $this->conditions = array();
+    }
+    function bindstatement()
+    {
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
+        $pieces = explode('?',$this->statement);
+        $bound = $pieces[0];
+        $limit = count($pieces);
+        for ($i=1;$i<$limit;$i++){
+            if (gettype($this->bindvars[$i-1]) == 'string') {
+                $sqlfield = $this->dbconn->qstr($this->bindvars[$i-1]);
+            }
+            else {
+                $sqlfield = $this->bindvars[$i-1];
+            }
+            $bound .= $sqlfield . $pieces[$i];
+        }
+        $this->statement = $bound;
     }
     function clearfield($x)
     {
@@ -832,14 +905,17 @@ class xarQuery
             }
         }
     }
-    function clearconditions()
+    function clearfields()
     {
-        $this->conditions = array();
-        $this->conjunctions = array();
+        $this->fields = array();
     }
     function clearsorts()
     {
         $this->sorts = array();
+    }
+    function cleartables()
+    {
+        $this->tables = array();
     }
     function result()
     {
@@ -850,17 +926,16 @@ class xarQuery
         $this->result = NULL;
         $this->output = NULL;
     }
-    function gettype()
+    function getconnection()
     {
-        return $this->type;
+        return $this->dbconn;
     }
-    function getstartat()
+    function getorder($x='')
     {
-        return $this->startat;
-    }
-    function getto()
-    {
-        return $this->type;
+        if ($this->sorts == array()) return false;
+        if ($x == '') return $this->sorts[0];
+        foreach ($this->sorts as $order) if ($order[0] == $x) return $order;
+        return false;
     }
     function getpagerows()
     {
@@ -868,7 +943,9 @@ class xarQuery
     }
     function getrows()
     {
+        $this->rows = 0;
         if ($this->type == 'SELECT' && $this->rowstodo != 0 && $this->limits == 1 && $this->israwstatement) {
+            if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
             $temp1 = $this->fields;
             $this->clearfields();
             $temp2 = $this->sorts;
@@ -887,36 +964,55 @@ class xarQuery
     {
         return $this->rowstodo;
     }
-    function getversion()
-    {
-        return $this->version;
-    }
-
-    function getorder($x='')
-    {
-        if ($this->sorts == array()) return false;
-        if ($x == '') return $this->sorts[0];
-        foreach ($this->sorts as $order) if ($order[0] == $x) return $order;
-        return false;
-    }
-
     function getsort($x='')
     {
         $order = $this->getorder($x);
         if(is_array($order)) return $order['order'];
         return false;
     }
-
-    function addorder($x = '', $y = 'ASC')
+    function getstartat()
     {
-        if ($x != '') {
-            $this->sorts[] = array('name' => $x, 'order' => $y);
-        }
+        return $this->startat;
     }
-    function settable($x)
+    function getstatement()
     {
-        $this->cleartables();
-        $this->addtable($x);
+        return $this->statement;
+    }
+    function getto()
+    {
+        return $this->type;
+    }
+    function gettype()
+    {
+        return $this->type;
+    }
+    function getversion()
+    {
+        return $this->version;
+    }
+    function lastid($table="", $id="")
+    {
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
+        return $this->dbconn->GetOne("SELECT MAX($id) FROM $table");
+    }
+    function _moveconditions($q)
+    {
+        foreach ($q->conjunctions as $key => $value) $this->conjunctions[$key] = $value;
+        foreach ($q->conditions as $key => $value) $this->conditions[$key] = $value;
+    }
+    function nextid($table="", $id="")
+    {
+        if (!isset($this->dbconn)) $this->dbconn =& xarDBGetConn();
+        return $this->dbconn->PO_Insert_ID();
+    }
+    function openconnection($x = '')
+    {
+        if ($x == '') $this->dbconn =& xarDBGetConn();
+        else $this->dbconn = $x;
+    }
+    function qecho()
+    {
+        echo $this->tostring();
     }
     function setorder($x = '',$y = 'ASC')
     {
@@ -925,42 +1021,13 @@ class xarQuery
             $this->addorder($x,$y);
         }
     }
-    function settype($x = 'SELECT')
-    {
-        $this->type = $x;
-    }
-    function setstartat($x = 0)
-    {
-        $this->startat = $x;
-    }
     function setrowstodo($x = 0)
     {
         $this->rowstodo = $x;
     }
-    function openconnection($x = '')
+    function setstartat($x = 0)
     {
-        if (empty($x)) $this->dbconn =& xarDBGetConn();
-        else $this->dbconn =& $x;
-    }
-    function getconnection()
-    {
-        return $this->dbconn;
-    }
-    function getstatement()
-    {
-        return $this->statement;
-    }
-    function sessiongetvar($x)
-    {
-        $q = xarSessionGetVar($x);
-        if (empty($q) || !isset($q)) return;
-        $q = unserialize($q);
-        return $q;
-    }
-    function sessionsetvar($x)
-    {
-        $q = $this;
-        xarSessionSetVar($x, serialize($q));
+        $this->startat = $x;
     }
     function setstatement($statement='')
     {
@@ -975,39 +1042,34 @@ class xarQuery
             $this->statement = $this->_statement();
         }
     }
+    function settable($x)
+    {
+        $this->cleartables();
+        $this->addtable($x);
+    }
+    function settype($x = 'SELECT')
+    {
+        $this->type = $x;
+    }
+    function setuniqueselect($x = true)
+    {
+        $this->uniqueselect = $x();
+    }
     function tostring()
     {
         $this->setstatement();
         if ($this->usebinding) $this->bindstatement();
         return $this->getstatement();
     }
-    function qecho()
+    function unite($q1, $q2)
     {
-        echo $this->tostring();
-    }
-    function bindstatement()
-    {
-        $pieces = explode('?',$this->statement);
-        $bound = $pieces[0];
-        $limit = count($pieces);
-        for ($i=1;$i<$limit;$i++){
-            if (gettype($this->bindvars[$i-1]) == 'string') {
-                $sqlfield = $this->dbconn->qstr($this->bindvars[$i-1]);
-            }
-            else {
-                $sqlfield = $this->bindvars[$i-1];
-            }
-            $bound .= $sqlfield . $pieces[$i];
-        }
-        $this->statement = $bound;
-    }
-    function nextid($table="", $id="")
-    {
-        return $this->dbconn->PO_Insert_ID();
-    }
-    function lastid($table="", $id="")
-    {
-        return $this->dbconn->GetOne("SELECT MAX($id) FROM $table");
+        if ($q1->getType() != $q2->getType()) return false;
+        $this->fields = $q1->fields;
+        $this->fields = array_merge($this->fields, $q2->fields);
+        $conditions = $q1->getconditions();
+        $this->_moveconditions($q1);
+        $this->_moveconditions($q2);
+        return $this;
     }
 }
 ?>

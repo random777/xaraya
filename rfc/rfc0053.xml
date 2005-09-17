@@ -330,7 +330,7 @@ $q->run();
 </section>
 
 <!-- close -->
-<section anchor="open" title="close([connection])">
+<section anchor="close" title="close([connection])">
     <t>
         The close() method closes a database connection.
     </t>

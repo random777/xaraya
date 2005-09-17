@@ -2272,7 +2272,7 @@ table.closedissue {
   <xsl:param name="line" />
   <xsl:param name="mode" />
   
-  <xsl:variable name="maxw" select="69" />
+  <xsl:variable name="maxw" select="256" />
   
   <xsl:if test="string-length($line) &gt; $maxw">
     <xsl:message>Artwork exceeds maximum width: <xsl:value-of select="$line" /></xsl:message>

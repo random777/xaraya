@@ -6,9 +6,14 @@ for i in $sources; do
 (
   file=`basename $i`
   htmlfile=`echo $file | sed s/xml/html/`
+  pdffile=`echo $file | sed s/xml/pdf/`
   title=`xsltproc --novalid _rfctitle.xslt $file`
 
   rfcnr=${file:3:4}
-  echo "<t><eref target=\"http://www.xaraya.com/documentation/rfcs/$htmlfile\">RFC-$rfcnr : $title</eref></t>"
+  echo "<t>
+          RFC-$rfcnr : $title
+          <eref target=\"http://www.xaraya.com/documentation/rfcs/$pdffile\">[PDF]</eref>
+          <eref target=\"http://www.xaraya.com/documentation/rfcs/$htmlfile\">[HTML]</eref>
+       </t>"
 ) 
 done

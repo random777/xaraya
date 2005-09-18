@@ -50,7 +50,7 @@ index: $(SOURCES) $(IDXSOURCES)
 	$(xsltproc) $(xstyleFO) $(*F).xml > tmp.fo
 	$(xsltproc) $(xstyleFOP) tmp.fo > $(*F).fo
 	$(fop) -q -fo $(*F).fo -pdf $(*F).pdf
-	rm tmp.fo
+	rm tmp.fo $(*F).fo
 
 # How to produce a txt file
 %.txt: %.xml $(xml2rfc) $(xindex).xml

@@ -7,7 +7,10 @@
 OUTPUT=/var/www/ddf/common/documentation/rfcs
 
 # make sure the clone is up to date
-bk pull
+# TODO: Activate monotone equivalent here
+# mt pull
+# mt update
+#bk pull
 
 make clean
 make html

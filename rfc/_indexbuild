@@ -1,13 +1,14 @@
 #!/bin/bash
 
-sources=`bk sfiles -g | grep ".xml"`
+sources=`mt list known . --depth=0 | grep '.xml$'`
 
 for i in $sources; do
 (
-  htmlfile=`echo $i | sed s/xml/html/`
-  title=`xsltproc --novalid _rfctitle.xslt $i`
+  file=`basename $i`
+  htmlfile=`echo $file | sed s/xml/html/`
+  title=`xsltproc --novalid _rfctitle.xslt $file`
 
-  rfcnr=${i:3:4}
+  rfcnr=${file:3:4}
   echo "<t><eref target=\"http://www.xaraya.com/documentation/rfcs/$htmlfile\">RFC-$rfcnr : $title</eref></t>"
 ) 
 done

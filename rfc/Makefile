@@ -48,9 +48,8 @@ index: $(SOURCES) $(IDXSOURCES)
 # How to produce a pdf file out of an xml file
 %.pdf: %.xml $(images)/$(*F)*.png 
 	$(xsltproc) $(xstyleFO) $(*F).xml > tmp.fo
-	$(xsltproc) $(xstyleFOP) tmp.fo > $(*F).fo
-	$(fop) -q -fo $(*F).fo -pdf $(*F).pdf
-	rm tmp.fo $(*F).fo
+	$(fop) -q -xml tmp.fo -xsl $(xstyleFOP) -pdf $(*F).pdf
+	rm tmp.fo
 
 # How to produce a txt file
 %.txt: %.xml $(xml2rfc) $(xindex).xml

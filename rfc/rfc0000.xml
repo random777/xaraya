@@ -43,7 +43,7 @@
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
       <t>This RFC is the template for writing RFCs in XML or plain text for the 
-        Xaraya project.
+        Xaraya project. <xref target="reference.id"/>
       </t>
     </abstract>
   </front>
@@ -77,7 +77,7 @@
   <back>
     <references title="Reference title">
       <!-- Fill in references as needed -->
-      <reference>
+      <reference anchor="reference.id">
         <front>
           <title>Reference title</title>
           <author>

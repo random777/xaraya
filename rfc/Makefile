@@ -20,7 +20,7 @@ TXTS= $(addsuffix .txt,  $(SOURCENAMES))
 PDFS= $(addsuffix .pdf, $(SOURCENAMES))
 
 # TODO: if someone needs it, look at the txt target, not working now
-all: html pdf
+all: html pdf txt
 .PHONY: all
 
 # Targets for the two different formats
@@ -42,18 +42,18 @@ index: $(SOURCES) $(IDXSOURCES)
 	mv $(xindex).tmp $(xindex).xml
 
 # How to produce a html file out of an xml file
-%.html: %.xml $(xindex).xml $(images)/$(*F)*.png $(xstyle) $(xdtd)
+%.html: %.xml $(images)/$(*F)*.png $(xstyle) $(xdtd)
 	$(xsltproc) $(xstyle) $(*F).xml > $(*F).html
 
 # How to produce a pdf file out of an xml file
-%.pdf: %.xml $(images)/$(*F)*.png 
+%.pdf: %.xml $(images)/$(*F)*.png $(xstyle) $(xstyleFO) $(xstyleFOP) $(xdtd)
 	$(xsltproc) $(xstyleFO) $(*F).xml > tmp.fo
 	$(fop) -q -xml tmp.fo -xsl $(xstyleFOP) -pdf $(*F).pdf
 	rm tmp.fo
 
 # How to produce a txt file
-%.txt: %.xml $(xml2rfc) $(xindex).xml
-	$(xml2rfc) $< $(*F).txt
+%.txt: %.xml $(xml2rfc)
+	$(xml2rfc) $< 
 
 clean:
 	rm -f *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml

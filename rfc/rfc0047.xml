@@ -379,16 +379,6 @@
                     <date year="2002"/>
                 </front>
             </reference>
-            <reference>
-                <front>
-                    <title>Reference title</title>
-                    <author>
-                        <organization>Organization</organization>
-                    </author>
-                    <date year="2002"/>
-                </front>
-            </reference>
-            <!-- Repeat the aboven block if more references are needed -->
         </references>
         
         <!-- Any section after this will become an appendix -->

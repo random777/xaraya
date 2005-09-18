@@ -125,7 +125,7 @@
   <back>
     <references title="Reference title">
       <!-- Fill in references as needed -->
-      <reference>
+      <reference anchor="refs.1">
         <front>
           <title>Modularized User Data - RFC 0007</title>
           <author>

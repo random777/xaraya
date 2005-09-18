@@ -1,9 +1,12 @@
 # Makefile for generating rfcs from xml
 
+fop=fop
 xsltproc=xsltproc
 xml2rfc=./xml2rfc.tcl
 images=images
 xstyle=rfc2629.xsl
+xstyleFO=rfc2629toFO.xslt
+xstyleFOP=xsl11toFop.xslt
 xdtd=rfc2629.dtd
 xindex=rfcindex
 
@@ -13,18 +16,20 @@ IDXSOURCES= _indexprolog.txt _indexepilog.txt _indexbuild _rfctitle.xslt
 SOURCENAMES = $(basename $(notdir $(SOURCES)))
 
 HTMLS= $(addsuffix .html, $(SOURCENAMES))
-TXTS = $(addsuffix .txt,  $(SOURCENAMES))
+TXTS= $(addsuffix .txt,  $(SOURCENAMES))
+PDFS= $(addsuffix .pdf, $(SOURCENAMES))
 
 # TODO: if someone needs it, look at the txt target, not working now
-all: html 
+all: html pdf
 .PHONY: all
 
 # Targets for the two different formats
 html: $(HTMLS) $(xindex).html
-txt : $(TXTS)  $(xindex).txt
-
+txt: $(TXTS)  $(xindex).txt
+pdf: $(PDFS)  $(xindex).pdf
 
 # RFC index can be automatically generated from the rfc source files
+$(xindex).pdf: $(xindex).xml
 $(xindex).html: $(xindex).xml
 $(xindex).xml: index
 
@@ -36,14 +41,20 @@ index: $(SOURCES) $(IDXSOURCES)
 	cat _indexepilog.txt >> $(xindex).tmp
 	mv $(xindex).tmp $(xindex).xml
 
-# How to produce a html file out on an xml file
-
+# How to produce a html file out of an xml file
 %.html: %.xml $(xindex).xml $(images)/$(*F)*.png $(xstyle) $(xdtd)
 	$(xsltproc) $(xstyle) $(*F).xml > $(*F).html
+
+# How to produce a pdf file out of an xml file
+%.pdf: %.xml $(images)/$(*F)*.png
+	$(xsltproc) $(xstyleFO) $(*F).xml > tmp.fo
+	$(xsltproc) $(xstyleFOP) tmp.fo > $(*F).fo
+	$(fop) -q -fo $(*F).fo -pdf $(*F).pdf
+	rm tmp.fo
 
 # How to produce a txt file
 %.txt: %.xml $(xml2rfc) $(xindex).xml
 	$(xml2rfc) $< $(*F).txt
 
 clean:
-	rm -f rfc*.html rfc*.txt *.*~ *~ $(xindex).xml
+	rm -f *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml

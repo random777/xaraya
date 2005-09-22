@@ -48,9 +48,30 @@ pre {
     
 ul.toc {
   color: #000000;
-    line-height: 16px;
-    font-family: verdana, arial, helvetica, sans-serif 
-    }
+  font-family: verdana, arial, helvetica, sans-serif;
+  line-height: 16px;
+  list-style: none;
+  margin-left: 1.5em;
+  margin-right: 0em;
+  padding-left: 0em;
+}
+li.tocline0 {
+  line-height: 150%;
+  font-weight: bold;
+  font-size: 10pt;
+  margin-left: 0em;
+  margin-right: 0em;
+}
+li.tocline1 {
+  line-height: normal;
+  font-weight: normal;
+  font-size: 9pt;
+  margin-left: 0em;
+  margin-right: 0em;
+}
+li.tocline2 {
+  font-size: 0pt;
+}
 
 .title { 
     color: #191970;

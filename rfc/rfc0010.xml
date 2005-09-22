@@ -83,6 +83,10 @@ html/
     |-- includes/
     |       xarTemplate.php
     |       xarBLCompiler.php
+    |       blnodes/
+    |              |--entities
+    |              |--instructions
+    |              |--tags
     |-- themes/
             <theme name>/
             |-- theme.php
@@ -1711,7 +1715,7 @@ html/
             </artwork>
             objects can be specifiek using colon notation, i.e:
             <artwork>
-              &lt;xar:var name="preformat:catandtitle /&gt; ( meaning: $preformat-&gt;catandtitle )
+              &lt;xar:var name="preformat:catandtitle" /&gt; ( meaning: $preformat-&gt;catandtitle )
             </artwork>
           </t>
           <t>
@@ -1861,6 +1865,58 @@ html/
         <list style="symbols">
           <t><xref target="set">&lt;xar:set /&gt;</xref></t>
         </list>
+      </t>
+    </section>
+
+    <section anchor="entities" title="Entities">
+      <t>
+        To specify dynamic content, under normal circumstances (i.e. in so-called text nodes) tags
+        like the &lt;xar:var /&gt; tag can be used. However, you cannot use this syntax inside
+        attribute values as that would lead to invalid XML. For this, blocklayout offers 2 mechanisms:
+        <list style="numbers">
+          <t>Creating a variable and using the variable reference</t>
+          <t>For specific, often used, cases, special entities can be uses</t>
+        </list>
+      </t>
+      <t>
+        The second part is often a source for confusion. Entities are not very well understood in
+        general, and the fact that Xaraya's source templates (*.xd and *.xt) in theory have no 
+        knowledge on the final output format, makes it even harder.
+      </t>
+      <t>
+        Blocklayout supports the following entities:
+        <list style="symbols">
+          <t><em>&amp;xar-baseurl;</em>
+            <t>Retrieve the value of the base url of the site.</t>
+          </t>
+          <t><em>&amp;xar-currenturl;</em>
+            <t>Retrieve the value of the current url on the site.</t>
+          </t>
+          <t><em>&amp;xar-var-'varname';</em>
+            <t>Retrieve the value of the local variable $varname. 
+              This is effectively the same as : &lt;xar:var name="varname"/&gt;
+            </t>
+          </t>
+          <t><em>&amp;xar-config-'varname';</em>
+            <t>Retrieve the value of the config variable $varname. 
+              This is effectively the same as: &lt;xar:var scope="config" name="varname"/&gt;
+            </t>
+          </t>
+          <t><em>&amp;xar-session-'varname';</em>
+            <t>Retrieve the value of the session variable $varname.
+              This is effectively the same as: &lt;xar:var scope="session" name="varname"/&gt;
+            </t>
+          </t>
+          <t><em>&amp;xar-mod-'modname'-'varname';</em>
+            <t>Retrieve the value of the module variable $name from the module 'modname'.
+              This is effectively the same as: &lt;xar:var scope="module" module="modname" name="name"/&gt;
+            </t>
+          </t>
+          <t><em>&amp;xar-modurl-'modname'-'type'-'funcname';</em>
+            <t>Retrieve the value of a module URL. (typically something like: http://site.com/index.php?module=modname&amp;type=type&amp;func=func )</t>
+          </t>
+        </list>
+        
       </t>
     </section>
     <section anchor="ddproperties" title="Dynamic Data Property Templates">

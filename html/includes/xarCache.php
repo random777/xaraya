@@ -14,7 +14,7 @@
 /**
  * Initialise the caching options
  *
- * @return bool
+ * @returns true on success, false if trouble is encountered
  * @todo    consider the use of a shutdownhandler for cache maintenance
  */
 function xarCache_init($args = false)
@@ -30,37 +30,64 @@ function xarCache_init($args = false)
     global $xarOutput_cacheCollection;
     global $xarOutput_cacheTheme;
     global $xarOutput_cacheSizeLimit;
+    global $xarPage_cacheTime;
+    global $xarPage_cacheDisplay;
+    global $xarPage_cacheShowTime;
+    global $xarPage_cacheExpireHeader;
+    global $xarPage_cacheGroups;
+    global $xarPage_cacheHookedOnly;
+    global $xarBlock_cacheTime;
+    global $xarMod_cacheTime;
+    global $xarPage_autoCachePeriod;
+    global $xarPage_sessionLess;
 
-    $xarVarDir = xarPreCoreGetVarDirPath();
-
-    if (!isset($cacheDir)) {
-        $cacheDir = $xarVarDir . '/cache/output';
-    }
-
-    // load the caching configuration
-    if (@!include($xarVarDir . '/cache/config.caching.php')) {
+    if (!include_once('var/cache/config.caching.php')) {
         // if the config file is missing, turn caching off
         @unlink($cacheDir . '/cache.touch');
-        return false;
+        return FALSE;
     }
+
+    if (file_exists($cacheDir . '/cache.modlevel')) {
+        define('XARCACHE_MOD_IS_ENABLED',1);
+        require_once('includes/caching/mod.php');
+    }
+
 
     $xarOutput_cacheCollection = realpath($cacheDir);
     $xarOutput_cacheTheme = isset($cachingConfiguration['Output.DefaultTheme']) ?
         $cachingConfiguration['Output.DefaultTheme'] : '';
     $xarOutput_cacheSizeLimit = isset($cachingConfiguration['Output.SizeLimit']) ?
         $cachingConfiguration['Output.SizeLimit'] : 2097152;
-
+    $xarPage_cacheTime = isset($cachingConfiguration['Page.TimeExpiration']) ?
+        $cachingConfiguration['Page.TimeExpiration'] : 1800;
+    $xarPage_cacheDisplay = isset($cachingConfiguration['Page.DisplayView']) ?
+        $cachingConfiguration['Page.DisplayView'] : 0;
+    $xarPage_cacheShowTime = isset($cachingConfiguration['Page.ShowTime']) ?
+        $cachingConfiguration['Page.ShowTime'] : 1;
+    $xarPage_cacheExpireHeader = isset($cachingConfiguration['Page.ExpireHeader']) ?
+        $cachingConfiguration['Page.ExpireHeader'] : 1;
+    $xarPage_cacheGroups = isset($cachingConfiguration['Page.CacheGroups']) ?
+        $cachingConfiguration['Page.CacheGroups'] : '';
+    $xarPage_cacheHookedOnly = isset($cachingConfiguration['Page.HookedOnly']) ?
+        $cachingConfiguration['Page.HookedOnly'] : 0;
+    $xarPage_sessionLess = isset($cachingConfiguration['Page.SessionLess']) ?
+        $cachingConfiguration['Page.SessionLess'] : '';
+    $xarBlock_cacheTime = isset($cachingConfiguration['Block.TimeExpiration']) ?
+        $cachingConfiguration['Block.TimeExpiration'] : 7200;
+    $xarMod_cacheTime = isset($cachingConfiguration['Mod.TimeExpiration']) ?
+        $cachingConfiguration['Mod.TimeExpiration'] : 3600;
+    $xarPage_autoCachePeriod = isset($cachingConfiguration['AutoCache.Period']) ?
+        $cachingConfiguration['AutoCache.Period'] : 0;
+    
     if (file_exists($cacheDir . '/cache.pagelevel')) {
         define('XARCACHE_PAGE_IS_ENABLED',1);
         require_once('includes/caching/page.php');
-        // Note : we may already exit here if session-less page caching is enabled
-        xarPageCache_init($cachingConfiguration);
+        xarPage_sessionLess();
     }
 
     if (file_exists($cacheDir . '/cache.blocklevel')) {
         define('XARCACHE_BLOCK_IS_ENABLED',1);
         require_once('includes/caching/block.php');
-        xarBlockCache_init($cachingConfiguration);
     }
 
     // Subsystem initialized, register a handler to run when the request is over
@@ -81,6 +108,48 @@ function xarCache__shutdown_handler()
 }
 
 /**
+ * functions providing page caching
+ *
+ * Example :
+ *
+ * if (xarPageIsCached('MyCache', 'myvar')) {
+ *     $var = xarPageGetCached('MyCache', 'myvar');
+ * }
+ * ...
+ * xarPageSetCached('MyCache', 'myvar', 'this value');
+ * ...
+ * xarOutputDelCached('MyCache', 'myvar');
+ * ...
+ * xarOutputFlushCached('MyCache');
+ * ...
+ *
+ */
+
+/**
+ * get the content of a cached file
+ *
+ * @access public
+ * @param cache_file the path and file you want to get
+ * @param name the name of the page in that particular cache
+ * @returns contents of file as a string
+ */
+function xarOutputGetCached($cache_file)
+{    
+    if (function_exists('file_get_contents')) {
+        $cachedOutput = file_get_contents($cache_file);
+    } else {
+        $cachedOutput = '';
+        $file = @fopen($cache_file, "rb");
+        if ($file) {
+            while (!feof($file)) $cachedOutput .= fread($file, 1024);
+            fclose($file);
+        }
+    }
+
+    return $cachedOutput;
+}
+
+/**
  * Set the contents of some output in the cache
  *
  * @access public
@@ -92,11 +161,35 @@ function xarCache__shutdown_handler()
  */
 function xarOutputSetCached($cacheKey, $cache_file, $cacheType, $value)
 {
-    if (empty($GLOBALS['xar' . $cacheType . '_cacheStorage'])) {
-        return;
-    }
+    global $xarOutput_cacheCollection, ${'xar' . $cacheType . '_cacheCode'};
 
-    $GLOBALS['xar' . $cacheType . '_cacheStorage']->setCached($cacheKey, $value);
+    $tmp_cache_file = tempnam($xarOutput_cacheCollection . '/' . strtolower($cacheType),
+                              "$cacheKey-${'xar' . $cacheType . '_cacheCode'}");
+    $fp = @fopen($tmp_cache_file, "w");
+    if (!empty($fp)) {
+
+        $value .= 'Cached '. $cacheType . ' Output '; // This line is used for testing
+
+        @fwrite($fp, $value);
+        @fclose($fp);
+        // rename() doesn't overwrite existing files in Windows
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            @copy($tmp_cache_file, $cache_file);
+            @unlink($tmp_cache_file);
+        } else {
+            @rename($tmp_cache_file, $cache_file);
+        }
+        
+        // create another copy for session-less page caching if necessary
+        if (($cacheType == 'Page') && (!empty($GLOBALS['xarPage_cacheNoSession']))) {
+            $cacheKey = 'static';
+            $xarPage_cacheCode = md5($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+            $cache_file2 = "$xarOutput_cacheCollection/page/$cacheKey-$xarPage_cacheCode.php";
+        // Note that if we get here, the first-time visitor will receive a session cookie,
+        // so he will no longer benefit from this himself ;-)
+            @copy($cache_file, $cache_file2);
+        }
+    }
 }
 
 /**
@@ -111,6 +204,11 @@ function xarOutputSetCached($cacheKey, $cache_file, $cacheType, $value)
  */
 function xarOutputDelCached($cacheKey, $name)
 {
+    global $xarOutput_cacheCollection;
+    // TODO: check if we don't need to work with $GLOBALS here for some PHP ver
+    if (isset($xarOutput_cacheCollection[$cacheKey][$name])) {
+        unset($xarOutput_cacheCollection[$cacheKey][$name]);
+    }
 }
 
 /**
@@ -124,34 +222,38 @@ function xarOutputDelCached($cacheKey, $name)
  */
 function xarOutputFlushCached($cacheKey, $dir = false)
 {
+    global $xarOutput_cacheCollection, $xarOutput_cacheSizeLimit;
+    
+    $lockfile = $xarOutput_cacheCollection . '/cache.full';
+    
     if (empty($dir)) {
-        if (function_exists('xarPageFlushCached')) {
-            xarPageFlushCached($cacheKey);
-        }
-        if (function_exists('xarBlockFlushCached')) {
-            xarBlockFlushCached($cacheKey);
-        }
-
-// TODO: find out where this is called with a directory and replace
-
-    } elseif (preg_match('/page\/?$/',$dir)) {
-        if (function_exists('xarPageFlushCached')) {
-            xarPageFlushCached($cacheKey);
-        }
-
-    } elseif (preg_match('/block\/?$/',$dir)) {
-        if (function_exists('xarBlockFlushCached')) {
-            xarBlockFlushCached($cacheKey);
-        }
-
-    } else {
-        if (function_exists('xarPageFlushCached')) {
-            xarPageFlushCached($cacheKey);
-        }
-        if (function_exists('xarBlockFlushCached')) {
-            xarBlockFlushCached($cacheKey);
-        }
+        $dir = $xarOutput_cacheCollection;
     }
+
+    if ($dir && is_dir($dir)) {
+        if (substr($dir,-1) != "/") $dir .= "/";
+        if ($dirId = opendir($dir)) {
+            while (($item = readdir($dirId)) !== FALSE) {
+                if ($item[0] != '.') {
+                    if (is_dir($dir . $item)) {
+                        xarOutputFlushCached($cacheKey, $dir . $item);
+                    } else {
+                        if ((preg_match("#$cacheKey#", $item)) &&
+                            (strpos($item, '.php') !== false)) {
+                            @unlink($dir . $item);
+                        }
+                    }
+                }
+            }
+        }
+        closedir($dirId);
+    }
+    
+    if (xarCacheGetDirSize($xarOutput_cacheCollection) < $xarOutput_cacheSizeLimit &&
+        file_exists($lockfile)) {
+        @unlink($lockfile);
+    }
+         
 }
 
 /**
@@ -166,18 +268,49 @@ function xarOutputFlushCached($cacheKey, $dir = false)
  */
 function xarCache_CleanCached($cacheType)
 {
-    if (empty($GLOBALS['xar' . $cacheType . '_cacheStorage'])) {
-        return;
-    }
+    global $xarOutput_cacheCollection, $xarOutput_cacheSizeLimit, ${'xar' . $cacheType . '_cacheTime'};
 
-// CHECKME: see if this is still needed
+    $sl_cacheType = strtolower($cacheType);
+    $cacheOutputTypeDir = $xarOutput_cacheCollection . '/' . $sl_cacheType;
+    $touch_file = $xarOutput_cacheCollection . '/cache.' . $sl_cacheType . 'level';
+    $lockfile = $xarOutput_cacheCollection . '/cache.full';
+
     // If the cache type is Block, then the cache is full so we flush the blocks
     // to make more room
     if ($cacheType == 'Block') {
-        $GLOBALS['xar' . $cacheType . '_cacheStorage']->flushCached('');
+        xarOutputFlushCached('', $cacheOutputTypeDir);
     }
 
-    $GLOBALS['xar' . $cacheType . '_cacheStorage']->cleanCached();
+    // If the cache type has already been cleaned within the expiration time,
+    // don't bother checking again
+    if (${'xar' . $cacheType . '_cacheTime'} == 0 ||
+        (file_exists($touch_file) &&
+         filemtime($touch_file) > time() - ${'xar' . $cacheType . '_cacheTime'})
+        ) {
+        return;
+    }
+    if (!@touch($touch_file)) {
+        // hmm, somthings amiss... better let the administrator know,
+        // without disrupting the site
+        error_log('Error from Xaraya::xarCache::xarCache_CleanCached
+                  - web process can not touch ' . $touch_file);
+    }
+
+    if ($handle = @opendir($cacheOutputTypeDir)) {
+        while (($file = readdir($handle)) !== false) {
+            $cache_file = $cacheOutputTypeDir . '/' . $file;
+            if (filemtime($cache_file) < time() - (${'xar' . $cacheType . '_cacheTime'} + 60) &&
+                (strpos($file, '.php') !== false)) {
+                @unlink($cache_file);
+            }
+        }
+        closedir($handle);
+    }
+
+    if (xarCacheGetDirSize($xarOutput_cacheCollection) < $xarOutput_cacheSizeLimit &&
+        file_exists($lockfile)) {
+        @unlink($lockfile);
+    }
 }
 
 /**
@@ -192,10 +325,40 @@ function xarCache_CleanCached($cacheType)
  */
 function xarCache_SizeLimit($dir = FALSE, $cacheType)
 {
-    if (empty($cacheType) || empty($GLOBALS['xar' . $cacheType . '_cacheStorage'])) {
-        return;
+    global $xarOutput_cacheCollection, $xarOutput_cacheSizeLimit;
+    
+    if (empty($dir)) {
+       $dir = $xarOutput_cacheCollection;
     }
-    $value = $GLOBALS['xar' . $cacheType . '_cacheStorage']->sizeLimitReached();
+    
+    static $value = NULL;
+    $lockfile = $xarOutput_cacheCollection . '/cache.full';
+    
+    if (!isset($value)) {
+        if (file_exists($lockfile)) {
+            $value = TRUE;
+        } elseif (mt_rand(1,5) > 1) {
+            // on average, 4 out of 5 pages go by without checking
+            $value = FALSE;
+        } else {
+    
+            static $size = 0;
+            
+            if (empty($size)) {
+                $size = xarCacheGetDirSize($dir);
+            }
+            if($size >= $xarOutput_cacheSizeLimit) {
+                $value = TRUE;
+                @touch($lockfile);
+            } else {
+                $value = FALSE;
+            }
+        }
+    }
+    if ($value && !xarCore_IsCached($cacheType . '.Caching', 'cleaned')) {
+        xarCache_CleanCached($cacheType);
+        xarCore_SetCached($cacheType . '.Caching', 'cleaned', TRUE);
+    }
     return $value;
 }
 
@@ -206,29 +369,62 @@ function xarCache_SizeLimit($dir = FALSE, $cacheType)
  * @param  string  $dir
  * @param  string  $cacheType
  * @return float
- * @author nospam@jusunlee.com
- * @author laurie@oneuponedown.com
+ * @author nospam@jusunlee.com 
+ * @author laurie@oneuponedown.com 
  * @author jsb
  * @todo   $dir changes type
  * @deprec 2005-02-01
  */
 function xarCacheGetDirSize($dir = FALSE)
 {
-    if (empty($dir)) {
-        return 0;
+    static $blksize = 0;
+    static $bsknown = FALSE;
+    $size = 0;
 
-    } elseif (preg_match('/page\/?$/',$dir)) {
-        $size = $GLOBALS['xarPage_cacheStorage']->getCacheSize();
+    if (empty($blksize)) {
+        $dirstat = stat($dir);
+        // we know the filesystem blocksize, use this to better calc the disk usage
+        if ($dirstat['blksize'] > 0) {
+            $blksize = $dirstat['blksize'] / 8;
+            $bsknown = TRUE;
+        } else { // just count of the used bytes
+            $blksize = 1;
+            $bsknown = FALSE;
+        }
+    }
 
-    } elseif (preg_match('/block\/?$/',$dir)) {
-        $size = $GLOBALS['xarBlock_cacheStorage']->getCacheSize();
-
-    } elseif (preg_match('/mod\/?$/',$dir)) {
-        $size = 0;
-
-    } elseif (preg_match('/output\/?$/',$dir)) {
-        $size = $GLOBALS['xarPage_cacheStorage']->getCacheSize();
-        $size += $GLOBALS['xarBlock_cacheStorage']->getCacheSize();
+    if($bsknown) {
+        if ($dir && is_dir($dir)) {
+            if (substr($dir,-1) != "/") $dir .= "/";
+            if ($dirId = opendir($dir)) {
+                while (($item = readdir($dirId)) !== FALSE) {
+                    if ($item != "." && $item != "..") {
+                            $filestat = stat($dir . $item);
+                            $size += ($filestat['blocks'] * $blksize);
+                        if (is_dir($dir . $item)) {
+                            $size += xarCacheGetDirSize($dir . $item);
+                        }
+                    }
+                }
+                closedir($dirId);
+            }
+        }
+    } else {
+        if ($dir && is_dir($dir)) {
+            if (substr($dir,-1) != "/") $dir .= "/";
+            if ($dirId = opendir($dir)) {
+                while (($item = readdir($dirId)) !== FALSE) {
+                    if ($item != "." && $item != "..") {
+                        if (is_dir($dir . $item)) {
+                            $size += xarCacheGetDirSize($dir . $item);
+                        } else {
+                            $size += filesize($dir . $item);
+                        }
+                    }
+                }
+                closedir($dirId);
+            }
+        }
     }
 
     return $size;
@@ -263,67 +459,6 @@ function xarCache_getParents()
     $result->Close();
     xarCore_SetCached('User.Variables.'.$currentuid, 'parentlist',$gidlist);
     return $gidlist;
-}
-
-/**
- * Get a storage class instance for some type of cached data
- *
- * @access protected
- * @param string $storage the storage you want (filesystem, database or memcached)
- * @param string $type the type of cached data (page, block, template, ...)
- * @param string $cachedir the cache directory
- * @param string $code the cache code (for URL factors et al.) if it's fixed
- * @param string $expire the expiration time for this data
- * @returns object
- * @return storage class
- */
-function xarCache_getStorage($args)
-{
-    include_once 'includes/caching/storage.php';
-    switch ($args['storage'])
-    {
-        case 'database':
-            include_once 'includes/caching/storage/database.php';
-            $classname = 'xarCache_Database_Storage';
-            break;
-
-        case 'memcached':
-            if (extension_loaded('memcache')) {
-                include_once 'includes/caching/storage/memcached.php';
-                $classname = 'xarCache_MemCached_Storage';
-            } else {
-                include_once 'includes/caching/storage/filesystem.php';
-                $classname = 'xarCache_FileSystem_Storage';
-            }
-            break;
-
-        case 'mmcache':
-            if (function_exists('mmcache')) {
-                include_once 'includes/caching/storage/mmcache.php';
-                $classname = 'xarCache_MMCache_Storage';
-            } else {
-                include_once 'includes/caching/storage/filesystem.php';
-                $classname = 'xarCache_FileSystem_Storage';
-            }
-            break;
-
-        case 'eaccelerator':
-            if (function_exists('eaccelerator')) {
-                include_once 'includes/caching/storage/eaccelerator.php';
-                $classname = 'xarCache_eAccelerator_Storage';
-            } else {
-                include_once 'includes/caching/storage/filesystem.php';
-                $classname = 'xarCache_FileSystem_Storage';
-            }
-            break;
-
-        case 'filesystem':
-        default:
-            include_once 'includes/caching/storage/filesystem.php';
-            $classname = 'xarCache_FileSystem_Storage';
-            break;
-    }
-    return new $classname($args);
 }
 
 ?>

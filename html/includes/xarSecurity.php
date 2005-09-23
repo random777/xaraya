@@ -1,7 +1,5 @@
 <?php
 /**
- * File: $Id: xarSecurity.php 1.123 05/09/04 14:23:17+02:00 Marc.Lutolf@sarek. $
- *
  * Low-level security access mechanism
  *
  * @package security

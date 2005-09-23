@@ -1,7 +1,5 @@
 <?php
 /**
- * File: $Id: xarException.php 1.121 05/09/04 14:23:17+02:00 Marc.Lutolf@sarek. $
- *
  * Exception Handling System
  *
  * @package exceptions

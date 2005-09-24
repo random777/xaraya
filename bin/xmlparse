@@ -49,7 +49,7 @@ fi
 FAILED=0
 for template in $FILELIST; do
   TEMPFILE=`mktemp tmp.XXXXXXX` || exit 1
-  #bk get -Sq $template
+    
   #echo '<!DOCTYPE blocklayout SYSTEM "'$CMDDIR'/xar.dtd">' >> $TEMPFILE
   TPLDIR=$(basename $(dirname $WORKDIR/$template))
   if [ $TPLDIR != 'pages' ]; then

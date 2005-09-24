@@ -230,14 +230,24 @@ passed 2.19
 # 
 # GROUP 3: Functional / Related to XARAYA
 #
+has_deprecated_func() {
+    # $1 is the filename to check
+    # $2 is the deprecated function name
+    # the first part greps the usage, where the second part ignores the definition
+    result=`grep -in ".*$2[ ]*(" $1 | grep -vi "function[ ]*$2[ ]*("`
+    return $?
+}
+
 echo "--- Group 3: Deprecation ---"
 # xarExceptionMajor is deprecated
 failed=0
 test="No use of xarExceptionMajor"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarexceptionmajor[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarexceptionmajor[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarexceptionmajor"`
     if [ $? -ne 1 ] ; then
-        failed 3.10 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.10 "in $i" $result
+        fi
     fi
 done
 passed 3.10
@@ -246,9 +256,11 @@ passed 3.10
 failed=0
 test="No use of xarExceptionSet"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarexceptionset[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarexceptionset[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarexceptionset"`
     if [ $? -ne 1 ] ; then
-        failed 3.11 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.11 "in $i" $result
+        fi
     fi
 done
 passed 3.11
@@ -257,7 +269,7 @@ passed 3.11
 failed=0
 test="No use of xarVarCleanFromInput (use xarVarFetch)"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarvarcleanfrominput[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarvarcleanfrominput[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarvarcleanfrominput"`
     if [ $? -ne 1 ] ; then
         failed 3.12 "in $i" $result
     fi
@@ -268,9 +280,11 @@ passed 3.12
 failed=0
 test="No use of xarVarPrepForStore (use bindvars or qstr method)"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarvarprepforstore[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarvarprepforstore[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarvarprepforstore"`
     if [ $? -ne 1 ] ; then
-        failed 3.10.4 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.10.4 "in $i" $result
+        fi
     fi
 done
 passed 3.13
@@ -279,9 +293,11 @@ passed 3.13
 failed=0
 test="No use of xarExceptionID (use xarCurrentErrorId)"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarexceptionid[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarexceptionid[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarexceptionid"`
     if [ $? -ne 1 ] ; then
-        failed 3.14 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.14 "in $i" $result
+        fi
     fi
 done
 passed 3.14
@@ -290,9 +306,11 @@ passed 3.14
 failed=0
 test="No use of xarExceptionValue (use xarCurrentError)"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarexceptionvalue[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarexceptionvalue[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarexceptionvalue"`
     if [ $? -ne 1 ] ; then
-        failed 3.15 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.15 "in $i" $result
+        fi
     fi
 done
 passed 3.15
@@ -301,9 +319,11 @@ passed 3.15
 failed=0
 test="No use of xarExceptionFree (use xarErrorFree)"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarexceptionfree[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarexceptionfree[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarexceptionfree"`
     if [ $? -ne 1 ] ; then
-        failed 3.16 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.16 "in $i" $result
+        fi
     fi
 done
 passed 3.16
@@ -312,9 +332,11 @@ passed 3.16
 failed=0
 test="No use of xarExceptionHandled (use xarErrorHandled)"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarexceptionhandled[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarexceptionhandled[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarexceptionhandled"`
     if [ $? -ne 1 ] ; then
-        failed 3.17 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.17 "in $i" $result
+        fi
     fi
 done
 passed 3.17
@@ -323,9 +345,11 @@ passed 3.17
 failed=0
 test="No use of xarExceptionRender (use xarErrorRender)"
 for i in `$lsknown | grep ".php$"`; do
-    result="`grep -in '.*xarexceptionrender[ ]*(' $WORKDIR/$i | grep -vi 'function[ ]*xarexceptionrender[ ]*('`"
+    result=`has_deprecated_func $WORKDIR/$i "xarexceptionrender"`
     if [ $? -ne 1 ] ; then
-        failed 3.18 "in $i" $result
+        if [ "$(basename $i)" != "xarLegacy.php" ]; then
+            failed 3.18 "in $i" $result
+        fi
     fi
 done
 passed 3.18
@@ -344,8 +368,9 @@ passed 4.10
 
 # Check well formedness of templates
 failed=0
-test="Only well formed XML in templates"
+test="Only well formed XML in templates (each dot = 1 file)"
 for i in `$lsknown | grep "\.x[dt]$"`; do
+    echo -n "."
     result=`$xmlparse $WORKDIR/$i`
     
     if [ $? -ne 0 ] ; then
@@ -353,6 +378,7 @@ for i in `$lsknown | grep "\.x[dt]$"`; do
         echo "$result"
     fi
 done
+echo "."
 passed 4.11
 
 if [ $cancommit -eq 0 ] ; then

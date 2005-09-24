@@ -26,6 +26,12 @@ fi
 # NOTE THE DOT HERE
 lsknown="$monotone ls known ."
 
+xmlparse=`which xmlparse`
+if [ X$xmlparse == X ]; then
+    echo "Could not determine location of custom Xaraya xmlparse script, aborting"
+    exit 1
+fi
+
 # We need php for most of the checks
 php=`which php`
 if [ X$php == X ]; then
@@ -335,9 +341,6 @@ for i in `$lsknown | grep "\.x[dt]$"`; do
     fi
 done
 passed 4.10
-
-echo "TODO: finish porting the rest of the tests!"
-exit 0
 
 # Check well formedness of templates
 failed=0

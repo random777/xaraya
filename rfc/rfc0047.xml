@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629-new.xsl"?>
         <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
@@ -349,7 +349,7 @@
 
         <section title="What is a Permalink?">
             <t><artwork>
-               permalink (pûrma-lingk) n.
+               permalink (pÃ»rma-lingk) n.
                A permanent marker or reference point to a certain document on the world wide web.
                Most commonly used for weblogs, news sites and newspapers.
                A permalink is denoted through the use of a symbol (pound sign, arrow, dot),

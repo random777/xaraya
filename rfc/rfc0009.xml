@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
     <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
@@ -240,39 +240,39 @@ are on exactly.
 :gregorrothfuss
 while i like the idea to have a directory of Xaraya
 implementors, i think a forum is a very bad fit for that. a directory
-with a few required fields would be far better suited 
+with a few required fields would be far better suitedÂ 
 -support.xaraya.com 
 - Installation(win) Installation for Wintel    environments 
 - Installation(lin) Installation of Linux/Unix environments 
 - General Support 
 - Core Functionality (for non devs) Bug
 - Reports 
-- Core Functionality (for non devs)  
+- Core Functionality (for non devs) Â 
 
-:gregorrothfuss   
+:gregorrothfussÂ  Â 
 this needs to be pondered further. as long as we have no better alternative
 than the SourceForge Trackers, we should stick with them. As it
 stands, nobody bothers to resubmit bugs that are marooned on the
-forums.   
+forums.Â  Â 
 
 :Rabbitt
 there's a good idea gregor -- a module that acts
 as a forum of sorts and takes bug requests and submits them to
-sourceforge automatically... hmmm...  Core Modules - Subforums
+sourceforge automatically... hmmm...Â  Core Modules - Subforums
 addressing issues and hacks for any module distributed as part of the
 core developer.xaraya.com (new ???)  Developer (Core) - Core
 Functionality (for devs only) Developer (Markets) - Develop
 "Marketing/Sales" materials Core Modules - Subforums addressing issues
 and hacks for any module distributed as part of the core
- 
+Â 
 :gregorrothfuss
 this may be a good home for the new mailing lists
 that are being set up on the Xaraya server. provide web-based search
 facilities etc. It would be an advantage if interested parties could
-follow the lists from there, but would need an account to post. 
+follow the lists from there, but would need an account to post.Â 
 
-:Grape   
-would be an excelent home for the mailing lists. 
+:GrapeÂ  Â 
+would be an excelent home for the mailing lists.Â 
 themes.xaraya.com Requests (Core) - Core Theme System Features Request 
 (Themes) - Specific theme mods or new themes 
 Public Support 
@@ -302,40 +302,40 @@ Subforums for individual blocks &amp; developers
 3. Forums -
 Architecture a. Port PostBoard to use Comments API as its core.
 Leverages core functionality and PB built from ground up as Xaraya
-Mod.   
+Mod.  Â 
 
-:Wolf-   
+:Wolf-Â  Â 
 POSTBOARD?? If we are going to the trouble of porting
 and rewriting, there why not just emulate some of the better forums
-out there?   Grape   similarly, one might appreciate the aesthetics of
-postboard prior to a full-on installation of it   mrherald   Perhaps
+out there?Â  Â GrapeÂ  Â similarly, one might appreciate the aesthetics of
+postboard prior to a full-on installation of itÂ  Â mrheraldÂ  Â Perhaps
 we should discuss what is so great about each forum in detail at, I
-don't know, how about here: WhatForum  
+don't know, how about here: WhatForumÂ  
 b. Common tableset and
 architecture will allow for ease of management of threads among
 appropriate forum by Moderators 
 c. Thread movement/deletion should
 fire e-mail to author with new location (URL) or reason for deletion
 d. Forum architecture should allow for moving thread into docs dev
-queue for conversion to FAQ or other doc.   
+queue for conversion to FAQ or other doc.  Â 
 
-:Wolf-   
+:Wolf-Â  Â 
 This item is
-ambiguous. Clarification is needed.   
+ambiguous. Clarification is needed.Â  Â 
 
-:jotajota   
+:jotajotaÂ  Â 
 
 e. Forum threads
-should be subscribible by email and (ideally) answerable by email too 
+should be subscribible by email and (ideally) answerable by email tooÂ 
 
-D. Live Support  
-:Grape   
-what are you talking about?  
+D. Live Support Â 
+:GrapeÂ  Â 
+what are you talking about?Â  
 a. Enables
-solutions to be pushed from forums, docs and other sources  
-:Grape   
+solutions to be pushed from forums, docs and other sources Â 
+:GrapeÂ  Â 
 i can push a broom and it might be a solution, but what solutions do you
-intend to push?  
+intend to push?Â  
 b. Enables pushing support chat logs to docs dev
 queue, forums and/or bug tracker 
 
@@ -343,21 +343,21 @@ E. FAQs &amp; Documentation
 a. Document Development Forum is fed by Forums, Bug Tracker, an Live
 Support 
 
-:Wolf-  
+:Wolf-Â  
 This is the first mention of the 'Document Development Forum'
-It has not been defined anywhere else.   Grape   what is this? i think
+It has not been defined anywhere else.Â  Â GrapeÂ  Â what is this? i think
 a document development forum would be pointless and would rather have
-people simply email requests.   mrherald   A good reason for a docs
+people simply email requests.Â  Â mrheraldÂ  Â A good reason for a docs
 forum would be to get everyone communicating someplace other than the
 wiki and e-mail. This can be used to openly discuss issues such as
 what pages need work and who knows about what. It is much better than
 just assuming that everyone knows what is going on in the wiki and is
 more open than plain e-mails. It should increase efficiency and
-effectiveness  F. IM &amp; IRC a. becomes general chat channel for the
-community  gregorrothfuss   IM may be a useful way to escalate
+effectivenessÂ  F. IM &amp; IRC a. becomes general chat channel for the
+community Â gregorrothfussÂ  Â IM may be a useful way to escalate
 issues. I dont want to idle in the support rooms all the time when i
 am working on something, but I would not mind if a select group of
-people could IM me with urgent questions. \
+people could IM me with urgent questions.Â \
                         </artwork>
                     </t>
                 </list>
@@ -389,21 +389,21 @@ people could IM me with urgent questions. \
                             party sites to provide multilangual support. The formation of a
                             Multilingual Support Council is proposed.
                             <artwork>
-:jotajota   
+:jotajotaÂ  Â 
 Why use third
 party sites instead of people speaking different languages giving
 support in the same place? Not only is that less confusing but it also
 allows for more supporters online on the site giving sinergy (what
 supporter A doesn't know can be asked to B by the supporter himself)
 and more opportunities to get help (I preffer to get help on my mother
-tgongue but I could get it in French if I had to...)   
+tgongue but I could get it in French if I had to...)Â  Â 
                                 
-:gregorrothfuss 
+:gregorrothfussÂ 
 People want to have local communities, and centralizising everything
 on one site is not going to happen. we may as well take this into
-account, and try to come to an understanding with 3rd party sites. 
+account, and try to come to an understanding with 3rd party sites.Â 
                         
-:mrherald   How about both? If an outside site wishes to provide
+:mrheraldÂ  Â How about both? If an outside site wishes to provide
 support (we cannot stop them from doing it and we cannot force them to
 use what we have here) let them offer support, but be sure to link to
 it and have them link back to our support area. Support forums on the

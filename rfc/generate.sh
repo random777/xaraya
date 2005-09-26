@@ -12,12 +12,14 @@ monotone pull mt.xaraya.com 'com.xaraya.documentation'
 monotone update
 
 #make clean
-make html
-make txt
-
-cp rfc????.html $OUTPUT
-cp rfcindex.* $OUTPUT
-cp rfc????.txt $OUTPUT
+make 
+make rfcindex.html
+make rfcindex.txt
+make rfcindex.pdf
+cp -f rfc????.html $OUTPUT
+cp -f rfcindex.* $OUTPUT
+cp -f rfc????.txt $OUTPUT
+cp -f rfc????.pdf $OUTPUT
 cp -rf images/* $OUTPUT/images
 cp -a *.css $OUTPUT
 ln -sf $OUTPUT/rfcindex.html $OUTPUT/index.html

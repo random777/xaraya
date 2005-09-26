@@ -35,7 +35,6 @@ $(xindex).xml: index
 
 index: $(SOURCES) $(IDXSOURCES)
 	rm -f $(xindex).xml
-	rm -f $(xindex).html
 	cat _indexprolog.txt >> $(xindex).tmp
 	./_indexbuild >> $(xindex).tmp 
 	cat _indexepilog.txt >> $(xindex).tmp

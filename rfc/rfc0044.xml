@@ -325,7 +325,7 @@
           <t>
             Use unix file and line endings, not dos/windows ones. Most editors and IDEs 
             on Windows will provide a choice to save a file as unix file. To some extent
-            BitKeeper will provide the necessary conversions if necessary.
+            out version control system could provide the necessary conversions if necessary.
           </t>
         </t>
         <t><em>Comments</em>

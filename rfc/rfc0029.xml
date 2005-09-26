@@ -359,7 +359,7 @@
           <list style="numbers">
             <t>
               fixed place in the repository (for example
-              BitKeeper/tests/*) in the repository
+              &lt;workdir-root&gt;/tests/*) in the repository
             </t>
             <t>
               a subdirectory below the directory which contains the
@@ -451,10 +451,10 @@
         
         <t><em>Tests are run before a commit into the repository</em></t>
         <t>
-          BitKeeper supports a mechanism called triggers which can run
-          at certain defined events using the repository. We want to
+          Usually a version control system support something like triggers
+          which can run at certain defined events using the repository. We want to
           run the tests which are related to the changes being
-          committed. The events which we could use are:
+          committed. The events which we could use are (BitKeeper examples, other VCS-es use others):
           <list style="symbols">
             <t>pre-commit: called before a changeset is committed</t>
             <t>pre-delta : called before a change to a file is registered</t>
@@ -508,7 +508,7 @@
             </t>
           </list>
           Obviously the above is a bit complex, especially if the
-          complex details of bitkeeper come into play. The current
+          complex details of the version control system come into play. The current
           plan is to move forward slowly. Implement the basic
           framework, use it, get feedback and decide whether further
           integration, or more strict integration, is warranted.
@@ -530,7 +530,9 @@
           disadvantage is that it is bitkeeper specific and might not
           be supported in other repository systems. We chose to use
           the bitkeeper specific implementation first and optionally
-          generalize later on.
+          generalize later on. (ADDITION: we switched to monotone and this
+          RFC should actually be rewritten. Some parts have already been
+          made more generally applicable, but a total review is warranted)
         </t>
         <t><em>The testing framework has no impact on runtime requirements</em></t>
         <t>

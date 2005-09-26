@@ -5,7 +5,7 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc="yes"?>
 
-<rfc number="0028" category="bcp">
+<rfc number="0028" category="historic">
   <!-- Front matter is used for identification of author and organisation -->
   <front>
     <title abbrev="devprocess">Xaraya Development process: repository model and tool usage</title>
@@ -56,6 +56,10 @@
         However, the most important parts of the process are in place such as the scenario
         analogy. With the bitkeeper suite of tools, most of this process is not visible but
         automatically arranged for.
+      </t>
+      <t>
+        NOTE: Over time we have switched to monotone and this document should be rewritten in
+        a new RFC, this RFC has now been marked as historic.
       </t>
     </note>
     

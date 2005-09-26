@@ -212,7 +212,7 @@ ID  Measure                                         Critical Essential Optional 
       This requirement is critical. It means that the information in the bug
       tracker database is at all times consistent with the current state of the
       source tree, so you can trust both on what should be done to fix issues
-      with the current tree. This means in practice that BitKeeper should enter
+      with the current tree. This means in practice that the version control system should enter
       information into the bugtracker database when sources are changed to 
       which a bug is attached. 
       This can be implemented for example by giving signals to users when changing
@@ -282,11 +282,11 @@ ID  Measure                                         Critical Essential Optional 
     
     <section title="Cmdline interface">
       <t>
-        Most of the bitkeeper interaction occurs on the command-line. It makes sense to have an
+        Usually most of the version control system interaction occurs on the command-line. It makes sense to have an
         interface to the bugtracker database which can be used from the command-line as well. 
         Although not a critical requirement this will highly influence the usage of the bug-tracker
         by the developers themselves. It allows them to update the bug information while working
-        with bitkeeper. 
+        with the VCS. 
       </t>
     </section>
     
@@ -299,10 +299,10 @@ ID  Measure                                         Critical Essential Optional 
       <t>
         Also, the flexibility of a web interface probably satisfies the requirements of
         dealing with searching and filtering while keeping an accessible system for most users.
-        Although the command-line interface may be more powerfull and offer more options, for 
+        Although the command-line interface may be more powerful and offer more options, for 
         most users command-line usage is often arcane and counterproductive. Also, a web-interface
         only needs a reasonable web-browser to use where as other interfaces might have more
-        requirements (such as an installation of bitkeeper)
+        requirements (such as an installation of the version control system)
       </t>
     </section>
     
@@ -529,15 +529,15 @@ ID  Measure                                         Critical Essential Optional 
     <t>
       This is only an optional requirement as it is not necessary
       to be able to use the same ID for both the tracker and
-      Bitkeeper. For instance ssh public/private keys could be used
+      the version control system. For instance ssh public/private keys could be used
       to authenticate instead. If every user has the tracker id's
       public key in their authorized_keys file then the tracker will
-      be able to make any updates needed to Bitkeeper *as* the user
+      be able to make any updates needed to the VCS *as* the user
       specified. Commands running the other way should be much
       easier as tracker updates are just entries in a database and
       so do not need to run as any particular user. It would be nice
       to be able to use the same userid and password for both, but
-      since not everyone who has a tracker id will have a bitkeeper
+      since not everyone who has a tracker id will have a VCS
       id I'm not sure how well it would work in practice. Those who
       want to use the same ID can simply set the passwords to be the
       same or maybe a cron script could do it for them but its a bit

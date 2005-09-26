@@ -11,7 +11,7 @@ exec tclsh "$0" "$0" "$@"
 
 global prog prog_version
 set prog "xml2rfc"
-set prog_version "v1.30"
+set prog_version "v1.30-ddf"
 
 # "encoding system" is already set at this point and we want that
 # because we print warnings and errors to the terminal.
@@ -4811,7 +4811,7 @@ global funding
 
 set funding \
 "Funding for the RFC Editor function is currently provided by the
-Internet Society."
+Digital Development Foundation."
 
 #       }}}2 Other IPR texts
 #       {{{2 Pass 2 (and subsequent) stuff for the whole document
@@ -5237,7 +5237,7 @@ proc pass2begin_front {elemX} {
             set first [string trim $wv(.CTEXT)]
         }
         if {![string compare $first ""]} {
-            set first "Network Working Group"
+            set first "Xaraya Development Group"
         }
         lappend left $first
 

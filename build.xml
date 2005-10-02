@@ -1,37 +1,37 @@
 <?xml version="1.0" ?>
 <!--
-  This is the xaraya buildfile. It builds anything needed building:
-  - the tarballs
-  - release files
-  - documentation
-
-  This build.xml file is a phing build file. The phing make system
-  is like ant, but then implemented in php. For xaraya we stubbed
-  the phing system into a bk custom command: bk build which has the 
-  same interface as the original phing. 
-
-  TODO:
-  - sql files automatically so they are always in sync
-  - phpdoc documentation
-  - deb package generation
-  - rpm package generation
-  - get the dependencies straight.
-  - use recursive build files, so we can package modules by just inspecting the build.xml 
+    This is the xaraya buildfile. It builds anything needed building:
+    - the tarballs
+    - release files
+    - documentation
+    
+    This build.xml file is a phing build file. The phing make system
+    is like ant, but then implemented in php. For xaraya we stubbed
+    the phing system into a bk custom command: bk build which has the 
+    same interface as the original phing. 
+    
+    TODO:
+    - sql files automatically so they are always in sync
+    - phpdoc documentation
+    - deb package generation
+    - rpm package generation
+    - get the dependencies straight.
+    - use recursive build files, so we can package modules by just inspecting the build.xml 
     file for each module, instead of hardcoding the list in here (? would that work)
-  - use the zip and tar task from phing once their mem requirements are below 8M (which is php std. mem setting)
+    - use the zip and tar task from phing once their mem requirements are below 8M (which is php std. mem setting)
     or at least independent of the number of files packaging
-  - make this run on all platforms
-  - do something clever with the release log
-  - extract the version automatically somehow
--->
-<project name="xaraya" basedir="." default="all" >
+    - make this run on all platforms
+    - do something clever with the release log
+    - extract the version automatically somehow
+  -->
+<project name="xaraya" basedir="." default="help" >
   <!-- The main property file -->
   <property file="build.properties"/>
   
   <!-- Build some properties based on the settings in the build.properties file -->
   <property name="releaselog" value="releaselog-${lastversion}-${version}.txt" />
   <property name="final.name" value="${phing.project.name}-${version}" />
-
+  
   <!-- source tree properties -->
   <property name="html.dir" value="html" />
   <property name="docs.dir" value="docs" />
@@ -52,14 +52,67 @@
   <target name="all" description=": creates all distributions of Xaraya">
     <echo message="Copying files to build dir" />
     <mkdir dir="${build.basedir}" />
-        
+    
     <!-- Build all distributions -->
     <phingcall target="coredist"/>
     <phingcall target="basedist"/>
     <phingcall target="fulldist"/>
   </target>
   
-    <!-- Core distribution -->
+  <!-- Checkout target, make sure we have working dirs, appropriate for building -->
+  <target name="checkout" description=": makes sure a current checkout is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build from"/>
+    <mkdir dir="${work.basedir}"/>
+
+    <!-- Checkout of core -->
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value=""/>
+    </phingcall>
+
+    <!-- Modules, Themes and languages -->
+    <foreach list="modules.full" target="mod_checkout" param="mod.name"/>
+    <foreach list="themes.full" target="theme_checkout" param="theme.name"/>
+    <foreach list="languages.installer" target="lang_checkout" param="lang.name"/>
+  </target>
+  
+  <!-- 
+       Check out targets
+
+       Checks out the branches we give it.
+       Modules, themes and languagues are all treated separately.
+       In the end (will take quite a while, but only needs to be run once in the build environment
+       we will end up with all sources checked out needed for the builds
+  -->
+  <!-- Wrapper for the monotone command -->
+  <target name="mt_checkout">
+    <echo message="${monotone} -d ${repo}.db co -b '${branch.prefix}.${branch}' ${repo}/${branch}"/>
+    <!-- The 
+    <exec dir="${work.basedir}" command="${monotone} -d ${repo}.db co -b '${branch.prefix}.${branch}' ${repo}/${branch}"/>
+    -->
+  </target>
+  <!-- Modules checkout -->
+  <target name="mod_checkout" if="mod.name">
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${modules.repo}"/>
+      <property name="branch" value="modules.${mod.name}"/>
+    </phingcall>
+  </target>
+  <!-- Themes checkout -->
+  <target name="theme_checkout" if="theme.name">
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${themes.repo}"/>
+      <property name="branch" value="themes.${themes.name}"/>
+    </phingcall>
+  </target>
+  <target name="lang_checkout" if="lang.name">
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${languages.repo}"/>
+      <property name="branch" value="languages.${lang.name}"/>
+    </phingcall>
+  </target>
+
+  <!-- Core distribution -->
   <target name="coredist" depends="commonfiles, languages" description=": Creates the core distribution">
     <!-- The common files actually does too much, it includes all config files, remove the invalid ones for core -->
     <!-- TODO: this is lame, do it different -->
@@ -69,18 +122,18 @@
         <exclude name="core.conf.php"/>
       </fileset>
     </delete>
-   
+    
     <!--- here we can make the core distribution -->
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-core.tar.gz"/>
     </phingcall>
-
+    
     <phingcall target="createzipball">
       <property name="zipball.name" value="${final.name}-core.zip"/>
     </phingcall>
   </target>
   
-    <!-- Base distribution -->
+  <!-- Base distribution -->
   <target name="basedist" depends="commonfiles, languages, basemodules" description=": Creates the base distribution">
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-base.tar.gz"/>
@@ -91,7 +144,7 @@
     </phingcall>
   </target> 
   
-    <!-- Full distribution -->
+  <!-- Full distribution -->
   <target name="fulldist" depends="commonfiles, languages, basemodules, fullmodules, fullthemes" description=": Creates the full distribution">
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-full.tar.gz"/>
@@ -101,8 +154,8 @@
       <property name="zipball.name" value="${final.name}-full.zip"/>
     </phingcall>
   </target> 
-    
-    
+  
+  
   <!-- Common contents for each distribution -->
   <target name="commonfiles">
     <!-- Copy the usual suspects for GPL alike projects -->
@@ -211,7 +264,7 @@
   <target name="fullthemes">
     <foreach list="themes.full" target="copythemefromthemerepo" param="theme.name"/>
   </target>
-    
+  
   <!-- copy a module into the build tree -->
   <target name="copymodulefrommodrepo" if="module.name">
     <echo msg="Copying module ${module.name} into build tree..."/>
@@ -225,7 +278,7 @@
       </fileset>
     </copy>
   </target>
-
+  
   <!-- copy a theme into the build tree -->
   <target name="copythemefromthemerepo" if="theme.name">
     <echo msg="Copying theme ${theme.name} into build tree..."/>
@@ -239,16 +292,16 @@
       </fileset>
     </copy>
   </target>
-
+  
   <!-- copy a language into the build tree -->
   <target name="copylanguage" if="language.locale">
     <echo msg="Copying installer locale ${language.locale} into build tree..."/>
     
-    <!-- SPECIAL: backported from phin 2 to here, speeds up the stuff considerably -->
+    <!-- SPECIAL: backported from phing 2 to here, speeds up the stuff considerably -->
     <php function="substr" returnProperty="language">
-        <param value="${language.locale}"/>
-        <param value="0"/>
-        <param value="2"/>
+      <param value="${language.locale}"/>
+      <param value="0"/>
+      <param value="2"/>
     </php>
     <copy todir="${build.html}/var/locales/${language.locale}">
       <fileset dir="${languages.repo}/${language}/${language.locale}">
@@ -262,13 +315,13 @@
       </fileset>
     </copy>
   </target>
-
+  
   <!-- Create a tarball from the current contents of the build tree -->
   <target name="createtarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
     <exec dir="${build.basedir}" command="tar -czf ${tarball.name} ${final.name}"/>
   </target>
-
+  
   <!-- Create a zipball from the current contents of the build tree -->
   <target name="createzipball" if="zipball.name">
     <echo msg="Creating zip archive ${zipball.name}"/>
@@ -280,7 +333,7 @@
     <echo msg="Cleaning up buildtree..." />
     <delete dir="${build.dir}" />
   </target>
-
+  
   <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
   <target name="realclean" depends="clean" description=": removes the whole build structure">
     <echo msg="Real clean..."/>
@@ -293,9 +346,9 @@
     <phingcall target="all" />
   </target>
   
-    <!--  Displays some help  -->
+  <!--  Displays some help  -->
   <target name="help" description=": displays a brief help">
-    <echo message="Please call 'bk build -projecthelp' for details" />
+    <echo message="Please call 'build -projecthelp' for details" />
   </target>
   
 </project>

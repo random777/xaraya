@@ -663,7 +663,7 @@ class Project {
 
     function addReference($name, &$object) {
         if (isset($this->references[$name])) {
-            $this->log("Overriding previous definition of reference to $name", PROJECT_MSG_WARN);
+            $this->log("Overriding previous definition of reference to $name", PROJECT_MSG_DEBUG);
         }
         $this->log("Adding reference: $name -> ".get_class($object), PROJECT_MSG_DEBUG);
         $this->references[$name] =& $object;

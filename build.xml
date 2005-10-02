@@ -33,10 +33,9 @@
   <property name="final.name" value="${phing.project.name}-${version}" />
   
   <!-- source tree properties -->
-  <property name="html.dir" value="html" />
-  <property name="docs.dir" value="docs" />
-  <property name="tools.dir" value="tools" />
-  <property name="sql.dir" value="sql"/>
+  <property name="html.dir" value="${work.basedir}/${core.repo}/${core.repo}/html" />
+  <property name="docs.dir" value="${work.basedir}/${core.repo}/documentation" />
+  <property name="tools.dir" value="${work.basedir}/${core.repo}/${core.repo}/tools" />
   
   <!-- build tree properties -->
   <property name="build.dir" value="${build.basedir}/${final.name}"/>
@@ -68,6 +67,12 @@
     <phingcall target="mt_checkout">
       <property name="repo" value="${core.repo}"/>
       <property name="branch" value="core"/>
+    </phingcall>
+
+    <!-- Checkout of documentation -->
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="documentation"/>
     </phingcall>
 
     <!-- Modules, Themes and languages -->
@@ -295,7 +300,7 @@
 
   <!-- Installer languages target -->
   <target name="languages" depends="commonfiles">
-    <foreach list="languages.installer" target="copylanguage" param="language.locale"/>
+    <foreach list="languages.installer" target="copylanguage" param="language"/>
   </target>  
   
   <!-- process the list of modules for base distro -->
@@ -342,20 +347,16 @@
   </target>
   
   <!-- copy a language into the build tree -->
-  <target name="copylanguage" if="language.locale">
-    <echo msg="Copying installer locale ${language.locale} into build tree..."/>
+  <target name="copylanguage" if="language">
+    <echo msg="Copying installer locale ${language} into build tree..."/>
     
-    <!-- SPECIAL: backported from phing 2 to here, speeds up the stuff considerably -->
-    <php function="substr" returnProperty="language">
-      <param value="${language.locale}"/>
-      <param value="0"/>
-      <param value="2"/>
-    </php>
-    <copy todir="${build.html}/var/locales/${language.locale}">
-      <fileset dir="${languages.repo}/${language}/${language.locale}">
-        <include name="xml/*/installer/**"/>
-        <include name="xml/core/**"/>
-        <include name="locale.xml"/>
+    <copy todir="${build.html}/var/locales/">
+      <fileset dir="${work.basedir}/${languages.repo}/languages.${language}">
+        <include name="*/xml/*/installer/**"/>
+        <include name="*/xml/core/**"/>
+        <include name="*/locale.xml"/>
+        <exclude name="*.iso-8859-1/*"/>
+        <exclude name="MT/**"/>
         <exclude name="SCCS/**"/>
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>

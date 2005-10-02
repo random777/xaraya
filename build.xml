@@ -112,6 +112,57 @@
     </phingcall>
   </target>
 
+  <!--
+      Update targets
+
+      Updates existing working directories to a certain revision
+      TODO: currently using head, but this begs to use revision from build properties obviously
+    -->
+  <target name="update">
+    <echo message="Making sure our working directories have the right base revision"/>
+    
+    <!-- Core -->
+    <phingcall target="mt_update">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="" />
+    </phingcall>
+
+    <!-- Modules -->
+    <foreach list="modules.full" target="mod_update" param="mod.name"/>
+    <foreach list="themes.full" target="theme_update" param="theme.name"/>
+    <foreach list="languages.installer" target="lang_update" param="lang.name"/>
+  </target>
+
+  <!-- Wrapper around the monotone command -->
+  <target name="mt_update">
+    <echo message="In: ${work.basedir}/${repo}/${branch} : ${monotone} update"/>
+    <!--
+        <exec dir = "${work.basedir}/${repo}/${branch}" command="${monotone} update"/>
+        -->
+  </target>
+  <target name="mod_update" if="mod.name">
+    <phingcall target="mt_update">
+      <property name="repo" value="${modules.repo}"/>
+      <property name="branch" value="modules.${mod.name}"/>
+    </phingcall>
+  </target>
+  <target name="theme_update" if="theme.name">
+    <phingcall target="mt_update">
+      <property name="repo" value="${themes.repo}"/>
+      <property name="branch" value="themes.${theme.name}"/>
+    </phingcall>
+  </target>
+  <target name="lang_update" if="lang.name">
+    <phingcall target="mt_update">
+      <property name="repo" value="${languages.repo}"/>
+      <property name="branch" value="languages.${lang.name}"/>
+    </phingcall>
+  </target>
+
+
+
+
+
   <!-- Core distribution -->
   <target name="coredist" depends="commonfiles, languages" description=": Creates the core distribution">
     <!-- The common files actually does too much, it includes all config files, remove the invalid ones for core -->

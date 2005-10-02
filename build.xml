@@ -67,7 +67,7 @@
     <!-- Checkout of core -->
     <phingcall target="mt_checkout">
       <property name="repo" value="${core.repo}"/>
-      <property name="branch" value=""/>
+      <property name="branch" value="core"/>
     </phingcall>
 
     <!-- Modules, Themes and languages -->
@@ -86,10 +86,9 @@
   -->
   <!-- Wrapper for the monotone command -->
   <target name="mt_checkout">
-    <echo message="${monotone} -d ${repo}.db co -b '${branch.prefix}.${branch}' ${repo}/${branch}"/>
-    <!-- The 
-    <exec dir="${work.basedir}" command="${monotone} -d ${repo}.db co -b '${branch.prefix}.${branch}' ${repo}/${branch}"/>
-    -->
+    <mkdir dir="${work.basedir}/${repo}"/>
+    <echo message="${monotone} -d ${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
+    <exec dir="${work.basedir}" command="${monotone} -d ${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
   </target>
   <!-- Modules checkout -->
   <target name="mod_checkout" if="mod.name">
@@ -102,7 +101,7 @@
   <target name="theme_checkout" if="theme.name">
     <phingcall target="mt_checkout">
       <property name="repo" value="${themes.repo}"/>
-      <property name="branch" value="themes.${themes.name}"/>
+      <property name="branch" value="themes.${theme.name}"/>
     </phingcall>
   </target>
   <target name="lang_checkout" if="lang.name">

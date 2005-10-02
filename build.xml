@@ -135,9 +135,7 @@
   <!-- Wrapper around the monotone command -->
   <target name="mt_update">
     <echo message="In: ${work.basedir}/${repo}/${branch} : ${monotone} update"/>
-    <!--
-        <exec dir = "${work.basedir}/${repo}/${branch}" command="${monotone} update"/>
-        -->
+    <exec dir = "${work.basedir}/${repo}/${branch}" command="${monotone} update"/>
   </target>
   <target name="mod_update" if="mod.name">
     <phingcall target="mt_update">

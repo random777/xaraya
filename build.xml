@@ -76,9 +76,10 @@
     </phingcall>
 
     <!-- Modules, Themes and languages -->
+    <foreach list="modules.base" target="mod_checkout" param="mod.name"/>
     <foreach list="modules.full" target="mod_checkout" param="mod.name"/>
     <foreach list="themes.full" target="theme_checkout" param="theme.name"/>
-    <foreach list="languages.installer" target="lang_checkout" param="lang.name"/>
+    <foreach list="languages.installer" target="lang_checkout" param="lang.locale"/>
   </target>
   
   <!-- 
@@ -109,10 +110,16 @@
       <property name="branch" value="themes.${theme.name}"/>
     </phingcall>
   </target>
-  <target name="lang_checkout" if="lang.name">
+  <target name="lang_checkout" if="lang.locale">
+    <!-- Extract the branch from the local specified -->
+    <php function="substr" returnProperty="language">
+      <param value="${lang.locale}"/>
+        <param value="0"/>
+        <param value="2"/>
+    </php>
     <phingcall target="mt_checkout">
       <property name="repo" value="${languages.repo}"/>
-      <property name="branch" value="languages.${lang.name}"/>
+      <property name="branch" value="languages.${language}"/>
     </phingcall>
   </target>
 
@@ -134,7 +141,7 @@
     <!-- Modules -->
     <foreach list="modules.full" target="mod_update" param="mod.name"/>
     <foreach list="themes.full" target="theme_update" param="theme.name"/>
-    <foreach list="languages.installer" target="lang_update" param="lang.name"/>
+    <foreach list="languages.installer" target="lang_update" param="lang.locale"/>
   </target>
 
   <!-- Wrapper around the monotone command -->
@@ -154,15 +161,18 @@
       <property name="branch" value="themes.${theme.name}"/>
     </phingcall>
   </target>
-  <target name="lang_update" if="lang.name">
+  <target name="lang_update" if="lang.locale">
+    <!-- Extract the language part from the locale -->
+    <php function="substr" returnProperty="language">
+      <param value="${lang.locale}"/>
+      <param value="0"/>
+      <param value="2"/>
+    </php>
     <phingcall target="mt_update">
       <property name="repo" value="${languages.repo}"/>
-      <property name="branch" value="languages.${lang.name}"/>
+      <property name="branch" value="languages.${language}"/>
     </phingcall>
   </target>
-
-
-
 
 
   <!-- Core distribution -->
@@ -300,7 +310,7 @@
 
   <!-- Installer languages target -->
   <target name="languages" depends="commonfiles">
-    <foreach list="languages.installer" target="copylanguage" param="language"/>
+    <foreach list="languages.installer" target="copylanguage" param="language.locale"/>
   </target>  
   
   <!-- process the list of modules for base distro -->
@@ -322,8 +332,9 @@
   <target name="copymodulefrommodrepo" if="module.name">
     <echo msg="Copying module ${module.name} into build tree..."/>
     <copy todir="${build.html}/modules/${module.name}">
-      <fileset dir="${modules.repo}/${module.name}">
+      <fileset dir="${work.basedir}/${modules.repo}/modules.${module.name}">
         <include name="**"/>
+        <exclude name="MT/**"/>
         <exclude name="SCCS/**"/>
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>
@@ -336,8 +347,9 @@
   <target name="copythemefromthemerepo" if="theme.name">
     <echo msg="Copying theme ${theme.name} into build tree..."/>
     <copy todir="${build.html}/themes/${theme.name}">
-      <fileset dir="${themes.repo}/${theme.name}">
+      <fileset dir="${work.basedir}/${themes.repo}/themes.${theme.name}">
         <include name="**"/>
+        <exclude name="MT/**"/>
         <exclude name="SCCS/**"/>
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>
@@ -347,15 +359,19 @@
   </target>
   
   <!-- copy a language into the build tree -->
-  <target name="copylanguage" if="language">
-    <echo msg="Copying installer locale ${language} into build tree..."/>
-    
-    <copy todir="${build.html}/var/locales/">
-      <fileset dir="${work.basedir}/${languages.repo}/languages.${language}">
-        <include name="*/xml/*/installer/**"/>
-        <include name="*/xml/core/**"/>
-        <include name="*/locale.xml"/>
-        <exclude name="*.iso-8859-1/*"/>
+  <target name="copylanguage" if="language.locale">
+    <echo msg="Copying installer locale ${language.locale} into build tree..."/>
+
+    <php function="substr" returnProperty="language">
+      <param value="${language.locale}"/>
+      <param value="0"/>
+      <param value="2"/>
+    </php>
+    <copy todir="${build.html}/var/locales/${language.locale}/">
+      <fileset dir="${work.basedir}/${languages.repo}/languages.${language}/${language.locale}/">
+        <include name="xml/*/installer/**"/>
+        <include name="xml/core/**"/>
+        <include name="locale.xml"/>
         <exclude name="MT/**"/>
         <exclude name="SCCS/**"/>
         <exclude name="BitKeeper/**"/>
@@ -384,7 +400,7 @@
   </target>
   
   <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
-  <target name="realclean" depends="clean" description=": removes the whole build structure">
+  <target name="realclean" depends="clean" description=": removes the whole build structure except for the monotone parts">
     <echo msg="Real clean..."/>
     <delete dir="${build.basedir}" />
   </target>

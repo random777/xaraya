@@ -1,0 +1,1738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc editing="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+
+<rfc number="0053" category="std">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Structured Queries in Xaraya</title>
+    <author initials="M.L." surname="Lutolf" fullname="Marc Lutolf">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>marcinmilan@xaraya.com</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="September" year="2004"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>Project Management Committee</workgroup>
+
+    <!-- List keywords for the RFC here -->
+    <keyword>SQL</keyword>
+    <keyword>database</keyword>
+    <keyword>query</keyword>
+    <keyword>abstraction</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>
+        This RFC describes an implementation of structured queries through query abstraction, based on the ideas presented in <eref target="http://www.xaraya.com/documentation/rfcs/rfc0035.html">rfc35</eref>.
+      </t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction">
+      <t>
+        Structured queries are a way of making the Query Abastraction has been made necessary to give us the hability to generate
+        efficient SQL queries which are portable across all our Database Pool. It will
+        provide us a way to create queries without any preocupations about the
+        underlying storage system.
+      </t>
+      <t> Typical life cycle of a query:
+        <artwork>
+    Assembly Phase:
+    
+        - define the type of query (SELECT, INSERT, etc.)
+        - define the tables
+        - define the fields involved
+        - define conditions and filters
+        - how is the data ordered and presented (for SELECTS)
+        
+    ------------------------------------------------------------------------
+    
+    Execution Phase:
+    
+        - run the query               communicate with the database
+        
+    ------------------------------------------------------------------------
+
+    Output Phase:
+    
+        - collect the output
+        - rework as necessary (add field names, do security checks, etc.)
+        - send to output templates or
+        - send to another application for further processing
+        </artwork>
+      </t>
+      <t>
+        [N.B.: Xaraya uses adodb to communicate with the underlying database(s). The structured query does this at one specific point (class method), making it relatively simple to adjust should the database layer change.]
+      </t>
+      <t>
+        Structured queries are essentially a convenience mechanism, which allows Xaraya to work with  database queries in a more flexible and dynamic way in a number of areas:
+          <t>
+            <em>Defaults</em>
+            <list style="symbols">
+                <t>
+                    Standard database connections are automatically handled as required.
+                </t>      
+                <t>
+                    If field alias names are used, these are automatically returned in the output.
+                </t>      
+                <t>
+                    If no fields of a table are explicitly requested, all the fields of the table are returned in the output with the field names as defined in the database table.
+                </t>      
+                <t>
+                    For queries using LIMIT, the total number of records without the LIMIT clause can be  recalled in the output.
+                </t>
+                <t>
+                    Binding variables are automatically used in queries for greater performance under some databases.
+                </t>
+                <t>
+                    Enhancements to query manipulation, inasmuch as they don't come adodb itself, can be made through a single point, rather than having to go through the entire codebase and change each single query.
+                </t>
+            </list>
+        </t>
+        <t>
+            <em>Dynamic Queries</em>
+            <list style="symbols">
+                <t>
+                    Records to be retrieved and starting point can be easily specified for queries that show only a subset of records on a single page (pager mechanism).
+                </t>      
+                <t>
+                    Using simple if-statements fields and conditions can be easily added or removed. This is useful in pages that create reports based on a numer of alternative criteria. The members list page in the roles module is one example of this.
+                </t>      
+                <t>
+                    Query types can be changed on the fly. As an example, using structured queries in object creation in the roles module, you can start with a SELECT query to check if the object already exists, then turn the same query into an INSERT or UPDATE depending on the result.
+                </t>      
+            </list>
+        </t>
+        <t>
+            <em>Storage and Retrieval</em>
+            <list style="symbols">
+                <t>
+                    Structured queries can be easily passed from one page to the next, and modified on the fly. One example is the messaging page in the roles module, which can be passed a query (of a set of users) from the users view page, but will then modify that query according to new user input.
+                </t>      
+                <t>
+                    Queries can be serialized and stored for later retrieval, for instance in a session variable. This makes it possible for a user to maintain certain "current items" as he/she moves through a site. In a report-heavy module such as an accounting package, a user can define his/her own custom reports that can be easily modified on the fly.
+                </t>      
+            </list>
+        </t>
+        <t>
+            <em>Query Algebra</em>
+            <list style="symbols">
+                <t>
+                    Having structured queries that can be passed as variables and manipulated through a well defined API opens the door to combining such queries in various ways. A "query algebra" can be defined on the basis of set operations (intersection, union, difference etc.). .
+                </t>      
+                <t>
+                    One simple application of this would be to represent INSERTS, UPDATES and DELETES through a union result of combining several structured queries. Disparate tables can then be updated by applying the result query in one command. 
+                </t>      
+                <t>
+                    Another possible application is the creation of generalized DD-like structures that allow for adding extra data properties, say in the roles tree, that depend on the instance in question and are not the same for all roles.
+                </t>      
+            </list>
+        </t>
+
+      </t>
+    </section>
+
+    <section title="Objectives and Limitations">
+        <t>
+         The objective in implementing structured queries is to make query manipulation more flexible and dynamic, while not making the API to do so more complicated than what is currently used, i.e. concatenated strings.
+        </t>      
+        <t>
+         This means we are not interested in creating a complete query manipulation language per se. The implementation currently does not support CREATE clauses for instzance, although it can be extended to do so
+        </t>
+    </section>
+
+    <section title="Description">
+      <t>
+         Structured queries are implemented using the <em>xarQuery</em> class. The implementation chosen purposely works with only this single class, which represents a structured query object. All manipulation of the query is performed using this class's methods and properties.
+      </t>
+      <t> A simple example of a structured query:
+        <artwork>
+    Assembly Phase:
+    
+        $q = new xarQuery([type],[table],[fields]);     Set the query up
+        
+        $q->addtable(...);                              Add more tables
+        
+        $q->addfield(...);                              Add more fields
+        
+        $q->eq(...);                                    Add an EQ clause
+        
+    ------------------------------------------------------------------------
+    
+    Execution Phase:
+    
+        $q->run();                                      Run the query
+        
+           or 
+        
+        if (!$q->run()) return;                         Run and return an exception of failed
+        
+    ------------------------------------------------------------------------
+
+    Output Phase:
+    
+        $data['rows'] = $q->output();                   Send the output to a template
+        
+           or
+        
+        $myobject = new Object($q->output());           Use the output to create an object
+
+           or
+           
+        foreach ($q->output() as $key => $value) {      Use the output in a loop
+            ....
+        }
+        
+        </artwork>
+      </t>
+        <list style="symbols">
+            <t>
+                The first line of any structured query must be new xarQuery() in order for a query to be created.
+            </t>      
+            <t>
+                By convention the query object is called $q ($q1, $q2..if there are more), but any name that PHP will accept as an object name is possible.
+            </t>      
+            <t>
+                Other than the first line, the lines in the assemply phase do not need to be in any particular order.
+            </t>      
+            <t>
+                The $q->run(); line creates the final query statement and sends it to the database. The query object then receives the results of the query. In the case of SELECTS this is the recordset returned from the database.
+            </t>      
+            <t>
+                The expression $q->output(); creates an associative 2-dimensional array of the records found, where in each row the key of an element is the field name and the value is the contents of the field. An empty result is reurned as an empty array..
+            </t>      
+        </list>
+    </section>
+
+    <section title="The xarQuery API">
+    <t>
+        Example: Recalling a user's data from the database. The data of the user with the uname $this->uname is returned as an array.
+    </t>
+      <artwork>
+        $q = new xarQuery('SELECT',$this->rolestable);
+        $q->eq('xar_uname',$this->uname);
+        if (!$q->run()) return;
+        $foo = $q->output();      
+      </artwork>
+    <t>
+        The syntax of the class call is
+    </t>
+      <artwork>
+        $q = new xarQuery('SELECT'|'INSERT'|'UPDATE'|'DELETE',
+                          {array of query tables},
+                          {array of fields}
+        );
+      </artwork>
+      <t>
+      The class methods (to be completed):
+      </t>
+      
+      
+    <section title="Query Creation">
+<!-- xarQuery -->
+<section anchor="xarQuery" title="xarQuery([type[,table[,array([field1],[field2]..)]]])">
+    <t>
+        With the constructor method xarQuery() we can create a new structured query object that subsequently be elaborated on by the objects methods. 
+    </t>
+    <t>
+        In general the constructor will include only the type parameter, which defines the type of query created (SELECT, UPDATE etc.). The table and fields parameters are used as a shorthand for simple SELECT queries.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>type</em>
+            <t>String whose value can be SELECT, UPDATE, INSERT or DELETE. The default is SELECT.</t>
+            </t>
+            <t><em>table</em>
+            <t>String representing a database table name.</t>
+            </t>
+            <t><em>array([field1],[field2]..)</em>
+            <t>An array of database fields as strings or arrays. If [fieldx] is a string, it must correspond to a database field that is uniquely identified, such as "mytable.foo1".</t>
+            <t>If [fieldx] is an array, it can have the form described in the <xref target="addfields">addfields()</xref> method.</t>
+            <t>Note that in the case of a single database field, this parameter can also be a string representing the field's name.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery();                      // creates an empty query object
+
+$q = new xarQuery('INSERT');              // creates a query object of type INSERT
+
+$q = new xarQuery('SELECT','xar_roles');  // creates a query object on the roles table
+
+$q = new xarQuery('SELECT','xar_roles','xar_name');  
+                                          // adds a single field to the constructor
+
+$q = new xarQuery('SELECT','xar_roles',array('xar_uid','xar_name'));  
+                                          // adds a two fields to the constructor
+        </artwork>
+        </t>
+        <t>
+        A longer way of writing the last example would be:
+        <artwork>
+$q = new xarQuery('SELECT');
+$q->addtable('xar_roles');
+$q->addfield('xar_uid');
+$q->addfield('xar_name');
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- open -->
+<section anchor="open" title="open([connection])">
+    <t>
+        The open() method opens a database connection. In adodb it is equivalent to 
+        <artwork>
+$this->dbconn = xarDBGetConn();
+        </artwork>
+    </t>
+    <t>
+        The database connection is created in the <xref target="xarQuery">xarQuery()</xref> constructor method. This method is used after unserializing a stored query and before running it.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>connection</em>  (to be implemented)
+            <t>The connection to be opened. If the connection already exists it is opened. If it does not exist it is created.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = unserialize(xarSessionGetVar('foo'));
+$q->open();                 
+$q->run();              
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- close -->
+<section anchor="close" title="close([connection])">
+    <t>
+        The close() method closes a database connection.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>connection</em>  (to be implemented)
+            <t>The connection to be closed</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q->close();                 
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- openconnection -->
+<section anchor="openconnection" title="openconnection([connection])">
+    <t>
+        The openconnection() method closes a database connection.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>connection</em>  (to be implemented)
+            <t>The connection to be closed</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q->close();                 
+        </artwork>
+        </t>
+    </section>
+</section>
+
+    </section>
+    
+    
+    <section title="Tables and Fields">
+<!-- addfield -->
+<section anchor="addfield" title="addfield(name[,value]) or addfield(fieldarray)">
+    <t>
+        The addfield() method adds a single field to the current query. This method is used as a shorthand for adding fields to a SELECT query. For SELECT queries it is also possible to use the <xref target="addfields">addfields()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>name</em>
+            <t>A string representing the name of a database field to be added to the query. The parameter can have the form "foo AS bar", where bar is the <em>alias</em> of the field foo. If the alias is given it will be used when generating output with the <xref target="output">output()</xref> method. Only SELECT queries use the alias.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type. The value is used for UPDATE and INSERT queries. Queries of the type SELECT or DELETE ignore it</t>
+            </t>
+            <t><em>fieldarray</em>
+            <t>An array representing the database field to be added to the query. It has the general form:</t>
+        <artwork>
+array('name'=>'mytable.foo1'[,'value'=>'bar'[,'alias'=>'foobar']])
+        </artwork>
+            <t>As noted above, the value is only used by INSERTS and UPDATES, while the alias is only used by SELECTS.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('INSERT','xar_roles');
+$q->addfield('xar_name','Sharon Stone');  
+$q->addfield('xar_uname','moviestar');  
+$q->qecho();
+
+displays
+
+INSERT INTO xar_roles (xar_name, xar_uname) VALUES ('Sharon Stone', 'moviestar')
+        </artwork>
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->addfield('xar_uname');  
+$q->eq('xar_name','Sharon Stone');  
+$q->run();
+
+$row = $q->row();
+echo $row['uname'];
+
+displays
+
+moviestar
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- addfields -->
+<section anchor="addfields" title="addfields(array([field1],[field2]..))">
+    <t>
+        The addfields() method adds an array of fields to the current query. This method is used as a shorthand for adding fields to a SELECT query. For other query types it is better to use the <xref target="addfield">addfield()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>array([field1],[field2]..)</em>
+            <t>An array of database fields as strings or arrays. If [fieldx] is a string, it must correspond to a database field that is uniquely identified, such as "mytable.foo1".</t>
+            <t>If [fieldx] is an array, it can have the form</t>
+        <artwork>
+array('name'=>'mytable.foo1'[,'value'=>'bar'[,'alias'=>'foobar']])
+        </artwork>
+            <t>See the <xref target="addfield">addfield()</xref> method for details.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','mytable');
+$q->addfields(array('foo1','foo2','foo3'));  
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- addtable -->
+<section anchor="addtable" title="addtable(name[,alias]) or addtable(tablearray)">
+    <t>
+        The addtable() method adds a single table to the current query. This method is used as a shorthand for adding tables to a SELECT query. For a shorthand notation to add tables to a  SELECT query, you can also use the <xref target="addtables">addtables()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>name</em>
+            <t>A string representing the name of a database table. The name can have the form "foo bar" where bar is the <em>alias</em> of foo. Aliases are used to help differentiate between fields of the same name in different tables.</t>
+            </t>
+            <t><em>alias</em>
+            <t>A string representing the alias of a database table.</t>
+            </t>
+            <t><em>tablearray</em>
+            <t>An array representing the name of a database table. The array has the form:</t>
+        <artwork>
+array('name'=>'mytable'[,'alias'=>'tablealias'])
+        </artwork>
+        The name and alias correspond to the form "foo bar" given in the previous point.
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example selects the uids of all the groups the user Sharon Stone is a member of. Note the alternate syntaxes in the two addtable() methods.
+        <artwork>
+$q = new xarQuery('SELECT',);
+$q->addfield('r.xar_parentid');
+$q->addtable('xar_roles','r');
+$q->addtable('xar_rolemembers rm');
+$q->join('r.xar_uid','rm.xar_uid');
+$q->eq('xar_name','Sharon Stone');  
+$q->qecho();
+
+displays
+
+SELECT r.xar_parentid FROM xar_roles r, xar_rolemembers rm 
+WHERE r.xar_uid = rm.xar_uid AND xar_name = 'Sharon Stone'
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- addtables -->
+<section anchor="addtables" title="addtables(array([table1],[table2]..))">
+    <t>
+        The addtables() method adds an array of tables to the current query. This method is used as a shorthand for adding tables to a SELECT query. For other query types, and also for more complicated SELECTs, it is better to use the <xref target="addtable">addtable()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>array([table1],[table2]..)</em>
+            <t>An array of database tables as strings or an array. If [tablex] is a string, it must correspond to a database table.</t>
+            <t>If [tablex] is an array, it can have the form</t>
+        <artwork>
+array('name'=>'mytable'[,'alias'=>'tablealias'])
+        </artwork>
+            <t>See the <xref target="addtable">addtable()</xref> method for details.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+...
+$q->addtables(array('table1','table2','table3'));  
+...
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- getfield -->
+<section anchor="getfield" title="getfield(fieldname)">
+    <t>
+        The getfield() method returns a field in a query or NULL if the field does not exist.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>A string representing the name or alias of a field in the query.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+...
+$q->getfield('foo');  
+...
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- removefield -->
+<section anchor="removefield" title="removefield(fieldname)">
+    <t>
+        The removefield() method removes a field from a query or does nothing if the field does not exist.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>A string representing the name or alias of a field in the query.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+...
+$q->removefield('foo');  
+...
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- join -->
+<section anchor="join" title="join(fieldname1,fieldname2)">
+    <t>
+        The join() method removes a field from a query or does nothing if the field does not exist.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname1, fieldname2</em>
+            <t>Strings representing the name or alias of fields in two tables in the query that will be joined.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example selects the uids of all the groups the user Sharon Stone is a member of:
+        <artwork>
+$q = new xarQuery('SELECT',);
+$q->addfield('r.xar_parentid');
+$q->addtable('xar_roles','r');
+$q->addtable('xar_rolemembers rm');
+$q->join('r.xar_uid','rm.xar_uid');
+$q->eq('xar_name','Sharon Stone');  
+$q->qecho();
+
+displays
+
+SELECT r.xar_parentid FROM xar_roles r, xar_rolemembers rm 
+WHERE r.xar_uid = rm.xar_uid AND xar_name = 'Sharon Stone'
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- settable -->
+<section anchor="settable" title="settable(name[,alias]) or settable(tablearray)">
+    <t>
+        The settable() method is a convenience method that clears all the query's current tables and adds a single table. It is an application of the cleartables() method followed by the addtable() method. See the <xref target="addtable">addtable()</xref> method for details on the syntax.
+    </t>
+</section>
+
+
+    </section>
+    <section title="Conditions">
+
+<!-- eq -->
+<section anchor="eq" title="eq(fieldname,value)">
+    <t>
+        The eq() method adds an EQUALS condition to a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns a record from the roles table corresponding to the current user.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_uid', xarSessionGetVar('uid'));
+$q->run();
+        </artwork>
+        </t>
+        <t>
+        The following example returns all records from the roles table that represent groups.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_type', 1);
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- ge -->
+<section anchor="ge" title="ge(fieldname,value)">
+    <t>
+        The ge() method adds a GREATER THAN condition to a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns all records from the privileges table that represent READ access or higher.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->ge('xar_level', 200);
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- gt -->
+<section anchor="gt" title="gt(fieldname,value)">
+    <t>
+        The gt() method adds a GREATER THAN condition to a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns all records from the privileges table that represent READ access or higher. Same result as the example in <xref target="ge">ge()</xref>.
+        <artwork>
+$q = new xarQuery('SELECT','xar_privileges');
+$q->gt('xar_level', 100);
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- in -->
+<section anchor="in" title="in(fieldname,valuearray)">
+    <t>
+        The in() method adds an IN condition to a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>valuearray</em>
+            <t>An array of values to be compared to the field as a condition. The values must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns the records from the roles table corresponding to users that are not validated or pending approval:
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_type', 0);
+$q->in('xar_state', array(ROLES_STATE_NOTVALIDATED,ROLES_STATE_PENDING));
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- le -->
+<section anchor="le" title="le(fieldname,value)">
+    <t>
+        The le() method adds a LESS THAN OR EQUAL condition to a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns all records from the roles table that represent users that are deleted, inactive or not validated.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->le('xar_state', ROLES_STATE_NOTVALIDATED);
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- like -->
+<section anchor="like" title="like(fieldname,value)">
+    <t>
+        The like() method adds a LIKE condition to a query. This condition is used to create simple conditions based on comparisons for string fields.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            <t>Adding the % character to the value turns it into a wild card, as shown in the example below.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns all records from the roles table that represent roles whose name begin with "John".
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->like('xar_name', 'John%');
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- lt -->
+<section anchor="lt" title="lt(fieldname,value)">
+    <t>
+        The lt() method adds a LESS THAN condition to a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns all records from the roles table with a uid less than 5.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->lt('xar_xaruid', 5);
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- ne -->
+<section anchor="ne" title="ne(fieldname,value)">
+    <t>
+        The ne() method adds an NOT EQUALS condition to a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+            </t>
+            <t><em>value</em>
+            <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns the records from the roles table corresponding to groups.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->ne('xar_type', 0);
+$q->run();
+        </artwork>
+        </t>
+    </section>
+</section>
+
+      <t>
+      <list style="symbols">   
+      <t>
+        <em>regex(fieldname,value):</em> add a REGEX condition to the query.
+      </t>
+      <t>
+        <em>qand(condition1,condition2):</em> link two conditions with an AND.
+      </t>
+      <t>
+        <em>qor(condition1,condition2):</em> link two conditions with an OR.
+      </t>
+      <t>
+        <em>regex(fieldname,value):</em> add a REGEX condition to the query.
+      </t>
+      <t>
+        <em>getcondition($mycondition):</em> return a condition from the statement.
+      </t>
+      <t>
+        <em>removecondition($mycondition):</em> remove a condition from the statement.
+      </t>
+      </list>
+      </t>
+
+    </section>
+    <section title="Execution and output">
+
+<!-- output -->
+<section anchor="output" title="output()">
+    <t>
+        The output() method returns the output of a query as a 2 dimensional array where the keys of row elements corespond to the field names in the database. If the fields were defined with aliases, the aliases are used as the keys for the row elements.
+    </t>
+    <t>
+        The output() method works with SELECT statements. If the query finds no records the output method will return an empty array. To retrieve a single output row use the <xref target="row">row()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example selects and displays some data from the roles module.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles','xar_name');
+$q->lt('xar_uid',4);
+$q->run();
+echo var_dump($q->output());
+        
+displays:
+
+array(3) {
+  [0]=>array(1) {["xar_name"]=>string(9) "Everybody"}
+  [1]=>array(1) {["xar_name"]=>string(9) "Anonymous"}
+  [2]=>array(1) {["xar_name"]=>string(5) "Admin"}
+}        
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- qecho -->
+<section anchor="qecho" title="qecho()">
+    <t>
+        The qecho() method echos a query statement to the screen. This method is used for debugging queries. Note that the output of this method will vary according to whether the query has actually been run, as illustrated below.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example displays a SELECT statement that queries the xar_roles table.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_name','Anonymous');
+$q->qecho();
+        
+displays:
+
+SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
+        </artwork>
+        </t>
+        <t>
+        The same example displays lists the fields by name once the query has actually been run.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_name','Anonymous');
+$q->run();
+$q->qecho();
+        
+displays:
+
+SELECT xar_uid, xar_name, xar_type, xar_users, xar_uname, xar_email, xar_pass, 
+xar_date_reg, xar_valcode, xar_state, xar_auth_module FROM xar_roles WHERE xar_name = 'Anonymous'
+        </artwork>
+        </t>
+        <t>
+        The following example displays an UPDATE statement that updates the xar_roles table.
+        <artwork>
+$q = new xarQuery('UPDATE','xar_roles');
+$q->addfield('xar_state',ROLES_STATE_ACTIVE);
+$q->eq('xar_name','Sharon Stone');
+$q->qecho();
+        
+displays:
+
+UPDATE xar_roles SET xar_state = 3 WHERE xar_name = 'Sharon Stone'
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- row -->
+<section anchor="row" title="row([rowno])">
+    <t>
+        The row() method returns a single output row of a query as a 1 dimensional array where the keys of row elements corespond to the field names in the database. If the fields were defined with aliases, the aliases are used as the keys for the row elements.
+    </t>
+    <t>
+        The row() method works with SELECT statements. If the query finds no records the output method will return an empty array. To retrieve more than one output row at a time use the <xref target="output">output()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>rowno</em>
+            <t>An integer that refers to the row number of the output record to be retrieved. The default value is rowno = 0, or the first row in the output recordset.</t>
+            <t>Note that since the sequence of query output may be database dependent and the query itself may include sorting directives, in general nothing can be said about the sequence in which the output arrives. It is the responsibility of the programmer to ensure the rowno parameter is a valid number.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example selects and displays some data of the Anonymous user in the roles data.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles',array('xar_uid','xar_name'));
+$q->eq('xar_name','Anonymous');
+$q->run();
+echo var_dump($q->row());
+        
+displays:
+
+array(2) { 
+  ["xar_uid"]=>  string(1) "2" 
+  ["xar_name"]=>  string(9) "Anonymous" 
+}
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- run -->
+<section anchor="run" title="run([statement][,flag])">
+    <t>
+        The run() method assembles and executes a a query. If a string with a statement is given it is directly executed. If $flag is 1 then the method output() contains the resultset. If $flag is 0 then the public variable $result contains the adodb resultset.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>statement</em>
+            <t>String representing a valid SQL statement. If this parameter is not empty, the run method executes it. This is equivalent to</t>
+        <artwork>
+$this->dbconn->Execute($statement);
+        </artwork>
+        In this case the query output can be retrieved as $q->result. No output is available to the <xref target="output">output()</xref> method.
+            </t>
+            <t><em>flag</em>
+            <t>If this parameter is set to true or 1, the query output is available via the <xref target="output">output()</xref> method.</t>
+            <t>If this parameter is set to false or 0, the query output can be gotten from the public variable $q->result.</t>
+            <t>The default value for this parameter is <em>true</em>.</t>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example inserts a record into the xar_rolemembers table by executing a simple SQL statement. The code below it is equivalent.
+        <artwork>
+$q = new xarQuery();
+$q->run("INSERT INTO xar_rolemembers (xar_uid, xar_parentid) VALUES (301, 300)");
+
+$q = new xarQuery('INSERT','xar_rolemembers');
+$q->addfield('xar_parentid',300);
+$q->addfield('xar_uid',301);
+$q->run();
+        </artwork>
+        </t>
+        <t>
+        The following example gets the record of the current user in the xar_roles table by executing a simple SQL statement. The code below it is equivalent.
+        <artwork>
+$q = new xarQuery();
+$q->run("SELECT * FROM xar_roles WHERE xar_uid = " . xarSessionGetVar('uid'));
+
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_uid',xarSessionGetVar('uid'));
+$q->run();
+        </artwork>
+        Note that in the second case xarQuery by default assumes all fields are to be included in the SELECT statement. Furthermore, although the SELECT executed is the same in both cases, running the raw statement means the output will be available as $q->result, whereas in the second case it will be available through the <xref target="output">output()</xref> method.
+        </t>
+    </section>
+</section>
+
+<!-- tostring -->
+<section anchor="tostring" title="tostring()">
+    <t>
+        The tostring() method returns a query statement.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        The following example returns a SELECT statement that queries the xar_roles table.
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_name','Anonymous');
+$q->tostring();
+        
+returns:
+
+SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
+        </artwork>
+        </t>
+    </section>
+</section>
+
+
+    </section>
+
+    <section title="Miscellaneous">
+
+<!-- addorder -->
+<section anchor="addorder" title="addorder(fieldname[,direction])">
+    <t>
+        The addorder() method adds a ORDER clause to a query. If more than one addorder() is applied, the multiple sorts are applied in the order they are enocuntered. If no prior sort exists, addorder behaves like the <xref target="setorder">setorder()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+             </t>
+            <t><em>direction</em>
+            <t>String representing the direction of the sort. Allowed values are ASC (ascending) and DESC (descending). The default value is ASC.</t>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_security_levels','xar_leveltext');
+$q->setrowstodo(3);
+$q->addorder('xar_leveltext','DESC');
+$q->run();
+echo var_dump($q->output());
+        
+displays:
+
+array(3) { 
+    [0]=>  array(1) { ["xar_leveltext"]=>  string(11) "ACCESS_READ" } 
+    [1]=>  array(1) { ["xar_leveltext"]=>  string(15) "ACCESS_OVERVIEW" } 
+    [2]=>  array(1) { ["xar_leveltext"]=>  string(11) "ACCESS_NONE" } 
+}         
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- clearconditions -->
+<section anchor="clearconditions" title="clearconditions()">
+    <t>
+        The clearconditions() method removes all the conditions from a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+...
+$q->clearconditions();
+...
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- clearfield -->
+<section anchor="clearfield" title="clearfields(fieldname)">
+    <t>
+        The clearfield() method removes a single field from a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->addfield('xar_uid');
+$q->addfield('xar_name');
+$q->eq('xar_name','Anonymous');
+$q->qecho();
+
+displays
+
+SELECT xar_uid, xar_name FROM xar_roles WHERE xar_name = 'Anonymous'
+
+$q->clearfield('xar_name');
+$q->qecho();
+
+displays
+
+SELECT xar_uid FROM xar_roles WHERE xar_name = 'Anonymous'
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- clearfields -->
+<section anchor="clearfields" title="clearfields()">
+    <t>
+        The clearfields() method removes all the fields from a query.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+            </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->addfield('xar_uid');
+$q->addfield('xar_name');
+$q->eq('xar_name','Anonymous');
+$q->qecho();
+
+displays
+
+SELECT xar_uid, xar_name FROM xar_roles WHERE xar_name = 'Anonymous'
+
+$q->clearfields();
+$q->qecho();
+
+displays
+
+SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
+        </artwork>
+        Note in the last example the fact that if all fields are cleared the query will default to *, i.e. <em>all</em> fields will be chosen.
+        </t>
+    </section>
+</section>
+
+<!-- getrows -->
+<section anchor="getrows" title="getrows()">
+    <t>
+        The getrows() method returns the total number of rows that a query of type SELECT will return, regardless of whether a LIMIT clause has been defined. (see the <xref target="setrowstodo">setrowstodo()</xref> method.) 
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_security_levels');
+$q->run();
+$q->getrows();
+        
+returns:
+
+10
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- getrowstodo -->
+<section anchor="getrowstodo" title="getrowstodo()">
+    <t>
+        The getrows() method returns the number of rows that a query of type SELECT will return. This method only returns a non zero result if a LIMIT clause has been defined for the query. See also the <xref target="setrowstodo">setrowstodo()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_security_levels');
+$q->setstartat(3);
+$q->setrowstodo(5);
+$q->run();
+$total1 = count($q->output());
+$total2 = $q->getrowstodo();
+        
+returns:
+
+$total1 = 5;     (records 3 to 8)
+$total2 = 5;    
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- getstartat -->
+<section anchor="getstartat" title="getstartat()">
+    <t>
+        The getstartat() method returns the row number query output begins at. This applies to SELECT statements with LIMIT clauses. A typical example is the input for a pager that tells it which rows are being displayed on a page. See also the <xref target="setstartat">setstartat()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->setstartat(100);
+$q->setrowstodo(20);
+echo $q->getstartat();
+        
+displays:
+
+100
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- gettype -->
+<section anchor="gettype" title="gettype()">
+    <t>
+        The gettype() method returns the type of the query, e.g. SELECT, UPDATE etc. See also the <xref target="settype">settype()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->eq('xar_name','Anonymous');
+echo $q->gettype();
+        
+displays:
+
+SELECT
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- nolimits -->
+<section anchor="nolimits" title="nolimits()">
+    <t>
+        The nolimits() method disables the LIMIT clause in a SELECT statement, if such a clause is defined. The SELECT statement will return <em>all</em> the records found.  By default limits are in effect unless disabled by this method. See also the <xref target="uselimits">uselimits()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_security_levels');
+$q->setstartat(3);
+$q->setrowstodo(5);
+$q->run();
+$total1 = count($q->output());
+$q->nolimits();
+$q->run();
+$total2 = count($q->output());
+        
+returns:
+
+$total1 = 5;     (records 3 to 8)
+$total2 = 10;    (all the records)
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- setorder -->
+<section anchor="setorder" title="setorder(fieldname[,direction])">
+    <t>
+        The setorder() method sets the ORDER clause to a query. If such a clause already exists it is replaced. See also the <xref target="addorder">addorder()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>fieldname</em>
+            <t>String representing the name or alias of a field.</t>
+             </t>
+            <t><em>direction</em>
+            <t>String representing the direction of the sort. Allowed values are ASC (ascending) and DESC (descending). The default value is ASC.</t>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_security_levels','xar_leveltext');
+$q->setrowstodo(3);
+$q->setorder('xar_leveltext','DESC');
+$q->run();
+echo var_dump($q->output());
+        
+displays:
+
+array(3) { 
+    [0]=>  array(1) { ["xar_leveltext"]=>  string(11) "ACCESS_READ" } 
+    [1]=>  array(1) { ["xar_leveltext"]=>  string(15) "ACCESS_OVERVIEW" } 
+    [2]=>  array(1) { ["xar_leveltext"]=>  string(11) "ACCESS_NONE" } 
+}         
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- setrowstodo -->
+<section anchor="setrowstodo" title="setrowstodo(rowno)">
+    <t>
+        The setrowstodo() method sets the number of rows that a query of type SELECT will return. This method, together with the <xref target="setstartat">setstartat()</xref> method, defines a LIMIT clause for the query. See also the <xref target="getrowstodo">getrowstodo()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>rowno</em>
+            <t>A number that defines how many rows the query will return. If the total number of rows the query selects is smaller than rowno, then the method has no effect.</t>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_security_levels');
+$q->setstartat(3);
+$q->setrowstodo(5);
+$q->run();
+$total1 = count($q->output());
+        
+returns:
+
+$total1 = 5;     (records 3 to 8)
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- setstartat -->
+<section anchor="setstartat" title="setstartat(rowno)">
+    <t>
+        The getstartat() method sets the row number query output begins at. This applies to SELECT statements with LIMIT clauses. A typical example is the input for a pager that tells it which rows are being displayed on a page. See also the <xref target="getstartat">getstartat()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>rowno</em>
+            <t>Number representing the row query input starts at. The first row is 1. It is the programmer's responsibility to ensure the rowno parameter has a reasonable value.</t>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_roles');
+$q->setstartat(100);
+$q->setrowstodo(20);
+echo $q->getstartat();
+        
+displays:
+
+100
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- settype -->
+<section anchor="settype" title="settype(type)">
+    <t>
+        The gettype() method sets the type of the query, e.g. SELECT, UPDATE etc. See also the <xref target="gettype">gettype()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>type</em>
+            <t>String whose value can be SELECT, UPDATE, INSERT or DELETE.</t>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery();
+$q->settype('SELECT');
+$q->addtable('xar_roles');
+$q->eq('xar_name','Anonymous');
+$q->qecho();
+        
+displays:
+
+SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
+        </artwork>
+        </t>
+    </section>
+</section>
+
+<!-- uselimits -->
+<section anchor="uselimits" title="uselimits()">
+    <t>
+        The uselimits() method enables the LIMIT clause in a SELECT statement, if such a clause is defined. The SELECT statement will return the records defined by the <xref target="setstartat">setstartat()</xref> and <xref target="setrowstodo">setrowstodo()</xref> methods.  By default limits are in effect if defined unless disabled by the <xref target="nolimits">nolimits()</xref> method.
+    </t>
+    <section title="Parameters">
+        <t>
+          <list>
+            <t><em>none</em>
+             </t>
+          </list>
+        </t>
+    </section>
+    <section title="Syntax examples">
+        <t>
+        <artwork>
+$q = new xarQuery('SELECT','xar_security_levels');
+$q->setstartat(3);
+$q->setrowstodo(5);
+$q->nolimits();
+$q->run();
+$total1 = count($q->output());
+$q->uselimits();
+$q->run();
+$total2 = count($q->output());
+        
+returns:
+
+$total1 = 10;    (all the records)
+$total2 = 5;     (records 3 to 8)
+        </artwork>
+        </t>
+    </section>
+</section>
+
+    </section>
+    <section title="Examples">
+    <t>
+        <em>Note: This chapter is out of date and will be rewritten!!</em>
+    </t>
+    <t>
+        The following are equivalent:
+    </t>
+      <artwork>
+        $dbconn = xarDBGetConn();
+        $query = "SELECT * FROM $this->rolestable WHERE xar_name = '$this->name'";
+        if(!$dbconn->Execute($query)) return;
+        
+        AND
+        
+        $q = new xarQuery('SELECT',$this->rolestable);
+        $q->eq('xar_name',$this->name);
+        if (!$q->run()) return;
+        
+        AND
+        
+        $q = new xarQuery();
+        if (!$q->run("SELECT * FROM $this->rolestable WHERE xar_name = '$this->name'")) return;        
+        </artwork>    
+    <t>
+        The following are equivalent:
+    </t>
+      <artwork>
+        if (!$q->run($query)) return;
+        return q->output();
+        
+        AND
+        
+        $result = $dbconn->Execute($query);
+        if (!$result) return;
+        $invoices = array();
+        while(!$result->EOF) {
+            list($this->id) = $result->fields;
+            $invoices[] = $this->id;
+            $result->MoveNext();
+        }
+        return $invoices;
+        </artwork>    
+        <t>
+        Note that in the last code snippet some knowledge about the contents of $result is assumed.
+        </t>
+        <t>
+        Check if a role already exists:
+    </t>
+      <artwork>
+        Old code:
+         
+        $this-&gt;dbconn = xarDBGetConn();
+        // Confirm that this group or user does not already exist
+        if ($this->type == 1) {
+            $query = "SELECT COUNT(*) FROM $this->rolestable
+                  WHERE xar_name = '$this->name'";
+        } else {
+            $query = "SELECT COUNT(*) FROM $this->rolestable
+                  WHERE xar_uname = '$this->uname'";
+        }
+
+        $result = $this->dbconn->Execute($query);
+        if (!$result) return;
+
+        list($count) = $result->fields;
+
+        if ($count == 1) {//error message}
+        
+        
+        New code: Note only the WHERE clause changes depending on the role type
+         
+        // Confirm that this group or user does not already exist
+        $q = new xarQuery('SELECT',$this->rolestable);
+        if ($this->type == 1) {
+            $q->eq('xar_name',$this->name);
+        } else {
+            $q->eq('xar_uname',$this->uname);
+        }
+
+        if (!$q->run()) return;
+
+        if ($q->getrows() == 1) {//error message}
+        </artwork>
+    <t>
+        Adding a group or user to the roles table
+    </t>
+    <t>
+        Old code: Note the query code is repeated twice depending on whether the role to be added ia a user or a group.
+    </t>         
+      <artwork>
+$this-&gt;dbconn = xarDBGetConn();
+$nextId = $this->dbconn->genID($this->rolestable);
+$createdate = mktime();
+
+if ($this->type == 1) {
+    $query = "INSERT INTO $this->rolestable
+                (xar_uid, xar_name, xar_type, xar_uname, xar_valcode, xar_date_reg)
+              VALUES (?, ?, ?, ?, ?, ?)";
+    $bindvars = array(
+        $nextId, 
+        $this->name, 
+        $this->type, 
+        $this->uname, 
+        $this->val_code,
+        $createdate,
+    );
+} else {
+    $query = "INSERT INTO $this->rolestable
+                (xar_uid, xar_name, xar_type, xar_uname, xar_email, xar_pass,
+                xar_date_reg, xar_state, xar_valcode, xar_auth_module)
+              VALUES (?,?,?,?,?,?,?,?,?,?)";
+    $bindvars = array(
+        $nextId,
+        $this->name,
+        $this->type,
+        $this->uname,
+        $this->email,
+        md5($this->pass),
+        $createdate,
+        $this->state,
+        $this->val_code,
+        $this->auth_module,
+    );
+}
+// Execute the query, bail if an exception was thrown
+if (!$this->dbconn->Execute($query, $bindvars)) return;
+      </artwork>
+    <t>
+        New code: Note the query is assembled incrementally. The structured query handles the binding variables (? in the old code) internally.
+    </t>
+      <artwork>         
+$nextId = $this->dbconn->genID($this->rolestable);
+
+$q = new xarQuery('INSERT',$this->rolestable);
+$q->addfield(xar_uid,$nextId);
+$q->addfield(xar_name,$this->name);
+$q->addfield(xar_uname,$this->uname);
+$q->addfield(xar_date_reg,mktime());
+$q->addfield(xar_valcode,$this->val_code);
+if ($this->type == 1) {
+    $q->addfield(xar_type,1);
+} else {
+    $q->addfield(xar_type,0);
+    $q->addfield(xar_email,$this->email);
+    $q->addfield(xar_pass,md5($this->pass));
+    $q->addfield(xar_state,$this->state);
+    $q->addfield(xar_auth_module,$this->auth_module);
+}
+// Execute the query, bail if an exception was thrown
+if (!$q->run()) return;
+        </artwork>
+    </section>
+    </section>
+
+  </middle>
+
+  <!-- Back matter is used for references and appendices which come after the references -->
+  <back>    
+    <!-- Any section after this will become an appendix -->
+    <section title="Example appendix">
+      <t>Any section which is present after the references will become an appendix</t>
+    </section>
+  </back>
+</rfc>

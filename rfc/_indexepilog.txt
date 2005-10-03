@@ -1,0 +1,38 @@
+        </list>
+      </t>
+    </section>
+    
+    <section title="Terminology">
+      <t>
+        Several terms are used in RFC documents. This section tries to explain them.
+      </t>
+      
+      <section title="RFC (Request For Comment)">
+        <t>
+          Outlines the proposal/idea for comment. Stakeholders comment
+          as needed. The lead author collects comments and incorporates
+          them into the document. Through the RFC process, additional
+          reviewers/stakeholders may be identified. In this case, the
+          RFC is also submitted for their review. When all comments have
+          been captured, integrated/addressed, the RFC should represent
+          the best available solution. The status (category) of the RFC continuously
+          reflects how the content should be interpreted. See RFC2026 (
+          http://www.ietf.org/rfc/rfc2026.txt ) for the 'master'
+          process on which we base our meaning of RFCs. Obviously we dont have the
+          master process implemented, but that document will give you a very good
+          picture on how RFCs should be treated.
+        </t>
+      </section>
+    </section>
+    
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>
+        <list style="numbers">
+          <t>Created</t>
+        </list>
+      </t>
+    </section>
+    
+  </middle>
+</rfc>

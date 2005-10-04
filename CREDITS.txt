@@ -4,7 +4,7 @@ Please read the credit files for the individual projects and softwares listed at
 Xaraya Credits
 ================
 
-Xaraya is, as many successful Open Source products, a huge collaborative effort spanning many diverse talents from across the globe.  The list below gives an accurate as possible picture of the people that have helped in the development of this software.
+Xaraya is, as many successful Open Source products are, a global, collaborative effort spanning many diverse talents.  The list below gives an accurate as possible picture of the people that have helped in the development of this software.
 
 Xaraya was originally known as PostNuke, and was a fork of PHPNuke by Francisco Burzi.  Many of the concepts in that program survive even though the code does not.  We (and PHPNuke, of course) were also influenced by earlier products such as slash and thatware, and I'm sure that we could trace the lineage back to the earliest weblog if we wanted to.  Open Source at work is taking the best ideas floating around the web and building a product out of them, and that's where we hope that Xaraya is heading.
 
@@ -55,7 +55,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Curtis Hays (stratagem)
   
-  Daniel Barabas (Baraboom)
+  Daniel Barabas (baraboom)
 
   David Taylor (dtaylor)
 

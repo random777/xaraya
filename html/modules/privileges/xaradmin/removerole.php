@@ -69,6 +69,14 @@ function privileges_admin_removerole()
 
         //Try to remove the privilege and bail if an error was thrown
         if (!$role->removePrivilege($priv)) {return;}
+        
+        //REVIEW: This should be called with $callerModName as privileges or roles?
+        //Or both?
+        $pargs = array();
+        $pargs['module'] = 'privileges';
+        $pargs['itemtype'] = 0;
+        $pargs['itemid'] = $pid;
+        xarModCallHooks('item', 'update', $pid, $pargs);
 
         xarSessionSetVar('privileges_statusmsg', xarML('Role Removed',
                         'privileges'));

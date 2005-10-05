@@ -93,13 +93,13 @@
 <!ENTITY misc SYSTEM "parts/misc.xml">
 <!ENTITY conclusion SYSTEM "parts/conclusion.xml">
 
-<!ENTITY appendix-a SYSTEM "appendixa-xarayalicense.xml">
-<!ENTITY appendix-b SYSTEM "appendixb-createdatabase.xml">
-<!ENTITY appendix-c SYSTEM "appendixc-shorturl.xml">
-<!ENTITY appendix-d SYSTEM "appendixd-createtheme.xml">
-<!ENTITY appendix-e SYSTEM "appendixe-pntoxar.xml">
-<!ENTITY appendix-f SYSTEM "appendixf-redhat9.xml">
-<!ENTITY appendix-g SYSTEM "appendixg-standards.xml">
+<!ENTITY appendix-a SYSTEM "appendices/appendixa-xarayalicense.xml">
+<!ENTITY appendix-b SYSTEM "appendices/appendixb-createdatabase.xml">
+<!ENTITY appendix-c SYSTEM "appendices/appendixc-shorturl.xml">
+<!ENTITY appendix-d SYSTEM "appendices/appendixd-createtheme.xml">
+<!ENTITY appendix-e SYSTEM "appendices/appendixe-pntoxar.xml">
+<!ENTITY appendix-f SYSTEM "appendices/appendixf-redhat9.xml">
+<!ENTITY appendix-g SYSTEM "appendices/appendixg-standards.xml">
 ]>
 <book lang="en">
   <bookinfo>

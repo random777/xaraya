@@ -15,7 +15,7 @@ FOP=fop
 # which unfortunately can live in many different locations, we add the ones
 # we know and use (uncomment) the relevant one when making
 # Darwinports
-DBXSL=/opt/local/share/xsl/docbook-xsl/
+DBXSL=/opt/local/share/xsl/docbook-xsl
 # Gentoo on newton
 #DBXSL=/usr/share/sgml/docbook/xsl-stylesheets-1.69.1/
 

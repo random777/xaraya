@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Variable validation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Xaraya Architecture"
+HREF="c71.html"><LINK
+REL="PREVIOUS"
+TITLE="User variables"
+HREF="x77.html"><LINK
+REL="NEXT"
+TITLE="Error handling"
+HREF="x161.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x77.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Xaraya Architecture</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x161.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN133"
+>2.3. Variable validation</A
+></H1
+><P
+>&#13;         Xaraya includes a transparent mechanism for variable validation.
+         It's currently used by two API functions: <CODE
+CLASS="function"
+>xarUserValidateVar()</CODE
+> and
+	 <CODE
+CLASS="function"
+>xarUserSetVar()</CODE
+>.
+         The validation works thanks to the Dynamic User Data architecture.
+         As you saw in the above section, with Dynamic User Data you can register new user variables
+         simply by providing its metadata.
+         That metadata can also contain a special field denoted by the validation key.
+         A powerful syntax has been invented for this field.
+         All what you need to do is to follow the right syntax and write your own validator(s), later
+         you register it with user variable metadata and now you can get rid of validation in your
+         module functions.
+         Simply when you call <CODE
+CLASS="function"
+>xarUserSetVar()</CODE
+>,
+	 Xaraya will automatically apply your validator(s) and if
+         the check fails you will be notified of that by the return value.
+	 To compensate for all this loss of control on validation, a new API function has been created.
+	 You can validate an user variable value with the <CODE
+CLASS="function"
+>xarUserValidateVar()</CODE
+> function.
+	 That gives you the possibility to first validate all variables from user input and second
+	 update them if all validation checks have succeeded.
+      </P
+><P
+>&#13;         Here is the grammar for the validation string:
+	 <PRE
+CLASS="programlisting"
+>&#13;         validation_string := validator_list
+         validator_list := validator [ + '&#38;' + validator_list ]
+         validator := ['!' +] type + ':' + operator + ':' + param
+	 </PRE
+>
+
+         Reserved characters to be escaped with a preceeding '\' are: ':' and '&#38;'
+      </P
+><P
+>&#13;         <VAR
+CLASS="parameter"
+>type</VAR
+> can be one of these values:    'num', 'string', 'stringlen', 'func'
+      </P
+><P
+>&#13;         <VAR
+CLASS="parameter"
+>operator</VAR
+> is type-sensitive:
+      </P
+><P
+>&#13;         valid operators for <VAR
+CLASS="parameter"
+>num</VAR
+> type are:      ==, !=, &#60;, &#62;, &#60;=, &#62;=
+      </P
+><P
+>&#13;         valid operators for <VAR
+CLASS="parameter"
+>string</VAR
+> type are:   is, contains, starts, ends, regex
+      </P
+><P
+>&#13;         valid operators for <VAR
+CLASS="parameter"
+>stringlen</VAR
+> are the same as <VAR
+CLASS="parameter"
+>num</VAR
+> type.
+      </P
+><P
+>&#13;         there's only one valid operator for <VAR
+CLASS="parameter"
+>func</VAR
+> type: it's a string composed from ModName + ',' + FuncName.
+         FuncName MUST be exported as an user API function from ModName module.
+      </P
+><P
+>&#13;         <VAR
+CLASS="parameter"
+>param</VAR
+> is the second parameter to be used with operator,
+         except for the <VAR
+CLASS="parameter"
+>func</VAR
+> type: here param is the second parameter that
+         will be passed to FuncName function.
+      </P
+><P
+>&#13;         You can create complex validators simply by concatenating them with the logic &#38; (AND) operator.
+      </P
+><P
+>&#13;         Here are some examples:
+         <PRE
+CLASS="programlisting"
+>&#13;// validation string = "string:starts:foo bar"
+// validation will succeed
+xarUserSetVar("myVar", "foo bar is better than bar foo");
+// validation will fail
+xarUserSetVar("myVar", "bar foo is ugly");
+
+// validation string = "string:starts:foo\\: bar&#38;stringlen:&#60;=:16"
+// NOTE: if you need to use the ':' character you have to
+//       escape it with a preceding '\'
+// validation will succeed
+xarUserSetVar("myVar", "foo: bar is good");
+// validation will fail, the string is too long
+xarUserSetVar("myVar", "foo: bar is better");
+
+// validation string = "!string:regex:/(censored1|censored2)/"
+// NOTE: the negation operator before the string type
+// validation will succeed
+xarUserSetVar("myVar", "i'm a good boy, i'm not posting something bad");
+// validation will fail
+xarUserSetVar("myVar", "i'm a bad boy, you are a censored1");
+
+// validation string = "num:&#62;=:1&#38;num:&#60;=:10"
+// validation will succeed
+xarUserSetVar("myVar", "5");
+// validation will fail
+xarUserSetVar("myVar", "12");
+
+// validation string = "func:MyModule,MyFunc:none"
+// IMPORTANT: if your validation function works only with the
+//            variable value you must specify that param has not
+//            to be passed to function.
+//            You achieve that by simply setting it to 'none'
+// validation will succeed
+xarUserSetVar("myVar", "Homer Simpson");
+// validation will fail
+xarUserSetVar("myVar", "Marco Canini");
+
+// MyModule user API
+
+function MyModule_userapi_MyFunc($args)
+{
+    extract($args);  // $value
+    $ssconn = StarShip::openConnection();
+    return !$ssconn-&#62;isAlienLifeForm($value);
+}
+         </PRE
+>
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x77.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x161.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>User variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c71.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Error handling</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

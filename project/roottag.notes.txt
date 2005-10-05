@@ -1,0 +1,30 @@
+Notes for roottag scenario:
+
+
+Postponed:
+==========
+[POSTPONED] adapt the meta block to use the right content type in the meta equiv part
+This is not that trivial in our current setup. The module space stuff is done
+first, at which time the content type for the http-equiv isn't known yet.
+In the tpl_order scenario this could be solved, but now, the information just
+isn't known yet, lets hope the actual header takes precedence over the meta
+tag by browsers.
+[POSTPONED] test much better what happens when there is no xar:blocklayout tag at all.
+(at the moment, at least mozilla renders properly, defaulting to text/html, iso8859-1,
+maybe due to the metablock)
+
+Done:
+=====
+[DONE] - the version attribute is required
+[DONE] - the default value of the content type is text/html
+[DONE] - adapting the RSS page template
+[DONE] - anything before xar:blocklayout is NOT part of the output generation
+but part of the template.  Example: <?xml version="1.0"?> before
+xar:blocklayout designates the format of the template, it has nothing
+to do with the xml header for the output. In this respect the current
+BLcompiler is wrong.  (and incapable of determining where the output
+generation should start, as we have no roottag at the moment)
+[DONE] - testing for a proper closing tag for xar:blocklayout
+[DONE] - xar:blocklayout tag can only occur once in *a* template, period.
+[DONE] - a xar:blocklayout tag can only appear in a page template, not in module templates or block templates
+[DONE] - it must occur before all other tags in our namespace as it is the root tag

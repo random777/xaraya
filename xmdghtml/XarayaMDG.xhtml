@@ -1,0 +1,3371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:xalan="http://xml.apache.org/xalan" xmlns:urlencoder="http://www.jclark.com/xt/java/java.net.URLEncoder" xmlns:system="http://www.jclark.com/xt/java/java.lang.System" xmlns:xt="http://www.jclark.com/xt" xmlns:help="http://openoffice.org/2000/help" xmlns:config="http://openoffice.org/2001/config" xmlns:meta="http://openoffice.org/2000/meta" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:script="http://openoffice.org/2000/script" xmlns:form="http://openoffice.org/2000/form" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:dr3d="http://openoffice.org/2000/dr3d" xmlns:chart="http://openoffice.org/2000/chart" xmlns:svg="http://www.w3.org/2000/svg" xmlns:number="http://openoffice.org/2000/datastyle" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:draw="http://openoffice.org/2000/drawing" xmlns:table="http://openoffice.org/2000/table" xmlns:text="http://openoffice.org/2000/text" xmlns:style="http://openoffice.org/2000/style" xmlns:office="http://openoffice.org/2000/office">
+<head>
+<!--The CSS style header method for setting styles-->
+<style type="text/css">
+<!--
+
+        *.OOo_defaults, *.Table1, *.Table1A, *.Table1A1, *.P1, *.P2, *.P3, *.P4, *.P5, *.P6, *.P7, *.P8, *.P9, *.P10, *.P11, *.P12, *.P13, *.P14, *.P15, *.P16, *.P17, *.P18, *.P19, *.P20, *.P21, *.P22, *.P23, *.P24, *.P25, *.P26, *.P27, *.P28, *.P29, *.P30, *.P31, *.P32, *.P33, *.P34, *.P35, *.P36, *.P37, *.P38, *.P39, *.P40, *.P41, *.P42, *.P43, *.P44, *.P45, *.P46, *.P47, *.P48, *.P49, *.P50, *.P51, *.P52, *.P53, *.P54, *.P55, *.P56, *.T1, *.T2, *.T3, *.T4, *.T5, *.T6, *.T7, *.T8, *.T9, *.T10, *.T11, *.T12, *.T13, *.T14, *.T15, *.T16, *.T17, *.T18, *.T19, *.T20, *.T21, *.T22, *.T23, *.T24, *.T25, *.T26, *.T27, *.T28, *.fr1, *.Sect1, *.Sect2 {
+                margin-top:0cm; margin-bottom:0cm; }
+         *.Table1A {
+                width:6in; }
+        *.Table1A1 {
+                padding: 0inch; }
+        *.T1 {
+                font-weight:bold; }
+        *.T3 {
+                color:#000000; }
+        *.T4 {
+                color:#000000; font-weight:bold; }
+        *.T5 {
+                color:#000000; font-family:; font-size:10pt; }
+        *.T6 {
+                color:#000000; font-style:italic; }
+        *.T7 {
+                color:#800000; font-family:; font-size:9pt; }
+        *.T8 {
+                color:#008080; font-family:; font-size:9pt; }
+        *.T9 {
+                color:#000000; font-family:; font-size:9pt; }
+        *.T10 {
+                color:#008000; font-family:; font-size:9pt; }
+        *.T11 {
+                color:#ffff00; font-family:; font-size:9pt; font-style:italic; }
+        *.T12 {
+                color:#008080; font-family:; font-size:9pt; font-weight:bold; }
+        *.T13 {
+                color:#000000; font-family:; font-size:9pt; font-weight:bold; }
+        *.T14 {
+                font-style:italic; }
+        *.T16 {
+                font-style:italic; font-weight:bold; }
+        *.T17 {
+                font-family:; }
+        *.T18 {
+                font-family:; font-size:9pt; font-style:normal; font-weight:normal; }
+        *.T19 {
+                font-family:; font-style:normal; }
+        *.T20 {
+                font-family:; }
+        *.T21 {
+                color:#000000; font-style:italic; font-weight:bold; }
+        *.T22 {
+                color:#000000; font-family:; font-size:10pt; font-style:italic; }
+        *.T23 {
+                font-family:; }
+        *.T25 {
+                font-family:; font-size:10pt; }
+        *.T27 {
+                text-decoration:underline; }
+        
+            //-->
+</style>
+</head>
+<body>
+  
+  <p class="P3"/>
+  <p class="P4"/>
+  <p class="P4"/>
+  <p class="P4"/>
+  <p class="P4"/>
+  <p class="P4">Xaraya Module Developers Guide</p>
+  <p class="P5"/>
+  <p class="P5">
+<img width="194" height="86" src="" class="fr1">
+    
+   </img>
+<br/>
+</p>
+  <p class="P4"/>
+  <p class="P4"/>
+  <p class="P4"/>
+  <p class="P4"/>
+  <p class="P6">Submitted to</p>
+  <p class="P6">Xaraya Development Community</p>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6">Prepared by</p>
+  <p class="P6">Scot R. Gardner</p>
+  <p class="P6">Xaraya Development Team</p>
+  <p class="P6">September 21, 2003</p>
+  <p class="P7">revised August 15, 2004</p>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <p class="P6"/>
+  <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P8"/>
+  <p class="P9"/>
+  <p class="P9"/>
+  <p class="P9"/>
+  <ul class="WW8Num1">
+   <li>
+    <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P10">Xaraya Developers Guide</h1>
+   </li>
+  </ul>
+  <p class="P11">Table of Contents</p>
+  
+   
+   
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Xaraya Developers Guide</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Abstract</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Introduction</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Discussion</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>What is a module?</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Why write a module?</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Related Documents</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Suggestions and Updates</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Xaraya Architecture</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Variable handling</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>User Variables</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Variable validation</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Error handling</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Xaraya Module Design</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Separation of User and Administrator Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Separation of Display and Operational Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Single Directory Installation</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>External Access to Module Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Xaraya Module Operations</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Locating Modules</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Working out Module Functionality</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Initializing Modules</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Activating/Deactivating Modules</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Calling Module Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Creating Module URLs</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Direct URLs to functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Before Starting Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Choosing a Name for Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Decide on the Type of Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Register Your Module Name</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Obtain a Copy of the Xaraya API Reference Guide</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Read the Notes on Developing Modules Section</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Understand the Following Areas</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Difference between GUI and Operational Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>The Xaraya Security Model</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Function Return Codes</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Where Modules Fit in Xaraya</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Design Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Consider Including the Standard Module Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Use Standard Function Names</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>User Display Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>User API Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Administration Display Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Administration API Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Find out What Utility Modules are Available</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Module Directory Structure</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Building Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Make Your Initial Directory</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Copy the Module Example</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Code your Database Tables</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Write your Initialization Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Test Your Initialization Routines</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Write Your Administration Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Test Your Administration Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Write Your User Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Test Your User Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Write Your Blocks</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Test Your Blocks</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Document Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Packaging Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Interacting With Other Modules</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Overview</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Hooks</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Calling Hooks</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Writing Hooks</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td> Writing Hook Functions</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Registering Hooks</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Un-registering Hooks</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Function Calls</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Upgrading Your Module</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Notes in Developing Modules</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Use xarAPI</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Security</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Variable Handling</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Authorization</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Reserved Variable Names</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Page Path</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Output</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Using Object Oriented Code</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Recommendations</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Glossary</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Appendix A</td>
+</tr>
+</table>
+    <table xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" border="0" class="P12">
+<colgroup>
+<col style="width: 6in"/>
+</colgroup>
+<tr>
+<td>Module Developers Check List</td>
+</tr>
+</table>
+   
+  
+  <span class="Sect2">
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P13"/>
+    </li>
+   </ul>
+   <p class="P14"/>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Abstract</h1>
+    </li>
+   </ul>
+   <p class="P14">        <span class="T1">Xaraya</span> is currently in beta production and rapidly approaching a final release. The initial installation package includes <span class="T1">core</span> functionality for a basic content management solution listing of registered modules on Xaraya.com includes sixty-two content-based modules registered for a certified Xaraya identification number. Thirty-nine of those modules are currently completed or under development by members of the Xaraya development team. </p>
+   <p class="P14"/>
+   <p class="P14">        Third party developers have a concept or idea that they want to contribute to the project, but lack the proper tools that will allow them to submit <span class="T1">API</span>
+<span class="WW-FootnoteCharacters"/> compliant modules for certification. A series of polls posted on Xaraya websites have revealed the need for this type of training document and have produced a list of suggested modules to choose from for use as examples in the development guide. Current research for this project was conducted by reading through the Xaraya code, developer comments and notes as well as existing documentation located in the beta repositories.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Introduction</h1>
+    </li>
+   </ul>
+   <p class="P14">        Xaraya is an extensible, open source platform written in <span class="T1">PHP</span>
+<span class="WW-FootnoteCharacters"/> and licensed under the <span class="T1">GNU</span> General Public License. Xaraya utilizes permissions, data management, and modular systems to dynamically integrate and manage content. Xaraya's modular, database independent architecture introduces the need for add-on modules that will enhance its functionality and produce a customizable solution that will meet any web masters needs.</p>
+   <p class="P14"/>
+   <p class="P14">        Xaraya's modular, database-independent architecture provides tools, which separate form, function, content, and design on the site. Xaraya delivers the requisite infrastructure for a fully dynamic multi-platform Content Management Solution (CMS).</p>
+   <p class="P14"/>
+   <p class="P14">        * Database-driven website engine (<span class="T1">PHP</span>-<span class="T1">ADODB</span> compliant)</p>
+   <p class="P14"/>
+   <p class="P14">        * Extensible through a variety of third-party modules</p>
+   <p class="P14"/>
+   <p class="P14">        * Powerful security module for multi-level user/administrator logins</p>
+   <p class="P14"/>
+   <p class="P14">        * Distribute workload using User/Administrator management tools</p>
+   <p class="P14"/>
+   <p class="P14">        * Robust article management system</p>
+   <p class="P14"/>
+   <p class="P14">        * Fully editable &amp; manageable News, Links, Downloads, and FAQ Sections</p>
+   <p class="P14"/>
+   <p class="P14">        * <span class="T1">BlockLayout</span> Theme Engine: Display your site your way</p>
+   <p class="P14"/>
+   <p class="P14">        * News Feed Manager: Access thousands of <span class="T1">RSS</span>-compliant news feeds</p>
+   <p class="P14"/>
+   <p class="P16">* Site Statistics: Tracks browser &amp; operating system, top news &amp; articles, and more</p>
+   <p class="P14"/>
+   <p class="P14">        * Easy install on most Unix/Linux and Windows platforms</p>
+   <p class="P14"/>
+   <p class="P14">        * Import information from <span class="T1">PostNuke, PHP-Nuke, phpBB2</span> and <span class="T1">Moveable Type</span> installations</p>
+   <p class="P14"/>
+   <p class="P14">        Xaraya reduces web site development costs by introducing sophisticated administration tools &amp; services, which separate form, function, content, and design. With Xaraya, you work in a simple, structured environment so you can rapidly develop your website with diverse content, including:</p>
+   <p class="P14"/>
+   <p class="P14">        * News Articles</p>
+   <p class="P14"/>
+   <p class="P14">        * Web Links Directory</p>
+   <p class="P14"/>
+   <p class="P14">        * Job Boards</p>
+   <p class="P14"/>
+   <p class="P14">        * Frequently Asked Questions</p>
+   <p class="P14"/>
+   <p class="P14">        * File Downloads</p>
+   <p class="P14"/>
+   <p class="P14">        * Photo Gallery</p>
+   <p class="P14"/>
+   <p class="P14">        * Member profiles</p>
+   <p class="P14"/>
+   <p class="P14">        * Web forums (message boards)</p>
+   <p class="P14"/>
+   <p class="P14">        * Articles Repository (i.e.: Knowledge base, cooking recipes, product reviews, news articles, etc.)</p>
+   <p class="P14"/>
+   <p class="P14">With more than forty active developers spanning five continents and ten languages, the Xaraya Development Team is a blend of some of the best and brightest developers in the open source community. We expect the best of one another. As a result, you can expect the best from Xaraya.</p>
+   <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P17">Discussion</h1>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">What is a module?</h1>
+    </li>
+   </ul>
+   <p class="P14">        The Xaraya system allows for expansion of its functionality using modules. A module is a set of files containing functions with predefined names and roles that integrate very easily with a standard deployment of Xaraya. A module can also include blocks, images, plain HTML files etc.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Why write a module?</h1>
+    </li>
+   </ul>
+   <p class="P14">        There are a number of reasons to write a module. The main reason is that Xaraya does not provide a specific function that you would like. Examples of modules that are currently available for Xaraya include bulletin boards, photo galleries, address books, and personal information managers.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Related Documents</h1>
+    </li>
+   </ul>
+   <p class="P14">        Other documents that might be of use in conjunction with this guide are the <span class="T1">API</span> Reference Command Reference, the Theme Development guide, and the Output Functions Guide. Note that the Theme and Output guide remain unwritten at this point.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Suggestions and Updates</h1>
+    </li>
+   </ul>
+   <p class="P18">The Xaraya module system is a work-in-progress. There are no doubt many good ideas out there that have not been incorporated into the Xaraya module system, and if a developer has a request for a particular set of functionality then they can submit it to the Xaraya features request list at the <a href="http://bugs.xaraya.com/">
+<span class="Internetlink">Xaraya Homepage</span>
+</a>. If you have found a bug within the current module system then you can submit it to the bug list at the same address. </p>
+   <p class="P19">        Please note that the main requirement for the Xaraya module design is stability. Due to this, it is possible that your request for new or updated functionality will be refused because it is too specific, can easily be built from core <span class="T1">API</span> functions, or carries out work that should rightly be done by a module. In such situations, the Xaraya team will always try to provide a simple alternative, but please remember that submission of a new or updated addition to the module design does not guarantee inclusion. </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Xaraya Architecture</h1>
+    </li>
+   </ul>
+   <p class="P20">This chapter describes the basic architecture of Xaraya, explains the major parts, and contains information on the design choices made for the system.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Variable handling</h1>
+    </li>
+   </ul>
+   <p class="P21">        Variables are loaded through xarVarFetch calls in order to be processed, checked for validity, as well as proper handling on unset vars, etc.  Instead of relying on $_POST or $_GET calls throughout your module and then cleaning the input, Xaraya has a very robust way of handling the variable.</p>
+   <p class="P21"/>
+   <p class="P21">An example call would be:</p>
+   <p class="P21"/>
+   <p class="P21">    if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10, XARVAR_NOT_REQUIRED)) return;</p>
+   <p class="P21"/>
+   <ul class="L1">
+    <li>
+     <ul>
+      <li>
+       <p class="P22">Fetches the $name variable from input variables and validates it by applying the $validation rules.</p>
+       <p class="P22"/>
+      </li>
+     </ul>
+    </li>
+   </ul>
+   <p class="P21">1st try to use the variable provided, if this is not set (Or the XARVAR_DONT_REUSE flag is used) then it try to get the variable from the input (POST/GET methods for now)  Then tries to validate the variable through xarVarValidate.  </p>
+   <p class="P21"/>
+   <p class="P21">After the call the $value parameter passed by reference is set to the variable value converted to the proper type according to the validation applied.</p>
+   <p class="P21"/>
+   <p class="P21">The $defaultValue provides a default value that is returned when the variable is not present or doesn't validate correctly.</p>
+   <ul class="L2">
+    
+   </ul>
+   <p class="P21"> The $flag parameter is a bitmask between the following constants: XARVAR_GET_OR_POST, XARVAR_GET_ONLY,</p>
+   <p class="P21"> XARVAR_POST_ONLY, XARVAR_NOT_REQUIRED.</p>
+   <p class="P21"> </p>
+   <p class="P21"> You can force to get the variable only from GET parameters or POST parameters by setting the $flag parameter to one of XARVAR_GET_ONLY or XARVAR_POST_ONLY.</p>
+   <p class="P21"> </p>
+   <p class="P21"> You can force xarVarFetch not to reuse the variable by setting the $flag parameter to XARVAR_DON_REUSE.</p>
+   <p class="P21"> </p>
+   <p class="P21"> By default $flag is XARVAR_GET_OR_POST which means that xarVarFetch will lookup both GET and POST parameters and that if the variable is not present or doesn't validate correctly an exception will be raised.</p>
+   <p class="P21"> </p>
+   <p class="P21"> The $prep flag will prepare $value by passing it to one of the following:</p>
+   <p class="P21">  XARVAR_PREP_FOR_NOTHING:    no prep (default)</p>
+   <p class="P21">  XARVAR_PREP_FOR_DISPLAY:    xarVarPrepForDisplay($value)</p>
+   <p class="P21">  XARVAR_PREP_FOR_HTML:       xarVarPrepHTMLDisplay($value)</p>
+   <p class="P21">  XARVAR_PREP_TRIM:           trim($value)</p>
+   <ul class="L3">
+    
+   </ul>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">User Variables</h1>
+    </li>
+   </ul>
+   <p class="P25">
+<span class="T3">A user variable is an entity identified by a name that stores a value owned by exactly one user. Xaraya offers two </span>
+<span class="T4">API</span>
+<span class="T3"> functions to manipulate user variables, they are </span>
+<span class="T5">xarUserGetVar()</span>
+<span class="T3"> and </span>
+<span class="T5">xarUserSetVar()</span>
+<span class="T3">. The purpose of </span>
+<span class="T5">xarUserGetVar()</span>
+<span class="T3"> is to allow read access to one user variable. In contrast to that, </span>
+<span class="T5">xarUserSetVar()</span>
+<span class="T3"> allows write access to one user variable. The </span>
+<span class="T6">$name</span>
+<span class="T3"> parameter is checked against </span>
+<span class="T4">metadata</span>
+<span class="T3"> to make sure the variable is registered. Xaraya keeps some </span>
+<span class="T4">metadata</span>
+<span class="T3"> about every user variable, so you cannot access the </span>
+<span class="T6">$name</span>
+<span class="T3"> user variable if its metadata is not registered. </span>
+</p>
+   <p class="P25">
+<span class="T3">A module can register a new user variable by providing its </span>
+<span class="T4">metadata</span>
+<span class="T3"> only if it has the right permissions (permissions are checked by the registration function). Usually the registration process should take place at initialization time for a module that wants to use the </span>
+<span class="T6">$name</span>
+<span class="T3"> user variable during its life cycle. </span>
+</p>
+   <p class="P26">
+<span class="T3">Xaraya does not impose any restriction on the value of </span>
+<span class="T6">$name</span>
+<span class="T3"> except for duplicate and reserved names. As of this writing, the list of reserved names consists of </span>
+</p>
+   <p class="P27">uid </p>
+   <p class="P28">The user id. </p>
+   <p class="P27">name </p>
+   <p class="P28">The user display name on the system. “Name” should be used in any case that you are displaying the user name, IE author fields, etc. </p>
+   <p class="P27">uname </p>
+   <p class="P28">The user name is the system variable used to differentiate one user from another in string vice integer format. This variable should not be used to display information about the user for consistency and security reasons. </p>
+   <p class="P27">email </p>
+   <p class="P28">The email address of the user. </p>
+   <p class="P27">status </p>
+   <p class="P28">The status of the user (active, inactive, deleted etc). </p>
+   <p class="P27">auth_module </p>
+   <p class="P28">The authentication module last used for this user. </p>
+   <p class="P14">
+<span class="T3">You are advised (even for performance reasons) to use the following naming convention: </span>
+<span class="T6">$name</span>
+<span class="T3"> := $module_name . '_' . $real_name </span>
+</p>
+   <p class="P26">
+<span class="T3">To register the </span>
+<span class="T6">$name</span>
+<span class="T3"> user variable you have to use the module API function </span>
+<span class="T5">register_user_var()</span>
+<span class="T3"> exported by the Modules module. Here is an example: </span>
+</p>
+   <p class="P29"/>
+   <p class="P30">
+<span class="T7">$module_name</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T10">'MyModule'</span>
+<span class="T9">;<br/>
+</span>
+<span class="T7">$variable_name</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T10">'MaxLinesPerPage'</span>
+<span class="T9">;<br/>
+</span>
+<span class="T7">$metadata</span>
+<span class="T9">[</span>
+<span class="T10">'label'</span>
+<span class="T9">]</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T7">$module_name</span>
+<span class="T8"> </span>
+<span class="T9">.</span>
+<span class="T8"> </span>
+<span class="T10">'_'</span>
+<span class="T8"> </span>
+<span class="T9">.</span>
+<span class="T8"> </span>
+<span class="T7">$variable_name</span>
+<span class="T9">;<br/>
+</span>
+<span class="T7">$metadata</span>
+<span class="T9">[</span>
+<span class="T10">'dtype'</span>
+<span class="T9">]</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T9">_UDCONST_INTEGER;</span>
+<span class="T8"> </span>
+<span class="T11">//one of the values defined for dynamic user data variable types</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T7">$metadata</span>
+<span class="T9">[</span>
+<span class="T10">'default'</span>
+<span class="T9">]</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T12">20</span>
+<span class="T9">;<br/>
+</span>
+<span class="T7">$metadata</span>
+<span class="T9">[</span>
+<span class="T10">'validation'</span>
+<span class="T9">]</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T10">'num:&gt;=:10&amp;num:&lt;=:100'</span>
+<span class="T9">;<br/>
+<br/>xarModAPILoad(</span>
+<span class="T10">'Modules'</span>
+<span class="T9">,</span>
+<span class="T8"> </span>
+<span class="T10">'admin'</span>
+<span class="T9">);<br/>
+<br/>
+</span>
+<span class="T7">$result</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T9">xarModAPIFunc(</span>
+<span class="T10">'Modules'</span>
+<span class="T9">,</span>
+<span class="T8"> </span>
+<span class="T10">'admin'</span>
+<span class="T9">,</span>
+<span class="T8"> </span>
+<span class="T10">'register_user_var'</span>
+<span class="T9">,</span>
+<span class="T8"> </span>
+<span class="T7">$metadata</span>
+<span class="T9">);<br/>
+</span>
+<span class="T13">if</span>
+<span class="T8"> </span>
+<span class="T9">(!</span>
+<span class="T13">isset</span>
+<span class="T9">(</span>
+<span class="T7">$result</span>
+<span class="T9">))</span>
+<span class="T8"> </span>
+<span class="T9">{<br/>
+</span>
+<span class="T8">  </span>
+<span class="T11">// xarModAPIFunc() failed</span>
+<span class="T9">
+<br/>}</span>
+<span class="T8"> </span>
+<span class="T13">elseif</span>
+<span class="T8"> </span>
+<span class="T9">(</span>
+<span class="T7">$result</span>
+<span class="T8"> </span>
+<span class="T9">==</span>
+<span class="T8"> </span>
+<span class="T13">false</span>
+<span class="T9">)<br/>
+</span>
+<span class="T8">  </span>
+<span class="T11">// registration failed</span>
+<span class="T9">
+<br/>}</span>
+<span class="T8"> </span>
+<span class="T13">else</span>
+<span class="T8"> </span>
+<span class="T9">{<br/>
+</span>
+<span class="T8">  </span>
+<span class="T11">// registration succeeded</span>
+<span class="T9">
+<br/>}</span>
+<span class="T5">         </span>
+</p>
+   <p class="P14">
+<span class="T3">        As you can see in this example, a descriptive array for the new user variable is created first, and later register_user_var is called with that array as parameter. Meaningful keys for the array are label, dtype, default and validation. The </span>
+<span class="T6">label</span>
+<span class="T3"> field is mandatory; it specifies the user variable name as you'll refer later in </span>
+<span class="T5">xarUserGetVar()</span>
+<span class="T3"> and </span>
+<span class="T5">xarUserSetVar()</span>
+<span class="T3"> </span>
+<span class="T6">$name</span>
+<span class="T3"> parameter. The </span>
+<span class="T6">dtype</span>
+<span class="T3"> field is mandatory; it can take one of the following values: _UDCONST_STRING, _UDCONST_TEXT, _UDCONST_FLOAT, _UDCONST_INTEGER. </span>
+</p>
+   <p class="P31"/>
+   <p class="P14">
+<span class="T3">        You should obviously choose the right value for the data type that the new user variable would contain. The </span>
+<span class="T6">default</span>
+<span class="T3"> field is optional; Used when the user has not yet set a value for the new user variable. The </span>
+<span class="T6">validation</span>
+<span class="T3"> field is optional; refer to the next section to get an overview of variable validation. To unregister a user variable you have to call the </span>
+<span class="T5">unregister_user_var()</span>
+<span class="T3">, which is located in the users module admin </span>
+<span class="T4">API</span>
+<span class="T3">. You should call that </span>
+<span class="T4">API</span>
+<span class="T3"> only at uninstallation time for your modules. Keep in mind that by calling </span>
+<span class="T5">unregister_user_var()</span>
+<span class="T3"> all the existing values for that user variable will be deleted from user data. </span>
+</p>
+   <p class="P29">        As described in this document, Xaraya offers support for module variables too. If you get confused from that, and cannot see the distinction between these different things, here is a little explanation.</p>
+   <p class="P29">        Module variables are system-wide variables, shared between each module user, like configuration variables. No particular user owns them, and even if they do they are protected by permissions for write access, they are typically administrative-side variables. You are encouraged to use them when you have a need to give administrators the possibility to choose some behaviors of your module. However, when those behaviors are related to user preferences you should avoid using module variables and register a new user variable to be used in your code. </p>
+   <p class="P26">
+<span class="T3">        As an example, you can consider the above code listing, where a new user variable is registered to allow every single module user to choose his own MaxLinePerPage setting. Now it is reasonable to have selected this choice, but here we could have chosen a unique shared module var as well. On the other hand, you do not have this kind of freedom, for example consider the authldap module in some cases. It needs to access a </span>
+<span class="T4">LDAP</span>
+<span class="T3"> server, so it needs a variable that contains the </span>
+<span class="T4">LDAP</span>
+<span class="T3"> server hostname. Obviously this variable should be a module variable, and access to it should be granted only to administrators with the right permissions. We invite you to ponder this issue for a while before you settle on module vars or user vars. </span>
+</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Setting xarUser*Vars</h1>
+    </li>
+   </ul>
+   <p class="P21"/>
+   <p class="P21">        All user vars should be set from adding Dynamic Data on the roles module.  This will give you the greatest benefit and will present the variables to all modules on the system.<span class="T9">
+<br/>
+</span>
+</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Error handling</h1>
+    </li>
+   </ul>
+   <p class="P25">
+<span class="T3">Xaraya is capable of error handling through a powerful exception handling system. Since the </span>
+<span class="T4">PHP</span>
+<span class="T3"> language does not support language-level exceptions, Xaraya provides an artificial mechanism to deal with exceptions. Xaraya divides exceptions into two types: system exceptions and user exceptions. System exceptions are used by Xaraya </span>
+<span class="T4">API</span>
+<span class="T3"> functions, but you can use them if it's meaningful in that such situation; for example consider the DATABASE_ERROR exception, you are strongly encouraged to use this exception when a database error occurs and not to use your own exception. </span>
+</p>
+   <p class="P25">
+<span class="T3">As another example considers the BAD_PARAM exception, you should choose to use that exception in your module functions and </span>
+<span class="T4">API</span>
+<span class="T3"> functions when passed parameters are wrong. Finally, system exceptions are well known exceptions for which Xaraya can undertake. Xaraya does not know particular actions like logging, emailing, or user exceptions, and since they are indistinguishable, Xaraya will treat them, as they were all the same thing. </span>
+</p>
+   <p class="P32">Another good point of distinction between system and user exceptions is the fact that you should not leave uncaught user exceptions as you can do for system exceptions. Hence, you should catch all user exceptions instead of throwing them back to Xaraya, this is because user exceptions are the same as soft exceptions, so you could be in the position of doing other actions and/or returning a properly formatted error message that will look better than the default Xaraya exception caught error message. However, it is not illegal to throw back user exceptions to Xaraya, so fell free to do that if it is the case. </p>
+   <p class="P32">You should avoid catching system exceptions, except in particular cases. A system exception is a hard exception, this means that something very wrong happened and Xaraya should be notified. You can achieve this simply by throwing back system exceptions. In addition, there are particular circumstances in which you could and perhaps should catch system exceptions. </p>
+   <p class="P25">
+<span class="T3">For example consider the </span>
+<span class="T5">xarUserGetVar()</span>
+<span class="T3"> </span>
+<span class="T4">API</span>
+<span class="T3"> function: it raises a NO_PERMISSION system exception in the case you don't have right permission, however you weren't in the position to get access level for user variables, so it's perfectly acceptable here to catch this exception and go ahead when it's meaningful to do so. </span>
+</p>
+   <p class="P25">
+<span class="T3">Now is the moment to explore how Xaraya permits you to deal with exceptions. Here we begin by exposing how to catch exceptions. When a function that potentially can raise exceptions, outcomes with a void value you MUST check if some exception was raised. You can do that by calling the </span>
+<span class="T5">xarExceptionMajor()</span>
+<span class="T3"> function and comparing its return value with the XAR_NO_EXCEPTION constant. If they are different, you know that an exception has been raised. </span>
+</p>
+   <p class="P25">
+<span class="T3">The </span>
+<span class="T5">xarExceptioMajor()</span>
+<span class="T3"> return value can assume one of these values: XAR_NO_EXCEPTION, XAR_USER_EXCEPTION, XAR_SYSTEM_EXCEPTION. The value XAR_NO_EXCEPTION indicates that no exception was raised, and XAR_USER_EXCEPTION stands for user exception was raised and XAR_SYSTEM_EXCEPTION stands for system exception was raised. </span>
+</p>
+   <p class="P32">When you see that an exception was raised you have two options: throw it back or handle it. To throw back an exception you have only to return with a void value. To handle an exception you have to check for the exception type, id and value if one. </p>
+   <p class="P29">Consider the following example: </p>
+   <p class="P30">
+<span class="T7">$res</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T9">xarModFunc(</span>
+<span class="T10">'MyModule'</span>
+<span class="T9">,</span>
+<span class="T8"> </span>
+<span class="T10">'user'</span>
+<span class="T9">,</span>
+<span class="T8"> </span>
+<span class="T10">'MyFunc'</span>
+<span class="T9">);<br/>
+</span>
+<span class="T13">if</span>
+<span class="T8"> </span>
+<span class="T9">(!</span>
+<span class="T13">isset</span>
+<span class="T9">(</span>
+<span class="T7">$res</span>
+<span class="T9">)</span>
+<span class="T8"> </span>
+<span class="T9">&amp;&amp;</span>
+<span class="T8"> </span>
+<span class="T9">xarExceptionMajor()</span>
+<span class="T8"> </span>
+<span class="T9">!=</span>
+<span class="T8"> </span>
+<span class="T9">XAR_NO_EXCEPTION)</span>
+<span class="T8"> </span>
+<span class="T9">{<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">// Got an exception</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T13">if</span>
+<span class="T8"> </span>
+<span class="T9">(xarExcepionMajor()</span>
+<span class="T8"> </span>
+<span class="T9">==</span>
+<span class="T8"> </span>
+<span class="T9">XAR_SYSTEM_EXCEPTION)</span>
+<span class="T8"> </span>
+<span class="T9">{<br/>
+</span>
+<span class="T8">        </span>
+<span class="T13">return</span>
+<span class="T9">;</span>
+<span class="T8"> </span>
+<span class="T11">// throw back</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">}<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">// Got a user exception</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T13">if</span>
+<span class="T8"> </span>
+<span class="T9">(xarExceptionId()</span>
+<span class="T8"> </span>
+<span class="T9">==</span>
+<span class="T8"> </span>
+<span class="T10">'MyException1'</span>
+<span class="T9">)</span>
+<span class="T8"> </span>
+<span class="T9">{<br/>
+</span>
+<span class="T8">        </span>
+<span class="T7">$value</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T9">xarExceptionValue();<br/>
+</span>
+<span class="T8">        </span>
+<span class="T7">$output</span>
+<span class="T9">-&gt;Text(</span>
+<span class="T10">"Syntax error at line: "</span>
+<span class="T9">.</span>
+<span class="T7">$value</span>
+<span class="T9">-&gt;lineNumber);<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">}</span>
+<span class="T8"> </span>
+<span class="T13">elseif</span>
+<span class="T8"> </span>
+<span class="T9">(xarExceptionId()</span>
+<span class="T8"> </span>
+<span class="T9">==</span>
+<span class="T8"> </span>
+<span class="T10">'MyException2'</span>
+<span class="T9">)</span>
+<span class="T8"> </span>
+<span class="T9">{<br/>
+</span>
+<span class="T8">        </span>
+<span class="T11">/*</span>
+<span class="T8"> </span>
+<span class="T11">Do something useful */</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">}</span>
+<span class="T8"> </span>
+<span class="T13">else</span>
+<span class="T8"> </span>
+<span class="T9">{</span>
+<span class="T8"> </span>
+<span class="T11">// MyException3</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">        </span>
+<span class="T11">/*</span>
+<span class="T8"> </span>
+<span class="T11">Do something useful */</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">}<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">// reset exception status</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">// NOTE: it's of vital importance to call this function</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">//       before returning</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">xarExceptionFree();<br/>
+</span>
+<span class="T8">    </span>
+<span class="T13">return</span>
+<span class="T8"> </span>
+<span class="T7">$output</span>
+<span class="T9">-&gt;GetOutput();<br/>}<br/>
+</span>
+<span class="T5">      </span>
+</p>
+   <p class="P14">
+<span class="T3">To throw exception you use a unique function: </span>
+<span class="T5">xarExceptionSet()</span>
+<span class="T3">. You simply call it by passing the exception major, id and value if one; and after this call, you return void. </span>
+</p>
+   <p class="P29">Consider the following example: </p>
+   <p class="P30">
+<span class="T8">   </span>
+<span class="T13">class</span>
+<span class="T8"> </span>
+<span class="T9">MyException1<br/>{<br/>
+</span>
+<span class="T8">    </span>
+<span class="T13">var</span>
+<span class="T8"> </span>
+<span class="T7">$lineNumber</span>
+<span class="T9">;<br/>}<br/>
+<br/>
+</span>
+<span class="T11">/*</span>
+<span class="T8"> </span>
+<span class="T11">... */<br/>
+</span>
+<span class="T9">
+<br/>MyModule_user_MyFunc()<br/>{<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">/*</span>
+<span class="T8"> </span>
+<span class="T11">... */</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T13">if</span>
+<span class="T8"> </span>
+<span class="T9">(</span>
+<span class="T7">$syntax</span>
+<span class="T8"> </span>
+<span class="T9">==</span>
+<span class="T8"> </span>
+<span class="T13">false</span>
+<span class="T9">)</span>
+<span class="T8"> </span>
+<span class="T9">{<br/>
+</span>
+<span class="T8">        </span>
+<span class="T11">// Syntax error</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">        </span>
+<span class="T7">$exc</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T13">new</span>
+<span class="T8"> </span>
+<span class="T9">MyException1;<br/>
+</span>
+<span class="T8">        </span>
+<span class="T7">$exc</span>
+<span class="T9">-&gt;lineNumber</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T7">$line</span>
+<span class="T9">;<br/>
+</span>
+<span class="T8">        </span>
+<span class="T9">xarExceptionSet(XAR_USER_EXCEPTION,</span>
+<span class="T8"> </span>
+<span class="T10">'MyException1'</span>
+<span class="T9">,</span>
+<span class="T8"> </span>
+<span class="T7">$exc</span>
+<span class="T9">);</span>
+<span class="T13">return</span>
+<span class="T9">;<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">}<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">/*</span>
+<span class="T8"> </span>
+<span class="T11">... */</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">xarExceptionSet(XAR_USER_EXCEPTION,</span>
+<span class="T8"> </span>
+<span class="T10">'MyException2'</span>
+<span class="T9">);<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">/*</span>
+<span class="T8"> </span>
+<span class="T11">... */</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T9">xarExceptionSet(XAR_USER_EXCEPTION,</span>
+<span class="T8"> </span>
+<span class="T10">'MyException3'</span>
+<span class="T9">);<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">/*</span>
+<span class="T8"> </span>
+<span class="T11">... */</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T13">return</span>
+<span class="T8"> </span>
+<span class="T13">true</span>
+<span class="T9">;<br/>}</span>
+<span class="T5">      </span>
+</p>
+   <p class="P33">Note that no value is associated to MyException2 and MyException3, so there is no need to create a class for exception value. As you can see exception, handling is very powerful but also boring and tedious. However, you can always choose not to use user exceptions and always throw back system exceptions. </p>
+   <p class="P33"/>
+   <p class="P20">
+<span class="T3">Keep in mind that good error handling is not something that to leave for last. It should be part of the development process. Note that it is wrong not to check exception status after a call to a function that can potentially raise something. And note also that if you choose to handle one or more exceptions you MUST call </span>
+<span class="T5">xarExceptionFree()</span>
+<span class="T3"> before exiting, otherwise the trust relationship on which the exception handling mechanism is based won't work and you will produce very bad things. </span>
+</p>
+   <p class="P33"/>
+   <p class="P20">
+<span class="T3">An ulterior thing for those of you wanting to code an official Xaraya module: you MUST always check for possibly raised exceptions and not code with the thought that something will never happen; you MUST also raise DATABASE_ERROR in every function that does queries. To get a better understanding of exception handling functions you should refer to the Xaraya </span>
+<span class="T4">API</span>
+<span class="T3"> Command Reference.</span>
+</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Xaraya Module Design</h1>
+    </li>
+   </ul>
+   <p class="P20">The Xaraya module system design allows for the maximum flexibility to developers whilst ensuring that the module can be accessed in a generic fashion by the Xaraya core, other modules, and remote systems given access through other interfaces such as <span class="T1">XML-RPC</span>. The main design characteristics of the module system are listed below.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Separation of User and Administrator Functions</h1>
+    </li>
+   </ul>
+   <p class="P18">Separation of user and administrator functions allows for a much cleaner module. It speeds up the responsiveness of the module in the most-often used cases (i.e. user actions) as the module only needs to load the code that is required of it. It allows for work one area of the code (e.g. an admin <span class="T1">GUI</span> redesign) to take place without affecting the other areas. In addition, it gives an extra layer of security to help ensure that privileged functions cannot be executed inadvertently from user areas. </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Separation of Display and Operational Functions</h1>
+    </li>
+   </ul>
+   <p class="P20">Separation of display and operational functions allows for areas within and without Xaraya to use the functionality supplied with a module. This is most obvious in the case of modules with blocks. Where the block might display its own information but use the module functions to gather that information. Other modules where this is hugely important are the utility modules; things like comments and rating systems, that have no real use on their own but can be coupled with other modules to provide generic and site-wide functionality at very little cost to the module developer.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Single Directory Installation</h1>
+    </li>
+   </ul>
+   <p class="P20">Having a single install directory allows for much easier maintenance of large Xaraya systems, and far easier install and removal of modules both for the module developer and for the site administrator. Dependencies of the layout on the file system are no longer required, and as such, the module designer does not need to worry about on which systems his module might be deployed, and how it needs to interact with the underlying operating system to function correctly.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">External Access to Module Functions</h1>
+    </li>
+   </ul>
+   <p class="P18">Allowing access to module functions from external (<span class="T14">i.e.</span> non-Xaraya) systems is a very desirable thing to do. By allowing this, the Xaraya system becomes a content repository, where information can be accessed in ways other than through the standard web interface. An example of this power can be seen through use of the <span class="T1">XML-RPC</span> interface that is provided with Xaraya and which allow for such tools as the Google API to be used, or other webservice events.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Xaraya Module Operations</h1>
+    </li>
+   </ul>
+   <p class="P20">This chapter covers how modules interact with Xaraya. The information in this section is correct for the 0.92 release of Xaraya, for other releases please get the most recent copy of the Xaraya Module Developers Guide.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Locating Modules</h1>
+    </li>
+   </ul>
+   <p class="P20">All Xaraya modules must be placed within their own subdirectory of the 'modules' directory to be recognized. Modules placed anywhere else within the file-system will not be located correctly.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Working out Module Functionality</h1>
+    </li>
+   </ul>
+   <p class="P14">A module might have administration or user functionality, or both. Xaraya works out which functionality each module has by looking for the files in 'xaradmin' or 'xaradminapi’ directories to confirm administration functionality, and in 'xaruser' or 'xaruserapi' directories to confirm user functionality. Lack of these directories results in Xaraya assuming that this specific module functionality does not exist.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Initializing Modules</h1>
+    </li>
+   </ul>
+   <p class="P19">        Initialization of modules is accomplished through the <span class="T15">modname</span>
+<span class="WW-HTMLCode">_init()</span> in the 'xarinit.php' file within the module's directory function. No other functions are called when the module is initialized. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Activating/Deactivating Modules</h1>
+    </li>
+   </ul>
+   <p class="P14">         Activation and deactivation of modules is accomplished through field settings within the appropriate database table. Unlike earlier versions of Xaraya, no physical changes to the module directories are made to infer the activation status of the module.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Calling Module Functions</h1>
+    </li>
+   </ul>
+   <p class="P20">Module functions are called through the <span class="WW-HTMLCode">xarModFunc()</span> and <span class="WW-HTMLCode">xarModAPIFunc()</span> functions. No direct calling of module functions is allowed, even from within the same module.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Creating Module URLs</h1>
+    </li>
+   </ul>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Direct URLs to functions</h1>
+    </li>
+   </ul>
+   <p class="P29">        URLs for new-style modules go through the 'index.php' entry point, and are defined by a number of parameters. The parameters that currently decide which particular module function to call are as follows: </p>
+   <ul class="WW8Num1">
+    <li>
+     <p class="P34">
+<span class="T4">module</span>
+<span class="T3"> </span>
+</p>
+     <ol>
+      <li>
+       <p class="P35">The name of the module. This corresponds to the well-known name of the module, which can be found through the modules administration interface </p>
+      </li>
+     </ol>
+    </li>
+    <li>
+     <p class="P36">type </p>
+     <ol>
+      <li>
+       <p class="P35">The type of the module function. This is currently either 'user' for user functions or 'admin' for administrative functions. </p>
+      </li>
+     </ol>
+    </li>
+    <li>
+     <p class="P36">func </p>
+     <ol>
+      <li>
+       <p class="P35">The name of the function itself. This is module-dependent. </p>
+      </li>
+     </ol>
+    </li>
+   </ul>
+   <p class="P37"/>
+   <p class="P26">
+<span class="T3">        If any of these parameters are undefined within a URL Xaraya will apply defaults to them. Note that both the names of the parameters and their default values might change, and as such it is not recommended to create direct URLs for anything but to either go through the Xaraya main page or to use the </span>
+<span class="T5">xarModURL()</span>
+<span class="T3"> function to generate URLs that will always be internally consistent for any given version of Xaraya. </span>
+</p>
+   <p class="P26">
+<span class="T3">You can also extend the xarModUrl call by adding a parameter call to the function in the form of an array. </span>
+<span class="T5">xarModURL('module', 'type', 'function', array('foo' =&gt; $bar))</span>
+<span class="T3"> will create the input parameter of 'foo' having the value of $bar. </span>
+</p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Before Starting Your Module</h1>
+    </li>
+   </ul>
+   <p class="P14">There are a number of steps to follow before you can start building your module.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Choosing a Name for Your Module</h1>
+    </li>
+   </ul>
+   <p class="P18">Choosing a name for your module is important, as this is the main way that your module will be known throughout the Xaraya community. The name should relate to the functionality that the module provides, but also be specific enough to be able to discern it from separate modules that might offer similar functionality. </p>
+   <p class="P19">Module names are case-sensitive. For this reason, it is highly recommended that all modules names are lower-case only. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Decide on the Type of Your Module</h1>
+    </li>
+   </ul>
+   <p class="P18">There are two broad types of module available in Xaraya. <span class="T16">Item modules</span> are modules, which contain their own content and operate on that content, whereas <span class="T16">utility modules</span> are modules, which contain additional information or functionality for the content of other modules. Examples of item modules are news, FAQ, and download. Examples of utility modules are comments, ratings, and global index. Either utility modules work in the same way as item modules, or they can operate with <span class="T16">hooks</span>, which allow module functions to be acted upon without being explicitly called by other modules. Hooks are used for items that are not part of a piece of content but directly related to it </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Register Your Module Name</h1>
+    </li>
+   </ul>
+   <p class="P29">        Registering your module is not compulsory, but it is a very good idea. By registering your module, you can ensure that no other official Xaraya module will take the name that you have chosen for your module. Two modules with the same name will not operate correctly on a single Xaraya site, so it is beneficial to both yourself and the Xaraya community in general to have a unique name. </p>
+   <p class="P14">You may register your module via the release module on <a href="http://www.xaraya.com/index.php?module=release&amp;func=viewids">
+<span class="Internetlink">xaraya.com</span>
+</a>
+</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Obtain a Copy of the Xaraya API Reference Guide</h1>
+    </li>
+   </ul>
+   <p class="P19">
+<span class="T17">        </span>
+<span class="T18">The Xar</span>
+<span class="T19">aya</span>
+<span class="T17"> API Reference Guide has been moved to the PHP-Doc Style of documentation.  No separate entry will be created for the API guide.  Please reference </span>
+<a href="http://docs.xaraya.com/index.php/documentation/c80/">
+<span class="T20">http://docs.xaraya.com/index.php/documentation/c80/</span>
+</a>
+<span class="T17"> for more information.</span>
+</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Read the Notes on Developing Modules Section</h1>
+    </li>
+   </ul>
+   <p class="P20">The section entitled 'Notes on Developing Modules' includes a lot of miscellaneous information that does not fit in other sections of this document. It should be read fully before any attempt to design or develop a module is started.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Understand the Following Areas</h1>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Difference between GUI and Operational Functions</h1>
+    </li>
+   </ul>
+   <p class="P18">Understanding the difference between <span class="T1">GUI</span> and operational functions is critical when building a good module. Proper separation of these functions will allow other modules to be able to access the functionality of your module and incorporate it into their modules. It will also allow methods of access apart from those that the standard web-based Xaraya system. </p>
+   <p class="P14"/>
+   <p class="P19">        Difference between User and Administrative Functions<br/>Understanding the difference between user and administrative functions is very important when building a good module. The separation of these types of actions allows for </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">The Xaraya Security Model</h1>
+    </li>
+   </ul>
+   <p class="P18">The Xaraya security model is a very important area to understand before coding a module. Developers should understand which parts of their module need protected, and exactly how this is accomplished. </p>
+   <p class="P18">The entire Xaraya security model is beyond the scope of this document. The Security System RFC30 is located at <a href="http://docs.xaraya.com//docs/rfcs/rfc0030.html">
+<span class="Internetlink">http://docs.xaraya.com//docs/rfcs/rfc0030.html</span>
+</a> </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Function Return Codes</h1>
+    </li>
+   </ul>
+   <p class="P29">        Every well-defined module function must return the appropriate return codes. Return codes are the main way in which a module communicates with the Xaraya core, and as such, it is vital that the correct return codes are used. </p>
+   <p class="P29">The following return codes should be used when returning control to the Xaraya core from any module function: </p>
+   <p class="P14">
+<span class="T4">text string</span>
+<span class="T3"> </span>
+</p>
+   <p class="P28">Returning a text string implies that the modules function has finished its work and has output to be displayed in the appropriate place on the Xaraya web page. Xaraya will take the returned output and display it as appropriate. Note that all output from modules is displayed verbatim, with no escaping of HTML characters. This is to allow for formatted output from the module functions. </p>
+   <p class="P14">
+<span class="T21">true</span>
+<span class="T4"> </span>
+</p>
+   <p class="P39">
+<span class="T3">Returning boolean </span>
+<span class="T6">true</span>
+<span class="T3"> implies that the module function has finished its work and set up an appropriate redirect to send the user to a page that will have display output. The Xaraya core will take no further action as far as this module is concerned. </span>
+</p>
+   <p class="P14">
+<span class="T21">false</span>
+<span class="T4"> </span>
+</p>
+   <p class="P39">
+<span class="T3">Returning boolean </span>
+<span class="T6">false</span>
+<span class="T3"> implies that the module function has finished its work but not set up an appropriate redirect to send the user to a page that will have display output. The Xaraya core will set an appropriate redirect for this module. </span>
+</p>
+   <p class="P29">Note that none of these functions carries any information about the success or failure of the attempted operation that the module function was undertaking. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Where Modules Fit in Xaraya</h1>
+    </li>
+   </ul>
+   <p class="P18">Modules cover two separate areas of Xaraya. The first is administration of core functions, (<span class="T14">e.g.</span> users, permissions), and the second is extension of system functionality (<span class="T14">e.g.</span> downloads, web links). As each of these areas is not core this implies two things. First is that no module is actually required - the Xaraya system would work without anything in its modules directory, although its functionality would be severely limited and there would be no configuration options available. Second, is that modules should not remove any core functionality when installed, in operation, or removed. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Design Your Module</h1>
+    </li>
+   </ul>
+   <p class="P40">An often-overlooked point is that the module should be designed before being coded. This will allow for far easier coding later on, and an understanding of how the module fits into the generic Xaraya module structure. Some of the points that should be considered are: </p>
+   <p class="P19">What data does the module store? How should the module data best be stored? Is the data hierarchical or flat? </p>
+   <p class="P19">What does the module do with the stored data? How is the data displayed, how much data is displayed at any one time? What options should the user have to view the data in different ways? </p>
+   <p class="P19">How does the module interact with other modules? Does it compete directly with other modules? If so, does it make sense to follow their module API to allow for greater interoperability between similar modules? Can it use other modules for part of its functionality? Is it better written as an extension to a current module rather than starting again from scratch? </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Consider Including the Standard Module Functions</h1>
+    </li>
+   </ul>
+   <p class="P29">        There are a number of standard module functions that allow a module to interface with parts of the Xaraya system. These functions have predefined inputs and outputs, allowing external modules and core functions to use them effectively without needing to tailor their operation to each separate module. The best example of these functions is the 'search' function, which passes in a simple text string and requires that an array is passed back about all items within the module that match the string. </p>
+   <p class="P29">        If your module does not have these functions then it will not integrate fully with the other parts of the Xaraya system. It is recommended that these functions be supplied if they make any sense in the context of your module. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Use Standard Function Names</h1>
+    </li>
+   </ul>
+   <p class="P26">
+<span class="T3">        There are a number of function names that are considered standard </span>
+<span class="T6">i.e.</span>
+<span class="T3"> they have well-known meanings and are used in a number of modules. Using the standard function names makes it easier for other module developers to use your module. Some of the standard functions are shown below. </span>
+</p>
+   <p class="P29">        The list below is subject to addition as more functions that are standard are introduced - the example module supplied with your copy of Xaraya should have the most up-to-date set of standard functions available. </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">User Display Functions</h1>
+    </li>
+   </ul>
+   <p class="P14">main() - the default function to call, normally just presents the user menu </p>
+   <p class="P14">view() - display an overview of all items, normally paged output </p>
+   <p class="P14">display() - display a single item in detail, given an identifier for that item </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">User API Functions</h1>
+    </li>
+   </ul>
+   <p class="P19">
+<span class="WW-HTMLCode">getall()</span> - get basic information on all items, can take optional parameters to obtain a subset of all items </p>
+   <p class="P19">
+<span class="WW-HTMLCode">get()</span> - get detailed information on a specific item </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Administration Display Functions</h1>
+    </li>
+   </ul>
+   <p class="P19">
+<span class="WW-HTMLCode">main()</span> - the default function to call, normally just presents the user menu </p>
+   <p class="P19">
+<span class="WW-HTMLCode">view()</span> - display an overview of all items, normally paged output, with relevant administrative options. Note that it is possible to combine this function with the user <span class="WW-HTMLCode">view()</span> function </p>
+   <p class="P19">
+<span class="WW-HTMLCode">new()</span> - display a form to obtain enough information from the user to create a new item </p>
+   <p class="P19">
+<span class="WW-HTMLCode">create()</span> - take the information from the form displayed by the administration <span class="WW-HTMLCode">new()</span> function and pass it on to the administration API for creating the item </p>
+   <p class="P19">
+<span class="WW-HTMLCode">modify()</span> - display the details of a current item given the item description, and present the relevant fields for modification </p>
+   <p class="P19">
+<span class="WW-HTMLCode">update()</span> - take the information from the form displayed by the administration <span class="WW-HTMLCode">modify()</span> function and pass it on to the administration API for modifying the item </p>
+   <p class="P19">
+<span class="WW-HTMLCode">delete()</span> - display confirmation for deletion of an item, and if confirmed pass the relevant information on to the administration API for deleting the item </p>
+   <p class="P19">
+<span class="WW-HTMLCode">modifyconfig()</span> - display the details of the module's current configuration, and present the relevant fields for modification </p>
+   <p class="P19">
+<span class="WW-HTMLCode">updateconfig()</span> - take the information from the form displayed by the administration <span class="WW-HTMLCode">modifyconfig()</span> function and update the relevant module configuration variables </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Administration API Functions</h1>
+    </li>
+   </ul>
+   <p class="P19">
+<span class="WW-HTMLCode">create()</span> - create a new item </p>
+   <p class="P19">
+<span class="WW-HTMLCode">delete()</span> - delete a current item </p>
+   <p class="P19">
+<span class="WW-HTMLCode">update()</span> - update the information about a current item </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Find out What Utility Modules are Available</h1>
+    </li>
+   </ul>
+   <p class="P29">        There are a number of utility modules available to carry out features that are required by many item modules within Xaraya. Examples of available utility modules are comments, ratings, and categorization. Look at xaraya.com to find out what other utility modules are available and if they can be used in lieu of parts of the code that you would otherwise be writing for your own module. </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Module Directory Structure</h1>
+    </li>
+   </ul>
+   <p class="P29">        Xaraya modules have a very specific directory structure. This allows the Xaraya system to use a generic system to access all modules without needing to know specific information about each separate module that is built. Following the directory structure as laid out below is an absolute requirement of any Xaraya-compliant module. </p>
+   <p class="P25">
+<span class="T3">Extra files and directories in addition to those shown below are allowed. In addition, if any of the files below are not required (</span>
+<span class="T6">e.g.</span>
+<span class="T3"> the module does not have database tables of its own so it does not require the xartables.php file) then they do not need to exist. However, files that perform the functions outlined below must comply with the file naming convention to allow the Xaraya system to load the suitable files at the appropriate times to ensure correct operation of the module.</span>
+</p>
+   <p class="P32">This shows the layout of the example module directory. Other modules will have different names for their top-level directory and blocks as appropriate for their specific functionality</p>
+   <p class="P41">        modules/                                                  (1)                              </p>
+   <p class="P41">                example/                                        (2)</p>
+   <p class="P41">                        xaradmin/                                (3)</p>
+   <p class="P41">                                create.php                        (4)</p>
+   <p class="P41">                                delete.php                        (5)</p>
+   <p class="P41">                                main.php                        (6)</p>
+   <p class="P41">                                modify.php                        (7)</p>
+   <p class="P41">                                modifyconfig.php                (8)</p>
+   <p class="P41">                                new.php                                (9)</p>
+   <p class="P41">                                update.php                        (10)</p>
+   <p class="P41">                                updateconfig.php                (11)</p>
+   <p class="P41">                                view.php                        (12)</p>
+   <p class="P41">                                index.html                        (13)</p>
+   <p class="P41">                        xaradminapi/                                (14)</p>
+   <p class="P41">                                create.php                        (15)</p>
+   <p class="P41">                                delete.php                        (16)</p>
+   <p class="P41">                                getmenulinks.php                (17)</p>
+   <p class="P41">                                menu.php                        (18)</p>
+   <p class="P41">                                update.php                        (19)</p>
+   <p class="P41">                                index.html                        (20)</p>
+   <p class="P41">                        xarblocks/                               (21)</p>
+   <p class="P41">                                first.php                          (22)</p>
+   <p class="P41">                                others.php                        (23)</p>
+   <p class="P41">                                index.html                        (24)</p>
+   <p class="P41">                        xarimages/                                (25)</p>
+   <p class="P41">                                admin.gif                        (26)</p>
+   <p class="P41">                                admin_generic.gif                (27)</p>
+   <p class="P41">                                preferences.gif                        (28)</p>
+   <p class="P41">                                index.html                        (29)</p>
+   <p class="P41">                        xartemplates/                                (30)</p>
+   <p class="P41">                                blocks/                                (31)</p>
+   <p class="P41">                                   first.xd                        (32)</p>
+   <p class="P41">                                   firstAdmin.xd                (33)</p>
+   <p class="P41">                                   othersAdmin.xd                (34)</p>
+   <p class="P41">                                   example-firstblock-modify.xd(35)</p>
+   <p class="P41">                                admin-delete.xd                        (36)</p>
+   <p class="P41">                                admin-main.xd                        (37)</p>
+   <p class="P41">                                admin-menu.xd                        (38)</p>
+   <p class="P41">                                admin-modify.xd                        (39)</p>
+   <p class="P41">                                admin-modifyconfig.xd                (40)</p>
+   <p class="P41">                                admin-new.xd                        (41)</p>
+   <p class="P41">                                admin-view.xd                        (42)</p>
+   <p class="P41">                                index.html                        (43)</p>
+   <p class="P41">                                user-display.xd                        (44)</p>
+   <p class="P41">                                user-main.xd                        (45)</p>
+   <p class="P41">                                user-menu.xd                        (46)</p>
+   <p class="P41">                                user-usermenu_icon.xd                (47)</p>
+   <p class="P41">                                user-view.xd                        (48)</p>
+   <p class="P41">                                user-usermenu_form.xd                (49)</p>
+   <p class="P41">                        xaruser/                                (50)</p>
+   <p class="P41">                                display.php                        (51)</p>
+   <p class="P41">                                main.php                        (52)</p>
+   <p class="P41">                                usermenu.php                        (53)</p>
+   <p class="P41">                                view.php                        (54)</p>
+   <p class="P41">                                index.html                        (55)</p>
+   <p class="P41">                        xaruserapi/                                (56)</p>
+   <p class="P41">                                encode_shorturl.php                (57)</p>
+   <p class="P41">                                countitems.php                        (58)</p>
+   <p class="P41">                                decode_shorturl.php                (59)</p>
+   <p class="P41">                                get.php                                (60)</p>
+   <p class="P41">                                getall.php                        (61)</p>
+   <p class="P41">                                getmenulinks.php                (62)</p>
+   <p class="P41">                                menu.php                        (63)</p>
+   <p class="P41">                                validateitem.php                (64)</p>
+   <p class="P41">                                index.html                        (65)</p>
+   <p class="P41">                                getitemlinks.php                (66)</p>
+   <p class="P41">                xareventapi.php                                        (67)</p>
+   <p class="P41">                xarinit.php                                        (68)</p>
+   <p class="P41">                xartables.php                                        (69)</p>
+   <p class="P41">                example.wsdl                                        (70)</p>
+   <p class="P41">                index.html                                        (71)</p>
+   <p class="P41">                xaradmin.php                                     (72)</p>
+   <p class="P41">               xaradminapi.php                                        (73)</p>
+   <p class="P41">                xaruser.php                                        (74)</p>
+   <p class="P41">                xaruserapi.php                                        (75)</p>
+   <p class="P41">                xarversion.php                                  (76)</p>
+   <p class="P41">                        </p>
+   <p class="P31"/>
+   <p class="P42">(1) The top-level directory in Xaraya for modules </p>
+   <p class="P31"/>
+   <p class="P42">(2) The directory that contains all of the module code (in this case the module is named 'example') </p>
+   <p class="P31"/>
+   <p class="P42">(3) The directory that contains all administrative GUI functions for the module         </p>
+   <p class="P42"/>
+   <p class="P31"/>
+   <p class="P42">(4) create.php</p>
+   <p class="P42">This a standard function that is called with the results of the form supplied by xarModFunc(‘example’,’admin’,’new’) to create a new item.</p>
+   <p class="P42"/>
+   <p class="P42">Syntax: @param $’name’ – The name of the item to be created</p>
+   <p class="P42">         @param $’number’ – The number of the item to be created</p>
+   <p class="P31"/>
+   <p class="P42">(5) delete.php</p>
+   <p class="P42"> This standard function is called whenever an administrator wishes to delete a current module item. Note that this function is the equivalent of both the modify() and update() functions as it operates a form and processes its output. This is fine for simpler functions, but for complex operations such as creation and modification it is generally easier to separate them into separate functions. There is no requirement in the Xaraya MDG to use one or the other, so either or both can be used as seen appropriate by the module developer.</p>
+   <p class="P42"/>
+   <p class="P42">Syntax: @param $’exid’ - The id of the item to be deleted</p>
+   <p class="P42">         @param $’confirm’ – Confirm that this item can be deleted</p>
+   <p class="P42"/>
+   <p class="P42">(6) main.php</p>
+   <p class="P42">This function is the default function, and is called whenever the module is initiated without defining arguments. As such, it can be used for a number of things, but most commonly, it either shows the module menu and returns or calls whatever the module designer feels should be the default function. (This is often the view function)</p>
+   <p class="P42"/>
+   <p class="P42">(7) modify.php</p>
+   <p class="P42">This is a standard admin function that is called whenever an administrator whishes to modify a current module item.</p>
+   <p class="P42"/>
+   <p class="P42">Syntax: @param $’exid’ the id of the item to be modified</p>
+   <p class="P31"/>
+   <p class="P42">(8) modifyconfig.php</p>
+   <p class="P42">This is the standard function to modify the configuration parameters for the module.</p>
+   <p class="P42"/>
+   <p class="P42">(9) new.php</p>
+   <p class="P42">This standard function is called whenever the administrator wishes to create a new module item.</p>
+   <p class="P42"/>
+   <p class="P42">(10) update.php</p>
+   <p class="P42">This is the standard function that is called with the results of the form supplied by xarModFunc(‘example’, ‘admin’,’modify’) to update a current item.</p>
+   <p class="P42">Syntax: @param $ ‘exid’ – The id of the item to be updated</p>
+   <p class="P42">         @param $ ‘name’ – The name of the item to be updated</p>
+   <p class="P42">         @param $ ‘number’ – The number of the item to be updated</p>
+   <p class="P42"/>
+   <p class="P42">(11) updateconfig.php</p>
+   <p class="P42">This standard function updates the configuration parameters of the module given the information passed back by the modification form.</p>
+   <p class="P42"/>
+   <p class="P42">(12) view.php</p>
+   <p class="P42">This standard function is called whenever the administrator wishes to view a module item.</p>
+   <p class="P42"/>
+   <p class="P42">(13) index.html</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P42"/>
+   <p class="P42">(14) xaradminapi</p>
+   <p class="P42">The directory that contains all administrative database functions for the module. </p>
+   <p class="P31"/>
+   <p class="P42">(15) create.php</p>
+   <p class="P42">This standard function creates an item when the administrator wants to create an item in the database. Parameters are passed from the xaradmin/create.php. This function returns the example item upon success, or raises an exception error upon failing.</p>
+   <p class="P42"/>
+   <p class="P16">
+<span class="T3">Syntax: </span>
+<span class="T21">@</span>
+<span class="T6">param</span>
+<span class="T3">  </span>
+<span class="T6">$args ['exid'] the ID of the item</span>
+</p>
+   <p class="P43">
+<span class="T3"> </span>
+<span class="T6">@param $args [‘name’] name of the item</span>
+</p>
+   <p class="P44">         @param $args[‘number’] number of the item</p>
+   <p class="P42">Returns the example item ID as integer on success, returns false on failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+   <p class="P42"/>
+   <p class="P42">(16) delete.php</p>
+   <p class="P42">This standard function deletes an item in the database. Parameters are passed from the xaradmin/delete.php. This function returns true upon success, or raises an exception error upon failing.</p>
+   <p class="P42"/>
+   <p class="P16">
+<span class="T3">Syntax: </span>
+<span class="T6">@param $args [‘exid’] name of the item</span>
+</p>
+   <p class="P42">Returns the example item ID as integer on success, returns false on failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+   <p class="P42"/>
+   <p class="P42">(17) getmenulinks.php</p>
+   <p class="P42">This is a utility function that passes individual menu items to the main menu.</p>
+   <p class="P42">Returns array containing the menulinks for the admin menu items.</p>
+   <p class="P42"/>
+   <p class="P42">(18) menu.php</p>
+   <p class="P42">This function generates the common admin menu configuration</p>
+   <p class="P42"/>
+   <p class="P42">(19) update.php</p>
+   <p class="P42">This standard function updates an item when the administrator wants to change an item in the database. Parameters are passed from the xaradmin/update.php. This function returns the example item upon success, or raises an exception error upon failing.</p>
+   <p class="P42"/>
+   <p class="P16">
+<span class="T3">Syntax: </span>
+<span class="T21">@</span>
+<span class="T6">param</span>
+<span class="T3">  </span>
+<span class="T6">$args ['exid'] the ID of the item</span>
+</p>
+   <p class="P43">
+<span class="T3"> </span>
+<span class="T6">@param $args [‘name’] name of the item</span>
+</p>
+   <p class="P44">         @param $args[‘number’] number of the item</p>
+   <p class="P44"/>
+   <p class="P42">Returns the example item ID as integer on success, returns false on failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+   <p class="P42"/>
+   <p class="P16">(20) <span class="T3">index.html</span>
+</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P42"/>
+   <p class="P42">(21) xarblocks/</p>
+   <p class="P42">This directory contains the files for generating blocks for the module.</p>
+   <p class="P42"/>
+   <p class="P42">(22) first.php</p>
+   <p class="P42">This is the code for the example block for the example module.</p>
+   <p class="P42"/>
+   <p class="P42">(23) others.php</p>
+   <p class="P42">This is the code for the example block for the example module.</p>
+   <p class="P42"/>
+   <p class="P42">(24) index.html</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P42"/>
+   <p class="P42">(25) xarimages/</p>
+   <p class="P42">This directory contains image files that are associated with the example module.</p>
+   <p class="P42"/>
+   <p class="P42">(26) admin.gif</p>
+   <p class="P42">This is the image that is displayed in the example module administration overview.</p>
+   <p class="P42"/>
+   <p class="P42">(27) admin_generic.gif</p>
+   <p class="P42">This is an optional image that can be displayed in the example module administration overview.</p>
+   <p class="P42"/>
+   <p class="P42">(28) preferences.gif</p>
+   <p class="P42">This preferences image is used in the example module.</p>
+   <p class="P42"/>
+   <p class="P42"/>
+   <p class="P42">(29) index.html</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P42"/>
+   <p class="P42">(30) xartemplates/</p>
+   <p class="P42">This directory contains the template files used by blocklayout for displaying pages within the example module.</p>
+   <p class="P42"/>
+   <p class="P42">(31) blocks/</p>
+   <p class="P42">This directory contains the template files used by blocklayout to display the blocks for the example module.</p>
+   <p class="P42"/>
+   <p class="P42">(32) first.xd</p>
+   <p class="P42">Templates file for the first block in the example module.</p>
+   <p class="P42"/>
+   <p class="P42">(33) firstAdmin.xd</p>
+   <p class="P42">Templates file for the first block administration page for the example module.</p>
+   <p class="P42"/>
+   <p class="P42">(34) othersAdmin.xd</p>
+   <p class="P42">Templates file for the others block administration page for the example module.</p>
+   <p class="P42"/>
+   <p class="P42"/>
+   <p class="P42">(35) example-firstblock-modify.xd</p>
+   <p class="P42">Templates file for the first block administration modify settings page.</p>
+   <p class="P42"/>
+   <p class="P42">(36) admin-delete.xd</p>
+   <p class="P42">Templates file for administration delete function.</p>
+   <p class="P42"/>
+   <p class="P42">(37) admin-main.xd</p>
+   <p class="P42">Templates file for administration main function.</p>
+   <p class="P42"/>
+   <p class="P42">(38) admin-menu.xd</p>
+   <p class="P42">Templates file for the administration menu for Example module.</p>
+   <p class="P42"/>
+   <p class="P42">(39) admin-modify.xd</p>
+   <p class="P42">Templates file for administration modify item page.</p>
+   <p class="P42"/>
+   <p class="P42">(40) admin-modifyconfig.xd</p>
+   <p class="P42">Templates file for administration modify configuration page.</p>
+   <p class="P42"/>
+   <p class="P42">(41) admin-new.xd</p>
+   <p class="P42">Templates file for administration new item page.</p>
+   <p class="P42"/>
+   <p class="P42">(42) admin-view.xd</p>
+   <p class="P42">Templates file for administration view item page.</p>
+   <p class="P42"/>
+   <p class="P42">(43) index.html</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P42"/>
+   <p class="P42">(44) user-display.xd</p>
+   <p class="P42">Templates file for the user display page.</p>
+   <p class="P42"/>
+   <p class="P42">(45) user-main.xd</p>
+   <p class="P42">Templates file for the users main page.</p>
+   <p class="P42"/>
+   <p class="P42">(46) user-menu.xd</p>
+   <p class="P42">Templates file for the users menu.</p>
+   <p class="P42"/>
+   <p class="P42">(47) user-usermenu_icon.xd</p>
+   <p class="P42">Template file for example user menu hook.</p>
+   <p class="P42"/>
+   <p class="P42">(48) user-view.xd</p>
+   <p class="P42">Templates file for the user display items page.</p>
+   <p class="P42"/>
+   <p class="P42">(49) user-usermenu_form.xd</p>
+   <p class="P42">Templates file for example hook for user menu.</p>
+   <p class="P42"/>
+   <p class="P42">(50) xaruser/</p>
+   <p class="P42">The directory that contains all users GUI functions for the module.</p>
+   <p class="P42"/>
+   <p class="P42">(51) display.php</p>
+   <p class="P42">This standard function provides detailed information on a single item available from the module.</p>
+   <p class="P42"/>
+   <p class="P16">
+<span class="T3">Syntax: </span>
+<span class="T6">@param $args an array of arguments (if called by other modules)</span>
+</p>
+   <p class="P44">         @param $args [‘objectid’] – A generic objected (if called by other modules)</p>
+   <p class="P44">         @param $args [‘exid’] – The item id used for this module</p>
+   <p class="P42"/>
+   <p class="P42">(52) main.php</p>
+   <p class="P42">This standard function is the default function, and is called whenever the module is initiated without defining arguments. As such, it can be used for a number of things, most commonly, it either shoes the module menu and returns or calls whatever the module designer feels should be the default function. (This is often the view() function)</p>
+   <p class="P42"/>
+   <p class="P42">(53) user-menu.php</p>
+   <p class="P42">This standard function is used to display the user menu hook.</p>
+   <p class="P42"/>
+   <p class="P42">(54) view.php</p>
+   <p class="P42">This standard function is used to provide an overview of all the items available from the module.</p>
+   <p class="P42"/>
+   <p class="P42">(55) index.html</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P42"/>
+   <p class="P42">(56) xaruserapi/</p>
+   <p class="P42">The directory that contains all user database functions for the module.</p>
+   <p class="P42"/>
+   <p class="P42">(57) encode_shorturl.php</p>
+   <p class="P42">The standard functions that encode module parameters into some virtual path that will be added to index.php, and decode a virtual path back to the original module parameters.</p>
+   <p class="P42"/>
+   <p class="P42">(58) countitems.php</p>
+   <p class="P14">        This utility function counts the number of items held by the module.</p>
+   <p class="P16">Returns the number of items as an integer type with the number of items held by this module.</p>
+   <p class="P16"/>
+   <p class="P16">(59) decode_shorturl.php</p>
+   <p class="P16">This function extracts arguments from short urls and passes them back to the xarGetRequestInfo() api function.</p>
+   <p class="P16"/>
+   <p class="P16">(60) get.php</p>
+   <p class="P16">This standard function retrieves a specific example item from the database.</p>
+   <p class="P16"/>
+   <p class="P16">Syntax: <span class="T14">@param $args [‘exid’ – Id of example item to get</span>
+</p>
+   <p class="P16">Returns item array, or false on failure</p>
+   <p class="P16">Raises exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+   <p class="P16"/>
+   <p class="P16">(61) getall.php</p>
+   <p class="P16">This standard function retrieves all example items from the database.</p>
+   <p class="P16"/>
+   <p class="P16">Syntax: <span class="T14">@param $ numitems – The number of items to retrieve (default -1 = all)</span>
+</p>
+   <p class="P45">         @param $ startnum – Start with this item number (default 1)</p>
+   <p class="P16">Returns an array of items, or false on failure</p>
+   <p class="P16">Raises exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</p>
+   <p class="P16"/>
+   <p class="P16">(62) getmenulinks.php</p>
+   <p class="P16">This utility function will pass individual menu items to the main menu.</p>
+   <p class="P16">Returns an array containing the menu links for the main menu.</p>
+   <p class="P16"/>
+   <p class="P16">(63) menu.php</p>
+   <p class="P16">This standard function will generate the common menu configuration.</p>
+   <p class="P16"/>
+   <p class="P16">(64) validateitem.php</p>
+   <p class="P16">This standard function validates argument arrays that are passed for writing to the database.</p>
+   <p class="P16"/>
+   <p class="P16">(65) <span class="T3">index.html</span>
+</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P16"/>
+   <p class="P16">(66) getitemlinks.php</p>
+   <p class="P16">This utility function passes individual item links to other calling functions</p>
+   <p class="P16"/>
+   <p class="P16">Syntax: <span class="T14">@param $args [‘itemtype’] – Item type (optional)</span>
+</p>
+   <p class="P45">         @param $args [‘itemids’] – array of item ids to get</p>
+   <p class="P16">Returns an array containing the itemlink(s) for the item(s)</p>
+   <p class="P16"/>
+   <p class="P16">(67) xareventapi.php</p>
+   <p class="P16">This standard function is the event handler for the system event ServerRequest</p>
+   <p class="P16">Returns bool </p>
+   <p class="P16"/>
+   <p class="P16">(68) xarinit.php</p>
+   <p class="P16">This file contains the initialization, upgrade, and delete functions for the example module. Functions include</p>
+   <p class="P16"/>
+   <p class="P16">example_init() – example_upgrade() – example_delete()</p>
+   <p class="P16"/>
+   <p class="P16">(69) xartables.php</p>
+   <p class="P16">This file contains the table definitions for the example module/</p>
+   <p class="P16"/>
+   <p class="P16">(70) example.wsdl</p>
+   <p class="P16">This file contains an example soap xml schema that connects and returns the number of items in the example database.</p>
+   <p class="P16"/>
+   <p class="P16">(71) index.html</p>
+   <p class="P42">This is a blank index.html file to prevent someone from viewing the directory contents when access this directory via a url.</p>
+   <p class="P16"/>
+   <p class="P16">(72) xaradmin.php</p>
+   <p class="P16">A depreciated file; all admin functions should be separated into individual files and placed into the xaradmin/ directory. </p>
+   <p class="P16"/>
+   <p class="P16">(73) xaradminapi.php</p>
+   <p class="P16">A depreciated file; all adminapi functions should be separated into individual files and placed into the xaradminapi/ directory. </p>
+   <p class="P16"/>
+   <p class="P16"/>
+   <p class="P16"/>
+   <p class="P16">(74) xaruser.php</p>
+   <p class="P16">A depreciated file; all user functions should be separated into individual files and placed into the xaruser/ directory.</p>
+   <p class="P16"/>
+   <p class="P16">(75) xaruserapi.php</p>
+   <p class="P16">A depreciated file; all userapi functions should be separated into individual files and placed into the xaruserapi/ directory.</p>
+   <p class="P16"/>
+   <p class="P16"/>
+   <p class="P16">(76) xarversion.php</p>
+   <p class="P16">This file contains the module ID number, author, and version information for the example module.</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Building Your Module</h1>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Make Your Initial Directory</h1>
+    </li>
+   </ul>
+   <p class="P18">Create the directory to hold the module files. This directory must be created under the 'modules' directory in the Xaraya install, and must be created with the name of your module as registered at the Xaraya modules site. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Copy the Module Example</h1>
+    </li>
+   </ul>
+   <p class="P18">Copy over all of the files from the example module directory into you newly created module directory. These files set up the basic structure for your module and allow you to get to work creating your module very quickly. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Code your Database Tables</h1>
+    </li>
+   </ul>
+   <p class="P26">
+<span class="T3">        Coding your database tables requires you to edit the xartables.php file in your module directory. This file gives information on the structure of the tables used by this module, although it does not carry out any actions itself. The structure information is wrapped in a function (</span>
+<span class="T22">modname</span>
+<span class="T5">_xartables()</span>
+<span class="T3">) for easy access by the Xaraya system. An annotated copy of the template xartables.php file is available in the standard Xaraya distribution as part of the Template module. </span>
+</p>
+   <p class="P29">        If your module uses tables specified by another module then you can either remove the xartables.php file completely from your module directory, or have a suitably named function that just returns an empty array. </p>
+   <p class="P32">If you attempt to use the same table name as another module or the Xaraya core then your module will fail in unexpected ways. Try to give your tables unique names, preferably based on your module name</p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Write your Initialization Functions</h1>
+    </li>
+   </ul>
+   <p class="P18">Module initialization functions are required for three separate actions. These actions are initialization of the module's tables and configuration, upgrade of the module's tables and configuration, and deletion of the module's tables and configuration. Each of these items are generally only called once, although if a site administrator desires they should be able to initialize and delete a module as many times as they wish. It should be assumed that whenever these functions are called the Xaraya system has already loaded the relevant information from <span class="WW-HTMLTypewriter">xartables.php</span> and it is available in the information returned by <span class="WW-HTMLCode">xarDBGetTables()</span>. </p>
+   <p class="P19">An annotated copy of the template <span class="WW-HTMLTypewriter">xarinit.php</span> file is available in the standard Xaraya distribution as part of the Example solution.</p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Test Your Initialization Routines</h1>
+    </li>
+   </ul>
+   <p class="P18">Once the database structure and initialization files are in place they should be tested by using the modules administration area of your Xaraya system to test initializing and deleting your module. You should manually check that the database table created is correct, and that deleting a module removes all of the relevant configuration variables and database tables. Once you are happy that the module initialization functions are working correctly you should carry out an initialization so that work on the administration and user functions can proceed with suitable database tables in place. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Write Your Administration Functions</h1>
+    </li>
+   </ul>
+   <p class="P19">        With your database tables in place, the next step is to write some administration functions. The administration functions that you will write depend on the nature of your module, however most modules have at least the following items: </p>
+   <p class="P19">add a new item </p>
+   <p class="P19">modify an existing item </p>
+   <p class="P19">delete an existing item </p>
+   <p class="P19">        Each of these items is normally broken down into three separate pieces. The first piece is part of the <span class="T1">GUI</span> and displays a form with suitable fields for user input. The second piece is part of the <span class="T1">API</span> and carries out the requested operation. The third piece is another part of the <span class="T1">GUI, </span>gathers information from the form displayed by the first piece, and passes it as arguments to the second piece.</p>
+   <p class="P19">        As mentioned earlier in the document, it is vital that the separation between the GUI and API functions is clear. If you are unsure about whether part of a function should be in the GUI or the API, look at what it does. If it is directly involved with user interaction (gathering information from the user or displaying information to the user) then it is a GUI function. If it is involved with obtaining or updating information in the Xaraya system itself (normally in a database table) then it is an API function. </p>
+   <p class="P19">        Annotated copies of the template xaruser and xaruserapi function files are available in the standard Xaraya distribution as part of the Example module. </p>
+   <p class="P19"/>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Test Your Administration Functions</h1>
+    </li>
+   </ul>
+   <p class="P18">Once the administration functions are in place, they need testing by using the administration area of your module to carry out the basic functionality that you have created. The operation of the module functions need checking against the information in the database to ensure that they are storing and displaying the data correctly. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Write Your User Functions</h1>
+    </li>
+   </ul>
+   <p class="P19">Once the administration functions are in place to manipulate your module's data then you can write the user functions to display the data. As with the administration functions the user functions that you will write depend on the nature of your module, however most modules have at least the following items: </p>
+   <p class="P19">overview of a number of items </p>
+   <p class="P19">detailed view of a single item </p>
+   <p class="P19">Each of these items is normally broken down into two separate pieces. The first piece is part of the GUI and gathers information from the user as to which item they wish to view, passes it on to the API piece, and displays the resultant information. The second piece is part of the API and obtains the required information for the display piece. </p>
+   <p class="P19">Annotated copies of the template <span class="WW-HTMLTypewriter">xaruser</span> and <span class="WW-HTMLTypewriter">xaruserapi</span> function files are available in the standard Xaraya distribution as part of the Example module. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Test Your User Functions</h1>
+    </li>
+   </ul>
+   <p class="P19">Once the user functions are in place they need testing by operating the module in the same way that a normal user would. The operation of the module functions need checking against the information in the database to ensure that they are displaying the data correctly. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Write Your Blocks</h1>
+    </li>
+   </ul>
+   <p class="P18">You might want your module to include <span class="T14">blocks</span>. Blocks are smaller functional units of a module that display specific information, and generally show up down the left and right hand sides of a page. Blocks are relatively simplistic items, and can either use their module's API functions to obtain information or use their own direct SQL query. Although they are packaged as part of the module they are not directly related to it except that they use the same database tables, and as such they might have to load the module's database table information directly through the use of the <span class="WW-HTMLCode">xarModDBInfoLoad()</span> function if they intend to access the module's tables directly. </p>
+   <p class="P19">An annotated copy of the template <span class="WW-HTMLTypewriter">first.php</span> block is available in the standard Xaraya distribution as part of the Example module. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Test Your Blocks</h1>
+    </li>
+   </ul>
+   <p class="P19">Once the blocks are in place, they need testing by displaying them through the Blocks administration system. The blocks need checking against the database and the user functions to ensure that they are displaying the data correctly. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Document Your Module</h1>
+    </li>
+   </ul>
+   <p class="P18">Documenting your module is a vital step. There are two areas your module needs documentation: user information and API information. The first area is covered by producing a manual and placing it in the appropriate place in the directory hierarchy. The second area by writing a short description of each API function, noting the parameters and return values that it has, and placing that at the head of the function. Coding the documentation in the style of <a href="http://www.phpdoc.de/">
+<span class="Internetlink">PHPDoc</span>
+</a> will allow for automatic parsing of the documentation by other developers who wish to use your module. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Packaging Your Module</h1>
+    </li>
+   </ul>
+   <p class="P18">At this stage, the module should be ready for packaging. The two most widely used packaging formats are WinZip (.zip extension) and compressed TAR (.tar.gz extension). If possible, package the module with both formats. If not then just, package it with the format that you have and ask on the Xaraya site if someone can package it in the other format. </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Interacting With Other Modules</h1>
+    </li>
+   </ul>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Overview</h1>
+    </li>
+   </ul>
+   <p class="P18">When designing your module you may well find there is functionality that you require in a module already available. Utility modules are designed specifically to provide additional often-used functionality for modules in a standard way, and sometimes the functionality of an entire module might be used as part of your module. Functionality can be obtained either from the display part of the module or the API itself, depending on the specific requirements in the new module. Interaction with other modules is carried out in different ways depending on the type of module being written and the level of specific control the module requires over the function being called. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Hooks</h1>
+    </li>
+   </ul>
+   <p class="P26">
+<span class="T6">Hooks</span>
+<span class="T3"> are a way of adding functionality to modules without the modules themselves knowing what the functions might be. The site administrator controls the operations of hooks, so the decision as to which pieces of extra functionality to use and which not is in their hands rather than the module developer. </span>
+</p>
+   <p class="P29">Hooks are called for specific actions that take place in a module. At current, the actions that hooks are enabled for are as follows: </p>
+   <p class="P29">Addition of a category </p>
+   <p class="P29">Deletion of a category </p>
+   <p class="P29">Transformation of category data into a standard Xaraya format </p>
+   <p class="P29">Display of a category </p>
+   <p class="P29">Addition of an item </p>
+   <p class="P29">Deletion of an item </p>
+   <p class="P29">Transformation of item data into a standard Xaraya format </p>
+   <p class="P29">Display of an item </p>
+   <p class="P46">
+<span class="T3">The terms </span>
+<span class="T6">category </span>
+<span class="T3">and </span>
+<span class="T6">item</span>
+<span class="T3"> are quite broad. Category is used to define any database entity that contains other categories or items, whilst item is used to define any database entity that holds content. Due to this definition it is possible for an item to be a category as well, although this is an unlikely state of affairs and it should be obvious to a module developer which parts of the system deal with categories and which with items.</span>
+</p>
+   <p class="P29">Hooks are the recommended way of extending the functionality of your module, and use of the appropriate xarAPI hook functions as described below is mandatory for a compliant module. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Calling Hooks</h1>
+    </li>
+   </ul>
+   <p class="P26">
+<span class="T3">        You are developing an item module then you should allow utility modules to add functionality to the item module. This is carried out through use of the </span>
+<span class="T5">xarModCallHooks()</span>
+<span class="T3"> function. This function placed wherever a specific action is required by the item module, where the current specific actions that the hooks system is able to operate on are: </span>
+</p>
+   <p class="P26">
+<span class="T3">        The hook calls made at the appropriate level depending on the action taken. With the current hooks, addition and deletion hooks called at the </span>
+<span class="T4">API</span>
+<span class="T3"> level, and display hooks called at the </span>
+<span class="T4">GUI</span>
+<span class="T3"> level. </span>
+</p>
+   <p class="P26">
+<span class="T3">The </span>
+<span class="T5">xarModCallHooks()</span>
+<span class="T3"> function takes a number of parameters, which are explained below: </span>
+</p>
+   <p class="P31">hookobject </p>
+   <p class="P39">
+<span class="T3">The object for which the hooks are called - currently either </span>
+<span class="T6">category</span>
+<span class="T3">, or </span>
+<span class="T6">item</span>
+<span class="T3">, as described above </span>
+</p>
+   <p class="P31">hookaction </p>
+   <p class="P39">
+<span class="T3">The action for which the hooks are to be called - currently one of </span>
+<span class="T6">create</span>
+<span class="T3">, </span>
+<span class="T6">delete</span>
+<span class="T3">, </span>
+<span class="T6">transform</span>
+<span class="T3">, or </span>
+<span class="T6">display</span>
+<span class="T3"> </span>
+</p>
+   <p class="P31">obid </p>
+   <p class="P28">An ID that, within the scope of the module and object, uniquely defines the entity for which the hook is called </p>
+   <p class="P31">extrainfo </p>
+   <p class="P28">This is extra information that is required by the hook function, and is dependent on the hook action being called. Information on the information required by each hook is covered below. </p>
+   <p class="P39">
+<span class="T3">For </span>
+<span class="T5">create</span>
+<span class="T3"> hooks a string that can be used in conjunction with the obid as part of a URL to access the object. For example, if your </span>
+<span class="T5">example_user_display()</span>
+<span class="T3"> function uses a variable </span>
+<span class="T6">picid</span>
+<span class="T3"> to define the particular picture that a user wishes to look at then the URL would be something like 'index.php?module=example&amp;func=display&amp;picid=4' and the identification part of the URL would be something like 'picid=4' so you would pass 'picid' to this hook. </span>
+</p>
+   <p class="P39">
+<span class="T3">For </span>
+<span class="T5">display()</span>
+<span class="T3"> hooks a URL that can be used by the hooks to return to a suitable page once they have finished any work that they might have to do. This is normally just the standard display URL for this function. </span>
+</p>
+   <p class="P39">
+<span class="T3">For </span>
+<span class="T5">transform()</span>
+<span class="T3"> hooks an array of items that contain text-based content that can be transformed. This is normally all text-based items. </span>
+</p>
+   <p class="P26">
+<span class="T3">        The </span>
+<span class="T5">xarModCallHooks()</span>
+<span class="T3"> function returns different information depending on value of </span>
+<span class="T6">hookaction</span>
+<span class="T3">. If </span>
+<span class="T6">hookaction</span>
+<span class="T3"> is </span>
+<span class="T6">display</span>
+<span class="T3"> then the hook will return extra output to display directly following the display for the item itself. If </span>
+<span class="T6">hookaction</span>
+<span class="T3"> is </span>
+<span class="T6">create</span>
+<span class="T3"> or </span>
+<span class="T6">delete</span>
+<span class="T3"> then the function will return either </span>
+<span class="T6">true</span>
+<span class="T3"> or </span>
+<span class="T6">false</span>
+<span class="T3"> depending on the success or failure of the hooks. If </span>
+<span class="T6">hookaction</span>
+<span class="T3"> is </span>
+<span class="T6">transform</span>
+<span class="T3"> then the hook will return an equivalent array to that which was passed in, with the items suitable transformed. </span>
+</p>
+   <p class="P29">        As an example of calling hooks, if you were developing the 'Example' module and were displaying a picture, after the display of the picture you would want to call the hooks to add any other functionality available and required by the site administrator. To do this you would use the following lines: </p>
+   <p class="P30">
+<span class="T7">$output</span>
+<span class="T9">-&gt;Text(xarModCallHooks(</span>
+<span class="T10">'item'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                             </span>
+<span class="T10">'display'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                             </span>
+<span class="T7">$pictureid</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                             </span>
+<span class="T9">xarModURL(</span>
+<span class="T10">'example'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                                      </span>
+<span class="T10">'user'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                                      </span>
+<span class="T10">'display'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                                      </span>
+<span class="T13">array</span>
+<span class="T9">(</span>
+<span class="T10">'pictureid'</span>
+<span class="T8"> </span>
+<span class="T9">=&gt;</span>
+<span class="T8"> </span>
+<span class="T7">$pictureid</span>
+<span class="T9">))));</span>
+</p>
+   <p class="P41">        </p>
+   <p class="P29">        This would add the verbatim output of the hooks to the current output. It is worth noting again here the from this code it can be seen that the module itself needs no information on what hooks, if any, exist, it just calls the function and lets the Xaraya core deal with what extra output should be added to this item. </p>
+   <p class="P29">        One important area to understand is where exactly in your code to call hooks. For example, if you were displaying a thumbnail view of 100 pictures from your Example module, should you call an item display hook for each picture? The answer to this is somewhat dependent on the nature of your module. In general you should only call display hooks when you are displaying the details of a single item rather than an overview of a large number of items (of course, if all of those items are in a single category then you should call a display hook for that category). However, the transform hook should be called whenever you are displaying content regardless of it if is just an overview, as the overview information could require transformation before display. </p>
+   <p class="P29">        The annotated Example module in the standard Xaraya distribution contains notes on calling hooks within an item module. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Writing Hooks</h1>
+    </li>
+   </ul>
+   <p class="P18">If you are developing a utility module then you probably want to allow your module to be called as a hook. This requires the module functions to be able to be called as hooks, and the module to register and unregistered its hooks as required. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">        Writing Hook Functions</h1>
+    </li>
+   </ul>
+   <p class="P40">Hook functions are very similar to standard module functions, but they have a number of extra restrictions placed on them to be able to work as hooks: </p>
+   <p class="P19">Hook functions must be able to operate correctly given only two arguments in their arguments array - <span class="WW-HTMLVariable">obid</span> and <span class="WW-HTMLVariable">returnurl</span>, as these are the only parameters that are passed to the function if it is called as a hook. Other parameters are allowed by the function but they must be optional, and default to suitable values if not present such that the function will work appropriately. </p>
+   <p class="P19">Hook functions must not rely on other hooks to exist, or to have been called already or in future. The order of calling a list of hooks is undefined, and depending on the site administrator's preferences, particular hooks may never be called. </p>
+   <p class="P19">Hook functions must not call the <span class="WW-HTMLCode">xarModCallHooks()</span> function, or functions that might themselves call <span class="WW-HTMLCode">xarModCallHooks()</span>. If a hook does this, it risks getting the code into an infinite loop. </p>
+   <p class="P19">        The Ratings module that comes with the core Xaraya distribution has an example hook function that shows how to fit within these guidelines whilst still producing a general-purpose function. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Registering Hooks</h1>
+    </li>
+   </ul>
+   <p class="P26">
+<span class="T3">        Once your module has hook-capable functions in place they need to be registered on initialization of the module so that the administrator can configure their applicability, and other modules can access them through the </span>
+<span class="T5">xarModCallHooks()</span>
+<span class="T3"> function. This is carried out through use of the </span>
+<span class="T5">xarModRegisterHook()</span>
+<span class="T3"> function. This function should be placed within the </span>
+<span class="T22">modname</span>
+<span class="T5">_init()</span>
+<span class="T3"> function of your module and given appropriate parameters to register the relevant hook-capable module functions within your module as hooks. </span>
+</p>
+   <p class="P26">
+<span class="T3">The </span>
+<span class="T5">xarModRegisterHook()</span>
+<span class="T3"> function takes a number of parameters, which are explained below: </span>
+</p>
+   <p class="P31">hookobject </p>
+   <p class="P39">
+<span class="T3">The object for which the hook is to be registered - currently either </span>
+<span class="T6">category</span>
+<span class="T3">, or </span>
+<span class="T6">item</span>
+<span class="T3">, as described above </span>
+</p>
+   <p class="P31">hookaction </p>
+   <p class="P39">
+<span class="T3">The action for which the hook is to be registered - currently one of </span>
+<span class="T6">create</span>
+<span class="T3">, </span>
+<span class="T6">delete</span>
+<span class="T3">, </span>
+<span class="T6">transform</span>
+<span class="T3">, or </span>
+<span class="T6">display</span>
+<span class="T3"> </span>
+</p>
+   <p class="P31">hookarea </p>
+   <p class="P39">
+<span class="T3">The area that the hook function covers - currently either </span>
+<span class="T21">GUI</span>
+<span class="T3"> (for functions that are in </span>
+<span class="T5">xaruser.php</span>
+<span class="T3"> and </span>
+<span class="T5">xaradmin.php</span>
+<span class="T3">) or </span>
+<span class="T21">API</span>
+<span class="T4"> </span>
+<span class="T3">(for functions that are in </span>
+<span class="T5">xaruserapi.php</span>
+<span class="T3"> and </span>
+<span class="T5">xaradminapi.php</span>
+<span class="T3">) </span>
+</p>
+   <p class="P31">hookmodule </p>
+   <p class="P28">The name of the module in which the hook function exists - normally the name of the module calling this function </p>
+   <p class="P31">hooktype </p>
+   <p class="P39">
+<span class="T3">The type of the hook function - currently either </span>
+<span class="T5">user</span>
+<span class="T3"> or </span>
+<span class="T5">admin</span>
+<span class="T3"> </span>
+</p>
+   <p class="P31">hookfunc </p>
+   <p class="P28">The name of the hook function </p>
+   <p class="P26">
+<span class="T3">The </span>
+<span class="T5">xarModRegisterHook()</span>
+<span class="T3"> function returns </span>
+<span class="T6">true</span>
+<span class="T3"> if the registration was successful, and </span>
+<span class="T6">false</span>
+<span class="T3"> if the registration is unsuccessful. </span>
+</p>
+   <p class="P26">
+<span class="T3">As an example of registering hooks, if you were developing the 'globalid' utility module (which gives every piece of content in Xaraya a separate ID) and had a </span>
+<span class="T5">globalid_admin_create()</span>
+<span class="T3"> function which created an entry in the global ID table for this particular piece of content then you would register this as a creation hook. To do this you would use the following lines within </span>
+<span class="T5">globalid_init()</span>
+<span class="T3">: </span>
+</p>
+   <p class="P30">
+<span class="T13">if</span>
+<span class="T8"> </span>
+<span class="T9">(!xarModRegisterHook(</span>
+<span class="T10">'item'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                       </span>
+<span class="T10">'create'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                       </span>
+<span class="T10">'API'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                       </span>
+<span class="T10">'globalid'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                       </span>
+<span class="T10">'admin'</span>
+<span class="T9">,<br/>
+</span>
+<span class="T8">                       </span>
+<span class="T10">'create)) {</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T10">return false;</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T10">}<br/>
+</span>
+</p>
+   <p class="P41">          </p>
+   <p class="P29">        Which would register this hook to be called every time a hook-enabled module someone creates an item (a similar but separate call would be needed to register this hook for the creation of categories as well). </p>
+   <p class="P29">        The Ratings module that comes with the core Xaraya distribution has detailed comments on registering hooks within a utility module. </p>
+   <p class="P14"/>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Un-registering Hooks</h1>
+    </li>
+   </ul>
+   <p class="P18">If your module has hook-capable functions that are registered when the module is initialized they need to be unregistered when the module is deleted. This is carried out through use of the <span class="WW-HTMLCode">xarModUnregisterHook()</span> function. This function should be placed within the <span class="T15">modname</span>
+<span class="WW-HTMLCode">_delete()</span> function of your module and given appropriate parameters to unregister the functions that were previously registered hooks when the module was initialized. </p>
+   <p class="P19">The <span class="WW-HTMLCode">xarModUnregisterHook()</span> function takes the same parameters as the <span class="WW-HTMLCode">xarModUnregisterHook()</span> function. </p>
+   <p class="P19">The Ratings module that comes with the core Xaraya distribution has detailed comments on unregistering hooks within a utility module. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Function Calls</h1>
+    </li>
+   </ul>
+   <p class="P19">        Another way of accessing the functionality of other modules is by calling their functions directly with the <span class="WW-HTMLCode">xarModFunc()</span> function. Doing this allows a number of advantages over hooks, but also a number of disadvantages. In general, calling functions directly is more flexible as the module developer understands exactly which functions they are calling and can pass additional arguments to the function to customize its abilities. The disadvantages are that the module named in the function call needs to be installed and active on the system for the calls to work, and if this is replace by a different module providing similar functionality it will not work correctly. </p>
+   <p class="P19">        Using direct function calls to other modules is fine within a module, but the developer should consider the implications of this on systems that might not have the modules that they are using installed. Also, even if direct function calls are used then the module developer should still call hooks at the appropriate places in the code to allow for other extended functionality to be added to the module. </p>
+   <p class="P19">        An example of where direct function calls might be used within the Example module would be if the module developer wanted users to be able to rate various aspects of the picture displayed such as 'use of color' and 'originality'. In this case, a simple hook would not be able to accommodate this requirement, so the developer would instead make explicit calls to the 'Ratings' utility module to display a number of separate ratings, each with its own identifier. The hook call would still be made, which might also add a rating to the picture, but in this case, the value could be considered as the overall rating for the picture rather than that just for a specific part. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15"/>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Upgrading Your Module</h1>
+    </li>
+   </ul>
+   <p class="P19">Add information how module upgrades interact with the installer </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15"/>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Notes in Developing Modules</h1>
+    </li>
+   </ul>
+   <p class="P19">        xarAPI is the Xaraya Application Programming Interface, a way for modules to interact with the Xaraya core without needing to access tables and internal structures directly. The API also allows for the underlying implementation details of Xaraya to be hidden from developer so that they can write modules in a standard fashion and not worry about what might change under the hood. This is very important for a system such as Xaraya, which has undergone, and continues to undergo, radical changes in the core design to allow it to be faster, more secure, and more flexible. </p>
+   <p class="P18">xarAPI is the only supported way of accessing core information. Module developers must use these methods of obtaining information from the Xaraya core system; failure to do so will very likely result in their module not working when the next version of Xaraya is released. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Use xarAPI</h1>
+    </li>
+   </ul>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15"/>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Security</h1>
+    </li>
+   </ul>
+   <p class="P29">        Security is a very important part of Xaraya. All modules should subscribe to the Xaraya Security model to ensure that they operate correctly within all environments. For full information on security refer to the Xaraya Security Model documentation, however the main points as regards modules are covered briefly below. </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Variable Handling</h1>
+    </li>
+   </ul>
+   <p class="P19">        All variables that come in to or go out of Xaraya should be handled by the relevant <span class="WW-HTMLCode">xarVar*()</span> functions to ensure that they are safe. Failure to do this could result in opening security holes at the web, file-system, display, or the database layers. Full information on these functions is in the Xaraya <span class="T1">API</span> Guide, and examples of their use are shown throughout the example module. </p>
+   <p class="P19">        It can be assumed that any variables passed to functions in the Xaraya <span class="T1">API</span> will be handled correctly, and as such these variables do not need to be prepared with the <span class="WW-HTMLCode">xarVar*()</span> functions. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Authorization</h1>
+    </li>
+   </ul>
+   <p class="P19">        All items displayed for users and actions carried out by administrators must be authorized through use of the <span class="WW-HTMLCode">xarSecAuthAction()</span> function. This function underlies the entire Xaraya permissions system and as such must be used wherever an access check is required. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Reserved Variable Names</h1>
+    </li>
+   </ul>
+   <p class="P29">Xaraya has a number of variables, which are reserved. These variables are not be used within modules as they can conflict with the Xaraya core and cause unpredictable results. </p>
+   <p class="P29">The current lists of variables, which are reserved, are as follows: </p>
+   <div align="right">
+<table class="Table1">
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">file</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">func</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">loadedmod</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">module</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">name</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">op</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">pagerstart</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">pagertotal</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+<tr class="">
+<td style="text-align:left; width:6in;" class="Table1A1">
+<span class="Table1A">
+      <ul class="WW8Num1">
+       <li>
+        <p class="P47">type</p>
+       </li>
+      </ul>
+     </span>
+</td>
+</tr>
+</table>
+</div>
+   <p class="P29">In addition, all one-letter variables are reserved. </p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P38">Page Path</h1>
+    </li>
+   </ul>
+   <p class="P20">All input from web pages goes through a two-stage process. The first part is displaying the information entered in a form, and the second is obtaining that information and passing it on to the module <span class="T1">API</span>. In addition to the visible information, there are often a number of hidden items of information in the first page that is used in the second page. </p>
+   <p class="P20"/>
+   <p class="P20">To ensure that any attempt to add, delete, or change information in the Xaraya system goes through the full two-stage method of gathering and processing the information the two functions <span class="WW-HTMLCode">xarSecGenAuthKey()</span> and <span class="WW-HTMLCode">xarSecConfirmAuthKey()</span> must be used in the appropriate places. The Example module in the standard Xaraya distribution contains a number of functions that use these <span class="T1">API</span> calls, and note where they are used so that developed modules will have the same level of protection against fraudulent administrator requests</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Output</h1>
+    </li>
+   </ul>
+   <p class="P29">All output generated by module functions must be returned to the Xaraya core. No output of any type pushed directly from the module; this is not supported and will break in future versions of Xaraya. </p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Using Object Oriented Code</h1>
+    </li>
+   </ul>
+   <p class="P19">        Modules written as classes is allowed, however the <span class="T1">API</span> as described in the rest of this document must still be adhered to. The simplest way of doing this is to use compatibility functions, for example: </p>
+   <p class="P14">
+<span class="T13">function</span>
+<span class="T8"> </span>
+<span class="T9">mymod_user_main()<br/>{<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">// Instantiate</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T7">$obj</span>
+<span class="T8"> </span>
+<span class="T9">=</span>
+<span class="T8"> </span>
+<span class="T13">new</span>
+<span class="T8"> </span>
+<span class="T9">myClass();<br/>
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T11">// Call relevant method and return output</span>
+<span class="T9">
+<br/>
+</span>
+<span class="T8">    </span>
+<span class="T13">return</span>
+<span class="T8"> </span>
+<span class="T7">$obj</span>
+<span class="T9">-&gt;usermain();<br/>}<br/>
+</span>
+</p>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Recommendations</h1>
+    </li>
+   </ul>
+   <p class="P20">If you are new to Xaraya, it is highly recommended that you familiarize yourself with Xaraya by reading the Xaraya Installation and Getting Started Guide. The guide is currently available via the <span class="T1">BitKeeper</span> repository located on the Xaraya.com Web site. As a side note, the guide is currently a work in progress, once completed the guide will be available by means that are more accessible.</p>
+   <p class="P20"/>
+   <p class="P48">Xaraya News Groups:</p>
+   <p class="P20">The following lists of news groups are available via news.xaraya.com. These news groups are also available via your web browser at the following Web sites. <a href="http://www.xaraya.com/">
+<span class="Internetlink">http://www.xaraya.com</span>
+</a> </p>
+   <p class="P20"/>
+   <ul class="WW8Num1">
+    <li>
+     <p class="P34">Ddf.public – DDF Public List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.announce – Xaraya Announcements List</p>
+    </li>
+    <li>
+     <p class="P34"/>
+    </li>
+    <li>
+     <p class="P34">Xaraya.devel – Xaraya Member List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.bk-notices – Xaraya BitKeeper Notices</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.documentation – Xaraya Documentation List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.bugs – Xaraya Bugs List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.ui – Xaraya User Interface Lists </p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.knowledge-base – Xaraya Knowledge Base List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.marketing – Xaraya Marketing</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.patches – Xaraya Patches</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.qa – Xaraya Quality Assurance</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user – Xaraya User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user-arabic – Xaraya Arabic User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.chinese – Xaraya Chinese User List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.danish –  Xaraya Danish User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.dutch – Xaraya Dutch User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.french – Xaraya French User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.german – Xaraya German User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.greek – Xaraya Greek User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.users.hungarian – Xaraya Hungarian User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.italian – Xaraya Italian User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.polish – Xaraya Polish User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.portuguese – Xaraya Portuguese User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.russian – Xaraya Russian User Discussion List</p>
+    </li>
+    <li>
+     <p class="P34">Xaraya.user.spanish – Xaraya Spanish User Discussion List</p>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15"/>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Glossary</h1>
+    </li>
+   </ul>
+   <p class="P14"/>
+   <p class="P49">API</p>
+   <p class="P14">
+<span class="T1">application program interface (API):</span> A formalized <a href="http://www.atis.org/tg2k/_set.html">
+<span class="Internetlink">set</span>
+</a> of <a href="http://www.atis.org/tg2k/_software.html">
+<span class="Internetlink">software</span>
+</a> calls and routines that can be referenced by an <a href="http://www.atis.org/tg2k/_application_program.html">
+<span class="Internetlink">application program</span>
+</a> in order to <a href="http://www.atis.org/tg2k/_access.html">
+<span class="Internetlink">access</span>
+</a> supporting <a href="http://www.atis.org/tg2k/_network.html">
+<span class="Internetlink">network</span>
+</a> services</p>
+   <p class="P14"/>
+   <p class="P49">BitKeeper</p>
+   <p class="P14">
+<span class="T1">BitKeeper:</span> is a scalable configuration management system, supporting globally distributed development, disconnected operation, compressed repositories, change sets, and repositories as branches.<span class="T23"> </span>
+</p>
+   <p class="P50"/>
+   <p class="P49">Blocklayout</p>
+   <p class="P14">
+<span class="T1">Blocklayout</span>: is the theme-rendering engine intended to give theme developers a maximum of control over the appearance and functionality of their Xaraya website. The RFC for Blocklayout is located at <a href="http://docs.xaraya.com/docs/rfcs/rfc0010.html">
+<span class="Internetlink">http://docs.xaraya.com/docs/rfcs/rfc0010.html</span>
+</a>.</p>
+   <p class="P49"/>
+   <p class="P49">GUI</p>
+   <p class="P14">
+<span class="T1">gui:</span> <span class="T14">Acronym for</span> <a href="http://www.atis.org/tg2k/_graphical_user_interface.html">
+<span class="T24">graphical user interface</span>
+</a>
+<span class="T1">.</span> A <a href="http://www.atis.org/tg2k/_computer.html">
+<span class="Internetlink">computer</span>
+</a> environment or <a href="http://www.atis.org/tg2k/_program.html">
+<span class="Internetlink">program</span>
+</a> that displays, or facilitates the display of, on-<a href="http://www.atis.org/tg2k/_screen.html">
+<span class="Internetlink">screen</span>
+</a> options, usually in the form of icons (pictorial symbols) or menus (lists of <a href="http://www.atis.org/tg2k/_alphanumeric.html">
+<span class="Internetlink">alphanumeric</span>
+</a> characters) by means of which users may enter commands. <span class="T14">Note 1:</span> Options are selected by using the appropriate <a href="http://www.atis.org/tg2k/_hardware.html">
+<span class="Internetlink">hardware</span>
+</a> (<span class="T14">e.g.</span>, <a href="http://www.atis.org/tg2k/_mouse.html">
+<span class="Internetlink">mouse</span>
+</a>, designated <a href="http://www.atis.org/tg2k/_keyboard.html">
+<span class="Internetlink">keyboard</span>
+</a> keys, or touchpad) to move a display <a href="http://www.atis.org/tg2k/_cursor.html">
+<span class="Internetlink">cursor</span>
+</a> to, or on top of, the <a href="http://www.atis.org/tg2k/_icon.html">
+<span class="Internetlink">icon</span>
+</a> or menu item of interest. The <a href="http://www.atis.org/tg2k/_application.html">
+<span class="Internetlink">application</span>
+</a> or function so represented may then be selected (<span class="T14">e.g.</span>, by clicking a mouse button, pressing the "enter" <a href="http://www.atis.org/tg2k/_key.html">
+<span class="Internetlink">key</span>
+</a>, or by touching the touchpad). <span class="T14">Note 2:</span> Pronounced "gooey."</p>
+   <p class="P14"/>
+   <p class="P14"/>
+   <p class="P49"/>
+   <p class="P49"/>
+   <p class="P49">LDAP</p>
+   <p class="P14">
+<span class="T1">LDAP: </span>
+<span class="T14">Abbreviation for</span> lightweight <a href="http://www.atis.org/tg2k/_directory_access_protocol.html">
+<span class="Internetlink">directory access protocol</span>
+</a>. A simplified version of the X.500 <a href="http://www.atis.org/tg2k/_standard.html">
+<span class="Internetlink">standard</span>
+</a>, which version consists of a <a href="http://www.atis.org/tg2k/_set.html">
+<span class="Internetlink">set</span>
+</a> of protocols developed for accessing <a href="http://www.atis.org/tg2k/_information.html">
+<span class="Internetlink">information</span>
+</a> directories. [After Bahorsky]</p>
+   <p class="P14"/>
+   <p class="P14"/>
+   <p class="P49"/>
+   <p class="P49">METADATA</p>
+   <p class="P14">
+<span class="T1">Metadata</span>: is machine understandable information for the web. The <a href="http://www.w3.org/Metadata/Activity.html">
+<span class="Internetlink">W3C Metadata Activity</span>
+</a> addressed the combined needs of several groups for a common framework to express assertions about information on the Web, and was super ceded by the <a href="http://www.w3.org/2001/sw/">
+<span class="Internetlink">W3C Semantic Web Activity</span>
+</a>.</p>
+   <p class="P49"/>
+   <p class="P49"/>
+   <p class="P49">MOVABLE TYPE</p>
+   <p class="P14">
+<span class="T1">Movable Type</span>: is <a href="http://www.sixapart.com/">
+<span class="Internetlink">Six Apart</span>
+</a>'s powerful, customizable publishing system, which installs on web servers to enable individuals or organizations to manage and update weblogs, journals, and frequently updated website content.</p>
+   <p class="P49"/>
+   <p class="P49">PHP</p>
+   <p class="P14">
+<span class="T1">PHP</span>: is a widely used general-purpose scripting language that is especially suited for Web development and can be embedded into HTML.</p>
+   <p class="P14"/>
+   <p class="P49">POSTNUKE</p>
+   <p class="P14">
+<span class="T1">PostNuke:</span>
+<span class="T25"> </span>is a community, content, collaborative management system, a <span class="T26">C3MS</span>.</p>
+   <p class="P14">More information is located at <a href="http://www.postnuke.com/">
+<span class="Internetlink">http://www.postnuke.com</span>
+</a>
+</p>
+   <p class="P14"/>
+   <p class="P49">RSS</p>
+   <p class="P14">RDF Site Summary (<span class="T1">RSS</span>): - also referred to as Rich Site Summary - is a method of describing news or other Web content that is available for "feeding" (distribution or <a href="http://searchWebServices.techtarget.com/sDefinition/0,,sid26_gci498311,00.html">
+<span class="Internetlink">syndication</span>
+</a>) from an online publisher to Web users. RSS is an application of the Extensible Markup Language (<a href="http://searchWebServices.techtarget.com/sDefinition/0,,sid26_gci213404,00.html">
+<span class="Internetlink">XML</span>
+</a>) that adheres to the World Wide Web Consortium's Resource Description Framework (<a href="http://searchWebServices.techtarget.com/sDefinition/0,,sid26_gci213545,00.html">
+<span class="Internetlink">RDF</span>
+</a>). Originally developed by <a href="http://searchWebServices.techtarget.com/sDefinition/0,,sid26_gci212640,00.html">
+<span class="Internetlink">Netscape</span>
+</a> for its browser's Netcenter channels, the RSS specification is now available for anyone to use.</p>
+   <p class="P49"/>
+   <p class="P49">XMLRPC</p>
+   <p class="P14">
+<span class="T1">XMLRPC: </span>is a <a href="http://www.xmlrpc.com/spec">
+<span class="Internetlink">spec</span>
+</a> and a set of implementations that allow software running on disparate operating systems, running in different environments to make procedure calls </p>
+   <p class="P14">over the Internet.</p>
+   <p class="P49"/>
+   <p class="P49"/>
+   <ul class="WW8Num1">
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Appendix A</h1>
+    </li>
+    <li>
+     <a xmlns:sxghelper="http://www.jclark.com/xt/java/com.sun.star.xslt.helper.SxgChildTransformer" name="+"/>
+<h1 class="P15">Module Developers Check List</h1>
+    </li>
+   </ul>
+   <p class="P14">        The following checklist presents a number of items that need checking throughout the process of designing, building, and releasing your module.</p>
+   <p class="P14"/>
+   <ul class="WW8Num1">
+    <li>
+     <p class="P34">Initial</p>
+     <ol>
+      <li>
+       <p class="P34">Decide on the module type</p>
+      </li>
+      <li>
+       <p class="P34">Choose a name for your module</p>
+      </li>
+      <li>
+       <p class="P34">Register your module name </p>
+      </li>
+      <li>
+       <p class="P34">Obtain and read the Module Developers Guide</p>
+      </li>
+      <li>
+       <p class="P34">Obtain and read the API Documentation</p>
+      </li>
+     </ol>
+    </li>
+    <li>
+     <p class="P34">Module Design</p>
+     <ol>
+      <li>
+       <p class="P34">Separate User and Administration Functions</p>
+      </li>
+      <li>
+       <p class="P34">Separate GUI and API functions</p>
+      </li>
+      <li>
+       <p class="P34">Design data tables</p>
+      </li>
+      <li>
+       <p class="P34">Note, which utility modules are of use</p>
+      </li>
+      <li>
+       <p class="P34">Note, which standard module functions apply</p>
+      </li>
+      <li>
+       <p class="P34">Create module security schema</p>
+      </li>
+     </ol>
+    </li>
+    <li>
+     <p class="P34">Module Build</p>
+     <ol>
+      <li>
+       <p class="P34">Copy the example module directory</p>
+      </li>
+      <li>
+       <p class="P34">Create database tables</p>
+      </li>
+      <li>
+       <p class="P34">Create database initialization routines</p>
+      </li>
+      <li>
+       <p class="P34">Test database initialization routines</p>
+      </li>
+      <li>
+       <p class="P34">Write administration functions</p>
+      </li>
+      <li>
+       <p class="P34">Test administration functions</p>
+      </li>
+      <li>
+       <p class="P34">Write user functions</p>
+      </li>
+      <li>
+       <p class="P34">Test user functions</p>
+      </li>
+      <li>
+       <p class="P34">Write blocks</p>
+      </li>
+      <li>
+       <p class="P34">Test blocks</p>
+      </li>
+      <li>
+       <p class="P34">Document module API</p>
+      </li>
+      <li>
+       <p class="P34">Package your module</p>
+      </li>
+     </ol>
+    </li>
+    <li>
+     <p class="P34">Module Checks</p>
+     <ol>
+      <li>
+       <p class="P34">No global variables used</p>
+      </li>
+      <li>
+       <p class="P34">No Xaraya reserved variable names used</p>
+      </li>
+      <li>
+       <p class="P34">No echo() or print() statements used</p>
+      </li>
+      <li>
+       <p class="P34">All operations protected by xarSecAuthAction()</p>
+      </li>
+      <li>
+       <p class="P34">All form results protected by xarSecConfirmAuthKey()</p>
+      </li>
+      <li>
+       <p class="P34">All form variables obtained by xarVarFetch()</p>
+      </li>
+      <li>
+       <p class="P34">All output is passed through transform hooks.</p>
+      </li>
+      <li>
+       <p class="P34">All output parsed through xarVarPrepForDisplay() or xarVarPrepForHTMLDisplay()</p>
+      </li>
+      <li>
+       <p class="P34">All variables in SQL queries protected by using bindvars</p>
+      </li>
+      <li>
+       <p class="P34">All variables in filesystem access protected by xarVarPrepForOS()</p>
+      </li>
+      <li>
+       <p class="P34">Calls to xarModCallHooks() in appropriate locations</p>
+      </li>
+     </ol>
+    </li>
+   </ul>
+   <p class="P51">Sources Cited</p>
+   <p class="P52"/>
+   <p class="P52">SearchWebServices.</p>
+   <p class="P53">        SearchWebServices. 22 Sept 2003</p>
+   <p class="P53">        &lt;http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html&gt;</p>
+   <p class="P53">
+<span class="T27">Telecom Glossary 2k.</span> </p>
+   <p class="P54">Telecom Glossary 2k. 29 Feb. 2001 </p>
+   <p class="P54">&lt; <a href="http://www.atis.org/tg2k/_irc.html">
+<span class="Internetlink">http://www.atis.org/tg2k/_irc.html</span>
+</a>&gt;</p>
+   <p class="P52">W3C Technology and Society Domain.</p>
+   <p class="P53">        W3C Technology and Society Domain. 05 April 2001</p>
+   <p class="P53">        &lt; http://www.w3.org/Metadata/&gt;</p>
+   <p class="P53">Xaraya Development Team <span class="T27">About Xaraya</span>
+</p>
+   <p class="P54">John Cox. 27 April. 2003 </p>
+   <p class="P54">&lt; <a href="http://www.xaraya.com/index.php/news/c28/">
+<span class="T28">http://www.xaraya.com/index.php/news/c28/</span>
+</a>
+<span class="T17">&gt;</span>
+</p>
+   <p class="P55">Xaraya Documentation.</p>
+   <p class="P14">        Xaraya Documentation. 15 August 2004</p>
+   <p class="P14"/>
+   <p class="P20">&lt; http://docs.xaraya.com/index.php/documentation/72&gt;</p>
+   <p class="P16"/>
+   <p class="P56"/>
+   <p class="P56"/>
+   <p class="P56"/>
+   <p class="P56"/>
+   <p class="P56"/>
+   <p class="P56"/>
+   <p class="P56"/>
+   <p class="P56"/>
+   <p class="P14"/>
+  </span>
+ </body>
+</html>

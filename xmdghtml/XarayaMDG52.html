@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Write Your Administration Functions</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20040815;10451600">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20040815;10451600">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" STYLE="page-break-inside: auto">Write Your
+	Administration Functions</H1>
+</UL>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+	With your database tables in place, the next step is to write some
+administration functions. The administration functions that you will
+write depend on the nature of your module, however most modules have
+at least the following items: 
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+add a new item 
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+modify an existing item 
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+delete an existing item 
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+	Each of these items is normally broken down into three separate
+pieces. The first piece is part of the <B>GUI</B> and displays a form
+with suitable fields for user input. The second piece is part of the
+<B>API</B> and carries out the requested operation. The third piece
+is another part of the <B>GUI, </B>gathers information from the form
+displayed by the first piece, and passes it as arguments to the
+second piece.</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+	As mentioned earlier in the document, it is vital that the
+separation between the GUI and API functions is clear. If you are
+unsure about whether part of a function should be in the GUI or the
+API, look at what it does. If it is directly involved with user
+interaction (gathering information from the user or displaying
+information to the user) then it is a GUI function. If it is involved
+with obtaining or updating information in the Xaraya system itself
+(normally in a database table) then it is an API function. 
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+	Annotated copies of the template xaruser and xaruserapi function
+files are available in the standard Xaraya distribution as part of
+the Example module. 
+</P>
+<P STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<BR><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

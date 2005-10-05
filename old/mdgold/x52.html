@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>On-Going Work</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introduction"
+HREF="c39.html"><LINK
+REL="PREVIOUS"
+TITLE="Status of the Module API"
+HREF="x49.html"><LINK
+REL="NEXT"
+TITLE="This Document"
+HREF="x60.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x49.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Introduction</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x60.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN52"
+>1.4. On-Going Work</A
+></H1
+><P
+>&#13;
+        Xaraya is an alpha product and very much a work in progress.  There
+        are a number of areas that are currently still under redesign, and when
+        the redesign and resultant new code is in place module developers will
+        need to change their code to be able to support the latest functions.
+        Any change of these areas will have at least one full release cycle
+        where both old and new style code is supported so the transition period
+        will always be a matter of months. All efforts will be made to keep
+        the changes as simple as possible.
+
+      </P
+><P
+>&#13;
+        Areas that are still defined as to be upgraded before the 1.0 release
+        are as follows:
+
+      </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+            The multilingual system. The current multilingual system uses
+            defines, which does not lend itself to high levels of flexibility.
+            This will be solved through some sort of functional interface into
+            the multilingual system, although the details are yet to be
+            defined. The change should involve developers replacing their
+            current _LANGUAGE defines with function calls but should be a
+            relatively simple search and replace operation without changing any
+            logic within the modules.
+
+          </P
+><P
+>&#13;
+            The hooks system. The hooks system is very new to Xaraya, and it
+            is already recognised that it will require some extra work.  The
+            most obvious addition is to allow hooks access to module content,
+            but others might be required as well. This should require minimal
+            changes to development modules, but developers should be aware of
+            this up-coming change both when using and coding hooks.
+
+          </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x49.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x60.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Status of the Module API</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c39.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>This Document</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

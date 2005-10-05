@@ -1,0 +1,80 @@
+Specification for bk decisions system
+=====================================
+
+Synopsis: 
+---------
+bk decision <command> [options}
+
+Commands:
+make     [-o<range>] [-d "Decision"]        - make decision
+retract  [-r<range>] [-f]                   - retract decisions
+list     [-r<range>]                        - list decisions
+search   <keyword>                          - search decision for <keyword>
+comment  [-r<range>] [-c "Decision comment] - add a comment to a decision
+
+
+Functionality descriptions:
+---------------------------
+
+
+Implementation:
+---------------
+
+Principle: stay as close to bk functionality as possible
+
+Each decision is represented by a file in BitKeeper/decisions/
+directory and gets a filename like decision-<range>, with <range> to
+be determined as an identifier which is unique to that decision and
+can be easily specified on the command line like revisions and ranges.
+
+The decision itself is entered as the changeset comment on creation of
+the file, this will make the decision appear in the changeset order
+just as any other change to the codebase. The committer will be
+entered as the person who made the decision and the time of commit
+will be the time the decision was made.
+
+
+How will <range> be generated?
+------------------------------
+Tickerfile: What i want is that it behaves as a changeset revision
+number, or a delta to the directory containing the decisions. Deltas
+to a directory can be simulated by placing a "ticker-file" in the
+directory which gets a delta every time a change is made to anything
+in the directory. This way the invariant is: revno of ticker-file is
+<range>-part of latest decision. By stubbing the range parameter and use it
+on the tickerfile we can extract information from it. For example, we
+could use it to query the tickkerfile like -r98..99 (meaning all changes
+from 1998 till 1999) and let the command return filenames of the decisions
+made in that period, which in turn can be fed to the file which actually
+hold the decision, so we can extract information from them.
+
+We can decide whether we want tags in the tree for each decision made,
+this can relatively easy be plugged in later. Optionally we can think
+about a flag in which the decisionmaker has the option of tagging or not.
+The latter will probably be better.
+
+How should we store decisions?
+------------------------------
+Basically it boils down to:
+- All in one file
+- Each decision in it's own file
+
+
+Pseudo implementations
+======================
+
+bk decision --make -y "Made a great decision" 
+
+wil roughly be equivalent to:
+
+touch BitKeeper/decisions/decision-1.0
+bk ci -i -y "Made a great decision" BitKeeper/decisions/decision-1.0
+
+
+retracting a decision is effectively an update to the file, the file
+is *not* deleted but renamed to retracted-decision-<range>, so we can
+also see which decisions have been retracted. Even a retract on a
+retracted permission could be possible that way. Through automating
+the comments placed on the rename changeset a nice history can be
+built for the decisions.
+

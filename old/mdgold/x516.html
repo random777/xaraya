@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Write your Administration Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Building Your Module"
+HREF="c490.html"><LINK
+REL="PREVIOUS"
+TITLE="Test Your Initialisation Routines"
+HREF="x513.html"><LINK
+REL="NEXT"
+TITLE="Test Your Administration Routines"
+HREF="x535.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x513.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 7. Building Your Module</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x535.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN516"
+>7.6. Write your Administration Functions</A
+></H1
+><P
+>&#13;
+        With your database tables in place the next step is to write some
+        administration functions.  The administration functions that you will
+        write depend on the nature of your module, however most modules have at
+        least the following items:
+
+      </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;
+            add a new item
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            modify an existing item
+
+          </P
+></LI
+><LI
+><P
+>&#13;
+            delete an existing item
+
+          </P
+></LI
+></UL
+><P
+>&#13;
+        Each of these items is normally broken down into three separate pieces.
+        The first piece is part of the GUI and displays a form with suitable
+        fields for user input.  The second piece is part of the API and carries
+        out the requested operation.  The third piece is another part of the
+        GUI and gathers information from the form displayed by the first piece
+        and passes it as arguments to the second piece.  The interaction
+        between the three pieces is shown in the diagram below.
+
+      </P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN527"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+></P
+></DIV
+><P
+></P
+></DIV
+><P
+>&#13;
+        As mentioned earlier in the document, it is vital that the separation
+        between the GUI and API functions is clear.  If you are unsure about
+        whether part of a function should be in the GUI or the API, take a look
+        at what it does.  If it is directly involved with user interaction
+        (gathering information from the user or displaying information to the
+        user) then it is a GUI function.  If it is involved with obtaining or
+        updating information in the Xaraya system itself (normally in a
+        database table) then it is an API function.
+
+      </P
+><P
+>&#13;
+        Annotated copies of the template <TT
+CLASS="filename"
+>xaradmin.php</TT
+> and
+        <TT
+CLASS="filename"
+>xaradminapi.php</TT
+> files are available in the
+        standard Xaraya distribution in the Template module.
+
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x513.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x535.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Test Your Initialisation Routines</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c490.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Test Your Administration Routines</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

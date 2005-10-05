@@ -20,8 +20,10 @@ LYNX=lynx
 #DBXSL=/opt/local/share/xsl/docbook-xsl
 # Gentoo on newton
 DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
+OUTPUT=/var/www/ddf/common/documentation/userguide
 
 DB2HTML=$(DBXSL)/xhtml/docbook.xsl
+DB2CHUNKS=$(DBXSL)/xhtml/chunk.xsl
 DB2FOP=$(DBXSL)/fo/docbook.xsl
 DBIMAGES=$(DBXSL)/images
 
@@ -32,7 +34,7 @@ CSSSTYLE=xarayaguide.css
 TOPFILE=xarayaguide.xml
 SOURCES=$(wildcard *.xml) $(wildcard modules/*.xml) 
 
-all: html pdf txt
+all: html pdf txt index.html
 html: xarayaguide.html
 fop:  xarayaguide.fop
 pdf:  xarayaguide.pdf
@@ -40,6 +42,9 @@ txt:  xarayaguide.txt
 
 xarayaguide.html: $(SOURCES)
 	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $(TOPFILE) > $@ 
+
+index.html: $(SOURCES)
+	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) --stringparam chunk.section.depth 0 $(DB2CHUNKS) $(TOPFILE)
 
 xarayaguide.fop: $(SOURCES)
 	$(XSLTPROC) --stringparam draft.mode no --stringparam fop.extensions 1 --stringparam ignore.image.scaling 1 $(DB2FOP) $(TOPFILE) > $@
@@ -54,7 +59,24 @@ xarayaguide.pdf: xarayaguide.fop
 xarayaguide.txt: xarayaguide.html
 	$(LYNX) -dump > $@
 clean:
-	rm -f xarayaguide.html
+	rm -f *.html
 	rm -f xarayaguide.fop
 	rm -f xarayaguide.pdf
 	rm -f xarayaguide.txt
+
+webdocs: all
+	cp -a $(DBXSL)/images  $(OUTPUT)/stylesheet-images
+	mkdir -p $(OUTPUT)/examples
+	mkdir -p $(OUTPUT)/callouts
+	mkdir -p $(OUTPUT)/sourceimages
+	mkdir -p $(OUTPUT)/images
+	cp -rf examples/*.* $(OUTPUT)/examples
+	cp -rf callouts/*.* $(OUTPUT)/callouts
+	cp -rf sourceimages/*.* $(OUTPUT)/sourceimages
+	cp *.css $(OUTPUT)
+	cp images/*.gif $(OUTPUT)/images
+	cp images/*.png $(OUTPUT)/images
+	cp images/*.jpg $(OUTPUT)/images
+	cp xarayaguide.txt $(OUTPUT)
+	cp xarayaguide.pdf $(OUTPUT)
+	cp *.html $(OUTPUT)

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-"/usr/share/sgml/docbook/xml-dtd-4.2/docbookx.dtd" [
-<!ENTITY frontmatter SYSTEM "frontmatter.xml">
-<!ENTITY getting SYSTEM "getting.xml">
-<!ENTITY installing SYSTEM "installing.xml">
-<!ENTITY config-general SYSTEM "configgeneral.xml">
-<!ENTITY categories SYSTEM "categories.xml">
-<!ENTITY templates SYSTEM "templates.xml">
-<!ENTITY modules SYSTEM "modules.xml">
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "docbookx.dtd" [
+<!ENTITY frontmatter SYSTEM "parts/frontmatter.xml">
+<!ENTITY getting SYSTEM "parts/getting.xml">
+<!ENTITY installing SYSTEM "parts/installing.xml">
+<!ENTITY config-general SYSTEM "parts/configgeneral.xml">
+<!ENTITY categories SYSTEM "parts/categories.xml">
+<!ENTITY templates SYSTEM "parts/templates.xml">
+<!ENTITY modules SYSTEM "parts/modules.xml">
 
 <!ENTITY mod-addressbook SYSTEM "modules/mod-addressbook.xml">
 <!ENTITY mod-adminpanels SYSTEM "modules/mod-adminpanels.xml">

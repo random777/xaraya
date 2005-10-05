@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Security</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Notes on Developing Modules"
+HREF="c758.html"><LINK
+REL="PREVIOUS"
+TITLE="Notes on Developing Modules"
+HREF="c758.html"><LINK
+REL="NEXT"
+TITLE="Output"
+HREF="x800.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c758.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. Notes on Developing Modules</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x800.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="security"
+>10.2. Security</A
+></H1
+><P
+>&#13;
+        Security is a very important part of Xaraya.  All modules should
+        subscribe to the Xaraya Security model to ensure that they operate
+        correctly within all environments.  For full information on security
+        refer to the Xaraya Security Model documentation, however the main
+        points as regards modules are covered briefly below.
+
+      </P
+><DIV
+CLASS="note"
+><P
+></P
+><TABLE
+CLASS="note"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>&#13;
+          Add information on the Xaraya security model.
+
+        </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN770"
+>10.2.1. Variable Handling</A
+></H2
+><P
+>&#13;
+          All variables that come in to or go out of Xaraya should be handled
+          by the relevant <CODE
+CLASS="function"
+>xarVar*()</CODE
+> functions to ensure
+          that they are safe.  Failure to do this could result in opening
+          security wholes at either the web, filesystem, display, or database
+          layers.  Full information on these functions is given in the Xaraya
+          API Guide, and examples of their use are shown throughout the
+          template module.
+
+        </P
+><P
+>&#13;
+          It can be assumed that any variables passed to functions in the
+          Xaraya API will be handled correctly, and as such these variables
+          do not need to be prepared with the <CODE
+CLASS="function"
+>xarVar*()</CODE
+>
+          functions.
+
+        </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN776"
+>10.2.2. Authorisation</A
+></H2
+><P
+>&#13;
+          All items displayed for users and actions carried out by
+          administrators must be authorised through use of the
+          <CODE
+CLASS="function"
+>xarSecAuthAction()</CODE
+> function.  This function
+          underlies the entire Xaraya permissions system and as such must be
+          used wherever an access check is required.
+
+        </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN780"
+>10.2.3. Reserved Variable Names</A
+></H2
+><P
+>&#13;
+          Xaraya has a number of variables which are reserved.  These
+          variables should not be used within modules as they can conflict with
+          the Xaraya core and cause unpredictable results.
+
+        </P
+><P
+>&#13;
+          The current list of variables which are reserved are as follows:
+
+          <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>file</TD
+></TR
+><TR
+><TD
+>func</TD
+></TR
+><TR
+><TD
+>loadedmod</TD
+></TR
+><TR
+><TD
+>module</TD
+></TR
+><TR
+><TD
+>name</TD
+></TR
+><TR
+><TD
+>op</TD
+></TR
+><TR
+><TD
+>pagerstart</TD
+></TR
+><TR
+><TD
+>pagertotal</TD
+></TR
+><TR
+><TD
+>type</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+        </P
+><P
+>&#13;
+          In addition, all one-letter variables are reserved.
+
+        </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN795"
+>10.2.4. Page Path</A
+></H2
+><P
+>&#13;
+          All input from webpages goes through a two-stage process.  The first
+          part is displaying the information to be entered in a form, and the
+          second is obtaining that information and passing it on to the module
+          API.  In addition to the visible information, there is often a number
+          of hidden items of information in the first page that is used in the
+          second page.  To ensure that any attempt to add, delete, or change
+          information in the Xaraya system goes through the full two-stage
+          method of gathering and processing the information the two functions
+          <CODE
+CLASS="function"
+>xarSecGenAuthKey()</CODE
+> and
+          <CODE
+CLASS="function"
+>xarSecConfirmAuthKey()</CODE
+> must be used in the
+          appropriate places.  The Template module in the standard Xaraya
+          distribution contains a number of functions that use these API calls,
+          and care should be taken to note where they are used so that
+          developed modules will have the same level of protection against
+          fraudulent administrator requests.
+
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c758.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x800.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Notes on Developing Modules</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c758.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Output</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

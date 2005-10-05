@@ -1,0 +1,294 @@
+Website publishing with bk for xaraya websites
+==============================================
+
+Xaraya has several websites which need to be maintained. Some
+of the sites contain only static pages, others are basically
+placeholders for web-applications.
+
+We treat the maintenance process for websites basically the
+same as the process for maintaining the source code. This means
+that bk will play an important role in it. As the setup can
+be fairly complex, this document contains information for 
+maintainers and developers to be able to use it.
+
+-------------------------------------------------------------
+Overview
+-------------------------------------------------------------
+The basic principle is simple. We put the files which represent
+the content of a website in a bk repository. This repository 
+is then cloned to locations where it needs to be viewable.
+Some websites may be subject to a staged process for increased
+control over their changes. The thing to remember is that work
+is done in the repository and from their the stuff gets "promoted"
+to clones in which testing can be done. This promotion can be
+manually or automatic. Currently we expect only the www.xaraya.com
+website to fall under this process.
+
+-------------------------------------------------------------
+Process details
+-------------------------------------------------------------
+For websites we may use a staging, production process which
+means that all changes are made in a staging environment, 
+which is used to gather all improvements and when stable 
+enough will be published to the production environment.
+
+So the basic hierarchy which holds the content for a
+website needed by the Xaraya group is as follows:
+
+            web-production
+                  ^
+                  | 
+                  | (publish)
+		              |
+		              |
+             web-staging
+                  ^
+	                |
+		              | (promote)
+		              | 
+		              ^
+		              |
+		              |
+             web-development (concept)
+			 
+--------------------------------------------------------------
+Why Three Environments?
+--------------------------------------------------------------
+While on the surface, the 3-stage environment may
+may appear to be an unneccesary layer of bueracracy, it 
+serves several very important functions:
+
+DEVELOPMENT = The Sandbox.  [BUILD]
+------------------------------------------
+New ideas, code, themes get thrown in here.  This 
+environment is highly unstable.  At any given moment, 
+anything or everything could be broken.  This is the URL
+developers (code, content, graphics) use to play and test
+ideas and concepts before asking to have them reviewed.
+
+Once the developer is comfortable that his changes are 
+ready for review, he promotes them to Staging for review
+by the appropriate stakeholders.
+
+Xaraya Code BK Analog :: developers clone  
+URL: https://concept.xaraya.com/<subdir>
+
+STAGING = Pre-Release Review [TWEAK]
+------------------------------------------
+Once proven and fixed in DEV, code and content is pushed
+to Staging, which is ultimately an exact mirror of Production.  
+This is the environment where folks are asked to look at pending
+releases (code, content, graphics) for a pre-release sanity 
+check.  It exists so reviewers can see the release precisely 
+as it is intended to appear in production. Typos and minor
+tweaks can be caught here and fixed.  Changes are pushed 
+back to DEV if needed.
+
+Once all stakeholders have reviewed and signed off, the
+content can be published to production.
+
+Xaraya Code BK Analog :: Xaraya-main repos
+URL: https://staging.xaraya.com/<subdir>
+
+PRODUCTION = Live to the Web [RELEASE]
+------------------------------------------
+Pretty straight-forward.  Live to the world.  Hopefully,
+we caught everything in Dev/Staging.  If not, bugs are
+fixed as needed in DEV and pushed back up through STAGING
+for review and publication.
+
+Xaraya Code BK Analog :: Xaraya-stable repos
+URL: diverse
+
+----------------------------------------------------------
+Web Repositories
+---------------------------------------------------------- 
+Each website has its own repository and as such is viewed as
+a computer program with sources to be managed.
+
+Currently the following repositories are needed:
+
+bk         ---> bk.xaraya.com 
+bugs       ---> bugs.xaraya.com
+www        ---> www.xaraya.com 
+developer  ---> developer.xaraya.com 
+news       ---> news.xaraya.com
+docs       ---> docs.xaraya.com
+xcommon    ---> N/A (xcommon holds web sources common to different sites)
+
+If both webs-staging and webs-production repositories are in place
+there is a nice structure to edit the content and make sure it's 
+revision controlled and all that, but that doesn't give you a website,
+so we have to define a relation between the "bk-space" and the "web-space"
+
+The xcommon repository holds source common to multiple websites. This
+repository needs to be cloned to the web-space as well.
+
+------------------------------------------
+Relation between bk and web-space
+------------------------------------------
+web-space: /var/www(-ssl) and below (http(s))
+bk-space : /usr/local/repositories/websites and below
+
+The web-space is created  by cloning the repository into
+the right location (either www or www-ssl)
+
+The files which don't need to be version controlled should
+be outside the clone as much as possible. It should be 
+no problem in principle to have files in the clone space
+which are not under version control. They will be ignored
+by the publishing process.
+
+------------------------------------------
+Examples for use:
+------------------------------------------
+- making changes to websites:
+Make the change in local clone and push to
+relevant repository on server.
+
+- publishing the site on server: 
+-- staging views are handled by a push trigger, reflecting
+   each change immediately in the staging environment
+-- production views are handled manually by pulling into 
+   the web-space or doing a controlled push remotely
+   (contact Marcel first if you haven't done this before)
+
+------------------------------------------
+Actual Web Implementation(s):
+------------------------------------------
+
+Site: bk.xaraya.com
+--------------------
+[DONE] Repository : /usr/local/repositories/websites/bk, level : 20
+Development clone: N/A
+Staging clone: N/A
+Production clone: /var/www/ddf/bk.xaraya.com, level : 10
+
+
+Site: bugs.xaraya.com
+---------------------
+[DONE] Repository : /usr/local/repositories/websites/bugs, level : 20
+Development clone: N/A
+Staging clone: 	N/A
+Production clone: /var/www/ddf/bugs.xaraya.com, level : 10
+
+As this site is bugzilla, this might need some extra stuff.
+Problems observed:
+- some program (either bk or a perl module) is creating SCCS dirs
+  which confuses the publishing process.
+
+Site: www.xaraya.com
+--------------------
+
+[DONE] Repository : /usr/local/repositories/websites/www, level : 20
+[DONE] Development clone: /var/www-ssl/ddf/concept.xaraya.com/www/, level : 20
+[DONE] Staging clone: /var/www-ssl/ddf/staging.xaraya.com/www/, level : 15
+Production clone: /var/www/ddf/www.xaraya.com/
+
+Site: developer.xaraya.com
+--------------------------
+[DONE] Repository : /usr/local/repositories/websites/developer, level : 20
+Development clone: N/A
+[DONE] Staging clone : /var/www-ssl/ddf/staging.xaraya.com/developer/, level: 15
+Production clone: /var/www-ssl/ddf/developer.xaraya.com, level : 10
+
+Site : news.xaraya.com
+----------------------
+[DONE] Repository : /usr/local/repositories/websites/news, level : 20
+[DONE] Development clone : /var/www-ssl/ddf/concept.xaraya.com/news: level 20
+[DONE] Staging clone: /var/www-ssl/ddf/staging.xaraya.com/news, level : 15
+Production clone: /var/www/ddf/news.xaraya.com, level : 10
+
+Site: docs.xaraya.com
+--------------------
+[DONE] Repository : /usr/local/repositories/websites/docs, level : 20
+Development clone: N/A
+[DONE] Staging clone:  /var/www-ssl/ddf/staging.xaraya.com/docs : level : 15
+Production clone: /var/www/ddf/docs.xaraya.com, level : 10
+
+
+	
+NOTES: 
+
+- In the dev and staging environments, the 
+webroot contains a simple index.html file with 
+pointer links to the various subdirs that comprise
+the dev/staging environment for a given subdomain 
+(*.xaraya.com).  This allows us to avoid tons of 
+subdomains (e.g. dev-bugs.xaraya.com, 
+staging-bugs.xaraya.com, etc.).  
+
+This method also allows us to quickly add new 
+development/staging environments without DNS changes.
+Once a new subdomain is built & approved in DEV, it 
+can move to STAGING for team review and comment.  
+If/when a subdomain is approved byt PMC/Marketing,
+we can then ask the server team to make the required
+DNS/HTTPD changes to create the subdomain.
+
+
+COMMENTS:
+- Can we leave out the dev environment? If things get more complex
+  later on we can always add a layer. -> dev environment is optional, don't clone if not needed.
+- Not all sites will want this process. For instance the bugs site will not use it. 
+  Therefore there must be a mechanism for site admins to be able to check changes direct 
+  into the production repository, if they have permission. -> one staging site is higly recommended,
+  but it can be done by cloning the repository directly into the productionn environment.
+  With the above process this can be done by cloning the production repository directly.
+  The "central" part of these sites which don't need the layered process is just one
+  level higher than the others. 
+
+  
+*************************************
+ BK PROMOTION FOR IDIOTS (like Apak)
+*************************************
+by Apakuni (with MrB's Gracious Help
+*************************************
+ 
+  GOTO LOCAL REPOS
+> cd /path/to/local/repos
+
+  SET PARENT TO BASE REPOS/DEV	
+> bk parent username@xaraya.com:/usr/local/repositories/websites/www
+
+  CHECK LEVEL IS 20 (DEV)
+> bk level 
+Repository level is 20
+
+  PULL FOR OTHER CHANGES
+> bk pull 
+
+  PUSH TO DEV REPOS (Autopopulates concept.xaraya.com)
+> bk push
+
+  SET PARENT TO STAGING CLONE
+> bk parent username@xaraya.com:/var/www-ssl/ddf/staging.xaraya.com/www/
+
+  SET LEVEL TO 15 (STAGING)
+> bk level 15
+
+  PULL FOR OTHER CHANGES (should be none)
+> bk pull 
+
+  PUSH TO STAGING (Autopopulates staging.xaraya.com)
+> bk push
+
+  SET PARENT TO PRODUCTION CLONE
+> bk parent username@xaraya.com:/var/www/ddf/www.xaraya.com/
+
+  SET LEVEL TO 10 (PRODUCTION)
+> bk level 10
+
+  PULL FOR OTHER CHANGES (should be none)
+> bk pull 
+
+  PUSH TO PRODUCTION (Autopopulates www.xaraya.com)
+> bk push
+
+  RESET PARENT TO BASE REPOS/DEV	
+> bk parent username@xaraya.com:/usr/local/repositories/websites/www
+
+  RESET LEVEL TO 20 (DEV)
+> bk level 20  
+
+DONE!!!

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Function Return Codes</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20040815;10451200">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20040815;10451200">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" STYLE="page-break-inside: auto">Function
+	Return Codes</H1>
+</UL>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+	Every well-defined module function must return the appropriate
+return codes. Return codes are the main way in which a module
+communicates with the Xaraya core, and as such, it is vital that the
+correct return codes are used. 
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+The following return codes should be used when returning control to
+the Xaraya core from any module function: 
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000"><B>text string</B> </FONT>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+Returning a text string implies that the modules function has
+finished its work and has output to be displayed in the appropriate
+place on the Xaraya web page. Xaraya will take the returned output
+and display it as appropriate. Note that all output from modules is
+displayed verbatim, with no escaping of HTML characters. This is to
+allow for formatted output from the module functions. 
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B><FONT COLOR="#000000"><I>true</I> </FONT></B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">Returning boolean <I>true</I> implies that the
+module function has finished its work and set up an appropriate
+redirect to send the user to a page that will have display output.
+The Xaraya core will take no further action as far as this module is
+concerned. </FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<B><FONT COLOR="#000000"><I>false</I> </FONT></B>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">Returning boolean <I>false</I> implies that the
+module function has finished its work but not set up an appropriate
+redirect to send the user to a page that will have display output.
+The Xaraya core will set an appropriate redirect for this module. </FONT>
+</P>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+Note that none of these functions carries any information about the
+success or failure of the attempted operation that the module
+function was undertaking. 
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

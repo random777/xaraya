@@ -1,0 +1,369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>User variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Xaraya Architecture"
+HREF="c71.html"><LINK
+REL="PREVIOUS"
+TITLE="Xaraya Architecture"
+HREF="c71.html"><LINK
+REL="NEXT"
+TITLE="Variable validation"
+HREF="x133.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c71.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Xaraya Architecture</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x133.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN77"
+>2.2. User variables</A
+></H1
+><P
+>&#13;
+        An user variable is an entity identified by a name that stores a value owned by
+        exactly one user.
+        Xaraya offers two API functions to manipulate user variables, they are
+        <CODE
+CLASS="function"
+>xarUserGetVar()</CODE
+> and
+        <CODE
+CLASS="function"
+>xarUserSetVar()</CODE
+>.
+        The purpose of <CODE
+CLASS="function"
+>xarUserGetVar()</CODE
+> is to allow read access
+        to one user variable.
+        In contrast to that, <CODE
+CLASS="function"
+>xarUserSetVar()</CODE
+> allows write access
+        to one user variable.
+        The <VAR
+CLASS="parameter"
+>$name</VAR
+> parameter is checked against metadata to
+        make sure the variable is registered.
+        Xaraya keeps some metadata about every user variable, so you can't access
+        the <VAR
+CLASS="parameter"
+>$name</VAR
+> user variable if its metadata is not registered.
+        A module can register a new user variable by providing its metadata only if it has
+        the right permissions (permissions are checked by the registration function).
+        Usually the registration process should take place at initialization time for a module
+        that wants to use the <VAR
+CLASS="parameter"
+>$name</VAR
+> user variable during its life cycle.
+				
+			</P
+><P
+>&#13;				
+        Xaraya doesn't impose any restriction on the value of <VAR
+CLASS="parameter"
+>$name</VAR
+> except
+        for duplicate and reserved names.
+        As of this writing, the list of reserved names consists of
+				
+				<P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>uid</DT
+><DD
+><P
+>&#13;
+                The user id.
+
+              </P
+></DD
+><DT
+>name</DT
+><DD
+><P
+>&#13;
+                The user display name on the system.  Name should be used in any case that you are display the user name, IE author fields, etc.
+
+              </P
+></DD
+><DT
+>uname</DT
+><DD
+><P
+>&#13;
+                The user name is the system variable used to differentiate one user from another in string vice interger format.  This variable should not be used to display information about the user for consistancy and security reasons.
+
+              </P
+></DD
+><DT
+>email</DT
+><DD
+><P
+>&#13;
+                The email address of the user.
+
+              </P
+></DD>
+<DT
+>status</DT
+><DD
+><P
+>&#13;
+                The status of the user (active, inactive, deleted etc).
+
+              </P
+></DD
+><DT
+>auth_module</DT
+><DD
+><P
+>&#13;
+                The autentication module that was last used for this user.
+
+              </P
+></DD
+></DL
+></DIV
+>
+
+        You are advised (even for performance reasons) to use the following
+        naming convention:
+        <VAR
+CLASS="parameter"
+>$name</VAR
+> := $module_name . '_' . $real_name
+
+				</P
+><P
+>&#13;
+        To register the <VAR
+CLASS="parameter"
+>$name</VAR
+> user variable you have to use the
+        module API function <CODE
+CLASS="function"
+>register_user_var()</CODE
+> exported by the
+        Modules module.
+        Here is an example:
+
+        <PRE
+CLASS="programlisting"
+>&#13;$module_name = 'MyModule';
+$variable_name = 'MaxLinesPerPage';
+$metadata['label'] = $module_name . '_' . $variable_name;
+$metadata['dtype'] = _UDCONST_INTEGER; //one of the values defined for dynamic user data variable types
+$metadata['default'] = 20;
+$metadata['validation'] = 'num:&#62;=:10&#38;num:&#60;=:100';
+
+xarModAPILoad('Modules', 'admin');
+
+$result = xarModAPIFunc('Modules', 'admin', 'register_user_var', $metadata);
+if (!isset($result)) {
+  // xarModAPIFunc() failed
+} elseif ($result == false)
+  // registration failed
+} else {
+  // registration succeeded
+}
+         </PRE
+>
+
+         As you can see in this example, a descriptive array for the new user variable 
+				 is created first, and
+	 later register_user_var is called with that array as parameter.
+         Meaningful keys for the array are: label, dtype, default and validation.
+	 The <VAR
+CLASS="parameter"
+>label</VAR
+> field is mandatory; it specifies the user variable name as you'll refer later in
+	 <CODE
+CLASS="function"
+>xarUserGetVar()</CODE
+> and <CODE
+CLASS="function"
+>xarUserSetVar()</CODE
+> 
+<VAR
+CLASS="parameter"
+>$name</VAR
+>
+	 parameter.
+	 The <VAR
+CLASS="parameter"
+>dtype</VAR
+> field is mandatory; it can take one of the following values:
+	 _UDCONST_STRING, _UDCONST_TEXT, _UDCONST_FLOAT, _UDCONST_INTEGER.
+	 You should obviously choose the right value for the data type that the new user variable will contain.
+	 The <VAR
+CLASS="parameter"
+>default</VAR
+> field is optional; it's used when the user has not yet set a value
+	 for the new user variable.
+	 The <VAR
+CLASS="parameter"
+>validation</VAR
+> field is optional; refer to the next section to get an overview of variable validation.
+
+         To unregister an user variable you have to call the <CODE
+CLASS="function"
+>unregister_user_var()</CODE
+>,
+        which is located in the users module admin API.
+         You should call that API only at uninstallation time for your modules.
+         Keep in mind that by calling <CODE
+CLASS="function"
+>unregister_user_var()</CODE
+> all the existing values
+         for that user variable will be deleted from user data.
+       </P
+><P
+>&#13;         As described in this document, Xaraya offers support for module variables too.
+	 If you get confused from that, and can't see the distinction between these different things,
+	 here is a little explanation to cover that issue.
+	 Module variables are system-wide variables, shared between each module user, like configuration variables.
+	 They are not owned by any particular user, and even if they are often protected by permissions for write access,
+	 they are typically administrative-side variables.
+	 You are encouraged to use them when you have a need to give administrators the possibility to choose some
+	 behaviours of your module.
+	 But when those behaviours are more related to user preferences you should avoid using module variables and
+	 register a new user variable to be used in your code.
+	 As example you can consider the above code listing, where a new user variable is registered to allow
+	 every single module user to choose his own MaxLinePerPage setting.
+	 Now it's reasonable to have done this choice, but here we could have choosen a unique shared module var as well.
+	 On the other hand there are some cases in wich you don't have this kind of freedom, for example consider the authldap module.
+	 It needs to access a LDAP server, so it needs a variable that contains the LDAP server hostname.
+	 Obviously this variable should be a module variable, and access to it should be granted only
+	 to administrators with the right permissions.
+	 We invite you to ponder this issue for a while before you settle on module vars or user vars.
+       </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c71.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x133.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Xaraya Architecture</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c71.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Variable validation</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

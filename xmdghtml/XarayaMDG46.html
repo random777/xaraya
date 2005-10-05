@@ -1,0 +1,979 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Module Directory Structure</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20040815;10451500">
+	<META NAME="CHANGEDBY" CONTENT="Scot Gardner">
+	<META NAME="CHANGED" CONTENT="20040815;10451500">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Times New Roman", serif; font-size: 12pt; so-language:  }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 10pt }
+		H1 { margin-left: -0.25in; margin-bottom: 0.04in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt; so-language:  }
+		H1.ctl { font-family: "Times New Roman", serif; font-size: 10pt; font-weight: medium }
+		A:link { color: #000000 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#000000" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P ALIGN=RIGHT STYLE="margin-bottom: 0in">Scot Gardner <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE></SDFIELD></P>
+	<P STYLE="margin-bottom: 0.3in"><BR>
+	</P>
+</DIV>
+<UL>
+	<LI><H1 CLASS="western" STYLE="page-break-inside: auto">Module
+	Directory Structure</H1>
+</UL>
+<P CLASS="western" STYLE="margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+	Xaraya modules have a very specific directory structure. This allows
+the Xaraya system to use a generic system to access all modules
+without needing to know specific information about each separate
+module that is built. Following the directory structure as laid out
+below is an absolute requirement of any Xaraya-compliant module. 
+</P>
+<P CLASS="western" STYLE="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+<FONT COLOR="#000000">Extra files and directories in addition to
+those shown below are allowed. In addition, if any of the files below
+are not required (<I>e.g.</I> the module does not have database
+tables of its own so it does not require the xartables.php file) then
+they do not need to exist. However, files that perform the functions
+outlined below must comply with the file naming convention to allow
+the Xaraya system to load the suitable files at the appropriate times
+to ensure correct operation of the module.</FONT></P>
+<P CLASS="western" STYLE="text-indent: 0.5in; margin-top: 0.07in; margin-bottom: 0.07in; page-break-inside: auto">
+This shows the layout of the example module directory. Other modules
+will have different names for their top-level directory and blocks as
+appropriate for their specific functionality</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+        <FONT FACE="Courier New, monospace"><FONT SIZE=2>modules/ 
+						(1)                              </FONT></FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+                <FONT FACE="Courier New, monospace"><FONT SIZE=2>example/					(2)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>			xaradmin/				(3)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				create.php			(4)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				delete.php			(5)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				main.php			(6)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				modify.php			(7)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				modifyconfig.php		(8)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				new.php				(9)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				update.php			(10)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				updateconfig.php		(11)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				view.php			(12)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				index.html			(13)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>			xaradminapi/				(14)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				create.php			(15)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				delete.php			(16)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				getmenulinks.php		(17)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				menu.php			(18)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				update.php			(19)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				index.html			(20)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>			xarblocks/       
+       		(21)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				first.php 
+			(22)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				others.php			(23)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				index.html			(24)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>			xarimages/				(25)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin.gif			(26)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin_generic.gif		(27)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				preferences.gif			(28)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				index.html			(29)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>			xartemplates/				(30)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				blocks/				(31)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				  
+first.xd			(32)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				  
+firstAdmin.xd		(33)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				  
+othersAdmin.xd		(34)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				  
+example-firstblock-modify.xd(35)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin-delete.xd			(36)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin-main.xd			(37)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin-menu.xd			(38)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin-modify.xd			(39)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin-modifyconfig.xd		(40)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin-new.xd			(41)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				admin-view.xd			(42)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				index.html			(43)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				user-display.xd			(44)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				user-main.xd			(45)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				user-menu.xd			(46)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				user-usermenu_icon.xd		(47)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				user-view.xd			(48)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				user-usermenu_form.xd		(49)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>			xaruser/				(50)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				display.php			(51)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				main.php			(52)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				usermenu.php			(53)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				view.php			(54)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				index.html			(55)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>			xaruserapi/				(56)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				encode_shorturl.php		(57)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				countitems.php			(58)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				decode_shorturl.php		(59)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				get.php				(60)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				getall.php			(61)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				getmenulinks.php		(62)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				menu.php			(63)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				validateitem.php		(64)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				index.html			(65)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>				getitemlinks.php		(66)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		xareventapi.php					(67)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		xarinit.php					(68)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		xartables.php					(69)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		example.wsdl					(70)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		index.html					(71)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		xaradmin.php      
+      			(72)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+               <FONT FACE="Courier New, monospace"><FONT SIZE=2>xaradminapi.php					(73)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		xaruser.php					(74)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		xaruserapi.php					(75)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<FONT FACE="Courier New, monospace"><FONT SIZE=2>		xarversion.php    
+     			(76)</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+                        
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(1) The top-level directory in Xaraya for modules 
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(2) The directory that contains all of the module code (in this case
+the module is named 'example') 
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(3) The directory that contains all administrative GUI functions for
+the module	 
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(4) create.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This a standard function that is called with the results of the form
+supplied by xarModFunc(&lsquo;example&rsquo;,&rsquo;admin&rsquo;,&rsquo;new&rsquo;)
+to create a new item.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Syntax: @param $&rsquo;name&rsquo; &ndash; The name of the item to be
+created</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+	 @param $&rsquo;number&rsquo; &ndash; The number of the item to be
+created</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(5) delete.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+ This standard function is called whenever an administrator wishes to
+delete a current module item. Note that this function is the
+equivalent of both the modify() and update() functions as it operates
+a form and processes its output. This is fine for simpler functions,
+but for complex operations such as creation and modification it is
+generally easier to separate them into separate functions. There is
+no requirement in the Xaraya MDG to use one or the other, so either
+or both can be used as seen appropriate by the module developer.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Syntax: @param $&rsquo;exid&rsquo; - The id of the item to be deleted</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+	 @param $&rsquo;confirm&rsquo; &ndash; Confirm that this item can be
+deleted</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(6) main.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This function is the default function, and is called whenever the
+module is initiated without defining arguments. As such, it can be
+used for a number of things, but most commonly, it either shows the
+module menu and returns or calls whatever the module designer feels
+should be the default function. (This is often the view function)</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(7) modify.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a standard admin function that is called whenever an
+administrator whishes to modify a current module item.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Syntax: @param $&rsquo;exid&rsquo; the id of the item to be modified</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(8) modifyconfig.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is the standard function to modify the configuration parameters
+for the module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(9) new.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function is called whenever the administrator wishes to
+create a new module item.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(10) update.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is the standard function that is called with the results of the
+form supplied by xarModFunc(&lsquo;example&rsquo;, &lsquo;admin&rsquo;,&rsquo;modify&rsquo;)
+to update a current item.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Syntax: @param $ &lsquo;exid&rsquo; &ndash; The id of the item to be
+updated</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+	 @param $ &lsquo;name&rsquo; &ndash; The name of the item to be
+updated</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+	 @param $ &lsquo;number&rsquo; &ndash; The number of the item to be
+updated</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(11) updateconfig.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function updates the configuration parameters of the
+module given the information passed back by the modification form.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(12) view.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function is called whenever the administrator wishes to
+view a module item.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(13) index.html</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(14) xaradminapi</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+The directory that contains all administrative database functions for
+the module. 
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(15) create.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function creates an item when the administrator wants
+to create an item in the database. Parameters are passed from the
+xaradmin/create.php. This function returns the example item upon
+success, or raises an exception error upon failing.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000">Syntax: <I><B>@</B>param</I>  <I>$args ['exid']
+the ID of the item</I></FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000"> <I>@param $args [&lsquo;name&rsquo;] name of
+the item</I></FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<I>	 @param $args[&lsquo;number&rsquo;] number of the item</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns the example item ID as integer on success, returns false on
+failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(16) delete.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function deletes an item in the database. Parameters
+are passed from the xaradmin/delete.php. This function returns true
+upon success, or raises an exception error upon failing.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000">Syntax: <I>@param $args [&lsquo;exid&rsquo;]
+name of the item</I></FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns the example item ID as integer on success, returns false on
+failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(17) getmenulinks.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a utility function that passes individual menu items to the
+main menu.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns array containing the menulinks for the admin menu items.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(18) menu.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This function generates the common admin menu configuration</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(19) update.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function updates an item when the administrator wants
+to change an item in the database. Parameters are passed from the
+xaradmin/update.php. This function returns the example item upon
+success, or raises an exception error upon failing.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000">Syntax: <I><B>@</B>param</I>  <I>$args ['exid']
+the ID of the item</I></FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; text-indent: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000"> <I>@param $args [&lsquo;name&rsquo;] name of
+the item</I></FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<I>	 @param $args[&lsquo;number&rsquo;] number of the item</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns the example item ID as integer on success, returns false on
+failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(20) <FONT COLOR="#000000">index.html</FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(21) xarblocks/</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This directory contains the files for generating blocks for the
+module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(22) first.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is the code for the example block for the example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(23) others.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is the code for the example block for the example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(24) index.html</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(25) xarimages/</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This directory contains image files that are associated with the
+example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(26) admin.gif</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is the image that is displayed in the example module
+administration overview.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(27) admin_generic.gif</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is an optional image that can be displayed in the example module
+administration overview.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(28) preferences.gif</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This preferences image is used in the example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(29) index.html</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(30) xartemplates/</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This directory contains the template files used by blocklayout for
+displaying pages within the example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(31) blocks/</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This directory contains the template files used by blocklayout to
+display the blocks for the example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(32) first.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the first block in the example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(33) firstAdmin.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the first block administration page for the
+example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(34) othersAdmin.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the others block administration page for the
+example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(35) example-firstblock-modify.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the first block administration modify settings
+page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(36) admin-delete.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for administration delete function.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(37) admin-main.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for administration main function.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(38) admin-menu.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the administration menu for Example module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(39) admin-modify.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for administration modify item page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(40) admin-modifyconfig.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for administration modify configuration page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(41) admin-new.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for administration new item page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(42) admin-view.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for administration view item page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(43) index.html</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(44) user-display.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the user display page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(45) user-main.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the users main page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(46) user-menu.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the users menu.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(47) user-usermenu_icon.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Template file for example user menu hook.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(48) user-view.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for the user display items page.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(49) user-usermenu_form.xd</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Templates file for example hook for user menu.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(50) xaruser/</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+The directory that contains all users GUI functions for the module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(51) display.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function provides detailed information on a single item
+available from the module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<FONT COLOR="#000000">Syntax: <I>@param $args an array of arguments
+(if called by other modules)</I></FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<I>	 @param $args [&lsquo;objectid&rsquo;] &ndash; A generic objected
+(if called by other modules)</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<I>	 @param $args [&lsquo;exid&rsquo;] &ndash; The item id used for
+this module</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(52) main.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function is the default function, and is called
+whenever the module is initiated without defining arguments. As such,
+it can be used for a number of things, most commonly, it either shoes
+the module menu and returns or calls whatever the module designer
+feels should be the default function. (This is often the view()
+function)</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(53) user-menu.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function is used to display the user menu hook.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(54) view.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function is used to provide an overview of all the
+items available from the module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(55) index.html</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(56) xaruserapi/</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+The directory that contains all user database functions for the
+module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(57) encode_shorturl.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+The standard functions that encode module parameters into some
+virtual path that will be added to index.php, and decode a virtual
+path back to the original module parameters.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(58) countitems.php</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; page-break-inside: auto">
+	This utility function counts the number of items held by the module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns the number of items as an integer type with the number of
+items held by this module.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(59) decode_shorturl.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This function extracts arguments from short urls and passes them back
+to the xarGetRequestInfo() api function.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(60) get.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function retrieves a specific example item from the
+database.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Syntax: <I>@param $args [&lsquo;exid&rsquo; &ndash; Id of example
+item to get</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns item array, or false on failure</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Raises exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(61) getall.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function retrieves all example items from the database.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Syntax: <I>@param $ numitems &ndash; The number of items to retrieve
+(default -1 = all)</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<I>	 @param $ startnum &ndash; Start with this item number (default
+1)</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns an array of items, or false on failure</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Raises exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(62) getmenulinks.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This utility function will pass individual menu items to the main
+menu.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns an array containing the menu links for the main menu.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(63) menu.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function will generate the common menu configuration.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(64) validateitem.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function validates argument arrays that are passed for
+writing to the database.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(65) <FONT COLOR="#000000">index.html</FONT></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(66) getitemlinks.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This utility function passes individual item links to other calling
+functions</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Syntax: <I>@param $args [&lsquo;itemtype&rsquo;] &ndash; Item type
+(optional)</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<I>	 @param $args [&lsquo;itemids&rsquo;] &ndash; array of item ids
+to get</I></P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns an array containing the itemlink(s) for the item(s)</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(67) xareventapi.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This standard function is the event handler for the system event
+ServerRequest</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+Returns bool 
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(68) xarinit.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This file contains the initialization, upgrade, and delete functions
+for the example module. Functions include</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+example_init() &ndash; example_upgrade() &ndash; example_delete()</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(69) xartables.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This file contains the table definitions for the example module/</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(70) example.wsdl</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This file contains an example soap xml schema that connects and
+returns the number of items in the example database.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(71) index.html</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This is a blank index.html file to prevent someone from viewing the
+directory contents when access this directory via a url.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(72) xaradmin.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+A depreciated file; all admin functions should be separated into
+individual files and placed into the xaradmin/ directory. 
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(73) xaradminapi.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+A depreciated file; all adminapi functions should be separated into
+individual files and placed into the xaradminapi/ directory. 
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(74) xaruser.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+A depreciated file; all user functions should be separated into
+individual files and placed into the xaruser/ directory.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(75) xaruserapi.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+A depreciated file; all userapi functions should be separated into
+individual files and placed into the xaruserapi/ directory.</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+<BR>
+</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+(76) xarversion.php</P>
+<P CLASS="western" STYLE="margin-left: 0.5in; margin-bottom: 0in; page-break-inside: auto">
+This file contains the module ID number, author, and version
+information for the example module.</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.29in; margin-bottom: 0in"><FONT SIZE=2>All
+	boldface terms are defined in the Glossary beginning on page 42</FONT></P>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+Some ideas for custom commands:
+
+bk panic
+--------
+not to be used lightly, calls upon the local bk guru to solve an immediate problem
+
+
+bk decision
+-----------
+See bk-decision.txt
+
+bk tarball
+----------
+create a tarball from the repository, optionally specifying a revision up to which
+changeset should be included
+
+
+bk stats
+--------
+gather all kinds of statistics and produce some sensible output
+
+- total nr of files managed
+- total nr of changesets
+- total nr of deltas
+- changes per hour,day,week,month,any period specified
+- csets per user
+- most changed file
+- most changed dir
+- least changed file
+- conflict analysis
+- 
+
+bk bugs
+-------
+see separate document for this
+
+bk findclones
+-------------
+Find clones on the current machine. This command could search the 
+local disk for the dir struct 'BitKeeper/etc' This will probably be
+a repository. For each repository found a parent can be retrieved and
+the hierarchy can be displayed on screen. It would be really nice if
+we also could do this remote to produce something like the image which
+is on the bk.xaraya.com page. Even better would be to automatically 
+generate this image.
+ 
+bk mv2newrepo
+-------------
+Moving files between repositories is no longer supported. The steps to
+do this manually would look something like this:
+
+
+01.      cp ~/oldrepo/SCCS/s.foo ~/newrepo/SCCS/s.foo
+02.      cd ~/oldrepo
+03.      ROOTKEY=`bk prs -hr+ -d:KEY: foo`
+04.      rm SCCS/s.foo
+05.      bk gone $ROOTKEY
+06.      bk commit -y"moved foo to newrepo"
+07.      cd ~/newrepo
+08.      bk admin -D foo       # remove cset marks
+09.      bk admin -C`bk id` foo
+10.      bk sfiles -P          # create pending marks
+11.      bk commit -y"add foo from oldrepo"
+
+01. -> Copy over the raw SCCS stuff to the new repo (change history)
+03. -> set ROOTKEY of the foo file.
+04. -> remove the file hard
+05. -> register the ROOTKEY of the file foo as gone so bk won't complain
+06. -> commit that
+08. -> remove the changeset marks in the new repo (they won't match the ones in the oldrepo)
+09. -> register the file as now belonging to the repo with `bk id` (aka register the ChangeSet pointer)
+10. -> generate the marks for pending deltas using the s.foo file copied in step 01. (d.file cannot be trusted )
+11. -> commit the pending deltas.
+
+Notes:
+- complex
+- dangerous
+- needs definitely a wrapper in custom command form.
+
+Undocumented commands:
+======================
+
+The following commands are undocumented, don't know exactly what they do, they seem
+usefull.
+
+bk _lines
+---------
+Usage: _lines [-ut] [-n<n>] [-r<r> | -R<r>] file.
+Gives info about cset revs in which file has been changed?
+
+bk shrink
+---------
+it shrinks something, dunno what looks like size of ChangeSet file
+
+bk hostme
+---------
+Usage: bk hostme [-h<host>] -d -q -p<project> -r<repo> -s<identity.pub>>
+
+This is probably in use at the central bitkeeper site which hosts projects
+
+bk graft
+--------
+Usage: graft file file
+

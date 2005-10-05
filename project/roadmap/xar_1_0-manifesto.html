@@ -1,0 +1,384 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Xaraya 1.0 manifesto</title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <link rel="home" title="Home" href="http://www.xaraya.com/">
+  <link rel="stylesheet" type="text/css" href="../css/default.css"
+ title="default" media="screen">
+  <link rel="alternate stylesheet" type="text/css"
+ href="../css/largefonts.css" title="largefonts" media="screen">
+  <link rel="stylesheet" type="text/css" href="../css/print.css"
+ title="defaultprint" media="print">
+  <link rel="icon" href="../images/mozilla-16.png" type="image/png">
+</head>
+<body id="www-mozilla-org" class="deepLevel">
+<div id="mainContent">
+<h1 align="center">xaraya 1.0 manifesto<a href="#footnotes">*</a><br>
+</h1>
+<div style="text-align: center;"><a href="mailto:marcel@xaraya.com">Marcel
+van der Boom</a></div>
+<h2 style="text-align: left;"><a name="what">what</a></h2>
+<p>This manifesto deals with the question: "Why should xaraya have a
+1.0? Why not just keep
+going
+and
+let everyone pick good milestones retrospectively?" There are several
+reasons
+to do a 1.0, enumerated <a href="#why">below</a>. But let's first
+agree on
+what a
+"xaraya 1.0" would be:
+</p>
+<ul>
+  <li>The first major-revision-number milestone release (<tt>xaraya 1.0</tt>)
+of
+the xaraya application framework.
+A release of higher quality than any delivered so far, on whose quality
+our
+reputation is at stake precisely because 1.0 is such a coveted and
+feared
+version number. </li>
+  <li>A set of promises to keep compatibility with various APIs,
+both from core and module scope, until a 2.0 or higher-numbered major
+release.
+All milestone releases and repo development between 1.0 and 2.0 will
+preserve
+frozen interface compatibility. xaraya 1.0 is a greenlight to hackers,
+corporations, and book authors to get
+busy building atop this stable base set of APIs. </li>
+  <li>A stable, long-lived scenario off of the xaraya.com bitkeeper
+core tree
+(<tt>xaraya 1.0 scenario</tt>).
+Interested parties should collaborate, with support from the xaraya
+developers,
+in developing conservative fixes for critical bugs in this scenario.
+Anyone who wants a baseline for development that will work with the
+public
+APIs of xaraya 1.0 is free to develop against this 1.0 scenario. </li>
+</ul>
+<h2 style="text-align: left;"><a name="why">why</a></h2>
+<p>
+xaraya consumers, including
+many
+companies developing products, need a stable, long-lived scenario
+with
+these properties:
+</p>
+<ul>
+  <li>API compatibility commitments. </li>
+  <li>Consistent Module (version) identification (so at least anyone
+can
+know which versions are supported in the 1.0 core release). </li>
+  <li>Enough modularity that important core parts (e.g., BlockLayout)
+could stand alone. </li>
+  <li>Stability -- acceptable MTBF, no serious dataloss bugs. </li>
+  <li>Good performance and memory footprint. </li>
+  <li>Better-than-any-competition standards compliance. </li>
+  <li>Usability, correctness, polish&nbsp;<br>
+  </li>
+</ul>
+This need is acute: if xaraya.com does not create such a scenario to
+share with individual companies and organizations, various
+consumers of the code will do it themselves, with less information
+sharing,
+coordinated effort, and consequent quality than we would like.
+<p>We think the world will be a better place, with more hands helping
+to
+improve xaraya, and more people benefiting from distributions of
+xaraya, if xaraya.com hosts a consolidated, stable, and long-lived
+scenario,
+along with the active, ongoing development of that scenario.
+This scenario obviously entails overhead in driving, merging,
+reviewing,
+and testing.
+We're not sure exactly how it will be managed (what its roadmap will
+be), yet -- but we see the need, we want to have a plan, and we welcome
+your input.
+</p>
+<p>A note on the 1.0 scenario:
+It's conceivable that non-conservative changes could take place on the
+1.0 scenario, as long as they are "additive".
+But we would much prefer that the bulk of the active developers keep
+hacking
+on the repo, and take advantage of compatibility of frozen
+interfaces
+to deliver modules built from repo sources that work with any 1.x
+milestone.
+</p>
+<h2 style="text-align: left;"><a name="how">how</a></h2>
+<p>
+This stable, long-lived, <i>branded</i> scenario cannot happen without
+concerted effort to fix certain bugs.
+We need to identify the bugs and drive the buglist to near-zero.
+To do that, without being utterly date-driven, we need to pick a small
+number of milestones during which we ask developers to schedule fixes
+for their <tt>xaraya1.0</tt> bugs.
+Of course, contributors have different ideas about what constitutes a <tt>xaraya1.0</tt>
+bug.
+Some people believe that most standards-compliance bugs should be fixed
+for anything that deserves the 1.0 brand.
+That's ok, but the number of milestones needed to fix such a long list
+is
+hard to guess, but probably quite large at the current fix rate.
+</p>
+<p>This is a call to all xaraya developers: if you believe, as we do,
+that
+the world needs a "1.0" from xaraya.com soon, then please concentrate
+your
+efforts on the dependencies of
+<a href="http://bugs.xaraya.com/show_bug.cgi?id=77">bug 77</a>, the <tt>xaraya1.0</tt>
+tracking bug.
+</p>
+<p>Given the constraints identified <a href="#why">above</a>, we still
+have a
+short-term requirement for a stable, relatively long-lived (a year
+minimum,
+at a guess) scenario.
+However we brand this release and scenario, we need to develop a
+schedule
+that
+converges on a stable, useful release in at most five milestones,
+preferably
+fewer (but likely no fewer than three).
+So we are asking people to schedule their most important <tt>xaraya1.0</tt>
+bugfixes over the four milestones starting with 0.9.6, through 0.9.9.
+</p>
+<p>As we've said often, we're not looking
+for new features; we want stability, performance, best-available
+standards
+compliance, tolerably few bugs, and good APIs.
+</p>
+<p>Features cost us time directly (opportunity costs born by
+those implementing the features, who likely could instead help fix 1.0
+bugs)
+and indirectly (collateral costs on code
+reviewers, documentation writers, and other helpers).
+If you think you must have a feature by 1.0, please be prepared to say
+why
+to the PMC, and be prepared
+to hear
+"we can't support work on that feature until after 1.0 has branched" in
+reply.
+</p>
+<p>If, as seems likely, commercial contributors must have features
+implemented
+in the milestones before 1.0 scenarioes, we may wish to isolate those
+features
+to BK scenatios. The excellent BitKeeper tool makes this relatively
+easy, so there is no need for third parties to wait if there is a "must
+have" we cannot support before 1.0.
+We may trade features for fixes to let in a very few exceptions that
+have
+been proven to be innocuous.
+But we won't get a short-term "1.0" done if we don't take a hard line,
+and
+we ask all our contributors to join us in holding that line.
+</p>
+<h2 style="text-align: left;"><a name="when">when</a></h2>
+<p>
+The majority of developers we spoke to believes that the "1.0"
+brand should be
+used sooner rather than later to identify our stable, long-lived
+scenario
+with API commitments.
+We believe "sooner" means within the <span style="font-weight: bold;">next
+two months</span>, based on feedback
+from
+developers, current beta users and some commercial customers in need of
+such a scenario.
+</p>
+<p>We contend that a milestone where only fixes for blocker bugs
+and other severe bugs (e.g., <tt>dataloss</tt>) get checked in, with
+lots
+of regression testing and code review, is necessary before we can
+confidently brand a <tt>xaraya1.0</tt>.
+The 1.0 milestone period is therefore likely to be one during which the
+tree
+is closed to all but PMC-approved changes.
+</p>
+<p>All of this taken together suggests that we have at most 0.9.6
+through
+0.9.9 to get to a <tt>xaraya1.0</tt> milestone during which the stable
+repo
+is closed to all but a relative few bug fixes, and everyone is focused
+on testing.
+There's obviously a lot of work to do to get to that milestone, and
+more
+to be said about how to organize the work, but I'll leave that for a
+followup to this document (xaraya 1.0 roadmap planning, which will be
+published within a couple of days).
+Your feedback is welcome.
+</p>
+<p>If things go well, we'll be within a milestone of 1.0 after 0.9.9.
+If 1.0 seems to continually recede as we approach it, our definition of
+1.0
+in terms of bugs to be fixed is broken.
+Therefore we will continually review the schedule and the outstanding
+bugs.
+If it takes an extra milestone (0.9.10), but 1.0 is reached soon
+enough, so be
+it -- but no one should count on an extra milestone.
+There won't be two or more extra milestones, or again, we will have
+failed to
+converge on a short-term stability scenario and release within two
+months.
+</p>
+<h2 style="text-align: left;"><a name="who">who</a></h2>
+<p>
+We need help from all of you who have bugs linked to the <a
+ href="http://bugs.xaraya.com/show_bug.cgi?id=77">xaraya 1.0
+tracking bug</a>.
+(But please, don't spam the bug, change its dependencies, or otherwise
+put your bugzilla access at risk!
+Use the newsgroups for discussion.)
+That buglist might not be complete.
+It will be constantly monitored and updated in consultation with key
+people in the various
+areas,
+and with your feedback. The dependency list has stabilized in the last
+weeks though and we're pretty confident we have the required
+dependencies set.<br>
+</p>
+<p>Final say for what goes into 1.0 must come down to PMC -- but there
+are layers of people to whom we delegate, and whose judgement and
+consensus we
+trust, in order to do the right thing. We are now identifying owners
+for the dependencies of bug 77.
+If you want to help by owning one of these tracking bugs, please <a
+ href="mailto:xaraya_pmc@lists.xaraya.com">mail us</a>.<br>
+</p>
+<p>If you believe a bug should be fixed by 1.0, nominate it by setting
+the <tt>xaraya1.0</tt> keyword.
+The bug may be assigned and targeted at 1.0 or a nearer milestone.
+If PMC believes the bug is
+important
+to 1.0, it will be linked as a dependency.
+Feel free to propose the bug if it is not linked, targeted, or even
+assigned
+yet, but <b>please</b> ask yourself:
+</p>
+<ul>
+  <li>Is fixing this bug vital to web content developers, xaraya
+distributors, or others who will depend on 1.0 for
+stable code and a minimal set of frozen APIs? </li>
+  <li>Is there no alternative to fixing the bug that frees people to
+work on other 1.0 bugs? </li>
+  <li>What goes wrong if we don't fix the bug, and just live with it
+for 1.0? </li>
+  <li>What do we give up from 1.0 in exchange for fixing the bug? </li>
+  <li>Can you stare down slashdot and C|net together and at the same
+time, argue credibly that the bug is a 1.0 stop-ship problem? While
+we are not yet at the "<span style="font-style: italic;">about to ship,
+why should we take any more risk</span>"
+stage, this question can help us prioritize and avoid unpleasant
+surprises later, when 1.0 is within our grasp</li>
+</ul>
+To be able to decide with some level of objectivity what is needed for
+xaraya 1.0 the PMC uses a points system. Within the focus areas below
+we loosely define points for each item and order the tasks from high to
+low with the assigned points. This gives us a rough order of
+execution..
+<ul>
+</ul>
+<p>
+<a href="http://bugs.xaraya.com/show_bug.cgi?id=77">xaraya 1.0</a>
+focus areas:<br>
+</p>
+<ul>
+  <li>User interface</li>
+  <ul>
+    <li><span style="font-weight: bold;">1 point</span> : Does it
+improve useability in a necessary way?<span style="font-weight: bold;"><br>
+      </span></li>
+    <li><span style="font-weight: bold;">1 point</span> : Is it badly
+needed for visual attractiveness?<span style="font-weight: bold;"><br>
+      </span></li>
+  </ul>
+  <li>Performance <br>
+  </li>
+  <ul>
+    <li><span style="font-weight: bold;">2 points</span> : Is it an
+assigned bug and dependent on <a
+ href="http://bugs.xaraya.com/show_bug.cgi?id=77">bug #77</a>?<span
+ style="font-weight: bold;"><br>
+      </span></li>
+    <li><span style="font-weight: bold;">1 point</span> : Would the
+caching operation break if the task is not performed<span
+ style="font-weight: bold;"><br>
+      </span></li>
+    <li><span style="font-weight: bold;">1 point</span> : Gain
+performance in 90% of situations with more than 5%?<span
+ style="font-weight: bold;"><br>
+      </span></li>
+  </ul>
+  <li>Functionality
+    <ul>
+      <li><span style="font-weight: bold;">1 point</span> : Is the
+module on inclusion list for base distibution of 1.0<span
+ style="font-weight: bold;"><br>
+        </span></li>
+      <li><span style="font-weight: bold;">1 point</span> : Task easily
+isolated and are side-effects very well known?<span
+ style="font-weight: bold;"><br>
+        </span></li>
+      <li><span style="font-weight: bold;">2 points</span> : PMC
+discretion ;-)</li>
+      <li><span style="font-weight: bold;">1 point</span> : Anything
+obviously and badly broken that doesn't fall into another category.</li>
+    </ul>
+  </li>
+  <li>Standards</li>
+  <ul>
+    <li> <span style="font-weight: bold;">1 point</span> : Is it
+needed for xhtml compliance? <br>
+    </li>
+  </ul>
+  <li> Stability
+    <ul>
+      <li><span style="font-weight: bold;">2 points</span> : if not
+fixed it crashes the site or dataloss occurs</li>
+    </ul>
+  </li>
+  <li> Footprint
+    <ul>
+      <li><span style="font-weight: bold;">2 points</span> : Remove
+deadwood, redundancies and duplication (e.g. tree uses) </li>
+      <li><span style="font-weight: bold;">2 points</span> : Reduce
+core loading requirements </li>
+    </ul>
+  </li>
+  <li> Security and Privacy</li>
+  <ul>
+    <li><span style="font-weight: bold;">2 points</span> : it fixes a
+security hole<br>
+    </li>
+  </ul>
+  <li> <a href="http://bugs.xaraya.com/show_bug.cgi?id=1598">Party</a></li>
+  <ul>
+    <li><span style="font-weight: bold;">1 point</span> : anything
+which gets us closer to this</li>
+  </ul>
+</ul>
+The threshold&nbsp; round and about 6-8 points. If a task scores below
+that it is <span style="font-weight: bold;">very</span> likely it will
+<span style="font-weight: bold;">not</span> be supported in the 1.0
+scenario. Developers are encouraged to use the above mechanisme to
+decide in which scenario, if at all, the task should be performed.<br>
+<br>
+We strongly believe in the above to make Xaraya 1.0 a fact. We have
+come a long way in the last 18 months or so and great innovative
+designs have made it to actual implementation. The daunting task we
+face now is to finish our first job and produce an excellent one-dot-oh
+release as a great beginning to the rest of the lifecycle of Xaraya.<br>
+<br>
+Marcel van der Boom<br>
+Xaraya PMC<br>
+<br>
+<hr style="width: 100%; height: 2px;">Footnotes:<br>
+<a name="footnotes"></a>* This document is based on the mozilla 1.0
+manifesto by Brendan Eich
+</div>
+</body>
+</html>

@@ -1,0 +1,193 @@
+How to manage several lines of development with bitkeeper?
+==========================================================
+
+Problem:
+
+Working in the a shared repostiry (like core/stable for Xaraya), there
+might be a need to make some changes which are not ready, or never
+will be, for pushing them to the server repository.  This document
+outlines some strategies how to manage these "lines of development"
+while keeping the possibility of pushing the initially specific
+changes at some point to the shared repository.
+
+The number of lines of development (LODs) is not limited to two
+lines. The principles outlined are perfectly valid for more than two
+lines.
+
+Assumptions:
+
+To make things a bit easier here are some assumptions made
+in this document:
+
+1. Local operations
+
+All operations happen on a local machine, including pushing and
+pulling. The location of a repository is irrelevant for the principles.
+
+2. Repositories considered:
+
+/var/repo/shared : the repository which is shared with the group
+                   and should contain only changes which are
+                   relevant for the standard product  (level 10)
+
+/var/repo/foo/
+/var/repo/bar/   : repositories which contain changes which cannot
+                   directly go into the /var/repo/shared repository
+
+
+3. The command lines showed in this document assume you have
+a reasonably standard unix environment. All command lines should
+however also work on all platforms, unless mentioned otherwise.
+
+
+4. You know how to use bitkeeper
+
+This is NOT a bitkeeper tutorial. We assume bk helptool is at your
+service and you can read bk command lines fluently. We purely focus on
+the principles for managing the repositories from a global perspective
+
+5. Only using one repository
+For simplicity purposes we assume that one repo contains the whole 
+project. If the project is divided among multiple repositories
+(as is the case for Xaraya for example) the strategies should be
+applied to each repository which holds specific lines of development.
+
+Common principles for the strategies
+------------------------------------
+An important principle to understand for all the strategies is that
+bk exchanges patches based on a certain state of a repository. 
+A patch is exchanged through pull, push, send or receive commands. 
+Whether a patch can be applied to a repository depends on the state
+of the receiving repository. 
+The patch is constructed relative to it's predecessor changeset in
+the repository its coming from.
+
+In its simplest case:
+
+Sending repo:
+1.1->1.2->1.3->1.4->1.5
+
+Receiving repo:
+1.1->1.2
+
+If you do a bk pull into the receiving repo csets 1.3, 1.4 and 1.5 are 
+constructed into a patch, which is sent to the receiving end and
+applied. This works by looking at what the Greatest Common Ancestor
+(gca) of the two repositories is. In this case that is cset 1.2, or better,
+the state of the repository with cset 1.2 applied.
+
+If you do a bk makepatch -r1.4,1.5 > test.patch in the sending repo,
+this patch cannot be applied to the receiving repo. cset 1.4 is based
+on the state of the repository during cset 1.3 and that state is
+unknown at the receiving end. You will get a "patch is ahead of your
+repository, get an earlier patch" error when trying to apply this
+patch.
+
+While the above is the simplest example, the logic used also holds 
+when there are (multiple) concurrent changes in different repositories.
+
+So this is important to remember:
+
+ "The condition to be satisfied to be able to apply a patch to a 
+  repository is that the state to which it must be applied must be
+  known at the receiving end"
+
+That condition determines what strategies will be possible and which
+will not be possible.
+
+Maintaining multiple lines of developmet always requires at least 
+maintaining 2 clones of the same repository (at least), each clone
+holding one line. In practice the number of clones is probably higher
+than the number of lines, but we'll get to that later on.
+
+The principle of maintaining multiple LODs is based on the condition
+described above. The trick is to maintain a state to which can be 
+referred for exchanging information between the different lines of 
+development.
+
+
+Use case: project foo
+---------------------
+I have a customer John Doe for which i do a project called 'foo'.
+Once the order confirmation came in, i spun off a repository for
+this project:
+
+bk clone /var/repo/shared /var/repo/foo
+bk level 15
+
+The first gets a working clone and the second statement prevents
+pushing accidentally to the shared repository.
+
+While working on this project i want to make sure that the specific
+changes do not get pushed to the shared repo, but i also want to make
+sure that if i fix a bug which should go to the shared repo i'm able
+to use that fix both in my project and the shared repository.
+
+As it isnt possbile to say during a push, which csets should get pushed
+and which not (because they all depend on the state of the repo) I need
+to make provisions to be able to use both fixes and specific changes.
+
+Furthermore i would like to be able to put changes on hold, neither applying
+them to the project, because i, or the customer, changes his mind, but also
+not applying it to the shared repository because it isn't ready yet, although
+the basic change is something worth keeping.
+
+All of this requires a bit of preparation, so i dont start hacking into the
+project repository, making general changes and specific changes. 
+
+What in fact happens is that you are working on two different projects: 'foo' 
+and 'shared' at the same time.
+
+So here's a little shopping list what is needed:
+1. being able to pull generic changes into project 'foo'
+2. making generic changes and pushing them into the 'shared' project
+3. postponing changes, being able to apply them later to either 'foo' or 'shared'
+4. coming back on a decision, either making a change from specific to generic or
+   from generic to specific.
+
+
+Let's take these items one by one and see what kind of infrastructure we end
+up with.
+
+1. being able to pull generic changes into project 'foo
+
+I want a clone of the shared repository which receives changes from
+the other developers in the group, this repo will be in
+/var/repo/shared and always contains the latest changes from all
+others in the group. The repo for the project which contains
+everything i want to deliver to my customers lives in /var/repo/foo
+with a higher level.
+
+i make /var/repo/foo a child of /var/repo/shared for now, so pulling
+changes which fall under item 1. is easily done by just a bk pull.
+
+This setup satisfies condition 1.
+
+
+2. making generic changes and pushing them into the 'shared' project
+
+When i make a generic change in the 'foo' repository and there are also
+specific changes pending i cant isolate those changes and push them to shared.
+So, i either have to make those changes in the parent and test them their directly
+or have a specific clone for those changes. As i am not sure whether these changes
+are ok, i create another clone: /var/repo/shared_test in which i make changes which
+are generic in nature, but not ready to use yet.
+I do this in exact the same way as i cloned the 'foo' repository from the 'shared'
+repository, so now my setup looks like:
+
+
+shared          [10]
+|
+|-- foo         [15]
+|
+|-- shared_test [15]
+
+
+Item 1 is still satisfied (pull shared into foo) and item 2 can now be satisfied
+by using the following process.
+If i see a specific change which might be generic in nature i do all the work
+
+
+
+
+

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Xaraya Module Design</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Error handling"
+HREF="x161.html"><LINK
+REL="NEXT"
+TITLE="Separation of Display and Operational Functions"
+HREF="x182.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x161.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x182.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN174"
+></A
+>Chapter 3. Xaraya Module Design</H1
+><P
+>&#13;
+      The Xaraya module system design has been carried out by the Xaraya
+      development team to allow for the maximum flexibility to developers
+      whilst ensuring that the module can be accessed in a generic fashion by
+      the Xaraya core, other modules, and remote systems given access through
+      other interfaces such as XML-RPC.  The main design characteristics of the
+      module system are listed below.
+
+    </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN177"
+>3.1. Separation of User and Administrator Functions</A
+></H1
+><P
+>&#13;
+        Separation of user and administrator functions allows for a much
+        cleaner module.  It speeds up the responsiveness of the module in the
+        most-often used cases (<I
+CLASS="foreignphrase"
+>i.e.</I
+> user
+        actions) as the module only needs to load the code that is required of
+        it.  It allows for work one one area of the code
+        (<I
+CLASS="foreignphrase"
+>e.g.</I
+> an admin GUI redesign) to take
+        place without affecting the other areas.  And it also gives an extra
+        layer of security to help ensure that privileged functions cannot be
+        executed inadvertently from user areas.
+
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x161.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x182.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Error handling</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Separation of Display and Operational Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

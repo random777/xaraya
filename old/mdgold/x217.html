@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Direct URLs to functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Xaraya Module Operations"
+HREF="c192.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating Module URLs"
+HREF="x214.html"><LINK
+REL="NEXT"
+TITLE="Before Starting Your Module"
+HREF="c235.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x214.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Xaraya Module Operations</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c235.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN217"
+>4.7. Direct URLs to functions</A
+></H1
+><P
+>&#13;
+        URLs for new-style modules go through the 'index.php' entry point, and
+        are defined by a number of parameters.  The parameters that currently
+        decide which particular module function to call are as follows:
+
+      </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>module</DT
+><DD
+><P
+>&#13;
+              The name of the module.  This corresponds to the well-known name
+              of the module, which can be found through the modules
+              administration interface
+
+            </P
+></DD
+><DT
+>type</DT
+><DD
+><P
+>&#13;
+              The type of the module function.  This is currently either 'user'
+              for user functions or 'admin' for administrative functions.
+
+            </P
+></DD
+><DT
+>func</DT
+><DD
+><P
+>&#13;
+              The name of the function itself.  This is module-dependent.
+
+            </P
+></DD
+></DL
+></DIV
+><P
+>&#13;
+        If any of these parameters are undefined within a URL Xaraya will
+        apply defaults to them.  Note that bot the names of the parameters and
+        their default values might change, and as such it is not recommended to
+        create direct URLs for anything but to either go through the Xaraya
+        main page or to use the <CODE
+CLASS="function"
+>xarModURL()</CODE
+> function to
+        generate URLs that will always be internally consistent for any given
+        version of Xaraya.
+
+      </P
+>
+<P>&#13;	You can also extend the xarModUrl call by adding a parameter call
+to the function in the form of an array.
+         <CODE
+CLASS="function"
+>xarModURL('module', 'type', 'function', array('foo' => $bar))</CODE
+> will create the input parameter of 'foo' having the value of $bar.
+</P>
+
+
+</DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x214.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c235.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating Module URLs</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c192.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Before Starting Your Module</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

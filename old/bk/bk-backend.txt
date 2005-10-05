@@ -1,0 +1,73 @@
+Some notes on using bk like a database backend:
+
+Concept translations:
+====================
+
+server       ->  repository
+database     ->  directory in repo
+table        ->  file in repository
+row          ->  line in file
+transaction  ->  changeset
+replication  ->  pull/push
+
+
+To be able to benefit from versioning a text format for the 
+database should be used. The main reason to use this kind
+of backend would be to have a versioning database.
+
+
+It seems doable to write a adodb wrapper for this if we
+use a flat file database supported by PHP and build the 
+wrapper on top of that.
+
+If we take the lazy approach and use existing stuff we end up with 
+these layers:
+
+  |--------------------------------|
+  |                                |
+  |             XARAYA             |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |              ADODB             |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |   PHP SQL FLAT FILE DATABASE   |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |            SQL -> BK           |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |               BK               |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |           FILESYSTEM           |
+  |                                |
+  |--------------------------------|
+
+
+Possibly reducable to:
+
+  |--------------------------------|
+  |                                |
+  |             XARAYA             |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |              ADODB             |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |               BK               |
+  |                                |
+  |--------------------------------|
+  |                                |
+  |           FILESYSTEM           |
+  |                                |
+  |--------------------------------|
+
+If we let the driver of adodb talk directly to bk.

@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Error handling</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Xaraya Architecture"
+HREF="c71.html"><LINK
+REL="PREVIOUS"
+TITLE="Variable validation"
+HREF="x133.html"><LINK
+REL="NEXT"
+TITLE="Xaraya Module Design"
+HREF="c174.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x133.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Xaraya Architecture</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c174.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN161"
+>2.4. Error handling</A
+></H1
+><P
+>&#13;        Xaraya is capable of error handling through a powerful
+        exception handling system.
+        Since the PHP language doesn't support language-level
+        exceptions, Xaraya provides an artificial mechanism to
+        deal with exceptions.
+        Xaraya divides exceptions into two types: system
+        exceptions and user exceptions.
+        System exceptions are used by Xaraya API functions, but
+        you can use them if it's meaningful in that such situation;
+        for example consider the DATABASE_ERROR exception, you are
+        strongly encouraged to use this exception when a database
+        error occurs and not to use your own exception.
+        As another example consider the BAD_PARAM exception, you
+        should choose to use that exception in your module
+        functions and API functions when passed parameters are
+        considered wrong.
+        Finally system exceptions are well known exceptions for
+        which Xaraya can undertake particular actions like
+        logging or emailing, on the other and user exceptions are
+        not known by Xaraya, and since they are indistinguishable,
+        Xaraya will treat them as they were all the same thing.
+        Another good point in distinction between system and user
+        exceptions is the fact that you should not leave uncaught
+        user exceptions as you can do for system exceptions.
+        Hence you should catch all user exceptions instead of
+        throwing back them to Xaraya, this because user exceptions
+        can be seen as soft exceptions, so you could be in the
+        position of doing other actions and/or returning a properly
+        formatted error message that will look better than the
+        default Xaraya exception caught error message.
+        However it's not illegal to throw back user exceptions to
+        Xaraya, so fell free to do that if it's the case.
+        On the other hand you should avoid to catch system
+        exceptions, except particular cases.
+        A system exception is an hard exception, this means that
+        something very wrong happened and Xaraya should be noticed
+        of that.
+        You achieve this simply by throwing back system exceptions.
+        Also here there are particular circumstances in which you
+        could and perhaps should catch system exceptions.
+        For example consider the <CODE
+CLASS="function"
+>xarUserGetVar()</CODE
+>
+        API function: it raises a NO_PERMISSION system exception in
+        the case you don't have right permission, however you weren't
+        in the position to get access level for user variables, so
+        it's perfectly acceptable here to catch this exception and go
+        ahead when it's meaningful to go ahead.
+      </P
+><P
+>&#13;        Now it's the moment to explore how Xaraya permits to deal
+        with exceptions.
+        Here we begin by exposing how to catch exceptions.
+        When a function, that pontetially can raise exceptions,
+        outcomes with a void value you MUST check if some exception
+        was raised.
+        You can do that by calling the <CODE
+CLASS="function"
+>xarExceptionMajor()</CODE
+>
+        function and comparing its return value with the
+        XAR_NO_EXCEPTION constant.
+        If they are different you know that an exception was raised.
+        The <CODE
+CLASS="function"
+>xarExceptioMajor()</CODE
+> return value can assume
+        one of these values: XAR_NO_EXCEPTION, XAR_USER_EXCEPTION,
+        XAR_SYSTEM_EXCEPTION.
+        Obviously the value XAR_NO_EXCEPTION indicates that no
+        exception was raised, and XAR_USER_EXCEPTION stays for user
+        exception was raised and XAR_SYSTEM_EXCEPTION stays for
+        system exception was raised.
+        When you see that an exception was raised you have two
+        possibilities: throw it back or handle it.
+        To throw back an exception you have only to return with a
+        void value.
+        To handle an exception you have to check for the exception
+        type, id and value if one.
+      </P
+><P
+>&#13;        Consider the following example:
+      <PRE
+CLASS="programlisting"
+>&#13;$res = xarModFunc('MyModule', 'user', 'MyFunc');
+if (!isset($res) &#38;&#38; xarExceptionMajor() != XAR_NO_EXCEPTION) {
+    // Got an exception
+    if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) {
+        return; // throw back
+    }
+    // Got a user exception
+    if (xarExceptionId() == 'MyException1') {
+        $value = xarExceptionValue();
+        $output-&#62;Text("Syntax error at line: ".$value-&#62;lineNumber);
+    } elseif (xarExceptionId() == 'MyException2') {
+        /* Do something useful */
+    } else { // MyException3
+        /* Do something useful */
+    }
+    // reset exception status
+    // NOTE: it's of vital importance to call this function
+    //       before returning
+    xarExceptionFree();
+    return $output-&#62;GetOutput();
+}
+      </PRE
+>
+        To throw exception you use a unique function:
+        <CODE
+CLASS="function"
+>xarExceptionSet()</CODE
+>.
+        You simply call it by passing the exception major, id and
+        value if one; and after this call you return void.
+      </P
+><P
+>&#13;        Consider the following example:
+      <PRE
+CLASS="programlisting"
+>&#13;class MyException1
+{
+    var $lineNumber;
+}
+
+/* ... */
+
+MyModule_user_MyFunc()
+{
+    /* ... */
+    if ($syntax == false) {
+        // Syntax error
+        $exc = new MyException1;
+        $exc-&#62;lineNumber = $line;
+        xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);return;
+    }
+    /* ... */
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2');
+    /* ... */
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3');
+    /* ... */
+    return true;
+}
+      </PRE
+>
+        Note that  no value is associated to MyException2 and
+        MyException3, so there is no need to create a class for
+        exception value.
+        As you can see exception handling is very powerful but also
+        boring and tedious.
+        However you can always choose to not use user exceptions and
+        always throw back system exceptions.
+        But keep in mind that good error handling is not something
+        that should be left for last. It should be part of the
+        development process.
+        Note that is wrong to not check exception status after a call
+        to a function that can pontentially raise something.
+        And note also that if you choose to handle one or more
+        exceptions you MUST call <CODE
+CLASS="function"
+>xarExceptionFree()</CODE
+>
+        before exiting, otherwise the trust relationship on which the
+        exception handling mechanism is based won't work and you will
+        produce very bad things.
+        An ulterior thing for who of you aims to code an official
+        Xaraya module: you MUST always check for possibly raised
+        exceptions and not code with the thought that something will
+        never happen; you MUST also raise DATABASE_ERROR in every
+        function that do queries.
+        To get a better understanding of exception handling functions
+        you should now look at Xaraya API Command Reference.
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x133.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c174.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Variable validation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c71.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Xaraya Module Design</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

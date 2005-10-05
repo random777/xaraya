@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Module Developer's Checklist</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Xaraya Module Developers Guide"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Using OO Code"
+HREF="x805.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Xaraya Module Developers Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x805.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+>&nbsp;</TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN809"
+></A
+>Chapter 11. Module Developer's Checklist</H1
+><P
+>&#13;
+      The following checklist presents a number of items that need to be
+      checked throughout the process of designing, building, and releasing a
+      module.
+
+    </P
+><DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN812"
+></A
+><TABLE
+BORDER="0"
+FRAME="void"
+CLASS="CALSTABLE"
+><COL
+WIDTH="96"
+ALIGN="right"><COL
+WIDTH="1*"
+ALIGN="left"><TBODY
+><TR
+><TD
+>Initial</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Decide on module type</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Choose name for module</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Register name for module</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Obtain and read MDG documentation</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Obtain and read API documentation</TD
+></TR
+><TR
+><TD
+>Module Design</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Separate User and Administration Functions</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Separate GUI and API Functions</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Design data tables</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Note which utility modules are of use</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Note which standard module functions apply</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Create module security schema</TD
+></TR
+><TR
+><TD
+>Module Build</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Copy template module directory</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Create database tables</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Create database initialisation routines</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Test database initialisation routines</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Write administration functions</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Test administration functions</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Test administration functions</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Write user functions</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Test user functions</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Write blocks</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Test blocks</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Document module API</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Package module</TD
+></TR
+><TR
+><TD
+>Module Checks</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>No global variables used</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>No Xaraya reserved variable names used</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>No <CODE
+CLASS="function"
+>echo()</CODE
+> or <CODE
+CLASS="function"
+>print()</CODE
+> statements used</TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>All operations protected by <CODE
+CLASS="function"
+>xarSecAuthAction()</CODE
+></TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>All forms results protected by <CODE
+CLASS="function"
+>xarSecConfirmAuthKey()</CODE
+></TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>All form variables obtained by <CODE
+CLASS="function"
+>xarVarCleanFromInput()</CODE
+></TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>All output parsed through <CODE
+CLASS="function"
+>xarVarPrepForDisplay()</CODE
+> or 
+<CODE
+CLASS="function"
+>xarVarPrepHTMLDisplay()</CODE
+></TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>All suitable output censored by <CODE
+CLASS="function"
+>xarVarCensor()</CODE
+></TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>All variables in SQL queries protected by <CODE
+CLASS="function"
+>xarVarPrepForStore()</CODE
+></TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>All variables in filesystem access protected by <CODE
+CLASS="function"
+>xarVarPrepForOS()</CODE
+></TD
+></TR
+><TR
+><TD
+>·</TD
+><TD
+>Calls to <CODE
+CLASS="function"
+>xarModCallHooks()</CODE
+> in all appropriate locations</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x805.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using OO Code</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

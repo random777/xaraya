@@ -1,0 +1,231 @@
+Preface 
+------- 
+This contains a proposal for handling the copyright of
+contributors to the Xaraya code-base.
+
+Definition of code-base:
+"all contents of the core repository" 
+
+Definition of contributor:
+"any person who added or modified a file in the code-base"
+
+The proposal will focus on a small area of tasks and problems we have
+started to solve in the past, but have not been able to follow
+through. The PMC wants to solve at least the critical points of those
+areas before 1.0 is released.
+
+Goal of the proposal
+--------------------
+"A clear definition and procedure on how the collective copyright is
+assigned and protected with the absolute minimal effort, while keeping
+as much of the options, which we earlier planned for, open for future
+endeavors"
+
+The proposal will NOT deal with related issues, it will just present a
+short term list of actions which are necessary from the point of view
+of the PMC. The PMC feels it is partly its responsibility to protect
+the copyright and efforts of our contributors. While we acknowledge
+that these other issues are important and should be dealt with
+eventually, we consciously decide NOT to deal with them NOW.
+
+Some of these related issues are for example:
+- how to manage membership of the DDF
+- when the DDF will act on copyright infringements / when not
+- a procedure for requesting such an action
+- how to deal with contributor who are not ddf members
+
+Problem scope
+-------------
+In our original plans for the DDF and Xaraya the setup was, at least
+conceptually, rather clear. The DDF would be the umbrella above a
+number of projects and provide services to the members of those
+projects which would unite in the DDF by becoming a member of the
+foundation and agreeing to transfer copyrights to this foundation, so
+the protection and handling of those rights could be managed centrally.
+
+This setup has been disturbed by a number or factors, for which we
+will not go into detail at this point. Suffice to say that the currently
+implemented organizational structure is insufficient for the majority
+of the needs for a project such as Xaraya. This proposal will only
+focus on one part of these needs: "Copyright protection", nothing more,
+nothing less. We would like to see this reflected in the discussion.
+
+Copyright protection
+--------------------
+Copyright is assigned by default, you don't have to actually *do*
+anything to get copyright on something you write or design. It is
+however advisable to confirm that copyright for obvious reasons.
+Solely judging from the above the absolute simplest course of action
+would be to re-confirm the copyright statements in the code-base as
+defined and make sure they are correct and valid.
+
+We use these definitions for "valid" and "correct":
+valid  : assigned to a legal entity or person
+correct: assigned to the proper contributor
+
+To be clear on what constitutes a valid and correct copyright statement:
+- "copyright Xaraya development group" is NOT VALID and NOT CORRECT as that is no entity
+- "no copyright statement" is VALID and CORRECT, copyright is implicit
+- "copyright <specific contributor-name>" is VALID and POSSIBLY CORRECT 
+- "copyright <list of specific contributors>" is VALID and POSSIBLY CORRECT
+- "copyright Digital Development Foundation" is VALID and POSSIBLY CORRECT (see below)
+
+First problem to be solved:
+===========================
+"Eliminate the invalid, unconfirmed and incorrect copyright in the
+code-base"
+
+A copyright holder needs to exercise his rights under that copyright,
+both passively (making sure it is confirmed) and actively (acting on
+copyright infringes) and pro-actively (making sure there exists no
+misunderstanding about the copyright) 
+
+In short: a copyright holder has obligations in general, and for open
+source this is even a greater burden, because it is the *only*
+protection available for the contributor(s).
+
+Even shorter: copyright must be managed
+
+Added to this is the fact that the code-base for Xaraya has multiple
+contributors in general and multiple contributors per file. (on last
+count, we have around 200 contributors in our code-base), so the
+management of all this copyright can be a daunting task, especially
+when the code-base is so large and functioning as a whole.
+
+Second problem to be solved:
+===========================
+"Make the management of the copyright doable on both short term and
+long term taking a changing composition of the group of original
+contributors into account."
+
+The obvious solution is to transfer copyright to a central entity
+which focusses solely on the management of that copyright. Each
+contributor agrees to sign a document to transfer his copyright to
+that entity. We, obviously, had the DDF in mind for this, which brings
+us to the third problem:
+
+Third problem to be solved:
+===========================
+"Create a mode of operation for the DDF in which the management of
+copyright need can be handled efficiently, the management of the
+copyright of contributors to the Xaraya code-base."
+
+
+SUMMARY
+=======
+To sum up, this proposal aims to formulate explicit actions to solve
+the following 3 problems:
+
+1. Eliminate the invalid and incorrect copyright situation;
+2. Make the management of copyright efficient and realistic;
+3. Create a mode of operation in the DDF to manage the copyright;
+
+All 3 problems are problems on their own; i.e. a possible outcome
+could be to solve problems 1 and 2, while not solving problem 3. The
+"order" of the problems is however important and need to be solved in
+the order specified.
+
+There are a lot of options which would solve these
+problems. For practical purposes the PMC would like to offer two, and
+only two, options at this time:
+
+1. We vote on the proposal actions as presented here and exercise it as a
+group if voted in.
+
+2. Everyone manages their own copyright and we remove all copyright
+references to non-entities and the DDF.
+
+These are the *only* two options we can offer at this moment and for
+which the PMC is willing to make an effort to create the momentum and
+execute the appropriate actions. To be harsh, we can not, at this
+time, start a process of discussing other options or scenarios for
+execution before the 1.0 release of Xaraya.
+
+
+Executing the actions to solve the above problems
+=================================================
+For each of the problems we have formulated atomic actions which need
+to be performed. Some will require a vote, others can be executed
+immediately.
+
+0. Resources
+------------
+Marc Lutolf and Marcel van der Boom have agreed to lead and
+co-ordinate all the actions required and making sure we complete all
+of them before the 1.0 release of Xaraya
+
+VOTES ON: Mandating marc + marcel to implement the procedure on
+          behalf of the contributors.
+
+1. Eliminate the invalid copyright and ensure it is correct
+-----------------------------------------------------------
+Action:
+1.1 All copyright statements in all relevant places are changed to one
+    of the choices below:
+
+a) Copyright (c) years, The Digital Development Foundation
+b) Copyright (c) years, <list of contributors>
+
+Notes:
+a) requires problem 2 solution
+b) list of contributors will be produced with the help of bitkeeper
+
+VOTES ON: 1.1
+
+Notes:
+- action implies a) or b) depending on solutions 2 and 3
+ 
+2. Make the copyright manageable 
+--------------------------------
+Actions: 
+
+2.1 A form will be created which needs to be signed by *each*
+    contributor at least identified by name and email-address. These 
+    signed forms will be collected by the PMC.
+
+2.2 This form will include a statement that the contributor agrees
+    the copyright can be managed by the PMC on their behalf if
+    needed.
+
+2.3 This form will include a statement that the contributor agrees,
+    that the copyright of their contribution will be transferred to the
+    Digital Development Foundation
+
+2.4 No contribution will be accepted without a signed copy (either
+    digitally or on paper) of the aforementioned form
+
+Notes:
+- action 2.2 is essential, note that the copyright is not transferred to the
+  PMC, but PMC gets merely a mandate for keeping an eye on infringements and
+  speaking on behalf of the contributor to handle it. If action is required, PMC
+  must seek approval from each contributor.
+- action 2.3 requires solution 3, if solution 3 is voted down, action 2.3 is
+  left out.
+
+VOTES ON: The set of actions as a whole
+
+3. Create a mode of operation in the DDF to manage the copyright
+----------------------------------------------------------------
+Actions:
+
+3.1 The current DDF BOD will be dismissed from their duties
+
+3.2 An interim DDF BOD / management is voted in which has the goal of
+    implementing this proposal, after which new BOD elections will take
+    place. This interim BOD will get a mandate from the ddf members to take the
+    decisions necessary to implement this proposal.
+
+3.3 After implementing the goal, the interim BOD reports on the
+    completed copyright transfer to the ddf members and offers a procedure for
+    continuing that practice within the DDF.
+
+VOTES ON: 3.1, 3.2 separately.
+
+
+Note for discussion:
+- please regard this proposal as a request for votes. This is the proposal
+  we would like to put to a vote, not a completely modified one after discussion.
+  If there are too many issues you have with this proposal, reflect that in 
+  your vote
+- please be aware that we fully realize that there are many more problems to 
+  be solved, and we *will* deal with them too at the appropriate time. 

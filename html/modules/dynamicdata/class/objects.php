@@ -1,5 +1,6 @@
 <?php
 /**
+ * Metaclass for Dynamic Objects
  * @package Xaraya eXtensible Management System
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -376,6 +377,7 @@ class Dynamic_Object_Master
      */
     function &getObjects()
     {
+        $nullreturn = NULL;
         $dbconn =& xarDBGetConn();
         $xartable =& xarDBGetTables();
 
@@ -393,7 +395,7 @@ class Dynamic_Object_Master
                   FROM $dynamicobjects ";
         $result =& $dbconn->Execute($query);
 
-        if (!$result) return;
+        if (!$result) return $nullreturn;
 
         $objects = array();
         while (!$result->EOF) {

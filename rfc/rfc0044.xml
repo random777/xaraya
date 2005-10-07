@@ -173,7 +173,7 @@
             container template within the context of the output domain".
           </t>          
           <t>
-            Yet another way of saying it is: "Use common sense" (which is by the way the overall 
+            Yet another way of saying it is: "Use common sense" (which is by the way the overall
             rule which applies to everything said in this RFC )
           </t>
         </t>
@@ -191,18 +191,17 @@
             &lt;xar:comment&gt;License: GPL http://www.gnu.org/copyleft/gpl.html&lt;/xar:comment&gt;
           </artwork>
         </t>
-        <t><em>Note:</em>  Use the &lt;xar:comment&gt; &lt;/xar:comment&gt; form over the &lt;!-- --&gt; (and deprecated &lt;!--- ---&gt;) and form so that it isn't added to the output stream (BL will not output it)</t>
-        <t><em>Note:</em>  Use the &lt;!--- ---&gt; form over the &lt;!-- --&gt; form so that it isn't added to the output stream (BL will not output it)</t>
-      </t>
+        <t><em>Note:</em>  Use the &lt;xar:comment&gt; &lt;/xar:comment&gt; form over the &lt;!-- --&gt; (or deprecated &lt;!--- ---&gt;) form so that it isn't added to the output stream (BL will not output it)</t>
+        </t>
       <t><em>File header</em>
         <t>
-          This header is for all php files in the codebases.
+          This header is for all php files in the codebases. The package name and copyright year (or a list of years) should be updated as necessary.
           <artwork>
 /**
 * Short description of purpose of file
 *
 * @package unassigned
-* @copyright (C) 2003 by the Xaraya Development Team.
+* @copyright (C) 2002-2005 by The Digital Development Foundation
 * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
 * @link http://www.xaraya.com
 *
@@ -262,7 +261,7 @@
 
     <section title="Xaraya coding style">
       <t>
-        This section deals with standards for coding php files 
+        This section deals with standards for coding php files
         in Xaraya
       </t>
       <section title="General">
@@ -270,13 +269,13 @@
           <t>
             Use the long form of identifying the start of a php section in
             a file. We follow the PEAR standard in this; it is
-            also the most portable way to include PHP code on differing 
+            also the most portable way to include PHP code on differing
             operating systems and setups.
           </t>
           <t><em>Note:</em>
             <t>
               Short tags will also cause php to choke on &lt;?xml ?&gt; tags
-              if the short notation is allowed in the php setup. 
+              if the short notation is allowed in the php setup.
             </t>
           </t>
         </t>
@@ -324,7 +323,7 @@
           <t>
             Use unix file and line endings, not dos/windows ones. Most editors and IDEs 
             on Windows will provide a choice to save a file as unix file. To some extent
-            BitKeeper will provide the necessary conversions if necessary.
+            Monotone will provide the necessary conversions if necessary.
           </t>
         </t>
         <t><em>Comments</em>
@@ -694,6 +693,7 @@ where the updated roadmap is available.
 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2005-10-08: jojodee - updated header section, some small updates</t>
       <t>2004-01-15: MrB - added class section</t>
       <t>2003-10-13: MrB - reorganized a bit, added some verbosity.</t>
       <t>2003-04-23: FB  - added PEAR coding standard</t>

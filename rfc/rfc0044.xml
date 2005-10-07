@@ -188,10 +188,10 @@
         </t>
         <t>
           <artwork>
-            &lt;!--- License: GPL http://www.gnu.org/copyleft/gpl.html ---&gt;
+            &lt;xar:comment&gt;License: GPL http://www.gnu.org/copyleft/gpl.html&lt;/xar:comment&gt;
           </artwork>
         </t>
-        <t><em>Note:</em>  Use the &lt;!--- ---&gt; form over the &lt;!-- --&gt; form so that it isn't added to the output stream (BL will not output it)</t>
+        <t><em>Note:</em>  Use the &lt;xar:comment&gt; &lt;/xar:comment&gt; form over the &lt;!-- --&gt; (and deprecated &lt;!--- ---&gt;) and form so that it isn't added to the output stream (BL will not output it)</t>
       </t>
       <t><em>File header</em>
         <t>

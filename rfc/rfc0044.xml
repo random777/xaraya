@@ -192,25 +192,24 @@
           </artwork>
         </t>
         <t><em>Note:</em>  Use the &lt;xar:comment&gt; &lt;/xar:comment&gt; form over the &lt;!-- --&gt; (and deprecated &lt;!--- ---&gt;) and form so that it isn't added to the output stream (BL will not output it)</t>
+        <t><em>Note:</em>  Use the &lt;!--- ---&gt; form over the &lt;!-- --&gt; form so that it isn't added to the output stream (BL will not output it)</t>
       </t>
       <t><em>File header</em>
         <t>
           This header is for all php files in the codebases.
           <artwork>
-            /**
-             * File: $Id$
-             *
-             * Short description of purpose of file
-             *
-             * @package unassigned
-             * @copyright (C) 2003 by the Xaraya Development Team.
-             * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
-             * @link http://www.xaraya.com
-             *
-             * @subpackage module name
-             * @link  link to information for the subpackage
-             * @author author name &lt;author@email&gt; (this tag means responsible person)
-             */
+/**
+* Short description of purpose of file
+*
+* @package unassigned
+* @copyright (C) 2003 by the Xaraya Development Team.
+* @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+* @link http://www.xaraya.com
+*
+* @subpackage module name
+* @link  link to information for the subpackage
+* @author author name &lt;author@email&gt; (responsible person)
+*/
           </artwork>
         </t>
       </t>
@@ -221,21 +220,21 @@
         </t>
         <t>
           <artwork>
-            /**
-             * Short description of the function
-             *
-             * A somewhat longer description of the function which may be
-             * multiple lines, can contain examples.
-             *
-             * @author  Author Name &lt;author@email&gt;
-             * @deprec  date since deprecated &lt;insert this if function is deprecated&gt;
-             * @access  public / private / protected
-             * @param   type param1 Description of parameter 1
-             * @param   type param2 Description of parameter 2
-             * @return  type to return description
-             * @throws  list of exception identifiers which can be thrown
-             * @todo    &lt;devname&gt; &lt;#&gt; list of things which must be done to comply to relevant RFC or fix a problem
-             */
+/**
+* Short description of the function
+*
+* A somewhat longer description of the function which may be
+* multiple lines, can contain examples.
+*
+* @author  Author Name &lt;author@email&gt;
+* @deprec  date since deprecated &lt;(only if function is deprecated)&gt;
+* @access  public / private / protected
+* @param   type param1 Description of parameter 1
+* @param   type param2 Description of parameter 2
+* @return  type to return description
+* @throws  list of exception identifiers which can be thrown
+* @todo    &lt;devname&gt; &lt;#&gt; todolist for module (RFC, wish or otherwise)
+*/
           </artwork>
         </t>
       </t>
@@ -245,17 +244,17 @@
         </t>
         <t>
           <artwork>
-            /**
-             * Short class description
-             *
-             * A somewhat longer description of the class which
-             * may be on multiple lines and can contain examples
-             *
-             * @package unassigned - replace with packagename
-             * @author Author Name &lt;author@email&gt;
-             * @deprec date since deprecated &lt;insert if class is deprecated&gt;
-             * @todo  todo-item, specify each with new tag
-             */
+/**
+* Short class description
+*
+* A somewhat longer description of the class which
+* may be on multiple lines and can contain examples
+*
+* @package unassigned - replace with packagename
+* @author Author Name &lt;author@email&gt;
+* @deprec date since deprecated &lt;insert if class is deprecated&gt;
+* @todo  todo-item, specify each with new tag
+*/
           </artwork>
         </t>
       </t>
@@ -564,35 +563,36 @@
           now and then. A biweekly or monthly status report is the suggested schedule. Use the 
           template below for submitting status reports.
           <artwork>
-            Scenario status report
-            ======================
+Scenario status report
+======================
 
-            1. Scenario
-            -----------
-            &lt;Try to use the name as in roadmap&gt;
+1. Scenario
+-----------
+&lt;Try to use the name as in roadmap&gt;
 
-            2. Developers change
-            --------------------
-            2.1 Developer name (both Real name and irc nick)
-            2.2 Developer emailaddress
-            2.3 Added/Removed/Away till:__/__/____/
+2. Developers change
+--------------------
+2.1 Developer name (both Real name and irc nick)
+2.2 Developer emailaddress
+2.3 Added/Removed/Away till:__/__/____/
 
-            3. Status changes
-            -----------------
-            Date of effect:
-            Percentage complete:
-            Duration:
-            Dependency:
+3. Status changes
+-----------------
+Date of effect:
+Percentage complete:
+Duration:
+Dependency:
 
-            4. Remarks
-            ---------- 
-              &lt;Anything missed above &gt;
+4. Remarks
+---------- 
+&lt;Anything missed above &gt;
 
-            Mail this template:
-              - to: xaraya_pmc@xaraya.com
-              - cc: xaraya_committers@xaraya.com
-            You will get notification when the roadmap has been updated with the info, 
-            so you can check if we've done it right.
+Mail this template:
+- to: xaraya_pmc@xaraya.com
+- cc: xaraya_committers@xaraya.com
+You will get notification when the roadmap has been 
+updated with the info, so you can check if we've 
+done it right.
           </artwork>
         </t>
     </section>
@@ -608,46 +608,70 @@
             <t>...</t>
           </list>
           <artwork>
-            Scenario assigment template
-            ===========================
+Scenario assigment template
+===========================
 
-            1. Scenario
-            -----------
-            &lt;This name will be used in the roadmap&gt;
+1. Scenario
+-----------
+&lt;This name will be used in the roadmap&gt;
 
-            2. Names of developers working in the scenario
-            ----------------------------------------------
-            2.1 Developer name (both Real name and irc nick)
-            2.2 Developer emailaddress
-            &lt;only team lead is necessary, rest is optional&gt;
+2. Names of developers working in the scenario
+----------------------------------------------
+2.1 Developer name (both Real name and irc nick)
+2.2 Developer emailaddress
+&lt;only team lead is necessary, rest is optional&gt;
 
-            3. Scenario data
-            ----------------
-            3.1 Description
-              &lt;Give a short paragraph on the what and why&gt;
-            3.2 start date
-            3.3 estimated amount of time needed in total
-            3.4 percentage complete
-            3.5 dependencies 
-              (as in: which scenarios do you need to be complete first before you can finish)
-            
-            4. Infrastructure
-            -----------------
-            4.1 Server scenario needed: yes/no
-            4.2 Web interface needed: yes/no
-            4.3 Triggers needed: yes/no
-              &gt;Specify if you have special wishes&gt;
+3. Scenario data
+----------------
+3.1 Description
+&lt;Give a short paragraph on the what and why&gt;
+3.2 start date
+3.3 estimated amount of time needed in total
+3.4 percentage complete
+3.5 dependencies 
+(as in: which scenarios do you need to be completed 
+first before you can finish)
 
-            5. Remarks
-            ---------- 
-              &lt;Anything missed above &gt;
+4. Infrastructure
+-----------------
+4.1 Server scenario needed: yes/no
+4.2 Web interface needed: yes/no
+4.3 Triggers needed: yes/no
+&gt;Specify if you have special wishes&gt;
 
-            Mail this template to: xaraya_pmc@xaraya.com
-            You will get notification whether we can include the scenario and 
-            where the updated roadmap is available.
+5. Remarks
+---------- 
+&lt;Anything missed above &gt;
+
+Mail this template to: xaraya_pmc@xaraya.com
+You will get notification whether we can include the scenario and 
+where the updated roadmap is available.
           </artwork>
         </t>
       </section>
+    </section>
+    <section title="Version numbers">
+      <t>
+        Typically in software development, you deal a lot with version numbers. Below are the rules for any version number
+        used in Xaraya.
+        <t>
+          <list>
+            <t>All version numbers have exactly 3 positions. (1.2.3)</t>
+            <t>Each position is numeric</t>
+            <t>No leading zero's are used (i.e. 1.01.04 is invalid, this should be 1.1.4)</t>
+            <t>Version numbering in one position does not overflow; 345.300.14 is a valid version number, as is 1.10.11</t>
+            <t>The first two positions are 'active' positions. This means that based on the change of any of the first or second
+              position an action could be triggered. Typically in modules this involves an upgrade or a reinitialisation. The 
+              third position is a 'passive' location, i.e. Xaraya just registers the version number. The responsible developer 
+              should make sure that his object, module or theme deals with this correctly.
+            </t>
+          </list>
+        </t>
+      </t>
+      <t>
+        In practice documentation also can have a version number. The same rules apply as well. We recommend using the term
+        'editions' when refering to documentation and 'revisions' when refering to code.
+      </t>
     </section>
     <section title="Database">
       <t>

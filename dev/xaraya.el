@@ -15,12 +15,10 @@
 	(interactive)
 	(insert "
 /**
- * File: $Id$
- *
  * Short description of purpose of file
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2002 by the Xaraya Development Team.
+ * @copyright (C) 2005 by The Digital Development Foundation.
  * @link http://www.xaraya.com
  * 
  * @subpackage module name

@@ -58,15 +58,19 @@
     <!-- Introduction is mandatory -->
     <section title="Introduction">
       <t>
-          In this RFC we pull together the general <eref target="http://pear.php.net/manual/en/standards.php">
-          PEAR coding standard</eref> and the specific Xaraya standards into one document.
+        In this RFC we pull together the
+        general <eref target="http://pear.php.net/manual/en/standards.php"> 
+        PEAR coding standard</eref> and the specific Xaraya standards into
+        one document.
       </t>
       <t>
-        The RFC does not only contain coding standards as perceived in the normal way, but does also
-        touch on standards for creating templates, themes, modules and  general rules of engagement etc., 
-        which are not perceived as coding activities by some people. We think that any activity which
-        touches the repository or influences the use of Xaraya needs to be considered as a
-        coding activity.
+        The RFC does not only contain coding standards as perceived in
+        the normal way, but does also touch on standards for creating
+        templates, themes, modules and general rules of engagement
+        etc., which are not perceived as coding activities by some
+        people. We think that any activity which touches the
+        repository or influences the use of Xaraya needs to be
+        considered as a coding activity.
       </t>
     </section>
 
@@ -128,13 +132,14 @@
             the use of PHP in templates.
           </t>
           <t>
-            Note: the PHP usage in certain blocklayout attributes is 
-            another matter. These are inheritly built into blocklayout 
+            Note: the PHP usage in certain blocklayout attributes is
+            another matter. These are inheritly built into blocklayout
             (for example the condition attribute in the logic tags).
-            The fact that these attributes are PHP expressions is merely
-            an easy way to have expressions available, using the language 
-            used to write Xaraya. (We could have used another language in those
-            attributes to express the conditions).
+            The fact that these attributes are PHP expressions is
+            merely an easy way to have expressions available, using
+            the language used to write Xaraya. (We could have used
+            another language in those attributes to express the
+            conditions).
           </t>
         </t>
       <t><em>Templates must be self-containable.</em>
@@ -159,22 +164,27 @@
             </artwork>
           </t>
           <t>
-            This rule is 'fuzzy' at least. The 'right' example is also not completely
-            containable. (can't appear inside 'head' for example) The actual rule is
-            dependent on the output format (for clear text, there is no such thing at all)
-            and how that output format defines it's context rules. A more loose definition
-            could be: "Maximize the scope of containability". The first example can <em>only</em>
-            be embedded inside a template with a &lt;table&gt; tag surrounding it at its 
-            ancestor level, while the second example can be contained in any place where a 
-            block level element is valid.
+            This rule is 'fuzzy' at least. The 'right' example is also
+            not completely containable. (can't appear inside 'head'
+            for example) The actual rule is dependent on the output
+            format (for clear text, there is no such thing at all) and
+            how that output format defines it's context rules. A more
+            loose definition could be: "Maximize the scope of
+            containability". The first example can <em>only</em> be
+            embedded inside a template with a &lt;table&gt; tag
+            surrounding it at its ancestor level, while the second
+            example can be contained in any place where a block level
+            element is valid.
           </t>
           <t>
-            Another way of saying the above would be: "Try to minimize the requirements on the
-            container template within the context of the output domain".
+            Another way of saying the above would be: "Try to minimize
+            the requirements on the container template within the
+            context of the output domain".
           </t>          
           <t>
-            Yet another way of saying it is: "Use common sense" (which is by the way the overall
-            rule which applies to everything said in this RFC )
+            Yet another way of saying it is: "Use common sense" (which
+            is by the way the overall rule which applies to everything
+            said in this RFC )
           </t>
         </t>
     </section>
@@ -183,19 +193,26 @@
       <t>This section contains the standard headers we use</t>
       <t><em>Template Header Recommendation</em>
         <t>
-          All Templates should include the name of the license and a link to it so as to avoid legal ambiguity. You may also wish to add the
-          author's name as well.
+          All Templates should include the name of the license and a
+          link to it so as to avoid legal ambiguity. You may also wish
+          to add the author's name as well.
         </t>
         <t>
           <artwork>
             &lt;xar:comment&gt;License: GPL http://www.gnu.org/copyleft/gpl.html&lt;/xar:comment&gt;
           </artwork>
         </t>
-        <t><em>Note:</em>  Use the &lt;xar:comment&gt; &lt;/xar:comment&gt; form over the &lt;!-- --&gt; (or deprecated &lt;!--- ---&gt;) form so that it isn't added to the output stream (BL will not output it)</t>
+        <t>
+          <em>Note:</em> Use the &lt;xar:comment&gt;
+          &lt;/xar:comment&gt; form over the &lt;!-- --&gt; (or
+          deprecated &lt;!--- ---&gt;) form so that it isn't added to
+          the output stream (BL will not output it)</t>
         </t>
       <t><em>File header</em>
         <t>
-          This header is for all php files in the codebases. The package name and copyright year (or a list of years) should be updated as necessary.
+          This header is for all php files in the codebases. The
+          package name and copyright year (or a list of years) should
+          be updated as necessary.
           <artwork>
 /**
 * Short description of purpose of file
@@ -210,6 +227,12 @@
 * @author author name &lt;author@email&gt; (responsible person)
 */
           </artwork>
+        </t>
+        <t>
+          Make sure that the fileheader is immediately followed by
+          another docblock, otherwise you'll get errors and the
+          docblock is interpreted as the documentation for the first
+          php code encountered in the file.
         </t>
       </t>
       <t><em>Function and class method header</em>
@@ -297,10 +320,11 @@
                                              'module');
           </artwork>
           <t>
-            A better style would convey more meaning of the structure. Examples
-            could include the following, depending on the numbers and sizes of
-            the tokens. Note that braces and brackets are closed either on the
-            same indentation level they are opened, or on the same line they are
+            A better style would convey more meaning of the
+            structure. Examples could include the following, depending
+            on the numbers and sizes of the tokens. Note that braces
+            and brackets are closed either on the same indentation
+            level they are opened, or on the same line they are
             opened:
           </t>
           <artwork>
@@ -321,9 +345,10 @@
         </t>
         <t><em>File and line endings</em>
           <t>
-            Use unix file and line endings, not dos/windows ones. Most editors and IDEs 
-            on Windows will provide a choice to save a file as unix file. To some extent
-            Monotone will provide the necessary conversions if necessary.
+            Use unix file and line endings, not dos/windows ones. Most
+            editors and IDEs on Windows will provide a choice to save
+            a file as unix file. To some extent Monotone will provide
+            the necessary conversions if necessary.
           </t>
         </t>
         <t><em>Comments</em>
@@ -458,10 +483,12 @@
         </t>
         <t><em>Naming</em>
           <t>
-            The following naming conventions are used in general. The module functions
-            are required to have certain specific names if they are used in API parts or
-            interface parts of that function. The specific rules for these are described
-            in the "Xaraya Module Developers Guide" (need to have a permalink for this)
+            The following naming conventions are used in general. The
+            module functions are required to have certain specific
+            names if they are used in API parts or interface parts of
+            that function. The specific rules for these are described
+            in the "Xaraya Module Developers Guide" (need to have a
+            permalink for this)
             <list style="numbers">
               <t>public functions start with "xar"</t>
               <t>protected functions start with "xarFoo_" (one underscore)</t>
@@ -473,9 +500,11 @@
             possible to maintain consistency across the code base.
           </t>
           <t>
-            Note that php (version 4 or lower) has no notion of 'public', 'protected',
-            'private' or 'abstract' access specifiers, i.e. php will NOT enforce that
-            a private function is not called from a callee outside the 'private' scope.
+            Note that php (version 4 or lower) has no notion of
+            'public', 'protected', 'private' or 'abstract' access
+            specifiers, i.e. php will NOT enforce that a private
+            function is not called from a callee outside the 'private'
+            scope.
           </t>
         </t>
       </section>
@@ -651,25 +680,39 @@ where the updated roadmap is available.
     </section>
     <section title="Version numbers">
       <t>
-        Typically in software development, you deal a lot with version numbers. Below are the rules for any version number
-        used in Xaraya.
+        Typically in software development, you deal a lot with version
+        numbers. Below are the rules for any version number used in
+        Xaraya.
         <t>
-          <list>
+          <list style="numbers">
             <t>All version numbers have exactly 3 positions. (1.2.3)</t>
             <t>Each position is numeric</t>
-            <t>No leading zero's are used (i.e. 1.01.04 is invalid, this should be 1.1.4)</t>
-            <t>Version numbering in one position does not overflow; 345.300.14 is a valid version number, as is 1.10.11</t>
-            <t>The first two positions are 'active' positions. This means that based on the change of any of the first or second
-              position an action could be triggered. Typically in modules this involves an upgrade or a reinitialisation. The 
-              third position is a 'passive' location, i.e. Xaraya just registers the version number. The responsible developer 
-              should make sure that his object, module or theme deals with this correctly.
+            <t>
+              No leading zero's are used (i.e. 1.01.04 is invalid,
+              this should be 1.1.4)
+            </t>
+            <t>
+              Version numbering in one position does not overflow;
+              345.300.14 is a valid version number, as is 1.10.11</t>
+            <t>
+              The first two positions are 'active' positions. This
+              means that based on the change of any of the first or
+              second position an action could be triggered. Typically
+              in modules this involves a forced upgrade or a
+              reinitialisation. The third position is a 'passive'
+              location, i.e. Xaraya just registers the version number
+              and may perhaps do an automatic upgrade.  The
+              responsible developer should make sure that his object,
+              module, theme or otherwise deals with this correctly.
             </t>
           </list>
         </t>
       </t>
       <t>
-        In practice documentation also can have a version number. The same rules apply as well. We recommend using the term
-        'editions' when refering to documentation and 'revisions' when refering to code.
+        In practice documentation also can have a version number. The
+        same rules apply as well. We recommend using the term
+        'editions' when refering to documentation and 'revisions' when
+        refering to code.
       </t>
     </section>
     <section title="Database">
@@ -685,8 +728,13 @@ where the updated roadmap is available.
     <section title="To be included">
       <t>
         <list>
-          <t>Exception to direct output generation are some parts of the core (notably logger and exception subsystem) </t>
-          <t>Describe hook templates very clearly, as they are the one which always get contained in another template</t>
+          <t>
+            Exception to direct output generation are some parts of
+            the core (notably logger and exception subsystem) </t>
+          <t>
+            Describe hook templates very clearly, as they are the one
+            which always get contained in another template
+          </t>
         </list>
       </t>
     </section>

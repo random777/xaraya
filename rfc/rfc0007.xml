@@ -270,7 +270,7 @@
           and with a better definition of properties, you could even replace
           that by a single tag like
           <artwork>
-            &lt;xar:articles-form module="articles" itemtype="1" itemid="1234"&gt;
+&lt;xar:articles-form module="articles" itemtype="1" itemid="1234"&gt;
           </artwork>
         </t><t>
           That's one extreme, and I'm not far from being able to do just
@@ -472,7 +472,7 @@
           </artwork>
           or even
           <artwork>
-            &lt;xar:articles-display module="articles" itemtype="1" itemid="123" /&gt;
+&lt;xar:articles-display module="articles" itemtype="1" itemid="123" /&gt;
           </artwork>
         </t><t>
           Again, this could be built up automatically by Xaraya based

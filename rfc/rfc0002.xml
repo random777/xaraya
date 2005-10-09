@@ -92,17 +92,18 @@
       <section title="Table Comment">
     <t>
       <artwork>
-        // as the comment repository
-        commentid        unique long integer value
-        modname          holds a reference to the module (see section 5g)
-        hookid           references an item in the module, semantics are
-                         defined by the module.
-        author           foreign key to the users table
-        title            the title of the comment
-        comment          the comment, maximum size to be determined
-        comdate          the date of the comment as UTC timestamp
-        hostname         records the hostname of the poster
-        lineage          the family tree upto and including the current comment
+// as the comment repository
+commentid        unique long integer value
+modname          holds a reference to the module (see section 5g)
+hookid           references an item in the module, semantics are
+                 defined by the module.
+author           foreign key to the users table
+title            the title of the comment
+comment          the comment, maximum size to be determined
+comdate          the date of the comment as UTC timestamp
+hostname         records the hostname of the poster
+lineage          the family tree upto and including the current 
+                 comment
       </artwork>
     </t>
       </section>
@@ -117,15 +118,15 @@
       seamlessly interact with the database. All database interaction
       is completely handled by the following routines.
       List of Functions:
-      <artwork>
-      xarComments_Get(modname, hookid, CommentId=0, depth=-1, sort='ASC')
-      xarComments_Add(modname, hookid, ParentId, author, title, comment, hostname)
-      xarComments_Delete(CommentId, delkids=true)
-      xarComments_Modify(CommentId, title, comment) {
-      xarComment_Search(searchstring [,module] [,hook]);
-      xarComment_Stats([module, [hook]]);
-      xarComments_MoveThread(AttachToId, CommentId, IncludeParent=true);
-      </artwork>
+      <list>
+        <t>xarComments_Get(modname, hookid, CommentId=0, depth=-1, sort='ASC')</t>
+        <t>xarComments_Add(modname, hookid, ParentId, author, title, comment, hostname)</t>
+        <t>xarComments_Delete(CommentId, delkids=true)</t>
+        <t>xarComments_Modify(CommentId, title, comment)</t>
+        <t>xarComment_Search(searchstring [,module] [,hook]);</t>
+        <t>xarComment_Stats([module, [hook]]);</t>
+        <t>xarComments_MoveThread(AttachToId, CommentId, IncludeParent=true);</t>
+      </list>
     </t>
     <t>Details of Functions:</t>
     <t>
@@ -136,10 +137,10 @@
     <t>Common Function Parameters:</t>
     <t>
       <artwork>
-        $module:  string (or integer), module name or possibly
-                  the registered id of the module.
-        $hook:    integer, itemid of the module. (ie., for
-                      News module it would be the storyid)
+$module:  string (or integer), module name or possibly
+          the registered id of the module.
+$hook:    integer, itemid of the module. (ie., for
+          News module it would be the storyid)
       </artwork>
     </t>
     <t>Common Return:</t>
@@ -148,17 +149,18 @@
       the structure of the array is shown below:</t>
     <t>
       <artwork>
-      commentarray(
-        "CommentId" =&gt; 423,
-        "author" =&gt; "Joey Butta",       // name of the author
-        "title" =&gt; "Booga Booga",       // title of the comment
-        "date" =&gt; "(timestamp)",        // date the comment was made
-        "comment" =&gt; "Nothing to say.", // the comment itself.
-        "depth" =&gt; "3",                 // level depth in the parent/child tree
-        "hostname" =&gt; "192.168.1.9",    // hostname or ip of the author
-        "lineage" =&gt; "23:64:234:322:328:423", // "family tree" for this comment
-        "haskids" =&gt; false
-          );
+commentarray(
+"CommentId" =&gt; 423,
+"author" =&gt; "Joey Butta",       // name of the author
+"title" =&gt; "Booga Booga",       // title of the comment
+"date" =&gt; "(timestamp)",        // date the comment was made
+"comment" =&gt; "Nothing to say.", // the comment itself.
+"depth" =&gt; "3",                 // level depth in the parent/child 
+                                   // tree
+"hostname" =&gt; "192.168.1.9",    // hostname or ip of the author
+"lineage" =&gt; "23:64:234:322:328:423", //"family tree" for the comment
+"haskids" =&gt; false
+);
       </artwork>
     </t>
     <t>Function Descriptions:</t>
@@ -329,10 +331,10 @@
     <t>Common Function Parameters</t>
     <t>
       <artwork>
-      $commentarray   This array holds the comments to be drawn. See
-                          above for its structure.
-          $optionsarray   This array holds the renderer-specific options
-                          in key-&gt;value form.
+$commentarray   This array holds the comments to be drawn. See
+                above for its structure.
+$optionsarray   This array holds the renderer-specific options
+                in key-&gt;value form.
       </artwork>
     </t>
     <t>Common Return</t>
@@ -474,24 +476,25 @@
     <section title="Changelog">
       <t>
     <artwork>
-      4.1 (January 7, 2002) modified by Carl P. Corliss (aka Rabbitt)
-      Added 'haskids' field to db table scheme
-      Added function xarCommentSearch to Section 4a (Function List and Description)
-      Modified function xarCommentGet -- added parameter 'sort'
-      4.0 (January 6, 2002) modified by Gregor J. Rothfuss
-      Section 4b extended.
-      Formatting cleanups.
-      3.5 (January 6, 2002) modified by Carl P. Corliss (aka Rabbitt)
-      Sections 4a, 4b &amp; 9 added.
-      #2 of Section 10:Retractions moved from Section 5:Moderation.
-      'rating' removed from comment table layout.
-      3.0 (January 4, 2002) modified by Gregor J. Rothfuss
-      Section 8 added.
-      2.0 (January 4, 2002) modified by Gregor J. Rothfuss
-      Database schema added.
-      Section 5g added.
-      1.0 (January 3, 2002)
-      Initial Version
+4.1 (January 7, 2002) modified by Carl P. Corliss (aka Rabbitt)
+  Added 'haskids' field to db table scheme
+  Added function xarCommentSearch to Section 4a 
+  (Function List and Description)
+  Modified function xarCommentGet -- added parameter 'sort'
+4.0 (January 6, 2002) modified by Gregor J. Rothfuss
+  Section 4b extended.
+  Formatting cleanups.
+3.5 (January 6, 2002) modified by Carl P. Corliss (aka Rabbitt)
+  Sections 4a, 4b &amp; 9 added.
+  #2 of Section 10:Retractions moved from Section 5:Moderation.
+  'rating' removed from comment table layout.
+3.0 (January 4, 2002) modified by Gregor J. Rothfuss
+  Section 8 added.
+2.0 (January 4, 2002) modified by Gregor J. Rothfuss
+  Database schema added.
+  Section 5g added.
+1.0 (January 3, 2002)
+  Initial Version
     </artwork>
       </t>
     </section>

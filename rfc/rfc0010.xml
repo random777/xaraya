@@ -71,38 +71,38 @@
     <artwork><![CDATA[
 html/
     |-- modules/
-    |       <module name>/
-    |           xartemplates/
-    |               <user|admin>-<module function>[-<template>].xd
-    |               blocks/
-    |                   <block name>-<template name>.xd
-    |               includes/
-    |                   <file>.xd
-    |               properties/
-    |                   <showinput|showoutput>[-<propertyname>].xd
+    |   |-- <module name>/
+    |       |-- xartemplates/
+    |           |    <user|admin>-<module function>[-<template>].xd
+    |           |--  blocks/
+    |           |        <block name>-<template name>.xd
+    |           |--  includes/
+    |           |        <file>.xd
+    |           |--  properties/
+    |                    <showinput|showoutput>[-<propertyname>].xd
     |-- includes/
     |       xarTemplate.php
     |       xarBLCompiler.php
     |       blnodes/
-    |              |--entities
-    |              |--instructions
-    |              |--tags
+    |       |-- entities
+    |       |-- instructions
+    |       |-- tags
     |-- themes/
-            <theme name>/
-            |-- theme.php
-            |-- pages/
-            |       <master templates>.xt
-            |-- modules/
-            |       <module name>/
-            |           <user|admin>-<module function>[-<template name>].xt
-            |           blocks/
-            |               <block name>-<template name>.xt
-            |           includes/
-            |               <file>.xt
-            |           properties/
-            |               <showinput|showoutput>[-<propertyname>].xt
-            |-- includes/
-                    <file>.xt
+          <theme name>/
+          |-- theme.php
+          |-- pages/
+          |     <master templates>.xt
+          |-- modules/
+          |   |-- <module name>/
+          |   |       <user|admin>-<module function>[-<template name>].xt
+          |   |-- blocks/
+          |   |       <block name>-<template name>.xt
+          |   |-- includes/
+          |   |       <file>.xt
+          |   |-- properties/
+          |           <showinput|showoutput>[-<propertyname>].xt
+          |-- includes/
+                <file>.xt
       ]]></artwork>
             </t>
 
@@ -345,19 +345,19 @@ html/
           templates. Assignment operators are not affected. See below:
 
           <artwork>
-        BL operator PHP operator    English
-        eq          ==              equal to
-        id          ===             identical to
-        lt          &lt;               less than
-        gt          &gt;               greater than
-        le          &lt;=              less or equal to
-        ge          &gt;=              greater or equal to
-        ne          !=              not equal to
-        nd          !==             not identical to
-        and         and             and
-        or          or              or
-        xor         xor             exclusive or
-        not         not             not
+BL operator PHP operator    English
+eq          ==              equal to
+id          ===             identical to
+lt          &lt;               less than
+gt          &gt;               greater than
+le          &lt;=              less or equal to
+ge          &gt;=              greater or equal to
+ne          !=              not equal to
+nd          !==             not identical to
+and         and             and
+or          or              or
+xor         xor             exclusive or
+not         not             not
       </artwork>
         </t>
         <t>
@@ -383,20 +383,25 @@ html/
         <!-- xar:blocklayout -->
         <section anchor="blocklayout" title="&lt;xar:blocklayout /&gt;">
           <t>
-            The &lt;xar:blocklayout /&gt; tag is the root-tag of a blocklayout complete
-            template. With a <em>complete</em> template we mean the assembly of the page
-            level template, the relevant module templates and all other template snippets
-            necessary to construct the complete template for a particular request.
+            The &lt;xar:blocklayout /&gt; tag is the root-tag of a
+            blocklayout complete template. With a <em>complete</em>
+            template we mean the assembly of the page level template,
+            the relevant module templates and all other template
+            snippets necessary to construct the complete template for
+            a particular request.
           </t>
           <t>
-            Note that this complete template does not (yet) exist in one piece anywhere, it
-            is assembled from the several templates applicable for a certain request.
+            Note that this complete template does not (yet) exist in
+            one piece anywhere, it is assembled from the several
+            templates applicable for a certain request.
           </t>
           <t>
-            A root tag is required in each valid XML document and can occur only once. For
-            Xaraya this means the &lt;xar:blocklayout /&gt; tag occurs in a page template only;
-            once as opening tag at or near the beginning of the template and once as
-            closing tag at the end of the page template.
+            A root tag is required in each valid XML document and can
+            occur only once. For Xaraya this means the
+            &lt;xar:blocklayout /&gt; tag occurs in a page template
+            only; once as opening tag at or near the beginning of the
+            template and once as closing tag at the end of the page
+            template.
           </t>
           <section title="Forms">
             <t>This tag only has an open form</t>
@@ -405,10 +410,14 @@ html/
             <t>
               <list>
                 <t><em>version</em>
-                  <t>required attribute. At the moment of writing blocklayout is at version 1.0 or
-                    below, since we are still in beta. When new versions of the blocklayout language
-                    are released this attribute is used for compatability issues. The version number
-                    indicates what version of the blocklayout syntax to expect in the templates.
+                  <t>
+                    required attribute. At the moment of writing
+                    blocklayout is at version 1.0 or below, since we
+                    are still in beta. When new versions of the
+                    blocklayout language are released this attribute
+                    is used for compatability issues. The version
+                    number indicates what version of the blocklayout
+                    syntax to expect in the templates.
                   </t>
                 </t>
                 <t><em>[content]</em>(text/html)
@@ -430,8 +439,10 @@ html/
                     </list>
                   </t>
                   <t>
-                    In theory, blocklayout could support any mimetype, but the text and application types will
-                    be the two types, with their respective subtypes which will be used most frequently
+                    In theory, blocklayout could support any mimetype,
+                    but the text and application types will be the two
+                    types, with their respective subtypes which will
+                    be used most frequently
                   </t>
                 </t>
                 <t><em>xmlns:xar</em>
@@ -442,10 +453,13 @@ html/
                 </t>
                 <t><em>[dtd]</em>()
                   <t>
-                    The dtd attribute tells BlockLayout what type of document it should produce. Your
-                    BL template as such should NOT contain a DOCTYPE tag for reproduction in the output (although it
-                    will copy it to the output unmodified). The doctype of the (page-)template should be <em>before</em> the
-                    root tag and it should be:
+                    The dtd attribute tells BlockLayout what type of
+                    document it should produce. Your BL template as
+                    such should NOT contain a DOCTYPE tag for
+                    reproduction in the output (although it will copy
+                    it to the output unmodified). The doctype of the
+                    (page-)template should be <em>before</em> the root
+                    tag and it should be:
                     <artwork>
 &lt;!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://xaraya.com/bl1/DTD/bl1-strict.dtd"&gt;
                     </artwork>
@@ -483,10 +497,10 @@ html/
           <section title="Syntax examples">
             <t>
             <artwork><![CDATA[
-              <?xml version="1.0" encoding="utf-8"?>
-              <xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://www.xaraya.com/2004/blocklayout" dtd="xhtml1-strict">
-                <!-- Rest of the page level template goes here -->
-              </xar:blocklayout>]]>
+<?xml version="1.0" encoding="utf-8"?>
+<xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://www.xaraya.com/2004/blocklayout" dtd="xhtml1-strict">
+  <!-- Rest of the page level template goes here -->
+</xar:blocklayout>]]>
             </artwork>
             </t>
           </section>
@@ -627,53 +641,66 @@ html/
           <section title="Syntax examples">
             <t>
               <t>
-              This renders block instance number 2, or the block instance named 'block_x', directly.
-              The 'module' and 'type' attributes are ignored, since we are using the instance
-              attribute to identify a block that has been pre-defined though the admin screens.
+                This renders block instance number 2, or the block
+                instance named 'block_x', directly.  The 'module' and
+                'type' attributes are ignored, since we are using the
+                instance attribute to identify a block that has been
+                pre-defined though the admin screens.
               </t>
 
               <artwork><![CDATA[
-                <xar:block instance="2" module="base" />
-                <xar:block instance="block_x" type="random" />
+<xar:block instance="2" module="base" />
+<xar:block instance="block_x" type="random" />
               ]]></artwork>
 
               <t>
-              Look for block 'goodie' owned by module 'base' (this provides the implicit content) and
-              try to render it with box template 'block_2'. The block will execute with it's default
-              parameters.
+                Look for block 'goodie' owned by module 'base' (this
+                provides the implicit content) and try to render it
+                with box template 'block_2'. The block will execute
+                with it's default parameters.
               </t>
 
               <artwork><![CDATA[
-                <xar:block module="base" name="goodie" template="block_2" />
+<xar:block module="base" name="goodie" template="block_2" />
               ]]></artwork>
 
               <t>
-              This block has explicit contents specified directly in the block tag. That content will
-              be rendered by applying the default block template from the 'base' module and block 'goodie'
-              (which may still be overridden by the theme). It will also be enclosed in the default
-              box template from the current theme (usually blocks/default.xt).
+                This block has explicit contents specified directly in
+                the block tag. That content will be rendered by applying
+                the default block template from the 'base' module and
+                block 'goodie' (which may still be overridden by the
+                theme). It will also be enclosed in the default box
+                template from the current theme (usually
+                blocks/default.xt).
               </t>
 
               <artwork><![CDATA[
-                <xar:block module="base" name="goodie" />
+<xar:block module="base" name="goodie" />
               ]]></artwork>
 
               <t>
-              This example will render the articles/topitems block, displaying just two items, with
-              a static (i.e. non-dynamic) title 'Standalone Topitems', and a default state of 3
-              (maximised). The block will be named 'standalone_topitems', and that name can be
-              used to hide that block from some users through the permissions system. The box (outer) template
-              will be 'right' (in {current-theme}/blocks/right.xt, falling back to default.xt if that
-              template cannot be found). The block (inner) template is specified as 'mytop'.
-              The customised block template will be {current-theme}/modules/articles/blocks/topitems-mytop.xt,
-              falling back to topitems.xt and then modules/articles/xartemplates/xarblocks/topitems.xd.
-              This block has not been pre-defined through the block admin screens.
+                This example will render the articles/topitems block,
+                displaying just two items, with a static
+                (i.e. non-dynamic) title 'Standalone Topitems', and a
+                default state of 3 (maximised). The block will be named
+                'standalone_topitems', and that name can be used to hide
+                that block from some users through the permissions
+                system. The box (outer) template will be 'right' (in
+                {current-theme}/blocks/right.xt, falling back to
+                default.xt if that template cannot be found). The block
+                (inner) template is specified as 'mytop'.  The
+                customised block template will be
+                {current-theme}/modules/articles/blocks/topitems-mytop.xt,
+                falling back to topitems.xt and then
+                modules/articles/xartemplates/xarblocks/topitems.xd.
+                This block has not been pre-defined through the block
+                admin screens.
               </t>
 
               <artwork><![CDATA[
-                <xar:block module="articles" type="topitems" title="Standalone Topitems"
-                    state="3" numitems="2" dynamictitle="false" name="standalone_topitems" 
-                    template="right;mytop" />
+<xar:block module="articles" type="topitems" title="Standalone Topitems"
+           state="3" numitems="2" dynamictitle="false" name="standalone_topitems" 
+           template="right;mytop" />
               ]]></artwork>
             </t>
           </section>
@@ -730,20 +757,21 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-                Renders the blockgroup 'left'. The template attribute is ignored or, when in strict
-                rendering creates an exception:
+            <artwork><![CDATA[
+Renders the blockgroup 'left'. The template attribute is ignored or,
+when in strict rendering creates an exception:
 
-              &lt;xar:blockgroup name="left" template="SeaBreeze_left"/&gt;
+<xar:blockgroup name="left" template="SeaBreeze_left"/>
 
-                Renders the block 'login' in a blockgroup using the template 'SeaBreeze_center' for the
-                blockgroup. The login block uses the block (inner) template 'simple_login' and is
-                wrapped in the box (outer) template 'SeaBreeze_center':
+Renders the block 'login' in a blockgroup using the template
+'SeaBreeze_center' for the blockgroup. The login block uses the block
+(inner) template 'simple_login' and is wrapped in the box (outer)
+template 'SeaBreeze_center':
 
-              &lt;xar:blockgroup template="SeaBreeze_center"&gt;
-                &lt;xar:block type="login" module="users" template=";simple_login"/&gt;
-              &lt;/xar:blockgroup&gt;
-           </artwork>
+<xar:blockgroup template="SeaBreeze_center">
+<xar:block type="login" module="users" template=";simple_login"/>
+</xar:blockgroup>]]>
+            </artwork>
             </t>
           </section>
           <section title="Context">
@@ -779,13 +807,13 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
-                &lt;xar:if condition="$i eq 5"&gt;
-                  &lt;xar:break/&gt;
-                &lt;/xar:if&gt;
-                #$i#
-              &lt;/xar:for&gt;
+            <artwork><![CDATA[
+<xar:for start="$i = 0" test="$i lt 10" iter="$i++">
+  <xar:if condition="$i eq 5">
+    <xar:break/>
+  </xar:if>
+  #$i#
+</xar:for>]]>
             </artwork>
             </t>
             <t>
@@ -823,10 +851,10 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:comment&gt;
-                The contents of the comment tag will be ignored completely
-              &lt;/xar:comment&gt;
+            <artwork><![CDATA[
+<xar:comment>
+  The contents of the comment tag will be ignored completely
+</xar:comment>]]>
             </artwork>
             </t>
             </section>
@@ -863,13 +891,13 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:for start="$i = 0" test="$i &lt; 10" iter="$i++"&gt;
-                &lt;xar:if condition="$i eq 5"&gt;
-                  &lt;xar:continue/&gt;
-                &lt;/xar:if&gt;
-                #$i#
-              &lt;/xar:for&gt;
+            <artwork><![CDATA[
+<xar:for start="$i = 0" test="$i lt 10" iter="$i++">
+  <xar:if condition="$i eq 5">
+    <xar:continue/>
+  </xar:if>
+  #$i#
+</xar:for>]]>
             </artwork>
               </t>
               <t>
@@ -1013,11 +1041,11 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:for start="$i = 0" test="$i le 10" iter="$i++"&gt;
-                // stuff which gets process during $i &lt;= 10
-              &lt;/xar:for&gt;
-            </artwork>
+            <artwork><![CDATA[
+<xar:for start="$i = 0" test="$i le 10" iter="$i++">
+  // stuff which gets process during $i less than 10
+</xar:for>
+]]>         </artwork>
             </t>
           </section>
           <section title="Context">
@@ -1077,11 +1105,11 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:foreach in="$hooks" key="$hookmodule" value="$hookoutput"&gt;
-                // stuff to process
-              &lt;/xar:foreach&gt;
-            </artwork>
+            <artwork><![CDATA[
+<xar:foreach in="$hooks" key="$hookmodule" value="$hookoutput">
+  // stuff to process
+</xar:foreach>
+]]>         </artwork>
             </t>
           </section>
           <section title="Context">
@@ -1123,17 +1151,17 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:if condition="$func eq 'editStory'"&gt;
-                // stuff
-              &lt;xar:elseif condition="$func eq 'saveStory'" /&gt;
-                //more stuff
-              &lt;xar:elseif condition="$func eq 'viewStory'" /&gt;
-                //still more stuff
-              &lt;xar:else /&gt;
-                //even more stuff
-              &lt;/xar:if&gt;
-            </artwork>
+            <artwork><![CDATA[
+<xar:if condition="$func eq 'editStory'">
+  // stuff
+<xar:elseif condition="$func eq 'saveStory'" />
+  //more stuff
+<xar:elseif condition="$func eq 'viewStory'" />
+  //still more stuff
+<xar:else />
+  //even more stuff
+</xar:if>
+]]>            </artwork>
             </t>
           </section>
           <section title="Context">
@@ -1172,14 +1200,15 @@ html/
               In the body of the loop, a number of special variables are accessible
               to access the loop variables:
               <artwork>
-                #$loop:[id:]item['var']# ; or
-                #$loop:[id:]item.var#    : if you created the $module_data array and put in a
-                                           variable call 'var' the value of this variable is
-                                           displayed. Optionally  you can specify id: to reference
-                                           other loop constructs.
-                #$loop:[id:]index#       : the numeric loop index (of loop with id 'id')
-                #$loop:[id:]number#      : the loop number in the current context. This can also be interpreted as the current loop nesting level
-                #$loop:[id:]key#         : the key of the item being referenced
+#$loop:[id:]item['var']# ; or
+#$loop:[id:]item.var#    : if you created the $module_data array and put in a
+                           variable call 'var' the value of this variable is
+                           displayed. Optionally  you can specify id: to reference
+other loop constructs.
+#$loop:[id:]index#       : the numeric loop index (of loop with id 'id')
+#$loop:[id:]number#      : the loop number in the current context. This can also be 
+                           interpreted as the current loop nesting level
+#$loop:[id:]key#         : the key of the item being referenced
               </artwork>
               <t>The 'id' part in these variables refers to other loops.
                 When nesting loops, the right variables from the right loops can be
@@ -1191,12 +1220,12 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:loop name="$module_data"&gt;
-                // stuff
-                &lt;p&gt;#$loop:item.title#&lt;/p&gt;
-              &lt;/xar:loop&gt;
-            </artwork>
+            <artwork><![CDATA[
+<xar:loop name="$module_data">
+  // stuff
+  <p>#$loop:item.title#</p>
+</xar:loop>
+]]>         </artwork>
             </t>
           </section>
           <section title="Context">
@@ -1235,25 +1264,25 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:ml&gt;
-                &lt;xar:mlkey&gt;USERSONLINE&lt;/xar:mlkey&gt;
-                &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
-                &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
-              &lt;/xar:ml&gt;
+            <artwork><![CDATA[
+<xar:ml>
+  <xar:mlkey>USERSONLINE</xar:mlkey>
+  <xar:mlvar>78</xar:mlvar>
+  <xar:mlvar>120</xar:mlvar>
+</xar:ml>
 
-              The values '78' and '120' are put in the place of
-              #(1) and #(2) in the definition of the key 'USERSONLINE'.
-              Note that these aren't visible in the template itself.
+The values '78' and '120' are put in the place of
+#(1) and #(2) in the definition of the key 'USERSONLINE'.
+Note that these aren't visible in the template itself.
 
-              &lt;xar:ml&gt;
-                &lt;xar:mlstring&gt;There are #(1) members and #(2) guests online.&lt;/xar:mlstring&gt;
-                &lt;xar:mlvar&gt;78&lt;/xar:mlvar&gt;
-                &lt;xar:mlvar&gt;120&lt;/xar:mlvar&gt;
-              &lt;/xar:ml&gt;
+<xar:ml>
+  <xar:mlstring>There are #(1) members and #(2) guests online.</xar:mlstring>
+  <xar:mlvar>78</xar:mlvar>
+  <xar:mlvar>120</xar:mlvar>
+</xar:ml>
 
-              Same as first example, but with the &lt;xar:mlstring&gt; form.
-            </artwork>
+Same as first example, but with the <xar:mlstring> form.
+]]>         </artwork>
             </t>
           </section>
           <section title="Context">
@@ -1292,12 +1321,12 @@ html/
           </section>
           <section title="Syntax examples">
             <t>
-            <artwork>
-              &lt;xar:mlkey&gt;LOGIN&lt;/xar:mlkey&gt;
+            <artwork><![CDATA[
+<xar:mlkey>LOGIN</xar:mlkey>
 
-              Retrieves the 'LOGIN' key in the appropriate language and puts its
-              contents in the current context.
-            </artwork>
+Retrieves the 'LOGIN' key in the appropriate language and puts its
+contents in the current context.
+]]>            </artwork>
             </t>
           </section>
           <section title="Context">
@@ -1935,55 +1964,67 @@ html/
         the new location in the properties' respective modules.
       </t>
       <t>
-        The directory structure and changes required for dynamic data property templates are illustrated below. 
-        The <em>propertyname</em> used for the specific template name is taken from the corresponding property 
-        array in the getBasePropertyInfo() function in the dynamic property itself at modules/[modulename]/xarproperties/Dynamic_[propertydescription]_property.php.
+        The directory structure and changes required for dynamic data
+        property templates are illustrated below.
+        The <em>propertyname</em> used for the specific template name
+        is taken from the corresponding property array in the
+        getBasePropertyInfo() function in the dynamic property itself
+        at
+        modules/[modulename]/xarproperties/Dynamic_[propertydescription]_property.php.
     <artwork><![CDATA[
 html/
     |-- modules/
-    |       <module name>/
-    |           xarproperties/
-    |               Dynamic_<propertydescription>_property.php
-    |           xartemplates/
-    |               properties/
+    |   |-- <module name>/
+    |       |-- xarproperties/
+    |       |       Dynamic_<propertydescription>_property.php
+    |       |-- xartemplates/
+    |           |-- properties/
     |                   <showinput|showoutput>[-<propertyname>].xd
-    |
     |-- themes/
-            <theme name>/
+        |-- <theme name>/
             |-- modules/
-                    <module name>/
-                        <showinput|showoutput>[-<propertyname>].xt
+                |-- <module name>/
+                    |-- properties/
+                            <showinput|showoutput>[-<propertyname>].xt
 
       ]]></artwork>
       </t>
       <t>
-        The dynamic data properties are in the process of being moved from an old structure illustrated below, 
-        to the new directory structure illustrated above. The following diagram is left for the purpose of 
-        reference where dynamic data properties are still to be moved to the new structure. It should be 
-        used only in those specific cases until those properties are relocated to their respective module 
-        under the new structure. Note in particular the [admin|user] part of the template names are only used in the
-        older structure illustrated below.
+        The dynamic data properties are in the process of being moved
+        from an old structure illustrated below, to the new directory
+        structure illustrated above. The following diagram is left for
+        the purpose of reference where dynamic data properties are
+        still to be moved to the new structure. It should be used only
+        in those specific cases until those properties are relocated
+        to their respective module under the new structure. Note in
+        particular the [admin|user] part of the template names are
+        only used in the older structure illustrated below.
     <artwork><![CDATA[
 html/
     |-- modules/
-    |       dynamicdata/
-    |           xartemplates/
+    |   |-- dynamicdata/
+    |       |-- xartemplates/
     |               <admin-showinput|user-showoutput>[-<propertyname>].xd
     |
     |-- includes/
-    |       properties/
+    |   |-- properties/
     |           Dynamic_<propertydescription>_property.php
     |
     |-- themes/
-            <theme name>/
+        |-- <theme name>/
             |-- modules/
-                    dynamicdata/
+                |-- dynamicdata/
                         <admin-showinput|user-showoutput>[-<propertyname>].xt
 
       ]]></artwork>
       </t>
 
-      <t>Details of specific tags used to retrieve and display dynamic property data within module templates is documented in RFC0007 Modularized Data. Further details on retrieval and display of dynamic property data can be found in the overview and templates (as comments) of the Dyn_Example module.
+      <t>
+        Details of specific tags used to retrieve and display dynamic
+        property data within module templates is documented in RFC0007
+        Modularized Data. Further details on retrieval and display of
+        dynamic property data can be found in the overview and
+        templates (as comments) of the Dyn_Example module.
       </t>
     </section>
 

@@ -207,51 +207,51 @@
     <section title="Solution proposals - database tables">
       <t>
         <artwork>
-        // Lets think of the tables contenttype and publicationtype to
-        // contain the classes (structures) and content and publications to
-        // contain the instances.
-        // there are relation tables for the classes and instances, and there
-        // are relation tables that combine instances with users, comments,
-        // ratings, ...
-        // In the following text whenever "timestamp" or "date" is mentioned,
-        // this will mean an int(10) field holding the UTC unix timestamp.
+// Lets think of the tables contenttype and publicationtype to
+// contain the classes (structures) and content and publications to
+// contain the instances.
+// there are relation tables for the classes and instances, and there
+// are relation tables that combine instances with users, comments,
+// ratings, ...
+// In the following text whenever "timestamp" or "date" is mentioned,
+// this will mean an int(10) field holding the UTC unix timestamp.
         </artwork>
       </t>
       
       <section title="Table content">
         <t>
           <artwork>
-          // as the content repository
-          // you may note that there is no field that indicates the
-          // formating of textual content. this is intentional and my
-          // thought is that we should store these content components using
-          // html and to convert wiki and bbcode on creation / editing time.
-          // i was considering xml as storage format but since our main
-          // target medium is the web, storing in html gives cheapest
-          // rendering while still able to separate content and layout using
-          // only allowed html tags with css that the template system can
-          // override.
-          contentid   // unique long integer value
-          conttypeid  // foreign key from table "Contenttype"
-          status      // (draft, review phase 1, publishable)    
-          version     // revision number of the content  
-          lastedit    // timestamp of when the current version was saved
-          preid       // id of the contents predecessor in the content life
-          // cycle enables to rollback to an earlier version or
-          // delete the oldest version of a certain content
-          // (purge)
-          language    // self-explanatory
-          editorsnote // message from the last editor for the next editor
-          // in the workflow to give a quick note what has to
-          // be done
-          caption     // depends on the content type. (title, link text,
-          // alt text of images, name of a binary content)
-          content     // the text itself, i.e. a chapter of a document, an
-          // article a sections content, an abstract, a title.
-          // for binary content like worddocs, pdfs and images
-          // the entry could either be a link to the document
-          // in the file system or the document itself (with
-          // the former being my favorite method.
+// as the content repository
+// you may note that there is no field that indicates the
+// formating of textual content. this is intentional and my
+// thought is that we should store these content components using
+// html and to convert wiki and bbcode on creation / editing time.
+// i was considering xml as storage format but since our main
+// target medium is the web, storing in html gives cheapest
+// rendering while still able to separate content and layout using
+// only allowed html tags with css that the template system can
+// override.
+contentid   // unique long integer value
+conttypeid  // foreign key from table "Contenttype"
+status      // (draft, review phase 1, publishable)    
+version     // revision number of the content  
+lastedit    // timestamp of when the current version was saved
+preid       // id of the contents predecessor in the content life
+// cycle enables to rollback to an earlier version or
+// delete the oldest version of a certain content
+// (purge)
+language    // self-explanatory
+editorsnote // message from the last editor for the next editor
+// in the workflow to give a quick note what has to
+// be done
+caption     // depends on the content type. (title, link text,
+// alt text of images, name of a binary content)
+content     // the text itself, i.e. a chapter of a document, an
+// article a sections content, an abstract, a title.
+// for binary content like worddocs, pdfs and images
+// the entry could either be a link to the document
+// in the file system or the document itself (with
+// the former being my favorite method.
           </artwork>
         </t>
       </section>
@@ -259,36 +259,36 @@
       <section title="Table Publications">
         <t>
           <artwork>
-          Table "Publications"
-          // this is the point of contact to the templating system
-          // every publication uses a unique template from the template
-          // repository. every publication has a status similar to the
-          // status of a content component.
-          // publication types define howmany and what content components
-          // are allowed or required.
-          pubid       // publication id, primary key
-          templateid  // unique identifier for a template, requirement 1a
-          pubtypeid   // publication types are defined in a separate table.
-          // they are equal to a type field.
-          parentid    // id of the parent content to be able to structure
-          // the content into chapters, subchapters, pages...
-          // the structure can be different for each publication
-          // see requirement 4
-          status      // (draft, review phase, published, archived)
-          version     // version of the current publication
-          preid       // id of the publications predessesor id in terms of
-          // status (workflow) or version (-> versioning)
-          language    // self-explanatory. have the publishing tool making
-          // sure automatically, that only content components
-          // with corresponding languages are able to be tied
-          // together
-          editorsnote // message from the last editor for the next editor
-          // in the workflow to give a quick note what has to
-          // be done
-          pubdate     // date (timestamp) when the publication is
-          // auto-published / was manually published  
-          expdate     // timestamp when the publication will be expired /
-          // auto-archived
+Table "Publications"
+// this is the point of contact to the templating system
+// every publication uses a unique template from the template
+// repository. every publication has a status similar to the
+// status of a content component.
+// publication types define howmany and what content components
+// are allowed or required.
+pubid       // publication id, primary key
+templateid  // unique identifier for a template, requirement 1a
+pubtypeid   // publication types are defined in a separate table.
+// they are equal to a type field.
+parentid    // id of the parent content to be able to structure
+// the content into chapters, subchapters, pages...
+// the structure can be different for each publication
+// see requirement 4
+status      // (draft, review phase, published, archived)
+version     // version of the current publication
+preid       // id of the publications predessesor id in terms of
+// status (workflow) or version (-> versioning)
+language    // self-explanatory. have the publishing tool making
+// sure automatically, that only content components
+// with corresponding languages are able to be tied
+// together
+editorsnote // message from the last editor for the next editor
+// in the workflow to give a quick note what has to
+// be done
+pubdate     // date (timestamp) when the publication is
+// auto-published / was manually published  
+expdate     // timestamp when the publication will be expired /
+// auto-archived
           </artwork>
         </t>
       </section>
@@ -296,15 +296,15 @@
       <section title="Table Content_Publication">
         <t>
           <artwork>
-          Table "Content_Publication"
-          // this table provides the ability to join 1 or more content
-          // components to one or more publications. you can only choose
-          // a content component whose status is "publishable"
-          pubid       // publication id, foreign key to table publications
-          contentid   // foreign key to content table
-          has_child   // boolean value to determine whether a content
-          // component has a child component in the present
-          // publication: for faster content structure parsing
+Table "Content_Publication"
+// this table provides the ability to join 1 or more content
+// components to one or more publications. you can only choose
+// a content component whose status is "publishable"
+pubid       // publication id, foreign key to table publications
+contentid   // foreign key to content table
+has_child   // boolean value to determine whether a content
+// component has a child component in the present
+// publication: for faster content structure parsing
           </artwork>
         </t>
       </section>
@@ -312,12 +312,12 @@
       <section title="Table Contenttype (ct)">
         <t>
           <artwork>
-          Table "Contenttype" (ct)
-          // most content types are predefined in a standard installation
-          conttypeid  // primary key
-          conttypname // name of the content type, e.g. [abstract, fulltext,
-          // link, picture, downloads, pdf, worddoc]
-          MIMEtype    // e.g. application/pdf or text/html 
+Table "Contenttype" (ct)
+// most content types are predefined in a standard installation
+conttypeid  // primary key
+conttypname // name of the content type, e.g. [abstract, fulltext,
+// link, picture, downloads, pdf, worddoc]
+MIMEtype    // e.g. application/pdf or text/html 
           </artwork>
         </t>
       </section>
@@ -325,12 +325,12 @@
       <section title="Table Publicationtype (pt)">
         <t>
           <artwork>
-          Table "Publicationtype" (pt)
-          // there are predefined ones like article, news, ... and custom
-          // pts. while templates are for display and formatting the
-          // output, pts are for the structure of publications.
-          pubtypeid   // primary key for the pts
-          pubtypename // name for the pt, e.g. article, document
+Table "Publicationtype" (pt)
+// there are predefined ones like article, news, ... and custom
+// pts. while templates are for display and formatting the
+// output, pts are for the structure of publications.
+pubtypeid   // primary key for the pts
+pubtypename // name for the pt, e.g. article, document
           </artwork>
         </t>
         </section>
@@ -338,13 +338,13 @@
       <section title="Table PT_CT">
         <t>
           <artwork>
-          Table "PT_CT"
-          // this table defines the structure of a pt: which and howmany
-          // content components are required / allowed.
-          pubtypeid   // compound key (1of2), foreign key to pt table
-          conttypeid  // ---- " ---- (2of2), ----- " ----- ct table
-          itemsmin    // minimum amount of the specific content component
-          itemsmax    // maximum ------------------ " ------------------
+Table "PT_CT"
+// this table defines the structure of a pt: which and howmany
+// content components are required / allowed.
+pubtypeid   // compound key (1of2), foreign key to pt table
+conttypeid  // ---- " ---- (2of2), ----- " ----- ct table
+itemsmin    // minimum amount of the specific content component
+itemsmax    // maximum ------------------ ------------------
           </artwork>
         </t>
       </section>
@@ -352,11 +352,11 @@
       <section title="Table Content_Editors">
         <t>
           <artwork>
-          Table "Content_Editors"
-          // see requirement 5a, the version the user has edited is
-          // reflected by the unique contentid
-          contentid   // compound key (1of2), foreign key to content table
-          editorid    // ---- " ---- (2of2), ----- " ----- users table
+Table "Content_Editors"
+// see requirement 5a, the version the user has edited is
+// reflected by the unique contentid
+contentid   // compound key (1of2), foreign key to content table
+editorid    // ---- " ---- (2of2), ----- " ----- users table
           </artwork>
         </t>
       </section>
@@ -364,12 +364,12 @@
       <section title="Table Publications_Editors">
         <t>
           <artwork>
-          Table "Publications_Editors"
-          // see requirement 5a, the version the user has edited is
-          // reflected by the unique pubid
-          editorid    // compound key (1of2), foreign key to users table
-          pubid       // ---- " ---- (2of2), ----- " ----- the
-          // publications table
+Table "Publications_Editors"
+// see requirement 5a, the version the user has edited is
+// reflected by the unique pubid
+editorid    // compound key (1of2), foreign key to users table
+pubid       // ---- " ---- (2of2), ----- " ----- the
+// publications table
           </artwork>
         </t>
       </section>
@@ -377,15 +377,15 @@
       <section title="Table Publications_Promote">
         <t>
           <artwork>
-          Table "Publications_Promote"
-          // see requirement 7
-          // the modules to display the publications will check this table
-          // first, not all display modules will use this table.
-          contentid  // ck (1of2), foreign key to the publications table
-          weight     // ck (2of2), order in which the content will appear on
-          // display                                        
-          promotexp  // expiration date (timestamp) when the weight looses
-          // its effect and the content drops into normal order
+Table "Publications_Promote"
+// see requirement 7
+// the modules to display the publications will check this table
+// first, not all display modules will use this table.
+contentid  // ck (1of2), foreign key to the publications table
+weight     // ck (2of2), order in which the content will appear on
+// display                                        
+promotexp  // expiration date (timestamp) when the weight looses
+// its effect and the content drops into normal order
           </artwork>
         </t>
       </section>
@@ -532,20 +532,20 @@
         /modules/Downloads
         /modules/News
         /modules/NS-Addstory
-        /modules/NS-Admin_Messages        // if included in the content table
+        /modules/NS-Admin_Messages //if included in the content table
         /modules/NS-Autolink
         /modules/NS-Blocks
         /modules/NS-Comments
-        /modules/NS-Ephemerids            // if included in the content table
+        /modules/NS-Ephemerids     //if included in the content table
         /modules/NS-Multisites
-        /modules/NS-Quotes                // if included in the content table
+        /modules/NS-Quotes         //if included in the content table
         /modules/Reviews
         /modules/Search
         /modules/Sections
         /modules/Submit_News
         /modules/Top_List
         /modules/Topics
-        /modules/Web_Links                // if included in the content table
+        /modules/Web_Links         //if included in the content table
         and some blocks
           </artwork>
       </t>
@@ -597,36 +597,36 @@
     <section title="Changelog">
       <t>
         <artwork>
-          7  (2002-01-06)
-          Added the idea of predefined input forms for hiding complexity.
-          moved the parentid from table "Content_Publication" to table
-          "Publication"
-          6  (2002-01-05)
-          Added proposal for modularizing the permissions and categorizing.
-          5  (2002-01-05)
-          Added "Author contact"
-          Added "Retractions"
-          credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
-          4  (2002-01-04)
-          Added the quotation [17]
-          Added the tools that need to be created.
-          Added the publication type, content type tables.
-          Added the user-authored content
-          Added the permissions system in the "Relationship ..." section
-          3  (2002-01-03)
-          Reorganized the requirements.
-          Moved the tables concerning comments, ratings, categories and
-          multisites to the new "Relationship ..." section
-          Added the "Relationship to other areas"
-          credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
-          Dropped the container idea in the content table in favour of the
-          notion of having "Publications" introduced in version 2
-          Added the "Changelog"
-          2  (2002-01-03)
-          Reorganized the content repository
-          Introduced the "Publications" table and its implications
-          1  (2002-01-02)
-          Initial version
+7  (2002-01-06)
+Added the idea of predefined input forms for hiding complexity.
+moved the parentid from table "Content_Publication" to table
+"Publication"
+6  (2002-01-05)
+Added proposal for modularizing the permissions and categorizing.
+5  (2002-01-05)
+Added "Author contact"
+Added "Retractions"
+credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
+4  (2002-01-04)
+Added the quotation [17]
+Added the tools that need to be created.
+Added the publication type, content type tables.
+Added the user-authored content
+Added the permissions system in the "Relationship ..." section
+3  (2002-01-03)
+Reorganized the requirements.
+Moved the tables concerning comments, ratings, categories and
+multisites to the new "Relationship ..." section
+Added the "Relationship to other areas"
+credits to: Carl P. Corliss (rabbitt) and Gregor J. Rothfuss.
+Dropped the container idea in the content table in favour of the
+notion of having "Publications" introduced in version 2
+Added the "Changelog"
+2  (2002-01-03)
+Reorganized the content repository
+Introduced the "Publications" table and its implications
+1  (2002-01-02)
+Initial version
         </artwork>
       </t>
     </section>

@@ -135,7 +135,11 @@
     <!-- Core -->
     <phingcall target="mt_update">
       <property name="repo" value="${core.repo}"/>
-      <property name="branch" value="" />
+      <property name="branch" value="core" />
+    </phingcall>
+    <phingcall target="mt_update">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="documentation" />
     </phingcall>
 
     <!-- Modules -->

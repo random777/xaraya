@@ -4,6 +4,7 @@ monotone=`which monotone`
 PARSERTYPE='noneyet'
 CR='\013'
 
+# Require xmllint
 if type xmllint> /dev/null 2>&1
 then 
   XMLPARSER='xmllint --loaddtd --noout'
@@ -13,6 +14,17 @@ else
   exit 1
 fi
 
+# Cater for known differences between bsd/sysv style
+SYSTEM=`uname`
+case $SYSTEM in
+    CYGWIN*)
+	    # cygwin grep is broken?
+		GREPPAT='\.x[d|t]'
+		;;
+    *)
+        GREPPAT='\.x[d|t]$'
+        ;;
+esac 
 # Does an MT directory exist ? (path passed as $1)
 mt_exists() {
     `ls $1/MT > /dev/null 2>&1`
@@ -43,7 +55,7 @@ if [ $# -gt 0 ]; then
     FILELIST=$(basename $1)
 else
     WORKDIR=`mt_root $PWD`
-    FILELIST=`$monotone ls known . | grep -e '\.x[d|t]$'`
+    FILELIST=`$monotone ls known . | grep -e $GREPPAT`
 fi
 
 FAILED=0

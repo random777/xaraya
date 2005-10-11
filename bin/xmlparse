@@ -68,7 +68,7 @@ for template in $FILELIST; do
     echo "FAILED : $template"
     if [ $PARSERTYPE = 'xmllint' ]
     then
-      echo $RESULT | awk 'BEGIN {RS="^"; FS=":"} {if(NF > 1) {printf("  Line"); printf(" %s",$2); for(i=4;i<=NF;i++) {printf(": %s",$i)}; print ""}}'
+      echo $RESULT | awk 'BEGIN {RS="^"; FS=":"} {if(NF > 1) {printf("  Line"); printf(" %s",$2-2); for(i=4;i<=NF;i++) {printf(": %s",$i)}; print ""}}'
       FAILED=1
     else
       echo $RESULT

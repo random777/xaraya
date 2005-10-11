@@ -44,9 +44,16 @@ isascii() {
     # return 0 if $1 is an ascii file
     # return 1 otherwise
     # TODO: I dont know how to do this better
-    (   typeInfo=`file -b $1`
+    (   typeInfo=`file -bi $1`
         case "$typeInfo" in
             image/*) exit 1;;
+            application/x-gzip) exit 1;;
+            application/x-zip) exit 1;;
+            application/java) exit 1;;
+            application/msword) exit 1;;
+            application/pdf) exit 1;;
+            application/octet-stream) exit 1;;
+            audio/*) exit 1;;
             *) exit 0;; # assume ascii for the rest
         esac
     )

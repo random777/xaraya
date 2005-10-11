@@ -470,10 +470,10 @@ function xarMaskExists($name,$module="All")
  * @param   string module of mask
  * @return  boolean
  */
-function xarQueryMask($mask, $showException=1, $component='', $instance='', $module='', $role='')
+function xarQueryMask($mask, $component='', $instance='', $module='', $role='')
 {
    $masks = new xarMasks();
-   return $masks->querymask($mask, $component, $instance, $module, $role,$pnrealm,$pnlevel);
+   return $masks->xarQueryArray($mask, $component, $instance, $module, $role);
 }
 
 /**

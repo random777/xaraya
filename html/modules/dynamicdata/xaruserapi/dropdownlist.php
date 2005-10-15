@@ -45,7 +45,7 @@ function dynamicdata_userapi_dropdownlist($args)
     // get back the object
     $args['getobject'] = 1;
 
-    $object =& xarModAPIFunc('dynamicdata','user','getitems',$args);
+    $object = xarModAPIFunc('dynamicdata','user','getitems',$args);
     if (!isset($object)) return;
 
     $field = $args['field'];

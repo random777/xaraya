@@ -88,10 +88,10 @@
       Pulls latest into the databases
     -->
   <target name="pull">
-    <exec dir="${work.basedir}" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com '*'"/>
-    <exec dir="${work.basedir}" command="${monotone} -d ${modules.repo}.db pull mt.xaraya.com:15000 '*'"/>
-    <exec dir="${work.basedir}" command="${monotone} -d ${themes.repo}.db pull mt.xaraya.com:16000 '*'"/>
-    <exec dir="${work.basedir}" command="${monotone} -d ${languages.repo}.db pull mt.xaraya.com:17000 '*'"/>
+    <exec dir="${work.basedir}" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com *"/>
+    <exec dir="${work.basedir}" command="${monotone} -d ${modules.repo}.db pull mt.xaraya.com:15000 *"/>
+    <exec dir="${work.basedir}" command="${monotone} -d ${themes.repo}.db pull mt.xaraya.com:16000 *"/>
+    <exec dir="${work.basedir}" command="${monotone} -d ${languages.repo}.db pull mt.xaraya.com:17000 *"/>
   </target>
   <!-- 
        Check out targets

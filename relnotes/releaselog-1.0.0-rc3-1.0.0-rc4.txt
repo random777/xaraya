@@ -1,0 +1,50 @@
+Release notes for release 1.0.0-RC4
+
+Note:
+  Due to migration from bitkeeper to monotone, these releasenotes are
+  compiled manually based on the LARGE output of the log. While this
+  is obviously more manual work for us, the large changelogs are really
+  only interesting for developers which already are using monotone and
+  could generate this log themselves. 
+  From this point on we will try to do our best to summarize the changes
+  into the releasenotes where the items will have a more general description
+  than the full details on the changes.
+
+  release 1.0.0-RC4
+
+  Possible incompatible changes: 
+	* the actual incompatabilities with php versions 4.4 and some 5.1 versions is not 100% charted, 
+	if you find new instances please file a bug or add a comment to bug #4785. Xaraya core should be
+	clean from these instances.
+	* in the full distribution the XBlue_Pro themename was made all lowercase, this will fail un
+	upgrade if you have a verbatim copy of the theme in your site
+	* Upgrading: see the file INSTALL
+	* running code from bitkeeper clones will not be supported anymore
+	
+  General improvements:
+	* consistency changes in source code (keywords / phpdoc headers / tabs etc.)
+	* refinements in dynamicdata (property updates, extra degree of freedom in object templating (see bug 4681)
+	* partial update of adodb, related to php 4.4 incompatabilities
+	* further work on gui consistency in admin areas.
+	* all templates in core are now valid xml (syntactically, xmllint's opinion which is not completely true)
+	* new entity for the current url (for use in attributes for example)
+	* reset/cancel buttons removal and review
+	* property list layouts can now be specified the same as object layouts with an easy override for admins
+	* improvements to the mozilla logger to use newer mozilla API and take advantage of info/warning/error levels in the jsConsole
+	
+  Important bug fixes/work: (check http://bugs.xaraya.com for detailed information) 
+	* bug 2105: regular expression in textbox
+	* bug 3319: add fuzzy translations
+	* bug 4605: privilege correction for adminpanel block
+	* bug 4681: field prefix for serialized and itemid + input for itemid
+	* bug 4764: initialize middleurls
+	* bug 4765: style hack until more permanent solution comes along
+	* bug 4781: fix group update
+	* bug 4785: lots of changes to files which returned references in a way where php 4.4 would issue a notice.
+	* bug 4806: Correct path so the fnmatch stub works. Also fix for xarpages bug #4806
+	* bug 4807: fix next pager
+	* bug 4829: fix single-quote and/or
+	* bug 4838: passing attachName and attachPath to the private _sendmail function so attachments work
+	* bug 4915: BLcompiler fails under php5 when __autoload() declared
+	* bug 4959: add more variables to mlstrings
+	(more bugs were fixed but not explicitly mentioned here)

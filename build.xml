@@ -246,6 +246,12 @@
         <include name="${releaselog}" />
       </fileset>
     </copy>
+    <mkdir dir="${build.docs}"/>
+    <copy todir="${build.docs}">
+      <fileset dir="${docs.dir}/relnotes">
+        <include name="${releaselog}"/>
+      </fileset>
+    </copy>
     
     <!-- Process docs directory -->
     <mkdir dir="${build.docs}" />

@@ -154,6 +154,7 @@
     </phingcall>
 
     <!-- Modules -->
+    <foreach list="modules.base" target="mod_update" param="mod.name"/>
     <foreach list="modules.full" target="mod_update" param="mod.name"/>
     <foreach list="themes.full" target="theme_update" param="theme.name"/>
     <foreach list="languages.installer" target="lang_update" param="lang.locale"/>

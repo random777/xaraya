@@ -17,9 +17,9 @@ LYNX=lynx
 # which unfortunately can live in many different locations, we add the ones
 # we know and use (uncomment) the relevant one when making
 # Darwinports
-#DBXSL=/opt/local/share/xsl/docbook-xsl
+DBXSL=/opt/local/share/xsl/docbook-xsl
 # Gentoo on newton
-DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
+#DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
 OUTPUT=/var/www/ddf/common/documentation/userguide
 
 DB2HTML=$(DBXSL)/xhtml/docbook.xsl
@@ -57,7 +57,7 @@ xarayaguide.pdf: xarayaguide.fop
 #	$(FOP) -fo xarayaguide.fop -txt $@
 # instead we use the poor mans txt formatter lynx!
 xarayaguide.txt: xarayaguide.html
-	$(LYNX) -dump > $@
+	$(LYNX) -dump $< > $@
 clean:
 	rm -f *.html
 	rm -f xarayaguide.fop

@@ -5,11 +5,123 @@ Target: update
 
 Target: mt_update
      [echo] In: repo/core/core : mt update
-monotone: already up to date at 4342761a5d35287250c2cfd656e0f52ea7bc3103
+monotone: already up to date at b114e67bfc14f8465f87a4f3a5e69e1532921c61
 
 Target: mt_update
      [echo] In: repo/core/documentation : mt update
-monotone: already up to date at 50aeba333177b76a3d96a631b4ba8ec24189f932
+monotone: already up to date at ce9facca21fbc470960fc2d973e483333e32cc87
+
+Target: mt_update
+     [echo] In: repo/modules/modules.articles : mt update
+monotone: already up to date at fced3759eeaa33570d3ec316f067b4e073000c88
+
+Target: mt_update
+     [echo] In: repo/modules/modules.authldap : mt update
+monotone: already up to date at b9adffaae1441328cacb5a70583de60c25dce217
+
+Target: mt_update
+     [echo] In: repo/modules/modules.autolinks : mt update
+monotone: already up to date at 29be8cae345fea1de27451be96759ce27de0f848
+
+Target: mt_update
+     [echo] In: repo/modules/modules.bloggerapi : mt update
+monotone: already up to date at 67d111ed4bb0eee4d8be709961081c2995ad636e
+
+Target: mt_update
+     [echo] In: repo/modules/modules.categories : mt update
+monotone: already up to date at f1a566f895e90b048e6a464df18ed0dc2f69692b
+
+Target: mt_update
+     [echo] In: repo/modules/modules.comments : mt update
+monotone: already up to date at 6662d80707510a2aaaea73594643238eeff35565
+
+Target: mt_update
+     [echo] In: repo/modules/modules.dyn_example : mt update
+monotone: already up to date at b70a48468ee4e1aa13a038b162b37fb81ab7c615
+
+Target: mt_update
+     [echo] In: repo/modules/modules.ephemerids : mt update
+monotone: already up to date at 82fa5e7a9866991666b1bfbb943420db74739876
+
+Target: mt_update
+     [echo] In: repo/modules/modules.example : mt update
+monotone: already up to date at 6497b53673891ab8738ee7ab1fb9418ce56e6748
+
+Target: mt_update
+     [echo] In: repo/modules/modules.headlines : mt update
+monotone: already up to date at 2782ae06c6e396002dc1ed1448c975a7a4474c6c
+
+Target: mt_update
+     [echo] In: repo/modules/modules.hitcount : mt update
+monotone: already up to date at d91cba1ed8409efd7db49192f11ee09567133778
+
+Target: mt_update
+     [echo] In: repo/modules/modules.html : mt update
+monotone: already up to date at 4d93ab69832026b763a573b2c9951bf606ece77d
+
+Target: mt_update
+     [echo] In: repo/modules/modules.multisites : mt update
+monotone: already up to date at 392eeeb4bef38474960510a5c724dc827536d937
+
+Target: mt_update
+     [echo] In: repo/modules/modules.polls : mt update
+monotone: already up to date at 7d9a2bc6fe6ad41cd2182a812faa0cafca0500b2
+
+Target: mt_update
+     [echo] In: repo/modules/modules.ratings : mt update
+monotone: already up to date at 19ce161d8224680ec45bb9d1d273d245b96729d7
+
+Target: mt_update
+     [echo] In: repo/modules/modules.recommend : mt update
+monotone: already up to date at 0f4f09022f36f39c9d6b438174e0442a1c7279ba
+
+Target: mt_update
+     [echo] In: repo/modules/modules.referer : mt update
+monotone: already up to date at 81eaa1c99be622e4f7e17e00ae29e17aa80d8259
+
+Target: mt_update
+     [echo] In: repo/modules/modules.search : mt update
+monotone: already up to date at cafdcc9c004b685c255976bb998da90037d35488
+
+Target: mt_update
+     [echo] In: repo/modules/modules.scheduler : mt update
+monotone: already up to date at 82dcd18c433b65200084f1c59bb4ebf98f89caa0
+
+Target: mt_update
+     [echo] In: repo/modules/modules.sniffer : mt update
+monotone: already up to date at eeeb2d14f28189647877de09d940458697acdf11
+
+Target: mt_update
+     [echo] In: repo/modules/modules.stats : mt update
+monotone: already up to date at 14dfe785ed13aa33fe1e8d0715e6332ad4702ef8
+
+Target: mt_update
+     [echo] In: repo/modules/modules.translations : mt update
+monotone: already up to date at dd58de94541eb2083d23d6b66a6de8420b5fee5e
+
+Target: mt_update
+     [echo] In: repo/modules/modules.wiki : mt update
+monotone: already up to date at 3b31d87434cc05f1af0866261b675234d762ad0c
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xarcachemanager : mt update
+monotone: already up to date at a121ee8b60ad8512d4cf567c92f3ddf6613aca71
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xarldap : mt update
+monotone: already up to date at c29056a4699cf5b5ab18551fcc6b1ca4bcae4814
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xmlrpcserver : mt update
+monotone: already up to date at 6f0f6d621cf875826977dd5df4a3a767cad2badd
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xmlrpcsystemapi : mt update
+monotone: already up to date at dab5c9e7c78ccfa46ee33be3743403b5f49f27c3
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xmlrpcvalidatorapi : mt update
+monotone: already up to date at 3f04e9997b943a28424ffb7ef85c7f82efd05792
 
 Target: mt_update
      [echo] In: repo/modules/modules.addressbook : mt update
@@ -293,4 +405,4 @@ monotone: already up to date at 27f65900ce90ee5b9456239646084e03de89a099
 
 BUILD SUCCESSFUL
 
-Total time: 4 minutes  41.70 seconds
+Total time: 7 minutes  20.44 seconds

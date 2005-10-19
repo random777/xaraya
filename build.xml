@@ -237,8 +237,8 @@
   <!-- Common contents for each distribution -->
   <target name="commonfiles">
     <!-- Copy the usual suspects for GPL alike projects -->
-    <mkdir dir="${build.dir}" />
-    <copy todir="${build.dir}">
+    <mkdir dir="${build.docs}" />
+    <copy todir="${build.docs}">
       <fileset dir="${docs.dir}">
         <include name="CREDITS.txt" />
         <include name="INSTALL.txt" />
@@ -246,7 +246,6 @@
         <include name="${releaselog}" />
       </fileset>
     </copy>
-    <mkdir dir="${build.docs}"/>
     <copy todir="${build.docs}">
       <fileset dir="${docs.dir}/relnotes">
         <include name="${releaselog}"/>
@@ -254,22 +253,16 @@
     </copy>
     
     <!-- Process docs directory -->
-    <mkdir dir="${build.docs}" />
     <copy todir="${build.docs}">
-      <fileset dir="${docs.dir}">
-        <include name="bk/*.txt" />
-        <exclude name="SCCS/**" />
-        <exclude name=".DS_Store"/>
-      </fileset>
       <fileset dir="${docs.dir}/xarayaguide" >
-        <include name="XarayaGuide.txt"/>
-        <exclude name="SCCS/**" />
+        <include name="xarayaguide.txt"/>
+        <include name="xarayaguide.pdf"/>
+        <exclude name="MT/**" />
         <exclude name=".DS_Store"/>
       </fileset>
       <fileset dir="${docs.dir}/xmdghtml" >
-        <include name="XarayaMDG.html"/>
-        <include name="XarayaMDG.pdf"/>
-        <exclude name="SCCS/**" />
+        <include name="XarayaMDG.sxw"/>
+        <exclude name="MT/**" />
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>
@@ -280,7 +273,7 @@
       <fileset dir="${tools.dir}">
         <include name="import/**"/>
         <include name="modwizard/**"/>
-        <exclude name="SCCS/**"/>
+        <exclude name="MT/**"/>
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>

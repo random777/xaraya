@@ -1,0 +1,296 @@
+Buildfile: build.xml
+
+Target: update
+     [echo] Making sure our working directories have the right base revision
+
+Target: mt_update
+     [echo] In: repo/core/core : mt update
+monotone: already up to date at 4342761a5d35287250c2cfd656e0f52ea7bc3103
+
+Target: mt_update
+     [echo] In: repo/core/documentation : mt update
+monotone: already up to date at 50aeba333177b76a3d96a631b4ba8ec24189f932
+
+Target: mt_update
+     [echo] In: repo/modules/modules.addressbook : mt update
+monotone: already up to date at 3874382bc8821390e265025742e6dfa714039d4a
+
+Target: mt_update
+     [echo] In: repo/modules/modules.authinvision : mt update
+monotone: already up to date at 18f3cdff81edf2126688b07b29b169838798ca33
+
+Target: mt_update
+     [echo] In: repo/modules/modules.authinvision2 : mt update
+monotone: already up to date at 2e7fe47cbf7cc5f4b846e5bc26aee54f528e0062
+
+Target: mt_update
+     [echo] In: repo/modules/modules.authphpbb2 : mt update
+monotone: already up to date at 7a31ee913a25ebf797ca30fa5d80f0543aafbd11
+
+Target: mt_update
+     [echo] In: repo/modules/modules.authsso : mt update
+monotone: already up to date at a748a7f3fb4ac46e7feb36ca21551e9717adb877
+
+Target: mt_update
+     [echo] In: repo/modules/modules.bbcode : mt update
+monotone: already up to date at 549bef86c2279150a7224c4b4480356c2805973b
+
+Target: mt_update
+     [echo] In: repo/modules/modules.censor : mt update
+monotone: already up to date at 91bdb604e51ee05269e477c00d8dab131ba92689
+
+Target: mt_update
+     [echo] In: repo/modules/modules.chat : mt update
+monotone: already up to date at ce4b239280906db39ea0bb4b140232060fdd642f
+
+Target: mt_update
+     [echo] In: repo/modules/modules.changelog : mt update
+monotone: already up to date at 24172551b1f167fda4cde647e7073d088da3365b
+
+Target: mt_update
+     [echo] In: repo/modules/modules.figlet : mt update
+monotone: already up to date at 3e6de74a1c641245dc14e784f35fb6153b4db307
+
+Target: mt_update
+     [echo] In: repo/modules/modules.flashservices : mt update
+monotone: already up to date at 8e69e952a398f78338286b100889fadc2c496ccd
+
+Target: mt_update
+     [echo] In: repo/modules/modules.htmlarea : mt update
+monotone: already up to date at 7071522f1be2d7359d95a5e51644bc28eac7f649
+
+Target: mt_update
+     [echo] In: repo/modules/modules.images : mt update
+monotone: already up to date at ad19dcffd3a183a672b18dc0ccce35368638a4b9
+
+Target: mt_update
+     [echo] In: repo/modules/modules.julian : mt update
+monotone: already up to date at 8a090d226748a7b7baa6c8d62be8eccae5ca5a46
+
+Target: mt_update
+     [echo] In: repo/modules/modules.keywords : mt update
+monotone: already up to date at 265ccb084fc26240df843f63eb2f8e293232037d
+
+Target: mt_update
+     [echo] In: repo/modules/modules.messages : mt update
+monotone: already up to date at 98544f77d7d4e76d8a873b255edfec78cec4838f
+
+Target: mt_update
+     [echo] In: repo/modules/modules.metaweblogapi : mt update
+monotone: already up to date at d2f27277b92a32d4ab5da09185fbd98e33ce287b
+
+Target: mt_update
+     [echo] In: repo/modules/modules.mime : mt update
+monotone: already up to date at ff545cc142874b19db40441092fbbd4f3cdd0903
+
+Target: mt_update
+     [echo] In: repo/modules/modules.mybookmarks : mt update
+monotone: already up to date at 4639bc7b9a7484d8fd6eb5ad750f6d8931e5c283
+
+Target: mt_update
+     [echo] In: repo/modules/modules.newsgroups : mt update
+monotone: already up to date at 978f7d558a3b8cb764175cbdded4e38d5aa434c4
+
+Target: mt_update
+     [echo] In: repo/modules/modules.newsletter : mt update
+monotone: already up to date at 61fe794178466c389f6cacdb14bea82b956baed7
+
+Target: mt_update
+     [echo] In: repo/modules/modules.netquery : mt update
+monotone: already up to date at 74fece040c1355158ef9ae0e5883471ee7da382c
+
+Target: mt_update
+     [echo] In: repo/modules/modules.opentracker : mt update
+monotone: already up to date at a5b2d8a0f731f36fac5fd13b4501a0fa1a1dde67
+
+Target: mt_update
+     [echo] In: repo/modules/modules.overlib : mt update
+monotone: already up to date at df8474c8ae1cb04a9c47f01b9f6e41baf3fe4b96
+
+Target: mt_update
+     [echo] In: repo/modules/modules.paypalsetup : mt update
+monotone: already up to date at 232dc61519caf1973e7c3766068a0fcaebc1f45c
+
+Target: mt_update
+     [echo] In: repo/modules/modules.phpldapadmin : mt update
+monotone: already up to date at 888ff99d8bac9972c704859db3bc1e519a82d550
+
+Target: mt_update
+     [echo] In: repo/modules/modules.ping : mt update
+monotone: already up to date at 17af95ef396183a3dc62ed9b745c4725e0e57952
+
+Target: mt_update
+     [echo] In: repo/modules/modules.pubsub : mt update
+monotone: already up to date at 38e61b60f95a7114097a3e5d9a26cabedddae3be
+
+Target: mt_update
+     [echo] In: repo/modules/modules.soapserver : mt update
+monotone: already up to date at 932b34e455341d9789147d64aa4d92b2e86b46dd
+
+Target: mt_update
+     [echo] In: repo/modules/modules.sitecontact : mt update
+monotone: already up to date at 5c803afa4cb5048732d7dbeeb2c1ac6eca8c6cf3
+
+Target: mt_update
+     [echo] In: repo/modules/modules.sitetools : mt update
+monotone: already up to date at d398d1471cc91729b1d65bc6d9031e514d56a25a
+
+Target: mt_update
+     [echo] In: repo/modules/modules.smilies : mt update
+monotone: already up to date at b4db1d2907b3f943433629d629f98ff2985dcd87
+
+Target: mt_update
+     [echo] In: repo/modules/modules.subitems : mt update
+monotone: already up to date at 4d7bd8399dc4465e2b8641a7d92a0be78e5fe323
+
+Target: mt_update
+     [echo] In: repo/modules/modules.tinymce : mt update
+monotone: already up to date at 2bb374d48f598612535ac1ec0f4d7018feec4a26
+
+Target: mt_update
+     [echo] In: repo/modules/modules.trackback : mt update
+monotone: already up to date at fe8beada7d323baa721ff9682c5e4eccd1dfb3f8
+
+Target: mt_update
+     [echo] In: repo/modules/modules.uploads : mt update
+monotone: already up to date at 91fd627860c444088284c7e91b0cab49215053af
+
+Target: mt_update
+     [echo] In: repo/modules/modules.weather : mt update
+monotone: already up to date at 3ffae497a85af4949475c93208c56d531a3b2796
+
+Target: mt_update
+     [echo] In: repo/modules/modules.window : mt update
+monotone: already up to date at 521cf0299ba57078782c8ddc1dedd3b30b5a0b3f
+
+Target: mt_update
+     [echo] In: repo/modules/modules.wizards : mt update
+monotone: already up to date at f4488fd900de2444e549fc997a556762762e68d3
+
+Target: mt_update
+     [echo] In: repo/modules/modules.workflow : mt update
+monotone: already up to date at 50b5e03cee6f9b95bbc57094865940134eec154a
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xarbb : mt update
+monotone: already up to date at 0d25b189d9a470899ea7ce8b0ce42018368551af
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xarlinkme : mt update
+monotone: already up to date at 25cc228fb8129331bd732adfd8138a19ac1710bb
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xarpages : mt update
+monotone: already up to date at 25bb39e85101403051cbfe8c0e164ad6790e21f4
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xlink : mt update
+monotone: already up to date at deda1885bfc0fc2eb7fb9d849c9e0f51b44850dc
+
+Target: mt_update
+     [echo] In: repo/modules/modules.xslt : mt update
+monotone: already up to date at 65b0c3d658b976603c3840a7f89b585eee381c66
+
+Target: mt_update
+     [echo] In: repo/themes/themes.xblue_pro : mt update
+monotone: already up to date at cd427b21a9a6dc48e5b0d6996668558a7acc1a06
+
+Target: mt_update
+     [echo] In: repo/themes/themes.atom : mt update
+monotone: already up to date at 303e098117e685761746e041c0cd665b7e0f4884
+
+Target: mt_update
+     [echo] In: repo/themes/themes.empty : mt update
+monotone: already up to date at b52ab02e53f58e131920741488547d717c4f96e0
+
+Target: mt_update
+     [echo] In: repo/themes/themes.buddha : mt update
+monotone: already up to date at 3dbfcc5c42fb577b773740b8fc71d1d1f84c33de
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.de : mt update
+monotone: already up to date at 686cef10638c825a6b69d823490870690efd4b07
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.fr : mt update
+monotone: already up to date at d43e02442557aa926ba7113dfb1fa21aca7dd027
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.hu : mt update
+monotone: already up to date at 5865d78ffae9cf300593cddfb231c704d42a3ab5
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.it : mt update
+monotone: already up to date at 916f076e6c860b9b330d81d705d75b6ae370065d
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.nl : mt update
+monotone: already up to date at 7bcb5342308bef419e7e646060bea4efb8b1500d
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.ph : mt update
+monotone: already up to date at f61db1cee41af1b1b65fdfbe9a752f3e1eb3181d
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.pt : mt update
+monotone: already up to date at 6111e50e356480674c6013e90cc27b5012e7212e
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.ru : mt update
+monotone: already up to date at 29eb9bf3d7f750f933ad08cd39453b8005fa2e3d
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.sv : mt update
+monotone: already up to date at eb78accda04df717db9d53d97909e0375c84c4e4
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.zh : mt update
+monotone: already up to date at 38259a0d5c84db91c4c7b6ed6cff90107d822230
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.da : mt update
+monotone: already up to date at dca2ee07a35975cbf3e2e23af3d2d26ec840d40d
+
+Target: lang_update
+      [php] Calling PHP function: substr()
+
+Target: mt_update
+     [echo] In: repo/languages/languages.ja : mt update
+monotone: already up to date at 27f65900ce90ee5b9456239646084e03de89a099
+
+BUILD SUCCESSFUL
+
+Total time: 4 minutes  41.70 seconds

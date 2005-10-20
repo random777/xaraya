@@ -5,7 +5,7 @@ Target: update
 
 Target: mt_update
      [echo] In: repo/core/core : mt update
-monotone: already up to date at b114e67bfc14f8465f87a4f3a5e69e1532921c61
+monotone: already up to date at ee7a5d1111ca59999cced59d8edfde8cd5b4337e
 
 Target: mt_update
      [echo] In: repo/core/documentation : mt update

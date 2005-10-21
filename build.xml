@@ -354,6 +354,8 @@
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>
         <exclude name=".DS_Store"/>
+        <exclude name=".mt-attrs"/>
+        <exclude name="tmp.*"/>
       </fileset>
     </copy>
   </target>
@@ -369,6 +371,8 @@
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>
         <exclude name=".DS_Store"/>
+        <exclude name=".mt-attrs"/>
+        <exclude name="tmp.*"/>
       </fileset>
     </copy>
   </target>

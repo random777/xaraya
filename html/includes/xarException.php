@@ -303,6 +303,21 @@ function xarErrorRender($format,$stacktype = "ERROR")
     $data['product'] = $error->getProduct();
     $data['component'] = $error->getComponent();
 
+    //FIXME: Turn this to OO with an overruled method later on
+    if ($error->exception->getID() == 'NOT_LOGGED_IN') {
+        //This happens when the module tries to get a User Variable
+        //The user probably would be able to use the functionality if he was
+        //logged
+        
+        //Show the log in form and redirect to the previous attempted operation
+        $data = array(
+            'loginhead' => xarML('Login Form'),
+            'loginbody' => xarML('You need to be logged in to perform the desired action.'),
+            'loginlabel' => xarML('Log in'),
+            'redirecturl' => xarServerGetCurrentURL());
+        return  xarTplFile('modules/roles/xartemplates/user-showloginform.xd', $data);
+    }
+
     if ($format == 'template') {
         $theme_dir = xarTplGetThemeDir();
         if(file_exists($theme_dir . '/modules/base/message-' . $template . '.xt')) {

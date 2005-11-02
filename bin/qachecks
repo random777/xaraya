@@ -176,6 +176,20 @@ for i in `$lsknown | grep ".php$"`; do
 done
 passed 1.12
 
+# PHP 4.4 constructs
+failed=0
+test="No object creation by reference (php 4.4. and up)"
+for i in `$lsknown | grep ".php$"`; do
+    # skip empty files
+    len=`wc -c $WORKDIR/$i`
+    if [ "X$len" != "X0 $WORKDIR/$i" ]; then
+        result=`grep -Ein '\=\W*&\W+new' $WORKDIR/$i`
+        if [ $? -ne 1 ]; then
+            failed 1.13 "in $i" "$result"
+        fi
+    fi
+done
+passed 1.13
 
 #
 # GROUP 2: File conventions
@@ -362,7 +376,7 @@ done
 passed 3.18
 
 # Use of ---> is not allowed
-echo "--- XML syntax ---"
+echo "--- Group 4: XML syntax ---"
 failed=0
 test="No use of ---> in templates"
 for i in `$lsknown | grep "\.x[dt]$"`; do

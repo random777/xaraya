@@ -485,9 +485,7 @@ function xarModGetInfo($modRegId, $type = 'module')
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));return;
     }
 
-    $type = strtolower($type);
-
-    switch($type) {
+    switch(strtolower($type)) {
         case 'module':
             default:
             if (xarCore_IsCached('Mod.Infos', $modRegId)) {
@@ -504,7 +502,7 @@ function xarModGetInfo($modRegId, $type = 'module')
     $dbconn =& xarDBGetConn();
     $tables =& xarDBGetTables();
 
-    switch($type) {
+    switch(strtolower($type)) {
         case 'module':
         default:
             $the_table = $tables['modules'];
@@ -534,7 +532,7 @@ function xarModGetInfo($modRegId, $type = 'module')
         return;
     }
 
-    switch($type) {
+    switch(strtolower($type)) {
         case 'module':
         default:
             list($modInfo['name'],
@@ -561,7 +559,7 @@ function xarModGetInfo($modRegId, $type = 'module')
     // Shortcut for os prepared directory
     $modInfo['osdirectory'] = xarVarPrepForOS($modInfo['directory']);
 
-    switch($type) {
+    switch(strtolower($type)) {
         case 'module':
             default:
             $modState = xarMod_getState($modInfo['regid'], $modInfo['mode']);
@@ -608,7 +606,7 @@ function xarModGetInfo($modRegId, $type = 'module')
 
     $modInfo = array_merge($modFileInfo, $modInfo);
 
-    switch($type) {
+    switch(strtolower($type)) {
         case 'module':
             default:
             xarCore_SetCached('Mod.Infos', $modRegId, $modInfo);
@@ -812,7 +810,15 @@ function xarModDBInfoLoad($modName, $modDir = NULL, $type = 'module')
  */
 function xarModFunc($modName, $modType = 'user', $funcName = 'main', $args = array())
 {
-    //xarLogMessage("xarModFunc: begin $modName:$modType:$funcName");
+    xarLogMessage("xarModFunc: begin $modName:$modType:$funcName");
+    
+    if (defined('XARCACHE_MOD_IS_ENABLED')) {
+        $cacheKey = "$modName-$modType-$funcName";
+        $cacheArgs = array('cacheKey' => $cacheKey,
+                           'name' => 'mod',
+                           'modName' => $modName,
+                           'modargs' => $args);
+    }
 
     if (empty($modName)) {
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM', 'modName');
@@ -826,78 +832,86 @@ function xarModFunc($modName, $modType = 'user', $funcName = 'main', $args = arr
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM', 'funcName');
         return;
     }
+    
+    if (defined('XARCACHE_MOD_IS_ENABLED') && xarModIsCached($cacheArgs)) {
+        // output the cached block
+        $modOutput = xarModGetCached($cacheKey, 'block');
 
-    // good thing this information is cached :)
-    $modBaseInfo = xarMod_getBaseInfo($modName);
+    } else {
 
-    // Build function name and call function
-    $funcName = strtolower($funcName);
-    $modFunc = "{$modName}_{$modType}_{$funcName}";
-    $found = true;
-    $isLoaded = true;
-    $msg='';
-    if (!function_exists($modFunc)) {
-        // attempt to load the module's api
-        xarModLoad($modName, $modType);
-        // let's check for that function again to be sure
+        // Build function name and call function
+        $funcName = strtolower($funcName);
+        $modFunc = "{$modName}_{$modType}_{$funcName}";
+        $found = true;
+        $isLoaded = true;
+        $msg='';
         if (!function_exists($modFunc)) {
-            if (!isset($modBaseInfo)) return; // throw back
-
-            $funcFile = 'modules/'.$modBaseInfo['osdirectory'].'/xar'.$modType.'/'.$funcName.'.php';
-            if (!file_exists($funcFile)) {
-                $found = false;
-            } else {
-
-                ob_start();
-                $r = require_once $funcFile;
-                $error_msg = strip_tags(ob_get_contents());
-                ob_end_clean();
-
-                if (empty($r) || !$r) {
-                    $msg = xarML("Could not load function file: [#(1)].", $funcFile) . "\n\n";
-                    $msg .= xarML("Error Caught:") . "\n";
-                    $msg .= $error_msg;
-                    $isLoaded = false;
-                }
-
-                if (!function_exists($modFunc)) {
+            // attempt to load the module's api
+            xarModLoad($modName,$modType);
+            // let's check for that function again to be sure
+            if (!function_exists($modFunc)) {
+                // good thing this information is cached :)
+                $modBaseInfo = xarMod_getBaseInfo($modName);
+                if (!isset($modBaseInfo)) return; // throw back
+    
+                $funcFile = 'modules/'.$modBaseInfo['osdirectory'].'/xar'.$modType.'/'.$funcName.'.php';
+                if (!file_exists($funcFile)) {
                     $found = false;
+                } else {
+    
+                    ob_start();
+                    $r = require_once $funcFile;
+                    $error_msg = strip_tags(ob_get_contents());
+                    ob_end_clean();
+    
+                    if (empty($r) || !$r) {
+                        $msg = xarML("Could not load function file: [#(1)].\n\n Error Caught:\n #(2)", $funcFile, $error_msg);
+                        $isLoaded = false;
+                    }
+    
+                    if (!function_exists($modFunc)) {
+                        $found = false;
+                    }
                 }
             }
         }
+        if (!$found) {
+            // if it's loaded but not found, then set the error message to that
+            if (!$isLoaded || empty($msg)) {
+                $msg = xarML('Module function #(1) does not exist.', $modFunc);
+            }
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FUNCTION_NOT_EXIST', new SystemException($msg));
+            return;
+        }
+    
+        // Load the translations file
+        if (xarMLS_loadTranslations(XARMLS_DNTYPE_MODULE, $modName, 'modules:'.$modType, $funcName) === NULL) return;
+    
+        $tplData = $modFunc($args);
+        if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return;
+    
+        if (!is_array($tplData)) {
 
-        if ($found) {
-            // Load the translations file - only if we have successfuly loaded the module function.
-            if (xarMLS_loadTranslations(XARMLS_DNTYPE_MODULE, $modBaseInfo['name'], 'modules:'.$modType, $funcName) === NULL) {return;}
+            $modOutput = $tplData;
+
+        } else {
+    
+            $templateName = NULL;
+            if (isset($tplData['_bl_template'])) {
+                $templateName = $tplData['_bl_template'];
+            }
+        
+            $tplOutput = xarTplModule($modName, $modType, $funcName, $tplData, $templateName);
+
+            $modOutput = $tplOutput;
         }
     }
-
-    if (!$found) {
-        // if it's loaded but not found, then set the error message to that
-        if (!$isLoaded || empty($msg)) {
-            $msg = xarML('Module function #(1) does not exist.', $modFunc);
-        }
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FUNCTION_NOT_EXIST', new SystemException($msg));
-        return;
+    if (defined('XARCACHE_MOD_IS_ENABLED')) {
+        xarModSetCached($cacheKey, 'block', $modOutput);
     }
+    xarLogMessage("xarModFunc: end $modName:$modType:$funcName");
 
-    $tplData = $modFunc($args);
-    if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return;
-
-    if (!is_array($tplData)) {
-        return $tplData;
-    }
-
-    $templateName = NULL;
-    if (isset($tplData['_bl_template'])) {
-        $templateName = $tplData['_bl_template'];
-    }
-
-    $tplOutput = xarTplModule($modBaseInfo['name'], $modType, $funcName, $tplData, $templateName);
-
-    //xarLogMessage("xarModFunc: end $modName:$modType:$funcName");
-
-    return $tplOutput;
+    return $modOutput;
 }
 
 /**

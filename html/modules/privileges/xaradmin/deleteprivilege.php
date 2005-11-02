@@ -53,7 +53,11 @@ function privileges_admin_deleteprivilege()
 //Try to remove the privilege and bail if an error was thrown
     if (!$priv->remove()) return;
 
-    xarModCallHooks('item', 'delete', $pid, '');
+    $pargs = array();
+    $pargs['module'] = 'privileges';
+    $pargs['itemtype'] = 0;
+    $pargs['itemid'] = $pid;
+    xarModCallHooks('item', 'delete', $pid, $pargs);
 
     xarSessionSetVar('privileges_statusmsg', xarML('Privilege Removed',
                     'privileges'));

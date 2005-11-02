@@ -796,7 +796,7 @@ class xarRole
         while (!$result->EOF) {
             list($pid, $name, $realm, $module, $component, $instance, $level,
                 $description) = $result->fields;
-            $perm = new xarPrivilege(array('pid' => $pid,
+            $priv = new xarPrivilege(array('pid' => $pid,
                     'name' => $name,
                     'realm' => $realm,
                     'module' => $module,
@@ -805,7 +805,7 @@ class xarRole
                     'level' => $level,
                     'description' => $description,
                     'parentid' => 0));
-            array_push($privileges, $perm);
+            $privileges[] = $priv;
             $result->MoveNext();
         }
         return $privileges;

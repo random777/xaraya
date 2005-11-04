@@ -63,7 +63,7 @@ experiencing upgrade difficulties.
 
 Adding a locale (language and encoding):
 ---------------------------------------
-- If you wish to install an additional locale for your Xaraya installation,
+- If you wish to add an additional locale for your Xaraya installation,
   download your preferred locale from http://www.xaraya.com/downloads/languages.
   For example: es_ES.utf8
 
@@ -77,11 +77,21 @@ Adding a locale (language and encoding):
 
 - Make this directory writeable for the web server process
 
-- After installation, set the site encoding to es_ES.utf8 in the
+- Set the site encoding to es_ES.utf8 in the
   Base - Modify Config - Languages and Locales - Default Locale setting.
 
-Please visit the #support channel for information on converting to Xaraya from CMS applications such as PostNuke or PHP-Nuke.
+- If you need an additional locale with an encoding different
+  from UTF-8 please read this document
+  http://www.xaraya.com/index.php/documentation/539
 
+- If you had translations files in utf-8 format you need
+  to copy translations files for your theme and modules to the new locale,
+  else you should connect to our support for help with
+  converting it to XML format.
+  We store translations in XML format with UTF-8 encoding only.
+
+
+Please visit the #support channel for information on converting to Xaraya from CMS applications such as PostNuke or PHP-Nuke.
 
 
 VERSION CHANGES - Please check and update your installation where necessary

@@ -140,7 +140,7 @@ Common Installation Errors
 
 - Trying to install too many 3rd party modules during the installation phase.
   This may lead to memory warnings or errors.
-  Try installing with only the core or core pluse base package modules. You can
+  Try installing with only the core or core plus base package modules. You can
   install additional modules at any time once installation has completed.
 
 - The html/var/cache/rss and html/var/cache/templates need to be writable

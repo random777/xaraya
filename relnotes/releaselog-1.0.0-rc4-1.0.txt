@@ -1,0 +1,18 @@
+Release notes for release 1.0
+Changes from 1.0.0-RC3 only
+
+  release 1.0 (only relevant changes from RC3 onwards included here)
+
+  Possible incompatible changes: 
+	* the actual incompatabilities with php versions 4.4 and some 5.1 versions is not 100% charted, 
+	if you find new instances please file a bug or add a comment to bug #4785. Xaraya core should be
+	clean from these instances.
+	* Upgrading: see the file INSTALL
+	
+  General improvements:
+	* template review, minor inconsistencies removed
+
+  Important bug fixes/work: (check http://bugs.xaraya.com for detailed information) 
+    * [N/A] : core api function xarUserSetNavigationTheme was incorrect
+    * [N/A] : core api function xarTplGetThemeName was incorrect
+    * 

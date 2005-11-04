@@ -22,10 +22,8 @@ Xaraya Development Team ::
 
 Project Management Committee :
 
-  Marc Lutolf (marcinmilan)
-
   Joanna Dalle Nogare (jojodee)
-  
+
   Jason Judge (judgej)
 
 

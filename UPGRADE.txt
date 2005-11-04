@@ -1,0 +1,190 @@
+PLEASE READ ALL OF THIS UPGRADE.txt BEFORE UPGRADING OR USING AN EXISTING Xaraya installation
+
+If you have existing Xaraya sites, please check the VERSION CHANGES at the end of this file in case you need to update themes, templates or other areas in existing sites.
+
+If you are creating a new Xaraya installation, please ensure you read INSTALL.txt
+
+
+You are Upgrading to Xaraya: adam_baum 1.0.0
+============================================
+Xaraya is an Open Source web applications framework.  Xaraya started out as a fork of PostNuke (http://www.postnuke.com). It has had a complete re-write from the ground up since it's beginnings.  Xaraya provides significant enhancements and functionality over it's predecessors and is in active, on-going development. Xaraya provides a stable and secure core, with a function rich API and powerful templating engine in place for third-party developers.
+
+If you would like to help develop this software, please visit our homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
+
+You can also visit us in channel #support or #chat, on our IRC Server irc.Xaraya.com.
+
+PREPARE TO UPGRADE
+==================
+    * Backup the old Xaraya installation & database
+
+    * Log in to your existing Xaraya site with administration rights.
+
+    * Ensure you protect any custom content or themes you have in
+      - <xarroot>/var/ subdirectories
+      - <xarroot>/themes/
+      Be sure to check the upgrade changes between versions (see below)
+      to ensure you update any custom templates if needed
+
+    * Replace all existing Xaraya files, directories, and modules
+      with the new Xaraya files EXCEPT:
+       -  <xarroot>/var/config.system.php
+
+    * With "replacing" we mean DELETE all old files and copy the new ones in.
+      Do not overwrite the old files with the new ones. THIS IS IMPORTANT.
+
+     The existing <xarroot>/var/config.system.php must be retained;
+     the upgrade script reads database settings from this file.
+
+    * Check permissions and ownership of the new files
+    
+    * Make sure you have cleared all your cache files in
+      <xarroot>/var/cache/templates and <xarroot>/var/cache/rss
+
+    * In browser window where you are logged in as administrator,
+       point your browser to upgrade.php in your root directory.
+       For example, http://www.mywebsite.com/upgrade.php.
+
+    * Carefull read and follow the instructions in the upgrade script.
+
+    * After the upgrade has completed, remove upgrade.php and install.php
+      from your web directory
+
+    * Ensure that <xarroot>/var/config.system.php has appropriate permissions.
+      for security, and is read only
+
+    * Go to Admin->Modules->View All.
+      Upgrade all required modules that are show the status of UPGRADE.
+      Remember to Activate them after upgrade if required.
+
+    * Clear your xarcachemanager output cache files, if you use xarcachemanager
+
+Check the COMMON UPGRADE PROBLEMS at the end of this file if you are 
+experiencing upgrade difficulties.
+
+Adding a locale (language and encoding):
+---------------------------------------
+- If you wish to install an additional locale for your Xaraya installation,
+  download your preferred locale from http://www.xaraya.com/downloads/languages.
+  For example: es_ES.utf8
+
+- Unpack the new locale to the Xaraya directory at var/locales
+
+  NOTE: If you have var/locales/es_ES.utf8 directory
+        already present after installation, delete it!
+        It only contains installer translations.
+
+- Create the directory var/locales/es_ES.utf8/php
+
+- Make this directory writeable for the web server process
+
+- After installation, set the site encoding to es_ES.utf8 in the
+  Base - Modify Config - Languages and Locales - Default Locale setting.
+
+Please visit the #support channel for information on converting to Xaraya from CMS applications such as PostNuke or PHP-Nuke.
+
+
+
+VERSION CHANGES - Please check and update your installation where necessary
+===============
+
+   Template Changes between versions (please check your modules and theme overrides for these)
+   ----------------------------------------------------
+   .9.10.0 -> .9.11.0 
+          modules/xarbb/xartemplates/user-newreply.xd : the input form
+          includes an additional hidden input field for header[itemtype]
+   
+   .9.11.0 -> .9.12.0 
+          templates must validate as XML, i.e. you need to replace all
+          & with &amp; etc.
+   
+   .9.12.0 -> .9.13.0 
+       1) in articles, fields of type Calendar (other than pubdate) are
+          no longer pre-formatted in the view and display functions, so
+          you should now use xarLocaleGetFormattedDate('long',$myfield)
+          and xarLocaleGetFormattedTime('long',$myfield), or for custom
+          formats xarLocaleFormatDate('...',$myfield) in those templates
+       2) in comments, blocks/latestcommentsblock.xd and
+          user-displayall.xd the variable $comment['daychange'] is no
+          longer supported; array $commentlist is now an array of arrays.
+          $commentlist[$daylabel] is the array of all comments posted on $daylabel.
+
+   1.0.0-RC1 -> 1.0.0-RC2 
+          uiscrub scenario integration - please check your templates !
+
+   1.0.0-RC2 -> 1.0.0-RC3 
+       1) the templates for DD properties have been moved as follows :
+          * modules/dynamicdata/xartemplates/admin-showinput-[property type].xd
+            -> modules/[module]/xartemplates/properties/showinput-[property type].xd
+          * modules/dynamicdata/xartemplates/admin-validation-[property type].xd
+            -> modules/[module]/xartemplates/properties/validation-[property type].xd
+          * modules/dynamicdata/xartemplates/user-showoutput-[property type].xd
+            -> modules/[module]/xartemplates/properties/showoutput-[property type].xd
+          * modules/dynamicdata/xartemplates/admin-showhidden.xd
+            -> modules/dynamicdata/xartemplates/properties/showhidden.xd
+          * modules/dynamicdata/xartemplates/user-label.xd
+            -> modules/dynamicdata/xartemplates/properties/label.xd
+       2) the templates for DD objects have been moved as follows :
+          * modules/dynamicdata/xartemplates/admin-objectform.xd
+            -> modules/dynamicdata/xartemplates/objects/showform.xd
+          * modules/dynamicdata/xartemplates/admin-objectlist.xd
+            -> modules/dynamicdata/xartemplates/objects/showlist.xd
+          * modules/dynamicdata/xartemplates/user-objectdisplay.xd
+            -> modules/dynamicdata/xartemplates/objects/showdisplay.xd
+          * modules/dynamicdata/xartemplates/user-objectform.xd
+            -> modules/dynamicdata/xartemplates/objects/showview.xd
+          
+          DD object templates can now be overridden with show*-[objectname].xd
+          in the DD xartemplates/objects directory and/or in your own module
+       
+       3) All properties previously in includes/properties have been moved
+          to their respective module 'xarproperty' directory:
+          -> modules/[module name]/xarproperties
+       4) Further scrubbing of templates - - please check your templates.
+
+   1.0.0-RC3 -> 1.0.0-RC4 
+          the input template for the DD SubForm property type
+          now uses a field prefix for all input fields
+
+   1.0.0-RC4 -> 1.0.0
+
+
+   DB Changes between versions
+   ----------------------------------------------------
+   .9.0.0 -> .9.0.2 Small article and permissions changes.
+   .9.0.2 -> .9.0.3 Added syndication block for RSS output.
+   .9.0.3 -> .9.0.4 Small changes to article masks
+   .9.0.4 -> .9.0.5 Changes to the privileges.
+            Removal of the old waiting content ideas
+            for new and improved version.
+   .9.0.5 -> .9.0.6 None
+   .9.0.6 -> .9.1.0 None
+   .9.1.0 -> .9.1.2 None
+   .9.1.2 -> .9.1.3 None
+   .9.1.3 -> .9.1.4 None
+   .9.1.4 -> .9.7.0 Various mod and configure mod changes
+        to core module.  Various Time functions
+        upgraded.
+   .9.7.0 -> .9.8.0 None
+   .9.8.0 -> .9.9.0 None
+   .9.9.0 -> .9.10.0 New index on module states table
+   .9.10.0 -> .9.12.0 None
+   .9.13.0 -> 1.0.0 None
+   ----------------------------------------------------
+
+
+Common Upgrade Problems
+==========================
+
+* If you are getting errors after upgrade, clear your template 
+   and rss cache files (and adodb if relevant). 
+  Clear your xarcachemanager output cache if you have the module installed.
+
+* If you are having difficulty accessing a module, check to see if it
+   needs upgrading, and also ensure it is activated if required
+   
+* If you are using a default theme, ensure it is active and also 
+  does not need upgrading.
+
+* The <xarroot>var/cache/rss and <xarroot>/var/cache/templates directories 
+  need to be writable and executable
+

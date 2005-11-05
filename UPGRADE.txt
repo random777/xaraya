@@ -25,9 +25,15 @@ PREPARE TO UPGRADE
       Be sure to check the upgrade changes between versions (see below)
       to ensure you update any custom templates if needed
 
+    * Make a backup 
+
     * Replace all existing Xaraya files, directories, and modules
       with the new Xaraya files EXCEPT:
        -  <xarroot>/var/config.system.php
+       -  files below the var directory which may contain data from your site
+        (typically for uploads, workflow processes, images etc)
+
+    * Make a backup (yes, we know this was already mentioned two times)
 
     * With "replacing" we mean DELETE all old files and copy the new ones in.
       Do not overwrite the old files with the new ones. THIS IS IMPORTANT.

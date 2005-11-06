@@ -28,13 +28,14 @@ Release notes for Xaraya core release 1.0
     * [4881]: no preset for the basedir when uploads is hooked. (fileupload property)
     * [4898]: fix for default maxsize in text/file upload dd properties
     * [4951]: no db cache flush on moduservars, making it consistent behaviour with other code in the same subsystem
+    * [5015]: optional url parameter 'table' for modifyprop function to allow extra tables to see as datasources, 
+              even if they are not registered xar tables.
+    * [5053]: disabled UI of group hooks, as the code doesnt support those.
     * [5074]: typing error in MLS backend code.
     * [5087]: typing error in roles purging templates
     * [5097]: translations in dd properties which include ML constructs were not translated
+    * [5109]: workaround for certain hosting setups where an incorrect https setting caused installer to switch to https
     * [5111]: included templates lost translation, centralized the code for loading the translations 
               in xarTemplate.php, so there is one entry point for loading wrt templates 
-    * [5053]: disabled UI of group hooks, as the code doesnt support those.
     * [5117]: typing error in new privilege template
-    * [5015]: optional url parameter 'table' for modifyprop function to allow extra tables to see as datasources, 
-              even if they are not registered xar tables.
     * [5119]: variable checks for RDF feed (base module)

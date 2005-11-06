@@ -243,6 +243,7 @@
       <fileset dir="${docs.dir}">
         <include name="CREDITS.txt" />
         <include name="INSTALL.txt" />
+        <include name="UPGRADE.txt" />
         <include name="LICENSE.txt" />
         <include name="${releaselog}" />
       </fileset>

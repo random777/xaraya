@@ -1,87 +1,90 @@
-Revision numbers from which the 1.0.0-RC4 release was drawn:
+Revision numbers from which the 1.0 release was drawn:
 
 Core:
 -----
-ee7a5d1111ca59999cced59d8edfde8cd5b4337e
+dd9aeb86209ff249f16d1ed803d91210e9fc87f1
 
 Documentation:
 --------------
-ce9facca21fbc470960fc2d973e483333e32cc87
+cf480482b937f4302b7c0a483fbd7bc6f1362b21
 
 Modules:
 --------
-modules.addressbook:        3874382bc8821390e265025742e6dfa714039d4a
-modules.articles:           fced3759eeaa33570d3ec316f067b4e073000c88
+modules.addressbook:        6cd25b76d9ec5500482b4db62b0346904bc1b3f5
+modules.articles:           10a072423d4ed965a77ee240d3f83ae0581d83d5
 modules.authinvision2:      2e7fe47cbf7cc5f4b846e5bc26aee54f528e0062
 modules.authinvision:       18f3cdff81edf2126688b07b29b169838798ca33
-modules.authldap:           b9adffaae1441328cacb5a70583de60c25dce217
+modules.authldap:           541995c47a9ebd3e850ad9650d7195bab5f29386
 modules.authphpbb2:         7a31ee913a25ebf797ca30fa5d80f0543aafbd11
 modules.authsso:            a748a7f3fb4ac46e7feb36ca21551e9717adb877
 modules.autolinks:          29be8cae345fea1de27451be96759ce27de0f848
-modules.bbcode:             549bef86c2279150a7224c4b4480356c2805973b
+modules.bbcode:             ad1d9e58acc06d911db97c92c77745e53ffeda4f
 modules.bloggerapi:         67d111ed4bb0eee4d8be709961081c2995ad636e
 modules.categories:         f1a566f895e90b048e6a464df18ed0dc2f69692b
 modules.censor:             91bdb604e51ee05269e477c00d8dab131ba92689
 modules.changelog:          24172551b1f167fda4cde647e7073d088da3365b
 modules.chat:               ce4b239280906db39ea0bb4b140232060fdd642f
-modules.comments:           6662d80707510a2aaaea73594643238eeff35565
+modules.comments:           0d07a8290565b31a057391fcd7f437143b76f89b
 modules.dyn_example:        b70a48468ee4e1aa13a038b162b37fb81ab7c615
-modules.ephemerids:         82fa5e7a9866991666b1bfbb943420db74739876
-modules.example:            6497b53673891ab8738ee7ab1fb9418ce56e6748
+modules.ephemerids:         507e114f754971e43338e21fb60936f2c21ab7f8
+modules.example:            7e2fe5a25ded73b3eb8de9cf54be6e1122d20ad9
 modules.figlet:             3e6de74a1c641245dc14e784f35fb6153b4db307
 modules.flashservices:      8e69e952a398f78338286b100889fadc2c496ccd
-modules.headlines:          2782ae06c6e396002dc1ed1448c975a7a4474c6c
+modules.headlines:          ffd9016ad1e1b569afe91fe43fd50e910d728d72
+modules.helpdesk:           9ee5e63a0214701d0e8fe973b3fe3b8b6ff08985
 modules.hitcount:           d91cba1ed8409efd7db49192f11ee09567133778
-modules.html:               4d93ab69832026b763a573b2c9951bf606ece77d
+modules.html:               3e0f48ca88593372ed72796ee178401c71f7229e
 modules.htmlarea:           7071522f1be2d7359d95a5e51644bc28eac7f649
-modules.images:             ad19dcffd3a183a672b18dc0ccce35368638a4b9
-modules.julian:             8a090d226748a7b7baa6c8d62be8eccae5ca5a46
-modules.keywords:           265ccb084fc26240df843f63eb2f8e293232037d
+modules.images:             71318e31754182c12ae0ec7aae5971c2da8adda7
+modules.julian:             21daf4c611c6762b280961f07cbca206d8f17a94
+modules.keywords:           b292240cec56cb1de149a2a7e7c83b8e65701980
 modules.messages:           98544f77d7d4e76d8a873b255edfec78cec4838f
 modules.metaweblogapi:      d2f27277b92a32d4ab5da09185fbd98e33ce287b
 modules.mime:               ff545cc142874b19db40441092fbbd4f3cdd0903
 modules.multisites:         392eeeb4bef38474960510a5c724dc827536d937
 modules.mybookmarks:        4639bc7b9a7484d8fd6eb5ad750f6d8931e5c283
 modules.netquery:           74fece040c1355158ef9ae0e5883471ee7da382c
-modules.newsgroups:         978f7d558a3b8cb764175cbdded4e38d5aa434c4
-modules.newsletter:         61fe794178466c389f6cacdb14bea82b956baed7
+modules.newsgroups:         9a1a8cfe9b54db7cbe744f8099167188ed38d1d6
+modules.newsletter:         cce571a87fa54744fe6ef51d9e9d990215fe0c78
 modules.opentracker:        a5b2d8a0f731f36fac5fd13b4501a0fa1a1dde67
 modules.overlib:            df8474c8ae1cb04a9c47f01b9f6e41baf3fe4b96
+modules.owner:              af92a0c25d65c6dc31debeaee60722c56d8eb700
 modules.paypalsetup:        232dc61519caf1973e7c3766068a0fcaebc1f45c
 modules.phpldapadmin:       888ff99d8bac9972c704859db3bc1e519a82d550
 modules.ping:               17af95ef396183a3dc62ed9b745c4725e0e57952
 modules.polls:              7d9a2bc6fe6ad41cd2182a812faa0cafca0500b2
 modules.pubsub:             38e61b60f95a7114097a3e5d9a26cabedddae3be
 modules.ratings:            19ce161d8224680ec45bb9d1d273d245b96729d7
-modules.recommend:          0f4f09022f36f39c9d6b438174e0442a1c7279ba
+modules.recommend:          e5194275041dd9a43fb8805a4939b60a5f36bfea
 modules.referer:            81eaa1c99be622e4f7e17e00ae29e17aa80d8259
-modules.scheduler:          82dcd18c433b65200084f1c59bb4ebf98f89caa0
+modules.scheduler:          096f65b3154bd6c341e3e19bc419d2d6db92026a
 modules.search:             cafdcc9c004b685c255976bb998da90037d35488
+modules.security:           04a8d758b57b14c5f2744619435c5a879e88598d
 modules.sitecontact:        5c803afa4cb5048732d7dbeeb2c1ac6eca8c6cf3
-modules.sitetools:          d398d1471cc91729b1d65bc6d9031e514d56a25a
+modules.sitetools:          b0fa487aa30e45a15baa7661ca11961dfce207c0
 modules.smilies:            b4db1d2907b3f943433629d629f98ff2985dcd87
 modules.sniffer:            eeeb2d14f28189647877de09d940458697acdf11
 modules.soapserver:         932b34e455341d9789147d64aa4d92b2e86b46dd
 modules.stats:              14dfe785ed13aa33fe1e8d0715e6332ad4702ef8
-modules.subitems:           4d7bd8399dc4465e2b8641a7d92a0be78e5fe323
-modules.tinymce:            2bb374d48f598612535ac1ec0f4d7018feec4a26
+modules.subitems:           d161d0c03a5fc85c3631ed4b17a8d945d070ecc3
+modules.tinymce:            5df6c8e99cb12b6d3b3b14520d999b55dd452419
 modules.trackback:          fe8beada7d323baa721ff9682c5e4eccd1dfb3f8
-modules.translations:       dd58de94541eb2083d23d6b66a6de8420b5fee5e
-modules.uploads:            91fd627860c444088284c7e91b0cab49215053af
-modules.weather:            3ffae497a85af4949475c93208c56d531a3b2796
+modules.translations:       de5651a23d635c44dd15ea31216a03c9a0c635e7
+modules.uploads:            98571f21bc61545cf26ed74a7ff0602af5942e6a
+modules.weather:            d1e1b637078df6ada3cb244b1b3ca08306445800
 modules.wiki:               3b31d87434cc05f1af0866261b675234d762ad0c
-modules.window:             521cf0299ba57078782c8ddc1dedd3b30b5a0b3f
-modules.wizards:            f4488fd900de2444e549fc997a556762762e68d3
-modules.workflow:           50b5e03cee6f9b95bbc57094865940134eec154a
-modules.xarbb:              0d25b189d9a470899ea7ce8b0ce42018368551af
+modules.window:             fac1d095bb67ae2eb09e23f0be3c887895e2d1e9
+modules.wizards:            0b40fea59db081061182c110f0ea248e49a15f95
+modules.workflow:           375ddfe7e67f0727ccbcda7d980e2ef21ac5cc5a
+modules.xarbb:              a5494ae421210f8543a0f76229dee0a7a085c6dc
 modules.xarcachemanager:    a121ee8b60ad8512d4cf567c92f3ddf6613aca71
-modules.xarldap:            c29056a4699cf5b5ab18551fcc6b1ca4bcae4814
+modules.xarldap:            8babc9c99a06dbfb9abc5228d49d82c4ee091bcd
 modules.xarlinkme:          25cc228fb8129331bd732adfd8138a19ac1710bb
 modules.xarpages:           25bb39e85101403051cbfe8c0e164ad6790e21f4
 modules.xlink:              deda1885bfc0fc2eb7fb9d849c9e0f51b44850dc
 modules.xmlrpcserver:       6f0f6d621cf875826977dd5df4a3a767cad2badd
-modules.xmlrpcsystemapi:    dab5c9e7c78ccfa46ee33be3743403b5f49f27c3
-modules.xmlrpcvalidatorapi: 3f04e9997b943a28424ffb7ef85c7f82efd05792
+modules.xmlrpcsystemapi:    567100031f879e94abf63acee7022477d29ecb5f
+modules.xmlrpcvalidatorapi: 0d2f3be95dbf0cb4de4b9b9d110dbd46a5789760
 modules.xslt:               65b0c3d658b976603c3840a7f89b585eee381c66
 
 Themes:
@@ -89,19 +92,19 @@ Themes:
 themes.atom:      303e098117e685761746e041c0cd665b7e0f4884
 themes.buddha:    3dbfcc5c42fb577b773740b8fc71d1d1f84c33de
 themes.empty:     b52ab02e53f58e131920741488547d717c4f96e0
-themes.xblue_pro: d427b21a9a6dc48e5b0d6996668558a7acc1a06
+themes.xblue_pro: cd427b21a9a6dc48e5b0d6996668558a7acc1a06
 
 Languages:
 ----------
-languages.da:     dca2ee07a35975cbf3e2e23af3d2d26ec840d40d
-languages.de:     686cef10638c825a6b69d823490870690efd4b07
-languages.fr:     d43e02442557aa926ba7113dfb1fa21aca7dd027
-languages.hu:     5865d78ffae9cf300593cddfb231c704d42a3ab5
-languages.it:     916f076e6c860b9b330d81d705d75b6ae370065d
-languages.ja:     27f65900ce90ee5b9456239646084e03de89a099
-languages.nl:     7bcb5342308bef419e7e646060bea4efb8b1500d
-languages.ph:     f61db1cee41af1b1b65fdfbe9a752f3e1eb3181d
-languages.pt:     6111e50e356480674c6013e90cc27b5012e7212e
-languages.ru:     29eb9bf3d7f750f933ad08cd39453b8005fa2e3d
-languages.sv:     eb78accda04df717db9d53d97909e0375c84c4e4
-languages.zh:     38259a0d5c84db91c4c7b6ed6cff90107d822230
+languages.da: dca2ee07a35975cbf3e2e23af3d2d26ec840d40d
+languages.de: 686cef10638c825a6b69d823490870690efd4b07
+languages.fr: d43e02442557aa926ba7113dfb1fa21aca7dd027
+languages.hu: 5865d78ffae9cf300593cddfb231c704d42a3ab5
+languages.it: 916f076e6c860b9b330d81d705d75b6ae370065d
+languages.ja: 27f65900ce90ee5b9456239646084e03de89a099
+languages.nl: 7bcb5342308bef419e7e646060bea4efb8b1500d
+languages.ph: f61db1cee41af1b1b65fdfbe9a752f3e1eb3181d
+languages.pt: 6111e50e356480674c6013e90cc27b5012e7212e
+languages.ru: 173992b6ea1e26f7dedf1473200ff3c8c3b528a0
+languages.sv: eb78accda04df717db9d53d97909e0375c84c4e4
+languages.zh: 38259a0d5c84db91c4c7b6ed6cff90107d822230

@@ -1,0 +1,41 @@
+Release notes for Xaraya core release 1.0
+
+  release 1.0 (only relevant changes from RC4 onwards included here)
+
+  Possible incompatible changes:
+    * MLS system uses UTF-8 only locales internally now (including the parser),        
+      noteworthy are support for transliteration and real time encoding conversion to the php cache, to support non UTF-8 encodings.
+      See http://xaraya.com/index.php/documentation/539
+	* Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+	
+  General improvements:
+	* template review, minor inconsistencies removed
+    * template structure for property list brought in line with object list (check your overrides!)
+    * roles tabbed interface template review, slight reorganisation (check your overrides!)  
+    * consistency changes to the overview templates for core modules.
+    * bug 4358: NOT FIXED, but made precautions to prevent the bug from happening. The cause of this bug is not fully determined.
+
+  Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information) 
+      bug   : short info
+      ---   | ----------
+    * [N/A] : core api function xarUserSetNavigationTheme was incorrect
+    * [N/A] : core api function xarTplGetThemeName was incorrect
+    * [N/A] : several fixes to dd properties (countrylist, checkbox mask, urlicon)
+    * [N/A] : correction to expression evaluation in xar:set and xar:var tags. 
+              (where more '$' chars were present in variable names)
+    * [2204]: provisions for non 'Admin' named Admins, this probably will not affect any sites younger than 8 months or so.
+    * [4881]: no preset for the basedir when uploads is hooked. (fileupload property)
+    * [4898]: fix for default maxsize in text/file upload dd properties
+    * [4951]: no db cache flush on moduservars, making it consistent behaviour with other code in the same subsystem
+    * [5015]: optional url parameter 'table' for modifyprop function to allow extra tables to see as datasources, 
+              even if they are not registered xar tables.
+    * [5053]: disabled UI of group hooks, as the code doesnt support those.
+    * [5074]: typing error in MLS backend code.
+    * [5087]: typing error in roles purging templates
+    * [5097]: translations in dd properties which include ML constructs were not translated
+    * [5109]: workaround for certain hosting setups where an incorrect https setting caused installer to switch to https
+    * [5111]: included templates lost translation, centralized the code for loading the translations 
+              in xarTemplate.php, so there is one entry point for loading wrt templates 
+    * [5117]: typing error in new privilege template
+    * [5119]: variable checks for RDF feed (base module)

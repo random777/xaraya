@@ -5,7 +5,7 @@ Please read UPGRADE.txt if you are upgrading an EXISTING Xaraya installation.
 If you have existing Xaraya sites, please check the VERSION CHANGES in UPGRADE.txt 
 in case you need to update themes, templates or other areas in existing sites.
 
-NOTE: Detailed installation instructions can be found in the Xaraya User Guide, in the XarayaGuide.txt file which is included in the root directory of this release. The Guide will provide a clear understanding of installation and configuration of Xaraya.
+NOTE: Detailed installation instructions can be found in the Xaraya User Guide, in the xarayaguide.txt file which is included in the docs directory of this release. The Guide will provide a clear understanding of installation and configuration of Xaraya.
 
 Xaraya: adam_baum 1.0.0
 =======================
@@ -96,9 +96,9 @@ New Installation
 
 Adding a locale (language and encoding):
 ---------------------------------------
-* If you wish to install an additional locale for your Xaraya installation,
+* If you wish to add an additional locale for your Xaraya installation,
   download your preferred locale from http://www.xaraya.com/downloads/languages.
-  For example: es_ES.utf8
+  For example for Spanish you need es_ES.utf8 locale
 
 * Unpack the new locale to the Xaraya directory at var/locales
 
@@ -110,8 +110,12 @@ Adding a locale (language and encoding):
 
 * Make this directory writeable for the web server process
 
-* After installation, set the site encoding to es_ES.utf8 in the
+* Set the site encoding to es_ES.utf8 in the
   Base - Modify Config - Languages and Locales - Default Locale setting.
+
+* If you need an additional locale with an encoding different 
+  from UTF-8 please read this document
+  http://www.xaraya.com/index.php/documentation/539
 
 
 Caution

@@ -151,7 +151,7 @@ Translators:
 
   Knut Horne (Norwegian)
 
-  Mika Lammi (Finnish)
+  Matias Griese, Hans Kurppa, Mika Lammi (Finnish Team)
 
   Jonas Olsson (Swedish)
 
@@ -165,7 +165,7 @@ Translators:
 
   Marcel Van Der Boom (Dutch)
 
-  Xiaoyu & BBChen (Standard Chinese)
+  Xiaoyu & BBChen (Standard Chinese Team)
 
   Thomas Marczinkowski (German)
 
@@ -177,7 +177,11 @@ Translators:
 
   Dzulbokhari Dzulkifli (Malaysian)
 
+  Ference Veres, Tamas Dombos, Janos Feher, Einstand (Hungarian Team)
+  
+  Kinchan Cepillo, Rodney Pacis (Filipino Team)
 
+  Claus Hindsgaul (Danish)
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 

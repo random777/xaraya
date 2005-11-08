@@ -485,7 +485,9 @@ function xarModGetInfo($modRegId, $type = 'module')
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));return;
     }
 
-    switch(strtolower($type)) {
+    $type = strtolower($type);
+
+    switch($type) {
         case 'module':
             default:
             if (xarCore_IsCached('Mod.Infos', $modRegId)) {
@@ -502,7 +504,7 @@ function xarModGetInfo($modRegId, $type = 'module')
     $dbconn =& xarDBGetConn();
     $tables =& xarDBGetTables();
 
-    switch(strtolower($type)) {
+    switch($type) {
         case 'module':
         default:
             $the_table = $tables['modules'];
@@ -532,7 +534,7 @@ function xarModGetInfo($modRegId, $type = 'module')
         return;
     }
 
-    switch(strtolower($type)) {
+    switch($type) {
         case 'module':
         default:
             list($modInfo['name'],
@@ -559,7 +561,7 @@ function xarModGetInfo($modRegId, $type = 'module')
     // Shortcut for os prepared directory
     $modInfo['osdirectory'] = xarVarPrepForOS($modInfo['directory']);
 
-    switch(strtolower($type)) {
+    switch($type) {
         case 'module':
             default:
             $modState = xarMod_getState($modInfo['regid'], $modInfo['mode']);
@@ -606,7 +608,7 @@ function xarModGetInfo($modRegId, $type = 'module')
 
     $modInfo = array_merge($modFileInfo, $modInfo);
 
-    switch(strtolower($type)) {
+    switch($type) {
         case 'module':
             default:
             xarCore_SetCached('Mod.Infos', $modRegId, $modInfo);

@@ -5,7 +5,7 @@ If you have existing Xaraya sites, please check the VERSION CHANGES at the end o
 If you are creating a new Xaraya installation, please ensure you read INSTALL.txt
 
 
-You are Upgrading to Xaraya: adam_baum 1.0.0
+You are Upgrading to Xaraya: adam_baum 1.0.1
 ============================================
 Xaraya is an Open Source web applications framework.  Xaraya started out as a fork of PostNuke (http://www.postnuke.com). It has had a complete re-write from the ground up since it's beginnings.  Xaraya provides significant enhancements and functionality over it's predecessors and is in active, on-going development. Xaraya provides a stable and secure core, with a function rich API and powerful templating engine in place for third-party developers.
 
@@ -162,7 +162,9 @@ VERSION CHANGES - Please check and update your installation where necessary
           now uses a field prefix for all input fields
 
    1.0.0-RC4 -> 1.0.0
-
+   
+   1.0.0 -> 1.0.1
+          
 
    DB Changes between versions
    ----------------------------------------------------

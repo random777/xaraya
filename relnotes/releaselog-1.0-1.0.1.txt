@@ -1,0 +1,29 @@
+Release notes for Xaraya core release 1.0.1
+
+  release 1.0.1 (only relevant changes from 1.0 onwards included here)
+
+  Possible incompatible changes:
+	* Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+	
+  General improvements:
+    * The global error level reporting is now configurable in config.system.php to deal with reference errors more flexible.
+      ( see config.system.php.dist for details )
+	* further template consistency improvements
+    * some reference errors related to bug 4785 
+    * bug in the topnav blockgroups in Xaraya_Classic theme  
+    * showing comments in mails now defaults to OFF if it has not been set before, instead of the value of the themes setting
+    * several css fixes for Xaraya_Classic theme, including a fix to the css handler which did not include some css files properly
+
+  Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information) 
+      bug   : short info
+      ---   | ----------
+    * [5233]: validate module input parameter and create modes for MLS hardened (security fix)
+    * [5165]: wrong timezone for KZ
+    * [5193],
+      [3907]: repeated installs into the same database failed, notably on postgres where the sequences were not dropped
+    * [5182]: saving quotes into the cache config file leads to corruption of that file
+    * [5156]: xar templates in non-standard locations cause MLS breakage
+    * [5161]: invalid mlstring constructs in templates
+    * [5202]: check for an empty condition attribute in xar:if tag
+    * 

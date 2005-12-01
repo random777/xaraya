@@ -18,12 +18,11 @@ Release notes for Xaraya core release 1.0.1
   Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information) 
       bug   : short info
       ---   | ----------
-    * [5233]: validate module input parameter and create modes for MLS hardened (security fix)
-    * [5165]: wrong timezone for KZ
-    * [5193],
-      [3907]: repeated installs into the same database failed, notably on postgres where the sequences were not dropped
-    * [5182]: saving quotes into the cache config file leads to corruption of that file
     * [5156]: xar templates in non-standard locations cause MLS breakage
     * [5161]: invalid mlstring constructs in templates
+    * [5165]: wrong timezone for KZ
+    * [5182]: saving quotes into the cache config file leads to corruption of that file
+    * [5193]: postgres sequences should be dropped when dropping a table
     * [5202]: check for an empty condition attribute in xar:if tag
-    * 
+    * [5233]: validate module input parameter and create modes for MLS hardened (security fix)
+   

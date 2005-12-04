@@ -25,4 +25,4 @@ Release notes for Xaraya core release 1.0.1
     * [5193]: postgres sequences should be dropped when dropping a table
     * [5202]: check for an empty condition attribute in xar:if tag
     * [5233]: validate module input parameter and create modes for MLS hardened (security fix)
-   
+    * [5244]: repeated installs into the same database raises an error on the metatable not existing (xar_tables usually)

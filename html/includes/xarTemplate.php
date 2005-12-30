@@ -629,6 +629,8 @@ function xarTplGetImage($modImage, $modName = NULL)
     } elseif (file_exists($moduleImage)) {
         // image found, return it's path in the module
         $return = $moduleImage;
+    } else {
+        // none found, return a default 'missing imaage' image here?
     }
 
     // Return as an XML URL if required.

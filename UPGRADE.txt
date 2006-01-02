@@ -42,7 +42,7 @@ PREPARE TO UPGRADE
      the upgrade script reads database settings from this file.
 
     * Check permissions and ownership of the new files
-    
+
     * Make sure you have cleared all your cache files in
       <xarroot>/var/cache/templates and <xarroot>/var/cache/rss
 
@@ -64,7 +64,7 @@ PREPARE TO UPGRADE
 
     * Clear your xarcachemanager output cache files, if you use xarcachemanager
 
-Check the COMMON UPGRADE PROBLEMS at the end of this file if you are 
+Check the COMMON UPGRADE PROBLEMS at the end of this file if you are
 experiencing upgrade difficulties.
 
 Adding a locale (language and encoding):
@@ -187,6 +187,7 @@ VERSION CHANGES - Please check and update your installation where necessary
    .9.9.0 -> .9.10.0 New index on module states table
    .9.10.0 -> .9.12.0 None
    .9.13.0 -> 1.0.0 None
+     1.0.0 -> 1.0.1 None
    ----------------------------------------------------
 
 

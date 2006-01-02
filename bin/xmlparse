@@ -1,6 +1,6 @@
 #!/bin/bash
 
-monotone=`which monotone`
+monotone= monotone
 PARSERTYPE='noneyet'
 CR='\013'
 

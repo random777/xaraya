@@ -1,12 +1,13 @@
 For lack of a better place a short(?) tasklist to implement the RFC to completion:
+(to be reviewed in relation to implementation with Monotone)
 
 - precondition() runs now for each test. It was my understanding the
-  precondtion should run only once for the testcase while as setup() 
+  precondtion should run only once for the testcase while as setup()
   should run for each test.
 
 - we should handle xarTestException better. It it set a bit differently than
   xarTestFailure and xarTestSuccess now. The consequence is that the message
-  for xarTest* is empty. Jan: you test for the message, but actually the 
+  for xarTest* is empty. Jan: you test for the message, but actually the
   message may never be empty, either the msg from the test should be in there
   or the exception msg.
 

@@ -17,7 +17,7 @@ case $SYSTEM in
 esac
 
 # Prerequisites
-monotone=`which monotone`
+monotone=monotone
 if [ X$monotone == X ]; then
     echo "Could not determine monotone location, aborting"
     exit 1

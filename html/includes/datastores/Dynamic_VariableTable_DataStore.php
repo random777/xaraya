@@ -23,12 +23,21 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
     /**
      * Get the field name used to identify this property (we use the property id here)
+     *
+     * @param object $property
+     * @return int
      */
     function getFieldName(&$property)
     {
         return (int)$property->id;
     }
 
+    /**
+     * Get item
+     * 
+     * @param int $args['itemid']
+     * @return int
+     */
     function getItem($args)
     {
         $itemid = $args['itemid'];
@@ -38,7 +47,8 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
+        die(var_dump($dbconn));
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -67,10 +77,15 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             $result->MoveNext();
         }
 
-        $result->Close();
+        $this->unbind($result);
         return $itemid;
     }
 
+    /**
+     * Create item
+     *
+     * @param 
+     */
     function createItem($args)
     {
         extract($args);
@@ -89,7 +104,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return $itemid;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -115,6 +130,12 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         return $itemid;
     }
 
+    /**
+     * Update item
+     *
+     * @param int $args[itemid]
+     * @return int
+     */
     function updateItem($args)
     {
         $itemid = $args['itemid'];
@@ -124,7 +145,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return $itemid;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -148,7 +169,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             $result->MoveNext();
         }
 
-        $result->Close();
+        $this->unbind($result);
 
         foreach ($propids as $propid) {
             // get the value from the corresponding property
@@ -178,6 +199,12 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         return $itemid;
     }
 
+    /** 
+     * Delete item
+     * 
+     * @param int $args[itemid]
+     * @return int 
+     */
     function deleteItem($args)
     {
         $itemid = $args['itemid'];
@@ -187,7 +214,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return $itemid;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -206,6 +233,14 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         return $itemid;
     }
 
+    /**
+     * Get items
+     *
+     * @param int   $args[numitems]
+     * @param int   $args[startnum]
+     * @param array $args[itemids]
+     * @param int   $args[cache]
+     */
     function getItems($args = array())
     {
         if (!empty($args['numitems'])) {
@@ -235,7 +270,8 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
+        
         $xartable =& xarDBGetTables();
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -285,7 +321,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
                 $result->MoveNext();
             }
 
-            $result->Close();
+            $this->unbind($result);
 
             if ($dosort) {
                 $code = '';
@@ -415,7 +451,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             // add the itemids to the list
             $this->_itemids = array_keys($itemidlist);
 
-            $result->Close();
+            $this->unbind($result);
 
         // TODO: make sure this is portable !
         // more difficult case where we need to create a pivot table, basically
@@ -599,7 +635,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
                 }
                 $result->MoveNext();
             }
-            $result->Close();
+            $this->unbind($result);
 
             // divide total by count afterwards
             if ($isgrouped) {
@@ -652,10 +688,17 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             // add the itemids to the list
             $this->_itemids = array_keys($itemidlist);
 
-            $result->Close();
+            $this->unbind($result);
         }
     }
 
+    /**
+     * Count items
+     *
+     * @param array $args[itemids]
+     * @param int   $args[cache]
+     * @return int
+     */
     function countItems($args = array())
     {
         if (!empty($args['itemids'])) {
@@ -670,7 +713,8 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             $this->cache = $args['cache'];
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
+        
         $xartable =& xarDBGetTables();
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -713,7 +757,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
             $numitems = $result->fields[0];
 
-            $result->Close();
+            $this->unbind($result);
 
             return $numitems;
 
@@ -748,7 +792,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
             $numitems = $result->fields[0];
 
-            $result->Close();
+            $this->unbind($result);
 
             return $numitems;
 
@@ -775,7 +819,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
             $numitems = $result->fields[0];
 
-            $result->Close();
+            $this->unbind($result);
 
             return $numitems;
         }
@@ -784,10 +828,10 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
     /**
      * get next item id (for objects stored only in dynamic data table)
      *
-     * @param $args['objectid'] dynamic object id for the item, or
-     * @param $args['modid'] module id for the item +
-     * @param $args['itemtype'] item type of the item
-     * @return integer value of the next id
+     * @param int $args[objectid] dynamic object id for the item, or
+     * @param int $args[modid] module id for the item +
+     * @param int $args[itemtype] item type of the item
+     * @return int value of the next id
      * @raise BAD_PARAM, NO_PERMISSION
      */
     function getNextId($args)
@@ -811,7 +855,8 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
+        
         $xartable =& xarDBGetTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
@@ -852,11 +897,8 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
         $nextid = $result->fields[0];
 
-        $result->Close();
+        $this->unbind($result);
 
         return $nextid;
-    }
-
 }
-
 ?>

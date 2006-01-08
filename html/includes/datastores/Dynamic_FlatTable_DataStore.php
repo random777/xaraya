@@ -22,6 +22,9 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
 
     /**
      * Get the field name used to identify this property (we use the name of the table field here)
+     *
+     * @param object $property
+     * @return string
      */
     function getFieldName(&$property)
     {
@@ -33,6 +36,12 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         }
     }
 
+    /**
+     * Get item
+     *
+     * @param int $args[itemid]
+     * @return int
+     */
     function getItem($args)
     {
         $itemid = $args['itemid'];
@@ -78,7 +87,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
 
         $query = "SELECT $itemidfield, " . join(', ', $fieldlist) . "
                     FROM " . join(', ', $tables) . $more . "
@@ -101,7 +110,8 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
         $values = $result->fields;
-        $result->Close();
+
+        $this->unbind($result);
 
         $newitemid = array_shift($values);
         // oops, something went seriously wrong here...
@@ -116,6 +126,12 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         return $itemid;
     }
 
+    /**
+     * Create item
+     *
+     * @param int $args[itemid]
+     * @return int
+     */
     function createItem($args)
     {
         $itemid = $args['itemid'];
@@ -132,7 +148,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
 
     // TODO: this won't work for objects with several static tables !
         if (empty($itemid)) {
@@ -191,6 +207,12 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         return $itemid;
     }
 
+    /**
+     * Update item
+     *
+     * @param int $args[itemid]
+     * @return int
+     */
     function updateItem($args)
     {
         $itemid = $args['itemid'];
@@ -207,7 +229,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
 
         $query = "UPDATE $table ";
         $join = 'SET ';
@@ -234,6 +256,12 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         return $itemid;
     }
 
+    /**
+     * Delete item
+     *
+     * @param int $args[itemid]
+     * @return int
+     */
     function deleteItem($args)
     {
         $itemid = $args['itemid'];
@@ -245,7 +273,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
 
         $query = "DELETE FROM $table WHERE $itemidfield = ?";
         
@@ -255,6 +283,15 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         return $itemid;
     }
 
+    /**
+     * Get items
+     *
+     * @param int $args[numitems]
+     * @param int $args[startnum]
+     * @param int $args[itemids]
+     * @param int $args[cache]
+     * @return array 
+     */
     function getItems($args = array())
     {
         if (!empty($args['numitems'])) {
@@ -343,7 +380,7 @@ if (empty($itemidfield)) {
     $isgrouped = 1;
 }
 */
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
 
         if ($isgrouped) {
             $query = "SELECT " . join(', ', $newfields) . "
@@ -452,9 +489,16 @@ if (empty($itemidfield)) {
 
             $result->MoveNext();
         }
-        $result->Close();
+        $this->unbind($result);
     }
 
+    /**
+     * Count items
+     *
+     * @param int $args[itemids]
+     * @param int cache
+     * @return int
+     */
     function countItems($args = array())
     {
         if (!empty($args['itemids'])) {
@@ -477,7 +521,7 @@ if (empty($itemidfield)) {
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
 
         if($dbconn->databaseType == 'sqlite') {
             $query = "SELECT COUNT(*) 
@@ -515,7 +559,7 @@ if (empty($itemidfield)) {
 
         $numitems = $result->fields[0];
 
-        $result->Close();
+        $this->unbind($result);
 
         return $numitems;
     }
@@ -530,7 +574,7 @@ if (empty($itemidfield)) {
 
         $table = $this->name;
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& $this->bind();
 
         $systemPrefix = xarDBGetSystemTablePrefix();
         $metaTable = $systemPrefix . '_tables';
@@ -546,12 +590,20 @@ if (empty($itemidfield)) {
         if (!$result || $result->EOF) return;
 
         list($field, $type) = $result->fields;
-        $result->Close();
+        $this->unbind($result);
 
         $this->primary = $field;
         return $field;
     }
 
+    /**
+     * Get next item
+     *
+     * @param int $args[numitems]
+     * @param int $args[startnum]
+     * @param int $args[itemids]
+     * @return int
+     */
     function getNext($args = array())
     {
         static $temp = array();
@@ -588,7 +640,7 @@ if (empty($itemidfield)) {
                 $itemids = array();
             }
 
-            $dbconn =& xarDBGetConn();
+            $dbconn =& $this->bind();
 
             $query = "SELECT $itemidfield, " . join(', ', $fieldlist) . "
                         FROM $table ";
@@ -635,7 +687,7 @@ if (empty($itemidfield)) {
         $result =& $temp['result'];
 
         if ($result->EOF) {
-            $result->Close();
+            $this->unbind($result);
 
             $temp['result'] = null;
             return;
@@ -645,7 +697,7 @@ if (empty($itemidfield)) {
         $itemid = array_shift($values);
         // oops, something went seriously wrong here...
         if (empty($itemid) || count($values) != count($this->fields)) {
-            $result->Close();
+            $this->unbind($result);
 
             $temp['result'] = null;
             return;

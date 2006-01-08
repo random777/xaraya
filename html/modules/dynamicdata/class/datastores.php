@@ -184,6 +184,7 @@ class Dynamic_DataStore
     var $where;
     var $groupby;
     var $join;
+    var $options = array();
 
     var $_itemids;
 
@@ -203,6 +204,39 @@ class Dynamic_DataStore
         $this->where = array();
         $this->groupby = array();
         $this->join = array();
+    }
+
+    /**
+     * Bind a data store
+     *
+     * @param array $options
+     * @return resource $resource
+     */
+    function bind($options = array()) 
+    {
+        $resource = NULL;
+        return $resource;
+    }
+    
+    /**
+     * Unbind a data store
+     * 
+     * @param resource $resource
+     * @return bool
+     */
+    function unbind($resource)
+    {
+      
+    }
+    
+    /**
+     * Set options
+     *
+     * @param array $options
+     */
+    function setOptions($options = array())
+    {
+        $this->options = array_merge($this->options, $options);   
     }
 
     /**

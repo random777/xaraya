@@ -38,7 +38,7 @@ function blocks_userapi_getall($args)
     $block_group_instances_table = $xartable['block_group_instances'];
     $block_types_table = $xartable['block_types'];
     $block_groups_table = $xartable['block_groups'];
-
+    $bindvars=array();
     // Fetch instance details.
     $query = 'SELECT binst.xar_id,
                      binst.xar_name,
@@ -52,16 +52,27 @@ function blocks_userapi_getall($args)
                      btypes.xar_type
               FROM   '.$block_instances_table.' binst
               LEFT JOIN '.$block_types_table.' btypes
-              ON        btypes.xar_id = binst.xar_type_id ' . $orderby;
+              ON        btypes.xar_id = binst.xar_type_id ';
 
+   
     if (!empty($bid)) {
-        $query .= ' WHERE binst.xar_id = ' . $bid;
+        $query .= ' WHERE binst.xar_id = ?';
+        $bindvars = array($bid);
     } elseif (!empty($name)) {
-        $query .= ' WHERE binst.xar_name = \'' . $name . '\'';
+        $query .= ' WHERE binst.xar_name = ?';
+        $bindvars = array($name); 
+    } elseif (!empty($filter)) {
+        $query .= ' WHERE lower(binst.xar_name) LIKE ?';
+        $bindvars = array('%' . strtolower($filter) . '%');
     }
+    $query .= ' ' . $orderby;
 
     // Return if no details retrieved.
-    $result =& $dbconn->Execute($query);
+    if (isset($startat) && isset($rowstodo)) {
+        $result =& $dbconn->SelectLimit($query,$rowstodo,$startat-1,$bindvars);
+    } else {
+        $result =& $dbconn->Execute($query,$bindvars);
+    }
     if (!$result) {return;}
 
     // The main result array.
@@ -96,9 +107,9 @@ function blocks_userapi_getall($args)
                   FROM   '.$block_group_instances_table.' bgroup_inst
                   LEFT JOIN '.$block_groups_table.' bgroups
                   ON        bgroups.xar_id = bgroup_inst.xar_group_id
-                  WHERE     bgroup_inst.xar_instance_id = ' . $bid;
+                  WHERE     bgroup_inst.xar_instance_id = ?';
 
-        $resultgroup =& $dbconn->Execute($querygroup);
+        $resultgroup =& $dbconn->Execute($querygroup,array($bid));
         if ($resultgroup) {
             while (!$resultgroup->EOF) {
                 list(

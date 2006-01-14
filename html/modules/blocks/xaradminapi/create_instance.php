@@ -1,7 +1,6 @@
 <?php
 /**
  * create a new block instance
- *
  * @package Xaraya eXtensible Management System
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -85,11 +84,11 @@ function blocks_adminapi_create_instance($args)
               xar_state,
               xar_refresh,
               xar_last_update
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)';
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     $result =& $dbconn->Execute(
         $query, array(
-            $nextId, $type, $name, $title, $content, $template, $state
+                      $nextId, $type, $name, $title, $content, $template, $state,0,0
         )
     );
     if (!$result) {return;}

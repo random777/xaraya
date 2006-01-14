@@ -1,7 +1,5 @@
 <?php
 /**
- * Activate a block
- *
  * @package Xaraya eXtensible Management System
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -29,17 +27,15 @@ function blocks_adminapi_activate($args)
     }
 
     // Security
-    if(!xarSecurityCheck('EditBlock',1,'Block',"::$bid")) {return;}
+    if(!xarSecurityCheck('CommentBlock',1,'Block',"::$bid")) {return;}
 
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();
     $blockstable = $xartable['block_instances'];
 
     // Deactivate
-    $query = "UPDATE $blockstable
-            SET xar_state = 2
-            WHERE xar_id = " . $bid;
-    $result =& $dbconn->Execute($query);
+    $query = "UPDATE $blockstable SET xar_state = ? WHERE xar_id = ?";
+    $result =& $dbconn->Execute($query,array(2,$bid));
     if (!$result) {return;}
 
     return true;

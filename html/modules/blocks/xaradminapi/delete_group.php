@@ -1,7 +1,6 @@
 <?php
 /**
  * Delete a block group
- *
  * @package Xaraya eXtensible Management System
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -44,8 +43,8 @@ function blocks_adminapi_delete_group($args)
 
     // Delete block group definition
     $query = "DELETE FROM $block_groups_table
-              WHERE xar_id = " . $gid;
-    $result =& $dbconn->Execute($query);
+              WHERE xar_id = ?";
+    $result =& $dbconn->Execute($query,array($gid));
     if (!$result) {return;}
 
     return true;

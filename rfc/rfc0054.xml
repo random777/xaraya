@@ -11,7 +11,7 @@
 <?rfc sortrefs="yes"?> <!-- Sort the references -->
 <!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml in artwork sections parsed (only uncomment if you know what that means) -->
 <?rfc tocdepth="2"?>
-<?rfc toc="no"?>
+<?rfc toc="yes"?>
 <!--
 NOTE on the seriesNo:
     STD 1: Xaraya Official Standards (the index and referred to in the transform)
@@ -112,8 +112,8 @@ NOTE: if you dont know what the above means, read up on how RFCs work,
         <t> 
           The first stage exposes exceptions which are either from
           outside Xaraya or low level exceptions. Xaraya itself
-          defines <spanx>PHPException</spanx>, <spanx>SRCException</spanx> and its
-          own <spanx>XARExceptions</spanx>. Third party libraries fill the
+          defines <spanx style="verb">PHPException</spanx> and its
+          own <spanx style="verb">XARExceptions</spanx>. Third party libraries fill the
           third and further up ranks in the first stage. They are
           REQUIRED to expose exactly one top level class to xaraya. It
           is assumed that if this is not natively the case it is
@@ -137,7 +137,7 @@ Exception            - native PHP class
           </artwork>
           <postamble>
             <cref>
-            Note that it is <spanx>XARExceptions</spanx> (plural) whereas
+            Note that it is <spanx style="verb">XARExceptions</spanx> (plural) whereas
             the others are singular. This is to signal that Xaraya
             can make a distinction between different types of its own
             Exceptions, but only sees the top level of third party
@@ -156,7 +156,7 @@ Exception            - native PHP class
         </t>
         <figure>
           <preamble>
-              Starting at the XARExceptions class the second stage
+              Starting at the <spanx style="verb">XARExceptions</spanx> class the second stage
               inheritance tree looks like this:
           </preamble>
           <artwork>
@@ -174,7 +174,7 @@ Exception            - native PHP class
         </figure>
         <t>
           Components within Xaraya MAY derive new classes as
-          long as they have the <spanx>XARExceptions</spanx> class in their
+          long as they have the <spanx style="verb">XARExceptions</spanx> class in their
           ancestry. The details and interfacing of the classes are
           documented in <xref target="class.implementation"/>.
         </t>
@@ -270,12 +270,24 @@ interface IException
           </postamble>
         </figure>
         <t>
-          The exception classes 
-          <spanx style="verb">SRCException</spanx> and 
-          <spanx style="verb">PHPException</spanx> do not further extend
-          this interface and use it directly. In practice these
-          exception SHOULD NOT occur, ever. They are signals of bugs, always.
+          The exception class <spanx style="verb">PHPException</spanx>
+          does not further extend this interface but uses it
+          directly. In practice this exception SHOULD NOT occur. If it
+          does there is a certain bug in the code, always.
         </t>
+        <figure>
+          <preamble>
+            The interface definition for exception handlers:
+          </preamble>
+          <artwork>
+interface IExceptionHandlers
+{
+    /* Overrideable */
+    public static function defaulthandler(Exception $e);
+    public static function phperrors(Integer $errorType, String $errorString, String $file, Integer $line);
+}
+          </artwork>
+        </figure>
         <figure>
           <preamble>
             The exceptions raised by Xaraya itself, i.e. the instances of 
@@ -382,7 +394,7 @@ class BrainConfigurationException extends ConfigurationExceptions
           situation or an error condition, the first thing to do is to
           determine as precisely as possible what type of exception to
           raise. Your code SHOULD NOT raise a PHP native exception but
-          only exceptions derived from the XARExceptions class or
+          only exceptions derived from the <spanx style="verb">XARExceptions</spanx> class or
           further down the hierarchy.
           This can initially require some digging through the
           code, but since all exceptions defined SHOULD have
@@ -615,7 +627,7 @@ set_exception_handler(array('TestExceptionHandlers','testhandler'));
           over the exceptions raised <spanx
           style="strong">within</spanx> your own subsystem and react
           differently to them. If you feel this is appropriate for your
-          subsystem, you can create a derivation of the XARExceptions
+          subsystem, you can create a derivation of the <spanx style="verb">XARExceptions</spanx>
           class (or any of the existing groupings)
         </t>
         <artwork>

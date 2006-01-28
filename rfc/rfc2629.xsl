@@ -1,463 +1,32 @@
 <!--
     XSLT transformation from RFC2629 XML format to HTML
 
-    Copyright (c) 2001-2005 Julian F. Reschke (julian.reschke@greenbytes.de)
-
-    placed into the public domain
-
-    change history:
-
-    2001-03-28  julian.reschke@greenbytes.de
-
-    Code rearranged, generate numbered section anchors for paragraphs (t)
-    as well. Fixes in index handling.
-
-    2001-04-12  julian.reschke@greenbytes.de
-
-    Moved HTML output into XHTML namespace.
-
-    2001-10-02  julian.reschke@greenbytes.de
-
-    Fixed default location for RFCs and numbering of section references.
-    Support ?rfc editing processing instruction.
-
-    2001-10-07  julian.reschke@greenbytes.de
-
-    Made telephone number links active.
-
-    2001-10-08  julian.reschke@greenbytes.de
-
-    Support for vspace element.
-
-    2001-10-09  julian.reschke@greenbytes.de
-
-    Experimental support for rfc-issue PI.
-
-    2001-11-11  julian.reschke@greenbytes.de
-
-    Support rfc private PI. Removed bogus code reporting the WG in the header.
-
-    2001-12-17  julian.reschke@greenbytes.de
-
-    Support title attribute on references element
-
-    2002-01-05  julian.reschke@greenbytes.de
-
-    Support for list/@style="@format"
-
-    2002-01-09  julian.reschke@greenbytes.de
-
-    Display "closed" RFC issues as deleted
-
-    2002-01-14  julian.reschke@greenbytes.de
-
-    Experimentally and optionally parse XML encountered in artwork elements
-    (requires MSXSL).
-
-    2002-01-27  julian.reschke@greenbytes.de
-
-    Some cleanup. Moved RFC issues from PIs into namespaced elements.
-
-    2002-01-29  julian.reschke@greenbytes.de
-
-    Added support for sortrefs PI. Added support for figure names.
-
-    2002-02-07  julian.reschke@greenbytes.de
-
-    Highlight parts of artwork which are too wide (72 characters).
-
-    2002-02-12  julian.reschke@greenbytes.de
-
-    Code rearrangement for static texts. Fixes for section numbering.
-    TOC generation rewritten.
-
-    2002-02-15  julian.reschke@greenbytes.de
-
-    Support for irefs in sections; support iref @primary=true
-
-    2002-03-03  julian.reschke@greenbytes.de
-
-    Moved anchor prefix into a constant. Added sanity checks on user anchor
-    names.
-
-    2002-03-23  julian.reschke@greenbytes.de
-
-    Bugfix in detection of matching org names when creating the header. Fixed
-    sorting in subitems.
-
-    2002-04-02  julian.reschke@greenbytes.de
-
-    Fix TOC link HTML generation when no TOC is generated (created broken
-    HTML table code).
-
-    2002-04-03  julian.reschke@greenbytes.de
-
-    Made rendering of references more tolerant re: missing parts.
-
-    2002-04-08  julian.reschke@greenbytes.de
-
-    Fixed reference numbering when references are split into separate sections.
-
-    2002-04-16  julian.reschke@greenbytes.de
-
-    Fix default namespace (shouldn't be set for HTML output method).
-
-    2002-04-19  julian.reschke@greenbytes.de
-
-    Lowercase internal CSS selectors for Mozilla compliance. Do not put TOC
-    into ul element.
-
-    2002-04-21  julian.reschke@greenbytes.de
-
-    Make numbered list inside numbered lists use alphanumeric numbering.
-
-    2002-05-05  julian.reschke@greenbytes.de
-
-    Updated issue/editing support.
-
-    2002-05-15  julian.reschke@greenbytes.de
-
-    Bugfix for section numbering after introduction of ed:replace
-
-    2002-06-21  julian.reschke@greenbytes.de
-
-    When producing private documents, do not include document status, copyright etc.
-
-    2002-07-08  julian.reschke@greenbytes.de
-
-    Fix xrefs to Appendices.
-
-    2002-07-19  fielding
-
-    Make artwork lightyellow for easier reading.
-
-    2002-10-09  fielding
-
-    Translate references title to anchor name to avoid non-uri characters.
-    
-    2002-10-13  julian.reschke@greenbytes.de
-    
-    Support for tocdepth PI.
-
-    2002-11-03  julian.reschke@greenbytes.de
-    
-    Added temporariry workaround for Mozilla/Transformiix result tree fragment problem.
-    (search for 'http://bugzilla.mozilla.org/show_bug.cgi?id=143668')
-    
-    2002-12-25  julian.reschke@greenbytes.de
-    
-    xref code: attempt to uppercase "section" and "appendix" when at the start
-    of a sentence.
-    
-    2003-02-02  julian.reschke@greenbytes.de
-    
-    fixed code for vspace blankLines="0", enhanced display for list with "format" style,
-    got rid of HTML blockquote elements, added support for "hangIndent"
-    
-    2003-04-10  julian.reschke@greenbytes.de
-    
-    experimental support for appendix and spanx elements
-    
-    2003-04-19  julian.reschke@greenbytes.de
-    
-    fixed counting of list numbers in "format %" styles (one counter
-    per unique format string). Added more spanx styles.
-
-    2003-05-02  julian.reschke@greenbytes.de
-    
-    experimental texttable support
-    
-    2003-05-02  fielding 
-    
-    Make mailto links optional (default = none) (jre: default and PI name changed)
-
-    2003-05-04  julian.rechke@greenbytes.de
-    
-    experimental support for HTML link elements; fix default for table header
-    alignment default
-
-    2003-05-06  julian.rechke@greenbytes.de
-    
-    support for "background" PI.
-    
-    2003-05-11  julian.reschke@greenbytes.de
-    
-    change %c format to lowercase alphabetic. add support for keyword
-    elements (generate META tag). fix various HTML conformance problems.
-    added experimental support for role attribute. do not number paragraphs
-    in unnumbered sections. update boilerplate texts. support for
-    "iprnotified" PI. bugfix list numbering. strip whitespace when
-    building tel: URIs.
-    
-    2003-05-12  julian.reschke@greenbytes.de
-  
-    more conformance fixes (layout moved into CSS, move lists and figures
-    out of para content, do not use tables for list formatting)
-    
-    2003-05-13  julian.reschke@greenbytes.de
-  
-    add DC.Creator meta tag, refactoring
-
-    2003-05-16  julian.reschke@greenbytes.de
-  
-    put nbsps between "section" and section number (xref).
-
-    2003-05-18  julian.reschke@greenbytes.de
-  
-    author summary: add missing comma.
-    
-    2003-06-06  julian.reschke@greenbytes.de
-    
-    fix index generation bug (transposed characters in key generation). Enhance
-    sentence start detection (xref starting a section was using lowercase
-    "section").
-    
-    2003-06-22  julian.reschke@greenbytes.de
-    
-    exp. support for xref/@format. Add missing support for eref w/o content.
-    exp. support for annotations in reference elements. Code cleanup
-    reference table formatting.
-    
-    2003-07-09  julian.reschke@greenbytes.de
-    
-    Another fix for DC.Creator meta tag creation based on RFC2731
-
-    2003-07-24  julian.reschke@greenbytes.de
-    
-    Fix namespace name for DC.Creator.
-    
-    2003-08-06  julian.reschke@greenbytes.de
-    
-    Cleanup node-set support (only use exslt (saxon, xalan, libxslt) extension
-    functions; remove Transformix workarounds that stopped to work in Moz 1.4)
-
-    2003-08-09  julian.reschke@greenbytes.de
-    
-    Generate HTML lang tag.
-    
-    2003-08-10  julian.reschke@greenbytes.de
-    
-    Map spanx/verb to HTML "samp" element. Fix author name display in
-    references (reverse surname/initials for last author), add "Ed.".
-    Fix internal bookmark generation.
-    
-    2003-08-17  julian.reschke@greenbytes.de
-    
-    Add DCMI dates, identifiers and abstract. Add PI to suppress DCMI
-    generation.  Do not add TOC entry to Copyright Statement when there is
-    none. Align RFC2629 PI names and parameter names. Change style for
-    inline URIs generated by eref. Add header and footer support.
-    Enhance CSS paging properties. Support topblock PI. Added hooks for
-    proper XHTML generation through separate XSLT. Enhance warning and
-    error messages. Add support for artwork image display. Table formatting
-    fixes (borders, thead continuation).
-
-    2003-08-18  julian.reschke@greenbytes.de
-    
-    Add workaround for MSXML4 node-set and Mozilla node-set issues (fallback
-    just displays are warning).
-    
-    2003-10-06  julian.reschke@greenbytes.de
-    
-    Add workaround for broken pre/ins handling in Mozilla
-    (see <http://bugzilla.mozilla.org/show_bug.cgi?id=204401>). Make use
-    of cite attribute on ed:replace. CSS cleanup.
-    
-    2003-10-08  julian.reschke@greenbytes.de
-    
-    Fix minor issue detecting the same org for the header (caused by IE's
-    non-standard whitespace handling). Fix default handling for /rfc/@category.
-    
-    2003-11-09  julian.reschke@greenbytes.de
-    
-    Inherit ed:entered-by from ancestor elements. Change CSS color for inserted
-    text to green. Generate issues-list anchor. Do not complain about missing
-    targets when the xref element is below ed:del. Remove code that attempted
-    to distinguish section/Section when producing links - always use
-    uppercase. Fix date rendering for issue resolutions.
-
-    2003-11-29  julian.reschke@greenbytes.de
-    
-    Fix color values for table backgrounds for issue rendering. Change
-    rendering of issue links to use inline-styles. Add colored issue markers to
-    issues. 
-
-    2003-12-13  julian.reschke@greenbytes.de
-    
-    Fix inheritance of ed:entered-by attribute. Display note elements inside
-    change tracking as well.
-    
-    2004-01-18  julian.reschke@greenbytes.de
-    
-    When PI compact = 'yes', make most CSS print page breaks conditional.
-
-    2004-02-20  julian.reschke@greenbytes.de
-    
-    Support for RFC3667 IPR changes (xml2rfc 1.22); see
-    <http://lists.xml.resource.org/pipermail/xml2rfc/2004-February/001088.html>.
-    
-    2004-03-11  julian.reschke@greenbytes.de
-    
-    Add "(if approved)" to "updates" and "obsoletes" unless the document has
-    an RFC number.
-    
-    2004-04-01  julian.reschke@greenbytes.de
-    
-    Fix RFC3667 output, see <http://lists.xml.resource.org/pipermail/xml2rfc/2004-April/001208.html>
-
-    2004-04-04  julian.reschke@greenbytes.de
-    
-    Add support for section/top attribute. Move references into plain
-    section container.
-    
-    2004-04-06  julian.reschke@greenbytes.de
-    
-    Do not emit identical para anchors for deleted content.
-    
-    2004-04-14  julian.reschke@greenbytes.de
-    
-    Fix references TOC generation when there are no references.
-
-    2004-04-24  julian.reschke@greenbytes.de
-    
-    Fix RFC3667 output, see <http://xml.resource.org/pipermail/xml2rfc/2004-April/001246.html>
-
-    2004-05-09  julian.reschke@greenbytes.de
-    
-    Add custom support for generating compound index documents. Add anchors
-    for each Index letter. Add experimental cref support. Fix conditional page
-    breaks before References section.
-    
-    2004-05-16  julian.reschke@greenbytes.de
-    
-    Refactor external index generation.
-    
-    2004-05-20  julian.reschke@greenbytes.de
-    
-    Rewrite anchor generation for comments.
-
-    2004-05-22  julian.reschke@greenbytes.de
-    
-    Enhance issues rendering (add links to changes).
-    
-    2004-05-30  julian.reschke@greenbytes.de
-    
-    Allow single quote as delimiter in processing instructions as well. Move
-    block-level issue pointers to floats. Disable issue pointers for print
-    media. Add "purple numbers". Add hrefs to section headings. Add non-printing
-    index key letter list to start of index.
-
-    2004-06-01  julian.reschke@greenbytes.de
-    
-    Use &#xb6; instead of # for PNs.
-    
-    2004-07-18  julian.reschke@greenbytes.de
-    
-    Add support for list style=letters (thanks Roy F.). Make PNs optional;
-    add new PI.
-
-    2004-09-05  julian.reschke@greenbytes.de
-    
-    Fix index links into unnumbered sections.  Bring IPR boilerplate in-line
-    with xml2rfc 1.25.  Add experimental CSS3 paged media support.  Various
-    HTML fixes.
-    
-    2004-09-21  julian.reschke@greenbytes.de
-    
-    Enhance checking of artwork width.
-    
-    2004-09-26  julian.reschke@greenbytes.de
-
-    Add check for unused references. Uppercase letters in list style letters
-    when nested into another list.
-
-    2004-10-10  julian.reschke@greenbytes.de
-
-    Fix internal change track pointers.
-    
-    2004-11-01  julian.reschke@greenbytes.de
-    
-    Allow change tracking on references (as a whole).  Rewrite artwork handling
-    so that it allows change tracking inside artwork.  Also allow a subset of
-    text markup inside artwork, such as xrefs (note this requires post-
-    processing the source to make it compliant to RFC2629bis).
-    
-    2004-11-03  julian.reschke@greenbytes.de
-    
-    Enhanced placement of iref anchors.
-
-    2004-11-06  julian.reschke@greenbytes.de
-    
-    Index: display irefs that appeared (with primary=true) inside artwork elements
-    in a monospaced font.
-    
-    2004-11-14  julian.reschke@greenbytes.de
-    
-    Add special code so that changes in section titles can be change-tracked.
-
-    2005-01-14  julian.reschke@greenbytes.de
-    
-    Bugfixes for HtmlToXhtml converter.
-
-    2005-01-22  julian.reschke@greenbytes.de
-    
-    Enhance generation of HTML h* elements (for Mozilla Outliner).
-
-    2005-01-31  julian.reschke@greenbytes.de
-    
-    Put vertical space around top-level TOC entries in TOC.  Switch to
-    pt-based CSS. Re-arrange top section. Make hr elements reflect new-page
-    settings in TXT output (compact-PI).  Fix page number in footer (CSS
-    print) and add some more experimental support for paged media (tested
-    with Prince 4.1 alpha).  Rewrite TOC and Index generation to generate HTML
-    lists.  Cleanup id generation for paragraphs.  Reduce whitespace in output.
-    Fix vspace implementation. Use right/left dqoutes and copyright sign
-    where appropriate.
-    
-    2005-02-04  julian.reschke@greenbytes.de
-    
-    Add <link> element to references section.  Fix newly introduced bug
-    in references processing.
-    
-    2005-02-05  julian.reschke@greenbytes.de
-   
-    Integrate various fixes/enhancements by Roy Fielding: spelling of
-    "Authors' Addresses", comma setting in references, position of "Authors"
-    section, optionally place authors addresses at end (PI), trailing dots
-    in section numbers, switch to verdana default font in CSS.  Add
-    experimental support for centered artwork.
-    
-    2005-02-09  julian.reschke@greenbytes.de
-
-    Fixes in spacing and links of references section titles.  Enhance sorting
-    in references when change tracking is in place.  Re-add figure centering
-    support.  Add missing 2nd part of "Author's Adresses" fix. 
-
-    2005-02-25  julian.reschke@greenbytes.de
-
-    Align section number format with xml2rfc1.29.
-    
-    2005-03-28  julian.reschke@greenbytes.de
-    
-    Get rid of table elements in Author's section.  Add experimental hCard
-    (<http://developers.technorati.com/wiki/hCard>) support.
-    
-    2005-04-03  fenner@research.att.com
-    
-    Add RFC3978-style IPR statement support.
-
-    2005-04-11  julian.reschke@greenbytes.de
-    
-    Cleanup author display. hCard related fixes.
-    
-    2005-05-07  julian.reschke@greenbytes.de
-    
-    Minor fixes to allow change tracking in doc title.  Add experimental 
-    support for table border styles. CSS cleanup.
-    
-    2005-06-18  julian.reschke@greenbytes.de
-    
-    Implement missing support for references to texttables.
+    Copyright (c) 2006, Julian Reschke (julian.reschke@greenbytes.de)
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Julian Reschkenor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+    POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -473,7 +42,7 @@
 
 <xsl:strip-space elements="back front list middle rfc section"/>                
                 
-<xsl:output method="html" version="4.0" doctype-public="-//W3C//DTD HTML 4.01//EN" indent="no"/>
+<xsl:output method="html" encoding="iso-8859-1" version="4.0" doctype-public="-//W3C//DTD HTML 4.01//EN" indent="no"/>
 
 <!-- process some of the processing instructions supported by Marshall T. Rose's
      xml2rfc sofware, see <http://xml.resource.org/> -->
@@ -661,7 +230,7 @@
 
 <!-- URL prefix for RFCs. -->
 
-<xsl:param name="rfcUrlPrefix" select="'http://www.ietf.org/rfc/rfc'" />
+<xsl:param name="rfcUrlPrefix" select="'http://www.xaraya.com/documentation/rfcs/rfc'" />
 
 <!-- warning re: absent node-set ext. function -->
 <xsl:variable name="node-set-warning">
@@ -737,8 +306,14 @@
       <xsl:if test="$body!='' and myns:parseXml($body)!=''">
         <table style="background-color: red; border-width: thin; border-style: solid; border-color: black;">
         <tr><td>
-        XML PARSE ERROR:
-        <pre><xsl:value-of select="myns:parseXml($body)" /></pre>
+        XML PARSE ERROR; parsed the body below:
+        <pre>
+        <xsl:value-of select="$body"/>
+        </pre>
+        resulting in:
+        <pre>
+        <xsl:value-of select="myns:parseXml($body)" />
+        </pre>
         </td></tr></table>
       </xsl:if>
     </xsl:if>
@@ -766,6 +341,7 @@
     <xsl:when test="@align='right'">
       <div style="display:table; margin-left: auto; margin-right: 0pt; width: 0pt;">
         <pre style="margin-left: 0em;">
+          <xsl:call-template name="insertInsDelClass"/>
           <xsl:copy-of select="$display"/>
         </pre>          
       </div>
@@ -773,12 +349,14 @@
     <xsl:when test="@align='center'">
       <div style="display:table; margin-left: auto; margin-right: auto; width: 0pt;">
         <pre style="margin-left: 0em;">
+          <xsl:call-template name="insertInsDelClass"/>
           <xsl:copy-of select="$display"/>
         </pre>          
       </div>
     </xsl:when>
     <xsl:otherwise>
       <pre>
+        <xsl:call-template name="insertInsDelClass"/>
         <xsl:copy-of select="$display"/>
       </pre>
     </xsl:otherwise>
@@ -792,14 +370,14 @@
   <xsl:param name="content"/>
   <xsl:choose>
     <xsl:when test="not(contains($content,'&#10;'))">
-      <xsl:if test="string-length($content) > 256">
+      <xsl:if test="string-length($content) &gt; 132">
         <xsl:message>artwork line too long: <xsl:value-of select="$content"/></xsl:message>
       </xsl:if>
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="start" select="substring-before($content,'&#10;')"/> 
       <xsl:variable name="end" select="substring-after($content,'&#10;')"/> 
-      <xsl:if test="string-length($start) > 256">
+      <xsl:if test="string-length($start) &gt; 132">
         <xsl:message>artwork line too long: <xsl:value-of select="$start"/></xsl:message>
       </xsl:if>
       <xsl:call-template name="check-artwork-width">
@@ -827,14 +405,14 @@
         </xsl:if>
         <!-- components of name (hidden from display -->
         <span class="n" style="display: none">
-          <span class="Family-Name"><xsl:value-of select="@surname"/></span>
+          <span class="family-name"><xsl:value-of select="@surname"/></span>
           <!-- given-name family-name -->
           <xsl:if test="@surname=substring(@fullname,1 + string-length(@fullname) - string-length(@surname))">
-            <span class="Given-Name"><xsl:value-of select="normalize-space(substring(@fullname,1,string-length(@fullname) - string-length(@surname)))"/></span>
+            <span class="given-name"><xsl:value-of select="normalize-space(substring(@fullname,1,string-length(@fullname) - string-length(@surname)))"/></span>
           </xsl:if>
           <!-- family-name given-name -->
           <xsl:if test="starts-with(@fullname,@surname)">
-            <span class="Given-Name"><xsl:value-of select="normalize-space(substring-after(@fullname,@surname))"/></span>
+            <span class="given-name"><xsl:value-of select="normalize-space(substring-after(@fullname,@surname))"/></span>
           </xsl:if>
         </span>
       </span>
@@ -843,7 +421,7 @@
       </span>
       <span class="adr vcardline">
         <xsl:if test="address/postal/street!=''">
-          <span class="street Street-Address vcardline">
+          <span class="street street-address vcardline">
             <xsl:for-each select="address/postal/street">
               <xsl:value-of select="." />
             </xsl:for-each>
@@ -851,13 +429,13 @@
         </xsl:if>
         <xsl:if test="address/postal/city|address/postal/region|address/postal/code">
           <span class="vcardline">
-            <xsl:if test="address/postal/city"><span class="Locality"><xsl:value-of select="address/postal/city" /></span>, </xsl:if>
-            <xsl:if test="address/postal/region"><span class="Region"><xsl:value-of select="address/postal/region" /></span>&#160;</xsl:if>
-            <xsl:if test="address/postal/code"><span class="Postal-Code"><xsl:value-of select="address/postal/code" /></span></xsl:if>
+            <xsl:if test="address/postal/city"><span class="locality"><xsl:value-of select="address/postal/city" /></span>, </xsl:if>
+            <xsl:if test="address/postal/region"><span class="region"><xsl:value-of select="address/postal/region" /></span>&#160;</xsl:if>
+            <xsl:if test="address/postal/code"><span class="postal-code"><xsl:value-of select="address/postal/code" /></span></xsl:if>
           </span>
         </xsl:if>
         <xsl:if test="address/postal/country">
-          <span class="Country vcardline"><xsl:value-of select="address/postal/country" /></span>
+          <span class="country-name vcardline"><xsl:value-of select="address/postal/country" /></span>
         </xsl:if>
       </span>
       <xsl:if test="address/phone">
@@ -1009,7 +587,7 @@
     
   <p class="title">
     <!-- main title -->
-    <xsl:apply-templates select="title"/>
+    RFC-<xsl:value-of select="/rfc/@number"/>: <xsl:apply-templates select="title"/>
     <xsl:if test="/rfc/@docName">
       <br/>
       <span class="filename"><xsl:value-of select="/rfc/@docName"/></span>
@@ -1125,21 +703,33 @@
 
 <xsl:template match="list[@style='empty' or not(@style)]/t">
   <dd style="margin-top: .5em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <xsl:apply-templates />
   </dd>
 </xsl:template>
 
-<xsl:template match="list[@style='numbers' or @style='symbols' or @style='letters']/t">
+<xsl:template match="list[@style='numbers' or @style='symbols' or @style='letters']/t | list[@style='numbers' or @style='symbols' or @style='letters']/ed:replace/ed:*/t">
   <li>
+    <xsl:call-template name="insertInsDelClass"/>
+    <xsl:for-each select="../..">
+      <xsl:call-template name="insert-issue-pointer"/>
+    </xsl:for-each>
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <xsl:apply-templates />
   </li>
 </xsl:template>
 
-<xsl:template match="list[@style='hanging']/t">
+<xsl:template match="list[@style='hanging']/t | list[@style='hanging']/ed:replace/ed:*/t">
   <dt style="margin-top: .5em">
+    <xsl:call-template name="insertInsDelClass"/>
+    <xsl:for-each select="../..">
+      <xsl:call-template name="insert-issue-pointer"/>
+    </xsl:for-each>
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <xsl:value-of select="@hangText" />
   </dt>
   <dd>
+    <xsl:call-template name="insertInsDelClass"/>
     <!-- if hangIndent present, use 0.7 of the specified value (1em is the width of the "m" character -->
     <xsl:if test="../@hangIndent and ../@hangIndent!='0'">
       <xsl:attribute name="style">margin-left: <xsl:value-of select="../@hangIndent * 0.7"/>em</xsl:attribute>
@@ -1162,6 +752,7 @@
     </xsl:choose>
   </xsl:variable>
   <dt>
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <xsl:choose>
       <xsl:when test="contains($format,'%c')">
         <xsl:value-of select="substring-before($format,'%c')"/><xsl:number value="$pos" format="a" /><xsl:value-of select="substring-after($format,'%c')"/>
@@ -1189,6 +780,7 @@
 
 <xsl:template match="postamble">
   <p>
+    <xsl:call-template name="insertInsDelClass"/>
     <xsl:call-template name="editingMark" />
     <xsl:apply-templates />
   </p>
@@ -1196,6 +788,7 @@
 
 <xsl:template match="preamble">
   <p>
+    <xsl:call-template name="insertInsDelClass"/>
     <xsl:call-template name="editingMark" />
     <xsl:apply-templates />
   </p>
@@ -1213,10 +806,10 @@
   <xsl:variable name="target">
     <xsl:choose>
       <xsl:when test="@target"><xsl:value-of select="@target" /></xsl:when>
-      <xsl:when test="seriesInfo/@name='RFC'"><xsl:value-of select="concat($rfcUrlPrefix,seriesInfo[@name='RFC']/@value,'.txt')" /></xsl:when>
+      <xsl:when test="seriesInfo/@name='RFC'"><xsl:value-of select="concat($rfcUrlPrefix,seriesInfo[@name='RFC']/@value,'.html')" /></xsl:when>
       <xsl:when test="seriesInfo[starts-with(.,'RFC')]">
         <xsl:variable name="rfcRef" select="seriesInfo[starts-with(.,'RFC')]" />
-        <xsl:value-of select="concat($rfcUrlPrefix,substring-after (normalize-space($rfcRef), ' '),'.txt')" />
+        <xsl:value-of select="concat($rfcUrlPrefix,substring-after (normalize-space($rfcRef), ' '),'.html')" />
       </xsl:when>
       <xsl:otherwise />
     </xsl:choose>
@@ -1225,6 +818,9 @@
   <tr>
     <td class="topnowrap">
       <xsl:call-template name="insertInsDelClass"/>
+      <xsl:for-each select="../..">
+        <xsl:call-template name="insert-issue-pointer"/>
+      </xsl:for-each>
       <b>
         <a name="{@anchor}">
           <xsl:call-template name="referencename">
@@ -1513,7 +1109,14 @@
 
 
 <xsl:template match="t">
-  <xsl:apply-templates mode="t-content" select="node()[1]" />
+  <xsl:choose>
+    <xsl:when test="@anchor">
+      <span id="{@anchor}"><xsl:apply-templates mode="t-content" select="node()[1]" /></span>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates mode="t-content" select="node()[1]" />
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- for t-content, dispatch to default templates if it's block-level content -->
@@ -1786,9 +1389,10 @@
 <!-- mark unmatched elements red -->
 
 <xsl:template match="*">
-     <font color="red"><tt>&lt;<xsl:value-of select="name()" />&gt;</tt></font>
-    <xsl:copy><xsl:apply-templates select="node()|@*" /></xsl:copy>
-     <font color="red"><tt>&lt;/<xsl:value-of select="name()" />&gt;</tt></font>
+  <xsl:message>ERROR: no XSLT template for element: &lt;<xsl:value-of select="name()"/>&gt;</xsl:message>    
+  <tt class="error">&lt;<xsl:value-of select="name()" />&gt;</tt>
+  <xsl:copy><xsl:apply-templates select="node()|@*" /></xsl:copy>
+  <tt class="error">&lt;/<xsl:value-of select="name()" />&gt;</tt>
 </xsl:template>
 
 <xsl:template match="/">
@@ -2028,7 +1632,7 @@
           it represent that it has made any effort to identify any such
           rights. Information on the DDF's procedures with respect to
           rights in standards-track and standards-related documentation
-          can be found in RFC-0. Copies of claims of rights made
+          can be found in BCP-11. Copies of claims of rights made
           available for publication and any assurances of licenses to
           be made available, or the result of an attempt made
           to obtain a general license or permission for the use of such
@@ -2447,6 +2051,11 @@ table.closedissue {
   a.iref {
     content: target-counter(attr(href), page);
   }
+  
+  .print2col {
+    column-count: 2;
+    -moz-column-count: 2;
+  }
 }
 
 @page {
@@ -2520,6 +2129,7 @@ table.closedissue {
       </xsl:variable>
       <xsl:variable name="backlink">#<xsl:value-of select="$anchor-prefix"/>.iref.<xsl:number level="any" /></xsl:variable>
       <a class="iref" href="{$backlink}">
+        <xsl:call-template name="insertInsDelClass"/>
         <xsl:choose>
           <xsl:when test="@primary='true'"><b><xsl:value-of select="$n"/></b></xsl:when>
           <xsl:otherwise><xsl:value-of select="$n"/></xsl:otherwise>
@@ -2552,6 +2162,7 @@ table.closedissue {
     </xsl:for-each>
   </p>
 
+  <div class="print2col">
   <ul class="ind">
   
     <xsl:for-each select="//iref[generate-id(.) = generate-id(key('index-first-letter',translate(substring(@item,1,1),$lcase,$ucase)))]">
@@ -2630,7 +2241,8 @@ table.closedissue {
       </li>
     </xsl:for-each>
   </ul>
-
+  </div>
+  
 </xsl:template>
 
 
@@ -2786,8 +2398,8 @@ table.closedissue {
       <t myns:is-rfc2629="true">
         This document specifies an Xaraya standards track protocol for the Xaraya
         community, and requests discussion and suggestions for improvements.
-        Please refer to the current edition of the &#8220;Xaraya Official Protocol
-        Standards&#8221; (STD 1) for the standardization state and status of this
+        Please refer to the current edition of the &#8220;Xaraya Official Standards&#8221; 
+        (STD 1) for the standardization state and status of this
         protocol. Distribution of this memo is unlimited.
       </t>
     </xsl:when>
@@ -3102,14 +2714,14 @@ table.closedissue {
   <xsl:choose>
     <xsl:when test="contains($list,',')">
       <xsl:variable name="rfcNo" select="substring-before($list,',')" />
-      <a href="{concat($rfcUrlPrefix,$rfcNo,'.txt')}"><xsl:value-of select="$rfcNo" /></a>,
+      <a href="{concat($rfcUrlPrefix,$rfcNo,'.html')}"><xsl:value-of select="$rfcNo" /></a>,
       <xsl:call-template name="rfclist">
         <xsl:with-param name="list" select="normalize-space(substring-after($list,','))" />
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="rfcNo" select="$list" />
-      <a href="{concat($rfcUrlPrefix,$rfcNo,'.txt')}"><xsl:value-of select="$rfcNo" /></a>
+      <a href="{concat($rfcUrlPrefix,$rfcNo,'.html')}"><xsl:value-of select="$rfcNo" /></a>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -3387,30 +2999,39 @@ table.closedissue {
 </xsl:template>
 
 <xsl:template match="ed:replace">
-  <xsl:if test="@cite">
-    <a class="editor-issue" href="{@cite}" target="_blank" title="see {@cite}">
-      <xsl:text>&#160;i&#160;</xsl:text>
-    </a>
-  </xsl:if>
-  <xsl:call-template name="insert-issue-pointer"/>
-  <xsl:if test="ed:del">
-    <del>
-      <xsl:copy-of select="@*[namespace-uri()='']"/>
-      <xsl:if test="not(@title) and ancestor-or-self::*[@ed:entered-by] and @datetime">
-        <xsl:attribute name="title"><xsl:value-of select="concat(@datetime,', ',ancestor-or-self::*[@ed:entered-by][1]/@ed:entered-by)"/></xsl:attribute>
-      </xsl:if>
+  <!-- we need to special-case things like lists -->
+  <xsl:choose>
+    <xsl:when test="parent::list or parent::references">
       <xsl:apply-templates select="ed:del/node()" />
-    </del>
-  </xsl:if>
-  <xsl:if test="ed:ins">
-    <ins>
-      <xsl:copy-of select="@*[namespace-uri()='']"/>
-      <xsl:if test="not(@title) and ancestor-or-self::*[@ed:entered-by] and @datetime">
-        <xsl:attribute name="title"><xsl:value-of select="concat(@datetime,', ',ancestor-or-self::*[@ed:entered-by][1]/@ed:entered-by)"/></xsl:attribute>
-      </xsl:if>
       <xsl:apply-templates select="ed:ins/node()" />
-    </ins>
-  </xsl:if>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:if test="@cite">
+        <a class="editor-issue" href="{@cite}" target="_blank" title="see {@cite}">
+          <xsl:text>&#160;i&#160;</xsl:text>
+        </a>
+      </xsl:if>
+      <xsl:call-template name="insert-issue-pointer"/>
+      <xsl:if test="ed:del">
+        <del>
+          <xsl:copy-of select="@*[namespace-uri()='']"/>
+          <xsl:if test="not(@title) and ancestor-or-self::*[@ed:entered-by] and @datetime">
+            <xsl:attribute name="title"><xsl:value-of select="concat(@datetime,', ',ancestor-or-self::*[@ed:entered-by][1]/@ed:entered-by)"/></xsl:attribute>
+          </xsl:if>
+          <xsl:apply-templates select="ed:del/node()" />
+        </del>
+      </xsl:if>
+      <xsl:if test="ed:ins">
+        <ins>
+          <xsl:copy-of select="@*[namespace-uri()='']"/>
+          <xsl:if test="not(@title) and ancestor-or-self::*[@ed:entered-by] and @datetime">
+            <xsl:attribute name="title"><xsl:value-of select="concat(@datetime,', ',ancestor-or-self::*[@ed:entered-by][1]/@ed:entered-by)"/></xsl:attribute>
+          </xsl:if>
+          <xsl:apply-templates select="ed:ins/node()" />
+        </ins>
+      </xsl:if>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- convenience template for helping Mozilla (pre/ins inheritance problem) -->
@@ -3432,7 +3053,12 @@ table.closedissue {
       <xsl:for-each select="..">
         <xsl:if test="parent::ed:replace">
           <xsl:for-each select="..">
-            <xsl:if test="parent::section">.</xsl:if><xsl:value-of select="1+count(preceding-sibling::section|preceding-sibling::ed:ins/section|preceding-sibling::ed:replace/ed:ins/section)" />
+            <xsl:if test="parent::section">.</xsl:if>
+            <xsl:variable name="cnt" select="1+count(preceding-sibling::section|preceding-sibling::ed:ins/section|preceding-sibling::ed:replace/ed:ins/section)" />
+            <xsl:choose>
+              <xsl:when test="ancestor::back and not(ancestor::section)"><xsl:number format="A" value="$cnt"/></xsl:when>
+              <xsl:otherwise><xsl:value-of select="$cnt"/></xsl:otherwise>
+            </xsl:choose>
           </xsl:for-each>
         </xsl:if>
       </xsl:for-each>
@@ -3721,11 +3347,11 @@ table.closedissue {
   <xsl:variable name="gen">
     <xsl:text>http://greenbytes.de/tech/webdav/rfc2629.xslt, </xsl:text>
     <!-- when RCS keyword substitution in place, add version info -->
-    <xsl:if test="contains('$Revision: 1.224 $',':')">
-      <xsl:value-of select="concat('Revision ',normalize-space(translate(substring-after('$Revision: 1.224 $', 'Revision: '),'$','')),', ')" />
+    <xsl:if test="contains('$Revision: 1.234 $',':')">
+      <xsl:value-of select="concat('Revision ',normalize-space(translate(substring-after('$Revision: 1.234 $', 'Revision: '),'$','')),', ')" />
     </xsl:if>
-    <xsl:if test="contains('$Date: 2005/06/18 07:59:14 $',':')">
-      <xsl:value-of select="concat(normalize-space(translate(substring-after('$Date: 2005/06/18 07:59:14 $', 'Date: '),'$','')),', ')" />
+    <xsl:if test="contains('$Date: 2006/01/01 18:50:18 $',':')">
+      <xsl:value-of select="concat(normalize-space(translate(substring-after('$Date: 2006/01/01 18:50:18 $', 'Date: '),'$','')),', ')" />
     </xsl:if>
     <xsl:value-of select="concat('XSLT vendor: ',system-property('xsl:vendor'),' ',system-property('xsl:vendor-url'))" />
   </xsl:variable>
@@ -3851,11 +3477,5 @@ table.closedissue {
 <xsl:template match="ed:del" mode="get-text-content">
 </xsl:template>
 
-<!-- Some Xaraya additions -->
-<xsl:template match="em">
-    <b>
-        <xsl:copy><xsl:apply-templates select="node()" /></xsl:copy>
-    </b>
-</xsl:template>
 
 </xsl:stylesheet>

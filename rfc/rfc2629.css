@@ -79,6 +79,7 @@ li.tocline2 {
     line-height: 22px;
     font-weight: bold;
     text-align: left;
+    margin-left: 0;
     font-family: verdana, arial, helvetica, sans-serif
     }
         
@@ -238,18 +239,17 @@ A:name {
 
 .toowide
     {
-    /*color: red;
-      font-weight: bold; */
+    color: red;
+    font-weight: bold; 
     }
 
 .error
 { 
-background-color: #191970;
-color: white;
+/*background-color: #191970;*/
+color: red;
 font-weight: bold;
-font-size: 10px;
-width: 550px;
-padding: 5pt;
+/*width: 550px;*/
+/*padding: 5pt;*/
 }
 
 .figure

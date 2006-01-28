@@ -1,80 +1,32 @@
 <!-- 
   	XSLT transformation from RFC2629 XML format to XSL-FO
       
-    Copyright (c) 2001-2005 Julian F. Reschke (julian.reschke@greenbytes.de)
-      
-    placed into the public domain
-    
-    change history:
+    Copyright (c) 2006, Julian Reschke (julian.reschke@greenbytes.de)
+    All rights reserved.
 
-    2003-11-16  julian.reschke@greenbytes.de
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
 
-    Initial release.
-    
-    2003-11-29  julian.reschke@greenbytes.de
-    
-    Enhance handling of unknown list styles.
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Julian Reschkenor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
 
-    2004-04-04  julian.reschke@greenbytes.de
-    
-    Update reference section handling.
-    
-    2004-04-17  julian.reschke@greenbytes.de
-    
-    Use XSL-WD-1.1-style fo:bookmark and index handling and add postprocessors for
-    existing implementations. Unify PDF info generation by using XEP (postprocessors)
-    will convert.
-    
-    2004-04-20  julian.reschke@greenbytes.de
-
-    Add experimental cref support.
-    
-    2004-06-14  julian.reschke@greenbytes.de
-    
-    Set correct index-item defaults.
-    
-    2004-07-18  julian.reschke@greenbytes.de
-    
-    Add list style=letters.
-    
-    2004-09-03  julian.reschke@greenbytes.de
-    
-    Make URLs in text break where they are allowed to break by inserting
-    zero-width spaces.
-
-    2004-09-26  julian.reschke@greenbytes.de
-    
-    Fix letter-style inside nested lists.
-    
-    2004-10-31  julian.reschke@greenbytes.de
-    
-    Update handling of artwork.
-
-    2004-11-13  julian.reschke@greenbytes.de
-    
-    Fix handling of references inside ed:* markup.  Fix whitespace handling
-    in artwork.
-    
-    2004-11-27  julian.reschke@greenbytes.de
-    
-    Irefs in artwork generate monospaced entries in index.
-    
-    2005-01-31  julian.reschke@greenbytes.de
-    
-    Fix TOC generation that was broken after changes in main XSLT.
-    
-    2005-02-05  julian.reschke@greenbytes.de
-    
-    Bring in sync with cosmetic changes in rfc2629.xslt.
-    
-    2005-05-07  julian.reschke@greenbytes.de
-    
-    Minor fix for change tracking in document title.  Support for table
-    styles.
-    
-    2005-06-18  julian.reschke@greenbytes.de
-    
-    Fix references to tables.
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+    POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -461,6 +413,7 @@
 
 <xsl:template match="list[@style='hanging']/t" priority="1">
   <fo:list-item space-before=".25em" space-after=".25em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <fo:list-item-label end-indent="label-end()"><fo:block><xsl:value-of select="@hangText" /></fo:block></fo:list-item-label>
     <fo:list-item-body start-indent="body-start()"><fo:block><xsl:apply-templates /></fo:block></fo:list-item-body>
   </fo:list-item>
@@ -474,6 +427,7 @@
 
 <xsl:template match="list[@style='symbols']/t" priority="1">
   <fo:list-item space-before=".25em" space-after=".25em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <fo:list-item-label end-indent="label-end()"><fo:block>&#x2022;</fo:block></fo:list-item-label>
     <fo:list-item-body start-indent="body-start()"><fo:block><xsl:apply-templates /></fo:block></fo:list-item-body>
   </fo:list-item>
@@ -490,6 +444,7 @@
 
 <xsl:template match="list/t">
   <fo:list-item space-before=".25em" space-after=".25em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <fo:list-item-label end-indent="label-end()"><fo:block></fo:block></fo:list-item-label>
     <fo:list-item-body start-indent="body-start()"><fo:block><xsl:apply-templates /></fo:block></fo:list-item-body>
   </fo:list-item>
@@ -503,6 +458,7 @@
 
 <xsl:template match="list[@style='numbers']/t" priority="1">
   <fo:list-item space-before=".25em" space-after=".25em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <fo:list-item-label end-indent="label-end()"><fo:block><xsl:number/>.</fo:block></fo:list-item-label>
     <fo:list-item-body start-indent="body-start()"><fo:block><xsl:apply-templates /></fo:block></fo:list-item-body>
   </fo:list-item>
@@ -510,6 +466,7 @@
 
 <xsl:template match="list[@style='letters']/t" priority="1">
   <fo:list-item space-before=".25em" space-after=".25em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <fo:list-item-label end-indent="label-end()"><fo:block><xsl:number format="a"/>.</fo:block></fo:list-item-label>
     <fo:list-item-body start-indent="body-start()"><fo:block><xsl:apply-templates /></fo:block></fo:list-item-body>
   </fo:list-item>
@@ -518,6 +475,7 @@
 <!-- special case: nested -->
 <xsl:template match="list//t//list[@style='letters']/t" priority="9">
   <fo:list-item space-before=".25em" space-after=".25em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <fo:list-item-label end-indent="label-end()"><fo:block><xsl:number format="A"/>.</fo:block></fo:list-item-label>
     <fo:list-item-body start-indent="body-start()"><fo:block><xsl:apply-templates /></fo:block></fo:list-item-body>
   </fo:list-item>
@@ -543,6 +501,7 @@
     </xsl:choose>
   </xsl:variable>
   <fo:list-item space-before=".25em" space-after=".25em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <fo:list-item-label end-indent="label-end()">
       <fo:block>
         <xsl:choose>
@@ -926,6 +885,7 @@
 
 <xsl:template match="t">
 	<fo:block space-before=".5em" space-after=".5em" start-indent="2em">
+    <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <xsl:apply-templates />
   </fo:block>
 </xsl:template>

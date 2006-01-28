@@ -330,15 +330,15 @@ interface IXARExceptions extends IException
           you want to belong to a certain group, you can <spanx
           style="strong">declare</spanx> your exception as (taking a
           configuration exception as example):
-          <artwork>
+        </t>
+        <artwork>
 class BrainConfigurationException extends ConfigurationExceptions
 {
     protected $message   = 'Your brain (part: #(1)) has been misconfigured.';
     protected $variables = array('Visual stimuli');
     protected $hint      = 'Not much we can do, we suggest to try wearing glasses first';
 }
-          </artwork>
-        </t>
+        </artwork>
         <t>
           Put this declaration of your exception in a place where it
           is available in the scope where this exception type may be
@@ -389,9 +389,9 @@ class BrainConfigurationException extends ConfigurationExceptions
           meaningful names, over time it will get easier to know what
           type of exception to raise.
         </t>
-        <t>
-          Some examples:
         <artwork>
+Some examples:
+
 -- throwing exception using the defaults.
 if($vision == 'fuzzy') 
     // Probably not wearing glasses.
@@ -406,7 +406,6 @@ if($vision == 'none' and $glasses->state == 'on') {
     echo "This never shows"; // never gets executed.
 }
         </artwork>
-        </t>
         <t>
           Throwing an exception immediately stops running the code at that point
           and transfers control to the active exception handler at that point. In
@@ -434,7 +433,8 @@ if($vision == 'none' and $glasses->state == 'on') {
           is appropriate, or inspecting the situation and decide to
           let the handler take care of it after all. It all depends on
           the situation. Some examples:
-          <artwork>
+        </t>
+        <artwork>
 -- non issue test
 $rfc = new rfc('0054');
 try {
@@ -461,7 +461,6 @@ try {
 }
 // Any other exception raised will get caught by the default handler.
           </artwork>
-        </t>
         <t>
           The first example tests a condition and rethrows the
           exception if the person is not asleep, since only then it
@@ -556,10 +555,10 @@ try {
           The class MUST define its handler methods as <spanx
           style="verb">public static</spanx> in the class. The
           signature for an exception handler is as follows:
-          <artwork>
-public static function handler(Exception $e)
-          </artwork>
         </t>
+        <artwork>
+public static function handler(Exception $e)
+        </artwork>
         <t>
           The handler gets passed in the Exception object when it gets
           called and your handler can use the interface described in

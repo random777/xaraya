@@ -54,12 +54,12 @@
             <section title="Underlying Assumptions">
                 <t>
                     <list style="numbers">
-                        <t><em>Markets and User Base Defined</em>
+                        <t><spanx>Markets and User Base Defined</spanx>
                             <t> 
                 Xaraya's target markets/user base are as follows:
                                 <t></t>
                                 <list style="numbers">
-                                    <t><em>Web Designers/Developers: </em>
+                                    <t><spanx>Web Designers/Developers: </spanx>
                                         Arguably the largest immediate audience of Xaraya,
                                         independent Web Designers/Developers are looking for 
                                         tool that will allow them to quickly deploy a 
@@ -68,13 +68,13 @@
                                         Administrators for client sites and their clients will
                                         act as Editors/Members.                                    
                                     </t>    
-                                    <t><em>Individuals, Clubs &amp; Special Interest Groups (SIGs): </em>
+                                    <t><spanx>Individuals, Clubs &amp; Special Interest Groups (SIGs): </spanx>
                                         This market likely mirrors Web Designers/Devs closely.
                                         The differentiator is, in most cases, a small
                                         group or individual will be primarily responsible for
                                         application, content and user administrations
                                     </t>    
-                                    <t><em>Small-Medium Sized Business Web Presence: </em>
+                                    <t><spanx>Small-Medium Sized Business Web Presence: </spanx>
                                         The end-customer of the Web Designers/Developers who
                                         have enough knowledge in house to install and administer
                                         Xaraya as a public web presence.  In addition to core
@@ -82,7 +82,7 @@
                                         be looking for 3PD eCommerce Plugins as well to allow 
                                         them to conduct business on the web.
                                     </t>    
-                                    <t><em>Corporate Intranet: </em>
+                                    <t><spanx>Corporate Intranet: </spanx>
                                         Like the Small-Medium Business market, the Corporate
                                         Intranet market has the technical know-how on staff
                                         to install and administer Xaraya themselves.  This 
@@ -95,7 +95,7 @@
                                 </list>  
                             </t>    
                         </t>
-                        <t><em>90% of end-users never touch code</em>
+                        <t><spanx>90% of end-users never touch code</spanx>
                             <t> 
                             As developers first, we all tend to think too technically
                             and, as a result, assume too much know-how on the part of the
@@ -106,7 +106,7 @@
                             </t>                          
                         </t>
                         
-                        <t><em>Clear, Common Nomenclature Required</em>
+                        <t><spanx>Clear, Common Nomenclature Required</spanx>
                             <t>
                                 To create clear, effective documentation which enhances usability
                                 for all target audiences, clear and consistent nomenclature is  
@@ -125,29 +125,29 @@
                 <t>
                     <list style="numbers">
                         <t>
-                            <em>Xaraya Components</em>
+                            <spanx>Xaraya Components</spanx>
                             <t></t>
                             Common terminology is a critical component to effectively communicating
                             with one another and with the end-user.  In the past, we have used 
-                            the term <em>Module</em> relatively loosely.  As we more definitively
+                            the term <spanx>Module</spanx> relatively loosely.  As we more definitively
                             isolate core components more clearly from add-on components, we suggest
-                            deprecating the term <em>Module</em> and adopting the term 
-                            <em>Component</em>.  With this change, we further define Xaraya 
+                            deprecating the term <spanx>Module</spanx> and adopting the term 
+                            <spanx>Component</spanx>.  With this change, we further define Xaraya 
                             Components as follows:
                             <t></t>
                             <list style="numbers">
-                                <t><em>Core: </em> 
+                                <t><spanx>Core: </spanx> 
                                 Core components include all files (module, SQL, docs, 
                                 themes, etc.) considered an essential part of the core 
                                 distribution of Xaraya.
                                 </t>
-                                <t><em>Plugins: </em>
-                                Commonly referred to as <em>Modules</em>, Plugins include
+                                <t><spanx>Plugins: </spanx>
+                                Commonly referred to as <spanx>Modules</spanx>, Plugins include
                                 any add-on which either extends a core Component or adds
                                 entirely new functionality to Xaraya.
                                 </t>
-                                <t><em>Themes: </em>
-                                Also referred to as <em>Skins</em>, Themes use BlockLayout
+                                <t><spanx>Themes: </spanx>
+                                Also referred to as <spanx>Skins</spanx>, Themes use BlockLayout
                                 to reconfigure the visual user interface (UI) of Xaraya. 
                                 Themes can be as subtle as a simple color change and as 
                                 radical as a complete redesign of the way th page functions
@@ -156,11 +156,11 @@
                             </list>
                             <t></t>
                         </t>                
-                        <t><em>General Terms Used in this Document</em>
+                        <t><spanx>General Terms Used in this Document</spanx>
                             <t></t>
                             <list style="numbers">
-                                <t><em>Interop: </em>
-                                    Short for <em>Inter-Operability</em>, Interop refers to 
+                                <t><spanx>Interop: </spanx>
+                                    Short for <spanx>Inter-Operability</spanx>, Interop refers to 
                                     the increasing need for Web Services in general and 
                                     Websites in specific, to interact with one another
                                     in meaningful ways.  The primary goals of Interop 
@@ -168,11 +168,11 @@
                                     end-user by establishing standards which make it 
                                     simpler to share data and eliminate repetitive tasks.
                                 </t>
-                                <t><em>Third Party Developer (3PD): </em>
+                                <t><spanx>Third Party Developer (3PD): </spanx>
                                     Any individual or team that develops Plugins and/or 
                                     Themes yet is not member of the Xaraya Development Team.
                                 </t>
-                                <t><em>xApproved: </em>
+                                <t><spanx>xApproved: </spanx>
                                     Working name for "blessed" Plugins and Themes.  xApproved
                                     components have be reviewed by the Xaraya Team and are
                                     certified as compliant with the standards outlined in
@@ -191,23 +191,23 @@
                 <section anchor="General_Issues" title="General Issues">    
           <t>
             <list style="numbers">
-              <t><em>Platform Awareness:</em>
+              <t><spanx>Platform Awareness:</spanx>
                 <t></t>
                 To enable ease of installation and a variety of administrative 
                 utilities, Xaraya needs to auto-detect the following information
-                about the installation environment. <em>Note:</em> This need 
+                about the installation environment. <spanx>Note:</spanx> This need 
                 may already be addressed by calling PHPInfo in the installer.
                 <t></t>
                 <list style="numbers">
-                  <t><em>Operating System: </em>Brand &amp; Version</t>
-                  <t><em>Database Platform: </em>Brand &amp; Version</t> 
-                  <t><em>Site Kit Dependencies: </em> Any packages which may 
+                  <t><spanx>Operating System: </spanx>Brand &amp; Version</t>
+                  <t><spanx>Database Platform: </spanx>Brand &amp; Version</t> 
+                  <t><spanx>Site Kit Dependencies: </spanx> Any packages which may 
                     be required for components of a specific site kit.</t>
-                  <t><em>???: </em></t>
+                  <t><spanx>???: </spanx></t>
                 </list>     
                 <t></t>                    
               </t>    
-              <t><em>Component Subcategories:</em>
+              <t><spanx>Component Subcategories:</spanx>
                 <t></t>
                 In addition to the macro-level classification of Xaraya Components 
                 (Core, Plug-In &amp; Theme), Core &amp; Plug-In Components can
@@ -236,14 +236,14 @@
                     organized within a simple, yet specific directory structure. As
                     new components (Core or Plug-In) are created, they should adhere
                     to this directory structure.  One possible solution is listed below.
-                    Within <em>/var/www/html</em>, the top-level directories would be:
+                    Within <spanx>/var/www/html</spanx>, the top-level directories would be:
                     <t></t>
                     <list style="numbers">
-                      <t><em>/backups: </em> 
+                      <t><spanx>/backups: </spanx> 
                               If a backup utility is included in the Core, this would be 
                             the target directory for the local tar/zip files created.
                       </t>
-                      <t><em>/core: </em> 
+                      <t><spanx>/core: </spanx> 
                               Only Core components and their supporting files are held here.
                             Subdirectories may include:
                             <t></t>
@@ -255,22 +255,22 @@
                             </list> 
                             <t></t>
                       </t>
-                      <t><em>/configs: </em> 
+                      <t><spanx>/configs: </spanx> 
                               Xaraya's analog to /etc, this directory 
                               includes all custom configuration files.
                       </t>
-                      <t><em>/content: </em> Isolated primarily to give one central, 
+                      <t><spanx>/content: </spanx> Isolated primarily to give one central, 
                               standard location for developers to put user-added content.
                             By centralizing user added content in one standard directory,
                             we enable simpler back-ups of content not contained within the DB.
-                            One simple example would be <em>/albums</em> created by <em>Gallery</em>.
+                            One simple example would be <spanx>/albums</spanx> created by <spanx>Gallery</spanx>.
                             Additional detailed examples include ...
                             <t></t>
                             <list style="numbers">                               
                                 <t>/content/articles</t> 
                                 <t>/content/albums</t>
                                 <t>/content/downloads</t>    
-                                <t>/content/home/*.username/ <em>(possibly used by Dynamic User Data)</em></t>
+                                <t>/content/home/*.username/ <spanx>(possibly used by Dynamic User Data)</spanx></t>
                                 <t>/content/images</t> 
                                 <t>/content/music</t>
                                 <t>/content/reviews</t>
@@ -279,20 +279,20 @@
                             </list> 
                             <t></t>
                       </t> 
-                      <t><em>/docs: </em> 
+                      <t><spanx>/docs: </spanx> 
                               This directory holds all docs for Xaraya.    It would NOT 
                             contain docs for individual Plugins or Themes.  Those
                             docs would be held in a subdir of the directory created by 
                             and containing the Plug-In or theme.                                
                       </t>
-                      <t><em>/plugins: </em> All 3PD Plugins and their supporting 
+                      <t><spanx>/plugins: </spanx> All 3PD Plugins and their supporting 
                               files (/docs, /lang, etc.) go here. This isolates them from 
                             Core components and reduces the opportunity for corruption 
                             of Core by accidental overwrites or installs gone awry.
                             Unless installing a Site Kit containing non-Core Plugins,
                             this directory would be empty with the base Xaraya installation.
                       </t>
-                      <t><em>/themes: </em>
+                      <t><spanx>/themes: </spanx>
                              This directory would initially contain the default Xaraya
                             theme and would be the target directory for installation of 
                             all 3PD Themes.
@@ -305,7 +305,7 @@
                     <t>
             <list style="numbers">
               <t>
-                <em>Typeface: </em>
+                <spanx>Typeface: </spanx>
                 Theme templates should consistently apply typeface across the 
                 application.  Basically, all fonts should be controlled by the
                 theme CSS. This may already have been addressed in the BL
@@ -314,12 +314,12 @@
                 controls.
               </t> 
               <t>
-                <em>Link Style: </em>
+                <spanx>Link Style: </spanx>
                 If links are not underlined in theme CSS definition, rollover 
                 must include underline.
               </t>
               <t>
-                <em>Supported Browsers: </em>    
+                <spanx>Supported Browsers: </spanx>    
                 The following list covers all browsers in which Xaraya has been
                 developed and tested.  This does not mean Xaraya will not function
                 in older browsers, only that it has been designed to leverage
@@ -335,59 +335,59 @@
                 <t></t>  
               </t>
               <t>
-                <em>Proprietary CSS Attributes: </em>
+                <spanx>Proprietary CSS Attributes: </spanx>
                 Xaraya does not endorse proprietary CSS attributes such as 
-                <em>scrollbar-*s</em> in Internet Explorer, or <em>-moz-*</em> 
+                <spanx>scrollbar-*s</spanx> in Internet Explorer, or <spanx>-moz-*</spanx> 
                 in Mozilla.
               </t>    
               <t>
-                <em>General Enhancements to "How To" Language: </em>
+                <spanx>General Enhancements to "How To" Language: </spanx>
                 There are some changes that should be made to the English 
                 language file that will make X more clearly understandable. 
-                <em>See Drew.</em>
+                <spanx>See Drew.</spanx>
               </t>  
               <t>
-                <em>Use Non-technical Language: </em>
+                <spanx>Use Non-technical Language: </spanx>
                 Remove all techno-speak from site.  Example: Don't refer 
                 to things as "date/timestamp" -- say "date field", "time field", etc. 
               </t>    
               <t>
-                <em>Input Field Width: </em>
+                <spanx>Input Field Width: </spanx>
                 Width of text input fields should be configurable by the 
                 Administrator in Site Settings.
               </t>
               <t>
-                <em>Breadcrumb Support: </em>
+                <spanx>Breadcrumb Support: </spanx>
                 Not sure if bread crumb support is planned as a BL Widget.  If not, it should
                 be.
               </t>        
               <t>
-                <em>Page Weight: </em>
+                <spanx>Page Weight: </spanx>
                 Page weight on an un-modified configuration should be 
                 ~50K. Exceptions include articles, reviews, etc.</t>                                
               <t>
-                <em>Consistent Element Labels: </em>
+                <spanx>Consistent Element Labels: </spanx>
                 Consistent use and guidelines for naming of all UI elements,
                 including, but not limited to buttons (SEARCH, GO, BACK, etc)
                 and Field Names (ex. Username, Password, Address, etc.)
                 Final approved list to be determined.
               </t>                        
               <t>
-                <em>Delete Confirmations: </em>
-                Confirm <em>ALL</em> deletions from the site database.
+                <spanx>Delete Confirmations: </spanx>
+                Confirm <spanx>ALL</spanx> deletions from the site database.
               </t>                            
               <t>
-                <em>HTML Language: </em>
+                <spanx>HTML Language: </spanx>
                 All text in lang/xxx.php should be parsed as HTML, and 
                 displayed in HTML if codes are present. There are a few 
-                locations in which this is not the case. <em>See Drew</em>
+                locations in which this is not the case. <spanx>See Drew</spanx>
               </t>
               <t>
-                <em>Printer Friendliness: </em>
+                <spanx>Printer Friendliness: </spanx>
                 All pages should offer a link to a printer friendly version.
               </t>
               <t>
-                <em>Consistent Content Add/Delete Process: </em>
+                <spanx>Consistent Content Add/Delete Process: </spanx>
                 With the exception of content-specific fields, the UI
                 tools used to add content should have conistent look-and-feel,
                 instructions and other UI elements and processes. In short,
@@ -402,14 +402,14 @@
             <section title="xApproved Plugins">
                 <t>Plug-In standards still need to be defined in the Xaraya Developer's 
                     Guide.  Once established, we need an infrastructure to review
-                    and approve new <em>xApproved</em> Plugins.      
+                    and approve new <spanx>xApproved</spanx> Plugins.      
                     <t>
                     <list style="numbers">
-                        <t><em>xarAPI Compliance:</em> 
+                        <t><spanx>xarAPI Compliance:</spanx> 
                             All xApproved Plugins must comply with the xarAPI as outlined
                             in the forthcoming Xaraya Developer's Guide.
                         </t> 
-                        <t><em>phpDoc Style Comments:</em> 
+                        <t><spanx>phpDoc Style Comments:</spanx> 
                             All xApproved Plugins must be suitably commented in the phpDoc
                             style so comments can be extracted as needed for further 
                             development by Xaraya and/or other 3PDs.
@@ -422,11 +422,11 @@
             <section title="xApproved Themes">
                 <t>Theme standards still need to be defined in the Xaraya Developer's 
                     Guide.  Once established, we need an infrastructure to review
-                    and approve new <em>xApproved</em> Themes. Some preliminary standards
+                    and approve new <spanx>xApproved</spanx> Themes. Some preliminary standards
                     include:
                     <t>
                     <list style="numbers">
-                        <t><em>Web Standards:</em> 
+                        <t><spanx>Web Standards:</spanx> 
                               XHTML 1.0 (Strict) and CSS 2.0 compliant
                         </t>
                     </list>
@@ -443,17 +443,17 @@
                     The following describes the ideal Installation experience.  Some features
                     may not be feasible by Release 1.0 and/or may not make sense when
                     described technically. New steps/screens/functionality are 
-                    <em>emphasized</em> and, as a rule, are explained in greater detail 
+                    <spanx>emphasized</spanx> and, as a rule, are explained in greater detail 
                     later in the document.
                 </t>
                 
                 <section title="BASE INSTALLATION">                    
           <t>
             <list style="numbers">
-              <t><em>Pre-Install Questions/Checks</em>
+              <t><spanx>Pre-Install Questions/Checks</spanx>
                 <t></t>
                 <list style="numbers"> 
-                  <t><em>Pre-Install Checklist</em></t>
+                  <t><spanx>Pre-Install Checklist</spanx></t>
                   <t>Language</t>                              
                   <t>Accept GPL?</t>
                   <t><xref target="Appendix_A">Permit Installation Logging?</xref></t>    
@@ -464,17 +464,17 @@
                               <t></t>        
               </t>
               
-              <t><em>Base Configuration</em>
+              <t><spanx>Base Configuration</spanx>
                 <t></t>
                                 <list style="numbers">                                   
                                     <t>
-                                        <em>Pre-Install Checklist: </em> Collect any non-automated 
-                    configurations processes into one printable <em>DO-THIS-FIRST</em>
+                                        <spanx>Pre-Install Checklist: </spanx> Collect any non-automated 
+                    configurations processes into one printable <spanx>DO-THIS-FIRST</spanx>
                     file, and tell the user what they have to do (chmod, 
                     etc). Strongly recommend they print it out before proceeding
                                     </t>
                                     <t>
-                                        <em>phpMyAdmin: </em> In either basic or xModular form, 
+                                        <spanx>phpMyAdmin: </spanx> In either basic or xModular form, 
                                         phpMyAdmin should be distributed and installed with Xaraya 
                                         Core. It is a very mature and useful tool for Administrators. 
                     As such, we should embrace it.  As phpMyAdmin is a MySQL-specific
@@ -485,19 +485,19 @@
                                         be used                                                         
                                     </t>        
                                     <t>
-                                        <em>Default Theme: </em> Xaraya distribution should contain
-                                        only <em>ONE</em> default theme.  Other themes may be readily
+                                        <spanx>Default Theme: </spanx> Xaraya distribution should contain
+                                        only <spanx>ONE</spanx> default theme.  Other themes may be readily
                                         available on Xaraya.com, but the single default theme is 
                                         required to create a consistent set of documentation and 
                                         help reduce the learning curve.
                                     </t>    
                                     <t>
-                                        <em>Default Core Modules: </em>    
+                                        <spanx>Default Core Modules: </spanx>    
                                         <t></t>
                                         <list style="numbers">     
                                             <t>Articles</t>
                                             <t>
-                                                <em>Credits: </em> A simple way to put ALL 
+                                                <spanx>Credits: </spanx> A simple way to put ALL 
                                                 credits for EVERYTHING on the site in one place.    
                                             </t>        
                                             <t>Comments</t>
@@ -505,17 +505,17 @@
                                             <t>?</t>
                                             <t>?</t>
                                             <t>Search</t>
-                                            <t>Site Map <em>(NEW)</em></t>
+                                            <t>Site Map <spanx>(NEW)</spanx></t>
                                         </list>
                                         <t></t>
                                     </t> 
                                     <t>
-                                        <em>Component Configuration: </em>    
+                                        <spanx>Component Configuration: </spanx>    
                                         Remove the LIST option from the start of Component (Modules) 
                                         configuration in AdminPanels. Use "Regenerate" every time.
                                     </t>
                                     <t>
-                                        <em>Lorem Ipsum (Default Content): </em>
+                                        <spanx>Lorem Ipsum (Default Content): </spanx>
                                         At installation, there should be default data in ALL areas of 
                                         the site -- Reviews, Topics, Articles, FAQs, Sections, etc. -- 
                                         if for no other reason than it provides the documentation team 
@@ -523,13 +523,13 @@
                                         stuff.
                                     </t>     
                                     <t>
-                                        <em>??? </em>    
+                                        <spanx>??? </spanx>    
                                     </t>
                                 </list> 
                             <t></t>        
                         </t>                             
                         
-                        <t><em>Site Kits</em>                 
+                        <t><spanx>Site Kits</spanx>                 
                             <t></t>
                             <t>
                                 Site Kits are explained in far greater detail in 
@@ -565,22 +565,22 @@
                     </t>
                     <t>
                     <list style="numbers"> 
-                        <t><em>Overall Considerations</em>
+                        <t><spanx>Overall Considerations</spanx>
                         <t></t>                        
                         <list style="numbers">                         
-                            <t><em>Xaraya Registration DB: </em>
+                            <t><spanx>Xaraya Registration DB: </spanx>
                                 Centralized database housed on the Xaraya web server 
                                 (Sasquatch).  This DB contains two primary types of 
                                 information:
                                 <t></t>
                                 <t>
                                 <list style="numbers"> 
-                                    <t><em>Component Registration:</em>
+                                    <t><spanx>Component Registration:</spanx>
                                         All Xaraya components (Core, as well as Official/Approved
                                         Plugins and Themes) require registration with a
                                         unique identifier in the Xaraya Registration DB.
                                     </t>
-                                    <t><em>Install Registration:</em>
+                                    <t><spanx>Install Registration:</spanx>
                                         If we elect to go this route, the Registration DB
                                         would also contain unique registration keys for each 
                                         Xaraya installation.
@@ -589,25 +589,25 @@
                                 </t>
                                 <t></t>
                             </t>    
-                            <t><em>Available Updates Profile (Xaraya Server): </em>
+                            <t><spanx>Available Updates Profile (Xaraya Server): </spanx>
                                 Profile derived from Component Registration tables.  Used in
                                 Comparison Pass to determine which updates are available
                                 for installation.
                             </t>                        
-                            <t><em>Installation Profile (Local Install): </em>
+                            <t><spanx>Installation Profile (Local Install): </spanx>
                                 After install/update is completed, an Installation Profile
                                 is created/modified on the user's server. This file
                                 will be used in the Comparison Pass and, optionally, it
                                 could be pushed to the Install Registration tables as well.
                             </t>
                             
-                            <t><em>Comparison Script: </em>
-                                Admin Panels provides <em>Check for Updates</em>
+                            <t><spanx>Comparison Script: </spanx>
+                                Admin Panels provides <spanx>Check for Updates</spanx>
                                 button.  When clicked, the following occurs:
                                 <t></t>
                                 <t>
                                 <list style="numbers"> 
-                                    <t><em>Pre-Upgrade Checklist: </em>
+                                    <t><spanx>Pre-Upgrade Checklist: </spanx>
                                         Check list is displayed which includes, among 
                                         other things, a detailed description of what is 
                                         about to occur and what, if any, server configurations 
@@ -615,25 +615,25 @@
                                         It also includes links to reccommended pre-upgrade
                                         utilities (ex. <xref target="backup">File/DB Backup</xref>).
                                         After reviewing this checklist and taking action 
-                                        as needed, the user clicks the <em>Next</em> button.
-                                        <em>Note: </em>All Upgrade screens have and
-                                        <em>Cancel</em> button which exits out to AdminPanels.
+                                        as needed, the user clicks the <spanx>Next</spanx> button.
+                                        <spanx>Note: </spanx>All Upgrade screens have and
+                                        <spanx>Cancel</spanx> button which exits out to AdminPanels.
                                     </t>    
-                                    <t><em>Pass Installation Profile to Server</em>
+                                    <t><spanx>Pass Installation Profile to Server</spanx>
                                         Passes the local Installation Profile to the Comparison 
                                         Script on Xaraya's server.  Script compares profiles 
                                         and reports on available updates.
                                     </t>
-                                    <t><em>Select Desired Updates: </em>
+                                    <t><spanx>Select Desired Updates: </spanx>
                                         From the report, user uses checkboxes to select
                                         desired updates for installation.
                                     </t>
-                                    <t><em>Package and Transfer Files: </em>
+                                    <t><spanx>Package and Transfer Files: </spanx>
                                         Based on user selection, script builds a tar/zip file 
                                         containing the selected updates and writes it
                                         to the install directory on the target server.
                                     </t>
-                                    <t><em>Install Updates: </em>
+                                    <t><spanx>Install Updates: </spanx>
                                         Once the file has transferred, the script expands 
                                         the archive and writes files to the appropriate 
                                         location.  If needed, the script also updates the 
@@ -646,26 +646,26 @@
                         </list> 
                         </t>        
                 
-                        <t><em>Core Specific</em>
+                        <t><spanx>Core Specific</spanx>
                             <t></t>
                             <list style="numbers"> 
-                                <t><em>TBD As Needed</em></t>
+                                <t><spanx>TBD As Needed</spanx></t>
                             </list>    
                             <t></t>    
                       </t>
                         
-                        <t><em>Plug-In Specific</em> 
+                        <t><spanx>Plug-In Specific</spanx> 
                             <t></t>
                             <list style="numbers"> 
-                                <t><em>TBD As Needed</em></t>
+                                <t><spanx>TBD As Needed</spanx></t>
                             </list>    
                             <t></t>        
                       </t>
                         
-                        <t><em>Theme Specific</em>
+                        <t><spanx>Theme Specific</spanx>
                             <t></t>
                             <list style="numbers"> 
-                                <t><em>TBD As Needed</em></t>
+                                <t><spanx>TBD As Needed</spanx></t>
                             </list>        
                         </t>
                     </list>
@@ -681,7 +681,7 @@
                 guess at the desired Administrative Utilities Toolset.
                 
                 <list style="numbers">
-                    <t><em>Backup Utilities: </em>
+                    <t><spanx>Backup Utilities: </spanx>
                         Using platform awareness and available tools, the Administrator need the ability
                         to quickly and efficiently back up his site prior to upgrading.  These tools
                         include Database Backup (phpMyAdmin or similar tool) and File Back Up for the 
@@ -695,24 +695,24 @@
                         </list>    
                         <t></t>
                     </t> 
-                    <t><em>Custom Language Editor: </em>        
+                    <t><spanx>Custom Language Editor: </spanx>        
                               One interface to edit ALL language files, even those in 
                             component directories (Plugins &amp; Themes). As part of the component registration 
                             process, it would announce the presence/location of the 
                             component language files.
                             <t></t>
-                            <em>Drew's Notes: </em>  
+                            <spanx>Drew's Notes: </spanx>  
                             <t></t>
-                            It would be great if there was a default file, say <em>eng_override.php</em> 
+                            It would be great if there was a default file, say <spanx>eng_override.php</spanx> 
                             (different prefix for other languages, of course) in the 
-                            <em>/configs</em> that would allow over-ride of what's in the language 
+                            <spanx>/configs</spanx> that would allow over-ride of what's in the language 
                             files, to prevent having to edit the distribution files directly. 
-                            For example, in /plugins/<em>&lt;plugin_name&gt;</em>/lang/eng/global.php, 
-                            it has    <em>'define("_PRODUCTTITLE","Product title");'</em>, but I would 
+                            For example, in /plugins/<spanx>&lt;plugin_name&gt;</spanx>/lang/eng/global.php, 
+                            it has    <spanx>'define("_PRODUCTTITLE","Product title");'</spanx>, but I would 
                             like to override that. 
                             <t></t>
                             So, in eng_override.php, I would be able to do 
-                            <em>'define("_PRODUCTTITLE","Product/Event title");'</em> and have 
+                            <spanx>'define("_PRODUCTTITLE","Product/Event title");'</spanx> and have 
                             eng_override.php included at the appropriate times to override 
                             what's in the distribution file if the eng_override.php file 
                             exists. As I edit my distribution language files more and more, 
@@ -722,21 +722,21 @@
                             <t></t>  
                     </t>     
                     <t>
-                        <em>Groups &amp; Permissions GUI: </em>
+                        <spanx>Groups &amp; Permissions GUI: </spanx>
                         Groups &amp; Permissions GUI was badly in need of an overhaul.
                         Marcinmilan is already hard at work on this.  We are just calling it
                         out here to support his work in progress.
                     </t> 
                     <t>
-                        <em>Administration Menu Block: </em>        
+                        <spanx>Administration Menu Block: </spanx>        
                         The default installation should display Administration menu 
                         items in a menu block, not as a module list. Everyone uses                         
                         the menu block method; it's the most powerful option. 
-                        <em>Note: </em> This method is already being employed in 
+                        <spanx>Note: </spanx> This method is already being employed in 
                         AdminPanels.  Like Permissions GUI, we are calling it out 
                         here as a show of support.
                     </t>                    
-                    <t><em>??? </em>        
+                    <t><spanx>??? </spanx>        
                           
                     </t>
 
@@ -755,9 +755,9 @@
                 <section title="Administrator (GOD User)">
                     <t>    
                         No real role change here.  This is the Xaraya equivalent of 
-                        <em>/root</em>.  Just as no Server Admin will give out <em>/root</em>
+                        <spanx>/root</spanx>.  Just as no Server Admin will give out <spanx>/root</spanx>
                         to just anyone, so to should the Administrator role be tightly
-                        guarded.    By default, the Administrator can do <em>anything</em> 
+                        guarded.    By default, the Administrator can do <spanx>anything</spanx> 
                         on the system.
                     </t>
                 </section>    
@@ -767,7 +767,7 @@
                          This is an entirely new default role.  Most Administrators end
                          up creating this sort of role anyway, so it makes sense to 
                          include it as a default.  By default, this role has 
-                         <em>ONLY</em> content and user management (add/approve/modify/delete) 
+                         <spanx>ONLY</spanx> content and user management (add/approve/modify/delete) 
                          rights.  They have no system configuration, install/upgrade,
                          database access or other global rights to impact the system.                         
                     </t>
@@ -776,7 +776,7 @@
                 <section title="Member (Base User)">
                     <t>
                          In the past, this role has been generically referred to as
-                         <em>User</em>.  This level of access gives permission to
+                         <spanx>User</spanx>.  This level of access gives permission to
                          additional content and/or services and local user configuration
                          options.  This role has no Administrator/Editor rights.     This
                          role can submit content for publication, but it must be 
@@ -787,7 +787,7 @@
                     <t>
                          No real change here. This is a single account which is used by
                          generic browsers.  Beyond accessing publicly available content 
-                         and services, this user has <em>NO</em> rights on the system.
+                         and services, this user has <spanx>NO</spanx> rights on the system.
                     </t>
                 </section>    
             </section>        
@@ -801,14 +801,14 @@
                     <t>
                         <list style="numbers"> 
                             <t>
-                                <em>Context Sensitive Editing Tools: </em>
+                                <spanx>Context Sensitive Editing Tools: </spanx>
                                 All Components should provide access to Administrator/Editor tools 
-                                from <em>WITHIN</em> the module if the user logged in is an
+                                from <spanx>WITHIN</spanx> the module if the user logged in is an
                                 Administrator or Editor with the appropriate permissions for that 
                                 Component.    
                             </t> 
                             <t>
-                                <em>Reorganize Content Management Links/Pages: </em>
+                                <spanx>Reorganize Content Management Links/Pages: </spanx>
                                 Organize Editor pages by long-term usability and 
                                 put the options that are most likely to be frequently used 
                                 at the top of the page. For example, WebLinks is currently 
@@ -837,15 +837,15 @@
                                 difficult to implement) to track usage of Editing Tools 
                                 based, perhaps, on page hits.  Armed with this usage data,
                                 the system could, upon logon, present the Editor with a 
-                                <em>Frequently Used Tools</em> Menu Block or AdminPanel.    
+                                <spanx>Frequently Used Tools</spanx> Menu Block or AdminPanel.    
                                 <t></t>
                             </t>                                    
                             <t>
-                                <em>Article MetaCommands: </em>
+                                <spanx>Article MetaCommands: </spanx>
                                 <t></t>    
                                 <list style="numbers"> 
                                     <t>
-                                        <em>Story Links: </em>
+                                        <spanx>Story Links: </spanx>
                                         Provide an easy method within an article to link to another 
                                         article on the same site. Metacommands like "&lt;readprev=520&gt;" 
                                         and "&lt;readnext=525&gt;" would be VERY useful. Each metacommand 
@@ -853,17 +853,17 @@
                                         <t></t>        
                                         <list style="numbers"> 
                                             <t>
-                                                <em>"&lt;readfirst=519&gt;"</em> would display user-defined text (like 
+                                                <spanx>"&lt;readfirst=519&gt;"</spanx> would display user-defined text (like 
                                                 "&lt;i&gt;Click &lt;b&gt;here&lt;/b&gt; to read the first article&lt;/i&gt;") 
                                                 in this series link to article #519. 
                                             </t>
                                             <t>
-                                                <em>"&lt;readprev=520&gt;"</em> would display user-defined text (like 
+                                                <spanx>"&lt;readprev=520&gt;"</spanx> would display user-defined text (like 
                                                 "&lt;i&gt;Click &lt;b&gt;here&lt;/b&gt; to read the previous article&lt;/i&gt;") 
                                                 and link to article #520.
                                             </t>
                                             <t>
-                                                <em>"&lt;readnext=525&gt;"</em> would display user-defined text (like 
+                                                <spanx>"&lt;readnext=525&gt;"</spanx> would display user-defined text (like 
                                                 "&lt;i&gt;Click &lt;b&gt;here&lt;/b&gt; to read the next article&lt;/i&gt;") and 
                                                 link to article #525. 
                                             </t>
@@ -872,7 +872,7 @@
                                         <t></t>    
                                     </t>
                                     <t>
-                                        <em>Read More: </em>
+                                        <spanx>Read More: </spanx>
                                         Add a metacommand for NEWS STORIES like "&lt;readmore&gt;". When 
                                         this text is found in the body of an article, automatically 
                                         replace it with a user-defined string (like "&lt;i&gt;Click 
@@ -881,16 +881,16 @@
                                         the &lt;readmore&gt; string is NOT displayed.
                                     </t>
                                     <t>
-                                        <em>Page Break: </em>
+                                        <spanx>Page Break: </spanx>
                                         Where ever this appears, a single article is broken into 
                                         multiple pages with auto-generated navigation links (ex. PREV, NEXT, etc.) 
                                     </t>
                                     <t>
-                                        <em>Configurable URL/HREF Targets: </em>
+                                        <spanx>Configurable URL/HREF Targets: </spanx>
                                         Ideally, Xaraya would be aware if the contents of
                                         an HREF are local (onsite) or external (offsite)
                                         as determined by the presence or absence of 
-                                        <em>http://</em>. The Administrator/Editor would be 
+                                        <spanx>http://</spanx>. The Administrator/Editor would be 
                                         then be able to set a configuration variable which 
                                         would determine if the HREF should pop a new window 
                                         to display the target URL (analagous to target="blank").  
@@ -909,18 +909,18 @@
                     <t>
                         <list style="numbers"> 
                             <t>
-                                <em>my.&lt;domainname&gt;.com: </em> 
-                                On login, default page is <em>my.&lt;domainname&gt;.com</em>.
+                                <spanx>my.&lt;domainname&gt;.com: </spanx> 
+                                On login, default page is <spanx>my.&lt;domainname&gt;.com</spanx>.
                                 This page would display things like:
                                 <t></t>
                                 <list style="numbers">     
                                     <t>Waiting private messages,</t>
                                     <t>Custom RSS feeds,</t>
                                     <t>User's admin tools (gallery upload, change password, etc),</t>
-                                    <t><em>New Items</em> (See Below)</t>      
+                                    <t><spanx>New Items</spanx> (See Below)</t>      
                                     <t>Bookmarked Forums, Links etc (see vBulletin)</t>
                                     <t>
-                                        <em>Alerts &amp; Notifications: </em> 
+                                        <spanx>Alerts &amp; Notifications: </spanx> 
                                         Derived from choices made in Pub/Sub/Unsub component.
                                     </t>     
                                     <t>Other Dynamic User Data (DUD) enabled content</t>
@@ -929,13 +929,13 @@
                                 <t></t>
                             </t>    
                             <t>
-                                <em>"NEW" Block: </em>
+                                <spanx>"NEW" Block: </spanx>
                                 A category called "NEW" that displays, based on item timestamp 
                                 and date/time of user's last login, new items. Period of time 
                                 for "new" status is configurable by admin.
                             </t>
                             <t>
-                                <em>Content Sorting: </em>
+                                <spanx>Content Sorting: </spanx>
                                 Users can set PRIORITY of items on the site (display SPORTS topic 
                                 items first, display ARTS topic items second, etc.) and the page 
                                 will show only the items that the user has configured to see (turn 
@@ -953,13 +953,13 @@
                     <t>
                         <list style="numbers">
                             <t>
-                                <em>PREVIOUS, NEXT, and TOP Links : </em>
+                                <spanx>PREVIOUS, NEXT, and TOP Links : </spanx>
                                 Display these at the bottom of the front page. 
                                 Get the count of the number of articles to display from the 
                                 value in Administration --&gt; Settings --&gt; Stories # on homepage.
                             </t>
                             <t>
-                                <em>???</em>
+                                <spanx>???</spanx>
                                 
                             </t>                            
                         </list>            
@@ -970,17 +970,17 @@
                     <t>
                         <list style="numbers">
                             <t>
-                                <em>DMOZ/Yahoo Index: </em>    
+                                <spanx>DMOZ/Yahoo Index: </spanx>    
                                 All modules which gather and classify information (links, 
                                 downloads, etc) should use a DMOZ/Yahoo style index.                                 
                             </t>    
                             <t>
-                                <em>New Item Indicator: </em>
+                                <spanx>New Item Indicator: </spanx>
                                 New items in sub-categories need some "new" indicator (icon, font color, 
                                 etc.) which is configurable at the Administrator and/or Theme level.
                             </t>    
                             <t>
-                                <em>???</em>
+                                <spanx>???</spanx>
                                 
                             </t>                            
                         </list>            
@@ -991,14 +991,14 @@
                     <t>
                         <list style="numbers">
                             <t>
-                                <em>User/Context Sensitive Help System: </em>
+                                <spanx>User/Context Sensitive Help System: </spanx>
                                 Ideally, the help system will be aware of both the Component it is being
                                 called from (to determine Help Content) and the Role of the User logged in
                                 (Admin, Editor, Member) and display the appropriate level of Help detail
                                 based on user Role.
                             </t>
                             <t>
-                                <em>??? </em>
+                                <spanx>??? </spanx>
                                 
                             </t>            
                         </list>                 
@@ -1009,7 +1009,7 @@
                     <t>
                         <list style="numbers">
                             <t>
-                                <em>??? </em>
+                                <spanx>??? </spanx>
                                 
                             </t>                    
                         </list>                 
@@ -1082,30 +1082,30 @@
        <t>
          <list style="numbers">
            <t>
-             <em>Core Components</em> 
+             <spanx>Core Components</spanx> 
              <t></t>
              <list style="numbers">                            
-               <t><em>Setup  (Base??): </em>
+               <t><spanx>Setup  (Base??): </spanx>
                  Single or infrequent-use tools for configuring the site
                  ex. Site Configuration, Theme Selection
                </t>
-               <t><em>Utilities (AdminPanels): </em>
+               <t><spanx>Utilities (AdminPanels): </spanx>
                  Backend Management (db adds, cleanup, archiving, etc)
                  ex. Translations, Autolinks, Web Services, Categories
                </t>
-               <t><em>Content Admin: </em>
+               <t><spanx>Content Admin: </spanx>
                  Any tools which setup how content is viewed/managed
                  ex. Articles, Links, Downloads, RSS, Pubsub, Polls Reviews, 
                  WSW Editor
                </t>
-               <t><em>Membership (Users): </em>
+               <t><spanx>Membership (Users): </spanx>
                  Any and all tools for user management
                  ex. Groups, Permissions, DUD, Messages, Mail Blast
                </t>    
-               <t><em>Site Promotion: </em>
+               <t><spanx>Site Promotion: </spanx>
                  ex. Recommend, Stats, HitCount, Keywords, Mail Blast
                </t>    
-               <t><em>Online Help: </em>
+               <t><spanx>Online Help: </spanx>
                  ex. Search, FAQs, Help
                  <t></t>
                </t>                        
@@ -1113,34 +1113,34 @@
            </t>
            
            <t>
-             <em>Plug-In Components</em> 
+             <spanx>Plug-In Components</spanx> 
              <t></t>                
              <list style="numbers">
-               <t><em>eBusiness/eCommerce: </em>
+               <t><spanx>eBusiness/eCommerce: </spanx>
                  ex. OpenRealty, OSCommerce, CafePress, Amazon bookstore, etc.
                </t>
-               <t><em>Scheduling/PIM: </em>
+               <t><spanx>Scheduling/PIM: </spanx>
                  ex. xCalendar, xProject, ToDo List, BKView, Seminar Scheduler
                </t>
-               <t><em>Communication/Social Networking: </em>
+               <t><spanx>Communication/Social Networking: </spanx>
                  ex. Forums, NNTP UI, Chat/ShoutBox, WebRing
                </t>
-               <t><em>Content Expansions: </em>
+               <t><spanx>Content Expansions: </spanx>
                  ex. Pinup, Gallery, MeG, Comic, AvantGo, MP3 Managers/Streamers, Fan
                  Fiction, Collaborative Stories, MyHaiku, Bible/Torah/Quran Verse DB,
                  pnEncyclopedia, pnDictionary, CookBook/Recipe Modules
                </t>
-               <t><em>Games: </em>
+               <t><spanx>Games: </spanx>
                  ex. Nascar, Fantasy Football, Flash Games, Half-Life/Counterstrike/Unreal Server Stats
                </t>
-               <t><em>Data Collection: </em>
+               <t><spanx>Data Collection: </spanx>
                  ex. Surveys, Quizzes, Extended Polls
                </t>
-               <t><em>Dynamic User Data: </em>
-                 ex. xResume, xPortfolio, My <em>&lt;sitename&gt;</em> HomePage, Blog, DUD DB 
+               <t><spanx>Dynamic User Data: </spanx>
+                 ex. xResume, xPortfolio, My <spanx>&lt;sitename&gt;</spanx> HomePage, Blog, DUD DB 
                  Expansions for specific groups (Church, School, Club, Game Clan, etc)
                </t>
-               <t><em>Core Extensions: </em>
+               <t><spanx>Core Extensions: </spanx>
                  These are really Core Components Hacks and/or Replacements.  May not be
                  prudent to list them, but would include stuff like ... Advanced Search, 
                  Mass Mailer, KnowledgeBase(expanded FAQs)
@@ -1154,17 +1154,17 @@
         
     <section anchor="Appendix_C" title="Site Kits">
     <t>
-         As the name implies, <em>Site Kits</em> are a series of pre-configured 
+         As the name implies, <spanx>Site Kits</spanx> are a series of pre-configured 
          Xaraya tarballs    (Core + Modules).  As frame of reference, think of the
          Red Hat GUI-based Installer. For example ...
             </t>
-            <t> <em>Red Hat:</em> What sort of install is this?
+            <t> <spanx>Red Hat:</spanx> What sort of install is this?
                 <list style="numbers">
-                    <t><em>Server</em></t>
-                    <t><em>Workstation</em></t>
-                    <t><em>Laptop</em></t>
-                    <t><em>Custom</em></t>
-                    <t><em>Everything</em></t>
+                    <t><spanx>Server</spanx></t>
+                    <t><spanx>Workstation</spanx></t>
+                    <t><spanx>Laptop</spanx></t>
+                    <t><spanx>Custom</spanx></t>
+                    <t><spanx>Everything</spanx></t>
                 </list>                        
             </t>
             
@@ -1173,20 +1173,20 @@
                 pre-built packages based on user choice.  The Xaraya example may look like this ...
             </t>
             
-            <t>    <em>Xaraya:</em> How will you use your Xaraya installation?                        
+            <t>    <spanx>Xaraya:</spanx> How will you use your Xaraya installation?                        
                 <list style="numbers">
-                    <t><em>Generic Community :</em> Includes Links, Calendar, Downloads, Forum, Articles, Users</t>
-                    <t><em>News Site:</em> Includes Articles, Users, Reviews, Calendar</t>
-                    <t><em>Personal Site:</em> Includes News, BLOG, Links, Gallery</t>
-                    <t><em>Family Site:</em> Includes Users, Gallery, Articles, Reviews, Links</t>
-                    <t><em>Online Store:</em> Includes Users, Forums, OSCommerce, Reviews</t>
-                    <t><em>Gaming Clan:</em> Includes Calendar, Articles, Reviews, Forums, Users, Half-Life Server Stats (or other game server stats)</t>
-                    <t><em>Corporate Intranet:</em> Includes LDAP, SQL2000 support, Forums, Articles, Gallery, FAQs, Calendar, etc.</t>
-                    <t><em>School Homeroom:</em> Includes Users /Students, GradeBook, Forums, Articles, Reviews, Gallery, etc.</t>
-                    <t><em>Non-Profit:</em> Includes Users, Forums, Paypal Donations, Reviews, Articles, etc.</t>
-                       <t><em>INFINITE COMBINATIONS:</em> This list can (and will) grow.</t>
-                    <t><em>Custom</em> </t>
-                    <t><em>Everything</em> </t>
+                    <t><spanx>Generic Community :</spanx> Includes Links, Calendar, Downloads, Forum, Articles, Users</t>
+                    <t><spanx>News Site:</spanx> Includes Articles, Users, Reviews, Calendar</t>
+                    <t><spanx>Personal Site:</spanx> Includes News, BLOG, Links, Gallery</t>
+                    <t><spanx>Family Site:</spanx> Includes Users, Gallery, Articles, Reviews, Links</t>
+                    <t><spanx>Online Store:</spanx> Includes Users, Forums, OSCommerce, Reviews</t>
+                    <t><spanx>Gaming Clan:</spanx> Includes Calendar, Articles, Reviews, Forums, Users, Half-Life Server Stats (or other game server stats)</t>
+                    <t><spanx>Corporate Intranet:</spanx> Includes LDAP, SQL2000 support, Forums, Articles, Gallery, FAQs, Calendar, etc.</t>
+                    <t><spanx>School Homeroom:</spanx> Includes Users /Students, GradeBook, Forums, Articles, Reviews, Gallery, etc.</t>
+                    <t><spanx>Non-Profit:</spanx> Includes Users, Forums, Paypal Donations, Reviews, Articles, etc.</t>
+                       <t><spanx>INFINITE COMBINATIONS:</spanx> This list can (and will) grow.</t>
+                    <t><spanx>Custom</spanx> </t>
+                    <t><spanx>Everything</spanx> </t>
                 </list>
             </t>
             <t>
@@ -1266,12 +1266,12 @@
             review.  They are captured here because ultimately, they serve both the project 
             (wider distribution channels) and the end-users (ease of installation).
             <list style="numbers">
-                <t><em>Linux Distributions: </em>
+                <t><spanx>Linux Distributions: </spanx>
                     Work with Red Hat &amp; other major Linux distros to integrate 
                     Xaraya into their distribution as an on-install package that check 
                     dependencies, etc.
                 </t>
-                <t><em>Windows Distributions: </em>
+                <t><spanx>Windows Distributions: </spanx>
                     Work with FoxServ project to integrate Xaraya into their installation.
                 </t>
              </list>

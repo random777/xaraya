@@ -159,7 +159,7 @@
         <section title="Trees, trunks, scenarios, branches, tags and others">
           <t>
             <list>
-              <t><em>Tree:</em></t>
+              <t><spanx>Tree:</spanx></t>
               <t>
                 The tree is the total of all elements, typically
                 files, containing the sources of the project, which we
@@ -169,31 +169,31 @@
                 placed under control of the SCM. Think of documents,
                 static web-pages, test-scripts, sql-scripts etcetera.
               </t>
-              <t><em>Trunk:</em></t>
+              <t><spanx>Trunk:</spanx></t>
               <t>
                 The trunk represents the main line of development and always
                 contains the latest approved changes in development.
               </t>
-              <t><em>Branch:</em></t>
+              <t><spanx>Branch:</spanx></t>
               <t>
                 A branch is a (temporary) (partial) copy of the tree which is
                 created with a specific purpose. Changes made
                 in a branch do not appear on the trunk unless they are merged back
                 in.
               </t>
-              <t><em>Scenario:</em></t>
+              <t><spanx>Scenario:</spanx></t>
               <t>
                 A scenario is a specific development task. A scenario always
                 lives on a branch and is created by the repository managers in the
                 repository.
               </t>
-              <t><em>Tags:</em></t>
+              <t><spanx>Tags:</spanx></t>
               <t>
                 Tags are created in the tree to represent a specific state of
                 the tree which might be needed in the future. For example, you
                 might tag the tree before you commit a very complex change.
               </t>
-              <t><em>Releases:</em></t>
+              <t><spanx>Releases:</spanx></t>
               <t>
                 Releases are basically the same as tags, with the exception
                 that they are permanent,

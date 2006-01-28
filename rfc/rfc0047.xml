@@ -75,7 +75,7 @@
             <t>
                 An important part of blogging is the so-called TrackBack
                 facility. In short it can be described as linking the weblogs
-                together in a special way to created an <em>interlinked</em> space
+                together in a special way to created an <spanx>interlinked</spanx> space
                 of the weblog entries. It appears that the concept of trackback creates
                 some confusion, so we do an attempt to explain it here in simple
                 terms and describe how the concept applies to Xaraya.
@@ -108,7 +108,7 @@
                 </t>
                 <t>
                     The first can be translated into sending a
-                    notification the the <em>one place</em> that
+                    notification the the <spanx>one place</spanx> that
                     something is published on a certain topic. The
                     central place functions as the place where this
                     type of content is aggregated. The publisher sends
@@ -123,7 +123,7 @@
                     comment about it, or just write something
                     related. Instead of commenting on the site where
                     the publication is, he comments on his own weblog
-                    (because it <em>fits</em> his own list of subjects
+                    (because it <spanx>fits</spanx> his own list of subjects
                     for example. After publishing the comment or the
                     related publication a ping is send to the original
                     location, so the comment can be "tracked back"

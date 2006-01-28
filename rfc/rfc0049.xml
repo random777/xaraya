@@ -23,7 +23,7 @@
     <note title="IMPORTANT"> 
       <t> 
         Although the copyright notice above
-        says <em>Xaraya</em>, this is not the case. The original author mentioned in
+        says <spanx>Xaraya</spanx>, this is not the case. The original author mentioned in
         the header has copyright to this document. Because the RFC documents are
         automatically generated with a modified script for out group, the copyright
         statement is automatically changed. I hope this note is sufficient and gives

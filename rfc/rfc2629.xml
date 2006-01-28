@@ -39,7 +39,7 @@
         </abstract>
     <note title="IMPORTANT">
       <t>
-        Although the copyright notice above says <em>Xaraya</em>, this
+        Although the copyright notice above says <spanx>Xaraya</spanx>, this
         is not the case. The original author mentioned in the header
         has copyright to this document. Because the RFC documents are
         automatically generated with a modified script for out group,
@@ -909,7 +909,7 @@
         <section title="Paragraph markers">
           <t>
             You might have noticed the numbers before each paragraph in this
-            document. These are called <em>editing marks</em>. They just number
+            document. These are called <spanx>editing marks</spanx>. They just number
             the paragraphs is the document consecutively so it's easy to refer
             to a certain paragraph when discussing the document
           </t>

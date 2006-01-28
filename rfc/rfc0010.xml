@@ -363,12 +363,12 @@ not         not             not
         <t>
           For the description of the tag attributes the following conventions are used:
           <list>
-            <t><em>attributename</em> indicates the name of the attribute described</t>
-            <t><em>[attribute]</em> when square brackets surround the attribute this indicates an optional attribute</t>
-            <t><em>[attribute]</em> (defaultvalue) indicates an optional attribute, the default value is
+            <t><spanx>attributename</spanx> indicates the name of the attribute described</t>
+            <t><spanx>[attribute]</spanx> when square brackets surround the attribute this indicates an optional attribute</t>
+            <t><spanx>[attribute]</spanx> (defaultvalue) indicates an optional attribute, the default value is
               given between the brackets
             </t>
-            <t><em>attribute</em> {(value)|value2} indicates that the attribute can have the values 'value' and
+            <t><spanx>attribute</spanx> {(value)|value2} indicates that the attribute can have the values 'value' and
               'value2' of which 'value' is the default if none is specified.
             </t>
           </list>
@@ -384,7 +384,7 @@ not         not             not
         <section anchor="blocklayout" title="&lt;xar:blocklayout /&gt;">
           <t>
             The &lt;xar:blocklayout /&gt; tag is the root-tag of a
-            blocklayout complete template. With a <em>complete</em>
+            blocklayout complete template. With a <spanx>complete</spanx>
             template we mean the assembly of the page level template,
             the relevant module templates and all other template
             snippets necessary to construct the complete template for
@@ -409,7 +409,7 @@ not         not             not
           <section title="Attributes">
             <t>
               <list>
-                <t><em>version</em>
+                <t><spanx>version</spanx>
                   <t>
                     required attribute. At the moment of writing
                     blocklayout is at version 1.0 or below, since we
@@ -420,7 +420,7 @@ not         not             not
                     syntax to expect in the templates.
                   </t>
                 </t>
-                <t><em>[content]</em>(text/html)
+                <t><spanx>[content]</spanx>(text/html)
                   <t>
                     The content attribute denotes the type of content the page template describes. The
                     value of this attribute is a legal string according to the IETF RFC describing
@@ -445,20 +445,20 @@ not         not             not
                     be used most frequently
                   </t>
                 </t>
-                <t><em>xmlns:xar</em>
+                <t><spanx>xmlns:xar</spanx>
                   <t>declaration of the xar namespace. As we currently hardcode the namespace this
                     attribute can only have the value:
                     <artwork>xmlns:xar="http://xaraya.com/2004/blocklayout"</artwork>
                   </t>
                 </t>
-                <t><em>[dtd]</em>()
+                <t><spanx>[dtd]</spanx>()
                   <t>
                     The dtd attribute tells BlockLayout what type of
                     document it should produce. Your BL template as
                     such should NOT contain a DOCTYPE tag for
                     reproduction in the output (although it will copy
                     it to the output unmodified). The doctype of the
-                    (page-)template should be <em>before</em> the root
+                    (page-)template should be <spanx>before</spanx> the root
                     tag and it should be:
                     <artwork>
 &lt;!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://xaraya.com/bl1/DTD/bl1-strict.dtd"&gt;
@@ -571,15 +571,15 @@ not         not             not
                 initially contain default content for that block type.
               </t>
               <list>
-                <t><em>[id]</em><t> an identifier for the tag</t></t>
-                <t><em>[instance]</em>
+                <t><spanx>[id]</spanx><t> an identifier for the tag</t></t>
+                <t><spanx>[instance]</spanx>
                   <t>
                     If instance is specified, it's value is used to look
                     up the the specific block in the database. The instance
                     can take the form of a block ID or a block name.
                   </t>
                 </t>
-                <t><em>[module]</em>
+                <t><spanx>[module]</spanx>
                   <t>
                     Name of the module which owns the block. In the
                     administration part of Xaraya this is visible when
@@ -587,7 +587,7 @@ not         not             not
                     used in conjunction with the [type] attribute.
                   </t>
                 </t>
-                <t><em>[type]</em>
+                <t><spanx>[type]</spanx>
                   <t>
                     Name of the block to display. The name is the value
                     of the field filled in by the site manager in the
@@ -595,20 +595,20 @@ not         not             not
                     be used in conjunction with the [module] attribute.
                   </t>
                 </t>
-                <t><em>[name]</em>
+                <t><spanx>[name]</spanx>
                   <t>
                     The name of the block to display. The name is used
                     only for security checks, to determine whether the
                     block should be loaded at run-time.
                   </t>
                 </t>
-                <t><em>[title]</em>
+                <t><spanx>[title]</spanx>
                   <t>The title to use for the block.</t>
                 </t>
-                <t><em>[state]</em>
+                <t><spanx>[state]</spanx>
                   <t>The state of the block (0 is hidden, 3 is maximized).</t>
                 </t>
-                <t><em>[template]</em>
+                <t><spanx>[template]</spanx>
                   <t>
                     Name of a template to use for the block. The
                     template attribute can define two templates: the
@@ -621,7 +621,7 @@ not         not             not
                     are specified with this attribute.
                   </t>
                 </t>
-                <t><em>[*]</em>
+                <t><spanx>[*]</spanx>
                   <t>
                     All other attributes are passed to the block as
                     overriding parameters. The attribute names are
@@ -734,16 +734,16 @@ not         not             not
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag.</t>
                 </t>
-                <t><em>name</em>
+                <t><spanx>name</spanx>
                   <t>The name of the block group to render. When the tag is
                     used in its empty form this attribute is required. The attribute is
                     ignored when the tag is used in its block form.
                   </t>
                 </t>
-                <t><em>template</em>
+                <t><spanx>template</spanx>
                   <t>Name of the box template to use by default on all blocks within
                     the blockgroup tag. In its empty form, the template will be used
                     to wrap all blocks within it. In its non-empty form, each block
@@ -796,10 +796,10 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag (optional)</t>
                 </t>
-                <t><em>[depth]</em> (1)
+                <t><spanx>[depth]</spanx> (1)
                   <t>how many levels of enclosing loops to be broken out of.</t>
                 </t>
               </list>
@@ -880,10 +880,10 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag (optional)</t>
                 </t>
-                <t><em>[depth]</em> (1)
+                <t><spanx>[depth]</spanx> (1)
                   <t>how many levels of enclosing loops to skip to the end of (optional)</t>
                 </t>
               </list>
@@ -938,7 +938,7 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag (optional)</t>
                 </t>
               </list>
@@ -971,10 +971,10 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag (optional)</t>
                 </t>
-                <t><em>condition</em>
+                <t><spanx>condition</spanx>
                   <t>The condition attribute is specified as a PHP expression
                     which should evaluate to false or true. Within the condition
                     attribute, normal php expressions can be used with one exception.
@@ -1010,16 +1010,16 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
-                <t><em>start</em>
+                <t><spanx>start</spanx>
                   <t>An expression which should evaluate to a value, which
                     is taken as the initial value of the loop variable to iterate
                     over.
                   </t>
                 </t>
-                <t><em>test</em>
+                <t><spanx>test</spanx>
                   <t>The condition to test the iterated value against. This attribute
                     is a php expression which should evaluate to false or true on each
                     iteration. The for loop stops iterating when the value of the
@@ -1027,7 +1027,7 @@ template 'SeaBreeze_center':
                     refer to the <xref target="tagdescriptions">note on logictags</xref>
                   </t>
                 </t>
-                <t><em>iter</em>
+                <t><spanx>iter</spanx>
                   <t>The action to perform at the end of each pass through the loop.
                     The blocklayout for construct is just as susceptible to infinite
                     looping as any for construct in another language. In fact, the 'for'
@@ -1057,9 +1057,9 @@ template 'SeaBreeze_center':
         <section anchor="foreach" title="&lt;xar:foreach /&gt;">
           <t>
             Iterates over an array, assigning each element in
-            <em>in</em> to <em>value</em> using <em>key</em>.
+            <spanx>in</spanx> to <spanx>value</spanx> using <spanx>key</spanx>.
             Note that the order in which the elements are processed is
-            <em>NOT GUARANTEED</em> to be the same order as the elements
+            <spanx>NOT GUARANTEED</spanx> to be the same order as the elements
             of the 'in' attribute. If you absolutely want to make sure
             the elements are processed in the order in which they are
             stored in the array you should use the
@@ -1078,23 +1078,23 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
-                <t><em>in</em>
+                <t><spanx>in</spanx>
                   <t>An expression which evaluates to the name of an array
                     containing the elements to process. Normally this will
                     just be the array variable itself ($varname)
                   </t>
                 </t>
-                <t><em>[key]</em>
+                <t><spanx>[key]</spanx>
                   <t>Variable to assign the key of the array to. This attribute
                     is optional. If it is not specified, no key is used in the
                     foreach loop. If it is not specified, the 'value' attribute
                     is required.
                   </t>
                 </t>
-                <t><em>[value]</em>
+                <t><spanx>[value]</spanx>
                   <t>variable to assign value to. If this attribute is not specified
                     the 'key' attribute is required and the key is used to loop
                     over the elements.
@@ -1129,17 +1129,17 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
-                <t><em>condition</em>
+                <t><spanx>condition</spanx>
                   <t>A php an expression evaluating to false or true. When
                     it evaluates to true, the children of this element are
                     processed. For comparison operators refer to
                     <xref target="tagdescriptions">the note on logic tags</xref>
                   </t>
                 </t>
-                <t><em>[inline]</em> {true|(false)}
+                <t><spanx>[inline]</spanx> {true|(false)}
                   <t>Defaulting to false, this attribute specifies whether the
                     condition should be in assignable (inline) form. This
                     correspond to the php expression : (condition ? truepart:falsepart)
@@ -1184,16 +1184,16 @@ template 'SeaBreeze_center':
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
-                <t><em>name</em>
+                <t><spanx>name</spanx>
                   <t>The name of an array variable over which the loop executes. The
                     elements are guaranteed to be processed in the same order as they
                     are stored in this array.
                   </t>
                 </t>
-                <t><em>[prefix]</em> DEPRECATED - not supported anymore)</t>
+                <t><spanx>[prefix]</spanx> DEPRECATED - not supported anymore)</t>
               </list>
             </t>
             <t>
@@ -1256,7 +1256,7 @@ other loop constructs.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
               </list>
@@ -1313,7 +1313,7 @@ Same as first example, but with the <xar:mlstring> form.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
               </list>
@@ -1356,7 +1356,7 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]></em>
+                <t><spanx>[id]></spanx>
                   <t>an identifier for the tag (optional)</t>
                 </t>
               </list>
@@ -1393,7 +1393,7 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
               </list>
@@ -1434,10 +1434,10 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list >
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
-                <t><em>main</em> {true|false}
+                <t><spanx>main</spanx> {true|false}
                   <t>Boolean specifying whether this is for the main module output or not.
                     The attribute is required, but the actual value isn't used. See below.
                   </t>
@@ -1449,23 +1449,23 @@ contents in the current context.
                     the attributes is ignored, and the main module output is used.
                   </t>
                 </t>
-                <t><em>[module]</em>
+                <t><spanx>[module]</spanx>
                   <t>Name of the module to call, if it is not the main module.</t>
                 </t>
-                <t><em>[type]</em> (user)
+                <t><spanx>[type]</spanx> (user)
                   <t>The type of function to call, if this attribute isn't specified the value
                     defaults to 'user'
                   </t>
                 </t>
-                <t><em>[func]</em> (main)
+                <t><spanx>[func]</spanx> (main)
                   <t>Name of the function to call. The value defaults to 'main' if not
                     specified.
                   </t>
                 </t>
-                <t><em>[args]</em>
+                <t><spanx>[args]</spanx>
                   <t>array of arguments to pass to the function, or</t>
                 </t>
-                <t><em>[any other attribute]</em>
+                <t><spanx>[any other attribute]</spanx>
                   <t>Individual arguments to pass to the function. This means if you specify
                     param="4", test="yes", the attributes are translated by blocklayout into an
                     argument array and passed to the function. In this example:
@@ -1522,16 +1522,16 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>an identifier for the tag</t>
                 </t>
-                <t><em>mask</em>
+                <t><spanx>mask</spanx>
                   <t>The mask for which to check the privileges. This is a required
                     attribute. Refer to RFC-0030 for the full details on the
                     security system.
                   </t>
                 </t>
-                <t><em>[catch]</em> ({(true)|false}
+                <t><spanx>[catch]</spanx> ({(true)|false}
                   <t>Sometimes it may be necessary to check for a certain security
                     privilege, but not raise an exception if the privileg check
                     fails. In those cases, specify catch="false" and no exception will
@@ -1539,10 +1539,10 @@ contents in the current context.
                     be raised.
                   </t>
                 </t>
-                <t><em>[component]</em>
+                <t><spanx>[component]</spanx>
                   <t>For which component will the security check be done? Defaults to empty.</t>
                 </t>
-                <t><em>[instance]</em>
+                <t><spanx>[instance]</spanx>
                   <t>For which instance will this check be made? Defaults to empty</t>
                 </t>
               </list>
@@ -1590,13 +1590,13 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>An identifier for the tag</t>
                 </t>
-                <t><em>name</em>
+                <t><spanx>name</spanx>
                   <t>The name of the variable to be set</t>
                 </t>
-                <t><em>[scope]</em> {module|block|theme}
+                <t><spanx>[scope]</spanx> {module|block|theme}
                   <t>Note: this attribute is not implemented</t>
                 </t>
               </list>
@@ -1669,28 +1669,28 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>An identifier for the tag</t>
                 </t>
-                <t><em>file</em>
+                <t><spanx>file</spanx>
                   <t>the basename of the file to include.</t>
                 </t>
-                <t><em>[module]</em>
+                <t><spanx>[module]</spanx>
                   <t>module where the file resides.</t>
                 </t>
-                <t><em>[type]</em> {(module)|theme|system}
+                <t><spanx>[type]</spanx> {(module)|theme|system}
                   <t>A string which tells Xaraya what kind of template to include.
                     If mainly affects the locations where Xaraya looks for the file.
                   </t>
                 </t>
-                <t><em>[subdata]</em> (container data array)
+                <t><spanx>[subdata]</spanx> (container data array)
                   <t>
                     This allows to pass in an array with data which should be known in
-                    the included template. When this attribut <em>is not</em> specified the included
+                    the included template. When this attribut <spanx>is not</spanx> specified the included
                     template will inherit the data known to the parent template.
                   </t>
                   <t>
-                    When the subdata attribute <em>is</em> specified, only the data in the array
+                    When the subdata attribute <spanx>is</spanx> specified, only the data in the array
                     designated by subdata will be known by the included template. This is the only
                     way to shield data from an included template (to prevent variable collisions for
                     example). If you want the included template to know about the parent template
@@ -1750,13 +1750,13 @@ contents in the current context.
           <t>
             The 'scope' attribute value has the following effect:
             <list style="symbols">
-              <t><em>local</em>: use the local scope of the template to get the variable;</t>
-              <t><em>config</em>: get the configuration variable with the specified name;</t>
-              <t><em>module</em>: get the module variable with the specified name;</t>
-              <t><em>block</em>: not implemented</t>
-              <t><em>theme</em> : get the theme variable with the specified name;</t>
-              <t><em>user</em>  : get the user variable with the specified name;</t>
-              <t><em>session</em> : get the session variable with the specified naem;</t>
+              <t><spanx>local</spanx>: use the local scope of the template to get the variable;</t>
+              <t><spanx>config</spanx>: get the configuration variable with the specified name;</t>
+              <t><spanx>module</spanx>: get the module variable with the specified name;</t>
+              <t><spanx>block</spanx>: not implemented</t>
+              <t><spanx>theme</spanx> : get the theme variable with the specified name;</t>
+              <t><spanx>user</spanx>  : get the user variable with the specified name;</t>
+              <t><spanx>session</spanx> : get the session variable with the specified naem;</t>
             </list>
           </t>
           <t>
@@ -1769,13 +1769,13 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>An identifier for the tag</t>
                 </t>
-                <t><em>[scope]</em> {(local)|config|module|block|theme|user}
+                <t><spanx>[scope]</spanx> {(local)|config|module|block|theme|user}
                   <t>What kind of variable should we retrieve</t>
                 </t>
-                <t><em>[prep]</em> {(false)|true}
+                <t><spanx>[prep]</spanx> {(false)|true}
                   <t>If the prep attribute has the value 'true' the contents of
                     the variable are prepared for displaying. Normally it is the 
                     responsibility of the developer to supply reasonable values to
@@ -1784,12 +1784,12 @@ contents in the current context.
                     values for displaying. The attribute is optional and defaults to false.
                    </t>
                 </t>
-                <t><em>name</em>
+                <t><spanx>name</spanx>
                   <t>String specifying the name of the variable to retrieve within
                     the given scope
                   </t>
                 </t>
-                <t><em>module</em>
+                <t><spanx>module</spanx>
                   <t>String specifying the modulename to get the variable from; this is only
                     applicable when scope is module. Otherwise the value is ignored.
                     the given scope
@@ -1824,10 +1824,10 @@ contents in the current context.
           <section title="Attributes">
             <t>
               <list>
-                <t><em>[id]</em>
+                <t><spanx>[id]</spanx>
                   <t>An identifier for the tag</t>
                 </t>
-                <t><em>condition</em>
+                <t><spanx>condition</spanx>
                   <t>PHP expression evaluating to true or false. During the while
                     loop this expression is evaluated each time at the start of the
                     loop and while the value is true, the child tags are added to the
@@ -1915,33 +1915,33 @@ contents in the current context.
       <t>
         Blocklayout supports the following entities:
         <list style="symbols">
-          <t><em>&amp;xar-baseurl;</em>
+          <t><spanx>&amp;xar-baseurl;</spanx>
             <t>Retrieve the value of the base url of the site.</t>
           </t>
-          <t><em>&amp;xar-currenturl;</em>
+          <t><spanx>&amp;xar-currenturl;</spanx>
             <t>Retrieve the value of the current url on the site.</t>
           </t>
-          <t><em>&amp;xar-var-'varname';</em>
+          <t><spanx>&amp;xar-var-'varname';</spanx>
             <t>Retrieve the value of the local variable $varname. 
               This is effectively the same as : &lt;xar:var name="varname"/&gt;
             </t>
           </t>
-          <t><em>&amp;xar-config-'varname';</em>
+          <t><spanx>&amp;xar-config-'varname';</spanx>
             <t>Retrieve the value of the config variable $varname. 
               This is effectively the same as: &lt;xar:var scope="config" name="varname"/&gt;
             </t>
           </t>
-          <t><em>&amp;xar-session-'varname';</em>
+          <t><spanx>&amp;xar-session-'varname';</spanx>
             <t>Retrieve the value of the session variable $varname.
               This is effectively the same as: &lt;xar:var scope="session" name="varname"/&gt;
             </t>
           </t>
-          <t><em>&amp;xar-mod-'modname'-'varname';</em>
+          <t><spanx>&amp;xar-mod-'modname'-'varname';</spanx>
             <t>Retrieve the value of the module variable $name from the module 'modname'.
               This is effectively the same as: &lt;xar:var scope="module" module="modname" name="name"/&gt;
             </t>
           </t>
-          <t><em>&amp;xar-modurl-'modname'-'type'-'funcname';</em>
+          <t><spanx>&amp;xar-modurl-'modname'-'type'-'funcname';</spanx>
             <t>Retrieve the value of a module URL. (typically something like: http://site.com/index.php?module=modname&amp;type=type&amp;func=func )</t>
           </t>
         </list>
@@ -1955,10 +1955,10 @@ contents in the current context.
         named templates.
       </t>
       <t>
-        The <em>showInput()</em> and <em>showOutput()</em> functions of each
+        The <spanx>showInput()</spanx> and <spanx>showOutput()</spanx> functions of each
         dynamic property return data to a corresponding template in the respective
         modules/[modulename]/xartemplate/properties directory.
-        Previously the <em>showInput()</em> and <em>showOutput()</em> functions
+        Previously the <spanx>showInput()</spanx> and <spanx>showOutput()</spanx> functions
         of each dynamic property returned data to a corresponding template in the
         modules/dynamicdata/xartemplate directory. These are slowly being moved to
         the new location in the properties' respective modules.
@@ -1966,7 +1966,7 @@ contents in the current context.
       <t>
         The directory structure and changes required for dynamic data
         property templates are illustrated below.
-        The <em>propertyname</em> used for the specific template name
+        The <spanx>propertyname</spanx> used for the specific template name
         is taken from the corresponding property array in the
         getBasePropertyInfo() function in the dynamic property itself
         at

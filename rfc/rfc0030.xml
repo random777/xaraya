@@ -334,7 +334,7 @@
           N.B.: Privileges can be defined as empty containers, i.e. not themselves granting any rights. This is useful if they only serve to group other privileges. In the example above the privilege CasualAccess is an empty container that holds its 2 subprivileges.
         </t>
         <t>
-          It's important to understand that grouping privileges like this does <em>not</em> imply that "parent" privileges are in any way "stronger" than "children". Making privileges subprivileges to other privileges is just a convenient way of grouping them, so that bundles of them can be assigned at a time.
+          It's important to understand that grouping privileges like this does <spanx>not</spanx> imply that "parent" privileges are in any way "stronger" than "children". Making privileges subprivileges to other privileges is just a convenient way of grouping them, so that bundles of them can be assigned at a time.
         </t>
         <t>
           In the above example note that although the names are
@@ -772,40 +772,40 @@
           <t>
             <list style="symbols">
                 <t>              
-                  <em>roles_adminapi_create($args)</em>: create a new user.
+                  <spanx>roles_adminapi_create($args)</spanx>: create a new user.
                 </t>
                 <t>              
-                  <em>roles_adminapi_delete($args)</em>: delete a user.
+                  <spanx>roles_adminapi_delete($args)</spanx>: delete a user.
                 </t>
                 <t>              
-                  <em>roles_adminapi_update($args)</em>: update a user.
+                  <spanx>roles_adminapi_update($args)</spanx>: update a user.
                 </t>
                 <t>              
-                  <em>roles_adminapi_stateupdate($args)</em>: update a user's state.
+                  <spanx>roles_adminapi_stateupdate($args)</spanx>: update a user's state.
                 </t>
                 <t>              
-                  <em>roles_adminapi_getmenulinks()</em>: passmenulinks to the main menu.
+                  <spanx>roles_adminapi_getmenulinks()</spanx>: passmenulinks to the main menu.
                 </t>
                 <t>              
-                  <em>roles_adminapi_addgroup($args)</em>: create a new group.
+                  <spanx>roles_adminapi_addgroup($args)</spanx>: create a new group.
                 </t>
                 <t>              
-                  <em>roles_adminapi_getallgroups()</em>: generate a listing of all groups.
+                  <spanx>roles_adminapi_getallgroups()</spanx>: generate a listing of all groups.
                 </t>
                 <t>              
-                  <em>roles_adminapi_deletegroup($args)</em>: delete a group.
+                  <spanx>roles_adminapi_deletegroup($args)</spanx>: delete a group.
                 </t>
                 <t>              
-                  <em>roles_adminapi_renamegroup($args)</em>: rename a group.
+                  <spanx>roles_adminapi_renamegroup($args)</spanx>: rename a group.
                 </t>
                 <t>              
-                  <em>roles_adminapi_viewgroup($args)</em>: view the users in a group.
+                  <spanx>roles_adminapi_viewgroup($args)</spanx>: view the users in a group.
                 </t>
                 <t>              
-                  <em>roles_adminapi_deleteuser($args)</em>: delete a user from a group.
+                  <spanx>roles_adminapi_deleteuser($args)</spanx>: delete a user from a group.
                 </t>
                 <t>              
-                  <em>roles_adminapi_addmember($args)</em>: add a user to a group.
+                  <spanx>roles_adminapi_addmember($args)</spanx>: add a user to a group.
                 </t>
             </list>
           </t>
@@ -814,37 +814,37 @@
           <t>
             <list style="symbols">
               <t>              
-                <em>roles_userapi_getall($args)</em>: generate a listing of all the users..
+                <spanx>roles_userapi_getall($args)</spanx>: generate a listing of all the users..
               </t>
               <t>              
-                <em>roles_userapi_getallactive($args)</em>: generate a listing of all the active users.
+                <spanx>roles_userapi_getallactive($args)</spanx>: generate a listing of all the active users.
               </t>
               <t>              
-                <em>roles_userapi_get($args)</em>: get a user.
+                <spanx>roles_userapi_get($args)</spanx>: get a user.
               </t>
               <t>              
-                <em>roles_userapi_countitems()</em>: return the number of users.
+                <spanx>roles_userapi_countitems()</spanx>: return the number of users.
               </t>
               <t>              
-                <em>roles_userapi_login($args)</em>: log a user in.
+                <spanx>roles_userapi_login($args)</spanx>: log a user in.
               </t>
               <t>              
-                <em>roles_userapi_makePass()</em>: generate a password.
+                <spanx>roles_userapi_makePass()</spanx>: generate a password.
               </t>
               <t>              
-                <em>roles_userapi_getmenulinks()</em>: return menulinks to the main menu.
+                <spanx>roles_userapi_getmenulinks()</spanx>: return menulinks to the main menu.
               </t>
               <t>              
-                <em>roles_userapi_getallgroups()</em>: generate a listing of all the groups.
+                <spanx>roles_userapi_getallgroups()</spanx>: generate a listing of all the groups.
               </t>
               <t>              
-                <em>roles_userapi_getUsers($args)</em>: generate a listing of all the users in a given groups.
+                <spanx>roles_userapi_getUsers($args)</spanx>: generate a listing of all the users in a given groups.
               </t>
               <t>              
-                <em>roles_userapi_countgroups()</em>: return the number of groups.
+                <spanx>roles_userapi_countgroups()</spanx>: return the number of groups.
               </t>
               <t>              
-                <em>roles_userapi_addmember($args)</em>: add a user to a group.
+                <spanx>roles_userapi_addmember($args)</spanx>: add a user to a group.
               </t>
             </list>
           </t>
@@ -858,55 +858,55 @@
         <t>
           <list style="symbols">
               <t>              
-                <em>xarMakeGroup</em>: create a new group.
+                <spanx>xarMakeGroup</spanx>: create a new group.
               </t>
               <t>              
-                <em>xarMakeUser</em>: create a new user.
+                <spanx>xarMakeUser</spanx>: create a new user.
               </t>
               <t>              
-                <em>xarMakeRoleRoot</em>: define an entry in the roles repository that is the head of a roles hierarchy.
+                <spanx>xarMakeRoleRoot</spanx>: define an entry in the roles repository that is the head of a roles hierarchy.
               </t>
               <t>              
-                <em>xarMakeRoleMemberByName</em>: make one role the child of another.
+                <spanx>xarMakeRoleMemberByName</spanx>: make one role the child of another.
               </t>
               <t>              
-                <em>xarMakeRoleMemberByUname</em>: make one role the child of another.
+                <spanx>xarMakeRoleMemberByUname</spanx>: make one role the child of another.
               </t>
               <t>              
-                <em>xarMakeRoleMemberByID</em>: make one role the child of another.
+                <spanx>xarMakeRoleMemberByID</spanx>: make one role the child of another.
               </t>
               <t>              
-                <em>xarRegisterPrivilege</em>: create a privilege in the rpivileges repository.
+                <spanx>xarRegisterPrivilege</spanx>: create a privilege in the rpivileges repository.
               </t>
               <t>              
-                <em>xarMakePrivilegeRoot</em>: define an entry in the privileges repository that is the head of a privileges hierarchy.
+                <spanx>xarMakePrivilegeRoot</spanx>: define an entry in the privileges repository that is the head of a privileges hierarchy.
               </t>
               <t>              
-                <em>xarAssignPrivilege</em>: assign a privilege to a role.
+                <spanx>xarAssignPrivilege</spanx>: assign a privilege to a role.
               </t>
               <t>              
-                <em>xarDefineInstance</em>: create an instance in the instance repository.
+                <spanx>xarDefineInstance</spanx>: create an instance in the instance repository.
               </t>
               <t>              
-                <em>xarRemoveInstances</em>: remove all the instances of a module from the instances repository.
+                <spanx>xarRemoveInstances</spanx>: remove all the instances of a module from the instances repository.
               </t>
               <t>              
-                <em>xarGetGroups</em>: returns an array representing all the groups.
+                <spanx>xarGetGroups</spanx>: returns an array representing all the groups.
               </t>
               <t>              
-                <em>xarFindRole</em>: finds a role by its name.
+                <spanx>xarFindRole</spanx>: finds a role by its name.
               </t>
               <t>              
-                <em>xarRegisterMask</em>: register a mask in the mask repository.
+                <spanx>xarRegisterMask</spanx>: register a mask in the mask repository.
               </t>
               <t>              
-                <em>xarUnregisterMask</em>: remove a mask from the mask repository.
+                <spanx>xarUnregisterMask</spanx>: remove a mask from the mask repository.
               </t>
               <t>              
-                <em>xarRemoveMasks</em>: remove all the masks of a module from the masks repository.
+                <spanx>xarRemoveMasks</spanx>: remove all the masks of a module from the masks repository.
               </t>
               <t>              
-                <em>xarSecurityCheck</em>: check a the current user's privilege against a mask.
+                <spanx>xarSecurityCheck</spanx>: check a the current user's privilege against a mask.
               </t>
           </list>
         </t>
@@ -935,43 +935,43 @@
             </t>
             <list style="symbols">
               <t>              
-                <em>constructor</em>
+                <spanx>constructor</spanx>
               </t>
               <t>              
-                <em>getgroups</em>: returns an array representing all the groups in the system.
+                <spanx>getgroups</spanx>: returns an array representing all the groups in the system.
                 Note: should be private.
               </t>
               <t>            
-                <em>getgroup</em>: returns a single role of type group based on its ID.
+                <spanx>getgroup</spanx>: returns a single role of type group based on its ID.
                 Note: should be private.
               </t>
               <t>                        
-                <em>getsubgroups</em>: returns all the subgroups of a given role based on its ID.
+                <spanx>getsubgroups</spanx>: returns all the subgroups of a given role based on its ID.
               </t>
               <t>                        
-                <em>makeTree</em>: returns a tree representation of the roles of type group.
+                <spanx>makeTree</spanx>: returns a tree representation of the roles of type group.
               </t>
               <t>                        
-                <em>drawtree</em>: returns a crude HTML drawing of a tree generated by maketree.
+                <spanx>drawtree</spanx>: returns a crude HTML drawing of a tree generated by maketree.
                 Note: needs to be moved out to the templates.
               </t>
               <t>                        
-                <em>getRole</em>: returns a a role object based on its ID.
+                <spanx>getRole</spanx>: returns a a role object based on its ID.
               </t>
               <t>                        
-                <em>findRole</em>: returns a role object based on its name.
+                <spanx>findRole</spanx>: returns a role object based on its name.
               </t>
               <t>                        
-                <em>makeMemberByName</em>: makes one role a child of another. Uses the names as inputs.
+                <spanx>makeMemberByName</spanx>: makes one role a child of another. Uses the names as inputs.
               </t>
               <t>                        
-                <em>isRoot</em>: creates an entry in the repository that is the head of the roles hierarchy.
+                <spanx>isRoot</spanx>: creates an entry in the repository that is the head of the roles hierarchy.
               </t>
               <t>                        
-                <em>makeUser</em>: creates a role object of type user in the repository.
+                <spanx>makeUser</spanx>: creates a role object of type user in the repository.
               </t>
               <t>                        
-                <em>makeGroup</em>: creates a role object of type group in the repository.
+                <spanx>makeGroup</spanx>: creates a role object of type group in the repository.
               </t>
             </list>
           </t>
@@ -986,67 +986,67 @@
             </t>
             <list style="symbols">
               <t>              
-                <em>constructor</em>
+                <spanx>constructor</spanx>
               </t>
               <t>              
-                <em>add</em>: add this role to the roles repository.
+                <spanx>add</spanx>: add this role to the roles repository.
               </t>
               <t>              
-                <em>addMember</em>: add a child role to this role.
+                <spanx>addMember</spanx>: add a child role to this role.
               </t>
               <t>              
-                <em>removeMember</em>: remove a child role from this role.
+                <spanx>removeMember</spanx>: remove a child role from this role.
               </t>
               <t>              
-                <em>remove</em>: remove this role from the roles repository.
+                <spanx>remove</spanx>: remove this role from the roles repository.
               </t>
               <t>              
-                <em>update</em>: update this role in the roles repository..
+                <spanx>update</spanx>: update this role in the roles repository..
               </t>
               <t>              
-                <em>remove</em>: remove this role from the Roles repository.
+                <spanx>remove</spanx>: remove this role from the Roles repository.
               </t>
               <t>              
-                <em>getAllPrivileges</em>: get an array representing all the privileges defined. 
+                <spanx>getAllPrivileges</spanx>: get an array representing all the privileges defined. 
               </t>
               <t>              
-                <em>getAssignedPrivileges</em>: get an array of privilege objects assigned to this role. 
+                <spanx>getAssignedPrivileges</spanx>: get an array of privilege objects assigned to this role. 
               </t>
               <t>              
-                <em>getInheritedPrivileges</em>: get an array of privilege objects assigned to this role's ancestors. 
+                <spanx>getInheritedPrivileges</spanx>: get an array of privilege objects assigned to this role's ancestors. 
               </t>
               <t>              
-                <em>assignPrivilege</em>: assign a privilege to this role 
+                <spanx>assignPrivilege</spanx>: assign a privilege to this role 
               </t>
               <t>              
-                <em>removePrivilege</em>: remove a privilege from this role
+                <spanx>removePrivilege</spanx>: remove a privilege from this role
               </t>
               <t>              
-                <em>getUsers</em>: get the children of this role that are users.
+                <spanx>getUsers</spanx>: get the children of this role that are users.
               </t>
               <t>              
-                <em>getParents</em>: gets an array of the role objects this role is a member of
+                <spanx>getParents</spanx>: gets an array of the role objects this role is a member of
               </t>
               <t>              
-                <em>getAncestors</em>:  recursive getParents.
+                <spanx>getAncestors</spanx>:  recursive getParents.
               </t>
               <t>              
-                <em>isEqual</em>: check whether this role is the same as another.
+                <spanx>isEqual</spanx>: check whether this role is the same as another.
               </t>
               <t>              
-                <em>isUser</em>: check whether this role is a user
+                <spanx>isUser</spanx>: check whether this role is a user
               </t>
               <t>              
-                <em>isParent</em>: check whether a role is a parent of this role
+                <spanx>isParent</spanx>: check whether a role is a parent of this role
               </t>
               <t>              
-                <em>isAncestor</em>: check whether a role is an ancestor of this role
+                <spanx>isAncestor</spanx>: check whether a role is an ancestor of this role
               </t>
               <t>              
-                <em>getPrivileges</em>: get an array of all the privilege objects defined.
+                <spanx>getPrivileges</spanx>: get an array of all the privilege objects defined.
               </t>
               <t>              
-                <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarRole object.
+                <spanx>gets</spanx> and <spanx>sets</spanx>: of all the relevant data items in the xarRole object.
               </t>         
             </list>
           </t>
@@ -1065,31 +1065,31 @@
             </t>
             <list style="symbols">
               <t>              
-                <em>constructor</em>
+                <spanx>constructor</spanx>
               </t>
               <t>              
-                <em>getmasks</em>: returns an array of mask objects for a given module and component.
+                <spanx>getmasks</spanx>: returns an array of mask objects for a given module and component.
               </t>
               <t>              
-                <em>register</em>: create an entry in the masks repository.
+                <spanx>register</spanx>: create an entry in the masks repository.
               </t>
               <t>              
-                <em>unregister</em>: remove an entry from the masks repository. (this method is deprecated)
+                <spanx>unregister</spanx>: remove an entry from the masks repository. (this method is deprecated)
               </t>
               <t>              
-                <em>removemasks</em>: removes all the masks of a given module from the masks repository.
+                <spanx>removemasks</spanx>: removes all the masks of a given module from the masks repository.
               </t>
               <t>              
-                <em>winnow</em>: merges 2 arrays of mask objects (same level behavior).
+                <spanx>winnow</spanx>: merges 2 arrays of mask objects (same level behavior).
               </t>
               <t>              
-                <em>trump</em>: merges 2 arrays of mask objects (inheritance behavior).
+                <spanx>trump</spanx>: merges 2 arrays of mask objects (inheritance behavior).
               </t>
               <t>              
-                <em>xarSecurityCheck</em>: checks a privilege against a mask.
+                <spanx>xarSecurityCheck</spanx>: checks a privilege against a mask.
               </t>
               <t>              
-                <em>getmask</em>: returns a single mask object based on its name.
+                <spanx>getmask</spanx>: returns a single mask object based on its name.
               </t>
             </list>
           </t>
@@ -1105,56 +1105,56 @@
             </t>
             <list style="symbols">
               <t>              
-                <em>defineInstance</em>: creates an instance definition in the instance repository.
+                <spanx>defineInstance</spanx>: creates an instance definition in the instance repository.
               </t>
               <t>              
-                <em>removeInstances</em>: removes all the instance definitions of a given module from the instance repository.
+                <spanx>removeInstances</spanx>: removes all the instance definitions of a given module from the instance repository.
               </t>
               <t>              
-                <em>register</em>: create an entry in the privileges repository.
+                <spanx>register</spanx>: create an entry in the privileges repository.
               </t>
               <t>              
-                <em>assign</em>: assign a privilege to a role.
+                <spanx>assign</spanx>: assign a privilege to a role.
               </t>
               <t>              
-                <em>getprivileges</em>: returns an array representing all the privileges in the system.
+                <spanx>getprivileges</spanx>: returns an array representing all the privileges in the system.
               </t>
               <t>              
-                <em>gettoplevelprivileges</em>: returns an array representing all the privileges in the system that heads of a compound privilege (this function is deprecated)..
+                <spanx>gettoplevelprivileges</spanx>: returns an array representing all the privileges in the system that heads of a compound privilege (this function is deprecated)..
               </t>
               <t>              
-                <em>getrealms</em>: returns an array representing all the realms in the system.
+                <spanx>getrealms</spanx>: returns an array representing all the realms in the system.
               </t>
               <t>              
-                <em>getmodules</em>: returns an array representing all the modules in the system.
+                <spanx>getmodules</spanx>: returns an array representing all the modules in the system.
               </t>
               <t>              
-                <em>getcomponents</em>: returns an array representing all the components of a module.
+                <spanx>getcomponents</spanx>: returns an array representing all the components of a module.
               </t>
               <t>              
-                <em>getinstances</em>: returns an array representing all the instances of a module and component.
+                <spanx>getinstances</spanx>: returns an array representing all the instances of a module and component.
               </t>
               <t>              
-                <em>getsubprivileges</em>: returns all the child privileges of a given privilege  based on its ID.
+                <spanx>getsubprivileges</spanx>: returns all the child privileges of a given privilege  based on its ID.
               </t>
               <t>              
-                <em>getprivilegefast</em>: returns an array representing a single privilege  based on its ID.
+                <spanx>getprivilegefast</spanx>: returns an array representing a single privilege  based on its ID.
                 Note: should be private.
               </t>
               <t>              
-                <em>tree functions</em>: a number of help functions for displaying compound privileges.
+                <spanx>tree functions</spanx>: a number of help functions for displaying compound privileges.
               </t>
               <t>              
-                <em>getPrivilege</em>: retrieves a privilege object from the privileges repository based on its ID.
+                <spanx>getPrivilege</spanx>: retrieves a privilege object from the privileges repository based on its ID.
               </t>
               <t>              
-                <em>findPrivilege</em>: retrieves a privilege object from the privileges repository based on its name.
+                <spanx>findPrivilege</spanx>: retrieves a privilege object from the privileges repository based on its name.
               </t>
               <t>              
-                <em>makemember</em>:  makes a privilege a component of another privilege.
+                <spanx>makemember</spanx>:  makes a privilege a component of another privilege.
               </t>
               <t>              
-                <em>makeentry</em>:  defines a top-level entry in the privileges repository.
+                <spanx>makeentry</spanx>:  defines a top-level entry in the privileges repository.
               </t>
             </list>
           </t>
@@ -1168,13 +1168,13 @@
             </t>
             <list style="symbols">
               <t>              
-                <em>constructor</em>
+                <spanx>constructor</spanx>
               </t>
               <t>              
-                <em>implies</em>: compares two masks or privileges.
+                <spanx>implies</spanx>: compares two masks or privileges.
               </t>
               <t>              
-                <em>gets</em> and <em>sets</em>: of all the relevant data items in the xarMask object.
+                <spanx>gets</spanx> and <spanx>sets</spanx>: of all the relevant data items in the xarMask object.
               </t>
             </list>
           </t>
@@ -1188,49 +1188,49 @@
             </t>
             <list style="symbols">
               <t>              
-                <em>constructor</em>
+                <spanx>constructor</spanx>
               </t>
               <t>              
-                <em>add</em>: add this privilege to the Privileges repository.
+                <spanx>add</spanx>: add this privilege to the Privileges repository.
               </t>
               <t>              
-                <em>makeEntry</em>: adds this privilege as a toplevel entry to the privileges repository.
+                <spanx>makeEntry</spanx>: adds this privilege as a toplevel entry to the privileges repository.
               </t>
               <t>              
-                <em>addMember</em>: adds a component to this privilege.
+                <spanx>addMember</spanx>: adds a component to this privilege.
               </t>
               <t>              
-                <em>removeMember</em>: removes a component of this privilege.
+                <spanx>removeMember</spanx>: removes a component of this privilege.
               </t>
               <t>              
-                <em>update</em>: updates this privilege in the privileges repository.
+                <spanx>update</spanx>: updates this privilege in the privileges repository.
               </t>
               <t>              
-                <em>remove</em>: removes this privilege from the privileges repository.
+                <spanx>remove</spanx>: removes this privilege from the privileges repository.
               </t>
               <t>              
-                <em>getRoles</em>: returns an array of roles objects this privilege is assigned to.
+                <spanx>getRoles</spanx>: returns an array of roles objects this privilege is assigned to.
               </t>
               <t>              
-                <em>removeRole</em>: removes an ssignation of this privilege to a role.
+                <spanx>removeRole</spanx>: removes an ssignation of this privilege to a role.
               </t>
               <t>              
-                <em>getParents</em>: returns an array of privilege objects this privilege is a component of.
+                <spanx>getParents</spanx>: returns an array of privilege objects this privilege is a component of.
               </t>
               <t>              
-                <em>getAncestors</em>: recursive getParents.
+                <spanx>getAncestors</spanx>: recursive getParents.
               </t>
               <t>              
-                <em>getChildren</em>: returns an array of privilege objects that are components of this privilege.
+                <spanx>getChildren</spanx>: returns an array of privilege objects that are components of this privilege.
               </t>
               <t>              
-                <em>getDescendants</em>: recursive getChildren.
+                <spanx>getDescendants</spanx>: recursive getChildren.
               </t>
               <t>              
-                <em>isEqual</em>: compares this privilege object to another.
+                <spanx>isEqual</spanx>: compares this privilege object to another.
               </t>
               <t>              
-                <em>isEmpty</em>: returns true if this privilege is an empty container.
+                <spanx>isEmpty</spanx>: returns true if this privilege is an empty container.
               </t>
             </list>
           </t>
@@ -1490,7 +1490,7 @@
           is no guarantee that an article corresponding to a given
           combination exists or will exist. In other words, with
           instance definitions the UI can ensure that privileges
-          contain well formed instances, but it <em>cannot</em> ensure
+          contain well formed instances, but it <spanx>cannot</spanx> ensure
           that the instances are valid.
         </t>
       </section>

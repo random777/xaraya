@@ -97,7 +97,7 @@
         the system.  The listed requirements are not sorted,
         all 10 requirements are of equal importance.
         <list style="numbers">
-          <t><em>Tests are conservative, the default result being "failed"</em>
+          <t><spanx>Tests are conservative, the default result being "failed"</spanx>
             <t>
               With the implementation of automated systems in general the
               most important thing to watch out for is a false sense of
@@ -115,7 +115,7 @@
               actually does what it was designed for.
             </t>
           </t>
-          <t><em>The test system can test itself</em>
+          <t><spanx>The test system can test itself</spanx>
             <t>
               To prevent having a test system which fails rather then
               the code being tested, the system should be as simple as
@@ -130,9 +130,9 @@
               the system can be used.
             </t>
           </t>
-          <t><em>Tests are as close as possible to the code for which they are designed</em>
+          <t><spanx>Tests are as close as possible to the code for which they are designed</spanx>
             <t>
-              Adopting a unit test system <em>will</em> create
+              Adopting a unit test system <spanx>will</spanx> create
               extra work for the developer, but it also yields an extra
               gain in terms of the quality of their code. The tests
               should be as close to the code tested as possible, to make
@@ -150,7 +150,7 @@
               come up with something for ourselves.
             </t>
           </t>
-          <t><em>Tests are grouped into testcases in testsuites, which can both be run separately</em>
+          <t><spanx>Tests are grouped into testcases in testsuites, which can both be run separately</spanx>
             <t>
               The perceived method for using the test system is that the
               tests are written before the code itself is written and
@@ -163,14 +163,14 @@
               together)
             </t>
           </t>
-          <t><em>Tests can be run directly from the development environment</em>
+          <t><spanx>Tests can be run directly from the development environment</spanx>
             <t>
               While developing code a developer must be able to run the written tests
               for that piece of functionality. This means that the testruns must be
               highly integrated with the development environment.
             </t>
           </t>
-          <t><em>Tests are distributed</em>
+          <t><spanx>Tests are distributed</spanx>
             <t>
               To increase the use of the system the tests should be able to
               run in each developer's environment, and be replicated to other
@@ -187,7 +187,7 @@
               accessible (for example by accessing a web page).
             </t>
           </t>
-          <t><em>Tests are run before a commit into the repository</em>
+          <t><spanx>Tests are run before a commit into the repository</spanx>
             <t>
               Before committing anything the system should give the developer
               a warning when one or more test do not pass. In "strict" mode
@@ -196,7 +196,7 @@
               have a more relaxed setting, allowing commits even when tests fail.
             </t>
           </t>
-          <t><em>A testrun has a unique "point in time" marker</em>
+          <t><spanx>A testrun has a unique "point in time" marker</spanx>
             <t>           
               As the time of running the testcases and the time of
               presenting the consolidated results may differ, a "marker" of
@@ -212,7 +212,7 @@
               that specific state at any time.
             </t>
           </t>
-          <t><em>The testing framework has no impact on runtime requirements</em>
+          <t><spanx>The testing framework has no impact on runtime requirements</spanx>
             <t>
               While using the software, the availability of a testing
               framework should have no impact at runtime. Although a
@@ -225,7 +225,7 @@
               actively being used.
             </t>
           </t>
-          <t><em>Unattended operation</em>
+          <t><spanx>Unattended operation</spanx>
             <t>
               The system must actively support a mode in which tests can
               run unattended, logging the results in a file, database or
@@ -316,7 +316,7 @@
           section details the overview given in the previous section.
         </t>
 
-        <t><em>Tests are conservative, the result defaulting to "failed"</em></t>
+        <t><spanx>Tests are conservative, the result defaulting to "failed"</spanx></t>
         <t>
           This means that tests will only pass when a very specific
           test condition has been met, in all other cases the test
@@ -334,7 +334,7 @@
           exceptions should be viewed as failures nonetheless.
         </t>
 
-        <t><em>The test system can test itself</em></t>
+        <t><spanx>The test system can test itself</spanx></t>
         <t>
           This is kind of a tricky requirement. If worked out in full
           it creates an endless loop of tests. We are going to make an
@@ -352,7 +352,7 @@
           be fixed.
         </t>
 
-        <t><em>Tests are as close as possible to the code for which they are designed</em></t>
+        <t><spanx>Tests are as close as possible to the code for which they are designed</spanx></t>
         <t>
           For storing the tests we have roughly the following choices,
           assuming we store the tests in the repository.
@@ -380,7 +380,7 @@
           directory. Embedding tests directly into the code would be
           the ideal situation theoretically, but frankly, we don't
           have a clue how to do that in PHP. Someday maybe PHP will
-          include an <em>ensure()</em> operation which allows tests to
+          include an <spanx>ensure()</spanx> operation which allows tests to
           be embedded into the code. The last option is somewhat like
           the second with the advantage that it's very clear for which 
           file the tests are written. This advantage is not so great that we
@@ -391,7 +391,7 @@
           Weighing the above, we chose option number 2.
         </t>
 
-        <t><em>Tests are grouped into testcases and testsuites, which can both be run separately</em></t>
+        <t><spanx>Tests are grouped into testcases and testsuites, which can both be run separately</spanx></t>
         <t>
           A testcase tests a number of features for a piece of
           functionality, typically one class or one function.  The
@@ -404,7 +404,7 @@
           and assign new testcases to these testsuites.
         </t>
 
-        <t><em>Tests can be run directly from the development environment</em></t>
+        <t><spanx>Tests can be run directly from the development environment</spanx></t>
         <t>
           Effectively this means that a bk command is defined to run 
           the tests. The proposed syntax for this command is:
@@ -439,7 +439,7 @@
           </artwork>
         </t>
 
-        <t><em>Tests are distributed</em></t>
+        <t><spanx>Tests are distributed</spanx></t>
         <t>
           This requirement should be interpreted such that the testcode
           is distributed, allowing it to run everywhere the
@@ -449,7 +449,7 @@
           sources in bk repositories so this shouldn't be a problem.
         </t>
         
-        <t><em>Tests are run before a commit into the repository</em></t>
+        <t><spanx>Tests are run before a commit into the repository</spanx></t>
         <t>
           Usually a version control system support something like triggers
           which can run at certain defined events using the repository. We want to
@@ -514,7 +514,7 @@
           integration, or more strict integration, is warranted.
         </t>
         
-        <t><em>A testrun has a unique "point in time" marker</em></t>
+        <t><spanx>A testrun has a unique "point in time" marker</spanx></t>
         <t>
           By specifying a unique point in time marker on each
           testresult produced testresults can be linked to a certain
@@ -534,17 +534,17 @@
           RFC should actually be rewritten. Some parts have already been
           made more generally applicable, but a total review is warranted)
         </t>
-        <t><em>The testing framework has no impact on runtime requirements</em></t>
+        <t><spanx>The testing framework has no impact on runtime requirements</spanx></t>
         <t>
           The current idea of implementation implies that the test
-          framework <em>pulls in</em> the necessary code which needs to
+          framework <spanx>pulls in</spanx> the necessary code which needs to
           be tested. As such it can be seen as a separate system in
           the code base. No extra code will be added to the actual
           product. The first estimate for the runtime impact is
           therefore: zero!
         </t>
         
-        <t><em>Unattended operation</em></t>
+        <t><spanx>Unattended operation</spanx></t>
         <t>
           The implemented system must support unattended
           operation. This means that the tests must be able to run
@@ -640,15 +640,15 @@
       </reference>
     </references>
     <section title="Glossary">
-      <t><em>expected result</em>: 
+      <t><spanx>expected result</spanx>: 
         a defined outcome of a test. (note
         that it can be possible to expect negative results from a
         test. The result fails, the test passes
       </t> 
-      <t><em>failed</em>:
+      <t><spanx>failed</spanx>:
         The result of a test does not conform to the expected result
       </t>
-      <t><em>passed</em>: 
+      <t><spanx>passed</spanx>: 
         The result of a test does conform to the expected
         result
       </t>

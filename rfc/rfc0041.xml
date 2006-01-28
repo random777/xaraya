@@ -78,10 +78,10 @@
         This system co-exists with the hooks system. They are alike but the main reasons to
         have a separate event-system next to the hook system are:
         <list style="numbers">
-          <t>The hooks live in <em>module-space</em> while we need signalling from the core as
+          <t>The hooks live in <spanx>module-space</spanx> while we need signalling from the core as
             well
           </t>
-          <t>The events are <em>static</em>, they are guaranteed to happen, while hooks are
+          <t>The events are <spanx>static</spanx>, they are guaranteed to happen, while hooks are
             dynamic and can be disabled (or rather, not configured) by the site administrator.
           </t>
         </list>

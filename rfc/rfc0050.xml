@@ -106,7 +106,7 @@ exist among Xaraya components as they do between OO objects, the two are not ide
                 The concepts of xarlets and assignments can be used as the basis for a model describing the relationships between different types of components used in the Xaraya framework.
               </t>
               <t>
-                By defining a standard Xaraya API for assignments, it becomes possible for conponents to interact in a standardized fashion. In particular it becomes possible to create a standard for data exchange between components of different types. At the lowest level this amounts to just restating (in a different terminology) how API function calls are currently performed. Looking a bit further, it is giving a standard description to higher level mechanisms such as hooks and dynamic data. At the limit it means <em>extending</em> such mechanisms to the point where any two modules, or more generally any two components, can "talk to each other".
+                By defining a standard Xaraya API for assignments, it becomes possible for conponents to interact in a standardized fashion. In particular it becomes possible to create a standard for data exchange between components of different types. At the lowest level this amounts to just restating (in a different terminology) how API function calls are currently performed. Looking a bit further, it is giving a standard description to higher level mechanisms such as hooks and dynamic data. At the limit it means <spanx>extending</spanx> such mechanisms to the point where any two modules, or more generally any two components, can "talk to each other".
               </t>
             </list>
           </t>
@@ -412,7 +412,7 @@ exist among Xaraya components as they do between OO objects, the two are not ide
         </section>
         <section title="Hierarchy Overview">
         <t>
-          The following diagram shows the topmost portion of the object hierarchy (core modules). <em>Only member assignments are shown.</em>
+          The following diagram shows the topmost portion of the object hierarchy (core modules). <spanx>Only member assignments are shown.</spanx>
           [rndom: this is still largely in flux.]
         </t>
         <artwork>    
@@ -453,7 +453,7 @@ exist among Xaraya components as they do between OO objects, the two are not ide
         </t>
             <list style="symbols">
               <t> 
-                <em>xardata</em>: identifies the variable set used in data exchange with other components. These are the public fields of the component that can be gotten with the getContent() method. The definition of this method is:
+                <spanx>xardata</spanx>: identifies the variable set used in data exchange with other components. These are the public fields of the component that can be gotten with the getContent() method. The definition of this method is:
                 <artwork>
     function getContent()
     {
@@ -462,7 +462,7 @@ exist among Xaraya components as they do between OO objects, the two are not ide
                 </artwork>
               </t>
               <t> 
-                <em>register</em>: identifies the variable set of the component's basic data. Ingeneral this will be distinct from the previous varset, ass not all these variables are public. These values can be gotten with the toArray() method.
+                <spanx>register</spanx>: identifies the variable set of the component's basic data. Ingeneral this will be distinct from the previous varset, ass not all these variables are public. These values can be gotten with the toArray() method.
                 <artwork>
     function toArray()
     {
@@ -471,20 +471,20 @@ exist among Xaraya components as they do between OO objects, the two are not ide
                 </artwork>
               </t>
               <t> 
-                <em>save</em>: identifies the variable set of the component's data that is stored in the database
+                <spanx>save</spanx>: identifies the variable set of the component's data that is stored in the database
               </t>
             </list>
         <t>
             The base object class incorporates a number of methods for manipulating varsets. [random: these will presumably be protected methods in PHP5.] They are:
             <list style="symbols">
               <t> 
-                <em>getVarSet($str)</em>: gets an array of variables where $str denotes the name space ideentifier. The array elements are of the form :varname: => :varvalue:.
+                <spanx>getVarSet($str)</spanx>: gets an array of variables where $str denotes the name space ideentifier. The array elements are of the form :varname: => :varvalue:.
               </t>
               <t> 
-                <em>getVarNames($str)</em>: gets an array of variable names where $str denotes the name space identifier. The array elements are of the form :varname:.
+                <spanx>getVarNames($str)</spanx>: gets an array of variable names where $str denotes the name space identifier. The array elements are of the form :varname:.
               </t>
               <t> 
-                <em>setVarSet($str, $array)</em>: sets the values of a varset where $str denotes the name space identifier. The elements of $array are of the form :varname: => :varvalue:. If the varset contains variables that are not contained in $array, those variables are untouched.
+                <spanx>setVarSet($str, $array)</spanx>: sets the values of a varset where $str denotes the name space identifier. The elements of $array are of the form :varname: => :varvalue:. If the varset contains variables that are not contained in $array, those variables are untouched.
               </t>
             </list>
             
@@ -523,7 +523,7 @@ exist among Xaraya components as they do between OO objects, the two are not ide
         </section>
         <section title="Roles and Dynamic Data">
         <t>
-          DD properties in roles (or other modules) can be viewed as property assignments of DD "objects" to roles xarlet. By tying the assignment of such properies to the <em>type</em> of role, rather than to any xarlet in the roles hierarchy, it becomes possible to have different DD properties attached to e.g. users and groups.
+          DD properties in roles (or other modules) can be viewed as property assignments of DD "objects" to roles xarlet. By tying the assignment of such properies to the <spanx>type</spanx> of role, rather than to any xarlet in the roles hierarchy, it becomes possible to have different DD properties attached to e.g. users and groups.
         </t>
         </section>
         <section title="Content as properties">

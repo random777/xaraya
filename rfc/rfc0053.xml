@@ -83,7 +83,7 @@
       <t>
         Structured queries are essentially a convenience mechanism, which allows Xaraya to work with  database queries in a more flexible and dynamic way in a number of areas:
           <t>
-            <em>Defaults</em>
+            <spanx>Defaults</spanx>
             <list style="symbols">
                 <t>
                     Standard database connections are automatically handled as required.
@@ -106,7 +106,7 @@
             </list>
         </t>
         <t>
-            <em>Dynamic Queries</em>
+            <spanx>Dynamic Queries</spanx>
             <list style="symbols">
                 <t>
                     Records to be retrieved and starting point can be easily specified for queries that show only a subset of records on a single page (pager mechanism).
@@ -120,7 +120,7 @@
             </list>
         </t>
         <t>
-            <em>Storage and Retrieval</em>
+            <spanx>Storage and Retrieval</spanx>
             <list style="symbols">
                 <t>
                     Structured queries can be easily passed from one page to the next, and modified on the fly. One example is the messaging page in the roles module, which can be passed a query (of a set of users) from the users view page, but will then modify that query according to new user input.
@@ -131,7 +131,7 @@
             </list>
         </t>
         <t>
-            <em>Query Algebra</em>
+            <spanx>Query Algebra</spanx>
             <list style="symbols">
                 <t>
                     Having structured queries that can be passed as variables and manipulated through a well defined API opens the door to combining such queries in various ways. A "query algebra" can be defined on the basis of set operations (intersection, union, difference etc.). .
@@ -159,7 +159,7 @@
 
     <section title="Description">
       <t>
-         Structured queries are implemented using the <em>xarQuery</em> class. The implementation chosen purposely works with only this single class, which represents a structured query object. All manipulation of the query is performed using this class's methods and properties.
+         Structured queries are implemented using the <spanx>xarQuery</spanx> class. The implementation chosen purposely works with only this single class, which represents a structured query object. All manipulation of the query is performed using this class's methods and properties.
       </t>
       <t> A simple example of a structured query:
         <artwork>
@@ -256,13 +256,13 @@
     <section title="Parameters">
         <t>
           <list>
-            <t><em>type</em>
+            <t><spanx>type</spanx>
             <t>String whose value can be SELECT, UPDATE, INSERT or DELETE. The default is SELECT.</t>
             </t>
-            <t><em>table</em>
+            <t><spanx>table</spanx>
             <t>String representing a database table name.</t>
             </t>
-            <t><em>array([field1],[field2]..)</em>
+            <t><spanx>array([field1],[field2]..)</spanx>
             <t>An array of database fields as strings or arrays. If [fieldx] is a string, it must correspond to a database field that is uniquely identified, such as "mytable.foo1".</t>
             <t>If [fieldx] is an array, it can have the form described in the <xref target="addfields">addfields()</xref> method.</t>
             <t>Note that in the case of a single database field, this parameter can also be a string representing the field's name.</t>
@@ -312,7 +312,7 @@ $this->dbconn = xarDBGetConn();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>connection</em>  (to be implemented)
+            <t><spanx>connection</spanx>  (to be implemented)
             <t>The connection to be opened. If the connection already exists it is opened. If it does not exist it is created.</t>
             </t>
           </list>
@@ -337,7 +337,7 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>connection</em>  (to be implemented)
+            <t><spanx>connection</spanx>  (to be implemented)
             <t>The connection to be closed</t>
             </t>
           </list>
@@ -360,7 +360,7 @@ $q->close();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>connection</em>  (to be implemented)
+            <t><spanx>connection</spanx>  (to be implemented)
             <t>The connection to be closed</t>
             </t>
           </list>
@@ -387,13 +387,13 @@ $q->close();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>name</em>
-            <t>A string representing the name of a database field to be added to the query. The parameter can have the form "foo AS bar", where bar is the <em>alias</em> of the field foo. If the alias is given it will be used when generating output with the <xref target="output">output()</xref> method. Only SELECT queries use the alias.</t>
+            <t><spanx>name</spanx>
+            <t>A string representing the name of a database field to be added to the query. The parameter can have the form "foo AS bar", where bar is the <spanx>alias</spanx> of the field foo. If the alias is given it will be used when generating output with the <xref target="output">output()</xref> method. Only SELECT queries use the alias.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type. The value is used for UPDATE and INSERT queries. Queries of the type SELECT or DELETE ignore it</t>
             </t>
-            <t><em>fieldarray</em>
+            <t><spanx>fieldarray</spanx>
             <t>An array representing the database field to be added to the query. It has the general form:</t>
         <artwork>
 array('name'=>'mytable.foo1'[,'value'=>'bar'[,'alias'=>'foobar']])
@@ -440,7 +440,7 @@ moviestar
     <section title="Parameters">
         <t>
           <list>
-            <t><em>array([field1],[field2]..)</em>
+            <t><spanx>array([field1],[field2]..)</spanx>
             <t>An array of database fields as strings or arrays. If [fieldx] is a string, it must correspond to a database field that is uniquely identified, such as "mytable.foo1".</t>
             <t>If [fieldx] is an array, it can have the form</t>
         <artwork>
@@ -470,13 +470,13 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>name</em>
-            <t>A string representing the name of a database table. The name can have the form "foo bar" where bar is the <em>alias</em> of foo. Aliases are used to help differentiate between fields of the same name in different tables.</t>
+            <t><spanx>name</spanx>
+            <t>A string representing the name of a database table. The name can have the form "foo bar" where bar is the <spanx>alias</spanx> of foo. Aliases are used to help differentiate between fields of the same name in different tables.</t>
             </t>
-            <t><em>alias</em>
+            <t><spanx>alias</spanx>
             <t>A string representing the alias of a database table.</t>
             </t>
-            <t><em>tablearray</em>
+            <t><spanx>tablearray</spanx>
             <t>An array representing the name of a database table. The array has the form:</t>
         <artwork>
 array('name'=>'mytable'[,'alias'=>'tablealias'])
@@ -515,7 +515,7 @@ WHERE r.xar_uid = rm.xar_uid AND xar_name = 'Sharon Stone'
     <section title="Parameters">
         <t>
           <list>
-            <t><em>array([table1],[table2]..)</em>
+            <t><spanx>array([table1],[table2]..)</spanx>
             <t>An array of database tables as strings or an array. If [tablex] is a string, it must correspond to a database table.</t>
             <t>If [tablex] is an array, it can have the form</t>
         <artwork>
@@ -545,7 +545,7 @@ $q->addtables(array('table1','table2','table3'));
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>A string representing the name or alias of a field in the query.</t>
             </t>
           </list>
@@ -570,7 +570,7 @@ $q->getfield('foo');
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>A string representing the name or alias of a field in the query.</t>
             </t>
           </list>
@@ -595,7 +595,7 @@ $q->removefield('foo');
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname1, fieldname2</em>
+            <t><spanx>fieldname1, fieldname2</spanx>
             <t>Strings representing the name or alias of fields in two tables in the query that will be joined.</t>
             </t>
           </list>
@@ -641,10 +641,10 @@ WHERE r.xar_uid = rm.xar_uid AND xar_name = 'Sharon Stone'
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             </t>
           </list>
@@ -678,10 +678,10 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             </t>
           </list>
@@ -707,10 +707,10 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             </t>
           </list>
@@ -736,10 +736,10 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>valuearray</em>
+            <t><spanx>valuearray</spanx>
             <t>An array of values to be compared to the field as a condition. The values must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             </t>
           </list>
@@ -766,10 +766,10 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             </t>
           </list>
@@ -795,10 +795,10 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             <t>Adding the % character to the value turns it into a wild card, as shown in the example below.</t>
             </t>
@@ -825,10 +825,10 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             </t>
           </list>
@@ -854,10 +854,10 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
             </t>
-            <t><em>value</em>
+            <t><spanx>value</spanx>
             <t>The value to be assigned to the field as a condition. The value must correspond to the field type in the database, or to a type that PHP can convert to the field type.</t>
             </t>
           </list>
@@ -878,22 +878,22 @@ $q->run();
       <t>
       <list style="symbols">   
       <t>
-        <em>regex(fieldname,value):</em> add a REGEX condition to the query.
+        <spanx>regex(fieldname,value):</spanx> add a REGEX condition to the query.
       </t>
       <t>
-        <em>qand(condition1,condition2):</em> link two conditions with an AND.
+        <spanx>qand(condition1,condition2):</spanx> link two conditions with an AND.
       </t>
       <t>
-        <em>qor(condition1,condition2):</em> link two conditions with an OR.
+        <spanx>qor(condition1,condition2):</spanx> link two conditions with an OR.
       </t>
       <t>
-        <em>regex(fieldname,value):</em> add a REGEX condition to the query.
+        <spanx>regex(fieldname,value):</spanx> add a REGEX condition to the query.
       </t>
       <t>
-        <em>getcondition($mycondition):</em> return a condition from the statement.
+        <spanx>getcondition($mycondition):</spanx> return a condition from the statement.
       </t>
       <t>
-        <em>removecondition($mycondition):</em> remove a condition from the statement.
+        <spanx>removecondition($mycondition):</spanx> remove a condition from the statement.
       </t>
       </list>
       </t>
@@ -912,7 +912,7 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
             </t>
           </list>
         </t>
@@ -946,7 +946,7 @@ array(3) {
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1005,7 +1005,7 @@ UPDATE xar_roles SET xar_state = 3 WHERE xar_name = 'Sharon Stone'
     <section title="Parameters">
         <t>
           <list>
-            <t><em>rowno</em>
+            <t><spanx>rowno</spanx>
             <t>An integer that refers to the row number of the output record to be retrieved. The default value is rowno = 0, or the first row in the output recordset.</t>
             <t>Note that since the sequence of query output may be database dependent and the query itself may include sorting directives, in general nothing can be said about the sequence in which the output arrives. It is the responsibility of the programmer to ensure the rowno parameter is a valid number.</t>
             </t>
@@ -1040,17 +1040,17 @@ array(2) {
     <section title="Parameters">
         <t>
           <list>
-            <t><em>statement</em>
+            <t><spanx>statement</spanx>
             <t>String representing a valid SQL statement. If this parameter is not empty, the run method executes it. This is equivalent to</t>
         <artwork>
 $this->dbconn->Execute($statement);
         </artwork>
         In this case the query output can be retrieved as $q->result. No output is available to the <xref target="output">output()</xref> method.
             </t>
-            <t><em>flag</em>
+            <t><spanx>flag</spanx>
             <t>If this parameter is set to true or 1, the query output is available via the <xref target="output">output()</xref> method.</t>
             <t>If this parameter is set to false or 0, the query output can be gotten from the public variable $q->result.</t>
-            <t>The default value for this parameter is <em>true</em>.</t>
+            <t>The default value for this parameter is <spanx>true</spanx>.</t>
             </t>
           </list>
         </t>
@@ -1091,7 +1091,7 @@ $q->run();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1125,10 +1125,10 @@ SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
              </t>
-            <t><em>direction</em>
+            <t><spanx>direction</spanx>
             <t>String representing the direction of the sort. Allowed values are ASC (ascending) and DESC (descending). The default value is ASC.</t>
              </t>
           </list>
@@ -1163,7 +1163,7 @@ array(3) {
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
             </t>
           </list>
         </t>
@@ -1187,7 +1187,7 @@ $q->clearconditions();
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
              </t>
           </list>
@@ -1225,7 +1225,7 @@ SELECT xar_uid FROM xar_roles WHERE xar_name = 'Anonymous'
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
             </t>
           </list>
         </t>
@@ -1250,7 +1250,7 @@ displays
 
 SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
         </artwork>
-        Note in the last example the fact that if all fields are cleared the query will default to *, i.e. <em>all</em> fields will be chosen.
+        Note in the last example the fact that if all fields are cleared the query will default to *, i.e. <spanx>all</spanx> fields will be chosen.
         </t>
     </section>
 </section>
@@ -1263,7 +1263,7 @@ SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1291,7 +1291,7 @@ returns:
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1323,7 +1323,7 @@ $total2 = 5;
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1352,7 +1352,7 @@ displays:
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1375,12 +1375,12 @@ SELECT
 <!-- nolimits -->
 <section anchor="nolimits" title="nolimits()">
     <t>
-        The nolimits() method disables the LIMIT clause in a SELECT statement, if such a clause is defined. The SELECT statement will return <em>all</em> the records found.  By default limits are in effect unless disabled by this method. See also the <xref target="uselimits">uselimits()</xref> method.
+        The nolimits() method disables the LIMIT clause in a SELECT statement, if such a clause is defined. The SELECT statement will return <spanx>all</spanx> the records found.  By default limits are in effect unless disabled by this method. See also the <xref target="uselimits">uselimits()</xref> method.
     </t>
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1414,10 +1414,10 @@ $total2 = 10;    (all the records)
     <section title="Parameters">
         <t>
           <list>
-            <t><em>fieldname</em>
+            <t><spanx>fieldname</spanx>
             <t>String representing the name or alias of a field.</t>
              </t>
-            <t><em>direction</em>
+            <t><spanx>direction</spanx>
             <t>String representing the direction of the sort. Allowed values are ASC (ascending) and DESC (descending). The default value is ASC.</t>
              </t>
           </list>
@@ -1452,7 +1452,7 @@ array(3) {
     <section title="Parameters">
         <t>
           <list>
-            <t><em>rowno</em>
+            <t><spanx>rowno</spanx>
             <t>A number that defines how many rows the query will return. If the total number of rows the query selects is smaller than rowno, then the method has no effect.</t>
              </t>
           </list>
@@ -1483,7 +1483,7 @@ $total1 = 5;     (records 3 to 8)
     <section title="Parameters">
         <t>
           <list>
-            <t><em>rowno</em>
+            <t><spanx>rowno</spanx>
             <t>Number representing the row query input starts at. The first row is 1. It is the programmer's responsibility to ensure the rowno parameter has a reasonable value.</t>
              </t>
           </list>
@@ -1513,7 +1513,7 @@ displays:
     <section title="Parameters">
         <t>
           <list>
-            <t><em>type</em>
+            <t><spanx>type</spanx>
             <t>String whose value can be SELECT, UPDATE, INSERT or DELETE.</t>
              </t>
           </list>
@@ -1544,7 +1544,7 @@ SELECT * FROM xar_roles WHERE xar_name = 'Anonymous'
     <section title="Parameters">
         <t>
           <list>
-            <t><em>none</em>
+            <t><spanx>none</spanx>
              </t>
           </list>
         </t>
@@ -1574,7 +1574,7 @@ $total2 = 5;     (records 3 to 8)
     </section>
     <section title="Examples">
     <t>
-        <em>Note: This chapter is out of date and will be rewritten!!</em>
+        <spanx>Note: This chapter is out of date and will be rewritten!!</spanx>
     </t>
     <t>
         The following are equivalent:

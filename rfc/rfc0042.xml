@@ -788,13 +788,13 @@ you can benefit from Xaraya's hook system by using them...
 <section title="Notes on the roles module">
     <t>The roles module uses hooks among other things in the delete, purge and recall API calls.</t>
     <t>
-    <em>Delete:</em> A deleted role is still present but not visible, and can be recalled to become visible again. The roles module ignores deleted roles in all of its operations.
+    <spanx>Delete:</spanx> A deleted role is still present but not visible, and can be recalled to become visible again. The roles module ignores deleted roles in all of its operations.
     </t>
     <t>
-    <em>Recall:</em> A recalled role is one that was previously deleted (and therefore ignored), but is put back into circulation again..
+    <spanx>Recall:</spanx> A recalled role is one that was previously deleted (and therefore ignored), but is put back into circulation again..
     </t>
     <t>
-    <em>Purge:</em> A purged role is for all practical purposes completely gone from Xaraya. References to it are maintained for data integrity purposes, but it cannot be accessed or recalled.
+    <spanx>Purge:</spanx> A purged role is for all practical purposes completely gone from Xaraya. References to it are maintained for data integrity purposes, but it cannot be accessed or recalled.
     </t>
     <t>
     The API calls that perform delete, recall and purge in the roles module each have a hook call that lets other modules know that the action has taken place.

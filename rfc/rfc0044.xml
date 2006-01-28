@@ -84,7 +84,7 @@
         This section focussed on general rules to follow when writing
         templates for the blocklayout engine for use in Xaraya.
       </t>
-      <t><em>No output generation in code</em> 
+      <t><spanx>No output generation in code</spanx> 
           <t>
             Any output generated, whether this is HTML, XML or any
             other output format used to render a page, block or other
@@ -104,7 +104,7 @@
             warrants this.
           </t>
         </t>
-      <t><em>Minimize duplication</em>
+      <t><spanx>Minimize duplication</spanx>
           <t>
             Try to use the &lt;xar:template /&gt; tag to organize the
             templates you are working on. If some "common" part of the
@@ -114,7 +114,7 @@
             where the output is needed.
           </t>
         </t>
-      <t><em>Minimize PHP usage</em>
+      <t><spanx>Minimize PHP usage</spanx>
           <t>
             While possible, PHP usage in templates is highly discouraged
             and can often be solved in a templatable way. If a solution
@@ -142,7 +142,7 @@
             conditions).
           </t>
         </t>
-      <t><em>Templates must be self-containable.</em>
+      <t><spanx>Templates must be self-containable.</spanx>
           <t>
             <artwork><![CDATA[
             Wrong:
@@ -170,7 +170,7 @@
             format (for clear text, there is no such thing at all) and
             how that output format defines it's context rules. A more
             loose definition could be: "Maximize the scope of
-            containability". The first example can <em>only</em> be
+            containability". The first example can <spanx>only</spanx> be
             embedded inside a template with a &lt;table&gt; tag
             surrounding it at its ancestor level, while the second
             example can be contained in any place where a block level
@@ -191,7 +191,7 @@
 
     <section title="Headers">
       <t>This section contains the standard headers we use</t>
-      <t><em>Template Header Recommendation</em>
+      <t><spanx>Template Header Recommendation</spanx>
         <t>
           All Templates should include the name of the license and a
           link to it so as to avoid legal ambiguity. You may also wish
@@ -203,12 +203,12 @@
           </artwork>
         </t>
         <t>
-          <em>Note:</em> Use the &lt;xar:comment&gt;
+          <spanx>Note:</spanx> Use the &lt;xar:comment&gt;
           &lt;/xar:comment&gt; form over the &lt;!-- --&gt; (or
           deprecated &lt;!--- ---&gt;) form so that it isn't added to
           the output stream (BL will not output it)</t>
         </t>
-      <t><em>File header</em>
+      <t><spanx>File header</spanx>
         <t>
           This header is for all php files in the codebases. The
           package name and copyright year (or a list of years) should
@@ -235,7 +235,7 @@
           php code encountered in the file.
         </t>
       </t>
-      <t><em>Function and class method header</em>
+      <t><spanx>Function and class method header</spanx>
         <t>
           The header below is used for all functions in the codebase
           including methods in class defintions:
@@ -260,7 +260,7 @@
           </artwork>
         </t>
       </t>
-      <t><em>Class header</em>
+      <t><spanx>Class header</spanx>
         <t>
           The header below is used for all classes in the Xaraya codebase
         </t>
@@ -288,21 +288,21 @@
         in Xaraya
       </t>
       <section title="General">
-        <t><em>Use &lt;?php ... ?&gt; instead of &lt;? ... ?&gt;</em>
+        <t><spanx>Use &lt;?php ... ?&gt; instead of &lt;? ... ?&gt;</spanx>
           <t>
             Use the long form of identifying the start of a php section in
             a file. We follow the PEAR standard in this; it is
             also the most portable way to include PHP code on differing
             operating systems and setups.
           </t>
-          <t><em>Note:</em>
+          <t><spanx>Note:</spanx>
             <t>
               Short tags will also cause php to choke on &lt;?xml ?&gt; tags
               if the short notation is allowed in the php setup.
             </t>
           </t>
         </t>
-        <t><em>Indenting</em>
+        <t><spanx>Indenting</spanx>
           <t>
             Use an indent of 4 spaces. Do not use the tab character for
             indentation. Most editors will have a configuration option for this.
@@ -343,7 +343,7 @@
             );
           </artwork>
         </t>
-        <t><em>File and line endings</em>
+        <t><spanx>File and line endings</spanx>
           <t>
             Use unix file and line endings, not dos/windows ones. Most
             editors and IDEs on Windows will provide a choice to save
@@ -351,7 +351,7 @@
             the necessary conversions if necessary.
           </t>
         </t>
-        <t><em>Comments</em>
+        <t><spanx>Comments</spanx>
           <t>
             Inline documentation for classes should follow the PHPDoc
             convention, similar to Javadoc. More information about
@@ -375,7 +375,7 @@
             to ask for help with translating if you need it.
           </t>
         </t>
-        <t><em>Including Code</em>
+        <t><spanx>Including Code</spanx>
           <t>
             The inclusion of files should in most cases be done with
             the API function:
@@ -396,16 +396,16 @@
           </t>
           <t>
             Anywhere you are unconditionally including a class file,
-            use <em>require_once()</em>. Anywhere you are
+            use <spanx>require_once()</spanx>. Anywhere you are
             conditionally including a class file (for example, factory
-            methods), use <em>include_once()</em>. Either of these
+            methods), use <spanx>include_once()</spanx>. Either of these
             will ensure that class files are included only once. They
             share the same file list, so you don't need to worry about
-            mixing them - a file included with <em>require_once()</em>
-            will not be included again by <em>include_once()</em>.
+            mixing them - a file included with <spanx>require_once()</spanx>
+            will not be included again by <spanx>include_once()</spanx>.
           </t>
           <t>
-            <em>Note: include_once()</em> and <em>require_once()</em>
+            <spanx>Note: include_once()</spanx> and <spanx>require_once()</spanx>
             are statements, not functions. You don't need parentheses
             around the filename to be included.
           </t>
@@ -413,7 +413,7 @@
       </section>
     
       <section title="Functions">
-        <t><em>Calling</em>
+        <t><spanx>Calling</spanx>
           <t>
             Functions should be called with no spaces between the
             function name, the opening parenthesis, and the first
@@ -440,7 +440,7 @@
             </artwork>
           </t>
         </t>
-        <t><em>Declarations</em>
+        <t><spanx>Declarations</spanx>
           <t>
             Function declarations follow the "one true brace" convention:
             <artwork>
@@ -456,7 +456,7 @@
             </artwork>
           </t>
         </t>
-        <t><em>Arguments</em>
+        <t><spanx>Arguments</spanx>
           <t>
             Arguments with default values go at the end of the
             argument list. Always attempt to return a meaningful value
@@ -481,7 +481,7 @@
             </artwork>
           </t>
         </t>
-        <t><em>Naming</em>
+        <t><spanx>Naming</spanx>
           <t>
             The following naming conventions are used in general. The
             module functions are required to have certain specific
@@ -510,7 +510,7 @@
       </section>
 
       <section title="Classes">
-        <t><em>Declarations</em>
+        <t><spanx>Declarations</spanx>
           <t>
             Class declarations follow the "one true brace" convention:
             <artwork>

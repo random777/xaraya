@@ -774,15 +774,15 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       Tables and Fields:
       <list style="symbols">   
         <t>
-        <em>addfields($fields):</em> add an array of fields to the query.
+        <spanx>addfields($fields):</spanx> add an array of fields to the query.
       </t><t>
-        <em>addtables($tables):</em> add an array of tables to thte query.
+        <spanx>addtables($tables):</spanx> add an array of tables to thte query.
       </t><t>
-        <em>getfield($myfield):</em>  return  a field from the statement.
+        <spanx>getfield($myfield):</spanx>  return  a field from the statement.
       </t><t>
-        <em>removefield($myfield):</em> remove a field from the statement.
+        <spanx>removefield($myfield):</spanx> remove a field from the statement.
       </t><t>
-        <em>join($field1,$field2):</em> join 2 tables via their respective fields..
+        <spanx>join($field1,$field2):</spanx> join 2 tables via their respective fields..
       </t>
       </list>
       </t>
@@ -791,21 +791,21 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       Conditions:
       <list style="symbols">   
       <t>
-        <em>getcondition($mycondition):</em> return  a condition from the statement.
+        <spanx>getcondition($mycondition):</spanx> return  a condition from the statement.
       </t><t>
-        <em>removecondition($mycondition):</em> remove a condition from the statement.
+        <spanx>removecondition($mycondition):</spanx> remove a condition from the statement.
       </t><t>
-        <em>eq($field1,$field2):</em> add a EQ condition to the query.
+        <spanx>eq($field1,$field2):</spanx> add a EQ condition to the query.
       </t><t>
-        <em>gt($field1,$field2):</em> add a GT condition to the query.
+        <spanx>gt($field1,$field2):</spanx> add a GT condition to the query.
       </t><t>
-        <em>ge($field1,$field2):</em> add a GE condition to the query.
+        <spanx>ge($field1,$field2):</spanx> add a GE condition to the query.
       </t><t>
-        <em>le($field1,$field2):</em> add a LE condition to the query.
+        <spanx>le($field1,$field2):</spanx> add a LE condition to the query.
       </t><t>
-        <em>lt($field1,$field2):</em> add a LT condition to the query.
+        <spanx>lt($field1,$field2):</spanx> add a LT condition to the query.
       </t><t>
-        <em>like($field1,$field2):</em> add a LIKE condition to the query.
+        <spanx>like($field1,$field2):</spanx> add a LIKE condition to the query.
       </t>
       </list>
       </t>
@@ -814,11 +814,11 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       Query output:
       <list style="symbols">   
       <t>
-        <em>run($statement='', $flag=1):</em> assemble and execute an SQL statement. If a string with a statement is given it is directly executed. If $flag is 1 then the method output() contains the resultset. If $flag is 0 then the public variable $result contains the adodb resultset. 
+        <spanx>run($statement='', $flag=1):</spanx> assemble and execute an SQL statement. If a string with a statement is given it is directly executed. If $flag is 1 then the method output() contains the resultset. If $flag is 0 then the public variable $result contains the adodb resultset. 
       </t><t>
-        <em>output():</em> return the query output as a 2 dimensional array where the keys of row elements corespond to the field names in the datatbase.
+        <spanx>output():</spanx> return the query output as a 2 dimensional array where the keys of row elements corespond to the field names in the datatbase.
       </t><t>
-        <em>row($row=0):</em> return a single output row as a 1 dimensional array.
+        <spanx>row($row=0):</spanx> return a single output row as a 1 dimensional array.
         </t>
       </list>
       </t>
@@ -826,11 +826,11 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       Database Connection:
       <list style="symbols">   
       <t>
-        <em>open():</em> Open the default db connection.
+        <spanx>open():</spanx> Open the default db connection.
       </t><t>
-        <em>close():</em> Close the default db connection.
+        <spanx>close():</spanx> Close the default db connection.
       </t><t>
-        <em>openconnection($connction):</em> open a db connection.
+        <spanx>openconnection($connction):</spanx> open a db connection.
       </t>
       </list>
       </t>
@@ -838,31 +838,31 @@ class SQL_SELECT_MYSQL extends SQL_SELECT
       Miscellaneous:
       <list style="symbols"> 
       <t>
-        <em>gettype():</em> return the typ of the query, e.g. SELECT.
+        <spanx>gettype():</spanx> return the typ of the query, e.g. SELECT.
       </t><t>
-        <em>getstartat():</em> return the record to start the query at.
+        <spanx>getstartat():</spanx> return the record to start the query at.
       </t><t>
-        <em>getto():</em> return the records to end the query at.
+        <spanx>getto():</spanx> return the records to end the query at.
       </t><t>
-        <em>getpagerows():</em> return the number of records to be displayed on a page.
+        <spanx>getpagerows():</spanx> return the number of records to be displayed on a page.
       </t><t>
-        <em>getrows():</em> return the total number of reecords the query found
+        <spanx>getrows():</spanx> return the total number of reecords the query found
       </t><t>
-        <em>addorder($x = '', $y = 'ASC'):</em> add an ordering to the query results
+        <spanx>addorder($x = '', $y = 'ASC'):</spanx> add an ordering to the query results
       </t><t>
-        <em>setorder($x = '',$y = 'ASC'):</em> set the ordering of the query results
+        <spanx>setorder($x = '',$y = 'ASC'):</spanx> set the ordering of the query results
       </t><t>
-        <em>setstartat($x = 0):</em> set the record number to begin the query at.
+        <spanx>setstartat($x = 0):</spanx> set the record number to begin the query at.
       </t><t>
-        <em>setrowstodo($x = 0):</em> set the number of records to b returned.
+        <spanx>setrowstodo($x = 0):</spanx> set the number of records to b returned.
       </t><t>
-        <em>uselimits():</em> turn on the limit filters, i.e. the query will start at a given record and return a certain number of records, depending on the setstartat() and setrowstodo() methods respectively.
+        <spanx>uselimits():</spanx> turn on the limit filters, i.e. the query will start at a given record and return a certain number of records, depending on the setstartat() and setrowstodo() methods respectively.
       </t><t>
-        <em>nolimits():</em> turn off the limit filters, i.e the query will return all the records found.
+        <spanx>nolimits():</spanx> turn off the limit filters, i.e the query will return all the records found.
       </t><t>
-        <em>setstatement($x = ''):</em> create a string representation of the SQL query. If $x is empty the query statement is assembled from the data in the query object.
+        <spanx>setstatement($x = ''):</spanx> create a string representation of the SQL query. If $x is empty the query statement is assembled from the data in the query object.
       </t><t>
-        <em>getstatement():</em> return a string representation of the SQL query.
+        <spanx>getstatement():</spanx> return a string representation of the SQL query.
       </t>
       </list>
       </t>

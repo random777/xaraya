@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard --> 
+<?rfc editing="yes"?>  <!-- Insert a number in each paragraph to ease review comments -->
+<?rfc symrefs="yes"?>  <!-- Instead of numeric cross references, use the sections name -->
+<?rfc comments="yes"?>
+<?rfc inline="no"?>
+<?rfc topblock="yes"?>
+<?rfc sortrefs="yes"?> <!-- Sort the references -->
+<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml in artwork sections parsed (only uncomment if you know what that means) -->
+<?rfc tocdepth="2"?>
+<?rfc toc="no"?>
+<!--
+NOTE on the seriesNo:
+    STD 1: Xaraya Official Standards (the index and referred to in the transform)
+    STD 2: Since we're the first to obsolete an RFC, we get to have STD 2
+NOTE: if you dont know what the above means, read up on how RFCs work,
+      suffice to say we now need this because RFC 0054 obsoletes RFC 0018
+-->
+<rfc xmlns:ed="http://greenbytes.de/2002/rfcedit" number="0054" category="std" obsoletes="0018" seriesNo="2">
+  <!-- number: Fill in the number for the RFC -->
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+  
+  <!-- Front matter is used for identification of author and organization -->
+  <front>
+    <title>Exception handling</title>
+    <author initials="M.R." surname="van der Boom" fullname="Marcel van der Boom">
+      <organization>Xaraya Development Group</organization>
+      <address>
+        <email>marcel@xaraya.com</email>
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+    <date month="January" year="2006"/>
+    
+    <!-- Initiating team for this RFC -->
+    <workgroup>N/A</workgroup>
+    
+    <!-- List keywords for the RFC here -->
+    <keyword>rfc</keyword>
+    <keyword>exception</keyword>
+    <keyword>php5</keyword>
+    
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+    <abstract>
+      <t>
+        The exception handling in PHP applications has been
+        problematic to say the least. PHP version 4 has no support for
+        real exceptions. RFC-0018 documents the Xaraya solution to
+        this problem. As we are moving into the new series of releases
+        for Xaraya and PHP 5 is very commonplace now, this RFC
+        documents the replacement of the Error handling system we
+        had. The replacement is a true exception handling system,
+        still limited by what is supported in PHP but nevertheless
+        much more useful than the older system.
+      </t>
+      <t>
+        This RFC documents the design, implementation and usage of the
+        new Exception Handling System (EHS) for Xaraya.
+      </t>
+    </abstract>
+  </front>
+  
+  <!-- The middle section is used for the actual content of the RFC -->
+  <middle>
+    <!-- Introduction is mandatory -->
+    <section title="Introduction and concept overview">
+      <t>
+        We will assume you are familiar with the concept of exceptions
+        in general. There are great resources on the internet which
+        talk about how exceptions work and how they can or should be
+        used with different languages. For reading this RFC, you as a
+        developer, a basic knowledge of the exceptions documentation
+        in the PHP manual is sufficient to understand the exception
+        handling subsystem described in this document.
+      </t>
+      <t>
+        In this RFC we use the words "MUST", "MUST NOT", "REQUIRED",
+        "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",
+        "MAY", and  "OPTIONAL". They are to be interpreted as described in
+        (the IETF) <eref target="http://rfc.net/rfc2119.html">RFC-2119</eref>.
+      </t>
+    </section>
+    <section title="Exception components description">
+      <t>
+        The exception handling system (to be called EHS hereafter)
+        consists of 2 parts:
+        <list style="numbers">
+          <t>Classes which model certain types of exception, and of
+          which object instances contain the exception information.</t>
+          <t>Handlers which deal with exceptions in different ways,
+          depending on the context, type of exception or other
+          parameters.</t>
+        </list>
+      </t>
+
+      <section title="Organisaton of exception types [Classes]">
+        <t>
+          Every exception ever raised within xaraya MUST ultimately be
+          an instance of the native PHP Exception class. All other
+          exceptions have that class in their ancestry.
+        </t>
+        <t>
+          Xaraya extends the native exception class in two stages. The
+          first caters for the integration with the outside world and
+          PHP itself, while the second stage takes care of presenting
+          an exception library to other Xaraya components.
+        </t>
+        <t> 
+          The first stage exposes exceptions which are either from
+          outside Xaraya or low level exceptions. Xaraya itself
+          defines <spanx>PHPException</spanx>, <spanx>SRCException</spanx> and its
+          own <spanx>XARExceptions</spanx>. Third party libraries fill the
+          third and further up ranks in the first stage. They are
+          REQUIRED to expose exactly one top level class to xaraya. It
+          is assumed that if this is not natively the case it is
+          trivial to do so ourself by defining a wrapper class in a
+          convenient place. Top level classes like this SHOULD
+          have a 3 letter capital prefix, so they are easily
+          distinguishable as either being a low level type of
+          exception (ironically, at the top of the hierarchy) or as
+          being defined outside Xaraya.
+        </t>
+        <figure>
+          <preamble>
+            The first stage inheritance looks like this:
+          </preamble>
+          <artwork>
+Exception            - native PHP class
+  |--> 3RDException  - 3rd party exceptions are assumed to fill this space (example:SQLException from creole)
+  |--> PHPException  - the PHP error handler raises instances of this exception class
+  |--> XARExceptions - All Xaraya exceptions inherit from this class.
+         |--> ...second stage inheritance...
+          </artwork>
+          <postamble>
+            <cref>
+            Note that it is <spanx>XARExceptions</spanx> (plural) whereas
+            the others are singular. This is to signal that Xaraya
+            can make a distinction between different types of its own
+            Exceptions, but only sees the top level of third party
+            exceptions and the top level Xaraya exceptions.
+            </cref>
+          </postamble>
+        </figure>
+        <t>
+          The second stage inheritance defines logical groupings for
+          the internal exceptions that Xaraya raises. The EHS itself
+          does only provide those groupings (with some exceptions,
+          which we will see later on). These groupings are useful to
+          catch groups of exceptions at once and to define interfaces
+          for them as a whole, because they somehow signal the same
+          sort of unexpected situation.
+        </t>
+        <figure>
+          <preamble>
+              Starting at the XARExceptions class the second stage
+              inheritance tree looks like this:
+          </preamble>
+          <artwork>
+|--> XARExceptions
+       |--> ConfigurationExceptions
+       |--> DebugExceptions
+       |--> DeprecationExceptions
+       |--> DuplicationExceptions
+       |--> NotFoundExceptions
+       |--> ParameterExceptions
+       |--> RegistrationExceptions
+       |--> ValidationExceptions
+       |--> OtherExceptions
+          </artwork>
+        </figure>
+        <t>
+          Components within Xaraya MAY derive new classes as
+          long as they have the <spanx>XARExceptions</spanx> class in their
+          ancestry. The details and interfacing of the classes are
+          documented in <xref target="class.implementation"/>.
+        </t>
+      </section>
+      <section title="Handlers">
+        <t>
+          Once an exception is raised, either on purpose while running
+          some code, or by some subsystem, it MUST be
+          handled. If an exception is not handled by anything PHP will
+          issue a message saying so. What an exception handler
+          actually does is dependent on the context and the type of
+          Exception raised. In most cases, a (specifically formatted
+          for the context) error message SHOULD be displayed at least.
+        </t>
+        <t>
+          We distinguish two sorts of handling:
+          <list style="numbers">
+            <t>global exception handlers</t>
+            <t>local exception handlers</t>
+          </list>
+        </t>
+        <t>
+          The global exception handlers are replacements for the
+          default handling of PHP with something more appropriate. 
+          The default handling of PHP is to just display a message
+          that the exception is unhandled.
+          Handlers are activated in php by calling the function 
+          <spanx style="verb"> 
+            string set_exception_handler(callback exception_handler)
+          </spanx>.
+        </t>
+        <t>
+          At any given time, there MUST only be one active exception
+          handler. The function above returns the name of the
+          previously registered handler as extra information, but PHP
+          itself keeps track of the handler stack too. Implementors
+          MAY set exception handlers to a handler they prefer in their
+          context, but MUST call
+          <spanx style="verb">restore_exception_handler()</spanx> to
+          restore the previous handler when their subsystem goes out of context.
+        </t>
+        <t>
+          Handlers are responsible for handling the exception
+          raised. This usually means making sure Xaraya can end the
+          request in a useful way. Displaying an error message or
+          sending an error code to the client are two examples. The
+          details of the handler implementation are documented in
+          <xref target="handler.implementation"/>.
+        </t>
+      </section>
+    </section>
+
+    <section title="Implementation">
+      <section title="Interfaces" anchor="interface.implementation">
+        <figure>
+          <preamble>
+            The base interface definition for all exceptions in the
+            Exception Handling System is as follows:
+          </preamble>
+          <artwork>
+interface IException
+{
+   /* Constructor */
+   function __construct($message = null, $code = 0);
+
+   /* Fixed, not overrideable */
+   final public function getMessage();        // message of exception 
+   final public function getCode();           // code of exception
+   final public function getFile();           // source filename
+   final public function getLine();           // source line
+   final public function getTrace();          // an array of the backtrace()
+   final public function getTraceAsString();  // formatted string of trace
+
+   /* Overrideable */
+   public function __toString();              // formatted string for display
+}
+          </artwork>
+          <postamble>
+            <cref>
+              The name <spanx style="verb">IException</spanx> is
+              made up here, it is not actually documented as such in the PHP
+              documentation. 
+              See <eref target="http://php.net/manual/en/language.exceptions.php">
+              The PHP manual</eref> for detailed information.
+            </cref>
+            <cref>
+              The PHP language does not actually allow specifying
+              <spanx>final</spanx> in an interface declaration. It is used to
+              clarify the declaration here. In the actual PHP file,
+              the final keyword appears before the implementation of
+              the method.
+            </cref>
+          </postamble>
+        </figure>
+        <t>
+          The exception classes 
+          <spanx style="verb">SRCException</spanx> and 
+          <spanx style="verb">PHPException</spanx> do not further extend
+          this interface and use it directly. In practice these
+          exception SHOULD NOT occur, ever. They are signals of bugs, always.
+        </t>
+        <figure>
+          <preamble>
+            The exceptions raised by Xaraya itself, i.e. the instances of 
+            <spanx style="verb">XARExceptions</spanx> and its descendents
+            have a modified interface definition:
+          </preamble>
+          <artwork>
+interface IXARExceptions extends IException
+{
+    /* Constructor */
+    final public function __construct(Array $vars = NULL, String $message = NULL);
+
+    /* Overrideable */
+    public function getHint();    // if available return a hint on how to pursue solving the exception
+}
+          </artwork>
+          <postamble>
+            This extension of the interface further restricts Xaraya
+            exceptions to the point where we safeguard their
+            construction to one specific way. All Xaraya exceptions
+            MUST be constructed in exactly the same way. The
+            inherited <spanx style="verb">__toString()</spanx> method 
+            stays overrideable. (Note that this is a so called 'magic' method.)
+          </postamble>
+        </figure>
+        <t>
+          The parameters have the following meaning:
+          <list>
+            <t>$vars - array of variable parts in the message (optional)</t>
+            <t>$message - string which holds a descriptive message for
+            the exception raised. (optional)</t>
+          </list>
+          We will see later on that each exception type defines a
+          default message, possibly having variable parts. In most
+          cases when throwing an exception it is RECOMMENDED to only
+          specify the variable parts, so all exceptions of the same
+          type use the same description of the Exception information.
+        </t>  
+      </section>
+
+      <section anchor="class.implementation" title="Class implementation">
+        <t>
+          The classes defined directly as part of the EHS, that is,
+          the classes in the first stage of inheritance and the
+          grouping classes described above, are declared <spanx
+          style="verb">abstract</spanx>. To be able to throw specific
+          exceptions a subsystem MUST define it's own derivative of
+          one of the classes. 
+        </t>
+        <t>
+          If your exception falls into one of the grouping classes and
+          you want to belong to a certain group, you can <spanx
+          style="strong">declare</spanx> your exception as (taking a
+          configuration exception as example):
+          <artwork>
+class BrainConfigurationException extends ConfigurationExceptions
+{
+    protected $message   = 'Your brain (part: #(1)) has been misconfigured.';
+    protected $variables = array('Visual stimuli');
+    protected $hint      = 'Not much we can do, we suggest to try wearing glasses first';
+}
+          </artwork>
+        </t>
+        <t>
+          Put this declaration of your exception in a place where it
+          is available in the scope where this exception type may be
+          raised. Other than this, nothing more is needed to implement
+          your exception class for a minimal setup. Exceptions can be
+          raised by code at that point and caught by try/catch
+          constructs. The registered handlers will deal with this
+          exception type from there on.
+        </t>
+        <t>
+          The three variables declared are the default values for the
+          message, variable parts in the message and the accompanying
+          hint for this type of exception. The 3 variables SHOULD
+          specify values which are applicable for all situations where
+          this exception can occur. The $message and $variables can be
+          overridden when throwing an exception, but the $hint is
+          inherently coupled to the declaration and cannot be changed.
+        </t>
+      </section>
+    </section>
+
+    <section title="Using exceptions in your code">
+      <t>
+        It is important that your subsystem uses code which is
+        suitable for exception oriented working. While it is not
+        possible to give exact rules, there are a number of common
+        practices which you may find useful.
+      </t>
+      <t>
+        Dealing with exceptions consist of two parts:
+        <list style="numbers">
+          <t>Raising or throwing exceptions</t>
+          <t>Catching or handling exceptions</t>
+        </list>
+      </t>
+
+      <section title="Throwing exceptions">
+        <t>
+          Once you know something has gone wrong by testing for a
+          certain condition and you want to signal an exceptional
+          situation or an error condition, the first thing to do is to
+          determine as precisely as possible what type of exception to
+          raise. Your code SHOULD NOT raise a PHP native exception but
+          only exceptions derived from the XARExceptions class or
+          further down the hierarchy.
+          This can initially require some digging through the
+          code, but since all exceptions defined SHOULD have
+          meaningful names, over time it will get easier to know what
+          type of exception to raise.
+        </t>
+        <t>
+          Some examples:
+        <artwork>
+-- throwing exception using the defaults.
+if($vision == 'fuzzy') 
+    // Probably not wearing glasses.
+    throw new BrainConfigurationException();
+
+-- adapting the message and variable parts
+if($vision == 'none' and $glasses->state == 'on') {
+    // Hmm, not sure what's going on here.
+    $vars = array($glasses->getStrength());
+    $msg = 'No visual stimuli, despite the fact that  you are wearing glasses of strenght: "#(1)"';
+    throw new BrainConfigurationException($vars,$msg);
+    echo "This never shows"; // never gets executed.
+}
+        </artwork>
+        </t>
+        <t>
+          Throwing an exception immediately stops running the code at that point
+          and transfers control to the active exception handler at that point. In
+          the second example, the line after the throw will never get
+          executed by PHP
+        </t>
+      </section>
+
+      <section title="Catching exceptions">
+        <t>
+          Assuming every part of Xaraya uses exceptions, what to do if
+          one is thrown? (mostly by code of others) Since exceptions stop executing code
+          immediately and the handler takes over, how to keep control
+          of things in your code?
+        </t>
+        <t>
+          The idea is to identify <spanx>risky</spanx> parts of your
+          code and enclose them in a so called "try/catch" block to
+          keep you in control instead of an exception handler. By
+          keeping that control you are also responsible for handling
+          any exception raised inside that try/catch block.
+        </t>
+        <t> 
+          The handling MAY consist of ignoring the exception if that
+          is appropriate, or inspecting the situation and decide to
+          let the handler take care of it after all. It all depends on
+          the situation. Some examples:
+          <artwork>
+-- non issue test
+$rfc = new rfc('0054');
+try {
+    $person->read($rfc);
+    $person->interpretReading();
+} catch(BrainConfigurationException $e) {
+    // If person is awake, it's real, let the handler deal with it
+    // otherwise not sure what this person is doing in his sleep, but lets ignore it.
+    if($person->state != 'asleep') throw $e;
+}
+
+-- repair 
+try {
+    $person->WakeUp();
+    $person->PickUp($glasses);
+    $person->PickUp($coffee);
+    $person->read($rfc); 
+} catch(ConfigurationExceptions $e) {
+    // Something went wrong, repair and notify
+    $person->FreeHands(); 
+    throw $e;
+} catch(UnderstandingException $e) {
+    // Be easy, it's morning, ignore if the person doesnt understand a thing
+}
+// Any other exception raised will get caught by the default handler.
+          </artwork>
+        </t>
+        <t>
+          The first example tests a condition and rethrows the
+          exception if the person is not asleep, since only then it
+          constitutes a real exception.
+        </t>
+        <t>
+          In the second example, the catch clause specifies the whole
+          <spanx style="verb">ConfigurationExceptions</spanx> group to
+          be caught. Any exception deriving from that class will get
+          caught by that line, not only the <spanx
+          style="verb">BrainConfigurationException</spanx> example we
+          used earlier. Further more the example contains an extra
+          catch, which catches the person not understanding what he is
+          doing, and just ignores that, since it's early morning.
+        </t>
+        <t>
+          If your code does not use a try/catch clause but an
+          exception is raised anyway, the then active handler will
+          pick it up and deal with the exception. In many cases,
+          compared to existing code, you can just (try to) do in your
+          function what you want to do, instead of testing for every
+          possible situation first. Inserting the try/catch block in
+          strategic places only is usually enough, assuming the code
+          you use from other parts is reasonably well behaving.
+        </t>
+        <t>
+          It is not advisable to suppress exceptions if you are not
+          sure you are able to handle the situation
+          completely. Especially if your code is a library, you may
+          never want to suppress the exception. It is the callees
+          responsibility to use a proper try / catch construct and
+          decide what to do if your library raises an exception.
+        </t>
+      </section>
+    </section>
+
+    <section title="Advanced topics">
+      <section anchor="handler.implementation" title="Handler implementation">
+        <t>
+          An exception handler implementation is a special piece of
+          code where the amount of freedom allowed is very
+          limited. The code in an exception handler is guaranteed to
+          be the last in the request, no code execution takes place
+          after the code ends up in a handler.
+        </t>
+        <t>
+          The Xaraya core defines one class (called:
+          ExceptionHandlers) which has no  predefined interface. The
+          class defines the following handlers (methods):
+          <list>
+            <t><spanx style="strong">bone</spanx> - a handler which is as simple as possible,
+            functions as fallback for the other handlers.</t>
+            <t><spanx style="strong">defaulthandler</spanx> - normal handler, displays errors based
+            on a xar template, falls back to the bone handler when
+            something goes wrong</t>
+            <t><spanx style="strong">phperror</spanx> - this is actually an 'error' handler for php
+            errors occurring. The handler collects information and
+            throws a <spanx style="verb">PHPException</spanx>, after which the 'normal' exception
+            handlers take over. Assertion failures (caused by the
+            <spanx style="verb">assert()</spanx> function) also get handled by this handler.</t>
+          </list>
+        </t>
+        <t>
+          The handlers defined by default assume that a (X)HTML capable client is making
+          the request.
+          <cref>This is VERY likely to change in the future.</cref>
+          If a part of Xaraya can not use the normal handlers in its
+          context, it SHOULD define it's own exception handler and
+          make sure it gets activated and deactivated at the
+          appropriate time.
+        </t>
+        <t>
+          All situations where Xaraya produces other content than
+          XHTML are candidates for dedicated exception handlers. (rss,
+          xmlrpc, pdf etc.). In those areas, special considerations
+          are needed to handle exceptions. In some situations an error
+          condition is clearly definied within the area. For example,
+          when acting as an xmlrpc server, the exception handler would
+          make sure to produce a properly formatted xmlrpc error
+          response and send that back to the client. Similar actions
+          would be needed when acting as a webdav or flash server.
+        </t>
+        <t>
+          If a dedicated exception handler is needed, the
+          implementation MUST derive from the <spanx
+          style="verb">ExceptionHandlers</spanx> class defined and it
+          is RECOMMENDED that the class includes the plural
+          'ExceptionHandlers' as a postfix for the
+          classname. For example, exception handlers for the xmlrpc
+          protocol SHOULD be defined in the <spanx
+          style="verb">XMLRPCExceptionHandlers</spanx> class.
+          The class MUST define its handler methods as <spanx
+          style="verb">public static</spanx> in the class. The
+          signature for an exception handler is as follows:
+          <artwork>
+public static function handler(Exception $e)
+          </artwork>
+        </t>
+        <t>
+          The handler gets passed in the Exception object when it gets
+          called and your handler can use the interface described in
+          <xref target="interface.implementation"/> to extract the proper information from
+          that object to handle it.
+        </t>
+        <t>
+          In the implementation of your handler you MAY use the Xaraya
+          API from core or other modules, but in that case you MUST also
+          provide a fallback handler and enclose the use of the API in
+          a try/catch block.<cref>This may seem a bit counterintuitive to
+          catch and raise exceptions within an exception handler, but
+          this does work. See the implementation of the default
+          handlers to see how this works.</cref>
+        </t>
+        <artwork>
+Example of a very simple dedicated handler:
+
+class TestExceptionHandlers extends ExceptionHandlers
+{
+    public static function testhandler(Exception $e)
+    {
+        echo "In my exception handler Error:". $e->getMessage();
+    }
+}
+// Make sure we use it.
+set_exception_handler(array('TestExceptionHandlers','testhandler'));
+        </artwork>
+        <t>
+          Note that in the example the default handler of Xaraya can
+          still be used. If you want to make sure the default handler
+          is NOT being used, which would be the typical situation,
+          make sure the 'defaulthandler' method is overridden by your
+          class in the appropriate way. In this way both extending and
+          replacing the way exceptions are handled is possible.
+          <cref>We actually wanted to call the method 'default'
+          instead of 'defaulthandler' but for some reason PHP does not
+          allow that</cref>
+        </t>
+        <t>
+          While possible, dedicated handlers SHOULD NOT override the
+          'phperror' handler. That handler just collects information
+          and raises a new exception which will be handled by the
+          active exception handler. (like the one made active in the
+          example, all exceptions, including php errors and assert
+          failures end up in your handler)
+        </t>
+      </section>
+      <section title="Defining extra groupings">
+        <t>
+          If your xaraya subsystem is larger and you want to be able
+          to group your exceptions like xaraya itself does, this is
+          possible. This can be comfortable if you want more control
+          over the exceptions raised <spanx
+          style="strong">within</spanx> your own subsystem and react
+          differently to them. If you feel this is appropriate for your
+          subsystem, you can create a derivation of the XARExceptions
+          class (or any of the existing groupings)
+        </t>
+        <artwork>
+abstract class MySpecialConfigurationExceptions extends ConfigurationExceptions
+{}
+        </artwork>
+        <t>
+          Other than the declaration, nothing else is
+          needed. Obviously your own exceptions should extend your own
+          grouping for it to be useful. The class declaration MUST be
+          abstract to avoid that instances of that grouping class are instantiated.
+        </t>
+      </section>
+    </section>
+
+    <section title="Compatibility notes">
+      <t>
+        This section contains an assortment of notes comparing earlier
+        Xaraya code with the news Exception Handling System.
+      </t>
+      <list style="numbers">
+        <t>
+          The <spanx style="verb">xarErrorSet()</spanx> API function
+          which was used to signal error conditions, often in
+          combination with a return NULL; should not be used
+          anymore. The function will continue to work until all code
+          has been ported. The effect of using xarErrorSet() is that a
+          special exception will be raised which, apart from handling
+          the error being set, will also display a deprecation note.
+        </t>
+        <t>
+          A null return in old code used to signal an error
+          condition, which was our way to let errors bubble up until
+          our errorhandler could pick them up. In general it is now
+          not needed anymore to take nullreturns into account. This
+          means that functions and methods from this time onwards may
+          have a null return type as their signature, but it also
+          means you SHOULD NOT use the test for that null value
+          anymore to check for error conditions. In practice, this
+          will resolve itself, since xarErrorSet() raises an exception
+          and the test for null is never executed.
+        </t>
+        <t>
+          Related to the above, it is now possible and RECOMMENDED
+          that functions / methods either return a value of the type
+          their declaration specified OR throw an exception and
+          nothing else. In other words, dont return -1 or 0 if
+          something can not be found, but raise a NotFoundException
+          and let the callee handle that.
+        </t>
+        <t>
+          Since at any given time, there can only be one pending
+          exception, the error stacks we maintained earlier do not
+          exist anymore. If your code relies on building a stack of
+          errors and dealing with them, you will have to rewrite those
+          parts of your code.
+        </t>
+        <t>
+          The API functions like xarCurrentErrorType,
+          xarCurrentErrorID, xarCurrentError, xarErrorFree,
+          xarErrorHandled, xarErrorGet and xarErrorRender have no
+          meaning anymore in the new system. They were related to and
+          dependent on the error stacks, which are not there
+          anymore. They have been temporarily provided in core as
+          wrappers which just return and dont do anything.
+        </t>
+      </list>
+    </section>
+    <!-- Revision history is mandatory -->
+    <section title="Revision history">
+      <t>
+        Instead of documenting every revision in here, we refer to our
+        monotone repositories, which can give your great details on
+        what has been changed in this RFC over time.
+      </t>
+      <list>
+        <t>2006-01-20: initial revision.</t>
+      </list>
+    </section>
+    
+  </middle>
+  <!-- 
+       Even if we dont specify content for it, a back section needs to
+       be there (for cref entries, for example) 
+  -->
+  <back>
+  </back>
+</rfc>

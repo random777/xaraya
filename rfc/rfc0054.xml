@@ -124,7 +124,7 @@ NOTE: if you dont know what the above means, read up on how RFCs work,
           exception (ironically, at the top of the hierarchy) or as
           being defined outside Xaraya.
         </t>
-        <figure>
+        <figure title="First stage inheritance">
           <preamble>
             The first stage inheritance looks like this:
           </preamble>
@@ -154,7 +154,7 @@ Exception            - native PHP class
           for them as a whole, because they somehow signal the same
           sort of unexpected situation.
         </t>
-        <figure>
+        <figure title="Second stage inheritance">
           <preamble>
               Starting at the <spanx style="verb">XARExceptions</spanx> class the second stage
               inheritance tree looks like this:
@@ -229,7 +229,7 @@ Exception            - native PHP class
 
     <section title="Implementation">
       <section title="Interfaces" anchor="interface.implementation">
-        <figure>
+        <figure title="Base Exception interface">
           <preamble>
             The base interface definition for all exceptions in the
             Exception Handling System is as follows:
@@ -275,8 +275,8 @@ interface IException
           directly. In practice this exception SHOULD NOT occur. If it
           does there is a certain bug in the code, always.
         </t>
-        <figure>
-          <preamble>
+        <figure title="Exception handler interface">
+          <preamble >
             The interface definition for exception handlers:
           </preamble>
           <artwork>
@@ -288,7 +288,7 @@ interface IExceptionHandlers
 }
           </artwork>
         </figure>
-        <figure>
+        <figure title="XAR Exceptions extended interface">
           <preamble>
             The exceptions raised by Xaraya itself, i.e. the instances of 
             <spanx style="verb">XARExceptions</spanx> and its descendents

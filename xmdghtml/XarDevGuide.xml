@@ -158,7 +158,7 @@
 
     <para>Writing module for Xaraya can be an adventure, a glorious event when
     finished, but a long yourney in between. This guide will help to easy the
-    process, as in its roots, it is a very simple one. </para>
+    process, as in its roots, it is a very simple one.</para>
 
     <section>
       <title>What is a module</title>
@@ -170,7 +170,7 @@
       easily with a standard deployment of Xaraya. A module can also include
       blocks, images, plain HTML files etc. A module provides a specific
       functionality like "enable users to post comments to articles" for the
-      comments module. </para>
+      comments module.</para>
     </section>
 
     <section>
@@ -188,8 +188,8 @@
           </listitem>
 
           <listitem>
-            <para>Can't you make use of Dynamic Data in an existing module?
-            </para>
+            <para>Can't you make use of Dynamic Data in an existing
+            module?</para>
           </listitem>
 
           <listitem>
@@ -312,28 +312,49 @@
       <section>
         <title>Pitfalls with xarVarFetch()</title>
 
-        <para>No error given Note that if a default value is specified, even
-        if it is '', the function will always succeed. If you need to catch
-        validation errors and other errors, you must set the default value to
-        NULL. Loops with 1 $variable name If you have built a loop with this
-        function in it, you will notice that the value of the first found
-        instance is returned every single call, even though you may be calling
-        for different named $_POST or $_GET elements. To solve this either use
-        a variable variablename, or use the flag XARVAR_DONT_REUSE. Example:
-        &lt;input name="item1" value=1&gt; &lt;input name="item2" value=2&gt;
-        xarVarFetch('item1', 'str::', $value, NULL ) // $value= 1
-        xarVarFetch('item2', 'str::', $value, NULL ) // $value= 1 !!! It is
-        currently not possible to discern between 'Not Found' and 'Validation
-        Failed', if you need to know use the validate function and
-        $_POST/$_GET directly in the error handling part. Module variables
-        Module variables can be set using
-        xarModSetVar('module','modulevariable','initial value') Example:
-        xarModSetVar('julian','startDayOfWeek','1'); These variables can be
-        called later by xarModGetVar(module, variable) $cal_sdow =
-        xarModGetVar('julian','startDayOfWeek'); Now, we can even make this a
-        variable the admin can set. Then add to the modifyconfig.xd template
-        the following code snippet: &lt;input type="text"
-        name="startDayOfWeek"
+        <para>No error given</para>
+
+        <para>Note that if a default value is specified, even if it is '', the
+        function will always succeed. If you need to catch validation errors
+        and other errors, you must set the default value to NULL.</para>
+
+        <para>Loops with 1 $variable name</para>
+
+        <para>If you have built a loop with this function in it, you will
+        notice that the value of the first found instance is returned every
+        single call, even though you may be calling for different named $_POST
+        or $_GET elements. To solve this either use a variable variablename,
+        or use the flag XARVAR_DONT_REUSE.</para>
+
+        <para>Example:</para>
+
+        <para>&lt;input name="item1" value=1&gt;</para>
+
+        <para>&lt;input name="item2" value=2&gt;</para>
+
+        <para><code>xarVarFetch('item1', 'str::', $value, NULL )</code> //
+        $value= 1</para>
+
+        <para><code>xarVarFetch('item2', 'str::', $value, NULL )</code> //
+        $value= 1 !!!</para>
+
+        <para>It is currently not possible to discern between 'Not Found' and
+        'Validation Failed', if you need to know use the validate function and
+        $_POST/$_GET directly in the error handling part.</para>
+
+        <para>Module variables</para>
+
+        <para>Module variables can be set using
+        xarModSetVar('module','modulevariable','initial value')</para>
+
+        <para>Example: <code>xarModSetVar('julian','startDayOfWeek','1');
+        </code></para>
+
+        <para>These variables can be called later by xarModGetVar(module,
+        variable) $cal_sdow = xarModGetVar('julian','startDayOfWeek'); Now, we
+        can even make this a variable the admin can set. Then add to the
+        modifyconfig.xd template the following code snippet: &lt;input
+        type="text" name="startDayOfWeek"
         value="#xarModGetVar('julian','startDayOfWeek')#" size="2" /&gt; and
         in your redirect script (updateconfig.php in the example module)
         //check the input with xarVarFetch if (!xarVarFetch('bold',
@@ -364,68 +385,85 @@
       take place at initialization time for a module that wants to use the
       $name user variable during its life cycle. Xaraya does not impose any
       restriction on the value of $name except for duplicate and reserved
-      names. </para>
+      names.</para>
 
-      <para>As of this writing, the list of reserved names consists of </para>
+      <para>As of this writing, the list of reserved names consists of</para>
 
-      <para>uid The user id. </para>
+      <itemizedlist>
+        <listitem>
+          <para><constant>uid</constant> The user id.</para>
+        </listitem>
 
-      <para>name The user display name on the system. “Name” should be used in
-      any case that you are displaying the user name, IE author fields, etc.
-      </para>
+        <listitem>
+          <para><constant>name </constant>The user display name on the system.
+          “Name” should be used in any case that you are displaying the user
+          name, IE author fields, etc.</para>
+        </listitem>
 
-      <para>uname The user name is the system variable used to differentiate
-      one user from another in string vice integer format. This variable
-      should not be used to display information about the user for consistency
-      and security reasons. </para>
+        <listitem>
+          <para><constant>uname </constant>The user name is the system
+          variable used to differentiate one user from another in string vice
+          integer format. This variable should not be used to display
+          information about the user for consistency and security
+          reasons.</para>
+        </listitem>
 
-      <para>email The email address of the user. </para>
+        <listitem>
+          <para><constant>email</constant> The email address of the
+          user.</para>
+        </listitem>
 
-      <para>status The status of the user (active, inactive, deleted etc).
-      </para>
+        <listitem>
+          <para><constant>status</constant> The status of the user (active,
+          inactive, deleted etc).</para>
+        </listitem>
 
-      <para>auth_module The authentication module last used for this user.
-      </para>
+        <listitem>
+          <para><constant>auth_module</constant> The authentication module
+          last used for this user.</para>
+        </listitem>
+      </itemizedlist>
 
       <para>You are advised (even for performance reasons) to use the
       following naming convention: <code>$name := $module_name . '_' .
-      $real_name</code> </para>
+      $real_name</code></para>
 
       <para>To register the $name user variable you have to use the module API
-      function register_user_var() exported by the Modules module. </para>
+      function register_user_var() exported by the Modules module.</para>
 
-      <para>Here is an example: </para>
+      <para>Here is an example:</para>
 
-      <para>$module_name = 'MyModule'; </para>
+      <para><code>$module_name = 'MyModule';</code></para>
 
-      <para>$variable_name = 'MaxLinesPerPage'; </para>
+      <para><code>$variable_name = 'MaxLinesPerPage';</code></para>
 
-      <para>$metadata['label'] = $module_name . '_' . $variable_name; </para>
+      <para><code>$metadata['label'] = $module_name . '_' .
+      $variable_name;</code></para>
 
-      <para>$metadata['dtype'] = _UDCONST_INTEGER; //one of the values defined
-      for dynamic user data variable types </para>
+      <para><code>$metadata['dtype'] = _UDCONST_INTEGER; //one of the values
+      defined for dynamic user data variable types</code></para>
 
-      <para>$metadata['default'] = 20; $metadata['validation'] =
-      'num:&gt;=:10&amp;num:&lt;=:100'; </para>
+      <para><code>$metadata['default'] = 20; $metadata['validation'] =
+      'num:&gt;=:10&amp;num:&lt;=:100';</code></para>
 
-      <para>xarModAPILoad('Modules', 'admin'); </para>
+      <para><code>xarModAPILoad('Modules', 'admin');</code></para>
 
-      <para>$result = xarModAPIFunc('Modules', 'admin', 'register_user_var',
-      $metadata); </para>
+      <para><code>$result = xarModAPIFunc('Modules', 'admin',
+      'register_user_var', $metadata);</code></para>
 
-      <para>if (!isset($result)) { </para>
+      <para><code>if (!isset($result)) {</code></para>
 
-      <para>// xarModAPIFunc() failed </para>
+      <para><code>// xarModAPIFunc() failed</code></para>
 
-      <para>} elseif ($result == false) {</para>
+      <para><code>} elseif ($result == false) {</code></para>
 
-      <para>// registration failed </para>
+      <para><code>// registration failed</code></para>
 
-      <para>} else { </para>
+      <para><code>} else {</code></para>
 
-      <para>// registration succeeded </para>
+      <para><code>// registration succeeded</code></para>
 
-      <para>} </para>
+      <para><code>}</code></para>
 
       <para>As you can see in this example, a descriptive array for the new
       user variable is created first, and later register_user_var is called
@@ -527,7 +565,7 @@
       with the XAR_NO_EXCEPTION constant. If they are different, you know that
       an exception has been raised.</para>
 
-      <para>The xarExceptioMajor() return value can assume one of these
+      <para>The xarExceptionMajor() return value can assume one of these
       values: XAR_NO_EXCEPTION, XAR_USER_EXCEPTION, XAR_SYSTEM_EXCEPTION. The
       value XAR_NO_EXCEPTION indicates that no exception was raised, and
       XAR_USER_EXCEPTION stands for user exception was raised and
@@ -540,16 +578,41 @@
 
       <para>Consider the following example:</para>
 
-      <para>$res = xarModFunc('MyModule', 'user', 'MyFunc');if (!isset($res)
-      &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) { // Got an
-      exception if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) { return; //
-      throw back } // Got a user exception if (xarExceptionId() ==
-      'MyException1') { $value = xarExceptionValue(); $output-&gt;Text("Syntax
-      error at line: ".$value-&gt;lineNumber); } elseif (xarExceptionId() ==
-      'MyException2') { /* Do something useful */ } else { // MyException3 /*
-      Do something useful */ } // reset exception status // NOTE: it's of
-      vital importance to call this function // before returning
-      xarExceptionFree(); return $output-&gt;GetOutput();}</para>
+      <para><code>$res = xarModFunc('MyModule', 'user',
+      'MyFunc');</code></para>
+
+      <para><code>if (!isset($res) &amp;&amp; xarExceptionMajor() !=
+      XAR_NO_EXCEPTION) { // Got an exception if (xarExcepionMajor() ==
+      XAR_SYSTEM_EXCEPTION) { return; // throw back </code></para>
+
+      <para><code>} </code></para>
+
+      <para><code>// Got a user exception </code></para>
+
+      <para><code>if (xarExceptionId() == 'MyException1') { </code></para>
+
+      <para><code>$value = xarExceptionValue(); </code></para>
+
+      <para><code>$output-&gt;Text("Syntax error at line:
+      ".$value-&gt;lineNumber); </code></para>
+
+      <para><code>} elseif (xarExceptionId() == 'MyException2') {
+      </code></para>
+
+      <para><code>/* Do something useful */ </code></para>
+
+      <para><code>} else { // MyException3 </code></para>
+
+      <para><code>/* Do something useful */ </code></para>
+
+      <para><code>} // reset exception status </code></para>
+
+      <para><code>// NOTE: it's of vital importance to call this function
+      </code></para>
+
+      <para><code>// before returning xarExceptionFree(); </code></para>
+
+      <para><code>return $output-&gt;GetOutput();}</code></para>
 
       <para>To throw exception you use a unique function: xarExceptionSet().
       You simply call it by passing the exception major, id and value if one;
@@ -601,7 +664,7 @@
     <section>
       <title>Separations</title>
 
-      <para>Xaraya modules use a clear seperatation of functions according to
+      <para>Xaraya modules use a clear seperation of functions according to
       what they do.</para>
 
       <section>
@@ -615,6 +678,13 @@
         the other areas. In addition, it gives an extra layer of security to
         help ensure that privileged functions cannot be executed inadvertently
         from user areas.</para>
+
+        <para>The discussion of what is an admin function and what is a user
+        function is sometimes vague. In general, admin functions are those
+        function that deal with setting up the module and it's functioning,
+        sometimes including the data in there. In Example module, that is a
+        display module for users, it is an admin task to add data. This is
+        also in accordance with Articles.</para>
       </section>
 
       <section>
@@ -629,6 +699,12 @@
         rating systems, that have no real use on their own but can be coupled
         with other modules to provide generic and site-wide functionality at
         very little cost to the module developer.</para>
+
+        <para>Operational functions go into the ...api directory. These
+        functions will not call a template at return, but are expected to
+        return the result of their operation. Functions that will display data
+        will always go in xaradmin or xaruser directories. The exception here
+        is blocks.</para>
       </section>
     </section>
 
@@ -642,6 +718,10 @@
       and as such, the module designer does not need to worry about on which
       systems his module might be deployed, and how it needs to interact with
       the underlying operating system to function correctly.</para>
+
+      <para>This design option means that all your functions and data will go
+      in the directory modules/yourmodule and the according child
+      directory.</para>
     </section>
 
     <section>
@@ -673,7 +753,7 @@
       times to ensure correct operation of the module. This shows the layout
       of the example module directory. Other modules will have different names
       for their top-level directory and blocks as appropriate for their
-      specific functionality </para>
+      specific functionality</para>
 
       <para>modules/ (1) example/ (2) xaradmin/ (3) create.php (4) delete.php
       (5) main.php (6) modify.php (7) modifyconfig.php (8) new.php (9)
@@ -695,7 +775,7 @@
       validateitem.php (64) index.html (65) getitemlinks.php (66)
       xareventapi.php (67) xarinit.php (68) xartables.php (69) example.wsdl
       (70) index.html (71) xaradmin.php (72) xaradminapi.php (73) xaruser.php
-      (74) xaruserapi.php (75) xarversion.php (76) </para>
+      (74) xaruserapi.php (75) xarversion.php (76)</para>
 
       <para>(1) The top-level directory in Xaraya for modules (2) The
       directory that contains all of the module code (in this case the module
@@ -901,8 +981,8 @@
 
       <para>Initialization of modules is accomplished through the
       modname_init() in the 'xarinit.php' file within the module's directory
-      function. No other functions are called when the module is
-      initialized.</para>
+      function. No other functions are called when the module is initialized.
+      All initialisation routines should go into the init function.</para>
     </section>
 
     <section>
@@ -918,7 +998,7 @@
       <title>Upgrading your module</title>
 
       <para>Upgrading your module is important. The upgrade function is
-      located in the xarinit.php</para>
+      located in the xarinit.php and called yourmodule_upgrade().</para>
     </section>
 
     <section>
@@ -1326,132 +1406,185 @@
       you are developing a module for the first time, it is recommended to
       follow these steps.</para>
 
-      <para>Make Your Initial Directory Create the directory to hold the
-      module files. This directory must be created under the 'modules'
-      directory in the Xaraya install, and must be created with the name of
-      your module as registered at the Xaraya modules site. Copy the Module
-      Example Copy over all of the files from the example module directory
-      into you newly created module directory. These files set up the basic
-      structure for your module and allow you to get to work creating your
-      module very quickly. Code your Database Tables</para>
+      <section>
+        <title>Make Your Initial Directory</title>
 
-      <para>Coding your database tables requires you to edit the xartables.php
-      file in your module directory. This file gives information on the
-      structure of the tables used by this module, although it does not carry
-      out any actions itself. The structure information is wrapped in a
-      function (modname_xartables()) for easy access by the Xaraya system. An
-      annotated copy of the template xartables.php file is available in the
-      standard Xaraya distribution as part of the Template module.</para>
+        <para>Create the directory to hold the module files. This directory
+        must be created under the 'modules' directory in the Xaraya install,
+        and must be created with the name of your module as registered at the
+        Xaraya modules site.</para>
 
-      <para>If your module uses tables specified by another module then you
-      can either remove the xartables.php file completely from your module
-      directory, or have a suitably named function that just returns an empty
-      array. If you attempt to use the same table name as another module or
-      the Xaraya core then your module will fail in unexpected ways. Try to
-      give your tables unique names, preferably based on your module name
-      Write your Initialization Functions Module initialization functions are
-      required for three separate actions. These actions are initialization of
-      the module's tables and configuration, upgrade of the module's tables
-      and configuration, and deletion of the module's tables and
-      configuration. Each of these items are generally only called once,
-      although if a site administrator desires they should be able to
-      initialize and delete a module as many times as they wish. It should be
-      assumed that whenever these functions are called the Xaraya system has
-      already loaded the relevant information from xartables.php and it is
-      available in the information returned by xarDBGetTables(). An annotated
-      copy of the template xarinit.php file is available in the standard
-      Xaraya distribution as part of the Example solution. Test Your
-      Initialization Routines Once the database structure and initialization
-      files are in place they should be tested by using the modules
-      administration area of your Xaraya system to test initializing and
-      deleting your module. You should manually check that the database table
-      created is correct, and that deleting a module removes all of the
-      relevant configuration variables and database tables. Once you are happy
-      that the module initialization functions are working correctly you
-      should carry out an initialization so that work on the administration
-      and user functions can proceed with suitable database tables in place.
-      Write Your Administration Functions With your database tables in place,
-      the next step is to write some administration functions. The
-      administration functions that you will write depend on the nature of
-      your module, however most modules have at least the following items: add
-      a new item modify an existing item delete an existing item Each of these
-      items is normally broken down into three separate pieces. The first
-      piece is part of the GUI and displays a form with suitable fields for
-      user input. The second piece is part of the API and carries out the
-      requested operation. The third piece is another part of the GUI, gathers
-      information from the form displayed by the first piece, and passes it as
-      arguments to the second piece. As mentioned earlier in the document, it
-      is vital that the separation between the GUI and API functions is clear.
-      If you are unsure about whether part of a function should be in the GUI
-      or the API, look at what it does. If it is directly involved with user
-      interaction (gathering information from the user or displaying
-      information to the user) then it is a GUI function. If it is involved
-      with obtaining or updating information in the Xaraya system itself
-      (normally in a database table) then it is an API function. Annotated
-      copies of the template xaruser and xaruserapi function files are
-      available in the standard Xaraya distribution as part of the Example
-      module. Test Your Administration Functions Once the administration
-      functions are in place, they need testing by using the administration
-      area of your module to carry out the basic functionality that you have
-      created. The operation of the module functions need checking against the
-      information in the database to ensure that they are storing and
-      displaying the data correctly. Write Your User Functions Once the
-      administration functions are in place to manipulate your module's data
-      then you can write the user functions to display the data. As with the
-      administration functions the user functions that you will write depend
-      on the nature of your module, however most modules have at least the
-      following items: overview of a number of items detailed view of a single
-      item Each of these items is normally broken down into two separate
-      pieces. The first piece is part of the GUI and gathers information from
-      the user as to which item they wish to view, passes it on to the API
-      piece, and displays the resultant information. The second piece is part
-      of the API and obtains the required information for the display piece.
-      Annotated copies of the template xaruser and xaruserapi function files
-      are available in the standard Xaraya distribution as part of the Example
-      module. Test Your User Functions Once the user functions are in place
-      they need testing by operating the module in the same way that a normal
-      user would. The operation of the module functions need checking against
-      the information in the database to ensure that they are displaying the
-      data correctly. Write Your Blocks You might want your module to include
-      blocks. Blocks are smaller functional units of a module that display
-      specific information, and generally show up down the left and right hand
-      sides of a page. Blocks are relatively simplistic items, and can either
-      use their module's API functions to obtain information or use their own
-      direct SQL query. Although they are packaged as part of the module they
-      are not directly related to it except that they use the same database
-      tables, and as such they might have to load the module's database table
-      information directly through the use of the xarModDBInfoLoad() function
-      if they intend to access the module's tables directly. An annotated copy
-      of the template first.php block is available in the standard Xaraya
-      distribution as part of the Example module. Test Your Blocks Once the
-      blocks are in place, they need testing by displaying them through the
-      Blocks administration system. The blocks need checking against the
-      database and the user functions to ensure that they are displaying the
-      data correctly. Document Your Module Documenting your module is a vital
-      step. There are two areas your module needs documentation: user
-      information and API information. The first area is covered by producing
-      a manual and placing it in the appropriate place in the directory
-      hierarchy. The second area by writing a short description of each API
-      function, noting the parameters and return values that it has, and
-      placing that at the head of the function. Coding the documentation in
-      the style of PHPDoc will allow for automatic parsing of the
-      documentation by other developers who wish to use your module. Packaging
-      Your Module At this stage, the module should be ready for packaging. The
-      two most widely used packaging formats are WinZip (.zip extension) and
-      compressed TAR (.tar.gz extension). If possible, package the module with
-      both formats. If not then just, package it with the format that you have
-      and ask on the Xaraya site if someone can package it in the other
-      format. Interacting With Other Modules Overview When designing your
-      module you may well find there is functionality that you require in a
-      module already available. Utility modules are designed specifically to
-      provide additional often-used functionality for modules in a standard
-      way, and sometimes the functionality of an entire module might be used
-      as part of your module. Functionality can be obtained either from the
-      display part of the module or the API itself, depending on the specific
-      requirements in the new module. Interaction with other modules is
-      carried out in different ways depending on the type of module being
-      written and the level of specific control the module requires over the
-      function being called.</para>
+        <para>Copy the Module Example Copy over all of the files from the
+        example module directory into you newly created module directory.
+        These files set up the basic structure for your module and allow you
+        to get to work creating your module very quickly.</para>
+      </section>
+
+      <section>
+        <title>Code your Database Tables</title>
+
+        <para>Coding your database tables requires you to edit the
+        xartables.php file in your module directory. This file gives
+        information on the structure of the tables used by this module,
+        although it does not carry out any actions itself. The structure
+        information is wrapped in a function (modname_xartables()) for easy
+        access by the Xaraya system. An annotated copy of the template
+        xartables.php file is available in the standard Xaraya distribution as
+        part of the Template module.</para>
+
+        <para>If your module uses tables specified by another module then you
+        can either remove the xartables.php file completely from your module
+        directory, or have a suitably named function that just returns an
+        empty array. If you attempt to use the same table name as another
+        module or the Xaraya core then your module will fail in unexpected
+        ways. Try to give your tables unique names, preferably based on your
+        module name.</para>
+      </section>
+
+      <section>
+        <title>Write your Initialization Functions</title>
+
+        <para>Module initialization functions are required for three separate
+        actions. These actions are initialization of the module's tables and
+        configuration, upgrade of the module's tables and configuration, and
+        deletion of the module's tables and configuration. Each of these items
+        are generally only called once, although if a site administrator
+        desires they should be able to initialize and delete a module as many
+        times as they wish. It should be assumed that whenever these functions
+        are called the Xaraya system has already loaded the relevant
+        information from xartables.php and it is available in the information
+        returned by xarDBGetTables(). An annotated copy of the template
+        xarinit.php file is available in the standard Xaraya distribution as
+        part of the Example solution. </para>
+
+        <para>Test Your Initialization Routines </para>
+
+        <para>Once the database structure and initialization files are in
+        place they should be tested by using the modules administration area
+        of your Xaraya system to test initializing and deleting your module.
+        You should manually check that the database table created is correct,
+        and that deleting a module removes all of the relevant configuration
+        variables and database tables. Once you are happy that the module
+        initialization functions are working correctly you should carry out an
+        initialization so that work on the administration and user functions
+        can proceed with suitable database tables in place. </para>
+
+        <para>Write Your Administration Functions </para>
+
+        <para>With your database tables in place, the next step is to write
+        some administration functions. The administration functions that you
+        will write depend on the nature of your module, however most modules
+        have at least the following items: add a new item modify an existing
+        item delete an existing item Each of these items is normally broken
+        down into three separate pieces. The first piece is part of the GUI
+        and displays a form with suitable fields for user input. The second
+        piece is part of the API and carries out the requested operation. The
+        third piece is another part of the GUI, gathers information from the
+        form displayed by the first piece, and passes it as arguments to the
+        second piece. As mentioned earlier in the document, it is vital that
+        the separation between the GUI and API functions is clear. If you are
+        unsure about whether part of a function should be in the GUI or the
+        API, look at what it does. If it is directly involved with user
+        interaction (gathering information from the user or displaying
+        information to the user) then it is a GUI function. If it is involved
+        with obtaining or updating information in the Xaraya system itself
+        (normally in a database table) then it is an API function. Annotated
+        copies of the template xaruser and xaruserapi function files are
+        available in the standard Xaraya distribution as part of the Example
+        module. </para>
+
+        <para>Test Your Administration Functions </para>
+
+        <para>Once the administration functions are in place, they need
+        testing by using the administration area of your module to carry out
+        the basic functionality that you have created. The operation of the
+        module functions need checking against the information in the database
+        to ensure that they are storing and displaying the data correctly.
+        </para>
+
+        <para>Write Your User Functions </para>
+
+        <para>Once the administration functions are in place to manipulate
+        your module's data then you can write the user functions to display
+        the data. As with the administration functions the user functions that
+        you will write depend on the nature of your module, however most
+        modules have at least the following items: overview of a number of
+        items detailed view of a single item Each of these items is normally
+        broken down into two separate pieces. The first piece is part of the
+        GUI and gathers information from the user as to which item they wish
+        to view, passes it on to the API piece, and displays the resultant
+        information. The second piece is part of the API and obtains the
+        required information for the display piece. Annotated copies of the
+        template xaruser and xaruserapi function files are available in the
+        standard Xaraya distribution as part of the Example module. </para>
+
+        <para>Test Your User Functions </para>
+
+        <para>Once the user functions are in place they need testing by
+        operating the module in the same way that a normal user would. The
+        operation of the module functions need checking against the
+        information in the database to ensure that they are displaying the
+        data correctly. </para>
+
+        <para>Write Your Blocks </para>
+
+        <para>You might want your module to include blocks. Blocks are smaller
+        functional units of a module that display specific information, and
+        generally show up down the left and right hand sides of a page. Blocks
+        are relatively simplistic items, and can either use their module's API
+        functions to obtain information or use their own direct SQL query.
+        Although they are packaged as part of the module they are not directly
+        related to it except that they use the same database tables, and as
+        such they might have to load the module's database table information
+        directly through the use of the xarModDBInfoLoad() function if they
+        intend to access the module's tables directly. An annotated copy of
+        the template first.php block is available in the standard Xaraya
+        distribution as part of the Example module. </para>
+
+        <para>Test Your Blocks </para>
+
+        <para>Once the blocks are in place, they need testing by displaying
+        them through the Blocks administration system. The blocks need
+        checking against the database and the user functions to ensure that
+        they are displaying the data correctly. </para>
+
+        <para>Document Your Module </para>
+
+        <para>Documenting your module is a vital step. There are two areas
+        your module needs documentation: user information and API information.
+        The first area is covered by producing a manual and placing it in the
+        appropriate place in the directory hierarchy. The second area by
+        writing a short description of each API function, noting the
+        parameters and return values that it has, and placing that at the head
+        of the function. Coding the documentation in the style of PHPDoc will
+        allow for automatic parsing of the documentation by other developers
+        who wish to use your module. </para>
+
+        <para>Packaging Your Module </para>
+
+        <para>At this stage, the module should be ready for packaging. The two
+        most widely used packaging formats are WinZip (.zip extension) and
+        compressed TAR (.tar.gz extension). If possible, package the module
+        with both formats. If not then just, package it with the format that
+        you have and ask on the Xaraya site if someone can package it in the
+        other format. </para>
+
+        <para>Interacting With Other Modules </para>
+
+        <para>Overview </para>
+
+        <para>When designing your module you may well find there is
+        functionality that you require in a module already available. Utility
+        modules are designed specifically to provide additional often-used
+        functionality for modules in a standard way, and sometimes the
+        functionality of an entire module might be used as part of your
+        module. Functionality can be obtained either from the display part of
+        the module or the API itself, depending on the specific requirements
+        in the new module. Interaction with other modules is carried out in
+        different ways depending on the type of module being written and the
+        level of specific control the module requires over the function being
+        called.</para>
+      </section>
     </section>
   </chapter>
 
@@ -1593,59 +1726,59 @@
 
       <para>Xaraya News Groups: The following lists of news groups are
       available via news.xaraya.com. These news groups are also available via
-      your web browser at the following Web sites. http://www.xaraya.com
-      </para>
+      your web browser at the following Web sites.
+      http://www.xaraya.com</para>
 
-      <para>Ddf.public – DDF Public List </para>
+      <para>Ddf.public – DDF Public List</para>
 
-      <para>Xaraya.announce – Xaraya Announcements List </para>
+      <para>Xaraya.announce – Xaraya Announcements List</para>
 
       <para>Xaraya.devel – Xaraya Member List</para>
 
-      <para>Xaraya.documentation – Xaraya Documentation List </para>
+      <para>Xaraya.documentation – Xaraya Documentation List</para>
 
-      <para>Xaraya.bugs – Xaraya Bugs List </para>
+      <para>Xaraya.bugs – Xaraya Bugs List</para>
 
-      <para>Xaraya.ui – Xaraya User Interface </para>
+      <para>Xaraya.ui – Xaraya User Interface</para>
 
-      <para>Lists Xaraya.knowledge-base – Xaraya Knowledge Base List </para>
+      <para>Lists Xaraya.knowledge-base – Xaraya Knowledge Base List</para>
 
-      <para>Xaraya.marketing – Xaraya Marketing </para>
+      <para>Xaraya.marketing – Xaraya Marketing</para>
 
-      <para>Xaraya.patches – Xaraya Patches </para>
+      <para>Xaraya.patches – Xaraya Patches</para>
 
-      <para>Xaraya.qa – Xaraya Quality Assurance </para>
+      <para>Xaraya.qa – Xaraya Quality Assurance</para>
 
-      <para>Xaraya.user – Xaraya User Discussion List </para>
+      <para>Xaraya.user – Xaraya User Discussion List</para>
 
-      <para>Xaraya.user-arabic – Xaraya Arabic </para>
+      <para>Xaraya.user-arabic – Xaraya Arabic</para>
 
-      <para>User Discussion List </para>
+      <para>User Discussion List</para>
 
-      <para>Xaraya.user.chinese – Xaraya Chinese User List </para>
+      <para>Xaraya.user.chinese – Xaraya Chinese User List</para>
 
-      <para>Xaraya.user.danish – Xaraya Danish User Discussion List </para>
+      <para>Xaraya.user.danish – Xaraya Danish User Discussion List</para>
 
-      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion </para>
+      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion</para>
 
-      <para>List Xaraya.user.french – Xaraya French User Discussion List
-      </para>
+      <para>List Xaraya.user.french – Xaraya French User Discussion
+      List</para>
 
-      <para>Xaraya.user.german – Xaraya German User Discussion List </para>
+      <para>Xaraya.user.german – Xaraya German User Discussion List</para>
 
-      <para>Xaraya.user.greek – Xaraya Greek User Discussion List </para>
+      <para>Xaraya.user.greek – Xaraya Greek User Discussion List</para>
 
-      <para>Xaraya.users.hungarian – Xaraya Hungarian User Discussion List
-      </para>
+      <para>Xaraya.users.hungarian – Xaraya Hungarian User Discussion
+      List</para>
 
-      <para>Xaraya.user.italian – Xaraya Italian User Discussion List </para>
+      <para>Xaraya.user.italian – Xaraya Italian User Discussion List</para>
 
-      <para>Xaraya.user.polish – Xaraya Polish User Discussion List </para>
+      <para>Xaraya.user.polish – Xaraya Polish User Discussion List</para>
 
-      <para>Xaraya.user.portuguese – Xaraya Portuguese User Discussion List
-      </para>
+      <para>Xaraya.user.portuguese – Xaraya Portuguese User Discussion
+      List</para>
 
-      <para>Xaraya.user.russian – Xaraya Russian User Discussion List </para>
+      <para>Xaraya.user.russian – Xaraya Russian User Discussion List</para>
 
       <para>Xaraya.user.spanish – Xaraya Spanish User Discussion List</para>
     </section>

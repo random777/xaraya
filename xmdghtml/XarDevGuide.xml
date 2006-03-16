@@ -17,6 +17,14 @@
 
     <date>16 March 2006</date>
 
+    <revhistory>
+      <revision>
+        <revnumber>2.0</revnumber>
+
+        <date>Release in DocBook format</date>
+      </revision>
+    </revhistory>
+
     <date>August 15, 2004</date>
 
     <date>September 21, 2003</date>
@@ -252,7 +260,7 @@
 
     <para>This chapter describes the basic architecture of Xaraya, explains
     the major parts, and contains information on the design choices made for
-    the system.</para>
+    the system. It describes how basic parts of Xaraya operate. </para>
 
     <section>
       <title>Variable Handling</title>
@@ -261,23 +269,30 @@
       processed, checked for validity, as well as proper handling on unset
       vars, etc. Instead of relying on $_POST or $_GET calls throughout your
       module and then cleaning the input, Xaraya has a very robust way of
-      handling the variable.</para>
+      handling the variable. You can process parameters in your function via
+      the function itself as well. This is normally done by API functions, as
+      parameters present in the environment can be different from the ones
+      passed to these variables.</para>
 
       <para>An example call would be:</para>
 
-      <para>if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10,
-      XARVAR_NOT_REQUIRED)) return;</para>
+      <para><code>if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10,
+      XARVAR_NOT_REQUIRED)) return;</code></para>
 
-      <para>Fetches the $name variable from input variables and validates it
-      by applying the $validation rules.</para>
+      <para>This fetches the $itemsperpage variable from the input variable
+      'itemsperpage' and validates it by applying the $validation rules, in
+      this case it being an integer.</para>
 
-      <para>1st try to use the variable provided, if this is not set (Or the
-      XARVAR_DONT_REUSE flag is used) then it try to get the variable from the
-      input (POST/GET methods for now) Then tries to validate the variable
-      through xarVarValidate.</para>
+      <para>The functions works in this order:</para>
 
-      <para>After the call the $value parameter passed by reference is set to
-      the variable value converted to the proper type according to the
+      <para>First try to use the variable provided (itemsperpage), if this is
+      not set (Or the XARVAR_DONT_REUSE flag is used) then it tries to get the
+      variable from the input (POST/GET methods for now). It then tries to
+      validate the variable through xarVarValidate with the validation of
+      'int'.</para>
+
+      <para>After the call the $value parameter is passed by reference is set
+      to the variable value converted to the proper type according to the
       validation applied.</para>
 
       <para>The $defaultValue provides a default value that is returned when
@@ -293,7 +308,7 @@
       XARVAR_POST_ONLY.</para>
 
       <para>You can force xarVarFetch not to reuse the variable by setting the
-      $flag parameter to XARVAR_DON_REUSE.</para>
+      $flag parameter to XARVAR_DONT_REUSE.</para>
 
       <para>By default $flag is XARVAR_GET_OR_POST which means that
       xarVarFetch will lookup both GET and POST parameters and that if the
@@ -651,6 +666,27 @@
       also raise DATABASE_ERROR in every function that does queries. To get a
       better understanding of exception handling functions you should refer to
       the Xaraya API Command Reference.</para>
+    </section>
+
+    <section>
+      <title>Itemtypes</title>
+
+      <para>Itemtypes definitions are crucial in Xaraya operations. Itemtypes
+      are very important when ever your data is shared with either hooks or by
+      other modules.</para>
+    </section>
+
+    <section>
+      <title>Interaction with core classes</title>
+
+      <para>The interaction with core functions, what to rely on and how to
+      access these functions</para>
+    </section>
+
+    <section>
+      <title>Multilanguage system</title>
+
+      <para>Xaraya can be fully multilanguage.</para>
     </section>
   </chapter>
 

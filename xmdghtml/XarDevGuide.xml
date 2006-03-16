@@ -156,9 +156,9 @@
   <chapter>
     <title>Introduction</title>
 
-    <para>Writing module for Xaraya can be an adventure, a glorious event when
-    finished, but a long yourney in between. This guide will help to easy the
-    process, as in its roots, it is a very simple one.</para>
+    <para>Writing a module for Xaraya can be an adventure, a glorious event
+    when finished, but a long yourney in between. This guide will help to easy
+    the process, as in its roots, it is a very simple one.</para>
 
     <section>
       <title>What is a module</title>
@@ -232,16 +232,18 @@
       many good ideas out there that have not been incorporated into the
       Xaraya module system, and if a developer has a request for a particular
       set of functionality then they can submit it to the Xaraya features
-      request list at the Xaraya Homepage. If you have found a bug within the
-      current module system then you can submit it to the bug list at the same
-      address. Please note that the main requirement for the Xaraya module
-      design is stability. Due to this, it is possible that your request for
-      new or updated functionality will be refused because it is too specific,
-      can easily be built from core API functions, or carries out work that
-      should rightly be done by a module. In such situations, the Xaraya team
-      will always try to provide a simple alternative, but please remember
-      that submission of a new or updated addition to the module design does
-      not guarantee inclusion.</para>
+      request list at the Xaraya Bugzilla website: <ulink
+      url="http://bugs.xaraya.com">http://bugs.xaraya.com</ulink></para>
+
+      <para>If you have found a bug within the current module system then you
+      can submit it to the bug list at the same address. Please note that the
+      main requirement for the Xaraya module design is stability. Due to this,
+      it is possible that your request for new or updated functionality will
+      be refused because it is too specific, can easily be built from core API
+      functions, or carries out work that should rightly be done by a module.
+      In such situations, the Xaraya team will always try to provide a simple
+      alternative, but please remember that submission of a new or updated
+      addition to the module design does not guarantee inclusion.</para>
     </section>
   </chapter>
 
@@ -1455,9 +1457,9 @@
         information from xartables.php and it is available in the information
         returned by xarDBGetTables(). An annotated copy of the template
         xarinit.php file is available in the standard Xaraya distribution as
-        part of the Example solution. </para>
+        part of the Example solution.</para>
 
-        <para>Test Your Initialization Routines </para>
+        <para>Test Your Initialization Routines</para>
 
         <para>Once the database structure and initialization files are in
         place they should be tested by using the modules administration area
@@ -1467,9 +1469,9 @@
         variables and database tables. Once you are happy that the module
         initialization functions are working correctly you should carry out an
         initialization so that work on the administration and user functions
-        can proceed with suitable database tables in place. </para>
+        can proceed with suitable database tables in place.</para>
 
-        <para>Write Your Administration Functions </para>
+        <para>Write Your Administration Functions</para>
 
         <para>With your database tables in place, the next step is to write
         some administration functions. The administration functions that you
@@ -1491,18 +1493,18 @@
         (normally in a database table) then it is an API function. Annotated
         copies of the template xaruser and xaruserapi function files are
         available in the standard Xaraya distribution as part of the Example
-        module. </para>
+        module.</para>
 
-        <para>Test Your Administration Functions </para>
+        <para>Test Your Administration Functions</para>
 
         <para>Once the administration functions are in place, they need
         testing by using the administration area of your module to carry out
         the basic functionality that you have created. The operation of the
         module functions need checking against the information in the database
-        to ensure that they are storing and displaying the data correctly.
-        </para>
+        to ensure that they are storing and displaying the data
+        correctly.</para>
 
-        <para>Write Your User Functions </para>
+        <para>Write Your User Functions</para>
 
         <para>Once the administration functions are in place to manipulate
         your module's data then you can write the user functions to display
@@ -1516,17 +1518,17 @@
         information. The second piece is part of the API and obtains the
         required information for the display piece. Annotated copies of the
         template xaruser and xaruserapi function files are available in the
-        standard Xaraya distribution as part of the Example module. </para>
+        standard Xaraya distribution as part of the Example module.</para>
 
-        <para>Test Your User Functions </para>
+        <para>Test Your User Functions</para>
 
         <para>Once the user functions are in place they need testing by
         operating the module in the same way that a normal user would. The
         operation of the module functions need checking against the
         information in the database to ensure that they are displaying the
-        data correctly. </para>
+        data correctly.</para>
 
-        <para>Write Your Blocks </para>
+        <para>Write Your Blocks</para>
 
         <para>You might want your module to include blocks. Blocks are smaller
         functional units of a module that display specific information, and
@@ -1539,16 +1541,16 @@
         directly through the use of the xarModDBInfoLoad() function if they
         intend to access the module's tables directly. An annotated copy of
         the template first.php block is available in the standard Xaraya
-        distribution as part of the Example module. </para>
+        distribution as part of the Example module.</para>
 
-        <para>Test Your Blocks </para>
+        <para>Test Your Blocks</para>
 
         <para>Once the blocks are in place, they need testing by displaying
         them through the Blocks administration system. The blocks need
         checking against the database and the user functions to ensure that
-        they are displaying the data correctly. </para>
+        they are displaying the data correctly.</para>
 
-        <para>Document Your Module </para>
+        <para>Document Your Module</para>
 
         <para>Documenting your module is a vital step. There are two areas
         your module needs documentation: user information and API information.
@@ -1558,20 +1560,20 @@
         parameters and return values that it has, and placing that at the head
         of the function. Coding the documentation in the style of PHPDoc will
         allow for automatic parsing of the documentation by other developers
-        who wish to use your module. </para>
+        who wish to use your module.</para>
 
-        <para>Packaging Your Module </para>
+        <para>Packaging Your Module</para>
 
         <para>At this stage, the module should be ready for packaging. The two
         most widely used packaging formats are WinZip (.zip extension) and
         compressed TAR (.tar.gz extension). If possible, package the module
         with both formats. If not then just, package it with the format that
         you have and ask on the Xaraya site if someone can package it in the
-        other format. </para>
+        other format.</para>
 
-        <para>Interacting With Other Modules </para>
+        <para>Interacting With Other Modules</para>
 
-        <para>Overview </para>
+        <para>Overview</para>
 
         <para>When designing your module you may well find there is
         functionality that you require in a module already available. Utility

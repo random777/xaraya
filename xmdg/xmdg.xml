@@ -836,15 +836,15 @@ MyModule_user_MyFunc()
         <listitem>
           <para>modules/</para>
 
-          <orderedlist>
+          <orderedlist continuation="continues">
             <listitem>
               <para>example</para>
 
-              <orderedlist>
+              <orderedlist continuation="continues">
                 <listitem>
                   <para>xaradmin/</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>create.php</para>
                     </listitem>
@@ -890,7 +890,7 @@ MyModule_user_MyFunc()
                 <listitem>
                   <para>xaradminapi</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>create.php</para>
                     </listitem>
@@ -920,7 +920,7 @@ MyModule_user_MyFunc()
                 <listitem>
                   <para>xarblocks</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>first.php</para>
                     </listitem>
@@ -945,14 +945,24 @@ MyModule_user_MyFunc()
 
                 <listitem>
                   <para>xarimages</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+                  </itemizedlist>
                 </listitem>
 
                 <listitem>
                   <para>xarproperties</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>Dynamic_Example_Property.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>index.html</para>
                     </listitem>
                   </orderedlist>
                 </listitem>
@@ -960,7 +970,7 @@ MyModule_user_MyFunc()
                 <listitem>
                   <para>xarstyles</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>index.html</para>
                     </listitem>
@@ -974,7 +984,7 @@ MyModule_user_MyFunc()
                 <listitem>
                   <para>xartemplates</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>blocks</para>
 
@@ -1004,7 +1014,7 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>includes</para>
 
-                      <orderedlist>
+                      <orderedlist continuation="continues">
                         <listitem>
                           <para>index.html</para>
                         </listitem>
@@ -1018,7 +1028,7 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>properties</para>
 
-                      <orderedlist>
+                      <orderedlist continuation="continues">
                         <listitem>
                           <para>index.html</para>
                         </listitem>
@@ -1038,13 +1048,13 @@ MyModule_user_MyFunc()
                     </listitem>
                   </orderedlist>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>admin-delete.xd</para>
                     </listitem>
                   </orderedlist>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>admin-main.xd</para>
                     </listitem>
@@ -1101,7 +1111,8 @@ MyModule_user_MyFunc()
 
                 <listitem>
                   <para>xartests</para>
-                  <orderedlist>
+
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>index.html</para>
                     </listitem>
@@ -1115,7 +1126,7 @@ MyModule_user_MyFunc()
                 <listitem>
                   <para>xaruser</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>display.php</para>
                     </listitem>
@@ -1145,7 +1156,7 @@ MyModule_user_MyFunc()
                 <listitem>
                   <para>xaruserapi</para>
 
-                  <orderedlist>
+                  <orderedlist continuation="continues">
                     <listitem>
                       <para>countitems.php</para>
                     </listitem>
@@ -1193,13 +1204,13 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>validateitem.php</para>
                     </listitem>
-                  </itemizedlist>
+                  </orderedlist>
                 </listitem>
               </orderedlist>
             </listitem>
           </orderedlist>
 
-          <orderedlist>
+          <orderedlist continuation="continues" inheritnum="inherit">
             <listitem>
               <para>example.wsdl</para>
             </listitem>

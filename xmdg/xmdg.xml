@@ -1040,7 +1040,13 @@ MyModule_user_MyFunc()
       <title>Upgrading your module</title>
 
       <para>Upgrading your module is important. The upgrade function is
-      located in the xarinit.php and called yourmodule_upgrade().</para>
+      located in the xarinit.php and named yourmodule_upgrade(). This function
+      takes the current versionnumber as 'oldversion' and uses a switch to
+      look for the correct upgrade routines. Make sure you provide all
+      necessary steps for each version to upgrade to the next version. Provide
+      an empty upgrade step when there is nothing todo. This way, the upgrade
+      function will stay consistent. The versionid is set in the
+      xarversion.php file.</para>
     </section>
 
     <section>
@@ -1064,9 +1070,9 @@ MyModule_user_MyFunc()
       the Xaraya main page or to use the xarModURL() function to generate URLs
       that will always be internally consistent for any given version of
       Xaraya. You can also extend the xarModUrl call by adding a parameter
-      call to the function in the form of an array. xarModURL('module',
-      'type', 'function', array('foo' =&gt; $bar)) will create the input
-      parameter of 'foo' having the value of $bar.</para>
+      call to the function in the form of an array. <programlisting>xarModURL('module', 'type', 'function', array('foo' =&gt; $bar))</programlisting>
+      will create the input parameter of 'foo' having the value of
+      $bar.</para>
 
       <section>
         <title>Function calls</title>
@@ -1152,9 +1158,9 @@ MyModule_user_MyFunc()
         example, if your example_user_display() function uses a variable picid
         to define the particular picture that a user wishes to look at then
         the URL would be something like
-        'index.php?module=example&amp;func=display&amp;picid=4' and the
-        identification part of the URL would be something like 'picid=4' so
-        you would pass 'picid' to this hook. For display() hooks a URL that
+        '<uri>index.php?module=example&amp;func=display&amp;picid=4</uri>' and
+        the identification part of the URL would be something like 'picid=4'
+        so you would pass 'picid' to this hook. For display() hooks a URL that
         can be used by the hooks to return to a suitable page once they have
         finished any work that they might have to do. This is normally just
         the standard display URL for this function. For transform() hooks an
@@ -1171,26 +1177,23 @@ MyModule_user_MyFunc()
         the 'Example' module and were displaying a picture, after the display
         of the picture you would want to call the hooks to add any other
         functionality available and required by the site administrator. To do
-        this you would use the following lines:
-        $output-&gt;Text(xarModCallHooks('item', 'display', $pictureid,
-        xarModURL('example', 'user', 'display', array('pictureid' =&gt;
-        $pictureid)))); This would add the verbatim output of the hooks to the
-        current output. It is worth noting again here the from this code it
-        can be seen that the module itself needs no information on what hooks,
-        if any, exist, it just calls the function and lets the Xaraya core
-        deal with what extra output should be added to this item. One
-        important area to understand is where exactly in your code to call
-        hooks. For example, if you were displaying a thumbnail view of 100
-        pictures from your Example module, should you call an item display
-        hook for each picture? The answer to this is somewhat dependent on the
-        nature of your module. In general you should only call display hooks
-        when you are displaying the details of a single item rather than an
-        overview of a large number of items (of course, if all of those items
-        are in a single category then you should call a display hook for that
-        category). However, the transform hook should be called whenever you
-        are displaying content regardless of it if is just an overview, as the
-        overview information could require transformation before
-        display.</para>
+        this you would use the following lines: <programlisting>$output-&gt;Text(xarModCallHooks('item', 'display', $pictureid, xarModURL('example', 'user', 'display', array('pictureid' =&gt; $pictureid)))); </programlisting>This
+        would add the verbatim output of the hooks to the current output. It
+        is worth noting again here the from this code it can be seen that the
+        module itself needs no information on what hooks, if any, exist, it
+        just calls the function and lets the Xaraya core deal with what extra
+        output should be added to this item. One important area to understand
+        is where exactly in your code to call hooks. For example, if you were
+        displaying a thumbnail view of 100 pictures from your Example module,
+        should you call an item display hook for each picture? The answer to
+        this is somewhat dependent on the nature of your module. In general
+        you should only call display hooks when you are displaying the details
+        of a single item rather than an overview of a large number of items
+        (of course, if all of those items are in a single category then you
+        should call a display hook for that category). However, the transform
+        hook should be called whenever you are displaying content regardless
+        of it if is just an overview, as the overview information could
+        require transformation before display.</para>
 
         <para>The annotated Example module in the standard Xaraya distribution
         contains notes on calling hooks within an item module.</para>
@@ -1234,29 +1237,40 @@ MyModule_user_MyFunc()
         given appropriate parameters to register the relevant hook-capable
         module functions within your module as hooks. The xarModRegisterHook()
         function takes a number of parameters, which are explained below:
-        hookobject The object for which the hook is to be registered -
-        currently either category, or item, as described above hookaction The
-        action for which the hook is to be registered - currently one of
-        create, delete, transform, or display hookarea The area that the hook
-        function covers - currently either GUI (for functions that are in
-        xaruser.php and xaradmin.php) or API (for functions that are in
-        xaruserapi.php and xaradminapi.php) hookmodule The name of the module
-        in which the hook function exists - normally the name of the module
-        calling this function hooktype The type of the hook function -
-        currently either user or admin hookfunc The name of the hook function
-        The xarModRegisterHook() function returns true if the registration was
-        successful, and false if the registration is unsuccessful. As an
-        example of registering hooks, if you were developing the 'globalid'
-        utility module (which gives every piece of content in Xaraya a
-        separate ID) and had a globalid_admin_create() function which created
-        an entry in the global ID table for this particular piece of content
-        then you would register this as a creation hook. To do this you would
-        use the following lines within globalid_init(): if
-        (!xarModRegisterHook('item', 'create', 'API', 'globalid', 'admin',
-        'create)) { return false; } Which would register this hook to be
-        called every time a hook-enabled module someone creates an item (a
-        similar but separate call would be needed to register this hook for
-        the creation of categories as well).</para>
+        </para>
+
+        <para>hookobject The object for which the hook is to be registered -
+        currently either category, or item, as described above </para>
+
+        <para>hookaction The action for which the hook is to be registered -
+        currently one of create, delete, transform, or display </para>
+
+        <para>hookarea The area that the hook function covers - currently
+        either GUI (for functions that are in xaruser.php and xaradmin.php) or
+        API (for functions that are in xaruserapi.php and xaradminapi.php)
+        </para>
+
+        <para>hookmodule The name of the module in which the hook function
+        exists - normally the name of the module calling this function </para>
+
+        <para>hooktype The type of the hook function - currently either user
+        or admin </para>
+
+        <para>hookfunc The name of the hook function </para>
+
+        <para>The xarModRegisterHook() function returns true if the
+        registration was successful, and false if the registration is
+        unsuccessful. As an example of registering hooks, if you were
+        developing the 'globalid' utility module (which gives every piece of
+        content in Xaraya a separate ID) and had a globalid_admin_create()
+        function which created an entry in the global ID table for this
+        particular piece of content then you would register this as a creation
+        hook. To do this you would use the following lines within
+        globalid_init(): <programlisting>if (!xarModRegisterHook('item', 'create', 'API', 'globalid', 'admin', 'create)) { return false; }</programlisting>
+        Which would register this hook to be called every time a hook-enabled
+        module someone creates an item (a similar but separate call would be
+        needed to register this hook for the creation of categories as
+        well).</para>
 
         <para>The Ratings module that comes with the core Xaraya distribution
         has detailed comments on registering hooks within a utility
@@ -1291,14 +1305,16 @@ MyModule_user_MyFunc()
       <title>Before Starting Your Module</title>
 
       <para>There are a number of steps to follow before you can start
-      building your module. Choosing a Name for Your Module Choosing a name
-      for your module is important, as this is the main way that your module
-      will be known throughout the Xaraya community. The name should relate to
-      the functionality that the moduleThis provides, but also be specific
-      enough to be able to discern it from separate modules that might offer
-      similar functionality. Module names are case-sensitive. For this reason,
-      it is highly recommended that all modules names are lower-case only.
-      </para>
+      building your module. </para>
+
+      <para>Choosing a Name for Your Module </para>
+
+      <para>Choosing a name for your module is important, as this is the main
+      way that your module will be known throughout the Xaraya community. The
+      name should relate to the functionality that the module provides, but
+      also be specific enough to be able to discern it from separate modules
+      that might offer similar functionality. Module names are case-sensitive.
+      All modules names are lower-case only. </para>
 
       <para>Decide on the Type of Your Module </para>
 
@@ -1321,7 +1337,8 @@ MyModule_user_MyFunc()
       Two modules with the same name will not operate correctly on a single
       Xaraya site, so it is beneficial to both yourself and the Xaraya
       community in general to have a unique name. You may register your module
-      via the release module on http://www.xaraya.com/ </para>
+      via the release module on <ulink url="???">http://www.xaraya.com/
+      </ulink></para>
 
       <para>Obtain a Copy of the Xaraya API Reference Guide </para>
 
@@ -1790,7 +1807,7 @@ MyModule_user_MyFunc()
       Example module in the standard Xaraya distribution contains a number of
       functions that use these API calls, and note where they are used so that
       developed modules will have the same level of protection against
-      fraudulent administrator requests</para>
+      fraudulent administrator requests.</para>
     </section>
 
     <section>
@@ -1807,9 +1824,12 @@ MyModule_user_MyFunc()
       <para>Modules written as classes is allowed, however the API as
       described in the rest of this document must still be adhered to. The
       simplest way of doing this is to use compatibility functions, for
-      example: function mymod_user_main() { // Instantiate $obj = new
-      myClass(); // Call relevant method and return output return
-      $obj-&gt;usermain(); }</para>
+      example: <programlisting>function mymod_user_main() { 
+    // Instantiate 
+    $obj = new myClass(); 
+    // Call relevant method and return output return 
+    $obj-&gt;usermain(); 
+}</programlisting></para>
     </section>
 
     <section>

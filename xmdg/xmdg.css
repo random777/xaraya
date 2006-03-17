@@ -1,0 +1,314 @@
+
+/* xaraya documentation CSS */
+
+/* debugging device - do not uncomment next line without good reason */
+/* * {outline: 1px dotted navy !important;} */
+/*<group=required selectors>*/
+
+/* xaraya required classes */
+/*<group=body and links>*/
+
+html {
+	margin: auto;
+	padding: 10pt;
+	font-size: 0.9em;
+	text-align: justify;
+}
+
+/* in IE-Win fonts look a bit smallish, lets correct it but hide from IE5-Mac \ */
+* html {
+	font-size: 11pt;
+}
+/* end hide from IE5-Mac */
+
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #000000;
+	font-family: "lucida grande", "lucida grande unicode", helvetica, "helvetica neue", arial, sans-serif;
+	font-size: 1em;
+	line-height: 1.43em;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	background-color: #FFFFFF;
+}
+
+body a {
+	font-family: "lucida grande", "lucida grande unicode", helvetica, "helvetica neue", arial, sans-serif;
+} /* linux firefox apparently needs a bit more specificity for the links */
+
+a {
+	text-decoration: none;
+	background-color: transparent;
+}
+
+a:link {
+/* 	font-weight: bold; */
+	color: #186278;
+}
+a:visited {
+	color: #186278;
+}
+a:link:hover, a:visited:hover {
+	text-decoration: underline;
+	color: #FF5C28;
+}
+a:link:active, a:visited:active {
+	text-decoration: none;
+	color: #FF5C28;
+}
+
+/*</group>*/
+/*<group=standard headers>*/
+
+h1, h2, h3, h4 {
+	/* 	font-family: "century gothic", arial, helvetica, sans-serif; */
+	/* 	line-height: 120%; */
+	font-family: georgia, "times new roman", serif;
+	font-weight: bold;
+}
+
+h1 a, h2 a, h3 a, h4 a {
+	font-family: georgia, "times new roman", serif;
+} /* linux firefox apparently needs a bit more specificity for the links */
+
+h1 {
+	color: #E14F21;
+	font-size: 16px;
+	line-height: 22px;
+/* 	font-weight: bold; */
+	padding: 3px 0 3px 0.3em;
+	margin: 0px;
+}
+
+h2 {
+	color: #186278;
+	font-size: 15px;
+	padding: 7px 0 3px 0.7em;
+}
+
+h3 {
+	color: #E14F21;
+	font-size: 13px;
+	background-color: transparent;
+	margin: 0;
+}
+
+h4 {
+	color: #E14F21;
+	font-size: 12px;
+	font-weight: bold;
+/* 	line-height: 170%; */
+	background-color: transparent;
+	margin: 0;
+}/*  xaraya required individual classes *//*  theme specific *//* h5, h6 {} */
+
+/*</group>*/
+/*<group=tables>*/
+
+th {
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #D0E1E6;
+}
+
+td {
+	font-size: 13px;
+}
+
+table {
+	background-color: inherit;
+	border-collapse: collapse;
+} /* the aim of this theme is not to use any tables ;-) but the modules will be using 'em anyway */
+
+table thead tr { background-color: #D2D8DF; }
+tbody { }
+tfoot { }
+
+/*</group>*//*<group=general typography>*/
+
+/* p { */
+/* 	color: #15506E; */
+/* 	font-family: "Lucida Grande", "Lucida Sans Unicode", verdana, sans-serif; */
+/* 	font-size: 10px; */
+/* 	line-height: 132%; */
+/* 	margin: .25em 0 .5em 0; */
+/* 	padding:0; */
+/* 	background-color: transparent; */
+/* } */
+p {
+	margin: 0.5em 0 0.85em 0;
+	background: transparent;
+}
+
+code, blockquote, blockquote p, pre {
+	color: #495462;
+	font-size: 11px;
+	font-family: monospace;
+	background-color: #f5f5f5;
+	border-color: #D4DDE2;
+	border-width: 2px;
+	border-style: solid none solid none;
+	padding: 0;
+	margin: 0;
+	/* 	word-spacing: -1pt; */
+	line-height: 13px;
+	white-space: normal;
+}
+
+blockquote {
+	width: auto;
+	display: block;
+	margin-top: .5em;
+	margin-left: .25em;
+	margin-right: .25em;
+	font-size: 11px;
+	font-style: italic;
+	font-family: inherit;
+	padding: .5em 0 ;
+}
+
+blockquote,
+code, 
+pre { overflow: auto; }
+
+blockquote pre {
+	width: inherit;
+	padding: .5em 0;
+	margin: .25em 0;
+	border: 0 none;
+	background-color: #ffffff;
+	overflow: visible;
+	font-style: normal;
+	font-family: monospace;
+}
+
+blockquote > pre { white-space: pre; }
+
+/*</group>*//*<group=citation elements>*//* Not required, just in case */
+/* citation elements */
+abbr, acronym {
+	border-bottom: 1px dotted #333;
+	cursor: help;
+}
+
+address, cite {
+	font-style: normal;
+	margin: 0 0 1em;
+}
+    
+/*</group>*//*<group=general form elements>*/
+label {
+	font-weight: bold;
+/* 	display: block; */
+}
+
+label:first-letter {
+	text-decoration: underline;
+}
+
+label.error {
+	color: #C30;
+	font-variant: small-caps;
+}
+
+input, select {
+    font-size: 1em;
+	font-weight: normal;
+	color: #406486;
+	background-color: #E6EFF0;
+}
+
+button { }
+
+textarea {
+	font-family: "Lucida Console", "Lucida Sans Unicode", "American Typewriter", "Andale Mono", monaco, courier, "Courier New", monospace;
+	font-size: 10px;
+	font-weight: normal;
+	text-indent: 0px;
+	color: #333333;
+	background-color: #f9f9f9;
+	padding: 0.2em;
+	margin: 0;
+}
+
+/* input, textarea { */
+/* 	font-family: "Lucida Sans Unicode", "Lucida Console", "American Typewriter", "Andale Mono", monaco, courier, "Courier New", monospace; */
+/* } */
+
+input[type=text], input[type=password], textarea {
+	border-color: #848B95;
+	border-width: 1px;
+	border-style: solid;
+}
+
+input[type=text]:focus,input[type=password]:focus,textarea:focus { border-color: #D46B00; }
+
+input[type=submit] {
+	background-color: #D2D8DF;
+	margin-left: 0;
+}
+
+input[type=checkbox] {
+	background-color: transparent;
+	margin-left: 0;
+}
+
+/*</group>*//*<group=general others>*/
+
+img {
+	border: 0 none;
+	background-color: transparent;
+}
+
+*|*:-moz-list-bullet, *|*:-moz-list-number {font-size: 1em;}
+
+sup { }
+sub { }
+hr {
+	width: auto;
+	color: #999999;
+	background-color: transparent;
+}
+
+/*</group>*/
+
+div.NAVHEADER, div.NAVFOOTER { clear:both; width:100%; display:table; }
+
+.mediaobject {
+	text-align: center;
+}
+.calloutlist, .figure, .table
+{
+  /* margin settings are top - right - bottom - left (think clockwise) */
+  margin: 15px 30px 15px 30px;
+}
+
+.itemizedlist, .variablelist {
+  /* margin settings are top - right - bottom - left (think clockwise) */
+  margin: 15px 30px 15px 15px;
+}
+.figure
+{
+  /* margin settings are top - right - bottom - left (think clockwise) */
+  margin: 5px 5px 5px 5px;
+
+  /* no padding ("inner border") */
+  padding: 0;
+
+  /* no border */
+  border: 0;
+
+  /* center text */
+  text-align: center;
+}
+
+
+/* figure title */
+.figure p, .table p, .example p
+{
+  font-size: 80%;
+}
+

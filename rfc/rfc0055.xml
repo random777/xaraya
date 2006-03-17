@@ -48,7 +48,7 @@
         <abstract>
             <t>The contents of this RFC describes the blocklayout
             templating system version 2.0. We chose to increase the
-            majore number as to follow the version numbering in Xaraya
+            major number as to follow the version numbering in Xaraya
             core. Blocklayout version 2 is used for Xaraya version 2.</t>
             <t>
               This version is the continuation of RFC-0010 which
@@ -398,8 +398,7 @@ xor         xor             exclusive or
 not         not             not
       </artwork>
         </t>
-        <ed:issue name="conflict between operators and MLS"
-                  type="design flaw" status="open">
+        <ed:issue name="conflict between operators and MLS" type="design flaw" status="open">
           <ed:item date="2006-01-23" entered-by="mrb">
             The operators, notably 'le' and 'ne' in french and 'ge' in
             dutch and 'not' in english, may give surprising results if
@@ -914,7 +913,7 @@ template 'SeaBreeze_center':
             result in any output. The tag is primarly used to supply templates
             with comments for developers and theme designers. Anything inside
             the xar:comment block will be ignored.</ed:del>
-            <ed:ins>
+            <ed:ins ed:resolves="reversal of comment semantics">
               This tag is used to produce a comment in the <spanx
               style="strong">output stream</spanx>. For (X)HTML this
               would mean &lt;-- something --&gt;
@@ -924,9 +923,9 @@ template 'SeaBreeze_center':
             <t>Only to be used in open form</t>
           </section>
           <section title="Attributes">
-<ed:ins>
+            <ed:ins>
             <list>
-              <t><spanx>[iecondition]</spanx>
+              <t ed:resolves="reversal of comment semantics"><spanx>[iecondition]</spanx>
               <t>
                 Internet Explorer conditional comment support. IE has
                 a feature where you can test for certain (limited)
@@ -937,7 +936,22 @@ template 'SeaBreeze_center':
               </t>
               </t>
             </list>
-</ed:ins>
+            </ed:ins>
+            <ed:issue status="closed" name="reversal of comment semantics" type="design flaw">
+              <ed:item date="2006-01-31">
+                BL has the semantics of xar:comment vs. &lt;--
+                comments reversed.
+              </ed:item>
+              <ed:item dat="2006-01-31">
+                Conditional comments or other comment production into
+                output is impossible
+              </ed:item>
+              <ed:resolution>
+                We let xar:comment produce a comment in the output
+                stream now while &lt;-- comments are ignored by the
+                parser
+              </ed:resolution>
+            </ed:issue>
           </section>
           <section title="Syntax examples">
             <t>
@@ -1443,6 +1457,7 @@ contents in the current context.
             <t>Child tags: none</t>
           </section>
         </section>
+
         <!-- xar:mlstring -->
         <section anchor="mlstring" title="&lt;xar:mlstring /&gt;">
           <t>
@@ -1485,6 +1500,19 @@ contents in the current context.
             </t>
             <t>Child tags: none</t>
           </section>
+          <ed:issue status="open" type="design weakness" name="explicit vs. implicit  mlstrings">
+            <ed:item data="2006-01-31" entered-by="mrb">
+              Looking over templates xar:mlstring is your worst
+              nightmare when making templates. Each piece of text must
+              be enclosed inside a xar:mlstring otherwise it will not
+              get translated. Wouldnt it be easier to let the BL
+              parser build a list of text nodes and register them for
+              translation, and make translation implicit.
+              the tag could still be used, just as a tool to help the
+              translation system if specific separation of strings is
+              needed.
+            </ed:item>
+          </ed:issue>
         </section>
         <!-- xar:mlvar -->
         <section anchor="mlvar" title="&lt;xar:mlvar /&gt;">

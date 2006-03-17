@@ -694,6 +694,16 @@ abstract class MySpecialConfigurationExceptions extends ConfigurationExceptions
           anymore. They have been temporarily provided in core as
           wrappers which just return and dont do anything.
         </t>
+        <ed:issue name="compatibility flag"  status="open" type="question">
+          <ed:item date="2006-02-07" entered-by="mikespub">
+            Should we implement some sort of compatability flag, at
+            least for xarModApiFunc, assuming that API will survive in
+            the 2.x branch, to let that core api function return null,
+            instead of raising the exception unconditionally. This
+            would partially solve 'works out of the box in the new
+            system' problems for some modules.
+          </ed:item>
+        </ed:issue>
       </list>
     </section>
     <!-- Revision history is mandatory -->

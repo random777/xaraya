@@ -678,6 +678,12 @@ MyModule_user_MyFunc()
       <para>Itemtypes definitions are crucial in Xaraya operations. Itemtypes
       are very important when ever your data is shared with either hooks or by
       other modules.</para>
+
+      <para>Related functions</para>
+
+      <para>-getitemtypes</para>
+
+      <para>-getitemlinks</para>
     </section>
 
     <section>
@@ -690,7 +696,24 @@ MyModule_user_MyFunc()
     <section>
       <title>Multilanguage system</title>
 
-      <para>Xaraya can be fully multilanguage.</para>
+      <para>Xaraya can be fully multilanguage. Make sure all your text strings
+      are encapsulated with either <programlisting>xarML('YourMLString') </programlisting>in
+      your functions or <programlisting>&lt;xar:mlstring&gt;YourMLString&lt;/xar:mlstring&gt;</programlisting>
+      in the templates</para>
+    </section>
+
+    <section>
+      <title>Variable preperations</title>
+
+      <para><programlisting>xarVarPrepForDisplay(YourString);</programlisting></para>
+    </section>
+
+    <section>
+      <title>Dynamic Data</title>
+
+      <para>Properties</para>
+
+      <para>Your own properties</para>
     </section>
   </chapter>
 

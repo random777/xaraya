@@ -381,8 +381,10 @@
         <para>It is currently not possible to discern between 'Not Found' and
         'Validation Failed', if you need to know use the validate function and
         $_POST/$_GET directly in the error handling part.</para>
+      </section>
 
-        <para>Module variables</para>
+      <section>
+        <title>Module variables</title>
 
         <para>Module variables can be set using
         xarModSetVar('module','modulevariable','initial value')</para>
@@ -1189,9 +1191,10 @@ MyModule_user_MyFunc()
         conjunction with the obid as part of a URL to access the object. For
         example, if your example_user_display() function uses a variable picid
         to define the particular picture that a user wishes to look at then
-        the URL would be something like'index.php?module=example&amp;func=display&amp;picid=4' and
-        the identification part of the URL would be something like 'picid=4'
-        so you would pass 'picid' to this hook. For display() hooks a URL that
+        the URL would be something
+        like'index.php?module=example&amp;func=display&amp;picid=4' and the
+        identification part of the URL would be something like 'picid=4' so
+        you would pass 'picid' to this hook. For display() hooks a URL that
         can be used by the hooks to return to a suitable page once they have
         finished any work that they might have to do. This is normally just
         the standard display URL for this function. For transform() hooks an

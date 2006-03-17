@@ -1,0 +1,550 @@
+<?xml version='1.0'?>
+
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" 
+"/sgml/oasis/docbook412/docbookx.dtd">
+<section>
+  <title>Docbook Elements</title>
+  
+  <section>
+    <title>Traditional Publishing Inlines</title>
+    <simplelist>
+      <member>  abbrev</member>
+      <member>  acronym</member>
+      <member>  emphasis</member>
+      <member>  phrase</member>
+      <member>  quote</member>
+      <member>  foreignphrase</member>
+      <member>  wordasword</member>
+  <member>  phrase</member></simplelist></section>
+  
+  <section>
+    <title>Cross References 1</title>
+    <simplelist>
+      <member> citation</member>
+      <member>  citerefentry</member>
+      <member>  citetitle</member>
+      <member>  citebiblioid</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Cross References 2</title>
+    <simplelist>
+      <member>  anchor</member>
+      <member>  link</member>
+      <member>  olink</member>
+      <member>  ulink</member>
+      <member>  xref</member>
+    </simplelist>
+  </section>
+  
+  <section>
+    <title>Cross References 3</title>
+    <simplelist>
+      <member>firstterm</member>
+      <member>  glossterm</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Glossary</title>
+    <simplelist>
+      <member>  glossdef</member>
+      <member>  glosssee</member>
+      <member>  glossseealso</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Error Messages</title>
+    <simplelist>
+      <member>  errortype</member>
+      <member>  errorcode</member>
+      <member>  errorname</member>
+      <member>  errortext</member>
+      <member>  msgset</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>technical markup</title>
+    <simplelist>
+      <member>  literal</member>
+      <member>  markup</member>
+      <member>  prompt</member>
+      <member>  replaceable</member>
+      <member>  sgmltag</member>
+      <member>  computeroutput</member>
+      <member>  userinput</member>
+      <member>  constant</member>
+      <member>  varname</member>
+      <member>  option</member>
+      <member>  optional</member>
+      <member>  parameter</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Mathematics</title>
+    <simplelist>
+      <member>  inlineequation</member>
+      <member>  informalequation</member>
+      <member>  equation</member>
+      <member>  subscript</member>
+      <member>  superscript</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>User Interface</title>
+    <simplelist>
+      <member> accel</member>
+      <member>  guibutton</member>
+      <member>  guiicon</member>
+      <member>  guilabel</member>
+      <member>  guimenu</member>
+      <member>  guimenuitem</member>
+      <member>  guisubmenu</member>
+      <member>  keycap</member>
+      <member>  keycode</member>
+      <member>  keycombo</member>
+      <member>  keysym</member>
+      <member>  menuchoice</member>
+      <member>  mousebutton</member>
+      <member>  shortcut</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>literals</title>
+    <simplelist>
+      <member>command</member>
+      <member>  replaceable</member>
+      <member>  varname</member>
+      <member>  constant</member>
+      <member>  literal</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>source code</title>
+    <simplelist>
+      <member> property</member>
+      <member>  symbol</member>
+      <member>  token</member>
+      <member>  type</member>
+      <member>  classname</member>
+      <member>  interface</member>
+      <member>  structfield</member>
+      <member>  structname</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Operating System</title>
+    <simplelist>
+      <member> envar</member>
+      <member>  filename</member>
+      <member>  prompt</member>
+      <member>  systemitem</member>
+      <member>  computeroutput</member>
+      <member>userinput</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>things</title>
+    <simplelist>
+      <member>application</member>
+      <member>  productname</member>
+      <member>  database</member>
+      <member>  filename</member>
+      <member>  hardware</member>
+      <member>  medialabel</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>product names</title>
+    <simplelist>
+      <member>productname</member>
+      <member>  trademark</member>
+      <member>  copyright</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Tables</title>
+    <simplelist>
+      <member>informaltable</member>
+      <member>  table</member>
+      <member>  colspec</member>
+      <member>  entry</member>
+      <member>  entrytbl</member>
+      <member>  row</member>
+      <member>  spanspec</member>
+      <member>  tbody</member>
+      <member>  tfoot</member>
+      <member>  tgroup</member>
+      <member>  thead</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Addresses</title>
+    <simplelist>
+      <member> email</member>
+      <member>  otheraddr</member>
+      <member>  country</member>
+      <member>  fax</member>
+      <member>  address</member>
+      <member>  city</member>
+      <member>  street</member>
+      <member>  postcode</member>
+      <member>  pob</member>
+      <member>  state</member>
+      <member>  phone</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>funcsynopsis</title>
+    <simplelist>
+      <member>function</member>
+      <member>  parameter</member>
+      <member>  returnvalue</member>
+      <member>  paramdef</member>
+      <member>  varargs</member>
+      <member>  void</member>
+      <member>  funcdef</member>
+      <member>  funcparams</member>
+      <member>  funcprototype</member>
+      <member>  funcsynopsisinfo</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>cmdsynopsis</title>
+    <simplelist>
+      <member>arg</member>
+      <member>  cmdsynopsis</member>
+      <member>  group</member>
+      <member>  synopfragment</member>
+      <member>  synopfragmentref</member>
+      <member>  refsynopsisdiv</member>
+      <member>  sbr</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>synopsis</title>
+    <simplelist>
+      <member> synopsis</member>
+      <member>  cmdsynopsis</member>
+      <member>  funcsynopsis</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Callouts</title>
+    <simplelist>
+      <member>screenco</member>
+      <member>  programlistingco</member>
+      <member>  co</member>
+      <member>  coref</member>
+      <member>  areaspec</member>
+      <member>  graphicco</member>
+      <member>  mediaobjectco</member>
+      <member>  calloutlist</member>
+      <member>  imageobjectco</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Graphics</title>
+    <simplelist>
+      <member>inlinegraphic</member>
+      <member>  inlinemediaobject</member>
+      <member>  mediaobject</member>
+      <member>  graphic</member>
+      <member>  audioobject</member>
+      <member>  alt</member>
+      <member>  caption</member>
+      <member>  videoobject</member>
+      <member>  imageobject</member>
+      <member>  textobject</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Components</title>
+    <simplelist>
+      <member>dedication</member>
+      <member>  set</member>
+      <member>  book</member>
+      <member>  part</member>
+      <member>  partintro</member>
+      <member>  colophon</member>
+      <member>  appendix</member>
+      <member>  article</member>
+      <member>  chapter</member>
+      <member>  preface</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Meta-wrappers</title>
+    <simplelist>
+      <member>articleinfo</member>
+      <member>  refsynopsisdivinfo</member>
+      <member>  chapterinfo</member>
+      <member>  prefaceinfo</member>
+      <member>  appendixinfo</member>
+      <member>  bibliographyinfo</member>
+      <member>  glossaryinfo</member>
+      <member>  indexinfo</member>
+      <member>  setinfo</member>
+      <member>  bookinfo</member>
+      <member>  sect1info</member>
+      <member>  sect2info</member>
+      <member>  sect3info</member>
+      <member>  sect4info</member>
+      <member>  screeninfo</member>
+      <member>  sect5info</member>
+      <member>  sectioninfo</member>
+      <member>  objectinfo</member>
+      <member>  blockinfo</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>bibliography entries</title>
+    <simplelist>
+      <member>biblioentry</member>
+      <member>  bibliomixed</member>
+      <member>  biblioset</member>
+      <member>  bibliomset</member>
+      <member>  bibliomisc</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Sections</title>
+    <simplelist>
+      <member>sect1</member>
+      <member>  sect2</member>
+      <member>  sect3</member>
+      <member>  sect4</member>
+      <member>  sect5</member>
+      <member>  section</member>
+      <member>  simplesect</member>
+      <member>  bridgehead</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>Lists</title>
+    <simplelist>
+      <member>calloutlist</member>
+      <member>  itemizedlist</member>
+      <member>  orderedlist</member>
+      <member>  segmentedlist</member>
+      <member>  simplelist</member>
+      <member>  variablelist</member>
+      <member>  listitem</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>verbatim</title>
+    <simplelist>
+      <member>synopsis</member>
+      <member>  programlisting</member>
+      <member>  literallayout</member>
+      <member>  lineannotation</member>
+      <member>  screen</member>
+      <member>  screenshot</member>
+      <member>  computeroutput</member>
+      <member>  userinput</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>author</title>
+    <simplelist>
+      <member>author</member>
+      <member>  authorblurb</member>
+      <member>  authorgroup</member>
+      <member>  corpauthor</member>
+      <member>  contrib</member>
+      <member>  editor</member>
+      <member>  collab</member>
+      <member>  collabname</member>
+      <member>  othercredit</member>
+      <member>  personname</member>
+      <member>  personblurb</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>person-meta</title>
+    <simplelist>
+      <member>lineage</member>
+      <member>  firstname</member>
+      <member>  honorific</member>
+      <member>  othername</member>
+      <member>  surname</member>
+      <member>  affiliation</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>affiliations</title>
+    <simplelist>
+      <member>jobtitle</member>
+      <member>  affiliation</member>
+      <member>  shortaffil</member>
+      <member>  orgdiv</member>
+      <member>  orgname</member>
+      <member>  corpname</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>admonitions</title>
+    <simplelist>
+      <member> important</member>
+      <member>  tip</member>
+      <member>  note</member>
+      <member>  warning</member>
+      <member>  caution</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>figures, examples, etc.</title>
+    <simplelist>
+      <member>equation</member>
+      <member>  example</member>
+      <member>  figure</member>
+      <member>  table</member>
+      <member>  informalequation</member>
+      <member>  informalexample</member>
+      <member>  informalfigure</member>
+      <member>  informaltable</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>keywords</title>
+    <simplelist>
+      <member>subject</member>
+      <member>  subjectset</member>
+      <member>  subjectterm</member>
+      <member>  keyword</member>
+      <member>  keywordset</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>paras</title>
+    <simplelist>
+      <member>formalpara</member>
+      <member>  para</member>
+      <member>  simpara</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>titles</title>
+    <simplelist>
+      <member>subtitle</member>
+      <member>  title</member>
+      <member>  titleabbrev</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>block things</title>
+    <simplelist>
+      <member>highlights</member>
+      <member>  epigraph</member>
+      <member>  blockquote</member>
+      <member>  sidebar</member>
+      <member>  abstract</member>
+      
+      
+    </simplelist>
+  </section>
+  <section>
+    <title>blockquotes</title>
+    <simplelist>
+      <member>  epigraph</member>
+      <member>  blockquote</member>
+      <member>  attribution</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>copyright</title>
+    <simplelist>
+      <member>trademark</member>
+      <member>  legalnotice</member>
+      <member>  copyright</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>numbers</title>
+    <simplelist>
+      <member>invpartnumber</member>
+      <member>  isbn</member>
+      <member>  issn</member>
+      <member>  biblioid</member>
+      <member>  issuenum</member>
+      <member>  productnumber</member>
+      <member>  pubsnumber</member>
+      <member>  seriesvolnums</member>
+      <member>  volumenum</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>conference meta</title>
+    <simplelist>
+      <member>confdates</member>
+      <member>  confgroup</member>
+      <member>  confnum</member>
+      <member>  confsponsor</member>
+      <member>  conftitle</member>
+      <member>  contractnum</member>
+      <member>  contractsponsor</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>date meta</title>
+    <simplelist>
+      <member>printhistory</member>
+      <member>  pubdate</member>
+      <member>  revhistory</member>
+      <member>  date</member>
+      <member>  releaseinfo</member>
+      <member>  edition</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>refentry names</title>
+    <simplelist>
+      <member> refdescriptor</member>
+      <member>  refname</member>
+      <member>  refentrytitle</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>refentry sections</title>
+    <simplelist>
+      <member>refnamediv</member>
+      <member>  refsynopsisdiv</member>
+      <member>  refsect1</member>
+      <member>  refsect2</member>
+      <member>  refsect3</member>
+      <member>  refsection</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>orgnames</title>
+    <simplelist>
+      <member> corpname</member>
+      <member>  publishername</member>
+      <member>  orgname</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>index terms</title>
+    <simplelist>
+      <member>indexterm</member>
+      <member>  indexentry</member>
+      <member>  primary</member>
+      <member>  primaryie</member>
+      <member>  secondary</member>
+      <member>  secondaryie</member>
+      <member>  tertiary</member>
+      <member>  tertiaryie</member>
+      <member>  see</member>
+      <member>  seealso</member>
+      <member>  seealsoie</member>
+      <member>  seeie</member>
+    </simplelist>
+  </section>
+  <section>
+    <title>tocs</title>
+    <simplelist>
+      <member> toc</member>
+      <member>  lot</member>
+    </simplelist>
+  </section>
+</section>

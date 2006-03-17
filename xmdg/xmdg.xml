@@ -274,10 +274,12 @@
       parameters present in the environment can be different from the ones
       passed to these variables.</para>
 
-      <para>An example call would be:</para>
-
-      <para><code>if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10,
-      XARVAR_NOT_REQUIRED)) return;</code></para>
+      <para>
+        An example call would be:
+        <programlisting>
+          if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10, XARVAR_NOT_REQUIRED)) return;
+        </programlisting>
+      </para>
 
       <para>This fetches the $itemsperpage variable from the input variable
       'itemsperpage' and validates it by applying the $validation rules, in
@@ -343,17 +345,18 @@
         or $_GET elements. To solve this either use a variable variablename,
         or use the flag XARVAR_DONT_REUSE.</para>
 
-        <para>Example:</para>
+        <para>
+          Example:
+          <programlisting>
+            // If this is in your template/xhtml
+            &lt;input name="item1" value=1&gt;
+            &lt;input name="item2" value=2&gt;
+            
+            xarVarFetch('item1', 'str::', $value, NULL ) //  $value= 1
 
-        <para>&lt;input name="item1" value=1&gt;</para>
-
-        <para>&lt;input name="item2" value=2&gt;</para>
-
-        <para><code>xarVarFetch('item1', 'str::', $value, NULL )</code> //
-        $value= 1</para>
-
-        <para><code>xarVarFetch('item2', 'str::', $value, NULL )</code> //
-        $value= 1 !!!</para>
+            xarVarFetch('item2', 'str::', $value, NULL ) //  $value= 1 !!!
+          </programlisting>
+        </para>
 
         <para>It is currently not possible to discern between 'Not Found' and
         'Validation Failed', if you need to know use the validate function and
@@ -364,8 +367,10 @@
         <para>Module variables can be set using
         xarModSetVar('module','modulevariable','initial value')</para>
 
-        <para>Example: <code>xarModSetVar('julian','startDayOfWeek','1');
-        </code></para>
+        <para>
+          Example: 
+          <programlisting>xarModSetVar('julian','startDayOfWeek','1');</programlisting>
+        </para>
 
         <para>These variables can be called later by xarModGetVar(module,
         variable) $cal_sdow = xarModGetVar('julian','startDayOfWeek'); Now, we
@@ -442,45 +447,38 @@
       </itemizedlist>
 
       <para>You are advised (even for performance reasons) to use the
-      following naming convention: <code>$name := $module_name . '_' .
-      $real_name</code></para>
+      following naming convention: <programlisting>$name := $module_name . '_' .
+      $real_name</programlisting></para>
 
       <para>To register the $name user variable you have to use the module API
       function register_user_var() exported by the Modules module.</para>
 
-      <para>Here is an example:</para>
+      <para>
+        Here is an example:
+        <programlisting>
+        $module_name = 'MyModule';
+        
+        $variable_name = 'MaxLinesPerPage';
 
-      <para><code>$module_name = 'MyModule';</code></para>
+        $metadata['label'] = $module_name . '_' . $variable_name;
 
-      <para><code>$variable_name = 'MaxLinesPerPage';</code></para>
+        $metadata['dtype'] = _UDCONST_INTEGER; //one of the values  defined for dynamic user data variable types
 
-      <para><code>$metadata['label'] = $module_name . '_' .
-      $variable_name;</code></para>
+        $metadata['default'] = 20; $metadata['validation'] = 'num:&gt;=:10&amp;num:&lt;=:100';
 
-      <para><code>$metadata['dtype'] = _UDCONST_INTEGER; //one of the values
-      defined for dynamic user data variable types</code></para>
+        xarModAPILoad('Modules', 'admin');
 
-      <para><code>$metadata['default'] = 20; $metadata['validation'] =
-      'num:&gt;=:10&amp;num:&lt;=:100';</code></para>
+        $result = xarModAPIFunc('Modules', 'admin','register_user_var', $metadata);
 
-      <para><code>xarModAPILoad('Modules', 'admin');</code></para>
-
-      <para><code>$result = xarModAPIFunc('Modules', 'admin',
-      'register_user_var', $metadata);</code></para>
-
-      <para><code>if (!isset($result)) {</code></para>
-
-      <para><code>// xarModAPIFunc() failed</code></para>
-
-      <para><code>} elseif ($result == false) {</code></para>
-
-      <para><code>// registration failed</code></para>
-
-      <para><code>} else {</code></para>
-
-      <para><code>// registration succeeded</code></para>
-
-      <para><code>}</code></para>
+        if (!isset($result)) {
+            // xarModAPIFunc() failed
+        } elseif ($result == false) {
+            // registration failed
+        } else {
+            // registration succeeded
+        }
+        </programlisting>
+      </para>
 
       <para>As you can see in this example, a descriptive array for the new
       user variable is created first, and later register_user_var is called
@@ -595,42 +593,31 @@
 
       <para>Consider the following example:</para>
 
-      <para><code>$res = xarModFunc('MyModule', 'user',
-      'MyFunc');</code></para>
+      <para>
+        <programlisting>
+          $res = xarModFunc('MyModule', 'user','MyFunc');
+          if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) { 
+              // Got an exception if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) { return; // throw back } 
+          
+              // Got a user exception
+              if (xarExceptionId() == 'MyException1') {
+                  $value = xarExceptionValue(); 
 
-      <para><code>if (!isset($res) &amp;&amp; xarExceptionMajor() !=
-      XAR_NO_EXCEPTION) { // Got an exception if (xarExcepionMajor() ==
-      XAR_SYSTEM_EXCEPTION) { return; // throw back </code></para>
+                  $output-&gt;Text("Syntax error at line: ".$value-&gt;lineNumber); 
 
-      <para><code>} </code></para>
+              } elseif (xarExceptionId() == 'MyException2') {
+                  /* Do something useful */
+              } else { // MyException3 
+                  /* Do something useful */ 
+              } // reset exception status 
 
-      <para><code>// Got a user exception </code></para>
+              // NOTE: it's of vital importance to call this function
+              // before returning xarExceptionFree();
 
-      <para><code>if (xarExceptionId() == 'MyException1') { </code></para>
-
-      <para><code>$value = xarExceptionValue(); </code></para>
-
-      <para><code>$output-&gt;Text("Syntax error at line:
-      ".$value-&gt;lineNumber); </code></para>
-
-      <para><code>} elseif (xarExceptionId() == 'MyException2') {
-      </code></para>
-
-      <para><code>/* Do something useful */ </code></para>
-
-      <para><code>} else { // MyException3 </code></para>
-
-      <para><code>/* Do something useful */ </code></para>
-
-      <para><code>} // reset exception status </code></para>
-
-      <para><code>// NOTE: it's of vital importance to call this function
-      </code></para>
-
-      <para><code>// before returning xarExceptionFree(); </code></para>
-
-      <para><code>return $output-&gt;GetOutput();}</code></para>
-
+              return $output-&gt;GetOutput();
+          }
+        </programlisting>
+      </para>
       <para>To throw exception you use a unique function: xarExceptionSet().
       You simply call it by passing the exception major, id and value if one;
       and after this call, you return void.</para>

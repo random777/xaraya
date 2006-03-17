@@ -158,6 +158,10 @@ code, blockquote, blockquote p, pre {
 	white-space: normal;
 }
 
+pre.programlisting {
+    white-space: pre;
+}
+
 blockquote {
 	width: auto;
 	display: block;
@@ -170,10 +174,10 @@ blockquote {
 	padding: .5em 0 ;
 }
 
-blockquote,
+/*blockquote,
 code, 
 pre { overflow: auto; }
-
+*/
 blockquote pre {
 	width: inherit;
 	padding: .5em 0;

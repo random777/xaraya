@@ -57,34 +57,40 @@ index.html: $(SOURCES)
 xmdg.fop: $(SOURCES)
 	$(XSLTPROC) --stringparam draft.mode no --stringparam fop.extensions 1 --stringparam ignore.image.scaling 1 $(DB2FOP) $(TOPFILE) > $@
 
-xmdg.pdf: xmdg.fop
+xmdg.pdf: fop
 	$(FOP) -fo xmdg.fop -pdf $@
 
 # txt target in fop sucks, but this is how it would be done
 #xmdg.txt: xmdg.fop
 #	$(FOP) -fo xmdg.fop -txt $@
+
 # instead we use the poor mans txt formatter lynx!
-xmdg.txt: xmdg.html
+xmdg.txt: html
 	$(LYNX) -dump $< > $@
+
 clean:
 	rm -f *.html
 	rm -f xmdg.fop
 	rm -f xmdg.pdf
 	rm -f xmdg.txt
 
-webdocs: all
+monotone:
+	$(MT) pull mt.xaraya.com 'com.xaraya.documentation'
+	$(MT) update
+
+webdocs: monotone all
 	cp -a $(DBXSL)/images  $(OUTPUT)/stylesheet-images
 	mkdir -p $(OUTPUT)/examples
 	mkdir -p $(OUTPUT)/callouts
 	mkdir -p $(OUTPUT)/sourceimages
 	mkdir -p $(OUTPUT)/images
-	cp -rf examples/*.* $(OUTPUT)/examples
-	cp -rf callouts/*.* $(OUTPUT)/callouts
-	cp -rf sourceimages/*.* $(OUTPUT)/sourceimages
+	#cp -rf examples/*.* $(OUTPUT)/examples
+	#cp -rf callouts/*.* $(OUTPUT)/callouts
+	#cp -rf sourceimages/*.* $(OUTPUT)/sourceimages
 	cp *.css $(OUTPUT)
-	cp images/*.gif $(OUTPUT)/images
-	cp images/*.png $(OUTPUT)/images
-	cp images/*.jpg $(OUTPUT)/images
+	#cp images/*.gif $(OUTPUT)/images
+	#cp images/*.png $(OUTPUT)/images
+	#cp images/*.jpg $(OUTPUT)/images
 	cp xmdg.txt $(OUTPUT)
 	cp xmdg.pdf $(OUTPUT)
 	cp *.html $(OUTPUT)

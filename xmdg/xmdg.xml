@@ -296,10 +296,10 @@
       <para>The functions works in this order:</para>
 
       <para>First try to use the variable provided (itemsperpage), if this is
-      not set (Or the XARVAR_DONT_REUSE flag is used) then it tries to get the
+      not set (or the XARVAR_DONT_REUSE flag is used) then it tries to get the
       variable from the input (POST/GET methods for now). It then tries to
       validate the variable through xarVarValidate with the validation of
-      'int'.</para>
+      'int' (integer).</para>
 
       <para>After the call the $value parameter is passed by reference is set
       to the variable value converted to the proper type according to the
@@ -309,9 +309,15 @@
       the variable is not present or doesn't validate correctly.</para>
 
       <para>The $flag parameter is a bitmask between the following constants:
-      XARVAR_GET_OR_POST, XARVAR_GET_ONLY,</para>
+      </para>
 
-      <para>XARVAR_POST_ONLY, XARVAR_NOT_REQUIRED.</para>
+      <para>XARVAR_GET_OR_POST, </para>
+
+      <para>XARVAR_GET_ONLY,</para>
+
+      <para>XARVAR_POST_ONLY, </para>
+
+      <para>XARVAR_NOT_REQUIRED.</para>
 
       <para>You can force to get the variable only from GET parameters or POST
       parameters by setting the $flag parameter to one of XARVAR_GET_ONLY or
@@ -518,10 +524,11 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       the right permissions. We invite you to ponder this issue for a while
       before you settle on module vars or user vars.</para>
 
-      <para>Setting xarUser*Vars All user vars should be set from adding
-      Dynamic Data on the roles module. This will give you the greatest
-      benefit and will present the variables to all modules on the
-      system.</para>
+      <para>Setting xarUserVars </para>
+
+      <para>All user vars should be set from adding Dynamic Data on the roles
+      module. This will give you the greatest benefit and will present the
+      variables to all modules on the system.</para>
     </section>
 
     <section>
@@ -620,13 +627,27 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
 
       <para>Consider the following example:</para>
 
-      <para>class MyException1{ var $lineNumber;}/* ...
-      */MyModule_user_MyFunc(){ /* ... */ if ($syntax == false) { // Syntax
-      error $exc = new MyException1; $exc-&gt;lineNumber = $line;
-      xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);return; } /*
-      ... */ xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2'); /* ... */
-      xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3'); /* ... */ return
-      true;}</para>
+      <para><programlisting>class MyException1
+{ 
+    var $lineNumber;
+}
+/* ... */
+MyModule_user_MyFunc()
+{ 
+    /* ... */ 
+    if ($syntax == false) { // Syntax error 
+        $exc = new MyException1; 
+        $exc-&gt;lineNumber = $line; 
+        xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);
+        return; 
+    } 
+    /* ... */ 
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2'); 
+    /* ... */ 
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3'); 
+    /* ... */ 
+    return true;
+}</programlisting></para>
 
       <para>Note that no value is associated to MyException2 and MyException3,
       so there is no need to create a class for exception value. As you can
@@ -973,7 +994,7 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
     <title>Xaraya Module Operations</title>
 
     <para>This chapter covers how modules interact with Xaraya. The
-    information in this section is correct for the 1,0 release of Xaraya, for
+    information in this section is correct for the 1.0 release of Xaraya, for
     other releases please get the most recent copy of the Xaraya Module
     Developers Guide.</para>
 
@@ -1837,8 +1858,7 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
 
       <para>Xaraya News Groups: The following lists of news groups are
       available via news.xaraya.com. These news groups are also available via
-      your web browser at the following Web sites.
-      http://www.xaraya.com</para>
+      your web browser at the following Web site: http://www.xaraya.com</para>
 
       <para>Ddf.public – DDF Public List</para>
 
@@ -1846,13 +1866,16 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
 
       <para>Xaraya.devel – Xaraya Member List</para>
 
+      <para>Xaraya.mt-notices - Pushes to the monotone repository, see
+      mt.xaraya.com</para>
+
       <para>Xaraya.documentation – Xaraya Documentation List</para>
 
       <para>Xaraya.bugs – Xaraya Bugs List</para>
 
-      <para>Xaraya.ui – Xaraya User Interface</para>
+      <para>Xaraya.ui – Xaraya User Interface List</para>
 
-      <para>Lists Xaraya.knowledge-base – Xaraya Knowledge Base List</para>
+      <para>Xaraya.knowledge-base – Xaraya Knowledge Base List</para>
 
       <para>Xaraya.marketing – Xaraya Marketing</para>
 
@@ -1862,18 +1885,15 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
 
       <para>Xaraya.user – Xaraya User Discussion List</para>
 
-      <para>Xaraya.user-arabic – Xaraya Arabic</para>
-
-      <para>User Discussion List</para>
+      <para>Xaraya.user-arabic – Xaraya Arabic User Discussion List</para>
 
       <para>Xaraya.user.chinese – Xaraya Chinese User List</para>
 
       <para>Xaraya.user.danish – Xaraya Danish User Discussion List</para>
 
-      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion</para>
+      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion List</para>
 
-      <para>List Xaraya.user.french – Xaraya French User Discussion
-      List</para>
+      <para>Xaraya.user.french – Xaraya French User Discussion List</para>
 
       <para>Xaraya.user.german – Xaraya German User Discussion List</para>
 
@@ -2031,15 +2051,11 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
     </glossdiv>
 
     <bibliography>
-      <bibliomixed>SearchWebServices. SearchWebServices. 22 Sept
-      2003</bibliomixed>
+      <bibliomixed>SearchWebServices. SearchWebServices. 22 Sept 2003
+      http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html</bibliomixed>
 
-      <bibliomixed>&lt;http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html&gt;</bibliomixed>
-
-      <bibliomixed>Telecom Glossary 2k. Telecom Glossary 2k. 29 Feb.
-      2001</bibliomixed>
-
-      <bibliomixed>&lt; http://www.atis.org/tg2k/_irc.html&gt;</bibliomixed>
+      <bibliomixed>Telecom Glossary 2k. Telecom Glossary 2k. 29 Feb. 2001
+      http://www.atis.org/tg2k/_irc.html</bibliomixed>
 
       <bibliomixed>W3C Technology and Society Domain. 05 April 2001 &lt;
       http://www.w3.org/Metadata/&gt;</bibliomixed>

@@ -12,23 +12,24 @@
 XSLTPROC=xsltproc --novalid
 FOP=fop -q
 LYNX=lynx
+MT=monotone
 
 # Stylesheets we need are provided by standard docbook xsl distribution
 # which unfortunately can live in many different locations, we add the ones
 # we know and use (uncomment) the relevant one when making
 
 # Darwinports on OSX
-DBXSL=/opt/local/share/xsl/docbook-xsl
+# DBXSL=/opt/local/share/xsl/docbook-xsl
 # Gentoo on newton
-#DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
+DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
 # Cygwin/MSys on windows??
 #DBXSL=????
 
 # Where does the output need to go
 # For newton
-# OUTPUT=/var/www/ddf/common/documentation/userguide
-# For developers
-OUTPUT=.
+OUTPUT=/var/www/ddf/common/documentation/devguide
+# For doc writers
+#OUTPUT=.
 
 DB2HTML=$(DBXSL)/xhtml/docbook.xsl
 DB2CHUNKS=$(DBXSL)/xhtml/chunk.xsl

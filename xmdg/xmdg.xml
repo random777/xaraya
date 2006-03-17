@@ -844,7 +844,7 @@ MyModule_user_MyFunc()
                 <listitem>
                   <para>xaradmin/</para>
 
-                  <itemizedlist>
+                  <orderedlist>
                     <listitem>
                       <para>create.php</para>
                     </listitem>
@@ -884,13 +884,13 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>view.php</para>
                     </listitem>
-                  </itemizedlist>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
                   <para>xaradminapi</para>
 
-                  <itemizedlist>
+                  <orderedlist>
                     <listitem>
                       <para>create.php</para>
                     </listitem>
@@ -914,13 +914,13 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>update.php</para>
                     </listitem>
-                  </itemizedlist>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
                   <para>xarblocks</para>
 
-                  <itemizedlist>
+                  <orderedlist>
                     <listitem>
                       <para>first.php</para>
                     </listitem>
@@ -940,7 +940,7 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>others.php</para>
                     </listitem>
-                  </itemizedlist>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
@@ -949,10 +949,26 @@ MyModule_user_MyFunc()
 
                 <listitem>
                   <para>xarproperties</para>
+
+                  <orderedlist>
+                    <listitem>
+                      <para>Dynamic_Example_Property.php</para>
+                    </listitem>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
                   <para>xarstyles</para>
+
+                  <orderedlist>
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>style.css</para>
+                    </listitem>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
@@ -961,34 +977,131 @@ MyModule_user_MyFunc()
                   <orderedlist>
                     <listitem>
                       <para>blocks</para>
+
+                      <itemizedlist>
+                        <listitem>
+                          <para>first.xd</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>index.html</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>modify-first.xd</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>modify-others.xd</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>others.xd</para>
+                        </listitem>
+                      </itemizedlist>
                     </listitem>
 
                     <listitem>
                       <para>includes</para>
+
+                      <orderedlist>
+                        <listitem>
+                          <para>index.html</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>user-menu.xd</para>
+                        </listitem>
+                      </orderedlist>
                     </listitem>
 
                     <listitem>
                       <para>properties</para>
+
+                      <orderedlist>
+                        <listitem>
+                          <para>index.html</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>showinput-example.xd</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>showoutput.xd</para>
+                        </listitem>
+
+                        <listitem>
+                          <para>validation-example.xd</para>
+                        </listitem>
+                      </orderedlist>
                     </listitem>
                   </orderedlist>
 
-                  <itemizedlist>
+                  <orderedlist>
                     <listitem>
-                      <para></para>
+                      <para>admin-delete.xd</para>
                     </listitem>
-                  </itemizedlist>
+                  </orderedlist>
 
-                  <itemizedlist>
+                  <orderedlist>
                     <listitem>
-                      <para></para>
+                      <para>admin-main.xd</para>
                     </listitem>
-                  </itemizedlist>
+
+                    <listitem>
+                      <para>admin-modify.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>admin-modifyconfig.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>admin-new.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>admin-view.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>user-display.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>user-main.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>user-menu.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>user-search.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>user-usermenu_form.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>user-usermenu_icon.xd</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>user-view.xd</para>
+                    </listitem>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
                   <para>xartests</para>
-
-                  <itemizedlist>
+                  <orderedlist>
                     <listitem>
                       <para>index.html</para>
                     </listitem>
@@ -996,43 +1109,123 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>testexample.php</para>
                     </listitem>
-                  </itemizedlist>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
                   <para>xaruser</para>
+
+                  <orderedlist>
+                    <listitem>
+                      <para>display.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>main.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>search.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>usermenu.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>view.php</para>
+                    </listitem>
+                  </orderedlist>
                 </listitem>
 
                 <listitem>
                   <para>xaruserapi</para>
+
+                  <orderedlist>
+                    <listitem>
+                      <para>countitems.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>decode_shorturl.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>encode_shorturl.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>get.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>getall.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>getitemlinks.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>getitemtypes.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>getmenulinks.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>menu.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>search.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>validateitem.php</para>
+                    </listitem>
+                  </itemizedlist>
                 </listitem>
               </orderedlist>
             </listitem>
           </orderedlist>
+
+          <orderedlist>
+            <listitem>
+              <para>example.wsdl</para>
+            </listitem>
+
+            <listitem>
+              <para>index.html</para>
+            </listitem>
+
+            <listitem>
+              <para>xareventapi.php</para>
+            </listitem>
+
+            <listitem>
+              <para>xarinit.php</para>
+            </listitem>
+
+            <listitem>
+              <para>xartables.php</para>
+            </listitem>
+
+            <listitem>
+              <para>xarversion.php</para>
+            </listitem>
+          </orderedlist>
         </listitem>
       </orderedlist>
-
-      <para>modules/ (1) example/ (2) xaradmin/ (3) create.php (4) delete.php
-      (5) main.php (6) modify.php (7) modifyconfig.php (8) new.php (9)
-      update.php (10) updateconfig.php (11) view.php (12) index.html (13)
-      xaradminapi/ (14) create.php (15) delete.php (16) getmenulinks.php (17)
-      menu.php (18) update.php (19) index.html (20) xarblocks/ (21) first.php
-      (22) others.php (23) index.html (24) xarimages/ (25) admin.gif (26)
-      admin_generic.gif (27) preferences.gif (28) index.html (29) xarstyles/
-      style.css xartemplates/ (30) blocks/ (31) first.xd (32) firstAdmin.xd
-      (33) othersAdmin.xd (34) example-firstblock-modify.xd (35)
-      admin-delete.xd (36) admin-main.xd (37) admin-menu.xd (38)
-      admin-modify.xd (39) admin-modifyconfig.xd (40) admin-new.xd (41)
-      admin-view.xd (42) index.html (43) user-display.xd (44) user-main.xd
-      (45) user-menu.xd (46) user-usermenu_icon.xd (47) user-view.xd (48)
-      user-usermenu_form.xd (49) xaruser/ (50) display.php (51) main.php (52)
-      usermenu.php (53) view.php (54) index.html (55) xaruserapi/ (56)
-      encode_shorturl.php (57) countitems.php (58) decode_shorturl.php (59)
-      get.php (60) getall.php (61) getmenulinks.php (62) menu.php (63)
-      validateitem.php (64) index.html (65) getitemlinks.php (66)
-      xareventapi.php (67) xarinit.php (68) xartables.php (69) example.wsdl
-      (70) index.html (71) xaradmin.php (72) xaradminapi.php (73) xaruser.php
-      (74) xaruserapi.php (75) xarversion.php (76)</para>
 
       <para>(1) The top-level directory in Xaraya for modules (2) The
       directory that contains all of the module code (in this case the module

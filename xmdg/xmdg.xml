@@ -15,6 +15,12 @@
       <holder>The Digital Development Foundation</holder>
     </copyright>
 
+    <copyright>
+      <year>2003-2005</year>
+
+      <holder>Scot Gardner</holder>
+    </copyright>
+
     <date>16 March 2006</date>
 
     <revhistory>
@@ -38,6 +44,11 @@
 
       <email>MichelV@xaraya.com</email>
     </author>
+
+    <legalnotice>
+      <para>Proposed License: GNU Free Documentation License
+      http://www.gnu.org/copyleft/fdl.html</para>
+    </legalnotice>
   </bookinfo>
 
   <preface>
@@ -260,7 +271,7 @@
 
     <para>This chapter describes the basic architecture of Xaraya, explains
     the major parts, and contains information on the design choices made for
-    the system. It describes how basic parts of Xaraya operate. </para>
+    the system. It describes how basic parts of Xaraya operate.</para>
 
     <section>
       <title>Variable Handling</title>
@@ -274,12 +285,9 @@
       parameters present in the environment can be different from the ones
       passed to these variables.</para>
 
-      <para>
-        An example call would be:
-        <programlisting>
+      <para>An example call would be: <programlisting>
           if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10, XARVAR_NOT_REQUIRED)) return;
-        </programlisting>
-      </para>
+        </programlisting></para>
 
       <para>This fetches the $itemsperpage variable from the input variable
       'itemsperpage' and validates it by applying the $validation rules, in
@@ -288,10 +296,10 @@
       <para>The functions works in this order:</para>
 
       <para>First try to use the variable provided (itemsperpage), if this is
-      not set (Or the XARVAR_DONT_REUSE flag is used) then it tries to get the
+      not set (or the XARVAR_DONT_REUSE flag is used) then it tries to get the
       variable from the input (POST/GET methods for now). It then tries to
       validate the variable through xarVarValidate with the validation of
-      'int'.</para>
+      'int' (integer).</para>
 
       <para>After the call the $value parameter is passed by reference is set
       to the variable value converted to the proper type according to the
@@ -301,9 +309,15 @@
       the variable is not present or doesn't validate correctly.</para>
 
       <para>The $flag parameter is a bitmask between the following constants:
-      XARVAR_GET_OR_POST, XARVAR_GET_ONLY,</para>
+      </para>
 
-      <para>XARVAR_POST_ONLY, XARVAR_NOT_REQUIRED.</para>
+      <para>XARVAR_GET_OR_POST, </para>
+
+      <para>XARVAR_GET_ONLY,</para>
+
+      <para>XARVAR_POST_ONLY, </para>
+
+      <para>XARVAR_NOT_REQUIRED.</para>
 
       <para>You can force to get the variable only from GET parameters or POST
       parameters by setting the $flag parameter to one of XARVAR_GET_ONLY or
@@ -345,9 +359,7 @@
         or $_GET elements. To solve this either use a variable variablename,
         or use the flag XARVAR_DONT_REUSE.</para>
 
-        <para>
-          Example:
-          <programlisting>
+        <para>Example: <programlisting>
             // If this is in your template/xhtml
             &lt;input name="item1" value=1&gt;
             &lt;input name="item2" value=2&gt;
@@ -355,8 +367,7 @@
             xarVarFetch('item1', 'str::', $value, NULL ) //  $value= 1
 
             xarVarFetch('item2', 'str::', $value, NULL ) //  $value= 1 !!!
-          </programlisting>
-        </para>
+          </programlisting></para>
 
         <para>It is currently not possible to discern between 'Not Found' and
         'Validation Failed', if you need to know use the validate function and
@@ -367,24 +378,19 @@
         <para>Module variables can be set using
         xarModSetVar('module','modulevariable','initial value')</para>
 
-        <para>
-          Example: 
-          <programlisting>xarModSetVar('julian','startDayOfWeek','1');</programlisting>
-        </para>
+        <para>Example: <programlisting>xarModSetVar('julian','startDayOfWeek','1');</programlisting></para>
 
         <para>These variables can be called later by xarModGetVar(module,
-        variable) $cal_sdow = xarModGetVar('julian','startDayOfWeek'); Now, we
-        can even make this a variable the admin can set. Then add to the
-        modifyconfig.xd template the following code snippet: &lt;input
-        type="text" name="startDayOfWeek"
-        value="#xarModGetVar('julian','startDayOfWeek')#" size="2" /&gt; and
-        in your redirect script (updateconfig.php in the example module)
-        //check the input with xarVarFetch if (!xarVarFetch('bold',
-        'checkbox', $bold, false, XARVAR_NOT_REQUIRED)) return; //Set the
-        Module Variable: xarModSetVar('example', 'bold', $bold); This lets the
-        admin that can enter modifyconfig.xd set the variable by typing in a
-        number for the variable 'startDayOfWeek', or 'bold' as in the
-        example.</para>
+        variable)<programlisting>$cal_sdow = xarModGetVar('julian','startDayOfWeek'); </programlisting>Now,
+        we can even make this a variable the admin can set. Then add to the
+        modifyconfig.xd template the following code snippet: <programlisting>&lt;input type="text" name="startDayOfWeek" value="#xarModGetVar('julian','startDayOfWeek')#" size="2" /&gt;</programlisting>
+        and in your redirect script (updateconfig.php in the example module)
+        <programlisting>//check the input with
+xarVarFetch if (!xarVarFetch('bold', 'checkbox', $bold, false, XARVAR_NOT_REQUIRED)) return; 
+// Set the Module Variable: 
+xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
+        that can enter modifyconfig.xd set the variable by typing in a number
+        for the variable 'startDayOfWeek', or 'bold' as in the example.</para>
       </section>
     </section>
 
@@ -453,9 +459,7 @@
       <para>To register the $name user variable you have to use the module API
       function register_user_var() exported by the Modules module.</para>
 
-      <para>
-        Here is an example:
-        <programlisting>
+      <para>Here is an example: <programlisting>
         $module_name = 'MyModule';
         
         $variable_name = 'MaxLinesPerPage';
@@ -477,8 +481,7 @@
         } else {
             // registration succeeded
         }
-        </programlisting>
-      </para>
+        </programlisting></para>
 
       <para>As you can see in this example, a descriptive array for the new
       user variable is created first, and later register_user_var is called
@@ -521,10 +524,11 @@
       the right permissions. We invite you to ponder this issue for a while
       before you settle on module vars or user vars.</para>
 
-      <para>Setting xarUser*Vars All user vars should be set from adding
-      Dynamic Data on the roles module. This will give you the greatest
-      benefit and will present the variables to all modules on the
-      system.</para>
+      <para>Setting xarUserVars </para>
+
+      <para>All user vars should be set from adding Dynamic Data on the roles
+      module. This will give you the greatest benefit and will present the
+      variables to all modules on the system.</para>
     </section>
 
     <section>
@@ -593,8 +597,7 @@
 
       <para>Consider the following example:</para>
 
-      <para>
-        <programlisting>
+      <para><programlisting>
           $res = xarModFunc('MyModule', 'user','MyFunc');
           if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) { 
               // Got an exception if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) { return; // throw back } 
@@ -616,21 +619,35 @@
 
               return $output-&gt;GetOutput();
           }
-        </programlisting>
-      </para>
+        </programlisting></para>
+
       <para>To throw exception you use a unique function: xarExceptionSet().
       You simply call it by passing the exception major, id and value if one;
       and after this call, you return void.</para>
 
       <para>Consider the following example:</para>
 
-      <para>class MyException1{ var $lineNumber;}/* ...
-      */MyModule_user_MyFunc(){ /* ... */ if ($syntax == false) { // Syntax
-      error $exc = new MyException1; $exc-&gt;lineNumber = $line;
-      xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);return; } /*
-      ... */ xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2'); /* ... */
-      xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3'); /* ... */ return
-      true;}</para>
+      <para><programlisting>class MyException1
+{ 
+    var $lineNumber;
+}
+/* ... */
+MyModule_user_MyFunc()
+{ 
+    /* ... */ 
+    if ($syntax == false) { // Syntax error 
+        $exc = new MyException1; 
+        $exc-&gt;lineNumber = $line; 
+        xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);
+        return; 
+    } 
+    /* ... */ 
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2'); 
+    /* ... */ 
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3'); 
+    /* ... */ 
+    return true;
+}</programlisting></para>
 
       <para>Note that no value is associated to MyException2 and MyException3,
       so there is no need to create a class for exception value. As you can
@@ -661,6 +678,12 @@
       <para>Itemtypes definitions are crucial in Xaraya operations. Itemtypes
       are very important when ever your data is shared with either hooks or by
       other modules.</para>
+
+      <para>Related functions</para>
+
+      <para>-getitemtypes</para>
+
+      <para>-getitemlinks</para>
     </section>
 
     <section>
@@ -673,7 +696,24 @@
     <section>
       <title>Multilanguage system</title>
 
-      <para>Xaraya can be fully multilanguage.</para>
+      <para>Xaraya can be fully multilanguage. Make sure all your text strings
+      are encapsulated with either <programlisting>xarML('YourMLString') </programlisting>in
+      your functions or <programlisting>&lt;xar:mlstring&gt;YourMLString&lt;/xar:mlstring&gt;</programlisting>
+      in the templates</para>
+    </section>
+
+    <section>
+      <title>Variable preperations</title>
+
+      <para><programlisting>xarVarPrepForDisplay(YourString);</programlisting></para>
+    </section>
+
+    <section>
+      <title>Dynamic Data</title>
+
+      <para>Properties</para>
+
+      <para>Your own properties</para>
     </section>
   </chapter>
 
@@ -977,7 +1017,7 @@
     <title>Xaraya Module Operations</title>
 
     <para>This chapter covers how modules interact with Xaraya. The
-    information in this section is correct for the 1,0 release of Xaraya, for
+    information in this section is correct for the 1.0 release of Xaraya, for
     other releases please get the most recent copy of the Xaraya Module
     Developers Guide.</para>
 
@@ -1023,7 +1063,13 @@
       <title>Upgrading your module</title>
 
       <para>Upgrading your module is important. The upgrade function is
-      located in the xarinit.php and called yourmodule_upgrade().</para>
+      located in the xarinit.php and named yourmodule_upgrade(). This function
+      takes the current versionnumber as 'oldversion' and uses a switch to
+      look for the correct upgrade routines. Make sure you provide all
+      necessary steps for each version to upgrade to the next version. Provide
+      an empty upgrade step when there is nothing todo. This way, the upgrade
+      function will stay consistent. The versionid is set in the
+      xarversion.php file.</para>
     </section>
 
     <section>
@@ -1047,9 +1093,9 @@
       the Xaraya main page or to use the xarModURL() function to generate URLs
       that will always be internally consistent for any given version of
       Xaraya. You can also extend the xarModUrl call by adding a parameter
-      call to the function in the form of an array. xarModURL('module',
-      'type', 'function', array('foo' =&gt; $bar)) will create the input
-      parameter of 'foo' having the value of $bar.</para>
+      call to the function in the form of an array. <programlisting>xarModURL('module', 'type', 'function', array('foo' =&gt; $bar))</programlisting>
+      will create the input parameter of 'foo' having the value of
+      $bar.</para>
 
       <section>
         <title>Function calls</title>
@@ -1135,9 +1181,9 @@
         example, if your example_user_display() function uses a variable picid
         to define the particular picture that a user wishes to look at then
         the URL would be something like
-        'index.php?module=example&amp;func=display&amp;picid=4' and the
-        identification part of the URL would be something like 'picid=4' so
-        you would pass 'picid' to this hook. For display() hooks a URL that
+        '<uri>index.php?module=example&amp;func=display&amp;picid=4</uri>' and
+        the identification part of the URL would be something like 'picid=4'
+        so you would pass 'picid' to this hook. For display() hooks a URL that
         can be used by the hooks to return to a suitable page once they have
         finished any work that they might have to do. This is normally just
         the standard display URL for this function. For transform() hooks an
@@ -1154,26 +1200,23 @@
         the 'Example' module and were displaying a picture, after the display
         of the picture you would want to call the hooks to add any other
         functionality available and required by the site administrator. To do
-        this you would use the following lines:
-        $output-&gt;Text(xarModCallHooks('item', 'display', $pictureid,
-        xarModURL('example', 'user', 'display', array('pictureid' =&gt;
-        $pictureid)))); This would add the verbatim output of the hooks to the
-        current output. It is worth noting again here the from this code it
-        can be seen that the module itself needs no information on what hooks,
-        if any, exist, it just calls the function and lets the Xaraya core
-        deal with what extra output should be added to this item. One
-        important area to understand is where exactly in your code to call
-        hooks. For example, if you were displaying a thumbnail view of 100
-        pictures from your Example module, should you call an item display
-        hook for each picture? The answer to this is somewhat dependent on the
-        nature of your module. In general you should only call display hooks
-        when you are displaying the details of a single item rather than an
-        overview of a large number of items (of course, if all of those items
-        are in a single category then you should call a display hook for that
-        category). However, the transform hook should be called whenever you
-        are displaying content regardless of it if is just an overview, as the
-        overview information could require transformation before
-        display.</para>
+        this you would use the following lines: <programlisting>$output-&gt;Text(xarModCallHooks('item', 'display', $pictureid, xarModURL('example', 'user', 'display', array('pictureid' =&gt; $pictureid)))); </programlisting>This
+        would add the verbatim output of the hooks to the current output. It
+        is worth noting again here the from this code it can be seen that the
+        module itself needs no information on what hooks, if any, exist, it
+        just calls the function and lets the Xaraya core deal with what extra
+        output should be added to this item. One important area to understand
+        is where exactly in your code to call hooks. For example, if you were
+        displaying a thumbnail view of 100 pictures from your Example module,
+        should you call an item display hook for each picture? The answer to
+        this is somewhat dependent on the nature of your module. In general
+        you should only call display hooks when you are displaying the details
+        of a single item rather than an overview of a large number of items
+        (of course, if all of those items are in a single category then you
+        should call a display hook for that category). However, the transform
+        hook should be called whenever you are displaying content regardless
+        of it if is just an overview, as the overview information could
+        require transformation before display.</para>
 
         <para>The annotated Example module in the standard Xaraya distribution
         contains notes on calling hooks within an item module.</para>
@@ -1217,29 +1260,40 @@
         given appropriate parameters to register the relevant hook-capable
         module functions within your module as hooks. The xarModRegisterHook()
         function takes a number of parameters, which are explained below:
-        hookobject The object for which the hook is to be registered -
-        currently either category, or item, as described above hookaction The
-        action for which the hook is to be registered - currently one of
-        create, delete, transform, or display hookarea The area that the hook
-        function covers - currently either GUI (for functions that are in
-        xaruser.php and xaradmin.php) or API (for functions that are in
-        xaruserapi.php and xaradminapi.php) hookmodule The name of the module
-        in which the hook function exists - normally the name of the module
-        calling this function hooktype The type of the hook function -
-        currently either user or admin hookfunc The name of the hook function
-        The xarModRegisterHook() function returns true if the registration was
-        successful, and false if the registration is unsuccessful. As an
-        example of registering hooks, if you were developing the 'globalid'
-        utility module (which gives every piece of content in Xaraya a
-        separate ID) and had a globalid_admin_create() function which created
-        an entry in the global ID table for this particular piece of content
-        then you would register this as a creation hook. To do this you would
-        use the following lines within globalid_init(): if
-        (!xarModRegisterHook('item', 'create', 'API', 'globalid', 'admin',
-        'create)) { return false; } Which would register this hook to be
-        called every time a hook-enabled module someone creates an item (a
-        similar but separate call would be needed to register this hook for
-        the creation of categories as well).</para>
+        </para>
+
+        <para>hookobject The object for which the hook is to be registered -
+        currently either category, or item, as described above </para>
+
+        <para>hookaction The action for which the hook is to be registered -
+        currently one of create, delete, transform, or display </para>
+
+        <para>hookarea The area that the hook function covers - currently
+        either GUI (for functions that are in xaruser.php and xaradmin.php) or
+        API (for functions that are in xaruserapi.php and xaradminapi.php)
+        </para>
+
+        <para>hookmodule The name of the module in which the hook function
+        exists - normally the name of the module calling this function </para>
+
+        <para>hooktype The type of the hook function - currently either user
+        or admin </para>
+
+        <para>hookfunc The name of the hook function </para>
+
+        <para>The xarModRegisterHook() function returns true if the
+        registration was successful, and false if the registration is
+        unsuccessful. As an example of registering hooks, if you were
+        developing the 'globalid' utility module (which gives every piece of
+        content in Xaraya a separate ID) and had a globalid_admin_create()
+        function which created an entry in the global ID table for this
+        particular piece of content then you would register this as a creation
+        hook. To do this you would use the following lines within
+        globalid_init(): <programlisting>if (!xarModRegisterHook('item', 'create', 'API', 'globalid', 'admin', 'create)) { return false; }</programlisting>
+        Which would register this hook to be called every time a hook-enabled
+        module someone creates an item (a similar but separate call would be
+        needed to register this hook for the creation of categories as
+        well).</para>
 
         <para>The Ratings module that comes with the core Xaraya distribution
         has detailed comments on registering hooks within a utility
@@ -1274,84 +1328,128 @@
       <title>Before Starting Your Module</title>
 
       <para>There are a number of steps to follow before you can start
-      building your module. Choosing a Name for Your Module Choosing a name
-      for your module is important, as this is the main way that your module
-      will be known throughout the Xaraya community. The name should relate to
-      the functionality that the moduleThis provides, but also be specific
-      enough to be able to discern it from separate modules that might offer
-      similar functionality. Module names are case-sensitive. For this reason,
-      it is highly recommended that all modules names are lower-case only.
-      Decide on the Type of Your Module There are two broad types of module
-      available in Xaraya. Item modules are modules, which contain their own
-      content and operate on that content, whereas utility modules are
-      modules, which contain additional information or functionality for the
-      content of other modules. Examples of item modules are news, FAQ, and
-      download. Examples of utility modules are comments, ratings, and global
-      index. Either utility modules work in the same way as item modules, or
-      they can operate with hooks, which allow module functions to be acted
-      upon without being explicitly called by other modules. Hooks are used
-      for items that are not part of a piece of content but directly related
-      to it Register Your Module Name Registering your module is not
-      compulsory, but it is a very good idea. By registering your module, you
-      can ensure that no other official Xaraya module will take the name that
-      you have chosen for your module. Two modules with the same name will not
-      operate correctly on a single Xaraya site, so it is beneficial to both
-      yourself and the Xaraya community in general to have a unique name. You
-      may register your module via the release module on
-      http://www.xaraya.com/ Obtain a Copy of the Xaraya API Reference Guide
-      The Xaraya API Reference Guide has been moved to the PHP-Doc Style of
-      documentation. No separate entry will be created for the API guide.
+      building your module. </para>
+
+      <para>Choosing a Name for Your Module </para>
+
+      <para>Choosing a name for your module is important, as this is the main
+      way that your module will be known throughout the Xaraya community. The
+      name should relate to the functionality that the module provides, but
+      also be specific enough to be able to discern it from separate modules
+      that might offer similar functionality. Module names are case-sensitive.
+      All modules names are lower-case only. </para>
+
+      <para>Decide on the Type of Your Module </para>
+
+      <para>There are two broad types of module available in Xaraya. Item
+      modules are modules, which contain their own content and operate on that
+      content, whereas utility modules are modules, which contain additional
+      information or functionality for the content of other modules. Examples
+      of item modules are news, FAQ, and download. Examples of utility modules
+      are comments, ratings, and global index. Either utility modules work in
+      the same way as item modules, or they can operate with hooks, which
+      allow module functions to be acted upon without being explicitly called
+      by other modules. Hooks are used for items that are not part of a piece
+      of content but directly related to it. </para>
+
+      <para>Register Your Module Name </para>
+
+      <para>Registering your module is not compulsory, but it is a very good
+      idea. By registering your module, you can ensure that no other official
+      Xaraya module will take the name that you have chosen for your module.
+      Two modules with the same name will not operate correctly on a single
+      Xaraya site, so it is beneficial to both yourself and the Xaraya
+      community in general to have a unique name. You may register your module
+      via the release module on <ulink url="???">http://www.xaraya.com/
+      </ulink></para>
+
+      <para>Obtain a Copy of the Xaraya API Reference Guide </para>
+
+      <para>The Xaraya API Reference Guide has been moved to the PHP-Doc style
+      of documentation. No separate entry will be created for the API guide.
       Please reference http://docs.xaraya.com/index.php/documentation/c80/ for
-      more information. Read the Notes on Developing Modules Section The
-      section entitled 'Notes on Developing Modules' includes a lot of
-      miscellaneous information that does not fit in other sections of this
+      more information. </para>
+
+      <para>Read the Notes on Developing Modules Section </para>
+
+      <para>The section entitled 'Notes on Developing Modules' includes a lot
+      of miscellaneous information that does not fit in other sections of this
       document. It should be read fully before any attempt to design or
-      develop a module is started. Understand the Following Areas Difference
-      between GUI and Operational Functions Understanding the difference
-      between GUI and operational functions is critical when building a good
-      module. Proper separation of these functions will allow other modules to
-      be able to access the functionality of your module and incorporate it
-      into their modules. It will also allow methods of access apart from
-      those that the standard web-based Xaraya system. Difference between User
-      and Administrative Functions Understanding the difference between user
-      and administrative functions is very important when building a good
-      module. The separation of these types of actions allows for the Xaraya
-      Security Model The Xaraya security model is a very important area to
-      understand before coding a module. Developers should understand which
-      parts of their module need protected, and exactly how this is
-      accomplished. The entire Xaraya security model is beyond the scope of
-      this document. The Security System RFC30 is located at
-      http://docs.xaraya.com//docs/rfcs/rfc0030.html Function Return Codes
-      Every well-defined module function must return the appropriate return
-      codes. Return codes are the main way in which a module communicates with
-      the Xaraya core, and as such, it is vital that the correct return codes
-      are used. The following return codes should be used when returning
-      control to the Xaraya core from any module function: text string
-      Returning a text string implies that the modules function has finished
-      its work and has output to be displayed in the appropriate place on the
-      Xaraya web page. Xaraya will take the returned output and display it as
-      appropriate. Note that all output from modules is displayed verbatim,
-      with no escaping of HTML characters. This is to allow for formatted
-      output from the module functions. true Returning boolean true implies
-      that the module function has finished its work and set up an appropriate
-      redirect to send the user to a page that will have display output. The
-      Xaraya core will take no further action as far as this module is
-      concerned. false Returning boolean false implies that the module
-      function has finished its work but not set up an appropriate redirect to
-      send the user to a page that will have display output. The Xaraya core
-      will set an appropriate redirect for this module. Note that none of
-      these functions carries any information about the success or failure of
-      the attempted operation that the module function was undertaking. Where
-      Modules Fit in Xaraya Modules cover two separate areas of Xaraya. The
-      first is administration of core functions, (e.g. users, permissions),
-      and the second is extension of system functionality (e.g. downloads, web
-      links). As each of these areas is not core this implies two things.
-      First is that no module is actually required - the Xaraya system would
-      work without anything in its modules directory, although its
-      functionality would be severely limited and there would be no
-      configuration options available. Second, is that modules should not
-      remove any core functionality when installed, in operation, or
-      removed.</para>
+      develop a module is started. </para>
+
+      <para>Understand the Following Areas </para>
+
+      <para>Difference between GUI and Operational Functions </para>
+
+      <para>Understanding the difference between GUI and operational functions
+      is critical when building a good module. Proper separation of these
+      functions will allow other modules to be able to access the
+      functionality of your module and incorporate it into their modules. It
+      will also allow methods of access apart from those that the standard
+      web-based Xaraya system. </para>
+
+      <para>Difference between User and Administrative Functions </para>
+
+      <para>Understanding the difference between user and administrative
+      functions is very important when building a good module. The separation
+      of these types of actions allows for the Xaraya Security Model The
+      Xaraya security model is a very important area to understand before
+      coding a module. Developers should understand which parts of their
+      module need protected, and exactly how this is accomplished. The entire
+      Xaraya security model is beyond the scope of this document. The Security
+      System RFC30 is located at
+      http://docs.xaraya.com//docs/rfcs/rfc0030.html </para>
+
+      <para>Function Return Codes </para>
+
+      <para>Every well-defined module function must return the appropriate
+      return codes. Return codes are the main way in which a module
+      communicates with the Xaraya core, and as such, it is vital that the
+      correct return codes are used. The following return codes should be used
+      when returning control to the Xaraya core from any module function:
+      </para>
+
+      <para>string </para>
+
+      <para>Returning a text string implies that the modules function has
+      finished its work and has output to be displayed in the appropriate
+      place on the Xaraya web page. Xaraya will take the returned output and
+      display it as appropriate. Note that all output from modules is
+      displayed verbatim, with no escaping of HTML characters. This is to
+      allow for formatted output from the module functions. </para>
+
+      <para>true </para>
+
+      <para>Returning boolean true implies that the module function has
+      finished its work and set up an appropriate redirect to send the user to
+      a page that will have display output. The Xaraya core will take no
+      further action as far as this module is concerned. </para>
+
+      <para>false </para>
+
+      <para>Returning boolean false implies that the module function has
+      finished its work but not set up an appropriate redirect to send the
+      user to a page that will have display output. The Xaraya core will set
+      an appropriate redirect for this module. Note that none of these
+      functions carries any information about the success or failure of the
+      attempted operation that the module function was undertaking. </para>
+
+      <para>array</para>
+
+      <para>The array can contain the parameters that you need to return to
+      the Xaraya core</para>
+
+      <para>Where Modules Fit in Xaraya </para>
+
+      <para>Modules cover two separate areas of Xaraya. The first is
+      administration of core functions, (e.g. users, permissions), and the
+      second is extension of system functionality (e.g. downloads, web links).
+      As each of these areas is not core this implies two things. First is
+      that no module is actually required - the Xaraya system would work
+      without anything in its modules directory, although its functionality
+      would be severely limited and there would be no configuration options
+      available. Second, is that modules should not remove any core
+      functionality when installed, in operation, or removed.</para>
     </section>
 
     <section>
@@ -1663,9 +1761,58 @@
       <para>Xaraya has a number of variables, which are reserved. These
       variables are not be used within modules as they can conflict with the
       Xaraya core and cause unpredictable results. The current lists of
-      variables, which are reserved, are as follows: file func loadedmod
-      module name op pagerstart pagertotal type In addition, all one-letter
-      variables are reserved.</para>
+      variables, which are reserved, are as follows:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>file</para>
+
+          <para>the file to open</para>
+        </listitem>
+
+        <listitem>
+          <para>func</para>
+
+          <para>In use for Function, the function being called</para>
+        </listitem>
+
+        <listitem>
+          <para>loadedmod</para>
+
+          <para>The module that is loaded. Mainly in use by the core module
+          'roles'</para>
+        </listitem>
+
+        <listitem>
+          <para>module</para>
+
+          <para>The module that is being called</para>
+        </listitem>
+
+        <listitem>
+          <para>name</para>
+        </listitem>
+
+        <listitem>
+          <para>op</para>
+        </listitem>
+
+        <listitem>
+          <para>pagerstart</para>
+        </listitem>
+
+        <listitem>
+          <para>pagertotal</para>
+        </listitem>
+
+        <listitem>
+          <para>type</para>
+
+          <para>Either user or admin, type of function to call</para>
+        </listitem>
+      </itemizedlist>
+
+      <para> In addition, all one-letter variables are reserved.</para>
     </section>
 
     <section>
@@ -1683,7 +1830,7 @@
       Example module in the standard Xaraya distribution contains a number of
       functions that use these API calls, and note where they are used so that
       developed modules will have the same level of protection against
-      fraudulent administrator requests</para>
+      fraudulent administrator requests.</para>
     </section>
 
     <section>
@@ -1700,9 +1847,12 @@
       <para>Modules written as classes is allowed, however the API as
       described in the rest of this document must still be adhered to. The
       simplest way of doing this is to use compatibility functions, for
-      example: function mymod_user_main() { // Instantiate $obj = new
-      myClass(); // Call relevant method and return output return
-      $obj-&gt;usermain(); }</para>
+      example: <programlisting>function mymod_user_main() { 
+    // Instantiate 
+    $obj = new myClass(); 
+    // Call relevant method and return output return 
+    $obj-&gt;usermain(); 
+}</programlisting></para>
     </section>
 
     <section>
@@ -1751,8 +1901,7 @@
 
       <para>Xaraya News Groups: The following lists of news groups are
       available via news.xaraya.com. These news groups are also available via
-      your web browser at the following Web sites.
-      http://www.xaraya.com</para>
+      your web browser at the following Web site: http://www.xaraya.com</para>
 
       <para>Ddf.public – DDF Public List</para>
 
@@ -1760,13 +1909,16 @@
 
       <para>Xaraya.devel – Xaraya Member List</para>
 
+      <para>Xaraya.mt-notices - Pushes to the monotone repository, see
+      mt.xaraya.com</para>
+
       <para>Xaraya.documentation – Xaraya Documentation List</para>
 
       <para>Xaraya.bugs – Xaraya Bugs List</para>
 
-      <para>Xaraya.ui – Xaraya User Interface</para>
+      <para>Xaraya.ui – Xaraya User Interface List</para>
 
-      <para>Lists Xaraya.knowledge-base – Xaraya Knowledge Base List</para>
+      <para>Xaraya.knowledge-base – Xaraya Knowledge Base List</para>
 
       <para>Xaraya.marketing – Xaraya Marketing</para>
 
@@ -1776,18 +1928,15 @@
 
       <para>Xaraya.user – Xaraya User Discussion List</para>
 
-      <para>Xaraya.user-arabic – Xaraya Arabic</para>
-
-      <para>User Discussion List</para>
+      <para>Xaraya.user-arabic – Xaraya Arabic User Discussion List</para>
 
       <para>Xaraya.user.chinese – Xaraya Chinese User List</para>
 
       <para>Xaraya.user.danish – Xaraya Danish User Discussion List</para>
 
-      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion</para>
+      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion List</para>
 
-      <para>List Xaraya.user.french – Xaraya French User Discussion
-      List</para>
+      <para>Xaraya.user.french – Xaraya French User Discussion List</para>
 
       <para>Xaraya.user.german – Xaraya German User Discussion List</para>
 
@@ -1945,15 +2094,11 @@
     </glossdiv>
 
     <bibliography>
-      <bibliomixed>SearchWebServices. SearchWebServices. 22 Sept
-      2003</bibliomixed>
+      <bibliomixed>SearchWebServices. SearchWebServices. 22 Sept 2003
+      http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html</bibliomixed>
 
-      <bibliomixed>&lt;http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html&gt;</bibliomixed>
-
-      <bibliomixed>Telecom Glossary 2k. Telecom Glossary 2k. 29 Feb.
-      2001</bibliomixed>
-
-      <bibliomixed>&lt; http://www.atis.org/tg2k/_irc.html&gt;</bibliomixed>
+      <bibliomixed>Telecom Glossary 2k. Telecom Glossary 2k. 29 Feb. 2001
+      http://www.atis.org/tg2k/_irc.html</bibliomixed>
 
       <bibliomixed>W3C Technology and Society Domain. 05 April 2001 &lt;
       http://www.w3.org/Metadata/&gt;</bibliomixed>

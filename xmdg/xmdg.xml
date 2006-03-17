@@ -232,16 +232,24 @@
     <section>
       <title>Related Documents</title>
 
-      <para>The main reference you should look at is the 'Example
-      Module'.</para>
-
-      <para>This module is an annotated reference for current best practise.
-      It is regularly maintained by Xaraya developers and shows how to setup a
-      module. It can perfectly serve as a start for your own module.</para>
+      <para>The main reference you should look at is the 'Example Module'.
+      This module is an annotated reference for current best practise. It is
+      regularly maintained by Xaraya developers and shows how to setup a
+      module. It can perfectly serve as a start for your own module. You can
+      get a full copy of the example module from the full download/extensions
+      download or from the Xaraya monotone repository.</para>
 
       <para>Other documents that might be of use in conjunction with this
       guide are the API Reference Command Reference - online viewable as
-      PHPDoc or PHPXRef, and RFC library.</para>
+      <ulink url="http://www.xaraya.com/documentation/phpdoc/">PHPDoc</ulink>
+      or <ulink
+      url="http://www.xaraya.com/documentation/phpxref/">PHPXRef</ulink>, and
+      <ulink url="http://xaraya.com/index.php/documentation/72">RFC
+      library</ulink>.</para>
+
+      <para>See: <ulink
+      url="???">http://www.xaraya.com/index.php/documentation/c122/</ulink>
+      for an overview of developers documentation</para>
     </section>
 
     <section>
@@ -308,14 +316,14 @@
       <para>The $defaultValue provides a default value that is returned when
       the variable is not present or doesn't validate correctly.</para>
 
-      <para>The $flag parameter is a bitmask between the following constants:
-      </para>
+      <para>The $flag parameter is a bitmask between the following
+      constants:</para>
 
-      <para>XARVAR_GET_OR_POST, </para>
+      <para>XARVAR_GET_OR_POST,</para>
 
       <para>XARVAR_GET_ONLY,</para>
 
-      <para>XARVAR_POST_ONLY, </para>
+      <para>XARVAR_POST_ONLY,</para>
 
       <para>XARVAR_NOT_REQUIRED.</para>
 
@@ -524,7 +532,7 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       the right permissions. We invite you to ponder this issue for a while
       before you settle on module vars or user vars.</para>
 
-      <para>Setting xarUserVars </para>
+      <para>Setting xarUserVars</para>
 
       <para>All user vars should be set from adding Dynamic Data on the roles
       module. This will give you the greatest benefit and will present the
@@ -1259,27 +1267,27 @@ MyModule_user_MyFunc()
         should be placed within the modname_init() function of your module and
         given appropriate parameters to register the relevant hook-capable
         module functions within your module as hooks. The xarModRegisterHook()
-        function takes a number of parameters, which are explained below:
-        </para>
+        function takes a number of parameters, which are explained
+        below:</para>
 
         <para>hookobject The object for which the hook is to be registered -
-        currently either category, or item, as described above </para>
+        currently either category, or item, as described above</para>
 
         <para>hookaction The action for which the hook is to be registered -
-        currently one of create, delete, transform, or display </para>
+        currently one of create, delete, transform, or display</para>
 
         <para>hookarea The area that the hook function covers - currently
         either GUI (for functions that are in xaruser.php and xaradmin.php) or
-        API (for functions that are in xaruserapi.php and xaradminapi.php)
-        </para>
+        API (for functions that are in xaruserapi.php and
+        xaradminapi.php)</para>
 
         <para>hookmodule The name of the module in which the hook function
-        exists - normally the name of the module calling this function </para>
+        exists - normally the name of the module calling this function</para>
 
         <para>hooktype The type of the hook function - currently either user
-        or admin </para>
+        or admin</para>
 
-        <para>hookfunc The name of the hook function </para>
+        <para>hookfunc The name of the hook function</para>
 
         <para>The xarModRegisterHook() function returns true if the
         registration was successful, and false if the registration is
@@ -1328,18 +1336,18 @@ MyModule_user_MyFunc()
       <title>Before Starting Your Module</title>
 
       <para>There are a number of steps to follow before you can start
-      building your module. </para>
+      building your module.</para>
 
-      <para>Choosing a Name for Your Module </para>
+      <para>Choosing a Name for Your Module</para>
 
       <para>Choosing a name for your module is important, as this is the main
       way that your module will be known throughout the Xaraya community. The
       name should relate to the functionality that the module provides, but
       also be specific enough to be able to discern it from separate modules
       that might offer similar functionality. Module names are case-sensitive.
-      All modules names are lower-case only. </para>
+      All modules names are lower-case only.</para>
 
-      <para>Decide on the Type of Your Module </para>
+      <para>Decide on the Type of Your Module</para>
 
       <para>There are two broad types of module available in Xaraya. Item
       modules are modules, which contain their own content and operate on that
@@ -1350,9 +1358,9 @@ MyModule_user_MyFunc()
       the same way as item modules, or they can operate with hooks, which
       allow module functions to be acted upon without being explicitly called
       by other modules. Hooks are used for items that are not part of a piece
-      of content but directly related to it. </para>
+      of content but directly related to it.</para>
 
-      <para>Register Your Module Name </para>
+      <para>Register Your Module Name</para>
 
       <para>Registering your module is not compulsory, but it is a very good
       idea. By registering your module, you can ensure that no other official
@@ -1363,32 +1371,32 @@ MyModule_user_MyFunc()
       via the release module on <ulink url="???">http://www.xaraya.com/
       </ulink></para>
 
-      <para>Obtain a Copy of the Xaraya API Reference Guide </para>
+      <para>Obtain a Copy of the Xaraya API Reference Guide</para>
 
       <para>The Xaraya API Reference Guide has been moved to the PHP-Doc style
       of documentation. No separate entry will be created for the API guide.
       Please reference http://docs.xaraya.com/index.php/documentation/c80/ for
-      more information. </para>
+      more information.</para>
 
-      <para>Read the Notes on Developing Modules Section </para>
+      <para>Read the Notes on Developing Modules Section</para>
 
       <para>The section entitled 'Notes on Developing Modules' includes a lot
       of miscellaneous information that does not fit in other sections of this
       document. It should be read fully before any attempt to design or
-      develop a module is started. </para>
+      develop a module is started.</para>
 
-      <para>Understand the Following Areas </para>
+      <para>Understand the Following Areas</para>
 
-      <para>Difference between GUI and Operational Functions </para>
+      <para>Difference between GUI and Operational Functions</para>
 
       <para>Understanding the difference between GUI and operational functions
       is critical when building a good module. Proper separation of these
       functions will allow other modules to be able to access the
       functionality of your module and incorporate it into their modules. It
       will also allow methods of access apart from those that the standard
-      web-based Xaraya system. </para>
+      web-based Xaraya system.</para>
 
-      <para>Difference between User and Administrative Functions </para>
+      <para>Difference between User and Administrative Functions</para>
 
       <para>Understanding the difference between user and administrative
       functions is very important when building a good module. The separation
@@ -1398,48 +1406,48 @@ MyModule_user_MyFunc()
       module need protected, and exactly how this is accomplished. The entire
       Xaraya security model is beyond the scope of this document. The Security
       System RFC30 is located at
-      http://docs.xaraya.com//docs/rfcs/rfc0030.html </para>
+      http://docs.xaraya.com//docs/rfcs/rfc0030.html</para>
 
-      <para>Function Return Codes </para>
+      <para>Function Return Codes</para>
 
       <para>Every well-defined module function must return the appropriate
       return codes. Return codes are the main way in which a module
       communicates with the Xaraya core, and as such, it is vital that the
       correct return codes are used. The following return codes should be used
-      when returning control to the Xaraya core from any module function:
-      </para>
+      when returning control to the Xaraya core from any module
+      function:</para>
 
-      <para>string </para>
+      <para>string</para>
 
       <para>Returning a text string implies that the modules function has
       finished its work and has output to be displayed in the appropriate
       place on the Xaraya web page. Xaraya will take the returned output and
       display it as appropriate. Note that all output from modules is
       displayed verbatim, with no escaping of HTML characters. This is to
-      allow for formatted output from the module functions. </para>
+      allow for formatted output from the module functions.</para>
 
-      <para>true </para>
+      <para>true</para>
 
       <para>Returning boolean true implies that the module function has
       finished its work and set up an appropriate redirect to send the user to
       a page that will have display output. The Xaraya core will take no
-      further action as far as this module is concerned. </para>
+      further action as far as this module is concerned.</para>
 
-      <para>false </para>
+      <para>false</para>
 
       <para>Returning boolean false implies that the module function has
       finished its work but not set up an appropriate redirect to send the
       user to a page that will have display output. The Xaraya core will set
       an appropriate redirect for this module. Note that none of these
       functions carries any information about the success or failure of the
-      attempted operation that the module function was undertaking. </para>
+      attempted operation that the module function was undertaking.</para>
 
       <para>array</para>
 
       <para>The array can contain the parameters that you need to return to
       the Xaraya core</para>
 
-      <para>Where Modules Fit in Xaraya </para>
+      <para>Where Modules Fit in Xaraya</para>
 
       <para>Modules cover two separate areas of Xaraya. The first is
       administration of core functions, (e.g. users, permissions), and the
@@ -1812,7 +1820,7 @@ MyModule_user_MyFunc()
         </listitem>
       </itemizedlist>
 
-      <para> In addition, all one-letter variables are reserved.</para>
+      <para>In addition, all one-letter variables are reserved.</para>
     </section>
 
     <section>

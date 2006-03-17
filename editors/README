@@ -3,3 +3,34 @@ This directory contains useful information for documentation edtiors
 Files:
 
 dbrefcard.xml - the docbook source for the tags 'allowed' in our docbook documentation
+
+
+Links:
+
+1.. http://www.docbook.org/
+   -> official home of docbook
+
+2. http://www.docbook.org/tdg/en/html/docbook.html
+   -> defactor standard book for writing docbook (for version 4.5, which comes closest to what we use)
+
+3. http://www.docbook.org/tdg5/en/html/docbook.html
+   -> if you must, this is the book of version 5 (which we dont use)
+
+4. http://sagehill.net/docbookxsl/index.html
+   -> useful guid for installing, specifically targetted to the XSL variety 
+      of docbook, which we use
+
+Tips:
+
+1. Get a good editor! be it visual or bare-bones, but get one which is
+   able to validate your docbook musings and help you write the proper tags. Nothing is
+   so boring as to go through an invalid xml file afterwards. 
+
+2. Docbook is huge. Dont try to outsmart it ;-)
+
+3. Content structure first, presentation later. It's no use thinking about indentation, fonts,
+   sizes, colors and everything else while writing docbook. It's all about the content and
+   designating that content semantically with the right tags. The better structured, the
+   nicer the layout can be, because the styler has more to work with. Use the tags!
+
+

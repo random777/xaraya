@@ -372,7 +372,7 @@
             // If this is in your template/xhtml
             &lt;input name="item1" value=1&gt;
             &lt;input name="item2" value=2&gt;
-            
+
             xarVarFetch('item1', 'str::', $value, NULL ) //  $value= 1
 
             xarVarFetch('item2', 'str::', $value, NULL ) //  $value= 1 !!!
@@ -395,8 +395,8 @@
         modifyconfig.xd template the following code snippet: <programlisting>&lt;input type="text" name="startDayOfWeek" value="#xarModGetVar('julian','startDayOfWeek')#" size="2" /&gt;</programlisting>
         and in your redirect script (updateconfig.php in the example module)
         <programlisting>//check the input with
-xarVarFetch if (!xarVarFetch('bold', 'checkbox', $bold, false, XARVAR_NOT_REQUIRED)) return; 
-// Set the Module Variable: 
+xarVarFetch if (!xarVarFetch('bold', 'checkbox', $bold, false, XARVAR_NOT_REQUIRED)) return;
+// Set the Module Variable:
 xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
         that can enter modifyconfig.xd set the variable by typing in a number
         for the variable 'startDayOfWeek', or 'bold' as in the example.</para>
@@ -470,7 +470,7 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
 
       <para>Here is an example: <programlisting>
         $module_name = 'MyModule';
-        
+
         $variable_name = 'MaxLinesPerPage';
 
         $metadata['label'] = $module_name . '_' . $variable_name;
@@ -608,20 +608,20 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
 
       <para><programlisting>
           $res = xarModFunc('MyModule', 'user','MyFunc');
-          if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) { 
-              // Got an exception if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) { return; // throw back } 
-          
+          if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
+              // Got an exception if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) { return; // throw back }
+
               // Got a user exception
               if (xarExceptionId() == 'MyException1') {
-                  $value = xarExceptionValue(); 
+                  $value = xarExceptionValue();
 
-                  $output-&gt;Text("Syntax error at line: ".$value-&gt;lineNumber); 
+                  $output-&gt;Text("Syntax error at line: ".$value-&gt;lineNumber);
 
               } elseif (xarExceptionId() == 'MyException2') {
                   /* Do something useful */
-              } else { // MyException3 
-                  /* Do something useful */ 
-              } // reset exception status 
+              } else { // MyException3
+                  /* Do something useful */
+              } // reset exception status
 
               // NOTE: it's of vital importance to call this function
               // before returning xarExceptionFree();
@@ -637,24 +637,24 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       <para>Consider the following example:</para>
 
       <para><programlisting>class MyException1
-{ 
+{
     var $lineNumber;
 }
 /* ... */
 MyModule_user_MyFunc()
-{ 
-    /* ... */ 
-    if ($syntax == false) { // Syntax error 
-        $exc = new MyException1; 
-        $exc-&gt;lineNumber = $line; 
+{
+    /* ... */
+    if ($syntax == false) { // Syntax error
+        $exc = new MyException1;
+        $exc-&gt;lineNumber = $line;
         xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);
-        return; 
-    } 
-    /* ... */ 
-    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2'); 
-    /* ... */ 
-    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3'); 
-    /* ... */ 
+        return;
+    }
+    /* ... */
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2');
+    /* ... */
+    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3');
+    /* ... */
     return true;
 }</programlisting></para>
 
@@ -1189,8 +1189,7 @@ MyModule_user_MyFunc()
         conjunction with the obid as part of a URL to access the object. For
         example, if your example_user_display() function uses a variable picid
         to define the particular picture that a user wishes to look at then
-        the URL would be something like
-        '<uri>index.php?module=example&amp;func=display&amp;picid=4</uri>' and
+        the URL would be something like'index.php?module=example&amp;func=display&amp;picid=4' and
         the identification part of the URL would be something like 'picid=4'
         so you would pass 'picid' to this hook. For display() hooks a URL that
         can be used by the hooks to return to a suitable page once they have
@@ -1856,11 +1855,11 @@ MyModule_user_MyFunc()
       <para>Modules written as classes is allowed, however the API as
       described in the rest of this document must still be adhered to. The
       simplest way of doing this is to use compatibility functions, for
-      example: <programlisting>function mymod_user_main() { 
-    // Instantiate 
-    $obj = new myClass(); 
-    // Call relevant method and return output return 
-    $obj-&gt;usermain(); 
+      example: <programlisting>function mymod_user_main() {
+    // Instantiate
+    $obj = new myClass();
+    // Call relevant method and return output return
+    $obj-&gt;usermain();
 }</programlisting></para>
     </section>
 

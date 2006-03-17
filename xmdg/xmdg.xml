@@ -35,15 +35,13 @@
 
     <date>September 21, 2003</date>
 
-    <author>
-      <surname>Scot Gardner</surname>
-    </author>
+    <authorgroup>
+      <corpauthor>The Xaraya Documentation Team</corpauthor>
+    </authorgroup>
 
-    <author>
-      <surname>MichelV</surname>
+    <contrib>Scot Gardner</contrib>
 
-      <email>MichelV@xaraya.com</email>
-    </author>
+    <contrib>Jojodee, Baraboom, MichelV</contrib>
 
     <legalnotice>
       <para>Proposed License: GNU Free Documentation License
@@ -54,13 +52,16 @@
   <preface>
     <title>Preface</title>
 
-    <para>Xaraya has been released in 2005 as version 1.0. The initial
-    installation package includes core functionality for a basic content
-    management solution listing of registered modules on Xaraya.com includes
-    sixty-two content-based modules registered for a certified Xaraya
-    identification number. Thirty-nine of those modules are currently
-    completed or under development by members of the Xaraya development
-    team.</para>
+    <para>Xaraya has been released in 2005 as version 1.0, after more than
+    five years of development. This long time has garanteed for a profoundly
+    good product.</para>
+
+    <para>The initial installation package includes core functionality for a
+    basic content management solution listing of registered modules on
+    Xaraya.com includes sixty-two content-based modules registered for a
+    certified Xaraya identification number. Thirty-nine of those modules are
+    currently completed or under development by members of the Xaraya
+    development team.</para>
 
     <para>Third party developers have a concept or idea that they want to
     contribute to the project, but lack the proper tools that will allow them
@@ -714,7 +715,7 @@ MyModule_user_MyFunc()
     </section>
 
     <section>
-      <title>Variable preperations</title>
+      <title>Variable preparations</title>
 
       <para><programlisting>xarVarPrepForDisplay(YourString);</programlisting></para>
     </section>
@@ -740,7 +741,7 @@ MyModule_user_MyFunc()
     <section>
       <title>Separations</title>
 
-      <para>Xaraya modules use a clear seperation of functions according to
+      <para>Xaraya modules use a clear separation of functions according to
       what they do.</para>
 
       <section>
@@ -767,7 +768,7 @@ MyModule_user_MyFunc()
         <title>Display and Operational Functions</title>
 
         <para>Separation of display and operational functions allows for areas
-        within and without Xaraya to use the functionality supplied with a
+        within and without Xaraya to use the functionality supplied by a
         module. This is most obvious in the case of modules with blocks. Where
         the block might display its own information but use the module
         functions to gather that information. Other modules where this is
@@ -776,11 +777,11 @@ MyModule_user_MyFunc()
         with other modules to provide generic and site-wide functionality at
         very little cost to the module developer.</para>
 
-        <para>Operational functions go into the ...api directory. These
+        <para>Operational functions go into the xar...api directory. These
         functions will not call a template at return, but are expected to
         return the result of their operation. Functions that will display data
         will always go in xaradmin or xaruser directories. The exception here
-        is blocks.</para>
+        is blocks, that are placed in xarblocks/.</para>
       </section>
     </section>
 
@@ -829,7 +830,187 @@ MyModule_user_MyFunc()
       times to ensure correct operation of the module. This shows the layout
       of the example module directory. Other modules will have different names
       for their top-level directory and blocks as appropriate for their
-      specific functionality</para>
+      specific functionality.</para>
+
+      <orderedlist>
+        <listitem>
+          <para>modules/</para>
+
+          <orderedlist>
+            <listitem>
+              <para>example</para>
+
+              <orderedlist>
+                <listitem>
+                  <para>xaradmin/</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>create.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>delete.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>main.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>modify.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>modifyconfig.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>new.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>update.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>updateconfig.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>view.php</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>xaradminapi</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>create.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>delete.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>getmenulinks.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>menu.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>update.php</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>xarblocks</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>first.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>modify-first.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>modify-others.php</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>others.php</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>xarimages</para>
+                </listitem>
+
+                <listitem>
+                  <para>xarproperties</para>
+                </listitem>
+
+                <listitem>
+                  <para>xarstyles</para>
+                </listitem>
+
+                <listitem>
+                  <para>xartemplates</para>
+
+                  <orderedlist>
+                    <listitem>
+                      <para>blocks</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>includes</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>properties</para>
+                    </listitem>
+                  </orderedlist>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para></para>
+                    </listitem>
+                  </itemizedlist>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para></para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>xartests</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>index.html</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>testexample.php</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>xaruser</para>
+                </listitem>
+
+                <listitem>
+                  <para>xaruserapi</para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </orderedlist>
+        </listitem>
+      </orderedlist>
 
       <para>modules/ (1) example/ (2) xaradmin/ (3) create.php (4) delete.php
       (5) main.php (6) modify.php (7) modifyconfig.php (8) new.php (9)
@@ -1021,6 +1202,12 @@ MyModule_user_MyFunc()
       xaruserapi/ directory. (76) xarversion.php This file contains the module
       ID number, author, and version information for the example
       module.</para>
+    </section>
+
+    <section>
+      <title></title>
+
+      <para></para>
     </section>
   </chapter>
 

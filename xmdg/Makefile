@@ -37,9 +37,14 @@ CSSSTYLE=xmdg.css
 # Source related
 SOURCES=xmdg.xml
 
+# Printed output parameters
 PAPER.TYPE='USletter'
+DRAFT.MODE='no'
+DOUBLE.SIDED=0
 
-# Allow to override these options locally
+# Allow to override all the above options locally
+# which means that all options which may be overridden should be
+# above this line and all others below this line.
 -include make.opts.local
 
 all: html pdf txt index.html
@@ -49,13 +54,17 @@ pdf:  xmdg.pdf
 txt:  xmdg.txt
 
 %.html: $(SOURCES)
-	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $? > $@ 
+	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
+				$(DB2HTML) $? > $@ 
 
 index.html: $(SOURCES)
-	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) --stringparam chunk.section.depth 0 $(DB2CHUNKS) $?
+	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
+				--stringparam chunk.section.depth 0 \
+				$(DB2CHUNKS) $?
 
 %.fop: $(SOURCES)
-	$(XSLTPROC) --stringparam draft.mode no \
+	$(XSLTPROC) --stringparam draft.mode $(DRAFT.MODE) \
+				--stringparam double.sided $(DOUBLE.SIDED) \
 				--stringparam fop.extensions 1 \
 				--stringparam ignore.image.scaling 1 \
 				--stringparam paper.type $(PAPER.TYPE) \

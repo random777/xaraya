@@ -48,10 +48,10 @@ DOUBLE.SIDED=0
 -include make.opts.local
 
 all: html pdf txt index.html
-html: xmdg.html
-fop:  xmdg.fop
-pdf:  xmdg.pdf
-txt:  xmdg.txt
+html: $(patsubst %.xml,%.html,$(SOURCES))
+fop:  $(patsubst %.xml,%.fop,$(SOURCES))
+pdf:  $(patsubst %.xml,%.pdf,$(SOURCES))
+txt:  $(patsubst %.xml,%.txt,$(SOURCES))
 
 %.html: $(SOURCES)
 	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
@@ -83,9 +83,9 @@ index.html: $(SOURCES)
 
 clean:
 	rm -f *.html
-	rm -f xmdg.fop
-	rm -f xmdg.pdf
-	rm -f xmdg.txt
+	rm -f *.fop
+	rm -f *.pdf
+	rm -f *.txt
 
 monotone:
 	$(MT) pull mt.xaraya.com 'com.xaraya.documentation'

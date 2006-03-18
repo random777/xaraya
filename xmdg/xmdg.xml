@@ -31,6 +31,15 @@
       </revision>
     </revhistory>
 
+    <revhistory>
+      <revision>
+        <revnumber>2.0.1</revnumber>
+
+        <date>Start on new Table of Contents. Start splitting the doc into
+        Xaraya 1.0 compliant parts</date>
+      </revision>
+    </revhistory>
+
     <date>August 15, 2004</date>
 
     <date>September 21, 2003</date>
@@ -281,7 +290,32 @@
 
     <para>This chapter describes the basic architecture of Xaraya, explains
     the major parts, and contains information on the design choices made for
-    the system. It describes how basic parts of Xaraya operate.</para>
+    the system. It describes how basic parts of Xaraya operate and what you
+    can expect from Xaraya Core.</para>
+
+    <section>
+      <title>Block lay-out</title>
+
+      <para>Explanation of Block Lay-out in Xaraya</para>
+    </section>
+
+    <section>
+      <title>Xaraya API</title>
+
+      <para>Reference type of text</para>
+    </section>
+
+    <section>
+      <title>Core modules</title>
+
+      <para>What Core modules are there, what can you use</para>
+    </section>
+
+    <section>
+      <title>Blocks</title>
+
+      <para></para>
+    </section>
 
     <section>
       <title>Variable Handling</title>
@@ -1050,11 +1084,15 @@ MyModule_user_MyFunc()
 
                   <orderedlist continuation="continues">
                     <listitem>
-                      <para>admin-delete.xd</para>
+                      <para>admin-delete.xd<indexterm>
+                          <primary>templates</primary>
+                        </indexterm></para>
                     </listitem>
 
                     <listitem>
-                      <para>admin-main.xd</para>
+                      <para>admin-main.xd<indexterm>
+                          <primary>templates</primary>
+                        </indexterm></para>
                     </listitem>
 
                     <listitem>
@@ -1400,8 +1438,6 @@ MyModule_user_MyFunc()
       <para>(44) user-display.xd Templates file for the user display
       page.</para>
 
-      <para></para>
-
       <para>(45) user-main.xd Templates file for the users main page.</para>
 
       <para>(46) user-menu.xd Templates file for the users menu. (47)
@@ -1607,7 +1643,7 @@ MyModule_user_MyFunc()
       the Xaraya main page or to use the xarModURL() function to generate URLs
       that will always be internally consistent for any given version of
       Xaraya. You can also extend the xarModUrl call by adding a parameter
-      call to the function in the form of an array. <programlisting>xarModURL('module', 'type', 'function', array('foo' =&gt; $bar))</programlisting>
+      call to the function in the form of an array. <programlisting><function>xarModURL('<parameter>module</parameter>', 'type', 'function', array('foo' =&gt; $bar))</function></programlisting>
       will create the input parameter of 'foo' having the value of
       $bar.</para>
 
@@ -1803,11 +1839,12 @@ MyModule_user_MyFunc()
         function which created an entry in the global ID table for this
         particular piece of content then you would register this as a creation
         hook. To do this you would use the following lines within
-        globalid_init(): <programlisting>if (!xarModRegisterHook('item', 'create', 'API', 'globalid', 'admin', 'create)) { return false; }</programlisting>
-        Which would register this hook to be called every time a hook-enabled
-        module someone creates an item (a similar but separate call would be
-        needed to register this hook for the creation of categories as
-        well).</para>
+        globalid_init(): <programlisting>if (!xarModRegisterHook('item', 'create', 'API', 'globalid', 'admin', 'create)) { 
+    return false; 
+}</programlisting> Which would register this hook to be called every time a
+        hook-enabled module someone creates an item (a similar but separate
+        call would be needed to register this hook for the creation of
+        categories as well).</para>
 
         <para>The Ratings module that comes with the core Xaraya distribution
         has detailed comments on registering hooks within a utility

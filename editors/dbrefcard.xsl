@@ -31,7 +31,7 @@
  <fo:page-sequence master-reference="main_page">
   <fo:static-content flow-name="xsl-region-before">
    <fo:block text-align="center">
-     <xsl:text>Xaraya DocBook Element Quick Reference Card</xsl:text>
+     <xsl:value-of select="./title"/>
    </fo:block>
    <fo:block line-height=".2pt">
      <fo:leader leader-alignment="reference-area"

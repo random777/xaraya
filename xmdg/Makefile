@@ -8,72 +8,84 @@
 # - docbook xsl stylesheets
 #
 
-# Programs we use
+# 
+# Default values for the options (create make.opts.local to customize for yourself)
+#
 XSLTPROC=xsltproc --novalid
 FOP=fop -q
 LYNX=lynx
 MT=monotone
 
-# Stylesheets we need are provided by standard docbook xsl distribution
-# which unfortunately can live in many different locations, we add the ones
-# we know and use (uncomment) the relevant one when making
-
-# Darwinports on OSX
-# DBXSL=/opt/local/share/xsl/docbook-xsl
 # Gentoo on newton
 DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
-# Cygwin/MSys on windows??
-#DBXSL=????
 
 # Where does the output need to go
 # For newton
 OUTPUT=/var/www/ddf/common/documentation/devguide
-# For doc writers
-#OUTPUT=.
 
+# Which stylesheets to use for the transformations
 DB2HTML=$(DBXSL)/xhtml/docbook.xsl
 DB2CHUNKS=$(DBXSL)/xhtml/chunk.xsl
 DB2FOP=$(DBXSL)/fo/docbook.xsl
+
+# Standard docbook images
 DBIMAGES=$(DBXSL)/images
 
-# HTML specific
+# HTML specific CSS
 CSSSTYLE=xmdg.css
 
 # Source related
-TOPFILE=xmdg.xml
-SOURCES=$(wildcard *.xml) $(wildcard modules/*.xml) 
+SOURCES=xmdg.xml
+
+# Printed output parameters
+PAPER.TYPE='USletter'
+DRAFT.MODE='no'
+DOUBLE.SIDED=0
+
+# Allow to override all the above options locally
+# which means that all options which may be overridden should be
+# above this line and all others below this line.
+-include make.opts.local
 
 all: html pdf txt index.html
-html: xmdg.html
-fop:  xmdg.fop
-pdf:  xmdg.pdf
-txt:  xmdg.txt
+html: $(patsubst %.xml,%.html,$(SOURCES))
+fop:  $(patsubst %.xml,%.fop,$(SOURCES))
+pdf:  $(patsubst %.xml,%.pdf,$(SOURCES))
+txt:  $(patsubst %.xml,%.txt,$(SOURCES))
 
-xmdg.html: $(SOURCES)
-	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $(TOPFILE) > $@ 
+%.html: $(SOURCES)
+	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
+				$(DB2HTML) $? > $@ 
 
 index.html: $(SOURCES)
-	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) --stringparam chunk.section.depth 0 $(DB2CHUNKS) $(TOPFILE)
+	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
+				--stringparam chunk.section.depth 0 \
+				$(DB2CHUNKS) $?
 
-xmdg.fop: $(SOURCES)
-	$(XSLTPROC) --stringparam draft.mode no --stringparam fop.extensions 1 --stringparam ignore.image.scaling 1 $(DB2FOP) $(TOPFILE) > $@
+%.fop: $(SOURCES)
+	$(XSLTPROC) --stringparam draft.mode $(DRAFT.MODE) \
+				--stringparam double.sided $(DOUBLE.SIDED) \
+				--stringparam fop.extensions 1 \
+				--stringparam ignore.image.scaling 1 \
+				--stringparam paper.type $(PAPER.TYPE) \
+				$(DB2FOP) $? > $@
 
-xmdg.pdf: fop
-	$(FOP) -fo xmdg.fop -pdf $@
+%.pdf: %.fop
+	$(FOP) -fo $? -pdf $@
 
 # txt target in fop sucks, but this is how it would be done
 #xmdg.txt: xmdg.fop
 #	$(FOP) -fo xmdg.fop -txt $@
 
 # instead we use the poor mans txt formatter lynx!
-xmdg.txt: html
-	$(LYNX) -dump $< > $@
+%.txt: %.html
+	$(LYNX) -dump $? > $@
 
 clean:
 	rm -f *.html
-	rm -f xmdg.fop
-	rm -f xmdg.pdf
-	rm -f xmdg.txt
+	rm -f *.fop
+	rm -f *.pdf
+	rm -f *.txt
 
 monotone:
 	$(MT) pull mt.xaraya.com 'com.xaraya.documentation'

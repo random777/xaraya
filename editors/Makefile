@@ -1,71 +1,51 @@
 #
-# Makefile for the dbrefcard
+# Makefile for the Xaraya Docbook refcard
 #
 # Requirements:
 # - xsltproc 
 # - fop
-# - lynx
-# - docbook xsl stylesheets
-#
+# - specific stylesheet which produces the reference card
 
-# Programs we use
+# 
+# Default values for the options (create make.opts.local to customize for yourself)
+#
 XSLTPROC=xsltproc --novalid
 FOP=fop -q
-LYNX=lynx
-MT=monotone
 
-# Stylesheets we need are provided by standard docbook xsl distribution
-# which unfortunately can live in many different locations, we add the ones
-# we know and use (uncomment) the relevant one when making
-
-# Darwinports on OSX
-DBXSL=/opt/local/share/xsl/docbook-xsl
-# Gentoo on newton
-#DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
-# Cygwin/MSys on windows??
-#DBXSL=????
-
-OUTPUT=.
-
-DB2HTML=$(DBXSL)/xhtml/docbook.xsl
-DB2CHUNKS=$(DBXSL)/xhtml/chunk.xsl
-DB2FOP=$(DBXSL)/fo/docbook.xsl
+# Which stylesheets to use for the transformations
 DB2FOP=dbrefcard.xsl
-DBIMAGES=$(DBXSL)/images
-
-# HTML specific
-CSSSTYLE=dbrefcard.css
 
 # Source related
-TOPFILE=dbrefcard.xml
-SOURCES=$(wildcard *.xml) 
+SOURCES=dbrefcard.xml
 
-all: html pdf txt 
-html: dbrefcard.html
-fop:  dbrefcard.fop
-pdf:  dbrefcard.pdf
-txt:  dbrefcard.txt
+# Printed output parameters
+PAPER.TYPE='USletter'
+DRAFT.MODE='no'
+DOUBLE.SIDED=0
 
-dbrefcard.html: $(SOURCES)
-	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $(TOPFILE) > $@ 
+# Allow to override all the above options locally
+# which means that all options which may be overridden should be
+# above this line and all others below this line.
+-include make.opts.local
 
-dbrefcard.fop: $(SOURCES) $(DB2FOP)
-	$(XSLTPROC) --stringparam draft.mode no --stringparam fop.extensions 1 --stringparam ignore.image.scaling 1 $(DB2FOP) $(TOPFILE) > $@
+all: pdf $(DB2FOP)
+fop:  $(patsubst %.xml,%.fop,$(SOURCES))
+pdf:  $(patsubst %.xml,%.pdf,$(SOURCES))
 
-dbrefcard.pdf: fop
-	$(FOP) -fo dbrefcard.fop -pdf $@
+%.fop: $(SOURCES)
+	$(XSLTPROC) --stringparam draft.mode $(DRAFT.MODE) \
+				--stringparam double.sided $(DOUBLE.SIDED) \
+				--stringparam fop.extensions 1 \
+				--stringparam ignore.image.scaling 1 \
+				--stringparam paper.type $(PAPER.TYPE) \
+				$(DB2FOP) $? > $@
 
-# txt target in fop sucks, but this is how it would be done
-#dbrefcard.txt: dbrefcard.fop
-#	$(FOP) -fo dbrefcard.fop -txt $@
-
-# instead we use the poor mans txt formatter lynx!
-dbrefcard.txt: html
-	$(LYNX) -dump $< > $@
+%.pdf: %.fop
+	$(FOP) -fo $? -pdf $@
 
 clean:
-	rm -f *.html
-	rm -f dbrefcard.fop
-	rm -f dbrefcard.pdf
-	rm -f dbrefcard.txt
+	rm -f *.fop
+	rm -f *.pdf
+
+
 

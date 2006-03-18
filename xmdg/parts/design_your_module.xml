@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <chapter>
+      <title>Design your module</title>
+      <section>
+        <title>List required functionality</title>
+  <!--Maintained by:-->
+
+  <!--Status:-->
+        <para></para>
+      </section>
+      <section>
+        <title>Determine storage/database table requirements</title>
+
+        <para></para>
+      </section>
+      <section>
+        <title>Identify existing xaraya utilities or functions</title>
+
+        <para></para>
+      </section>
+      <section>
+        <title>Identify special or other UI requirements</title>
+
+        <para></para>
+      </section>
+      <section>
+        <title> List the functions you need to create</title>
+
+        <para></para>
+      </section>
+    </chapter>

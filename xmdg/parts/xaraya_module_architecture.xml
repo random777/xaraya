@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <chapter>
+      <title>Xaraya Module Architecture</title>
+  <!--Maintained by:-->
+
+  <!--Status:-->
+      <section>
+        <title>Separation of User and Administrator Functions </title>
+
+        <para></para>
+      </section>
+      <section>
+        <title> Separation of Display and Operational Functions</title>
+
+        <para></para>
+      </section>
+      <section>
+        <title>Single Directory Installation - Structure</title>
+
+        <para></para>
+      </section>
+      <section>
+        <title>Standard Module Functions</title>
+
+        <para></para>
+      </section>
+      <section>
+        <title>Variable handling</title>
+
+        <para></para>
+      </section>
+     <section>
+        <title>Templates</title>
+
+        <para></para>
+      </section>
+     <section>
+        <title>Installing, activating and upgrading</title>
+
+        <para></para>
+      </section>
+     <section>
+        <title>Special Functions for Content Modules</title>
+
+        <para></para>
+      </section>
+     <section>
+        <title>Special compontents for Utility Modules</title>
+
+        <para></para>
+      </section>
+     <section>
+        <title>Interacting with other Xaraya components</title>
+
+        <para></para>
+      </section>
+
+
+
+    </chapter>

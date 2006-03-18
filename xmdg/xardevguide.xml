@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"docbookx.dtd" [
+<!ENTITY introduction SYSTEM "parts/introduction.xml">
+<!ENTITY getting_to_know_xaraya SYSTEM "parts/getting_to_know_xaraya.xml">
+<!ENTITY working_with_xaraya SYSTEM "parts/working_with_xaraya.xml">
+<!ENTITY getting_help SYSTEM "parts/getting_help.xml">
+<!ENTITY do_i_need_a_module SYSTEM "parts/do_i_need_a_module.xml">
+<!ENTITY before_you_begin SYSTEM "parts/before_you_begin.xml">
+<!ENTITY xaraya_module_architecture SYSTEM "parts/xaraya_module_architecture.xml">
+<!ENTITY design_your_module SYSTEM "parts/design_your_module.xml">
+<!ENTITY create_your_module SYSTEM "parts/create_your_module.xml">
+<!ENTITY block_types SYSTEM "parts/block_types.xml">
+<!ENTITY understanding_hooks SYSTEM "parts/understanding_hooks.xml">
+<!ENTITY creating_dd_properties SYSTEM "parts/creating_dd_properties.xml">
+<!ENTITY custom_blocklayout SYSTEM "parts/custom_blocklayout.xml">
+<!ENTITY key_template_types SYSTEM "parts/key_template_types.xml">
+<!ENTITY blocklayout_usage SYSTEM "parts/blocklayout_usage.xml">
+<!ENTITY corecss_classes SYSTEM "parts/corecss_classes.xml">
+<!ENTITY themes_and_skins SYSTEM "parts/themes_and_skins.xml">
+<!ENTITY intro_to_dd SYSTEM "parts/intro_to_dd.xml">
+<!ENTITY using_dd SYSTEM "parts/using_dd.xml">
+<!ENTITY dd_objects SYSTEM "parts/dd_objects.xml">
+<!ENTITY templating_dd SYSTEM "parts/templating_dd.xml">
+]>
+<book lang="en">
+  <bookinfo>
+    <title><inlinegraphic align="right" fileref="images/xar_logo_base_120.jpg"
+    format="JPG" />Xaraya Developer's Guide</title>
+
+    <subtitle>Creating web applications with Xaraya</subtitle>
+
+    <copyright>
+      <year>2006</year>
+
+      <holder>The Digital Development Foundation</holder>
+    </copyright>
+
+    <authorgroup>
+      <corpauthor>The Xaraya Documentation Team</corpauthor>
+    </authorgroup>
+
+    <revhistory>
+      <revision>
+        <revnumber>0.1.0</revnumber>
+
+        <date>Initial Draft 19 March 2006</date>
+      </revision>
+    </revhistory>
+
+    <legalnotice>
+      <para>GNU Free Documentation License
+      http://www.gnu.org/copyleft/fdl.html</para>
+    </legalnotice>
+  </bookinfo>
+
+  <toc></toc>
+
+  <preface>
+    <title>Preface</title>
+
+    <!--New preface - original was out of date, with grammar and spelling errors, and  based on old PN texts.-->
+
+    <para><ulink url="???">Xaraya</ulink> 1.0 was released in November 2005.
+    The release marked the culmination of Xaraya's transformation from a
+    simple open source content management system into an enterprise level,
+    extensible, application framework. Since the 1.0 release there has been
+    ongoing improvements in stability, performance, and security. Xaraya now
+    provides a reliable, flexible and rapid development platform that web
+    application developers have learned they can depend on for projects of
+    varying size and complexity.</para>
+
+    <para>Xaraya is written in PHP, platform independent and currently can be
+    installed with a variety of databases including <ulink
+    url="http://www.mysql.com">MySQL</ulink>, <ulink
+    url="???">PostgreSQL</ulink>, and <ulink url="???">SQLite</ulink>. It is
+    licensed under the <ulink url="http://www.gnu.org/copyleft/gpl.html">GNU
+    General Public License</ulink>.</para>
+
+    <para>This Xaraya Developer Guide is written in the hope it will assist
+    existing and budding developers that wish to learn how to use Xaraya to
+    create custom web based applications. The Xaraya Developer Guide provides
+    a guide to best practice in Xaraya development along with the information
+    to understand and use the Xaraya development framework for developing web
+    applications.</para>
+
+    <para>The Xaraya Documentation team welcome feedback and suggestions for
+    improvement. All feature requests and notification of corrections can be
+    lodged in the Support Documentation component on Xaraya's bugzilla at
+    <ulink url="???">http://bugs.xaraya.com</ulink></para>
+  </preface>
+
+  <!--The following Chapters are each contained in their own subdocument. -->
+
+  <!--In XMLMind you can edit them by clicking on the Edit Referenced Document arrow next to the top tag path bar.-->
+
+  <!--The fist step is to confirm the chapters and orders, the next to organize existing content into the new subdocs.-->
+
+  <part id="introduction">
+    <title>So you want to create a web application?</title>
+
+    &introduction;
+
+    &getting_to_know_xaraya;
+
+    &working_with_xaraya;
+
+    &getting_help;
+  </part>
+
+  <part>
+    <title>Extending Xaraya using Modules</title>
+
+    &do_i_need_a_module;
+
+    &before_you_begin;
+
+    &xaraya_module_architecture;
+
+    &design_your_module;
+
+    &create_your_module;
+  </part>
+
+  <part>
+    <title>Extending Xaraya with special components</title>
+
+    &block_types;
+
+    &understanding_hooks;
+
+    &creating_dd_properties;
+
+    &custom_blocklayout;
+  </part>
+
+  <part>
+    <title>System templates</title>
+
+    &key_template_types;
+
+    &blocklayout_usage;
+
+    &corecss_classes;
+
+    &themes_and_skins;
+  </part>
+
+  <part>
+    <title>Dynamic Data</title>
+
+    &intro_to_dd;
+
+    &using_dd;
+
+    &dd_objects;
+
+    &templating_dd;
+  </part>
+
+  <appendix>
+    <title>References</title>
+
+    <para></para>
+  </appendix>
+
+  <appendix>
+    <title>Setting up a Xaraya Development Environment</title>
+
+    <para></para>
+  </appendix>
+</book>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <chapter>
+      <title>Create your module</title>
+  <!--Maintained by:-->
+
+  <!--Status:-->
+    <section>
+        <title>Make the  initial directory</title>
+
+        <para></para>
+      </section>
+    <section>
+        <title>Copy the Example or Dyn_Example Module Template</title>
+
+        <para></para>
+      </section>
+    <section>
+        <title>Code the Database Tables</title>
+
+        <para></para>
+      </section>
+    <section>
+        <title>Write and test the Initialisation Routines</title>
+
+        <para></para>
+      </section>
+    <section>
+        <title>Write and test the Administration Functions</title>
+
+        <para></para>
+      </section>
+    <section>
+        <title>Write and test the User Functions</title>
+
+        <para></para>
+      </section>
+   <section>
+        <title>Write and test the Blocks</title>
+
+        <para></para>
+      </section>
+   <section>
+        <title>Need hooks, dynamic properties or custom tags?</title>
+
+        <para></para>
+      </section>
+   <section>
+        <title>Document your module</title>
+
+        <para></para>
+      </section>
+   <section>
+        <title>Package your module</title>
+
+        <para></para>
+      </section>
+   <section>
+        <title>Release your module</title>
+
+        <para></para>
+      </section>
+    </chapter>

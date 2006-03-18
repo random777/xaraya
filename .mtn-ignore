@@ -1,0 +1,7 @@
+xmdg/\.schemas/.*
+\._.*
+xmdg/schemas\.xml$
+xmdg/xmdg\.html
+xmdg/xmdg\.pdf
+rfc2629xslt/.*
+rfc/rfc....\.html

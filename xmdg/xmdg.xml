@@ -1193,7 +1193,7 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>validateitem.php</para>
                     </listitem>
-                  </itemizedlist>
+                  </orderedlist>
                 </listitem>
               </orderedlist>
             </listitem>

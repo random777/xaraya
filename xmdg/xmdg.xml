@@ -1050,11 +1050,15 @@ MyModule_user_MyFunc()
 
                   <orderedlist continuation="continues">
                     <listitem>
-                      <para>admin-delete.xd</para>
+                      <para>admin-delete.xd<indexterm>
+                          <primary>templates</primary>
+                        </indexterm></para>
                     </listitem>
 
                     <listitem>
-                      <para>admin-main.xd</para>
+                      <para>admin-main.xd<indexterm>
+                          <primary>templates</primary>
+                        </indexterm></para>
                     </listitem>
 
                     <listitem>
@@ -1399,8 +1403,6 @@ MyModule_user_MyFunc()
 
       <para>(44) user-display.xd Templates file for the user display
       page.</para>
-
-      <para></para>
 
       <para>(45) user-main.xd Templates file for the users main page.</para>
 

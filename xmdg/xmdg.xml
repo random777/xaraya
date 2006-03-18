@@ -834,15 +834,15 @@ MyModule_user_MyFunc()
 
       <orderedlist>
         <listitem>
-          <para>modules/</para>
+          <para><link linkend="dir1">modules/ (1)</link></para>
 
           <orderedlist continuation="continues">
             <listitem>
-              <para>example</para>
+              <para><link linkend="dir2">example/ (2)</link></para>
 
               <orderedlist continuation="continues">
                 <listitem>
-                  <para>xaradmin/</para>
+                  <para><link linkend="dir3">xaradmin/ (3)</link></para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -888,7 +888,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xaradminapi</para>
+                  <para>xaradminapi/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -918,7 +918,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xarblocks</para>
+                  <para>xarblocks/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -944,7 +944,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xarimages</para>
+                  <para>xarimages/</para>
 
                   <itemizedlist>
                     <listitem>
@@ -954,7 +954,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xarproperties</para>
+                  <para>xarproperties/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -968,7 +968,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xarstyles</para>
+                  <para>xarstyles/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -982,11 +982,11 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xartemplates</para>
+                  <para>xartemplates/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
-                      <para>blocks</para>
+                      <para>blocks/</para>
 
                       <itemizedlist>
                         <listitem>
@@ -1012,7 +1012,7 @@ MyModule_user_MyFunc()
                     </listitem>
 
                     <listitem>
-                      <para>includes</para>
+                      <para>includes/</para>
 
                       <orderedlist continuation="continues">
                         <listitem>
@@ -1026,7 +1026,7 @@ MyModule_user_MyFunc()
                     </listitem>
 
                     <listitem>
-                      <para>properties</para>
+                      <para>properties/</para>
 
                       <orderedlist continuation="continues">
                         <listitem>
@@ -1052,9 +1052,7 @@ MyModule_user_MyFunc()
                     <listitem>
                       <para>admin-delete.xd</para>
                     </listitem>
-                  </orderedlist>
 
-                  <orderedlist continuation="continues">
                     <listitem>
                       <para>admin-main.xd</para>
                     </listitem>
@@ -1110,7 +1108,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xartests</para>
+                  <para>xartests/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -1124,7 +1122,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xaruser</para>
+                  <para>xaruser/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -1154,7 +1152,7 @@ MyModule_user_MyFunc()
                 </listitem>
 
                 <listitem>
-                  <para>xaruserapi</para>
+                  <para>xaruserapi/</para>
 
                   <orderedlist continuation="continues">
                     <listitem>
@@ -1238,174 +1236,288 @@ MyModule_user_MyFunc()
         </listitem>
       </orderedlist>
 
-      <para>(1) The top-level directory in Xaraya for modules (2) The
-      directory that contains all of the module code (in this case the module
-      is named 'example') (3) The directory that contains all administrative
-      GUI functions for the module (4) create.php This a standard function
-      that is called with the results of the form supplied by
-      xarModFunc(‘example’,’admin’,’new’) to create a new item. Syntax: @param
-      string $’name’ – The name of the item to be created @param int $’number’
-      – The number of the item to be created (5) delete.php This standard
-      function is called whenever an administrator wishes to delete a current
-      module item. Note that this function is the equivalent of both the
-      modify() and update() functions as it operates a form and processes its
-      output. This is fine for simpler functions, but for complex operations
-      such as creation and modification it is generally easier to separate
-      them into separate functions. There is no requirement in the Xaraya MDG
-      to use one or the other, so either or both can be used as seen
-      appropriate by the module developer. Syntax: @param int $’exid’ - The id
-      of the item to be deleted @param string $’confirm’ – Confirm that this
-      item can be deleted (6) main.php This function is the default function,
-      and is called whenever the module is initiated without defining
-      arguments. As such, it can be used for a number of things, but most
-      commonly, it either shows the module menu and returns or calls whatever
-      the module designer feels should be the default function. (This is often
-      the view function) (7) modify.php This is a standard admin function that
-      is called whenever an administrator whishes to modify a current module
-      item. Syntax: @param int $’exid’ the id of the item to be modified (8)
-      modifyconfig.php This is the standard function to modify the
+      <para>(1<anchor id="dir1" />) The top-level directory in Xaraya for
+      modules</para>
+
+      <para>(2<anchor id="dir2" />) The directory that contains all of the
+      module code (in this case the module is named 'example')</para>
+
+      <para>(3<anchor id="dir3" />) The directory that contains all
+      administrative GUI functions for the module</para>
+
+      <para>(4) create.php This a standard function that is called with the
+      results of the form supplied by xarModFunc(‘example’,’admin’,’new’) to
+      create a new item. Syntax: @param string $’name’ – The name of the item
+      to be created @param int $’number’ – The number of the item to be
+      created</para>
+
+      <para>(5) delete.php This standard function is called whenever an
+      administrator wishes to delete a current module item. Note that this
+      function is the equivalent of both the modify() and update() functions
+      as it operates a form and processes its output. This is fine for simpler
+      functions, but for complex operations such as creation and modification
+      it is generally easier to separate them into separate functions. There
+      is no requirement in the Xaraya MDG to use one or the other, so either
+      or both can be used as seen appropriate by the module developer. Syntax:
+      @param int $’exid’ - The id of the item to be deleted @param string
+      $’confirm’ – Confirm that this item can be deleted</para>
+
+      <para>(6) main.php This function is the default function, and is called
+      whenever the module is initiated without defining arguments. As such, it
+      can be used for a number of things, but most commonly, it either shows
+      the module menu and returns or calls whatever the module designer feels
+      should be the default function. (This is often the view function)</para>
+
+      <para>(7) modify.php This is a standard admin function that is called
+      whenever an administrator whishes to modify a current module item.
+      Syntax: @param int $’exid’ the id of the item to be modified</para>
+
+      <para>(8) modifyconfig.php This is the standard function to modify the
       configuration parameters for the module. (9) new.php This standard
       function is called whenever the administrator wishes to create a new
-      module item. (10) update.php This is the standard function that is
-      called with the results of the form supplied by xarModFunc(‘example’,
+      module item.</para>
+
+      <para>(10) update.php This is the standard function that is called with
+      the results of the form supplied by xarModFunc(‘example’,
       ‘admin’,’modify’) to update a current item. Syntax: @param int $ ‘exid’
       – The id of the item to be updated @param string $ ‘name’ – The name of
       the item to be updated @param int $ ‘number’ – The number of the item to
-      be updated (11) updateconfig.php This standard function updates the
+      be updated</para>
+
+      <para>(11) updateconfig.php This standard function updates the
       configuration parameters of the module given the information passed back
-      by the modification form. (12) view.php This standard function is called
-      whenever the administrator wishes to view a module item. (13) index.html
-      This is a blank index.html file to prevent someone from viewing the
-      directory contents when access this directory via a url. (14)
-      xaradminapi The directory that contains all administrative database
-      functions for the module. (15) create.php This standard function creates
-      an item when the administrator wants to create an item in the database.
-      Parameters are passed from the xaradmin/create.php. This function
-      returns the example item upon success, or raises an exception error upon
-      failing. Syntax: @param $args ['exid'] the ID of the item @param $args
-      [‘name’] name of the item @param $args[‘number’] number of the item
-      Returns the example item ID as integer on success, returns false on
-      failure and raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR (16)
-      delete.php This standard function deletes an item in the database.
-      Parameters are passed from the xaradmin/delete.php. This function
-      returns true upon success, or raises an exception error upon failing.
-      Syntax: @param $args [‘exid’] name of the item Returns the example item
-      ID as integer on success, returns false on failure and raises BAD_PARAM,
-      NO_PERMISSION, DATABASE_ERROR (17) getmenulinks.php This is a utility
-      function that passes individual menu items to the main menu. Returns
-      array containing the menulinks for the admin menu items. (18) menu.php
-      This function generates the common admin menu configuration (19)
-      update.php This standard function updates an item when the administrator
-      wants to change an item in the database. Parameters are passed from the
-      xaradmin/update.php. This function returns the example item upon
-      success, or raises an exception error upon failing. Syntax: @param $args
-      ['exid'] the ID of the item @param $args [‘name’] name of the item
-      @param $args[‘number’] number of the item Returns the example item ID as
-      integer on success, returns false on failure and raises BAD_PARAM,
-      NO_PERMISSION, DATABASE_ERROR (20) index.html This is a blank index.html
-      file to prevent someone from viewing the directory contents when access
-      this directory via a url. (21) xarblocks/ This directory contains the
-      files for generating blocks for the module. (22) first.php This is the
-      code for the example block for the example module. (23) others.php This
-      is the code for the example block for the example module. (24)
-      index.html This is a blank index.html file to prevent someone from
-      viewing the directory contents when access this directory via a url.
-      (25) xarimages/ This directory contains image files that are associated
-      with the example module. (26) admin.gif This is the image that is
-      displayed in the example module administration overview. (27)
-      admin_generic.gif This is an optional image that can be displayed in the
-      example module administration overview. (28) preferences.gif This
-      preferences image is used in the example module. (29) index.html This is
-      a blank index.html file to prevent someone from viewing the directory
-      contents when access this directory via a url. (30) xartemplates/ This
-      directory contains the template files used by blocklayout for displaying
-      pages within the example module. (31) blocks/ This directory contains
-      the template files used by blocklayout to display the blocks for the
-      example module. (32) first.xd Templates file for the first block in the
-      example module. (33) firstAdmin.xd Templates file for the first block
+      by the modification form.</para>
+
+      <para>(12) view.php This standard function is called whenever the
+      administrator wishes to view a module item.</para>
+
+      <para>(13) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url.</para>
+
+      <para>(14) xaradminapi The directory that contains all administrative
+      database functions for the module.</para>
+
+      <para>(15) create.php This standard function creates an item when the
+      administrator wants to create an item in the database. Parameters are
+      passed from the xaradmin/create.php. This function returns the example
+      item upon success, or raises an exception error upon failing. Syntax:
+      @param $args ['exid'] the ID of the item @param $args [‘name’] name of
+      the item @param $args[‘number’] number of the item Returns the example
+      item ID as integer on success, returns false on failure and raises
+      BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
+
+      <para>(16) delete.php This standard function deletes an item in the
+      database. Parameters are passed from the xaradmin/delete.php. This
+      function returns true upon success, or raises an exception error upon
+      failing. Syntax: @param $args [‘exid’] name of the item Returns the
+      example item ID as integer on success, returns false on failure and
+      raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
+
+      <para>(17) getmenulinks.php This is a utility function that passes
+      individual menu items to the main menu. Returns array containing the
+      menulinks for the admin menu items. (18) menu.php This function
+      generates the common admin menu configuration</para>
+
+      <para>(19) update.php This standard function updates an item when the
+      administrator wants to change an item in the database. Parameters are
+      passed from the xaradmin/update.php. This function returns the example
+      item upon success, or raises an exception error upon failing. Syntax:
+      @param $args ['exid'] the ID of the item @param $args [‘name’] name of
+      the item @param $args[‘number’] number of the item Returns the example
+      item ID as integer on success, returns false on failure and raises
+      BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
+
+      <para>(20) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url. (21) xarblocks/ This directory contains the files for generating
+      blocks for the module.</para>
+
+      <para>(22) first.php This is the code for the example block for the
+      example module.</para>
+
+      <para>(23) others.php This is the code for the example block for the
+      example module.</para>
+
+      <para>(24) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url.</para>
+
+      <para>(25) xarimages/ This directory contains image files that are
+      associated with the example module.</para>
+
+      <para>(26) admin.gif This is the image that is displayed in the example
+      module administration overview.</para>
+
+      <para>(27) admin_generic.gif This is an optional image that can be
+      displayed in the example module administration overview.</para>
+
+      <para>(28) preferences.gif This preferences image is used in the example
+      module.</para>
+
+      <para>(29) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url.</para>
+
+      <para>(30) xartemplates/ This directory contains the template files used
+      by blocklayout for displaying pages within the example module.</para>
+
+      <para>(31) blocks/ This directory contains the template files used by
+      blocklayout to display the blocks for the example module.</para>
+
+      <para>(32) first.xd Templates file for the first block in the example
+      module.</para>
+
+      <para>(33) firstAdmin.xd Templates file for the first block
       administration page for the example module. (34) othersAdmin.xd
       Templates file for the others block administration page for the example
-      module. (35) example-firstblock-modify.xd Templates file for the first
+      module.</para>
+
+      <para>(35) example-firstblock-modify.xd Templates file for the first
       block administration modify settings page. (36) admin-delete.xd
       Templates file for administration delete function. (37) admin-main.xd
-      Templates file for administration main function. (38) admin-menu.xd
-      Templates file for the administration menu for Example module. (39)
-      admin-modify.xd Templates file for administration modify item page. (40)
-      admin-modifyconfig.xd Templates file for administration modify
-      configuration page. (41) admin-new.xd Templates file for administration
-      new item page. (42) admin-view.xd Templates file for administration view
-      item page. (43) index.html This is a blank index.html file to prevent
-      someone from viewing the directory contents when access this directory
-      via a url. (44) user-display.xd Templates file for the user display
-      page. (45) user-main.xd Templates file for the users main page. (46)
-      user-menu.xd Templates file for the users menu. (47)
-      user-usermenu_icon.xd Template file for example user menu hook. (48)
-      user-view.xd Templates file for the user display items page. (49)
-      user-usermenu_form.xd Templates file for example hook for user menu.
-      (50) xaruser/ The directory that contains all users GUI functions for
-      the module. (51) display.php This standard function provides detailed
+      Templates file for administration main function.</para>
+
+      <para>(38) admin-menu.xd Templates file for the administration menu for
+      Example module.</para>
+
+      <para>(39) admin-modify.xd Templates file for administration modify item
+      page.</para>
+
+      <para>(40) admin-modifyconfig.xd Templates file for administration
+      modify configuration page.</para>
+
+      <para>(41) admin-new.xd Templates file for administration new item
+      page.</para>
+
+      <para>(42) admin-view.xd Templates file for administration view item
+      page.</para>
+
+      <para>(43) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url.</para>
+
+      <para>(44) user-display.xd Templates file for the user display
+      page.</para>
+
+      <para></para>
+
+      <para>(45) user-main.xd Templates file for the users main page.</para>
+
+      <para>(46) user-menu.xd Templates file for the users menu. (47)
+      user-usermenu_icon.xd Template file for example user menu hook.</para>
+
+      <para>(48) user-view.xd Templates file for the user display items
+      page.</para>
+
+      <para>(49) user-usermenu_form.xd Templates file for example hook for
+      user menu.</para>
+
+      <para>(50) xaruser/ The directory that contains all users GUI functions
+      for the module.</para>
+
+      <para>(51) display.php This standard function provides detailed
       information on a single item available from the module. Syntax: @param
       $args an array of arguments (if called by other modules) @param $args
       [‘objectid’] – A generic objected (if called by other modules) @param
-      $args [‘exid’] – The item id used for this module (52) main.php This
-      standard function is the default function, and is called whenever the
-      module is initiated without defining arguments. As such, it can be used
-      for a number of things, most commonly, it either shoes the module menu
-      and returns or calls whatever the module designer feels should be the
-      default function. (This is often the view() function) (53) user-menu.php
-      This standard function is used to display the user menu hook. (54)
-      view.php This standard function is used to provide an overview of all
-      the items available from the module. (55) index.html This is a blank
-      index.html file to prevent someone from viewing the directory contents
-      when access this directory via a url. (56) xaruserapi/ The directory
-      that contains all user database functions for the module. (57)
-      encode_shorturl.php The standard functions that encode module parameters
-      into some virtual path that will be added to index.php, and decode a
-      virtual path back to the original module parameters. (58) countitems.php
-      This utility function counts the number of items held by the module.
-      Returns the number of items as an integer type with the number of items
-      held by this module. (59) decode_shorturl.php This function extracts
-      arguments from short urls and passes them back to the
-      xarGetRequestInfo() api function. (60) get.php This standard function
-      retrieves a specific example item from the database. Syntax: @param
-      $args [‘exid’ – Id of example item to get Returns item array, or false
-      on failure Raises exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
-      (61) getall.php This standard function retrieves all example items from
-      the database. Syntax: @param $ numitems – The number of items to
+      $args [‘exid’] – The item id used for this module</para>
+
+      <para>(52) main.php This standard function is the default function, and
+      is called whenever the module is initiated without defining arguments.
+      As such, it can be used for a number of things, most commonly, it either
+      shoes the module menu and returns or calls whatever the module designer
+      feels should be the default function. (This is often the view()
+      function)</para>
+
+      <para>(53) user-menu.php This standard function is used to display the
+      user menu hook.</para>
+
+      <para>(54) view.php This standard function is used to provide an
+      overview of all the items available from the module.</para>
+
+      <para>(55) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url.</para>
+
+      <para>(56) xaruserapi/ The directory that contains all user database
+      functions for the module.</para>
+
+      <para>(57) encode_shorturl.php The standard functions that encode module
+      parameters into some virtual path that will be added to index.php, and
+      decode a virtual path back to the original module parameters.</para>
+
+      <para>(58) countitems.php This utility function counts the number of
+      items held by the module. Returns the number of items as an integer type
+      with the number of items held by this module.</para>
+
+      <para>(59) decode_shorturl.php This function extracts arguments from
+      short urls and passes them back to the xarGetRequestInfo() api
+      function.</para>
+
+      <para>(60) get.php This standard function retrieves a specific example
+      item from the database. Syntax: @param $args [‘exid’ – Id of example
+      item to get Returns item array, or false on failure Raises exceptions
+      BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
+
+      <para>(61) getall.php This standard function retrieves all example items
+      from the database. Syntax: @param $ numitems – The number of items to
       retrieve (default -1 = all) @param $ startnum – Start with this item
       number (default 1) Returns an array of items, or false on failure Raises
-      exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR (62)
-      getmenulinks.php This utility function will pass individual menu items
-      to the main menu. Returns an array containing the menu links for the
-      main menu. (63) menu.php This standard function will generate the common
-      menu configuration. (64) validateitem.php This standard function
-      validates argument arrays that are passed for writing to the database.
-      (65) index.html This is a blank index.html file to prevent someone from
-      viewing the directory contents when access this directory via a url.
-      (66) getitemlinks.php This utility function passes individual item links
-      to other calling functions Syntax: @param $args [‘itemtype’] – Item type
-      (optional) @param $args [‘itemids’] – array of item ids to get Returns
-      an array containing the itemlink(s) for the item(s) (67) xareventapi.php
-      This standard function is the event handler for the system event
-      ServerRequest Returns bool (68) xarinit.php This file contains the
-      initialization, upgrade, and delete functions for the example module.
-      Functions include example_init() – example_upgrade() – example_delete()
-      (69) xartables.php This file contains the table definitions for the
-      example module/ (70) example.wsdl This file contains an example soap xml
-      schema that connects and returns the number of items in the example
-      database. (71) index.html This is a blank index.html file to prevent
-      someone from viewing the directory contents when access this directory
-      via a url. (72) xaradmin.php A depreciated file; all admin functions
-      should be separated into individual files and placed into the xaradmin/
-      directory. (73) xaradminapi.php A depreciated file; all adminapi
-      functions should be separated into individual files and placed into the
-      xaradminapi/ directory. (74) xaruser.php A depreciated file; all user
-      functions should be separated into individual files and placed into the
-      xaruser/ directory. (75) xaruserapi.php A depreciated file; all userapi
-      functions should be separated into individual files and placed into the
-      xaruserapi/ directory. (76) xarversion.php This file contains the module
-      ID number, author, and version information for the example
-      module.</para>
+      exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
+
+      <para>(62) getmenulinks.php This utility function will pass individual
+      menu items to the main menu. Returns an array containing the menu links
+      for the main menu. (63) menu.php This standard function will generate
+      the common menu configuration.</para>
+
+      <para>(64) validateitem.php This standard function validates argument
+      arrays that are passed for writing to the database.</para>
+
+      <para>(65) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url.</para>
+
+      <para>(66) getitemlinks.php This utility function passes individual item
+      links to other calling functions Syntax: @param $args [‘itemtype’] –
+      Item type (optional) @param $args [‘itemids’] – array of item ids to get
+      Returns an array containing the itemlink(s) for the item(s)</para>
+
+      <para>(67) xareventapi.php This standard function is the event handler
+      for the system event ServerRequest Returns bool</para>
+
+      <para>(68) xarinit.php This file contains the initialization, upgrade,
+      and delete functions for the example module. Functions include
+      example_init() – example_upgrade() – example_delete()</para>
+
+      <para>(69) xartables.php This file contains the table definitions for
+      the example module/</para>
+
+      <para>(70) example.wsdl This file contains an example soap xml schema
+      that connects and returns the number of items in the example
+      database.</para>
+
+      <para>(71) index.html This is a blank index.html file to prevent someone
+      from viewing the directory contents when access this directory via a
+      url.</para>
+
+      <para>(72) xaradmin.php A depreciated file; all admin functions should
+      be separated into individual files and placed into the xaradmin/
+      directory.</para>
+
+      <para>(73) xaradminapi.php A depreciated file; all adminapi functions
+      should be separated into individual files and placed into the
+      xaradminapi/ directory.</para>
+
+      <para>(74) xaruser.php A depreciated file; all user functions should be
+      separated into individual files and placed into the xaruser/
+      directory.</para>
+
+      <para>(75) xaruserapi.php A depreciated file; all userapi functions
+      should be separated into individual files and placed into the
+      xaruserapi/ directory.</para>
+
+      <para>(76) xarversion.php This file contains the module ID number,
+      author, and version information for the example module.</para>
     </section>
 
     <section>

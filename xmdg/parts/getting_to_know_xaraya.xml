@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter>
-  <title></title>
+  <title>Getting to know Xaraya</title>
 
   <!--Maintained by:-->
 
-  <!--Status:-->
+  <!--Status: Brainstorm-->
 
   <section>
-    <title></title>
+    <title>Your Xaraya installation</title>
+
+    <para></para>
+
+    <section>
+      <title></title>
+
+      <para></para>
+    </section>
+  </section>
+
+  <section>
+    <title>Xaraya key components</title>
 
     <para></para>
   </section>
 
   <section>
-    <title></title>
+    <title>Standard adjustments</title>
 
-    <para></para>
+    <section>
+      <title>Using templates in a theme</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Using Dynamic Data to extend modules</title>
+
+      <para></para>
+    </section>
   </section>
 </chapter>

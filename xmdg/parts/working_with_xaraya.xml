@@ -1,32 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter>
-  <title></title>
+  <title>Working with Xaraya</title>
 
   <!--Maintained by:-->
 
   <!--Status:-->
 
   <section>
-    <title></title>
+    <title>Xaraya standards</title>
 
     <para></para>
   </section>
 
   <section>
-    <title></title>
+    <title>Getting up close</title>
+
+    <para>What can the following parts offer you?</para>
+
+    <para>This chapter is an addition to the Xaraya User Guide, but offers
+    more technical background</para>
+
+    <section>
+      <title>Core</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Roles</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Authentication</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Privileges</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Security</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Sessions</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Caching</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Multilanguage</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Dynamic Data</title>
+
+      <para>Also large text in Dynamic Data part</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Playing with Xaraya extras</title>
 
     <para></para>
   </section>
 
   <section>
-    <title></title>
+    <title>DONTs in Xaraya</title>
 
-    <para></para>
-  </section>
+    <para>What are the areas you shouldn't touch, what are the things not to
+    do when developing in Xaraya?</para>
 
-  <section>
-    <title></title>
+    <section>
+      <title>Reserved names</title>
 
-    <para></para>
+      <para></para>
+
+      <para>Xaraya has a number of variables, which are reserved. These
+      variables are not be used within modules as they can conflict with the
+      Xaraya core and cause unpredictable results. The current lists of
+      variables, which are reserved, are as follows: <itemizedlist>
+          <listitem>
+            <para><varname>file</varname>: the file to open</para>
+          </listitem>
+
+          <listitem>
+            <para><varname>func</varname>: In use for Function, the function
+            being called</para>
+          </listitem>
+
+          <listitem>
+            <para><varname>loadedmod</varname>: The module that is loaded.
+            Mainly in use by the core module 'roles'</para>
+          </listitem>
+
+          <listitem>
+            <para><varname>module</varname>: The module that is being
+            called</para>
+          </listitem>
+
+          <listitem>
+            <para><varname>name</varname></para>
+          </listitem>
+
+          <listitem>
+            <para><varname>op</varname></para>
+          </listitem>
+
+          <listitem>
+            <para><varname>pagerstart</varname></para>
+          </listitem>
+
+          <listitem>
+            <para><varname>pagertotal</varname></para>
+          </listitem>
+
+          <listitem>
+            <para><varname>type</varname>: Either user or admin, type of
+            function to call</para>
+          </listitem>
+        </itemizedlist></para>
+
+      <para>In addition, all one-letter variables are reserved.</para>
+    </section>
+
+    <section>
+      <title></title>
+
+      <para></para>
+    </section>
   </section>
 </chapter>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-"docbookx.dtd" [
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
+<!ENTITY documentinfo SYSTEM "parts/document_info.xml">
 <!ENTITY introduction SYSTEM "parts/introduction.xml">
 <!ENTITY getting_to_know_xaraya SYSTEM "parts/getting_to_know_xaraya.xml">
 <!ENTITY working_with_xaraya SYSTEM "parts/working_with_xaraya.xml">
@@ -24,37 +25,11 @@
 <!ENTITY templating_dd SYSTEM "parts/templating_dd.xml">
 ]>
 <book lang="en">
-  <bookinfo>
-    <title><inlinegraphic align="right" fileref="images/xar_logo_base_120.jpg"
-    format="JPG" />Xaraya Developer's Guide</title>
+  <!-- Meta info about this document -->
+  &documentinfo;
 
-    <subtitle>Creating web applications with Xaraya</subtitle>
-
-    <copyright>
-      <year>2006</year>
-
-      <holder>The Digital Development Foundation</holder>
-    </copyright>
-
-    <authorgroup>
-      <corpauthor>The Xaraya Documentation Team</corpauthor>
-    </authorgroup>
-
-    <revhistory>
-      <revision>
-        <revnumber>0.1.0</revnumber>
-
-        <date>Initial Draft 19 March 2006</date>
-      </revision>
-    </revhistory>
-
-    <legalnotice>
-      <para>GNU Free Documentation License
-      http://www.gnu.org/copyleft/fdl.html</para>
-    </legalnotice>
-  </bookinfo>
-
-  <toc></toc>
+  <!-- Table of contents -->
+  <toc/>
 
   <preface>
     <title>Preface</title>

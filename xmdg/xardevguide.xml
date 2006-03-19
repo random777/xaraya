@@ -28,6 +28,7 @@
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
 <!ENTITY other SYSTEM "parts/other.xml">
 <!ENTITY error_handling SYSTEM "parts/error_handling.xml">
+<!ENTITY setup_dev_env SYSTEM "parts/appendices/setup_dev_env.xml">
 ]>
 <book lang="en">
   <!-- Meta info about this document -->
@@ -108,17 +109,15 @@
     &templating_dd;
   </part>
 
+  <!-- Appendices -->
+  <!-- TODO: is references the same as bibliography? if not, add appendix for it -->
   <appendix>
     <title>References</title>
 
     <para></para>
   </appendix>
 
-  <appendix>
-    <title>Setting up a Xaraya Development Environment</title>
-
-    <para></para>
-  </appendix>
+  &setup_dev_env;
 
   <!-- Other stuff to organize -->
   &other;

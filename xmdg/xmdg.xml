@@ -2,237 +2,25 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
 <!ENTITY documentinfo SYSTEM "parts/document_info.xml">
+<!ENTITY preface SYSTEM "parts/preface.xml">
+<!ENTITY introduction SYSTEM "parts/introduction.xml">
+<!ENTITY xaraya_module_architecture SYSTEM "parts/xaraya_module_architecture.xml">
+<!ENTITY create_your_module SYSTEM "parts/create_your_module.xml">
+<!ENTITY understanding_hooks SYSTEM "parts/understanding_hooks.xml">
+<!ENTITY bibliography SYSTEM "parts/bibliography.xml">
+<!ENTITY glossary SYSTEM "parts/glossary.xml">
+<!ENTITY other SYSTEM "parts/other.xml">
+<!ENTITY error_handling "parts/error_handling.xml">
 ]>
 <book>
   <!-- Meta info about this document -->
   &documentinfo;
 
-  <preface>
-    <title>Preface</title>
+  <!-- Preface -->
+  &preface;
 
-    <para>Xaraya has been released in 2005 as version 1.0, after more than
-    five years of development. This long time has garanteed for a profoundly
-    good product.</para>
-
-    <para>The initial installation package includes core functionality for a
-    basic content management solution listing of registered modules on
-    Xaraya.com includes sixty-two content-based modules registered for a
-    certified Xaraya identification number. Thirty-nine of those modules are
-    currently completed or under development by members of the Xaraya
-    development team.</para>
-
-    <para>Third party developers have a concept or idea that they want to
-    contribute to the project, but lack the proper tools that will allow them
-    to submit API<footnote>
-        <para>application program interface (API): A formalized <ulink
-        url="http://www.atis.org/tg2k/_set.html">set</ulink> of <ulink
-        url="http://www.atis.org/tg2k/_software.html">software</ulink> calls
-        and routines that can be referenced by an <ulink
-        url="http://www.atis.org/tg2k/_application_program.html">application
-        program</ulink> in order to <ulink
-        url="http://www.atis.org/tg2k/_access.html">access</ulink> supporting
-        <ulink url="http://www.atis.org/tg2k/_network.html">network</ulink>
-        services</para>
-      </footnote> compliant modules for certification. A series of polls
-    posted on Xaraya websites have revealed the need for this type of training
-    document and have produced a list of suggested modules to choose from for
-    use as examples in the development guide. Current research for this
-    project was conducted by reading through the Xaraya code, developer
-    comments and notes as well as existing documentation located in the beta
-    repositories.</para>
-
-    <para>Xaraya is an extensible, open source platform written in
-    PHP<footnote>
-        <para>PHP is a widely used general-purpose scripting language that is
-        especially suited for Web development and can be embedded into
-        HTML.</para>
-      </footnote> and licensed under the <ulink
-    url="http://www.gnu.org/copyleft/gpl.html">GNU General Public
-    License</ulink>. Xaraya utilizes permissions, data management, and modular
-    systems to dynamically integrate and manage content. Xaraya's modular,
-    database independent architecture introduces the need for add-on modules
-    that will enhance its functionality and produce a customizable solution
-    that will meet any web masters needs.</para>
-
-    <para>Xaraya's modular, database-independent architecture provides tools,
-    which separate form, function, content, and design on the site. Xaraya
-    delivers the requisite infrastructure for a fully dynamic multi-platform
-    Content Management Solution (CMS).</para>
-
-    <itemizedlist>
-      <listitem>
-        <para>Database-driven website engine (PHP-ADODB compliant)</para>
-      </listitem>
-
-      <listitem>
-        <para>Extensible through a variety of third-party modules</para>
-      </listitem>
-
-      <listitem>
-        <para>Powerful security module for multi-level user/administrator
-        logins</para>
-      </listitem>
-
-      <listitem>
-        <para>Distribute workload using User/Administrator management
-        tools</para>
-      </listitem>
-
-      <listitem>
-        <para>Robust article management system</para>
-      </listitem>
-    </itemizedlist>
-
-    <para>* Fully editable &amp; manageable News, Links, Downloads, and FAQ
-    Sections</para>
-
-    <para>* BlockLayout Theme Engine: Display your site your way</para>
-
-    <para>* News Feed Manager: Access thousands of RSS-compliant news
-    feeds</para>
-
-    <para>* Site Statistics: Tracks browser &amp; operating system, top news
-    &amp; articles, and more</para>
-
-    <para>* Easy install on most Unix/Linux and Windows platforms</para>
-
-    <para>* Import information from many other CMS systems like PostNuke,
-    PHP-Nuke, Joomla, phpBB2 and Moveable Type installations</para>
-
-    <para>Xaraya reduces web site development costs by introducing
-    sophisticated administration tools &amp; services, which separate form,
-    function, content, and design. With Xaraya, you work in a simple,
-    structured environment so you can rapidly develop your website with
-    diverse content, including:</para>
-
-    <para>* News Articles</para>
-
-    <para>* Web Links Directory</para>
-
-    <para>* Job Boards</para>
-
-    <para>* Frequently Asked Questions</para>
-
-    <para>* File Downloads</para>
-
-    <para>* Photo Gallery</para>
-
-    <para>* Member profiles</para>
-
-    <para>* Web forums (message boards)</para>
-
-    <para>* Articles Repository (i.e.: Knowledge base, cooking recipes,
-    product reviews, news articles, etc.)</para>
-
-    <para>With more than forty active developers spanning five continents and
-    ten languages, the Xaraya Development Team is a blend of some of the best
-    and brightest developers in the open source community. We expect the best
-    of one another. As a result, you can expect the best from Xaraya.</para>
-
-    <para>We will introduce the Xaraya Module operations here.</para>
-  </preface>
-
-  <chapter>
-    <title>Introduction</title>
-
-    <para>Writing a module for Xaraya can be an adventure, a glorious event
-    when finished, but a long yourney in between. This guide will help to easy
-    the process, as in its roots, it is a very simple one.</para>
-
-    <section>
-      <title>What is a module</title>
-
-      <para>Xaraya itself can be seen as an operating system. The Core
-      download shows the core operation files. The Xaraya system allows for
-      expansion of its functionality using modules. A module is a set of files
-      containing functions with predefined names and roles that integrate very
-      easily with a standard deployment of Xaraya. A module can also include
-      blocks, images, plain HTML files etc. A module provides a specific
-      functionality like "enable users to post comments to articles" for the
-      comments module.</para>
-    </section>
-
-    <section>
-      <title>Why write a module?</title>
-
-      <para>There are a number of reasons to write a module. The main reason
-      is that Xaraya does not provide a specific function that you would like.
-      However, first make sure there aren't easier ways to get where you want
-      to get. Nobody wants to spend time on things that others have already
-      created or thought about. Have a look at these questions here:
-      <itemizedlist>
-          <listitem>
-            <para>Can't you get the job done with extending an existing
-            module?</para>
-          </listitem>
-
-          <listitem>
-            <para>Can't you make use of Dynamic Data in an existing
-            module?</para>
-          </listitem>
-
-          <listitem>
-            <para>Isn't the thing you want just a matter of adjusting the
-            templates for pages, thus creating your own theme and showing data
-            from the database in your own way? If you don't like the order of
-            items, or want other terms, then make your own theme and adjust
-            the templates within the modules.</para>
-          </listitem>
-
-          <listitem>
-            <para>Is the adjustment a matter of changing the words in an
-            existing module? You can change all wording by adding your own
-            'translation' using the translations module?</para>
-          </listitem>
-        </itemizedlist>If you still cannot make want you want using the
-      suggestions here, then it is time to read on and create your own
-      module!</para>
-    </section>
-
-    <section>
-      <title>Related Documents</title>
-
-      <para>The main reference you should look at is the 'Example Module'.
-      This module is an annotated reference for current best practise. It is
-      regularly maintained by Xaraya developers and shows how to setup a
-      module. It can perfectly serve as a start for your own module. You can
-      get a full copy of the example module from the full download/extensions
-      download or from the Xaraya monotone repository.</para>
-
-      <para>Other documents that might be of use in conjunction with this
-      guide are the API Reference Command Reference - online viewable as
-      <ulink url="http://www.xaraya.com/documentation/phpdoc/">PHPDoc</ulink>
-      or <ulink
-      url="http://www.xaraya.com/documentation/phpxref/">PHPXRef</ulink>, and
-      <ulink url="http://xaraya.com/index.php/documentation/72">RFC
-      library</ulink>.</para>
-
-      <para>See: <ulink
-      url="???">http://www.xaraya.com/index.php/documentation/c122/</ulink>
-      for an overview of developers documentation</para>
-    </section>
-
-    <section>
-      <title>Suggestions and Updates</title>
-
-      <para>The Xaraya module system is a work-in-progress. There are no doubt
-      many good ideas out there that have not been incorporated into the
-      Xaraya module system, and if a developer has a request for a particular
-      set of functionality then they can submit it to the Xaraya features
-      request list at the Xaraya Bugzilla website: <ulink
-      url="http://bugs.xaraya.com">http://bugs.xaraya.com</ulink></para>
-
-      <para>If you have found a bug within the current module system then you
-      can submit it to the bug list at the same address. Please note that the
-      main requirement for the Xaraya module design is stability. Due to this,
-      it is possible that your request for new or updated functionality will
-      be refused because it is too specific, can easily be built from core API
-      functions, or carries out work that should rightly be done by a module.
-      In such situations, the Xaraya team will always try to provide a simple
-      alternative, but please remember that submission of a new or updated
-      addition to the module design does not guarantee inclusion.</para>
-    </section>
-  </chapter>
+  <!-- Introduction -->
+  &introduction;
 
   <chapter>
     <title>Xaraya Architecture</title>
@@ -278,11 +66,11 @@
       parameters present in the environment can be different from the ones
       passed to these variables.</para>
 
-      <para>An example call would be: <programlisting>
+      <para>An example call would be: <code>
           if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10, XARVAR_NOT_REQUIRED)) return;
-        </programlisting></para>
+        </code></para>
 
-      <para>This fetches the $itemsperpage variable from the input variable
+      <para>This fetches the <varname>$itemsperpage</varname> variable from the input variable
       'itemsperpage' and validates it by applying the $validation rules, in
       this case it being an integer.</para>
 
@@ -294,46 +82,65 @@
       validate the variable through xarVarValidate with the validation of
       'int' (integer).</para>
 
-      <para>After the call the $value parameter is passed by reference is set
+      <para>After the call the <varname>$value</varname> parameter is passed by reference is set
       to the variable value converted to the proper type according to the
       validation applied.</para>
 
       <para>The $defaultValue provides a default value that is returned when
       the variable is not present or doesn't validate correctly.</para>
 
-      <para>The $flag parameter is a bitmask between the following
-      constants:</para>
+      <para>
+        The <varname>$flag</varname> parameter is a bitmask between the following
+        constants:
+        <itemizedlist>
+          <listitem><para><constant>XARVAR_GET_OR_POST</constant></para></listitem>
+          <listitem><para><constant>XARVAR_GET_ONLY</constant></para></listitem>
+          <listitem><para><constant>XARVAR_POST_ONLY</constant></para></listitem>
+          <listitem><para><constant>XARVAR_NOT_REQUIRED</constant></para></listitem>
+        </itemizedlist>
+        You can force to get the variable only from GET parameters or POST
+        parameters by setting the <varname>$flag</varname> parameter
+        to one of <constant>XARVAR_GET_ONLY</constant> or
+        <constant>XARVAR_POST_ONLY</constant>.
+      </para> 
 
-      <para>XARVAR_GET_OR_POST,</para>
-
-      <para>XARVAR_GET_ONLY,</para>
-
-      <para>XARVAR_POST_ONLY,</para>
-
-      <para>XARVAR_NOT_REQUIRED.</para>
-
-      <para>You can force to get the variable only from GET parameters or POST
-      parameters by setting the $flag parameter to one of XARVAR_GET_ONLY or
-      XARVAR_POST_ONLY.</para>
-
-      <para>You can force xarVarFetch not to reuse the variable by setting the
-      $flag parameter to XARVAR_DONT_REUSE.</para>
+      <para>
+        You can force xarVarFetch not to reuse the variable by setting the
+        <varname>$flag</varname> parameter to
+        <constant>XARVAR_DONT_REUSE</constant>.
+      </para>
 
       <para>By default $flag is XARVAR_GET_OR_POST which means that
       xarVarFetch will lookup both GET and POST parameters and that if the
       variable is not present or doesn't validate correctly an exception will
       be raised.</para>
 
-      <para>The $prep flag will prepare $value by passing it to one of the
-      following:</para>
-
-      <para>XARVAR_PREP_FOR_NOTHING: no prep (default)</para>
-
-      <para>XARVAR_PREP_FOR_DISPLAY: xarVarPrepForDisplay($value)</para>
-
-      <para>XARVAR_PREP_FOR_HTML: xarVarPrepHTMLDisplay($value)</para>
-
-      <para>XARVAR_PREP_TRIM: trim($value)</para>
+      <para>
+        The <varname>$prep</varname> flag will prepare <varname>$value</varname> by passing it to one of the
+        following:
+        <itemizedlist>
+          <listitem><para><constant>XARVAR_PREP_FOR_NOTHING</constant>:
+          no prep (default)</para></listitem>
+          <listitem>
+            <para>
+              <constant>XARVAR_PREP_FOR_DISPLAY</constant>: 
+              <function>xarVarPrepForDisplay(<varname>$value</varname>)</function>
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <constant>XARVAR_PREP_FOR_HTML</constant>:
+              <function>xarVarPrepHTMLDisplay(<varname>$value</varname>)</function>
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <constant>XARVAR_PREP_TRIM</constant>:
+              <function>trim(<varname>$value</varname>)</function>
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
 
       <section>
         <title>Pitfalls with xarVarFetch()</title>
@@ -351,8 +158,10 @@
         single call, even though you may be calling for different named $_POST
         or $_GET elements. To solve this either use a variable variablename,
         or use the flag XARVAR_DONT_REUSE.</para>
-
-        <para>Example: <programlisting>
+        
+        <example>
+          <title>Fetching input variables</title>
+          <programlisting>
             // If this is in your template/xhtml
             &lt;input name="item1" value=1&gt;
             &lt;input name="item2" value=2&gt;
@@ -360,7 +169,8 @@
             xarVarFetch('item1', 'str::', $value, NULL ) //  $value= 1
 
             xarVarFetch('item2', 'str::', $value, NULL ) //  $value= 1 !!!
-          </programlisting></para>
+          </programlisting>
+        </example>
 
         <para>It is currently not possible to discern between 'Not Found' and
         'Validation Failed', if you need to know use the validate function and
@@ -410,42 +220,36 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       restriction on the value of $name except for duplicate and reserved
       names.</para>
 
-      <para>As of this writing, the list of reserved names consists of</para>
-
-      <itemizedlist>
-        <listitem>
-          <para><constant>uid</constant> The user id.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>name </constant>The user display name on the system.
-          “Name” should be used in any case that you are displaying the user
-          name, IE author fields, etc.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>uname </constant>The user name is the system
-          variable used to differentiate one user from another in string vice
-          integer format. This variable should not be used to display
-          information about the user for consistency and security
-          reasons.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>email</constant> The email address of the
-          user.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>status</constant> The status of the user (active,
-          inactive, deleted etc).</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>auth_module</constant> The authentication module
-          last used for this user.</para>
-        </listitem>
-      </itemizedlist>
+      <para>
+        As of this writing, the list of reserved names consists of:
+        <itemizedlist>
+          <listitem><para><constant>uid</constant> The user id.</para></listitem>
+          <listitem>
+            <para><constant>name</constant> The user display name on the system.
+            “Name” should be used in any case that you are displaying the user
+            name, IE author fields, etc.</para>
+          </listitem>
+          <listitem>
+            <para><constant>uname</constant> The user name is the system
+            variable used to differentiate one user from another in string vice
+            integer format. This variable should not be used to display
+            information about the user for consistency and security
+            reasons.</para>
+          </listitem>
+          <listitem>
+            <para><constant>email</constant> The email address of the
+            user.</para>
+          </listitem>
+          <listitem>
+            <para><constant>status</constant> The status of the user (active,
+            inactive, deleted etc).</para>
+          </listitem>
+          <listitem>
+            <para><constant>auth_module</constant> The authentication module
+            last used for this user.</para>
+          </listitem>
+        </itemizedlist>
+      </para>
 
       <para>You are advised (even for performance reasons) to use the
       following naming convention: <programlisting>$name := $module_name . '_' .
@@ -526,146 +330,8 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       variables to all modules on the system.</para>
     </section>
 
-    <section>
-      <title>Error handling</title>
-
-      <para>Xaraya is capable of error handling through a powerful exception
-      handling system. Since the PHP language does not support language-level
-      exceptions, Xaraya provides an artificial mechanism to deal with
-      exceptions. Xaraya divides exceptions into two types: system exceptions
-      and user exceptions. System exceptions are used by Xaraya API functions,
-      but you can use them if it's meaningful in that such situation; for
-      example consider the DATABASE_ERROR exception, you are strongly
-      encouraged to use this exception when a database error occurs and not to
-      use your own exception.</para>
-
-      <para>As another example considers the BAD_PARAM exception, you should
-      choose to use that exception in your module functions and API functions
-      when passed parameters are wrong. Finally, system exceptions are well
-      known exceptions for which Xaraya can undertake. Xaraya does not know
-      particular actions like logging, emailing, or user exceptions, and since
-      they are indistinguishable, Xaraya will treat them, as they were all the
-      same thing.</para>
-
-      <para>Another good point of distinction between system and user
-      exceptions is the fact that you should not leave uncaught user
-      exceptions as you can do for system exceptions. Hence, you should catch
-      all user exceptions instead of throwing them back to Xaraya, this is
-      because user exceptions are the same as soft exceptions, so you could be
-      in the position of doing other actions and/or returning a properly
-      formatted error message that will look better than the default Xaraya
-      exception caught error message. However, it is not illegal to throw back
-      user exceptions to Xaraya, so fell free to do that if it is the
-      case.</para>
-
-      <para>You should avoid catching system exceptions, except in particular
-      cases. A system exception is a hard exception, this means that something
-      very wrong happened and Xaraya should be notified. You can achieve this
-      simply by throwing back system exceptions. In addition, there are
-      particular circumstances in which you could and perhaps should catch
-      system exceptions.</para>
-
-      <para>For example consider the xarUserGetVar() API function: it raises a
-      NO_PERMISSION system exception in the case you don't have right
-      permission, however you weren't in the position to get access level for
-      user variables, so it's perfectly acceptable here to catch this
-      exception and go ahead when it's meaningful to do so.</para>
-
-      <para>Now is the moment to explore how Xaraya permits you to deal with
-      exceptions. Here we begin by exposing how to catch exceptions. When a
-      function that potentially can raise exceptions, outcomes with a void
-      value you MUST check if some exception was raised. You can do that by
-      calling the xarExceptionMajor() function and comparing its return value
-      with the XAR_NO_EXCEPTION constant. If they are different, you know that
-      an exception has been raised.</para>
-
-      <para>The xarExceptionMajor() return value can assume one of these
-      values: XAR_NO_EXCEPTION, XAR_USER_EXCEPTION, XAR_SYSTEM_EXCEPTION. The
-      value XAR_NO_EXCEPTION indicates that no exception was raised, and
-      XAR_USER_EXCEPTION stands for user exception was raised and
-      XAR_SYSTEM_EXCEPTION stands for system exception was raised.</para>
-
-      <para>When you see that an exception was raised you have two options:
-      throw it back or handle it. To throw back an exception you have only to
-      return with a void value. To handle an exception you have to check for
-      the exception type, id and value if one.</para>
-
-      <para>Consider the following example:</para>
-
-      <para><programlisting>
-          $res = xarModFunc('MyModule', 'user','MyFunc');
-          if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
-              // Got an exception if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) { return; // throw back }
-
-              // Got a user exception
-              if (xarExceptionId() == 'MyException1') {
-                  $value = xarExceptionValue();
-
-                  $output-&gt;Text("Syntax error at line: ".$value-&gt;lineNumber);
-
-              } elseif (xarExceptionId() == 'MyException2') {
-                  /* Do something useful */
-              } else { // MyException3
-                  /* Do something useful */
-              } // reset exception status
-
-              // NOTE: it's of vital importance to call this function
-              // before returning xarExceptionFree();
-
-              return $output-&gt;GetOutput();
-          }
-        </programlisting></para>
-
-      <para>To throw exception you use a unique function: xarExceptionSet().
-      You simply call it by passing the exception major, id and value if one;
-      and after this call, you return void.</para>
-
-      <para>Consider the following example:</para>
-
-      <para><programlisting>class MyException1
-{
-    var $lineNumber;
-}
-/* ... */
-MyModule_user_MyFunc()
-{
-    /* ... */
-    if ($syntax == false) { // Syntax error
-        $exc = new MyException1;
-        $exc-&gt;lineNumber = $line;
-        xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);
-        return;
-    }
-    /* ... */
-    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2');
-    /* ... */
-    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3');
-    /* ... */
-    return true;
-}</programlisting></para>
-
-      <para>Note that no value is associated to MyException2 and MyException3,
-      so there is no need to create a class for exception value. As you can
-      see exception, handling is very powerful but also boring and tedious.
-      However, you can always choose not to use user exceptions and always
-      throw back system exceptions.</para>
-
-      <para>Keep in mind that good error handling is not something that to
-      leave for last. It should be part of the development process. Note that
-      it is wrong not to check exception status after a call to a function
-      that can potentially raise something. And note also that if you choose
-      to handle one or more exceptions you MUST call xarExceptionFree() before
-      exiting, otherwise the trust relationship on which the exception
-      handling mechanism is based won't work and you will produce very bad
-      things.</para>
-
-      <para>An ulterior thing for those of you wanting to code an official
-      Xaraya module: you MUST always check for possibly raised exceptions and
-      not code with the thought that something will never happen; you MUST
-      also raise DATABASE_ERROR in every function that does queries. To get a
-      better understanding of exception handling functions you should refer to
-      the Xaraya API Command Reference.</para>
-    </section>
+    <!-- Section about error handling was here -->
+    &error_handling;
 
     <section>
       <title>Itemtypes</title>
@@ -712,805 +378,9 @@ MyModule_user_MyFunc()
     </section>
   </chapter>
 
-  <chapter>
-    <title>Xaraya Module Design</title>
+  <!-- Module architecture -->
+  &xaraya_module_architecture;
 
-    <para>The Xaraya module system design allows for the maximum flexibility
-    to developers whilst ensuring that the module can be accessed in a generic
-    fashion by the Xaraya core, other modules, and remote systems given access
-    through other interfaces such as XML-RPC. The main design characteristics
-    of the module system are listed below.</para>
-
-    <section>
-      <title>Separations</title>
-
-      <para>Xaraya modules use a clear separation of functions according to
-      what they do.</para>
-
-      <section>
-        <title>User and Administrator Functions</title>
-
-        <para>Separation of user and administrator functions allows for a much
-        cleaner module. It speeds up the responsiveness of the module in the
-        most-often used cases (i.e. user actions) as the module only needs to
-        load the code that is required of it. It allows for work one area of
-        the code (e.g. an admin GUI redesign) to take place without affecting
-        the other areas. In addition, it gives an extra layer of security to
-        help ensure that privileged functions cannot be executed inadvertently
-        from user areas.</para>
-
-        <para>The discussion of what is an admin function and what is a user
-        function is sometimes vague. In general, admin functions are those
-        function that deal with setting up the module and it's functioning,
-        sometimes including the data in there. In Example module, that is a
-        display module for users, it is an admin task to add data. This is
-        also in accordance with Articles.</para>
-      </section>
-
-      <section>
-        <title>Display and Operational Functions</title>
-
-        <para>Separation of display and operational functions allows for areas
-        within and without Xaraya to use the functionality supplied by a
-        module. This is most obvious in the case of modules with blocks. Where
-        the block might display its own information but use the module
-        functions to gather that information. Other modules where this is
-        hugely important are the utility modules; things like comments and
-        rating systems, that have no real use on their own but can be coupled
-        with other modules to provide generic and site-wide functionality at
-        very little cost to the module developer.</para>
-
-        <para>Operational functions go into the xar...api directory. These
-        functions will not call a template at return, but are expected to
-        return the result of their operation. Functions that will display data
-        will always go in xaradmin or xaruser directories. The exception here
-        is blocks, that are placed in xarblocks/.</para>
-      </section>
-    </section>
-
-    <section>
-      <title>Single Directory Installation</title>
-
-      <para>Having a single install directory allows for much easier
-      maintenance of large Xaraya systems, and far easier install and removal
-      of modules both for the module developer and for the site administrator.
-      Dependencies of the layout on the file system are no longer required,
-      and as such, the module designer does not need to worry about on which
-      systems his module might be deployed, and how it needs to interact with
-      the underlying operating system to function correctly.</para>
-
-      <para>This design option means that all your functions and data will go
-      in the directory modules/yourmodule and the according child
-      directory.</para>
-    </section>
-
-    <section>
-      <title>External Access to Module Functions</title>
-
-      <para>Allowing access to module functions from external (i.e.
-      non-Xaraya) systems is a very desirable thing to do. By allowing this,
-      the Xaraya system becomes a content repository, where information can be
-      accessed in ways other than through the standard web interface. An
-      example of this power can be seen through use of the XML-RPC interface
-      that is provided with Xaraya and which allow for such tools as the
-      Google API to be used, or other webservice events.</para>
-    </section>
-
-    <section>
-      <title>Module Directory Structure</title>
-
-      <para>Xaraya modules have a very specific directory structure. This
-      allows the Xaraya system to use a generic system to access all modules
-      without needing to know specific information about each separate module
-      that is built. Following the directory structure as laid out below is an
-      absolute requirement of any Xaraya-compliant module. Extra files and
-      directories in addition to those shown below are allowed. In addition,
-      if any of the files below are not required (e.g. the module does not
-      have database tables of its own so it does not require the xartables.php
-      file) then they do not need to exist. However, files that perform the
-      functions outlined below must comply with the file naming convention to
-      allow the Xaraya system to load the suitable files at the appropriate
-      times to ensure correct operation of the module. This shows the layout
-      of the example module directory. Other modules will have different names
-      for their top-level directory and blocks as appropriate for their
-      specific functionality.</para>
-
-      <orderedlist>
-        <listitem>
-          <para><link linkend="dir1">modules/ (1)</link></para>
-
-          <orderedlist continuation="continues">
-            <listitem>
-              <para><link linkend="dir2">example/ (2)</link></para>
-
-              <orderedlist continuation="continues">
-                <listitem>
-                  <para><link linkend="dir3">xaradmin/ (3)</link></para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>create.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>delete.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>main.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>modify.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>modifyconfig.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>new.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>update.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>updateconfig.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>view.php</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xaradminapi/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>create.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>delete.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>getmenulinks.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>menu.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>update.php</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xarblocks/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>first.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>modify-first.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>modify-others.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>others.php</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xarimages/</para>
-
-                  <itemizedlist>
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-                  </itemizedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xarproperties/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>Dynamic_Example_Property.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xarstyles/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>style.css</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xartemplates/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>blocks/</para>
-
-                      <itemizedlist>
-                        <listitem>
-                          <para>first.xd</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>index.html</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>modify-first.xd</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>modify-others.xd</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>others.xd</para>
-                        </listitem>
-                      </itemizedlist>
-                    </listitem>
-
-                    <listitem>
-                      <para>includes/</para>
-
-                      <orderedlist continuation="continues">
-                        <listitem>
-                          <para>index.html</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>user-menu.xd</para>
-                        </listitem>
-                      </orderedlist>
-                    </listitem>
-
-                    <listitem>
-                      <para>properties/</para>
-
-                      <orderedlist continuation="continues">
-                        <listitem>
-                          <para>index.html</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>showinput-example.xd</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>showoutput.xd</para>
-                        </listitem>
-
-                        <listitem>
-                          <para>validation-example.xd</para>
-                        </listitem>
-                      </orderedlist>
-                    </listitem>
-                  </orderedlist>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>admin-delete.xd<indexterm>
-                          <primary>templates</primary>
-                        </indexterm></para>
-                    </listitem>
-
-                    <listitem>
-                      <para>admin-main.xd<indexterm>
-                          <primary>templates</primary>
-                        </indexterm></para>
-                    </listitem>
-
-                    <listitem>
-                      <para>admin-modify.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>admin-modifyconfig.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>admin-new.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>admin-view.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>user-display.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>user-main.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>user-menu.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>user-search.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>user-usermenu_form.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>user-usermenu_icon.xd</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>user-view.xd</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xartests/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>testexample.php</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xaruser/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>display.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>main.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>search.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>usermenu.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>view.php</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-
-                <listitem>
-                  <para>xaruserapi/</para>
-
-                  <orderedlist continuation="continues">
-                    <listitem>
-                      <para>countitems.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>decode_shorturl.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>encode_shorturl.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>get.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>getall.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>getitemlinks.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>getitemtypes.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>getmenulinks.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>index.html</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>menu.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>search.php</para>
-                    </listitem>
-
-                    <listitem>
-                      <para>validateitem.php</para>
-                    </listitem>
-                  </orderedlist>
-                </listitem>
-              </orderedlist>
-            </listitem>
-          </orderedlist>
-
-          <orderedlist continuation="continues" inheritnum="inherit">
-            <listitem>
-              <para>example.wsdl</para>
-            </listitem>
-
-            <listitem>
-              <para>index.html</para>
-            </listitem>
-
-            <listitem>
-              <para>xareventapi.php</para>
-            </listitem>
-
-            <listitem>
-              <para>xarinit.php</para>
-            </listitem>
-
-            <listitem>
-              <para>xartables.php</para>
-            </listitem>
-
-            <listitem>
-              <para>xarversion.php</para>
-            </listitem>
-          </orderedlist>
-        </listitem>
-      </orderedlist>
-
-      <para>(1<anchor id="dir1" />) The top-level directory in Xaraya for
-      modules</para>
-
-      <para>(2<anchor id="dir2" />) The directory that contains all of the
-      module code (in this case the module is named 'example')</para>
-
-      <para>(3<anchor id="dir3" />) The directory that contains all
-      administrative GUI functions for the module</para>
-
-      <para>(4) create.php This a standard function that is called with the
-      results of the form supplied by xarModFunc(‘example’,’admin’,’new’) to
-      create a new item. Syntax: @param string $’name’ – The name of the item
-      to be created @param int $’number’ – The number of the item to be
-      created</para>
-
-      <para>(5) delete.php This standard function is called whenever an
-      administrator wishes to delete a current module item. Note that this
-      function is the equivalent of both the modify() and update() functions
-      as it operates a form and processes its output. This is fine for simpler
-      functions, but for complex operations such as creation and modification
-      it is generally easier to separate them into separate functions. There
-      is no requirement in the Xaraya MDG to use one or the other, so either
-      or both can be used as seen appropriate by the module developer. Syntax:
-      @param int $’exid’ - The id of the item to be deleted @param string
-      $’confirm’ – Confirm that this item can be deleted</para>
-
-      <para>(6) main.php This function is the default function, and is called
-      whenever the module is initiated without defining arguments. As such, it
-      can be used for a number of things, but most commonly, it either shows
-      the module menu and returns or calls whatever the module designer feels
-      should be the default function. (This is often the view function)</para>
-
-      <para>(7) modify.php This is a standard admin function that is called
-      whenever an administrator whishes to modify a current module item.
-      Syntax: @param int $’exid’ the id of the item to be modified</para>
-
-      <para>(8) modifyconfig.php This is the standard function to modify the
-      configuration parameters for the module. (9) new.php This standard
-      function is called whenever the administrator wishes to create a new
-      module item.</para>
-
-      <para>(10) update.php This is the standard function that is called with
-      the results of the form supplied by xarModFunc(‘example’,
-      ‘admin’,’modify’) to update a current item. Syntax: @param int $ ‘exid’
-      – The id of the item to be updated @param string $ ‘name’ – The name of
-      the item to be updated @param int $ ‘number’ – The number of the item to
-      be updated</para>
-
-      <para>(11) updateconfig.php This standard function updates the
-      configuration parameters of the module given the information passed back
-      by the modification form.</para>
-
-      <para>(12) view.php This standard function is called whenever the
-      administrator wishes to view a module item.</para>
-
-      <para>(13) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url.</para>
-
-      <para>(14) xaradminapi The directory that contains all administrative
-      database functions for the module.</para>
-
-      <para>(15) create.php This standard function creates an item when the
-      administrator wants to create an item in the database. Parameters are
-      passed from the xaradmin/create.php. This function returns the example
-      item upon success, or raises an exception error upon failing. Syntax:
-      @param $args ['exid'] the ID of the item @param $args [‘name’] name of
-      the item @param $args[‘number’] number of the item Returns the example
-      item ID as integer on success, returns false on failure and raises
-      BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
-
-      <para>(16) delete.php This standard function deletes an item in the
-      database. Parameters are passed from the xaradmin/delete.php. This
-      function returns true upon success, or raises an exception error upon
-      failing. Syntax: @param $args [‘exid’] name of the item Returns the
-      example item ID as integer on success, returns false on failure and
-      raises BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
-
-      <para>(17) getmenulinks.php This is a utility function that passes
-      individual menu items to the main menu. Returns array containing the
-      menulinks for the admin menu items. (18) menu.php This function
-      generates the common admin menu configuration</para>
-
-      <para>(19) update.php This standard function updates an item when the
-      administrator wants to change an item in the database. Parameters are
-      passed from the xaradmin/update.php. This function returns the example
-      item upon success, or raises an exception error upon failing. Syntax:
-      @param $args ['exid'] the ID of the item @param $args [‘name’] name of
-      the item @param $args[‘number’] number of the item Returns the example
-      item ID as integer on success, returns false on failure and raises
-      BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
-
-      <para>(20) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url. (21) xarblocks/ This directory contains the files for generating
-      blocks for the module.</para>
-
-      <para>(22) first.php This is the code for the example block for the
-      example module.</para>
-
-      <para>(23) others.php This is the code for the example block for the
-      example module.</para>
-
-      <para>(24) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url.</para>
-
-      <para>(25) xarimages/ This directory contains image files that are
-      associated with the example module.</para>
-
-      <para>(26) admin.gif This is the image that is displayed in the example
-      module administration overview.</para>
-
-      <para>(27) admin_generic.gif This is an optional image that can be
-      displayed in the example module administration overview.</para>
-
-      <para>(28) preferences.gif This preferences image is used in the example
-      module.</para>
-
-      <para>(29) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url.</para>
-
-      <para>(30) xartemplates/ This directory contains the template files used
-      by blocklayout for displaying pages within the example module.</para>
-
-      <para>(31) blocks/ This directory contains the template files used by
-      blocklayout to display the blocks for the example module.</para>
-
-      <para>(32) first.xd Templates file for the first block in the example
-      module.</para>
-
-      <para>(33) firstAdmin.xd Templates file for the first block
-      administration page for the example module. (34) othersAdmin.xd
-      Templates file for the others block administration page for the example
-      module.</para>
-
-      <para>(35) example-firstblock-modify.xd Templates file for the first
-      block administration modify settings page. (36) admin-delete.xd
-      Templates file for administration delete function. (37) admin-main.xd
-      Templates file for administration main function.</para>
-
-      <para>(38) admin-menu.xd Templates file for the administration menu for
-      Example module.</para>
-
-      <para>(39) admin-modify.xd Templates file for administration modify item
-      page.</para>
-
-      <para>(40) admin-modifyconfig.xd Templates file for administration
-      modify configuration page.</para>
-
-      <para>(41) admin-new.xd Templates file for administration new item
-      page.</para>
-
-      <para>(42) admin-view.xd Templates file for administration view item
-      page.</para>
-
-      <para>(43) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url.</para>
-
-      <para>(44) user-display.xd Templates file for the user display
-      page.</para>
-
-      <para>(45) user-main.xd Templates file for the users main page.</para>
-
-      <para>(46) user-menu.xd Templates file for the users menu. (47)
-      user-usermenu_icon.xd Template file for example user menu hook.</para>
-
-      <para>(48) user-view.xd Templates file for the user display items
-      page.</para>
-
-      <para>(49) user-usermenu_form.xd Templates file for example hook for
-      user menu.</para>
-
-      <para>(50) xaruser/ The directory that contains all users GUI functions
-      for the module.</para>
-
-      <para>(51) display.php This standard function provides detailed
-      information on a single item available from the module. Syntax: @param
-      $args an array of arguments (if called by other modules) @param $args
-      [‘objectid’] – A generic objected (if called by other modules) @param
-      $args [‘exid’] – The item id used for this module</para>
-
-      <para>(52) main.php This standard function is the default function, and
-      is called whenever the module is initiated without defining arguments.
-      As such, it can be used for a number of things, most commonly, it either
-      shoes the module menu and returns or calls whatever the module designer
-      feels should be the default function. (This is often the view()
-      function)</para>
-
-      <para>(53) user-menu.php This standard function is used to display the
-      user menu hook.</para>
-
-      <para>(54) view.php This standard function is used to provide an
-      overview of all the items available from the module.</para>
-
-      <para>(55) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url.</para>
-
-      <para>(56) xaruserapi/ The directory that contains all user database
-      functions for the module.</para>
-
-      <para>(57) encode_shorturl.php The standard functions that encode module
-      parameters into some virtual path that will be added to index.php, and
-      decode a virtual path back to the original module parameters.</para>
-
-      <para>(58) countitems.php This utility function counts the number of
-      items held by the module. Returns the number of items as an integer type
-      with the number of items held by this module.</para>
-
-      <para>(59) decode_shorturl.php This function extracts arguments from
-      short urls and passes them back to the xarGetRequestInfo() api
-      function.</para>
-
-      <para>(60) get.php This standard function retrieves a specific example
-      item from the database. Syntax: @param $args [‘exid’ – Id of example
-      item to get Returns item array, or false on failure Raises exceptions
-      BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
-
-      <para>(61) getall.php This standard function retrieves all example items
-      from the database. Syntax: @param $ numitems – The number of items to
-      retrieve (default -1 = all) @param $ startnum – Start with this item
-      number (default 1) Returns an array of items, or false on failure Raises
-      exceptions BAD_PARAM, NO_PERMISSION, DATABASE_ERROR</para>
-
-      <para>(62) getmenulinks.php This utility function will pass individual
-      menu items to the main menu. Returns an array containing the menu links
-      for the main menu. (63) menu.php This standard function will generate
-      the common menu configuration.</para>
-
-      <para>(64) validateitem.php This standard function validates argument
-      arrays that are passed for writing to the database.</para>
-
-      <para>(65) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url.</para>
-
-      <para>(66) getitemlinks.php This utility function passes individual item
-      links to other calling functions Syntax: @param $args [‘itemtype’] –
-      Item type (optional) @param $args [‘itemids’] – array of item ids to get
-      Returns an array containing the itemlink(s) for the item(s)</para>
-
-      <para>(67) xareventapi.php This standard function is the event handler
-      for the system event ServerRequest Returns bool</para>
-
-      <para>(68) xarinit.php This file contains the initialization, upgrade,
-      and delete functions for the example module. Functions include
-      example_init() – example_upgrade() – example_delete()</para>
-
-      <para>(69) xartables.php This file contains the table definitions for
-      the example module/</para>
-
-      <para>(70) example.wsdl This file contains an example soap xml schema
-      that connects and returns the number of items in the example
-      database.</para>
-
-      <para>(71) index.html This is a blank index.html file to prevent someone
-      from viewing the directory contents when access this directory via a
-      url.</para>
-
-      <para>(72) xaradmin.php A depreciated file; all admin functions should
-      be separated into individual files and placed into the xaradmin/
-      directory.</para>
-
-      <para>(73) xaradminapi.php A depreciated file; all adminapi functions
-      should be separated into individual files and placed into the
-      xaradminapi/ directory.</para>
-
-      <para>(74) xaruser.php A depreciated file; all user functions should be
-      separated into individual files and placed into the xaruser/
-      directory.</para>
-
-      <para>(75) xaruserapi.php A depreciated file; all userapi functions
-      should be separated into individual files and placed into the
-      xaruserapi/ directory.</para>
-
-      <para>(76) xarversion.php This file contains the module ID number,
-      author, and version information for the example module.</para>
-    </section>
-
-    <section>
-      <title></title>
-
-      <para></para>
-    </section>
-  </chapter>
 
   <chapter>
     <title>Xaraya Module Operations</title>
@@ -1631,192 +501,11 @@ MyModule_user_MyFunc()
       </section>
     </section>
 
-    <section>
-      <title>Hooks</title>
-
-      <para>Hooks are a way of adding functionality to modules without the
-      modules themselves knowing what the functions might be. The site
-      administrator controls the operations of hooks, so the decision as to
-      which pieces of extra functionality to use and which not is in their
-      hands rather than the module developer. Hooks are called for specific
-      actions that take place in a module. At current, the actions that hooks
-      are enabled for are as follows: Addition of a category Deletion of a
-      category Transformation of category data into a standard Xaraya format
-      Display of a category Addition of an item Deletion of an item
-      Transformation of item data into a standard Xaraya format Display of an
-      item The terms category and item are quite broad. Category is used to
-      define any database entity that contains other categories or items,
-      whilst item is used to define any database entity that holds content.
-      Due to this definition it is possible for an item to be a category as
-      well, although this is an unlikely state of affairs and it should be
-      obvious to a module developer which parts of the system deal with
-      categories and which with items. Hooks are the recommended way of
-      extending the functionality of your module, and use of the appropriate
-      xarAPI hook functions as described below is mandatory for a compliant
-      module.</para>
-
-      <section>
-        <title>Calling Hooks</title>
-
-        <para>You are developing an item module then you should allow utility
-        modules to add functionality to the item module. This is carried out
-        through use of the xarModCallHooks() function. This function placed
-        wherever a specific action is required by the item module, where the
-        current specific actions that the hooks system is able to operate on
-        are: The hook calls made at the appropriate level depending on the
-        action taken. With the current hooks, addition and deletion hooks
-        called at the API level, and display hooks called at the GUI level.
-        The xarModCallHooks() function takes a number of parameters, which are
-        explained below: hookobject The object for which the hooks are called
-        - currently either category, or item, as described above hookaction
-        The action for which the hooks are to be called - currently one of
-        create, delete, transform, or display obid An ID that, within the
-        scope of the module and object, uniquely defines the entity for which
-        the hook is called extrainfo This is extra information that is
-        required by the hook function, and is dependent on the hook action
-        being called. Information on the information required by each hook is
-        covered below. For create hooks a string that can be used in
-        conjunction with the obid as part of a URL to access the object. For
-        example, if your example_user_display() function uses a variable picid
-        to define the particular picture that a user wishes to look at then
-        the URL would be something
-        like'index.php?module=example&amp;func=display&amp;picid=4' and the
-        identification part of the URL would be something like 'picid=4' so
-        you would pass 'picid' to this hook. For display() hooks a URL that
-        can be used by the hooks to return to a suitable page once they have
-        finished any work that they might have to do. This is normally just
-        the standard display URL for this function. For transform() hooks an
-        array of items that contain text-based content that can be
-        transformed. This is normally all text-based items. The
-        xarModCallHooks() function returns different information depending on
-        value of hookaction. If hookaction is display then the hook will
-        return extra output to display directly following the display for the
-        item itself. If hookaction is create or delete then the function will
-        return either true or false depending on the success or failure of the
-        hooks. If hookaction is transform then the hook will return an
-        equivalent array to that which was passed in, with the items suitable
-        transformed. As an example of calling hooks, if you were developing
-        the 'Example' module and were displaying a picture, after the display
-        of the picture you would want to call the hooks to add any other
-        functionality available and required by the site administrator. To do
-        this you would use the following lines: <programlisting>$output-&gt;Text(xarModCallHooks('item', 'display', $pictureid, xarModURL('example', 'user', 'display', array('pictureid' =&gt; $pictureid)))); </programlisting>This
-        would add the verbatim output of the hooks to the current output. It
-        is worth noting again here the from this code it can be seen that the
-        module itself needs no information on what hooks, if any, exist, it
-        just calls the function and lets the Xaraya core deal with what extra
-        output should be added to this item. One important area to understand
-        is where exactly in your code to call hooks. For example, if you were
-        displaying a thumbnail view of 100 pictures from your Example module,
-        should you call an item display hook for each picture? The answer to
-        this is somewhat dependent on the nature of your module. In general
-        you should only call display hooks when you are displaying the details
-        of a single item rather than an overview of a large number of items
-        (of course, if all of those items are in a single category then you
-        should call a display hook for that category). However, the transform
-        hook should be called whenever you are displaying content regardless
-        of it if is just an overview, as the overview information could
-        require transformation before display.</para>
-
-        <para>The annotated Example module in the standard Xaraya distribution
-        contains notes on calling hooks within an item module.</para>
-      </section>
-
-      <section>
-        <title>Writing Hooks</title>
-
-        <para>If you are developing a utility module then you probably want to
-        allow your module to be called as a hook. This requires the module
-        functions to be able to be called as hooks, and the module to register
-        and unregistered its hooks as required. Writing Hook Functions Hook
-        functions are very similar to standard module functions, but they have
-        a number of extra restrictions placed on them to be able to work as
-        hooks: Hook functions must be able to operate correctly given only two
-        arguments in their arguments array - obid and returnurl, as these are
-        the only parameters that are passed to the function if it is called as
-        a hook. Other parameters are allowed by the function but they must be
-        optional, and default to suitable values if not present such that the
-        function will work appropriately. Hook functions must not rely on
-        other hooks to exist, or to have been called already or in future. The
-        order of calling a list of hooks is undefined, and depending on the
-        site administrator's preferences, particular hooks may never be
-        called. Hook functions must not call the xarModCallHooks() function,
-        or functions that might themselves call xarModCallHooks(). If a hook
-        does this, it risks getting the code into an infinite loop. The
-        Ratings module that comes with the core Xaraya distribution has an
-        example hook function that shows how to fit within these guidelines
-        whilst still producing a general-purpose function.</para>
-      </section>
-
-      <section>
-        <title>Registering Hooks</title>
-
-        <para>Once your module has hook-capable functions in place they need
-        to be registered on initialization of the module so that the
-        administrator can configure their applicability, and other modules can
-        access them through the xarModCallHooks() function. This is carried
-        out through use of the xarModRegisterHook() function. This function
-        should be placed within the modname_init() function of your module and
-        given appropriate parameters to register the relevant hook-capable
-        module functions within your module as hooks. The xarModRegisterHook()
-        function takes a number of parameters, which are explained
-        below:</para>
-
-        <para>hookobject The object for which the hook is to be registered -
-        currently either category, or item, as described above</para>
-
-        <para>hookaction The action for which the hook is to be registered -
-        currently one of create, delete, transform, or display</para>
-
-        <para>hookarea The area that the hook function covers - currently
-        either GUI (for functions that are in xaruser.php and xaradmin.php) or
-        API (for functions that are in xaruserapi.php and
-        xaradminapi.php)</para>
-
-        <para>hookmodule The name of the module in which the hook function
-        exists - normally the name of the module calling this function</para>
-
-        <para>hooktype The type of the hook function - currently either user
-        or admin</para>
-
-        <para>hookfunc The name of the hook function</para>
-
-        <para>The xarModRegisterHook() function returns true if the
-        registration was successful, and false if the registration is
-        unsuccessful. As an example of registering hooks, if you were
-        developing the 'globalid' utility module (which gives every piece of
-        content in Xaraya a separate ID) and had a globalid_admin_create()
-        function which created an entry in the global ID table for this
-        particular piece of content then you would register this as a creation
-        hook. To do this you would use the following lines within
-        globalid_init(): <programlisting>if (!xarModRegisterHook('item', 'create', 'API', 'globalid', 'admin', 'create)) { 
-    return false; 
-}</programlisting> Which would register this hook to be called every time a
-        hook-enabled module someone creates an item (a similar but separate
-        call would be needed to register this hook for the creation of
-        categories as well).</para>
-
-        <para>The Ratings module that comes with the core Xaraya distribution
-        has detailed comments on registering hooks within a utility
-        module.</para>
-      </section>
-
-      <section>
-        <title>Un-registering Hooks</title>
-
-        <para>If your module has hook-capable functions that are registered
-        when the module is initialized they need to be unregistered when the
-        module is deleted. This is carried out through use of the
-        xarModUnregisterHook() function. This function should be placed within
-        the modname_delete() function of your module and given appropriate
-        parameters to unregister the functions that were previously registered
-        hooks when the module was initialized. The xarModUnregisterHook()
-        function takes the same parameters as the xarModUnregisterHook()
-        function. The Ratings module that comes with the core Xaraya
-        distribution has detailed comments on unregistering hooks within a
-        utility module.</para>
-      </section>
-    </section>
   </chapter>
+
+  <!-- Hooks -->
+  &understanding_hooks;
+
 
   <chapter>
     <title>Writing your module</title>
@@ -1952,263 +641,7 @@ MyModule_user_MyFunc()
       functionality when installed, in operation, or removed.</para>
     </section>
 
-    <section>
-      <title>Design Your Module</title>
-
-      <para>An often-overlooked point is that the module should be designed
-      before being coded. This will allow for far easier coding later on, and
-      an understanding of how the module fits into the generic Xaraya module
-      structure. Some of the points that should be considered are: What data
-      does the module store? How should the module data best be stored? Is the
-      data hierarchical or flat? What does the module do with the stored data?
-      How is the data displayed, how much data is displayed at any one time?
-      What options should the user have to view the data in different ways?
-      How does the module interact with other modules? Does it compete
-      directly with other modules? If so, does it make sense to follow their
-      module API to allow for greater interoperability between similar
-      modules? Can it use other modules for part of its functionality? Is it
-      better written as an extension to a current module rather than starting
-      again from scratch? Consider Including the Standard Module Functions
-      There are a number of standard module functions that allow a module to
-      interface with parts of the Xaraya system. These functions have
-      predefined inputs and outputs, allowing external modules and core
-      functions to use them effectively without needing to tailor their
-      operation to each separate module. The best example of these functions
-      is the 'search' function, which passes in a simple text string and
-      requires that an array is passed back about all items within the module
-      that match the string. If your module does not have these functions then
-      it will not integrate fully with the other parts of the Xaraya system.
-      It is recommended that these functions be supplied if they make any
-      sense in the context of your module. Use Standard Function Names There
-      are a number of function names that are considered standard i.e. they
-      have well-known meanings and are used in a number of modules. Using the
-      standard function names makes it easier for other module developers to
-      use your module. Some of the standard functions are shown below. The
-      list below is subject to addition as more functions that are standard
-      are introduced - the example module supplied with your copy of Xaraya
-      should have the most up-to-date set of standard functions available.
-      User Display Functions main() - the default function to call, normally
-      just presents the user menu view() - display an overview of all items,
-      normally paged output display() - display a single item in detail, given
-      an identifier for that item User API Functions getall() - get basic
-      information on all items, can take optional parameters to obtain a
-      subset of all items get() - get detailed information on a specific item
-      Administration Display Functions main() - the default function to call,
-      normally just presents the user menu view() - display an overview of all
-      items, normally paged output, with relevant administrative options. Note
-      that it is possible to combine this function with the user view()
-      function new() - display a form to obtain enough information from the
-      user to create a new item create() - take the information from the form
-      displayed by the administration new() function and pass it on to the
-      administration API for creating the item modify() - display the details
-      of a current item given the item description, and present the relevant
-      fields for modification update() - take the information from the form
-      displayed by the administration modify() function and pass it on to the
-      administration API for modifying the item delete() - display
-      confirmation for deletion of an item, and if confirmed pass the relevant
-      information on to the administration API for deleting the item
-      modifyconfig() - display the details of the module's current
-      configuration, and present the relevant fields for modification
-      updateconfig() - take the information from the form displayed by the
-      administration modifyconfig() function and update the relevant module
-      configuration variables Administration API Functions create() - create a
-      new item delete() - delete a current item update() - update the
-      information about a current item Find out What Utility Modules are
-      Available There are a number of utility modules available to carry out
-      features that are required by many item modules within Xaraya. Examples
-      of available utility modules are comments, ratings, and categorization.
-      Look at xaraya.com to find out what other utility modules are available
-      and if they can be used in lieu of parts of the code that you would
-      otherwise be writing for your own module.</para>
-    </section>
-
-    <section>
-      <title>Building Your Module</title>
-
-      <para>This section is a short manual how to write your own module. If
-      you are developing a module for the first time, it is recommended to
-      follow these steps.</para>
-
-      <section>
-        <title>Make Your Initial Directory</title>
-
-        <para>Create the directory to hold the module files. This directory
-        must be created under the 'modules' directory in the Xaraya install,
-        and must be created with the name of your module as registered at the
-        Xaraya modules site.</para>
-
-        <para>Copy the Module Example Copy over all of the files from the
-        example module directory into you newly created module directory.
-        These files set up the basic structure for your module and allow you
-        to get to work creating your module very quickly.</para>
-      </section>
-
-      <section>
-        <title>Code your Database Tables</title>
-
-        <para>Coding your database tables requires you to edit the
-        xartables.php file in your module directory. This file gives
-        information on the structure of the tables used by this module,
-        although it does not carry out any actions itself. The structure
-        information is wrapped in a function (modname_xartables()) for easy
-        access by the Xaraya system. An annotated copy of the template
-        xartables.php file is available in the standard Xaraya distribution as
-        part of the Template module.</para>
-
-        <para>If your module uses tables specified by another module then you
-        can either remove the xartables.php file completely from your module
-        directory, or have a suitably named function that just returns an
-        empty array. If you attempt to use the same table name as another
-        module or the Xaraya core then your module will fail in unexpected
-        ways. Try to give your tables unique names, preferably based on your
-        module name.</para>
-      </section>
-
-      <section>
-        <title>Write your Initialization Functions</title>
-
-        <para>Module initialization functions are required for three separate
-        actions. These actions are initialization of the module's tables and
-        configuration, upgrade of the module's tables and configuration, and
-        deletion of the module's tables and configuration. Each of these items
-        are generally only called once, although if a site administrator
-        desires they should be able to initialize and delete a module as many
-        times as they wish. It should be assumed that whenever these functions
-        are called the Xaraya system has already loaded the relevant
-        information from xartables.php and it is available in the information
-        returned by xarDBGetTables(). An annotated copy of the template
-        xarinit.php file is available in the standard Xaraya distribution as
-        part of the Example solution.</para>
-
-        <para>Test Your Initialization Routines</para>
-
-        <para>Once the database structure and initialization files are in
-        place they should be tested by using the modules administration area
-        of your Xaraya system to test initializing and deleting your module.
-        You should manually check that the database table created is correct,
-        and that deleting a module removes all of the relevant configuration
-        variables and database tables. Once you are happy that the module
-        initialization functions are working correctly you should carry out an
-        initialization so that work on the administration and user functions
-        can proceed with suitable database tables in place.</para>
-
-        <para>Write Your Administration Functions</para>
-
-        <para>With your database tables in place, the next step is to write
-        some administration functions. The administration functions that you
-        will write depend on the nature of your module, however most modules
-        have at least the following items: add a new item modify an existing
-        item delete an existing item Each of these items is normally broken
-        down into three separate pieces. The first piece is part of the GUI
-        and displays a form with suitable fields for user input. The second
-        piece is part of the API and carries out the requested operation. The
-        third piece is another part of the GUI, gathers information from the
-        form displayed by the first piece, and passes it as arguments to the
-        second piece. As mentioned earlier in the document, it is vital that
-        the separation between the GUI and API functions is clear. If you are
-        unsure about whether part of a function should be in the GUI or the
-        API, look at what it does. If it is directly involved with user
-        interaction (gathering information from the user or displaying
-        information to the user) then it is a GUI function. If it is involved
-        with obtaining or updating information in the Xaraya system itself
-        (normally in a database table) then it is an API function. Annotated
-        copies of the template xaruser and xaruserapi function files are
-        available in the standard Xaraya distribution as part of the Example
-        module.</para>
-
-        <para>Test Your Administration Functions</para>
-
-        <para>Once the administration functions are in place, they need
-        testing by using the administration area of your module to carry out
-        the basic functionality that you have created. The operation of the
-        module functions need checking against the information in the database
-        to ensure that they are storing and displaying the data
-        correctly.</para>
-
-        <para>Write Your User Functions</para>
-
-        <para>Once the administration functions are in place to manipulate
-        your module's data then you can write the user functions to display
-        the data. As with the administration functions the user functions that
-        you will write depend on the nature of your module, however most
-        modules have at least the following items: overview of a number of
-        items detailed view of a single item Each of these items is normally
-        broken down into two separate pieces. The first piece is part of the
-        GUI and gathers information from the user as to which item they wish
-        to view, passes it on to the API piece, and displays the resultant
-        information. The second piece is part of the API and obtains the
-        required information for the display piece. Annotated copies of the
-        template xaruser and xaruserapi function files are available in the
-        standard Xaraya distribution as part of the Example module.</para>
-
-        <para>Test Your User Functions</para>
-
-        <para>Once the user functions are in place they need testing by
-        operating the module in the same way that a normal user would. The
-        operation of the module functions need checking against the
-        information in the database to ensure that they are displaying the
-        data correctly.</para>
-
-        <para>Write Your Blocks</para>
-
-        <para>You might want your module to include blocks. Blocks are smaller
-        functional units of a module that display specific information, and
-        generally show up down the left and right hand sides of a page. Blocks
-        are relatively simplistic items, and can either use their module's API
-        functions to obtain information or use their own direct SQL query.
-        Although they are packaged as part of the module they are not directly
-        related to it except that they use the same database tables, and as
-        such they might have to load the module's database table information
-        directly through the use of the xarModDBInfoLoad() function if they
-        intend to access the module's tables directly. An annotated copy of
-        the template first.php block is available in the standard Xaraya
-        distribution as part of the Example module.</para>
-
-        <para>Test Your Blocks</para>
-
-        <para>Once the blocks are in place, they need testing by displaying
-        them through the Blocks administration system. The blocks need
-        checking against the database and the user functions to ensure that
-        they are displaying the data correctly.</para>
-
-        <para>Document Your Module</para>
-
-        <para>Documenting your module is a vital step. There are two areas
-        your module needs documentation: user information and API information.
-        The first area is covered by producing a manual and placing it in the
-        appropriate place in the directory hierarchy. The second area by
-        writing a short description of each API function, noting the
-        parameters and return values that it has, and placing that at the head
-        of the function. Coding the documentation in the style of PHPDoc will
-        allow for automatic parsing of the documentation by other developers
-        who wish to use your module.</para>
-
-        <para>Packaging Your Module</para>
-
-        <para>At this stage, the module should be ready for packaging. The two
-        most widely used packaging formats are WinZip (.zip extension) and
-        compressed TAR (.tar.gz extension). If possible, package the module
-        with both formats. If not then just, package it with the format that
-        you have and ask on the Xaraya site if someone can package it in the
-        other format.</para>
-
-        <para>Interacting With Other Modules</para>
-
-        <para>Overview</para>
-
-        <para>When designing your module you may well find there is
-        functionality that you require in a module already available. Utility
-        modules are designed specifically to provide additional often-used
-        functionality for modules in a standard way, and sometimes the
-        functionality of an entire module might be used as part of your
-        module. Functionality can be obtained either from the display part of
-        the module or the API itself, depending on the specific requirements
-        in the new module. Interaction with other modules is carried out in
-        different ways depending on the type of module being written and the
-        level of specific control the module requires over the function being
-        called.</para>
-      </section>
-    </section>
+    <!-- Here was an explanation on the checklist for modules -->
   </chapter>
 
   <chapter>
@@ -2258,60 +691,43 @@ MyModule_user_MyFunc()
     <section>
       <title>Reserved Variable Names</title>
 
-      <para>Xaraya has a number of variables, which are reserved. These
-      variables are not be used within modules as they can conflict with the
-      Xaraya core and cause unpredictable results. The current lists of
-      variables, which are reserved, are as follows:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>file</para>
-
-          <para>the file to open</para>
-        </listitem>
-
-        <listitem>
-          <para>func</para>
-
-          <para>In use for Function, the function being called</para>
-        </listitem>
-
-        <listitem>
-          <para>loadedmod</para>
-
-          <para>The module that is loaded. Mainly in use by the core module
-          'roles'</para>
-        </listitem>
-
-        <listitem>
-          <para>module</para>
-
-          <para>The module that is being called</para>
-        </listitem>
-
-        <listitem>
-          <para>name</para>
-        </listitem>
-
-        <listitem>
-          <para>op</para>
-        </listitem>
-
-        <listitem>
-          <para>pagerstart</para>
-        </listitem>
-
-        <listitem>
-          <para>pagertotal</para>
-        </listitem>
-
-        <listitem>
-          <para>type</para>
-
-          <para>Either user or admin, type of function to call</para>
-        </listitem>
-      </itemizedlist>
-
+      <para>
+        Xaraya has a number of variables, which are reserved. These
+        variables are not be used within modules as they can conflict with the
+        Xaraya core and cause unpredictable results. The current lists of
+        variables, which are reserved, are as follows:
+        <itemizedlist>
+          <listitem>
+            <para><varname>file</varname>: the file to open</para>
+          </listitem>
+          <listitem>
+            <para>
+              <varname>func</varname>: 
+              In use for Function, the function being called
+            </para>
+          </listitem>
+          <listitem>
+            <para><varname>loadedmod</varname>:
+            The module that is loaded. Mainly in use by the core module
+            'roles'
+            </para>
+          </listitem>
+          <listitem>
+            <para><varname>module</varname>:
+            The module that is being called
+            </para>
+          </listitem>
+          <listitem><para><varname>name</varname></para></listitem>
+          <listitem><para><varname>op</varname></para></listitem>
+          <listitem><para><varname>pagerstart</varname></para></listitem>
+          <listitem><para><varname>pagertotal</varname></para></listitem>
+          <listitem>
+            <para><varname>type</varname>:
+            Either user or admin, type of function to call
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
       <para>In addition, all one-letter variables are reserved.</para>
     </section>
 
@@ -2347,267 +763,30 @@ MyModule_user_MyFunc()
       <para>Modules written as classes is allowed, however the API as
       described in the rest of this document must still be adhered to. The
       simplest way of doing this is to use compatibility functions, for
-      example: <programlisting>function mymod_user_main() {
-    // Instantiate
-    $obj = new myClass();
-    // Call relevant method and return output return
-    $obj-&gt;usermain();
-}</programlisting></para>
-    </section>
-
-    <section>
-      <title>Checklist</title>
-
-      <para>The following checklist presents a number of items that need
-      checking throughout the process of designing, building, and releasing
-      your module.</para>
-
-      <para>Initial Decide on the module type Choose a name for your module
-      Register your module name Obtain and read the Module Developers Guide
-      Obtain and read the API Documentation Module Design Separate User and
-      Administration Functions Separate GUI and API functions Design data
-      tables Note, which utility modules are of use Note, which standard
-      module functions apply Create module security schema Module Build Copy
-      the example module directory Create database tables Create database
-      initialization routines Test database initialization routines Write
-      administration functions Test administration functions Write user
-      functions Test user functions Write blocks Test blocks Document module
-      API Package your module Module Checks No global variables used No Xaraya
-      reserved variable names used No echo() or print() statements used All
-      operations protected by xarSecAuthAction() All form results protected by
-      xarSecConfirmAuthKey() All form variables obtained by xarVarFetch() All
-      output is passed through transform hooks. All output parsed through
-      xarVarPrepForDisplay() or xarVarPrepForHTMLDisplay() All variables in
-      SQL queries protected by using bindvars All variables in filesystem
-      access protected by xarVarPrepForOS() Calls to xarModCallHooks() in
-      appropriate locations</para>
+      example: 
+      <programlisting>
+        function mymod_user_main() {
+          // Instantiate
+          $obj = new myClass();
+          // Call relevant method and return output return
+          $obj-&gt;usermain();
+        }
+      </programlisting></para>
     </section>
   </chapter>
 
-  <chapter>
-    <title>All others</title>
+  <!-- Create module part came roughly from here -->
+  &create_your_module;
+  
+  <!-- Other stuff to be organized -->
+  &other;
 
-    <para>Dumping all other remarks for the moment</para>
+  <!-- Index -->
+  <index/>
 
-    <section>
-      <title>Recommendations</title>
-
-      <para>If you are new to Xaraya, it is highly recommended that you
-      familiarize yourself with Xaraya by reading the Xaraya Installation and
-      Getting Started Guide. The guide is currently available via the monotone
-      repository located on the mt.xaraya.com website. As a side note, the
-      guide is currently a work in progress, once completed the guide will be
-      available by means that are more accessible.</para>
-
-      <para>Xaraya News Groups: The following lists of news groups are
-      available via news.xaraya.com. These news groups are also available via
-      your web browser at the following Web site: http://www.xaraya.com</para>
-
-      <para>Ddf.public – DDF Public List</para>
-
-      <para>Xaraya.announce – Xaraya Announcements List</para>
-
-      <para>Xaraya.devel – Xaraya Member List</para>
-
-      <para>Xaraya.mt-notices - Pushes to the monotone repository, see
-      mt.xaraya.com</para>
-
-      <para>Xaraya.documentation – Xaraya Documentation List</para>
-
-      <para>Xaraya.bugs – Xaraya Bugs List</para>
-
-      <para>Xaraya.ui – Xaraya User Interface List</para>
-
-      <para>Xaraya.knowledge-base – Xaraya Knowledge Base List</para>
-
-      <para>Xaraya.marketing – Xaraya Marketing</para>
-
-      <para>Xaraya.patches – Xaraya Patches</para>
-
-      <para>Xaraya.qa – Xaraya Quality Assurance</para>
-
-      <para>Xaraya.user – Xaraya User Discussion List</para>
-
-      <para>Xaraya.user-arabic – Xaraya Arabic User Discussion List</para>
-
-      <para>Xaraya.user.chinese – Xaraya Chinese User List</para>
-
-      <para>Xaraya.user.danish – Xaraya Danish User Discussion List</para>
-
-      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion List</para>
-
-      <para>Xaraya.user.french – Xaraya French User Discussion List</para>
-
-      <para>Xaraya.user.german – Xaraya German User Discussion List</para>
-
-      <para>Xaraya.user.greek – Xaraya Greek User Discussion List</para>
-
-      <para>Xaraya.users.hungarian – Xaraya Hungarian User Discussion
-      List</para>
-
-      <para>Xaraya.user.italian – Xaraya Italian User Discussion List</para>
-
-      <para>Xaraya.user.polish – Xaraya Polish User Discussion List</para>
-
-      <para>Xaraya.user.portuguese – Xaraya Portuguese User Discussion
-      List</para>
-
-      <para>Xaraya.user.russian – Xaraya Russian User Discussion List</para>
-
-      <para>Xaraya.user.spanish – Xaraya Spanish User Discussion List</para>
-    </section>
-  </chapter>
-
-  <glossary>
-    <glossdiv>
-      <title>Glossary</title>
-
-      <glossentry>
-        <glossterm>API</glossterm>
-
-        <glossdef>
-          <para>application program interface (API): A formalized set of
-          software calls and routines that can be referenced by an application
-          program in order to access supporting network services</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>BitKeeper</glossterm>
-
-        <glossdef>
-          <para>BitKeeper: is a scalable configuration management system,
-          supporting globally distributed development, disconnected operation,
-          compressed repositories, change sets, and repositories as
-          branches.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>Blocklayout</glossterm>
-
-        <glossdef>
-          <para>Blocklayout: is the theme-rendering engine intended to give
-          theme developers a maximum of control over the appearance and
-          functionality of their Xaraya website. The RFC for Blocklayout is
-          located at http://docs.xaraya.com/docs/rfcs/rfc0010.html.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>GUI</glossterm>
-
-        <glossdef>
-          <para>gui: Acronym for graphical user interface. A computer
-          environment or program that displays, or facilitates the display of,
-          on-screen options, usually in the form of icons (pictorial symbols)
-          or menus (lists of alphanumeric characters) by means of which users
-          may enter commands. Note 1: Options are selected by using the
-          appropriate hardware (e.g., mouse, designated keyboard keys, or
-          touchpad) to move a display cursor to, or on top of, the icon or
-          menu item of interest. The application or function so represented
-          may then be selected (e.g., by clicking a mouse button, pressing the
-          "enter" key, or by touching the touchpad). Note 2: Pronounced
-          "gooey."</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>LDAP</glossterm>
-
-        <glossdef>
-          <para>LDAP: Abbreviation for lightweight directory access protocol.
-          A simplified version of the X.500 standard, which version consists
-          of a set of protocols developed for accessing information
-          directories. [After Bahorsky]</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>METADATA</glossterm>
-
-        <glossdef>
-          <para>Metadata: is machine understandable information for the web.
-          The W3C Metadata Activity addressed the combined needs of several
-          groups for a common framework to express assertions about
-          information on the Web, and was super ceded by the W3C Semantic Web
-          Activity.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>MOVABLE TYPE</glossterm>
-
-        <glossdef>
-          <para>Movable Type: is Six Apart's powerful, customizable publishing
-          system, which installs on web servers to enable individuals or
-          organizations to manage and update weblogs, journals, and frequently
-          updated website content.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>PHP</glossterm>
-
-        <glossdef>
-          <para>PHP: is a widely used general-purpose scripting language that
-          is especially suited for Web development and can be embedded into
-          HTML.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>POSTNUKE</glossterm>
-
-        <glossdef>
-          <para>PostNuke: is a community, content, collaborative management
-          system, a C3MS. More information is located at
-          http://www.postnuke.com</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>RSS</glossterm>
-
-        <glossdef>
-          <para>RDF Site Summary (RSS): - also referred to as Rich Site
-          Summary - is a method of describing news or other Web content that
-          is available for "feeding" (distribution or syndication) from an
-          online publisher to Web users. RSS is an application of the
-          Extensible Markup Language (XML) that adheres to the World Wide Web
-          Consortium's Resource Description Framework (RDF). Originally
-          developed by Netscape for its browser's Netcenter channels, the RSS
-          specification is now available for anyone to use.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>XMLRPC</glossterm>
-
-        <glossdef>
-          <para>XMLRPC: is a spec and a set of implementations that allow
-          software running on disparate operating systems, running in
-          different environments to make procedure calls over the
-          Internet.</para>
-        </glossdef>
-      </glossentry>
-    </glossdiv>
-
-    <bibliography>
-      <bibliomixed>SearchWebServices. SearchWebServices. 22 Sept 2003
-      http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html</bibliomixed>
-
-      <bibliomixed>Telecom Glossary 2k. Telecom Glossary 2k. 29 Feb. 2001
-      http://www.atis.org/tg2k/_irc.html</bibliomixed>
-
-      <bibliomixed>W3C Technology and Society Domain. 05 April 2001 &lt;
-      http://www.w3.org/Metadata/&gt;</bibliomixed>
-
-      <bibliomixed>John Cox. 27 April. 2003 &lt;
-      http://www.xaraya.com/index.php/news/c28/&gt;</bibliomixed>
-
-      <bibliomixed>Xaraya Documentation. 15 August 2004 &lt;
-      http://docs.xaraya.com/index.php/documentation/72&gt;</bibliomixed>
-    </bibliography>
-  </glossary>
+  <!-- Bibliography -->
+  &bibliography;
+  
+  <!-- Glossary -->
+  &glossary;
 </book>

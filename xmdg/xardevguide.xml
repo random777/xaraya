@@ -23,6 +23,7 @@
 <!ENTITY using_dd SYSTEM "parts/using_dd.xml">
 <!ENTITY dd_objects SYSTEM "parts/dd_objects.xml">
 <!ENTITY templating_dd SYSTEM "parts/templating_dd.xml">
+<!ENTITY glossary SYSTEM "parts/glossary.xml">
 ]>
 <book lang="en">
   <!-- Meta info about this document -->
@@ -36,7 +37,7 @@
 
     <!--New preface - original was out of date, with grammar and spelling errors, and  based on old PN texts.-->
 
-    <para><ulink url="???">Xaraya</ulink> 1.0 was released in November 2005.
+    <para><ulink url="http://xaraya.com">Xaraya</ulink> 1.0 was released in November 2005.
     The release marked the culmination of Xaraya's transformation from a
     simple open source content management system into an enterprise level,
     extensible, application framework. Since the 1.0 release there has been
@@ -48,7 +49,7 @@
     <para>Xaraya is written in PHP, platform independent and currently can be
     installed with a variety of databases including <ulink
     url="http://www.mysql.com">MySQL</ulink>, <ulink
-    url="???">PostgreSQL</ulink>, and <ulink url="???">SQLite</ulink>. It is
+    url="http://www.postgres.org">PostgreSQL</ulink>, and <ulink url="http://www.sqlite.org">SQLite</ulink>. It is
     licensed under the <ulink url="http://www.gnu.org/copyleft/gpl.html">GNU
     General Public License</ulink>.</para>
 
@@ -61,8 +62,8 @@
 
     <para>The Xaraya Documentation team welcome feedback and suggestions for
     improvement. All feature requests and notification of corrections can be
-    lodged in the Support Documentation component on Xaraya's bugzilla at
-    <ulink url="???">http://bugs.xaraya.com</ulink></para>
+    lodged in the Support Documentation component on <ulink url="http://bugs.xaraya.com">Xaraya's bugzilla</ulink>
+    </para>
   </preface>
 
   <!--The following Chapters are each contained in their own subdocument. -->
@@ -144,4 +145,7 @@
 
     <para></para>
   </appendix>
+
+  <!-- Glossary -->
+  &glossary;
 </book>

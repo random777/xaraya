@@ -2,6 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
 <!ENTITY documentinfo SYSTEM "parts/document_info.xml">
+<!ENTITY glossary SYSTEM "parts/glossary.xml">
 ]>
 <book>
   <!-- Meta info about this document -->
@@ -81,48 +82,59 @@
       <listitem>
         <para>Robust article management system</para>
       </listitem>
+
+      <listitem>
+        <para>
+          Fully editable &amp; manageable News, Links, Downloads, and FAQ
+          Sections
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          BlockLayout Theme Engine: Display your site your way
+        </para>
+      </listitem>
+      <listitem>
+        <para>News Feed Manager: Access thousands of RSS-compliant
+        news feeds</para>
+      </listitem>
+      <listitem>
+        <para>Site Statistics: Tracks browser &amp; operating system, top news
+        &amp; articles, and more</para>
+      </listitem>
+      <listitem>
+        <para>Easy install on most Unix/Linux and Windows
+        platforms</para>
+      </listitem>
+      <listitem>
+        <para>Import information from many other CMS systems like PostNuke,
+        PHP-Nuke, Joomla, phpBB2 and Moveable Type
+      installations</para></listitem>
     </itemizedlist>
 
-    <para>* Fully editable &amp; manageable News, Links, Downloads, and FAQ
-    Sections</para>
-
-    <para>* BlockLayout Theme Engine: Display your site your way</para>
-
-    <para>* News Feed Manager: Access thousands of RSS-compliant news
-    feeds</para>
-
-    <para>* Site Statistics: Tracks browser &amp; operating system, top news
-    &amp; articles, and more</para>
-
-    <para>* Easy install on most Unix/Linux and Windows platforms</para>
-
-    <para>* Import information from many other CMS systems like PostNuke,
-    PHP-Nuke, Joomla, phpBB2 and Moveable Type installations</para>
-
-    <para>Xaraya reduces web site development costs by introducing
-    sophisticated administration tools &amp; services, which separate form,
-    function, content, and design. With Xaraya, you work in a simple,
-    structured environment so you can rapidly develop your website with
-    diverse content, including:</para>
-
-    <para>* News Articles</para>
-
-    <para>* Web Links Directory</para>
-
-    <para>* Job Boards</para>
-
-    <para>* Frequently Asked Questions</para>
-
-    <para>* File Downloads</para>
-
-    <para>* Photo Gallery</para>
-
-    <para>* Member profiles</para>
-
-    <para>* Web forums (message boards)</para>
-
-    <para>* Articles Repository (i.e.: Knowledge base, cooking recipes,
-    product reviews, news articles, etc.)</para>
+    <para>
+      Xaraya reduces web site development costs by introducing
+      sophisticated administration tools &amp; services, which separate form,
+      function, content, and design. With Xaraya, you work in a simple,
+      structured environment so you can rapidly develop your website
+      with diverse content, including:
+      <itemizedlist>
+        <listitem><para>News Articles</para></listitem>
+        <listitem><para>Web Links Directory</para></listitem>
+        <listitem><para>Job Boards</para></listitem>
+        <listitem><para>Frequently Asked Questions</para></listitem>
+        <listitem><para>File Downloads</para></listitem>
+        <listitem><para>Photo Gallery</para></listitem>
+        <listitem><para>Member profiles</para></listitem>
+        <listitem><para>Web forums (message boards)</para></listitem>
+        <listitem>
+          <para>
+            Articles Repository (i.e.: Knowledge base, cooking recipes,
+            product reviews, news articles, etc.)
+          </para>
+        </listitem>
+      </itemizedlist>
+    </para>
 
     <para>With more than forty active developers spanning five continents and
     ten languages, the Xaraya Development Team is a blend of some of the best
@@ -278,11 +290,11 @@
       parameters present in the environment can be different from the ones
       passed to these variables.</para>
 
-      <para>An example call would be: <programlisting>
+      <para>An example call would be: <code>
           if (!xarVarFetch('itemsperpage', 'int', $itemsperpage, 10, XARVAR_NOT_REQUIRED)) return;
-        </programlisting></para>
+        </code></para>
 
-      <para>This fetches the $itemsperpage variable from the input variable
+      <para>This fetches the <varname>$itemsperpage</varname> variable from the input variable
       'itemsperpage' and validates it by applying the $validation rules, in
       this case it being an integer.</para>
 
@@ -294,46 +306,65 @@
       validate the variable through xarVarValidate with the validation of
       'int' (integer).</para>
 
-      <para>After the call the $value parameter is passed by reference is set
+      <para>After the call the <varname>$value</varname> parameter is passed by reference is set
       to the variable value converted to the proper type according to the
       validation applied.</para>
 
       <para>The $defaultValue provides a default value that is returned when
       the variable is not present or doesn't validate correctly.</para>
 
-      <para>The $flag parameter is a bitmask between the following
-      constants:</para>
+      <para>
+        The <varname>$flag</varname> parameter is a bitmask between the following
+        constants:
+        <itemizedlist>
+          <listitem><para><constant>XARVAR_GET_OR_POST</constant></para></listitem>
+          <listitem><para><constant>XARVAR_GET_ONLY</constant></para></listitem>
+          <listitem><para><constant>XARVAR_POST_ONLY</constant></para></listitem>
+          <listitem><para><constant>XARVAR_NOT_REQUIRED</constant></para></listitem>
+        </itemizedlist>
+        You can force to get the variable only from GET parameters or POST
+        parameters by setting the <varname>$flag</varname> parameter
+        to one of <constant>XARVAR_GET_ONLY</constant> or
+        <constant>XARVAR_POST_ONLY</constant>.
+      </para> 
 
-      <para>XARVAR_GET_OR_POST,</para>
-
-      <para>XARVAR_GET_ONLY,</para>
-
-      <para>XARVAR_POST_ONLY,</para>
-
-      <para>XARVAR_NOT_REQUIRED.</para>
-
-      <para>You can force to get the variable only from GET parameters or POST
-      parameters by setting the $flag parameter to one of XARVAR_GET_ONLY or
-      XARVAR_POST_ONLY.</para>
-
-      <para>You can force xarVarFetch not to reuse the variable by setting the
-      $flag parameter to XARVAR_DONT_REUSE.</para>
+      <para>
+        You can force xarVarFetch not to reuse the variable by setting the
+        <varname>$flag</varname> parameter to
+        <constant>XARVAR_DONT_REUSE</constant>.
+      </para>
 
       <para>By default $flag is XARVAR_GET_OR_POST which means that
       xarVarFetch will lookup both GET and POST parameters and that if the
       variable is not present or doesn't validate correctly an exception will
       be raised.</para>
 
-      <para>The $prep flag will prepare $value by passing it to one of the
-      following:</para>
-
-      <para>XARVAR_PREP_FOR_NOTHING: no prep (default)</para>
-
-      <para>XARVAR_PREP_FOR_DISPLAY: xarVarPrepForDisplay($value)</para>
-
-      <para>XARVAR_PREP_FOR_HTML: xarVarPrepHTMLDisplay($value)</para>
-
-      <para>XARVAR_PREP_TRIM: trim($value)</para>
+      <para>
+        The <varname>$prep</varname> flag will prepare <varname>$value</varname> by passing it to one of the
+        following:
+        <itemizedlist>
+          <listitem><para><constant>XARVAR_PREP_FOR_NOTHING</constant>:
+          no prep (default)</para></listitem>
+          <listitem>
+            <para>
+              <constant>XARVAR_PREP_FOR_DISPLAY</constant>: 
+              <function>xarVarPrepForDisplay(<varname>$value</varname>)</function>
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <constant>XARVAR_PREP_FOR_HTML</constant>:
+              <function>xarVarPrepHTMLDisplay(<varname>$value</varname>)</function>
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <constant>XARVAR_PREP_TRIM</constant>:
+              <function>trim(<varname>$value</varname>)</function>
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
 
       <section>
         <title>Pitfalls with xarVarFetch()</title>
@@ -351,8 +382,10 @@
         single call, even though you may be calling for different named $_POST
         or $_GET elements. To solve this either use a variable variablename,
         or use the flag XARVAR_DONT_REUSE.</para>
-
-        <para>Example: <programlisting>
+        
+        <example>
+          <title>Fetching input variables</title>
+          <programlisting>
             // If this is in your template/xhtml
             &lt;input name="item1" value=1&gt;
             &lt;input name="item2" value=2&gt;
@@ -360,7 +393,8 @@
             xarVarFetch('item1', 'str::', $value, NULL ) //  $value= 1
 
             xarVarFetch('item2', 'str::', $value, NULL ) //  $value= 1 !!!
-          </programlisting></para>
+          </programlisting>
+        </example>
 
         <para>It is currently not possible to discern between 'Not Found' and
         'Validation Failed', if you need to know use the validate function and
@@ -410,42 +444,36 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       restriction on the value of $name except for duplicate and reserved
       names.</para>
 
-      <para>As of this writing, the list of reserved names consists of</para>
-
-      <itemizedlist>
-        <listitem>
-          <para><constant>uid</constant> The user id.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>name </constant>The user display name on the system.
-          “Name” should be used in any case that you are displaying the user
-          name, IE author fields, etc.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>uname </constant>The user name is the system
-          variable used to differentiate one user from another in string vice
-          integer format. This variable should not be used to display
-          information about the user for consistency and security
-          reasons.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>email</constant> The email address of the
-          user.</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>status</constant> The status of the user (active,
-          inactive, deleted etc).</para>
-        </listitem>
-
-        <listitem>
-          <para><constant>auth_module</constant> The authentication module
-          last used for this user.</para>
-        </listitem>
-      </itemizedlist>
+      <para>
+        As of this writing, the list of reserved names consists of:
+        <itemizedlist>
+          <listitem><para><constant>uid</constant> The user id.</para></listitem>
+          <listitem>
+            <para><constant>name</constant> The user display name on the system.
+            “Name” should be used in any case that you are displaying the user
+            name, IE author fields, etc.</para>
+          </listitem>
+          <listitem>
+            <para><constant>uname</constant> The user name is the system
+            variable used to differentiate one user from another in string vice
+            integer format. This variable should not be used to display
+            information about the user for consistency and security
+            reasons.</para>
+          </listitem>
+          <listitem>
+            <para><constant>email</constant> The email address of the
+            user.</para>
+          </listitem>
+          <listitem>
+            <para><constant>status</constant> The status of the user (active,
+            inactive, deleted etc).</para>
+          </listitem>
+          <listitem>
+            <para><constant>auth_module</constant> The authentication module
+            last used for this user.</para>
+          </listitem>
+        </itemizedlist>
+      </para>
 
       <para>You are advised (even for performance reasons) to use the
       following naming convention: <programlisting>$name := $module_name . '_' .
@@ -2458,140 +2486,6 @@ MyModule_user_MyFunc()
     </section>
   </chapter>
 
-  <glossary>
-    <glossdiv>
-      <title>Glossary</title>
-
-      <glossentry>
-        <glossterm>API</glossterm>
-
-        <glossdef>
-          <para>application program interface (API): A formalized set of
-          software calls and routines that can be referenced by an application
-          program in order to access supporting network services</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>BitKeeper</glossterm>
-
-        <glossdef>
-          <para>BitKeeper: is a scalable configuration management system,
-          supporting globally distributed development, disconnected operation,
-          compressed repositories, change sets, and repositories as
-          branches.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>Blocklayout</glossterm>
-
-        <glossdef>
-          <para>Blocklayout: is the theme-rendering engine intended to give
-          theme developers a maximum of control over the appearance and
-          functionality of their Xaraya website. The RFC for Blocklayout is
-          located at http://docs.xaraya.com/docs/rfcs/rfc0010.html.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>GUI</glossterm>
-
-        <glossdef>
-          <para>gui: Acronym for graphical user interface. A computer
-          environment or program that displays, or facilitates the display of,
-          on-screen options, usually in the form of icons (pictorial symbols)
-          or menus (lists of alphanumeric characters) by means of which users
-          may enter commands. Note 1: Options are selected by using the
-          appropriate hardware (e.g., mouse, designated keyboard keys, or
-          touchpad) to move a display cursor to, or on top of, the icon or
-          menu item of interest. The application or function so represented
-          may then be selected (e.g., by clicking a mouse button, pressing the
-          "enter" key, or by touching the touchpad). Note 2: Pronounced
-          "gooey."</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>LDAP</glossterm>
-
-        <glossdef>
-          <para>LDAP: Abbreviation for lightweight directory access protocol.
-          A simplified version of the X.500 standard, which version consists
-          of a set of protocols developed for accessing information
-          directories. [After Bahorsky]</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>METADATA</glossterm>
-
-        <glossdef>
-          <para>Metadata: is machine understandable information for the web.
-          The W3C Metadata Activity addressed the combined needs of several
-          groups for a common framework to express assertions about
-          information on the Web, and was super ceded by the W3C Semantic Web
-          Activity.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>MOVABLE TYPE</glossterm>
-
-        <glossdef>
-          <para>Movable Type: is Six Apart's powerful, customizable publishing
-          system, which installs on web servers to enable individuals or
-          organizations to manage and update weblogs, journals, and frequently
-          updated website content.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>PHP</glossterm>
-
-        <glossdef>
-          <para>PHP: is a widely used general-purpose scripting language that
-          is especially suited for Web development and can be embedded into
-          HTML.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>POSTNUKE</glossterm>
-
-        <glossdef>
-          <para>PostNuke: is a community, content, collaborative management
-          system, a C3MS. More information is located at
-          http://www.postnuke.com</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>RSS</glossterm>
-
-        <glossdef>
-          <para>RDF Site Summary (RSS): - also referred to as Rich Site
-          Summary - is a method of describing news or other Web content that
-          is available for "feeding" (distribution or syndication) from an
-          online publisher to Web users. RSS is an application of the
-          Extensible Markup Language (XML) that adheres to the World Wide Web
-          Consortium's Resource Description Framework (RDF). Originally
-          developed by Netscape for its browser's Netcenter channels, the RSS
-          specification is now available for anyone to use.</para>
-        </glossdef>
-      </glossentry>
-
-      <glossentry>
-        <glossterm>XMLRPC</glossterm>
-
-        <glossdef>
-          <para>XMLRPC: is a spec and a set of implementations that allow
-          software running on disparate operating systems, running in
-          different environments to make procedure calls over the
-          Internet.</para>
-        </glossdef>
-      </glossentry>
-    </glossdiv>
 
     <bibliography>
       <bibliomixed>SearchWebServices. SearchWebServices. 22 Sept 2003
@@ -2609,5 +2503,7 @@ MyModule_user_MyFunc()
       <bibliomixed>Xaraya Documentation. 15 August 2004 &lt;
       http://docs.xaraya.com/index.php/documentation/72&gt;</bibliomixed>
     </bibliography>
-  </glossary>
+
+    <!-- Glossary -->
+    &glossary;
 </book>

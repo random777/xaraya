@@ -10,7 +10,7 @@
 <!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
 <!ENTITY other SYSTEM "parts/other.xml">
-<!ENTITY error_handling "parts/error_handling.xml">
+<!ENTITY error_handling SYSTEM "parts/error_handling.xml">
 ]>
 <book>
   <!-- Meta info about this document -->
@@ -32,25 +32,21 @@
 
     <section>
       <title>Block lay-out</title>
-
       <para>Explanation of Block Lay-out in Xaraya</para>
     </section>
 
     <section>
       <title>Xaraya API</title>
-
       <para>Reference type of text</para>
     </section>
 
     <section>
       <title>Core modules</title>
-
       <para>What Core modules are there, what can you use</para>
     </section>
 
     <section>
       <title>Blocks</title>
-
       <para></para>
     </section>
 

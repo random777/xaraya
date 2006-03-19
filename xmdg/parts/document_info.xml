@@ -29,10 +29,9 @@
       <firstname>Scot</firstname><surname>Gardner</surname>
       <contrib>Initial creator of the document</contrib>
     </othercredit>
-    <!-- Leave these for the moment
-    <othercredit><othername>Jojodee</othername></othercredit>
+    <!-- Leave these for the moment -->
     <othercredit><othername>MichelV</othername></othercredit>
-    <othercredit><othername>Baraboom</othername></othercredit>  -->
+    <othercredit><othername>Baraboom</othername></othercredit>
   </authorgroup>
 
   <!-- Revision history -->

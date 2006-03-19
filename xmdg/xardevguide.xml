@@ -27,6 +27,7 @@
 <!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
 <!ENTITY other SYSTEM "parts/other.xml">
+<!ENTITY error_handling SYSTEM "parts/error_handling.xml">
 ]>
 <book lang="en">
   <!-- Meta info about this document -->

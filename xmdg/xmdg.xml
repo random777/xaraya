@@ -10,6 +10,7 @@
 <!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
 <!ENTITY other SYSTEM "parts/other.xml">
+<!ENTITY error_handling "parts/error_handling.xml">
 ]>
 <book>
   <!-- Meta info about this document -->
@@ -329,146 +330,8 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       variables to all modules on the system.</para>
     </section>
 
-    <section>
-      <title>Error handling</title>
-
-      <para>Xaraya is capable of error handling through a powerful exception
-      handling system. Since the PHP language does not support language-level
-      exceptions, Xaraya provides an artificial mechanism to deal with
-      exceptions. Xaraya divides exceptions into two types: system exceptions
-      and user exceptions. System exceptions are used by Xaraya API functions,
-      but you can use them if it's meaningful in that such situation; for
-      example consider the DATABASE_ERROR exception, you are strongly
-      encouraged to use this exception when a database error occurs and not to
-      use your own exception.</para>
-
-      <para>As another example considers the BAD_PARAM exception, you should
-      choose to use that exception in your module functions and API functions
-      when passed parameters are wrong. Finally, system exceptions are well
-      known exceptions for which Xaraya can undertake. Xaraya does not know
-      particular actions like logging, emailing, or user exceptions, and since
-      they are indistinguishable, Xaraya will treat them, as they were all the
-      same thing.</para>
-
-      <para>Another good point of distinction between system and user
-      exceptions is the fact that you should not leave uncaught user
-      exceptions as you can do for system exceptions. Hence, you should catch
-      all user exceptions instead of throwing them back to Xaraya, this is
-      because user exceptions are the same as soft exceptions, so you could be
-      in the position of doing other actions and/or returning a properly
-      formatted error message that will look better than the default Xaraya
-      exception caught error message. However, it is not illegal to throw back
-      user exceptions to Xaraya, so fell free to do that if it is the
-      case.</para>
-
-      <para>You should avoid catching system exceptions, except in particular
-      cases. A system exception is a hard exception, this means that something
-      very wrong happened and Xaraya should be notified. You can achieve this
-      simply by throwing back system exceptions. In addition, there are
-      particular circumstances in which you could and perhaps should catch
-      system exceptions.</para>
-
-      <para>For example consider the xarUserGetVar() API function: it raises a
-      NO_PERMISSION system exception in the case you don't have right
-      permission, however you weren't in the position to get access level for
-      user variables, so it's perfectly acceptable here to catch this
-      exception and go ahead when it's meaningful to do so.</para>
-
-      <para>Now is the moment to explore how Xaraya permits you to deal with
-      exceptions. Here we begin by exposing how to catch exceptions. When a
-      function that potentially can raise exceptions, outcomes with a void
-      value you MUST check if some exception was raised. You can do that by
-      calling the xarExceptionMajor() function and comparing its return value
-      with the <constant>XAR_NO_EXCEPTION</constant> constant. If they are different, you know that
-      an exception has been raised.</para>
-
-      <para>The xarExceptionMajor() return value can assume one of these
-      values: <constant>XAR_NO_EXCEPTION</constant>, <constant>XAR_USER_EXCEPTION</constant>, <constant>XAR_SYSTEM_EXCEPTION</constant>. The
-      value <constant>XAR_NO_EXCEPTION</constant> indicates that no exception was raised, and
-      <constant>XAR_USER_EXCEPTION</constant> stands for user exception was raised and
-      <constant>XAR_SYSTEM_EXCEPTION</constant> stands for system exception was raised.</para>
-
-      <para>When you see that an exception was raised you have two options:
-      throw it back or handle it. To throw back an exception you have only to
-      return with a void value. To handle an exception you have to check for
-      the exception type, id and value if one.</para>
-
-      <para>Consider the following example:</para>
-
-      <para><programlisting>
-          $res = xarModFunc('MyModule', 'user','MyFunc');
-          if (!isset($res) &amp;&amp; xarExceptionMajor() != XAR_NO_EXCEPTION) {
-              // Got an exception if (xarExcepionMajor() == XAR_SYSTEM_EXCEPTION) { return; // throw back }
-
-              // Got a user exception
-              if (xarExceptionId() == 'MyException1') {
-                  $value = xarExceptionValue();
-
-                  $output-&gt;Text("Syntax error at line: ".$value-&gt;lineNumber);
-
-              } elseif (xarExceptionId() == 'MyException2') {
-                  /* Do something useful */
-              } else { // MyException3
-                  /* Do something useful */
-              } // reset exception status
-
-              // NOTE: it's of vital importance to call this function
-              // before returning xarExceptionFree();
-
-              return $output-&gt;GetOutput();
-          }
-        </programlisting></para>
-
-      <para>To throw exception you use a unique function: xarExceptionSet().
-      You simply call it by passing the exception major, id and value if one;
-      and after this call, you return void.</para>
-
-      <para>Consider the following example:</para>
-
-      <para><programlisting>class MyException1
-{
-    var $lineNumber;
-}
-/* ... */
-MyModule_user_MyFunc()
-{
-    /* ... */
-    if ($syntax == false) { // Syntax error
-        $exc = new MyException1;
-        $exc-&gt;lineNumber = $line;
-        xarExceptionSet(XAR_USER_EXCEPTION, 'MyException1', $exc);
-        return;
-    }
-    /* ... */
-    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException2');
-    /* ... */
-    xarExceptionSet(XAR_USER_EXCEPTION, 'MyException3');
-    /* ... */
-    return true;
-}</programlisting></para>
-
-      <para>Note that no value is associated to MyException2 and MyException3,
-      so there is no need to create a class for exception value. As you can
-      see exception, handling is very powerful but also boring and tedious.
-      However, you can always choose not to use user exceptions and always
-      throw back system exceptions.</para>
-
-      <para>Keep in mind that good error handling is not something that to
-      leave for last. It should be part of the development process. Note that
-      it is wrong not to check exception status after a call to a function
-      that can potentially raise something. And note also that if you choose
-      to handle one or more exceptions you MUST call xarExceptionFree() before
-      exiting, otherwise the trust relationship on which the exception
-      handling mechanism is based won't work and you will produce very bad
-      things.</para>
-
-      <para>An ulterior thing for those of you wanting to code an official
-      Xaraya module: you MUST always check for possibly raised exceptions and
-      not code with the thought that something will never happen; you MUST
-      also raise DATABASE_ERROR in every function that does queries. To get a
-      better understanding of exception handling functions you should refer to
-      the Xaraya API Command Reference.</para>
-    </section>
+    <!-- Section about error handling was here -->
+    &error_handling;
 
     <section>
       <title>Itemtypes</title>

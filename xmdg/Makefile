@@ -32,10 +32,11 @@ DB2FOP=$(DBXSL)/fo/docbook.xsl
 DBIMAGES=$(DBXSL)/images
 
 # HTML specific CSS
-CSSSTYLE=xmdg.css
+CSSSTYLE=xardevguide.css
 
 # Source related
-SOURCES=xmdg.xml
+SOURCES=xmdg.xml xardevguide.xml
+FINALDOC=xardevguide.xml
 
 # Printed output parameters
 PAPER.TYPE='USletter'
@@ -53,25 +54,25 @@ fop:  $(patsubst %.xml,%.fop,$(SOURCES))
 pdf:  $(patsubst %.xml,%.pdf,$(SOURCES))
 txt:  $(patsubst %.xml,%.txt,$(SOURCES))
 
-%.html: $(SOURCES)
+%.html : %.xml 
 	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
-				$(DB2HTML) $? > $@ 
+				$(DB2HTML) $< > $@ 
 
-index.html: $(SOURCES)
+index.html: $(FINALDOC)
 	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
 				--stringparam chunk.section.depth 0 \
-				$(DB2CHUNKS) $?
+				$(DB2CHUNKS) $<
 
-%.fop: $(SOURCES)
+%.fop : %.xml
 	$(XSLTPROC) --stringparam draft.mode $(DRAFT.MODE) \
 				--stringparam double.sided $(DOUBLE.SIDED) \
 				--stringparam fop.extensions 1 \
 				--stringparam ignore.image.scaling 1 \
 				--stringparam paper.type $(PAPER.TYPE) \
-				$(DB2FOP) $? > $@
+				$(DB2FOP) $< > $@
 
 %.pdf: %.fop
-	$(FOP) -fo $? -pdf $@
+	$(FOP) -fo $< -pdf $@
 
 # txt target in fop sucks, but this is how it would be done
 #xmdg.txt: xmdg.fop
@@ -79,31 +80,23 @@ index.html: $(SOURCES)
 
 # instead we use the poor mans txt formatter lynx!
 %.txt: %.html
-	$(LYNX) -dump $? > $@
+	$(LYNX) -dump $< > $@
 
 clean:
-	rm -f *.html
-	rm -f *.fop
-	rm -f *.pdf
-	rm -f *.txt
+	$(RM) *.html *.fop *.pdf $(patsubst %.xml,%.txt,$(SOURCES))
 
 monotone:
 	$(MT) pull mt.xaraya.com 'com.xaraya.documentation'
 	$(MT) update
 
 webdocs: monotone all
+	mkdir -p $(OUTPUT)/stylesheet-images
 	cp -a $(DBXSL)/images  $(OUTPUT)/stylesheet-images
 	mkdir -p $(OUTPUT)/examples
 	mkdir -p $(OUTPUT)/callouts
-	mkdir -p $(OUTPUT)/sourceimages
 	mkdir -p $(OUTPUT)/images
-	#cp -rf examples/*.* $(OUTPUT)/examples
-	#cp -rf callouts/*.* $(OUTPUT)/callouts
-	#cp -rf sourceimages/*.* $(OUTPUT)/sourceimages
+	cp -rf images/*.* $(OUTPUT)/images
 	cp *.css $(OUTPUT)
-	#cp images/*.gif $(OUTPUT)/images
-	#cp images/*.png $(OUTPUT)/images
-	#cp images/*.jpg $(OUTPUT)/images
-	cp xmdg.txt $(OUTPUT)
-	cp xmdg.pdf $(OUTPUT)
+	cp *.txt $(OUTPUT)
+	cp *.pdf $(OUTPUT)
 	cp *.html $(OUTPUT)

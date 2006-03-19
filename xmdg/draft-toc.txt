@@ -66,19 +66,24 @@ WORKING DRAFT CONTENT OUTLINE
 
    Part 2: Extending Xaraya using Modules
          1. Do I need a module?
+            1.1 Why not use... (list of already available tools/extensions)
+            a What modules are already available
+            1.2 How to extend current modules
+
+
+         2. Before you begin
+
+               2.1 What will my module do? (list of functionality required...)
             1.1 Types of modules
                a. Content modules
                b. Utility modules (could be a mix too ...)
                c. Registration
                d. Authentication
                e. ....
-            1.2 What modules are already available
             1.2 Should I use Dynamic Data?
                 a. Creating a module with Dynamic Data (just overview, adv/disadv)
                 b. Using Dynamic Data objects (just overview, adv/disadv)
 
-         2. Before you begin
-               2.1 What will my module do? (list of functionality required...)
                2.2 Research your needs
                    a. What existing components are available (utilitiy modules, hooks, properties)
                    b. Do i need storage? (database, file system)
@@ -126,7 +131,7 @@ WORKING DRAFT CONTENT OUTLINE
                  b. Calling other module or core api functions
                  c. Using existing dynamic data properties
                  d. Sharing functionality with other modules
-
+Next chapter in here, even part
          4. Design your module
              3.1 List required functionality
              3.2 Determine storage/database table requirements
@@ -151,7 +156,10 @@ WORKING DRAFT CONTENT OUTLINE
               5.14 Package your module
               5.15 Release your module!
 
-    Part 3: Extending Xaraya with special components
+Note: the parts 3, 4 and 5 as stated here are really more like in-depth parts, and will be small compared
+to other parts. Why not put them in one part, with chapters for these?
+
+    Part 3: Extending Xaraya with special components (Why different part?)
        (each to be expanded appropriately with sections)
            1. Block types
            2. Understanding and creating hooks
@@ -179,4 +187,4 @@ WORKING DRAFT CONTENT OUTLINE
 
 
 
-Part 6: References and Appendicies
+Part 6: References and Appendicies (Are not a part, are separate)

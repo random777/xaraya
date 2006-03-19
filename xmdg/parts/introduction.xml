@@ -83,3 +83,107 @@
     Xaraya.</para>
   </section>
 </chapter>
+
+<!-- Old content, see what we need, otherwise delete:
+  <chapter>
+    <title>Introduction</title>
+
+    <para>Writing a module for Xaraya can be an adventure, a glorious event
+    when finished, but a long yourney in between. This guide will help to easy
+    the process, as in its roots, it is a very simple one.</para>
+
+    <section>
+      <title>What is a module</title>
+
+      <para>Xaraya itself can be seen as an operating system. The Core
+      download shows the core operation files. The Xaraya system allows for
+      expansion of its functionality using modules. A module is a set of files
+      containing functions with predefined names and roles that integrate very
+      easily with a standard deployment of Xaraya. A module can also include
+      blocks, images, plain HTML files etc. A module provides a specific
+      functionality like "enable users to post comments to articles" for the
+      comments module.</para>
+    </section>
+
+    <section>
+      <title>Why write a module?</title>
+
+      <para>There are a number of reasons to write a module. The main reason
+      is that Xaraya does not provide a specific function that you would like.
+      However, first make sure there aren't easier ways to get where you want
+      to get. Nobody wants to spend time on things that others have already
+      created or thought about. Have a look at these questions here:
+      <itemizedlist>
+          <listitem>
+            <para>Can't you get the job done with extending an existing
+            module?</para>
+          </listitem>
+
+          <listitem>
+            <para>Can't you make use of Dynamic Data in an existing
+            module?</para>
+          </listitem>
+
+          <listitem>
+            <para>Isn't the thing you want just a matter of adjusting the
+            templates for pages, thus creating your own theme and showing data
+            from the database in your own way? If you don't like the order of
+            items, or want other terms, then make your own theme and adjust
+            the templates within the modules.</para>
+          </listitem>
+
+          <listitem>
+            <para>Is the adjustment a matter of changing the words in an
+            existing module? You can change all wording by adding your own
+            'translation' using the translations module?</para>
+          </listitem>
+        </itemizedlist>If you still cannot make want you want using the
+      suggestions here, then it is time to read on and create your own
+      module!</para>
+    </section>
+
+    <section>
+      <title>Related Documents</title>
+
+      <para>The main reference you should look at is the 'Example Module'.
+      This module is an annotated reference for current best practise. It is
+      regularly maintained by Xaraya developers and shows how to setup a
+      module. It can perfectly serve as a start for your own module. You can
+      get a full copy of the example module from the full download/extensions
+      download or from the Xaraya monotone repository.</para>
+
+      <para>Other documents that might be of use in conjunction with this
+      guide are the API Reference Command Reference - online viewable as
+      <ulink url="http://www.xaraya.com/documentation/phpdoc/">PHPDoc</ulink>
+      or <ulink
+      url="http://www.xaraya.com/documentation/phpxref/">PHPXRef</ulink>, and
+      <ulink url="http://xaraya.com/index.php/documentation/72">RFC
+      library</ulink>.</para>
+
+      <para>See: <ulink
+      url="???">http://www.xaraya.com/index.php/documentation/c122/</ulink>
+      for an overview of developers documentation</para>
+    </section>
+
+    <section>
+      <title>Suggestions and Updates</title>
+
+      <para>The Xaraya module system is a work-in-progress. There are no doubt
+      many good ideas out there that have not been incorporated into the
+      Xaraya module system, and if a developer has a request for a particular
+      set of functionality then they can submit it to the Xaraya features
+      request list at the Xaraya Bugzilla website: <ulink
+      url="http://bugs.xaraya.com">http://bugs.xaraya.com</ulink></para>
+
+      <para>If you have found a bug within the current module system then you
+      can submit it to the bug list at the same address. Please note that the
+      main requirement for the Xaraya module design is stability. Due to this,
+      it is possible that your request for new or updated functionality will
+      be refused because it is too specific, can easily be built from core API
+      functions, or carries out work that should rightly be done by a module.
+      In such situations, the Xaraya team will always try to provide a simple
+      alternative, but please remember that submission of a new or updated
+      addition to the module design does not guarantee inclusion.</para>
+    </section>
+  </chapter>
+-->

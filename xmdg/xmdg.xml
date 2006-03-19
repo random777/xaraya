@@ -2,6 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
 <!ENTITY documentinfo SYSTEM "parts/document_info.xml">
+<!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
 ]>
 <book>
@@ -2486,24 +2487,9 @@ MyModule_user_MyFunc()
     </section>
   </chapter>
 
-
-    <bibliography>
-      <bibliomixed>SearchWebServices. SearchWebServices. 22 Sept 2003
-      http://searchwebservices.techtarget.com/sDefinition/0,,sid26_gci813358,00.html</bibliomixed>
-
-      <bibliomixed>Telecom Glossary 2k. Telecom Glossary 2k. 29 Feb. 2001
-      http://www.atis.org/tg2k/_irc.html</bibliomixed>
-
-      <bibliomixed>W3C Technology and Society Domain. 05 April 2001 &lt;
-      http://www.w3.org/Metadata/&gt;</bibliomixed>
-
-      <bibliomixed>John Cox. 27 April. 2003 &lt;
-      http://www.xaraya.com/index.php/news/c28/&gt;</bibliomixed>
-
-      <bibliomixed>Xaraya Documentation. 15 August 2004 &lt;
-      http://docs.xaraya.com/index.php/documentation/72&gt;</bibliomixed>
-    </bibliography>
-
-    <!-- Glossary -->
-    &glossary;
+  <!-- Bibliography -->
+  &bibliography;
+  
+  <!-- Glossary -->
+  &glossary;
 </book>

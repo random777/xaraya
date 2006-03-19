@@ -23,6 +23,7 @@
 <!ENTITY using_dd SYSTEM "parts/using_dd.xml">
 <!ENTITY dd_objects SYSTEM "parts/dd_objects.xml">
 <!ENTITY templating_dd SYSTEM "parts/templating_dd.xml">
+<!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
 ]>
 <book lang="en">
@@ -145,6 +146,9 @@
 
     <para></para>
   </appendix>
+
+  <!-- Bibliography -->
+  &bibliography;
 
   <!-- Glossary -->
   &glossary;

@@ -931,60 +931,35 @@ MyModule_user_MyFunc()
 
       <para>Xaraya News Groups: The following lists of news groups are
       available via news.xaraya.com. These news groups are also available via
-      your web browser at the following Web site: http://www.xaraya.com</para>
-
-      <para>Ddf.public – DDF Public List</para>
-
-      <para>Xaraya.announce – Xaraya Announcements List</para>
-
-      <para>Xaraya.devel – Xaraya Member List</para>
-
-      <para>Xaraya.mt-notices - Pushes to the monotone repository, see
-      mt.xaraya.com</para>
-
-      <para>Xaraya.documentation – Xaraya Documentation List</para>
-
-      <para>Xaraya.bugs – Xaraya Bugs List</para>
-
-      <para>Xaraya.ui – Xaraya User Interface List</para>
-
-      <para>Xaraya.knowledge-base – Xaraya Knowledge Base List</para>
-
-      <para>Xaraya.marketing – Xaraya Marketing</para>
-
-      <para>Xaraya.patches – Xaraya Patches</para>
-
-      <para>Xaraya.qa – Xaraya Quality Assurance</para>
-
-      <para>Xaraya.user – Xaraya User Discussion List</para>
-
-      <para>Xaraya.user-arabic – Xaraya Arabic User Discussion List</para>
-
-      <para>Xaraya.user.chinese – Xaraya Chinese User List</para>
-
-      <para>Xaraya.user.danish – Xaraya Danish User Discussion List</para>
-
-      <para>Xaraya.user.dutch – Xaraya Dutch User Discussion List</para>
-
-      <para>Xaraya.user.french – Xaraya French User Discussion List</para>
-
-      <para>Xaraya.user.german – Xaraya German User Discussion List</para>
-
-      <para>Xaraya.user.greek – Xaraya Greek User Discussion List</para>
-
-      <para>Xaraya.users.hungarian – Xaraya Hungarian User Discussion
-      List</para>
-
-      <para>Xaraya.user.italian – Xaraya Italian User Discussion List</para>
-
-      <para>Xaraya.user.polish – Xaraya Polish User Discussion List</para>
-
-      <para>Xaraya.user.portuguese – Xaraya Portuguese User Discussion
-      List</para>
-
-      <para>Xaraya.user.russian – Xaraya Russian User Discussion List</para>
-
-      <para>Xaraya.user.spanish – Xaraya Spanish User Discussion List</para>
+      your web browser at the following Web site:
+      http://www.xaraya.com</para>
+      <itemizedlist>
+        <listitem><para>Ddf.public - DDF Public List</para></listitem>
+        <listitem><para>Xaraya.announce - Xaraya Announcements List</para></listitem>
+        <listitem><para>Xaraya.devel - Xaraya Member List</para></listitem>
+        <listitem><para>Xaraya.mt-notices - Pushes to the monotone repository, see  mt.xaraya.com</para></listitem>
+        <listitem><para>Xaraya.documentation - Xaraya Documentation List</para></listitem>
+        <listitem><para>Xaraya.bugs - Xaraya Bugs List</para></listitem>
+        <listitem><para>Xaraya.ui - Xaraya User Interface List</para></listitem>
+        <listitem><para>Xaraya.knowledge-base - Xaraya Knowledge Base List</para></listitem>
+        <listitem><para>Xaraya.marketing - Xaraya Marketing</para></listitem>
+        <listitem><para>Xaraya.patches - Xaraya Patches</para></listitem>
+        <listitem><para>Xaraya.qa - Xaraya Quality Assurance</para></listitem>
+        <listitem><para>Xaraya.user - Xaraya User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user-arabic - Xaraya Arabic User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.chinese - Xaraya Chinese User List</para></listitem>
+        <listitem><para>Xaraya.user.danish - Xaraya Danish User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.dutch - Xaraya Dutch User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.french - Xaraya French User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.german - Xaraya German User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.greek - Xaraya Greek User Discussion List</para></listitem>
+        <listitem><para>Xaraya.users.hungarian - Xaraya Hungarian User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.italian - Xaraya Italian User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.polish - Xaraya Polish User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.portuguese - Xaraya Portuguese User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.russian - Xaraya Russian User Discussion List</para></listitem>
+        <listitem><para>Xaraya.user.spanish - Xaraya Spanish User Discussion List</para></listitem>
+      </itemizedlist>
     </section>
   </chapter>
 

@@ -1,62 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
+<!ENTITY documentinfo SYSTEM "parts/document_info.xml">
+]>
 <book>
-  <title>Xaraya Developers Guide</title>
-
-  <subtitle>A Guide to developing in Xaraya, focussing on modules</subtitle>
-
-  <bookinfo>
-    <releaseinfo>Third Release, in preparation</releaseinfo>
-
-    <copyright>
-      <year>2006</year>
-
-      <holder>The Digital Development Foundation</holder>
-    </copyright>
-
-    <copyright>
-      <year>2003-2005</year>
-
-      <holder>Scot Gardner</holder>
-    </copyright>
-
-    <date>16 March 2006</date>
-
-    <revhistory>
-      <revision>
-        <revnumber>2.0</revnumber>
-
-        <date>Release in DocBook format</date>
-      </revision>
-    </revhistory>
-
-    <revhistory>
-      <revision>
-        <revnumber>2.0.1</revnumber>
-
-        <date>Start on new Table of Contents. Start splitting the doc into
-        Xaraya 1.0 compliant parts</date>
-      </revision>
-    </revhistory>
-
-    <date>August 15, 2004</date>
-
-    <date>September 21, 2003</date>
-
-    <authorgroup>
-      <corpauthor>The Xaraya Documentation Team</corpauthor>
-    </authorgroup>
-
-    <contrib>Scot Gardner</contrib>
-
-    <contrib>Jojodee, Baraboom, MichelV</contrib>
-
-    <legalnotice>
-      <para>Proposed License: GNU Free Documentation License
-      http://www.gnu.org/copyleft/fdl.html</para>
-    </legalnotice>
-  </bookinfo>
+  <!-- Meta info about this document -->
+  &documentinfo;
 
   <preface>
     <title>Preface</title>

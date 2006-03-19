@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
-  <title></title>
 
+    <chapter>
+      <title>Introduction to Dynamic Data</title>
   <!--Maintained by:-->
 
   <!--Status:-->
+      <section>
+        <title></title>
 
-  <section>
-    <title></title>
-
-    <para></para>
-  </section>
-</chapter>
+        <para></para>
+      </section>
+    </chapter>

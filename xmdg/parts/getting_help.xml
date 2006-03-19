@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
-  <title></title>
-
+    <chapter>
+      <title>Getting Help</title>
   <!--Maintained by:-->
 
   <!--Status:-->
+     <section>
+        <title>Developer Documentation and References</title>
 
-  <section>
-    <title></title>
+        <para></para>
+      </section>
+     <section>
+        <title>Support forums, newsgroups, lists &amp; IRC</title>
 
-    <para></para>
-  </section>
+        <para></para>
+      </section>
+    <section>
+        <title>...</title>
 
-  <section>
-    <title></title>
-
-    <para></para>
-  </section>
-
-  <section>
-    <title>...</title>
-
-    <para></para>
-  </section>
-</chapter>
+        <para></para>
+      </section>
+    </chapter>

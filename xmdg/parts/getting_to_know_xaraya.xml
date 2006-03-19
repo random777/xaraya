@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
-  <title>Some title</title>
-
+    <chapter>
+      <title>Getting to know Xaraya</title>
   <!--Maintained by:-->
 
   <!--Status:-->
+     <section>
+        <title>Your Xaraya installation</title>
 
-  <section>
-    <title></title>
+        <para></para>
+      </section>
+     <section>
+        <title>Xaraya key components</title>
 
-    <para></para>
-  </section>
-</chapter>
+        <para></para>
+      </section>
+ 
+    </chapter>

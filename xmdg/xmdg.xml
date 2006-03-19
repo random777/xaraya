@@ -2,6 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
 <!ENTITY documentinfo SYSTEM "parts/document_info.xml">
+<!ENTITY preface SYSTEM "parts/preface.xml">
 <!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
 ]>
@@ -9,141 +10,8 @@
   <!-- Meta info about this document -->
   &documentinfo;
 
-  <preface>
-    <title>Preface</title>
-
-    <para>Xaraya has been released in 2005 as version 1.0, after more than
-    five years of development. This long time has garanteed for a profoundly
-    good product.</para>
-
-    <para>The initial installation package includes core functionality for a
-    basic content management solution listing of registered modules on
-    Xaraya.com includes sixty-two content-based modules registered for a
-    certified Xaraya identification number. Thirty-nine of those modules are
-    currently completed or under development by members of the Xaraya
-    development team.</para>
-
-    <para>Third party developers have a concept or idea that they want to
-    contribute to the project, but lack the proper tools that will allow them
-    to submit API<footnote>
-        <para>application program interface (API): A formalized <ulink
-        url="http://www.atis.org/tg2k/_set.html">set</ulink> of <ulink
-        url="http://www.atis.org/tg2k/_software.html">software</ulink> calls
-        and routines that can be referenced by an <ulink
-        url="http://www.atis.org/tg2k/_application_program.html">application
-        program</ulink> in order to <ulink
-        url="http://www.atis.org/tg2k/_access.html">access</ulink> supporting
-        <ulink url="http://www.atis.org/tg2k/_network.html">network</ulink>
-        services</para>
-      </footnote> compliant modules for certification. A series of polls
-    posted on Xaraya websites have revealed the need for this type of training
-    document and have produced a list of suggested modules to choose from for
-    use as examples in the development guide. Current research for this
-    project was conducted by reading through the Xaraya code, developer
-    comments and notes as well as existing documentation located in the beta
-    repositories.</para>
-
-    <para>Xaraya is an extensible, open source platform written in
-    PHP<footnote>
-        <para>PHP is a widely used general-purpose scripting language that is
-        especially suited for Web development and can be embedded into
-        HTML.</para>
-      </footnote> and licensed under the <ulink
-    url="http://www.gnu.org/copyleft/gpl.html">GNU General Public
-    License</ulink>. Xaraya utilizes permissions, data management, and modular
-    systems to dynamically integrate and manage content. Xaraya's modular,
-    database independent architecture introduces the need for add-on modules
-    that will enhance its functionality and produce a customizable solution
-    that will meet any web masters needs.</para>
-
-    <para>Xaraya's modular, database-independent architecture provides tools,
-    which separate form, function, content, and design on the site. Xaraya
-    delivers the requisite infrastructure for a fully dynamic multi-platform
-    Content Management Solution (CMS).</para>
-
-    <itemizedlist>
-      <listitem>
-        <para>Database-driven website engine (PHP-ADODB compliant)</para>
-      </listitem>
-
-      <listitem>
-        <para>Extensible through a variety of third-party modules</para>
-      </listitem>
-
-      <listitem>
-        <para>Powerful security module for multi-level user/administrator
-        logins</para>
-      </listitem>
-
-      <listitem>
-        <para>Distribute workload using User/Administrator management
-        tools</para>
-      </listitem>
-
-      <listitem>
-        <para>Robust article management system</para>
-      </listitem>
-
-      <listitem>
-        <para>
-          Fully editable &amp; manageable News, Links, Downloads, and FAQ
-          Sections
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          BlockLayout Theme Engine: Display your site your way
-        </para>
-      </listitem>
-      <listitem>
-        <para>News Feed Manager: Access thousands of RSS-compliant
-        news feeds</para>
-      </listitem>
-      <listitem>
-        <para>Site Statistics: Tracks browser &amp; operating system, top news
-        &amp; articles, and more</para>
-      </listitem>
-      <listitem>
-        <para>Easy install on most Unix/Linux and Windows
-        platforms</para>
-      </listitem>
-      <listitem>
-        <para>Import information from many other CMS systems like PostNuke,
-        PHP-Nuke, Joomla, phpBB2 and Moveable Type
-      installations</para></listitem>
-    </itemizedlist>
-
-    <para>
-      Xaraya reduces web site development costs by introducing
-      sophisticated administration tools &amp; services, which separate form,
-      function, content, and design. With Xaraya, you work in a simple,
-      structured environment so you can rapidly develop your website
-      with diverse content, including:
-      <itemizedlist>
-        <listitem><para>News Articles</para></listitem>
-        <listitem><para>Web Links Directory</para></listitem>
-        <listitem><para>Job Boards</para></listitem>
-        <listitem><para>Frequently Asked Questions</para></listitem>
-        <listitem><para>File Downloads</para></listitem>
-        <listitem><para>Photo Gallery</para></listitem>
-        <listitem><para>Member profiles</para></listitem>
-        <listitem><para>Web forums (message boards)</para></listitem>
-        <listitem>
-          <para>
-            Articles Repository (i.e.: Knowledge base, cooking recipes,
-            product reviews, news articles, etc.)
-          </para>
-        </listitem>
-      </itemizedlist>
-    </para>
-
-    <para>With more than forty active developers spanning five continents and
-    ten languages, the Xaraya Development Team is a blend of some of the best
-    and brightest developers in the open source community. We expect the best
-    of one another. As a result, you can expect the best from Xaraya.</para>
-
-    <para>We will introduce the Xaraya Module operations here.</para>
-  </preface>
+  <!-- Preface -->
+  &preface;
 
   <chapter>
     <title>Introduction</title>

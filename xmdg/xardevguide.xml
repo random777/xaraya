@@ -2,6 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
 <!ENTITY documentinfo SYSTEM "parts/document_info.xml">
+<!ENTITY preface SYSTEM "parts/preface.xml">
 <!ENTITY introduction SYSTEM "parts/introduction.xml">
 <!ENTITY getting_to_know_xaraya SYSTEM "parts/getting_to_know_xaraya.xml">
 <!ENTITY working_with_xaraya SYSTEM "parts/working_with_xaraya.xml">
@@ -30,42 +31,11 @@
   <!-- Meta info about this document -->
   &documentinfo;
 
+  <!-- Preface -->
+  &preface;
+
   <!-- Table of contents -->
   <toc/>
-
-  <preface>
-    <title>Preface</title>
-
-    <!--New preface - original was out of date, with grammar and spelling errors, and  based on old PN texts.-->
-
-    <para><ulink url="http://xaraya.com">Xaraya</ulink> 1.0 was released in November 2005.
-    The release marked the culmination of Xaraya's transformation from a
-    simple open source content management system into an enterprise level,
-    extensible, application framework. Since the 1.0 release there has been
-    ongoing improvements in stability, performance, and security. Xaraya now
-    provides a reliable, flexible and rapid development platform that web
-    application developers have learned they can depend on for projects of
-    varying size and complexity.</para>
-
-    <para>Xaraya is written in PHP, platform independent and currently can be
-    installed with a variety of databases including <ulink
-    url="http://www.mysql.com">MySQL</ulink>, <ulink
-    url="http://www.postgres.org">PostgreSQL</ulink>, and <ulink url="http://www.sqlite.org">SQLite</ulink>. It is
-    licensed under the <ulink url="http://www.gnu.org/copyleft/gpl.html">GNU
-    General Public License</ulink>.</para>
-
-    <para>This Xaraya Developer Guide is written in the hope it will assist
-    existing and budding developers that wish to learn how to use Xaraya to
-    create custom web based applications. The Xaraya Developer Guide provides
-    a guide to best practice in Xaraya development along with the information
-    to understand and use the Xaraya development framework for developing web
-    applications.</para>
-
-    <para>The Xaraya Documentation team welcome feedback and suggestions for
-    improvement. All feature requests and notification of corrections can be
-    lodged in the Support Documentation component on <ulink url="http://bugs.xaraya.com">Xaraya's bugzilla</ulink>
-    </para>
-  </preface>
 
   <!--The following Chapters are each contained in their own subdocument. -->
 

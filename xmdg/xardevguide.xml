@@ -2,7 +2,6 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
 <!ENTITY documentinfo SYSTEM "parts/document_info.xml">
-<!ENTITY introduction SYSTEM "parts/introduction.xml">
 <!ENTITY getting_to_know_xaraya SYSTEM "parts/getting_to_know_xaraya.xml">
 <!ENTITY working_with_xaraya SYSTEM "parts/working_with_xaraya.xml">
 <!ENTITY getting_help SYSTEM "parts/getting_help.xml">
@@ -195,8 +194,6 @@
 
   <part id="introduction">
     <title></title>
-
-    &introduction;
 
     &getting_to_know_xaraya;
 
@@ -1422,7 +1419,7 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
   </appendix>
 
   <appendix>
-    <title>Setting up a Xaraya Development Environment</title>
+    <title></title>
 
     <para></para>
   </appendix>

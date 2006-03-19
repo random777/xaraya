@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <chapter>
-      <title>Working with Xaraya</title>
+<chapter>
+  <title>Some title</title>
 
   <!--Maintained by:-->
 
   <!--Status:-->
-     <section>
-        <title>Meeting standards</title>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Getting up close </title>
+  <section>
+    <title></title>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Playing with Xaraya extras</title>
+    <para></para>
+  </section>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Don't go there</title>
+  <section>
+    <title></title>
 
-        <para></para>
-      </section>
-    </chapter>
+    <para></para>
+  </section>
+
+  <section>
+    <title></title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title></title>
+
+    <para></para>
+  </section>
+</chapter>

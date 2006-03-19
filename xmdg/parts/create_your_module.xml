@@ -1,63 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-    <chapter>
-      <title>Create your module</title>
+<chapter>
+  <title>Create your module</title>
   <!--Maintained by:-->
-
+  
   <!--Status:-->
-    <section>
-        <title>Make the  initial directory</title>
-
-        <para></para>
-      </section>
-    <section>
-        <title>Copy the Example or Dyn_Example Module Template</title>
-
-        <para></para>
-      </section>
-    <section>
-        <title>Code the Database Tables</title>
-
-        <para></para>
-      </section>
-    <section>
-        <title>Write and test the Initialisation Routines</title>
-
-        <para></para>
-      </section>
-    <section>
-        <title>Write and test the Administration Functions</title>
-
-        <para></para>
-      </section>
-    <section>
-        <title>Write and test the User Functions</title>
-
-        <para></para>
-      </section>
-   <section>
-        <title>Write and test the Blocks</title>
-
-        <para></para>
-      </section>
-   <section>
-        <title>Need hooks, dynamic properties or custom tags?</title>
-
-        <para></para>
-      </section>
-   <section>
-        <title>Document your module</title>
-
-        <para></para>
-      </section>
-   <section>
-        <title>Package your module</title>
-
-        <para></para>
-      </section>
-   <section>
-        <title>Release your module</title>
-
-        <para></para>
-      </section>
-    </chapter>
+  <section>
+    <title>Checklist</title>
+    
+    <para>The following checklist presents a number of items that need
+    checking throughout the process of designing, building, and releasing
+    your module.</para>
+    
+    <para>
+      <orderedlist>
+        <listitem>
+          <para>Initial Decide on the module type</para>
+        </listitem>
+        <listitem>
+          <para>Choose a name for your module</para>
+        </listitem>
+        <listitem>
+          <para>Register your module name</para>
+        </listitem>
+        <listitem>
+          <para>Obtain and read the Module Developers Guide</para>
+        </listitem>
+        <listitem>
+          <para>Obtain and read the API Documentation</para>
+        </listitem>
+        <listitem>
+          <para>Module Design</para>
+          <orderedlist>
+            <listitem>
+              <para>Separate User and Administration Functions</para>
+            </listitem>
+            <listitem>
+              <para>Separate GUI and API functions</para>
+            </listitem>
+            <listitem>
+              <para>Design data tables</para>
+            </listitem>
+            <listitem>
+              <para>Note, which utility modules are of use</para>
+            </listitem>
+            <listitem>
+              <para>Note, which standard module functions
+              apply</para>
+            </listitem>
+            <listitem>
+              <para>Create module security schema</para>
+            </listitem>
+          </orderedlist>
+        </listitem>
+        <listitem>
+          <para>Module Build</para>
+          <orderedlist>
+            <listitem>
+              <para>Copy the example module directory</para>
+            </listitem>
+            <listitem>
+              <para>Create database tables</para>
+            </listitem>
+            <listitem>
+              <para>Create database initialization routines</para>
+            </listitem>
+            <listitem>
+              <para>Test database initialization routines</para>
+            </listitem>
+            <listitem>
+              <para>Write administration functions</para>
+            </listitem>
+            <listitem>
+              <para>Test administration functions</para>
+            </listitem>
+            <listitem>
+              <para>Write user functions</para>
+            </listitem>
+            <listitem>
+              <para>Test user functions</para>
+            </listitem>
+            <listitem>
+              <para>Write blocks</para>
+            </listitem>
+            <listitem>
+              <para>Test blocks</para>
+            </listitem>
+            <listitem>
+              <para>Document module API</para>
+            </listitem>
+            <listitem>
+              <para>Package your module</para>
+            </listitem>
+          </orderedlist>
+        </listitem>
+        <listitem>
+          <para>Module Checks</para>
+          <orderedlist>
+            <listitem>
+              <para>No global variables used</para>
+            </listitem>
+            <listitem>
+              <para>No Xaraya reserved variable names used</para>
+            </listitem>
+            <listitem>
+              <para>No echo() or print() statements used</para>
+            </listitem>
+            <listitem>
+              <para>All operations protected by
+              xarSecAuthAction()</para>
+            </listitem>
+            <listitem>
+              <para>All form results protected by
+              xarSecConfirmAuthKey()</para>
+            </listitem>
+            <listitem>
+              <para>All form variables obtained by
+              xarVarFetch()</para>
+            </listitem>
+            <listitem>
+              <para>All output is passed through transform
+              hooks.</para>
+            </listitem>
+            <listitem>
+              <para>All output parsed through
+              xarVarPrepForDisplay() or
+              xarVarPrepForHTMLDisplay()</para>
+            </listitem>
+            <listitem>
+              <para>All variables in SQL queries protected by using
+              bindvars</para>
+            </listitem>
+            <listitem>
+              <para>ll variables in filesystem  access protected by
+              xarVarPrepForOS()</para>
+            </listitem>
+            <listitem>
+              <para>Calls to xarModCallHooks() in appropriate
+              locations</para>
+            </listitem>
+          </orderedlist>
+        </listitem>
+      </orderedlist>
+    </para>
+  </section>
+</chapter>
+    

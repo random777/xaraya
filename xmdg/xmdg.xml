@@ -5,6 +5,7 @@
 <!ENTITY preface SYSTEM "parts/preface.xml">
 <!ENTITY introduction SYSTEM "parts/introduction.xml">
 <!ENTITY xaraya_module_architecture SYSTEM "parts/xaraya_module_architecture.xml">
+<!ENTITY create_your_module SYSTEM "parts/create_your_module.xml">
 <!ENTITY understanding_hooks SYSTEM "parts/understanding_hooks.xml">
 <!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
@@ -1082,60 +1083,43 @@ MyModule_user_MyFunc()
     <section>
       <title>Reserved Variable Names</title>
 
-      <para>Xaraya has a number of variables, which are reserved. These
-      variables are not be used within modules as they can conflict with the
-      Xaraya core and cause unpredictable results. The current lists of
-      variables, which are reserved, are as follows:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>file</para>
-
-          <para>the file to open</para>
-        </listitem>
-
-        <listitem>
-          <para>func</para>
-
-          <para>In use for Function, the function being called</para>
-        </listitem>
-
-        <listitem>
-          <para>loadedmod</para>
-
-          <para>The module that is loaded. Mainly in use by the core module
-          'roles'</para>
-        </listitem>
-
-        <listitem>
-          <para>module</para>
-
-          <para>The module that is being called</para>
-        </listitem>
-
-        <listitem>
-          <para>name</para>
-        </listitem>
-
-        <listitem>
-          <para>op</para>
-        </listitem>
-
-        <listitem>
-          <para>pagerstart</para>
-        </listitem>
-
-        <listitem>
-          <para>pagertotal</para>
-        </listitem>
-
-        <listitem>
-          <para>type</para>
-
-          <para>Either user or admin, type of function to call</para>
-        </listitem>
-      </itemizedlist>
-
+      <para>
+        Xaraya has a number of variables, which are reserved. These
+        variables are not be used within modules as they can conflict with the
+        Xaraya core and cause unpredictable results. The current lists of
+        variables, which are reserved, are as follows:
+        <itemizedlist>
+          <listitem>
+            <para><varname>file</varname>: the file to open</para>
+          </listitem>
+          <listitem>
+            <para>
+              <varname>func</varname>: 
+              In use for Function, the function being called
+            </para>
+          </listitem>
+          <listitem>
+            <para><varname>loadedmod</varname>:
+            The module that is loaded. Mainly in use by the core module
+            'roles'
+            </para>
+          </listitem>
+          <listitem>
+            <para><varname>module</varname>:
+            The module that is being called
+            </para>
+          </listitem>
+          <listitem><para><varname>name</varname></para></listitem>
+          <listitem><para><varname>op</varname></para></listitem>
+          <listitem><para><varname>pagerstart</varname></para></listitem>
+          <listitem><para><varname>pagertotal</varname></para></listitem>
+          <listitem>
+            <para><varname>type</varname>:
+            Either user or admin, type of function to call
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
       <para>In addition, all one-letter variables are reserved.</para>
     </section>
 
@@ -1171,43 +1155,21 @@ MyModule_user_MyFunc()
       <para>Modules written as classes is allowed, however the API as
       described in the rest of this document must still be adhered to. The
       simplest way of doing this is to use compatibility functions, for
-      example: <programlisting>function mymod_user_main() {
-    // Instantiate
-    $obj = new myClass();
-    // Call relevant method and return output return
-    $obj-&gt;usermain();
-}</programlisting></para>
-    </section>
-
-    <section>
-      <title>Checklist</title>
-
-      <para>The following checklist presents a number of items that need
-      checking throughout the process of designing, building, and releasing
-      your module.</para>
-
-      <para>Initial Decide on the module type Choose a name for your module
-      Register your module name Obtain and read the Module Developers Guide
-      Obtain and read the API Documentation Module Design Separate User and
-      Administration Functions Separate GUI and API functions Design data
-      tables Note, which utility modules are of use Note, which standard
-      module functions apply Create module security schema Module Build Copy
-      the example module directory Create database tables Create database
-      initialization routines Test database initialization routines Write
-      administration functions Test administration functions Write user
-      functions Test user functions Write blocks Test blocks Document module
-      API Package your module Module Checks No global variables used No Xaraya
-      reserved variable names used No echo() or print() statements used All
-      operations protected by xarSecAuthAction() All form results protected by
-      xarSecConfirmAuthKey() All form variables obtained by xarVarFetch() All
-      output is passed through transform hooks. All output parsed through
-      xarVarPrepForDisplay() or xarVarPrepForHTMLDisplay() All variables in
-      SQL queries protected by using bindvars All variables in filesystem
-      access protected by xarVarPrepForOS() Calls to xarModCallHooks() in
-      appropriate locations</para>
+      example: 
+      <programlisting>
+        function mymod_user_main() {
+          // Instantiate
+          $obj = new myClass();
+          // Call relevant method and return output return
+          $obj-&gt;usermain();
+        }
+      </programlisting></para>
     </section>
   </chapter>
 
+  <!-- Create module part came roughly from here -->
+  &create_your_module;
+  
   <chapter>
     <title>All others</title>
 

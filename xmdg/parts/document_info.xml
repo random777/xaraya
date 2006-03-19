@@ -1,95 +1,67 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <bookinfo>
   <!-- Main info about the work -->
-
-  <releaseinfo>Third Release, major reorganisation, in
-  preparation</releaseinfo>
-
+  <releaseinfo>Third Release, major reorganisation, in preparation</releaseinfo>
   <!-- Graphics are for the styling, not directly here
        but this is the logo we want for the document
        <inlinegraphic align="right" fileref="images/xar_logo_base_120.jpg" format="JPG" />
   -->
-
-  <title>Xaraya Module Development Guide</title>
-
-  <subtitle />
+  <title>Xaraya Developer's Guide</title>
+  <subtitle>Creating web applications with Xaraya</subtitle>
 
   <!-- Copyright information -->
-
   <copyright>
     <year>2006</year>
-
     <holder>The Digital Development Foundation</holder>
   </copyright>
-
   <copyright>
     <year>2003-2005</year>
-
     <holder>Scot Gardner</holder>
   </copyright>
-
   <legalnotice>
     <para>
-      <ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation
-      License</ulink>
-    </para>
+    <ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink></para>
   </legalnotice>
 
   <!-- Authors and contributors -->
-
   <authorgroup>
     <corpauthor>The Xaraya Documentation Team</corpauthor>
-
     <othercredit>
-      <firstname>Scot</firstname>
-
-      <surname>Gardner</surname>
-
+      <firstname>Scot</firstname><surname>Gardner</surname>
       <contrib>Initial creator of the document</contrib>
     </othercredit>
-
-    <!-- Leave these for the moment
-    <othercredit><othername>Jojodee</othername></othercredit>
+    <!-- Leave these for the moment -->
     <othercredit><othername>MichelV</othername></othercredit>
-    <othercredit><othername>Baraboom</othername></othercredit>  -->
+    <othercredit><othername>Baraboom</othername></othercredit>
   </authorgroup>
 
   <!-- Revision history -->
-
   <revhistory>
     <revision>
       <revnumber>2.0.2</revnumber>
-
       <date>March 19, 2006</date>
-
       <revremark>Initial draft for the new parts organisation</revremark>
     </revision>
-
     <revision>
       <revnumber>2.0.1</revnumber>
-
       <date>March 18, 2006</date>
-
-      <revremark> Start on new Table of Contents. Start splitting the doc into
-      Xaraya 1.0 compliant parts </revremark>
-    </revision>
-
-    <revision>
-      <revnumber>2.0</revnumber>
-
-      <date>March 17, 2006</date>
-
-      <revremark> Converted to DocBook format from OpenOffice native format
+      <revremark>
+        Start on new Table of Contents. Start splitting the doc into Xaraya 1.0 compliant parts
       </revremark>
     </revision>
-
+    <revision>
+      <revnumber>2.0</revnumber>
+      <date>March 17, 2006</date>
+      <revremark>
+        Converted to DocBook format from OpenOffice native format
+      </revremark>
+    </revision>
     <revision>
       <revnumber>N/A</revnumber>
-
       <date>August 15, 2004</date>
-
-      <revremark> Mainly a conversion from postnuke to xaraya bases
-      information </revremark>
+      <revremark>
+        Mainly a conversion from postnuke to xaraya bases information
+      </revremark>
     </revision>
   </revhistory>
 </bookinfo>
+

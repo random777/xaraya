@@ -36,6 +36,7 @@ CSSSTYLE=xardevguide.css
 
 # Source related
 SOURCES=xmdg.xml xardevguide.xml
+PARTS:=$(wildcard parts/*.xml)
 FINALDOC=xardevguide.xml
 
 # Printed output parameters
@@ -54,16 +55,16 @@ fop:  $(patsubst %.xml,%.fop,$(SOURCES))
 pdf:  $(patsubst %.xml,%.pdf,$(SOURCES))
 txt:  $(patsubst %.xml,%.txt,$(SOURCES))
 
-%.html : %.xml 
+%.html : %.xml $(PARTS)
 	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
 				$(DB2HTML) $< > $@ 
 
-index.html: $(FINALDOC)
+index.html: $(FINALDOC) $(PARTS)
 	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) \
 				--stringparam chunk.section.depth 0 \
 				$(DB2CHUNKS) $<
 
-%.fop : %.xml
+%.fop : %.xml $(PARTS)
 	$(XSLTPROC) --stringparam draft.mode $(DRAFT.MODE) \
 				--stringparam double.sided $(DOUBLE.SIDED) \
 				--stringparam fop.extensions 1 \

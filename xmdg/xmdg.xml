@@ -605,14 +605,14 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
       function that potentially can raise exceptions, outcomes with a void
       value you MUST check if some exception was raised. You can do that by
       calling the xarExceptionMajor() function and comparing its return value
-      with the XAR_NO_EXCEPTION constant. If they are different, you know that
+      with the <constant>XAR_NO_EXCEPTION</constant> constant. If they are different, you know that
       an exception has been raised.</para>
 
       <para>The xarExceptionMajor() return value can assume one of these
-      values: XAR_NO_EXCEPTION, XAR_USER_EXCEPTION, XAR_SYSTEM_EXCEPTION. The
-      value XAR_NO_EXCEPTION indicates that no exception was raised, and
-      XAR_USER_EXCEPTION stands for user exception was raised and
-      XAR_SYSTEM_EXCEPTION stands for system exception was raised.</para>
+      values: <constant>XAR_NO_EXCEPTION</constant>, <constant>XAR_USER_EXCEPTION</constant>, <constant>XAR_SYSTEM_EXCEPTION</constant>. The
+      value <constant>XAR_NO_EXCEPTION</constant> indicates that no exception was raised, and
+      <constant>XAR_USER_EXCEPTION</constant> stands for user exception was raised and
+      <constant>XAR_SYSTEM_EXCEPTION</constant> stands for system exception was raised.</para>
 
       <para>When you see that an exception was raised you have two options:
       throw it back or handle it. To throw back an exception you have only to
@@ -2486,6 +2486,9 @@ MyModule_user_MyFunc()
       <para>Xaraya.user.spanish – Xaraya Spanish User Discussion List</para>
     </section>
   </chapter>
+
+  <!-- Index -->
+  <index/>
 
   <!-- Bibliography -->
   &bibliography;

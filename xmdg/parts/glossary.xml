@@ -1,135 +1,131 @@
 <glossary>
-  <glossdiv>
-    <title>Glossary</title>
+  <glossentry>
+    <glossterm>API</glossterm>
     
-    <glossentry>
-      <glossterm>API</glossterm>
-      
-      <glossdef>
-        <para>application program interface (API): A formalized set of
-        software calls and routines that can be referenced by an application
-        program in order to access supporting network services</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>application program interface (API): A formalized set of
+      software calls and routines that can be referenced by an application
+      program in order to access supporting network services</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>BitKeeper</glossterm>
     
-    <glossentry>
-      <glossterm>BitKeeper</glossterm>
-      
-      <glossdef>
-        <para>BitKeeper: is a scalable configuration management system,
-        supporting globally distributed development, disconnected operation,
-        compressed repositories, change sets, and repositories as
-        branches.</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>BitKeeper: is a scalable configuration management system,
+      supporting globally distributed development, disconnected operation,
+      compressed repositories, change sets, and repositories as
+      branches.</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>Blocklayout</glossterm>
     
-    <glossentry>
-      <glossterm>Blocklayout</glossterm>
-      
-      <glossdef>
-        <para>Blocklayout: is the theme-rendering engine intended to give
-        theme developers a maximum of control over the appearance and
-        functionality of their Xaraya website. The RFC for Blocklayout is
-        located at http://docs.xaraya.com/docs/rfcs/rfc0010.html.</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>Blocklayout: is the theme-rendering engine intended to give
+      theme developers a maximum of control over the appearance and
+      functionality of their Xaraya website. The RFC for Blocklayout is
+      located at http://docs.xaraya.com/docs/rfcs/rfc0010.html.</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>GUI</glossterm>
     
-    <glossentry>
-      <glossterm>GUI</glossterm>
-      
-      <glossdef>
-        <para>gui: Acronym for graphical user interface. A computer
-        environment or program that displays, or facilitates the display of,
-        on-screen options, usually in the form of icons (pictorial symbols)
-        or menus (lists of alphanumeric characters) by means of which users
-        may enter commands. Note 1: Options are selected by using the
-        appropriate hardware (e.g., mouse, designated keyboard keys, or
-        touchpad) to move a display cursor to, or on top of, the icon or
-        menu item of interest. The application or function so represented
-        may then be selected (e.g., by clicking a mouse button, pressing the
-        "enter" key, or by touching the touchpad). Note 2: Pronounced
-        "gooey."</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>gui: Acronym for graphical user interface. A computer
+      environment or program that displays, or facilitates the display of,
+      on-screen options, usually in the form of icons (pictorial symbols)
+      or menus (lists of alphanumeric characters) by means of which users
+      may enter commands. Note 1: Options are selected by using the
+      appropriate hardware (e.g., mouse, designated keyboard keys, or
+      touchpad) to move a display cursor to, or on top of, the icon or
+      menu item of interest. The application or function so represented
+      may then be selected (e.g., by clicking a mouse button, pressing the
+      "enter" key, or by touching the touchpad). Note 2: Pronounced
+      "gooey."</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>LDAP</glossterm>
     
-    <glossentry>
-      <glossterm>LDAP</glossterm>
-      
-      <glossdef>
-        <para>LDAP: Abbreviation for lightweight directory access protocol.
-        A simplified version of the X.500 standard, which version consists
-        of a set of protocols developed for accessing information
-        directories. [After Bahorsky]</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>LDAP: Abbreviation for lightweight directory access protocol.
+      A simplified version of the X.500 standard, which version consists
+      of a set of protocols developed for accessing information
+      directories. [After Bahorsky]</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>METADATA</glossterm>
     
-    <glossentry>
-      <glossterm>METADATA</glossterm>
-      
-      <glossdef>
-        <para>Metadata: is machine understandable information for the web.
-        The W3C Metadata Activity addressed the combined needs of several
-        groups for a common framework to express assertions about
-        information on the Web, and was super ceded by the W3C Semantic Web
-        Activity.</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>Metadata: is machine understandable information for the web.
+      The W3C Metadata Activity addressed the combined needs of several
+      groups for a common framework to express assertions about
+      information on the Web, and was super ceded by the W3C Semantic Web
+      Activity.</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>MOVABLE TYPE</glossterm>
     
-    <glossentry>
-      <glossterm>MOVABLE TYPE</glossterm>
-      
-      <glossdef>
-        <para>Movable Type: is Six Apart's powerful, customizable publishing
-        system, which installs on web servers to enable individuals or
-        organizations to manage and update weblogs, journals, and frequently
-        updated website content.</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>Movable Type: is Six Apart's powerful, customizable publishing
+      system, which installs on web servers to enable individuals or
+      organizations to manage and update weblogs, journals, and frequently
+      updated website content.</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>PHP</glossterm>
     
-    <glossentry>
-      <glossterm>PHP</glossterm>
-      
-      <glossdef>
-        <para>PHP: is a widely used general-purpose scripting language that
-        is especially suited for Web development and can be embedded into
-        HTML.</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>PHP: is a widely used general-purpose scripting language that
+      is especially suited for Web development and can be embedded into
+      HTML.</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>POSTNUKE</glossterm>
     
-    <glossentry>
-      <glossterm>POSTNUKE</glossterm>
-      
-      <glossdef>
-        <para>PostNuke: is a community, content, collaborative management
-        system, a C3MS. More information is located at
-        http://www.postnuke.com</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>PostNuke: is a community, content, collaborative management
+      system, a C3MS. More information is located at
+      http://www.postnuke.com</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>RSS</glossterm>
     
-    <glossentry>
-      <glossterm>RSS</glossterm>
-      
-      <glossdef>
-        <para>RDF Site Summary (RSS): - also referred to as Rich Site
-        Summary - is a method of describing news or other Web content that
-        is available for "feeding" (distribution or syndication) from an
-        online publisher to Web users. RSS is an application of the
-        Extensible Markup Language (XML) that adheres to the World Wide Web
-        Consortium's Resource Description Framework (RDF). Originally
-        developed by Netscape for its browser's Netcenter channels, the RSS
-        specification is now available for anyone to use.</para>
-      </glossdef>
-    </glossentry>
+    <glossdef>
+      <para>RDF Site Summary (RSS): - also referred to as Rich Site
+      Summary - is a method of describing news or other Web content that
+      is available for "feeding" (distribution or syndication) from an
+      online publisher to Web users. RSS is an application of the
+      Extensible Markup Language (XML) that adheres to the World Wide Web
+      Consortium's Resource Description Framework (RDF). Originally
+      developed by Netscape for its browser's Netcenter channels, the RSS
+      specification is now available for anyone to use.</para>
+    </glossdef>
+  </glossentry>
+  
+  <glossentry>
+    <glossterm>XMLRPC</glossterm>
     
-    <glossentry>
-      <glossterm>XMLRPC</glossterm>
-      
-      <glossdef>
-        <para>XMLRPC: is a spec and a set of implementations that allow
-        software running on disparate operating systems, running in
-        different environments to make procedure calls over the
-        Internet.</para>
-      </glossdef>
-    </glossentry>
-  </glossdiv>
+    <glossdef>
+      <para>XMLRPC: is a spec and a set of implementations that allow
+      software running on disparate operating systems, running in
+      different environments to make procedure calls over the
+      Internet.</para>
+    </glossdef>
+  </glossentry>
 </glossary>

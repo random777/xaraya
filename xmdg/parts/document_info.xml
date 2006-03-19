@@ -1,6 +1,6 @@
 <bookinfo>
   <!-- Main info about the work -->
-  <releaseinfo>Third Release, major reorganisation, in preparation</releaseinfo>
+  <releaseinfo>In preparation</releaseinfo>
   <!-- Graphics are for the styling, not directly here
        but this is the logo we want for the document
        <inlinegraphic align="right" fileref="images/xar_logo_base_120.jpg" format="JPG" />
@@ -29,9 +29,9 @@
       <firstname>Scot</firstname><surname>Gardner</surname>
       <contrib>Initial creator of the document</contrib>
     </othercredit>
-    <!-- Leave these for the moment -->
+    <!-- Leave these for the moment
     <othercredit><othername>MichelV</othername></othercredit>
-    <othercredit><othername>Baraboom</othername></othercredit>
+    <othercredit><othername>Baraboom</othername></othercredit>-->
   </authorgroup>
 
   <!-- Revision history -->

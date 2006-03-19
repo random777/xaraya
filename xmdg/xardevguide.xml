@@ -72,9 +72,8 @@
   </part>
 
   <part>
-<!-- This is one part with three chapters. -->
-    <title>Extending Xaraya with special components</title>
 
+    <title>Extending Xaraya with special components</title>
 
     &block_types;
 
@@ -83,7 +82,8 @@
     &creating_dd_properties;
 
     &custom_blocklayout;
-
+  </part>
+  <part>
     <title>System templates</title>
 
     &key_template_types;
@@ -93,7 +93,8 @@
     &corecss_classes;
 
     &themes_and_skins;
-
+  </part>
+  <part>
     <title>Dynamic Data</title>
 
     &intro_to_dd;

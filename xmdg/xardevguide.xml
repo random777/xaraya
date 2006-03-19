@@ -72,9 +72,8 @@
   </part>
 
   <part>
-<!-- This is one part with three chapters. -->
-    <title>Extending Xaraya with special components</title>
 
+    <title>Extending Xaraya with special components</title>
 
     &block_types;
 

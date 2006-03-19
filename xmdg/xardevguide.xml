@@ -26,7 +26,7 @@
 <book lang="en">
   <bookinfo>
     <title><inlinegraphic align="right" fileref="images/xar_logo_base_120.jpg"
-    format="JPG" />Xaraya Developer's Guide</title>
+    format="JPG" />Xaraya Developer Guide</title>
 
     <subtitle>Creating web applications with Xaraya</subtitle>
 
@@ -78,10 +78,10 @@
     General Public License</ulink>.</para>
 
     <para>This Xaraya Developer Guide is written in the hope it will assist
-    existing and budding developers that wish to learn how to use Xaraya to
-    create custom web based applications. The Xaraya Developer Guide provides
-    a guide to best practice in Xaraya development along with the information
-    to understand and use the Xaraya development framework for developing web
+    existing and budding developers to use Xaraya for creating custom web
+    based applications. The Xaraya Developer Guide provides a guide to best
+    practice in Xaraya development along with the information to understand
+    and use the Xaraya development framework for developing web
     applications.</para>
 
     <para>The Xaraya Documentation team welcome feedback and suggestions for

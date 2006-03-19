@@ -38,7 +38,8 @@
   &preface;
 
   <!-- Table of contents -->
-  <toc/>
+
+  <toc></toc>
 
   <!--The following Chapters are each contained in their own subdocument. -->
 
@@ -73,7 +74,6 @@
   </part>
 
   <part>
-
     <title>Extending Xaraya with special components</title>
 
     &block_types;
@@ -123,11 +123,14 @@
   &other;
 
   <!-- Index -->
-  <index/>
+
+  <index></index>
 
   <!-- Bibliography -->
+
   &bibliography;
 
   <!-- Glossary -->
+
   &glossary;
 </book>

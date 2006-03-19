@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
-<!ENTITY documentinfo SYSTEM "parts/document_info.xml">
+"docbookx.dtd" [
 <!ENTITY introduction SYSTEM "parts/introduction.xml">
 <!ENTITY getting_to_know_xaraya SYSTEM "parts/getting_to_know_xaraya.xml">
 <!ENTITY working_with_xaraya SYSTEM "parts/working_with_xaraya.xml">
@@ -27,6 +26,33 @@
 <book lang="en">
   <!-- Meta info about this document -->
   &documentinfo;
+    format="JPG" />Xaraya Developer Guide</title>
+
+    <subtitle>Creating web applications with Xaraya</subtitle>
+
+    <copyright>
+      <year>2006</year>
+
+      <holder>The Digital Development Foundation</holder>
+    </copyright>
+
+    <authorgroup>
+      <corpauthor>The Xaraya Documentation Team</corpauthor>
+    </authorgroup>
+
+    <revhistory>
+      <revision>
+        <revnumber>0.1.0</revnumber>
+
+        <date>Initial Draft 19 March 2006</date>
+      </revision>
+    </revhistory>
+
+    <legalnotice>
+      <para>GNU Free Documentation License
+      http://www.gnu.org/copyleft/fdl.html</para>
+    </legalnotice>
+  </bookinfo>
 
   <!-- Table of contents -->
   <toc/>
@@ -53,10 +79,10 @@
     General Public License</ulink>.</para>
 
     <para>This Xaraya Developer Guide is written in the hope it will assist
-    existing and budding developers that wish to learn how to use Xaraya to
-    create custom web based applications. The Xaraya Developer Guide provides
-    a guide to best practice in Xaraya development along with the information
-    to understand and use the Xaraya development framework for developing web
+    existing and budding developers to use Xaraya for creating custom web
+    based applications. The Xaraya Developer Guide provides a guide to best
+    practice in Xaraya development along with the information to understand
+    and use the Xaraya development framework for developing web
     applications.</para>
 
     <para>The Xaraya Documentation team welcome feedback and suggestions for

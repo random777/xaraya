@@ -26,7 +26,6 @@ WORKING DRAFT CONTENT OUTLINE
          1. Introduction to Xaraya
             1.1 What can you expect (types of apps, learning curve,etc)
             1.2 What will you need to know
-            1.3 How does Xaraya work?
             1.4 User Guide reference (refer to user manual)
          2. Getting to know Xaraya (general overview only ... how they fit together)
             2.1 Your Xaraya installation (file locations, types)

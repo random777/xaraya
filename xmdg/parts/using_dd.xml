@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter>
-  <title></title>
+  <title>Using Dynamic Data in your modules</title>
 
   <!--Maintained by:-->
 
   <!--Status:-->
 
   <para></para>
+
+  <section>
+    <title>Use a complete dynamic approach</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title>Extend your module with dynamic data</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title></title>
+
+    <para></para>
+  </section>
 </chapter>

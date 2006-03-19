@@ -12,7 +12,7 @@
     <para></para>
 
     <section>
-      <title></title>
+      <title>Files and their locations</title>
 
       <para></para>
     </section>
@@ -22,19 +22,57 @@
     <title>Xaraya key components</title>
 
     <para></para>
-  </section>
-
-  <section>
-    <title>Standard adjustments</title>
 
     <section>
-      <title>Using templates in a theme</title>
+      <title>Core API</title>
 
       <para></para>
     </section>
 
     <section>
-      <title>Using Dynamic Data to extend modules</title>
+      <title>Modules</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Blocklayout</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Themes</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Hooks</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Properties</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Datastorage</title>
+
+      <para></para>
+
+      <section>
+        <title>Itemtypes</title>
+
+        <para></para>
+      </section>
+    </section>
+
+    <section>
+      <title>Custom tags</title>
 
       <para></para>
     </section>

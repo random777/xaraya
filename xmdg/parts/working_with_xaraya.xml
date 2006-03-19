@@ -82,6 +82,22 @@
   </section>
 
   <section>
+    <title>Standard adjustments</title>
+
+    <section>
+      <title>Using templates in a theme</title>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Using Dynamic Data to extend modules</title>
+
+      <para></para>
+    </section>
+  </section>
+
+  <section>
     <title>DONTs in Xaraya</title>
 
     <para>What are the areas you shouldn't touch, what are the things not to

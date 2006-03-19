@@ -1,101 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <chapter>
-      <title>Design your module</title>
-      <section>
-        <title>List required functionality</title>
-  <!--Maintained by:-->
+<chapter>
+  <title>Design your module</title>
 
-  <!--Status:-->
-        <para></para>
-      </section>
-      <section>
-        <title>Determine storage/database table requirements</title>
+  <section>
+    <title>List required functionality</title>
 
-        <para></para>
-      </section>
-      <section>
-        <title>Identify existing xaraya utilities or functions</title>
+    <!--Maintained by:-->
 
-        <para></para>
-      </section>
-      <section>
-        <title>Identify special or other UI requirements</title>
+    <!--Status:-->
 
-        <para></para>
-      </section>
-      <section>
-        <title> List the functions you need to create</title>
+    <para></para>
+  </section>
 
-        <para></para>
-      </section>
-<section>
-      <title>Design Your Module</title>
+  <section>
+    <title>Determine storage/database table requirements</title>
 
-      <para>An often-overlooked point is that the module should be designed
-      before being coded. This will allow for far easier coding later on, and
-      an understanding of how the module fits into the generic Xaraya module
-      structure. Some of the points that should be considered are: What data
-      does the module store? How should the module data best be stored? Is the
-      data hierarchical or flat? What does the module do with the stored data?
-      How is the data displayed, how much data is displayed at any one time?
-      What options should the user have to view the data in different ways?
-      How does the module interact with other modules? Does it compete
-      directly with other modules? If so, does it make sense to follow their
-      module API to allow for greater interoperability between similar
-      modules? Can it use other modules for part of its functionality? Is it
-      better written as an extension to a current module rather than starting
-      again from scratch? Consider Including the Standard Module Functions
-      There are a number of standard module functions that allow a module to
-      interface with parts of the Xaraya system. These functions have
-      predefined inputs and outputs, allowing external modules and core
-      functions to use them effectively without needing to tailor their
-      operation to each separate module. The best example of these functions
-      is the 'search' function, which passes in a simple text string and
-      requires that an array is passed back about all items within the module
-      that match the string. If your module does not have these functions then
-      it will not integrate fully with the other parts of the Xaraya system.
-      It is recommended that these functions be supplied if they make any
-      sense in the context of your module. Use Standard Function Names There
-      are a number of function names that are considered standard i.e. they
-      have well-known meanings and are used in a number of modules. Using the
-      standard function names makes it easier for other module developers to
-      use your module. Some of the standard functions are shown below. The
-      list below is subject to addition as more functions that are standard
-      are introduced - the example module supplied with your copy of Xaraya
-      should have the most up-to-date set of standard functions available.
-      User Display Functions main() - the default function to call, normally
-      just presents the user menu view() - display an overview of all items,
-      normally paged output display() - display a single item in detail, given
-      an identifier for that item User API Functions getall() - get basic
-      information on all items, can take optional parameters to obtain a
-      subset of all items get() - get detailed information on a specific item
-      Administration Display Functions main() - the default function to call,
-      normally just presents the user menu view() - display an overview of all
-      items, normally paged output, with relevant administrative options. Note
-      that it is possible to combine this function with the user view()
-      function new() - display a form to obtain enough information from the
-      user to create a new item create() - take the information from the form
-      displayed by the administration new() function and pass it on to the
-      administration API for creating the item modify() - display the details
-      of a current item given the item description, and present the relevant
-      fields for modification update() - take the information from the form
-      displayed by the administration modify() function and pass it on to the
-      administration API for modifying the item delete() - display
-      confirmation for deletion of an item, and if confirmed pass the relevant
-      information on to the administration API for deleting the item
-      modifyconfig() - display the details of the module's current
-      configuration, and present the relevant fields for modification
-      updateconfig() - take the information from the form displayed by the
-      administration modifyconfig() function and update the relevant module
-      configuration variables Administration API Functions create() - create a
-      new item delete() - delete a current item update() - update the
-      information about a current item Find out What Utility Modules are
-      Available There are a number of utility modules available to carry out
-      features that are required by many item modules within Xaraya. Examples
-      of available utility modules are comments, ratings, and categorization.
-      Look at xaraya.com to find out what other utility modules are available
-      and if they can be used in lieu of parts of the code that you would
-      otherwise be writing for your own module.</para>
-    </section>
+    <para></para>
+  </section>
 
-    </chapter>
+  <section>
+    <title>Identify existing xaraya utilities or functions</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title>Identify special or other UI requirements</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title>List the functions you need to create</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title>Design Your Module</title>
+
+    <!--This section can be split up to use parts above, or br removed-->
+
+    <para>An often-overlooked point is that the module should be designed
+    before being coded. This will allow for far easier coding later on, and an
+    understanding of how the module fits into the generic Xaraya module
+    structure. Some of the points that should be considered are: What data
+    does the module store? How should the module data best be stored? Is the
+    data hierarchical or flat? What does the module do with the stored data?
+    How is the data displayed, how much data is displayed at any one time?
+    What options should the user have to view the data in different ways? How
+    does the module interact with other modules? Does it compete directly with
+    other modules? If so, does it make sense to follow their module API to
+    allow for greater interoperability between similar modules? Can it use
+    other modules for part of its functionality? Is it better written as an
+    extension to a current module rather than starting again from scratch?
+    Consider Including the Standard Module Functions There are a number of
+    standard module functions that allow a module to interface with parts of
+    the Xaraya system. These functions have predefined inputs and outputs,
+    allowing external modules and core functions to use them effectively
+    without needing to tailor their operation to each separate module. The
+    best example of these functions is the 'search' function, which passes in
+    a simple text string and requires that an array is passed back about all
+    items within the module that match the string. If your module does not
+    have these functions then it will not integrate fully with the other parts
+    of the Xaraya system. It is recommended that these functions be supplied
+    if they make any sense in the context of your module. Use Standard
+    Function Names There are a number of function names that are considered
+    standard i.e. they have well-known meanings and are used in a number of
+    modules. Using the standard function names makes it easier for other
+    module developers to use your module. Some of the standard functions are
+    shown below. The list below is subject to addition as more functions that
+    are standard are introduced - the example module supplied with your copy
+    of Xaraya should have the most up-to-date set of standard functions
+    available. User Display Functions main() - the default function to call,
+    normally just presents the user menu view() - display an overview of all
+    items, normally paged output display() - display a single item in detail,
+    given an identifier for that item User API Functions getall() - get basic
+    information on all items, can take optional parameters to obtain a subset
+    of all items get() - get detailed information on a specific item
+    Administration Display Functions main() - the default function to call,
+    normally just presents the user menu view() - display an overview of all
+    items, normally paged output, with relevant administrative options. Note
+    that it is possible to combine this function with the user view() function
+    new() - display a form to obtain enough information from the user to
+    create a new item create() - take the information from the form displayed
+    by the administration new() function and pass it on to the administration
+    API for creating the item modify() - display the details of a current item
+    given the item description, and present the relevant fields for
+    modification update() - take the information from the form displayed by
+    the administration modify() function and pass it on to the administration
+    API for modifying the item delete() - display confirmation for deletion of
+    an item, and if confirmed pass the relevant information on to the
+    administration API for deleting the item modifyconfig() - display the
+    details of the module's current configuration, and present the relevant
+    fields for modification updateconfig() - take the information from the
+    form displayed by the administration modifyconfig() function and update
+    the relevant module configuration variables Administration API Functions
+    create() - create a new item delete() - delete a current item update() -
+    update the information about a current item Find out What Utility Modules
+    are Available There are a number of utility modules available to carry out
+    features that are required by many item modules within Xaraya. Examples of
+    available utility modules are comments, ratings, and categorization. Look
+    at xaraya.com to find out what other utility modules are available and if
+    they can be used in lieu of parts of the code that you would otherwise be
+    writing for your own module.</para>
+  </section>
+</chapter>

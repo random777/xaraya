@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter>
-  <title></title>
+  <title>Core CSS classes</title>
 
   <!--Maintained by:-->
 
   <!--Status:-->
 
-  <para></para>
+  <para>Xaraya ships with standard CSS classes. We will explain which they are
+  and how you can use them in your own templates.</para>
 </chapter>

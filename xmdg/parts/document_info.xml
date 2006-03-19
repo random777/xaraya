@@ -7,7 +7,7 @@
   -->
   <title>Xaraya Developer's Guide</title>
   <subtitle>Creating web applications with Xaraya</subtitle>
-    
+
   <!-- Copyright information -->
   <copyright>
     <year>2006</year>
@@ -29,11 +29,12 @@
       <firstname>Scot</firstname><surname>Gardner</surname>
       <contrib>Initial creator of the document</contrib>
     </othercredit>
+    <!-- Leave these for the moment
     <othercredit><othername>Jojodee</othername></othercredit>
     <othercredit><othername>MichelV</othername></othercredit>
-    <othercredit><othername>Baraboom</othername></othercredit>
+    <othercredit><othername>Baraboom</othername></othercredit>  -->
   </authorgroup>
-  
+
   <!-- Revision history -->
   <revhistory>
     <revision>

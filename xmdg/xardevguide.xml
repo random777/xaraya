@@ -26,6 +26,7 @@
 <!ENTITY templating_dd SYSTEM "parts/templating_dd.xml">
 <!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
+<!ENTITY other SYSTEM "parts/other.xml">
 ]>
 <book lang="en">
   <!-- Meta info about this document -->
@@ -114,6 +115,9 @@
 
     <para></para>
   </appendix>
+
+  <!-- Other stuff to organize -->
+  &other;
 
   <!-- Index -->
   <index/>

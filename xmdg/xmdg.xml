@@ -9,6 +9,7 @@
 <!ENTITY understanding_hooks SYSTEM "parts/understanding_hooks.xml">
 <!ENTITY bibliography SYSTEM "parts/bibliography.xml">
 <!ENTITY glossary SYSTEM "parts/glossary.xml">
+<!ENTITY other SYSTEM "parts/other.xml">
 ]>
 <book>
   <!-- Meta info about this document -->
@@ -914,54 +915,8 @@ MyModule_user_MyFunc()
   <!-- Create module part came roughly from here -->
   &create_your_module;
   
-  <chapter>
-    <title>All others</title>
-
-    <para>Dumping all other remarks for the moment</para>
-
-    <section>
-      <title>Recommendations</title>
-
-      <para>If you are new to Xaraya, it is highly recommended that you
-      familiarize yourself with Xaraya by reading the Xaraya Installation and
-      Getting Started Guide. The guide is currently available via the monotone
-      repository located on the mt.xaraya.com website. As a side note, the
-      guide is currently a work in progress, once completed the guide will be
-      available by means that are more accessible.</para>
-
-      <para>Xaraya News Groups: The following lists of news groups are
-      available via news.xaraya.com. These news groups are also available via
-      your web browser at the following Web site:
-      http://www.xaraya.com</para>
-      <itemizedlist>
-        <listitem><para>Ddf.public - DDF Public List</para></listitem>
-        <listitem><para>Xaraya.announce - Xaraya Announcements List</para></listitem>
-        <listitem><para>Xaraya.devel - Xaraya Member List</para></listitem>
-        <listitem><para>Xaraya.mt-notices - Pushes to the monotone repository, see  mt.xaraya.com</para></listitem>
-        <listitem><para>Xaraya.documentation - Xaraya Documentation List</para></listitem>
-        <listitem><para>Xaraya.bugs - Xaraya Bugs List</para></listitem>
-        <listitem><para>Xaraya.ui - Xaraya User Interface List</para></listitem>
-        <listitem><para>Xaraya.knowledge-base - Xaraya Knowledge Base List</para></listitem>
-        <listitem><para>Xaraya.marketing - Xaraya Marketing</para></listitem>
-        <listitem><para>Xaraya.patches - Xaraya Patches</para></listitem>
-        <listitem><para>Xaraya.qa - Xaraya Quality Assurance</para></listitem>
-        <listitem><para>Xaraya.user - Xaraya User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user-arabic - Xaraya Arabic User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.chinese - Xaraya Chinese User List</para></listitem>
-        <listitem><para>Xaraya.user.danish - Xaraya Danish User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.dutch - Xaraya Dutch User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.french - Xaraya French User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.german - Xaraya German User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.greek - Xaraya Greek User Discussion List</para></listitem>
-        <listitem><para>Xaraya.users.hungarian - Xaraya Hungarian User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.italian - Xaraya Italian User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.polish - Xaraya Polish User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.portuguese - Xaraya Portuguese User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.russian - Xaraya Russian User Discussion List</para></listitem>
-        <listitem><para>Xaraya.user.spanish - Xaraya Spanish User Discussion List</para></listitem>
-      </itemizedlist>
-    </section>
-  </chapter>
+  <!-- Other stuff to be organized -->
+  &other;
 
   <!-- Index -->
   <index/>

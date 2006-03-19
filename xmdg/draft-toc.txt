@@ -6,6 +6,19 @@
            - each chapter has general statement summarizing what the chapter aims to provide
      - Each chapter made up of sections
 
+General aim and setup:
+Aims:
+    1. The document should describe the way to go if the reader wants to write an extension for/to Xaraya
+    2. It should be clear how Xaraya Core works, what the place of the extension will be and what the difference with templating current modules is
+    3. The example module is the guide
+    4.
+Setup:
+    1. Intro to Xaraya, general operations
+    2. Decision where to hack the thing/ what to hack (templates, add dyn data to modules, write own module)
+    3. Module setup: what happens where
+    4. Stappenplan to build a module
+    5. All little things you need to know, refer to
+        a. Checklist
 
 WORKING DRAFT CONTENT OUTLINE
 ================================
@@ -55,14 +68,14 @@ WORKING DRAFT CONTENT OUTLINE
          1. Do I need a module?
             1.1 Types of modules
                a. Content modules
-               b. Utility modules (could be  a mix too ...)
+               b. Utility modules (could be a mix too ...)
                c. Registration
                d. Authentication
                e. ....
             1.2 What modules are already available
             1.2 Should I use Dynamic Data?
-                a. Creating a module with Dynamic Data (just overivew, adv/disadv)
-                b. Using Dynamic Data objects (just overivew, adv/disadv)
+                a. Creating a module with Dynamic Data (just overview, adv/disadv)
+                b. Using Dynamic Data objects (just overview, adv/disadv)
 
          2. Before you begin
                2.1 What will my module do? (list of functionality required...)

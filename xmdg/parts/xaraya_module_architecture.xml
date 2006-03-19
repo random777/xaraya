@@ -1,60 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <chapter>
-      <title>Xaraya Module Architecture</title>
+<chapter>
+  <title>Xaraya Module Architecture</title>
+
   <!--Maintained by:-->
 
   <!--Status:-->
-      <section>
-        <title>Separation of User and Administrator Functions </title>
 
-        <para></para>
-      </section>
-      <section>
-        <title> Separation of Display and Operational Functions</title>
+  <para>The Xaraya module system design allows for the maximum flexibility to
+  developers whilst ensuring that the module can be accessed in a generic
+  fashion by the Xaraya core, other modules, and remote systems given access
+  through other interfaces such as XML-RPC. The main design characteristics of
+  the module system are listed below</para>
 
-        <para></para>
-      </section>
-      <section>
-        <title>Single Directory Installation - Structure</title>
+  <section>
+    <title>Separation of User and Administrator Functions</title>
 
-        <para></para>
-      </section>
-      <section>
-        <title>Standard Module Functions</title>
+    <para></para>
+  </section>
 
-        <para></para>
-      </section>
-      <section>
-        <title>Variable handling</title>
+  <section>
+    <title>Separation of Display and Operational Functions</title>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Templates</title>
+    <para></para>
+  </section>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Installing, activating and upgrading</title>
+  <section>
+    <title>Single Directory Installation - Structure</title>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Special Functions for Content Modules</title>
+    <para></para>
+  </section>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Special compontents for Utility Modules</title>
+  <section>
+    <title>Standard Module Functions</title>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Interacting with other Xaraya components</title>
+    <para></para>
+  </section>
 
-        <para></para>
-      </section>
+  <section>
+    <title>Variable handling</title>
 
+    <para></para>
+  </section>
 
+  <section>
+    <title>Templates</title>
 
-    </chapter>
+    <para></para>
+  </section>
+
+  <section>
+    <title>Installing, activating and upgrading</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title>Special Functions for Content Modules</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title>Special compontents for Utility Modules</title>
+
+    <para></para>
+  </section>
+
+  <section>
+    <title>Interacting with other Xaraya components</title>
+
+    <para></para>
+  </section>
+</chapter>

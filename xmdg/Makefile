@@ -90,11 +90,9 @@ monotone:
 	$(MT) update
 
 webdocs: monotone all
-	mkdir -p $(OUTPUT)/stylesheet-images
-	cp -a $(DBXSL)/images  $(OUTPUT)/stylesheet-images
-	mkdir -p $(OUTPUT)/examples
-	mkdir -p $(OUTPUT)/callouts
 	mkdir -p $(OUTPUT)/images
+	cp -a $(DBXSL)/images  $(OUTPUT)
+	mkdir -p $(OUTPUT)/examples
 	cp -rf images/*.* $(OUTPUT)/images
 	cp *.css $(OUTPUT)
 	cp *.txt $(OUTPUT)

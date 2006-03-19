@@ -1,0 +1,119 @@
+<chapter>
+  <title>Xaraya Module Operations</title>
+  
+  <para>This chapter covers how modules interact with Xaraya. The
+  information in this section is correct for the 1.0 release of Xaraya, for
+  other releases please get the most recent copy of the Xaraya Module
+  Developers Guide.</para>
+  
+  <section>
+    <title>Locating Modules</title>
+    
+    <para>All Xaraya modules must be placed within their own subdirectory of
+    the 'modules' directory to be recognized. Modules placed anywhere else
+    within the file-system will not be located correctly.</para>
+  </section>
+  
+  <section>
+    <title>Working out Module Functionality</title>
+    
+    <para>A module might have administration or user functionality, or both.
+    Xaraya works out which functionality each module has by looking for the
+    files in 'xaradmin' or 'xaradminapi’ directories to confirm
+    administration functionality, and in 'xaruser' or 'xaruserapi'
+    directories to confirm user functionality. Lack of these directories
+    results in Xaraya assuming that this specific module functionality does
+    not exist.</para>
+  </section>
+  
+  <section>
+    <title>Initializing Modules</title>
+    
+    <para>Initialization of modules is accomplished through the
+    modname_init() in the 'xarinit.php' file within the module's directory
+    function. No other functions are called when the module is initialized.
+    All initialisation routines should go into the init function.</para>
+  </section>
+  
+  <section>
+    <title>Activating/Deactivating Modules</title>
+    
+    <para>Activation and deactivation of modules is accomplished through
+    field settings within the appropriate database table. Unlike earlier
+    versions of Xaraya, no physical changes to the module directories are
+    made to infer the activation status of the module.</para>
+  </section>
+  
+  <section>
+    <title>Upgrading your module</title>
+    
+    <para>Upgrading your module is important. The upgrade function is
+    located in the xarinit.php and named yourmodule_upgrade(). This function
+    takes the current versionnumber as 'oldversion' and uses a switch to
+    look for the correct upgrade routines. Make sure you provide all
+    necessary steps for each version to upgrade to the next version. Provide
+    an empty upgrade step when there is nothing todo. This way, the upgrade
+    function will stay consistent. The versionid is set in the
+    xarversion.php file.</para>
+  </section>
+  
+  <section>
+    <title>Calling Module Functions</title>
+    
+    <para>Module functions are called through the xarModFunc() and
+    xarModAPIFunc() functions. No direct calling of module functions is
+    allowed, even from within the same module. Creating Module URLs Direct
+    URLs to functions URLs for modules go through the 'index.php' entry
+    point, and are defined by a number of parameters. The parameters that
+    currently decide which particular module function to call are as
+    follows: module The name of the module. This corresponds to the
+    well-known name of the module, which can be found through the modules
+    administration interface type The type of the module function. This is
+    currently either 'user' for user functions or 'admin' for administrative
+    functions. func The name of the function itself. This is
+    module-dependent. If any of these parameters are undefined within a URL
+    Xaraya will apply defaults to them. Note that both the names of the
+    parameters and their default values might change, and as such it is not
+    recommended to create direct URLs for anything but to either go through
+    the Xaraya main page or to use the xarModURL() function to generate URLs
+    that will always be internally consistent for any given version of
+    Xaraya. You can also extend the xarModUrl call by adding a parameter
+    call to the function in the form of an array. <programlisting><function>xarModURL('<parameter>module</parameter>', 'type', 'function', array('foo' =&gt; $bar))</function></programlisting>
+    will create the input parameter of 'foo' having the value of
+    $bar.</para>
+    
+    <section>
+      <title>Function calls</title>
+      
+      <para>Another way of accessing the functionality of other modules is
+      by calling their functions directly with the xarModFunc() function.
+      Doing this allows a number of advantages over hooks, but also a number
+      of disadvantages. In general, calling functions directly is more
+      flexible as the module developer understands exactly which functions
+      they are calling and can pass additional arguments to the function to
+      customize its abilities. The disadvantages are that the module named
+      in the function call needs to be installed and active on the system
+      for the calls to work, and if this is replace by a different module
+      providing similar functionality it will not work correctly.</para>
+      
+      <para>Using direct function calls to other modules is fine within a
+      module, but the developer should consider the implications of this on
+      systems that might not have the modules that they are using installed.
+      Also, even if direct function calls are used then the module developer
+      should still call hooks at the appropriate places in the code to allow
+      for other extended functionality to be added to the module.</para>
+      
+      <para>An example of where direct function calls might be used within
+      the Example module would be if the module developer wanted users to be
+      able to rate various aspects of the picture displayed such as 'use of
+      color' and 'originality'. In this case, a simple hook would not be
+      able to accommodate this requirement, so the developer would instead
+      make explicit calls to the 'Ratings' utility module to display a
+      number of separate ratings, each with its own identifier. The hook
+      call would still be made, which might also add a rating to the
+      picture, but in this case, the value could be considered as the
+      overall rating for the picture rather than that just for a specific
+      part.</para>
+    </section>
+  </section>
+</chapter>

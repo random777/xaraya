@@ -106,8 +106,6 @@
     <section>
       <title>Reserved names</title>
 
-      <para></para>
-
       <para>Xaraya has a number of variables, which are reserved. These
       variables are not be used within modules as they can conflict with the
       Xaraya core and cause unpredictable results. The current lists of

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
+<!ENTITY document_info SYSTEM "parts/document_info.xml">
 <!ENTITY introduction SYSTEM "parts/introduction.xml">
 <!ENTITY getting_to_know_xaraya SYSTEM "parts/getting_to_know_xaraya.xml">
 <!ENTITY working_with_xaraya SYSTEM "parts/working_with_xaraya.xml">
@@ -28,6 +29,8 @@
 ]>
 <book lang="en">
   <!-- Meta info about this document -->
+
+  &document_info;
 
   <!-- Preface -->
 
@@ -263,7 +266,7 @@
   <!--The fist step is to confirm the chapters and orders, the next to organize existing content into the new subdocs.-->
 
   <part id="introduction">
-    <title>So you want to create a web application?</title>
+    <title>Building a webapplication with Xaraya</title>
 
     &introduction;
 

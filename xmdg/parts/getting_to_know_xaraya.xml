@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter>
-  <title></title>
+  <title>What's in Xaraya?</title>
 
   <!--Maintained by:-->
 
@@ -21,7 +21,7 @@
   <section>
     <title>Xaraya key components</title>
 
-    <para></para>
+    <para><synopsis>What er the basic parts you should have some knowledge about. Extended glossary type.</synopsis></para>
 
     <section>
       <title>Core API</title>

@@ -39,7 +39,7 @@
   <section>
     <title>Design Your Module</title>
 
-    <!--This section can be split up to use parts above, or br removed-->
+    <!--This section can be split up to use parts above, or be removed-->
 
     <para>An often-overlooked point is that the module should be designed
     before being coded. This will allow for far easier coding later on, and an

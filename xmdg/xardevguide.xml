@@ -8,7 +8,6 @@
 <!ENTITY getting_help SYSTEM "parts/getting_help.xml">
 <!ENTITY do_i_need_a_module SYSTEM "parts/do_i_need_a_module.xml">
 <!ENTITY before_you_begin SYSTEM "parts/before_you_begin.xml">
-<!ENTITY xaraya_module_architecture SYSTEM "parts/xaraya_module_architecture.xml">
 <!ENTITY design_your_module SYSTEM "parts/design_your_module.xml">
 <!ENTITY create_your_module SYSTEM "parts/create_your_module.xml">
 <!ENTITY block_types SYSTEM "parts/block_types.xml">
@@ -285,7 +284,55 @@
 
     &before_you_begin;
 
-    &xaraya_module_architecture;
+    <xi:include href="parts/xaraya_module_architecture.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude"
+                xpointer="element(/1)" />
+
+    <!-- Old content to revive or delete:
+
+  <chapter>
+    <title>Xaraya Module Design</title>
+
+    <para>The Xaraya module system design allows for the maximum flexibility
+    to developers whilst ensuring that the module can be accessed in a generic
+    fashion by the Xaraya core, other modules, and remote systems given access
+    through other interfaces such as XML-RPC. The main design characteristics
+    of the module system are listed below.</para>
+
+    <section>
+      <title>Separations</title>
+
+      <para>Xaraya modules use a clear separation of functions according to
+      what they do.</para>
+
+
+
+
+    </section>
+
+
+
+    <section>
+      <title>External Access to Module Functions</title>
+
+      <para>Allowing access to module functions from external (i.e.
+      non-Xaraya) systems is a very desirable thing to do. By allowing this,
+      the Xaraya system becomes a content repository, where information can be
+      accessed in ways other than through the standard web interface. An
+      example of this power can be seen through use of the XML-RPC interface
+      that is provided with Xaraya and which allow for such tools as the
+      Google API to be used, or other webservice events.</para>
+    </section>
+
+
+
+    <section>
+      <title></title>
+
+      <para></para>
+    </section>
+  </chapter>
+-->
 
     &design_your_module;
 

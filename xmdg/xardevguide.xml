@@ -8,6 +8,7 @@
 <!ENTITY getting_help SYSTEM "parts/getting_help.xml">
 <!ENTITY do_i_need_a_module SYSTEM "parts/do_i_need_a_module.xml">
 <!ENTITY before_you_begin SYSTEM "parts/before_you_begin.xml">
+<!ENTITY xaraya_module_architecture SYSTEM "parts/xaraya_module_architecture.xml">
 <!ENTITY design_your_module SYSTEM "parts/design_your_module.xml">
 <!ENTITY create_your_module SYSTEM "parts/create_your_module.xml">
 <!ENTITY block_types SYSTEM "parts/block_types.xml">
@@ -284,9 +285,7 @@
 
     &before_you_begin;
 
-    <xi:include href="parts/xaraya_module_architecture.xml"
-                xmlns:xi="http://www.w3.org/2001/XInclude"
-                xpointer="element(/1)" />
+    &xaraya_module_architecture;
 
     <!-- Old content to revive or delete:
 

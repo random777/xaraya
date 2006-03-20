@@ -1,464 +1,487 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <chapter>
   <title>Create your module</title>
+
   <!--Maintained by:-->
-  
+
   <!--Status:-->
+
   <section>
     <title>Checklist</title>
-    
+
     <para>The following checklist presents a number of items that need
-    checking throughout the process of designing, building, and releasing
-    your module.</para>
-    
-    <para>
-      <orderedlist>
+    checking throughout the process of designing, building, and releasing your
+    module.</para>
+
+    <para><orderedlist>
         <listitem>
-          <para>Initial Decide on the module type</para>
-        </listitem>
-        <listitem>
-          <para>Choose a name for your module</para>
-        </listitem>
-        <listitem>
-          <para>Register your module name</para>
-        </listitem>
-        <listitem>
-          <para>Obtain and read the Module Developers Guide</para>
-        </listitem>
-        <listitem>
-          <para>Obtain and read the API Documentation</para>
-        </listitem>
-        <listitem>
-          <para>Module Design</para>
+          <para>Initial</para>
+
           <orderedlist>
             <listitem>
-              <para>Separate User and Administration Functions</para>
+              <para>Decide on the module type</para>
             </listitem>
+
             <listitem>
-              <para>Separate GUI and API functions</para>
+              <para>Choose a name for your module</para>
             </listitem>
+
+            <listitem>
+              <para>Register your module name</para>
+            </listitem>
+
+            <listitem>
+              <para>Obtain and read the Module Developers Guide</para>
+            </listitem>
+          </orderedlist>
+        </listitem>
+
+        <listitem>
+          <para>Module Design</para>
+
+          <orderedlist>
             <listitem>
               <para>Design data tables</para>
             </listitem>
+
+            <listitem>
+              <para>Separate User and Administration Functions</para>
+            </listitem>
+
+            <listitem>
+              <para>Separate GUI and API functions</para>
+            </listitem>
+
             <listitem>
               <para>Note, which utility modules are of use</para>
             </listitem>
+
             <listitem>
-              <para>Note, which standard module functions
-              apply</para>
+              <para>Note, which standard module functions apply</para>
             </listitem>
+
             <listitem>
               <para>Create module security schema</para>
             </listitem>
           </orderedlist>
         </listitem>
+
         <listitem>
           <para>Module Build</para>
+
           <orderedlist>
             <listitem>
               <para>Copy the example module directory</para>
             </listitem>
+
             <listitem>
               <para>Create database tables</para>
             </listitem>
+
             <listitem>
               <para>Create database initialization routines</para>
             </listitem>
+
             <listitem>
               <para>Test database initialization routines</para>
             </listitem>
+
             <listitem>
               <para>Write administration functions</para>
             </listitem>
+
             <listitem>
               <para>Test administration functions</para>
             </listitem>
+
             <listitem>
               <para>Write user functions</para>
             </listitem>
+
             <listitem>
               <para>Test user functions</para>
             </listitem>
+
             <listitem>
               <para>Write blocks</para>
             </listitem>
+
             <listitem>
               <para>Test blocks</para>
             </listitem>
+
             <listitem>
               <para>Document module API</para>
             </listitem>
+
             <listitem>
               <para>Package your module</para>
             </listitem>
           </orderedlist>
         </listitem>
+
         <listitem>
           <para>Module Checks</para>
+
           <orderedlist>
             <listitem>
               <para>No global variables used</para>
             </listitem>
+
             <listitem>
               <para>No Xaraya reserved variable names used</para>
             </listitem>
+
             <listitem>
               <para>No echo() or print() statements used</para>
             </listitem>
+
             <listitem>
-              <para>All operations protected by
-              xarSecAuthAction()</para>
+              <para>All operations protected by xarSecAuthAction()</para>
             </listitem>
+
             <listitem>
               <para>All form results protected by
               xarSecConfirmAuthKey()</para>
             </listitem>
+
             <listitem>
-              <para>All form variables obtained by
-              xarVarFetch()</para>
+              <para>All form variables obtained by xarVarFetch()</para>
             </listitem>
+
             <listitem>
-              <para>All output is passed through transform
-              hooks.</para>
+              <para>All output is passed through transform hooks.</para>
             </listitem>
+
             <listitem>
-              <para>All output parsed through
-              xarVarPrepForDisplay() or
+              <para>All output parsed through xarVarPrepForDisplay() or
               xarVarPrepForHTMLDisplay()</para>
             </listitem>
+
             <listitem>
               <para>All variables in SQL queries protected by using
               bindvars</para>
             </listitem>
+
             <listitem>
-              <para>ll variables in filesystem  access protected by
+              <para>ll variables in filesystem access protected by
               xarVarPrepForOS()</para>
             </listitem>
+
             <listitem>
-              <para>Calls to xarModCallHooks() in appropriate
-              locations</para>
+              <para>Calls to xarModCallHooks() in appropriate locations</para>
             </listitem>
           </orderedlist>
         </listitem>
-      </orderedlist>
-    </para>
+      </orderedlist></para>
   </section>
+
+  <section>
+    <title>Before Starting Your Module</title>
+
+    <para>There are a number of steps to follow before you can start building
+    your module.</para>
+
+    <para>Choosing a Name for Your Module</para>
+
+    <para>Choosing a name for your module is important, as this is the main
+    way that your module will be known throughout the Xaraya community. The
+    name should relate to the functionality that the module provides, but also
+    be specific enough to be able to discern it from separate modules that
+    might offer similar functionality. Module names are case-sensitive. All
+    modules names are lower-case only.</para>
+
+    <para>Decide on the Type of Your Module</para>
+
+    <para>There are two broad types of module available in Xaraya. Item
+    modules are modules, which contain their own content and operate on that
+    content, whereas utility modules are modules, which contain additional
+    information or functionality for the content of other modules. Examples of
+    item modules are news, FAQ, and download. Examples of utility modules are
+    comments, ratings, and global index. Either utility modules work in the
+    same way as item modules, or they can operate with hooks, which allow
+    module functions to be acted upon without being explicitly called by other
+    modules. Hooks are used for items that are not part of a piece of content
+    but directly related to it.</para>
+
+    <para>Register Your Module Name</para>
+
+    <para>Registering your module is not compulsory, but it is a very good
+    idea. By registering your module, you can ensure that no other official
+    Xaraya module will take the name that you have chosen for your module. Two
+    modules with the same name will not operate correctly on a single Xaraya
+    site, so it is beneficial to both yourself and the Xaraya community in
+    general to have a unique name. You may register your module via the
+    release module on <ulink url="???">http://www.xaraya.com/ </ulink></para>
+
+    <para>Obtain a Copy of the Xaraya API Reference Guide</para>
+
+    <para>The Xaraya API Reference Guide has been moved to the PHP-Doc style
+    of documentation. No separate entry will be created for the API guide.
+    Please reference http://docs.xaraya.com/index.php/documentation/c80/ for
+    more information.</para>
+
+    <para>Read the Notes on Developing Modules Section</para>
+
+    <para>The section entitled 'Notes on Developing Modules' includes a lot of
+    miscellaneous information that does not fit in other sections of this
+    document. It should be read fully before any attempt to design or develop
+    a module is started.</para>
+
+    <para>Understand the Following Areas</para>
+
+    <para>Difference between GUI and Operational Functions</para>
+
+    <para>Understanding the difference between GUI and operational functions
+    is critical when building a good module. Proper separation of these
+    functions will allow other modules to be able to access the functionality
+    of your module and incorporate it into their modules. It will also allow
+    methods of access apart from those that the standard web-based Xaraya
+    system.</para>
+
+    <para>Difference between User and Administrative Functions</para>
+
+    <para>Understanding the difference between user and administrative
+    functions is very important when building a good module. The separation of
+    these types of actions allows for the Xaraya Security Model The Xaraya
+    security model is a very important area to understand before coding a
+    module. Developers should understand which parts of their module need
+    protected, and exactly how this is accomplished. The entire Xaraya
+    security model is beyond the scope of this document. The Security System
+    RFC30 is located at http://docs.xaraya.com//docs/rfcs/rfc0030.html</para>
+
+    <para>Function Return Codes</para>
+
+    <para>Every well-defined module function must return the appropriate
+    return codes. Return codes are the main way in which a module communicates
+    with the Xaraya core, and as such, it is vital that the correct return
+    codes are used. The following return codes should be used when returning
+    control to the Xaraya core from any module function:</para>
+
+    <para>string</para>
+
+    <para>Returning a text string implies that the modules function has
+    finished its work and has output to be displayed in the appropriate place
+    on the Xaraya web page. Xaraya will take the returned output and display
+    it as appropriate. Note that all output from modules is displayed
+    verbatim, with no escaping of HTML characters. This is to allow for
+    formatted output from the module functions.</para>
+
+    <para>true</para>
+
+    <para>Returning boolean true implies that the module function has finished
+    its work and set up an appropriate redirect to send the user to a page
+    that will have display output. The Xaraya core will take no further action
+    as far as this module is concerned.</para>
+
+    <para>false</para>
+
+    <para>Returning boolean false implies that the module function has
+    finished its work but not set up an appropriate redirect to send the user
+    to a page that will have display output. The Xaraya core will set an
+    appropriate redirect for this module. Note that none of these functions
+    carries any information about the success or failure of the attempted
+    operation that the module function was undertaking.</para>
+
+    <para>array</para>
+
+    <para>The array can contain the parameters that you need to return to the
+    Xaraya core</para>
+
+    <para>Where Modules Fit in Xaraya</para>
+
+    <para>Modules cover two separate areas of Xaraya. The first is
+    administration of core functions, (e.g. users, permissions), and the
+    second is extension of system functionality (e.g. downloads, web links).
+    As each of these areas is not core this implies two things. First is that
+    no module is actually required - the Xaraya system would work without
+    anything in its modules directory, although its functionality would be
+    severely limited and there would be no configuration options available.
+    Second, is that modules should not remove any core functionality when
+    installed, in operation, or removed.</para>
+  </section>
+
+  <section>
+    <title>Building Your Module</title>
+
+    <para>This section is a short manual how to write your own module. If you
+    are developing a module for the first time, it is recommended to follow
+    these steps.</para>
+
     <section>
-      <title>Before Starting Your Module</title>
+      <title>Make Your Initial Directory</title>
 
-      <para>There are a number of steps to follow before you can start
-      building your module.</para>
+      <para>Create the directory to hold the module files. This directory must
+      be created under the 'modules' directory in the Xaraya install, and must
+      be created with the name of your module as registered at the Xaraya
+      modules site.</para>
 
-      <para>Choosing a Name for Your Module</para>
-
-      <para>Choosing a name for your module is important, as this is the main
-      way that your module will be known throughout the Xaraya community. The
-      name should relate to the functionality that the module provides, but
-      also be specific enough to be able to discern it from separate modules
-      that might offer similar functionality. Module names are case-sensitive.
-      All modules names are lower-case only.</para>
-
-      <para>Decide on the Type of Your Module</para>
-
-      <para>There are two broad types of module available in Xaraya. Item
-      modules are modules, which contain their own content and operate on that
-      content, whereas utility modules are modules, which contain additional
-      information or functionality for the content of other modules. Examples
-      of item modules are news, FAQ, and download. Examples of utility modules
-      are comments, ratings, and global index. Either utility modules work in
-      the same way as item modules, or they can operate with hooks, which
-      allow module functions to be acted upon without being explicitly called
-      by other modules. Hooks are used for items that are not part of a piece
-      of content but directly related to it.</para>
-
-      <para>Register Your Module Name</para>
-
-      <para>Registering your module is not compulsory, but it is a very good
-      idea. By registering your module, you can ensure that no other official
-      Xaraya module will take the name that you have chosen for your module.
-      Two modules with the same name will not operate correctly on a single
-      Xaraya site, so it is beneficial to both yourself and the Xaraya
-      community in general to have a unique name. You may register your module
-      via the release module on <ulink url="???">http://www.xaraya.com/
-      </ulink></para>
-
-      <para>Obtain a Copy of the Xaraya API Reference Guide</para>
-
-      <para>The Xaraya API Reference Guide has been moved to the PHP-Doc style
-      of documentation. No separate entry will be created for the API guide.
-      Please reference http://docs.xaraya.com/index.php/documentation/c80/ for
-      more information.</para>
-
-      <para>Read the Notes on Developing Modules Section</para>
-
-      <para>The section entitled 'Notes on Developing Modules' includes a lot
-      of miscellaneous information that does not fit in other sections of this
-      document. It should be read fully before any attempt to design or
-      develop a module is started.</para>
-
-      <para>Understand the Following Areas</para>
-
-      <para>Difference between GUI and Operational Functions</para>
-
-      <para>Understanding the difference between GUI and operational functions
-      is critical when building a good module. Proper separation of these
-      functions will allow other modules to be able to access the
-      functionality of your module and incorporate it into their modules. It
-      will also allow methods of access apart from those that the standard
-      web-based Xaraya system.</para>
-
-      <para>Difference between User and Administrative Functions</para>
-
-      <para>Understanding the difference between user and administrative
-      functions is very important when building a good module. The separation
-      of these types of actions allows for the Xaraya Security Model The
-      Xaraya security model is a very important area to understand before
-      coding a module. Developers should understand which parts of their
-      module need protected, and exactly how this is accomplished. The entire
-      Xaraya security model is beyond the scope of this document. The Security
-      System RFC30 is located at
-      http://docs.xaraya.com//docs/rfcs/rfc0030.html</para>
-
-      <para>Function Return Codes</para>
-
-      <para>Every well-defined module function must return the appropriate
-      return codes. Return codes are the main way in which a module
-      communicates with the Xaraya core, and as such, it is vital that the
-      correct return codes are used. The following return codes should be used
-      when returning control to the Xaraya core from any module
-      function:</para>
-
-      <para>string</para>
-
-      <para>Returning a text string implies that the modules function has
-      finished its work and has output to be displayed in the appropriate
-      place on the Xaraya web page. Xaraya will take the returned output and
-      display it as appropriate. Note that all output from modules is
-      displayed verbatim, with no escaping of HTML characters. This is to
-      allow for formatted output from the module functions.</para>
-
-      <para>true</para>
-
-      <para>Returning boolean true implies that the module function has
-      finished its work and set up an appropriate redirect to send the user to
-      a page that will have display output. The Xaraya core will take no
-      further action as far as this module is concerned.</para>
-
-      <para>false</para>
-
-      <para>Returning boolean false implies that the module function has
-      finished its work but not set up an appropriate redirect to send the
-      user to a page that will have display output. The Xaraya core will set
-      an appropriate redirect for this module. Note that none of these
-      functions carries any information about the success or failure of the
-      attempted operation that the module function was undertaking.</para>
-
-      <para>array</para>
-
-      <para>The array can contain the parameters that you need to return to
-      the Xaraya core</para>
-
-      <para>Where Modules Fit in Xaraya</para>
-
-      <para>Modules cover two separate areas of Xaraya. The first is
-      administration of core functions, (e.g. users, permissions), and the
-      second is extension of system functionality (e.g. downloads, web links).
-      As each of these areas is not core this implies two things. First is
-      that no module is actually required - the Xaraya system would work
-      without anything in its modules directory, although its functionality
-      would be severely limited and there would be no configuration options
-      available. Second, is that modules should not remove any core
-      functionality when installed, in operation, or removed.</para>
+      <para>Copy the Module Example Copy over all of the files from the
+      example module directory into you newly created module directory. These
+      files set up the basic structure for your module and allow you to get to
+      work creating your module very quickly.</para>
     </section>
 
     <section>
-      <title>Building Your Module</title>
+      <title>Code your Database Tables</title>
 
-      <para>This section is a short manual how to write your own module. If
-      you are developing a module for the first time, it is recommended to
-      follow these steps.</para>
+      <para>Coding your database tables requires you to edit the xartables.php
+      file in your module directory. This file gives information on the
+      structure of the tables used by this module, although it does not carry
+      out any actions itself. The structure information is wrapped in a
+      function (modname_xartables()) for easy access by the Xaraya system. An
+      annotated copy of the template xartables.php file is available in the
+      standard Xaraya distribution as part of the Template module.</para>
 
-      <section>
-        <title>Make Your Initial Directory</title>
-
-        <para>Create the directory to hold the module files. This directory
-        must be created under the 'modules' directory in the Xaraya install,
-        and must be created with the name of your module as registered at the
-        Xaraya modules site.</para>
-
-        <para>Copy the Module Example Copy over all of the files from the
-        example module directory into you newly created module directory.
-        These files set up the basic structure for your module and allow you
-        to get to work creating your module very quickly.</para>
-      </section>
-
-      <section>
-        <title>Code your Database Tables</title>
-
-        <para>Coding your database tables requires you to edit the
-        xartables.php file in your module directory. This file gives
-        information on the structure of the tables used by this module,
-        although it does not carry out any actions itself. The structure
-        information is wrapped in a function (modname_xartables()) for easy
-        access by the Xaraya system. An annotated copy of the template
-        xartables.php file is available in the standard Xaraya distribution as
-        part of the Template module.</para>
-
-        <para>If your module uses tables specified by another module then you
-        can either remove the xartables.php file completely from your module
-        directory, or have a suitably named function that just returns an
-        empty array. If you attempt to use the same table name as another
-        module or the Xaraya core then your module will fail in unexpected
-        ways. Try to give your tables unique names, preferably based on your
-        module name.</para>
-      </section>
-
-      <section>
-        <title>Write your Initialization Functions</title>
-
-        <para>Module initialization functions are required for three separate
-        actions. These actions are initialization of the module's tables and
-        configuration, upgrade of the module's tables and configuration, and
-        deletion of the module's tables and configuration. Each of these items
-        are generally only called once, although if a site administrator
-        desires they should be able to initialize and delete a module as many
-        times as they wish. It should be assumed that whenever these functions
-        are called the Xaraya system has already loaded the relevant
-        information from xartables.php and it is available in the information
-        returned by xarDBGetTables(). An annotated copy of the template
-        xarinit.php file is available in the standard Xaraya distribution as
-        part of the Example solution.</para>
-
-        <para>Test Your Initialization Routines</para>
-
-        <para>Once the database structure and initialization files are in
-        place they should be tested by using the modules administration area
-        of your Xaraya system to test initializing and deleting your module.
-        You should manually check that the database table created is correct,
-        and that deleting a module removes all of the relevant configuration
-        variables and database tables. Once you are happy that the module
-        initialization functions are working correctly you should carry out an
-        initialization so that work on the administration and user functions
-        can proceed with suitable database tables in place.</para>
-
-        <para>Write Your Administration Functions</para>
-
-        <para>With your database tables in place, the next step is to write
-        some administration functions. The administration functions that you
-        will write depend on the nature of your module, however most modules
-        have at least the following items: add a new item modify an existing
-        item delete an existing item Each of these items is normally broken
-        down into three separate pieces. The first piece is part of the GUI
-        and displays a form with suitable fields for user input. The second
-        piece is part of the API and carries out the requested operation. The
-        third piece is another part of the GUI, gathers information from the
-        form displayed by the first piece, and passes it as arguments to the
-        second piece. As mentioned earlier in the document, it is vital that
-        the separation between the GUI and API functions is clear. If you are
-        unsure about whether part of a function should be in the GUI or the
-        API, look at what it does. If it is directly involved with user
-        interaction (gathering information from the user or displaying
-        information to the user) then it is a GUI function. If it is involved
-        with obtaining or updating information in the Xaraya system itself
-        (normally in a database table) then it is an API function. Annotated
-        copies of the template xaruser and xaruserapi function files are
-        available in the standard Xaraya distribution as part of the Example
-        module.</para>
-
-        <para>Test Your Administration Functions</para>
-
-        <para>Once the administration functions are in place, they need
-        testing by using the administration area of your module to carry out
-        the basic functionality that you have created. The operation of the
-        module functions need checking against the information in the database
-        to ensure that they are storing and displaying the data
-        correctly.</para>
-
-        <para>Write Your User Functions</para>
-
-        <para>Once the administration functions are in place to manipulate
-        your module's data then you can write the user functions to display
-        the data. As with the administration functions the user functions that
-        you will write depend on the nature of your module, however most
-        modules have at least the following items: overview of a number of
-        items detailed view of a single item Each of these items is normally
-        broken down into two separate pieces. The first piece is part of the
-        GUI and gathers information from the user as to which item they wish
-        to view, passes it on to the API piece, and displays the resultant
-        information. The second piece is part of the API and obtains the
-        required information for the display piece. Annotated copies of the
-        template xaruser and xaruserapi function files are available in the
-        standard Xaraya distribution as part of the Example module.</para>
-
-        <para>Test Your User Functions</para>
-
-        <para>Once the user functions are in place they need testing by
-        operating the module in the same way that a normal user would. The
-        operation of the module functions need checking against the
-        information in the database to ensure that they are displaying the
-        data correctly.</para>
-
-        <para>Write Your Blocks</para>
-
-        <para>You might want your module to include blocks. Blocks are smaller
-        functional units of a module that display specific information, and
-        generally show up down the left and right hand sides of a page. Blocks
-        are relatively simplistic items, and can either use their module's API
-        functions to obtain information or use their own direct SQL query.
-        Although they are packaged as part of the module they are not directly
-        related to it except that they use the same database tables, and as
-        such they might have to load the module's database table information
-        directly through the use of the xarModDBInfoLoad() function if they
-        intend to access the module's tables directly. An annotated copy of
-        the template first.php block is available in the standard Xaraya
-        distribution as part of the Example module.</para>
-
-        <para>Test Your Blocks</para>
-
-        <para>Once the blocks are in place, they need testing by displaying
-        them through the Blocks administration system. The blocks need
-        checking against the database and the user functions to ensure that
-        they are displaying the data correctly.</para>
-
-        <para>Document Your Module</para>
-
-        <para>Documenting your module is a vital step. There are two areas
-        your module needs documentation: user information and API information.
-        The first area is covered by producing a manual and placing it in the
-        appropriate place in the directory hierarchy. The second area by
-        writing a short description of each API function, noting the
-        parameters and return values that it has, and placing that at the head
-        of the function. Coding the documentation in the style of PHPDoc will
-        allow for automatic parsing of the documentation by other developers
-        who wish to use your module.</para>
-
-        <para>Packaging Your Module</para>
-
-        <para>At this stage, the module should be ready for packaging. The two
-        most widely used packaging formats are WinZip (.zip extension) and
-        compressed TAR (.tar.gz extension). If possible, package the module
-        with both formats. If not then just, package it with the format that
-        you have and ask on the Xaraya site if someone can package it in the
-        other format.</para>
-
-        <para>Interacting With Other Modules</para>
-
-        <para>Overview</para>
-
-        <para>When designing your module you may well find there is
-        functionality that you require in a module already available. Utility
-        modules are designed specifically to provide additional often-used
-        functionality for modules in a standard way, and sometimes the
-        functionality of an entire module might be used as part of your
-        module. Functionality can be obtained either from the display part of
-        the module or the API itself, depending on the specific requirements
-        in the new module. Interaction with other modules is carried out in
-        different ways depending on the type of module being written and the
-        level of specific control the module requires over the function being
-        called.</para>
-      </section>
+      <para>If your module uses tables specified by another module then you
+      can either remove the xartables.php file completely from your module
+      directory, or have a suitably named function that just returns an empty
+      array. If you attempt to use the same table name as another module or
+      the Xaraya core then your module will fail in unexpected ways. Try to
+      give your tables unique names, preferably based on your module
+      name.</para>
     </section>
 
+    <section>
+      <title>Write your Initialization Functions</title>
+
+      <para>Module initialization functions are required for three separate
+      actions. These actions are initialization of the module's tables and
+      configuration, upgrade of the module's tables and configuration, and
+      deletion of the module's tables and configuration. Each of these items
+      are generally only called once, although if a site administrator desires
+      they should be able to initialize and delete a module as many times as
+      they wish. It should be assumed that whenever these functions are called
+      the Xaraya system has already loaded the relevant information from
+      xartables.php and it is available in the information returned by
+      xarDBGetTables(). An annotated copy of the template xarinit.php file is
+      available in the standard Xaraya distribution as part of the Example
+      solution.</para>
+
+      <para>Test Your Initialization Routines</para>
+
+      <para>Once the database structure and initialization files are in place
+      they should be tested by using the modules administration area of your
+      Xaraya system to test initializing and deleting your module. You should
+      manually check that the database table created is correct, and that
+      deleting a module removes all of the relevant configuration variables
+      and database tables. Once you are happy that the module initialization
+      functions are working correctly you should carry out an initialization
+      so that work on the administration and user functions can proceed with
+      suitable database tables in place.</para>
+
+      <para>Write Your Administration Functions</para>
+
+      <para>With your database tables in place, the next step is to write some
+      administration functions. The administration functions that you will
+      write depend on the nature of your module, however most modules have at
+      least the following items: add a new item modify an existing item delete
+      an existing item Each of these items is normally broken down into three
+      separate pieces. The first piece is part of the GUI and displays a form
+      with suitable fields for user input. The second piece is part of the API
+      and carries out the requested operation. The third piece is another part
+      of the GUI, gathers information from the form displayed by the first
+      piece, and passes it as arguments to the second piece. As mentioned
+      earlier in the document, it is vital that the separation between the GUI
+      and API functions is clear. If you are unsure about whether part of a
+      function should be in the GUI or the API, look at what it does. If it is
+      directly involved with user interaction (gathering information from the
+      user or displaying information to the user) then it is a GUI function.
+      If it is involved with obtaining or updating information in the Xaraya
+      system itself (normally in a database table) then it is an API function.
+      Annotated copies of the template xaruser and xaruserapi function files
+      are available in the standard Xaraya distribution as part of the Example
+      module.</para>
+
+      <para>Test Your Administration Functions</para>
+
+      <para>Once the administration functions are in place, they need testing
+      by using the administration area of your module to carry out the basic
+      functionality that you have created. The operation of the module
+      functions need checking against the information in the database to
+      ensure that they are storing and displaying the data correctly.</para>
+
+      <para>Write Your User Functions</para>
+
+      <para>Once the administration functions are in place to manipulate your
+      module's data then you can write the user functions to display the data.
+      As with the administration functions the user functions that you will
+      write depend on the nature of your module, however most modules have at
+      least the following items: overview of a number of items detailed view
+      of a single item Each of these items is normally broken down into two
+      separate pieces. The first piece is part of the GUI and gathers
+      information from the user as to which item they wish to view, passes it
+      on to the API piece, and displays the resultant information. The second
+      piece is part of the API and obtains the required information for the
+      display piece. Annotated copies of the template xaruser and xaruserapi
+      function files are available in the standard Xaraya distribution as part
+      of the Example module.</para>
+
+      <para>Test Your User Functions</para>
+
+      <para>Once the user functions are in place they need testing by
+      operating the module in the same way that a normal user would. The
+      operation of the module functions need checking against the information
+      in the database to ensure that they are displaying the data
+      correctly.</para>
+
+      <para>Write Your Blocks</para>
+
+      <para>You might want your module to include blocks. Blocks are smaller
+      functional units of a module that display specific information, and
+      generally show up down the left and right hand sides of a page. Blocks
+      are relatively simplistic items, and can either use their module's API
+      functions to obtain information or use their own direct SQL query.
+      Although they are packaged as part of the module they are not directly
+      related to it except that they use the same database tables, and as such
+      they might have to load the module's database table information directly
+      through the use of the xarModDBInfoLoad() function if they intend to
+      access the module's tables directly. An annotated copy of the template
+      first.php block is available in the standard Xaraya distribution as part
+      of the Example module.</para>
+
+      <para>Test Your Blocks</para>
+
+      <para>Once the blocks are in place, they need testing by displaying them
+      through the Blocks administration system. The blocks need checking
+      against the database and the user functions to ensure that they are
+      displaying the data correctly.</para>
+
+      <para>Document Your Module</para>
+
+      <para>Documenting your module is a vital step. There are two areas your
+      module needs documentation: user information and API information. The
+      first area is covered by producing a manual and placing it in the
+      appropriate place in the directory hierarchy. The second area by writing
+      a short description of each API function, noting the parameters and
+      return values that it has, and placing that at the head of the function.
+      Coding the documentation in the style of PHPDoc will allow for automatic
+      parsing of the documentation by other developers who wish to use your
+      module.</para>
+
+      <para>Packaging Your Module</para>
+
+      <para>At this stage, the module should be ready for packaging. The two
+      most widely used packaging formats are WinZip (.zip extension) and
+      compressed TAR (.tar.gz extension). If possible, package the module with
+      both formats. If not then just, package it with the format that you have
+      and ask on the Xaraya site if someone can package it in the other
+      format.</para>
+
+      <para>Interacting With Other Modules</para>
+
+      <para>Overview</para>
+
+      <para>When designing your module you may well find there is
+      functionality that you require in a module already available. Utility
+      modules are designed specifically to provide additional often-used
+      functionality for modules in a standard way, and sometimes the
+      functionality of an entire module might be used as part of your module.
+      Functionality can be obtained either from the display part of the module
+      or the API itself, depending on the specific requirements in the new
+      module. Interaction with other modules is carried out in different ways
+      depending on the type of module being written and the level of specific
+      control the module requires over the function being called.</para>
+    </section>
+  </section>
 </chapter>
-    

@@ -21,7 +21,12 @@
   <section>
     <title>Xaraya key components</title>
 
-    <para><synopsis>What er the basic parts you should have some knowledge about. Extended glossary type.</synopsis></para>
+    <abstract>
+      <para>What er the basic parts you should have some knowledge about.
+      Extended glossary type.</para>
+    </abstract>
+
+    <para><synopsis></synopsis></para>
 
     <section>
       <title>Core API</title>

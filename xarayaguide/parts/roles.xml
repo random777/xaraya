@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="roles">
-  <title>Roles: Users &#38; Groups</title>
+  <title>Roles: Users &amp; Groups</title>
 
   <para>Roles allow you to manage Users and Groups on your site. Roles are
-  representations of Users and the different Groups to which they can belong.</para>
+  representations of Users and the different Groups to which they can
+  belong.</para>
 
   <para>Roles can be members of other Roles, to any degree. You can, for
-  instance, use Roles to represent a company&#39;s organization chart, or the
-  set of classes at a university. A Role can be a member of as many other
-  Roles as you like (as long as the parents are Groups).</para>
+  instance, use Roles to represent a company's organization chart, or the set
+  of classes at a university. A Role can be a member of as many other Roles as
+  you like (as long as the parents are Groups).</para>
 
   <para>Roles can be assigned Privileges. By doing so, you define what a given
   Role may or may not do on the site. You can use the test function of the
@@ -26,13 +27,14 @@
     <title>How to use Roles?</title>
 
     <para>The Roles on your site are displayed in a tree under
-    <command>Admin-&#62;Roles-&#62;View All Groups</command>. At the top of
-    the tree is a Role called Everybody, which represents the &#34;group of
-    all groups&#34; on your site. Every User and every Group is a member or
-    descendent of the Everybody Role.</para>
+    <command>Admin-&gt;Roles-&gt;View All Groups</command>. At the top of the
+    tree is a Role called Everybody, which represents the "group of all
+    groups" on your site. Every User and every Group is a member or descendent
+    of the Everybody Role.</para>
 
     <para>Xaraya comes preconfigured with a minimal set of Roles that are
-    loaded when you run the installer. This configuration is shown below:</para>
+    loaded when you run the installer. This configuration is shown
+    below:</para>
 
     <para><literallayout>                Everybody
                 |
@@ -57,7 +59,8 @@
       </listitem>
 
       <listitem>
-        <para>Administrators: A group that has administration privileges.</para>
+        <para>Administrators: A group that has administration
+        privileges.</para>
       </listitem>
 
       <listitem>
@@ -68,7 +71,8 @@
       <listitem>
         <para>Users: A group that normally holds registered users of the site.
         This role is not preconfigured with any privileges. Members of this
-        Group will not have access to the site until you assign privileges.</para>
+        Group will not have access to the site until you assign
+        privileges.</para>
       </listitem>
     </itemizedlist>
 
@@ -76,29 +80,31 @@
     can add members to them. You can also define as many more Roles in the
     tree as you wish in whatever configuration you choose.</para>
 
-    <para>Always keep in mind: When you create a role, until you&#39;ve
-    assigned privileges to it, the role will only have the privileges it
-    inherited from its parents.</para>
+    <para>Always keep in mind: When you create a role, until you've assigned
+    privileges to it, the role will only have the privileges it inherited from
+    its parents.</para>
 
     <itemizedlist>
       <listitem>
-        <para><command>Admin-&#62;Roles-&#62;View All Groups</command>:</para>
+        <para><command>Admin-&gt;Roles-&gt;View All Groups</command>:</para>
 
         <para>This panel displays a tree-view of all Roles on the site. The
         following options are available for each Role:</para>
 
         <itemizedlist>
           <listitem>
-            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;X&#34;
-            icon: Delete this Role. It is not possible to delete a Role that
-            contains any users. If you wish to delete a Role, first remove all
-            the users from the Role. When there are no users assigned to a
-            Role, the Delete icon becomes available.</para>
+            <para><command>Admin-&gt;Roles-&gt;View All
+            Groups</command>-&gt;"X" icon: Delete this Role. It is not
+            possible to delete a Role that contains any users. If you wish to
+            delete a Role, first remove all the users from the Role. When
+            there are no users assigned to a Role, the Delete icon becomes
+            available.</para>
           </listitem>
 
           <listitem>
-            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Two
-            people&#34; icon: Display users assigned to this Role.</para>
+            <para><command>Admin-&gt;Roles-&gt;View All
+            Groups</command>-&gt;"Two people" icon: Display users assigned to
+            this Role.</para>
 
             <itemizedlist>
               <listitem>
@@ -126,12 +132,14 @@
             <para>The Show Users screen allows you to delete a specific user,
             view the privileges assigned to a specific user, or to test the
             privileges of a specific user. Click the icon for the function you
-            wish to utilize. See below for an explanation of these functions.</para>
+            wish to utilize. See below for an explanation of these
+            functions.</para>
           </listitem>
 
           <listitem>
-            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Envelope&#34;
-            icon: Send a plain-text email to all members of this Role.</para>
+            <para><command>Admin-&gt;Roles-&gt;View All
+            Groups</command>-&gt;"Envelope" icon: Send a plain-text email to
+            all members of this Role.</para>
 
             <para>The following variables are available to be used in the
             Subject or Body of the email (see Site Emails, below, for more
@@ -161,16 +169,16 @@
               </listitem>
 
               <listitem>
-                <para>Click &#34;<guibutton>Submit</guibutton>&#34; to send
+                <para>Click "<guibutton>Submit</guibutton>" to send
                 email.</para>
               </listitem>
             </itemizedlist>
           </listitem>
 
           <listitem>
-            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Arrow
-            pointing down at person&#34; icon: Show the Privileges assigned to
-            this Role.</para>
+            <para><command>Admin-&gt;Roles-&gt;View All
+            Groups</command>-&gt;"Arrow pointing down at person" icon: Show
+            the Privileges assigned to this Role.</para>
 
             <para>Privileges are displayed in two categories:</para>
 
@@ -184,7 +192,8 @@
                   </listitem>
 
                   <listitem>
-                    <para>Realm: The realm in which the privilege exists</para>
+                    <para>Realm: The realm in which the privilege
+                    exists</para>
                   </listitem>
 
                   <listitem>
@@ -198,7 +207,8 @@
                   </listitem>
 
                   <listitem>
-                    <para>Instance: The instance affected by the privilege</para>
+                    <para>Instance: The instance affected by the
+                    privilege</para>
                   </listitem>
 
                   <listitem>
@@ -221,7 +231,8 @@
                   </listitem>
 
                   <listitem>
-                    <para>Realm: The realm in which the privilege exists</para>
+                    <para>Realm: The realm in which the privilege
+                    exists</para>
                   </listitem>
 
                   <listitem>
@@ -235,7 +246,8 @@
                   </listitem>
 
                   <listitem>
-                    <para>Instance: The instance affected by the privilege</para>
+                    <para>Instance: The instance affected by the
+                    privilege</para>
                   </listitem>
 
                   <listitem>
@@ -245,14 +257,15 @@
               </listitem>
 
               <listitem>
-                <para>If a privilege can be removed, a &#34;<guibutton>Remove</guibutton>&#34;
-                link is displayed in the far right column. Click &#34;<guibutton>Remove</guibutton>&#34;
-                to delete the privilege. Only directly-assigned privileges can
-                be removed from this panel.</para>
+                <para>If a privilege can be removed, a
+                "<guibutton>Remove</guibutton>" link is displayed in the far
+                right column. Click "<guibutton>Remove</guibutton>" to delete
+                the privilege. Only directly-assigned privileges can be
+                removed from this panel.</para>
               </listitem>
             </itemizedlist>
 
-            <para>Assign a Privilege to Role &#60;rolename&#62;:</para>
+            <para>Assign a Privilege to Role &lt;rolename&gt;:</para>
 
             <itemizedlist>
               <listitem>
@@ -260,14 +273,15 @@
               </listitem>
 
               <listitem>
-                <para>Click &#34;Add&#34; to assign privilege.</para>
+                <para>Click "Add" to assign privilege.</para>
               </listitem>
             </itemizedlist>
           </listitem>
 
           <listitem>
-            <para><command>Admin-&#62;Roles-&#62;View All Groups</command>-&#62;&#34;Arrows
-            swirling around person&#34; icon: Test this Role&#39;s Privileges</para>
+            <para><command>Admin-&gt;Roles-&gt;View All
+            Groups</command>-&gt;"Arrows swirling around person" icon: Test
+            this Role's Privileges</para>
 
             <itemizedlist>
               <listitem>
@@ -282,7 +296,7 @@
               </listitem>
 
               <listitem>
-                <para>Click &#34;<guibutton>Test</guibutton>&#34; to perform
+                <para>Click "<guibutton>Test</guibutton>" to perform
                 test.</para>
               </listitem>
             </itemizedlist>
@@ -291,7 +305,7 @@
       </listitem>
 
       <listitem>
-        <para><command>Admin-&#62;Roles-&#62;Add Group/User</command>:</para>
+        <para><command>Admin-&gt;Roles-&gt;Add Group/User</command>:</para>
 
         <itemizedlist>
           <listitem>
@@ -309,9 +323,8 @@
           </listitem>
         </itemizedlist>
 
-        <para>The following fields are required if &#34;Type&#34; (above) is
-        &#34;User&#34;. If you are adding a Group, these fields are not
-        available.</para>
+        <para>The following fields are required if "Type" (above) is "User".
+        If you are adding a Group, these fields are not available.</para>
 
         <itemizedlist>
           <listitem>
@@ -324,7 +337,7 @@
 
           <listitem>
             <para>State: From this drop-down list, select the state for the
-            new user&#39;s account.</para>
+            new user's account.</para>
 
             <itemizedlist>
               <listitem>
@@ -336,7 +349,7 @@
               </listitem>
 
               <listitem>
-                <para>Active: The user&#39;s account is validated and fully
+                <para>Active: The user's account is validated and fully
                 activated.</para>
               </listitem>
 
@@ -351,18 +364,18 @@
           </listitem>
 
           <listitem>
-            <para>Confirm Password: Confirm the user&#39;s password by
-            entering it here.</para>
+            <para>Confirm Password: Confirm the user's password by entering it
+            here.</para>
           </listitem>
 
           <listitem>
-            <para>Click &#34;<guibutton>Add</guibutton>&#34; to save changes.</para>
+            <para>Click "<guibutton>Add</guibutton>" to save changes.</para>
           </listitem>
         </itemizedlist>
       </listitem>
 
       <listitem>
-        <para><command>Admin-&#62;Roles-&#62;Purge Users</command>:</para>
+        <para><command>Admin-&gt;Roles-&gt;Purge Users</command>:</para>
 
         <itemizedlist>
           <listitem>
@@ -376,7 +389,8 @@
                 <para>Inactive: This classification is for users that have
                 been inactive on the site for a specific period of time. If
                 you wish to purge users of this status type, select this value
-                from the drop-down list. OTTO: Where is inactive timeout set?</para>
+                from the drop-down list. OTTO: Where is inactive timeout
+                set?</para>
               </listitem>
 
               <listitem>
@@ -393,14 +407,14 @@
           </listitem>
 
           <listitem>
-            <para>Click &#34;<guibutton>Submit</guibutton>&#34; to perform
+            <para>Click "<guibutton>Submit</guibutton>" to perform
             purge.</para>
           </listitem>
         </itemizedlist>
       </listitem>
 
       <listitem>
-        <para><command>Admin-&#62;Roles-&#62;Modify config</command>:</para>
+        <para><command>Admin-&gt;Roles-&gt;Modify config</command>:</para>
 
         <itemizedlist>
           <listitem>
@@ -408,7 +422,8 @@
 
             <itemizedlist>
               <listitem>
-                <para>Number of Users to View Per Page to &#34;<userinput>25</userinput>&#34;</para>
+                <para>Number of Users to View Per Page to
+                "<userinput>25</userinput>"</para>
               </listitem>
 
               <listitem>
@@ -434,7 +449,8 @@
               </listitem>
 
               <listitem>
-                <para>Minimum age to be a user: &#34;<userinput>13</userinput>&#34;</para>
+                <para>Minimum age to be a user:
+                "<userinput>13</userinput>"</para>
               </listitem>
 
               <listitem>
@@ -443,11 +459,13 @@
               </listitem>
 
               <listitem>
-                <para>Minimum length for password: &#34;<userinput>5</userinput>&#34;</para>
+                <para>Minimum length for password:
+                "<userinput>5</userinput>"</para>
               </listitem>
 
               <listitem>
-                <para>Send notice to admin when new user registers: CHECKED</para>
+                <para>Send notice to admin when new user registers:
+                CHECKED</para>
               </listitem>
 
               <listitem>
@@ -500,8 +518,8 @@
           </listitem>
         </itemizedlist>
 
-        <para>Click &#34;<guibutton>Update Users Configuration</guibutton>&#34;
-        to save changes.</para>
+        <para>Click "<guibutton>Update Users Configuration</guibutton>" to
+        save changes.</para>
       </listitem>
     </itemizedlist>
 
@@ -509,19 +527,21 @@
       <title>Site Emails</title>
 
       <para>The site can automatically send email messages to users at various
-      stages of user registration. Emails can be sent to confirm a new
-      user, welcome a confirmed user to the site, remind a registered user of
-      their password, or to re-validate a user who has changed email
+      stages of user registration. Emails can be sent to confirm a new user,
+      welcome a confirmed user to the site, remind a registered user of their
+      password, or to re-validate a user who has changed email
       addresses.</para>
 
-      <para>The next few options allow customization of the site emails.</para>
+      <para>The next few options allow customization of the site
+      emails.</para>
 
       <para>The following variables can be included in the email (either
-      subject or body) and are replaced in the text with specific information:</para>
+      subject or body) and are replaced in the text with specific
+      information:</para>
 
       <itemizedlist>
         <listitem>
-          <para>%%username%% -- User&#39;s username on the site</para>
+          <para>%%username%% -- User's username on the site</para>
         </listitem>
 
         <listitem>
@@ -537,7 +557,7 @@
         </listitem>
 
         <listitem>
-          <para>%%password%% -- User&#39;s password</para>
+          <para>%%password%% -- User's password</para>
         </listitem>
       </itemizedlist>
 
@@ -546,26 +566,28 @@
 
       <itemizedlist>
         <listitem>
-          <para><command>Admin-&#62;Roles-&#62;Confirmation Email</command>:</para>
+          <para><command>Admin-&gt;Roles-&gt;Confirmation
+          Email</command>:</para>
 
           <para>This email is sent to users to complete their registration by
           clicking a link in the email.</para>
 
           <para>The confirmation email is plain text. Edit the subject and
-          body as necessary, and click &#34;<guibutton>Submit new confirmation
-          email</guibutton>&#34; to save changes.</para>
+          body as necessary, and click "<guibutton>Submit new confirmation
+          email</guibutton>" to save changes.</para>
 
           <para>The following variables are available in this message body or
           subject:</para>
 
           <itemizedlist>
             <listitem>
-              <para>%%link%%: The link on which the the user must click to
+              <para>%%link%%: The link on which the user must click to
               complete registration</para>
             </listitem>
 
             <listitem>
-              <para>%%ipaddr%%: The IP address of the person registering</para>
+              <para>%%ipaddr%%: The IP address of the person
+              registering</para>
             </listitem>
 
             <listitem>
@@ -573,44 +595,46 @@
             </listitem>
 
             <listitem>
-              <para>%%valcode%%: Validation code to activate the user&#39;s
+              <para>%%valcode%%: Validation code to activate the user's
               account</para>
             </listitem>
           </itemizedlist>
         </listitem>
 
         <listitem>
-          <para><command>Admin-&#62;Roles-&#62;Welcome Email</command>:</para>
+          <para><command>Admin-&gt;Roles-&gt;Welcome Email</command>:</para>
 
-          <para>This email is sent to users to welcome them to the site.</para>
+          <para>This email is sent to users to welcome them to the
+          site.</para>
 
           <para>The welcome email is plain text. Edit the subject and body as
-          necessary, and click &#34;<guibutton>Submit new welcome email</guibutton>&#34;
-          to save changes.</para>
+          necessary, and click "<guibutton>Submit new welcome
+          email</guibutton>" to save changes.</para>
         </listitem>
 
         <listitem>
-          <para><command>Admin-&#62;Roles-&#62;Reminder Email</command>:</para>
+          <para><command>Admin-&gt;Roles-&gt;Reminder Email</command>:</para>
 
           <para>This email is sent to users who indicate that they have lost
           their password.</para>
 
           <para>The reminder email is plain text or HTML depending on your
-          settings in <command>Admin-&#62;Mail-&#62;Modify config</command>.
-          Edit the subject and body as necessary, and click &#34;<guibutton>Submit</guibutton>&#34;
-          to save changes.</para>
+          settings in <command>Admin-&gt;Mail-&gt;Modify config</command>.
+          Edit the subject and body as necessary, and click
+          "<guibutton>Submit</guibutton>" to save changes.</para>
         </listitem>
 
         <listitem>
-          <para><command>Admin-&#62;Roles-&#62;Validation Email</command>:</para>
+          <para><command>Admin-&gt;Roles-&gt;Validation
+          Email</command>:</para>
 
           <para>This email is sent to users when they re-validate their
           account (for example, change email address).</para>
 
           <para>The validation email is sent as plain text or HTML depending
-          on your settings in <command>Admin-&#62;Mail-&#62;Modify config</command>.
-          Edit the subject and body as necessary, and click &#34;<guibutton>Submit</guibutton>&#34;
-          to save changes.</para>
+          on your settings in <command>Admin-&gt;Mail-&gt;Modify
+          config</command>. Edit the subject and body as necessary, and click
+          "<guibutton>Submit</guibutton>" to save changes.</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -619,7 +643,7 @@
       <title>KNOWLEDGE REVIEW: Reviewing Roles</title>
 
       <para>OTTO: Add a new Category and limit it so only Joe and Jane can see
-      it but Bob can&#39;t.</para>
+      it but Bob can't.</para>
     </sect2>
   </sect1>
 </chapter>

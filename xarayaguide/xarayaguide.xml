@@ -631,7 +631,9 @@
 
               <listitem>
                 <para>Title: The title for the block instance. Alphanumeric
-                text, maximum of 256 characters.</para>
+                text, maximum of 256 characters. Beware to not use special
+                characters in the block title. A ':' can cause problems with
+                the privilege you will create later on.</para>
               </listitem>
 
               <listitem>
@@ -807,12 +809,12 @@
                       <listitem>
                         <para>Template: You can define custom display
                         templates for each Block Group. To tell Xaraya to use
-                        a different template for a Blockl Group, enter the
-                        name of the template file in this field. Enter the
-                        filename without the "<filename>.xt</filename>"
-                        extension. To use the default page template, leave
-                        this field blank. See TEMPLATES IN XARAYA for a
-                        thorough discussion of templates.</para>
+                        a different template for a Block Group, enter the name
+                        of the template file in this field. Enter the filename
+                        without the "<filename>.xt</filename>" extension. To
+                        use the default page template, leave this field blank.
+                        See TEMPLATES IN XARAYA for a thorough discussion of
+                        templates.</para>
                       </listitem>
 
                       <listitem>
@@ -1501,7 +1503,7 @@
         <sect3>
           <title>example/first</title>
 
-          <para>This is an example block. </para>
+          <para>This is an example block.</para>
         </sect3>
 
         <sect3>
@@ -2430,7 +2432,7 @@
 
                   <listitem>
                     <para>Reset: Click this option to reset the polling data
-                    for an exsiting poll. Confirm your intention on the next
+                    for an existing poll. Confirm your intention on the next
                     panel. If you click "<guibutton>Reset Poll</guibutton>",
                     any existing votes are removed for the selected
                     Poll.</para>
@@ -5506,10 +5508,8 @@
         <command>Admin-&gt;Mybookmarks</command>.</subtitle>
 
         <para>The MyBookmarks module gives your users a way to add their
-        favorite bookmarks to a sitewide database. The Bookmarks block with
-        each user's personal bookmarks, will be displayed on their Roles My
-        Account page. The Random Bookmarks block will pull a random link from
-        the master database of all user's bookmarks.</para>
+        favorite bookmarks to a sitewide database. The Bookmarks block shows
+        each user's personal bookmarks.</para>
 
         <itemizedlist>
           <listitem>
@@ -5518,7 +5518,7 @@
           </listitem>
 
           <listitem>
-            <para><guibutton>Main page</guibutton>: OTTO</para>
+            <para><guibutton>Main page</guibutton>: Not existing</para>
           </listitem>
 
           <listitem>
@@ -6317,7 +6317,7 @@ $systemConfiguration['Log.LoggerArgs'] = array('fileName' =&gt;  'var/logs/log.t
 
                   <listitem>
                     <para>&lt;publication type&gt;: From the drop-down list,
-                    select the Publiction Type for which BloggerAPI is
+                    select the Publication Type for which BloggerAPI is
                     activated.</para>
                   </listitem>
 
@@ -6840,7 +6840,7 @@ $systemConfiguration['Log.LoggerArgs'] = array('fileName' =&gt;  'var/logs/log.t
       <sect2>
         <title>Example Module</title>
 
-        <subtitle>Example for new modules.
+        <subtitle>Example and annotated module for new modules.
         <command>Admin-&gt;Example</command>.</subtitle>
 
         <itemizedlist>

@@ -1764,8 +1764,28 @@ contents in the current context.
         </section>
         <!-- xar:template -->
         <section anchor="template" title="&lt;xar:template /&gt;">
+          <ed:ins>
+            <t>
+              The xar:template tags signal a template start. The template
+              can be specified as external by the attributes of the tag (closed form)
+              or be the content of the children inside the xar:template tag.
+            </t>
+            <t>
+              In it's open form, the tag functions as the root tag of a xar:template
+              and has no functional effect. Usage of the xar:template tag is RECOMMENDED, since
+              it makes each xar template file a candidate to be valid xml (which requires a
+              single unique root tag ). If a template file does not have a root tag and it is not
+              a page template (which has the xar:blocklayout tag as root tag) xaraya will deal
+              with this omission automatically
+              <ed:issue type="design flaw" name="xar:template definition" status="open">
+                <ed:item>
+                  We really should make the RECOMMENDED into REQUIRED
+                </ed:item>
+              </ed:issue>
+            </t>
+          </ed:ins>
           <t>
-            Opens the file specified by the 'file' attribute and
+            <ed:ins>In it's closed form </ed:ins>opens the file specified by the 'file' attribute and
             processes it within the context of the calling
             template. Included templates are stored in:
             <list>
@@ -1810,7 +1830,12 @@ contents in the current context.
             with the xar:template tag in the overridden template.
            </t>
           <section title="Forms">
-            <t>Only the empty form is allowed</t>
+            <t>
+              <ed:replace>
+                <ed:del>Only the empty form is allowed</ed:del>
+                <ed:ins>Both open and closed form are allowed</ed:ins>
+              </ed:replace>
+            </t>
           </section>
           <section title="Attributes">
             <t>

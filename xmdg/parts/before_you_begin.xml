@@ -21,7 +21,12 @@
   <section>
     <title>Choose a name</title>
 
-    <para></para>
+    <para>Choosing a name for your module is important, as this is the main
+    way that your module will be known throughout the Xaraya community. The
+    name should relate to the functionality that the module provides, but also
+    be specific enough to be able to discern it from separate modules that
+    might offer similar functionality. Module names are case-sensitive. All
+    modules names are lower-case only.</para>
   </section>
 
   <section>
@@ -38,6 +43,14 @@
 
   <section>
     <title>Register your module</title>
+
+    <para>Registering your module is not compulsory, but it is a very good
+    idea. By registering your module, you can ensure that no other official
+    Xaraya module will take the name that you have chosen for your module. Two
+    modules with the same name will not operate correctly on a single Xaraya
+    site, so it is beneficial to both yourself and the Xaraya community in
+    general to have a unique name. You may register your module via the
+    release module on <ulink url="???">http://www.xaraya.com/</ulink></para>
 
     <para></para>
 

@@ -55,7 +55,12 @@
     <section>
       <title>Hooks</title>
 
-      <para></para>
+      <para>Hooks are one of the nice key features of Xaraya. You will need
+      some time to dive into the subject, but once mastered (and it's not that
+      hard), you will see the enormous power.</para>
+
+      <para>Xaraya uses hooks to let parts of the installation talk to other
+      parts. The Site Admin can decide which hooks to allow. </para>
     </section>
 
     <section>

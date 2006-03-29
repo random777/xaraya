@@ -7,11 +7,14 @@ If you are creating a new Xaraya installation, please ensure you read INSTALL.tx
 
 You are Upgrading to Xaraya: adam_baum 1.1.0
 ============================================
-Xaraya is an Open Source web applications framework.  Xaraya started out as a fork of PostNuke (http://www.postnuke.com). It has had a complete re-write from the ground up since it's beginnings.  Xaraya provides significant enhancements and functionality over it's predecessors and is in active, on-going development. Xaraya provides a stable and secure core, with a function rich API and powerful templating engine in place for third-party developers.
+Xaraya is an Open Source web applications framework. Xaraya started out as a fork of PostNuke (http://www.postnuke.com).
+It has had a complete re-write from the ground up since it's beginnings.
+Xaraya provides significant enhancements and functionality over it's predecessors and is in active, on-going development.
+Xaraya provides a stable and secure core, with a function rich API and powerful templating engine in place for third-party developers.
 
-If you would like to help develop this software, please visit our homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
+If you would like to help develop this software, please visit our homepage at http://www.xaraya.com, or send email to info@xaraya.com.
 
-You can also visit us in channel #support or #chat, on our IRC Server irc.Xaraya.com.
+You can also visit us in channel #xaraya.support or #xaraya.chat, on our IRC Server irc.Xaraya.com.
 
 PREPARE TO UPGRADE
 ==================
@@ -25,7 +28,7 @@ PREPARE TO UPGRADE
       Be sure to check the upgrade changes between versions (see below)
       to ensure you update any custom templates if needed
 
-    * Make a backup 
+    * Make a backup
 
     * Replace all existing Xaraya files, directories, and modules
       with the new Xaraya files EXCEPT:
@@ -97,7 +100,7 @@ Adding a locale (language and encoding):
   We store translations in XML format with UTF-8 encoding only.
 
 
-Please visit the #support channel for information on converting to Xaraya from CMS applications such as PostNuke or PHP-Nuke.
+Please visit the #xaraya.support channel for information on converting to Xaraya from CMS applications such as PostNuke, Joomla or PHP-Nuke.
 
 
 VERSION CHANGES - Please check and update your installation where necessary
@@ -105,15 +108,15 @@ VERSION CHANGES - Please check and update your installation where necessary
 
    Template Changes between versions (please check your modules and theme overrides for these)
    ----------------------------------------------------
-   .9.10.0 -> .9.11.0 
+   .9.10.0 -> .9.11.0
           modules/xarbb/xartemplates/user-newreply.xd : the input form
           includes an additional hidden input field for header[itemtype]
-   
-   .9.11.0 -> .9.12.0 
+
+   .9.11.0 -> .9.12.0
           templates must validate as XML, i.e. you need to replace all
           & with &amp; etc.
-   
-   .9.12.0 -> .9.13.0 
+
+   .9.12.0 -> .9.13.0
        1) in articles, fields of type Calendar (other than pubdate) are
           no longer pre-formatted in the view and display functions, so
           you should now use xarLocaleGetFormattedDate('long',$myfield)
@@ -124,10 +127,10 @@ VERSION CHANGES - Please check and update your installation where necessary
           longer supported; array $commentlist is now an array of arrays.
           $commentlist[$daylabel] is the array of all comments posted on $daylabel.
 
-   1.0.0-RC1 -> 1.0.0-RC2 
+   1.0.0-RC1 -> 1.0.0-RC2
           uiscrub scenario integration - please check your templates !
 
-   1.0.0-RC2 -> 1.0.0-RC3 
+   1.0.0-RC2 -> 1.0.0-RC3
        1) the templates for DD properties have been moved as follows :
           * modules/dynamicdata/xartemplates/admin-showinput-[property type].xd
             -> modules/[module]/xartemplates/properties/showinput-[property type].xd
@@ -148,25 +151,25 @@ VERSION CHANGES - Please check and update your installation where necessary
             -> modules/dynamicdata/xartemplates/objects/showdisplay.xd
           * modules/dynamicdata/xartemplates/user-objectform.xd
             -> modules/dynamicdata/xartemplates/objects/showview.xd
-          
+
           DD object templates can now be overridden with show*-[objectname].xd
           in the DD xartemplates/objects directory and/or in your own module
-       
+
        3) All properties previously in includes/properties have been moved
           to their respective module 'xarproperty' directory:
           -> modules/[module name]/xarproperties
        4) Further scrubbing of templates - - please check your templates.
 
-   1.0.0-RC3 -> 1.0.0-RC4 
+   1.0.0-RC3 -> 1.0.0-RC4
           the input template for the DD SubForm property type
           now uses a field prefix for all input fields
 
    1.0.0-RC4 -> 1.0.0
-   
+
    1.0.0 -> 1.0.1
 
    1.0.1 -> 1.0.2
-   
+
    1.0.2 -> 1.1.0
        1) Roles module was split into Registration module, Authentication and Roles
           There are now default login templates in Authsystem module, and special
@@ -175,6 +178,8 @@ VERSION CHANGES - Please check and update your installation where necessary
           instead of admin.xt, but can be specified. This config var has moved to Themes module.
           The admin.xt page template is now able to be overridden using usual xaraya override logic,
           and can be used to customize specific admin module pages.
+       3) The adminpanels module has been removed. If you use the compact administration menu, then you
+          will need to replace the template to base/blocks and rename the link to use base instead of adminpanels.
 
    DB Changes between versions
    ----------------------------------------------------
@@ -212,16 +217,16 @@ VERSION CHANGES - Please check and update your installation where necessary
 Common Upgrade Problems
 ==========================
 
-* If you are getting errors after upgrade, clear your template 
-   and rss cache files (and adodb if relevant). 
+* If you are getting errors after upgrade, clear your template
+   and rss cache files (and adodb if relevant).
   Clear your xarcachemanager output cache if you have the module installed.
 
 * If you are having difficulty accessing a module, check to see if it
    needs upgrading, and also ensure it is activated if required
-   
-* If you are using a default theme, ensure it is active and also 
+
+* If you are using a default theme, ensure it is active and also
   does not need upgrading.
 
-* The <xarroot>var/cache/rss and <xarroot>/var/cache/templates directories 
+* The <xarroot>var/cache/rss and <xarroot>/var/cache/templates directories
   need to be writable and executable
 

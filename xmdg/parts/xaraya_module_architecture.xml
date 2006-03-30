@@ -934,17 +934,17 @@
 
       <para>Example: <programlisting>xarModSetVar('julian','startDayOfWeek','1');</programlisting></para>
 
-      <para>These variables can be called later by xarModGetVar(module,
-      variable)<programlisting>$cal_sdow = xarModGetVar('julian','startDayOfWeek'); </programlisting>Now,
-      we can even make this a variable the admin can set. Then add to the
+      <para>These variables can be called later by
+      <function>xarModGetVar(module, variablename):</function><programlisting>$cal_sdow = xarModGetVar('julian','startDayOfWeek'); </programlisting>Now,
+      we can even make this a variable that the admin can set. Then add to the
       modifyconfig.xd template the following code snippet: <programlisting>&lt;input type="text" name="startDayOfWeek" value="#xarModGetVar('julian','startDayOfWeek')#" size="2" /&gt;</programlisting>
-      and in your redirect script (updateconfig.php in the example module)
-      <programlisting>//check the input with
+      and in the updateconfig function:<programlisting>//check the input with
 xarVarFetch if (!xarVarFetch('bold', 'checkbox', $bold, false, XARVAR_NOT_REQUIRED)) return;
 // Set the Module Variable:
-xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
-      that can enter modifyconfig.xd set the variable by typing in a number
-      for the variable 'startDayOfWeek', or 'bold' as in the example.</para>
+xarModSetVar('example', 'bold', $bold); </programlisting>This lets the site
+      admin -who has access to <function>modifyconfig()</function> set the
+      variable by typing in a number for the variable 'startDayOfWeek', or
+      'bold' as in the example.</para>
     </section>
   </section>
 
@@ -1091,7 +1091,9 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
   <section>
     <title>Installing, activating and upgrading</title>
 
-    <para></para>
+    <para>The installation, activation, upgrading and deinstallation of the
+    module is directed by funcions in <filename>xarinit.php</filename>.
+    </para>
   </section>
 
   <section>
@@ -1101,7 +1103,7 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the admin
   </section>
 
   <section>
-    <title>Special compontents for Utility Modules</title>
+    <title>Special components for Utility Modules</title>
 
     <para></para>
   </section>

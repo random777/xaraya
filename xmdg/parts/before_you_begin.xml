@@ -25,8 +25,11 @@
     way that your module will be known throughout the Xaraya community. The
     name should relate to the functionality that the module provides, but also
     be specific enough to be able to discern it from separate modules that
-    might offer similar functionality. Module names are case-sensitive. All
-    modules names are lower-case only.</para>
+    might offer similar functionality. All modules names are lower-case
+    only.</para>
+
+    <para>You can offer site admins the possibility to use an alias for your
+    module. The alias will be used then instead of the module name.</para>
   </section>
 
   <section>
@@ -57,7 +60,36 @@
     <section>
       <title>Releasing your module</title>
 
-      <para></para>
+      <para>If you have registered you module/extension, and if you want to
+      release a version, then you can use the Xaraya Release module. This way,
+      your release will be announced to all Xaraya installs. The Release
+      module will place an announcement on the xaraya.com frontpage and make
+      an accouncement in the RSS feed.</para>
+
+      <para>You will have to think of some things before releasing: </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Will the module be free?</para>
+        </listitem>
+
+        <listitem>
+          <para>Where can users download the module?</para>
+        </listitem>
+
+        <listitem>
+          <para>Where can they see documentation?</para>
+
+          <para>Documentating your module is very important. We give some
+          guidelines on documentation<indexterm></indexterm> in the
+          section</para>
+        </listitem>
+
+        <listitem>
+          <para>Do you want your module to become an official Xaraya
+          extension?</para>
+        </listitem>
+      </itemizedlist>
     </section>
   </section>
 </chapter>

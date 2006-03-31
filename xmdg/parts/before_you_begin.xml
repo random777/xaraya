@@ -9,13 +9,30 @@
   <section>
     <title>What will your module do?</title>
 
-    <para></para>
+    <para>It is known to everybody, but often forgotten: a good planning will
+    help you create things better. The first stage in creating your module is
+    the decision and description what your module will do. What is the reason
+    you will create this module? It is clear by now you cannot do it with
+    other tools, so what are the exact needs for this module?</para>
+
+    <para>The example module has a clear architecture and reason: it is a
+    demonstration module for developers. It's purpose is clear, and because it
+    is an example, its structure is clear as well. </para>
+
+    <para>You module should have the same clear setup.</para>
   </section>
 
   <section>
     <title>Research your module needs</title>
 
-    <para></para>
+    <para>The module needs are those parts of the system you will need in your
+    module, and the parts that you don't have yet, so will need to create.
+    </para>
+
+    <para>The example module needs to show how things work. Therefore, we need
+    the complete directory structure to display, we need an example of data
+    storage, we need example functions to show how data is stored and
+    retreived, we need display functions.. gosh, we need a lot.</para>
   </section>
 
   <section>
@@ -27,6 +44,18 @@
     be specific enough to be able to discern it from separate modules that
     might offer similar functionality. All modules names are lower-case
     only.</para>
+
+    <para>The example module has the straight forward name 'example'. This is
+    a great name, it describes its purpose, it is short enough, easy to
+    remember and easy to write. Compare to a module called
+    "mygreatmodulethatonlyisforme"... and imagine the URL this will
+    generate.</para>
+
+    <para>Try to stay within 10 characters for the name. There are two
+    versions of the name for your module: the technical one, all lowercase and
+    used by the Xaraya core to know where to find its API, and a nice one you
+    can use for Display. The display name can have capitals and is mainly used
+    when distributing your module.</para>
 
     <para>You can offer site admins the possibility to use an alias for your
     module. The alias will be used then instead of the module name.</para>
@@ -66,7 +95,7 @@
       module will place an announcement on the xaraya.com frontpage and make
       an accouncement in the RSS feed.</para>
 
-      <para>You will have to think of some things before releasing: </para>
+      <para>You will have to think of some things before releasing:</para>
 
       <itemizedlist>
         <listitem>

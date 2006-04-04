@@ -1756,7 +1756,8 @@ contents in the current context.
               <t><spanx>block</spanx>: not implemented</t>
               <t><spanx>theme</spanx> : get the theme variable with the specified name;</t>
               <t><spanx>user</spanx>  : get the user variable with the specified name;</t>
-              <t><spanx>session</spanx> : get the session variable with the specified naem;</t>
+              <t><spanx>session</spanx> : get the session variable with the specified name;</t>
+              <t><spanx>request</spanx> : get the request variable with the specified name;</t>
             </list>
           </t>
           <t>

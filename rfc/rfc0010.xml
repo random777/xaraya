@@ -1773,7 +1773,7 @@ contents in the current context.
                 <t><spanx>[id]</spanx>
                   <t>An identifier for the tag</t>
                 </t>
-                <t><spanx>[scope]</spanx> {(local)|config|module|block|theme|user}
+                <t><spanx>[scope]</spanx> {(local)|config|module|block|theme|user|request}
                   <t>What kind of variable should we retrieve</t>
                 </t>
                 <t><spanx>[prep]</spanx> {(false)|true}

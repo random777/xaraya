@@ -429,6 +429,48 @@ not         not             not
           before the closing tag, again in terms of required
           structure.
         </t>
+        <ed:ins>
+          <t>
+            Starting with Blocklayout version 2, we adopt a generic
+            mechanism for dealing with the so called 'open' and
+            'closed' formats for tags. Previously, not explicitly
+            allowed formats generated error messages and/or exceptions
+            in Xaraya.
+          </t>
+          <t>
+            The <spanx style="strong">base rule</spanx> we adopt is that an 'empty' or 'closed' tag
+            like &lt;xar:tag /&gt; means exactly the same as if you had
+            written &lt;xar:tag&gt;&lt;/xar:tag&gt;. Not only does
+            this make our implementation simpler, but it also is
+            inline with how XML in general behaves.
+          </t>
+          <t>
+            The above is NOT true in XML if an element is explicitly
+            <spanx style="strong">declared</spanx> to have only an 'open'
+            form. That is, an open element and a closing element must
+            always be use, since there MUST always be content nodes.
+            Where this situation is applicable for Blocklayout we will
+            explicitly say so for the relevant tag. In those situation
+            we deviate from the aforementioned base rule.
+          </t>
+          <t>
+            When the 'xar' XML dialect evolves, elements might receive
+            a formal declaration. Since that declaration will be part
+            of an XML schema and DTD validating parsers will (be able
+            to) issue errors even before the file can be used.
+          </t>
+          <t>
+            With the above in mind, using a tag in its 'empty' form
+            while it is typically used in a from with child tags, does
+            not often produce very interesting results. (e.g. an empty
+            comment) but does also not produce something invalid
+            either. (and often harmless) For most tags in their
+            description we have left out the section on their 'forms'
+            if there is nothing interesting to say about it.
+          </t>
+        </ed:ins>
+
+
         <!-- xar:blocklayout -->
         <section anchor="blocklayout" title="&lt;xar:blocklayout /&gt;">
           <t>
@@ -452,9 +494,11 @@ not         not             not
             template and once as closing tag at the end of the page
             template.
           </t>
-          <section title="Forms">
-            <t>This tag only has an open form</t>
-          </section>
+          <ed:del>
+            <section title="Forms">
+              <t>This tag only has an open form</t>
+            </section>
+          </ed:del>
           <section title="Attributes">
             <t>
               <list>
@@ -578,11 +622,12 @@ not         not             not
           </section>
           <section title="Context">
             <t>
-              This tag is the root tage of the blocklayout language, it has no parent tags and all other
+              This tag is the root tag of the blocklayout language, it has no parent tags and all other
               tags are children of this tag.
             </t>
           </section>
         </section>
+
         <!-- xar:block -->
         <section anchor="block" title="&lt;xar:block /&gt;">
           <t>
@@ -631,6 +676,7 @@ not         not             not
                 present.
               </t>
             </t>
+
           </section>
           <section title="Attributes">
             <t>
@@ -781,7 +827,9 @@ not         not             not
                 is used in block form.</t>
             <t>Child tags: none</t>
           </section>
-                </section>
+        </section>
+
+
         <!-- xar:blockgroup -->
         <section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">
           <t>
@@ -794,7 +842,7 @@ not         not             not
             <t>Empty form
               <t>The group of blocks is determined at runtime based on the
                 value of the name attribute. The name references a value entered
-                in the blocks adminstration indicating which block group to render.
+                in the blocks administration indicating which block group to render.
               </t>
               <t>Block form
                 <t>When specified as a block tag all the block tags specified within the
@@ -851,6 +899,7 @@ template 'SeaBreeze_center':
             <t>Child tags: in block form at least one <xref target="block">&lt;xar:block&gt;</xref> tag.</t>
           </section>
         </section>
+
         <!-- xar:break -->
         <section anchor="break" title="&lt;xar:break /&gt;">
           <t>
@@ -862,9 +911,11 @@ template 'SeaBreeze_center':
             The depth attribute, if present and an integer
             greater than 1, an equal number of enclosing loops are broken out of.
           </t>
+          
           <section title="Forms">
             <t>Only in empty form</t>
           </section>
+
           <section title="Attributes">
             <t>
               <list>
@@ -919,9 +970,13 @@ template 'SeaBreeze_center':
               would mean &lt;-- something --&gt;
             </ed:ins>
           </t>
-          <section title="Forms">
-            <t>Only to be used in open form</t>
-          </section>
+
+          <ed:del>
+            <section title="Forms">
+              <t>Only to be used in open form</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <ed:ins>
             <list>
@@ -984,6 +1039,7 @@ The above will produce:
             <t>Child tags: <ed:del>none</ed:del><ed:ins>any</ed:ins></t>
           </section>
         </section>
+
         <!-- xar:continue -->
         <section anchor="continue" title="&lt;xar:continue&gt;">
           <t>
@@ -1038,6 +1094,7 @@ The above will produce:
             <t>Child tags: none</t>
           </section>
         </section>
+
         <!-- xar:else -->
         <section anchor="else" title="&lt;xar:else /&gt;">
           <t>
@@ -1075,6 +1132,7 @@ The above will produce:
             <t>Child tags: none</t>
           </section>
         </section>
+
         <!-- xar:elseif -->
         <section anchor="elseif" title="&lt;xar:elseif /&gt;">
           <t>
@@ -1117,6 +1175,7 @@ The above will produce:
             <t>Child tags: none</t>
           </section>
         </section>
+
         <!-- xar:for -->
         <section anchor="for" title="&lt;xar:for /&gt;">
           <t>
@@ -1125,9 +1184,13 @@ The above will produce:
             on a 'start', 'test' and 'iter' attribute, the child tags of the
             tag are processed zero or more times.
           </t>
-          <section title="Forms">
-            <t>Only allowed in block form.</t>
-          </section>
+
+          <ed:del>
+            <section title="Forms">
+              <t>Only allowed in block form.</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1174,6 +1237,8 @@ The above will produce:
             <t>Child tags: none</t>
           </section>
         </section>
+
+
         <!-- xar:foreach -->
         <section anchor="foreach" title="&lt;xar:foreach /&gt;">
           <t>
@@ -1193,9 +1258,13 @@ The above will produce:
             before the foreach construct, it's guaranteed to have the
             same value after the foreach construct.
           </t>
-          <section title="Forms">
-            <t>Only allowed in block form</t>
-          </section>
+
+          <ed:del>
+            <section title="Forms">
+              <t>Only allowed in block form</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1238,15 +1307,20 @@ The above will produce:
             <t>Child tags: none</t>
           </section>
         </section>
+
         <!-- xar:if -->
         <section anchor="if" title="&lt;xar:if /&gt;">
           <t>
             Contains template code processed if the condition evaluates to true.
             The value of Condition is a php expression.
           </t>
-          <section title="Forms">
-            <t>Only allowed in block form</t>
-          </section>
+
+          <ed:del>
+            <section title="Forms">
+              <t>Only allowed in block form</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1293,15 +1367,20 @@ The above will produce:
             </t>
           </section>
         </section>
+
         <!-- xar:loop -->
         <section anchor="loop" title="&lt;xar:loop /&gt;">
           <t>
             Loop allows theme authors to execute snippets of a template multiple
             times based on a condition.
           </t>
-          <section title="Forms">
-            <t>Only allowed in block form</t>
-          </section>
+          
+          <ed:del>
+            <section title="Forms">
+              <t>Only allowed in block form</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1354,6 +1433,8 @@ other loop constructs.
             <t>Child tags: none</t>
           </section>
         </section>
+
+
         <!-- xar:ml -->
         <section anchor="ml" title="&lt;xar:ml /&gt;">
           <t>
@@ -1371,9 +1452,26 @@ other loop constructs.
             &lt;xar:mlvar&gt; tag is put in the place of #(1), the second in the
             location of #(2) etcetera.
           </t>
+
           <section title="Forms">
             <t>Only allowed in block form</t>
+            <ed:ins>
+              <t>
+                This tag depends on its children mlstring and mlvar to
+                operate correctly.
+              </t>
+            </ed:ins>
+            <ed:issue type="design flaw" name="use of ml tag is confusing" status="open">
+              <ed:item>
+                The use of the ml tag is confusing. The mlvar tag does
+                nothing special, in fact it just functions as an
+                envelope to something. If there should be this
+                substitution xar:var is tag enough, since it's context
+                within the ml tag can be determined easily.
+              </ed:item>
+            </ed:issue>
           </section>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1415,6 +1513,7 @@ Same as first example, but with the <xar:mlstring> form.
             </t>
           </section>
         </section>
+
         <!-- xar:mlkey -->
         <section anchor="mlkey" title="&lt;xar:mlkey /&gt;">
           <t>
@@ -1456,6 +1555,13 @@ contents in the current context.
             </t>
             <t>Child tags: none</t>
           </section>
+          <ed:issue type="deprecation" name="mlkey tag can be removed" status="open">
+            <ed:item date="2006-03-06">
+              This tag can be removed from the specification. It is
+              not used by discouragement and it serves no useful
+              purpose anymore.
+            </ed:item>
+          </ed:issue>
         </section>
 
         <!-- xar:mlstring -->
@@ -1472,9 +1578,13 @@ contents in the current context.
             siblings. See <xref target="ml">&lt;xar:ml /&gt;</xref>
             for syntax examples using placeholders.
           </t>
-          <section title="Forms">
-            <t>Only block form is allowed</t>
-          </section>
+
+          <ed:del>
+            <section title="Forms">
+              <t>Only block form is allowed</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1514,6 +1624,8 @@ contents in the current context.
             </ed:item>
           </ed:issue>
         </section>
+
+
         <!-- xar:mlvar -->
         <section anchor="mlvar" title="&lt;xar:mlvar /&gt;">
           <t>
@@ -1546,7 +1658,23 @@ contents in the current context.
             </t>
             <t>Child tags: none</t>
           </section>
+          <ed:issue type="deprecation" name="mlvar can be replaced" status="open" >
+            <ed:item date="2006-03-06">
+              This tag can be removed, using xar:var in its place is
+              totally possible, but has serious migration issues,
+              since its syntax is different from this tag.
+            </ed:item>
+            <ed:item date="2006-03-06">
+              The syntax of this tag is wrong, it does not designate a
+              variable at all. It envelopes it, which makes it
+              susceptible for textnode generation (a simple space
+              would do that for example, which we have to create
+              workarounds for, at the moment)
+            </ed:item>
+          </ed:issue>        
         </section>
+
+
         <!-- xar:module -->
         <section anchor="module" title="&lt;xar:module /&gt;">
           <t>
@@ -1641,6 +1769,8 @@ contents in the current context.
             <t>Child tags: none</t>
           </section>
         </section>
+
+
         <!-- xar:sec -->
         <section anchor="sec" title="&lt;xar:sec /&gt;">
           <t>
@@ -1651,9 +1781,13 @@ contents in the current context.
             be attached as for an <xref target="if">&lt;xar:if
             /&gt;</xref>.
           </t>
-          <section title="Forms">
-            <t>Only block form is allowed</t>
-          </section>
+          
+          <ed:del>
+            <section title="Forms">
+              <t>Only block form is allowed</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1705,6 +1839,8 @@ contents in the current context.
             </t>
           </section>
         </section>
+
+
         <!-- xar:set -->
         <section anchor="set" title="&lt;xar:set /&gt;">
           <t>
@@ -1736,6 +1872,14 @@ contents in the current context.
                 </t>
               </list>
             </t>
+            <ed:issue type="redundancy" name="xar:set and xar:var are similar, reflect this in the language" status="open">
+              <ed:item>
+                This tag either updates or creates variables. The
+                xar:var tags displays them. It feels natural to use
+                the open form of the xar:var tag to create variables
+                where it's children determine its content. 
+              </ed:item>
+            </ed:issue>
           </section>
           <section title="Syntax examples">
             <t>
@@ -1762,6 +1906,8 @@ contents in the current context.
             </ed:item>
           </ed:issue>
         </section>
+
+
         <!-- xar:template -->
         <section anchor="template" title="&lt;xar:template /&gt;">
           <ed:ins>
@@ -1829,14 +1975,15 @@ contents in the current context.
             unless the theme overrides the container template which does away 
             with the xar:template tag in the overridden template.
            </t>
-          <section title="Forms">
-            <t>
-              <ed:replace>
-                <ed:del>Only the empty form is allowed</ed:del>
-                <ed:ins>Both open and closed form are allowed</ed:ins>
-              </ed:replace>
-            </t>
-          </section>
+
+           <ed:del>
+             <section title="Forms">
+               <t>
+                 Only the empty form is allowed
+               </t>
+             </section>
+           </ed:del>
+
           <section title="Attributes">
             <t>
               <list>
@@ -1901,6 +2048,8 @@ contents in the current context.
             <t>Child tags: none</t>
           </section>
         </section>
+
+
         <!-- xar:var -->
         <section anchor="var" title="&lt;xar:var /&gt;">
           <t>
@@ -1983,15 +2132,21 @@ contents in the current context.
             <t>Child tags: none</t>
           </section>
         </section>
+
+
         <!-- xar:while -->
         <section anchor="while" title="&lt;xar:while /&gt;">
           <t>
             Contains template data evaluated while the expression
             specified in the 'condition' attribute is true.
           </t>
-          <section title="Forms">
-            <t>Only block form is allowed</t>
-          </section>
+
+          <ed:del>
+            <section title="Forms">
+              <t>Only block form is allowed</t>
+            </section>
+          </ed:del>
+
           <section title="Attributes">
             <t>
               <list>

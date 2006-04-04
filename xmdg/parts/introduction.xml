@@ -11,18 +11,49 @@
   <section>
     <title>A little history</title>
 
-    <para></para>
+    <para>Xaraya has its deep roots in PHPNuke, which was forked to Postnuke.
+    From Postnuke, a strong development team was formed that created Xaraya.
+    Xaraya was born in 2002, when the website www.xaraya.org was
+    registered.</para>
   </section>
 
   <section>
     <title>The Framework</title>
 
-    <para></para>
+    <para>Xaraya is a framework. It is aimed at those, that want to create a
+    webapplication, much more than just a content management system or a
+    single use website. Xaraya offers a core system which manages the
+    interaction with the database, presents data in a viewable way and can
+    serve data to other applications.</para>
   </section>
 
   <section>
     <title>The development</title>
 
-    <para></para>
+    <para>Developing for Xaraya can be done in various areas.</para>
+
+    <section>
+      <title>Templates</title>
+
+      <para>Everyone that starts with Xaraya will see that you will be
+      directed to the templates in the theme that you use. The templates are
+      used by the blocklayout system of Xaraya. Templates use a xhtml type of
+      language. You can use html, php or Xaraya tags in templates.</para>
+    </section>
+
+    <section>
+      <title>Modules</title>
+
+      <para>If you find that you need a service or application that is not
+      available yet in Xaraya, you can decide to create a module. This guide
+      will show the details of how to create a module.</para>
+    </section>
+
+    <section>
+      <title>Core</title>
+
+      <para>The core serves all the services you will need in
+      extensions.</para>
+    </section>
   </section>
 </chapter>

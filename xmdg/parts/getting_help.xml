@@ -1,22 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <chapter>
-      <title>Getting Help</title>
+<chapter>
+  <title>Getting Help</title>
+
   <!--Maintained by:-->
 
   <!--Status:-->
-     <section>
-        <title>Developer Documentation and References</title>
 
-        <para></para>
-      </section>
-     <section>
-        <title>Support forums, newsgroups, lists &amp; IRC</title>
+  <section>
+    <title>Developer Documentation and References</title>
 
-        <para></para>
-      </section>
-    <section>
-        <title>...</title>
+    <para>Xaraya has information on its architecture, the functions provided
+    by the core and the general best practises in a few places</para>
 
-        <para></para>
-      </section>
-    </chapter>
+    <para></para>
+
+    <itemizedlist>
+      <listitem>
+        <para>RFC index</para>
+
+        <para>The RFCs of Xaraya are a very important source of information.
+        They provide the planning and implementation of several parts in
+        Xaraya. When reading an RFC, you should note the date of release and
+        last update.</para>
+
+        <para>The Xaraya RFC can be found via the documentation section at
+        <ulink url="???">http://www.xaraya.com.</ulink></para>
+      </listitem>
+
+      <listitem>
+        <para>PHPDoc and XRef index</para>
+
+        <para>The core files of Xaraya have header information. This
+        information is used to generate phpdocumentation and an xref index.
+        You can find this information via the documentation section at <ulink
+        url="???">http://www.xaraya.com</ulink></para>
+      </listitem>
+
+      <listitem>
+        <para>Forum</para>
+
+        <para>The XarBB module is used as a forum on the community area of the
+        Xaraya website. The developers forum is a good source of FAQ type of
+        information. You should visit it </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Support forums, newsgroups, lists &amp; IRC</title>
+
+    <para>The forum at xaraya.com has already been introduced. The IRC server
+    at irc.xaraya.com serves several rooms. You should definitively visit
+    #xaraya.support with questions you might have regarding development.
+    </para>
+
+    <para>Most developers prefer the ease of a mailinglist. The developers
+    mailinglist is a great source of information. You can search it via your
+    favourite newsreader or via the Xaraya website.</para>
+  </section>
+
+  <section>
+    <title>...</title>
+
+    <para></para>
+  </section>
+</chapter>

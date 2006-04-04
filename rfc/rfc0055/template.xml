@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="template" title="&lt;xar:template /&gt;">
+  <ed:ins>
+    <t>
+      The xar:template tags signal a template start. The template
+      can be specified as external by the attributes of the tag (closed form)
+      or be the content of the children inside the xar:template tag.
+    </t>
+    <t>
+      In it's open form, the tag functions as the root tag of a xar:template
+      and has no functional effect. Usage of the xar:template tag is RECOMMENDED, since
+      it makes each xar template file a candidate to be valid xml (which requires a
+      single unique root tag ). If a template file does not have a root tag and it is not
+      a page template (which has the xar:blocklayout tag as root tag) xaraya will deal
+      with this omission automatically
+      <ed:issue type="design flaw" name="xar:template definition" status="open">
+        <ed:item>
+          We really should make the RECOMMENDED into REQUIRED
+        </ed:item>
+      </ed:issue>
+    </t>
+  </ed:ins>
+  <t>
+    <ed:ins>In it's closed form </ed:ins>opens the file specified by the 'file' attribute and
+    processes it within the context of the calling
+    template. Included templates are stored in:
+    <list>
+      <t>/modules/[module name]/xartemplates/includes/</t>
+      <t>/themes/[theme name]/modules/[module name]/includes/</t>
+      <t>/themes/[theme name]/includes/</t>
+    </list>
+  </t>
+  <t>
+    The 'file' attribute determines the basename of the file to
+    be included, the extension will be filled in by xaraya whether
+    the template is included from an internal source or an overridden
+    location in the theme.
+  </t>
+  <t>
+    The 'module' attribute defines which module the template file is located in, 
+    in conjunction with the 'type' attribute as described below. If this attribute 
+    is omitted the module where the tag resides is assumed.
+  </t>
+  <t>
+    The 'type' attribute tells the compiler where to look for
+    the file. If the value is 'module', the template to be included
+    belongs to the module and Xaraya looks in (in this order):
+    <list style="numbers">
+      <t>/themes/[themename]/modules/[module name]/includes/file.xt</t>
+      <t>/modules/[module name]/xartemplates/includes/file.xd</t>
+    </list>
+  </t>
+  <t>
+    If the value is 'theme', Xaraya uses the following locations:
+    <list style="numbers">
+      <t>/themes/[themename]/includes/file.xt</t>
+    </list>
+  </t>
+  <t>
+    If the value is 'system', the file attribute is interpreted as a 
+    relative location to the containing filename. These so called 'system'
+    includes are formally not part of the 'module-space' or 'theme-space' 
+    and as such cannot be overridden. This tag is used to guarantee that 
+    the template contents is used regardless of the theme being used, 
+    unless the theme overrides the container template which does away 
+    with the xar:template tag in the overridden template.
+  </t>
+  
+  <ed:del>
+    <section title="Forms">
+      <t>
+        Only the empty form is allowed
+      </t>
+    </section>
+  </ed:del>
+  
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>An identifier for the tag</t>
+        </t>
+        <t><spanx>file</spanx>
+        <t>the basename of the file to include.</t>
+        </t>
+        <t><spanx>[module]</spanx>
+        <t>module where the file resides.</t>
+        </t>
+        <t><spanx>[type]</spanx> {(module)|theme|system}
+        <t>A string which tells Xaraya what kind of template to include.
+        If mainly affects the locations where Xaraya looks for the file.
+        </t>
+        </t>
+        <t><spanx>[subdata]</spanx> (container data array)
+        <t>
+          This allows to pass in an array with data which should be known in
+          the included template. When this attribut <spanx>is not</spanx> specified the included
+          template will inherit the data known to the parent template.
+        </t>
+        <t>
+          When the subdata attribute <spanx>is</spanx> specified, only the data in the array
+          designated by subdata will be known by the included template. This is the only
+          way to shield data from an included template (to prevent variable collisions for
+          example). If you want the included template to know about the parent template
+          variables, use xar:set of pass them in from the code.
+        </t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork>
+        &lt;xar:template file="top_links" type="theme"/&gt;
+        
+        Looks for file /theme/[themename]/includes/top_links.xt and includes
+        it in the current template.
+        
+        &lt;xar:template file="top_links" /&gt;
+        
+        Looks for file /themes/[themename]/modules/[module name]/includes/top_links.xt
+        and, when found, uses it. If not found it looks for
+        /modules/[module name]/xartemplates/includes/top_links.xd and uses that file
+        
+        &lt;xar:template file="top_links" module="categories" type="module" /&gt;
+        
+        Looks for file /modules/categories/xartemplates/includes/top_links.xd.
+        
+        &lt;xar:template file="signals/alert.xml" type="system" /&gt;
+        
+        Looks for a file 'alert.xml' in the directory 'signals' below the location
+        of the containing template.              
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags: none</t>
+  </section>
+</section>

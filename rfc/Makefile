@@ -5,6 +5,7 @@ xsltproc=xsltproc
 xml2rfc=./xml2rfc.tcl
 images=images
 xstyle=rfc2629.xsl
+xpreprocess=rfcincludes.xsl
 xstyleFO=rfc2629toFO.xslt
 xstyleFOP=xsl11toFop.xslt
 xdtd=rfc2629.dtd
@@ -42,17 +43,23 @@ index: $(SOURCES) $(IDXSOURCES)
 
 # How to produce a html file out of an xml file
 %.html: %.xml $(images)/$(*F)*.png $(xstyle) $(xdtd)
-	$(xsltproc) $(xstyle) $(*F).xml > $(*F).html
+	$(xsltproc) $(xpreprocess) $(*F).xml > $(*F).tmp
+	$(xsltproc) $(xstyle) $(*F).tmp > $(*F).html
+	rm $(*F).tmp
 
 # How to produce a pdf file out of an xml file
 %.pdf: %.xml $(images)/$(*F)*.png $(xstyle) $(xstyleFO) $(xstyleFOP) $(xdtd)
-	$(xsltproc) $(xstyleFO) $(*F).xml > tmp.fo
+	$(xsltproc) $(xpreprocess) $(*F).xml > $(*F).tmp
+	$(xsltproc) $(xstyleFO) $(*F).tmp > tmp.fo
 	$(fop) -q -xml tmp.fo -xsl $(xstyleFOP) -pdf $(*F).pdf
 	rm tmp.fo
+	rm $(*F).tmp
 
 # How to produce a txt file
 %.txt: %.xml $(xml2rfc)
-	$(xml2rfc) $< 
+	$(xsltproc) $(xpreprocess) $(*F).xml > $(*F).tmp
+	$(xml2rfc) $(*F).tmp
+	rm $(*F).tmp
 
 clean:
-	rm -f *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml
+	rm -f *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml *.tmp

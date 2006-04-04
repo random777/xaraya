@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="comment" title="&lt;xar:comment /&gt;">
+  <t>
+    <ed:del>Marks a block of a template as being a comment, which will not
+    result in any output. The tag is primarly used to supply templates
+    with comments for developers and theme designers. Anything inside
+    the xar:comment block will be ignored.</ed:del>
+    <ed:ins ed:resolves="reversal of comment semantics">
+      This tag is used to produce a comment in the <spanx
+      style="strong">output stream</spanx>. For (X)HTML this
+      would mean &lt;-- something --&gt;
+    </ed:ins>
+  </t>
+  
+  <ed:del>
+    <section title="Forms">
+      <t>Only to be used in open form</t>
+    </section>
+  </ed:del>
+  
+  <section title="Attributes">
+    <ed:ins>
+      <list>
+        <t ed:resolves="reversal of comment semantics"><spanx>[iecondition]</spanx>
+        <t>
+          Internet Explorer conditional comment support. IE has
+          a feature where you can test for certain (limited)
+          conditions inside a specially formatted html
+          comment. Other browsers will just see the output as a
+          comment, but IE will react to the special format based
+          on the truth value of the condition.
+        </t>
+        </t>
+      </list>
+    </ed:ins>
+    <ed:issue status="closed" name="reversal of comment semantics" type="design flaw">
+      <ed:item date="2006-01-31">
+        BL has the semantics of xar:comment vs. &lt;--
+        comments reversed.
+      </ed:item>
+      <ed:item dat="2006-01-31">
+        Conditional comments or other comment production into
+        output is impossible
+      </ed:item>
+      <ed:resolution>
+        We let xar:comment produce a comment in the output
+        stream now while &lt;-- comments are ignored by the
+        parser
+      </ed:resolution>
+    </ed:issue>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <ed:del>
+        <artwork><![CDATA[
+<xar:comment>
+  The contents of the comment tag will be ignored completely
+</xar:comment>]]>
+        </artwork>
+      </ed:del>
+      <ed:ins>
+        <artwork><![CDATA[
+<xar:comment>
+  The contents of the comment tag will be put inside a comment in the
+  output format.
+</xar:comment>
+
+The above will produce:
+<!-- 
+  The contents of the comment tag will be put inside a comment in
+  the output format. 
+-->
+]]>
+        </artwork>
+      </ed:ins>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tags: <ed:del>none</ed:del><ed:ins>any open form tag</ed:ins></t>
+    <t>Child tags: <ed:del>none</ed:del><ed:ins>any</ed:ins></t>
+  </section>
+</section>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section anchor="else" title="&lt;xar:else /&gt;">
+  <t>
+    Separates template code within an <xref
+    target="if">&lt;xar:if /&gt;</xref> tag. When the
+    condition of the <xref target="if">&lt;xar:if /&gt;</xref>
+    tag is true, the template content preceeding <xref
+    target="else">&lt;xar:else /&gt;</xref> is
+    executed. Otherwise, the template content after <xref
+    target="if">&lt;xar:if /&gt;</xref> is executed. When
+    <xref target="elseif">&lt;xar:elseif /&gt;</xref>is used
+    within an <xref target="if">&lt;xar:if /&gt;</xref> block,
+    <xref target="else">&lt;xar:else /&gt;</xref> must appear
+    last.
+  </t>
+  <section title="Forms">
+    <t>This tag has only an empty form</t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag (optional)</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      See <xref target="if">&lt;xar:if /&gt;</xref> for syntax.
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref></t>
+    <t>Child tags: none</t>
+  </section>
+</section>

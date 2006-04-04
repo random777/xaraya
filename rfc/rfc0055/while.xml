@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit"  anchor="while" title="&lt;xar:while /&gt;">
+  <t>
+    Contains template data evaluated while the expression
+    specified in the 'condition' attribute is true.
+  </t>
+  
+  <ed:del>
+    <section title="Forms">
+      <t>Only block form is allowed</t>
+    </section>
+  </ed:del>
+  
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>An identifier for the tag</t>
+        </t>
+        <t><spanx>condition</spanx>
+        <t>PHP expression evaluating to true or false. During the while
+        loop this expression is evaluated each time at the start of the
+        loop and while the value is true, the child tags are added to the
+        output repeatedly. For comparison operators see the
+        <xref target="tagdescriptions">Note on logic tags</xref>
+        </t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork>
+        &lt;xar:while condition="list($uid, $uname) = each($user_result)"&gt;
+        // stuff executing as long a the expression is true
+        &lt;/xar:while&gt;
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags:
+    <t><xref target="break">&lt;xar:break&gt;</xref> (optional)</t>
+    <t><xref target="break">&lt;xar:continue&gt;</xref> (optional).</t>
+    </t>
+  </section>
+</section>

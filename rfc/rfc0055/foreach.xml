@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="foreach" title="&lt;xar:foreach /&gt;">
+  <t>
+    Iterates over an array, assigning each element in
+    <spanx>in</spanx> to <spanx>value</spanx> using <spanx>key</spanx>.
+    Note that the order in which the elements are processed is
+    <spanx>NOT GUARANTEED</spanx> to be the same order as the elements
+    of the 'in' attribute. If you absolutely want to make sure
+    the elements are processed in the order in which they are
+    stored in the array you should use the
+    <xref target="loop">xar:loop</xref> element.
+  </t>
+  <t>
+    The foreach construct operates on copies of the variables
+    specified in its attributes. A 'save scope' is created for
+    them. This means, that whatever the value was for a variable
+    before the foreach construct, it's guaranteed to have the
+    same value after the foreach construct.
+  </t>
+  
+  <ed:del>
+    <section title="Forms">
+      <t>Only allowed in block form</t>
+    </section>
+  </ed:del>
+  
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag</t>
+        </t>
+        <t><spanx>in</spanx>
+        <t>An expression which evaluates to the name of an array
+        containing the elements to process. Normally this will
+        just be the array variable itself ($varname)
+        </t>
+        </t>
+        <t><spanx>[key]</spanx>
+        <t>Variable to assign the key of the array to. This attribute
+        is optional. If it is not specified, no key is used in the
+        foreach loop. If it is not specified, the 'value' attribute
+        is required.
+        </t>
+        </t>
+        <t><spanx>[value]</spanx>
+        <t>variable to assign value to. If this attribute is not specified
+        the 'key' attribute is required and the key is used to loop
+        over the elements.
+        </t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+<xar:foreach in="$hooks" key="$hookmodule" value="$hookoutput">
+  // stuff to process
+</xar:foreach>
+]]></artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags: none</t>
+  </section>
+</section>

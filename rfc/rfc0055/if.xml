@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="if" title="&lt;xar:if /&gt;">
+  <t>
+    Contains template code processed if the condition evaluates to true.
+    The value of Condition is a php expression.
+  </t>
+  
+  <ed:del>
+    <section title="Forms">
+      <t>Only allowed in block form</t>
+    </section>
+  </ed:del>
+  
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag</t>
+        </t>
+        <t><spanx>condition</spanx>
+        <t>A php an expression evaluating to false or true. When
+        it evaluates to true, the children of this element are
+        processed. For comparison operators refer to
+        <xref target="tagdescriptions">the note on logic tags</xref>
+        </t>
+        </t>
+        <t><spanx>[inline]</spanx> {true|(false)}
+        <t>Defaulting to false, this attribute specifies whether the
+        condition should be in assignable (inline) form. This
+        correspond to the php expression : (condition ? truepart:falsepart)
+        </t>
+        <t>Note: this attribute is not implemented yet</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+<xar:if condition="$func eq 'editStory'">
+  // stuff
+<xar:elseif condition="$func eq 'saveStory'" />
+  //more stuff
+<xar:elseif condition="$func eq 'viewStory'" />
+  //still more stuff
+<xar:else />
+  //even more stuff
+</xar:if>
+      ]]>            </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags:
+    <t><xref target="else">&lt;xar:else /&gt;</xref></t>
+    <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
+    </t>
+  </section>
+</section>

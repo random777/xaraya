@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section  xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="mlkey" title="&lt;xar:mlkey /&gt;">
+  <t>
+    <xref target="mlkey">&lt;xar:mlkey&gt;</xref> retrieves a
+    multilanguage string based on the database key contained
+    in the tag. If the resulting string does not use
+    placeholders, mlkey may be used alone. Otherwise, mlkey
+    must have <xref target="ml">&lt;xar:ml /&gt;</xref> as a
+    parent tag, with <xref target="mlvar">&lt;xar:mlvar
+    /&gt;</xref> tags as siblings. See <xref
+    target="ml">&lt;xar:ml /&gt;</xref> for syntax examples
+    using placeholders.
+  </t>
+  <section title="Forms">
+    <t>Only block form is allowed</t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+<xar:mlkey>LOGIN</xar:mlkey>
+
+Retrieves the 'LOGIN' key in the appropriate language and puts its
+contents in the current context.
+      ]]>            </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag:
+    <t><xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
+    </t>
+    <t>Child tags: none</t>
+  </section>
+  <ed:issue type="deprecation" name="mlkey tag can be removed" status="open">
+    <ed:item date="2006-03-06">
+      This tag can be removed from the specification. It is
+      not used by discouragement and it serves no useful
+      purpose anymore.
+    </ed:item>
+  </ed:issue>
+</section>

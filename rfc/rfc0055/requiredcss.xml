@@ -1,0 +1,111 @@
+<section title="Required CSS Classes" xmlns:ed="http://greenbytes.de/2002/rfcedit">
+  <t>
+    The following is a list of CSS classes which may be referenced by
+    module and block developers with assurance that their output will
+    integrate well with any Blocklayout theme. Blocklayout themes must
+    define all of these classes.
+  </t>
+  <t>
+    The first group is standard classes. Selectors here will be applied to
+    every instance of a tag, unless overridden by a more specific class.
+    <list style="symbols">
+      <t>A</t>
+      <t>BLOCKQUOTE</t>
+      <t>BODY</t>
+      <t>CODE</t>
+      <t>H1</t>
+      <t>H2</t>
+      <t>H3</t>
+      <t>H4</t>
+      <t>TH</t>
+      <t>TD</t>
+      <t>TABLE</t>
+      <t>THEAD</t>
+      <t>TBODY</t>
+      <t>TFOOT</t>
+      <t>P</t>
+      <t>PRE</t>
+      <t>INPUT</t>
+      <t>BUTTON</t>
+      <t>SELECT</t>
+      <t>OPTION</t>
+      <t>OPTGROUP</t>
+      <t>TEXTAREA</t>
+      <t>LABEL</t>
+      <t>IMG</t>
+      <t>LI</t>
+      <t>UL</t>
+      <t>OL</t>
+      <t>SUB</t>
+      <t>SUP</t>
+      <t>FIELDSET</t>
+      <t>LEGEND</t>
+    </list>
+    <ed:issue type="portability" status="open" name="html specific specification">
+      <ed:item date="2006-01-31" entered-by="mrb">
+        This specification lists html specific tags, which is
+        admittedly the most common output format. Still I think
+        it's a mistake in the spec.
+      </ed:item>
+    </ed:issue>
+  </t>
+  <t>
+    Next are individual classes, mostly related to tables. Unlike previous
+    versions, Blocklayout 1.1 relies on CSS inheritance to style
+    individual tags; this makes many inidividual rules unnecessary.
+    <list style="symbols">
+      <t>TD.xar-norm</t>
+      <t>TD.xar-alt</t>
+    </list>
+  </t>
+  <t>
+    Finally are anonymous classes. Selectors here can be applied to any tag.
+    <list style="symbols">
+      <t>.xar-block-head</t>
+      <t>.xar-block-head-[block group]</t>
+      <t>.xar-block-title</t>
+      <t>.xar-block-title-[block group]</t>
+      <t>.xar-block-body</t>
+      <t>.xar-block-body-[block group]</t>
+      <t>.xar-block-foot</t>
+      <t>.xar-block-foot-[block group]</t>
+      <t>.xar-mod-head</t>
+      <t>.xar-mod-title</t>
+      <t>.xar-mod-body</t>
+      <t>.xar-mod-foot</t>
+      <t>.xar-norm</t>
+      <t>.xar-norm-outline</t>
+      <t>.xar-accent</t>
+      <t>.xar-accent-outline</t>
+      <t>.xar-alt</t>
+      <t>.xar-alt-outline</t>
+      <t>.xar-sub</t>
+      <t>.xar-menu-section</t>
+      <t>.xar-menu-item</t>
+      <t>.xar-menu-subitem</t>
+      <t>.xar-menu-section-current</t>
+      <t>.xar-menu-item-current</t>
+      <t>.xar-menu-subitem-current</t>
+      <t>.xar-error</t>
+    </list>
+  </t>
+  <t>
+    Rules with partially bracketed names are optional. Rules applied to
+    individual blocks are left up to the theme author.  Additional menu item
+    rules may be devised as necessary to satisfy the depth of the menu.
+  </t>
+  <t>
+    Theme developers may introduce their own classes in their templates.
+    This practice should be avoided by module and block developers.
+    Extensions of the required classes list will not be    supported by other
+    themes or modules, and are not endorsed by Xaraya.
+  </t>
+  <t>
+    These classes allow each block or group of blocks to have a different
+    appearance than modules (normal).
+  </t>
+  <t>
+    It is suggested that the classes be defined in the given order, to
+    avoid odd results in different browsers.
+  </t>
+</section>

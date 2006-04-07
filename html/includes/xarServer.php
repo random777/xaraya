@@ -4,7 +4,7 @@
  * HTTP Protocol Server/Request/Response utilities
  *
  * @package server
- * @copyright (C) 2002 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 by the Xaraya Development Team.
  * @license GPL <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.xaraya.com
  * @author Marco Canini <marco@xaraya.com>
@@ -15,12 +15,14 @@
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access protected
- * @global xarRequest_defaultModule array
- * @param args['generateShortURLs'] bool
- * @param args['defaultModuleName'] string
- * @param args['defaultModuleName'] string
- * @param args['defaultModuleName'] string
- * @param whatElseIsGoingLoaded integer
+ * @global bool xarRequest_allowShortURLs
+ * @global array xarRequest_defaultModule
+ * @global array xarRequest_shortURLVariables
+ * @param bool args['generateShortURLs']
+ * @param string args['defaultModuleName']
+ * @param string args['defaultModuleName']
+ * @param string args['defaultModuleName']
+ * @param integer whatElseIsGoingLoaded
  * @return bool true
  */
 
@@ -408,8 +410,16 @@ function xarRequestGetInfo()
     xarVarFetch('func', "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $funcName, 'main');
 
     if (xarRequest::$allowShortURLs && empty($modName) && ($path = xarServerGetVar('PATH_INFO')) != ''
+    $path = xarServerGetVar('PATH_INFO');
+    if ($path == '') $path = substr(xarServerGetVar('REDIRECT_URL'),strlen(xarCore_getSystemVar('BaseURI',true)));
+    if ($GLOBALS['xarRequest_allowShortURLs'] && empty($modName) && $path != ''
+    //end CGI-PHP support patch
         // IIS fix
         && $path != xarServerGetVar('SCRIPT_NAME')) {
+    /*if ($GLOBALS['xarRequest_allowShortURLs'] && empty($modName) && ($path = xarServerGetVar('PATH_INFO')) != ''
+        // IIS fix
+        && $path != xarServerGetVar('SCRIPT_NAME')) {
+    */
         /*
         Note: we need to match anything that might be used as module params here too ! (without compromising security)
         preg_match_all('|/([a-z0-9_ .+-]+)|i', $path, $matches);

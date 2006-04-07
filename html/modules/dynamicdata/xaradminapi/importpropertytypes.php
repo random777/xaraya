@@ -18,7 +18,7 @@
  * @param $args['flush'] flush the property type table before import true/false (optional)
  * @returns array
  * @return an array of the property types currently available
- * @raise BAD_PARAM, NO_PERMISSION
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 class PropertyDirectoryIterator extends DirectoryIterator
 {
@@ -104,7 +104,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
                         }
                     } 
                     $proptypes[$baseInfo->id] = $baseInfo;
-                
+
                     // Update database entry for this property 
                     // This will also do the aliases
                     // TODO: check the result, now silent failure

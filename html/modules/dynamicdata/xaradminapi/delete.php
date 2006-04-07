@@ -18,7 +18,7 @@
  * @param $args['itemtype'] item type of the original item
  * @returns bool
  * @return true on success, false on failure
- * @raise BAD_PARAM, NO_PERMISSION
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_delete($args)
 {

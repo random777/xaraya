@@ -10,7 +10,6 @@
  * @subpackage Roles module
  */
 
-/** Marc: we *really* need to discuss this, wrt performance and bind variables */
 include_once dirname(__FILE__).'/xarincludes/xarQuery.php';
 
 define('ROLES_STATE_DELETED',0);

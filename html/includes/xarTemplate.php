@@ -69,7 +69,7 @@ define('XAR_TPL_TAG_NEEDPARAMETER'             ,32);
  */
 // Let's do this once here, not scattered all over the place
 define('XAR_TPL_CACHE_DIR',xarCoreGetVarDirPath() . XARCORE_TPL_CACHEDIR);
-
+}
 /**
  * Initializes the BlockLayout Template Engine
  *

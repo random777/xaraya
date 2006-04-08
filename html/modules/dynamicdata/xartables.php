@@ -13,6 +13,7 @@
  * This function is called internally by the core whenever the module is
  * loaded.  It adds in the information
  * @author mikespub <mikespub@xaraya.com>
+ * @return array with tablenames
  */
 function dynamicdata_xartables()
 {

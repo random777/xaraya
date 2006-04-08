@@ -12,6 +12,8 @@
  * view a list of items
  * This is a standard function to provide an overview of all of the items
  * available from the module.
+ *
+ * @return array
  */
 function dynamicdata_user_view($args)
 {

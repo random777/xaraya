@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section anchor="blockgroup" title="&lt;xar:blockgroup /&gt;">
+  <t>
+    The Blockgroup tag is responsible for rendering a group of
+    blocks. If empty, it renders the named group from the
+    database.  Otherwise, it can specify the box template to use
+    on all &lt;xar:block/&gt; tags within it.
+  </t>
+  <section title="Forms">
+    <t>Empty form
+    <t>The group of blocks is determined at runtime based on the
+    value of the name attribute. The name references a value entered
+    in the blocks administration indicating which block group to render.
+    </t>
+    <t>Block form
+    <t>When specified as a block tag all the block tags specified within the
+    blockgroup are rendered.
+    </t>
+    </t>
+    </t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag.</t>
+        </t>
+        <t><spanx>name</spanx>
+        <t>The name of the block group to render. When the tag is
+        used in its empty form this attribute is required. The attribute is
+        ignored when the tag is used in its block form.
+        </t>
+        </t>
+        <t><spanx>template</spanx>
+        <t>Name of the box template to use by default on all blocks within
+        the blockgroup tag. In its empty form, the template will be used
+        to wrap all blocks within it. In its non-empty form, each block
+        may individually override the box template, but otherwise will
+        share the template defined by this attribute. This attribute is
+        optional.
+        </t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+Renders the blockgroup 'left'. The template attribute is ignored or,
+when in strict rendering creates an exception:
+
+<xar:blockgroup name="left" template="SeaBreeze_left"/>
+
+Renders the block 'login' in a blockgroup using the template
+'SeaBreeze_center' for the blockgroup. The login block uses the block
+(inner) template 'simple_login' and is wrapped in the box (outer)
+template 'SeaBreeze_center':
+
+<xar:blockgroup template="SeaBreeze_center">
+<xar:block type="login" module="users" template=";simple_login"/>
+</xar:blockgroup>]]>
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags: in block form at least one <xref target="block">&lt;xar:block&gt;</xref> tag.</t>
+  </section>
+</section>

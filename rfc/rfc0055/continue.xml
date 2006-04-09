@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section anchor="continue" title="&lt;xar:continue&gt;">
+  <t>
+    Ends the current iteration of a
+    <xref target="for">&lt;xar:for /&gt;</xref>,
+    <xref target="foreach">&lt;xar:foreach /&gt;</xref>,
+    <xref target="loop">&lt;xar:loop /&gt;</xref>, or
+    <xref target="while">&lt;xar:while /&gt;</xref>, and begins the next iteration.
+    If the depth attribute is present and an integer greater than 1, an equal number
+    of enclosing loops are skipped to the end of their current iteration.
+  </t>
+  <section title="Forms">
+    <t>Only to be used in empty form</t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag (optional)</t>
+        </t>
+        <t><spanx>[depth]</spanx> (1)
+        <t>how many levels of enclosing loops to skip to the end of (optional)</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+<xar:for start="$i = 0" test="$i lt 10" iter="$i++">
+  <xar:if condition="$i eq 5">
+    <xar:continue/>
+  </xar:if>
+  #$i#
+</xar:for>]]>
+      </artwork>
+    </t>
+    <t>
+      The above will generate:
+      <artwork>
+        012346789
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tags:
+    <t><xref target="for">&lt;xar:for /&gt;</xref>
+    <xref target="loop">&lt;xar:loop /&gt;</xref>, or
+    <xref target="while">&lt;xar:while /&gt;</xref>.
+    </t>
+    </t>
+    <t>Child tags: none</t>
+  </section>
+</section>

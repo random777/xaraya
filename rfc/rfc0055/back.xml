@@ -1,0 +1,53 @@
+<back>
+  <section title="Future features">
+    <t>
+      Widgets: This feature will abstract common User Interface components
+      into templatable tags.  The goal of such a feature is to give common
+      components a consistent look and feel and cut down on code duplication
+      while also making these features easy to use.
+    </t>
+    <t>
+      Because widgets are meant for common usage, it is good practice for
+      their output to take on a consistent appearance.  This makes for an
+      easier and more pleasant user experience, and assures some level of
+      consistency within a theme.
+    </t>
+    <t>
+      Widgets will have certain constraints on their design, such as:
+      <list style="numbers">
+        <t>must generate a common piece of markup</t>
+        <t>must be theoretically useable across modules</t>
+        <t>must implement only a single template</t>
+        <t>must present a point of interaction between the user and Xaraya, and/or</t>
+        <t>must present markup that allows standard data to be returned to xaraya</t>
+      </list>
+    </t>
+    <t>
+      Dynamic Style Sheets: This feature would use server-side browser
+      sniffing to identify what CSS classes &amp; attributes a given module can
+      render (reasonably) correctly. Based on the result, either a &lt;style&gt;
+      or &lt;link&gt; tag to the css would be output. The tag would reference a
+      php script (css.php) which would actually generate the style sheet
+      from database records.
+    </t>
+    <t>
+      Theme Management: Blocklayout will necessitate the creation of
+      administration tools to manage themes. These would include a template
+      manager, theme variable manager, and possibly a theme
+      installer/uninstaller (similar to what modules have).
+    </t>
+    <t>
+      Multi-module layouts: This feature would allow Xaraya to display
+      output from more than one module during a page request. Major core
+      changes are required; hooks may provide some insight into how to
+      implement this feature. At the moment, simple multi-module layouts
+      are possible via the xar:module tag.
+    </t>
+    <t>
+      The help system will add a new widget:
+      <artwork>
+        &lt;xar:help /&gt; (scheduled beyond 1.0)
+      </artwork>
+    </t>
+  </section>
+</back>

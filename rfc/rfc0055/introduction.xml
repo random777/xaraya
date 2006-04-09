@@ -1,0 +1,79 @@
+<section title="Introduction">
+  <t>
+    Blocklayout is intended to give theme developers a maximum of control
+    over the appearance and functionality of their Xaraya website. This
+    file documents the structure and syntax of blocklayout, and details
+    required changes to themes and the core.
+  </t>
+  <t>
+    Blocklayout is potentially a very powerful tool. However, modules and
+    blocks need to be modified somewhat in order to take advantage of
+    Blocklayout's flexibility. The conversion process is not complicated.
+  </t>
+  <t>
+    <xref target="ddproperties">Dynamic data properties</xref>, like modules 
+    and blocks, can also provide a flexible templated output after a conversion 
+    process.
+  </t>
+  <t>
+    In addition, certain changes to the Xaraya directory structure are
+    necessary to accomodate templates and their defaults. Those
+    structural changes are illustrated below.
+  </t>
+  <figure title="Directory overview">
+    <artwork><![CDATA[
+html/
+    |-- modules/
+    |   |-- <module name>/
+    |       |-- xartemplates/
+    |           |    <user|admin>-<module function>[-<template>].xd
+    |           |--  blocks/
+    |           |        <block name>-<template name>.xd
+    |           |--  includes/
+    |           |        <file>.xd
+    |           |--  properties/
+    |                    <showinput|showoutput>[-<propertyname>].xd
+    |-- includes/
+    |       xarTemplate.php
+    |       xarBLCompiler.php
+    |       blnodes/
+    |       |-- entities
+    |       |-- instructions
+    |       |-- tags
+    |-- themes/
+          <theme name>/
+          |-- theme.php
+          |-- pages/
+          |     <master templates>.xt
+          |-- modules/
+          |   |-- <module name>/
+          |   |       <user|admin>-<module function>[-<template name>].xt
+          |   |-- blocks/
+          |   |       <block name>-<template name>.xt
+          |   |-- includes/
+          |   |       <file>.xt
+          |   |-- properties/
+          |           <showinput|showoutput>[-<propertyname>].xt
+          |-- includes/
+                <file>.xt
+    ]]></artwork>
+  </figure>
+  
+  <t>
+    html/themes/&lt;theme name&gt;/xartheme.php contains metadata about the theme;
+    no actual markup can reside there. Such metadata includes:
+    <list style="symbols">
+      <t>$themeinfo['name']</t>
+      <t>$themeinfo['author']</t>
+      <t>$themeinfo['homepage']</t>
+      <t>$themeinfo['email']</t>
+      <t>$themeinfo['description']</t>
+      <t>$themeinfo['contact_info']</t>
+      <t>$themeinfo['publish_date']</t>
+      <t>$themeinfo['license']</t>
+      <t>$themeinfo['version']</t>
+      <t>$themeinfo['xaraya_version']</t>
+      <t>$themeinfo['blocklayout_version']</t>
+    </list>
+  </t>
+</section>

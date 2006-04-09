@@ -1,0 +1,199 @@
+<section anchor="block" title="&lt;xar:block /&gt;">
+  <t>
+    The xar:block tag places a "block" of content into the
+    output. A block is always owned by a module, which is
+    responsible for feeding the block with the appropriate
+    information to produce its output. There are a number of
+    flexible ways to control what a block contains and how it
+    will appear in the output.
+  </t>
+  <t>
+    The block tag is one of the most flexible constructs
+    in blocklayout (how surprising). We haven't even touched
+    at all the possibilities ourselves yet. Unfortunately
+    this makes it also the most untested area in blocklayout
+    and vulnerable for surprises.
+  </t>
+  <t>
+    There are two approaches to content that blocks take. They are:
+    <list style="numbers">
+      <t>static content</t>
+      <t>dynamic content</t>
+    </list>
+  </t>
+  <t>
+    Static content blocks are defined completely within their
+    template file, and are not dependent on any other
+    information. A block containing a piece of html to render
+    is an example of such a block. Dynamic blocks however,
+    have dynamic contents. This means that their content
+    depends on a certain state of the site at a certain
+    moment in time. Examples of this type are: "Last 5 items
+    posted on site", "Currently logged on users"
+    etcetera. Each block consist of a title and content. The
+    title may be an empty string.
+  </t>
+  <t>
+    In essense though, there is no difference in the way that
+    blocks with static or dynamic content are managed.
+  </t>
+  <section title="Forms">
+    <t>Empty form:
+    <t>
+      Since a block accepts structured data in its overriding
+      parameters, this tag only supports the empty form at 
+      present.
+    </t>
+    </t>
+    
+  </section>
+  <section title="Attributes">
+    <t>
+      <t>
+        A block is identified by its instance or by the module and type.
+        A block identified by its instance, will have been created
+        through the blocks administration screens, and will have custom
+        content set. A block identified by its module/type does not need
+        to created first through the blocks admin screens, and will
+        initially contain default content for that block type.
+      </t>
+      <list>
+        <t><spanx>[id]</spanx><t> an identifier for the tag</t></t>
+        <t><spanx>[instance]</spanx>
+        <t>
+          If instance is specified, it's value is used to look
+          up the the specific block in the database. The instance
+          can take the form of a block ID or a block name.
+        </t>
+        </t>
+        <t><spanx>[module]</spanx>
+        <t>
+          Name of the module which owns the block. In the
+          administration part of Xaraya this is visible when
+          looking at the block types. This attribute must be
+          used in conjunction with the [type] attribute.
+        </t>
+        </t>
+        <t><spanx>[type]</spanx>
+        <t>
+          Name of the block to display. The name is the value
+          of the field filled in by the site manager in the
+          administration part of Xaraya. This attibute must
+          be used in conjunction with the [module] attribute.
+        </t>
+        </t>
+        <t><spanx>[name]</spanx>
+        <t>
+          The name of the block to display. The name is used
+          only for security checks, to determine whether the
+          block should be loaded at run-time.
+        </t>
+        </t>
+        <t><spanx>[title]</spanx>
+        <t>The title to use for the block.</t>
+        </t>
+        <t><spanx>[state]</spanx>
+        <t>The state of the block (0 is hidden, 3 is maximized).</t>
+        </t>
+        <t><spanx>[template]</spanx>
+        <t>
+          Name of a template to use for the block. The
+          template attribute can define two templates: the
+          box template and the block template. Essentially
+          the block template defines the layout within a block
+          and the box template defines a wrapper to go around
+          the block. The format of this attribute is:
+          box-template;block-template - both of which are
+          optional. Default templates will be used if none
+          are specified with this attribute.
+        </t>
+        </t>
+        <t><spanx>[*]</spanx>
+        <t>
+          All other attributes are passed to the block as
+          overriding parameters. The attribute names are
+          specific to each block. A system for allowing a
+          block to declare which attributes are available, 
+          and what kind of validation will be performed on
+          them, will also be in place. Blocks not declaring
+          allowed attributes will not have any restrictions
+          placed on the overriding parameters passed in to
+          them, so be aware that without validation, rendering
+          results can be undefined.
+        </t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <t>
+        This renders block instance number 2, or the block
+        instance named 'block_x', directly.  The 'module' and
+        'type' attributes are ignored, since we are using the
+        instance attribute to identify a block that has been
+        pre-defined though the admin screens.
+      </t>
+      
+      <artwork><![CDATA[
+<xar:block instance="2" module="base" />
+<xar:block instance="block_x" type="random" />
+      ]]></artwork>
+
+      <t>
+        Look for block 'goodie' owned by module 'base' (this
+        provides the implicit content) and try to render it
+        with box template 'block_2'. The block will execute
+        with it's default parameters.
+      </t>
+      
+      <artwork><![CDATA[
+<xar:block module="base" name="goodie" template="block_2" />
+      ]]></artwork>
+
+      <t>
+        This block has explicit contents specified directly in
+        the block tag. That content will be rendered by applying
+        the default block template from the 'base' module and
+        block 'goodie' (which may still be overridden by the
+        theme). It will also be enclosed in the default box
+        template from the current theme (usually
+        blocks/default.xt).
+      </t>
+
+      <artwork><![CDATA[
+<xar:block module="base" name="goodie" />
+      ]]></artwork>
+
+      <t>
+        This example will render the articles/topitems block,
+        displaying just two items, with a static
+        (i.e. non-dynamic) title 'Standalone Topitems', and a
+        default state of 3 (maximised). The block will be named
+        'standalone_topitems', and that name can be used to hide
+        that block from some users through the permissions
+        system. The box (outer) template will be 'right' (in
+        {current-theme}/blocks/right.xt, falling back to
+        default.xt if that template cannot be found). The block
+        (inner) template is specified as 'mytop'.  The
+        customised block template will be
+        {current-theme}/modules/articles/blocks/topitems-mytop.xt,
+        falling back to topitems.xt and then
+        modules/articles/xartemplates/xarblocks/topitems.xd.
+        This block has not been pre-defined through the block
+        admin screens.
+      </t>
+      
+      <artwork><![CDATA[
+<xar:block module="articles" type="topitems" title="Standalone Topitems"
+           state="3" numitems="2" dynamictitle="false" name="standalone_topitems" 
+           template="right;mytop" />
+      ]]></artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: <xref target="blockgroup">&lt;xar:blockgroup&gt;</xref> when that tag
+    is used in block form.</t>
+    <t>Child tags: none</t>
+  </section>
+</section>

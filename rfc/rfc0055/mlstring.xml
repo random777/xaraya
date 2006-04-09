@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="mlstring" title="&lt;xar:mlstring /&gt;">
+  <t>
+    &lt;xar:mlstring&gt; processes a multilanguage string. It
+    first finds the string in the db and, based on the
+    string's key, returns the corresponding string in the
+    current locale. If the resulting string does not use
+    placeholders, mlstring may be used alone. Otherwise,
+    mlstring must have <xref target="ml">&lt;xar:ml
+    /&gt;</xref> as a parent tag, with <xref
+    target="mlvar">&lt;xar:mlvar /&gt;</xref> tags as
+    siblings. See <xref target="ml">&lt;xar:ml /&gt;</xref>
+    for syntax examples using placeholders.
+  </t>
+  
+  <ed:del>
+    <section title="Forms">
+      <t>Only block form is allowed</t>
+    </section>
+  </ed:del>
+  
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]></spanx>
+        <t>an identifier for the tag (optional)</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork>
+        &lt;xar:mlstring&gt;Remember Me&lt;/xar:mlstring&gt;
+        
+        The string 'Remember Me' is looked up and translated
+        into the appropriate language.
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag:
+    <t><xref target="ml">&lt;xar:ml /&gt;</xref> (optional).</t>
+    </t>
+    <t>Child tags: none</t>
+  </section>
+  <ed:issue status="open" type="design weakness" name="explicit vs. implicit  mlstrings">
+    <ed:item data="2006-01-31" entered-by="mrb">
+      Looking over templates xar:mlstring is your worst
+      nightmare when making templates. Each piece of text must
+      be enclosed inside a xar:mlstring otherwise it will not
+      get translated. Wouldnt it be easier to let the BL
+      parser build a list of text nodes and register them for
+      translation, and make translation implicit.
+      the tag could still be used, just as a tool to help the
+      translation system if specific separation of strings is
+      needed.
+    </ed:item>
+  </ed:issue>
+</section>

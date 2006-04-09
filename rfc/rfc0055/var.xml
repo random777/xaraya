@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section anchor="var" title="&lt;xar:var /&gt;">
+  <t>
+    &lt;xar:var&gt; deals with variables in different scopes. If no scope is
+    specified, Blocklayout returns the contents of the local variable.
+  </t>
+  <t>
+    Variables are referenced by name, without the preceeding "$". Arrays
+    can be indexed via dot notation, i.e.:
+    <artwork>
+      &lt;xar:var name="preformat.catandtitle" /&gt; ( meaning: $preformat['catandtitle'] )
+    </artwork>
+    objects can be specifiek using colon notation, i.e:
+    <artwork>
+      &lt;xar:var name="preformat:catandtitle" /&gt; ( meaning: $preformat-&gt;catandtitle )
+    </artwork>
+  </t>
+  <t>
+    The 'scope' attribute value has the following effect:
+    <list style="symbols">
+      <t><spanx>local</spanx>: use the local scope of the template to get the variable;</t>
+      <t><spanx>config</spanx>: get the configuration variable with the specified name;</t>
+      <t><spanx>module</spanx>: get the module variable with the specified name;</t>
+      <t><spanx>block</spanx>: not implemented</t>
+      <t><spanx>theme</spanx> : get the theme variable with the specified name;</t>
+      <t><spanx>user</spanx>  : get the user variable with the specified name;</t>
+      <t><spanx>session</spanx> : get the session variable with the specified naem;</t>
+    </list>
+  </t>
+  <t>
+    The value of the 'scope' attribute does reasonably straighforward determine the
+    function which Xaraya uses to get the right variable
+  </t>
+  <section title="Forms">
+    <t>Only empty form is allowed</t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>An identifier for the tag</t>
+        </t>
+        <t><spanx>[scope]</spanx> {(local)|config|module|block|theme|user}
+        <t>What kind of variable should we retrieve</t>
+        </t>
+        <t><spanx>[prep]</spanx> {(false)|true}
+        <t>If the prep attribute has the value 'true' the contents of
+        the variable are prepared for displaying. Normally it is the 
+        responsibility of the developer to supply reasonable values to
+        a template and preparing them if necessary. This attribute gives
+        the theme designer an option to use this tag to explicitly prepare 
+        values for displaying. The attribute is optional and defaults to false.
+        </t>
+        </t>
+        <t><spanx>name</spanx>
+        <t>String specifying the name of the variable to retrieve within
+        the given scope
+        </t>
+        </t>
+        <t><spanx>module</spanx>
+        <t>String specifying the modulename to get the variable from; this is only
+        applicable when scope is module. Otherwise the value is ignored.
+        the given scope
+        </t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork>
+        &lt;xar:var name="preformat.catandtitle" /&gt;
+        
+        Retrieves the local variable $preformat['catandtitle']
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags: none</t>
+  </section>
+</section>

@@ -1,0 +1,78 @@
+<section anchor="ml" title="&lt;xar:ml /&gt;" xmlns:ed="http://greenbytes.de/2002/rfcedit" >
+  <t>
+    The &lt;xar:ml&gt; tag is a wrapper for <xref target="mlkey">&lt;xar:mlkey
+    /&gt;</xref> and <xref target="mlstring">&lt;xar:mlstring
+    /&gt;</xref> when their values contain placeholders. These
+    placeholders are replaced by the content of <xref
+    target="mlvar">&lt;xar:mlvar /&gt;</xref> tags in the
+    order they appear in the template.
+  </t>
+  <t>
+    The enclosing &lt;xar:mlstring&gt; or &lt;xar:mlkey&gt; should have
+    placeholders in its definition of the form #(1)..#(n) if there are
+    'n' variables to be replaced. The contents of th first
+    &lt;xar:mlvar&gt; tag is put in the place of #(1), the second in the
+    location of #(2) etcetera.
+  </t>
+  
+  <section title="Forms">
+    <t>Only allowed in block form</t>
+    <ed:ins>
+      <t>
+        This tag depends on its children mlstring and mlvar to
+        operate correctly.
+      </t>
+    </ed:ins>
+    <ed:issue type="design flaw" name="use of ml tag is confusing" status="open">
+      <ed:item>
+        The use of the ml tag is confusing. The mlvar tag does
+        nothing special, in fact it just functions as an
+        envelope to something. If there should be this
+        substitution xar:var is tag enough, since it's context
+        within the ml tag can be determined easily.
+      </ed:item>
+    </ed:issue>
+  </section>
+  
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+<xar:ml>
+  <xar:mlkey>USERSONLINE</xar:mlkey>
+  <xar:mlvar>78</xar:mlvar>
+  <xar:mlvar>120</xar:mlvar>
+</xar:ml>
+
+The values '78' and '120' are put in the place of
+#(1) and #(2) in the definition of the key 'USERSONLINE'.
+Note that these aren't visible in the template itself.
+
+<xar:ml>
+  <xar:mlstring>There are #(1) members and #(2) guests online.</xar:mlstring>
+  <xar:mlvar>78</xar:mlvar>
+  <xar:mlvar>120</xar:mlvar>
+</xar:ml>
+
+Same as first example, but with the <xar:mlstring> form.
+]]>         </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags:
+    <t><xref target="mlkey">&lt;xar:mlkey /&gt;</xref>,</t>
+    <t><xref target="mlstring">&lt;xar:mlstring /&gt;</xref>,</t>
+    <t><xref target="mlvar">&lt;xar:mlvar /&gt;</xref>, (optional)</t>
+    </t>
+  </section>
+</section>
+ 

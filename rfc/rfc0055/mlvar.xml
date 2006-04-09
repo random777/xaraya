@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="mlvar" title="&lt;xar:mlvar /&gt;">
+  <t>
+    Contains a string passed to an accompanying <xref
+    target="mlkey">&lt;xar:mlkey /&gt;</xref> or <xref
+    target="mlstring">&lt;xar:mlstring /&gt;</xref> to occupy
+    a place holder.
+  </t>
+  <section title="Forms">
+    <t>Only block form is allowed</t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      See <xref target="ml">&lt;xar:ml /&gt;</xref> for
+      syntax examples using placeholders.
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag:
+    <t><xref target="ml">&lt;xar:ml /&gt;</xref></t>
+    </t>
+    <t>Child tags: none</t>
+  </section>
+  <ed:issue type="deprecation" name="mlvar can be replaced" status="open" >
+    <ed:item date="2006-03-06">
+      This tag can be removed, using xar:var in its place is
+      totally possible, but has serious migration issues,
+      since its syntax is different from this tag.
+    </ed:item>
+    <ed:item date="2006-03-06">
+      The syntax of this tag is wrong, it does not designate a
+      variable at all. It envelopes it, which makes it
+      susceptible for textnode generation (a simple space
+      would do that for example, which we have to create
+      workarounds for, at the moment)
+    </ed:item>
+  </ed:issue>        
+</section>

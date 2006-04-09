@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section anchor="elseif" title="&lt;xar:elseif /&gt;">
+  <t>
+    Contains template code to be executed if all related
+    preceeding <xref target="if">&lt;xar:if /&gt;</xref> and
+    <xref target="elseif">&lt;xar:elseif /&gt;</xref> tag
+    conditions evaluate to false. All instances of <xref
+    target="elseif">&lt;xar:elseif /&gt;</xref> attached to
+    <xref target="if">&lt;xar:if /&gt;</xref>must appear
+    before <xref target="else">&lt;xar:else /&gt;</xref>
+  </t>
+  <section title="Forms">
+    <t>This tag has only the empty form</t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag (optional)</t>
+        </t>
+        <t><spanx>condition</spanx>
+        <t>The condition attribute is specified as a PHP expression
+        which should evaluate to false or true. Within the condition
+        attribute, normal php expressions can be used with one exception.
+        When comparing values, the &lt; and &gt; would conflict with XML
+        syntax. See <xref target="tagdescriptions">the note on logic tags</xref>
+        above for the details.
+        </t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      See <xref target="if">&lt;xar:if /&gt;</xref> for syntax.
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: <xref target="if">&lt;xar:if /&gt;</xref></t>
+    <t>Child tags: none</t>
+  </section>
+</section>

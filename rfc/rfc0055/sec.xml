@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit"  anchor="sec" title="&lt;xar:sec /&gt;">
+  <t>
+    &lt;xar:sec&gt; translates directly to a call to
+    xarSecurityCheck(), and is treated like an 'if'
+    clause. <xref target="else">&lt;xar:else /&gt;</xref> and
+    <xref target="elseif">&lt;xar:elseif /&gt;</xref> tags may
+    be attached as for an <xref target="if">&lt;xar:if
+    /&gt;</xref>.
+  </t>
+  
+  <ed:del>
+    <section title="Forms">
+      <t>Only block form is allowed</t>
+    </section>
+  </ed:del>
+  
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>an identifier for the tag</t>
+        </t>
+        <t><spanx>mask</spanx>
+        <t>The mask for which to check the privileges. This is a required
+        attribute. Refer to RFC-0030 for the full details on the
+        security system.
+        </t>
+        </t>
+        <t><spanx>[catch]</spanx> ({(true)|false}
+        <t>Sometimes it may be necessary to check for a certain security
+        privilege, but not raise an exception if the privileg check
+        fails. In those cases, specify catch="false" and no exception will
+        be raised. By default, if a security check fails, an exception will
+        be raised.
+        </t>
+        </t>
+        <t><spanx>[component]</spanx>
+        <t>For which component will the security check be done? Defaults to empty.</t>
+        </t>
+        <t><spanx>[instance]</spanx>
+        <t>For which instance will this check be made? Defaults to empty</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork>
+        &lt;xar:sec id="unique1" mask="EditCategories" catch="false" component="mycomponent" &gt;
+        &lt;p&gt;You are granted access&lt;/p&gt;
+        &lt;xar:else/&gt;
+        &lt;p&gt;Sorry, no can do &lt;/p&gt;
+        &lt;/xar:sec&gt;
+        
+        Checks for the 'EditCategories' mask on 'mycomponent'. If the check fails (no privilege)
+        no exception is raised but the text 'Sorry, no can do' is added to the output.
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags:
+    <t><xref target="else">&lt;xar:else /&gt;</xref></t>
+    <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
+    </t>
+  </section>
+</section>

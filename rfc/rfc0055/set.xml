@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="set" title="&lt;xar:set /&gt;">
+  <t>
+    Causes the variable identified by the 'name' attribute to
+    be set to the value of the tag's body. The variable must
+    be available in the scope of the tag.  Values set this way
+    do not persist beyond the current page load.
+  </t>
+  <t>
+    Note: &lt;xar:set&gt; is a bit of a problem child. It is the
+    most vulnerable tag we have, security wise. As the base compilation
+    translates this tag into something like: " echo .....", with some
+    work it's easily abused as a php-scripter tag in our current setup.
+  </t>
+  <section title="Forms">
+    <t>Only block form is allowed</t>
+  </section>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t><spanx>[id]</spanx>
+        <t>An identifier for the tag</t>
+        </t>
+        <t><spanx>name</spanx>
+        <t>The name of the variable to be set</t>
+        </t>
+        <t><spanx>[scope]</spanx> {module|block|theme}
+        <t>Note: this attribute is not implemented</t>
+        </t>
+      </list>
+    </t>
+    <ed:issue type="redundancy" name="xar:set and xar:var are similar, reflect this in the language" status="open">
+      <ed:item>
+        This tag either updates or creates variables. The
+        xar:var tags displays them. It feels natural to use
+        the open form of the xar:var tag to create variables
+        where it's children determine its content. 
+      </ed:item>
+    </ed:issue>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork>
+        &lt;xar:set name="$foo"&gt;'bar'&lt;/xar:set&gt;
+        
+        Sets the value of variable $foo to 'bar'
+      </artwork>
+    </t>
+  </section>
+  <section title="Context">
+    <t>Parent tag: none.</t>
+    <t>Child tags: none</t>
+  </section>
+  <ed:issue type="design flaw" name="xar:set definition" status="open">
+    <ed:item>
+      xar:var and xar:set have strongly related semantics,
+      should we combine/alias the two?
+    </ed:item>
+    <ed:item>
+      xar:set has the strongest impact on how variable naming
+      and selecting is specified. Especially setting arrays or
+      object properties is now difficult.
+    </ed:item>
+  </ed:issue>
+</section>

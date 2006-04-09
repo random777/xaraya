@@ -52,6 +52,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Court Shrock (cls)
 
   Curtis Hays (stratagem)
+
+  Curtis Farnham (curtis)
   
   Daniel Barabas (Baraboom)
 

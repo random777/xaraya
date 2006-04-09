@@ -1,11 +1,11 @@
 PLEASE READ ALL OF THIS UPGRADE.txt BEFORE UPGRADING OR USING AN EXISTING Xaraya installation
 
-If you have existing Xaraya sites, please check the VERSION CHANGES at the end of this file in case you need to update themes, templates or other areas in existing sites.
+Ensure you check the VERSION CHANGES at the end of this file in case you need to update themes, templates or other areas in existing sites.
 
-If you are creating a new Xaraya installation, please ensure you read INSTALL.txt
+If you are creating a new Xaraya installation, please read INSTALL.txt
 
 
-You are Upgrading to Xaraya: adam_baum 1.1.0
+You are Upgrading to Xaraya: adam_baum 1.1
 ============================================
 Xaraya is an Open Source web applications framework. Xaraya started out as a fork of PostNuke (http://www.postnuke.com).
 It has had a complete re-write from the ground up since it's beginnings.
@@ -18,7 +18,10 @@ You can also visit us in channel #xaraya.support or #xaraya.chat, on our IRC Ser
 
 PREPARE TO UPGRADE
 ==================
-    * Backup the old Xaraya installation & database
+    * Check the VERSION CHANGES at the end of this file and make note of any template
+      or site changes you may need to make
+
+    * Backup the existing Xaraya installation & database
 
     * Log in to your existing Xaraya site with administration rights.
 
@@ -43,14 +46,16 @@ PREPARE TO UPGRADE
 
      The existing <xarroot>/var/config.system.php must be retained;
      the upgrade script reads database settings from this file.
+     However, you should check for any config.system.php.dist file changes
+     and update your existing config.system.php file if necessary.
 
     * Check permissions and ownership of the new files
 
     * Make sure you have cleared all your cache files in
       <xarroot>/var/cache/templates and <xarroot>/var/cache/rss
 
-    * In browser window where you are logged in as administrator,
-       point your browser to upgrade.php in your root directory.
+    * In the browser window where you are logged in as administrator,
+       point your browser to upgrade.php in your root directory and run this script.
        For example, http://www.mywebsite.com/upgrade.php.
 
     * Carefull read and follow the instructions in the upgrade script.
@@ -170,7 +175,7 @@ VERSION CHANGES - Please check and update your installation where necessary
 
    1.0.1 -> 1.0.2
 
-   1.0.2 -> 1.1.0
+   1.0.2 -> 1.1
        1) Roles module was split into Registration module, Authentication and Roles
           There are now default login templates in Authsystem module, and special
           login templates with registration links in the Registration module
@@ -178,8 +183,15 @@ VERSION CHANGES - Please check and update your installation where necessary
           instead of admin.xt, but can be specified. This config var has moved to Themes module.
           The admin.xt page template is now able to be overridden using usual xaraya override logic,
           and can be used to customize specific admin module pages.
-       3) The adminpanels module has been removed. If you use the compact administration menu, then you
-          will need to replace the template to base/blocks and rename the link to use base instead of adminpanels.
+       3) The adminpanels module has been removed. You may have to make changes for 
+          specific blocks that have also been moved:
+          a) adminmenu block: 
+             - any instances in templates should now be changed to
+             'base' module instead of 'adminpanel' in the block tags
+             - make sure you copy any templates from your theme in the themes/yourtheme/modules/adminpanel[/blocks]
+               to themes/yourtheme/modules/base[/blocks]
+          b) waiting content block:
+             you will have to add hooks for base module and articles rather than adminpanel and articles
 
    DB Changes between versions
    ----------------------------------------------------

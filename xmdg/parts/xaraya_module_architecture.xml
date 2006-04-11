@@ -10,52 +10,54 @@
   developers whilst ensuring that the module can be accessed in a generic
   fashion by the Xaraya core, other modules, and remote systems given access
   through other interfaces such as XML-RPC. The main design characteristics of
-  the module system are listed below</para>
+  the module system are listed below.</para>
 
   <section>
     <title>Separation of User and Administrator Functions</title>
 
-<para>Separation of user and administrator functions allows for a much
+    <para>Separation of user and administrator functions allows for a much
     cleaner module. It speeds up the responsiveness of the module in the
-    most-often used cases (i.e. user actions) as the module only needs to
-    load the code that is required of it. It allows for work one area of
-    the code (e.g. an admin GUI redesign) to take place without affecting
-    the other areas. In addition, it gives an extra layer of security to
-    help ensure that privileged functions cannot be executed inadvertently
-    from user areas.</para>
+    most-often used cases (i.e. user actions) as the module only needs to load
+    the code that is required of it. It allows for work one area of the code
+    (e.g. an admin GUI redesign) to take place without affecting the other
+    areas. In addition, it gives an extra layer of security to help ensure
+    that privileged functions cannot be executed inadvertently from user
+    areas.</para>
 
-    
-    <para>It is sometimes not very clear what is an admin function, or a 
-    user function. In general, admin functions are those
-    function that deal with setting up the module and it's functioning,
-    sometimes including the data in there. In Example module, that is a
-    display module for users, it is an admin task to add data. This is
-    also in accordance with Articles. User functions are the ones used by the 
-    the average user of the module.</para>
+    <para>It is sometimes not very clear what you can denote an admin or a
+    user function. In general, admin functions are those function that deal
+    with setting up the module and it's functioning, sometimes including the
+    data in there. In Example module, that is a display module for users, it
+    is an admin task to add data. Articles uses the same logic. User functions
+    are the ones used by the the average user of the module, the normal site
+    user. </para>
+
+    <para>The seperation of user and admin functions should be clear, but
+    supported with the correct use of privileges. Defining privileges will
+    give you better control of who will enter what area of your
+    extension.</para>
   </section>
-
 
   <section>
     <title>Separation of Display and Operational Functions</title>
 
     <para>Separation of display and operational functions allows for areas
-    within and without Xaraya to use the functionality supplied by a
-    module. This is most obvious in the case of modules with blocks. Where
-    the block might display its own information but use the module
-    functions to gather that information. Other modules where this is
-    hugely important are the utility modules; things like comments and
-    rating systems, that have no real use on their own but can be coupled
-    with other modules to provide generic and site-wide functionality at
-    very little cost to the module developer.</para>
+    within and without Xaraya to use the functionality supplied by a module.
+    This is most obvious in the case of modules with blocks. Where the block
+    might display its own information but use the module functions to gather
+    that information. Other modules where this is hugely important are the
+    utility modules; things like comments and rating systems, that have no
+    real use on their own but can be coupled with other modules to provide
+    generic and site-wide functionality at very little cost to the module
+    developer.</para>
 
     <para>Operational functions go into the xar...api directory. These
-    functions will not call a template at return, but are expected to
-    return the result of their operation in one form or the other.
-    Functions that will display data
-    will always go in xaradmin or xaruser directories. The display functions normally return 
-    an array that is used by BlockLayout, in cooperation with the template the module
-    provides. The exception here is blocks, that are placed in xarblocks/.</para>
-
+    functions will not call a template at return, but are expected to return
+    the result of their operation in one form or the other. Functions that
+    will display data will always go in xaradmin or xaruser directories. The
+    display functions normally return an array that is used by BlockLayout, in
+    cooperation with the template the module provides. The exception here is
+    blocks, that are placed in xarblocks/.</para>
   </section>
 
   <section>
@@ -63,18 +65,17 @@
 
     <para></para>
 
-  <para>Having a single install directory allows for much easier
-  maintenance of large Xaraya systems, and far easier install and removal
-  of modules both for the module developer and for the site administrator.
-  Dependencies of the layout on the file system are no longer required,
-  and as such, the module designer does not need to worry about on which
-  systems his module might be deployed, and how it needs to interact with
-  the underlying operating system to function correctly.</para>
+    <para>Having a single install directory allows for much easier maintenance
+    of large Xaraya systems, and far easier install and removal of modules
+    both for the module developer and for the site administrator. Dependencies
+    of the layout on the file system are no longer required, and as such, the
+    module designer does not need to worry about on which systems his module
+    might be deployed, and how it needs to interact with the underlying
+    operating system to function correctly.</para>
 
-  <para>This design option means that all your functions and data will go
-  in the directory modules/yourmodule and the according child
-  directories.</para>
-
+    <para>This design option means that all your functions and data will go in
+    the directory modules/yourmodule and the according child
+    directories.</para>
   </section>
 
   <section>
@@ -92,9 +93,11 @@
     below must comply with the file naming convention to allow the Xaraya
     system to load the suitable files at the appropriate times to ensure
     correct operation of the module.</para>
-   <para> The layout shown is the full directory structure of the example
-    module. The example module has all standard directories, and example files in
-    all of them. Your module might not need all, but will at least need the xarinit.php and the xarversion.php files.</para>
+
+    <para>The layout shown is the full directory structure of the example
+    module. The example module has all standard directories, and example files
+    in all of them. Your module might not need all, but will at least need the
+    xarinit.php and the xarversion.php files.</para>
 
     <orderedlist>
       <listitem>
@@ -1079,8 +1082,7 @@ xarModSetVar('example', 'bold', $bold); </programlisting>This lets the site
     <title>Installing, activating and upgrading</title>
 
     <para>The installation, activation, upgrading and deinstallation of the
-    module is directed by funcions in <filename>xarinit.php</filename>.
-    </para>
+    module is directed by funcions in <filename>xarinit.php</filename>.</para>
   </section>
 
   <section>

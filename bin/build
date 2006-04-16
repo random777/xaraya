@@ -1,0 +1,55 @@
+#!/bin/sh
+# Shell wrapper for Phing
+# $Id: phing.sh,v 1.10 2003/06/03 18:52:12 openface Exp $
+#
+# This script will do the following:
+# - check for PHP_COMMAND env, if found, use it.
+#   - if not found detect php, if found use it, otherwise error and terminate
+# - check for PHING_HOME evn, if found use it
+#   - if not found error and leave
+# - check for PHP_CLASSPATH, if found use it
+#   - if not found set it using PHING_HOME/classes
+
+
+#
+# Requirements checking
+#
+# 1. php cgi must exist in the path
+#
+if type php4> /dev/null 2>&1
+then PHP=php4
+elif type php > /dev/null 2>&1
+then PHP=php
+else 
+    echo No valid php interpreter found on your system.
+    exit 1
+fi
+
+# Override the PHING_HOME and PHP_CLASSPATH stuff, this is critical
+SCRIPTDIR=$(dirname $0)
+PHING_HOME="$SCRIPTDIR/phing"
+PHP_CLASSPATH=$PHING_HOME/classes
+PHP_COMMAND="$PHP"
+
+export PHING_HOME
+export PHP_CLASSPATH
+
+if (test -z "$PHING_HOME") ; then
+        echo "ERROR: PHING_HOME environment not set. Please point this "
+        echo "variable to your local phing installation."
+        exit;
+fi
+
+if (test -z "$PHP_COMMAND") ; then
+        echo "ERROR: PHP_COMMAND environment not set. Please point this "
+        echo "variable to your local PHP binary."
+        exit;
+fi
+
+if (test -z "$PHP_CLASSPATH") ; then
+        PHP_CLASSPATH=$PHING_HOME/classes
+        export PHP_CLASSPATH
+fi
+
+# Run the build
+$PHP_COMMAND -d html_errors=Off -d include_path=".:$PHP_CLASSPATH" -qC $PHING_HOME/bin/phing.php -logger phing.NoBannerLogger $*

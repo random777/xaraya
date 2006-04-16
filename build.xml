@@ -233,10 +233,16 @@
       <property name="zipball.name" value="${final.name}-full.zip"/>
     </phingcall>
   </target> 
-  
+
+  <!-- xmdg new style -->
+  <target name="xmdg">
+    <echo message="In: ${docs.dir}/xmdg : making"/>
+    <exec dir = "${docs.dir}/xmdg" command="make pdf"/>
+    <exec dir = "${docs.dir}/xmdg" command="make html"/>
+  </target>
   
   <!-- Common contents for each distribution -->
-  <target name="commonfiles">
+  <target name="commonfiles" depends="xmdg">
     <!-- Copy the usual suspects for GPL alike projects -->
     <mkdir dir="${build.docs}" />
     <copy todir="${build.docs}">
@@ -253,7 +259,7 @@
         <include name="${releaselog}"/>
       </fileset>
     </copy>
-    
+ 
     <!-- Process docs directory -->
     <copy todir="${build.docs}">
       <fileset dir="${docs.dir}/xarayaguide" >
@@ -262,8 +268,11 @@
         <exclude name="MT/**" />
         <exclude name=".DS_Store"/>
       </fileset>
-      <fileset dir="${docs.dir}/xmdghtml" >
-        <include name="XarayaMDG.sxw"/>
+      <fileset dir="${docs.dir}/xmdg" >
+        <include name="xmdg.pdf"/>
+        <include name="xmdg.html"/>
+        <include name="xardevguide.pdf"/>
+        <include name="xardevguide.html"/>
         <exclude name="MT/**" />
         <exclude name=".DS_Store"/>
       </fileset>

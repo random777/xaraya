@@ -26,7 +26,7 @@ class Dynamic_Object_Master
     public $label = null;
     public $moduleid = null;
     public $itemtype = null;
-    var $parent = null;
+    public $parent = null;
 
     public $urlparam = 'itemid';
     public $maxid = 0;
@@ -223,11 +223,11 @@ class Dynamic_Object_Master
 									  'type'  => $newproperty->type,
 									  'label' => $newproperty->label);
 						if (!isset($this->datastores[$newproperty->datastore])) {
-							$newstore = $this->property2datastore(&$newproperty);
+							$newstore = $this->property2datastore($newproperty);
 							$this->addDatastore($newstore[0],$newstore[1]);
 						}
 						$newproperty->_items =& $this->items;
-						$this->datastores[$newproperty->datastore]->addField(&$newproperty);
+						$this->datastores[$newproperty->datastore]->addField($newproperty);
 						$this->addProperty($args);
 	//                  $this->fieldlist[] = $newproperty->name;
 					}
@@ -444,6 +444,8 @@ class Dynamic_Object_Master
 
         $dynamicobjects = $xartable['dynamic_objects'];
 
+        $bindvars = array();
+        xarLogMessage("DB: query in getObjects");
         $query = "SELECT xar_object_id,
                          xar_object_name,
                          xar_object_label,
@@ -455,11 +457,15 @@ class Dynamic_Object_Master
                          xar_object_config,
                          xar_object_isalias
                   FROM $dynamicobjects ";
-        if (isset($modid)) $query .= "WHERE xar_object_moduleid = " . $modid;
-        $result =& $dbconn->Execute($query);
+        if (isset($modid)) {
+            $query .= "WHERE xar_object_moduleid = ?";
+            $bindvars[] = $modid;
+        }
+        $stmt = $dbconn->prepareStatement($query);
+        $result =& $stmt->executeQuery($bindvars);
 
         $objects = array();
-        while (!$result->EOF) {
+        while ($result->next()) {
             $info = array();
             list($info['objectid'],
                  $info['name'],
@@ -472,7 +478,6 @@ class Dynamic_Object_Master
                  $info['config'],
                  $info['isalias']) = $result->fields;
              $objects[$info['objectid']] = $info;
-             $result->MoveNext();
         }
         $result->Close();
         return $objects;
@@ -487,6 +492,7 @@ class Dynamic_Object_Master
      * @param $args['itemtype'] item type of the object you're looking for
      * @returns array
      * @return array containing the name => value pairs for the object
+     * @todo cache on id/name/modid ?
      */
     static function getObjectInfo($args)
     {
@@ -694,15 +700,10 @@ class Dynamic_Object_Master
      */
     function createObject($args)
     {
-        if (!isset($args['moduleid'])) {
-            $args['moduleid'] = null;
-        }
-        if (!isset($args['itemtype'])) {
-            $args['itemtype'] = null;
-        }
-        if (!isset($args['classname'])) {
-            $args['classname'] = null;
-        }
+        if (!isset($args['moduleid']))  $args['moduleid'] = null;
+        if (!isset($args['itemtype']))  $args['itemtype'] = null;
+        if (!isset($args['classname'])) $args['classname'] = null;
+        
         // create the Dynamic Objects item corresponding to this object
         $object =& Dynamic_Object_Master::getObject(array('objectid' => 1, // the Dynamic Objects = 1
                                                           'moduleid' => $args['moduleid'],
@@ -715,18 +716,11 @@ class Dynamic_Object_Master
 
     function updateObject($args)
     {
-        if (empty($args['objectid'])) {
-            return;
-        }
-        if (!isset($args['moduleid'])) {
-            $args['moduleid'] = null;
-        }
-        if (!isset($args['itemtype'])) {
-            $args['itemtype'] = null;
-        }
-        if (!isset($args['classname'])) {
-            $args['classname'] = null;
-        }
+        if (empty($args['objectid'])) return;
+        if (!isset($args['moduleid']))  $args['moduleid'] = null;
+        if (!isset($args['itemtype']))  $args['itemtype'] = null;
+        if (!isset($args['classname'])) $args['classname'] = null;
+        
         // update the Dynamic Objects item corresponding to this object
         $object =& Dynamic_Object_Master::getObject(array('objectid' => 1, // the Dynamic Objects = 1
                                                           'moduleid' => $args['moduleid'],
@@ -741,18 +735,11 @@ class Dynamic_Object_Master
 
     function deleteObject($args)
     {
-        if (empty($args['objectid'])) {
-            return;
-        }
-        if (!isset($args['moduleid'])) {
-            $args['moduleid'] = null;
-        }
-        if (!isset($args['itemtype'])) {
-            $args['itemtype'] = null;
-        }
-        if (!isset($args['classname'])) {
-            $args['classname'] = null;
-        }
+        if (empty($args['objectid'])) return;
+        if (!isset($args['moduleid']))  $args['moduleid'] = null;
+        if (!isset($args['itemtype']))  $args['itemtype'] = null;
+        if (!isset($args['classname'])) $args['classname'] = null;
+        
         // get the Dynamic Objects item corresponding to this object
         $object =& Dynamic_Object_Master::getObject(array('objectid' => 1, // the Dynamic Objects = 1
                                                           'moduleid' => $args['moduleid'],
@@ -897,10 +884,8 @@ class Dynamic_Object extends Dynamic_Object_Master
         parent::__construct($args);
 
         // set the specific item id (or 0)
-        if (isset($args['itemid'])) {
-            $this->itemid = $args['itemid'];
-        }
-
+        if (isset($args['itemid'])) $this->itemid = $args['itemid'];
+        
         // see if we can access this object, at least in overview
         if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->moduleid.':'.$this->itemtype.':'.$this->itemid)) return;
 
@@ -989,28 +974,16 @@ class Dynamic_Object extends Dynamic_Object_Master
      */
     function showForm($args = array())
     {
-        if (empty($args['layout'])) {
-            $args['layout'] = $this->layout;
-        }
-        if (empty($args['template'])) {
-            $args['template'] = $this->template;
-        }
-        if (empty($args['tplmodule'])) {
-            $args['tplmodule'] = $this->tplmodule;
-        }
-        if (empty($args['viewfunc'])) {
-            $args['viewfunc'] = $this->viewfunc;
-        }
-        if (empty($args['fieldlist'])) {
-            $args['fieldlist'] = $this->fieldlist;
-        }
-        if (empty($args['fieldprefix'])) {
-            $args['fieldprefix'] = $this->fieldprefix;
-        }
+        if (empty($args['layout']))      $args['layout'] = $this->layout;
+        if (empty($args['template']))    $args['template'] = $this->template;
+        if (empty($args['tplmodule']))   $args['tplmodule'] = $this->tplmodule;
+        if (empty($args['viewfunc']))    $args['viewfunc'] = $this->viewfunc;
+        if (empty($args['fieldlist']))   $args['fieldlist'] = $this->fieldlist;
+        if (empty($args['fieldprefix'])) $args['fieldprefix'] = $this->fieldprefix;
+        
         // for use in DD tags : preview="yes" - don't use this if you already check the input in the code
-        if (!empty($args['preview'])) {
-            $this->checkInput();
-        }
+        if (!empty($args['preview'])) $this->checkInput();
+        
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1056,25 +1029,15 @@ class Dynamic_Object extends Dynamic_Object_Master
      */
     function showDisplay($args = array())
     {
-        if (empty($args['layout'])) {
-            $args['layout'] = $this->layout;
-        }
-        if (empty($args['template'])) {
-            $args['template'] = $this->template;
-        }
-        if (empty($args['tplmodule'])) {
-            $args['tplmodule'] = $this->tplmodule;
-        }
-        if (empty($args['viewfunc'])) {
-            $args['viewfunc'] = $this->viewfunc;
-        }
-        if (empty($args['fieldlist'])) {
-            $args['fieldlist'] = $this->fieldlist;
-        }
+        if (empty($args['layout']))    $args['layout'] = $this->layout;
+        if (empty($args['template']))  $args['template'] = $this->template;
+        if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
+        if (empty($args['viewfunc']))  $args['viewfunc'] = $this->viewfunc;
+        if (empty($args['fieldlist'])) $args['fieldlist'] = $this->fieldlist;
+        
         // for use in DD tags : preview="yes" - don't use this if you already check the input in the code
-        if (!empty($args['preview'])) {
-            $this->checkInput();
-        }
+        if (!empty($args['preview'])) $this->checkInput();
+        
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1368,9 +1331,7 @@ class Dynamic_Object extends Dynamic_Object_Master
 
         $dynamicobjects = $xartable['dynamic_objects'];
 
-        $query = "SELECT MAX(xar_object_itemtype)
-                    FROM $dynamicobjects
-                   WHERE xar_object_moduleid = ?";
+        $query = "SELECT MAX(xar_object_itemtype) FROM $dynamicobjects  WHERE xar_object_moduleid = ?";
 
         $result =& $dbconn->Execute($query,array((int)$args['moduleid']));
         if ($result->EOF) return;
@@ -1776,29 +1737,16 @@ class Dynamic_Object_List extends Dynamic_Object_Master
 
     function showList($args = array())
     {
-        if (empty($args['layout'])) {
-            $args['layout'] = $this->layout;
-        }
-        if (empty($args['template'])) {
-            $args['template'] = $this->template;
-        }
-        if (empty($args['tplmodule'])) {
-            $args['tplmodule'] = $this->tplmodule;
-        }
-        if (!empty($args['extend'])) {
-            $this->extend();
-        }
-        if (empty($args['viewfunc'])) {
-            $args['viewfunc'] = $this->viewfunc;
-        }
-        if (empty($args['fieldprefix'])) {
-            $args['fieldprefix'] = $this->fieldprefix;
-        }
-
-        if (empty($args['fieldlist'])) {
-            $args['fieldlist'] = $this->fieldlist;
-        }
-
+        if (empty($args['layout']))    $args['layout'] = $this->layout;
+        if (empty($args['template']))  $args['template'] = $this->template;
+        if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
+        // Are we extending here?
+        if (!empty($args['extend']))   $this->extend();
+        
+        if (empty($args['viewfunc']))    $args['viewfunc'] = $this->viewfunc;
+        if (empty($args['fieldprefix'])) $args['fieldprefix'] = $this->fieldprefix;
+        if (empty($args['fieldlist']))   $args['fieldlist'] = $this->fieldlist;
+        
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1817,19 +1765,11 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         $args['items'] = & $this->items;
 
         // add link to display the item
-        if (empty($args['linkfunc'])) {
-            $args['linkfunc'] = $this->linkfunc;
-        }
-        if (empty($args['linklabel'])) {
-            $args['linklabel'] = xarML('Display');
-        }
-        if (empty($args['param'])) {
-            $args['param'] = $this->urlparam;
-        }
-        if (empty($args['linkfield'])) {
-            $args['linkfield'] = '';
-        }
-
+        if (empty($args['linkfunc']))  $args['linkfunc'] = $this->linkfunc;
+        if (empty($args['linklabel'])) $args['linklabel'] = xarML('Display');
+        if (empty($args['param']))     $args['param'] = $this->urlparam;
+        if (empty($args['linkfield'])) $args['linkfield'] = '';
+        
         $modinfo = xarModGetInfo($this->moduleid);
         $modname = $modinfo['name'];
 
@@ -1850,19 +1790,10 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         $args['moduleid'] = $this->moduleid;
 
         $itemtype = $this->itemtype;
-        if (empty($itemtype)) {
-            $itemtype = null; // don't add to URL
-        }
-        if (empty($this->table)) {
-            $table = null;
-        } else {
-            $table = $this->table;
-        }
-        if (empty($this->name)) {
-           $args['objectname'] = null;
-        } else {
-           $args['objectname'] = $this->name;
-        }
+        if (empty($itemtype)) $itemtype = null; // don't add to URL
+        $table = (empty($this->table)) ? null: $this->table;
+        $args['objectname'] = empty($this->name) ? null : $this->name;
+        
         $args['modname'] = $modname;
         $args['itemtype'] = $itemtype;
         $args['links'] = array();
@@ -1995,22 +1926,12 @@ class Dynamic_Object_List extends Dynamic_Object_Master
 
     function showView($args = array())
     {
-        if (empty($args['layout'])) {
-            $args['layout'] = $this->layout;
-        }
-        if (empty($args['template'])) {
-            $args['template'] = $this->template;
-        }
-        if (empty($args['tplmodule'])) {
-            $args['tplmodule'] = $this->tplmodule;
-        }
-        if (empty($args['viewfunc'])) {
-            $args['viewfunc'] = $this->viewfunc;
-        }
-
-        if (empty($args['fieldlist'])) {
-            $args['fieldlist'] = $this->fieldlist;
-        }
+        if (empty($args['layout']))    $args['layout'] = $this->layout;
+        if (empty($args['template']))  $args['template'] = $this->template;
+        if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
+        if (empty($args['viewfunc']))  $args['viewfunc'] = $this->viewfunc;
+        if (empty($args['fieldlist'])) $args['fieldlist'] = $this->fieldlist;
+        
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -2030,19 +1951,11 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         $args['items'] = & $this->items;
 
         // add link to display the item
-        if (empty($args['linkfunc'])) {
-            $args['linkfunc'] = $this->linkfunc;
-        }
-        if (empty($args['linklabel'])) {
-            $args['linklabel'] = xarML('Display');
-        }
-        if (empty($args['param'])) {
-            $args['param'] = $this->urlparam;
-        }
-        if (empty($args['linkfield'])) {
-            $args['linkfield'] = '';
-        }
-
+        if (empty($args['linkfunc']))  $args['linkfunc'] = $this->linkfunc;
+        if (empty($args['linklabel'])) $args['linklabel'] = xarML('Display');
+        if (empty($args['param']))     $args['param'] = $this->urlparam;
+        if (empty($args['linkfield'])) $args['linkfield'] = '';
+        
         // pass some extra template variables for use in BL tags, API calls etc.
         $args['moduleid'] = $this->moduleid;
 

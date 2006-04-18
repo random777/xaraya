@@ -2,13 +2,12 @@
 /**
  * Update the configuration parameters
  *
- * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @package Xaraya eXtensible Management System
+ * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Module System
- * @link http://xaraya.com/index.php/release/1.html
+ * @subpackage modules module
  * @author Andy Varganov <andyv@xaraya.com>
  */
 /**
@@ -27,10 +26,12 @@ function modules_admin_updateconfig()
     if (!xarSecConfirmAuthKey()) return;
     
     // enable or disable overviews
+    if(!xarVarFetch('dashboard', 'isset', $dashboard, 0, XARVAR_DONT_SET)) return;
     if(!xarVarFetch('disableoverview','isset', $disableoverview, 0, XARVAR_DONT_SET)) return;
 
     xarModSetVar('modules', 'disableoverview', ($disableoverview) ? 1 : 0);
-     // lets update status and display updated configuration
+    xarModSetVar('modules', 'usedashboard', ($dashboard) ? 1 : 0);
+    // lets update status and display updated configuration
     xarResponseRedirect(xarModURL('modules', 'admin', 'modifyconfig'));
 
     // Return

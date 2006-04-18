@@ -110,7 +110,6 @@ function base_menublock_display($blockinfo)
     list($thismodname, $thismodtype, $thisfuncname) = xarRequestGetInfo();
 
     // Sort Order, Status, Common Labels and Links Display preparation
-    //$menustyle = xarModGetVar('adminpanels','menustyle');
     $logoutlabel = xarVarPrepForDisplay(xarML('logout'));
     //jojodee - only default authentication module, authsystem, provides logout
     //may want to look at other options for authentication modules
@@ -250,7 +249,7 @@ function base_menublock_display($blockinfo)
                  * or we should be using a general function  not specific to a possibly unreliable
                  * existance of module var name such as aliasname and useModuleAlias
                  * These are set in Example module - as examples, but no guarantee people use them
-                 * We need to review the module alias functions
+                 * We need to review the module alias functions - get and del don't seem to work at all!
                  */
                 $useAliasName=xarModGetVar($mod['name'], 'useModuleAlias');
                 $aliasname= xarModGetVar($mod['name'],'aliasname');

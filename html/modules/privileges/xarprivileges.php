@@ -1,7 +1,6 @@
 <?php
 /**
  * Privileges administration API
- *
  * @package core modules
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -24,7 +23,7 @@
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
  * @throws  none
- * @todo    none
+ * @todo    evaluate scoping 
 */
 
 
@@ -35,21 +34,20 @@ define('XAR_ENABLE_WINNOW', 0);
 
 class xarMasks
 {
-    var $dbconn;
-    var $privilegestable;
-    var $privmemberstable;
-    var $maskstable;
-    var $modulestable;
-    var $modulestatestable;
-    var $realmstable;
-    var $acltable;
-    var $allmasks;
-    var $levels;
-    var $instancestable;
-    var $levelstable;
-    var $privsetstable;
+    public $dbconn;
+    public $privilegestable;
+    public $privmemberstable;
+    public $maskstable;
+    public $modulestable;
+    public $realmstable;
+    public $acltable;
+    public $allmasks;
+    public $levels;
+    public $instancestable;
+    public $levelstable;
+    public $privsetstable;
 
-    var $privilegeset;
+    public $privilegeset;
 
 /**
  * xarMasks: constructor for the class
@@ -72,15 +70,16 @@ class xarMasks
         $this->privmemberstable = $xartable['privmembers'];
         $this->maskstable = $xartable['security_masks'];
         $this->modulestable = $xartable['modules'];
-        $this->modulestatestable = $xartable['module_states'];
         $this->realmstable = $xartable['security_realms'];
         $this->acltable = $xartable['security_acl'];
         $this->instancestable = $xartable['security_instances'];
         $this->levelstable = $xartable['security_levels'];
 //        $this->privsetstable = $xartable['security_privsets'];
+        $this->modulestable = $xartable['modules'];
 
-// hack this for display purposes
-// probably should be defined elsewhere
+        // hack this for display purposes
+        // probably should be defined elsewhere
+        // TODO: how about a dd object or a table?
         $this->levels = array(0=>'No Access (0)',
                     100=>'Overview (100)',
                     200=>'Read (200)',
@@ -110,43 +109,47 @@ class xarMasks
 */
     function getmasks($module = 'All',$component='All')
     {
+        // TODO: try to do all this a bit more compact and without xarMod_GetBaseInfo
+        // TODO: sort on the name of the mod again
+        // TODO: evaluate ambiguous signature of this method: does 'All' mean get *only* the masks which apply to all modules
+        //       or get *all* masks.
         $bindvars = array();
         if ($module == '' || $module == 'All') {
+            $modId = 0;
             if ($component == '' || $component == 'All') {
-                $query = "SELECT * FROM $this->maskstable ORDER BY xar_module, xar_component, xar_name";
-            }
-            else {
+                $query = "SELECT * FROM $this->maskstable ";
+            } else {
                 $query = "SELECT * FROM $this->maskstable
-                        WHERE (xar_component = ?)
-                        OR (xar_component = ?)
-                        OR (xar_component = ?)
-                        ORDER BY xar_module, xar_component, xar_name";
+                          WHERE (xar_component = ?) OR
+                                (xar_component = ?) OR
+                                (xar_component = ?) ";
                 $bindvars = array($component,'All','None');
             }
-        }
-        else {
+        } else {
+            $modInfo = xarMod_GetBaseInfo($module);
+            $modId = $modInfo['systemid'];
             if ($component == '' || $component == 'All') {
                 $query = "SELECT * FROM $this->maskstable
-                        WHERE xar_module = ? ORDER BY xar_module, xar_component, xar_name";
-                $bindvars = array($module);
-            }
-            else {
+                          WHERE xar_modid = ? ";
+                $bindvars = array($modId);
+            } else {
                 $query = "SELECT *
                           FROM $this->maskstable
-                          WHERE (xar_module = ?) AND
+                          WHERE (xar_modid = ?) AND
                           ((xar_component = ?) OR
                            (xar_component = ?) OR
                            (xar_component = ?)
-                            )
-                    ORDER BY xar_module, xar_component, xar_name";
-                $bindvars = array($module,$component,'All','None');
+                          ) ";
+                $bindvars = array($modId,$component,'All','None');
             }
         }
+        $query .= "ORDER BY xar_modid, xar_component, xar_name";
+
         $result = $this->dbconn->Execute($query,$bindvars);
-        if (!$result) return;
+
         $masks = array();
         while(!$result->EOF) {
-            list($sid, $name, $realm, $module, $component, $instance, $level,
+            list($sid, $name, $realm, $modid, $component, $instance, $level,
                     $description) = $result->fields;
             $pargs = array('sid' => $sid,
                                'name' => $name,
@@ -178,33 +181,43 @@ class xarMasks
     function register($name,$realm,$module,$component,$instance,$level,$description='')
     {
         // Check if the mask has already been registered, and update it if necessary.
-// FIXME: make mask names unique across modules (+ across realms) ?
+        // FIXME: make mask names unique across modules (+ across realms) ?
         // FIXME: is module/name enough? Perhaps revisit this with realms in mind.
-        $query = 'SELECT xar_sid FROM ' . $this->maskstable
-            . ' WHERE xar_module = ? AND xar_name = ?';
-        $result = $this->dbconn->Execute($query, array($module, $name));
-        if (!$result) return;
-        if (!$result->EOF) {
-            list($sid) = $result->fields;
-            $query = 'UPDATE ' . $this->maskstable
-                . ' SET xar_realm = ?, xar_component = ?,'
-                . ' xar_instance = ?, xar_level = ?,'
-                . ' xar_description = ?'
-                . ' WHERE xar_sid = ?';
-            $bindvars = array(
-                $realm, $component, $instance, $level,
-                $description, $sid
-            );
+        if($module == 'All') {
+            $modId = 0;
         } else {
-        $query = "INSERT INTO $this->maskstable VALUES (?,?,?,?,?,?,?,?)";
-            $bindvars = array(
-                $this->dbconn->genID($this->maskstable),
-                          $name, $realm, $module, $component, $instance, $level,
-                $description
-            );
+            $modInfo = xarMod_GetBaseInfo($module);
+            $modId= $modInfo['systemid'];
         }
+        $query = "SELECT xar_sid FROM $this->maskstable WHERE xar_modid = ? AND xar_name = ?";
+        $result = $this->dbconn->Execute($query, array($modId, $name));
 
-        if (!$this->dbconn->Execute($query,$bindvars)) return;
+        try {
+            $this->dbconn->begin();
+            if (!$result->EOF) {
+                list($sid) = $result->fields;
+                $query = "UPDATE $this->maskstable
+                          SET xar_realm = ?, xar_component = ?,
+                              xar_instance = ?, xar_level = ?,
+                              xar_description = ?
+                          WHERE xar_sid = ?";
+                $bindvars = array($realm, $component, $instance, $level,
+                                  $description, $sid);
+            } else {
+                $query = "INSERT INTO $this->maskstable
+                          (xar_sid, xar_name, xar_realm, xar_modid, xar_component, xar_instance, xar_level, xar_description)
+                          VALUES (?,?,?,?,?,?,?,?)";
+                $bindvars = array(
+                                  $this->dbconn->genID($this->maskstable),
+                                  $name, $realm, $modId, $component, $instance, $level,
+                                  $description);
+            }
+            $this->dbconn->Execute($query,$bindvars);
+            $this->dbconn->commit();
+        } catch (SQLException $e) {
+            $this->dbconn->rollback();
+            throw $e;
+        }
         return true;
     }
 
@@ -220,11 +233,11 @@ class xarMasks
  * @return  boolean
  * @throws  none
  * @todo    none
-*/
+ */
     function unregister($name)
     {
         $query = "DELETE FROM $this->maskstable WHERE xar_name = ?";
-        if (!$this->dbconn->Execute($query,array($name))) return;
+        $this->dbconn->Execute($query,array($name));
         return true;
     }
 
@@ -236,13 +249,18 @@ class xarMasks
  * @param   module name
  * @return  boolean
  * @throws  none
- * @todo    none
 */
     function removemasks($module)
     {
-        $query = "DELETE FROM $this->maskstable WHERE xar_module = ?";
+        if($module=='All') {
+            $modId = 0;
+        } else {
+            $modInfo = xarMod_GetBaseInfo($module);
+            $modId = $modInfo['systemid'];
+        }
+        $query = "DELETE FROM $this->maskstable WHERE xar_modid = ?";
         //Execute the query, bail if an exception was thrown
-        if (!$this->dbconn->Execute($query,array($module))) return;
+        $this->dbconn->Execute($query,array($module));
         return true;
     }
 
@@ -263,10 +281,7 @@ class xarMasks
     function winnow($privs1, $privs2)
     {
         if (!is_array($privs1) || !is_array($privs2)) {
-            $msg = xarML('Parameters to winnow need to be arrays');
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                           new SystemException($msg));
-            return;
+            throw new BadParameterException(null,'Parameters to winnow need to be arrays');
         }
         if ((($privs1 == array()) || ($privs1 == '')) &&
             (($privs2 == array()) || ($privs2 == ''))) return array();
@@ -322,7 +337,7 @@ class xarMasks
  * @param   access level description
  * @return  access level
  * @throws  none
- * @todo    none
+ * @todo    does this need to be in a db table? will it ever get other rows than the initialized ones?
 */
 
     function xarSecLevel($levelname)
@@ -333,7 +348,7 @@ class xarMasks
         $query = "SELECT xar_level FROM $this->levelstable
                     WHERE xar_leveltext = ?";
         $result = $this->dbconn->Execute($query,array($levelname));
-        if (!$result) return;
+
         $level = -1;
         if (!$result->EOF) list($level) = $result->fields;
         xarVarSetCached('Security.xarSecLevel', $levelname, $level);
@@ -362,10 +377,10 @@ class xarMasks
 
         $maskname = $mask;
         $mask =  $this->getMask($mask);
-//        if($mask->getName() == "pnLegacyMask") {
-//            echo "realm: " . $pnrealm . "\n" . "level: " . $pnlevel;exit;
-//        }
-//        else return 1;
+        //        if($mask->getName() == "pnLegacyMask") {
+        //            echo "realm: " . $pnrealm . "\n" . "level: " . $pnlevel;exit;
+        //        }
+        //        else return 1;
         if (!$mask) {
             // <mikespub> moved this whole $module thing where it's actually used, i.e. for
             // error reporting only. If you want to override masks with this someday, move
@@ -388,9 +403,7 @@ class xarMasks
             else {
                 $msg = xarML('Did not find mask #(1) registered for component #(2) in module #(3)', $maskname, $component, $module);
             }
-            xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA',
-                           new DefaultUserException($msg));
-            return;
+            throw new Exception($msg);
         }
 
         // insert any component overrides
@@ -411,6 +424,7 @@ class xarMasks
             $textvalue = '';
         }
         switch($realmvalue) {
+            // <mrb> i dont grok this, theme can be realm?
             case "theme":
                 $mask->setRealm(xarModGetVar('themes', 'default'));
                 break;
@@ -435,14 +449,13 @@ class xarMasks
         // normalize the mask now - its properties won't change below
         $mask->normalize();
 
-
         // get the Roles class
         include_once 'modules/roles/xarroles.php';
         $roles = new xarRoles();
-
         // get the uid of the role we will check against
         // an empty role means take the current user
         if ($rolename == '') {
+            // mrb: again?
             $userID = xarSessionGetVar('uid');
             if (empty($userID)) {
                 $userID = _XAR_ID_UNREGISTERED;
@@ -452,12 +465,10 @@ class xarMasks
         else {
             $role = $roles->findRole($rolename);
         }
-
         // check if we already have the irreducible set of privileges for the current user
         if (!xarVarIsCached('Security.Variables','privilegeset.'.$mask->module) || !empty($rolename)) {
             // get the privileges and test against them
             $privileges = $this->irreducibleset(array('roles' => array($role)),$mask->module);
-
             // leave this as same-page caching, even if the db cache is finished
             // if this is the current user, save the irreducible set of privileges to cache
             if ($rolename == '') {
@@ -469,21 +480,20 @@ class xarMasks
             // get the irreducible set of privileges for the current user from cache
             $privileges = xarVarGetCached('Security.Variables','privilegeset.'.$mask->module);
         }
-
         $pass = $this->testprivileges($mask,$privileges,false,$role);
 
         // $pass = $this->testprivileges($mask,$this->getprivset($role),false);
 
         // check if the exception needs to be caught here or not
         if ($catch && !$pass) {
-            if (xarModGetVar('privileges','exceptionredirect') && !xarUserIsLoggedIn()) {
+            if (xarModGetVar('privileges','exceptionredirect')) {
                 //authsystem will handle the authentication module
                 xarResponseRedirect(xarModURL('authsystem','user','showloginform'));
-
+                xarResponseRedirect(xarModURL('roles','user','register'));
             } else {
                 $msg = xarML('No privilege for #(1)',$mask->getName());
-                xarErrorSet(XAR_USER_EXCEPTION, 'NO_PRIVILEGES',
-                           new DefaultUserException($msg));
+                throw new Exception($msg);
+            }
             }
         }
 
@@ -507,7 +517,7 @@ class xarMasks
     function forgetprivsets()
     {
         $query = "DELETE FROM $this->privsetstable";
-        if (!$this->dbconn->Execute($query)) return;
+        $this->dbconn->Execute($query);
         return true;
     }
 
@@ -528,13 +538,12 @@ class xarMasks
         }
         $query = "SELECT xar_set FROM $this->privsetstable WHERE xar_uid =?";
         $result = $this->dbconn->Execute($query,array($role->getID()));
-        if (!$result) return;
 
         if ($result->EOF) {
             $privileges = $this->irreducibleset(array('roles' => array($role)));
             $query = "INSERT INTO $this->privsetstable VALUES (?,?)";
             $bindvars = array($role->getID(), serialize($privileges));
-            if (!$this->dbconn->Execute($query,$bindvars)) return;
+            $this->dbconn->Execute($query,$bindvars);
             return $privileges;
         } else {
             list($serprivs) = $result->fields;
@@ -566,6 +575,7 @@ class xarMasks
         if (count($roles) == 0) return $coreset;
 
         $parents = array();
+
         foreach ($roles as $role) {
             // FIXME: evaluate why role is empty
             // Below (hack) fix added by Rabbitt (suggested by mikespub on the devel mailing list)
@@ -577,6 +587,7 @@ class xarMasks
                 $privileges = $this->winnow(array($priv),$privileges);
                 $privileges = $this->winnow($priv->getDescendants(),$privileges);
             }
+
             $privs = array();
             foreach ($privileges as $priv) {
                 $privModule = strtolower($priv->getModule());
@@ -584,9 +595,11 @@ class xarMasks
                     $privs[] = $priv;
                 }
             }
+
             $coreset['privileges'] = $this->winnow($coreset['privileges'],$privs);
             $parents = array_merge($parents,$role->getParents());
         }
+        // CHECKME: Tail recursion, could be removed
         $coreset['children'] = $this->irreducibleset(array('roles' => $parents),$module);
         return $coreset;
     }
@@ -744,25 +757,28 @@ class xarMasks
     function getMask($name,$module="All",$component="All",$suppresscache=FALSE)
     {
         // check if we already have the definition of this mask
+        // TODO: try to do this without xarMod_GetBaseInfo
         if ($suppresscache || !xarVarIsCached('Security.Masks',$name)) {
-            $q = new xarQuery('SELECT',$this->maskstable);
             $q->addfields(array(
-                            'xar_sid AS sid',
-                            'xar_name AS name',
-                            'xar_realm AS realm',
-                            'xar_module AS module',
-                            'xar_component AS component',
-                            'xar_instance AS instance',
-                            'xar_level AS level',
-                            'xar_description AS description',
-                        ));
+            $query = "SELECT masks.xar_sid AS sid, masks.xar_name AS name, masks.xar_realm AS realm,
+                             mods.xar_name AS module, masks.xar_component as component, masks.xar_instance AS instance,
+                             masks.xar_level AS level, masks.xar_description AS description
+                      FROM   $this->maskstable masks LEFT JOIN $this->modulestable mods ON masks.xar_modid = mods.xar_id
+                      WHERE  masks.xar_name = ? ";
+            $bindvars[] = $name;
+            if($module != 'All') {
+                $query .= " AND mods.xar_name = ?";
+                $bindvars[] = $module;
             $q->eq('xar_name',$name);
-            if ($module != "All") $q->eq('xar_module',strtolower($module));
-            if ($component != "All") $q->eq('xar_component',strtolower($component));
-            if (!$q->run()) return;
-            if ($q->row() == array()) return false;
-
-            $pargs = $q->row();
+            if($component != 'All') {
+                $query .= " AND masks.xar_component = ? ";
+                $bindvars[] = strtolower($component);
+            $stmt = $this->dbconn->prepareStatement($query);
+            $result = $stmt->executeQuery($bindvars, ResultSet::FETCHMODE_ASSOC);
+            $result->next();
+            $pargs = $result->getRow();
+            if(is_null($pargs['module'])) $pargs['module'] = 'All';
+//            $pargs['module'] = xarModGetNameFromID($pargs['module']);
             xarVarSetCached('Security.Masks',$name,$pargs);
         } else {
             $pargs = xarVarGetCached('Security.Masks',$name);
@@ -814,36 +830,53 @@ class xarPrivileges extends xarMasks
             // FIXME: since the header is just a label, it probably should not be
             // treated as key information here. Do we need some further unique (within a
             // module and component) name for an instance, independant of the header label?
-            $query = 'SELECT xar_iid FROM ' . $this->instancestable
-                . ' WHERE xar_module = ? AND xar_component = ? AND xar_header = ?';
+            $iTable = $this->instancestable; $mTable = $this->modulestable;
+            $query = "SELECT instances.xar_iid
+                      FROM   $iTable instances, $mTable mods
+                      WHERE  instances.xar_modid = mods.xar_id AND
+                             mods.xar_name = ? AND
+                             instances.xar_component = ? AND
+                             instances.xar_header = ?";
             $result = $this->dbconn->execute($query, array($module, $type, $instance['header']));
-            if (!$result) return;
-            if (!$result->EOF) {
-                // Instance exists: update it.
-                list($iid) = $result->fields;
-                $query = 'UPDATE ' . $this->instancestable
-                    . ' SET xar_query = ?, xar_limit = ?,'
-                    . ' xar_propagate = ?, xar_instancetable2 = ?, xar_instancechildid = ?,'
-                    . ' xar_instanceparentid = ?, xar_description = ?'
-                    . ' WHERE xar_iid = ?';
-                $bindvars = array(
-                    $instance['query'], $instance['limit'],
-                    $propagate, $table2, $childID, $parentID,
-                    $description, $iid
-                );
-            } else {
-                // FIXME: be explicit with the table columns.
-            $query = "INSERT INTO $this->instancestable VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-                $bindvars = array(
-                    $this->dbconn->genID($this->instancestable),
-                              $module, $type, $instance['header'],
-                              $instance['query'], $instance['limit'],
-                              $propagate, $table2, $childID, $parentID,
-                    $description
-                );
-            }
 
-            if (!$this->dbconn->Execute($query,$bindvars)) return;
+            try {
+                $this->dbconn->begin();
+                if (!$result->EOF) {
+                    // Instance exists: update it.
+                    list($iid) = $result->fields;
+                    $query = "UPDATE $iTable
+                          SET xar_query = ?, xar_limit = ?,
+                              xar_propagate = ?, xar_instancetable2 = ?, xar_instancechildid = ?,
+                              xar_instanceparentid = ?, xar_description = ?
+                          WHERE xar_iid = ?";
+                    $bindvars = array(
+                                      $instance['query'], $instance['limit'],
+                                      $propagate, $table2, $childID, $parentID,
+                                      $description, $iid
+                                      );
+                } else {
+                    $query = "INSERT INTO $iTable
+                          ( xar_iid, xar_modid, xar_component, xar_header,
+                            xar_query, xar_limit, xar_propagate,
+                            xar_instancetable2, xar_instancechildid,
+                            xar_instanceparentid, xar_description)
+                          VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                    $modInfo = xarMod_GetBaseInfo($module);
+                    $modId = $modInfo['systemid'];
+                    $bindvars = array(
+                                      $this->dbconn->genID($this->instancestable),
+                                      $modId, $type, $instance['header'],
+                                      $instance['query'], $instance['limit'],
+                                      $propagate, $table2, $childID, $parentID,
+                                      $description
+                                      );
+                }
+                $this->dbconn->Execute($query,$bindvars);
+                $this->dbconn->commit();
+            } catch (SQLException $e) {
+                $this->dbconn->rollback();
+                throw $e;
+            }
         }
         return true;
     }
@@ -860,9 +893,18 @@ class xarPrivileges extends xarMasks
 */
     function removeInstances($module)
     {
-        $query = "DELETE FROM $this->instancestable WHERE xar_module = ?";
-        //Execute the query, bail if an exception was thrown
-        if (!$this->dbconn->Execute($query,array($module))) return;
+        try {
+            $this->dbconn->begin();
+            $modInfo = xarMod_GetBaseInfo($module);
+            $modId = $modInfo['systemid'];
+            $query = "DELETE FROM $this->instancestable WHERE xar_modid = ?";
+            //Execute the query, bail if an exception was thrown
+            $this->dbconn->Execute($query,array($module));
+            $this->dbconn->commit();
+        } catch (SQLException $e) {
+            $this->dbconn->rollback(); // redundant? we need to investigate concurency and locking
+            throw $e;
+        }
         return true;
     }
 
@@ -889,7 +931,7 @@ class xarPrivileges extends xarMasks
                           $name, $realm, $module, $component,
                           $instance, $level, $description);
 
-        if (!$this->dbconn->Execute($query,$bindvars)) return;
+        $this->dbconn->Execute($query,$bindvars);
         return true;
     }
 
@@ -925,7 +967,7 @@ class xarPrivileges extends xarMasks
 // Add the assignation as an entry to the acl table
         $query = "INSERT INTO $this->acltable VALUES (?,?)";
         $bindvars = array($roleid,$privid);
-        if (!$this->dbconn->Execute($query,$bindvars)) return;
+        $this->dbconn->Execute($query,$bindvars);
 
 // empty the privset cache
 //        $this->forgetprivsets();
@@ -946,7 +988,7 @@ class xarPrivileges extends xarMasks
  * @param   none
  * @return  array of privileges
  * @throws  none
- * @todo    none
+ * @todo    use associative fetching and one getrow statement.
 */
     function getprivileges()
     {
@@ -960,14 +1002,10 @@ class xarPrivileges extends xarMasks
                       FROM $this->privilegestable p, $this->privmemberstable pm
                       WHERE p.xar_pid = pm.xar_pid
                       ORDER BY p.xar_name";
-           // $stmt = $this->dbconn->prepareStatement($query);
+            $stmt = $this->dbconn->prepareStatement($query);
             // The fetchmode *needed* to be here, dunno why. Exception otherwise
-            //$result = $stmt->executeQuery($query,ResultSet::FETCHMODE_NUM);
-            $result = $this->dbconn->Execute($query);
-            if (!$result) return;
-
-            $allprivileges = array();
-            while(!$result->EOF) {
+            $result = $stmt->executeQuery($query,ResultSet::FETCHMODE_NUM);
+            while($result->next()) {
                 list($pid, $name, $realm, $module, $component, $instance, $level,
                         $description,$parentid) = $result->fields;
                 $allprivileges[] = array('pid' => $pid,
@@ -979,7 +1017,6 @@ class xarPrivileges extends xarMasks
                                    'level' => $level,
                                    'description' => $description,
                                    'parentid' => $parentid);
-            $result->MoveNext();
             }
         }
         return $allprivileges;
@@ -999,7 +1036,8 @@ class xarPrivileges extends xarMasks
  * @param   string $arg indicates what types of elements to get
  * @return  array of privileges
  * @throws  none
- * @todo    none
+ * @todo    use associative fetching and one getrow
+ * @todo    cache with statics?
 */
     function gettoplevelprivileges($arg)
     {
@@ -1028,7 +1066,6 @@ class xarPrivileges extends xarMasks
                     pm.xar_parentid ";
         $query .= $fromclause;
         $result = $this->dbconn->Execute($query,array(0));
-        if (!$result) return;
 
         $privileges = array();
         $pids = array();
@@ -1078,7 +1115,6 @@ class xarPrivileges extends xarMasks
         if (empty($allrealms)) {
             $query = "SELECT xar_rid, xar_name FROM $this->realmstable";
             $result = $this->dbconn->Execute($query);
-            if (!$result) return;
 
             // add some extra lines we want
             // $allrealms[] = array('rid' => -2,'name' => ' ');
@@ -1107,32 +1143,28 @@ class xarPrivileges extends xarMasks
  * @return  array of module ids and names
  * @throws  none
  * @todo    this isn't really the right place for this function
-*/
+ * @todo    ucfirst is a presentation issue.
+ */
+    
     function getmodules()
     {
-    if ((!isset($allmodules)) || count($allmodules)==0) {
-            $query = "SELECT modules.xar_id,
-                        modules.xar_name
-                        FROM $this->modulestable modules LEFT JOIN $this->modulestatestable states
-                        ON modules.xar_regid = states.xar_regid
-                        WHERE states.xar_state = 3
-                        ORDER BY modules.xar_name";
+        static $allmodules = array();
 
-            $result = $this->dbconn->Execute($query);
-            if (!$result) return;
-
-// add some extra lines we want
-            $modules = array();
-//          $modules[] = array('id' => -2,
-//                             'name' => ' ');
-            $modules[] = array('id' => -1,
-                               'name' => 'All',
-                               'display' => 'All');
-//          $modules[] = array('id' => 0,
-//                             'name' => 'None');
-
-// add the modules from the database
-// TODO: maybe remove the key, don't really need it
+        if (empty($allmodules)) {
+            $query = "SELECT modules.xar_id, modules.xar_name
+                      FROM $this->modulestable modules 
+                      WHERE modules.xar_state = ?
+                      ORDER BY modules.xar_name";
+            $result = $this->dbconn->Execute($query,array(3));
+            
+            // add some extra lines we want
+            // $allmodules[] = array('id' => -2, 'name' => ' ');
+            $allmodules[] = array('id' => -1,
+                                  'name' => 'All',
+                                  'display' => 'All');
+            // $allmodules[] = array('id' => 0, 'name' => 'None');
+            // add the modules from the database
+            // TODO: maybe remove the key, don't really need it
             while(!$result->EOF) {
                 list($mid, $name) = $result->fields;
                 $modules[] = array('id' => $mid,
@@ -1141,12 +1173,8 @@ class xarPrivileges extends xarMasks
                                    'display' => ucfirst($name));
                 $result->MoveNext();
             }
-            $allmodules = $modules;
-            return $modules;
         }
-        else {
-            return $allmodules;
-        }
+        return $allmodules;
     }
 
 /**
@@ -1166,13 +1194,14 @@ class xarPrivileges extends xarMasks
 */
     function getcomponents($module)
     {
+        $modInfo = xarMod_GetBaseInfo($module);
+        $modId = $modInfo['systemid'];
         $query = "SELECT DISTINCT xar_component
                     FROM $this->instancestable
-                    WHERE xar_module= ?
+                    WHERE xar_modid= ?
                     ORDER BY xar_component";
 
-        $result = $this->dbconn->Execute($query,array($module));
-        if (!$result) return;
+        $result = $this->dbconn->Execute($query,array($modId));
 
         $components = array();
         if ($module ==''){
@@ -1220,7 +1249,8 @@ class xarPrivileges extends xarMasks
 */
     function getinstances($module, $component)
     {
-
+        $modInfo = xarMod_GetBaseInfo($module);
+        $modId = $modInfo['systemid'];
 
         if ($component =="All") {
             $componentstring = "";
@@ -1230,72 +1260,55 @@ class xarPrivileges extends xarMasks
         }
         $query = "SELECT xar_header, xar_query, xar_limit
                     FROM $this->instancestable
-                    WHERE xar_module= ? AND xar_component= ?
+                    WHERE xar_modid= ? AND xar_component= ?
                      ORDER BY xar_component,xar_iid";
-        $bindvars = array($module,$component);
+        $bindvars = array($modId,$component);
 
         $instances = array();
         $result = $this->dbconn->Execute($query,$bindvars);
-        if (!$result) return;
-
         while(!$result->EOF) {
             list($header,$selection,$limit) = $result->fields;
 
-// Check if an external instance wizard is requested, if so redirect using the URL in the 'query' part
-// This is indicated by the keyword 'external' in the 'header' of the instance definition
+            // Check if an external instance wizard is requested, if so redirect using the URL in the 'query' part
+            // This is indicated by the keyword 'external' in the 'header' of the instance definition
             if ($header == 'external') {
                 return array('external' => 'yes',
                              'target'   => $selection);
             }
 
-// check if the query is there
+            // check if the query is there
             if ($selection =='') {
                 $msg = xarML('A query is missing in component #(1) of module #(2)', $component, $module);
-
-                xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA',
-                               new DefaultUserException($msg));
-                return;
+                // TODO: make it descendent from xarExceptions.
+                throw new Exception($msg);
             }
 
             $result1 = $this->dbconn->Execute($selection);
-            if (!$result1) return;
 
             $dropdown = array();
             if ($module ==''){
-                $dropdown[] = array('id' => -2,
-                                   'name' => '');
-            }
-            elseif($result->EOF) {
-                $dropdown[] = array('id' => -1,
-                                   'name' => 'All');
-    //          $dropdown[] = array('id' => 0,
-    //                             'name' => 'None');
-            }
-            else {
-                $dropdown[] = array('id' => -1,
-                                   'name' => 'All');
-    //          $dropdown[] = array('id' => 0,
-    //                             'name' => 'None');
+                $dropdown[] = array('id' => -2,'name' => '');
+            }  elseif($result->EOF) {
+                $dropdown[] = array('id' => -1,'name' => 'All');
+    //          $dropdown[] = array('id' => 0, 'name' => 'None');
+            }  else {
+                $dropdown[] = array('id' => -1,'name' => 'All');
+    //          $dropdown[] = array('id' => 0, 'name' => 'None');
             }
             while(!$result1->EOF) {
                 list($dropdownline) = $result1->fields;
                 if (($dropdownline != 'All') && ($dropdownline != 'None')){
-                    $dropdown[] = array('id' => $dropdownline,
-                                       'name' => $dropdownline);
+                    $dropdown[] = array('id' => $dropdownline, 'name' => $dropdownline);
                 }
                 $result1->MoveNext();
             }
 
             if (count($dropdown) > $limit) {
                 $type = "manual";
-            }
-            else {
+            } else {
                 $type = "dropdown";
             }
-            $instances[] = array('header' => $header,
-                                'dropdown' => $dropdown,
-                                'type' => $type
-                                );
+            $instances[] = array('header' => $header,'dropdown' => $dropdown, 'type' => $type);
             $result->MoveNext();
         }
 
@@ -1335,7 +1348,7 @@ class xarPrivileges extends xarMasks
     {
 
         $instance = "";
-        foreach ($instances as $inst) {
+        foreach ($instances as $inst) { // mrb: why not use join()?
             $instance .= $inst . ":";
         }
         if ($instance =="") {
@@ -1347,13 +1360,13 @@ class xarPrivileges extends xarMasks
 
         if($pid==0) {
             $pargs = array('name' => $name,
-                        'realm' => $realm,
-                        'module' => $module,
-                        'component' => $component,
-                        'instance' => $instance,
-                        'level' => $level,
-                        'parentid' => 0
-                        );
+                           'realm' => $realm,
+                           'module' => $module,
+                           'component' => $component,
+                           'instance' => $instance,
+                           'level' => $level,
+                           'parentid' => 0
+                           );
             $priv = new xarPrivilege($pargs);
             if ($priv->add()) {
                 return $priv->getID();
@@ -1398,10 +1411,11 @@ class xarPrivileges extends xarMasks
         }
         // Need to get it
         $query = "SELECT * FROM $this->privilegestable WHERE xar_pid = ?";
+        if(!isset($stmt)) $stmt = $this->dbconn->prepareStatement($query);
         //Execute the query, bail if an exception was thrown
-        $result = $this->dbconn->Execute($query,array($pid));
-        if (!$result) return;
-        if (!$result->EOF) {
+        $result = $stmt->executeQuery(array($pid),ResultSet::FETCHMODE_NUM);
+
+        if ($result->next()) {
             list($pid,$name,$realm,$module,$component,$instance,$level,$description) = $result->fields;
             $pargs = array('pid'=>$pid,
                            'name'=>$name,
@@ -1439,7 +1453,7 @@ class xarPrivileges extends xarMasks
         $query = "SELECT * FROM $this->privilegestable WHERE xar_name = ?";
         //Execute the query, bail if an exception was thrown
         $result = $this->dbconn->Execute($query,array($name));
-        if (!$result) return;
+
         if (!$result->EOF) {
             list($pid,$name,$realm,$module,$component,$instance,$level,$description) = $result->fields;
             $pargs = array('pid'=>$pid,
@@ -1475,7 +1489,7 @@ class xarPrivileges extends xarMasks
         $query = "SELECT * FROM $this->privilegestable WHERE xar_module = ?";
         //Execute the query, bail if an exception was thrown
         $result = $this->dbconn->Execute($query,array($module));
-        if (!$result) return;
+
         for (; !$result->EOF; $result->MoveNext()) {
             list($pid,$name,$realm,$module,$component,$instance,$level,$description) = $result->fields;
             $pargs = array('pid'=>$pid,
@@ -1515,7 +1529,7 @@ class xarPrivileges extends xarMasks
                   FROM $this->privilegestable WHERE xar_name = ?";
         //Execute the query, bail if an exception was thrown
         $result = $this->dbconn->Execute($query,array($parentname));
-        if (!$result) return;
+
 
 // create the parent object
         list($pid,$name,$realm,$module,$component,$instance,$level,$description) = $result->fields;
@@ -1534,7 +1548,7 @@ class xarPrivileges extends xarMasks
         $query = "SELECT * FROM $this->privilegestable WHERE xar_name = ?";
         //Execute the query, bail if an exception was thrown
         $result = $this->dbconn->Execute($query,array($childname));
-        if (!$result) return;
+
 
 // create the child object
         list($pid,$name,$realm,$module,$component,$instance,$level,$description) = $result->fields;
@@ -1588,19 +1602,19 @@ class xarPrivileges extends xarMasks
 
   class xarMask
 {
-    var $sid;           //the id of this privilege
-    var $name;          //the name of this privilege
-    var $realm;         //the realm of this privilege
-    var $module;        //the module of this privilege
-    var $component;     //the component of this privilege
-    var $instance;      //the instance of this privilege
-    var $level;         //the access level of this privilege
-    var $description;   //the long description of this privilege
-    var $normalform;    //the normalized form of this privilege
+    public $sid;           //the id of this privilege
+    public $name;          //the name of this privilege
+    public $realm;         //the realm of this privilege
+    public $module;        //the module of this privilege
+    public $component;     //the component of this privilege
+    public $instance;      //the instance of this privilege
+    public $level;         //the access level of this privilege
+    public $description;   //the long description of this privilege
+    public $normalform;    //the normalized form of this privilege
 
-    var $dbconn;
-    var $privilegestable;
-    var $privmemberstable;
+    public $dbconn;
+    public $privilegestable;
+    public $privmemberstable;
 
 /**
  * xarMask: constructor for the class
@@ -1809,8 +1823,7 @@ class xarPrivileges extends xarMasks
             }
             if (count($p) != 5) {
                 $msg = xarML('#(1) and #(2) do not have the same instances. #(3) | #(4) | #(5)',$mask->getName(),$this->getName(),implode(',',$p2),implode(',',$p1),$this->present() . "|" . $mask->present());
-                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                               new SystemException($msg));
+                throw new Exception($msg);
             }
         }
         for ( $i = 4, $p1count = count($p1); $i < $p1count; $i++) {
@@ -1933,19 +1946,19 @@ class xarPrivileges extends xarMasks
 class xarPrivilege extends xarMask
 {
 
-    var $pid;           //the id of this privilege
-    var $name;          //the name of this privilege
-    var $realm;         //the realm of this privilege
-    var $module;        //the module of this privilege
-    var $component;     //the component of this privilege
-    var $instance;      //the instance of this privilege
-    var $level;         //the access level of this privilege
-    var $description;   //the long description of this privilege
-    var $parentid;      //the pid of the parent of this privilege
+    public $pid;           //the id of this privilege
+    public $name;          //the name of this privilege
+    public $realm;         //the realm of this privilege
+    public $module;        //the module of this privilege
+    public $component;     //the component of this privilege
+    public $instance;      //the instance of this privilege
+    public $level;         //the access level of this privilege
+    public $description;   //the long description of this privilege
+    public $parentid;      //the pid of the parent of this privilege
 
-    var $dbconn;
-    var $privilegestable;
-    var $privmemberstable;
+    public $dbconn;
+    public $privilegestable;
+    public $privmemberstable;
 
 /**
  * xarPrivilege: constructor for the class
@@ -2007,9 +2020,7 @@ class xarPrivilege extends xarMask
         if(empty($this->name)) {
             $msg = xarML('You must enter a name.',
                         'privileges');
-            xarErrorSet(XAR_USER_EXCEPTION,
-                        'DUPLICATE_DATA',
-                         new DefaultUserException($msg));
+            throw new DuplicateException(null,$msg);
             xarSessionSetVar('errormsg', _MODARGSERROR);
             return false;
         }
@@ -2020,19 +2031,11 @@ class xarPrivilege extends xarMask
               WHERE xar_name = ?";
 
         $result = $this->dbconn->Execute($query,array($this->name));
-        if (!$result) return;
 
         list($count) = $result->fields;
 
-        if ($count == 1) {
-            $msg = xarML('This entry already exists.',
-                        'privileges');
-            xarErrorSet(XAR_USER_EXCEPTION,
-                        'DUPLICATE_DATA',
-                         new DefaultUserException($msg));
-            xarSessionSetVar('errormsg', _GROUPALREADYEXISTS);
-            return;
-        }
+        if ($count == 1) throw new DuplicateException(array('privilege',$this->name));
+
 
 // create the insert query
         $query = "INSERT INTO $this->privilegestable
@@ -2042,14 +2045,14 @@ class xarPrivilege extends xarMask
                           $this->name, $this->realm, $this->module,
                           $this->component, $this->instance, $this->level);
         //Execute the query, bail if an exception was thrown
-        if (!$this->dbconn->Execute($query,$bindvars)) return;
+        $this->dbconn->Execute($query,$bindvars);
 
 // the insert created a new index value
 // retrieve the value
+        // FIXME: use creole here
         $query = "SELECT MAX(xar_pid) FROM $this->privilegestable";
         //Execute the query, bail if an exception was thrown
         $result = $this->dbconn->Execute($query);
-        if (!$result) return;
 
 // use the index to get the privileges object created from the repository
         list($pid) = $result->fields;
@@ -2080,8 +2083,8 @@ class xarPrivilege extends xarMask
     function makeEntry()
     {
         if ($this->isRootPrivilege()) return true;
-        $query = "INSERT INTO $this->privmemberstable VALUES (?,0)";
-        if (!$this->dbconn->Execute($query,array($this->getID()))) return;
+        $query = "INSERT INTO $this->privmemberstable VALUES (?,?)";
+        $this->dbconn->Execute($query,array($this->getID(),0));
         return true;
     }
 
@@ -2103,7 +2106,7 @@ class xarPrivilege extends xarMask
         $query = "INSERT INTO $this->privmemberstable VALUES (?,?)";
         $bindvars = array($member->getID(), $this->getID());
         //Execute the query, bail if an exception was thrown
-        if (!$this->dbconn->Execute($query,$bindvars)) return;
+        $this->dbconn->Execute($query,$bindvars);
 
 // empty the privset cache
 //        $privileges = new xarPrivileges();
@@ -2174,7 +2177,7 @@ class xarPrivilege extends xarMask
                           $this->component, $this->instance, $this->level,
                           $this->getID());
         //Execute the query, bail if an exception was thrown
-        if (!$this->dbconn->Execute($query,$bindvars)) return;
+        $this->dbconn->Execute($query,$bindvars);
         return true;
     }
 
@@ -2196,14 +2199,13 @@ class xarPrivilege extends xarMask
 // set up the DELETE query
         $query = "DELETE FROM $this->privilegestable WHERE xar_pid=?";
 //Execute the query, bail if an exception was thrown
-        if (!$this->dbconn->Execute($query,array($this->pid))) return;
+        $this->dbconn->Execute($query,array($this->pid));
 
 // set up a query to get all the parents of this child
         $query = "SELECT xar_parentid FROM $this->privmemberstable
               WHERE xar_pid=?";
         //Execute the query, bail if an exception was thrown
         $result = $this->dbconn->Execute($query,array($this->getID()));
-        if (!$result) return;
 
 // remove this child from all the parents
         $perms = new xarPrivileges();
@@ -2217,8 +2219,8 @@ class xarPrivilege extends xarMask
         }
 
 // remove this child from the root privilege too
-        $query = "DELETE FROM $this->privmemberstable WHERE xar_pid=? AND xar_parentid=0";
-        if (!$this->dbconn->Execute($query,array($this->pid))) return;
+        $query = "DELETE FROM $this->privmemberstable WHERE xar_pid=? AND xar_parentid=?";
+        $this->dbconn->Execute($query,array($this->pid,0));
 
 // get all the roles this privilege was assigned to
         $roles = $this->getRoles();
@@ -2258,7 +2260,7 @@ class xarPrivilege extends xarMask
                 xar_partid = ? AND xar_permid = ?";
         $bindvars = array($role->getID(), $this->getID());
         $result = $this->dbconn->Execute($query,$bindvars);
-        if (!$result) return;
+
         return !$result->EOF;
     }
 
@@ -2272,46 +2274,45 @@ class xarPrivilege extends xarMask
  * @param   none
  * @return  boolean
  * @throws  none
- * @todo    none
+ * @todo    seems to me this belong in roles module instead?
 */
     function getRoles()
     {
 
-// set up a query to select the roles this privilege
-// is linked to in the acl table
-        $query = "SELECT r.xar_uid,
-                    r.xar_name,
-                    r.xar_type,
-                    r.xar_uname,
-                    r.xar_email,
-                    r.xar_pass,
-                    r.xar_auth_module
-                    FROM $this->rolestable r, $this->acltable acl
-                    WHERE r.xar_uid = acl.xar_partid
-                    AND acl.xar_permid = ?";
-//Execute the query, bail if an exception was thrown
+        // set up a query to select the roles this privilege
+        // is linked to in the acl table
+        $query = "SELECT r.xar_uid, r.xar_name, r.xar_type,
+                         r.xar_uname, r.xar_email, r.xar_pass,
+                         r.xar_auth_modid
+                  FROM $this->rolestable r, $this->acltable acl
+                  WHERE r.xar_uid = acl.xar_partid AND
+                        acl.xar_permid = ?";
+        //Execute the query, bail if an exception was thrown
         $result = $this->dbconn->Execute($query,array($this->pid));
-        if (!$result) return;
 
-// make objects from the db entries retrieved
+        // make objects from the db entries retrieved
         include_once 'modules/roles/xarroles.php';
         $roles = array();
-//      $ind = 0;
+        //      $ind = 0;
         while(!$result->EOF) {
-            list($uid,$name,$type,$uname,$email,$pass,$auth_module) = $result->fields;
-//          $ind = $ind + 1;
+            list($uid,$name,$type,$uname,$email,$pass,$auth_modid) = $result->fields;
+            //          $ind = $ind + 1;
+
             $role = new xarRole(array('uid' => $uid,
-                               'name' => $name,
-                               'type' => $type,
-                               'uname' => $uname,
-                               'email' => $email,
-                               'pass' => $pass,
-                               'auth_module' => $auth_module,
-                               'parentid' => 0));
+                                      'name' => $name,
+                                      'type' => $type,
+                                      'uname' => $uname,
+                                      'email' => $email,
+                                      'pass' => $pass,
+                                      // NOTE: CHANGED since 1.x! to and ID,
+                                      // but i dont think it matters, auth module should probably
+                                      // be phased out of this table completely
+                                      'auth_module' => $auth_modid,
+                                      'parentid' => 0));
             $result->MoveNext();
             $roles[] = $role;
         }
-// done
+        // done
         return $roles;
     }
 
@@ -2356,7 +2357,6 @@ class xarPrivilege extends xarMask
                     WHERE p.xar_pid = pm.xar_parentid
                       AND pm.xar_pid = ?";
         $result = $this->dbconn->Execute($query,array($this->getID()));
-        if (!$result) return;
 
 // collect the table values and use them to create new role objects
         $ind = 0;
@@ -2447,14 +2447,8 @@ class xarPrivilege extends xarMask
                     WHERE p.xar_pid = pm.xar_pid";
         // retrieve all children of everyone at once
         //              AND pm.xar_parentid = " . $cacheId;
-// Can't use caching here. The privs have changed
-//        if (xarCore_getSystemVar('DB.UseADODBCache')){
-//            $result =& $this->dbconn->CacheExecute(3600,$query);
-//            if (!$result) return;
-//        } else {
-            $result = $this->dbconn->Execute($query);
-            if (!$result) return;
-//        }
+        // Can't use caching here. The privs have changed
+        $result = $this->dbconn->Execute($query);
 
         // collect the table values and use them to create new role objects
         while(!$result->EOF) {

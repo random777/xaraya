@@ -1,7 +1,5 @@
 <?php
 /**
- * Display an item
- *
  * @package modules
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -42,6 +40,13 @@ function dynamicdata_user_display($args)
     if (!empty($table)) {
         if(!xarSecurityCheck('AdminDynamicData')) return;
     }
+
+    if (isset($objectid)) {
+	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('objectid' => $objectid));
+    } else {
+	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('moduleid' => $modid,'itemtype' => $itemtype));
+    }
+    $itemtype = $ancestor['itemtype'];
 
     $myobject = & Dynamic_Object_Master::getObject(array('objectid' => $objectid,
                                          'moduleid' => $modid,

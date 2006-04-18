@@ -113,7 +113,7 @@
         </dl>
     </div>
     <xar:comment>
-        ------------------- Begin General Options --------------------- 
+        - - - - - - - - - - - - - - - - - - - Begin General Options - - - - - - - - - - - - - - - - - - - - - 
     </xar:comment>
     <xar:if condition="$tab eq 'general'">
         <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
@@ -174,39 +174,18 @@
                     <label for="defaultgroup" title="#xarML('New Users automatically get assigned to this Group')#" class="xar-form-label">
                         <xar:mlstring>
                             Default Group For New Users: 
-                        </xar:mlstring>
+                        Default Authentication Module 
                     </label>
                     <select name="defaultgroup" id="defaultgroup">
-                        <xar:loop name="$groups">
-                            <xar:if condition="$loop:item['name'] eq $defaultgroup">
-                                <option name="#$loop:item['name']#" id="#$loop:item['name']#" value="#$loop:item['name']#" selected="selected">
-                                    #$loop:item['name']# 
-                                </option>
-                                <xar:else />
-                                <option name="#$loop:item['name']#" id="#$loop:item['name']#" value="#$loop:item['name']#">
-                                    #$loop:item['name']# 
-                                </option>
-                            </xar:if>
-                        </xar:loop>
-                    </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>
-                    <xar:mlstring>
-                        Default Authentication &amp; Registration Modules
-                    </xar:mlstring>
-                </legend>
-                <div class="xar-form-input-wrapper">
                     <label for="defaultauthmodule" title="#xarML('Select the module that manages authentication of users')#" class="xar-form-label">
-                        <xar:mlstring>
+                    <label for="defaultauthmodule" title="#xarML('Select the module that manages authentication of users')#" class="xar-form-label">
                             Authentication:
-                        </xar:mlstring>
+                            Authentication:
                     </label>
                     <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmod" />
-                </div>
-                <div class="xar-form-input-wrapper">
-                    <label for="defaultregmodule" title="#xarML('Select the module that manages registration of users')#" class="xar-form-label">
+                    <xar:set name="defaultauthmodule">xarModGetVar('roles','defaultauthmodule')</xar:set>
+                    <xar:set name="filter">array('Class'=>'Authentication')</xar:set>
+                    <xar:data-input type="module" name="defaultauthmodule" filter="$filter" value="$defaultauthmodule" />
                         <xar:mlstring>
                             Registration:
                         </xar:mlstring>
@@ -218,9 +197,8 @@
                 <div class="xar-form-input-wrapper-after">
                     <input type="hidden" name="authid" id="authid" value="#$authid#" />
                     <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
+        - - - - - - - - - - - - - - - - - - - Begin User Variable Options - - - - - - - - - - - - - - - - - - - - - 
                     <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                </div>
             </fieldset>
         </form>
         <xar:comment>
@@ -292,13 +270,15 @@
                                 userhome
                             </td>
                             <td style="width: 400px">
-                                      <xar:mlstring>The user's home page, which is initially displayed when the user logs in. The home page can be user specific or inherited from the direct parent group. The home page is specified in a similar manner to user menu item shortcuts in the modify or edit role page.</xar:mlstring>
+                                <xar:mlstring>The user's home page, which is initially displayed when the user logs in. The home page can be user specific or inherited from a parent group</xar:mlstring>
                             </td>
                             <td style="width: 50px; text-align: center;">
-                                <xar:if condition="xarModGetVar('roles','setuserhome')">
-                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setuserhome' => 0))#">
+                                <xar:if condition="xarModGetVar('roles','userhome')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','userhome' => 0))#">
                                         <xar:mlstring>Deactivate</xar:mlstring>
                                     </a>
+                                <xar:else />
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','userhome' => 1))#">
                                 <xar:else />
                                     <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setuserhome' => 1))#">
                                         <xar:mlstring>Activate</xar:mlstring>
@@ -306,8 +286,6 @@
                                 </xar:if>
                             </td>
                         </tr>
-
-                        <xar:comment> jojodee: comment out primary parent until there is supporting code in place.
                         <tr>
                             <td style="width: 100px">
                                 primaryparent
@@ -316,10 +294,12 @@
                                 <xar:mlstring>The user's primary parent group. Inherited properties from this parent take precendence over inherited properties from other parent groups.</xar:mlstring>
                             </td>
                             <td style="width: 50px; text-align: center;">
-                                <xar:if condition="xarModGetVar('roles','setprimaryparent')">
-                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setprimaryparent' => 0))#">
+                                <xar:if condition="xarModGetVar('roles','primaryparent')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','primaryparent' => 0))#">
                                         <xar:mlstring>Deactivate</xar:mlstring>
                                     </a>
+                                <xar:else />
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','primaryparent' => 1))#">
                                 <xar:else />
                                     <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setprimaryparent' => 1))#">
                                         <xar:mlstring>Activate</xar:mlstring>
@@ -327,7 +307,6 @@
                                 </xar:if>
                             </td>
                         </tr>
-                        </xar:comment>
                         <tr>
                             <td style="width: 100px">
                                 passwordupdate
@@ -336,10 +315,11 @@
                                 <xar:mlstring>The date the last time this role's password was changed.</xar:mlstring>
                             </td>
                             <td style="width: 50px; text-align: center;">
-                                <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
-                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setpasswordupdate' => 0))#">
+                                <xar:if condition="xarModGetVar('roles','passwordupdate')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','passwordupdate' => 0))#">
                                         <xar:mlstring>Deactivate</xar:mlstring>
                                     </a>
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','passwordupdate' => 1))#">
                                 <xar:else />
                                     <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setpasswordupdate' => 1))#">
                                         <xar:mlstring>Activate</xar:mlstring>
@@ -355,13 +335,14 @@
                                 <xar:mlstring>This role's timezone.</xar:mlstring>
                             </td>
                             <td style="width: 50px; text-align: center;">
-                                <xar:if condition="xarModGetVar('roles','settimezone')">
-                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','settimezone' => 0))#">
+                                <xar:if condition="xarModGetVar('roles','timezone')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','timezone' => 0))#">
                                         <xar:mlstring>Deactivate</xar:mlstring>
                                     </a>
-                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','settimezone' => 1))#">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','timezone' => 1))#">
                                         <xar:mlstring>Activate</xar:mlstring>
                                     </a>
+                                </xar:if>
                                 </xar:if>
                             </td>
                         </tr>
@@ -406,7 +387,7 @@
             </p>
         </xar:if>
         <xar:comment>
-            ----------------- Begin Group Hooks Options ------------------- 
+            - - - - - - - - - - - - - - - - - Begin Group Hooks Options - - - - - - - - - - - - - - - - - - - 
         </xar:comment>
         <xar:elseif condition="$tab eq 'grouphooks'" />
         <xar:if condition="!empty($hooks)">
@@ -435,7 +416,7 @@
             </p>
         </xar:if>
         <xar:comment>
-            ----------------- Begin Member List Options ------------------- 
+            - - - - - - - - - - - - - - - - - Begin Member List Options - - - - - - - - - - - - - - - - - - - 
         </xar:comment>
         <xar:elseif condition="$tab eq 'memberlist'" />
         <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">

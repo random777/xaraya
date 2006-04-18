@@ -46,7 +46,7 @@ function authsystem_init()
             array('modName' => 'authsystem',
                   'blockType' => 'login'))) return;
 
-     if (!xarModAPIFunc('blocks', 'user', 'get', array('name'  => 'login'))) {
+    if (!xarModAPIFunc('blocks', 'user', 'get', array('name'  => 'login'))) {
         $rightgroup = xarModAPIFunc('blocks', 'user', 'getgroup', array('name'=> 'right'));
         if (!xarModAPIFunc('blocks', 'admin', 'create_instance',
                            array('title'    => 'Login',
@@ -70,12 +70,10 @@ function authsystem_init()
 function authsystem_activate()
 {
    /* Register blocks */
-
     $bid = xarModAPIFunc('blocks','admin','register_block_type',
                    array('modName' => 'authsystem',
                          'blockType' => 'login'));
-    if (!$bid) return;
-    
+    if (!$bid) return;    
   return true;
 }
 

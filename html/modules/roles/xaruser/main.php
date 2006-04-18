@@ -26,7 +26,7 @@ function roles_user_main()
     /*
     if(xarSecurityCheck('EditRole',0)) {
 
-        if (xarModGetVar('modules', 'overview') == 0){
+        if (xarModGetVar('modules', 'disableoverview') == 0){
             return xarTplModule('roles','admin', 'main',array());
         } else {
             xarResponseRedirect(xarModURL('roles', 'admin', 'viewroles'));
@@ -48,6 +48,7 @@ function roles_user_main()
            xarResponseRedirect(xarModURL('roles',
                                          'user',
                                          'account'));
+            xarResponseRedirect(xarModURL(xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule')),
         } else {
             xarResponseRedirect(xarModURL($authmodule,
                                           'user',

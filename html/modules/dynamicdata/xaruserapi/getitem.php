@@ -1,7 +1,6 @@
 <?php
 /**
  * Get all data fields for an item
- *
  * @package modules
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -70,11 +69,9 @@ function &dynamicdata_userapi_getitem($args)
         $invalid[] = 'item id';
     }
     if (count($invalid) > 0) {
-        $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)',
-                    join(', ',$invalid), 'user', 'getall', 'DynamicData');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                       new SystemException($msg));
-        return $nullreturn;
+        $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
+        $vars = array(join(', ',$invalid), 'user', 'getall', 'DynamicData');
+        throw new BadParameterException($vars,$msg);
     }
 
     if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:$itemid")) return $nullreturn;
@@ -88,37 +85,45 @@ function &dynamicdata_userapi_getitem($args)
     }
 
     // limit to property fields of a certain status (e.g. active)
-    if (!isset($status)) {
-        $status = null;
-    }
-
+    if (!isset($status)) $status = null;
+   
     // join a module table to a dynamic object
-    if (empty($join)) {
-        $join = '';
-    }
+    if (empty($join)) $join = '';
+    
     // make some database table available via DD
-    if (empty($table)) {
-        $table = '';
-    }
+    if (empty($table)) $table = '';
+    
+    $tree = xarModAPIFunc('dynamicdata','user', 'getancestors', array('moduleid' => $modid, 'itemtype' => $itemtype, 'base' => false));
+    $objectarray = $itemsarray = array();
+	foreach ($tree as $branch) {
+		$object =& Dynamic_Object_Master::getObject(array('moduleid'  => $modid,
+										   'itemtype'  => $branch['itemtype'],
+										   'itemid'    => $itemid,
+										   'fieldlist' => $fieldlist,
+										   'join'      => $join,
+										   'table'     => $table,
+										   'status'    => $status));
+		if (!isset($object) || empty($object->objectid)) return $nullreturn;
+		if (!empty($itemid)) {
+			$result = $object->getItem();
+		}
+		if (!empty($preview)) {
+			$object->checkInput();
+		}
 
-    $object = & Dynamic_Object_Master::getObject(array('moduleid'  => $modid,
-                                       'itemtype'  => $itemtype,
-                                       'itemid'    => $itemid,
-                                       'fieldlist' => $fieldlist,
-                                       'join'      => $join,
-                                       'table'     => $table,
-                                       'status'    => $status));
-    if (!isset($object) || empty($object->objectid)) return $nullreturn;
-    if (!empty($itemid)) {
-        $object->getItem();
-    }
-    if (!empty($preview)) {
-        $object->checkInput();
-    }
-
-    if (!empty($getobject)) {
-        return $object;
-    }
+		if (!empty($getobject)) {
+			$objectarray[] = $object;
+		} else {
+			if (isset($result)) {
+				if ($itemsarray == array()) {
+					$itemsarray = $object->getFieldValues();}
+				else {
+					$itemsarray = array_merge($itemsarray, $object->getFieldValues());
+				}
+			}
+		}
+	}
+    // FIXME: this wont work now, since apparently we would need to loop over the objectarray?
     $objectData = $object->getFieldValues();
     return $objectData;
 }

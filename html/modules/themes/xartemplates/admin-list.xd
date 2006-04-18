@@ -1,6 +1,4 @@
-<xar:comment>
-    License: GPL http://www.gnu.org/copyleft/gpl.html
-</xar:comment>
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:set name="modstatus">
     xarSessionGetVar('statusmsg')
 </xar:set>
@@ -58,9 +56,9 @@
         #$modscount#
     </p>
     <form method="post" action="&xar-modurl-themes-admin-settings;">
-        <xar:comment>
+        <!--
             Theme List Filter Controls table
-        </xar:comment>
+        -->
         <table class="xar-fullwidth">
             <tr>
                 <th>
@@ -270,10 +268,10 @@
                                     <img src="#xarTplGetImage('set1/none.png')#" alt="#xarML('n/a')#" />
                                 </xar:if>
                             <xar:else />
-                                <a href="#$modinfo['infourlnew']#&amp;theme=print" onclick="window.open(this.getAttribute('href'));return false;">
-                                    <xar:mlstring>
-                                        Info
-                                    </xar:mlstring>
+
+                                <a href="#$modinfo['infourl']#">
+                                    <xar:mlstring>Info</xar:mlstring>
+                                </a>
                                 </a>
                                 <noscript>
                                     <a href="#$modinfo['infourl']#">

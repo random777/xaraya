@@ -19,9 +19,12 @@ function authsystem_admin_main()
 {
     // Security Check
     if (!xarSecurityCheck('AdminAuthsystem')) return;
-   
-    xarResponseRedirect(xarModURL('authsystem', 'admin', 'modifyconfig'));
-
+    if (xarModGetVar('modules', 'disableoverview') == 0) {
+       $data=array();
+       return $data;
+    } else {
+        xarResponseRedirect(xarModURL('authsystem', 'admin', 'modifyconfig'));
+    }
     // success
     return true;
 }

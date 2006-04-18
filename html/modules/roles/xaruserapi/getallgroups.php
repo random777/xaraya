@@ -48,7 +48,7 @@ function roles_userapi_getallgroups($args)
                 'roles', 'user', 'get',
                 array(
                     (is_numeric($group) ? 'uid' : 'name') => trim($group),
-                    'type' => 1
+                    'type' => ROLES_GROUPTYPE
                 )
             );
             if (isset($group['uid']) && is_numeric($group['uid'])) {
@@ -66,7 +66,7 @@ function roles_userapi_getallgroups($args)
         $q1->join('rm.xar_uid','r.xar_uid');
         $q1->join('rm.xar_parentid','r1.xar_uid');
         $q1->addfields(array('r.xar_name','rm.xar_uid','r1.xar_name','rm.xar_parentid'));
-        $q1->eq('r.xar_type',1);
+        $q1->eq('r.xar_type',ROLES_GROUPTYPE);
         $q1->run();
         $allgroups = $q1->output();
         $descendants = array();
@@ -83,7 +83,7 @@ function roles_userapi_getallgroups($args)
     }
 
     if (count($conditions) != 0) $q->qor($conditions);
-    $q->eq('r.xar_type',1);
+    $q->eq('r.xar_type',ROLES_GROUPTYPE);
     $q->ne('r.xar_state',ROLES_STATE_DELETED);
     $q->run();
 

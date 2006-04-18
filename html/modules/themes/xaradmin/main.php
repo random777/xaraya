@@ -1,14 +1,11 @@
 <?php
 /**
- * Main themes module function
- *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
- * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * main themes module function
@@ -21,6 +18,7 @@ function themes_admin_main()
     // Security Check
     if(!xarSecurityCheck('AdminTheme')) return;
 
+    if (xarModGetVar('modules', 'disableoverview') == 0){
         xarResponseRedirect(xarModURL('themes', 'admin', 'list'));
 
     // success

@@ -97,7 +97,7 @@
         </dl>
     </div>
     <xar:comment>
-        ------------------- Begin General Options --------------------- 
+        - - - - - - Begin General Options - - - - - -
     </xar:comment>
     <xar:if condition="$tab eq 'general'">
         <form method="post" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >
@@ -108,7 +108,7 @@
                     </xar:mlstring>
                 </legend>
                 <div class="xar-form-input-wrapper">
-                    <label for="exceptionredirect" title="#xarML('Show exceptions messages or redirect to a login screen')#" class="xar-form-label">
+                    <label for="lastresort" title="#xarML('Show exceptions messages or redirect to a login screen')#" class="xar-form-label">
                         <xar:mlstring>Exception Redirect:</xar:mlstring>
                     </label>
                     <xar:if condition="xarModGetVar('privileges', 'exceptionredirect')">
@@ -116,7 +116,7 @@
                     <xar:else />
                         <input type="checkbox" name="exceptionredirect" id="exceptionredirect" value="1" />
                     </xar:if>
-                    <xar:mlstring>This redirects a non-logged in user to the login screen if they don't have the proper privileges. </xar:mlstring>
+                    <xar:mlstring>This redirects to the login screen when a user doesn't have the proper privileges.</xar:mlstring>
                 </div>
                 <div class="xar-form-input-wrapper-after"><xar:mlstring>A logged in user will see the exception error message that can be changed with a base module override template (message-NO_PRIVILEGES.xt).</xar:mlstring>
                 </div>
@@ -133,7 +133,9 @@
                     <xar:mlstring>Warning: This setting affects the way privileges work on your site. If changed you should retest all the privileges on your site.</xar:mlstring>
                 </div>
                 </xar:comment>
-                <legend>
+             </fieldset>
+            <fieldset>
+               <legend>
                     <xar:mlstring>
                         Last Resort
                     </xar:mlstring>
@@ -161,7 +163,7 @@
         </form>
     </xar:if>
     <xar:comment>
-        ------------------- Begin Realms Options --------------------- 
+        - - - - - Begin Realms Options - - - - - 
     </xar:comment>
     <xar:if condition="$tab eq 'realms'">
         <form method="post" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
@@ -214,6 +216,7 @@
                        <div class="xar-form-container-after">
                         <xar:foreach in="$realmoptions" key="$key" value="$value">
                             <p>
+                        <xar:mlstring>Security checks will match any privilege that contains the above choice in its realm</xar:mlstring>
                             <xar:if condition="$realmvalue eq $value['id']">
                                 <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue" checked="checked" /> #xarML($value['name'])#
                             <xar:else />
@@ -239,6 +242,7 @@
                             <xar:mlstring>
                                 Realm Comparison Type
                             </xar:mlstring>
+                        </label>
                         </label>
                         <xar:set name="options">array(
                                                 array('id' => 'exact', 'name' => 'Exact Match'),
@@ -273,7 +277,7 @@
         </form>
     </xar:if>
     <xar:comment>
-        ------------------- Begin Last Resort --------------------- 
+        - - - - - Begin Last Resort - - - - -  
     </xar:comment>
     <xar:if condition="$tab eq 'lastresort' AND xarModGetVar('privileges','lastresort')">
         <form method="post" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >
@@ -325,7 +329,7 @@
         </form>
     </xar:if>
     <xar:comment>
-        ------------------- Begin Masks --------------------- 
+        - - - - - Begin Masks - - - - - 
     </xar:comment>
     <xar:if condition="$tab eq 'masks'">
         <fieldset>
@@ -353,7 +357,7 @@
         </fieldset>
     </xar:if>
     <xar:comment>
-        ------------------- Begin Testing --------------------- 
+        - - - - - - Begin Testing - - - - - 
     </xar:comment>
     <xar:if condition="$tab eq 'testing'">
         <form method="post" id="testerform" name="testerform" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >

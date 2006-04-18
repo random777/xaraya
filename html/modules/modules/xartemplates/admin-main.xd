@@ -35,7 +35,6 @@
         </li>
         <li>
             <xar:mlstring><strong>Modify Config</strong>: Change configuration options related to the Modules module, or modules in general.</xar:mlstring>
-        </li>
 
     </ul>
 

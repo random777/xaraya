@@ -1,7 +1,5 @@
 <?php
 /**
- * View block types
- *
  * @package modules
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -84,7 +82,7 @@ function blocks_admin_view_types()
     }
 
     $block_types = xarModAPIfunc(
-        'blocks', 'user', 'getallblocktypes', array('order' => 'module,type')
+        'blocks', 'user', 'getallblocktypes', array('order' => 'modid,type')
     );
 
     // Add in some extra details.

@@ -3,7 +3,7 @@
  * Modify configuration
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -43,8 +43,6 @@ function roles_admin_modifyconfig()
             $query = "SELECT xar_partid FROM $acltable
                     WHERE xar_permid   = ?";
             $result =& $dbconn->Execute($query, array((int) $adminpriv));
-            if (!$result) return;
-
 
             // so now we have the list of all roles with *assigned* admin privileges
             // now we have to find which ones ar candidates for admin:
@@ -90,9 +88,6 @@ function roles_admin_modifyconfig()
                 xarModSetVar('roles', 'disallowedips', $ip);
             }
             $data['siteadmins'] = $siteadmins;
-            $data['defaultgroup'] = xarModGetVar('roles', 'defaultgroup');
-            $data['groups'] = $groups;
-
             $data['authid'] = xarSecGenAuthKey();
             $data['updatelabel'] = xarML('Update Roles Configuration');
             $hooks = array();
@@ -101,13 +96,13 @@ function roles_admin_modifyconfig()
                     // Item type 0 is the default itemtype for 'user' roles.
                     $hooks = xarModCallHooks('module', 'modifyconfig', 'roles',
                                              array('module' => 'roles',
-                                                   'itemtype' => 0));
+                                                   'itemtype' => ROLES_USERTYPE));
                     break;
                 case 'grouphooks':
                     // Item type 1 is the (current) itemtype for 'group' roles.
                     $hooks = xarModCallHooks('module', 'modifyconfig', 'roles',
                                              array('module' => 'roles',
-                                                   'itemtype' => 1));
+                                                   'itemtype' => ROLES_GROUPTYPE));
                     break;
                 default:
                     break;
@@ -127,7 +122,6 @@ function roles_admin_modifyconfig()
                     if (!xarVarFetch('defaultregmodule', 'str:1:', $defaultregmodule, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     if (!xarVarFetch('shorturls', 'checkbox', $shorturls, false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('siteadmin', 'int:1', $siteadmin, xarModGetVar('roles','admin'), XARVAR_NOT_REQUIRED)) return;
-                    if (!xarVarFetch('defaultgroup', 'str:1', $defaultgroup, 'Users', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
 
                     xarModSetVar('roles', 'itemsperpage', $itemsperpage);
                     xarModSetVar('roles', 'defaultauthmodule', $defaultauthmodule);
@@ -135,18 +129,17 @@ function roles_admin_modifyconfig()
                     xarModSetVar('roles', 'defaultgroup', $defaultgroup);
                     xarModSetVar('roles', 'SupportShortURLs', $shorturls);
                     xarModSetVar('roles', 'admin', $siteadmin);
-                    break;
                 case 'hooks':
-                    // Role type 'user' (itemtype 0).
+                    // Role type 'user' (itemtype 1).
                     xarModCallHooks('module', 'updateconfig', 'roles',
                                     array('module' => 'roles',
-                                          'itemtype' => 0));
+                                          'itemtype' => ROLES_USERTYPE));
                     break;
                 case 'grouphooks':
-                    // Role type 'group' (itemtype 1).
+                    // Role type 'group' (itemtype 2).
                     xarModCallHooks('module', 'updateconfig', 'roles',
                                     array('module' => 'roles',
-                                          'itemtype' => 1));
+                                          'itemtype' => ROLES_GROUPTYPE));
                     break;
                 case 'memberlist':
                     if (!xarVarFetch('searchbyemail', 'checkbox', $searchbyemail, false, XARVAR_NOT_REQUIRED)) return;
@@ -168,12 +161,12 @@ function roles_admin_modifyconfig()
         case 'links':
             switch ($data['tab']) {
                 case 'duvs':
-                    $duvarray = array('setuserhome'=>'userhome',
-                                      'setprimaryparent'=>'primaryparent',
-                                      'setpasswordupdate'=>'passwordupdate',
-                                      'settimezone'=>'timezone');
-                    foreach ($duvarray as $duv=>$userduv) {
+                    $duvarray = array('userhome','primaryparent','passwordupdate','timezone');
+                    foreach ($duvarray as $duv) {
                         if (!xarVarFetch($duv, 'int', $$duv, null, XARVAR_DONT_SET)) return;
+                        if (isset($$duv)) {
+                            if ($$duv) xarModSetVar('roles',$duv,1);
+                            else xarModSetVar('roles',$duv,0);
                         if (isset($$duv)) {
                             if ($$duv) {
                                 xarModSetVar('roles',$duv,true);

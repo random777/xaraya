@@ -20,6 +20,7 @@ function privileges_admin_main()
 // Security Check
     if(!xarSecurityCheck('ViewPrivileges')) return;
 
+    if (xarModGetVar('modules', 'disableoverview') == 0){
     xarResponseRedirect(xarModURL('privileges', 'admin', 'viewprivileges'));
     
     // success

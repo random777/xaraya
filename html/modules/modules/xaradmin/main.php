@@ -1,7 +1,5 @@
 <?php
 /**
- * Main modules module function
- *
  * @package modules
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -21,6 +19,7 @@ function modules_admin_main()
     // Security Check
     if(!xarSecurityCheck('AdminModules')) return;
 
+    if (xarModGetVar('modules', 'disableoverview') == 0){
     xarResponseRedirect(xarModURL('modules', 'admin', 'list'));
 
     // success

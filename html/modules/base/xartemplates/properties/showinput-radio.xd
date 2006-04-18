@@ -1,4 +1,4 @@
-<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
 
     <xar:foreach in="$options" value="$option" key="$key">
         <xar:if condition="$key == 0">
@@ -7,13 +7,13 @@
             <xar:set name="theID">$id.'_'.$key</xar:set>
         </xar:if>
 
-        <label for="#$theID#">#$option['name']# </label>
-        
         <xar:if condition="$option['id'] eq $value" >
             <input type="radio" name="#$name#" id="#$theID#" value="#$option['id']#" checked="checked" />
         <xar:else />
             <input type="radio" name="#$name#" id="#$theID#" value="#$option['id']#" />
         </xar:if>
+
+        <label for="#$theID#">#$option['name']# </label>
             
     </xar:foreach>
 

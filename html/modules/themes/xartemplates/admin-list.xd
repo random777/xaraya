@@ -1,6 +1,5 @@
-<xar:comment>
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
     License: GPL http://www.gnu.org/copyleft/gpl.html
-</xar:comment>
 <xar:set name="modstatus">
     xarSessionGetVar('statusmsg')
 </xar:set>
@@ -58,9 +57,9 @@
         #$modscount#
     </p>
     <form method="post" action="&xar-modurl-themes-admin-settings;">
-        <xar:comment>
+        <!--
             Theme List Filter Controls table
-        </xar:comment>
+        -->
         <table class="xar-fullwidth">
             <tr>
                 <th>

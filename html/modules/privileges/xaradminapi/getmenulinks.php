@@ -14,14 +14,15 @@
 /**
  * utility function pass individual menu items to the main menu
  *
- * @author the Example module development team
- * @returns array
  * @return array containing the menulinks for the main menu items.
  */
 function privileges_adminapi_getmenulinks()
 {
     $menulinks = array();
     if (xarSecurityCheck('EditPrivilege',0)) {
+        $menulinks[] = Array('url' => xarModURL('privileges','admin','overview'),
+                               'title' => xarML('Privileges Overview'),
+                              'label' => xarML('Overview'));
                               
         $menulinks[] = Array('url'   => xarModURL('privileges',
                                                   'admin',
@@ -55,5 +56,4 @@ function privileges_adminapi_getmenulinks()
     }
     return $menulinks;
 }
-
 ?>

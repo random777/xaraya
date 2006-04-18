@@ -1,6 +1,5 @@
 <?php
 /**
- * IsSet Validation Function
  *
  * @package validation
  * @copyright (C) 2002-2005 The Digital Development Foundation
@@ -20,9 +19,11 @@
  */
 function variable_validations_isset (&$subject, $parameters, $supress_soft_exc)
 {
+    // CHECKME: why does this have no $name parameter?
     if (!isset($subject)) {
-        $msg = xarML('The variable is not set!');
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
+        $msg = 'The variable was not set while the validation requires it to be.';
+        if (!$supress_soft_exc) 
+            throw new VariableValidationException('subject', $msg);
         return false;
     }
 

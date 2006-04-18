@@ -30,6 +30,9 @@ function roles_adminapi_getmenulinks()
     }*/
 
     if (xarSecurityCheck('EditRole',0)) {
+        $menulinks[] = Array('url' => xarModURL('roles','admin','overview'),
+                               'title' => xarML('Roles Overview'),
+                              'label' => xarML('Overview'));
 
         $menulinks[] = Array('url'   => xarModURL('roles',
                                                   'admin',

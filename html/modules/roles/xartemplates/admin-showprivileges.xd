@@ -7,12 +7,11 @@
 <div class="xar-mod-body">
   <xar:template type="module" file="admin-menu" />
     <h2>
-      <xar:if condition="$ptype eq 0">
-        <xar:mlstring>Show Privileges of User:</xar:mlstring>
-        <xar:else/>
-        <xar:mlstring>Show Privileges of Group:</xar:mlstring>
-      </xar:if>
-      <xar:var name="pname" prep="true"/>
+        <xar:ml>
+            <xar:mlstring>Show privileges #(1) '#(2)':</xar:mlstring>
+            <xar:mlvar>#$itemtypename#</xar:mlvar>
+            <xar:mlvar>#$pname#</xar:mlvar>
+        </xar:ml>
     </h2>
 
     <xar:if condition="count($parents) ne 0">
@@ -29,7 +28,7 @@
                   <xar:var name="parents[$i].parentname"  prep="true"/>
                 </a>
               </dd>
-            </xar:if>
+            </xar:if> 
             <xar:set name="prevgroup"><xar:var name="parents[$i].parentname" prep="true"/></xar:set>
           </xar:for>
         </dl>
@@ -49,7 +48,7 @@
             </xar:mlvar>
         </xar:ml>
       </legend>
-
+    
     <xar:if condition="count($inherited) eq 0">
         <p>
             <xar:mlstring>No privileges inherited.</xar:mlstring>
@@ -93,7 +92,7 @@
                       </xar:if>
                     </td>
                     <td>
-                      <a href="#$groupurl#&amp;uid=#$loop:item['groupid']#">
+                      <a href="#$groupurl#&amp;uid=#$loop:item['groupid']#">                
                         <xar:var name="loop:item.groupname" prep="true"/>
                       </a>
                     </td>
@@ -112,8 +111,8 @@
           </xar:mlvar>
         </xar:ml>
       </legend>
-
-
+      
+      
       <xar:if condition="count($privileges) eq 0">
         <p>
           <xar:mlstring>No privileges assigned.</xar:mlstring>
@@ -122,7 +121,7 @@
         <p>
           <xar:mlstring>Note: only relevant privileges are shown.</xar:mlstring>
         </p>
-
+        
         <table class="xar-fullwidth">
           <tr>
             <th><xar:mlstring>Name</xar:mlstring></th>
@@ -178,28 +177,24 @@
           </xar:loop>
         </table>
       </xar:if>
-      <xar:if condition="$ptype eq 1">
-        <xar:set name="$thisrole">
-          <xar:mlstring>Group</xar:mlstring>
-        </xar:set>
-        <xar:else />
-        <xar:set name="$thisrole">
-          <xar:mlstring>User</xar:mlstring>
-        </xar:set>
-      </xar:if>
-
+      <form action="&xar-modurl-roles-admin-addprivilege;" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="xar-form-input-wrapper">
+          <label for="privid" title="#xarML('Select the Privilege to add')#" class="xar-form-label">
+      <form action="&xar-modurl-roles-admin-addprivilege;" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="xar-form-input-wrapper">
+          <label for="privid" title="#xarML('Select the Privilege to add')#" class="xar-form-label">
       <form action="&xar-modurl-roles-admin-addprivilege;" method="post" enctype="application/x-www-form-urlencoded">
         <div class="xar-form-input-wrapper">
           <label for="privid" title="#xarML('Select the Privilege to add')#" class="xar-form-label">
             <xar:ml>
               <xar:mlstring>Assign a Privilege to #(1) '#(2)'</xar:mlstring>
               <xar:mlvar>
-                #$thisrole#
+                #$itemtypename#
               </xar:mlvar>
               <xar:mlvar>
                 #xarVarPrepForDisplay($pname)#
               </xar:mlvar>
-            </xar:ml>
+            </xar:ml>                     
           </label>
           <select name="privid" id="privid">
           <xar:loop name="$allprivileges">

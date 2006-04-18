@@ -20,6 +20,12 @@
 function authsystem_adminapi_getmenulinks()
 {
     $menulinks = array();
+    if (xarSecurityCheck('AdminAuthsystem',0)) {
+        $menulinks[] = Array('url' => xarModURL('authsystem','admin','overview'),
+                               'title' => xarML('Authsystem Overview'),
+                              'label' => xarML('Overview'));
+
+    }
 
     if (xarSecurityCheck('AdminAuthsystem',0)) {
         $menulinks[] = Array('url'   => xarModURL('authsystem',

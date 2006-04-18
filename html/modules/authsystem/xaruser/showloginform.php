@@ -9,7 +9,6 @@
  *
  * @subpackage Authsystem module
  * @link http://xaraya.com/index.php/release/42.html
- * @author  Marc Lutolf <marcinmilan@xaraya.com>
  */
 /**
  * Shows the user login form when login block is not active

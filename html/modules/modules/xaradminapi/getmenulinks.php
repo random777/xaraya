@@ -22,6 +22,9 @@ function modules_adminapi_getmenulinks()
     // Security Check
     $menulinks = array();
     if (xarSecurityCheck('AdminModules',0)) {
+            $menulinks[] = Array('url' => xarModURL('modules','admin','overview'),
+            'title' => xarML('Modules Overview'),
+            'label' => xarML('Overview'));
 
         // these links will only be shown to those who can admin the modules
         if(xarModGetUserVar('modules', 'expertlist')){

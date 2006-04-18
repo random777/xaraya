@@ -1,9 +1,9 @@
 <?php
 /**
- * Xaraya Upgrade
+ * Core Upgrade File
  *
- * package upgrader
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * package upgrade
+ * @copyright (C) 2002-2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -44,10 +44,102 @@ xarCoreInit(XARCORE_SYSTEM_ALL);
  * @todo <johnny> use non caching templates until they are set to yes
  */
 function xarUpgradeMain()
+$xarProduct = xarConfigGetVar('System.Core.VersionId');
+$xarRelease = xarConfigGetVar('System.Core.VersionSub');
+    $descr = xarML('Preparing to upgrade from previous #(1) Version #(2) (release #(3)) to #(4) version #(5)  (release #(6))',$xarProduct,$xarVersion,$xarRelease, XARCORE_VERSION_ID, XARCORE_VERSION_NUM, XARCORE_VERSION_SUB);
+<div class="xar-mod-body"><p><h3><?php echo $descr; ?></h3></p>
+
+
+            if ($categoryinstance != $xarquery)
+        if (xarModIsAvailable('hitcount'))
+        if ($result->getRecordCount() != 1) {
+            throw new BadParameterException(null,"Group 'syndicate' not found.");
+    /* Bug 2204 - the mod var roles - admin is more than likely set in 99.9 percent installs
+                  since it was introduced around the beginning of 2004. Let's check it's set,
+                  and use that, else check for a new name. If the new name in that rare case
+                  is not Admin, then we'll have to display message to check and set as such first.
+    */
+    $realadmin = xarModGetVar('roles','admin');
+
+    if (!isset($realadmin) || empty($realadmin)) {
+        $admin = xarUFindRole('Admin');
+        if (!isset($admin)) $admin = xarFindRole('Admin');
+        if (!isset($admin)) {
+            echo "<div><h2 style=\"color:red; font-weigh:bold;\">WARNING!</h2>Your installation has a missing roles variable.<br />";
+            echo "Please change your administrator username to 'Admin' and re-run upgrade.php<br />
+                  You can change it back once your site is upgraded.<br />";
+
+            echo "<br /><br />REMEMBER! Don't forget to re-run upgrade.php<br /><br />";
+            echo "</div>";
+            CatchOutput();
+            return;
+        }
+    } else {
+
+        $thisadmin= xarUserGetVar('uname', $realadmin);
+         $admin = xarUFindRole($thisadmin);
+    }
+
+
+    $role = xarFindRole('Everybody');
+
+    /* Bug 2204 - this var is not reliable for admin name
+       if (!isset($admin)) $admin = xarFindRole(xarModGetVar('mail','adminname'));
+    */
+                       array('name'    =>  'inheritdeny',
+                             'module'  =>  'privileges',
+                             'set'     =>  true),
+                       array('name'    =>  'tester',
+                             'module'  =>  'privileges',
+                             'set'     =>  0),
+                       array('name'    =>  'test',
+                             'module'  =>  'privileges',
+                             'set'     =>  false),
+                       array('name'    =>  'testdeny',
+                             'module'  =>  'privileges',
+                             'set'     =>  false),
+                       array('name'    =>  'testmask',
+                             'module'  =>  'privileges',
+                             'set'     =>  'All'),
+                       array('name'    =>  'realmvalue',
+                             'module'  =>  'privileges',
+                             'set'     =>  'none'),
+                       array('name'    =>  'realmcomparison',
+                             'module'  =>  'privileges',
+                             'set'     =>  'exact'),
+                       array('name'    =>  'suppresssending',
+                             'module'  =>  'mail',
+                             'set'     =>  'false'),
+                       array('name'    =>  'redirectsending',
+                             'module'  =>  'mail',
+                             'set'     =>  'exact'),
+                       array('name'    =>  'redirectaddress',
+                             'module'  =>  'mail',
+                             'set'     =>  ''),
+    $upgrade['priv_masks'] = xarMaskExists('ViewPrivileges','privileges','Realm');
+    if (!$upgrade['priv_masks']) {
+        echo "Privileges realm Masks do not exist, attempting to create... done! <br />";
+
+        // create a couple of new masks
+        xarRegisterMask('ViewPrivileges','All','privileges','Realm','All','ACCESS_OVERVIEW');
+        xarRegisterMask('ReadPrivilege','All','privileges','Realm','All','ACCESS_READ');
+        xarRegisterMask('EditPrivilege','All','privileges','Realm','All','ACCESS_EDIT');
+        xarRegisterMask('AddPrivilegem','All','privileges','Realm','All','ACCESS_ADD');
+        xarRegisterMask('DeletePrivilege','All','privileges','Realm','All','ACCESS_DELETE');
+    } else {
+        echo "Privileges realm masks have been created previously, moving to next check. <br />";
+    }
+
 {
    // let the system know that we are in the process of installing
     xarVarSetCached('Upgrade', 'upgrading',1);
     if(!xarVarFetch('upgrade_phase','int', $phase, 1, XARVAR_DONT_SET)) {return;}
+        // TODO: use transactions to ensure atomicity?
+    ";
+    $result = $datadict->changeTable($cacheblockstable, $flds);
+
+  /*$varCacheDir = xarCoreGetVarDirPath() . '/cache';
+    } */
 
     // Make sure we can render a page
     xarTplSetPageTitle(xarML('Xaraya Upgrade'));
@@ -58,9 +150,6 @@ function xarUpgradeMain()
     if (xarCoreIsDebuggerActive()) {
        ob_start();
     }
-
-    // Set the default page title before calling the module function
-    xarTplSetPageTitle(xarML("Upgrading Xaraya"));
 
     // start the output buffer
     $mainModuleOutput =xarModFunc('installer','admin',$funcName);
@@ -77,6 +166,7 @@ function xarUpgradeMain()
                                  $mainModuleOutput;
         }
         ob_end_clean();
+
     }
 
     $pageOutput = xarTpl_renderPage($mainModuleOutput,NULL,'installer');

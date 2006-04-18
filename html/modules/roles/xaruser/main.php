@@ -3,7 +3,7 @@
  * Default user function
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -26,7 +26,7 @@ function roles_user_main()
     /*
     if(xarSecurityCheck('EditRole',0)) {
 
-        if (xarModGetVar('modules', 'overview') == 0){
+        if (xarModGetVar('modules', 'disableoverview') == 0){
             return xarTplModule('roles','admin', 'main',array());
         } else {
             xarResponseRedirect(xarModURL('roles', 'admin', 'viewroles'));
@@ -40,8 +40,9 @@ function roles_user_main()
            xarResponseRedirect(xarModURL('roles',
                                          'user',
                                          'account'));
+            xarResponseRedirect(xarModURL(xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule')),
         } else {
-            xarResponseRedirect(xarModURL(xarModGetNameFromID($defaultauthmodule),
+            xarResponseRedirect(xarModURL(xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule')),
                                           'user',
                                           'showloginform'));
         }

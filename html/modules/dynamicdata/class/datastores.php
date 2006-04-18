@@ -1,7 +1,5 @@
 <?php
 /**
- * Utility Class to manage Dynamic Data Stores
- *
  * @package modules
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -85,7 +83,7 @@ class Dynamic_DataStore_Master
      *
      * @param $args['table'] optional extra table whose fields you want to add as potential data source
      */
-    function &getDataSources($args = array())
+    static function &getDataSources($args = array())
     {
         $sources = array();
 
@@ -101,7 +99,7 @@ class Dynamic_DataStore_Master
         // session variables // TODO: perhaps someday, if this makes sense
         //$sources[] = 'session variables';
 
-    // TODO: re-evaluate this once we're further along
+        // TODO: re-evaluate this once we're further along
         // hook modules manage their own data
         $sources[] = 'hook module';
 
@@ -123,14 +121,17 @@ class Dynamic_DataStore_Master
             }
         }
 
-        // Get table list from database, not xar_tables.
-        $tables = xarModAPIFunc('dynamicdata', 'util', 'getmeta', array('db' => '', 'table' => ''));
-        foreach($tables as $table) {
-           foreach($table as $column) {
-              $sources[] = $column['source'];
-           }
+        $dbconn =& xarDBGetConn();
+        $dbInfo =& $dbconn->getDatabaseInfo();
+        $dbTables =& $dbInfo->getTables();
+        foreach($dbTables as $tblInfo)
+        {
+            $tblColumns =& $tblInfo->getColumns();
+            foreach($tblColumns as $colInfo)
+            {
+                $sources[] = $tblInfo->getName().".".$colInfo->getName();
+            }
         }
-
         return $sources;
     }
 }
@@ -143,21 +144,21 @@ class Dynamic_DataStore_Master
  */
 class Dynamic_DataStore
 {
-    var $name;     // some static name, or the table name, or the moduleid + itemtype, or ...
-    var $type;
-    var $fields;   // array of $name => reference to property in Dynamic_Object*
-    var $primary;
+    public $name;     // some static name, or the table name, or the moduleid + itemtype, or ...
+    public $type;
+    public $fields;   // array of $name => reference to property in Dynamic_Object*
+    public $primary;
 
-    var $sort;
-    var $where;
-    var $groupby;
-    var $join;
+    public $sort;
+    public $where;
+    public $groupby;
+    public $join;
 
-    var $_itemids;  // reference to itemids in Dynamic_Object_List
+    public $_itemids;  // reference to itemids in Dynamic_Object_List TODO: investigate public scope
 
-    var $cache = 0;
+    public $cache = 0;
 
-    function Dynamic_DataStore($name)
+    function __construct($name)
     {
         $this->name = $name;
         $this->fields = array();

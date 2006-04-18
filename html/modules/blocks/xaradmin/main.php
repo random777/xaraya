@@ -1,7 +1,6 @@
 <?php
 /**
  * Block Functions
- *
  * @package modules
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -20,6 +19,7 @@ function blocks_admin_main()
 // Security Check
     if(!xarSecurityCheck('EditBlock')) return;
 
+    if (xarModGetVar('modules', 'disableoverview') == 0){
     xarResponseRedirect(xarModURL('blocks', 'admin', 'view_instances'));
 
     // success

@@ -9,6 +9,16 @@
  * @author Marco Canini
 */
 
+/**
+ * Exceptions for this subsystem
+ *
+ */
+// Generic
+// FIXME: too weak
+class ConfigurationException extends ConfigurationExceptions
+{ 
+    protected $message = 'There is an unknown configuration error detected.';
+}
 
 /**
  * Initialize config system
@@ -26,7 +36,7 @@ function xarConfig_init(&$args, $whatElseIsGoingLoaded)
 
     $tables = array('config_vars' => $sitePrefix . '_config_vars');
 
-    xarDB_importTables($tables);
+    xarDB::importTables($tables);
     
     // Pre-load site config variables
     // CHECKME: see if this doesn't hurt install before activating :-)
@@ -107,9 +117,9 @@ function xarConfigSetVar($name, $value)
  * @access private
  * @return bool true on success, or void on database error
  * @raise DATABASE_ERROR
+ * @todo We need some way to delete configuration (useless without a certain module) variables from the table!!!
+ * @todo look into removing the serialisation, creole does this when needed, automatically
  */
-//FIXME: We need someway to delete configuration (useless without a certain module) 
-//variables from the table!!!
 function xarConfig_loadVars()
 {
     $cacheCollection = 'Config.Variables';
@@ -117,17 +127,14 @@ function xarConfig_loadVars()
     $dbconn =& xarDBGetConn();
     $tables =& xarDBGetTables();
 
-    $query = "SELECT xar_name,
-                     xar_value
+    $query = "SELECT xar_name, xar_value
                 FROM $tables[config_vars]";
-    $result =& $dbconn->Execute($query);
-    if (!$result) return;
+    $stmt = $dbconn->prepareStatement($query);
+    $result = $stmt->executeQuery(array(),ResultSet::FETCHMODE_ASSOC);
 
-    while (!$result->EOF) {
-        list($name,$value) = $result->fields;
-        $newval = unserialize($value);
-        xarCore_SetCached($cacheCollection, $name, $newval);
-        $result->MoveNext();
+    while ($result->next()) {
+        $newval = unserialize($result->getString('xar_value'));
+        xarCore::setCached($cacheCollection, $result->getString('xar_name'), $newval);
     }
     $result->Close();
 
@@ -135,7 +142,7 @@ function xarConfig_loadVars()
     //(It's a escape when you are caching at a higher level than that of the
     //individual variables)
     //This whole cache systems must be remade to a central one.    
-    xarCore_SetCached($cacheCollection, 0, true);
+    xarCore::setCached($cacheCollection, 0, true);
 
     return true;
 }

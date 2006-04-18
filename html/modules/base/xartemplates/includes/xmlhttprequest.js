@@ -92,7 +92,7 @@ function loadContent(url, tagid, method, formobj, local_debug)
             return true; // do the normal action -- should we have an "incompatible browser" error here?
         }
     } catch(e) {
-        alert(e);
+        alert("CATCH: " + e);
         return false
     }
 }

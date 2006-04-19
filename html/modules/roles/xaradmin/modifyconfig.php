@@ -69,19 +69,6 @@ function roles_admin_modifyconfig()
                 }
             }
 
-            // create the dropdown of groups for the template display
-            // get the array of all groups
-            // remove duplicate entries from the list of groups
-            $groups = array();
-            $names = array();
-            foreach($roles->getgroups() as $temp) {
-                $nam = $temp['name'];
-                if (!in_array($nam, $names)) {
-                    array_push($names, $nam);
-                    array_push($groups, $temp);
-                }
-            }
-
             $checkip = xarModGetVar('roles', 'disallowedips');
             if (empty($checkip)) {
                 $ip = serialize('10.0.0.1');
@@ -91,9 +78,7 @@ function roles_admin_modifyconfig()
             $data['authid'] = xarSecGenAuthKey();
             $data['updatelabel'] = xarML('Update Roles Configuration');
             $hooks = array();
-
             switch ($data['tab']) {
-
                 case 'hooks':
                     // Item type 0 is the default itemtype for 'user' roles.
                     $hooks = xarModCallHooks('module', 'modifyconfig', 'roles',
@@ -111,9 +96,7 @@ function roles_admin_modifyconfig()
             }
 
             $data['hooks'] = $hooks;
-            $data['defaultauthmod'] = xarModGetVar('roles', 'defaultauthmodule');
-            $data['defaultregmod'] = xarModGetVar('roles', 'defaultregmodule');
-            
+
             //check for roles hook in case it's set independently elsewhere
             if (xarModIsHooked('roles', 'roles')) {
                 xarModSetVar('roles','usereditaccount',true);
@@ -136,7 +119,7 @@ function roles_admin_modifyconfig()
 
                     xarModSetVar('roles', 'itemsperpage', $itemsperpage);
                     xarModSetVar('roles', 'defaultauthmodule', $defaultauthmodule);
-                    xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);                    
+                    xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);
                     xarModSetVar('roles', 'defaultgroup', $defaultgroup);
                     xarModSetVar('roles', 'SupportShortURLs', $shorturls);
                     xarModSetVar('roles', 'admin', $siteadmin);
@@ -162,7 +145,7 @@ function roles_admin_modifyconfig()
                     xarModSetVar('roles', 'usersendemails', $usersendemails);
                     xarModSetVar('roles', 'displayrolelist', $displayrolelist);
                     xarModSetVar('roles', 'usereditaccount', $usereditaccount);
-                    
+
                     if ($usereditaccount) {
                         //check and hook Roles to roles if not already hooked
                          if (!xarModIsHooked('roles', 'roles')) {
@@ -196,9 +179,6 @@ function roles_admin_modifyconfig()
                     $duvarray = array('userhome','primaryparent','passwordupdate','timezone');
                     foreach ($duvarray as $duv) {
                         if (!xarVarFetch($duv, 'int', $$duv, null, XARVAR_DONT_SET)) return;
-                        if (isset($$duv)) {
-                            if ($$duv) xarModSetVar('roles',$duv,1);
-                            else xarModSetVar('roles',$duv,0);
                         if (isset($$duv)) {
                             if ($$duv) {
                                 xarModSetVar('roles',$duv,true);

@@ -3,7 +3,7 @@
  * Test a user or group's privileges against a mask
  *
  * @package modules
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,8 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
- * Create a user
- *
+ * create a user
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param string $args['uname'] username of the user
  * @param string $args['name'] real name of the user

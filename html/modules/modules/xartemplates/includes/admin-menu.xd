@@ -1,36 +1,12 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<xar:comment>Common Administration menu</xar:comment>
-<xar:style scope="module" module="base" file="navtabs" />
-
-<xar:set name="activetab">$_bl_module_func</xar:set>
-<div>
-  <dl class="xar-tabs">
-    <dt class="help" title="#xarML('Choose an action to perform')#">
-      <xar:mlstring>Actions:</xar:mlstring>
-    </dt>
-    <xar:sec mask="AdminModules" catch="false">
-        <xar:set name="tabclass">$activetab=='list'?'active':''</xar:set>
-        <dd class="#$tabclass#">
-          <a href="&xar-modurl-modules-admin-list;">
-            <xar:mlstring>View Available Modules</xar:mlstring>
-          </a>
-        </dd>
-    </xar:sec>
-    <xar:sec mask="AdminModules" catch="false">
-        <xar:set name="tabclass">$activetab=='hooks'?'active':''</xar:set>
-        <dd class="#$tabclass#">
-            <a href="&xar-modurl-modules-admin-hooks;" >
-                <xar:mlstring>Configure Hooks</xar:mlstring>
-            </a>
-        </dd>
-
-
-    <xar:set name="tabclass">$activetab=='main'?'active':''</xar:set>
-    <dd class="#$tabclass#">
-      <a href="&xar-modurl-modules-admin-overview;">
-        <xar:mlstring>Overview</xar:mlstring>
-      </a>
-    </dd>
-    </xar:sec>    
-  </dl>
-</div>
+<xar:set name="tabdata">
+    array(
+        'tabs' => array(
+            array('mask' => 'AdminModules', 'includes' => 'list', 'target' => 'list', 'title' => xarML('View Available Modules')),
+            array('mask' => 'AdminModules', 'includes' => 'hooks', 'target' => 'hooks', 'title' => xarML('Configure Hooks')),
+            array('mask' => 'AdminModules', 'includes' => 'modifyconfig', 'target' => 'modifyconfig', 'title' => xarML('Modify Config')),
+            array('includes' => array('main','overview'), 'target' => 'overview', 'title' => xarML('Overview'))
+   )
+        )
+</xar:set>
+<xar:template type="module" module="base" file="admin-menu-skel" subdata="$tabdata" />

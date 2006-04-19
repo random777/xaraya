@@ -25,6 +25,8 @@ function mail_admin_modifyconfig()
 {
     // Security Check
     if (!xarSecurityCheck('AdminMail')) return; 
+    $data = array();
+    if (!xarVarFetch('tab', 'str:1:100', $data['tab'], '', XARVAR_NOT_REQUIRED)) return;
     // Generate a one-time authorisation code for this operation
     $data['authid'] = xarSecGenAuthKey(); 
     // Quick Check for E_ALL

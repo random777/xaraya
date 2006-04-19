@@ -1,5 +1,6 @@
 <?php
 /**
+ * Remove a role from a privilege assignment
  *
  * @package core modules
  * @copyright (C) 2002-2006 The Digital Development Foundation

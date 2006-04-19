@@ -26,18 +26,6 @@ class Dynamic_ItemID_Property extends Dynamic_NumberBox_Property
 {
     function __construct($args)
     {
-        if (empty($name)) {
-            $name = 'dd_'.$this->id;
-        }
-        // store the fieldname for validations who need them (e.g. file uploads)
-        $this->fieldname = $name;
-        if (!isset($value)) {
-            if (!xarVarFetch($name, 'isset', $value,  NULL, XARVAR_DONT_SET)) {return;}
-        }
-        return $this->validateValue($value);
-    }
-
-    {
         parent::__construct($args);
         $this->tplmodule = 'dynamic_data';
         $this->template = 'itemid';

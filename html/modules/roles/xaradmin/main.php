@@ -18,7 +18,10 @@ function roles_admin_main()
     // Security Check
     if (!xarSecurityCheck('EditRole')) return;
     if (xarModGetVar('modules', 'disableoverview') == 0) {
+        return array();
+    } else {
         xarResponseRedirect(xarModURL('roles', 'admin', 'showusers'));
+    }
     // success
     return true;
 }

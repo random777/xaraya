@@ -147,26 +147,6 @@ function roles_init()
 
 
     //Database Initialisation successful
-
-# --------------------------------------------------------
-#
-# Register hooks
-#
-    if (!xarModRegisterHook('item', 'search', 'GUI',
-            'roles', 'user', 'search')) {
-        return false;
-    }
-    if (!xarModRegisterHook('item', 'usermenu', 'GUI',
-            'roles', 'user', 'usermenu')) {
-        return false;
-    }
-    xarModAPIFunc('modules', 'admin', 'enablehooks',
-        array('callerModName' => 'roles', 'hookModName' => 'roles'));
-    // This won't work because the dynamicdata hooks aren't registered yet when this is
-    // called at installation --> put in xarinit.php of dynamicdata instead
-    //xarModAPIFunc('modules','admin','enablehooks',
-    // array('callerModName' => 'roles', 'hookModName' => 'dynamicdata'));
-
     return true;
 }
 
@@ -251,7 +231,6 @@ function roles_upgrade($oldVersion)
             break;
         case '1.1.1':
             // is there an authentication module?
-            $regid = xarModGetIDFromName('authentication');
 			$regid = xarModGetIDFromName('authsystem');
 
             if (isset($regid)) {
@@ -318,7 +297,6 @@ function roles_upgrade($oldVersion)
 			}
 		    if (!xarModAPIFunc('roles','admin','createobjects')) return;
             break;
-
     }
     // Update successful
     return true;

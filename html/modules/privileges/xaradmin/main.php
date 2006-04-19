@@ -21,8 +21,10 @@ function privileges_admin_main()
     if(!xarSecurityCheck('ViewPrivileges')) return;
 
     if (xarModGetVar('modules', 'disableoverview') == 0){
-    xarResponseRedirect(xarModURL('privileges', 'admin', 'viewprivileges'));
-    
+        return array();
+    } else {
+        xarResponseRedirect(xarModURL('privileges', 'admin', 'viewprivileges'));
+    }
     // success
     return true;
 

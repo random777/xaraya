@@ -30,6 +30,7 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $this->tplmodule = 'base';
         $this->template  = 'countrylist';
     }
+
     static function getRegistrationInfo()
     {
         $info = new PropertyRegistration();
@@ -60,19 +61,6 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
 
         return true;
     }
-
-
-         $countrynames= getCountryList();
-         $countryname='';
-
-         foreach ($countrynames as $countrydata) {
-             foreach ($countrydata as $k) {
-               if ($k == $data['value']) {
-                   $countryname=$countrydata['name'];
-               }
-             }
-         }
-         $data['countryname']=$countryname;
    /**
     * Country list according to ISO 3166
     *
@@ -337,4 +325,5 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $this->options = $coptions;
 		return $this->options;
    }
+}
 ?>

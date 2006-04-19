@@ -26,8 +26,11 @@ function mail_admin_main()
     if (!xarSecurityCheck('EditMail')) return;
 
     if (xarModGetVar('modules', 'disableoverview') == 0) {
-    xarResponseRedirect(xarModURL('mail', 'admin', 'modifyconfig'));
-
+        // Return the output
+        return array();
+    } else {
+        xarResponseRedirect(xarModURL('mail', 'admin', 'modifyconfig'));
+    } 
     // success
     return true;
 } 

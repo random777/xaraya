@@ -20,7 +20,13 @@ function dynamicdata_admin_main()
     if(!xarSecurityCheck('EditDynamicData')) return;
 
     if (xarModGetVar('modules', 'disableoverview') == 0){
-    xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view'));
+        $data = xarModAPIFunc('dynamicdata','admin','menu');
+
+        // Return the template variables defined in this function
+        return $data;
+    } else {
+        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view'));
+    }
 
     return true;
 }

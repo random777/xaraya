@@ -20,8 +20,11 @@ function blocks_admin_main()
     if(!xarSecurityCheck('EditBlock')) return;
 
     if (xarModGetVar('modules', 'disableoverview') == 0){
-    xarResponseRedirect(xarModURL('blocks', 'admin', 'view_instances'));
-
+        // Return the output
+        return array();
+    } else {
+        xarResponseRedirect(xarModURL('blocks', 'admin', 'view_instances'));
+    }
     // success
     return true;
 }

@@ -74,7 +74,6 @@ class Dynamic_CheckboxMask_Property extends Dynamic_Select_Property
                 $data['options'][$key] = $option;
             }
         }
-        }
 
         return parent::showInput($data);
     }

@@ -517,10 +517,11 @@ if (empty($itemidfield)) {
             return $this->primary;
         }
 
-        );
+        $dbconn =& xarDBGetConn();
         $dbInfo =& $dbconn->getDatabaseInfo();
         $tblInfo=& $dbInfo->getTable($this->name);
         $keyInfo=& $tblInfo->getPrimaryKey();
+
         $columns = $keyInfo->getColumns();
         if(count($columns) > 1) {
             // TODO: support composite keys
@@ -528,17 +529,6 @@ if (empty($itemidfield)) {
         }
         $this->primary = $columns[0]->getName();
         return $this->primary;
-        foreach ($columns as $column) {
-            if (!empty($column['primary'])) {
-               $this->primary = $column;
-               return $column;
-            }
-        }
-            if (!empty($column['autoincrement'])) {
-               $this->primary = $column;
-               return $column;
-            }
-        }
     }
 
     function getNext($args = array())

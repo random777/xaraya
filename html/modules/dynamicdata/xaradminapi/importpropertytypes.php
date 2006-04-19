@@ -48,7 +48,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
     // We do the whole thing, or not at all (given proper db support)
     try {
         $dbconn->begin();
-    $propDirs = array();
+
         if(isset($dirs) && is_array($dirs)) {
             // We got an array of directories passed in for which to import properties
             // typical usecase: a module which has its own property, during install phase needs that property before
@@ -57,11 +57,9 @@ function dynamicdata_adminapi_importpropertytypes( $args )
         } else {
             // Clear the cache
             PropertyRegistration::ClearCache();
-      if(!$result) return; // db error
         
             $activeMods = xarModApiFunc('modules','admin','getlist', array('filter' => array('State' => XARMOD_STATE_ACTIVE)));
             assert('!empty($activeMods)'); // this should never happen
-      $propDirs[] = 'includes/properties/'; // Initialize it with the core location of properties
             
             foreach($activeMods as $modInfo) {
                 // FIXME: the modinfo directory does NOT end with a /

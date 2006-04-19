@@ -156,7 +156,7 @@ function base_init()
     */
     $REQ_URI = parse_url(xarServerGetVar('HTTP_REFERER'));
         // IIS seems to set HTTPS = off for some reason (cfr. xarServerGetProtocol)
-    if (!empty($HTTPS) && $HTTPS != 'off' && $REQ_URI['scheme'] == 'https') {
+        if (!empty($HTTPS) && $HTTPS != 'off' && $REQ_URI['scheme'] == 'https') {
             xarConfigSetVar('Site.Core.EnableSecureServer', true);
         } else {
             xarConfigSetVar('Site.Core.EnableSecureServer', false);
@@ -237,7 +237,6 @@ function base_init()
         xarInstallAPIFunc('initialise', array('directory' => 'privileges','initfunc'  => 'init'));
 
         $modulesTable = $systemPrefix .'_modules';
-     ) VALUES (?, 'authsystem', 42, 'authsystem', '1.0.0', 1, 'Authentication', 'Global', 1, 0)";
 
         $newModSql   = "INSERT INTO $modulesTable 
                         (xar_id, xar_name, xar_regid, xar_directory, 

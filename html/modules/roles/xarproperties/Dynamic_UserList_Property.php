@@ -88,7 +88,6 @@ class Dynamic_UserList_Property extends Dynamic_Select_Property
         $info->reqmodules = array('roles');
         return $info;
     }
-        $data['onchange'] = isset($onchange) ? $onchange : null; // let tpl decide what to do
 
     // TODO: validate the selected user against the specified group(s).
     function validateValue($value = null)

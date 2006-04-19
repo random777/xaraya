@@ -30,6 +30,7 @@
  * Error constants for exception throwing
  *
  * @todo probably move this to core loader or get rid of it completely, doesnt do something sane.
+ */
 define('E_XAR_ASSERT', 1);
 define('E_XAR_PHPERR', 2);
 
@@ -50,11 +51,9 @@ define('XAR_DATABASE_EXCEPTION', 12);
 define('XAR_TEMPLATE_EXCEPTION', 13);
 
 // We still need the old classes
-include "$here/exceptions/exceptionstack.class.php";
-include "$here/exceptions/systemexception.class.php";
-include "$here/exceptions/defaultuserexception.class.php";
-include "$here/exceptions/exceptionstack.class.php";
-include "$here/exceptions/systemmessage.class.php";
+include "includes/exceptions/systemexception.class.php";
+include "includes/exceptions/defaultuserexception.class.php";
+include "includes/exceptions/systemmessage.class.php";
 
 // Include the set of exception types
 include "includes/exceptions/types.php";
@@ -80,7 +79,7 @@ class ErrorDeprecationException extends DeprecationExceptions
  * @return bool true
  * @todo   can we move the stacks above into the init?
  */
-function xarError_init(&$systemArgs, $whatToLoad)
+function xarError_init($systemArgs, $whatToLoad)
 {
     // Send all exceptions to the default exception handler, no excuses
     set_exception_handler(array('ExceptionHandlers','defaulthandler'));
@@ -228,8 +227,6 @@ function xarErrorHandled()
 function xarErrorRender($format,$stacktype = "ERROR", $data=array())
 {
     return;
-            return xarTplFile($theme_dir . '/modules/base/message-' . $error->id . '.xt', $data);
-        } elseif(file_exists($theme_dir . '/modules/base/message-' . $template . '.xt')) {
 }
 
 /**
@@ -241,8 +238,6 @@ function xarErrorRender($format,$stacktype = "ERROR", $data=array())
  */
 function xarErrorGet($stacktype = "ERROR",$format='data')
 {
-    if(!isset($errLevel)) $errLevel = E_ALL;
-    if (!error_reporting() || $errorType > $errLevel) {
     return;
 }
 ?>

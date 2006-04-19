@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,8 +19,11 @@ function themes_admin_main()
     if(!xarSecurityCheck('AdminTheme')) return;
 
     if (xarModGetVar('modules', 'disableoverview') == 0){
+        // Return the output
+        return array();
+    } else {
         xarResponseRedirect(xarModURL('themes', 'admin', 'list'));
-
+    }
     // success
     return true;
 }

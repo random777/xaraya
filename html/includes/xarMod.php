@@ -108,7 +108,7 @@ define('XARTHEME_MODE_PER_SITE', 2);
  * @param args['generateXMLURLs'] bool
  * @return bool true
  */
-function xarMod_init(&$args, $whatElseIsGoingLoaded)
+function xarMod_init($args, $whatElseIsGoingLoaded)
 {
     // generateShortURLs
     $GLOBALS['xarMod_generateShortURLs'] = $args['enableShortURLsSupport'];
@@ -207,9 +207,6 @@ function xarModDelAllVars($modName)
     if(empty($modName)) throw new EmptyParameterException('modName');
 
     $modBaseInfo = xarMod_getBaseInfo($modName);
-    if (isset($modBaseInfo)) { //only continue if the module info exists
-        $dbconn =& xarDBGetConn();
-        $tables =& xarDBGetTables();
 
         // Takes the right table basing on module mode
     $module_varstable     = $tables['module_vars'];
@@ -226,7 +223,7 @@ function xarModDelAllVars($modName)
         $idlist = array();
     while ($result->next()) {
         $idlist[] = $result->getInt(1);
-        }
+    }
     $result->close();
     unset($result);
 
@@ -848,6 +845,7 @@ function xarModAPIFunc($modName, $modType = 'user', $funcName = 'main', $args = 
 
 
     // Build function name and call function
+    $modAPIFunc = "{$modName}_{$modType}api_{$funcName}";
     $found = true;
     $isLoaded = true;
     if (!function_exists($modAPIFunc)) {
@@ -1797,7 +1795,7 @@ function xarMod_getVarsByName($varName, $type = 'module')
     }
     $query = "SELECT  owner.xar_name, vars.xar_value
               FROM    $ownertbl owner, $varstable vars
-              WHERE   owner.xar_id = vars.xar_modid AND 
+              WHERE   owner.xar_id = vars.xar_modid AND
                       vars.xar_name = ?";
 
     $stmt =& $dbconn->prepareStatement($query);

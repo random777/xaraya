@@ -286,7 +286,6 @@ function modules_upgrade($oldVersion)
         // 1.0 version, add upgrade code to 2.x here
         // - hooks: removed columns smodule, tmodule in xar_hooks, made them smodid and tmodid
         // - module states: table removed 
-        */
     case '2.4.0':
         //current version
     }

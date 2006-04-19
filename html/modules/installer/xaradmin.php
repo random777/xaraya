@@ -401,7 +401,6 @@ function installer_admin_phase5()
             // All other exceptions but the ones we already handled
             $dbconn->rollback();
             throw $e;
-            if(!$result) return;
         }
     }
 

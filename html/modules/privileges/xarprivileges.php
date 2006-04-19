@@ -494,7 +494,6 @@ class xarMasks
                 $msg = xarML('No privilege for #(1)',$mask->getName());
                 throw new Exception($msg);
             }
-            }
         }
 
         // done
@@ -643,9 +642,10 @@ class xarMasks
         $candebug = (xarSessionGetVar('uid') == xarModGetVar('privileges','tester'));
         $test = xarModGetVar('privileges','test') && $candebug;
         $testdeny = xarModGetVar('privileges','testdeny') && $candebug;
-        $testmask = xarModGetVar('privileges','testmask') ;
+        $testmask = xarModGetVar('privileges','testmask') && $candebug;
         $matched = false;
         $pass = false;
+
         // Note : DENY rules override all others here...
         foreach ($privilegeset['privileges'] as $privilege) {
             if($testdeny && ($testmask == $mask->getName() || $testmask == "All")) {
@@ -759,7 +759,7 @@ class xarMasks
         // check if we already have the definition of this mask
         // TODO: try to do this without xarMod_GetBaseInfo
         if ($suppresscache || !xarVarIsCached('Security.Masks',$name)) {
-            $q->addfields(array(
+            $bindvars = array();
             $query = "SELECT masks.xar_sid AS sid, masks.xar_name AS name, masks.xar_realm AS realm,
                              mods.xar_name AS module, masks.xar_component as component, masks.xar_instance AS instance,
                              masks.xar_level AS level, masks.xar_description AS description
@@ -769,10 +769,11 @@ class xarMasks
             if($module != 'All') {
                 $query .= " AND mods.xar_name = ?";
                 $bindvars[] = $module;
-            $q->eq('xar_name',$name);
+            }
             if($component != 'All') {
                 $query .= " AND masks.xar_component = ? ";
                 $bindvars[] = strtolower($component);
+            }
             $stmt = $this->dbconn->prepareStatement($query);
             $result = $stmt->executeQuery($bindvars, ResultSet::FETCHMODE_ASSOC);
             $result->next();

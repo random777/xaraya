@@ -56,7 +56,7 @@ define('XARVAR_PREP_TRIM',        8);
  * @todo <johnny> fix the load level stuff here... it's inconsistant to the rest of the core
  * @todo <mrb> remove the two settings allowablehtml and fixhtmlentities
  */
-function xarVar_init(&$args, $whatElseIsGoingLoaded)
+function xarVar_init($args, $whatElseIsGoingLoaded)
 {
     /*
      * Initialise the variable cache
@@ -721,7 +721,6 @@ function xarVar__SetVarByAlias($modName = NULL, $name, $value, $prime = NULL, $d
             break;
     }
 
-        $result = $dbconn->CacheFlush();
     if (!empty($query)){
         try {
             $dbconn->begin();
@@ -1154,9 +1153,9 @@ function xarVarPrepForOS()
     static $special_characters = array(':'  => ' ',   // for things like c:/file.txt?
                                        //'/'  => ' ', // this makes vars with relative paths unusable (cfr. bug 5559 )
                                        '\\' => ' ',   // for unc paths?
-                                       '..' => ' ',   
+                                       '..' => ' ',
                                        '?'  => ' ',   // why?
-                                       '*'  => ' ');  
+                                       '*'  => ' ');
 
     $args = func_get_args();
 

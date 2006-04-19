@@ -39,21 +39,10 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
     {
         parent::__construct($args);
 
-                    }
-                    if ($option_type == 'parent') {
-                        $this->parentlist = array_merge($this->parentlist, explode(',', $option_value));
-                    }
-                    if ($option_type == 'group') {
-                        $this->grouplist = array_merge($this->grouplist, explode(',', $option_value));
-                    }
-                }
-            }
-        }
         if (count($this->options) == 0) {
 	        $select_options = array();
             if (!empty($this->ancestorlist)) {
                 $select_options['ancestor'] = implode(',', $this->ancestorlist);
-            }
             }
             if (!empty($this->parentlist)) {
                 $select_options['parent'] = implode(',', $this->parentlist);
@@ -80,6 +69,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
         $info->desc = 'Group List';
         $info->reqmodules = array('roles');
         return $info;
+    }
 
     function validateValue($value = null)
     {

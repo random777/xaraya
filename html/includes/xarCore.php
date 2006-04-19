@@ -20,7 +20,7 @@
  * @todo seems that defines are hoggers, move them to class constants?
  */
 
-// For migration purposes, cos we're lazy 
+// For migration purposes, cos we're lazy
 define('XARCORE_GENERATION',2);
 
 // The actual version information
@@ -535,6 +535,8 @@ function xarCore_getSystemVar($name)
         $systemVars = $systemConfiguration;
     }
 
+
+//    if ($name == 'BaseModURL') {var_dump($systemVars);die($name);}
     if (!isset($systemVars[$name])) {
         throw new VariableNotFoundException($name,"xarCore_getSystemVar: Unknown system variable: '#(1)'.");
     }
@@ -729,7 +731,7 @@ class xarCore
             unset(self::$cacheCollection[$cacheKey][$name]);
         }
         //This unsets the key that said that collection had already been retrieved
-        
+
         //Seems to have caused a problem because of the expected behaviour of the old code
         //FIXME: Change how this works for a mainstream function, stop the hacks
         if (isset(self::$cacheCollection[$cacheKey][0])) {

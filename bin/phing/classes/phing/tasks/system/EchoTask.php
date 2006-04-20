@@ -1,48 +1,55 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: EchoTask.php,v 1.11 2003/04/09 15:58:12 thyrell Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell
- * -Author     Anderas Aderhold, andi@binarycloud.com
+ *  $Id: EchoTask.php,v 1.5 2003/12/24 13:02:09 hlellelid Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
-
-import('phing.Task');
+ 
+include_once 'phing/Task.php';
 
 /**
  *  Echos a message to all output devices
  *
  *  @author   Andreas Aderhold, andi@binarycloud.com
- *  @version  $Revision: 1.11 $ $Date: 2003/04/09 15:58:12 $
+ *  @version  $Revision: 1.5 $ $Date: 2003/12/24 13:02:09 $
  *  @package  phing.tasks.system
  */
 
 class EchoTask extends Task {
 
-    var $msg = null;
+    protected $msg;
 
     function main() {
         $this->log($this->msg);
     }
 
     /** setter for message */
-    function setMsg($_msg) {
-        $this->setMessage($_msg);
+    function setMsg($msg) {
+        $this->setMessage($msg);
     }
 
     /** alias setter */
-    function setMessage($_msg) {
-        $this->msg = (string) $_msg;
+    function setMessage($msg) {
+        $this->msg = (string) $msg;
+    }
+    
+    /** Supporting the <echo>Message</echo> syntax. */
+    function addText($msg)
+    {
+        $this->msg = (string) $msg;
     }
 }
-
-
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

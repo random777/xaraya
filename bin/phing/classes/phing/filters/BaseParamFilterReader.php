@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: BaseParamFilterReader.php,v 1.5 2003/02/24 22:36:27 openface Exp $
+ *  $Id: BaseParamFilterReader.php,v 1.5 2005/02/27 20:52:08 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,55 +17,28 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseFilterReader');
-import('phing.types.Parameter');
+include_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/types/Parameterizable.php';
+include_once 'phing/types/Parameter.php';
 
-/*
+/**
  * Base class for core filter readers.
  *
  * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @copyright © 2003 seasonfive. All rights reserved
- * @version   $Revision: 1.5 $ $Date: 2003/02/24 22:36:27 $
+ * @version   $Revision: 1.5 $ $Date: 2005/02/27 20:52:08 $
  * @access    public
  * @see       FilterReader
  * @package   phing.filters
-*/
-
-class BaseParamFilterReader extends BaseFilterReader {
-    var $_parameters = array();	// The passed in parameter array.
-
-    /*
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseFilterReader#BaseFilterReader()
-    */
-    function BaseParamFilterReader() {
-        parent::BaseFilterReader();
-    }
-
-    /*
-     * Creates a new filtered reader.
-     *
-     * @return in A Reader object providing the underlying stream.
-     *            Must not be <code>null</code>.
-    */
-    function &newBaseParamFilterReader(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, "Reader")) {
-            throw (new RuntimeException("Expected object of type 'Reader' got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-            return;
-        }
-
-        $o = new BaseParamFilterReader();
-        $o->setReader($o);
-
-        return $o;
-    }
-
+ */
+class BaseParamFilterReader extends BaseFilterReader implements Parameterizable {
+    
+    /** The passed in parameter array. */
+    protected $_parameters = array();
+    
     /*
      * Sets the parameters used by this filter, and sets
      * the filter to an uninitialized status.
@@ -76,9 +49,7 @@ class BaseParamFilterReader extends BaseFilterReader {
     function setParameters($parameters) {
         // type check, error must never occur, bad code of it does
         if ( !is_array($parameters) ) {
-            throw (new RuntimeException("Expected array got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-            return;
+            throw new Exception("Expected parameters array got something else");            
         }
 
         $this->_parameters = $parameters;

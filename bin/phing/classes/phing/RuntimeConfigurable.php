@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: RuntimeConfigurable.php,v 1.9 2003/04/09 15:58:09 thyrell Exp $
+ *  $Id: RuntimeConfigurable.php,v 1.6 2003/12/24 12:38:39 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
 /**
@@ -26,108 +26,93 @@
  *
  *  <strong>SMART-UP INLINE DOCS</strong>
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.9 $ $Date: 2003/04/09 15:58:09 $
- *  @access    public
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.6 $
+ * @package   phing
  */
-
 class RuntimeConfigurable {
 
-    var $_elementTag = null;
-    var $_children = array();
-    var $_wrappedObject = null;
-    var $_attributes = array();
-    var $_characters = "";
+    private $elementTag = null;
+    private $children = array();
+    private $wrappedObject = null;
+    private $attributes = array();
+    private $characters = "";
 
 
     /** @param proxy The element to wrap. */
-    function RuntimeConfigurable(&$proxy, $elementTag) {
-        $this->_wrappedObject =& $proxy;
-        $this->_elementTag = $elementTag;
+    function __construct($proxy, $elementTag) {
+        $this->wrappedObject = $proxy;
+        $this->elementTag = $elementTag;
     }
 
-    function setProxy(&$proxy) {
-        $this->_wrappedObject =& $proxy;
+    function setProxy($proxy) {
+        $this->wrappedObject = $proxy;
     }
 
     /** Set's the attributes for the wrapped element. */
     function setAttributes($attributes) {
-        $this->_attributes = $attributes;
+        $this->attributes = $attributes;
     }
 
     /** Returns the AttributeList of the wrapped element. */
     function getAttributes() {
-        return $this->_attributes;
+        return $this->attributes;
     }
 
     /** Adds child elements to the wrapped element. */
-    function addChild(&$child) {
-        if (!is_a($child, "RuntimeConfigurable")) {
-            throw (new RuntimeException("Unexpected type"), __FILE__, __LINE__);
-            return;
-        }
-        $this->_children[] =& $child;
+    function addChild(RuntimeConfigurable $child) {
+        $this->children[] = $child;
     }
 
     /** Returns the child with index */
-    function &getChild($index) {
-        return $this->_children[(int)$index];
+    function getChild($index) {
+        return $this->children[(int)$index];
     }
 
     /** Add characters from #PCDATA areas to the wrapped element. */
     function addText($data) {
-        $this->_characters .= (string) $data;
+        $this->characters .= (string) $data;
     }
 
     function getElementTag() {
-        return $this->_elementTag;
+        return $this->elementTag;
     }
 
 
     /** Configure the wrapped element and all children. */
-    function maybeConfigure(&$project) {
+    function maybeConfigure(Project $project) {
         $id = null;
 
         // DataType configured in ProjectConfigurator
-        //		if ( is_a($this->_wrappedObject, "DataType") )
-        //			return;
+        //        if ( is_a($this->wrappedObject, "DataType") )
+        //            return;
 
-        if ($this->_attributes !== null && !empty($this->_attributes)) {
-            ProjectConfigurator::configure($this->_wrappedObject, $this->_attributes, $project);
+        if ($this->attributes || $this->characters) {
+            ProjectConfigurator::configure($this->wrappedObject, $this->attributes, $project);
 
-            if (isset($this->_attributes["id"])) {
-                $id = $this->_attributes["id"];
+            if (isset($this->attributes["id"])) {
+                $id = $this->attributes["id"];
             }
 
-            $this->_attributes = null;
+            $this->attributes = null;
 
-            if (strlen($this->_characters) !== 0) {
-                ProjectConfigurator::addText($project, $this->_wrappedObject, (string) $this->_characters);
-                $this->_characters="";
+            if ($this->characters) {
+                ProjectConfigurator::addText($project, $this->wrappedObject, (string) $this->characters);
+                $this->characters="";
             }
             if ($id !== null) {
-                $project->addReference($id, $this->_wrappedObject);
+                $project->addReference($id, $this->wrappedObject);
             }
         }
 
-        if ( is_array($this->_children) && count($this->_children) > 0 ) {
+        if ( is_array($this->children) && !empty($this->children) ) {
             // Configure all child of this object ...
-
-            for ($i=0; $i<count($this->_children); $i++) {
-                $child =&  $this->_children[$i];
+            foreach($this->children as $child) {
                 $child->maybeConfigure($project);
-                ProjectConfigurator::storeChild($project, $this->_wrappedObject, $child->_wrappedObject, strtolower($child->getElementTag()));
+                ProjectConfigurator::storeChild($project, $this->wrappedObject, $child->wrappedObject, strtolower($child->getElementTag()));
             }
         }
     }
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>
+

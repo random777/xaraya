@@ -1,99 +1,59 @@
 <?php
-// {{{ Header
-/*
- * -File       $Id: FileNameMapper.php,v 1.2 2003/04/09 15:58:10 thyrell Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2002, Thyrell
- * -Author     Anderas Aderhold, andi@binarycloud.com
+/* 
+ *  $Id: FileNameMapper.php,v 1.7 2004/01/22 03:29:13 hlellelid Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>. 
  */
-// }}}
-
-import('phing.ProjectComponent');
-
-// {{{ FlattenMapper
 
 /**
- * description here
+ * Interface for filename mapper classes.
  *
- *  @author   Andreas Aderhold, andi@binarycloud.com
- *  @version  $Revision: 1.2 $
- *  @package   phing.mappers
+ * @author Andreas Aderhold, andi@binarycloud.com
+ * @author Hans Lellelid <hans@xmpl.org>
+ * @version $Revision: 1.7 $
+ * @package phing.mappers
  */
+interface FileNameMapper {
 
-class FileNameMapper {
+    /**
+     * The mapper implementation.
+     *
+     * @param mixed $sourceFileName The data the mapper works on.
+     * @return  array The data after the mapper has been applied; must be in array format (for some reason).
+     */
+    public function main($sourceFileName);
 
-	// {{{ constructor FileNameMapper($_id = null)
+    /**
+     * Accessor. Sets the to property. The actual implementation
+     * depends on the child class.
+     *
+     * @param string $to To what this mapper should convert the from string
+     * @return void
+     */
+    public function setTo($to);
 
-	/**
-	 * Constructor. Creates the object must be called by child classes
-	 *
-	 * @returns  object    The class instance
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function FileNameMapper() {}
-
-	// }}}
-	// {{{ method Main($_input)
-
-	/**
-	 * The mapper implementation. This one needs to be implemented
-	 *
-	 * @param    mixed     The data the mapper works on
-	 * @returns  mixed     The data after the mapper has been applied
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function Main($_sourceFileName)
-	{
-		$f = new File($_sourceFileName);
-		return (array) $f->getName();
-	}
-
-	// }}}
-	// {{{ method SetTo($_to)
-
-	/**
-	 * Accessor. Sets the to property. The actual implementation
-	 * depends on the child class.
-	 *
-	 * @param    string     To what this mapper should convert the from string
-	 * @returns  boolean    True
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function SetTo($_to) {}
-
-	// }}}
-	// {{{ method SetFrom($_to)
-
-	/**
-	 * Accessor. Sets the from property. What this mapper should
-	 * recognize. The actual implementation is dependent upon the
-	 * child class
-	 *
-	 * @param    string     On what this mapper should work
-	 * @returns  boolean    True
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function SetFrom($_from) {}
-
-	// }}}
+    /**
+     * Accessor. Sets the from property. What this mapper should
+     * recognize. The actual implementation is dependent upon the
+     * child class
+     *
+     * @param string $from On what this mapper should work
+     * @return void
+     */
+    public function setFrom($from);
 
 }
-
-// }}}
-
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: IOException.php,v 1.6 2003/02/24 18:22:16 openface Exp $
+ *  $Id: IOException.php,v 1.4 2005/02/27 20:52:09 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,21 +16,13 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
-
-import("phing.system.lang.Exception");
 
 /**
- *  @package   phing.system.io
+ * Extends Exception to take advantage of methods therein.
+ *
+ * @package   phing.system.io
  */
-class IOException extends Exception {
-
-    function IOException($msg = null) {
-        if ($msg === null) {
-            $msg = "No details provided";
-        }
-        parent::Exception($msg);
-    }
-}
+class IOException extends Exception {}
 ?>

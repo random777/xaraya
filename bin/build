@@ -16,8 +16,8 @@
 #
 # 1. php cgi must exist in the path
 #
-if type php4> /dev/null 2>&1
-then PHP=php4
+if type php5> /dev/null 2>&1
+then PHP=php5
 elif type php > /dev/null 2>&1
 then PHP=php
 else 
@@ -52,4 +52,4 @@ if (test -z "$PHP_CLASSPATH") ; then
 fi
 
 # Run the build
-$PHP_COMMAND -d html_errors=Off -d include_path=".:$PHP_CLASSPATH" -qC $PHING_HOME/bin/phing.php -logger phing.NoBannerLogger $*
+$PHP_COMMAND -d html_errors=off -qC $PHING_HOME/bin/phing.php -logger phing.listener.AnsiColorLogger $@

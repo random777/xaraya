@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: TokenReader.php,v 1.1 2003/04/24 19:35:03 purestorm Exp $
+ *  $Id: TokenReader.php,v 1.5 2003/12/24 12:38:42 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,59 +16,51 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import("phing.system.io.Reader");
-import("phing.system.io.IOException");
-import("phing.filters.ReplaceTokens"); // For class Token
-
-import("phing.Project");
+// include_once 'phing/system/io/Reader.php'; // really this is unrelated to Reader
+include_once 'phing/system/io/IOException.php';
+include_once 'phing/filters/ReplaceTokens.php'; // For class Token
 
 /**
- * Abstract class for TokenReaders
+ * Abstract class for TokenReaders.
  * 
  * @author    Manuel Holtgewe
- * @version   $Revision: 1.1 $
- * @access    public
+ * @version   $Revision: 1.5 $
  * @package   phing.filters.util
  */
-class TokenReader extends Reader {
-    // {{{ properties
+abstract class TokenReader {
+
     /**
-     * @var object  Reference to the Project the Tokenreader is used in.
+     * Reference to the Project the TokenReader is used in.
+     * @var Project 
      */
-    var $project;
-    // }}}
-    // {{{ constructor TokenReader(&$project);
+    protected $project;
+
     /**
      * Constructor
      * @param   object  Reference to the project the TokenReader is used in.
      */
-    function TokenReader(&$project) {
-        $this->project =& $project;
+    function __construct(Project $project) {
+        $this->project = $project;
     }
-    // }}}
-    // {{{ method log($level, $msg)
+
     /**
      * Utility function for logging
      */
     function log($level, $msg) {
         $this->project->log($level, $msg);
     }
-    // }}}
-    // {{{ method readToken
+
     /**
      * Reads the next token from the Reader
      *
-     * @throws  IOException     On error
-     * @access  public
-     * @abstract
+     * @throws IOException - On error
+     * @return string
      */
-    function readToken() {
-        return false;
-    }
-    // }}}
+    abstract public function readToken();
+    
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: DataType.php,v 1.17 2003/03/26 21:53:11 purestorm Exp $
+ *  $Id: DataType.php,v 1.9 2005/11/02 13:55:34 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,12 +16,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import('phing.BuildException');
-import('phing.Project');
-import('phing.ProjectComponent');
+require_once 'phing/ProjectComponent.php';
+include_once 'phing/BuildException.php';
 
 /**
  * Base class for those classes that can appear inside the build file
@@ -34,28 +33,24 @@ import('phing.ProjectComponent');
  *
  * @package   phing.types
  */
-
 class DataType extends ProjectComponent {
 
     /** The descriptin the user has set. */
-    var $description = null;
+    public $description = null;
 
     /** Value to the refid attribute. Type of Reference*/
-    var $ref = null;
+    public $ref = null;
 
     /**
-        * Are we sure we don't hold circular references?
-        *
-        * Subclasses are responsible for setting this value to false
-        * if we'd need to investigate this condition (usually because a
-        * child element has been added that is a subclass of DataType).
-        */
-    var $checked = true;
-
-
-    function DataType() {}
-
-
+     * Are we sure we don't hold circular references?
+     *
+     * Subclasses are responsible for setting this value to false
+     * if we'd need to investigate this condition (usually because a
+     * child element has been added that is a subclass of DataType).
+     * @var boolean
+     */
+    protected $checked = true;
+  
     /**
      * Sets a description of the current data type. It will be useful
      * in commenting what we are doing.
@@ -66,7 +61,7 @@ class DataType extends ProjectComponent {
 
     /** Return the description for the current data type. */
     function getDescription() {
-        return (string) $this->description;
+        return $this->description;
     }
 
     /** Has the refid attribute of this element been set? */
@@ -80,9 +75,12 @@ class DataType extends ProjectComponent {
      * Subclasses may need to check whether any other attributes
      * have been set as well or child elements have been created and
      * thus override this method. if they do they must call parent::setRefid()
+	 * 
+	 * @param Reference $r
+	 * @return void
      */
-    function setRefid($ref) {
-        $this->ref = $ref;
+    function setRefid(Reference $r) {
+        $this->ref = $r;
         $this->checked = false;
     }
 
@@ -100,30 +98,31 @@ class DataType extends ProjectComponent {
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      */
-    function dieOnCircularReference(&$stk, &$p) {
+    function dieOnCircularReference(&$stk, Project $p) {
         if ($this->checked || !$this->isReference()) {
             return;
         }
 
-        $o =& $this->ref->getReferencedObject($p);
+        $o = $this->ref->getReferencedObject($p);
 
-        if (is_a($o, 'DataType')) {
-
+        if ($o instanceof DataType) {
+            
+            // TESTME - make sure that in_array() works just as well here
+            //
             // check if reference is in stack
-            $contains = false;
-            for ($i=0; $i<count($stk); ++$i) {
-                if (compareReferences($stk[$i], $o)) {
-                    $contains = true;
-                    break;
-                }
-            }
+            //$contains = false;
+            //for ($i=0, $size=count($stk); $i < $size; $i++) {
+            //    if ($stk[$i] === $o) {
+            //        $contains = true;
+            //        break;
+            //    }
+            //}
 
-            if ($contains) {
-                // throw build exceptions
-                throw ($this->circularReference());
-                return;
+            if (in_array($o, $stk, true)) {
+                // throw build exception
+                throw $this->circularReference();
             } else {
-                $stk[] =& $o;
+                array_push($stk, $o);
                 $o->dieOnCircularReference($stk, $p);
                 array_pop($stk);
             }
@@ -132,22 +131,18 @@ class DataType extends ProjectComponent {
     }
 
     /** Performs the check for circular references and returns the referenced object. */
-    function &getCheckedRef($requiredClass, $dataTypeName) {
+    function getCheckedRef($requiredClass, $dataTypeName) {
+    
         if (!$this->checked) {
             // should be in stack
             $stk = array();
-            $stk[] =& $this;
-            // throw buildexecption
-            $this->dieOnCircularReference($stk, $this->getProject());
+            $stk[] = $this;
+            $this->dieOnCircularReference($stk, $this->getProject());            
         }
 
-        // FIXME
         $o = $this->ref->getReferencedObject($this->getProject());
-        if (!($requiredClass->isAssignableFrom(get_class($o)))) {
-            $msg = $ref->getRefId()." doesn't denote a ".$this->dataTypeName;
-            // throw it
-            throw (new BuildException($msg));
-            return;
+        if (!($o instanceof $requiredClass) ) {
+            throw new BuildException($this->ref->getRefId()." doesn't denote a " . $dataTypeName);
         } else {
             return $o;
         }
@@ -176,5 +171,12 @@ class DataType extends ProjectComponent {
     function circularReference() {
         return new BuildException("This data type contains a circular reference.");
     }
+    
+    /**
+     * Template method being called when the data type has been 
+     * parsed completely.
+     * @return void
+     */
+    function parsingComplete() {}
 }
-?>
+

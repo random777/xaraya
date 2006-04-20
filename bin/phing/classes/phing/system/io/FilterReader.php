@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: FilterReader.php,v 1.4 2003/06/27 23:49:57 purestorm Exp $
+ *  $Id: FilterReader.php,v 1.6 2005/05/26 13:10:52 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,12 +16,10 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import("phing.system.lang.RuntimeException");
-import("phing.system.io.File");
-import("phing.system.io.Reader");
+include_once 'phing/system/io/Reader.php';
 
 /**
  * Convenience class for reading files. The constructor of this
@@ -29,11 +27,46 @@ import("phing.system.io.Reader");
  *
  * TODO: All filters should be ProjectComponents, too!
  */
-
 class FilterReader extends Reader {
+    
+    protected $in;
+    
+    function __construct(Reader $in = null) {
+        $this->in = $in;
+        //parent::__construct(new FileReader($file, $exclusive));
+    }
+    
+    public function setReader(Reader $in) {
+        $this->in = $in;
+    }
+    
+    public function skip($n) {
+        return $this->in->skip($n);
+    }
+    
+    /**
+     * Read data from source.
+     * FIXME: Clean up this function signature, as it a) params aren't being used
+     * and b) it doesn't make much sense.
+     */
+    public function read($len = null) {
+        return $this->in->read($len);
+    }
 
-    function FilterReader($file, $exclusive = false) {
-        parent::Reader(new FileReader($file, $exclusive));
+    public function reset() {
+        return $this->in->reset();
+    }
+    
+    public function close() {
+        return $this->in->close();
+    }
+    
+    public function open() {
+        return $this->in->open();
+    }
+
+    function getResource() {
+        return $this->in->getResource();
     }
 }
 ?>

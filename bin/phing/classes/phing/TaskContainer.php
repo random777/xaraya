@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: TaskContainer.php,v 1.6 2003/04/09 15:58:09 thyrell Exp $
+ *  $Id: TaskContainer.php,v 1.5 2005/10/04 19:13:44 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,20 +16,20 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
 /**
  *  Abstract interface for objects which can contain tasks (targets)
- *  Used to check if a class can contain tasks (via isInstanceOf())
+ *  Used to check if a class can contain tasks (via instanceof)
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.6 $ $Date: 2003/04/09 15:58:09 $
+ *  @version   $Revision: 1.5 $ $Date: 2005/10/04 19:13:44 $
  *  @access    public
  *  @package   phing
  */
-class TaskContainer {
+interface TaskContainer {
 
     /**
      *  Adds a task to this task container. Must be implemented
@@ -38,16 +38,5 @@ class TaskContainer {
      *  @param  object  The task to be added to the container
      *  @access public
      */
-    function addTask(&$task) {
-        throw (new RuntimeException("Method must be overloaded by child class that implements a task container"), __FILE__, __LINE__);
-        System::halt(-1);
-    }
+    function addTask(Task $task);
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

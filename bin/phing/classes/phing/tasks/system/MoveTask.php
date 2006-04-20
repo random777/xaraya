@@ -1,47 +1,52 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: MoveTask.php,v 1.7 2003/04/09 15:59:23 thyrell Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell
- * -Author     Anderas Aderhold, andi@binarycloud.com
+ *  $Id: MoveTask.php,v 1.8 2005/05/26 13:10:53 mrook Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
 
-import("phing.BuildException");
-import("phing.Project");
-import("phing.system.io.File");
-import("phing.system.io.IOException");
-import("phing.tasks.system.CopyTask");
+require_once 'phing/tasks/system/CopyTask.php';
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/system/io/IOException.php';
 
 /**
  * Moves a file or directory to a new file or directory.
+ * 
  * By default, the destination file is overwritten if it
  * already exists.  When overwrite is turned off, then files
  * are only moved if the source file is newer than the
  * destination file, or when the destination file does not
  * exist.
  *
- * source files and directories are only deleted when the file or
+ * Source files and directories are only deleted when the file or
  * directory has been copied to the destination successfully.
  *
- * TODO:
- *  .comments
- *  .needs testing
- *
- * @version $Revision: 1.7 $ $Date: 2003/04/09 15:59:23 $
+ * @version $Revision: 1.8 $
  * @package phing.tasks.system
  */
-
 class MoveTask extends CopyTask {
 
-    function MoveTask() {
-        parent::CopyTask();
+    function __construct() {
+        parent::__construct();
         $this->forceOverwrite = true;
     }
-
-    /* - private - */
-    function _doWork() {
+    
+    protected function doWork() {
+    
         $copyMapSize = count($this->fileCopyMap);
         if ($copyMapSize > 0) {
             // files to move
@@ -54,45 +59,41 @@ class MoveTask extends CopyTask {
                 }
 
                 $moved = false;
-                $f = new File($from);
-                $d = new File($to);
-
-                { // try to rename
-                    $this->log("Attempting to rename: $from to $toFile", $this->verbosity);
-                    $moved = $this->_renameFile($f, $d, $this->filtering, $this->forceOverwrite);
+                $f = new PhingFile($from);
+                $d = new PhingFile($to);
+                
+                $moved = false;
+                try { // try to rename                    
+                    $this->log("Attempting to rename $from to $to", $this->verbosity);
+                    $this->renameFile($f, $d, $this->forceOverwrite);
+                    $moved = true;
+                } catch (IOException $ioe) {
+                    $moved = false;
+                    $this->log("Failed to rename $from to $to: " . $ioe->getMessage(), $this->verbosity);
                 }
-                if (catch("IOException", $ioe)) {
-                    $msg = "Failed to rename $from to $to due to " . $ioe->getMessage();
-                    throw (new BuildException($msg, $this->location));
-                }
 
-                if (!$moved) {
-                    { // try to move
+                if (!$moved) {                    
+                    try { // try to move
                         $this->log("Moving $from to $to", $this->verbosity);
 
-                        $fu =& $this->getFileUtils();
-                        $fu->copyFile($f, $d, $executionFilters = null, $this->forceOverwrite);
+                        $this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject());                        
 
-                        $f = new File($fromFile);
-                        if (!$f->delete()) {
-                            throw (new BuildException("Unable to delete file " . $f->getAbsolutePath()));
-                        }
+                        $f = new PhingFile($fromFile);
+                        $f->delete();
+                    } catch (IOException $ioe) {
+                        $msg = "Failed to move $from to $to: " . $ioe->getMessage();
+                        throw new BuildException($msg, $this->location);
                     }
-                    if (catch("IOException", $ioe)) {
-                        $msg = "Failed to copy $from to $to due to " . $ioe->getMessage();
-                        throw (new BuildException($msg, $this->location));
-                        return;
-                    }
-                }
-            }
-        }
+                } // if !moved
+            } // foreach fileCopyMap
+        } // if copyMapSize
 
         // handle empty dirs if appropriate
         if ($this->includeEmpty) {
             $e = array_keys($this->dirCopyMap);
             $count = 0;
             foreach ($e as $dir) {
-                $d = new File((string) $dir);
+                $d = new PhingFile((string) $dir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
                         $this->log("Unable to create directory " . $d->getAbsolutePath(), PROJECT_MSG_ERR);
@@ -108,28 +109,26 @@ class MoveTask extends CopyTask {
 
         if (count($this->filesets) > 0) {
             // process filesets
-            for ($i=0; $i<count($this->filesets); ++$i) {
-                $fs =& $this->filesets[$i];
+            foreach($this->filesets as $fs) {
                 $dir = $fs->getDir($this->project);
-                if ($this->_okToDelete($dir)) {
-                    $this->_deleteDir($dir);
+                if ($this->okToDelete($dir)) {
+                    $this->deleteDir($dir);
                 }
             }
         }
     }
 
     /** Its only ok to delete a dir tree if there are no files in it. */
-    function _okToDelete(&$d) {
+    private function okToDelete($d) {
         $list = $d->listDir();
         if ($list === null) {
             return false;     // maybe io error?
         }
-
-        for ($i = 0; $i < count($list); ++$i) {
-            $s = $list[$i];
-            $f = new File($d, $s);
+        
+        foreach($list as $s) {
+            $f = new PhingFile($d, $s);
             if ($f->isDirectory()) {
-                if (!$this->_okToDelete($f)) {
+                if (!$this->okToDelete($f)) {
                     return false;
                 }
             } else {
@@ -141,27 +140,27 @@ class MoveTask extends CopyTask {
     }
 
     /** Go and delete the directory tree. */
-    function _deleteDir(&$d) {
+    private function deleteDir($d) {
+    
         $list = $d->listDir();
         if ($list === null) {
             return;      // on an io error list() can return null
         }
-
-        for ($i = 0; $i < count($list); ++$i) {
-            $s = $list[$i];
-            $f = new File($d, $s);
+        
+        foreach($list as $fname) {
+            $f = new PhingFile($d, $fname);
             if ($f->isDirectory()) {
-                $this->_deleteDir($f);
+                $this->deleteDir($f);
             } else {
-                throw (new BuildException("UNEXPECTED ERROR - The file " . $f->getAbsolutePath() . " should not exist!"));
-                return;
+                throw new BuildException("UNEXPECTED ERROR - The file " . $f->getAbsolutePath() . " should not exist!");
             }
         }
 
-        $this->log("Deleting directory " . $d->getAbsolutePath(), $this->verbosity);
-
-        if (!$d->delete()) {
-            throw (new BuildException("Unable to delete directory " . $d->getAbsolutePath()));
+        $this->log("Deleting directory " . $d->getPath(), $this->verbosity);
+        try {
+            $d->delete();
+        } catch (Exception $e) {
+            throw new BuildException("Unable to delete directory " . $d->__toString() . ": " . $e->getMessage());
         }
     }
 
@@ -169,29 +168,29 @@ class MoveTask extends CopyTask {
      * Attempts to rename a file from a source to a destination.
      * If overwrite is set to true, this method overwrites existing file
      * even if the destination file is newer.
-    * Otherwise, the source file is renamed only if the destination file #
-    * is older than it.
+     * Otherwise, the source f
+     * ile is renamed only if the destination file #
+     * is older than it.
      */
-    function _renameFile(&$sourceFile, &$destFile, $filtering, $overwrite) {
+    private function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite) {
         $renamed = true;
-        if (!$filtering) {
-            // ensure that parent dir of dest file exists!
-            $parent = $destFile->getParentFile();
-            if ($parent !== null) {
-                if (!$parent->exists()) {
-                    $parent->mkdirs();
-                }
+
+        // ensure that parent dir of dest file exists!
+        $parent = $destFile->getParentFile();
+        if ($parent !== null) {
+            if (!$parent->exists()) {
+                $parent->mkdirs();
             }
-            if ($destFile->exists()) {
-                if (!$destFile->delete()) {
-                    throw (new BuildException("Unable to remove existing file " . $destFile->toString()));
-                    return;
-                }
-            }
-            $renamed = $sourceFile->renameTo($destFile);
-        } else {
-            $renamed = false;
         }
+        if ($destFile->exists()) {
+            try {
+                $destFile->delete();
+            } catch (Exception $e) {
+                throw new BuildException("Unable to remove existing file " . $destFile->__toString() . ": " . $e->getMessage());
+            }
+        }
+        $renamed = $sourceFile->renameTo($destFile);
+
         return $renamed;
     }
 }

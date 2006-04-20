@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: ExpatParseException.php,v 1.6 2003/04/09 15:58:10 thyrell Exp $
+ *  $Id: ExpatParseException.php,v 1.5 2003/11/19 05:48:28 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,30 +16,16 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
-
-import("phing.system.lang.Exception");
+ 
+require_once 'phing/BuildException.php';
 
 /**
- * This class throws errors for Expat, the XMl processor.
+ * This class throws errors for Expat, the XML processor.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.6 $ $Date: 2003/04/09 15:58:10 $
+ * @version  $Revision: 1.5 $ $Date: 2003/11/19 05:48:28 $
  * @package  phing.parser
  */
-
-class ExpatParseException extends Exception {
-    function ExpatParseException($msg = null, $location = null) {
-        if ($msg === null) {
-            $msg = "Unspecified message";
-        }
-
-        if ($location === null) {
-            $location = new Location();
-        }
-
-        parent::Exception("ExpatParseException: $msg in ".$location->toString());
-    }
-}
-?>
+class ExpatParseException extends BuildException {}

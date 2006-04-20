@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: XsltFilter.php,v 1.21 2003/07/09 06:06:39 purestorm Exp $
+ *  $Id: XsltFilter.php,v 1.16 2005/12/07 20:05:01 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,125 +17,135 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseParamFilterReader');
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
- * XSLT Filter.
- *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a> (based
- *             on previous XsltTask v1.22 of Andreas Aderhold, andi@binarycloud.com)
- * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.21 $ $Date: 2003/07/09 06:06:39 $
- * @access    public
+ * Applies XSL stylesheet to incoming text.
+ * 
+ * Uses PHP XSLT support (libxslt).
+ * 
+ * @author    Hans Lellelid <hans@velum.net>
+ * @author    Yannick Lecaillez <yl@seasonfive.com>
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @version   $Revision: 1.16 $
  * @see       FilterReader
  * @package   phing.filters
  */
-class XsltFilter extends BaseParamFilterReader {
+class XsltFilter extends BaseParamFilterReader implements ChainableReader {
 
     /**
-     * XSL stylesheet.
+     * Path to XSL stylesheet.
      * @var string
      */
-    var	$_xslFile   = null;
+    private $xslFile   = null;
 
     /**
      * Whether XML file has been transformed.
      * @var boolean
      */
-    var	$_processed = false;
-
+    private $processed = false;
+    
     /**
-     * [Deprecated] The transformed XML file.
-     * @var string
+     * XSLT Params.
+     * @var array
      */
-    var	$_buffer = null;
-
+    private $xsltParams = array();    
+    
     /**
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseParamFilterReader#BaseParamFilterReader()
+     * Whether to use loadHTML() to parse the input XML file.
      */
-    function XsltFilter() {
-        // This may be a common problem, let's be nice.
-        if (!function_exists("xslt_create")) {
-            throw (new RuntimeException("XSLT extension required for this operation."), __FILE__, __LINE__);
-            System::halt(-1);
-            return;
-        }
-
-        parent::BaseParamFilterReader();
+    private $html = false;
+    
+    /**
+     * Create new XSLT Param object, to handle the <param/> nested element.
+     * @return XSLTParam
+     */
+    function createParam() {
+        $num = array_push($this->xsltParams, new XSLTParam());
+        return $this->xsltParams[$num-1];
     }
-
+    
     /**
-     * Creates a new filtered reader.
-     *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return object A LineContains object filtering the underlying
-     *                stream.
+     * Sets the XSLT params for this class.
+     * This is used to "clone" this class, in the chain() method.
+     * @param array $params
      */
-    function &newXsltFilter(&$reader) {
-        $this->log("Creating new XsltFilter, stylesheet is \"" . $this->_xslFile->toString() . "\"", PROJECT_MSG_DEBUG);
-
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, "Reader")) {
-            throw (new RuntimeException("Expected object of type 'Reader' got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-            return;
-        }
-
-        $o = new XsltFilter();
-        $o->setReader($reader);
-
-        return $o;
+    function setParams($params) {
+        $this->xsltParams = $params;
     }
-
+    
+    /**
+     * Returns the XSLT params set for this class.
+     * This is used to "clone" this class, in the chain() method.
+     * @return array
+     */
+    function getParams() {
+        return $this->xsltParams;
+    }
+        
     /**
      * Set the XSLT stylesheet.
-     * @param mixed $file File object or path.
+     * @param mixed $file PhingFile object or path.
      */
-    function setStyle($file) {
-        if ( is_a($file, "File") ) {
-            $file = $file->getPath();
-        }
-
-        $this->_xslFile = new File((string) $file);
+    function setStyle(PhingFile $file) {
+        $this->xslFile = $file;
     }
 
+    /**
+     * Whether to use HTML parser for the XML.
+     * This is supported in libxml2 -- Yay!
+     * @return boolean
+     */
+    function getHtml() {
+        return $this->html;
+    }
+    
+    /**
+     * Whether to use HTML parser for XML.
+     * @param boolean $b
+     */
+    function setHtml($b) {        
+        $this->html = (boolean) $b;
+    }
+    
     /**
      * Get the path to XSLT stylesheet.
      * @return mixed XSLT stylesheet path.
      */
     function getStyle() {
-        if ( is_a($this->_xslFile, "File") )
-            return $this->_xslFile->toString();
-        return $this->_xslFile;
+        return $this->xslFile;
     }
-
+    
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      * @return string transformed buffer.
+     * @throws BuildException - if XSLT support missing, if error in xslt processing
      */
-    function read() {
-
-        if ($this->_processed === true)
+    function read($len = null) {
+        
+        if (!class_exists('XSLTProcessor')) {
+            throw new BuildException("Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.");
+        }
+        
+        if ($this->processed === true) {
             return -1; // EOF
-
+        }
+        
         if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
 
         // Read XML
-        $_xml = NULL;
-        while ( ($data = $this->in->read()) !== -1 )
+        $_xml = null;
+        while ( ($data = $this->in->read($len)) !== -1 )
             $_xml .= $data;
 
-        if ($_xml === NULL ) { // EOF?
+        if ($_xml === null ) { // EOF?
             return -1;
         }
 
@@ -145,17 +155,18 @@ class XsltFilter extends BaseParamFilterReader {
         }
        
         // Read XSLT
-        $xslFr = new FileReader($this->_xslFile);
+        $_xsl = null;
+        $xslFr = new FileReader($this->xslFile);
         $xslFr->readInto($_xsl);
-
-        $this->log("Processing file now", PROJECT_MSG_DEBUG);
-
-        // { try
-        $out = $this->_ProcessXsltTransformation($_xml, $_xsl);
-        $this->_processed = true;
-        if (catch("IOException", $e)) {
-            throw(new BuildException($e->getMessage(), __FILE__, __LINE__));
-            return false;
+        
+        $this->log("Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(), PROJECT_MSG_VERBOSE);
+        
+        $out = '';
+        try {
+            $out = $this->process($_xml, $_xsl);
+            $this->processed = true;
+        } catch (IOException $e) {            
+            throw new BuildException($e);
         }
 
         return $out;
@@ -170,126 +181,137 @@ class XsltFilter extends BaseParamFilterReader {
      *
      * @throws BuildException   On XSLT errors
      */
-    function _ProcessXsltTransformation($_xml, $_xsl) {
-        $processor = xslt_create();
-        xslt_set_encoding($processor,"ISO-8859-1");
+    protected function process($xml, $xsl) {    
+                
+        $processor = new XSLTProcessor();
+        
+        $xmlDom = new DOMDocument();
+        $xslDom = new DOMDocument();        
+        
+        if ($this->html) {            
+            $xmlDom->loadHTML($xml);
+        } else {
+            $xmlDom->loadXML($xml);
+        }
+        
+        $xslDom->loadxml($xsl);
+        
+        $processor->importStylesheet($xslDom);
 
-        $arguments = array(
-                         '/_xml'	=> $_xml,
-                         '/_xsl' => $_xsl);
-
-        $result = xslt_process($processor, 'arg:/_xml', 'arg:/_xsl', NULL, $arguments);
+        // ignoring param "type" attrib, because
+        // we're only supporting direct XSL params right now
+        foreach($this->xsltParams as $param) {
+            $this->log("Setting XSLT param: " . $param->getName() . "=>" . $param->getExpression(), PROJECT_MSG_DEBUG);
+            $processor->setParameter(null, $param->getName(), $param->getExpression());
+        }
+        
+        $result = $processor->transformToXML($xmlDom);
+        
         if ( !$result ) {
-            print $_xml;
-            $errno = xslt_errno($processor);
-            $err   = xslt_error($processor);
-            $this->_buffer = null;
-            xslt_free($processor);
-            throw (new BuildException("XSLT Error no $errno. $err"), __FILE__, __LINE__);
-            return false;
+            //$errno = xslt_errno($processor);
+            //$err   = xslt_error($processor);    
+            throw new BuildException("XSLT Error");            
         } else {
             return $result;
         }
-    }
-    // }}}
-
-    /**
-     * [Deprecated. Chain system uses new read() method.]
-     * It is expected to return the next _char_ and ends up queueing data to get around this.
-     * @return string Single character.
-     */
-    function readChar() {
-        $logger =& System::getLogger();
-        $logger->log("Processing file now", PROJECT_MSG_DEBUG);
-
-        if ( !$this->getInitialized() ) {
-            $this->_initialize();
-            $this->setInitialized(true);
-        }
-
-        if ( !$this->_processed ) {
-            $this->_processFile();
-            $this->_processed = true;
-        }
-
-        if ( ($this->_buffer === null) || (strlen($this->_buffer) === 0) ) {
-            $this->_buffer = null;
-            $ch = -1;
-        } else {
-            $ch = substr($this->_buffer, 0, 1);
-            $this->_buffer = substr($this->_buffer, 1);
-            if ( strlen($this->_buffer) === 0 )
-                $this->_buffer = null;
-        }
-
-        return $ch;
-    }
-
-    /**
-     * [Deprecated. used by readChar(); chain system uses new read() method.]
-     * 
-     */
-    function _processFile() {
-        $processor = xslt_create();
-
-        $xslFr = new FileReader($this->_xslFile);
-        $xslFr->readInto($_xsl);
-
-        $_xml = "";
-        while ( ($ch = $this->in->readChar()) !== -1 ) {
-            $_xml .= $ch;
-        }
-
-        $arguments = array(
-                         '/_xml'	=> $_xml,
-                         '/_xsl' => $_xsl);
-
-        $result = xslt_process($processor, 'arg:/_xml', 'arg:/_xsl', NULL, $arguments);
-        if ( !$result ) {
-            $errno = xslt_errno($processor);
-            $err   = xslt_error($processor);
-            $this->_buffer = null;
-            xslt_free($processor);
-            throw (new BuildException("XSLT Error no $errno. $err"), __FILE__, __LINE__);
-        } else {
-            $this->_buffer = $result;
-        }
-
-    }
+    }    
 
     /**
      * Creates a new XsltFilter using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
+     * @param Reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering
+     * @return Reader A new filter based on this configuration, but filtering
      *         the specified reader
      */
-    function &chain(&$reader) {
-        $newFilter = &XsltFilter::newXsltFilter($reader);
+    function chain(Reader $reader) {
+        $newFilter = new XsltFilter($reader);
+        $newFilter->setProject($this->getProject());
         $newFilter->setStyle($this->getStyle());
         $newFilter->setInitialized(true);
-
+        $newFilter->setParams($this->getParams());
+        $newFilter->setHtml($this->getHtml());
         return $newFilter;
     }
 
     /**
      * Parses the parameters to get stylesheet path.
      */
-    function _initialize() {
+    private function _initialize() {        
         $params = $this->getParameters();
         if ( $params !== null ) {
-            for($i = 0 ; $i<count($params) ; $i++) {
-                if ( $params[$i]->getName() === "style" ) {
-                    $this->setStyle($params[$i]->getValue());
-                    break;
+            for($i = 0, $_i=count($params) ; $i < $_i; $i++) {
+                if ( $params[$i]->getType() === null ) {
+                    if ($params[$i]->getName() === "style") {
+                        $this->setStyle($params[$i]->getValue());
+                    }
+                } elseif ($params[$i]->getType() == "param") {
+                    $xp = new XSLTParam();
+                    $xp->setName($params[$i]->getName());
+                    $xp->setExpression($params[$i]->getValue());
+                    $this->xsltParams[] = $xp;
                 }
             }
         }
     }
 
+}
+
+
+/**
+ * Class that holds an XSLT parameter.
+ */
+class XSLTParam {
+    
+    private $name;
+    
+    private $expr;    
+    
+    /**
+     * Sets param name.
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+    
+    /**
+     * Get param name.
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+    
+    /**
+     * Sets expression value.
+     * @param string $expr
+     */
+    public function setExpression($expr) {
+        $this->expr = $expr;
+    }
+    
+    /**
+     * Sets expression to dynamic register slot.
+     * @param RegisterSlot $expr
+     */
+    public function setListeningExpression(RegisterSlot $expr) {
+        $this->expr = $expr;    
+    }
+    
+    /**
+     * Returns expression value -- performs lookup if expr is registerslot.
+     * @return string
+     */
+    public function getExpression() {
+        if ($this->expr instanceof RegisterSlot) {
+            return $this->expr->getValue();
+        } else {
+            return $this->expr;
+        }
+    }        
 }
 
 ?>

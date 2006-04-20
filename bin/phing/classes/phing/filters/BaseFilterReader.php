@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: BaseFilterReader.php,v 1.6 2003/07/09 06:06:39 purestorm Exp $
+ *  $Id: BaseFilterReader.php,v 1.8 2004/05/20 02:24:10 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,25 +17,29 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.system.io.FilterReader');
-import('phing.system.io.StringReader');
+include_once 'phing/system/io/FilterReader.php';
+include_once 'phing/system/io/StringReader.php';
 
 
 /**
  * Base class for core filter readers.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.6 $ $Date: 2003/07/09 06:06:39 $
+ * @version   $Revision: 1.8 $ $Date: 2004/05/20 02:24:10 $
  * @access    public
  * @see       FilterReader
  * @package   phing.filters
  */
 class BaseFilterReader extends FilterReader {
-    var	$_initialized = false;	// Have the parameters passed been interpreted?
-    var	$_project     = null;	// The Phing project this filter is part of.
+    
+    /** Have the parameters passed been interpreted? */
+    protected $initialized = false;
+    
+    /** The Phing project this filter is part of. */
+    protected $project = null;
 
     /**
      * Constructor used by Phing's introspection mechanism.
@@ -44,32 +48,15 @@ class BaseFilterReader extends FilterReader {
      * it would be useless for filtering purposes, as it has
      * no real data to filter). ChainedReaderHelper uses
      * this placeholder instance to create a chain of real filters.
+     * 
+     * @param Reader $in
      */
-    function BaseFilterReader() {
-        $dummy = "";
-        $this->setReader(new StringReader($dummy));
-    }
-
-    /**
-     * Creates a new filtered reader.
-     *
-     * @param object  A Reader object providing the underlying stream.
-     *                Must not be <code>null</code>.
-     *
-     * @return object A FilterReader object.
-     *           
-     */
-    function &newBaseFilterReader(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
+    function __construct($in = null) {
+        if ($in === null) {
+            $dummy = "";
+            $in = new StringReader($dummy);
         }
-
-        $o = new BaseFilterReader();
-        $o->setReader($reader);
-
-        return $o;
+        parent::__construct($in);
     }
 
     /**
@@ -78,7 +65,7 @@ class BaseFilterReader extends FilterReader {
      * @return boolean whether or not the filter is initialized
      */
     function getInitialized() {
-        return $this->_initialized;
+        return $this->initialized;
     }
 
     /**
@@ -87,7 +74,7 @@ class BaseFilterReader extends FilterReader {
      * @param boolean $initialized Whether or not the filter is initialized.
      */
     function setInitialized($initialized) {
-        $this->_initialized = (boolean) $initialized;
+        $this->initialized = (boolean) $initialized;
     }
 
     /**
@@ -96,14 +83,9 @@ class BaseFilterReader extends FilterReader {
      * @param object $project The project this filter is part of. 
      *                Should not be <code>null</code>.
      */
-    function setProject(&$project) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($project, 'Project')) {
-            throw (new RuntimeException("Excpected object of type 'Project' got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $this->_project = $project;
+    function setProject(Project $project) {
+        // type check, error must never occur, bad code of it does      
+        $this->project = $project;
     }
 
     /**
@@ -111,28 +93,13 @@ class BaseFilterReader extends FilterReader {
      * 
      * @return object The project this filter is part of
      */
-    function &getProject() {
-        return $this->_project;
-    }
-
-    /**
-     *  Logs a message with the given priority.
-     *
-     *  @param  string   The message to be logged.
-     *  @param  integer  The message's priority at this message should have
-     *  @access public
-     */
-    function log($msg, $level = PROJECT_MSG_INFO) {
-        if ($this->_project !== null) {
-            $this->_project->log($msg, $level);
-        }
+    function getProject() {
+        return $this->project;
     }
 
     /**
      * Reads characters.
      *
-     * @param  cbuf "Destination" buffer to write characters to. 
-     *              Must not be <code>null</code>.
      * @param  off  Offset at which to start storing characters.
      * @param  len  Maximum number of characters to read.
      *
@@ -141,25 +108,8 @@ class BaseFilterReader extends FilterReader {
      *
      * @throws IOException If an I/O error occurs
      */
-    function read($cbuf = null, $off = null, $len = null) {
-        return $this->in->read((string) $cbuf, (int) $off, (int) $len);
-    }
-
-    /**
-     * Reads to the end of the stream, returning the contents as a String.
-     * 
-     * @return the remaining contents of the reader, as a String
-     * 
-     * @exception IOException if the underlying reader throws one during 
-     *            reading
-     */
-    function readFully() {
-        $data = null;
-        while ( ($read = $this->in->read("", 0, 8192)) !== -1 ) {
-            $data .= $read;
-        }
-
-        return $data;
+    function read($len = null) {
+        return $this->in->read($len);
     }
 
     /**
@@ -169,13 +119,13 @@ class BaseFilterReader extends FilterReader {
      * @return the line read, or <code>null</code> if the end of the
                stream has already been reached
      * 
-     * @exception IOException if the underlying reader throws one during 
+     * @throws IOException if the underlying reader throws one during 
      *                        reading
      */
     function readLine() {
         $line = null;
 
-        while ( ($ch = $this->in->read()) != -1 ) {
+        while ( ($ch = $this->in->read(1)) !== -1 ) {
             $line .= $ch;
             if ( $ch === "\n" )
                 break;
@@ -183,14 +133,25 @@ class BaseFilterReader extends FilterReader {
 
         return $line;
     }
-	
-	/**
-	 * Returns whether the end of file has been reached with input stream.
-	 * @return boolean
-	 */ 
-	function eof() {
-		return $this->in->eof();
-	}
+    
+    /**
+     * Returns whether the end of file has been reached with input stream.
+     * @return boolean
+     */ 
+    function eof() {
+        return $this->in->eof();
+    }
+    
+    /**
+     * Convenience method to support logging in filters.
+     * @param string $msg Message to log.
+     * @param int $level Priority level.
+     */
+    function log($msg, $level = PROJECT_MSG_INFO) {
+        if ($this->project !== null) {
+            $this->project->log("[filter:".get_class($this)."] ".$msg, $level);    
+        }
+    }
 }
 
 ?>

@@ -1,18 +1,28 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: PhingCallTask.php,v 1.8 2003/05/03 16:03:49 purestorm Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell  
- * -Author     Anderas Aderhold, andi@binarycloud.com
+ *  $Id: PhingCallTask.php,v 1.9 2004/03/15 17:11:16 hlellelid Exp $  
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
 
-import("phing.Task");
-import("phing.BuildException");
+require_once 'phing/Task.php';
 
 /**
- *  Call another target in the same project.
+ * Call another target in the same project.
  *
  *   <pre>
  *    <target name="foo">
@@ -27,24 +37,23 @@ import("phing.BuildException");
  *    </target>
  *  </pre>
  *
- *  <p>This only works as expected if neither property1 nor foo are
+ * <p>This only works as expected if neither property1 nor foo are
  *  defined in the project itself.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.8 $ $Date: 2003/05/03 16:03:49 $
- *  @access    public
- *  @package   phing.tasks.system
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Revision: 1.9 $
+ * @access    public
+ * @package   phing.tasks.system
  */
-
 class PhingCallTask extends Task {
 
-    var $callee;
-    var $subTarget;
+    private $callee;
+    private $subTarget;
     // must match the default value of PhingTask#inheritAll
-    var $inheritAll = true;
+    private $inheritAll = true;
     // must match the default value of PhingTask#inheritRefs
-    var $inheritRefs = false;
+    private $inheritRefs = false;
 
     /**
      *  If true, pass all properties to the new Phing project.
@@ -70,8 +79,7 @@ class PhingCallTask extends Task {
      *  configuring it's by calling its own init method.
      */
     function init() {
-        $prj =& $this->getProject();
-        $this->callee =& $prj->createTask("phing");
+        $this->callee = $this->project->createTask("phing");
         $this->callee->setOwningTarget($this->getOwningTarget());
         $this->callee->setTaskName($this->getTaskName());
         $this->callee->setLocation($this->getLocation());
@@ -83,18 +91,18 @@ class PhingCallTask extends Task {
      *  @throws BuildException on validation failure or if the target didn't
      *  execute
      */
-    function main() /* throws BuildException */ {
+    function main() {        
+            
         $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", PROJECT_MSG_DEBUG);
-        if ($this->callee == null) {
+        if ($this->callee === null) {
             $this->init();
         }
 
-        if ($this->subTarget == null) {
-            throw(new BuildException("Attribute target is required.", $this->location), __FILE__, __LINE__);
+        if ($this->subTarget === null) {
+            throw new BuildException("Attribute target is required.", $this->location);
         }
-
-        $prj =& $this->getProject();
-        $this->callee->setPhingfile($prj->getProperty("phing.file"));
+        
+        $this->callee->setPhingfile($this->project->getProperty("phing.file"));
         $this->callee->setTarget($this->subTarget);
         $this->callee->setInheritAll($this->inheritAll);
         $this->callee->setInheritRefs($this->inheritRefs);
@@ -102,10 +110,21 @@ class PhingCallTask extends Task {
     }
 
     /**
+     * Alias for createProperty
+     * @see createProperty()
+     */
+    function createParam() {
+        if ($this->callee === null) {
+            $this->init();
+        }
+        return $this->callee->createProperty();
+    }
+    
+    /**
      * Property to pass to the invoked target.
      */
-    function &createProperty() {
-        if ($this->callee == null) {
+    function createProperty() {
+        if ($this->callee === null) {
             $this->init();
         }
         return $this->callee->createProperty();
@@ -118,11 +137,3 @@ class PhingCallTask extends Task {
         $this->subTarget = (string) $target;
     }
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

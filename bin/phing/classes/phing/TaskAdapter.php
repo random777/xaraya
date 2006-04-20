@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: TaskAdapter.php,v 1.6 2003/04/09 15:58:09 thyrell Exp $
+ *  $Id: TaskAdapter.php,v 1.7 2005/10/04 13:52:53 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,9 +16,10 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
+require_once 'phing/Task.php';
 
 /**
  *  Use introspection to "adapt" an arbitrary ( not extending Task, but with
@@ -26,66 +27,58 @@
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.6 $ $Date: 2003/04/09 15:58:09 $
- *  @access    public
+ *  @version   $Revision: 1.7 $
  *  @package   phing
  */
-
-import("phing.Task");
-import("phing.BuildException");
-
 class TaskAdapter extends Task {
-
-    var $proxy;
-
-    function execute() {
-
-        // try to set project
+    
+    /** target object */
+    private $proxy;
+    
+    /**
+     * Main entry point.
+     * @return void
+     */
+    function main() {
+    
         if (method_exists($this->proxy, "setProject")) {
-            $this->proxy->setProject($this->project);
+            try {  // try to set project
+                $this->proxy->setProject($this->project);
+            } catch (Exception $ex) {
+                $this->log("Error setting project in " . get_class($this->proxy) . PROJECT_MSG_ERR);
+                throw new BuildException($ex);
+            }
         } else {
-            throw( new Exception("Error setting project in class " . get_class($this->proxy)));
+            throw new Exception("Error setting project in class " . get_class($this->proxy));
         }
-
-        if (catch("Exception", $ex)) {
-            $this->log("Error setting project in " . get_class($this->proxy) . PROJECT_MSG_ERR);
-            throw(new BuildException($ex->getMessage()), __FILE__, __LINE__);
-            return;
-        }
-
-        //try to call main
-
+               
         if (method_exists($this->proxy, "main")) {
-            $this->proxy->main($this->project);
+            try { //try to call main
+                $this->proxy->main($this->project);
+            } catch (Exception $ex) {
+                $this->log("Error in " . get_class($this->proxy), PROJECT_MSG_ERR);
+                throw new BuildException($ex->getMessage());
+            }
         } else {
-            throw( new Exception("Your task-like class '" . get_class($this->proxy) ."' does not have a main() method"));
+            throw new BuildException("Your task-like class '" . get_class($this->proxy) ."' does not have a main() method");
         }
-
-        if (catch("Exception", $ex)) {
-            $this->log("Error in " . get_class($proxy), PROJECT_MSG_ERR);
-            throw( new BuildException($ex->getMessage()));
-            return;
-        }
-
     }
 
     /**
-     * Set the target object class
+     * Set the target object.
+     * @param object $o
+     * @return void
      */
-    function setProxy(&$o) {
-        $this->proxy =& $o;
+    function setProxy($o) {
+        $this->proxy = $o;
     }
 
-    function &getProxy() {
+    /**
+     * Gets the target object.
+     * @return object
+     */
+    function getProxy() {
         return $this->proxy;
     }
 
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

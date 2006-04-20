@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: LineContains.php,v 1.7 2003/02/25 17:38:30 openface Exp $
+ *  $Id: LineContains.php,v 1.11 2005/02/27 20:52:08 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,11 +17,12 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
-*/
+ * <http://phing.info>.
+ */
 
-import('phing.filters.BaseParamFilterReader');
-import('phing.filters.BaseFilterReader');
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Filter which includes only those lines that contain all the user-specified
@@ -44,104 +45,70 @@ import('phing.filters.BaseFilterReader');
  * This will include only those lines that contain <code>foo</code> and
  * <code>bar</code>.
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.7 $ $Date: 2003/02/25 17:38:30 $
- * @access    public
- * @see       FilterReader
+ * @author    Yannick Lecaillez <yl@seasonfive.com>
+ * @author    Hans Lellelid <hans@velum.net>
+ * @version   $Revision: 1.11 $
+ * @see       PhingFilterReader
  * @package   phing.filters
 */
-class LineContains extends BaseParamFilterReader {
-
-	/**
-	 * The parameter name for the string to match on.
-	 * @var string
-	 */ 
-    var $_CONTAINS_KEY = "contains";
-
-	/**
-	 * Array of Contains objects.
-	 * @var array
-	 */ 
-    var $_contains = array();
-
-	/**
-	 * [Deprecated] 
-	 * @var string
-	 */ 
-    var $_line = null;
+class LineContains extends BaseParamFilterReader implements ChainableReader {
 
     /**
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseFilterReader#BaseFilterReader()
-     */
-    function LineContains() {
-        parent::BaseParamFilterReader();
-    }
+     * The parameter name for the string to match on.
+     * @var string
+     */ 
+    const CONTAINS_KEY = "contains";
 
     /**
-     * Creates a new filtered reader.
-     *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return object A LineContains object filtering the underlying
-     *                stream.
+     * Array of Contains objects.
+     * @var array
+     */ 
+    private $_contains = array();
+
+    /**
+     * [Deprecated] 
+     * @var string
+     */ 
+    private $_line = null;
+
+    /**
+     * Returns all lines in a buffer that contain specified strings.
+     * @return mixed buffer, -1 on EOF
      */
-    function &newLineContains(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, "Reader")) {
-            throw (new RuntimeException("Expected object of type 'Reader' got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-            return;
-        }
-
-        $o = new LineContains();
-        $o->setReader($reader);
-
-        return $o;
-    }
-
-	/**
-	 * Returns all lines in a buffer that contain specified strings.
-	 * @return mixed buffer, -1 on EOF
-	 */
-	function read()
-	{
+    function read($len = null) {
         if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
-		
-		$buffer = $this->in->read();
-		
-		if ($buffer === -1) {
-		    return -1;
-		}
-		
-		$lines = explode("\n", $buffer);		
-		$matched = array();		
-		$containsSize = count($this->_contains);
-		
-		foreach($lines as $line) {								
-	        for($i = 0 ; $i < $containsSize ; $i++) {
-	            $containsStr = $this->_contains[$i]->getValue();
-	            if ( strstr($line, $containsStr) === false ) {
-	                $line = null;
-					break;
-	            }
-	        }				
-			if($line !== null) {
-				$matched[] = $line;
-			}				
-		}		
-		$filtered_buffer = implode("\n", $matched);	
-		return $filtered_buffer;
-	}
-	
+        
+        $buffer = $this->in->read($len);
+        
+        if ($buffer === -1) {
+            return -1;
+        }
+        
+        $lines = explode("\n", $buffer);        
+        $matched = array();        
+        $containsSize = count($this->_contains);
+        
+        foreach($lines as $line) {                                
+            for($i = 0 ; $i < $containsSize ; $i++) {
+                $containsStr = $this->_contains[$i]->getValue();
+                if ( strstr($line, $containsStr) === false ) {
+                    $line = null;
+                    break;
+                }
+            }                
+            if($line !== null) {
+                $matched[] = $line;
+            }                
+        }        
+        $filtered_buffer = implode("\n", $matched);    
+        return $filtered_buffer;
+    }
+    
     /**
-	 * [Deprecated. For reference only, used to be read() method.] 
+     * [Deprecated. For reference only, used to be read() method.] 
      * Returns the next character in the filtered stream, only including
      * lines from the original stream which contain all of the specified words.
      *
@@ -186,12 +153,12 @@ class LineContains extends BaseParamFilterReader {
     }
 
     /**
-     * Adds a <code>contains</code> element.
+     * Adds a <code><contains></code> nested element.
      *
-     * @return contains The <code>contains</code> element added.
+     * @return Contains The <code>contains</code> element added.
      *                  Must not be <code>null</code>.
      */
-    function &createContains() {
+    function createContains() {
         $num = array_push($this->_contains, new Contains());
         return $this->_contains[$num-1];
     }
@@ -200,15 +167,14 @@ class LineContains extends BaseParamFilterReader {
      * Sets the array of words which must be contained within a line read
      * from the original stream in order for it to match this filter.
      *
-     * @param string $contains An array of words which must be contained
+     * @param array $contains An array of words which must be contained
      *                 within a line in order for it to match in this filter.
      *                 Must not be <code>null<code>.
      */
     function setContains($contains) {
         // type check, error must never occur, bad code of it does
         if ( !is_array($contains) ) {
-            throw (new RuntimeException("Excpected array got something else"), __FILE__, __LINE__);
-            System::halt(-1);
+            throw new Exception("Excpected array got something else");
         }
 
         $this->_contains = $contains;
@@ -223,7 +189,7 @@ class LineContains extends BaseParamFilterReader {
      *         returned object is "live" - in other words, changes made to the
      *         returned object are mirrored in the filter.
      */
-    function &getContains() {
+    function getContains() {
         return $this->_contains;
     }
 
@@ -237,26 +203,26 @@ class LineContains extends BaseParamFilterReader {
      * @return object A new filter based on this configuration, but filtering
      *         the specified reader
      */
-    function &chain(&$reader) {
-        $newFilter = &LineContains::newLineContains($reader);
+    function chain(Reader $reader) {
+        $newFilter = new LineContains($reader);
         $newFilter->setContains($this->getContains());
         $newFilter->setInitialized(true);
-
+        $newFilter->setProject($this->getProject());        
         return $newFilter;
     }
 
     /**
      * Parses the parameters to add user-defined contains strings.
      */
-    function _initialize() {
+    private function _initialize() {
         $params = $this->getParameters();
         if ( $params !== null ) {
-            for($i = 0 ; $i<count($params) ; $i++) {
-                if ( $this->_CONTAINS_KEY = $params[$i]->getType() ) {
+            foreach($params as $param) {
+                if ( self::CONTAINS_KEY == $param->getType() ) {
                     $cont = new Contains();
-                    $cont->setValue($params[$i]->getValue());
+                    $cont->setValue($param->getValue());
                     array_push($this->_contains, $cont);
-                    break;
+                    break; // because we only support a single contains
                 }
             }
         }
@@ -268,23 +234,23 @@ class LineContains extends BaseParamFilterReader {
  */
 class Contains {
 
-	/**
-	 * @var string
-	 */ 
-    var $_value;
-	
-	/**
-	 * Set 'contains' value.
-	 * @param string $contains
-	 */ 
+    /**
+     * @var string
+     */ 
+    private $_value;
+    
+    /**
+     * Set 'contains' value.
+     * @param string $contains
+     */ 
     function setValue($contains) {
         $this->_value = (string) $contains;
     }
-	
-	/**
-	 * Returns 'contains' value.
-	 * @return string
-	 */ 
+    
+    /**
+     * Returns 'contains' value.
+     * @return string
+     */ 
     function getValue() {
         return $this->_value;
     }

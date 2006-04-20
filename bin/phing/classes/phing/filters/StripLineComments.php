@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: StripLineComments.php,v 1.5 2003/02/25 17:38:30 openface Exp $  
+ *  $Id: StripLineComments.php,v 1.8 2005/02/27 20:52:08 mrook Exp $  
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +17,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseParamFilterReader');
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /*
  * This filter strips line comments.
@@ -47,44 +48,19 @@ import('phing.filters.BaseParamFilterReader');
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.5 $ $Date: 2003/02/25 17:38:30 $
+ * @version   $Revision: 1.8 $ $Date: 2005/02/27 20:52:08 $
  * @access    public
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class StripLineComments extends BaseParamFilterReader {
-    var	$_COMMENTS_KEY = "comment";	// Parameter name for the comment prefix.
-    var	$_comments     = array();	// Array that holds the comment prefixes.
-    var	$_line         = null;		// The line that has been read ahead.
-
-    /*
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseFilterReader#BaseFilterReader()
-    */
-    function StripLineComments() {
-        parent::BaseParamFilterReader();
-    }
-
-    /*
-     * Creates a new filtered reader.
-     *
-     * @param reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-    */
-    function &newStripLineComments(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $o = new StripLineComments();
-        $o->setReader($reader);
-
-        return $o;
-    }
-	
+class StripLineComments extends BaseParamFilterReader implements ChainableReader {
+    
+    /** Parameter name for the comment prefix. */
+    const COMMENTS_KEY = "comment";
+    
+    /** Array that holds the comment prefixes. */
+    private $_comments = array();
+    
     /**
      * Returns stream only including
      * lines from the original stream which don't start with any of the 
@@ -93,90 +69,43 @@ class StripLineComments extends BaseParamFilterReader {
      * @return mixed the resulting stream, or -1
      *         if the end of the resulting stream has been reached.
      * 
-     * @exception IOException if the underlying stream throws an IOException
+     * @throws IOException if the underlying stream throws an IOException
      *            during reading     
      */
-    function read() {
-	
+    function read($len = null) {
+    
         if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
-		
-		$buffer = $this->in->read();
-		
-		if ($buffer === -1) {
-		    return -1;
-		}
-		
-		$lines = explode("\n", $buffer);		
-		$filtered = array();	
-			
-		$commentsSize = count($this->_comments);
-		
-		foreach($lines as $line) {			
-			for($i = 0; $i < $commentsSize; $i++) {
-			    $comment = $this->_comments[$i]->getValue();
-			    if ( StrStartsWith($comment, ltrim($line)) ) {
-			        $line = null;
-			        break;
-			    }
-			}
-			if ($line !== null) {
-			    $filtered[] = $line;
-			}
-		}
-				
-		$filtered_buffer = implode("\n", $filtered);	
-		return $filtered_buffer;
-    }
-	
-    /**
-	 * [For reference only.  Chain system is using new read() method.] 
-     * Returns the next character in the filtered stream, only including
-     * lines from the original stream which don't start with any of the 
-     * specified comment prefixes.
-     * 
-     * @return the next character in the resulting stream, or -1
-     *         if the end of the resulting stream has been reached
-     * 
-     * @exception IOException if the underlying stream throws an IOException
-     *            during reading     
-    */
-    function readChar() {
-        if ( !$this->getInitialized() ) {
-            $this->_initialize();
-            $this->setInitialized(true);
+        
+        $buffer = $this->in->read($len);
+        
+        if ($buffer === -1) {
+            return -1;
         }
-
-        $ch = -1;
-
-        if ( $this->_line !== null ) {
-            $ch = substr($this->_line, 0, 1);
-            if ( strlen($this->_line) === 1 ) {
-                $this->_line = null;
-            } else {
-                $this->_line = substr($this->_line, 1);
-            }
-        } else {
-            $this->_line = $this->readLine();
-            if ( $this->_line === null ) {
-                $ch = -1;
-            } else {
-                $commentsSize = count($this->_comments);
-                for($i = 0 ; $i<$commentsSize ; $i++) {
-                    $comment = $this->_comments[$i]->getValue();
-                    if ( StrStartsWith($comment, $this->_line) ) {
-                        $this->_line = null;
-                        break;
-                    }
+        
+        $lines = explode("\n", $buffer);        
+        $filtered = array();    
+            
+        $commentsSize = count($this->_comments);
+        
+        foreach($lines as $line) {            
+            for($i = 0; $i < $commentsSize; $i++) {
+                $comment = $this->_comments[$i]->getValue();
+                if ( StringHelper::startsWith($comment, ltrim($line)) ) {
+                    $line = null;
+                    break;
                 }
-                return $this->readChar();
+            }
+            if ($line !== null) {
+                $filtered[] = $line;
             }
         }
-
-        return $ch;
-    }
+                
+        $filtered_buffer = implode("\n", $filtered);    
+        return $filtered_buffer;
+    }        
 
     /*
      * Adds a <code>comment</code> element to the list of prefixes.
@@ -184,7 +113,7 @@ class StripLineComments extends BaseParamFilterReader {
      * @return comment The <code>comment</code> element added to the
      *                 list of comment prefixes to strip.
     */
-    function &createComment() {
+    function createComment() {
         $num = array_push($this->_comments, new Comment());
         return $this->_comments[$num-1];
     }
@@ -196,18 +125,16 @@ class StripLineComments extends BaseParamFilterReader {
      *                 for a comment line. Must not be <code>null</code>.
     */
     function setComments($lineBreaks) {
-        if ( !is_array($lineBreaks) ) {
-            throw (new RuntimeException("Excpected 'array', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
+        if (!is_array($lineBreaks)) {
+            throw new Exception("Excpected 'array', got something else");
         }
-
         $this->_comments = $lineBreaks;
     }
 
     /*
      * Returns the list of comment prefixes to strip.
      * 
-     * @return the list of comment prefixes to strip.
+     * @return array The list of comment prefixes to strip.
     */
     function getComments() {
         return $this->_comments;
@@ -221,24 +148,24 @@ class StripLineComments extends BaseParamFilterReader {
      *               Must not be <code>null</code>.
      * 
      * @return a new filter based on this configuration, but filtering
-        *         the specified reader
-        */
-    function &chain(&$reader) {
-        $newFilter = &StripLineComments::newStripLineComments($reader);
+     *         the specified reader
+     */
+    function chain(Reader $reader) {
+        $newFilter = new StripLineComments($reader);
         $newFilter->setComments($this->getComments());
         $newFilter->setInitialized(true);
-
+        $newFilter->setProject($this->getProject());        
         return $newFilter;
     }
 
     /*
      * Parses the parameters to set the comment prefixes.
     */
-    function _initialize() {
+    private function _initialize() {
         $params = $this->getParameters();
         if ( $params !== null ) {
             for($i = 0 ; $i<count($params) ; $i++) {
-                if ( $this->_COMMENTS_KEY === $params[$i]->getType() ) {
+                if ( self::COMMENTS_KEY === $params[$i]->getType() ) {
                     $comment = new Comment();
                     $comment->setValue($params[$i]->getValue());
                     array_push($this->_comments, $comment);
@@ -252,12 +179,14 @@ class StripLineComments extends BaseParamFilterReader {
  * The class that holds a comment representation.
 */
 class Comment {
-    var	$_value;	// The prefix for a line comment.
+    
+    /** The prefix for a line comment. */
+    private    $_value;
 
     /*
      * Sets the prefix for this type of line comment.
      *
-     * @param comment The prefix for a line comment of this type.
+     * @param string $value The prefix for a line comment of this type.
      *                Must not be <code>null</code>.
      */
     function setValue($value) {
@@ -267,7 +196,7 @@ class Comment {
     /*
      * Returns the prefix for this type of line comment.
      * 
-     * @return the prefix for this type of line comment.
+     * @return string The prefix for this type of line comment.
     */
     function getValue() {
         return $this->_value;

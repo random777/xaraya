@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: Writer.php,v 1.5 2003/02/24 18:22:16 openface Exp $
+ *  $Id: Writer.php,v 1.6 2005/05/26 13:10:52 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,41 +16,33 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import("phing.system.lang.RuntimeException");
-import("phing.system.io.File");
 /**
- * Abstract class for reading character streams. 
- *  @package   phing.system.io
+ * Abstract class for writing character streams. 
+ * @package   phing.system.io
  */
+abstract class Writer {
 
+    abstract public function write($buf, $off = null, $len = null);
 
-class Writer {
-    var	$_out = null;
+    abstract public function reset();
+    
+    abstract public function close();
+    
+    abstract public function open();
 
-    function Writer(&$out) {
-        $this->_out = $out;
-    }
+    public function mark() {}
+    
+    public function ready() {}
 
-    function write($cbuf = null, $off = null, $len = null) {
-        return $this->_out->write($cbuf, $off, $len);
-    }
-
-    function mark() {}
-
-    function reset()	{
-        return $this->_out->reset();
-    }
-    function close()	{
-        return $this->_out->close();
-    }
-    function open()		{
-        return $this->_out->open();
-    }
-    function ready() {}
-
-    function markSupported() {}
+    public function markSupported() {}
+    
+    /**
+     * Returns the filename, url, etc. that is being written to.
+     * @return string
+     */    
+    abstract function getResource();
 }
 ?>

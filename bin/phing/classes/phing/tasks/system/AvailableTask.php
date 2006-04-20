@@ -1,15 +1,26 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: AvailableTask.php,v 1.11 2003/04/09 15:58:12 thyrell Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell  
- * -Author     Anderas Aderhold, andi@binarycloud.com
+ *  $Id: AvailableTask.php,v 1.11 2005/05/26 13:10:53 mrook Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
 
-import("phing.BuildException");
-import("phing.tasks.system.condition.ConditionBase");
+require_once 'phing/Task.php';
+include_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  *  <available> task.
@@ -18,17 +29,22 @@ import("phing.tasks.system.condition.ConditionBase");
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.11 $ $Date: 2003/04/09 15:58:12 $
- *  @access    public
+ *  @version   $Revision: 1.11 $
  *  @package   phing.tasks.system
  */
 class AvailableTask extends Task {
 
-    var $property = null;
-    var $value = "true";
-    var $resource = null;
-    var $type = null;
-    var $filepath = null;
+    /** Property to check for. */
+    private $property;
+    
+    /** Value property should be set to. */
+    private $value = "true";
+    
+    /** Resource to check for */
+    private $resource;
+    
+    private $type = null;
+    private $filepath = null;
 
     function setProperty($property) {
         $this->property = (string) $property;
@@ -38,11 +54,8 @@ class AvailableTask extends Task {
         $this->value = (string) $value;
     }
 
-    function setFile($file) {
-        if (is_a($file, "File")) {
-            $file = $file->getPath();
-        }
-        $this->file = new File((string)$file);
+    function setFile(PhingFile $file) {
+        $this->file = $file;
     }
 
     function setResource($resource) {
@@ -55,7 +68,7 @@ class AvailableTask extends Task {
 
     function main() {
         if ($this->property === null) {
-            throw (new BuildException("property attribute is required", $this->location), __FILE__, __LINE__);
+            throw new BuildException("property attribute is required", $this->location);
         }
         if ($this->evaluate()) {
             $this->project->setProperty($this->property, $this->value);
@@ -64,18 +77,15 @@ class AvailableTask extends Task {
 
     function evaluate() {
         if ($this->file === null && $this->resource === null) {
-            throw (new BuildException("At least one of (file|resource) is required", $this->location), __FILE__, __LINE__);
-            return;
+            throw new BuildException("At least one of (file|resource) is required", $this->location);            
         }
 
-        if ($this->type !== null) {
-            if ($this->type !== "file" && $this->type !== "dir") {
-                throw (new BuildException("Type must be one of either dir or file"), __FILE__, __LINE__);
-                return;
-            }
+        if ($this->type !== null && ($this->type !== "file" && $this->type !== "dir")) {
+            throw new BuildException("Type must be one of either dir or file", $this->location);
         }
+        
         if (($this->file !== null) && !$this->_checkFile()) {
-            $this->log("Unable to find " . $this->file->toString() . " to set property " . $this->property, PROJECT_MSG_VERBOSE);
+            $this->log("Unable to find " . $this->file->__toString() . " to set property " . $this->property, PROJECT_MSG_VERBOSE);
             return false;
         }
 
@@ -93,9 +103,9 @@ class AvailableTask extends Task {
             return $this->_checkFile1($this->file);
         } else {
             $paths = $this->filepath->listDir();
-            for($i = 0; $i < count($paths); ++$i) {
+            for($i=0,$pcnt=count($paths); $i < $pcnt; $i++) {
                 $this->log("Searching " . $paths[$i], PROJECT_MSG_VERBOSE);
-                $tmp = new File($paths[$i], $this->file->getName());
+                $tmp = new PhingFile($paths[$i], $this->file->getName());
                 if($tmp->isFile()) {
                     return true;
                 }
@@ -104,7 +114,7 @@ class AvailableTask extends Task {
         return false;
     }
 
-    function _checkFile1(&$file) {
+    function _checkFile1($file) {
         if ($this->type !== null) {
             if ($this->type === "dir") {
                 return $file->isDirectory();
@@ -116,15 +126,7 @@ class AvailableTask extends Task {
     }
 
     function _checkResource($resource) {
-        return $this->_checkFile1(new File(getResourcePath((string) $resource)));
+        return $this->_checkFile1(new PhingFile(Phing::getResourcePath($resource)));
     }
 
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

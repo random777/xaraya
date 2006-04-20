@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: FilterChain.php,v 1.5 2003/02/24 18:22:16 openface Exp $
+ *  $Id: FilterChain.php,v 1.11 2005/12/08 16:03:49 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,84 +16,124 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
-*/
+ * <http://phing.info>.
+ */
 
-import('phing.types.DataType');
-import('phing.filters.HeadFilter');
-import('phing.filters.TailFilter');
-import('phing.filters.LineContains');
-import('phing.filters.LineContainsRegExp');
-import('phing.filters.ExpandProperties');
-import('phing.filters.PrefixLines');
-import('phing.filters.ReplaceTokens');
-import('phing.filters.StripPhpComments');
-import('phing.filters.StripLineBreaks');
-import('phing.filters.StripLineComments');
-import('phing.filters.TabToSpaces');
-import('phing.filters.XsltFilter');
+include_once 'phing/types/DataType.php';
+include_once 'phing/filters/HeadFilter.php';
+include_once 'phing/filters/TailFilter.php';
+include_once 'phing/filters/LineContains.php';
+include_once 'phing/filters/LineContainsRegexp.php';
+include_once 'phing/filters/ExpandProperties.php';
+include_once 'phing/filters/PrefixLines.php';
+include_once 'phing/filters/ReplaceRegexp.php';
+include_once 'phing/filters/ReplaceTokens.php';
+include_once 'phing/filters/StripPhpComments.php';
+include_once 'phing/filters/StripLineBreaks.php';
+include_once 'phing/filters/StripLineComments.php';
+include_once 'phing/filters/TabToSpaces.php';
+include_once 'phing/filters/TidyFilter.php';
+include_once 'phing/filters/TranslateGettext.php';
+include_once 'phing/filters/XsltFilter.php';
 
 /*
  * FilterChain may contain a chained set of filter readers.
  *
- * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.5 $ $Date: 2003/02/24 18:22:16 $
- * @access    public
+ * @author    Yannick Lecaillez <yl@seasonfive.com>
+ * @version   $Revision: 1.11 $
  * @package   phing.types
-*/
+ */
 class FilterChain extends DataType {
 
-    var $__p			=	null;
-    var $_filterReaders	=	array();
+    private $filterReaders = array();
 
-    function FilterChain(&$p) {
-        $this->__p =& $p;
-    }
-
-    function &getFilterReaders()		{
-        return $this->_filterReaders;
+    function __construct(Project $project) {
+        $this->project = $project;
     }
 
-    function &createExpandProperties()		{
-        return $this->_addFilter(new ExpandProperties());
-    }
-    function &createHeadFilter()			{
-        return $this->_addFilter(new HeadFilter());
-    }
-    function &createTailFilter()			{
-        return $this->_addFilter(new TailFilter());
-    }
-    function &createLineContains()			{
-        return $this->_addFilter(new LineContains());
-    }
-    function &createLineContainsRegExp()	{
-        return $this->_addFilter(new LineContainsRegExp());
-    }
-    function &createPrefixLines()			{
-        return $this->_addFilter(new PrefixLines());
-    }
-    function &createReplaceTokens()			{
-        return $this->_addFilter(new ReplaceTokens());
-    }
-    function &createStripPhpComments()		{
-        return $this->_addFilter(new StripPhpComments());
-    }
-    function &createStripLineBreaks()		{
-        return $this->_addFilter(new StripLineBreaks());
-    }
-    function &createStripLineComments()		{
-        return $this->_addFilter(new StripLineComments());
-    }
-    function &createTabToSpaces()			{
-        return $this->_addFilter(new TabToSpaces());
-    }
-    function &createXsltFilter()          {
-        return $this->_addFilter(new XsltFilter());
-    }
-    function &createFilterReader()			{
-        return $this->_addFilter(new PhingFilterReader());
+    function getFilterReaders() {
+        return $this->filterReaders;
     }
 
+    function addExpandProperties(ExpandProperties $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
+    function addGettext(TranslateGettext $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addHeadFilter(HeadFilter $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addTailFilter(TailFilter $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addLineContains(LineContains $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addLineContainsRegExp(LineContainsRegExp $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addPrefixLines(PrefixLines $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addReplaceTokens(ReplaceTokens $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
+    function addReplaceRegexp(ReplaceRegexp $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addStripPhpComments(StripPhpComments $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addStripLineBreaks(StripLineBreaks $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addStripLineComments(StripLineComments $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;        
+    }
+    
+	function addTidyFilter(TidyFilter $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+	
+    function addTabToSpaces(TabToSpaces $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addXsltFilter(XsltFilter $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+    
+    function addFilterReader(PhingFilterReader $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
 
     /*
      * Makes this instance in effect a reference to another FilterChain 
@@ -103,31 +143,22 @@ class FilterChain extends DataType {
      * this element if you make it a reference.</p>
      *
      * @param r the reference to which this instance is associated
-     * @exception BuildException if this instance already has been configured.
+     * @throw BuildException if this instance already has been configured.
     */
-    function setRefid(&$r) {
-        if ( count($this->_filterReaders) === 0 ) {
-            throw ( $this->tooManyAttributes() );
-            return;
+    function setRefid(Reference $r) {
+    
+        if ( count($this->filterReaders) === 0 ) {
+            throw $this->tooManyAttributes();
         }
 
         // change this to get the objects from the other reference
-        $o = &$r->getReferencedObject($this->getProjec());
-        if ( is_a($o, "FilterChain") ) {
-            $this->_filterReaders = &$o->getFilterReaders();
+        $o = $r->getReferencedObject($this->getProject());
+        if ( $o instanceof FilterChain ) {
+            $this->filterReaders = $o->getFilterReaders();
         } else {
-            throw ( new BuildException($r->getRefId()." doesn\'t refer to a FilterChain") );
+            throw new BuildException($r->getRefId()." doesn't refer to a FilterChain");
         }
-
         parent::setRefid($r);
     }
-
-    function &_addFilter(&$filter) {
-        // FilterChains reference are allowed to have children.
-
-        $num = array_push($this->_filterReaders, $filter);
-        return $this->_filterReaders[$num-1];
-    }
+    
 }
-
-?>

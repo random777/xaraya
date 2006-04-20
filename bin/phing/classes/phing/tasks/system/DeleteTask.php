@@ -1,48 +1,66 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: DeleteTask.php,v 1.15 2003/04/09 15:58:12 thyrell Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell
- * -Author     Anderas Aderhold, andi@binarycloud.com
+ *  $Id: DeleteTask.php,v 1.13 2005/11/29 17:45:56 hlellelid Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
 
-import('phing.Task');
+require_once 'phing/Task.php';
 
 /**
- *  Deletes a file or directory, or set of files defined by a fileset.
- *  @package   phing.tasks.system
+ * Deletes a file or directory, or set of files defined by a fileset.
+ * 
+ * @version   $Revision: 1.13 $
+ * @package   phing.tasks.system
  */
-
 class DeleteTask extends Task {
 
-    var $file         = null;
-    var $dir          = null;
-    var $filesets     = array();
-    var $includeEmpty = false;
+    protected $file;
+    protected $dir;
+    protected $filesets = array();
+    protected $includeEmpty = false;
 
-    var $quiet        = false;
-    var $failonerror  = true;
-    var $verbosity    = PROJECT_MSG_INFO;
-
-    /** Set the name of a single file to be removed. */
-    function setFile($file) {
-        if (is_a($file, "File")) {
-            $file = $file->getPath();
-        }
-        $this->file = new File((string)$file);
+    protected $quiet = false;
+    protected $failonerror = true;
+    protected $verbosity = PROJECT_MSG_VERBOSE;
+	
+	/** Any filelists of files that should be deleted. */
+    private $filelists = array();
+	
+    /** 
+     * Set the name of a single file to be removed.
+     * @param PhingFile $file
+     */
+    function setFile(PhingFile $file) {       
+        $this->file = $file;
     }
 
-    /** Set the directory from which files are to be deleted */
-    function setDir($dir) {
-        if (is_a($dir, "File")) {
-            $dir = $dir->getPath();
-        }
-        $this->dir = new File((string)$dir);
+    /** 
+     * Set the directory from which files are to be deleted.
+     * @param PhingFile $dir
+     */
+    function setDir(PhingFile $dir) {
+        $this->dir = $dir;
     }
 
-    /** Used to force listing of all names of deleted files. */
+    /**
+     * Used to force listing of all names of deleted files.
+     * @param boolean $verbosity
+     */
     function setVerbose($verbosity) {
         if ($verbosity) {
             $this->verbosity = PROJECT_MSG_INFO;
@@ -78,40 +96,43 @@ class DeleteTask extends Task {
     }
 
     /** Nested creator, adds a set of files (nested fileset attribute). */
-    function &createFileset() {
-        $num = array_push($this->filesets, new Fileset());
+    function createFileSet() {
+        $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
-
+	
+	/** Nested creator, adds a set of files (nested fileset attribute). */
+    function createFileList() {
+        $num = array_push($this->filelists, new FileList());
+        return $this->filelists[$num-1];
+    }
 
     /** Delete the file(s). */
     function main() {
-        if ($this->file === null && $this->dir === null && count($this->filesets) === 0) {
-            throw (new BuildException("At least one of the file or dir attributes, or a fileset element, must be set."));
-            return;
+        if ($this->file === null && $this->dir === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
+            throw new BuildException("At least one of the file or dir attributes, or a fileset element, or a filelist element must be set.");
         }
 
         if ($this->quiet && $this->failonerror) {
-            throw (new BuildException("quiet and failonerror cannot both be set to true", $this->location));
-            return;
+            throw new BuildException("quiet and failonerror cannot both be set to true", $this->location);
         }
 
         // delete a single file
         if ($this->file !== null) {
             if ($this->file->exists()) {
                 if ($this->file->isDirectory()) {
-                    $this->log("Directory " . $this->file->getAbsolutePath() . " cannot be removed using the file attribute. Use dir instead.");
+                    $this->log("Directory " . $this->file->__toString() . " cannot be removed using the file attribute. Use dir instead.");
                 } else {
-                    $this->log("Deleting: " . $this->file->getAbsolutePath());
-
-                    if (!$this->file->delete()) {
-                        $message = "Unable to delete file " . $this->file->getAbsolutePath();
+                    $this->log("Deleting: " . $this->file->__toString());
+                    try {
+                        $this->file->delete();
+                    } catch(Exception $e) {
+                        $message = "Unable to delete file " . $this->file->__toString() .": " .$e->getMessage();
                         if($this->failonerror) {
-                            throw (new BuildException($message));
-                            return;
+                            throw new BuildException($message);
                         } else {
                             $this->log($message, $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
-                        }
+                        }                        
                     }
                 }
             } else {
@@ -122,120 +143,135 @@ class DeleteTask extends Task {
         // delete the directory
         if ($this->dir !== null && $this->dir->exists() && $this->dir->isDirectory()) {
             if ($this->verbosity === PROJECT_MSG_VERBOSE) {
-                $this->log("Deleting directory " . $this->dir->getAbsolutePath());
+                $this->log("Deleting directory " . $this->dir->__toString());
             }
-            $this->_removeDir($this->dir);
+            $this->removeDir($this->dir);
         }
-
+		
+		// delete the files in the filelists
+		foreach($this->filelists as $fl) {
+			try {
+				$files = $fl->getFiles($this->project);
+				$this->removeFiles($fl->getDir($this->project), $files, $empty=array());
+			} catch (BuildException $be) {
+				// directory doesn't exist or is not readable
+					if ($this->failonerror) {
+					throw $be;
+				} else {
+					$this->log($be->getMessage(), $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
+				}
+			}
+		}
+			
         // delete the files in the filesets
-        for ($i=0; $i<count($this->filesets); ++$i) {
-            $fs =& $this->filesets[$i];
-            {
-                $ds =& $fs->getDirectoryScanner($this->project);
+        foreach($this->filesets as $fs) {
+            try {
+                $ds = $fs->getDirectoryScanner($this->project);
                 $files = $ds->getIncludedFiles();
-                $dirs  = $ds->getIncludedDirectories();
-                $this->_removeFiles($fs->getDir($this->project), $files, $dirs);
-            }
-            if ( catch("BuildException", $be)) {
+                $dirs = $ds->getIncludedDirectories();
+                $this->removeFiles($fs->getDir($this->project), $files, $dirs);
+            } catch (BuildException $be) {
                     // directory doesn't exist or is not readable
                     if ($this->failonerror) {
-                        throw($be);
+                        throw $be;
                     } else {
                         $this->log($be->getMessage(), $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
                     }
                 }
         }
     }
-
-    function _removeDir(&$d) {
+    
+    /**
+     * Recursively removes a directory.
+     * @param PhingFile $d The directory to remove.
+     */
+    private function removeDir($d) {
         $list = $d->listDir();
         if ($list === null) {
             $list = array();
         }
-
-        for ($i = 0; $i < count($list); ++$i) {
-            $s = $list[$i];
-            $f = new File($d, $s);
+        
+        foreach($list as $s) {
+            $f = new PhingFile($d, $s);
             if ($f->isDirectory()) {
-                $this->_removeDir($f);
+                $this->removeDir($f);
             } else {
-                $this->log("Deleting " . $f->getAbsolutePath(), $this->verbosity);
-                if (!$f->delete()) {
-                    $message = "Unable to delete file " . $f->getAbsolutePath();
+                $this->log("Deleting " . $f->__toString(), $this->verbosity);
+                try {
+                    $f->delete();
+                } catch (Exception $e) {
+                    $message = "Unable to delete file " . $f->__toString() . ": " . $e->getMessage();
                     if($this->failonerror) {
-                        throw(new BuildException($message));
+                        throw new BuildException($message);
                     } else {
                         $this->log($message, $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
                     }
-                }
+                }               
             }
         }
         $this->log("Deleting directory " . $d->getAbsolutePath(), $this->verbosity);
-        if (!$d->delete()) {
-            $message = "Unable to delete directory " . $this->dir->getAbsolutePath();
+        try {
+            $d->delete();
+        } catch (Exception $e) {
+            $message = "Unable to delete directory " . $d->__toString() . ": " . $e->getMessage();
             if($this->failonerror) {
-                throw( new BuildException($message) );
+              throw new BuildException($message);
             } else {
-                $this->log($message, $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
+              $this->log($message, $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
             }
-        }
+        }               
     }
 
     /**
      * remove an array of files in a directory, and a list of subdirectories
      * which will only be deleted if 'includeEmpty' is true
-     * @param d directory to work from
-     * @param files array of files to delete; can be of zero length
-     * @param dirs array of directories to delete; can of zero length
+     * @param PhingFile $d directory to work from
+     * @param array &$files array of files to delete; can be of zero length
+     * @param array &$dirs array of directories to delete; can of zero length
      */
-    function _removeFiles(&$d, &$files, &$dirs) {
+    private function removeFiles(PhingFile $d, &$files, &$dirs) {
         if (count($files) > 0) {
-            $this->log("Deleting " . count($files) . " files from " . $d->getAbsolutePath());
-            for ($j=0; $j<count($files); ++$j) {
-                $f = new File($d, $files[$j]);
+            $this->log("Deleting " . count($files) . " files from " . $d->__toString());
+            for ($j=0,$_j=count($files); $j < $_j; $j++) {
+                $f = new PhingFile($d, $files[$j]);
                 $this->log("Deleting " . $f->getAbsolutePath(), $this->verbosity);
-                if (!$f->delete()) {
-                    $message="Unable to delete file " . $f->getAbsolutePath();
+                try {
+                    $f->delete();
+                } catch (Exception $e) {
+                    $message = "Unable to delete file " . $f->__toString() . ": " . $e->getMessage();
                     if($this->failonerror) {
-                        throw( new BuildException($message) );
+                        throw new BuildException($message);
                     } else {
                         $this->log($message, $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
                     }
-                }
+                }               
+
             }
         }
 
         if (count($dirs) > 0 && $this->includeEmpty) {
             $dirCount = 0;
             for ($j=count($dirs)-1; $j>=0; --$j) {
-                $dir = new File($d, $dirs[$j]);
+                $dir = new PhingFile($d, $dirs[$j]);
                 $dirFiles = $dir->listDir();
                 if ($dirFiles === null || count($dirFiles) === 0) {
-                    $this->log("Deleting " . $dir->getAbsolutePath(), $this->verbosity);
-                    if (!$dir->delete()) {
-                        $message="Unable to delete directory " + $dir->getAbsolutePath();
+                    $this->log("Deleting " . $dir->__toString(), $this->verbosity);
+                    try {
+                        $dir->delete();
+                        $dirCount++;
+                    } catch (Exception $e) {
+                        $message="Unable to delete directory " + $dir;
                         if($this->failonerror) {
-                            throw(new BuildException($message));
+                            throw new BuildException($message);
                         } else {
                             $this->log($message, $this->quiet ? PROJECT_MSG_VERBOSE : PROJECT_MSG_WARN);
                         }
-                    } else {
-                        $dirCount++;
                     }
                 }
             }
             if ($dirCount > 0) {
-                $this->log("Deleted $dirCount director" . ($dirCount==1 ? "y" : "ies") . " from " . $d->getAbsolutePath());
+                $this->log("Deleted $dirCount director" . ($dirCount==1 ? "y" : "ies") . " from " . $d->__toString());
             }
         }
     }
 }
-
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

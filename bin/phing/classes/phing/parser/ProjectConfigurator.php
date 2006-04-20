@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: ProjectConfigurator.php,v 1.11 2003/06/04 12:22:36 purestorm Exp $
+ * $Id: ProjectConfigurator.php,v 1.17 2006/01/06 14:57:18 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,33 +16,35 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
-import("phing.system.io.BufferedReader");
-import("phing.system.io.FileReader");
-import("phing.BuildException");
-import("phing.parser.*");
+include_once 'phing/system/io/BufferedReader.php';
+include_once 'phing/system/io/FileReader.php';
+include_once 'phing/BuildException.php';
+include_once 'phing/system/lang/FileNotFoundException.php';
+include_once 'phing/system/io/PhingFile.php';
 
 /**
  * The datatype handler class.
  *
  * This class handles the occurance of registered datatype tags like
- * Fileset
+ * FileSet
  *
- * @author	  Andreas Aderhold <andi@binarycloud.com>
+ * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.11 $ $Date: 2003/06/04 12:22:36 $
+ * @version   $Revision: 1.17 $ $Date: 2006/01/06 14:57:18 $
  * @access    public
  * @package   phing.parser
  */
 class ProjectConfigurator {
 
-    var $project;
-    var $buildFile;
-    var $buildFileParent;
-    var $locator;
-
+    public $project;
+    public $locator;
+    
+    public $buildFile;
+    public $buildFileParent;
+        
     /**
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
@@ -51,9 +53,9 @@ class ProjectConfigurator {
      * @param  object  the buildfile object the parser should use
      * @access public
      */
-    function configureProject(&$project, &$buildFile) {
+    public static function configureProject(Project $project, PhingFile $buildFile) {
         $pc = new ProjectConfigurator($project, $buildFile);
-        $pc->_parse();
+        $pc->parse();
     }
 
     /**
@@ -65,10 +67,10 @@ class ProjectConfigurator {
      * @param  object  the buildfile object the parser should use
      * @access private
      */
-    function ProjectConfigurator(&$project, &$buildFile) {
-        $this->project =& $project;
-        $this->buildFile = new File($buildFile->getAbsolutePath());
-        $this->buildFileParent = new File($this->buildFile->getParent());
+    function __construct(Project $project, PhingFile $buildFile) {
+        $this->project = $project;
+        $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
+        $this->buildFileParent = new PhingFile($this->buildFile->getParent());
     }
 
     /**
@@ -79,31 +81,18 @@ class ProjectConfigurator {
      *         the parsing process
      * @access private
      */
-    function _parse() {
-        { // try
+    protected function parse() {
+        try {
             $reader = new BufferedReader(new FileReader($this->buildFile));
             $reader->open();
             $parser = new ExpatParser($reader);
             $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
-            $parser->setHandler(new RootFilter($parser, $this));
+            $parser->setHandler(new RootHandler($parser, $this));
             $this->project->log("parsing buildfile ".$this->buildFile->getName(), PROJECT_MSG_VERBOSE);
             $parser->parse();
             $reader->close();
-        }
-
-        if (catch('ExpatParseException', $exc)) {
-            throw (new BuildException($exc->getMessage()));
-            return;
-        }
-
-        if (catch('FileNotFoundException', $exc)) {
-            throw (new BuildException($exc->getMessage()));
-            return;
-        }
-
-        if (catch('IOException', $exc)) {
-            throw (new BuildException("Error reading project file", $exc->getMessage()));
-            return;
+        } catch (Exception $exc) {
+            throw new BuildException("Error reading project file", $exc);
         }
     }
 
@@ -113,34 +102,42 @@ class ProjectConfigurator {
      * @param  object  the element to configure
      * @param  array   the element's attributes
      * @param  object  the project this element belongs to
-     * @throws RuntimeException if arguments are not valid
+     * @throws Exception if arguments are not valid
      * @throws BuildException if attributes can not be configured
      * @access public
      */
-    function configure(&$target, &$attrs, &$project) {
-        if (!is_object($target)) {
-            throw (new RuntimeException("Unsupported argument type, needs to be an object"), __FILE__, __LINE__);
-            System::halt(-1);
+    function configure($target, $attrs, Project $project) {               
+
+        if ($target instanceof TaskAdapter) {
+            $target = $target->getProxy();
         }
+        
+		// if the target is an UnknownElement, this means that the tag had not been registered
+		// when the enclosing element (task, target, etc.) was configured.  It is possible, however, 
+		// that the tag was registered (e.g. using <taskdef>) after the original configuration.
+		// ... so, try to load it again:
+		if ($target instanceof UnknownElement) {
+			$tryTarget = $project->createTask($target->getTaskType());
+			if ($tryTarget) {
+				$target = $tryTarget;
+			}
+		}
 
         $bean = get_class($target);
-        $ih =& IntrospectionHelper::getHelper($bean);
+        $ih = IntrospectionHelper::getHelper($bean);
 
         foreach ($attrs as $key => $value) {
             if ($key == 'id') {
                 continue;
-                //throw (new BuildException("Id must be set Extermnally")); return;
-            }
-            $setter = "set".ucfirst($key);
-            $value = ProjectConfigurator::replaceProperties($project, $value, $project->getProperties());
-            { // try to set the attribute
+                // throw new BuildException("Id must be set Extermnally");
+            }            
+            $value = self::replaceProperties($project, $value, $project->getProperties());
+            try { // try to set the attribute
                 $ih->setAttribute($project, $target, strtolower($key), $value);
-            }
-            if (catch ("BuildException", $be)) {
+            } catch (BuildException $be) {
                 // id attribute must be set externally
                 if ($key !== "id") {
-                    throw (new BuildException($be->getMessage()));
-                    return;
+                    throw $be;
                 }
             }
         }
@@ -154,11 +151,12 @@ class ProjectConfigurator {
      * @param  string  the element's #CDATA
      * @access public
      */
-    function addText(&$project, &$target, $text = null) {
+    function addText($project, $target, $text = null) {
         if ($text === null || strlen(trim($text)) === 0) {
             return;
-        }
-        $ih =& IntrospectionHelper::getHelper(get_class($target));
+        }    
+        $ih = IntrospectionHelper::getHelper(get_class($target));
+        $text = self::replaceProperties($project, $text, $project->getProperties());
         $ih->addText($project, $target, $text);
     }
 
@@ -171,11 +169,20 @@ class ProjectConfigurator {
      * @param  string  the XML tagname
      * @access public
      */
-    function storeChild(&$project, &$parent, &$child, $tag) {
-        $ih =& IntrospectionHelper::getHelper(get_class($parent));
+    function storeChild($project, $parent, $child, $tag) {
+        $ih = IntrospectionHelper::getHelper(get_class($parent));
         $ih->storeElement($project, $parent, $child, $tag);
     }
 
+    // The following two properties are a sort of hack
+    // to enable a static function to serve as the callback
+    // for preg_replace_callback().  Clearly we cannot use object
+    // variables, since the replaceProperties() is called statically.
+    // This is IMO better than using global variables in the callback.
+    
+    private static $propReplaceProject;
+    private static $propReplaceProperties;
+         
     /**
      * Replace ${} style constructions in the given value with the
      * string value of the corresponding data types. This method is
@@ -187,81 +194,42 @@ class ProjectConfigurator {
      * @return string  the replaced string or <code>null</code> if the string
      *                 itself was null
      */
-    function replaceProperties(&$project, $value, $keys) {
+    public static function replaceProperties(Project $project, $value, $keys) {
+        
         if ($value === null) {
             return null;
         }
-
-        $fragments	= array();
-        $propertyRefs = array();
-
-        // parse string into frags and refs
-        ProjectConfigurator::parsePropertyString($value, $fragments, $propertyRefs);
-        $sb = "";
-
-        $i = $fragments;
-        $j = $propertyRefs;
-        while (count($i)) {
-            $fragment = array_shift($i);
-            if ($fragment === null) {
-                $propertyName = array_shift($j);
-                if (!isset($keys[$propertyName])) {
-                    $project->log("Property \${$propertyName} has not been set", PROJECT_MSG_VERBOSE);
-                }
-                $fragment = isset($keys[$propertyName]) ? (string) $keys[$propertyName] : "\${$propertyName}";
-            }
-            $sb .= $fragment;
-        }
-        return (string) $sb;
+        
+        // These are a "hack" to support static callback for preg_replace_callback()
+        
+        // make sure these get initialized every time        
+        self::$propReplaceProperties = $keys;
+        self::$propReplaceProject = $project;
+        
+        // Because we're not doing anything special (like multiple passes),
+        // regex is the simplest / fastest.  PropertyTask, though, uses
+        // the old parsePropertyString() method, since it has more stringent
+        // requirements.
+        
+        $sb = preg_replace_callback('/\$\{([^}]+)\}/', array('ProjectConfigurator', 'replacePropertyCallback'), $value);
+        return $sb;        
     }
-
+    
     /**
-     * This method will parse a string containing ${value} style
-     * property values into two lists. The first list is a collection
-     * of text fragments, while the other is a set of string property names
-     * null entries in the first list indicate a property reference from the
-     * second list.
-     *
-     * @param  string  the string to be scanned for property references
-     * @param  array   the found fragments
-     * @param  array   the found refs
+     * Private [static] function for use by preg_replace_callback to replace a single param.
+     * This method makes use of a static variable to hold the 
      */
-    function parsePropertyString($value, &$fragments, &$propertyRefs) {
-        $prev = 0;
-        $pos  = 0;
-        while (($pos = strIndexOf('$', $value, $prev)) >= 0) {
-            if ($pos > $prev) {
-                array_push($fragments, substring($value, $prev, $pos-1));
-            }
-            if ($pos === (strlen($value) - 1)) {
-                array_push($fragments, '$');
-                $prev = $pos + 1;
-            }
-            elseif ($value{$pos+1} !== '{' ) {
-
-                // the string positions were changed to value-1 to correct
-                // a fatal error coming from function substring()
-                array_push($fragments, substring($value, $pos, $pos + 1));
-                $prev = $pos + 2;
-            }
-            else {
-                $endName = strIndexOf('}', $value, $pos);
-                if ($endName < 0) {
-                    throw (new BuildException("Syntax error in property: $value"));
-                    return;
-                }
-                $propertyName = substring($value, $pos + 2, $endName-1);
-                array_push($fragments, null);
-                array_push($propertyRefs, $propertyName);
-                $prev = $endName + 1;
-            }
-        }
-
-        if ($prev < strlen($value)) {
-            array_push($fragments, substring($value, $prev));
-        }
-    }
-
+    private static function replacePropertyCallback($matches)
+    {
+        $propertyName = $matches[1];
+        if (!isset(self::$propReplaceProperties[$propertyName])) {
+                    self::$propReplaceProject->log('Property ${'.$propertyName.'} has not been set.', PROJECT_MSG_VERBOSE);
+                    return $matches[0];
+        } else {
+			self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], PROJECT_MSG_DEBUG);
+		}
+        return self::$propReplaceProperties[$propertyName];
+    }           
 
     /**
      * Scan Attributes for the id attribute and maybe add a reference to
@@ -276,11 +244,3 @@ class ProjectConfigurator {
         }
     }
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

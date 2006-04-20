@@ -1,197 +1,269 @@
 <?php
-// {{{ Header
+
 /*
- * -File       $Id: PhingTask.php,v 1.38 2003/07/09 14:46:51 purestorm Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell  
- * -Author     Anderas Aderhold, andi@binarycloud.com
- */
-// }}}
+ *  $Id: PhingTask.php,v 1.20 2005/11/08 20:45:59 hlellelid Exp $  
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
+*/
 
-// {{{ imports
-import("phing.BuildException");
-import("phing.BuildListener");
-import("phing.DefaultLogger");
-
-import("phing.parser.*");
-import("phing.Project");
-import("phing.Task");
-
-import("phing.util.FileUtils");
-import("phing.system.io.File");
-import("phing.system.io.IOException");
-
-import("phing.types.Reference");
-// }}}
-
+include_once 'phing/Task.php';
+include_once 'phing/util/FileUtils.php';
+include_once 'phing/types/Reference.php';
+include_once 'phing/tasks/system/PropertyTask.php';
 
 /**
- *  @package phing.tasks.system
+ * Task that invokes phing on another build file.
+ * 
+ * Use this task, for example, if you have nested buildfiles in your project. Unlike
+ * AntTask, PhingTask can even support filesets:
+ * 
+ * <pre>
+ *   <phing>
+ *    <fileset dir="${srcdir}">
+ *      <include name="** /build.xml" /> <!-- space added after ** is there because of PHP comment syntax -->
+ *      <exclude name="build.xml" />
+ *    </fileset>
+ *   </phing>
+ * </pre>
+ * 
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.20 $
+ * @package   phing.tasks.system
  */
 class PhingTask extends Task {
-    // {{{ properties
-    // *Everything within here is protected*
-
-    /* Properties that are set by specifying attributes in the build
-     * XML file. 
-     */
 
     /** the basedir where is executed the build file */
-    var $dir = null;
+    private $dir;
+    
     /** build.xml (can be absolute) in this case dir will be ignored */
-    var $phingFile = null;
+    private $phingFile;
+    
     /** the target to call if any */
-    var $newProjectTarget = null;
+    protected $newTarget;
+    
     /** should we inherit properties from the parent ? */
-    var $inheritAll = true;
+    private $inheritAll = true;
+    
     /** should we inherit references from the parent ? */
-    var $inheritRefs = false;
-
-    /* Properties that are set by nested elements within the <phing>
-     * tag.
-     */
+    private $inheritRefs = false;
 
     /** the properties to pass to the new project */
-    var $properties = array();
-    /** the references to pass to the new project */
-    var $references = array();
-    /** The filesets that contain the files PhingTask is to be run on. */
-    var $filesets = array();
+    private $properties = array();
 
-    /* Other attributes for internal use only.
-     */
+    /** the references to pass to the new project */
+    private $references = array();
+
+    /** The filesets that contain the files PhingTask is to be run on. */
+    private $filesets = array();
 
     /** the temporary project created to run the build file */
-    var $newProject;
-    // }}} 
+    private $newProject;
 
-    // {{{ method main()
+    /**
+     * Creates a Project instance for the project to call.
+     * @return void
+     */
+    public function init() {
+        $this->newProject = new Project();
+        $tdf = $this->project->getTaskDefinitions();
+        $this->newProject->addTaskDefinition("property", $tdf["property"]);
+    }
+
+    /**
+     * Called in execute or createProperty if newProject is null.
+     *
+     * <p>This can happen if the same instance of this task is run
+     * twice as newProject is set to null at the end of execute (to
+     * save memory and help the GC).</p>
+     *
+     * <p>Sets all properties that have been defined as nested
+     * property elements.</p>
+     */
+    private function reinit() {
+        $this->init();
+        $count = count($this->properties);
+        for ($i = 0; $i < $count; $i++) {
+            $p = $this->properties[$i];
+            $newP = $this->newProject->createTask("property");
+            $newP->setName($p->getName());
+            if ($p->getValue() !== null) {
+                $newP->setValue($p->getValue());
+            }
+            if ($p->getFile() !== null) {
+                $newP->setFile($p->getFile());
+            }            
+            if ($p->getPrefix() !== null) {
+                $newP->setPrefix($p->getPrefix());
+            }
+            if ($p->getRefid() !== null) {
+                $newP->setRefid($p->getRefid());
+            }
+            if ($p->getEnvironment() !== null) {
+                $newP->setEnvironment($p->getEnvironment());
+            }
+            if ($p->getUserProperty() !== null) {
+                $newP->setUserProperty($p->getUserProperty());
+            }
+            if ($p->getOverride() !== null) {
+                $newP->setOverride($p->getOverride());
+            }
+            $this->properties[$i] = $newP;
+        }
+    }
+
     /**
      * Main entry point for the task.
      *
-     * @access public
+     * @return void
      */
-    function main() {
-        $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newProjectTarget . "'", PROJECT_MSG_DEBUG);
-
+    public function main() {
+    
         // Call Phing on the file set with the attribute "phingfile"
         if ($this->phingFile !== null or $this->dir !== null) {
             $this->processFile();
         }
 
         // if no filesets are given stop here; else process filesets
-        if (count($this->filesets) === 0 ) 
-            return true;
-
+        if (empty($this->filesets)) { 
+            return;
+        }
+        
         // preserve old settings
-        $old_phingFile = $this->phingFile;
-        $old_dir = $this->dir;
-        $old_target = $this->newProjectTarget;
+        $savedDir = $this->dir;
+        $savedPhingFile = $this->phingFile;
+        $savedTarget = $this->newTarget;
 
         // set no specific target for files in filesets
-        $this->newProjectTarget = NULL;
+        // [HL] I'm commenting this out; I don't know why this should not be supported!
+        // $this->newTarget = null;
+        
+        foreach($this->filesets as $fs) {
 
-        /* If one or more filesets are provide, use the files included
-         * with them as well to execute Phing.
-         * TODO: This may be buggy...
-         */
-        // set shortcut
-        $project =& $this->getProject();
+            $ds = $fs->getDirectoryScanner($this->project);
 
-        $count = count($this->filesets); 
-        for ($i = 0; $i < $count; ++$i) {
-            $fs =& $this->filesets[$i];
-            $ds =& $fs->getDirectoryScanner($project);
-
-            $fromDir  = $fs->getDir($project);
+            $fromDir  = $fs->getDir($this->project);
             $srcFiles = $ds->getIncludedFiles();
 
-            $count2 = count($srcFiles);
-            for ($i = 0; $i < $count2; $i++) {
-                $f =& new File($ds->getbasedir(), $srcFiles[$i]);
-                $f =& $f->getAbsoluteFile();
-
+            foreach($srcFiles as $fname) {            
+                $f = new PhingFile($ds->getbasedir(), $fname);
+                $f = $f->getAbsoluteFile();
                 $this->phingFile = $f->getAbsolutePath();
                 $this->dir = $f->getParentFile();
-
-                // start Phing
-                $this->processFile();
+                $this->processFile();    // run Phing!
             }
-        }
-
+        }        
+        
         // side effect free programming ;-)
-        $this->newProjectTarget = $old_target;
-        $this->phingFile = $old_phingFile;
-        $this->dir = $old_dir;
-    }
-    // }}}
-    // {{{ method processFile()
-    /**
-     * Processes one phing file. To process more, PhingTask::main() sets
-     * the attributes of the objects and executes processFile() several
-     * times.
-     *
-     * @access      protected
-     */
-    function processFile() {
-        $savedDir = $this->dir;
-        // init Project
-        $this->configureProject();
-
-        // directory settings
-        if ($this->dir === null and $this->inheritAll === true) {
-            $p = &$this->getProject();
-            $this->dir = $p->getBaseDir();
-        }
-
+        $this->dir = $savedDir;        
+        $this->phingFile = $savedPhingFile;
+        $this->newTarget = $savedTarget;
+        
+        // [HL] change back to correct dir
         if ($this->dir !== null) {
-            $this->newProject->setBaseDir($this->dir);
-            if ( $savedDir !== null ) {	// Has been set explicitly
-                $this->newProject->setProperty("project.basedir", $this->dir->getAbsolutePath());
-            }
-        } else {
-            $p = &$this->getProject();
-            $this->dir = $p->getBaseDir();
+            chdir($this->dir->getAbsolutePath());
         }
-
-        // ??
-        //$this->_overrideProperties();
-
-        // Set the build file name and get its absolute path
-        if ($this->phingFile === null)
-            $this->phingFile = "build.xml";
-
-        $fu = FileUtils::newFileUtils();
-        $file = $fu->resolveFile($this->dir, $this->phingFile);
-        $this->phingFile = $file->getAbsolutePath();
-
-        $this->newProject->setProperty("phing.file", $this->phingFile);
-        $this->log("Calling ".( ($this->newProjectTarget !== null) ? "'".$this->newProjectTarget."'" : ("default target") )." in buildfile ".$this->phingFile, PROJECT_MSG_VERBOSE);
-
-        ProjectConfigurator::configureProject($this->newProject, new File($this->phingFile));
-
-        if ($this->newProjectTarget === NULL) {
-            $this->newProjectTarget = $this->newProject->getDefaultTarget();
-        }
-
-        //$this->_addReferences();
-
-        // Are we trying to all the target in which we are defined ?
-        $p = &$this->getProject();
-        $ot = &$this->getOwningTarget();
-        if ( ( $this->newProject->getBaseDir() === $p->getBaseDir() ) &&
-                ( $this->newProject->getProperty("phing.file") === $p->getProperty("phing.file") ) &&
-                ( $ot !== null ) && ( $ot->getName() === $this->newProjectTarget ) ) {
-
-            throw(new BuildException("PhingTask calling its own parent target"));
-        }
-
-        $this->newProject->executeTarget($this->newProjectTarget);
-
-        // done, maybe do some cleanup
+        
     }
-    // }}}
-    // {{{ method configureProject()
+    
+    /**
+     * Execute phing file.
+     * 
+     * @return void
+     */
+    private function processFile()  {
+            
+        $savedDir = $this->dir;
+        $savedPhingFile = $this->phingFile;
+        $savedTarget = $this->newTarget;
+        
+        try {
+            if ($this->newProject === null) {
+                $this->reinit();
+            }
+
+            if (($this->dir === null) && ($this->inheritAll)) {
+                $this->dir = $this->getProject()->getBaseDir();
+            }
+            $this->initializeProject();
+            if ($this->dir !== null) {
+                $this->newProject->setBaseDir($this->dir);
+                if ($savedDir !== null) { // has been set explicitly
+                    $this->newProject->setInheritedProperty("project.basedir", $this->dir->getAbsolutePath());
+                }                                
+            } else {
+                $this->dir = $this->getProject()->getBaseDir();
+            }
+
+            $this->overrideProperties();
+            if ($this->phingFile === null) {
+                $this->phingFile = "build.xml";
+            }
+            
+            $fu = new FileUtils();
+            $file = $fu->resolveFile($this->dir, $this->phingFile);
+            $this->phingFile = $file->getAbsolutePath();
+            
+            $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'");
+                        
+            $this->newProject->setUserProperty("phing.file", $this->phingFile);
+                       
+            ProjectConfigurator::configureProject($this->newProject, new PhingFile($this->phingFile));
+
+            if ($this->newTarget === null) {
+                $this->newTarget = $this->newProject->getDefaultTarget();
+            }
+
+            // Are we trying to call the target in which we are defined?
+            if ($this->newProject->getBaseDir() == $this->project->getBaseDir() &&
+                $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file") &&
+                $this->getOwningTarget() !== null &&
+                $this->newTarget == $this->getOwningTarget()->getName()) {
+
+                throw new BuildException("phing task calling its own parent target");
+            }
+
+            $this->addReferences();
+            $this->newProject->executeTarget($this->newTarget);
+            
+        } catch (Exception $e) {
+            $this->log($e->getMessage(), PROJECT_MSG_ERR);
+            
+            // important!!! continue on to perform cleanup
+            // tasks.    
+           }
+        
+        //  } finally {
+        // restore values (prevent side-effects)
+        // !this must match code in catch () {}  block!
+        $this->newProject = null;
+        $pkeys = array_keys($this->properties);
+        foreach($pkeys as $k) {
+            $this->properties[$k]->setProject(null);
+        }        
+        $this->dir = $savedDir;        
+        $this->phingFile = $savedPhingFile;
+        $this->newTarget = $savedTarget;
+        
+        // [HL] change back to correct dir
+        if ($this->dir !== null) {
+            chdir($this->dir->getAbsolutePath());
+        }
+    }
+
     /**
      * Configure the Project, i.e. make intance, attach build listeners
      * (copy from father project), add Task and Datatype definitions,
@@ -204,115 +276,133 @@ class PhingTask extends Task {
      *
      * @access      protected
      */
-    function configureProject() {
-        // Create new project
-        $this->newProject =& new Project();
-
-        /* Attach the build listeners of the father project to the new
-         * Project.
-         */
-        $listeners =& $this->project->getBuildListeners();
-        $count = count($listeners);
-        for ($i = 0; $i < $count; ++$i) {
-            $this->newProject->addBuildListener($listeners[$i]);
+    private function initializeProject() {
+        
+        $this->newProject->setInputHandler($this->project->getInputHandler());
+        
+        foreach($this->project->getBuildListeners() as $listener) {
+            $this->newProject->addBuildListener($listener);
         }
-
+        
         /* Copy things from old project. Datatypes and Tasks are always
          * copied, properties and references only if specified so/not
          * specified otherwise in the XML definition.
          */
         // Add Datatype definitions
-        $defs =& $this->project->getDataTypeDefinitions();
-        foreach ($defs as $name => $class) {
-            $this->newProject->addDataTypeDefinition($name, $class);
+        foreach ($this->project->getDataTypeDefinitions() as $typeName => $typeClass) {
+            $this->newProject->addDataTypeDefinition($typeName, $typeClass);
         }
+        
         // Add Task definitions
-        $defs =& $this->project->getTaskDefinitions();
-        foreach ($defs as $name => $class) {
-            $this->newProject->addTaskDefinition($name, $class);
+        foreach ($this->project->getTaskDefinitions() as $taskName => $taskClass) {
+            if ($taskClass == "propertytask") {
+                // we have already added this taskdef in init()
+                continue;
+            }
+            $this->newProject->addTaskDefinition($taskName, $taskClass);
         }
 
-        // Copy Properties of the old project if this is desired
-        if ($this->inheritAll === true) {
-            $properties =& $this->project->getProperties();
-            foreach ($properties as $name => $value) {
-                $this->newProject->setProperty($name, $value);
-            }
-        } else 
-            $this->newProject->setSystemProperties();
+        // set user-defined properties
+        $this->project->copyUserProperties($this->newProject);
 
-        // Copy References of the old project if this is desired
-        if ($this->inheritRefs === true) {
-            $refs =& $this->project->getReferences();
+        if (!$this->inheritAll) {
+           // set System built-in properties separately,
+           // b/c we won't inherit them.
+           $this->newProject->setSystemProperties();
 
-            // fast foreach with references
-            $keys = array_keys($refs);
-            foreach ($keys as $key) {
-                $obj =& $refs[$key];
-                $this->newProject->addReference($key, $obj);
+        } else {
+            // set all properties from calling project
+            $properties = $this->project->getProperties();
+            foreach ($properties as $name => $value) {                
+                if ($name == "basedir" || $name == "phing.file" || $name == "phing.version") {
+                    // basedir and phing.file get special treatment in main()
+                    continue;
+                }
+                   // don't re-set user properties, avoid the warning message
+                if ($this->newProject->getProperty($name) === null){
+                    // no user property
+                    $this->newProject->setNewProperty($name, $value);
+                }
             }
+            
         }
-
-        /* Add the references and properties directly given to PhingTask
-         * in the XML.
-         */
-        // Add Properties
-        $count = count($this->properties);
-        for ($i = 0; $i < $count; $i++) {
-            $p =& $this->properties[$i];
-
-            $propTask =& $this->newProject->createTask("property");
-            $propTask->setName($p->name);
-            if ($p->value !== null) {
-                $propTask->setValue($p->value);
-            }
-            if ($p->file !== null) {
-                $propTask->setFile($p->file);
-            }
-            if ($p->refid !== null) {
-                $propTask->setRefid($p->refid);
-            }
-            if ($p->override !== null) {
-                $propTask->setOverride($p->override);
-            }
-            $propTask->main();
-        }
-
-        // Add References
-        $keys = array_keys($this->references);
-        foreach ($keys as $key) {
-            $obj =& $this->references;
-            $this->newProject->addReference($key, $object);
-        }
+    
     }
-    // }}}
 
-    // {{{ private functions
+    /**
+     * Override the properties in the new project with the one
+     * explicitly defined as nested elements here.
+     * @return void
+     * @throws BuildException 
+     */
+    private function overrideProperties() {     
+        foreach(array_keys($this->properties) as $i) {
+            $p = $this->properties[$i];
+            $p->setProject($this->newProject);
+            $p->main();
+        }
+        $this->project->copyInheritedProperties($this->newProject);
+    }
+
     /**
      * Add the references explicitly defined as nested elements to the
      * new project.  Also copy over all references that don't override
      * existing references in the new project if inheritrefs has been
      * requested.
+     * 
+     * @return void
+     * @throws BuildException 
      */
-    //function _addReferences() /* throws BuildException */ {
-        // Copy "explicitly defined" ?? What does this mean ?
-        // I guess Andi is talking about the ones in the <project> task
-        // the build.xml file the phing task is pointed to
-/*
-        // Copy References from current project if they do not override
-        // a reference in the freshly created Project.
-        if ($this->_inheritRefs === true) {
-            $oldProject =& $this->GetProject();
-            $oldRefs =& $oldProject->GetReferences();
-            $newRefs =& $this->_newProject->GetReferences();
-
-            foreach ($oldRefs as $key => $element) {
-                // Copying/cloning is done in PhingTask::_copyReference()
-                if (!isset($newRefs[$key]))
-                    $this->_CopyReference($key, $key);
+    private function addReferences() {
+    
+        // parent project references
+        $projReferences = $this->project->getReferences();
+        
+        $newReferences = $this->newProject->getReferences();
+        
+        $subprojRefKeys = array();
+        
+        if (count($this->references) > 0) {
+            for ($i=0, $count=count($this->references); $i < $count; $i++) {
+                $ref = $this->references[$i];            
+                $refid = $ref->getRefId();
+                
+                if ($refid === null) {
+                    throw new BuildException("the refid attribute is required"
+                                             . " for reference elements");
+                }
+                if (!isset($projReferences[$refid])) {
+                    $this->log("Parent project doesn't contain any reference '"
+                        . $refid . "'",
+                        PROJECT_MSG_WARN);
+                    continue;
+                }
+                
+                $subprojRefKeys[] = $refid;
+                //thisReferences.remove(refid);
+                $toRefid = $ref->getToRefid();
+                if ($toRefid === null) {
+                    $toRefid = $refid;
+                }
+                $this->copyReference($refid, $toRefid);
             }
         }
-    }*/
+
+        // Now add all references that are not defined in the
+        // subproject, if inheritRefs is true
+        if ($this->inheritRefs) {
+        
+            // get the keys that are were not used by the subproject
+            $unusedRefKeys = array_diff(array_keys($projReferences), $subprojRefKeys);
+            
+            foreach($unusedRefKeys as $key) {
+                if (isset($newReferences[$key])) {
+                    continue;
+                }
+                $this->copyReference($key, $key);
+            }
+        }
+    }
 
     /**
      * Try to clone and reconfigure the object referenced by oldkey in
@@ -320,85 +410,38 @@ class PhingTask extends Task {
      * newkey.
      *
      * <p>If we cannot clone it, copy the referenced object itself and
-     * keep our fingers crossed.</p> -- okay, let's pray...
+     * keep our fingers crossed.</p>
+     *
+     * @param string $oldKey
+     * @param string $newKey
+     * @return void
      */
-    /*
-    function _copyReference($oldKey, $newKey) {
-        /* At the moment, this method only copies the references and does not
-         * clone them.
-         * IMHO trying to clone would only make sense if we could *completely*
-         * reproduce the Graph/Tree structure of each reference. Referenced
-         * Object could contain References on other objects and so create a
-         * circular structure. */
-/*        $oldProject =& $this->GetProject();
-        $oldRef =& $oldProject->getReferences();
-        $newRef =& $this->_newProject->getReferences();
-
-        // just copying, no "deep" cloning
-        $newRef[$newKey] = $oldRef[$oldKey];
-    }*/
-
-    /**
-     * Copying properties from parent to sub-project
-     */
-    /*
-     * Override the properties in the new project with the one
-     * explicitly defined as nested elements here.
-    */
-/*    function _overrideProperties() {
-        $count = count($this->_properties);
-        for($i = 0 ; $i<$count ; $i++) {
-            $p = &$this->_properties[$i];
-            $p->setProject($this->_newProject);
-            $p->main();
+    private function copyReference($oldKey, $newKey) {
+        $orig = $this->project->getReference($oldKey);
+        if ($orig === null) {
+            $this->log("No object referenced by " . $oldKey . ". Can't copy to " 
+                .$newKey, 
+                PROJECT_SG_WARN);
+            return;
         }
 
-        //
-        // These things should be done in phing.Project ...
-        // $this->getProject()->copyInheritedProperties($this->_newProject)
-        //
-        /* $p = &$this->getProject();
+        $copy = clone $orig;
 
-        foreach($p->properties as $key => $value) {
-        	if ( $this->_newProject->getProperty($key) === null )
-        		continue;
-
-        	$this->_newProject->setProperty($key, $value);
-        } */
-//    }
-/*
-    function _addProperties() {
-
-        /**
-         * Just check if we should copy properties from 
-         * "parent" project */
-/*        if($this->_inheritAll === true) {
-
-            $oldProject =& $this->GetProject();
-            $oldProperties =& $oldProject->getProperties();
-
-            /**
-             * I'm not quite sure whatever to use 
-             * $this->_properties
-             * or
-             * $this->_newProject->SetProperty($key, $value)
-             * to copy properties from current project to subproject
-             * if (Andi) you can verify it for me **/
-/*            foreach($oldProperties as $key => $value) {
-                if ( $key === "phing.file" || $key === "project.basedir" ) {
-                    // basedir and phing.file get special treatment in main()
-                    continue;
-                }
-
-                // Don't reset properties, avoid the warning message
-                if ( $this->_newProject->getProperty($key) === null ) {
-                    $this->_newProject->setProperty($key, $value);
-                }
-            }
+        if ($copy instanceof ProjectComponent) {
+            $copy->setProject($this->newProject);
+        } elseif (in_array('setProject', get_class_methods(get_class($copy)))) {
+            $copy->setProject($this->newProject);
+		} elseif ($copy instanceof Project) {
+			// don't copy the old "Project" itself
+        } else {
+            $msg = "Error setting new project instance for "
+                . "reference with id " . $oldKey;
+            throw new BuildException($msg);
         }
-    }*/
-    // }}} 
-    // {{{ Accessors
+        
+        $this->newProject->addReference($newKey, $copy);
+    }
+
     /**
      * If true, pass all properties to the new phing project.
      * Defaults to true.
@@ -429,7 +472,7 @@ class PhingTask extends Task {
      */
     function setDir($d) {
         if ( is_string($d) )
-            $this->dir = new File($d);
+            $this->dir = new PhingFile($d);
         else
             $this->dir = $d;
     }
@@ -464,18 +507,17 @@ class PhingTask extends Task {
      * @access      public
      */
     function setTarget($s) {
-        $this->newProjectTarget = (string) $s;
+        $this->newTarget = $s;
     }
-    // }}}
-    // {{{ Creators for nested elements
+
     /**
      * Support for filesets; This method returns a reference to an instance
-     * of a Fileset object.
+     * of a FileSet object.
      *
-     * @access      public
+     * @return FileSet
      */
-    function &createFileset() {
-        $num = array_push($this->filesets, new Fileset());
+    function createFileSet() {
+        $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
 
@@ -485,9 +527,12 @@ class PhingTask extends Task {
      *
      * @access      public
      */
-    function &createProperty() {
-        $num = array_push($this->properties, new Property());
-        return $this->properties[$num-1];
+    function createProperty() {
+        $p = new PropertyTask();
+        $p->setFallback($this->newProject);
+        $p->setUserProperty(true);
+        $this->properties[] = $p;
+        return $p;
     }
 
     /**
@@ -497,62 +542,37 @@ class PhingTask extends Task {
      * @access      public
      */
     function createReference() {
-        $num = array_push($this->references, new Reference());
+        $num = array_push($this->references, new PhingReference());
         return $this->references[$num-1];
     }
-    // }}}
+
 }
 
-// {{{ class Property
 /**
- * Dummy class to store Properties
+ * Helper class that implements the nested <reference>
+ * element of <phing> and <phingcall>.
  */
-class Property {
-    // {{{ property
-    var $name       = null;
-    var $value      = null;
-    var $file       = null;
-    var $refid      = null;
-    var $override   = false;
-    // }}}
-    // {{{ Accessors
+class PhingReference extends Reference {
+
+    private $targetid = null;
+
     /**
-     * @access      public
-     */
-    function setName($name) {
-        $this->name = (string) $name;
+     * Set the id that this reference to be stored under in the
+     * new project.
+     *
+     * @param targetid the id under which this reference will be passed to
+     *        the new project */
+    public function setToRefid($targetid) {
+        $this->targetid = $targetid;
     }
 
     /**
-     * @access      public
+     * Get the id under which this reference will be stored in the new
+     * project
+     *
+     * @return the id of the reference in the new project.
      */
-    function setValue($value) {
-        $this->value = (string) $value;
+    public function getToRefid() {
+        return $this->targetid;
     }
-
-    /**
-     * @access      public
-     */
-    function setFile($file) {
-        $this->file = (string) $file;
-    }
-
-    /**
-     * @access      public
-     */
-    function setRefid($refid) {
-        $this->refid = (string) $refid;
-    }
-
-    /**
-     * @access      public
-     */
-    function setOverride($override) {
-        $this->override = (boolean) $override;
-    }
-    // }}}
 }
-
-// }}}
-
-?>

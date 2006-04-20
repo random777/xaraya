@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: BuildException.php,v 1.6 2003/04/09 15:58:09 thyrell Exp $
+ *  $Id: BuildException.php,v 1.12 2005/02/27 20:52:07 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,47 +16,85 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
-
-import("phing.system.lang.RuntimeException");
 
 /**
- * FIXME, add cause
- * Description: BuildException is for when things go wrong in a build execution.
+ * BuildException is for when things go wrong in a build execution.
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.6 $ $Date: 2003/04/09 15:58:09 $
+ * @author   Andreas Aderhold <andi@binarycloud.com>
+ * @version  $Revision: 1.12 $
  * @package  phing
  */
+class BuildException extends Exception {
 
-class BuildException extends RuntimeException {
-
-    var $location = null;  // location in the xml file
-
-    function BuildException($message, $location = null) {
-        if ($message === null) {
-            $message = "Unspecified message";
+    /** location in the xml file */
+    protected $location = null; 
+            
+    /** The nested "cause" exception. */
+    protected $cause;
+    
+    /**
+     * Construct a BuildException.
+     * Supported signatures:
+     *         throw new BuildException($causeExc);
+     *         throw new BuildException($msg);
+     *         throw new Buildexception($causeExc, $loc);
+     *         throw new BuildException($msg, $causeExc);
+     *         throw new BuildException($msg, $loc);
+     *         throw new BuildException($msg, $causeExc, $loc);
+     */
+    function __construct($p1, $p2 = null, $p3 = null) {        
+        
+        $cause = null;
+        $loc = null;
+        $msg = "";
+        
+        if ($p3 !== null) {
+            $cause = $p2;
+            $loc = $p3;
+            $msg = $p1;
+        } elseif ($p2 !== null) {
+            if ($p2 instanceof Exception) {
+                $cause = $p2;
+                $msg = $p1;
+            } elseif ($p2 instanceof Location) {
+                $loc = $p2;
+                if ($p1 instanceof Exception) {
+                    $cause = $p1;
+                } else {
+                    $msg = $p1;
+                }
+            }
+        } elseif ($p1 instanceof Exception) {
+            $cause = $p1;
+        } else {
+            $msg = $p1;
         }
-        parent::RuntimeException($message);
-    }
-
-    /** The string is the name of the file, or the error? */
-    function toString() {
-        if ($this->location !== null) {
-            return $this->location->toString() . $this->getMessage();
+        
+        parent::__construct($msg);
+        
+        if ($cause !== null) {
+            $this->cause = $cause;
+            $this->message .= " [wrapped: " . $cause->getMessage() ."]";
         }
-        return $this->getMessage();
+        
+        if ($loc !== null) {
+            $this->setLocation($loc);
+        }                
     }
-
-    /** The location is the directory tree spot. Either where the file is being copied from or to?
-    This just returns the location value. */
+    
+    function getCause() {
+        return $this->cause;
+    }
+    
     function getLocation() {
         return $this->location;
     }
 
-    function setLocation($loc) {
+    function setLocation($loc) {        
         $this->location = $loc;
+        $this->message = $loc->toString() . ': ' . $this->message;
     }
+
 }
-?>

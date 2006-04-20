@@ -1,64 +1,49 @@
 <?php
-/*
+
+/**
  * This is the Phing command line launcher. It starts up the system evironment
  * tests for all important paths and properties and kicks of the main command-
- * line entry point of phing located in phing.Main
+ * line entry point of phing located in phing.Phing
+ * @version $Revision: 1.7 $
  */
+ 
+// Set any INI options for PHP
+// ---------------------------
 
-/* DEBUG */
-if (getenv('PHP_APDTRACE')) {
-    echo "Enabling APD backtrace...\n";
-    apd_set_session_trace(3);
-}
-
-/* adding package support */
-// deprecated, this will be removed and import() below replaced by @import * ;
-require_once(getenv("PHING_HOME").DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."packagesupport.php");
-
-/* import core stuff */
-import("phing.system.lang.System");
-import("phing.Main");
+ini_set('track_errors', 1);
 
 /* set classpath */
 if (getenv('PHP_CLASSPATH')) {
-    define('PHP_CLASSPATH', getenv('PHP_CLASSPATH'));
+    define('PHP_CLASSPATH',  getenv('PHP_CLASSPATH') . PATH_SEPARATOR . get_include_path());
+    ini_set('include_path', PHP_CLASSPATH);
 } else {
-    System::println("PHING: Environment PHP_CLASSPATH not set");
-    System::halt(-1);
+    define('PHP_CLASSPATH',  get_include_path());
 }
 
-/* startup the OO system */
-// deprecated, System should be autostarting
-System::Startup();
+require_once 'phing/Phing.php';
 
-/* find phing home directory */
-if (getenv('PHING_HOME')) {
-	define('PHING_HOME', getenv('PHING_HOME'));
-	System::setProperty("phing.home", PHING_HOME);
-} else {
-	System::println("PHING: Environment PHING_HOME not set");
-	System::halt(-2); // environment is not set properly
-}
+/* Setup Phing environment */
+Phing::startup();
+
+/* 
+  find phing home directory 
+   -- if Phing is installed from PEAR this will probably be null,
+   which is fine (I think).  Nothing uses phing.home right now.
+*/
+Phing::setProperty('phing.home', getenv('PHING_HOME'));
+
 
 /* polish CLI arguments */
-$args = $_SERVER['argv'];
-array_shift($args);
+$args = isset($argv) ? $argv : $_SERVER['argv']; // $_SERVER['argv'] seems not to work when argv is registered (PHP5b4)
+array_shift($args); // 1st arg is script name, so drop it
 
 /* fire main application */
-Main::fire($args);
-
-/* exit OO system if not already called by Main
- * basically we should not need this due to register_shutdown_function in System
- * But im not sure that works under all circumstances
- */
-// deprecated, system should be auto terminating
- System::halt(0);
+Phing::fire($args);
 
 /*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
+  exit OO system if not already called by Phing
+   -- basically we should not need this due to register_shutdown_function in Phing
  */
+ Phing::halt(0);
+
 ?>

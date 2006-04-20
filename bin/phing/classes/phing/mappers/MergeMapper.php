@@ -1,6 +1,6 @@
 <?php
 /* 
- * $Id: MergeMapper.php,v 1.3 2003/04/09 15:58:10 thyrell Exp $
+ *  $Id: MergeMapper.php,v 1.8 2004/01/22 03:29:13 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,101 +16,54 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import('phing.mappers.FileNameMapper');
-
-// {{{ Classname
+include_once 'phing/mappers/FileNameMapper.php';
 
 /**
- * Merges Mappers
+ * For merging files into a single file.  In practice just returns whatever value
+ * was set for "to".
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.3 $
- *  @package   phing.mappers
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @version   $Revision: 1.8 $
+ * @package   phing.mappers
  */
+class MergeMapper implements FileNameMapper {
+    
+    /** the merge */
+    private $mergedFile;
 
-class MergeMapper extends FileNameMapper {
+    /**
+     * The mapper implementation. Basically does nothing in this case.
+     *
+     * @param    mixed     The data the mapper works on
+     * @returns  mixed     The data after the mapper has been applied
+     * @access   public
+     * @author   Andreas Aderhold, andi@binarycloud.com
+     */
+    function main($sourceFileName) {
+        if ($this->mergedFile === null) {            
+            throw new BuildException("MergeMapper error, to attribute not set");            
+        }         
+        return array($this->mergedFile);
+    }
 
-	var $mergedFile = null;	// the merge
+    /**
+     * Accessor. Sets the to property
+     *
+     * @param    string     To what this mapper should convert the from string
+     * @returns  boolean    True
+     * @access   public
+     * @author   Andreas Aderhold, andi@binarycloud.com
+     */
+    function setTo($to) {
+        $this->mergedFile = $to;
+    }    
 
-	// {{{ constructor MergeMapper($_id = null)
-
-	/**
-	 * Constructor. Creates the object
-	 *
-	 * @returns  object    The class instance
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function MergeMapper()
-	{
-		parent::FileNameMapper();
-		return true;
-	}
-
-	// }}}
-	// {{{ method Main($_input)
-
-	/**
-	 * The mapper implementation. Basically does nothing in this case.
-	 *
-	 * @param    mixed     The data the mapper works on
-	 * @returns  mixed     The data after the mapper has been applied
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function Main($_sourceFileName)
-	{
-		if (!is_null($this->mergedFile)) {
-			return (array) $this->mergedFile;
-		} else {
-			// FIXME
-			// return error
-			$Logger->Log(PH_LOG_ERROR, "MergeMapper error, to attribute not set");
-		}
-	}
-
-	// }}}
-	// {{{ method SetTo($_to)
-
-	/**
-	 * Accessor. Sets the to property
-	 *
-	 * @param    string     To what this mapper should convert the from string
-	 * @returns  boolean    True
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function SetTo($_to)
-	{
-		$this->mergedFile = (array) $_to;
-	}
-
-	// }}}
-	// {{{ method SetFrom($_to)
-
-	/**
-	 * Ignored.
-	 */
-
-	function SetFrom($_from) {}
-
-	// }}}
+    /**
+     * Ignored.
+     */
+    function setFrom($from) {}
 
 }
-
-// }}}
-
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

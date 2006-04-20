@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: TabToSpaces.php,v 1.6 2003/02/25 17:38:30 openface Exp $  
+ *  $Id: TabToSpaces.php,v 1.9 2004/03/15 14:45:06 hlellelid Exp $  
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +17,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseParamFilterReader');
+require_once 'phing/filters/BaseParamFilterReader.php';
+require_once 'phing/filters/ChainableReader.php';
 
 /**
  * Converts tabs to spaces.
@@ -35,72 +36,33 @@ import('phing.filters.BaseParamFilterReader');
  *   <param name="tablength" value="8">
  * </filterreader></pre>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.6 $ $Date: 2003/02/25 17:38:30 $
- * @access    public
+ * @author    Yannick Lecaillez <yl@seasonfive.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.9 $
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class TabToSpaces extends BaseParamFilterReader {
-	/**
-	 * The default tab length. 
-	 * @var integer
-	 */
-    var	$_DEFAULT_TAB_LENGTH = 8;
-	
-	/**
-	 * Parameter name for the length of a tab.
-	 * @var string
-	 */
-    var	$_TAB_LENGTH_KEY     = "tablength";
-	
-	/**
-	 * Tab length in this filter.
-	 * @var integer
-	 */  
-    var	$_tabLength          = 8;
-	
-	/**
-	 * [deprecated] The number of spaces still to be read to represent the last-read tab.
-	 * @var integer
-	 */  
-    var	$_spacesRemaining    = 0;			// 
+class TabToSpaces extends BaseParamFilterReader implements ChainableReader {
 
     /**
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseFilterReader#BaseFilterReader()
+     * The default tab length. 
+     * @var int
      */
-    function TabToSpaces() {
-        parent::BaseParamFilterReader();
-
-        $this->_tabLength = $this->_DEFAULT_TAB_LENGTH;
-    }
+    const DEFAULT_TAB_LENGTH = 8;
+    
+    /**
+     * Parameter name for the length of a tab.
+     * @var string
+     */
+    const TAB_LENGTH_KEY = "tablength";
+    
+    /**
+     * Tab length in this filter.
+     * @var int
+     */  
+    private $tabLength = 8; //self::DEFAULT_TAB_LENGTH;    
 
     /**
-     * Creates a new filtered reader.
-     *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return object A TabToSpaces object filtering the underlying
-     *                stream.
-     */
-    function &newTabToSpaces(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $o = new TabToSpaces();
-        $o->setReader($reader);
-
-        return $o;
-    }
-
-	/**
      * Returns stream after converting tabs to the specified number of spaces.
      * 
      * @return the resulting stream, or -1
@@ -109,107 +71,69 @@ class TabToSpaces extends BaseParamFilterReader {
      * @exception IOException if the underlying stream throws an IOException
      *            during reading     
      */
-    function read() {
+    function read($len = null) {
+    
         if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
 
-      	$buffer = $this->in->read();
-		
-		if($buffer === -1) {
-			return -1;
-		}
-		
-		$buffer = str_replace("\t", str_repeat(' ', $this->_tabLength), $buffer);
-		
-		return $buffer;		
-    }
-	
-    /**
-	 * [Deprecated. For reference only.  Chain system uses new read() method.] 
-     * Returns the next character in the filtered stream, converting tabs
-     * to the specified number of spaces.
-     * 
-     * @return the next character in the resulting stream, or -1
-     *         if the end of the resulting stream has been reached
-     * 
-     * @exception IOException if the underlying stream throws an IOException
-     *            during reading     
-     */
-    function readChar() {
-        if ( !$this->getInitialized() ) {
-            $this->_initialize();
-            $this->setInitialized(true);
+          $buffer = $this->in->read($len);
+        
+        if($buffer === -1) {
+            return -1;
         }
-
-        $ch = -1;
-
-        if ( $this->_spacesRemaining > 0 ) {
-            $this->_spacesRemaining--;
-            $ch = " ";
-        } else {
-            $ch = $this->in->readChar();
-            if ( $ch === "\t" ) {
-                $this->_spacesRemaining = $this->_tabLength - 1;
-                $ch = " ";
-            }
-        }
-
-        return $ch;
+        
+        $buffer = str_replace("\t", str_repeat(' ', $this->tabLength), $buffer);
+        
+        return $buffer;        
     }
-
+    
     /**
      * Sets the tab length.
      * 
-     * @param tabLength the number of spaces to be used when converting a tab.
+     * @param int $tabLength The number of spaces to be used when converting a tab.
      */
     function setTablength($tabLength) {
-        $this->_tabLength = (int) $tabLength;
+        $this->tabLength = (int) $tabLength;
     }
 
     /**
      * Returns the tab length.
      * 
-     * @return the number of spaces used when converting a tab
+     * @return int The number of spaces used when converting a tab
      */
     function getTablength() {
-        return $this->_tabLength;
+        return $this->tabLength;
     }
 
     /**
      * Creates a new TabsToSpaces using the passed in
      * Reader for instantiation.
      * 
-     * @param object A Reader object providing the underlying stream.
+     * @param Reader $reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      * 
-     * @return object A new filter based on this configuration, but filtering
+     * @return Reader A new filter based on this configuration, but filtering
      *         the specified reader
      */
-    function &chain(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $newFilter = &TabToSpaces::newTabToSpaces($reader);
+    function chain(Reader $reader) {
+        $newFilter = new TabToSpaces($reader);
         $newFilter->setTablength($this->getTablength());
         $newFilter->setInitialized(true);
-
+        $newFilter->setProject($this->getProject());        
         return $newFilter;
     }
 
     /**
      * Parses the parameters to set the tab length.
      */
-    function _initialize() {
+    private function _initialize() {
         $params = $this->getParameters();
         if ( $params !== null ) {
             for($i = 0 ; $i<count($params) ; $i++) {
-                if ( $this->_TAB_LENGTH_KEY === $params[$i]->getName() ) {
-                    $this->_tabLength = (int) $params[$i]->getValue();
+                if (self::TAB_LENGTH_KEY === $params[$i]->getName()) {
+                    $this->tabLength = $params[$i]->getValue();
                     break;
                 }
             }

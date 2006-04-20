@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: Reference.php,v 1.14 2003/02/24 18:22:16 openface Exp $
+ * $Id: Reference.php,v 1.4 2003/12/24 12:38:42 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,20 +16,17 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import('phing.Project');
-import('phing.BuildException');
-
 /** Class to hold a reference to another object in the project.
- * @package   phing.types
+ * @package phing.types
  */
 class Reference {
 
-    var $refid = "";
+    protected $refid;
 
-    function Reference($id = null) {
+    function __construct($id = null) {
         if ($id !== null) {
             $this->setRefId($id);
         }
@@ -44,20 +41,14 @@ class Reference {
     }
 
     /** returns reference to object in references container of project */
-    function &getReferencedObject(&$project) {
+    function getReferencedObject($project) {    
         if ($this->refid === null) {
-            throw (new BuildException("No reference specified"));
-            return;
+            throw new BuildException("No reference specified");
         }
-        $o =& $project->getReferences();
-        if (isset($o[$this->refid])) {
-            $o =& $o[$this->refid];
-        } else {
-            $o = null;
-        }
-        if ($o === null || !is_object($o)) {
-            throw (new BuildException("Reference {$this->refid} not found."));
-            return;
+        $refs = $project->getReferences();
+        $o = @$refs[$this->refid];
+        if (!is_object($o)) {       
+            throw new BuildException("Reference {$this->refid} not found.");
         }
         return $o;
     }

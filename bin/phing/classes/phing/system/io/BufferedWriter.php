@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: BufferedWriter.php,v 1.4 2003/02/24 18:22:16 openface Exp $
+ *  $Id: BufferedWriter.php,v 1.10 2005/05/26 13:10:52 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,35 +16,57 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
-
-import("phing.system.lang.RuntimeException");
-import("phing.system.io.File");
-import("phing.system.io.Writer");
+ 
+include_once 'phing/system/io/Writer.php';
 
 /**
-georges.gassou@vivaxe.fr
-Mardi : 11h30.
-:wq
- 
- * Convenience class for reading files. The constructor of this
- * @package   phing.system.io
+ * Convenience class for writing files.
+ *
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.10 $
+ * @package   phing.system.io 
  */
-
-
 class BufferedWriter extends Writer {
+    
+    /**
+     * The size of the buffer in kb.
+     */
+    private $bufferSize    = 0;
+    
+    /**
+     * The Writer we are buffering output to.
+     */
+    private $out;
 
-    var	$_bufferSize		= 0;
-
-    function BufferedWriter(&$writer, $buffsize = 8192) {
-        parent::Writer($writer);
-
-        $this->_bufferSize = $buffsize;
+    function __construct(Writer $writer, $buffsize = 8192) {
+        $this->out = $writer;
+        $this->bufferSize = $buffsize;
     }
 
+    function write($buf, $off = null, $len = null) {
+        return $this->out->write($buf, $off, $len);
+    }
+    
     function newLine() {
-        $this->write("\n");
+        $this->write(Phing::getProperty('line.separator'));
     }
+    
+    function getResource() {
+        return $this->out->getResource();
+    }
+
+    function reset() {
+        return $this->out->reset();
+    }
+    
+    function close() {
+        return $this->out->close();
+    }
+    
+    function open() {
+        return $this->out->open();
+    }
+    
 }
-?>

@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: RegularExpression.php,v 1.4 2003/03/26 21:53:11 purestorm Exp $
+ *  $Id: RegularExpression.php,v 1.6 2003/12/24 12:38:42 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,12 +16,12 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.types.DataType');
-import('phing.Project');
-import('phing.util.regex.RegexMatcher');
+include_once 'phing/types/DataType.php';
+include_once 'phing/Project.php';
+include_once 'phing/util/regexp/Regexp.php';
 
 /*
  * A regular expression datatype.  Keeps an instance of the
@@ -31,51 +31,71 @@ import('phing.util.regex.RegexMatcher');
  * regular expression type you are using.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.4 $ $Date: 2003/03/26 21:53:11 $
+ * @version   $Revision: 1.6 $ $Date: 2003/12/24 12:38:42 $
  * @access    public
  * @see       phing.util.regex.RegexMatcher
  * @package   phing.types
 */
 class RegularExpression extends DataType {
-    var $_regexp   = null;
 
-    function RegularExpression() {
-        $this->_regexp  = new RegexMatcher();
+    private $regexp   = null;
+    private $ignoreCase = false;
+    
+    function __construct() {
+        $this->regexp  = new Regexp();
     }
 
     function setPattern($pattern) {
-        $this->_regexp->setPattern($pattern);
+        $this->regexp->setPattern($pattern);
     }
 
-    function &getPattern(&$p) {
+    function setReplace($replace) {
+        $this->regexp->setReplace($replace);
+    }
+    
+    function getPattern($p) {
         if ( $this->isReference() ) {
-            $ref = &$this->getRef($p);
+            $ref = $this->getRef($p);
             return $ref->getPattern($p);
         }
-
-        return $this->_regexp->getPattern();
+        return $this->regexp->getPattern();
     }
 
-    function &getRegexp($p) {
+    function getReplace($p) {
         if ( $this->isReference() ) {
-            $ref = &$this->getRef($p);
-            return $ref->getRegexp($p);
+            $ref = $this->getRef($p);
+            return $ref->getReplace($p);
         }
 
-        return $this->_regexp;
+        return $this->regexp->getReplace();
+    }
+    
+    function setIgnoreCase($bit) {
+        $this->regexp->setIgnoreCase($bit);
+    }
+    
+    function getIgnoreCase() {
+        return $this->regexp->getIgnoreCase();
+    }
+    
+    function getRegexp(Project $p) {
+        if ( $this->isReference() ) {
+            $ref = $this->getRef($p);
+            return $ref->getRegexp($p);
+        }
+        return $this->regexp;
     }
 
-    function &getRef(&$p) {
+    function getRef(Project $p) {
         if ( !$this->checked ) {
             $stk = array();
             array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
+            $this->dieOnCircularReference($stk, $p);            
         }
 
-        $o = &$this->ref->getReferencedObject($p);
-        if ( !is_a($o, "RegularExpression") ) {
-            $msg = $this->ref->getRefId()." doesn\'t denote a RegularExpression";
-            throw ( new BuildException($msg) );
+        $o = $this->ref->getReferencedObject($p);
+        if ( !($o instanceof RegularExpression) ) {
+            throw new BuildException($this->ref->getRefId()." doesn't denote a RegularExpression");
         } else {
             return $o;
         }

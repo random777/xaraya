@@ -1,51 +1,57 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: TouchTask.php,v 1.16 2003/04/09 15:59:23 thyrell Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell
- * -Author     Anderas Aderhold, andi@binarycloud.com
+ *  $Id: TouchTask.php,v 1.12 2005/05/26 13:10:53 mrook Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
 
-import('phing.Task');
-import("phing.BuildException");
-import("phing.Project");
-import("phing.util.DirectoryScanner");
-import("phing.types.Fileset");
-import("phing.util.FileUtils");
-import("phing.system.io.File");
-import("phing.system.io.IOException");
+require_once 'phing/Task.php';
+include_once 'phing/util/DirectoryScanner.php';
+include_once 'phing/types/FileSet.php';
+include_once 'phing/util/FileUtils.php';
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/system/io/IOException.php';
 
 /**
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.
  *
  * If the file to touch doesn't exist, an empty one is created.
  *
- * @version $Revision: 1.16 $ $Date: 2003/04/09 15:59:23 $
+ * @version $Revision: 1.12 $
  * @package phing.tasks.system
  */
 class TouchTask extends Task {
 
-    var $file	  = null;
-    var $millis	= -1;
-    var $dateTime  = null;
-    var $filesets  = array();
-    var $fileUtils = null;
+    private $file;
+    private $millis    = -1;
+    private $dateTime;
+    private $filesets = array();
+    private $fileUtils;
 
-    function TouchTask() {
-        $this->fileUtils = FileUtils::newFileUtils();
+    function __construct() {
+        $this->fileUtils = new FileUtils();
     }
 
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      */
-    function setFile($file) {
-        if (is_a($file, "File")) {
-            $file = $file->getPath();
-        }
-        $this->file = new File((string) $file);
+    function setFile(PhingFile $file) {        
+        $this->file = $file;
     }
 
     /**
@@ -68,9 +74,10 @@ class TouchTask extends Task {
 
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
+     * @return FileSet
      */
-    function &createFileset() {
-        $num = array_push($this->filesets, new Fileset());
+    function createFileSet() {
+        $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
 
@@ -81,32 +88,27 @@ class TouchTask extends Task {
         $savedMillis = $this->millis;
 
         if ($this->file === null && count($this->filesets) === 0) {
-            throw (new BuildException("Specify at least one source - a file or a fileset."), __FILE__, __LINE__);
-            return;
+            throw new BuildException("Specify at least one source - a file or a fileset.");
         }
 
         if ($this->file !== null && $this->file->exists() && $this->file->isDirectory()) {
-            throw (new BuildException("Use a fileset to touch directories."), __FILE__, __LINE__);
-            return;
+            throw new BuildException("Use a fileset to touch directories.");
         }
 
-        { // try to touch file
+        try { // try to touch file
             if ($this->dateTime !== null) {
                 $this->setMillis(strtotime($this->dateTime));
                 if ($this->millis < 0) {
-                    throw (new BuildException("Date of {$this->dateTime} results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT)."));
-                    return;
+                    throw new BuildException("Date of {$this->dateTime} results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT).");
                 }
             }
             $this->_touch();
+        } catch (Exception $ex) {
+            throw new BuildException("Error touch()ing file", $ex, $this->location);
         }
-        if (catch ("Exception", $ex)) {
-            throw (new BuildException($ex->getMessage(), $this->location));
-            return;
-        }
-        else {
-            $this->millis = $savedMillis;
-        }
+        
+        $this->millis = $savedMillis;
+        
     }
 
     /**
@@ -115,13 +117,11 @@ class TouchTask extends Task {
     function _touch() {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
-                $this->log("Creating " . $this->file->toString(), PROJECT_MSG_INFO);
-                { // try to create file
+                $this->log("Creating " . $this->file->__toString(), PROJECT_MSG_INFO);
+                try { // try to create file
                     $this->file->createNewFile();
-                }
-                if (catch ("IOException", $ioe)) {
-                    throw (new BuildException("Could not create " . $this->file, $this->location), __FILE__, __LINE__);
-                    return;
+                } catch(IOException  $ioe) {
+                    throw new BuildException("Error creating new file " . $this->file->__toString(), $ioe, $this->location);
                 }
             }
         }
@@ -129,28 +129,28 @@ class TouchTask extends Task {
         $resetMillis = false;
         if ($this->millis < 0) {
             $resetMillis = true;
-            $this->millis = System::currentTimeMillis();
+            $this->millis = Phing::currentTimeMillis();
         }
 
         if ($this->file !== null) {
-            $this->_touchFile($this->file);
+            $this->touchFile($this->file);
         }
 
         // deal with the filesets
-        for ($i = 0; $i < count($this->filesets); ++$i) {
-            $fs =& $this->filesets[$i];
-            $ds =& $fs->getDirectoryScanner($this->getProject());
-            $fromDir =& $fs->getDir($this->getProject());
+        foreach($this->filesets as $fs) {
+        
+            $ds = $fs->getDirectoryScanner($this->getProject());
+            $fromDir = $fs->getDir($this->getProject());
 
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs = $ds->getIncludedDirectories();
 
-            for ($j = 0; $j < count($srcFiles); ++$j) {
-                $this->_touchFile(new File($fromDir, (string) $srcFiles[$j]));
+            for ($j=0,$_j=count($srcFiles); $j < $_j; $j++) {
+                $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));
             }
-
-            for ($j = 0; $j < count($srcDirs) ; ++$j) {
-                $this->_touchFile(new File($fromDir, (string) $srcDirs[$j]));
+            
+            for ($j=0,$_j=count($srcDirs); $j < $_j ; $j++) {
+                $this->touchFile(new PhingFile($fromDir, (string) $srcDirs[$j]));
             }
         }
 
@@ -159,21 +159,12 @@ class TouchTask extends Task {
         }
     }
 
-    function _touchFile(&$file) {
+    private function touchFile($file) {
         if ( !$file->canWrite() ) {
-            throw (new BuildException("Can not change modification date of read-only file " . $file->toString()), __FILE__, __LINE__);
-            return;
+            throw new BuildException("Can not change modification date of read-only file " . $file->__toString());
         }
         $file->setLastModified($this->millis);
     }
 
 }
 
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

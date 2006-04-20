@@ -1,37 +1,27 @@
 <?php
-// {{{ Header
 /*
- * -File     $Id: NullPointerException.php,v 1.6 2003/04/09 15:58:11 thyrell Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Thyrell
- * -Author     Anderas Aderhold, andi@binarycloud.com
+ *  $Id: NullPointerException.php,v 1.4 2005/02/27 20:52:10 mrook Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
-
-import("phing.system.lang.RuntimeException");
 
 /**
- *  @package   phing.system.lang
+ * @package phing.system.lang
  */
+class NullPointerException extends Exception {}
 
-class NullPointerException extends RuntimeException {
-    function NullPointerException($msg = null, $file = null, $line = null) {
-        if ($file === null) {
-            $file = "unknown file";
-        } else {
-            $file = basename($file);
-        }
-
-        if ($line === null) {
-            $line = "unknown line";
-        }
-
-        if ($msg === null) {
-            $msg = "No details provided";
-        }
-
-        $msg = "NullPointerException in $file at line $line: $msg";
-        parent::RuntimeException($msg);
-    }
-}
 ?>

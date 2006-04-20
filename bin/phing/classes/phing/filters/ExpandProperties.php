@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: ExpandProperties.php,v 1.6 2003/02/24 22:36:27 openface Exp $
+ *  $Id: ExpandProperties.php,v 1.6 2004/07/14 17:14:15 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,11 +17,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseFilterReader');
-
+require_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Expands Phing Properties, if any, in the data.
@@ -31,115 +31,37 @@ import('phing.filters.BaseFilterReader');
  * Or:
  * <pre><filterreader classname="phing.filters.ExpandProperties'/></pre>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.6 $ $Date: 2003/02/24 22:36:27 $
- * @access    public
+ * @author    Yannick Lecaillez <yl@seasonfive.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.6 $
  * @see       BaseFilterReader
  * @package   phing.filters
  */
-class ExpandProperties extends BaseFilterReader {
-
-	/**
-	 * [Deprecated] Data that must be read from, if not null.
-	 * @var string
-	 */ 
-    var $_queuedData = null;
-
+class ExpandProperties extends BaseFilterReader implements ChainableReader {
+   
     /**
-     * Constructor for "dummy" instances.
+     * Returns the filtered stream. 
+     * The original stream is first read in fully, and the Phing properties are expanded.
      * 
-     * @see BaseFilterReader#BaseFilterReader()
-     */
-    function ExpandProperties() {
-        parent::BaseFilterReader();
-    }
-
-    /**
-     * Creates a new filtered reader.
-     *
-     * @param in A Reader object providing the underlying stream.
-     *           Must not be <code>null</code>.
-     *
-     * @return object An ExpandProperties object filtering the
-     *                underlying stream.
-     */
-    function &newExpandProperties(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, "Reader")) {
-            throw (new RuntimeException("Expected object of type 'Reader' got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-            return;
-        }
-        $o = new ExpandProperties();
-        $o->setReader($reader);
-
-        return $o;
-    }
-
-	/**
-	 * Returns the filtered stream. 
-	 * The original stream is first read in fully, and the Phing properties are expanded.
-     * 
-     * @return mixed 	the filtered stream, or -1 if the end of the resulting stream has been reached.
+     * @return mixed     the filtered stream, or -1 if the end of the resulting stream has been reached.
      * 
      * @exception IOException if the underlying stream throws an IOException
      * during reading
-	 */
-	function read() {
-				
-		$buffer = $this->in->read();
-		
-		if($buffer === -1) {
-			return -1;
-		}
-		
-	    $project = &$this->getProject();
-		$buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties());
-		
-		return $buffer;
-	}
-
-    /**
-	 * [Deprecated. For reference only:  used to be read() method.]
-     * Returns the next character in the filtered stream. The original
-     * stream is first read in fully, and the Phing properties are expanded.
-     * The results of this expansion are then queued so they can be read
-     * character-by-character.
-     * 
-     * @return the next character in the resulting stream, or -1
-     * if the end of the resulting stream has been reached
-     * 
-     * @exception IOException if the underlying stream throws an IOException
-     * during reading     
-    */
-    function readChar() {
-        $ch = -1;
-
-        if ( $this->_queuedData !== null && strlen($this->_queuedData) === 0 ) {
-            $this->_queuedData = null;
+     */
+    function read($len = null) {
+                
+        $buffer = $this->in->read($len);
+        
+        if($buffer === -1) {
+            return -1;
         }
-
-        if ( $this->_queuedData !== null ) {
-            $ch = substr($this->_queuedData, 0, 1);
-            $this->_queuedData = substr($this->_queuedData, 1);
-            if ( strlen($this->_queuedData === 0) ) {
-                $this->_queuedData = null;
-            }
-        } else {
-            $this->_queuedData = $this->readFully();
-            if ( $this->_queuedData === null ) {
-                $ch = -1;
-            } else {
-                $project = &$this->getProject();
-                $this->_queuedData = ProjectConfigurator::replaceProperties($project, $this->_queuedData,$project->getProperties());
-                return $this->readChar();
-            }
-        }
-
-        return $ch;
+        
+        $project = $this->getProject();
+        $buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties());
+        
+        return $buffer;
     }
-
+        
     /**
      * Creates a new ExpandProperties filter using the passed in
      * Reader for instantiation.
@@ -150,14 +72,9 @@ class ExpandProperties extends BaseFilterReader {
      * @return object A new filter based on this configuration, but filtering
      *         the specified reader
      */
-    function &chain(&$reader) {
-        // type check, error must never occur, bad code if it does
-        if (!is_a($reader, "Reader")) {
-            throw (new RuntimeException("Toto Expected object of type 'Reader' got something else", __FILE__, __LINE__));
-            System::halt(-1);
-            return;
-        }
-        $newFilter = &ExpandProperties::newExpandProperties($reader);
+    function chain(Reader $reader) {
+        $newFilter = new ExpandProperties($reader);
+        $newFilter->setProject($this->getProject());
         return $newFilter;
     }
 }

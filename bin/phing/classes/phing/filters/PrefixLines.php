@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: PrefixLines.php,v 1.6 2003/02/25 17:38:30 openface Exp $
+ *  $Id: PrefixLines.php,v 1.6 2004/03/15 14:45:06 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +17,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseParamFilterReader');
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Attaches a prefix to every line.
@@ -36,139 +37,54 @@ import('phing.filters.BaseParamFilterReader');
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.6 $ $Date: 2003/02/25 17:38:30 $
+ * @version   $Revision: 1.6 $ $Date: 2004/03/15 14:45:06 $
  * @access    public
  * @see       FilterReader
  * @package   phing.filters
 */
-class PrefixLines extends BaseParamFilterReader {
-
-	/**
-	 * Parameter name for the prefix.
-	 * @var string
-	 */ 
-    var	$_PREFIX_KEY = "lines";
-	
-	/**
-	 * The prefix to be used.
-	 * @var string
-	 */ 
-    var	$_prefix = null;
-	
-	/**
-	 * [Deprecated] Data that must be read from, if not null.
-	 * @var string
-	 */ 
-    var	$_queuedData = null;
+class PrefixLines extends BaseParamFilterReader implements ChainableReader {
 
     /**
-     * Constructor for "dummy" instances.
+     * Parameter name for the prefix.
+     * @var string
+     */ 
+    const PREFIX_KEY = "lines";
+    
+    /**
+     * The prefix to be used.
+     * @var string
+     */ 
+    private    $_prefix = null;
+ 
+    /**
+     * Adds a prefix to each line of input stream and returns resulting stream.
      * 
-     * @see BaseFilterReader#BaseFilterReader()
+     * @return mixed buffer, -1 on EOF
      */
-    function PrefixLines() {
-        parent::BaseParamFilterReader();
-    }
-
-    /**
-     * Creates a new filtered reader.
-     *
-     * @param reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return object A PrefixLines object filtering the underlying
-     *                stream.
-     */
-    function &newPrefixLines(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $o = new PrefixLines();
-        $o->setReader($reader);
-
-        return $o;
-    }
-
-	/**
-	 * Adds a prefix to each line of input stream and returns resulting stream.
-	 * 
-	 * @return mixed buffer, -1 on EOF
-	 */
-	function read()
-	{
+    function read($len = null) {
         if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
-		
-		$buffer = $this->in->read();
-		
-		if ($buffer === -1) {
-		    return -1;
-		}
-		
-		$lines = explode("\n", $buffer);		
-		$filtered = array();		
-		
-		foreach($lines as $line) {
-			$line = $this->_prefix . $line;
-			$filtered[] = $line;
-		}
-				
-		$filtered_buffer = implode("\n", $filtered);	
-		return $filtered_buffer;
-	}
-	
-    /**
-     * [Deprecated. For reference only; Chain system uses new read() method.]
-	 * Returns the next character in the filtered stream. One line is read
-     * from the original input, and the prefix added. The resulting
-     * line is then used until it ends, at which point the next original line
-     * is read, etc.
-     * 
-     * @return the next character in the resulting stream, or -1
-     * if the end of the resulting stream has been reached
-     * 
-     * @exception IOException if the underlying stream throws an IOException
-     * during reading     
-     */
-    function readChar() {
-        if ( !$this->getInitialized() ) {
-            $this->_initialize();
-            $this->setInitialized(true);
+        
+        $buffer = $this->in->read($len);
+        
+        if ($buffer === -1) {
+            return -1;
         }
-
-        $ch = -1;
-
-        if ( $this->_queuedData !== null && strlen($this->_queuedData) == 0 ) {
-            $this->_queuedData = null;
+        
+        $lines = explode("\n", $buffer);        
+        $filtered = array();        
+        
+        foreach($lines as $line) {
+            $line = $this->_prefix . $line;
+            $filtered[] = $line;
         }
-
-        if ( $this->_queuedData !== null ) {
-            $ch = substr($this->_queuedData, 0, 1);
-            $this->_queuedData = substr($this->_queuedData, 1);
-            if ( strlen($this->_queuedData) === 0 ) {
-                $this->_queuedData = null;
-            }
-        } else {
-            $this->_queuedData = $this->readLine();
-            if ( $this->_queuedData === null ) {
-                $ch = -1;
-            } else {
-                if ( $this->_prefix !== null ) {
-                    $this->_queuedData = $this->_prefix.$this->_queuedData;
-                }
-
-                return $this->readChar();
-            }
-        }
-
-        return $ch;
+                
+        $filtered_buffer = implode("\n", $filtered);    
+        return $filtered_buffer;
     }
-
+    
     /**
      * Sets the prefix to add at the start of each input line.
      * 
@@ -199,28 +115,22 @@ class PrefixLines extends BaseParamFilterReader {
      * @return object A new filter based on this configuration, but filtering
      *         the specified reader
      */
-    function &chain(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $newFilter = &PrefixLines::newPrefixLines($reader);
+    function chain(Reader $reader) {  
+        $newFilter = new PrefixLines($reader);
         $newFilter->setPrefix($this->getPrefix());
         $newFilter->setInitialized(true);
-
+        $newFilter->setProject($this->getProject());        
         return $newFilter;
     }
 
     /**
      * Initializes the prefix if it is available from the parameters.
      */
-    function _initialize() {
+    private function _initialize() {
         $params = $this->getParameters();
         if ( $params !== null ) {
-            for($i = 0 ; $i<count($params) ; $i++) {
-                if ( $this->_PREFIX_KEY = $params[$i]->getName() ) {
+            for($i = 0, $_i=count($params) ; $i < $_i ; $i++) {
+                if ( self::PREFIX_KEY == $params[$i]->getName() ) {
                     $this->_prefix = (string) $params[$i]->getValue();
                     break;
                 }

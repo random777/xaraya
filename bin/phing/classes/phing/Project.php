@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: Project.php,v 1.14 2003/05/08 11:10:40 purestorm Exp $
+ *  $Id: Project.php,v 1.29 2006/02/02 20:27:10 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
 define('PROJECT_MSG_DEBUG', 4);
@@ -25,8 +25,12 @@ define('PROJECT_MSG_INFO', 2);
 define('PROJECT_MSG_WARN', 1);
 define('PROJECT_MSG_ERR', 0);
 
-import('phing.util.FileUtils');
-import("phing.TaskAdapter");
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/util/FileUtils.php';
+include_once 'phing/TaskAdapter.php';
+include_once 'phing/util/StringHelper.php';
+include_once 'phing/BuildEvent.php';
+include_once 'phing/input/DefaultInputHandler.php';
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -34,67 +38,107 @@ import("phing.TaskAdapter");
  *  methods to start a build as well as some properties and FileSystem
  *  abstraction.
  *
- *  <strong>SMART-UP INLINE DOCS</strong>
- *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.14 $ $Date: 2003/05/08 11:10:40 $
- *  @access    public
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.29 $
+ * @package   phing
  */
-
 class Project {
 
-    var $targets         = array(); // contains the targets
-    var $globalFilterset = array(); // global filterset (future use)
-    var $globalFilters   = array(); // all globals filters (future use)
-
-    var $properties  = array();	    // properties of this project
-    var $taskdefs    = array();		// taskdefinitions for this project
-    var $typedefs    = array();     // typedefinitions for this project
-    var $references  = array();		// holds ref names and a reference to the
-    // referred object
-
+    /** contains the targets */
+    private $targets         = array();
+    /** global filterset (future use) */
+    private $globalFilterSet = array();
+    /**  all globals filters (future use) */
+    private $globalFilters   = array();
+    
+    /** Project properties map (usually String to String). */
+    private $properties = array();
+    
+    /**
+     * Map of "user" properties (as created in the Ant task, for example).
+     * Note that these key/value pairs are also always put into the
+     * project properties, so only the project properties need to be queried.
+     * Mapping is String to String.
+     */
+    private $userProperties = array();
+    
+    /**
+     * Map of inherited "user" properties - that are those "user"
+     * properties that have been created by tasks and not been set
+     * from the command line or a GUI tool.
+     * Mapping is String to String.
+     */
+    private $inheritedProperties = array();
+    
+    /** task definitions for this project*/
+    private $taskdefs = array();
+    
+    /** type definitions for this project */
+    private $typedefs = array();
+    
+    /** holds ref names and a reference to the referred object*/
+    private $references = array();
+    
+    /** The InputHandler being used by this project. */
+    private $inputHandler;
+    
     /* -- properties that come in via xml attributes -- */
-    var $basedir       = null;	    // basedir (File object)
-    var $defaultTarget = 'all';     // the default target name
-    var $name          = null;      // project name (required)
-    var $description   = null;      // projects description
+    
+    /** basedir (PhingFile object) */
+    private $basedir;
+    
+    /** the default target name */
+    private $defaultTarget = 'all';
+    
+    /** project name (required) */
+    private $name;
+    
+    /** project description */
+    private $description;
 
-    var $fileUtils     = null;      // a FileUtils object
-    var $listeners     = array();   // event listeneers
+    /** a FileUtils object */
+    private $fileUtils;
+    
+    /**  Build listeneers */
+    private $listeners = array();
 
     /**
-     *  Constructor, sets up everything
-     *
-     *  @author  Andreas Aderhold, andi@binarycloud.com
+     *  Constructor, sets any default vars.
      */
-    function Project() {
-        $this->fileUtils = FileUtils::newFileUtils();
-        return;
+    function __construct() {
+        $this->fileUtils = new FileUtils();
+        $this->inputHandler = new DefaultInputHandler();
+    }
+
+    /**
+     * Sets the input handler
+     */
+    public function setInputHandler(InputHandler $handler) {
+        $this->inputHandler = $handler;
+    }
+
+    /**
+     * Retrieves the current input handler.
+     */
+    public function getInputHandler() {
+        return $this->inputHandler;
     }
 
     /** inits the project, called from main app */
     function init() {
         // set builtin properties
         $this->setSystemProperties();
-
+        
         // load default tasks
-        $taskdefs = getResourcePath("phing/tasks/defaults.properties");
-        // remove in ze2
-        if ($taskdefs === null) {
-            throw (new BuildException("Can't load default task list"), __FILE__, __LINE__);
-            return;
-        }
-
-
-        { // try to load taskdefs
+        $taskdefs = Phing::getResourcePath("phing/tasks/defaults.properties");
+        
+        try { // try to load taskdefs
             $props = new Properties();
-            $in    = new File((string)$taskdefs);
+            $in = new PhingFile((string)$taskdefs);
 
             if ($in === null) {
-                throw( new BuildException("Can't load default task list"), __FILE__, __LINE__ );
-                return;
+                throw new BuildException("Can't load default task list");
             }
             $props->load($in);
 
@@ -103,26 +147,18 @@ class Project {
                 $value = $props->getProperty($key);
                 $this->addTaskDefinition($key, $value);
             }
-        }
-        if (catch ("IOException", $ioe)) {
-            throw (new BuildException("Can't load default task list"), __FILE__, __LINE__);
-            return;
+        } catch (IOException $ioe) {
+            throw new BuildException("Can't load default task list");
         }
 
         // load default tasks
-        $typedefs = getResourcePath("phing/types/defaults.properties");
-        // remove in ZE2
-        if ($typedefs === null) {
-            throw (new BuildException("Can't load default datatype list"), __FILE__, __LINE__);
-            return;
-        }
+        $typedefs = Phing::getResourcePath("phing/types/defaults.properties");
 
-        { // try to load taskdefs
+        try { // try to load typedefs
             $props = new Properties();
-            $in    = new File((string)$typedefs);
+            $in    = new PhingFile((string)$typedefs);
             if ($in === null) {
-                throw( new BuildException("Can't load default datatype list"), __FILE__, __LINE__ );
-                return;
+                throw new BuildException("Can't load default datatype list");
             }
             $props->load($in);
 
@@ -131,36 +167,226 @@ class Project {
                 $value = $props->getProperty($key);
                 $this->addDataTypeDefinition($key, $value);
             }
-        }
-        if (catch ("IOException", $ioe)) {
-            throw (new BuildException("Can't load default datatype list"), __FILE__, __LINE__);
-            return;
+        } catch(IOException $ioe) {
+            throw new BuildException("Can't load default datatype list");
         }
     }
 
     /** returns the global filterset (future use) */
-    function &getGlobalFilterSet() {
+    function getGlobalFilterSet() {
         return $this->globalFilterSet;
     }
 
-    /** return a named property */
-    function getProperty($_name) {
-        if (array_key_exists($_name, $this->properties)) {
-            return($this->properties[$_name]);
-        } else {
-            return System::getProperty($_name);
+    // ---------------------------------------------------------
+    // Property methods
+    // ---------------------------------------------------------
+    
+    /**
+     * Sets a property. Any existing property of the same name
+     * is overwritten, unless it is a user property.
+     * @param string $name The name of property to set.
+     *             Must not be <code>null</code>.
+     * @param string $value The new value of the property.
+     *              Must not be <code>null</code>.
+     * @return void
+     */
+    public function setProperty($name, $value) {
+	
+        // command line properties take precedence
+        if (isset($this->userProperties[$name])) {
+            $this->log("Override ignored for user property " . $name, PROJECT_MSG_VERBOSE);
+            return;
         }
+
+        if (isset($this->properties[$name])) {
+            $this->log("Overriding previous definition of property " . $name, PROJECT_MSG_VERBOSE);
+        }
+
+        $this->log("Setting project property: " . $name . " -> " . $value, PROJECT_MSG_DEBUG);
+        $this->properties[$name] = $value;
     }
 
-    /** Return reference to all properties */
-    function &getProperties() {
+    /**
+     * Sets a property if no value currently exists. If the property
+     * exists already, a message is logged and the method returns with
+     * no other effect.
+     *
+     * @param string $name The name of property to set.
+     *             Must not be <code>null</code>.
+     * @param string $value The new value of the property.
+     *              Must not be <code>null</code>.
+     * @since 2.0
+     */
+    public function setNewProperty($name, $value) {
+        if (isset($this->properties[$name])) {
+            $this->log("Override ignored for property " . $name, PROJECT_MSG_DEBUG);
+            return;
+        }
+        $this->log("Setting project property: " . $name . " -> " . $value, PROJECT_MSG_DEBUG);
+        $this->properties[$name] = $value;
+    }
+
+    /**
+     * Sets a user property, which cannot be overwritten by
+     * set/unset property calls. Any previous value is overwritten.
+     * @param string $name The name of property to set.
+     *             Must not be <code>null</code>.
+     * @param string $value The new value of the property.
+     *              Must not be <code>null</code>.
+     * @see #setProperty()
+     */
+    public function setUserProperty($name, $value) {
+        $this->log("Setting ro project property: " . $name . " -> " . $value, PROJECT_MSG_DEBUG);
+        $this->userProperties[$name] = $value;
+        $this->properties[$name] = $value;
+    }
+
+    /**
+     * Sets a user property, which cannot be overwritten by set/unset
+     * property calls. Any previous value is overwritten. Also marks
+     * these properties as properties that have not come from the
+     * command line.
+     *
+     * @param string $name The name of property to set.
+     *             Must not be <code>null</code>.
+     * @param string $value The new value of the property.
+     *              Must not be <code>null</code>.
+     * @see #setProperty()
+     */
+    public function setInheritedProperty($name, $value) {
+        $this->inheritedProperties[$name] = $value;
+        $this->setUserProperty($name, $value);
+    }
+
+    /**
+     * Sets a property unless it is already defined as a user property
+     * (in which case the method returns silently).
+     *
+     * @param name The name of the property.
+     *             Must not be <code>null</code>.
+     * @param value The property value. Must not be <code>null</code>.
+     */
+    private function setPropertyInternal($name, $value) {
+        if (isset($this->userProperties[$name])) {
+			$this->log("Override ignored for user property " . $name, PROJECT_MSG_VERBOSE);
+            return;
+        }
+        $this->properties[$name] = $value;
+    }
+
+    /**
+     * Returns the value of a property, if it is set.
+     *
+     * @param string $name The name of the property.
+     *             May be <code>null</code>, in which case
+     *             the return value is also <code>null</code>.
+     * @return string The property value, or <code>null</code> for no match
+     *         or if a <code>null</code> name is provided.
+     */
+    public function getProperty($name) {
+        if (!isset($this->properties[$name])) {
+            return null;
+        }
+        return $this->properties[$name];
+    }
+
+    /**
+     * Replaces ${} style constructions in the given value with the
+     * string value of the corresponding data types.
+     *
+     * @param value The string to be scanned for property references.
+     *              May be <code>null</code>.
+     *
+     * @return the given string with embedded property names replaced
+     *         by values, or <code>null</code> if the given string is
+     *         <code>null</code>.
+     *
+     * @exception BuildException if the given value has an unclosed
+     *                           property name, e.g. <code>${xxx</code>
+     */
+    public function replaceProperties($value) {
+        return ProjectConfigurator::replaceProperties($this, $value, $this->properties);
+    }
+
+    /**
+     * Returns the value of a user property, if it is set.
+     *
+     * @param string $name The name of the property.
+     *             May be <code>null</code>, in which case
+     *             the return value is also <code>null</code>.
+     * @return string  The property value, or <code>null</code> for no match
+     *         or if a <code>null</code> name is provided.
+     */
+     public function getUserProperty($name) {
+        if (!isset($this->userProperties[$name])) {
+            return null;
+        }
+        return $this->userProperties[$name];
+    }
+
+    /**
+     * Returns a copy of the properties table.
+     * @return array A hashtable containing all properties
+     *         (including user properties).
+     */
+    public function getProperties() {
         return $this->properties;
     }
 
-    /** set a property, overriding */
-    function setProperty($_name, $_value) {
-        $this->properties[(string)$_name] = (string) $_value;
+    /**
+     * Returns a copy of the user property hashtable
+     * @return a hashtable containing just the user properties
+     */
+    public function getUserProperties() {
+        return $this->userProperties;
     }
+
+    /**
+     * Copies all user properties that have been set on the command
+     * line or a GUI tool from this instance to the Project instance
+     * given as the argument.
+     *
+     * <p>To copy all "user" properties, you will also have to call
+     * {@link #copyInheritedProperties copyInheritedProperties}.</p>
+     *
+     * @param Project $other the project to copy the properties to.  Must not be null.
+     * @return void
+     * @since phing 2.0
+     */
+    public function copyUserProperties(Project $other) {        
+        foreach($this->userProperties as $arg => $value) {
+            if (isset($this->inheritedProperties[$arg])) {
+                continue;
+            }
+            $other->setUserProperty($arg, $value);
+        }
+    }
+
+    /**
+     * Copies all user properties that have not been set on the
+     * command line or a GUI tool from this instance to the Project
+     * instance given as the argument.
+     *
+     * <p>To copy all "user" properties, you will also have to call
+     * {@link #copyUserProperties copyUserProperties}.</p>
+     *
+     * @param other the project to copy the properties to.  Must not be null.
+     *
+     * @since phing 2.0
+     */
+    public function copyInheritedProperties(Project $other) {
+        foreach($this->userProperties as $arg => $value) {
+            if ($other->getUserProperty($arg) !== null) {
+                continue;
+            }
+            $other->setInheritedProperty($arg, $value);
+        }        
+    }
+    
+    // ---------------------------------------------------------
+    //  END Properties methods
+    // ---------------------------------------------------------
+
 
     function setDefaultTarget($targetName) {
         $this->defaultTarget = (string) trim($targetName);
@@ -207,71 +433,84 @@ class Project {
 
     /** Set basedir object from xml*/
     function setBasedir($dir) {
-        if (isInstanceOf($dir, "File")) {
+        if ($dir instanceof PhingFile) {
             $dir = $dir->getAbsolutePath();
         }
 
         $dir = $this->fileUtils->normalize($dir);
 
-        $dir = new File((string) $dir);
+        $dir = new PhingFile((string) $dir);
         if (!$dir->exists()) {
-            throw (new BuildException("Basedir ".$dir->getAbsolutePath()." does not exist"));
-            return;
+            throw new BuildException("Basedir ".$dir->getAbsolutePath()." does not exist");
         }
         if (!$dir->isDirectory()) {
-            throw (new BuildException("Basedir ".$dir->getAbsolutePath()." is not a directory"));
-            return;
+            throw new BuildException("Basedir ".$dir->getAbsolutePath()." is not a directory");
         }
         $this->basedir = $dir;
-        $this->setProperty("project.basedir", $this->basedir->getPath());
+        $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
         $this->log("Project base dir set to: " . $this->basedir->getPath(), PROJECT_MSG_VERBOSE);
+        
+        // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.                
+        chdir($dir->getAbsolutePath());
     }
 
     /**
      * Returns the basedir of this project
      *
-     * @returns  File  Basedir File object
+     * @returns  PhingFile  Basedir PhingFile object
      * @access   public
      * @throws   BuildException
      * @author   Andreas Aderhold, andi@binarycloud.com
      */
-
-    function &getBasedir() {
-        if ($this->basedir === null) {
-            { // try to set it
+    function getBasedir() {
+        if ($this->basedir === null) {            
+            try { // try to set it
                 $this->setBasedir(".");
-            }
-            if (catch ("BuildException", $exc)) {
-                throw (new BuildException("Can not set default basedir. ".$exc->getMessage()));
-                return;
+            } catch (BuildException $exc) {
+                throw new BuildException("Can not set default basedir. ".$exc->getMessage());
             }
         }
         return $this->basedir;
     }
 
-    // FIXME -> Properties class
+    /**
+     * Sets system properties and the environment variables for this project.
+     * 
+     * @return void
+     */
     function setSystemProperties() {
-        //$this->setProperty('phing.version', PH_VERSION);
-        //$this->setProperty('phing.phpversion', PH_HOST_PHP_VERSION);
-        //$this->setProperty('phing.home', PH_HOME);
-        //$this->setProperty('phing.startdir', PH_START_DIR);
-
+        
+        // first get system properties
+        $systemP = array_merge( self::getProperties(), Phing::getProperties() );
+        foreach($systemP as $name => $value) {
+            $this->setPropertyInternal($name, $value);
+        }
+        
         // and now the env vars
         foreach($_SERVER as $name => $value) {
             // skip arrays
             if (is_array($value)) {
                 continue;
             }
-            $this->setProperty("env.$name", $value);
+            $this->setPropertyInternal('env.' . $name, $value);
         }
         return true;
     }
 
-    function addTaskDefinition($name, $class) {
-        $name  = (string) $name;
-        $class = (string) $class;
-        if (!isset($this->taskdefs[$name])) {
-            import($class);
+
+    /**
+     * Adds a task definition.
+     * @param string $name Name of tag.
+     * @param string $class The class path to use.
+     * @param string $classpath The classpat to use.
+     */
+    function addTaskDefinition($name, $class, $classpath = null) {
+        $name  = $name;
+        $class = $class;
+        if ($class === "") {
+            $this->log("Task $name has no class defined.", PROJECT_MSG_ERR);
+        }  elseif (!isset($this->taskdefs[$name])) {
+            Phing::import($class, $classpath);
             $this->taskdefs[$name] = $class;
             $this->log("  +Task definiton: $name ($class)", PROJECT_MSG_DEBUG);
         } else {
@@ -283,12 +522,15 @@ class Project {
         return $this->taskdefs;
     }
 
-    function addDataTypeDefinition($typeName, $typeClass) {
-        $typeName  = (string) $typeName;
-        $typeClass = (string) $typeClass;
-
-        if (!isset($this->taskdefs[$typeName])) {
-            import($typeClass);
+    /**
+     * Adds a data type definition.
+     * @param string $name Name of tag.
+     * @param string $class The class path to use.
+     * @param string $classpath The classpat to use.
+     */
+    function addDataTypeDefinition($typeName, $typeClass, $classpath = null) {    
+        if (!isset($this->typedefs[$typeName])) {        
+            Phing::import($typeClass, $classpath);
             $this->typedefs[$typeName] = $typeClass;
             $this->log("  +User datatype: $typeName ($typeClass)", PROJECT_MSG_DEBUG);
         } else {
@@ -296,15 +538,14 @@ class Project {
         }
     }
 
-    function &getDataTypeDefinitions() {
+    function getDataTypeDefinitions() {
         return $this->typedefs;
     }
 
     /** add a new target to the project */
     function addTarget($targetName, &$target) {
         if (isset($this->targets[$targetName])) {
-            throw (new BuildException("Duplicate target: $targetName"));
-            return;
+            throw new BuildException("Duplicate target: $targetName");
         }
         $this->addOrReplaceTarget($targetName, $target);
     }
@@ -312,10 +553,10 @@ class Project {
     function addOrReplaceTarget($targetName, &$target) {
         $this->log("  +Target: $targetName", PROJECT_MSG_DEBUG);
         $target->setProject($this);
-        $this->targets[$targetName] =& $target;
+        $this->targets[$targetName] = $target;
     }
 
-    function &getTargets() {
+    function getTargets() {
         return $this->targets;
     }
 
@@ -328,52 +569,51 @@ class Project {
      * it is destroyed just like leaving the local scope with primitive vars. There's no
      * central place where the instance is stored as in other OOP like languages.
      *
-     * We might update this and not use the "new" operator to generate the object
-     * but using a static function call like "MyTask::newMyTask" that returns a reference
-     * to the object stored in a static variable of the the class. We might also wait
-     * for ZE2 if the method here (reference counting) does not lead to serious trouble.
+     * [HL] Well, ZE2 is here now, and this is  still working. We'll leave this alone
+     * unless there's any good reason not to.
      *
-     * Just be sure to always use reference assign syntax with objects ( =& ).
-     *
-     * @param    string   Task name
-     * @returns  object   A task object
+     * @param    string    $taskType    Task name
+     * @returns  Task                A task object
      * @throws   BuildException
-     *           RuntimeException
+     *           Exception
      */
-    function &createTask($taskType) {
-        { //try
+    function createTask($taskType) {
+        try {
             $cls = "";
+            $tasklwr = strtolower($taskType);
             foreach ($this->taskdefs as $name => $class) {
-                if (strtolower($name) === strtolower($taskType)) {
-                    $lastdot = strrpos($class, ".");
-                    $cls = substr($class, $lastdot + 1);
+                if (strtolower($name) === $tasklwr) {
+                    $cls = StringHelper::unqualify($class);                                    
                     break;
                 }
             }
-
-            if (!class_exists(strtolower($cls))) {
+            
+            if ($cls === "") {
                 return null;
             }
-
-            $o = new $cls();
-
-            if (is_a($o, "Task")) {
-                $task =& $o;
+            
+            if (!class_exists($cls)) {
+                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
+            }
+            
+            $o = new $cls();        
+    
+            if ($o instanceof Task) {
+                $task = $o;
             } else {
+                $this->log ("  (Using TaskAdapter for: $taskType)", PROJECT_MSG_DEBUG);
                 // not a real task, try adapter
                 $taskA = new TaskAdapter();
                 $taskA->setProxy($o);
-                $task =& $taskA;
+                $task = $taskA;
             }
             $task->setProject($this);
             $task->setTaskType($taskType);
             // set default value, can be changed by the user
             $task->setTaskName($taskType);
-            $this->log ("  +Task: $taskType", PROJECT_MSG_DEBUG);
-        }
-        if (catch ('Exception', $t)) {
-            throw (new BuildException("Could not create task of type: $taskType due to ".$t->getMessage()));
-            return;
+            $this->log ("  +Task: " . $taskType, PROJECT_MSG_DEBUG);
+        } catch (Exception $t) {
+            throw new BuildException("Could not create task of type: " . $taskType, $t);
         }
         // everything fine return reference
         return $task;
@@ -386,27 +626,37 @@ class Project {
      * @param    string   Type name
      * @returns  object   A datatype object
      * @throws   BuildException
-     *           RuntimeException
+     *           Exception
      */
-
-    function &createDataType($typeName) {
-        { //try
-            $cls = (string) $typeName;
-            if (!class_exists(strtolower($cls))) {
+    function createDataType($typeName) {        
+        try {
+            $cls = "";
+            $typelwr = strtolower($typeName);
+            foreach ($this->typedefs as $name => $class) {
+                if (strtolower($name) === $typelwr) {
+                    $cls = StringHelper::unqualify($class);                                    
+                    break;
+                }
+            }
+            
+            if ($cls === "") {
                 return null;
             }
-            $type = new $cls(crc32(time()));
-            $this->log("  +Type: $typeName", PROJECT_MSG_DEBUG);
-            if (!is_a($type, 'DataType')) {
-                throw (new RuntimeException("Failed to create type $typeName"),__FILE__,__LINE__);
+            
+            if (!class_exists($cls)) {
+                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
             }
-            if (is_a($type, 'ProjectComponent')) {
+            
+            $type = new $cls();
+            $this->log("  +Type: $typeName", PROJECT_MSG_DEBUG);
+            if (!($type instanceof DataType)) {
+                throw new Exception("$class is not an instance of phing.types.DataType");
+            }
+            if ($type instanceof ProjectComponent) {
                 $type->setProject($this);
             }
-        }
-        if (catch ('Exception', $t)) {
-            throw (new BuildException("Could not create type: $typeName due to ".$t->getMessage()));
-            return;
+        } catch (Exception $t) {
+            throw new BuildException("Could not create type: $typeName", $t);
         }
         // everything fine return reference
         return $type;
@@ -419,10 +669,9 @@ class Project {
      * @returns  void
      * @throws   BuildException
      */
-
-    function executeTargets(&$targetNames) {
-        for ($i = 0; $i < count($targetNames); ++$i) {
-            $this->executeTarget((string) $targetNames[$i]);
+    function executeTargets($targetNames) {
+        foreach($targetNames as $tname) {
+            $this->executeTarget($tname);
         }
     }
 
@@ -433,28 +682,26 @@ class Project {
      * @returns  void
      * @throws   BuildException
      */
-    function executeTarget($targetName = null) {
+    function executeTarget($targetName) {
+
         // complain about executing void
         if ($targetName === null) {
-            throw (new BuildException("No target specified"));
-            return;
+            throw new BuildException("No target specified");
         }
 
         // invoke topological sort of the target tree and run all targets
         // until targetName occurs.
-        $sortedTargets = $this->_topoSort($targetName, $this->targets);
-        if (catch("BuildException", $ex)) {
-            throw($ex);
-            return;
-        }
+        $sortedTargets = $this->_topoSort($targetName, $this->targets);        
 
         $curIndex = (int) 0;
         $curTarget = null;
         do {
-            $curTarget =& $sortedTargets[$curIndex++];
-            $curTarget->performTasks();
-            if(catch('BuildException', $exc)) {
+            try {
+                $curTarget = $sortedTargets[$curIndex++];
+                $curTarget->performTasks();
+            } catch (BuildException $exc) {
                 $this->log("Execution of target \"".$curTarget->getName()."\" failed for the following reason: ".$exc->getMessage(), PROJECT_MSG_ERR);
+                throw $exc;
             }
         } while ($curTarget->getName() !== $targetName);
     }
@@ -462,63 +709,11 @@ class Project {
 
     function resolveFile($fileName, $rootDir = null) {
         if ($rootDir === null) {
-            return (object) $this->fileUtils->resolveFile($this->basedir, (string) $fileName);
+            return $this->fileUtils->resolveFile($this->basedir, $fileName);
         } else {
-            return (object) $this->fileUtils->resolveFile($rootDir, (string) $fileName);
+            return $this->fileUtils->resolveFile($rootDir, $fileName);
         }
-    }
-
-    /**
-     * Translate a path into its native (platform specific) format.
-     *
-     * This method uses the PathTokenizer class to separate the input path
-     * into its components. This handles DOS style paths in a relatively
-     * sensible way. The file separators are then converted to their platform
-     * specific versions. Static method
-     *
-     * @param  string The path to be converted
-     * @return string The native version of to_process or an empty string if to_process
-     *                is null or empty
-     */
-    function translatePath($str) {
-        if ( $str === null || strlen($str) === 0 ) {
-            return (string) "";
-        }
-        $path = "";
-        $tokenizer = new PathTokenizer($str);
-        while ($tokenizer->hasMoreTokens()) {
-            $pathComponent = $tokenizer->nextToken();
-            $pathComponent = str_replace('/', FileSystem::getSeparator());
-            $pathComponent = str_replace('\\', FileSystem::getSeparator());
-            if (strlen($path) !== 0) {
-                $path .= FileSystem::getPathSeparator();
-            }
-            $path .= $pathComponent;
-        }
-        return (string) $path;
-    }
-
-    /**
-     * returns the boolean equivalent of a string, which is considered true
-     * if either "on", "true", or "yes" is found, ignoring case.
-     */
-    function toBoolean($s) {
-        return (strtolower($s) === "on" || strtolower($s) === "true" || strtolower($s) === "yes");
-    }
-
-    /** tests if a string is a representative of a boolean */
-    function isBoolean(&$s) {
-        // nasty type check
-        if (!is_string($s) || $s === null || strcmp($s, "") == 0) {
-            return false;
-        }
-
-        $test = strtolower($s);
-        if ($test === "on" || $test === "true" || $test === "yes"
-                                        || $test === "off" || $test === "false" || $test === "no") {
-            return true;
-        }
-    }
+    }    
 
     /**
      * Topologically sort a set of Targets.
@@ -529,7 +724,6 @@ class Project {
      * @return An array of Strings with the names of the targets in
      *         sorted order.
      */
-
     function _topoSort($root, &$targets) {
 
         $root     = (string) $root;
@@ -548,8 +742,9 @@ class Project {
         $this->_tsort($root, $targets, $state, $visiting, $ret);
 
         $retHuman = "";
-        for ($i=0; $i<count($ret); $retHuman .= $ret[$i]->toString()." ", ++$i)
-            ;
+        for ($i=0, $_i=count($ret); $i < $_i; $i++) {
+            $retHuman .= $ret[$i]->toString()." ";
+        }
         $this->log("Build sequence for target '$root' is: $retHuman", PROJECT_MSG_VERBOSE);
 
         $keys = array_keys($targets);
@@ -563,16 +758,15 @@ class Project {
 
             if ($st === null) {
                 $this->_tsort($curTargetName, $targets, $state, $visiting, $ret);
-            }
-            elseif ($st === "VISITING") {
-                throw (new RuntimeException("Unexpected node in visiting state: $curTargetName"), __FILE__, __LINE__);
-                return;
+            } elseif ($st === "VISITING") {
+                throw new Exception("Unexpected node in visiting state: $curTargetName");
             }
         }
 
         $retHuman = "";
-        for ($i=0; $i<count($ret); $retHuman .= $ret[$i]->toString()." ", ++$i)
-            ;
+        for ($i=0,$_i=count($ret); $i < $_i; $i++) {
+            $retHuman .= $ret[$i]->toString()." ";
+        }
         $this->log("Complete build sequence is: $retHuman", PROJECT_MSG_VERBOSE);
 
         return $ret;
@@ -599,10 +793,10 @@ class Project {
         $state[$root] = "VISITING";
         $visiting[]  = $root;
 
-        if (!isset($targets[$root]) || !isInstanceOf($targets[$root], "Target")) {
+        if (!isset($targets[$root]) || !($targets[$root] instanceof Target)) {
             $target = null;
         } else {
-            $target =& $targets[$root];
+            $target = $targets[$root];
         }
 
         // make sure we exist
@@ -613,11 +807,9 @@ class Project {
                 $parent = (string) $visiting[count($visiting)-1];
                 $sb .= "It is used from target '$parent'.";
             }
-            throw (new BuildException($sb));
-            return;
+            throw new BuildException($sb);
         }
 
-        //var_dump($target);
         $deps = $target->getDependencies();
 
         while($deps) {
@@ -630,21 +822,19 @@ class Project {
             if ($m === null) {
                 // not been visited
                 $this->_tsort($cur, $targets, $state, $visiting, $ret);
-            } else if ($m == "VISITING") {
+            } elseif ($m == "VISITING") {
                 // currently visiting this node, so have a cycle
-                throw ($this->_makeCircularException($cur, $visiting));
-                return;
+                throw $this->_makeCircularException($cur, $visiting);
             }
         }
 
         $p = (string) array_pop($visiting);
         if ($root !== $p) {
-            throw (new RuntimeException("Unexpected internal error: expected to pop $root but got $p"), __FILE__, __LINE__);
-            return;
+            throw new Exception("Unexpected internal error: expected to pop $root but got $p");
         }
 
         $state[$root] = "VISITED";
-        $ret[] =& $target;
+        $ret[] = $target;
     }
 
     function _makeCircularException($end, $stk) {
@@ -660,22 +850,34 @@ class Project {
      * detects a id="foo" attribute. It passes the id as $name and a reference
      * to the object assigned to this id as $value
      */
-
-    function addReference($name, &$object) {
+    function addReference($name, $object) {
         if (isset($this->references[$name])) {
-            $this->log("Overriding previous definition of reference to $name", PROJECT_MSG_DEBUG);
+            $this->log("Overriding previous definition of reference to $name", PROJECT_MSG_WARN);
         }
         $this->log("Adding reference: $name -> ".get_class($object), PROJECT_MSG_DEBUG);
-        $this->references[$name] =& $object;
+        $this->references[$name] = $object;
     }
 
     /**
-     * Returns a reference to references array ;)
-     *
+     * Returns the references array.
+     * @return array
      */
-    function &getReferences() {
+    function getReferences() {
         return $this->references;
     }
+	
+	/**
+	 * Returns a specific reference.
+	 * @param string $key The reference id/key.
+	 * @return object or null if not defined
+	 */
+	function getReference($key)
+	{
+		if (isset($this->references[$key])) {
+		    return $this->references[$key];
+		}
+		return null; // just to be explicit
+	}
 
     /**
      * Abstracting and simplifyling Logger calls for project messages
@@ -684,107 +886,81 @@ class Project {
         $this->logObject($this, $msg, $level);
     }
 
-
-    function logObject(&$obj, $msg, $level) {
+    function logObject($obj, $msg, $level) {
         $this->fireMessageLogged($obj, $msg, $level);
     }
 
-    function addBuildListener(&$listener) {
-        if (!is_a($listener, "BuildListener")) {
-            throw (new RuntimeException("Parameter of unexpected type (need BuildListener object)"),__FILE__,__LINE__);
-            return;
-        }
-        $this->listeners[] =& $listener;
+    function addBuildListener(BuildListener $listener) {
+        $this->listeners[] = $listener;
     }
 
-    function removeBuildListener(&$listener) {
-        if (!is_a($listender, "BuildListener")) {
-            throw (new RuntimeException("Parameter of unexpected type (need BuildListener object)"),__FILE__,__LINE__);
-            return;
-        }
+    function removeBuildListener(BuildListener $listener) {
         $newarray = array();
-        for ($i=0; $i<count($this->listeners); ++$i) {
-            if (!compareReferences($listener, $this->listeners[$i])) {
-                $newarray[] =& $this->listeners[$i];
+        for ($i=0, $size=count($this->listeners); $i < $size; $i++) {
+            if ($this->listeners[$i] !== $listener) {
+                $newarray[] = $this->listeners[$i];
             }
         }
         $this->listeners = $newarray;
     }
 
-    function &getBuildListeners() {
+    function getBuildListeners() {
         return $this->listeners;
     }
 
     function fireBuildStarted() {
-        $event =& new BuildEvent($this);
-        for ($i = 0; $i < count($this->listeners); ++$i) {
-            $listener =& $this->listeners[$i];
+        $event = new BuildEvent($this);        
+        foreach($this->listeners as $listener) {
             $listener->buildStarted($event);
         }
     }
 
-    function fireBuildFinished(&$exception) {
-        $event =& new BuildEvent($this);
+    function fireBuildFinished($exception) {        
+        $event = new BuildEvent($this);
         $event->setException($exception);
-        for ($i = 0; $i < count($this->listeners); ++$i) {
-            $listener =& $this->listeners[$i];
+        foreach($this->listeners as $listener) {
             $listener->buildFinished($event);
         }
     }
 
-    function fireTargetStarted(&$target) {
-        $event =& new BuildEvent($target);
-        for ($i = 0; $i < count($this->listeners); ++$i) {
-            $listener =& $this->listeners[$i];
+    function fireTargetStarted($target) {
+        $event = new BuildEvent($target);        
+           foreach($this->listeners as $listener) {
             $listener->targetStarted($event);
         }
     }
 
-    function fireTargetFinished(&$target, &$exception) {
-        $event =& new BuildEvent($target);
+    function fireTargetFinished($target, $exception) {
+        $event = new BuildEvent($target);        
         $event->setException($exception);
-        for ($i = 0; $i < count($this->listeners); ++$i) {
-            $listener =& $this->listeners[$i];
+        foreach($this->listeners as $listener) {
             $listener->targetFinished($event);
         }
     }
 
-    function fireTaskStarted(&$task) {
-        $event =& new BuildEvent($task);
-        for ($i = 0; $i < count($this->listeners); ++$i) {
-            $listener =& $this->listeners[$i];
+    function fireTaskStarted($task) {
+        $event = new BuildEvent($task);        
+        foreach($this->listeners as $listener) {
             $listener->taskStarted($event);
         }
     }
 
-    function fireTaskFinished(&$task, &$exception) {
-        $event =& new BuildEvent($task);
+    function fireTaskFinished($task, $exception) {
+        $event = new BuildEvent($task);        
         $event->setException($exception);
-        for ($i = 0; $i < count($this->listeners); ++$i) {
-            $listener =& $this->listeners[$i];
+        foreach($this->listeners as $listener) {
             $listener->taskFinished($event);
         }
     }
 
-    function fireMessageLoggedEvent(&$event, $message, $priority) {
+    function fireMessageLoggedEvent($event, $message, $priority) {
         $event->setMessage($message, $priority);
-        for ($i = 0; $i < count($this->listeners); ++$i) {
-            $listener =& $this->listeners[$i];
+        foreach($this->listeners as $listener) {
             $listener->messageLogged($event);
         }
     }
 
-    function fireMessageLogged(&$object, $message, $priority) {
-        $event =& new BuildEvent($object);
-        $this->fireMessageLoggedEvent($event, $message, $priority);
+    function fireMessageLogged($object, $message, $priority) {
+        $this->fireMessageLoggedEvent(new BuildEvent($object), $message, $priority);
     }
 }
-
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

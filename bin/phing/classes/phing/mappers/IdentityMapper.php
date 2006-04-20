@@ -1,6 +1,6 @@
 <?php
 /* 
- * $Id: IdentityMapper.php,v 1.3 2003/04/09 15:58:10 thyrell Exp $
+ *  $Id: IdentityMapper.php,v 1.7 2004/01/22 03:29:13 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,87 +16,39 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import('phing.mappers.FileNameMapper');
-
-// {{{ Identity Mapper
+require_once 'phing/mappers/FileNameMapper.php';
 
 /**
  * This mapper does nothing ;)
- *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.3 $
- *  @package   phing.mappers
+ * 
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.7 $
+ * @package   phing.mappers
  */
+class IdentityMapper implements FileNameMapper {
 
-class IdentityMapper extends FileNameMapper {
+    /**
+     * The mapper implementation. Basically does nothing in this case.
+     *
+     * @param  string $sourceFileName The data the mapper works on.
+     * @return array The data after the mapper has been applied
+     */
+    function main($sourceFileName) {
+        return array($sourceFileName);
+    }
 
-	// {{{ constructor IdentityMapper($_id = null)
+    /**
+     * Ignored here.
+     */
+    function setTo($to) {}
 
-	/**
-	 * Constructor. Creates the object
-	 *
-	 * @returns  object    The class instance
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
+    /**
+     * Ignored here.
+     */
+    function setFrom($from) {}
 
-	function IdentityMapper($_id = null)
-	{
-		parent::FileNameMapper($_id);
-		return;
-	}
-
-	// }}}
-	// {{{ method Main($_input)
-
-	/**
-	 * The mapper implementation. Basically does nothing in this case.
-	 *
-	 * @param    mixed     The data the mapper works on
-	 * @returns  mixed     The data after the mapper has been applied
-	 * @access   public
-	 * @author   Andreas Aderhold, andi@binarycloud.com
-	 */
-
-	function Main($_sourceFileName)
-	{
-		return (array) $_sourceFileName;
-	}
-
-	// }}}
-	// {{{ method SetTo($_to)
-
-	/**
-	 * Accessor. Sets the to property
-	 *
-	 */
-
-	function SetTo($_to) {}
-
-	// }}}
-	// {{{ method SetFrom($_to)
-
-	/**
-	 * Accessor. Sets the from property. What this mapper should
-	 * recognize.
-	 *
-	 */
-
-	function SetFrom($_from) {}
-
-	// }}}
 }
-
-// }}}
-
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

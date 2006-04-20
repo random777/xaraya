@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: ProjectComponent.php,v 1.5 2003/04/09 15:58:09 thyrell Exp $
+ *  $Id: ProjectComponent.php,v 1.5 2003/12/24 13:02:08 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,30 +16,27 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
 /**
  *  Abstract class providing properties and methods common to all
  *  the project components
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.5 $ $Date: 2003/04/09 15:58:09 $
- *  @access    public
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author    Hans Lellelid <hans@xmpl.org> 
+ * @version   $Revision: 1.5 $
+ * @package   phing
  */
-
-class ProjectComponent {
+abstract class ProjectComponent {
 
     /**
      *  Holds a reference to the project that a project component
      *  (a task, a target, etc.) belongs to
      *
      *  @var    object  A reference to the current project instance
-     *  @access private
      */
-    var $project = null;
+    protected $project = null;
 
     /**
      *  References the project to the current component.
@@ -47,8 +44,8 @@ class ProjectComponent {
      *  @param    object    The reference to the current project
      *  @access   public
      */
-    function setProject(&$project) {
-        $this->project =& $project;
+    function setProject($project) {
+        $this->project = $project;
     }
 
     /**
@@ -57,7 +54,7 @@ class ProjectComponent {
      *  @return   object   Reference to current porject object
      *  @access   public
      */
-    function &getProject() {
+    function getProject() {
         return $this->project;
     }
 
@@ -66,19 +63,10 @@ class ProjectComponent {
      *
      *  @param  string   The message to be logged.
      *  @param  integer  The message's priority at this message should have
-     *  @access public
      */
-    function log($msg, $level = PROJECT_MSG_INFO) {
+    public function log($msg, $level = PROJECT_MSG_INFO) {
         if ($this->project !== null) {
             $this->project->log($msg, $level);
         }
     }
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

@@ -47,15 +47,20 @@
   <!-- We need something extra until phing 2 can be used, which is php 5 only -->
   <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
   
+  <target name="getversion">
+    <input propertyname="lastversion">What is the previous version? (used for release notes)</input>
+    <input propertyname="version">What version are you building now?</input>
+  </target>
+
   <!--  Main target that runs the build  -->
   <target name="all" description=": creates all distributions of Xaraya">
     <echo message="Copying files to build dir" />
     <mkdir dir="${build.basedir}" />
     
     <!-- Build all distributions -->
-    <phingcall target="coredist"/>
-    <phingcall target="basedist"/>
-    <phingcall target="fulldist"/>
+    <phingcall target="coredist" />
+    <phingcall target="basedist" />
+    <phingcall target="fulldist" />
   </target>
   
   <!-- Checkout target, make sure we have working dirs, appropriate for building -->
@@ -76,10 +81,10 @@
     </phingcall>
 
     <!-- Modules, Themes and languages -->
-    <foreach list="modules.base" target="mod_checkout" param="mod.name"/>
-    <foreach list="modules.full" target="mod_checkout" param="mod.name"/>
-    <foreach list="themes.full" target="theme_checkout" param="theme.name"/>
-    <foreach list="languages.installer" target="lang_checkout" param="lang.locale"/>
+    <foreach list="${modules.base}" target="mod_checkout" param="mod.name"/>
+    <foreach list="${modules.full}" target="mod_checkout" param="mod.name"/>
+    <foreach list="${themes.full}" target="theme_checkout" param="theme.name"/>
+    <foreach list="${languages.installer}" target="lang_checkout" param="lang.locale"/>
   </target>
 
   <!--
@@ -87,11 +92,11 @@
 
       Pulls latest into the databases
     -->
-  <target name="pull">
-    <exec dir="${work.basedir}" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com *"/>
-    <exec dir="${work.basedir}" command="${monotone} -d ${modules.repo}.db pull mt.xaraya.com:15000 *"/>
-    <exec dir="${work.basedir}" command="${monotone} -d ${themes.repo}.db pull mt.xaraya.com:16000 *"/>
-    <exec dir="${work.basedir}" command="${monotone} -d ${languages.repo}.db pull mt.xaraya.com:17000 *"/>
+  <target name="pull" description=": Pulls all the monotone repositories from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com '*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${modules.repo}.db pull mt.xaraya.com:15000 '*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${themes.repo}.db pull mt.xaraya.com:16000 '*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${languages.repo}.db pull mt.xaraya.com:17000 '*'"/>
   </target>
   <!-- 
        Check out targets
@@ -104,8 +109,7 @@
   <!-- Wrapper for the monotone command -->
   <target name="mt_checkout">
     <mkdir dir="${work.basedir}/${repo}"/>
-    <echo message="${monotone} -d ${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
-    <exec dir="${work.basedir}" command="${monotone} -d ${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
   </target>
   <!-- Modules checkout -->
   <target name="mod_checkout" if="mod.name">
@@ -122,11 +126,11 @@
     </phingcall>
   </target>
   <target name="lang_checkout" if="lang.locale">
-    <!-- Extract the branch from the local specified -->
+    <!-- Extract the branch from the locale specified -->
     <php function="substr" returnProperty="language">
       <param value="${lang.locale}"/>
-        <param value="0"/>
-        <param value="2"/>
+      <param value="0"/>
+      <param value="2"/>
     </php>
     <phingcall target="mt_checkout">
       <property name="repo" value="${languages.repo}"/>
@@ -140,7 +144,7 @@
       Updates existing working directories to a certain revision
       TODO: currently using head, but this begs to use revision from build properties obviously
     -->
-  <target name="update">
+  <target name="update" description=": Updates the working directories">
     <echo message="Making sure our working directories have the right base revision"/>
     
     <!-- Core -->
@@ -154,16 +158,16 @@
     </phingcall>
 
     <!-- Modules -->
-    <foreach list="modules.base" target="mod_update" param="mod.name"/>
-    <foreach list="modules.full" target="mod_update" param="mod.name"/>
-    <foreach list="themes.full" target="theme_update" param="theme.name"/>
-    <foreach list="languages.installer" target="lang_update" param="lang.locale"/>
+    <foreach list="${modules.base}" target="mod_update" param="mod.name"/>
+    <foreach list="${modules.full}" target="mod_update" param="mod.name"/>
+    <foreach list="${themes.full}" target="theme_update" param="theme.name"/>
+    <foreach list="${languages.installer}" target="lang_update" param="lang.locale"/>
   </target>
 
   <!-- Wrapper around the monotone command -->
   <target name="mt_update">
     <echo message="In: ${work.basedir}/${repo}/${branch} : ${monotone} update"/>
-    <exec dir = "${work.basedir}/${repo}/${branch}" command="${monotone} update"/>
+    <exec dir="${work.basedir}/${repo}/${branch}" passthru="true" command="${monotone} update"/>
   </target>
   <target name="mod_update" if="mod.name">
     <phingcall target="mt_update">
@@ -237,12 +241,12 @@
   <!-- xmdg new style -->
   <target name="xmdg">
     <echo message="In: ${docs.dir}/xmdg : making"/>
-    <exec dir = "${docs.dir}/xmdg" command="make pdf"/>
-    <exec dir = "${docs.dir}/xmdg" command="make html"/>
+    <exec dir="${docs.dir}/xmdg" passthru="true" checkreturn="true" command="make pdf"/>
+    <exec dir="${docs.dir}/xmdg" passthru="true" checkreturn="true" command="make html"/>
   </target>
   
   <!-- Common contents for each distribution -->
-  <target name="commonfiles" depends="xmdg">
+  <target name="commonfiles" depends="getversion">
     <!-- Copy the usual suspects for GPL alike projects -->
     <mkdir dir="${build.docs}" />
     <copy todir="${build.docs}">
@@ -336,22 +340,22 @@
 
   <!-- Installer languages target -->
   <target name="languages" depends="commonfiles">
-    <foreach list="languages.installer" target="copylanguage" param="language.locale"/>
+    <foreach list="${languages.installer}" target="copylanguage" param="language.locale"/>
   </target>  
   
   <!-- process the list of modules for base distro -->
   <target name="basemodules">
-    <foreach list="modules.base" target="copymodulefrommodrepo" param="module.name"/>
+    <foreach list="${modules.base}" target="copymodulefrommodrepo" param="module.name"/>
   </target>
   
   <!-- process the list of modules for full distro -->
   <target name="fullmodules">
-    <foreach list="modules.full" target="copymodulefrommodrepo" param="module.name"/>
+    <foreach list="${modules.full}" target="copymodulefrommodrepo" param="module.name"/>
   </target>
   
   <!-- process the list of themes for full distro -->
   <target name="fullthemes">
-    <foreach list="themes.full" target="copythemefromthemerepo" param="theme.name"/>
+    <foreach list="${themes.full}" target="copythemefromthemerepo" param="theme.name"/>
   </target>
   
   <!-- copy a module into the build tree -->
@@ -430,9 +434,13 @@
   </target>
   
   <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
-  <target name="realclean" depends="clean" description=": removes the whole build structure except for the monotone parts">
+  <target name="realclean" depends="clean" description=": removes the whole build structure except for the monotone databases">
     <echo msg="Real clean..."/>
     <delete dir="${build.basedir}" />
+    <delete dir="${work.basedir}/core" />
+    <delete dir="${work.basedir}/modules" />
+    <delete dir="${work.basedir}/themes" />
+    <delete dir="${work.basedir}/languages" />
   </target>
   
   <!-- Rebuild target, depends on clean -->

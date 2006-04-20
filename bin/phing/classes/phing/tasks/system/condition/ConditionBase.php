@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: ConditionBase.php,v 1.8 2003/04/09 15:59:23 thyrell Exp $
+ *  $Id: ConditionBase.php,v 1.16 2005/12/08 14:45:56 mpigulla Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,101 +16,180 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
-import("phing.Project");
-import("phing.Task");
-import("phing.tasks.system.AvailableTask");
+require_once 'phing/ProjectComponent.php';
+include_once 'phing/Project.php';
+include_once 'phing/tasks/system/AvailableTask.php';
+include_once 'phing/tasks/system/condition/Condition.php';
 
 /**
- *  Abstract vaseclass for the <condition> task as well as several
+ *  Abstract baseclass for the <condition> task as well as several
  *  conditions - ensures that the types of conditions inside the task
  *  and the "container" conditions are in sync.
- *
+ * 
+ *    @author    Hans Lellelid <hans@xmpl.org>
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.8 $ $Date: 2003/04/09 15:59:23 $
- *  @access    public
+ *  @version   $Revision: 1.16 $
  *  @package   phing.tasks.system.condition
  */
-class ConditionBase {
-
-    var $_conditions = array();
-    var $_project = null;
-
-    function setProject(&$p) {
-        $this->_project =& $p;
-    }
-
-    function getProject() {
-        return $this->_project;
-    }
+abstract class ConditionBase extends ProjectComponent implements IteratorAggregate {
+        
+    public $conditions = array(); // needs to be public for "inner" class access
 
     function countConditions() {
-        return count($this->_conditions);
+        return count($this->conditions);
     }
-
-    function &getConditions() {
+    
+    /**
+     * Required for IteratorAggregate
+     */
+    function getIterator() {
         return new ConditionEnumeration($this);
     }
-
-    function addAvailable(&$a) {
-        $this->_conditions[] =& $a;
+    
+    function getConditions() {
+        return $this->conditions;
     }
 
-    function addNot(&$n) {
-        $this->_conditions[] =& $n;
+    /**
+     * @return void
+     */
+    function addAvailable(AvailableTask $a) {
+        $this->conditions[] = $a;
     }
 
-    function addAnd(&$a) {
-        $this->_conditions[] =& $a;
+    /**
+     * @return NotCondition
+     */
+    function createNot() {
+        include_once 'phing/tasks/system/condition/NotCondition.php';
+        $num = array_push($this->conditions, new NotCondition());
+        return $this->conditions[$num-1];        
     }
 
-    function addOr(&$o) {
-        $this->_conditions[] =& $o;
+    /**
+     * @return AndCondition
+     */
+    function createAnd() {
+        include_once 'phing/tasks/system/condition/AndCondition.php';
+        $num = array_push($this->conditions, new AndCondition());
+        return $this->conditions[$num-1];
+    }
+    
+    /**
+     * @return OrCondition
+     */
+    function createOr() {
+        include_once 'phing/tasks/system/condition/OrCondition.php';
+        $num = array_push($this->conditions, new OrCondition());
+        return $this->conditions[$num-1];        
     }
 
-    function addEquals(&$e) {
-        $this->_conditions[] =& $e;
+    /**
+     * @return EqualsCondition
+     */
+    function createEquals() {
+        include_once 'phing/tasks/system/condition/EqualsCondition.php';  
+        $num = array_push($this->conditions, new EqualsCondition());
+        return $this->conditions[$num-1];
     }
 
-    function addOs(&$o) {
-        $this->_conditions[] =& $o;
+    /**
+     * @return OsCondition
+     */
+    function createOs() {
+        include_once 'phing/tasks/system/condition/OsCondition.php';
+        $num = array_push($this->conditions, new OsCondition());
+        return $this->conditions[$num-1];
+    }
+   
+    /**
+     * @return IsFalseCondition
+     */
+    function createIsFalse() {
+        include_once 'phing/tasks/system/condition/IsFalseCondition.php';
+        $num = array_push($this->conditions, new IsFalseCondition());
+        return $this->conditions[$num-1];
+    }
+   
+    /**
+     * @return IsTrueCondition
+     */
+    function createIsTrue() {
+        include_once 'phing/tasks/system/condition/IsTrueCondition.php';
+        $num = array_push($this->conditions, new IsTrueCondition());
+        return $this->conditions[$num-1];
+    }
+   
+    /**
+     * @return ContainsCondition
+     */
+    function createContains() {
+        include_once 'phing/tasks/system/condition/ContainsCondition.php';
+        $num = array_push($this->conditions, new ContainsCondition());
+        return $this->conditions[$num-1];
+    }
+   
+    /**
+     * @return IsSetCondition
+     */
+    function createIsSet() {
+        include_once 'phing/tasks/system/condition/IsSetCondition.php';
+        $num = array_push($this->conditions, new IsSetCondition());
+        return $this->conditions[$num-1];
     }
 
-    // add conditionenum calss
+    /**
+     * @return ReferenceExistsCondition
+     */
+    function createReferenceExists() {
+        include_once 'phing/tasks/system/condition/ReferenceExistsCondition.php';
+        $num = array_push($this->conditions, new ReferenceExistsCondition());
+        return $this->conditions[$num-1];
+    }
+
 }
-// dirty helper since inner classes are not allowed right now
-class ConditionEnumeration {
-    var $_currentElement = 0;
-    var $__cbase = null;
 
-    function ConditionEnumeration(&$cbase) {
-        $this->__cbase =& $cbase;
+/**
+ * "Inner" class for handling enumerations.
+ * Uses build-in PHP5 iterator support.
+ */
+class ConditionEnumeration implements Iterator {
+    
+    /** Current element number */
+    private $num = 0;
+    
+    /** "Outer" ConditionBase class. */
+    private $outer;
+
+    function __construct(ConditionBase $outer) {
+        $this->outer = $outer;
+    }
+    
+    public function valid() {
+        return $this->outer->countConditions() > $this->num;
     }
 
-    function hasMoreElements() {
-        return $this->__cbase->countConditions() > $this->_currentElement;
-    }
-
-    function &nextElement() {
-        $o = null;
-        $o =& $this->__cbase->_conditions[$this->_currentElement++];
-
-        if (isInstanceOf($o, "Task")) {
-            $o->setProject($this->__cbase->getProject());
-        } else if (instanceof($o, "ConditionBase")) {
-            $o->setProject($this->__cbase->getProject());
+    function current() {
+        $o = $this->outer->conditions[$this->num];
+        if ($o instanceof ProjectComponent) {
+            $o->setProject($this->outer->getProject());
         }
         return $o;
     }
+    
+    function next() {
+        $this->num++;
+    }
+    
+    function key() {
+        return $this->num;
+    }
+    
+    function rewind() {
+        $this->num = 0;
+    }
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

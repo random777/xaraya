@@ -1,16 +1,26 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: ForeachTask.php,v 1.12 2003/05/03 16:12:49 purestorm Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2003, Eye Integrated Communications
- * -Author     jason hines <jason@greenhell.com>
+ *  $Id: ForeachTask.php,v 1.9 2005/06/02 15:38:09 mrook Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
 
-import("phing.Task");
-import("phing.BuildException");
-import("phing.tasks.system.PhingTask");
+require_once 'phing/Task.php';
+include_once 'phing/tasks/system/PhingTask.php';
 
 /**
  * <foreach> task
@@ -31,22 +41,36 @@ import("phing.tasks.system.PhingTask");
  * delimiter --> The delimiter string that separates the values in the "list"
  *               parameter.  The default is ",".
  *
- * @author    jason hines <jason@greenhell.com>
- * @version   $Revision: 1.12 $ $Date: 2003/05/03 16:12:49 $
- * @access    public
+ * @author    Jason Hines <jason@greenhell.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.9 $
  * @package   phing.tasks.system
  */
 class ForeachTask extends Task {
-
-    var $list		  = NULL;
-    var $param		= NULL;
-    var $target		= NULL;
-    var $delimiter = ",";
-    var $callee = null;
+    
+    /** Delimter-separated list of values to process. */
+    private $list;
+    
+    /** Name of parameter to pass to callee */
+    private $param;
+    
+    /** Delimter that separates items in $list */
+    private $delimiter = ',';
+    
+    /**
+     * PhingCallTask that will be invoked w/ calleeTarget.
+     * @var PhingCallTask
+     */
+    private $callee;
+    
+    /**
+     * Target to execute.
+     * @var string
+     */
+    private $calleeTarget;
 
     function init() {
-        $prj =& $this->getProject();
-        $this->callee =& $prj->createTask("phingcall");
+        $this->callee = $this->project->createTask("phingcall");
         $this->callee->setOwningTarget($this->getOwningTarget());
         $this->callee->setTaskName($this->getTaskName());
         $this->callee->setLocation($this->getLocation());
@@ -55,37 +79,35 @@ class ForeachTask extends Task {
 
     /**
      * This method does the work.
-     * 
-     * @param	string	desc
-     * @access	public
+     * @return void
      */   
     function main() {
-        if ($this->list === NULL) {
-            throw (new BuildException("Missing list to iterate through", __FILE__, __LINE__));
+        if ($this->list === null) {
+            throw new BuildException("Missing list to iterate through");
         }
-        if ($this->param === NULL) {
-            throw (new BuildException("You must supply a property name to set on each iteration in param", __FILE__, __LINE__));
+        if (trim($this->list) === '') {
+            return;
         }
-        if ($this->target === NULL) {
-            throw (new BuildException("You must supply a target to perform", __FILE__, __LINE__));
+        if ($this->param === null) {
+            throw new BuildException("You must supply a property name to set on each iteration in param");
+        }
+        if ($this->calleeTarget === null) {
+            throw new BuildException("You must supply a target to perform");
         }
 
-        $prj =& $this->getProject();
-        $callee =& $this->callee;
-        $callee->setTarget($this->target);
+        $callee = $this->callee;
+        $callee->setTarget($this->calleeTarget);
         $callee->setInheritAll(true);
         $callee->setInheritRefs(true);
-
-        $list = $prj->getProperty($this->list);
-        $arr = explode($this->delimiter,$list);
+        
+        $arr = explode($this->delimiter, $this->list);
+        
         foreach ($arr as $value) {
             $this->log("Setting param '$this->param' to value '$value'", PROJECT_MSG_VERBOSE);
-
-            $prop =& $callee->createProperty();
+            $prop = $callee->createProperty();
             $prop->setOverride(true);
             $prop->setName($this->param);
             $prop->setValue($value);
-
             $callee->main();
         }
     }
@@ -95,7 +117,7 @@ class ForeachTask extends Task {
     }
 
     function setTarget($target) {
-        $this->target = (string) $target;
+        $this->calleeTarget = (string) $target;
     }
 
     function setParam($param) {
@@ -106,16 +128,11 @@ class ForeachTask extends Task {
         $this->delimiter = (string) $delimiter;
     }
 
-    function &createProperty() {
+    /**
+     * @return Property
+     */
+    function createProperty() {
         return $this->callee->createProperty();
     }
 
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

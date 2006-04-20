@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: SourceFileScanner.php,v 1.12 2003/06/15 12:46:11 purestorm Exp $
+ *  $Id: SourceFileScanner.php,v 1.11 2005/05/26 13:10:53 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
 /**
@@ -28,18 +28,20 @@
  *  are newer than their corresponding target files.
  *  @package   phing.util
  */
-
 class SourceFileScanner {
 
-    var $fileUtils;
-    var $task;
+    /** Instance of FileUtils */
+    private $fileUtils;
+    
+    /** Task this class is working for -- for logging purposes. */
+    private $task;
 
     /**
      * @param task The task we should log messages through
      */
-    function SourceFileScanner(&$task) {
-        $this->task =& $task;
-        $this->fileUtils = FileUtils::newFileUtils();
+    function __construct($task) {
+        $this->task = $task;
+        $this->fileUtils = new FileUtils();
     }
 
     /**
@@ -50,13 +52,12 @@ class SourceFileScanner {
      * @param srcDir  all files are relative to this directory
      * @param destDir target files live here. if null file names
      *                returned by the mapper are assumed to be absolute.
-     * @param mapper  knows how to construct a target file names from
+     * @param FilenameMapper  knows how to construct a target file names from
      *                source file names.
      * @param force   Boolean that determines if the files should be
      *                forced to be copied.
      */
-
-    function restrict(&$files, &$srcDir, &$destDir, &$mapper, $force = false) {
+    function restrict(&$files, $srcDir, $destDir, $mapper, $force = false) {
         $now = time();
         $targetList = "";
 
@@ -65,7 +66,7 @@ class SourceFileScanner {
           be able to check file modification times.
           (Windows has a max resolution of two secs for modification times)
         */
-        $osname = strtolower(System::getProperty('os.name'));
+        $osname = strtolower(Phing::getProperty('os.name'));
 
         // indexOf()
         $index = ((($res = strpos($osname, 'win')) === false) ? -1 : $res);
@@ -75,51 +76,52 @@ class SourceFileScanner {
 
         $v = array();
 
-        for ($i=0; $i< count($files); ++$i) {
-
+        for ($i=0, $size=count($files); $i < $size; $i++) {
+        
             $targets = $mapper->main($files[$i]);
-            if ($targets === null || count($targets) === 0) {
+            if (empty($targets)) {
                 $this->task->log($files[$i]." skipped - don't know how to handle it", PROJECT_MSG_VERBOSE);
                 continue;
             }
 
             $src = null;
-            if ($srcDir === null) {
-                $src = new File($files[$i]);
-            } else {
-
-                // SUXX
-                $src = $this->fileUtils->resolveFile($srcDir, $files[$i]);
-                //print_r($src);
-
+            try {
+                if ($srcDir === null) {
+                    $src = new PhingFile($files[$i]);
+                } else {
+                    $src = $this->fileUtils->resolveFile($srcDir, $files[$i]);
+                }
+    
+                if ($src->lastModified() > $now) {
+                    $this->task->log("Warning: ".$files[$i]." modified in the future (".$src->lastModified()." > ".$now.")", PROJECT_MSG_WARN);
+                }
+            } catch (IOException $ioe) {
+                $this->task->log("Unable to read file ".$files[$i]." (skipping): " . $ioe->getMessage());
+                continue;
             }
-
-            if ($src->lastModified() > $now) {
-                $this->task->log("Warning: ".$files[$i]." modified in the future", PROJECT_MSG_WARN);
-            }
-
+            
             $added = false;
             $targetList = "";
 
-            for ($j=0; (!$added && $j<count($targets)); $j++) {
+            for ($j=0,$_j=count($targets); (!$added && $j < $_j); $j++) {
 
                 $dest = null;
                 if ($destDir === null) {
-                    $dest = new File($targets[$j]);
+                    $dest = new PhingFile($targets[$j]);
                 } else {
                     $dest = $this->fileUtils->resolveFile($destDir, $targets[$j]);
                 }
 
                 if (!$dest->exists()) {
-                    $this->task->log($files[$i]." added as ".$dest->getAbsolutePath()." doesn't exist.", PROJECT_MSG_VERBOSE);
+                    $this->task->log($files[$i]." added as " . $dest->__toString() . " doesn't exist.", PROJECT_MSG_VERBOSE);
                     $v[] =$files[$i];
                     $added = true;
-                } else if ($src->lastModified() > $dest->lastModified()) {
-                    $this->task->log($files[$i]." added as ".$dest->getAbsolutePath()." is outdated.", PROJECT_MSG_VERBOSE );
+                } elseif ($src->lastModified() > $dest->lastModified()) {
+                    $this->task->log($files[$i]." added as " . $dest->__toString() . " is outdated.", PROJECT_MSG_VERBOSE );
                     $v[]=$files[$i];
                     $added = true;
-                } else if ($force === true) {
-                    $this->task->log($files[$i]." added as ".$dest->getAbsolutePath()." is forced to be overwritten.", PROJECT_MSG_VERBOSE );
+                } elseif ($force === true) {
+                    $this->task->log($files[$i]." added as " . $dest->__toString() . " is forced to be overwritten.", PROJECT_MSG_VERBOSE );
                     $v[]=$files[$i];
                     $added = true;
                 } else {
@@ -131,7 +133,7 @@ class SourceFileScanner {
             }
 
             if (!$added) {
-                $this->task->log($files[$i]." omitted as $targetList ".(count($targets) === 1 ? " is " : " are ")."up to date.",  PROJECT_MSG_VERBOSE);
+                $this->task->log($files[$i]." omitted as ".$targetList." ".(count($targets) === 1 ? " is " : " are ")."up to date.",  PROJECT_MSG_VERBOSE);
             }
 
         }
@@ -142,14 +144,14 @@ class SourceFileScanner {
 
     /**
      * Convenience layer on top of restrict that returns the source
-     * files as File objects (containing absolute paths if srcDir is
+     * files as PhingFile objects (containing absolute paths if srcDir is
      * absolute).
      */
     function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper) {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = array();
         for ($i=0; $i<count($res); $i++) {
-            $result[$i] = new File($srcDir, $res[$i]);
+            $result[$i] = new PhingFile($srcDir, $res[$i]);
         }
         return $result;
     }

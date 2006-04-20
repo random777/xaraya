@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: HeadFilter.php,v 1.7 2003/02/25 17:38:30 openface Exp $  
+ *  $Id: HeadFilter.php,v 1.6 2004/03/15 14:45:06 hlellelid Exp $  
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +17,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseParamFilterReader');
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Reads the first <code>n</code> lines of a stream.
@@ -35,63 +36,31 @@ import('phing.filters.BaseParamFilterReader');
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.7 $ $Date: 2003/02/25 17:38:30 $
+ * @version   $Revision: 1.6 $ $Date: 2004/03/15 14:45:06 $
  * @access    public
  * @see       FilterReader
  * @package   phing.filters
  */
-class HeadFilter extends BaseParamFilterReader {
-
-	/**
-	 * Parameter name for the number of lines to be returned.
-	 * @var string
-	 */ 
-    var $_LINES_KEY = "lines";
-	
-	/**
-	 * Number of lines currently read in.
-	 * @var integer
-	 */ 
-    var $_linesRead = 0;
-	
-	/**
-	 * Number of lines to be returned in the filtered stream.
-	 * @var integer
-	 */ 
-    var $_lines     = 10;
+class HeadFilter extends BaseParamFilterReader implements ChainableReader {
 
     /**
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseFilterReader#BaseFilterReader()
-     */
-    function HeadFilter() {
-        parent::BaseParamFilterReader();
-    }
+     * Parameter name for the number of lines to be returned.
+     */ 
+    const LINES_KEY = "lines";
+    
+    /**
+     * Number of lines currently read in.
+     * @var integer
+     */ 
+    private $_linesRead = 0;
+    
+    /**
+     * Number of lines to be returned in the filtered stream.
+     * @var integer
+     */ 
+    private $_lines     = 10;
 
     /**
-     * Creates a new filtered reader.
-     *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return object An HeadFilter object filtering the underlying
-     *                stream.
-     */
-    function &newHeadFilter(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected 'Reader' object, got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $o = new HeadFilter();
-        $o->setReader($reader);
-
-        return $o;
-    }
-
-	/**
      * Returns first n lines of stream.
      * @return the resulting stream, or -1
      * if the end of the resulting stream has been reached
@@ -99,74 +68,42 @@ class HeadFilter extends BaseParamFilterReader {
      * @exception IOException if the underlying stream throws an IOException
      * during reading     
      */
-    function read() {
-	
+    function read($len = null) {
+    
         if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
-		
-		// note, if buffer contains fewer lines than
-		// $this->_lines this code will not work.
-		
-		if($this->_linesRead < $this->_lines) {
-		
-			$buffer = $this->in->read();
-			
-			if($buffer === -1) {
-				return -1;
-			}
-			
-			// now grab first X lines from buffer
-			
-			$lines = explode("\n", $buffer);
-			
-			$linesCount = count($lines);
-			
-			// must account for possibility that the num lines requested could 
-			// involve more than one buffer read.			
-			$len = ($linesCount > $this->_lines ? $this->_lines - $this->_linesRead : $linesCount);
-			$filtered_buffer = implode("\n", array_slice($lines, 0, $len) );
-			$this->_linesRead += $len;
-			
-			return $filtered_buffer;
-		
-		}
-		
-		return -1; // EOF, since the file is "finished" as far as subsequent filters are concerned.
-    }
-
-    /**
-	 * [Deprecated. For reference only.  chain system uses new read() method.] 
-     * Returns the next character in the filtered stream. If the desired
-     * number of lines have already been read, the resulting stream is
-     * effectively at an end. Otherwise, the next character from the 
-     * underlying stream is read and returned.
-     * 
-     * @return the next character in the resulting stream, or -1
-     * if the end of the resulting stream has been reached
-     * 
-     * @exception IOException if the underlying stream throws an IOException
-     * during reading     
-    */
-    function readChar() {
-        if ( !$this->getInitialized() ) {
-            $this->_initialize();
-            $this->setInitialized(true);
-        }
-
-        $ch = -1;
-
-        if ( $this->_linesRead < $this->_lines ) {
-            $ch = $this->in->readChar();
-
-            if ( $ch === "\n" ) {
-                $this->_linesRead++;
+        
+        // note, if buffer contains fewer lines than
+        // $this->_lines this code will not work.
+        
+        if($this->_linesRead < $this->_lines) {
+        
+            $buffer = $this->in->read($len);
+            
+            if($buffer === -1) {
+                return -1;
             }
+            
+            // now grab first X lines from buffer
+            
+            $lines = explode("\n", $buffer);
+            
+            $linesCount = count($lines);
+            
+            // must account for possibility that the num lines requested could 
+            // involve more than one buffer read.            
+            $len = ($linesCount > $this->_lines ? $this->_lines - $this->_linesRead : $linesCount);
+            $filtered_buffer = implode("\n", array_slice($lines, 0, $len) );
+            $this->_linesRead += $len;
+            
+            return $filtered_buffer;
+        
         }
-
-        return $ch;
-    }
+        
+        return -1; // EOF, since the file is "finished" as far as subsequent filters are concerned.
+    }    
 
     /**
      * Sets the number of lines to be returned in the filtered stream.
@@ -196,17 +133,11 @@ class HeadFilter extends BaseParamFilterReader {
      * @return object A new filter based on this configuration, but filtering
      *         the specified reader.
      */
-    function &chain(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected 'Reader' object, got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $newFilter = &HeadFilter::newHeadFilter($reader);
+    function chain(Reader $reader) {
+        $newFilter = new HeadFilter($reader);
         $newFilter->setLines($this->getLines());
         $newFilter->setInitialized(true);
-
+        $newFilter->setProject($this->getProject());        
         return $newFilter;
     }
 
@@ -214,11 +145,11 @@ class HeadFilter extends BaseParamFilterReader {
      * Scans the parameters list for the "lines" parameter and uses
      * it to set the number of lines to be returned in the filtered stream.
      */
-    function _initialize() {
+    private function _initialize() {
         $params = $this->getParameters();
         if ( $params !== null ) {
-            for($i = 0 ; $i<count($params) ; $i++) {
-                if ( $this->LINES_KEY = $params[$i]->getName() ) {
+            for($i = 0, $_i=count($params) ; $i < $_i; $i++) {
+                if ( self::LINES_KEY == $params[$i]->getName() ) {
                     $this->_lines = (int) $params[$i]->getValue();
                     break;
                 }

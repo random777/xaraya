@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: ChainReaderHelper.php,v 1.7 2003/07/09 06:06:39 purestorm Exp $
+ *  $Id: ChainReaderHelper.php,v 1.8 2005/02/27 20:52:09 mrook Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,15 +16,17 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.Project');
-import('phing.filters.BaseFilterReader');
-import('phing.types.PhingFilterReader');
-import('phing.types.FilterChain');
-import('phing.types.Parameter');
-import('phing.util.FileUtils');
+include_once 'phing/Project.php';
+include_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/types/PhingFilterReader.php';
+include_once 'phing/types/FilterChain.php';
+include_once 'phing/types/Parameter.php';
+include_once 'phing/util/FileUtils.php';
+include_once 'phing/util/StringHelper.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Process a FilterReader chain.
@@ -36,17 +38,17 @@ import('phing.util.FileUtils');
  * For example : In copyFile (phing.util.FileUtils) the primary Reader
  * is a FileReader object (more accuratly, a BufferedReader) previously 
  * setted for the source file to copy. So, consider this filterchain :
- *		
- * 	<filterchain>
- *		<stripphpcomments />
- *		<linecontains>
- *			<contains value="foo">
- *		</linecontains>
+ *        
+ *     <filterchain>
+ *        <stripphpcomments />
+ *        <linecontains>
+ *            <contains value="foo">
+ *        </linecontains>
  *      <tabtospaces tablength="8" />
- *	</filterchain>
+ *    </filterchain>
  *
- *	getAssembledReader will return a Reader object wich read on each
- *	of these filters. Something like this : ('->' = 'which read data from') :
+ *    getAssembledReader will return a Reader object wich read on each
+ *    of these filters. Something like this : ('->' = 'which read data from') :
  *
  *  [TABTOSPACES] -> [LINECONTAINS] -> [STRIPPHPCOMMENTS] -> [FILEREADER]
  *                                                         (primary reader)
@@ -54,42 +56,48 @@ import('phing.util.FileUtils');
  *  So, getAssembledReader will return the TABTOSPACES Reader object. Then
  *  each read done with this Reader object will follow this path.
  *
- *	Hope this explanation is clear :)
+ *    Hope this explanation is clear :)
  *
  * TODO: Implement the classPath feature.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.7 $ $Date: 2003/07/09 06:06:39 $
+ * @version   $Revision: 1.8 $ $Date: 2005/02/27 20:52:09 $
  * @access    public
  * @package   phing.filters.util
 */
 class ChainReaderHelper {
-
-    var	$primaryReader	= null;		// Primary reader to wich the reader chain is to be attached
-    var	$bufferSize	    = 8192;		// The site of the buffer to be used.
-    var	$filterChains   = array();	// Chain of filters
-
-    var	$_project	    = null;		// The Phing project
+    
+    /** Primary reader to wich the reader chain is to be attached */
+    private $primaryReader = null;
+    
+    /** The site of the buffer to be used. */
+    private $bufferSize = 8192;
+    
+    /** Chain of filters */
+    private $filterChains = array();
+    
+    /** The Phing project */
+    private $project;
 
     /*
      * Sets the primary reader
     */
-    function setPrimaryReader($reader) {
+    function setPrimaryReader(Reader $reader) {
         $this->primaryReader = $reader;
     }
 
     /*
      * Set the project to work with
     */
-    function setProject(&$project) {
-        $this->_project = $project;
+    function setProject(Project $project) {
+        $this->project = $project;
     }
 
     /*
      * Get the project
     */
-    function &getProject() {
-        return $this->_project;
+    function getProject() {
+        return $this->project;
     }
 
     /*
@@ -110,8 +118,9 @@ class ChainReaderHelper {
     /*
      * Assemble the reader
     */
-    function &getAssembledReader() {
-        $instream = &$this->primaryReader;
+    function getAssembledReader() {
+    
+        $instream = $this->primaryReader;
         $filterReadersCount = count($this->filterChains);
         $finalFilters = array();
 
@@ -120,70 +129,55 @@ class ChainReaderHelper {
             $filterchain = &$this->filterChains[$i];
             $filterReaders = $filterchain->getFilterReaders();
             $readerCount = count($filterReaders);
-            for($j = 0 ; $j<$readerCount ; $j++)
+            for($j = 0 ; $j<$readerCount ; $j++) {
                 $finalFilters[] = $filterReaders[$j];
+            }
         }
 
         // ... then chain the filter readers.
         $filtersCount = count($finalFilters);
         if ( $filtersCount > 0 ) {
             for($i = 0 ; $i<$filtersCount ; $i++) {
-                $o = $finalFilters[$i];
-
-                if ( is_a($o, "PhingFilterReader") ) {
+                $filter = $finalFilters[$i];
+                
+                if ( $filter instanceof PhingFilterReader ) {
+                
                     // This filter reader is an external class.
-                    // TODO: Implement classPath feature.
-
-                    $filter = $finalFilters[$i];
                     $className = $filter->getClassName();
-                    $classpath = $filter->getClassPath();
-                    $project   =& $filter->getProject();
+                    $classpath = $filter->getClasspath();
+                    $project   = $filter->getProject();
+                    
                     if ( $className !== null ) {
-                        $clazz = null;
-                        if ( $classpath === null ) {
-                            import($className);
-                            // Perhaps should be nice to have a function for that ?
-                            $lastDot = strLastIndexOf(".", $className);
-                            $imp = substring($className, $lastDot+1);
-                            $clazz = new $imp();
-                        } else {
-                            import($className);
-                            $clazz = new $className;
-                        }
+                        $cls = Phing::import($className, $classpath);
+                        $impl = new $cls();                        
                     }
 
-                    if ( $clazz !== null ) {
-                        if ( !is_a($clazz, "FilterReader") )
-                            throw( new BuildException($className." does not extend phing.io.FilterReader") );
-                        $clazz->setReader($instream);
-                        $clazz->setProject($this->getProject());
-                        $instream = $clazz;
-                        if ( is_a($clazz, "BaseParamFilterReader") ) {
-                            $instream->setParameters($filter->getParams());
-                        }
+                    if ( !($impl instanceof FilterReader) ) {
+                        throw new Exception($className." does not extend phing.system.io.FilterReader");
                     }
-                } else if ( method_exists($o, "chain") && is_a($o, "Reader") ) {
-                    // This filter reader is an internal.
+                    
+                    $impl->setReader($instream); // chain
+                    $impl->setProject($this->getProject()); // what about $project above ?
 
-                    $rdr =& $o->chain($instream);
-                    if ( $this->_project !== null && is_a($o, "BaseFilterReader") ) {
-                        $rdr->setProject($this->_project);
+                    if ( $impl instanceof Parameterizable ) {
+                        $impl->setParameters($filter->getParams());
                     }
-                    $instream =& $rdr;
+                    
+                    $instream = $impl; // now that it's been chained
+                                                            
+                } elseif (($filter instanceof ChainableReader) && ($filter instanceof Reader)) {                   
+                    if ( $this->getProject() !== null && ($filter instanceof BaseFilterReader) ) {
+                        $filter->setProject($this->getProject());
+                    }                    
+                    $instream = $filter->chain($instream);
+                } else {
+                    throw new Exception("Cannot chain invalid filter: " . get_class($filter));
                 }
             }
         }
 
         return $instream;
-    }
-
-    /*
-     * Read data from the reader and return the
-     * contents as a string.
-    */
-    function readFully($reader) {
-        return FileUtils::readFully($reader, $this->bufferSize);
-    }
+    }    
 
 }
 

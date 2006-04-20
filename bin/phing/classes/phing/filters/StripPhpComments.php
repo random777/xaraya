@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: StripPhpComments.php,v 1.5 2003/02/25 17:38:30 openface Exp $
+ *  $Id: StripPhpComments.php,v 1.6 2004/07/16 01:36:35 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +17,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseFilterReader');
+include_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * This is a Php comment and string stripper reader that filters
@@ -31,81 +32,50 @@ import('phing.filters.BaseFilterReader');
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.5 $ $Date: 2003/02/25 17:38:30 $
+ * @version   $Revision: 1.6 $ $Date: 2004/07/16 01:36:35 $
  * @access    public
  * @see       FilterReader
  * @package   phing.filters
+ * @todo -c use new PHP functions to perform this instead of regex.
  */
-class StripPhpComments extends BaseFilterReader {
+class StripPhpComments extends BaseFilterReader implements ChainableReader {
     /**
      * The read-ahead character, used for effectively pushing a single
      * character back. -1 indicates that no character is in the buffer.
      */
-    var	$_readAheadCh = -1;
+    private $_readAheadCh = -1;
 
     /**
      * Whether or not the parser is currently in the middle of a string
      * literal.
-	 * @var boolean
+     * @var boolean
      */
-    var	$_inString = false;
+    private $_inString = false;    
 
     /**
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseFilterReader#BaseFilterReader()
-     */
-    function StripPhpComments() {
-        parent::BaseFilterReader();
-    }
-
-    /**
-     * Creates a new filtered reader.
-     *
-     * @param reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return object A StripPhpComments object filtering the underlying
-     *                stream.
-     *
-     */
-    function &newStripPhpComments(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $o = new StripPhpComments();
-        $o->setReader($reader);
-
-        return $o;
-    }
-
-	/**
      * Returns the  stream without Php comments.
      * 
      * @return the resulting stream, or -1
      *         if the end of the resulting stream has been reached
      * 
-     * @exception IOException if the underlying stream throws an IOException
+     * @throws IOException if the underlying stream throws an IOException
      *                        during reading     
      */
-	function read() {
-	
-		$buffer = $this->in->read();
-		if($buffer === -1) {
-			return -1;
-		}
-		
-		// This regex replace /* */ and // style comments
-		$buffer = preg_replace('/\/\*[^*]*\*+([^\/*][^*]*\*+)*\/|\/\/[^\n]*|("(\\\\.|[^"\\\\])*"|\'(\\\\.|[^\'\\\\])*\'|.[^\/"\'\\\\]*)/s', "$2", $buffer);
-				
-		// The regex above is not identical to, but is based on the expression below:
-		//
-		// created by Jeffrey Friedl
+    function read($len = null) {
+    
+        $buffer = $this->in->read($len);
+        if($buffer === -1) {
+            return -1;
+        }
+        
+        // This regex replace /* */ and // style comments
+        $buffer = preg_replace('/\/\*[^*]*\*+([^\/*][^*]*\*+)*\/|\/\/[^\n]*|("(\\\\.|[^"\\\\])*"|\'(\\\\.|[^\'\\\\])*\'|.[^\/"\'\\\\]*)/s', "$2", $buffer);
+                
+        // The regex above is not identical to, but is based on the expression below:
+        //
+        // created by Jeffrey Friedl
         //   and later modified by Fred Curtis.
-		// 	s{
+        //     s{
         //          /\*         ##  Start of /* ... */ comment
         //          [^*]*\*+    ##  Non-* followed by 1-or-more *'s
         //          (
@@ -113,9 +83,9 @@ class StripPhpComments extends BaseFilterReader {
         //          )*          ##  0-or-more things which don't start with /
         //                      ##    but do end with '*'
         //          /           ##  End of /* ... */ comment
-		//
+        //
         //        |         ##     OR  various things which aren't comments:
-		//
+        //
         //          (
         //            "           ##  Start of " ... " string
         //            (
@@ -124,9 +94,9 @@ class StripPhpComments extends BaseFilterReader {
         //              [^"\\]        ##  Non "\
         //            )*
         //           "           ##  End of " ... " string
-		//
+        //
         //          |         ##     OR
-		//
+        //
         //            '           ##  Start of ' ... ' string
         //            (
         //              \\.           ##  Escaped char
@@ -134,18 +104,18 @@ class StripPhpComments extends BaseFilterReader {
         //              [^'\\]        ##  Non '\
         //            )*
         //            '           ##  End of ' ... ' string
-		//
+        //
         //          |         ##     OR
-		//
+        //
         //            .           ##  Anything other char
         //            [^/"'\\]*   ##  Chars which doesn't start a comment, string or escape
         //          )
         //        }{$2}gxs;
-								
-		return $buffer;
-	}
-		
-	
+                                
+        return $buffer;
+    }
+        
+    
     /*
      * Returns the next character in the filtered stream, not including
      * Php comments.
@@ -153,9 +123,10 @@ class StripPhpComments extends BaseFilterReader {
      * @return the next character in the resulting stream, or -1
      *         if the end of the resulting stream has been reached
      * 
-     * @exception IOException if the underlying stream throws an IOException
+     * @throws IOException if the underlying stream throws an IOException
      *                        during reading     
-    */
+     * @deprecated
+     */
     function readChar() {
         $ch = -1;
 
@@ -209,15 +180,9 @@ class StripPhpComments extends BaseFilterReader {
      * @return a new filter based on this configuration, but filtering
      *         the specified reader
      */
-    function &chain(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $newFilter = &StripPhpComments::newStripPhpComments($reader);
-
+    function chain(Reader $reader) {
+        $newFilter = new StripPhpComments($reader);
+        $newFilter->setProject($this->getProject());        
         return $newFilter;
     }
 }

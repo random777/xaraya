@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: Reader.php,v 1.4 2003/02/24 18:22:16 openface Exp $
+ *  $Id: Reader.php,v 1.5 2003/12/24 12:38:40 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,45 +16,73 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-/*
+/**
  * Abstract class for reading character streams.
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.4 $ $Date: 2003/02/24 18:22:16 $
- * @access    public
-*  @package   phing.system.io
-*/
-class Reader {
-    var	$in = null;
+ * @author Hans Lellelid <hans@xmpl.org>
+ * @author Yannick Lecaillez <yl@seasonfive.com>
+ * @version $Revision: 1.5 $
+ * @package phing.system.io
+ */
+abstract class Reader {
 
-    function Reader() {}
+    /**
+     * Read data from source.
+     * If length is specified, then only that number of chars is read,
+     * otherwise stream is read until EOF.
+     * @param int $len
+     */
+    abstract public function read($len = null);
+            
+    /**
+     * Close stream.
+     */
+    abstract public function close();
+    
+    /**
+     * Open stream for reading.
+     */
+    abstract public function open();
+    
+    /**
+     * Returns the filename, url, etc. that is being read from.
+     * This is critical for, e.g., ExpatParser's ability to know
+     * the filename that is throwing an ExpatParserException, etc.
+     * @return string
+     */
+    abstract function getResource();
 
-    function setReader(&$in) {
-        $this->in = $in;
-    }
+    /**
+     * Move stream position relative to current pos.
+     * @param int $n
+     */
+    public function skip($n) {}
+    
+    /**
+     * Reset the current position in stream to beginning or last mark (if supported).
+     */    
+    public function reset() {}
+        
+    /**
+     * If supported, places a "marker" (like a bookmark) at current stream position.
+     * A subsequent call to reset() will move stream position back
+     * to last marker (if supported).
+     */    
+    public function mark() {}
 
-    function skip($n)	{
-        return $this->in->skip($n);
-    }
-    function read($cbuf = null, $off = null, $len = null) {
-        return $this->in->read($cbuf, $off, $len);
-    }
+    /**
+     * Whether marking is supported.
+     * @return boolean
+     */
+    public function markSupported() {}
+    
+    /**
+     * Is stream ready for reading.
+     * @return boolean
+     */
+    public function ready() {}
 
-    function mark() {}
-
-    function reset()	{
-        return $this->in->reset();
-    }
-    function close()	{
-        return $this->in->close();
-    }
-    function open()		{
-        return $this->in->open();
-    }
-    function ready() {}
-
-    function markSupported() {}
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: StripLineBreaks.php,v 1.6 2003/02/25 17:38:30 openface Exp $  
+ *  $Id: StripLineBreaks.php,v 1.8 2004/03/15 14:45:06 hlellelid Exp $  
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +17,11 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.filters.BaseParamFilterReader');
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Filter to flatten the stream to a single line.
@@ -35,119 +36,58 @@ import('phing.filters.BaseParamFilterReader');
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.6 $ $Date: 2003/02/25 17:38:30 $
+ * @version   $Revision: 1.8 $ $Date: 2004/03/15 14:45:06 $
  * @access    public
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class StripLineBreaks extends BaseParamFilterReader {
-	/**
-	 * Default line-breaking characters.
-	 * @var string
-	 */
-    var	$_DEFAULT_LINE_BREAKS = "\r\n";
-	
-	/**
-	 * Parameter name for the line-breaking characters parameter.
-	 * @var string
-	 */
-    var	$_LINES_BREAKS_KEY = "linebreaks";
-	
-	/**
-	 * The characters that are recognized as line breaks.
-	 * @var string
-	 */ 
-    var	$_lineBreaks = null;			
+class StripLineBreaks extends BaseParamFilterReader implements ChainableReader {
 
     /**
-     * Constructor for "dummy" instances.
-     * 
-     * @see BaseFilterReader#BaseFilterReader()
+     * Default line-breaking characters.
+     * @var string
      */
-    function StripLineBreaks() {
-        parent::BaseParamFilterReader();
-
-        $this->_lineBreaks = $this->_DEFAULT_LINE_BREAKS;
-    }
-
+    const DEFAULT_LINE_BREAKS = "\r\n";
+    
     /**
-     * Creates a new filtered reader.
-     *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return object A StripLineBreaks object filtering the underlying
-     *                stream.	 
+     * Parameter name for the line-breaking characters parameter.
+     * @var string
      */
-    function &newStripLineBreaks(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $o = new StripLineBreaks();
-        $o->setReader($reader);
-
-        return $o;
-    }
-	
+    const LINES_BREAKS_KEY = "linebreaks";
+    
+    /**
+     * The characters that are recognized as line breaks.
+     * @var string
+     */ 
+    private    $_lineBreaks = "\r\n"; // self::DEFAULT_LINE_BREAKS;
+ 
     /**
      * Returns the filtered stream, only including
      * characters not in the set of line-breaking characters.
      * 
-     * @return mixed	the resulting stream, or -1
+     * @return mixed    the resulting stream, or -1
      *         if the end of the resulting stream has been reached.
      * 
      * @exception IOException if the underlying stream throws an IOException
      *            during reading     
      */
-    function read() {
+    function read($len = null) {
         if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
 
-        $buffer = $this->in->read();
-		if($buffer === -1) {
-			return -1;
-		}
-		
-		$buffer = preg_replace("/[".$this->_lineBreaks."]/", '', $buffer);		   
+        $buffer = $this->in->read($len);
+        if($buffer === -1) {
+            return -1;
+        }
+        
+        $buffer = preg_replace("/[".$this->_lineBreaks."]/", '', $buffer);           
 
         return $buffer;
     }
-	
-    /**
-	 * [Deprecated. For reference only:  chain system uses new read().] 
-     * Returns the next character in the filtered stream, only including
-     * characters not in the set of line-breaking characters.
-     * 
-     * @return the next character in the resulting stream, or -1
-     *         if the end of the resulting stream has been reached
-     * 
-     * @exception IOException if the underlying stream throws an IOException
-     *            during reading     
-     */
-    function readChar() {
-        if ( !$this->getInitialized() ) {
-            $this->_initialize();
-            $this->setInitialized(true);
-        }
-
-        $ch = $this->in->readChar();
-        while ( $ch !== -1 ) {
-            if ( strchr($this->_lineBreaks, $ch) === false ) {
-                break;
-            } else {
-                $ch = $this->in->readChar();
-            }
-        }
-
-        return $ch;
-    }
-
-    /**
+    
+     /**
      * Sets the line-breaking characters.
      * 
      * @param string $lineBreaks A String containing all the characters to be
@@ -157,11 +97,11 @@ class StripLineBreaks extends BaseParamFilterReader {
         $this->_lineBreaks = (string) $lineBreaks;
     }
 
-	/**
-	 * Gets the line-breaking characters.
-	 * 
-	 * @return string A String containing all the characters that are considered as line-breaking.
-	 */ 
+    /**
+     * Gets the line-breaking characters.
+     * 
+     * @return string A String containing all the characters that are considered as line-breaking.
+     */ 
     function getLineBreaks() {
         return $this->_lineBreaks;
     }
@@ -176,29 +116,23 @@ class StripLineBreaks extends BaseParamFilterReader {
      * @return object A new filter based on this configuration, but filtering
      *         the specified reader
      */
-    function &chain(&$reader) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($reader, 'Reader')) {
-            throw (new RuntimeException("Excpected object of type 'Reader', got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-
-        $newFilter = &StripLineBreaks::newStripLineBreaks($reader);
+    function chain(Reader $reader) {
+        $newFilter = new StripLineBreaks($reader);
         $newFilter->setLineBreaks($this->getLineBreaks());
         $newFilter->setInitialized(true);
-
+        $newFilter->setProject($this->getProject());        
         return $newFilter;
     }
 
     /**
      * Parses the parameters to set the line-breaking characters.
      */
-    function _initialize() {
+    private function _initialize() {
         $userDefinedLineBreaks = null;
         $params = $this->getParameters();
         if ( $params !== null ) {
             for($i = 0 ; $i<count($params) ; $i++) {
-                if ( $this->_LINE_BREAKS_KEY === $params[$i]->getName() ) {
+                if ( self::LINE_BREAKS_KEY === $params[$i]->getName() ) {
                     $userDefinedLineBreaks = $params[$i]->getValue();
                     break;
                 }

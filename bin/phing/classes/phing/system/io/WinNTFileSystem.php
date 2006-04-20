@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: WinNTFileSystem.php,v 1.6 2003/02/24 18:22:16 openface Exp $
+ *  $Id: WinNTFileSystem.php,v 1.3 2003/11/19 05:48:29 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,10 +16,10 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import('phing.system.io.Win32FileSystem');
+include_once 'phing/system/io/Win32FileSystem.php';
 
 /**
  * FileSystem for Windows NT/2000.

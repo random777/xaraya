@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: FileList.php,v 1.10 2003/03/26 21:53:11 purestorm Exp $
+ *  $Id: FileList.php,v 1.10 2005/11/01 15:26:09 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,34 +16,56 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>. 
+ * <http://phing.info>. 
  */
 
-import("phing.BuildException");
-import("phing.Project");
-import("phing.types.DataType");
-import("phing.system.io.File");
-import("phing.system.util.StringTokenizer");
+require_once 'phing/types/DataType.php';
+include_once 'phing/system/io/PhingFile.php';
 
 /**
  * FileList represents an explicitly named list of files. FileLists
  * are useful when you want to capture a list of files regardless of
  * whether they currently exist.
  *
- * @version $Revision: 1.10 $ $Date: 2003/03/26 21:53:11 $
- * @package   phing.types
+ * <filelist 
+ *    id="docfiles" 
+ *   dir="${phing.docs.dir}"
+ *   files="chapters/Installation.html,chapters/Setup.html"/> 
+ *
+ * OR 
+ * 
+ * <filelist
+ *         dir="${doc.src.dir}"
+ *         listfile="${phing.docs.dir}/PhingGuide.book"/>
+ * 
+ * (or a mixture of files="" and listfile="" can be used)
+ * 
+ * @author Hans Lellelid <hans@xmpl.org>
+ * @version $Revision: 1.10 $
+ * @package phing.types
  */
-
 class FileList extends DataType {
-
-    var $filenames = array();
-    var $dir = null;
-
-    function FileList($filelist = null) {
-        parent::DataType();
+        
+    // public for "cloning" purposes
+    
+    /** Array containing all filenames. */
+    public $filenames = array();
+    
+    /** Base directory for this file list. */
+    public $dir;
+    
+    /** PhingFile that contains a list of files (one per line). */
+    public $listfile;
+    
+    /**
+     * Construct a new FileList.
+     * @param array $filelist;
+     */
+    function __construct($filelist = null) {
         if ($filelist !== null) {
             $this->dir       = $filelist->dir;
             $this->filenames = $filelist->filenames;
+            $this->listfile = $filelist->listfile;
         }
     }
 
@@ -51,90 +73,151 @@ class FileList extends DataType {
      * Makes this instance in effect a reference to another FileList
      * instance.
      */
-    function setRefid(&$r) {
+    function setRefid(Reference $r) {
         if ($this->dir !== null || count($this->filenames) !== 0) {
-            throw ($this->tooManyAttributes());
-            return;
+            throw $this->tooManyAttributes();
         }
         parent::setRefid($r);
     }
 
-
-    function setDir($dir) {
+    /**
+     * Base directory for files in list.
+     * @param PhingFile $dir
+     */
+    function setDir(PhingFile $dir) {
         if ($this->isReference()) {
-            throw ($this->tooManyAttributes());
-            return;
+            throw $this->tooManyAttributes();
         }
-        if (is_a($dir, "File")) {
-            $dir = $dir->getPath();
+        if (!($dir instanceof PhingFile)) {
+            $dir = new PhingFile($dir);
         }
-        $this->dir = new File((string) $dir);
+        $this->dir = $dir;
     }
-
-    function getDir(&$p) {
+    
+    /**
+     * Get the basedir for files in list.
+     * @return PhingFile
+     */
+    function getDir(Project $p) {
         if ($this->isReference()) {
-            $ret =& $this->getRef($p);
-            $ret = $ret->getDir($p);
-            return $ret;
+            $ref = $this->getRef($p);
+            return $ref->getDir($p);
         }
         return $this->dir;
     }
-
+    
+    /**
+     * Set the array of files in list.
+     * @param array $filenames
+     */
     function setFiles($filenames) {
         if ($this->isReference()) {
-            throw ($this->tooManyAttributes());
-            return;
+            throw $this->tooManyAttributes();
         }
-        if ($filenames !== null && count($filenames) > 0) {
-            $tok = new StringTokenizer($filenames, ", \t\n\r\f", false);
-            while ($tok->hasMoreTokens()) {
-                $this->filenames[] = $tok->nextToken();
+        if (!empty($filenames)) {
+            $tok = strtok($filenames, ", \t\n\r");            
+            while ($tok !== false) {
+                $fname = trim($tok);
+                if ($fname !== "") {
+                    $this->filenames[] = $tok;
+                }
+                $tok = strtok(", \t\n\r");
             }
         }
     }
-
-    /** Returns the list of files represented by this FileList. */
-    function getFiles(&$p) {
+    
+    /**
+     * Sets a source "list" file that contains filenames to add -- one per line.
+     * @param string $file
+     */
+    function setListFile($file) {
         if ($this->isReference()) {
-            $ret =& $this->getRef($p);
+            throw $this->tooManyAttributes();
+        }
+        if (!($file instanceof PhingFile)) {
+            $file = new PhingFile($file);
+        }
+        $this->listfile = $file;
+    }
+    
+    /**
+     * Get the source "list" file that contains file names.
+     * @return PhingFile
+     */
+    function getListFile() {
+        if ($this->isReference()) {
+            $ref = $this->getRef($p);
+            return $ref->getListFile($p);
+        }
+        return $this->listfile;
+    }
+
+    /**
+     * Returns the list of files represented by this FileList.
+     * @param Project $p
+     * @return array
+     */
+    function getFiles(Project $p) {
+    
+        if ($this->isReference()) {
+            $ret = $this->getRef($p);
             $ret = $ret->getFiles($p);
             return $ret;
         }
-
-        if ($this->dir === null) {
-            throw ( new BuildException("No directory specified for filelist."), __FILE__, __LINE__);
-            return;
+        
+        if ($this->listfile !== null) {
+            $this->readListFile($p);
         }
-
-        if (count($this->filenames) === 0) {
-            throw ( new BuildException("No files specified for filelist."), __FILE__, __LINE__);
-        }
-
-        $result = $this->filenames;
-        return $result;
+        
+        return $this->filenames;
     }
 
 
     /**
       * Performs the check for circular references and returns the
       * referenced FileSet.
+      * @param Project $p
       */
-    function &getRef(&$p) {
+    function getRef(Project $p) {
         if (!$this->checked) {
             $stk = array();
             array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
+            $this->dieOnCircularReference($stk, $p);            
         }
 
-        $o =& $this->ref->getReferencedObject($p);
-        if (!isInstanceOf($o, "FileList")) {
-            $msg = $this->ref->getRefId()." doesn't denote a filelist";
-            throw (new BuildException($msg), __FILE__, __LINE__);
-            return;
+        $o = $this->ref->getReferencedObject($p);
+        if (!($o instanceof FileList)) {
+            throw new BuildException($this->ref->getRefId()." doesn't denote a filelist");
         } else {
             return $o;
         }
     }
 
+    /**
+     * Reads file names from a file and adds them to the files array.
+     * @param Project $p
+     */
+    private function readListFile(Project $p) {
+        $listReader = null;
+        try {
+            // Get a FileReader
+            $listReader = new BufferedReader(new FileReader($this->listfile)); 
+        
+            $line = $listReader->readLine();
+            while ($line !== null) {
+                if (!empty($line)) {
+                    $line = $p->replaceProperties($line);
+                    $this->filenames[] = trim($line);
+                }
+                $line = $listReader->readLine();
+            }            
+        } catch (Exception $e)  {
+            if ($listReader) $listReader->close();            
+            throw new BuildException("An error occured while reading from list file " . $this->listfile->__toString() . ": " . $e->getMessage()); 
+        } 
+        
+        $listReader->close();        
+    }
+
 }
-?>
+

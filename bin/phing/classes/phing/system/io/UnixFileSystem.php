@@ -1,17 +1,25 @@
 <?php
-// {{{ Header
 /*
- * -File       $Id: UnixFileSystem.php,v 1.14 2003/05/02 14:31:56 purestorm Exp $
- * -License    LGPL (http://www.gnu.org/copyleft/lesser.html)
- * -Copyright  2001, Tizac
- * -Author     Andreas Aderhold, andi@binarycloud.com
+ *  $Id: UnixFileSystem.php,v 1.10 2005/05/26 13:10:52 mrook Exp $
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
  */
-// }}}
 
-import('phing.system.lang.System');
-import('phing.system.io.FileSystem');
-
-// {{{ UnixFileSystem
+include_once 'phing/system/io/FileSystem.php';
 
 /**
  * UnixFileSystem class. This class encapsulates the basic file system functions
@@ -28,19 +36,13 @@ import('phing.system.io.FileSystem');
  *
  * FIXME:
  *  - Comments
- *  - Error handling reduced to min, error are handled by File mainly
+ *  - Error handling reduced to min, error are handled by PhingFile mainly
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.14 $
+ * @author    Andreas Aderhold, andi@binarycloud.com
+ * @version   $Revision: 1.10 $
  * @package   phing.system.io
  */
-
 class UnixFileSystem extends FileSystem {
-
-    /**
-     * Empty class constructor.
-     */
-    function UnixFileSystem() {}
 
     /**
      * returns OS dependant path separator char
@@ -65,6 +67,11 @@ class UnixFileSystem extends FileSystem {
      * This way we iterate through the whole pathname string only once.
      */
     function normalize($strPathname) {
+        
+        if (empty($strPathname)) {
+            return;
+        }
+        
         // Resolve home directories. We assume /home is where all home
         // directories reside, b/c there is no other way to do this with
         // PHP AFAIK.
@@ -80,24 +87,24 @@ class UnixFileSystem extends FileSystem {
 
         $n = strlen($strPathname);
         $prevChar = 0;
-        for ($i = 0; $i < $n; ++$i) {
+        for ($i=0; $i < $n; $i++) {
             $c = $strPathname{$i};
             if (($prevChar === '/') && ($c === '/')) {
-                return (string) UnixFileSystem::_normalizer($strPathname, $n, $i - 1);
+                return self::normalizer($strPathname, $n, $i - 1);
             }
             $prevChar = $c;
         }
         if ($prevChar === '/') {
-            return (string) UnixFileSystem::_normalizer($strPathname, $n, $n - 1);
+            return self::normalizer($strPathname, $n, $n - 1);
         }
-        return (string) $strPathname;
+        return $strPathname;
     }
 
     /**
      * Normalize the given pathname, whose length is $len, starting at the given
      * $offset; everything before this offset is already normal.
      */
-    function _normalizer($pathname, $len, $offset) {
+    protected function normalizer($pathname, $len, $offset) {
         if ($len === 0) {
             return $pathname;
         }
@@ -111,10 +118,10 @@ class UnixFileSystem extends FileSystem {
         $sb = "";
 
         if ($offset > 0) {
-            $sb.=substr($pathname, 0, $offset);
+            $sb .= substr($pathname, 0, $offset);
         }
         $prevChar = 0;
-        for ($i = $offset; $i < $n; ++$i) {
+        for ($i = $offset; $i < $n; $i++) {
             $c = $pathname{$i};
             if (($prevChar === '/') && ($c === '/')) {
                 continue;
@@ -122,14 +129,13 @@ class UnixFileSystem extends FileSystem {
             $sb .= $c;
             $prevChar = $c;
         }
-        return (string) $sb;
+        return $sb;
     }
 
     /**
      * Compute the length of the pathname string's prefix.  The pathname
      * string must be in normal form.
      */
-
     function prefixLength($pathname) {
         if (strlen($pathname === 0)) {
             return 0;
@@ -166,31 +172,23 @@ class UnixFileSystem extends FileSystem {
         return '/';
     }
 
-    function isAbsolute(&$f) {
+    function isAbsolute(PhingFile $f) {
         return ($f->getPrefixLength() !== 0);
     }
 
     /**
      * the file resolver
      */
-    function resolveFile(&$f) {
+    function resolveFile(PhingFile $f) {
         // resolve if parent is a file oject only
-        if (isInstanceOf($f, 'File')) {
-            if ($this->isAbsolute($f)) {
-                return $f->getPath();
-            } else {
-                return $this->resolve(System::getProperty("user.dir"), $f->getPath());
-            }
+        if ($this->isAbsolute($f)) {
+            return $f->getPath();
         } else {
-            throw (new RuntimeException("IllegalArgutmentType: Argument is not File"), __FILE__, __LINE__);
-        }
+            return $this->resolve(Phing::getProperty("user.dir"), $f->getPath());
+        }       
     }
 
-    /* -- most of the following is mapped to the php natives wrapped by FileSystem */
-
-    function canonicalize($strPath)   {
-        return parent::canonicalize($strPath);
-    }
+    /* -- most of the following is mapped to the php natives wrapped by FileSystem */    
 
     /* -- Attribute accessors -- */
     function getBooleanAttributes(&$f) {
@@ -200,68 +198,29 @@ class UnixFileSystem extends FileSystem {
         return ($hidden ? $this->BA_HIDDEN : 0);
     }
 
-    function checkAccess(&$f, $write = false)  {
-        return parent::checkAccess($f, $write);
-    }
-    function getLastModifiedTime(&$f) {
-        return parent::getLastModifiedTime($f);
-    }
-
-
-    function getLength(&$f) {
-        return parent::getLength($f);
-    }
-
-    /* -- File operations -- */
-    function createFileExclusively($path) {
-        return parent::createFileExclusively($path);
-    }
-
-    function delete(&$f) {
-        return parent::delete($f);
-    }
-    function deleteOnExit(&$f) {
-        return parent::deleteOnExit($f);
-    }
-    function listDir(&$f) {
-        return parent::listDir($f);
-    }
-    function createDirectory(&$f) {
-        return parent::createDirectory($f);
-    }
-    function rename(&$f1, &$f2) {
-        return parent::rename($f1, $f2);
-    }
-    function copy(&$f1, &$f2) {
-        return parent::copy($f1, $f2);
-    }
-    function setLastModifiedTime(&$f, $time) {
-        return parent::setLastModifiedTime($f, $time);
-    }
-
     /**
      * set file readonly on unix
      */
-    function setReadOnly(&$f) {
-        if (isInstanceOf($f, 'File')) {
+    function setReadOnly($f) {
+        if ($f instanceof File) {
             $strPath = (string) $f->getPath();
             $perms = (int) (@fileperms($strPath) & 0444);
             return FileSystem::Chmod($strPath, $perms);
         } else {
-            throw (new RuntimeException("IllegalArgutmentType: Argument is not File"), __FILE__, __LINE__);
+            throw new Exception("IllegalArgutmentType: Argument is not File");
         }
     }
 
     /**
      * compares file paths lexicographically
      */
-    function compare(&$f1, &$f2) {
-        if (isInstanceOf($f1, 'File') && isInstanceOf($f2, 'File')) {
+    function compare($f1, $f2) {
+        if ( ($f1 instanceof PhingFile) && ($f2 instanceof PhingFile) ) {
             $f1Path = $f1->getPath();
             $f2Path = $f2->getPath();
             return (boolean) strcmp((string) $f1Path, (string) $f2Path);
         } else {
-            throw (new RuntimeException("IllegalArgutmentType: Argument is not File"), __FILE__, __LINE__);
+            throw new Exception("IllegalArgutmentType: Argument is not PhingFile");
         }
     }
 
@@ -271,16 +230,16 @@ class UnixFileSystem extends FileSystem {
         if (!$this->checkAccess('/', false)) {
             die ("Can not access root");
         }
-        return array(new File("/"));
+        return array(new PhingFile("/"));
     }
 
     /**
      * returns the contents of a directory in an array
      */
-    function lister(&$f) {
+    function lister($f) {
         $dir = @opendir($f->getAbsolutePath());
         if (!$dir) {
-            throw (new RuntimeException("Can't open directory " . $f->toString()), __FILE__, __LINE__);
+            throw new Exception("Can't open directory " . $f->__toString());
         }
         $vv = array();
         while (($file = @readdir($dir)) !== false) {
@@ -293,14 +252,15 @@ class UnixFileSystem extends FileSystem {
         return $vv;
     }
 
-}
-// }}}
+    function fromURIPath($p) {
+        if (StringHelper::endsWith("/", $p) && (strlen($p) > 1)) {
 
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>
+            // "/foo/" --> "/foo", but "/" --> "/"            
+            $p = substr($p, 0, strlen($p) - 1);
+
+        }
+
+        return $p;
+    }
+    
+}

@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: BuildEvent.php,v 1.6 2003/04/09 15:58:09 thyrell Exp $
+ *  $Id: BuildEvent.php,v 1.10 2005/12/22 22:44:46 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,64 +16,57 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
-import("phing.system.lang.EventObject");
+require_once 'phing/system/lang/EventObject.php';
 
 /**
- *  Encapsulates a build specific event.
+ * Encapsulates a build specific event.
  *
- *  <p>We have three sources of events all handled by this class:
+ * <p>We have three sources of events all handled by this class:
+ * 
+ * <ul>
+ *  <li>Project level events</li>
+ *  <li>Target level events</li>
+ *  <li>Task level events</li>
+ * </ul>
  *
- *  <ul>
- *   <li>Project level events</li>
- *   <li>Target level events</li>
- *   <li>Task level events</li>
- *  </ul>
+ * <p> Events are all fired from the project class by creating an event object
+ * using this class and passing it to the listeners.
  *
- *  <p> Events are all fired from the project class by creating an event object
- *  using this class and passing it to the listeners.
- *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.6 $ $Date: 2003/04/09 15:58:09 $
- *  @access    public
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Revision: 1.10 $
+ * @package   phing
  */
-
 class BuildEvent extends EventObject {
 
     /**
      *  A reference to the project
-     *
-     *  @var    object
-     *  @access private
+     *  @var Project
      */
-    var $project = null;
+    protected $project;
 
     /**
      *  A reference to the target
-     *
-     *  @var    object
-     *  @access private
+     *  @var Target
      */
-    var $target = null;
+    protected $target;
 
     /**
      *  A reference to the task
      *
-     *  @var    object
-     *  @access private
+     *  @var Task
      */
-    var $task = null;
+    protected $task;
 
     /**
      *  The message of this event, if the event is a message
      *  @var    string
      *  @access private
      */
-    var $message = null;
+    protected $message = null;
 
     /**
      *  The priority of the message
@@ -82,7 +75,7 @@ class BuildEvent extends EventObject {
      *  @see    $message
      *  @access private
      */
-    var $priority = PROJECT_MSG_VERBOSE;
+    protected $priority = PROJECT_MSG_VERBOSE;
 
     /**
      *  The execption that caused the event, if any
@@ -90,7 +83,7 @@ class BuildEvent extends EventObject {
      *  @var    object
      *  @access private
      */
-    var $exception = null;
+    protected $exception = null;
 
     /**
      *  Construct a BuildEvent for a project, task or target source event
@@ -98,24 +91,22 @@ class BuildEvent extends EventObject {
      *  @param  object  project the project that emitted the event.
      *  @access public
      */
-    function BuildEvent(&$source) {
-        parent::EventObject($source);
-        if (is_a($source, "Project")) {
-            $this->project =& $source;
+    function __construct($source) {
+        parent::__construct($source);
+        if ($source instanceof Project) {
+            $this->project = $source;
             $this->target = null;
             $this->task = null;
-        } else if (is_a($source, "Target")) {
-            $this->project =& $source->getProject();
-            $this->target =& $source;
+        } elseif ($source instanceof Target) {
+            $this->project = $source->getProject();
+            $this->target = $source;
             $this->task = null;
-        } else if (is_a($source, "Task")) {
-            $this->project =& $source->getProject();
-            $this->target =& $source->getOwningTarget();
-            $this->task =& $source;
+        } elseif ($source instanceof Task) {
+            $this->project = $source->getProject();
+            $this->target = $source->getOwningTarget();
+            $this->task = $source;
         } else {
-            $this = null;
-            throw (new RuntimeException("Can not construct BuildEvent, unknown source given"), __FILE__, __LINE__);
-            System::halt(-1);
+            throw new Exception("Can not construct BuildEvent, unknown source given.");
         }
     }
 
@@ -124,7 +115,6 @@ class BuildEvent extends EventObject {
      *
      *  @param  string   The string message of the event
      *  @param  integer  The priority this message should have
-     *  @access public
      */
     function setMessage($message, $priority) {
         $this->message = (string) $message;
@@ -134,11 +124,10 @@ class BuildEvent extends EventObject {
     /**
      *  Set the exception that was the cause of this event.
      *
-     *  @param  object   The exception that caused the event
-     *  @access public
+     *  @param  Exception The exception that caused the event
      */
-    function setException(&$exception) {
-        $this->exception =& $exception;
+    function setException($exception) {
+        $this->exception = $exception;
     }
 
     /**
@@ -147,10 +136,9 @@ class BuildEvent extends EventObject {
      *  The reference to the project instance is set by the constructor if this
      *  event was fired from the project class.
      *
-     *  @return  object  The project instance that fired this event
-     *  @access  public
+     *  @return  Project  The project instance that fired this event
      */
-    function &getProject() {
+    function getProject() {
         return $this->project;
     }
 
@@ -163,7 +151,7 @@ class BuildEvent extends EventObject {
      *  @return  object  The target that fired this event
      *  @access  public
      */
-    function &getTarget() {
+    function getTarget() {
         return $this->target;
     }
 
@@ -176,7 +164,7 @@ class BuildEvent extends EventObject {
      *  @return  object  The task that fired this event
      *  @access  public
      */
-    function &getTask() {
+    function getTask() {
         return $this->task;
     }
 
@@ -211,15 +199,7 @@ class BuildEvent extends EventObject {
      *  @see BuildListener::targetFinished()
      *  @see BuildListener::buildFinished()
      */
-    function &getException() {
+    function getException() {
         return $this->exception;
     }
 }
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

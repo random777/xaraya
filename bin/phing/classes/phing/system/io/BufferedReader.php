@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: BufferedReader.php,v 1.7 2003/06/04 12:22:36 purestorm Exp $
+ *  $Id: BufferedReader.php,v 1.6 2005/12/27 19:12:13 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,128 +16,155 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import("phing.system.io.Reader");
+include_once 'phing/system/io/Reader.php';
 
 /*
  * Convenience class for reading files.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.7 $ $Date: 2003/06/04 12:22:36 $
+ * @version   $Revision: 1.6 $ $Date: 2005/12/27 19:12:13 $
  * @access    public
  * @see       FilterReader
  * @package   phing.system.io
 */
 class BufferedReader extends Reader {
 
-    var	$_bufferSize = 0;
-    var	$_buffer     = null;
-    var	$_bufferPos  = 0;
-	
-	/**
-	 * 
-	 * @param object $reader The reader (e.g. FileReader).
-	 * @param integer $buffsize The size of the buffer we should use for reading files.
-	 * 							A large buffer ensures that most files (all scripts?) are parsed in 1 buffer.
-	 */	 
-    function BufferedReader(&$reader, $buffsize = 65536) {
-        $this->setReader($reader);
-        $this->_bufferSize = $buffsize;
+    private $bufferSize = 0;
+    private $buffer     = null;
+    private $bufferPos  = 0;
+    
+    /**
+     * The Reader we are buffering for.
+     */
+    private $in;
+    
+    /**
+     * 
+     * @param object $reader The reader (e.g. FileReader).
+     * @param integer $buffsize The size of the buffer we should use for reading files.
+     *                             A large buffer ensures that most files (all scripts?) are parsed in 1 buffer.
+     */     
+    function __construct(Reader $reader, $buffsize = 65536) {
+        $this->in = $reader;
+        $this->bufferSize = $buffsize;
     }
 
-	/**
-	 * Reads and returns $_bufferSize chunk of data.
-	 * @return mixed buffer or -1 if EOF.
-	 */
-    function read()
-    {
-    	if ( ($data = $this->in->read('', 0, $this->_bufferSize)) !== -1 ) {
-			$notValidPart = strrchr($data, "\n");
-			$notValidPartSize = strlen($notValidPart);
+    /**
+     * Reads and returns $_bufferSize chunk of data.
+     * @return mixed buffer or -1 if EOF.
+     */
+    function read($len = null) {
+        // ignore $len param, not sure how to hanlde it, since 
+        // this should only read bufferSize amount of data.
+        if ($len !== null) {
+            $this->currentPosition = ftell($this->fd);
+        }
+        
+        if ( ($data = $this->in->read($this->bufferSize)) !== -1 ) {
 		
-			if ( $notValidPartSize > 1 ) {
-				// Block doesn't finish on a EOL
-				// Find the last EOL and forgot all following stuff
-				$dataSize = strlen($data);
-				$validSize = $dataSize - $notValidPartSize + 1;
+			// not all files end with a newline character, so we also need to check EOF
+			if (!$this->in->eof()) {
 			
-				$data = substr($data, 0, $validSize);
-
-				// Rewind to the begining of the forgotten stuff.
-				$this->in->skip(-$notValidPartSize+1);
-			}
-		}
-
-		return $data;
+	            $notValidPart = strrchr($data, "\n");
+	            $notValidPartSize = strlen($notValidPart);
+	        
+	            if ( $notValidPartSize > 1 ) {
+	                // Block doesn't finish on a EOL
+	                // Find the last EOL and forgot all following stuff
+	                $dataSize = strlen($data);
+	                $validSize = $dataSize - $notValidPartSize + 1;
+	            
+	                $data = substr($data, 0, $validSize);
+	
+	                // Rewind to the begining of the forgotten stuff.
+	                $this->in->skip(-$notValidPartSize+1);
+	            }
+				
+			} // if !EOF
+        }
+        return $data;
     }
-
+    
+    function skip($n) {
+        return $this->in->skip($n);
+    }
+    
+    function reset() {
+        return $this->in->reset();
+    }
+    
+    function close() {
+        return $this->in->close();
+    }
+    
+    function open() {
+        return $this->in->open();
+    }
+    
+    /**
+     * Read a line from input stream.
+     */
     function readLine() {
         $line = null;
-        while ( ($ch = $this->_getNextChar()) !== -1 ) {
+        while ( ($ch = $this->readChar()) !== -1 ) {
             if ( $ch === "\n" ) {
                 break;
             }
             $line .= $ch;
         }
 
-        // Warning : Not consider an empty line as an EOF
+        // Warning : Not considering an empty line as an EOF
         if ( $line === null && $ch !== -1 )
             return "";
 
         return $line;
     }
-	
-	/**
-	 * Reads a single char from the reader.
-	 * @return string single char or -1 if EOF.
-	 */
-    function readChar()	{
-        return $this->_getNextChar();
-    }
+    
+    /**
+     * Reads a single char from the reader.
+     * @return string single char or -1 if EOF.
+     */
+    function readChar() {        
 
-    function _getNextChar() {
-        // It seems non-buffered I/O are a bit faster ... :-/
-        // Perhaps its due to my poor machine (PII/300MHz).
-        // Feel free to test with buffered I/O and send me results !
-        return $this->in->read();
-
-        /*
-
-        // Here is the buffered I/O code ...
-
-        if ( $this->_buffer === null ) {
-        	// Buffer is empty, fill it ...
-        	$read = $this->in->read("", 0, $this->_bufferSize);
-        	if ( $read === -1 )
-        		$ch = -1;
-        	else {
-        		$this->_buffer = $read;
-        		return $this->_getNextChar();
-        	}
-        } else {
-        	// Get next buffered char ...
-        	$ch = $this->_buffer{$this->_bufferPos};
-        	$this->_bufferPos++;
-        	if ( $this->_bufferPos >= strlen($this->_buffer) ) {
-        		$this->_buffer = null;
-        		$this->_bufferPos = 0;
-        	}
+        if ( $this->buffer === null ) {
+            // Buffer is empty, fill it ...
+            $read = $this->in->read($this->bufferSize);
+            if ($read === -1) {
+                $ch = -1;
+            } else {
+                $this->buffer = $read;
+                return $this->readChar(); // recurse
+            }
+        } else {            
+            // Get next buffered char ...
+            // handle case where buffer is read-in, but is empty.  The next readChar() will return -1 EOF,
+            // so we just return empty string (char) at this point.  (Probably could also return -1 ...?)
+            $ch = ($this->buffer !== "") ? $this->buffer{$this->bufferPos} : '';
+            $this->bufferPos++;
+            if ( $this->bufferPos >= strlen($this->buffer) ) {
+                $this->buffer = null;
+                $this->bufferPos = 0;
+            }
         }
 
-        return $ch; */
+        return $ch;
     }
-	
-	/**
-	 * Returns whether eof has been reached in stream.
-	 * This is important, because filters may want to know if the end of the file (and not just buffer)
-	 * has been reached.
-	 * @return boolean
-	 */ 
-	function eof() {
-		return $this->in->eof();
-	}
-	
+    
+    /**
+     * Returns whether eof has been reached in stream.
+     * This is important, because filters may want to know if the end of the file (and not just buffer)
+     * has been reached.
+     * @return boolean
+     */ 
+    function eof() {
+        return $this->in->eof();
+    }
+
+    function getResource() {
+        return $this->in->getResource();
+    }    
 }
 ?>

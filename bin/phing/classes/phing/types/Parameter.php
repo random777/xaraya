@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: Parameter.php,v 1.4 2003/04/07 15:52:37 purestorm Exp $
+ *  $Id: Parameter.php,v 1.6 2005/10/05 20:23:22 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,10 +16,10 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
 */
 
-import('phing.types.DataType');
+include_once 'phing/types/DataType.php';
 
 /*
  * A parameter is composed of a name, type and value. Nested
@@ -32,19 +32,34 @@ import('phing.types.DataType');
 */
 class Parameter extends DataType {
 
-    var $name  = null;
-    var $type  = null;
-    var $value = null;
-    var $parameters = array();
+    /** Parameter name */
+    protected $name;
+    
+    /** Paramter type */
+    protected $type;
+    
+    /** Parameter value */
+    protected $value;
+    
+    /** Nested parameters */
+    protected $parameters = array();
 
     function setName($name) {
         $this->name = (string) $name;
     }
-
+    
     function setType($type) {
         $this->type = (string) $type;
     }
 
+	/**
+     * Sets value to dynamic register slot.
+     * @param RegisterSlot $value
+     */
+    public function setListeningValue(RegisterSlot $value) {
+        $this->value = $value;
+    }
+	
     function setValue($value) {
         $this->value = (string) $value;
     }
@@ -58,14 +73,24 @@ class Parameter extends DataType {
     }
 
     function getValue() {
-        return $this->value;
+		if ($this->value instanceof RegisterSlot) {
+            return $this->value->getValue();
+        } else {
+            return $this->value;
+        }
     }
-
-    function &createParam() {
+    
+    /**
+     * @return Parameter
+     */
+    function createParam() {
         $num = array_push($this->parameters, new Parameter());
         return $this->parameters[$num-1];
     }
 
+    /**
+     * @return array Nested parameters.
+     */
     function getParams() {
         return $this->parameters;
     }

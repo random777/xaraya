@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: Task.php,v 1.8 2003/04/09 15:58:09 thyrell Exp $
+ *  $Id: Task.php,v 1.11 2005/10/05 20:23:22 hlellelid Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,34 +16,42 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://binarycloud.com/phing/>.
+ * <http://phing.info>.
  */
 
-import('phing.ProjectComponent');
-import('phing.RuntimeConfigurable');
+require_once 'phing/ProjectComponent.php';
+include_once 'phing/RuntimeConfigurable.php';
 
 /**
- *  The base class for all tasks.
+ * The base class for all Tasks.
  *
- *  <p>Use {@link Project#createTask} to create a new Task.
+ * Use {@link Project#createTask} to register a new Task.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.8 $ $Date: 2003/04/09 15:58:09 $
- *  @access    public
- *  @see       Project#createTask
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright © 2001,2002 THYRELL. All rights reserved
+ * @version   $Revision: 1.11 $
+ * @see       Project#createTask()
+ * @package   phing
  */
+abstract class Task extends ProjectComponent {
 
-class Task extends ProjectComponent {
-
-    var $_target      = null;       // owning target ref
-    var $_description = null;		// description of the task
-    var $_taskType    = null;       // internal taskname (req)
-    var $_taskName    = null;       // taskname for logger
-
-    var $_location = null;          // stored buildfile location
-    var $_wrapper  = null;          // wrapper of the task
+    /** owning Target object */
+    protected $target;
+    
+    /** description of the task */
+    protected $description;
+    
+    /** internal taskname (req) */
+    protected $taskType;
+    
+    /** taskname for logger */
+    protected $taskName;
+    
+    /** stored buildfile location */
+    protected $location;
+    
+    /** wrapper of the task */
+    protected $wrapper;
 
     /**
      * Sets the owning target this task belongs to.
@@ -51,13 +59,8 @@ class Task extends ProjectComponent {
      * @param   object  Reference to owning target
      * @access  public
      */
-    function setOwningTarget(&$target) {
-        if (!isInstanceOf($target, "Target")) {
-            throw (new RuntimeException("Expected object of type 'Target' got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-            return;
-        }
-        $this->_target =& $target;
+    function setOwningTarget(Target $target) {
+        $this->target = $target;
     }
 
     /**
@@ -66,8 +69,8 @@ class Task extends ProjectComponent {
      *  @return  object    The target object that owns this task
      *  @access  public
      */
-    function &getOwningTarget() {
-        return $this->_target;
+    function getOwningTarget() {
+        return $this->target;
     }
 
     /**
@@ -77,7 +80,15 @@ class Task extends ProjectComponent {
      *  @access  public
      */
     function getTaskName() {
-        return $this->_taskName;
+        if ($this->taskName === null) {
+            // if no task name is set, then it's possible
+            // this task was created from within another task.  We don't
+            // therefore know the XML tag name for this task, so we'll just
+            // use the class name stripped of "task" suffix.  This is only
+            // for log messages, so we don't have to worry much about accuracy.
+            return preg_replace('/task$/i', '', get_class($this));
+        }
+        return $this->taskName;
     }
 
     /**
@@ -87,39 +98,43 @@ class Task extends ProjectComponent {
      *  @access  public
      */
     function setTaskName($name) {
-        $this->_taskName = (string) $name;
+        $this->taskName = (string) $name;
     }
 
     /**
      *  Returns the name of the task under which it was invoked,
      *  usually the XML tagname
      *
-     *  @return  string  The type of this task (XML Tag)
-     *  @access  public
+     *  @return string The type of this task (XML Tag)
      */
     function getTaskType() {
-        return $this->_taskType;
+        return $this->taskType;
     }
 
     /**
      *  Sets the type of the task. Usually this is the name of the XML tag
      *
-     *  @param   string  The type of this task (XML Tag)
-     *  @access  public
+     *  @param string The type of this task (XML Tag)
      */
     function setTaskType($name) {
-        $this->_taskType = (string) $name;
+        $this->taskType = (string) $name;
     }
-
+	
+	/**
+	 * Returns a name 
+	 * 
+	 */
+	protected function getRegisterSlot($slotName) {
+		return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
+	}
+	
     /**
      *  Provides a project level log event to the task.
      *
-     *  @param   string  The message to log
-     *  @param   integer The priority of the message
-     *  @access  public
-     *  @see     Project
-     *  @see     BuildEvent
-     *  @see     BuildListener
+     *  @param string  The message to log
+     *  @param integer The priority of the message
+     *  @see BuildEvent
+     *  @see BuildListener
      */
     function log($msg, $level = PROJECT_MSG_INFO) {
         $this->project->logObject($this, $msg, $level);
@@ -128,20 +143,18 @@ class Task extends ProjectComponent {
     /**
      *  Sets a textual description of the task
      *
-     *  @param   string  The text describing the task
-     *  @access  public
+     *  @param    string    The text describing the task
      */
-    function setDescription($desc) {
-        $this->description = (string) $desc;
+    public function setDescription($desc) {
+        $this->description = $desc;
     }
 
     /**
      *  Returns the textual description of the task
      *
      *  @return  string  The text description of the task
-     *  @access  public
      */
-    function getDescription() {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -149,11 +162,12 @@ class Task extends ProjectComponent {
      *  Called by the parser to let the task initialize properly.
      *  Should throw a BuildException if something goes wrong with the build
      *
-     *  This is abstract here. Can be overloaded by real tasks.
+     *  This is abstract here, but may not be overloaded by subclasses.
      *
-     *  @access  public
+     * @throws BuildException
      */
-    function init() {}
+    public function init() {
+    }
 
     /**
      *  Called by the project to let the task do it's work. This method may be
@@ -167,18 +181,17 @@ class Task extends ProjectComponent {
      *
      *  @access  public
      */
-    function main() {}
+    abstract function main();
 
     /**
      *  Returns the location within the buildfile this task occurs. Used
      *  by {@link BuildException} to give detailed error messages.
      *
-     *  @return  object  The location object describing the position of this
+     *  @return Location The location object describing the position of this
      *                   task within the buildfile.
-     *  @access  public
      */
     function getLocation() {
-        return $this->_location;
+        return $this->location;
     }
 
     /**
@@ -189,13 +202,8 @@ class Task extends ProjectComponent {
      *                   task within the buildfile.
      *  @access  public
      */
-    function setLocation($location) {
-        // type check, error must never occur, bad code of it does
-        if (!isInstanceOf($location, 'Location')) {
-            throw (new RuntimeException("Excpected Location object, got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-        $this->_location = $location;
+    function setLocation(Location $location) {
+        $this->location = $location;
     }
 
     /**
@@ -204,11 +212,11 @@ class Task extends ProjectComponent {
      *  @return  object  The wrapper object used by this task
      *  @access  public
      */
-    function &getRuntimeConfigurableWrapper() {
-        if ($this->_wrapper === null) {
-            $this->_wrapper =& new RuntimeConfigurable($this, $this->getTaskName());
+    function getRuntimeConfigurableWrapper() {
+        if ($this->wrapper === null) {
+            $this->wrapper = new RuntimeConfigurable($this, $this->getTaskName());
         }
-        return $this->_wrapper;
+        return $this->wrapper;
     }
 
     /**
@@ -218,13 +226,8 @@ class Task extends ProjectComponent {
      *  @param   object  The wrapper object this task should use
      *  @access  public
      */
-    function setRuntimeConfigurableWrapper(&$wrapper) {
-        // type check, error must never occur, bad code of it does
-        if (!is_a($wrapper, "RuntimeConfigurable")) {
-            throw (new RuntimeException("Expected a 'RuntimeConfigurable' object, got something else"), __FILE__, __LINE__);
-            System::halt(-1);
-        }
-        $this->_wrapper =& $wrapper;
+    function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper) {
+        $this->wrapper = $wrapper;
     }
 
     /**
@@ -233,8 +236,8 @@ class Task extends ProjectComponent {
      *  @access  public
      */
     function maybeConfigure() {
-        if ($this->_wrapper !== null) {
-            $this->_wrapper->maybeConfigure($this->project);
+        if ($this->wrapper !== null) {
+            $this->wrapper->maybeConfigure($this->project);
         }
     }
 
@@ -244,30 +247,20 @@ class Task extends ProjectComponent {
      *  @access  public
      */
     function perform() {
-        { // try executing task
+
+        try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
             $this->main();
             $this->project->fireTaskFinished($this, $null=null);
-        }
-        if (catch("RuntimeException", $exc)) {
-            if (is_a($exc, "BuildException")) {
-                $be =& $exc;
-                if ($be->getLocation() === null) {
-                    $be->setLocation($this->getLocation());
+        } catch (Exception $exc) {
+            if ($exc instanceof BuildException) {
+                if ($exc->getLocation() === null) {
+                    $exc->setLocation($this->getLocation());
                 }
             }
             $this->project->fireTaskFinished($this, $exc);
-            throw ($exc);
+            throw $exc;
         }
     }
 }
-
-/*
- * Local Variables:
- * mode: php
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- */
-?>

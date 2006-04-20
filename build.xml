@@ -460,7 +460,8 @@
   <target name="publish" description=": Publish what was generated to somewhere (scp for now)">
     <echo>
       We're going to copy, through scp, the files to another server here.
-      Since the files are pretty big, this can take a while. Be patient. 
+      Since the files are pretty big, we will do this in the background. 
+      This does NOT mean it automatically succeeds though!
       We will ask you for a server, a username on that server and a 
       directory where to 'scp' the generated files. Obviously you need 
       permissions on the target server in the specified location.
@@ -468,7 +469,7 @@
     <input propertyName="publish.server" defaultvalue="xaraya.com">To what server should we copy the files?</input>
     <input propertyName="publish.username">What is your username there?</input>
     <input propertyName="publish.location">In which location should we copy those files?</input>
-    <exec passthru="true"  checkreturn="true" command="scp ${build.basedir}/xaraya-${version}-* ${publish.username}@${publish.server}:${publish.location}"/>
+    <exec passthru="true"  spawn="true" checkreturn="true" command="scp ${build.basedir}/xaraya-${version}-* ${publish.username}@${publish.server}:${publish.location}"/>
   </target>
   
 </project>

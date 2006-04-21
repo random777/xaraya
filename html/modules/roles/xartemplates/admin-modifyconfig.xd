@@ -10,6 +10,7 @@
     </span>
 </div>
 <div class="xar-mod-body">
+  <xar:template type="module" file="admin-menu" />
     <h2>
         <xar:mlstring>
             Modify Configuration 
@@ -19,7 +20,7 @@
         <dl class="xar-tabs">
             <dt class="help">
                 <xar:mlstring>
-                    Actions: 
+                    Configure: 
                 </xar:mlstring>
             </dt>
             <xar:if condition="$tab eq 'general'">
@@ -96,7 +97,7 @@
                 <dd class="active">
                     <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=memberlist">
                         <xar:mlstring>
-                            Member List 
+                            Member Options
                         </xar:mlstring>
                     </a>
                 </dd>
@@ -104,7 +105,7 @@
                 <dd>
                     <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=memberlist">
                         <xar:mlstring>
-                            Member List 
+                            Member Options
                         </xar:mlstring>
                     </a>
                 </dd>
@@ -146,7 +147,7 @@
             <fieldset>
                 <legend>
                     <xar:mlstring>
-                        Designated Site Administrator 
+                        Default Group and Site Administrator 
                     </xar:mlstring>
                 </legend>
                 <div class="xar-form-input-wrapper">
@@ -169,22 +170,30 @@
                         </xar:loop>
                     </select>
                 </div>
-            </fieldset>
-            <fieldset>
-                <legend>
-                    <xar:mlstring>
-                        Default Authentication Module 
-                    </xar:mlstring>
-                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="defaultgroup" title="#xarML('New Users automatically get assigned to this Group')#" class="xar-form-label">
+                            Default Group For New Users: 
+                    </label>
+                    <xar:set name="defaultgroup">xarModGetVar('roles','defaultgroup')</xar:set>
+                    <xar:data-input type="grouplist" name="defaultgroup" value="$defaultgroup" />
+                </div>
                 <div class="xar-form-input-wrapper">
                     <label for="defaultauthmodule" title="#xarML('Select the module that manages authentication of users')#" class="xar-form-label">
                         <xar:mlstring>
-                            Authentication:
+                            Default Authentication Module 
                         </xar:mlstring>
                     </label>
                     <xar:set name="defaultauthmodule">xarModGetVar('roles','defaultauthmodule')</xar:set>
-                    <xar:set name="filter">array('Class'=>'Authentication')</xar:set>
-                    <xar:data-input type="module" name="defaultauthmodule" filter="$filter" value="$defaultauthmodule" />
+                    <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmodule" />
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="defaultregmodule" title="#xarML('Select the module that manages registration of users')#" class="xar-form-label">
+                        <xar:mlstring>
+                            Registration:
+                        </xar:mlstring>
+                    </label>
+                    <xar:set name="defaultregmodule">xarModGetVar('roles','defaultregmodule')</xar:set>
+                    <xar:data-input type="module" name="defaultregmodule" class="Registration" value="$defaultregmodule" />
                 </div>
             </fieldset>
             <fieldset>
@@ -193,11 +202,10 @@
                     <input type="hidden" name="phase" id="phase" value="update" />
                     <input type="hidden" name="tab" id="tab" value="#$tab#" />
                     <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                </div>
             </fieldset>
         </form>
         <xar:comment>
-        - - - - - - - - - - - - - - - - - - - Begin User Variable Options - - - - - - - - - - - - - - - - - - - - - 
+            - - - - - - - - - - - - - - - - - Begin User Variable Options - - - - - - - - - - - - - - - - - - - 
         </xar:comment>
         <xar:elseif condition="$tab eq 'duvs'" />
             <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
@@ -412,9 +420,10 @@
             <fieldset>
                 <legend>
                     <xar:mlstring>
-                        Member List Options 
+                        Member Options
                     </xar:mlstring>
                 </legend>
+
                 <div class="xar-form-input-wrapper-after">
                     <xar:if condition="xarModGetVar('roles', 'searchbyemail')">
                         <input type="checkbox" name="searchbyemail" id="searchbyemail" value="1" checked="checked" />
@@ -422,15 +431,48 @@
                         <input type="checkbox" name="searchbyemail" id="searchbyemail" value="1" />
                     </xar:if>
                     <label for="searchbyemail" title="#xarML('Allow user search by email address')#">
-                        <xar:mlstring>
-                            Allow Searching By Email 
-                        </xar:mlstring>
+                        <strong><xar:mlstring>
+                            Allow Searching By Email
+                        </xar:mlstring></strong>
                     </label>
                 </div>
-                <p>
+                <p class="xar-form-input-wrapper-after  xar-padding-bottomthick"">
                     <xar:mlstring>
-                        Caution: this option may reveal enough information to compromise a user's login. 
+                        CAUTION: this option may reveal enough information to compromise a user's login.
                     </xar:mlstring>
+                </p>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'usereditaccount')">
+                        <input type="checkbox" name="usereditaccount" id="usereditaccount" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="usereditaccount" id="usereditaccount" value="1" />
+                    </xar:if>
+                    <label for="usereditaccount" title="#xarML('Allow users to edit their account details')#">
+                        <strong><xar:mlstring>
+                            Allow users to edit their member account details
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+                 <p class="xar-form-input-wrapper-after  xar-padding-bottomthick"">
+                    <xar:mlstring>
+                         This toggles the Roles hook to the Roles module.
+                    </xar:mlstring>
+                </p>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'displayrolelist')">
+                        <input type="checkbox" name="displayrolelist" id="displayrolelist" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="displayrolelist" id="displayrolelist" value="1" />
+                    </xar:if>
+                    <label for="displayrolelist" title="#xarML('Display roles (memberlist) in user menu?')#">
+                        <strong><xar:mlstring>
+                            Display member list as Roles menu option?
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+                <p class="xar-form-container-after xar-padding-bottomthick">
+                        <xar:mlstring>NOTE: This is a convenience option. The members list is available
+                        regardless of its inclusion in the menu, for all users that have Read privileges for Roles.</xar:mlstring>
                 </p>
             </fieldset>
             <fieldset>

@@ -1,12 +1,13 @@
 <?php
 /**
  * Test the email settings
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2003 by the Xaraya Development Team.
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 /**
@@ -28,8 +29,8 @@ function mail_admin_sendtest()
     if (!xarVarFetch('name', 'str:1', $name, '')) return;
     if (!xarVarFetch('emailcc', 'email', $emailcc, '')) return;
     if (!xarVarFetch('namecc', 'str:1', $namecc, '')) return;
-    if (!xarVarFetch('emailcc', 'email', $emailbcc, '')) return;
-    if (!xarVarFetch('namecc', 'str:1', $namebcc, '')) return;
+    if (!xarVarFetch('emailbcc', 'email', $emailbcc, '')) return;
+    if (!xarVarFetch('namebcc', 'str:1', $namebcc, '')) return;
 
     // Confirm authorisation code.
     if (!xarSecConfirmAuthKey()) return;

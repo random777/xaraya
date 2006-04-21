@@ -1,18 +1,20 @@
 <?php
 /**
  * Dynamic data initilazation
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  */
 
 /**
  * This function is called internally by the core whenever the module is
  * loaded.  It adds in the information
  * @author mikespub <mikespub@xaraya.com>
+ * @return array with tablenames
  */
 function dynamicdata_xartables()
 {

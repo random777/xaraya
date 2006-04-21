@@ -1,12 +1,13 @@
 <?php
 /**
  * Handle dynamic data display tags
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -16,9 +17,8 @@
  *       or <xar:data-display fields="$fields" ... />
  *       or <xar:data-display object="$object" ... />
  *
- * @param $args array containing the item that you want to display, or fields
- * @returns string
- * @return the PHP code needed to invoke showdisplay() in the BL template
+ * @param array $args array containing the item that you want to display, or fields
+ * @return string the PHP code needed to invoke showdisplay() in the BL template
  */
 function dynamicdata_userapi_handleDisplayTag($args)
 {

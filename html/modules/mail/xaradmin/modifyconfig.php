@@ -2,12 +2,13 @@
 /**
  * Update the configuration parameters
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 /**
@@ -45,7 +46,14 @@ function mail_admin_modifyconfig()
 
     // Get encoding
     $data['encoding'] = xarModGetVar('mail', 'encoding');
-
+    
+    //redirect address - ensure it's set
+    $redirectaddress = trim(xarModGetVar('mail', 'redirectaddress'));
+    if (isset($redirectaddress) && !empty($redirectaddress)){
+        $data['redirectaddress']=xarVarPrepForDisplay($redirectaddress);
+    }else{
+        $data['redirectaddress']='';
+    }
     // Include 'formcheck' JavaScript.
     // TODO: move this to a template widget when available.
     xarModAPIfunc(
@@ -54,11 +62,7 @@ function mail_admin_modifyconfig()
     );
 
     if (xarModIsAvailable('scheduler')) {
-        $intervals = xarModApiFunc('scheduler','user','intervals');
-        $data['intervals'][] = array('id' => '', 'name' => xarML('not supported'));
-        foreach($intervals as $id => $name) {
-            $data['intervals'][] = array('id'=>$id, 'name' => $name);
-        }
+        $data['intervals'] = xarModAPIFunc('scheduler','user','intervals');
         // see if we have a scheduler job running to send queued mail
         $job = xarModAPIFunc('scheduler','user','get',
                              array('module' => 'mail',

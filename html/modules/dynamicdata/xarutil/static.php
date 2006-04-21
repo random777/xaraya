@@ -1,12 +1,13 @@
 <?php
 /**
  * Return static table information
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -59,11 +60,12 @@ function dynamicdata_util_static($args)
     $data['itemtype'] = $itemtype;
     $data['authid'] = xarSecGenAuthKey();
 
-    if (xarModGetVar('modules','usedashboard')) {
-        xarTplSetPageTemplateName('admin');
+    if (xarModGetVar('themes','usedashboard')) {
+        $admin_tpl = xarModGetVar('themes','dashtemplate');
     }else {
-        xarTplSetPageTemplateName('default');
+       $admin_tpl='default';
     }
+    xarTplSetPageTemplateName($admin_tpl);
 
     return $data;
 }

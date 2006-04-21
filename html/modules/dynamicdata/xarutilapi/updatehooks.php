@@ -1,25 +1,25 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * Update hooks when migrating module items
  *
  * @author the DynamicData module development team
- * @param $args['from'] the module id and itemtype for the original items
- * @param $args['to'] the module id and itemtype for the new items
+ * @param array $args['from'] the module id and itemtype for the original items
+ * @param array $args['to'] the module id and itemtype for the new items
  * @param $args['hookmap'] the hook mapping
- * @param $args['itemids'] the list of old => new itemids
+ * @param array $args['itemids'] the list of old => new itemids
  * @param $args['debug'] don't actually update anything :-)
- * @returns mixed
- * @return true or debug string on success, null on failure
- * @raise BAD_PARAM, NO_PERMISSION
+ * @return mixed true or debug string on success, null on failure
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_utilapi_updatehooks($args)
 {

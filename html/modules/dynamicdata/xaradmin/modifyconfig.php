@@ -1,17 +1,19 @@
 <?php
 /**
  * Modify the configuration parameters
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * This is a standard function to modify the configuration parameters of the
  * module
+ * @return array
  */
 function dynamicdata_admin_modifyconfig()
 {
@@ -21,9 +23,7 @@ function dynamicdata_admin_modifyconfig()
     // support easy navigation
     $data = xarModAPIFunc('dynamicdata','admin','menu');
 
-    // Security check - important to do this as early as possible to avoid
-    // potential security holes or just too much wasted processing
-// Security Check
+    // Security check
     if(!xarSecurityCheck('AdminDynamicData')) return;
 
     // Generate a one-time authorisation code for this operation

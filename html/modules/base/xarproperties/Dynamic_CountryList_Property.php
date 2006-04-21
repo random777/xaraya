@@ -3,11 +3,12 @@
  * Dynamic Country List Property
  *
  * @package modules
- * @copyright (C) 2002-2005 The Digital Development Foundation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
+ * @link http://xaraya.com/index.php/release/68.html
  * @author John Cox
  */
 /**
@@ -68,6 +69,16 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
     * Credit to Pedro Innecco for corrections and updates
     */
    function getOptions()
+   {
+}
+   /**
+    * Country list according to ISO 3166
+    *
+    * @author jojodee
+    * Updated 2005-10-15 with ISO 3166 country codes
+    * Credit to Pedro Innecco for corrections and updates
+    */
+   function getCountryList()
    {
         $coptions = array();
         $coptions[] = array('id' =>'--', 'name' =>xarML('Please select'));

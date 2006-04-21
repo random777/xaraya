@@ -2,12 +2,13 @@
 /**
  * Add a role
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * addRole - add a role
@@ -64,6 +65,7 @@ function roles_admin_addrole()
         if(xarModGetVar('roles','uniqueemail')) {
             $user = xarModAPIFunc('roles','user', 'get', array('email' => $pemail));
             if ($user != false) throw new DuplicateException(array('email',$pemail));
+            }
         }
         // TODO: Replace with DD property type check.
         // check for valid email address

@@ -1,20 +1,23 @@
 <?php
 /**
  * Search dynamic data
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * search dynamicdata (called as hook from search module, or directly with pager)
  *
- * @param $args['objectid'] could be the query ? (currently unused)
- * @param $args['extrainfo'] all other parameters ? (currently unused)
- * @returns output
+ * @param int q the query
+ * @param int startnum
+ * @param dd_check
+ * @param int numitems The number of items to get
+ * @return array output
  */
 function dynamicdata_user_search($args)
 {

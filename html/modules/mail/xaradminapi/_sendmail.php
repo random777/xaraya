@@ -1,12 +1,13 @@
 <?php
 /**
  * Send mail
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 /**
@@ -18,10 +19,10 @@
  * @param  $ 'name' is the name of the email receipitent (optional)
  * @param  $ 'recipients' is an array of recipients (required) // NOTE: $info or $recipients is required, not both
  * @param  $ 'ccinfo' is the email address we are sending (optional)
- * @param  $ 'ccname' is the name of the email receipitent (optional)
+ * @param  $ 'ccname' is the name of the email recipient (optional)
  * @param  $ 'ccrecipients' is an array of cc recipients (optional)
  * @param  $ 'bccinfo' is the email address we are sending (required)
- * @param  $ 'bccname' is the name of the email receipitent (optional)
+ * @param  $ 'bccname' is the name of the email recipient (optional)
  * @param  $ 'bccrecipients' is an array of bcc recipients (optional)
  * @param  $ 'subject' is the subject of the email (required)
  * @param  $ 'message' is the body of the email (required)
@@ -170,7 +171,7 @@ function mail_adminapi__sendmail($args)
     }// if
 
     // Add a "CC" address
-    if (!xarModGetVar('mail','redirectsending')) {
+    if (xarModGetVar('mail','redirectsending')) {
         $mail->ClearCCs();
         $ccrecipients = array();
     }
@@ -198,7 +199,7 @@ function mail_adminapi__sendmail($args)
     }// if
 
     // Add a "BCC" address
-    if (!xarModGetVar('mail','redirectsending')) {
+    if (xarModGetVar('mail','redirectsending')) {
         $mail->ClearBCCs();
         $bccrecipients = array();
     }
@@ -240,7 +241,7 @@ function mail_adminapi__sendmail($args)
         $mailShowTemplates = false;
     }
 
-    // go ahead and override the show *theme* templates value,  
+    // go ahead and override the show *theme* templates value,
     // using the mail modules settings instead :-)
     $oldShowTemplates = xarModGetVar('themes', 'ShowTemplates');
     xarModSetVar('themes', 'ShowTemplates', $mailShowTemplates);

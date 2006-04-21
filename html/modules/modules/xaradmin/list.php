@@ -2,12 +2,13 @@
 /**
  * List modules and current settings
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Modules module
+ * @subpackage Module System
+ * @link http://xaraya.com/index.php/release/1.html
  */
 /**
  * List modules and current settings
@@ -96,6 +97,7 @@ function modules_admin_list()
 
     // now we can prepare data for template
     // we will use standard xarMod api calls as much as possible
+    //We want class as Authentication for auth mods so need to allow for this. Use hardcode list or core mods for now.
     $coreMods = array('base','roles','privileges','blocks','themes','authsystem','mail','dynamicdata','installer','modules');
     foreach($modlist as $mod){
 
@@ -106,6 +108,8 @@ function modules_admin_list()
         // we will disable certain actions
         $modinfo = xarModGetInfo($thismodid);
         $coremod = in_array(strtolower($modinfo['name']),$coreMods);
+        /* coreMods are hardcoded so we can gain independance from class for now for core mods
+        */
 
         // lets omit core modules if a user chosen to hide them from the list
         if($coremod && $data['hidecore']) continue;

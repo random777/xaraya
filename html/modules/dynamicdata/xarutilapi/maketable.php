@@ -1,12 +1,13 @@
 <?php
 /**
  * Create a flat table corresponding to some dynamic object definition
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -26,6 +27,8 @@
  * 5. import all items from the XML file (Admin - DynamicData - Utilities - Import - change dir)
  * 6. (for extension objects) skip the extra itemid property in display / input templates
  * 7. in case of problems, report to http://bugs.xaraya.com/
+ *
+ * @return bool true on succes
  */
 function dynamicdata_utilapi_maketable($args)
 {

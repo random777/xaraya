@@ -1,0 +1,14 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabdata">
+    array(
+        'tabs' => array(
+            array('mask' => 'EditBlock', 'includes' => array('view_instances','modify_instance','delete_instance'), 'target' => 'view_instances', 'title' => xarML('View Blocks')),
+            array('mask' => 'AddBlock', 'includes' => 'new_instance', 'target' => 'new_instance', 'title' => xarML('New Block')),
+            array('mask' => 'AdminBlock', 'includes' => array('view_groups','modify_group','delete_group'), 'target' => 'view_groups', 'title' => xarML('Block Types')),
+            array('mask' => 'AdminBlock', 'includes' => 'view_types', 'target' => 'view_types', 'title' => xarML('Block Types')),
+            array('mask' => 'AdminBlock', 'includes' => 'modifyconfig', 'target' => 'modifyconfig', 'title' => xarML('Modify Config')),
+            array('includes' => array('main','overview'), 'target' => 'overview', 'title' => xarML('Overview'))
+   )
+        )
+</xar:set>
+<xar:template type="module" module="base" file="admin-menu-skel" subdata="$tabdata" />

@@ -8,6 +8,7 @@
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 
   /**************************************************************************\

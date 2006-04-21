@@ -3,11 +3,11 @@
  * Pass individual menu items to the admin panels
  *
  * @package modules
- * @copyright (C) 2002-2005 The Digital Development Foundation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Mail module
+ * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
  */
 

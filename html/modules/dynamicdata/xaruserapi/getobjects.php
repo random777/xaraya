@@ -1,11 +1,12 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -14,7 +15,7 @@
  * @author the DynamicData module development team
  * @returns array
  * @return array of object definitions
- * @raise DATABASE_ERROR, NO_PERMISSION
+ * @throws DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_userapi_getobjects($args = array())
 {

@@ -1,12 +1,13 @@
 <?php
 /**
  *  View recent extension releases
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
+ * @link http://xaraya.com/index.php/release/68.html
  */
 /**
  * View recent module releases via central repository
@@ -17,11 +18,17 @@
  * @returns array
  * @todo change feed url once release module is moved
  */
-function base_admin_release($args)
+function base_admin_release()
 {
     // Security Check
     if(!xarSecurityCheck('EditModules')) return;
-    extract($args);
+
+    //number of releases to show
+    $releasenumber=(int)xarModGetVar('base','releasenumber');
+
+    if (!isset($releasenumber) || $releasenumber ==0) {
+         $releasenumber=10;
+    }
 
     // allow fopen
     if (!xarFuncIsDisabled('ini_set')) ini_set('allow_url_fopen', 1);
@@ -34,7 +41,8 @@ function base_admin_release($args)
     require_once('modules/base/xarclass/feedParser.php');
     // Check and see if a feed has been supplied to us.
     // Need to change the url once release module is moved to 
-    $feedfile = "http://www.xaraya.com/index.php?module=release&func=rssviewnotes&theme=rss";
+    $feedfile = "http://www.xaraya.com/index.php?module=release&func=rssviewnotes&theme=rss&releaseno=$releasenumber";
+
     // Get the feed file (from cache or from the remote site)
     $feeddata = xarModAPIFunc('base', 'user', 'getfile',
                               array('url' => $feedfile,
@@ -42,6 +50,7 @@ function base_admin_release($args)
                                     'cachedir' => 'cache/rss',
                                     'refresh' => 604800,
                                     'extension' => '.xml'));
+
     if (!$feeddata) return;
     // Create a need feedParser object
     $p = new feedParser();
@@ -76,7 +85,7 @@ function base_admin_release($args)
     } else {
         throw new DataNotFoundException(null,'There is a problem with a feed.');
     }
-    asort($feedcontent);
+    $data['releasenumber']=$releasenumber;
     $data['feedcontent'] = $feedcontent; 
     return $data;
 }

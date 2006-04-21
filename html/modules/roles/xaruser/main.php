@@ -2,12 +2,13 @@
 /**
  * Default user function
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * the main user function
@@ -33,26 +34,32 @@ function roles_user_main()
     }
     elseif(xarSecurityCheck('ViewRoles',0)) {
     */
-    $allowregistration = xarModGetVar('roles', 'allowregistration');
 
-        if (xarUserIsLoggedIn()) {
-           xarResponseRedirect(xarModURL('roles',
-                                         'user',
-                                         'account'));
-        } elseif ($allowregistration != true) {
-            xarResponseRedirect(xarModURL(xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule')),
-                                          'user',
-                                          'showloginform'));
-        } else {
-            xarResponseRedirect(xarModURL(xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule')),
-                                          'user',
-                                          'register'));
-
-        }
-   /*
+    $defaultauthmodule = xarModGetVar('roles','defaultauthmodule');
+    $authmodule = xarModGetNameFromID($defaultauthmodule);
+    $defaultregmodule = xarModGetVar('roles','defaultregmodule');
+    $regmodule = !empty($defaultregmodule) ? xarModGetNameFromID($defaultregmodule) : '';
+    if (!file_exists('modules/'.$authmodule.'/xaruser/showloginform.php')) {
+            $authmodule='authsystem'; // incase the authmodule doesn't provide a login
     }
-    else { return; }
-    */
+    //jojodee -Need to use default authsystem for now. Most authentication modules don't have login forms
+    //When we have better guidelines for authmodules this would be  a good option
+    //to have their own login forms. Some do now but only as a block which makes it hacky.
+
+	if (xarUserIsLoggedIn()) {
+	   xarResponseRedirect(xarModURL('roles',
+									 'user',
+									 'account'));
+	} elseif ($allowregistration != true || empty($regmodule)) {
+		xarResponseRedirect(xarModURL($authmodule,
+									  'user',
+									  'showloginform'));
+	} else {
+		xarResponseRedirect(xarModURL($regmodule,
+									  'user',
+									  'register'));
+	}
+	return true;
 }
 
 ?>

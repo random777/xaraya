@@ -1,12 +1,14 @@
 <?php
 /**
  * Update the configuration parameters
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ *
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Update the configuration parameters of the
@@ -15,9 +17,9 @@
  * @author Marty Vance
  */
 function themes_admin_updateconfig()
-{ 
+{
     // Confirm authorisation code
-    if (!xarSecConfirmAuthKey()) return; 
+    if (!xarSecConfirmAuthKey()) return;
     // Security Check
     if (!xarSecurityCheck('AdminTheme')) return;
     // Get parameters
@@ -32,7 +34,10 @@ function themes_admin_updateconfig()
     if (!xarVarFetch('footer', 'str:1:', $footer, '', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('copyright', 'str:1:', $copyright, '', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('AtomTag', 'str:1:', $atomtag, '', XARVAR_NOT_REQUIRED)) return;
-
+    // enable or disable dashboard
+    if(!xarVarFetch('dashboard', 'checkbox', $dashboard, false, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('dashtemplate', 'str:1:', $dashtemplate, 'dashboard', XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('usermenu', 'checkbox', $usermenu, false, XARVAR_DONT_SET)) {return;}
     xarModSetVar('themes', 'SiteName', $sitename);
     xarModSetVar('themes', 'SiteTitleSeparator', $separator);
     xarModSetVar('themes', 'SiteTitleOrder', $pagetitle);
@@ -43,6 +48,8 @@ function themes_admin_updateconfig()
     xarModSetVar('themes', 'ShowTemplates', $showtemplates);
     xarModSetVar('themes', 'AtomTag', $atomtag);
     xarModSetVar('themes', 'var_dump', $var_dump);
+    xarModSetVar('themes', 'usedashboard', ($dashboard) ? 1 : 0);
+    xarModSetVar('themes', 'dashtemplate', $dashtemplate);
     xarConfigSetVar('Site.BL.CacheTemplates',$cachetemplates);
 
     // make sure we dont miss empty variables (which were not passed thru)
@@ -54,11 +61,47 @@ function themes_admin_updateconfig()
     xarModSetVar('themes', 'hidecore', $hidecore);
     xarModSetVar('themes', 'selstyle', $selstyle);
     xarModSetVar('themes', 'selfilter', $selfilter);
-    xarModSetVar('themes', 'selsort', $selsort); 
+    xarModSetVar('themes', 'selsort', $selsort);
+
+    // Only go through updatehooks() if there was a change.
+    if (xarModIsHooked('themes', 'roles') != $usermenu) {
+
+
+        $hooked_roles = array();
+        if ($usermenu) {
+            $hooked_roles[0] = 1;
+            // turning on, so remember previous hook config
+            if (xarModIsHooked('themes', 'roles', 1)) {
+                xarModSetVar('themes', 'group_hooked', true);
+            }
+        } else {
+            // turning off, so restore previous hook config
+            if (xarModGetVar('themes', 'group_hooked')) {
+                $hooked_roles[0] = 2;
+                $hooked_roles[1] = 1; // groups only
+                xarModSetVar('themes', 'group_hooked', false);
+            } else {
+                $hooked_roles[0] = 0; // nothing hooked at all
+            }
+        }
+
+        // we need to redirect instead of using xarModAPIFunc() because the
+        // updatehooks() API function calls xarVarFetch rather than taking
+        // input via an $args array.
+        $redirecturl = xarModURL('modules', 'admin', 'updatehooks', array(
+            'authid' => xarSecGenAuthKey('modules'),
+            'curhook' => 'themes',
+            'hooked_roles' => $hooked_roles,
+            'return_url' => xarModURL('themes', 'admin', 'modifyconfig'),
+        ));
+    } else {
+        $redirecturl = xarModURL('themes', 'admin', 'modifyconfig');
+    }
+
     // lets update status and display updated configuration
-    xarResponseRedirect(xarModURL('themes', 'admin', 'modifyconfig')); 
+    xarResponseRedirect($redirecturl);
     // Return
     return true;
-} 
+}
 
 ?>

@@ -208,22 +208,19 @@ function xarModDelAllVars($modName)
 
     $modBaseInfo = xarMod_getBaseInfo($modName);
 
-    $dbconn =& xarDBGetConn();
-    $tables =& xarDBGetTables();
-
-    // Takes the right table basing on module mode
+        // Takes the right table basing on module mode
     $module_varstable     = $tables['module_vars'];
     $module_itemvarstable = $tables['module_itemvars'];
 
-    // PostGres (allows only one table in DELETE)
-    // MySql: multiple table delete only from 4.0 up
-    // Select the id's which need to be removed
-    $sql="SELECT $module_varstable.xar_id FROM $module_varstable WHERE $module_varstable.xar_modid = ?";
+        // PostGres (allows only one table in DELETE)
+        // MySql: multiple table delete only from 4.0 up
+        // Select the id's which need to be removed
+        $sql="SELECT $module_varstable.xar_id FROM $module_varstable WHERE $module_varstable.xar_modid = ?";
     $stmt = $dbconn->prepareStatement($sql);
     $result = $stmt->executeQuery(array($modBaseInfo['systemid']), ResultSet::FETCHMODE_NUM);
 
-    // Seems that at least mysql and pgsql support the scalar IN operator
-    $idlist = array();
+        // Seems that at least mysql and pgsql support the scalar IN operator
+        $idlist = array();
     while ($result->next()) {
         $idlist[] = $result->getInt(1);
     }
@@ -1563,13 +1560,13 @@ function xarModIsHooked($hookModName, $callerModName = NULL, $callerItemType = '
 function xarMod_getFileInfo($modOsDir, $type = 'module')
 {
     if (empty($modOsDir)) throw new EmptyParameterException('modOsDir');
-
     if (empty($GLOBALS['xarMod_noCacheState']) && xarCore::isCached('Mod.getFileInfos', $modOsDir)) {
         return xarCore::getCached('Mod.getFileInfos', $modOsDir);
     }
     // Log it when it didnt came from cache
     xarLogMessage("xarMod_getFileInfo ". $modOsDir ." / " . $type);
 
+    xarLogMessage("xarMod_getFileInfo ". $modOsDir ." / " . $type);
 
     // TODO redo legacy support via type.
     switch($type) {
@@ -1800,7 +1797,7 @@ function xarMod_getVarsByName($varName, $type = 'module')
     }
     $query = "SELECT  owner.xar_name, vars.xar_value
               FROM    $ownertbl owner, $varstable vars
-              WHERE   owner.xar_id = vars.xar_modid AND 
+              WHERE   owner.xar_id = vars.xar_modid AND
                       vars.xar_name = ?";
 
     $stmt =& $dbconn->prepareStatement($query);

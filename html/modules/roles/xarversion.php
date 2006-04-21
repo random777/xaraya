@@ -2,12 +2,13 @@
 /**
  * Roles module initialization
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  * @author Jan Schrage, John Cox, Gregor Rothfuss
  */
 
@@ -21,8 +22,8 @@ $modversion['name']           = 'Roles';
 $modversion['id']             = '27';
 $modversion['version']        = '1.1.2';
 $modversion['displayname']    = xarML('Roles');
-$modversion['description']    = 'User and Group registration and handling';
-$modversion['displaydescription'] = xarML('User and Group registration and handling');
+$modversion['description']    = 'User and Group management';
+$modversion['displaydescription'] = xarML('User and Group management');
 $modversion['credits']        = 'xardocs/credits.txt';
 $modversion['help']           = 'xardocs/help.txt';
 $modversion['changelog']      = 'xardocs/changelog.txt';

@@ -1,12 +1,13 @@
 <?php
 /**
  * Initialise the mail module
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2003 by the Xaraya Development Team.
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 /**
@@ -33,7 +34,7 @@ function mail_init()
     xarModSetVar('mail', 'ShowTemplates', false);
     xarModSetVar('mail', 'suppresssending', false);
     xarModSetVar('mail', 'redirectsending', false);
-    xarModSetVar('mail', 'redirectaddress', false);
+    xarModSetVar('mail', 'redirectaddress', '');
     // when a module item is created
     if (!xarModRegisterHook('item', 'create', 'API',
             'mail', 'admin', 'hookmailcreate')) {
@@ -136,6 +137,10 @@ function mail_delete()
     xarModDelVar('mail', 'smtpHost');
     xarModDelVar('mail', 'encoding');
     xarModDelVar('mail', 'ShowTemplates');    
+    xarModDelVar('mail', 'ShowTemplates');
+    xarModDelVar('mail', 'suppresssending');
+    xarModDelVar('mail', 'redirectsending');
+    xarModDelVar('mail', 'redirectaddress');
     // Remove Masks and Instances
     xarRemoveMasks('mail');
     xarRemoveInstances('mail');

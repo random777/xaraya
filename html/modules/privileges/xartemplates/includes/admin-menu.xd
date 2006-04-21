@@ -1,0 +1,13 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabdata">
+    array(
+        'tabs' => array(
+            array('mask' => 'ReadPrivilege', 'includes' => 'viewprivileges', 'target' => 'viewprivileges', 'title' => xarML('View Privileges')),
+            array('mask' => 'AddPrivilege', 'includes' => 'newprivilege', 'target' => 'newprivilege', 'title' => xarML('Add Privilege')),
+            array('mask' => 'AdminPrivilege', 'includes' => array('viewrealms','newrealm','modifyrealm','deleterealm'), 'target' => 'viewrealms', 'title' => xarML('Manage Realms')),
+            array('mask' => 'AdminPrivilege', 'includes' => 'modifyconfig', 'target' => 'modifyconfig', 'title' => xarML('Modify Config')),
+            array('includes' => array('main','overview'), 'target' => 'overview', 'title' => xarML('Overview'))
+   )
+        )
+</xar:set>
+<xar:template type="module" module="base" file="admin-menu-skel" subdata="$tabdata" />

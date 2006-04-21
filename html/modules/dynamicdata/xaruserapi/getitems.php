@@ -1,12 +1,13 @@
 <?php
 /**
  * Get all dynamic data fields for a list of items
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -14,24 +15,23 @@
  * (identified by module + item type or table, and item ids or other search criteria)
  *
  * @author the DynamicData module development team
- * @param $args['module'] module name of the item fields to get, or
- * @param $args['modid'] module id of the item fields to get +
- * @param $args['itemtype'] item type of the item fields to get, or
+ * @param string $args['module'] module name of the item fields to get, or
+ * @param int $args['modid'] module id of the item fields to get +
+ * @param int $args['itemtype'] item type of the item fields to get, or
  * @param $args['table'] database table to turn into an object
- * @param $args['itemids'] array of item ids to return
- * @param $args['fieldlist'] array of field labels to retrieve (default is all)
+ * @param array $args['itemids'] array of item ids to return
+ * @param array $args['fieldlist'] array of field labels to retrieve (default is all)
  * @param $args['status'] limit to property fields of a certain status (e.g. active)
  * @param $args['join'] join a module table to the dynamic object (if it extends the table)
  * @param $args['table'] make some database table available via DD (without pre-defined object)
- * @param $args['catid'] select in some category
- * @param $args['sort'] sort field(s)
- * @param $args['numitems'] number of items to retrieve
- * @param $args['startnum'] start number
+ * @param int $args['catid'] select in some category
+ * @param string $args['sort'] sort field(s)
+ * @param int $args['numitems'] number of items to retrieve
+ * @param int $args['startnum'] start number
  * @param $args['where'] WHERE clause to be used as part of the selection
- * @param $args['getobject'] flag indicating if you want to get the whole object back
- * @returns array
+ * @param bool $args['getobject'] flag indicating if you want to get the whole object back
  * @return array of (itemid => array of (name => value)), or false on failure
- * @raise BAD_PARAM, NO_PERMISSION
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 function &dynamicdata_userapi_getitems($args)
 {

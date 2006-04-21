@@ -1,8 +1,9 @@
-<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Modules Administration</xar:mlstring></span>
 </div>
 <div class="xar-mod-body">
+ <xar:template type="module" file="admin-menu" />
     <img src="#xarTplGetImage('admin.gif', 'modules')#" alt="official icon" width="96" height="96" class="xar-module-icon" />
 
     <h2><xar:mlstring>Overview</xar:mlstring></h2>
@@ -32,9 +33,12 @@
             configuring hooks from one module to another. For example, setting a hook to display comments 
             (the Comments module) in articles (Articles module).</xar:mlstring>
         </li>
+        <li>
+            <xar:mlstring><strong>Modify Config</strong>: Change configuration options related to the Modules module, or modules in general.</xar:mlstring>
+
     </ul>
 
-<h4><xar:mlstring>View All</xar:mlstring></h4>
+<a name="list" title="list"><h4><xar:mlstring>View All</xar:mlstring></h4></a>
 
     <p>
         <xar:mlstring>The View All option at default setup displays a list of all modules that are available, 
@@ -137,6 +141,6 @@
       </li>
   </ul>
   <p class="xar-sub">
-    <strong>&nbsp;<xar:mlstring>Modules Module - Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 2.3.0&nbsp; 2005-11-02
+    <strong>&nbsp;<xar:mlstring>Modules Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 2.3.1&nbsp; 2006-02-08
   </p>
 </div>

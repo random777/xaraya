@@ -1,12 +1,13 @@
 <?php
 /**
- * Sample function returning an array of options 
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * Sample function returning an array of options
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  */
 /**
  * sample function returning an array of options for a Dropdown or Radio Buttons property
@@ -15,7 +16,7 @@
  * @author the DynamicData module development team
  * @returns array
  * @return array of values, or array of id => value combinations
- * @raise BAD_PARAM, NO_PERMISSION
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_utilapi_demolist($args)
 {

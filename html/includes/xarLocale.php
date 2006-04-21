@@ -373,6 +373,7 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
     $locale_format = str_replace('a','%p',$locale_format);
     $locale_format = str_replace('z','%Z',$locale_format);
     // format the single digit flags
+// FIXME: there's an overlap between H and HH (replaced to %H) here !
     if (strpos($locale_format,'H') !== false)
         $locale_format = str_replace('%H',sprintf('%1d',gmstrftime('%H',$timestamp)),$locale_format);
     if (strpos($locale_format,'h') !== false)

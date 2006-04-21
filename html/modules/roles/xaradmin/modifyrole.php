@@ -3,11 +3,12 @@
  * Modify role details
  *
  * @package modules
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * modifyrole - modify role details
@@ -66,7 +67,7 @@ function roles_admin_modifyrole()
     $data['pname'] = $name;
 
 // Security Check
-//    if (!xarSecurityCheck('EditRole',1,'Roles',$name)) return;
+    if (!xarSecurityCheck('EditRole',1,'Roles',$name)) return;
     $data['frozen'] = !xarSecurityCheck('EditRole',0,'Roles',$name);
 
     if (isset($itemtype)) {
@@ -107,7 +108,11 @@ function roles_admin_modifyrole()
     } else {
         $data['pstate'] = $role->getState();
     }
-
+    if (xarModGetVar('roles','setpasswordupdate')) {
+         $data['upasswordupdate'] = $role->getPasswordUpdate();
+    }else {
+         $data['upasswordupdate'] ='';
+    }
     // call item modify hooks (for DD etc.)
     $item = $data;
     $item['module']= 'roles';

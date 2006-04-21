@@ -13,20 +13,27 @@
 /**
  * Shows the user login form when login block is not active
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
+ * @author  Jo Dalle Nogare <jojodeexaraya.com>
  */
 function authsystem_user_showloginform($args = array())
 {
-    #redirecturl
+   // #redirecturl
     extract($args);
-    if (!isset($redirecturl)) $redirecturl = 'index.php';
+    $redirected=xarServerGetBaseURL();
+    if (!isset($redirecturl)) $redirecturl = $redirected;
 
     xarVarFetch('redirecturl', 'str', $data['redirecturl'], $redirecturl, XARVAR_NOT_REQUIRED);
 
-
+    $defaultauthmodule=(int)xarModGetVar('roles','defaultauthmodule');
+    $authmodule=xarModGetNameFromID($defaultauthmodule);
+    if (!file_exists('modules/'.$authmodule.'/xaruser/showloginform.php')) {
+            $authmodule='authsystem'; // incase the authmodule doesn't provide a login
+    }
     if (!xarUserIsLoggedIn()) {
       // Security check
       if (!xarSecurityCheck('ViewAuthsystem')) return;
       $data['loginlabel'] = xarML('Log In');
+      $data['loginurl']=xarModURL($authmodule,'user','login');
 
 
       return $data;

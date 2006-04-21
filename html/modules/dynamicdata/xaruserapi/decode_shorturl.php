@@ -1,19 +1,19 @@
 <?php
 /**
  * Decode short URLS
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * extract function and arguments from short URLs for this module, and pass
  * them back to xarGetRequestInfo()
- * @param $params array containing the elements of PATH_INFO
- * @returns array
+ * @param array $params containing the elements of PATH_INFO
  * @return array containing func the function to be called and args the query
  *         string arguments, or empty if it failed
  */

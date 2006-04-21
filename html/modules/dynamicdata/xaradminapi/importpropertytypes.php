@@ -2,12 +2,13 @@
 /**
  * Check for properties and import to properties table
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 
@@ -18,7 +19,7 @@
  * @param $args['flush'] flush the property type table before import true/false (optional)
  * @returns array
  * @return an array of the property types currently available
- * @raise BAD_PARAM, NO_PERMISSION
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 class PropertyDirectoryIterator extends DirectoryIterator
 {
@@ -81,6 +82,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
                 $before = get_declared_classes();
                 xarInclude($dir->getPathName());
                 $newClasses = array_diff(get_declared_classes(),$before);
+                // ANSWER: probably not, see above (if the $dirs are passed in)
                 
                 // See what class(es) we have here
                 foreach($newClasses as $index => $propertyClass) {
@@ -104,7 +106,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
                         }
                     } 
                     $proptypes[$baseInfo->id] = $baseInfo;
-                
+
                     // Update database entry for this property 
                     // This will also do the aliases
                     // TODO: check the result, now silent failure

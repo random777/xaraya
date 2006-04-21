@@ -48,12 +48,13 @@ function authsystem_user_login()
     if (!xarVarFetch('pass','str:1:100',$pass)) {
 		throw new EmptyParameterException('password');
     }
+    $redirect=xarServerGetBaseURL();
     if (!xarVarFetch('rememberme','checkbox',$rememberme,false,XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('redirecturl','str:1:100',$redirecturl,'index.php',XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
 
     // Defaults
     if (preg_match('/authsystem/',$redirecturl)) {
-        $redirecturl = 'index.php';
+        $redirecturl = $redirect;
     }
 
     // Scan authentication modules and set user state appropriately
@@ -88,17 +89,24 @@ function authsystem_user_login()
                 break;
 
             case 'authsystem':
-
+                //Set a $lastresort flag var
+                $lastresort=false;
                 // Still need to check if user exists as the user may be
                 // set to inactive in the user table
                 //Get and check last resort first before going to db table
-                if (xarModGetVar('privileges','lastresort')) {
-                    $secret = unserialize(xarModGetVar('privileges','lastresort'));
-                    if ($secret['name'] == MD5($uname) && $secret['password'] == MD5($pass)) {
+                $lastresortvalue=array();
+                $lastresortvalue=xarModGetVar('privileges','lastresort');
+                if (isset($lastresortvalue)) {
+                    $secret = @unserialize(xarModGetVar('privileges','lastresort'));
+                    if (is_array($secret)) {
+                        if ($secret['name'] == MD5($uname) && $secret['password'] == MD5($pass)) {
+                            $lastresort=true;
                         $state = ROLES_STATE_ACTIVE;
                         break; //let's go straight to login api
                     }
                 }
+                }
+
                 // check for user and grab uid if exists
                 $user = xarModAPIFunc('roles',
                             'user',
@@ -167,7 +175,7 @@ function authsystem_user_login()
         case ROLES_STATE_NOTVALIDATED:
 
             // User has not validated.
-            xarResponseRedirect(xarModURL('registration', 'user', 'getvalidation'));
+            xarResponseRedirect(xarModURL('roles', 'user', 'getvalidation'));
 
             break;
 
@@ -218,8 +226,16 @@ function authsystem_user_login()
             }
 
             // Log the user in
-            $res = xarModAPIFunc('authsystem','user','login',array('uname' => $uname, 'pass' => $pass, 'rememberme' => $rememberme));
-            if ($res === NULL) return;
+            $defaultauthmodule=xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule'));
+            if (!isset($defaultauthmodule)) $defaultauthmodules='authsystem';
+            //jojodee - retain authsystem here for compatibility with current authentication modules
+            //they do not all supply their own login forms
+            if (!file_exists('modules/'.$defaultauthmodule.'/xaruser/login.php')) {
+               $defaultauthmodule='authsystem';
+            }
+           $res = xarModAPIFunc($defaultauthmodule,'user','login',array('uname' => $uname, 'pass' => $pass, 'rememberme' => $rememberme));
+
+           if ($res === NULL) return;
             elseif ($res == false) {
                 // Problem logging in
                 // TODO - work out flow, put in appropriate HTML
@@ -240,6 +256,103 @@ function authsystem_user_login()
                 }
             }
 
+            if (xarModAPIFunc('roles','admin','checkduv',array('name' => 'setuserhome', 'state' => 1))) {
+                $truecurrenturl = xarServerGetCurrentURL(array(), false);
+                $role = xarUFindRole($uname);
+                $url = $lastresort ? '[base]' : $role->getHome();
+                if (!isset($url) || empty($url)) {
+                   // take the first home url encountered.
+                   // TODO: what would be a more logical choice?
+                    foreach ($role->getParents() as $parent) {
+                        $parenturl = $parent->getHome();
+                        if (!empty($parenturl))  {
+                            $url = $parenturl;
+                            break;
+                        }
+                    }
+                }
+                // FIXME: this probably causes bug #3393
+                $here = (substr($truecurrenturl, -strlen($url)) == $url) ? 'true' : '';
+                if (!empty($url)){
+                    switch ($url[0])
+                    {
+                        case '[': // module link
+                        {
+                            // Credit to Elek M�ton for further expansion
+                            $sections = explode(']',substr($url,1));
+                            $url = explode(':', $sections[0]);
+                            // if the current module is active, then we are here
+/*                            if ($url[0] == $thismodname &&
+                                (!isset($url[1]) || $url[1] == $thismodtype) &&
+                                (!isset($url[2]) || $url[2] == $thisfuncname)) {
+                                $here = 'true';
+                            }
+*/
+                            if (empty($url[1])) $url[1]="user";
+                            if (empty($url[2])) $url[2]="main";
+                            $url = xarModUrl($url[0],$url[1],$url[2]);
+                            if(isset($sections[1])) {
+                                $url .= xarVarPrepForDisplay($sections[1]);
+                            }
+                            break;
+                        }
+                        case '{': // article link
+                        {
+                            $url = explode(':', substr($url, 1,  - 1));
+                            // Get current pubtype type (if any)
+                            if (xarVarIsCached('Blocks.articles', 'ptid')) {
+                                $ptid = xarVarGetCached('Blocks.articles', 'ptid');
+                            }
+                            if (empty($ptid)) {
+                                // try to get ptid from input
+                                xarVarFetch('ptid', 'isset', $ptid, NULL, XARVAR_DONT_SET);
+                            }
+                            // if the current pubtype is active, then we are here
+                            if ($url[0] == $ptid) {
+                                $here = 'true';
+                            }
+                            $url = xarModUrl('articles', 'user', 'view', array('ptid' => $url[0]));
+                            break;
+                        }
+                        case '(': // category link
+                        {
+                            $url = explode(':', substr($url, 1,  - 1));
+                            if (xarVarIsCached('Blocks.categories','catid')) {
+                                $catid = xarVarGetCached('Blocks.categories','catid');
+                            }
+                            if (empty($catid)) {
+                                // try to get catid from input
+                                xarVarFetch('catid', 'isset', $catid, NULL, XARVAR_DONT_SET);
+                            }
+                            if (empty($catid) && xarVarIsCached('Blocks.categories','cids')) {
+                                $cids = xarVarGetCached('Blocks.categories','cids');
+                            } else {
+                                $cids = array();
+                            }
+                            $catid = str_replace('_', '', $catid);
+                            $ancestors = xarModAPIFunc('categories','user','getancestors',
+                                                      array('cid' => $catid,
+                                                            'cids' => $cids,
+                                                            'return_itself' => true));
+                            if(!empty($ancestors)) {
+                                $ancestorcids = array_keys($ancestors);
+                                if (in_array($url[0], $ancestorcids)) {
+                                    // if we are on or below this category, then we are here
+                                    $here = 'true';
+                                }
+                            }
+                            $url = xarModUrl('articles', 'user', 'view', array('catid' => $url[0]));
+                            break;
+                        }
+                        default : // standard URL
+                            // BUG 2023: Make sure manual URLs are prepped for XML, consistent with xarModURL()
+                            if (!empty($GLOBALS['xarMod_generateXMLURLs'])) {
+                                $url = xarVarPrepForDisplay($url);
+                            }
+                    }
+                }
+                $redirecturl = $url;
+            }
             xarResponseRedirect($redirecturl);
             return true;
             break;

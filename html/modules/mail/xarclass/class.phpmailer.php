@@ -125,7 +125,7 @@ class PHPMailer
      *  Holds PHPMailer version.
      *  @var string
      */
-    var $Version           = "1.72";
+    var $Version           = "1.73";
 
     /**
      * Sets the email address that a reading confirmation will be sent.
@@ -444,7 +444,9 @@ class PHPMailer
             //XARAYA MODIFICATION -- Start
             if (!xarFuncIsDisabled('ini_set')) ini_set("sendmail_from", $this->Sender);
             //XARAYA MODIFICATION -- End
-            $params = sprintf("-oi -f %s", $this->Sender);
+            //SF issue 1312256
+            //$params = sprintf("-oi -f %s", $this->Sender);
+            $params = sprintf("-oi -f%s", $this->Sender);
             $rt = @mail($to, $this->EncodeHeader($this->Subject), $body,
                         $header, $params);
         }
@@ -821,6 +823,7 @@ class PHPMailer
             $result .= $this->HeaderLine("Subject", $this->EncodeHeader(trim($this->Subject)));
 
         // Get  client IP addr
+        //
         $forwarded = xarServerGetVar('HTTP_X_FORWARDED_FOR');
         if (!empty($forwarded)) {
             $ipAddress = preg_replace('/,.*/', '', $forwarded);
@@ -961,6 +964,7 @@ class PHPMailer
         if($encoding == "") { $encoding = $this->Encoding; }
 
         $result .= $this->TextLine("--" . $boundary);
+        //SF Issue 1292500
         $result .= sprintf("Content-Type: %s; charset = \"%s\"",
                             $contentType, $charSet);
         $result .= $this->LE;
@@ -1129,9 +1133,12 @@ class PHPMailer
             $this->SetError($this->Lang("file_open") . $path);
             return "";
         }
+        $magic_quotes = get_magic_quotes_runtime();
+        set_magic_quotes_runtime(0);
         $file_buffer = fread($fd, filesize($path));
         $file_buffer = $this->EncodeString($file_buffer, $encoding);
         fclose($fd);
+        set_magic_quotes_runtime($magic_quotes);
 
         return $file_buffer;
     }

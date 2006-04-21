@@ -1,24 +1,24 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * import property fields from a static table
  *
  * @author the DynamicData module development team
- * @param $args['modid'] module id of the table to import
- * @param $args['itemtype'] item type of the table to import
- * @param $args['table'] name of the table you want to import
- * @param $args['objectid'] object id to assign these properties to
- * @returns bool
- * @return true on success, false on failure
- * @raise BAD_PARAM, NO_PERMISSION
+ * @param id $args['modid'] module id of the table to import
+ * @param int $args['itemtype'] item type of the table to import
+ * @param string $args['table'] name of the table you want to import
+ * @param id $args['objectid'] object id to assign these properties to
+ * @return bool true on success, false on failure
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_utilapi_importproperties($args)
 {
@@ -74,16 +74,16 @@ function dynamicdata_utilapi_importproperties($args)
     // create new properties
     foreach ($fields as $name => $field) {
         $prop_id = xarModAPIFunc('dynamicdata','admin','createproperty',
-                                array('name' => $name,
-                                      'label' => $field['label'],
-                                      'objectid' => $objectid,
-                                      'moduleid' => $modid,
-                                      'itemtype' => $itemtype,
-                                      'type' => $field['type'],
-                                      'default' => $field['default'],
-                                      'source' => $field['source'],
-                                      'status' => $field['status'],
-                                      'order' => $field['order'],
+                                array('name'       => $name,
+                                      'label'      => $field['label'],
+                                      'objectid'   => $objectid,
+                                      'moduleid'   => $modid,
+                                      'itemtype'   => $itemtype,
+                                      'type'       => $field['type'],
+                                      'default'    => $field['default'],
+                                      'source'     => $field['source'],
+                                      'status'     => $field['status'],
+                                      'order'      => $field['order'],
                                       'validation' => $field['validation']));
         if (empty($prop_id)) {
             return;

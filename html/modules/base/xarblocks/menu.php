@@ -2,12 +2,13 @@
 /**
  * Menu Block
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage  Base  module
+ * @subpackage Base module
+ * @link http://xaraya.com/index.php/release/68.html
  */
 
 /**
@@ -110,7 +111,10 @@ function base_menublock_display($blockinfo)
 
     // Sort Order, Status, Common Labels and Links Display preparation
     $logoutlabel = xarVarPrepForDisplay(xarML('logout'));
-    $logouturl = xarModURL('roles' ,'user', 'logout', array());
+    //jojodee - only default authentication module, authsystem, provides logout
+    //may want to look at other options for authentication modules
+    $authmod=xarModGetIDFromName('authsystem');
+    $logouturl = xarModURL(xarModGetNameFromID($authmod) ,'user', 'logout', array());
     $loggedin = xarUserIsLoggedIn();
 
     // Get current URL
@@ -348,7 +352,7 @@ function base_menublock_display($blockinfo)
     // we dont want to show logout link if the user is anonymous or admin
     // admins have their own logout method, which is more robust
     // Security Check
-    if (xarSecurityCheck('AdminPanel',0,'adminmenu',"$blockinfo[title]:All:All") or
+    if (xarSecurityCheck('AdminBaseBlock',0,'adminmenu',"$blockinfo[title]:All:All") or
         !xarUserIsLoggedIn() or
         empty($vars['showlogout'])) {
         $showlogout = false;

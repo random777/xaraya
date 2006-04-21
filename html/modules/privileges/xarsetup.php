@@ -1,12 +1,14 @@
 <?php
 /**
  * Default setup for roles and privileges
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ *
+ * @package core modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Privileges module
+ * @link http://xaraya.com/index.php/release/1098.html
  */
 /**
  * Purpose of file:  Default setup for roles and privileges
@@ -75,7 +77,6 @@ function initializeSetup()
     xarDefineInstance('blocks','Blocks',$instances);
 
     //--------------------------------- Modules Module
-
     // TODO: check bind variables
     $query1 = "SELECT DISTINCT btypes.xar_type FROM $blockTypesTable btypes, $modulesTable mods WHERE btypes.xar_modid = mods.xar_name AND mods.xar_name = 'modules'";
     $query2 = "SELECT DISTINCT instances.xar_title FROM $modulesTable mods, $blockInstancesTable instances LEFT JOIN $blockTypesTable as btypes ON btypes.xar_id = instances.xar_type_id WHERE btypes.xar_modid = mods.xar_id AND mods.xar_name = 'modules'";
@@ -84,7 +85,6 @@ function initializeSetup()
                        array('header' => 'Block Title:', 'query' => $query2,'limit' => 20),
                        array('header' => 'Block ID:'   , 'query' => $query3,'limit' => 20));
     xarDefineInstance('modules','Block',$instances);
-
    //--------------------------------- Roles Module
     $query1 = "SELECT DISTINCT btypes.xar_type FROM $modulesTable mods, $blockTypesTable btypes WHERE btypes.xar_modid = mods.xar_id AND mods.xar_name = 'roles'";
     $query2 = "SELECT DISTINCT instances.xar_title FROM $modulesTable mods, $blockInstancesTable as instances LEFT JOIN $blockTypesTable as btypes ON btypes.xar_id = instances.xar_type_id WHERE btypes.xar_modid = mods.xar_id AND mods.xar_name = 'roles'";
@@ -149,6 +149,12 @@ function initializeSetup()
     xarRegisterMask('ViewBase','All','base','All','All','ACCESS_OVERVIEW');
     xarRegisterMask('ReadBase','All','base','All','All','ACCESS_READ');
     xarRegisterMask('AdminBase','All','base','All','All','ACCESS_ADMIN');
+    /* This AdminPanel mask is added to replace the adminpanel module equivalent
+     *   - since adminpanel module is removed as of 1.1.0
+     * At some stage we should remove this but practice has been to use this mask in xarSecurityCheck
+     * frequently in module code and templates - left here for now for ease in backward compatibiilty
+     */
+    xarRegisterMask('AdminPanel','All','base','All','All','ACCESS_ADMIN');
 
     xarRegisterMask('AdminInstaller','All','installer','All','All','ACCESS_ADMIN');
 

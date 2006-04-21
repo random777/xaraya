@@ -1,11 +1,12 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -13,7 +14,6 @@
  * list some items in a template
  *
  * @param $args array containing the items or fields to show
- * @returns string
  * @return string containing the HTML (or other) text to output in the BL template
  */
 function dynamicdata_userapi_showview($args)
@@ -32,13 +32,13 @@ function dynamicdata_userapi_showview($args)
     if (empty($tplmodule)) {
         $tplmodule = 'dynamicdata';
     }
+    if (empty($tplmodule)) {
+        $tplmodule = 'dynamicdata';
+    }
 
     // do we want to count?
     if(empty($count)) {
         $count=false;
-    } else {
-        $count=true;
-    }
 
     // we got everything via template parameters
     if (isset($items) && is_array($items)) {

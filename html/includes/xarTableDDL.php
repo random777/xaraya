@@ -211,6 +211,7 @@ function xarDBDropTable($tableName, $databaseType = NULL)
         $databaseType = xarDBGetType();
     }
 
+        xarErrorFree();
     switch($databaseType) {
         case 'postgres':
             // Also drop the related sequence 

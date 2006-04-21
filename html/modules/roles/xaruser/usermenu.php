@@ -2,12 +2,13 @@
 /**
  * Main user menu
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /*
  * Main user menu
@@ -24,8 +25,8 @@ function roles_user_usermenu($args)
     $data = array(); $hooks = array();
     switch(strtolower($phase)) {
         case 'menu':
-            $iconbasic = 'modules/roles/xarimages/home.gif';
-            $iconenhanced = 'modules/roles/xarimages/home.gif';
+            $iconbasic = xarTplGetImage('home.gif', 'roles');
+            $iconenhanced = xarTplGetImage('home.gif', 'roles');
             $current = xarModURL('roles', 'user', 'account', array('moduleload' => 'roles'));
             $data = xarTplModule('roles','user', 'user_menu_icon', array('iconbasic'    => $iconbasic,
                                                                          'iconenhanced' => $iconenhanced,
@@ -62,6 +63,7 @@ function roles_user_usermenu($args)
             $authid = xarSecGenAuthKey();
             $submitlabel = xarML('Submit');
             $item['module'] = 'roles';
+            $upasswordupdate = $role->getPasswordUpdate();
             $item['itemtype'] = ROLES_USERTYPE;
 
             $hooks = xarModCallHooks('item','modify',$uid,$item);
@@ -78,7 +80,8 @@ function roles_user_usermenu($args)
                                   'hooks'        => $hooks,
                                   'emailaddress' => $email,
                                   'submitlabel'  => $submitlabel,
-                                  'uid'          => $uid));
+                                  'uid'          => $uid,
+                                  'upasswordupdate' => $upasswordupdate));
             break;
 
         case 'formenhanced':
@@ -111,6 +114,9 @@ function roles_user_usermenu($args)
                 // Check to make sure passwords match
                 if ($pass1 == $pass2){
                     $pass = $pass1;
+                    if (xarModGetVar('roles','setpasswordupdate')){
+                        $passwordupdate=time();
+                    }
                 } else {
                     throw new VariableValidationException(array('passwords','*password values hidden*','must be equal'));
                 }
@@ -125,7 +131,8 @@ function roles_user_usermenu($args)
                                          'home' => $home,
                                          'email' => $oldemail,
                                          'state' => ROLES_STATE_ACTIVE,
-                                         'pass' => $pass))) return;
+                                         'pass' => $pass,
+                                         'passwordupdate' => $passwordupdate))) return;
             }
             if (!empty($email)){
                 // Steps for changing email address.

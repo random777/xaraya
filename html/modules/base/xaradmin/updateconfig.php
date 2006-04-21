@@ -1,12 +1,15 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage base
+ * @subpackage Base module
+ * @link http://xaraya.com/index.php/release/68.html
+ * @author Marcel van der Boom
  */
+
 /**
  * Update site configuration
  *
@@ -37,10 +40,11 @@ function base_admin_updateconfig()
             if (!xarVarFetch('htmlenitites','checkbox',$FixHTMLEntities,false,XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('themedir','str:1:',$defaultThemeDir,'themes',XARVAR_NOT_REQUIRED)) return;
             xarConfigSetVar('Site.BL.ThemesDirectory', $defaultThemeDir);
- 
+
             xarConfigSetVar('Site.Core.DefaultModuleName', $defaultModuleName);
             xarModSetVar('base','UseAlternatePageTemplate', ($alternatePageTemplate ? 1 : 0));
             xarModSetVar('base','AlternatePageTemplateName', $alternatePageTemplateName);
+
             xarConfigSetVar('Site.Core.DefaultModuleType', $defaultModuleType);
             xarConfigSetVar('Site.Core.DefaultModuleFunction', $defaultModuleFunction);
             xarConfigSetVar('Site.Core.EnableShortURLsSupport', $enableShortURLs);
@@ -104,11 +108,12 @@ function base_admin_updateconfig()
             if (!xarVarFetch('proxyhost','str:1:',$proxyhost,'',XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('proxyport','int:1:',$proxyport,0,XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('editor','str:1:',$editor,'none',XARVAR_NOT_REQUIRED)) return;
+            if (!xarVarFetch('releasenumber','int:1:',$releasenumber,10,XARVAR_NOT_REQUIRED)) return;
 
             // Save these in normal module variables for now
             xarModSetVar('base','proxyhost',$proxyhost);
             xarModSetVar('base','proxyport',$proxyport);
-
+            xarModSetVar('base','releasenumber', $releasenumber);
             xarConfigSetVar('Site.Core.LoadLegacy', $loadLegacy);
             xarModSetVar('base','editor',$editor);
 

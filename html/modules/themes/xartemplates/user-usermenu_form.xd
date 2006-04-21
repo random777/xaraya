@@ -1,4 +1,4 @@
-<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <!-- common admin menu for this module - remove link to the current function -->
 <div class="xar-mod-body">
     <h2>
@@ -23,8 +23,8 @@
         </div>
 
         <div class="xar-align-center">
-            <input type="hidden" name="authid" id="authid" value="#$authid#" />    
-            <input type="hidden" name="uid" id="uid" value="#$uid#" />    
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="uid" id="uid" value="#$uid#" />
             <input type="hidden" name="phase" id="phase" value="update" />
             <input type="submit" value="#xarML('Set Default Theme')#" />
         </div>

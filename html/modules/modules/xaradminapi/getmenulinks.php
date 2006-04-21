@@ -3,7 +3,7 @@
  * utility function pass individual menu items to the main menu
  *
  * @package modules
- * @copyright (C) 2002-2005 The Digital Development Foundation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -36,18 +36,19 @@ function modules_adminapi_getmenulinks()
                                 'title' => xarML('View list of all installed modules on the system'),
                                 'label' => xarML('View All'));
         }
-        
+
 /*         $menulinks[] = Array('url'  => xarModURL('modules','admin','prefs'), */
 /*                             'title' => xarML('Set various options'), */
 /*                             'label' => xarML('Preferences')); */
-        
+
         $menulinks[] = Array('url'  => xarModURL('modules','admin','hooks'),
                             'title' => xarML('Extend the functionality of your modules via hooks'),
                             'label' => xarML('Configure Hooks'));
-        
+
 /*         $menulinks[] = Array('url'   => xarModURL('modules','admin','tools'), */
 /*                              'title' => xarML('Use these tools to build and verify elements of modules.'), */
 /*                              'label' => xarML('Toolbox')); */
+
         $menulinks[] = Array('url'  => xarModURL('modules','admin','modifyconfig'),
                             'title' => xarML('Modify configuration parameters'),
                             'label' => xarML('Modify config'));

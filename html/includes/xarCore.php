@@ -3,7 +3,7 @@
  * The Core
  *
  * @package core
- * @copyright (C) 2002-2004 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 by the Xaraya Development Team.
  * @license GPL <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.xaraya.com
  * @author Marco Canini
@@ -170,7 +170,8 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     xarError_init($systemArgs, $whatToLoad);
 
     /**
-        * At this point we should be able to catch all low level errors, so we can start the debugger
+     * At this point we should be able to catch all low level errors, so we can start the debugger
+     * Set the types of debug you want to see by adding flags to the activation
      *
      * FLAGS:
      *
@@ -182,7 +183,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      * Flags can be OR-ed together
      */
-    xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_IN_BT );
+    xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_IN_BT);
 
     /*
      * If there happens something we want to be able to log it
@@ -534,6 +535,8 @@ function xarCore_getSystemVar($name)
         $systemVars = $systemConfiguration;
     }
 
+
+//    if ($name == 'BaseModURL') {var_dump($systemVars);die($name);}
     if (!isset($systemVars[$name])) {
         throw new VariableNotFoundException($name,"xarCore_getSystemVar: Unknown system variable: '#(1)'.");
     }
@@ -728,7 +731,7 @@ class xarCore
             unset(self::$cacheCollection[$cacheKey][$name]);
         }
         //This unsets the key that said that collection had already been retrieved
-        
+
         //Seems to have caused a problem because of the expected behaviour of the old code
         //FIXME: Change how this works for a mainstream function, stop the hacks
         if (isset(self::$cacheCollection[$cacheKey][0])) {

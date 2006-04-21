@@ -1,16 +1,23 @@
 <?php
 /**
  * Update the dynamic properties for a module + itemtype
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * Update the dynamic properties for a module + itemtype
+ *
+ * @param int objectid
+ * @param int modid
+ * @param int itemtype
+ * @throws BAD_PARAM
+ * @return bool true on success and redirect to modifyprop
  */
 function dynamicdata_admin_updateprop()
 {
@@ -27,11 +34,7 @@ function dynamicdata_admin_updateprop()
     if(!xarVarFetch('dd_status',     'isset', $dd_status,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('dd_validation', 'isset', $dd_validation,  NULL, XARVAR_DONT_SET)) {return;}
 
-
-    // Confirm authorisation code.  This checks that the form had a valid
-    // authorisation code attached to it.  If it did not then the function will
-    // proceed no further as it is possible that this is an attempt at sending
-    // in false data to the system
+    // Confirm authorisation code.
     if (!xarSecConfirmAuthKey()) return;
 
     if (empty($itemtype)) {

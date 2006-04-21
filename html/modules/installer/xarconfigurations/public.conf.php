@@ -1,12 +1,13 @@
 <?php
 /**
  * Public configuration
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package Installer
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Installer
+ * @link http://xaraya.com/index.php/release/200.html
  */
 /*
  * Configuration for a public site
@@ -25,6 +26,7 @@ function installer_public_moduleoptions()
         array('name' => "example",              'regid' => 36),
         array('name' => "hitcount",             'regid' => 177),
         array('name' => "ratings",              'regid' => 41),
+        array('name' => "registration",         'regid' => 30205),
         array('name' => "search",               'regid' => 32),
         array('name' => "sniffer",              'regid' => 755),
         array('name' => "stats",                'regid' => 34),
@@ -47,7 +49,7 @@ function installer_public_privilegeoptions()
                   array(
                         'item' => 'p2',
                         'option' => 'false',
-                        'comment' => xarML('Unregistered users have read access to the non-core modules of the site. If this option is not chosen unregistered users see only the first page.')
+                        'comment' => xarML('Unregistered users have read access to the non-core modules of the site and can submit articles. If this option is not chosen unregistered users see only the first page.')
                         )
                   );
 }
@@ -91,7 +93,7 @@ function installer_public_commentnoncore()
     xarMakePrivilegeRoot('CommentAccess');
     xarMakePrivilegeMember('CommentAccess','CommentNonCore');
     xarMakePrivilegeMember('DenyPrivileges','CommentNonCore');
-    xarMakePrivilegeMember('DenyAdminPanels','CommentNonCore');
+    //xarMakePrivilegeMember('DenyAdminPanels','CommentNonCore');
     xarMakePrivilegeMember('DenyBlocks','CommentNonCore');
     xarMakePrivilegeMember('DenyMail','CommentNonCore');
     xarMakePrivilegeMember('DenyModules','CommentNonCore');

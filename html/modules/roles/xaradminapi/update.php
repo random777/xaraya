@@ -2,12 +2,13 @@
 /**
  * Update a role core info
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * Update a user's core info
@@ -54,6 +55,11 @@ function roles_adminapi_update($args)
     $role = new xarRole($args);
     $role->update();
 	xarModSetUserVar('roles','userhome',$home,$uid);
+	    xarModSetUserVar('roles','userhome',$home, $uid);
+    }
+	if (isset($passwordupdate) && xarModGetVar('roles','setpasswordupdate')) {
+        xarModSetUserVar('roles','passwordupdate',$passwordupdate, $uid);
+    }
 
     $item['module'] = 'roles';
     $item['itemtype'] = $itemtype;
@@ -62,6 +68,7 @@ function roles_adminapi_update($args)
     $item['home'] = $home;
     $item['uname'] = $uname;
     $item['email'] = $email;
+
     xarModCallHooks('item', 'update', $uid, $item);
 
     return true;

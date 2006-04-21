@@ -1,4 +1,4 @@
-<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <script language="JavaScript">
 <xar:comment>
     // Enter name of mandatory fields
@@ -14,6 +14,7 @@
 <xar:style scope="module" module="base" file="navtabs" />
 
 <div class="xar-mod-body">
+    <xar:template type="module" file="admin-menu" />
     <h2><xar:mlstring>Modify Mail Configuration</xar:mlstring></h2>
     
     <xar:set name="params">array()</xar:set>
@@ -314,6 +315,18 @@
                 </div>
                 
                 <fieldset>
+            <div class="xar-form-input-wrapper">
+                <label for="replacestrings" title="#xarML('Enter each string on a single line in the same order as the search.  Do not separate with comma, etc.')#" class="xar-form-label">
+                    <xar:mlstring>Strings for Replacement:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    <textarea name="replacestrings" id="replacestrings" class="xar-form-textarealarge">#$replacestrings#</textarea>
+                </div>
+            </div>
+
+        </fieldset>
+        
+        <fieldset>
                     <legend>
                         <xar:mlstring>Debugging</xar:mlstring>
                     </legend>
@@ -336,6 +349,7 @@
                         <input type="text" name="redirectaddress" id="redirectaddress" value="#xarModGetVar('mail', 'redirectaddress', 1)#" maxlength="100" class="xar-form-textxlong" />
                     </div>
                     
+                
                     <div class="xar-form-input-wrapper-after">
                         <xar:if condition="xarModGetVar('mail', 'suppresssending')">
                             <input type="checkbox" name="suppresssending" id="suppresssending" value="1" checked="checked" />

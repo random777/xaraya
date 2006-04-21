@@ -1,26 +1,26 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * get a specific item field
-// TODO: update this with all the new stuff
+ * @TODO: update this with all the new stuff
  *
  * @author the DynamicData module development team
- * @param $args['module'] module name of the item field to get, or
- * @param $args['modid'] module id of the item field to get
- * @param $args['itemtype'] item type of the item field to get
- * @param $args['itemid'] item id of the item field to get
- * @param $args['name'] name of the field to get
- * @returns mixed
- * @return value of the field, or false on failure
- * @raise BAD_PARAM, NO_PERMISSION
+ * @param string $args['module'] module name of the item field to get, or
+ * @param int $args['modid'] module id of the item field to get
+ * @param int $args['itemtype'] item type of the item field to get
+ * @param int $args['itemid'] item id of the item field to get
+ * @param string $args['name'] name of the field to get
+ * @return mixed value of the field, or false on failure
+ * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_userapi_getfield($args)
 {

@@ -2,16 +2,16 @@
 /**
  * Test a user or group's privileges against a mask
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
- * Create a user
- *
+ * create a user
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param string $args['uname'] username of the user
  * @param string $args['name'] real name of the user
@@ -35,6 +35,17 @@ function roles_adminapi_create($args)
 
     $baseitemtype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
 	$args['basetype'] = $baseitemtype;
+        $invalid[] = 'state';
+    } 
+    if (!isset($pass)) {
+        $invalid[] = 'pass';
+    } 
+    if (count($invalid) > 0) {
+        $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)', 
+            join(', ', $invalid), 
+            'admin', 'create', 'roles');
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
+        return;
 
     if ($baseitemtype == ROLES_USERTYPE) {
 		if (!isset($uname)) throw new EmptyParameterException('uname');

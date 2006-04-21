@@ -1,12 +1,13 @@
 <?php
 /**
- * (try to) get the "meta" properties of tables 
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * (try to) get the "meta" properties of tables
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -16,7 +17,7 @@
  * @param $args['table']  optional table you're looking for
  * @returns mixed
  * @return array of field definitions, or null on failure
- * @raise BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
+ * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  * @todo split off the common parts which are also in getstatic.php
  */
 function dynamicdata_utilapi_getmeta($args)
@@ -156,6 +157,11 @@ function dynamicdata_utilapi_getmeta($args)
                 $proptype = 21; // Item ID
             }
 
+            // JDJ: added 'primary' and 'autoincrement' fields.
+            // If this causes a problem, it could be made optional.
+            // It is used by the FlatTable datastore to determine the primary key.
+            // Jojodee: is causing probs with sqlite at least in installer
+            // made some changes - please review
             $columns[$name] = array('name' => $name,
                                    'label' => $label,
                                    'type' => $proptype,
@@ -164,7 +170,19 @@ function dynamicdata_utilapi_getmeta($args)
                                    'source' => $curtable . '.' . $fieldname,
                                    'status' => $status,
                                    'order' => $id,
-                                   'validation' => $validation);
+                                   'validation' => $validation,
+                                   //'primary' => isset($field->primary_key)?$field->primary_key : '',
+                                   //'autoincrement' => isset($field->auto_increment))? $field->auto_increment : ''
+                                   );
+            if (isset($field->primary_key)) {
+               $newelement=array('primary'=>$field->primary_key);
+               array_merge($columns[$name],$newelement);
+            }
+            if (isset($field->auto_increment)) {
+               $newelement=array('autoincrement'=>$field->auto_increment);
+               array_merge($columns[$name],$newelement);
+
+            }
             $id++;
         }
         $metadata[$curtable] = $columns;

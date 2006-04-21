@@ -2,19 +2,20 @@
 /**
  * Utility function to pass item field definitions
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * utility function to pass item field definitions to whoever
  *
- * @param $args['itemtype'] item type
- * @returns array
+ * @param int $args['itemtype'] item type
+ * @param int modid ID of the module
  * @return array containing the item field definitions
  */
 function dynamicdata_userapi_getitemfields($args)

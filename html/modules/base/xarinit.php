@@ -1,12 +1,14 @@
 <?php
 /**
  * Base Module Initialisation
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2005-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
+ * @link http://xaraya.com/index.php/release/68.html
+ * @author Marcel van der Boom
  */
 
 /**
@@ -147,12 +149,12 @@ function base_init()
         xarConfigSetVar('Site.Core.EnableShortURLsSupport', false);
         // when installing via https, we assume that we want to support that :)
         $HTTPS = xarServerGetVar('HTTPS');
-        /* jojodee - monitor this fix.
-         Localized fix for installer where HTTPS shows incorrectly as being on in
-         some environments. Fix is ok as long as we dont access directly
-         outside of installer. Consider setting config vars at later point rather than here.
-        */
-        $REQ_URI = parse_url(xarServerGetVar('HTTP_REFERER'));
+    /* jojodee - monitor this fix.
+       Localized fix for installer where HTTPS shows incorrectly as being on in
+       some environments. Fix is ok as long as we dont access directly
+       outside of installer. Consider setting config vars at later point rather than here.
+    */
+    $REQ_URI = parse_url(xarServerGetVar('HTTP_REFERER'));
         // IIS seems to set HTTPS = off for some reason (cfr. xarServerGetProtocol)
         if (!empty($HTTPS) && $HTTPS != 'off' && $REQ_URI['scheme'] == 'https') {
             xarConfigSetVar('Site.Core.EnableSecureServer', true);

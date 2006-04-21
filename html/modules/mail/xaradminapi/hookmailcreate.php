@@ -1,12 +1,13 @@
 <?php
 /**
  * Hook function to send mail on creation of an item
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 /**

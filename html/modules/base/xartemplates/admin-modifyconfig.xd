@@ -17,15 +17,16 @@
     </span>
 </div>
 <div class="xar-mod-body">
+ <xar:template type="module" file="admin-menu" />
     <h2>
         <xar:mlstring>
             Modify System Configuration 
         </xar:mlstring>
     </h2>
     <dl class="xar-tabs">
-        <dt class="help" title="#xarML('Choose a set of configuration options')#">
+        <dt class="help" title="#xarML('Choose a set of configuration options to modify')#">
             <xar:mlstring>
-                Actions: 
+                Modify:
             </xar:mlstring>
         </dt>
         <xar:if condition="$tab eq 'display'">
@@ -100,7 +101,7 @@
     <!-- Begin Site Display Options -->
     <xar:if condition="$tab eq 'display'">
         <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription);" enctype="application/x-www-form-urlencoded">
-               <fieldset>
+            <fieldset>
                 <legend>
                     <xar:mlstring>
                         Version Information
@@ -124,12 +125,13 @@
             <fieldset>
                 <legend>
                     <xar:mlstring>
-                        Website Display Configuration 
+                        Site Default Front Page Settings
                     </xar:mlstring>
                 </legend>
-                <p>
-                    <xar:mlstring>
-                        Please note that the default theme variable has moved to the themes module. 
+                <p class="xar-form-input-wrapper-after">
+                    <xar:mlstring>The Default Module supplies the main entry (front) page to your site. The
+                        Default Module Function below provides the template for this frontpage. You can customize and
+                        override this template in your theme.
                     </xar:mlstring>
                 </p>
                 <div class="xar-form-input-wrapper">
@@ -152,6 +154,7 @@
                         </xar:loop>
                     </select>
                 </div>
+
                 <xar:if condition="xarConfigGetVar('Site.Core.DefaultModuleName') eq 'base'">
                     <div class="xar-form-input-wrapper-after">
                         <xar:if condition="xarModGetVar('base', 'UseAlternatePageTemplate')">
@@ -214,6 +217,13 @@
                     </label>
                     <input type="text" id="defaultfunction" name="defaultfunction" value="#xarConfigGetVar('Site.Core.DefaultModuleFunction')#" maxlength="100" class="xar-form-textlong" />
                 </div>
+           </fieldset>
+           <fieldset>
+                <legend>
+                    <xar:mlstring>
+                        General Display Options
+                    </xar:mlstring>
+                </legend>
                 <div class="xar-form-input-wrapper">
                     <label for="themedir" title="#xarML('The default directory for site themes - no trailing slash.')#" class="xar-form-label">
                         <xar:mlstring>
@@ -259,6 +269,7 @@
                     </label>
                 </div>
             </fieldset>
+
             <fieldset>
                 <div class="xar-form-input-wrapper-after">
                     <input type="hidden" name="authid" id="authid" value="#$authid#" />
@@ -452,7 +463,7 @@
             <fieldset>
                 <legend>
                     <xar:mlstring>
-                        Miscellaneous 
+                        General Options
                     </xar:mlstring>
                 </legend>
                 <div class="xar-form-input-wrapper">
@@ -475,7 +486,7 @@
                         </xar:loop>
                     </select>
                 </div>
-                <div class="xar-form-input-wrapper-after">
+                <div class="xar-form-input-wrapper-after xar-padding-topthick">
                     <xar:if condition="xarConfigGetVar('Site.Core.LoadLegacy')">
                         <input type="checkbox" name="loadlegacy" id="loadlegacy" value="1" checked="checked" />
                         <xar:else />
@@ -483,7 +494,7 @@
                     </xar:if>
                     <label for="loadlegacy" title="#xarML('Load Legacy Support for Postnuke (7.1x, 7.2x)')#">
                         <xar:mlstring>
-                            Load Legacy Support 
+                            Load Legacy Support for Postnuke
                         </xar:mlstring>
                     </label>
                 </div>
@@ -530,7 +541,18 @@
                     <xar:data-input type="timezone" name="defaulttimezone" id="defaulttimezone" value="$timezone" />
                 </div>
             </fieldset>
-
+            <fieldset>
+                <legend>
+                    <xar:mlstring>Extension Release Feeds</xar:mlstring>
+                </legend>
+    
+                <div class="xar-form-input-wrapper">
+                    <label for="releasenumber" title="#xarML('Default number to display for release feed')#" class="xar-form-label">
+                        <xar:mlstring>Release Number to display:</xar:mlstring>
+                    </label>
+                    <input type="text" id="releasenumber" name="releasenumber" value="#$releasenumber#" maxlength="4" class="xar-form-textshort" />
+                 </div>
+            </fieldset>
             <fieldset>
                 <div class="xar-form-input-wrapper-after">
                     <input type="hidden" name="authid" id="authid" value="#$authid#" />

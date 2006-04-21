@@ -2,12 +2,13 @@
 /**
  * Initialise the roles module
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  * @author Jan Schrage, John Cox, Gregor Rothfuss
  */
 
@@ -165,6 +166,13 @@ function roles_activate()
     xarModSetVar('roles', 'locale', '');
     xarModSetVar('roles', 'userhome', 0);
     xarModSetVar('roles', 'primaryparent', 0);
+    xarModSetVar('roles', 'setuserhome',false);
+    xarModSetVar('roles', 'setprimaryparent', false);
+    xarModSetVar('roles', 'setpasswordupdate',false);
+    xarModSetVar('roles', 'settimezone',false);
+    xarModSetVar('roles', 'defaultgroup', 'Users');
+    xarModSetVar('roles', 'displayrolelist', false);  
+    xarModSetVar('roles', 'usereditaccount', true);          
     $lockdata = array('roles' => array( array('uid' => 4,
                                               'name' => 'Administrators',
                                               'notify' => TRUE)),
@@ -192,6 +200,10 @@ function roles_activate()
     xarModAPIFunc('blocks', 'admin','register_block_type', array('modName' => 'roles','blockType' => 'online'));
     xarModAPIFunc('blocks', 'admin','register_block_type', array('modName' => 'roles','blockType' => 'user'));
     xarModAPIFunc('blocks', 'admin','register_block_type', array('modName' => 'roles','blockType' => 'language'));
+# --------------------------------------------------------
+#
+# Register block types
+#
 
     // Register hooks here, init is too soon
     xarModRegisterHook('item', 'search', 'GUI','roles', 'user', 'search');
@@ -213,13 +225,13 @@ function roles_activate()
  */
 function roles_upgrade($oldVersion)
 {
-    // Upgrade dependent on old version number
+	// Upgrade dependent on old version number
     switch ($oldVersion) {
         case '1.01':
             break;
         case '1.1.1':
             // is there an authentication module?
-            $regid = xarModGetIDFromName('authentication');
+			$regid = xarModGetIDFromName('authsystem');
 
             if (isset($regid)) {
                 // remove the login block type and block from roles

@@ -2,12 +2,13 @@
 /**
  * Delete a role
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * deleteRole - delete a role
@@ -54,7 +55,7 @@ function roles_admin_deleterole()
         $msg = 'The user #(1) is the designated site administrator. If you want to remove this user change the site admin in the roles configuration setting first.';
         throw new ForbiddenOperationException($role->getName(),$msg);
     }
-    if(strtolower($role->getName()) == strtolower(xarModGetVar('roles','defaultgroup'))) {
+    if(strtolower($role->getName()) == strtolower(xarModAPIFunc('roles','user','getdefaultgroup'))) {
         $msg = 'The group #(1) is the default group for new users. If you want to remove this group change the roles configuration setting first.';
         throw new ForbiddenOperationException($role->getName(),$msg);
     }

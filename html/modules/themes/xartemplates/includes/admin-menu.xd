@@ -1,0 +1,12 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabdata">
+    array(
+        'tabs' => array(
+            array('mask' => 'AdminTheme', 'includes' => 'list', 'target' => 'list', 'title' => xarML('View Theme Listing')),
+            array('mask' => 'AdminTheme', 'includes' => 'listtpltags', 'target' => 'listtpltags', 'title' => xarML('Manage Template Tags')),
+            array('mask' => 'AdminTheme', 'includes' => 'modifyconfig', 'target' => 'modifyconfig', 'title' => xarML('Modify Config')),
+            array('includes' => array('main','overview'), 'target' => 'overview', 'title' => xarML('Overview'))
+   )
+        )
+</xar:set>
+<xar:template type="module" module="base" file="admin-menu-skel" subdata="$tabdata" />

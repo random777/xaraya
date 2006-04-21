@@ -1,28 +1,34 @@
 <?php
 /**
  * Modify the dynamic properties for a module and itemtype
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * Modify the dynamic properties for a module + itemtype
+ * @param int itemid
+ * @param int modid
+ * @param int itemtype
+ * @param table
+ * @param details
+ * @param string layout (optional)
+ * @throws BAD_PARAM
+ * @return array with $data
  */
 function dynamicdata_admin_modifyprop()
 {
-    // Initialise the $data variable that will hold the data to be used in
-    // the blocklayout template, and get the common menu configuration - it
-    // helps if all of the module pages have a standard menu at the top to
-    // support easy navigation
+    // Initialise the $data variable with menu
     $data = xarModAPIFunc('dynamicdata','admin','menu');
 
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
-// Security Check
+
     if(!xarSecurityCheck('AdminDynamicData')) return;
 
     if(!xarVarFetch('itemid',   'isset', $itemid,   NULL, XARVAR_DONT_SET)) {return;}

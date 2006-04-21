@@ -1,18 +1,26 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
- * modify an item
+ * Modify an item
+ *
  * This is a standard function that is called whenever an administrator
  * wishes to modify a current module item
- * @param 'exid' the id of the item to be modified
+ *
+ * @param int objectid the id of the item to be modified
+ * @param int modid the id of the module where the item comes from
+ * @param int itemtype the id of the itemtype of the item
+ * @param join
+ * @param table
+ * @return
  */
 function dynamicdata_admin_modify($args)
 {
@@ -28,7 +36,7 @@ function dynamicdata_admin_modify($args)
     if(!xarVarFetch('itemid',   'isset', $itemid)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('preview',    'isset', $preview,     NULL, XARVAR_DONT_SET)) {return;}
-
+    
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
     if(!xarSecurityCheck('EditDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;

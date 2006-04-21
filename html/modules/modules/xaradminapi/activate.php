@@ -1,6 +1,7 @@
 <?php
 /**
  * Activate a module
+ *
  * @package Xaraya eXtensible Management System
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -20,13 +21,14 @@
 function modules_adminapi_activate ($args)
 {
     //Shoudlnt we check first if the module is alredy INITIALISED????
+
     extract($args);
 
     // Argument check
     if (!isset($regid)) throw new EmptyParameterException('regid');
 
     $modInfo = xarModGetInfo($regid);
-    
+
     if($modInfo['state'] == XARMOD_STATE_UNINITIALISED) {
         throw new Exception("Calling activate function while module is uninitialised");
     }
@@ -34,9 +36,10 @@ function modules_adminapi_activate ($args)
     if (!xarModAPIFunc('modules','admin', 'executeinitfunction',
                            array('regid'    => $regid,
                                  'function' => 'activate'))) {
-        $msg = xarML('Unable to execute "activate" function in the xarinit.php file of module (#(1))', $modInfo['displayname']);
-        throw new Exception($msg);
+        $msg = xarML('Unable to execute "activate" function in the xarinit.php file of module (#(1))');
+        throw new Exception(array($modInfo['displayname']),$msg);
     }
+
 
     // Update state of module
     $res = xarModAPIFunc('modules','admin','setstate',

@@ -1,12 +1,13 @@
 <?php
 /**
  * Dynamic Select property
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
+ * @link http://xaraya.com/index.php/release/68.html
  */
 /*
  * @author mikespub <mikespub@xaraya.com>
@@ -89,6 +90,7 @@ class Dynamic_Select_Property extends Dynamic_Property
         if(!isset($data['onchange'])) $data['onchange'] = null; // let tpl decide what to do
         $data['extraparams'] =!empty($extraparams) ? $extraparams : "";
         return parent::showInput($data);
+        $data['onchange'] = isset($onchange) ? $onchange : null; // let tpl decide what to do
     }
 
     function showOutput($data = array())

@@ -1,11 +1,14 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * Themes initialization
+ *
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 
 // Load Table Maintainance API
@@ -20,7 +23,7 @@ xarDBLoadTableMaintenanceAPI();
  * @raise DATABASE_ERROR
  */
 function themes_init()
-{ 
+{
     // Get database information
     $dbconn =& xarDBGetConn();
     $tables =& xarDBGetTables();
@@ -29,12 +32,12 @@ function themes_init()
     $systemPrefix = xarDBGetSystemTablePrefix();
 
     $tables['themes'] = $systemPrefix . '_themes';
-    $tables['theme_vars'] = $sitePrefix . '_theme_vars'; 
+    $tables['theme_vars'] = $sitePrefix . '_theme_vars';
 
     // Create tables
     /**
      * Here we create all the tables for the theme system
-     * 
+     *
      * prefix_themes       - basic theme info
      * prefix_theme_vars   - theme variables table
      */
@@ -85,7 +88,7 @@ function themes_init()
     $result =& $dbconn->Execute($query);
     
     xarModSetVar('themes', 'default', 'Xaraya_Classic');
-    xarModSetVar('themes', 'selsort', 'nameasc'); 
+
 
     // Make sure we dont miss empty variables (which were not passed thru)
     // FIXME: how would these values ever be passed in?
@@ -93,12 +96,14 @@ function themes_init()
     // TODO: this is themes, not mods
     if (empty($selfilter)) $selfilter = XARMOD_STATE_ANY;
     if (empty($hidecore)) $hidecore = 0;
-    if (empty($selsort)) $selsort = 'namedesc';
+    if (empty($selclass)) $selclass = 'all';
+    if (empty($useicons)) $useicons = false;
 
     xarModSetVar('themes', 'hidecore', $hidecore);
     xarModSetVar('themes', 'selstyle', $selstyle);
     xarModSetVar('themes', 'selfilter', $selfilter);
-    xarModSetVar('themes', 'selsort', $selsort);
+    xarModSetVar('themes', 'selclass', $selclass);
+    xarModSetVar('themes', 'useicons', $useicons);
 
     xarModSetVar('themes', 'SiteName', 'Your Site Name');
     xarModSetVar('themes', 'SiteSlogan', 'Your Site Slogan');
@@ -108,6 +113,9 @@ function themes_init()
     xarModSetVar('themes', 'SiteFooter', '<a href="http://www.xaraya.com"><img src="modules/base/xarimages/xaraya.gif" alt="Powered by Xaraya" class="xar-noborder" /></a>');
     xarModSetVar('themes', 'ShowPHPCommentBlockInTemplates', 0);
     xarModSetVar('themes', 'ShowTemplates', 0);
+    //Moved here in 1.1.x series
+    xarModSetVar('themes', 'usedashboard', 0);
+    xarModSetVar('themes', 'dashtemplate', 'dashboard');
 
     // Register theme tags.
 
@@ -120,35 +128,35 @@ function themes_init()
     // Set up usermenu hook
     if (!xarModRegisterHook('item', 'usermenu', 'GUI', 'themes', 'user', 'usermenu')) {
         return false;
-    } 
+    }
 
-    // Register the meta blocktype 
+    // Register the meta blocktype
     if (!xarModAPIFunc('blocks', 'admin', 'register_block_type',
                         array('modName' => 'themes',
-                              'blockType' => 'meta'))) return; 
+                              'blockType' => 'meta'))) return;
 
     // Initialisation successful
     return true;
-} 
+}
 
 /**
  * Upgrade the themes theme from an old version
- * 
+ *
  * @param oldversion $ the old version to upgrade from
  * @returns bool
  */
 function themes_upgrade($oldversion)
-{ 
+{
     // Upgrade dependent on old version number
     switch ($oldversion) {
         case '1.0':
             if (!xarModRegisterHook('item', 'usermenu', 'GUI', 'themes', 'user', 'usermenu')) {
                 return false;
-            } 
+            }
 
         case '1.1':
             if (!xarModAPIFunc('blocks', 'admin', 'register_block_type',
-                array('modName' => 'themes', 'blockType' => 'meta'))) return; 
+                array('modName' => 'themes', 'blockType' => 'meta'))) return;
 
         case '1.2':
         case '1.3.0':
@@ -165,22 +173,30 @@ function themes_upgrade($oldversion)
             if(!xarModAPIFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'meta'))) {
                 if (!xarModAPIFunc('blocks', 'admin', 'register_block_type',
                                     array('modName' => 'themes',
-                                          'blockType' => 'meta'))) return; 
+                                          'blockType' => 'meta'))) return;
             }
+      case '1.7.0':
+        /* TODO: update when we up the version number */
+        /* These done in the upgrade.php file
+           xarModSetVar('themes', 'usedashboard', 0);
+        */
 
-    } 
+      case '1.8.0' :
+        xarModSetVar('themes', 'selclass', 'all');
+        xarModSetVar('themes', 'useicons', false);
+    }
     // Update successful
     return true;
-} 
+}
 
 /**
  * Delete the themes theme
- * 
- * @param none $ 
+ *
+ * @param none $
  * @returns bool
  */
 function themes_delete()
-{ 
+{
     // this module cannot be removed
     return false;
 }

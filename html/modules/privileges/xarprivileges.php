@@ -1,12 +1,14 @@
 <?php
 /**
  * Privileges administration API
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ *
+ * @package core modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Privileges module
+ * @link http://xaraya.com/index.php/release/1098.html
  */
 
 /*
@@ -414,6 +416,7 @@ class xarMasks
         // this is for PostNuke backward compatibility
         if ($pnrealm != '') $mask->setRealm($pnrealm);
         if ($pnlevel != '') $mask->setLevel($pnlevel);
+
         $realmvalue = xarModGetVar('privileges', 'realmvalue');
         if (strpos($realmvalue,'string:') === 0) {
             $textvalue = substr($realmvalue,7);
@@ -485,8 +488,8 @@ class xarMasks
         // check if the exception needs to be caught here or not
         if ($catch && !$pass) {
             if (xarModGetVar('privileges','exceptionredirect')) {
-                // TODO: 1. this function doesnt exist
-                // TODO: 2. when the privileges on the redirect page fail=> BOOM!
+                //authsystem will handle the authentication module
+                xarResponseRedirect(xarModURL('authsystem','user','showloginform'));
                 xarResponseRedirect(xarModURL('roles','user','register'));
             } else {
                 $msg = xarML('No privilege for #(1)',$mask->getName());
@@ -1004,7 +1007,6 @@ class xarPrivileges extends xarMasks
             $stmt = $this->dbconn->prepareStatement($query);
             // The fetchmode *needed* to be here, dunno why. Exception otherwise
             $result = $stmt->executeQuery($query,ResultSet::FETCHMODE_NUM);
-
             while($result->next()) {
                 list($pid, $name, $realm, $module, $component, $instance, $level,
                         $description,$parentid) = $result->fields;

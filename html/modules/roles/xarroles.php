@@ -2,15 +2,15 @@
 /**
  * xarRoles class
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 
-/** Marc: we *really* need to discuss this, wrt performance and bind variables */
 include_once dirname(__FILE__).'/xarincludes/xarQuery.php';
 
 define('ROLES_STATE_DELETED',0);
@@ -20,7 +20,6 @@ define('ROLES_STATE_ACTIVE',3);
 define('ROLES_STATE_PENDING',4);
 define('ROLES_STATE_CURRENT',98);
 define('ROLES_STATE_ALL',99);
-
 define('ROLES_ROLETYPE',1);
 define('ROLES_USERTYPE',2);
 define('ROLES_GROUPTYPE',3);
@@ -984,7 +983,7 @@ class xarRole
         if ($state == ROLES_STATE_CURRENT) {
             $bindvars = array(ROLES_USERTYPE,ROLES_STATE_DELETED,$this->uid);
         } else {
-            $bindvars = array(ROLES_USERTYPE, $state, $this->uid);
+             $bindvars = array(ROLES_USERTYPE, $state, $this->uid);
         }
         if (isset($selection)) $query .= $selection;
         $query .= " ORDER BY xar_" . $order;
@@ -1117,6 +1116,14 @@ class xarRole
         while ($result->next()) {
             list($uid, $name, $type, $parentid, $uname, $email, $pass,
                 $date_reg, $val_code, $state, $auth_module) = $result->fields;
+            $vars = array();
+
+            $duvarray = array('userhome','primaryparent','passwordupdate','timezone');
+            $duvs = array();
+            foreach ($duvarray as $key) {
+        	    $duv = xarModGetUserVar('roles',$key,$uid);
+			    if (!empty($duv)) $duvs[$key] = $duv;
+            }
             $pargs = array('uid' => $uid,
                            'name' => $name,
                            'type' => $type,
@@ -1414,6 +1421,11 @@ class xarRole
         $duv = isset($this->duvs['primaryparent']) ? $this->duvs['primaryparent'] : "";
         return $duv;
     }
+    function getPasswordUpdate()
+    {
+        $duv = isset($this->duvs['passwordupdate']) ? $this->duvs['passwordupdate'] : "";
+         return $duv;
+    }
     function getUname()
     {
         return $this->uname;
@@ -1462,6 +1474,10 @@ class xarRole
     function setHome($var)
     {
         $this->userhome = $var;
+    }
+    function setPasswordUpdate($var)
+    {
+        $this->passwordupdate= $var;
     }
     function setPrimaryParent($var)
     {

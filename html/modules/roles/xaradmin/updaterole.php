@@ -2,12 +2,13 @@
 /**
  * Update a role
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * updaterole - update a role
@@ -69,6 +70,14 @@ function roles_admin_updaterole()
         // check for valid password
         if (strcmp($ppass1, $ppass2) != 0) throw new DuplicateException(null,'The entered passwords are not the same');
     }
+    $duvs = array();
+    if (isset($phome) && xarModGetVar('roles','setuserhome'))
+            $duvs['userhome'] = $phome;
+
+            if ((!empty($ppass1))  && xarModGetVar('roles','setpasswordupdate')){
+                //assume if it's not empty then it's already been matched with ppass2
+                $duvs['passwordupdate']=time();
+            }
 
     // assemble the args into an array for the API function
     $duvs = array();

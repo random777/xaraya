@@ -2,12 +2,13 @@
 /**
  * Create a new realm
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @package core modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Privileges Module
+ * @subpackage Privileges module
+ * @link http://xaraya.com/index.php/release/1098.html
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 /**
@@ -33,12 +34,18 @@ function privileges_admin_newrealm()
         if(!$q->run()) return;
 
         if ($q->getrows() > 0) {
-            throw new DuplicateException(array('realm',$name));
+            $msg = xarML('There is already a realm with the name #(1)', $name);
+            xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA',
+                           new DefaultUserException($msg));
+            return;
         }
 
         $q = new xarQuery('INSERT',$xartable['security_realms']);
         $q->addfield('xar_name', $name);
         if(!$q->run()) return;
+        
+        //Redirect to view page
+        xarResponseRedirect(xarModURL('privileges', 'admin', 'viewrealms'));
     }
 
     $data['authid'] = xarSecGenAuthKey();

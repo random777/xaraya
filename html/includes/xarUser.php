@@ -58,7 +58,7 @@ define('XARUSER_LAST_RESORT', -3);
  * @param args[authenticationModules] array
  * @return bool true on success
  */
-function xarUser_init($args, $whatElseIsGoingLoaded)
+function xarUser_init(&$args, $whatElseIsGoingLoaded)
 {
     // User System and Security Service Tables
     $systemPrefix = xarDBGetSystemTablePrefix();
@@ -115,6 +115,7 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
     if (empty($userName)) throw new EmptyParameterException('userName');
     if (empty($password)) throw new EmptyParameterException('password');
 
+
     $userId = XARUSER_AUTH_FAILED;
     $args = array('uname' => $userName, 'pass' => $password);
     // FIXME: <rabbitt> Do we want to actually put this here or do this
@@ -125,12 +126,10 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
         // Bug #918 - If the module has been deactivated, then continue
         // checking with the next available authentication module
         if (!xarModIsAvailable($authModName)) continue;
-
         // Every authentication module must at least implement the
         // authentication interface so there's at least the authenticate_user
         // user api function
         if (!xarModAPILoad($authModName, 'user')) continue;
-
         $modInfo = xarMod_GetBaseInfo($authModName);
         $modId = $modInfo['systemid'];
 
@@ -289,6 +288,11 @@ function xarUserSetNavigationThemeName($themeName)
 function xarUserGetNavigationLocale()
 {
     if (xarUserIsLoggedIn()) {
+        $uid = xarUserGetVar('uid');
+          //last resort user is falling over on this uservar by setting multiple times
+         //return true for last resort user - use default locale
+         if ($uid==XARUSER_LAST_RESORT) return true;
+
         $locale = xarModGetUserVar('roles', 'locale');
         if (!isset($locale)) {
             // CHECKME: why is this here? The logic of falling back is already in the modgetuservar

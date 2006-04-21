@@ -2,12 +2,13 @@
 /**
  * Modify configuration
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Roles module
+ * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * modify configuration
@@ -68,19 +69,6 @@ function roles_admin_modifyconfig()
                 }
             }
 
-            // create the dropdown of groups for the template display
-            // get the array of all groups
-            // remove duplicate entries from the list of groups
-            $groups = array();
-            $names = array();
-            foreach($roles->getgroups() as $temp) {
-                $nam = $temp['name'];
-                if (!in_array($nam, $names)) {
-                    array_push($names, $nam);
-                    array_push($groups, $temp);
-                }
-            }
-
             $checkip = xarModGetVar('roles', 'disallowedips');
             if (empty($checkip)) {
                 $ip = serialize('10.0.0.1');
@@ -109,6 +97,13 @@ function roles_admin_modifyconfig()
 
             $data['hooks'] = $hooks;
 
+            //check for roles hook in case it's set independently elsewhere
+            if (xarModIsHooked('roles', 'roles')) {
+                xarModSetVar('roles','usereditaccount',true);
+            } else {
+                xarModSetVar('roles','usereditaccount',false);
+            }
+
             break;
 
         case 'update':
@@ -117,12 +112,15 @@ function roles_admin_modifyconfig()
             switch ($data['tab']) {
                 case 'general':
                     if (!xarVarFetch('itemsperpage', 'str:1:4:', $itemsperpage, '20', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
-                    if (!xarVarFetch('defaultauthmodule', 'str:1:', $defaultauthmodule, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+                    if (!xarVarFetch('defaultauthmodule', 'str:1:', $defaultauthmodule, xarModGetIDFromName('authsystem'), XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+                    if (!xarVarFetch('defaultregmodule', 'str:1:', $defaultregmodule, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     if (!xarVarFetch('shorturls', 'checkbox', $shorturls, false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('siteadmin', 'int:1', $siteadmin, xarModGetVar('roles','admin'), XARVAR_NOT_REQUIRED)) return;
 
                     xarModSetVar('roles', 'itemsperpage', $itemsperpage);
                     xarModSetVar('roles', 'defaultauthmodule', $defaultauthmodule);
+                    xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);
+                    xarModSetVar('roles', 'defaultgroup', $defaultgroup);
                     xarModSetVar('roles', 'SupportShortURLs', $shorturls);
                     xarModSetVar('roles', 'admin', $siteadmin);
                 case 'hooks':
@@ -139,9 +137,30 @@ function roles_admin_modifyconfig()
                     break;
                 case 'memberlist':
                     if (!xarVarFetch('searchbyemail', 'checkbox', $searchbyemail, false, XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('displayrolelist', 'checkbox', $displayrolelist, false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('usersendemails', 'checkbox', $usersendemails, false, XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('usereditaccount', 'checkbox', $usereditaccount, true, XARVAR_NOT_REQUIRED)) return;
+
                     xarModSetVar('roles', 'searchbyemail', $searchbyemail);
                     xarModSetVar('roles', 'usersendemails', $usersendemails);
+                    xarModSetVar('roles', 'displayrolelist', $displayrolelist);
+                    xarModSetVar('roles', 'usereditaccount', $usereditaccount);
+
+                    if ($usereditaccount) {
+                        //check and hook Roles to roles if not already hooked
+                         if (!xarModIsHooked('roles', 'roles')) {
+                         xarModAPIFunc('modules','admin','enablehooks',
+                                 array('callerModName' => 'roles',
+                                       'hookModName' => 'roles'));
+                         }
+                    } else {
+                         //unhook roles from roles
+                         if (xarModIsHooked('roles', 'roles')) {
+                         xarModAPIFunc('modules','admin','disablehooks',
+                                 array('callerModName' => 'roles',
+                                       'hookModName' => 'roles'));
+                         }
+                   }
                     break;
             }
 
@@ -161,14 +180,20 @@ function roles_admin_modifyconfig()
                     foreach ($duvarray as $duv) {
                         if (!xarVarFetch($duv, 'int', $$duv, null, XARVAR_DONT_SET)) return;
                         if (isset($$duv)) {
-                            if ($$duv) xarModSetVar('roles',$duv,1);
-                            else xarModSetVar('roles',$duv,0);
+                            if ($$duv) {
+                                xarModSetVar('roles',$duv,true);
+                                xarModSetVar('roles',$userduv,'');
+                            } else {
+                                xarModSetVar('roles',$duv,false);
+                            }
                         }
                     }
                     break;
                 }
         break;
     }
+
+
     $data['authid'] = xarSecGenAuthKey();
     return $data;
 }

@@ -1,20 +1,20 @@
 <?php
 /**
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamicdata module
+ * @subpackage Dynamic Data module
+ * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
-// TODO: move this to some common place in Xaraya (base module ?)
  * return the properties for an item
  *
- * @param $args array containing the items or fields to show
- * @returns array
+ * @param array $args array containing the items or fields to show
  * @return array containing a reference to the properties of the item
+ * @TODO: move this to some common place in Xaraya (base module ?)
  */
 function dynamicdata_userapi_getitemfordisplay($args)
 {

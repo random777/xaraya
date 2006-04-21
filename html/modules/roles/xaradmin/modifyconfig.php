@@ -78,7 +78,9 @@ function roles_admin_modifyconfig()
             $data['authid'] = xarSecGenAuthKey();
             $data['updatelabel'] = xarML('Update Roles Configuration');
             $hooks = array();
+
             switch ($data['tab']) {
+
                 case 'hooks':
                     // Item type 0 is the default itemtype for 'user' roles.
                     $hooks = xarModCallHooks('module', 'modifyconfig', 'roles',
@@ -96,6 +98,8 @@ function roles_admin_modifyconfig()
             }
 
             $data['hooks'] = $hooks;
+            $data['defaultauthmod'] = xarModGetVar('roles', 'defaultauthmodule');
+            $data['defaultregmod'] = xarModGetVar('roles', 'defaultregmodule');
 
             //check for roles hook in case it's set independently elsewhere
             if (xarModIsHooked('roles', 'roles')) {

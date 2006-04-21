@@ -216,7 +216,7 @@
                        <div class="xar-form-container-after">
                         <xar:foreach in="$realmoptions" key="$key" value="$value">
                             <p>
-                        <xar:mlstring>Security checks will match any privilege that contains the above choice in its realm</xar:mlstring>
+                            <xar:if condition="$realmvalue eq $value['id']">
                             <xar:if condition="$realmvalue eq $value['id']">
                                 <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue" checked="checked" /> #xarML($value['name'])#
                             <xar:else />
@@ -242,7 +242,6 @@
                             <xar:mlstring>
                                 Realm Comparison Type
                             </xar:mlstring>
-                        </label>
                         </label>
                         <xar:set name="options">array(
                                                 array('id' => 'exact', 'name' => 'Exact Match'),

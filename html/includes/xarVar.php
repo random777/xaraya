@@ -1153,9 +1153,9 @@ function xarVarPrepForOS()
     static $special_characters = array(':'  => ' ',   // for things like c:/file.txt?
                                        //'/'  => ' ', // this makes vars with relative paths unusable (cfr. bug 5559 )
                                        '\\' => ' ',   // for unc paths?
-                                       '..' => ' ',
+                                       '..' => ' ',   
                                        '?'  => ' ',   // why?
-                                       '*'  => ' ');
+                                       '*'  => ' ');  
 
     $args = func_get_args();
 

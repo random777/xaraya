@@ -59,11 +59,11 @@ function roles_user_usermenu($args)
             $uid = xarUserGetVar('uid');
             $email = xarUserGetVar('email');
             $role = xarUFindRole($uname);
-            $home = $role->getHome();
+            $home = xarModGetUserVar('roles','userhome');// now user var not 'duv'. $role->getHome();
             $authid = xarSecGenAuthKey();
             $submitlabel = xarML('Submit');
             $item['module'] = 'roles';
-            $upasswordupdate = $role->getPasswordUpdate();
+            $upasswordupdate = xarModGetUserVar('roles','passwordupdate');//now user var not 'duv'. $role->getPasswordUpdate();
             $item['itemtype'] = ROLES_USERTYPE;
 
             $hooks = xarModCallHooks('item','modify',$uid,$item);

@@ -285,6 +285,8 @@ function roles_upgrade($oldVersion)
             } else {
                 throw Exception('I could not load the authentication module. Please make it available and try again');
             }
+            xarModSetVar('roles', 'displayrolelist',false);
+            xarModSetVar('roles', 'usereditaccount', true);
             break;
         case '1.1.1':
         	$roles_objects = array('role','user','group');

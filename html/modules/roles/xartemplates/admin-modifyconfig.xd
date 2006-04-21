@@ -183,7 +183,7 @@
                             Default Authentication Module 
                         </xar:mlstring>
                     </label>
-                    <xar:set name="defaultauthmodule">xarModGetVar('roles','defaultauthmodule')</xar:set>
+                    <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmod" />
                     <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmodule" />
                 </div>
                 <div class="xar-form-input-wrapper">
@@ -192,7 +192,7 @@
                             Registration:
                         </xar:mlstring>
                     </label>
-                    <xar:set name="defaultregmodule">xarModGetVar('roles','defaultregmodule')</xar:set>
+                    <xar:data-input type="module" name="defaultregmodule" class="Registration" value="$defaultregmod" />
                     <xar:data-input type="module" name="defaultregmodule" class="Registration" value="$defaultregmodule" />
                 </div>
             </fieldset>
@@ -311,7 +311,7 @@
                                 passwordupdate
                             </td>
                             <td style="width: 400px">
-                                <xar:mlstring>The date the last time this role's password was changed.</xar:mlstring>
+                                <xar:mlstring>The date and time this role's password was last changed.</xar:mlstring>
                             </td>
                             <td style="width: 50px; text-align: center;">
                                 <xar:if condition="xarModGetVar('roles','passwordupdate')">
@@ -325,6 +325,7 @@
                                 </xar:if>
                             </td>
                         </tr>
+                        <xar:comment> jojodee : this seems redundant to me. We can create and use a timezone DD property for the role.
                         <tr>
                             <td style="width: 100px">
                                 timezone
@@ -343,6 +344,7 @@
                                 </xar:if>
                             </td>
                         </tr>
+                        </xar:comment>
                     </table>
                 </fieldset>
                 <fieldset>

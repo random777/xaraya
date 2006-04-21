@@ -270,10 +270,10 @@
                                     <img src="#xarTplGetImage('set1/none.png')#" alt="#xarML('n/a')#" />
                                 </xar:if>
                             <xar:else />
-
-                                <a href="#$modinfo['infourl']#">
-                                    <xar:mlstring>Info</xar:mlstring>
-                                </a>
+                                <a href="#$modinfo['infourlnew']#&amp;theme=print" onclick="window.open(this.getAttribute('href'));return false;">
+                                    <xar:mlstring>
+                                        Info
+                                    </xar:mlstring>
                                 </a>
                                 <noscript>
                                     <a href="#$modinfo['infourl']#">

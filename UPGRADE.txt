@@ -177,21 +177,24 @@ VERSION CHANGES - Please check and update your installation where necessary
 
    1.0.2 -> 1.1
        1) Roles module was split into Registration module, Authentication and Roles
-          There are now default login templates in Authsystem module, and special
-          login templates with registration links in the Registration module
+          There are now default login templates in Authsystem module.
+          Registration contains registration links.
        2) The Dashboard template now uses the page template dashboard.xt by default
           instead of admin.xt, but can be specified. This config var has moved to Themes module.
           The admin.xt page template is now able to be overridden using usual xaraya override logic,
           and can be used to customize specific admin module pages.
-       3) The adminpanels module has been removed. You may have to make changes for 
+       3) The Adminpanels module has been removed. You may have to make changes for
           specific blocks that have also been moved:
-          a) adminmenu block: 
+          a) adminmenu block and waiting content block:
              - any instances in templates should now be changed to
              'base' module instead of 'adminpanel' in the block tags
-             - make sure you copy any templates from your theme in the themes/yourtheme/modules/adminpanel[/blocks]
-               to themes/yourtheme/modules/base[/blocks]
+             - make sure you copy any templates from your theme in the 
+               themes/yourtheme/modules/adminpanel[/blocks] to themes/yourtheme/modules/base[/blocks]
           b) waiting content block:
-             you will have to add hooks for base module and articles rather than adminpanel and articles
+             you will need to hooks for example, articles to base module rather than to adminpanels module
+       4) The country listing dynamic data property has been updated to store the id rather than the name 
+          in the country list. You may need to override the showinput-countrylist property template to 
+          continue using name as the value if you have been using this property.
 
    DB Changes between versions
    ----------------------------------------------------
@@ -218,7 +221,10 @@ VERSION CHANGES - Please check and update your installation where necessary
      1.0.1 -> 1.0.2 None
      1.0.2 -> 1.1.0  _admin_menu table was dropped
                      AdminPanel module is dropped
-                         - adminpanel menu block is moved to Base
+                         - adminpanel menu block is moved to Base.
+                           Update your template adminpanel blocks to use base module
+                           and any theme overrides in your adminpanel blocks directory 
+                           should be moved to base blocks
                          - waiting content menu block is moved to Base
                      Dashboard module var setting is moved to Themes module
                      Module Overview modvar setting has been removed and deprecated.

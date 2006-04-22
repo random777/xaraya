@@ -46,14 +46,44 @@
 
       <para>If you find that you need a service or application that is not
       available yet in Xaraya, you can decide to create a module. This guide
-      will show the details of how to create a module.</para>
+      will show the details of how to create a module in the first section of
+      the document. Developing for the Core of Xaraya is also possible, and is
+      explained in section XX.</para>
     </section>
 
     <section>
       <title>Core</title>
 
-      <para>The core serves all the services you will need in
-      extensions.</para>
+      <para>The core serves all the services you will need in extensions. Core
+      development is done by the core developers. Currently core development
+      focusses on two main lines: </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Maintaining a stable branch, which is at present is released
+          as Xaraya Core 1.x</para>
+        </listitem>
+
+        <listitem>
+          <para>Creating new development, based on PHP5 and Creole in the
+          Xaraya Core 2 branch.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The main guidelines for development are given in a collection of
+      RFC documents. These can be found in the documentation section of the
+      Xaraya website.</para>
+
+      <section>
+        <title>Revision system: monotone</title>
+
+        <para>Xaraya uses the revision software monotone (<ulink
+        url="???">http://www.venge.net/monotone)</ulink>. The development is
+        done in branches. Xaraya offers an online view of the monotone
+        repositories via <ulink url="???">http://mt.xaraya.com/</ulink>.
+        Whenever a change is commited, an email is generated in the monotone
+        mailinglist (mt-notices). </para>
+      </section>
     </section>
   </section>
 </chapter>

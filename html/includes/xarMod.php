@@ -208,6 +208,9 @@ function xarModDelAllVars($modName)
 
     $modBaseInfo = xarMod_getBaseInfo($modName);
 
+    $dbconn =& xarDBGetConn();
+    $tables =& xarDBGetTables();
+
         // Takes the right table basing on module mode
     $module_varstable     = $tables['module_vars'];
     $module_itemvarstable = $tables['module_itemvars'];

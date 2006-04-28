@@ -1,0 +1,13 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="tabdata">
+    array(
+        'tabs' => array(
+            array('mask' => 'AdminMail', 'includes' => 'compose', 'target' => 'compose', 'title' => xarML('Test Configuration')),
+            array('mask' => 'AdminMail', 'includes' => 'view', 'target' => 'view', 'title' => xarML('Queue Management')),
+            array('mask' => 'AdminMail', 'includes' => 'template', 'target' => 'template', 'title' => xarML('Notification Template')),
+            array('mask' => 'AdminMail', 'includes' => 'modifyconfig', 'target' => 'modifyconfig', 'title' => xarML('Modify Config')),
+            array('includes' => array('main','overview'), 'target' => 'overview', 'title' => xarML('Overview'))
+   )
+        )
+</xar:set>
+<xar:template type="module" module="base" file="admin-menu-skel" subdata="$tabdata" />

@@ -1,4 +1,5 @@
-<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html 
+</xar:comment>
 <xar:if condition="!empty($class)">
 <xar:elseif condition="empty($rows)"/>
     <xar:set name="class">'xar-form-textareamedium'</xar:set>
@@ -38,9 +39,8 @@ textarea#'.$id.' {
     max-width: 99%;
     width: '. $cols.'em;
     height: '. ($rows * 1.6) .'em;
-}
+-->
 "</xar:set>
-'</xar:set>
 <xar:style method="embed" source="'.$textareasource.'" media="all" />
 <div class="xar-form-container-after">
     <textarea name="#$name#" rows="#$rows#" cols="#$cols#" id="#$id#" tabindex="#$tabindex#" class="#$class#">#$value#</textarea>

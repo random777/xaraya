@@ -61,23 +61,7 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
 
         return true;
     }
-        }
-        return xarTplProperty('base', $template, 'showinput', $data);
-        if (isset($value)) $data['value']=$this->value;
-        if (!isset($template) || empty($template)) {
-            $template = 'countrylist';
-         return xarTplProperty('base', $template, 'showoutput', $data);
-    }
-   /**
-    * Country list according to ISO 3166
-    *
-    * @author jojodee
-    * Updated 2005-10-15 with ISO 3166 country codes
-    * Credit to Pedro Innecco for corrections and updates
-    */
-   function getOptions()
-   {
-}
+
    /**
     * Country list according to ISO 3166
     *

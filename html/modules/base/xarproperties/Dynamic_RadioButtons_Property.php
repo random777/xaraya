@@ -39,5 +39,11 @@ class Dynamic_RadioButtons_Property extends Dynamic_Select_Property
 
         return $info;
     }
+
+    function showOutput($data = array())
+    {
+        $this->template  = 'dropdown';
+        return parent::showOutput($data);
+    }
 }
 ?>

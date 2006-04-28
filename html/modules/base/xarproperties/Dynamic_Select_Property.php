@@ -90,14 +90,13 @@ class Dynamic_Select_Property extends Dynamic_Property
         if(!isset($data['onchange'])) $data['onchange'] = null; // let tpl decide what to do
         $data['extraparams'] =!empty($extraparams) ? $extraparams : "";
         return parent::showInput($data);
-        $data['onchange'] = isset($onchange) ? $onchange : null; // let tpl decide what to do
     }
 
     function showOutput($data = array())
     {
         extract($data);
         if (isset($data['value'])) $this->value = $data['value'];
-        
+
         // get the option corresponding to this value
         $result = $this->getOption();
         // only apply xarVarPrepForDisplay on strings, not arrays et al.

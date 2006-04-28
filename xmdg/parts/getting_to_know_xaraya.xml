@@ -9,12 +9,29 @@
   <section>
     <title>Your Xaraya installation</title>
 
-    <para></para>
+    <para>You have probably already downloaded a version of Xaraya and played
+    around. If you haven't, well: let's give it a try!</para>
+
+    <para>Download the base distribution and do an install for a public site.
+    Install all shipped modules and stick to the basic theme (Xaraya_Classic).
+    This will give a nice overview of the possibilities of Xaraya.</para>
 
     <section>
       <title>Files and their locations</title>
 
-      <para></para>
+      <para>You can browse around in the Xaraya directory structure. You will
+      first find some basic directories, but when you look further you can
+      encounter several paths that you wouldn't normally see in a for instance
+      static website.</para>
+
+      <para>The Xaraya core is placed in /includes, /var, /xaradodb, /themes
+      and ...</para>
+
+      <para>The directory /modules hold all the extensions (modules). Make
+      sure you have articles, categories, dynamicdata and example in there.
+      There are more, but we will mention these in this guide. The module
+      example is the important example module that will serve as a template
+      for our module later on.</para>
     </section>
   </section>
 
@@ -60,7 +77,7 @@
       hard), you will see the enormous power.</para>
 
       <para>Xaraya uses hooks to let parts of the installation talk to other
-      parts. The Site Admin can decide which hooks to allow. </para>
+      parts. The Site Admin can decide which hooks to allow.</para>
     </section>
 
     <section>

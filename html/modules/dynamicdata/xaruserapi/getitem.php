@@ -86,13 +86,13 @@ function &dynamicdata_userapi_getitem($args)
 
     // limit to property fields of a certain status (e.g. active)
     if (!isset($status)) $status = null;
-   
+
     // join a module table to a dynamic object
     if (empty($join)) $join = '';
-    
+
     // make some database table available via DD
     if (empty($table)) $table = '';
-    
+
     $tree = xarModAPIFunc('dynamicdata','user', 'getancestors', array('moduleid' => $modid, 'itemtype' => $itemtype, 'base' => false));
     $objectarray = $itemsarray = array();
 	foreach ($tree as $branch) {
@@ -124,8 +124,10 @@ function &dynamicdata_userapi_getitem($args)
 		}
 	}
     // FIXME: this wont work now, since apparently we would need to loop over the objectarray?
-    $objectData = $object->getFieldValues();
-    return $objectData;
+    //ML: no, need to merge the objects into one
+//    $objectData = $object->getFieldValues();
+//    return $objectData;
+	return $object;
 }
 
 ?>

@@ -127,12 +127,6 @@ function xarMain()
               if (!xarTplSetPageTemplateName($dashtemplate.'-'.$modName)) {
                 xarTplSetPageTemplateName($dashtemplate);
             }
-        }elseif ($modType == 'admin' && xarTplGetPageTemplateName() == 'default') {
-             // Use the admin-$modName.xt page if available when $modType is admin
-            // falling back on admin.xt if the former isn't available
-            if (!xarTplSetPageTemplateName('admin-'.$modName)) {
-                xarTplSetPageTemplateName('admin');
-            }
         }
 
         xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);

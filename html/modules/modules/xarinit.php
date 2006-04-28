@@ -252,8 +252,9 @@ function modules_activate()
     if (empty($selsort)) xarModSetVar('modules', 'selsort', 'nameasc');
 
     // New here in 2.x series
-    xarModSetVar('modules', 'disableoverview',0);
     xarModSetVar('modules', 'usedashboard',0);
+    xarModSetVar('modules', 'disableoverview',0);
+    xarModSetVar('modules', 'enabletopadminmenu',0);
 
     // Register the blocks here, since this is the earlies point we can do it
     // Register blocks
@@ -285,7 +286,7 @@ function modules_upgrade($oldVersion)
     case '2.3.0':
         // 1.0 version, add upgrade code to 2.x here
         // - hooks: removed columns smodule, tmodule in xar_hooks, made them smodid and tmodid
-        // - module states: table removed 
+        // - module states: table removed
     case '2.4.0':
         //current version
     }

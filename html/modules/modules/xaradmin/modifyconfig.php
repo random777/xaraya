@@ -30,8 +30,8 @@ function modules_admin_modifyconfig()
 
     // Disable the overview pages?
     $data['disableoverview'] = xarModGetVar('modules', 'disableoverview');
-    // Dashboard
-    $data['dashboard']              = xarModGetVar('modules', 'usedashboard');
+    // Admin menu
+    $data['enabletopadminmenu']     = xarModGetVar('modules', 'enabletopadminmenu');
     // everything else happens in Template for now
     return $data;
 }

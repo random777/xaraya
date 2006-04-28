@@ -46,11 +46,12 @@ function roles_user_main()
     //When we have better guidelines for authmodules this would be  a good option
     //to have their own login forms. Some do now but only as a block which makes it hacky.
 
+	$regmodule = xarModGetVar('roles', 'defaultregmodule');
 	if (xarUserIsLoggedIn()) {
 	   xarResponseRedirect(xarModURL('roles',
 									 'user',
 									 'account'));
-	} elseif ($allowregistration != true || empty($regmodule)) {
+	} elseif (empty($regmodule)) {
 		xarResponseRedirect(xarModURL($authmodule,
 									  'user',
 									  'showloginform'));

@@ -98,8 +98,8 @@ function roles_admin_modifyconfig()
             }
 
             $data['hooks'] = $hooks;
-            $data['defaultauthmod'] = xarModGetVar('roles', 'defaultauthmodule');
-            $data['defaultregmod'] = xarModGetVar('roles', 'defaultregmodule');
+            $data['defaultauthmodule'] = xarModGetVar('roles', 'defaultauthmodule');
+            $data['defaultregmodule'] = xarModGetVar('roles', 'defaultregmodule');
 
             //check for roles hook in case it's set independently elsewhere
             if (xarModIsHooked('roles', 'roles')) {

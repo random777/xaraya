@@ -77,16 +77,11 @@
                         <label title="#xarML('Type of Role')#" class="xar-form-label">
                             <xar:mlstring>Type:</xar:mlstring>
                         </label>
-                    #$itemtypename#
+                        #$itemtypename#
                         <xar:comment>
                             value should still be there in the form, otherwise validation will fail,
                             do it with a hidden input now, but this should really be done with readonly attribute
                         </xar:comment>
-                        <input type="hidden" name="itemtype" value="#$itemtype#" />
-                            <input type="text" name="ptypedisplay" value="#xarML('Group')#" disabled="disabled" />
-                        <xar:else />
-                            <input type="text" name="ptypedisplay" value="#xarML('User')#" disabled="disabled" />
-                        </xar:if>
                     </div>
                 <xar:else />                
                     <div class="xar-form-input-wrapper">
@@ -99,48 +94,27 @@
                     </div>
                 </xar:if>
 
-            <xar:if condition="$basetype eq ROLES_USERTYPE">
-               <xar:if condition="xarModGetVar('roles','userhome')">
-                    <div class="xar-form-input-wrapper">
-                        <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
-                            <xar:mlstring>Home:</xar:mlstring>
-                        </label>
-                        <input type="text" name="phome" id="phome" value="#xarVarPrepForDisplay($phome)#" size="40" maxlength="100" tabindex="7" />
-                    </div>
-                </xar:if>                        
-                <xar:if condition="xarModGetVar('roles','primaryparent')">
-                    <div class="xar-form-input-wrapper">
-                        <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
-                            <xar:mlstring>Primary Group:</xar:mlstring>
-                        </label>
-                        <xar:data-input type="grouplist" name="pprimaryparent" id="pprimaryparent" value="$pprimaryparent" tabindex="8"/>
-                    </div>
-                </xar:if>                        
-
-                <xar:if condition="xarModGetVar('roles','setuserhome')">
-                    <div class="xar-form-input-wrapper">
-                        <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
-                            <xar:mlstring>Home:</xar:mlstring>
-                        </label>
-                        <input type="text" name="phome" id="phome" value="#xarVarPrepForDisplay($phome)#" size="40" maxlength="100" tabindex="7" />
-                        <p class="xar-form-input-wrapper-after">
-                            <xar:mlstring>You can use the module shortcut syntax available in the Base user menu block.</xar:mlstring>
-                        </p>
-                    </div>
-                </xar:if>
-                <xar:if condition="xarModGetVar('roles','setprimaryparent')">
-                    <div class="xar-form-input-wrapper">
-                        <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
-                            <xar:mlstring>Primary Group:</xar:mlstring>
-                        </label>
-                        <xar:data-input type="grouplist" name="pprimaryparent" id="pprimaryparent" value="$pprimaryparent" tabindex="8"/>
-                    </div>
-                </xar:if>                        
-
-                    <p class="xar-clearboth">
-                        <xar:mlstring>The fields below only apply for Users.</xar:mlstring>
-                    </p>
-                    
+                <p class="xar-clearboth">
+                    <xar:mlstring>The fields below only apply for Users.</xar:mlstring>
+                </p>
+                <xar:if condition="$basetype eq ROLES_USERTYPE">
+                   <xar:if condition="xarModGetVar('roles','userhome')">
+                        <div class="xar-form-input-wrapper">
+                            <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
+                                <xar:mlstring>Home:</xar:mlstring>
+                            </label>
+                            <input type="text" name="phome" id="phome" value="#xarVarPrepForDisplay($phome)#" size="40" maxlength="100" tabindex="7" />
+                        </div>
+                    </xar:if>                        
+                    <xar:if condition="xarModGetVar('roles','primaryparent')">
+                        <div class="xar-form-input-wrapper">
+                            <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
+                                <xar:mlstring>Primary Group:</xar:mlstring>
+                            </label>
+                            <xar:data-input type="grouplist" name="pprimaryparent" id="pprimaryparent" value="$pprimaryparent" tabindex="8"/>
+                        </div>
+                    </xar:if>                        
+                                    
                     <div class="xar-form-input-wrapper">
                         <label for="puname" title="#xarML('Name used for user log on')#" class="xar-form-label">
                             <xar:mlstring>User Name:</xar:mlstring>
@@ -203,7 +177,7 @@
                         </label>
                         #xarLocaleGetFormattedDate('medium', $upasswordupdate)# #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
                     </div>
-                    </xar:if>
+                </xar:if>
                 </xar:if>
 
                 <xar:if condition="!empty($hooks) and count($hooks) gt 0">

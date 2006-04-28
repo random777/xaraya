@@ -65,7 +65,6 @@ function roles_admin_addrole()
         if(xarModGetVar('roles','uniqueemail')) {
             $user = xarModAPIFunc('roles','user', 'get', array('email' => $pemail));
             if ($user != false) throw new DuplicateException(array('email',$pemail));
-            }
         }
         // TODO: Replace with DD property type check.
         // check for valid email address
@@ -121,5 +120,6 @@ function roles_admin_addrole()
     } else {
         xarResponseRedirect(xarModURL('roles', 'admin', 'modifyrole',array('uid' => $uid)));
     }
+return true;
 }
 ?>

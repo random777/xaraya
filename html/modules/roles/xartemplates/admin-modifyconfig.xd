@@ -183,7 +183,6 @@
                             Default Authentication Module 
                         </xar:mlstring>
                     </label>
-                    <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmod" />
                     <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmodule" />
                 </div>
                 <div class="xar-form-input-wrapper">
@@ -192,7 +191,6 @@
                             Registration:
                         </xar:mlstring>
                     </label>
-                    <xar:data-input type="module" name="defaultregmodule" class="Registration" value="$defaultregmod" />
                     <xar:data-input type="module" name="defaultregmodule" class="Registration" value="$defaultregmodule" />
                 </div>
             </fieldset>

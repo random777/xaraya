@@ -488,7 +488,7 @@ class xarMasks
         // check if the exception needs to be caught here or not
         if ($catch && !$pass) {
             if (xarModGetVar('privileges','exceptionredirect')) {
-                xarResponseRedirect(xarModURL('authsystem','user','showloginform'));
+                 xarResponseRedirect(xarModURL('authsystem','user','showloginform'));
             } else {
                 $msg = xarML('No privilege for #(1)',$mask->getName());
                 throw new Exception($msg);

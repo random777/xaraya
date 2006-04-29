@@ -490,7 +490,6 @@ class xarMasks
             if (xarModGetVar('privileges','exceptionredirect')) {
                 //authsystem will handle the authentication module
                 xarResponseRedirect(xarModURL('authsystem','user','showloginform'));
-                xarResponseRedirect(xarModURL('roles','user','register'));
             } else {
                 $msg = xarML('No privilege for #(1)',$mask->getName());
                 throw new Exception($msg);

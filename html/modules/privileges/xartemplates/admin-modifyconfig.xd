@@ -214,16 +214,7 @@
                                                 </xar:set>
 
                        <div class="xar-form-container-after">
-                        <xar:foreach in="$realmoptions" key="$key" value="$value">
-                            <p>
-                            <xar:if condition="$realmvalue eq $value['id']">
-                            <xar:if condition="$realmvalue eq $value['id']">
-                                <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue" checked="checked" /> #xarML($value['name'])#
-                            <xar:else />
-                                <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue" /> #xarML($value['name'])#
-                            </xar:if>
-                            </p>
-                        </xar:foreach>
+                            <xar:data-input type="radio" value="$realmvalue" name="realmvalue" options="$realmoptions" />
                         </div>
 
                     </div>
@@ -249,15 +240,7 @@
                                                 </xar:set>
                         <xar:set name="realmcomparison">xarModGetVar('privileges', 'realmcomparison')</xar:set>
                          <div class="xar-form-container-after">
-                        <xar:foreach in="$options" key="$key" value="$value">
-                            <p>
-                            <xar:if condition="$realmcomparison eq $value['id']">
-                                <input type="radio" value="#$value['id']#" name="realmcomparison" id="realmvalue" checked="checked" /> #xarML($value['name'])#
-                            <xar:else />
-                                <input type="radio" value="#$value['id']#" name="realmcomparison" id="realmvalue" /> #xarML($value['name'])#
-                            </xar:if>
-                            </p>
-                        </xar:foreach>
+                            <xar:data-input type="radio" value="$realmcomparison" name="realmcomparison" options="$options" />
                         </div>                      
                         <p class="xar-form-input-wrapper-after">
                             <xar:mlstring>A realm is accepted if the user's privilege contains its name</xar:mlstring>

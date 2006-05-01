@@ -305,10 +305,12 @@
       be created with the name of your module as registered at the Xaraya
       modules site.</para>
 
-      <para>Copy the Module Example Copy over all of the files from the
-      example module directory into you newly created module directory. These
-      files set up the basic structure for your module and allow you to get to
-      work creating your module very quickly.</para>
+      <para>Copy the Module Example </para>
+
+      <para>Copy over all of the files from the example module directory into
+      you newly created module directory. These files set up the basic
+      structure for your module and allow you to get to work creating your
+      module very quickly.</para>
     </section>
 
     <section>
@@ -441,12 +443,15 @@
       <para>Documenting your module is a vital step. There are two areas your
       module needs documentation: user information and API information. The
       first area is covered by producing a manual and placing it in the
-      appropriate place in the directory hierarchy. The second area by writing
-      a short description of each API function, noting the parameters and
-      return values that it has, and placing that at the head of the function.
-      Coding the documentation in the style of PHPDoc will allow for automatic
-      parsing of the documentation by other developers who wish to use your
-      module.</para>
+      appropriate place in the directory hierarchy, and adding it to the
+      documentation section on Xaraya.com. There you will find the section for
+      manuals. </para>
+
+      <para>The second area -API- is covered by writing a short description of
+      each API function, noting the parameters and return values that it has,
+      and placing that at the head of the function. Coding the documentation
+      in the style of PHPDoc will allow for automatic parsing of the
+      documentation by other developers who wish to use your module.</para>
 
       <para>Packaging Your Module</para>
 

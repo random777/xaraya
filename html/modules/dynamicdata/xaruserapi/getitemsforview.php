@@ -29,11 +29,14 @@ function dynamicdata_userapi_getitemsforview($args)
     }
     $properties = array();
     $items = array();
-    foreach ($objects as $object) {
+    foreach ($objects as $key => $object) {
 		$properties = array_merge($properties,  $object->getProperties());
-		$items = array_merge($items,  $object->items);
+		list($key,$value) = each($object->items);
+		$items = array_merge($items,  $value);
     }
+    $items = array($key => $items);
     return array(& $properties, & $items);
 }
 
 ?>
+

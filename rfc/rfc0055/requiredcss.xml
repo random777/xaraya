@@ -5,6 +5,7 @@
     integrate well with any Blocklayout theme. Blocklayout themes must
     define all of these classes.
   </t>
+  <ed:del>
   <t>
     The first group is standard classes. Selectors here will be applied to
     every instance of a tag, unless overridden by a more specific class.
@@ -47,11 +48,18 @@
         admittedly the most common output format. Still I think
         it's a mistake in the spec.
       </ed:item>
+      <ed:item date="2006-05-06" entered-by="mrb">
+        Thinking about it, the specification of the blocklayout templating engine
+        should probably be decoupled from the CSS (or other styling) specification. 
+        The process of styling output has enough complexity to warrant its own
+        specification, especially since BL growing more output agnostic on every iteration.
+      </ed:item>
     </ed:issue>
   </t>
+  </ed:del>
   <t>
     Next are individual classes, mostly related to tables. Unlike previous
-    versions, Blocklayout 1.1 relies on CSS inheritance to style
+    versions, Blocklayout relies on CSS inheritance to style
     individual tags; this makes many inidividual rules unnecessary.
     <list style="symbols">
       <t>TD.xar-norm</t>

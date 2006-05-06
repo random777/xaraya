@@ -42,7 +42,7 @@ index: $(SOURCES) $(IDXSOURCES)
 	mv $(xindex).tmp $(xindex).xml
 
 # How to produce a html file out of an xml file
-%.html: %.xml $(images)/$(*F)*.png $(xstyle) $(xdtd)
+%.html: %.xml $(images)/$(*F)*.png $(xstyle) $(xdtd) $(*F)/*
 	$(xsltproc) $(xpreprocess) $(*F).xml > $(*F).tmp
 	$(xsltproc) $(xstyle) $(*F).tmp > $(*F).html
 	rm $(*F).tmp

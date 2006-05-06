@@ -11,18 +11,119 @@
   <section>
     <title>A little history</title>
 
-    <para></para>
+    <para>Xaraya has its deep roots in PHPNuke, which was forked to Postnuke.
+    From Postnuke, a strong development team was formed that created Xaraya.
+    Xaraya was born in 2002, when the website www.xaraya.org was
+    registered.</para>
+
+    <para>Xaraya has evolved into an application framework. It is not just a
+    content management system, but provides the tools to create a web-based
+    application. This can be an intranet solution, but also a complete content
+    management system.</para>
   </section>
 
   <section>
     <title>The Framework</title>
 
-    <para></para>
+    <para>Xaraya is a framework. It is aimed at those, that want to create a
+    webapplication, much more than just a content management system or a
+    single use website. Xaraya offers a core system which manages the
+    interaction with the database, presents data in a viewable way and can
+    serve data to other applications. </para>
+
+    <para>Xaraya is a framework and therefore is inviting users to develop
+    their own tailor made applications. The framework provides the tools, the
+    developer only needs to have the idea what he/she wants.</para>
   </section>
 
   <section>
     <title>The development</title>
 
-    <para></para>
+    <para>Developing for Xaraya can be done in various areas. Some areas are
+    standard as that all webmasters will use the tools, other areas are for
+    teh more specialized users.</para>
+
+    <section>
+      <title>Templates</title>
+
+      <para>Everyone that starts with Xaraya will see that you will be
+      directed to the templates in the theme that you use. Templates are used
+      to display data. They dictate the way the data is shown.</para>
+
+      <para>Xaraya uses the blocklayout system. This system has its won
+      synthax, strongly related to PHP. Standard shippped templates can be
+      reckognised by the .xd extension. When you modify templates, you are
+      building a theme. This guide will not focus on the templates, but on the
+      modules and core that generate the data used in the blocklayout
+      templates.</para>
+    </section>
+
+    <section>
+      <title>Modules</title>
+
+      <para>If you find that you need a service or application that is not
+      available yet in Xaraya, you can decide to create a module. This guide
+      will show the details of how to create a module in the first section of
+      the document. Developing for the Core of Xaraya is also possible, and is
+      explained in section XX.</para>
+
+      <para>Modules are extensions to the core of Xaraya. They are built to
+      provide one specific service. This can be some type of data storage,
+      data handling or some other type of service. </para>
+
+      <para>Xaraya ships with several core and base modules. Core modules are
+      the ones that the core needs to communicate with the outside world. Base
+      modules are those used by the majority of website builders. Core and
+      base modules should be certified to work with the current core. The
+      coding is Xaraya compliant and they are compliant to the Security Xaraya
+      imposes.</para>
+
+      <para>There are a lot of modules besides the base ones. You can find
+      many of them in the monotone repository at mt.xaraya.com.</para>
+    </section>
+
+    <section>
+      <title>Core</title>
+
+      <para>The core serves all the services you will need in extensions. Core
+      development is done by the core developers. Currently core development
+      focusses on two main lines:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Maintaining a stable branch, which is at present is released
+          as Xaraya Core 1.x</para>
+        </listitem>
+
+        <listitem>
+          <para>Creating new development, based on PHP5 and Creole in the
+          Xaraya Core 2 branch.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The main guidelines for development are given in a collection of
+      RFC documents. These can be found in the documentation section of the
+      Xaraya website.</para>
+
+      <section>
+        <title>Revision system: monotone</title>
+
+        <para>Xaraya uses the revision software monotone (<ulink
+        url="???">http://www.venge.net/monotone)</ulink>. The core development
+        is done in branches in the core repository. Module extensions are
+        stored in the modules repository. The Xaraya website offers an
+        overview of the status of the various modules in the repository. Only
+        the ones that are certified to work will be shipped by the Xaraya team
+        in a Xarya distribution.</para>
+
+        <para>Currenty there are four repositories in total: the core,
+        modules, themes and languages repository. Each have a set of branches
+        in them. Xaraya offers an online view of the monotone repositories via
+        <ulink url="???">http://mt.xaraya.com/</ulink>. You can easily follow
+        the progress of development by subscribing to the monotone
+        notification mailinglist. Whenever a change is commited, an email is
+        generated in the monotone mailinglist (mt-notices).</para>
+      </section>
+    </section>
   </section>
 </chapter>

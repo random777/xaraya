@@ -32,6 +32,7 @@
 
   <authorgroup>
     <corpauthor>The Xaraya Documentation Team</corpauthor>
+
     <!-- Leave these for the moment
     <othercredit>
       <firstname>Scot</firstname>
@@ -51,6 +52,14 @@
 
   <revhistory>
     <revision>
+      <revnumber>2.0.3</revnumber>
+
+      <date>12 april 2006</date>
+
+      <revremark>Setting the contents of several paragraphs.</revremark>
+    </revision>
+
+    <revision>
       <revnumber>2.0.2</revnumber>
 
       <date>March 19, 2006</date>
@@ -66,7 +75,8 @@
       <revremark> Start on new Table of Contents. Start splitting the doc into
       Xaraya 1.0 compliant parts </revremark>
     </revision>
-<!--
+
+    <!--
     <revision>
       <revnumber>2.0</revnumber>
 

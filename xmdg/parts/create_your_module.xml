@@ -184,12 +184,7 @@
 
     <para>Choosing a Name for Your Module</para>
 
-    <para>Choosing a name for your module is important, as this is the main
-    way that your module will be known throughout the Xaraya community. The
-    name should relate to the functionality that the module provides, but also
-    be specific enough to be able to discern it from separate modules that
-    might offer similar functionality. Module names are case-sensitive. All
-    modules names are lower-case only.</para>
+    <para></para>
 
     <para>Decide on the Type of Your Module</para>
 
@@ -206,13 +201,7 @@
 
     <para>Register Your Module Name</para>
 
-    <para>Registering your module is not compulsory, but it is a very good
-    idea. By registering your module, you can ensure that no other official
-    Xaraya module will take the name that you have chosen for your module. Two
-    modules with the same name will not operate correctly on a single Xaraya
-    site, so it is beneficial to both yourself and the Xaraya community in
-    general to have a unique name. You may register your module via the
-    release module on <ulink url="???">http://www.xaraya.com/ </ulink></para>
+    <para></para>
 
     <para>Obtain a Copy of the Xaraya API Reference Guide</para>
 
@@ -316,10 +305,12 @@
       be created with the name of your module as registered at the Xaraya
       modules site.</para>
 
-      <para>Copy the Module Example Copy over all of the files from the
-      example module directory into you newly created module directory. These
-      files set up the basic structure for your module and allow you to get to
-      work creating your module very quickly.</para>
+      <para>Copy the Module Example </para>
+
+      <para>Copy over all of the files from the example module directory into
+      you newly created module directory. These files set up the basic
+      structure for your module and allow you to get to work creating your
+      module very quickly.</para>
     </section>
 
     <section>
@@ -452,12 +443,15 @@
       <para>Documenting your module is a vital step. There are two areas your
       module needs documentation: user information and API information. The
       first area is covered by producing a manual and placing it in the
-      appropriate place in the directory hierarchy. The second area by writing
-      a short description of each API function, noting the parameters and
-      return values that it has, and placing that at the head of the function.
-      Coding the documentation in the style of PHPDoc will allow for automatic
-      parsing of the documentation by other developers who wish to use your
-      module.</para>
+      appropriate place in the directory hierarchy, and adding it to the
+      documentation section on Xaraya.com. There you will find the section for
+      manuals. </para>
+
+      <para>The second area -API- is covered by writing a short description of
+      each API function, noting the parameters and return values that it has,
+      and placing that at the head of the function. Coding the documentation
+      in the style of PHPDoc will allow for automatic parsing of the
+      documentation by other developers who wish to use your module.</para>
 
       <para>Packaging Your Module</para>
 

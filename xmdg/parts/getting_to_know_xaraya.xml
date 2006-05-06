@@ -9,12 +9,29 @@
   <section>
     <title>Your Xaraya installation</title>
 
-    <para></para>
+    <para>You have probably already downloaded a version of Xaraya and played
+    around. If you haven't, well: let's give it a try!</para>
+
+    <para>Download the base distribution and do an install for a public site.
+    Install all shipped modules and stick to the basic theme (Xaraya_Classic).
+    This will give a nice overview of the possibilities of Xaraya.</para>
 
     <section>
       <title>Files and their locations</title>
 
-      <para></para>
+      <para>You can browse around in the Xaraya directory structure. You will
+      first find some basic directories, but when you look further you can
+      encounter several paths that you wouldn't normally see in a for instance
+      static website.</para>
+
+      <para>The Xaraya core is placed in /includes, /var, /xaradodb, /themes
+      and ...</para>
+
+      <para>The directory /modules hold all the extensions (modules). Make
+      sure you have articles, categories, dynamicdata and example in there.
+      There are more, but we will only mention these in this guide. The module
+      example is the important example module that will serve as a template
+      for our module later on.</para>
     </section>
   </section>
 
@@ -31,13 +48,18 @@
     <section>
       <title>Core API</title>
 
-      <para></para>
+      <para>Xaraya cannot live without the core. The core is there to do all
+      basic operations in your installation. It provides services we need like
+      the interaction with the database, generating the actual pages we see in
+      a webbrowser, deal with security and many other basic tasks.</para>
     </section>
 
     <section>
       <title>Modules</title>
 
-      <para></para>
+      <para>Modules are extensions that you can plug into the core. They act
+      like little programs themselves. Modules can communicate with the core
+      and with eachother via hooks.</para>
     </section>
 
     <section>
@@ -49,13 +71,36 @@
     <section>
       <title>Themes</title>
 
-      <para></para>
+      <para>Themes are the skins in Xaraya. A theme is a collection of
+      templates and css files that uses blocklayout to generate the final
+      pages users will see. You can add multiple themes to Xaraya, eg have
+      your own theme and the print theme. </para>
     </section>
 
     <section>
       <title>Hooks</title>
 
-      <para></para>
+      <para>Hooks are one of the nice key features of Xaraya. You will need
+      some time to dive into the subject, but once mastered (and it's not that
+      hard), you will see the enormous power.</para>
+
+      <para>Xaraya uses hooks to let parts of the installation talk to other
+      parts. The Site Admin can decide which hooks to allow in which case. The
+      hooks are called at the main actions in a module. Eg, when a new item is
+      created, the new item hook is called. The module that calls the hooks
+      doesn't need to know in advance what hooks it will call, but just does
+      the call. The responding modules get information about the new item and
+      can take their actions.</para>
+
+      <para>An example: When you have a module that will let the admin create
+      new items (see the example module: admin-new), it is a good thing to
+      call the new item hooks. This way, a module like dynamic data can show
+      fields in the new item form that you don't need to program in there in
+      advance. When the form is submitted to create the item, the function
+      will call the create hook, which will send the data to the hooked
+      modules. In the case of dynamic data, the create hook will store the
+      data from the added fields together with information to which item the
+      data is hooked.</para>
     </section>
 
     <section>
@@ -79,7 +124,13 @@
     <section>
       <title>Custom tags</title>
 
-      <para></para>
+      <para>You can create your own tags that can be used in templates (in
+      themes). These tags can be very usefull when you have created something
+      that you want to add to a page easily.</para>
+
+      <para>Normally, data can be shown when it is passed by the function. A
+      tag can always be called and should be available throughout the
+      installation.</para>
     </section>
   </section>
 </chapter>

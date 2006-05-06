@@ -1,0 +1,37 @@
+Release notes for Xaraya core release 1.1
+
+Release 1.1 (only relevant changes from 1.0.2 onwards included here)
+
+Possible incompatible changes:
+	* Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+      Please ensure you check UPGRADE.txt for major
+      changes that may affect your templates and user registration.
+
+Major changes:
+   *  Separation of authentication (login/logout) and user registration from the Roles 
+      module into Authsystem and Registration module respectively
+   *  Deprecation and removal of the Adminpanels module with the Adminpanel 
+      menu block and Waiting Content block moved to Base module
+   *  Addition of Realms management from the Admin GUI and configurable
+      assignment for realms masks by domain, theme, parent group or custom text mask
+   *  Dashboard control moved to the Themes module with configurable Dashboard
+      template name, and admin template default overrides restored 
+   *  Removal of Overviews by default and a Help link added to Adminpanel menu which 
+      will eventually deliver the Xaraya help system
+   *  Optional 'Last Resort' administrator with privileges that can never be overridden
+   *  Configurable Exception redirect to login
+   *  Customizable error page template overrides
+   *  Additional testing options for privileges and mail
+   *  Configurable 'User Home' page by user or parent group
+   *  Inbuilt shorturls for php/cgi as well as existing mod_php, including Windows installations
+   *  Roles and privilege caching providing improved performance
+   *  New Themes module display options
+
+General improvements:
+
+    * Improved and enhanced upgrade and installer functions
+    * Updated ADOdb files
+    * General performance improvements
+    * UI and template changes in administration templates for core and 3rd party modules
+    * Many bug fixes in core and third party modules

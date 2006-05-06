@@ -9,18 +9,50 @@
   <section>
     <title>Types of modules</title>
 
-    <para></para>
+    <para>Data holding modules, utility modules</para>
   </section>
 
   <section>
     <title>What modules are already available</title>
 
-    <para></para>
+    <para>Xaraya offers already many modules and extensions. A search query on
+    the website can show several modules that might be capable to do what you
+    need. </para>
   </section>
 
   <section>
     <title>Should I use Dynamic Data?</title>
 
+    <para>There are in general two approaches you can use when developing. You
+    can use the database directly, or use the Xaraya Dynamic Data structure
+    for it.</para>
+
+    <para>The big advantage of Dynamic Data is that it is highly configurable.
+    Site admins can use it to extend modules to hold extra data. You should
+    first try to see if a basic Xaraya module can be extended with Dynamic
+    Data and in this way be used for your needs.</para>
+
+    <para>Examples or extendible modules are:</para>
+
     <para></para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Articles</para>
+      </listitem>
+
+      <listitem>
+        <para>xarPages</para>
+      </listitem>
+
+      <listitem>
+        <para>Julian</para>
+
+        <para></para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Dynamic Data is not the easiest way to start. With flexibility comes
+    a certain loss of usability. </para>
   </section>
 </chapter>

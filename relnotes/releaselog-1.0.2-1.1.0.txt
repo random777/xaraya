@@ -1,4 +1,4 @@
-Release notes for Xaraya core release 1.1
+Release notes for Xaraya Core release 1.1
 
 Release 1.1 (only relevant changes from 1.0.2 onwards included here)
 
@@ -11,18 +11,22 @@ Possible incompatible changes:
 Major changes:
    *  Separation of authentication (login/logout) and user registration from the Roles 
       module into Authsystem and Registration module respectively
-   *  Deprecation and removal of the Adminpanels module with the Adminpanel 
+   *  Deprecation and removal of the Adminpanels module with the Adminpanel
       menu block and Waiting Content block moved to Base module
    *  Addition of Realms management from the Admin GUI and configurable
       assignment for realms masks by domain, theme, parent group or custom text mask
+   *  Addition of Dynamic Data Object Reference Property (foreign key like dropdown) 
+      so you can specify referenced object and what property values
    *  Dashboard control moved to the Themes module with configurable Dashboard
       template name, and admin template default overrides restored 
    *  Removal of Overviews by default and a Help link added to Adminpanel menu which 
       will eventually deliver the Xaraya help system
+   *  implemented scope block for xar:style tag so blocks styles inclusion should work as expected     
    *  Optional 'Last Resort' administrator with privileges that can never be overridden
    *  Configurable Exception redirect to login
    *  Customizable error page template overrides
-   *  Additional testing options for privileges and mail
+   *  Additional testing options for privileges
+   *  Testing options with configurable suppression of email in the Mail module
    *  Configurable 'User Home' page by user or parent group
    *  Inbuilt shorturls for php/cgi as well as existing mod_php, including Windows installations
    *  Roles and privilege caching providing improved performance
@@ -35,3 +39,34 @@ General improvements:
     * General performance improvements
     * UI and template changes in administration templates for core and 3rd party modules
     * Many bug fixes in core and third party modules
+    
+      Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+      bug   : short info
+      ---   | ----------
+    * [5165]: wrong timezone for KZ
+    * [5071]: patch to support short urls with php-cgi including windows php-cgi 
+    * [5369]: do not resolve xarML() instructions
+    * [5287]: fix undefined $dnType - and other bugs of this same type
+    * [5371]: variables assigned by reference fixes
+    * [5309]: get default h:mm format working again + FIXME
+    * [4353]: restore default functionality to page template admin.xt
+    * [4999]: set Base module release feed item number
+    * [5494]: fix roles logout to redirect to mod_rewritten BaseURI if exists and not index.php
+    * [5489]: redirect to correct url, can't assume index.php,
+    * [5506]: fix Exception Redirect option in Privileges to redirect to correct URL
+    * [5105]: UI changes in installer to prevent premature termination by user action
+    * [5513]: fix for Dynamic data module install failure with sqlite db
+    * [5059]: allow install to continue with undetrmined memory state
+    * [5519]: fix for userpasswordupdate, date of last password update
+    * [5518]: correct check for roles vars, need to check for true or false not empty or notset
+    * [5520]: Win IE 6.0 browser window hangs on horizontal resize of pages in Xaraya Classic
+    * [5367]: leave invalid email for users to see and add min and max validation
+    * [5535]: Returning rows in associative arrays causes error on SQlite database install
+    * [5545]: Correct the references in the generated code for nested xar:loop constructs with id's
+    * [5552]: Use of XML headers in Xaraya themes or pages impossible
+    * [5559]: xar:template include of template incorrectly parses nested directory path
+    * [5569]: fix realms create and update
+    * [5541]: fix the countrylist property for entity rendering
+    * [4843]: fix the calls to hooks failing due to incorrect module returns
+    * [5619]: fix for dd checkInput method fails every time
+    * [5629]: CR only is also a valid separator between tagstart and its attributes

@@ -38,6 +38,10 @@ PREPARE TO UPGRADE
        -  <xarroot>/var/config.system.php
        -  files below the var directory which may contain data from your site
         (typically for uploads, workflow processes, images etc)
+      
+      Make sure you check the release changes to see if you need to
+      update the config.system.php file, or any changes in the var subdirectories
+      with new content of changes.
 
     * Make a backup (yes, we know this was already mentioned two times)
 
@@ -222,12 +226,19 @@ VERSION CHANGES - Please check and update your installation where necessary
      1.0.2 -> 1.1.0  _admin_menu table was dropped
                      AdminPanel module is dropped
                          - adminpanel menu block is moved to Base.
-                           Update your template adminpanel blocks to use base module
-                           and any theme overrides in your adminpanel blocks directory 
-                           should be moved to base blocks
+                           In your templates, update any attribute values of 'adminpanels' to 'base'.
+                           This includes eg adminpanel blocks such as Compact Menus tags should be changed 
+                           to use base module. Any theme overrides in your adminpanel blocks directory
+                           should be moved to base blocks.
                          - waiting content menu block is moved to Base
-                     Dashboard module var setting is moved to Themes module
+                     Dashboard module var setting is moved to Themes module. 
+                     dashboard.xt is the default name for dashboard page template.
+                     admin.xt page template is automatically used for admin theme if it exists.
                      Module Overview modvar setting has been removed and deprecated.
+                     Country List dynamic data property changed the input template to use ID for value instead of name.
+                         - If you are using this, retain your Base module property Country List input 
+                           and output templates. Rename with an extension of .xt and use these
+                           as 'override templates' in your theme.
 
    ----------------------------------------------------
 

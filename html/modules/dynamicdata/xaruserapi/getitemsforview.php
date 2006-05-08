@@ -23,18 +23,12 @@ function dynamicdata_userapi_getitemsforview($args)
         $args['status'] = 1;
     }
     $args['getobject'] = 1;
-    $objects =  xarModAPIFunc('dynamicdata','user','getitems',$args);
-    if (!isset($objects)) {
+    $object =  xarModAPIFunc('dynamicdata','user','getitems',$args);
+    if (!isset($object)) {
         return array(array(), array());
     }
-    $properties = array();
-    $items = array();
-    foreach ($objects as $key => $object) {
-		$properties = array_merge($properties,  $object->getProperties());
-		list($key,$value) = each($object->items);
-		$items = array_merge($items,  $value);
-    }
-    $items = array($key => $items);
+    $properties = & $object->getProperties();
+    $items = & $object->items;
     return array(& $properties, & $items);
 }
 

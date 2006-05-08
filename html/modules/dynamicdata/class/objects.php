@@ -213,8 +213,23 @@ class Dynamic_Object_Master
 			// If this is an extended object add the ancestor properties for display purposes
 			if (!empty($ancestors)) {
 				foreach ($ancestors as $ancestor) {
-					$object =& Dynamic_Object_Master::getObject(array('objectid' => $ancestor['objectid']));
+					$this->add($ancestor);
+				}
+			}
+		}
+    }
 
+    /**
+     * Add one object to another
+     * This is basically adding the properties
+     */
+    function add($object=null)
+    {
+    	if (is_numeric($object)) {
+			$object =& Dynamic_Object_Master::getObject(array('objectid' => $object));
+    	}
+    	if (!is_object($object))
+    		throw new EmptyParameterException(array(),'Not a valid object');
 					$properties = $object->getProperties();
 					foreach ($properties as &$newproperty) {
 						// ignore if this property already belongs to the object
@@ -231,10 +246,7 @@ class Dynamic_Object_Master
 						$this->addProperty($args);
 	//                  $this->fieldlist[] = $newproperty->name;
 					}
-				}
-			}
-		}
-    }
+	}
 
     /**
      * Get the data stores where the dynamic properties of this object are kept
@@ -703,7 +715,7 @@ class Dynamic_Object_Master
         if (!isset($args['moduleid']))  $args['moduleid'] = null;
         if (!isset($args['itemtype']))  $args['itemtype'] = null;
         if (!isset($args['classname'])) $args['classname'] = null;
-        
+
         // create the Dynamic Objects item corresponding to this object
         $object =& Dynamic_Object_Master::getObject(array('objectid' => 1, // the Dynamic Objects = 1
                                                           'moduleid' => $args['moduleid'],
@@ -720,7 +732,7 @@ class Dynamic_Object_Master
         if (!isset($args['moduleid']))  $args['moduleid'] = null;
         if (!isset($args['itemtype']))  $args['itemtype'] = null;
         if (!isset($args['classname'])) $args['classname'] = null;
-        
+
         // update the Dynamic Objects item corresponding to this object
         $object =& Dynamic_Object_Master::getObject(array('objectid' => 1, // the Dynamic Objects = 1
                                                           'moduleid' => $args['moduleid'],
@@ -739,7 +751,7 @@ class Dynamic_Object_Master
         if (!isset($args['moduleid']))  $args['moduleid'] = null;
         if (!isset($args['itemtype']))  $args['itemtype'] = null;
         if (!isset($args['classname'])) $args['classname'] = null;
-        
+
         // get the Dynamic Objects item corresponding to this object
         $object =& Dynamic_Object_Master::getObject(array('objectid' => 1, // the Dynamic Objects = 1
                                                           'moduleid' => $args['moduleid'],
@@ -885,7 +897,7 @@ class Dynamic_Object extends Dynamic_Object_Master
 
         // set the specific item id (or 0)
         if (isset($args['itemid'])) $this->itemid = $args['itemid'];
-        
+
         // see if we can access this object, at least in overview
         if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->moduleid.':'.$this->itemtype.':'.$this->itemid)) return;
 
@@ -980,10 +992,10 @@ class Dynamic_Object extends Dynamic_Object_Master
         if (empty($args['viewfunc']))    $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldlist']))   $args['fieldlist'] = $this->fieldlist;
         if (empty($args['fieldprefix'])) $args['fieldprefix'] = $this->fieldprefix;
-        
+
         // for use in DD tags : preview="yes" - don't use this if you already check the input in the code
         if (!empty($args['preview'])) $this->checkInput();
-        
+
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1034,10 +1046,10 @@ class Dynamic_Object extends Dynamic_Object_Master
         if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
         if (empty($args['viewfunc']))  $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldlist'])) $args['fieldlist'] = $this->fieldlist;
-        
+
         // for use in DD tags : preview="yes" - don't use this if you already check the input in the code
         if (!empty($args['preview'])) $this->checkInput();
-        
+
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1742,11 +1754,11 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
         // Are we extending here?
         if (!empty($args['extend']))   $this->extend();
-        
+
         if (empty($args['viewfunc']))    $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldprefix'])) $args['fieldprefix'] = $this->fieldprefix;
         if (empty($args['fieldlist']))   $args['fieldlist'] = $this->fieldlist;
-        
+
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1769,7 +1781,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['linklabel'])) $args['linklabel'] = xarML('Display');
         if (empty($args['param']))     $args['param'] = $this->urlparam;
         if (empty($args['linkfield'])) $args['linkfield'] = '';
-        
+
         $modinfo = xarModGetInfo($this->moduleid);
         $modname = $modinfo['name'];
 
@@ -1793,7 +1805,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($itemtype)) $itemtype = null; // don't add to URL
         $table = (empty($this->table)) ? null: $this->table;
         $args['objectname'] = empty($this->name) ? null : $this->name;
-        
+
         $args['modname'] = $modname;
         $args['itemtype'] = $itemtype;
         $args['links'] = array();
@@ -1931,7 +1943,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
         if (empty($args['viewfunc']))  $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldlist'])) $args['fieldlist'] = $this->fieldlist;
-        
+
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1955,7 +1967,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['linklabel'])) $args['linklabel'] = xarML('Display');
         if (empty($args['param']))     $args['param'] = $this->urlparam;
         if (empty($args['linkfield'])) $args['linkfield'] = '';
-        
+
         // pass some extra template variables for use in BL tags, API calls etc.
         $args['moduleid'] = $this->moduleid;
 

@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/* 
+/*
  * Handle AIM property
  * @author mikespub <mikespub@xaraya.com>
 */
@@ -41,6 +41,7 @@ class Dynamic_AIM_Property extends Dynamic_URLIcon_Property
         $info->id   = 29;
         $info->name = 'aim';
         $info->desc = 'AIM Screen Name';
+		$info->filepath   = 'modules/roles/xarproperties';
 
         return $info;
     }
@@ -78,11 +79,11 @@ class Dynamic_AIM_Property extends Dynamic_URLIcon_Property
     function showOutput($data = array())
     {
         if (!isset($data['value'])) $data['value'] = $this->value;
-        
+
         $data['link'] = '';
         if (!empty($data['value'])) {
             $data['link'] = 'aim:goim?screenname='.$data['value'].'&message='.xarML('Hello+Are+you+there?');
-           
+
         }
         return parent::showOutput($data);
     }

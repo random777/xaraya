@@ -11,11 +11,12 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/* 
+/*
  * Dynamic Passbox property
  * @author mikespub <mikespub@xaraya.com>
  */
 include_once 'modules/base/xarproperties/Dynamic_TextBox_Property.php';
+
 class Dynamic_PassBox_Property extends Dynamic_TextBox_Property
 {
     public $size = 25;
@@ -49,13 +50,15 @@ class Dynamic_PassBox_Property extends Dynamic_TextBox_Property
         $a1->id = 461;
         $a1->name = 'password';
         $a1->desc = 'Password Text Box';
-        
+		$a1->filepath   = 'modules/roles/xarproperties';
+
         $info = new PropertyRegistration();
         $info->reqmodules = array('roles');
         $info->id   = 46;
         $info->name = 'passbox';
         $info->desc = 'Password Text Box';
         $info->aliases = array($a1);
+		$info->filepath   = 'modules/roles/xarproperties';
 
         return $info;
     }
@@ -72,7 +75,7 @@ class Dynamic_PassBox_Property extends Dynamic_TextBox_Property
             $this->value = null;
             return false;
         }
-            
+
         if (!empty($value) && strlen($value) > $this->maxlength) {
             $this->invalid = xarML('text : must be less than #(1) characters long',$this->max + 1);
             $this->value = null;
@@ -91,7 +94,7 @@ class Dynamic_PassBox_Property extends Dynamic_TextBox_Property
     function showInput($data = array())
     {
         extract($data);
-        
+
         if (empty($maxlength) && isset($this->max)) {
             $this->maxlength = $this->max;
             if ($this->size > $this->maxlength) {

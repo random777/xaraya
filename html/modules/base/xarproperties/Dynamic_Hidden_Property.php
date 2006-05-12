@@ -31,6 +31,7 @@ class Dynamic_Hidden_Property extends Dynamic_Property
         $info->id   = 18;
         $info->name = 'hidden';
         $info->desc = 'Hidden';
+		$info->filepath   = 'modules/base/xarproperties';
 
         return $info;
     }

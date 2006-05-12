@@ -36,6 +36,7 @@ class Dynamic_RadioButtons_Property extends Dynamic_Select_Property
         $info->id   = 34;
         $info->name = 'radio';
         $info->desc = 'Radio Buttons';
+		$info->filepath   = 'modules/base/xarproperties';
 
         return $info;
     }

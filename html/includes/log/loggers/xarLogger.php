@@ -132,6 +132,7 @@ class xarLogger
         $secs = ((float)$microtime[0] + (float)$microtime[1]);
         // FIXME: this floods the log when the system it runs on uses the C locale, which users
         // might not be able to fix. (this is the system locale setting)
+        date_default_timezone_set ('Europe/Paris');
         return strftime($this->_timeFormat) . ' ' . $microtime[0] . ' +' . number_format(round($secs - $this->_elapsed, 3),3);
     }
 }

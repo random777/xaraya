@@ -117,6 +117,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
 
     function createItem($args)
     {
+        xarLogMessage("Class: " . get_class() . ". Creating an item.");
         $itemid = $args['itemid'];
         $table = $this->name;
         $itemidfield = $this->primary;
@@ -229,6 +230,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
 
     function deleteItem($args)
     {
+        xarLogMessage("Class: " . get_class() . ". Deleting an item.");
         $itemid = $args['itemid'];
         $table = $this->name;
         $itemidfield = $this->primary;

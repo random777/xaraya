@@ -31,6 +31,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
     function getItem($args)
     {
+        xarLogMessage('Class: ' . get_class());
         $itemid = $args['itemid'];
 
         $propids = array_keys($this->fields);
@@ -71,6 +72,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
     function createItem($args)
     {
+        xarLogMessage('Class: ' . get_class());
         extract($args);
 
         // we need to manage our own item ids here, and we can't use some sequential field
@@ -115,6 +117,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
     function updateItem($args)
     {
+        xarLogMessage('Class: ' . get_class());
         $itemid = $args['itemid'];
 
         $propids = array_keys($this->fields);
@@ -176,6 +179,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
     function deleteItem($args)
     {
+        xarLogMessage('Class: ' . get_class());
         $itemid = $args['itemid'];
 
         $propids = array_keys($this->fields);
@@ -202,6 +206,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
 
     function getItems($args = array())
     {
+        xarLogMessage('Class: ' . get_class());
         if (!empty($args['numitems'])) {
             $numitems = $args['numitems'];
         } else {

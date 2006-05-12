@@ -197,7 +197,7 @@ class Dynamic_Property_Master
         // TODO: what if the property type changes to something incompatible ?
     }
 
-    function deleteProperty($args)
+    static function deleteProperty($args)
     {
         if (empty($args['itemid'])) return;
 
@@ -730,7 +730,7 @@ class PropertyRegistration
     public $desc       = 'Property Description'; // description of this type
     public $type       = 1;
     public $parent     = '';                     // this type is derived from?
-    public $filepath   = '';                     // where is our class for it?
+    public $filepath   = 'modules/dynamicdata/xarproperties';                     // where is our class for it?
     public $class      = '';                     // what is the class?
     public $validation = '';                     // what is its default validation?
     public $source     = 'dynamic_data';         // what source is default for this type?
@@ -822,7 +822,7 @@ class PropertyRegistration
                           xar_prop_aliases
                   FROM    $tables[dynamic_properties_def]
                   ORDER BY xar_prop_reqmodules, xar_prop_name";
-        $result =& $dbconn->executeQuery($query);
+        $result = $dbconn->executeQuery($query);
         $proptypes = array();
         if($result->RecordCount() == 0 ) {
             $proptypes = xarModAPIFunc('dynamicdata','admin','importpropertytypes',array('flush'=>false));

@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/* 
+/*
  * Handle Group list property
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -27,7 +27,7 @@ class Dynamic_ICQ_Property extends Dynamic_URLIcon_Property
         $this->tplmodule = 'roles';
         $this->template = 'icq';
     }
-    
+
     static function getRegistrationInfo()
     {
         $info = new PropertyRegistration();
@@ -35,6 +35,7 @@ class Dynamic_ICQ_Property extends Dynamic_URLIcon_Property
         $info->name   = 'icq';
         $info->desc   = 'ICQ Number';
         $info->reqmodules = array('roles');
+		$info->filepath   = 'modules/roles/xarproperties';
         return $info;
     }
 
@@ -72,7 +73,7 @@ class Dynamic_ICQ_Property extends Dynamic_URLIcon_Property
     {
         extract($data);
         if (!isset($value)) $value = $this->value;
-        
+
         // TODO: use redirect function here ?
         $link = '';
         if (!empty($value) && !empty($this->icon)) {

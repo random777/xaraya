@@ -35,6 +35,7 @@ class Dynamic_Array_Property extends Dynamic_Property
         $info->name = 'array';
         $info->desc = 'Array';
         $info->reqmodules = array('base');
+		$info->filepath   = 'modules/base/xarproperties';
         return $info;
     }
 
@@ -64,7 +65,7 @@ class Dynamic_Array_Property extends Dynamic_Property
     {
         if (!isset($data['value'])) $value = $this->value;
         if (isset($data['fields'])) $this->fields = $data['fields'];
-        
+
         if (empty($value)) {
             $value = array('');
         } elseif (!is_array($value)) {
@@ -99,7 +100,7 @@ class Dynamic_Array_Property extends Dynamic_Property
     {
         extract($data);
         if (!isset($value)) $value = $this->value;
-        
+
         if (empty($value)) {
             $value = array('');
         } elseif (!is_array($value)) {
@@ -115,7 +116,7 @@ class Dynamic_Array_Property extends Dynamic_Property
         } else {
             $fieldlist = array_keys($value);
         }
- 
+
         $data['value'] = array();
         foreach ($fieldlist as $field) {
             if (!isset($value[$field])) {

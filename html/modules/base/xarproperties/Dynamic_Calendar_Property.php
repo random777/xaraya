@@ -32,6 +32,7 @@ class Dynamic_Calendar_Property extends Dynamic_Property
         $info->id   = 8;
         $info->name = 'calendar';
         $info->desc = 'Calendar';
+		$info->filepath   = 'modules/base/xarproperties';
 
         return $info;
     }
@@ -125,7 +126,7 @@ class Dynamic_Calendar_Property extends Dynamic_Property
         extract($data);
 
         if (!isset($value)) $value = $this->value;
-        
+
         // default time is unspecified
         if (empty($value)) {
             $value = -1;

@@ -47,6 +47,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
         $info->id   = 20;
         $info->name = 'itemtype';
         $info->desc = 'Item Type';
+		$info->filepath   = 'modules/dynamicdata/xarproperties';
 
         return $info;
     }

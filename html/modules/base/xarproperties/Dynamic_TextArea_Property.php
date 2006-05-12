@@ -41,12 +41,14 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         $a1->id   = 4;
         $a1->name = 'textarea_medium';
         $a1->desc = 'Medium Text Area';
+		$a1->filepath   = 'modules/base/xarproperties';
         $a1->args = array('rows' => 8);
-        
+
         $a2 = new PropertyRegistration();
         $a2->id   = 5;
         $a2->name = 'textarea_large';
         $a2->desc = 'Large Text Area';
+		$a2->filepath   = 'modules/base/xarproperties';
         $a2->args = array('rows' => 20);
 
         // Composite property registration.
@@ -55,6 +57,7 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         $info->id      = 3;
         $info->name    = 'textarea_small';
         $info->desc    = 'Small Text Area';
+		$info->filepath   = 'modules/base/xarproperties';
         $info->args    = array('rows' => 2);
         $info->aliases = array($a1, $a2);
 
@@ -76,7 +79,7 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         // Make the variables easier to access
         extract($data);
 
-        // Prepare 
+        // Prepare
         $data['value'] = isset($value) ? xarVarPrepForDisplay($value) : xarVarPrepForDisplay($this->value);
         // TODO: the way the template is organized now, this only works when an id is set.
         $data['rows']  = !empty($rows) ? $rows : $this->rows;

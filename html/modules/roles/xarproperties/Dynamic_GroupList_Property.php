@@ -69,6 +69,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
         $info->name = 'grouplist';
         $info->desc = 'Group List';
         $info->reqmodules = array('roles');
+		$info->filepath   = 'modules/roles/xarproperties';
         return $info;
     }
 
@@ -121,7 +122,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
         extract($data);
 
         if (!isset($value)) $value = $this->value;
-        
+
         if (empty($value)) {
             $group = array();
             $groupname = '';

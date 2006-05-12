@@ -474,7 +474,7 @@ class Dynamic_Object_Master
             $bindvars[] = $modid;
         }
         $stmt = $dbconn->prepareStatement($query);
-        $result =& $stmt->executeQuery($bindvars);
+        $result = $stmt->executeQuery($bindvars);
 
         $objects = array();
         while ($result->next()) {
@@ -710,7 +710,7 @@ class Dynamic_Object_Master
      * @returns integer
      * @return the object id of the created item
      */
-    function createObject($args)
+    static function createObject($args)
     {
         if (!isset($args['moduleid']))  $args['moduleid'] = null;
         if (!isset($args['itemtype']))  $args['itemtype'] = null;
@@ -722,11 +722,12 @@ class Dynamic_Object_Master
                                                           'itemtype' => $args['itemtype'],
                                                           'classname' => $args['classname']));
         $objectid = $object->createItem($args);
+        xarLogMessage("Class: " . get_class() . ". Creating an object of class " . $args['classname'] . ". Objectid: " . $objectid . ", module: " . $args['moduleid'] . ", itemtype: " . $args['itemtype']);
         unset($object);
         return $objectid;
     }
 
-    function updateObject($args)
+    static function updateObject($args)
     {
         if (empty($args['objectid'])) return;
         if (!isset($args['moduleid']))  $args['moduleid'] = null;
@@ -745,7 +746,7 @@ class Dynamic_Object_Master
         return $itemid;
     }
 
-    function deleteObject($args)
+    static function deleteObject($args)
     {
         if (empty($args['objectid'])) return;
         if (!isset($args['moduleid']))  $args['moduleid'] = null;
@@ -1219,6 +1220,7 @@ class Dynamic_Object extends Dynamic_Object_Master
             if (empty($itemid)) return;
         }
 
+        xarLogMessage("Class: " . get_class() . ". Creating an item. Itemid: " . $this->itemid . ", module: " . $modinfo['name'] . ", itemtype: " . $this->itemtype);
         // call create hooks for this item
         // Added: check if module is articles or roles to prevent recursive hook calls if using an external table for those modules
         // TODO:  somehow generalize this to prevent recursive calls in the general sense, rather then specifically for articles / roles
@@ -1297,6 +1299,7 @@ class Dynamic_Object extends Dynamic_Object_Master
         }
 
         $modinfo = xarModGetInfo($this->moduleid);
+        xarLogMessage("Class: " . get_class() . ". Deleting an item. Itemid: " . $this->itemid . ", module: " . $modinfo['name'] . ", itemtype: " . $this->itemtype);
 
     // TODO: this won't work for objects with several static tables !
         // delete the item in all the data stores

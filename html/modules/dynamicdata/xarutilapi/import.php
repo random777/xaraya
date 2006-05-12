@@ -125,7 +125,6 @@ function dynamicdata_utilapi_import($args)
                     fclose($fp);
                     return;
                 }
-
                 // retrieve the correct itemtype if necessary
                 if ($object['itemtype'] < 0) {
                     $objectinfo = xarModAPIFunc('dynamicdata','user','getobjectinfo',

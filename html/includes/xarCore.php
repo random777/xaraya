@@ -20,7 +20,7 @@
  * @todo seems that defines are hoggers, move them to class constants?
  */
 
-// For migration purposes, cos we're lazy 
+// For migration purposes, cos we're lazy
 define('XARCORE_GENERATION',2);
 
 // The actual version information

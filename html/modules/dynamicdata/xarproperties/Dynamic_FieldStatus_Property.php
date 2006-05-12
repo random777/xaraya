@@ -34,7 +34,7 @@ class Dynamic_FieldStatus_Property extends Dynamic_Select_Property
                              );
         }
     }
-    
+
     static function getRegistrationInfo()
     {
         $info = new PropertyRegistration();
@@ -42,6 +42,7 @@ class Dynamic_FieldStatus_Property extends Dynamic_Select_Property
         $info->id   = 25;
         $info->name = 'fieldstatus';
         $info->desc = 'Field Status';
+		$info->filepath   = 'modules/dynamicdata/xarproperties';
 
         return $info;
     }

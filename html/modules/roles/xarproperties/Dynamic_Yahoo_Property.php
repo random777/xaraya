@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/* 
+/*
  * Handle Yahoo property
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -36,6 +36,7 @@ class Dynamic_Yahoo_Property extends Dynamic_URLIcon_Property
         $info->name   = 'yahoo';
         $info->desc   = 'Yahoo Messenger';
         $info->reqmodules = array('roles');
+		$info->filepath   = 'modules/roles/xarproperties';
         return $info;
     }
 
@@ -66,7 +67,7 @@ class Dynamic_Yahoo_Property extends Dynamic_URLIcon_Property
         $link = '';
         if (!empty($value)) {
             $link = 'http://edit.yahoo.com/config/send_webmesg?.target='.$value.'&.src=pg';
-        } 
+        }
         $data['value']    = isset($value) ? xarVarPrepForDisplay($value) : xarVarPrepForDisplay($this->value);
         $data['link']     = xarVarPrepForDisplay($link);
 

@@ -89,7 +89,7 @@ function modules_admin_install()
     }
 
     // The module might have properties, after installing, flush the property cache otherwise you will
-    // get errors on displaying the property. 
+    // get errors on displaying the property.
     if(!xarModAPIFunc('dynamicdata','admin','importpropertytypes', array('flush' => true))) {
         return false; //FIXME: Do we want an exception here if flushing fails?
     }

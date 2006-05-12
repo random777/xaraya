@@ -39,6 +39,7 @@ function dynamicdata_userapi_showview($args)
     // do we want to count?
     if(empty($count)) {
         $count=false;
+    }
 
     // we got everything via template parameters
     if (isset($items) && is_array($items)) {

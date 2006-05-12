@@ -137,11 +137,11 @@ function &dynamicdata_userapi_getitems($args)
 										   'table' => $table,
 										   'catid' => $catid,
 										   'groupby' => $groupby,
-										   'status' => $status));
-										   'itemtype'  => $itemtype);
+										   'status' => $status,
+										   'itemtype'  => $itemtype));
     foreach ($tree as $branch) {
 		$newobject = & Dynamic_Object_Master::getObjectList(array('moduleid'  => $modid,
-											   'itemtype'  => $branch['itemtype']);
+											   'itemtype'  => $branch['itemtype']));
 		$object->add($newobject);
     }
     if (!isset($object)) return $nullreturn;

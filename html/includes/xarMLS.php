@@ -278,9 +278,9 @@ function xarLocaleGetInfo($locale)
  */
 function xarLocaleGetString($localeInfo)
 {
-    if (!isset($localeInfo['lang']) || 
-        !isset($localeInfo['country']) || 
-        !isset($localeInfo['specializer']) || 
+    if (!isset($localeInfo['lang']) ||
+        !isset($localeInfo['country']) ||
+        !isset($localeInfo['specializer']) ||
         !isset($localeInfo['charset'])) {
         throw new BadParameterException('localeInfo');
     }
@@ -367,15 +367,15 @@ function xarMLS_userOffset($timestamp = null)
         if (xarUserIsLoggedIn()) {
             $offset = xarUserGetVar('timezone');
             // get the actual timezone for the user (in addition to the timezone offset)
-            if (isset($offset) && !is_numeric($offset)) {
-                $info = @unserialize($offset);
+            if (!empty($offset) && !is_numeric($offset)) {
+                $info = unserialize($offset);
                 if (!empty($info) && is_array($info)) {
                     $offset = isset($info['offset']) ? $info['offset'] : null;
                     $timezone = isset($info['timezone']) ? $info['timezone'] : null;
                 }
             }
         }
-        if (!isset($offset)) {
+        if (empty($offset)) {
             // use default time offset for this site
             $offset = $GLOBALS['xarMLS_defaultTimeOffset'];
             // use default timezone for this site
@@ -663,7 +663,7 @@ function xarMLS__getSingleByteCharset($langISO2Code)
 interface ITranslationsBackend {
     // Get the string based translation associated to the string param.
     function translate($string);
-   
+
     // Get the key based translation associated to the key param.
     function translateByKey($key);
 
@@ -685,7 +685,7 @@ interface ITranslationsBackend {
 
 /**
  * Base class for the translation backends
- * 
+ *
  * A translation entry is an array that contains not only the translation,
  * but also the a list of references where it appears in the source by
  * reporting the file name and the line number.
@@ -845,7 +845,7 @@ function xarMLS__mkdirr($path)
     if (is_dir($path) || empty($path)) {
         return true;
     }
-         
+
     // Crawl up the directory tree
     $next_path = substr($path, 0, strrpos($path, '/'));
     if (xarMLS__mkdirr($next_path)) {
@@ -896,5 +896,5 @@ function xarMLS__iswritable($directory=NULL)
         return $isWritable;
     }
 }
-                                                    
+
 ?>

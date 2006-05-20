@@ -47,7 +47,7 @@ function &dynamicdata_userapi_getitem($args)
     $modinfo = xarModGetInfo($modid);
 
     if (empty($itemtype)) $itemtype = 0;
-    
+
     $invalid = array();
     if (!isset($modid) || !is_numeric($modid) || empty($modinfo['name'])) {
         $invalid[] = 'module id';
@@ -106,7 +106,7 @@ function &dynamicdata_userapi_getitem($args)
 
         // ..check it
         if (!empty($preview)) $object->checkInput();
-		
+
 		if (!empty($getobject)) {
             // Indicated that whole object(s) needs to be returned
 			$objectarray[] = $object;
@@ -115,12 +115,7 @@ function &dynamicdata_userapi_getitem($args)
             $itemsarray = array_merge($itemsarray, $object->getFieldValues());
         }
 	}
-    // FIXME: this wont work now, since apparently we would need to loop over the objectarray?
-    //ML: no, need to merge the objects into one
-//    $objectData = $object->getFieldValues();
-//    return $objectData;
 	return $object;
-    return $itemsarray;
 }
 
 ?>

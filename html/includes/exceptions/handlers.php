@@ -7,7 +7,7 @@
  * @license GPL <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.xaraya.com
  * @author Marcel van der Boom <marcel@hsdev.com>
- */
+ **/
 
 interface IExceptionHandlers
 {
@@ -90,9 +90,9 @@ class ExceptionHandlers implements IExceptionHandlers
             $errLevel = xarCore_getSystemVar('Exception.ErrorLevel');
         } catch(Exception $e) {
             // Oh well.
-            $errLevel = E_STRICT;
+            $errLevel = E_STRICT | E_ALL;
         }
-        if (!error_reporting() || $errorType >= $errLevel) {
+        if (!error_reporting() || !($errorType & $errLevel)) {
             // Log the message so it is not lost.
             // TODO: make this message available to calling functions that suppress errors through '@'.
             $msg = "PHP error code $errorType at line $line of $file: $errorString";

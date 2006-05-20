@@ -369,7 +369,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
         include 'includes/xarMod.php';
         $systemArgs = array('enableShortURLsSupport' => xarConfigGetVar('Site.Core.EnableShortURLsSupport'),
                             'generateXMLURLs' => true);
-        xarMod_init($systemArgs, $whatToLoad);
+        xarMod::init($systemArgs);
         $whatToLoad ^= XARCORE_BIT_MODULES;
     }
 
@@ -382,7 +382,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     $systemArgs = array(
         'enableTemplatesCaching' => xarConfigGetVar('Site.BL.CacheTemplates'),
         'themesBaseDirectory'    => xarConfigGetVar('Site.BL.ThemesDirectory'),
-        'defaultThemeDir'        => xarModGetVar('themes','default'),
+        'defaultThemeDir'        => xarModVars::get('themes','default'),
         'generateXMLURLs'      => true
     );
     xarTpl_init($systemArgs, $whatToLoad);

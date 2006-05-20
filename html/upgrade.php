@@ -206,4 +206,8 @@ if (!xarUpgradeMain()) {
         }
     }
 }
+
+// Main thing
+CatchOutput();
+
 ?>

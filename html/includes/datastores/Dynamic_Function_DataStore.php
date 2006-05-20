@@ -42,7 +42,7 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
     // TODO: improve this ?
             list($fmod,$ftype,$ffunc) = explode('_',$function);
             // see if the module is available
-            if (!xarModIsAvailable($fmod)) {
+            if (!xarMod::isAvailable($fmod)) {
                 continue;
             }
             // see if we're dealing with an API function or a GUI one
@@ -63,7 +63,7 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
             } else {
             // TODO: don't we want auto-loading for xarModFunc too ???
                 // try to load the module GUI
-                if (!xarModLoad($fmod,$ftype)) {
+                if (!xarMod::load($fmod,$ftype)) {
                     continue;
                 }
                 // try to invoke the function with some common parameters
@@ -93,11 +93,11 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
 
         /* default values - you shouldn't rely on these! */
         if (!isset($args['modname'])) {
-            list($mod, $type, $func) = xarRequestGetInfo();
+            list($mod, $type, $func) = xarRequest::getInfo();
             $args['modname'] = $mod;
         }
         if (!isset($args['modid'])) {
-            $args['modid'] = xarModGetIDFromName($mod);
+            $args['modid'] = xarMod::getRegID($mod);
         }
         if (!isset($args['itemtype'])) {
             $args['itemtype'] = $this->itemtype;

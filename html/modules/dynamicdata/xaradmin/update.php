@@ -78,9 +78,8 @@ function dynamicdata_admin_update($args)
 
         return xarTplModule('dynamicdata','admin','modify', $data);
     }
-
+    // Valid and not previewing, update the object
     $itemid = $myobject->updateItem();
-
     if (!isset($itemid)) return; // throw back
 
     // special case for dynamic objects themselves

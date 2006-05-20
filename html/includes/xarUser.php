@@ -76,9 +76,9 @@ function xarUser_init(&$args, $whatElseIsGoingLoaded)
     xarTplSetThemeName(xarUserGetNavigationThemeName());
 
     // Register the UserLogin event
-    xarEvt_registerEvent('UserLogin');
+    xarEvents::register('UserLogin');
     // Register the UserLogout event
-    xarEvt_registerEvent('UserLogout');
+    xarEvents::register('UserLogout');
 
     // Subsystem initialized, register a handler to run when the request is over
     //register_shutdown_function ('xarUser__shutdown_handler');
@@ -125,12 +125,12 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
     foreach($GLOBALS['xarUser_authenticationModules'] as $authModName) {
         // Bug #918 - If the module has been deactivated, then continue
         // checking with the next available authentication module
-        if (!xarModIsAvailable($authModName)) continue;
+        if (!xarMod::isAvailable($authModName)) continue;
         // Every authentication module must at least implement the
         // authentication interface so there's at least the authenticate_user
         // user api function
-        if (!xarModAPILoad($authModName, 'user')) continue;
-        $modInfo = xarMod_GetBaseInfo($authModName);
+        if (!xarMod::apiLoad($authModName, 'user')) continue;
+        $modInfo = xarMod::getBaseInfo($authModName);
         $modId = $modInfo['systemid'];
 
         // CHECKME: Does this raise an exception??? If so:
@@ -144,8 +144,8 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
         }
     }
     if ($userId == XARUSER_AUTH_FAILED || $userId == XARUSER_AUTH_DENIED) {
-        if (xarModGetVar('privileges','lastresort')) {
-            $secret = unserialize(xarModGetVar('privileges','lastresort'));
+        if (xarModVars::get('privileges','lastresort')) {
+            $secret = unserialize(xarModVars::get('privileges','lastresort'));
             if ($secret['name'] == MD5($userName) && $secret['password'] == MD5($password)) {
                 $userId = XARUSER_LAST_RESORT;
                 $rememberMe = 0;
@@ -197,7 +197,7 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
     // FIXME: <marco> here we could also set a last_logon timestamp
 
     // User logged in successfully, trigger the proper event with the new userid
-    xarEvt_trigger('UserLogin',$userId);
+    xarEvents::trigger('UserLogin',$userId);
 
     return true;
 }
@@ -226,7 +226,7 @@ function xarUserLogOut()
     xarSessionDelVar('authenticationModule');
 
     // User logged out successfully, trigger the proper event with the old userid
-    xarEvt_trigger('UserLogout',$userId);
+    xarEvents::trigger('UserLogout',$userId);
 
     return true;
 }
@@ -259,7 +259,7 @@ function xarUserGetNavigationThemeName()
 
     if (xarUserIsLoggedIn()){
         $uid = xarUserGetVar('uid');
-        $userThemeName = xarModGetUserVar('themes', 'default', $uid);
+        $userThemeName = xarModUserVars::get('themes', 'default', $uid);
         if ($userThemeName) $themeName=$userThemeName;
     }
 
@@ -276,7 +276,7 @@ function xarUserSetNavigationThemeName($themeName)
 {
     assert('$themeName != ""');
     // uservar system takes care of dealing with anynomous
-    xarModSetUserVar('themes', 'default', $themeName);
+    xarModUserVars::set('themes', 'default', $themeName);
 }
 
 /**
@@ -293,12 +293,12 @@ function xarUserGetNavigationLocale()
          //return true for last resort user - use default locale
          if ($uid==XARUSER_LAST_RESORT) return true;
 
-        $locale = xarModGetUserVar('roles', 'locale');
+        $locale = xarModUserVars::get('roles', 'locale');
         if (!isset($locale)) {
             // CHECKME: why is this here? The logic of falling back is already in the modgetuservar
-            $siteLocale = xarModGetVar('roles', 'locale');
+            $siteLocale = xarModVars::get('roles', 'locale');
             if (!isset($siteLocale)) {
-                xarModSetVar('roles', 'locale', '');
+                xarModVars::set('roles', 'locale', '');
             }
         }
         if (empty($locale)) {
@@ -306,13 +306,13 @@ function xarUserGetNavigationLocale()
             if (!isset($locale)) {
                 $locale = xarMLSGetSiteLocale();
             }
-            xarModSetUserVar('roles', 'locale', $locale);
+            xarModUserVars::set('roles', 'locale', $locale);
         } else {
             $siteLocales = xarMLSListSiteLocales();
             if (!in_array($locale, $siteLocales)) {
                 // Locale not available, use the default
                 $locale = xarMLSGetSiteLocale();
-                xarModSetUserVar('roles', 'locale', $locale);
+                xarModUserVars::set('roles', 'locale', $locale);
                 xarLogMessage("WARNING: falling back to default locale: $locale in xarUserGetNavigationLocale function");
             }
         }
@@ -341,15 +341,15 @@ function xarUserSetNavigationLocale($locale)
     if (xarMLSGetMode() != XARMLS_SINGLE_LANGUAGE_MODE) {
         xarSessionSetVar('navigationLocale', $locale);
         if (xarUserIsLoggedIn()) {
-            $userLocale = xarModGetUserVar('roles', 'locale');
+            $userLocale = xarModUserVars::get('roles', 'locale');
             if (!isset($userLocale)) {
                 // CHECKME: Why is this here? the fallback logic is already in modgetuservar
-                $siteLocale = xarModGetVar('roles', 'locale');
+                $siteLocale = xarModVars::get('roles', 'locale');
                 if (!isset($siteLocale)) {
-                    xarModSetVar('roles', 'locale', '');
+                    xarModVars::set('roles', 'locale', '');
                 }
             }
-            xarModSetUserVar('roles', 'locale', $locale);
+            xarModUserVars::set('roles', 'locale', $locale);
         }
         return true;
     }
@@ -427,8 +427,8 @@ function xarUserGetVar($name, $userId = NULL)
             xarCore::setCached('User.Variables.'.$userId, 'email', $userRole['email']);
 
         } elseif (!xarUser__isVarDefined($name)) {
-            if (xarModGetVar('roles',$name)) {
-                $value = xarModGetUserVar('roles',$name,$userId);
+            if (xarModVars::get('roles',$name)) {
+                $value = xarModUserVars::get('roles',$name,$userId);
                 if ($value == null) {
                     xarCore::setCached('User.Variables.'.$userId, $name, false);
                     // Here we can't raise an exception because they're all optional
@@ -487,7 +487,7 @@ function xarUserGetVar($name, $userId = NULL)
 
         if ($useAuthSystem == true) {
             $authModName = 'authsystem';
-            if (!xarModAPILoad($authModName, 'user')) return; // throw back
+            if (!xarMod::apiLoad($authModName, 'user')) return; // throw back
         }
 
         $value = xarModAPIFunc($authModName, 'user', 'get_user_variable',
@@ -571,11 +571,11 @@ function xarUserSetVar($name, $value, $userId = NULL)
         xarUser__setUsersTableUserVar($name, $value, $userId);
 
     } elseif (!xarUser__isVarDefined($name)) {
-        if (xarModGetVar('roles',$name)) {
+        if (xarModVars::get('roles',$name)) {
             xarCore::setCached('User.Variables.'.$userId, $name, false);
             throw new xarException($name,'User variable #(1) was not correctly registered');
         } else {
-            xarModSetUserVar('roles',$name,$value,$userId);
+            xarModUserVars::set('roles',$name,$value,$userId);
         }
     } else {
         // retrieve the user item
@@ -630,7 +630,7 @@ function xarUserSetVar($name, $value, $userId = NULL)
     if ($useAuthSystem == true) {
         if ($prop_dtype == XARUSER_DUD_TYPE_CORE) return true; // Already updated
         $authModName = 'authsystem';
-        if (!xarModAPILoad($authModName, 'user')) return; // throw back
+        if (!xarMod::apiLoad($authModName, 'user')) return; // throw back
     }
 
     if (!xarModAPIFunc($authModName, 'user', 'set_user_variable',
@@ -719,7 +719,7 @@ function xarUser__getAuthModule($userId)
     }
     $result->Close();
 
-    if (!xarModAPILoad($authModName, 'user')) return;
+    if (!xarMod::apiLoad($authModName, 'user')) return;
 
     return $authModName;
 }

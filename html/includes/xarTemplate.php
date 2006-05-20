@@ -120,11 +120,6 @@ function xarTpl_init($args, $whatElseIsGoingLoaded)
     // This is wrong here as well, but it's better at least than in xarMod
     include "includes/xarTheme.php";
 
-    // NOTE: starting from 0.9.11 we attempt to link core css to any css-aware xhtml theme
-    // immediate goal is elimination of inline styles, consistency and other core UI related issues
-    // no need to init anything, the css tags api is handling everything css related now..
-    // DONE: removed all but legacy css handling from core to themes module
-
     // Subsystem initialized, register a handler to run when the request is over
     //register_shutdown_function ('xarTemplate__shutdown_handler');
     return true;
@@ -151,8 +146,9 @@ function xarTplGetThemeName()
 {
     if(isset($GLOBALS['xarTpl_themeName'])) return  $GLOBALS['xarTpl_themeName'];
     // If it is not set, set it return the default theme.
+    // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable
     if (function_exists('xarModGetVar')) {
-        $defaultTheme = xarModGetVar('themes', 'default');
+        $defaultTheme = xarModVars::get('themes', 'default');
         if (!empty($defaultTheme)) xarTplSetThemeName($defaultTheme);
     }
     assert('isset($GLOBALS["xarTpl_themeName"]; /* Themename could not be set properly */');
@@ -297,28 +293,29 @@ function xarTplSetDoctype($doctypeName)
 function xarTplSetPageTitle($title = NULL, $module = NULL)
 {
     xarLogMessage("TPL: Setting pagetitle to $title");
+    // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable!!!
     if (!function_exists('xarModGetVar')){
         $GLOBALS['xarTpl_pageTitle'] = $title;
     } else {
-        $order      = xarModGetVar('themes', 'SiteTitleOrder');
-        $separator  = xarModGetVar('themes', 'SiteTitleSeparator');
+        $order      = xarModVars::get('themes', 'SiteTitleOrder');
+        $separator  = xarModVars::get('themes', 'SiteTitleSeparator');
         if (empty($module)) {
             // FIXME: the ucwords is layout stuff which doesn't belong here
-            $module = ucwords(xarModGetDisplayableName());
+            $module = ucwords(xarMod::getDisplayName());
         }
         switch(strtolower($order)) {
             case 'default':
             default:
-                $GLOBALS['xarTpl_pageTitle'] = xarModGetVar('themes', 'SiteName') . $separator . $module . $separator . $title;
+                $GLOBALS['xarTpl_pageTitle'] = xarModVars::get('themes', 'SiteName') . $separator . $module . $separator . $title;
             break;
             case 'sp':
-                $GLOBALS['xarTpl_pageTitle'] = xarModGetVar('themes', 'SiteName') . $separator . $title;
+                $GLOBALS['xarTpl_pageTitle'] = xarModVars::get('themes', 'SiteName') . $separator . $title;
             break;
             case 'mps':
-                $GLOBALS['xarTpl_pageTitle'] = $module . $separator . $title . $separator .  xarModGetVar('themes', 'SiteName');
+                $GLOBALS['xarTpl_pageTitle'] = $module . $separator . $title . $separator .  xarModVars::get('themes', 'SiteName');
             break;
             case 'pms':
-                $GLOBALS['xarTpl_pageTitle'] = $title . $separator .  $module . $separator . xarModGetVar('themes', 'SiteName');
+                $GLOBALS['xarTpl_pageTitle'] = $title . $separator .  $module . $separator . xarModVars::get('themes', 'SiteName');
             break;
             case 'to':
                 $GLOBALS['xarTpl_pageTitle'] = $title;
@@ -470,8 +467,9 @@ function xarTplModule($modName, $modType, $funcName, $tplData = array(), $templa
     // 1. Only create a link somewhere on the page, when clicked opens a page with the variables on that page
     // 2. Create a page in the themes module with an interface
     // 3. Use 1. to link to 2.
+    // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable
     if (function_exists('xarModGetVar')){
-        $var_dump = xarModGetVar('themes', 'var_dump');
+        $var_dump = xarModVars::get('themes', 'var_dump');
         if ($var_dump == true){
             if (function_exists('var_export')) {
                 $pre = var_export($tplData, true);
@@ -544,7 +542,7 @@ function xarTplProperty($modName, $propertyName, $tplType = 'showoutput', $tplDa
 }
 
 /**
- * Renders an object through an object template (TODO)
+ * Renders an object through an object template 
  *
  * @author Marcel van der Boom <marcel@xaraya.com>
  * @access public
@@ -617,12 +615,12 @@ function xarTplGetImage($modImage, $modName = NULL)
     // obtain current module name if not specified
     // FIXME: make a fallback for weird requests
     if(!isset($modName)){
-        list($modName) = xarRequestGetInfo();
+        list($modName) = xarRequest::getInfo();
     }
 
     // get module directory (could be different from module name)
     if(function_exists('xarMod_getBaseInfo')) {
-        $modBaseInfo = xarMod_getBaseInfo($modName);
+        $modBaseInfo = xarMod::getBaseInfo($modName);
         if (!isset($modBaseInfo)) return; // throw back
         $modOsDir = $modBaseInfo['osdirectory'];
     } else {
@@ -1276,7 +1274,7 @@ function xarTpl__executeFromFile($sourceFileName, $tplData, $tplType = 'module')
 function xarTpl__getSourceFileName($modName,$tplBase, $templateName = NULL, $tplSubPart = '')
 {
     if(function_exists('xarMod_getBaseInfo')) {
-        if(!($modBaseInfo = xarMod_getBaseInfo($modName))) return;
+        if(!($modBaseInfo = xarMod::getBaseInfo($modName))) return;
         $modOsDir = $modBaseInfo['osdirectory'];
     } elseif(!empty($modName)) {
         $modOsDir = $modName;
@@ -1300,10 +1298,10 @@ function xarTpl__getSourceFileName($modName,$tplBase, $templateName = NULL, $tpl
     $use_internal = false;
     unset($sourceFileName);
 
-    // xarLogMessage("TPL: 1. $tplThemesDir/$tplBaseDir/$tplSubPart/$tplBase-$templateName.xt")
-    // xarLogMessage("TPL: 2. $tplBaseDir/xartemplates/$tplSubPart/$tplBase-$templateName.xd")
-    // xarLogMessage("TPL: 3. $tplThemesDir/$tplBaseDir/$tplSubPart/$tplBase.xt")
-    // xarLogMessage("TPL: 4. $tplBaseDir/xartemplates/$tplSubPart/$tplBase.xd")
+    xarLogMessage("TPL: 1. $tplThemesDir/$tplBaseDir/$tplSubPart/$tplBase-$templateName.xt");
+    xarLogMessage("TPL: 2. $tplBaseDir/xartemplates/$tplSubPart/$tplBase-$templateName.xd");
+    xarLogMessage("TPL: 3. $tplThemesDir/$tplBaseDir/$tplSubPart/$tplBase.xt");
+    xarLogMessage("TPL: 4. $tplBaseDir/xartemplates/$tplSubPart/$tplBase.xd");
 
     $canTemplateName = strtr($templateName, "-", "/");
     $canonical = ($canTemplateName == $templateName) ? false : true;
@@ -1400,8 +1398,9 @@ function xarTpl_outputPHPCommentBlockInTemplates()
         // Default to not show the comments
         $GLOBALS['xarTpl_showPHPCommentBlockInTemplates'] = 0;
         // CHECKME: not sure if this is needed, e.g. during installation
+        // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable
         if (function_exists('xarModGetVar')){
-            $showphpcbit = xarModGetVar('themes', 'ShowPHPCommentBlockInTemplates');
+            $showphpcbit = xarModVars::get('themes', 'ShowPHPCommentBlockInTemplates');
             if (!empty($showphpcbit)) {
                 $GLOBALS['xarTpl_showPHPCommentBlockInTemplates'] = 1;
             }
@@ -1417,7 +1416,7 @@ function xarTpl_outputPHPCommentBlockInTemplates()
  * @global int xarTpl_showTemplateFilenames
  * @return int value of xarTpl_showTemplateFilenames (0 or 1)
  *
- * @todo Check whether the check for xarModGetVar is needed
+ * @todo Check whether the check for xarModVars::get is needed
  * @todo Rethink this function
  */
 function xarTpl_outputTemplateFilenames()
@@ -1426,8 +1425,9 @@ function xarTpl_outputTemplateFilenames()
         // Default to not showing it
         $GLOBALS['xarTpl_showTemplateFilenames'] = 0;
         // CHECKME: not sure if this is needed, e.g. during installation
+        // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable
         if (function_exists('xarModGetVar')){
-            $showtemplates = xarModGetVar('themes', 'ShowTemplates');
+            $showtemplates = xarModVars::get('themes', 'ShowTemplates');
             if (!empty($showtemplates)) {
                 $GLOBALS['xarTpl_showTemplateFilenames'] = 1;
             }
@@ -1563,7 +1563,7 @@ function xarTpl__getCacheKey($sourceFileName)
 /**
  * Model of a tag attribute
  *
- * Mainly uses fro custom tags
+ * Mainly uses for custom tags
  *
  * @package blocklayout
  * @access protected
@@ -1806,7 +1806,7 @@ function xarTplRegisterTag($tag_module, $tag_name, $tag_attrs = array(), $tag_ha
         $dbconn->begin();
         $tag_id = $dbconn->GenId($tag_table);
 
-        $modInfo = xarMod_GetBaseInfo($tag->getModule());
+        $modInfo = xarMod::GetBaseInfo($tag->getModule());
         $modId = $modInfo['systemid'];
         $query = "INSERT INTO $tag_table
                   (xar_id, xar_name, xar_modid, xar_handler, xar_data)
@@ -1950,7 +1950,7 @@ function xarTplGetTagObjectFromName($tag_name)
     $result->Close();
 
     // Module must be active for the tag to be active
-    if(!xarModIsAvailable($module)) return; //throw back
+    if(!xarMod::isAvailable($module)) return; //throw back
 
     $obj = unserialize($obj);
 

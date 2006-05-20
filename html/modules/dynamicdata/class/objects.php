@@ -898,7 +898,7 @@ class Dynamic_Object extends Dynamic_Object_Master
 
         // set the specific item id (or 0)
         if (isset($args['itemid'])) $this->itemid = $args['itemid'];
-
+        
         // see if we can access this object, at least in overview
         if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->moduleid.':'.$this->itemtype.':'.$this->itemid)) return;
 
@@ -1052,21 +1052,40 @@ class Dynamic_Object extends Dynamic_Object_Master
         if (!empty($args['preview'])) $this->checkInput();
 
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
+            // Explicit fieldlist or status has value
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
                 if (isset($this->properties[$name])) {
                     $thisprop = $this->properties[$name];
                     if ($thisprop->status != 3)
-                        $args['properties'][$name] = & $this->properties[$name];
+                        $args['properties'][$name] =& $this->properties[$name];
                 }
             }
         } else {
-            foreach ($this->properties as $property) {
-                if ($property->status != 3)
-                    $args['properties'][$property->name] = $property;
+            // Do them all, except for status = 3 (what was that again?)
+            // TODO: this is exactly the same as in the display function, consolidate it.
+            $totransform = array(); $totransform['transform'] = array();
+            foreach($this->properties as $pname => $pobj) {
+                // *never* transform an ID
+                // TODO: there is probably lots more to skip here.
+                if($pobj->type == '21') continue;
+                $totransform['transform'][] = $pname;
+                $totransform[$pname] = $pobj->value;
             }
-        }
+        
+            // CHECKME: is $this->tplmodule safe here?
+            $transformed = xarModCallHooks('item','transform',$this->itemid, $totransform, $this->tplmodule,$this->itemtype);
 
+            foreach ($this->properties as $property) {
+                if ($property->status != 3 and $property->type != 21) {
+                    // sigh, 5 letters, but so many hours to discover them
+                    // anyways, clone the property, so we can safely change it, PHP 5 specific!!
+                    $args['properties'][$property->name] = clone $property;
+                    $args['properties'][$property->name]->value = $transformed[$property->name];
+                }
+            }
+
+        }
         // pass some extra template variables for use in BL tags, API calls etc.
         if (empty($this->name)) {
            $args['objectname'] = null;
@@ -1092,7 +1111,6 @@ class Dynamic_Object extends Dynamic_Object_Master
         } else {
             $args['catid'] = null;
         }
-
         return xarTplObject($args['tplmodule'],$args['template'],'showdisplay',$args);
     }
 
@@ -1757,11 +1775,11 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
         // Are we extending here?
         if (!empty($args['extend']))   $this->extend();
-
+        
         if (empty($args['viewfunc']))    $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldprefix'])) $args['fieldprefix'] = $this->fieldprefix;
         if (empty($args['fieldlist']))   $args['fieldlist'] = $this->fieldlist;
-
+        
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1784,7 +1802,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['linklabel'])) $args['linklabel'] = xarML('Display');
         if (empty($args['param']))     $args['param'] = $this->urlparam;
         if (empty($args['linkfield'])) $args['linkfield'] = '';
-
+        
         $modinfo = xarModGetInfo($this->moduleid);
         $modname = $modinfo['name'];
 
@@ -1946,7 +1964,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
         if (empty($args['viewfunc']))  $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldlist'])) $args['fieldlist'] = $this->fieldlist;
-
+        
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1970,7 +1988,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['linklabel'])) $args['linklabel'] = xarML('Display');
         if (empty($args['param']))     $args['param'] = $this->urlparam;
         if (empty($args['linkfield'])) $args['linkfield'] = '';
-
+        
         // pass some extra template variables for use in BL tags, API calls etc.
         $args['moduleid'] = $this->moduleid;
 

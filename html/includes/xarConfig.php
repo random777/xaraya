@@ -34,7 +34,8 @@ function xarConfig_init($args, $whatElseIsGoingLoaded)
     // Configuration Unit Tables
     $sitePrefix = xarDBGetSiteTablePrefix();
 
-    $tables = array('config_vars' => $sitePrefix . '_config_vars');
+    // TODO: revisit nameing, this was minimal change when migrating
+    $tables = array('config_vars' => $sitePrefix . '_module_vars');
 
     xarDB::importTables($tables);
     
@@ -118,7 +119,7 @@ function xarConfigSetVar($name, $value)
  * @return bool true on success, or void on database error
  * @raise DATABASE_ERROR
  * @todo We need some way to delete configuration (useless without a certain module) variables from the table!!!
- * @todo look into removing the serialisation, creole does this when needed, automatically
+ * @todo look into removing the serialisation, creole does this when needed, automatically (well, almost)
  */
 function xarConfig_loadVars()
 {
@@ -127,10 +128,9 @@ function xarConfig_loadVars()
     $dbconn =& xarDBGetConn();
     $tables =& xarDBGetTables();
 
-    $query = "SELECT xar_name, xar_value
-                FROM $tables[config_vars]";
+    $query = "SELECT xar_name, xar_value FROM $tables[config_vars] WHERE xar_modid=?";
     $stmt = $dbconn->prepareStatement($query);
-    $result = $stmt->executeQuery(array(),ResultSet::FETCHMODE_ASSOC);
+    $result = $stmt->executeQuery(array(0),ResultSet::FETCHMODE_ASSOC);
 
     while ($result->next()) {
         $newval = unserialize($result->getString('xar_value'));

@@ -97,10 +97,10 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend imple
 
         if ($bindResult) {
             if (!isset($this->gen)) return false;
-//            if (!isset($this->gen)) {
-//                $this->gen = new PHPBackendGenerator(xarMLSGetCurrentLocale());
-//                if (!isset($this->gen)) return false;
-//            }
+            //            if (!isset($this->gen)) {
+            //                $this->gen = new PHPBackendGenerator(xarMLSGetCurrentLocale());
+            //                if (!isset($this->gen)) return false;
+            //            }
 
             if (!$this->gen->bindDomain($dnType, $dnName)) return false;
             if (parent::bindDomain($dnType, $dnName)) return true;
@@ -108,7 +108,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend imple
         }
 
         // FIXME: I should comment it because it creates infinite loop
-        // MLS -> xarMod_getBaseInfo -> xarDisplayableName -> xarMod_getFileInfo -> MLS
+        // MLS -> xarMod::getBaseInfo -> xarDisplayableName -> xarMod::getFileInfo -> MLS
         // We don't use and don't translate KEYS files now,
         // but I will recheck this code in the menus clone
         // if ($dnType == XARMLS_DNTYPE_MODULE) {
@@ -123,7 +123,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend imple
 /*
     function loadKEYS($dnName)
     {
-        $modBaseInfo = xarMod_getBaseInfo($dnName);
+        $modBaseInfo = xarMod::getBaseInfo($dnName);
         $fileName = "modules/$modBaseInfo[directory]/KEYS";
         if (file_exists($fileName)) {
 

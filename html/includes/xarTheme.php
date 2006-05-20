@@ -47,8 +47,8 @@ function xarThemeSetVar($themeName, $name, $prime = NULL, $value, $description='
     $modVarName = $themeName . '_' . $name;
     // Make sure we set it as modvar first
     // TODO: this sucks
-    if(!xarModGetVar('themes',$modVarName)) {
-        xarModSetVar('themes',$modVarName,$value);
+    if(!xarModVars::get('themes',$modVarName)) {
+        xarModVars::set('themes',$modVarName,$value);
     }
     return xarVar__SetVarByAlias('themes', $modVarName, $value, $prime, $description, $itemid, $type = 'moditemvar');
 }
@@ -77,14 +77,14 @@ function xarThemeDelVar($themeName, $name)
  *
  * @access public
  * @param themeName The name of the theme
- * @return xarModGetIDFromName for processing
+ * @return theme RegID for processing
  * @raise DATABASE_ERROR, BAD_PARAM, THEME_NOT_EXIST
  */
 function xarThemeGetIDFromName($themeName,$id='regid')
 {
     if (empty($themeName)) throw new EmptyParameterException('themeName');
 
-    $themeBaseInfo = xarMod_getBaseInfo($themeName, 'theme');
+    $themeBaseInfo = xarMod::getBaseInfo($themeName, 'theme');
     if (!isset($themeBaseInfo)) return; // throw back
 
     return $themeBaseInfo[$id];
@@ -100,7 +100,7 @@ function xarThemeGetIDFromName($themeName,$id='regid')
  */
 function xarThemeGetInfo($regId)
 {
-    return xarModGetInfo($regId, $type = 'theme');
+    return xarMod::getInfo($regId, $type = 'theme');
 }
 
 
@@ -113,7 +113,8 @@ function xarThemeGetInfo($regId)
  */
 function xarThemeDBInfoLoad($themeName, $themeDir = NULL)
 {
-    return xarModDBInfoLoad($themeName, $themeDir, $type = 'theme');
+    // Just for consistency we do this now, but this just returns true, nothing more
+    return xarMod::loadDbInfo($themeName, $themeDir, $type = 'theme');
 }
 
 
@@ -143,7 +144,7 @@ function xarThemeGetDisplayableName($themeName)
  */
 function xarThemeIsAvailable($themeName)
 {
-    return xarModIsAvailable($themeName, $type = 'theme');
+    return xarMod::isAvailable($themeName, $type = 'theme');
 }
 
 
@@ -154,11 +155,12 @@ function xarThemeIsAvailable($themeName)
  *
  * @access protected
  * @param themeOSdir the theme's directory
- * @return xarMod_getFileInfo for processing
+ * @return xarMod::getFileInfo for processing
+ * @todo move to own class so we can protect it
  */
 function xarTheme_getFileInfo($themeOsDir)
 {
-    return xarMod_getFileInfo($themeOsDir, $type = 'theme');
+    return xarMod::getFileInfo($themeOsDir, $type = 'theme');
 }
 
 /**
@@ -170,7 +172,7 @@ function xarTheme_getFileInfo($themeOsDir)
  */
 function xarTheme_getBaseInfo($themeName)
 {
-    return xarMod_getBaseInfo($themeName, $type = 'theme');
+    return xarMod::getBaseInfo($themeName, $type = 'theme');
 }
 
 /**
@@ -182,21 +184,11 @@ function xarTheme_getBaseInfo($themeName)
  */
 function xarTheme_getVarsByTheme($themeName)
 {
-    // This is wrong, get them for themes module for now
-    //return xarMod_getVarsByModule($themeName, $type = 'theme');
-    return xarMod_getVarsByModule('themes');
-}
-
-/**
- * Get all theme variables with a particular name
- *
- * @access protected
- * @return bool true on success
- * @raise DATABASE_ERROR, BAD_PARAM
- */
-function xarTheme_getVarsByName($name)
-{
-    return xarMod_getVarsByName($name, $type = 'theme');
+    // TODO: we would need to return all mod item vars here where:
+    // mod  = themes
+    // item = the theme
+    // For now, return the vars of the themes module
+    return xarModVars::load('themes');
 }
 
 /**
@@ -209,6 +201,6 @@ function xarTheme_getVarsByName($name)
  */
 function xarTheme_getState($themeRegId, $themeMode)
 {
-    return xarMod_getState($themeRegId, $themeMode, $type = 'theme');
+    return xarMod::getState($themeRegId, $themeMode, $type = 'theme');
 }
 ?>

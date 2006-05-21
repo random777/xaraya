@@ -1,7 +1,7 @@
 <?php
 /**
  * Configuration Unit
- * 
+ *
  * @package config
  * @copyright (C) 2002 by the Xaraya Development Team.
  * @license GPL <http://www.gnu.org/licenses/gpl.html>
@@ -16,7 +16,7 @@
 // Generic
 // FIXME: too weak
 class ConfigurationException extends ConfigurationExceptions
-{ 
+{
     protected $message = 'There is an unknown configuration error detected.';
 }
 
@@ -38,11 +38,11 @@ function xarConfig_init($args, $whatElseIsGoingLoaded)
     $tables = array('config_vars' => $sitePrefix . '_module_vars');
 
     xarDB::importTables($tables);
-    
+
     // Pre-load site config variables
     // CHECKME: see if this doesn't hurt install before activating :-)
     xarConfig_loadVars();
-    
+
     // Subsystem initialized, register a handler to run when the request is over
     //register_shutdown_function ('xarConfig__shutdown_handler');
     return true;
@@ -141,7 +141,7 @@ function xarConfig_loadVars()
     //Tells the cache system it has already checked this particular table
     //(It's a escape when you are caching at a higher level than that of the
     //individual variables)
-    //This whole cache systems must be remade to a central one.    
+    //This whole cache systems must be remade to a central one.
     xarCore::setCached($cacheCollection, 0, true);
 
     return true;

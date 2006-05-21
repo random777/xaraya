@@ -219,7 +219,7 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
         // fetched does not pass validation, i doubt we want that. Means that an optional fetch never validates and
         // always gets the default value?
         $supress = true;
-    } 
+    }
     // Validate the value
     $result = xarVarValidate($validation, $value, $supress, $name);
 
@@ -233,7 +233,7 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
         } elseif (($flags & XARVAR_DONT_SET) && isset($oldValue) && xarVarValidate($validation, $oldValue, $supress)) {
             // with XARVAR_DONT_SET, make sure we don't pass invalid old values back either
             $value = $oldValue;
-        } 
+        }
     } else {
         // Check prep of $value
         if ($prep & XARVAR_PREP_FOR_DISPLAY) {
@@ -427,7 +427,7 @@ function xarVar__GetVarByAlias($modName = NULL, $name, $itemid = NULL, $prep = N
 {
     if (empty($name)) throw new EmptyParameterException('name');
     if (empty($prep)) $prep = XARVAR_PREP_FOR_NOTHING;
-    
+
     // Lets first check to see if any of our type vars are alread set in the cache.
     $cacheName = $name;
     switch($type) {

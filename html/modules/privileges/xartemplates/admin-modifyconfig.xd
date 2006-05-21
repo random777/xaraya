@@ -342,7 +342,7 @@
         - - - - - - Begin Testing - - - - - 
     </xar:comment>
     <xar:if condition="$tab eq 'testing'">
-        <form method="post" id="testerform" name="testerform" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >
+        <form method="post" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -354,53 +354,13 @@
                 </div>
                 <br />
                 <div class="xar-form-input-wrapper">
-                    <label for="testergroup" title="#xarML('Group containing the tester')#" class="xar-form-label">
-                        <xar:mlstring>Tester Group:</xar:mlstring>
-                    </label>
-
-                    <select name="testergroup" id="testergroup" size="1" onchange="this.form.submit(testerform.phase.value='modify');" >
-
-                    <xar:foreach in="$grouplist" key="$k" value="$testers" >
-                         <xar:if condition="$grouplist[$k]['uid'] eq $testergroup">
-                            <option value="#$grouplist[$k]['uid']#" selected="selected">#$grouplist[$k]['name']#</option>
-                        <xar:else />
-                            <option name="testgroup.#$grouplist[$k]#" value="#$grouplist[$k]['uid']#">#$grouplist[$k]['name']#</option>
-                        </xar:if>
-                    </xar:foreach>
-                    </select>
-                    <!--<xar:data-input type="grouplist" name="testergroup" is="testergroup" value="$testergroup" onchange="this.form.action=this.form.submit();"/>-->
-                    <xar:mlstring>Group to select tester from</xar:mlstring>
-                </div>
-                <div class="xar-form-input-wrapper">
-                    <label for="tester" title="#xarML('Name of the administator that will see the messages')#" class="xar-form-label">
+                    <label for="name" title="#xarML('Name of the administator that will see the messages')#" class="xar-form-label">
                         <xar:mlstring>Tester:</xar:mlstring>
                     </label>
-                    <select name="tester" id="tester" size="1"">
-                    <xar:foreach in="$testusers" key="$k" value="$testers" >
-                        <xar:if condition="$testusers[$k]['uid'] eq $tester">
-                            <option value="#$testusers[$k]['uid']#" selected="selected">#$testusers[$k]['uname']#</option>
-                        <xar:else />
-                            <option name="tester.#$testusers[$k]#" value="#$testusers[$k]['uid']#">#$testusers[$k]['uname']#</option>
-                        </xar:if>
-                        </xar:foreach>
-                    </select>
-                    <!--<xar:data-input type="userlist" name="tester" uid="4" value="$tester" />-->
-
-                    <span class="xar-error">
-                   <xar:ml>
-                    <xar:mlstring>
-                    The current tester is <strong>#(1)</strong>.
-                    </xar:mlstring>
-                    <xar:mlvar>
-                       #xarUserGetVar('uname',$tester)#
-                    </xar:mlvar>
-                   </xar:ml>
-                </span>
+                    <xar:set name="$testers">xarModAPIFunc('dynamicdata','user','getproperty', array('type' => 37, 'validation' => 'group:Administrators'))</xar:set>
+                    <xar:data-input property="$testers" name="tester" value="$tester"/>
+                    <xar:mlstring>This user can see the security check messages</xar:mlstring>              
                 </div>
-                <p class="xar-form-input-wrapper-after">
-
-                <xar:mlstring>They will see the security check messages.</xar:mlstring>
-                </p>
                 <div class="xar-form-input-wrapper">
                     <label for="test" title="#xarML('Non Deny checks only shows checks that do not involve DENYs')#" class="xar-form-label">
                         <xar:mlstring>
@@ -434,19 +394,17 @@
                         </xar:mlstring>
                     </label>
                     <input type="text" name="testmask" id="testmask" value="#$testmask#" />
-                    <p class="xar-form-input-wrapper-after">
-                         <xar:mlstring>Adding a mask name here will show only the checks involving that mask</xar:mlstring>
-                    </p>
+                    <xar:mlstring>Adding a mask name here will show only the checks involving that mask</xar:mlstring>              
                 </div>
             </fieldset>
-
+            <fieldset>
                 <div class="xar-form-input-wrapper-after">
                     <input type="hidden" name="authid" id="authid" value="#$authid#" />
                     <input type="hidden" name="phase" id="phase" value="update" />
                     <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Tester Configuration')#" />
+                    <input type="submit" value="#xarML('Update Privileges Configuration')#" />
                 </div>
-
+            </fieldset>
         </form>
     </xar:if>
 </div>

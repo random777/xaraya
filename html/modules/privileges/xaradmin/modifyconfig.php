@@ -20,15 +20,10 @@ function privileges_admin_modifyconfig()
     if (!xarSecurityCheck('AdminPrivilege')) return;
     if (!xarVarFetch('phase', 'str:1:100', $phase, 'modify', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
     if (!xarVarFetch('tab', 'str:1:100', $data['tab'], 'general', XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('testergroup', 'int', $testergroup, xarModGetVar('privileges', 'testergroup'), XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('tester', 'int', $tester, xarModGetVar('privileges', 'tester'), XARVAR_NOT_REQUIRED)) return;
-
+    if (!xarVarFetch('tester', 'int', $data['tester'], xarModGetVar('privileges', 'tester'), XARVAR_NOT_REQUIRED)) return;
     switch (strtolower($phase)) {
         case 'modify':
         default:
-            if (!isset($phase)) {
-                xarSessionSetVar('statusmsg', '');
-            }
             $data['inheritdeny'] = xarModGetVar('privileges', 'inheritdeny');
             $data['authid'] = xarSecGenAuthKey();
             switch ($data['tab']) {
@@ -46,47 +41,24 @@ function privileges_admin_modifyconfig()
                     }
                     break;
                 case 'realms':
-                    $data['showrealms'] = xarModGetVar('privileges', 'showrealms');
-                    $realmvalue = xarModGetVar('privileges', 'realmvalue');
-                    if (strpos($realmvalue,'string:') === 0) {
-                       $textvalue = substr($realmvalue,7);
-                       $realmvalue = 'string';
-                    } else {
-                        $textvalue = '';
-                    }
-                    $data['realmvalue'] = $realmvalue;
-                    $data['textvalue'] = $textvalue;
+                $data['showrealms'] = xarModGetVar('privileges', 'showrealms');
+                $realmvalue = xarModGetVar('privileges', 'realmvalue');
+                if (strpos($realmvalue,'string:') === 0) {
+                    $textvalue = substr($realmvalue,7);
+                    $realmvalue = 'string';
+                } else {
+                    $textvalue = '';
+                }
+                $data['realmvalue'] = $realmvalue;
+                $data['textvalue'] = $textvalue;
                 break;
-
                 case 'testing':
-                     $testmask=trim(xarModGetVar('privileges', 'testmask'));
+                    if (!xarVarFetch('testmask', 'str', $testmask, xarModGetVar('privileges', 'testmask'), XARVAR_NOT_REQUIRED)) return;
+                     $testmask = trim($testmask);
                      if (!isset($testmask) || empty($testmask)) {
                          $testmask='All';
                      }
-                     $data['testmask']=$testmask;
-                     $settestergroup=xarModGetVar('privileges','testergroup');
-                     if (!isset($settestergroupp) || empty($settestergroup)) {
-                         $settestergroup='Administrators';
-                     }
-                     if (!isset($testergroup) || empty($testergroup)) {
-                         $testergroup=$settestergroup;
-                     }
-                     $data['testergroup']=$testergroup;
-
-                     $grouplist=xarGetGroups();
-                     $data['grouplist']=$grouplist;
-
-                     $testgrouprole=xarFindRole('Administrators');
-                     $testgroupuid=$testgrouprole->uid;
-
-                     $testusers=xarModAPIFunc('roles','user','getUsers',array('uid'=>$testergroup));
-                     $data['testusers']=$testusers;
-
-                     $tester=xarModGetVar('privileges','tester');
-                     if (!isset($tester) || empty($tester)) {
-                         $tester='Administrator';
-                     }
-                     $data['tester']=$tester;
+                     $data['testmask'] = $testmask;
                 break;
             }
             break;
@@ -100,9 +72,7 @@ function privileges_admin_modifyconfig()
                     xarModSetVar('privileges', 'inheritdeny', $inheritdeny);
                     if (!xarVarFetch('lastresort', 'checkbox', $lastresort, false, XARVAR_NOT_REQUIRED)) return;
                     xarModSetVar('privileges', 'lastresort', $lastresort);
-                    if (!$lastresort) {
-                        xarModDelVar('privileges', 'lastresort',$lastresort);
-                    }
+                    if (!$lastresort) xarModDelVar('privileges', 'lastresort',$lastresort);
                     if (!xarVarFetch('exceptionredirect', 'checkbox', $data['exceptionredirect'], false, XARVAR_NOT_REQUIRED)) return;
                     xarModSetVar('privileges', 'exceptionredirect', $data['exceptionredirect']);
                     break;
@@ -122,7 +92,7 @@ function privileges_admin_modifyconfig()
                     if (!xarVarFetch('name', 'str', $name, '', XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('password', 'str', $password, '', XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('password2', 'str', $password2, '', XARVAR_NOT_REQUIRED)) return;
-                    
+
                     // rudimentary check for valid password for now - fix so nicer presentation to user
                     if (strcmp($password, $password2) != 0) {
                         $msg = xarML('Last Resort Admin Creation failed! <br />The two password entries are not the same, please try again.');
@@ -143,9 +113,8 @@ function privileges_admin_modifyconfig()
                     xarModSetVar('privileges', 'test', $test);
                     if (!xarVarFetch('testdeny', 'checkbox', $testdeny, false, XARVAR_NOT_REQUIRED)) return;
                     xarModSetVar('privileges', 'testdeny', $testdeny);
-                    if (!xarVarFetch('testmask', 'str', $testmask, 'All', XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('testmask', 'str', $testmask, xarModGetVar('privileges', 'testmask'), XARVAR_NOT_REQUIRED)) return;
                     xarModSetVar('privileges', 'testmask', $testmask);
-                    xarModSetVar('privileges', 'testergroup', $testergroup);
                     break;
             }
 

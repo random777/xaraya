@@ -55,8 +55,6 @@ function roles_adminapi_update($args)
     $role = new xarRole($args);
     $role->update();
 	xarModSetUserVar('roles','userhome',$home,$uid);
-	    xarModSetUserVar('roles','userhome',$home, $uid);
-    }
 	if (isset($passwordupdate) && xarModGetVar('roles','setpasswordupdate')) {
         xarModSetUserVar('roles','passwordupdate',$passwordupdate, $uid);
     }

@@ -1,8 +1,9 @@
-<object name="users">
+<object name="extendeduser">
   <objectid>4</objectid>
-  <label>Users</label>
+  <label>Extended User</label>
   <moduleid>27</moduleid>
   <itemtype>0</itemtype>
+  <parent>2</parent>
   <urlparam>uid</urlparam>
   <maxid>0</maxid>
   <config></config>

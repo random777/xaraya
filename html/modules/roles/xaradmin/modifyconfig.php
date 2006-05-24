@@ -124,7 +124,6 @@ function roles_admin_modifyconfig()
                     xarModSetVar('roles', 'itemsperpage', $itemsperpage);
                     xarModSetVar('roles', 'defaultauthmodule', $defaultauthmodule);
                     xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);
-                    xarModSetVar('roles', 'defaultgroup', $defaultgroup);
                     xarModSetVar('roles', 'SupportShortURLs', $shorturls);
                     xarModSetVar('roles', 'admin', $siteadmin);
                 case 'hooks':

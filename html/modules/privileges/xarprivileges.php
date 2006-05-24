@@ -489,12 +489,12 @@ class xarMasks
         if ($catch && !$pass) {
             if (xarModGetVar('privileges','exceptionredirect') && $userID = _XAR_ID_UNREGISTERED) {
                 // TODO: 1. when the privileges on the redirect page fail=> BOOM! (unlikely now)
-                // Give user another chance if not logged on 
+                // Give user another chance if not logged on
                 $mod = xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule'));
                 $requrl = urlencode(xarServerGetCurrentUrl());
                 xarResponseRedirect(xarModURL($mod,'user','showloginform',array('redirecturl'=> $requrl)));
             } else {
-                $msg = xarML('No privilege for #(1)',$mask->getName());
+                $msg = xarML('You don\'t have the correct privileges for this operation');
                 throw new Exception($msg);
             }
         }
@@ -1152,7 +1152,7 @@ class xarPrivileges extends xarMasks
     function getmodules()
     {
         static $allmodules = array();
-        
+
         if (empty($allmodules)) {
             $query = "SELECT modules.xar_id, modules.xar_name
                       FROM $this->modulestable modules

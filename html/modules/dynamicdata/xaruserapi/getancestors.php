@@ -17,40 +17,24 @@ function &dynamicdata_userapi_getancestors($args)
     $base = isset($base) ? $base : true;
 
 // -------------- Get the info of this object
-// Q: why not use the DD api for this? (getObjectInfo) For the construction?
 	$xartable =& xarDBGetTables();
-	$q = new xarQuery('SELECT',$xartable['dynamic_objects']);
-	$q->addfields(array('xar_object_id AS objectid','xar_object_moduleid AS moduleid','xar_object_itemtype AS itemtype','xar_object_parent AS parent'));
-
     if (isset($objectid)) {
 // -------------- We have an objectid - get the moduleid and itemtype
-		$q->eq('xar_object_id',$objectid);
-		if (!$q->run()) return;
-		$result = $q->row();
-		if ($result == array()) {
-			$msg = xarML('Bad objectid for dynamicdata_userapi_getancestors.');
-			throw new BadParameterException(array(),$msg);
-		}
-		$moduleid = $result['moduleid'];
-		$itemtype = $result['itemtype'];
+		$topobject = xarModAPIFunc('dynamicdata','user', 'getobjectinfo', array('objectid' => $objectid));
+		$moduleid = $topobject['moduleid'];
+		$itemtype = $topobject['itemtype'];
    } else {
 // -------------- We have a moduleid and itemtype - get the objectid
-	    $q->eq('xar_object_moduleid',$moduleid);
-	    $q->eq('xar_object_itemtype',$itemtype);
-		if (!$q->run()) return;
-		$result = $q->row();
-		if (empty($result)) {
+		$topobject = xarModAPIFunc('dynamicdata','user', 'getobjectinfo', array('moduleid' => $moduleid, 'itemtype' => $itemtype));
+		if (empty($topobject)) {
 			if ($base) {
-				$info = xarModAPIFunc('dynamicdata','user', 'getobjectinfo', array('moduleid' => $moduleid, 'itemtype' => $itemtype));
-				if (empty($info)) {
-					$types = xarModAPIFunc('dynamicdata','user','getmoduleitemtypes', array('moduleid' => $moduleid));
-					$info = array('objectid' => 0, 'itemtype' => $itemtype, 'name' => xarModGetNameFromID($moduleid));
-				}
-				$result = array($info);
+				$types = xarModAPIFunc('dynamicdata','user','getmoduleitemtypes', array('moduleid' => $moduleid));
+				$info = array('objectid' => 0, 'itemtype' => $itemtype, 'name' => xarModGetNameFromID($moduleid));
+				return array($info);
 			}
-			return $result;
+			return $topobject;
 		}
-		$objectid = $result['objectid'];
+		$objectid = $topobject['objectid'];
    }
 
 // -------------- Include the last descendant - this object, or not
@@ -69,15 +53,11 @@ function &dynamicdata_userapi_getancestors($args)
     foreach($q->output() as $row) $objects [$row['itemtype']] = array('objectid' => $row['objectid'],'objectname' => $row['objectname'], 'moduleid' => $row['moduleid'], 'itemtype' => $row['itemtype'], 'parent' => $row['parent']);
 
 // -------------- Cycle through each ancestor
-    $parentitemtype = $result['parent'];
+    $parentitemtype = $topobject['parent'];
     for(;;) {
     	$done = false;
 
-    	if (($moduleid == 182) && ($parentitemtype == 0)) {
-// -------------- Special case for DD objects, do nothing
-    		$done = true;
-
-    	} elseif ($parentitemtype >= 1000) {
+    	if ($parentitemtype >= 1000) {
 
 // -------------- This is a DD object. add it to the ancestor array
 			$thisobject     = $objects[$parentitemtype];

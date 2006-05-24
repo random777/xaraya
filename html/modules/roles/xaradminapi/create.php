@@ -33,19 +33,21 @@ function roles_adminapi_create($args)
     // Get arguments
     extract($args);
 
+    $itemtype = isset($itemtype) ? $itemtype : ROLES_USERTYPE;
     $baseitemtype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
 	$args['basetype'] = $baseitemtype;
 
     if ($baseitemtype == ROLES_USERTYPE) {
 		if (!isset($uname)) throw new EmptyParameterException('uname');
 		if (!isset($email)) throw new EmptyParameterException('email');
-		if (!isset($name)) throw new EmptyParameterException('name');
+		if (!isset($realname)) throw new EmptyParameterException('realname');
 		if (!isset($state)) throw new EmptyParameterException('state');
 		if (!isset($pass)) throw new EmptyParameterException('pass');
 		$args['cryptpass'] = md5($pass);
     } elseif ($baseitemtype == ROLES_GROUPTYPE) {
-		if (!isset($name)) throw new EmptyParameterException('name');
+		if (!isset($realname)) throw new EmptyParameterException('realname');
     }
+	$args['name'] = $realname;
 	$args['type'] = $itemtype;
 	if (empty($authmodule)) {
         $modInfo = xarMod_GetBaseInfo('authsystem');

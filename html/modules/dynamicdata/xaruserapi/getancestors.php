@@ -15,6 +15,7 @@ function &dynamicdata_userapi_getancestors($args)
 
     $top = isset($top) ? $top : true;
     $base = isset($base) ? $base : true;
+    $ancestors = array();
 
 // -------------- Get the info of this object
 	$xartable =& xarDBGetTables();
@@ -30,15 +31,15 @@ function &dynamicdata_userapi_getancestors($args)
 			if ($base) {
 				$types = xarModAPIFunc('dynamicdata','user','getmoduleitemtypes', array('moduleid' => $moduleid));
 				$info = array('objectid' => 0, 'itemtype' => $itemtype, 'name' => xarModGetNameFromID($moduleid));
-				return array($info);
+		    	$ancestors[] = $info;
+				return $ancestors;
 			}
-			return $topobject;
+			return $ancestors;
 		}
 		$objectid = $topobject['objectid'];
    }
 
 // -------------- Include the last descendant - this object, or not
-    $ancestors = array();
     if ($top) {
     	$ancestors[] = xarModAPIFunc('dynamicdata','user', 'getobjectinfo', array('objectid' => $objectid));
     }

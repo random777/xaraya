@@ -14,7 +14,7 @@
  * create a user
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param string $args['uname'] username of the user
- * @param string $args['name'] real name of the user
+ * @param string $args['name'] or $args['realname'] real name of the user
  * @param string $args['email'] email address of the user
  * @param string $args['pass'] password of the user
  * @param string $args['date'] registration date
@@ -40,14 +40,14 @@ function roles_adminapi_create($args)
     if ($baseitemtype == ROLES_USERTYPE) {
 		if (!isset($uname)) throw new EmptyParameterException('uname');
 		if (!isset($email)) throw new EmptyParameterException('email');
-		if (!isset($realname)) throw new EmptyParameterException('realname');
+		if (!isset($realname) && !isset($name)) throw new EmptyParameterException('realname');
 		if (!isset($state)) throw new EmptyParameterException('state');
 		if (!isset($pass)) throw new EmptyParameterException('pass');
 		$args['cryptpass'] = md5($pass);
     } elseif ($baseitemtype == ROLES_GROUPTYPE) {
-		if (!isset($realname)) throw new EmptyParameterException('realname');
+		if (!isset($realname) && !isset($name)) throw new EmptyParameterException('realname or name');
     }
-	$args['name'] = $realname;
+	$args['name'] = isset($realname) ? $realname : $name;
 	$args['type'] = $itemtype;
 	if (empty($authmodule)) {
         $modInfo = xarMod_GetBaseInfo('authsystem');

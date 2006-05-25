@@ -92,6 +92,15 @@ function dynamicdata_adminapi_updatehook($args)
     }
 
     $tree = xarModAPIFunc('dynamicdata','user', 'getancestors', array('moduleid' => $modid, 'itemtype' => $itemtype, 'base' => false));
+    if (!is_array($tree)) {
+    	echo var_dump($tree);
+    	echo "<br />";
+    	echo var_dump($itemtype);
+    	echo "<br />";
+    	echo var_dump($modid);
+    	echo "<br />";
+    	exit;
+    }
     foreach ($tree as $branch) {
     	if ($branch['objectid'] == 0) continue;
     	// TODO: this next line jumps over itemtypes that correspond to wrappers of native itemtypes

@@ -213,7 +213,7 @@ class Dynamic_Object_Master
 			// If this is an extended object add the ancestor properties for display purposes
 			if (!empty($ancestors)) {
 				foreach ($ancestors as $ancestor) {
-					$this->add($ancestor);
+					$this->add($ancestor['objectid']);
 				}
 			}
 		}
@@ -230,22 +230,22 @@ class Dynamic_Object_Master
     	}
     	if (!is_object($object))
     		throw new EmptyParameterException(array(),'Not a valid object');
-					$properties = $object->getProperties();
-					foreach ($properties as &$newproperty) {
-						// ignore if this property already belongs to the object
-						if (isset($this->properties[$newproperty->name])) continue;
-						$args = array('name'  => $newproperty->name,
-									  'type'  => $newproperty->type,
-									  'label' => $newproperty->label);
-						if (!isset($this->datastores[$newproperty->datastore])) {
-							$newstore = $this->property2datastore($newproperty);
-							$this->addDatastore($newstore[0],$newstore[1]);
-						}
-						$newproperty->_items =& $this->items;
-						$this->datastores[$newproperty->datastore]->addField($newproperty);
-						$this->addProperty($args);
-	//                  $this->fieldlist[] = $newproperty->name;
-					}
+		$properties = $object->getProperties();
+		foreach ($properties as &$newproperty) {
+			// ignore if this property already belongs to the object
+			if (isset($this->properties[$newproperty->name])) continue;
+			$args = array('name'  => $newproperty->name,
+						  'type'  => $newproperty->type,
+						  'label' => $newproperty->label);
+			if (!isset($this->datastores[$newproperty->datastore])) {
+				$newstore = $this->property2datastore($newproperty);
+				$this->addDatastore($newstore[0],$newstore[1]);
+			}
+			$newproperty->_items =& $this->items;
+			$this->datastores[$newproperty->datastore]->addField($newproperty);
+			$this->addProperty($args);
+//                  $this->fieldlist[] = $newproperty->name;
+		}
 	}
 
     /**

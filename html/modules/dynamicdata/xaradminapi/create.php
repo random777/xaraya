@@ -22,7 +22,7 @@
  * @return item id on success, null on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
-function dynamicdata_adminapi_create($args)
+function dynamicdata_adminapi_create(&$args)
 {
     extract($args);
 
@@ -66,6 +66,8 @@ function dynamicdata_adminapi_create($args)
         }
     }
     $itemid = $myobject->createItem($values);
+    unset($values);
+    unset($myobject);
     return $itemid;
 }
 ?>

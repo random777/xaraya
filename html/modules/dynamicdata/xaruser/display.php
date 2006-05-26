@@ -22,13 +22,13 @@ function dynamicdata_user_display($args)
     extract($args);
 
     if(!xarVarFetch('objectid', 'isset', $objectid,  NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('modid',    'isset', $modid,     NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('modid',    'int',   $modid,     182,  XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype', 'isset', $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemid',   'isset', $itemid,    NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
-    
+
 /*  // we could also pass along the parameters to the template, and let it retrieve the object
     // but in this case, we'd need to retrieve the object label anyway
     return array('objectid' => $objectid,
@@ -44,7 +44,7 @@ function dynamicdata_user_display($args)
     if (isset($objectid)) {
 	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('objectid' => $objectid));
     } else {
-	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('moduleid' => $modid,'itemtype' => $itemtype));
+	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('moduleid' => $myobject->moduleid,'itemtype' => $itemtype));
     }
     $itemtype = $ancestor['itemtype'];
 
@@ -86,7 +86,7 @@ function dynamicdata_user_display($args)
         if($pname == 'transform') continue;
         $myobject->properties[$pname]->value = $tvalue;
     }
-    
+
     // *Now* we can set the data stuff
     $data['object'] =& $myobject;
 

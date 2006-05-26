@@ -649,13 +649,14 @@ class xarMasks
         $matched = false;
         $pass = false;
         // Note : DENY rules override all others here...
+		$thistest = $testdeny && ($testmask == $mask->getName() || $testmask == "All");
         foreach ($privilegeset['privileges'] as $privilege) {
-            if($testdeny && ($testmask == $mask->getName() || $testmask == "All")) {
-                echo "<br />Comparing " . $privilege->present() . " against " . $mask->present() . " <b>for deny</b>. ";
-                if (($privilege->level == 0) && ($privilege->includes($mask))) echo $privilege->getName() . " found. ";
-                else echo "not found. ";
+            if($thistest) {
+                echo "Comparing <font color='blue'>[" . $privilege->present() . "]</font> against  <font color='green'>[". $mask->present() . "]</font> <b>for deny</b>. ";
+                if (($privilege->level == 0) && ($privilege->includes($mask))) echo "<font color='blue'>[" . $privilege->getName() . "]</font> matches. ";
+                else echo "no match found. ";
                 /* debugging output */
-                $msg = "Comparing for DENY.".$privilege->present(). "\n  ".
+                $msg = "Comparing for DENY.<font color='blue'>".$privilege->present(). "</blue>\n  ".
                     $mask->present();
                 if (($privilege->level == 0) &&
                     ($privilege->includes($mask))) {
@@ -667,23 +668,39 @@ class xarMasks
             }
             if ($privilege->level == 0 && $privilege->includes($mask)) {
                 if (!xarModGetVar('privileges','inheritdeny') && is_object($role)) {
+					if($thistest) {
+						echo "We don't inherit <strong>denys</strong>, ";
+					}
                     $privs = $role->getAssignedPrivileges();
                     $isassigned = false;
                     foreach ($privs as $priv) {
                         if ($privilege == $priv) {
+							if($thistest) {
+								echo "but <font color='blue'>[" . $privilege->present() . "] wins</font> because directly assigned. Continuing with other checks...<br />";
+							}
                             return false;
                             break;
                         }
                     }
+					if($thistest) {
+						echo "and <font color='blue'>[" . $privilege->present() . "] wins</font> is not directly assigned. Ignoring..<br/>";
+					}
                 } else {
+					if($thistest) {
+						echo "<font color='blue'>[" . $privilege->present() . "] wins</font>. Continuing with other checks...<br />";
+					}
                     return false;
                 }
+            } else {
+	            if($thistest) {
+	            	echo "Continuing with other checks..<br />";
+	            }
             }
         }
 
         foreach ($privilegeset['privileges'] as $privilege) {
             if($test && ($testmask == $mask->getName() || $testmask == "All")) {
-                echo "<br />Comparing <br />" . $privilege->present() . " and <br />" . $mask->present() . ". <br />";
+                echo "Comparing <font color='blue'>[" . $privilege->present() . "]</font> and <font color='green'>[" . $mask->present() . "]</font>. ";
                 $msg = "Comparing \n  Privilege: ".$privilege->present().
                     "\n       Mask: ".$mask->present();
                 xarLogMessage($msg, XARLOG_LEVEL_DEBUG);
@@ -691,7 +708,7 @@ class xarMasks
             if ($privilege->includes($mask)) {
                 if ($privilege->implies($mask)) {
                     if($test && ($testmask == $mask->getName() || $testmask == "All")) {
-                        echo $privilege->getName() . " <font color='blue'>wins</font>. Continuing .. <br />Privilege includes mask. Privilege level greater or equal.<br />";
+                        echo "<font color='blue'>[" . $privilege->getName() . "] wins</font>. Privilege includes mask. Privilege level greater or equal. Continuing with other checks.. <br />";
                         $msg = $privilege->getName() . " WINS! ".
                             "Privilege includes mask. ".
                             "Privilege level greater or equal.\n";
@@ -701,7 +718,7 @@ class xarMasks
                 }
                 else {
                     if($test && ($testmask == $mask->getName() || $testmask == "All")) {
-                        echo $mask->getName() . " <font color='blue'>wins</font>. Continuing .. <br />Privilege includes mask. Privilege level lesser.<br />";
+                        echo "<font color='green'>[" . $mask->getName() . "] wins</font>. Privilege includes mask. Privilege level lesser. Continuing with other checks..<br />";
                         $msg = $mask->getName() . " MATCHES! ".
                                 "Privilege includes mask. Privilege level ".
                                 "lesser.\n";
@@ -713,7 +730,7 @@ class xarMasks
             elseif ($mask->includes($privilege)) {
                 if ($privilege->level >= $mask->level) {
                     if($test && ($testmask == $mask->getName() || $testmask == "All")) {
-                        echo $privilege->getName() . " <font color='blue'>wins</font>. Continuing .. <br />Mask includes privilege. Privilege level greater or equal.<br />";
+                        echo "<font color='blue'>[" . $privilege->getName() . "] wins</font>. Mask includes privilege. Privilege level greater or equal. Continuing with other checks.. <br />";
                         $msg = $privilege->getName()." WINS! ".
                             "Mask includes privilege. Privilege level ".
                             "greater or equal.\n";
@@ -724,7 +741,7 @@ class xarMasks
                 }
                 else {
                     if($test && ($testmask == $mask->getName() || $testmask == "All")) {
-                        echo $mask->getName() . " <font color='blue'>wins</font>. Continuing...<br />Mask includes privilege. Privilege level lesser.<br />";
+                        echo "<font color='blue'>[" . $mask->getName() . "] wins</font>. Mask includes privilege. Privilege level lesser. Continuing with other checks..<br />";
                         $msg = $mask->getName()." MATCHES! ".
                             "Mask includes privilege. Privilege level ".
                             "lesser.\n";
@@ -734,7 +751,7 @@ class xarMasks
             }
             else {
                 if($test && ($testmask == $mask->getName() || $testmask == "All")) {
-                    echo "<font color='red'>no match</font>. Continuing...<br />";
+                    echo "<font color='red'>no match</font>. Continuing with other checks..<br />";
                     $msg = "NO MATCH.\n";
                     xarLogMessage($msg, XARLOG_LEVEL_DEBUG);
                 }

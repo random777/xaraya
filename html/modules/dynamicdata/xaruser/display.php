@@ -44,7 +44,7 @@ function dynamicdata_user_display($args)
     if (isset($objectid)) {
 	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('objectid' => $objectid));
     } else {
-	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('moduleid' => $myobject->moduleid,'itemtype' => $itemtype));
+	    $ancestor = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('moduleid' => $modid,'itemtype' => $itemtype));
     }
     $itemtype = $ancestor['itemtype'];
 

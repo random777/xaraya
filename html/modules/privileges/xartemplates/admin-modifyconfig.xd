@@ -120,7 +120,6 @@
                 </div>
                 <div class="xar-form-input-wrapper-after"><xar:mlstring>A logged in user will see the exception error message that can be changed with a base module override template (message-NO_PRIVILEGES.xt).</xar:mlstring>
                 </div>
-                <xar:comment>
                 <div class="xar-form-input-wrapper">
                     <label for="inheritdeny" title="#xarML('Enable or disable inheritance of deny privileges')#" class="xar-form-label">
                         <xar:mlstring>Inherit Deny Privileges:</xar:mlstring>
@@ -132,7 +131,6 @@
                     </xar:if>
                     <xar:mlstring>Warning: This setting affects the way privileges work on your site. If changed you should retest all the privileges on your site.</xar:mlstring>
                 </div>
-                </xar:comment>
              </fieldset>
             <fieldset>
                <legend>

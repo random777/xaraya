@@ -160,6 +160,7 @@ class Dynamic_TextBox_Property extends Dynamic_Property
         if (empty($template)) {
             $template = 'textbox';
         }
+        var_dump($data);exit;
         return xarTplProperty('base', $template, 'validation', $data);
     }
 

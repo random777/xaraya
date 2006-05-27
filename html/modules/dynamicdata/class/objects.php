@@ -56,7 +56,7 @@ class Dynamic_Object_Master
     // secondary key could be item type (e.g. for articles)
     public $secondary = null;
     // set this true to automatically filter by current itemtype on secondary key
-    public $filter;
+    public $filter = true;
 
     // flag indicating if this object has some property that provides file upload
     public $upload = false;
@@ -294,7 +294,7 @@ class Dynamic_Object_Master
                 $this->primary = $name;
             }
             // keep track of what property holds the secondary key (item type)
-            if (!isset($this->secondary) && $property->type == 20 && !empty($this->filter)) {
+            if (empty($this->secondary) && $property->type == 20 && !empty($this->filter)) {
                 $this->secondary = $name;
             }
         }

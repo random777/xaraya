@@ -121,8 +121,7 @@ function dynamicdata_userapi_showview($args)
         $status = null;
     } else {
         $myfieldlist = null;
-        // get active properties only (+ not the display only ones)
-        $status = 1;
+        $status = DD_PROPERTYSTATE_DISPLAYONLY | DD_PROPERTYSTATE_ACTIVE;
     }
 
     // join a module table to a dynamic object

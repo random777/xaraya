@@ -13,11 +13,6 @@
 require_once 'modules/dynamicdata/class/properties.php';
 require_once 'modules/dynamicdata/class/datastores.php';
 
-define('DD_PROPERTYSTATE_DISABLED',0);
-define('DD_PROPERTYSTATE_ACTIVE',1);
-define('DD_PROPERTYSTATE_DISPLAYONLY',2);
-define('DD_PROPERTYSTATE_HIDDEN',3);
-
 /**
  * Metaclass for Dynamic Objects
  *
@@ -173,12 +168,11 @@ class Dynamic_Object_Master
         if (isset($this->status) && count($this->fieldlist) == 0) {
             $this->fieldlist = array();
             foreach ($this->properties as $name => $property) {
-                if ($property->status == $this->status) {
+                if ($property->status & $this->status) {
                     $this->fieldlist[] = $name;
                 }
             }
         }
-
         // build the list of relevant data stores where we'll get/set our data
         if (count($this->datastores) == 0 &&
             count($this->properties) > 0) {
@@ -187,29 +181,6 @@ class Dynamic_Object_Master
 
 		// add ancestors' properties to this object if required
 		if (!empty($args['extend'])) {
-		/*
-			$primary = $this->primary;
-			$secondary = $this->secondary;
-			if (!empty($this->objectid)) {
-				$ancestors = xarModAPIFunc('dynamicdata','user','getancestors',array('objectid' => $this->objectid, 'top' => false));
-			} else {
-				$ancestors = xarModAPIFunc('dynamicdata','user','getancestors',array('moduleid' => $this->moduleid, 'itemtype' => $this->itemtype, 'top' => false));
-			}
-			// If this is an extended object add the ancestor properties for display purposes
-			if (!empty($ancestors)) {
-				foreach ($ancestors as $ancestor) {
-				   Dynamic_Property_Master::getProperties(array('objectid'  => $ancestor['objectid'],
-																'moduleid'  => $this->moduleid,
-																'itemtype'  => $ancestor['itemtype'],
-																'allprops'  => $args['allprops'],
-																'objectref' => & $this)); // we pass this object along
-
-				}
-			}
-			$this->getDataStores(true);
-			$this->primary = $primary;
-			$this->secondary = $secondary;
-			*/
 			if (!empty($this->objectid)) {
 				$ancestors = xarModAPIFunc('dynamicdata','user','getancestors',array('objectid' => $this->objectid, 'top' => false));
 			} else {
@@ -1785,17 +1756,19 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['fieldprefix'])) $args['fieldprefix'] = $this->fieldprefix;
         if (empty($args['fieldlist']))   $args['fieldlist'] = $this->fieldlist;
 
-        if (count($args['fieldlist']) > 0 || !empty($this->status)) {
+ 		if (!empty($this->status)) $state = $this->status;
+ 		else $state = DD_PROPERTYSTATE_ACTIVE | ~DD_PROPERTYSTATE_DISPLAYONLY;
+        if (count($args['fieldlist']) > 0) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
                 if (isset($this->properties[$name])) {
-                    if ($this->properties[$name]->status != DD_PROPERTYSTATE_HIDDEN)
+                    if ($this->properties[$name]->status & $state)
                         $args['properties'][$name] = & $this->properties[$name];
                 }
             }
         } else {
             foreach ($this->properties as $property) {
-                if ($property->status != DD_PROPERTYSTATE_HIDDEN)
+                if ($property->status & $state)
                     $args['properties'][$property->name] = $property;
             }
         }
@@ -1970,18 +1943,20 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['viewfunc']))  $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldlist'])) $args['fieldlist'] = $this->fieldlist;
 
-        if (count($args['fieldlist']) > 0 || !empty($this->status)) {
+ 		if (!empty($this->status)) $state = $this->status;
+ 		else $state = DD_PROPERTYSTATE_ACTIVE | ~DD_PROPERTYSTATE_DISPLAYONLY;
+        if (count($args['fieldlist']) > 0) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
                 if (isset($this->properties[$name])) {
                     $thisprop = $this->properties[$name];
-                    if ($thisprop->status != DD_PROPERTYSTATE_HIDDEN)
+                    if ($thisprop->status & $state)
                         $args['properties'][$name] = & $this->properties[$name];
                 }
             }
         } else {
             foreach ($this->properties as $property) {
-                if ($property->status != DD_PROPERTYSTATE_HIDDEN)
+                if ($property->status & $state)
                     $args['properties'][$property->name] = $property;
             }
         }

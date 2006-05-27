@@ -256,7 +256,7 @@ class Dynamic_Property
     public $type = 1;
     public $default = '';
     public $source = 'dynamic_data';
-    public $status = 1;
+    public $status = DD_PROPERTYSTATE_ACTIVE;
     public $order = 0;
     public $format = '0';
     public $requiresmodule = ''; // this module must be available before this property is enabled (optional)

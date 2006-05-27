@@ -537,7 +537,7 @@ class Dynamic_SubForm_Property extends Dynamic_Property
             case 'parentid':
                 if (!isset($myobject)) {
                     if (empty($this->fieldlist)) {
-                        $status = 1; // skip the display-only properties
+                        $status = DD_PROPERTYSTATE_ACTIVE; // skip the display-only properties
                     } else {
                         $status = null;
                     }
@@ -565,7 +565,7 @@ class Dynamic_SubForm_Property extends Dynamic_Property
             case 'childlist':
                 if (!isset($myobject)) {
                     if (empty($this->fieldlist)) {
-                        $status = 1; // skip the display-only properties
+                        $status = DD_PROPERTYSTATE_ACTIVE; // skip the display-only properties
                     } else {
                         $status = null;
                     }

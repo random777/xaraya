@@ -13,6 +13,11 @@
 require_once 'modules/dynamicdata/class/properties.php';
 require_once 'modules/dynamicdata/class/datastores.php';
 
+define('DD_PROPERTYSTATE_DISABLED',0);
+define('DD_PROPERTYSTATE_ACTIVE',1);
+define('DD_PROPERTYSTATE_DISPLAYONLY',2);
+define('DD_PROPERTYSTATE_HIDDEN',3);
+
 /**
  * Metaclass for Dynamic Objects
  *
@@ -1057,12 +1062,12 @@ class Dynamic_Object extends Dynamic_Object_Master
             foreach ($args['fieldlist'] as $name) {
                 if (isset($this->properties[$name])) {
                     $thisprop = $this->properties[$name];
-                    if ($thisprop->status != 3)
+                    if ($thisprop->status != DD_PROPERTYSTATE_HIDDEN)
                         $args['properties'][$name] =& $this->properties[$name];
                 }
             }
         } else {
-            // Do them all, except for status = 3 (what was that again?)
+            // Do them all, except for status = DD_PROPERTYSTATE_HIDDEN
             // TODO: this is exactly the same as in the display function, consolidate it.
             $totransform = array(); $totransform['transform'] = array();
             foreach($this->properties as $pname => $pobj) {
@@ -1077,7 +1082,7 @@ class Dynamic_Object extends Dynamic_Object_Master
             $transformed = xarModCallHooks('item','transform',$this->itemid, $totransform, $this->tplmodule,$this->itemtype);
 
             foreach ($this->properties as $property) {
-                if ($property->status != 3 and $property->type != 21) {
+                if ($property->status != DD_PROPERTYSTATE_HIDDEN and $property->type != 21) {
                     // sigh, 5 letters, but so many hours to discover them
                     // anyways, clone the property, so we can safely change it, PHP 5 specific!!
                     $args['properties'][$property->name] = clone $property;
@@ -1784,13 +1789,13 @@ class Dynamic_Object_List extends Dynamic_Object_Master
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
                 if (isset($this->properties[$name])) {
-                    if ($this->properties[$name]->status != 3)
+                    if ($this->properties[$name]->status != DD_PROPERTYSTATE_HIDDEN)
                         $args['properties'][$name] = & $this->properties[$name];
                 }
             }
         } else {
             foreach ($this->properties as $property) {
-                if ($property->status != 3)
+                if ($property->status != DD_PROPERTYSTATE_HIDDEN)
                     $args['properties'][$property->name] = $property;
             }
         }
@@ -1970,13 +1975,13 @@ class Dynamic_Object_List extends Dynamic_Object_Master
             foreach ($args['fieldlist'] as $name) {
                 if (isset($this->properties[$name])) {
                     $thisprop = $this->properties[$name];
-                    if ($thisprop->status != 3)
+                    if ($thisprop->status != DD_PROPERTYSTATE_HIDDEN)
                         $args['properties'][$name] = & $this->properties[$name];
                 }
             }
         } else {
             foreach ($this->properties as $property) {
-                if ($property->status != 3)
+                if ($property->status != DD_PROPERTYSTATE_HIDDEN)
                     $args['properties'][$property->name] = $property;
             }
         }

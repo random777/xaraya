@@ -163,6 +163,7 @@ function dynamicdata_utilapi_import($args)
                 $property['name'] = $matches[1];
             } elseif (preg_match('#</property>#',$line)) {
                 // let's create the property now...
+                unset($property['id']);
                 $property['objectid'] = $objectid;
                 $property['moduleid'] = $object['moduleid'];
                 $property['itemtype'] = $object['itemtype'];

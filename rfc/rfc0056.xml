@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xsl"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!-- 
+    Supported processing instructions, uncomment the ones you want
+-->
+<!-- <?rfc private="my private memo"?>  Produce a private memo rather than a Xaraya-standard -->
+<!-- <?rfc editing="yes"?>  Insert a number in each paragraph to ease review comments -->
+<!-- <?rfc symrefs="yes"?>  Instead of numeric cross references, use the sections name -->
+<!-- <?rfc sortrefs="yes"?> Sort the references -->
+<!-- <?rfc parse-xml-in-artwork="yes" ?> Do we want xml is artwork sections parsed (only uncomment if you know what that means) -->
+<!-- <?rfc tocdepth="2"?>  How many levels should be displayed in the TOC (default: 99 -->
+<!-- I guess we always want a table of contents -->
+<?rfc toc="yes"?>
+<rfc category="bcp" number="0056" xmlns:ed="http://greenbytes.de/2002/rfcedit">
+  <!-- number: Fill in the number for the RFC -->
+
+  <!-- obsoletes: Comma separated list of RFC numbers which this one obsoletes -->
+
+  <!-- category: std=standard, bcp=best common practice, info=info, exp=experimental, historic=historic -->
+
+  <!-- Front matter is used for identification of author and organization -->
+
+  <front>
+    <title>Content locking in Xaraya</title>
+
+    <author fullname="Michel Vorenhout" initials="M." surname="Vorenhout">
+      <organization>Xaraya Development Group</organization>
+
+      <address>
+        <email>michelv@xaraya.com</email>
+
+        <uri>http://www.xaraya.com</uri>
+      </address>
+    </author>
+
+    <date month="June" year="2006" />
+
+    <!-- Initiating team for this RFC -->
+
+    <workgroup>Project Management Committee</workgroup>
+
+    <!-- List keywords for the RFC here -->
+
+    <keyword>content</keyword>
+
+    <keyword>editing</keyword>
+
+    <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
+
+    <abstract>
+      <t>This RFC decribes a general way to incorporate content locking in
+      Xaraya. Content locking is the term used to describe the mechanism in
+      which an item can only be used by one Xaraya user.<xref
+      target="reference.id" /></t>
+    </abstract>
+  </front>
+
+  <!-- The middle section is used for the actual content of the RFC -->
+
+  <middle>
+    <!-- Introduction is mandatory -->
+
+    <section title="Introduction">
+      <t>Xaraya can give the edit privilege to certain roles. In general, the
+      content is edited via the modify function. This function will show a
+      template from which the content can be changed. The changed content is
+      the passed on to the update function, that will check the updated
+      content. When validated, the actual update in the db is performed by the
+      API function (called update in general). Currently, there is no
+      mechanism that will prevent the modify function to be executed twice for
+      the same item at the same moment, by one or more roles. The problems
+      that can arise at current (Version 1.1 of Xaraya Core) are:<list
+          style="symbols">
+          <t>Multiple updates that are not wanted and loss of data</t>
+
+          <t>update conflicts</t>
+
+          <t>Unpredictable outcome. The update that is performed is performed
+          after the other update, hence making it nearly impossible to predict
+          which modify action has prevalence over the other</t>
+        </list></t>
+
+      <t>This RFC describes a proposed mechanism that will prevent situations
+      of multiple edits at the same moment and prevent the problems mentioned
+      before.</t>
+    </section>
+
+    <!-- One content section is mandatory-->
+
+    <section title="At least one content section">
+      <t>The proposed mechanism consists of a module variable that tells which
+      item and itemtype is currently locked for which role. The combination of
+      itemid and itemtype is a unique identifier for the item, the uid for the
+      role.</t>
+
+      <t><list>
+          <t>Itemtype: id of the itemtype, eg the publication type in
+          articles</t>
+
+          <t>Itemid: id of the id, eg the aid in articles</t>
+
+          <t>Modulename: the name of the module that holds the item</t>
+
+          <t>uid: the Userid of the role that currently has locked the
+          item</t>
+
+          <t>timestamp: a time() stamp at which the item is locked. This
+          timestamp can be used to unlock the item after a set amount of
+          time.</t>
+        </list>These will be stored in a modulevariable, with a standard
+      naming. To check for an existing lock, the code simply needs to check if
+      the modvar isset. If it is set, the coder can decide to retreive it and
+      show the info to the role requesting the modify action.</t>
+
+      <section title="Coding examples">
+        <t>There are only a few snippets needed</t>
+      </section>
+
+      <t>xarModSetVar('modulename',lock-titemtype-iitemid,uid-timestamp);</t>
+
+      <t>This stores a modules variable with the unique identifier and the
+      info which role has currently locked what item</t>
+
+      <t>xarModGetVar('modulename',lock-titemtype-iitemid);</t>
+
+      <t>This retreives the value, or returns a false if it is not set. The
+      check in the module code can be: <artwork> if
+      (isset(xarModGetVar('modulename',lock-titemtype-iitemid))) { do this
+      code and maybe return error; } </artwork></t>
+
+      <t>The formation of the exact name for the variable has to be unique and
+      easy to decifre. The use of 'lock-' as the first part makes it easy to
+      see what it is used for. The combination of itemtype id and itemid
+      should be easy and unique, not interfering with eachother. Therefor the
+      t and i are added to the id
+      itself.<artwork>lock-titemtype-iitemid</artwork></t>
+    </section>
+
+    <!-- Revision history is mandatory -->
+
+    <section title="Revision history">
+      <t>Initial draft</t>
+    </section>
+  </middle>
+
+  <!-- Back matter is used for references and appendices which come after the references -->
+
+  <back>
+    <references title="Reference title">
+      <!-- Fill in references as needed -->
+
+      <reference anchor="reference.id">
+        <front>
+          <title>Reference title</title>
+
+          <author>
+            <organization>Organization</organization>
+          </author>
+
+          <date year="2002" />
+        </front>
+      </reference>
+
+      <!-- Repeat the aboven block if more references are needed -->
+    </references>
+
+    <!-- Any section after this will become an appendix -->
+
+    <section title="Example appendix">
+      <t>Any section which is present after the references will become an
+      appendix</t>
+    </section>
+  </back>
+</rfc>

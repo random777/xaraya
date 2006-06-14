@@ -162,8 +162,10 @@ function dynamicdata_utilapi_import($args)
                 $property = array();
                 $property['name'] = $matches[1];
             } elseif (preg_match('#</property>#',$line)) {
-                // let's create the property now...
+                // remove the id in case we get a conflict with an existing id in the db
+                // dd will allocate a new one. Maybe do this more elegantly
                 unset($property['id']);
+                // let's create the property now...
                 $property['objectid'] = $objectid;
                 $property['moduleid'] = $object['moduleid'];
                 $property['itemtype'] = $object['itemtype'];

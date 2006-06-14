@@ -45,10 +45,9 @@ function dynamicdata_userapi_handleViewTag($args)
     $out = "echo xarModAPIFunc('dynamicdata',
                    'user',
                    'showview',\n";
-    // PHP >= 4.2.0 only
-    //$out .= var_export($args);
     $out .= "                   array(\n";
-    foreach ($args as $key => $val) {
+
+	foreach ($args as $key => $val) {
         if (is_numeric($val) || substr($val,0,1) == '$') {
             $out .= "                         '$key' => $val,\n";
         } else {

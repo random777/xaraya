@@ -33,6 +33,7 @@ var debug = 0;
 */
 function loadContent(url, tagid, method, formobj, local_debug)
 {
+    var debug=0;
     // validate inputs and set defaults
     if (local_debug != null) var debug = local_debug
     if (method == null || method == '') method = 'GET'

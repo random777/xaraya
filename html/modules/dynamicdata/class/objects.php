@@ -180,16 +180,16 @@ class Dynamic_Object_Master
         }
 
 		// add ancestors' properties to this object if required
-		if (!empty($args['extend'])) {
+		if (!(empty($args['extend']) || ($args['extend'] == 'false'))) {
 			if (!empty($this->objectid)) {
 				$ancestors = xarModAPIFunc('dynamicdata','user','getancestors',array('objectid' => $this->objectid, 'top' => false));
 			} else {
-				$ancestors = xarModAPIFunc('dynamicdata','user','getancestors',array('moduleid' => $this->moduleid, 'itemtype' => $this->itemtype, 'top' => false));
+				$ancestors = xarModAPIFunc('dynamicdata','user','getancestors',array('moduleid' => $this->moduleid, 'itemtype' => $this->itemtype, 'top' => true));
 			}
 			// If this is an extended object add the ancestor properties for display purposes
 			if (!empty($ancestors)) {
 				foreach ($ancestors as $ancestor) {
-					$this->add($ancestor['objectid']);
+					if ($ancestor['objectid']) $this->add($ancestor['objectid']);
 				}
 			}
 		}
@@ -959,6 +959,28 @@ class Dynamic_Object extends Dynamic_Object_Master
     }
 
     /**
+     * Wrapper for showForm: shows a form for a new item
+     */
+	function modify()
+	{
+		if(!xarVarFetch('itemid',   'id', $this->itemid,    0, XARVAR_DONT_SET)) {return;}
+		if(!xarVarFetch('template', 'isset', $args['template'],  NULL, XARVAR_DONT_SET)) {return;}
+		if(!xarVarFetch('tplmodule','str',   $args['tplmodule'], 'dynamicdata', XARVAR_DONT_SET)) {return;}
+
+		$this->getItem();
+		return $this->showForm($args);
+	}
+    /**
+     * Wrapper for showForm: shows a form for a new item
+     */
+	function form()
+	{
+		if(!xarVarFetch('template', 'isset', $args['template'],  NULL, XARVAR_DONT_SET)) {return;}
+		if(!xarVarFetch('tplmodule','str',   $args['tplmodule'], 'dynamicdata', XARVAR_DONT_SET)) {return;}
+
+		return $this->showForm($args);
+	}
+    /**
      * Show an input form for this item
      */
     function showForm($args = array())
@@ -1014,6 +1036,19 @@ class Dynamic_Object extends Dynamic_Object_Master
     }
 
     /**
+     * Wrapper for showDisplay: displays an item
+     */
+	function display()
+	{
+		if(!xarVarFetch('itemid',   'id', $this->itemid,    0, XARVAR_DONT_SET)) {return;}
+		if(!xarVarFetch('template', 'isset', $args['template'],  NULL, XARVAR_DONT_SET)) {return;}
+		if(!xarVarFetch('tplmodule','str',   $args['tplmodule'], 'dynamicdata', XARVAR_DONT_SET)) {return;}
+
+		$this->getItem();
+		return $this->showDisplay($args);
+	}
+
+    /**
      * Show an output display for this item
      */
     function showDisplay($args = array())
@@ -1038,6 +1073,7 @@ class Dynamic_Object extends Dynamic_Object_Master
                 }
             }
         } else {
+            $args['properties'] = $this->properties;
             // Do them all, except for status = DD_PROPERTYSTATE_HIDDEN
             // TODO: this is exactly the same as in the display function, consolidate it.
             $totransform = array(); $totransform['transform'] = array();
@@ -1053,7 +1089,7 @@ class Dynamic_Object extends Dynamic_Object_Master
             $transformed = xarModCallHooks('item','transform',$this->itemid, $totransform, $this->tplmodule,$this->itemtype);
 
             foreach ($this->properties as $property) {
-                if ($property->status != DD_PROPERTYSTATE_HIDDEN and $property->type != 21) {
+                if (($property->status != DD_PROPERTYSTATE_HIDDEN) && ($property->type != 21) && isset($transformed[$property->name])) {
                     // sigh, 5 letters, but so many hours to discover them
                     // anyways, clone the property, so we can safely change it, PHP 5 specific!!
                     $args['properties'][$property->name] = clone $property;
@@ -1942,6 +1978,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['tplmodule'])) $args['tplmodule'] = $this->tplmodule;
         if (empty($args['viewfunc']))  $args['viewfunc'] = $this->viewfunc;
         if (empty($args['fieldlist'])) $args['fieldlist'] = $this->fieldlist;
+        if (!empty($args['extend']))   $this->extend();
 
  		if (!empty($this->status)) $state = $this->status;
  		else $state = DD_PROPERTYSTATE_ACTIVE | ~DD_PROPERTYSTATE_DISPLAYONLY;

@@ -825,10 +825,9 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo=NULL, $ca
                                  array('objectid' => $hookId,
                                        'extrainfo' => $extraInfo));
             if (!isset($res)) return;
-            $output[$hook['module']] = $res;
+            $extraInfo = $res;
         }
     }
-    return $output;
 
 // FIXME: this still returns the wrong output for many of the hook calls, whenever there are no hooks enabled
 // Reason : we don't "know" here if the hooks defined by hookObject + hookAction are GUI or API hooks,
@@ -838,7 +837,7 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo=NULL, $ca
     if ($isGUI || eregi('^(display|new|modify|search|usermenu|modifyconfig)$',$hookAction)) {
         return $output;
     } else {
-        return $output;
+        return $extraInfo;
     }
 }
 
@@ -1696,7 +1695,7 @@ class xarMod implements IxarMod
      */
     static function guiFunc($modName, $modType = 'user', $funcName = 'main', $args = array())
     {
-        if (empty($modName)) throw new EmptyParameterException('modName');
+	        if (empty($modName)) throw new EmptyParameterException('modName');
         $tplData = self::callFunc($modName,$modType,$funcName,$args);
         // If we have a string of data, we assume someone else did xarTpl* for us
         if (!is_array($tplData)) return $tplData;
@@ -1706,7 +1705,11 @@ class xarMod implements IxarMod
         if (isset($tplData['_bl_template'])) $templateName = $tplData['_bl_template'];
 
         // Create the output.
-        $tplOutput = xarTplModule($modName, $modType, $funcName, $tplData, $templateName);
+        if ($modType == 'object') {
+			$tplOutput = xarTplObject($modName, $args['object'], $funcName, $tplData);
+        } else {
+			$tplOutput = xarTplModule($modName, $modType, $funcName, $tplData, $templateName);
+        }
         return $tplOutput;
     }
 
@@ -1748,6 +1751,8 @@ class xarMod implements IxarMod
             throw new BadParameterException(array($modType,$modName), 'The API named: "#(1)" is not allowed for module "#(2)"');
         }
         if (empty($funcName)) throw new EmptyParameterException('modName');
+
+        if ($modType == 'object') return self::callObject($modName,$funcName,$args);
 
         // good thing this information is cached :)
         $modBaseInfo = self::getBaseInfo($modName);
@@ -1803,6 +1808,24 @@ class xarMod implements IxarMod
 
         $funcResult = $modFunc($args);
         return $funcResult;
+    }
+
+    /**
+     * Work horse method for the lazy calling of objects
+     *
+     * @access private
+     */
+    private static function callObject($modName,$funcName,$args)
+    {
+		xarVarFetch('object', "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $args['object'], NULL);
+		if (empty($args['object'])) throw new EmptyParameterException('object');
+	    $info = xarModAPIFunc('dynamicdata', 'user', 'getObjectInfo',array('name' => $args['object']));
+	    $myobject = xarModAPIFunc('dynamicdata', 'user', 'getObject',array('objectid' => $info['objectid']));
+		$args['itemtype'] = $info['itemtype'];
+		// Get both variants just to be sure
+		$args['modid'] = $info['moduleid'];
+		$args['moduleid'] = $info['moduleid'];
+		return $myobject->$funcName($args);
     }
 
     /**

@@ -2,8 +2,8 @@
 /**
  * Core Upgrade File
  *
- * package upgrade
- * @copyright (C) 2002-2005 The Digital Development Foundation
+ * package upgrader
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -44,6 +44,7 @@ xarCoreInit(XARCORE_SYSTEM_ALL);
  * @todo <johnny> use non caching templates until they are set to yes
  */
 function xarUpgradeMain()
+/*
 $xarProduct = xarConfigGetVar('System.Core.VersionId');
 $xarRelease = xarConfigGetVar('System.Core.VersionSub');
     $descr = xarML('Preparing to upgrade from previous #(1) Version #(2) (release #(3)) to #(4) version #(5)  (release #(6))',$xarProduct,$xarVersion,$xarRelease, XARCORE_VERSION_ID, XARCORE_VERSION_NUM, XARCORE_VERSION_SUB);
@@ -54,11 +55,13 @@ $xarRelease = xarConfigGetVar('System.Core.VersionSub');
         if (xarModIsAvailable('hitcount'))
         if ($result->getRecordCount() != 1) {
             throw new BadParameterException(null,"Group 'syndicate' not found.");
+            */
     /* Bug 2204 - the mod var roles - admin is more than likely set in 99.9 percent installs
                   since it was introduced around the beginning of 2004. Let's check it's set,
                   and use that, else check for a new name. If the new name in that rare case
                   is not Admin, then we'll have to display message to check and set as such first.
     */
+    /*
     $realadmin = xarModGetVar('roles','admin');
 
     if (!isset($realadmin) || empty($realadmin)) {
@@ -83,9 +86,11 @@ $xarRelease = xarConfigGetVar('System.Core.VersionSub');
 
     $role = xarFindRole('Everybody');
 
+    */
     /* Bug 2204 - this var is not reliable for admin name
        if (!isset($admin)) $admin = xarFindRole(xarModGetVar('mail','adminname'));
     */
+    /*
                        array('name'    =>  'inheritdeny',
                              'module'  =>  'privileges',
                              'set'     =>  true),
@@ -129,13 +134,12 @@ $xarRelease = xarConfigGetVar('System.Core.VersionSub');
     } else {
         echo "Privileges realm masks have been created previously, moving to next check. <br />";
     }
-
+*/
 {
    // let the system know that we are in the process of installing
     xarVarSetCached('Upgrade', 'upgrading',1);
     if(!xarVarFetch('upgrade_phase','int', $phase, 1, XARVAR_DONT_SET)) {return;}
         // TODO: use transactions to ensure atomicity?
-    ";
     $result = $datadict->changeTable($cacheblockstable, $flds);
 
   /*$varCacheDir = xarCoreGetVarDirPath() . '/cache';
@@ -151,9 +155,12 @@ $xarRelease = xarConfigGetVar('System.Core.VersionSub');
        ob_start();
     }
 
+    // Set the default page title before calling the module function
+    xarTplSetPageTitle(xarML("Upgrading Xaraya"));
+
     // start the output buffer
     $mainModuleOutput =xarModFunc('installer','admin',$funcName);
-  
+
     if (xarCoreIsDebuggerActive()) {
         if (ob_get_length() > 0) {
             $rawOutput = ob_get_contents();
@@ -166,7 +173,6 @@ $xarRelease = xarConfigGetVar('System.Core.VersionSub');
                                  $mainModuleOutput;
         }
         ob_end_clean();
-
     }
 
     $pageOutput = xarTpl_renderPage($mainModuleOutput,NULL,'installer');

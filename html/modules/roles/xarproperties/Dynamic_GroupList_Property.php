@@ -53,6 +53,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
             }
             // TODO: handle large # of groups too (optional - less urgent than for users)
             $groups = xarModAPIFunc('roles', 'user', 'getallgroups', $select_options);
+            $options = array();
             foreach ($groups as $group) {
                 $options[] = array('id' => $group['uid'], 'name' => $group['name']);
             }

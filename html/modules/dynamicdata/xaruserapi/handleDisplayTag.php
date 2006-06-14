@@ -43,6 +43,7 @@ function dynamicdata_userapi_handleDisplayTag($args)
     $out = "echo xarModAPIFunc('dynamicdata',
                    'user',
                    'showdisplay',\n";
+    // What's this about?
     if (isset($args['definition'])) {
         $out .= '                   '.$args['definition']."\n";
         $out .= '                  );';

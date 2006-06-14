@@ -39,7 +39,7 @@ function &dynamicdata_userapi_getancestors($args)
 		$objectid = $topobject['objectid'];
    }
 
-// -------------- Include the last descendant - this object, or not
+// -------------- Include the last descendant (this object) or not
     if ($top) {
     	$ancestors[] = xarModAPIFunc('dynamicdata','user', 'getobjectinfo', array('objectid' => $objectid));
     }
@@ -60,7 +60,7 @@ function &dynamicdata_userapi_getancestors($args)
 
     	if ($parentitemtype >= 1000) {
 
-// -------------- This is a DD object. add it to the ancestor array
+// -------------- This is a DD descendent object. add it to the ancestor array
 			$thisobject     = $objects[$parentitemtype];
     		$moduleid       = $thisobject['moduleid'];
 	    	$objectid       = $thisobject['objectid'];
@@ -73,23 +73,22 @@ function &dynamicdata_userapi_getancestors($args)
 // -------------- This is a native itemtype. get ready to quit
     		$done = true;
     		$itemtype = $parentitemtype;
-    		if ($info=xarModAPIFunc('dynamicdata','user', 'getobjectinfo', array('moduleid' => $moduleid, 'itemtype' => $itemtype))) {
+			if ($itemtype) {
+				if ($info=xarModAPIFunc('dynamicdata','user', 'getobjectinfo', array('moduleid' => $moduleid, 'itemtype' => $itemtype))) {
 
-// -------------- A DD wrapper object exists, add it to the ancestor array
-				if ($base) $ancestors[] = array('objectid' => $info['objectid'], 'itemtype' => $itemtype, 'name' => $info['name'], 'moduleid' => $moduleid);
-    		} else {
+	// -------------- A DD wrapper object exists, add it to the ancestor array
+					if ($base) $ancestors[] = array('objectid' => $info['objectid'], 'itemtype' => $itemtype, 'name' => $info['name'], 'moduleid' => $moduleid);
+				} else {
 
-// -------------- No DD wrapper object
-				if ($itemtype) {
+	// -------------- No DD wrapper object
+	// -------------- This must be a native itemtype of some module - add it to the ancestor array if requested
+						$types = xarModAPIFunc('dynamicdata','user','getmoduleitemtypes', array('moduleid' => $moduleid));
+						$name = strtolower($types[$itemtype]['label']);
+						if ($base) {$ancestors[] = array('objectid' => 0, 'itemtype' => $itemtype, 'name' => $name, 'moduleid' => $moduleid);}
+				}
+			} else {
 
-// -------------- This is a good native itemtype - add it to the ancestor array if requested
-					$types = xarModAPIFunc('dynamicdata','user','getmoduleitemtypes', array('moduleid' => $moduleid));
-					$name = strtolower($types[$itemtype]['label']);
-					if ($base) {$ancestors[] = array('objectid' => 0, 'itemtype' => $itemtype, 'name' => $name, 'moduleid' => $moduleid);}
-    			} else {
-
-// -------------- We're already at the bottom - do nothing
-    			}
+// -------------- Itemtype = 0. We're already at the bottom - do nothing
     		}
     	}
     	if ($done) break;

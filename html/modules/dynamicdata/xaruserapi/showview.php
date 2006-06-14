@@ -32,9 +32,6 @@ function dynamicdata_userapi_showview($args)
     if (empty($tplmodule)) {
         $tplmodule = 'dynamicdata';
     }
-    if (empty($tplmodule)) {
-        $tplmodule = 'dynamicdata';
-    }
 
     // do we want to count?
     if(empty($count)) {
@@ -152,7 +149,6 @@ function dynamicdata_userapi_showview($args)
                                            'status' => $status,
                                            'extend' => !empty($extend)));
     if (!isset($object)) return;
-
     // Count before numitems!
     $numthings = 0;
     if($count) {

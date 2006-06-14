@@ -3,7 +3,6 @@
     <span class="xar-mod-title"><xar:mlstring>Base Module</xar:mlstring></span>
 </div>
 <div class="xar-mod-body">
-
     <h2><xar:mlstring>Welcome to Xaraya</xar:mlstring></h2>
 
     <p>
@@ -17,5 +16,4 @@
     <p>
         <xar:mlstring>This message can be edited by creating an override template ( themes/themename/modules/base/user-main.xt ) for the base module.</xar:mlstring>
     </p>
-
 </div>

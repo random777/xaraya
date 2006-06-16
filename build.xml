@@ -271,7 +271,8 @@
       <fileset dir="${docs.dir}/xarayaguide" >
         <include name="xarayaguide.txt"/>
         <include name="xarayaguide.pdf"/>
-        <exclude name="MT/**" />
+        <exclude name="_MTN/**" />
+        <exclude name=".mtn-ignore"/>
         <exclude name=".DS_Store"/>
       </fileset>
       <fileset dir="${docs.dir}/xmdg" >
@@ -279,7 +280,8 @@
         <include name="xmdg.html"/>
         <include name="xardevguide.pdf"/>
         <include name="xardevguide.html"/>
-        <exclude name="MT/**" />
+        <exclude name="_MTN/**"/>
+        <exclude name=".mtn-ignore"/>                
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>
@@ -290,7 +292,8 @@
       <fileset dir="${tools.dir}">
         <include name="import/**"/>
         <include name="modwizard/**"/>
-        <exclude name="MT/**"/>
+        <exclude name="_MTN/**"/>
+        <exclude name=".mtn-ignore" />                
         <exclude name=".DS_Store"/>
       </fileset>
     </copy>
@@ -366,7 +369,8 @@
     <copy todir="${build.html}/modules/${module.name}">
       <fileset dir="${work.basedir}/${modules.repo}/modules.${module.name}">
         <include name="**"/>
-        <exclude name="MT/**"/>
+        <exclude name="_MTN/**"/>
+        <exclude name=".mtn-ignore"/>
         <exclude name="SCCS/**"/>
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>
@@ -383,7 +387,8 @@
     <copy todir="${build.html}/themes/${theme.name}">
       <fileset dir="${work.basedir}/${themes.repo}/themes.${theme.name}">
         <include name="**"/>
-        <exclude name="MT/**"/>
+        <exclude name="_MTN/**"/>
+        <exclude name=".mtn-ignore"/>
         <exclude name="SCCS/**"/>
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>
@@ -408,7 +413,8 @@
         <include name="xml/*/installer/**"/>
         <include name="xml/core/**"/>
         <include name="locale.xml"/>
-        <exclude name="MT/**"/>
+        <exclude name="_MTN/**"/>
+        <exclude name=".mtn-ignore"/>
         <exclude name="SCCS/**"/>
         <exclude name="BitKeeper/**"/>
         <exclude name="PENDING/**"/>

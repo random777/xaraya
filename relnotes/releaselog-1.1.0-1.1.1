@@ -1,0 +1,51 @@
+Release notes for Xaraya core release 1.1.1
+
+Release 1.1.1 (only relevant changes from 1.1 onwards included here)
+
+Possible incompatible changes, please check the following:
+	* Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+
+Major changes:
+   No Major changes in this release
+
+
+General fixes and improvements:
+
+    * Important fix for privileges so denys are inherited correctly (affected new installs)
+    * Further cleaning in separation of registration, roles and authsystem
+    * Switchable in page admin menus in core
+    * Flat datastore update: support join tables in countitems()
+    * Upgrade problem where version 1.0 would not allow upgrade
+      - fixed now to cater for 2 point version number
+    * Fix version update in the upgrade script so version is correct on each upgrade
+    * Testing tool for deny and non-deny masks fixed in Privileges
+      and also improved testing output
+    * Reinstated the missing 'require validation' used for email address changes
+    * Add notification with templated output for new user registration
+    * Update the blocks menu and add link for type, ensure the current url and active tab match
+    * Implement Primary Parent user modvar for Realms and User Home use
+    * Update the modifyrole template with a selection list for primary parent
+    * replace empty mktime() by time() for PHP 5.1.0+
+    * Make clearer distinction between text on inner and outer templates
+      Add syntax for template instance field in the template
+    * Update the blocks module overview
+    * Fix style tags for imported stylesheets with media attribute
+    * skip 1-hit pages for auto-cache stats
+
+      Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+      bug   : short info
+      ---   | ----------
+    * [5662]  in part - add link for new blockgroup
+    * [5708]  add missing code to redirect to login
+    * [5719]  Undefined var when generating new password from roles admin
+    *         Remove the password change icon from view, unless ask for email notification on
+    * [5750]  fix strtotime() issue for PHP 5.1.0+
+    * [5747]  keep track of return_url on invalid
+    * [5748]  fix securitycheck for xar:data-form
+    * [5732]  replace ne by nd in option comparison
+    * [5707]  sort showinput + add getOption to optimize showoutput/validate
+    * [1102]  show getimagesize() use in template
+    * [3970]  check for existing item during import
+    * [958 ]  initialize vars and meta

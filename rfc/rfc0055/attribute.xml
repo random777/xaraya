@@ -55,22 +55,7 @@
     If you think all of the above is very similar to the specification of the 
     xsl:attribute tag in the xslt specification you are right, it aims to do the same.
   </t>
-  <section title="Forms">
-    <t>The xar:attribute has both an open and closed form, where the value of the attribute
-      created is the textnode production inside the tag. In it's closed form
-      the attribute 'value' is used to specify the value of the created
-      attribute. Thus, the following two constructs are equivalent:
-      <artwork><![CDATA[
-        <a>
-          <xar:attribute name="href">test.php</xar:attribute>
-        </a>
-        <a>
-          <xar:attribute name="href" value="test.php"/>
-        </a>
-        ]]>
-      </artwork>  
-    </t>
-  </section>
+
   <section title="Attributes">
     <t>
       <list>
@@ -95,12 +80,12 @@
           <a id="#$objectid#">
             Description of
             <xar:if condition="$user eq 'admin'">
-              <xar:attribute name="href" value="edit.php"/>
+              <xar:attribute name="href">edit.php</xar:attribute>
               <xar:attribute name="title">
                   Edit the object
               </xar:attribute>
             <xar:else/>
-              <xar:attribute name="href" value="view.php"/>
+              <xar:attribute name="href">view.php</xar:attribue>
               <xar:attribute name="title">
                   View this object
               </xar:attribute>

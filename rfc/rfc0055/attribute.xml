@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit" anchor="attribute" title="&lt;xar:attribute /&gt;">
+  <t>
+    Generates a named attribute to result elements.
+  </t>
+  <t>
+    Due to the specific naming and format restrictions XML imposes, it is at 
+    times difficult or impossible to create an attribute value directly in a 
+    tag specification. One example could be the value of a title attribute which
+    is longer text and perhaps needs to have a different value based on a certain
+    condition. The usual way to do this was to prepare the value before the 
+    tag appeared in the source and using a variable in the attribute value.
+	</t>
+  <t>There are some disadvantages to this approach such as:
+	  <list><t>The attribute needs to be prepared outside the subtree, making it 'unrelated' 
+	     in its context to the subtree
+	   </t><t>
+	      The structure can not be expressed in xml and a revert to a variable
+	      is needed, making it harder to write a parser for blocklayout.
+	   </t></list>
+  </t>
+  <t>
+    Creating an attribute is bound by a number of rules:
+    <list style="numbers"><t>
+        Attributes will 
+        <spanx style="strong">only</spanx> be created on result elements, i.e. the
+        xar:attribute operates on the <spanx style="strong">result tree</spanx>.
+        In the first example given below, the attribute is NOT created on the xar:if 
+        tag for example, since that tag produces no node in the resulting output. 
+      </t><t>
+        If the attribute on the element for which it will be created 
+        already exists, it will be replaced, thus creating a 'default' and 'override'
+        mechanism.
+      </t><t>
+        After child elements have been added to an element (again in the 
+        <spanx style="strong">output tree</spanx>), it is an error to 
+        use xar:attribute. (In the example below if the first element inside the
+        'a' element would have been &lt;br /&gt; you would have such a situation)
+      </t><t>
+        Adding an attribute to a node which is not an element in the result
+        tree is an error. Putting a xar:attribute inside a xar:comment element is
+        such a situation for example, or inside a processing instruction
+      </t></list>
+  </t>
+  <t>
+    Attributes can be added both to statically sourced elements (like in the example)
+    or to dynamically produced ones. (such as through the xar:element tag) If you think
+    the above is similar to the specification of the xsl:attribute tag in the xslt specification
+    you are right, it aims to do the same.
+  </t>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t>
+          <spanx style="strong">name</spanx>
+          <t>Required attribute to name the attribute to be created</t>
+        </t>
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+          <a id="#$objectid#">
+            Description of
+            <xar:if condition="$user eq 'admin'">
+              <xar:attribute name="href" value="edit.php"/>
+              <xar:attribute name="title">
+                  Edit the object
+              </xar:attribute>
+            <xar:else/>
+              <xar:attribute name="href" value="view.php"/>
+              <xar:attribute name="title">
+                  View this object
+              </xar:attribute>
+            </xar:if>
+            this object
+          </a>
+          
+          The above produces for the user 'admin':
+            <a href="edit.php" title="Edit the object" id="393256">
+              Description of
+              this object
+            </a>  
+            
+            and for others:
+
+            <a href="view.php" title="View this object" name="393256">
+              Description of
+              this object
+            </a>  
+            
+        ]]></artwork>
+    </t>
+  </section>
+</section>

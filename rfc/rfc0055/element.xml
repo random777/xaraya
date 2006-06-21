@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns:ed="http://greenbytes.de/2002/rfcedit"  anchor="element" title="&lt;xar:element /&gt;">
+  <t>
+    Generates a named xml element in the output stream.
+  </t>
+  <t>Generating dynamic tags in output has always been a special trick of the trade.
+    Since xml uses &lt; and &gt; as special characters, you cant just surround
+    some variable containing the tag name with those characters and expect it 
+    to work. (i.e. &lt;$the_tagname /&gt; is invalid, so you'd have to revert to
+    &amp;lt;$the_tagname /&amp;gt; to produce the desired effect.) For obvious
+    reasons, that is less than ideal.
+  </t>
+  <t>The xar:element tag solves the above situation. By specifiying what should
+    be generated in the output stream (not unlike the xsl:element tag in XSLT) 
+    in a dedicated tag, we capture the intent in a structured and valid syntax.
+  </t>
+  <t>
+    This element is often used with the xar:attribute tag, which creates attributes
+    in the active parent element in a similar way. See the section xar:attribute
+    for its syntax and uses.
+  </t>
+  <section title="Attributes">
+    <t>
+      <list>
+        <t>
+          <spanx style="strong" >name</spanx>
+          <t>Required attribute to name the element to be created</t>
+        </t>
+        
+      </list>
+    </t>
+  </section>
+  <section title="Syntax examples">
+    <t>
+      <artwork><![CDATA[
+        <xar:element name="custom"/>
+          Produces: <custom />
+          
+        <xar:element name="custom">
+            Contains child content
+        </xar:element>
+          Produces:
+            <custom>
+              Contains child content
+            </custom>
+              
+        ]]>
+      </artwork>
+    </t>
+  </section>
+</section>

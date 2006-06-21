@@ -1,6 +1,6 @@
 #!/bin/bash
-
-sources=`monotone list known . --depth=0 | grep '.xml$'`
+MT="mtn"
+sources=`$MT list known . --depth=0 | grep '.xml$'`
 
 for i in $sources; do
 (

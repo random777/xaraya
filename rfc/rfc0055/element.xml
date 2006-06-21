@@ -3,21 +3,26 @@
   <t>
     Generates a named xml element in the output stream.
   </t>
-  <t>Generating dynamic tags in output has always been a special trick of the trade.
-    Since xml uses &lt; and &gt; as special characters, you cant just surround
+  <t>
+    Generating dynamic tags in output has always been a special trick of the trade.
+    Since xml uses &lt; and &gt; as special characters, you can not just surround
     some variable containing the tag name with those characters and expect it 
     to work. (i.e. &lt;$the_tagname /&gt; is invalid, so you'd have to revert to
     &amp;lt;$the_tagname /&amp;gt; to produce the desired effect.) For obvious
     reasons, that is less than ideal.
   </t>
-  <t>The xar:element tag solves the above situation. By specifiying what should
-    be generated in the output stream (not unlike the xsl:element tag in XSLT) 
-    in a dedicated tag, we capture the intent in a structured and valid syntax.
+  <t>
+    The xar:element tag tries to solve problems similar to the above situation. 
+    By specifiying what should be generated in the output stream 
+    (not unlike the xsl:element tag in XSLT) in a dedicated tag, we capture 
+    the semantics of the intent in a structured and valid syntax, which not only
+    makes the source easier to undertand, but parsing the xml will be easier too.
   </t>
   <t>
     This element is often used with the xar:attribute tag, which creates attributes
-    in the active parent element in a similar way. See the section xar:attribute
-    for its syntax and uses.
+    in the active parent element. Using the two together allows for arbitray
+    xml construction in the output where staticly specifying the structure is not
+    an option. See the section on the xar:attribute for its specific syntax and uses.
   </t>
   <section title="Attributes">
     <t>
@@ -25,6 +30,14 @@
         <t>
           <spanx style="strong" >name</spanx>
           <t>Required attribute to name the element to be created</t>
+          <t>
+            The attribute may have a namespace prefix in the usual way to 
+            create namespace specific tags.
+          </t>
+          <ed:issue name="need for namespace attribute in xar:element tag" status="open" type="correctness">
+            ideally we should use the URI of the wished for namespace in
+            an attribute and let the compiler figure out what prefix to generate
+          </ed:issue>
         </t>
         
       </list>

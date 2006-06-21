@@ -12,30 +12,37 @@
     tag appeared in the source and using a variable in the attribute value.
 	</t>
   <t>There are some disadvantages to this approach such as:
-	  <list><t>The attribute needs to be prepared outside the subtree, making it 'unrelated' 
-	     in its context to the subtree
+	  <list><t>The attribute needs to be prepared outside the subtree, making it 
+	    'unrelated' to its context in the subtree; the attribute prepared belongs
+	    to an element which has not yet appeared.
 	   </t><t>
-	      The structure can not be expressed in xml and a revert to a variable
-	      is needed, making it harder to write a parser for blocklayout.
+	      By preparing the value in a variable, you have to fall back to specific
+	      mechanisms of the 'host language' (php in our case) explicitly in the
+	      source. By doing it with a xar:attribute construct, the structure of 
+	      the xml clearly shows the semantics of what the intent is and forces 
+	      this construct to be in its proper scope.
 	   </t></list>
   </t>
   <t>
-    Creating an attribute is bound by a number of rules:
+    Creating an attribute in the result tree is a context sensitive operation 
+    close to how xml is structured. Because of that, creating attributes is 
+    limited by the following conditions:
     <list style="numbers"><t>
-        Attributes will 
-        <spanx style="strong">only</spanx> be created on result elements, i.e. the
-        xar:attribute operates on the <spanx style="strong">result tree</spanx>.
-        In the first example given below, the attribute is NOT created on the xar:if 
-        tag for example, since that tag produces no node in the resulting output. 
+        Attributes can <spanx style="strong">only</spanx> be created on result 
+        elements, i.e. the xar:attribute operates on 
+        a <spanx style="strong">resulting output</spanx> not the source xml, 
+        which is itself static and unchangeable. In the examples given 
+        below, the 'href' attribute is NOT created on the xar:if 
+        tag for example, but on the immediate parent in the output: &lt;a &gt;. 
       </t><t>
         If the attribute on the element for which it will be created 
         already exists, it will be replaced, thus creating a 'default' and 'override'
         mechanism.
       </t><t>
-        After child elements have been added to an element (again in the 
+        After child elements have been added to an element (again, in the 
         <spanx style="strong">output tree</spanx>), it is an error to 
         use xar:attribute. (In the example below if the first element inside the
-        'a' element would have been &lt;br /&gt; you would have such a situation)
+        'a' element would have been &lt;br /&gt; for example, you would have such a situation)
       </t><t>
         Adding an attribute to a node which is not an element in the result
         tree is an error. Putting a xar:attribute inside a xar:comment element is
@@ -44,16 +51,40 @@
   </t>
   <t>
     Attributes can be added both to statically sourced elements (like in the example)
-    or to dynamically produced ones. (such as through the xar:element tag) If you think
-    the above is similar to the specification of the xsl:attribute tag in the xslt specification
-    you are right, it aims to do the same.
+    or to dynamically produced ones. (such as through the xar:element tag) 
+    If you think all of the above is very similar to the specification of the 
+    xsl:attribute tag in the xslt specification you are right, it aims to do the same.
   </t>
+  <section title="Forms">
+    <t>The xar:attribute has both an open and closed form, where the value of the attribute
+      created is the textnode production inside the tag. In it's closed form
+      the attribute 'value' is used to specify the value of the created
+      attribute. Thus, the following two constructs are equivalent:
+      <artwork><![CDATA[
+        <a>
+          <xar:attribute name="href">test.php</xar:attribute>
+        </a>
+        <a>
+          <xar:attribute name="href" value="test.php"/>
+        </a>
+        ]]>
+      </artwork>  
+    </t>
+  </section>
   <section title="Attributes">
     <t>
       <list>
         <t>
           <spanx style="strong">name</spanx>
           <t>Required attribute to name the attribute to be created</t>
+          <t>
+            The name of the attribute may contain a namespace prefix, which
+            will be reproduced in the output verbatim
+          </t>
+          <ed:issue name="need for namespace attribute in xar:attribute tag" status="open" type="correctness">
+            ideally we should specifiy the URI of a namespace and let the 
+            compiler figure out what prefix to generate in the output.
+          </ed:issue>
         </t>
       </list>
     </t>

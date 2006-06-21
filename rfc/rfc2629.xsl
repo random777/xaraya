@@ -2423,9 +2423,10 @@ table.closedissue {
   <xsl:param name="tocparam" />
 
   <!-- handle tocdepth parameter -->
+  <!-- XARAYA: removed the handling of tocparam since it didnt work, and i couldnt find out how to fix it and i really need tocdepth to work -->
   <xsl:choose>
-    <xsl:when test="($tocparam='' or $tocparam='default') and string-length(translate($number,'.ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890&#167;','.')) &gt;= $parsedTocDepth">
-      <!-- dropped entry because excluded -->
+    <xsl:when test="string-length(translate($number,'.ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890&#167;','.')) &gt;= $parsedTocDepth">
+      <!-- dropped entry because of depth -->
       <xsl:attribute name="class">tocline2</xsl:attribute>
     </xsl:when>
     <xsl:when test="$tocparam='exclude'">

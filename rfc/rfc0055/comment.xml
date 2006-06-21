@@ -38,7 +38,7 @@
         BL has the semantics of xar:comment vs. &lt;--
         comments reversed.
       </ed:item>
-      <ed:item dat="2006-01-31">
+      <ed:item date="2006-01-31">
         Conditional comments or other comment production into
         output is impossible
       </ed:item>

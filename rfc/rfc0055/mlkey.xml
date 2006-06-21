@@ -39,11 +39,14 @@ contents in the current context.
     </t>
     <t>Child tags: none</t>
   </section>
-  <ed:issue type="deprecation" name="mlkey tag can be removed" status="open">
+  <ed:issue type="deprecation" name="mlkey tag can be removed" status="closed">
     <ed:item date="2006-03-06">
       This tag can be removed from the specification. It is
       not used by discouragement and it serves no useful
       purpose anymore.
     </ed:item>
+    <ed:resolution>
+      Removed from specification
+    </ed:resolution>
   </ed:issue>
 </section>

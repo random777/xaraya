@@ -280,7 +280,9 @@ not         not             not
         <!-- xar:ml -->
         <xi:include href="rfc0055/ml.xml"/>
         <!-- xar:mlkey -->
-        <xi:include href="rfc0055/mlkey.xml"/>
+        <ed:del resolves="mlkey tag can be removed">
+          <xi:include href="rfc0055/mlkey.xml"/>
+        </ed:del>
         <!-- xar:mlstring -->
         <xi:include href="rfc0055/mlstring.xml"/>
         <!-- xar:mlvar -->

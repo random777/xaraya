@@ -80,7 +80,7 @@ rfc2629.xml: $(images)/rfc2629*.png; @touch $@
 	$(xsltproc) $(xstyle) $< > $@
 
 # How to produce a pdf file out of an xsl-fo file
-%.pdf: %.flat $(xstyle) $(xstyleFOP) $(xdtd)
+%.pdf: %.fo $(xstyle) $(xstyleFOP) $(xdtd)
 	@echo "-- $< -> $@ "
 	$(fop) -q -xml $< -xsl $(xstyleFOP) -pdf $@
 

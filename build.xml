@@ -50,9 +50,8 @@
   <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
   
   <target name="getversion">
-    <input propertyName="lastversion">What is the previous version? (used for release notes)</input>
-    <input propertyName="version">What version are you building now?</input>
-    <echo message="OK, build ${lastversion}-${version}"/>
+    <input propertyname="lastversion">What is the previous version? (used for release notes)</input>
+    <input propertyname="version">What version are you building now?</input>
   </target>
 
   <!--  Main target that runs the build  -->
@@ -96,13 +95,13 @@
       Pulls latest into the databases
     -->
   <target name="pull" description=": Pulls all the monotone repositories from the reference server">
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com 'com.xaraya.build'"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com 'com.xaraya.qa.tests'"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com 'com.xaraya.documentation'"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${core.repo}.db pull mt.xaraya.com 'com.xaraya.core.*'"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${modules.repo}.db pull mt.xaraya.com 'com.xaraya.modules.*'"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${themes.repo}.db pull mt.xaraya.com 'com.xaraya.themes.*'"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${languages.repo}.db pull mt.xaraya.com 'com.xaraya.languages.*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.build'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.qa.tests'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.documentation'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.core.*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${modules.repo}.db pull mt.xaraya.com 'com.xaraya.modules.*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${themes.repo}.db pull mt.xaraya.com 'com.xaraya.themes.*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${languages.repo}.db pull mt.xaraya.com 'com.xaraya.languages.*'"/>
   </target>
   <!-- 
        Check out targets
@@ -115,7 +114,7 @@
   <!-- Wrapper for the monotone command -->
   <target name="mt_checkout">
     <mkdir dir="${work.basedir}/${repo}"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
   </target>
   <!-- Modules checkout -->
   <target name="mod_checkout" if="mod.name">
@@ -212,6 +211,11 @@
       </fileset>
     </delete>
     
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.html}"/>
+    </phingcall>
+        
     <!--- here we can make the core distribution -->
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-core.tar.gz"/>
@@ -224,6 +228,11 @@
   
   <!-- Base distribution -->
   <target name="basedist" depends="commonfiles, languages, basemodules" description=": Creates the base distribution">
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.html}"/>
+    </phingcall>
+    
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-base.tar.gz"/>
     </phingcall>
@@ -235,6 +244,11 @@
   
   <!-- Full distribution -->
   <target name="fulldist" depends="commonfiles, languages, basemodules, fullmodules, fullthemes" description=": Creates the full distribution">
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.html}"/>
+    </phingcall>
+    
     <phingcall target="createtarball">
       <property name="tarball.name" value="${final.name}-full.tar.gz"/>
     </phingcall>
@@ -340,11 +354,13 @@
         
         <exclude name="SCCS/**"/>
         <exclude name=".DS_Store"/>
+        
       </fileset>
     </copy>
     
     <!-- Copy config.system.php.dist to config.system.php -->
     <copy file="${html.dir}/var/config.system.php.dist" tofile="${build.html}/var/config.system.php"/>
+    
   </target>
 
   <!-- Installer languages target -->
@@ -481,4 +497,9 @@
     <exec passthru="true"  checkreturn="true" command="scp ${build.basedir}/xaraya-${version}-* ${publish.username}@${publish.server}:${publish.location}"/>
   </target>
   
+  <!-- Feed a subdir tree with empty index.html files -->
+  <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
+    <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
+    <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
+  </target>
 </project>

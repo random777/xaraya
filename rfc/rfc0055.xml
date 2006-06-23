@@ -16,7 +16,8 @@
      number="0055" category="std" seriesNO="3" obsoletes="0010">
 
   <!-- frontmatter -->
-  <xi:include href="rfc0055/front.xml"/>
+	<xi:include href="rfc0055/front.xml"/>
+
 
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>

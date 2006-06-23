@@ -40,7 +40,7 @@ information.</t>
     <t>
 DB tables:
        <figure preamble=" DB tables"><artwork type="image/png" src="images/rfc0034_1.png"/></figure>
-<list style="bullet">
+<list style="symbols">
         <t>modid - module id</t>
         <t>type - type name</t>
         <t>maxlen - maximum storage length</t>

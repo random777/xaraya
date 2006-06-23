@@ -1,5 +1,14 @@
 # Makefile for generating rfcs from xml
+# Config options, overridable in make.opts.local
 
+# Where to put the output
+OUTPUT=/var/www/ddf/common/documentation/rfcs
+MT=mtn --quiet
+MTHOST=mt.xaraya.com
+DOCBRANCHES=com.xaraya.documentation
+
+
+# General producer stuff
 fop=fop
 xsltproc=xsltproc
 xml2rfc=./xml2rfc.tcl
@@ -12,54 +21,94 @@ xdtd=rfc2629.dtd
 xindex=rfcindex
 
 SOURCES=$(shell ls -1 rfc????.xml)
-IDXSOURCES= _indexprolog.txt _indexepilog.txt _indexbuild _rfctitle.xslt
+IDXSOURCES= _indexprolog.txt _indexepilog.txt _indexbuild _rfcindexpart.xslt
 
 SOURCENAMES = $(basename $(notdir $(SOURCES)))
 
 HTMLS= $(addsuffix .html, $(SOURCENAMES))
-TXTS= $(addsuffix .txt,  $(SOURCENAMES))
-PDFS= $(addsuffix .pdf, $(SOURCENAMES))
+TXTS= $(addsuffix  .txt,  $(SOURCENAMES))
+PDFS= $(addsuffix  .pdf, $(SOURCENAMES))
+FLATS= $(addsuffix  .flat, $(SOURCENAMES))
+# Allow to override all the above options locally
+# which means that all options which may be overridden should be
+# above this line and all others below this line.
+-include make.opts.local
 
 # TODO: if someone needs it, look at the txt target, not working now
-all: html pdf txt
+all: flat html pdf txt
 .PHONY: all
 
 # Targets for the two different formats
-html: $(HTMLS) $(xindex).html
-txt: $(TXTS)  $(xindex).txt
-pdf: $(PDFS)  $(xindex).pdf
+flat: $(FLATS) 
+html: flat $(HTMLS) $(xindex).html
+txt:  flat $(TXTS)  $(xindex).txt
+pdf:  flat $(PDFS)  $(xindex).pdf
 
 # RFC index can be automatically generated from the rfc source files
 $(xindex).pdf: $(xindex).xml
 $(xindex).html: $(xindex).xml
 $(xindex).xml: index
 
-index: $(SOURCES) $(IDXSOURCES)
+index: flat $(IDXSOURCES)
+	@echo "-- Generating index..."
 	rm -f $(xindex).xml
 	cat _indexprolog.txt >> $(xindex).tmp
-	./_indexbuild >> $(xindex).tmp 
+	./_indexbuild >> $(xindex).tmp
 	cat _indexepilog.txt >> $(xindex).tmp
 	mv $(xindex).tmp $(xindex).xml
 
-# How to produce a html file out of an xml file
-%.html: %.xml $(images)/$(*F)*.png $(xstyle) $(xdtd) $(*F)/*
-	$(xsltproc) $(xpreprocess) $(*F).xml > $(*F).tmp
-	$(xsltproc) $(xstyle) $(*F).tmp > $(*F).html
-	rm $(*F).tmp
+# TODO: I dont know how to do this more generic
+rfc0007.xml: $(images)/rfc0007*.png; @touch $@
+rfc0010.xml: $(images)/rfc0010*.gif; @touch $@
+rfc0028.xml: $(images)/rfc0028*.png; @touch $@
+rfc0029.xml: $(images)/rfc0029*.png; @touch $@
+rfc0034.xml: $(images)/rfc0034*.png; @touch $@
+rfc0055.xml: rfc0055/*; @touch $@
+rfc2629.xml: $(images)/rfc2629*.png; @touch $@
 
-# How to produce a pdf file out of an xml file
-%.pdf: %.xml $(images)/$(*F)*.png $(xstyle) $(xstyleFO) $(xstyleFOP) $(xdtd)
-	$(xsltproc) $(xpreprocess) $(*F).xml > $(*F).tmp
-	$(xsltproc) $(xstyleFO) $(*F).tmp > tmp.fo
-	$(fop) -q -xml tmp.fo -xsl $(xstyleFOP) -pdf $(*F).pdf
-	rm tmp.fo
-	rm $(*F).tmp
+# Static pattern rules
+# How to flatten (resolve includes) an xml file
+# Basically just run the includes over it.
+%.flat: %.xml
+	@echo "-- $< -> $@ "
+	$(xsltproc) $(xpreprocess) $< > $@
+	
+# How to produce a html file out of an flat xml file
+%.html: %.flat $(xstyle) $(xdtd)
+	@echo "-- $< -> $@ "
+	$(xsltproc) $(xstyle) $< > $@
 
+# How to produce a pdf file out of an xsl-fo file
+%.pdf: %.flat $(xstyle) $(xstyleFOP) $(xdtd)
+	@echo "-- $< -> $@ "
+	$(fop) -q -xml $< -xsl $(xstyleFOP) -pdf $@
+
+# How to produce a fop xml file out of a flat xml file
+%.fo: %.flat $(xstyleFO)
+	$(xsltproc) $(xstyleFO) $< > $@
+	
 # How to produce a txt file
-%.txt: %.xml $(xml2rfc)
-	$(xsltproc) $(xpreprocess) $(*F).xml > $(*F).tmp
-	$(xml2rfc) $(*F).tmp
-	rm $(*F).tmp
+%.txt: %.flat $(xml2rfc)
+	@echo "-- $< -> $@ "
+	$(xml2rfc) $<
 
 clean:
-	rm -f *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml *.tmp
+	$(RM) -f *.flat *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml *.tmp
+
+# specific target for xaraya net
+forweb: catchup html pdf
+	@echo '-- Publishing to web location... '
+	mkdir -p $(OUTPUT)
+	cp -f rfc????.html $(OUTPUT)
+	cp -f rfc????.txt  $(OUTPUT)
+	cp -f rfc????.pdf  $(OUTPUT)
+	cp -f rfcindex.* $(OUTPUT)
+	mkdir -p $(OUTPUT)/images
+	cp -rf images/* $(OUTPUT)/images
+	cp *.css $(OUTPUT)/
+	ln -sf $(OUTPUT)/rfcindex.html $(OUTPUT)/index.html
+
+catchup:
+	@echo "-- Syncing files with repository... "
+	#$(MT) pull $(MTHOST) $(DOCBRANCHES)
+	#$(MT) update

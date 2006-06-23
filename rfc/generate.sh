@@ -3,13 +3,13 @@
 # script to generate the RFCS for output on xaraya.com
 
 # script needs to be run from within the rfc directory
-
+MT=mtn
 OUTPUT=/var/www/ddf/common/documentation/rfcs
 
 # make sure the clone is up to date
 # TODO: Activate monotone equivalent here
-monotone pull mt.xaraya.com 'com.xaraya.documentation'
-monotone update
+$MT pull mt.xaraya.com 'com.xaraya.documentation'
+$MT update
 
 #make clean
 make 

@@ -502,7 +502,8 @@ $optionsarray   This array holds the renderer-specific options
 
   <back>
     <references>
-      <reference anchor="refs.1">
+ <!--
+	  <reference anchor="refs.1">
     <front>
       <title>http://groups.yahoo.com/group/pndev/message/8069</title>
       <author>
@@ -511,6 +512,7 @@ $optionsarray   This array holds the renderer-specific options
       <date year="unknown"/>
     </front>
       </reference>
+-->
       <reference anchor="refs.2">
     <front>
       <title> http://groups.yahoo.com/group/pndev/message/5845</title>
@@ -637,7 +639,7 @@ $optionsarray   This array holds the renderer-specific options
       <date year="unknown"/>
     </front>
       </reference>
-      <reference anchor="refs.16">
+<!--      <reference anchor="refs.16">
     <front>
       <title>http://groups.yahoo.com/group/pndev/message/5718</title>
       <author>
@@ -646,6 +648,7 @@ $optionsarray   This array holds the renderer-specific options
       <date year="unknown"/>
     </front>
       </reference>
+-->
       <reference anchor="refs.17">
     <front>
       <title>http://groups.yahoo.com/group/pndev/message/8363</title>

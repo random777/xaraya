@@ -57,7 +57,7 @@
         This memo has three goals:
         <list>
           <t>
-            <list style="lc_alpha">
+            <list style="letters">
               <t>
                 To describe a simple XML Document Type Definition (DTD) that is
                 powerful enough to handle the simple formatting requirements of RFC-like

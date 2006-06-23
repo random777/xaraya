@@ -635,7 +635,8 @@ Initial version
   <back>
     <references title="Reference title">
       <!-- Fill in references as needed -->
-      <reference anchor="refs.1">
+
+	     <reference anchor="refs.1">
         <front>
           <title>http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1354</title>
           <author>
@@ -644,6 +645,7 @@ Initial version
           <date year="unknown"/>
         </front>
       </reference>
+
       <reference anchor="refs.2">
         <front>
           <title> http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1376</title>
@@ -653,7 +655,7 @@ Initial version
           <date year="unknown"/>
         </front>
       </reference>
-      <reference anchor="refs.3">
+<!--      <reference anchor="refs.3">
         <front>
           <title> http://www.postnuke.com/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=1211</title>
           <author>
@@ -662,6 +664,7 @@ Initial version
           <date year="unknown"/>
         </front>
       </reference>
+-->
       <reference anchor="refs.4">
         <front>
           <title> http://www.postnuke.com/modules.php?op=modload&amp;name=Sections&amp;file=index&amp;req=viewarticle&amp;artid=9</title>
@@ -780,7 +783,9 @@ Initial version
           <date year="unknown"/>
         </front>
       </reference>
-      <reference anchor="refs.17">
+
+<!--
+	      <reference anchor="refs.17">
         <front>
           <title>http://philip.greenspun.com/internet-application-workbook/software-structure</title>
           <author>
@@ -789,6 +794,7 @@ Initial version
           <date year="unknown"/>
         </front>
       </reference>
+-->
     </references>
   </back>
 </rfc>

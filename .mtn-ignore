@@ -4,6 +4,6 @@ xmdg/schemas\.xml$
 xmdg/.*\.html$
 xmdg/.*\.pdf$
 rfc2629xslt/.*
-rfc2629xslt
+rfc2629xslt$
 rfc/rfc....\.html
 make.opts.local

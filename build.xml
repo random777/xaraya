@@ -50,8 +50,9 @@
   <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
   
   <target name="getversion">
-    <input propertyname="lastversion">What is the previous version? (used for release notes)</input>
-    <input propertyname="version">What version are you building now?</input>
+    <input propertyName="lastversion">What is the previous version? (used for release notes)</input>
+    <input propertyName="version">What version are you building now?</input>
+    <echo message="OK, build ${lastversion}-${version}"/>
   </target>
 
   <!--  Main target that runs the build  -->

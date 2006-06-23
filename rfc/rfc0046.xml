@@ -73,7 +73,7 @@
       <t>
         As the xml parser will likely be a central part of all content
         handling, we want it as robust a humanly possible within our
-        development environment. We chose to use the W3 XML test suite
+        development environment. We chose to use the W3 XML <xref target="w3testsuite">test suite</xref>
         as a reference for testing the behaviour of the XML parser.
         This suite contains lots of tests testing all kinds of aspects of 
         XML implementations. This suite has been inserted into our unit test
@@ -95,7 +95,7 @@
   <back>
     <references title="References">
       <!-- Fill in references as needed -->
-      <reference anchor="refs.0">
+      <reference anchor="w3testsuite">
         <front>
           <title>XML Conformance Test Suites</title>
           <author>

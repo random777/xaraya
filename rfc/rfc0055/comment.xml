@@ -8,7 +8,7 @@
     <ed:ins ed:resolves="reversal of comment semantics">
       This tag is used to produce a comment in the <spanx
       style="strong">output stream</spanx>. For (X)HTML this
-      would mean &lt;-- something --&gt;
+      would mean &lt;!-- something --&gt;
     </ed:ins>
   </t>
   
@@ -38,7 +38,7 @@
         BL has the semantics of xar:comment vs. &lt;--
         comments reversed.
       </ed:item>
-      <ed:item dat="2006-01-31">
+      <ed:item date="2006-01-31">
         Conditional comments or other comment production into
         output is impossible
       </ed:item>

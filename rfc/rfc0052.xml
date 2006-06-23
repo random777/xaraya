@@ -41,7 +41,7 @@
     
     <!-- The abstract summarizes in one or two paragraphs the content of the RFC -->
     <abstract>
-      <t>This RFC extends RFC 0007 - Modularized User Data, by providing specific
+      <t>This RFC extends <xref target="rfc0007">RFC 0007 - Modularized User Data</xref>, by providing specific
       instructions on how Dynamic Data Property Types are added to the system, how to create
       new ones, and provides documentation on all the properties provided by the Xaraya Core
       Distribuation.
@@ -125,7 +125,7 @@
   <back>
     <references title="Reference title">
       <!-- Fill in references as needed -->
-      <reference anchor="refs.1">
+      <reference anchor="rfc0007">
         <front>
           <title>Modularized User Data - RFC 0007</title>
           <author>

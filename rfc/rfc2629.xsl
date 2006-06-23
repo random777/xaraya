@@ -12,7 +12,7 @@
     * Redistributions in binary form must reproduce the above copyright notice,
       this list of conditions and the following disclaimer in the documentation
       and/or other materials provided with the distribution.
-    * Neither the name of Julian Reschkenor the names of its contributors
+    * Neither the name of Julian Reschke nor the names of its contributors
       may be used to endorse or promote products derived from this software
       without specific prior written permission.
 
@@ -36,8 +36,9 @@
                 xmlns:exslt="http://exslt.org/common"
                 xmlns:myns="mailto:julian.reschke@greenbytes.de?subject=rcf2629.xslt"
                 xmlns:ed="http://greenbytes.de/2002/rfcedit"
+                xmlns:x="http://purl.org/net/xml2rfc/ext"
 
-                exclude-result-prefixes="msxsl exslt myns ed"
+                exclude-result-prefixes="msxsl exslt myns ed x"
                 >
 
 <xsl:strip-space elements="back front list middle rfc section"/>                
@@ -158,7 +159,7 @@
 
 <xsl:param name="xml2rfc-private"
   select="substring-after(
-      translate(/processing-instruction('rfc')[contains(.,'private=')], concat($quote-chars,' '), ''),
+      translate(/processing-instruction('rfc')[contains(.,'private=')], $quote-chars, ''),
         'private=')"
 />
 
@@ -292,10 +293,19 @@
 
 <msxsl:script language="JScript" implements-prefix="myns">
   function parseXml(str) {
-    var doc = new ActiveXObject ("MSXML2.DOMDocument");
-    doc.async = false;
-    if (doc.loadXML (str)) return "";
-    return doc.parseError.reason + "\n" + doc.parseError.srcText + " (" + doc.parseError.line + "/" + doc.parseError.linepos + ")";
+    try {
+      var doc = new ActiveXObject("MSXML2.DOMDocument");
+      doc.async = false;
+      if (doc.loadXML(str)) {
+        return "";
+      }
+      else {
+        return doc.parseError.reason + "\n" + doc.parseError.srcText + " (" + doc.parseError.line + "/" + doc.parseError.linepos + ")";
+      }
+    }
+    catch(e) {
+      return "";
+    }
   }
 </msxsl:script>
 
@@ -416,38 +426,42 @@
           </xsl:if>
         </span>
       </span>
-      <span class="org vcardline">
-        <xsl:value-of select="organization" />
-      </span>
-      <span class="adr vcardline">
-        <xsl:if test="address/postal/street!=''">
-          <span class="street street-address vcardline">
-            <xsl:for-each select="address/postal/street">
-              <xsl:value-of select="." />
-            </xsl:for-each>
-          </span>
-        </xsl:if>
-        <xsl:if test="address/postal/city|address/postal/region|address/postal/code">
-          <span class="vcardline">
-            <xsl:if test="address/postal/city"><span class="locality"><xsl:value-of select="address/postal/city" /></span>, </xsl:if>
-            <xsl:if test="address/postal/region"><span class="region"><xsl:value-of select="address/postal/region" /></span>&#160;</xsl:if>
-            <xsl:if test="address/postal/code"><span class="postal-code"><xsl:value-of select="address/postal/code" /></span></xsl:if>
-          </span>
-        </xsl:if>
-        <xsl:if test="address/postal/country">
-          <span class="country-name vcardline"><xsl:value-of select="address/postal/country" /></span>
-        </xsl:if>
-      </span>
+      <xsl:if test="normalize-space(organization) != ''">
+        <span class="org vcardline">
+          <xsl:value-of select="organization" />
+        </span>
+      </xsl:if>
+      <xsl:if test="address/postal">
+        <span class="adr">
+          <xsl:if test="address/postal/street!=''">
+            <span class="street-address vcardline">
+              <xsl:for-each select="address/postal/street">
+                <xsl:value-of select="." />
+              </xsl:for-each>
+            </span>
+          </xsl:if>
+          <xsl:if test="address/postal/city|address/postal/region|address/postal/code">
+            <span class="vcardline">
+              <xsl:if test="address/postal/city"><span class="locality"><xsl:value-of select="address/postal/city" /></span>, </xsl:if>
+              <xsl:if test="address/postal/region"><span class="region"><xsl:value-of select="address/postal/region" /></span>&#160;</xsl:if>
+              <xsl:if test="address/postal/code"><span class="postal-code"><xsl:value-of select="address/postal/code" /></span></xsl:if>
+            </span>
+          </xsl:if>
+          <xsl:if test="address/postal/country">
+            <span class="country-name vcardline"><xsl:value-of select="address/postal/country" /></span>
+          </xsl:if>
+        </span>
+      </xsl:if>
       <xsl:if test="address/phone">
-        <span class="vcardline">
+        <span class="vcardline tel">
           <xsl:text>Phone: </xsl:text>
-          <a href="tel:{translate(address/phone,' ','')}"><span class="tel"><span class="voice"><xsl:value-of select="address/phone" /></span></span></a>
+          <a href="tel:{translate(address/phone,' ','')}"><span class="value"><xsl:value-of select="address/phone" /></span></a>
         </span>
       </xsl:if>
       <xsl:if test="address/facsimile">
-        <span class="vcardline">
-          <xsl:text>Fax: </xsl:text>
-          <a href="fax:{translate(address/facsimile,' ','')}"><span class="tel"><span class="fax"><xsl:value-of select="address/facsimile" /></span></span></a>
+        <span class="vcardline tel">
+          <span class="type">Fax</span><xsl:text>: </xsl:text>
+          <a href="fax:{translate(address/facsimile,' ','')}"><span class="value"><xsl:value-of select="address/facsimile" /></span></a>
         </span>
       </xsl:if>
       <xsl:if test="address/email">
@@ -775,23 +789,27 @@
 <xsl:template match="note">
   <xsl:variable name="num"><xsl:number/></xsl:variable>
   <h1 id="{$anchor-prefix}.note.{$num}"><a href="#{$anchor-prefix}.note.{$num}"/><xsl:value-of select="@title" /></h1>
-    <xsl:apply-templates />
+  <xsl:apply-templates />
 </xsl:template>
 
 <xsl:template match="postamble">
-  <p>
-    <xsl:call-template name="insertInsDelClass"/>
-    <xsl:call-template name="editingMark" />
-    <xsl:apply-templates />
-  </p>
+  <xsl:if test="normalize-space(.) != ''">
+    <p>
+      <xsl:call-template name="insertInsDelClass"/>
+      <xsl:call-template name="editingMark" />
+      <xsl:apply-templates />
+    </p>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="preamble">
-  <p>
-    <xsl:call-template name="insertInsDelClass"/>
-    <xsl:call-template name="editingMark" />
-    <xsl:apply-templates />
-  </p>
+  <xsl:if test="normalize-space(.) != ''">
+    <p>
+      <xsl:call-template name="insertInsDelClass"/>
+      <xsl:call-template name="editingMark" />
+      <xsl:apply-templates />
+    </p>
+  </xsl:if>
 </xsl:template>
 
 
@@ -913,7 +931,11 @@
         <xsl:text>, </xsl:text>
         <xsl:choose>
           <xsl:when test="not(@name) and not(@value) and ./text()"><xsl:value-of select="." /></xsl:when>
-          <xsl:otherwise><xsl:value-of select="@name" /><xsl:if test="@value!=''">&#0160;<xsl:value-of select="@value" /></xsl:if></xsl:otherwise>
+          <xsl:otherwise>
+            <xsl:value-of select="@name" />
+            <xsl:if test="@value!=''">&#0160;<xsl:value-of select="@value" /></xsl:if>
+            <xsl:if test="translate(@name,$ucase,$lcase)='internet-draft'"> (work in progress)</xsl:if>
+          </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
       
@@ -1041,11 +1063,11 @@
         <link rel="Index" href="#{$anchor-prefix}.index" />
       </xsl:if>
       <xsl:apply-templates select="/" mode="links" />
-      <xsl:for-each select="/rfc/ed:link">
+      <xsl:for-each select="/rfc/x:link">
         <link><xsl:copy-of select="@*" /></link>
       </xsl:for-each>
       <xsl:if test="/rfc/@number">
-        <link rel="Alternate" title="Authorative ASCII version" href="http://www.ietf.org/rfc/rfc{/rfc/@number}" />
+        <link rel="Alternate" title="Authorative ASCII version" href="http://www.ietf.org/rfc/rfc{/rfc/@number}.txt" />
       </xsl:if>
 
       <!-- generator -->
@@ -1111,7 +1133,7 @@
 <xsl:template match="t">
   <xsl:choose>
     <xsl:when test="@anchor">
-      <span id="{@anchor}"><xsl:apply-templates mode="t-content" select="node()[1]" /></span>
+      <div id="{@anchor}"><xsl:apply-templates mode="t-content" select="node()[1]" /></div>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates mode="t-content" select="node()[1]" />
@@ -1239,6 +1261,12 @@
       </a>
       <xsl:text>&#0160;</xsl:text>
     </xsl:if>
+    
+    <!-- issue tracking? -->
+    <xsl:if test="@ed:resolves">
+      <xsl:call-template name="insert-issue-pointer"/>
+    </xsl:if>
+    
     <xsl:choose>
       <xsl:when test="@anchor">
         <a name="{@anchor}" href="#{@anchor}"><xsl:call-template name="insertTitle"/></a>
@@ -1298,9 +1326,12 @@
   <xsl:variable name="node" select="$src//*[@anchor=$target]" />
   <a href="#{$target}"><xsl:apply-templates /></a>
   <xsl:for-each select="$src/rfc/back/references//reference[@anchor=$target]">
-    <xsl:text> </xsl:text><xsl:call-template name="referencename">
-       <xsl:with-param name="node" select="." />
-    </xsl:call-template>
+    <xsl:text> </xsl:text>
+    <cite title="{normalize-space(front/title)}">
+      <xsl:call-template name="referencename">
+         <xsl:with-param name="node" select="." />
+      </xsl:call-template>
+    </cite>
   </xsl:for-each>
 </xsl:template>
                
@@ -1379,8 +1410,12 @@
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:attribute name="title"><xsl:value-of select="normalize-space($node/front/title)" /></xsl:attribute>
-        <xsl:call-template name="referencename"><xsl:with-param name="node" select="$src/rfc/back/references//reference[@anchor=$target]" /></xsl:call-template></xsl:otherwise>
+        <cite title="{normalize-space($node/front/title)}">
+          <xsl:call-template name="referencename">
+            <xsl:with-param name="node" select="$src/rfc/back/references//reference[@anchor=$target]" />
+          </xsl:call-template>
+        </cite>
+      </xsl:otherwise>
     </xsl:choose>
   </a>
 </xsl:template>
@@ -1455,7 +1490,14 @@
     </xsl:if>
     <xsl:if test="$mode!='nroff'">
       <myns:item>
-        <xsl:text>Category: </xsl:text>
+        <xsl:choose>
+          <xsl:when test="/rfc/@number">
+            <xsl:text>Category: </xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>Intended status: </xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="get-category-long" />
       </myns:item>
     </xsl:if>
@@ -1599,7 +1641,7 @@
 
 <!-- insert copyright statement -->
 
-<xsl:template name="insertCopyright" xmlns="">
+<xsl:template name="insertCopyright" myns:namespaceless-elements="xml2rfc">
 
   <section title="Intellectual Property Statement" anchor="{$anchor-prefix}.ipr" myns:unnumbered="unnumbered" myns:is-rfc2629="true">
     <xsl:choose>
@@ -1658,68 +1700,10 @@
     </xsl:choose>
   </section>
   
-  <xsl:if test="$ipr-rfc3667">
-    <section title="Disclaimer of Validity" anchor="{$anchor-prefix}.disclaimer" myns:unnumbered="unnumbered" myns:notoclink="notoclink" myns:is-rfc2629="true">
-      <t myns:is-rfc2629="true">
-        This document and the information contained herein are provided on an
-        &#8220;AS IS&#8221; basis and THE CONTRIBUTOR, THE ORGANIZATION HE/SHE REPRESENTS
-        OR IS SPONSORED BY (IF ANY), THE DIGITAL DEVELOPMENT FOUNDATION
-        FORCE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED,
-        INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE 
-        INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED 
-        WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
-      </t>
-    </section>
-  </xsl:if>
-
-  <xsl:choose>
-    <xsl:when test="$ipr-rfc3667">
-      <section title="Copyright Statement" anchor="{$anchor-prefix}.copyright" myns:unnumbered="unnumbered" myns:notoclink="notoclink" myns:is-rfc2629="true">
-        <t myns:is-rfc2629="true">
-          Copyright &#169; The Digital Development Foundation (<xsl:value-of select="/rfc/front/date/@year" />).
-        </t>
-      </section>    
-    </xsl:when>
-    <xsl:otherwise>
-      <section title="Full Copyright Statement" anchor="{$anchor-prefix}.copyright" myns:unnumbered="unnumbered" myns:notoclink="notoclink" myns:is-rfc2629="true">
-        <t myns:is-rfc2629="true">
-          Copyright &#169; The Digital Development Foundation (<xsl:value-of select="/rfc/front/date/@year" />). All Rights Reserved.
-        </t>
-        <t myns:is-rfc2629="true">
-          This document and translations of it may be copied and furnished to
-          others, and derivative works that comment on or otherwise explain it
-          or assist in its implementation may be prepared, copied, published and
-          distributed, in whole or in part, without restriction of any kind,
-          provided that the above copyright notice and this paragraph are
-          included on all such copies and derivative works. However, this
-          document itself may not be modified in any way, such as by removing
-          the copyright notice or references to the  Digital Development Foundation or other
-          Internet organizations, except as needed for the purpose of
-          developing Xaraya standards in which case the procedures for
-          copyrights defined in the Xaraya Standards process must be
-          followed, or as required to translate it into languages other than
-          English.
-        </t>
-        <t myns:is-rfc2629="true">
-          The limited permissions granted above are perpetual and will not be
-          revoked by the  Digital Development Foundation or its successors or assignees.
-        </t>
-        <t myns:is-rfc2629="true">
-          This document and the information contained herein is provided on an
-          &#8220;;AS IS&#8221; basis and Digital Development Foundation
-          FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
-          BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
-          HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
-          MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
-        </t>
-      </section>
-    </xsl:otherwise>
-  </xsl:choose>
-  
-  <section title="Acknowledgement" myns:unnumbered="unnumbered" myns:notoclink="notoclink" myns:is-rfc2629="true">
-    <t myns:is-rfc2629="true">
-      Funding for the RFC Editor function is currently provided by the
-      Digital Development Foundation.
+  <section title="Acknowledgement" myns:unnumbered="unnumbered" myns:notoclink="notoclink">
+    <t>
+      Funding for the RFC Editor function is provided by the DDF
+      
     </t>
   </section>
 
@@ -2439,9 +2423,10 @@ table.closedissue {
   <xsl:param name="tocparam" />
 
   <!-- handle tocdepth parameter -->
+  <!-- XARAYA: removed the handling of tocparam since it didnt work, and i couldnt find out how to fix it and i really need tocdepth to work -->
   <xsl:choose>
-    <xsl:when test="($tocparam='' or $tocparam='default') and string-length(translate($number,'.ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890&#167;','.')) &gt;= $parsedTocDepth">
-      <!-- dropped entry because excluded -->
+    <xsl:when test="string-length(translate($number,'.ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890&#167;','.')) &gt;= $parsedTocDepth">
+      <!-- dropped entry because of depth -->
       <xsl:attribute name="class">tocline2</xsl:attribute>
     </xsl:when>
     <xsl:when test="$tocparam='exclude'">

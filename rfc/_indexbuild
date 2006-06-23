@@ -1,21 +1,9 @@
 #!/bin/bash
-
-sources=`monotone list known . --depth=0 | grep '.xml$'`
+MT="mtn"
+sources=`$MT list known . --depth=0 | grep '.xml$'|sort|sed 's/rfc\///'|sed 's/\.xml/\.flat/'`
 
 for i in $sources; do
 (
-  file=`basename $i`
-  htmlfile=`echo $file | sed s/xml/html/`
-  pdffile=`echo $file | sed s/xml/pdf/`
-  txtfile=`echo $file | sed s/xml/txt/`
-  title=`xsltproc --novalid _rfctitle.xslt $file`
-
-  rfcnr=${file:3:4}
-  echo "<t>
-          RFC-$rfcnr : $title
-          <eref target=\"http://www.xaraya.com/documentation/rfcs/$pdffile\">[PDF]</eref>
-          <eref target=\"http://www.xaraya.com/documentation/rfcs/$htmlfile\">[HTML]</eref>
-          <eref target=\"http://www.xaraya.com/documentation/rfcs/$txtfile\">[TXT]</eref>
-       </t>"
+  xsltproc --novalid _rfcindexpart.xslt $i
 ) 
 done

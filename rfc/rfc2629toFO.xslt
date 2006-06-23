@@ -12,7 +12,7 @@
     * Redistributions in binary form must reproduce the above copyright notice,
       this list of conditions and the following disclaimer in the documentation
       and/or other materials provided with the distribution.
-    * Neither the name of Julian Reschkenor the names of its contributors
+    * Neither the name of Julian Reschken or the names of its contributors
       may be used to endorse or promote products derived from this software
       without specific prior written permission.
 
@@ -34,12 +34,13 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
     xmlns:ed="http://greenbytes.de/2002/rfcedit"
+    xmlns:x="http://purl.org/net/xml2rfc/ext"
     xmlns:myns="mailto:julian.reschke@greenbytes.de?subject=rcf2629.xslt"
 
     xmlns:msxsl="urn:schemas-microsoft-com:xslt"
     xmlns:exslt="http://exslt.org/common"
 
-    exclude-result-prefixes="msxsl exslt myns ed"
+    exclude-result-prefixes="msxsl exslt myns ed x"
 >
 
 <xsl:import href="rfc2629.xsl" />
@@ -372,7 +373,7 @@
 </xsl:template>
 
 <xsl:template match="iref" mode="iref-start">
-  <fo:begin-index-range>
+  <fo:index-range-begin>
     <xsl:attribute name="id"><xsl:value-of select="$anchor-prefix" />.iref.<xsl:number level="any"/></xsl:attribute>
     <xsl:choose>
       <xsl:when test="@primary='true'">
@@ -386,13 +387,13 @@
         </xsl:attribute>
       </xsl:otherwise>
     </xsl:choose>
-  </fo:begin-index-range>
+  </fo:index-range-begin>
 </xsl:template>
 
 <xsl:template match="iref" mode="iref-end">
-  <fo:end-index-range>
+  <fo:index-range-end>
     <xsl:attribute name="ref-id"><xsl:value-of select="$anchor-prefix" />.iref.<xsl:number level="any"/></xsl:attribute>
-  </fo:end-index-range>
+  </fo:index-range-end>
 </xsl:template>
 
 <xsl:template match="list[@style='hanging']" priority="1">
@@ -636,6 +637,7 @@
 					<xsl:otherwise>
             <xsl:value-of select="@name" />
             <xsl:if test="@value!=''">&#0160;<xsl:value-of select="@value" /></xsl:if>
+            <xsl:if test="translate(@name,$ucase,$lcase)='internet-draft'"> (work in progress)</xsl:if>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
@@ -884,7 +886,15 @@
 <!-- END XAR SPECIFIC -->
 
 <xsl:template match="t">
-	<fo:block space-before=".5em" space-after=".5em" start-indent="2em">
+	<fo:block space-before=".5em" space-after=".5em">
+    <xsl:choose>
+      <xsl:when test="parent::x:blockquote">
+        <xsl:attribute name="start-indent">4em</xsl:attribute>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:attribute name="start-indent">2em</xsl:attribute>
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:if test="@anchor"><xsl:attribute name="id"><xsl:value-of select="@anchor"/></xsl:attribute></xsl:if>
     <xsl:apply-templates />
   </fo:block>
@@ -909,7 +919,6 @@
   <xsl:variable name="context" select="." />
 	<xsl:variable name="target" select="@target" />
   <xsl:variable name="node" select="//*[@anchor=$target]" />
-	<!-- should check for undefined targets -->
 	<!-- should check for undefined targets -->
   <fo:basic-link internal-destination="{$target}" xsl:use-attribute-sets="internal-link">
     <xsl:choose>
@@ -989,6 +998,10 @@
   <fo:block font-weight="bold">UNKNOWN ELEMENT <xsl:value-of select="local-name()" /></fo:block>
   <xsl:message>UNKNOWN ELEMENT: <xsl:value-of select="local-name()" /></xsl:message>
   <xsl:apply-templates />
+</xsl:template>
+
+<xsl:template match="text()">
+  <xsl:copy-of select="."/>
 </xsl:template>
 
 <xsl:template name="emitheader">
@@ -1076,14 +1089,14 @@
           <xsl:variable name="entries" select="key('index-item',@item)[not(@subitem) or @subitem='']" />
                                   
           <xsl:if test="$entries">
-            <fo:page-index>
+            <fo:index-page-citation-list merge-sequential-page-numbers="merge">
               <xsl:if test="$entries[@primary='true']">
-                <fo:index-item create-index-link="true" merge-sequential-index-page-numbers="true" ref-index-key="{concat('item=',@item,',subitem=',@subitem,',primary')}" font-weight="bold"/>
+                <fo:index-key-reference page-number-treatment="link" ref-index-key="{concat('item=',@item,',subitem=',@subitem,',primary')}" font-weight="bold"/>
               </xsl:if>
               <xsl:if test="$entries[not(@primary='true')]">
-                <fo:index-item create-index-link="true" merge-sequential-index-page-numbers="true" ref-index-key="{concat('item=',@item,',subitem=',@subitem)}"/>
+                <fo:index-key-reference page-number-treatment="link" ref-index-key="{concat('item=',@item,',subitem=',@subitem)}"/>
               </xsl:if>
-            </fo:page-index>
+            </fo:index-page-citation-list>
           </xsl:if>
 
         </fo:block>
@@ -1110,14 +1123,14 @@
               <xsl:variable name="entries2" select="key('index-item-subitem',concat(@item,'..',@subitem))" />
               
               <xsl:if test="$entries2">
-                <fo:page-index>
+                <fo:index-page-citation-list merge-sequential-page-numbers="merge">
                   <xsl:if test="$entries2[@primary='true']">
-                    <fo:index-item create-index-link="true" merge-sequential-index-page-numbers="true" ref-index-key="{concat('item=',@item,',subitem=',@subitem,',primary')}" font-weight="bold"/>
+                    <fo:index-key-reference page-number-treatment="link" ref-index-key="{concat('item=',@item,',subitem=',@subitem,',primary')}" font-weight="bold"/>
                   </xsl:if>
                   <xsl:if test="$entries2[not(@primary='true')]">
-                    <fo:index-item create-index-link="true" merge-sequential-index-page-numbers="true" ref-index-key="{concat('item=',@item,',subitem=',@subitem)}" link-back="true"/>
+                    <fo:index-key-reference page-number-treatment="link" ref-index-key="{concat('item=',@item,',subitem=',@subitem)}" />
                   </xsl:if>
-                </fo:page-index>
+                </fo:index-page-citation-list>
               </xsl:if>
 
             </fo:block>
@@ -1840,8 +1853,78 @@
 
 
 
+<!-- Extensions -->
 
-  <!-- experimental: format URI witz zero-width spaces to ease line breaks -->
+<!-- Nothing to do for HTML output -->
+<xsl:template match="x:link" />
+
+<!-- Nothing to do here -->
+<xsl:template match="x:anchor-alias" />
+
+<!-- internal ref support -->
+<xsl:template match="x:ref">
+  <xsl:variable name="val" select="."/>
+  <xsl:variable name="target" select="//*[(@anchor and x:anchor-alias/@value=$val) or (@anchor=$val)]"/>
+  <xsl:choose>
+    <xsl:when test="$target">
+      <fo:basic-link internal-destination="{$target/@anchor}" xsl:use-attribute-sets="internal-link">
+        <xsl:apply-templates/>
+      </fo:basic-link>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>WARNING: internal link target for '<xsl:value-of select="."/>' does not exist.</xsl:message>
+      <xsl:apply-templates/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- BCP14 keywords -->
+<xsl:template match="x:bcp14">
+  <!-- figure out something that prints well -->
+  <xsl:apply-templates/>
+</xsl:template>
+
+<!-- Quotes -->
+<xsl:template match="x:blockquote">
+  <fo:block font-style="italic" space-before=".5em" space-after=".5em" start-indent="3em"
+      border-left-style="solid" border-left-color="gray" border-left-width=".25em" padding-left=".5em">
+    <xsl:apply-templates/>
+  </fo:block>
+</xsl:template>
+
+<xsl:template match="x:q">
+  <fo:wrapper font-style="italic">
+    <xsl:text>&#8220;</xsl:text>
+    <xsl:apply-templates/>
+    <xsl:text>&#8221;</xsl:text>
+  </fo:wrapper>
+</xsl:template>
+
+<!-- Definitions -->
+<xsl:template match="x:dfn">
+  <fo:wrapper font-style="italic">
+    <xsl:apply-templates/>
+  </fo:wrapper>
+</xsl:template>
+
+<!-- Headings -->
+<xsl:template match="x:h">
+  <fo:wrapper font-weight="bold">
+    <xsl:apply-templates/>
+  </fo:wrapper>
+</xsl:template>
+
+<!-- box drawing -->
+
+<!-- nop for alignment -->
+<xsl:template match="x:x"/>
+
+<!-- box -->
+<xsl:template match="x:bt|x:bc|x:bb">
+  <xsl:apply-templates />
+</xsl:template>
+
+  <!-- experimental: format URI with zero-width spaces to ease line breaks -->
   
   <xsl:template name="format-uri">
     <xsl:param name="s"/>

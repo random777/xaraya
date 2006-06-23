@@ -1,5 +1,5 @@
 <!--
-  revised DTD for the RFC document series, draft of 2004-04-04
+  revised DTD for the RFC document series, draft of 2005-10-05
   -->
 
 
@@ -110,6 +110,8 @@
                       |full3978|noModification3978|noDerivatives3978)
                                          #IMPLIED
           iprExtract  IDREF              #IMPLIED
+          submissionType
+                      (IETF|independent) "IETF"
           docName     %ATEXT;            #IMPLIED
           xml:lang    %ATEXT;            "en">
 
@@ -206,7 +208,7 @@
      parent -->
 <!ELEMENT list        (t+)>
 <!ATTLIST list
-          style       %ATEXT;            "empty"
+          style       %ATEXT;            #IMPLIED
           hangIndent  %NUMBER;           #IMPLIED
           counter     %ATEXT;            #IMPLIED>
 

@@ -614,7 +614,8 @@
           <date year="2003"/>
         </front>
       </reference>
-      <reference anchor="testfoundations">
+<!--
+	      <reference anchor="testfoundations">
         <front>
           <title>Testing foundations</title>
           <author fullname="Brian Marck">
@@ -626,6 +627,7 @@
           <date year="2003"/>
         </front>
       </reference>
+-->
       <reference anchor="junit">
         <front>
           <title>The jUnit test framework</title>

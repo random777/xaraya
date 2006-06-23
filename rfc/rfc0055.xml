@@ -7,7 +7,7 @@
 <?rfc inline="no"?>
 <?rfc topblock="yes"?>
 <?rfc sortrefs="yes"?> <!-- Sort the references -->
-<?rfc editing="yes"?>
+<?rfc editing="no"?>
 <?rfc tocdepth="2"?>
 <?rfc toc="yes"?>
 
@@ -16,7 +16,8 @@
      number="0055" category="std" seriesNO="3" obsoletes="0010">
 
   <!-- frontmatter -->
-  <xi:include href="rfc0055/front.xml"/>
+	<xi:include href="rfc0055/front.xml"/>
+
 
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
@@ -66,12 +67,13 @@
           <t><xref target="block">&lt;xar:block /&gt;</xref></t>
           <t><xref target="blockgroup">&lt;xar:blockgroup /&gt;</xref></t>
           <t><xref target="comment">&lt;xar:comment /&gt;</xref></t>
+          <t><ed:ins><xref target="element">&lt;xar:element /&gt;</xref></ed:ins></t>
           <t><xref target="for">&lt;xar:for /&gt;</xref></t>
           <t><xref target="foreach">&lt;xar:foreach /&gt;</xref></t>
           <t><xref target="if">&lt;xar:if /&gt;</xref></t>
           <t><xref target="loop">&lt;xar:loop /&gt;</xref></t>
           <t><xref target="ml">&lt;xar:ml /&gt;</xref></t>
-          <t><xref target="mlkey">&lt;xar:mlkey /&gt;</xref>(can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
+          <t><ed:del><xref target="mlkey">&lt;xar:mlkey /&gt;</xref>(can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</ed:del></t>
           <t><xref target="mlstring">&lt;xar:mlstring /&gt;</xref> (can also be used as a child tag, see <xref target="ml">&lt;xar:ml /&gt;</xref>)</t>
           <t><xref target="module">&lt;xar:module /&gt;</xref></t>
           <t><xref target="sec">&lt;xar:sec /&gt;</xref></t>
@@ -82,6 +84,7 @@
         </list>
         The following tags have a specific context:
         <list style="symbols">
+          <t><ed:ins><xref target="attribute">&lt;xar:attribute /&gt;</xref></ed:ins></t>
           <t><xref target="else">&lt;xar:else /&gt;</xref></t>
           <t><xref target="elseif">&lt;xar:elseif /&gt;</xref></t>
           <t><xref target="break">&lt;xar:break /&gt;</xref></t>
@@ -89,7 +92,6 @@
           <t><xref target="mlvar">&lt;xar:mlvar /&gt;</xref></t>
         </list>
       </t>
-
 
       <section title="Referencing data within templates">
           <t>
@@ -246,6 +248,10 @@ not         not             not
 
         <!-- xar:blocklayout -->
         <xi:include href="rfc0055/blocklayout.xml"/>
+        <!-- xar:attribute -->
+        <ed:ins>
+          <xi:include href="rfc0055/attribute.xml"/>
+        </ed:ins>
         <!-- xar:block -->
         <xi:include href="rfc0055/block.xml"/>
         <!-- xar:blockgroup -->
@@ -256,6 +262,10 @@ not         not             not
         <xi:include href="rfc0055/comment.xml"/>
         <!-- xar:continue -->
         <xi:include href="rfc0055/continue.xml"/>
+        <!-- xar:element -->
+        <ed:ins>
+          <xi:include href="rfc0055/element.xml"/>
+        </ed:ins>
         <!-- xar:else -->
         <xi:include href="rfc0055/else.xml"/>
         <!-- xar:elseif -->
@@ -271,7 +281,9 @@ not         not             not
         <!-- xar:ml -->
         <xi:include href="rfc0055/ml.xml"/>
         <!-- xar:mlkey -->
-        <xi:include href="rfc0055/mlkey.xml"/>
+        <ed:del resolves="mlkey tag can be removed">
+          <xi:include href="rfc0055/mlkey.xml"/>
+        </ed:del>
         <!-- xar:mlstring -->
         <xi:include href="rfc0055/mlstring.xml"/>
         <!-- xar:mlvar -->

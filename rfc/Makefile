@@ -20,6 +20,11 @@ xstyleFOP=xsl11toFop.xslt
 xdtd=rfc2629.dtd
 xindex=rfcindex
 
+# Allow to override all the above options locally
+# which means that all options which may be overridden should be
+# above this line and all others below this line.
+-include make.opts.local
+
 SOURCES=$(shell ls -1 rfc????.xml)
 IDXSOURCES= _indexprolog.txt _indexepilog.txt _indexbuild _rfcindexpart.xslt
 
@@ -29,10 +34,6 @@ HTMLS= $(addsuffix .html, $(SOURCENAMES))
 TXTS= $(addsuffix  .txt,  $(SOURCENAMES))
 PDFS= $(addsuffix  .pdf, $(SOURCENAMES))
 FLATS= $(addsuffix  .flat, $(SOURCENAMES))
-# Allow to override all the above options locally
-# which means that all options which may be overridden should be
-# above this line and all others below this line.
--include make.opts.local
 
 # TODO: if someone needs it, look at the txt target, not working now
 all: flat html pdf txt
@@ -51,7 +52,7 @@ $(xindex).xml: index
 
 index: flat $(IDXSOURCES)
 	@echo "-- Generating index..."
-	rm -f $(xindex).xml
+	$(RM) $(xindex).xml
 	cat _indexprolog.txt >> $(xindex).tmp
 	./_indexbuild >> $(xindex).tmp
 	cat _indexepilog.txt >> $(xindex).tmp
@@ -93,22 +94,22 @@ rfc2629.xml: $(images)/rfc2629*.png; @touch $@
 	$(xml2rfc) $<
 
 clean:
-	$(RM) -f *.flat *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml *.tmp
+	$(RM) *.flat *.fo rfc*.html rfc*.txt rfc*.pdf *.*~ *~ $(xindex).xml *.tmp
 
 # specific target for xaraya net
-forweb: catchup html pdf
+forweb: catchup html pdf txt
 	@echo '-- Publishing to web location... '
 	mkdir -p $(OUTPUT)
-	cp -f rfc????.html $(OUTPUT)
-	cp -f rfc????.txt  $(OUTPUT)
-	cp -f rfc????.pdf  $(OUTPUT)
-	cp -f rfcindex.* $(OUTPUT)
+	cp -p -f rfc????.html $(OUTPUT)
+	cp -p -f rfc????.txt  $(OUTPUT)
+	cp -p -f rfc????.pdf  $(OUTPUT)
+	cp -p -f rfcindex.* $(OUTPUT)
 	mkdir -p $(OUTPUT)/images
-	cp -rf images/* $(OUTPUT)/images
-	cp *.css $(OUTPUT)/
+	cp -p -rf images/* $(OUTPUT)/images
+	cp -p *.css $(OUTPUT)/
 	ln -sf $(OUTPUT)/rfcindex.html $(OUTPUT)/index.html
 
 catchup:
 	@echo "-- Syncing files with repository... "
-	#$(MT) pull $(MTHOST) $(DOCBRANCHES)
-	#$(MT) update
+	$(MT) pull $(MTHOST) $(DOCBRANCHES)
+	$(MT) update

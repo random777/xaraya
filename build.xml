@@ -501,5 +501,7 @@
   <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
     <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
     <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
+    <!-- Let's not do the html dir itself :-) -->
+    <delete file="${basedir}/index.html" />
   </target>
 </project>

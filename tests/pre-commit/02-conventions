@@ -1,0 +1,28 @@
+--
+-- 02-conventions to use pre-commit time
+--
+print('--- Group 2: File conventions ---')
+
+tabtest="No use of tab characters in files"
+crtest="No use of win/mac line endings"
+local tablist=''; local crlist=''
+for index,file in commit_files do
+    -- skip binary files
+    if (not binary_file(file)) then
+        -- read in the file and see if tab chars are in it
+        local f = io.open(file, "r")
+        if (f~= nil) then
+            local content = f:read("*all")
+            -- test for tabs
+            t,nroftabs = string.gsub(content,"\t","\t")
+            if(nroftabs > 0) then tablist=tablist .."  "..file.." ("..nroftabs.." tabs in file)\n" end
+            
+            -- test for win/mac crs
+            t,nrofcrs  = string.gsub(content,"\r\n?","\n")
+            if(nrofcrs > 0)  then crlist=crlist.."  "..file.." ("..nrofcrs.." win/mac CRs in file)\n" end
+            f:close()
+        end
+    end
+end
+if(tablist~='') then failed(2.11,tabtest,tablist) else passed(2.11,tabtest) end
+if(crlist~='')  then failed(2.13,crtest,crlist)   else passed(2.13,crtest)  end

@@ -1,0 +1,4 @@
+--
+-- 01-php
+--
+print('--- Group 1: PHP syntax related checks ---')

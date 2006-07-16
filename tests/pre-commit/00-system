@@ -1,0 +1,14 @@
+-- 
+-- Part of pre-commit triggers
+-- 
+-- @global stat_table contains a parsed basic_io stanza to use for running a test.
+--
+-- Explanation of flow:
+-- 1. User issues a mtn commit statement and enters his commit message
+-- 2. The hook validate_commit_message runs
+-- 3. Each (lua) file in the configure pre-commit location is run in alphabetical
+--    order where stat_table is available as table with the parsed basic_io stanza
+-- 4. if a test issues an error, the remaining ones are not executed
+--
+print('--- Group 0: System checks ---')
+

@@ -1,0 +1,4 @@
+--
+-- 03-deprecation
+--
+print('--- Group 3: Deprecation ---')

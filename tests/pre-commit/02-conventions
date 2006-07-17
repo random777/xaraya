@@ -3,9 +3,11 @@
 --
 print('--- Group 2: File conventions ---')
 
-tabtest="No use of tab characters in files"
-crtest="No use of win/mac line endings"
-local tablist=''; local crlist=''
+tabtest="No use of tab characters in files";         tablist=''
+crtest="No use of win/mac line endings";             crlist=''
+functest="Function declarations use one true brace"; funclist=''
+classtest="Class declarations use one true brace";   classlist=''
+
 for index,file in commit_files do
     -- skip binary files
     if (not binary_file(file)) then
@@ -13,6 +15,8 @@ for index,file in commit_files do
         local f = io.open(file, "r")
         if (f~= nil) then
             local content = f:read("*all")
+            f:close()
+            
             -- test for tabs
             t,nroftabs = string.gsub(content,"\t","\t")
             if(nroftabs > 0) then tablist=tablist .."  "..file.." ("..nroftabs.." tabs in file)\n" end
@@ -20,9 +24,25 @@ for index,file in commit_files do
             -- test for win/mac crs
             t,nrofcrs  = string.gsub(content,"\r\n?","\n")
             if(nrofcrs > 0)  then crlist=crlist.."  "..file.." ("..nrofcrs.." win/mac CRs in file)\n" end
-            f:close()
+            
+            -- one true brace convention
+            if(string.find(file,'%.php$')) then
+                -- for function declarations
+                local pos=string.find(content,'%s*function%s+%a+%s*%(.*%).*{.*')
+                if( pos ~= nil) then
+                    funclist=funclist..'  '..file.." should use one true brace at position: "..pos
+                end
+                -- for class declarations
+                pos=nil
+                pos=string.find(content,'%s*class%s+%a+%s*{.*')
+                if pos~=nil then 
+                    classlist=classlist..'  '..file.." should use one true brace at position: "..pos 
+                end
+            end
         end
     end
 end
-if(tablist~='') then failed(2.11,tabtest,tablist) else passed(2.11,tabtest) end
-if(crlist~='')  then failed(2.13,crtest,crlist)   else passed(2.13,crtest)  end
+if(tablist ~='') then failed(2.11,tabtest,tablist)   else passed(2.11,tabtest) end
+if(crlist  ~='') then failed(2.13,crtest,crlist)     else passed(2.13,crtest)  end
+if(funclist~='') then failed(2.18,functest,funclist) else passed(2.18,functest)  end
+if(classlist~='') then failed(2.19,classtest,classlist) else passed(2.19,classtest) end

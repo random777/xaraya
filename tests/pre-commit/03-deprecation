@@ -2,3 +2,48 @@
 -- 03-deprecation
 --
 print('--- Group 3: Deprecation ---')
+
+deprtest="No use of deprecated functions"; deprlist=''
+local deprecated = {
+    ['xarExceptionMajor']    = 'something else (?)',
+    ['xarExceptionSet']      = 'xarErrorSet',
+    ['xarVarCleanFromInput'] = 'xarVarFetch',
+    ['xarVarPrepForStore']   = 'bind variables',
+    ['xarExceptionID']       = 'xarCurrentErrorId',
+    ['xarExceptionValue']    = 'xarCurrentError',
+    ['xarExceptionFree']     = 'xarErrorFree',
+    ['xarExceptionHandled']  = 'xarErrorHandled',
+    ['xarExceptionRender']   = 'xarErrorRender'
+}
+
+function has_deprecated_func(content, func)
+    local usepat = func..'%s*%(.-%)'
+    local ds,de = string.find(content,'function%s+'..usepat)
+    local us,ue = string.find(content,usepat)
+    -- print(ds,de,us,ue)
+    if(ue == nil) then return false end -- no match at all
+    if(de == ue) then
+        -- end match of declaration is same as end match of use, ergo we have the declaration as a first match
+        -- check the rest
+        return has_deprecated_func(string.sub(content,de),func)
+    else
+        -- the declartion end was different from the use end, so there mus be a usage somewhere befor declaration
+        return true
+    end
+end
+
+for index,file in commit_files do
+    if(string.find(file,'%.php$')) then
+        local f = io.open(file,'r')
+        if f~=nil then
+            local content = f:read("*all")
+            f:close()
+            for deprec,replacement in deprecated do
+                if has_deprecated_func(string.lower(content),string.lower(deprec)) then
+                    deprlist=deprlist..'  '..file..' uses deprecated function: '..deprec..'. Use: '..replacement..' instead'
+                end
+            end
+        end
+    end
+end
+if deprlist~='' then failed(3.1,deprtest,deprlist) else passed(3.1,deprtest) end

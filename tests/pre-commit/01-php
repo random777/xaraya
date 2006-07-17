@@ -2,50 +2,63 @@
 -- 01-php
 --
 print('--- Group 1: PHP syntax related checks ---')
-phptest  ="PHP syntax check";                                    phplist  =''
+
 shorttest="No use of php short open tag '<?'";                   shortlist=''
 lasttest ="No other characters than '?>' at the end of php file";lastlist =''
 objtest  ="No object creation by reference (php 4.4. and up)";   objlist  =''
 
-phpexec=''
-if existsonpath('php') == 0 then phpexec='php'  else
-if existsonpath('php5')== 0 then phpexec='php5' else
-if existsonpath('php4')== 0 then phpexec='php4' end end end
-
-if phpexec~='' then
-    -- lint all .php files
-    for index,file in commit_files do
-        if(string.find(file,'%.php$')) then
+phpexec=phpexec or ''
+if phpexec=='' then
+    if existsonpath('php') == 0 then phpexec='php'  else
+    if existsonpath('php5')== 0 then phpexec='php5' else
+    if existsonpath('php4')== 0 then phpexec='php4' end end end
+end
+phptest="PHP syntax check (using:"..phpexec..")";phplist=''
+-- lint all .php files
+for index,file in commit_files do
+    if(string.find(file,'%.php$')) then
+        if phpexec~='' then
             -- phpfile, syntax check it
             -- os.execute is protected, and the mtn execute doesnt allow to suppress output
-            if (execute(phpexec,'-q',qa_location..'pre-commit/lib/lint.php',file) ~=0) then
-                phplist = phplist .. '  syntax check failed on: '..file..'\n'
+            if execute~=nil then
+                -- inside monotone
+                if (execute(phpexec,'-q',qa_location..'pre-commit/lib/lint.php',phpexec,file) ~=0) then
+                    phplist = phplist .. '  syntax check failed on: '..file..'\n'
+                end
+            else
+                if (os.execute(phpexec..' -q -f '..qa_location..'pre-commit/lib/lint.php '..phpexec..' '..file) ~=0) then
+                    phplist = phplist .. '  syntax check failed on: '..file..'\n'
+                end
+            end
+        end
+        local f = io.open(file, "r")
+        if (f~= nil) then
+            local content=f:read("*all")
+            -- no short open php tag
+            local loc=string.find(content,'<%?[ ]*[^xml|php|xar].*$')
+            if loc~=nil then
+                shortlist = shortlist ..'  file: '..file..' uses <? short php tag\n'
+            end
+            -- last 2 (or 3 if there is a LF) of each php file must be ?>
+            local lastthree = string.sub(content,-3)
+            if(string.find(lastthree,'%?>[\n]?$') == nil) then
+                lastlist = lastlist..'  file: '..file.."' has other chars than '?>' at the end ('"..string.gsub(lastthree,'\n','\\n').."')"
             end
             
-            local f = io.open(file, "r")
-            if (f~= nil) then
-                local content=f:read("*all")
-                -- no short open php tag
-                local loc=string.find(content,'<%?[ ]*[^xml|php|xar].*$')
-                if loc~=nil then
-                    shortlist = shortlist ..'  file: '..file..' uses <? short php tag\n'
-                end
-                -- last 2 (or 3 if there is a LF) of each php file must be ?>
-                local lastthree = string.sub(content,-3)
-                if(string.find(lastthree,'%?>[\n]?$') == nil) then
-                    lastlist = lastlist..'  file: '..file.."' has other chars than '?>' at the end ('"..string.gsub(lastthree,'\n','\\n').."')"
-                end
-                
-                -- no object creation by reference, i.e. $a =& new Object(...)
-                if(string.find(content,'=%s*&%s*new%s+') ~=nil) then
-                    objlist = objlist..'  file: '..file..' uses a reference operator for constructing objects (like: $var =& new ...)'
-                end
-                f:close()
+            -- no object creation by reference, i.e. $a =& new Object(...)
+            if(string.find(content,'=%s*&%s*new%s+') ~=nil) then
+                objlist = objlist..'  file: '..file..' uses a reference operator for constructing objects (like: $var =& new ...)'
             end
+            f:close()
         end
     end
 end
-if(phplist  ~='') then failed(1.10,phptest,phplist)     else passed(1.10,phptest)   end
+if(phplist  ~='') then 
+    failed(1.10,phptest,phplist)     
+else
+    if phpexec=='' then phptest='NOT TESTED, could not find a suitable php interpreter in your path' end
+    passed(1.10,phptest)   
+end
 if(shortlist~='') then failed(1.11,shorttest,shortlist) else passed(1.11,shorttest) end
 if(lastlist ~='') then failed(1.12,lasttest,lastlist)   else passed(1.12,lasttest)  end
 if(objlist  ~='') then failed(1.13,objtest,objlist)     else passed(1.13,objtest)   end

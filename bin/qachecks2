@@ -1,0 +1,89 @@
+#!/usr/bin/env lua
+--
+-- Standalone runner for the qa checks, new style
+--
+-- Lua filesystem functions to make our life easier
+require"lfs"
+
+--
+-- Config
+--
+qa_location = qa_location or "/var/mt/xar/com.xaraya.qa.tests/tests/"
+phpexec='php5'
+-- 
+-- Create the commit_files table based on stdin, so we can do:
+-- mtn ls known . | qachecks2
+--
+commit_files={}
+for file in io.lines() do
+    table.insert(commit_files,file)
+end
+
+-- 
+-- Test for things which monotone provides internally and, if not
+-- available, provide it
+
+-- Does something exist on a a path, TODO obviously
+-- NOTE: return values are 0==tru and -1==false (mtn idiosyncracy)
+function exists(path) 
+    return 0 
+end
+existsonpath=existsonpath or exists
+
+-- Poor man's binary check, TODO obviously
+function binary(path)
+    if string.find(path,'%.gif$') then return true end
+    if string.find(path,'%.png$') then return true end
+    if string.find(path,'%.jpg$') then return true end
+    if string.find(path,'%.graffle$') then return true end
+    return false
+end
+binary_file=binary_file or binary
+
+function passed(nr,desc)     
+    nr=nr or 0.00; desc=desc or "ERR: no description for test given"
+    print("PASSED QA test "..nr..": "..desc) 
+end
+
+function failed(nr,desc,msg) 
+    nr=nr or 0.00; desc=desc or "ERR: no description for test given"
+    msg=msg or 'ERR: no failure message given for test'
+    print("FAILED QA test "..nr..": "..desc.."\n"..msg); cancommit=false 
+end
+
+-- Dirty dirty thing to get the mt root dir, TODO again to make it nicer
+function mt_root(path)
+    -- find closest mt root upwards from path
+    if path=='/' then return nil end
+    local mtdir=io.open(path..'_MTN')
+    if(mtdir ~=nil) then 
+        mtdir:close(); 
+        return path
+    else
+        lfs.chdir(path..'..')
+        path = lfs.currentdir()
+        if string.sub(path,1-1)~='/' then path=path..'/' end
+        return mt_root(path)
+    end
+end
+-- 
+-- Load and execute all the files in the pre-commit directory
+-- 
+local path=qa_location..'pre-commit/'
+local run_files={}
+for file in lfs.dir(path) do
+    local attr = lfs.attributes (path..file)
+    if file~='.' and file~='..' and attr.mode~='directory' then
+        table.insert(run_files,file)
+    end
+end
+table.sort(run_files)
+
+local mtroot=mt_root(lfs.currentdir()..'/')
+if(mtroot==nil) then os.exit(1) end
+
+for _,run_file in run_files do
+    
+    lfs.chdir(mt_root(lfs.currentdir()))
+    dofile(path..run_file)
+end

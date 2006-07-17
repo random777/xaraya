@@ -2,9 +2,10 @@
 -- 01-php
 --
 print('--- Group 1: PHP syntax related checks ---')
-test="PHP syntax check"
-phpexec=''
-phplist=''
+phptest="PHP syntax check"
+phpexec='';phplist=''
+shorttest="No use of php short open tag '<?'"
+shortlist=''
 if existsonpath('php') == 0 then phpexec='php'  else
 if existsonpath('php5')== 0 then phpexec='php5' else
 if existsonpath('php4')== 0 then phpexec='php4' end end end
@@ -17,11 +18,18 @@ if phpexec~='' then
             if (execute(phpexec,'-q',qa_location..'pre-commit/lib/lint.php',file) ~=0) then
                 phplist = phplist .. '  syntax check failed on: '..file..'\n'
             end
+            -- no short open php tag
+            local f = io.open(file, "r")
+            if (f~= nil) then
+                local content=f:read("*all")
+                local loc=string.find(content,'<%?[ ]*[^xml|php|xar].*$')
+                if loc~=nil then
+                    shortlist = shortlist ..'  file: '..file..' uses <? short php tag\n'
+                end
+                f:close()
+            end
         end
     end
 end
-if(phplist~='') then
-    failed(1.10,test,phplist)
-else 
-    passed(1.10,test)
-end
+if(phplist~='') then failed(1.10,phptest,phplist) else  passed(1.10,phptest) end
+if(shortlist~='') then failed(1.11,shorttest,shortlist) else passed(1.11,shorttest) end

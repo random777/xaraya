@@ -2,3 +2,26 @@
 -- 01-php
 --
 print('--- Group 1: PHP syntax related checks ---')
+test="PHP syntax check"
+phpexec=''
+phplist=''
+if existsonpath('php') == 0 then phpexec='php'  else
+if existsonpath('php5')== 0 then phpexec='php5' else
+if existsonpath('php4')== 0 then phpexec='php4' end end end
+if phpexec~='' then
+    -- lint all .php files
+    for index,file in commit_files do
+        if(string.find(file,'%.php$')) then
+            -- phpfile, syntax check it
+            -- os.execute is protected, and the mtn execute doesnt allow to suppress output
+            if (execute(phpexec,'-q',qa_location..'pre-commit/lib/lint.php',file) ~=0) then
+                phplist = phplist .. '  syntax check failed on: '..file..'\n'
+            end
+        end
+    end
+end
+if(phplist~='') then
+    failed(1.10,test,phplist)
+else 
+    passed(1.10,test)
+end

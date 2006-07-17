@@ -1,4 +1,7 @@
-
+--
+-- 04-xml
+--
+print("--- Group 4: XML syntax ---")
 xmltest="Only well formed XML in templates (each dot = 1 file)";xmllist=''
 commenttest="No use of ---> in templates"; commentlist=''
 for index,file in commit_files do

@@ -27,16 +27,16 @@ for index,file in commit_files do
             
             -- one true brace convention
             if(string.find(file,'%.php$')) then
-                -- for function declarations
-                local pos=string.find(content,'%s*function%s+%a+%s*%(.*%).*{.*')
-                if( pos ~= nil) then
-                    funclist=funclist..'  '..file.." should use one true brace at position: "..pos
-                end
-                -- for class declarations
-                pos=nil
-                pos=string.find(content,'%s*class%s+%a+%s*{.*')
-                if pos~=nil then 
-                    classlist=classlist..'  '..file.." should use one true brace at position: "..pos 
+                -- for function and class declarations
+                line_nr=0;
+                for line in io.lines(file) do
+                    line_nr=line_nr+1
+                    if string.find(line,'function%s+.-%(.-%)%s-{.-$') ~=nil then
+                        funclist=funclist..'  '..file.." should use one true brace at line: "..line_nr..'\n'
+                    end
+                    if string.find(line,'class%s+.-{.-$') ~= nil then
+                        classlist=classlist..'  '..file.." should use one true brace at line: "..line_nr..'\n'
+                    end
                 end
             end
         end

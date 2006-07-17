@@ -35,7 +35,7 @@ end
 for index,file in commit_files do
     if(string.find(file,'%.php$')) then
         local f = io.open(file,'r')
-        if f~=nil then
+        if f~=nil and file~='html/includes/xarLegacy.php' then
             local content = f:read("*all")
             f:close()
             for deprec,replacement in deprecated do

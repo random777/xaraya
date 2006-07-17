@@ -40,7 +40,7 @@ for index,file in commit_files do
             f:close()
             for deprec,replacement in deprecated do
                 if has_deprecated_func(string.lower(content),string.lower(deprec)) then
-                    deprlist=deprlist..'  '..file..' uses deprecated function: '..deprec..'. Use: '..replacement..' instead'
+                    deprlist=deprlist..'  '..file..' uses deprecated function: '..deprec..'. Use: '..replacement..' instead\n'
                 end
             end
         end

@@ -1,0 +1,17 @@
+
+xmltest="Only well formed XML in templates (each dot = 1 file)";xmllist=''
+commenttest="No use of ---> in templates"; commentlist=''
+for index,file in commit_files do
+    if(string.find(file,'%.x[d|t]$')) then
+        local f = io.open(file, "r")
+        if (f~= nil) then
+            local content=f:read("*all")
+            f:close()
+            -- check for --->
+            if(string.find(content,'%-%-%->') ~= nil) then
+                commentlist=commentlist..'  '..file.." has '--->' in its content, this is invalid XML\n"
+            end
+        end
+    end
+end
+if commentlist ~='' then failed(4.1,commenttest,commentlist) else passed(4.1,commenttest) end

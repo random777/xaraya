@@ -42,12 +42,12 @@ for index,file in commit_files do
             -- last 2 (or 3 if there is a LF) of each php file must be ?>
             local lastthree = string.sub(content,-3)
             if(string.find(lastthree,'%?>[\n]?$') == nil) then
-                lastlist = lastlist..'  file: '..file.."' has other chars than '?>' at the end ('"..string.gsub(lastthree,'\n','\\n').."')"
+                lastlist = lastlist..'  file: '..file.."' has other chars than '?>' at the end ('"..string.gsub(lastthree,'\n','\\n').."')\n"
             end
             
             -- no object creation by reference, i.e. $a =& new Object(...)
             if(string.find(content,'=%s*&%s*new%s+') ~=nil) then
-                objlist = objlist..'  file: '..file..' uses a reference operator for constructing objects (like: $var =& new ...)'
+                objlist = objlist..'  file: '..file..' uses a reference operator for constructing objects (like: $var =& new ...)\n'
             end
             f:close()
         end
@@ -56,7 +56,7 @@ end
 if(phplist  ~='') then 
     failed('1.10',phptest,phplist)     
 else
-    if phpexec=='' then phptest='NOT TESTED, could not find a suitable php interpreter in your path' end
+    if phpexec=='' then phptest='NOT TESTED, could not find a suitable php interpreter in your path\n' end
     passed('1.10',phptest)   
 end
 if(shortlist~='') then failed('1.11',shorttest,shortlist) else passed('1.11',shorttest) end

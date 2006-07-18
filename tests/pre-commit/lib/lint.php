@@ -8,7 +8,7 @@
 // $argv[2] string name of file to lint
 assert('$argc==3; /* lint.php called wrong!! */');
 ob_start();
-passthru("$argv[1] -ql $argv[2] >/dev/null 2>&1",$ret);
+passthru("$argv[1] -ql $argv[2] ",$ret);
 ob_clean();
 exit($ret);
 ?>

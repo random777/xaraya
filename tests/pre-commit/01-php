@@ -54,11 +54,11 @@ for index,file in commit_files do
     end
 end
 if(phplist  ~='') then 
-    failed(1.10,phptest,phplist)     
+    failed('1.10',phptest,phplist)     
 else
     if phpexec=='' then phptest='NOT TESTED, could not find a suitable php interpreter in your path' end
-    passed(1.10,phptest)   
+    passed('1.10',phptest)   
 end
-if(shortlist~='') then failed(1.11,shorttest,shortlist) else passed(1.11,shorttest) end
-if(lastlist ~='') then failed(1.12,lasttest,lastlist)   else passed(1.12,lasttest)  end
-if(objlist  ~='') then failed(1.13,objtest,objlist)     else passed(1.13,objtest)   end
+if(shortlist~='') then failed('1.11',shorttest,shortlist) else passed('1.11',shorttest) end
+if(lastlist ~='') then failed('1.12',lasttest,lastlist)   else passed('1.12',lasttest)  end
+if(objlist  ~='') then failed('1.13',objtest,objlist)     else passed('1.13',objtest)   end

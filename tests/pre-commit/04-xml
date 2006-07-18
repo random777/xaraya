@@ -17,4 +17,4 @@ for index,file in commit_files do
         end
     end
 end
-if commentlist ~='' then failed(4.1,commenttest,commentlist) else passed(4.1,commenttest) end
+if commentlist ~='' then failed('4.10',commenttest,commentlist) else passed('4.10',commenttest) end

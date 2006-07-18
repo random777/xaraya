@@ -46,4 +46,4 @@ for index,file in commit_files do
         end
     end
 end
-if deprlist~='' then failed(3.1,deprtest,deprlist) else passed(3.1,deprtest) end
+if deprlist~='' then failed('3.10',deprtest,deprlist) else passed('3.10',deprtest) end

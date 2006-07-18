@@ -73,7 +73,7 @@ local path=qa_location..'pre-commit/'
 local run_files={}
 for file in lfs.dir(path) do
     local attr = lfs.attributes (path..file)
-    if file~='.' and file~='..' and attr.mode~='directory' then
+    if file~='.' and file~='..' and attr.mode~='directory' and string.sub(file,1,1) ~= '.' then
         table.insert(run_files,file)
     end
 end

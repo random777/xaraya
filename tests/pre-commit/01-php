@@ -35,7 +35,7 @@ for index,file in commit_files do
         if (f~= nil) then
             local content=f:read("*all")
             -- no short open php tag
-            local loc=string.find(content,'<%?[ ]*[^xml|php|xar].*$')
+            local loc=string.find(content,'<%?%s')
             if loc~=nil then
                 shortlist = shortlist ..'  file: '..file..' uses <? short php tag\n'
             end

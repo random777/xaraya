@@ -7,6 +7,7 @@ tabtest="No use of tab characters in files";         tablist=''
 crtest="No use of win/mac line endings";             crlist=''
 functest="Function declarations use one true brace"; funclist=''
 classtest="Class declarations use one true brace";   classlist=''
+privtest="No use of private blocklayout variables";  privlist=''
 
 for index,file in commit_files do
     -- skip binary files
@@ -39,10 +40,18 @@ for index,file in commit_files do
                     end
                 end
             end
+            
+            -- no use of private blocklayout variables in templates
+            if(string.find(file,'%.x[d|t]$')) then
+                if string.find(content,'%$_bl') then
+                    privlist = privlist .. '  ' .. file .. " uses reserved private blocklayout variables\n"
+                end
+            end
         end
     end
 end
-if(tablist ~='') then failed('2.11',tabtest,tablist)   else passed('2.11',tabtest) end
-if(crlist  ~='') then failed('2.13',crtest,crlist)     else passed('2.13',crtest)  end
-if(funclist~='') then failed('2.18',functest,funclist) else passed('2.18',functest)  end
+if(tablist ~='')  then failed('2.11',tabtest,tablist)   else passed('2.11',tabtest)     end
+if(crlist  ~='')  then failed('2.13',crtest,crlist)     else passed('2.13',crtest)      end
+if(funclist~='')  then failed('2.18',functest,funclist) else passed('2.18',functest)    end
 if(classlist~='') then failed('2.19',classtest,classlist) else passed('2.19',classtest) end
+if(privlist~='')  then failed('2.20',privtest,privlist)   else passed('2.20',privtest)  end

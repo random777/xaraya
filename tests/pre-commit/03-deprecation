@@ -5,15 +5,17 @@ print('--- Group 3: Deprecation ---')
 
 deprtest="No use of deprecated functions"; deprlist=''
 local deprecated = {
-    ['xarExceptionMajor']    = 'something else (?)',
-    ['xarExceptionSet']      = 'xarErrorSet',
-    ['xarVarCleanFromInput'] = 'xarVarFetch',
-    ['xarVarPrepForStore']   = 'bind variables',
-    ['xarExceptionID']       = 'xarCurrentErrorId',
-    ['xarExceptionValue']    = 'xarCurrentError',
-    ['xarExceptionFree']     = 'xarErrorFree',
-    ['xarExceptionHandled']  = 'xarErrorHandled',
-    ['xarExceptionRender']   = 'xarErrorRender'
+    ['xarExceptionMajor']       = 'something else (?)',
+    ['xarExceptionSet']         = 'xarErrorSet',
+    ['xarVarCleanFromInput']    = 'xarVarFetch',
+    ['xarVarPrepForStore']      = 'bind variables',
+    ['xarExceptionID']          = 'xarCurrentErrorId',
+    ['xarExceptionValue']       = 'xarCurrentError',
+    ['xarExceptionFree']        = 'xarErrorFree',
+    ['xarExceptionHandled']     = 'xarErrorHandled',
+    ['xarExceptionRender']      = 'xarErrorRender',
+    ['xarTplAddJavaScriptCode'] = 'xar:base-include-javascript tag',
+    ['xarTplAddStyleLink']      = 'xar:style tag'
 }
 
 function has_deprecated_func(content, func)

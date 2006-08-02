@@ -2,7 +2,7 @@
 <chapter id="download">
   <title>Getting Xaraya</title>
 
-  <para>Xaraya is distributed in three pieces, the "Core", the "Base", and
+  <para>Xaraya is distributed in three versions, the "Core", the "Base", and
   "Full". The most current version of Xaraya is always available at <ulink
   url="http://www.xaraya.com">http://www.xaraya.com</ulink>. <itemizedlist>
       <listitem>
@@ -24,7 +24,10 @@
       </listitem>
     </itemizedlist></para>
 
-  <para>Modules may be added to your site at any time after
+  <para>Note that the Xaraya Full distribution is mere a convenience
+  distribution. It is created as a snapshot from the current development tree.
+  Use the Xaraya release module on the Xaraya website to get the latest module
+  releases. Modules may be added to your site at any time after
   installation.</para>
 
   <para>The Xaraya Base, Core, and Full distributions are available in ZIP
@@ -63,11 +66,16 @@
 
     <listitem>
       <para>Rename the configuration file in /var/ from config.system.php.dist
-      to config.system.php and make sure the server can write to it.</para>
+      to config.system.php.</para>
     </listitem>
 
     <listitem>
-      <para>Run the installation wizard</para>
+      <para>If you did not unzip or untar the distribution on your server,
+      then move all the files now to your webserver (see below).</para>
+    </listitem>
+
+    <listitem>
+      <para>Run the installation wizard (see next part)</para>
 
       <itemizedlist>
         <listitem>

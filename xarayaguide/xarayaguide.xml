@@ -996,17 +996,21 @@
         Instance</command> within the default Xaraya installation.</para>
 
         <sect3>
-          <title>adminpanels/adminmenu</title>
+          <title>base/adminmenu</title>
 
           <para>Block instance containing the Administration menu. The
           Administration menu is displayed only to users with Administrative
-          privileges.</para>
+          privileges. It holds all the links to the administration parts of
+          modules and to the settings of the Xaraya Core.</para>
         </sect3>
 
         <sect3>
-          <title>adminpanels/waitingcontent</title>
+          <title>base/waitingcontent</title>
 
-          <para>OTTO</para>
+          <para>This module shows a short list of waiting content. Waiting
+          content is the content that needs to be approved by an authorised
+          editor (the administrator in many cases). The block shows newly
+          added content from eg the articles module.</para>
         </sect3>
 
         <sect3>

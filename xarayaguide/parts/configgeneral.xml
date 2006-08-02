@@ -2,123 +2,255 @@
 <chapter id="config">
   <title>General Configuration</title>
 
-  <para>Now that we've installed Xaraya, we should begin to configure it.
-  The pages in this section should help guide you through some of the more basic configuration options and start you on the path to customizing your Xaraya site.</para>
+  <para>Now that we've installed Xaraya, we should begin to configure it. The
+  pages in this section should help guide you through some of the more basic
+  configuration options and start you on the path to customizing your Xaraya
+  site.</para>
 
- <sect1 id="baseconfig">
-  <title>Base Module Config</title>
+  <sect1 id="baseconfig">
+    <title>Base Module Config</title>
 
-  <para>This section describes some of the settings and options available from the base module.</para>
+    <orderedlist>
+      <listitem>
+        <para></para>
+      </listitem>
+    </orderedlist>
 
-  <para><command>Admin-&#62;Base-&#62;Modifyconfig</command>: This panel allows you to change some of the settings controlling the core behaviour of the site.</para>
-  <itemizedlist>
-    <listitem>
-      <para>Website display configuration:</para>
+    <itemizedlist>
+      <listitem>
+        <para></para>
+      </listitem>
+    </itemizedlist>
 
-      <itemizedlist>
-        <listitem>
-          <para>For this example, set the <emphasis>Default Module</emphasis>
-          to &#34;<guibutton>articles</guibutton>&#34; so that the articles
-          module is displayed when a visitor hits the site. Select &#34;<guibutton>articles</guibutton>&#34;
-          from the drop-down list of available modules.</para>
-        </listitem>
+    <para>This section describes some of the settings and options available
+    from the base module.</para>
 
-        <listitem>
-          <para><emphasis>Default Module Type</emphasis>: From the drop-down
-          list, &#34;<guibutton>User</guibutton>&#34;.</para>
-        </listitem>
+    <para><command>Admin-&gt;Base-&gt;Modifyconfig</command>: This panel
+    allows you to change some of the settings controlling the core behaviour
+    of the site.</para>
 
-        <listitem>
-          <para><emphasis>Default Module Function</emphasis>: &#34;<guibutton>main</guibutton>&#34;</para>
-        </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Website display configuration:</para>
 
-        <listitem>
-          <para><emphasis>Default Theme Directory</emphasis> (relative to
-          <command>&#60;xarroot&#62;</command>): &#34;<guibutton>themes</guibutton>&#34;</para>
-        </listitem>
+        <itemizedlist>
+          <listitem>
+            <para>For this example, set the <emphasis>Default
+            Module</emphasis> to "<guibutton>articles</guibutton>" so that the
+            articles module is displayed when a visitor hits the site. Select
+            "<guibutton>articles</guibutton>" from the drop-down list of
+            available modules.</para>
+          </listitem>
 
-        <listitem>
-          <para>CHECK &#34;<emphasis>Enable Short URL Support</emphasis>&#34;
-          -- this is the &#39;master switch&#39; for Short URL support on your
-          site.</para>
-        </listitem>
+          <listitem>
+            <para><emphasis>Default Module Type</emphasis>: From the drop-down
+            list, "<guibutton>User</guibutton>".</para>
+          </listitem>
 
-        <listitem>
-          <para>CHECK &#34;<emphasis>Fix HTML Entities</emphasis>&#34; -- this
-          will ensure that characters such as the copyright sign and
-          international symbols like umlauts are displayed correctly.</para>
-        </listitem>
-      </itemizedlist>
-    </listitem>
+          <listitem>
+            <para><emphasis>Default Module Function</emphasis>:
+            "<guibutton>main</guibutton>"</para>
+          </listitem>
 
-    <listitem>
-      <para>Sessions and Security</para>
+          <listitem>
+            <para><emphasis>Default Theme Directory</emphasis> (relative to
+            <command>&lt;xarroot&gt;</command>):
+            "<guibutton>themes</guibutton>"</para>
+          </listitem>
 
-      <itemizedlist>
-        <listitem>
-          <para>Security level: From this drop-down list, configure the
-          general security level for your site. If a user CHECKS the
-          &#34;Remember Me&#34; box displayed in the login panel when logging
-          in, the user&#39;s session is not purged for the duration set in the
-          settings below. If a user does NOT check the &#34;Remember Me&#34;
-          box when logging in, they must log into the site each time they
-          visit. For our example, select &#34;Medium&#34; security.</para>
+          <listitem>
+            <para>CHECK "<emphasis>Enable Short URL Support</emphasis>" --
+            this is the 'master switch' for Short URL support on your
+            site.</para>
+          </listitem>
 
-          <itemizedlist>
-            <listitem>
-              <para>High: Users must log on each time they return to the site.</para>
-            </listitem>
+          <listitem>
+            <para>CHECK "<emphasis>Fix HTML Entities</emphasis>" -- this will
+            ensure that characters such as the copyright sign and
+            international symbols like umlauts are displayed correctly.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
 
-            <listitem>
-              <para>Medium: Users stay logged on for the number of days
-              specified in Session Duration, below.</para>
-            </listitem>
+      <listitem>
+        <para>Sessions and Security</para>
 
-            <listitem>
-              <para>Low: Users stay logged in &#39;forever&#39; (well,
-              it&#39;s not actually <emphasis>FOREVER</emphasis>, but a really
-              long time!).</para>
-            </listitem>
-          </itemizedlist>
-        </listitem>
+        <itemizedlist>
+          <listitem>
+            <para>Security level: From this drop-down list, configure the
+            general security level for your site. If a user CHECKS the
+            "Remember Me" box displayed in the login panel when logging in,
+            the user's session is not purged for the duration set in the
+            settings below. If a user does NOT check the "Remember Me" box
+            when logging in, they must log into the site each time they visit.
+            For our example, select "Medium" security.</para>
 
-        <listitem>
-          <para>Session duration (in days): This setting determines how long
-          (in days) a user&#39;s session will last before it expires, forcing
-          the user to re-log in with their existing username and password. Set
-          the session duration to &#34;<userinput>7</userinput>&#34; days.</para>
-        </listitem>
+            <itemizedlist>
+              <listitem>
+                <para>High: Users must log on each time they return to the
+                site.</para>
+              </listitem>
 
-        <listitem>
-          <para>Session inactivity time out: If Xaraya detects that a
-          user&#39;s session has been idle for a certain period of time and
-          that the Security level is High or Medium, it will expire the
-          session. This setting determines how many minutes Xaraya will wait
-          before expiring the session due to inactivity. Set the inactivity
-          time to &#34;<userinput>90</userinput>&#34; minutes.</para>
-        </listitem>
+              <listitem>
+                <para>Medium: Users stay logged on for the number of days
+                specified in Session Duration, below.</para>
+              </listitem>
 
-        <listitem>
-          <para>Click &#34;<guibutton>Update Base Configuration</guibutton>&#34;
-          to save changes.</para>
-        </listitem>
-      </itemizedlist>
-    </listitem>
-    <listitem>
-      <para>Languages and Locales</para>
-    </listitem>
-    <listitem>
-      <para>Other</para>
-    </listitem>
-  </itemizedlist>
+              <listitem>
+                <para>Low: Users stay logged in 'forever' (well, it's not
+                actually <emphasis>FOREVER</emphasis>, but a really long
+                time!).</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
 
-  <para><command>Admin-&#62;Base-&#62;System Information</command>: This panel
-  displays a variety of information about the PHP installation on the site.
-  Should you ever need to determine what version of PHP the site is running,
-  or what modules are compiled into PHP, this is where to find that
-  information. This information may be helpful if you need to submit a Xaraya
-  bug report or a feature request.</para>
+          <listitem>
+            <para>Session duration (in days): This setting determines how long
+            (in days) a user's session will last before it expires, forcing
+            the user to re-log in with their existing username and password.
+            Set the session duration to "<userinput>7</userinput>"
+            days.</para>
+          </listitem>
 
-  <para><command>Admin-&#62;Base-&#62;Extension Releases</command>: This panel syndicates a news feed from www.xaraya.com listing recent module and theme releases.</para>
- </sect1>
+          <listitem>
+            <para>Session inactivity time out: If Xaraya detects that a user's
+            session has been idle for a certain period of time and that the
+            Security level is High or Medium, it will expire the session. This
+            setting determines how many minutes Xaraya will wait before
+            expiring the session due to inactivity. Set the inactivity time to
+            "<userinput>90</userinput>" minutes.</para>
+          </listitem>
+
+          <listitem>
+            <para>Click "<guibutton>Update Base Configuration</guibutton>" to
+            save changes.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Languages and Locales</para>
+
+        <para>This tab shows the available locales on your site. You can
+        download additional locales/language packs from the Xaraya website and
+        enable them here. You can also choose the way your site deals with
+        multiple languages. For now, choose the one language setting.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Check the locales you want to activate. For now, leave the
+            US locale active.</para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para>Set the standard locale to use. This is the locale pack
+            (languages+ specific settings) that the site will use unless a
+            user chooses otherwise. Leave this option set to US.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Other</para>
+
+        <para>This tab holds all other options you can set in the Base
+        module.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>If you have installed a graphical text editor like TinyMCE
+            on your site, then set it here as the default WYSIWYG
+            editor.</para>
+
+            <para>A WhatYouSeeIsWhatYouGet editor is a friendly way to input
+            text. Editors that you will allow to edit or create texts on your
+            site will not have to worry about the formatting, as this is done
+            in the editor much like an offline graphical text editor.</para>
+          </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+          <listitem>
+            <para>Load Historical functions should normally not be needed.
+            Deprecated Xaraya functions are put in a set of historical
+            functions, which can be activated via this checkbox. Only turn
+            this on when needed.</para>
+          </listitem>
+
+          <listitem>
+            <para>Proxy. If needed, set your proxy server in here. Do not
+            forget to set the port to your proxy.</para>
+          </listitem>
+
+          <listitem>
+            <para>The timezone setting is the timezone that the site will use
+            to display times. If for instance your website is set for an
+            audience in a country that is not on GMT, then you can choose to
+            have a standard offset when displaying times. </para>
+          </listitem>
+
+          <listitem>
+            <para>Release number to display: This is the number of extension
+            releases to show in the Extension Release page. You will notice
+            that you can set the display number in many places. This is one of
+            them. When the number of items is more than this setting, they
+            will not be shown (eg in Release Extensions), or Xaraya will
+            produce a pager (eg in Articles).</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+
+    <para><command>Admin-&gt;Base-&gt;System Information</command>: This panel
+    displays a variety of information about the PHP installation on the site.
+    Should you ever need to determine what version of PHP the site is running,
+    or what modules are compiled into PHP, this is where to find that
+    information. This information may be helpful if you need to submit a
+    Xaraya bug report or a feature request.</para>
+
+    <para><command>Admin-&gt;Base-&gt;Extension Releases</command>: This panel
+    syndicates a news feed from www.xaraya.com listing recent module and theme
+    releases. This information is very relevant if you use modules or themes
+    that have a new version released.</para>
+  </sect1>
+
+  <sect1>
+    <title>Configure other modules</title>
+
+    <para>Once the Base module settings are complete, you can move on to the
+    other modules you will use.</para>
+
+    <para>First we will set the way you will see your site in the themes
+    module, then we will start adding the first content.</para>
+
+    <sect2>
+      <title>Themes</title>
+
+      <para>Xaraya uses so-called themes to display your content. Themes are
+      packages with templates that dictate how the data from the database is
+      eventually displayed to your users. You can download themes from the
+      Xaraya website via the release module. They are also called extensions,
+      as they extend Xaraya Core.</para>
+
+      <para>But first let's see which themes are available now. Go to the
+      admin&gt;Themes&gt;Modify Config Settings. You will see that
+      Xaraya_Classic is set Active and as the Default theme. You will also see
+      the RSS theme and the print theme. These settings are ok for now, read
+      more on themes in the next chapter.</para>
+    </sect2>
+
+    <sect2>
+      <title>Modules</title>
+
+      <para>The modules module shows all the available modules and the hook
+      configuration. For this moment, make sure the articles module is
+      installed. If it is not installed, click on the Install command and
+      follow the instructions.</para>
+
+      <para>That is it! You are now ready to follow the rest of the
+      Guide.</para>
+    </sect2>
+  </sect1>
 </chapter>

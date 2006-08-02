@@ -396,15 +396,6 @@
 
                 <itemizedlist>
                   <listitem>
-                    <para>Default Theme: From this drop-down list, select the
-                    theme to be used as the site's default. A theme will be
-                    displayed in this drop-down list only after it has been
-                    installed and initialized. Themes are placed into the
-                    <filename>&lt;xarroot&gt;/themes</filename> directory by
-                    default.</para>
-                  </listitem>
-
-                  <listitem>
                     <para>Site Name - Module Name - Page Name: Displays as
                     "<computeroutput>Your Site Name :: Themes :: Your Site
                     Slogan</computeroutput>" by default.</para>

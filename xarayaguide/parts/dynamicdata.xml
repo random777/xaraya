@@ -2,45 +2,44 @@
 <chapter id="dynamicdata">
   <title>Dynamic Data in Xaraya</title>
 
+  <para>Xaraya provides the ability for site administrators to add data fields
+  to the site to serve a number of different purposes, from extending the
+  basic Xaraya configuration to adding completely new features. Using
+  <firstterm>Dynamic Data</firstterm>, fields can be added and manipulated on
+  the site. This ability is available through Dynamic Data, which can be
+  considered 'building blocks' for data manipulation on the site.</para>
 
-    <para>Xaraya provides the ability for site administrators to add data
-    fields to the site to serve a number of different purposes, from extending
-    the basic Xaraya configuration to adding completely new features. Using
-    <firstterm>Dynamic Data</firstterm>, fields can be added and manipulated
-    on the site. This ability is available through Dynamic Data, which can be
-    considered &#39;building blocks&#39; for data manipulation on the site.</para>
+  <para>With other Content Management Systems products, if you wanted to
+  display Recipes on your site, for example, you had to wait for a Recipes
+  module to be developed and then hope it met your needs. As a Content
+  Management System, Xaraya is capable of showing almost any data in almost
+  any way that you desire -- usually without the need to develop (or wait for)
+  an external module. No more waiting for someone else to create a guestbook;
+  no more waiting for someone else to develop that recipe module; no more
+  waiting for someone to add categories to the reviews module; no more waiting
+  for a module to display portraits or additional information in user
+  information screens. Xaraya gives the site administrator the power to be
+  self-sufficient and the flexibility to extend Xaraya -- without coding.
+  Dynamic Data allows Xaraya's site administrators to customize Xaraya
+  specifically for their needs.</para>
 
-    <para>With other Content Management Systems products, if you wanted to
-    display Recipes on your site, for example, you had to wait for a Recipes
-    module to be developed and then hope it met your needs. As a Content
-    Management System, Xaraya is capable of showing almost any data in almost
-    any way that you desire -- usually without the need to develop (or wait
-    for) an external module. No more waiting for someone else to create a
-    guestbook; no more waiting for someone else to develop that recipe module;
-    no more waiting for someone to add categories to the reviews module; no
-    more waiting for a module to display portraits or additional information
-    in user information screens. Xaraya gives the site administrator the power
-    to be self-sufficient and the flexibility to extend Xaraya -- without
-    coding. Dynamic Data allows Xaraya&#39;s site administrators to customize
-    Xaraya specifically for their needs.</para>
-
-    <para>Using Dynamic Data, site administrators can add fields to Xaraya
-    that customize the site.</para>
+  <para>Using Dynamic Data, site administrators can add fields to Xaraya that
+  customize the site.</para>
 
   <sect1 id="ddintro">
-	  
     <title>Introduction to Dynamic Data</title>
 
-    <para>Here&#39;s a general overview illustrating how to add dynamic data
-    to a Xaraya module:</para>
+    <para>Here's a general overview illustrating how to add dynamic data to a
+    Xaraya module:</para>
 
     <itemizedlist>
       <listitem>
-        <para>Enable the Dynamic Data HOOK for the module you wish to extend</para>
+        <para>Enable the Dynamic Data HOOK for the module you wish to
+        extend</para>
       </listitem>
 
       <listitem>
-        <para>Create the Dynamic Data OBJECT</para>
+        <para>Create the Dynamic Data OBJECT via the hook</para>
       </listitem>
 
       <listitem>
@@ -51,37 +50,38 @@
     <sect2>
       <title>EXAMPLE: Dynamic Data: Adding a Picture to User Info</title>
 
-      <para>For a specific example, we&#39;ll add a picture to user&#39;s
-      information on the site. The user&#39;s picture file must be accessible
-      via the web; this feature does not allow the uploading of picture.
-      Let&#39;s walk through the steps to set this up...</para>
+      <para>For a specific example, we'll add a picture to user's information
+      on the site. The user's picture file must be accessible via the web;
+      this feature does not allow the uploading of picture. Let's walk through
+      the steps to set this up...</para>
 
       <itemizedlist>
         <listitem>
-          <para>Enable the Dynamic Data HOOK for the module you wish to extend</para>
+          <para>Enable the Dynamic Data HOOK for the module you wish to
+          extend</para>
 
           <para>The first thing to do is to enable the dynamic data hook for
           the module you wish to extend. For this example, we wish to extend
-          the roles module. OTTO: How to determine WHICH module to enable DD
-          for? To enable Dynamic Data for the roles module, follow these
-          steps:</para>
+          the roles module. To enable Dynamic Data for the roles module,
+          follow these steps:</para>
 
           <itemizedlist>
             <listitem>
-              <para>Go to <command>Admin-&#62;Modules-&#62;Configure Hooks</command></para>
+              <para>Go to <command>Admin-&gt;Modules-&gt;Configure
+              Hooks</command></para>
             </listitem>
 
             <listitem>
-              <para>Click &#34;<guibutton>dynamicdata</guibutton>&#34;</para>
+              <para>Click "<guibutton>dynamicdata</guibutton>"</para>
             </listitem>
 
             <listitem>
-              <para>CHECK the box next to &#39;<guibutton>roles</guibutton>&#39;
-              to enable Dynamic Data for the roles module</para>
+              <para>CHECK the box next to '<guibutton>roles</guibutton>' to
+              enable Dynamic Data for the roles module</para>
             </listitem>
 
             <listitem>
-              <para>Click &#34;<guibutton>Save Changes</guibutton>&#34;</para>
+              <para>Click "<guibutton>Save Changes</guibutton>"</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -94,34 +94,50 @@
 
           <itemizedlist>
             <listitem>
-              <para>Go to <command>Admin-&#62;Dynamicdata-&#62;View Objects</command></para>
+              <para>Go to <command>Admin-&gt;Roles-&gt;Modify
+              Config</command></para>
             </listitem>
 
             <listitem>
-              <para>Under &#34;<guibutton>Other Modules/Users &#38; Groups</guibutton>&#34;,
-              click on &#34;<guibutton>View Properties</guibutton>&#34; for
-              the roles module</para>
+              <para>Under "<guibutton>User Hooks</guibutton>", click on
+              "<guibutton>modify link</guibutton>" for the Dynamic Data
+              Fields</para>
+            </listitem>
+          </itemizedlist>
+
+          <itemizedlist>
+            <para>You are now in the Dynamic Data module at the Modify Dynamic
+            Properties tab. We will create now the image field, a socalled
+            property.</para>
+
+            <listitem>
+              <para>Data Source: keep this to dynamic_data. This is the
+              location the information will be stored</para>
             </listitem>
 
             <listitem>
-              <para>In Label, type &#34;My Picture&#34; (or whatever text you
-              want displayed to your users)</para>
+              <para>In Label, type "My Picture" (or whatever text you want
+              displayed to your users)</para>
             </listitem>
 
             <listitem>
-              <para>In Property Type, select &#34;<guibutton>Image</guibutton>&#34;
+              <para>In Property Type, select "<guibutton>Image</guibutton>"
               from the drop-down list.</para>
             </listitem>
 
             <listitem>
-              <para>In status select &#34;<guibutton>Display Only</guibutton>&#34;.
+              <para>Leave Default and Validation empty.</para>
+            </listitem>
+
+            <listitem>
+              <para>In status select "<guibutton>Display Only</guibutton>".
               This will stop it showing in the membership list but will still
               make it visible in the user info.</para>
             </listitem>
 
             <listitem>
-              <para>Click &#34;<guibutton>Update Properties</guibutton>&#34;
-              to save changes.</para>
+              <para>Click "<guibutton>Update Properties</guibutton>" to save
+              changes.</para>
             </listitem>
           </itemizedlist>
 
@@ -133,30 +149,32 @@
         <listitem>
           <para>Adding a picture to your user info</para>
 
-          <para>You&#39;ll need a picture that is accessible via the web to
-          add a picture to your user info. To add the picture, follow these
+          <para>You'll need a picture that is accessible via the web to add a
+          picture to your user info. To add the picture, follow these
           steps:</para>
 
           <itemizedlist>
             <listitem>
               <para>As Administrator, go to <command>Main
-              Menu-&#62;Modules-&#62;Roles</command> (NOTE: Do
-              <emphasis>NOT</emphasis> click <command>Admin-&#62;Roles</command>
-              for this option).</para>
+              Menu-&gt;Modules-&gt;Roles</command> (NOTE: Do
+              <emphasis>NOT</emphasis> click
+              <command>Admin-&gt;Roles</command> for this option, as you will
+              return then to the admin area of roles).</para>
             </listitem>
 
             <listitem>
-              <para>Click &#34;<guibutton>Your Details</guibutton>&#34;.</para>
+              <para>Click "<guibutton>Your Details</guibutton>".</para>
             </listitem>
 
             <listitem>
-              <para>Add the URL of your picture to the &#34;<guibutton>My
-              Picture</guibutton>&#34; field. Be sure it begins with &#34;<userinput>http://</userinput>&#34;
-              unless the picture is on your local webserver.</para>
+              <para>Add the URL of your picture to the "<guibutton>My
+              Picture</guibutton>" field. Be sure it begins with
+              "<userinput>http://</userinput>" unless the picture is on your
+              local webserver.</para>
             </listitem>
 
             <listitem>
-              <para>Click &#34;<guibutton>Submit</guibutton>&#34;.</para>
+              <para>Click "<guibutton>Submit</guibutton>".</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -164,10 +182,10 @@
         <listitem>
           <para>Viewing the picture</para>
 
-          <para>There are two ways to do this. Once you&#39;ve added your
-          picture&#39;s URL click the &#34;<guibutton>show</guibutton>&#34;
-          link next to it in &#34;<guibutton>Your Basic Details</guibutton>&#34;,
-          or click on the user&#39;s name in the membership list.</para>
+          <para>There are two ways to do this. Once you've added your
+          picture's URL click the "<guibutton>show</guibutton>" link next to
+          it in "<guibutton>Your Basic Details</guibutton>", or click on the
+          user's name in the membership list.</para>
         </listitem>
       </itemizedlist>
     </sect2>

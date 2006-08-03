@@ -8,19 +8,7 @@
   site.</para>
 
   <sect1 id="baseconfig">
-    <title>Base Module Config</title>
-
-    <orderedlist>
-      <listitem>
-        <para></para>
-      </listitem>
-    </orderedlist>
-
-    <itemizedlist>
-      <listitem>
-        <para></para>
-      </listitem>
-    </itemizedlist>
+    <title>Base Module Configuration</title>
 
     <para>This section describes some of the settings and options available
     from the base module.</para>
@@ -188,7 +176,7 @@
             <para>The timezone setting is the timezone that the site will use
             to display times. If for instance your website is set for an
             audience in a country that is not on GMT, then you can choose to
-            have a standard offset when displaying times. </para>
+            have a standard offset when displaying times.</para>
           </listitem>
 
           <listitem>

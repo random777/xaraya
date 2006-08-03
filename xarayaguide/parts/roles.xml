@@ -86,24 +86,30 @@
 
     <itemizedlist>
       <listitem>
-        <para><command>Admin-&gt;Roles-&gt;View All Groups</command>:</para>
+        <para><command>Admin-&gt;Roles-&gt;Groups &amp;
+        Users</command>:</para>
 
-        <para>This panel displays a tree-view of all Roles on the site. The
-        following options are available for each Role:</para>
+        <para>This panel displays all user and group roles you have in your
+        install. After a fresh install there will be 6 roles. The standard tab
+        is "Users". If you choose the Style in the scroll bar for style as
+        Tree, you will see a graphical representation of the roles on your
+        site that are groups, the Role Hierarchy.</para>
+
+        <para>The following options are available for each Role group:</para>
 
         <itemizedlist>
           <listitem>
-            <para><command>Admin-&gt;Roles-&gt;View All
-            Groups</command>-&gt;"X" icon: Delete this Role. It is not
-            possible to delete a Role that contains any users. If you wish to
-            delete a Role, first remove all the users from the Role. When
-            there are no users assigned to a Role, the Delete icon becomes
-            available.</para>
+            <para><command>Admin-&gt;Roles-&gt;Groups &amp;
+            Users</command>-&gt;"X" icon: Delete this Role. It is not possible
+            to delete a Role that contains any users. If you wish to delete a
+            Role that is a group, first remove all the users from the Role.
+            When there are no users assigned to a Role, the Delete icon
+            becomes available.</para>
           </listitem>
 
           <listitem>
-            <para><command>Admin-&gt;Roles-&gt;View All
-            Groups</command>-&gt;"Two people" icon: Display users assigned to
+            <para><command>Admin-&gt;Roles-&gt;Groups &amp;
+            Users</command>-&gt;"Two people" icon: Display users assigned to
             this Role.</para>
 
             <itemizedlist>
@@ -137,8 +143,8 @@
           </listitem>
 
           <listitem>
-            <para><command>Admin-&gt;Roles-&gt;View All
-            Groups</command>-&gt;"Envelope" icon: Send a plain-text email to
+            <para><command>Admin-&gt;Roles-&gt;Groups &amp;
+            Users</command>-&gt;"Envelope" icon: Send a plain-text email to
             all members of this Role.</para>
 
             <para>The following variables are available to be used in the
@@ -176,9 +182,9 @@
           </listitem>
 
           <listitem>
-            <para><command>Admin-&gt;Roles-&gt;View All
-            Groups</command>-&gt;"Arrow pointing down at person" icon: Show
-            the Privileges assigned to this Role.</para>
+            <para><command>Admin-&gt;Roles-&gt;Groups &amp;
+            Users</command>-&gt;"Arrow pointing down at person" icon: Show the
+            Privileges assigned to this Role.</para>
 
             <para>Privileges are displayed in two categories:</para>
 
@@ -279,9 +285,14 @@
           </listitem>
 
           <listitem>
-            <para><command>Admin-&gt;Roles-&gt;View All
-            Groups</command>-&gt;"Arrows swirling around person" icon: Test
+            <para><command>Admin-&gt;Roles-&gt;Groups &amp;
+            Users</command>-&gt;"Arrows swirling around person" icon: Test
             this Role's Privileges</para>
+
+            <para>You can test the privileges that are assigned to a role.
+            This can be very usefull when you want to know what a role can or
+            cannot do, without the need to login as a user in that
+            role.</para>
 
             <itemizedlist>
               <listitem>
@@ -306,6 +317,8 @@
 
       <listitem>
         <para><command>Admin-&gt;Roles-&gt;Add Group/User</command>:</para>
+
+        <para>In this tab you can register a new role.</para>
 
         <itemizedlist>
           <listitem>
@@ -370,6 +383,51 @@
 
           <listitem>
             <para>Click "<guibutton>Add</guibutton>" to save changes.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><command>Admin-&gt;Roles-&gt;Messaging</command>:</para>
+
+        <para>In this tab you can send emails to users in roles.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Groups: Choose the group you want to send an email to</para>
+          </listitem>
+
+          <listitem>
+            <para>State: From the drop-down list, choose if you wish to select
+            only a role with a certain state.</para>
+          </listitem>
+
+          <listitem>
+            <para>Templates: Xaraya comes with predefined messages in
+            templates. These message templates can be found in
+            &lt;xarroot&gt;/var/messaging/roles/. From this drop-down list,
+            select the template you want to use.</para>
+          </listitem>
+
+          <listitem>
+            <para>Press reload.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>The number of selected users will be displayed. Also, the text
+        of the email message is shown in the message field.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Subject: Check the subject of the email message.</para>
+          </listitem>
+
+          <listitem>
+            <para>Message. Check or enter the message you want to send.</para>
+          </listitem>
+
+          <listitem>
+            <para>Send the message by clicking the Send button.</para>
           </listitem>
         </itemizedlist>
       </listitem>

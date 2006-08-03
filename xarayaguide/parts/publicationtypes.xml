@@ -806,8 +806,7 @@
 
         <listitem>
           <para>ADD A NEW CATEGORY (AND OPTIONAL SUB-CATEGORIES) FOR THE NEW
-          PUBLICATION TYPE: This is done for each custom Publication Type you
-          create.</para>
+          PUBLICATION TYPE.</para>
 
           <para>To add the new category (and optional sub-categories), go to
           <command>Admin-&gt;Categories</command>. Click "<guibutton>Add
@@ -1041,50 +1040,52 @@
         </listitem>
 
         <listitem>
-          <para>ADD TEMPLATES FOR THE NEW PUBLICATION TYPE: This can be done
-          for each custom Publication Type you create.</para>
+          <para>ADD TEMPLATES FOR THE NEW PUBLICATION TYPE: This should be
+          done for each custom Publication Type you create.</para>
 
           <para>We can create up to three custom display templates to tell
           Xaraya specifically how to display this new Publication Type.
-          Example files are included in this tutorial distribution. If you do
-          not create a template, Xaraya will attempt to display the
-          Publication Type using a default template.</para>
+          Example files are included in this tutorial distribution. Download
+          them from the website: <ulink
+          url="http://www.xaraya.com/documentation/userguide/examples/Xar-PubType.zip">http://www.xaraya.com/documentation/userguide/examples/Xar-PubType.zip</ulink>
+          If you do not create a template, Xaraya will attempt to display the
+          Publication Type using a default template and show you a
+          warning.</para>
 
-          <para>Template files are placed into the
+          <para>Template files shipped with a moduel are placed into the
           <filename>&lt;xarroot&gt;/modules/articles/xartemplates</filename>
-          directory, and should be called
+          directory, and are called
           '<filename>user-display-&lt;pubtype&gt;.xd</filename>',
           '<filename>user-summary-&lt;pubtype&gt;.xd</filename>', and
           (optionally) '<filename>user-view-&lt;pubtype&gt;.xd</filename>',
           where <varname>&lt;pubtype&gt;</varname> is the name of the
-          Publication Type (in this tutorial,
+          Publication Type. When you create templates yourself your are
+          strongly advised to use the Xaraya template overrides. This works
+          simple. You will place your own templates in
+          <filename>&lt;xarroot&gt;/themes/&lt;yourtheme&gt;/modules/articles/</filename>
+          Note that we do not use the xartemplates directory in there.
+          Templates placed in the themes directory get the extension xt
+          instead of .xd. This is done for clarity. In this tutorial,
           <varname>&lt;pubtype&gt;</varname> is
-          "<userinput>recipes</userinput>" as created in step #2
-          above):</para>
+          "<userinput>recipes</userinput>" as created in step #2 above and we
+          will place these in the Xaraya_Classic theme:</para>
 
           <itemizedlist>
             <listitem>
-              <para>user-display-recipes.xd -- this is the main view of the
+              <para>user-display-recipes.xt -- this is the main view of the
               data</para>
             </listitem>
 
             <listitem>
-              <para>user-summary-recipes.xd -- this is a summary view of the
+              <para>user-summary-recipes.xt -- this is a summary view of the
               data</para>
             </listitem>
 
             <listitem>
-              <para>user-view-recipes.xd <emphasis>(optional)</emphasis>
+              <para>user-view-recipes.xt <emphasis>(optional)</emphasis>
               --</para>
             </listitem>
           </itemizedlist>
-
-          <para>If you wish to create theme-specific versions of these files,
-          rename the files from <filename>*.xd</filename> to
-          <filename>*.xt</filename> and place the theme-specific version in
-          the
-          <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/articles</filename>
-          directory, creating directories as necessary.</para>
 
           <para>It is recommended that you begin by examining the example
           files included with this tutorial, or open one of the sample

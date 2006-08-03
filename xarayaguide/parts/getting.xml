@@ -83,86 +83,9 @@
         </listitem>
 
         <listitem>
-          <para>Follow the instructions</para>
-        </listitem>
-      </itemizedlist>
-    </listitem>
-  </itemizedlist>
-
-  <itemizedlist>
-    <listitem>
-      <para>If you really want to, you can use the old fashioned way of
-      editing the config file yourself.</para>
-
-      <para>Using your text editor, edit
-      <filename>/tmp/xar/html/var/config.system.php</filename> and make the
-      following changes as necessary:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>Database Username: The username that will be used to connect
-          to the database. Do not use 'root' or 'admin' account names as they
-          present a security risk. This user should already exist and have
-          privileges in your database. For example, if the database user was
-          to be "db-user", change the line to:</para>
-
-          <para><command>$systemConfiguration['DB.UserName'] =
-          'db-user';</command></para>
-        </listitem>
-
-        <listitem>
-          <para>Database Password: The password that will be used to connect
-          to the database. For example, if the database password was to be
-          "db-user-password", change the line to:</para>
-
-          <para><command>$systemConfiguration['DB.Password'] =
-          'db-user-password';</command></para>
-        </listitem>
-
-        <listitem>
-          <para>Database Host: The host name where the database server is
-          located. In most cases this will be 'localhost'. Otherwise, you need
-          to include a fully qualified domain name (FQDN) here, for example,
-          'mybox.mydomain.com' or the IP number of the machine. For example,
-          if the database host was to be "localhost" (meaning that the
-          database is on the same server as Xaraya), change the line
-          to:</para>
-
-          <para><command>$systemConfiguration['DB.Host'] =
-          'localhost';</command></para>
-        </listitem>
-
-        <listitem>
-          <para>Database Name: The name of the database to which to connect.
-          Case-sensitive.</para>
-
-          <para><command>$systemConfiguration['DB.Name'] =
-          'Xaraya';</command></para>
-        </listitem>
-
-        <listitem>
-          <para>Database Type: The database server type.</para>
-
-          <para><command>$systemConfiguration['DB.Type'] =
-          'mysql';</command></para>
-        </listitem>
-
-        <listitem>
-          <para>Database TablePrefix: Used when you wish to run multiple sites
-          off the same database. That way, user accounts will be available
-          across all the sites. This feature is not currently implemented into
-          Xaraya, but will be available in a future release. The prefix chosen
-          here will be prepended to each of the tables of your database to
-          give each a unique name across multiple installs. For example, if
-          the database table prefix was to be "xar", change the line to look
-          like this:</para>
-
-          <para><command>$systemConfiguration['DB.TablePrefix'] =
-          'xar';</command></para>
-        </listitem>
-
-        <listitem>
-          <para>Save your changes and exit your editor.</para>
+          <para>Follow the instructions as explained in the Xaraya
+          installation guide which you can read online at <ulink
+          url="http://www.xaraya.com/index.php/documentation/97">http://www.xaraya.com/index.php/documentation/97</ulink></para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -239,25 +162,25 @@
     have 'write' access. They are:<itemizedlist>
         <listitem>
           <para>"<filename>&lt;xarroot&gt;/var/config.system.php</filename>":
-          Set with "<userinput>chmod 666
+          Set with "<userinput>chmod 660
           &lt;xarroot&gt;/var/config.system.php</userinput>"</para>
         </listitem>
 
         <listitem>
           <para>"<filename>&lt;xarroot&gt;/var/cache/templates</filename>":
-          Set with "<userinput>chmod -R 777
+          Set with "<userinput>chmod -R 770
           &lt;xarroot&gt;/var/cache/templates</userinput>"</para>
         </listitem>
 
         <listitem>
           <para>"<filename>&lt;xarroot&gt;/var/cache/rss</filename>": Set with
-          "<userinput>chmod -R 777
+          "<userinput>chmod -R 770
           &lt;xarroot&gt;/var/cache/rss</userinput>"</para>
         </listitem>
 
         <listitem>
           <para>"<filename>&lt;xarroot&gt;/var/cache/adodb</filename>": Set
-          with "<userinput>chmod -R 777
+          with "<userinput>chmod -R 770
           &lt;xarroot&gt;/var/cache/adodb</userinput>"</para>
         </listitem>
       </itemizedlist></para>

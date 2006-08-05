@@ -1946,6 +1946,10 @@
         <para>The Adminpanels module configures how the Administration menu
         block is displayed to the site administrators.</para>
 
+        <para><emphasis>NOTE: The Adminpanels Module has been removed from
+        Xaraya since version 1.1. This module is not supported anymore and
+        replaced by functions in Base.</emphasis></para>
+
         <itemizedlist>
           <listitem>
             <para><command>Modify config</command>:</para>
@@ -2141,8 +2145,19 @@
   <chapter id="auth">
     <title>Xaraya Authentication Modules</title>
 
-    <para>This section describes some the Xaraya authentication system works
-    and some of the plugins available for it.</para>
+    <para>Authentication is the process of authenticating a user. Usually, a
+    user identifies himself by logging in. His credentials are then checked by
+    Xaraya and this specific user is granted access, or not. The administrator
+    sets the way a user should authenticate in the Roles module
+    (Admin-&gt;Roles-&gt;Modify Config).</para>
+
+    <para>Xaraya offers a variety of Authentication methods. We will describe
+    the ones that are available from the Xaraya repositories and that are
+    shipped with the Xaraya distribution.</para>
+
+    <para>Hint: you can view all modules that Xaraya holds in the repositories
+    and its status in the Nighty Builds document at <ulink
+    url="http://www.xaraya.com/index.php/team/580">http://www.xaraya.com/index.php/team/580</ulink></para>
 
     <sect1 id="authsystem">
       <title>AuthSystem Module</title>
@@ -2152,7 +2167,34 @@
 
         <subtitle>Xaraya default authentication module.</subtitle>
 
-        <para>This module does not have an administration panel.</para>
+        <para>This module is part of the Core of Xaraya. It is the standard
+        authentication module.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Modify configuration</para>
+
+            <para>This panel shows some general options.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Enable Short URLs</para>
+              </listitem>
+
+              <listitem>
+                <para>Use lockout time on incorrect login attempts. You can
+                increase security by locking out a session after several wrong
+                attempts to login. This will help against blunt tries. This
+                option is off in the standard installation.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Overview. This gives indepth information on the
+            module.</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
     </sect1>
 
@@ -2165,8 +2207,8 @@
         <subtitle>Xaraya LDAP authentication module.
         <command>Admin-&gt;Authldap</command>.</subtitle>
 
-        <para>This module provides LDAP authentication services for
-        Xaraya.</para>
+        <para>This module provides LDAP authentication services for Xaraya.
+        Use it when you have an LDAP backend available.</para>
 
         <itemizedlist>
           <listitem>
@@ -2305,12 +2347,48 @@
         developed.</para>
       </sect2>
     </sect1>
+
+    <sect1>
+      <title>Authemail module</title>
+
+      <para>You can have users authenticate via their email address</para>
+    </sect1>
+
+    <sect1>
+      <title>Authinvision2 module</title>
+
+      <para>Authentication against the Invision 2 Board</para>
+    </sect1>
+
+    <sect1>
+      <title>Authphpbb2</title>
+
+      <para>Authentication in Xaraya after users login to phpbb</para>
+    </sect1>
+
+    <sect1>
+      <title>Authurl</title>
+
+      <para>The AuthURL module allows you to authenticate a user based on
+      their access to another URL/site. The AuthURL module sends a HTTP basic
+      authentication request to the specified URL with the credentials
+      supplied from the login form.</para>
+    </sect1>
   </chapter>
 
   <chapter id="managecontent">
     <title>Managing Content in Xaraya</title>
 
-    <para>OTTO: explain managing content with Xaraya</para>
+    <para>Xaraya offers a wide variety of content modules. You can hold all
+    kinds of content, and these modules can cater already for most needed
+    types of content. We have discussed the articles module in the previous
+    chapter, so here we will show some other ways to hold content. </para>
+
+    <para>Some of the modules in here are released via the release module at
+    Xaraya.com. You are advised to check the list there to see if you can
+    obtain a newer version. You can also see the latest extension releases via
+    the release page in base: Admin-&gt;Base-&gt;Latest Xaraya
+    Releases.</para>
 
     <sect1 id="polls">
       <title>Polls Module</title>
@@ -2631,10 +2709,13 @@
       <sect2>
         <title>XarBB Module</title>
 
-        <subtitle>Xaraya module.</subtitle>
+        <subtitle>The Xaraya Bulletin Board module, id 300</subtitle>
 
-        <para>The documentation for this part of the Guide is being
-        developed.</para>
+        <para>XarBB is the Xaraya way to create and maintain forums and lively
+        discussions. Look online for the most recent documentation:</para>
+
+        <para><ulink
+        url="http://www.xaraya.com/index.php/keywords/xarbb/">http://www.xaraya.com/index.php/keywords/xarbb/</ulink></para>
       </sect2>
     </sect1>
 
@@ -2795,7 +2876,7 @@
       <sect2>
         <title>Addressbook Module</title>
 
-        <subtitle>Modules Distribution, Xaraya address book module.
+        <subtitle>Modules Distribution, Xaraya address book module, id 66417.
         <command>Admin-&gt;Addressbook</command>.</subtitle>
 
         <para>The Addressbook module provides a configurable address book for
@@ -3241,10 +3322,15 @@
       <sect2>
         <title>Newsletter Module</title>
 
-        <subtitle>Xaraya module.</subtitle>
+        <subtitle>Send and maintain newsletters, extension id 1655.</subtitle>
 
-        <para>The documentation for this part of the Guide is being
-        developed.</para>
+        <para>This module will allow you to create newsletters and send them
+        out to your users. Users can subscribe to one of more newsletters and
+        you can add extra members with their email address. The module
+        overview will give you a good start on how to use this module.</para>
+
+        <para>View online documentation here: <ulink
+        url="http://www.xaraya.com/index.php/keywords/newsletter/">http://www.xaraya.com/index.php/keywords/newsletter/</ulink></para>
       </sect2>
     </sect1>
 
@@ -3637,15 +3723,17 @@
     </sect1>
 
     <sect1 id="calendar">
-      <title>Calendar Module</title>
+      <title>Calendar Module: Julian</title>
 
       <sect2>
-        <title>Calendar Module</title>
+        <title>Julian Module</title>
 
-        <subtitle>Calendar module.
-        <command>Admin-&gt;Calendar</command>.</subtitle>
+        <subtitle>Julian module.
+        <command>Admin-&gt;Julian</command>.</subtitle>
 
-        <para>OTTO</para>
+        <para>The Julian module can be used to show a calendar to your users.
+        It can hold events itself, or it can link to other content via the
+        Julian hook.</para>
       </sect2>
     </sect1>
 

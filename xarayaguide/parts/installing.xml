@@ -91,8 +91,12 @@
 
           <para>This error can be fixed by changing the permissions of the
           &lt;xarroot&gt;/var/config.system.php" file, for example,
-          "<userinput>chmod 666
-          &lt;xarroot&gt;/var/config.system.php</userinput>".</para>
+          "<userinput>chmod 660
+          &lt;xarroot&gt;/var/config.system.php</userinput>" if you use SSH to
+          your install. If you use an FTP client to get your files onto the
+          server, you can normally change the permissions on this file using
+          that client. Make sure the user and group has write access to the
+          config file during installation.</para>
         </listitem>
 
         <listitem>
@@ -102,7 +106,7 @@
 
           <para>This error can be fixed by changing the permissions of the
           &lt;xarroot&gt;/var/cache/templates" directory, for example,
-          "<userinput>chmod 777
+          "<userinput>chmod 770
           &lt;xarroot&gt;/var/cache/templates</userinput>".</para>
         </listitem>
 
@@ -112,7 +116,7 @@
 
           <para>This error can be fixed by changing the permissions of the
           &lt;xarroot&gt;/var/cache/rss" directory, for example,
-          "<userinput>chmod 777
+          "<userinput>chmod 770
           &lt;xarroot&gt;/var/cache/rss</userinput>".</para>
         </listitem>
 
@@ -122,7 +126,7 @@
 
           <para>This error can be fixed by changing the permissions of the
           &lt;xarroot&gt;/var/cache/adodb" directory, for example,
-          "<userinput>chmod 777
+          "<userinput>chmod 770
           &lt;xarroot&gt;/var/cache/adodb</userinput>".</para>
         </listitem>
       </itemizedlist>
@@ -166,7 +170,7 @@
       <title>Administrator Account Creation</title>
 
       <para>This panel creates the site Administrator's account. This account
-      has unlimited access to the site.</para>
+      has unlimited access to the site and is used to control the site.</para>
 
       <figure id="install-adminfig">
         <title>Administrator Account Creation</title>
@@ -185,7 +189,8 @@
 
         <listitem>
           <para>Enter Username -- (<emphasis>required</emphasis>) used by the
-          Administrator to log into the site.</para>
+          Administrator to log into the site. It is strongly advised to keep
+          this to 'admin'.</para>
         </listitem>
 
         <listitem>

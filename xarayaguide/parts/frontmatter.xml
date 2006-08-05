@@ -712,8 +712,13 @@
       </listitem>
 
       <listitem>
-        <para>Import information from PostNuke and Moveable Type
-        installations</para>
+        <para>Import information from various other CMS systems like PostNuke
+        and Moveable Type installations</para>
+      </listitem>
+
+      <listitem>
+        <para>Out of the box short url support, with configurable
+        format</para>
       </listitem>
 
       <listitem>
@@ -810,7 +815,8 @@
     guide and are not limitations of Xaraya itself. All these options are
     configurable.</para>
 
-    <para>* That you plan to run a Community Site and:</para>
+    <para>* That you plan to run a Community Site with both anonymous and
+    registered visitors and:</para>
 
     <itemizedlist>
       <listitem>
@@ -854,9 +860,9 @@
       <listitem>
         <para>That you already have a working webserver (Apache or IIS), PHP
         4.1.2 or higher (4.2.x or higher is strongly recommended), an email
-        subsystem, and a database (currently MySQL) installed, configured, and
-        operating correctly. The installation and configuration of these tools
-        are beyond the scope of this Guide. See <ulink
+        subsystem, and a database installed, configured, and operating
+        correctly. The installation and configuration of these tools are
+        beyond the scope of this Guide. See <ulink
         url="http://www.php.net">http://www.php.net</ulink> and <ulink
         url="http://www.mysql.com">http://www.mysql.com</ulink> for assistance
         with these issues.</para>

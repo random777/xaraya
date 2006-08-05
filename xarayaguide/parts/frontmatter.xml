@@ -59,6 +59,10 @@
     <para>The information contained in this document is believed to be
     accurate. However, no guarantee is provided. Use this information at your
     own risk.</para>
+
+    <para>If you feel that parts of this guide are inaccurate, then please
+    contact the documentation team or post a bug for this document at <ulink
+    url="http://bugs.xaraya.com">http://bugs.xaraya.com</ulink>.</para>
   </sect1>
 
   <sect1 id="aboutguide">
@@ -180,7 +184,9 @@
   <sect1 id="guidefiles">
     <title>Files Included with this Guide</title>
 
-    <para>The following files are included with this guide.</para>
+    <para>Download the file package from the website: <ulink
+    url="http://xaraya.com/index.php/documentation/c90/">http://xaraya.com/index.php/documentation/c90/
+    </ulink>. The following files are included with this guide.</para>
 
     <itemizedlist>
       <listitem>
@@ -502,8 +508,8 @@
 
     <subtitle>A quick look at how Xaraya works.</subtitle>
 
-    <para>The documentation for this part of the Guide is being
-    developed.</para>
+    <para>Xaraya is a framework. It is not an out of the box solution, but
+    merely an interface to let you do what you need.</para>
 
     <itemizedlist>
       <listitem>
@@ -512,24 +518,31 @@
 
         <para>The Core (the files in the
         <filename>&lt;xarroot&gt;/includes</filename> directory) handles each
-        page request. Modules provide units of functionality, and can be
-        added, extended, or disabled as required. Some modules are mandatory,
-        meaning that the core expects them to be available on the site. Other
-        modules are optional and can be turned on or off as needed.</para>
+        page request. The core is the part that does all interaction with the
+        database, it prepares conten for display and it lets the modules work.
+        Modules provide units of functionality, and can be added, extended, or
+        disabled as required. Some modules are mandatory, meaning that the
+        core expects them to be available on the site. Other modules are
+        optional and can be turned on or off as needed.</para>
       </listitem>
 
       <listitem>
         <para>What is an Article?</para>
+
+        <para>One of the first modules you will use is articles. Articles is
+        one of the older modules that will let you publish content. Each block
+        of content in Articles is called an article.</para>
       </listitem>
 
       <listitem>
         <para>What is a Publication Type?</para>
 
-        <para>Publication Types are specific "types" of Articles on the site
-        (for example, News Articles, Frequently Asked Questions, Pictures, or
-        Recipes are all examples of specific Article "types"). See the
-        overview on <command>Admin-&gt;Articles</command> for more
-        information.</para>
+        <para>Publication Types are specific "types" of Articles on the site.
+        A publication type is a set of rules for an Article. You can see it as
+        a format, a template if you like. Examples of publication types are
+        News Articles, Frequently Asked Questions, Pictures, or Recipes. You
+        can see the overview of your publication types via
+        <command>Admin-&gt;Articles-&gt;Pubtypes.</command></para>
       </listitem>
 
       <listitem>
@@ -595,7 +608,9 @@
 
         <para>Articles are displayed by the Articles module, in cooperation
         with a bunch of 'hooked' utility modules (categories, hitcount,
-        ratings, comments, and other modules).</para>
+        ratings, comments, and other modules). The way an article is displayed
+        depends on the settings in the publication type and the formatting in
+        the template.</para>
       </listitem>
 
       <listitem>
@@ -781,7 +796,6 @@
     <para>It is not as difficult as it may look. In fact, saying Xaraya is
     actually sort of fun. Phonetically, it looks like this:
     <firstterm>Zuh-rye-ah</firstterm>.</para>
-
   </sect1>
 
   <sect1 id="assumptions">
@@ -791,8 +805,10 @@
     impossible to list every possible configuration. To provide familiarity
     with how Xaraya functions this Guide makes the following
     assumptions:</para>
- 
-    <para>Note that these are purely assumptions for the purposes of this guide and are not limitations of Xaraya itself. All these options are configurable.</para>
+
+    <para>Note that these are purely assumptions for the purposes of this
+    guide and are not limitations of Xaraya itself. All these options are
+    configurable.</para>
 
     <para>* That you plan to run a Community Site and:</para>
 

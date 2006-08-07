@@ -22,10 +22,17 @@ DBXSL=/opt/local/share/xsl/docbook-xsl
 #DBXSL=/usr/share/sgml/docbook/xsl-stylesheets
 OUTPUT=/var/www/ddf/common/documentation/userguide
 
+
+# Allow to override all the above options locally
+# which means that all options which may be overridden should be
+# above this line and all others below this line.
+-include make.opts.local
+
 DB2HTML=$(DBXSL)/xhtml/docbook.xsl
 DB2CHUNKS=$(DBXSL)/xhtml/chunk.xsl
 DB2FOP=$(DBXSL)/fo/docbook.xsl
 DBIMAGES=$(DBXSL)/images
+
 
 # HTML specific
 CSSSTYLE=xarayaguide.css
@@ -34,6 +41,7 @@ CSSSTYLE=xarayaguide.css
 TOPFILE=xarayaguide.xml
 SOURCES=$(wildcard *.xml) $(wildcard modules/*.xml) 
 
+
 all: html pdf txt index.html
 html: xarayaguide.html
 fop:  xarayaguide.fop
@@ -41,13 +49,13 @@ pdf:  xarayaguide.pdf
 txt:  xarayaguide.txt
 
 xarayaguide.html: $(SOURCES)
-	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $(TOPFILE) > $@ 
+	$(XSLTPROC) --xinclude --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $(TOPFILE) > $@ 
 
 index.html: $(SOURCES)
-	$(XSLTPROC) --stringparam html.stylesheet $(CSSSTYLE) --stringparam chunk.section.depth 0 $(DB2CHUNKS) $(TOPFILE)
+	$(XSLTPROC) --xinclude --stringparam html.stylesheet $(CSSSTYLE) --stringparam chunk.section.depth 0 $(DB2CHUNKS) $(TOPFILE)
 
 xarayaguide.fop: $(SOURCES)
-	$(XSLTPROC) --stringparam draft.mode no --stringparam fop.extensions 1 --stringparam ignore.image.scaling 1 $(DB2FOP) $(TOPFILE) > $@
+	$(XSLTPROC) --xinclude --stringparam draft.mode no --stringparam fop.extensions 1 --stringparam ignore.image.scaling 1 $(DB2FOP) $(TOPFILE) > $@
 
 xarayaguide.pdf: xarayaguide.fop
 	$(FOP) -fo xarayaguide.fop -pdf $@
@@ -65,14 +73,14 @@ clean:
 	rm -f xarayaguide.txt
 
 webdocs: all
-	cp -a $(DBXSL)/images  $(OUTPUT)/stylesheet-images
+	cp -pR $(DBXSL)/images  $(OUTPUT)/stylesheet-images
 	mkdir -p $(OUTPUT)/examples
 	mkdir -p $(OUTPUT)/callouts
-	mkdir -p $(OUTPUT)/sourceimages
+	mkdir -p $(OUTPUT)/parts/sourceimages
 	mkdir -p $(OUTPUT)/images
 	cp -rf examples/*.* $(OUTPUT)/examples
 	cp -rf callouts/*.* $(OUTPUT)/callouts
-	cp -rf sourceimages/*.* $(OUTPUT)/sourceimages
+	cp -rf parts/sourceimages/*.* $(OUTPUT)/parts/sourceimages
 	cp *.css $(OUTPUT)
 	cp images/*.gif $(OUTPUT)/images
 	cp images/*.png $(OUTPUT)/images

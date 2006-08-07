@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sect2>
-  <title>Authsystem Module</title>
+      <sect2>
+        <title>Authsystem Module</title>
 
-  <subtitle>Xaraya default authentication module.</subtitle>
+        <subtitle>Xaraya default authentication module.</subtitle>
 
-  <para>This module does not have an administration panel.</para>
-</sect2>
+        <para>This module is part of the Core of Xaraya. It is the standard
+        authentication module.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Modify configuration</para>
+
+            <para>This panel shows some general options.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Enable Short URLs</para>
+              </listitem>
+
+              <listitem>
+                <para>Use lockout time on incorrect login attempts. You can
+                increase security by locking out a session after several wrong
+                attempts to login. This will help against blunt tries. This
+                option is off in the standard installation.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Overview. This gives indepth information on the
+            module.</para>
+          </listitem>
+        </itemizedlist>
+      </sect2>

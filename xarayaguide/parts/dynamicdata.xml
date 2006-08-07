@@ -105,11 +105,11 @@
             </listitem>
           </itemizedlist>
 
-          <itemizedlist>
+
             <para>You are now in the Dynamic Data module at the Modify Dynamic
             Properties tab. We will create now the image field, a socalled
             property.</para>
-
+          <itemizedlist>
             <listitem>
               <para>Data Source: keep this to dynamic_data. This is the
               location the information will be stored</para>

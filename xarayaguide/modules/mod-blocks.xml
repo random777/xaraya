@@ -3,24 +3,24 @@
   <title>Blocks Module</title>
 
   <subtitle>Blocks Module: Administration of block instances and groups.
-  <command>Admin-&#62;Blocks</command>.</subtitle>
+  <command>Admin-&gt;Blocks</command>.</subtitle>
 
   <para>Within Xaraya, Blocks act as building blocks to construct your site.
-  Blocks are provided by the core Xaraya engine, or virtually &#39;bolted
-  on&#39; by modules. Core Xaraya blocks provide basic system functionality
-  such as menus, while modules provide enhanced functionality or additional
-  features. Using Blocks, the Administrator can customize the look of the site
-  by adding, removing, or changing the position of Blocks.</para>
+  Blocks are provided by the core Xaraya engine, or virtually 'bolted on' by
+  modules. Core Xaraya blocks provide basic system functionality such as
+  menus, while modules provide enhanced functionality or additional features.
+  Using Blocks, the Administrator can customize the look of the site by
+  adding, removing, or changing the position of Blocks.</para>
 
-  <para>Go to <command>Admin-&#62;Blocks</command> and use the sub-functions
-  to add, edit, view, or delete Blocks from your website. The Blocks display
-  is sorted by Group.</para>
+  <para>Go to <command>Admin-&gt;Blocks</command> and use the sub-functions to
+  add, edit, view, or delete Blocks from your website. The Blocks display is
+  sorted by Group.</para>
 
   <itemizedlist>
     <listitem>
       <para><command>View Types</command>: This panel displays every block
       type that is available on your site. View Instances (below) displays
-      block types that you&#39;re currently using on your site.</para>
+      block types that you're currently using on your site.</para>
 
       <itemizedlist>
         <listitem>
@@ -30,7 +30,7 @@
 
         <listitem>
           <para>Type: The types of blocks provided by a particular module. See
-          Add Instance, below, for a listing &#38; description of the block
+          Add Instance, below, for a listing &amp; description of the block
           types included with a default Xaraya installation.</para>
         </listitem>
       </itemizedlist>
@@ -46,11 +46,13 @@
           <para>Group: The Block Group to which the block instance is
           assigned. To edit Block Groups (including the ordering of block
           instances within a Group), click the Group name. For example, to
-          edit the &#34;center&#34; group, click &#34;<guibutton>center</guibutton>&#34;.</para>
+          edit the "center" group, click
+          "<guibutton>center</guibutton>".</para>
 
           <note>
-            <para>Block Groups are <emphasis>Theme dependant</emphasis>. The
-            Block Groups listed below are based on the Xaraya_Classic theme.</para>
+            <para>Block Groups are <emphasis>Theme dependent</emphasis>. The
+            Block Groups listed below are based on the Xaraya_Classic theme.
+            Block groups are defined in the main template of the theme.</para>
           </note>
 
           <itemizedlist>
@@ -66,9 +68,9 @@
 
             <listitem>
               <para>Header: The header group gets put inside the
-              &#60;head&#62;&#60;/head&#62; in the template. This is useful,
-              for example, to place JavaScript or other miscellaneous features
-              on the site.</para>
+              &lt;head&gt;&lt;/head&gt; in the template. This is useful, for
+              example, to place JavaScript or other miscellaneous features on
+              the site.</para>
             </listitem>
 
             <listitem>
@@ -95,22 +97,24 @@
 
         <listitem>
           <para>Title: The title for the block instance. Alphanumeric text,
-          maximum of 256 characters.</para>
+          maximum of 256 characters. Beware to not use special characters in
+          the block title. A ':' can cause problems with the privilege you
+          will create later on.</para>
         </listitem>
 
         <listitem>
           <para>Type: The type of the block instance. To view a listing of all
           available block types, click any block type or click
-          <command>Admin-&#62;Blocks-&#62;View Types</command>.</para>
+          <command>Admin-&gt;Blocks-&gt;View Types</command>.</para>
         </listitem>
 
         <listitem>
           <para>Template: You can define custom display templates for each
           Block. To tell Xaraya to use a different template for a Block, enter
           the name of the template file in this field. Enter the filename
-          without the &#34;<filename>.xt</filename>&#34; extension. To use the
-          default page template, leave this field blank. See TEMPLATES IN
-          XARAYA for a thorough discussion of templates.</para>
+          without the "<filename>.xt</filename>" extension. To use the default
+          page template, leave this field blank. See TEMPLATES IN XARAYA for a
+          thorough discussion of templates.</para>
         </listitem>
 
         <listitem>
@@ -119,8 +123,8 @@
           <itemizedlist>
             <listitem>
               <para>Hidden: The block instance is not displayed. Setting a
-              block instance&#39;s state to &#34;Hidden&#34; makes the block
-              instance inactive.</para>
+              block instance's state to "Hidden" makes the block instance
+              inactive.</para>
             </listitem>
 
             <listitem>
@@ -162,8 +166,8 @@
 
                   <itemizedlist>
                     <listitem>
-                      <para>Click &#34;<guibutton>Update</guibutton>&#34; to
-                      save changes.</para>
+                      <para>Click "<guibutton>Update</guibutton>" to save
+                      changes.</para>
                     </listitem>
                   </itemizedlist>
                 </listitem>
@@ -176,22 +180,26 @@
                   <itemizedlist>
                     <listitem>
                       <para>Module-dependant: Module-dependant file must exist
-                      in <filename>&#60;xarroot&#62;/&#60;module_name&#62;/xartemplates/blocks</filename></para>
+                      in
+                      <filename>&lt;xarroot&gt;/&lt;module_name&gt;/xartemplates/blocks</filename></para>
                     </listitem>
 
                     <listitem>
                       <para>Theme-dependant: Theme-dependant file must exist
-                      in: <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename>.</para>
+                      in:
+                      <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;</filename>.</para>
 
                       <itemizedlist>
                         <listitem>
                           <para>Theme dependant templates override module
-                          templates in <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename></para>
+                          templates in
+                          <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;</filename></para>
                         </listitem>
 
                         <listitem>
                           <para>Theme dependant templates override module
-                          blocks in <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;/blocks</filename></para>
+                          blocks in
+                          <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;/blocks</filename></para>
                         </listitem>
                       </itemizedlist>
                     </listitem>
@@ -207,10 +215,11 @@
 
             <listitem>
               <para>Delete: If you wish to delete a block instance, click the
-              &#34;<guibutton>Delete</guibutton>&#34; operation next to the
-              block instance to be deleted. You are asked to confirm your
-              intention to delete on the next page. Press the &#34;<guibutton>Delete</guibutton>&#34;
-              button to delete the block instance.</para>
+              "<guibutton>Delete</guibutton>" operation next to the block
+              instance to be deleted. You are asked to confirm your intention
+              to delete on the next page. Press the
+              "<guibutton>Delete</guibutton>" button to delete the block
+              instance.</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -218,7 +227,8 @@
     </listitem>
 
     <listitem>
-      <para><command>View Groups</command>: Block Groups are Theme dependant.</para>
+      <para><command>View Groups</command>: Block Groups are Theme
+      dependant.</para>
 
       <itemizedlist>
         <listitem>
@@ -233,7 +243,8 @@
 
         <listitem>
           <para>Template: If a display template is used for the group, the
-          name of the template is listed, otherwise this field is blank.</para>
+          name of the template is listed, otherwise this field is
+          blank.</para>
         </listitem>
 
         <listitem>
@@ -259,15 +270,15 @@
                 <listitem>
                   <para>Template: You can define custom display templates for
                   each Block Group. To tell Xaraya to use a different template
-                  for a Blockl Group, enter the name of the template file in
-                  this field. Enter the filename without the &#34;<filename>.xt</filename>&#34;
-                  extension. To use the default page template, leave this
-                  field blank. See TEMPLATES IN XARAYA for a thorough
-                  discussion of templates.</para>
+                  for a Block Group, enter the name of the template file in
+                  this field. Enter the filename without the
+                  "<filename>.xt</filename>" extension. To use the default
+                  page template, leave this field blank. See TEMPLATES IN
+                  XARAYA for a thorough discussion of templates.</para>
                 </listitem>
 
                 <listitem>
-                  <para>Click &#34;<guibutton>Update</guibutton>&#34; to save
+                  <para>Click "<guibutton>Update</guibutton>" to save
                   changes.</para>
                 </listitem>
               </itemizedlist>
@@ -275,11 +286,12 @@
 
             <listitem>
               <para>Delete: If you wish to delete a block group, click the
-              &#34;<guibutton>Delete</guibutton>&#34; operation next to the
-              block group to be deleted. You are asked to confirm your
-              intention to delete on the next page. Press the &#34;<guibutton>Delete</guibutton>&#34;
-              button to delete the block group. OTTO: What happens to Block
-              Instances in a Group if the Group is deleted?</para>
+              "<guibutton>Delete</guibutton>" operation next to the block
+              group to be deleted. You are asked to confirm your intention to
+              delete on the next page. Press the
+              "<guibutton>Delete</guibutton>" button to delete the block
+              group. OTTO: What happens to Block Instances in a Group if the
+              Group is deleted?</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -290,7 +302,7 @@
       <para><command>Add Instance</command>: Click Add Instance to begin
       adding a new block instance to your site. Adding a block instance is a
       <emphasis>two-step</emphasis> process. First, complete the fields below
-      in the following panel. Click &#34;<guibutton>Create Instance</guibutton>&#34;
+      in the following panel. Click "<guibutton>Create Instance</guibutton>"
       to add the new block instance. Secondly, in the new panel that appears,
       configure block-specific options.</para>
 
@@ -300,20 +312,20 @@
           Alphanumeric text, maximum of 256 characters. The Title is not
           always displayed to site visitors; sometimes a block instance
           overrides this Title field and displays its own block title.
-          However, Title text is displayed in <command>Admin-&#62;Blocks-&#62;View
-          Instances</command>.</para>
+          However, Title text is displayed in
+          <command>Admin-&gt;Blocks-&gt;View Instances</command>.</para>
         </listitem>
 
         <listitem>
           <para>Type: From this drop-down list, select the block type you wish
           to add. The contents of this drop-down list will vary based on the
           modules that are active in your Xaraya installation. View a listing
-          of available block types by going to <command>Admin-&#62;Blocks-&#62;View
-          Types</command>.</para>
+          of available block types by going to
+          <command>Admin-&gt;Blocks-&gt;View Types</command>.</para>
 
           <note>
             <para>The following sub-items are common across all block types.
-            These items are not repeated in the listing &#38; description of
+            These items are not repeated in the listing &amp; description of
             each block type, below.</para>
           </note>
 
@@ -340,22 +352,24 @@
               <itemizedlist>
                 <listitem>
                   <para>Module-dependant: Module-dependant file must exist in
-                  <filename>&#60;xarroot&#62;/&#60;module_name&#62;/xartemplates/blocks</filename></para>
+                  <filename>&lt;xarroot&gt;/&lt;module_name&gt;/xartemplates/blocks</filename></para>
                 </listitem>
 
                 <listitem>
                   <para>Theme-dependant: Theme-dependant file must exist in:
-                  <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename>.</para>
+                  <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;</filename>.</para>
 
                   <itemizedlist>
                     <listitem>
                       <para>Theme dependant templates override module
-                      templates in <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename></para>
+                      templates in
+                      <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;</filename></para>
                     </listitem>
 
                     <listitem>
                       <para>Theme dependant templates override module blocks
-                      in <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;/blocks</filename></para>
+                      in
+                      <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;/blocks</filename></para>
                     </listitem>
                   </itemizedlist>
                 </listitem>
@@ -374,8 +388,8 @@
             </listitem>
 
             <listitem>
-              <para>Click &#34;<guibutton>Create Instance</guibutton>&#34; to
-              save changes.</para>
+              <para>Click "<guibutton>Create Instance</guibutton>" to save
+              changes.</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -383,37 +397,39 @@
     </listitem>
 
     <listitem>
-      <para><command>Add Group</command>: Block Groups are Theme dependant.</para>
+      <para><command>Add Group</command>: Block Groups are Theme
+      dependant.</para>
 
       <itemizedlist>
         <listitem>
-          <para>Name: Enter the name for the new Block Group in this field.</para>
+          <para>Name: Enter the name for the new Block Group in this
+          field.</para>
         </listitem>
 
         <listitem>
           <para>Default template (optional): Type the filename of the template
-          to be used when displaying block instances in this block group. The file must exist
-          in one of two places:</para>
+          to be used when displaying block instances in this block group. The
+          file must exist in one of two places:</para>
 
           <itemizedlist>
             <listitem>
               <para>Module-dependant: Module-dependant file must exist in
-              <filename>&#60;xarroot&#62;/&#60;module_name&#62;/xartemplates/blocks</filename></para>
+              <filename>&lt;xarroot&gt;/&lt;module_name&gt;/xartemplates/blocks</filename></para>
             </listitem>
 
             <listitem>
               <para>Theme-dependant: Theme-dependant file must exist in:
-              <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename>.</para>
+              <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;</filename>.</para>
 
               <itemizedlist>
                 <listitem>
                   <para>Theme dependant templates override module templates in
-                  <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename></para>
+                  <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;</filename></para>
                 </listitem>
 
                 <listitem>
                   <para>Theme dependant templates override module blocks in
-                  <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;/blocks</filename></para>
+                  <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;/blocks</filename></para>
                 </listitem>
               </itemizedlist>
             </listitem>
@@ -421,7 +437,7 @@
         </listitem>
 
         <listitem>
-          <para>Click &#34;<guibutton>Create Group</guibutton>&#34; to save
+          <para>Click "<guibutton>Create Group</guibutton>" to save
           changes.</para>
         </listitem>
       </itemizedlist>
@@ -429,21 +445,25 @@
   </itemizedlist>
 
   <para>Below is a listing of the available block types that are available for
-  use in <command>Admin-&#62;Blocks-&#62;Add Instance</command> within the
+  use in <command>Admin-&gt;Blocks-&gt;Add Instance</command> within the
   default Xaraya installation.</para>
 
   <sect3>
-    <title>adminpanels/adminmenu</title>
+    <title>base/adminmenu</title>
 
     <para>Block instance containing the Administration menu. The
     Administration menu is displayed only to users with Administrative
-    privileges.</para>
+    privileges. It holds all the links to the administration parts of modules
+    and to the settings of the Xaraya Core.</para>
   </sect3>
 
   <sect3>
-    <title>adminpanels/waitingcontent</title>
+    <title>base/waitingcontent</title>
 
-    <para>OTTO</para>
+    <para>This module shows a short list of waiting content. Waiting content
+    is the content that needs to be approved by an authorised editor (the
+    administrator in many cases). The block shows newly added content from eg
+    the articles module.</para>
   </sect3>
 
   <sect3>
@@ -462,31 +482,31 @@
           <listitem>
             <para>Publication Type: From this drop-down list, select the
             Publication Type under which the featured article is published, or
-            select &#34;<guibutton>All</guibutton>&#34; to deactivate this
+            select "<guibutton>All</guibutton>" to deactivate this
             filter.</para>
           </listitem>
 
           <listitem>
             <para>Category: From this drop-down list, select the Category in
-            which the featured article is published, or select &#34;<guibutton>All</guibutton>&#34;
-            to deactivate this filter.</para>
+            which the featured article is published, or select
+            "<guibutton>All</guibutton>" to deactivate this filter.</para>
           </listitem>
 
           <listitem>
             <para>Status: From this drop-down list, select the status of the
-            featured article, or select &#34;<guibutton>All Published</guibutton>&#34;
+            featured article, or select "<guibutton>All Published</guibutton>"
             to deactivate this filter.</para>
           </listitem>
 
           <listitem>
             <para>Limit: Enter the number of articles you wish to see in the
-            Featured Article drop-down list &#38; Alternate Title box. For
-            example, to return 25 articles, enter &#34;<userinput>25</userinput>&#34;
+            Featured Article drop-down list &amp; Alternate Title box. For
+            example, to return 25 articles, enter "<userinput>25</userinput>"
             into this box.</para>
           </listitem>
 
           <listitem>
-            <para>Click &#34;<guibutton>Update</guibutton>&#34; to filter
+            <para>Click "<guibutton>Update</guibutton>" to filter
             articles.</para>
           </listitem>
         </itemizedlist>
@@ -501,8 +521,8 @@
         <para>Alternate Title: If you would like to display an alternate title
         for the featured article, enter the alternate title in this field and
         the alternate title is displayed instead of the article title in the
-        block instance. If this field is empty, the article&#39;s title will
-        be displayed.</para>
+        block instance. If this field is empty, the article's title will be
+        displayed.</para>
       </listitem>
 
       <listitem>
@@ -548,7 +568,8 @@
 
           <listitem>
             <para>Rating: Sort by the rating of an article. Articles with
-            higher ratings are displayed before articles with lower ratings.</para>
+            higher ratings are displayed before articles with lower
+            ratings.</para>
           </listitem>
 
           <listitem>
@@ -559,14 +580,14 @@
       </listitem>
 
       <listitem>
-        <para>Show sort value: Displays the value of the &#34;<guibutton>Sort
-        by</guibutton>&#34; parameter (above). For example, if &#34;<guibutton>Sort
-        by</guibutton>&#34; is set to &#34;<guibutton>Hit Count</guibutton>&#34;
-        and this field is CHECKED, the number of hits for an article is
-        displayed after the article title in the block instance. If you do not
-        want the sort value (hits, in this example) displayed, UNCHECK this
-        field. Likewise, if &#34;<guibutton>Sort by</guibutton>&#34; is set to
-        &#34;<guibutton>Date</guibutton>&#34; and this field is CHECKED, the
+        <para>Show sort value: Displays the value of the "<guibutton>Sort
+        by</guibutton>" parameter (above). For example, if "<guibutton>Sort
+        by</guibutton>" is set to "<guibutton>Hit Count</guibutton>" and this
+        field is CHECKED, the number of hits for an article is displayed after
+        the article title in the block instance. If you do not want the sort
+        value (hits, in this example) displayed, UNCHECK this field. Likewise,
+        if "<guibutton>Sort by</guibutton>" is set to
+        "<guibutton>Date</guibutton>" and this field is CHECKED, the
         publication date of an article is displayed after the article title in
         the block instance.</para>
       </listitem>
@@ -578,7 +599,7 @@
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -595,11 +616,11 @@
       <listitem>
         <para>Number of items: Enter the number of related items to be
         displayed in this field. For example, to display 5 related items,
-        enter &#34;<userinput>5</userinput>&#34; here.</para>
+        enter "<userinput>5</userinput>" here.</para>
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -614,27 +635,29 @@
     <itemizedlist>
       <listitem>
         <para>Number of items: Enter the number of items to be displayed in
-        this field. For example, enter &#34;<userinput>5</userinput>&#34; to
-        display the top 5 items.</para>
+        this field. For example, enter "<userinput>5</userinput>" to display
+        the top 5 items.</para>
       </listitem>
 
       <listitem>
         <para>Publication Type: From this drop-down list, select the
         Publication Type for which the top items are displayed.</para>
 
-        <para>Select &#34;<guibutton>Default / Current</guibutton>&#34; from
-        the drop-down list to display the top items for whatever Publication
-        Type the user is currently viewing. For example, if this field is set
-        to &#34;<guibutton>Default / Current</guibutton>&#34; and the user is
-        viewing the &#39;<guibutton>Documents</guibutton>&#39; Publication
-        Type, Xaraya will display the top items in &#39;<guibutton>Documents</guibutton>&#39;.
-        If the user then switches to the &#39;<guibutton>Reviews</guibutton>&#39;
-        Publication Type, Xaraya will display the top items in &#39;<guibutton>Reviews</guibutton>&#39;.</para>
+        <para>Select "<guibutton>Default / Current</guibutton>" from the
+        drop-down list to display the top items for whatever Publication Type
+        the user is currently viewing. For example, if this field is set to
+        "<guibutton>Default / Current</guibutton>" and the user is viewing the
+        '<guibutton>Documents</guibutton>' Publication Type, Xaraya will
+        display the top items in '<guibutton>Documents</guibutton>'. If the
+        user then switches to the '<guibutton>Reviews</guibutton>' Publication
+        Type, Xaraya will display the top items in
+        '<guibutton>Reviews</guibutton>'.</para>
       </listitem>
 
       <listitem>
         <para>Sort by: From this drop-down list, select the sort criteria that
-        will be used to select articles for display in this block instance.</para>
+        will be used to select articles for display in this block
+        instance.</para>
 
         <itemizedlist>
           <listitem>
@@ -645,7 +668,8 @@
 
           <listitem>
             <para>Rating: Sort by the rating of an article. Articles with
-            higher ratings are displayed before articles with lower ratings.</para>
+            higher ratings are displayed before articles with lower
+            ratings.</para>
           </listitem>
 
           <listitem>
@@ -656,14 +680,14 @@
       </listitem>
 
       <listitem>
-        <para>Show sort value: Displays the value of the &#34;<guibutton>Sort
-        by</guibutton>&#34; parameter (above). For example, if &#34;<guibutton>Sort
-        by</guibutton>&#34; is set to &#34;<guibutton>Hit Count</guibutton>&#34;
-        and this field is CHECKED, the number of hits for an article is
-        displayed after the article title in the block instance. If you do not
-        want the sort value (hits, in this example) displayed, UNCHECK this
-        field. Likewise, if &#34;<guibutton>Sort by</guibutton>&#34; is set to
-        &#34;<guibutton>Date</guibutton>&#34; and this field is CHECKED, the
+        <para>Show sort value: Displays the value of the "<guibutton>Sort
+        by</guibutton>" parameter (above). For example, if "<guibutton>Sort
+        by</guibutton>" is set to "<guibutton>Hit Count</guibutton>" and this
+        field is CHECKED, the number of hits for an article is displayed after
+        the article title in the block instance. If you do not want the sort
+        value (hits, in this example) displayed, UNCHECK this field. Likewise,
+        if "<guibutton>Sort by</guibutton>" is set to
+        "<guibutton>Date</guibutton>" and this field is CHECKED, the
         publication date of an article is displayed after the article title in
         the block instance.</para>
       </listitem>
@@ -675,7 +699,7 @@
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -696,7 +720,7 @@
     <title>base/html</title>
 
     <para>Block instance that displays HTML-formatted code. Permitted HTML
-    codes are defined in <command>Admin-&#62;HTML</command>.</para>
+    codes are defined in <command>Admin-&gt;HTML</command>.</para>
 
     <itemizedlist>
       <listitem>
@@ -719,11 +743,11 @@
 
       <listitem>
         <para>HTML: Enter the HTML-formatted content in this block. Permitted
-        HTML codes are defined in <command>Admin-&#62;HTML</command>.</para>
+        HTML codes are defined in <command>Admin-&gt;HTML</command>.</para>
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -738,7 +762,8 @@
     <itemizedlist>
       <listitem>
         <para>Display modules: CHECK this option to display all active modules
-        that are installed in <filename>&#60;xarroot&#62;/modules</filename>.</para>
+        that are installed in
+        <filename>&lt;xarroot&gt;/modules</filename>.</para>
       </listitem>
 
       <listitem>
@@ -758,19 +783,19 @@
 
           <listitem>
             <para>URL: Enter the URL to the resource. If the resource is on
-            your site, you may enter the path to &#38; filename of the
+            your site, you may enter the path to &amp; filename of the
             resource. If the file is external to your site, be sure to enter a
-            complete URL, including &#34;<userinput>http://</userinput>&#34;.
-            If the resource is a module, enter the case-sensitive module name
-            in brackets (&#34;<userinput>[</userinput>&#34; and &#34;<userinput>]</userinput>&#34;).
-            For example, to add the Polls module, type &#34;<userinput>[Polls]</userinput>&#34;
-            in the URL field.</para>
+            complete URL, including "<userinput>http://</userinput>". If the
+            resource is a module, enter the case-sensitive module name in
+            brackets ("<userinput>[</userinput>" and
+            "<userinput>]</userinput>"). For example, to add the Polls module,
+            type "<userinput>[Polls]</userinput>" in the URL field.</para>
           </listitem>
 
           <listitem>
             <para>Description (optional): Enter an optional description of the
             menu item in this field. The description is presented as a
-            mouse-over (if supported by the user&#39;s browser).</para>
+            mouse-over (if supported by the user's browser).</para>
           </listitem>
 
           <listitem>
@@ -794,7 +819,7 @@
           </listitem>
 
           <listitem>
-            <para>Click &#34;<guibutton>Update</guibutton>&#34; to save
+            <para>Click "<guibutton>Update</guibutton>" to save
             changes.</para>
           </listitem>
         </itemizedlist>
@@ -814,7 +839,8 @@
   <sect3>
     <title>base/text</title>
 
-    <para>Block instance that displays the text contents of the Content field.</para>
+    <para>Block instance that displays the text contents of the Content
+    field.</para>
 
     <itemizedlist>
       <listitem>
@@ -841,7 +867,7 @@
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -850,7 +876,7 @@
     <title>categories/navigation</title>
 
     <para>Block instance that displays a listing of site categories as defined
-    in Admin-&#62;Categories.</para>
+    in Admin-&gt;Categories.</para>
 
     <itemizedlist>
       <listitem>
@@ -858,15 +884,15 @@
 
         <itemizedlist>
           <listitem>
-            <para>Tree (side block): Displays a vertical &#39;tree&#39;
-            structure of the site&#39;s categories; most useful along the side
-            of a page.</para>
+            <para>Tree (side block): Displays a vertical 'tree' structure of
+            the site's categories; most useful along the side of a
+            page.</para>
           </listitem>
 
           <listitem>
-            <para>Crumbtrail (top block): Displays a &#39;crumb
-            trail&#39;-type horizontal structure of the site&#39;s categories;
-            most useful at the top of a page.</para>
+            <para>Crumbtrail (top block): Displays a 'crumb trail'-type
+            horizontal structure of the site's categories; most useful at the
+            top of a page.</para>
           </listitem>
 
           <listitem>
@@ -901,7 +927,7 @@
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -917,13 +943,13 @@
   <sect3>
     <title>example/first</title>
 
-    <para>OTTO</para>
+    <para>This is an example block.</para>
   </sect3>
 
   <sect3>
     <title>example/others</title>
 
-    <para>OTTO</para>
+    <para>This is an example block</para>
   </sect3>
 
   <sect3>
@@ -935,8 +961,9 @@
     <itemizedlist>
       <listitem>
         <para>RSS File URL: From this drop-down list, select the RSS feed to
-        display in this block instance. See <command>Admin-&#62;Headlines-&#62;Add</command>
-        to add an RSS feed to your site for syndication.</para>
+        display in this block instance. See
+        <command>Admin-&gt;Headlines-&gt;Add</command> to add an RSS feed to
+        your site for syndication.</para>
       </listitem>
 
       <listitem>
@@ -947,7 +974,7 @@
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -958,8 +985,8 @@
     <para>If the Messages module is active, this block instance displays
     notification of waiting private messages. If new private messages are
     waiting, a count of total and unread private messages is displayed with a
-    link to read new private messages. If no new messages are waiting, &#34;No
-    Unread messages in mailbox&#34; is displayed. No additional configuration
+    link to read new private messages. If no new messages are waiting, "No
+    Unread messages in mailbox" is displayed. No additional configuration
     options.</para>
   </sect3>
 
@@ -971,12 +998,13 @@
     <itemizedlist>
       <listitem>
         <para>Poll to display: From this drop-down list, select the poll you
-        wish to be displayed in this block instance, or select &#34;<guibutton>Latest
-        Poll</guibutton>&#34; to select the most recently-added poll.</para>
+        wish to be displayed in this block instance, or select
+        "<guibutton>Latest Poll</guibutton>" to select the most recently-added
+        poll.</para>
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -984,15 +1012,16 @@
   <sect3>
     <title>quotes/daily</title>
 
-    <para>Block instance that displays a random quote from the site&#39;s
-    quote database, if the Quotes module is active. No additional
-    configuration options.</para>
+    <para>Block instance that displays a random quote from the site's quote
+    database, if the Quotes module is active. No additional configuration
+    options.</para>
   </sect3>
 
   <sect3>
     <title>roles/language</title>
 
-    <para>OTTO</para>
+    <para>This block will allow a user to choose the language that the site
+    will use for display.</para>
   </sect3>
 
   <sect3>
@@ -1005,7 +1034,7 @@
   <sect3>
     <title>roles/online</title>
 
-    <para>Block instance that displays a count of users &#38; guests who are
+    <para>Block instance that displays a count of users &amp; guests who are
     currently visiting the site. No additional configuration options.</para>
   </sect3>
 
@@ -1035,34 +1064,34 @@
 
     <para>Block instance that defines metadata for your site. Information in
     this block instance is not displayed to users. This block type is
-    generally assigned to a &#34;header&#34; block group.</para>
+    generally assigned to a "header" block group.</para>
 
     <itemizedlist>
       <listitem>
         <para>Meta description: Enter a description of your site in this
-        field. The contents of this field are sent as a metadata
-        &#34;Description&#34; for the site.</para>
+        field. The contents of this field are sent as a metadata "Description"
+        for the site.</para>
       </listitem>
 
       <listitem>
         <para>Meta keywords: One of the challenges when running a web site is
         letting external search engines know that your site exists. Meta
         keywords categorize your site. Many search engines send out robots
-        (also called &#39;<firstterm>spiders</firstterm>&#39;) to search the
-        Web for content. When you define Meta Keywords for your site though
-        this configuration option, you make it easier for the search-engine
-        robots to categorize your site, and your site will be categorized more
-        appropriately since you are defining the options. Enter words &#38;
+        (also called '<firstterm>spiders</firstterm>') to search the Web for
+        content. When you define Meta Keywords for your site though this
+        configuration option, you make it easier for the search-engine robots
+        to categorize your site, and your site will be categorized more
+        appropriately since you are defining the options. Enter words &amp;
         phrases, separated by commas, that describe the focus of your web
         site. Capitalization is not important in this field. Many search
         engines limit the number of keywords that you can use. Therefore, you
         should choose your words carefully and use no more than 10-15 keywords
-        that best describe your site&#39;s content.</para>
+        that best describe your site's content.</para>
 
         <para>If your site is all about rock and roll music, for example, you
-        might enter the following information in this field: &#34;<userinput>music,
-        rock, roll, beatles, aerosmith, guitar, drum, bass, sing, singer,
-        singing</userinput>&#34;</para>
+        might enter the following information in this field:
+        "<userinput>music, rock, roll, beatles, aerosmith, guitar, drum, bass,
+        sing, singer, singing</userinput>"</para>
 
         <para>For additional information on Meta Keywords, please visit Web
         Developer-META Tag Resources (<ulink
@@ -1072,22 +1101,23 @@
       </listitem>
 
       <listitem>
-        <para>Use GeoURL (<ulink url="http://www.geourl.org">http://www.geourl.org</ulink>):
-        GeoURL is a location-to-URL reverse directory. This will allow you to
-        find URLs by their proximity to a given location. Find your
-        neighbor&#39;s blog, perhaps, or the web page of the restaurants near
-        you. GeoURL&#39;s page provides tools for determining your
-        location&#39;s latitude and longitude.</para>
+        <para>Use GeoURL (<ulink
+        url="http://www.geourl.org">http://www.geourl.org</ulink>): GeoURL is
+        a location-to-URL reverse directory. This will allow you to find URLs
+        by their proximity to a given location. Find your neighbor's blog,
+        perhaps, or the web page of the restaurants near you. GeoURL's page
+        provides tools for determining your location's latitude and
+        longitude.</para>
 
         <itemizedlist>
           <listitem>
             <para>Your Longitude: In this field, enter your longitude in the
-            format &#34;<userinput>W 84.520407</userinput>&#34;.</para>
+            format "<userinput>W 84.520407</userinput>".</para>
           </listitem>
 
           <listitem>
             <para>Your Latitude: In this field, enter your latitude in the
-            format &#34;<userinput>N 39.283899</userinput>&#34;.</para>
+            format "<userinput>N 39.283899</userinput>".</para>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -1114,7 +1144,7 @@
       </listitem>
 
       <listitem>
-        <para>Click &#34;<guibutton>Update</guibutton>&#34; to save changes.</para>
+        <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -1135,8 +1165,8 @@
       <listitem>
         <para>Adding block instances</para>
 
-        <para>For these examples, we&#39;ll add a few block instances to work
-        with. Following the instructions in <command>Admin-&#62;Blocks-&#62;Add
+        <para>For these examples, we'll add a few block instances to work
+        with. Following the instructions in <command>Admin-&gt;Blocks-&gt;Add
         Instance</command> (above), add the following three blocks:</para>
 
         <itemizedlist>
@@ -1161,19 +1191,21 @@
               </listitem>
 
               <listitem>
-                <para>Click &#34;<guibutton>Create Instance</guibutton>&#34;
-                to save changes.</para>
+                <para>Click "<guibutton>Create Instance</guibutton>" to save
+                changes.</para>
               </listitem>
 
               <listitem>
-                <para>In the HTML field that appears in the next panel, type:</para>
+                <para>In the HTML field that appears in the next panel,
+                type:</para>
 
-                <para>&#34;<userinput>&#60;b&#62;This is BASE HTML BLOCK #
-                1.&#60;/b&#62;</userinput>&#34; <emphasis>(no quotes)</emphasis></para>
+                <para>"<userinput>&lt;b&gt;This is BASE HTML BLOCK #
+                1.&lt;/b&gt;</userinput>" <emphasis>(no
+                quotes)</emphasis></para>
               </listitem>
 
               <listitem>
-                <para>Click &#34;<guibutton>Update</guibutton>&#34; to save
+                <para>Click "<guibutton>Update</guibutton>" to save
                 changes.</para>
               </listitem>
             </itemizedlist>
@@ -1184,10 +1216,10 @@
 
             <itemizedlist>
               <listitem>
-                <para>Do the same steps as with Block #1, substituting &#34;<userinput>Base
-                HTML Block 2</userinput>&#34; for the title and &#34;<userinput>&#60;b&#62;This
-                is BASE HTML BLOCK # 2.&#60;/b&#62;</userinput>&#34; for the
-                HTML field.</para>
+                <para>Do the same steps as with Block #1, substituting
+                "<userinput>Base HTML Block 2</userinput>" for the title and
+                "<userinput>&lt;b&gt;This is BASE HTML BLOCK #
+                2.&lt;/b&gt;</userinput>" for the HTML field.</para>
               </listitem>
             </itemizedlist>
           </listitem>
@@ -1197,36 +1229,36 @@
 
             <itemizedlist>
               <listitem>
-                <para>Do the same steps as with Block #1, substituting &#34;<userinput>Base
-                HTML Block 3</userinput>&#34; for the title and &#34;<userinput>&#60;b&#62;This
-                is BASE HTML BLOCK # 3.&#60;/b&#62;</userinput>&#34; for the
-                HTML field.</para>
+                <para>Do the same steps as with Block #1, substituting
+                "<userinput>Base HTML Block 3</userinput>" for the title and
+                "<userinput>&lt;b&gt;This is BASE HTML BLOCK #
+                3.&lt;/b&gt;</userinput>" for the HTML field.</para>
               </listitem>
             </itemizedlist>
           </listitem>
         </itemizedlist>
 
         <para>If you go to the front page of the site (click the Xaraya logo
-        in the top left corner of the default theme), you&#39;ll see these
-        three blocks displayed in ascending numerical order.</para>
+        in the top left corner of the default theme), you'll see these three
+        blocks displayed in ascending numerical order.</para>
       </listitem>
 
       <listitem>
         <para>Modifying block instances</para>
 
         <para>If you wish to modify a block instance, go to
-        <command>Admin-&#62;Blocks-&#62;View Instances</command>. Click &#34;<guibutton>Edit</guibutton>&#34;
-        on the line next to the block instance you wish to modify. On the next
-        panel, make your changes and click the &#34;<guibutton>Update</guibutton>&#34;
-        button to save changes.</para>
+        <command>Admin-&gt;Blocks-&gt;View Instances</command>. Click
+        "<guibutton>Edit</guibutton>" on the line next to the block instance
+        you wish to modify. On the next panel, make your changes and click the
+        "<guibutton>Update</guibutton>" button to save changes.</para>
 
         <itemizedlist>
           <listitem>
-            <para>For our example, edit Block #2&#39;s title to read &#34;<userinput>The
-            Second Base HTML Block</userinput>&#34; and the HTML to read &#34;<userinput>Here&#39;s
-            the &#60;i&#62;second&#60;/i&#62; HTML block</userinput>&#34;. Be
-            sure to &#34;<guibutton>Update</guibutton>&#34; to save your
-            changes.</para>
+            <para>For our example, edit Block #2's title to read
+            "<userinput>The Second Base HTML Block</userinput>" and the HTML
+            to read "<userinput>Here's the &lt;i&gt;second&lt;/i&gt; HTML
+            block</userinput>". Be sure to "<guibutton>Update</guibutton>" to
+            save your changes.</para>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -1234,10 +1266,11 @@
       <listitem>
         <para>Deleting block instances</para>
 
-        <para>To delete a block instance, go to <command>Admin-&#62;Blocks-&#62;View
-        Instances</command>. Click &#34;<guibutton>Delete</guibutton>&#34; on
-        the line next to the block instance you wish to delete. On the next
-        panel, confirm your intention to delete.</para>
+        <para>To delete a block instance, go to
+        <command>Admin-&gt;Blocks-&gt;View Instances</command>. Click
+        "<guibutton>Delete</guibutton>" on the line next to the block instance
+        you wish to delete. On the next panel, confirm your intention to
+        delete.</para>
       </listitem>
     </itemizedlist>
   </sect3>
@@ -1245,26 +1278,26 @@
   <sect3>
     <title>EXAMPLE: Changing the order of blocks within Groups</title>
 
-    <para>Follow this example, using the three blocks we added in &#34;Adding
-    block instances&#34;, above, to learn how to change the order of block
+    <para>Follow this example, using the three blocks we added in "Adding
+    block instances", above, to learn how to change the order of block
     instances within Groups.</para>
 
     <itemizedlist>
       <listitem>
-        <para>If you don&#39;t have the three sample block instances from
-        &#34;Adding block instances&#34;, above, create them now.</para>
+        <para>If you don't have the three sample block instances from "Adding
+        block instances", above, create them now.</para>
       </listitem>
 
       <listitem>
-        <para>Go to <command>Admin-&#62;Blocks-&#62;View Groups</command>.
-        Click &#34;<guibutton>Edit</guibutton>&#34; on the line next to the
-        block group you wish to modify. In this example, click &#34;<guibutton>Edit</guibutton>&#34;
-        on the line next to the &#34;<guibutton>Center</guibutton>&#34; block
-        group. On the next panel, modify the order of block instances.
-        Left-click on an instance to select it, then use the UP and DOWN arrow
-        icons to change the placement of the selected block instance in the
-        block group. Click the &#34;<guibutton>Update</guibutton>&#34; button
-        to save changes.</para>
+        <para>Go to <command>Admin-&gt;Blocks-&gt;View Groups</command>. Click
+        "<guibutton>Edit</guibutton>" on the line next to the block group you
+        wish to modify. In this example, click "<guibutton>Edit</guibutton>"
+        on the line next to the "<guibutton>Center</guibutton>" block group.
+        On the next panel, modify the order of block instances. Left-click on
+        an instance to select it, then use the UP and DOWN arrow icons to
+        change the placement of the selected block instance in the block
+        group. Click the "<guibutton>Update</guibutton>" button to save
+        changes.</para>
 
         <itemizedlist>
           <listitem>
@@ -1290,7 +1323,7 @@
 
       <listitem>
         <para>When you have finished this example, delete the three block
-        instances. Follow instructions in &#39;Deleting block instances&#39;,
+        instances. Follow instructions in 'Deleting block instances',
         above.</para>
       </listitem>
     </itemizedlist>

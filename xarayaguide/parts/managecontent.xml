@@ -1,47 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <chapter id="managecontent">
   <title>Managing Content in Xaraya</title>
+    <para>Xaraya offers a wide variety of content modules. You can hold all
+    kinds of content, and these modules can cater already for most needed
+    types of content. We have discussed the articles module in the previous
+    chapter, so here we will show some other ways to hold content.</para>
 
-  <para>OTTO: explain managing content with Xaraya</para>
+    <para>Some of the modules in here are released via the release module at
+    Xaraya.com. You are advised to check the list there to see if you can
+    obtain a newer version. You can also see the latest extension releases via
+    the release page in base: Admin-&gt;Base-&gt;Latest Xaraya
+    Releases.</para>
 
- <sect1 id="polls">
-  <title>Polls Module</title>
-&mod-polls;
- </sect1>
- <sect1 id="xarbb">
-  <title>XarBB Module</title>
-&mod-xarbb;
- </sect1>
- <sect1 id="headlines">
-  <title>Headlines Module</title>
-&mod-headlines;
- </sect1>
- <sect1 id="addressbook">
-  <title>Addressbook Module</title>
-&mod-addressbook;
- </sect1>
- <sect1 id="contact">
-  <title>Contact Module</title>
-&mod-contact;
- </sect1>
- <sect1 id="newsletter">
-  <title>Newsletter Module</title>
-&mod-newsletter;
- </sect1>
- <sect1 id="newsgroups">
-  <title>Newsgroups Module</title>
-&mod-newsgroups;
- </sect1>
- <sect1 id="uploads">
-  <title>Uploads Module</title>
-&mod-uploads;
- </sect1>
- <sect1 id="calendar">
-  <title>Calendar Module</title>
-&mod-calendar;
- </sect1>
- <sect1 id="messages">
-  <title>Messages Module</title>
-&mod-messages;
- </sect1>
+     <sect1 id="polls">
+      <title>Polls Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-polls.xml" />
+     </sect1>
+     <sect1 id="xarbb">
+      <title>XarBB Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-xarbb.xml" />
+     </sect1>
+     <sect1 id="headlines">
+      <title>Headlines Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-headlines.xml" />
+     </sect1>
+     <sect1 id="addressbook">
+      <title>Addressbook Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-addressbook.xml" />
+     </sect1>
+     <sect1 id="contact">
+      <title>Contact Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-contact.xml" />
+     </sect1>
+     <sect1 id="newsletter">
+      <title>Newsletter Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-newsletter.xml" />
+     </sect1>
+     <sect1 id="newsgroups">
+      <title>Newsgroups Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-newsgroups.xml" />
+     </sect1>
+     <sect1 id="uploads">
+      <title>Uploads Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-uploads.xml" />
+     </sect1>
+     <sect1 id="calendar">
+      <title>Calendar Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-calendar.xml" />
+     </sect1>
+     <sect1 id="messages">
+      <title>Messages Module</title>
+      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-messages.xml" />
+     </sect1>
 </chapter>

@@ -1,23 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="auth">
-  <title>Xaraya Authentication Modules</title>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+  <chapter id="auth">
+    <title>Xaraya Authentication Modules</title>
 
-  <para>This section describes some the Xaraya authentication system works and some of the plugins available for it.</para>
+    <para>Authentication is the process of authenticating a user. Usually, a
+    user identifies himself by logging in. His credentials are then checked by
+    Xaraya and this specific user is granted access, or not. The administrator
+    sets the way a user should authenticate in the Roles module
+    (Admin-&gt;Roles-&gt;Modify Config).</para>
 
- <sect1 id="authsystem">
-  <title>AuthSystem Module</title>
-&mod-authsystem;
- </sect1>
- <sect1 id="authldap">
-  <title>AuthLDAP Module</title>
-&mod-authldap;
- </sect1>
+    <para>Xaraya offers a variety of Authentication methods. We will describe
+    the ones that are available from the Xaraya repositories and that are
+    shipped with the Xaraya distribution.</para>
+
+    <para>Hint: you can view all modules that Xaraya holds in the repositories
+    and its status in the Nighty Builds document at <ulink
+    url="http://www.xaraya.com/index.php/team/580">http://www.xaraya.com/index.php/team/580</ulink></para>
+
+    <sect1 id="authsystem">
+      <title>AuthSystem Module</title>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-authsystem.xml" />
+    </sect1>
+
+    <sect1 id="authldap">
+      <title>AuthLDAP Module</title>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-authldap.xml" />
+      </sect1>
+
  <sect1 id="authinvision">
   <title>AuthInvision Module</title>
-&mod-authinvision;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-authinvision.xml" />
  </sect1>
  <sect1 id="authsso">
   <title>AuthSSO Module</title>
-&mod-authsso;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-authsso.xml" />
  </sect1>
+     <sect1>
+      <title>Authemail module</title>
+
+      <para>You can have users authenticate via their email address</para>
+    </sect1>
+
+    <sect1>
+      <title>Authinvision2 module</title>
+
+      <para>Authentication against the Invision 2 Board</para>
+    </sect1>
+
+    <sect1>
+      <title>Authphpbb2</title>
+
+      <para>Authentication in Xaraya after users login to phpbb</para>
+    </sect1>
+
+    <sect1>
+      <title>Authurl</title>
+
+      <para>The AuthURL module allows you to authenticate a user based on
+      their access to another URL/site. The AuthURL module sends a HTTP basic
+      authentication request to the specified URL with the credentials
+      supplied from the login form.</para>
+
+      <para>This module can be used if you have an authentication at another
+      site, that uses an URL for logging in.</para>
+    </sect1>
 </chapter>

@@ -7,11 +7,32 @@
   configuration options and start you on the path to customizing your Xaraya
   site.</para>
 
+  <sect1>
+    <title>Configuration in Xaraya</title>
+
+    <para>Every content system needs configuration. The configuration of
+    Xaraya to your needs is done via options of the modules you have
+    installed. The configuration of the Xaraya installation is a job for the
+    Administrator of the site. Hence, all global configuration options are
+    available via the administration area of Xaraya. In the Installation we
+    have just done, you can access the administration options via the admin
+    menu. We will use clickpaths to show you where to go. A clickpath contains
+    all the seperate clicks you need to do. In this chapter, most clickpaths
+    will start with Admin, meaning you will find the option in the Admin
+    menu.</para>
+  </sect1>
+
   <sect1 id="baseconfig">
+    <sect1info>
+      <date>Updated Aug 2006</date>
+    </sect1info>
+
     <title>Base Module Configuration</title>
 
-    <para>This section describes some of the settings and options available
-    from the base module.</para>
+    <para>The Base module holds the base configuration of you Xaraya
+    installation. Base is the name for the module that defines the standard
+    behaviour of your installation, the Base options. Base is part of the Core
+    of Xaraya and cannot be removed.</para>
 
     <para><command>Admin-&gt;Base-&gt;Modifyconfig</command>: This panel
     allows you to change some of the settings controlling the core behaviour
@@ -217,27 +238,51 @@
       <title>Themes</title>
 
       <para>Xaraya uses so-called themes to display your content. Themes are
-      packages with templates that dictate how the data from the database is
-      eventually displayed to your users. You can download themes from the
-      Xaraya website via the release module. They are also called extensions,
-      as they extend Xaraya Core.</para>
+      packages with templates and css files that dictate how the data from the
+      database is eventually displayed to your users. You can download themes
+      from the Xaraya website via the release module. They are also called
+      extensions, as they extend the Xaraya Core.</para>
+
+      <para><note>
+          <para>Visit the Xaraya themes website for recent themes: <ulink
+          url="http://themes.xaraya.com/">http://themes.xaraya.com/</ulink>
+          </para>
+        </note>Themes are installed in the /themes/ directory of you
+      installation.</para>
 
       <para>But first let's see which themes are available now. Go to the
       admin&gt;Themes&gt;Modify Config Settings. You will see that
       Xaraya_Classic is set Active and as the Default theme. You will also see
-      the RSS theme and the print theme. These settings are ok for now, read
-      more on themes in the next chapter.</para>
+      the RSS theme and the print theme. These settings are ok for now.
+      Xaraya_Classic is a nice theme to see how things work. You don't have to
+      worry yet on your own theming. Read more on themes in the next
+      chapter.</para>
     </sect2>
 
     <sect2>
-      <title>Modules</title>
+      <title>Modules module</title>
 
-      <para>The modules module shows all the available modules and the hook
-      configuration. For this moment, make sure the articles module is
-      installed. If it is not installed, click on the Install command and
-      follow the instructions.</para>
+      <para>The Modules module shows all the available modules. It also
+      configures the way they communicate with eachother via hooks. The hook
+      configuration (we willl explain hooks later on) is the second option in
+      the admin menu for the Modules module. </para>
 
-      <para>That is it! You are now ready to follow the rest of the
+      <para>Go to Admin-&gt;Modules. The admin list function will show you all
+      the modules available in your installation, their state and give you
+      short links to their configuration. For this moment, make sure the
+      articles module is installed. If it is not installed, click on the
+      Install command and follow the instructions.</para>
+
+      <para><note>
+          <para>The module list is the same as you will see under /modules/ in
+          your install. If you have downloaded and placed a new module in
+          there, but cannot see it in the module listing, then press the
+          "reload" button.</para>
+
+          <para>If you like a fancy view on your module listing, try the Style
+          "Icons" method. It will show icons instead of simple texts for the
+          commands.</para>
+        </note>That is it! You are now ready to follow the rest of the
       Guide.</para>
     </sect2>
   </sect1>

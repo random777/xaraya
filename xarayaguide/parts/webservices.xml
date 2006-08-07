@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <chapter id="webservices">
   <title>Using Web Services with Xaraya</title>
 
@@ -6,34 +8,34 @@
 
  <sect1 id="metaweblogapi">
   <title>MetaWeblogApi Module</title>
-&mod-metaweblogapi;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-metaweblogapi.xml" />
  </sect1>
  <sect1 id="bloggerapi">
   <title>BloggerApi Module</title>
-&mod-bloggerapi;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-bloggerapi.xml" />
  </sect1>
  <sect1 id="soapserver">
   <title>Soapserver Module</title>
-&mod-soapserver;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-soapserver.xml" />
  </sect1>
  <sect1 id="xmlrpcserver">
   <title>XMLRPCServer Module</title>
-&mod-xmlrpcserver;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-xmlrpcserver.xml" />
  </sect1>
  <sect1 id="xmlrpcsystemapi">
   <title>XMLRPCSystemApi Module</title>
-&mod-xmlrpcsystemapi;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-xmlrpcsystemapi.xml" />
  </sect1>
  <sect1 id="xmlrpcvalidatorapi">
   <title>XMLRPCValidatorApi Module</title>
-&mod-xmlrpcvalidatorapi;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-xmlrpcvalidatorapi.xml" />
  </sect1>
  <sect1 id="trackback">
   <title>Trackback Module</title>
-&mod-trackback;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-trackback.xml" />
  </sect1>
  <sect1 id="ping">
   <title>Ping Module</title>
-&mod-ping;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-ping.xml" />
  </sect1>
 </chapter>

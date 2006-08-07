@@ -3,20 +3,25 @@
   <title>Installing Xaraya</title>
 
   <para>Once Xaraya has been moved onto your site (either via a copy command
-  or an upload), you must install it before using the site. Follow these steps
-  to install Xaraya.<note>
+  or an upload), you must install it before using the site. The most uptodate
+  install guide can be viewed online at the Xaraya website. <ulink
+  url="http://www.xaraya.com/index.php/documentation/97">http://www.xaraya.com/index.php/documentation/97</ulink>
+  is the official installation guide. In this chapter, we give a short
+  overview on the installation procedures which might not be the most up to
+  date one.<note>
       <para>If you are a Windows user and also use ZoneAlarm, be sure to
       DISABLE or EXIT ZoneAlarm before installing Xaraya on a Windows machine.
       ZoneAlarm may cause problems when installing Xaraya on a Windows
       machine.</para>
     </note></para>
 
-  <para>From your browser, launch http://www.mywebsite.com/xaraya/install.php
-  (replace with the correct path to your Xaraya installation's
-  "<filename>install.php</filename>" file).</para>
-
   <sect1 id="install-guide">
     <title>Installation Guide</title>
+
+    <para>From your browser, launch
+    http://www.mywebsite.com/xaraya/install.php (replace with the correct path
+    to your Xaraya installation's "<filename>install.php</filename>"
+    file).</para>
 
     <sect2 id="install-language">
       <title>Choose a Language</title>

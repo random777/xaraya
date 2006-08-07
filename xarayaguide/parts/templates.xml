@@ -1,112 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="templates">
-  <title>Templates in Xaraya</title>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+    <chapter id="templates">
+    <title>Templates in Xaraya</title>
 
-  <para>Xaraya displays information to site visitors by using
-  <firstterm>TEMPLATES</firstterm>. Templates are available in the following
-  varieties: &#34;function templates&#34;, &#34;block templates&#34;,
-  &#34;page templates&#34;, &#34;block group templates&#34;, or module
-  templates.</para>
+    <para>Xaraya displays information to site visitors by using
+    <firstterm>TEMPLATES</firstterm>. Templates are available in the following
+    varieties: "function templates", "block templates", "page templates",
+    "block group templates", or module templates.</para>
+<sect1>
+<title>Templates - what are they?</title>
+<para>Introduction here</para>
+    <itemizedlist>
+      <listitem>
+        <para>"<firstterm>Function Templates</firstterm>" are Content Layout
+        templates that display a view of a particular function of Xaraya.
+        Xaraya separates function templates for users and administrators. User
+        function templates have "user-" at the beginning of the template
+        filename, and administrator function templates have "admin-" at the
+        beginning of the template filename. For example, one of Xaraya's
+        default function templates is called
+        '<filename>user-display-news</filename>'. This template defines the
+        layout of the news area in your page as it is displayed to users of
+        the site. The administrator view is defined by the
+        '<filename>admin-display-news</filename>' template).</para>
+      </listitem>
 
-  <itemizedlist>
-    <listitem>
-      <para>&#34;<firstterm>Function Templates</firstterm>&#34; are Content
-      Layout templates that display a view of a particular function of Xaraya.
-      Xaraya separates function templates for users and administrators. User
-      function templates have &#34;user-&#34; at the beginning of the template
-      filename, and administrator function templates have &#34;admin-&#34; at
-      the beginning of the template filename. For example, one of Xaraya&#39;s
-      default function templates is called &#39;<filename>user-display-news</filename>&#39;.
-      This template defines the layout of the news area in your page as it is
-      displayed to users of the site. The administrator view is defined by the
-      &#39;<filename>admin-display-news</filename>&#39; template).</para>
-    </listitem>
+      <listitem>
+        <para>"<firstterm>Page Templates</firstterm>" are Content Layout
+        templates that display a view of a whole page, which can include
+        function and block templates. These files reside in the
+        <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/pages</filename>
+        directory.</para>
+      </listitem>
 
-    <listitem>
-      <para>&#34;<firstterm>Page Templates</firstterm>&#34; are Content Layout
-      templates that display a view of a whole page, which can include
-      function and block templates. These files reside in the
-      <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/pages</filename>
-      directory.</para>
-    </listitem>
+      <listitem>
+        <para>"<firstterm>Block Templates</firstterm>" are Block Layout
+        templates that display a view of a particular block within Xaraya.
+        Block templates exist in
+        <filename>&lt;xarroot&gt;/modules/&lt;module_name&gt;/xartemplates/blocks</filename>,
+        creating directories as necessary (give new directories appropriate
+        permissions). So, for the articles module, the block templates exist
+        in
+        <filename>&lt;xarroot&gt;/modules/articles/xartemplates/blocks</filename>.</para>
 
-    <listitem>
-      <para>&#34;<firstterm>Block Templates</firstterm>&#34; are Block Layout
-      templates that display a view of a particular block within Xaraya. Block
-      templates exist in <filename>&#60;xarroot&#62;/modules/&#60;module_name&#62;/xartemplates/blocks</filename>,
-      creating directories as necessary (give new directories appropriate
-      permissions). So, for the articles module, the block templates exist in
-      <filename>&#60;xarroot&#62;/modules/articles/xartemplates/blocks</filename>.</para>
+        <para>Customize default block templates with the equivalent
+        "<filename>.xt</filename>" override template in the
+        <filename>&lt;xarroot&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;/blocks</filename>
+        directory, creating directories as necessary (give new directories
+        appropriate permissions). You also have specific override custom block
+        templates that you name when you create a new block. The name of the
+        template file (without the "<filename>.xt</filename>" extension) is
+        entered into the custom template field when creating a block instance.
+        These specific override template files are in the
+        <filename>&lt;xarroot&gt;/&lt;theme_name&gt;/blocks</filename>
+        directory.</para>
+      </listitem>
 
-      <para>Customize default block templates with the equivalent &#34;<filename>.xt</filename>&#34;
-      override template in the <filename>&#60;xarroot&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;/blocks</filename>
-      directory, creating directories as necessary (give new directories
-      appropriate permissions). You also have specific override custom block
-      templates that you name when you create a new block. The name of the
-      template file (without the &#34;<filename>.xt</filename>&#34; extension)
-      is entered into the custom template field when creating a block
-      instance. These specific override template files are in the
-      <filename>&#60;xarroot&#62;/&#60;theme_name&#62;/blocks</filename>
-      directory.</para>
-    </listitem>
+      <listitem>
+        <para>"<firstterm>Block Group Templates</firstterm>" are Block Layout
+        templates that contain a collection of individual block templates. The
+        Block Group template files reside in the
+        <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/blocks</filename>
+        directory.</para>
+      </listitem>
 
-    <listitem>
-      <para>&#34;<firstterm>Block Group Templates</firstterm>&#34; are Block
-      Layout templates that contain a collection of individual block
-      templates. The Block Group template files reside in the
-      <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/blocks</filename>
-      directory.</para>
-    </listitem>
+      <listitem>
+        <para>"<firstterm>&lt;module_name&gt;.xt Template</firstterm>" is a
+        Content Layout template that overrides the default page template for
+        &lt;module_name&gt;. These files reside in the
+        <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/pages</filename>
+        directory.</para>
+      </listitem>
+    </itemizedlist>
 
-    <listitem>
-      <para>&#34;<firstterm>&#60;module_name&#62;.xt Template</firstterm>&#34;
-      is a Content Layout template that overrides the default page template
-      for &#60;module_name&#62;. These files reside in the
-      <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/pages</filename>
-      directory.</para>
-    </listitem>
-  </itemizedlist>
+    <para>Function templates, block templates, page templates, and block group
+    templates can be defined as either site-wide or theme-specific. It is
+    advisable to make template files theme-specific by default. By doing so,
+    you minimize the amount of work necessary if you decide to add additional
+    themes to the site later.</para>
 
-  <para>Function templates, block templates, page templates, and block group
-  templates can be defined as either site-wide or theme-specific. It is
-  advisable to make template files theme-specific by default. By doing so, you
-  minimize the amount of work necessary if you decide to add additional themes
-  to the site later.</para>
+    <itemizedlist>
+      <listitem>
+        <para><firstterm>Site-Wide templates</firstterm>: A site-wide template
+        is used to change the look &amp; feel of the site, no matter what
+        theme is being used. Site-wide templates are overridden by
+        theme-specific templates, if one exists. These files exist in the
+        <filename>&lt;xarroot&gt;/modules/&lt;module_name&gt;/xartemplates</filename>
+        directory.</para>
+      </listitem>
 
-  <itemizedlist>
-    <listitem>
-      <para><firstterm>Site-Wide templates</firstterm>: A site-wide template
-      is used to change the look &#38; feel of the site, no matter what theme
-      is being used. Site-wide templates are overridden by theme-specific
-      templates, if one exists. These files exist in the <filename>&#60;xarroot&#62;/modules/&#60;module_name&#62;/xartemplates</filename>
-      directory.</para>
-    </listitem>
+      <listitem>
+        <para><firstterm>Theme-specific templates</firstterm>: Theme-specific
+        templates change the look &amp; feel of the site only when displayed
+        through a particular theme. These files exist in the
+        <filename>&lt;xarroot&gt;/&lt;themes_dir&gt;/&lt;theme_name&gt;/modules/&lt;module_name&gt;</filename>
+        directory.</para>
+      </listitem>
+    </itemizedlist>
 
-    <listitem>
-      <para><firstterm>Theme-specific templates</firstterm>: Theme-specific
-      templates change the look &#38; feel of the site only when displayed
-      through a particular theme. These files exist in the
-      <filename>&#60;xarroot&#62;/&#60;themes_dir&#62;/&#60;theme_name&#62;/modules/&#60;module_name&#62;</filename>
-      directory.</para>
-    </listitem>
-  </itemizedlist>
+    <para>If template files exist in both site-wide, theme-specific locations,
+    the theme-specific templates take precedence over site-wide
+    templates.</para>
 
-  <para>If template files exist in both site-wide, theme-specific locations,
-  the theme-specific templates take precedence over site-wide templates.</para>
-  <sect1 id="themes">
-    <title>Xaraya Themes Module</title>
-&mod-themes;
-  </sect1>
-  <sect1 id="blocks">
-    <title>Xaraya Blocks Module</title>
-&mod-blocks;
-  </sect1>
-  <sect1 id="adminpanels">
-    <title>Xaraya Adminpanels Module</title>
-&mod-adminpanels;
-  </sect1>
-  <sect1 id="caching">
-    <title>Xaraya Cache System</title>
-&mod-xarcachemanager;
-  </sect1>
+</sect1>
+      <sect1 id="themes">
+        <title>Xaraya Themes Module</title>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-themes.xml" />
+
+
+      </sect1>
+
+      <sect1 id="blocks">
+        <title>Xaraya Blocks Module</title>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-blocks.xml" />
+      </sect1>
+
+      <sect1 id="adminpanels">
+        <title>Xaraya Adminpanels Module</title>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-adminpanels.xml" />
+      </sect1>
+      <sect1 id="caching">
+        <title>Xaraya Cache System</title>
+            <sect2>
+      <title>Blocklayout Template Caching</title>
+
+      <para>This will describe the template caching built into Blocklayout.</para>
+    </sect2>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-xarcachemanager.xml" />
+      </sect1>
 </chapter>

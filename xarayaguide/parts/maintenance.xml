@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <chapter id="maintenance">
   <title>Maintaining Your Xaraya Site</title>
 
@@ -111,32 +113,36 @@ $systemConfiguration['Log.LoggerArgs'] = array('fileName' =>  'var/logs/log.txt'
 <para>Changing the 'simple' to 'dummy' will disable the logger.</para>
 <para>[ marcel to add content here on other loggers ]</para>
  </sect1>
+
  <sect1 id="sitetools">
   <title>Sitetools Module</title>
-&mod-sitetools;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-sitetools.xml" />
  </sect1>
  <sect1 id="html">
-  <title>HTML Module</title>
-&mod-html;
+  <title>Html Module</title>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-html.xml" />
  </sect1>
  <sect1 id="mail">
   <title>Mail Module</title>
-&mod-mail;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-mail.xml" />
  </sect1>
  <sect1 id="sniffer">
   <title>Sniffer Module</title>
-&mod-sniffer;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-sniffer.xml" />
  </sect1>
  <sect1 id="stats">
   <title>Stats Module</title>
-&mod-stats;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-stats.xml" />
  </sect1>
  <sect1 id="referer">
   <title>Referer Module</title>
-&mod-referer;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-referer.xml" />
  </sect1>
  <sect1 id="opentracker">
   <title>Opentracker Module</title>
-&mod-opentracker;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-opentracker.xml" />
  </sect1>
-</chapter>
+
+
+    </chapter>
+

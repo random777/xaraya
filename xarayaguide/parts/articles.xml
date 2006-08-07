@@ -2,7 +2,39 @@
 <chapter id="articles">
   <title>Articles in Xaraya</title>
 
-  <para>A Summary of the Articles module needs to go here.</para>
+  <para>The Articles module is one of the older modules in Xaraya. It is used
+  to hold document type of content. The Articles module comes with several
+  standard types of content. These include News articles, Documents, Reviews
+  and Downloads. You will learn how to use these and add your own types of
+  content, socalled publicationtypes.</para>
+
+  <para>Content from the Articles module can be shown via your website, or be
+  feeded via RSS to newsreaders. </para>
+
+  <para>First some naming conventions.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Articles</para>
+
+      <para>An article is a set of content that can be shown on your site or
+      feeded via the RSS theme. Articles are stored in the Articles module.
+      The setup of an article is described in the Publication Type it belongs
+      to.</para>
+    </listitem>
+
+    <listitem>
+      <para>Publication Type</para>
+
+      <para>A Publication Type is a certain set of rules for a type of
+      Articles in the Articles module. The rules when needs to be added, how
+      the content is shown and managed make up the Publication Type. Examples
+      or Publication types are News articles, Documents and Downloads. </para>
+    </listitem>
+  </itemizedlist>
+
+  <para>When we talk of an Article, it refers to the content in a publication
+  type. </para>
 
   <sect1 id="articlesoverview">
     <title>Articles Module Overview</title>
@@ -11,8 +43,10 @@
     <command>Admin-&gt;Articles</command>.</subtitle>
 
     <para>The Articles module is possibly the most often-accessed part of a
-    community site, since nearly all of the site's content will be placed into
-    Article sub-categories.</para>
+    community site, since nearly all of the site's content can be placed into
+    Article sub-categories. Articles are added via the administration
+    interface. First we will view the current article types (Publicationtypes)
+    and add a new article.</para>
 
     <itemizedlist>
       <listitem>

@@ -3,18 +3,17 @@
 "docbookx.dtd">
 <book lang="en">
   <bookinfo>
-    <title>The Official Xaraya Installation &amp; Getting Started
-    Guide</title>
+    <title>The Official Xaraya User Guide</title>
 
     <subtitle>Installing &amp; Configuring a Xaraya Community Site</subtitle>
 
     <author>
-      <firstname>Drew</firstname>
+      <firstname>2006</firstname>
 
-      <surname>Vogel</surname>
+      <surname>The Xaraya Documentation Team</surname>
     </author>
 
-    <authorinitials>DPV</authorinitials>
+    <authorinitials>XDT</authorinitials>
 
     <abstract>
       <para>This Guide provides instruction on obtaining the Xaraya software
@@ -22,30 +21,9 @@
     </abstract>
 
     <authorblurb>
-      <para>Drew Vogel has been involved with Xaraya since its inception --
-      when it was known by the code-name "ProjectX". In fact, Drew hosted the
-      first-ever ProjectX Summit (August 23-28, 2002) in Cincinnati
-      Ohio.</para>
-
-      <para>Drew earned a Bachelor of Fine Arts in Theater Directing &amp;
-      Performance with a minor in English Literature focusing on Shakespearean
-      literature from Northern Kentucky University (1991). He works at the
-      University of Cincinnati College of Pharmacy as Manager of Professional
-      Programs. His outside interests include gourmet cooking, fine dining,
-      scuba diving, urban exploration, sports cars, computer technology,
-      animals, reading, movies, travel, music, and humor. And more.</para>
-
-      <para>Drew's interest in documentation is an effort to bridge the gap
-      between developers and users of software. He acts as an intermediary
-      between these groups with their seperate needs.</para>
-
-      <para>When not working on documentation projects, Drew is typically
-      reading cookbooks or other food-related books &amp; magazines, or
-      creating culinary masterpieces in his home kitchen.</para>
-
-      <para>Drew lives in Cincinnati, Ohio with his fiancee Wendy, four cats,
-      and two dogs. His website is at <ulink
-      url="http://www.drewvogel.com">http://www.drewvogel.com</ulink>.</para>
+      <para>The Xaraya Documentation Team is a group of enthusiastic Writers
+      and users of Xaraya. They work together to bring you the best in
+      Documentation.</para>
     </authorblurb>
 
     <copyright>
@@ -59,9 +37,10 @@
       <year>2003-2006 The Digital Development Foundation</year>
     </copyright>
 
-    <date>February 2, 2004</date>
+    <date>Aug 2006</date>
 
-    <releaseinfo>Guide version: 0162. Built 25-April-2004.</releaseinfo>
+    <releaseinfo>Released earlier as Guide version: 0162. Built
+    25-April-2004.</releaseinfo>
 
     <revhistory>
       <revision>
@@ -82,9 +61,8 @@
     </revhistory>
 
     <legalnotice>
-      <para>The Official Xaraya Installation &amp; Getting Started Guide is
-      licensed and distributed under the GNU Free Documentation
-      License.</para>
+      <para>The Official Xaraya user Guide is licensed and distributed under
+      the GNU Free Documentation License.</para>
 
       <para>Parts are copyright (c) 2003 mikespub
       <email>postnuke@mikespub.net</email>. Used with permission.</para>
@@ -115,8 +93,7 @@
     <para>The Xaraya Project is dedicated to the memory of Greg Allen
     (adam_baum), March 6, 1973-June 16, 2002. Xaraya is his legacy.</para>
 
-    <para>Drew dedicates this Guide to my darling Wendy, the keeper of my
-    heart and the delight of my eyes.<figure id="poweredby">
+    <para><figure id="poweredby">
         <title>Powered by Xaraya</title>
 
         <mediaobject>

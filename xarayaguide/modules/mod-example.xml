@@ -2,7 +2,16 @@
 <sect2>
   <title>Example Module</title>
 
-  <subtitle>Example for new modules. <command>Admin-&#62;Example</command>.</subtitle>
+  <subtitle>Example for new modules.
+  <command>Admin-&gt;Example</command></subtitle>
+
+  <para>The Example module serves as the example for new modules. It is used
+  as a template and explains several standard operations of Xaraya modules.
+  When you want to read about development in Xaraya, then you are suggested to
+  read the Xaraya Development Guide, also available online via the
+  website.</para>
+
+  <para>The options in the admin menu are as follows:</para>
 
   <itemizedlist>
     <listitem>
@@ -22,7 +31,7 @@
         </listitem>
 
         <listitem>
-          <para>Click &#34;<guibutton>Add Example</guibutton>&#34; to save
+          <para>Click "<guibutton>Add Example</guibutton>" to save
           changes.</para>
         </listitem>
       </itemizedlist>
@@ -64,8 +73,8 @@
         </listitem>
 
         <listitem>
-          <para>Click &#34;<guibutton>Update Configuration</guibutton>&#34; to
-          save changes.</para>
+          <para>Click "<guibutton>Update Configuration</guibutton>" to save
+          changes.</para>
         </listitem>
       </itemizedlist>
     </listitem>

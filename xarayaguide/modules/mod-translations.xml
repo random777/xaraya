@@ -2,7 +2,14 @@
 <sect2>
   <title>Translations Module</title>
 
-  <subtitle>Translation handling for Xaraya. <command>Admin-&#62;Translations</command>.</subtitle>
+  <subtitle>Translation handling for Xaraya.
+  <command>Admin-&gt;Translations</command>.</subtitle>
 
-  <para>The documentation for this part of the Guide is being developed.</para>
+  <para>The Translations module is used to translate Xaraya, its modules and
+  themes. </para>
+
+  <para>The translation teams use the international sites of Xaraya, which can
+  be accessed via [countrycode].xaraya.com, to perform the translation of
+  Xaraya. If you would like to help out, dont hesitate to contact the project
+  team via PMC@xaraya.com</para>
 </sect2>

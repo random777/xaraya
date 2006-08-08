@@ -2,7 +2,10 @@
 <sect2>
   <title>Dyn_Example Module</title>
 
-  <subtitle>Xaraya module.</subtitle>
+  <subtitle>Xaraya Example module.</subtitle>
 
-  <para>The DocBook for this Guide is being developed.</para>
+  <para>The Dyn_exampel module is an example how to create modules based on
+  Dynamic Data. You are suggested to read the documentation in the developers
+  area of the Xaraya website if you are interested in development of Xaraya
+  modules.</para>
 </sect2>

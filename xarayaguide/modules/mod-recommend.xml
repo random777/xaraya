@@ -2,7 +2,11 @@
 <sect2>
   <title>Recommend Module</title>
 
-  <subtitle>Send a link for this site to a friend. <command>Admin-&#62;Recommend</command>.</subtitle>
+  <subtitle>Send a link for this site to a friend.
+  <command>Admin-&gt;Recommend</command>.</subtitle>
 
-  <para>The documentation for this part of the Guide is being developed.</para>
+  <para>The Recommend module is a module that shows a block on your site that
+  users can use to recommend the current page or your complete website to
+  others. The module will show a form in which the user that wants to do the
+  recommendation leave an extra note.</para>
 </sect2>

@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-                 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <chapter id="maintenance">
   <title>Maintaining Your Xaraya Site</title>
 
-  <para>This section deals the day-to-day operation of a Xaraya site. It is
-  under development.</para>
+  <abstract>
+    <para>This chapter shows you how you can maintain your site and use the
+    tools that Xaraya offers you for the day-to-day operation of a Xaraya
+    site.</para>
+  </abstract>
 
-  <para>OTTO: Does Xaraya have a best practices for routine maintence?</para>
+  <para>Xaraya offers several tools to keep you informed how your site is
+  doing, do backups of your database and help make the life easier of the
+  average admin.</para>
 
   <para>In general, Xaraya runs without any need for pre-emptive or recurring
-  maintenance. However, some features could benefit from some attention to keep your site running smoothly. This section contains a few things that could be done on a regular basis.</para>
+  maintenance. However, some features could benefit from some attention to
+  keep your site running smoothly. This section contains a few things that
+  could be done on a regular basis.</para>
 
   <itemizedlist>
     <listitem>
@@ -19,14 +26,13 @@
       <para>Although many webmasters have copies of their website on their
       local workstations, they often neglect to make a copy of their database.
       A backup of both website and database needs to be done regularly to
-      protect against catastrophic data-loss situations. Included below is
-      a useful script for backing up the web site's database and files.
-      </para>
+      protect against catastrophic data-loss situations. Included below is a
+      useful script for backing up the web site's database and files.</para>
 
       <para><literallayout># xaraya-bu.sh | 1.12
 #==============+ by Drew Vogel (drew@xaraya.com)
 # This script will:
-#       * Backup files from the &#60;webdir&#62; (recursive) into a file in the
+#       * Backup files from the &lt;webdir&gt; (recursive) into a file in the
 #         root directory called webdir.tar.gz
 #       * Perform a dump of the Xaraya database into a file
 #         called Xaraya.sql in the root directory,
@@ -38,7 +44,7 @@
 #
 # In BACKUP_TABS, put a list of database table names, separated by a space,
 # that you would like to backup from MySQL.
-BACKUP_TABS=&#34;Xaraya&#34;
+BACKUP_TABS="Xaraya"
 #
 # MYSQL_USER is your MySQL administrator username.
 #
@@ -59,26 +65,26 @@ cd /var/www/html
 #
 # The script itself
 #
-echo &#34;Backing up /var/www/html/ directory to archive webdir.tar.gz...&#34;
+echo "Backing up /var/www/html/ directory to archive webdir.tar.gz..."
 tar -cpzvf ~/webdir.tar.gz *
-echo &#34;...done.&#34;
+echo "...done."
 cd ~/
         for TAB in $BACKUP_TABS;do
-                echo &#34;Creating dump of $TAB database...&#34;
-                mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD -B $TAB -c -a --add-drop-table &#62;~/$TAB.sql
-                echo &#34;...done.&#34;
+                echo "Creating dump of $TAB database..."
+                mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD -B $TAB -c -a --add-drop-table &gt;~/$TAB.sql
+                echo "...done."
         done
-echo &#34;Adding the files to archive $DATE.tar.gz...&#34;
+echo "Adding the files to archive $DATE.tar.gz..."
 cd ~/
 #
 # Edit the line below to include the tablenames from the database.
 #
 tar -czvf $DATE.tar.gz Xaraya.sql
-echo &#34;...done.&#34;
+echo "...done."
 #
 # Edit the line below to specify the destination directory.
 #
-echo &#34;Copying $DATE.tar.gz archive to /var/www...&#34;
+echo "Copying $DATE.tar.gz archive to /var/www..."
 cd ~/
 #
 # Edit the line below to specify the destination directory.
@@ -88,61 +94,87 @@ chmod 770 /var/www/$DATE.tar.gz
 #
 # Edit the line below to specify the destination directory.
 #
-echo &#34;...done.&#34;
-echo &#34;Cleaning up...&#34;
+echo "...done."
+echo "Cleaning up..."
 cd ~/
         for TAB in $BACKUP_TABS;do
-                echo &#34;CLEAN UP: Deleting $TAB...&#34;
+                echo "CLEAN UP: Deleting $TAB..."
                 /bin/rm $TAB.sql
-                echo &#34;...done.&#34;
+                echo "...done."
         done
 rm webdir.tar.gz
 rm $DATE.tar.gz
 ls -l /var/www/$DATE.tar.gz
-echo &#34;...done.&#34;
-echo &#34;Xaraya backup complete!&#34;</literallayout></para>
+echo "...done."
+echo "Xaraya backup complete!"</literallayout></para>
     </listitem>
   </itemizedlist>
- <sect1 id="logging">
-  <title>Logging</title>
-  <para>Logging your site can often help with tracking down problems and odd behaviour.</para>
-  <para>To enable basic logging on your Xaraya site edit var/config.system.php and make sure the following lines exist and are not commented out: (the filename can be changed as appropriate)</para>
-  <para><literallayout>$systemConfiguration['Log.LogLevel'] = 'DEBUG';
+
+  <sect1 id="logging">
+    <title>Logging</title>
+
+    <para>Logging your site can often help with tracking down problems and odd
+    behaviour.</para>
+
+    <para>To enable basic logging on your Xaraya site edit
+    var/config.system.php and make sure the following lines exist and are not
+    commented out: (the filename can be changed as appropriate)</para>
+
+    <para><literallayout>$systemConfiguration['Log.LogLevel'] = 'DEBUG';
 $systemConfiguration['Log.LoggerName'] = 'simple';
-$systemConfiguration['Log.LoggerArgs'] = array('fileName' =>  'var/logs/log.txt');</literallayout></para>
-<para>Changing the 'simple' to 'dummy' will disable the logger.</para>
-<para>[ marcel to add content here on other loggers ]</para>
- </sect1>
+$systemConfiguration['Log.LoggerArgs'] = array('fileName' =&gt;  'var/logs/log.txt');</literallayout></para>
 
- <sect1 id="sitetools">
-  <title>Sitetools Module</title>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-sitetools.xml" />
- </sect1>
- <sect1 id="html">
-  <title>Html Module</title>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-html.xml" />
- </sect1>
- <sect1 id="mail">
-  <title>Mail Module</title>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-mail.xml" />
- </sect1>
- <sect1 id="sniffer">
-  <title>Sniffer Module</title>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-sniffer.xml" />
- </sect1>
- <sect1 id="stats">
-  <title>Stats Module</title>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-stats.xml" />
- </sect1>
- <sect1 id="referer">
-  <title>Referer Module</title>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-referer.xml" />
- </sect1>
- <sect1 id="opentracker">
-  <title>Opentracker Module</title>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../modules/mod-opentracker.xml" />
- </sect1>
+    <para>Changing the 'simple' to 'dummy' will disable the logger.</para>
 
+    <para>[ marcel to add content here on other loggers ]</para>
+  </sect1>
 
-    </chapter>
+  <sect1 id="sitetools">
+    <title>Sitetools Module</title>
 
+    <xi:include href="../modules/mod-sitetools.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </sect1>
+
+  <sect1 id="html">
+    <title>Html Module</title>
+
+    <xi:include href="../modules/mod-html.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </sect1>
+
+  <sect1 id="mail">
+    <title>Mail Module</title>
+
+    <xi:include href="../modules/mod-mail.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </sect1>
+
+  <sect1 id="sniffer">
+    <title>Sniffer Module</title>
+
+    <xi:include href="../modules/mod-sniffer.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </sect1>
+
+  <sect1 id="stats">
+    <title>Stats Module</title>
+
+    <xi:include href="../modules/mod-stats.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </sect1>
+
+  <sect1 id="referer">
+    <title>Referer Module</title>
+
+    <xi:include href="../modules/mod-referer.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </sect1>
+
+  <sect1 id="opentracker">
+    <title>Opentracker Module</title>
+
+    <xi:include href="../modules/mod-opentracker.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </sect1>
+</chapter>

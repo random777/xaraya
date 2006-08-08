@@ -156,6 +156,37 @@
     many talented contributors from across the globe. Without their vision,
     this document would not exist.</para>
 
+    <para>This guide is built on version 0162 (Built 25-April-2004) of The
+    Official Xaraya Installation &amp; Getting Started Guide , mainly written
+    by Drew Vogel.</para>
+
+    <authorblurb>
+      <para>Drew Vogel has been involved with Xaraya since its inception --
+      when it was known by the code-name "ProjectX". In fact, Drew hosted the
+      first-ever ProjectX Summit (August 23-28, 2002) in Cincinnati
+      Ohio.</para>
+
+      <para>Drew earned a Bachelor of Fine Arts in Theater Directing &amp;
+      Performance with a minor in English Literature focusing on Shakespearean
+      literature from Northern Kentucky University (1991). He works at the
+      University of Cincinnati College of Pharmacy as Manager of Professional
+      Programs. His outside interests include gourmet cooking, fine dining,
+      scuba diving, urban exploration, sports cars, computer technology,
+      animals, reading, movies, travel, music, and humor. And more.</para>
+
+      <para>Drew's interest in documentation is an effort to bridge the gap
+      between developers and users of software. He acts as an intermediary
+      between these groups with their seperate needs.</para>
+
+      <para>When not working on documentation projects, Drew is typically
+      reading cookbooks or other food-related books &amp; magazines, or
+      creating culinary masterpieces in his home kitchen.</para>
+
+      <para>Drew lives in Cincinnati, Ohio with his fiancee Wendy, four cats,
+      and two dogs. His website is at <ulink
+      url="http://www.drewvogel.com">http://www.drewvogel.com</ulink>.</para>
+    </authorblurb>
+
     <para>The Official Xaraya Installation and Getting Started Guide was
     written by Drew Vogel. Abundant thanks to the Xaraya development team for
     answering Drew's endless questions. Thanks to the contributing authors,
@@ -165,12 +196,6 @@
     Joanna Dalle Nogare (jojodee), Marcel van der Boom (MrB), Jason Judge,
     Marjolein Katsma, SpiritTech, and Pedro Innecco. Special thanks to Gregor
     Rothfuss (thalinor) for many things.</para>
-
-    <para>If this Guide is sucessful and proves to be useful in helping you
-    install, configure, and manage your Xaraya site, a healthy measure of
-    credit is due the individuals listed above. If not -- if the Guide is
-    somewhat off the mark -- the author accepts full responsibility for the
-    shortcomings.</para>
 
     <para>This document was written in DocBook and then converted using XSLT
     to various output formats. Thanks to the Linux Documentation project for

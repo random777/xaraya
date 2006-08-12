@@ -1,0 +1,48 @@
+Release notes for Xaraya Core release 1.1.2
+
+Release 1.1.2 (only relevant changes from 1.1.1 onwards included here)
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+Major changes:
+    * Upgrade of adodb to version 4.90
+    * General improvements and bug fixes in Installer
+    * Further work on login, logout and general authentication improvements
+    * Separate out validation for changed email from the registration of new user validation
+    * Blocks security management added to core Blocks module
+    * Simple display GUI added for blocks, putting it into module space
+    * Core module initialization and upgrades reviewed and code cleaned
+    * Roles dynamic vars revamped and usertimezone added. Can use xarUserGetVar for access.
+    * Rework and some simplification and notes on xarVarFetch
+
+General fixes and improvements:
+     * Roles module - fixes for email notifications for admin
+                      (for new validated users and revalidating users)
+                    - privilege changes to allow viewing of user name
+                    - Update switch for admin to activate allowing of user
+                      to user emails, and user options
+                    - General cleanup for Primary Parent options
+     * Base module  - Allow extra paramaters to be passed through in base module short URL encoding
+                    - New timesince custom tag
+                    - Fixes for xmlhttprequest.js for easier Ajax implementations
+     * Dynamicdata  - Extraneous characters removed in getmeta utility function
+     * Privileges   - Support for domains and subdomains in realms
+     * Theme        - Fix for manual registration and editing of custom BL tags
+                    - Example custom override for exception template
+                      User Login error example added in Xaraya_Classic theme
+
+      Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+      bug   : short info
+      ---   | ----------
+    * [5645] One more (last) old xarCore_ reference replaced
+    * [5803] names in online block do not display with view-only priv
+    * [5806] allow H as valid signifier for Hours in locale
+    * [5823] Base - Extend field length for cookie and related fields in base security config
+    * [5832] Privileges - cannot assume Administrator is the default admin for testing user
+    * [5834] Fix the code generation where it omits a '?>' on php5 in some cases
+    * [5840] Fix error in xar:template when module not specified
+    * [5848] Ensure we set a default offset if our user is logged and thus Fix timezone offsets.
+             New usertimezone var added to deal with this. Older DD timezone will work.
+    * [5211] Display the added time to a timezone in a nice way

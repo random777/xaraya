@@ -5,7 +5,7 @@ Ensure you check the VERSION CHANGES at the end of this file in case you need to
 If you are creating a new Xaraya installation, please read INSTALL.txt
 
 
-You are Upgrading to Xaraya: adam_baum 1.1.1
+You are Upgrading to Xaraya: adam_baum 1.1.2
 ============================================
 Xaraya is an Open Source web applications framework. Xaraya started out as a fork of PostNuke (http://www.postnuke.com).
 It has had a complete re-write from the ground up since it's beginnings.
@@ -202,6 +202,10 @@ VERSION CHANGES - Please check and update your installation where necessary
 
    1.1.0 -> 1.1.1
 
+   1.1.1 -> 1.1.2 
+         1) Example exception override templates using Authsystem Login exception as an example
+         2) Update templates for roles and email validation process templates
+
 
    DB Changes between versions
    ----------------------------------------------------
@@ -230,19 +234,24 @@ VERSION CHANGES - Please check and update your installation where necessary
                      AdminPanel module is dropped
                          - adminpanel menu block is moved to Base.
                            In your templates, update any attribute values of 'adminpanels' to 'base'.
-                           This includes eg adminpanel blocks such as Compact Menus tags should be changed 
+                           This includes eg adminpanel blocks such as Compact Menus tags should be changed
                            to use base module. Any theme overrides in your adminpanel blocks directory
                            should be moved to base blocks.
                          - waiting content menu block is moved to Base
-                     Dashboard module var setting is moved to Themes module. 
+                     Dashboard module var setting is moved to Themes module.
                      dashboard.xt is the default name for dashboard page template.
                      admin.xt page template is automatically used for admin theme if it exists.
                      Module Overview modvar setting has been removed and deprecated.
                      Country List dynamic data property changed the input template to use ID for value instead of name.
-                         - If you are using this, retain your Base module property Country List input 
+                         - If you are using this, retain your Base module property Country List input
                            and output templates. Rename with an extension of .xt and use these
                            as 'override templates' in your theme.
      1.1.0 -> 1.1.1 None
+     1.1.1 -> 1.1.2 Running upgrade will add the following in your database:
+                    Registration of new timesince tag in Base module
+                    Setting of default registration module
+                    Setting new user dynamic variables defaults - usertimezone, usersendemail
+
    ----------------------------------------------------
 
 

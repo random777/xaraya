@@ -9,9 +9,14 @@ functest="Function declarations use one true brace"; funclist=''
 classtest="Class declarations use one true brace";   classlist=''
 privtest="No use of private blocklayout variables";  privlist=''
 
+function skipfortabs(file)
+    -- skip files which are known to need tabs to be valid
+    if(string.find(file,'Makefile')) then return true end
+    return false
+end
 for index,file in commit_files do
-    -- skip binary files
-    if (not binary_file(file)) then
+    -- skip binary files and known files which *need* tabs
+    if (not binary_file(file) and not skipfortabs(file)) then
         -- read in the file and see if tab chars are in it
         local f = io.open(file, "r")
         if (f~= nil) then

@@ -16,6 +16,7 @@ Major changes:
     * Core module initialization and upgrades reviewed and code cleaned
     * Roles dynamic vars revamped and usertimezone added. Can use xarUserGetVar for access.
     * Rework and some simplification and notes on xarVarFetch
+    * xarMLS - centralize the logic around loading translations based on a filepath
 
 General fixes and improvements:
      * Roles module - fixes for email notifications for admin
@@ -46,3 +47,4 @@ General fixes and improvements:
     * [5848] Ensure we set a default offset if our user is logged and thus Fix timezone offsets.
              New usertimezone var added to deal with this. Older DD timezone will work.
     * [5211] Display the added time to a timezone in a nice way
+    * [5659] using xarMLSLoadTranslations($filePath) for templates

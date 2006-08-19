@@ -48,3 +48,4 @@ General fixes and improvements:
              New usertimezone var added to deal with this. Older DD timezone will work.
     * [5211] Display the added time to a timezone in a nice way
     * [5659] using xarMLSLoadTranslations($filePath) for templates
+    * [5874] Do not create redundant indexes on installation

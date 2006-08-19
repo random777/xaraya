@@ -98,7 +98,7 @@
     <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.build'"/>
     <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.qa.tests'"/>
     <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.documentation'"/>
-    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.core.*'"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.core*'"/>
     <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${modules.repo}.db pull mt.xaraya.com 'com.xaraya.modules.*'"/>
     <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${themes.repo}.db pull mt.xaraya.com 'com.xaraya.themes.*'"/>
     <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${languages.repo}.db pull mt.xaraya.com 'com.xaraya.languages.*'"/>

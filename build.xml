@@ -318,7 +318,10 @@
     
     <!-- Process html directory -->
     <mkdir dir="${build.html}"/>
-    <copy todir="${build.html}">
+    <mkdir dir="${build.html}/var/cache/templates"/>
+    <mkdir dir="${build.html}/var/cache/rss"/>
+    <mkdir dir="${build.html}/var/cache/adodb"/>
+    <copy todir="${build.html}" >
       <fileset dir="${html.dir}">
         <!-- Core files -->
         <include name="includes/**"/>
@@ -340,6 +343,8 @@
         <include name="var/rsd.xml"/>
         <include name="var/messaging/**/*.xd" />
         <include name="var/example.key.php" />
+	<include name="var/cache/**"/>
+	
         
         <include name="var/locales/en_US.iso-8859-1/**"/>
         <include name="var/locales/en_US.utf-8/**"/>
@@ -458,7 +463,8 @@
   <!-- Clean target, removes only the copied build tree -->
   <target name="clean" description=": cleans up the buildtree, but does not remove older builds">
     <echo msg="Cleaning up buildtree..." />
-    <delete dir="${build.dir}" />
+    <delete dir="${build.basedir}" />
+
   </target>
   
   <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->

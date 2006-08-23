@@ -14,7 +14,7 @@ function skipfortabs(file)
     if(string.find(file,'Makefile')) then return true end
     return false
 end
-for index,file in commit_files do
+for index,file in pairs(commit_files) do
     -- skip binary files and known files which *need* tabs
     if (not binary_file(file) and not skipfortabs(file)) then
         -- read in the file and see if tab chars are in it

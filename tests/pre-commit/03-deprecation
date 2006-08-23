@@ -34,13 +34,13 @@ function has_deprecated_func(content, func)
     end
 end
 
-for index,file in commit_files do
+for index,file in pairs(commit_files) do
     if(string.find(file,'%.php$')) then
         local f = io.open(file,'r')
         if f~=nil and file~='html/includes/xarLegacy.php' then
             local content = f:read("*all")
             f:close()
-            for deprec,replacement in deprecated do
+            for deprec,replacement in pairs(deprecated) do
                 if has_deprecated_func(string.lower(content),string.lower(deprec)) then
                     deprlist=deprlist..'  '..file..' uses deprecated function: '..deprec..'. Use: '..replacement..' instead\n'
                 end

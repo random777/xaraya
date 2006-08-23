@@ -4,7 +4,7 @@
 print("--- Group 4: XML syntax ---")
 xmltest="Only well formed XML in templates (each dot = 1 file)";xmllist=''
 commenttest="No use of ---> in templates"; commentlist=''
-for index,file in commit_files do
+for index,file in pairs(commit_files) do
     if(string.find(file,'%.x[d|t]$')) then
         local f = io.open(file, "r")
         if (f~= nil) then

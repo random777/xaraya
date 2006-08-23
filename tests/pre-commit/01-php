@@ -15,7 +15,7 @@ if phpexec=='' then
 end
 phptest="PHP syntax check (using:"..phpexec..")";phplist=''
 -- lint all .php files
-for index,file in commit_files do
+for index,file in pairs(commit_files) do
     if(string.find(file,'%.php$')) then
         if phpexec~='' then
             -- phpfile, syntax check it

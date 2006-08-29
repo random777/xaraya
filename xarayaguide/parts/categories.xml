@@ -45,31 +45,19 @@
 
     <itemizedlist>
       <listitem>
-        <para>If you wish to display categories in a Windows Explorer-like
-        tree view, click "<guibutton>Yes</guibutton>". Displaying categories
-        in this way requires a JavaScript-enabled browser. If you use this
-        display method, the icons in <command>Admin-&gt;Categories-&gt;View
-        Categories</command> have the following meaning:</para>
+        <para>You can set some global options in the configuration
+        screen.</para>
 
         <itemizedlist>
           <listitem>
-            <para>The "<guibutton>+</guibutton>" icon to the left of the
-            category name &amp; description expands or collapses the tree for
-            the category.</para>
+            <para>Number of items: how many categories will the admin see on 1
+            page?</para>
           </listitem>
 
           <listitem>
-            <para>The "<guibutton>X</guibutton>" icon to the right of the
-            category name &amp; description deletes the category and any
-            sub-categories under it. If you wish to delete the category and
-            any sub-categories, click "<guibutton>Yes</guibutton>" on the
-            confirmation screen.</para>
-          </listitem>
-
-          <listitem>
-            <para>The "<guibutton>pencil</guibutton>" icon to the right of the
-            "<guibutton>X</guibutton>" icon allows modification of category
-            properties.</para>
+            <para>The number of links shown in the stats area is the number of
+            linked items you will see for each category in the stats
+            page.</para>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -78,12 +66,12 @@
         <para>Click "<guibutton>Submit</guibutton>" to save changes.</para>
 
         <figure id="categoriestree">
-          <title>Windows Explorer-like tree</title>
+          <title>Overview of Categories</title>
 
           <mediaobject>
             <imageobject>
               <imagedata fileref="sourceimages/categoriestree.jpg"
-                         format="JPG" width="450" />
+                         format="JPG" width="744" />
             </imageobject>
           </mediaobject>
         </figure>

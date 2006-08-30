@@ -39,7 +39,7 @@ CSSSTYLE=xarayaguide.css
 
 # Source related
 TOPFILE=xarayaguide.xml
-SOURCES=$(wildcard *.xml) $(wildcard modules/*.xml) 
+SOURCES=$(wildcard *.xml) $(wildcard modules/*.xml) $(wildcard parts/*.xml)
 
 
 all: html pdf txt index.html

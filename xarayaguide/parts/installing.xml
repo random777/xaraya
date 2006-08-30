@@ -70,7 +70,7 @@
       issues, press "<guibutton>Check Again</guibutton>" to re-check the
       system settings.</para>
 
-      <figure id="install-checkfig">
+      <figure id="install-checkfig1">
         <title>System Settings Check, part 1.</title>
 
         <mediaobject>
@@ -146,7 +146,7 @@
       choose from. The installer checks that you have at least on database
       connection available.</para>
 
-      <figure id="install-checkfig">
+      <figure id="install-checkfig2">
         <title>System Settings Check, part 2.</title>
 
         <mediaobject>
@@ -168,7 +168,7 @@
           you will have at least one of the mentioned databases available. If
           this is true, you will get a green light from the installer:</para>
 
-          <figure id="install-checkfig">
+          <figure id="install-checkfig3">
             <title>System Settings Check, part 3.</title>
 
             <mediaobject>
@@ -231,7 +231,7 @@
       <para>Normally, you should be able to continue, to the initialisation
       phase:</para>
 
-      <figure id="install-adminfig">
+      <figure id="install-adminfig2">
         <title>Start of initialisation</title>
 
         <mediaobject>
@@ -248,7 +248,7 @@
       <para>This panel creates the site Administrator's account. This account
       has unlimited access to the site and is used to control the site.</para>
 
-      <figure id="install-adminfig">
+      <figure id="install-adminfig3">
         <title>Administrator Account Creation</title>
 
         <mediaobject>

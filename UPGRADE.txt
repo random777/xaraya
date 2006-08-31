@@ -5,7 +5,7 @@ Ensure you check the VERSION CHANGES at the end of this file in case you need to
 If you are creating a new Xaraya installation, please read INSTALL.txt
 
 
-You are Upgrading to Xaraya: adam_baum 1.1.2
+You are Upgrading to Xaraya: adam_baum 1.1.3
 ============================================
 Xaraya is an Open Source web applications framework. Xaraya started out as a fork of PostNuke (http://www.postnuke.com).
 It has had a complete re-write from the ground up since it's beginnings.
@@ -206,6 +206,8 @@ VERSION CHANGES - Please check and update your installation where necessary
          1) Example exception override templates using Authsystem Login exception as an example
          2) Update templates for roles and email validation process templates
 
+   1.1.2 -> 1.1.3
+
 
    DB Changes between versions
    ----------------------------------------------------
@@ -251,7 +253,8 @@ VERSION CHANGES - Please check and update your installation where necessary
                     Registration of new timesince tag in Base module
                     Setting of default registration module
                     Setting new user dynamic variables defaults - usertimezone, usersendemail
-
+     1.1.2 -> 1.1.3
+      
    ----------------------------------------------------
 
 

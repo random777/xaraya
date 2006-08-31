@@ -59,7 +59,7 @@
     </sect2>
 
     <sect2 id="install-check">
-      <title>System Settings Check</title>
+      <title>System Settings Check: PHP and directories</title>
 
       <para>This panel tells you if you have set up Xaraya correctly. It runs
       checks and determines whether you're running the correct version of PHP
@@ -70,12 +70,12 @@
       issues, press "<guibutton>Check Again</guibutton>" to re-check the
       system settings.</para>
 
-      <figure id="install-checkfig">
-        <title>System Settings Check.</title>
+      <figure id="install-checkfig1">
+        <title>System Settings Check, part 1.</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="sourceimages/install03.jpg" format="JPG" />
+            <imagedata fileref="sourceimages/install03_a.jpg" format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -137,6 +137,50 @@
       </itemizedlist>
     </sect2>
 
+    <sect2>
+      <title>System Settings Check: databases</title>
+
+      <para>On the same panel as the PHP checks you can see the results from
+      the database check. Xaraya is a system that needs a database to store
+      the content and settings. You have a wide choice of databases you can
+      choose from. The installer checks that you have at least on database
+      connection available.</para>
+
+      <figure id="install-checkfig2">
+        <title>System Settings Check, part 2.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="sourceimages/install03_b.jpg" format="JPG" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <itemizedlist>
+        <listitem>
+          <para>Warning: you do not have a supported database type available.
+          This warning means that Xaraya has not reckognised your database
+          type. You can continue to the next step, but you will have to edit
+          the database connection settings manually in the config.system.php
+          file. </para>
+
+          <para>You are advised to modify your server environment as such that
+          you will have at least one of the mentioned databases available. If
+          this is true, you will get a green light from the installer:</para>
+
+          <figure id="install-checkfig3">
+            <title>System Settings Check, part 3.</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="sourceimages/install03_c.jpg" format="JPG" />
+              </imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+
     <sect2 id="install-database">
       <title>Database Settings</title>
 
@@ -149,7 +193,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="sourceimages/install04.jpg" format="JPG" />
+            <imagedata fileref="sourceimages/install06.jpg" format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -169,6 +213,33 @@
 
       <para>If Xaraya cannot create the database for you, see Appendix B:
       Creating the Xaraya database via phpMyAdmin.</para>
+
+      <para>If you press continue, and you have already got your database
+      available, you will see a warning that the installer will overwrite all
+      tables present that have the same prefix:</para>
+
+      <figure id="install-adminfig">
+        <title>Xaraya has encountered a database.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="sourceimages/install08.jpg" format="JPG" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Normally, you should be able to continue, to the initialisation
+      phase:</para>
+
+      <figure id="install-adminfig2">
+        <title>Start of initialisation</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="sourceimages/install07.jpg" format="JPG" />
+          </imageobject>
+        </mediaobject>
+      </figure>
     </sect2>
 
     <sect2 id="install-admin">
@@ -177,12 +248,12 @@
       <para>This panel creates the site Administrator's account. This account
       has unlimited access to the site and is used to control the site.</para>
 
-      <figure id="install-adminfig">
+      <figure id="install-adminfig3">
         <title>Administrator Account Creation</title>
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="sourceimages/install05.jpg" format="JPG" />
+            <imagedata fileref="sourceimages/install09.jpg" format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -227,7 +298,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="sourceimages/install06.jpg" format="JPG" />
+            <imagedata fileref="sourceimages/install10.jpg" format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -284,7 +355,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="sourceimages/install07.jpg" format="JPG" />
+            <imagedata fileref="sourceimages/install11.jpg" format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -303,7 +374,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="sourceimages/install08.jpg" format="JPG" />
+            <imagedata fileref="sourceimages/install12.jpg" format="JPG" />
           </imageobject>
         </mediaobject>
       </figure>

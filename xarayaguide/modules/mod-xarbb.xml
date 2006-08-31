@@ -4,5 +4,6 @@
 
   <subtitle>Xaraya module.</subtitle>
 
-  <para>The documentation for this part of the Guide is being developed.</para>
+  <para>The XarBB module is the Xaraya forum/message board module. It depends
+  on the categories and comments module.</para>
 </sect2>

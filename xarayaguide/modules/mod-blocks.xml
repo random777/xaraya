@@ -750,20 +750,26 @@
         <para>Click "<guibutton>Update</guibutton>" to save changes.</para>
       </listitem>
     </itemizedlist>
+
+    <para>The templates for the menu are located in base/block and have the
+    naming convention of menu-innertemplate.xt. Note the 'menu' part in there.
+    Substitute innertemplate with the name you want to use and add that as the
+    ;innertemplate in the block configuration. </para>
   </sect3>
 
   <sect3>
     <title>base/menu</title>
 
-    <para>Block instance that creates a new menu for the site. Menu items can
-    be modules that exist on the site, URLs to other on-site resources, or
-    complete URLs to off-site resources.</para>
+    <para>This block instance creates a (user) menu for the site. Menu items
+    can be modules that exist on the site, URLs to other on-site resources, or
+    complete URLs to off-site resources. At install, you will have one
+    instance of this block: the mainmenu block. </para>
 
     <itemizedlist>
       <listitem>
         <para>Display modules: CHECK this option to display all active modules
-        that are installed in
-        <filename>&lt;xarroot&gt;/modules</filename>.</para>
+        that are installed in <filename>&lt;xarroot&gt;/modules</filename>
+        that have user menu items available.</para>
       </listitem>
 
       <listitem>

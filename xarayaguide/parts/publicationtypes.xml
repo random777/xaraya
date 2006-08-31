@@ -91,8 +91,11 @@
             <para>NOTE: Articles of this Publication Type will use the
             templates "<filename>user-display-[publicationtype].xd</filename>"
             and "<filename>user-summary-[publicationtype].xd</filename>" by
-            default. Provide those templates before adding new
-            articles.</para>
+            default from the articles module. However, if you make your own
+            modules you start making a theme. These templates then get the
+            extension .xt instead of .xd and are placed in
+            "<filename>/themes/yourtheme/modules/articles/</filename>" Provide
+            those templates before adding new articles.</para>
 
             <itemizedlist>
               <listitem>
@@ -320,7 +323,7 @@
       Calendar INPUT: checked TYPE: integer</para>
 
       <para>Here's the template that should be placed in
-      <filename>&lt;xarroot&gt;/modules/articles/xartemplates/user-summary-guestbook.xd</filename>:
+      <filename>&lt;xarroot&gt;/themes/modules/articles/user-summary-guestbook.xt</filename>:
       <literallayout>&lt;div class="xar-alt" style="margin: 0px 3px 6px 3px;padding: 1px;text-align: left;"&gt; &lt;div class="xar-norm" style="padding: 3px;"&gt;
             &lt;xar:if condition="!empty($categories) and count($categories) gt 0"&gt;
                 [ &lt;xar:loop name="$categories"&gt;
@@ -449,7 +452,7 @@
           Types</command>. Click "<guibutton>New</guibutton>" to begin adding
           a new Publication Type with the following values:</para>
 
-          <graphic fileref="sourceimages/pubtype.jpg" format="JPG" width="450" />
+          <graphic fileref="sourceimages/pubtype.jpg" format="JPG" width="776" />
 
           <para>Click "<guibutton>Create</guibutton>" to save changes.</para>
         </listitem>
@@ -1052,7 +1055,7 @@
           Publication Type using a default template and show you a
           warning.</para>
 
-          <para>Template files shipped with a moduel are placed into the
+          <para>Template files shipped with a module are placed into the
           <filename>&lt;xarroot&gt;/modules/articles/xartemplates</filename>
           directory, and are called
           '<filename>user-display-&lt;pubtype&gt;.xd</filename>',

@@ -9,7 +9,7 @@
   content, socalled publicationtypes.</para>
 
   <para>Content from the Articles module can be shown via your website, or be
-  feeded via RSS to newsreaders. </para>
+  feeded via RSS to newsreaders.</para>
 
   <para>First some naming conventions.</para>
 
@@ -29,12 +29,12 @@
       <para>A Publication Type is a certain set of rules for a type of
       Articles in the Articles module. The rules when needs to be added, how
       the content is shown and managed make up the Publication Type. Examples
-      or Publication types are News articles, Documents and Downloads. </para>
+      or Publication types are News articles, Documents and Downloads.</para>
     </listitem>
   </itemizedlist>
 
   <para>When we talk of an Article, it refers to the content in a publication
-  type. </para>
+  type.</para>
 
   <sect1 id="articlesoverview">
     <title>Articles Module Overview</title>
@@ -798,7 +798,7 @@
     <sect2>
       <title>EXAMPLE: Adding a new Publication Type</title>
 
-      <para>OTTO</para>
+      <para>Please see the example on the Recipes later on.</para>
     </sect2>
 
     <sect2>
@@ -1331,13 +1331,6 @@
           click "<guibutton>Cancel</guibutton>" to abort the logout.</para>
         </listitem>
       </orderedlist>
-    </sect2>
-
-    <sect2>
-      <title>EXAMPLE: Extending the Gallery Publication Type</title>
-
-      <para>OTTO: Speak with mcortez about adding thumbnails, importing,
-      etc.</para>
     </sect2>
   </sect1>
 </chapter>

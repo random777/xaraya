@@ -70,7 +70,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="sourceimages/categoriestree.jpg"
+              <imagedata align="center"
+                         fileref="sourceimages/categoriestree.jpg"
                          format="JPG" width="744" />
             </imageobject>
           </mediaobject>

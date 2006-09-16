@@ -12,6 +12,17 @@
   Using Blocks, the Administrator can customize the look of the site by
   adding, removing, or changing the position of Blocks.</para>
 
+  <figure>
+    <title>Blocks administration</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata entityref="viewblocks"
+                   fileref="modimages/blocks-viewblocks.jpg" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
   <para>Go to <command>Admin-&gt;Blocks</command> and use the sub-functions to
   add, edit, view, or delete Blocks from your website. The Blocks display is
   sorted by Group.</para>
@@ -754,7 +765,7 @@
     <para>The templates for the menu are located in base/block and have the
     naming convention of menu-innertemplate.xt. Note the 'menu' part in there.
     Substitute innertemplate with the name you want to use and add that as the
-    ;innertemplate in the block configuration. </para>
+    ;innertemplate in the block configuration.</para>
   </sect3>
 
   <sect3>
@@ -763,7 +774,7 @@
     <para>This block instance creates a (user) menu for the site. Menu items
     can be modules that exist on the site, URLs to other on-site resources, or
     complete URLs to off-site resources. At install, you will have one
-    instance of this block: the mainmenu block. </para>
+    instance of this block: the mainmenu block.</para>
 
     <itemizedlist>
       <listitem>

@@ -494,7 +494,8 @@
 
     <para>The large pane that uses most of the browser window is the content
     region. This is where the majority of site information is displayed to
-    users.</para>
+    users. The first line of the first large text block shows you the version
+    of Xaraya you use (1.1.3 in the image).</para>
 
     <para>Everything you see in Xaraya is configurable. Xaraya's powerful
     theming engine, BlockLayout, makes it easy to customize your site to your

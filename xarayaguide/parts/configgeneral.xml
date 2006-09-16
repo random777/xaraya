@@ -24,7 +24,7 @@
 
   <sect1 id="baseconfig">
     <sect1info>
-      <date>Updated Aug 2006</date>
+      <date>Updated Sept 2006</date>
     </sect1info>
 
     <title>Base Module Configuration</title>
@@ -33,6 +33,20 @@
     installation. Base is the name for the module that defines the standard
     behaviour of your installation, the Base options. Base is part of the Core
     of Xaraya and cannot be removed.</para>
+
+    <figure>
+      <title>Base administration</title>
+
+      <screenshot>
+        <screeninfo>Admin&gt;Base&gt;Modify Config</screeninfo>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="sourceimages/base-modifyconfig.jpg" />
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
 
     <para><command>Admin-&gt;Base-&gt;Modifyconfig</command>: This panel
     allows you to change some of the settings controlling the core behaviour
@@ -245,18 +259,31 @@
 
       <para><note>
           <para>Visit the Xaraya themes website for recent themes: <ulink
-          url="http://themes.xaraya.com/">http://themes.xaraya.com/</ulink>
-          </para>
-        </note>Themes are installed in the /themes/ directory of you
+          url="http://themes.xaraya.com/">http://themes.xaraya.com/</ulink></para>
+        </note>Themes are installed in the /themes/ directory of your
       installation.</para>
 
+      <figure>
+        <title>Theme listing</title>
+
+        <screenshot>
+          <screeninfo>Admin&gt;Themes</screeninfo>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="sourceimages/themes-themelisting.jpg" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
       <para>But first let's see which themes are available now. Go to the
-      admin&gt;Themes&gt;Modify Config Settings. You will see that
-      Xaraya_Classic is set Active and as the Default theme. You will also see
-      the RSS theme and the print theme. These settings are ok for now.
-      Xaraya_Classic is a nice theme to see how things work. You don't have to
-      worry yet on your own theming. Read more on themes in the next
-      chapter.</para>
+      admin&gt;Themes&gt;View Themes. You will see that Xaraya_Classic is set
+      Active and as the Default theme. You will also see the RSS theme and the
+      print theme. These settings are ok for now. Xaraya_Classic is a nice
+      theme to see how things work; we will use it throughout this manual. You
+      don't have to worry yet on your own theming. Read more on themes in the
+      next chapter.</para>
     </sect2>
 
     <sect2>
@@ -265,7 +292,7 @@
       <para>The Modules module shows all the available modules. It also
       configures the way they communicate with eachother via hooks. The hook
       configuration (we willl explain hooks later on) is the second option in
-      the admin menu for the Modules module. </para>
+      the admin menu for the Modules module.</para>
 
       <para>Go to Admin-&gt;Modules. The admin list function will show you all
       the modules available in your installation, their state and give you
@@ -274,10 +301,10 @@
       Install command and follow the instructions.</para>
 
       <para><note>
-          <para>The module list is the same as you will see under /modules/ in
-          your install. If you have downloaded and placed a new module in
+          <para>The module list is the same as you will see in your filesystem
+          under /modules/ . If you have downloaded and placed a new module in
           there, but cannot see it in the module listing, then press the
-          "reload" button.</para>
+          "reload" button. This will reload all present modules.</para>
 
           <para>If you like a fancy view on your module listing, try the Style
           "Icons" method. It will show icons instead of simple texts for the

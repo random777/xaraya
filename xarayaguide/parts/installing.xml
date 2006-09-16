@@ -162,7 +162,7 @@
           This warning means that Xaraya has not reckognised your database
           type. You can continue to the next step, but you will have to edit
           the database connection settings manually in the config.system.php
-          file. </para>
+          file.</para>
 
           <para>You are advised to modify your server environment as such that
           you will have at least one of the mentioned databases available. If
@@ -437,40 +437,60 @@
   <sect1 id="interface">
     <title>A Quick Look at Xaraya's Interface</title>
 
-    <para>After the first installation, Xaraya's interface looks similar to
-    other Content Management Systems.</para>
+    <para>After the first installation, Xaraya's interface is presented with
+    the Xaraya Classic theme. This theme is shipped with every package and is
+    meant as a start for your new website.</para>
 
     <figure id="install-postinstall">
       <title>Xaraya's interface after installation.</title>
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="sourceimages/install10.jpg" format="JPG" />
+          <imagedata fileref="sourceimages/firstglance.jpg" format="JPG" />
         </imageobject>
       </mediaobject>
     </figure>
 
     <para>At the top is the title bar of the browser which says, "Your Site
-    Name :: Base :: Welcome" by default. Below that, at the top left of the
-    screen, is the Xaraya logo which is part of the
+    Name :: Base :: Welcome" by default (not in the figure). Below that, at
+    the top left of the screen, is the Xaraya logo which is part of the
     '<firstterm>header</firstterm>' region. Click the logo at any time to go
-    to the front page of your site.</para>
+    to the front page of your site. To the right you see the sentence "Your
+    Site Slogan". This is the configurable site slogan that you can
+    set.</para>
 
     <para>Down the left side, since you're logged in as an Administrator,
     appears the Administration menu which may be divided into groups (Global,
     Content, Users &amp; Groups, etc.) depending on your configuration
     selection in Admin-&gt;Adminpanels-&gt;Modify config. The Administration
     menu appears only for members of the Administrator group; regular users
-    (anonymous and registered users) do not see this menu. At the bottom of
-    the Administration menu is the "[admin logout]" link which should be used
-    to log out of the site when you're done administrating Xaraya. Below the
-    Administration menu is the Main Menu as it is displayed for regular
-    users.</para>
+    (anonymous and registered users) do not see this menu. </para>
+
+    <para>The first item in the menu is called "Help". This title is available
+    to admins at any page and will redirect you to the help page for the
+    current function. At the bottom of the Administration menu there can be
+    the "[admin logout]" link which should be used to log out of the site when
+    you're done administrating Xaraya. This link is not shown by default.
+    Above the Administration menu is the Main Menu. This Main Menu has items
+    that can be shown to regular users. The number of items normal users can
+    see depend on their privileges. You, as the current administrator, will be
+    able to see all items.</para>
+
+    <figure>
+      <title>Xaraya's standard footer</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata entityref="footer" fileref="sourceimages/footer.jpg" />
+        </imageobject>
+      </mediaobject>
+    </figure>
 
     <para>At the bottom of the browser window is Xaraya's
     '<firstterm>footer</firstterm>' region. After installation, you'll see the
-    Xaraya "powered by" logo, copyright statement, and your site slogan (which
-    is "Your Site Slogan" after installation).</para>
+    Copyright statement, CSS tableless design button (click it to check the
+    theme for true tableless design), the xhtml button, the CSS validator
+    button and the "powered by Xaraya" logo.</para>
 
     <para>The large pane that uses most of the browser window is the content
     region. This is where the majority of site information is displayed to
@@ -482,7 +502,7 @@
     is all configurable by changing themes or templates on your Xaraya site.
     Don't like the Administration menu on the left? It's quite simple to move
     it. Want to put your own logo in place of the Xaraya logo at the top? No
-    problem!</para>
+    problem! Read on to learn how!</para>
   </sect1>
 
   <sect1 id="clickpaths">

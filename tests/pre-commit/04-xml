@@ -4,8 +4,10 @@
 print("--- Group 4: XML syntax ---")
 xmltest="Only well formed XML in templates";xmllist=''
 commenttest="No use of ---> in templates"; commentlist=''
+local got_one = false
 for index,file in pairs(commit_files) do
     if(string.find(file,'%.x[d|t]$')) then
+        got_one = true
         -- xmlfile, syntax check it
         io.write('.')
         io.flush() -- otherwise it's buffered
@@ -22,5 +24,5 @@ for index,file in pairs(commit_files) do
         end
     end
 end
-io.write('\n')
+if got_one then io.write('\n') end
 if xmllist     ~='' then failed('4.11',xmltest,xmllist)         else passed('4.11',xmltest) end

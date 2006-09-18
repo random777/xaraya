@@ -77,7 +77,8 @@ for template in $FILELIST; do
   
   RESULT=`$XMLPARSER $TEMPFILE 2>&1`
   if [ X$? != X0 ] ; then
-    echo "FAILED : $template"
+    echo "
+FAILED : $WORKDIR/$template"
     if [ $PARSERTYPE = 'xmllint' ]
     then
       echo $RESULT | awk 'BEGIN {RS="^"; FS=":"} {if(NF > 1) {printf("  Line"); printf(" %s",$2-2); for(i=4;i<=NF;i++) {printf(": %s",$i)}; print ""}}'

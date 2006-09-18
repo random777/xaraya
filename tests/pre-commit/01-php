@@ -7,6 +7,7 @@ shorttest="No use of php short open tag '<?'";                   shortlist=''
 lasttest ="No other characters than '?>' at the end of php file";lastlist =''
 objtest  ="No object creation by reference (php 4.4. and up)";   objlist  =''
 
+-- This is not working outside monotone
 phpexec=phpexec or ''
 if phpexec=='' then
     if existsonpath('php') == 0 then phpexec='php'  else

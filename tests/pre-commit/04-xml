@@ -2,19 +2,25 @@
 -- 04-xml
 --
 print("--- Group 4: XML syntax ---")
-xmltest="Only well formed XML in templates (each dot = 1 file)";xmllist=''
+xmltest="Only well formed XML in templates";xmllist=''
 commenttest="No use of ---> in templates"; commentlist=''
 for index,file in pairs(commit_files) do
     if(string.find(file,'%.x[d|t]$')) then
-        local f = io.open(file, "r")
-        if (f~= nil) then
-            local content=f:read("*all")
-            f:close()
-            -- check for --->
-            if(string.find(content,'%-%-%->') ~= nil) then
-                commentlist=commentlist..'  '..file.." has '--->' in its content, this is invalid XML\n"
+        -- xmlfile, syntax check it
+        io.write('.')
+        io.flush() -- otherwise it's buffered
+        -- os.execute is protected, and the mtn execute doesnt allow to suppress output
+        if execute~=nil then
+            -- inside monotone
+            if (execute(qa_location..'pre-commit/lib/lintxml',file) ~=0) then
+                xmllist = xmllist .. '  syntax check failed on: '..file..'\n'
+            end
+        else
+            if (os.execute(qa_location..'pre-commit/lib/lintxml '..file) ~=0) then
+                xmllist = xmllist .. '  syntax check failed on: '..file..'\n'
             end
         end
     end
 end
-if commentlist ~='' then failed('4.10',commenttest,commentlist) else passed('4.10',commenttest) end
+io.write('\n')
+if xmllist     ~='' then failed('4.11',xmltest,xmllist)         else passed('4.11',xmltest) end

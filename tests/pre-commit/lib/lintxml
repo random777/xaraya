@@ -3,6 +3,7 @@
 monotone=mtn
 PARSERTYPE='noneyet'
 CR='\013'
+DTD="`dirname $0`/bl1-strict.dtd"
 
 # Require xmllint
 if type xmllint> /dev/null 2>&1
@@ -62,12 +63,12 @@ FAILED=0
 for template in $FILELIST; do
   TEMPFILE=`mktemp tmp.XXXXXXX` || exit 1
     
-  #echo '<!DOCTYPE blocklayout SYSTEM "'$CMDDIR'/xar.dtd">' >> $TEMPFILE
+  #echo '<!DOCTYPE blocklayout SYSTEM "'$DTD'">' >> $TEMPFILE
   TPLDIR=$(basename $(dirname $WORKDIR/$template))
   if [ $TPLDIR != 'pages' ]; then
     # normal template, add a root tag
-    echo '<!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://www.xaraya.com/bl1/DTD/bl1-strict.dtd">' >> $TEMPFILE
-    #echo '<!DOCTYPE blocklayout SYSTEM "'$CMDDIR'/xar.dtd">' >> $TEMPFILE
+    # echo '<!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://www.xaraya.com/bl1/DTD/bl1-strict.dtd">' >> $TEMPFILE
+    echo '<!DOCTYPE blocklayout SYSTEM "'$DTD'">' >> $TEMPFILE
     echo '<xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://xaraya.com/2004/blocklayout">' >> $TEMPFILE
     cat $WORKDIR/$template >> $TEMPFILE
     echo '</xar:blocklayout>' >> $TEMPFILE

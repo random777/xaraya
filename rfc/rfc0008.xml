@@ -3,10 +3,10 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard -->
 <?rfc toc="yes"?>
-<rfc number="0001" category="info">
+<rfc number="0008" category="info">
     <front>
         <title>Install System</title>
-        <author initials="" surname="" fullname="">
+        <author initials="?" surname="?" fullname="?">
             <organization>Xaraya Development Group</organization>
             <address>
                 <email/>

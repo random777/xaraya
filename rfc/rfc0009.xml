@@ -5,7 +5,7 @@
 <!-- <?rfc private='my private memo'?>  Produce a private memo rather than a Xaraya-standard --> 
 <?rfc toc="yes"?>
 
-<rfc number="0001" category="info">
+<rfc number="0009" category="info">
   <front>
     <title abbrev="xarCommunity">Xaraya Community Enhancements (aka xarCommunity)</title>
     <author initials="DAD" surname="Daulton" fullname="Douglas">

@@ -23,6 +23,39 @@
           picture on how RFCs should be treated.
         </t>
       </section>
+      <section anchor="categories" title="Categories">
+        <t>
+            RFCs are classified in a number of categories to signal their use
+            and status. These categories are usually abbreviated like so:
+            <list>
+                <t>
+                    <spanx style="verb">info</spanx>: Informational. 
+                    This can be anything from a collection of interesting notes to a full fledged protocol
+                    description. They however do <spanx style="strong">NOT</spanx> describe any sort of
+                    standard to adhere to.
+                </t>
+                <t>
+                    <spanx style="verb">historic</spanx>: Historic. 
+                    This RFC is either replaced by a newer version or is not applicable 
+                    anymore. It is left for reference purposes only.
+                </t>
+                <t>
+                    <spanx style="verb">std</spanx>: Standard.
+                    These are the real deal. What is documented in these RFCs is official and considered a standard.
+                </t>                
+                <t>
+                    <spanx style="verb">bcp</spanx>: Best Current Practice.
+                    These documents describe procedures and practices to give instructions what has shown to work well,
+                    not excluding other ways of achieving the same result.
+                </t>
+                <t>
+                    <spanx style="verb">exp</spanx>: Experimental.
+                    Experimental are RFCs which, in theory, describe possible standards, but there has been no
+                    effort to implement or endorse what is described. 
+                </t>
+            </list>
+        </t>
+      </section>
     </section>
     
     <!-- Revision history is mandatory -->

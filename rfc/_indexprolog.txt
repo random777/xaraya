@@ -36,5 +36,5 @@
   <!-- The middle section is used for the actual content of the RFC -->
   <middle>
     <section title="RFC index">
-      <t>The following RFC document are available:
+      <t>The following RFC document are available: (See <xref target="categories"/> for the definition of the categories.)
         <list>

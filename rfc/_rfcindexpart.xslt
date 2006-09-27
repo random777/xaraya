@@ -9,6 +9,7 @@
 </xsl:template>
 
 <xsl:template match="rfc">
+  <spanx style="verb">[<xsl:value-of select="substring(concat(string(@category),'---------'), 1, 8)"/>]</spanx>
   RFC-<xsl:value-of select="@number"/> : <xsl:value-of select="front/title"/>
 <xsl:text>
 </xsl:text>

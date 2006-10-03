@@ -507,8 +507,7 @@ class Dynamic_Object_Master
      * @param $args['moduleid'] module id of the object to retrieve +
      * @param $args['itemtype'] item type of the object to retrieve
      * @param $args['classname'] optional classname (e.g. <module>_Dynamic_Object)
-     * @returns object
-     * @return the requested object definition
+     * @return object the requested object definition
      */
     function &getObject($args)
     {
@@ -541,8 +540,7 @@ class Dynamic_Object_Master
      * @param $args['moduleid'] module id of the object to retrieve +
      * @param $args['itemtype'] item type of the object to retrieve
      * @param $args['classname'] optional classname (e.g. <module>_Dynamic_Object[_List])
-     * @returns object
-     * @return the requested object definition
+     * @return object the requested object definition
      */
     function &getObjectList($args)
     {
@@ -580,8 +578,7 @@ class Dynamic_Object_Master
      * @param $args['moduleid'] module id of the object to retrieve +
      * @param $args['itemtype'] item type of the object to retrieve
      * @param $args['classname'] optional classname (e.g. <module>_Dynamic_Object[_Interface])
-     * @returns object
-     * @return the requested object definition
+     * @return object the requested object definition
      */
     function &getObjectInterface($args)
     {
@@ -626,8 +623,7 @@ class Dynamic_Object_Master
      * @param $args['config'] some configuration for the object (free to define and use)
      * @param $args['isalias'] flag to indicate whether the object name is used as alias for short URLs
      * @param $args['classname'] optional classname (e.g. <module>_Dynamic_Object)
-     * @returns integer
-     * @return the object id of the created item
+     * @return int the object id of the created item
      */
     function createObject($args)
     {

@@ -475,7 +475,6 @@ class Dynamic_Property
      * @param $args['value'] value of the field (default is the current value)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showInput($args = array())
@@ -487,7 +486,6 @@ class Dynamic_Property
      * Show some default output for this property
      *
      * @param $args['value'] value of the property (default is the current value)
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showOutput($args = array())
@@ -514,7 +512,6 @@ class Dynamic_Property
      *
      * @param $args['label'] label of the property (default is the current label)
      * @param $args['for'] label id to use for this property (id, name or nothing)
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showLabel($args = array())
@@ -547,7 +544,6 @@ class Dynamic_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['value'] value of the field (default is the current value)
      * @param $args['id'] id of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showHidden($args = array())
@@ -578,7 +574,6 @@ class Dynamic_Property
      * @param $args['value'] value of the field (default is the current value)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function _showPreset($args = array())
@@ -619,7 +614,6 @@ class Dynamic_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
      * @return base information for this property
      **/
     function getBasePropertyInfo()
@@ -663,7 +657,6 @@ class Dynamic_Property
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showValidation($args = array())
@@ -704,7 +697,6 @@ class Dynamic_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
-     * @returns bool
      * @return bool true if the validation rule could be processed, false otherwise
      */
     function updateValidation($args = array())
@@ -737,7 +729,7 @@ class Dynamic_Property
     /**
      * Return the module this property belongs to
      *
-     * @returns string module name
+     * @return string module name
      */
     function getModule()
     {
@@ -754,7 +746,7 @@ class Dynamic_Property
    /**
     * Return the name this property uses in its templates
     *
-    * @returns string template name
+    * @return string template name
     */
     function getTemplate()
     {

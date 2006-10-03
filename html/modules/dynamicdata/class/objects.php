@@ -374,7 +374,6 @@ class Dynamic_Object_Master
     /**
      * Class method to retrieve information about all Dynamic Objects
      *
-     * @returns array
      * @return array of object definitions
      */
     function &getObjects()
@@ -425,7 +424,6 @@ class Dynamic_Object_Master
      * @param $args['name'] name of the object you're looking for, or
      * @param $args['moduleid'] module id of the object you're looking for +
      * @param $args['itemtype'] item type of the object you're looking for
-     * @returns array
      * @return array containing the name => value pairs for the object
      */
     function getObjectInfo($args)

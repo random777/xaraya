@@ -19,8 +19,8 @@
  * @param $args['uname'] user name of user to get
  * @param $args['name'] name of user to get
  * @param $args['email'] email of user to get
- * @returns array
- * @return user array, or false on failure
+ * @param int $args['state'] Status of the user to get
+ * @return array user array, or false on failure
  */
 function roles_userapi_get($args)
 {

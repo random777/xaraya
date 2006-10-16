@@ -25,6 +25,8 @@ class Dynamic_Calendar_Property extends Dynamic_Property
 {
     /**
      * Check the input for the calendar
+     * @param string name
+     * @param mixed value
      */
     function checkInput($name='', $value = null)
     {
@@ -40,6 +42,7 @@ class Dynamic_Calendar_Property extends Dynamic_Property
     }
     /**
      * See if the value put into the property is valid
+     * @param mixed value
      */
     function validateValue($value = null)
     {
@@ -242,6 +245,7 @@ class Dynamic_Calendar_Property extends Dynamic_Property
     }
     /**
      * Update the validation for this property
+     * @return bool true on success
      */
     function updateValidation($args = array())
     {

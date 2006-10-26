@@ -10,6 +10,7 @@
 
 /**
  * Checkbox Validation Class
+ * @return bool
  */
 function variable_validations_checkbox (&$subject, $parameters, $supress_soft_exc, &$name)
 {

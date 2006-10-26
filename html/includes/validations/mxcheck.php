@@ -3,7 +3,9 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
 */
 
 
@@ -32,7 +34,7 @@ ifsnow is korean phper. Is sorry to be unskillful to English. *^^*;;
  * valdidate email
  *
  */
-function variable_validations_mxcheck (&$subject, $parameters=null, $supress_soft_exc) 
+function variable_validations_mxcheck (&$subject, $parameters=null, $supress_soft_exc)
 {
 
     global $HTTP_HOST;

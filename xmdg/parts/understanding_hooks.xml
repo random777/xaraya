@@ -63,7 +63,7 @@
             <listitem>
               <para>transform-input:</para>
 
-              <para> $article['transform'] = array('summary','body','notes');
+              <para>$article['transform'] = array('summary','body','notes');
               $article = xarModCallHooks('item', 'transform-input', $aid,
               $article, 'articles', $ptid);</para>
             </listitem>
@@ -177,26 +177,38 @@
       of the xarModRegisterHook() function. This function should be placed
       within the modname_init() function of your module and given appropriate
       parameters to register the relevant hook-capable module functions within
-      your module as hooks. The xarModRegisterHook() function takes a number
-      of parameters, which are explained below:</para>
+      your module as hooks. </para>
 
-      <para>hookobject The object for which the hook is to be registered -
-      currently either category, or item, as described above</para>
+      <para><remark>Note: If a hooks is registered in the upgrade function of
+      your module, the siteadmin will need to disable and then enable all
+      hooks for your module to make use of the newly added hook. This is done
+      from the admin interface in a Xaraya install. </remark></para>
 
-      <para>hookaction The action for which the hook is to be registered -
-      currently one of create, delete, transform, or display</para>
+      <para>The xarModRegisterHook() function takes a number of parameters,
+      which are explained below:</para>
 
-      <para>hookarea The area that the hook function covers - currently either
-      GUI (for functions that are in xaruser.php and xaradmin.php) or API (for
-      functions that are in xaruserapi.php and xaradminapi.php)</para>
+      <para><parameter>hookobject</parameter> The object for which the hook is
+      to be registered - currently either category, or item, as described
+      above</para>
 
-      <para>hookmodule The name of the module in which the hook function
-      exists - normally the name of the module calling this function</para>
+      <para><parameter>hookaction</parameter> The action for which the hook is
+      to be registered - currently one of create, delete, transform, or
+      display</para>
 
-      <para>hooktype The type of the hook function - currently either user or
-      admin</para>
+      <para><parameter>hookarea</parameter> The area that the hook function
+      covers - currently either GUI (for functions that are in xaruser.php and
+      xaradmin.php) or API (for functions that are in xaruserapi.php and
+      xaradminapi.php)</para>
 
-      <para>hookfunc The name of the hook function</para>
+      <para><parameter>hookmodule</parameter> The name of the module in which
+      the hook function exists - normally the name of the module calling this
+      function</para>
+
+      <para><parameter>hooktype</parameter> The type of the hook function -
+      currently either user or admin</para>
+
+      <para><parameter>hookfunc</parameter> The name of the hook
+      function</para>
 
       <para>The xarModRegisterHook() function returns true if the registration
       was successful, and false if the registration is unsuccessful. As an
@@ -228,9 +240,11 @@
       parameters to unregister the functions that were previously registered
       hooks when the module was initialized. The xarModUnregisterHook()
       function takes the same parameters as the xarModUnregisterHook()
-      function. The Ratings module that comes with the core Xaraya
-      distribution has detailed comments on unregistering hooks within a
-      utility module.</para>
+      function. </para>
+
+      <para>The Ratings module that comes with the full Xaraya distribution
+      has detailed comments on unregistering hooks within a utility
+      module.</para>
     </section>
   </section>
 </chapter>

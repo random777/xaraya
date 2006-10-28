@@ -1,5 +1,13 @@
 <?php
 /**
+ * Pre-process values.
+ *
+ * @package validation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ */
+/**
  * Title: Pre-process values.
  * Desc: Allows a value to be pre-processed before (optionally)
  * passing on to another validation method. Each option is processed
@@ -197,7 +205,7 @@ function variable_validations_pre (&$subject, $parameters, $supress_soft_exc)
                 break;
             }
     }
-    
+
     if (!$return && !empty($fieldname) && !$supress_soft_exc) {
         // Add another error message, naming the field.
         // Combine it with the 'short' details of the last message logged,

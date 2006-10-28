@@ -3,12 +3,14 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
-*/
-
-
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ */
 /**
  * Lists Validation Function
+ * @param array subject. If this is not an array, the return is false
+ * @return bool
  */
 function variable_validations_list (&$subject, $parameters, $supress_soft_exc, &$name)
 {

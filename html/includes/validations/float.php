@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description of purpose of file
+ * Validate a value as a floating point number
  *
  * @package validation
  * @copyright (C) 2002-2006 The Digital Development Foundation

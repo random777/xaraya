@@ -45,7 +45,7 @@ class Dynamic_PassBox_Property extends Dynamic_Property
         }
         // store the fieldname for validations who need them (e.g. file uploads)
         $this->fieldname = $name;
-        if (!isset($value)) {
+        if (!isset($value)) { 
             if (!xarVarFetch($name, 'isset', $value,  NULL, XARVAR_DONT_SET)) {return;}
         }
         return $this->validateValue($value);
@@ -55,13 +55,15 @@ class Dynamic_PassBox_Property extends Dynamic_Property
         if (!isset($value)) {
             $value = $this->value;
         }
-    if (is_array($value) && $value[0] == $value[1]) {
-        $value = $value[0];
-    } else {
-        $this->invalid = xarML('text : Passwords did not match');
-            $this->value = null;
-        return false;
-    }
+        if (is_array($value)) {
+             if ($value[0] == $value[1]) {
+                $value = $value[0];
+            } else {
+                $this->invalid = xarML('text : Passwords did not match');
+                $this->value = null;
+                return false;
+            }
+        }
             
         if (!empty($value) && strlen($value) > $this->maxlength) {
             $this->invalid = xarML('text : must be less than #(1) characters long',$this->max + 1);

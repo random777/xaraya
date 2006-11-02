@@ -62,7 +62,9 @@ class Dynamic_URLTitle_Property extends Dynamic_TextBox_Property
                     $title = '';
                 }
 
+                // linoj: changed the following to work same way as Dynamic_URL_Property and URLIcon_Property, leaving old code here for reference (this may be better??)
                 // Make sure $value['link'] is set, has a length > 0 and does not equal simply 'http://'
+                /*
                 if (strlen(trim($link)) && trim($link) != 'http://') {
                         $link = $value['link'];
                 } else {
@@ -83,6 +85,21 @@ class Dynamic_URLTitle_Property extends Dynamic_TextBox_Property
                                 return false;
                         }
                     }
+                } */
+                $link = trim($link);
+                if (!empty($link) && $link != 'http://') {
+                // TODO: add some URL validation routine !
+                // see note under http://bugs.xaraya.com/show_bug.cgi?id=5959
+                    if (preg_match('/[<>"]/',$link)) {
+                        $this->invalid = xarML('URL');
+                        $this->value = null;
+                        return false;
+                    } else if (!strstr($link,'://')) {
+                        // allow users to say www.mysite.com
+                        $link = 'http://' . $link;
+                    }
+                } else {
+                    $link = '';
                 }
                 $value = array('link' => $link, 'title' => $title);
                 $this->value = serialize($value);

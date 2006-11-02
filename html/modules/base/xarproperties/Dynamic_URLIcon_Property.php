@@ -59,8 +59,20 @@ class Dynamic_URLIcon_Property extends Dynamic_TextBox_Property
         if (!isset($value)) {
             $value = $this->value;
         }
+        $value = trim($value);
         if (!empty($value) && $value != 'http://') {
-            $this->value = $value;
+        // TODO: add some URL validation routine !
+        // see note under http://bugs.xaraya.com/show_bug.cgi?id=5959
+            if (preg_match('/[<>"]/',$value)) {
+                $this->invalid = xarML('URL');
+                $this->value = null;
+                return false;
+            } else if (strstr($value,'://')) {
+                $this->value = $value;
+            } else {
+                // allow users to say www.mysite.com
+                $this->value = 'http://' . $value;
+            }
         } else {
             $this->value = '';
         }

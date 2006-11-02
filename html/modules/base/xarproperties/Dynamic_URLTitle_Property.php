@@ -61,46 +61,49 @@ class Dynamic_URLTitle_Property extends Dynamic_TextBox_Property
                 } else {
                     $title = '';
                 }
-
+                //check the link
                 // linoj: changed the following to work same way as Dynamic_URL_Property and URLIcon_Property, leaving old code here for reference (this may be better??)
-                // Make sure $value['link'] is set, has a length > 0 and does not equal simply 'http://'
-                /*
-                if (strlen(trim($link)) && trim($link) != 'http://') {
-                        $link = $value['link'];
-                } else {
-                    // If we have a scheme but nothing following it,
-                    // then consider the link empty :-)
-                    if (eregi('^[a-z]+\:\/\/$', trim($link))) {
-                        $link = '';
-                    } else {
-
-                        // Do some URL validation below - make sure the url
-                        // has at least a scheme (http/ftp/etc) and a host (domain.tld)
-                        $uri = parse_url($value['link']);
-
-                        if ( (!isset($uri['scheme']) || empty($uri['scheme'])) ||
-                            (!isset($uri['host']) || empty($uri['host']))) {
-                                $this->invalid = xarML('URL');
-                                $this->value = null;
-                                return false;
-                        }
-                    }
-                } */
                 $link = trim($link);
-                if (!empty($link) && $link != 'http://') {
-                // TODO: add some URL validation routine !
-                // see note under http://bugs.xaraya.com/show_bug.cgi?id=5959
+                // Make sure $value['link'] is set, has a length > 0 and does not equal simply 'http://'
+                if (!empty($link) && $link != 'http://')  {
+                   //let's process futher then
+                   //check it is not invalid eg html tag
                     if (preg_match('/[<>"]/',$link)) {
                         $this->invalid = xarML('URL');
                         $this->value = null;
                         return false;
-                    } else if (!strstr($link,'://')) {
-                        // allow users to say www.mysite.com
-                        $link = 'http://' . $link;
-                    }
-                } else {
-                    $link = '';
+                    } else {
+                      // If we have a scheme but nothing following it,
+                        // then consider the link empty :-)
+                        if (eregi('^[a-z]+\:\/\/$', trim($link))) {
+                            $link = '';
+                        } else {
+                            // Do some URL validation below. Separate for better understanding
+                            // Still not perfect. Add as seen fit.
+                            $uri = parse_url($value['link']);
+                            //Could it be a mailto?
+                            if (isset($uri['scheme']) && ($uri['scheme'] == 'mailto')
+                                && isset($uri['path']) && strstr(trim($uri['path']),'@')) {
+                                $link = $value['link'];
+
+                            } elseif (!isset($uri['scheme']) && !isset($uri['host']) && isset($uri['path'])
+                                      && ereg('^www.',trim($uri['path']))){
+                                //bug 5959 allow users to enter http address without http
+                                //jojodee: Just www now. But still, sure we want to make this guess and force http here?
+                                 $link = 'http://'.$link;
+
+                            // it has at least a scheme (http/ftp/etc) and a host (domain.tld)
+                            } elseif (!isset($uri['scheme']) || empty($uri['scheme']) ||
+                                   !isset($uri['host']) || empty($uri['host']))    {
+                                $this->invalid = xarML('URL');
+                                $this->value = null;
+                                return false;
+                            }
+                        }
+
+                    } //end checks for other schemes
                 }
+                //end check the link
                 $value = array('link' => $link, 'title' => $title);
                 $this->value = serialize($value);
             } else {

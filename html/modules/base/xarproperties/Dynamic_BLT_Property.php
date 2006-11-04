@@ -28,7 +28,7 @@ class Dynamic_BLT_Property extends Dynamic_Property
     var $filetype = '((xd)|(xt))?';
     var $basename = '';
     var $blttype = 'theme'; // 'module'
-    var $bltmodule = '';    // 'base'
+    var $bltmodule = '';    //  'base'
     var $bltsubdir = '';
     var $bltsubdata = '';
 

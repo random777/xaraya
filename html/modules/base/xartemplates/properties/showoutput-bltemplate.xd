@@ -1,0 +1,20 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:if condition="$blttype eq 'module'">
+    <xar:if condition="empty($bltsubdata)">
+        <xar:template file="$bltfile" type="module" module="$bltmodule" />
+    <xar:else />
+        <xar:template file="$bltfile" type="module" module="$bltmodule" subdata="$bltsubdata" />
+    </xar:if>
+<xar:elseif condition="$blttype eq 'theme'" />
+    <xar:if condition="empty($bltsubdata)">
+        <xar:template file="$bltfile" type="theme" />
+    <xar:else />
+        <xar:template file="$bltfile" type="theme" subdata="$bltsubdata" />
+    </xar:if>
+<xar:elseif condition="$blttype eq 'system'" />
+    <xar:if condition="empty($bltsubdata)">
+        <xar:template file="$bltfile" type="system" />
+    <xar:else />
+        <xar:template file="$bltfile" type="system" subdata="$bltsubdata" />
+    </xar:if>
+</xar:if>

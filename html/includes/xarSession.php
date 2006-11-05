@@ -103,7 +103,7 @@ function xarSessionGetSecurityLevel()
 /**
  * Get a session variable
  *
- * @param name name of the session variable to get
+ * @param string name name of the session variable to get
  */
 function xarSessionGetVar($name)
 {
@@ -145,8 +145,8 @@ function xarSessionGetVar($name)
 
 /**
  * Set a session variable
- * @param name name of the session variable to set
- * @param value value to set the named session variable
+ * @param string name name of the session variable to set
+ * @param mixed value value to set the named session variable
  */
 function xarSessionSetVar($name, $value)
 {
@@ -180,7 +180,7 @@ function xarSessionSetVar($name, $value)
 /**
  * Delete a session variable
  * @param string name name of the session variable to delete
- * @return bool true
+ * @return bool true on successfull deletion
  */
 function xarSessionDelVar($name)
 {
@@ -216,14 +216,19 @@ function xarSessionDelVar($name)
 
     return true;
 }
-
+/**
+ * Get the session id
+ * @return string session id
+ */
 function xarSessionGetId()
 {
     return session_id();
 }
 
 // PROTECTED FUNCTIONS
-
+/**
+ * @access private
+ */
 function xarSession_setUserInfo($userId, $rememberSession)
 {
     $dbconn =& xarDBGetConn();
@@ -256,6 +261,7 @@ function xarSession_close()
 /**
  * Set all PHP options for Xaraya session handling
  *
+ * @access private
  * @param $args['securityLevel'] the current security level
  * @param $args['duration'] duration of the session
  * @param $args['inactivityTimeout']
@@ -366,7 +372,7 @@ function xarSession__setup($args)
 
 /**
  * Continue a current session
- * @private
+ * @access private
  * @param sessionId the session ID
  */
 function xarSession__current($sessionId)
@@ -377,7 +383,7 @@ function xarSession__current($sessionId)
 
 /**
  * Create a new session
- * @private
+ * @access private
  * @param sessionId the session ID
  * @param ipAddress the IP address of the host with this session
  */
@@ -408,7 +414,8 @@ function xarSession__new($sessionId, $ipAddress)
 
 /**
  * PHP function to open the session
- * @private
+ * @access private
+ * @return bool true
  */
 function xarSession__phpOpen($path, $name)
 {
@@ -418,7 +425,7 @@ function xarSession__phpOpen($path, $name)
 
 /**
  * PHP function to close the session
- * @private
+ * @access private
  */
 function xarSession__phpClose()
 {

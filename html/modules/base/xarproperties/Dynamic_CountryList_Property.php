@@ -379,7 +379,8 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $coptions[] = array('id' =>'ye', 'name'=>xarML('Yemen'));
         $coptions[] = array('id' =>'zm', 'name'=>xarML('Zambia'));
         $coptions[] = array('id' =>'zw', 'name'=>xarML('Zimbabwe'));
-        $this->options = $coptions;
+        // allow validation options to appear at top of the list (TODO:and remove them from the coptions)
+        $this->options += $coptions;
         return $this->options;
    }
 }

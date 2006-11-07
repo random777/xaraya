@@ -10,11 +10,10 @@
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author jonathan linowes
-*/
-
-include_once "modules/base/xarproperties/Dynamic_Property.php";
+ */
+//include_once "modules/base/xarproperties/Dynamic_Property.php";
 
 /**
  * Class to handle dynamic blocklayout template property
@@ -108,7 +107,7 @@ class Dynamic_BLT_Property extends Dynamic_Property
         }
 
         $data['name']    = $name;
-        $data['value']    = $value;        
+        $data['value']    = $value;
         $data['id']      = $id;
         $data['options'] = $options;
         $data['tabindex']= !empty($tabindex) ? $tabindex : 0;
@@ -178,12 +177,12 @@ class Dynamic_BLT_Property extends Dynamic_Property
                 }
             }
         }
-        
+
         // default to theme (NOT MODULE)
         if (empty($this->blttype)) {
             $this->blttype = 'theme';
         }
-        
+
         // set basedir
         switch ($this->blttype) {
             case 'module' :
@@ -193,11 +192,11 @@ class Dynamic_BLT_Property extends Dynamic_Property
                     $this->bltmodule = 'base';
                 }
                 $this->basedir = $curtheme . '/modules/' . $this->bltmodule . '/includes';
-                break;      
+                break;
             case 'theme' :
                 $curtheme = xarTplGetThemeDir();
                 $this->basedir = $curtheme . '/includes';
-                break;      
+                break;
             case 'system' :
                 $this->basedir = '';
                 break;
@@ -206,7 +205,7 @@ class Dynamic_BLT_Property extends Dynamic_Property
             $this->basedir = $this->basedir . '/' . $this->bltsubdir;
         }
     }
-    
+
 
     /**
      * Get the base information for this property.

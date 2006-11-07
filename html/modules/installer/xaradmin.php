@@ -27,8 +27,7 @@ if (!file_exists('install.php') and !file_exists('upgrade.php')) {xarCore_die(xa
  * Dead
  *
  * @access public
- * @returns array
- * @return an array of template values
+ * @return array an array of template values
  */
 function installer_admin_main()
 {

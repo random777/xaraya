@@ -13,8 +13,6 @@
 /**
  * @author jonathan linowes
  */
-//include_once "modules/base/xarproperties/Dynamic_Property.php";
-
 /**
  * Class to handle dynamic blocklayout template property
  *

@@ -49,7 +49,7 @@ pdf:  xarayaguide.pdf
 txt:  xarayaguide.txt
 
 xarayaguide.html: $(SOURCES)
-	$(XSLTPROC) --xinclude --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $(TOPFILE) > $@ 
+	$(XSLTPROC) --xinclude --stringparam html.stylesheet $(CSSSTYLE) $(DB2HTML) $(TOPFILE) > $@
 
 index.html: $(SOURCES)
 	$(XSLTPROC) --xinclude --stringparam html.stylesheet $(CSSSTYLE) --stringparam chunk.section.depth 0 $(DB2CHUNKS) $(TOPFILE)
@@ -78,9 +78,11 @@ webdocs: all
 	mkdir -p $(OUTPUT)/callouts
 	mkdir -p $(OUTPUT)/parts/sourceimages
 	mkdir -p $(OUTPUT)/images
+	mkdir -p $(OUTPUT)/modules/modimages
 	cp -rf examples/*.* $(OUTPUT)/examples
 	cp -rf callouts/*.* $(OUTPUT)/callouts
 	cp -rf parts/sourceimages/*.* $(OUTPUT)/parts/sourceimages
+	cp -rf module/modimages/*.* $(OUTPUT)/modules/modimages
 	cp *.css $(OUTPUT)
 	cp images/*.gif $(OUTPUT)/images
 	cp images/*.png $(OUTPUT)/images

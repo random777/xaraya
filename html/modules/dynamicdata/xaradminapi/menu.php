@@ -13,6 +13,7 @@
  */
 /**
  * generate the common admin menu configuration
+ * @return array
  */
 function dynamicdata_adminapi_menu()
 {

@@ -25,8 +25,7 @@
  * @param $args['source'] data source of the field to update (optional)
  * @param $args['status'] status of the field to update (optional)
  * @param $args['validation'] validation of the field to update (optional)
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_updateprop($args)

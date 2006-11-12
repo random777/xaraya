@@ -119,7 +119,8 @@
                         </label>
                         <input type="text" name="phome" id="phome" value="#xarVarPrepForDisplay($phome)#" size="40" maxlength="100" tabindex="7" />
                         <p class="xar-form-input-wrapper-after">
-                            <xar:mlstring>You can use the module shortcut syntax available in the Base user menu block.</xar:mlstring>
+                             <xar:mlstring>You can use also </xar:mlstring><a href="http://xaraya.com/index.php/documentation/522"><xar:mlstring>Xaraya shortcut URL syntax</xar:mlstring></a>
+                             <xar:mlstring>to specify Home URLs</xar:mlstring>.
                         </p>
                     </div>
                 </xar:if>

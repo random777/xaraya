@@ -79,6 +79,10 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         return xarTplProperty('base', $template, 'showinput', $data);
 
     }
+    /**
+     * Show the output of this country listing
+     * @return mixed info for the template
+     */
 
     function showOutput($args = array())
     {
@@ -106,7 +110,6 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
      * @return base information for this property
      **/
      function getBasePropertyInfo()

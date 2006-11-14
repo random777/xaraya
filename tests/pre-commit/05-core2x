@@ -1,0 +1,49 @@
+--
+-- 05-core2x specific tests
+--
+print("--- Group 5: Core 2.x specific QA checks ---")
+print("--- This needs monotone 0.31   ---")
+if (branch == 'com.xaraya.core.2.x') then
+    -- run tests
+    print('--- Group 5.3: Deprecation ---')
+
+    deprtest="No use of deprecated functions"; deprlist=''
+    local deprecated = {
+        ['xarPreCoreGetVarDirPath'] = 'sys::varpath()',
+        ['PO_insert_ID']            = '$dbconn->getLastId()',
+    }
+
+    for index,file in pairs(commit_files) do
+        if(string.find(file,'%.php$')) then
+            local f = io.open(file,'r')
+            if f~=nil and file~='html/includes/xarLegacy.php' then
+                local content = f:read("*all")
+                f:close()
+                for deprec,replacement in pairs(deprecated) do
+                    if has_deprecated_func(string.lower(content),string.lower(deprec)) then
+                        deprlist=deprlist..'  '..file..' uses deprecated function: '..deprec..'. Use: '..replacement..' instead\n'
+                    end
+                end
+            end
+        end
+    end
+    if deprlist~='' then failed('5.31',deprtest,deprlist) else passed('5.31',deprtest) end
+else
+    passed('5.*','Core 2.x tests, if applicable (it was not in this case)')
+end
+
+function has_deprecated_func(content, func)
+    local usepat = func..'%s*%(.-%)'
+    local ds,de = string.find(content,'function%s+'..usepat)
+    local us,ue = string.find(content,usepat)
+    -- print(ds,de,us,ue)
+    if(ue == nil) then return false end -- no match at all
+    if(de == ue) then
+        -- end match of declaration is same as end match of use, ergo we have the declaration as a first match
+        -- check the rest
+        return has_deprecated_func(string.sub(content,de),func)
+    else
+        -- the declartion end was different from the use end, so there mus be a usage somewhere befor declaration
+        return true
+    end
+end

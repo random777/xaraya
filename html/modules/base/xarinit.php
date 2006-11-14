@@ -405,7 +405,7 @@ function base_init()
                            array('directory'=>'blocks', 'initfunc'=>'init'))) {
         return;
     }
-    
+
     /**************************************************************
     * Install the authsystem module
     **************************************************************/
@@ -450,8 +450,8 @@ function base_init()
 /**
  * Upgrade the base module from an old version
  *
- * @param oldVersion
- * @returns bool
+ * @param string oldVersion
+ * @return bool
  */
 function base_upgrade($oldVersion)
 {

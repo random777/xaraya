@@ -10,7 +10,7 @@
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author mikespub <mikespub@xaraya.com>
 */
 class Dynamic_StaticText_Property extends Dynamic_Property
@@ -26,7 +26,7 @@ class Dynamic_StaticText_Property extends Dynamic_Property
             if (!xarVarFetch($name, 'isset', $value,  NULL, XARVAR_DONT_SET)) {return;}
         }
         return $this->validateValue($value);
-    }    
+    }
 
     function validateValue($value = null)
     {
@@ -76,7 +76,7 @@ class Dynamic_StaticText_Property extends Dynamic_Property
         $data=array();
 
         $data['value'] = $value;
-        
+
         $template="";
         return xarTplProperty('base', 'static', 'showoutput', $data);
 
@@ -86,8 +86,7 @@ class Dynamic_StaticText_Property extends Dynamic_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {

@@ -21,9 +21,8 @@
  *
  * @author Jason Judge
  * @param $args array containing the form field definition or the type, position, ...
- * @returns string
- * @return empty string
- */ 
+ * @return string empty string
+ */
 function base_javascriptapi_handlerenderjavascript($args)
 {
     extract($args);

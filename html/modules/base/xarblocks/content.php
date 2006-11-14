@@ -55,7 +55,7 @@ function base_contentblock_info()
 /**
  * Display func.
  * @param $blockinfo array
- * @returns $blockinfo array
+ * @return $blockinfo array
  */
 function base_contentblock_display($blockinfo)
 {

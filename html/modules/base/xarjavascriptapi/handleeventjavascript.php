@@ -10,7 +10,6 @@
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-
 /**
  * Handle render javascript form field tags
  * Handle <xar:base-trigger-javascript ...> form field tags
@@ -21,9 +20,8 @@
  *
  * @author Jason Judge
  * @param $args array containing the form field definition or the type, position, ...
- * @returns string
- * @return empty string
- */ 
+ * @return string empty string
+ */
 function base_javascriptapi_handleeventjavascript($args)
 {
     extract($args);

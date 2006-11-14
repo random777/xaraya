@@ -16,8 +16,8 @@
  *
  * @author Jason Judge
  * @param $args['ver'] string version number to compare
- * @returns result of test: true or false
- * @return boolean indicating whether the application is at least version $ver
+ * @return boolean result of test: true or false
+           indicating whether the application is at least version $ver
  */
 function base_versionsapi_assert_application($args)
 {

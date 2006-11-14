@@ -10,7 +10,7 @@
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author mikespub <mikespub@xaraya.com>
 */
 class Dynamic_TColorPicker_Property extends Dynamic_Property
@@ -122,8 +122,7 @@ class Dynamic_TColorPicker_Property extends Dynamic_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {

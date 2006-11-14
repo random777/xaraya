@@ -15,8 +15,7 @@
  *
  * @author Jason Judge
  * @param $args['TODO'] TODO
- * @returns result of validation: true or false
- * @return number indicating which parameter is the latest version
+ * @return bool true
  */
 function base_versionsapi_order($args)
 {

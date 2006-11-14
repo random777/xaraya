@@ -17,7 +17,7 @@
  * Returns all submitted JavaScript fragments for a position (tag) and type (list of event names)
  * as a single string. Each attribute will be returned in name="value" format. Only non-empty
  * attributes will be returned.
- * 
+ *
  * Examples:
  * Add an 'onload' trigger to the page (both examples do the same thing):
  *   <xar:base-include-javascript position="body" type="onload" code="alert('hello, world')" />
@@ -33,9 +33,8 @@
  * @author Jason Judge
  * @param $args[position] the location of the event trigger; defaults to 'body'
  * @param $args[type] the type of event trigger; several as a comma-separated list
- * @returns string
- * @return empty string
- */ 
+ * @return string empty string
+ */
 function base_javascriptapi_geteventattributes($args)
 {
     extract($args);

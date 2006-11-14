@@ -10,12 +10,12 @@
  * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
-/*
+/**
  * Get a single block type.
  *
  * @param gid Group ID (optional)
  * @param name Group name (optional)
- * @returns array of block groups, keyed on block group ID (gid)
+ * @return array of block groups, keyed on block group ID (gid)
  * @author Jason Judge
  */
 

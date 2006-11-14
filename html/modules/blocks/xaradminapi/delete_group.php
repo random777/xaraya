@@ -13,9 +13,8 @@
 /**
  * delete a group
  * @author Jim McDonald, Paul Rosania
- * @param $args['gid'] the ID of the block group to delete
- * @returns bool
- * @return true on success, false on failure
+ * @param int $args['gid'] the ID of the block group to delete
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_delete_group($args)
 {

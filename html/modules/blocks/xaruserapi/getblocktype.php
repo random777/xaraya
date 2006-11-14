@@ -10,12 +10,12 @@
  * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
-/*
+/**
  * Get a single block type.
  * @param args['tid'] block type ID (optional)
  * @param args['module'] module name (optional, but requires 'type')
  * @param args['type'] block type name (optional, but requires 'module')
- * @returns array of block types, keyed on block type ID
+ * @return array of block types, keyed on block type ID
  * @author Jason Judge
 */
 

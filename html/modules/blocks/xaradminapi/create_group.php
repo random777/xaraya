@@ -15,8 +15,7 @@
  * @author Jim McDonald, Paul Rosania
  * @param $args['name'] the group name
  * @param $args['template'] the default block template
- * @returns int
- * @return group id on success, false on failure
+ * @return int group id on success, false on failure
  */
 function blocks_adminapi_create_group($args)
 {

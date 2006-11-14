@@ -19,8 +19,7 @@
  * @param $args['name'] the new name of the group
  * @param $args['template'] the new default template of the group
  * @param $args['instance_order'] the new instance sequence (array of bid)
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_update_group($args)
 {

@@ -14,7 +14,6 @@
  * utility function pass individual menu items to the main menu
  *
  * @author Jim McDonald, Paul Rosania
- * @returns array
  * @return array containing the menulinks for the main menu items.
  */
 function blocks_adminapi_getmenulinks()

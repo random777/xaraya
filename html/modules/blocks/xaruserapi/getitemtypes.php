@@ -13,7 +13,6 @@
 /**
  * utility function to retrieve the list of item types of this module (if any)
  *
- * @returns array
  * @return array containing the item types and their description
  */
 function blocks_userapi_getitemtypes($args)

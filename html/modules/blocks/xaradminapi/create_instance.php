@@ -17,8 +17,7 @@
  * @param $args['title'] the title of the block
  * @param $args['type'] the block's type
  * @param $args['template'] the block's template
- * @returns int
- * @return block instance id on success, false on failure
+ * @return int block instance id on success, false on failure
  */
 function blocks_adminapi_create_instance($args)
 {
@@ -132,7 +131,7 @@ function blocks_adminapi_create_instance($args)
         $checkbid = xarModAPIFunc('blocks','user','getcacheblock',array('bid'=>$bid));
         //we assume for now that it's left here due to bug # 5815 so delete it
         if (is_array($checkbid)) {
-           $deletecacheblock = xarModAPIFunc('blocks','admin','delete_cacheinstance', array('bid' => $bid)); 
+           $deletecacheblock = xarModAPIFunc('blocks','admin','delete_cacheinstance', array('bid' => $bid));
         }
         //now create the new block
         $cacheblocks = $xartable['cache_blocks'];

@@ -16,8 +16,8 @@
  * @author Jason Judge
  * @param $args['ver'] string version number to validate
  * @param $args['rule'] string rule name to validate against
- * @returns result of validation: true or false
  * @return boolean indicating whether the rule was passed (NULL for parameter error)
+            result of validation: true or false
  */
 function base_versionsapi_validate($args)
 {

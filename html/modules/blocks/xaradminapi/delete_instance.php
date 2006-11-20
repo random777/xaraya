@@ -13,9 +13,8 @@
 /**
  * delete a block
  * @author Jim McDonald, Paul Rosania
- * @param $args['bid'] the ID of the block to delete
- * @returns bool
- * @return true on success, false on failure
+ * @param int bid the ID of the block to delete
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_delete_instance($args)
 {
@@ -48,10 +47,10 @@ function blocks_adminapi_delete_instance($args)
     if (!$result) {return;}
 
     //let's make sure the cache blocks instance as well is deleted, if it exists bug #5815
-    if (!empty($xartable['cache_blocks'])) {    
-        $deletecacheblock = xarModAPIFunc('blocks','admin','delete_cacheinstance', array('bid' => $bid)); 
+    if (!empty($xartable['cache_blocks'])) {
+        $deletecacheblock = xarModAPIFunc('blocks','admin','delete_cacheinstance', array('bid' => $bid));
     }
-   
+
     xarModAPIFunc('blocks', 'admin', 'resequence');
 
     $args['module'] = 'blocks';

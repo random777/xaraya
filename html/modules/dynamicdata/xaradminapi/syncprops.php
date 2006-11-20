@@ -18,8 +18,7 @@
  * @param $args['objectid'] object id for the properties you want to update
  * @param $args['moduleid'] new module id for the properties
  * @param $args['itemtype'] new item type for the properties
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_syncprops($args)

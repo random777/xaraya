@@ -20,8 +20,7 @@
  * @param args['module'] the module name
  * @param args['type'] the block type
  * @param args['info'] the info array for the block type
- * @returns ID of block type registered (even if already registered)
- * @return true on success, false on failure
+ * @return int ID of block type registered (even if already registered)
  * @throws DATABASE_ERROR, BAD_PARAM
  */
 function blocks_adminapi_create_type($args)

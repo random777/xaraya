@@ -11,12 +11,14 @@
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
+/**
+ * What does this function do?
+ */
 function dynamicdata_admin_importpropertytypes ($args)
 {
-    
     $args['flush'] = 'false';
     $success = xarModAPIFunc('dynamicdata','admin','importpropertytypes', $args);
-    
+
     return array();
 }
 ?>

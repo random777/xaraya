@@ -14,8 +14,7 @@
  * deactivate a block
  * @author Jim McDonald, Paul Rosania
  * @param $args['bid'] the ID of the block to deactivate
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_deactivate($args)
 {

@@ -21,8 +21,7 @@
  * @param $args['template'] the template of the block instance
  * @param $args['content'] the new content of the block
  * @param $args['refresh'] the new refresh rate of the block
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_update_instance_groups($args)
 {
@@ -67,7 +66,7 @@ function blocks_adminapi_update_instance_groups($args)
 
     // Get all groups for the main update loop.
     $allgroups = xarModAPIfunc('blocks', 'user', 'getallgroups');
-    
+
     // Key the new groups on the gid for convenience
     $newgroups = array();
     foreach($groups as $group) {
@@ -91,7 +90,7 @@ function blocks_adminapi_update_instance_groups($args)
     // Loop for each group.
     foreach ($allgroups as $group) {
         $gid = $group['gid'];
-        // If the group is not in the $groups array, and is in the 
+        // If the group is not in the $groups array, and is in the
         // current instance groups, then it should be deleted.
         if (!isset($newgroups[$gid]) && isset($current[$gid])) {
             $query = "DELETE FROM $block_group_instances_table WHERE xar_id = ?";

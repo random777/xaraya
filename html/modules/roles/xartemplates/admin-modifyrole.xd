@@ -115,11 +115,12 @@
                 <xar:if condition="xarModGetVar('roles','setuserhome')">
                     <div class="xar-form-input-wrapper">
                         <label for="phome" title="#xarML('Home URL')#" class="xar-form-label">
-                            <xar:mlstring>Home:</xar:mlstring>
+                            <xar:mlstring>Home URL:</xar:mlstring>
                         </label>
                         <input type="text" name="phome" id="phome" value="#xarVarPrepForDisplay($phome)#" size="40" maxlength="100" tabindex="7" />
                         <p class="xar-form-input-wrapper-after">
-                            <xar:mlstring>You can use the module shortcut syntax available in the Base user menu block.</xar:mlstring>
+                             <xar:mlstring>You can also use </xar:mlstring><a href="http://xaraya.com/index.php/documentation/522"><xar:mlstring>Xaraya shortcut URL syntax</xar:mlstring></a>
+                             <xar:mlstring>to specify Home URLs</xar:mlstring>.
                         </p>
                     </div>
                 </xar:if>

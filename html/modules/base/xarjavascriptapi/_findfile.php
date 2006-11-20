@@ -16,12 +16,11 @@
  * Find the path for a JavaScript file.
  *
  * @author Jason Judge
- * @param $args['module'] module name; or
- * @param $args['moduleid'] module ID (deprecated)
- * @param $args['modid'] module ID
- * @param $args['filename'] file name
- * @returns the virtual pathname for the JS file; an empty value if not found
- * @return sring
+ * @param string $args['module'] module name; or
+ * @param int    $args['moduleid'] module ID (deprecated)
+ * @param int    $args['modid'] module ID
+ * @param string $args['filename'] file name
+ * @return string the virtual pathname for the JS file; an empty value if not found
  * @checkme: the default module should be the current *template* module, not the *request* module?
  */
 function base_javascriptapi__findfile($args)

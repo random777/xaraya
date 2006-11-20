@@ -21,8 +21,7 @@
  * @param $args['template'] the template of the block instance
  * @param $args['content'] the new content of the block
  * @param $args['refresh'] the new refresh rate of the block
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_update_instance($args)
 {
@@ -66,7 +65,7 @@ function blocks_adminapi_update_instance($args)
     // TODO: check for unique name before updating the database (errors raised
     // by unique keys are not user-friendly).
     $name = strtolower($name);
-    
+
     // Security
     // TODO: add security on the name as well as (eventually instead of) the title.
     if(!xarSecurityCheck('EditBlock', 1, 'Block', "$title::$bid")) {return;}
@@ -102,12 +101,12 @@ function blocks_adminapi_update_instance($args)
             array('bid' => $bid, 'groups' => $groups)
         );
     }
-    
+
     $args['module'] = 'blocks';
     $args['itemtype'] = 3; // block instance
     $args['itemid'] = $bid;
     xarModCallHooks('item', 'update', $bid, $args);
-    
+
     return true;
 }
 

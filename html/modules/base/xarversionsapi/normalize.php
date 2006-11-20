@@ -55,8 +55,8 @@ function base_versionsapi__normalize($ver, $sep, $rule)
  * @param $args['vers']
  * @param $args['rule'] allow only 'numeric' levels or 'alpha' strings (default: numeric)
  * @param $args['sep'] level separator character (default: '.')
- * @returns array or string of normalized version numbers
- * @return number indicating which parameter is the latest version
+ * @return array or string of normalized version numbers
+            number indicating which parameter is the latest version
  */
 function base_versionsapi_normalize($args)
 {

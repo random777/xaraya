@@ -284,6 +284,7 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $coptions[] = array('id' =>'md', 'name'=>xarML('Moldova, Republic of'));
         $coptions[] = array('id' =>'mc', 'name'=>xarML('Monaco'));
         $coptions[] = array('id' =>'mn', 'name'=>xarML('Mongolia'));
+        $coptions[] = array('id' =>'me', 'name'=>xarML('Montenegro'));
         $coptions[] = array('id' =>'ms', 'name'=>xarML('Montserrat'));
         $coptions[] = array('id' =>'ma', 'name'=>xarML('Morocco'));
         $coptions[] = array('id' =>'mz', 'name'=>xarML('Mozambique'));
@@ -330,7 +331,7 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $coptions[] = array('id' =>'st', 'name'=>xarML('S&#227;o Tom&#233; and Pr&#237;ncipe'));
         $coptions[] = array('id' =>'sa', 'name'=>xarML('Saudi Arabia'));
         $coptions[] = array('id' =>'sn', 'name'=>xarML('Senegal'));
-        $coptions[] = array('id' =>'cs', 'name'=>xarML('Serbia &#38; Montenegro'));
+        $coptions[] = array('id' =>'rs', 'name'=>xarML('Serbia'));
         $coptions[] = array('id' =>'sc', 'name'=>xarML('Seychelles'));
         $coptions[] = array('id' =>'sl', 'name'=>xarML('Sierra Leone'));
         $coptions[] = array('id' =>'sg', 'name'=>xarML('Singapore'));

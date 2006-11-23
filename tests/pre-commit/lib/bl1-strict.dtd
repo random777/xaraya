@@ -154,7 +154,7 @@
 <!ENTITY xar-modurl-privileges-admin-updateprivilege "xar-modurl-privileges-admin-updateprivilege">
 <!ENTITY xar-modurl-privileges-admin-viewprivileges "xar-modurl-privileges-admin-viewprivileges">
 <!ENTITY xar-modurl-privileges-admin-viewroles "xar-modurl-privileges-admin-viewroles">
-!ENTITY xar-modurl-privileges-admin-deleterealm "xar-modurl-privileges-admin-deleterealm">
+<!ENTITY xar-modurl-privileges-admin-deleterealm "xar-modurl-privileges-admin-deleterealm">
 <!ENTITY xar-modurl-privileges-admin-modifyrealm "xar-modurl-privileges-admin-modifyrealm">
 <!ENTITY xar-modurl-privileges-admin-viewrealms "xar-modurl-privileges-admin-viewrealms">
 <!ENTITY xar-modurl-ratings-admin-delete "xar-modurl-ratings-admin-delete">

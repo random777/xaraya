@@ -18,8 +18,7 @@
  *       or <xar:data-getitems name="$properties" value="$values" object="$object" ... />
  *
  * @param $args array containing the items that you want to display, or fields
- * @returns string
- * @return the PHP code needed to invoke getitemstag() in the BL template and return an array of properties and items
+ * @return mixed A string of the PHP code needed to invoke getitemstag() in the BL template and return an array of properties and items
  */
 function dynamicdata_userapi_handleGetItemsTag($args)
 {

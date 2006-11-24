@@ -15,7 +15,6 @@
  * get the list of defined dynamic objects
  *
  * @author the DynamicData module development team
- * @returns array
  * @return array of object definitions
  * @throws DATABASE_ERROR, NO_PERMISSION
  */

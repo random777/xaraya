@@ -23,8 +23,7 @@
  * @param $args['status'] limit to property fields of a certain status (e.g. active)
  * @param $args['allprops'] skip disabled properties by default
  * @param $args['static'] include the static properties (= module tables) too (default no)
- * @returns mixed
- * @return value of the field, or false on failure
+ * @return mixed value of the field, or false on failure
  * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_userapi_getprop($args)

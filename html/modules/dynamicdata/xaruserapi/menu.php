@@ -13,6 +13,7 @@
  */
 /**
  * generate the common menu configuration
+ * @return array
  */
 function dynamicdata_userapi_menu()
 {

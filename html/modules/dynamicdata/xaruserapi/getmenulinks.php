@@ -15,7 +15,6 @@
  * utility function pass individual menu items to the main menu
  *
  * @author the DynamicData module development team
- * @returns array
  * @return array containing the menulinks for the main menu items.
  */
 function dynamicdata_userapi_getmenulinks()

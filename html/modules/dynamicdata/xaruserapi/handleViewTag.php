@@ -19,8 +19,7 @@
  *       or <xar:data-view object="$object" ... />
  *
  * @param $args array containing the items that you want to display, or fields
- * @returns string
- * @return the PHP code needed to invoke showview() in the BL template
+ * @return string the PHP code needed to invoke showview() in the BL template
  */
 function dynamicdata_userapi_handleViewTag($args)
 {

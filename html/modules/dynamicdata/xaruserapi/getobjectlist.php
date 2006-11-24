@@ -18,8 +18,7 @@
  * @param $args['objectid'] id of the object you're looking for, or
  * @param $args['moduleid'] module id of the item field to get
  * @param $args['itemtype'] item type of the item field to get
- * @returns object
- * @return a particular Dynamic Object
+ * @return object a particular Dynamic Object
  */
 function &dynamicdata_userapi_getobjectlist($args)
 {

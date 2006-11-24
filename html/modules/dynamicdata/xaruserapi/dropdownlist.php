@@ -27,7 +27,6 @@
  * @param $args['modid'] module id of the item fields to get +
  * @param $args['itemtype'] item type of the item fields to get, or
  * @param $args['table'] database table to turn into an object
- * @returns array
  * @return array of (itemid => fieldvalue), or false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */

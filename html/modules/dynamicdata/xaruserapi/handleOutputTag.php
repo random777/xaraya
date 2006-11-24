@@ -19,8 +19,7 @@
  *       or <xar:data-output property="$property" /> with $property a Dynamic Property object
  *
  * @param $args array containing the input field definition or the type, name, value, ...
- * @returns string
- * @return the PHP code needed to invoke showoutput() in the BL template
+ * @return string the PHP code needed to invoke showoutput() in the BL template
  */
 function dynamicdata_userapi_handleOutputTag($args)
 {

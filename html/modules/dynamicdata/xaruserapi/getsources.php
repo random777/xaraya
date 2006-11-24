@@ -18,8 +18,7 @@
  * @param $args['module'] module name of the item fields, or (// TODO: for a module ?)
  * @param $args['modid'] module id of the item field to get (// TODO: for a module ?)
  * @param $args['itemtype'] item type of the item field to get (// TODO: for a module ?)
- * @returns mixed
- * @return list of possible data sources, or false on failure
+ * @return mixed list of possible data sources, or false on failure
  * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_userapi_getsources($args)

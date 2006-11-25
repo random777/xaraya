@@ -17,8 +17,8 @@
  *
  * @access public
  * @param none $
- * @returns bool
- * @raise DATABASE_ERROR
+ * @return bool
+ * @throws DATABASE_ERROR
  */
 function roles_init()
 {
@@ -210,13 +210,13 @@ function roles_activate()
     xarModSetVar('roles', 'setuserlastlogin',false);
     xarModSetVar('roles', 'setusertimezone',false);
     xarModSetVar('roles', 'defaultgroup', 'Users');
-    xarModSetVar('roles', 'displayrolelist', false);  
+    xarModSetVar('roles', 'displayrolelist', false);
     xarModSetVar('roles', 'usereditaccount', true);
     xarModSetVar('roles', 'allowuserhomeedit', false);
     xarModSetVar('roles', 'loginredirect', true);
     xarModSetVar('roles', 'allowexternalurl', false);
     xarModSetVar('roles', 'usersendemails', false);
-    xarModSetVar('roles', 'requirevalidation', true);    
+    xarModSetVar('roles', 'requirevalidation', true);
     $lockdata = array('roles' => array( array('uid' => 4,
                                               'name' => 'Administrators',
                                               'notify' => TRUE)),
@@ -271,7 +271,7 @@ function roles_activate()
  * @access public
  * @param oldVersion $
  * @returns bool
- * @raise DATABASE_ERROR
+ * @throws DATABASE_ERROR
  */
 function roles_upgrade($oldVersion)
 {
@@ -319,7 +319,7 @@ function roles_upgrade($oldVersion)
             }
             xarModSetVar('roles', 'locale', '');
             xarModSetVar('roles', 'userhome', '');
-            xarModSetVar('roles', 'userlastlogin', '');            
+            xarModSetVar('roles', 'userlastlogin', '');
             xarModSetVar('roles', 'primaryparent', '');
             xarModSetVar('roles', 'usertimezone', '');
             xarModSetVar('roles', 'setuserhome',false);
@@ -345,7 +345,7 @@ function roles_upgrade($oldVersion)
  * @access public
  * @param none $
  * @returns bool
- * @raise DATABASE_ERROR
+ * @throws DATABASE_ERROR
  */
 function roles_delete()
 {

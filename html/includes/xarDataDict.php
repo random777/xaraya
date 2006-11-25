@@ -12,7 +12,7 @@
 /**
  * xarDataDict: class for the data dictionary
  *
- * Represents the repository for the Xaraya data dictionary 
+ * Represents the repository for the Xaraya data dictionary
  * For more information:
  *   http://phplens.com/lens/adodb/docs-datadict.htm
  *
@@ -20,14 +20,14 @@
  * @access public
  * @throws none
  */
-class xarDataDict 
+class xarDataDict
 {
     var $dict;
 
     /**
      * xarDataDict: constructor for the class
      *
-     * Initializes variables for xarDataDict class 
+     * Initializes variables for xarDataDict class
      *
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
@@ -35,7 +35,7 @@ class xarDataDict
      * @return  none
      * @throws  none
     */
-    function xarDataDict(&$dbconn) 
+    function xarDataDict(&$dbconn)
     {
         // Check if we passed in a database connection.
         if (empty($dbconn)) {
@@ -56,8 +56,7 @@ class xarDataDict
      * @access  public
      * @param   $table name of the table
      * @param   $fields string or array containing column info
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return int 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function addColumn($table, $fields)
@@ -98,8 +97,7 @@ class xarDataDict
      * @access  public
      * @param   $table name of the table
      * @param   $fields string or array containing column info
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function alterColumn($table, $fields)
@@ -144,8 +142,7 @@ class xarDataDict
      * @access  public
      * @param   $table name of the table
      * @param   $fields string or array containing field info
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function alterTable($table, $fields)
@@ -158,7 +155,7 @@ class xarDataDict
      *
      * Calls ADODB changeTable()
      * Alters a table with appropriate ALTER TABLE MODIFY COLUMN or
-     * ALTER TABLE ADD $column if the column does not exist 
+     * ALTER TABLE ADD $column if the column does not exist
      *
      * $fields = "xar_name C(100) NOTNULL";
      *
@@ -166,8 +163,7 @@ class xarDataDict
      * @access  public
      * @param   $table name of the table
      * @param   $fields string or array containing field info
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function changeTable($table, $fields)
@@ -207,14 +203,13 @@ class xarDataDict
     /**
      * createDatabase
      *
-     * Create a database 
+     * Create a database
      *
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   $database database name to create
      * @param   $options array containing database options
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function createDatabase($database, $options = false)
@@ -255,8 +250,7 @@ class xarDataDict
      * @param   $table name of the table
      * @param   $fields string or array containing field info
      * @param   $options array containing index creation options
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function createIndex($index, $table, $fields, $options = false)
@@ -305,8 +299,7 @@ class xarDataDict
      * @access  public
      * @param   $index name of the index
      * @param   $table name of the table
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function dropIndex($index, $table)
@@ -346,11 +339,11 @@ class xarDataDict
     /**
      * createTable
      *
-     * Create a table 
+     * Create a table
      * ADOdb uses a portable declarative data dictionary format similar to SQL.
      * Field types use 1 character codes, and fields are separated by commas.
      * The following example creates three fields: "col1", "col2" and "col3":
-     * $flds = " 
+     * $flds = "
      *     col1 C(32) NOTNULL DEFAULT 'abc',
      *     col2 I  DEFAULT 0,
      *     col3 N(12.2)
@@ -361,8 +354,7 @@ class xarDataDict
      * @param   $table name of the table
      * @param   $fields string or array containing field info
      * @param   $options array containing table creationg options
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function createTable($table, $fields, $options = false)
@@ -403,8 +395,7 @@ class xarDataDict
      * @access  public
      * @param   $table name of the table
      * @param   $fields string or array containing column info
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function dropColumn($table, $fields)
@@ -439,13 +430,12 @@ class xarDataDict
     /**
      * dropTable
      *
-     * Drop a table 
+     * Drop a table
      *
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   $table name of the table
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function dropTable($table)
@@ -477,14 +467,13 @@ class xarDataDict
     /**
      * executeSQLArray
      *
-     * Execute an array of SQL strings 
+     * Execute an array of SQL strings
      *
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
-     * @param   $sql an array of SQL strings 
+     * @param   $sql an array of SQL strings
      * @param   $contOnError continue on error, default is true
-     * @returns 0 if failed, 1 if executed with errors, 2 if successful
-     * @return  integer
+     * @return  integer 0 if failed, 1 if executed with errors, 2 if successful
      * @throws  none
     */
     function executeSQLArray($sql, $contOnError = true)
@@ -503,8 +492,8 @@ class xarDataDict
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  returns an array of ADOFieldObject's, one field
+     * @return  array on success, false on failure
+     *          returns an array of ADOFieldObject's, one field
      *          object for every column of $table, false otherwise
      * @throws  none
     */
@@ -535,8 +524,8 @@ class xarDataDict
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  array of primary keys for the table, false otherwise
+     * @return  array on success, false on failure
+     *          array of primary keys for the table, false otherwise
      * @throws  none
     */
     function getPrimaryKeys($table)
@@ -567,8 +556,8 @@ class xarDataDict
      * @access  public
      * @param   table name of table
      * @param   primary boolean include primary keys (default false)
-     * @returns array on success, false on failure
-     * @return  returns an array of ADODB index arrays or false if none
+     * @return  array on success, false on failure
+     *          returns an array of ADODB index arrays or false if none
      * @throws  none
     */
     function getIndexes($table, $primary = false)
@@ -601,8 +590,8 @@ class xarDataDict
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   xartables true if only Xaraya tables, false for all tables
-     * @returns array on success, false on failure
-     * @return  array of tables available in the database, false otherwise
+     * @return  array on success, false on failure
+     *          array of tables available in the database, false otherwise
      * @throws  none
      * @todo    flag for Xaraya system vs site tables
     */
@@ -614,7 +603,7 @@ class xarDataDict
             if (!$tables) {
                 return false;
             }
-        } else { 
+        } else {
             $tables = $this->dict->MetaTables();
 
             if (!isset($tables)) {
@@ -635,8 +624,8 @@ class xarDataDict
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  array of tables available in the database, false otherwise
+     * @return  array on success, false on failure
+     *          array of tables available in the database, false otherwise
      * @throws  none
     */
     function getSystemTables()
@@ -677,8 +666,8 @@ class xarDataDict
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  array of tables available in the database, false otherwise
+     * @return  array on success, false on failure
+     *          array of tables available in the database, false otherwise
      * @throws  none
     */
     function getSiteTables()
@@ -695,10 +684,10 @@ class xarDataDict
         // retrieving with MetaTables, parse out the tables
         // based on the system table prefix
         $tables = array();
-    
+
         // Currently, xarDBGetSiteTablePrefix() returns the same prefix
         // as xarDBGetSystemTablePrefix()
-        $systemPrefix = xarDBGetSiteTablePrefix(); 
+        $systemPrefix = xarDBGetSiteTablePrefix();
         $prefixLength = strlen($systemPrefix);
 
         if ($prefixLength > 0) {
@@ -722,8 +711,8 @@ class xarDataDict
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   xartables true if only Xaraya tables, false for all tables
-     * @returns array on success, false on failure
-     * @return  array of columns names for the table, false otherwise
+     * @return  array on success, false on failure
+     *          array of columns names for the table, false otherwise
      * @throws  none
      * @todo    flag for Xaraya system vs site tables
     */
@@ -735,8 +724,8 @@ class xarDataDict
             if (!$tables) {
                 return false;
             }
-        } else { 
-            // Get all the tables 
+        } else {
+            // Get all the tables
             $tables = $this->getTables();
             if (!$tables) {
                 return false;
@@ -810,20 +799,20 @@ class xarDataDict
 /**
  * xarMetaData: class for the database metadata
  *
- * Represents the repository containing metadata 
+ * Represents the repository containing metadata
  *
  * @author Richard Cave <rcave@xaraya.com>
  * @access public
  * @throws none
  */
-class xarMetaData 
+class xarMetaData
 {
     var $dbconn;
 
     /**
      * xarMetaData: constructor for the class
      *
-     * Initializes variables for xarMetaData class 
+     * Initializes variables for xarMetaData class
      *
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
@@ -831,7 +820,7 @@ class xarMetaData
      * @return  none
      * @throws  none
     */
-    function xarMetaData($dbconn = false) 
+    function xarMetaData($dbconn = false)
     {
         // Check if we passed in a database connection.
         // TODO: check heritage of the object to be sure it is a DB connection.
@@ -842,8 +831,8 @@ class xarMetaData
 
         $this->dbconn =& $dbconn;
     }
-   
-    
+
+
     /**
      * getDatabases
      *
@@ -852,8 +841,8 @@ class xarMetaData
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  array of databases available on the server, false otherwise
+     * @return  array on success, false on failure
+     *          array of databases available on the server, false otherwise
      * @throws  none
      * @todo    make this work for all database types
     */
@@ -862,7 +851,7 @@ class xarMetaData
         // Only available for ODBC, MySQL and ADO
         $databases = $this->dbconn->MetaDatabases();
         if (!isset($databases)) {
-            return;
+            return false;
         }
         return $databases;
     }
@@ -876,15 +865,15 @@ class xarMetaData
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  array of tables available in the database, false otherwise
+     * @return  array on success, false on failure
+     *          array of tables available in the database, false otherwise
      * @throws  none
     */
     function getTables($type='TABLES')
     {
         $tables = $this->dbconn->MetaTables($type);
         if (!isset($tables)) {
-            return;
+            return false;
         }
 
         // Sort tables
@@ -901,8 +890,8 @@ class xarMetaData
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  returns an array of ADOFieldObject's, one field
+     * @return  array on success, false on failure
+     *          returns an array of ADOFieldObject's, one field
      *          object for every column of $table, false otherwise
      * @throws  none
     */
@@ -910,7 +899,7 @@ class xarMetaData
     {
         $columns = $this->dbconn->MetaColumns($table);
         if (!isset($columns)) {
-            return;
+            return false;
         }
         return $columns;
     }
@@ -923,15 +912,15 @@ class xarMetaData
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  array of columns names for the table, false otherwise
+     * @return  array on success, false on failure
+     *          array of columns names for the table, false otherwise
      * @throws  none
     */
     function getColumnNames($table)
     {
         $column_names = $this->dbconn->MetaColumnNames($table);
         if (!isset($column_names)) {
-            return;
+            return false;
         }
         return $column_names;
     }
@@ -944,15 +933,15 @@ class xarMetaData
      * @author  Richard Cave <rcave@xaraya.com>
      * @access  public
      * @param   none
-     * @returns array on success, false on failure
-     * @return  array of primary keys for the table, false otherwise
+     * @return  array on success, false on failure
+     *          array of primary keys for the table, false otherwise
      * @throws  none
     */
     function getPrimaryKeys($table)
     {
         $keys = $this->dbconn->MetaPrimaryKeys($table);
         if (!isset($keys)) {
-            return;
+            return false;
         }
         return $keys;
     }

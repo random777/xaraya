@@ -106,7 +106,7 @@ function xarOutputSetCached($cacheKey, $cache_file, $cacheType, $value)
  * @param string $cacheKey the key identifying the particular cache you want to
  *                         access
  * @param string $name     the name of the file in that particular cache
- * @returns void
+ * @return void
  * @deprec 2005-02-01
  */
 function xarOutputDelCached($cacheKey, $name)
@@ -119,7 +119,7 @@ function xarOutputDelCached($cacheKey, $name)
  * @access  public
  * @param   string $cacheKey the key identifying the particular cache you want
  *                           to wipe out
- * @returns void
+ * @return void
  * @deprec 2005-02-01
  */
 function xarOutputFlushCached($cacheKey, $dir = false)
@@ -161,7 +161,7 @@ function xarOutputFlushCached($cacheKey, $dir = false)
  *
  * @access  protected
  * @param   string $cacheType
- * @returns void
+ * @return void
  * @deprec 2005-02-01
  */
 function xarCache_CleanCached($cacheType)

@@ -12,7 +12,19 @@
  */
 /**
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
- * view users
+ *
+ * View a listing of users
+ *
+ * This function shows a page with tabbed for browsing online or offline users
+ * You can search for users by entering their name, or browse by their display name
+ *
+ * @param int startnum
+ * @param string phase
+ * @param string name
+ * @param string letter The first letter of the display name to show the roles
+ * @param string search (max 100 characters) Search for a user with this string
+ * @param string order What order to show the results in
+ * @return array
  */
 function roles_user_view($args)
 {

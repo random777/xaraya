@@ -269,8 +269,8 @@ function roles_activate()
  * Upgrade the roles module from an old version
  *
  * @access public
- * @param oldVersion $
- * @returns bool
+ * @param string oldVersion $
+ * @return bool true on success
  * @throws DATABASE_ERROR
  */
 function roles_upgrade($oldVersion)
@@ -344,7 +344,7 @@ function roles_upgrade($oldVersion)
  *
  * @access public
  * @param none $
- * @returns bool
+ * @return bool false, this module cannot be removed
  * @throws DATABASE_ERROR
  */
 function roles_delete()

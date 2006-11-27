@@ -15,8 +15,10 @@
  *
  * @author  John Cox
  * @access  public
- * @param   uid is the uid of the user being sent
- * @return  true on success or void on falure
+ * @param   int  uid is the uid of the user being sent
+ * @param   string phase
+ * @param   string return_url Set this url if you want to return to that url after the function has been finished
+ * @return  mixed Array with data, true on success or void on failure
  * @throws  XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION'
  * @todo    handle empty subject and/or message?
  */

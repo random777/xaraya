@@ -14,8 +14,7 @@
 /**
  * utility function pass individual menu items to the main menu
  *
- * @author the Example module development team
- * @returns array
+ * @author the Dynamic Data module development team
  * @return array containing the menulinks for the main menu items.
  */
 function dynamicdata_adminapi_getmenulinks()

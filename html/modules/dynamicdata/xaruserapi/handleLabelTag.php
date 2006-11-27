@@ -20,8 +20,7 @@
  *       <xar:data-label property="$property" label="something" /> will use <label for="something">...</label>
  *
  * @param $args array containing the object or property
- * @returns string
- * @return the PHP code needed to show the object or property label in the BL template
+ * @return string the PHP code needed to show the object or property label in the BL template
  */
 function dynamicdata_userapi_handleLabelTag($args)
 {

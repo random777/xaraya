@@ -373,8 +373,8 @@ class Dynamic_Property
     /**
      * Get the value of this property (= for a particular object item)
      *
-     * @returns mixed
-     * @return the value for the property
+     *
+     * @return mixed the value for the property
      */
     function getValue()
     {

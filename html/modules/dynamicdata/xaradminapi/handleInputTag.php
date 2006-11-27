@@ -25,8 +25,7 @@
  * See also preview="yes", which can be used on the object level to preview the whole object
  *
  * @param $args array containing the input field definition or the type, name, value, ...
- * @returns string
- * @return the PHP code needed to invoke showinput() in the BL template
+ * @return string the PHP code needed to invoke showinput() in the BL template
  */
 function dynamicdata_adminapi_handleInputTag($args)
 {

@@ -1297,8 +1297,8 @@ class Dynamic_Object extends Dynamic_Object_Master
      * Get the next available item type (for objects that are assigned to the dynamicdata module)
      *
      * @param $args['moduleid'] module id for the object
-     * @returns integer
-     * @return value of the next item type
+     *
+     * @return integer value of the next item type
      */
     function getNextItemtype($args = array())
     {

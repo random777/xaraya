@@ -15,11 +15,10 @@
  *
  * @author Jason Judge
  * @access public
- * @param modName the module name
- * @param $args['type'] name of the block type (optional)
- * @param $args['module'] name of the module (optional)
- * @returns integer
- * @return count of block types that meet the required criteria
+ * @param string modName the module name
+ * @param string $args['type'] name of the block type (optional)
+ * @param string $args['module'] name of the module (optional)
+ * @return int count of block types that meet the required criteria
  * @throws DATABASE_ERROR, BAD_PARAM
  */
 function blocks_userapi_countblocktypes($args)

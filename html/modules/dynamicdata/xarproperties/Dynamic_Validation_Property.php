@@ -143,8 +143,7 @@ class Dynamic_Validation_Property extends Dynamic_TextBox_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array Base information for this property
      **/
     function getBasePropertyInfo()
     {

@@ -17,7 +17,6 @@
  * @param &$fields fields array (pass by reference here !)
  * @param $dd_function optional name of the calling function
  * @param $extrainfo optional extra information (from hooks)
- * @returns array
  * @return array of invalid fields
  * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
  */

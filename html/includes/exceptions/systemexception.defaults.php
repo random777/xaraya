@@ -3,8 +3,8 @@
  * Exception Handling System
  *
  * @package exceptions
- * @copyright (C) 2003 by the Xaraya Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
@@ -25,7 +25,7 @@
         'CONFIG_ERROR' => array(
         'title' => xarML('Xaraya is not properly configured'),
             'short' => xarML('The combination of configuration settings has led to a conflict'),
-            'long'  => xarML('Xaraya is configured with some settings which lead to a conflicting situation. Some configuration settings cannot be used simultaneously') ),        
+            'long'  => xarML('Xaraya is configured with some settings which lead to a conflicting situation. Some configuration settings cannot be used simultaneously') ),
         'CONTEXT_NOT_EXIST' => array(
             'title' => xarML('Context does not exist'),
             'short' => xarML('A context element was not found.'),

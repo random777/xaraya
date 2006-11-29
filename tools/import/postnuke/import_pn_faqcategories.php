@@ -5,9 +5,9 @@
  * Import PostNuke .71+ FAQ categories into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -34,7 +34,7 @@
     }
     if ($faqs > 0) {
         $query = 'SELECT pn_id_cat, pn_categories, pn_parent_id
-                  FROM ' . $oldprefix . '_faqcategories 
+                  FROM ' . $oldprefix . '_faqcategories
                   ORDER BY pn_parent_id ASC, pn_id_cat ASC';
         $result =& $dbconn->Execute($query);
         if (!$result) {

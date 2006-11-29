@@ -6,7 +6,7 @@
  *
 *
  * @package qachecks
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Roger Keays <r.keays@ninthave.net>
@@ -70,7 +70,7 @@ Options:
   --noweave        run every test on each file
   --all            default to all checks if none are listed
                    (otherwise, only the default checks are run)
-";             
+";
     exit(1);
 }
 
@@ -107,7 +107,7 @@ if ($all == false) {
                 '5.2.4', // use unix line endings
                 '5.2.6', // one true brace
                 '5.4.9', // no use of --->
-                );        
+                );
     }
 
     /* filter checks to only those that were requested */
@@ -168,7 +168,7 @@ foreach ($filenames as $filename) {
 
         /* TODO: strip comments from template */
     }
-    
+
     /* create array from uncommented version */
     $nocommentlines = split("\n", $nocomments);
 
@@ -178,7 +178,7 @@ foreach ($filenames as $filename) {
     /* read line by line */
     $lines = file($filename);
 
-    /* debugging 
+    /* debugging
     var_export($lines);
     var_export($nocommentlines);
     */
@@ -233,7 +233,7 @@ Checking ". $file['name']."...
         }
 
         /* run the check */
-        if ($check->enabled && ($check->filetype == 'all' || 
+        if ($check->enabled && ($check->filetype == 'all' ||
                 $check->filetype == $file['type'])) {
             $result = false;
             $run++;
@@ -266,7 +266,7 @@ Checking ". $file['name']."...
             foreach ($regexpchecks as $index => $check) {
 
                 /* are we running this check? */
-                if ($check->enabled && ($check->filetype == 'all' || 
+                if ($check->enabled && ($check->filetype == 'all' ||
                         $check->filetype == $file['type'])) {
 
                     /* iterate each regexp in the check */
@@ -313,7 +313,7 @@ Checking ". $file['name']."...
         foreach ($regexpchecks as $index => $check) {
 
             /* did we run this check? */
-            if ($check->enabled && ($check->filetype == 'all' || 
+            if ($check->enabled && ($check->filetype == 'all' ||
                      $check->filetype == $file['type'])) {
                 $run++;
                 if (!$check->success) {
@@ -359,7 +359,7 @@ Check #". $check->id." (". $check->name.")...
         /* run the check on each file */
         foreach ($files as $file) {
             $check->success = true;
-            if ($check->enabled && ($check->filetype == 'all' || 
+            if ($check->enabled && ($check->filetype == 'all' ||
                     $check->filetype == $file['type'])) {
                 $result = false;
                 $run++;
@@ -368,7 +368,7 @@ Check #". $check->id." (". $check->name.")...
                 /* regexp checks are handled differently */
                 if (get_parent_class($check) == 'qacheckregexp') {
                    foreach ($file['lines'] as $number => $line) {
-         
+
                       /* iterate each regexp in the check */
                       foreach ($check->regexps as $regexp) {
 

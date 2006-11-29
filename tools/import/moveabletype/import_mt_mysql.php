@@ -5,7 +5,7 @@
  * Import Moveable Type 2.64+  users into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
  *
  * @subpackage import
@@ -14,7 +14,7 @@
  * @author mikespub <mikespub@xaraya.com>
  */
 
-    function find_cat($needle, &$haystack) 
+    function find_cat($needle, &$haystack)
     {
         foreach ($haystack as $key => $value) {
             if (array_search($needle, $value) !== FALSE) {

@@ -3,8 +3,8 @@
  * Exception Handling System
  *
  * @package exceptions
- * @copyright (C) 2003 by the Xaraya Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
@@ -22,7 +22,7 @@ class SystemMessage extends xarException
         $this->link = $link;
     }
 
-    function load($id) 
+    function load($id)
     {
         if (array_key_exists($id, $this->defaults)) parent::load($id);
         else {

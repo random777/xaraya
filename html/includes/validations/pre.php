@@ -47,7 +47,7 @@
  *    'pre:lower:ftoken:field:Item Name:val:notempty'
  *
  * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
 */
 
 /**

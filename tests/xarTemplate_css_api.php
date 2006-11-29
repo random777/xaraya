@@ -6,7 +6,7 @@
  *
  * @package blocklayout
  * @copyright (C) 2002 by the Xaraya Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Paul Rosania <paul@xaraya.com>
  * @author Marco Canini <marco@xaraya.com>
@@ -1105,13 +1105,13 @@ function xarTpl__executeFromFile($sourceFileName, $tplData)
             $fd = fopen($varDir . '/cache/templates/CACHEKEYS', 'a');
             fwrite($fd, $cacheKey. ': '.$sourceFileName . "\n");
             fclose($fd);
-            
-	    // Commented this out for now, a double entry should not occur anyway, eventually this could even be an assert.
+
+        // Commented this out for now, a double entry should not occur anyway, eventually this could even be an assert.
             //if (!in_array($entry, $file)) {
             //   $fd = fopen($varDir . '/cache/templates/CACHEKEYS', 'a');
             //   fwrite($fd, $entry);
             //   fclose($fd);
-            //} 
+            //}
         } else {
             return xarTpl__execute($templateCode, $tplData, $sourceFileName);
         }
@@ -1324,14 +1324,14 @@ function xarTpl__loadFromFile($sourceFileName)
             $fd = fopen($varDir . '/cache/templates/CACHEKEYS', 'a');
             fwrite($fd, $cacheKey. ': '.$sourceFileName . "\n");
             fclose($fd);
-            
+
             // commented this out for now, a double entry should never occure, eventuall this mayb even become an assert
             // for the details see bug #1600
             //if (!in_array($entry, $file)) {
             //    $fd = fopen($varDir . '/cache/templates/CACHEKEYS', 'a');
             //    fwrite($fd, $entry);
             //    fclose($fd);
-            //} 
+            //}
         }
         return $templateCode;
     }
@@ -1359,7 +1359,7 @@ define ('XAR_TPL_ANY', XAR_TPL_STRING|XAR_TPL_BOOLEAN|XAR_TPL_INTEGER|XAR_TPL_FL
  *
  * @package blocklayout
  */
-class xarTemplateAttribute 
+class xarTemplateAttribute
 {
     var $_name;     // Attribute name
     var $_flags;    // Attribute flags (datatype, required/optional, etc.)
@@ -1429,7 +1429,7 @@ class xarTemplateAttribute
  *
  * @package blocklayout
  */
-class xarTemplateTag 
+class xarTemplateTag
 {
     var $_name;
     var $_attributes;

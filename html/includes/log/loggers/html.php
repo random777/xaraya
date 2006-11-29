@@ -3,8 +3,8 @@
  * The HTML logger
  *
  * @package logging
- * @copyright (C) 2003 by the Xaraya Development Team.
- * 
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ *
 */
 
 /**
@@ -32,7 +32,7 @@ class xarLogger_html extends xarLogger_simple
     *               'timeFormat'   => string      Time format to be used in the file (optional)
     * @access public
     */
-    function setConfig ($conf) 
+    function setConfig ($conf)
     {
         parent::setConfig($conf);
         $this->_fileheader = '<?xml version="1.0"?>
@@ -49,7 +49,7 @@ class xarLogger_html extends xarLogger_simple
                     </tr>';
         $this->_buffer     = "\r\n".'<tr style="background-color:#e3e3e3;"><th>New Page View</th><th colspan="2">'.$_SERVER["REQUEST_URI"].'</th></tr>';
     }
-    
+
     /**
     * Writes a line to the logfile
     *

@@ -5,9 +5,9 @@
  * Import PostNuke .71+ poll descriptions into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -52,7 +52,7 @@
               FROM ' . $oldprefix . '_poll_desc as pdesc
               LEFT JOIN ' . $oldprefix . '_poll_data as pdata
                   ON pdesc.pn_pollid = pdata.pn_pollid
-              ' . $groupby . ' 
+              ' . $groupby . '
               ORDER BY pdesc.pn_pollid ASC';
     $result =& $dbconn->Execute($query);
     if (!$result) {

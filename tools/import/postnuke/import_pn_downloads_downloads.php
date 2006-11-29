@@ -5,9 +5,9 @@
  * Import PostNuke .71+ downloads into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -25,7 +25,7 @@
     $downloads_cats = unserialize(xarModGetVar('installer','downloads_cats'));
     $regid = xarModGetIDFromName('articles');
 
-    // Use different unix timestamp conversion function for 
+    // Use different unix timestamp conversion function for
     // MySQL and PostgreSQL databases
     $dbtype = xarModGetVar('installer','dbtype');
     switch ($dbtype) {

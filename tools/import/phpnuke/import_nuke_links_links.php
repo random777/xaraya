@@ -5,9 +5,9 @@
  * Import PostNuke .71+ web links into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -25,7 +25,7 @@
     $weblinks = unserialize(xarModGetVar('installer','weblinks'));
     $regid = xarModGetIDFromName('articles');
 
-    // Use different unix timestamp conversion function for 
+    // Use different unix timestamp conversion function for
     // MySQL and PostgreSQL databases
     $dbtype = xarModGetVar('installer','dbtype');
     switch ($dbtype) {
@@ -43,8 +43,8 @@
     switch ($phpnukeversion) {
     case "6.5":
     case "6.8":
-        $query = 'SELECT lid, cid, title, ' . $oldprefix . '_links_links.url, 
-                         description, ' . $dbfunction . ', ' . $oldprefix . '_links_links.name, ' . $oldprefix . '_links_links.email, 
+        $query = 'SELECT lid, cid, title, ' . $oldprefix . '_links_links.url,
+                         description, ' . $dbfunction . ', ' . $oldprefix . '_links_links.name, ' . $oldprefix . '_links_links.email,
                          hits, submitter, linkratingsummary, totalvotes, user_id
                  FROM ' . $oldprefix . '_links_links
                  LEFT JOIN ' . $oldprefix . '_users
@@ -52,8 +52,8 @@
                  ORDER BY lid ASC';
         break;
     default:
-        $query = 'SELECT lid, cid, title, ' . $oldprefix . '_links_links.url, 
-                         description, ' . $dbfunction . ', ' . $oldprefix . '_links_links.name, ' . $oldprefix . '_links_links.email, 
+        $query = 'SELECT lid, cid, title, ' . $oldprefix . '_links_links.url,
+                         description, ' . $dbfunction . ', ' . $oldprefix . '_links_links.name, ' . $oldprefix . '_links_links.email,
                          hits, submitter, linkratingsummary, totalvotes, uid
                  FROM ' . $oldprefix . '_links_links
                  LEFT JOIN ' . $oldprefix . '_users

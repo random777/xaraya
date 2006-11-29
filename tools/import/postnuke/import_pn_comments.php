@@ -5,9 +5,9 @@
  * Import PostNuke .71+ comments into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -35,7 +35,7 @@
     $count = $result->fields[0];
     $result->Close();
 
-    // Use different unix timestamp conversion function for 
+    // Use different unix timestamp conversion function for
     // MySQL and PostgreSQL databases
     $dbtype = xarModGetVar('installer','dbtype');
     switch ($dbtype) {
@@ -51,8 +51,8 @@
     }
 
     $query = 'SELECT pn_tid, pn_sid, pn_pid, ' . $dbfunction . ', pn_uname, pn_uid,
-              pn_host_name, pn_subject, pn_comment 
-              FROM ' . $oldprefix . '_comments 
+              pn_host_name, pn_subject, pn_comment
+              FROM ' . $oldprefix . '_comments
               LEFT JOIN ' . $oldprefix . '_users
               ON ' . $oldprefix . '_users.pn_uname = ' . $oldprefix . '_comments.pn_name
               ORDER BY pn_tid ASC';

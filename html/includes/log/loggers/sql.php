@@ -3,8 +3,8 @@
  * SQL based logger
  *
  * @package logging
- * @copyright (C) 2003 by the Xaraya Development Team.
- * 
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ *
 */
 
 /**
@@ -80,7 +80,7 @@ class xarLogger_sql extends xarLogger
      *                  PEAR_LOG_NOTICE, PEAR_LOG_INFO, and PEAR_LOG_DEBUG.
      *                  The default is PEAR_LOG_INFO.
      * @return boolean  True on success or false on failure.
-     * @access public     
+     * @access public
      */
     function notify($message, $priority)
     {

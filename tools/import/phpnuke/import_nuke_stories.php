@@ -5,9 +5,9 @@
  * Import PostNuke .71+ stories into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -33,7 +33,7 @@
     $result->Close();
     $regid = xarModGetIDFromName('articles');
 
-    // Use different unix timestamp conversion function for 
+    // Use different unix timestamp conversion function for
     // MySQL and PostgreSQL databases
     $dbtype = xarModGetVar('installer','dbtype');
     switch ($dbtype) {
@@ -133,7 +133,7 @@
                                       'ptid' => 1,
                                       'pubdate' => $pubdate,
                                       'authorid' => $authorid,
-                                      'language' => $language, 
+                                      'language' => $language,
                                       'cids' => $cids,
                                       'hits' => $counter
                                      )

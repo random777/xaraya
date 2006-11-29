@@ -4,7 +4,7 @@
  *
  * @package core
  * @copyright (C) 2002-2006 by the Xaraya Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marco Canini
  * @author Marcel van der Boom
@@ -18,7 +18,7 @@
  * better control on config settings
  *
  */
-define('XARCORE_GENERATION',1); 
+define('XARCORE_GENERATION',1);
 define('XARCORE_VERSION_NUM', '1.1.3');
 define('XARCORE_VERSION_ID',  'Xaraya');
 define('XARCORE_VERSION_SUB', 'adam_baum');

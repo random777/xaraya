@@ -21,8 +21,7 @@
  * @param $args['modid'] module id of table you're looking for
  * @param $args['itemtype'] item type of table you're looking for
  * @param $args['table']  table name of table you're looking for (better)
- * @returns mixed
- * @return value of the field, or false on failure
+ * @return mixed value of the field, or false on failure
  * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_utilapi_getstatic($args)

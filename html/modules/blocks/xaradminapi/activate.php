@@ -13,9 +13,8 @@
 /**
  * activate a block
  * @author Jim McDonald, Paul Rosania
- * @param $args['bid'] the ID of the block to activate
- * @returns bool
- * @return true on success, false on failure
+ * @param int $args['bid'] the ID of the block to activate
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_activate($args)
 {
@@ -36,7 +35,7 @@ function blocks_adminapi_activate($args)
     $xartable =& xarDBGetTables();
     $blockstable = $xartable['block_instances'];
 
-    // Deactivate
+    // Activate
     $query = "UPDATE $blockstable SET xar_state = ? WHERE xar_id = ?";
     $result =& $dbconn->Execute($query,array(2,$bid));
     if (!$result) {return;}

@@ -31,7 +31,7 @@ function mail_init()
     xarModSetVar('mail', 'smtpPort', '25');
     xarModSetVar('mail', 'smtpHost', 'Your SMTP Host');
     xarModSetVar('mail', 'encoding', '8bit');
-    xarModSetVar('mail', 'html', false);  
+    xarModSetVar('mail', 'html', false);
 
     // when a module item is created
     if (!xarModRegisterHook('item', 'create', 'API',
@@ -63,7 +63,7 @@ function mail_init()
  *
  * @access public
  * @param none $
- * @returns bool
+ * @return bool
  * @throws DATABASE_ERROR
  */
 function mail_activate()
@@ -134,7 +134,7 @@ function mail_delete()
     xarModDelVar('mail', 'smtpPort');
     xarModDelVar('mail', 'smtpHost');
     xarModDelVar('mail', 'encoding');
-    xarModDelVar('mail', 'ShowTemplates');  
+    xarModDelVar('mail', 'ShowTemplates');
     xarModDelVar('mail', 'ShowTemplates');
     xarModDelVar('mail', 'suppresssending');
     xarModDelVar('mail', 'redirectsending');

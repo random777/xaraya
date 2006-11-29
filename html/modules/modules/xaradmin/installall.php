@@ -20,9 +20,8 @@
  * <andyv implementation of JC's request> attempt to activate module immediately after it's inited
  *
  * @author Xaraya Development Team
- * @param id the module id to initialise
- * @returns
- * @return
+ * @param none
+ * @return bool
  */
 function modules_admin_installall()
 {

@@ -20,9 +20,8 @@
  *
  * @author Xaraya Development Team
  * @param id registered module id
- * @param return_url optional return URL after updating the hooks
- * @returns array
- * @return an array of variables to pass to the template
+ * @param string return_url optional return URL after updating the hooks
+ * @return array an array of variables to pass to the template
  */
 function modules_admin_modify($args)
 {
@@ -60,11 +59,11 @@ function modules_admin_modify($args)
     // $data[hooklist] is the master array which holds all info
     // about the registered hooks.
     $data['hooklist'] = array();
-    
+
     // Loop over available $key => $value pairs in hooklist
     // $modname is assigned key (name of module)
     // $hooks is assigned object:action:area
-    // MrB: removed the details check, it's simpler to have the same datastructure 
+    // MrB: removed the details check, it's simpler to have the same datastructure
     // allways, and I think there's not much of a performance hit.
     // TODO: make the different hooks selectable per type of hook
     foreach ($hooklist as $hookmodname => $hooks) {

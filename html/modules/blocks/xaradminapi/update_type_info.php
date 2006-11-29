@@ -20,8 +20,7 @@
  * @param args['tid'] the type id
  * @param args['module'] the module name
  * @param args['type'] the block type
- * @returns ID of block type registered (even if already registered)
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws DATABASE_ERROR, BAD_PARAM
  */
 function blocks_adminapi_update_type_info($args)
@@ -33,7 +32,7 @@ function blocks_adminapi_update_type_info($args)
 
     if (empty($type)) {
         // No type registered in the database.
-        return;
+        return false;
     }
 
     // Load and execute the info function of the block.
@@ -44,7 +43,7 @@ function blocks_adminapi_update_type_info($args)
             'type' => $type['type']
         )
     );
-    if (empty($block_info)) {return;}
+    if (empty($block_info)) {return false;}
 
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();

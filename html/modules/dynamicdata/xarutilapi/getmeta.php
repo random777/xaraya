@@ -16,8 +16,7 @@
  *
  * @author the DynamicData module development team
  * @param $args['table']  optional table you're looking for
- * @returns mixed
- * @return array of field definitions, or null on failure
+ * @return mixed array of field definitions, or null on failure
  * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_utilapi_getmeta($args)

@@ -15,7 +15,6 @@
  *
  * @author mikespub <mikespub@xaraya.com>
  * @author the DynamicData module development team
- * @returns array
  * @return array of values, or array of id => value combinations
  * @throws BAD_PARAM, NO_PERMISSION
  */

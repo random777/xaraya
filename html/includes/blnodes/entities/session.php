@@ -1,7 +1,7 @@
 <?php
 
 /**
-* xarTpl__XarSessionEntityNode
+ * xarTpl__XarSessionEntityNode
  *
  * Session variables entities, wrapps xarSessionGetVar()
  *

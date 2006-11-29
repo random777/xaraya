@@ -15,7 +15,7 @@
  *
  * @author John Robeson
  * @author Marcel van der Boom <marcel@hsdev.com>
- * This function is similar to xarModFunc but simplified. 
+ * This function is similar to xarModFunc but simplified.
  * We need this because during install we cant have the module
  * subsystem online directly, so we need a direct way of calling
  * the admin functions of the installer. The actual functions
@@ -25,8 +25,7 @@
  * @access public
  * @param funcName specific function to run
  * @param args argument array
- * @returns mixed
- * @return The output of the function, or false on failure
+ * @return mixed The output of the function, or false on failure
  * @throws BAD_PARAM, MODULE_FUNCTION_NOT_EXIST
  */
 function xarInstallFunc($funcName = 'main', $args = array())
@@ -95,10 +94,9 @@ function xarInstallAPIFunc($funcName = 'main', $args = array())
  * Loads the modType API for installer identified by modName.
  *
  * @access public
- * @param modName registered name of the module
- * @param modType type of functions to load
- * @returns bool
- * @return true on success
+ * @param string modName registered name of the module
+ * @param string modType type of functions to load
+ * @return bool true on success
  * @throws BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST
  */
 function xarInstallAPILoad()
@@ -136,8 +134,7 @@ function xarInstallAPILoad()
  * Loads the modType of installer identified by modName.
  *
  * @access public
- * @returns string
- * @return true
+ * @return bool true
  * @throws BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST
  */
 function xarInstallLoad()
@@ -158,7 +155,7 @@ function xarInstallLoad()
         // Already loaded from somewhere else
         return true;
     }
-   
+
     // Load the module files
     $modOsType = xarVarPrepForOS($modType);
     $modOsDir = 'installer';
@@ -179,7 +176,7 @@ function xarInstallLoad()
     // Load the module translations files
     $res = xarMLSLoadTranslations($osfile);
     if (!isset($res) && xarCurrentErrorType() != XAR_NO_EXCEPTION) return; // throw back exception
- 
+
     return true;
 }
 

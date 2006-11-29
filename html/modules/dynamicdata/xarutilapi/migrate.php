@@ -20,8 +20,7 @@
  * @param $args['fieldmap'] the field mapping
  * @param $args['hookmap'] the hook mapping
  * @param $args['debug'] don't actually update anything :-)
- * @returns mixed
- * @return true or debug string on success, null on failure
+ * @return mixed true or debug string on success, null on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_utilapi_migrate($args)

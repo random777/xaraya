@@ -62,7 +62,7 @@ function installer_adminapi_modifyconfig($args)
  * @access public
  * @param args['directory'] the directory to include
  * @param args['initfunc'] init|upgrade|remove
- * @returns bool
+ * @return bool
  * @throws BAD_PARAM, MODULE_FILE_NOT_EXIST, MODULE_FUNCTION_NOT_EXIST
  */
 function installer_adminapi_initialise($args)
@@ -120,7 +120,7 @@ function installer_adminapi_initialise($args)
  * @access public
  * @param args['dbName']
  * @param args['dbType']
- * @returns bool
+ * @return bool
  * @throws BAD_PARAM, DATABASE_ERROR
  */
 function installer_adminapi_createdb($args)
@@ -193,7 +193,7 @@ function installer_adminapi_createdb($args)
  * @access public
  * @param args['field_name']
  * @param args['table_name']
- * @returns true if field exists false otherwise
+ * @return bool true if field exists false otherwise
  * @author Sean Finkle, John Cox
  */
 function installer_adminapi_CheckForField($args)
@@ -231,7 +231,7 @@ function installer_adminapi_CheckForField($args)
  * @access public
  * @param args['field_name']
  * @param args['table_name']
- * @returns field type
+ * @return field type
  * @author Sean Finkle, John Cox
  */
 function installer_adminapi_GetFieldType($args)
@@ -266,7 +266,7 @@ function installer_adminapi_GetFieldType($args)
  *
  * @access public
  * @param args['table_name']
- * @returns true if field exists false otherwise
+ * @return bool true if field exists false otherwise
  * @author Sean Finkle, John Cox
  */
 function installer_adminapi_CheckTableExists($args)

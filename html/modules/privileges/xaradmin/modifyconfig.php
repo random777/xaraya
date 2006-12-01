@@ -99,8 +99,11 @@ function privileges_admin_modifyconfig()
             if (!xarSecConfirmAuthKey()) return;
             switch ($data['tab']) {
                 case 'general':
-                    if (!xarVarFetch('inheritdeny', 'checkbox', $inheritdeny, false, XARVAR_NOT_REQUIRED)) return;
-                    xarModSetVar('privileges', 'inheritdeny', $inheritdeny);
+                    if (!xarVarFetch('inheritdeny', 'checkbox', $inheritdeny, true, XARVAR_NOT_REQUIRED)) return;
+                    //xarModSetVar('privileges', 'inheritdeny', $inheritdeny);
+                    //jojodee - let's make sure for now as some people may have this unknowingly set at false,
+                    // due to the var not being set to true by default in post 1.1 merge
+                    xarModSetVar('privileges', 'inheritdeny', true);
                     if (!xarVarFetch('lastresort', 'checkbox', $lastresort, false, XARVAR_NOT_REQUIRED)) return;
                     xarModSetVar('privileges', 'lastresort', $lastresort);
                     if (!$lastresort) {

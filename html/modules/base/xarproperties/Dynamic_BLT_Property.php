@@ -12,11 +12,7 @@
  */
 /**
  * @author jonathan linowes
- */
-/**
  * Class to handle dynamic blocklayout template property
- *
- * @package dynamicdata
  */
 class Dynamic_BLT_Property extends Dynamic_Property
 {

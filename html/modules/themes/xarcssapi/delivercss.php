@@ -17,7 +17,7 @@
  *
  * @author Andy Varganov
  * @param none
- * @returns string
+ * @return string
  */
 function themes_cssapi_delivercss($args)
 {

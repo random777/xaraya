@@ -10,9 +10,11 @@
  * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
  */
-/* Themes administration
+/**
+ * Themes administration
  * @author Marty Vance
-*/
+ * @return array The information with all tables held by the Themes module
+ */
 
 function themes_xartables()
 {

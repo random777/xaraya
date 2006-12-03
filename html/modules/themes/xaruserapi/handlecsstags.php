@@ -10,9 +10,9 @@
  * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
  */
-/*
+/**
  * @author andyv <andyv@xaraya.com>
-*/
+ */
 function themes_userapi_handlecsstags($args)
 {
     $argstring = 'array(';
@@ -26,6 +26,4 @@ function themes_userapi_handlecsstags($args)
         return "xarModAPIFunc('themes', 'user', 'register',$argstring);\n";
     }
 }
-
-
 ?>

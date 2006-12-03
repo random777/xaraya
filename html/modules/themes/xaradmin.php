@@ -8,9 +8,10 @@
  * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
  */
-/* Themes administration
+/**
+ * Themes administration
  * @author Marty Vance
-*/
+ */
 
 // nothing here yet - thought of using it for preloading css classlib, but havent done it somehow
 

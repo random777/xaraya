@@ -3,13 +3,14 @@
  * The Core
  *
  * @package core
- * @copyright (C) 2002-2006 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @author Marco Canini
  * @author Marcel van der Boom
  * @todo dependencies and runlevels!
-*/
+ */
 
 /**
  * Core version informations

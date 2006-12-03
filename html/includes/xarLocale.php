@@ -10,7 +10,6 @@
  * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
-
 /**
  * Gets the locale data for a certain locale.
  * Locale data is an associative array, its keys are described at the top

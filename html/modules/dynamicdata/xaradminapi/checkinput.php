@@ -14,9 +14,9 @@
 /**
  * check input from dynamic data (needs $extrainfo['dd_*'] from arguments, or 'dd_*' from input)
  *
- * @param &$fields fields array (pass by reference here !)
- * @param $dd_function optional name of the calling function
- * @param $extrainfo optional extra information (from hooks)
+ * @param array  &$fields fields array (pass by reference here !)
+ * @param string $dd_function optional name of the calling function
+ * @param array  $extrainfo optional extra information (from hooks)
  * @return array of invalid fields
  * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
  */

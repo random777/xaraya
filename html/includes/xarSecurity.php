@@ -1,16 +1,17 @@
 <?php
 /**
+ * Xaraya Security functions
  *
- * @package security
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage security
  * @author Jim McDonald
  *
  * @todo bring back possibility of time authorized keys
- */
-
-/**
+ *
  * Notes on security system
  *
  * Special UID and GIDS:
@@ -41,7 +42,6 @@ include_once "$here/../modules/roles/xarroles.php";
  * @access protected
  * @return bool true
  */
-
 function xarSecurity_init()
 {
     // Subsystem initialized, register a handler to run when the request is over
@@ -360,7 +360,8 @@ function xarGetGroups()
     return $roles->getgroups();
 }
 
-/* xarFindRole: returns a role object by its name
+/**
+ * xarFindRole: returns a role object by its name
  *
  * This is a wrapper function
  *
@@ -409,7 +410,8 @@ function xarIsAncestor($name1, $name2)
     return false;
 }
 
-/* xarTree: creates a tree object
+/**
+ * xarTree: creates a tree object
  *
  * This is a wrapper function
  *
@@ -425,7 +427,8 @@ function xarTree()
     return $tree;
 }
 
-/* xarReturnPrivilege: stores a privilege from an external wizard in the repository.
+/**
+ * xarReturnPrivilege: stores a privilege from an external wizard in the repository.
  *
  * This is a wrapper function
  *
@@ -442,7 +445,8 @@ function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$leve
     return $privs->returnPrivilege($pid,$name,$realm,$module,$component,$instance,$level);
 }
 
-/* xarSecurityLevel: gets a security level based on its name.
+/**
+ * xarSecurityLevel: gets a security level based on its name.
  *
  * This is a wrapper function
  *
@@ -457,7 +461,8 @@ function xarSecurityLevel($levelname)
     return $masks->xarSecLevel($levelname);
 }
 
-/* xarPrivExists: checks whether a privilege exists.
+/**
+ * xarPrivExists: checks whether a privilege exists.
  *
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
@@ -473,7 +478,8 @@ function xarPrivExists($name)
     else return FALSE;
 }
 
-/* xarMaskExists: checks whether a mask exists.
+/**
+ * xarMaskExists: checks whether a mask exists.
  *
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
@@ -490,7 +496,8 @@ function xarMaskExists($name,$module="All",$component="All")
     else return FALSE;
 }
 
-/* xarQueryMask: returns a mask suitable for inclusion in a structured query
+/**
+ * xarQueryMask: returns a mask suitable for inclusion in a structured query
  *
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
@@ -652,6 +659,7 @@ function xarSecGenAuthKey($modName = NULL)
  * @access public
  * @param string authIdVarName
  * @return bool true if the key is valid, false if it is not
+ * @throws FORBIDDEN_OPERATION
  * @todo bring back possibility of time authorized keys
  */
 function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')

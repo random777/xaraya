@@ -11,6 +11,10 @@
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
+/**
+ * @param array args
+ * @return array Filelist
+ */
 function dynamicdata_adminapi_browse($args)
 {
     // Argument check - make sure that all required arguments are present

@@ -15,7 +15,7 @@
  * list some items in a template
  *
  * @param $args array containing the items or fields to show
- * @TODO: move this to some common place in Xaraya (base module ?)
+ * @todo move this to some common place in Xaraya (base module ?)
  * @return string containing the HTML (or other) text to output in the BL template
  */
 function dynamicdata_adminapi_showlist($args)

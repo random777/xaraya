@@ -1,22 +1,22 @@
 <?php
 /**
  * ADODB Database Abstraction Layer API Helpers
- * 
- * @package database
+ *
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- * @subpackage adodb
+ *
+ * @subpackage database adodb
  * @author Marco Canini
-*/
-
+ */
 /**
  * Initializes the database connection.
  *
  * This function loads up ADODB  and starts the database
  * connection using the required parameters then it sets
  * the table prefixes and xartables up and returns true
- * 
+ *
  * @access protected
  * @global array xarDB_systemArgs
  * @global object dbconn database connection object
@@ -75,14 +75,14 @@ function xarDB_init(&$args, $whatElseIsGoingLoaded)
 /**
  * Shutdown handler for the DB subsystem
  *
- * This function is the shutdown handler for the 
+ * This function is the shutdown handler for the
  * DB subsystem. It runs on the end of a request
  *
  */
 function xarDB__shutdown_handler()
 {
     // Shutdown handler for the DB subsystem
-    // Once the by reference handling of the dbconn is in, we can do 
+    // Once the by reference handling of the dbconn is in, we can do
     // a central close for the db connection here.
 }
 
@@ -104,7 +104,7 @@ function &xarDBGetConn($index=0)
  * Initialise a new db connection
  *
  * Create a new connection based on the supplied parameters
- * 
+ *
  * @access public
  * @todo   do we need the global?
  */
@@ -141,7 +141,7 @@ function &xarDBNewConn($args = NULL)
     // FIXME: ADODB currently allows setting of fetch mode via global and the method setfetchmode()
     // however, it doesn't seem to take into account the global setting when setfetchmode is set
     // which causes problems in postgres drivers (and possibly others). reason being that these drivers,
-    // don't actually use the setFetchMode method everywhere - instead opting for the global (which can be out 
+    // don't actually use the setFetchMode method everywhere - instead opting for the global (which can be out
     // of sync with the latter). -- rabbitt
     // With the ADODB 4.60 onwards, this option can be set individually for each connection object.
     // It may be better to remove the global completely, and set the property against each
@@ -180,7 +180,7 @@ function &xarDBNewConn($args = NULL)
  * @todo this is a copy of private ADOdb code, must keep it updated
  * @todo expand the handler types as necessary (e.g. for creole)
  */
-function xarDBdriverExists($dbType, $handler = 'adodb') 
+function xarDBdriverExists($dbType, $handler = 'adodb')
 {
     if (empty($dbType) || $handler != 'adodb') {return false;}
 
@@ -196,9 +196,9 @@ function xarDBdriverExists($dbType, $handler = 'adodb')
     // This mapping is for version 4.60.
     $db = strtolower($dbType);
     switch ($db) {
-        case 'ado': 
+        case 'ado':
             if (PHP_VERSION >= 5) $db = 'ado5';
-            $class = 'ado'; 
+            $class = 'ado';
             break;
         case 'ifx':
         case 'maxsql': $class = $db = 'mysqlt'; break;
@@ -232,7 +232,7 @@ function &xarDBGetTables()
  * @return true
  * @todo <johnny> change to protected or private?
  * @todo <mrb> Insane function name
- * @tod  <mrb> This needs to be replaced by datadict functionality
+ * @todo <mrb> This needs to be replaced by datadict functionality
  */
 function xarDBLoadTableMaintenanceAPI()
 {

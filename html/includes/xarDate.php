@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Wrapper class for PHP date functions
  *
  * @copyright (C) 2002-2006 The Digital Development Foundation
@@ -12,7 +11,10 @@
  * @todo this needs another place
  * @todo this needs documentation
  */
-
+/**
+ * Wrapper class for PHP date functions
+ * Not much is used from these functions
+ */
 class xarDate
 {
 

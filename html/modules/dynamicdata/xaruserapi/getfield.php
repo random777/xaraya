@@ -13,7 +13,7 @@
  */
 /**
  * get a specific item field
- * @TODO: update this with all the new stuff
+ * @todo update this with all the new stuff
  *
  * @author the DynamicData module development team
  * @param string $args['module'] module name of the item field to get, or

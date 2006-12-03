@@ -12,7 +12,7 @@
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
- * @TODO: move this to some common place in Xaraya (base module ?)
+ * @todo move this to some common place in Xaraya (base module ?)
  * Handle <xar:data-form ...> form tags
  * Format : <xar:data-form module="123" itemtype="0" itemid="555" fieldlist="$fieldlist" static="yes" ... />
  *       or <xar:data-form fields="$fields" ... />

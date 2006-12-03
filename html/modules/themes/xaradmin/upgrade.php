@@ -20,19 +20,18 @@
  *
  * @author Marty Vance
  * @param id the theme id to upgrade
- * @returns
- * @return
+ * @return bool true
  */
 function themes_admin_upgrade()
 {
     // Security and sanity checks
     if (!xarSecConfirmAuthKey()) return;
 
-    if (!xarVarFetch('id', 'int:1:', $id)) return; 
-    
+    if (!xarVarFetch('id', 'int:1:', $id)) return;
+
     // Upgrade theme
     $upgraded = xarModAPIFunc('themes', 'admin', 'upgrade', array('regid' => $id));
-    
+
     //throw back
     if(!isset($upgraded)) return;
 

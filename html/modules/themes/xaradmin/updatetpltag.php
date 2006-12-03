@@ -13,10 +13,9 @@
 /**
  * Update/insert a template tag
  *
- * @author Marty Vance 
- * @param tagname 
- * @returns bool
- * @return true on success, error message on failure
+ * @author Marty Vance
+ * @param tagname
+ * @return bool true on success, error message on failure
  * @author Simon Wunderlin <sw@telemedia.ch>
  */
 function themes_admin_updatetpltag()
@@ -53,7 +52,7 @@ function themes_admin_updatetpltag()
         return;
             }
     }
-    
+
     if(!xarTplRegisterTag($module, $tagname, $aAttributes, $handler)) {
         $msg = xarML('Could not register (#(1)).', $tagname);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'UNKNOWN',
@@ -62,8 +61,8 @@ function themes_admin_updatetpltag()
     }
 
     xarResponseRedirect(xarModUrl('themes', 'admin', 'listtpltags'));
-    
+
     return true;
-} 
+}
 
 ?>

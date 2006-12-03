@@ -12,19 +12,18 @@
  */
 /**
  * Deactivate a theme
- * 
+ *
  * Loads theme admin API and calls the setstate
  * function    to actually    perfrom    the    deactivation,
  * then    redirects to the list function with    a status
  * message and returns true.
  * @author Marty Vance
- * @access public 
+ * @access public
  * @param id $ the theme id    to deactivate
- * @returns    
- * @return 
+ * @return bool true
  */
 function themes_admin_deactivate()
-{ 
+{
     // Security and sanity checks
     if (!xarSecConfirmAuthKey()) return;
 
@@ -43,7 +42,7 @@ function themes_admin_deactivate()
     }
 
     // deactivate
-    $deactivated = xarModAPIFunc('themes','admin','setstate',array('regid' => $id,'state' => XARTHEME_STATE_INACTIVE)); 
+    $deactivated = xarModAPIFunc('themes','admin','setstate',array('regid' => $id,'state' => XARTHEME_STATE_INACTIVE));
 
     // Hmmm, I wonder if the target adding is considered a hack
     // it certainly depends on the implementation of xarModUrl

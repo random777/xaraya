@@ -2,12 +2,13 @@
 /**
  * Regenerate theme list
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Regenerate theme list
@@ -25,7 +26,7 @@ function themes_adminapi_regenerate()
 
     //Finds and updates missing modules
     if (!xarModAPIFunc('themes','admin','checkmissing')) {return;}
-    
+
     //Get all themes in the filesystem
     $fileThemes = xarModAPIFunc('themes','admin','getfilethemes');
     if (!isset($fileThemes)) return;
@@ -81,7 +82,7 @@ function themes_adminapi_regenerate()
 
         if (empty($dbThemes[$name])) {
             // New theme
-            
+
             if (empty($themeInfo['xar_version'])){
                 $themeInfo['xar_version'] = '1.0.0';
             }

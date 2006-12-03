@@ -16,8 +16,8 @@
  * Used to call the template that provides display of the overview
  *
  * @author jojodee
- * @returns array xarTplModule with $data containing template data
- * @return array containing the menulinks for the overview item on the main manu
+ * @return array xarTplModule with $data containing template data
+ *         array containing the menulinks for the overview item on the main manu
  * @since 2 Nov 2005
  */
 function themes_admin_overview()
@@ -26,7 +26,7 @@ function themes_admin_overview()
     if (!xarSecurityCheck('AdminTheme')) return;
 
     $data=array();
-    
+
     /* if there is a separate overview function return data to it
      * else just call the main function that usually displays the overview
      */

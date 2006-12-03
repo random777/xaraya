@@ -501,6 +501,7 @@ function xarCoreIsDebugFlagSet($flag)
  * @static systemVars array
  * @param string name name of core system variable to get
  * @param boolean returnNull if System variable doesn't exist return null
+ * @return mixed The value of the specific var
  */
 function xarCore_getSystemVar($name, $returnNull = false)
 {
@@ -740,6 +741,7 @@ function xarCore_DelCached($cacheKey, $name)
  * @access protected
  * @global xarCore_cacheCollection array
  * @param cacheKey the key identifying the particular cache you want to wipe out
+ * @return void
  */
 function xarCore_FlushCached($cacheKey)
 {
@@ -755,6 +757,7 @@ function xarCore_FlushCached($cacheKey)
  * xarCore.php function
  * @access public
  * @param string The function name; case-sensitive
+ * @return bool true or false
  */
 function xarFuncIsDisabled($funcName)
 {

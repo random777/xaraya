@@ -6,15 +6,16 @@
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @subpackage Page/Block Caching
  * @author mikespub
  * @author jsb
  */
-
 /**
  * Initialise the caching options
  *
- * @return bool
+ * @param array args
+ * @return bool true on success
  * @todo    consider the use of a shutdownhandler for cache maintenance
  */
 function xarCache_init($args = false)

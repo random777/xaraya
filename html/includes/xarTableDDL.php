@@ -7,19 +7,17 @@
  * USE THE METHODS IN xarDataDict.php. BOTH SUBSYSTEMS ARE NOT 100% FINISHED
  * BUT THIS ONE WILL BE ABANDONED, YOU MIGHT AS WELL WRITE YOUR CODE TO USE
  * THE MAINTAINED SUBSYSTEM.
- 
- * @package database
+
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- * @subpackage table_api
+ *
+ * @subpackage database
  * @author Gary Mitchell
  * @todo Check functions!
  *       Check FIXMEs
  *       Document functions
- */
-
-/**
  * Public Functions:
  *
  * xarDBCreateDatabase($databaseName, $databaseType = NULL)
@@ -30,7 +28,6 @@
  * xarDBDropIndex($tableName, $databaseType = NULL)
  *
  */
-
 /**
  * Generate the SQL to create a database
  *
@@ -328,7 +325,7 @@ function xarDBDropTable($tableName, $databaseType = NULL)
 
     switch($databaseType) {
         case 'postgres':
-            // Also drop the related sequence 
+            // Also drop the related sequence
             // TODO: please can we use something else? pwetty please?
             $seqSQL = "DROP SEQUENCE seq".$tableName;
             $dbconn =& xarDBGetConn();

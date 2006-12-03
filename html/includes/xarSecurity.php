@@ -688,9 +688,9 @@ function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')
         return true;
     }
     // Not found, assume invalid
-        xarErrorSet(XAR_USER_EXCEPTION, 'FORBIDDEN_OPERATION',
-                       new DefaultUserException());
-        return;
+    xarErrorSet(XAR_USER_EXCEPTION, 'FORBIDDEN_OPERATION',
+                   new DefaultUserException());
+    return;
 }
 
 ?>

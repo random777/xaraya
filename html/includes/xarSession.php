@@ -2,10 +2,12 @@
 /**
  * Session Support
  *
- * @package sessions
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage sessions
  * @author Jim McDonald
  * @author Marco Canini <marco@xaraya.com>
  * @author Michel Dalle
@@ -228,6 +230,7 @@ function xarSessionGetId()
 // PROTECTED FUNCTIONS
 /**
  * @access private
+ * @return bool true
  */
 function xarSession_setUserInfo($userId, $rememberSession)
 {
@@ -250,7 +253,10 @@ function xarSession_setUserInfo($userId, $rememberSession)
     }
     return true;
 }
-
+/**
+ * Close the current session
+ * @return void
+ */
 function xarSession_close()
 {
     session_write_close();
@@ -386,6 +392,7 @@ function xarSession__current($sessionId)
  * @access private
  * @param sessionId the session ID
  * @param ipAddress the IP address of the host with this session
+ * @return bool true
  */
 function xarSession__new($sessionId, $ipAddress)
 {
@@ -426,6 +433,7 @@ function xarSession__phpOpen($path, $name)
 /**
  * PHP function to close the session
  * @access private
+ * @return bool true
  */
 function xarSession__phpClose()
 {
@@ -519,6 +527,7 @@ function xarSession__phpWrite($sessionId, $vars)
 /**
  * PHP function to destroy a session
  * @access private
+ * @return bool true
  */
 function xarSession__phpDestroy($sessionId)
 {
@@ -537,6 +546,7 @@ function xarSession__phpDestroy($sessionId)
 /**
  * PHP function to garbage collect session information
  * @access private
+ * @return bool true
  */
 function xarSession__phpGC($maxlifetime)
 {
@@ -579,7 +589,7 @@ function xarSession__phpGC($maxlifetime)
  *
  * @author Marcel van der Boom <marcel@xaraya.com>
  * @link http://www.php.net/manual/en/ref.session.php
- * @return int
+ * @return int 1 if version is lower than 4.2.0; 0 if it is above
  */
 function xarSession__UseOldSessions()
 {

@@ -10,6 +10,8 @@
 
 /**
  * Id Validation Class
+ * That validation redirects to int:1 validation
+ * @return bool
  */
 function variable_validations_id (&$subject, $parameters, $supress_soft_exc)
 {

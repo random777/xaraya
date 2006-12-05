@@ -9,6 +9,7 @@
  */
 /**
  * Regular Expression Validation Class
+ * @return bool
  */
 function variable_validations_regexp (&$subject, $parameters, $supress_soft_exc, &$name)
 {

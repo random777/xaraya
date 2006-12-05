@@ -11,6 +11,7 @@
  * notempty Validation Function
  * @param subject
  * @param parameters
+ * @return bool true if not empty, false if empty
  */
 function variable_validations_notempty (&$subject, $parameters, $supress_soft_exc, &$name)
 {

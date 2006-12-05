@@ -10,11 +10,10 @@
 /**
  * Lists Validation Function
  * @param array subject. If this is not an array, the return is false
- * @return bool
+ * @return bool true if a list is found, false if not
  */
 function variable_validations_list (&$subject, $parameters, $supress_soft_exc, &$name)
 {
-
     if (!is_array($subject)) {
         if ($name != '')
             $msg = xarML('Variable #(1) is not an array: "#(2)"', $name, $subject);

@@ -31,8 +31,8 @@ ifsnow is korean phper. Is sorry to be unskillful to English. *^^*;;
 ========================================================================= */
 
 /**
- * valdidate email
- *
+ * validate email
+ * @return bool true if a valid domain is found, false if not
  */
 function variable_validations_mxcheck (&$subject, $parameters=null, $supress_soft_exc)
 {

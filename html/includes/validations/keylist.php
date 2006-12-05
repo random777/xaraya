@@ -32,6 +32,8 @@
  *    'keylist:int;keylist:int;'
  *    e.g. $x[123][456] = 'anything'
  *
+ * @return bool true if a keylist is entered, false if not
+ *
  */
 function variable_validations_keylist (&$subject, $parameters, $supress_soft_exc, &$name)
 {

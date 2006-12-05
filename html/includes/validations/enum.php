@@ -15,7 +15,7 @@
  * @param array $parameters Array of parameters entered.
  * @param $subject
  * @return bool true on successfull validation
-                false on unsuccessfull valiation
+                false on unsuccessfull validation
  */
 function variable_validations_enum (&$subject, $parameters, $supress_soft_exc, &$name)
 {

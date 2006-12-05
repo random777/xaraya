@@ -10,7 +10,7 @@
 
 /**
  * Boolean Validation Function
- * @return bool
+ * @return bool true if bool, false if not
  */
 function variable_validations_bool (&$subject, $parameters=null, $supress_soft_exc, &$name)
 {

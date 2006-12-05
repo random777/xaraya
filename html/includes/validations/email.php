@@ -9,7 +9,7 @@
 */
 /**
  * Validate an email address
- * @return bool
+ * @return bool true if email, false if not
  */
 function variable_validations_email (&$subject, $parameters=null, $supress_soft_exc, &$name)
 {

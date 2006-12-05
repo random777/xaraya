@@ -10,6 +10,7 @@
 
 /**
  * HTML Validation Class
+ * @return bool true if html, false if not
  */
 function variable_validations_html (&$subject, $parameters, $supress_soft_exc, &$name)
 {

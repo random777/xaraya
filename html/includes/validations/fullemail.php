@@ -10,6 +10,7 @@
 
 /**
  * Full Email Check -- Checks first thru the regexp and then by mx records
+ * @return bool true if fullemail, false if not
  */
 function variable_validations_fullemail (&$subject, $parameters=null, $supress_soft_exc)
 {

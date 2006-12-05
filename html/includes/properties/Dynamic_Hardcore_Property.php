@@ -11,7 +11,6 @@
  * @package dynamicdata
  * @subpackage properties
  */
-
 /**
  * handle textarea property
  *

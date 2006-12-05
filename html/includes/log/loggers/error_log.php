@@ -1,19 +1,24 @@
 <?php
+/**
+ * Logger
+ *
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage logging
+ */
 // $Id: syslog.php,v 1.12 2003/04/08 05:55:05 jon Exp $
 // $Horde: horde/lib/Log/syslog.php,v 1.6 2000/06/28 21:36:13 jon Exp $
 
 /**
-* The Log_file class is a concrete implementation of the Log::
-* abstract class which writes message to a text file. This is based
-* on the previous Log_file class by Jon Parise.
-*
-* @author  Richard Heyes <richard@php.net>
-* @author  Nuncanada <nuncanada@ig.com.br>
-* @package logging
-*/
-
-/**
- * Include the base file
+ *
+ * The Log_file class is a concrete implementation of the Log::
+ * abstract class which writes message to a text file. This is based
+ * on the previous Log_file class by Jon Parise.
+ * @author  Richard Heyes <richard@php.net>
+ * @author  Nuncanada <nuncanada@ig.com.br>
  *
  */
 include_once ('./includes/log/loggers/xarLogger.php');

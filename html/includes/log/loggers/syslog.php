@@ -1,4 +1,14 @@
 <?php
+/**
+ * Logging
+ *
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage logging
+ */
 // $Id: syslog.php,v 1.12 2003/04/08 05:55:05 jon Exp $
 // $Horde: horde/lib/Log/syslog.php,v 1.6 2000/06/28 21:36:13 jon Exp $
 
@@ -9,7 +19,6 @@
 *
 * @author  Richard Heyes <richard@php.net>
 * @author  Nuncanada <nuncanada@ig.com.br>
-* @package logging
 */
 
 /**
@@ -22,13 +31,13 @@ include_once ('./includes/log/loggers/xarLogger.php');
  * The Log_syslog class is a concrete implementation of the Log::
  * abstract class which sends messages to syslog on UNIX-like machines
  * (PHP emulates this with the Event Log on Windows machines).
- * 
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @version $Revision: 1.12 $
  * @since   Horde 1.3
  * @package logging
  */
-class xarLogger_syslog extends xarLogger 
+class xarLogger_syslog extends xarLogger
 {
     //Take a look at http://br.php.net/manual/en/function.openlog.php for the options/facilities
 
@@ -58,10 +67,10 @@ class xarLogger_syslog extends xarLogger
      * @access public
      * @return boolean
      */
-    function setConfig(&$conf) 
+    function setConfig(&$conf)
     {
         parent::setConfig($conf);
-        
+
         /* If it is given a logging facility to be used, then use it. */
         if (isset($conf['facility'])) {
             $this->_facility = $conf['facility'];
@@ -102,7 +111,7 @@ class xarLogger_syslog extends xarLogger
 
     /**
      * Closes the connection to the system logger, if it is open.
-     * @access public     
+     * @access public
      */
     function close()
     {
@@ -116,7 +125,7 @@ class xarLogger_syslog extends xarLogger
      * Sends $message to the currently open syslog connection.  Calls
      * open() if necessary. Also passes the message along to any Log_observer
      * instances that are observing this Log.
-     * 
+     *
      * @param string $message  The textual message to be logged.
      * @param int $priority (optional) The priority of the message.  Valid
      *                  values are: PEAR_LOG_EMERG, PEAR_LOG_ALERT,
@@ -124,7 +133,7 @@ class xarLogger_syslog extends xarLogger
      *                  PEAR_LOG_NOTICE, PEAR_LOG_INFO, and PEAR_LOG_DEBUG.
      *                  The default is PEAR_LOG_INFO.
      * @return boolean  True on success or false on failure.
-     * @access public     
+     * @access public
      */
     function notify($message, $level)
     {

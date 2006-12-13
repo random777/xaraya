@@ -16,7 +16,7 @@
  * @author Marty Vance
  * @param array args
  * @return array of tags in the database
- * @Author Simon Wunderlin <sw@telemedia.ch>
+ * @author Simon Wunderlin <sw@telemedia.ch>
  */
 function themes_adminapi_gettpltaglist($args)
 {

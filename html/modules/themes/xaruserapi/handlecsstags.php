@@ -11,6 +11,8 @@
  * @link http://xaraya.com/index.php/release/70.html
  */
 /**
+ * Deal with the actual tag
+ *
  * @author andyv <andyv@xaraya.com>
  */
 function themes_userapi_handlecsstags($args)

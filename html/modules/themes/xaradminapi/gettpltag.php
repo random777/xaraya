@@ -13,9 +13,9 @@
 /**
  * Get registered template tags
  *
- * @param none
+ * @param string tagname
  * @return array of tags in the database
- * @Author Simon Wunderlin <sw@telemedia.ch>
+ * @author Simon Wunderlin <sw@telemedia.ch>
  */
 function themes_adminapi_gettpltag($args)
 {

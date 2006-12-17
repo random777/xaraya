@@ -100,12 +100,13 @@ function installer_admin_phase2()
  * @return bool true if directory is writable, readable and executable
  */
 function check_dir($dirname)
-{
-    if (@touch($dirname . '/.check_dir')) {
-        $fd = @fopen($dirname . '/.check_dir', 'r');
+{   
+    //don't use filenames preceded by . for windows servers
+    if (@touch($dirname . '/check_dir')) {
+        $fd = @fopen($dirname . '/check_dir', 'r');
         if ($fd) {
             fclose($fd);
-            unlink($dirname . '/.check_dir');
+            unlink($dirname . '/check_dir');
         } else {
             return false;
         }
@@ -1706,7 +1707,7 @@ function installer_admin_upgrade2()
     xarModSetVar('roles', 'setusertimezone',false); //new modvar - let's make sure it's set
     xarModDelVar('roles', 'settimezone');//this is no longer used, be more explicit and user setusertimezone
     xarModSetVar('roles', 'usertimezone',''); //new modvar - initialize it
-    xarModSetVar('roles','usersendemails', false); //old modvar returns. Let's make sure it's set false as it allows users to send emails
+    xarModSetVar('roles', 'usersendemails', false); //old modvar returns. Let's make sure it's set false as it allows users to send emails
 
     //Ensure that registration module is set as default if it is installed,
     // if it is active and the default is currently not set
@@ -1721,6 +1722,7 @@ function installer_admin_upgrade2()
     xarTplUnregisterTag('base-timesince');
     xarTplRegisterTag('base', 'base-timesince', array(),
                       'base_userapi_handletimesincetag');
+                       
 
 /* End 1.1.2 Release Upgrades */
 

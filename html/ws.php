@@ -111,15 +111,21 @@ function xarWebservicesMain()
             $server = xarModAPIFunc('soapserver','user','initsoapserver');
         
             if (!$server) {
-                // erm, where does this one come from? lucky because we did the api func?
-                $fault = new soap_fault('Server','','Unable to start SOAP server', ''); 
-                // TODO: check this
+                // Could not create a soap server
+                $fault = new soap_fault('Server', '', 'Unable to start SOAP server', ''); 
                 echo $fault->serialize();
-            }
-            // Try to process the request
-            if ($server) {
-                global $HTTP_RAW_POST_DATA;
-                $server->service($HTTP_RAW_POST_DATA);
+            } elseif (gettype($server) == 'object') {
+                switch (get_class($server)) {
+                    case 'soap_server':
+                        // Try to process the request
+                        global $HTTP_RAW_POST_DATA;
+                        $server->service($HTTP_RAW_POST_DATA);
+                        break;
+                    case 'soap_fault':
+                        echo $server->serialize();
+                    default:
+                        break;
+                }
             }
         }
         break;

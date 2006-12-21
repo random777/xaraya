@@ -14,6 +14,16 @@
  * modifyrole - modify role details
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
+ * @param int uid
+ * @param string pname The display name
+ * @param string ptype
+ * @param string puname The user name
+ * @param string ppass
+ * @param string state
+ * @param string phome The user home
+ * @param int pprimaryparent
+ * @param string utimezone The user timezone
+ * @return array
  */
 function roles_admin_modifyrole()
 {

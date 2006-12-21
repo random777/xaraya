@@ -174,7 +174,19 @@ class xarRoles
     {
         return $this->_lookuprole('xar_name',$name);
     }
-
+    /**
+     * findRole: finds a single role based on its username
+     *
+     * Retrieves a single role object from the Roles repository
+     * This is a convenience class for module developers
+     *
+     * @author Marc Lutolf <marcinmilan@xaraya.com>
+     * @access public
+     * @param string $
+     * @return role object
+     * @throws none
+     * @todo none
+     */
     function ufindRole($uname)
     {
         return $this->_lookuprole('xar_uname',$uname);

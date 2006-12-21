@@ -14,6 +14,8 @@
  * showprivileges - display the privileges of this role
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
+ * @param int uid User ID
+ * @return array
  */
 function roles_admin_showprivileges()
 {

@@ -1725,6 +1725,27 @@ function installer_admin_upgrade2()
                        
 
 /* End 1.1.2 Release Upgrades */
+/* Version 1.1.3 Release Upgrades */
+    //move the disallowedemails back to roles rather than in Registration with disallowed username and ips
+    //Check to see if the registration var exists and is not empty
+    $existingvar = xarModGetVar('registration','disallowedemails');
+    $existingregdisallowed = isset($existingvar) ? unserialize($existingvar): '';
+    //but what if this is an old install and the roles equivalent is defined and not empty?
+    $rolesisallowedvar = xarModGetVar('roles','disallowedemails');
+    $existingrolesdisallowed = isset($rolesisallowedvar) ? unserialize($rolesisallowedvar): '';
+    //Always take the registraiton var as it will be most recent if it exists and is not empty
+    if (!empty($existingdisallowed)) {
+       $emails = $existingdisallowed;
+    } elseif (!empty($existingrolesdisallowed)) {
+       $emails = $existingrolesdisallowed;
+    }else {
+    $emails = 'none@none.com
+president@whitehouse.gov';
+    }
+    $disallowedemails = serialize($emails);
+    xarModSetVar('roles', 'disallowedemails', $disallowedemails);
+
+/* End 1.1.3 Release Upgrades */
 
     $thisdata['content']=$content;
     $thisdata['phase'] = 2;

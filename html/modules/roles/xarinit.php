@@ -217,6 +217,12 @@ function roles_activate()
     xarModSetVar('roles', 'allowexternalurl', false);
     xarModSetVar('roles', 'usersendemails', false);
     xarModSetVar('roles', 'requirevalidation', true);
+    
+    $emails = 'none@none.com
+president@whitehouse.gov';
+    $disallowedemails = serialize($emails);
+    xarModSetVar('roles', 'disallowedemails', $disallowedemails);
+
     $lockdata = array('roles' => array( array('uid' => 4,
                                               'name' => 'Administrators',
                                               'notify' => TRUE)),

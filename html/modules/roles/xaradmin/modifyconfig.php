@@ -84,11 +84,13 @@ function roles_admin_modifyconfig()
                 }
             }
 
+            /* No longer required, catered for in Registration module
             $checkip = xarModGetVar('roles', 'disallowedips');
             if (empty($checkip)) {
                 $ip = serialize('10.0.0.1');
                 xarModSetVar('roles', 'disallowedips', $ip);
             }
+            */
             $data['siteadmins']   = $siteadmins;
             $data['defaultgroup'] = xarModGetVar('roles', 'defaultgroup');
             $data['groups']       = $groups;
@@ -116,6 +118,7 @@ function roles_admin_modifyconfig()
             }
 
             $data['hooks'] = $hooks;
+            $data['emails'] = unserialize(xarModGetVar('roles', 'disallowedemails'));
             $data['defaultauthmod']    = xarModGetVar('roles', 'defaultauthmodule');
             $data['defaultregmod']     = xarModGetVar('roles', 'defaultregmodule');
             $data['allowuserhomeedit'] = xarModGetVar('roles', 'allowuserhomeedit');
@@ -148,6 +151,12 @@ function roles_admin_modifyconfig()
                     xarModSetVar('roles', 'SupportShortURLs', $shorturls);
                     xarModSetVar('roles', 'admin', $siteadmin);
                     break;
+                case 'restrictions':
+                    if (!xarVarFetch('disallowedemails', 'str:1', $disallowedemails, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+                    $disallowedemails = serialize($disallowedemails);
+                    
+                    xarModSetVar('roles', 'disallowedemails', $disallowedemails);
+
                 case 'hooks':
                     // Role type 'user' (itemtype 0).
                     xarModCallHooks('module', 'updateconfig', 'roles',

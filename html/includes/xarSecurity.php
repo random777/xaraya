@@ -9,6 +9,8 @@
  *
  * @subpackage security
  * @author Jim McDonald
+ */
+/**
  *
  * @todo bring back possibility of time authorized keys
  *
@@ -21,20 +23,18 @@
  *  GID 0 corresponds to unregistered users
  *
  */
-
-    //Maybe changing this touch to a centralized API would be a good idea?
-    //Even if in the end it would use touched files too...
+// Maybe changing this touch to a centralized API would be a good idea?
+// Even if in the end it would use touched files too...
 $here = dirname(__FILE__);
 include_once "$here/xarCore.php";
 if (file_exists(xarCoreGetVarDirPath() . '/security/on.touch')) {
     include_once "$here/xarCacheSecurity.php";
- }
+}
 
 // FIXME: Can we reverse this? (i.e. the module loading the files from here?)
 //        said another way, can we move the two files to /includes (partially preferably)
 include_once "$here/../modules/privileges/xarprivileges.php";
 include_once "$here/../modules/roles/xarroles.php";
-
 
 /**
  * Start the security subsystem

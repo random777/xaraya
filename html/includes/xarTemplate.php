@@ -2,19 +2,19 @@
 /**
  * BlockLayout Template Engine
  *
- * @package blocklayout
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage blocklayout
  * @author Paul Rosania <paul@xaraya.com>
  * @author Marco Canini <marco@xaraya.com>
  */
-
-
-  /**
-   * Defines for template handling
-   *
-   */
+/**
+ * Defines for template handling
+ *
+ */
 
 /// OLD STUFF //////////////////////////////////
 define ('XAR_TPL_OPTIONAL', 2);
@@ -1104,7 +1104,7 @@ function xarTpl__executeFromFile($sourceFileName, $tplData)
 
     // Load up translations for the files
     xarMLSLoadTranslations($sourceFileName);
-    
+
     // Do we need to compile?
     $needCompilation = true;
     $cachedFileName = null;

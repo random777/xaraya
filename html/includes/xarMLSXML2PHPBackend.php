@@ -2,10 +2,12 @@
 /**
  * Multi Language System
  *
- * @package multilanguage
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
 
@@ -116,7 +118,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
 
         if (!$this->gen->bindDomain($dnType, $dnName)) return false;
         if (parent::bindDomain($dnType, $dnName)) return true;
-                
+
         return false;
     }
 /*
@@ -176,7 +178,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
             if (!$this->gen->create($ctxType, $ctxName)) return false;
             $fileName = parent::findContext($ctxType, $ctxName);
             if ($fileName === false) return false;
-        }    
+        }
         return $fileName;
     }
 
@@ -210,7 +212,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
     }
 }
 
-class PHPBackendGenerator 
+class PHPBackendGenerator
 {
 
     var $locale;

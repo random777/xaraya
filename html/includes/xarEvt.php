@@ -4,17 +4,19 @@
  *
  * This subsystem issues events into the module space when something happens
  * An event is composed of a system short identifier + an event name
- * Example: a module is loading:  ModLoad 
+ * Example: a module is loading:  ModLoad
  * Short identifier: Mod
  * Event name: Load
  * Each subsystem in Xaraya may register events and trigger them, the event subsystem
  * itself is initialized directly after the DB subsystem. Any systems loaded before
  * that need to check whether the proper things are loaded themselves.
  *
- * @package events
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage events
  * @author Marco Canini <marco@xaraya.com>
  * @author Marcel van der Boom <marcel@xaraya.com>
  * @author Frank Besler <besfred@xaraya.com>
@@ -24,14 +26,14 @@
 
 /**
  * List of supported events
- * 
+ *
  * Multilanguage package:
  * ----------------------
  * MLSMissingTranslationKey    - translationkey is missing
  * MLSMissingTranslationString - translation string is missing
  * MLSMissingTranslationDomain - translation domain is missing
  *
- * Module package: 
+ * Module package:
  * ---------------
  * ModLoad    - event is issued at the end of the xarModLoad function, just before returning true
  * ModAPILoad - event is issued at the end of the xarModAPILoad function, just before returning true
@@ -62,7 +64,7 @@ function xarEvt_init(&$args, $whatElseIsGoingLoaded)
 {
     // Subsystem initialized, register a handler to run when the request is over
     //register_shutdown_function ('xarEvt__shutdown_handler');
-    
+
     return true;
 }
 
@@ -82,7 +84,7 @@ function xarEvt__shutdown_handler()
  * The specified event is issued to the active modules. If a module
  * has defined a specific handler for that event, that function is
  * executed.
- * 
+ *
  * @author  Marco Canini
  * @author  Marcel van der Boom <marcel@xaraya.com>
  * @access  protected
@@ -146,7 +148,7 @@ function xarEvt_trigger($eventName, $value = NULL)
  * @access  private
  * @param   $modName   string The name of the module
  * @param   $eventName string The name of the event to send
- * @param   $value     mixed  Optional value to pass to the event handler 
+ * @param   $value     mixed  Optional value to pass to the event handler
  * @param   $modDir    string The directory of the module
  * @return  void
  * @throws  BAD_PARAM
@@ -165,9 +167,9 @@ function xarEvt__notify($modName, $eventName, $value, $modDir = NULL)
     }
 
     // We can't rely on the API, the event system IS the API!
-    // - no use of xarModAPIFunc because that sets exceptions and we 
+    // - no use of xarModAPIFunc because that sets exceptions and we
     //   don't want that when a module doesn't react to an event.
-    // - we could use xarModAPILoad. This will create another event ModAPILoad 
+    // - we could use xarModAPILoad. This will create another event ModAPILoad
     //   if the api wasn't loaded yet. The event will *not* be created if the
     //   API was already loaded. However, this would mean that all module APIs
     //   are always loaded, which is a bit too much, so we should try it another way
@@ -178,7 +180,7 @@ function xarEvt__notify($modName, $eventName, $value, $modDir = NULL)
 
     // set which file to load for looking up the event handler
     $xarapifile="modules/{$modDir}/xareventapi.php";
-    $xartabfile="modules/{$modDir}/xartables.php";    
+    $xartabfile="modules/{$modDir}/xartables.php";
 
     static $loaded = array();
 
@@ -186,14 +188,14 @@ function xarEvt__notify($modName, $eventName, $value, $modDir = NULL)
     if (!isset($loaded[$xarapifile])) {
         $loaded[$xarapifile] = xarInclude($xarapifile, XAR_INCLUDE_MAY_NOT_EXIST + XAR_INCLUDE_ONCE);
     }
-    
+
     //Nothing to do if the API file isnt there
     if (isset($loaded[$xarapifile]) && $loaded[$xarapifile] == false) return;
 
     //$loaded ==true!
     if (function_exists($funcSpecific))  $funcToRun = $funcSpecific;
     if (function_exists($funcGeneral))  $funcToRunGeneral = $funcGeneral;
-    
+
     if (isset($funcToRun) || isset($funcToRunGeneral)) {
         //LAZY LOAD!
         // We may need the tables
@@ -201,7 +203,7 @@ function xarEvt__notify($modName, $eventName, $value, $modDir = NULL)
         $xartabfunc = $modName.'_xartables';
         if (function_exists($xartabfunc)) xarDB_importTables($xartabfunc());
     }
-    
+
      if (isset($funcToRun)) {
         $funcToRun($value);
         if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return;
@@ -230,7 +232,7 @@ function xarEvt_registerEvent($eventName)
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM', 'eventName');
         return;
     }
-    
+
     $GLOBALS['xarEvt_knownEvents'][$eventName] = true;
     return true;
 }
@@ -242,7 +244,7 @@ function xarEvt_registerEvent($eventName)
  * @author  Marcel van der Boom
  * @access  private
  * @param   $eventName Name of the event to check
- * @return  bool 
+ * @return  bool
  * @throws  EVENT_NOT_REGISTERED
 */
 function xarEvt__checkEvent($eventName)

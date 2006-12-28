@@ -1,10 +1,12 @@
 <?php
 /**
- * Purpose of file:  Data Dictionary API
+ * Data Dictionary API
  *
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @subpackage Data Dictionary Module
  * @author Richard Cave <rcave@xaraya.com>
  */
@@ -855,7 +857,6 @@ class xarMetaData
         }
         return $databases;
     }
-
 
     /**
      * getTables

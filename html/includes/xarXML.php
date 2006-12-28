@@ -2,10 +2,12 @@
 /**
  * XML services for Xaraya
  *
- * @package xml
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage xml
  * @author Marcel van der Boom <marcel@xaraya.com>
  */
 
@@ -95,7 +97,6 @@ define('XARXML_ATTR_CONTENT','content');
 define('XARXML_ATTR_ATTRIBUTES','attributes');
 define('XARXML_ATTR_NAMESPACES','namespaces');
 
-
 /**
  * Start the XML subsystem
  *
@@ -107,7 +108,6 @@ define('XARXML_ATTR_NAMESPACES','namespaces');
 function xarXml_init($args, $whatElseIsGoingLoaded)
 {
     return true;
-
 }
 
 /**
@@ -250,7 +250,6 @@ class xarXmlParser
             .xml_error_string($error);
     }
 
-
     /**
      * Set a parser option
      *
@@ -273,7 +272,6 @@ class xarXmlParser
     {
         return xml_parser_get_option($this->parser, $option);
     }
-
 
     /**
      * Private methods
@@ -591,7 +589,7 @@ class xarXmlDefaultHandler extends xarAbstractXmlHandler
      * as content for the tag. This is not entirely right, but enough for now
      *
      * @param object $parser the parser to which this handler is attached
-     * @param string $target the part after the <? in the document
+     * @param string $target the part after the < ? in the document
      * @param string $data   the contents of the processing instruction
      */
     function process_instruction($parser, $target , $data)
@@ -790,7 +788,4 @@ function queryTree($subtree, $query, $nodetype,$returnsubtree=false)
 
     return $results;
 }
-
-
-
 ?>

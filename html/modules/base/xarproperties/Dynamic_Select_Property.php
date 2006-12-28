@@ -10,9 +10,9 @@
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author mikespub <mikespub@xaraya.com>
-*/
+ */
 class Dynamic_Select_Property extends Dynamic_Property
 {
     var $options;

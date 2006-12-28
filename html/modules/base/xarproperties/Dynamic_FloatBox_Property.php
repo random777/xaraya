@@ -9,9 +9,7 @@
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- */
-/*
- *
+ * @author mikespub <mikespub@xaraya.com>
  */
 include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
 

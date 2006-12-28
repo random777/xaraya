@@ -11,8 +11,10 @@
  * @link http://xaraya.com/index.php/release/68.html
  */
 /**
+ * Property to show a text area
+ *
  * @author mikespub <mikespub@xaraya.com>
-*/
+ */
 class Dynamic_TextArea_Property extends Dynamic_Property
 {
     var $rows = 8;
@@ -49,7 +51,9 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         return true;
     }
 
-//   function showInput($name = '', $value = null, $rows = 8, $cols = 50, $wrap = 'soft', $id = '', $tabindex = '')
+    /**
+     * Show the input for the textarea
+     */
     function showInput($args = array())
     {
         extract($args);
@@ -72,7 +76,9 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         return xarTplProperty('base', 'textarea', 'showinput', $data);
 
     }
-
+    /**
+     * Show the output from the database
+     */
     function showOutput($args = array())
     {
          extract($args);
@@ -89,7 +95,9 @@ class Dynamic_TextArea_Property extends Dynamic_Property
          return xarTplProperty('base', 'textarea', 'showoutput', $data);
     }
 
-    // check validation for allowed rows/cols (or values)
+    /**
+     * check validation for allowed rows/cols (or values)
+     */
     function parseValidation($validation = '')
     {
         if (is_string($validation) && strchr($validation,':')) {
@@ -107,7 +115,7 @@ class Dynamic_TextArea_Property extends Dynamic_Property
      * Get the base information for this property.
      *
      * @return array base information for this property
-     **/
+     */
     function getBasePropertyInfo()
     {
         $args = array();
@@ -203,9 +211,9 @@ class Dynamic_TextArea_Property extends Dynamic_Property
     /**
      * Update the current validation rule in a specific way for each property type
      *
-     * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
-     * @param $args['validation'] new validation rule
-     * @param $args['id'] id of the field
+     * @param string $args['name'] name of the field (default is 'dd_NN' with NN the property id)
+     * @param string $args['validation'] new validation rule
+     * @param int $args['id'] id of the field
      * @return bool true if the validation rule could be processed, false otherwise
      */
      function updateValidation($args = array())
@@ -245,7 +253,6 @@ class Dynamic_TextArea_Property extends Dynamic_Property
                  $this->validation = $validation;
              }
          }
-
          // tell the calling function that everything is OK
          return true;
      }

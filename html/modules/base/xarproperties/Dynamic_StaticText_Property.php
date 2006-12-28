@@ -12,7 +12,7 @@
  */
 /**
  * @author mikespub <mikespub@xaraya.com>
-*/
+ */
 class Dynamic_StaticText_Property extends Dynamic_Property
 {
     function checkInput($name='', $value = null)

@@ -12,7 +12,7 @@
  */
 /**
  * @author mikespub <mikespub@xaraya.com>
-*/
+ */
 class Dynamic_TColorPicker_Property extends Dynamic_Property
 {
     var $size = 10;

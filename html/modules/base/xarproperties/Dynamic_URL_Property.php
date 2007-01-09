@@ -43,11 +43,11 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
                 $this->invalid = xarML('URL');
                 $this->value = null;
                 return false;
-            } else if (strstr($value,'://')) {
-                $this->value = $value;
-            } else {
+            } else if (substr($value, 0, 4) == 'www.') {
                 // allow users to say www.mysite.com
                 $this->value = 'http://' . $value;
+            } else {
+                $this->value = $value;
             }
         } else {
             $this->value = '';

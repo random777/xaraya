@@ -12,7 +12,7 @@ IP Address of the person creating that account: <xar:var name="myipaddress"/>
 User Name:  <xar:var name="myusername"/>
 
 
-<xar:if condition="!empty(trim($mypassword))">
+<xar:if condition="!empty($mypassword)">
 Password:  #$mypassword#
 </xar:if>
 

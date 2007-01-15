@@ -20,6 +20,8 @@
  * @param $args['name'] name of user to get
  * @param $args['email'] email of user to get
  * @param int $args['state'] Status of the user to get
+ * @param int $args['type'] set to 1 for group (default 0 = user) 
+ * NOTE: for groups, use 'name' not 'uname'
  * @return array user array, or false on failure
  */
 function roles_userapi_get($args)

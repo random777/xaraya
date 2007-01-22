@@ -3,7 +3,7 @@
  * Modify the  email for users
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -94,7 +94,7 @@ function roles_admin_modifyemail($args)
                fclose($handle);
             } else {
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'CONFIG_ERROR', new SystemException('The messaging template ' . $filename . ' is not writable or not allowed to delete files from '.$messaginghome.'.'));
-                return;                        
+                return;
             }
             $filename = $filebase . 'message.xd';
             if (is_writable($filename) && is_writable($messaginghome)) {
@@ -109,7 +109,7 @@ function roles_admin_modifyemail($args)
                fclose($handle);
             } else {
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'CONFIG_ERROR', new SystemException('The messaging template ' . $filename . ' is not writable or not allowed to delete files from '.$messaginghome.'.'));
-                return;                        
+                return;
             }
             xarResponseRedirect(xarModURL('roles', 'admin', 'modifyemail', array('mailtype' => $data['mailtype'])));
             return true;

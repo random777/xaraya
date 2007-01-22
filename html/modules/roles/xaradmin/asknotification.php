@@ -3,7 +3,7 @@
  * Update users from roles_admin_showusers
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -84,7 +84,7 @@ function roles_admin_asknotification($args)
             $data['subject'] = xarTplCompileString($vars . $data['subject']);
 
             // Restore whitespace
-            $data['message'] = str_replace('&nbsp;',' ', $data['message']);            
+            $data['message'] = str_replace('&nbsp;',' ', $data['message']);
             $data['message'] = str_replace('<br />',' ', $data['message']);
 
             //Send notification

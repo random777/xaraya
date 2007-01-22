@@ -3,7 +3,7 @@
  * Create email
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -37,7 +37,7 @@ function roles_admin_createmail()
     $xartable =& xarDBGetTables();
     if ($type == 'single') {
         $uid = $role->getID();
-        $data['users'][$role->getID()] = 
+        $data['users'][$role->getID()] =
             array('uid'      => $uid,
                   'name'     => $role->getName(),
                   'uname'    => $role->getUser(),
@@ -111,7 +111,7 @@ function roles_admin_createmail()
         foreach($q->output() as $role) {
                 // Remove the next line eventually. It comes from a special situation upgrading from 0.9.10 to 0.9.11
                 if (empty($role)) continue;
-                $data['users'][$role['uid']] = 
+                $data['users'][$role['uid']] =
                     array('uid'      => $role['uid'],
                           'name'     => $role['name'],
                           'uname'    => $role['uname'],
@@ -130,7 +130,7 @@ function roles_admin_createmail()
 
             while (list($key, $user) = each($descendants)) {
                 if (xarSecurityCheck('EditRole',0,'Roles',$user->getName())) {
-                    $data['users'][$user->getID()] = 
+                    $data['users'][$user->getID()] =
                         array('uid'      => $user->getID(),
                               'name'     => $user->getName(),
                               'uname'    => $user->getUser(),

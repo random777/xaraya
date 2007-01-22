@@ -3,7 +3,7 @@
  * Default user function
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -35,7 +35,7 @@ function roles_user_main()
     }
     elseif(xarSecurityCheck('ViewRoles',0)) {
     */
-    
+
     // Get the default authentication data - this supplies default auth module and corrected login and logout module
     $defaultauthdata=xarModAPIFunc('roles','user','getdefaultauthdata');
 
@@ -47,7 +47,7 @@ function roles_user_main()
     } else {
         xarResponseRedirect(xarModURL($loginmodule, 'user', 'showloginform'));
     }
-   
+
    /*
     }
     else { return; }

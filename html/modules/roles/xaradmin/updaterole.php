@@ -3,7 +3,7 @@
  * Update a role
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -122,7 +122,7 @@ function roles_admin_updaterole()
     if (xarModGetVar('roles','setusertimezone')) {
         $duvs['usertimezone'] = $usertimezone;
     }
-    
+
     //the user cannot receive emails from other users until they allow it and admin allows this option
     xarModSetUserVar('roles','usersendemails', $allowemail, $uid);
     // assemble the args into an array for the role constructor

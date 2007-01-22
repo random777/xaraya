@@ -3,7 +3,7 @@
  * Determine User Home URL
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -38,7 +38,7 @@ function roles_userapi_userhome($args)
         {
             case '[': // module link
             {
-                // Credit to Elek M�ton for further expansion
+                // Credit to Elek M???ton for further expansion
                 $sections = explode(']',substr($url,1));
                 $url = explode(':', $sections[0]);
                 $basemodurl = xarConfigGetVar('BaseModURL');

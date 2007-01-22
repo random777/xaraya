@@ -3,7 +3,7 @@
  * Main user menu
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -62,7 +62,7 @@ function roles_user_usermenu($args)
             $role       = xarUFindRole($uname);
             $home       = xarModGetUserVar('roles','userhome');// now user mod var not 'duv'. $role->getHome();
             $allowemail = xarModGetUserVar('roles','usersendemails',$uid); //allow someone to send an email to the user via a form
-            
+
             if (xarModGetVar('roles','setuserlastlogin')) {
             //only display it for current user or admin
                 if (xarUserIsLoggedIn() && xarUserGetVar('uid')==$uid) { //they should be but ..

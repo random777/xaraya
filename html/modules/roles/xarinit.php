@@ -3,7 +3,7 @@
  * Initialise the roles module
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -217,7 +217,7 @@ function roles_activate()
     xarModSetVar('roles', 'allowexternalurl', false);
     xarModSetVar('roles', 'usersendemails', false);
     xarModSetVar('roles', 'requirevalidation', true);
-    
+
     $emails = 'none@none.com
 president@whitehouse.gov';
     $disallowedemails = serialize($emails);

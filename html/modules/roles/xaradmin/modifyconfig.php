@@ -3,7 +3,7 @@
  * Modify configuration
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -146,7 +146,7 @@ function roles_admin_modifyconfig()
 
                     xarModSetVar('roles', 'itemsperpage', $itemsperpage);
                     xarModSetVar('roles', 'defaultauthmodule', $defaultauthmodule);
-                    xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);                    
+                    xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);
                     xarModSetVar('roles', 'defaultgroup', $defaultgroup);
                     xarModSetVar('roles', 'SupportShortURLs', $shorturls);
                     xarModSetVar('roles', 'admin', $siteadmin);
@@ -154,7 +154,7 @@ function roles_admin_modifyconfig()
                 case 'restrictions':
                     if (!xarVarFetch('disallowedemails', 'str:1', $disallowedemails, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     $disallowedemails = serialize($disallowedemails);
-                    
+
                     xarModSetVar('roles', 'disallowedemails', $disallowedemails);
 
                 case 'hooks':
@@ -178,7 +178,7 @@ function roles_admin_modifyconfig()
                     if (!xarVarFetch('allowexternalurl', 'checkbox', $allowexternalurl,  false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('loginredirect',    'checkbox', $loginredirect,     true,  XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('requirevalidation','checkbox', $requirevalidation, true,  XARVAR_NOT_REQUIRED)) return;
-                   
+
                     xarModSetVar('roles', 'searchbyemail', $searchbyemail); //search by email
                     xarModSetVar('roles', 'usersendemails', $usersendemails);
                     xarModSetVar('roles', 'displayrolelist', $displayrolelist); //display member list in Roles menu links

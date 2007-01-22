@@ -3,7 +3,7 @@
  * Get a specific user by any of his attributes
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,7 +20,7 @@
  * @param $args['name'] name of user to get
  * @param $args['email'] email of user to get
  * @param int $args['state'] Status of the user to get
- * @param int $args['type'] set to 1 for group (default 0 = user) 
+ * @param int $args['type'] set to 1 for group (default 0 = user)
  * NOTE: for groups, use 'name' not 'uname'
  * @return array user array, or false on failure
  */

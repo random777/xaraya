@@ -3,7 +3,7 @@
  * Sends a new password to the user if they have forgotten theirs.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -92,7 +92,7 @@ function roles_user_lostpassword()
                                                     'mailtype'   => 'reminder',
                                                     'pass'       => $user['pass']))) return;
 
-            // Let user know that they have an email on the way.   
+            // Let user know that they have an email on the way.
             $data = xarTplModule('roles','user','requestpwconfirm');
           break;
     }

@@ -101,6 +101,10 @@
 <!ENTITY xar-modurl-installer-admin-create_administrator "xar-modurl-installer-admin-create_administrator">
 <!ENTITY xar-modurl-integrator-admin-itypes "xar-modurl-integrator-admin-itypes">
 <!ENTITY xar-modurl-integrator-admin-privileges "xar-modurl-integrator-admin-privileges">
+<!ENTITY xar-modurl-itsp-user-itsp "xar-modurl-itsp-user-itsp">
+<!ENTITY xar-modurl-itsp-user-submit "xar-modurl-itsp-user-submit">
+<!ENTITY xar-modurl-itsp-user-review "xar-modurl-itsp-user-review">
+<!ENTITY xar-modurl-itsp-admin-updateconfig "xar-modurl-itsp-admin-updateconfig">
 <!ENTITY xar-modurl-keywords-admin-modifyconfig "xar-modurl-keywords-admin-modifyconfig">
 <!ENTITY xar-modurl-keywords-admin-privileges "xar-modurl-keywords-admin-privileges">
 <!ENTITY xar-modurl-keywords-admin-updateconfig "xar-modurl-keywords-admin-updateconfig">
@@ -278,6 +282,3 @@
 <!ENTITY xar-modurl-shopping-admin-validateedititem "xar-modurl-shopping-admin-validateedititem">
 <!ENTITY para "para">
 <!ENTITY deg "deg">
-<!ENTITY xar-modurl-itsp-user-itsp "xar-modurl-itsp-user-itsp">
-<!ENTITY xar-modurl-itsp-user-submit "xar-modurl-itsp-user-submit">
-<!ENTITY xar-modurl-itsp-user-review "xar-modurl-itsp-user-review">

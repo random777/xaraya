@@ -24,18 +24,21 @@
       </listitem>
     </itemizedlist></para>
 
-  <para>Note that the Xaraya Full distribution is mere a convenience
+  <para>Note that the Xaraya Full distribution is merely a convenience
   distribution. It is created as a snapshot from the current development tree.
-  Use the Xaraya release module on the Xaraya website to get the latest module
-  releases. Modules may be added to your site at any time after
-  installation.</para>
+  Official releases of modules and themes ("extensions") can be found on the
+  Xaraya website at http://www.xaraya.com/index.php/release.</para>
+
+  <para>You can also use the automatic notification syste of new releases via
+  your own modules installation. </para>
 
   <para>The Xaraya Base, Core, and Full distributions are available in ZIP
   (Windows) &amp; TAR.GZ (Linux/OSX/BSD/Unix) format.</para>
 
   <para>Download the Xaraya Base distribution distribution from the Downloads
-  section of <ulink
-  url="http://www.xaraya.com">http://www.xaraya.com</ulink>.</para>
+  section of <ulink url="http://www.xaraya.com">http://www.xaraya.com</ulink>.
+  Modules and themes may be added to your site at any time after
+  installation.</para>
 
   <para>This document shows how to install &amp; configure the Xaraya Base
   distribution on your website. Later in this document, you are taught how to
@@ -185,7 +188,21 @@
         </listitem>
       </itemizedlist></para>
 
-    <para>It is likely that these permissions are correct already because the
-    installer checks them for you.</para>
+    <para>It is likely that these permissions are correct already as they have
+    been checked already by the installer.</para>
+  </sect1>
+
+  <sect1>
+    <title>Getting and installing extensions</title>
+
+    <para>Extensions (for instance modules or themes) can be downloaded from
+    the Xaraya website (see above and <ulink
+    url="http://www.xaraya.com/index.php/release/">http://www.xaraya.com/index.php/release</ulink>).
+    Adding modules is easy: copy the complete module directory to /modules/
+    and copy complete themes to /themes/. Both modules and themes reside in
+    their own directory with the same name as the module (all lowercase
+    letters).</para>
+
+    <para></para>
   </sect1>
 </chapter>

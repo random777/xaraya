@@ -3,7 +3,7 @@
  * Call the waiting content hook
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,7 +33,7 @@ function base_adminapi_waitingcontent()
 
     if (empty($message)) {
         $message = '';
-    } 
+    }
 
     return array('output'   => $output,
                  'message'  => $message);

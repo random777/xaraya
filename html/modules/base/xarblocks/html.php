@@ -3,7 +3,7 @@
  * HTML block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -66,7 +66,7 @@ function base_htmlblock_display($blockinfo)
     if (isset($vars['expire']) && $now > $vars['expire']){
         if ($vars['expire'] != 0){
             return;
-        } 
+        }
     }
     if(isset($vars['html_content'])) {
         $blockinfo['content'] = $vars['html_content'];

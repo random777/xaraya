@@ -3,7 +3,7 @@
  * Retrieve a group raw data.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,10 +19,10 @@
 function blocks_userapi_getgroup($args)
 {
     extract($args);
-    
+
     if (!xarVarValidate('int:1', $gid, true)) {$gid = 0;}
     if (!xarVarValidate('str:1', $name, true)) {$name = '';}
-    
+
     if (empty($gid) && empty($name)) {
         // No identifier provided.
         $msg = xarML('Invalid parameter: missing gid and name');

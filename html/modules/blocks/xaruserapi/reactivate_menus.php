@@ -3,7 +3,7 @@
  * Reset all menus to the active state
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,12 +25,12 @@ function blocks_userapi_reactivate_menus()
     $xartable =& xarDBGetTables();
     $ublockstable = $xartable['userblocks'];
 
-    $query="UPDATE $ublockstable 
-               SET xar_active=? 
+    $query="UPDATE $ublockstable
+               SET xar_active=?
              WHERE xar_active=?";
 
     $result =& $dbconn->Execute($query,array(1,0));
-    if (!$result) 
+    if (!$result)
         return;
 
     return true;

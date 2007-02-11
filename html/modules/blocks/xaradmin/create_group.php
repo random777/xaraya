@@ -3,7 +3,7 @@
  * Block group management - create a new block group
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,11 @@
 
 /**
  * create a new block group
+ *
+ * @param string group_name Group name to create
+ * @param string group_template Name of the template to use for the group
  * @author Jim McDonald, Paul Rosania
+ * @return  bool true on success
  */
 function blocks_admin_create_group()
 {

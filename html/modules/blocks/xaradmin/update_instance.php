@@ -3,7 +3,7 @@
  * Update a block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -113,12 +113,12 @@ function blocks_admin_update_instance()
     // throw the error back (if there is an error).
     if (!is_array($blockinfo)) {
         if (!xarCurrentErrorType()) {
-            // Raise an error here, since no error has been raised in 
+            // Raise an error here, since no error has been raised in
             // the block update function.
             $msg = xarML('Unknown error in block update function "#(1)"', $updatefunc);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
         }
-        return; 
+        return;
     }
 
     // Pass to API - do generic updates.

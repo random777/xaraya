@@ -3,7 +3,7 @@
  * Register a new block type
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -31,7 +31,7 @@ function blocks_admin_new_type()
     $modinfo = xarModGetInfo($modid);
     if (!empty($scan)) {
         // 'Scan' button pressed.
-    
+
         // Get a list of block types from the module files.
         if (!empty($modinfo)) {
             // TODO: should 'modules' be hard-coded here?
@@ -52,7 +52,7 @@ function blocks_admin_new_type()
         }
     }
 
-    
+
     if (!empty($submit)) {
         // Submit button was pressed
 

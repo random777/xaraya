@@ -3,7 +3,7 @@
  * Update a block group
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -49,7 +49,7 @@ function blocks_admin_update_group()
             return;
         }
     }
-    
+
     // Pass to API
     if (!xarModAPIFunc(
         'blocks', 'admin', 'update_group',
@@ -60,7 +60,7 @@ function blocks_admin_update_group()
             'instance_order' => $group_instance_order)
         )
     ) {return;}
- 
+
     xarResponseRedirect(xarModURL('blocks', 'admin', 'view_groups'));
 
     return true;

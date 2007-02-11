@@ -3,7 +3,7 @@
  * Query items
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -283,7 +283,7 @@ function dynamicdata_admin_query($args)
         foreach ($where as $name => $what) {
             if (empty($what)) continue;
             if (!isset($value[$name])) continue;
-            
+
             $whereclause .= $and . $name;
             switch($what) {
                 case 'like':
@@ -368,7 +368,7 @@ function dynamicdata_admin_query($args)
             $newquery = xarML('Last Query');
         }
         if (!empty($table)) {
-            $data['sample'] = '&lt;xar:data-view table="' . $table . '" '; 
+            $data['sample'] = '&lt;xar:data-view table="' . $table . '" ';
         } else {
             $modinfo = xarModGetInfo($data['object']->moduleid);
             $modname = $modinfo['name'];

@@ -3,7 +3,7 @@
  * Manage definition of instances for privileges
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,7 +15,7 @@
  * Manage definition of instances for privileges (unfinished)
  */
 function dynamicdata_admin_privileges($args)
-{ 
+{
     extract($args);
 
     // Security Check
@@ -23,8 +23,8 @@ function dynamicdata_admin_privileges($args)
 
     if (!xarVarFetch('objectid', 'id' , $objectid, NULL, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('moduleid', 'str', $moduleid, 0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric or modulename
-    if (!xarVarFetch('itemtype', 'str', $itemtype, 0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric 
-    if (!xarVarFetch('itemid', 'str', $itemid, 0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric  
+    if (!xarVarFetch('itemtype', 'str', $itemtype, 0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric
+    if (!xarVarFetch('itemid', 'str', $itemid, 0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric
     if (!xarVarFetch('propname', 'str', $propname,'', XARVAR_NOT_REQUIRED)) return; // empty, 'All', string
     if (!xarVarFetch('proptype', 'str', $proptype,0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric
     if (!xarVarFetch('propid', 'str', $propid, 0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric

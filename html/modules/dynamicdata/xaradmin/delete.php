@@ -3,7 +3,7 @@
  * Delete an item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,7 @@
 function dynamicdata_admin_delete($args)
 {
    extract($args);
- 
+
     if(!xarVarFetch('objectid', 'isset', $objectid, NULL,                               XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('modid',    'id',    $modid,    xarModGetIDFromName('dynamicdata'), XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('itemtype', 'int',   $itemtype, 0,                                  XARVAR_NOT_REQUIRED)) {return;}

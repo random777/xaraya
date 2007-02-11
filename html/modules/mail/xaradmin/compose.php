@@ -3,7 +3,7 @@
  * Test the email settings
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -24,9 +24,9 @@
 function mail_admin_compose()
 {
     // Security Check
-    if (!xarSecurityCheck('AdminMail')) return; 
+    if (!xarSecurityCheck('AdminMail')) return;
     // Generate a one-time authorisation code for this operation
-    $data['authid']         = xarSecGenAuthKey(); 
+    $data['authid']         = xarSecGenAuthKey();
 
     // Include 'formcheck' JavaScript.
     // TODO: move this to a template widget when available.
@@ -40,8 +40,8 @@ function mail_admin_compose()
     $data['name']   = xarModGetVar('mail', 'adminname');
     $data['email']  = xarModGetVar('mail', 'adminmail');
     $data['name']   = xarModGetVar('mail', 'adminname');
-     
+
     // everything else happens in Template for now
     return $data;
-} 
+}
 ?>

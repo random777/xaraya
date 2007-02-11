@@ -1,9 +1,9 @@
 <?php
 /**
- * Initialization function 
+ * Initialization function
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,7 +33,6 @@ $modversion['author']         = 'John Cox via phpMailer';
 $modversion['contact']        = 'niceguyeddie@xaraya.com';
 $modversion['admin']          = 1;
 $modversion['user']           = 0;
-$modversion['securityschema'] = array('mail::' => '::');
 $modversion['class']          = 'Core Complete';
 $modversion['category']       = 'Global';
 

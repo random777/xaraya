@@ -3,14 +3,13 @@
  * Main administration function
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
  */
-
 /**
  * the main administration function
  *
@@ -29,5 +28,5 @@ function mail_admin_main()
 
     // success
     return true;
-} 
+}
 ?>

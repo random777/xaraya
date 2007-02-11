@@ -3,14 +3,13 @@
  * Hook called to send mail on deletion of an item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
  */
-
 /**
  * This is a hook function that is called to send mail on deletion of an item
  *

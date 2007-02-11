@@ -3,7 +3,7 @@
  * Modify a template tag
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,22 +20,22 @@ function themes_admin_modifytpltag()
 {
     // Security Check
     if (!xarSecurityCheck('AdminTheme', 0, 'All', '::')) return;
-    
+
     $aData = array();
 
     // form parameters
     if (!xarVarFetch('tagname', 'str::', $tagname, '')) return;
 
     // get the tags as an array
-    $aTplTag = xarModAPIFunc('themes', 
-                             'admin', 
-                             'gettpltag', 
+    $aTplTag = xarModAPIFunc('themes',
+                             'admin',
+                             'gettpltag',
                              array('tagname'=>$tagname));
 
     $aData = $aTplTag;
     $aData['authid'] = xarSecGenAuthKey();
-    $aData['updateurl'] = xarModUrl('themes', 
-                                    'admin', 
+    $aData['updateurl'] = xarModUrl('themes',
+                                    'admin',
                                     'updatetpltag');
 
     return $aData;

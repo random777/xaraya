@@ -3,7 +3,7 @@
  * Update the configuration parameters
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -50,7 +50,7 @@ function themes_admin_updateconfig()
     xarModSetVar('themes', 'AtomTag', $atomtag);
     xarModSetVar('themes', 'var_dump', $var_dump);
     xarModSetVar('themes', 'usedashboard', ($dashboard) ? 1 : 0);
-    xarModSetVar('themes', 'adminpagemenu', ($adminpagemenu) ? 1 : 0);    
+    xarModSetVar('themes', 'adminpagemenu', ($adminpagemenu) ? 1 : 0);
     xarModSetVar('themes', 'dashtemplate', $dashtemplate);
     xarConfigSetVar('Site.BL.CacheTemplates',$cachetemplates);
 

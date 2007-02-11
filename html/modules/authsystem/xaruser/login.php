@@ -3,7 +3,7 @@
  * Handle the user supplied data for login information
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -50,10 +50,10 @@ function authsystem_user_login()
         xarErrorSet(XAR_USER_EXCEPTION, 'LOGIN_ERROR', new DefaultUserException($msg));
         return;
     }
-    
+
     // Fetch and validate the values entered into the login form
     // Username
-    if (!xarVarFetch('uname','str:1:100',$uname)) 
+    if (!xarVarFetch('uname','str:1:100',$uname))
     {
         xarErrorFree();
         $msg = xarML('You must provide a username.');
@@ -61,7 +61,7 @@ function authsystem_user_login()
         return;
     }
     // Password
-    if (!xarVarFetch('pass','str:1:100',$pass)) 
+    if (!xarVarFetch('pass','str:1:100',$pass))
     {
         xarErrorFree();
         $msg = xarML('You must provide a password.');
@@ -75,7 +75,7 @@ function authsystem_user_login()
     // By default redirect to the base URL on the site
     $redirect=xarServerGetBaseURL();
     if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
-    // If the redirect URL contains authsystem go to base url 
+    // If the redirect URL contains authsystem go to base url
     // CHECKME: <mrb> why is this?
     if (preg_match('/authsystem/',$redirecturl)) {
         $redirecturl = $redirect;
@@ -202,7 +202,7 @@ function authsystem_user_login()
             // User is active or state to be determined by external authentication
             // TODO: remove this when everybody has moved to 1.0
             // <mrb> Havent we now? If not, this shouldn't be here?
-            
+
             if(!xarModGetVar('roles', 'lockdata')) {
             //We know the default administrator from roles after 1.0, so get the admin and find their group
             //Assume we have our old pre 1.0 values - valid in majority of cases
@@ -223,7 +223,7 @@ function authsystem_user_login()
                 $lockdata = array(
                     'roles' => array(
                         array(
-                            'uid'    => $admingroupuid, 
+                            'uid'    => $admingroupuid,
                             'name'   => $admingroupname,
                             'notify' => true
                         )
@@ -237,7 +237,7 @@ function authsystem_user_login()
 
             // Check if the site is locked and this user is allowed in
             $lockvars = unserialize(xarModGetVar('roles','lockdata'));
-            if ($lockvars['locked'] ==1) 
+            if ($lockvars['locked'] ==1)
             {
                 $rolesarray = array();
                 $rolemaker = new xarRoles();
@@ -245,24 +245,24 @@ function authsystem_user_login()
                 for($i=0, $max = count($roles); $i < $max; $i++)
                         $rolesarray[] = $rolemaker->getRole($roles[$i]['uid']);
                 $letin = array();
-                foreach($rolesarray as $roletoletin) 
+                foreach($rolesarray as $roletoletin)
                 {
-                    if ($roletoletin->isUser()) 
+                    if ($roletoletin->isUser())
                         $letin[] = $roletoletin;
-                    else 
+                    else
                         $letin = array_merge($letin,$roletoletin->getUsers());
                 }
                 $letthru = false;
-                foreach ($letin as $roletoletin) 
+                foreach ($letin as $roletoletin)
                 {
-                    if (strtolower($uname) == strtolower($roletoletin->getUser())) 
+                    if (strtolower($uname) == strtolower($roletoletin->getUser()))
                     {
                         $letthru = true;
                         break;
                     }
                 }
 
-                if (!$letthru) 
+                if (!$letthru)
                 {
                     xarErrorSet(XAR_SYSTEM_MESSAGE,
                     'SITE_LOCKED',
@@ -272,7 +272,7 @@ function authsystem_user_login()
             }
 
             // OK, let's try to log this user in, we no longer have enough
-            // information to determine this here, so we pass it on to the 
+            // information to determine this here, so we pass it on to the
             // login API function and let that determine for us if this user/pw
             // combo can be authenticated.
             xarLogMessage("Authsystem: passing authentication to core");
@@ -284,10 +284,10 @@ function authsystem_user_login()
 
             if ($res === null)
             {
-                // Null means error? 
+                // Null means error?
                 return;
-            } 
-            elseif ($res == false) 
+            }
+            elseif ($res == false)
             {
                 // Problem logging in
                 // TODO - work out flow, put in appropriate HTML
@@ -347,7 +347,7 @@ function authsystem_user_login()
                             foreach ($role->getParents() as $parent)
                             {
                                 $parenturl = $parent->getHome();
-                                if (!empty($parenturl))  
+                                if (!empty($parenturl))
                                 {
                                     $url = $parenturl;
                                     break;
@@ -362,11 +362,11 @@ function authsystem_user_login()
                         array('url'=>$url,'truecurrenturl'=>$truecurrenturl)
                     );
                     $data=array();
-                    if (!is_array($urldata) || !$urldata) 
+                    if (!is_array($urldata) || !$urldata)
                     {
                         $externalurl=false;
                         $redirecturl=xarServerGetBaseURL();
-                    } else 
+                    } else
                     {
                         $externalurl=$urldata['externalurl'];
                         $redirecturl=$urldata['redirecturl'];

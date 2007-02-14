@@ -3,7 +3,7 @@
  * Overview displays standard Overview page
  *
  * @package modules
- * @copyright (C) 2002-2005 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,9 +27,9 @@ function privileges_admin_overview()
     if (!xarSecurityCheck('EditPrivilege',0)) return;
 
     $data=array();
-    
+
     /* if there is a separate overview function return data to it
-     * else just call the main function that usually displays the overview 
+     * else just call the main function that usually displays the overview
      */
 
     return xarTplModule('privileges', 'admin', 'main', $data,'main');

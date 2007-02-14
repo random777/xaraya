@@ -3,7 +3,7 @@
  * Modify configuration of this module
  *
  * @package core modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -128,7 +128,7 @@ function privileges_admin_modifyconfig()
                     if (!xarVarFetch('name', 'str', $name, '', XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('password', 'str', $password, '', XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('password2', 'str', $password2, '', XARVAR_NOT_REQUIRED)) return;
-                    
+
                     // rudimentary check for valid password for now - fix so nicer presentation to user
                     if (strcmp($password, $password2) != 0) {
                         $msg = xarML('Last Resort Admin Creation failed! <br />The two password entries are not the same, please try again.');

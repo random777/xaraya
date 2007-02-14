@@ -2,8 +2,8 @@
 /**
  * A suite to add the tests to
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,13 +22,13 @@ $tmp = new xarTestSuite('Privileges Bugzilla Bugs');
  * @package example
  * @author Roger Keays <r.keays@ninthave.net>
  */
-class testPrivilegesBugs extends xarTestCase 
+class testPrivilegesBugs extends xarTestCase
 {
 
     /**
      * Initialize the Xaraya core.
      */
-    function setup() 
+    function setup()
     {
 
         /* these must point to the correct location of the core */
@@ -45,10 +45,10 @@ class testPrivilegesBugs extends xarTestCase
         /*
          * This code is currently no good, since Xaraya relies on the user
          * agent being a browser to do most of its work.
-         *| 
+         *|
 
         /* initialize logging *|
-        $systemArgs = 
+        $systemArgs =
                 array('loggerName' => xarCore_getSystemVar('Log.LoggerName'),
                       'loggerArgs' => xarCore_getSystemVar('Log.LoggerArgs'),
                       'level' => xarCore_getSystemVar('Log.LogLevel'));
@@ -73,7 +73,7 @@ class testPrivilegesBugs extends xarTestCase
         xarErrorFree();
         /* end comment block */
     }
-  
+
     /**
      * Test for Bug 1970 (Fatal php error in xarprivileges.php). The safe way
      * is to delete the child then the parent.
@@ -84,7 +84,7 @@ class testPrivilegesBugs extends xarTestCase
      *        3) privilege's parent is deleted
      *        4) privilege is deleted itself
      */
-    function testBug1970Safe() 
+    function testBug1970Safe()
     {
         /*
          * This code is currently no good, since Xaraya relies on the user
@@ -100,7 +100,7 @@ class testPrivilegesBugs extends xarTestCase
         xarRegisterPrivilege('Bug1970Child', 'All', 'themes', 'All', 'All',
                 'ACCESS_ADMIN');
         xarMakePrivilegeMember('Bug1970Child', 'Bug1970Parent');
-        
+
         /* 4) privilege is deleted itself *|/g
         $privs = new xarPrivileges();
         $priv = $privs->findPrivilege('Bug1970Child');
@@ -110,10 +110,10 @@ class testPrivilegesBugs extends xarTestCase
         $priv = $privs->findPrivilege('Bug1970Parent');
         $out = $priv->remove();
 
-        return $this->assertTrue($out, 
+        return $this->assertTrue($out,
             "Testing bug 1970 the safe way (fatal error)");
         /* end comment block */
-    } 
+    }
 
 
     /**
@@ -129,7 +129,7 @@ class testPrivilegesBugs extends xarTestCase
      * This can't occur through the GUI, because once you do step 3), there is
      * no way in the GUI to do step 4). It is still a problem though.
      */
-    function testBug1970Unsafe() 
+    function testBug1970Unsafe()
     {
         /*
          * This code is currently no good, since Xaraya relies on the user
@@ -144,7 +144,7 @@ class testPrivilegesBugs extends xarTestCase
         xarRegisterPrivilege('Bug1970Child', 'All', 'themes', 'All', 'All',
                 'ACCESS_ADMIN');
         xarMakePrivilegeMember('Bug1970Child', 'Bug1970Parent');
-        
+
         /* 3) parent is deleted *|/g
         $privs = new xarPrivileges();
         $priv = $privs->findPrivilege('Bug1970Parent');
@@ -154,10 +154,10 @@ class testPrivilegesBugs extends xarTestCase
         $priv = $privs->findPrivilege('Bug1970Child');
         $out = $priv->remove();  /* causing fatal error *|/g
 
-        return $this->assertTrue($out, 
+        return $this->assertTrue($out,
             "Testing bug 1970 the unsafe way (fatal error)");
         /* end comment block */
-    } 
+    }
 }
 
 /* add the tests to the suite */

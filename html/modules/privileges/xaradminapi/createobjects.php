@@ -2,12 +2,14 @@
 /**
  * Utility function to create the native objects of this module
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Privileges module
+ * @link http://xaraya.com/index.php/release/1098.html
+ * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 /**
  * utility function to create the native objects of this module

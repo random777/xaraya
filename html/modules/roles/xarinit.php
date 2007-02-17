@@ -285,7 +285,7 @@ function roles_upgrade($oldVersion)
     switch ($oldVersion) {
         case '1.01':
             break;
-      case '1.1.0':
+        case '1.1.0':
 
             // is there an authentication module?
             $regid = xarModGetIDFromName('authsystem');
@@ -302,7 +302,7 @@ function roles_upgrade($oldVersion)
                 // delete the old roles modvars
                 xarModDelVar('roles', 'allowregistration');
                 xarModDelVar('roles', 'rolesperpage');
-                xarModDelVar('roles', 'uniqueemail');
+                xarModDelVar('roles', 'uniqueemail'); //this really should be in roles to avoid non core dependencies
                 xarModDelVar('roles', 'askwelcomeemail');
                 xarModDelVar('roles', 'askvalidationemail');
                 xarModDelVar('roles', 'askdeactivationemail');
@@ -339,7 +339,9 @@ function roles_upgrade($oldVersion)
             xarModSetVar('roles', 'loginredirect', true);
             xarModSetVar('roles', 'allowexternalurl', false);
             break;
-
+        case '1.1.1':
+            xarModSetVar('roles', 'uniqueemail', true);
+            break;
     }
     // Update successful
     return true;

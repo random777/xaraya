@@ -123,6 +123,7 @@ function roles_admin_modifyconfig()
             $data['defaultregmod']     = xarModGetVar('roles', 'defaultregmodule');
             $data['allowuserhomeedit'] = xarModGetVar('roles', 'allowuserhomeedit');
             $data['requirevalidation'] = xarModGetVar('roles', 'requirevalidation');
+            $data['uniqueemail'] = xarModGetVar('roles', 'uniqueemail');
             //check for roles hook in case it's set independently elsewhere
             if (xarModIsHooked('roles', 'roles')) {
                 xarModSetVar('roles','usereditaccount',true);
@@ -152,11 +153,12 @@ function roles_admin_modifyconfig()
                     xarModSetVar('roles', 'admin', $siteadmin);
                     break;
                 case 'restrictions':
+                    if (!xarVarFetch('uniqueemail',      'checkbox', $uniqueemail, true, XARVAR_NOT_REQUIRED)) return;               
                     if (!xarVarFetch('disallowedemails', 'str:1', $disallowedemails, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     $disallowedemails = serialize($disallowedemails);
 
                     xarModSetVar('roles', 'disallowedemails', $disallowedemails);
-
+                    xarModSetVar('roles', 'uniqueemail',$uniqueemail);
                 case 'hooks':
                     // Role type 'user' (itemtype 0).
                     xarModCallHooks('module', 'updateconfig', 'roles',

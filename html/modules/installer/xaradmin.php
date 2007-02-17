@@ -1739,10 +1739,11 @@ function installer_admin_upgrade2()
     } elseif (!empty($existingrolesdisallowed)) {
        $emails = $existingrolesdisallowed;
     }else {
-    $emails = 'none@none.com
-president@whitehouse.gov';
+        $emails = 'none@none.com
+        president@whitehouse.gov';
     }
     $disallowedemails = serialize($emails);
+    
     xarModSetVar('roles', 'disallowedemails', $disallowedemails);
 
 /* End 1.1.3 Release Upgrades */

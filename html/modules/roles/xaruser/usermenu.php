@@ -216,8 +216,7 @@ function roles_user_usermenu($args)
                         xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
                         return;
                 }
-
-                if(xarModGetVar('roles','uniqueemail')) {
+                if (xarModGetVar('roles','uniqueemail')) {
                     // check for duplicate email address
                     $user = xarModAPIFunc('roles', 'user','get',
                                     array('email' => $email));
@@ -225,7 +224,7 @@ function roles_user_usermenu($args)
                     if ($user != false) {
                         unset($user);
                         $msg = xarML('That email address is already registered.');
-                        xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
+                        xarErrorSet(XAR_USER_EXCEPTION, 'DUPLICATE_DATA', new DefaultUserException($msg));
                         return;
                     }
                 }

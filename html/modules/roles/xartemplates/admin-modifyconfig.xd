@@ -248,10 +248,22 @@
             <fieldset>
                 <legend>
                     <xar:mlstring>
-                        Disallowed Emails
+                        Emails
                     </xar:mlstring>
                 </legend>
-                  <div class="xar-form-input-wrapper">
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'uniqueemail')">
+                        <input type="checkbox" name="uniqueemail" id="uniqueemail" value="1" checked="checked" />
+                    <xar:else />
+                        <input type="checkbox" name="uniqueemail" id="uniqueemail" value="1" />
+                    </xar:if>
+                    <label for="uniqueemail" title="#xarML('Require each user account to have a distinct email address')#">
+                        <xar:mlstring>
+                                Email Address Must Be Unique To Each Registered User
+                            </xar:mlstring>
+                    </label>
+                </div>
+                <div class="xar-form-input-wrapper">
                         <label for="disallowedemails" title="#xarML('Email addresses which cannot be used')#" class="xar-form-label">
                             <xar:mlstring>
                                 Disallowed Email Addresses:

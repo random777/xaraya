@@ -45,7 +45,6 @@ class Dynamic_RadioButtons_Property extends Dynamic_Select_Property
         $data['id']      = $id;
         $data['options'] = $options;
 
-
         $data['tabindex'] =!empty($tabindex) ? ' tabindex="'.$tabindex.'" ' : '';
         $data['invalid']  =!empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '';
 
@@ -53,7 +52,7 @@ class Dynamic_RadioButtons_Property extends Dynamic_Select_Property
         return xarTplProperty('base', 'radio', 'showinput', $data);
 
     }
-
+  
     // default methods from Dynamic_Select_Property
 
     /**
@@ -70,18 +69,16 @@ class Dynamic_RadioButtons_Property extends Dynamic_Select_Property
                               'label'      => 'Radio Buttons',
                               'format'     => '34',
                               'validation' => '',
-                            'source'     => '',
-                            'dependancies' => '',
-                            'requiresmodule' => '',
-                            'aliases'        => '',
-                            'args'           => serialize($args)
+                              'source'     => '',
+                              'dependancies' => '',
+                              'requiresmodule' => '',
+                              'aliases'        => '',
+                              'args'           => serialize($args)
                             // ...
                            );
         return $baseInfo;
      }
 
-
 }
-
 
 ?>

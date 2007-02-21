@@ -13,7 +13,9 @@
 /**
  * purge users by status
  * @param 'status' the status we are purging
- * @param 'confirmation' confirmation that this item can be purge
+ * @param string operation
+ * @param string confirmation The confirmation that this item can be purge
+ * @return array
  */
 function roles_admin_purge($args)
 {
@@ -164,9 +166,11 @@ function roles_admin_purge($args)
             if(!xarSecurityCheck('AdminRole')) return;
             $roleslist = new xarRoles();
             foreach ($purgeuids as $uid => $val) {
-// --- skip if we are trying to remove the designated site admin.
-// TODO: insert error feedabck here somehow
-                if($uid == xarModGetVar('roles','admin')) continue;
+// --- skip if we are trying to remove the designated site admin or anon or any below 7 (bug 5729)
+// TODO: insert error feedback here somehow
+                if (($uid == xarModGetVar('roles','admin') || ($uid < 7)) {
+                    continue;
+                }
 // --- do this in 2 stages. First, delete the role: this will update the user
 // --- count on all the role's parents
                 $role = $roleslist->getRole($uid);

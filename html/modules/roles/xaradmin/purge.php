@@ -168,7 +168,7 @@ function roles_admin_purge($args)
             foreach ($purgeuids as $uid => $val) {
                 // --- skip if we are trying to remove the designated site admin or anon or any below 7 (bug 5729)
                 //if (($uid == xarModGetVar('roles','admin') || ($uid < 7)) { //jojodee - let's disucss a bit more - this is not a generally appliable solution 
-                if (($uid == xarModGetVar('roles','admin')) {
+                if ($uid == xarModGetVar('roles','admin')) {
                     continue;
                 }
 // --- do this in 2 stages. First, delete the role: this will update the user

@@ -166,9 +166,9 @@ function roles_admin_purge($args)
             if(!xarSecurityCheck('AdminRole')) return;
             $roleslist = new xarRoles();
             foreach ($purgeuids as $uid => $val) {
-// --- skip if we are trying to remove the designated site admin or anon or any below 7 (bug 5729)
-// TODO: insert error feedback here somehow
-                if (($uid == xarModGetVar('roles','admin') || ($uid < 7)) {
+                // --- skip if we are trying to remove the designated site admin or anon or any below 7 (bug 5729)
+                //if (($uid == xarModGetVar('roles','admin') || ($uid < 7)) { //jojodee - let's disucss a bit more - this is not a generally appliable solution 
+                if (($uid == xarModGetVar('roles','admin')) {
                     continue;
                 }
 // --- do this in 2 stages. First, delete the role: this will update the user
@@ -198,7 +198,6 @@ function roles_admin_purge($args)
                 xarModCallHooks('item', 'delete', $uid, $item);
             }
         }
-
 // --- display users that can be purged
         $selection = " WHERE xar_email != ''";
         //Create the selection
@@ -295,6 +294,7 @@ function roles_admin_purge($args)
             );
         }
 // --- send to template
+        //TODO fix pager for bug 4770 
         $purgefilter['purgestartnum'] = '%%';
         $purgefilter['purgesearch'] = $data['purgesearch'];
 
@@ -312,5 +312,4 @@ function roles_admin_purge($args)
     // Return
     return $data;
 }
-
 ?>

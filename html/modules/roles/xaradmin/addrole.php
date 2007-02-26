@@ -21,7 +21,10 @@ function roles_admin_addrole()
 {
     // Check for authorization code
     if (!xarSecConfirmAuthKey()) return;
-
+    
+    //Check for privilege to add role
+    if (!xarSecurityCheck('AddRole')) return;
+    
     // get some vars for both groups and users
     if (!xarVarFetch('pname',      'str:1:', $pname,      NULL, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('ptype',      'str:1',  $ptype,      NULL, XARVAR_NOT_REQUIRED)) return;
@@ -38,6 +41,8 @@ function roles_admin_addrole()
         xarVarFetch('phome', 'str', $phome, NULL, XARVAR_NOT_REQUIRED);
         xarVarFetch('pprimaryparent', 'int', $pprimaryparent, NULL, XARVAR_NOT_REQUIRED); // this seems redundant here
     }
+    
+    //http://cxc.ahaadev.net/index.php?module=roles&type=admin&func=addrole&authid=04ad92456d4c54aa8a0b6e441ca1e46d&pname=somename3&ptype=0&pparentid=4&puname=foo4foo&pemail=jojo4@2skies.com&ppass1=foo4foo&ppass2=foo4foo&pstate=3
     // checks specific only to users
     if ($ptype == 0) {
         // check for valid username

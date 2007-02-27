@@ -17,6 +17,8 @@
  */
 function privileges_admin_addprivilege()
 {
+    if(!xarSecurityCheck('AddPrivilege')) return;
+        
     if(!xarVarFetch('pname',      'isset', $pname,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('prealm',     'isset', $prealm,     'All', XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('pmodule',    'isset', $pmodule,    NULL, XARVAR_DONT_SET)) {return;}

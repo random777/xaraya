@@ -49,9 +49,9 @@ function loadContent(url, tagid, method, form_obj, local_debug)
 
     // prepare strings according to method
     if (method == 'POST') {
-        if (form_obj != null) formobj = document.getElementById(form_obj);
+        if (form_obj !== undefined) formobj = document.getElementById(form_obj);
         try {
-            for ( i = 0; i < formobj.elements.length; i++ ) {
+            for ( var i = 0; i < formobj.elements.length; i++ ) {
                 if (formobj.elements[i].name.length > 0) {
                     argstr = argstr + join + formobj.elements[i].name + "=" + formobj.elements[i].value;
                     join = '&';
@@ -143,4 +143,5 @@ function processReqChange()
     } catch(e) {
         alert("CATCH: " + e);
     }
+    return null;
 }

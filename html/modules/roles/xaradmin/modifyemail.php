@@ -1,6 +1,6 @@
 <?php
 /**
- * Modify the  email for users
+ * Modify the email for users
  *
  * @package modules
  * @copyright (C) 2002-2007 The Digital Development Foundation
@@ -11,7 +11,11 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
- * Modify the  email for users
+ * Modify the email for users
+ *
+ * @param string phase
+ * @param string mailtype
+ * @todo MichelV Add the second authcheck back?
  */
 function roles_admin_modifyemail($args)
 {

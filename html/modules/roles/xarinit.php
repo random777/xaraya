@@ -340,8 +340,10 @@ function roles_upgrade($oldVersion)
             xarModSetVar('roles', 'allowexternalurl', false);
             break;
         case '1.1.1':
-            xarModSetVar('roles', 'uniqueemail', true);
-            break;
+            $disallowed = xarModGetVar('roles', 'disallowedemails');
+            if (!isset($disallowed)) {
+                   xarModSetVar('roles','disallowedemails',''); //let's set it so it doesn't error else leave content to upgrade.php
+            }
     }
     // Update successful
     return true;

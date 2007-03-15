@@ -73,6 +73,28 @@
                 </div>
         </fieldset>
 
+        <fieldset>
+            <legend>
+                <xar:mlstring>Logged On Users</xar:mlstring>
+            </legend>
+        <p>
+            <xar:mlstring>When Sitelock is turned on, you can choose to log off any users that are logged on at that time, except for the nominated Groups.
+               Be aware that some users may be in the middle of adding content, and that content will be lost. It would be usual
+               to provide some warning of the sitelock time to logged on users if you use this.</xar:mlstring>
+        </p>
+        <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="$killactive">
+                        <input type="checkbox" name="killactive" id="killactive" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="killactive" id="killactive" value="1" />
+                    </xar:if>
+                    <label for="killactive" title="#xarML('Log off Active Users except for any in nominated Groups')#">
+                        <xar:mlstring>
+                            Log off Active Users (except those in nominated Groups)
+                        </xar:mlstring>
+                    </label>
+                </div>
+       </fieldset>
         <p>
             <xar:mlstring>The following message will be emailed to members in the above list when the site is locked or unlocked.</xar:mlstring>
         </p>

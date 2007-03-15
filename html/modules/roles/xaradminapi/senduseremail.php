@@ -76,7 +76,7 @@ function roles_adminapi_senduseremail($args)
                           'recipientname' => $user['name']);
 
             // retrieve the dynamic properties (if any) for use in the e-mail too
-            if (xarModIsAvailable('dynamicdata')) {
+            if (xarModIsHooked('dynamicdata','roles')) {
                 // get the Dynamic Object defined for this module and item id
                 $object = xarModAPIFunc('dynamicdata','user','getobject',
                                          array('module' => 'roles',

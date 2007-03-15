@@ -114,7 +114,9 @@ function roles_user_view($args)
     switch(strtolower($phase)) {
         case 'active':
             $data['phase'] = 'active';
-            $filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+            //jojodee - time up until session inactivity time out? Surely it's InactivityTimeout(min) not Duration(days)
+            //$filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
             $data['title'] = xarML('Online Members');
 
             $data['total'] = xarModAPIFunc(

@@ -228,7 +228,8 @@ president@whitehouse.gov';
                                               'notify' => TRUE)),
                                   'message' => '',
                                   'locked' => 0,
-                                  'notifymsg' => '');
+                                  'notifymsg' => '',
+                                  'killactive' => FALSE);
     xarModSetVar('roles', 'lockdata', serialize($lockdata));
 
     xarModSetVar('roles', 'itemsperpage', 20);
@@ -340,10 +341,17 @@ function roles_upgrade($oldVersion)
             xarModSetVar('roles', 'allowexternalurl', false);
             break;
         case '1.1.1':
+            xarModSetVar('roles', 'uniqueemail', true);
             $disallowed = xarModGetVar('roles', 'disallowedemails');
             if (!isset($disallowed)) {
                    xarModSetVar('roles','disallowedemails',''); //let's set it so it doesn't error else leave content to upgrade.php
             }
+            break;
+        case '1.1.2':
+            $lockdata= unserialize(xarModgetVar('roles', 'lockdata'));
+            $lockdata['killactive']= false;
+            xarModSetVar('roles','lockdata',serialize($lockdata));    
+            break;            
     }
     // Update successful
     return true;

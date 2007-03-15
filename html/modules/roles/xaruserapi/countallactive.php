@@ -29,7 +29,7 @@ function roles_userapi_countallactive($args)
 
     // Optional arguments.
     if (empty($filter)){
-        $filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
     }
 
 // Security Check

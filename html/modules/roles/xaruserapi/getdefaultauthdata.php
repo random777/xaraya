@@ -16,9 +16,12 @@
  *
  * @author Jo Dalle Nogare <jojodee@xaraya.com>
  * @return array defaultauthmodulename, defaultlogoutmodname, defaultloginmodname
+ * @deprecated The auth module column in roles is no longer required
  */
 function roles_userapi_getdefaultauthdata()
 {
+   /* Leaving this function here until we phase out all calls to it- deprecated next 2 point version */
+   
     $defaultauthdata=array();
 
     $defaultauthmoduleid =xarModGetVar('roles','defaultauthmodule');

@@ -50,7 +50,7 @@ function roles_admin_asknotification($args)
 
                 // dynamic properties (if any)
                 $data['properties'] = null;
-                if (xarModIsAvailable('dynamicdata')) {
+                if (xarModIsHooked('dynamicdata','roles')) {
                     // get the Dynamic Object defined for this module (and itemtype, if relevant)
                     // Bug 4785: removed a & on next line
                     $object = xarModAPIFunc('dynamicdata', 'user', 'getobject',

@@ -46,13 +46,17 @@ function roles_user_getvalidation()
 
     //Get default registration module info if any
     $defaultregdata  = xarModAPIFunc('roles','user','getdefaultregdata');
+    //Let's show error message here so it comes to the top and user can see the problem
+    if (!$defaultregdata) {
+        $msg = xarML('There is no active registration module installed');
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', new DefaultUserException($msg));
+                return false;
+    }
     $regmodule       = $defaultregdata['defaultregmodname'];
-    $regmoduleactive = $defaultregdata['defaultregmodactive'];
 
     //Get default authentication module info if any
-    $defaultauthdata     = xarModAPIFunc('roles','user','getdefaultauthdata');
-    $defaultloginmodname = $defaultauthdata['defaultloginmodname'];
-    $authmodule          = $defaultauthdata['defaultauthmodname'];
+    $defaultloginmodname = 'authsystem';
+    $authmodule          = 'authsystem';
 
     //Set some general vars that we need in various options
     $newpending  = xarModGetVar($regmodule, 'explicitapproval');
@@ -67,6 +71,7 @@ function roles_user_getvalidation()
         // check for user and grab uid if exists
         $status    = xarModAPIFunc('roles', 'user', 'get', array('uname' => $uname));
         $lastlogin = xarModGetUserVar('roles','userlastlogin',$status['uid']);
+
         if (!isset($lastlogin) || empty($lastlogin)) {
             $newuser=true;
         }
@@ -137,8 +142,6 @@ function roles_user_getvalidation()
                 if (!xarModAPIFunc('roles', 'user', 'updatestatus',
                               array('uname' => $uname,
                                    'state' => ROLES_STATE_ACTIVE))) return;
-
-
             }
 
             //If we have registration of new user and the admin wants notificaton, let's send an email
@@ -150,7 +153,8 @@ function roles_user_getvalidation()
                 // first to the user
                 //Send welcome email to the user
                 //This could be templated specifically for a 'new' user now
-                if ($regmoduleactive  && xarModGetVar($regmodule, 'sendwelcomeemail')) {
+                if (xarModGetVar($regmodule, 'sendwelcomeemail')) {
+                xarLogMessage("EMAIL: sending welcome email for new user");
                     if (!xarModAPIFunc('roles','admin','senduseremail',
                                     array('uid' => array($status['uid'] => '1'),
                                                          'mailtype'     => 'welcome'))) {
@@ -159,7 +163,7 @@ function roles_user_getvalidation()
                         xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
                     }
                 }
-                if ($regmoduleactive  && xarModGetVar($regmodule, 'sendnotice')==1) {
+                if (xarModGetVar($regmodule, 'sendnotice')==1) {
                     //now to the admin
                     $terms= '';
                     if (xarModGetVar($regmodule, 'showterms') == 1) {

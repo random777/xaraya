@@ -30,7 +30,7 @@ function roles_userapi_getactive($args)
     }
 
     if (empty($filter)){
-        $filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
     }
 
     $roles = array();

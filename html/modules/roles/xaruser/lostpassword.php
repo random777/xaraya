@@ -76,6 +76,9 @@ function roles_user_lostpassword()
                 } elseif (!empty($email) && empty($uname)){
                     $userargs= array('email'=>$email);
                     $invalid['email'] =  xarML('That email has an invalid format or is not registered on this site.');                   
+                } elseif (!empty($email) && !empty($uname)) { //just use the email
+                    $userargs = array('uname'=>$uname,'email' => $email);
+                    $invalid['getpassword'] =  xarML('Either the email address or username is not valid or registered on this site. You can try username or email address if you have forgotten the combination.');
                 }
               
                // check for user and grab uid if exists

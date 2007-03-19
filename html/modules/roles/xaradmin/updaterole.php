@@ -31,7 +31,8 @@ function roles_admin_updaterole()
     if (!xarVarFetch('utimezone',      'str:1:',    $utimezone,'',XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('allowemail',     'checkbox',  $allowemail,false,XARVAR_NOT_REQUIRED)) return;
     
-    if (!xarSecurityCheck('EditRole',0,'Roles',"$uname")) return;
+    //need username to do the sec check and this is not available
+    //until later in the function as it could be changed in this process
     
     //Grab it here if primary parent modvar is activated
     if (!empty($pprimaryparent) && is_integer($pprimaryparent) && xarModGetVar('roles','setprimaryparent')) {
@@ -107,6 +108,10 @@ function roles_admin_updaterole()
             return;
         }
     }
+
+    //now we have the username for role and group. Let's do the security check
+    if (!xarSecurityCheck('EditRole',0,'Roles',"$puname")) return;
+    
     $duvs = array();
     if (isset($phome) && xarModGetVar('roles','setuserhome'))
             $duvs['userhome'] = $phome;

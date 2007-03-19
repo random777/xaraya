@@ -31,7 +31,7 @@ function roles_admin_updaterole()
     if (!xarVarFetch('utimezone',      'str:1:',    $utimezone,'',XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('allowemail',     'checkbox',  $allowemail,false,XARVAR_NOT_REQUIRED)) return;
     
-    if (!xarSecurityCheck('EditRole',0,'Roles',$uid)) return;
+    if (!xarSecurityCheck('EditRole',0,'Roles',"$uname")) return;
     
     //Grab it here if primary parent modvar is activated
     if (!empty($pprimaryparent) && is_integer($pprimaryparent) && xarModGetVar('roles','setprimaryparent')) {

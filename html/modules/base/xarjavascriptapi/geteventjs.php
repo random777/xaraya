@@ -3,7 +3,7 @@
  * Base JavaScript management functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,7 +16,7 @@
  * Get JavaScript for a tag event.
  * Returns all submitted JavaScript fragments for a position (tag) and type (event name)
  * as a single string, each statement separated by a semi-colon.
- * 
+ *
  * Examples:
  * Add an 'onload' trigger to the page (both examples do the same thing):
  *   <xar:base-include-javascript position="body" type="onload" code="alert('hello, world')" />
@@ -32,9 +32,8 @@
  * @author Jason Judge
  * @param $args[position] the location of the event trigger; defaults to 'body'
  * @param $args[type] the type of event trigger; e.g. 'onload', 'onmouseover'
- * @returns string
- * @return empty string
- */ 
+ * @return string empty string
+ */
 function base_javascriptapi_geteventjs($args)
 {
     extract($args);

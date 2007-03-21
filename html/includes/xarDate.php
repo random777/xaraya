@@ -1,18 +1,22 @@
 <?php
 /**
- *
  * Wrapper class for PHP date functions
  *
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @author Marc Lutolf
  *
  * @todo bring back possibility of time authorized keys
  * @todo this needs another place
  * @todo this needs documentation
  */
-
+/**
+ * Wrapper class for PHP date functions
+ * Not much is used from these functions
+ */
 class xarDate
 {
 

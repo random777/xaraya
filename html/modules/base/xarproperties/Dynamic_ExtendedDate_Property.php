@@ -3,14 +3,14 @@
  * Extended Date property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author Roger Keays <roger.keays@ninthave.net>
  */
 
@@ -19,7 +19,7 @@ include_once "modules/base/xarproperties/Dynamic_Calendar_Property.php";
 /**
  * The extended date property converts the value provided by the javascript
  * calendar into a universal YYYY-MM-DD format for storage in most databases
- * supporting the 'date' type. 
+ * supporting the 'date' type.
  *
  * The problem with the normal Calendar property is that it converts
  * everything into a UNIX timestamp, and for most C librarys this does not
@@ -215,8 +215,7 @@ class Dynamic_ExtendedDate_Property extends Dynamic_Calendar_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {

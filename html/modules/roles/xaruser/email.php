@@ -3,7 +3,7 @@
  * Send email to a user
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,8 +15,10 @@
  *
  * @author  John Cox
  * @access  public
- * @param   uid is the uid of the user being sent
- * @return  true on success or void on falure
+ * @param   int  uid is the uid of the user being sent
+ * @param   string phase
+ * @param   string return_url Set this url if you want to return to that url after the function has been finished
+ * @return  mixed Array with data, true on success or void on failure
  * @throws  XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION'
  * @todo    handle empty subject and/or message?
  */
@@ -33,6 +35,7 @@ function roles_user_email($args)
 
     if (!xarVarFetch('uid',   'id', $uid)) return;
     if (!xarVarFetch('phase', 'enum:modify:confirm', $phase, 'modify', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('return_url', 'str:1', $return_url, NULL, XARVAR_NOT_REQUIRED)) {return;}
 
     // If this validation fails, then do NOT send an e-mail, but
     // re-present the form to the user with an error message. Don't redirect,
@@ -72,6 +75,8 @@ function roles_user_email($args)
             $data['subject'] = $subject;
             $data['message'] = $message;
             $data['error_message'] = $error_message;
+            if (!empty($return_url))
+                $data['return_url'] = $return_url;
 
             $data['authid'] = xarSecGenAuthKey();
 
@@ -117,8 +122,13 @@ function roles_user_email($args)
                 )
             )) return;
 
-            // lets update status and display updated configuration
-            xarResponseRedirect(xarModURL('roles', 'user', 'view'));
+            if (!empty($return_url)) {
+                xarResponseRedirect($return_url);
+            }
+            else {
+                // lets update status and display updated configuration
+                xarResponseRedirect(xarModURL('roles', 'user', 'view'));
+            }
 
             break;
     }

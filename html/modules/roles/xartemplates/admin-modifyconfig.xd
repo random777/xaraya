@@ -40,6 +40,23 @@
                     </a>
                 </dd>
             </xar:if>
+            <xar:if condition="$tab eq 'restrictions'">
+                <dd class="active">
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=restrictions">
+                        <xar:mlstring>
+                            Restrictions
+                        </xar:mlstring>
+                    </a>
+                </dd>
+                <xar:else />
+                <dd>
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=restrictions">
+                        <xar:mlstring>
+                            Restrictions
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            </xar:if>
             <xar:if condition="$tab eq 'duvs'">
                 <dd class="active">
                     <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=duvs">
@@ -223,6 +240,57 @@
                 </div>
             </fieldset>
         </form>
+       <xar:comment>
+            - - - - - - - - - - - - - - - - - Begin Restrictions Options - - - - - - - - - - - - - - - - - - -
+        </xar:comment>  
+        <xar:elseif condition="$tab eq 'restrictions'" />
+            <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend>
+                    <xar:mlstring>
+                        Emails
+                    </xar:mlstring>
+                </legend>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'uniqueemail')">
+                        <input type="checkbox" name="uniqueemail" id="uniqueemail" value="1" checked="checked" />
+                    <xar:else />
+                        <input type="checkbox" name="uniqueemail" id="uniqueemail" value="1" />
+                    </xar:if>
+                    <label for="uniqueemail" title="#xarML('Require each user account to have a distinct email address')#">
+                        <xar:mlstring>
+                                Email Address Must Be Unique To Each Registered User
+                            </xar:mlstring>
+                    </label>
+                </div>
+                <div class="xar-form-input-wrapper">
+                        <label for="disallowedemails" title="#xarML('Email addresses which cannot be used')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Disallowed Email Addresses:
+                            </xar:mlstring>
+                        </label>
+                        <div class="xar-form-container-after">
+                            <textarea name="disallowedemails" id="disallowedemails" class="xar-form-textarealarge">#$emails# </textarea>
+                        </div>
+                        <p class="xar-clearboth">
+                            <xar:mlstring>
+                                Note: Enter each email on a single line. Do not separate with comma, etc
+                            </xar:mlstring>
+                        </p>
+                    </div>
+              
+            </fieldset>
+         
+            <fieldset>
+                <div class="xar-form-input-wrapper-after">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
+                </div>
+            </fieldset>
+        </form>
+        
         <xar:comment>
             - - - - - - - - - - - - - - - - - Begin User Variable Options - - - - - - - - - - - - - - - - - - -
         </xar:comment>

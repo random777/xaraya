@@ -3,7 +3,7 @@
  * Retrieve list of itemtypes of this module
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,7 +14,6 @@
 /**
  * utility function to retrieve the list of item types of this module (if any)
  *
- * @returns array
  * @return array containing the item types and their description
  */
 function dynamicdata_userapi_getitemtypes($args)

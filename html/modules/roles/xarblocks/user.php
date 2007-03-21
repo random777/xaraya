@@ -3,7 +3,7 @@
  * User Info via block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/* 
+/*
  * User Info via block
  * @author Marco Canini
  */
@@ -50,7 +50,7 @@ function roles_userblock_info()
  */
 function roles_userblock_display($blockinfo)
 {
-    if ((xarUserIsLoggedIn()) && (xarUserGetVar('ublockon') == 1)) { 
+    if ((xarUserIsLoggedIn()) && (xarUserGetVar('ublockon') == 1)) {
         $ublock = xarUserGetVar('ublock');
         if ($ublock === false) {
             $ublock = '';

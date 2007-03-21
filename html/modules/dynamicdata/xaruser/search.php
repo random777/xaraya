@@ -3,7 +3,7 @@
  * Search dynamic data
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,11 +14,11 @@
 /**
  * search dynamicdata (called as hook from search module, or directly with pager)
  *
- * @param int q the query
+ * @param string q the query. The query is used in an SQL LIKE query
  * @param int startnum
- * @param dd_check
+ * @param array dd_check
  * @param int numitems The number of items to get
- * @return array output
+ * @return array output of the items found
  */
 function dynamicdata_user_search($args)
 {
@@ -56,6 +56,7 @@ function dynamicdata_user_search($args)
             $itemtype = 0;
         }
     }
+    // TODO: move this to the varFetch?
     if (!isset($startnum)) {
         $startnum = 1;
     }

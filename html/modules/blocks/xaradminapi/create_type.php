@@ -3,7 +3,7 @@
  * Register block type
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,8 +20,7 @@
  * @param args['module'] the module name
  * @param args['type'] the block type
  * @param args['info'] the info array for the block type
- * @returns ID of block type registered (even if already registered)
- * @return true on success, false on failure
+ * @return int ID of block type registered (even if already registered)
  * @throws DATABASE_ERROR, BAD_PARAM
  */
 function blocks_adminapi_create_type($args)

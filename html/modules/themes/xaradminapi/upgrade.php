@@ -2,20 +2,20 @@
 /**
  * Upgrade a theme
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Upgrade a theme
  *
  * @author Marty Vance
  * @param regid registered theme id
- * @returns bool
- * @return
+ * @return bool true
  * @throws BAD_PARAM
  */
 function themes_adminapi_upgrade($args)
@@ -41,7 +41,7 @@ function themes_adminapi_upgrade($args)
     // Update state of theme
     $res = xarModAPIFunc('themes', 'admin', 'setstate',
                         array('regid' => $regid, 'state' => XARTHEME_STATE_INACTIVE));
-    
+
     if (!isset($res)) return;
 
     // Get the new version information...
@@ -54,11 +54,11 @@ function themes_adminapi_upgrade($args)
 
      $sql = "UPDATE $xartable[themes]
             SET xar_version = ?, xar_class = ?
-            WHERE xar_regid = ?";     
+            WHERE xar_regid = ?";
     $bindvars = array($themeFileInfo['version'],
                       $themeFileInfo['class'],
                       $regid);
-            
+
     $result = $dbconn->Execute($sql,$bindvars);
     if (!$result) return;
 

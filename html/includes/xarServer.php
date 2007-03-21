@@ -552,7 +552,7 @@ function xarRequestIsLocalReferer()
  *
  * @access public
  * @global xarRequest_shortURLVariables array
- * @param vars array
+ * @param array vars array
  */
 function xarRequest__setShortURLVars($vars)
 {

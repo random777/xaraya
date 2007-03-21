@@ -3,7 +3,7 @@
  * Get one or all block instances.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -55,13 +55,13 @@ function blocks_userapi_getall($args)
               LEFT JOIN '.$block_types_table.' btypes
               ON        btypes.xar_id = binst.xar_type_id ';
 
-   
+
     if (!empty($bid)) {
         $query .= ' WHERE binst.xar_id = ?';
         $bindvars = array($bid);
     } elseif (!empty($name)) {
         $query .= ' WHERE binst.xar_name = ?';
-        $bindvars = array($name); 
+        $bindvars = array($name);
     } elseif (!empty($filter)) {
         $query .= ' WHERE lower(binst.xar_name) LIKE ?';
         $bindvars = array('%' . strtolower($filter) . '%');

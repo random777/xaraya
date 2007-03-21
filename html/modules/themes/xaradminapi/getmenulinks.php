@@ -2,18 +2,18 @@
 /**
  * Pass individual menu items to the main menu
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
 * utility function pass individual menu items to the main menu
 *
 * @author Marty Vance
-* @returns array
 * @return array containing the menulinks for the main menu items.
 */
 function themes_adminapi_getmenulinks()

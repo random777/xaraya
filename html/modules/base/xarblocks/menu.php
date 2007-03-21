@@ -3,7 +3,7 @@
  * Menu Block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -139,20 +139,30 @@ function base_menublock_display($blockinfo)
                 {
                     case '[': // module link
                     {
-                        // Credit to Elek M�ton for further expansion
+                        // Credit to Elek M???ton for further expansion
                         $sections = explode(']',substr($url,1));
                         $url = explode(':', $sections[0]);
                         // if the current module is active, then we are here
-                        if ($url[0] == $thismodname &&
-                            (!isset($url[1]) || $url[1] == $thismodtype) &&
-                            (!isset($url[2]) || $url[2] == $thisfuncname)) {
-                            $here = 'true';
-                        }
-                        if (empty($url[1])) $url[1]="user";
-                        if (empty($url[2])) $url[2]="main";
-                        $url = xarModUrl($url[0],$url[1],$url[2]);
-                        if(isset($sections[1])) {
-                            $url .= xarVarPrepForDisplay($sections[1]);
+                        $basemodurl = xarConfigGetVar('BaseModURL');
+                        if (!isset($basemodurl)) $basemodurl = 'index.php';
+                        if ($url[0] == 'home') { //assumes no module called home
+                           if ((xarServerGetCurrentURL() == xarServerGetBaseURL())
+                              || (xarServerGetCurrentURL() == xarServerGetBaseURL().$basemodurl)) {
+                           $here = 'true';
+                           }
+                           $url = xarServerGetBaseURL();
+                        } else {
+                            if ($url[0] == $thismodname &&
+                                (!isset($url[1]) || $url[1] == $thismodtype) &&
+                                (!isset($url[2]) || $url[2] == $thisfuncname)) {
+                                $here = 'true';
+                            }
+                            if (empty($url[1])) $url[1]="user";
+                            if (empty($url[2])) $url[2]="main";
+                            $url = xarModUrl($url[0],$url[1],$url[2]);
+                            if(isset($sections[1])) {
+                                $url .= xarVarPrepForDisplay($sections[1]);
+                            }
                         }
                         break;
                     }
@@ -245,7 +255,7 @@ function base_menublock_display($blockinfo)
                 $mods = $list;
                 if ($list == array()) $usermods = '';
             }
-            
+
             foreach($mods as $mod){
                 /* Check for active module alias */
                 /* jojodee -  We need to review the module alias functions and, thereafter it's use here */                $useAliasName=xarModGetVar($mod['name'], 'useModuleAlias');

@@ -3,7 +3,7 @@
  * Initialise the blocks module
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -291,6 +291,8 @@ function blocks_init()
 
 /**
  * upgrade the blocks module from an old version
+ * @param string $oldversion
+ * @return bool true on success
  */
 function blocks_upgrade($oldVersion)
 {
@@ -300,7 +302,7 @@ function blocks_upgrade($oldVersion)
     case '1.0.0':
         /* There are old block instances defined previously in privs xarsetup.php file and used in the Block module.
            From this version we are adding management of security for blocks to Blocks module
-           Old functionality in modules still exists. 
+           Old functionality in modules still exists.
            Note that the old instances and masks and code in the files was not 'matched' so don't think they worked properly in any case.
         */
         xarRemoveInstances('blocks');
@@ -342,7 +344,7 @@ function blocks_upgrade($oldVersion)
         xarDefineInstance('blocks','Block',$instances);
 
         //Set up the security masks
-         xarRemoveMasks('blocks'); 
+         xarRemoveMasks('blocks');
          /* remove and redefine new ones. The old ones do not seem to be working in any case in installs */
 
         //Unsure if this  Comment is used at all but left for compatiblity with prior setup
@@ -371,6 +373,7 @@ function blocks_upgrade($oldVersion)
 
 /**
  * delete the blocks module
+ * @return bool false. Module cannot be deleted
  */
 function blocks_delete()
 {

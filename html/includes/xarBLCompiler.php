@@ -2,10 +2,12 @@
 /**
  * BlockLayout Template Engine Compiler
  *
- * @package blocklayout
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage blocklayout
  * @author Marco Canini <marco@xaraya.com>
  * @author Paul Rosania  <paul@xaraya.com>
  * @author Marcel van der Boom <marcel@xaraya.com>
@@ -80,8 +82,8 @@ define('XAR_BL_DEPRECATED_ATTRIBUTE','DEPRECATED_ATTRIBUTE');
 class DTDIdentifiers
 {
     // List taken from : http://www.w3.org/QA/2002/04/valid-dtd-list.html
-    function get($key) 
-    {    
+    function get($key)
+    {
         $dtds = array
         (
          'html2'                => '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">',
@@ -115,7 +117,7 @@ class DTDIdentifiers
  *
  * For now just a stub class to a system exception
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  */
 class xarTpl__CompilerError extends SystemException
@@ -132,7 +134,7 @@ class xarTpl__CompilerError extends SystemException
  *
  * class to hold parser errors
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  * @todo evaluate whether the exception needs to be a system exception
  * @todo ML for the error message?
@@ -156,7 +158,7 @@ class xarTpl__ParserError extends SystemException
  *
  * The compiler holds the parser and the code generator as objects
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  */
 class xarTpl__Compiler extends xarTpl__CompilerError
@@ -170,16 +172,16 @@ class xarTpl__Compiler extends xarTpl__CompilerError
         $this->codeGenerator = new xarTpl__CodeGenerator();
     }
 
-    function &instance() 
+    function &instance()
     {
         static $instance = NULL;
         if(!isset($instance)) {
             $instance = new xarTpl__Compiler();
         }
         return $instance;
-        
+
     }
-    
+
     function compileFile($fileName)
     {
         // The @ makes the code better to handle, leave it.
@@ -187,7 +189,7 @@ class xarTpl__Compiler extends xarTpl__CompilerError
             $this->raiseError("Cannot open template file '$fileName'.");
             return;
         }
-        
+
         if ($fsize = filesize($fileName)) {
             $templateSource = fread($fp, $fsize);
         } else {
@@ -196,7 +198,7 @@ class xarTpl__Compiler extends xarTpl__CompilerError
                 $templateSource .= fread($fp, 4096);
             }
         }
-        
+
         fclose($fp);
 
         $this->parser->setFileName($fileName);
@@ -216,7 +218,7 @@ class xarTpl__Compiler extends xarTpl__CompilerError
  *
  * Instance of this class record where we are doing what in the templates
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  */
 class xarTpl__PositionInfo extends xarTpl__ParserError
@@ -225,7 +227,7 @@ class xarTpl__PositionInfo extends xarTpl__ParserError
     var $line = 1;
     var $column = 1;
     var $lineText = '';
-    
+
     function setFileName($fileName)
     {
         $this->fileName = $fileName;
@@ -237,7 +239,7 @@ class xarTpl__PositionInfo extends xarTpl__ParserError
  *
  * part of the compiler, this generates the code for each tag found
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  */
 class xarTpl__CodeGenerator extends xarTpl__PositionInfo
@@ -278,7 +280,7 @@ class xarTpl__CodeGenerator extends xarTpl__PositionInfo
         $this->code = $this->generateNode($documentTree);
         if (!isset($this->code)) return; // throw back
 
-        // This seems a bit strange, but we always want to end with return 
+        // This seems a bit strange, but we always want to end with return
         // true at then end, even if we're not in a php block
         $this->code .= $this->setPHPBlock(true);
         $this->code .= " return true;" . $this->setPHPBlock(false);
@@ -376,7 +378,7 @@ class xarTpl__CodeGenerator extends xarTpl__PositionInfo
  * modelled as extension to the position info class,
  * parses a template source file and constructs a document tree
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  * @todo this is an xml parser type functionality, can't we use an xml parser for this?
  */
@@ -426,28 +428,28 @@ class xarTpl__Parser extends xarTpl__PositionInfo
             case 'xar': // <?xar processing instruction
                 $variables = $this->parseHeaderTag();
                 if (!isset($variables))  return; // throw back
-                    
+
                 foreach ($variables as $name => $value) $this->tplVars->set($name, $value);
                 break;
             case 'xml': // <?xml header tag
                 // Wind forward to first > and copy to output if we have seen the root tag, otherwise, just wind forward
                 $between = $this->windTo(XAR_TOKEN_TAG_END);
                 if(!isset($between)) return; // throw back
-                    
+
                 if(substr($between,-1) == XAR_TOKEN_PI_DELIM) { // ?
                     $output = XAR_TOKEN_TAG_START . XAR_TOKEN_PI_DELIM . $target . $between . $this->getNextToken();
                 } else {
                     // Template error, found a > before the end
                     $this->raiseError(XAR_BL_INVALID_TAG,"The XML header ended prematurely, check the syntax", $this);
                     return;
-                }    
-                        
+                }
+
                 // We do the exception check after parsing it, so we get usefull info in the error
                 if($this->tagRootSeen) {
                     $this->raiseError(XAR_BL_INVALID_SYNTAX,'XML headers must occur before the root tag',$this);
                     return;
                 }
-                
+
                 // Copy the header to the output
                 if(!$this->tagRootSeen) {
                     if(ini_get('short_open_tag')) $output = "<?php echo '$output';?>";
@@ -465,7 +467,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         }
         return $result;
     }
-        
+
     function canBeChild(&$node)
     {
         if (!$node->hasChildren()) {
@@ -474,7 +476,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         }
         return true;
     }
-    
+
     function canHaveText(&$node)
     {
         if(!$node->hasText()) {
@@ -483,7 +485,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         }
         return true;
     }
-    
+
     function reverseXMLEntities($content)
     {
         return   str_replace(
@@ -491,11 +493,11 @@ class xarTpl__Parser extends xarTpl__PositionInfo
                              array('&', '>', '<', '"'),
                              $content);
     }
-    
-    
+
+
     /**
      * parseNode
-     * 
+     *
      * top level parse function for a node
      *
      * @todo why only allow PI targets of size 3?
@@ -509,7 +511,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         // Main parse loop
         while (isset($token)) {
             // At the start of parsing we can have:
-            // <  ==> opening tag,  
+            // <  ==> opening tag,
             // &  ==> entity
             // #  ==> replacement (variable or function)
             switch ($token) {
@@ -527,15 +529,15 @@ class xarTpl__Parser extends xarTpl__PositionInfo
                                 if(!isset($xarToken)) return;
                                 // <xar: tag
                                 if(!$this->canbeChild($parent)) return;
-                                      
+
                                 // Situation: [...text...]<xar:...
-                                $trimmer='xmltrim'; 
+                                $trimmer='xmltrim';
                                 // If we're in native php tags which always have xar children, trim it
                                 $natives = array('set','ml','blockgroup');
                                 if(in_array($parent->tagName, $natives,true)) $trimmer='trim';
                                 if ($trimmer($text) != '') {
                                     if(!$this->canHaveText($parent)) return;
-                                    // CHECKME: & removed here for php 4.4 
+                                    // CHECKME: & removed here for php 4.4
                                     $children[] = xarTpl__NodesFactory::createTextNode($trimmer($text), $this);
                                     $text = '';
                                 }
@@ -587,7 +589,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
                                 break 2;
                             }
                             break;
-                        case XAR_TOKEN_ENDTAG_START: 
+                        case XAR_TOKEN_ENDTAG_START:
                             // Check for xar end tag
                             $nsLength = strlen(XAR_NAMESPACE_PREFIX . XAR_TOKEN_NS_DELIM);
                             if ($this->peek($nsLength) == XAR_NAMESPACE_PREFIX . XAR_TOKEN_NS_DELIM) {
@@ -677,7 +679,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
                                 $matchToken = $remember;
                                 $identifier = $remember;
                             }
-                    
+
                             // Was it properly ended?
                             if($matchToken == $identifier && $nextChar == XAR_TOKEN_TAG_END) {
                                 // the tag was properly ended.
@@ -753,36 +755,36 @@ class xarTpl__Parser extends xarTpl__PositionInfo
                         $this->raiseError(XAR_BL_INVALID_SYNTAX,"Entity isn't closed properly.", $this);
                         return; // throw back
                     }
-                    // Otherwise just pass the entity to the outputtext and clear the token to start over 
-                    $text.=XAR_TOKEN_ENTITY_START.$this->windTo(XAR_TOKEN_ENTITY_END).$this->getNextToken();$token=''; 
+                    // Otherwise just pass the entity to the outputtext and clear the token to start over
+                    $text.=XAR_TOKEN_ENTITY_START.$this->windTo(XAR_TOKEN_ENTITY_END).$this->getNextToken();$token='';
                     break;
                 case XAR_TOKEN_CI_DELIM:
                     // Take a peek what comes after the # and deal with the special situations
                     $peek = $this->peek();
-                    
+
                     // Break out of processing if # is escaped as ##, by eating the second one
                     if ($peek == XAR_TOKEN_CI_DELIM) {$this->getNextToken();break;}
-                
+
                     // Break out of processing if nextToken is (, because #(.) is used by MLS
                     if ($peek == XAR_TOKEN_MLVAR_START) {
                         $token .= $this->getNextToken();
                         break;
                     }
-                    
+
                     // Get what what is between #.....#
                     if ($peek == XAR_TOKEN_VAR_START || $peek == 'x') { // for href="#" for example
                         $between = $this->windTo(XAR_TOKEN_CI_DELIM);
                         if(!isset($between)) return;
                         $instruction = $between;
                         $this->getNextToken(); // eat the matching #
-                                            
+
                         if(!$this->canbeChild($parent)) return;
 
                         // Add text to parent, if applicable
                         // Situation: [...text...]#$....# or [...text...]#xarFunction()#
-                        $trimmer='noop'; 
-                        // FIXME: The above is wrong, should be xmltrim, 
-                        // but otherwise the export of DD objects will look really ugly 
+                        $trimmer='noop';
+                        // FIXME: The above is wrong, should be xmltrim,
+                        // but otherwise the export of DD objects will look really ugly
                         $natives = array('set','ml','mlvar');
                         if(in_array($parent->tagName,$natives,true)) $trimmer='trim';
                         if ($trimmer($text) != '') {
@@ -794,21 +796,21 @@ class xarTpl__Parser extends xarTpl__PositionInfo
                         // Replace XML entities with their ASCII equivalents.
                         // An XML parser would do this for us automatically.
                         $instruction = $this->reverseXMLEntities($instruction);
-                    
+
                         // The following is a bit of a sledge-hammer approach. See bug 1273.
                         // TODO: parse the PHP so the semi-colon can be tested in context.
                         if (strpos($instruction, ';')) {
                             $this->raiseError(XAR_BL_INVALID_TAG, "Possible injected PHP detected in: $instruction", $this);
                             return;
                         }
-                    
+
                         // Instruction is now set to $varname or xarFunction(.....)
                         $node = xarTpl__NodesFactory::createTplInstructionNode($instruction, $this);
                         if (!isset($node)) return; // throw back
 
                         $children[] = $node;
                         $token = '';
-                    } 
+                    }
                     break;
             } // end switch
             // Once we get here, nothing in the switch caught the token, we copy verbatim to output.
@@ -816,8 +818,8 @@ class xarTpl__Parser extends xarTpl__PositionInfo
             // and get a new one, but dont except on it
             $token = $this->getNextToken(1,true);
         } // end while
-        
-        // Add the final text as a text node 
+
+        // Add the final text as a text node
         $trimmer = 'xmltrim';
         if ($trimmer($text) != '') {
             if(!$this->canHaveText($parent)) return;
@@ -831,7 +833,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         }
         return $children;
     }
-    
+
     function parseHeaderTag()
     {
         $variables = array();
@@ -872,7 +874,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         while (true) {
             $token = $this->getNextToken();
             if (!isset($token)) return;
-            
+
             if ($token == XAR_TOKEN_TAG_START) {
                 $this->raiseError(XAR_BL_INVALID_TAG,"Unclosed tag.", $this);
                 return;
@@ -886,7 +888,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
             $this->raiseError(XAR_BL_INVALID_TAG,"Unnamed tag.", $this);
             return;
         }
-        
+
         // Parse the attributes
         $attributes = array();
         if ($token == XAR_TOKEN_SPACE || $token == XAR_TOKEN_CR) {
@@ -928,7 +930,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         while (true) {
             $token = $this->getNextToken();
             if (!isset($token)) return;
-        
+
             switch($token) {
                 case XAR_TOKEN_QUOTE:
                 case XAR_TOKEN_APOS:
@@ -950,19 +952,19 @@ class xarTpl__Parser extends xarTpl__PositionInfo
             }
             $name .= $token;
         }
-        
+
         $name = trim($name);
         if ($name == '') {
             $this->raiseError(XAR_BL_INVALID_ATTRIBUTE,"Unnamed attribute.", $this);
             return;
         }
-        
+
         // Then the value part
         $value = '';  $quote = '';  $ok = false;
         while (true) {
             $token = $this->getNextToken();
             if (!isset($token)) return;
-        
+
             if($token == XAR_TOKEN_TAG_END) {
                 $this->raiseError(XAR_BL_INVALID_ATTRIBUTE,"Unclosed '$name' attribute.", $this);
                 return;
@@ -992,7 +994,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         while (true) {
             $token = $this->getNextToken();
             if (!isset($token)) return;
-        
+
             if($token == XAR_TOKEN_TAG_START) {
                 $this->raiseError(XAR_BL_INVALID_TAG,"Unclosed tag.", $this);
                 return;
@@ -1016,7 +1018,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         while (true) {
             $token = $this->getNextToken();
             if (!isset($token)) return;
-            
+
             if($token == XAR_TOKEN_ENTITY_SEP || $token == XAR_TOKEN_ENTITY_END) {
                 break;
             }
@@ -1032,7 +1034,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
             while (true) {
                 $token = $this->getNextToken();
                 if (!isset($token)) return;
- 
+
                 if($token == XAR_TOKEN_ENTITY_END) {
                     if ($parameter == '') {
                         $this->raiseError(XAR_BL_INVALID_ENTITY,"Empty parameter.", $this);
@@ -1080,7 +1082,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         }
         return $result;
     }
-    
+
     /**
      * Seek a certain marker and move the parse pointer
      * to just before it.
@@ -1093,34 +1095,34 @@ class xarTpl__Parser extends xarTpl__PositionInfo
     function windTo($needle)
     {
         assert('strlen($needle) > 0; /* The search needle in parser->windTo has zero length */');
-        
+
         // Take a peek first, raise exception explicitly, cos peek* doesnt
         $peek = $this->peekTo($needle);
         if(!isset($peek)) {
             $this->raiseError(XAR_BL_INVALID_FILE,"Unexpected end of the file.", $this);
             return;
         }
-           
+
         // We found sumtin, advance the pointer, cos we can
         return $this->getNextToken(strlen($peek));
     }
-    
+
     /**
      * Peek ahead in search for a certain marker
      * return what was in between if we found it, but
      * do not advance the parse pointer. If the marker
      * is not found, or the end of the file was reached, return null
-     * 
+     *
      * @todo see windTo method
      */
     function peekTo($needle)
     {
         assert('strlen($needle) > 0; /* The search needle in parser->peekTo has zero length */');
-        
+
         // Get a buffer of the size of what we are searching
         $offset = $this->pos; $needleSize = strlen($needle);
         $buffer = ''; $wound='';
-                
+
         // fifo the buffer in each iteration and check for the needle
         while($buffer != $needle) {
             $wound.= substr($buffer,0,1); // fifo the first char out
@@ -1131,7 +1133,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
         // We found the needle, return what we wound over
         return $wound;
     }
-    
+
     function peek($len = 1, $start = 0)
     {
         assert('$start >= 0; /* The start position for peeking needs to be zero or greater, a call to parser->peek was wrong */');
@@ -1146,7 +1148,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
 /**
  * xarTpl__NodesFactory - class which constructs nodes in the document tree
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  */
 class xarTpl__NodesFactory extends xarTpl__ParserError
@@ -1163,7 +1165,7 @@ class xarTpl__NodesFactory extends xarTpl__ParserError
         // Otherwise we instantiate the right class
         $tagClass ='xarTpl__Xar' .$tagName.'Node';
         $tagfile = XAR_NODES_LOCATION . 'tags/' .strtolower($tagName) .'.php';
-        
+
         // FIXME: sync the implementation of core / custom tags, handle them the same way
         if(file_exists($tagfile)) {
             include_once($tagfile);
@@ -1189,7 +1191,7 @@ class xarTpl__NodesFactory extends xarTpl__ParserError
     {
         $entityClass = 'xarTpl__Xar'.$entityType.'EntityNode';
         $entityFile = XAR_NODES_LOCATION . 'entities/' .strtolower($entityType) . '.php';
-        if(!xarTpl__NodesFactory::class_exists($entityClass)) { 
+        if(!xarTpl__NodesFactory::class_exists($entityClass)) {
             if(!file_exists($entityFile)) {
                 $parser->raiseError(XAR_BL_INVALID_ENTITY,"Cannot instantiate nonexistent entity '$entityType'",$parser);
                 return;
@@ -1207,11 +1209,11 @@ class xarTpl__NodesFactory extends xarTpl__ParserError
         if ($instruction[0] == XAR_TOKEN_VAR_START) {
             $instructionClass = 'xarTpl__XarVarInstructionNode';
             $instructionFile = XAR_NODES_LOCATION . 'instructions/var.php';
-        } 
+        }
         if(!xarTpl__NodesFactory::class_exists($instructionClass)) {
             if(!file_exists($instructionFile)) {
                 $parser->raiseError(XAR_BL_INVALID_INSTRUCTION,"Cannot instantiate nonexistent instruction '$instruction'",$parser);
-                return;   
+                return;
             }
             include_once($instructionFile);
         }
@@ -1237,7 +1239,7 @@ class xarTpl__NodesFactory extends xarTpl__ParserError
  *
  * Handle template variables
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  * @todo code the version number somewhere more central
  * @todo is the encoding fixed?
@@ -1254,7 +1256,7 @@ class xarTpl__TemplateVariables
         $this->tplVars['encoding'] = 'us-ascii';
         $this->tplVars['type'] = 'module';
     }
-    
+
     function get($name)
     {
         if (isset($this->tplVars[$name])) {
@@ -1274,12 +1276,12 @@ class xarTpl__TemplateVariables
  *
  * Transforms BL and php expressions from templates.
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * @access private
  */
 class xarTpl__ExpressionTransformer
 {
-    /*
+    /**
      * Replace the array and object notation.
      * This is the BLExpression grammar:
      * BLExpression ::= Variable | Variable '.' ArrayKey | Variable ':' Property
@@ -1301,12 +1303,12 @@ class xarTpl__ExpressionTransformer
             }
             return $blExpression;
         }
-        
+
         $identifiers = preg_split('/[.|:]/',$blExpression);
         $operators = preg_split('/[^.|^:]/',$blExpression,-1,PREG_SPLIT_NO_EMPTY);
-        
+
         $numIdentifiers = count($identifiers);
-        
+
         $expression = $identifiers[0];
         for ($i = 1; $i < $numIdentifiers; $i++) {
             if($operators[$i - 1] == '.') {
@@ -1325,43 +1327,43 @@ class xarTpl__ExpressionTransformer
     function transformPHPExpression($phpExpression)
     {
         $phpExpression =xarTpl__ExpressionTransformer::normalize($phpExpression);
-        // This regular expression matches variables in their notation as 
+        // This regular expression matches variables in their notation as
         // supported by php  and according to the dot/colon grammar in the
-        // method above. These expressions are matched and passed on to the BL 
-        // expression resolver above which resolves them into php variables notation. 
-        // The resolved names are replaced in the original expression 
+        // method above. These expressions are matched and passed on to the BL
+        // expression resolver above which resolves them into php variables notation.
+        // The resolved names are replaced in the original expression
 
         // Let's dissect the expression so it's a bit more clear:
-        //  1. /..../i            => we're matching in a case - insensitive  way what's between the /-es (FIXME: KEEP AN EYE ON THIS) 
+        //  1. /..../i            => we're matching in a case - insensitive  way what's between the /-es (FIXME: KEEP AN EYE ON THIS)
         //  2. \\\$               => matches \$ which is an escaped $ in the string to match
-        //  3. (                  => this starts a captured subpattern 
+        //  3. (                  => this starts a captured subpattern
         //  4.  [a-z_]            => matches a letter or underscore, which is wat vars need to start with
         //  5.  [0-9a-z_\[\]\$]*  => matches the rest of the variables which might be present, while preserving [ and ]
         //  6.  (                 => start property / array access subpattern
         //  7.   :|\\.            => matches the colon or the dot notation
         //  8.   [$]{0,1}         => the array key or object member may be a variable
-        //  9.   [0-9a-z_\]\[\$]+ => matches number,letter or underscore, one or more occurrences 
+        //  9.   [0-9a-z_\]\[\$]+ => matches number,letter or underscore, one or more occurrences
         // 10.  )                 => matches right brace
         // 11.  *                 => match zero or more occurences of the property access / array key notation (colon notation)
         // 12. )                  => ends the current pattern
-        // NOTE: The behaviour of this method along with the BLExpression method above CHANGED. Part 
+        // NOTE: The behaviour of this method along with the BLExpression method above CHANGED. Part
         //       of the resolving is now done by the previous method (i.e. a complete expression is passed into it)
-        
+
         // TODO: of course, if all this was between #...# it would be a lot easier ;-)
         // TODO: if variable array key or object member, make sure it starts with a letter
         $regex = "/((\\\$[a-z_][a-z0-9_\[\]\$]*)([:|\.][$]{0,1}[0-9a-z_\]\[\$]+)*)/i";
         if (preg_match_all($regex, $phpExpression,$matches)) {
             // Resolve BL expressions inside the php Expressions
-            
+
             // To prevent overlap as much as we can we sort descending by length
-            usort($matches[0], array('xarTpl__ExpressionTransformer','rlensort')); 
+            usort($matches[0], array('xarTpl__ExpressionTransformer','rlensort'));
             $numMatches = count($matches[0]);
             for ($i = 0; $i < $numMatches; $i++) {
                 // CHECKME: & removed here for php 4.4
                 $resolvedName = xarTpl__ExpressionTransformer::transformBLExpression($matches[0][$i]);
                 if (!isset($resolvedName)) return; // throw back
-                      
-                // CHECK: Does it matter if there is overlap in the matches? 
+
+                // CHECK: Does it matter if there is overlap in the matches?
                 $phpExpression = str_replace($matches[0][$i], $resolvedName, $phpExpression);
             }
         }
@@ -1375,8 +1377,8 @@ class xarTpl__ExpressionTransformer
 
         return $phpExpression;
     }
-    
-    function rlensort($a, $b) 
+
+    function rlensort($a, $b)
     {
         if(strlen($a) == strlen($b)) {
             return 0;
@@ -1388,7 +1390,7 @@ class xarTpl__ExpressionTransformer
     {
         /* If the expression is enclosed in # s, ignore them */
         if(empty($expr)) return $expr;
-        if( $expr{0} == XAR_TOKEN_CI_DELIM && 
+        if( $expr{0} == XAR_TOKEN_CI_DELIM &&
             $expr{strlen($expr)-1} == XAR_TOKEN_CI_DELIM) {
             $expr = substr($expr,1,-1);
         }
@@ -1402,7 +1404,7 @@ class xarTpl__ExpressionTransformer
  * Base class for all nodes, sets the base properties, methods are
  * abstract and should be overridden by each specific node class
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * hasChildren -> false
  * hasText -> false
  * isAssignable -> true
@@ -1414,9 +1416,9 @@ class xarTpl__ExpressionTransformer
 class xarTpl__Node extends xarTpl__PositionInfo
 {
     var $tagName;   // This is an internal name of the node, not the actual tag name
-    
+
     // What we're doing here is create an alias for the constructor, so
-    // it derives properly. That way we decouple the class name from the 
+    // it derives properly. That way we decouple the class name from the
     // constructor. Oh, the beauty of PHP :-(
     // Like this we can call parent::constructor(...) in the subclasses independent
     // of the base class.
@@ -1425,7 +1427,7 @@ class xarTpl__Node extends xarTpl__PositionInfo
         // If constructor is defined in subclass, that one is called!!
         $this->constructor($parser, $nodeName);
     }
-    
+
     function constructor(&$parser, $nodeName)
     {
         $this->tagName  = $nodeName;
@@ -1434,7 +1436,7 @@ class xarTpl__Node extends xarTpl__PositionInfo
         $this->column   = $parser->column;
         $this->lineText = $parser->lineText;
     }
-    
+
     function render()
     {
         die('xarTpl__Node::render: abstract');
@@ -1498,30 +1500,30 @@ class xarTpl__Node extends xarTpl__PositionInfo
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
- * @package blocklayout
+ * @subpackage blocklayout
  */
 class xarTpl__TplTagNode extends xarTpl__Node
 {
     var $attributes;
     var $parentTagName;
     var $children;
-    
+
     // Do the same here as we do in tplnode class
-    function xarTpl__TplTagNode(&$parser, $tagName, $parentTagName, $attributes) 
+    function xarTpl__TplTagNode(&$parser, $tagName, $parentTagName, $attributes)
     {
         // If constructor method is defined in subclass that one is called!!
         $this->constructor($parser, $tagName, $parentTagName, $attributes);
     }
-    
-    
+
+
     function constructor(&$parser, $tagName, $parentTagName, $attributes)
     {
         // TplNode has no parent, nor attributes, separation is here.
         parent::constructor($parser, $tagName);
         $this->parentTagName = $parentTagName;
-        $this->attributes = $attributes;  
+        $this->attributes = $attributes;
     }
-    
+
     function isPHPCode()
     {
         return true;
@@ -1530,9 +1532,9 @@ class xarTpl__TplTagNode extends xarTpl__Node
 
 /**
  * xarTpl__EntityNode
- * 
+ *
  * Base class for entity nodes
- * 
+ *
  * hasChildren -> false
  * hasText -> false
  * isAssignable -> true
@@ -1540,15 +1542,15 @@ class xarTpl__TplTagNode extends xarTpl__Node
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
- * @package blocklayout
+ * @subpackage blocklayout
  */
 class xarTpl__EntityNode extends xarTpl__Node
 {
     var $entityType;
     var $parameters;
     var $hasExtras = false;
-    
-    function xarTpl__EntityNode(&$parser, $tagName, $entityType, $parameters) 
+
+    function xarTpl__EntityNode(&$parser, $tagName, $entityType, $parameters)
     {
         // Register whether the entity is followed by extra params
         // Bug 3603 workaround
@@ -1557,14 +1559,14 @@ class xarTpl__EntityNode extends xarTpl__Node
         // If constructor method is defined in subclass that one is called!!
         $this->constructor($parser, $tagName, $entityType, $parameters);
     }
-    
+
     function constructor(&$parser, $tagName, $entityType, $parameters)
     {
         parent::constructor($parser, $tagName);
         $this->entityType = $entityType;
         $this->parameters = $parameters;
     }
-    
+
     function isPHPCode()
     {
         return true;
@@ -1575,7 +1577,7 @@ class xarTpl__EntityNode extends xarTpl__Node
  * xarTpl__InstructionNode
  *
  * Base class for instruction nodes
- * 
+ *
  * hasChildren -> false
  * hasText -> false
  * isAssignable -> true
@@ -1583,18 +1585,18 @@ class xarTpl__EntityNode extends xarTpl__Node
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
- * @package blocklayout
+ * @subpackage blocklayout
  */
 class xarTpl__InstructionNode extends xarTpl__Node
 {
     var $instruction;
-    
+
     function xarTpl__InstructionNode(&$parser, $tagName, $instruction)
     {
         parent::constructor($parser,$tagName);
         $this->instruction = $instruction;
     }
-    
+
     function isPHPCode()
     {
         return true;
@@ -1605,7 +1607,7 @@ class xarTpl__InstructionNode extends xarTpl__Node
  * xarTpl__DocumentNode
  *
  *
- * @package blocklayout
+ * @subpackage blocklayout
  * hasChildren -> true
  * hasText -> true
  * isAssignable -> false
@@ -1654,7 +1656,7 @@ class xarTpl__DocumentNode extends xarTpl__Node
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
- * @package blocklayout
+ * @subpackage blocklayout
  */
 class xarTpl__TextNode extends xarTpl__Node
 {
@@ -1665,7 +1667,7 @@ class xarTpl__TextNode extends xarTpl__Node
         parent::constructor($parser, $tagName);
         $this->content = $content;
     }
-    
+
     function render()
     {
         return $this->content;
@@ -1695,12 +1697,12 @@ class xarTpl__TextNode extends xarTpl__Node
  * @param   string $input String for which to compress space
 */
 function xmltrim($input='')
-{    
+{
     // Let's first determine if there is space at all.
     $hasleftspace = (strlen(ltrim($input)) != strlen($input));
     $hasrightspace = (strlen(rtrim($input)) != strlen($input));
     if($hasleftspace && $hasrightspace && trim($input) =='') {
-        // There was more than one space, but only space, only return the first and 
+        // There was more than one space, but only space, only return the first and
         // the carriage returns
         $hasleftspace = true;
         $hasrightspace= false;
@@ -1708,16 +1710,16 @@ function xmltrim($input='')
     // Isolate the left and the right space
     $leftspace  = $hasleftspace  ? substr($input,0,1) : '';
     $rightspace = $hasrightspace ? substr($input,-1) : '';
-    
+
     // Make sure we consider the right rest of the input string
     if($hasleftspace) $input = substr($input,1);
     if($hasrightspace) $input = substr($input,0,-1);
-    
-    // Make 'almost right' 
+
+    // Make 'almost right'
     $input = $leftspace . trim($input,' ') . $rightspace;
     // Finish it
     $input = str_replace(array(" \n","\n "),array("\n","\n"),$input);
-    
+
     return $input;
 }
 

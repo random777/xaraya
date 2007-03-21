@@ -3,7 +3,7 @@
  * create a new group
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,8 +15,7 @@
  * @author Jim McDonald, Paul Rosania
  * @param $args['name'] the group name
  * @param $args['template'] the default block template
- * @returns int
- * @return group id on success, false on failure
+ * @return int group id on success, false on failure
  */
 function blocks_adminapi_create_group($args)
 {

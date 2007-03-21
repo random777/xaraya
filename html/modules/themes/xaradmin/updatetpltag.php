@@ -3,7 +3,7 @@
  * Update/insert a template tag
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,10 +13,9 @@
 /**
  * Update/insert a template tag
  *
- * @author Marty Vance 
- * @param tagname 
- * @returns bool
- * @return true on success, error message on failure
+ * @author Marty Vance
+ * @param tagname
+ * @return bool true on success, error message on failure
  * @author Simon Wunderlin <sw@telemedia.ch>
  */
 function themes_admin_updatetpltag()
@@ -31,9 +30,9 @@ function themes_admin_updatetpltag()
     if (!xarSecurityCheck('AdminTheme', 0, 'All', '::')) return;
 
     if (!xarSecConfirmAuthKey()) return;
-    /* This is not implemented and will error - comment until fully implemented
     // find all attributes (if any)
     $aAttributes = array();
+    /* This is not implemented and will error - comment until fully implemented
     for ($i=0; $i<10; $i++ ) {
         //xarVarFetch("tag_attrname[$i]", 'isset', $current_attrib);
         if (!xarVarFetch("tag_attrname[$i]", 'isset', $current_attrib,  NULL, XARVAR_DONT_SET)) {return;}
@@ -53,7 +52,7 @@ function themes_admin_updatetpltag()
         return;
             }
     }
-    
+
     if(!xarTplRegisterTag($module, $tagname, $aAttributes, $handler)) {
         $msg = xarML('Could not register (#(1)).', $tagname);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'UNKNOWN',
@@ -62,8 +61,8 @@ function themes_admin_updatetpltag()
     }
 
     xarResponseRedirect(xarModUrl('themes', 'admin', 'listtpltags'));
-    
+
     return true;
-} 
+}
 
 ?>

@@ -2,12 +2,13 @@
 /**
  * Update theme information
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Update theme information
@@ -16,8 +17,7 @@
  * @param $args['regid'] the id number of the theme to update
  * @param $args['displayname'] the new display name of the theme
  * @param $args['description'] the new description of the theme
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function themes_adminapi_update($args)
 {

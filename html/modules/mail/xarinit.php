@@ -3,14 +3,13 @@
  * Initialise the mail module
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
  */
-
 /**
  * Initialise the mail module
  *
@@ -31,7 +30,7 @@ function mail_init()
     xarModSetVar('mail', 'smtpPort', '25');
     xarModSetVar('mail', 'smtpHost', 'Your SMTP Host');
     xarModSetVar('mail', 'encoding', '8bit');
-    xarModSetVar('mail', 'html', false);  
+    xarModSetVar('mail', 'html', false);
 
     // when a module item is created
     if (!xarModRegisterHook('item', 'create', 'API',
@@ -63,7 +62,7 @@ function mail_init()
  *
  * @access public
  * @param none $
- * @returns bool
+ * @return bool
  * @throws DATABASE_ERROR
  */
 function mail_activate()
@@ -134,7 +133,7 @@ function mail_delete()
     xarModDelVar('mail', 'smtpPort');
     xarModDelVar('mail', 'smtpHost');
     xarModDelVar('mail', 'encoding');
-    xarModDelVar('mail', 'ShowTemplates');  
+    xarModDelVar('mail', 'ShowTemplates');
     xarModDelVar('mail', 'ShowTemplates');
     xarModDelVar('mail', 'suppresssending');
     xarModDelVar('mail', 'redirectsending');

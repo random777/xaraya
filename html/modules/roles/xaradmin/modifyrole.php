@@ -3,7 +3,7 @@
  * Modify role details
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,6 +14,16 @@
  * modifyrole - modify role details
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
+ * @param int uid
+ * @param string pname The display name
+ * @param string ptype
+ * @param string puname The user name
+ * @param string ppass
+ * @param string state
+ * @param string phome The user home
+ * @param int pprimaryparent
+ * @param string utimezone The user timezone
+ * @return array
  */
 function roles_admin_modifyrole()
 {

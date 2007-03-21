@@ -3,7 +3,7 @@
  * Dynamic Select Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,7 +11,6 @@
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
-
 /**
  * Include the base class
  *
@@ -47,7 +46,6 @@ class Dynamic_FieldType_Property extends Dynamic_Select_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
      * @return base information for this property
      **/
      function getBasePropertyInfo()

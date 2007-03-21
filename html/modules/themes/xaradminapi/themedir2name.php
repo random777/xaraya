@@ -2,14 +2,14 @@
 /**
  * Convert a theme directory to a theme name.
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
-
 /**
  * Convert a theme directory to a theme name.
  *

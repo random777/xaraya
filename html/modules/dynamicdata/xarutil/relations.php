@@ -1,9 +1,9 @@
 <?php
 /**
- * Return relationship information 
+ * Return relationship information
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -46,7 +46,7 @@ function dynamicdata_util_relations($args)
                   'withtable' => $withtable,
                   'withfield' => $withfield,
                   'withvalue' => $withvalue);
-    
+
     $data['prop'] = xarModAPIFunc('dynamicdata','user','getproperty',array('type' => 'fieldtype', 'name' => 'dummy'));
 
     $dbconn =& xarDBGetConn();

@@ -3,7 +3,7 @@
  * xarRoles class
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -174,7 +174,19 @@ class xarRoles
     {
         return $this->_lookuprole('xar_name',$name);
     }
-
+    /**
+     * findRole: finds a single role based on its username
+     *
+     * Retrieves a single role object from the Roles repository
+     * This is a convenience class for module developers
+     *
+     * @author Marc Lutolf <marcinmilan@xaraya.com>
+     * @access public
+     * @param string $
+     * @return role object
+     * @throws none
+     * @todo none
+     */
     function ufindRole($uname)
     {
         return $this->_lookuprole('xar_uname',$uname);

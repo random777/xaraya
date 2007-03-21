@@ -3,7 +3,7 @@
  * Log user out of system
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,7 +21,7 @@ function authsystem_user_logout()
 
     // Get input parameters
     if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
-    
+
     $defaultauthdata=xarModAPIFunc('roles','user','getdefaultauthdata');
     $defaultlogoutmodname=$defaultauthdata['defaultlogoutmodname'];
     $authmodule=$defaultauthdata['defaultauthmodname'];

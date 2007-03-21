@@ -3,7 +3,7 @@
  * Encode Base module URLS
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,7 +34,7 @@ function base_userapi_encode_shorturl($args)
     // Start the path with the module name
     // TODO: support module aliases - allow the page name to be an alias
     $path[] = $module;
-    
+
     if ($func == 'main') {
         // Consume the 'func' parameter.
         unset($get['func']);
@@ -45,7 +45,7 @@ function base_userapi_encode_shorturl($args)
             $path[] = $page;
         }
     }
-    
+
     // Any GET parameters in the args that have not been consumed, will
     // be passed back in the 'get' array, and so will be added to the
     // end of the URL.

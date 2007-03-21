@@ -3,7 +3,7 @@
  * Browse for files and directories
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -89,7 +89,7 @@ function base_userapi_browse_files($args)
             $rootdir = './modules/' . $modinfo['directory'];
         }
     }
-    
+
     // Get the base directory.
     // A relative base directory will be added to the [non-empty] root directory.
     // An absolute base directory will override the root directory.
@@ -172,7 +172,7 @@ function base_userapi_browse_files($args)
                 if (!empty($strip_re)) {
                     $filename = @preg_replace($strip_re, '', $filename);
                 }
-                
+
                 // If we have got this far, then we have a file or directory to return.
                 switch (strtolower($retpath)) {
                     case 'abs':

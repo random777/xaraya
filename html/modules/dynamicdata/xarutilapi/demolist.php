@@ -3,7 +3,7 @@
  * Sample function returning an array of options
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,7 +15,6 @@
  *
  * @author mikespub <mikespub@xaraya.com>
  * @author the DynamicData module development team
- * @returns array
  * @return array of values, or array of id => value combinations
  * @throws BAD_PARAM, NO_PERMISSION
  */

@@ -3,7 +3,7 @@
  * Get details suitable for *rendering* a block instance.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -129,7 +129,7 @@ function blocks_userapi_getinfo($args)
             // If the array element exists, then override it.
             // There is no validation here (yet) - so arrays can
             // override strings and strings can override arrays.
-            // TODO: allow a block to provide validation rules to 
+            // TODO: allow a block to provide validation rules to
             // pass $pvalue through for each $pname.
             // Such validation would also be able to convert numbers
             // into booleans, string lists into arrays etc.

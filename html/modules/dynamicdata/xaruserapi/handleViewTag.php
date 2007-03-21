@@ -3,7 +3,7 @@
  * Handle dynamic data tags
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,8 +19,7 @@
  *       or <xar:data-view object="$object" ... />
  *
  * @param $args array containing the items that you want to display, or fields
- * @returns string
- * @return the PHP code needed to invoke showview() in the BL template
+ * @return string the PHP code needed to invoke showview() in the BL template
  */
 function dynamicdata_userapi_handleViewTag($args)
 {

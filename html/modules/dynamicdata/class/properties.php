@@ -3,7 +3,7 @@
  * Utility Class to manage Dynamic Properties
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -145,6 +145,8 @@ class Dynamic_Property_Master
 
     /**
      * Class method to get a new dynamic property of the right type
+     * @param $args
+     * @return object $property
      */
     function &getProperty($args)
     {
@@ -205,7 +207,10 @@ class Dynamic_Property_Master
     {
         // TODO: what if the property type changes to something incompatible ?
     }
-
+    /**
+     * @param array $args
+     * @return id objectid
+     */
     function deleteProperty($args)
     {
         if (empty($args['itemid'])) return;
@@ -224,6 +229,7 @@ class Dynamic_Property_Master
 
     /**
      * Class method listing all defined property types
+     * @return array Array with property_types
      */
     function getPropertyTypes()
     {
@@ -367,8 +373,8 @@ class Dynamic_Property
     /**
      * Get the value of this property (= for a particular object item)
      *
-     * @returns mixed
-     * @return the value for the property
+     *
+     * @return mixed the value for the property
      */
     function getValue()
     {
@@ -469,7 +475,6 @@ class Dynamic_Property
      * @param $args['value'] value of the field (default is the current value)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showInput($args = array())
@@ -481,7 +486,6 @@ class Dynamic_Property
      * Show some default output for this property
      *
      * @param $args['value'] value of the property (default is the current value)
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showOutput($args = array())
@@ -508,7 +512,6 @@ class Dynamic_Property
      *
      * @param $args['label'] label of the property (default is the current label)
      * @param $args['for'] label id to use for this property (id, name or nothing)
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showLabel($args = array())
@@ -541,7 +544,6 @@ class Dynamic_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['value'] value of the field (default is the current value)
      * @param $args['id'] id of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showHidden($args = array())
@@ -572,7 +574,6 @@ class Dynamic_Property
      * @param $args['value'] value of the field (default is the current value)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function _showPreset($args = array())
@@ -613,7 +614,6 @@ class Dynamic_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
      * @return base information for this property
      **/
     function getBasePropertyInfo()
@@ -657,7 +657,6 @@ class Dynamic_Property
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showValidation($args = array())
@@ -698,7 +697,6 @@ class Dynamic_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
-     * @returns bool
      * @return bool true if the validation rule could be processed, false otherwise
      */
     function updateValidation($args = array())
@@ -731,7 +729,7 @@ class Dynamic_Property
     /**
      * Return the module this property belongs to
      *
-     * @returns string module name
+     * @return string module name
      */
     function getModule()
     {
@@ -748,7 +746,7 @@ class Dynamic_Property
    /**
     * Return the name this property uses in its templates
     *
-    * @returns string template name
+    * @return string template name
     */
     function getTemplate()
     {

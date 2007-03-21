@@ -27,8 +27,7 @@ if (!file_exists('install.php') and !file_exists('upgrade.php')) {xarCore_die(xa
  * Dead
  *
  * @access public
- * @returns array
- * @return an array of template values
+ * @return array an array of template values
  */
 function installer_admin_main()
 {
@@ -101,12 +100,13 @@ function installer_admin_phase2()
  * @return bool true if directory is writable, readable and executable
  */
 function check_dir($dirname)
-{
-    if (@touch($dirname . '/.check_dir')) {
-        $fd = @fopen($dirname . '/.check_dir', 'r');
+{   
+    //don't use filenames preceded by . for windows servers
+    if (@touch($dirname . '/check_dir')) {
+        $fd = @fopen($dirname . '/check_dir', 'r');
         if ($fd) {
             fclose($fd);
-            unlink($dirname . '/.check_dir');
+            unlink($dirname . '/check_dir');
         } else {
             return false;
         }
@@ -1707,7 +1707,7 @@ function installer_admin_upgrade2()
     xarModSetVar('roles', 'setusertimezone',false); //new modvar - let's make sure it's set
     xarModDelVar('roles', 'settimezone');//this is no longer used, be more explicit and user setusertimezone
     xarModSetVar('roles', 'usertimezone',''); //new modvar - initialize it
-    xarModSetVar('roles','usersendemails', false); //old modvar returns. Let's make sure it's set false as it allows users to send emails
+    xarModSetVar('roles', 'usersendemails', false); //old modvar returns. Let's make sure it's set false as it allows users to send emails
 
     //Ensure that registration module is set as default if it is installed,
     // if it is active and the default is currently not set
@@ -1722,8 +1722,31 @@ function installer_admin_upgrade2()
     xarTplUnregisterTag('base-timesince');
     xarTplRegisterTag('base', 'base-timesince', array(),
                       'base_userapi_handletimesincetag');
+                       
 
 /* End 1.1.2 Release Upgrades */
+/* Version 1.1.3 Release Upgrades */
+    //move the disallowedemails back to roles rather than in Registration with disallowed username and ips
+    //Check to see if the registration var exists and is not empty
+    $existingvar = xarModGetVar('registration','disallowedemails');
+    $existingregdisallowed = isset($existingvar) ? unserialize($existingvar): '';
+    //but what if this is an old install and the roles equivalent is defined and not empty?
+    $rolesisallowedvar = xarModGetVar('roles','disallowedemails');
+    $existingrolesdisallowed = isset($rolesisallowedvar) ? unserialize($rolesisallowedvar): '';
+    //Always take the registraiton var as it will be most recent if it exists and is not empty
+    if (!empty($existingdisallowed)) {
+       $emails = $existingdisallowed;
+    } elseif (!empty($existingrolesdisallowed)) {
+       $emails = $existingrolesdisallowed;
+    }else {
+        $emails = 'none@none.com
+        president@whitehouse.gov';
+    }
+    $disallowedemails = serialize($emails);
+    
+    xarModSetVar('roles', 'disallowedemails', $disallowedemails);
+
+/* End 1.1.3 Release Upgrades */
 
     $thisdata['content']=$content;
     $thisdata['phase'] = 2;

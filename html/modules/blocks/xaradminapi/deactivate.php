@@ -3,7 +3,7 @@
  * Deactivate a block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,8 +14,7 @@
  * deactivate a block
  * @author Jim McDonald, Paul Rosania
  * @param $args['bid'] the ID of the block to deactivate
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_deactivate($args)
 {

@@ -3,7 +3,7 @@
  * Create a new password for the user
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,6 +12,9 @@
  */
 /**
  * createpassword - create a new password for the user
+ * @param state
+ * @param int groupuid
+ * @param id uid The user id
  */
 function authsystem_admin_createpassword()
 {

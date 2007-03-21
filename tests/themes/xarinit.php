@@ -1,29 +1,29 @@
 <?php
 /**
  * File: $Id$
- * 
+ *
  * Themes administration
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage themes
- * @author Marty Vance 
+ * @author Marty Vance
  */
 // Load Table Maintainance API
 xarDBLoadTableMaintenanceAPI();
 
 /**
  * Initialise the themes module
- * 
- * @param none $ 
+ *
+ * @param none $
  * @returns bool
  * @raise DATABASE_ERROR
  */
 function themes_init()
-{ 
+{
     // Get database information
     $dbconn =& xarDBGetConn();
     $tables =& xarDBGetTables();
@@ -33,11 +33,11 @@ function themes_init()
 
     $tables['themes'] = $systemPrefix . '_themes';
     $tables['theme_states'] = $sitePrefix . '_theme_states';
-    $tables['theme_vars'] = $sitePrefix . '_theme_vars'; 
+    $tables['theme_vars'] = $sitePrefix . '_theme_vars';
     // Create tables
     /**
      * Here we create all the tables for the theme system
-     * 
+     *
      * prefix_themes       - basic theme info
      * prefix_theme_states - table to hold states for unshared themes
      * prefix_theme_vars   - theme variables table
@@ -99,7 +99,7 @@ function themes_init()
 
     $query = xarDBCreateTable($tables['theme_states'], $fields);
     $res = &$dbconn->Execute($query);
-    if (!$res) return; 
+    if (!$res) return;
     // prefix_theme_vars
     /**
      * CREATE TABLE xar_theme_vars (
@@ -142,18 +142,18 @@ function themes_init()
 
     // Initialisation successful
     return true;
-} 
+}
 
 function themes_activate()
 {
     if (file_exists(xarConfigGetVar('Site.BL.ThemesDirectory').'/Xaraya_Classic/xartheme.php')) {
         xarModSetVar('themes', 'default', 'Xaraya_Classic');
-    } 
+    }
 
     if (!xarModRegisterHook('item', 'usermenu', 'GUI',
             'themes', 'user', 'usermenu')) {
         return false;
-    } 
+    }
     // make sure we dont miss empty variables (which were not passed thru)
     if (empty($selstyle)) $selstyle = 'plain';
     if (empty($selfilter)) $selfilter = XARMOD_STATE_ANY;
@@ -179,7 +179,7 @@ function themes_activate()
                            'admin',
                            'register_block_type',
                            array('modName' => 'themes',
-                                 'blockType' => 'meta'))) return; 
+                                 'blockType' => 'meta'))) return;
     }
     // Register blocks
     if(!xarModAPIFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'syndicate'))) {
@@ -190,43 +190,43 @@ function themes_activate()
                                  'blockType' => 'syndicate'))) return;
     }
     return true;
-} 
+}
 
 /**
  * Upgrade the themes theme from an old version
- * 
+ *
  * @param oldversion $ the old version to upgrade from
  * @returns bool
  */
 function themes_upgrade($oldversion)
-{ 
+{
     // Upgrade dependent on old version number
     switch ($oldversion) {
         case 1.0:
 
             if (!xarModRegisterHook('item', 'usermenu', 'GUI', 'themes', 'user', 'usermenu')) {
                 return false;
-            } 
+            }
 
         case 1.1:
 
             if (!xarModAPIFunc('blocks', 'admin', 'register_block_type',
-				array('modName' => 'themes', 'blockType' => 'meta'))) return; 
-		case 1.2:
+                array('modName' => 'themes', 'blockType' => 'meta'))) return;
+        case 1.2:
 
-    } 
+    }
     // Update successful
     return true;
-} 
+}
 
 /**
  * Delete the themes theme
- * 
- * @param none $ 
+ *
+ * @param none $
  * @returns bool
  */
 function themes_delete()
-{ 
+{
     // this module cannot be removed
     return false;
 }

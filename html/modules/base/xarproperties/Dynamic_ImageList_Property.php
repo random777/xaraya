@@ -3,14 +3,14 @@
  * Imagelist property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author mikespub <mikespub@xaraya.com>
 */
 include_once "modules/base/xarproperties/Dynamic_Select_Property.php";
@@ -179,8 +179,7 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {
@@ -200,6 +199,10 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
                            );
         return $baseInfo;
      }
+    /**
+     * Show the validation form
+     * @return mixed
+     */
 
     function showValidation($args = array())
     {
@@ -241,7 +244,10 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
         }
         return xarTplProperty('base', $template, 'validation', $data);
     }
-
+    /**
+     * Update the validation for the property with info from the validation form
+     * @return bool true
+     */
     function updateValidation($args = array())
     {
         extract($args);

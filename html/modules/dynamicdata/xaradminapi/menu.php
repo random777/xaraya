@@ -3,7 +3,7 @@
  * Generate a common admin menu
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,6 +13,7 @@
  */
 /**
  * generate the common admin menu configuration
+ * @return array
  */
 function dynamicdata_adminapi_menu()
 {

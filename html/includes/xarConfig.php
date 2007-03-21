@@ -1,15 +1,15 @@
 <?php
 /**
  * Configuration Unit
- * 
- * @package config
+ *
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage config
  * @author Marco Canini
-*/
-
-
+ */
 /**
  * Initialize config system
  *
@@ -17,7 +17,7 @@
  * @access public
  * @param array args
  * @param integer whatElseIsGoingLoaded
- * @return bool
+ * @return bool true
 */
 function xarConfig_init(&$args, $whatElseIsGoingLoaded)
 {
@@ -27,7 +27,7 @@ function xarConfig_init(&$args, $whatElseIsGoingLoaded)
     $tables = array('config_vars' => $sitePrefix . '_config_vars');
 
     xarDB_importTables($tables);
-    
+
     // Pre-load site config variables
     // CHECKME: see if this doesn't hurt install before activating :-)
     xarConfig_loadVars();
@@ -108,7 +108,7 @@ function xarConfigSetVar($name, $value)
  * @return bool true on success, or void on database error
  * @throws DATABASE_ERROR
  */
-//FIXME: We need someway to delete configuration (useless without a certain module) 
+//FIXME: We need someway to delete configuration (useless without a certain module)
 //variables from the table!!!
 function xarConfig_loadVars()
 {
@@ -134,7 +134,7 @@ function xarConfig_loadVars()
     //Tells the cache system it has already checked this particular table
     //(It's a escape when you are caching at a higher level than that of the
     //individual variables)
-    //This whole cache systems must be remade to a central one.    
+    //This whole cache systems must be remade to a central one.
     xarCore_SetCached($cacheCollection, 0, true);
 
     return true;

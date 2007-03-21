@@ -3,7 +3,7 @@
  * Modify an item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -36,7 +36,7 @@ function dynamicdata_admin_modify($args)
 
     if(!xarVarFetch('itemid',   'isset', $itemid)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
-    
+
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
     if(!xarSecurityCheck('EditDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;

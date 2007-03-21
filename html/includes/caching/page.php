@@ -1,21 +1,20 @@
 <?php
 /**
  * Xaraya Web Interface Entry Point
- * 
+ *
  * @package Xaraya eXtensible Management System
  * @copyright (C) 2002 by the Xaraya Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @subpackage Page/Block Caching
  * @author mikespub
  * @author jsb
  */
-
 /**
  * Initialise the page caching options
  *
- * @returns mixed
- * @return true on success, exit if session-less page caching finds a hit
+ * @return mixed true on success, exit if session-less page caching finds a hit
  */
 function xarPageCache_init($args = array())
 {
@@ -77,8 +76,7 @@ function xarPageCache_init($args = array())
  * @access public
  * @param key the key identifying the particular cache you want to access
  * @param name the name of the page in that particular cache
- * @returns bool
- * @return true if the page is available in cache, false if not
+ * @return bool true if the page is available in cache, false if not
  */
 function xarPageIsCached($cacheKey, $name = '')
 {
@@ -156,8 +154,7 @@ function xarPageIsCached($cacheKey, $name = '')
  * @access public
  * @param key the key identifying the particular cache you want to access
  * @param name the name of the page in that particular cache
- * @returns bool
- * @return true if succeeded, false otherwise
+ * @return bool true if succeeded, false otherwise
  */
 function xarPageGetCached($cacheKey, $name = '')
 {
@@ -180,7 +177,7 @@ function xarPageGetCached($cacheKey, $name = '')
  *                         access
  * @param string $name     the name of the page in that particular cache
  * @param string $value    value the new content for that page
- * @returns void
+ * @return void
  */
 function xarPageSetCached($cacheKey, $name, $value)
 {
@@ -193,9 +190,9 @@ function xarPageSetCached($cacheKey, $name, $value)
            $xarPage_cacheCode;
 
     $xarTpl_themeDir = xarTplGetThemeDir();
-    
+
     if (xarCore_IsCached('Page.Caching', 'nocache')) { return; }
-    
+
     if ($xarPage_cacheHookedOnly) {
         $modName = substr($cacheKey, 0, strpos($cacheKey, '-'));
         if (!xarModIsHooked('xarcachemanager', $modName)) { return; }
@@ -494,7 +491,7 @@ function xarPageCache_sendHeaders($modtime = 0)
     } else {
         $since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ?
             $_SERVER['HTTP_IF_MODIFIED_SINCE'] : NULL;
-        if (!empty($since) && strtotime($since) >= $modtime) {   
+        if (!empty($since) && strtotime($since) >= $modtime) {
             header('HTTP/1.0 304');
             exit;
             // jsb: according to RFC 2616, if $match isn't empty but is
@@ -532,7 +529,7 @@ function xarPageCache_sessionLess()
     global $xarPage_sessionLess;
     global $xarPage_cacheCode;
     global $xarPage_cacheTime;
-    
+
     // Session-less page caching (TODO: extend and place in separate function)
     if (!empty($xarPage_sessionLess) &&
         is_array($xarPage_sessionLess) &&

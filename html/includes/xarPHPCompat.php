@@ -1,18 +1,23 @@
 <?php
 /**
  * PHP Version Compatibility Loader
- * 
- * @package PHP Version Compatibility Library
+ *
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage PHP Version Compatibility Library
  * @author Paul Crovella
+ */
+/**
+ * Helper class for PHP compatibilities
  */
 class xarPHPCompat
 {
     /**
      * Loads given constants and functions not in the current PHP version
-     * 
+     *
      * @access public
      * @param  string $path Path to the phpcompat libraries
      */
@@ -24,7 +29,7 @@ class xarPHPCompat
 
     /**
      * Loops over a directory applying a loader to each php file
-     * 
+     *
      * @access private
      * @param  string $directory The directory to loop over
      * @param  string $manipulator The xarPHPCompat loader to apply to each .php file
@@ -43,7 +48,7 @@ class xarPHPCompat
 
     /**
      * Loads a workalike function
-     * 
+     *
      * @access private
      * @param  string $path Path to function
      * @param  string $function Name of function to load
@@ -57,7 +62,7 @@ class xarPHPCompat
 
     /**
      * Loads a workalike constant
-     * 
+     *
      * @access private
      * @param  string $path Path to constant
      * @param  string $constant Constant to load

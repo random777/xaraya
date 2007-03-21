@@ -3,19 +3,19 @@
  * Get a single block type.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
-/*
+/**
  * Get a single block type.
  * @param args['tid'] block type ID (optional)
  * @param args['module'] module name (optional, but requires 'type')
  * @param args['type'] block type name (optional, but requires 'module')
- * @returns array of block types, keyed on block type ID
+ * @return array of block types, keyed on block type ID
  * @author Jason Judge
 */
 

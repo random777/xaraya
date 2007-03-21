@@ -9,13 +9,13 @@
  * This file is meant to be called with the CLI version of PHP, mainly
  * because i don't know how to detach from apache with the module version
  * of PHP (if at all possible).
- * 
+ *
  * To be able to use it at all the standalone php binary MUST be compiled
- * with --enable-sockets (to use the sockets) 
+ * with --enable-sockets (to use the sockets)
  *
  * It's mainly meant as an experiment to create nothing but the simplest
  * deamons in PHP. If you really need a daemon use another programming language!
- * 
+ *
  * Use:
  * - copy to machine to run it on
  * - configure port to listen to
@@ -23,11 +23,11 @@
  * - use telnet hostname <portnumber> to connect to daemon
  *
  * Code is based on various snippets found on mailinglists and webpages.
- * 
+ *
  * @package daemons
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage tests
  * @author Marcel van der Boom <marcel@xaraya.com>
  */
@@ -62,7 +62,7 @@ socket_listen($listener, LISTENQ);
 
 
 // set up our clients. After listener receives a connection,
-// the connection is handed off to a $client[]. 
+// the connection is handed off to a $client[].
 // Set up one extra, so we can issue a msg when nr of clients reached maximum
 for ($i = 0; $i <= MAX_CONNECTIONS; $i++) $client[$i] = null;
 
@@ -97,10 +97,10 @@ while(1) {
     // if we have a new connection, stick it in the $client array
     if (in_array($listener, $active_sockets)) {
         print "Listener heard something, setting up new client\n";
-        
+
         for ($i = 0; $i <= MAX_CONNECTIONS; $i++) {
             if ($client[$i] == null) {
-                // accept the connection 
+                // accept the connection
                 $client[$i] = socket_accept($listener);
                 socket_setopt($client[$i], SOL_SOCKET, SO_REUSEADDR, 1);
                 socket_getpeername($client[$i], $remote_host[$i], $remote_port[$i]);
@@ -120,7 +120,7 @@ while(1) {
      * to be used for something else. What it does now is just echo
      * the input to the user and all other clients, thus mimicking a
      * very crippled IRC server.
-     * 
+     *
      * For xaraya we obviously need something more specialized
      *
      * Some ideas:
@@ -136,18 +136,18 @@ while(1) {
      * - syndication engine
      * - well, enough for now
      */
- 
+
     // check the clients for incoming data.
     for ($i = 0; $i <= MAX_CONNECTIONS; $i++) {
         if ($client[$i] == null) continue;
-        
+
         // Did the client socket change state, i.e. is there input?
         if (in_array($client[$i], $active_sockets)) {
             $input = trim(socket_read($client[$i], MAXLINE));
-            
+
             // Empty input closes the client
-            if (!$input) 
-                closeClient($i);  
+            if (!$input)
+                closeClient($i);
             else {
                 switch($input) {
                 case '/killme':
@@ -175,7 +175,7 @@ while(1) {
 function killDaemon()
 {
     global $listener, $client;
-    
+
     socket_close($listener);
     $msg = "Daemon going down!\n";
     for ($i = 0; $i <= MAX_CONNECTIONS; $i++) {
@@ -192,9 +192,9 @@ function killDaemon()
 function closeClient($i)
 {
     global $client, $remote_host, $remote_port;
-    
+
     print "closing client[$i] ({$remote_host[$i]}:{$remote_port[$i]})\n";
-    
+
     socket_close($client[$i]);
     $client[$i] = null;
     unset($remote_host[$i]);

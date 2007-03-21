@@ -3,7 +3,7 @@
  * Handle dynamic data tags
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,9 +17,9 @@
  * Format : <xar:data-getitem name="$properties" module="123" itemtype="0" itemid="$id" fieldlist="$fieldlist" .../>
  *       or <xar:data-getitem name="$properties" object="$object" ... />
  *
+ * Use this tag if you want to get an array. If you want an object returned, then use get-items
  * @param $args array containing the module and item that you want to display, or fields
- * @returns string
- * @return the PHP code needed to invoke getitemtag() in the BL template and return an array of properties
+ * @return mixed A string of the PHP code needed to invoke getitemtag() in the BL template and return an array of properties
  */
 function dynamicdata_userapi_handleGetItemTag($args)
 {

@@ -1,19 +1,19 @@
 <?php
 /**
- * File: $Id:
- * 
  * Stub file_get_contents
- * 
- * @package PHP Version Compatibility Library
- * @copyright (C) 2005 by the Xaraya Development Team.
+ *
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage PHP Version Compatibility Library
  * @author Jason Judge
  */
 
 /**
  * Stub for the fnmatch() function
- * 
+ *
  * @see _fnmatch()
  */
 

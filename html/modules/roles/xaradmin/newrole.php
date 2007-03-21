@@ -3,7 +3,7 @@
  * Create a new role
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -110,6 +110,7 @@ function roles_admin_newrole()
     $item = $data;
     $item['module']   = 'roles';
     $item['itemtype'] = $data['ptype']; // we might have something separate for groups later on
+    $item['phase']    = 'addrole';
     $data['hooks']    = xarModCallHooks('item', 'new', '', $item);
 
     $data['authid']     = xarSecGenAuthKey();
@@ -117,5 +118,5 @@ function roles_admin_newrole()
     $data['groups']     = $groups;
     $data['return_url'] = $return_url;
     return $data;
-} 
+}
 ?>

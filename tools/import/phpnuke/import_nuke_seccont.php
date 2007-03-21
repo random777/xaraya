@@ -5,9 +5,9 @@
  * Import PostNuke .71+ section content into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */

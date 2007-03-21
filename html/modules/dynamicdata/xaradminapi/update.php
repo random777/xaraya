@@ -3,7 +3,7 @@
  * Update an item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,8 +20,7 @@
  * @param $args['itemtype'] item type of the original item
  * @param $args['values'] array of prop_id => value, or
  * @param $args['fields'] array containing the field definitions and values
- * @returns mixed
- * @return item id on success, null on failure
+ * @return mixed item id on success, null on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_update($args)

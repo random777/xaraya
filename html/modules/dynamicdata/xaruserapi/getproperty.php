@@ -3,7 +3,7 @@
  * Get a dynamic property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,8 +21,7 @@
  * @param $args['default'] default for the property (optional)
  * @param $args['source'] data source for the property (optional)
  * @param $args['validation'] validation for the property (optional)
- * @returns object
- * @return a particular Dynamic Property
+ * @return object a particular Dynamic Property
  */
 function &dynamicdata_userapi_getproperty($args)
 {

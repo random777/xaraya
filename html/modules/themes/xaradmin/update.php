@@ -3,7 +3,7 @@
  * Update a theme
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,15 +13,14 @@
 /**
  * Update a theme
  *
- * @author Marty Vance 
- * @param id $ the theme's registered id
- * @param newdisplayname $ the new display name
- * @param newdescription $ the new description
- * @returns bool
- * @return true on success, error message on failure
+ * @author Marty Vance
+ * @param int id $ the theme's registered id
+ * @param string newdisplayname $ the new display name
+ * @param string newdescription $ the new description
+ * @return bool true on success, error message on failure
  */
 function themes_admin_update()
-{ 
+{
     // Get parameters
     if (!xarVarFetch('id', 'id', $regId)) return;
 
@@ -33,7 +32,7 @@ function themes_admin_update()
     $themevars = xarTheme_getVarsByTheme($themename);
 
     $updatevars = array();
-    $delvars = array(); 
+    $delvars = array();
     // build array of updated and to-be-deleted theme vars
     foreach($themevars as $themevar) {
         if (!xarVarFetch($themevar['name'], 'isset', $varname)) {return;}
@@ -51,12 +50,12 @@ function themes_admin_update()
                     $uvar['prime'] = 1;
                 } else {
                     $uvar['prime'] = 0;
-                } 
+                }
                 $uvar['description'] = $themevar['description'];
                 $updatevars[] = $uvar;
-            } 
-        } 
-    } 
+            }
+        }
+    }
 
     if (!xarVarFetch('newvarname',        'str', $newname, '',   XARVAR_NOT_REQUIRED)) {return;}
     if (!xarVarFetch('newvarvalue',       'str', $newval,  NULL, XARVAR_NOT_REQUIRED)) {return;}
@@ -72,7 +71,7 @@ function themes_admin_update()
             'value' => $newval,
             'prime' => 0,
             'description' => $newdesc);
-    } 
+    }
 
     if (count($updatevars > 0)) {
         $updated = xarModAPIFunc('themes',
@@ -84,16 +83,16 @@ function themes_admin_update()
             $msg = xarML('Unable to update theme variable #(1)', $themevar['name']);
             xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
             return;
-        } 
-    } 
+        }
+    }
     foreach($delvars as $d) {
         $deleted = xarThemeDelVar($themename, $d);
         if (!isset($deleted)) {
             $msg = xarML('Unable to delete theme variable #(1)', $d);
             xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
             return;
-        } 
-    } 
+        }
+    }
 
     if (!xarVarFetch('return', 'bool', $return,  false, XARVAR_NOT_REQUIRED)) {return;}
 
@@ -101,8 +100,8 @@ function themes_admin_update()
         xarResponseRedirect(xarModURL('themes', 'admin', 'modify', array('id' => $regId)));
     } else {
         xarResponseRedirect(xarModURL('themes', 'admin', 'list'));
-    } 
+    }
     return true;
-} 
+}
 
 ?>

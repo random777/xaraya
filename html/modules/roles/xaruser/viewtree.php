@@ -3,7 +3,7 @@
  * Display part of the roles hierarchy as a tree
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,7 @@
 
 /**
  * viewTree - display part of the roles hierarchy as a tree
- * 
+ *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
  * @param   none

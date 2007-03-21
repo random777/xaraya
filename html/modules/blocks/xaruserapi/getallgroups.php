@@ -3,19 +3,19 @@
  * Get a single block type.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
-/*
+/**
  * Get a single block type.
  *
  * @param gid Group ID (optional)
  * @param name Group name (optional)
- * @returns array of block groups, keyed on block group ID (gid)
+ * @return array of block groups, keyed on block group ID (gid)
  * @author Jason Judge
  */
 

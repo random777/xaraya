@@ -3,7 +3,7 @@
  * Test a user or group's privileges against a mask
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -35,26 +35,26 @@ function roles_adminapi_create($args)
     $invalid = array();
     if (!isset($uname)) {
         $invalid[] = 'uname';
-    } 
+    }
     if (!isset($email)) {
         $invalid[] = 'email';
-    } 
+    }
     if (!isset($realname)) {
         $invalid[] = 'realname';
-    } 
+    }
     if (!isset($state)) {
         $invalid[] = 'state';
-    } 
+    }
     if (!isset($pass)) {
         $invalid[] = 'pass';
-    } 
+    }
     if (count($invalid) > 0) {
-        $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)', 
-            join(', ', $invalid), 
+        $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)',
+            join(', ', $invalid),
             'admin', 'create', 'roles');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
         return;
-    } 
+    }
 
     // Get datbase setup
     $dbconn =& xarDBGetConn();

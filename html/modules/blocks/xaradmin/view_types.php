@@ -3,7 +3,7 @@
  * View block types
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,7 @@
 
 /**
  * view block types
- * @author Jim McDonald, Paul Rosania 
+ * @author Jim McDonald, Paul Rosania
  */
 function blocks_admin_view_types()
 {

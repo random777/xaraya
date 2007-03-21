@@ -3,7 +3,7 @@
  * Themes initialization
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,7 @@ xarDBLoadTableMaintenanceAPI();
  * Themes administration
  * @author Marty Vance
  * @param none $
- * @returns bool
+ * @return bool
  * @throws DATABASE_ERROR
  */
 function themes_init()
@@ -204,8 +204,8 @@ function themes_init()
 /**
  * Upgrade the themes theme from an old version
  *
- * @param oldversion $ the old version to upgrade from
- * @returns bool
+ * @param string oldversion $ the old version to upgrade from
+ * @return bool
  */
 function themes_upgrade($oldversion)
 {
@@ -249,7 +249,7 @@ function themes_upgrade($oldversion)
 
        xarModSetVar('themes', 'selclass', 'all');
        xarModSetVar('themes', 'useicons', false);
-      
+
       case '1.8.0' : //current version
 
       break;
@@ -261,8 +261,8 @@ function themes_upgrade($oldversion)
 /**
  * Delete the themes theme
  *
- * @param none $
- * @returns bool
+ * @param none
+ * @return bool false This module cannot be deleted
  */
 function themes_delete()
 {

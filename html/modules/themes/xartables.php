@@ -3,16 +3,18 @@
  * Themes administration and initialization
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
  */
-/* Themes administration
+/**
+ * Themes administration
  * @author Marty Vance
-*/
+ * @return array The information with all tables held by the Themes module
+ */
 
 function themes_xartables()
 {

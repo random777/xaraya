@@ -3,7 +3,7 @@
  * Create a new property field for an object
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -26,8 +26,7 @@
  * @param $args['status'] status of the property to create (disabled/active/...)
  * @param $args['order'] order of the property to create
  * @param $args['validation'] validation of the property to create
- * @returns int
- * @return property ID on success, null on failure
+ * @return int property ID on success, null on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_createproperty($args)

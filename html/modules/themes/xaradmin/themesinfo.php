@@ -3,7 +3,7 @@
  * View complete theme information/details
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,19 +17,19 @@
  * @author Marty Vance
  * @access public
  * @param none
- * @returns array
+ * @return array
  * @todo some facelift
  */
 function themes_admin_themesinfo()
 {
-    
-    // Security check - not needed here, imo 
+
+    // Security check - not needed here, imo
     // we just show some info here, not changing anything
     /* if (!xarSecConfirmAuthKey()) return; */
 
     $data = array();
-    
-    if (!xarVarFetch('id', 'int:1:', $id)) return; 
+
+    if (!xarVarFetch('id', 'int:1:', $id)) return;
     // obtain maximum information about module
     $info = xarThemeGetInfo($id);
     // data vars for template
@@ -50,7 +50,7 @@ function themes_admin_themesinfo()
         $dependency             = xarML('None');
     }
     $data['themedependency']      = xarVarPrepForDisplay($dependency);
-    
+
     // Redirect
     return $data;
 }

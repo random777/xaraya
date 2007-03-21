@@ -3,7 +3,7 @@
  * View recent module releases via central repository
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,7 +16,7 @@
  * @author Marty Vance
  * @access public
  * @param none
- * @returns array
+ * @return array
  * @todo change feed url once release module is moved
  */
 function themes_admin_release()
@@ -35,7 +35,7 @@ function themes_admin_release()
     // Require the feedParser class
     require_once('modules/base/xarclass/feedParser.php');
     // Check and see if a feed has been supplied to us.
-    // Need to change the url once release module is moved to 
+    // Need to change the url once release module is moved to
     $feedfile = "http://www.xaraya.com/index.php/articles/rnid/c69/?theme=rss";
     // Get the feed file (from cache or from the remote site)
     $feeddata = xarModAPIFunc('base', 'user', 'getfile',

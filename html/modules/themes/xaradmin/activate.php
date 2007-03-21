@@ -3,7 +3,7 @@
  * Activate a theme
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,21 +12,20 @@
  */
 /**
  * Activate a theme
- * 
+ *
  * Loads theme admin API and calls the activate
  * function to actually perform the activation,
  * then redirects to the list function with a
  * status message and returns true.
- * 
+ *
  * @param id $ the theme id to activate
- * @returns 
- * @return 
+ * @return bool true
  */
 function themes_admin_activate()
-{ 
+{
     // Security and sanity checks
     if (!xarSecConfirmAuthKey()) return;
-    if (!xarVarFetch('id', 'int:1:', $id)) return; 
+    if (!xarVarFetch('id', 'int:1:', $id)) return;
 
     // Activate
     $activated = xarModAPIFunc('themes',
@@ -41,5 +40,5 @@ function themes_admin_activate()
     $target=$minfo['name'];
     xarResponseRedirect(xarModURL('themes', 'admin', 'list', array('state' => 0), NULL, $target));
     return true;
-} 
+}
 ?>

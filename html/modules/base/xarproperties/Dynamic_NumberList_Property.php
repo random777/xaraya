@@ -3,16 +3,18 @@
  * Numberlist property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author mikespub <mikespub@xaraya.com>
 */
+/* linoj: validation can also be max:min for descending list */
+
 include_once "modules/base/xarproperties/Dynamic_Select_Property.php";
 
 /**
@@ -24,6 +26,7 @@ class Dynamic_NumberList_Property extends Dynamic_Select_Property
 {
     var $min = null;
     var $max = null;
+    var $order = 'asc';
 
     function Dynamic_NumberList_Property($args)
     {
@@ -38,8 +41,22 @@ class Dynamic_NumberList_Property extends Dynamic_Select_Property
                 $this->max = intval($max);
             }
             if (isset($this->min) && isset($this->max)) {
-                for ($i = $this->min; $i <= $this->max; $i++) {
-                    $this->options[] = array('id' => $i, 'name' => $i);
+                if ($this->min > $this->max) {
+                    $this->order = 'desc';
+                    // swap values
+                    $tmp = $this->min;
+                    $this->min = $this->max;
+                    $this->max = $tmp;
+                    // descending options
+                    for ($i = $this->max; $i >= $this->min; $i--) {
+                        $this->options[] = array('id' => $i, 'name' => $i);
+                    }
+                }
+                else {
+                    // ascending options
+                    for ($i = $this->min; $i <= $this->max; $i++) {
+                        $this->options[] = array('id' => $i, 'name' => $i);
+                    }
                 }
             } else {
                 // you're in trouble :)
@@ -98,8 +115,7 @@ class Dynamic_NumberList_Property extends Dynamic_Select_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {

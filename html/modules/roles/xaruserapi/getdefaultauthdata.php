@@ -3,7 +3,7 @@
  * Get the default authentication module and related data
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,9 +16,12 @@
  *
  * @author Jo Dalle Nogare <jojodee@xaraya.com>
  * @return array defaultauthmodulename, defaultlogoutmodname, defaultloginmodname
+ * @deprecated The auth module column in roles is no longer required
  */
 function roles_userapi_getdefaultauthdata()
 {
+   /* Leaving this function here until we phase out all calls to it- deprecated next 2 point version */
+   
     $defaultauthdata=array();
 
     $defaultauthmoduleid =xarModGetVar('roles','defaultauthmodule');

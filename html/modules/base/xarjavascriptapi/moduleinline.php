@@ -3,7 +3,7 @@
  * Base JavaScript management functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,8 +21,7 @@
  * @param $args['position'] position on the page; generally 'head' or 'body'
  * @param $args['code'] the JavaScript code fragment
  * @param $args['index'] optional index in the JS array; unique identifier
- * @returns true=success; null=fail
- * @return boolean
+ * @return bool true=success; null=fail
  */
 function base_javascriptapi_moduleinline($args)
 {

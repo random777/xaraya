@@ -6,15 +6,16 @@
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @subpackage Page/Block Caching
  * @author mikespub
  * @author jsb
  */
-
 /**
  * Initialise the caching options
  *
- * @return bool
+ * @param array args
+ * @return bool true on success
  * @todo    consider the use of a shutdownhandler for cache maintenance
  */
 function xarCache_init($args = false)
@@ -106,7 +107,7 @@ function xarOutputSetCached($cacheKey, $cache_file, $cacheType, $value)
  * @param string $cacheKey the key identifying the particular cache you want to
  *                         access
  * @param string $name     the name of the file in that particular cache
- * @returns void
+ * @return void
  * @deprec 2005-02-01
  */
 function xarOutputDelCached($cacheKey, $name)
@@ -119,7 +120,7 @@ function xarOutputDelCached($cacheKey, $name)
  * @access  public
  * @param   string $cacheKey the key identifying the particular cache you want
  *                           to wipe out
- * @returns void
+ * @return void
  * @deprec 2005-02-01
  */
 function xarOutputFlushCached($cacheKey, $dir = false)
@@ -161,7 +162,7 @@ function xarOutputFlushCached($cacheKey, $dir = false)
  *
  * @access  protected
  * @param   string $cacheType
- * @returns void
+ * @return void
  * @deprec 2005-02-01
  */
 function xarCache_CleanCached($cacheType)

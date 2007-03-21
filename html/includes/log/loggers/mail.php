@@ -1,25 +1,32 @@
 <?php
-
-// Modified by Xaraya Team
-
+/**
+ * Mail logging
+ *
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage logging
+ */
 /**
  * The Log_mail class is a concrete implementation of the Log:: abstract class
  * which sends log messages to a mailbox.
  * The mail is actually sent when you close() the logger, or when the destructor
  * is called (when the script is terminated).
- * 
+ *
  * PLEASE NOTE that you must create a Log_mail object using =&, like this :
  *  $logger =& Log::factory("mail", "recipient@example.com", ...)
- * 
+ *
  * This is a PEAR requirement for destructors to work properly.
  * See http://pear.php.net/manual/en/class.pear.php
- * 
+ *
  * @author  Ronnie Garcia <ronnie@mk2.net>
  * @author  Jon Parise <jon@php.net>
  * @version $Revision: 1.8 $
  * @package logging
  */
- 
+
 /**
  * Include the base file
  *
@@ -31,22 +38,22 @@ include_once ('./includes/log/loggers/xarLogger.php');
  *
  * @package logging
  */
-class xarLogger_mail extends xarLogger 
+class xarLogger_mail extends xarLogger
 {
 
-    /** 
+    /**
      * String holding the recipient's email address.
      * @var string
      */
     var $_recipient = '';
 
-    /** 
+    /**
      * String holding the sender's email address.
      * @var string
      */
     var $_from = '';
 
-    /** 
+    /**
      * String holding the email's subject.
      * @var string
      */
@@ -66,7 +73,7 @@ class xarLogger_mail extends xarLogger
 
     /**
      * Constructs a new Log_mail object.
-     * 
+     *
      * @param array  $conf      The configuration array.
      * Obligatory configurations:
      *   $conf['to']        : The e-mail that will be receiving the log files.
@@ -75,7 +82,7 @@ class xarLogger_mail extends xarLogger
      *   $conf['$maxLevel'] : Maximum level at which to log.
      *   $conf['from']      : the mail's "From" header line,
      *   $conf['subject']   : the mail's "Subject" line.
-     * 
+     *
      * @access public
      */
     function setConfig(&$conf)
@@ -89,7 +96,7 @@ class xarLogger_mail extends xarLogger
         } else {
             $this->_from = ini_get('sendmail_from');
         }
-        
+
         if (!empty($conf['subject'])) {
             $this->_subject = $conf['subject'];
         }
@@ -112,7 +119,7 @@ class xarLogger_mail extends xarLogger
     /**
      * Starts a new mail message.
      * This is implicitly called by log(), if necessary.
-     * 
+     *
      * @access public
      */
     function open()
@@ -126,7 +133,7 @@ class xarLogger_mail extends xarLogger
     /**
      * Closes the message, if it is open, and sends the mail.
      * This is implicitly called by the destructor, if necessary.
-     * 
+     *
      * @access public
      */
     function close()
@@ -138,7 +145,7 @@ class xarLogger_mail extends xarLogger
 
                 if (mail($this->_recipient, $this->_subject, $this->_message,
                         $headers, "-f".$this->_from) == false) {
-                    //FIXME: Use xarLogMessage, with an extra variable to rule this 
+                    //FIXME: Use xarLogMessage, with an extra variable to rule this
                     // logger out and make it log on the others avaiable
                     error_log("Log_mail: Failure executing mail()", 0);
                     return false;
@@ -153,7 +160,7 @@ class xarLogger_mail extends xarLogger
     /**
      * Writes $message to the currently open mail message.
      * Calls open(), if necessary.
-     * 
+     *
      * @return boolean  True on success or false on failure.
      * @access public
      */
@@ -169,7 +176,7 @@ class xarLogger_mail extends xarLogger
             $this->_ident, $this->levelToString($level), $message);
 
         $this->_message .= $entry;
-        
+
         return true;
     }
 }

@@ -2,10 +2,11 @@
 /**
  * Theme handling functions
  *
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage themes
  * @author mrb <marcel@xaraya.com> (this tag means responsible person)
 */
@@ -18,8 +19,8 @@
  * get a theme variable
  *
  * @access public
- * @param themeName The name of the theme
- * @param name The name of the variable
+ * @param string themeName The name of the theme
+ * @param string name The name of the variable
  * @return mixed The value of the variable or void if variable doesn't exist
  * @throws DATABASE_ERROR, BAD_PARAM
  */
@@ -38,9 +39,9 @@ function xarThemeGetVar($themeName, $name, $prep = NULL)
  * set a theme variable
  *
  * @access public
- * @param themeName The name of the theme
- * @param name The name of the variable
- * @param value The value of the variable
+ * @param string themeName The name of the theme
+ * @param string name The name of the variable
+ * @param mixed value The value of the variable
  * @return bool true on success
  * @throws DATABASE_ERROR, BAD_PARAM
  */
@@ -60,8 +61,8 @@ function xarThemeSetVar($themeName, $name, $prime = NULL, $value, $description='
  * delete a theme variable
  *
  * @access public
- * @param themeName The name of the theme
- * @param name The name of the variable
+ * @param string themeName The name of the theme
+ * @param string name The name of the variable
  * @return bool true on success
  * @throws DATABASE_ERROR, BAD_PARAM
  */
@@ -79,7 +80,7 @@ function xarThemeDelVar($themeName, $name)
  * Gets theme registry ID given its name
  *
  * @access public
- * @param themeName The name of the theme
+ * @param string themeName The name of the theme
  * @return xarModGetIDFromName for processing
  * @throws DATABASE_ERROR, BAD_PARAM, THEME_NOT_EXIST
  */
@@ -92,7 +93,7 @@ function xarThemeGetIDFromName($themeName)
  * get information on theme
  *
  * @access public
- * @param themeRegId theme id
+ * @param int themeRegId theme id
  * @return array array of theme information
  * @throws DATABASE_ERROR, BAD_PARAM, ID_NOT_EXIST
  */
@@ -105,8 +106,8 @@ function xarThemeGetInfo($regId)
 /**
  * load database definition for a theme
  *
- * @param themeName name of theme to load database definition for
- * @param themeDir directory that theme is in (if known)
+ * @param string themeName name of theme to load database definition for
+ * @param string themeDir directory that theme is in (if known)
  * @return xarModDBInfoLoad for processing.
  */
 function xarThemeDBInfoLoad($themeName, $themeDir = NULL)
@@ -135,7 +136,7 @@ function xarThemeGetDisplayableName($themeName)
  * checks if a theme is installed and its state is XARTHEME_STATE_ACTIVE
  *
  * @access public
- * @param themeName registered name of theme
+ * @param string themeName registered name of theme
  * @return bool true if the theme is available, false if not
  * @throws DATABASE_ERROR, BAD_PARAM
  */
@@ -151,7 +152,7 @@ function xarThemeIsAvailable($themeName)
  * Get info from xartheme.php
  *
  * @access protected
- * @param themeOSdir the theme's directory
+ * @param string themeOSdir the theme's directory
  * @return xarMod_getFileInfo for processing
  */
 function xarTheme_getFileInfo($themeOsDir)
@@ -163,7 +164,7 @@ function xarTheme_getFileInfo($themeOsDir)
  * Load a theme's base information
  *
  * @access protected
- * @param themeName the theme's name
+ * @param string themeName the theme's name
  * @return to xarMod__getBaseInfo for processing
  */
 function xarTheme_getBaseInfo($themeName)
@@ -198,8 +199,8 @@ function xarTheme_getVarsByName($name)
 /**
  * Get the theme's current state
  *
- * @param themeRegId the theme's registered id
- * @param themeThemee the theme's site mode
+ * @param int themeRegId the theme's registered id
+ * @param string themeMode the theme's site mode
  * @return to xarMod__getState for processing
  */
 function xarTheme_getState($themeRegId, $themeMode)

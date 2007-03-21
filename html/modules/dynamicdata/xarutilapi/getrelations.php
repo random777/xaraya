@@ -3,7 +3,7 @@
  * Get the relationships between a particular module and others
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,8 +21,7 @@
  * @param $args['module'] module name of the item fields, or
  * @param $args['modid'] module id of the item field to get
  * @param $args['itemtype'] item type of the item field to get
- * @returns mixed
- * @return value of the field, or false on failure
+ * @return mixed value of the field, or false on failure
  * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_utilapi_getrelations($args)

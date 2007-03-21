@@ -3,7 +3,7 @@
  * Dynamic Item Id property Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,6 +25,9 @@ include_once "modules/base/xarproperties/Dynamic_NumberBox_Property.php";
  */
 class Dynamic_ItemID_Property extends Dynamic_NumberBox_Property
 {
+    /**
+     * Check the input for itemid
+     */
     function checkInput($name='', $value = null)
     {
         if (empty($name)) {
@@ -40,6 +43,10 @@ class Dynamic_ItemID_Property extends Dynamic_NumberBox_Property
 
 // TODO: evaluate if we want some other output here
 //    function showInput($name = '', $value = null)
+    /**
+     * Show the input for itemid. This is a plain message, no input possible
+     * @return mixed Template
+     */
     function showInput($args = array())
     {
         extract($args);
@@ -63,7 +70,6 @@ class Dynamic_ItemID_Property extends Dynamic_NumberBox_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
      * @return base information for this property
      **/
      function getBasePropertyInfo()

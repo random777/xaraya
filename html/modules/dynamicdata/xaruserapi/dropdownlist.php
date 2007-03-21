@@ -3,7 +3,7 @@
  * Get an array of DD items for use in dropdown lists
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,7 +27,6 @@
  * @param $args['modid'] module id of the item fields to get +
  * @param $args['itemtype'] item type of the item fields to get, or
  * @param $args['table'] database table to turn into an object
- * @returns array
  * @return array of (itemid => fieldvalue), or false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */

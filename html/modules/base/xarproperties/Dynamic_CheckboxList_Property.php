@@ -3,17 +3,16 @@
  * Checkbox List Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author mikespub <mikespub@xaraya.com>
  */
-
 include_once "modules/base/xarproperties/Dynamic_Select_Property.php";
 
 /**
@@ -26,8 +25,7 @@ class Dynamic_CheckboxList_Property extends Dynamic_Select_Property
     /**
     * Get the base information for this property.
     *
-    * @returns array
-    * @return base information for this property
+    * @return array base information for this property
     **/
     function getBasePropertyInfo()
     {

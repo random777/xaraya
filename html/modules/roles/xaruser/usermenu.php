@@ -3,7 +3,7 @@
  * Main user menu
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -37,7 +37,7 @@ function roles_user_usermenu($args)
             $properties = null;
             $withupload = (int) FALSE;
 
-            if (xarModIsAvailable('dynamicdata')) {
+            if (xarModIsHooked('dynamicdata','roles')) {
                 // get the Dynamic Object defined for this module (and itemtype, if relevant)
                 $object = xarModAPIFunc('dynamicdata','user','getobject',
                                   array('module' => 'roles'));
@@ -62,7 +62,7 @@ function roles_user_usermenu($args)
             $role       = xarUFindRole($uname);
             $home       = xarModGetUserVar('roles','userhome');// now user mod var not 'duv'. $role->getHome();
             $allowemail = xarModGetUserVar('roles','usersendemails',$uid); //allow someone to send an email to the user via a form
-            
+
             if (xarModGetVar('roles','setuserlastlogin')) {
             //only display it for current user or admin
                 if (xarUserIsLoggedIn() && xarUserGetVar('uid')==$uid) { //they should be but ..
@@ -216,8 +216,7 @@ function roles_user_usermenu($args)
                         xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
                         return;
                 }
-
-                if(xarModGetVar('roles','uniqueemail')) {
+                if (xarModGetVar('roles','uniqueemail')) {
                     // check for duplicate email address
                     $user = xarModAPIFunc('roles', 'user','get',
                                     array('email' => $email));
@@ -225,7 +224,7 @@ function roles_user_usermenu($args)
                     if ($user != false) {
                         unset($user);
                         $msg = xarML('That email address is already registered.');
-                        xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
+                        xarErrorSet(XAR_USER_EXCEPTION, 'DUPLICATE_DATA', new DefaultUserException($msg));
                         return;
                     }
                 }

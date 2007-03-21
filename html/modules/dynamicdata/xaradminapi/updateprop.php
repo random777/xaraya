@@ -3,7 +3,7 @@
  * Update a property field
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,8 +25,7 @@
  * @param $args['source'] data source of the field to update (optional)
  * @param $args['status'] status of the field to update (optional)
  * @param $args['validation'] validation of the field to update (optional)
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_updateprop($args)

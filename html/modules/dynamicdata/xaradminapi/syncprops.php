@@ -3,7 +3,7 @@
  * Resynchronise properties with object
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -18,8 +18,7 @@
  * @param $args['objectid'] object id for the properties you want to update
  * @param $args['moduleid'] new module id for the properties
  * @param $args['itemtype'] new item type for the properties
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_syncprops($args)

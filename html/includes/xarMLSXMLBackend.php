@@ -2,24 +2,23 @@
 /**
  * Multi Language System - XML Translations Backend
  *
- * @package multilanguage
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage xml_backend
+ * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
-
+include_once dirname(__FILE__).'/xarMLS.php';
 /**
  * XML based translation backend
  *
  * Implements a concrete translations backend based on the XML language.
  * All xml files are encoded in UTF-8. This backend is useful only when
  * running Xaraya in the multi-language mode (UTF-8).
- * @package multilanguage
+ * @subpackage multilanguage
  */
-include_once dirname(__FILE__).'/xarMLS.php';
 class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend
 {
     var $curEntry;
@@ -95,11 +94,11 @@ class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend
                 $xmlExtensionLoaded = false;
             }
         }
-        
+
         if ($xmlExtensionLoaded === false) {
             xarCore_die('Using the "xml" backend for translations, but the php-xml extension is not loaded. Please modify your php.ini to load the extension or choose the "php" backend.');
         }
-        
+
         $this->curData = '';
 
         if (!isset($this->locale)) {

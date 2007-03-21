@@ -3,7 +3,7 @@
  * Get a file from the Internet
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -51,7 +51,7 @@ function base_userapi_getfile($args)
 
     $invalid = false;
     $islocal = false;
-    
+
     if (empty($url)) {
         $invalid = true;
     } elseif (strstr($url,'://')) {
@@ -222,7 +222,7 @@ function base_userapi_getfile($args)
         if (!ini_get('allow_url_fopen')) {
             if (!$superrors){
                 $msg = xarML('PHP is not currently configured to allow URL retrieval
-                             of remote files.  Please turn on #(1) to use the base 
+                             of remote files.  Please turn on #(1) to use the base
                              module getfile userapi.', '\'allow_url_fopen\'');
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                                 new SystemException($msg));

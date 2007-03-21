@@ -2,12 +2,13 @@
 /**
  * Gets a list of themes that matches required criteria.
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 
 /**
@@ -45,7 +46,6 @@
  * @param startNum the start offset in the list
  * @param numItems the length of the list
  * @param orderBy the order type of the list
- * @returns array
  * @return array of theme information arrays
  * @throws DATABASE_ERROR, BAD_PARAM
  */
@@ -126,7 +126,7 @@ function themes_adminapi_getlist($filter = array(), $startNum = NULL, $numItems 
                          themes.xar_directory,
                          states.xar_state
                   FROM $tables[themes] AS themes
-                  LEFT JOIN $theme_statesTable AS states 
+                  LEFT JOIN $theme_statesTable AS states
                   ON themes.xar_regid = states.xar_regid";
         array_unshift($whereClauses, 'themes.xar_mode = ?');
         array_unshift($bindvars,$mode);

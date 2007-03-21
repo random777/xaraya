@@ -7,10 +7,10 @@
  * USE THE METHODS IN xarDataDict.php. BOTH SUBSYSTEMS ARE NOT 100% FINISHED
  * BUT THIS ONE WILL BE ABANDONED, YOU MIGHT AS WELL WRITE YOUR CODE TO USE
  * THE MAINTAINED SUBSYSTEM.
- 
+
  * @package database
  * @copyright (C) 2002 by the Xaraya Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @subpackage table_api
  * @author Gary Mitchell
@@ -34,18 +34,18 @@ function xarDB__sqliteCreateTable($tableName, $fields)
     $sql_fields = array();
     $primary_key = array();
     $increment_start = false;
-    
+
     while (list($field_name, $parameters) = each($fields)) {
         $parameters['command'] = 'create';
         $this_field = xarDB__sqliteColumnDefinition($field_name, $parameters);
-        
+
         $sql_fields[] = $field_name .' '
             . $this_field['type'] .' '
             . $this_field['unsigned'] .' '
             . $this_field['null'] .' '
             . $this_field['default'] .' '
         . $this_field['auto_increment'];
-        
+
         if ($this_field['primary_key'] == true) {
             $primary_key[] = $field_name;
         }
@@ -56,9 +56,9 @@ function xarDB__sqliteCreateTable($tableName, $fields)
             $increment_start = $this_field['increment_start'];
         }
     }
-    
+
     $sql = 'CREATE TABLE '.$tableName.' ('.implode(', ',$sql_fields);
-                                         
+
     if (!empty($primary_key)) {
         $sql .= ', PRIMARY KEY ('.implode(',',$primary_key).')';
     }
@@ -80,7 +80,7 @@ function xarDB__sqliteCreateTable($tableName, $fields)
  * @throws BAD_PARAM
  * @todo DID YOU READ THE NOTE AT THE TOP OF THIS FILE?
  */
-function xarDB__sqliteAlterTable($tableName, $args) 
+function xarDB__sqliteAlterTable($tableName, $args)
 {
     switch ($args['command']) {
         case 'add':
@@ -90,7 +90,7 @@ function xarDB__sqliteAlterTable($tableName, $args)
                             new SystemException(__FILE__.'('.__LINE__.'): '.$msg));
                 return;
             }
-           
+
             $sql = 'ALTER TABLE '.$tableName.' ADD '.$args['field'].' ';
             $coldef = xarDB__sqliteColumnDefinition($args['field'],$args);
             $sql.= $coldef['type'] . ' '
@@ -101,7 +101,7 @@ function xarDB__sqliteAlterTable($tableName, $args)
 
             if($coldef['primary_key']) {
                 $sql.= 'PRIMARY KEY ';
-            }   
+            }
 
             break;
         case 'rename':
@@ -126,16 +126,16 @@ function xarDB__sqliteAlterTable($tableName, $args)
 /**
  * SQLite specific column type generation
  *
- * Note that SQLite only cares about INTEGER PRIMARY KEY 
+ * Note that SQLite only cares about INTEGER PRIMARY KEY
  * all other specs are not needed. We left them in here, so the SQL generated
- * is at least more clear. 
+ * is at least more clear.
  *
  * @access private
  * @param field_name
  * @param parameters
  *
  */
-function xarDB__sqliteColumnDefinition($field_name, $parameters) 
+function xarDB__sqliteColumnDefinition($field_name, $parameters)
 {
     $this_field = array();
 
@@ -143,7 +143,7 @@ function xarDB__sqliteColumnDefinition($field_name, $parameters)
         case 'integer':
             if (empty($parameters['size']))  $parameters['size'] = 'int';
             // Let's always use integer instead of int, so when it gets set as primary key, we get the GenId behaviour for free
-            $this_field['type'] = 'INTEGER'; 
+            $this_field['type'] = 'INTEGER';
             break;
         case 'char':
             if (empty($parameters['size'])) return false;

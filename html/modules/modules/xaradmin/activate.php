@@ -21,15 +21,14 @@
  * status message and returns true.
  *
  * @param id the module id to activate
- * @returns
- * @return
+ * @return bool true on success
  */
 function modules_admin_activate()
 {
     // Security and sanity checks
     if (!xarSecConfirmAuthKey()) return;
 
-    if (!xarVarFetch('id', 'int:1:', $id)) return; 
+    if (!xarVarFetch('id', 'int:1:', $id)) return;
 
     // Activate
     $activated = xarModAPIFunc('modules',

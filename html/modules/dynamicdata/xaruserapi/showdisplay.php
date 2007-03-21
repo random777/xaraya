@@ -3,7 +3,7 @@
  * Display an item in a template
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,7 +16,6 @@
  * display an item in a template
  *
  * @param $args array containing the item or fields to show
- * @returns string
  * @return string containing the HTML (or other) text to output in the BL template
  */
 function dynamicdata_userapi_showdisplay($args)

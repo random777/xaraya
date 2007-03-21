@@ -9,11 +9,10 @@
  */
 /**
  * Integer Validation Class
- * @return true on success of validation (value is an integer)
+ * @return bool true on success of validation (value is an integer), false if not
  */
 function variable_validations_int (&$subject, $parameters, $supress_soft_exc, &$name)
 {
-
     $value = intval($subject);
 
     if ("$subject" != "$value") {

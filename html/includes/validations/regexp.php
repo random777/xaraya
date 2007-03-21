@@ -3,12 +3,13 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
-*/
-
-
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ */
 /**
  * Regular Expression Validation Class
+ * @return bool
  */
 function variable_validations_regexp (&$subject, $parameters, $supress_soft_exc, &$name)
 {

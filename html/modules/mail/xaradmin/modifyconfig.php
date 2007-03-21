@@ -3,14 +3,13 @@
  * Update the configuration parameters
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
  */
-
 /**
  * Update the configuration parameters of the module based on data from the modification form
  *
@@ -24,9 +23,9 @@
 function mail_admin_modifyconfig()
 {
     // Security Check
-    if (!xarSecurityCheck('AdminMail')) return; 
+    if (!xarSecurityCheck('AdminMail')) return;
     // Generate a one-time authorisation code for this operation
-    $data['authid'] = xarSecGenAuthKey(); 
+    $data['authid'] = xarSecGenAuthKey();
     // Quick Check for E_ALL
     $searchstrings = xarModGetVar('mail', 'searchstrings');
     $replacestrings = xarModGetVar('mail', 'replacestrings');
@@ -44,7 +43,7 @@ function mail_admin_modifyconfig()
 
     // Get encoding
     $data['encoding'] = xarModGetVar('mail', 'encoding');
-    
+
     //redirect address - ensure it's set
     $redirectaddress = trim(xarModGetVar('mail', 'redirectaddress'));
     if (isset($redirectaddress) && !empty($redirectaddress)){
@@ -83,5 +82,5 @@ function mail_admin_modifyconfig()
 
     // everything else happens in Template for now
     return $data;
-} 
+}
 ?>

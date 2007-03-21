@@ -2,26 +2,26 @@
 /**
  * Get registered template tags
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Get registered template tags
  *
- * @param none
- * @returns array
- * @return array of themes in the database
- * @Author Simon Wunderlin <sw@telemedia.ch>
+ * @param string tagname
+ * @return array of tags in the database
+ * @author Simon Wunderlin <sw@telemedia.ch>
  */
 function themes_adminapi_gettpltag($args)
 {
     extract($args);
     if (!isset($tagname)) return;
-    
+
     $aData = array(
         'tagname'       => '',
         'module'        => '',
@@ -39,10 +39,10 @@ function themes_adminapi_gettpltag($args)
             'attributes'    => $oTag->getAttributes(),
             'num_atributes' => sizeOf($oTag->getAttributes())
         );
-        
+
     }
     $aData['max_attrs'] = 10;
-    
+
     return $aData;
 }
 

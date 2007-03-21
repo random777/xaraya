@@ -3,7 +3,7 @@
  * Send emails to users
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,8 +12,8 @@
  */
 
 /**
- * Send emails to users by mailtype 
- * 
+ * Send emails to users by mailtype
+ *
  * Ex: Lost Password, Confirmation
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
@@ -76,7 +76,7 @@ function roles_adminapi_senduseremail($args)
                           'recipientname' => $user['name']);
 
             // retrieve the dynamic properties (if any) for use in the e-mail too
-            if (xarModIsAvailable('dynamicdata')) {
+            if (xarModIsHooked('dynamicdata','roles')) {
                 // get the Dynamic Object defined for this module and item id
                 $object = xarModAPIFunc('dynamicdata','user','getobject',
                                          array('module' => 'roles',

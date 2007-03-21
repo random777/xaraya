@@ -3,7 +3,7 @@
  * (try to) get the "meta" properties of tables
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,8 +16,7 @@
  *
  * @author the DynamicData module development team
  * @param $args['table']  optional table you're looking for
- * @returns mixed
- * @return array of field definitions, or null on failure
+ * @return mixed array of field definitions, or null on failure
  * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_utilapi_getmeta($args)

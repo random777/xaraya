@@ -3,16 +3,14 @@
  * Dynamic Textbox Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- */
-/*
  * @author mikespub <mikespub@xaraya.com>
-*/
+ */
 /* Include parent class */
 include_once "modules/dynamicdata/class/properties.php";
 
@@ -39,6 +37,10 @@ class Dynamic_TextBox_Property extends Dynamic_Property
             $this->parseValidation($this->validation);
         }
     }
+    /**
+     * Check the input for the textbox
+     * Calls the validateValue function
+     */
     function checkInput($name='', $value = null)
     {
         if (empty($name)) {
@@ -51,6 +53,10 @@ class Dynamic_TextBox_Property extends Dynamic_Property
         }
         return $this->validateValue($value);
     }
+    /**
+     * Validate the value entered
+     * @return bool true on successfull validation
+     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
@@ -76,12 +82,14 @@ class Dynamic_TextBox_Property extends Dynamic_Property
             return true;
         }
     }
-
+    /**
+     * Show the input form
+     */
     function showInput($args = array())
     {
         extract($args);
         $data = array();
-        
+
         if (empty($maxlength) && isset($this->max)) {
             $this->maxlength = $this->max;
             if ($this->size > $this->maxlength) {
@@ -155,8 +163,7 @@ class Dynamic_TextBox_Property extends Dynamic_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {
@@ -184,7 +191,6 @@ class Dynamic_TextBox_Property extends Dynamic_Property
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showValidation($args = array())
@@ -225,7 +231,6 @@ class Dynamic_TextBox_Property extends Dynamic_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['validation'] new validation rule
      * @param $args['id'] id of the field
-     * @returns bool
      * @return bool true if the validation rule could be processed, false otherwise
      */
      function updateValidation($args = array())

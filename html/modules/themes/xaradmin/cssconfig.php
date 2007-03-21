@@ -3,7 +3,7 @@
  * Review and configure Xaraya CSS
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,7 +14,7 @@
 * Module admin function to review and configure Xaraya CSS
 *
 * @author AndyV_at_Xaraya_dot_Com
-* @returns array
+* @return array
 */
 function themes_admin_cssconfig()
 {

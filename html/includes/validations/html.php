@@ -3,11 +3,14 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
 */
 
 /**
  * HTML Validation Class
+ * @return bool true if html, false if not
  */
 function variable_validations_html (&$subject, $parameters, $supress_soft_exc, &$name)
 {

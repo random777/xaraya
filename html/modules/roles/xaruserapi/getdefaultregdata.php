@@ -3,7 +3,7 @@
  * Get the default registraton module and related data if it exists
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -23,31 +23,41 @@ function roles_userapi_getdefaultregdata()
     $defaultregdata      = array();
     $defaultregmodname   = '';
     $defaultregmodactive = false;
-    //get the default reg module if it exits
+    //get the default reg module if it exits  - it either does or does not
     $defaultregmodid     =(int)xarModGetVar('roles','defaultregmodule');
-
-    if (isset($defaultregmodid) && is_int($defaultregmodid) && ($defaultregmodid > 0)) {
-        $defaultregmodname = xarModGetNameFromId($defaultregmodid);
-        //check the module is available
-        if (xarModIsAvailable($defaultregmodname)) {
-           //We can't really assume people will want this module as registration
-           //Rethink - what we need to avert this problem
-           if (xarModGetVar($defaultregmodname, 'allowregistration')==1) {
-              $defaultregmodactive=true;
-           } else {
-              $defaultregmodactive=false;
-           }
+    
+    //if it is not set then use registration module    
+    if (!isset($defaultregmodid) || $defaultregmodid<=0) {
+        //user Registration if it's there else display appropriate error
+        if (xarModIsAvailable('registration')) { 
+           $defaultregmodname   = 'registration';
+           $defaultregid = xarModGetIDFromName('registration');
+        } else {
+           $msg = xarML('There is no active registration module installed');
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', new DefaultUserException($msg));
+                return false;       
         }
-    } else {
-         if (xarModIsAvailable('registration')) {
-           //for now - set the registration module but don't make it the active registration
-           //the case where somehow the defautlregmodule modvar is unset or empty
-           $defaultregmodname   = xarModGetNameFromId('registration');
-           $defaultregmodactive = false;
-         }
-    }
-    //We can't assume any registration module is installed as it's optional, so go with what we have
-
+    } elseif (isset($defaultregmodid)){
+        $defaultregmodname = xarModGetNameFromID($defaultregmodid);
+        if (xarModIsAvailable($defaultregmodname)) {
+            $defaultregmodname   = $defaultregmodname;
+            $defaultregid        = $defaultregmodid;   
+        } else {
+            if (xarModIsAvailable('registration')) { 
+                $defaultregmodname   = 'registration';
+                $defaultregid = xarModGetIDFromName('registration');
+            } else {
+                $msg = xarML('There is no active registration module installed');
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', new DefaultUserException($msg));
+                return false;       
+            }       
+        }
+    } 
+    xarModSetVar('roles','defaultregmodule', $defaultregid); //set this in case it hasn't been  
+    
+    //we have reworked this function - leave the returned array for now and set the $defaultregmodactive
+    //the function will return an error previously if not now.
+    $defaultregmodactive = true;
     $defaultregdata=array('defaultregmodname'   => $defaultregmodname,
                           'defaultregmodactive' => $defaultregmodactive);
 

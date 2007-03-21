@@ -3,7 +3,7 @@
  * Update users from roles_admin_showusers
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -23,7 +23,7 @@ function roles_admin_updatestate()
     if (!xarVarFetch('groupuid',    'int:0:', $data['groupuid'], 1,       XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('updatephase', 'str:1:', $updatephase,      'update',XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('uids',        'isset',  $uids,             NULL,    XARVAR_NOT_REQUIRED)) return;
-    
+
     $data['authid'] = xarSecGenAuthKey();
     // invalid fields (we'll check this below)
     // check if the username is empty
@@ -34,7 +34,7 @@ function roles_admin_updatestate()
     }
      if (isset($invalid)) {
         // if so, return to the previous template
-        return xarResponseRedirect(xarModURL('roles','admin', 'showusers', 
+        return xarResponseRedirect(xarModURL('roles','admin', 'showusers',
                              array('authid'  => $data['authid'],
                                    'state'   => $data['state'],
                                    'invalid' => $invalid,

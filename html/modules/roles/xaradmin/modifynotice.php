@@ -3,7 +3,7 @@
  * Modify configuration
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,15 +21,15 @@ function roles_admin_modifynotice()
     $hooks = array();
     switch (strtolower($phase)) {
         case 'modify':
-        default: 
-            $data['ips']         = unserialize(xarModGetVar('roles', 'disallowedips'));
+        default:
+            //$data['ips']         = unserialize(xarModGetVar('roles', 'disallowedips'));
             $data['authid']      = xarSecGenAuthKey();
             $data['updatelabel'] = xarML('Update Notification Configuration');
 
             $hooks = xarModCallHooks('module', 'modifyconfig', 'roles',
                 array('module' => 'roles'));
             $data['hooks'] = $hooks;
-            
+
             break;
 
         case 'update':
@@ -39,23 +39,23 @@ function roles_admin_modifynotice()
             if (!xarVarFetch('askpendingemail',      'checkbox', $askpendingemail,      false, XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('askpasswordemail',     'checkbox', $askpasswordemail,     false, XARVAR_NOT_REQUIRED)) return;
             // Confirm authorisation code
-            if (!xarSecConfirmAuthKey()) return; 
+            if (!xarSecConfirmAuthKey()) return;
             // Update module variables
             xarModSetVar('roles', 'askwelcomeemail', $askwelcomeemail);
             xarModSetVar('roles', 'askdeactivationemail', $askdeactivationemail);
             xarModSetVar('roles', 'askvalidationemail', $askvalidationemail);
             xarModSetVar('roles', 'askpendingemail', $askpendingemail);
             xarModSetVar('roles', 'askpasswordemail', $askpasswordemail);
-            
+
             xarModCallHooks('module', 'updateconfig', 'roles',
                 array('module' => 'roles'));
 
-            xarResponseRedirect(xarModURL('roles', 'admin', 'modifynotice')); 
+            xarResponseRedirect(xarModURL('roles', 'admin', 'modifynotice'));
             // Return
             return true;
 
             break;
-    } 
+    }
     return $data;
 }
 ?>

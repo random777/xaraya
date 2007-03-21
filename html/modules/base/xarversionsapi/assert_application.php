@@ -3,7 +3,7 @@
  * Base User Version management functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,8 +16,8 @@
  *
  * @author Jason Judge
  * @param $args['ver'] string version number to compare
- * @returns result of test: true or false
- * @return boolean indicating whether the application is at least version $ver
+ * @return boolean result of test: true or false
+           indicating whether the application is at least version $ver
  */
 function base_versionsapi_assert_application($args)
 {

@@ -2,20 +2,20 @@
 /**
  * Get themes from filesystem
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Get themes from filesystem
  *
  * @author Marty Vance
  * @param none
- * @returns array
- * @return an array of themes from the file system
+ * @return array an array of themes from the file system
  */
 function themes_adminapi_getfilethemes()
 {

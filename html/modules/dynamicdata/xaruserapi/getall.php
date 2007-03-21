@@ -3,7 +3,7 @@
  * Get all items
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,8 +13,7 @@
 /**
  * Get all items
  * @author mikespub <mikespub@xaraya.com>
-*/
-
+ */
 function dynamicdata_userapi_getall($args)
 {
     return xarModAPIFunc('dynamicdata','user','getitem',$args);

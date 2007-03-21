@@ -49,7 +49,7 @@
     <h3><xar:mlstring>Included Blocks</xar:mlstring></h3>
 
     <ol>
-   <ul>
+
         <li><p><strong><xar:mlstring>Admin menu - Adminpanels</xar:mlstring></strong>:
         <xar:mlstring>An Adminpanel block can be configured in a number of ways. After creating the Adminpanel Menu block instance you have the option of overriding the default sort order
            and selecting sort by category or name. You can position the Adminmenu in any of the default blockgroups shipped in Xaraya such as left, or right. Alternatively create your own blockgroup
@@ -64,12 +64,21 @@
         <xar:mlstring> Then make your way to Base radiobutton and check it to display any articles waiting approval in your Content Waiting block.</xar:mlstring>
         </p>
         </li>
-        <li><p><xar:mlstring><strong>finclude</strong>: Include a file as block content.</xar:mlstring></p></li>
-        <li><p><xar:mlstring><strong>html</strong>: Enter HTML as block content.</xar:mlstring></p></li>
-        <li><p><xar:mlstring><strong>menu</strong>: Construct menus.</xar:mlstring></p></li>
+        <li><xar:mlstring><strong>finclude</strong>: Include a file as block content.</xar:mlstring></li>
+        <li><xar:mlstring><strong>html</strong>: Enter HTML as block content.</xar:mlstring></li>
+        <li><xar:mlstring><strong>menu</strong>: Construct menus. The Base menu block provides three main display options. These include:</xar:mlstring>
+            <ul>
+                <li><xar:mlstring>Manual definition of link, title and URL for each menu item</xar:mlstring></li>
+                <li><xar:mlstring>Automatic display of all user menu options in active modules, for convenience.</xar:mlstring></li>
+                <li><xar:mlstring>Manual listing of modules for display of user menu items.</xar:mlstring></li>
+            </ul>
+
+            <p><xar:mlstring>You can use </xar:mlstring><a href="http://xaraya.com/index.php/documentation/522"><xar:mlstring>Xaraya shortcut URL syntax</xar:mlstring></a><xar:mlstring> for menu links that will automatically be
+               converted to full or short friendly urls, or use module aliases, depending on your overall Xaraya site install settings.</xar:mlstring></p>
+        </li>
         <li><p><xar:mlstring><strong>php</strong>: Execute PHP code in a block.</xar:mlstring></p></li>
         <li><p><xar:mlstring><strong>text</strong>: Include plain text in a block.</xar:mlstring></p></li>
-      </ul>
+
     </ol>
     <p><xar:mlstring><strong>Expire a Block</strong></xar:mlstring></p>
 
@@ -137,7 +146,7 @@
               </li>
          </ul>
          <p class="xar-sub">
-             <strong>&nbsp;<xar:mlstring>Base Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.0.2&nbsp; 2006-02-09
+             <strong>&nbsp;<xar:mlstring>Base Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.0.3&nbsp; 2006-11-12
          </p>
 </div>
 

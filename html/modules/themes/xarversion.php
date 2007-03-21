@@ -3,15 +3,14 @@
  * Themes administration and initialization
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
  * @author Marty Vance
-*/
-
+ */
 /* WARNING
  * Modification of this file is not supported.
  * Any modification is at your own risk and
@@ -33,7 +32,6 @@ $modversion['author']         = 'Marty Vance, Andy Varganov';
 $modversion['contact']        = 'andyv@xaraya.com';
 $modversion['admin']          = 1;
 $modversion['user']           = 0;
-$modversion['securityschema'] = array('Themes::' => '::');
 $modversion['class']          = 'Core Admin';
 $modversion['category']       = 'Global';
 ?>

@@ -3,7 +3,7 @@
  * Standard function to create a new item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,12 +11,19 @@
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
-
 /**
  * This is a standard function that is called with the results of the
  * form supplied by xarModFunc('dynamicdata','admin','new') to create a new item
- * @param 'name' the name of the item to be created
- * @param 'number' the number of the item to be created
+ * @param int objectid
+ * @param int modid
+ * @param int itemtype
+ * @param int itemid
+ * @param preview
+ * @param string return_url
+ * @param join
+ * @param table
+ * @param template
+ * @return bool
  */
 function dynamicdata_admin_create($args)
 {
@@ -26,7 +33,7 @@ function dynamicdata_admin_create($args)
 // FIXME: whatever, as long as it doesn't generate Variable "0" should not be empty exceptions
 //        or relies on $myobject or other stuff like that...
 
-    if (!xarVarFetch('objectid',    'id',       $objectid,   NULL,                               XARVAR_DONT_SET)) return;
+    if (!xarVarFetch('objectid',    'id',    $objectid,   NULL,                               XARVAR_DONT_SET)) return;
     if (!xarVarFetch('modid',       'isset', $modid,      xarModGetIDFromName('dynamicdata'), XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('itemtype',    'isset', $itemtype,   0,                                  XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('itemid',      'isset', $itemid,     0,                                  XARVAR_NOT_REQUIRED)) return;
@@ -34,7 +41,7 @@ function dynamicdata_admin_create($args)
     if (!xarVarFetch('return_url',  'isset', $return_url, NULL, XARVAR_DONT_SET)) {return;}
     if (!xarVarFetch('join',        'isset', $join,       NULL, XARVAR_DONT_SET)) {return;}
     if (!xarVarFetch('table',       'isset', $table,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('template',     'isset', $template,   NULL, XARVAR_DONT_SET)) {return;}
+    if (!xarVarFetch('template',    'isset', $template,   NULL, XARVAR_DONT_SET)) {return;}
 
     if (!xarSecConfirmAuthKey()) return;
 

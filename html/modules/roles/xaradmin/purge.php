@@ -3,7 +3,7 @@
  * Purge users by status
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,9 @@
 /**
  * purge users by status
  * @param 'status' the status we are purging
- * @param 'confirmation' confirmation that this item can be purge
+ * @param string operation
+ * @param string confirmation The confirmation that this item can be purge
+ * @return array
  */
 function roles_admin_purge($args)
 {
@@ -165,8 +167,10 @@ function roles_admin_purge($args)
             $roleslist = new xarRoles();
             foreach ($purgeuids as $uid => $val) {
 // --- skip if we are trying to remove the designated site admin or the anonymous user
-// TODO: insert error feedabck here somehow
+                //if (($uid == xarModGetVar('roles','admin') || ($uid < 7)) { //jojodee - let's disucss a bit more - this is not a generally appliable solution 
                 if($uid == xarModGetVar('roles','admin') || $uid == _XAR_ID_UNREGISTERED) continue;
+                    continue;
+                }
 // --- do this in 2 stages. First, delete the role: this will update the user
 // --- count on all the role's parents
                 $role = $roleslist->getRole($uid);
@@ -194,7 +198,6 @@ function roles_admin_purge($args)
                 xarModCallHooks('item', 'delete', $uid, $item);
             }
         }
-
 // --- display users that can be purged
         $selection = " WHERE xar_email != ''";
         //Create the selection
@@ -291,6 +294,7 @@ function roles_admin_purge($args)
             );
         }
 // --- send to template
+        //TODO fix pager for bug 4770 
         $purgefilter['purgestartnum'] = '%%';
         $purgefilter['purgesearch'] = $data['purgesearch'];
 
@@ -308,5 +312,4 @@ function roles_admin_purge($args)
     // Return
     return $data;
 }
-
 ?>

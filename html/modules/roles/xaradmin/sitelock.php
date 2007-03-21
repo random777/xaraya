@@ -3,7 +3,7 @@
  * Site lock
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -28,6 +28,8 @@ function roles_admin_sitelock($args)
         $lockvars = unserialize(xarModGetVar('roles','lockdata'));
         $toggle = $lockvars['locked'];
         $roles = $lockvars['roles'];
+        if (!isset($lockvars['killactive'])) $lockvars['killactive']=false;
+        $killactive = $lockvars['killactive'];
         $lockedoutmsg = (!isset($lockvars['message']) || $lockvars['message'] == '') ? xarML('The site is currently locked. Thank you for your patience.') : $lockvars['message'];
         $notifymsg = $lockvars['notifymsg'];
     }
@@ -40,6 +42,7 @@ function roles_admin_sitelock($args)
         if (!xarVarFetch('notifymsg',    'str',   $notifymsg,    NULL, XARVAR_NOT_REQUIRED,XARVAR_PREP_FOR_DISPLAY)) return;
         if (!xarVarFetch('toggle',       'str',   $toggle,       NULL, XARVAR_NOT_REQUIRED,XARVAR_PREP_FOR_DISPLAY)) return;
         if (!xarVarFetch('notify',       'isset', $notify,       NULL, XARVAR_DONT_SET)) return;
+        if (!xarVarFetch('killactive',   'checkbox', $killactive,  false, XARVAR_DONT_SET)) return;        
         if(!isset($notify)) $notify = array();
         for($i=0; $i<$rolesCount; $i++) $roles[$i]['notify'] = in_array($roles[$i]['uid'],$notify);
 
@@ -56,7 +59,8 @@ function roles_admin_sitelock($args)
             $lockdata = array('roles'     => $roles,
                               'message'   => $lockedoutmsg,
                               'locked'    => $toggle,
-                              'notifymsg' => $notifymsg);
+                              'notifymsg' => $notifymsg,
+                              'killactive' => $killactive);
             xarModSetVar('roles', 'lockdata', serialize($lockdata));
             }
         }
@@ -80,7 +84,8 @@ function roles_admin_sitelock($args)
             $lockdata = array('roles'     => $roles,
                               'message'   => $lockedoutmsg,
                               'locked'    => $toggle,
-                              'notifymsg' => $notifymsg);
+                              'notifymsg' => $notifymsg,
+                              'killactive' => $killactive);
             xarModSetVar('roles', 'lockdata', serialize($lockdata));
             }
         }
@@ -89,7 +94,8 @@ function roles_admin_sitelock($args)
             $lockdata = array('roles'     => $roles,
                               'message'   => $lockedoutmsg,
                               'locked'    => $toggle,
-                              'notifymsg' => $notifymsg);
+                              'notifymsg' => $notifymsg,
+                              'killactive' => $killactive);
             xarModSetVar('roles', 'lockdata', serialize($lockdata));
             xarResponseRedirect(xarModURL('roles', 'admin', 'sitelock'));
         }
@@ -151,7 +157,8 @@ function roles_admin_sitelock($args)
             $lockdata = array('roles'     => $roles,
                               'message'   => $lockedoutmsg,
                               'locked'    => $toggle,
-                              'notifymsg' => $notifymsg);
+                              'notifymsg' => $notifymsg,
+                              'killactive' => $killactive);
             xarModSetVar('roles', 'lockdata', serialize($lockdata));
         }
     }
@@ -162,6 +169,7 @@ function roles_admin_sitelock($args)
     $data['lockedoutmsg'] = $lockedoutmsg;
     $data['notifymsg']    = $notifymsg;
     $data['toggle']       = $toggle;
+    $data['killactive']   = $killactive;    
     if ($toggle == 1) {
         $data['togglelabel']   = xarML('Unlock the Site');
         $data['statusmessage'] = xarML('The site is locked');

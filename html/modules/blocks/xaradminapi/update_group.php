@@ -3,7 +3,7 @@
  * Update attributes of a Block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,8 +19,7 @@
  * @param $args['name'] the new name of the group
  * @param $args['template'] the new default template of the group
  * @param $args['instance_order'] the new instance sequence (array of bid)
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_update_group($args)
 {

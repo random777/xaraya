@@ -3,7 +3,7 @@
  * Check privilege
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,8 +12,8 @@
  */
 /**
  * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @param   string privilege name privname
- * @param   string role ID uid
+ * @param   string privilege name of the privilege to check for
+ * @param   string role ID uid. Defaults to current user OPTIONAL
  * @return  bool
  */
 function roles_userapi_checkprivilege($args)
@@ -33,5 +33,4 @@ function roles_userapi_checkprivilege($args)
     $role = $roles->getRole($uid);
     return $role->hasPrivilege($privilege);
 }
-
 ?>

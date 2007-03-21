@@ -3,7 +3,7 @@
  * Handle form tags
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,15 +12,14 @@
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
-// TODO: move this to some common place in Xaraya (base module ?)
+ * @todo move this to some common place in Xaraya (base module ?)
  * Handle <xar:data-list ...> list tags
  * Format : <xar:data-list module="123" itemtype="0" itemids="$idlist" fieldlist="$fieldlist" static="yes" .../>
  *       or <xar:data-list items="$items" labels="$labels" ... />
  *       or <xar:data-list object="$object" ... />
  *
  * @param $args array containing the items that you want to list, or fields
- * @returns string
- * @return the PHP code needed to invoke showlist() in the BL template
+ * @return string the PHP code needed to invoke showlist() in the BL template
  */
 function dynamicdata_adminapi_handleListTag($args)
 {

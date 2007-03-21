@@ -3,7 +3,7 @@
  * Delete a property field
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,7 +16,7 @@
  *
  * @author the DynamicData module development team
  * @param $args['prop_id'] property id of the item field to delete
-// TODO: do we want those for security check ? Yes, but the original values...
+ * @todo do we want those for security check ? Yes, but the original values...
  * @param $args['modid'] module id of the item field to delete
  * @param $args['itemtype'] item type of the item field to delete
  * @param $args['name'] name of the field to delete
@@ -25,8 +25,7 @@
  * @param $args['default'] default of the field to delete
  * @param $args['source'] data source of the field to delete
  * @param $args['validation'] validation of the field to delete
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_deleteprop($args)

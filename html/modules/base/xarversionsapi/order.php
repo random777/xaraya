@@ -3,7 +3,7 @@
  * Base User Version management functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,8 +15,7 @@
  *
  * @author Jason Judge
  * @param $args['TODO'] TODO
- * @returns result of validation: true or false
- * @return number indicating which parameter is the latest version
+ * @return bool true
  */
 function base_versionsapi_order($args)
 {

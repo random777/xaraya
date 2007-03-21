@@ -3,7 +3,7 @@
  * Modify the email templates for hooked notifications
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,6 +13,10 @@
  */
 /**
  * Modify the email templates for hooked notifications
+ *
+ * @param string phase
+ * @param string mailtype OPTIONAL
+ * @return array
  */
 function mail_admin_template($args)
 {

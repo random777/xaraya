@@ -3,7 +3,7 @@
  * Base block management
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -116,7 +116,7 @@ function base_adminmenublock_display($blockinfo)
                     'modactive' => 0,
                     'overview'  => 0,
                     'maintitle' => xarML('Show administration options for module #(1)', $labelDisplay));
-                
+
                 if ($modname == $thismodname && in_array($thismodtype, $admintypes)) {
                     // this module is currently loaded (active), we need to display
                     // 1. blank label 2. no URL 3. no title text 4. links to module functions, when users looking at default main function
@@ -142,17 +142,17 @@ function base_adminmenublock_display($blockinfo)
                                 'funcactive'    => ($menulink['url'] == $currenturl) ? 1 : 0
                             );
                         }
-                    } 
+                    }
                 } // if
             } // foreach
-            
+
             $template = 'verticallistbyname';
             $data = array('adminmods'     => $adminmods);
             break;
 
         default:
         case 'bycat': // sort by categories
-            // <mrb> for the release we can do without the adminmenu table, if 
+            // <mrb> for the release we can do without the adminmenu table, if
             // that gains functionality consider putting it back.
             foreach ($mods as $mod) {
                 // get URL to module's main function
@@ -202,7 +202,7 @@ function base_adminmenublock_display($blockinfo)
                    unset($mod['displayname']);
                 }
             } //inner foreach
-                
+
             $template = 'verticallistbycats';
             $data = array(
                 'catmods'       => $catmods

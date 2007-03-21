@@ -3,7 +3,7 @@
  * Decode shorturls for Base Module
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,8 +34,8 @@ function base_userapi_decode_shorturl($params)
         // Note : make sure your encoding/decoding is consistent ! :-)
         $page = $params[1];
         $args['page'] = $page;
-        
-    } 
+
+    }
     return array('main',$args);
 }
 

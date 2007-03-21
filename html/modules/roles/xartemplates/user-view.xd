@@ -94,7 +94,7 @@
     <xar:if condition="!empty($message)">
         <p>#xarVarPrepForDisplay($message)#</p>
     <xar:else />
-        <xar:if condition="xarModIsAvailable('dynamicdata')">
+        <xar:if condition="xarModIsHooked('dynamicdata','roles')">
             <xar:data-getitems name="$properties" value="$values" module="roles" itemids="$uidlist" />
         </xar:if>
         <table width="100%" border="0" cellspacing="0" cellpadding="2">

@@ -1,9 +1,9 @@
 <?php
-/** 
+/**
  * Retrieve a cache block instance
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -30,7 +30,7 @@ function blocks_userapi_getcacheblock($args)
     $query = "SELECT xar_bid, xar_nocache, xar_page, xar_user, xar_expire
               FROM $cacheBlockTable
               WHERE xar_bid = ?";
-    
+
     $result = &$dbconn->Execute($query,array($bid));
     if (!$result) return;
     // make sure there is a result
@@ -40,7 +40,7 @@ function blocks_userapi_getcacheblock($args)
     }
     //and if there is one (assuming only one here but there is a constraint on the table) grab it
     list($bid, $nocache, $page, $user, $expire) = $result->fields;
-    
+
     //close the connection neow
     $result->Close();
     $instance = array('bid'     => $bid,

@@ -3,7 +3,7 @@
  * Check for existance of a block type
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,8 +17,7 @@
  * @access public
  * @param modName the module name
  * @param blockType the block type
- * @returns bool
- * @return true if exists, false if not found
+ * @return bool true if exists, false if not found
  * @throws DATABASE_ERROR, BAD_PARAM
  * @deprec Deprecated 11 Jan 2004 - use countblocktypes directly
  */

@@ -5,7 +5,7 @@
  * Tests for base API function versions/compare
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
  *
  * @subpackage base

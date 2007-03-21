@@ -3,7 +3,7 @@
  * Handle AIM property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/* 
+/*
  * Handle AIM property
  * @author mikespub <mikespub@xaraya.com>
 */
@@ -86,7 +86,7 @@ class Dynamic_AIM_Property extends Dynamic_URLIcon_Property
         $data['maxlength']= !empty($maxlength) ? $maxlength : $this->maxlength;
         $data['size']     = !empty($size) ? $size : $this->size;
         $data['link']     = xarVarPrepForDisplay($link);
-        
+
         $template="";
         return xarTplProperty('roles', 'aim', 'showinput', $data);
 

@@ -3,7 +3,7 @@
  * Unregister block types
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,8 +17,7 @@
  * @access public
  * @param modName the module name
  * @param blockType the block type
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws DATABASE_ERROR, BAD_PARAM
  */
 function blocks_adminapi_unregister_block_type($args)
@@ -35,7 +34,7 @@ function blocks_adminapi_unregister_block_type($args)
     $block_types_table = $xartable['block_types'];
     $block_instances_table = $xartable['block_instances'];
 
-    // First we need to retrieve the block ids and remove 
+    // First we need to retrieve the block ids and remove
     // the corresponding id's from the xar_block_instances
     // and xar_block_group_instances tables
     $query = "SELECT    inst.xar_id as id

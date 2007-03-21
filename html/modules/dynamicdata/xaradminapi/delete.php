@@ -3,7 +3,7 @@
  * Delete an item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,11 +15,10 @@
  * delete an item (the whole item or the dynamic data fields of it)
  *
  * @author the DynamicData module development team
- * @param $args['itemid'] item id of the original item
- * @param $args['modid'] module id for the original item
- * @param $args['itemtype'] item type of the original item
- * @returns bool
- * @return true on success, false on failure
+ * @param int $args['itemid'] item id of the original item
+ * @param int $args['modid'] module id for the original item
+ * @param int $args['itemtype'] item type of the original item
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_delete($args)

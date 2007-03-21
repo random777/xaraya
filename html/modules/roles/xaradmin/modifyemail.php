@@ -1,9 +1,9 @@
 <?php
 /**
- * Modify the  email for users
+ * Modify the email for users
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,7 +11,11 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
- * Modify the  email for users
+ * Modify the email for users
+ *
+ * @param string phase
+ * @param string mailtype
+ * @todo MichelV Add the second authcheck back?
  */
 function roles_admin_modifyemail($args)
 {
@@ -57,7 +61,7 @@ function roles_admin_modifyemail($args)
 
             // dynamic properties (if any)
             $data['properties'] = null;
-            if (xarModIsAvailable('dynamicdata')) {
+            if (xarModIsHooked('dynamicdata','roles')) {
                 // get the Dynamic Object defined for this module (and itemtype, if relevant)
                 // FIXME: 'Only variables should be assigned by reference' notice in php4.4
                 @$object = xarModAPIFunc('dynamicdata', 'user', 'getobject',
@@ -94,7 +98,7 @@ function roles_admin_modifyemail($args)
                fclose($handle);
             } else {
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'CONFIG_ERROR', new SystemException('The messaging template ' . $filename . ' is not writable or not allowed to delete files from '.$messaginghome.'.'));
-                return;                        
+                return;
             }
             $filename = $filebase . 'message.xd';
             if (is_writable($filename) && is_writable($messaginghome)) {
@@ -109,7 +113,7 @@ function roles_admin_modifyemail($args)
                fclose($handle);
             } else {
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'CONFIG_ERROR', new SystemException('The messaging template ' . $filename . ' is not writable or not allowed to delete files from '.$messaginghome.'.'));
-                return;                        
+                return;
             }
             xarResponseRedirect(xarModURL('roles', 'admin', 'modifyemail', array('mailtype' => $data['mailtype'])));
             return true;

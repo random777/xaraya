@@ -3,7 +3,7 @@
  * Base User Version management functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -26,8 +26,7 @@
  * @param $args['normalize'] parse the versions into a standard format 'numeric'/'alpha'/false (default: false/none)
  * @param $args['validate'] validation rule to apply (default: false/none)
  * @param $args['order'] the order in which to compare (number or array)
- * @returns number
- * @return number indicating which version number is the latest
+ * @return numeric number indicating which version number is the latest
  */
 function base_versionsapi_compare($args)
 {
@@ -99,7 +98,7 @@ function base_versionsapi_compare($args)
 
     // Get the highest number of levels in a version.
     $limitlevels = max(count($ver1), count($ver2));
-    
+
     // If limited by the calling routine, then cut it down to size.
     if ($levels > 0 && $limitlevels > $levels) {
         $limitlevels = $levels;
@@ -130,7 +129,7 @@ function base_versionsapi_compare($args)
             if ($ver1[$i] < $ver2[$i]) {$latest = (+1); break;}
         }
     }
-    
+
     // Set the order.
     $latest = $latest * $levelorder;
 

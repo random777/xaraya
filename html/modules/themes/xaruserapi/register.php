@@ -3,7 +3,7 @@
  * Handle css tag
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,8 +15,7 @@
  *
  * @author andyv <andyv@xaraya.com>
  * @param $args array containing the parameters
- * @returns string
- * @return the PHP code needed to show the css tag in the BL template
+ * @return string the PHP code needed to show the css tag in the BL template
  */
 function themes_userapi_register($args)
 {

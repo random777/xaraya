@@ -3,7 +3,7 @@
  * Dynamic Country List Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -79,6 +79,10 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         return xarTplProperty('base', $template, 'showinput', $data);
 
     }
+    /**
+     * Show the output of this country listing
+     * @return mixed info for the template
+     */
 
     function showOutput($args = array())
     {
@@ -106,7 +110,6 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
      * @return base information for this property
      **/
      function getBasePropertyInfo()
@@ -281,6 +284,7 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $coptions[] = array('id' =>'md', 'name'=>xarML('Moldova, Republic of'));
         $coptions[] = array('id' =>'mc', 'name'=>xarML('Monaco'));
         $coptions[] = array('id' =>'mn', 'name'=>xarML('Mongolia'));
+        $coptions[] = array('id' =>'me', 'name'=>xarML('Montenegro'));
         $coptions[] = array('id' =>'ms', 'name'=>xarML('Montserrat'));
         $coptions[] = array('id' =>'ma', 'name'=>xarML('Morocco'));
         $coptions[] = array('id' =>'mz', 'name'=>xarML('Mozambique'));
@@ -327,7 +331,7 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $coptions[] = array('id' =>'st', 'name'=>xarML('S&#227;o Tom&#233; and Pr&#237;ncipe'));
         $coptions[] = array('id' =>'sa', 'name'=>xarML('Saudi Arabia'));
         $coptions[] = array('id' =>'sn', 'name'=>xarML('Senegal'));
-        $coptions[] = array('id' =>'cs', 'name'=>xarML('Serbia &#38; Montenegro'));
+        $coptions[] = array('id' =>'rs', 'name'=>xarML('Serbia'));
         $coptions[] = array('id' =>'sc', 'name'=>xarML('Seychelles'));
         $coptions[] = array('id' =>'sl', 'name'=>xarML('Sierra Leone'));
         $coptions[] = array('id' =>'sg', 'name'=>xarML('Singapore'));
@@ -379,7 +383,8 @@ class Dynamic_CountryList_Property extends Dynamic_Select_Property
         $coptions[] = array('id' =>'ye', 'name'=>xarML('Yemen'));
         $coptions[] = array('id' =>'zm', 'name'=>xarML('Zambia'));
         $coptions[] = array('id' =>'zw', 'name'=>xarML('Zimbabwe'));
-        $this->options = $coptions;
+        // allow validation options to appear at top of the list (TODO:and remove them from the coptions)
+        $this->options += $coptions;
         return $this->options;
    }
 }

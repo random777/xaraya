@@ -1,9 +1,9 @@
 <?php
 /**
- * View the current mail queue 
+ * View the current mail queue
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,7 +25,7 @@ function mail_admin_viewq($args)
     extract($args);
     if (!xarVarFetch('action','str', $action, '')) return;
 
-    if (!xarSecurityCheck('AdminMail')) return; 
+    if (!xarSecurityCheck('AdminMail')) return;
 
     $data = array();
     if (!empty($action)) {

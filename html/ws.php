@@ -111,15 +111,21 @@ function xarWebservicesMain()
             $server = xarModAPIFunc('soapserver','user','initsoapserver');
         
             if (!$server) {
-                // erm, where does this one come from? lucky because we did the api func?
-                $fault = new soap_fault('Server','','Unable to start SOAP server', ''); 
-                // TODO: check this
+                // Could not create a soap server
+                $fault = new soap_fault('Server', '', 'Unable to start SOAP server', ''); 
                 echo $fault->serialize();
-            }
-            // Try to process the request
-            if ($server) {
-                global $HTTP_RAW_POST_DATA;
-                $server->service($HTTP_RAW_POST_DATA);
+            } elseif (gettype($server) == 'object') {
+                switch (get_class($server)) {
+                    case 'soap_server':
+                        // Try to process the request
+                        global $HTTP_RAW_POST_DATA;
+                        $server->service($HTTP_RAW_POST_DATA);
+                        break;
+                    case 'soap_fault':
+                        echo $server->serialize();
+                    default:
+                        break;
+                }
             }
         }
         break;
@@ -155,7 +161,7 @@ function xarWebservicesMain()
         if (xarServerGetVar('QUERY_STRING') == 'wsdl') {
             // FIXME: for now wsdl description is in soapserver module
             // consider making the webservices module a container for wsdl files (multiple?)
-            header('Location: ' . xarServerGetBaseURL() . 'modules/soapserver/xaraya.wsdl');
+            header('Location: ' . xarServerGetBaseURL() . 'ws.php?type=soap&wsdl');
         } else {
             // TODO: show something nice(r) ?
             echo '<a href="ws.php?wsdl">WSDL</a><br />

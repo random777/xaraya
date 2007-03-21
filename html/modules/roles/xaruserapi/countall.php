@@ -3,7 +3,7 @@
  * Count all users
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -62,7 +62,7 @@ function roles_userapi_countall($args)
     }
 
     $query .= " AND xar_type = ?";
-    $bindvars[] = 0; //user 
+    $bindvars[] = 0; //user
 
 // cfr. xarcachemanager - this approach might change later
     $expire = xarModGetVar('roles','cache.userapi.countall');

@@ -3,7 +3,7 @@
  * Count all active users
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,7 +29,7 @@ function roles_userapi_countallactive($args)
 
     // Optional arguments.
     if (empty($filter)){
-        $filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
     }
 
 // Security Check

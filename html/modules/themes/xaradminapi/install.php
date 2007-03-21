@@ -2,20 +2,20 @@
 /**
  * Install a theme.
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Install a theme.
  *
  * @author Marty Vance
  * @param $maindId int ID of the module to look dependents for
- * @returns bool
- * @return true on dependencies activated, false for not
+ * @return bool true on dependencies activated, false for not
  * @throws NO_PERMISSION
  */
 function themes_adminapi_install($args)

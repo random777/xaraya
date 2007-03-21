@@ -3,7 +3,7 @@
  * Base User Version management functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,8 +16,8 @@
  * @author Jason Judge
  * @param $args['ver'] string version number to validate
  * @param $args['rule'] string rule name to validate against
- * @returns result of validation: true or false
  * @return boolean indicating whether the rule was passed (NULL for parameter error)
+            result of validation: true or false
  */
 function base_versionsapi_validate($args)
 {

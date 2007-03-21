@@ -1,5 +1,15 @@
 <?php
 /**
+ * Pre-process values.
+ *
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage validation
+ */
+/**
  * Title: Pre-process values.
  * Desc: Allows a value to be pre-processed before (optionally)
  * passing on to another validation method. Each option is processed
@@ -38,12 +48,7 @@
  *    field 'Item Name':
  *    'pre:lower:ftoken:field:Item Name:val:notempty'
  *
- * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
-*/
-
-/**
- * Strings Validation Class
+ * @return mixed
  */
 function variable_validations_pre (&$subject, $parameters, $supress_soft_exc)
 {
@@ -197,7 +202,7 @@ function variable_validations_pre (&$subject, $parameters, $supress_soft_exc)
                 break;
             }
     }
-    
+
     if (!$return && !empty($fieldname) && !$supress_soft_exc) {
         // Add another error message, naming the field.
         // Combine it with the 'short' details of the last message logged,

@@ -3,7 +3,7 @@
  * Modify theme settings
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,16 +16,15 @@
  * This function queries the database for
  * the theme's information.
  *
- * @author Marty Vance 
+ * @author Marty Vance
  * @param id $ theme id
- * @returns array
- * @return an array of variables to pass to the template
+ * @return array An array of variables to pass to the template
  */
 function themes_admin_modify()
 {
     if (!xarVarFetch('id', 'int:1:', $regId)) return;
 
-    $themeInfo = xarThemeGetInfo($regId); 
+    $themeInfo = xarThemeGetInfo($regId);
     // throw back
     if (!isset($themeInfo)) return;
 
@@ -38,7 +37,7 @@ function themes_admin_modify()
     $displayInfo = array();
     foreach($themeInfo as $k => $v) {
         $displayInfo[] = array('name' => $k, 'value' => $v);
-    } 
+    }
     // End form
     $data['authid'] = xarSecGenAuthKey();
     $data['id'] = $regId;
@@ -48,6 +47,6 @@ function themes_admin_modify()
     $data['savebutton'] = xarML('Save Changes');
 
     return $data;
-} 
+}
 
 ?>

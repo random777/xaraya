@@ -3,7 +3,7 @@
  * Dynamic Passbox property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/* 
+/*
  * Dynamic Passbox property
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -55,14 +55,16 @@ class Dynamic_PassBox_Property extends Dynamic_Property
         if (!isset($value)) {
             $value = $this->value;
         }
-    if (is_array($value) && $value[0] == $value[1]) {
-        $value = $value[0];
-    } else {
-        $this->invalid = xarML('text : Passwords did not match');
-            $this->value = null;
-        return false;
-    }
-            
+        if (is_array($value)) {
+             if ($value[0] == $value[1]) {
+                $value = $value[0];
+            } else {
+                $this->invalid = xarML('text : Passwords did not match');
+                $this->value = null;
+                return false;
+            }
+        }
+
         if (!empty($value) && strlen($value) > $this->maxlength) {
             $this->invalid = xarML('text : must be less than #(1) characters long',$this->max + 1);
             $this->value = null;
@@ -81,7 +83,7 @@ class Dynamic_PassBox_Property extends Dynamic_Property
     function showInput($args = array())
     {
         extract($args);
-        
+
         $data = array();
 
         if (empty($maxlength) && isset($this->max)) {

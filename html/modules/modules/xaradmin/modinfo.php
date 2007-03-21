@@ -17,22 +17,22 @@
  * @author Xaraya Development Team
  * @access public
  * @param none
- * @returns array
+ * @return array
  * @todo some facelift
  */
 function modules_admin_modinfo()
 {
-    
-    // Security check - not needed here, imo 
+
+    // Security check - not needed here, imo
     // we just show some info here, not changing anything
     if (!xarSecConfirmAuthKey()) return;
 
     $data = array();
-    
-    if (!xarVarFetch('id', 'int:1:', $id)) return; 
+
+    if (!xarVarFetch('id', 'int:1:', $id)) return;
     // obtain maximum information about module
     $modinfo = xarModGetInfo($id);
-    
+
     // data vars for template
     $data['modid']              = xarVarPrepForDisplay($id);
     $data['modname']            = xarVarPrepForDisplay($modinfo['name']);
@@ -53,7 +53,7 @@ function modules_admin_modinfo()
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Only generic icon has been provided'));
     }else{
         $data['modiconurl']     = xarVarPrepForDisplay('modules/modules/xarimages/admin_generic.gif');
-        $data['modiconmsg'] = xarVarPrepForDisplay(xarML('[Original icon is missing.. 
+        $data['modiconmsg'] = xarVarPrepForDisplay(xarML('[Original icon is missing..
                                 please ask this module developer to provide one in accordance with MDG]'));
     }
     $data['moddir']             = xarVarPrepForDisplay($modinfo['directory']);
@@ -68,7 +68,7 @@ function modules_admin_modinfo()
         $dependency             = xarML('None');
     }
     $data['moddependency']      = xarVarPrepForDisplay($dependency);
-    
+
     // Redirect
     return $data;
 }

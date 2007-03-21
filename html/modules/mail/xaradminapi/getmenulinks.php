@@ -3,7 +3,7 @@
  * Pass individual menu items to the admin panels
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,7 +15,6 @@
  * utility function pass individual menu items to the admin panels
  *
  * @author  John Cox <niceguyeddie@xaraya.com>
- * @returns array
  * @return array containing the menulinks for the main menu items.
  */
 function mail_adminapi_getmenulinks()

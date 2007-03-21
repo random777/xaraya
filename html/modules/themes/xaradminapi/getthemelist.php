@@ -1,18 +1,19 @@
 <?php
 /**
- * Gets a list of themes 
+ * Gets a list of themes
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Gets a list of themes that matches required criteria.
  * Supported criteria are Mode, UserCapable, AdminCapable, Class, Category, State.
- * @author original - Marco Canini <marco@xaraya.com>, 
+ * @author original - Marco Canini <marco@xaraya.com>,
  * @author andyv - modified
  * @param filter array of criteria used to filter the entire list of installed themes.
  * @param startNum the start offset in the list
@@ -57,7 +58,7 @@ function themes_adminapi_getthemelist($args)
         }
     }
     $orderByClause = join(', ', $orderByClauses);
-    
+
     // Determine the tables we are going to use
     $dbconn =& xarDBGetConn();
     $tables =& xarDBGetTables();
@@ -109,8 +110,8 @@ function themes_adminapi_getthemelist($args)
                          themes.xar_class,
                          states.xar_state
                   FROM $themestable AS themes
-                  LEFT JOIN $theme_statesTable AS states 
-                    ON themes.xar_regid = states.xar_regid";       
+                  LEFT JOIN $theme_statesTable AS states
+                    ON themes.xar_regid = states.xar_regid";
         array_unshift($whereClauses, 'themes.xar_mode = ?');
         array_unshift($bindvars,$mode);
 
@@ -119,7 +120,7 @@ function themes_adminapi_getthemelist($args)
         $query .= " WHERE $whereClause";
         }
         $query .= " ORDER BY $orderByClause";
-        
+
         $result = $dbconn->SelectLimit($query, $numItems, $startNum - 1,$bindvars);
         if (!$result) return;
 

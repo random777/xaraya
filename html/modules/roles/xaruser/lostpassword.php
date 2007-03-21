@@ -3,7 +3,7 @@
  * Sends a new password to the user if they have forgotten theirs.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -44,29 +44,67 @@ function roles_user_lostpassword()
 
         case 'send':
 
-            if (!xarVarFetch('uname', 'str:1:100', $uname, '', XARVAR_NOT_REQUIRED)) return;
-            if (!xarVarFetch('email', 'str:1:100', $email, '', XARVAR_NOT_REQUIRED)) return;
+            if (!xarVarFetch('uname', 'pre:trim:str:1:255', $uname, '', XARVAR_NOT_REQUIRED)) return;
+            if (!xarVarFetch('email', 'pre:trim:str:1:255', $email, '', XARVAR_NOT_REQUIRED)) return;
 
             // Confirm authorisation code.
             if (!xarSecConfirmAuthKey()) return;
 
+            $invalid = array();
+            
             if ((empty($uname)) && (empty($email))) {
-                $msg = xarML('You must enter your username or your email to proceed');
-                xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
-                return;
+                $invalid['getpassword'] = xarML('You must enter either a valid username or email to proceed.');
+                //$msg = xarML('You must enter your username or your email to proceed');
+                //xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
+                //return;
             }
+            
+            //check for invalids
+            $countInvalid = count($invalid);
 
-            // check for user and grab uid if exists
-            $user = xarModAPIFunc('roles',  'user', 'get',
-                                   array('uname' => $uname,
-                                         'email' => $email));
-
-            if (empty($user)) {
-                $msg = xarML('That email address or username is not registered');
-                xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
-                return;
+            $userargs = array();           
+            //what should take precedence - even a config to force both  uname and email?
+            $matchemail = xarModGetVar('roles','matchemailforpw') ? xarModGetVar('roles','matchemailforpw'):false;
+            //let's continue check
+            if ($countInvalid <= 0) { // we can check databaes now           
+                if ($matchemail) {
+                    $userargs = array('uname'=>$uname,'email' => $email);   
+                    $invalid['getpassword'] =  xarML('That email address and username combination is not valid or registered on this site.');              
+                } elseif (!empty($uname) && (empty($email))) {
+                    $userargs = array('uname'=>$uname);  
+                    $invalid['uname'] =  xarML('That username has an invalid format or is not registered on this site.');                    
+                } elseif (!empty($email) && empty($uname)){
+                    $userargs= array('email'=>$email);
+                    $invalid['email'] =  xarML('That email has an invalid format or is not registered on this site.');                   
+                } elseif (!empty($email) && !empty($uname)) { //just use the email
+                    $userargs = array('uname'=>$uname,'email' => $email);
+                    $invalid['getpassword'] =  xarML('Either the email address or username is not valid or registered on this site. You can try username or email address if you have forgotten the combination.');
+                }
+              
+               // check for user and grab uid if exists
+                $user = xarModAPIFunc('roles',  'user', 'get', $userargs);
+                if (!empty($user)) { 
+                    //we have what we want, so reset all these
+                    $invalid =array();
+                //$msg = xarML('That email address or username is not registered');
+                //xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
+                //return;
+                } 
             }
-            // Make new password
+            
+            // Check for invalid content and return to get correct input
+            $countInvalid = count($invalid);
+            if ($countInvalid > 0) { 
+                        $authid = xarSecGenAuthKey();
+                        return xarTplModule('roles','user', 'requestpw',
+                                 array('authid'     => $authid,
+                                       'email'     => $email,
+                                       'uname'     => $uname,
+                                       'invalid'   => $invalid,
+                                       'emaillabel' => xarML('E-Mail New Password')));            
+            } 
+ 
+            // We must have found a user if we got here so make new password
             $user['pass'] = xarModAPIFunc('roles', 'user', 'makepass');
 
             if (empty($user['pass'])) {
@@ -92,7 +130,7 @@ function roles_user_lostpassword()
                                                     'mailtype'   => 'reminder',
                                                     'pass'       => $user['pass']))) return;
 
-            // Let user know that they have an email on the way.   
+            // Let user know that they have an email on the way.
             $data = xarTplModule('roles','user','requestpwconfirm');
           break;
     }

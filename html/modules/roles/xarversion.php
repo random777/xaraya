@@ -3,7 +3,7 @@
  * Roles module initialization
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,7 +20,7 @@
  */
 $modversion['name']           = 'Roles';
 $modversion['id']             = '27';
-$modversion['version']        = '1.1.1';
+$modversion['version']        = '1.1.3';
 $modversion['displayname']    = xarML('Roles');
 $modversion['description']    = 'User and Group management';
 $modversion['displaydescription'] = xarML('User and Group management');

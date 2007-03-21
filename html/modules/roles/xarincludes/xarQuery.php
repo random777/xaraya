@@ -3,7 +3,7 @@
  * xarQuery Class for SQL abstraction
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,15 +11,19 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-  /**************************************************************************\
+/**
   * xarQuery class for SQL abstraction                                       *
-  * Written by Marc Lutolf (marcinmilan@xaraya.com)                          *
-  * -----------------------------------------------                          *
+  * @author Marc Lutolf <marcinmilan@xaraya.com>
+  *                          *
   *  This program is free software; you can redistribute it and/or modify it *
   *  under the terms of the GNU General Public License as published by the   *
   *  Free Software Foundation; either version 2 of the License, or (at your  *
   *  option) any later version.                                              *
-  \**************************************************************************/
+  *
+  * This Class will construct the SQL query based on entered variables.
+  * Example: $q = new xarQuery('SELECT','xar_roles');
+  *          $q->qecho();
+  */
 
 class xarQuery
 {
@@ -52,9 +56,12 @@ class xarQuery
 // Two unrelated conditions will be inserted into the query as AND or OR
     var $implicitconjunction = "AND";
 
-//---------------------------------------------------------
-// Constructor
-//---------------------------------------------------------
+    /**
+     * Constructor
+     * @param string type
+     * @param string tables
+     * @param string fields
+     */
     function xarQuery($type='SELECT',$tables='',$fields='')
     {
         if (in_array($type,array("SELECT","INSERT","UPDATE","DELETE"))) $this->type = $type;
@@ -80,9 +87,9 @@ class xarQuery
         $this->dbconn =& xarDBGetConn();
     }
 
-//---------------------------------------------------------
-// Execute a query
-//---------------------------------------------------------
+    /**
+     * Execute a query
+     */
     function run($statement='',$display=1)
     {
         //FIXME: PHP5 hack
@@ -162,17 +169,23 @@ class xarQuery
         }
         return true;
     }
-
+    /**
+     * Close the connection
+     */
     function close()
     {
         return $this->dbconn->close();
     }
-
+    /**
+     * Open a database connection
+     */
     function open()
     {
         $this->openconnection(xarDBGetConn());
     }
-
+    /**
+     * set the use of limits
+     */
     function uselimits()
     {
         $this->limits = 1;
@@ -193,7 +206,9 @@ class xarQuery
     {
         return $this->output;
     }
-
+    /**
+     * Add table
+     */
     function addtable()
     {
         $numargs = func_num_args();

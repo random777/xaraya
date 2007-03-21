@@ -3,7 +3,7 @@
  * Update a role
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,9 @@
 function roles_admin_updaterole()
 {
     // Check for authorization code
-//    if (!xarSecConfirmAuthKey()) return;
+ //
+ if (!xarSecConfirmAuthKey()) return;
+   
     if (!xarVarFetch('uid',            'int:1:',    $uid)) return;
     if (!xarVarFetch('pname',          'str:1:35:', $pname)) return;
     if (!xarVarFetch('ptype',          'int',       $ptype)) return;
@@ -28,6 +30,10 @@ function roles_admin_updaterole()
     if (!xarVarFetch('returnurl',      'str',       $returnurl, '', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('utimezone',      'str:1:',    $utimezone,'',XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('allowemail',     'checkbox',  $allowemail,false,XARVAR_NOT_REQUIRED)) return;
+    
+    //need username to do the sec check and this is not available
+    //until later in the function as it could be changed in this process
+    
     //Grab it here if primary parent modvar is activated
     if (!empty($pprimaryparent) && is_integer($pprimaryparent) && xarModGetVar('roles','setprimaryparent')) {
         $primaryrole   = new xarRoles();
@@ -102,6 +108,10 @@ function roles_admin_updaterole()
             return;
         }
     }
+
+    //now we have the username for role and group. Let's do the security check
+    if (!xarSecurityCheck('EditRole',0,'Roles',"$puname")) return;
+    
     $duvs = array();
     if (isset($phome) && xarModGetVar('roles','setuserhome'))
             $duvs['userhome'] = $phome;
@@ -122,7 +132,7 @@ function roles_admin_updaterole()
     if (xarModGetVar('roles','setusertimezone')) {
         $duvs['usertimezone'] = $usertimezone;
     }
-    
+
     //the user cannot receive emails from other users until they allow it and admin allows this option
     xarModSetUserVar('roles','usersendemails', $allowemail, $uid);
     // assemble the args into an array for the role constructor

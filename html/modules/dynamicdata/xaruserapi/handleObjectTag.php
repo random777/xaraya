@@ -3,7 +3,7 @@
  * Handle dynamic data tags
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,8 +17,7 @@
  *       or <xar:data-object object="$object" method="$method" arguments="$args" /> with $object some object and $method some method of this object
  *
  * @param $args array containing the object and property/method
- * @returns string
- * @return the PHP code needed to show the object property or call the object method in the BL template
+ * @return string the PHP code needed to show the object property or call the object method in the BL template
  */
 function dynamicdata_userapi_handleObjectTag($args)
 {

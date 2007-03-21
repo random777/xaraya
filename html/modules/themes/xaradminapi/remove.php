@@ -2,20 +2,20 @@
 /**
  * Remove a theme
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Remove a theme
  *
  * @author Marty Vance
  * @param $args['regid'] the id of the theme
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function themes_adminapi_remove($args)
@@ -40,7 +40,7 @@ function themes_adminapi_remove($args)
                     xarML('The theme you are trying to remove is the current default theme. Select another default theme first, then try again.'));
         return;
     }
-    
+
     // Bail out if we're trying to remove while one of our users
     // has it set to their default theme
     $mvid = xarModGetVarId('themes','default');
@@ -53,9 +53,9 @@ function themes_adminapi_remove($args)
         xarErrorSet(XAR_USER_EXCEPTION, 'FORBIDDEN_OPERATION',
                     xarML('The theme you are trying to remove is used by #(1) users on this site as their default theme. Theme cannot be removed.',$count));
         return;
-    }        
-    
-    
+    }
+
+
     // Get theme database info
     xarThemeDBInfoLoad($themeInfo['name'], $themeInfo['directory']);
 

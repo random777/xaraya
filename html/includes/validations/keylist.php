@@ -3,10 +3,10 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
-*/
-
-
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ */
 /**
  * List keys Validation Function
  *
@@ -31,6 +31,8 @@
  * 3. ints for two levels, and no validation on the final values:
  *    'keylist:int;keylist:int;'
  *    e.g. $x[123][456] = 'anything'
+ *
+ * @return bool true if a keylist is entered, false if not
  *
  */
 function variable_validations_keylist (&$subject, $parameters, $supress_soft_exc, &$name)

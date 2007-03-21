@@ -5,9 +5,9 @@
  * Import PostNuke .71+ web link categories into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -31,7 +31,7 @@
     }
     while (!$result->EOF) {
         list($id, $parent, $title, $descr) = $result->fields;
-    
+
         // See if there is parent category associated with this category
         if (empty($parent)) {
             // Set parent category to the weblinks category we just created

@@ -2,28 +2,28 @@
 /**
  * Get registered template tags
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Themes module
+ * @link http://xaraya.com/index.php/release/70.html
  */
 /**
  * Get registered template tags
  *
  * @author Marty Vance
- * @param none
- * @returns array
- * @return array of themes in the database
- * @Author Simon Wunderlin <sw@telemedia.ch>
+ * @param array args
+ * @return array of tags in the database
+ * @author Simon Wunderlin <sw@telemedia.ch>
  */
 function themes_adminapi_gettpltaglist($args)
 {
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();
-        
-        extract($args);
+
+    extract($args);
 
     $aTplTags = array();
 
@@ -39,7 +39,7 @@ function themes_adminapi_gettpltaglist($args)
             $sSql .= " AND xar_id = ? ";
             $bindvars[] = $id;
         }
-        
+
     $oResult = $dbconn->Execute($sSql,$bindvars);
     if (!$oResult) return;
     if (!$oResult) {
@@ -50,11 +50,11 @@ function themes_adminapi_gettpltaglist($args)
 
     while(!$oResult->EOF) {
             $aTplTags[] = array(
-                    'id'      => $oResult->fields[0], 
-                    'name'    => $oResult->fields[1], 
+                    'id'      => $oResult->fields[0],
+                    'name'    => $oResult->fields[1],
                     'module'  => $oResult->fields[2]
                 );
-        
+
         $oResult->MoveNext();
     }
     $oResult->Close();

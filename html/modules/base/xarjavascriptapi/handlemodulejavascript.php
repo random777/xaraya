@@ -3,7 +3,7 @@
  * Base JavaScript management functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,7 +27,7 @@
  * @author Jason Judge
  * @param $args array containing the form field definition or the type, name, value, ...
  * @return string code to generate for this tag
- */ 
+ */
 function base_javascriptapi_handlemodulejavascript($args)
 {
     extract($args);

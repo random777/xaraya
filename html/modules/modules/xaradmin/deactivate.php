@@ -20,9 +20,8 @@
  * message and returns true.
  *
  * @access public
- * @param id the mdoule id to deactivate
- * @returns
- * @return
+ * @param id the module id to deactivate
+ * @return bool true on success
  */
 function modules_admin_deactivate ()
 {
@@ -57,7 +56,7 @@ function modules_admin_deactivate ()
         } else {
             // No dependents, we can deactivate the module
             if(!xarModAPIFunc('modules','admin','deactivate',array('regid' => $id)))  return;
-            xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));               
+            xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
         }
     }
 

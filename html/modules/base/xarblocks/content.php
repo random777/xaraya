@@ -3,7 +3,7 @@
  * Displays a Text/HTML/PHP Block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -55,7 +55,7 @@ function base_contentblock_info()
 /**
  * Display func.
  * @param $blockinfo array
- * @returns $blockinfo array
+ * @return $blockinfo array
  */
 function base_contentblock_display($blockinfo)
 {

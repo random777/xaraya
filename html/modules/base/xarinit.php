@@ -3,7 +3,7 @@
  * Base Module Initialisation
  *
  * @package modules
- * @copyright (C) 2005-2006 The Digital Development Foundation
+ * @copyright (C) 2005-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -405,7 +405,7 @@ function base_init()
                            array('directory'=>'blocks', 'initfunc'=>'init'))) {
         return;
     }
-    
+
     /**************************************************************
     * Install the authsystem module
     **************************************************************/
@@ -450,8 +450,8 @@ function base_init()
 /**
  * Upgrade the base module from an old version
  *
- * @param oldVersion
- * @returns bool
+ * @param string oldVersion
+ * @return bool
  */
 function base_upgrade($oldVersion)
 {

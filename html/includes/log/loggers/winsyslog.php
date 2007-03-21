@@ -2,10 +2,13 @@
 /**
  * Windows system log
  *
- * @package logging
- * @copyright (C) 2003 by the Xaraya Development Team.
- * 
-*/
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage logging
+ */
 
 /**
  * Include the base class
@@ -18,7 +21,7 @@ include_once ('./includes/log/loggers/xarLogger.php');
  *
  * @package logging
  */
-class xarLogger_winsyslog extends xarLogger_syslog 
+class xarLogger_winsyslog extends xarLogger_syslog
 {
     /**
      * Converts a XARLOG_LEVEL* constant into a syslog LOG_* constant.

@@ -10,6 +10,7 @@
 
 /**
  * Array Validation Function
+ * @return bool true if valid, false if not
  */
 function variable_validations_array (&$subject, $parameters, $supress_soft_exc, &$name)
 {

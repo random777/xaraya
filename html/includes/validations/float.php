@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description of purpose of file
+ * Validate a value as a floating point number
  *
  * @package validation
  * @copyright (C) 2002-2006 The Digital Development Foundation
@@ -13,7 +13,7 @@
  * This function will validate the input for it being a float number
  * It will return true when the value validated is a number in the format
                 - 1.234
- * @return true on success (value is validated as a float number
+ * @return bool true on success (value is validated as a float number), false if not
  */
 function variable_validations_float (&$subject, $parameters, $supress_soft_exc, &$name)
 {

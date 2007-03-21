@@ -1,5 +1,13 @@
 <?php
 /**
+ * String List Validation function
+ *
+ * @package validation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ */
+/**
  * list:{sep}:...
  * Split the string into separate items using 'sep' as an item
  * separator, then validate each individually.
@@ -11,13 +19,7 @@
  * Validation of each item in the list will be further passed on to
  * any required validation type.
  *
- *
- * @package validation
- * @copyright (C) 2003 by the Xaraya Development Team.
-*/
-
-/**
- * String List Validation Class
+ * @return mixed
  */
 function variable_validations_strlist (&$subject, $parameters, $supress_soft_exc, &$name)
 {

@@ -3,16 +3,14 @@
  * Image Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- */
-/*
  * @author mikespub <mikespub@xaraya.com>
-*/
+ */
 include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
 
 /**
@@ -22,6 +20,11 @@ include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
  */
 class Dynamic_Image_Property extends Dynamic_TextBox_Property
 {
+    /**
+     * Validate the input
+     * @param string value The URL to the image
+     * @return bool true on valid input
+     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
@@ -42,7 +45,15 @@ class Dynamic_Image_Property extends Dynamic_TextBox_Property
         return true;
     }
 
-//    function showInput($name = '', $value = null,  $size = 0, $maxlength = 0, $id = '', $tabindex = '')
+    /**
+     * usage: showInput($name = '', $value = null,  $size = 0, $maxlength = 0, $id = '', $tabindex = '')
+     * @param string name
+     * @param string value
+     * @param int tabindex
+     * @param size
+     * @param maxlength
+     * @return
+     */
     function showInput($args = array())
     {
         extract($args);
@@ -69,7 +80,10 @@ class Dynamic_Image_Property extends Dynamic_TextBox_Property
         $template="";
         return xarTplProperty('base', 'image', 'showinput', $data);
     }
-
+    /**
+     * Show the image in a template
+     * @param array @args
+     */
     function showOutput($args = array())
     {
         extract($args);
@@ -92,14 +106,12 @@ class Dynamic_Image_Property extends Dynamic_TextBox_Property
 
         $template="";
         return xarTplProperty('base', 'image', 'showoutput', $data);
-
     }
 
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {

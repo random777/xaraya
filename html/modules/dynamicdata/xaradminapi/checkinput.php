@@ -3,7 +3,7 @@
  * Dynamic data browse function
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,10 +14,9 @@
 /**
  * check input from dynamic data (needs $extrainfo['dd_*'] from arguments, or 'dd_*' from input)
  *
- * @param &$fields fields array (pass by reference here !)
- * @param $dd_function optional name of the calling function
- * @param $extrainfo optional extra information (from hooks)
- * @returns array
+ * @param array  &$fields fields array (pass by reference here !)
+ * @param string $dd_function optional name of the calling function
+ * @param array  $extrainfo optional extra information (from hooks)
  * @return array of invalid fields
  * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
  */

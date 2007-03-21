@@ -3,17 +3,14 @@
  * Dynamic URL Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- */
-/*
  * @author mikespub <mikespub@xaraya.com>
-*/
-
+ */
 /**
  * Include the base class
  *
@@ -28,17 +25,27 @@ include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
  */
 class Dynamic_URL_Property extends Dynamic_TextBox_Property
 {
+    /**
+     * Validate a value as an URL
+     * @param value
+     * @return bool true
+     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
             $value = $this->value;
         }
+        $value = trim($value);
         if (!empty($value) && $value != 'http://') {
         // TODO: add some URL validation routine !
+        // see note under http://bugs.xaraya.com/show_bug.cgi?id=5959
             if (preg_match('/[<>"]/',$value)) {
                 $this->invalid = xarML('URL');
                 $this->value = null;
                 return false;
+            } else if (substr($value, 0, 4) == 'www.') {
+                // allow users to say www.mysite.com
+                $this->value = 'http://' . $value;
             } else {
                 $this->value = $value;
             }
@@ -111,8 +118,7 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {

@@ -1,14 +1,15 @@
 <?php
-
 /**
  * JavaScriptLogger
  *
  * Implements a javascript logger in a separate HTML window
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
  *
- *
- * @package logging
+ * @subpackage logging
  */
-
 /**
  * Include the base file
  *
@@ -42,7 +43,7 @@ class xarLogger_javascript extends xarLogger
         if ($this->_loadLevel & XARCORE_BIT_TEMPLATE) return false;
         xarTplAddJavaScript('head', 'code', $this->_buffer);
         $this->_buffer = '';
-        
+
         return true;
     }
 
@@ -54,13 +55,13 @@ class xarLogger_javascript extends xarLogger
      * @access public
      * @return boolean
      */
-    function setConfig(&$conf) 
+    function setConfig(&$conf)
     {
         parent::setConfig($conf);
         $this->_loadLevel = & $conf['loadLevel'];
         $this->_buffer = $this->getCommonCode();
     }
-    
+
     /**
     * Common Code. This will create the javascript debug window.
     *
@@ -92,7 +93,7 @@ class xarLogger_javascript extends xarLogger
     {
         $strings = array ("\r\n", "\r", "\n");
         $replace = array ("<br />", "<br />", "<br />");
-        
+
         // Abort early if the level of priority is above the maximum logging level.
         if (!$this->doLogLevel($level)) return false;
 

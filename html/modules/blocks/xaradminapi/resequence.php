@@ -3,7 +3,7 @@
  * Resequence a blocks table
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,7 @@
 /**
  * resequence a blocks table
  * @author Jim McDonald, Paul Rosania
- * @returns void
+ * @return bool true
  */
 function blocks_adminapi_resequence($args)
 {

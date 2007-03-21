@@ -5,9 +5,9 @@
  * Import PostNuke .71+ users into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -31,7 +31,7 @@
         $query = 'SELECT user_id, name, username, user_email, user_password, user_website, user_regdate,
                          user_avatar, user_icq, user_aim, user_yim, user_msnm,
                          user_from, user_occ, user_interests, user_sig, bio
-                  FROM ' . $oldprefix . '_users 
+                  FROM ' . $oldprefix . '_users
                   WHERE user_id > 2
                   ORDER BY user_id ASC';
         break;
@@ -39,7 +39,7 @@
         $query = 'SELECT uid, name, uname, email, pass, url, user_regdate,
                          user_avatar, user_icq, user_aim, user_yim, user_msnm,
                          user_from, user_occ, user_intrest, user_sig, bio
-                  FROM ' . $oldprefix . '_users 
+                  FROM ' . $oldprefix . '_users
                   WHERE uid > 2
                   ORDER BY uid ASC';
         break;

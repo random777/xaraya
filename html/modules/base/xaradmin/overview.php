@@ -3,7 +3,7 @@
  * Overview displays standard Overview page
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,8 +17,7 @@
  * Only used if you actually supply an overview link in your adminapi menulink function
  * and used to call the template that provides display of the overview
  *
- * @returns array xarTplModule with $data containing template data
- * @return array containing the menulinks for the overview item on the main manu
+ * @return array xarTplModule with $data containing template data
  * @since 2 Oct 2005
  */
 function base_admin_overview()
@@ -28,7 +27,7 @@ function base_admin_overview()
     if (!xarVarFetch('template','str:',$template,'',XARVAR_NOT_REQUIRED)) return;
     $data=array();
     /* if there is a separate overview function return data to it
-     * else just call the main function that usually displays the overview 
+     * else just call the main function that usually displays the overview
      */
 
    if ($template !='') {

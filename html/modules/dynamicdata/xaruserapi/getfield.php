@@ -3,7 +3,7 @@
  * Get a specific item field
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,7 @@
  */
 /**
  * get a specific item field
- * @TODO: update this with all the new stuff
+ * @todo update this with all the new stuff
  *
  * @author the DynamicData module development team
  * @param string $args['module'] module name of the item field to get, or

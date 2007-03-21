@@ -3,7 +3,7 @@
  * Create a new realm
  *
  * @package core modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -43,7 +43,7 @@ function privileges_admin_newrealm()
         $q = new xarQuery('INSERT',$xartable['security_realms']);
         $q->addfield('xar_name', $name);
         if(!$q->run()) return;
-        
+
         //Redirect to view page
         xarResponseRedirect(xarModURL('privileges', 'admin', 'viewrealms'));
     }

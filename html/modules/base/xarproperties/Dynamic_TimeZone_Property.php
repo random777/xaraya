@@ -3,16 +3,16 @@
  * Dynamic TimeZone Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
+/**
  * @author mikespub <mikespub@xaraya.com>
-*/
+ */
 /**
  * Include the base class
  *
@@ -101,7 +101,9 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
         $this->value = serialize($value);
         return true;
     }
-
+    /**
+     * Show the dropdown to choose the timezone from
+     */
     function showInput($args = array())
     {
         extract($args);
@@ -163,7 +165,9 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
 
         return xarTplProperty('base', 'timezone', 'showinput', $data);
     }
-
+    /**
+     * Show the chosen timezone as a text
+     */
     function showOutput($args = array())
     {
         extract($args);
@@ -223,7 +227,10 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
 
         return xarTplProperty('base', 'timezone', 'showoutput', $data);
     }
-
+    /**
+     * Get a hardcoded array with options
+     * @return array Array with options
+     */
     function getOldOptions()
     {
         if (count($this->options) > 0) {
@@ -265,7 +272,10 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
                         );
         return $options;
     }
-
+    /**
+     * Get the timezones from the database
+     * @return array Array with timezones and ids
+     */
     function getNewOptions()
     {
         if (count($this->options) > 0) {
@@ -284,27 +294,23 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
      function getBasePropertyInfo()
      {
          $baseInfo = array(
-                              'id'         => 32,
-                              'name'       => 'timezone',
-                              'label'      => 'Time Zone',
-                              'format'     => '32',
-                              'validation' => '',
-                            'source'     => '',
-                            'dependancies' => '',
-                            'requiresmodule' => '',
-                            'aliases' => '',
-                            'args'         => '',
-                            // ...
+                           'id'         => 32,
+                           'name'       => 'timezone',
+                           'label'      => 'Time Zone',
+                           'format'     => '32',
+                           'validation' => '',
+                           'source'     => '',
+                           'dependancies' => '',
+                           'requiresmodule' => '',
+                           'aliases' => '',
+                           'args'         => '',
                            );
         return $baseInfo;
      }
-
 }
-
 ?>

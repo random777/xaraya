@@ -3,7 +3,7 @@
  * Delete fields for an item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,10 +14,9 @@
 /**
  * delete fields for an item - hook for ('item','delete','API')
  *
- * @param $args['objectid'] ID of the object
- * @param $args['extrainfo'] extra information
- * @returns bool
- * @return true on success, false on failure
+ * @param int $args['objectid'] ID of the object
+ * @param array $args['extrainfo'] extra information
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
  */
 function dynamicdata_adminapi_deletehook($args)

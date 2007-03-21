@@ -3,7 +3,7 @@
  * Shows the user login form when login block is not active
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,7 +22,7 @@ function authsystem_user_showloginform($args = array())
     extract($args);
     if (!isset($redirecturl)) $redirecturl = xarServerGetBaseURL();
     xarVarFetch('redirecturl', 'str:1:254', $data['redirecturl'], $redirecturl, XARVAR_NOT_REQUIRED);
-    
+
     $defaultauthdata=xarModAPIFunc('roles','user','getdefaultauthdata');
     $defaultloginmodname=$defaultauthdata['defaultloginmodname'];
 
@@ -32,7 +32,7 @@ function authsystem_user_showloginform($args = array())
       // more anon has no priv for ViewAuthSystem, we end up here again => infinite loop
       // 1. augment (i.e. hack it in) to force the check to go?
       // 2. why is this security check here in the first place (a usecase would be nice)
-      
+
       //if (!xarSecurityCheck('ViewAuthsystem')) return; //jojodee - review this
       $data['loginlabel'] = xarML('Log In');
       $data['loginurl']=xarModURL($defaultloginmodname,'user','login');

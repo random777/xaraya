@@ -3,7 +3,7 @@
  * Add a new item
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,6 +15,7 @@
  * add new item
  * This is a standard function that is called whenever an administrator
  * wishes to create a new module item
+ * @return
  */
 function dynamicdata_admin_new($args)
 {
@@ -28,7 +29,7 @@ function dynamicdata_admin_new($args)
     if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
-    
+
     if (empty($modid)) {
         $modid = xarModGetIDFromName('dynamicdata');
     }
@@ -66,7 +67,7 @@ function dynamicdata_admin_new($args)
     $item['itemtype'] = $myobject->itemtype;
     $item['itemid'] = $myobject->itemid;
     $hooks = array();
-    $hooks = xarModCallHooks('item', 'new', $myobject->itemid, $item, $modinfo['name']); 
+    $hooks = xarModCallHooks('item', 'new', $myobject->itemid, $item, $modinfo['name']);
     $data['hooks'] = $hooks;
 
     if(!isset($template)) {

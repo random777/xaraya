@@ -3,7 +3,7 @@
  * Delete a block type
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,12 +15,11 @@
  *
  * @author Jim McDonald, Paul Rosania
  * @access public
- * @param modName the module name (deprec)
- * @param module the module name
+ * @param string modName the module name (deprec)
+ * @param string module the module name
  * @param blockType the block type (deprec)
- * @param type the block type
- * @returns bool
- * @return true on success, false on failure
+ * @param int type the block type
+ * @return bool true on success, false on failure
  * @throws DATABASE_ERROR, BAD_PARAM
  */
 function blocks_adminapi_delete_type($args)
@@ -50,7 +49,7 @@ function blocks_adminapi_delete_type($args)
     $block_types_table = $xartable['block_types'];
     $block_instances_table = $xartable['block_instances'];
 
-    // First we need to retrieve the block ids and remove 
+    // First we need to retrieve the block ids and remove
     // the corresponding id's from the xar_block_instances
     // and xar_block_group_instances tables
     $query = "SELECT    inst.xar_id as id

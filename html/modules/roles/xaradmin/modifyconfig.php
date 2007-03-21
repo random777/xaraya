@@ -3,7 +3,7 @@
  * Modify configuration
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -84,11 +84,13 @@ function roles_admin_modifyconfig()
                 }
             }
 
+            /* No longer required, catered for in Registration module
             $checkip = xarModGetVar('roles', 'disallowedips');
             if (empty($checkip)) {
                 $ip = serialize('10.0.0.1');
                 xarModSetVar('roles', 'disallowedips', $ip);
             }
+            */
             $data['siteadmins']   = $siteadmins;
             $data['defaultgroup'] = xarModGetVar('roles', 'defaultgroup');
             $data['groups']       = $groups;
@@ -116,10 +118,12 @@ function roles_admin_modifyconfig()
             }
 
             $data['hooks'] = $hooks;
+            $data['emails'] = unserialize(xarModGetVar('roles', 'disallowedemails'));
             $data['defaultauthmod']    = xarModGetVar('roles', 'defaultauthmodule');
             $data['defaultregmod']     = xarModGetVar('roles', 'defaultregmodule');
             $data['allowuserhomeedit'] = xarModGetVar('roles', 'allowuserhomeedit');
             $data['requirevalidation'] = xarModGetVar('roles', 'requirevalidation');
+            $data['uniqueemail'] = xarModGetVar('roles', 'uniqueemail');
             //check for roles hook in case it's set independently elsewhere
             if (xarModIsHooked('roles', 'roles')) {
                 xarModSetVar('roles','usereditaccount',true);
@@ -135,19 +139,26 @@ function roles_admin_modifyconfig()
             switch ($data['tab']) {
                 case 'general':
                     if (!xarVarFetch('itemsperpage',      'str:1:4:', $itemsperpage,     '20', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
-                    if (!xarVarFetch('defaultauthmodule', 'str:1:',   $defaultauthmodule, xarModGetIDFromName('authsystem'), XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
-                    if (!xarVarFetch('defaultregmodule',  'str:1:',   $defaultregmodule, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+                    if (!xarVarFetch('defaultauthmodule', 'int:1:',   $defaultauthmodule, xarModGetIDFromName('authsystem'), XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+                    if (!xarVarFetch('defaultregmodule',  'int:0:',   $defaultregmodule, NULL, XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     if (!xarVarFetch('shorturls',         'checkbox', $shorturls,        false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('siteadmin',         'int:1',    $siteadmin,        xarModGetVar('roles','admin'), XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('defaultgroup',      'str:1',    $defaultgroup,     'Users', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
 
                     xarModSetVar('roles', 'itemsperpage', $itemsperpage);
                     xarModSetVar('roles', 'defaultauthmodule', $defaultauthmodule);
-                    xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);                    
+                    xarModSetVar('roles', 'defaultregmodule', $defaultregmodule);
                     xarModSetVar('roles', 'defaultgroup', $defaultgroup);
                     xarModSetVar('roles', 'SupportShortURLs', $shorturls);
                     xarModSetVar('roles', 'admin', $siteadmin);
                     break;
+                case 'restrictions':
+                    if (!xarVarFetch('uniqueemail',      'checkbox', $uniqueemail, true, XARVAR_NOT_REQUIRED)) return;               
+                    if (!xarVarFetch('disallowedemails', 'str:1', $disallowedemails, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+                    $disallowedemails = serialize($disallowedemails);
+
+                    xarModSetVar('roles', 'disallowedemails', $disallowedemails);
+                    xarModSetVar('roles', 'uniqueemail',$uniqueemail);
                 case 'hooks':
                     // Role type 'user' (itemtype 0).
                     xarModCallHooks('module', 'updateconfig', 'roles',
@@ -169,7 +180,7 @@ function roles_admin_modifyconfig()
                     if (!xarVarFetch('allowexternalurl', 'checkbox', $allowexternalurl,  false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('loginredirect',    'checkbox', $loginredirect,     true,  XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('requirevalidation','checkbox', $requirevalidation, true,  XARVAR_NOT_REQUIRED)) return;
-                   
+
                     xarModSetVar('roles', 'searchbyemail', $searchbyemail); //search by email
                     xarModSetVar('roles', 'usersendemails', $usersendemails);
                     xarModSetVar('roles', 'displayrolelist', $displayrolelist); //display member list in Roles menu links

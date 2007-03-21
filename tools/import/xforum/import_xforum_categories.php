@@ -6,9 +6,9 @@
  * Quick & dirty import of xForum data into Xaraya test sites
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2003 by the Xaraya Development Team.
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @link http://www.xaraya.com
- * 
+ *
  * @subpackage import
  * @original author mikespub <mikespub@xaraya.com>
  * @author jojodee <jojodee@xaraya.com>

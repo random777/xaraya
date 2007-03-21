@@ -3,7 +3,7 @@
  * Delete a block group
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,9 +13,8 @@
 /**
  * delete a group
  * @author Jim McDonald, Paul Rosania
- * @param $args['gid'] the ID of the block group to delete
- * @returns bool
- * @return true on success, false on failure
+ * @param int $args['gid'] the ID of the block group to delete
+ * @return bool true on success, false on failure
  */
 function blocks_adminapi_delete_group($args)
 {

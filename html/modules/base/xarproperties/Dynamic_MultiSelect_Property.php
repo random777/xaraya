@@ -3,20 +3,17 @@
  * Multiselect Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
-/*
- * @author mikespub <mikespub@xaraya.com>
-*/
 include_once "modules/base/xarproperties/Dynamic_Select_Property.php";
 /**
  * handle the multiselect property
- *
+ * @author mikespub <mikespub@xaraya.com>
  * @package dynamicdata
  */
 class Dynamic_MultiSelect_Property extends Dynamic_Select_Property
@@ -92,7 +89,9 @@ class Dynamic_MultiSelect_Property extends Dynamic_Select_Property
         $template="";
         return xarTplProperty('base', 'multiselect', 'showinput', $data);
     }
-
+    /**
+     * Show the multiselect output
+     */
     function showOutput($args = array())
     {
         extract($args);
@@ -125,8 +124,8 @@ class Dynamic_MultiSelect_Property extends Dynamic_Select_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     *
+     * @return array Base information for this property
      **/
      function getBasePropertyInfo()
      {

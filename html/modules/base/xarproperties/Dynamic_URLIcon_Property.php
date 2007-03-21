@@ -3,7 +3,7 @@
  * Dynamic URL Icon Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -59,8 +59,20 @@ class Dynamic_URLIcon_Property extends Dynamic_TextBox_Property
         if (!isset($value)) {
             $value = $this->value;
         }
+        $value = trim($value);
         if (!empty($value) && $value != 'http://') {
-            $this->value = $value;
+        // TODO: add some URL validation routine !
+        // see note under http://bugs.xaraya.com/show_bug.cgi?id=5959
+            if (preg_match('/[<>"]/',$value)) {
+                $this->invalid = xarML('URL');
+                $this->value = null;
+                return false;
+            } else if (strstr($value,'://')) {
+                $this->value = $value;
+            } else {
+                // allow users to say www.mysite.com
+                $this->value = 'http://' . $value;
+            }
         } else {
             $this->value = '';
         }
@@ -149,8 +161,7 @@ class Dynamic_URLIcon_Property extends Dynamic_TextBox_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
     function getBasePropertyInfo()
     {
@@ -177,7 +188,6 @@ class Dynamic_URLIcon_Property extends Dynamic_TextBox_Property
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showValidation($args = array())
@@ -219,7 +229,6 @@ class Dynamic_URLIcon_Property extends Dynamic_TextBox_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
-     * @returns bool
      * @return bool true if the validation rule could be processed, false otherwise
      */
     function updateValidation($args = array())

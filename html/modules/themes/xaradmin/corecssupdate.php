@@ -3,7 +3,7 @@
  * Update configuration Xaraya core CSS
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,23 +15,23 @@
 * Module admin function to update configuration Xaraya core CSS
 *
 * @author AndyV_at_Xaraya_dot_Com
-* @returns true
+* @return bool true
 */
 function themes_admin_corecssupdate()
 {
     // Confirm authorisation code
-    if (!xarSecConfirmAuthKey()) return; 
+    if (!xarSecConfirmAuthKey()) return;
     // Security Check
     if (!xarSecurityCheck('AdminTheme')) return;
-    
+
     // params
     if (!xarVarFetch('linkoptions', 'str::', $linkoptions, '', XARVAR_NOT_REQUIRED)) return;
-    
-    
+
+
     // set modvars
     xarModSetVar('themes', 'csslinkoption', $linkoptions);
 
-    xarResponseRedirect(xarModURL('themes','admin','cssconfig',array('component'=>'core'))); 
+    xarResponseRedirect(xarModURL('themes','admin','cssconfig',array('component'=>'core')));
     // Return
     return true;
 }

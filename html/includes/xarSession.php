@@ -2,10 +2,12 @@
 /**
  * Session Support
  *
- * @package sessions
+ * @package core
  * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage sessions
  * @author Jim McDonald
  * @author Marco Canini <marco@xaraya.com>
  * @author Michel Dalle
@@ -103,7 +105,7 @@ function xarSessionGetSecurityLevel()
 /**
  * Get a session variable
  *
- * @param name name of the session variable to get
+ * @param string name name of the session variable to get
  */
 function xarSessionGetVar($name)
 {
@@ -145,8 +147,8 @@ function xarSessionGetVar($name)
 
 /**
  * Set a session variable
- * @param name name of the session variable to set
- * @param value value to set the named session variable
+ * @param string name name of the session variable to set
+ * @param mixed value value to set the named session variable
  */
 function xarSessionSetVar($name, $value)
 {
@@ -180,7 +182,7 @@ function xarSessionSetVar($name, $value)
 /**
  * Delete a session variable
  * @param string name name of the session variable to delete
- * @return bool true
+ * @return bool true on successfull deletion
  */
 function xarSessionDelVar($name)
 {
@@ -216,14 +218,20 @@ function xarSessionDelVar($name)
 
     return true;
 }
-
+/**
+ * Get the session id
+ * @return string session id
+ */
 function xarSessionGetId()
 {
     return session_id();
 }
 
 // PROTECTED FUNCTIONS
-
+/**
+ * @access private
+ * @return bool true
+ */
 function xarSession_setUserInfo($userId, $rememberSession)
 {
     $dbconn =& xarDBGetConn();
@@ -245,7 +253,10 @@ function xarSession_setUserInfo($userId, $rememberSession)
     }
     return true;
 }
-
+/**
+ * Close the current session
+ * @return void
+ */
 function xarSession_close()
 {
     session_write_close();
@@ -256,6 +267,7 @@ function xarSession_close()
 /**
  * Set all PHP options for Xaraya session handling
  *
+ * @access private
  * @param $args['securityLevel'] the current security level
  * @param $args['duration'] duration of the session
  * @param $args['inactivityTimeout']
@@ -366,7 +378,7 @@ function xarSession__setup($args)
 
 /**
  * Continue a current session
- * @private
+ * @access private
  * @param sessionId the session ID
  */
 function xarSession__current($sessionId)
@@ -377,9 +389,10 @@ function xarSession__current($sessionId)
 
 /**
  * Create a new session
- * @private
+ * @access private
  * @param sessionId the session ID
  * @param ipAddress the IP address of the host with this session
+ * @return bool true
  */
 function xarSession__new($sessionId, $ipAddress)
 {
@@ -408,7 +421,8 @@ function xarSession__new($sessionId, $ipAddress)
 
 /**
  * PHP function to open the session
- * @private
+ * @access private
+ * @return bool true
  */
 function xarSession__phpOpen($path, $name)
 {
@@ -418,7 +432,8 @@ function xarSession__phpOpen($path, $name)
 
 /**
  * PHP function to close the session
- * @private
+ * @access private
+ * @return bool true
  */
 function xarSession__phpClose()
 {
@@ -512,6 +527,7 @@ function xarSession__phpWrite($sessionId, $vars)
 /**
  * PHP function to destroy a session
  * @access private
+ * @return bool true
  */
 function xarSession__phpDestroy($sessionId)
 {
@@ -530,6 +546,7 @@ function xarSession__phpDestroy($sessionId)
 /**
  * PHP function to garbage collect session information
  * @access private
+ * @return bool true
  */
 function xarSession__phpGC($maxlifetime)
 {
@@ -572,7 +589,7 @@ function xarSession__phpGC($maxlifetime)
  *
  * @author Marcel van der Boom <marcel@xaraya.com>
  * @link http://www.php.net/manual/en/ref.session.php
- * @return int
+ * @return int 1 if version is lower than 4.2.0; 0 if it is above
  */
 function xarSession__UseOldSessions()
 {

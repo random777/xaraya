@@ -3,7 +3,7 @@
  * Online Block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,7 +11,7 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-/** 
+/**
  * Online Block
  * @author Jim McDonald, Greg Allan, John Cox, Michael Makushev
  */
@@ -62,9 +62,9 @@ function roles_onlineblock_display($blockinfo)
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();
     $sessioninfotable = $xartable['session_info'];
-    $activetime = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+    $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
     if($dbconn->databaseType == 'sqlite') {
-        $sql = "SELECT COUNT(*) 
+        $sql = "SELECT COUNT(*)
                 FROM (SELECT DISTINCT xar_uid FROM $sessioninfotable
                       WHERE xar_lastused > ? AND xar_uid > 2)";
     } else {
@@ -127,7 +127,7 @@ function roles_onlineblock_display($blockinfo)
 
 
     if($dbconn->databaseType == 'sqlite') {
-        $query2 = "SELECT COUNT(*) 
+        $query2 = "SELECT COUNT(*)
                    FROM (SELECT DISTINCT xar_ipaddr FROM $sessioninfotable
                          WHERE xar_lastused > ? AND xar_uid = 2)";
     } else {

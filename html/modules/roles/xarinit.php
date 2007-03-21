@@ -3,7 +3,7 @@
  * Initialise the roles module
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,8 +17,8 @@
  *
  * @access public
  * @param none $
- * @returns bool
- * @raise DATABASE_ERROR
+ * @return bool
+ * @throws DATABASE_ERROR
  */
 function roles_init()
 {
@@ -210,19 +210,26 @@ function roles_activate()
     xarModSetVar('roles', 'setuserlastlogin',false);
     xarModSetVar('roles', 'setusertimezone',false);
     xarModSetVar('roles', 'defaultgroup', 'Users');
-    xarModSetVar('roles', 'displayrolelist', false);  
+    xarModSetVar('roles', 'displayrolelist', false);
     xarModSetVar('roles', 'usereditaccount', true);
     xarModSetVar('roles', 'allowuserhomeedit', false);
     xarModSetVar('roles', 'loginredirect', true);
     xarModSetVar('roles', 'allowexternalurl', false);
     xarModSetVar('roles', 'usersendemails', false);
-    xarModSetVar('roles', 'requirevalidation', true);    
+    xarModSetVar('roles', 'requirevalidation', true);
+
+    $emails = 'none@none.com
+president@whitehouse.gov';
+    $disallowedemails = serialize($emails);
+    xarModSetVar('roles', 'disallowedemails', $disallowedemails);
+
     $lockdata = array('roles' => array( array('uid' => 4,
                                               'name' => 'Administrators',
                                               'notify' => TRUE)),
                                   'message' => '',
                                   'locked' => 0,
-                                  'notifymsg' => '');
+                                  'notifymsg' => '',
+                                  'killactive' => FALSE);
     xarModSetVar('roles', 'lockdata', serialize($lockdata));
 
     xarModSetVar('roles', 'itemsperpage', 20);
@@ -269,9 +276,9 @@ function roles_activate()
  * Upgrade the roles module from an old version
  *
  * @access public
- * @param oldVersion $
- * @returns bool
- * @raise DATABASE_ERROR
+ * @param string oldVersion $
+ * @return bool true on success
+ * @throws DATABASE_ERROR
  */
 function roles_upgrade($oldVersion)
 {
@@ -279,7 +286,7 @@ function roles_upgrade($oldVersion)
     switch ($oldVersion) {
         case '1.01':
             break;
-      case '1.1.0':
+        case '1.1.0':
 
             // is there an authentication module?
             $regid = xarModGetIDFromName('authsystem');
@@ -296,7 +303,7 @@ function roles_upgrade($oldVersion)
                 // delete the old roles modvars
                 xarModDelVar('roles', 'allowregistration');
                 xarModDelVar('roles', 'rolesperpage');
-                xarModDelVar('roles', 'uniqueemail');
+                xarModDelVar('roles', 'uniqueemail'); //this really should be in roles to avoid non core dependencies
                 xarModDelVar('roles', 'askwelcomeemail');
                 xarModDelVar('roles', 'askvalidationemail');
                 xarModDelVar('roles', 'askdeactivationemail');
@@ -319,7 +326,7 @@ function roles_upgrade($oldVersion)
             }
             xarModSetVar('roles', 'locale', '');
             xarModSetVar('roles', 'userhome', '');
-            xarModSetVar('roles', 'userlastlogin', '');            
+            xarModSetVar('roles', 'userlastlogin', '');
             xarModSetVar('roles', 'primaryparent', '');
             xarModSetVar('roles', 'usertimezone', '');
             xarModSetVar('roles', 'setuserhome',false);
@@ -333,7 +340,18 @@ function roles_upgrade($oldVersion)
             xarModSetVar('roles', 'loginredirect', true);
             xarModSetVar('roles', 'allowexternalurl', false);
             break;
-
+        case '1.1.1':
+            xarModSetVar('roles', 'uniqueemail', true);
+            $disallowed = xarModGetVar('roles', 'disallowedemails');
+            if (!isset($disallowed)) {
+                   xarModSetVar('roles','disallowedemails',''); //let's set it so it doesn't error else leave content to upgrade.php
+            }
+            break;
+        case '1.1.2':
+            $lockdata= unserialize(xarModgetVar('roles', 'lockdata'));
+            $lockdata['killactive']= false;
+            xarModSetVar('roles','lockdata',serialize($lockdata));    
+            break;            
     }
     // Update successful
     return true;
@@ -344,8 +362,8 @@ function roles_upgrade($oldVersion)
  *
  * @access public
  * @param none $
- * @returns bool
- * @raise DATABASE_ERROR
+ * @return bool false, this module cannot be removed
+ * @throws DATABASE_ERROR
  */
 function roles_delete()
 {

@@ -1,8 +1,15 @@
 <?php
-
-/*
-Copyright (C) 2004 the Digital Development Corporation
-
+/**
+ * Logger
+ *
+ * @package core
+ * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage logging
+ */
+/**
 The exception detailed below is granted for the following files in this directory:
 
 - simple.php
@@ -18,13 +25,13 @@ As a special exception to the GNU General Public License Xaraya is distributed u
  * This class implements the Logger
  *
  * @author  Flavio Botelho <nuncanada@ig.com.br>
- * @package logging
+ * @subpackage logging
  */
 
 /**
  * Base class for all loggers
  *
- * @package logging
+ * @subpackage logging
  */
 class xarLogger
 {

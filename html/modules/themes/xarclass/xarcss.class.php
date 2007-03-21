@@ -3,7 +3,7 @@
  * Xaraya CSS class library
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,7 +11,8 @@
  * @link http://xaraya.com/index.php/release/70.html
  */
 
-/* Xaraya CSS class library
+/**
+ * Xaraya CSS class library
  *
  * @author Andy Varganov <andyv@xaraya.com>
  */
@@ -35,8 +36,6 @@ define("CSSCOMMONBASE", "base");
 /**
  * Base CSS class
  *
- *
- * @package themes
  */
 class xarCSS
 {
@@ -56,9 +55,9 @@ class xarCSS
     var $commonsource = CSSCOMMONSOURCE;  // filename for common css
 
     var $source     = null;         // empty source should not be included (ideally)
-    
+
     var $condition  = null;         // encase in a conditions comment (think ie-win)
-    
+
     var $dynfile; // not implemented yet
 
     // TYPICAL REQUIRED ATTRIBUTES FOR WELL-FORMED CSS REFERENCE TAGS (xhtml-wise)
@@ -84,7 +83,9 @@ class xarCSS
     var $parse      = false;        // true == parse mode enabled
     var $suppress   = false;        // true == this css is suppressed
 
-    // constructor
+    /**
+     * constructor
+     */
     function xarCSS($args)
     {
         extract($args);
@@ -96,7 +97,7 @@ class xarCSS
         } elseif ($this->scope == 'module') {
             $this->base = xarModGetName();
         } elseif ($this->scope == 'block') {
-            // we basically need to find out which module this block belongs to 
+            // we basically need to find out which module this block belongs to
             // and then procede as with module scope
             $this->base = xarCore_GetCached('Security.Variables', 'currentmodule');
         }
@@ -111,7 +112,7 @@ class xarCSS
         if($this->method == 'import' && isset($media)) {
             $this->media = str_replace(' ', ', ', $media);
         }
-        
+
         if (isset($source)) $this->source               = $source;
         if (isset($condition)) $this->condition         = $condition;
 
@@ -128,9 +129,10 @@ class xarCSS
                             'title'            => $this->title,
                             'condition'        => $this->condition );
     }
-
-    // The main method for generating tag output
-    // stick tag data into the tag queue or get it
+    /**
+     * The main method for generating tag output
+     * stick tag data into the tag queue or get it
+     */
     function run_output()
     {
         if (!isset($tagqueue)) $tagqueue = new tagqueue();
@@ -158,7 +160,9 @@ class xarCSS
         return $data;
     }
 
-    // returns xaraya url for the file
+    /**
+     * returns xaraya url for the file
+     */
     function geturl($dir = null)
     {
         // it's static var already in core
@@ -172,16 +176,19 @@ class xarCSS
 
         return $fullurl;
     }
-
+    /**
+     * Get the relative URL
+     * @param none
+     */
     function getrelativeurl()
     {
-        // if requested method is 'embed', we dont really need any file checks, urls, scope etc., 
+        // if requested method is 'embed', we dont really need any file checks, urls, scope etc.,
         // all we care about is the css source string as provided by the tag
         if ($this->method == "embed") {
             // could add a TODO to check validity of the actual source string, either here or earlier
             return $this->source;
         }
-        
+
         $msg = xarML("#(1) css stylesheet file cannot be found at this location: ", $this->scope);
 
         // <mrb> why is this?
@@ -200,8 +207,8 @@ class xarCSS
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg.$themestylesheet));
                 return;
             }
-        } elseif ($this->scope == 'module' || $this->scope == 'block') {            
-            
+        } elseif ($this->scope == 'module' || $this->scope == 'block') {
+
             $original = "modules/" . strtolower($this->base) . "/xarstyles/" . $this->filename . "." . $this->fileext;
             // we do not want to supply path for a non-existent original css file or override a bogus file
             // so lets check starting from original then fallback if there arent overriden versions
@@ -231,20 +238,19 @@ class xarCSS
 /**
  * Queue class. Holds the tag data until it is sent to the template
  *
- *
  * @package themes
  */
 
 class tagqueue
 {
     var $legacy = true; // Also register the global which existed before the css stuff?
-    
+
     function tagqueue()
     {
         // TODO: uncomment this :-)
         //$this->legacy = xarConfigGetVar('Site.Core.LoadLegacy');
     }
-    
+
     // FIXME: $args is used as boolean OR an array depending on the call,
     // someone is bound to trip over that hack at some point
     function queue($op='register', $args)
@@ -287,7 +293,7 @@ class tagqueue
     {
         return $this->queue('deliver',$sort);
     }
-    
+
     function deliverlegacy($sort = true)
     {
         return $this->queue('deliverlegacy',$sort);

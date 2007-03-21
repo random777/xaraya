@@ -3,7 +3,7 @@
  * View users
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,7 +12,19 @@
  */
 /**
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
- * view users
+ *
+ * View a listing of users
+ *
+ * This function shows a page with tabbed for browsing online or offline users
+ * You can search for users by entering their name, or browse by their display name
+ *
+ * @param int startnum
+ * @param string phase
+ * @param string name
+ * @param string letter The first letter of the display name to show the roles
+ * @param string search (max 100 characters) Search for a user with this string
+ * @param string order What order to show the results in
+ * @return array
  */
 function roles_user_view($args)
 {
@@ -102,7 +114,9 @@ function roles_user_view($args)
     switch(strtolower($phase)) {
         case 'active':
             $data['phase'] = 'active';
-            $filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+            //jojodee - time up until session inactivity time out? Surely it's InactivityTimeout(min) not Duration(days)
+            //$filter = time() - (xarConfigGetVar('Site.Session.Duration') * 60);
+            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
             $data['title'] = xarML('Online Members');
 
             $data['total'] = xarModAPIFunc(

@@ -62,7 +62,7 @@ function roles_onlineblock_display($blockinfo)
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();
     $sessioninfotable = $xartable['session_info'];
-    $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
+    $activetime = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
     if($dbconn->databaseType == 'sqlite') {
         $sql = "SELECT COUNT(*)
                 FROM (SELECT DISTINCT xar_uid FROM $sessioninfotable

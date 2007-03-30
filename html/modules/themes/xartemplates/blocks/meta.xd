@@ -1,9 +1,9 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
 <xar:comment>
-    The equiv meta tag now sets text/html as content, but this is 
-    determined by the page template, in our current setup compiled to 
-    late to pull it in here, this is addressed in the tpl_order 
-    scenario, no choice but to leave or delete, leaving it for now 
+    The equiv meta tag now sets text/html as content, but this is
+    determined by the page template, in our current setup compiled to
+    late to pull it in here, this is addressed in the tpl_order
+    scenario, no choice but to leave or delete, leaving it for now
 </xar:comment>
 <meta http-equiv="Content-Type" content="text/html; charset=#$charset#" />
 <meta name="Generator" content="#$generator#" />
@@ -34,7 +34,7 @@
 </xar:if>
 
 <xar:comment>
-    The XMLRPC-server module takes case of filling the RSD information 
+    The XMLRPC-server module takes case of filling the RSD information
 </xar:comment>
 <xar:if condition="xarModIsAvailable('xmlrpcserver')">
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="&xar-modurl-xmlrpcserver-user-main;" />
@@ -71,4 +71,5 @@
 
 <xar:if condition="xarModIsAvailable('search')">
     <link rel="search" type="text/html" href="&xar-modurl-search-user-main;" />
+    <link rel="search" type="application/opensearchdescription+xml" href="&xar-modurl-search-user-opensearch;&amp;pageName=module" title="#xarModGetVar('themes', 'SiteName', 1)#"/>
 </xar:if>

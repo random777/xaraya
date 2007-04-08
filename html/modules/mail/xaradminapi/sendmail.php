@@ -20,10 +20,10 @@
  * @param  array  $ 'recipients' is an array of recipients (required) // NOTE: $info or $recipients is required, not both
  * @param  string $ 'ccinfo' is the email address we are sending (optional)
  * @param  string $ 'ccname' is the name of the email recipient (optional)
- * @param  $ 'ccrecipients' is an array of cc recipients (optional)
- * @param  $ 'bccinfo' is the email address we are sending (required)
- * @param  $ 'bccname' is the name of the email receipitent (optional)
- * @param  $ 'bccrecipients' is an array of bcc recipients (optional)
+ * @param  array 'ccrecipients' is an array of cc recipients (optional)
+ * @param  'bccinfo' is the email address we are sending (optional)
+ * @param  string 'bccname' is the name of the email receipitent (optional)
+ * @param  array 'bccrecipients' is an array of bcc recipients (optional)
  * @param  string $ 'subject' is the subject of the email (required)
  * @param  string $ 'message' is the body of the email (required)
  * @param  string $ 'htmlmessage' is the html body of the email

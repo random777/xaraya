@@ -20,11 +20,11 @@ Xaraya Development Team ::
      Greg tragically passed away in June 2002. Xaraya is his legacy.
 
 
-Project Management Committee :
+Project Leadership :
 
-  Joanna Dalle Nogare (jojodee)
+  Johnny Robeson (johnny)
 
-  Jason Judge (judgej)
+  Marty Vance (Dracos)
 
 
 Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
@@ -89,7 +89,7 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Joanna Dalle Nogare (jojodee)
 
-  John Robeson (johnny)
+  Johnny Robeson (johnny)
 
   Jon Todaro (BoNe)
 

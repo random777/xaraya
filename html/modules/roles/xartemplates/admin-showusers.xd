@@ -11,7 +11,7 @@
 <xar:style scope="module" module="base" file="navtabs" />
 <xar:style scope="module" file="roletree" />
 <xar:style scope="module" file="tree" />
-<xar:additional-styles />
+
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Roles Administration</xar:mlstring></span>
 </div>

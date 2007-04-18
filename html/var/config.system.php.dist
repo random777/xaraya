@@ -42,6 +42,19 @@ $systemConfiguration['DB.Persistent'] = false;
  */
 $systemConfiguration['Exception.EnablePHPErrorHandler'] = true;
 
+ /*
+  * Useful when debugging to show errors in-situ.
+  * Don't underestimate the power of seeing the errors when all you otherwise
+  * get is a white screen.
+  * Some hosts will have this on by default anyway, so you may want to ensure
+  * it is turned off here for production.
+  * When showing errors, turn the error level up to E_ERROR so the application
+  * does not halt on every little warning. Logging by the error handler will
+  * not be affected by this setting.
+  */
+
+/* ini_set('show_errors', 'On'); */
+
 /*
  * Global error level, optional
  *

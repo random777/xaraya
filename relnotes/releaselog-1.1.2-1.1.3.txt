@@ -41,3 +41,4 @@ General fixes and improvements:
     * [5937] Multi Select Property never empty
     * [5940] DD: fetching items for mutiple categories results in multiple rows
     * [5959] Dynamic URL Property validation
+    * [6100] Error in paramaters list for sendmail()

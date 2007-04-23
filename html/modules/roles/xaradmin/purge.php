@@ -228,6 +228,7 @@ function roles_admin_purge($args)
             $selection .= "(xar_name LIKE '%" . $data['purgesearch'] . "%')";
             $selection .= " OR (xar_uname LIKE '%" . $data['purgesearch'] . "%')";
             $selection .= " OR (xar_email LIKE '%" . $data['purgesearch'] . "%')";
+            $selection .= " OR (xar_state LIKE '%" . $data['purgestate'] . "%')";
             $selection .= ")";
         }
         // Select-clause.
@@ -293,18 +294,20 @@ function roles_admin_purge($args)
             );
         }
 // --- send to template
-        //bug 4770 fix for pager
         $purgefilter['purgestartnum'] = '%%';
         $purgefilter['purgesearch'] = $data['purgesearch'];
-
+        $purgefilter['operation'] = 'purge';
         $data['submitPurge'] = xarML('Purge');
         $data['purgeusers']  = $purgeusers;
+        $purgefilter['purgestate']         = $data['purgestate'];
         $data['purgepager']  = xarTplGetPager($purgestartnum,
                                               $data['totalselect'],
                                               xarModURL('roles', 'admin', 'purge', $purgefilter),
                                               $numitems);
-    } else {
+
+
     }
+    else {}
 
 // --- finish up
     $data['authid']         = xarSecGenAuthKey();

@@ -169,8 +169,7 @@ function roles_admin_purge($args)
 // --- skip if we are trying to remove the designated site admin or the anonymous user
                 //if (($uid == xarModGetVar('roles','admin') || ($uid < 7)) { //jojodee - let's disucss a bit more - this is not a generally appliable solution 
                 if($uid == xarModGetVar('roles','admin') || $uid == _XAR_ID_UNREGISTERED) continue;
-                    continue;
-                }
+
 // --- do this in 2 stages. First, delete the role: this will update the user
 // --- count on all the role's parents
                 $role = $roleslist->getRole($uid);
@@ -294,7 +293,7 @@ function roles_admin_purge($args)
             );
         }
 // --- send to template
-        //TODO fix pager for bug 4770 
+        //bug 4770 fix for pager
         $purgefilter['purgestartnum'] = '%%';
         $purgefilter['purgesearch'] = $data['purgesearch'];
 
@@ -304,8 +303,8 @@ function roles_admin_purge($args)
                                               $data['totalselect'],
                                               xarModURL('roles', 'admin', 'purge', $purgefilter),
                                               $numitems);
+    } else {
     }
-    else {}
 
 // --- finish up
     $data['authid']         = xarSecGenAuthKey();

@@ -1192,7 +1192,7 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
             // It must exist if the SupportShortURLs variable is set for the module.
             // FIXME: if the function does not exist, then errors are not handled well, often hidden.
             // Ensure a missing short URL encoding function gets written to the log file.
-            $short = xarModAPIFunc($modName, $modType, 'encode_shorturl', $encoderArgs);
+            $short = xarModAPIFunc($modName, $modType, 'encode_shorturl', $encoderArgs, false);
             if (!empty($short)) {
                 if (is_array($short)) {
                     // An array of path and args has been returned (both optional) - new style.

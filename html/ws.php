@@ -34,7 +34,7 @@
  *
  * @access public
  * @todo make this a bit more structured, so all the services have roughly the same interface
- * @toco provide ws.php as a nice (templated) page instead of the dumb list of links
+ * @todo provide ws.php as a nice (templated) page instead of the dumb list of links
 */
 include 'includes/xarCore.php';
 

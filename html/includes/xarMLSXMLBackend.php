@@ -17,6 +17,7 @@ include_once dirname(__FILE__).'/xarMLS.php';
  * Implements a concrete translations backend based on the XML language.
  * All xml files are encoded in UTF-8. This backend is useful only when
  * running Xaraya in the multi-language mode (UTF-8).
+ * @package core
  * @subpackage multilanguage
  */
 class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend

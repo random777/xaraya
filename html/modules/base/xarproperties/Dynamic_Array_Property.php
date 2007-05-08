@@ -11,6 +11,13 @@
  * @link http://xaraya.com/index.php/release/68.html
  */
 include_once "modules/dynamicdata/class/properties.php";
+/**
+ * Property to show an array
+ *
+ * @package modules
+ * @subpackage Base module
+ * @author mikespub <mikespub@xaraya.com>
+ */
 class Dynamic_Array_Property extends Dynamic_Property
 {
     var $fields = array();

@@ -12,6 +12,8 @@
  */
 /**
  * Helper class for PHP compatibilities
+ *
+ * @package core
  */
 class xarPHPCompat
 {

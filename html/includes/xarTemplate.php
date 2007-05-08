@@ -333,7 +333,7 @@ function xarTplGetPageTitle()
  * @param  string $file
  * @param  string $fileext
  * @param  string $themefolder ('' or path no leading or trailing /, )
- * @media  string $media (multiple values supported as a comma separated list "screen, print")
+ * @param  string $media (multiple values supported as a comma separated list "screen, print")
  * @todo   can deprecate after adoption of template css tags
  * @return bool
  */
@@ -1469,7 +1469,7 @@ function xarTpl__getCacheKey($sourceFileName)
 /**
  * Model of a tag attribute
  *
- * Mainly uses fro custom tags
+ * Mainly used for custom tags
  *
  * @package blocklayout
  * @access protected

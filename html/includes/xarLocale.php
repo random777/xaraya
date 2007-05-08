@@ -656,6 +656,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
  * This class loads a valid locale descriptor XML file and returns its content
  * in the form of a locale data array
  *
+ * @package core
  * @subpackage multilanguage
  */
 class xarMLS__LocaleDataLoader

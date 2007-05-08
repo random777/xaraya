@@ -13,6 +13,8 @@
 
 /**
   * xarQuery class for SQL abstraction                                       *
+  * @package modules
+  * @subpackage Roles module
   * @author Marc Lutolf <marcinmilan@xaraya.com>
   *                          *
   *  This program is free software; you can redistribute it and/or modify it *

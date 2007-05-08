@@ -13,9 +13,12 @@
  * @todo this needs another place
  * @todo this needs documentation
  */
+
 /**
  * Wrapper class for PHP date functions
  * Not much is used from these functions
+ *
+ * @package core
  */
 class xarDate
 {

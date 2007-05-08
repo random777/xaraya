@@ -27,6 +27,8 @@ define('ROLES_GROUPTYPE',1);
  *
  * Represents the repository containing all roles
  *
+ * @package modules
+ * @subpackage Roles module
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @access public
  * @throws none
@@ -442,6 +444,8 @@ class xarRoles
  *
  * Represents a single role (user or group)
  *
+ * @package modules
+ * @subpackage Roles module
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @access public
  * @throws none

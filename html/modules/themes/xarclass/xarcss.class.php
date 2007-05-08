@@ -36,6 +36,9 @@ define("CSSCOMMONBASE", "base");
 /**
  * Base CSS class
  *
+ * @package modules
+ * @subpackage Themes module
+ * @author Andy Varganov <andyv@xaraya.com>
  */
 class xarCSS
 {

@@ -1,7 +1,4 @@
 <?php
-
-include_once('./includes/xarXML.php');
-
 /**
  * This handler was made to handle ONLY Simple XML (+attributes), creating
  * an array with indexes mimicking the xpath location and value with:
@@ -13,6 +10,8 @@ include_once('./includes/xarXML.php');
  * @package xml
  *
  */
+
+include_once('./includes/xarXML.php');
 
 class xarXMLSimpleXMLtoArrayTransformer extends xarAbstractXmlHandler
 {

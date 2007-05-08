@@ -3,7 +3,15 @@
  * PHPMailer language file.  
  * Faroese Version [language of the Faroe Islands, a Danish dominion]
  * This file created: 11-06-2004
- * Supplied by Dávur Sørensen [www.profo-webdesign.dk]
+ *
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @author Dávur Sørensen <www.profo-webdesign.dk>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage Mail module
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 $PHPMAILER_LANG = array();

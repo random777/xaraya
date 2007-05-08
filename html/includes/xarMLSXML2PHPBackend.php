@@ -11,6 +11,8 @@
  * @author Marco Canini <marco@xaraya.com>
  */
 
+include_once dirname(__FILE__). '/xarMLS.php';
+
 /**
  * This is the default translations backend and should be used for production sites.
  * Note that it does not support the xarMLS__ReferencesBackend interface.
@@ -18,7 +20,6 @@
  *
  * @package multilanguage
  */
-include_once dirname(__FILE__). '/xarMLS.php';
 class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
 {
     var $gen;
@@ -212,6 +213,11 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
     }
 }
 
+/**
+ * Generates the MLSXML2PHP backend
+ *
+ * @package multilanguage
+ */
 class PHPBackendGenerator
 {
 

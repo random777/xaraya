@@ -9,6 +9,11 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 
+/**
+ * Class for handling exceptions as a stack
+ *
+ * @package exceptions
+ */
 class xarExceptionStack
 {
     var $stack;

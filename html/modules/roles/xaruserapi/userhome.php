@@ -11,7 +11,8 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
- * @desct
+ * Determine User Home URL
+ *
  * @param   userurl to check
  * @param   truecurenturl calling url
  * @param   redirecturl page to return user

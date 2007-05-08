@@ -2,7 +2,15 @@
 /**
  * PHPMailer language file.  
  * Danish Version
- * Author: Mikael Stokkebro <info@stokkebro.dk>
+ *
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @author Mikael Stokkebro <info@stokkebro.dk>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage Mail module
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 $PHPMAILER_LANG = array();

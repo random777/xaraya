@@ -13,6 +13,8 @@
 
 /* Purpose of file:  Privileges tree renderer
  *
+ * @package modules
+ * @subpackage Privileges module
  * @author Marc Lutolf <marcinmilan@xaraya.com>
 */
 

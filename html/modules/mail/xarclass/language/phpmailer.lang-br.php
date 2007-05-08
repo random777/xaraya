@@ -1,8 +1,16 @@
 <?php
 /**
- * PHPMailer language file.  
+ * PHPMailer language file.
  * Portuguese Version
- * By Paulo Henrique Garcia - paulo@controllerweb.com.br
+ *
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @author Paulo Henrique Garcia <paulo@controllerweb.com.br>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage Mail module
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 $PHPMAILER_LANG = array();

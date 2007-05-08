@@ -16,6 +16,8 @@ include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
 /**
  * Class to handle floatbox property
  *
+ * @package modules
+ * @subpackage Base module
  * @author mikespub <mikespub@xaraya.com>
  */
 class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property

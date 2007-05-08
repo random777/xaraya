@@ -21,6 +21,8 @@
  *
  * Represents the repository containing all security masks
  *
+ * @package modules
+ * @subpackage Privileges module
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
  * @throws  none
@@ -821,6 +823,8 @@ class xarMasks
  * Represents the repository containing all privileges
  * The constructor is the constructor of the parent object
  *
+ * @package modules
+ * @subpackage Privileges module
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
  * @throws  none
@@ -1626,6 +1630,8 @@ class xarPrivileges extends xarMasks
  *
  * Represents a single security mask
  *
+ * @package modules
+ * @subpackage Privileges module
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
  * @throws  none
@@ -1970,6 +1976,8 @@ class xarPrivileges extends xarMasks
  *
  * Represents a single privileges object
  *
+ * @package modules
+ * @subpackage Privileges module
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
  * @throws  none

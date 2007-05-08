@@ -1,4 +1,17 @@
 <?php
+/**
+ * Feed Parser
+ *
+ * @package modules
+ * @copyright (C) 2002-2007 Reverend Jim
+ * @author Reverend Jim <jim@revjim.net>
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://revjim.net/code/feedParser/
+ *
+ * @subpackage Base module
+ * @link http://xaraya.com/index.php/release/68.html
+ */
+
 /*
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,7 +33,12 @@
  *  http://revjim.net/code/feedParser/
  */
 
-
+/**
+ * Parses various feed formats
+ *
+ * @package modules
+ * @subpackage Base Module
+ */
 class feedParser 
 {
 

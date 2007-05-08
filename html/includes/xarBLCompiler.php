@@ -76,6 +76,7 @@ define('XAR_BL_DEPRECATED_ATTRIBUTE','DEPRECATED_ATTRIBUTE');
 /**
  * DTD identifiers
  *
+ * @package core
  * @todo in php5 make this class constants
  * @todo move this to somewhere editable
  */
@@ -117,6 +118,7 @@ class DTDIdentifiers
  *
  * For now just a stub class to a system exception
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  */
@@ -134,6 +136,7 @@ class xarTpl__CompilerError extends SystemException
  *
  * class to hold parser errors
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  * @todo evaluate whether the exception needs to be a system exception
@@ -158,6 +161,7 @@ class xarTpl__ParserError extends SystemException
  *
  * The compiler holds the parser and the code generator as objects
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  */
@@ -218,6 +222,7 @@ class xarTpl__Compiler extends xarTpl__CompilerError
  *
  * Instance of this class record where we are doing what in the templates
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  */
@@ -239,6 +244,7 @@ class xarTpl__PositionInfo extends xarTpl__ParserError
  *
  * part of the compiler, this generates the code for each tag found
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  */
@@ -378,6 +384,7 @@ class xarTpl__CodeGenerator extends xarTpl__PositionInfo
  * modelled as extension to the position info class,
  * parses a template source file and constructs a document tree
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  * @todo this is an xml parser type functionality, can't we use an xml parser for this?
@@ -1148,6 +1155,7 @@ class xarTpl__Parser extends xarTpl__PositionInfo
 /**
  * xarTpl__NodesFactory - class which constructs nodes in the document tree
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  */
@@ -1239,6 +1247,7 @@ class xarTpl__NodesFactory extends xarTpl__ParserError
  *
  * Handle template variables
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  * @todo code the version number somewhere more central
@@ -1276,6 +1285,7 @@ class xarTpl__TemplateVariables
  *
  * Transforms BL and php expressions from templates.
  *
+ * @package core
  * @subpackage blocklayout
  * @access private
  */
@@ -1404,6 +1414,7 @@ class xarTpl__ExpressionTransformer
  * Base class for all nodes, sets the base properties, methods are
  * abstract and should be overridden by each specific node class
  *
+ * @package core
  * @subpackage blocklayout
  * hasChildren -> false
  * hasText -> false
@@ -1500,6 +1511,7 @@ class xarTpl__Node extends xarTpl__PositionInfo
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
+ * @package core
  * @subpackage blocklayout
  */
 class xarTpl__TplTagNode extends xarTpl__Node
@@ -1542,6 +1554,7 @@ class xarTpl__TplTagNode extends xarTpl__Node
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
+ * @package core
  * @subpackage blocklayout
  */
 class xarTpl__EntityNode extends xarTpl__Node
@@ -1585,6 +1598,7 @@ class xarTpl__EntityNode extends xarTpl__Node
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
+ * @package core
  * @subpackage blocklayout
  */
 class xarTpl__InstructionNode extends xarTpl__Node
@@ -1607,6 +1621,7 @@ class xarTpl__InstructionNode extends xarTpl__Node
  * xarTpl__DocumentNode
  *
  *
+ * @package core
  * @subpackage blocklayout
  * hasChildren -> true
  * hasText -> true
@@ -1656,6 +1671,7 @@ class xarTpl__DocumentNode extends xarTpl__Node
  * needAssignment -> false
  * needParameter -> false
  * needExceptionsControl -> false
+ * @package core
  * @subpackage blocklayout
  */
 class xarTpl__TextNode extends xarTpl__Node

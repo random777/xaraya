@@ -1,4 +1,16 @@
 <?php // File: $Id$ $Name$
+/**
+ * Downgrade from PHPNuke 5.4 to PHPNuke 5.3.1
+ *
+ * @package modules
+ * @copyright (C) 2001 by the PostNuke Development Team.
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.postnuke.com
+ *
+ * @subpackage Installer module
+ * @link http://xaraya.com/index.php/release/200.html
+ */
+
 // ----------------------------------------------------------------------
 // PostNuke Content Management System
 // Copyright (C) 2001 by the PostNuke Development Team.

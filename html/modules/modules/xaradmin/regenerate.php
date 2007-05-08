@@ -21,7 +21,6 @@
  * @access public
  * @param none
  * @returns bool
- * @
  */
 function modules_admin_regenerate()
 {

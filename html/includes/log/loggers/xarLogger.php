@@ -31,6 +31,7 @@ As a special exception to the GNU General Public License Xaraya is distributed u
 /**
  * Base class for all loggers
  *
+ * @package core
  * @subpackage logging
  */
 class xarLogger

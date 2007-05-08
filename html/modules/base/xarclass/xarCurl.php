@@ -22,6 +22,8 @@
  * if ($curl->errno <> 0) {...raise error...}
  *
  *
+ * @package modules
+ * @subpackage Base module
  * @author  Jason Judge <judgej@xaraya.com>
  * @access  public
  * @param   $args['url'] The main URL for the curl session (optional)

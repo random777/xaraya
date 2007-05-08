@@ -11,6 +11,8 @@
  * @link http://xaraya.com/index.php/release/68.html
  */
 /**
+ * @package modules
+ * @subpackage Base module
  * @author Roger Keays <roger.keays@ninthave.net>
  */
 

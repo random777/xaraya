@@ -2,6 +2,15 @@
 /**
  * PHPMailer language file.  
  * Hungarian Version
+ *
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @author unknown
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage Mail module
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 $PHPMAILER_LANG = array();

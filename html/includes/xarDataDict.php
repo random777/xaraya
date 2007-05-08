@@ -18,6 +18,7 @@
  * For more information:
  *   http://phplens.com/lens/adodb/docs-datadict.htm
  *
+ * @package core
  * @author Richard Cave <rcave@xaraya.com>
  * @access public
  * @throws none
@@ -803,6 +804,7 @@ class xarDataDict
  *
  * Represents the repository containing metadata
  *
+ * @package core
  * @author Richard Cave <rcave@xaraya.com>
  * @access public
  * @throws none

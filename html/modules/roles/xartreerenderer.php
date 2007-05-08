@@ -11,7 +11,10 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
- * Purpose of file:  Roles tree renderer
+ * Roles tree renderer
+ *
+ * @package modules
+ * @subpackage Roles module
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 

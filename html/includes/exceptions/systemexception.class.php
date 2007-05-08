@@ -14,6 +14,8 @@ include_once dirname(__FILE__)."/exception.class.php";
 /**
  * Class to handle the system exceptions
  * This returns a message to display
+ *
+ * @package exceptions
  */
 class SystemException extends xarException
 {

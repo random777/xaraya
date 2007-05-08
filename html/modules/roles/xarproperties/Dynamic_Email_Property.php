@@ -13,6 +13,8 @@
 
 /*
  * Handle E-mail property
+ * @package modules
+ * @subpackage Roles module
  * @author mikespub <mikespub@xaraya.com>
 */
 

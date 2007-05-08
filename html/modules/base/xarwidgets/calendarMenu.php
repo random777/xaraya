@@ -14,6 +14,15 @@
 //could this be a first widget?
 
 // added by AV to reuse the code
+
+// Dracos: why is this not templated?
+
+/**
+ * Builds a Calendar menu
+ *
+ * @package modules
+ * @subpackage Base Module
+ */
 function news_adminapi_buildCalendarMenu($args) //$automated, &$year, &$day, &$month, &$hour, &$min)
 {
     $out = '';

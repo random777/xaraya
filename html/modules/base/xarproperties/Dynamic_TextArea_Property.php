@@ -13,6 +13,8 @@
 /**
  * Property to show a text area
  *
+ * @package modules
+ * @subpackage Base module
  * @author mikespub <mikespub@xaraya.com>
  */
 class Dynamic_TextArea_Property extends Dynamic_Property

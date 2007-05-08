@@ -2,7 +2,15 @@
 /**
  * PHPMailer language file.  
  * Catalan Version
- * By Ivan: web AT microstudi DOT com
+ *
+ * @package modules
+ * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @author Ivan: web AT microstudi DOT com
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage Mail module
+ * @link http://xaraya.com/index.php/release/771.html
  */
 
 $PHPMAILER_LANG = array(); 

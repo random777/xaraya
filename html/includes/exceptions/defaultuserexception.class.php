@@ -14,6 +14,8 @@
 include_once dirname(__FILE__)."/exception.class.php";
 /**
  * Class for the global user exceptions
+ *
+ * @package core
  */
 class DefaultUserException extends xarException
 {

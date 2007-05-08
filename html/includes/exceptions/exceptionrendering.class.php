@@ -11,6 +11,8 @@
  */
 /**
  * Class for rendering the exception, so the exception message can be displayed
+ *
+ * @package exceptions
  */
 class ExceptionRendering
 {

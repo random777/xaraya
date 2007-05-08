@@ -13,6 +13,11 @@ if (!class_exists('ExceptionRendering')) {
     include_once(dirname(__FILE__) . "/exceptionrendering.class.php");
 }
 
+/**
+ * Class for rendering exceptions formatted for HTML display
+ *
+ * @package exceptions
+ */
 class HTMLExceptionRendering extends ExceptionRendering
 {
 

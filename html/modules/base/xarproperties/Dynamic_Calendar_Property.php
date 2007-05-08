@@ -18,6 +18,7 @@
  * The calendar is a js popup in which users can choose a date
  * The date will get converted into a datetime or timestamp value, depending on the validation chosen.
  *
+ * @package modules
  * @subpackage Base module
  * @author
  * @param

@@ -11,6 +11,11 @@
 
 include_once dirname(__FILE__)."/exception.class.php";
 
+/**
+ * Class for exception type NoException
+ *
+ * @package exceptions
+ */
 class NoException extends xarException
 {
     function NoException()

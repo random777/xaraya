@@ -13,6 +13,8 @@
 
 /*
  * Dynamic userlist property
+ * @package modules
+ * @subpackage Roles module
  * @author mikespub <mikespub@xaraya.com>
  */
 

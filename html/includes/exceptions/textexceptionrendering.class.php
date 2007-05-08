@@ -14,6 +14,11 @@ if (!class_exists('ExceptionRendering')) {
     include_once(dirname(__FILE__) . "/exceptionrendering.class.php");
 }
 
+/**
+ * Class for rendering exceptions as plain text
+ *
+ * @package exceptions
+ */
 class TextExceptionRendering extends ExceptionRendering
 {
     var $linebreak = "\n";

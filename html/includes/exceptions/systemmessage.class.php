@@ -11,6 +11,11 @@
 
 include_once dirname(__FILE__)."/exception.class.php";
 
+/**
+ * Class for exception type SystemMessage
+ *
+ * @package exceptions
+ */
 class SystemMessage extends xarException
 {
     var $link;

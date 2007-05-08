@@ -13,6 +13,11 @@
 
 define ("CONVERT_TABLES_DIR", 'includes/transforms/convtables/');
 
+/**
+ * Class for exception type SystemMessage
+ *
+ * @package multilanguage
+ */
 class xarCharset
 {
     var $lastConversion = ''; // Last used conversion

@@ -10,6 +10,9 @@
  * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
+
+include_once dirname(__FILE__).'/xarMLS.php';
+
 /**
  * This is the default translations backend and should be used for production sites.
  * Note that it does not support the xarMLS__ReferencesBackend interface.
@@ -17,8 +20,6 @@
  *
  * @package multilanguage
  */
-
-include_once dirname(__FILE__).'/xarMLS.php';
 class xarMLS__PHPTranslationsBackend extends xarMLS__ReferencesBackend
 {
     function xarMLS__PHPTranslationsBackend($locales)

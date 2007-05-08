@@ -21,7 +21,7 @@
  * @param int    $args['modid'] module ID
  * @param string $args['filename'] file name
  * @return string the virtual pathname for the JS file; an empty value if not found
- * @checkme: the default module should be the current *template* module, not the *request* module?
+ * @todo checkme: the default module should be the current *template* module, not the *request* module?
  */
 function base_javascriptapi__findfile($args)
 {

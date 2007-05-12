@@ -73,36 +73,40 @@ html/
     |-- modules/
     |   |-- <module name>/
     |       |-- xartemplates/
-    |           |    <user|admin>-<module function>[-<template>].xd
-    |           |--  blocks/
-    |           |        <block name>-<template name>.xd
-    |           |--  includes/
-    |           |        <file>.xd
-    |           |--  properties/
-    |                    <showinput|showoutput>[-<propertyname>].xd
+    |           |   <user|admin>-<module function>[-<template>].xd
+    |           |-- blocks/
+    |           |       <block name>-<template name>.xd
+    |           |-- includes/
+    |           |       <file>.xd
+    |           |-- objects/
+    |           |       show<display|form|list|view>[-<objectname>].xd
+    |           |-- properties/
+    |                   <showinput|showoutput|showlabel|showvalidation|showdisplay|showhidden|_showPreset>[-<propertyname>].xd
     |-- includes/
-    |       xarTemplate.php
-    |       xarBLCompiler.php
-    |       blnodes/
+    |   |-- xarTemplate.php
+    |   |-- xarBLCompiler.php
+    |   |-- blnodes/
     |       |-- entities
     |       |-- instructions
     |       |-- tags
     |-- themes/
-          <theme name>/
-          |-- theme.php
-          |-- pages/
-          |     <master templates>.xt
-          |-- modules/
-          |   |-- <module name>/
-          |   |       <user|admin>-<module function>[-<template name>].xt
-          |   |-- blocks/
-          |   |       <block name>-<template name>.xt
-          |   |-- includes/
-          |   |       <file>.xt
-          |   |-- properties/
-          |           <showinput|showoutput>[-<propertyname>].xt
-          |-- includes/
-                <file>.xt
+        |-- <theme name>/
+            |-- theme.php
+            |-- pages/
+            |       <master templates>.xt
+            |-- modules/
+            |   |-- <module name>/
+            |   |       <user|admin>-<module function>[-<template name>].xt
+            |   |-- blocks/
+            |   |       <block name>-<template name>.xt
+            |   |-- includes/
+            |   |       <file>.xt
+            |   |-- objects/
+            |   |       show<display|form|list|view>[-<objectname>].xt
+            |   |-- properties/
+            |           <showinput|showoutput|showlabel|showvalidation|showdisplay|showhidden|_showPreset>[-<propertyname>].xt
+            |-- includes/
+                    <file>.xt
       ]]></artwork>
             </t>
 

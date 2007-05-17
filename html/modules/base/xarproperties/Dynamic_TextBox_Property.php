@@ -63,22 +63,25 @@ class Dynamic_TextBox_Property extends Dynamic_Property
             $value = $this->value;
         } elseif (is_array($value)) {
             $value = serialize($value);
+            $this->value = $value;
+        } else {
+            $this->value = $value;
         }
         if (!empty($value) && strlen($value) > $this->maxlength) {
-            $this->invalid = xarML('text : must be less than #(1) characters long',$this->max + 1);
-            $this->value = null;
+            $this->invalid = xarML('text : must be less than #(1) characters long', $this->max + 1);
+            //$this->value = null;
             return false;
         } elseif (isset($this->min) && strlen($value) < $this->min) {
-            $this->invalid = xarML('text : must be at least #(1) characters long',$this->min);
-            $this->value = null;
+            $this->invalid = xarML('text : must be at least #(1) characters long', $this->min);
+            //$this->value = null;
             return false;
         } elseif (!empty($this->regex) && !preg_match($this->regex, $value)) {
             $this->invalid = xarML('text : does not match regular expression');
-            $this->value = null;
+            //$this->value = null;
             return false;
         } else {
-    // TODO: allowable HTML ?
-            $this->value = $value;
+            // TODO: allowable HTML ?
+            //$this->value = $value;
             return true;
         }
     }

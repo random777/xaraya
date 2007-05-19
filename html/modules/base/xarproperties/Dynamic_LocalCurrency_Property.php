@@ -20,8 +20,10 @@ include_once "modules/base/xarproperties/Dynamic_FloatBox_Property.php";
  */
 class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
 {
-    var $size = 10;
+    var $size = 12;
     var $maxlength = 30;
+
+    var $datatype = 'currency';
 
     // TODO: indicate field alignment = 'right'
     // TODO: the grouping seperator, decimal separator and precision could be

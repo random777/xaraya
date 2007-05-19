@@ -100,6 +100,12 @@
     width: 90%;
 }
 
+/* Datatypes for form items */
+
+.xar-form-datatype-text {}
+.xar-form-datatype-currency {text-align: right;}
+.xar-form-datatype-number {text-align: right;}
+
 /* scrollable area heights */
 .xar-area-small { height: 10ex; }
 .xar-area-medium { height: 20ex; }

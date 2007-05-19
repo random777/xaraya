@@ -3,14 +3,16 @@
  * Dynamic Textbox Property
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- * @author mikespub <mikespub@xaraya.com>
  */
+/*
+ * @author mikespub <mikespub@xaraya.com>
+*/
 /* Include parent class */
 include_once "modules/dynamicdata/class/properties.php";
 
@@ -28,6 +30,11 @@ class Dynamic_TextBox_Property extends Dynamic_Property
     var $max = null;
     var $regex = null;
 
+    // TODO: include this in some 'standard class set'.
+    // The idea is to add some semantics, so the class describes what the
+    // item contains, e.g. text, numbers, postcodes.
+    var $datatype = 'text';
+
     function Dynamic_TextBox_Property($args)
     {
         $this->Dynamic_Property($args);
@@ -37,10 +44,6 @@ class Dynamic_TextBox_Property extends Dynamic_Property
             $this->parseValidation($this->validation);
         }
     }
-    /**
-     * Check the input for the textbox
-     * Calls the validateValue function
-     */
     function checkInput($name='', $value = null)
     {
         if (empty($name)) {
@@ -53,46 +56,37 @@ class Dynamic_TextBox_Property extends Dynamic_Property
         }
         return $this->validateValue($value);
     }
-    /**
-     * Validate the value entered
-     * @return bool true on successfull validation
-     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
             $value = $this->value;
         } elseif (is_array($value)) {
             $value = serialize($value);
-            $this->value = $value;
-        } else {
-            $this->value = $value;
         }
         if (!empty($value) && strlen($value) > $this->maxlength) {
-            $this->invalid = xarML('text : must be less than #(1) characters long', $this->max + 1);
-            //$this->value = null;
+            $this->invalid = xarML('text : must be less than #(1) characters long',$this->max + 1);
+            $this->value = null;
             return false;
         } elseif (isset($this->min) && strlen($value) < $this->min) {
-            $this->invalid = xarML('text : must be at least #(1) characters long', $this->min);
-            //$this->value = null;
+            $this->invalid = xarML('text : must be at least #(1) characters long',$this->min);
+            $this->value = null;
             return false;
         } elseif (!empty($this->regex) && !preg_match($this->regex, $value)) {
             $this->invalid = xarML('text : does not match regular expression');
-            //$this->value = null;
+            $this->value = null;
             return false;
         } else {
-            // TODO: allowable HTML ?
-            //$this->value = $value;
+    // TODO: allowable HTML ?
+            $this->value = $value;
             return true;
         }
     }
-    /**
-     * Show the input form
-     */
+
     function showInput($args = array())
     {
         extract($args);
         $data = array();
-
+        
         if (empty($maxlength) && isset($this->max)) {
             $this->maxlength = $this->max;
             if ($this->size > $this->maxlength) {
@@ -113,6 +107,7 @@ class Dynamic_TextBox_Property extends Dynamic_Property
         $data['maxlength']= !empty($maxlength) ? $maxlength : $this->maxlength;
         $data['size']     = !empty($size) ? $size : $this->size;
         $data['onfocus']  = isset($onfocus) ? $onfocus : null; // let tpl decide what to do with it
+        if ($this->datatype != '') $data['datatype_class'] = 'xar-form-datatype-' . strtolower($this->datatype);
 
         // FIXME: this won't work when called by a property from a different module
         // allow template override by child classes (or in BL tags/API calls)
@@ -135,7 +130,7 @@ class Dynamic_TextBox_Property extends Dynamic_Property
 
         $data['value'] = $value;
 
-    // FIXME: this won't work when called by a property from a different module
+        // FIXME: this won't work when called by a property from a different module
         // allow template override by child classes (or in BL tags/API calls)
         if (empty($template)) {
             $template = 'textbox';
@@ -147,18 +142,16 @@ class Dynamic_TextBox_Property extends Dynamic_Property
     // check validation for allowed min/max length (or values)
     function parseValidation($validation = '')
     {
-        if (is_string($validation) && strchr($validation,':')) {
-            $fields = explode(':',$validation);
-            $min = array_shift($fields);
-            $max = array_shift($fields);
-            if ($min !== '' && is_numeric($min)) {
-                $this->min = $min; // could be int or float - cfr. FloatBox below
+        if (is_string($validation) && strchr($validation, ':')) {
+            $fields = explode(':', $validation, 3);
+            if (isset($fields[0]) && $fields[0] !== '' && is_numeric($fields[0])) {
+                $this->min = $fields[0]; // could be int or float - cfr. FloatBox below
             }
-            if ($max !== '' && is_numeric($max)) {
-                $this->max = $max; // could be int or float - cfr. FloatBox below
+            if (isset($fields[1]) && $fields[1] !== '' && is_numeric($fields[1])) {
+                $this->max = $fields[1]; // could be int or float - cfr. FloatBox below
             }
-            if (count($fields) > 0) {
-                $this->regex = join(':', $fields); // the rest belongs to the regular expression
+            if (isset($fields[2])) {
+                $this->regex = $fields[2]; // the rest belongs to the regular expression
             }
         }
     }
@@ -166,7 +159,8 @@ class Dynamic_TextBox_Property extends Dynamic_Property
     /**
      * Get the base information for this property.
      *
-     * @return array base information for this property
+     * @returns array
+     * @return base information for this property
      **/
      function getBasePropertyInfo()
      {
@@ -194,6 +188,7 @@ class Dynamic_TextBox_Property extends Dynamic_Property
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
+     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showValidation($args = array())
@@ -234,6 +229,7 @@ class Dynamic_TextBox_Property extends Dynamic_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['validation'] new validation rule
      * @param $args['id'] id of the field
+     * @returns bool
      * @return bool true if the validation rule could be processed, false otherwise
      */
      function updateValidation($args = array())

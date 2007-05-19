@@ -3,14 +3,12 @@
  * Number Box Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- */
-/*
  * @author mikespub <mikespub@xaraya.com>
 */
 include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
@@ -26,6 +24,10 @@ class Dynamic_NumberBox_Property extends Dynamic_TextBox_Property
     var $maxlength = 30;
     var $datatype = 'number';
 
+    /**
+     * Validate the input value to be of numeric type
+     * @return bool true if value is numeric
+     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
@@ -71,8 +73,7 @@ class Dynamic_NumberBox_Property extends Dynamic_TextBox_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
     function getBasePropertyInfo()
     {

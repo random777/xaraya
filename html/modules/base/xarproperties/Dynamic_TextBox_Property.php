@@ -3,16 +3,15 @@
  * Dynamic Textbox Property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- */
-/*
  * @author mikespub <mikespub@xaraya.com>
 */
+
 /* Include parent class */
 include_once "modules/dynamicdata/class/properties.php";
 
@@ -44,6 +43,11 @@ class Dynamic_TextBox_Property extends Dynamic_Property
             $this->parseValidation($this->validation);
         }
     }
+
+    /**
+     * Check the input for the textbox
+     * Calls the validateValue function
+     */
     function checkInput($name='', $value = null)
     {
         if (empty($name)) {
@@ -56,6 +60,11 @@ class Dynamic_TextBox_Property extends Dynamic_Property
         }
         return $this->validateValue($value);
     }
+
+    /**
+     * Validate the value entered
+     * @return bool true on successfull validation
+     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
@@ -64,24 +73,24 @@ class Dynamic_TextBox_Property extends Dynamic_Property
             $value = serialize($value);
         }
         if (!empty($value) && strlen($value) > $this->maxlength) {
-            $this->invalid = xarML('text : must be less than #(1) characters long',$this->max + 1);
-            $this->value = null;
+            $this->invalid = xarML('text : must be less than #(1) characters long', $this->max + 1);
             return false;
         } elseif (isset($this->min) && strlen($value) < $this->min) {
-            $this->invalid = xarML('text : must be at least #(1) characters long',$this->min);
-            $this->value = null;
+            $this->invalid = xarML('text : must be at least #(1) characters long', $this->min);
             return false;
         } elseif (!empty($this->regex) && !preg_match($this->regex, $value)) {
             $this->invalid = xarML('text : does not match regular expression');
-            $this->value = null;
             return false;
-        } else {
-    // TODO: allowable HTML ?
-            $this->value = $value;
-            return true;
         }
+
+        // TODO: allowable HTML ?
+        $this->value = $value;
+        return true;
     }
 
+    /**
+     * Show the input form
+     */
     function showInput($args = array())
     {
         extract($args);
@@ -159,25 +168,24 @@ class Dynamic_TextBox_Property extends Dynamic_Property
     /**
      * Get the base information for this property.
      *
-     * @returns array
+     * * @return array base information for this property
      * @return base information for this property
      **/
      function getBasePropertyInfo()
-     {
-         $args = array();
-         $baseInfo = array(
-                              'id'         => 2,
-                              'name'       => 'textbox',
-                              'label'      => 'Text Box',
-                              'format'     => '2',
-                              'validation' => '',
-                              'source'     => '',
-                              'dependancies' => '',
-                              'requiresmodule' => '',
-                              'aliases' => '',
-                              'args'       => serialize( $args ),
-                            // ...
-                           );
+    {
+        $args = array();
+        $baseInfo = array(
+            'id'         => 2,
+            'name'       => 'textbox',
+            'label'      => 'Text Box',
+            'format'     => '2',
+            'validation' => '',
+            'source'     => '',
+            'dependancies' => '',
+            'requiresmodule' => '',
+            'aliases' => '',
+            'args'       => serialize($args),
+        );
         return $baseInfo;
     }
 
@@ -188,7 +196,6 @@ class Dynamic_TextBox_Property extends Dynamic_Property
      * @param $args['validation'] validation rule (default is the current validation)
      * @param $args['id'] id of the field
      * @param $args['tabindex'] tab index of the field
-     * @returns string
      * @return string containing the HTML (or other) text to output in the BL template
      */
     function showValidation($args = array())
@@ -229,7 +236,6 @@ class Dynamic_TextBox_Property extends Dynamic_Property
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['validation'] new validation rule
      * @param $args['id'] id of the field
-     * @returns bool
      * @return bool true if the validation rule could be processed, false otherwise
      */
      function updateValidation($args = array())

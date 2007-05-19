@@ -3,14 +3,12 @@
  * Float box property
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
- */
-/*
  * @author mikespub <mikespub@xaraya.com>
  */
 include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
@@ -18,7 +16,9 @@ include_once "modules/base/xarproperties/Dynamic_TextBox_Property.php";
 /**
  * Class to handle floatbox property
  *
- * @package dynamicdata
+ * @package modules
+ * @subpackage Base module
+ * @author mikespub <mikespub@xaraya.com>
  */
 class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
 {
@@ -26,6 +26,10 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
     var $maxlength = 30;
     var $datatype = 'number';
 
+    /**
+     * Validate the value for this property
+     * @return bool true when validated, false when not validated
+     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
@@ -64,6 +68,10 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
 
     // default showInput() from Dynamic_TextBox_Property
 
+    /**
+     * Show the output for the float property
+     * @return mixed info for the template
+     */
     function showOutput($args = array())
     {
         extract($args);
@@ -83,15 +91,13 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
         
         $template="";
         return xarTplProperty('base', 'floatbox', 'showoutput', $data);
-
     }
 
 
     /**
      * Get the base information for this property.
      *
-     * @returns array
-     * @return base information for this property
+     * @return array base information for this property
      **/
     function getBasePropertyInfo()
     {

@@ -12,6 +12,7 @@
  *
  * @todo Handle URL decoding of files for storage, and encoding in links.
  *       This is important as URL encoding should *not* appear in a stored filename.
+ *
  * Dynamic File Upload Property
  */
 /* Include parent class */
@@ -437,7 +438,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
     // - fileName: the physical file
     // Note: the basedir is stored with the filename when 'uploads' is not hooked.
     // When 'uploads' is hooked, it does its own thing.
-    function parseValidation($validation = '')
+    function parseValidation($validation = '', $transform_fields = true)
     {
         if ($this->UploadsModule_isHooked == TRUE) {
             // Fetch uploads module hook-specific configuration.
@@ -499,34 +500,36 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
             if (isset($fields[2])) $this->maxsize = trim($fields[2]);
         }
 
-        // Note: {theme} will be replaced by the current theme directory - e.g. {theme}/images -> themes/Xaraya_Classic/images
-        if (!empty($this->basedir) && preg_match('/\{theme\}/', $this->basedir)) {
-            $curtheme = xarTplGetThemeDir();
-            $this->basedir = preg_replace('/\{theme\}/', $curtheme, $this->basedir);
-        }
+        if ($transform_fields) {
+            // Note: {theme} will be replaced by the current theme directory - e.g. {theme}/images -> themes/Xaraya_Classic/images
+            if (!empty($this->basedir) && preg_match('/\{theme\}/', $this->basedir)) {
+                $curtheme = xarTplGetThemeDir();
+                $this->basedir = preg_replace('/\{theme\}/', $curtheme, $this->basedir);
+            }
 
-        // Note: {user} will be replaced by the current user uploading the file
-        // e.g. {var}/uploads/{user} -> var/uploads/myusername_123
-        $uname = xarVarPrepForOS(xarUserGetVar('uname'));
-        $uid = xarUserGetVar('uid');
+            // Note: {user} will be replaced by the current user uploading the file
+            // e.g. {var}/uploads/{user} -> var/uploads/myusername_123
+            $uname = xarVarPrepForOS(xarUserGetVar('uname'));
+            $uid = xarUserGetVar('uid');
 
-        if (!empty($this->basedir) && preg_match('/\{user\}/', $this->basedir)) {
-            // We add the userid just to make sure it's unique e.g. when filtering
-            // out unwanted characters through xarVarPrepForOS, or if the database makes
-            // a difference between upper-case and lower-case and the OS doesn't...
-            $this->basedir = preg_replace('/\{user\}/', $uname . '_' . $uid, $this->basedir);
-        }
+            // The basedir for both standalone and uploads-hooked operation.
+            if (!empty($this->basedir) && preg_match('/\{user\}/', $this->basedir)) {
+                // We add the userid just to make sure it's unique e.g. when filtering
+                // out unwanted characters through xarVarPrepForOS, or if the database makes
+                // a difference between upper-case and lower-case and the OS doesn't...
+                $this->basedir = preg_replace('/\{user\}/', $uname . '_' . $uid, $this->basedir);
+            }
+            if (!empty($this->basedir) && preg_match('/\{userid\}/', $this->basedir)) {
+                $this->basedir = preg_replace('/\{user\}/', "$uid", $this->basedir);
+            }
 
-        if (!empty($this->basedir) && preg_match('/\{userid\}/', $this->basedir)) {
-            $this->basedir = preg_replace('/\{user\}/', "$uid", $this->basedir);
-        }
-
-        // This one only for uploads-hooked operation.
-        if (!empty($this->importdir) && preg_match('/\{user\}/', $this->importdir)) {
-            // Note: we add the userid just to make sure it's unique e.g. when filtering
-            // out unwanted characters through xarVarPrepForOS, or if the database makes
-            // a difference between upper-case and lower-case and the OS doesn't...
-            $this->importdir = preg_replace('/\{user\}/', $uname . '_' . $uid, $this->importdir);
+            // This one for uploads-hooked operation only.
+            if (!empty($this->importdir) && preg_match('/\{user\}/', $this->importdir)) {
+                $this->importdir = preg_replace('/\{user\}/', $uname . '_' . $uid, $this->importdir);
+            }
+            if (!empty($this->importdir) && preg_match('/\{userid\}/', $this->importdir)) {
+                $this->importdir = preg_replace('/\{user\}/', "$uid", $this->importdir);
+            }
         }
     }
 
@@ -569,7 +572,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
 
         if (isset($validation)) {
             $this->validation = $validation;
-            $this->parseValidation($validation);
+            $this->parseValidation($validation, false);
         }
 
         if (xarVarGetCached('Hooks.uploads','ishooked')) {

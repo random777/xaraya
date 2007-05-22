@@ -2,19 +2,11 @@
 <xar:if condition="empty($for)">
     #$label#
 <xar:elseif condition="$for ne 'id' and $for ne 'name'"/>
-    <label for="#$for#" id="#$for#_label" class="xar-form-label">
-        #$label#
-    </label>
+    <label for="#$for#" id="#$for#_label" class="xar-form-label">#$label#</label>
 <xar:elseif condition="$for eq 'id' and !empty($id)"/>
-    <label for="dd_#$id#" id="dd_#$id#_label" class="xar-form-label">
-        #$label#
-    </label>
+    <label for="dd_#$id#" id="dd_#$id#_label" class="xar-form-label">#$label#</label>
 <xar:elseif condition="$for eq 'name' and !empty($name)"/>
-    <label for="#$name#" id="#$name#_label" class="xar-form-label">
-        #$label#
-    </label>
+    <label for="#$name#" id="#$name#_label" class="xar-form-label">#$label#</label>
 <xar:else/>
-     <label class="xar-form-label">
-        #$label#
-    </label>
+     <label class="xar-form-label">#$label#</label>
 </xar:if>

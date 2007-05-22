@@ -189,13 +189,15 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
 
             // Check min/max ranges
             if (isset($this->min) && isset($this->max) && ($this->min > $value || $this->max < $value)) {
-                $this->invalid = xarML('value must be between #(1) and #(2)', $this->min, $this->max);
+                $this->invalid = xarML('value must be between #(1) and #(2)',
+                    $this->format_currency($this->min), $this->format_currency($this->max)
+                );
                 return false;
             } elseif (isset($this->min) && $this->min > $value) {
-                $this->invalid = xarML('value must be no less than #(1)', $this->min);
+                $this->invalid = xarML('value must be no less than #(1)', $this->format_currency($this->min));
                 return false;
             } elseif (isset($this->max) && $this->max < $value) {
-                $this->invalid = xarML('value must be no greater than #(1)', $this->max);
+                $this->invalid = xarML('value must be no greater than #(1)', $this->format_currency($this->max));
                 return false;
             }
         }

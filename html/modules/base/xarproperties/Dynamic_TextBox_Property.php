@@ -70,8 +70,14 @@ class Dynamic_TextBox_Property extends Dynamic_Property
         if (!isset($value)) {
             $value = $this->value;
         } elseif (is_array($value)) {
+            // TODO: does it make sense checking the length of the string after
+            // it has been serialized?
             $value = serialize($value);
         }
+
+        // Set the value regardless of whether it is valid or not.
+        $this->value = $value;
+
         if (!empty($value) && strlen($value) > $this->maxlength) {
             $this->invalid = xarML('text : must be less than #(1) characters long', $this->max + 1);
             return false;
@@ -83,8 +89,6 @@ class Dynamic_TextBox_Property extends Dynamic_Property
             return false;
         }
 
-        // TODO: allowable HTML ?
-        $this->value = $value;
         return true;
     }
 
@@ -102,12 +106,10 @@ class Dynamic_TextBox_Property extends Dynamic_Property
                 $this->size = $this->maxlength;
             }
         }
-        if (empty($name)) {
-            $name = 'dd_' . $this->id;
-        }
-        if (empty($id)) {
-            $id = $name;
-        }
+
+        if (empty($name)) $name = 'dd_' . $this->id;
+        if (empty($id)) $id = $name;
+
         $data['name']     = $name;
         $data['id']       = $id;
         $data['value']    = isset($value) ? xarVarPrepForDisplay($value) : xarVarPrepForDisplay($this->value);
@@ -120,9 +122,8 @@ class Dynamic_TextBox_Property extends Dynamic_Property
 
         // FIXME: this won't work when called by a property from a different module
         // allow template override by child classes (or in BL tags/API calls)
-        if (empty($template)) {
-            $template = 'textbox';
-        }
+        if (empty($template)) $template = 'textbox';
+
         return xarTplProperty('base', $template, 'showinput', $data);
     }
 
@@ -217,16 +218,16 @@ class Dynamic_TextBox_Property extends Dynamic_Property
         $data['max'] = isset($this->max) ? $this->max : '';
         $data['regex'] = isset($this->regex) ? xarVarPrepForDisplay($this->regex) : '';
         $data['other'] = '';
+
         // if we didn't match the above format
         if (!isset($this->min) && !isset($this->max) && !isset($this->regex)) {
             $data['other'] = xarVarPrepForDisplay($this->validation);
         }
 
-    // FIXME: this won't work when called by a property from a different module
+        // FIXME: this won't work when called by a property from a different module
         // allow template override by child classes (or in BL tags/API calls)
-        if (empty($template)) {
-            $template = 'textbox';
-        }
+        if (empty($template)) $template = 'textbox';
+
         return xarTplProperty('base', $template, 'validation', $data);
     }
 

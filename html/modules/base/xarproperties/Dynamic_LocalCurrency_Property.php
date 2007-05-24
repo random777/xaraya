@@ -11,13 +11,15 @@
  * @link http://xaraya.com/index.php/release/68.html
  * @author Jason Judge <judgej@xaraya.com>
  */
+
 include_once "modules/base/xarproperties/Dynamic_FloatBox_Property.php";
 
 /**
  * Class to handle floatbox property
  *
- * @author mikespub <mikespub@xaraya.com>
+ * @author judgej <judgej@xaraya.com>
  */
+
 class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
 {
     var $size = 12;
@@ -46,39 +48,6 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
 
     var $localeMonetary = array();
 
-    var $precision = NULL;
-    var $grouping_sep = NULL;
-    var $decimal_sep = NULL;
-    var $currency_symbol = NULL;
-
-    // Convert the locale data into a nested array.
-    // TODO: allow a subsection to be extracted without having
-    // to process the whole thing.
-    // TODO: more to the point, can we do this in the core somewhere?
-    function locale2array($data)
-    {
-        $return = array();
-        $sub = array();
-
-        foreach($data as $key => $value) {
-            $key = trim($key, '/');
-            if (strpos($key, '/') === false) {
-                $return[$key] = $value;
-            } else {
-                $key_arr = explode('/', $key, 2);
-                $sub[$key_arr[0]][$key_arr[1]] = $value;
-            }
-        }
-
-        if (!empty($sub)) {
-            foreach($sub as $key2 => $sub2) {
-                $return[$key2] = $this->locale2array($sub2);
-            }
-        }
-
-        return $return;
-    }
-
     /**
      * Constructor.
      * Fetch currency informatino from the current locale.
@@ -89,7 +58,7 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
     function Dynamic_LocalCurrency_Property($args)
     {
         $localeData = xarMLSLoadLocaleData();
-        $data = $this->locale2array($localeData);
+        $data = $this->_locale2array($localeData);
         $this->localeMonetary = $data['monetary'];
 
         if (!isset($this->precision) && isset($this->localeMonetary['fractionDigits']['maximum']) && is_numeric($this->localeMonetary['fractionDigits']['maximum'])) {
@@ -106,8 +75,12 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
             $this->decimal_sep = (isset($this->localeMonetary['decimalSeparator']) ? $this->localeMonetary['decimalSeparator'] : '.');
         }
 
-        if (!isset($this->currency_symbol)) {
-            $this->currency_symbol = (isset($this->localeMonetary['currencySymbol']) ? $this->localeMonetary['currencySymbol'] : '?');
+        if (!isset($this->number_prefix)) {
+            $this->number_prefix = (isset($this->localeMonetary['currencySymbol']) ? $this->localeMonetary['currencySymbol'] : '?');
+        }
+
+        if (!isset($this->always_show_decimal)) {
+            $this->always_show_decimal = (!empty($this->localeMonetary['isDecimalSeparatorAlwaysShown']) ? true : false);
         }
 
         // Call parent constructor to finish off the job.
@@ -116,7 +89,7 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
 
     // Check validation for allowed min/max values and precision
     // Syntax is:
-    //  min:max:precision
+    //  min:max:precision:regex
     // Where the precision is the number of digits after the decimal point (negative precision is allowed).
     // All modifiers are optional, but at least one ':' must appear.
     // TODO: move all this parsing to the core, so it does not need to be done in each
@@ -124,11 +97,12 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
     function parseValidation($validation = '')
     {
         if (is_string($validation) && strchr($validation, ':')) {
-            $fields = explode(':', $validation);
+            $fields = explode(':', $validation, 4);
 
             if (isset($fields[0]) && is_numeric($fields[0])) $this->min = $fields[0];
             if (isset($fields[1]) && is_numeric($fields[1])) $this->max = $fields[1];
             if (isset($fields[2]) && is_numeric($fields[2])) $this->precision = $fields[2];
+            if (isset($fields[3]) && is_numeric($fields[3])) $this->regex = $fields[3];
         }
     }
 
@@ -154,18 +128,22 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
                 $this->value = 0;
             }
         } else {
-            // Strip out currency symbol, e.g. '$' in '$100'
-            if ($this->currency_symbol != '') {
-                $value = preg_replace('/' . preg_quote($this->currency_symbol) . '/', '', $value);
+            // Strip out prefix or suffix symbol, e.g. '$' in '$100' or '%' in '0.2%'
+            if (!empty($this->number_prefix)) {
+                $value = preg_replace('/^' . preg_quote($this->number_prefix, '/') . '/', '', $value);
+            }
+
+            if (!empty($this->number_suffix)) {
+                $value = preg_replace('/' . preg_quote($this->number_suffix, '/') . '$/', '', $value);
             }
 
             // Strip out separators, e.g. ',' in '100,000'
-            if ($this->grouping_sep != '') {
+            if (!empty($this->grouping_sep)) {
                 $value = preg_replace('/' . preg_quote($this->grouping_sep) . '/', '', $value);
             }
 
             // Convert the decimal separator to a '.'
-            if ($this->decimal_sep != '' && $this->decimal_sep != '.') {
+            if (!empty($this->decimal_sep) && $this->decimal_sep != '.') {
                 $value = str_replace($this->decimal_sep, '.', $value);
             }
 
@@ -173,6 +151,7 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
 
             if (!is_numeric($value)) {
                 $this->invalid = xarML('invalid number');
+                $this->value = $value;
                 return false;
             }
 
@@ -180,7 +159,7 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
             $value = (float)$value;
 
             // Check the precision, and round up/down as required.
-            if (isset($this->precision)) {
+            if (isset($this->precision) && is_numeric($this->precision)) {
                 $value = round($value, $this->precision);
             }
 
@@ -190,47 +169,19 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
             // Check min/max ranges
             if (isset($this->min) && isset($this->max) && ($this->min > $value || $this->max < $value)) {
                 $this->invalid = xarML('value must be between #(1) and #(2)',
-                    $this->format_currency($this->min), $this->format_currency($this->max)
+                    $this->_format_number($this->min), $this->_format_number($this->max)
                 );
                 return false;
             } elseif (isset($this->min) && $this->min > $value) {
-                $this->invalid = xarML('value must be no less than #(1)', $this->format_currency($this->min));
+                $this->invalid = xarML('value must be no less than #(1)', $this->_format_number($this->min));
                 return false;
             } elseif (isset($this->max) && $this->max < $value) {
-                $this->invalid = xarML('value must be no greater than #(1)', $this->format_currency($this->max));
+                $this->invalid = xarML('value must be no greater than #(1)', $this->_format_number($this->max));
                 return false;
             }
         }
 
         return true;
-    }
-
-    /**
-     * Format the currency value into a string.
-     */
-    function format_currency($value)
-    {
-        // Only attempt to format a numeric value.
-        // Return if we don't have one.
-        if (!is_numeric($value)) return $value;
-
-        // If the precision is 0 or less, and we are not forced to include the decimal,
-        // then make the decimal part optional, otherwise pad it out to at least min-length
-        // with zeros.
-
-        $value = number_format($value, $this->precision, $this->decimal_sep, $this->grouping_sep);
-
-        // Strip the decimals if required.
-        // Using a preg_match seems clumsy, but gets the job done.
-        if ($this->precision <= 0 && empty($this->localeMonetary['isDecimalSeparatorAlwaysShown']) && $this->decimal_sep != '') {
-            $value = preg_replace('/' . preg_quote($this->decimal_sep) . '.*/', '', $value);
-        }
-
-        // The currency symbol goes at the start (this is an assumption, and
-        // there is nothing in the locale data to tell us otherwise).
-        $value = $this->currency_symbol . $value;
-
-        return $value;
     }
 
     /**
@@ -242,7 +193,7 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
         // TODO: move the format to a shared method for use with showOutput() too.
         // TODO: Can only format the value if it is numeric. If it is non-numeric, then
         // display it as it comes.
-        $this->value = $this->format_currency($this->value);
+        $this->value = $this->_format_number($this->value);
 
         // Pass to the parent class to handle the rest.
         // TODO: the field class should indicate it is numeric, so the columns are aligned correctly.
@@ -262,12 +213,11 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
             $value = $this->value;
         }
 
-        if (!empty($value) && !empty($field->validation)) {
-        }
+        if (!empty($value) && !empty($field->validation)) {}
 
         // TODO: do the XML encoding in the template, since we may be sending
         // data to a template that does not require such encoding.
-        $data['value'] = xarVarPrepForDisplay($this->format_currency($value));
+        $data['value'] = xarVarPrepForDisplay($this->_format_number($value));
 
         $template = '';
 

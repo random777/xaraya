@@ -10,11 +10,9 @@
  * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  *
- * @todo Handle URL decoding of files for storage, and encoding in links.
- *       This is important as URL encoding should *not* appear in a stored filename.
- *
  * Dynamic File Upload Property
  */
+
 /* Include parent class */
 include_once "modules/dynamicdata/class/properties.php";
 
@@ -293,7 +291,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         xarVarSetCached('Hooks.dynamicdata', 'withupload', 1);
 
         if ($this->UploadsModule_isHooked == TRUE) {
-            // user must have hooked the uploads module after uploading files directly
+            // User must have hooked the uploads module after uploading files directly.
             // CHECKME: remove any left over values - or migrate entries to uploads table ?
             if (!empty($value) && !is_numeric($value) && !stristr($value, ';')) $value = '';
 
@@ -501,7 +499,8 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         }
 
         if ($transform_fields) {
-            // Note: {theme} will be replaced by the current theme directory - e.g. {theme}/images -> themes/Xaraya_Classic/images
+            // {theme} will be replaced by the current theme directory
+            // e.g. {theme}/images -> themes/Xaraya_Classic/images
             if (!empty($this->basedir) && preg_match('/\{theme\}/', $this->basedir)) {
                 $curtheme = xarTplGetThemeDir();
                 $this->basedir = preg_replace('/\{theme\}/', $curtheme, $this->basedir);
@@ -538,7 +537,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
      *
      * @return array base information for this property
      **/
-     function getBasePropertyInfo()
+    function getBasePropertyInfo()
     {
         $args = array();
         $baseInfo = array(

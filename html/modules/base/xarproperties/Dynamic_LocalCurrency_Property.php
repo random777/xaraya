@@ -87,103 +87,6 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
         return parent::Dynamic_FloatBox_Property($args);
     }
 
-    // Check validation for allowed min/max values and precision
-    // Syntax is:
-    //  min:max:precision:regex
-    // Where the precision is the number of digits after the decimal point (negative precision is allowed).
-    // All modifiers are optional, but at least one ':' must appear.
-    // TODO: move all this parsing to the core, so it does not need to be done in each
-    // property separately.
-    function parseValidation($validation = '')
-    {
-        if (is_string($validation) && strchr($validation, ':')) {
-            $fields = explode(':', $validation, 4);
-
-            if (isset($fields[0]) && is_numeric($fields[0])) $this->min = $fields[0];
-            if (isset($fields[1]) && is_numeric($fields[1])) $this->max = $fields[1];
-            if (isset($fields[2]) && is_numeric($fields[2])) $this->precision = $fields[2];
-            if (isset($fields[3]) && is_numeric($fields[3])) $this->regex = $fields[3];
-        }
-    }
-
-    /**
-     * Validate the value for this property
-     * @return bool true when validated, false when not validated
-     * 
-     * To validate, strip out separator characters, strip out the currency symbol,
-     * convert what is left to a float (taking into account the decimal character)
-     * and that should provide the number value to store.
-     */
-    function validateValue($value = null)
-    {
-        if (!isset($value)) $value = $this->value;
-
-        if (!isset($value) || $value === '') {
-            // If not set, then default to min, max or zero
-            if (isset($this->min)) {
-                $this->value = $this->min;
-            } elseif (isset($this->max)) {
-                $this->value = $this->max;
-            } else {
-                $this->value = 0;
-            }
-        } else {
-            // Strip out prefix or suffix symbol, e.g. '$' in '$100' or '%' in '0.2%'
-            if (!empty($this->number_prefix)) {
-                $value = preg_replace('/^' . preg_quote($this->number_prefix, '/') . '/', '', $value);
-            }
-
-            if (!empty($this->number_suffix)) {
-                $value = preg_replace('/' . preg_quote($this->number_suffix, '/') . '$/', '', $value);
-            }
-
-            // Strip out separators, e.g. ',' in '100,000'
-            if (!empty($this->grouping_sep)) {
-                $value = preg_replace('/' . preg_quote($this->grouping_sep) . '/', '', $value);
-            }
-
-            // Convert the decimal separator to a '.'
-            if (!empty($this->decimal_sep) && $this->decimal_sep != '.') {
-                $value = str_replace($this->decimal_sep, '.', $value);
-            }
-
-            // Now we should have a number.
-
-            if (!is_numeric($value)) {
-                $this->invalid = xarML('invalid number');
-                $this->value = $value;
-                return false;
-            }
-
-            // Make sure we treat it as a number
-            $value = (float)$value;
-
-            // Check the precision, and round up/down as required.
-            if (isset($this->precision) && is_numeric($this->precision)) {
-                $value = round($value, $this->precision);
-            }
-
-            // Write the value back after making any changes to it.
-            $this->value = $value;
-
-            // Check min/max ranges
-            if (isset($this->min) && isset($this->max) && ($this->min > $value || $this->max < $value)) {
-                $this->invalid = xarML('value must be between #(1) and #(2)',
-                    $this->_format_number($this->min), $this->_format_number($this->max)
-                );
-                return false;
-            } elseif (isset($this->min) && $this->min > $value) {
-                $this->invalid = xarML('value must be no less than #(1)', $this->_format_number($this->min));
-                return false;
-            } elseif (isset($this->max) && $this->max < $value) {
-                $this->invalid = xarML('value must be no greater than #(1)', $this->_format_number($this->max));
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     /**
      * Show the input form
      */
@@ -248,18 +151,6 @@ class Dynamic_LocalCurrency_Property extends Dynamic_FloatBox_Property
 
         return $baseInfo;
     }
-
-    // Ese the parent method with a different template
-    function showValidation($args = array())
-    {
-        // Allow template override by child classes
-        if (!isset($args['template'])) {
-            $args['template'] = 'floatbox';
-        }
-
-        return parent::showValidation($args);
-    }
-
 }
 
 ?>

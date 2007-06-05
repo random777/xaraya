@@ -17,8 +17,12 @@
         <table class="xar-form-input-wrapper">
             <xar:foreach in="$properties" key="$name" value="$property">
                 <tr>
-                    <th><xar:data-label property="$properties[$name]" label="id" /></th>
-                    <td><xar:data-output property="$properties[$name]" /></td>
+                    <th scope="row"><xar:data-label property="$properties[$name]" label="id" /></th>
+                    <xar:if condition="!empty($properties[$name]-&gt;datatype)">
+                        <td class="xar-form-datatype-#$properties[$name]-&gt;datatype#"><xar:data-output property="$properties[$name]" /></td>
+                    <xar:else />
+                        <td><xar:data-output property="$properties[$name]" /></td>
+                    </xar:if>
                 </tr>
             </xar:foreach>
         </table>

@@ -46,7 +46,10 @@ class Dynamic_Select_Property extends Dynamic_Property
         }
         return $this->validateValue($value);
     }
-
+    /**
+     * Validate the value
+     * @return bool true when value is valid, false when it is not
+     */
     function validateValue($value = null)
     {
         if (isset($value)) {
@@ -67,6 +70,10 @@ class Dynamic_Select_Property extends Dynamic_Property
     }
 
 //    function showInput($name = '', $value = null, $options = array(), $id = '', $tabindex = '')
+    /**
+     * Show the input form for the property
+     * @return mixed. This function calls the template function to show the input form
+     */
     function showInput($args = array())
     {
         extract($args);

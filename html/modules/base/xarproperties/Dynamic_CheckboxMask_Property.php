@@ -17,7 +17,8 @@
 include_once "modules/base/xarproperties/Dynamic_Select_Property.php";
 
 /**
- * Class to handle check box property
+ * Class to handle check box property of the type "Mask"
+ * This property will show a list of checkbox options and display a list of "id - value" options.
  *
  * @package dynamicdata
  */
@@ -32,22 +33,24 @@ class Dynamic_CheckboxMask_Property extends Dynamic_Select_Property
     {
         $args = array();
         $baseInfo = array(
-                        'id'         => 1114,
-                        'name'       => 'checkboxmask',
-                        'label'      => 'Checkbox Mask',
-                        'format'     => '1114',
-                        'validation' => '',
-                              'source'         => '',
-                              'dependancies'   => '',
-                              'requiresmodule' => '',
-                              'aliases'        => '',
-                              'args'           => serialize($args),
+                        'id'            => 1114,
+                        'name'          => 'checkboxmask',
+                        'label'         => 'Checkbox Mask',
+                        'format'        => '1114',
+                        'validation'    => '',
+                        'source'         => '',
+                        'dependancies'   => '',
+                        'requiresmodule' => '',
+                        'aliases'        => '',
+                        'args'           => serialize($args)//,
                         // ...
                        );
         return $baseInfo;
     }
-
-
+    /**
+     * Validate the value, and make sure it is a string
+     * @return bool true
+     */
     function validateValue($value = null)
     {
         if (!isset($value)) {
@@ -80,7 +83,6 @@ class Dynamic_CheckboxMask_Property extends Dynamic_Select_Property
         {
             $data['value'] = maskExplode( $data['value'] );
         }
-
         if (!isset($options) || count($options) == 0)
         {
             $this->getOptions();
@@ -149,7 +151,11 @@ class Dynamic_CheckboxMask_Property extends Dynamic_Select_Property
     }
 
 }
-
+/**
+ * Generate a string from an array
+ * @param array @anArray
+ * @return string
+ */
 function maskImplode ( $anArray )
 {
     $output = '';
@@ -157,14 +163,19 @@ function maskImplode ( $anArray )
     {
         foreach( $anArray as $entry )
         {
-            $output .= $entry;
+            //The values are now stored with a ',' as then we can have larger id numbers than just 1 digit...
+            $output .= $entry.',';
         }
     }
     return $output;
 }
-
+/**
+ * Return the id from the first part of a string, using the ',' as the deliniator.
+ */
 function maskExplode ( $aString )
 {
-    return explode(',',substr(chunk_split($aString, 1, ','), 0, -1));
+    return explode(',',substr($aString, 0, -1));
+    // MichelV: removed this: chunk_split($aString, 1, ',')
+    // This causes double digit ids to be handled incorrectly
 }
 ?>

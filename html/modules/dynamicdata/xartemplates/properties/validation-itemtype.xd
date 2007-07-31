@@ -39,6 +39,21 @@
   </tr>
   <tr>
     <td>
+      <xar:mlstring>Multiselect</xar:mlstring>
+    </td>
+    <td>
+      <xar:if condition="!empty($multiselect)">
+        <input type="checkbox" name="#$name#[multiselect]" id="#$id#_multiselect" value="1" tabindex="#$tabindex#" checked="checked" />
+      <xar:else />
+        <input type="checkbox" name="#$name#[multiselect]" id="#$id#_multiselect" value="1" tabindex="#$tabindex#" />
+      </xar:if>
+    </td>
+    <td>
+      <xar:mlstring>Allow multiple publiction types to be selected</xar:mlstring>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <xar:mlstring>Other rule</xar:mlstring>
     </td>
     <td colspan="2">

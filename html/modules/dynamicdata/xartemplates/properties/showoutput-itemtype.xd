@@ -1,7 +1,16 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 
-<xar:if condition="!empty($option['name']) and $option['name'] ne $option['id']" >
-  [#$option['id']#] #$option['name']#
-<xar:elseif condition="isset($value)"/>
-  [#$value#]
+<xar:if condition="empty($multiselect)">
+    <xar:if condition="!empty($option.name) and $option.name ne $option.id" >
+        [#$option.id#] #$option.name#
+    <xar:elseif condition="isset($value)" />
+        [#$value#]
+    </xar:if>
+<xar:else />
+    <xar:if condition="!empty($options)">
+        <xar:loop name="$options">
+            <xar:if condition="$loop:index gt 0">, </xar:if>
+            [#$loop:item.id#] #$loop:item.name#
+        </xar:loop>
+    </xar:if>
 </xar:if>

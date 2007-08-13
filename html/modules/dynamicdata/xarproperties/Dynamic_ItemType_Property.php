@@ -14,7 +14,6 @@
 
 /**
  * Include the base class
- *
  */
 include_once "modules/base/xarproperties/Dynamic_NumberBox_Property.php";
 
@@ -28,7 +27,8 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
     var $module   = ''; // get itemtypes for this module with getitemtypes()
     var $itemtype = null; // get items for this module+itemtype with getitemlinks()
     var $func     = null; // specific API call to retrieve a list of items
-    var $options  = array();
+    var $options  = null;
+    var $multiselect = false; // Allow multiple pubtypes to be selected.
 
     function Dynamic_ItemType_Property($args)
     {
@@ -42,57 +42,81 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
 
     function validateValue($value = null)
     {
-        if (empty($this->module)) {
-            // let Dynamic_NumberBox_Property handle the rest
-            return parent::validateValue($value);
-        }
         if (isset($value)) {
-            $this->value = $value;
+            if (is_array($value)) {
+                $this->value = implode(',', $value);
+            } else {
+                $this->value = $value;
+            }
         }
-        // check if this option really exists
-        $isvalid = $this->getOption(true);
-        if (!$isvalid) {
-            $this->invalid = xarML('item type');
-            $this->value = null;
-            return false;
+
+        if (empty($this->module)) {
+            // No module name given, so this will be a simple text box.
+            if ($this->multiselect) {
+                // Validate as a list of integers.
+                $result = xarVarValidate('strlist:, :id', $this->value, true);
+                if (!$result) $this->invalid = xarML('List of integers required, got #(1)', $this->value);
+            } else {
+                // Validate as a single integer.
+                $result = xarVarValidate('id', $this->value, true);
+                if (!$result) $this->invalid = xarML('Single integer required, got #(1)', $this->value);
+            }
+            return $result;
+        }
+
+        // Check if this option or options really exist.
+        if ($this->multiselect) {
+            $options = explode(',', $this->value);
+            foreach($options as $option) {
+                $result = $this->checkOption($option);
+                if (!$result) {
+                    $this->invalid = xarML('Not a valid itemtype #(1)', $option);
+                    break;
+                }
+            }
         } else {
-            return true;
+            $result = $this->checkOption($this->value);
+            if (!$result) $this->invalid = xarML('Not a valid itemtype #(1)', $this->value);
         }
+
+        return $result;
     }
 
     function showInput($args = array())
     {
-        if (!empty($args)) {
-            $this->setArguments($args);
-        }
+        if (!empty($args)) $this->setArguments($args);
+
         if (empty($this->module)) {
-            // let Dynamic_NumberBox_Property handle the rest
+            // Let Dynamic_NumberBox_Property handle the rest (just a number box)
             return parent::showInput($args);
         }
 
         $data = array();
         $data['options']  = $this->getOptions();
         if (empty($data['options'])) {
-            // let Dynamic_NumberBox_Property handle the rest
+            // Let Dynamic_NumberBox_Property handle the rest
             return parent::showInput($args);
         }
-        $data['value']    = $this->value; // cfr. setArguments()
-        $data['name']     = !empty($this->fieldname) ? $this->fieldname : 'dd_' . $this->id;
-        $data['id']       = !empty($args['id']) ? $args['id'] : $data['name'];
-        $data['tabindex'] = !empty($args['tabindex']) ? $args['tabindex'] : 0;
-        $data['invalid']  = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '';
+
+        $data['value']    = ($this->multiselect ? explode(',', $this->value) : $this->value);
+
+        $data['name']     = (!empty($this->fieldname) ? $this->fieldname : 'dd_' . $this->id);
+        $data['id']       = (!empty($args['id']) ? $args['id'] : $data['name']);
+        $data['tabindex'] = (!empty($args['tabindex']) ? $args['tabindex'] : 0);
+        $data['invalid']  = (!empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '');
+        $data['multiselect'] = $this->multiselect;
 
         if (empty($args['template'])) {
             $args['template'] = 'itemtype';
         }
+
         return xarTplProperty('dynamicdata', $args['template'], 'showinput', $data);
     }
 
     function showOutput($args = array())
     {
-        if (!empty($args)) {
-            $this->setArguments($args);
-        }
+        if (!empty($args)) $this->setArguments($args);
+
         if (empty($this->module)) {
             // let Dynamic_NumberBox_Property handle the rest
             return parent::showOutput($args);
@@ -100,15 +124,26 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
 
         $data = array();
         $data['value'] = $this->value;
-        $data['option'] = array('id' => $this->value,
-                                'name' => $this->getOption());
+        $data['multiselect'] = $this->multiselect;
+
+        if ($this->multiselect) {
+            $options = explode(',', $this->value);
+            $data['options'] = array();
+            foreach($options as $option) {
+                $data['options'][] = array('id' => $this->value, 'name' => $this->getOption($option['id']));
+            }
+        } else {
+            $data['option'] = array('id' => $this->value, 'name' => $this->getOption($this->value));
+        }
 
         if (empty($args['template'])) {
             $args['template'] = 'itemtype';
         }
+
         return xarTplProperty('dynamicdata', $args['template'], 'showoutput', $data);
     }
 
+    // It is not clear what this method does.
     function setArguments($args = array())
     {
         if (!empty($args['module']) &&
@@ -123,13 +158,16 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
                 $this->func = $args['func'];
             }
         }
+
         if (!empty($args['name'])) {
             $this->fieldname = $args['name'];
         }
+
         // could be 0 here
         if (isset($args['value']) && is_numeric($args['value'])) {
             $this->value = $args['value'];
         }
+
         if (!empty($args['options']) && is_array($args['options'])) {
             $this->options = $args['options'];
         }
@@ -152,164 +190,157 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
      *       E.g. "articles.1:xarModAPIFunc('articles','user','dropdownlist',array('ptid' => 1, 'where' => ...))"
      *       = some filtered list of articles in publication type 1 News Articles
      *
+     *   An additional third parameter is supported, with a value of 0 or 1 (defaut 0)
+     *   This parameter allows multiple publication types to be selected if set (1).
+     *
      *   TODO: support 2nd API call to retrieve the item in case getitemlinks() isn't supported
      */
     function parseValidation($validation = '')
     {
-        // see if the validation field contains a valid module name
-        if (preg_match('/^\w+$/',$validation) &&
-            xarModIsAvailable($validation)) {
+        $parts = explode(':', $validation, 4);
 
-            $this->module = $validation;
+        // See if the validation field contains a valid module name
+        if (!empty($parts[0])) {
+            $modparts = explode('.', $parts[0], 2);
+            // The module is valid
+            if (xarModIsAvailable($modparts[0])) {
+                $this->module = $modparts[0];
 
-        } elseif (preg_match('/^(\w+)\.(\d+)$/',$validation,$matches) &&
-                  xarModIsAvailable($matches[1])) {
+                // The module has an itemtype specified.
+                if (isset($modparts[1]) && is_numeric($modparts[1])) $this->itemtype = $modparts[1];
 
-            $this->module = $matches[1];
-            $this->itemtype = $matches[2];
+                // The custom function is specified.
+                if (!empty($parts[1]) && preg_match('/^xarModAPIFunc.*/i', $parts[1])) {
+                    $this->func = $parts[1];
+                }
+            }
+        }
 
-        } elseif (preg_match('/^(\w+)\.(\d+):(xarModAPIFunc.*)$/i',$validation,$matches) &&
-                  xarModIsAvailable($matches[1])) {
+        // The multiselect flag is set.
+        if (!empty($parts[2]) && preg_match('/^[1YT]$/i', $parts[2])) $this->multiselect = true;
+    }
 
-            $this->module = $matches[1];
-            $this->itemtype = $matches[2];
-            $this->func = $matches[3];
+    /**
+     * Retrieve the list of itemtype options or a single option.
+     */
+    function getOptions($p_id = NULL)
+    {
+        if (!empty($this->options) && !isset($p_id)) {
+            // Return the full list available.
+            return $this->options;
+        }
+
+        // Nothing to return.
+        if (empty($this->module)) $this->options = array();
+
+        if (!isset($this->options)) {
+            // We have no options yet - attempt to get some.
+            $options = array();
+            if (!isset($this->itemtype)) {
+                // We are interested in the module itemtypes (= default behaviour)
+                // Do not throw an exception if this function does not exist.
+                $itemtypes = xarModAPIFunc($this->module, 'user', 'getitemtypes', array(), 0);
+
+                if (!empty($itemtypes)) {
+                    foreach ($itemtypes as $typeid => $typeinfo) {
+                        if (isset($typeid) && isset($typeinfo['label'])) {
+                            $options[] = array('id' => $typeid, 'name' => $typeinfo['label']);
+                        }
+                    }
+                }
+            } elseif (empty($this->func)) {
+                // We are interested in the items for module+itemtype
+                // Do not throw an exception if this function does not exist
+                $itemlinks = xarModAPIFunc($this->module, 'user', 'getitemlinks',
+                    array('itemtype' => $this->itemtype, 'itemids'  => null), 0
+                );
+
+                if (!empty($itemlinks)) {
+                    foreach ($itemlinks as $itemid => $linkinfo) {
+                        if (isset($itemid) && isset($linkinfo['label'])) {
+                            $options[] = array('id' => $itemid, 'name' => $linkinfo['label']);
+                        }
+                    }
+                }
+            } else {
+                // We have some specific function to retrieve the items here.
+                eval('$items = ' . $this->func . ';');
+                if (isset($items) && count($items) > 0) {
+                    foreach ($items as $id => $name) {
+                        // Skip empty items from e.g. dropdownlist() API
+                        if (empty($id) && empty($name)) continue;
+                        array_push($options, array('id' => $id, 'name' => $name));
+                    }
+                }
+            }
+
+            $this->options = $options;
+        }
+
+        // Return either the full list or an individual item.
+        if (!empty($p_id)) {
+            if (isset($this->options[$p_id])) {
+                // Return individual item.
+                foreach ($this->options as $option) {
+                    if ($option['id'] == $p_id) return $option['name'];
+                }
+
+                // Individual item was not found.
+                return;
+            }
+        } else {
+            return $this->options;
         }
     }
 
     /**
-     * Retrieve the list of options on demand
+     * Check whether a single option is valid.
      */
-    function getOptions()
+    function checkOption($id)
     {
-        if (count($this->options) > 0) {
-            return $this->options;
-        }
-        if (empty($this->module)) {
-            return array();
-        }
+        // An empty id (zero or not set) is valid.
+        if (empty($id)) return true;
 
-        $options = array();
-        if (!isset($this->itemtype)) {
-            // we're interested in the module itemtypes (= default behaviour)
-            $itemtypes = xarModAPIFunc($this->module,'user','getitemtypes',
-                                       // don't throw an exception if this function doesn't exist
-                                       array(), 0);
-            if (!empty($itemtypes)) {
-                foreach ($itemtypes as $typeid => $typeinfo) {
-                    if (isset($typeid) && isset($typeinfo['label'])) {
-                        $options[] = array('id' => $typeid, 'name' => $typeinfo['label']);
-                    }
-                }
-            }
+        // Look up the option.
+        $name = $this->getOptions($id);
 
-        } elseif (empty($this->func)) {
-            // we're interested in the items for module+itemtype
-            $itemlinks = xarModAPIFunc($this->module,'user','getitemlinks',
-                                       // don't throw an exception if this function doesn't exist
-                                       array('itemtype' => $this->itemtype,
-                                             'itemids'  => null), 0);
-            if (!empty($itemlinks)) {
-                foreach ($itemlinks as $itemid => $linkinfo) {
-                    if (isset($itemid) && isset($linkinfo['label'])) {
-                        $options[] = array('id' => $itemid, 'name' => $linkinfo['label']);
-                    }
-                }
-            }
-
-        } else {
-            // we have some specific function to retrieve the items here
-            eval('$items = ' . $this->func .';');
-            if (isset($items) && count($items) > 0) {
-                foreach ($items as $id => $name) {
-                    // skip empty items from e.g. dropdownlist() API
-                    if (empty($id) && empty($name)) continue;
-                    array_push($options, array('id' => $id, 'name' => $name));
-                }
-            }
-        }
-
-        $this->options = $options;
-        return $options;
+        // If set, then the option is valid.
+        return isset($name);
     }
 
+    
     /**
      * Retrieve or check an individual option on demand
      */
-    function getOption($check = false)
+    function getOption($id)
     {
-        if (!isset($this->value)) {
-             if ($check) return true;
-             return null;
-        }
-        if (count($this->options) > 0) {
-            foreach ($this->options as $option) {
-                if ($option['id'] == $this->value) {
-                    if ($check) return true;
-                    return $option['name'];
-                }
-            }
-            if ($check) return false;
-        }
-        if (empty($this->module)) {
-            if ($check) return true;
-            return $this->value;
-        }
-        if (!isset($this->itemtype)) {
-            // we're interested in one of the module itemtypes (= default behaviour)
-            $options = $this->getOptions();
-            foreach ($options as $option) {
-                if ($option['id'] == $this->value) {
-                    if ($check) return true;
-                    return $option['name'];
-                }
-            }
-            if ($check) return false;
-            return $this->value;
-        }
-
-        // we don't want to check empty values for items
-        if (empty($this->value)) {
-             if ($check) return true;
-             return $this->value;
-        }
-
-        // we're interested in one of the items for module+itemtype
-        $itemlinks = xarModAPIFunc($this->module,'user','getitemlinks',
-                                   // don't throw an exception if this function doesn't exist
-                                   array('itemtype' => $this->itemtype,
-                                         'itemids' => array($this->value)), 0);
-        if (!empty($itemlinks) && !empty($itemlinks[$this->value])) {
-            if ($check) return true;
-            return $itemlinks[$this->value]['label'];
-        }
-        if ($check) return false;
-        return $this->value;
+        return $this->getOptions($id);
     }
+
 
     /**
      * Get the base information for this property.
      *
      * @return array base information for this property
      **/
-     function getBasePropertyInfo()
-     {
-         $args = array();
-         $baseInfo = array(
-                              'id'         => 20,
-                              'name'       => 'itemtype',
-                              'label'      => 'Item Type',
-                              'format'     => '20',
-                              'validation' => '',
-                              'source'         => '',
-                              'dependancies'   => '',
-                              'requiresmodule' => 'dynamicdata',
-                              'aliases'        => '',
-                              'args'           => serialize($args),
-                            // ...
-                           );
+    function getBasePropertyInfo()
+    {
+        $args = array();
+        $baseInfo = array(
+            'id'         => 20,
+            'name'       => 'itemtype',
+            'label'      => 'Item Type',
+            'format'     => '20',
+            'validation' => '',
+            'source'         => '',
+            'dependancies'   => '',
+            'requiresmodule' => 'dynamicdata',
+            'aliases'        => '',
+            'args'           => serialize($args),
+        );
         return $baseInfo;
      }
+
 
     /**
      * Show the current validation rule in a specific form for this property type
@@ -325,11 +356,11 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
         extract($args);
 
         $data = array();
-        $data['name']      = !empty($name) ? $name : 'dd_'.$this->id;
-        $data['id']        = !empty($id)   ? $id   : 'dd_'.$this->id;
-        $data['tabindex']  = !empty($tabindex) ? $tabindex : 0;
-        $data['size']      = !empty($size) ? $size : 50;
-        $data['invalid']   = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) :'';
+        $data['name']      = (!empty($name) ? $name : 'dd_' . $this->id);
+        $data['id']        = (!empty($id)   ? $id   : 'dd_' . $this->id);
+        $data['tabindex']  = (!empty($tabindex) ? $tabindex : 0);
+        $data['size']      = (!empty($size) ? $size : 50);
+        $data['invalid']   = (!empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '');
 
         if (isset($validation)) {
             $this->validation = $validation;
@@ -340,6 +371,8 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
         $data['modid']     = '';
         $data['itemtype']  = '';
         $data['func']      = '';
+        $data['multiselect'] = ($this->multiselect ? 1 : 0);
+
         if (!empty($this->module)) {
             $data['modname'] = $this->module;
             $data['modid']   = xarModGetIDFromName($this->module);
@@ -350,14 +383,14 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
                 }
             }
         }
-        $data['other']     = '';
+        $data['other'] = '';
 
-        // allow template override by child classes
-        if (!isset($template)) {
-            $template = 'itemtype';
-        }
+        // Allow template override by child classes
+        if (!isset($template)) $template = 'itemtype';
+
         return xarTplProperty('dynamicdata', $template, 'validation', $data);
     }
+
 
     /**
      * Update the current validation rule in a specific way for this property type
@@ -371,35 +404,42 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
     {
         extract($args);
 
-        // in case we need to process additional input fields based on the name
+        // In case we need to process additional input fields based on the name
         if (empty($name)) {
-            $name = 'dd_'.$this->id;
+            $name = 'dd_' . $this->id;
         }
 
-        // do something with the validation and save it in $this->validation
+        // Do something with the validation and save it in $this->validation
         if (isset($validation)) {
             if (is_array($validation)) {
                 $this->validation = '';
+
                 if (!empty($validation['modid'])) {
+                    // Create en empty structure to put the validation options.
+                    $val = array_fill(0, 2, '');
+
                     $modinfo = xarModGetInfo($validation['modid']);
                     if (empty($modinfo)) return false;
-                    $this->validation = $modinfo['name'];
-                    if (!empty($validation['itemtype'])) {
-                        $this->validation .= '.' . $validation['itemtype'];
-                        if (!empty($validation['func'])) {
-                            $this->validation .= ':' . $validation['func'];
-                        }
-                    }
+                    $val[0] = $modinfo['name'];
 
+                    if (!empty($validation['itemtype'])) {
+                        $val[0] .= '.' . $validation['itemtype'];
+
+                        if (!empty($validation['func'])) $val[1] = $validation['func'];
+                    }
+                    if (!empty($validation['multiselect'])) $val[2] = '1';
+
+                    // Flatten the options structure back to a string, removing trailing colons.
+                    $this->validation = rtrim(implode(':', $val), ':');
                 } elseif (!empty($validation['other'])) {
                     $this->validation = $validation['other'];
                 }
-
             } else {
                 $this->validation = $validation;
             }
         }
-        // tell the calling function that everything is OK
+
+        // Tell the calling function that everything is OK
         return true;
     }
 }

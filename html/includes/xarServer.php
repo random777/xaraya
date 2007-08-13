@@ -79,7 +79,7 @@ function xarServerGetVar($name)
         return $_SERVER[$name];
     }
     if($name == 'PATH_INFO') return;
-
+    
     if (isset($_ENV[$name])) {
         return $_ENV[$name];
     }
@@ -217,17 +217,64 @@ function xarServerGetBaseURL()
 }
 
 /**
+ * Create a query string from an array.
+ * @todo For PHP5, this can be handled by http_build_query()
+ */
+function xarServer__array2query($args, $prefix = '')
+{
+    $query = '';
+    if ($prefix == '') {
+        // First time around the loop, i.e. the top level, handling
+        // the main parameter names.
+        foreach ($args as $k=>$v) {
+            if (is_array($v)) {
+                // Recursively walk the array tree to as many levels as necessary
+                // e.g. ...&foo[bar][dee][doo]=value&...
+                $query .= xarServer__array2query($v, '&' . $k);
+            } elseif (isset($v)) {
+                // TODO: rather than rawurlencode, use a xar function to encode
+                $query .= (!empty($query) ? '&' : '') . rawurlencode($k) . '=' . rawurlencode($v);
+            }
+        }
+    } else {
+        // Subsequent times around the loop, handling parameter key values.
+        // If the keys are sequential numeric, then leave out the keys.
+        $i = 0;
+        foreach($args as $key => $arg) {
+            if ($key >= 0 && $key == $i) {
+                // The keys are in the sequence 0, 1, 2, so use an empty key.
+                $encoded_key = '';
+                $i += 1;
+            } else {
+                // The numeric sequence has been broken, so include all the key values now.
+                $encoded_key = rawurlencode($key);
+                $i = -1;
+            }
+
+            if (is_array($arg)) {
+                $query .= xarServer__array2query($arg, $prefix . '['.$encoded_key.']');
+            } else {
+                $query .= $prefix . '['.$encoded_key.']' . '=' . rawurlencode($arg);
+            }
+        }
+    }
+    return $query;
+}
+
+/**
  * Get current URL (and optionally add/replace some parameters)
  *
  * @access public
  * @param args array additional parameters to be added to/replaced in the URL (e.g. theme, ...)
  * @param generateXMLURL boolean over-ride Server default setting for generating XML URLs (true/false/NULL)
- * @param target string add a 'target' component to the URL
+ * @param fragment string add a 'fragment' component to the URL
  * @return string current URL
  * @todo cfr. BaseURI() for other possible ways, or try PHP_SELF
  */
-function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $target = NULL)
+function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $fragment = NULL)
 {
+    static $callback_isset = NULL;
+
     $server = xarServerGetHost();
     $protocol = xarServerGetProtocol();
     $baseurl = "$protocol://$server";
@@ -237,64 +284,83 @@ function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $target
 
     if (empty($request)) {
         // adapted patch from Chris van de Steeg for IIS
-    // TODO: please test this :)
         $scriptname = xarServerGetVar('SCRIPT_NAME');
         $pathinfo = xarServerGetVar('PATH_INFO');
-        if ($pathinfo == $scriptname) {
-            $pathinfo = '';
-        }
+        if ($pathinfo == $scriptname) $pathinfo = '';
         if (!empty($scriptname)) {
             $request = $scriptname . $pathinfo;
             $querystring = xarServerGetVar('QUERY_STRING');
-            if (!empty($querystring)) $request .= '?'.$querystring;
+            if (!empty($querystring)) $request .= '?' . $querystring;
         } else {
             $request = '/';
         }
     }
 
-// Note to Dracos: please don't replace & with &amp; here just yet - give me some time to test this first :-)
-// Mike can we change these now, so we can work on validation a bit?
+    // Remove any magic quotes nonsense.
+    // TODO: move this to xarServergetVar() so it is dealt with at the lowest level.
+    if (get_magic_quotes_gpc()) $request = stripslashes($request);
+
+    // If the request has a '#' fragment, then remove it now, since the server
+    // is never meant to see the fragment.
+    if (strpos($request, '#') > 0) $request = substr($request, 0, strpos($request, '#'));
 
     // add optional parameters
     if (count($args) > 0) {
-        if (strpos($request,'?') === false) $request .= '?';
-        else $request .= '&';
+        // Parse the current URL.
+        $parsed_url = parse_url($request);
 
-        foreach ($args as $k=>$v) {
+        // Parse the query string into an array of parameters.
+        $query = (!empty($parsed_url['query']) ? $parsed_url['query'] : '');
+        // CHECKME: parse_str() can return unset variables as NULL, and these will be
+        // stripped out later. However, for xarVarFetch(), 'foo=' is quivalent to ''.
+        // Is this behaviour desirable?
+        parse_str($query, $parsed_query);
+
+        foreach ($args as $k => $v) {
             if (is_array($v)) {
-                foreach($v as $l=>$w) {
-                // TODO: replace in-line here too ?
-                    if (!empty($w)) $request .= $k . "[$l]=$w&";
+                // The parameter value is an array.
+                // Replace the existing parameter in the URL outright.
+                $parsed_query[$k] = $v;
+            } elseif (preg_match('/\[\]/', $k)) {
+                // Key points to an array element.
+                // Evaluate the element and change just that key.
+                // - If the value is NULL, then remove that element.
+                // - If the key is not set, then merge that element into the array.
+                @parse_str(urlencode($k) . '=' . $v, $array_param);
+                if (!empty($array_param) && isset($v)) {
+                    // Merge in this element.
+                    // TODO: check for duplicate values - we don't want to add an element
+                    // value that is already there.
+                    $parsed_query = array_merge_recursive($parsed_query, $array_param);
                 }
             } else {
-                // if this parameter is already in the query string...
-                if (preg_match("/(&|\?)($k=[^&]*)/",$request,$matches)) {
-                    $find = $matches[2];
-                    // ... replace it in-line if it's not empty
-                    if (!empty($v)) {
-                        $request = preg_replace("/(&|\?)".preg_quote($find)."/","$1$k=$v",$request);
-
-                    // ... or remove it otherwise
-                    } elseif ($matches[1] == '?') {
-                        $request = preg_replace("/\?".preg_quote($find)."(&|)/",'?',$request);
-                    } else {
-                        $request = str_replace("&$find",'',$request);
-                    }
-                } elseif (!empty($v)) {
-                    $request .= "$k=$v&";
-                }
+                // Value is a scalar.
+                // Do a straight replace. If the value is NULL then these
+                // will be trimmed later.
+                $parsed_query[$k] = $v;
             }
         }
 
-        $request = substr($request, 0, -1);
+        // Iteratively remove all NULL elements.
+        if (!isset($callback_isset)) $callback_isset = create_function('$x', 'return !is_null($x);');
+        $parsed_query = array_filter($parsed_query, $callback_isset);
+
+        // TODO: convert the array back into a query string and insert back into the URL.
+        $new_query = xarServer__array2query($parsed_query);
+
+        // Strip off any existing query parameters.
+        $request = preg_replace('/[?].*/', '', $request);
+
+        // Add on the new query parameters (everything after the first '?').
+        if (!empty($new_query)) $request .= '?' . $new_query;
     }
 
     if (!isset($generateXMLURL)) {
         $generateXMLURL = $GLOBALS['xarServer_generateXMLURLs'];
     }
 
-    if (isset($target)) {
-        $request .= '#' . urlencode($target);
+    if (isset($fragment)) {
+        $request .= '#' . urlencode($fragment);
     }
 
     if ($generateXMLURL) {
@@ -454,19 +520,19 @@ function xarRequestGetInfo()
         /*
         Note: we need to match anything that might be used as module params here too ! (without compromising security)
         preg_match_all('|/([a-z0-9_ .+-]+)|i', $path, $matches);
-
-        The original regular expression prevents the use of titles, even when properly encoded,
+        
+        The original regular expression prevents the use of titles, even when properly encoded, 
         as parts of a short-url path -- because it wouldn't not permit many characters that would
         in titles, such as parens, commas, or apostrophes.  Since a similiar "security" check is not
         done to normal URL params, I've changed this to a more flexable regex at the other extreme.
-
-        This also happens to address Bug 2927
-
+        
+        This also happens to address Bug 2927 
+        
         TODO: The security of doing this should be examined by someone more familiar with why this works
         as a security check in the first place.
         */
         preg_match_all('|/([^/]+)|i', $path, $matches);
-
+        
         $params = $matches[1];
         if (count($params) > 0) {
             $modName = $params[0];

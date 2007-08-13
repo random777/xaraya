@@ -94,6 +94,7 @@ function roles_onlineblock_display($blockinfo)
     if (!empty($zz)) {
         foreach ($zz as $key => $aa) {
             $args['test1'][$key] = array(
+                'uid' => $aa['uid'],
                 'name' => $aa['name'],
                 'userurl' => xarModURL(
                     'roles', 'user', 'display',

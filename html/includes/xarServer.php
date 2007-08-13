@@ -314,7 +314,7 @@ function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $fragme
         // CHECKME: parse_str() can return unset variables as NULL, and these will be
         // stripped out later. However, for xarVarFetch(), 'foo=' is quivalent to ''.
         // Is this behaviour desirable?
-        parse_str($parsed_url['query'], $parsed_query);
+        parse_str($query, $parsed_query);
 
         foreach ($args as $k => $v) {
             if (is_array($v)) {

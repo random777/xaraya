@@ -49,6 +49,12 @@ class XMLParser
     var $xmldata; // Holds XML data
     var $version = "0.3";
 
+    // Skip white space by default.
+    // This has the undesirable effect of stipping newlines from CDATA sections
+    // too, so we have the option to turn if off here.
+    // TODO: provide a more intellegent whitespace handler that is less buggy than
+    // the default PHP whitespace handler.
+    var $xml_option_skip_white = 1;
 
     function defineNs($ident, $uri = "") 
     {
@@ -151,7 +157,7 @@ class XMLParser
     function buildXmlTree() 
     {
         $p = xml_parser_create();
-        xml_parser_set_option($p, XML_OPTION_SKIP_WHITE, 1);
+        xml_parser_set_option($p, XML_OPTION_SKIP_WHITE, $this->xml_option_skip_white);
         xml_parse_into_struct($p, $this->xmldata, $vals, $index);
         xml_parser_free($p);
 

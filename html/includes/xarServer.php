@@ -230,7 +230,7 @@ function xarServer__array2query($args, $prefix = '')
             if (is_array($v)) {
                 // Recursively walk the array tree to as many levels as necessary
                 // e.g. ...&foo[bar][dee][doo]=value&...
-                $query .= xarServer__array2query($v, '&' . $k);
+                $query .= xarServer__array2query($v, (!empty($query) ? '&' : '') . $k);
             } elseif (isset($v)) {
                 // TODO: rather than rawurlencode, use a xar function to encode
                 $query .= (!empty($query) ? '&' : '') . rawurlencode($k) . '=' . rawurlencode($v);

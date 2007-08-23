@@ -3,7 +3,7 @@
 <xar:set name="activetab">#$request.2#</xar:set>
 <div>
   <dl class="xar-tabs">
-    <dt class="help" title="Choose the privileges to display">
+    <dt class="help" title="#xarML('Choose the privileges to display')#">
       <xar:mlstring>Show privileges:</xar:mlstring>
     </dt>
 

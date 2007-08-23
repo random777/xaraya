@@ -22,7 +22,9 @@
 
     <form action="#xarModURL('blocks', 'admin', 'create_instance')#" method="post" onsubmit="return xar_base_formCheck(this, blocks_fieldRequired, blocks_fieldDescription);" enctype="application/x-www-form-urlencoded">
         <fieldset>
-            <legend>Instance Properties</legend>
+            <legend>
+                <xar:mlstring>Instance Parameters</xar:mlstring>
+            </legend>
 
             <div class="xar-form-input-wrapper">
                 <label for="block_type" title="#xarML('The type of block that you wish to add.')#" class="xar-form-label">

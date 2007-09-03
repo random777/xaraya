@@ -1447,8 +1447,31 @@ function xarTpl__loadFromFile($sourceFileName)
 function xarTpl__SetCacheKey($sourceFileName)
 {
     $cacheKey = xarTpl__getCacheKey($sourceFileName);
-    $fd = fopen(XAR_TPL_CACHE_DIR . '/CACHEKEYS', 'a');
-    fwrite($fd, $cacheKey. ': '.$sourceFileName . "\n");
+    $filename = XAR_TPL_CACHE_DIR . '/CACHEKEYS';
+    $eol = "\n";
+
+    // Get the existing cache file lines.
+    $lines = file($filename);
+
+    // If the cache key is already in the file, then no need to add it again.
+    $line = $cacheKey . ': ' . $sourceFileName . $eol;
+    if (in_array($line, $lines)) return true;
+
+    // Add the line to the end of the file, then remove duplicates.
+    $lines_count = count($lines);
+    $lines = array_unique($lines);
+    if (count($lines) == $lines_count) {
+       // No duplicates were removed, so just tag this line onto the end of the file.
+       $fd = fopen($filename, 'a');
+       fwrite($fd, $line);
+    } else {
+       // Duplicate lines were removed, so write the whole file back.
+       $lines = array_merge($lines, $line);
+       $fd = fopen($filename, 'w');
+       fwrite($fd, implode('', $lines));
+    }
+
+    fflush($fd);
     fclose($fd);
     return true;
 }

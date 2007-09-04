@@ -183,13 +183,13 @@ function authsystem_user_login()
 
         case ROLES_STATE_DELETED:
             // User is deleted by all means.  Return a message that says the same.
-            $msg = xarML('Your account has been terminated by your request or at the adminstrator\'s discretion.');
+            $msg = xarML('Your account has been terminated by your request or at the administrator\'s discretion.');
             xarErrorSet(XAR_USER_EXCEPTION, 'LOGIN_ERROR', new DefaultUserException($msg));
             return;
             break;
         case ROLES_STATE_INACTIVE:
             // User is inactive.  Return message stating.
-            $msg = xarML('Your account has been marked as inactive.  Contact the adminstrator if you have further questions.');
+            $msg = xarML('Your account has been marked as inactive.  Contact the administrator if you have further questions.');
             xarErrorSet(XAR_USER_EXCEPTION, 'LOGIN_ERROR', new DefaultUserException($msg));
             return;
             break;

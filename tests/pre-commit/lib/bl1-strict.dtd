@@ -56,6 +56,8 @@
 <!ENTITY xar-modurl-courses-admin-updateconfig "xar-modurl-courses-admin-updateconfig">
 <!ENTITY xar-modurl-courses-admin-addparticipant "xar-modurl-courses-admin-addparticipant">
 <!ENTITY xar-modurl-courses-admin-updatestatus "xar-modurl-courses-admin-updatestatus">
+<!ENTITY xar-modurl-courses-admin-updateplanned "xar-modurl-courses-admin-updateplanned">
+<!ENTITY xar-modurl-courses-admin-updatecourse "xar-modurl-courses-admin-updatecourse">
 <!ENTITY xar-modurl-courses-user-enroll "xar-modurl-courses-user-enroll">
 <!ENTITY xar-modurl-dynamicdata-admin-delete "xar-modurl-dynamicdata-admin-delete">
 <!ENTITY xar-modurl-dynamicdata-admin-modifyprop "xar-modurl-dynamicdata-admin-modifyprop">

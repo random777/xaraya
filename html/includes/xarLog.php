@@ -3,7 +3,7 @@
  * Logging Facilities
  *
  * @package core
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -107,7 +107,7 @@ function xarLogConfigReadable()
 /**
  * Will return the log file directory and name
  */
-function xarLogFallbackFile ()
+function xarLogFallbackFile()
 {
     static $logFile;
 
@@ -126,7 +126,7 @@ function xarLogFallbackFile ()
  * Will check if the fallback mechanism can be used
  * @return bool
  */
-function xarLogFallbackPossible ()
+function xarLogFallbackPossible()
 {
     $logFile = xarLogFallbackFile ();
     if (file_exists($logFile) && is_writeable($logFile)) {

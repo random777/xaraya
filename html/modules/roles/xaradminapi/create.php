@@ -14,7 +14,7 @@
  * create a user
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param $args['uname'] username of the user
- * @param $args['realname'] real name of the user
+ * @param $args['realname'] display name of the user
  * @param $args['email'] email address of the user
  * @param $args['pass'] password of the user
  * @param $args['date'] registration date

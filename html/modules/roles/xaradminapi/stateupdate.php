@@ -15,8 +15,8 @@
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param $args['uid'] user ID
- * @param $args['name'] user real name
- * @param $args['uname'] user nick name
+ * @param $args['name'] user display name
+ * @param $args['uname'] user name
  * @param $args['email'] user email address
  * @param $args['pass'] user password
  * TODO: move url to dynamic user data

@@ -46,7 +46,7 @@
       <legend><xar:mlstring>Role properties</xar:mlstring></legend>
       <div class="xar-form-input-wrapper">
         <label class="xar-form-label">
-          <xar:mlstring>Real Name:</xar:mlstring>
+          <xar:mlstring>Display Name:</xar:mlstring>
         </label>
         #xarVarPrepForDisplay($name)#
       </div>

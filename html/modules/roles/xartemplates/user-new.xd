@@ -54,7 +54,7 @@
                         <td>
                             <label for="realname">
                                 <xar:mlstring>
-                                    Real Name
+                                    Display Name
                                 </xar:mlstring>
                             </label> 
                         </td>

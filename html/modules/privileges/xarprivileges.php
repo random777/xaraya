@@ -359,7 +359,7 @@ class xarMasks
     function xarSecurityCheck($mask,$catch=1,$component='',$instance='',$module='',$rolename='',$pnrealm=0,$pnlevel=0)
     {
         $userID = xarSessionGetVar('uid');
-        xarLogMessage("PRIVS: xarSecurityCheck for UID $userID against mask \"$mask\"");
+        xarLogMessage("PRIVS: xarSecurityCheck mask \"$mask\", instance \"$instance\", uid $userID");
         if ($userID == XARUSER_LAST_RESORT) return true;
 
         $maskname = $mask;

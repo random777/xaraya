@@ -58,7 +58,7 @@
             <table class="xar-fullwidth">
                 <tr>
                        <th>
-                           <label for="recallsearch" title="#xarML('Search for users with either their real name, login name or email matching the string')#">
+                           <label for="recallsearch" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
                                <xar:mlstring>Search</xar:mlstring>
                            </label>
                        </th>
@@ -128,7 +128,7 @@
                     <table class="xar-fullwidth">
                         <tr>
                             <th>
-                                <xar:mlstring>Real name</xar:mlstring>
+                                <xar:mlstring>Display name</xar:mlstring>
                             </th>
                             <th>
                                 <xar:mlstring>User Name</xar:mlstring>
@@ -216,7 +216,7 @@
             <table class="xar-fullwidth">
                 <tr>
                     <th>
-                        <label for="purgesearch" title="#xarML('Search for users with either their real name, login name or email matching the string')#">
+                        <label for="purgesearch" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
                             <xar:mlstring>Search Users</xar:mlstring>
                         </label>
                     </th>
@@ -285,7 +285,7 @@
                 <table class="xar-fullwidth">
                     <tr>
                         <th>
-                            <xar:mlstring>Real name</xar:mlstring>
+                            <xar:mlstring>Display name</xar:mlstring>
                         </th>
                         <th>
                             <xar:mlstring>User Name</xar:mlstring>

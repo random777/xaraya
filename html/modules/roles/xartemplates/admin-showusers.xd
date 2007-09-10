@@ -111,7 +111,7 @@
                     </label>
                 </th>
                 <th>
-                    <label for="search" title="#xarML('Search for users with either their real name, login name or email matching the string')#">
+                    <label for="search" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
                         <xar:mlstring>Search</xar:mlstring>
                     </label>
                 </th>
@@ -256,7 +256,7 @@
                 <tr>
                     <th>
                         <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_name&amp;search=#$search#">
-                            <xar:mlstring>Real name</xar:mlstring>
+                            <xar:mlstring>Display name</xar:mlstring>
                         </a>
                     </th>
                     <th>

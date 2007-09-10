@@ -108,7 +108,7 @@ function roles_init()
     $query = xarDBCreateIndex($tables['roles'], $index);
     $result = &$dbconn->Execute($query);
     if (!$result) return;
-    // allow identical "real names" here
+    // allow identical display names here
     $index = array('name' => 'i_' . $sitePrefix . '_roles_name',
         'fields' => array('xar_name'),
         'unique' => false

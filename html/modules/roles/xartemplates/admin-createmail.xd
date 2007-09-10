@@ -347,7 +347,7 @@
               <th>
                 <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=name">
                   <xar:mlstring>
-                    Real name
+                    Display name
                   </xar:mlstring>
                 </a>
               </th>

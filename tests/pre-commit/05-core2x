@@ -3,7 +3,7 @@
 --
 print("--- Group 5: Core 2.x specific QA checks ---")
 print("--- This needs monotone 0.31   ---")
-if (branch == 'com.xaraya.core.2.x') then
+if (branch == 'com.xaraya.core.unstable') then
     -- run tests
     print('--- Group 5.3: Deprecation ---')
 

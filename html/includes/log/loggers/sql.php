@@ -3,10 +3,9 @@
  * SQL based logger
  *
  * @package logging
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  *
-*/
-
+ */
 /**
  * Include the base class
  *

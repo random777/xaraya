@@ -545,6 +545,8 @@ function xarSession__phpDestroy($sessionId)
 
 /**
  * PHP function to garbage collect session information
+ * remember that this runs on creation of a session, so a lot!
+ *
  * @access private
  * @return bool true
  */
@@ -555,27 +557,35 @@ function xarSession__phpGC($maxlifetime)
 
     $sessioninfoTable = $xartable['session_info'];
 
-    $timeoutSetting = time() - ($GLOBALS['xarSession_systemArgs']['inactivityTimeout'] * 60);
-    $bindvars=array($timeoutSetting);
+    // Calculate the inactivity cutoff time (setting is in minutes, so multiply with 60)
+    $inactiveTimer = time() - ($GLOBALS['xarSession_systemArgs']['inactivityTimeout'] * 60);
+    // Calculate the cookie expiration cutoff time (setting is in days, hence multiply with 60*60*24=86400)
+    $cookieTimer   = time() - ($GLOBALS['xarSession_systemArgs']['duration'] * 86400);
+    
     switch ($GLOBALS['xarSession_systemArgs']['securityLevel']) {
-    case 'Low':
-        // Low security - delete session info if user decided not to
-        //                remember themself
-        $where = "WHERE xar_remembersess = 0 AND xar_lastused < ?";
-        break;
-    case 'Medium':
-        // Medium security - delete session info if session cookie has
-        //                   expired or user decided not to remember
-        //                   themself
-        $where = "WHERE (xar_remembersess = 0 AND xar_lastused <  ?)
-                      OR xar_firstused < ?";
-        $bindvars[] = (time()- ($GLOBALS['xarSession_systemArgs']['duration'] * 86400));
-        break;
-    case 'High':
-    default:
-        // High security - delete session info if user is inactive
-        $where = "WHERE xar_lastused < ?";
-        break;
+        case 'Low':
+            // Low security: Delete the session data if
+            //  * rememberme is OFF, that is, user did not explicitly say to keep data AND
+            //  * the inactivity time expired
+            $where = "WHERE xar_remembersess = ? AND xar_lastused < ?";
+            $bindvars = array(0,$inactiveTimer);
+            break;
+        case 'Medium':
+            // Medium security: Delete the session data if
+            //  * rememberme is OFF, that is, user did not explicitly say to keep data AND
+            //  * the inactivity time expired
+            //  OR
+            //  *  the cookie lifetime has expired
+            $where = "WHERE (xar_remembersess = ? AND xar_lastused <  ?)  OR xar_firstused < ?";
+            $bindvars = array(0, $inactiveTimer, $cookieTimer);
+            break;
+        case 'High':
+        default:
+            // High security: Delete session info if:
+            //  * user is inactive, period
+            $where = "WHERE xar_lastused < ?";
+            $bindvars = array($inactiveTimer);
+            break;
     }
     $query = "DELETE FROM $sessioninfoTable $where";
     $result =& $dbconn->Execute($query,$bindvars);

@@ -1440,22 +1440,31 @@ function xarTpl__loadFromFile($sourceFileName)
  * Set the cache key for a sourcefile
  *
  * @access private
- * @param  string $cacheKey        The key to add
  * @param  string $sourceFileName  For which file are we entering the key?
- * @return boolean
- */
+ * @return string the generated cachekey
+ * @todo obviously we should prevent the dupes in the first place (flock()?, semaphores?, portable?)
+ * @todo the price for the dupe check is that CACHEKEY is read into memory on each compile, we can optimize it by doing this once then
+**/
 function xarTpl__SetCacheKey($sourceFileName)
 {
     $cacheKey = xarTpl__getCacheKey($sourceFileName);
     $filename = XAR_TPL_CACHE_DIR . '/CACHEKEYS';
     $eol = "\n";
 
-    // Get the existing cache file lines.
-    $lines = file($filename);
+    // Get the existing cache file lines, create if not existing 
+    // which is why we dont use file() here.
+    if($fd = fopen($filename, 'a+')) {
+        rewind($fd); // needed?
+        while(!feof($fd)) {
+            $lines[] = fgets($fd, 4096);
+        }
+        fclose($fd);
+    }
 
     // If the cache key is already in the file, then no need to add it again.
     $line = $cacheKey . ': ' . $sourceFileName . $eol;
-    if (in_array($line, $lines)) return true;
+    if (in_array($line, $lines)) 
+        return $cacheKey;
 
     // Add the line to the end of the file, then remove duplicates.
     $lines_count = count($lines);
@@ -1466,14 +1475,14 @@ function xarTpl__SetCacheKey($sourceFileName)
        fwrite($fd, $line);
     } else {
        // Duplicate lines were removed, so write the whole file back.
-       $lines = array_merge($lines, $line);
+       // @todo: we might consider logging this, as duplicates indicate a bug under normal operation
+       $lines[] = $line;
        $fd = fopen($filename, 'w');
        fwrite($fd, implode('', $lines));
     }
-
-    fflush($fd);
+    fflush($fd); // needed?
     fclose($fd);
-    return true;
+    return $cacheKey;
 }
 
 /** Get the cache key for a sourcefile

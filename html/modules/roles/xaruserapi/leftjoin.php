@@ -47,7 +47,7 @@ function roles_userapi_leftjoin($args)
     }
 // TODO: check this !
     foreach ($uids as $uid) {
-        if (!xarSecurityCheck('ReadRole',0,'All',"All:All:$uid")) {
+        if (!xarSecurityCheck('ReadRole',0,'Roles',"All:All:$uid")) {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
             return;
         }

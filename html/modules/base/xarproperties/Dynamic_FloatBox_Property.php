@@ -40,7 +40,7 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
     var $number_suffix = NULL;
 
     // Always show decimals, regardless of precision.
-    var $always_show_decimal = false;
+    var $always_show_decimal = NULL;
 
     // Trim trailing zeros of decimals.
     var $trim_decimals = NULL;
@@ -75,21 +75,7 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
         return $return;
     }
 
-    // Check validation for allowed min/max values and precision
-    // Syntax is:
-    //  min:max:precision:regex
-    function parseValidation($validation = '')
-    {
-        if (is_string($validation) && strchr($validation, ':')) {
-            $fields = explode(':', $validation, 4);
 
-            if (isset($fields[0]) && is_numeric($fields[0])) $this->min = $fields[0];
-            if (isset($fields[1]) && is_numeric($fields[1])) $this->max = $fields[1];
-            if (isset($fields[2]) && is_numeric($fields[2])) $this->precision = $fields[2];
-            if (isset($fields[3]) && is_numeric($fields[3])) $this->regex = $fields[3];
-        }
-    }
-    
     /**
      * Validate the value for this property
      * @return bool true when validated, false when not validated
@@ -108,36 +94,10 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
             }
         }
 
-        // Strip out prefix or suffix symbol, e.g. '$' in '$100' or '%' in '0.2%'
-        if (!empty($this->number_prefix)) {
-            $value = preg_replace('/^' . preg_quote($this->number_prefix, '/') . '/', '', $value);
-        }
-
-        if (!empty($this->number_suffix)) {
-            $value = preg_replace('/' . preg_quote($this->number_suffix, '/') . '$/', '', $value);
-        }
-
-        // Strip out separators, e.g. ',' in '100,000'
-        if (!empty($this->grouping_sep)) {
-            $value = preg_replace('/' . preg_quote($this->grouping_sep) . '/', '', $value);
-        }
-
-        // Convert the decimal separator to a '.'
-        if (!empty($this->decimal_sep) && $this->decimal_sep != '.') {
-            $value = str_replace($this->decimal_sep, '.', $value);
-        }
-
-        // Now we should have a number.
         if (!is_numeric($value)) {
             $this->invalid = xarML('invalid number');
-            // Return the value for correction, even if it is not a valid number.
             $this->value = $value;
             return false;
-        }
-
-        // Check the precision, and round up/down as required.
-        if (isset($this->precision) && is_numeric($this->precision)) {
-            $value = round($value, $this->precision);
         }
 
         $this->value = (float)$value;
@@ -245,6 +205,7 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
         return $baseInfo;
     }
 
+    // Trick: use the parent method with a different template :-)
     function showValidation($args = array())
     {
         // allow template override by child classes
@@ -252,6 +213,9 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
 
         return parent::showValidation($args);
     }
+
+    // default updateValidation() from Dynamic_TextBox_Property
+
 }
 
 ?>

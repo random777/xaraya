@@ -200,12 +200,12 @@ function initializeSetup()
     */
    // xarRegisterMask('ViewLogin','All','roles','Block','login:Login:All','ACCESS_OVERVIEW'); //No longer required in V1.1
     xarRegisterMask('ViewRolesBlocks','All','roles','Block','All','ACCESS_OVERVIEW');
-    xarRegisterMask('ViewRoles','All','roles','All','All','ACCESS_OVERVIEW');
-    xarRegisterMask('ReadRole','All','roles','All','All','ACCESS_READ');
-    xarRegisterMask('EditRole','All','roles','All','All','ACCESS_EDIT');
-    xarRegisterMask('AddRole','All','roles','All','All','ACCESS_ADD');
-    xarRegisterMask('DeleteRole','All','roles','All','All','ACCESS_DELETE');
-    xarRegisterMask('AdminRole','All','roles','All','All','ACCESS_ADMIN');
+    xarRegisterMask('ViewRoles','All','roles','Roles','All','ACCESS_OVERVIEW');
+    xarRegisterMask('ReadRole','All','roles','Roles','All','ACCESS_READ');
+    xarRegisterMask('EditRole','All','roles','Roles','All','ACCESS_EDIT');
+    xarRegisterMask('AddRole','All','roles','Roles','All','ACCESS_ADD');
+    xarRegisterMask('DeleteRole','All','roles','Roles','All','ACCESS_DELETE');
+    xarRegisterMask('AdminRole','All','roles','Roles','All','ACCESS_ADMIN');
     xarRegisterMask('MailRoles','All','roles','Mail','All','ACCESS_ADMIN');
 
     xarRegisterMask('AttachRole','All','roles','Relation','All','ACCESS_ADD');

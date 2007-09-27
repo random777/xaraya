@@ -1,0 +1,44 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+
+<xar:base-include-javascript module="base" filename="orderitem.js" position="head" />
+<script type="text/javascript">
+    xar_base_reorder_warn = '#xarML('You must select an option to move.')#';
+</script>
+
+<xar:if condition="count($options) gt 10">
+    <xar:set name="size">10</xar:set>
+<xar:else />
+    <xar:set name="size">count($options)</xar:set>
+</xar:if>
+
+<xar:if condition="count($options) gt 0">
+    <div class="xar-floatleft">
+        <div class="xar-floatleft">
+            <button id="#$id#_up" onclick="return xar_base_reorder('#$id#_list', true, '#$id#');" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
+                <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" />
+            </button>
+            <button id="#$id#_down" onclick="return xar_base_reorder('#$id#_list', false, '#$id#');" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
+                <img src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" />
+            </button>
+        </div>
+
+        <select name="#$id#_list" id="#$id#_list" size="#$size#" tabindex="#$tabindex#" class="xar-margin-thickleft">
+            <xar:foreach in="$options" value="$option" >
+                <xar:set name="oid">$option[array_shift(array_keys($option))]</xar:set>
+                <option value="#$option.id#">#$option.id# #$option.name#</option>
+            </xar:foreach>
+        </select>
+        <input type="text" name="#$name#" id="#$id#" value="#$value#" />
+    </div>
+<xar:comment>
+    <div style="font-family: monospace;white-space: nowrap;">
+        <xar:set name="f">var_dump($options)</xar:set>
+    </div>
+</xar:comment>
+<xar:else />
+    <xar:mlstring>No options specified in validation field.</xar:mlstring>
+</xar:if>
+
+<xar:if condition="!empty($invalid)">
+    <span class="xar-error">#$invalid#</span>
+</xar:if>

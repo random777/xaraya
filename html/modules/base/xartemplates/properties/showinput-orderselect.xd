@@ -28,13 +28,8 @@
                 <option value="#$option.id#">#$option.id# #$option.name#</option>
             </xar:foreach>
         </select>
-        <input type="text" name="#$name#" id="#$id#" value="#$value#" />
+        <input type="hidden" name="#$name#" id="#$id#" value="#$value#" />
     </div>
-<xar:comment>
-    <div style="font-family: monospace;white-space: nowrap;">
-        <xar:set name="f">var_dump($options)</xar:set>
-    </div>
-</xar:comment>
 <xar:else />
     <xar:mlstring>No options specified in validation field.</xar:mlstring>
 </xar:if>

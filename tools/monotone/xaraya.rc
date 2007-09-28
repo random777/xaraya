@@ -205,14 +205,12 @@ function parse_statusmsg(msg)
         -- Handle dropped files for new mtn output
         _,_,file = string.find(line,'^  dropped  (.*)')
         if(file~=nil) then
-            print "dropped"
             table.insert(lines,"\t* "..file..": dropped")
         end
 
         -- Handle changed files for new mtn output
         _,_,file = string.find(line,'^  patched  (.*)')
         if(file~=nil) then
-          print "changed"
           table.insert(lines,"\t* " .. file .. ": ...") 
         end
 

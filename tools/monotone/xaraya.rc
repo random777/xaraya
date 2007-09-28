@@ -84,13 +84,13 @@ function edit_comment(basetext, existinglog)
    tmp:write(generatedlog)
    tmp:write(existinglog)
    local notes = [[
-MT: ----------------------------------------------
-MT: Above is what has been parsed as changelog from 
-MT: the status of your working dir.
-MT: Augment them you see fit. Write the revision comment
-MT: on the first line(s) and per file comments on the next.
-MT: Lines starting with MT: will automatically be
-MT: removed]]
+MTN: ----------------------------------------------
+MTN: Above is what has been parsed as changelog from 
+MTN: the status of your working dir.
+MTN: Augment them you see fit. Write the revision comment
+MTN: on the first line(s) and per file comments on the next.
+MTN: Lines starting with MT: will automatically be
+MTN: removed]]
    tmp:write(notes)
    io.close(tmp)
 
@@ -327,10 +327,12 @@ end
 --
 -- @param commit_msg   the text the user entered
 -- @param stanza       a basic_io stanza for the commit scope (like mtn status)
+-- @param branchname   the branch on which the commit is made
 -- @return bool,string pair of result, reason (bool,string) to signify routine result.
-function validate_commit_message (commit_msg, stanza)
+function validate_commit_message (commit_msg, stanza, branchname)
     if (mtndebug ~= nil) then print("Starting validate_commit_message() in xaraya.rc") end
     cancommit=true -- assume all well
+    branch = branchname or 'unknown'
     function passed(nr,desc)     
         nr=nr or '0.00'; desc=desc or "ERR: no description for test given"
         print("PASSED QA test "..nr..": "..desc) 

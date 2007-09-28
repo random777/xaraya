@@ -64,6 +64,7 @@ end
 -- by monotone to generate a gnu like Changelog entry as
 -- best as we can
 function edit_comment(basetext, existinglog)
+   if (mtndebug ~= nil) then print("Start edit_comment() in xaraya.rc") end
    local exe = "vi"
    local visual = os.getenv("VISUAL")
    if (visual ~= nil) then exe = visual end
@@ -124,6 +125,7 @@ end
 function parse_statusmsg(msg)
     -- Go over the lines and massage it so it comes very close to what 
     -- we want to enter as a comment anyway
+    if (mtndebug ~= nil) then print("Start parse_statusmsg() in xaraya.rc") end
     local pattern = "([^\n]-)\n" -- shortest thing before the newline
     local lines = {}
     local rename_string = nil
@@ -132,7 +134,8 @@ function parse_statusmsg(msg)
     local parsed = ""
     
     -- We dont use parse-basic-io, because msg is NOT (contains things before and after it)
-    for line in string.gfind(msg, pattern) do 
+    for line in string.gfind(msg, pattern) do
+        if (mtndebug ~= nil) then print("Parsing line:" .. line .. "EOL") end
         -- Handle renames (stanza changed in mt.26)
         _,_,file = string.find(line,'^rename "(.-)"') -- which file?
         if(file~=nil) then 
@@ -180,6 +183,40 @@ function parse_statusmsg(msg)
             table.insert(lines,"\t* "..attrfile..": set attribute ("..attr..")")
             attrfile = nil
         end
+        
+    -- Handles for new mtn output
+        -- Handle renames for new mtn output
+        _,_,file = string.find(line,'^  renamed  (.*)') -- which file?
+        if(file~=nil) then 
+            rename_string = ": renamed ("..file..")" 
+        end
+        _,_,file = string.find(line,'^%s+to  (.*)') -- to what?
+        if(file~=nil and rename_string~=nil) then
+            table.insert(lines,"\t* "..file..rename_string)
+            rename_string = nil
+        end
+
+        -- Handles new files and directories for new mtn output
+        _,_,file = string.find(line,'^  added    (.*)')
+        if(file~=nil) then 
+            table.insert(lines,"\t* "..file..": new file") 
+        end
+        
+        -- Handle dropped files for new mtn output
+        _,_,file = string.find(line,'^  dropped  (.*)')
+        if(file~=nil) then
+            print "dropped"
+            table.insert(lines,"\t* "..file..": dropped")
+        end
+
+        -- Handle changed files for new mtn output
+        _,_,file = string.find(line,'^  patched  (.*)')
+        if(file~=nil) then
+          print "changed"
+          table.insert(lines,"\t* " .. file .. ": ...") 
+        end
+
+        -- TODO Handle attribute setting for new mtn output
     end
     for index, line in pairs(lines) do  parsed = parsed .. line .. "\n" end
 
@@ -199,6 +236,7 @@ end
 function note_commit(revid, status_text, certs)
    -- Gather the info needed
    -- table with bug numbers
+   if (mtndebug ~= nil) then print("Starting note_commit() in xaraya.rc") end
    bugs = extractbugs(certs)
    local buglist = ""
    for bug, there in pairs(bugs) do 
@@ -227,6 +265,7 @@ end
 -- Extract a table of bugids mentioned in certs, 
 --
 function extractbugs(certs)
+   if (mtndebug ~= nil) then print("Starting extractbugs() in xaraya.rc") end
    local bugs = {} -- empty table for holding the bugs
    -- which certificates do we want to look in ?
    -- at this moment, only changelog is relevant. Other certs can only
@@ -272,6 +311,7 @@ end
 --
 -- TODO: store this in .mtn-ignore-branches for example
 function ignore_branch(name)
+   if (mtndebug ~= nil) then print("ignore_branch() in xaraya.rc") end
    if name=='com.xaraya.core.marcel'     then return true end
    if name=='com.xaraya.core.ddextend'   then return true end
    if name=='com.xaraya.core.ddprops'    then return true end
@@ -289,6 +329,7 @@ end
 -- @param stanza       a basic_io stanza for the commit scope (like mtn status)
 -- @return bool,string pair of result, reason (bool,string) to signify routine result.
 function validate_commit_message (commit_msg, stanza)
+    if (mtndebug ~= nil) then print("Starting validate_commit_message() in xaraya.rc") end
     cancommit=true -- assume all well
     function passed(nr,desc)     
         nr=nr or '0.00'; desc=desc or "ERR: no description for test given"

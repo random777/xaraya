@@ -25,7 +25,7 @@
  * Code is based on various snippets found on mailinglists and webpages.
  *
  * @package daemons
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @link http://www.xaraya.com
  *
  * @subpackage tests

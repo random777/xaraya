@@ -5,7 +5,7 @@
  * Import PostNuke .71+ web link categories into your Xaraya test site
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @link http://www.xaraya.com
  *
  * @subpackage import

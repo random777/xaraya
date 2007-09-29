@@ -3,7 +3,7 @@
  * Quick & dirty import of PN .71x data into Xaraya test sites
  *
  * @package tools
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @link http://www.xaraya.com
  *
  * @subpackage import

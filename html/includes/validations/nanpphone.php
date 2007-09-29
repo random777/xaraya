@@ -3,7 +3,7 @@
  * validate a parameter as a north american phone number
  *
  * @package validation
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
 */
@@ -14,7 +14,7 @@
  */
 function variable_validations_nanpphone (&$subject, $parameters=null, $supress_soft_exc, &$name)
 {
-	// accepts '(nnn) nnn-nnnn' (space optional) or 'nnn-nnn-nnnn' formats
+    // accepts '(nnn) nnn-nnnn' (space optional) or 'nnn-nnn-nnnn' formats
     if (!eregi('^((\([2-9][0-8]\d\) ?)|([2-9][0-8]\d-))?[2-9]\d{2}-\d{4}$', $subject)) {
         if ($name != '')
             $msg = xarML('Variable #(1) does not match a phone number type: "#(2)"', $name, $subject);

@@ -51,8 +51,8 @@ for index,file in pairs(commit_files) do
 
             -- no use of private blocklayout variables in templates
             if(string.find(file,'%.x[d|t]$')) then
-                if string.find(content,'%$_bl') then
-                    privlist = privlist .. '  ' .. file .. " uses reserved private blocklayout variables\n"
+                if string.find(content,'$_bl') then
+                    privlist = privlist .. '  ' .. file .. " uses reserved private blocklayout variables '$_bl...'\n"
                 end
             end
         end

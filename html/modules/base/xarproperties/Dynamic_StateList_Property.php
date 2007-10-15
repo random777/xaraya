@@ -67,6 +67,67 @@ class Dynamic_StateList_Property extends Dynamic_Select_Property
         $data['id']    = $id;
 
        //todo - this should be fixed with id as an abbreviation and update template accordingly
+        $soptions = $this->getOptions();
+
+        $data['soptions'] = $soptions;
+        $data['invalid']  = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '';
+        $data['tabindex'] =! empty($tabindex) ? $tabindex : 0;
+
+
+        $template="";
+        return xarTplProperty('base', 'statelist', 'showinput', $data);
+
+        //return $out;
+    }
+
+    function showOutput($args = array())
+    {
+         extract($args);
+         $data = array();
+
+        if (isset($value)) {
+             $data['value']=xarVarPrepHTMLDisplay($value);
+         } else {
+             $data['value']=xarVarPrepHTMLDisplay($this->value);
+         }
+         if (isset($name)) {
+           $data['name']=$name;
+         }
+         if (isset($id)) {
+             $data['id']=$id;
+         }
+         $template="";
+         return xarTplProperty('base', 'statelist', 'showoutput', $data);
+
+    }
+
+    /**
+     * Get the base information for this property.
+     *
+     * @return array Base information for this property
+     **/
+     function getBasePropertyInfo()
+     {
+         $args = array();
+         $baseInfo = array(
+                              'id'         => 43,
+                              'name'       => 'statelisting',
+                              'label'      => 'State Dropdown',
+                              'format'     => '43',
+                              'validation' => '',
+                              'source'     => '',
+                              'dependancies' => '',
+                              'requiresmodule' => '',
+                              'aliases'        => '',
+                              'args'           => serialize($args)
+                            // ...
+                           );
+        return $baseInfo;
+     }
+     
+   function getOptions()
+   {
+        $coptions = array();
         $soptions = array();
         $soptions[] = array('id' =>'Please select', 'name' =>'Please select' );
         $soptions[] = array('id' =>'Alabama', 'name' =>'Alabama');
@@ -142,61 +203,8 @@ class Dynamic_StateList_Property extends Dynamic_Select_Property
         $soptions[] = array('id' =>'Victoria', 'name' =>'Victoria');
         $soptions[] = array('id' =>'Western Australia', 'name' =>'Western Australia');
         $soptions[] = array('id' =>'Other', 'name' =>'Other');
-
-        $data['soptions'] = $soptions;
-        $data['invalid']  = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '';
-        $data['tabindex'] =! empty($tabindex) ? $tabindex : 0;
-
-
-        $template="";
-        return xarTplProperty('base', 'statelist', 'showinput', $data);
-
-        //return $out;
+        return $soptions;
     }
-
-    function showOutput($args = array())
-    {
-         extract($args);
-         $data = array();
-
-        if (isset($value)) {
-             $data['value']=xarVarPrepHTMLDisplay($value);
-         } else {
-             $data['value']=xarVarPrepHTMLDisplay($this->value);
-         }
-         if (isset($name)) {
-           $data['name']=$name;
-         }
-         if (isset($id)) {
-             $data['id']=$id;
-         }
-         $template="";
-         return xarTplProperty('base', 'statelist', 'showoutput', $data);
-
-    }
-
-    /**
-     * Get the base information for this property.
-     *
-     * @return array Base information for this property
-     **/
-     function getBasePropertyInfo()
-     {
-         $args = array();
-         $baseInfo = array(
-                              'id'         => 43,
-                              'name'       => 'statelisting',
-                              'label'      => 'State Dropdown',
-                              'format'     => '43',
-                              'validation' => '',
-                              'source'     => '',
-                              'dependancies' => '',
-                              'requiresmodule' => '',
-                              'aliases'        => '',
-                              'args'           => serialize($args)
-                            // ...
-                           );
-        return $baseInfo;
-     }
+        
 }
 ?>

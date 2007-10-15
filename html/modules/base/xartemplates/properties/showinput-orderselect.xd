@@ -24,8 +24,7 @@
 
         <select name="#$id#_list" id="#$id#_list" size="#$size#" tabindex="#$tabindex#" class="xar-margin-thickleft">
             <xar:foreach in="$options" value="$option" >
-                <xar:set name="oid">$option[array_shift(array_keys($option))]</xar:set>
-                <option value="#$option.id#">#$option.id# #$option.name#</option>
+                <option value="#$option.id#">#$option.name#</option>
             </xar:foreach>
         </select>
         <input type="hidden" name="#$name#" id="#$id#" value="#$value#" />

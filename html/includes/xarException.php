@@ -259,10 +259,11 @@ function xarErrorHandled()
 }
 
 /**
- * Renders the current error
+ * Renders the current error.
  *
+ * The error will be shown in a template which can be overridden in a theme. For this, modify the exception templates in base module.
  * Returns a string formatted according to the $format parameter that provides all the information
- * available on current error.
+ * available on current error. 
  * If there is no error currently raised an empty string is returned.
  *
  * @author Marco Canini <marco@xaraya.com>

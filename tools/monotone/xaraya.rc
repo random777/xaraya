@@ -89,7 +89,7 @@ MTN: Above is what has been parsed as changelog from
 MTN: the status of your working dir.
 MTN: Augment them you see fit. Write the revision comment
 MTN: on the first line(s) and per file comments on the next.
-MTN: Lines starting with MT: will automatically be
+MTN: Lines starting with MTN: will automatically be
 MTN: removed]]
    tmp:write(notes)
    io.close(tmp)
@@ -100,13 +100,13 @@ MTN: removed]]
       return nil
    end
 
-   -- Read it back in and remove all MT: lines
+   -- Read it back in and remove all MTN: lines
    tmp = io.open(tname, "r")
    if (tmp == nil) then os.remove(tname); return nil end
    local res = ""
    local line = tmp:read() -- eat the first line (WATCH OUT FOR THIS)
    while(line ~= nil) do 
-      if (not string.find(line, "^MT:")) then
+      if (not string.find(line, "^MTN:")) then
          res = res .. line .. "\n"
       end
       line = tmp:read()

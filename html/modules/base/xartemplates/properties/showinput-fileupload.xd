@@ -7,7 +7,7 @@
             <xar:mlstring>Uploaded file: #(1)</xar:mlstring>
             <xar:mlvar>#xarVarPrepForDisplay($fileName)#</xar:mlvar>
         </xar:ml>
-        <input type="button" onClick="document.getElementById('#$id#_hidden').value='';document.getElementById('#$id#_text').innerHTML='';" value="#xarML('Clear')#" />
+        <input type="button" onclick="document.getElementById('#$id#_hidden').value='';document.getElementById('#$id#_text').innerHTML='';" value="#xarML('Clear')#" />
     </div>
     <input type="hidden" name="#$name#" id="#$id#_hidden" value="#xarVarPrepForDisplay($fileName)#" />
 </xar:if>

@@ -69,7 +69,7 @@ function dynamicdata_utilapi_getmeta($args)
             $size = $field->max_length;
 
             // assign some default label for now, by removing the first part (xar_)
-            $name = preg_replace('/^.+?_/','',$fieldname);
+            $name = preg_replace('/' . xarDBGetSiteTablePrefix() . '_/','',$fieldname);
             $label = strtr($name,'_',' ');
             $label = ucwords($label);
             if (isset($columns[$name])) {

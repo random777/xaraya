@@ -1612,7 +1612,6 @@ function installer_admin_upgrade2()
                $bindvars=array('base',$blockid);
                $result =& $dbconn->Execute($query,$bindvars);
 
-
                if (($newblock='waitingcontent') && isset($blockid)) {
                    //We need to disable existing hooks and enable new ones - but which :)
                    $hookTable = $systemPrefix .'_hooks';
@@ -1698,6 +1697,8 @@ function installer_admin_upgrade2()
     xarModSetVar('privileges', 'inheritdeny', true); //Was not set in privileges activation in 1.1, isrequired, maybe missing in new installs
     xarModSetVar('roles', 'requirevalidation', true); //reuse this older var for user email changes, this validation is separate to registration validation
 /* End of Version 1.1.1 Release Upgrades */
+
+
 /* Version 1.1.2 Release Upgrades */
     //Module Upgrades should take care of most
     //Need to convert privileges but only if we decide to update the current Blocks module functions' privilege checks
@@ -1722,9 +1723,9 @@ function installer_admin_upgrade2()
     xarTplUnregisterTag('base-timesince');
     xarTplRegisterTag('base', 'base-timesince', array(),
                       'base_userapi_handletimesincetag');
-                       
-
 /* End 1.1.2 Release Upgrades */
+
+
 /* Version 1.1.3 Release Upgrades */
     //move the disallowedemails back to roles rather than in Registration with disallowed username and ips
     //Check to see if the registration var exists and is not empty
@@ -1745,8 +1746,18 @@ function installer_admin_upgrade2()
     $disallowedemails = serialize($emails);
     
     xarModSetVar('roles', 'disallowedemails', $disallowedemails);
-
 /* End 1.1.3 Release Upgrades */
+
+/* Version 1.1.4 Release Upgrades */
+    //Overwriting masks with component 'All' with 'Roles', bug 6161
+    xarRegisterMask('ViewRoles',  'All', 'roles', 'Roles', 'All', 'ACCESS_OVERVIEW');
+    xarRegisterMask('ReadRole',   'All', 'roles', 'Roles', 'All', 'ACCESS_READ');
+    xarRegisterMask('EditRole',   'All', 'roles', 'Roles', 'All', 'ACCESS_EDIT');
+    xarRegisterMask('AddRole',    'All', 'roles', 'Roles', 'All', 'ACCESS_ADD');
+    xarRegisterMask('DeleteRole', 'All', 'roles', 'Roles', 'All', 'ACCESS_DELETE');
+    xarRegisterMask('AdminRole',  'All', 'roles', 'Roles', 'All', 'ACCESS_ADMIN');
+/* End 1.1.4 Release Upgrades */
+
 
     $thisdata['content']=$content;
     $thisdata['phase'] = 2;

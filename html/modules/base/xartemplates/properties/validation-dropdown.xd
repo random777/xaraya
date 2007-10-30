@@ -49,7 +49,7 @@
       <input type="text" name="#$name#[file]" id="#$id#_file" value="#$file#" size="40" />
     </td>
     <td>
-      <xar:mlstring>File containing options name1;name2;name3 or id1,name1;id2,name2;id3,name3</xar:mlstring>
+      <xar:mlstring>File containing options name1 name2 ... or id1,name1 id2,name2 ...,... (one option per line).</xar:mlstring>
     </td>
   </tr>
   <tr>

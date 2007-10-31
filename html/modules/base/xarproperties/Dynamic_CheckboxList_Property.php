@@ -128,20 +128,27 @@ class Dynamic_CheckboxList_Property extends Dynamic_Select_Property
     function showOutput($args = array())
     {
         extract($args);
+        $data = array();
 
-        if (!isset($value))
-        {
+        if (!isset($value)) {
             $value = $this->value;
         }
-
-        if( is_array($value) )
-        {
-            $value = implode(',',$value);
+        if (empty($value)) {
+            $value = array();
+        } elseif (!is_array($value)) {
+            $tmp = explode(',',$value);
+            if ($tmp === false) {
+                $value = array($value);
+            } else {
+                $value = $tmp;
+            }
         }
-
-        $data=array();
-
-        $data['value'] = xarVarPrepForDisplay($value);
+        if (!isset($options)) {
+            $options = $this->getOptions();
+        }
+        
+        $data['value']= $value;
+        $data['options']= $options;
 
         $template="";
         return xarTplProperty('base', 'checkboxlist', 'showoutput', $data);

@@ -15,6 +15,7 @@
  *
  * @param gid Group ID (optional)
  * @param name Group name (optional)
+ * @param order Sort order: name or id (optional)
  * @return array of block groups, keyed on block group ID (gid)
  * @author Jason Judge
  */

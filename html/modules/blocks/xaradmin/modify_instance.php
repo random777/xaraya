@@ -92,7 +92,7 @@ function blocks_admin_modify_instance()
     );
 
     // Fetch complete block group list.
-    $block_groups = xarModAPIfunc('blocks', 'user', 'getallgroups');
+    $block_groups = xarModAPIfunc('blocks', 'user', 'getallgroups', array('order' => 'name'));
 
     // In the modify form, we want to provide an array of checkboxes: one for each group.
     // Also a field for the overriding template name for each group instance.

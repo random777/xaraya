@@ -124,7 +124,12 @@ class Dynamic_CheckboxList_Property extends Dynamic_Select_Property
         $template="";
         return xarTplProperty('base', 'checkboxlist', 'showinput', $data);
     }
-
+    /**
+     * Show the output for this property.
+     *
+     * The output is a joined string, shown in the template
+     * @return mixed template with string "value1,value2"
+     */
     function showOutput($args = array())
     {
         extract($args);

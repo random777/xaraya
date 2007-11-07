@@ -284,3 +284,5 @@
 <!ENTITY xar-modurl-shopping-admin-validateedititem "xar-modurl-shopping-admin-validateedititem">
 <!ENTITY para "para">
 <!ENTITY deg "deg">
+<!ENTITY xar-modurl-sitecontact-admin-managesctypes "xar-modurl-sitecontact-admin-managesctypes">
+<!ENTITY xar-modurl-sitecontact-user-contactus "xar-modurl-sitecontact-user-contactus">

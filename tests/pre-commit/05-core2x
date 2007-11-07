@@ -2,7 +2,6 @@
 -- 05-core2x specific tests
 --
 print("--- Group 5: Core 2.x specific QA checks ---")
-print("--- This needs monotone 0.31   ---")
 if (branch == 'com.xaraya.core.unstable') then
     -- run tests
     print('--- Group 5.3: Deprecation ---')
@@ -11,12 +10,15 @@ if (branch == 'com.xaraya.core.unstable') then
     local deprecated = {
         ['xarPreCoreGetVarDirPath'] = 'sys::varpath()',
         ['PO_insert_ID']            = '$dbconn->getLastId()',
+        ['xarConfigGetVar']         = 'xarConfigVars::Get()',
+        ['xarConfigSetVar']         = 'xarConfigVars::Get()',
+        ['xarModGetVar']            = 'xarModVars::Get()'
     }
 
     for index,file in pairs(commit_files) do
         if(string.find(file,'%.php$')) then
             local f = io.open(file,'r')
-            if f~=nil and file~='html/includes/xarLegacy.php' then
+            if f~=nil and file~='lib/xaraya/legacy.php' then
                 local content = f:read("*all")
                 f:close()
                 for deprec,replacement in pairs(deprecated) do

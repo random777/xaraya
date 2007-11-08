@@ -105,6 +105,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
         $data['tabindex'] = (!empty($args['tabindex']) ? $args['tabindex'] : 0);
         $data['invalid']  = (!empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '');
         $data['multiselect'] = $this->multiselect;
+        $data['size'] = $this->size;
 
         if (empty($args['template'])) {
             $args['template'] = 'itemtype';

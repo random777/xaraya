@@ -280,15 +280,13 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
 
         // Return either the full list or an individual item.
         if (!empty($p_id)) {
-            if (isset($this->options[$p_id])) {
-                // Return individual item.
-                foreach ($this->options as $option) {
-                    if ($option['id'] == $p_id) return $option['name'];
-                }
-
-                // Individual item was not found.
-                return;
+            // Return individual item.
+            foreach ($this->options as $option) {
+                if ($option['id'] == $p_id) return $option['name'];
             }
+
+            // Individual item was not found.
+            return;
         } else {
             return $this->options;
         }

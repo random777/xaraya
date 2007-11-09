@@ -10,9 +10,17 @@ if (branch == 'com.xaraya.core.unstable') then
     local deprecated = {
         ['xarPreCoreGetVarDirPath'] = 'sys::varpath()',
         ['PO_insert_ID']            = '$dbconn->getLastId()',
-        ['xarConfigGetVar']         = 'xarConfigVars::Get()',
-        ['xarConfigSetVar']         = 'xarConfigVars::Get()',
-        ['xarModGetVar']            = 'xarModVars::Get()'
+        ['xarConfigGetVar']         = 'xarConfigVars::get()',
+        ['xarConfigSetVar']         = 'xarConfigVars::get()',
+        ['xarModGetVar']            = 'xarModVars::get()',
+        ['xarModSetVar']            = 'xarModVars::set()',
+        ['xarModDelVar']            = 'xarModVars::delete()',
+        ['xarModDelAllVars']        = 'xarModVars::delete_all()',
+        ['xarModGetUserVar']        = 'xarModUserVars::get()',
+        ['xarModSetUserVar']        = 'xarModUserVars::set()',
+        ['xarModDelUserVar']        = 'xarModUserVars::delete()',
+        ['xarModGetVarId']          = 'xarModVars::getId)'
+        
     }
 
     for index,file in pairs(commit_files) do

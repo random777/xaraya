@@ -122,7 +122,7 @@
                     <label for="block_content" title="#xarML('Enter the content that is shown in the block instance.')#" class="xar-form-label">
                         <xar:mlstring>Content:</xar:mlstring>
                     </label>
-                    <textarea name="block_content" id="block_content" class="xar-form-textareaxlarge">#$instance['content']#</textarea>
+                    <textarea name="block_content" id="block_content" class="xar-form-textareaxlarge">#xarVarPrepForDisplay($instance.content)#</textarea>
                 </div>
             </xar:if>
 

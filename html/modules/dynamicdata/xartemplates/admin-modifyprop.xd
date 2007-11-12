@@ -43,7 +43,7 @@
                         {
                             var my_window = window.open('#$urlform#',
                                                         'FormPreview',
-                                                        'width=780,height=580,status=no,resizable=yes,top=0,left=0,dependent=yes,alwaysRaised=yes');
+                                                        'width=780,height=580,status=yes,resizable=yes,top=0,left=0,dependent=yes,alwaysRaised=yes,scrollbars=yes');
                             my_window.opener = window;
                             my_window.focus();
                         }

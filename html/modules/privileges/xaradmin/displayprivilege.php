@@ -12,7 +12,11 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 /**
- *displayprivilege - display privilege details
+ * displayprivilege - display privilege details
+ *
+ * @param int pid The id of the privilege to display
+ *
+ * @return array The array with all details of the privilege to show
  */
 function privileges_admin_displayprivilege()
 {
@@ -20,7 +24,6 @@ function privileges_admin_displayprivilege()
     if(!xarSecurityCheck('EditPrivilege')) return;
 
     if(!xarVarFetch('pid',           'isset', $pid,        NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('pinstance',     'array', $instance,   array(), XARVAR_NOT_REQUIRED)) {return;}
 
 //Call the Privileges class and get the privilege to be modified
     $privs = new xarPrivileges();
@@ -30,7 +33,7 @@ function privileges_admin_displayprivilege()
     $parents = array();
     foreach ($priv->getParents() as $parent) {
         $parents[] = array('parentid'=>$parent->getID(),
-                                    'parentname'=>$parent->getName());
+                           'parentname'=>$parent->getName());
     }
 
 // Load Template
@@ -55,6 +58,9 @@ function privileges_admin_displayprivilege()
 
     $data['ptype'] = $priv->isEmpty() ? "empty" : "full";
     $data['parents'] = $parents;
+
+    // Set page name
+    xarTplSetPageTitle(xarVarPrepForDisplay($data['pname']));
     return $data;
 }
 

@@ -13,6 +13,17 @@
  */
 /**
  * modifyprivilege - modify privilege details
+ *
+ * @param int pid
+ * @param string pname
+ * @param int prealm
+ * @param int pmodule
+ * @param int pcomponent
+ * @param int poldcomponent
+ * @param int ptype
+ * @param int plevel
+ * @param int pinstance
+ * @return array
  */
 function privileges_admin_modifyprivilege()
 {
@@ -43,7 +54,7 @@ function privileges_admin_modifyprivilege()
     $parents = array();
     foreach ($priv->getParents() as $parent) {
         $parents[] = array('parentid'=>$parent->getID(),
-                                    'parentname'=>$parent->getName());
+                           'parentname'=>$parent->getName());
     }
 
 // remove duplicate entries from the list of privileges
@@ -128,6 +139,9 @@ function privileges_admin_modifyprivilege()
     $data['modules'] = $privs->getmodules();
     $data['components'] = $privs->getcomponents($data['pmodule']);
     $data['refreshlabel'] = xarML('Refresh');
+
+    // Set page name
+    xarTplSetPageTitle(xarVarPrepForDisplay(xarML('Modify Privilege #(1)',$data['pname'])));
     return $data;
 }
 

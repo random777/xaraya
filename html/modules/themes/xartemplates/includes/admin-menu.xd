@@ -4,7 +4,7 @@
 <xar:style scope="module" module="base" file="navtabs" />
 <xar:set name="request">xarRequestGetInfo()</xar:set>
 <xar:set name="activetab">#$request.2#</xar:set>
-<div>
+<div class="xar-admin-menu">
   <dl class="xar-tabs">
     <dt class="help" title="#xarML('Choose an action to perform')#">
       <xar:mlstring>Actions:</xar:mlstring>

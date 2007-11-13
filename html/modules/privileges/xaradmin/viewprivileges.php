@@ -14,6 +14,7 @@
 /**
  * viewPrivileges - view the current privileges
  * Takes no parameters
+ * @return array
  */
 function privileges_admin_viewprivileges()
 {
@@ -37,8 +38,9 @@ function privileges_admin_viewprivileges()
     $data['authid'] = xarSecGenAuthKey();
     $data['trees'] = $renderer->drawtrees($data['show']);
     $data['refreshlabel'] = xarML('Refresh');
+
+    // Set page name
+    xarTplSetPageTitle(xarVarPrepForDisplay(xarML('View Privileges')));
     return $data;
 }
-
-
 ?>

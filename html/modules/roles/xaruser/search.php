@@ -1,6 +1,6 @@
 <?php
 /**
- * Search
+ * Search roles
  *
  * @package modules
  * @copyright (C) 2002-2007 The Digital Development Foundation
@@ -10,10 +10,20 @@
  * @subpackage Roles module
  * @link http://xaraya.com/index.php/release/27.html
  */
-
-/*
- * Search
+/**
+ * Search the roles module
+ *
+ * This function will search for roles that match any of the criteria
  * @author Marc Lutolf <marcinmilan@xaraya.com>
+ * @param string q The string to search for
+ * @param int startnum
+ * @param string email email to search for
+ * @param string uname Username to search for
+ * @param name Display name to search for
+ * @param bool
+ * @param sort
+ * @param author
+ * @return array
  */
 function roles_user_search()
 {

@@ -7,7 +7,7 @@
     <input class="xar-form-textlong" type="text" name="#$name#" id="#$id#_input" value="#xarLocaleFormatDate($dateformat,$value)#" size="20" maxlength="19" tabindex="#$tabindex#" />
 </xar:if>
 
-<a href="javascript:xar_base_calendar_init('#$id#','#$baseuri#')"><img src="modules/base/xarimages/calendar.gif" width="16" height="16" border="0" alt="#$alttext#" /></a>
+<a href="javascript:xar_base_calendar_init('#$id#','#$baseuri#')"><img src="modules/base/xarimages/calendar.gif" style="width:16px; height:16px; border: none" alt="#$alttext#" /></a>
 
 <xar:if condition="!empty($invalid)">
     <span class="xar-error">#$invalid#</span>

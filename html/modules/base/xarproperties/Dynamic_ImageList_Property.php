@@ -53,6 +53,7 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
         }
         return $this->validateValue($value);
     }
+
     function validateValue($value = null)
     {
         if (!isset($value)) {
@@ -71,12 +72,12 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
             $this->value = $value;
             return true;
         }
+
         $this->invalid = xarML('selection');
         $this->value = null;
         return false;
     }
 
-//    function showInput($name = '', $value = null, $options = array(), $id = '', $tabindex = '')
     function showInput($args = array())
     {
         extract($args);
@@ -90,16 +91,15 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
         }
         if (count($options) == 0 && !empty($this->basedir)) {
             $files = xarModAPIFunc('dynamicdata','admin','browse',
-                                   array('basedir' => $this->basedir,
-                                         'filetype' => $this->filetype));
+                array('basedir' => $this->basedir, 'filetype' => $this->filetype)
+            );
             if (!isset($files)) {
                $files = array();
             }
             natsort($files);
             array_unshift($files,'');
             foreach ($files as $file) {
-                $options[] = array('id' => $file,
-                                   'name' => $file);
+                $options[] = array('id' => $file, 'name' => $file);
             }
             unset($files);
         }
@@ -141,10 +141,8 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
             preg_match("/$filetype$/",$value) &&
             file_exists($basedir.'/'.$value) &&
             is_file($basedir.'/'.$value)) {
-        //    return '<img src="'.$baseurl.'/'.$value.'" alt="" />';
            $srcpath=$baseurl.'/'.$value;
         } else {
-            //return '';
            $srcpath='';
         }
 
@@ -154,7 +152,7 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
         $data['filetype']=$filetype;
         $data['srcpath']=$srcpath;
 
-        $template="";
+        $template = '';
         return xarTplProperty('base', 'imagelist', 'showoutput', $data);
 
     }
@@ -164,12 +162,11 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
         if (empty($validation)) return;
         // specify base directory in validation field, or basedir|baseurl (not ; to avoid conflicts with old behaviour)
         if (strpos($validation,'|') !== false) {
-            $parts = split('\|',$validation);
-            if (count($parts) < 2) return;
-            $this->basedir = array_shift($parts);
-            $this->baseurl = array_shift($parts);
-            if (count($parts) > 0) {
-                $this->filetype = '(' . join('|',$parts) . ')';
+            $parts = explode('|', $validation, 3);
+            if (count($parts) >= 2) {
+                $this->basedir = $parts[0];
+                $this->baseurl = $parts[1];
+                if (isset($parts[2])) $this->filetype = '(' . $parts[2] . ')';
             }
         } else {
             $this->basedir = $validation;
@@ -195,15 +192,14 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
                               'requiresmodule' => '',
                               'aliases'        => '',
                               'args'           => serialize($args),
-                            // ...
                            );
         return $baseInfo;
      }
+
     /**
      * Show the validation form
      * @return mixed
      */
-
     function showValidation($args = array())
     {
         extract($args);
@@ -244,6 +240,7 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
         }
         return xarTplProperty('base', $template, 'validation', $data);
     }
+
     /**
      * Update the validation for the property with info from the validation form
      * @return bool true
@@ -261,7 +258,6 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
             if (is_array($validation)) {
                 if (!empty($validation['other'])) {
                     $this->validation = $validation['other'];
-
                 } else {
                     $this->validation = '';
                     if (!empty($validation['basedir'])) {
@@ -277,9 +273,7 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
                             $todo[] = $ext;
                         }
                         if (count($todo) > 0) {
-                            $this->validation .= '|(';
-                            $this->validation .= join('|',$todo);
-                            $this->validation .= ')';
+                            $this->validation .= '|(' . join('|', $todo) . ')';
                         }
                     }
                 }

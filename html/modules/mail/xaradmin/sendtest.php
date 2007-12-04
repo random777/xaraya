@@ -13,24 +13,34 @@
 /**
  * Test the email settings
  *
+ * This function does not take direct parameters,
+   but will get them via xarVarFetch method from the environment
+ *
  * @author  John Cox <niceguyeddie@xaraya.com>
  * @access  public
- * @param   no parameters
- * @return  true on success or void on failure
+ * @param   string message
+ * @param   string subject
+ * @param   string email
+ * @param   string name
+ * @param   string emailcc
+ * @param   string namecc
+ * @param   string emailbcc
+ * @param   string namebcc
+ * @return  bool true on success or void on failure
  * @throws  no exceptions
  * @todo    nothing
 */
 function mail_admin_sendtest()
 {
     // Get parameters from whatever input we need
-    if (!xarVarFetch('message', 'str:1:', $message)) return;
-    if (!xarVarFetch('subject', 'str:1', $subject)) return;
-    if (!xarVarFetch('email', 'email', $email, '')) return;
-    if (!xarVarFetch('name', 'str:1', $name, '')) return;
-    if (!xarVarFetch('emailcc', 'email', $emailcc, '')) return;
-    if (!xarVarFetch('namecc', 'str:1', $namecc, '')) return;
+    if (!xarVarFetch('message',  'str:1:', $message)) return;
+    if (!xarVarFetch('subject',  'str:1:', $subject)) return;
+    if (!xarVarFetch('email',    'email', $email, '')) return;
+    if (!xarVarFetch('name',     'str:1:', $name, '')) return;
+    if (!xarVarFetch('emailcc',  'email', $emailcc, '')) return;
+    if (!xarVarFetch('namecc',   'str:1:', $namecc, '')) return;
     if (!xarVarFetch('emailbcc', 'email', $emailbcc, '')) return;
-    if (!xarVarFetch('namebcc', 'str:1', $namebcc, '')) return;
+    if (!xarVarFetch('namebcc',  'str:1:', $namebcc, '')) return;
 
     // Confirm authorisation code.
     if (!xarSecConfirmAuthKey()) return;
@@ -52,7 +62,7 @@ function mail_admin_sendtest()
     } else {
         $when = 0;
     }
-
+    // Set the html message context to the plaintext content
     $htmlmessage = $message;
 
     if (!xarModAPIFunc('mail',

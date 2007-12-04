@@ -40,7 +40,8 @@ function mail_admin_compose()
     $data['name']   = xarModGetVar('mail', 'adminname');
     $data['email']  = xarModGetVar('mail', 'adminmail');
     $data['name']   = xarModGetVar('mail', 'adminname');
-
+    // Set the page name
+    xarTplSetPageTitle(xarVarPrepForDisplay(xarML('Test the email configuration')));
     // everything else happens in Template for now
     return $data;
 }

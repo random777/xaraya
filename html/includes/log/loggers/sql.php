@@ -38,6 +38,7 @@ include_once ('./includes/log/loggers/xarLogger.php');
  * @version $Revision: 1.21 $
  * @since   Horde 1.3
  * @package logging
+ * @todo MichelV: Add a check for the presence of the table. If not presence, exit graciously
  */
 class xarLogger_sql extends xarLogger
 {

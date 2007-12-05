@@ -2,9 +2,12 @@
 /**
  * SQL based logger
  *
- * @package logging
+ * @package core
  * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
  *
+ * @subpackage logging
  */
 /**
  * Include the base class
@@ -22,13 +25,14 @@ include_once ('./includes/log/loggers/xarLogger.php');
  * Create on activation of the logger module
  *
  *
- * CREATE TABLE log_table (
- *  id          INT NOT NULL,
- *  ident       VARCHAR(32) NOT NULL,
- *  logtime     TIMESTAMP NOT NULL,
- *  priority    TINYINT NOT NULL,
- *  message     TINYTEXT
- * );
+    CREATE TABLE `xar_log_messages` (
+      `id` int(10) NOT NULL auto_increment,
+      `ident` varchar(32) NOT NULL,
+      `logtime` timestamp NOT NULL default CURRENT_TIMESTAMP,
+      `priority` tinyint(4) NOT NULL,
+      `message` tinytext NOT NULL,
+      PRIMARY KEY  (`id`)
+    );
  *
  * @author  Jon Parise <jon@php.net>
  * @version $Revision: 1.21 $
@@ -59,49 +63,40 @@ class xarLogger_sql extends xarLogger
     function setConfig($conf)
     {
         parent::setConfig($conf);
-
-        $this->_dbconn =& xarDBGetConn();
+       // This generates errors and is not necessary here
+       // $this->_dbconn =& xarDBGetConn();
 
         $this->_table = $conf['table'];
-//        $xartable =& xarDBGetTables();
     }
 
-
     /**
-     * Inserts $message to the currently open database.  Calls open(),
-     * if necessary.  Also passes the message along to any Log_observer
-     * instances that are observing this Log.
+     * Inserts $message to the current database.
      *
      * @param string $message  The textual message to be logged.
-     * @param string $priority The priority of the message.  Valid
-     *                  values are: PEAR_LOG_EMERG, PEAR_LOG_ALERT,
-     *                  PEAR_LOG_CRIT, PEAR_LOG_ERR, PEAR_LOG_WARNING,
-     *                  PEAR_LOG_NOTICE, PEAR_LOG_INFO, and PEAR_LOG_DEBUG.
-     *                  The default is PEAR_LOG_INFO.
+     * @param int $level The priority of the message.
      * @return boolean  True on success or false on failure.
      * @access public
      */
-    function notify($message, $priority)
+    function notify($message, $level)
     {
         if (!$this->doLogLevel($level)) return false;
-
+        // DB connection
+        $dbconn =& xarDBGetConn();
         /* Build the SQL query for this log entry insertion. */
-        $id = $this->_dbconn->GenId('log_id');
-        $q = sprintf('insert into %s (id, ident, logtime, priority, message)' .
-                     'values(%d, CURRENT_TIMESTAMP, %s, %d, %s)',
-                     $this->_table,
-                     $id,
-                     $this->_dbconn->qstr($this->_ident),
-                     $this->getTime(),
-                     $priority,
-                     $this->_dbconn->qstr($message));
-
-        $result = $this->_dbconn->Execute($q);
+        // Generate id
+        $nextId = $dbconn->GenId($this->_table);
+        // Query for insertion
+        $query = "INSERT INTO $this->_table (id, ident, logtime, priority, message)
+                VALUES (?,?,?,?,?)";
+        $bindvars = array($nextId, $this->_ident, $this->GetTime(),$level,$message);
+        // Execute
+        $result = &$dbconn->Execute($query,$bindvars);
 
         if (!$result) {
             return false;
         }
-
+        // Needed?
+        $result->Close();
         return true;
     }
 }

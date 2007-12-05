@@ -30,7 +30,7 @@ include_once ('./includes/log/loggers/xarLogger.php');
       `ident` varchar(32) NOT NULL,
       `logtime` timestamp NOT NULL default CURRENT_TIMESTAMP,
       `priority` tinyint(4) NOT NULL,
-      `message` tinytext NOT NULL,
+      `message` text NOT NULL,
       PRIMARY KEY  (`id`)
     );
  *

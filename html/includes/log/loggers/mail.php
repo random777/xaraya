@@ -70,7 +70,10 @@ class xarLogger_mail extends xarLogger
      */
     var $_opened = false;
 
-
+    // End of line marker for writing to the log file.
+    // TODO: automatically determine the OS-specific EOL characters.
+    var $EOL = "\r\n";
+    var $DEOL = "\r\n\r\n";
     /**
      * Constructs a new Log_mail object.
      *
@@ -100,16 +103,7 @@ class xarLogger_mail extends xarLogger
         if (!empty($conf['subject'])) {
             $this->_subject = $conf['subject'];
         }
-        $this->_message ='';
 
-        // Write the request details.
-        if (isset($_SERVER['REQUEST_URI'])) {
-            $this->_message .= 'REQUEST_URI: ' . $_SERVER['REQUEST_URI'];
-        }
-
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            $this->_message .= 'HTTP_REFERER: ' . $_SERVER['HTTP_REFERER'];
-        }
         /* register the destructor */
         register_shutdown_function(array(&$this, '_destructor'));
     }
@@ -134,7 +128,17 @@ class xarLogger_mail extends xarLogger
     function open()
     {
         if (!$this->_opened) {
-            $this->_message .= "\n\nLog messages:\n\n";
+            // Start the message
+            $this->_message = "Log messages" . $this->DEOL;
+
+            // Write the request details
+            if (isset($_SERVER['HTTP_REFERER'])) {
+                $this->_message .= 'HTTP_REFERER: ' . $_SERVER['HTTP_REFERER'] . $this->EOL;
+            }
+            if (isset($_SERVER['REQUEST_URI'])) {
+                $this->_message .= 'REQUEST_URI: ' . $_SERVER['REQUEST_URI'] . $this->DEOL;
+            }
+
             $this->_opened = true;
         }
     }

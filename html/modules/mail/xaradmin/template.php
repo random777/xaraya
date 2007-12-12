@@ -9,7 +9,7 @@
  *
  * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
- * @subpackage Mail System
+ *
  */
 /**
  * Modify the email templates for hooked notifications
@@ -62,7 +62,7 @@ function mail_admin_template($args)
             return true;
             break;
     }
-
+    // Get the hooked module for a listing
     $data['settings'] = array();
     $hookedmodules = xarModAPIFunc('modules', 'admin', 'gethookedmodules',
                                    array('hookModName' => 'mail'));
@@ -95,6 +95,10 @@ function mail_admin_template($args)
             }
         }
     }
+
+    // Set the page name
+    xarTplSetPageTitle(xarVarPrepForDisplay(xarML('Configure Notification Template')));
+    // return the resulting data array
     return $data;
 }
 ?>

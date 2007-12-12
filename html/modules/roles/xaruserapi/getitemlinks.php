@@ -14,10 +14,10 @@
  * utility function to pass individual item links to whoever
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @param  $args ['itemtype'] item type (optional)
- * @param  $args ['itemids'] array of item ids to get
- * @returns array
+ * @param  int itemtype item type (optional)
+ * @param  array itemids array of item ids to get
  * @return array containing the itemlink(s) for the item(s).
+ *               with uid, title and label for the link
  */
 function roles_userapi_getitemlinks($args)
 {
@@ -37,5 +37,4 @@ function roles_userapi_getitemlinks($args)
     }
     return $itemlinks;
 }
-
 ?>

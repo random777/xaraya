@@ -15,8 +15,9 @@
  *
  * @author  John Cox <niceguyeddie@xaraya.com>
  * @access  public
- * @param   no parameters
- * @return  true on success or void on failure
+ * @param   array $args Argument array when calling this function from another function
+ * @param   string action The action to perform
+ * @return  bool true on success or void on failure
  * @throws  no exceptions
  * @todo    nothing
 */
@@ -96,7 +97,8 @@ function mail_admin_viewq($args)
     // TODO: add a pager (once it exists in BL)
     $data['pager'] = '';
     $data['authid'] = xarSecGenAuthKey();
-
+    // Set the page name
+    xarTplSetPageTitle(xarVarPrepForDisplay(xarML('Manage mail que')));
     // return the template variables defined in this template
     return $data;
 

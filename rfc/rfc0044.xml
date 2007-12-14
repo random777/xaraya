@@ -683,17 +683,43 @@ where the updated roadmap is available.
         Typically in software development, you deal a lot with version
         numbers. Below are the rules for any version number used in
         Xaraya.
+      </t>
+      <section title="Format">
         <t>
           <list style="numbers">
             <t>All version numbers have exactly 3 positions. (1.2.3)</t>
             <t>Each position is numeric</t>
             <t>
+              First position denotes major revision: Very significant
+              additions/changes in design, architecture, or functionality,
+              up to and including complete rewrite from the previous major
+              version.  For new works, a Major digit of 0 is suggested
+              until the work reaches a feature-complete state as envisioned
+              by the author(s).
+            </t>
+            <t>
+              Second position denotes minor revision: A new feature is added,
+              a dependency is added/changed/removed, or a change to database
+              structure is implemented.  Regardless of how small the difference
+              may be between successive versions, if dependencies or database
+              structure change, a change in the minor digit is required.  When
+              the criteria for a Minor digit increase overlap (ie, a new feature
+              includes a database change) the overlapping criteria are counted
+              as a single change for the purposes of version number change.
+            </t>
+            <t>
+              Third position denotes bugfixes: A single bug is fixed, even if the
+              bug is previously unknown. In that case, the bug should still be
+              documented in the appropriate tracker, even posthumously.
+            </t>
+            <t>
               No leading zero's are used (i.e. 1.01.04 is invalid,
               this should be 1.1.4)
             </t>
             <t>
-              Version numbering in one position does not overflow;
-              345.300.14 is a valid version number, as is 1.10.11</t>
+              Version numbering in one position does not overflow and is
+              not limited to single digits; 345.300.14 is a valid version
+              number, as is 1.10.11</t>
             <t>
               The first two positions are 'active' positions. This
               means that based on the change of any of the first or
@@ -705,15 +731,66 @@ where the updated roadmap is available.
               responsible developer should make sure that his object,
               module, theme or otherwise deals with this correctly.
             </t>
+            <t>
+              Version suffixes (ie, RC2, b1, etc) are not significant to the numbering
+              scheme and should be ignored by code that handles version numbers (except
+              for display purposes).  They may be used to indicate milestones of stability
+              and/or feature completion while approaching a Major (x.0.0) version. If used,
+              these indicators should be used in the following order: a[1-9] (alpha), b[1-9]
+              (beta), RC[1-9] (release candidate).  Version suffixes should be separated
+              from the last numeric positon by a hyphen.  Version suffixes should not
+              affect the numeric digits in any way, or vice versa.  The use of version
+              suffixes is left to each author's preference, and is neither encouraged
+              nor discouraged.
+            </t>
           </list>
         </t>
-      </t>
-      <t>
-        In practice documentation also can have a version number. The
-        same rules apply as well. We recommend using the term
-        'editions' when refering to documentation and 'revisions' when
-        refering to code.
-      </t>
+      </section>
+      <section title="Version Number Changes">
+        <t>
+          As development continues, version numbers change to reflect progress. Using the
+          rules below, two version numbers can indicate at a glance the amount of change
+          between the two versions. 
+        </t>
+        <t>
+          <list style="numbers">
+            <t>Version numbers never decrease.</t>
+            <t>
+              When multiple features or bugfixes are contained in a single
+              revision, the corresponding posiiton is increased accordingly (ie,
+              1.0.0 + 2 bugfixes = 1.0.2)
+            </t>
+            <t>
+              When a position changes, all lower positions are reset to 0 (ie,
+              1.2.7 + new feature = 1.3.0, or 1.2.7 + major functionality = 2.0.0).
+            </t>
+            <t>
+              When a revision would affect more than one position, only the
+              leftmost posiiton is changed, and the lower ones are reset to 0. For
+              example, 1.2.7 + 2 new features and 3 bugfixes = 1.4.0.
+            </t>
+            <t>
+              At any time, an author may arbitrarily decide that the number of
+              bugfixes since a minor version constitutes another minor version.
+              For example, 1.3.15 may become 1.4 without any code changes.  It is
+              strongly suggested that this only be done if the number of bugfixes
+              since the previous minor version equals or exceeds 10, however this
+              suggestion should not be interpreted as "10 bugfixes equals a minor
+              version": the significance and severity of the bugs should be
+              considered, not just the quantity.
+            </t>
+          </list>
+        </t>
+      </section>
+      <section title="Version Terminology">
+        <t>
+          In practice documentation also can have a version number. The
+          same rules apply as well. We recommend using the term
+          'editions' when refering to documentation and 'revisions' when
+          refering to code.
+        </t>
+      </section>
+
     </section>
     <section title="Database">
       <t>
@@ -741,6 +818,7 @@ where the updated roadmap is available.
 
     <!-- Revision history is mandatory -->
     <section title="Revision history">
+      <t>2007-12-14: Dracos - Broke section "Version Numbers" into subsections; added subsection "Version Number Changes"</t>
       <t>2005-10-08: jojodee - updated header section, some small updates</t>
       <t>2004-01-15: MrB - added class section</t>
       <t>2003-10-13: MrB - reorganized a bit, added some verbosity.</t>

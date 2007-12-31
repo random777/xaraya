@@ -57,9 +57,12 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
                 $result = xarVarValidate('strlist:, :id', $this->value, true);
                 if (!$result) $this->invalid = xarML('List of integers required, got #(1)', $this->value);
             } else {
+                //bug 6192 - auto allocation of itemtype id broken on creation of new dd object
                 // Validate as a single integer.
-                $result = xarVarValidate('id', $this->value, true);
-                if (!$result) $this->invalid = xarML('Single integer required, got #(1)', $this->value);
+                //$result = xarVarValidate('id', $this->value, true);
+                //if (!$result) $this->invalid = xarML('Single integer required, got #(1)', $this->value);
+                // let Dynamic_NumberBox_Property handle the rest
+                return parent::validateValue($value);
             }
             return $result;
         }

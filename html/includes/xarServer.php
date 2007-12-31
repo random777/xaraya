@@ -306,8 +306,8 @@ function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $fragme
 
     // add optional parameters
     if (count($args) > 0) {
-        // Parse the current URL.
-        $parsed_url = parse_url($request);
+        // Parse the current URL, ensure we are not parsing a relative url
+        $parsed_url = parse_url($baseurl.$request);
 
         // Parse the query string into an array of parameters.
         $query = (!empty($parsed_url['query']) ? $parsed_url['query'] : '');

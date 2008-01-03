@@ -13,7 +13,7 @@
             </label>
             <select name="defaulttheme" id="defaulttheme">
                 <xar:loop name="$themes">
-                    <xar:if condition="$loop:item['name'] eq $defaulttheme">
+                    <xar:if condition="$loop:item['directory'] eq $defaulttheme">
                         <option value="#$loop:item['regid']#" selected="selected">#$loop:item['name']#</option>
                     <xar:else />
                         <option value="#$loop:item['regid']#">#$loop:item['name']#</option>

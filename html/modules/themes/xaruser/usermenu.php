@@ -60,7 +60,7 @@ function themes_user_usermenu($args)
             if (!xarSecConfirmAuthKey()) return;
             $themeInfo = xarThemeGetInfo($defaulttheme);
 
-            xarModSetUserVar('themes', 'default', $themeInfo['name'], $uid);
+            xarModSetUserVar('themes', 'default', $themeInfo['directory'], $uid);
             // Redirect
             xarResponseRedirect(xarModURL('roles', 'user', 'account', array('moduleload' => 'themes')));
 

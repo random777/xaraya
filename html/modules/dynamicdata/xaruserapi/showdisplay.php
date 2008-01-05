@@ -34,6 +34,9 @@ function dynamicdata_userapi_showdisplay($args)
 
     // When called via hooks, the module name may be empty, so we get it from
     // the current module
+    if (empty($tplmodule)) {
+        $tplmodule = 'dynamicdata';
+    }
     if (empty($module)) {
         $modname = xarModGetName();
     } else {
@@ -114,7 +117,8 @@ function dynamicdata_userapi_showdisplay($args)
     }
 
     return $object->showDisplay(array('layout'   => $layout,
-                                      'template' => $template));
+                                      'template' => $template,
+                                      'tplmodule' => $tplmodule));
 }
 
 ?>

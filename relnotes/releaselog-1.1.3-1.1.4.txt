@@ -1,0 +1,34 @@
+Release notes for Xaraya Core release 1.1.4
+
+Release 1.1.4 (only relevant changes from 1.1.3 onwards included here)
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+Major changes:
+    * New OrderSelect Dynamic Data Property
+
+General fixes and improvements:
+     * General XHTML correctness
+     * Duplicate entries in CACHEKEYS removed when a new entry added
+     
+
+      Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+      bug   : short info
+      ------|-----------
+    * [2054] xarServerGetCurrentURL() does not encode further parameters
+    * [4770] purge users pager not working
+    * [4804] Wrong text in label for DD Drop down validation format field
+    * [4974] xarServerGetCurrentURL() consistency in URL encoding
+    * [5017] Please pick one: "real name" or "display name"
+    * [5207] (workaround) Column name mangling while importing tables to dynamic objects 
+    * [5389] xarServerGetCurrentURL
+    * [5866] xarServerGetCurrentURL() - does not take '#' into account
+    * [6028] Delete all <references> tags in language packs
+    * [6111] Recall/Purge not working in Xaraya 1.1.3 Release
+    * [6115] translations: xarbb error when trying to generate skels or to translate
+    * [6164] Adjust xaraya.rc to monotones new output format
+    * [6171] Limitation of cookie parameters length (10)
+    * [6192] when creating a new dynamicdata object itemtype is not autoallocated correctly
+    

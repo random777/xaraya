@@ -473,6 +473,9 @@ class Dynamic_SubForm_Property extends Dynamic_Property
         if (!isset($value)) {
             $value = $this->value;
         }
+        if (!isset($tplmodule)) {
+            $tplmodule = 'dynamicdata';
+        }
         foreach ($this->arguments as $item) {
             if (isset($$item)) {
                 $this->$item = $$item;
@@ -496,7 +499,7 @@ class Dynamic_SubForm_Property extends Dynamic_Property
             $template = 'subform';
         }
 
-        return xarTplProperty('dynamicdata', $template, 'showoutput', $data);
+        return xarTplProperty($tplmodule, $template, 'showoutput', $data);
     }
 
     function parseValidation($validation = '')

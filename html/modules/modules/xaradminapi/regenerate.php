@@ -2,7 +2,7 @@
 /**
  * Regenerate module list
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -14,8 +14,7 @@
  *
  * @author Xaraya Development Team
  * @param none
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws NO_PERMISSION
  */
 function modules_adminapi_regenerate()
@@ -47,7 +46,7 @@ function modules_adminapi_regenerate()
         // Check matching name and regid values
         foreach ($dbModules as $dbmodule) {
             // Bail if 2 modules have the same regid but not the same name
-            if (($modinfo['regid'] == $dbmodule['regid']) && 
+            if (($modinfo['regid'] == $dbmodule['regid']) &&
                ($modinfo['name'] != $dbmodule['name'])) {
                 $msg = xarML('The same registered ID (#(1)) was found belonging to a #(2) module in the file system and a registered #(3) module in the database. Please correct this and regenerate the list.', $dbmodule['regid'], $modinfo['name'], $dbmodule['name']);
                 xarErrorSet(
@@ -58,7 +57,7 @@ function modules_adminapi_regenerate()
             }
 
             // Bail if 2 modules have the same name but not the same regid
-            if (($modinfo['name'] == $dbmodule['name']) && 
+            if (($modinfo['name'] == $dbmodule['name']) &&
                ($modinfo['regid'] != $dbmodule['regid'])) {
                 $msg = xarML('The module #(1) is found with two different registered IDs, #(2)  in the file system and #(3) in the database. Please correct this and regenerate the list.', $modinfo['name'], $modinfo['regid'], $dbmodule['regid']);
                 xarErrorSet(
@@ -166,10 +165,10 @@ function modules_adminapi_regenerate()
                         if(substr($modinfo['class'], 0, 4)  == 'Core')
                         {
                             // Yup, this module either belongs to Core or maskarading as such..
-                            
+
                             // our main objective here, however, is to catch core modules that have been upgraded
                             // then we must try hard to upgrade and activate it transparently
-                    
+
                             // Get module ID
                             $regId = $modinfo['regid'];
 
@@ -177,13 +176,13 @@ function modules_adminapi_regenerate()
                             xarModAPIFunc('modules','admin','upgrade',
                                             array(    'regid'    => $regId,
                                                     'state'    => $newstate));
-                            
+
                             $newstate = XARMOD_STATE_ACTIVE;
                             xarModAPIFunc('modules','admin','activate',
                                             array(    'regid'    => $regId,
                                                     'state'    => $newstate));
                         }
-                        
+
                         // Update the module version number
                         $sql = "UPDATE $modules_table SET xar_version = ? WHERE xar_regid = ?";
                         $result = $dbconn->Execute($sql, array($modinfo['version'], $modinfo['regid']));
@@ -191,7 +190,7 @@ function modules_adminapi_regenerate()
                     } else {
                         // Else set the module state to upgraded
                         $set = xarModAPIFunc(
-                            'modules', 'admin', 'setstate', 
+                            'modules', 'admin', 'setstate',
                             array(
                                 'regid' => $modinfo['regid'],
                                 'state' => XARMOD_STATE_UPGRADED
@@ -202,7 +201,7 @@ function modules_adminapi_regenerate()
                     }
                 } else {
                     // The database version is greater than the file version.
-                    // We can't deactivate or remove the module as the user will 
+                    // We can't deactivate or remove the module as the user will
                     // lose all of their data, so the module should be placed into
                     // a holding state until the user has updated the files for
                     // the module and the module version is the same or greater

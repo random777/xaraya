@@ -2,7 +2,7 @@
 /**
  * Set the state of a module
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -15,6 +15,7 @@
  * @author Xaraya Development Team
  * @param $args['regid'] the module id
  * @param $args['state'] the state
+ * @return bool true
  * @throws BAD_PARAM,NO_PERMISSION
  */
 function modules_adminapi_setstate($args)
@@ -63,7 +64,7 @@ function modules_adminapi_setstate($args)
                 $result =& $dbconn->Execute($query,array($regid));
                 if (!$result) return;
                 if ($result->EOF) {
-                    // Bug #1813 - Have to use GenId to get or create the sequence 
+                    // Bug #1813 - Have to use GenId to get or create the sequence
                     // for xar_id or the sequence for xar_id will not be available
                     // in PostgreSQL
                     $seqId = $dbconn->GenId($module_statesTable);

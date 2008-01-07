@@ -3,7 +3,7 @@
  * Verifies if all dependencies of a module are satisfied.
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,7 +15,7 @@
  * To be used before initializing a module.
  *
  * @author Xaraya Development Team
- * @param $mainId int ID of the module to look up the dependents for; in $args
+ * @param int $mainId ID of the module to look up the dependents for; in $args
  * @return bool true on dependencies verified and ok, false for not
  * @throws NO_PERMISSION
  */
@@ -45,7 +45,7 @@ function modules_adminapi_verifydependency($args)
 
     // See if we have lost any modules since last generation
     if (!xarModAPIFunc('modules','admin','checkmissing')) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', 'Missing Module');
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', xarML('Missing Module'));
         return;
     }
 
@@ -54,7 +54,7 @@ function modules_adminapi_verifydependency($args)
     // So db modules should be a safe start to go looking for them
     $dbModules = xarModAPIFunc('modules','admin','getdbmodules');
     if (!isset($dbModules)) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', 'Unable to find modules in the database');
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', xarML('Unable to find modules in the database'));
         return;
     }
 

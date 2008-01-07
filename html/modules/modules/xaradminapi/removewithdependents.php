@@ -2,7 +2,7 @@
 /**
  * Remove module and its dependents
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -16,8 +16,7 @@
  *
  * @author Xaraya Development Team
  * @param $maindId int ID of the module to look dependents for
- * @returns array
- * @return array with dependents
+ * @return bool true on succesful removal
  * @throws NO_PERMISSION
  */
 function modules_adminapi_removewithdependents ($args)
@@ -55,7 +54,7 @@ function modules_adminapi_removewithdependents ($args)
             return;
         }
     }
-    
+
     //Remove the previously active
     foreach ($dependents['active'] as $active_dependent) {
         if (!xarModAPIFunc('modules', 'admin', 'remove', array('regid' => $active_dependent['regid']))) {
@@ -64,7 +63,7 @@ function modules_adminapi_removewithdependents ($args)
             return;
         }
     }
-    
+
     //Remove the initialised
     foreach ($dependents['initialised'] as $active_dependent) {
         if (!xarModAPIFunc('modules', 'admin', 'remove', array('regid' => $active_dependent['regid']))) {
@@ -73,7 +72,7 @@ function modules_adminapi_removewithdependents ($args)
             return;
         }
     }
-    
+
     return true;
 }
 

@@ -13,9 +13,8 @@
  * Remove a module when the files are missing
  *
  * @author Xaraya Development Team
- * @param $args['regid'] the id of the module
- * @returns bool
- * @return true on success, false on failure
+ * @param int $args['regid'] the id of the module
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function modules_adminapi_removemissing($args)
@@ -23,7 +22,7 @@ function modules_adminapi_removemissing($args)
     // Get arguments from argument array
     extract($args);
 
-// TODO (random) This whole exercise is on hold because w have no way of knowing which
+// TODO (random) This whole exercise is on hold because we have no way of knowing which
 // tables actually belong to the module being removed, and so the cleanup is incomplete
 // For now just remove the entry in the modules and modules states tables
 

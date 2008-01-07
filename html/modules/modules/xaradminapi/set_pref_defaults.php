@@ -15,8 +15,7 @@
  * @author Xaraya Development Team
  * @access public
  * @param none
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success
  * @throws BAD_PARAM
  */
 function modules_adminapi_set_pref_defaults()
@@ -30,7 +29,7 @@ function modules_adminapi_set_pref_defaults()
     if(xarModGetUserVar('modules', 'hidestats'))    xarModDelUserVar('modules', 'hidestats');
     if(xarModGetUserVar('modules', 'selmax'))       xarModDelUserVar('modules', 'selmax');
     if(xarModGetUserVar('modules', 'startpage'))    xarModDelUserVar('modules', 'startpage');
-        
+
     // all done
     return true;
 }

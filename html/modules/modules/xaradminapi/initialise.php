@@ -2,8 +2,8 @@
 /**
  * Initialise a module
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2005-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,8 +14,7 @@
  *
  * @author Xaraya Development Team
  * @param regid registered module id
- * @returns bool
- * @return
+ * @return bool true on successful initialisation
  * @throws BAD_PARAM, MODULE_NOT_EXIST
  */
 function modules_adminapi_initialise($args)

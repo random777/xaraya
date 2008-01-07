@@ -2,8 +2,8 @@
 /**
  * Checks missing modules
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2005-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -40,7 +40,7 @@ function modules_adminapi_checkmissing()
     // See if we have lost any modules since last generation
     foreach ($dbModules as $name => $modInfo) {
 
-        //TODO: Add check for any module that might depend on this one
+        // TODO: Add check for any module that might depend on this one
         // If found, change its state to something inoperative too
         // New state? XAR_MODULE_DEPENDENCY_MISSING?
 

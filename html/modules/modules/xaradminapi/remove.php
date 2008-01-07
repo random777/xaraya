@@ -2,7 +2,7 @@
 /**
  * Remove a module
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -14,8 +14,7 @@
  *
  * @author Xaraya Development Team
  * @param $args['regid'] the id of the module
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function modules_adminapi_remove($args)
@@ -51,6 +50,7 @@ function modules_adminapi_remove($args)
         // Delete any module variables that the module cleanup function might
         // have missed.
         // This needs to be done before the module entry is removed.
+        // MichelV: so why have this in modules as well?
         xarModDelAllVars($modinfo['name']);
 
         $query = "DELETE FROM " . $tables['modules'] . " WHERE xar_regid = ?";
@@ -74,8 +74,9 @@ function modules_adminapi_remove($args)
 
         // Delete any module variables that the module cleanup function might
         // have missed.
-        // This needs to be done before the module ntry is removed.
+        // This needs to be done before the module entry is removed.
         // <mikespub> But *after* the delete() function of the module !
+        // MichelV: So why have this in modules???
         xarModDelAllVars($modinfo['name']);
 
         // Update state of module

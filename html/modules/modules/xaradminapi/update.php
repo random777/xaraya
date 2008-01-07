@@ -2,7 +2,7 @@
 /**
  * Update module information
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -14,8 +14,7 @@
  * @param $args['regid'] the id number of the module to update
  * @param $args['displayname'] the new display name of the module
  * @param $args['description'] the new description of the module
- * @returns bool
- * @return true on success, false on failure
+ * @return bool true on success, false on failure
  */
 function modules_adminapi_update($args)
 {

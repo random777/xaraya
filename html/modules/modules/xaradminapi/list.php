@@ -2,7 +2,7 @@
 /**
  * Obtain list of modules (deprecated)
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -14,7 +14,6 @@
  *
  * @author Xaraya Development Team
  * @param none
- * @returns array
  * @return array of known modules
  * @throws NO_PERMISSION
  */

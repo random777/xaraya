@@ -2,8 +2,8 @@
 /**
  * Get module information from xarversion.php for each module
  *
- * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @package modules
+ * @copyright (C) 2005-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,14 +17,26 @@
  *
  * Excluded directories:
  * MT  - this is a special directory of Monotone
+ * _MTN - same as MT
  * CVS - this is a special directory of the Concurrent Versioning System
  * SCCS - where Bitkeeper stores source files
  * PENDING - where Bitkeeper stores pending merges
  *
  * @author Xaraya Development Team
- * @param $args['regid'] - optional regid to retrieve
- * @returns array
- * @return an array of modules from the file system
+ * @param $args['regid'] - optional regid to retrieve. When given, the function only returns the info for this module
+ * @return array an array of modules from the file system with:
+ * 'directory'
+   'name'
+   'nameinfile'
+   'regid'
+   'version'
+   'mode'
+   'class'
+   'category'
+   'admin_capable'
+   'user_capable'
+   'dependency'
+ *
  */
 function modules_adminapi_getfilemodules($args)
 {
@@ -42,9 +54,11 @@ function modules_adminapi_getfilemodules($args)
 
     while ($modOsDir = readdir($dh)) {
         switch ($modOsDir) {
+            // Exclude the obvious directories
             case '.':
             case '..':
             case 'MT':
+            case '_MTN':
             case 'CVS':
             case 'SCCS':
             case 'PENDING':

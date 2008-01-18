@@ -25,6 +25,7 @@
  * @param $args['status'] limit to property fields of a certain status (e.g. active)
  * @param $args['join'] join a module table to the dynamic object (if it extends the table)
  * @param bool $args['getobject'] flag indicating if you want to get the whole object back
+ * @param $args['fieldprefix'] fieldprefix for object, used with getobject flag
  * @param bool $args['preview'] flag indicating if you're previewing an item
  * @return array of (name => value), or false on failure
  * @throws BAD_PARAM, NO_PERMISSION
@@ -101,13 +102,19 @@ function &dynamicdata_userapi_getitem($args)
         $table = '';
     }
 
+    // fieldprefix for the DD object
+    if (empty($fieldprefix)) {
+        $fieldprefix = '';
+    }
+
     $object = & Dynamic_Object_Master::getObject(array('moduleid'  => $modid,
-                                       'itemtype'  => $itemtype,
-                                       'itemid'    => $itemid,
-                                       'fieldlist' => $fieldlist,
-                                       'join'      => $join,
-                                       'table'     => $table,
-                                       'status'    => $status));
+                                       'itemtype'    => $itemtype,
+                                       'itemid'      => $itemid,
+                                       'fieldlist'   => $fieldlist,
+                                       'join'        => $join,
+                                       'table'       => $table,
+                                       'status'      => $status,
+                                       'fieldprefix' => $fieldprefix));
     if (!isset($object) || empty($object->objectid)) return $nullreturn;
     if (!empty($itemid)) {
         $object->getItem();

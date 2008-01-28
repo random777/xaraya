@@ -1,0 +1,18 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_privmembers">
+    <column id="xar_privmembers.id" name="id" required="false" auto="false">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_privmembers.parentid" name="parentid" required="false" auto="false">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <constraints>
+      <index name="i_xar_privmembers_pid">
+        <columnref id="xar_privmembers.id"/>
+      </index>
+      <index name="i_xar_privmembers_parentid">
+        <columnref id="xar_privmembers.parentid"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

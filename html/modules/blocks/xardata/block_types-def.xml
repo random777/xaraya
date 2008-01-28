@@ -1,0 +1,25 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_block_types">
+    <column id="xar_block_types.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_block_types.type" name="type" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_block_types.modid" name="modid" required="true" auto="false">
+      <number size="10" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_block_types.info" name="info" required="false" auto="false">
+      <text size=""/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_block_types.id"/>
+      </primary>
+      <unique name="i_xar_block_types2">
+        <columnref id="xar_block_types.modid"/>
+        <columnref id="xar_block_types.type"/>
+      </unique>
+    </constraints>
+  </table>
+</schema>

@@ -1,0 +1,42 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_block_instances">
+    <column id="xar_block_instances.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_block_instances.type_id" name="type_id" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_block_instances.name" name="name" required="true" auto="false">
+      <text size="100"/>
+    </column>
+    <column id="xar_block_instances.title" name="title" required="false" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_block_instances.content" name="content" required="true" auto="false">
+      <text size=""/>
+    </column>
+    <column id="xar_block_instances.template" name="template" required="false" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_block_instances.state" name="state" required="true" auto="false">
+      <number size="4" defaultvalue="2" decimals="0"/>
+    </column>
+    <column id="xar_block_instances.refresh" name="refresh" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_block_instances.last_update" name="last_update" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_block_instances.id"/>
+      </primary>
+      <unique name="i_xar_block_instances_u2">
+        <columnref id="xar_block_instances.name"/>
+      </unique>
+      <index name="i_xar_block_instances">
+        <columnref id="xar_block_instances.type_id"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

@@ -1,0 +1,18 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_rolemembers">
+    <column id="xar_rolemembers.id" name="id" required="false" auto="false">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_rolemembers.parentid" name="parentid" required="false" auto="false">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <constraints>
+      <index name="i_xar_rolememb_id">
+        <columnref id="xar_rolemembers.id"/>
+      </index>
+      <index name="i_xar_rolememb_parentid">
+        <columnref id="xar_rolemembers.parentid"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

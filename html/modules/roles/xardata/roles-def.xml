@@ -1,0 +1,58 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_roles">
+    <column id="xar_roles.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_roles.name" name="name" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_roles.type" name="type" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_roles.users" name="users" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_roles.uname" name="uname" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_roles.email" name="email" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_roles.pass" name="pass" required="true" auto="false">
+      <text size="100"/>
+    </column>
+    <column id="xar_roles.date_reg" name="date_reg" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_roles.valcode" name="valcode" required="true" auto="false">
+      <text size="35"/>
+    </column>
+    <column id="xar_roles.state" name="state" required="true" auto="false">
+      <number size="11" defaultvalue="3" decimals="0"/>
+    </column>
+    <column id="xar_roles.auth_modid" name="auth_modid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_roles.id"/>
+      </primary>
+      <unique name="i_xar_roles_uname">
+        <columnref id="xar_roles.uname"/>
+      </unique>
+      <index name="i_xar_roles_type">
+        <columnref id="xar_roles.type"/>
+      </index>
+
+      <index name="i_xar_roles_name">
+        <columnref id="xar_roles.name"/>
+      </index>
+      <index name="i_xar_roles_email">
+        <columnref id="xar_roles.email"/>
+      </index>
+      <index name="i_xar_roles_state">
+        <columnref id="xar_roles.state"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

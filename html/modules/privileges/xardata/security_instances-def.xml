@@ -1,0 +1,42 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_security_instances">
+    <column id="xar_security_instances.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_security_instances.module_id" name="module_id" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_security_instances.component" name="component" required="true" auto="false">
+      <text size="100"/>
+    </column>
+    <column id="xar_security_instances.header" name="header" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_security_instances.query" name="query" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_security_instances.ddlimit" name="ddlimit" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_security_instances.propagate" name="propagate" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_security_instances.instancetable2" name="instancetable2" required="true" auto="false">
+      <text size="100"/>
+    </column>
+    <column id="xar_security_instances.instancechildid" name="instancechildid" required="true" auto="false">
+      <text size="100"/>
+    </column>
+    <column id="xar_security_instances.instanceparentid" name="instanceparentid" required="true" auto="false">
+      <text size="100"/>
+    </column>
+    <column id="xar_security_instances.description" name="description" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_security_instances.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

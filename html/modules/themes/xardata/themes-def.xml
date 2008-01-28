@@ -1,0 +1,57 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_themes">
+    <column id="xar_themes.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_themes.name" name="name" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_themes.regid" name="regid" required="false" auto="false">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_themes.directory" name="directory" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_themes.author" name="author" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_themes.homepage" name="homepage" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_themes.email" name="email" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_themes.description" name="description" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_themes.contactinfo" name="contactinfo" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_themes.publishdate" name="publishdate" required="true" auto="false">
+      <text size="32"/>
+    </column>
+    <column id="xar_themes.license" name="license" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <column id="xar_themes.version" name="version" required="true" auto="false">
+      <text size="10"/>
+    </column>
+    <column id="xar_themes.xaraya_version" name="xaraya_version" required="true" auto="false">
+      <text size="10"/>
+    </column>
+    <column id="xar_themes.bl_version" name="bl_version" required="true" auto="false">
+      <text size="10"/>
+    </column>
+    <column id="xar_themes.class" name="class" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_themes.state" name="state" required="true" auto="false">
+      <number size="11" defaultvalue="1" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_themes.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

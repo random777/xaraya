@@ -1,0 +1,27 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_dynamic_data">
+    <column id="xar_dynamic_data.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_dynamic_data.propid" name="propid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_dynamic_data.itemid" name="itemid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_dynamic_data.value" name="value" required="false" auto="false">
+      <text size=""/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_dynamic_data.id"/>
+      </primary>
+      <index name="i_xar_dyndata_propid">
+        <columnref id="xar_dynamic_data.propid"/>
+      </index>
+      <index name="i_xar_dyndata_itemid">
+        <columnref id="xar_dynamic_data.itemid"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

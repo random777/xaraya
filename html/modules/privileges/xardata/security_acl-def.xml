@@ -1,0 +1,22 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_security_acl">
+    <column id="xar_security_acl.partid" name="partid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_security_acl.permid" name="permid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="partid">
+        <columnref id="xar_security_acl.partid"/>
+        <columnref id="xar_security_acl.permid"/>
+      </primary>
+      <index name="i_xar_security_acl_partid">
+        <columnref id="xar_security_acl.partid"/>
+      </index>
+      <index name="i_xar_security_acl_permid">
+        <columnref id="xar_security_acl.permid"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

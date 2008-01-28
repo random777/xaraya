@@ -1,0 +1,15 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_security_realms">
+    <column id="xar_security_realms.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_security_realms.name" name="name" required="true" auto="false">
+      <text size="255"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_security_realms.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

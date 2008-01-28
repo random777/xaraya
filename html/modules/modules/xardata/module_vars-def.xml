@@ -1,0 +1,31 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_module_vars">
+    <column id="xar_module_vars.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_module_vars.module_id" name="module_id" required="false" auto="false">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_module_vars.name" name="name" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_module_vars.value" name="value" required="false" auto="false">
+      <text size=""/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_module_vars.id"/>
+      </primary>
+      <unique name="i_xar_config_name">
+        <columnref id="xar_module_vars.name"/>
+        <columnref id="xar_module_vars.module_id"/>
+      </unique>
+      <index name="i_xar_module_vars_module_id">
+        <columnref id="xar_module_vars.module_id"/>
+      </index>
+      <index name="i_xar_module_vars_name">
+        <columnref id="xar_module_vars.name"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

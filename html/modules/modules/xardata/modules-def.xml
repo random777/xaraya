@@ -1,0 +1,39 @@
+<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+  <table name="xar_modules">
+    <column id="xar_modules.id" name="id" required="true" auto="true">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_modules.name" name="name" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_modules.regid" name="regid" required="false" auto="false">
+      <number size="11" defaultvalue="" decimals="0"/>
+    </column>
+    <column id="xar_modules.directory" name="directory" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_modules.version" name="version" required="true" auto="false">
+      <text size="10"/>
+    </column>
+    <column id="xar_modules.class" name="class" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_modules.category" name="category" required="true" auto="false">
+      <text size="64"/>
+    </column>
+    <column id="xar_modules.admin_capable" name="admin_capable" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_modules.user_capable" name="user_capable" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="xar_modules.state" name="state" required="true" auto="false">
+      <number size="11" defaultvalue="1" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="xar_modules.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

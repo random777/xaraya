@@ -2,10 +2,10 @@
 <schema name="xaraya">
   <table name="xar_security_realms">
     <column id="xar_security_realms.id" name="id" required="true" auto="true">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_security_realms.name" name="name" required="true" auto="false">
-      <text size="255"/>
+      <text size="255" defaultvalue=""/>
     </column>
     <constraints>
       <primary name="id">

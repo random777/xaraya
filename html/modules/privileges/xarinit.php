@@ -31,7 +31,6 @@ function privileges_init()
     $tables['security_acl'] = $prefix . '_security_acl';
     $tables['security_instances'] = $prefix . '_security_instances';
     $tables['security_realms']      = $prefix . '_security_realms';
-    $tables['security_privsets']      = $prefix . '_security_privsets';
 
     // All or nothing
     try {
@@ -49,201 +48,19 @@ function privileges_init()
          * prefix_security_realms  - holds realsm info
          ********************************************************************/
 
-        /*********************************************************************
-         * CREATE TABLE xar_security_realms (
-         *  id int(11) NOT NULL auto_increment,
-         *  name varchar(255) NOT NULL default '',
-         *  PRIMARY KEY  (id)
-         * )
-         *********************************************************************/
-        $fields = array('id'  => array('type'        => 'integer','null'        => false,
-                                            'default'     => '0',      'increment'   => true,
-                                            'primary_key' => true),
-                        'name' => array('type'        => 'varchar','size'        => 255,
-                                            'null'        => false,    'default'     => ''));
-        $query = xarDBCreateTable($tables['security_realms'],$fields);
-        $dbconn->Execute($query);
-
-
-        /*********************************************************************
-         * CREATE TABLE xar_privileges (
-         *   id int(11) NOT NULL auto_increment,
-         *   name varchar(100) NOT NULL default '',
-         *   realm varchar(100) NOT NULL default '',
-         *   module_id int(11) NOT NULL default '0',
-         *   component varchar(100) NOT NULL default '',
-         *   instance varchar(100) NOT NULL default '',
-         *   level int(11) NOT NULL default '0',
-         *   description varchar(255) NOT NULL default '',
-         *   PRIMARY KEY  (id)
-         * )
-         *********************************************************************/
-
-        $fields = array('id'   => array('type' => 'integer', 'null' => false, 'default' => '0','increment' => true, 'primary_key' => true),
-                        'name'  => array('type' => 'varchar', 'size' => 100, 'null' => false, 'default' => ''),
-                        'realm_id'=>array('type' => 'integer', 'null' => true, 'default' => null),
-                        'module_id'=>array('type' => 'integer', 'null' => true, 'default' => null),
-                        'component' => array('type'  => 'varchar', 'size' => 100, 'null' => false, 'default' => ''),
-                        'instance' => array('type'   => 'varchar', 'size' => 100, 'null' => false, 'default' => ''),
-                        'level' => array('type'      => 'integer', 'null' => false,'default' => '0'),
-                        'description' => array('type'=> 'varchar', 'size' => 255, 'null' => false, 'default'     => ''),
-                        'type' => array('type'=> 'integer', 'null' => false, 'default'     => '0'));
-        $query = xarDBCreateTable($tables['privileges'],$fields);
-        $dbconn->Execute($query);
-
-        $index = array('name'      => 'i_'.$prefix.'_privileges_name',
-                       'fields'    => array('name', 'module_id', 'type'),
-                       'unique'    => true);
-        $query = xarDBCreateIndex($tables['privileges'],$index);
-        $dbconn->Execute($query);
-
-        $index = array('name'      => 'i_'.$prefix.'_privileges_realm_id',
-                       'fields'    => array('realm_id'),
-                       'unique'    => false);
-        $query = xarDBCreateIndex($tables['privileges'],$index);
-        $dbconn->Execute($query);
-
-        $index = array('name'      => 'i_'.$prefix.'_privileges_module',
-                       'fields'    => array('module_id'),
-                       'unique'    => false);
-        $query = xarDBCreateIndex($tables['privileges'],$index);
-        $dbconn->Execute($query);
-
-        $index = array('name'      => 'i_'.$prefix.'_privileges_level',
-                       'fields'    => array('level'),
-                       'unique'    => false);
-        $query = xarDBCreateIndex($tables['privileges'],$index);
-        $dbconn->Execute($query);
+        $schemas = array(
+            'privileges',
+            'privmembers',
+            'security_acl',
+            'security_instances',
+            'security_realms',
+        );
+        sys::import('xaraya.installer');
+        foreach ($schemas as $table) Installer::createTable($table, 'privileges');
 
         xarDB::importTables(array('privileges' => $prefix . '_privileges'));
-
-        /*********************************************************************
-         * CREATE TABLE xar_privmembers (
-         *   id int(11) NOT NULL default '0',
-         *   parentid int(11) NOT NULL default '0',
-         *   PRIMARY KEY id (id,parentid)
-         * )
-         *********************************************************************/
-
-        $query = xarDBCreateTable($tables['privmembers'],
-                                  array('id'       => array('type'        => 'integer',
-                                                                 'null'        => true,
-                                                                 'default'     => null),
-                                        'parentid'      => array('type'        => 'integer',
-                                                                 'null'        => true,
-                                                                 'default'     => null)));
-        $dbconn->Execute($query);
-
         xarDB::importTables(array('privmembers' => $prefix . '_privmembers'));
-
-        $index = array('name'      => 'i_'.$prefix.'_privmembers_pid',
-                       'fields'    => array('id'),
-                       'unique'    => false);
-        $query = xarDBCreateIndex($tables['privmembers'],$index);
-        $dbconn->Execute($query);
-        $index = array('name'      => 'i_'.$prefix.'_privmembers_parentid',
-                       'fields'    => array('parentid'),
-                       'unique'    => false);
-        $query = xarDBCreateIndex($tables['privmembers'],$index);
-        $dbconn->Execute($query);
-
-        /*********************************************************************
-         * CREATE TABLE xar_security_acl (
-         *   partmember int(11) NOT NULL default '0',
-         *   permmember int(11) NOT NULL default '0',
-         *   KEY id (id,parentid)
-         * )
-         *********************************************************************/
-
-        $query = xarDBCreateTable($tables['security_acl'],
-                                  array('partid'       => array('type'  => 'integer',
-                                                                    'null'        => false,
-                                                                    'default'     => '0',
-                                                                    'primary_key'         => true),
-                                        'permid'      => array('type'   => 'integer',
-                                                                   'null'        => false,
-                                                                   'default'     => '0',
-                                                                   'primary_key'         => true)));
-        $dbconn->Execute($query);
-
-        $index = array('name'      => 'i_'.$prefix.'_security_acl_partid',
-                       'fields'    => array('partid'),
-                       'unique'    => false);
-        $query = xarDBCreateIndex($tables['security_acl'],$index);
-        $dbconn->Execute($query);
-
-        $index = array('name'      => 'i_'.$prefix.'_security_acl_permid',
-                       'fields'    => array('permid'),
-                       'unique'    => false);
-        $query = xarDBCreateIndex($tables['security_acl'],$index);
-        $dbconn->Execute($query);
-
         xarDB::importTables(array('security_acl' => $prefix . '_security_acl'));
-
-        /*********************************************************************
-         * CREATE TABLE xar_security_instances (
-         *   id int(11) NOT NULL default '0',
-         *   name varchar(100) NOT NULL default '',
-         *   module varchar(100) NOT NULL default '',
-         *   type varchar(100) NOT NULL default '',
-         *   instancetable1 varchar(100) NOT NULL default '',
-         *   instancevaluefield1 varchar(100) NOT NULL default '',
-         *   instancedisplayfield1 varchar(100) NOT NULL default '',
-         *   instanceapplication int(11) NOT NULL default '0',
-         *   instancetable2 varchar(100) NOT NULL default '',
-         *   instancevaluefield2 varchar(100) NOT NULL default '',
-         *   instancedisplayfield2 varchar(100) NOT NULL default '',
-         *   description varchar(255) NOT NULL default '',
-         *   PRIMARY KEY  (sid)
-         * )
-         *********************************************************************/
-
-        $query = xarDBCreateTable($tables['security_instances'],
-                                  array('id'  => array('type'       => 'integer',
-                                                            'null'        => false,
-                                                            'default'     => '0',
-                                                            'increment'   => true,
-                                                            'primary_key' => true),
-                                        'module_id' => array('type'     => 'integer',
-                                                             'null'        => false,
-                                                             'default'     => '0'),
-                                        'component' => array('type'   => 'varchar',
-                                                                 'size'        => 100,
-                                                                 'null'        => false,
-                                                                 'default'     => ''),
-                                        'header' => array('type'   => 'varchar',
-                                                              'size'        => 255,
-                                                              'null'        => false,
-                                                              'default'     => ''),
-                                        'query' => array('type'   => 'varchar',
-                                                             'size'        => 255,
-                                                             'null'        => false,
-                                                             'default'     => ''),
-                                        'ddlimit' => array('type'  => 'integer',
-                                                             'null'        => false,
-                                                             'default'     => '0'),
-                                        'propagate' => array('type'  => 'integer',
-                                                                 'null'        => false,
-                                                                 'default'     => '0'),
-                                        'instancetable2' => array('type'   => 'varchar',
-                                                                      'size'        => 100,
-                                                                      'null'        => false,
-                                                                      'default'     => ''),
-                                        'instancechildid' => array('type'   => 'varchar',
-                                                                       'size'        => 100,
-                                                                       'null'        => false,
-                                                                       'default'     => ''),
-                                        'instanceparentid' => array('type'   => 'varchar',
-                                                                        'size'        => 100,
-                                                                        'null'        => false,
-                                                                        'default'     => ''),
-                                        'description' => array('type'=> 'varchar',
-                                                                   'size'        => 255,
-                                                                   'null'        => false,
-                                                                   'default'     => '')));
-
-        $dbconn->Execute($query);
-
         xarDB::importTables(array('security_instances' => $prefix . '_security_instances'));
 
         $dbconn->commit();

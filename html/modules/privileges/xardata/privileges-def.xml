@@ -2,28 +2,28 @@
 <schema name="xaraya">
   <table name="xar_privileges">
     <column id="xar_privileges.id" name="id" required="true" auto="true">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_privileges.name" name="name" required="true" auto="false">
-      <text size="100"/>
+      <text size="100" defaultvalue=""/>
     </column>
     <column id="xar_privileges.realm_id" name="realm_id" required="false" auto="false">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_privileges.module_id" name="module_id" required="false" auto="false">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_privileges.component" name="component" required="true" auto="false">
-      <text size="100"/>
+      <text size="100" defaultvalue=""/>
     </column>
     <column id="xar_privileges.instance" name="instance" required="true" auto="false">
-      <text size="100"/>
+      <text size="100" defaultvalue=""/>
     </column>
     <column id="xar_privileges.level" name="level" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
     <column id="xar_privileges.description" name="description" required="true" auto="false">
-      <text size="255"/>
+      <text size="255" defaultvalue=""/>
     </column>
     <column id="xar_privileges.type" name="type" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
@@ -39,6 +39,7 @@
       </unique>
       <index name="i_xar_privileges_realm_id">
         <columnref id="xar_privileges.realm_id"/>
+
       </index>
       <index name="i_xar_privileges_module">
         <columnref id="xar_privileges.module_id"/>

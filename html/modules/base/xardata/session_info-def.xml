@@ -3,37 +3,37 @@
 <!-- <!DOCTYPE schema SYSTEM "XMLSchema.dtd"> -->
 <!-- <schema xmlns="http://xaraya.com/2008/schema" name="xaraya"> -->
 <schema name="xaraya">
-  <table name="xar_session_info">
-    <column id="xar_session_info.id" name="id" required="true" auto="false">
+  <table name="xar_session_info1">
+    <column id="xar_session_info1.id" name="id" required="true" auto="false">
       <text size="32"/>
     </column>
-    <column id="xar_session_info.ip_addr" name="ip_addr" required="true" auto="false">
+    <column id="xar_session_info1.ip_addr" name="ip_addr" required="true" auto="false">
       <text size="20"/>
     </column>
-    <column id="xar_session_info.first_use" name="first_use" required="true" auto="false">
+    <column id="xar_session_info1.first_use" name="first_use" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_session_info.last_use" name="last_use" required="true" auto="false">
+    <column id="xar_session_info1.last_use" name="last_use" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_session_info.role_id" name="role_id" required="true" auto="false">
+    <column id="xar_session_info1.role_id" name="role_id" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_session_info.vars" name="vars" required="false" auto="false">
+    <column id="xar_session_info1.vars" name="vars" required="false" auto="false">
       <binary/>
     </column>
-    <column id="xar_session_info.remember" name="remember" required="false" auto="false">
+    <column id="xar_session_info1.remember" name="remember" required="false" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_session_info.id"/>
+        <columnref id="xar_session_info1.id"/>
       </primary>
       <index name="i_xar_session_role_id">
-        <columnref id="xar_session_info.role_id"/>
+        <columnref id="xar_session_info1.role_id"/>
       </index>
       <index name="i_xar_session_last_use">
-        <columnref id="xar_session_info.last_use"/>
+        <columnref id="xar_session_info1.last_use"/>
       </index>
     </constraints>
   </table>

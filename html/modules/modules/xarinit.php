@@ -43,7 +43,6 @@ function modules_init()
          */
         $schemas = array(
             'modules',
-//            'module_vars',
             'module_itemvars',
             'hooks',
         );

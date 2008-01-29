@@ -2,13 +2,13 @@
 <schema name="xaraya">
   <table name="xar_block_groups">
     <column id="xar_block_groups.id" name="id" required="true" auto="true">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_block_groups.name" name="name" required="true" auto="false">
-      <text size="255"/>
+      <text size="255" defaultvalue=""/>
     </column>
     <column id="xar_block_groups.template" name="template" required="true" auto="false">
-      <text size="255"/>
+      <text size="255" defaultvalue=""/>
     </column>
     <constraints>
       <primary name="id">

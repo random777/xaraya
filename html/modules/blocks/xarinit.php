@@ -26,111 +26,16 @@ function blocks_init()
     try {
         $dbconn->begin();
 
-        // *_block_groups
-        $query = xarDBCreateTable($prefix . '_block_groups',
-                                  array('id'         => array('type'        => 'integer',
-                                                                  'null'        => false,
-                                                                  'increment'   => true,
-                                                                  'primary_key' => true),
-                                        'name'        => array('type'        => 'varchar',
-                                                                   'size'        => 255,
-                                                                   'null'        => false,
-                                                                   'default'     => ''),
-                                        'template'    => array('type'        => 'varchar',
-                                                                   'size'        => 255,
-                                                                   'null'        => false,
-                                                                   'default'     => '')));
-        $dbconn->Execute($query);
+        $schemas = array(
+            'block_groups',
+            'block_instances',
+            'block_types',
+            'block_group_instances',
+            'cache_blocks',
+        );
+        sys::import('xaraya.installer');
+        foreach ($schemas as $table) Installer::createTable($table, 'blocks');
 
-        $query = xarDBCreateIndex($prefix . '_block_groups',
-                                  array('name'   => 'i_' . $prefix . '_block_groups',
-                                        'fields' => array('name'),
-                                        'unique' => 'true'));
-        $dbconn->Execute($query);
-
-        // *_block_instances
-        $query = xarDBCreateTable($prefix . '_block_instances',
-                                  array('id'          => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'increment'   => true,
-                                                                   'primary_key' => true),
-                                        'type_id'     => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'default'     => '0'),
-                                        'name'       => array('type'        => 'varchar',
-                                                                  'size'        => 100,
-                                                                  'null'        => false,
-                                                                  'default'     => NULL),
-                                        'title'       => array('type'        => 'varchar',
-                                                                   'size'        => 255,
-                                                                   'null'        => true,
-                                                                   'default'     => NULL),
-                                        'content'     => array('type'        => 'text',
-                                                                   'null'        => false),
-                                        'template'    => array('type'        => 'varchar',
-                                                                   'size'        => 255,
-                                                                   'null'        => true,
-                                                                   'default'     => NULL),
-                                        'state'       => array('type'        => 'integer',
-                                                                   'size'        => 'tiny',
-                                                                   'null'        => false,
-                                                                   'default'     => '2'),
-                                        'refresh'     => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'default'     => '0'),
-                                        'last_update' => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'default'     => '0')));
-
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex($prefix . '_block_instances',
-                                  array('name'   => 'i_' . $prefix . '_block_instances',
-                                        'fields' => array('type_id'),
-                                        'unique' => false));
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex($prefix . '_block_instances',
-                                  array('name'   => 'i_' . $prefix . '_block_instances_u2',
-                                        'fields' => array('name'),
-                                        'unique' => true));
-        $dbconn->Execute($query);
-
-        // *_block_types
-        $query = xarDBCreateTable($prefix . '_block_types',
-                                  array(
-                                        'id' => array(
-                                                          'type'          => 'integer',
-                                                          'null'          => false,
-                                                          'increment'     => true,
-                                                          'primary_key'   => true
-                                                          ),
-                                        'type' => array(
-                                                            'type'          => 'varchar',
-                                                            'size'          => 64,
-                                                            'null'          => false,
-                                                            'default'       => ''
-                                                            ),
-                                        'modid' => array(
-                                                              'type'          => 'integer',
-                                                              'unsigned'      => true,
-                                                              'null'          => false,
-                                                              'default'       => '0'
-                                                              ),
-                                        'info' => array(
-                                                            'type'          => 'text',
-                                                            'null'          => true
-                                                            )
-                                        )
-                                  );
-
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex($prefix . '_block_types',
-                                  array('name'   => 'i_' . $prefix . '_block_types2',
-                                        'fields' => array('modid', 'type'),
-                                        'unique' => 'false'));
-        $dbconn->Execute($query);
         /*
          TODO: Find a fix for this - Postgres will not allow partial indexes
          $query = xarDBCreateIndex($prefix . '_block_types',
@@ -139,60 +44,7 @@ function blocks_init()
          'unique' => true));
          $result =& $dbconn->Execute($query);
         */
-        // *_block_group_instances
-        $query = xarDBCreateTable($prefix . '_block_group_instances',
-                                  array('id'          => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'increment'   => true,
-                                                                   'primary_key' => true),
-                                        'group_id'    => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'default'     => '0'),
-                                        'instance_id' => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'default'     => '0'),
-                                        'template'    => array('type'        => 'varchar',
-                                                                   'size'        => 100,
-                                                                   'null'        => true,
-                                                                   'default'     => NULL),
-                                        'position'    => array('type'        => 'integer',
-                                                                   'null'        => false,
-                                                                   'default'     => '0')));
 
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex($prefix . '_block_group_instances',
-                                  array('name' => 'i_' . $prefix . '_block_group_instances',
-                                        'fields' => array('group_id'),
-                                        'unique' => false));
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex($prefix . '_block_group_instances',
-                                  array('name' => 'i_' . $prefix . '_block_group_instances_2',
-                                        'fields' => array('instance_id'),
-                                        'unique' => false));
-        $dbconn->Execute($query);
-
-        // Cache blocks table is not in xartables
-        $cacheblockstable =  $prefix . '_cache_blocks';
-
-        $query = xarDBCreateTable($prefix . '_cache_blocks',
-                                  array('id'          => array('type'        => 'integer',
-                                                                    'null'        => false,
-                                                                    'default'     => '0',
-                                                                    'primary_key' => true),
-                                        'nocache'    => array('type'        => 'integer',
-                                                                  'null'        => false,
-                                                                  'default'     => '0'),
-                                        'page' => array('type'        => 'integer',
-                                                            'null'        => false,
-                                                            'default'     => '0'),
-                                        'user'    => array('type'        => 'integer',
-                                                               'null'        => false,
-                                                               'default'     => '0'),
-                                        'expire'    => array('type'        => 'integer',
-                                                                 'null'        => true)));
-        $dbconn->Execute($query);
 
         // *_userblocks
         /* Removed Collapsing blocks to see if there is a better solution.

@@ -2,16 +2,16 @@
 <schema name="xaraya">
   <table name="xar_module_vars">
     <column id="xar_module_vars.id" name="id" required="true" auto="true">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_module_vars.module_id" name="module_id" required="false" auto="false">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_module_vars.name" name="name" required="true" auto="false">
-      <text size="64"/>
+      <text size="64" defaultvalue=""/>
     </column>
     <column id="xar_module_vars.value" name="value" required="false" auto="false">
-      <text size=""/>
+      <text/>
     </column>
     <constraints>
       <primary name="id">

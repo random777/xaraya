@@ -10,7 +10,7 @@ class Installer extends Object
             $xslFile = sys::root() . '/lib/xaraya/xslt/xml2ddl-'. $dbName . '.xsl';
         if (!file_exists($xslFile)) {
             $msg = xarML('The file #(1) was not found', $xslFile);
-            throw new Exception($msg);
+            throw new BadParameterException($msg);
         }
         sys::import('xaraya.xslprocessor');
         $xslProc = new XarayaXSLProcessor($xslFile);
@@ -27,7 +27,7 @@ class Installer extends Object
         $fullName = sys::root() . '/html/modules/' . $module . '/xardata/' . $table . '-def.xml';
         if (!file_exists($fullName)) {
             $msg = xarML('Could not find the file #(1) to create a table from', $fullName);
-            throw new Exception($msg);
+            throw new BadParameterException($msg);
         }
         $sqlCode = self::transform($fullName, 'create');
         $queries = explode(';',$sqlCode);

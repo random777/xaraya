@@ -2,13 +2,13 @@
 <schema name="xaraya">
   <table name="xar_module_itemvars">
     <column id="xar_module_itemvars.module_var_id" name="module_var_id" required="true" auto="false">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_module_itemvars.item_id" name="item_id" required="true" auto="false">
-      <number size="10" defaultvalue="" decimals="0"/>
+      <number size="10" decimals="0"/>
     </column>
     <column id="xar_module_itemvars.value" name="value" required="false" auto="false">
-      <text size=""/>
+      <text/>
     </column>
     <constraints>
       <primary name="module_var_id">

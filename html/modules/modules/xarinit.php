@@ -38,41 +38,17 @@ function modules_init()
          * Here we create all the tables for the module system
          *
          * prefix_modules       - basic module info
-         * prefix_module_vars   - module variables table
+         * prefix_module_itemvars   - module item variables table
          * prefix_hooks         - table for hooks
          */
-        // prefix_modules
-        /**
-         * CREATE TABLE xar_modules (
-         *   id int(11) NOT NULL auto_increment,
-         *   name varchar(64) NOT NULL default '',
-         *   regid int(10) INTEGER NOT NULL default '0',
-         *   directory varchar(64) NOT NULL default '',
-         *   version varchar(10) NOT NULL default '0',
-         *   class varchar(64) NOT NULL default '',
-         *   category varchar(64) NOT NULL default '',
-         *   admin_capable INTEGER NOT NULL default '0',
-         *   user_capable INTEGER NOT NULL default '0',
-         *   state INTEGER NOT NULL default '0'
-         *   PRIMARY KEY  (id)
-         * )
-         */
-        $fields = array(
-                        'id' => array('type' => 'integer', 'null' => false, 'increment' => true, 'primary_key' => true),
-                        'name' => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        'regid' => array('type' => 'integer', 'default' => null),
-                        'directory' => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        'version' => array('type' => 'varchar', 'size' => 10, 'null' => false),
-                        'class' => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        'category' => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        'admin_capable' => array('type' => 'integer', 'null' => false, 'default' => '0'),
-                        'user_capable' => array('type' => 'integer', 'null' => false, 'default' => '0'),
-                        'state' => array('type' => 'integer', 'null' => false, 'default' => '1')
-                        );
-
-        // Create the modules table
-        $query = xarDBCreateTable($tables['modules'], $fields);
-        $dbconn->Execute($query);
+        $schemas = array(
+            'modules',
+//            'module_vars',
+            'module_itemvars',
+            'hooks',
+        );
+        sys::import('xaraya.installer');
+        foreach ($schemas as $table) Installer::createTable($table, 'modules');
 
         // Manually Insert the Base and Modules module into modules table
         $query = "INSERT INTO " . $tables['modules'] . "
@@ -94,60 +70,6 @@ function modules_init()
 
         $bindvars = array('base',68,'base',(string) $modVersion,'Core Admin','Global',1,1,3);
         $dbconn->Execute($query,$bindvars);
-
-        /** Module vars table is created earlier now (base mod, where config_vars table was created */
-
-        /**
-         * CREATE TABLE module_itemvars (
-         *   module_var_id    integer NOT NULL auto_increment,
-         *   item_id          integer NOT NULL default 0,
-         *   value            longtext,
-         *   PRIMARY KEY      (module_var_id, item_id)
-         * )
-         */
-        $fields = array(
-                        'module_var_id' => array('type' => 'integer', 'null' => false, 'primary_key' => true),
-                        'item_id' => array('type' => 'integer', 'null' => false, 'unsigned' => true, 'primary_key' => true),
-                        'value' => array('type' => 'text', 'size' => 'long')
-                        );
-
-        // Create the module itemvars table
-        $query = xarDBCreateTable($tables['module_itemvars'], $fields);
-        $dbconn->Execute($query);
-
-        /**
-         * CREATE TABLE xar_hooks (
-         *   id         integer NOT NULL auto_increment,
-         *   object     varchar(64) NOT NULL default '',
-         *   action     varchar(64) NOT NULL default '',
-         *   s_module_id integer default null,
-         *   s_type      varchar(64) NOT NULL default '',
-         *   t_area      varchar(64) NOT NULL default '',
-         *   t_module_id integer not null,
-         *   t_type      varchar(64) NOT NULL default '',
-         *   t_func      varchar(64) NOT NULL default '',
-         *   priority    integer default 0
-         *   PRIMARY KEY (id)
-         * )
-         */
-        $fields = array(
-                        'id'          => array('type' => 'integer', 'null' => false, 'increment' => true, 'primary_key' => true),
-                        'object'      => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        'action'      => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        's_module_id' => array('type' => 'integer', 'null' => true, 'default' => null),
-                        // TODO: switch to integer for itemtype (see also xarMod.php)
-                        's_type'      => array('type' => 'varchar', 'size' => 64, 'null' => false, 'default' => ''),
-                        't_area'      => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        't_module_id'  => array('type' => 'integer', 'null' => false),
-                        't_type'      => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        't_func'      => array('type' => 'varchar', 'size' => 64, 'null' => false),
-                        'priority'       => array('type' => 'integer', 'null' => false, 'default' => '0')
-                    );
-        // TODO: no indexes?
-
-        // Create the hooks table
-        $query = xarDBCreateTable($tables['hooks'], $fields);
-        $dbconn->Execute($query);
 
         // <andyv> Add module variables for default user/admin, used in modules list
         /**

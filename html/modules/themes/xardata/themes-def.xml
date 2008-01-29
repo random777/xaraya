@@ -54,6 +54,5 @@
         <columnref id="xar_themes.id"/>
       </primary>
     </constraints>
-    <description>End of xar_themes</description>
   </table>
 </schema>

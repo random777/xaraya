@@ -2,40 +2,40 @@
 <schema name="xaraya">
   <table name="xar_dynamic_properties_def">
     <column id="xar_dynamic_properties_def.id" name="id" required="true" auto="true">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_dynamic_properties_def.name" name="name" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.label" name="label" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.parent" name="parent" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.filepath" name="filepath" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.class" name="class" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
-    <column id="xar_dynamic_properties_def.configuration" name="configuration" required="false" auto="false">
-      <text size="254"/>
+    <column id="xar_dynamic_properties_def.validation" name="validation" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.source" name="source" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.reqfiles" name="reqfiles" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.modid" name="modid" required="false" auto="false">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_dynamic_properties_def.args" name="args" required="true" auto="false">
-      <text size=""/>
+      <text/>
     </column>
     <column id="xar_dynamic_properties_def.aliases" name="aliases" required="false" auto="false">
-      <text size="254"/>
+      <text size="254" defaultvalue=""/>
     </column>
     <column id="xar_dynamic_properties_def.format" name="format" required="false" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>

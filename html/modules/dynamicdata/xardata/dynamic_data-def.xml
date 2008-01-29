@@ -2,7 +2,7 @@
 <schema name="xaraya">
   <table name="xar_dynamic_data">
     <column id="xar_dynamic_data.id" name="id" required="true" auto="true">
-      <number size="11" defaultvalue="" decimals="0"/>
+      <number size="11" decimals="0"/>
     </column>
     <column id="xar_dynamic_data.propid" name="propid" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
@@ -11,7 +11,7 @@
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
     <column id="xar_dynamic_data.value" name="value" required="false" auto="false">
-      <text size=""/>
+      <text/>
     </column>
     <constraints>
       <primary name="id">
@@ -24,5 +24,6 @@
         <columnref id="xar_dynamic_data.itemid"/>
       </index>
     </constraints>
+    <description>End of xar_dynamic_data</description>
   </table>
 </schema>

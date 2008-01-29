@@ -98,7 +98,7 @@
   <xsl:if test="*[@size != '']">(<xsl:value-of select="*/@size"/>)</xsl:if>
   <xsl:if test="@required = 'true'"> NOT NULL</xsl:if>
   <!--  @todo this won't work with  the current exported ddl -->
-  <xsl:if test="*[@default]"> DEFAULT '<xsl:value-of select="*/@default"/>'</xsl:if>
+  <xsl:if test="*[@defaultvalue]"> DEFAULT '<xsl:value-of select="*/@defaultvalue"/>'</xsl:if>
   <!-- @todo move auto_increment out of here, if we want primary key to be seperate -->
   <xsl:if test="@auto ='true'"> AUTO_INCREMENT PRIMARY KEY</xsl:if>
   <xsl:if test="position() != last()"><xsl:text>,</xsl:text></xsl:if>

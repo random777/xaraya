@@ -1,4 +1,5 @@
-<schema xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout" name="xaraya">
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="xaraya">
   <table name="xar_modules">
     <column id="xar_modules.id" name="id" required="true" auto="true">
       <number size="11" defaultvalue="" decimals="0"/>

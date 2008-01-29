@@ -30,7 +30,6 @@ function dynamicdata_init()
     $dynamic_objects = $xartable['dynamic_objects'];
     $dynamic_properties = $xartable['dynamic_properties'];
     $dynamic_data = $xartable['dynamic_data'];
-    $dynamic_relations = $xartable['dynamic_relations'];
     $dynamic_properties_def = $xartable['dynamic_properties_def'];
     $modulestable = $xartable['modules'];
 
@@ -43,7 +42,8 @@ function dynamicdata_init()
             'dynamic_properties_def',
             'dynamic_data'
         );
-        xarModAPIFunc('base','admin','createtable',array('tables' => $tables, 'module' => 'dynamicdata'));
+        sys::import('xaraya.installer');
+        foreach ($tables as $table) Installer::createTable($table, 'dynamicdata');
 
         /**
          * Note : Classic chicken and egg problem - we can't use createobject() here
@@ -402,12 +402,6 @@ function dynamicdata_delete()
 
     // Generate the SQL to drop the table using the API
     $query = xarDBDropTable($xartable['dynamic_data']);
-    if (empty($query)) return; // throw back
-    $result = $dbconn->Execute($query);
-    if (!isset($result)) return;
-
-    // Generate the SQL to drop the table using the API
-    $query = xarDBDropTable($xartable['dynamic_relations']);
     if (empty($query)) return; // throw back
     $result = $dbconn->Execute($query);
     if (!isset($result)) return;

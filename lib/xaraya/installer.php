@@ -2,8 +2,15 @@
 
 class Installer extends Object
 {
+    public $tableprefix = '';
+    
+    // No constructor yet. maybe later
+    
     static private function transform($xmlFile, $xslAction='display', $dbName='mysql', $xslFile=null)
     {
+        // Park this here for now
+        $tableprefix = xarDB::getPrefix();
+        
         if (!isset($xmlFile))
             throw new BadParameterException('No file to transform!');
         if (!isset($xslFile))
@@ -15,7 +22,7 @@ class Installer extends Object
         sys::import('xaraya.xslprocessor');
         $xslProc = new XarayaXSLProcessor($xslFile);
         $xslProc->setParameter('', 'action', $xslAction);
-        $xslProc->setParameter('', 'tableprefix', 'xar');
+        $xslProc->setParameter('', 'tableprefix', $tableprefix);
         $xslProc->xmlFile = $xmlFile;
         return $xslProc->transform($xslProc->xmlFile);
     }
@@ -34,8 +41,7 @@ class Installer extends Object
         $queries = explode(';',$sqlCode);
         array_pop($queries);
         $dbconn = xarDB::getConn();
-        foreach ($queries as $q) var_dump($q);
-        exit;$dbconn->Execute($q);
+        foreach ($queries as $q) $dbconn->Execute($q);
         return true;
     }
 }

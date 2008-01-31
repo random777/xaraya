@@ -89,7 +89,12 @@
     <xsl:value-of select="$tableprefix"/>
     <xsl:text>_</xsl:text>
   </xsl:if>
-  <xsl:value-of select="@name"/> ON <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
+  <xsl:value-of select="@name"/> ON 
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
+  <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
 </xsl:template>
 
 <xsl:template match="table/constraints/unique">
@@ -98,7 +103,12 @@
     <xsl:value-of select="$tableprefix"/>
     <xsl:text>_</xsl:text>
   </xsl:if>
-  <xsl:value-of select="@name"/> ON <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
+  <xsl:value-of select="@name"/> ON 
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
+  <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
 </xsl:template>
 
 <!-- Primary key creation -->

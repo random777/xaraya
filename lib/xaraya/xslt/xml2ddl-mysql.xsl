@@ -79,10 +79,6 @@
 
 <xsl:template match="column">
   <xsl:text>  </xsl:text>
-  <xsl:if test="$tableprefix != ''">
-    <xsl:value-of select="$tableprefix"/>
-    <xsl:text>_</xsl:text>
-  </xsl:if>
   <xsl:value-of select="@name"/><xsl:text> </xsl:text>
   <!-- @todo move the specific types into their own templates -->
   <xsl:choose>

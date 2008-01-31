@@ -1,9 +1,14 @@
 <schema name="#$schemaName#" xmlns="http://xaraya.com/2007/schema" xmlns:xar="http://xaraya.com/2004/blocklayout">
   <description>Auto generated schema file for development purposes</description>
   <xar:foreach in="$tables" value="$table">
-    <table name="#$table:getName()#">
+    <xar:set name="tablename">#$table:getName()#</xar:set>
+      <xar:set name="tableprefix">#xarDB::getPrefix()#</xar:set>
+      <xar:if condition="strpos($tablename, $tableprefix) === 0">
+        <xar:set name="tablename">substr($tablename,strlen($tableprefix)+1)</xar:set>
+      </xar:if>
+      <table name="#$tablename#">
       <xar:foreach in="#$table:getColumns()#" value="$column">
-        <column id="#$table:getName()#.#$column:getName()#" name="#$column:getName()#">
+        <column id="#$tablename#.#$column:getName()#" name="#$column:getName()#">
           <!-- Determine the required and auto attribute and add these to the column tag -->
           <xar:attribute name="required">#!$column:isNullable()?'true':'false'#</xar:attribute>
           <xar:attribute name="auto">#$column:isAutoIncrement()?'true':'false'#</xar:attribute>
@@ -60,7 +65,7 @@
         <xar:if condition="is_object($primary)">
           <primary name="#$primary:getName()#">
             <xar:foreach in="$primary:getColumns()" value="$primColumn">
-              <columnref id="#$table:getName()#.#$primColumn:getName()#" />
+              <columnref id="#$tablename#.#$primColumn:getName()#" />
             </xar:foreach>
           </primary>
         <xar:else/>
@@ -70,22 +75,29 @@
         <!-- Indexes -->
         <xar:set name="indexes">#$table:getIndexes()#</xar:set>
         <xar:foreach in="$indexes" value="$index">
+          <xar:set name="indexname">#$index:getName()#</xar:set>
+          <xar:if condition="strpos($indexname, $tableprefix) === 0">
+            <xar:set name="indexname">substr($indexname,strlen($tableprefix)+1)</xar:set>
+          </xar:if>
           <xar:if condition="$index:isUnique()">
-            <unique name="#$index:getName()#">
+            <unique name="#$indexname#">
               <xar:foreach in="#$index:getColumns()#" value="$indexColumn">
-                <columnref id="#$table:getName()#.#$indexColumn:getName()#" />
+                <xar:if condition="strpos($tablename, $tableprefix) === 0">
+                  <xar:set name="tablename">substr($tablename,strlen($tableprefix)+1)</xar:set>
+                </xar:if>
+                <columnref id="#$tablename#.#$indexColumn:getName()#" />
               </xar:foreach>
             </unique>
           <xar:else/>
-            <index  name="#$index:getName()#">
+            <index  name="#$indexname#">
               <xar:foreach in="#$index:getColumns()#" value="$indexColumn">
-                <columnref id="#$table:getName()#.#$indexColumn:getName()#" />
+                <columnref id="#$tablename#.#$indexColumn:getName()#" />
               </xar:foreach>
             </index>
           </xar:if>
         </xar:foreach>
       </constraints>
-      <description>End of #$table:getName()#</description>
+      <description>End of #$tablename#</description>
     </table>
   </xar:foreach>
 </schema>

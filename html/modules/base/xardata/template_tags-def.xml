@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_template_tags">
-    <column id="xar_template_tags.id" name="id" required="true" auto="true">
+  <table name="template_tags">
+    <column id="template_tags.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_template_tags.name" name="name" required="true" auto="false">
+    <column id="template_tags.name" name="name" required="true" auto="false">
       <text size="255" defaultvalue=""/>
     </column>
-    <column id="xar_template_tags.module_id" name="module_id" required="true" auto="false">
+    <column id="template_tags.module_id" name="module_id" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_template_tags.handler" name="handler" required="true" auto="false">
+    <column id="template_tags.handler" name="handler" required="true" auto="false">
       <text size="255" defaultvalue=""/>
     </column>
-    <column id="xar_template_tags.data" name="data" required="false" auto="false">
+    <column id="template_tags.data" name="data" required="false" auto="false">
       <text/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_template_tags.id"/>
+        <columnref id="template_tags.id"/>
       </primary>
     </constraints>
   </table>

@@ -15,6 +15,7 @@ class Installer extends Object
         sys::import('xaraya.xslprocessor');
         $xslProc = new XarayaXSLProcessor($xslFile);
         $xslProc->setParameter('', 'action', $xslAction);
+        $xslProc->setParameter('', 'tableprefix', 'xar');
         $xslProc->xmlFile = $xmlFile;
         return $xslProc->transform($xslProc->xmlFile);
     }
@@ -33,7 +34,8 @@ class Installer extends Object
         $queries = explode(';',$sqlCode);
         array_pop($queries);
         $dbconn = xarDB::getConn();
-        foreach ($queries as $q) $dbconn->Execute($q);
+        foreach ($queries as $q) var_dump($q);
+        exit;$dbconn->Execute($q);
         return true;
     }
 }

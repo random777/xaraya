@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_rolemembers">
-    <column id="xar_rolemembers.id" name="id" required="false" auto="false">
+  <table name="rolemembers">
+    <column id="rolemembers.id" name="id" required="false" auto="false">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_rolemembers.parentid" name="parentid" required="false" auto="false">
+    <column id="rolemembers.parentid" name="parentid" required="false" auto="false">
       <number size="11" decimals="0"/>
     </column>
     <constraints>
-      <index name="i_xar_rolememb_id">
-        <columnref id="xar_rolemembers.id"/>
+      <index name="i_rolememb_id">
+        <columnref id="rolemembers.id"/>
       </index>
-      <index name="i_xar_rolememb_parentid">
-        <columnref id="xar_rolemembers.parentid"/>
+      <index name="i_rolememb_parentid">
+        <columnref id="rolemembers.parentid"/>
       </index>
     </constraints>
   </table>

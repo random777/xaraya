@@ -45,9 +45,19 @@
   <xsl:if test="$action = 'display'">
     <xsl:call-template name="dynheader"/>
   </xsl:if>
-  <xsl:text>DROP TABLE IF EXISTS </xsl:text><xsl:value-of select="@name"/><xsl:text>;</xsl:text>
+  <xsl:text>DROP TABLE IF EXISTS </xsl:text>
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
+  <xsl:value-of select="@name"/><xsl:text>;</xsl:text>
   <xsl:value-of select="$CR"/>
-  <xsl:text>CREATE TABLE </xsl:text><xsl:value-of select="@name"/>
+  <xsl:text>CREATE TABLE </xsl:text>
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
+  <xsl:value-of select="@name"/>
   <xsl:text>(</xsl:text>
   <xsl:value-of select="$CR"/>
   <xsl:apply-templates select="column"/>
@@ -69,6 +79,10 @@
 
 <xsl:template match="column">
   <xsl:text>  </xsl:text>
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
   <xsl:value-of select="@name"/><xsl:text> </xsl:text>
   <!-- @todo move the specific types into their own templates -->
   <xsl:choose>

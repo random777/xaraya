@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_modules">
-    <column id="xar_modules.id" name="id" required="true" auto="true">
+  <table name="modules">
+    <column id="modules.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_modules.name" name="name" required="true" auto="false">
+    <column id="modules.name" name="name" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_modules.regid" name="regid" required="false" auto="false">
+    <column id="modules.regid" name="regid" required="false" auto="false">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_modules.directory" name="directory" required="true" auto="false">
+    <column id="modules.directory" name="directory" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_modules.version" name="version" required="true" auto="false">
+    <column id="modules.version" name="version" required="true" auto="false">
       <text size="10" defaultvalue=""/>
     </column>
-    <column id="xar_modules.class" name="class" required="true" auto="false">
+    <column id="modules.class" name="class" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_modules.category" name="category" required="true" auto="false">
+    <column id="modules.category" name="category" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_modules.admin_capable" name="admin_capable" required="true" auto="false">
+    <column id="modules.admin_capable" name="admin_capable" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_modules.user_capable" name="user_capable" required="true" auto="false">
+    <column id="modules.user_capable" name="user_capable" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_modules.state" name="state" required="true" auto="false">
+    <column id="modules.state" name="state" required="true" auto="false">
       <number size="11" defaultvalue="1" decimals="0"/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_modules.id"/>
+        <columnref id="modules.id"/>
       </primary>
     </constraints>
   </table>

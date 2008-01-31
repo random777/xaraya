@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_block_groups">
-    <column id="xar_block_groups.id" name="id" required="true" auto="true">
+  <table name="block_groups">
+    <column id="block_groups.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_block_groups.name" name="name" required="true" auto="false">
+    <column id="block_groups.name" name="name" required="true" auto="false">
       <text size="255" defaultvalue=""/>
     </column>
-    <column id="xar_block_groups.template" name="template" required="true" auto="false">
+    <column id="block_groups.template" name="template" required="true" auto="false">
       <text size="255" defaultvalue=""/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_block_groups.id"/>
+        <columnref id="block_groups.id"/>
       </primary>
-      <unique name="i_xar_block_groups">
-        <columnref id="xar_block_groups.name"/>
+      <unique name="i_block_groups">
+        <columnref id="block_groups.name"/>
       </unique>
     </constraints>
   </table>

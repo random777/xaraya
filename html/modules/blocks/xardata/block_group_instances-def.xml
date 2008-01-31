@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_block_group_instances">
-    <column id="xar_block_group_instances.id" name="id" required="true" auto="true">
+  <table name="block_group_instances">
+    <column id="block_group_instances.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_block_group_instances.group_id" name="group_id" required="true" auto="false">
+    <column id="block_group_instances.group_id" name="group_id" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_block_group_instances.instance_id" name="instance_id" required="true" auto="false">
+    <column id="block_group_instances.instance_id" name="instance_id" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_block_group_instances.template" name="template" required="false" auto="false">
+    <column id="block_group_instances.template" name="template" required="false" auto="false">
       <text size="100" defaultvalue=""/>
     </column>
-    <column id="xar_block_group_instances.position" name="position" required="true" auto="false">
+    <column id="block_group_instances.position" name="position" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_block_group_instances.id"/>
+        <columnref id="block_group_instances.id"/>
       </primary>
-      <index name="i_xar_block_group_instances">
-        <columnref id="xar_block_group_instances.group_id"/>
+      <index name="i_block_group_instances">
+        <columnref id="block_group_instances.group_id"/>
       </index>
-      <index name="i_xar_block_group_instances_2">
-        <columnref id="xar_block_group_instances.instance_id"/>
+      <index name="i_block_group_instances_2">
+        <columnref id="block_group_instances.instance_id"/>
       </index>
     </constraints>
   </table>

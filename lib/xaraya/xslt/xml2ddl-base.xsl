@@ -85,17 +85,29 @@
 -->
 <xsl:template match="table/constraints/index">
   <xsl:text>CREATE INDEX </xsl:text>
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
   <xsl:value-of select="@name"/> ON <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
 </xsl:template>
 
 <xsl:template match="table/constraints/unique">
   <xsl:text>CREATE UNIQUE INDEX </xsl:text>
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
   <xsl:value-of select="@name"/> ON <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
 </xsl:template>
 
 <!-- Primary key creation -->
 <xsl:template match="table/constraints/primary">
   <xsl:text>ALTER TABLE </xsl:text>
+  <xsl:if test="$tableprefix != ''">
+    <xsl:value-of select="$tableprefix"/>
+    <xsl:text>_</xsl:text>
+  </xsl:if>
   <xsl:value-of select="../../@name"/>
   <xsl:text> ADD PRIMARY KEY (</xsl:text><xsl:call-template name="columnrefscsv"/>);
 </xsl:template>

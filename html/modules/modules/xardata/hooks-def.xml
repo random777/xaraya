@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_hooks">
-    <column id="xar_hooks.id" name="id" required="true" auto="true">
+  <table name="hooks">
+    <column id="hooks.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_hooks.object" name="object" required="true" auto="false">
+    <column id="hooks.object" name="object" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_hooks.action" name="action" required="true" auto="false">
+    <column id="hooks.action" name="action" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_hooks.s_module_id" name="s_module_id" required="false" auto="false">
+    <column id="hooks.s_module_id" name="s_module_id" required="false" auto="false">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_hooks.s_type" name="s_type" required="true" auto="false">
+    <column id="hooks.s_type" name="s_type" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_hooks.t_area" name="t_area" required="true" auto="false">
+    <column id="hooks.t_area" name="t_area" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_hooks.t_module_id" name="t_module_id" required="true" auto="false">
+    <column id="hooks.t_module_id" name="t_module_id" required="true" auto="false">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_hooks.t_type" name="t_type" required="true" auto="false">
+    <column id="hooks.t_type" name="t_type" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_hooks.t_func" name="t_func" required="true" auto="false">
+    <column id="hooks.t_func" name="t_func" required="true" auto="false">
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="xar_hooks.priority" name="priority" required="true" auto="false">
+    <column id="hooks.priority" name="priority" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_hooks.id"/>
+        <columnref id="hooks.id"/>
       </primary>
     </constraints>
   </table>

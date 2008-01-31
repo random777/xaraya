@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_dynamic_configurations">
-    <column id="xar_dynamic_configurations.id" name="id" required="true" auto="true">
+  <table name="dynamic_configurations">
+    <column id="dynamic_configurations.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_dynamic_configurations.name" name="name" required="true" auto="false">
+    <column id="dynamic_configurations.name" name="name" required="true" auto="false">
       <text size="254" defaultvalue=""/>
     </column>
-    <column id="xar_dynamic_configurations.description" name="description" required="true" auto="false">
+    <column id="dynamic_configurations.description" name="description" required="true" auto="false">
       <text size="254" defaultvalue=""/>
     </column>
-    <column id="xar_dynamic_configurations.property_id" name="property_id" required="true" auto="false">
+    <column id="dynamic_configurations.property_id" name="property_id" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_dynamic_configurations.label" name="label" required="true" auto="false">
+    <column id="dynamic_configurations.label" name="label" required="true" auto="false">
       <text size="254" defaultvalue=""/>
     </column>
-    <column id="xar_dynamic_configurations.configuration" name="configuration" required="false" auto="false">
+    <column id="dynamic_configurations.configuration" name="configuration" required="false" auto="false">
       <text/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_dynamic_configurations.id"/>
+        <columnref id="dynamic_configurations.id"/>
       </primary>
     </constraints>
   </table>

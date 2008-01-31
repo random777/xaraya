@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema name="xaraya">
-  <table name="xar_dynamic_objects">
-    <column id="xar_dynamic_objects.id" name="id" required="true" auto="true">
+  <table name="dynamic_objects">
+    <column id="dynamic_objects.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="xar_dynamic_objects.name" name="name" required="true" auto="false">
+    <column id="dynamic_objects.name" name="name" required="true" auto="false">
       <text size="30" defaultvalue=""/>
     </column>
-    <column id="xar_dynamic_objects.label" name="label" required="true" auto="false">
+    <column id="dynamic_objects.label" name="label" required="true" auto="false">
       <text size="254" defaultvalue=""/>
     </column>
-    <column id="xar_dynamic_objects.moduleid" name="moduleid" required="true" auto="false">
+    <column id="dynamic_objects.moduleid" name="moduleid" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_dynamic_objects.itemtype" name="itemtype" required="true" auto="false">
+    <column id="dynamic_objects.itemtype" name="itemtype" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_dynamic_objects.parent" name="parent" required="true" auto="false">
+    <column id="dynamic_objects.parent" name="parent" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_dynamic_objects.class" name="class" required="true" auto="false">
+    <column id="dynamic_objects.class" name="class" required="true" auto="false">
       <text size="255" defaultvalue="DataObject"/>
     </column>
-    <column id="xar_dynamic_objects.filepath" name="filepath" required="true" auto="false">
+    <column id="dynamic_objects.filepath" name="filepath" required="true" auto="false">
       <text size="255" defaultvalue="modules/dynamicdata/class/objects/base.php"/>
     </column>
-    <column id="xar_dynamic_objects.urlparam" name="urlparam" required="true" auto="false">
+    <column id="dynamic_objects.urlparam" name="urlparam" required="true" auto="false">
       <text size="30" defaultvalue="itemid"/>
     </column>
-    <column id="xar_dynamic_objects.maxid" name="maxid" required="true" auto="false">
+    <column id="dynamic_objects.maxid" name="maxid" required="true" auto="false">
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="xar_dynamic_objects.config" name="config" required="false" auto="false">
+    <column id="dynamic_objects.config" name="config" required="false" auto="false">
       <text/>
     </column>
-    <column id="xar_dynamic_objects.isalias" name="isalias" required="true" auto="false">
+    <column id="dynamic_objects.isalias" name="isalias" required="true" auto="false">
       <number size="4" defaultvalue="1" decimals="0"/>
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="xar_dynamic_objects.id"/>
+        <columnref id="dynamic_objects.id"/>
       </primary>
-      <unique name="i_xar_dynobjects_combo">
-        <columnref id="xar_dynamic_objects.moduleid"/>
-        <columnref id="xar_dynamic_objects.itemtype"/>
+      <unique name="i_dynobjects_combo">
+        <columnref id="dynamic_objects.moduleid"/>
+        <columnref id="dynamic_objects.itemtype"/>
       </unique>
-      <unique name="i_xar_dynobjects_name">
-        <columnref id="xar_dynamic_objects.name"/>
+      <unique name="i_dynobjects_name">
+        <columnref id="dynamic_objects.name"/>
       </unique>
     </constraints>
   </table>

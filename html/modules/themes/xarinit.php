@@ -27,11 +27,8 @@ function themes_init()
     $prefix = xarDB::getPrefix();
     $tables['themes']     = $prefix . '_themes';
 
-    $schemas = array(
-        'themes',
-    );
     sys::import('xaraya.installer');
-    foreach ($schemas as $table) Installer::createTable($table, 'themes');
+    Installer::createTable('schema', 'themes');
 
     xarModVars::set('themes', 'default', 'Xaraya_Classic');
     xarModVars::set('themes', 'selsort', 'nameasc');

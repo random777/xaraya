@@ -48,15 +48,8 @@ function privileges_init()
          * prefix_security_realms  - holds realsm info
          ********************************************************************/
 
-        $schemas = array(
-            'privileges',
-            'privmembers',
-            'security_acl',
-            'security_instances',
-            'security_realms',
-        );
         sys::import('xaraya.installer');
-        foreach ($schemas as $table) Installer::createTable($table, 'privileges');
+        Installer::createTable('schema', 'privileges');
 
         xarDB::importTables(array('privileges' => $prefix . '_privileges'));
         xarDB::importTables(array('privmembers' => $prefix . '_privmembers'));

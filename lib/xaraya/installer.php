@@ -32,7 +32,7 @@ class Installer extends Object
         if (empty($module)) $module = 'base';
         if (empty($table))
             throw new BadParameterException('Missing a tablename to create');
-        $fullName = sys::root() . '/html/modules/' . $module . '/xardata/' . $table . '-def.xml';
+        $fullName = sys::root() . '/html/modules/' . $module . '/schema.xml';
         if (!file_exists($fullName)) {
             $msg = xarML('Could not find the file #(1) to create a table from', $fullName);
             throw new BadParameterException($msg);

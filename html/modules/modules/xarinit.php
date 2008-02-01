@@ -41,13 +41,8 @@ function modules_init()
          * prefix_module_itemvars   - module item variables table
          * prefix_hooks         - table for hooks
          */
-        $schemas = array(
-            'modules',
-            'module_itemvars',
-            'hooks',
-        );
         sys::import('xaraya.installer');
-        foreach ($schemas as $table) Installer::createTable($table, 'modules');
+        Installer::createTable('schema', 'modules');
 
         // Manually Insert the Base and Modules module into modules table
         $query = "INSERT INTO " . $tables['modules'] . "

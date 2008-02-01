@@ -26,15 +26,8 @@ function blocks_init()
     try {
         $dbconn->begin();
 
-        $schemas = array(
-            'block_groups',
-            'block_instances',
-            'block_types',
-            'block_group_instances',
-            'cache_blocks',
-        );
         sys::import('xaraya.installer');
-        foreach ($schemas as $table) Installer::createTable($table, 'blocks');
+        Installer::createTable('schema', 'blocks');
 
         /*
          TODO: Find a fix for this - Postgres will not allow partial indexes

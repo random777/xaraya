@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="xaraya">
+  <table name="hooks">
+    <column id="hooks.id" name="id" required="true" auto="true">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="hooks.object" name="object" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="hooks.action" name="action" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="hooks.s_module_id" name="s_module_id" required="false" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="hooks.s_type" name="s_type" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="hooks.t_area" name="t_area" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="hooks.t_module_id" name="t_module_id" required="true" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="hooks.t_type" name="t_type" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="hooks.t_func" name="t_func" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="hooks.priority" name="priority" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="hooks.id"/>
+      </primary>
+    </constraints>
+  </table>
+  <table name="module_itemvars">
+    <column id="module_itemvars.module_var_id" name="module_var_id" required="true" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="module_itemvars.item_id" name="item_id" required="true" auto="false">
+      <number size="10" decimals="0"/>
+    </column>
+    <column id="module_itemvars.value" name="value" required="false" auto="false">
+      <text/>
+    </column>
+    <constraints>
+      <primary name="module_var_id">
+        <columnref id="module_itemvars.module_var_id"/>
+        <columnref id="module_itemvars.item_id"/>
+      </primary>
+    </constraints>
+  </table>
+  <table name="modules">
+    <column id="modules.id" name="id" required="true" auto="true">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="modules.name" name="name" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.regid" name="regid" required="false" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="modules.directory" name="directory" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.version" name="version" required="true" auto="false">
+      <text size="10" defaultvalue=""/>
+    </column>
+    <column id="modules.class" name="class" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.category" name="category" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.admin_capable" name="admin_capable" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="modules.user_capable" name="user_capable" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="modules.state" name="state" required="true" auto="false">
+      <number size="11" defaultvalue="1" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <columnref id="modules.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

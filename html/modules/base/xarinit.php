@@ -42,13 +42,8 @@ function base_init()
          *********************************************************************/
         $sessionInfoTable = $prefix . '_session_info';
 
-        $schemas = array(
-            'session_info',
-            'module_vars',
-            'template_tags',
-        );
         sys::import('xaraya.installer');
-        foreach ($schemas as $table) Installer::createTable($table, 'base');
+        Installer::createTable('schema', 'base');
 
         // Let's commit this, since we're gonna do some other stuff
         $dbconn->commit();

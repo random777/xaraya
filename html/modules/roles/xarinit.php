@@ -32,12 +32,8 @@ function roles_init()
     try {
         $dbconn->begin();
 
-        $schemas = array(
-            'roles',
-            'rolemembers',
-        );
         sys::import('xaraya.installer');
-        foreach ($schemas as $table) Installer::createTable($table, 'roles');
+        Installer::createTable('schema', 'roles');
 
         // We're done, commit
         $dbconn->commit();

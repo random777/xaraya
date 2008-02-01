@@ -36,14 +36,8 @@ function dynamicdata_init()
     // Create tables inside a transaction
     try {
         $dbconn->begin();
-        $schemas = array(
-            'dynamic_objects',
-            'dynamic_properties',
-            'dynamic_properties_def',
-            'dynamic_data'
-        );
         sys::import('xaraya.installer');
-        foreach ($schemas as $table) Installer::createTable($table, 'dynamicdata');
+        Installer::createTable('schema', 'dynamicdata');
 
         /**
          * Note : Classic chicken and egg problem - we can't use createobject() here

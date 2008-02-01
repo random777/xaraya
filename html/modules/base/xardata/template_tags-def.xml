@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<schema name="xaraya">
+<schema name="xaraya" xmlns="http://xaraya.com/2007/schema">
   <table name="template_tags">
     <column id="template_tags.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>

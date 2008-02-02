@@ -3,7 +3,7 @@
  * Xaraya Web Interface Entry Point
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2002 by the Xaraya Development Team.
+ * @copyright (C) 2002-2008 by the Xaraya Development Team.
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -525,6 +525,8 @@ function xarPageCache_sendHeaders($modtime = 0)
     } else {
         header("Pragma:");
     }
+    // Fix for bug 5734
+    header("Content-type: text/html; charset=" . xarMLSGetCharsetFromLocale(xarMLSGetCurrentLocale()));
 }
 
 function xarPageCache_sessionLess()

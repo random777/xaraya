@@ -1139,9 +1139,6 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
     $pini = '?';
     $pathsep = '/';
 
-    // Initialise the path.
-    $path = '';
-
     // The following allows you to modify the BaseModURL from the config file
     // it can be used to configure Xaraya for mod_rewrite by
     // setting BaseModURL = '' in config.system.php
@@ -1196,6 +1193,10 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
             if (!empty($short)) {
                 if (is_array($short)) {
                     // An array of path and args has been returned (both optional) - new style.
+
+                    // Initialise the path.
+                    $path = '';
+
                     if (!empty($short['path'])) {
                         foreach($short['path'] as $pathpart) {
                             // Use path encoding method, which can differ from
@@ -1236,9 +1237,9 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
         }
     }
 
-    // If the path is still empty, then there is either no short URL support
+    // If there is no $path, then there is either no short URL support
     // at all, or no short URL encoding was available for these arguments.
-    if (empty($path)) {
+    if (!isset($path)) {
         if (!empty($entrypoint)) {
             // Custom entry-point.
             // TODO: allow the alt entry point to work without assuming it is calling

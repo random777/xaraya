@@ -531,7 +531,7 @@ function xarRequestGetInfo()
         TODO: The security of doing this should be examined by someone more familiar with why this works
         as a security check in the first place.
         */
-        preg_match_all('|/([^/]+)|i', $path, $matches);
+        preg_match_all('|/([^/?#]+)((?=[\?#]).*)?|i', $path, $matches);
         
         $params = $matches[1];
         if (count($params) > 0) {

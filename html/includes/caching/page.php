@@ -3,7 +3,7 @@
  * Xaraya Web Interface Entry Point
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002 by the Xaraya Development Team.
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -482,16 +482,21 @@ function xarPageCache_sendHeaders($modtime = 0)
     $etag = $xarPage_cacheCode.$modtime;
     $match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
         $_SERVER['HTTP_IF_NONE_MATCH'] : NULL;
+
+    // Fix Mozilla based browsers ("304 Not Modified" works every second time): 
+    // always set ETag, Expires and Cache-Control
+    header("ETag: $etag");
     if (!empty($match) && $match == $etag) {
-        // jsb:  for some reason, Mozilla based browsers
-        // do not re-send an ETag after getting a 304
-        // so this only works once per cached page
+        header("Expires: 0");
+        header("Cache-Control: public, must-revalidate");
         header('HTTP/1.0 304');
         exit;
     } else {
         $since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ?
             $_SERVER['HTTP_IF_MODIFIED_SINCE'] : NULL;
         if (!empty($since) && strtotime($since) >= $modtime) {
+            header("Expires: 0");
+            header("Cache-Control: public, must-revalidate");
             header('HTTP/1.0 304');
             exit;
             // jsb: according to RFC 2616, if $match isn't empty but is
@@ -511,7 +516,6 @@ function xarPageCache_sendHeaders($modtime = 0)
         header("Expires: 0");
         header("Cache-Control: public, must-revalidate");
     }
-    header("ETag: $etag");
     header("Last-Modified: " . gmdate("D, d M Y H:i:s", $modtime) . " GMT");
     // we can't use this after session_start()
     //session_cache_limiter('public');
@@ -521,8 +525,6 @@ function xarPageCache_sendHeaders($modtime = 0)
     } else {
         header("Pragma:");
     }
-    // FIXME: workaround for bug 5734, change to your sites charset if necessary
-    header("Content-type: text/html; charset=utf-8"); 
 }
 
 function xarPageCache_sessionLess()

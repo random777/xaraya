@@ -47,6 +47,21 @@ description =  element description
     text
 }
 
+# Prototypes contain templates of tags, their id is used to identify them 
+# from the other tags. This allows for a quick specification of (mostly) columns
+# but would also allow 'aliassing' for the datatypes. I dont see any use for
+# the 'table', 'contstraints' and the constraints varieties tags. The
+# 'description' tag's use as a prototype is arguably not very useful, but it
+# cant hurt either. Note that the 'ref' attribute is a common attribute and may
+# be used in the prototypes too, as far as the document validity is concerned. 
+# Wether the implementation supports them is another matter :-)
+# @todo require support for multiple level references?
+prototypes = element prototypes
+{
+    description*,
+    column*,
+    number*,\text*,boolean*,binary*
+}
 
 # Definitions corresponding to the values for the datatypes
 textValue    = string
@@ -73,6 +88,7 @@ schema = element schema
     commonAtts?,
     attribute name { text }?,
     description?,
+    prototypes*,
     table*,
     constraints?
 }

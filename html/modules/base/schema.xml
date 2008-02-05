@@ -15,17 +15,17 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="module_vars.id"/>
+        <column ref="module_vars.id"/>
       </primary>
       <unique name="i_config_name">
-        <columnref id="module_vars.name"/>
-        <columnref id="module_vars.module_id"/>
+        <column ref="module_vars.name"/>
+        <column ref="module_vars.module_id"/>
       </unique>
       <index name="i_module_vars_module_id">
-        <columnref id="module_vars.module_id"/>
+        <column ref="module_vars.module_id"/>
       </index>
       <index name="i_module_vars_name">
-        <columnref id="module_vars.name"/>
+        <column ref="module_vars.name"/>
       </index>
     </constraints>
   </table>
@@ -53,13 +53,13 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="session_info.id"/>
+        <column ref="session_info.id"/>
       </primary>
       <index name="i_session_role_id">
-        <columnref id="session_info.role_id"/>
+        <column ref="session_info.role_id"/>
       </index>
       <index name="i_session_last_use">
-        <columnref id="session_info.last_use"/>
+        <column ref="session_info.last_use"/>
       </index>
     </constraints>
   </table>
@@ -81,7 +81,7 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="template_tags.id"/>
+        <column ref="template_tags.id"/>
       </primary>
     </constraints>
   </table>

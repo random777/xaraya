@@ -12,10 +12,10 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="block_groups.id"/>
+        <column ref="block_groups.id"/>
       </primary>
       <unique name="i_block_groups">
-        <columnref id="block_groups.name"/>
+        <column ref="block_groups.name"/>
       </unique>
     </constraints>
   </table>
@@ -37,13 +37,13 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="block_group_instances.id"/>
+        <column ref="block_group_instances.id"/>
       </primary>
       <index name="i_block_group_instances">
-        <columnref id="block_group_instances.group_id"/>
+        <column ref="block_group_instances.group_id"/>
       </index>
       <index name="i_block_group_instances_2">
-        <columnref id="block_group_instances.instance_id"/>
+        <column ref="block_group_instances.instance_id"/>
       </index>
     </constraints>
   </table>
@@ -77,13 +77,13 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="block_instances.id"/>
+        <column ref="block_instances.id"/>
       </primary>
       <unique name="i_block_instances_u2">
-        <columnref id="block_instances.name"/>
+        <column ref="block_instances.name"/>
       </unique>
       <index name="i_block_instances">
-        <columnref id="block_instances.type_id"/>
+        <column ref="block_instances.type_id"/>
       </index>
     </constraints>
   </table>
@@ -102,11 +102,11 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="block_types.id"/>
+        <column ref="block_types.id"/>
       </primary>
       <unique name="i_block_types2">
-        <columnref id="block_types.modid"/>
-        <columnref id="block_types.type"/>
+        <column ref="block_types.modid"/>
+        <column ref="block_types.type"/>
       </unique>
     </constraints>
   </table>
@@ -128,7 +128,7 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="cache_blocks.id"/>
+        <column ref="cache_blocks.id"/>
       </primary>
     </constraints>
   </table>

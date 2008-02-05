@@ -51,7 +51,7 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="themes.id"/>
+        <column ref="themes.id"/>
       </primary>
     </constraints>
   </table>

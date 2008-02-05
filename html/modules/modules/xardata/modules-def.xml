@@ -33,7 +33,7 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="modules.id"/>
+        <column ref="modules.id"/>
       </primary>
     </constraints>
   </table>

@@ -33,7 +33,7 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="hooks.id"/>
+        <column ref="hooks.id"/>
       </primary>
     </constraints>
   </table>
@@ -49,8 +49,8 @@
     </column>
     <constraints>
       <primary name="module_var_id">
-        <columnref id="module_itemvars.module_var_id"/>
-        <columnref id="module_itemvars.item_id"/>
+        <column ref="module_itemvars.module_var_id"/>
+        <column ref="module_itemvars.item_id"/>
       </primary>
     </constraints>
   </table>
@@ -87,7 +87,7 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="modules.id"/>
+        <column ref="modules.id"/>
       </primary>
     </constraints>
   </table>

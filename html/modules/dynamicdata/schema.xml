@@ -15,13 +15,13 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="dynamic_data.id"/>
+        <column ref="dynamic_data.id"/>
       </primary>
       <index name="i_dyndata_propid">
-        <columnref id="dynamic_data.propid"/>
+        <column ref="dynamic_data.propid"/>
       </index>
       <index name="i_dyndata_itemid">
-        <columnref id="dynamic_data.itemid"/>
+        <column ref="dynamic_data.itemid"/>
       </index>
     </constraints>
     <description>End of dynamic_data</description>
@@ -65,14 +65,14 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="dynamic_objects.id"/>
+        <column ref="dynamic_objects.id"/>
       </primary>
       <unique name="i_dynobjects_combo">
-        <columnref id="dynamic_objects.moduleid"/>
-        <columnref id="dynamic_objects.itemtype"/>
+        <column ref="dynamic_objects.moduleid"/>
+        <column ref="dynamic_objects.itemtype"/>
       </unique>
       <unique name="i_dynobjects_name">
-        <columnref id="dynamic_objects.name"/>
+        <column ref="dynamic_objects.name"/>
       </unique>
     </constraints>
   </table>
@@ -109,12 +109,12 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="dynamic_properties.id"/>
+        <column ref="dynamic_properties.id"/>
       </primary>
       <unique name="i_dynprops_combo">
-        <columnref id="dynamic_properties.objectid"/>
+        <column ref="dynamic_properties.objectid"/>
 
-        <columnref id="dynamic_properties.name"/>
+        <column ref="dynamic_properties.name"/>
       </unique>
     </constraints>
   </table>
@@ -160,10 +160,10 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="dynamic_properties_def.id"/>
+        <column ref="dynamic_properties_def.id"/>
       </primary>
       <index name="i_dynpropdef_modid">
-        <columnref id="dynamic_properties_def.modid"/>
+        <column ref="dynamic_properties_def.modid"/>
       </index>
     </constraints>
   </table>

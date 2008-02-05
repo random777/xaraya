@@ -9,10 +9,10 @@
     </column>
     <constraints>
       <index name="i_privmembers_pid">
-        <columnref id="privmembers.id"/>
+        <column ref="privmembers.id"/>
       </index>
       <index name="i_privmembers_parentid">
-        <columnref id="privmembers.parentid"/>
+        <column ref="privmembers.parentid"/>
       </index>
     </constraints>
   </table>

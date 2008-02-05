@@ -74,8 +74,8 @@
 <!--  @todo make this a generic template? -->
 <xsl:key name="columnid" match="table/column" use="@id"/>
 <xsl:template name="columnrefscsv">
-  <xsl:for-each select="columnref">
-    <xsl:value-of select="key('columnid',@id)/@name"/>
+  <xsl:for-each select="column">
+    <xsl:value-of select="key('columnid',@ref)/@name"/>
     <xsl:if test="position() != last()"><xsl:text>,</xsl:text></xsl:if>
   </xsl:for-each>
 </xsl:template>

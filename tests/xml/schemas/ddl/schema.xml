@@ -20,14 +20,14 @@
     </column>
     <constraints>
       <primary name="id">
-        <columnref id="first.id"/>
+        <column ref="first.id"/>
       </primary>
       <index name="ref_id">
         <description>We index on the ref_id column because we can</description>
-        <columnref id="first.ref_id"/>
+        <column ref="first.ref_id"/>
       </index>
       <unique name="name">
-        <columnref id="first.name"/>
+        <column ref="first.name"/>
       </unique>
     </constraints>
   </table>

@@ -1,3 +1,23 @@
+Using the files
+---------------
+To be able to use these files, that is being able to generate stuff out of the
+source RNC (RelaxNG Compact) file you need a couple of things:
+
+    1. (GNU) make to process the makefile
+    2. trang converter for producing different types of document type descriptor files
+    3. xsltproc (or equivalent) to process xslt transforms
+    4. php5 
+    
+Of the above trang is the most tricky one, it is a java program. I've had the 
+best results by using their trang.jar and making a wrapper around it like:
+
+    #!/bin/sh
+    # wrapper for the trang package, using the java runtime
+    java -jar ~/bin/trang.jar $@
+    
+(saving that as a file named 'trang' somewhere in my path)
+
+
 Functionality description
 -------------------------
 

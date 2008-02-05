@@ -2,13 +2,14 @@
 
 # Generated from the .dtd format:
 # RNG - good structure
-# RNC - machine parseable optimized
+# RNC - machine parseable optimized, used as source
 # XSD - W3C standard but otherwise unreadable
-# DTD - defacto used standard, used as source here
+# DTD - defacto used standard, but less expressive than RN* varieties or XSD
 
 # db2xml creates a model from a running xar installation
 # that model is then taken as input for the xml2ddl target to
-# produce SQL like an sqldumper utility.
+# produce SQL like an sqldumper utility. db2xml is in Xaraya's 'bin'
+# directory.
 
 TRANG=trang
 PHP=php5

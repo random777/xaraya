@@ -10,22 +10,31 @@
 # The initial goals were:
 # 1. [ABANDONED] to create an absolute minimal DTD to replace xartableddl and xardatadict
 # 2. [ABANDONED] stay compatible with the original DTD it was based on.
-# 3. be able to generate more structured schema's from the DTD (like RNG)
-# 4. be able to produce the xml from the database itself.
-#
-# See the README document on what we initially changed before we abandoned compatibility.
+# 3. [DONE DIFFERENT] be able to generate more structured schema's from the DTD (like RNG) (RNG is now source, the DTD is generated)
+# 4. [DONE] be able to produce the xml from the database itself. (see db2xml)
 
-# Declare the namespace we need
-# scp xarddl.dtd xaraya.com:/var/www/ddf/www.xaraya.com/main/html/ddl/DTD/ddl-strict.dtd to get it there
+#
+# For further information, see the README file
+
+# Declare the namespaces we need
+# - default namespace is the schema DTD we are creating
+# - we need to define the RNG namespace so we can use special constructs
 default namespace   = "http://xaraya.com/2007/schema"
         namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 
+#
 # Define some common things and some stuff we may want to define more
 # clearly later on. A dtd has not got a strong notion of types, so we
 # need to help it a little
+# Attributes:
+# id    unique identifier for a certain tag
+# ref   each tag may reference a previous definition of the same tag, this is
+#       useful for standardizing column definitions and for column constaint
+#       definitions for example
 commonAtts =
 (
-    attribute id {xsd:ID}?
+    attribute id  {xsd:ID}?,
+    attribute ref {xsd:IDREF}?
 )
 
 # Common child tags
@@ -212,12 +221,6 @@ constraint =
 (
     commonAtts,
     attribute name {xsd:NMTOKEN},
-    columnref+
+    column+
 )
 
-# Note: i want to call this element column and the attribute ref ideally, but then we cant generate a DTD anymore so, lets do
-# something else for now.
-columnref = element columnref
-{
-    attribute id { xsd:IDREF}
-}

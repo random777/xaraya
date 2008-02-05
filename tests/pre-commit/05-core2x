@@ -2,7 +2,7 @@
 -- 05-core2x specific tests
 --
 print("--- Group 5: Core 2.x specific QA checks ---")
-if (branch == 'com.xaraya.core.unstable') then
+if (branch and string.find(branch, '^com.xaraya.core.unstable')) then
     -- run tests
     print('--- Group 5.3: Deprecation ---')
 

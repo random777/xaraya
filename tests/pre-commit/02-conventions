@@ -22,7 +22,9 @@ for index,file in pairs(commit_files) do
         if (f~= nil) then
             local content = f:read("*all")
             f:close()
-
+            -- skip empty files
+            if(not content) then break end
+            
             -- test for tabs
             t,nroftabs = string.gsub(content,"\t","\t")
             if(nroftabs > 0) then tablist=tablist .."  "..file.." ("..nroftabs.." tabs in file)\n" end
@@ -39,7 +41,7 @@ for index,file in pairs(commit_files) do
                     line_nr=line_nr+1
                     if string.find(line,'function%s+.-%(.-%)%s-{.-$') ~=nil then
                         -- it has an opening { brace, which is wrong, unless there is one at the end of the line
-                        if(string.find(line,'}$') == nil) then
+                        if(string.find(line,'}%s*$') == nil) then
                             funclist=funclist..'  '..file.." should use one true brace or be complete on one line at line: "..line_nr..'\n'
                         end
                     end

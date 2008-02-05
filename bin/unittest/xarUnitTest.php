@@ -1,7 +1,5 @@
 <?php
 /**
- * File: $Id$
- *
  * Unit testing framework 
  *
  * @package quality
@@ -27,21 +25,21 @@ define('UT_OUTLENGTH',60);            // width of the text output in text report
   * class xarTestSuite
   * 
   */
-class xarTestSuite {
+class xarTestSuite 
+{
     var $_name;                // Name of this testsuite
     var $_testcases = array(); // array which holds all testcases
     
     /**
      * Constructor just sets the name attribute
      */
-    function xarTestSuite($name='default') {
-        $this->_name=$name;
-    }
+    function xarTestSuite($name='default') { $this->_name=$name; }
     
     /**
      * Add a testcase object to the testsuite
      */
-    function AddTestCase($testClass,$name='') {
+    function AddTestCase($testClass,$name='') 
+    {
         // Make sure the class exist
         if (class_exists($testClass) && (get_parent_class($testClass) == 'xartestcase')) {
             if ($name=='') { $name=$testClass; }
@@ -60,13 +58,15 @@ class xarTestSuite {
     /**
      * Run the testcases
      */
-    function run() {
+    function run() 
+    {
         foreach($this->_testcases as $testcase) {
             $testcase->runTests();
         }
     }
 
-    function _parentdir($dir) {
+    function _parentdir($dir) 
+    {
         // FIXME :Get the parent dir of the dir inserted, dirty hack
         chdir('..');
         $toreturn=getcwd();
@@ -74,7 +74,8 @@ class xarTestSuite {
         return $toreturn;
     }
     
-    function report($type,$show_results=true) {
+    function report($type,$show_results=true) 
+    {
         $report = new xarTestReport($type);
         $report->present(array($this),$show_results);
     }
@@ -85,7 +86,9 @@ class xarTestSuite {
  * Base class for reporters
  *
  */
-class xarTestReport {
+class xarTestReport 
+{
+    static $instance = null;
     /**
      * Abstract presentation function, this should be implemented in 
      * the subclasses
@@ -98,37 +101,44 @@ class xarTestReport {
      * make it a singleton, so the constructor is actually called only once
      * during a test run. 
      */
-    function xarTestReport($type='text') {
-        static $instance=NULL;
+    function __construct($type='text') 
+    {
 
         // what type to instantiate
-        if(!isset($instance)) {
+        if(!isset($this->instance)) 
+        {
             switch($type) {
             case 'html':
-                $instance = new xarHTMLTestReport();
+                $this->$instance = new xarHTMLTestReport();
                 break;
             default:
-                $instance = new xarTextTestReport();
+                $this->instance = new xarTextTestReport();
                 break;
             }
         }
-        $this = $instance;
     }
 
+    function present($array_of_object, $show_results)
+    {
+        return $this->instance->present($array_of_object, $show_results);
+    }
     /**
      * For which revision marker are we running the testreport
      */
-    function getTopOfTrunk() {
-        $tot = exec('bk changes -r+ -d:REV:');
+    function getTopOfTrunk() 
+    {
+        $tot = 'TBD';
         return $tot;
     }
 
 }
 
-class xarTextTestReport extends xarTestReport {
+class xarTextTestReport extends xarTestReport 
+{
     
     // Constructor must be here, otherwise we get into a loop
-    function xarTextTestReport() {
+    function xarTextTestReport() 
+    {
         // Because the constructor is only called once (singleton) during a test
         // run, the per testrun output should go in here. In this case, a simple
         // header which tells us at which point in the repository we're running the tests
@@ -137,7 +147,8 @@ class xarTextTestReport extends xarTestReport {
     }
 
     // Presentation function
-    function present($testsuites,$show_results=true) {
+    function present($testsuites,$show_results=true) 
+    {
         foreach($testsuites as $testsuite) {
             // Only include suites with testcases
             if($testsuite->countTestCases() > 0) {
@@ -170,7 +181,8 @@ class xarTextTestReport extends xarTestReport {
     }
 }
 
-class xarHTMLTestReport extends xarTestReport {
+class xarHTMLTestReport extends xarTestReport 
+{
 
     // Constructor must be here, otherwize we get into a loop
     function xarHTMLTestReport() { }
@@ -181,19 +193,21 @@ class xarHTMLTestReport extends xarTestReport {
  *
  *
  */
-class xarTestCase extends xarTestAssert {
+class xarTestCase extends xarTestAssert 
+{
     var $_name;           // Name of this testcase
     var $_tests=array();  // xarTest objects
     var $_basedir;        // from which directory should tests be running
-  
+    public $testcase = null;
     /**
      * Construct the testCase, make sure we only construct the 
      * array of test objects once 
      */
-    function xarTestCase($testClass='',$name='',$init=false, $basedir='') {
+    function xarTestCase($testClass='',$name='',$init=false, $basedir='') 
+    {
         if (get_parent_class($testClass) == 'xartestcase') {
             if ($init) {
-                $this = new $testClass();
+                $this->testcase = new $testClass();
                 $this->_name=$name;
                 $this->_basedir=$basedir;
                 $this->_collecttests();
@@ -202,12 +216,13 @@ class xarTestCase extends xarTestAssert {
     }
 
     // Abstract functions, these should be implemented in the actual test class
-    function setup() {} 
+    function setup() {}
     // Precondition for a testcase default to true when not defined 
     function precondition() { return true; }
     function teardown() {}
 
-    function runTests() {
+    function runTests() 
+    {
         $savedir=getcwd();
         chdir($this->_basedir);
         foreach(array_keys($this->_tests) as $key) {
@@ -216,24 +231,27 @@ class xarTestCase extends xarTestAssert {
         chdir($savedir);
     }
 
-    function pass($msg='Passed') {
+    function pass($msg='Passed') 
+    {
         $res = array('value' => true, 'msg' => $msg);
         return $res;
     }
 
-    function fail($msg='Failed') {
+    function fail($msg='Failed') 
+    {
         $res = array('value' => false, 'msg' => $msg);
         return $res;
     }
 
     // private functions
-    function _collecttests() {
+    function _collecttests() 
+    {
         $methods = get_class_methods($this);
             
         foreach ($methods as $method) {
             if (substr($method, 0, strlen(UT_PREFIXTESTMETHOD)) == UT_PREFIXTESTMETHOD && 
                 strtolower($method) != strtolower(get_class($this))) {
-                $this->_tests[$method] =& new xarTest($this, $method);
+                $this->_tests[$method] = new xarTest($this, $method);
             }
         }
     }
@@ -243,17 +261,20 @@ class xarTestCase extends xarTestAssert {
 /**
  * Class to hold the actual test
  */
-class xarTest {
+class xarTest 
+{
     var $_parentobject;
     var $_testmethod;
     var $_result;
 
-    function xarTest(&$container, $method) {
+    function &xarTest(&$container, $method) 
+    {
         $this->_parentobject=& $container;
         $this->_testmethod=$method;
     }
 
-    function run() {
+    function run() 
+    {
         $testcase=& $this->_parentobject;
         $testmethod=$this->_testmethod;
         $testcase->setup();
@@ -278,43 +299,54 @@ class xarTest {
  * is created
  *
  */
-class xarTestResult {
+class xarTestResult 
+{
     var $_message;
+    public $result = null;
 
-    function xarTestResult($result) {
+    function xarTestResult($result) 
+    {
         if ($result['value'] === true) {
-            $this = new xarTestSuccess($result['msg']);
+            $this->result = new xarTestSuccess($result['msg']);
         } else {
-            $this = new xarTestFailure($result['msg']);
+            $this->result = new xarTestFailure($result['msg']);
         }
     }
 }
 
-class xarTestSuccess extends xarTestResult {
-    function xarTestSuccess($msg) { 
+class xarTestSuccess extends xarTestResult 
+{
+    function xarTestSuccess($msg) 
+    { 
         $this->_message=$msg;
     }
 }
 
-class xarTestFailure extends xarTestResult {
-    function xarTestFailure($msg) {
+class xarTestFailure extends xarTestResult 
+{
+    function xarTestFailure($msg) 
+    {
         $this->_message=$msg;
     }
 }
 
-class xarTestException extends xarTestResult {
-    function xarTestException($result) { 
+class xarTestException extends xarTestResult 
+{
+    function xarTestException($result) 
+    { 
         $this->_message=$result['msg'];
     }
 }
     
-class xarTestAssert {
+class xarTestAssert 
+{
     
     // Abstract functions which should be implemented in subclasses
     // function fail($msg='no message') {}
     // function pass($msg='no message') {}
 
-    function assertEquals($expected, $actual, $delta = 0,$msg='Test for Equals') {
+    function assertEquals($expected, $actual, $delta = 0,$msg='Test for Equals') 
+    {
         if ((is_array($actual)  && is_array($expected)) ||
             (is_object($actual) && is_object($expected))) {
             if (is_array($actual) && is_array($expected)) {
@@ -347,7 +379,8 @@ class xarTestAssert {
     }
 
     
-    function assertNotNull($object,$msg='Test for Not Null') {
+    function assertNotNull($object,$msg='Test for Not Null') 
+    {
         if ($object !== null) { 
             return $this->pass($msg); 
         }
@@ -355,7 +388,8 @@ class xarTestAssert {
     }
 
 
-    function assertNull($object,$msg='Test for Null') {
+    function assertNull($object,$msg='Test for Null') 
+    {
         if ($object === null) {
             return $this->pass($msg);
         } 
@@ -363,7 +397,8 @@ class xarTestAssert {
     }
 
 
-    function assertSame($expected, $actual,$msg='Test for Same') {
+    function assertSame($expected, $actual,$msg='Test for Same') 
+    {
         if ($actual === $expected) {
             return $this->pass($msg);
         }
@@ -371,7 +406,8 @@ class xarTestAssert {
     }
 
 
-    function assertNotSame($expected, $actual,$msg='Test for Not Same') {
+    function assertNotSame($expected, $actual,$msg='Test for Not Same') 
+    {
         if ($actual !== $expected) {
             return $this->pass($msg);
         } 
@@ -379,7 +415,8 @@ class xarTestAssert {
     }
     
 
-    function assertTrue($condition,$msg='Test for True') {
+    function assertTrue($condition,$msg='Test for True') 
+    {
         if ($condition === true) {
             return $this->pass($msg);
         }
@@ -387,7 +424,8 @@ class xarTestAssert {
     }
 
 
-    function assertFalse($condition,$msg='Test for False') {
+    function assertFalse($condition,$msg='Test for False') 
+    {
         if ($condition === false) {
             return $this->pass($msg);
         } 
@@ -395,7 +433,8 @@ class xarTestAssert {
     }
 
 
-    function assertRegExp($expected, $actual,$msg='Test for Regular Expression') {
+    function assertRegExp($expected, $actual,$msg='Test for Regular Expression') 
+    {
         if (preg_match($expected, $actual)) {
             return $this->pass($msg);
         }
@@ -404,7 +443,8 @@ class xarTestAssert {
 
     // TODO: This is a confusing assertion, if will fail for all other
     //       datatypes, which is good, but not very intuitive
-    function assertEmpty($expected,$msg='Test for empty array') {
+    function assertEmpty($expected,$msg='Test for empty array') 
+    {
         if (is_array($expected) && empty($expected)) {
             return $this->pass($msg);
         }

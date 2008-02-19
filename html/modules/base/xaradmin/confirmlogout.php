@@ -3,7 +3,7 @@
  * Confirm logout from Admin panels system
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,7 +17,7 @@
  * @author  Andy Varganov <andyv@xaraya.com>
  * @access  public
  * @param   no parameters
- * @return  array data for template
+ * @return  array Empty array
  * @throws  no exceptions
  * @todo    nothing
 */

@@ -3,7 +3,7 @@
  * File upload property
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -53,7 +53,6 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
     {
         // Parent constructor.
         parent::Dynamic_Property($args);
-
         if (empty($this->id)) $this->id = $this->name;
 
         // Determine if the uploads module is hooked to the calling module.
@@ -94,8 +93,8 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
     {
         // The variable corresponding to the file upload field is no longer set in PHP 4.2.1+
         // but we're using a hidden field to keep track of any previously uploaded file here
-        if (!isset($value)) $value = $this->value;
 
+        if (!isset($value)) $value = $this->value;
         if (isset($this->fieldname)) {
             $name = $this->fieldname;
         } else {
@@ -238,7 +237,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
             'uploads', 'admin', 'validatevalue',
             array(
                 'id' => $name, // not $this->id
-                'value' => $value,
+                'value' => isset($value)?$value:null,
                 // pass the module id, item type and item id (if available) for associations
                 'moduleid' => $this->_moduleid,
                 'itemtype' => $this->_itemtype,

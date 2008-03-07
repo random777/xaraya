@@ -10,8 +10,6 @@
                     otherwise block stylesheets/embedded styles cannot be delivered in time to head section
                     TODO: this is a known major shortcoming of blocks subsystem - FIX ASAP
     </xar:comment>
-        <xar:set name="starttime">explode(' ', microtime());</xar:set>
-    <xar:set name="starttime">$starttime[1] + $starttime[0];</xar:set>
     <xar:set name="topnavblocksgroup"><xar:blockgroup name="topnav" id="topnav" /></xar:set>
     <xar:set name="rightblocksgroup"><xar:blockgroup name="right" id="right" /></xar:set>
     <xar:set name="leftblocksgroup"><xar:blockgroup name="left" id="left" /></xar:set>
@@ -40,9 +38,6 @@
         Body JavaScript - required for all html themes
     </xar:comment>
     <xar:base-render-javascript position="body" />
-    <xar:set name="mtime">explode(' ', microtime());</xar:set>
-<xar:set name="$totaltime">$mtime[0] +  $mtime[1] - $starttime</xar:set>
-<p style="align:center;color:#FFF;">Page loaded in #$totaltime# seconds.</p>
 </body>
 </html>
 

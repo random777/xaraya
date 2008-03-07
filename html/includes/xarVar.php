@@ -1200,81 +1200,6 @@ function xarVarPrepForDisplay()
         return $resarray;
     }
 }
-function xarVarHTMLDisplay($fields,$tagtype='html')
-{
-   static $allowabletags = NULL;
-
-   $alltags = xarModGetVar('html','typelist');
-
-   if (isset($alltags) && !empty($alltags)) {
-       $alltags = unserialize($alltags);
-   } else {
-       $alltags = array('html');
-   }
-   if (isset($tagtype) && in_array($tagtype,$alltags)) {
-        $allowabletags = xarModGetVar('html',$tagtype);
-   }
-   if (!isset($allowabletags)) {
-   // revert to global html
-        $allowedHTML = array();
-        foreach($GLOBALS['xarVar_allowableHTML'] as $k=>$v) {
-            if ($k == '!--') {
-                if ($v <> 0) {
-                    $allowedHTML[] = "$k.*?--";
-                }
-            } else {
-                switch($v) {
-                    case 0:
-                        break;
-                    case 1:
-                        $allowedHTML[] = "/?$k\s*/?";
-                        break;
-                    case 2:
-                        $allowedHTML[] = "/?$k(\s+[^>]*)?/?";
-                        break;
-                }
-            }
-        }
-        if (count($allowedHTML) > 0) {
-            $allowabletags = '~<(' . join('|',$allowedHTML) . ')>~is';
-        } else {
-            $allowabletags = '';
-        }
-    }
-
-    $resarray = array();
-    $foo = func_num_args();
-    $arglist = func_get_args();
-    unset($arglist[$foo-1]); 
-      foreach ($arglist as $var) {
-        // Preparse var to mark the HTML that we want
-        if (!empty($allowabletags))
-            $var = preg_replace($allowabletags, "\022\\1\024", $var);
-
-        // Prepare var
-        $var = htmlspecialchars($var);
-
-        // Fix the HTML that we want
-        $var = preg_replace_callback('/\022([^\024]*)\024/',
-                                     'xarVarPrepHTMLDisplay__callback',
-                                     $var);
-
-        // Fix entities if required
-        if ($GLOBALS['xarVar_fixHTMLEntities']) {
-            $var = preg_replace('/&amp;([a-z#0-9]+);/i', "&\\1;", $var);
-        }
-
-        // Add to array
-        array_push($resarray, $var);
-    }
-
-    // Return vars
-    if (func_num_args() >0) {
-        return $resarray[0];
-    } else {
-        return $resarray;
-    }
-}
 
 /**
  * Ready HTML output
@@ -1295,7 +1220,6 @@ function xarVarPrepHTMLDisplay()
 
     if (!isset($allowedtags)) {
         $allowedHTML = array();
-
         foreach($GLOBALS['xarVar_allowableHTML'] as $k=>$v) {
             if ($k == '!--') {
                 if ($v <> 0) {

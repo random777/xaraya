@@ -826,6 +826,7 @@ function xarVar__SetVarByAlias($modName = NULL, $name, $value, $prime = NULL, $d
 
             //Insert
             $seqId = $dbconn->GenId($config_varsTable);
+     
             $query = "INSERT INTO $config_varsTable
                       (xar_id, xar_name, xar_value)
                       VALUES (?,?,?)";

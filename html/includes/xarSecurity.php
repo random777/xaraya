@@ -706,7 +706,6 @@ function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')
 
     // loop through the rands array to find a match
     foreach($rands as $r => $rnd){
-
         list($timestamp, $rndval) = explode('-', $rnd, 2);
 
         // ignore and get rid of random values older than session activity timeout

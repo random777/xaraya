@@ -636,9 +636,28 @@ function xarSecGenAuthKey($modName = NULL)
         list($modName) = xarRequestGetInfo();
     }
 
+    $rands = xarSessionGetVar('rand');
+    $now = time();
+
+    // convert single rand to array
+    if(!is_array($rands)){
+        $rands = array();
+    }
+
+    // always make a new rand value
+    // format is timestamp-rand
+    srand((double)microtime()*1000000);
+    $rnd = rand();
+    $rands[] = $now . '-' . $rnd;
+
+    // session integrity: only keep most recent 64 values
+    $rands = array_slice($rands, -64);
+
+    xarSessionSetVar('rand', $rands);
+
     // Date gives extra security but leave it out for now
     // $key = xarSessionGetVar('rand') . $modName . date ('YmdGi');
-    $key = xarSessionGetVar('rand') . strtolower($modName);
+    $key = $rnd . strtolower($modName);
 
     // Encrypt key
     $authid = md5($key);
@@ -667,34 +686,51 @@ function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')
     if(!isset($modName)) list($modName) = xarRequestGetInfo();
     $authid = xarRequestGetVar($authIdVarName);
 
-    // Regenerate static part of key
-    $partkey = xarSessionGetVar('rand') . strtolower($modName);
+    $rands = xarSessionGetVar('rand');
+    $now = time();
 
-// Not using time-sensitive keys for the moment
-//    // Key life is 5 minutes, so search backwards and forwards 5
-//    // minutes to see if there is a match anywhere
-//    for ($i=-5; $i<=5; $i++) {
-//        $testdate  = mktime(date('G'), date('i')+$i, 0, date('m') , date('d'), date('Y'));
-//
-//        $testauthid = md5($partkey . date('YmdGi', $testdate));
-//        if ($testauthid == $authid) {
-//            // Match
-//
-//            // We've used up the current random
-//            // number, make up a new one
-//            srand((double)microtime()*1000000);
-//            xarSessionSetVar('rand', rand());
-//
-//            return true;
-//        }
-//    }
-    if ((md5($partkey)) == $authid) {
-        // Match - generate new random number for next key and leave happy
-        srand((double)microtime()*1000000);
-        xarSessionSetVar('rand', rand());
+    srand((double)microtime()*1000000);
 
-        return true;
+    // convert single rand to array of "timestamp-rand()" strings
+    if(!is_array($rands)){
+        $rands = array();
+
+        // session integrity: only keep most recent 64 values
+        $rands = array_slice($rands, -64);
+
+        xarSessionSetVar('rand', $rands);
     }
+
+    // needed in foreach to expire old rand values
+    $age = xarConfigGetVar('Site.Session.InactivityTimeout') * 60; // convert minutes to seconds
+
+    // loop through the rands array to find a match
+    foreach($rands as $r => $rnd){
+
+        list($timestamp, $rndval) = explode('-', $rnd, 2);
+
+        // ignore and get rid of random values older than session activity timeout
+        if($now - $age > $timestamp){
+            unset($rands[$r]);
+            continue;
+        }
+
+        // Regenerate static part of key
+        $partkey = $rndval . strtolower($modName);
+
+        if ((md5($partkey)) == $authid) {
+            // Match - get rid of it and leave happy
+            unset($rands[$r]);
+
+            // session integrity: only keep most recent 64 values
+            $rands = array_slice($rands, -64);
+
+            xarSessionSetVar('rand', $rands);
+
+            return true;
+        }
+    }
+
     // Not found, assume invalid
     xarErrorSet(XAR_USER_EXCEPTION, 'FORBIDDEN_OPERATION',
                    new DefaultUserException());

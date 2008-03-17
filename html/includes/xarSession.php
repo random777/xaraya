@@ -411,7 +411,7 @@ function xarSession__new($sessionId, $ipAddress)
     // Generate a random number, used for
     // some authentication
     srand((double) microtime() * 1000000);
-    xarSessionSetVar('rand', rand());
+    xarSessionSetVar('rand', array(time() . '-' . rand()));
 
     // Congratulations. We have created a new session
     xarEvt_trigger('SessionCreate');

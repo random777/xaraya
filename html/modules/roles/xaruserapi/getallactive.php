@@ -101,24 +101,22 @@ function roles_userapi_getallactive($args)
     if (!$result) return;
 
     // Put users into result array
-    for (; !$result->EOF; $result->MoveNext()) {
+    $sessions = array();
+    for (; !$result->EOF; $result->MoveNext()) 
+    {
         list($uid, $uname, $name, $email, $date_reg, $ipaddr) = $result->fields;
-        if (xarSecurityCheck('ViewRoles', 0, 'Roles', "$uname:All:$uid")) {
-            $sessions[] = array('uid'       => (int) $uid,
-                                'name'      => $name,
-                                'uname'     => $uname,
-                                'email'     => $email,
-                                'date_reg'  => $date_reg,
-                                'ipaddr'    => $ipaddr);
+        if (xarSecurityCheck('ViewRoles', 0, 'Roles', "$uname:All:$uid")) 
+        {
+            $sessions[] = array(
+                'uid'       => (int) $uid,
+                'name'      => $name,
+                'uname'     => $uname,
+                'email'     => $email,
+                'date_reg'  => $date_reg,
+                'ipaddr'    => $ipaddr
+            );
         }
     }
-
-    // Return the users
-
-    if (empty($sessions)){
-        $sessions = '';
-    }
-
     return $sessions;
 }
 

@@ -1,4 +1,8 @@
-<h3><xar:var name="title"/></h3>
+<h3><a href="#xarModURL('articles','user','display',array('ptid' => $ptid,
+                                                          'aid' => $aid))#">
+        <xar:var name="title"/>
+    </a>
+</h3>
 <xar:var name="body"/>
 <br />
 <span class="xar-quote">

@@ -170,7 +170,7 @@ function themes_admin_list()
         // common listitems
         $listrows[$i]['coretheme']      = $coretheme;
         $listrows[$i]['displayname']    = $theme['name'];
-        $listrows[$i]['description']    = $theme['description'];
+        $listrows[$i]['description']    = $theme['description']?$theme['description']:'';
         $listrows[$i]['version']        = $theme['version'];
         $listrows[$i]['edit']           = xarML('Edit');
         $listrows[$i]['class']          = $theme['class'];

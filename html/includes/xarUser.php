@@ -216,6 +216,10 @@ function xarUserLogOut()
 
     xarSessionDelVar('authenticationModule');
 
+    // clear all previously set authkeys, then generate a new value
+    srand((double) microtime() * 1000000);
+    xarSessionSetVar('rand', array(time() . '-' . rand()));
+
     // User logged out successfully, trigger the proper event with the old userid
     xarEvt_trigger('UserLogout',$userId);
 

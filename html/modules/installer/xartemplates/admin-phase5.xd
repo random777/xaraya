@@ -35,6 +35,9 @@
             <h4>
                 <xar:mlstring>You already have an installed database.</xar:mlstring>
             </h4>
+            <p>
+                <xar:mlstring>If you plan on <strong>upgrading</strong> an existing Xaraya then please run the <strong>upgrade.php</strong> script, not this install script.</xar:mlstring>
+            </p>
             <h4>
                 <xar:ml>
                     <xar:mlstring>If you continue, any tables using the #(1)_ prefix will be overwritten.</xar:mlstring>

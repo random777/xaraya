@@ -222,13 +222,30 @@ function installer_admin_phase4()
 {
     xarVarFetch('install_language','str::',$install_language, 'en_US.utf-8', XARVAR_NOT_REQUIRED);
 
-    // Get default values from config files
-    $data['database_host']       = xarCore_getSystemVar('DB.Host');
-    $data['database_username']   = xarCore_getSystemVar('DB.UserName');
+    // Reuse the config file settings if we have a DB.UserName in there.
+    // Otherwise check for SQLite driver and use appropriate defaults from code
+    if (xarCore_getSystemVar('DB.UserName') != '') {
+        $data['database_host']       = xarCore_getSystemVar('DB.Host');
+        $data['database_username']   = xarCore_getSystemVar('DB.UserName');
+        $data['database_name']       = xarCore_getSystemvar('DB.Name');
+        $data['database_prefix']     = xarCore_getSystemvar('DB.TablePrefix');
+        $data['database_type']       = xarCore_getSystemvar('DB.Type');
+    } else {
+        if (extension_loaded('sqlite')) {
+            $data['database_host']       = './var/';
+            $data['database_username']   = '1';
+            $data['database_name']       = 'xaraya.sqlite';
+            $data['database_type']       = 'sqlite';
+        } else {
+            $data['database_host']       = 'localhost';
+            $data['database_username']   = '';
+            $data['database_name']       = 'Xaraya';
+            $data['database_type']       = 'mysql';
+        }
+        $data['database_prefix']     = 'xar';
+    }
     $data['database_password']   = '';//xarCore_getSystemvar('DB.Password');
-    $data['database_name']       = xarCore_getSystemvar('DB.Name');
-    $data['database_prefix']     = xarCore_getSystemvar('DB.TablePrefix');
-    $data['database_type']       = xarCore_getSystemvar('DB.Type');
+
     // Supported  Databases:
     $data['database_types']      = array('mysql'    => array('name' => 'MySQL'   , 'available' => extension_loaded('mysql')),
                                          'postgres' => array('name' => 'Postgres', 'available' => extension_loaded('pgsql')),
@@ -1740,8 +1757,7 @@ function installer_admin_upgrade2()
     } elseif (!empty($existingrolesdisallowed)) {
        $emails = $existingrolesdisallowed;
     }else {
-        $emails = 'none@none.com
-        president@whitehouse.gov';
+        $emails = "none@none.com\npresident@whitehouse.gov";
     }
     $disallowedemails = serialize($emails);
     

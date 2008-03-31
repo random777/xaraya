@@ -39,7 +39,6 @@
       </unique>
       <index name="i_privileges_realm_id">
         <column ref="privileges.realm_id"/>
-
       </index>
       <index name="i_privileges_module">
         <column ref="privileges.module_id"/>
@@ -130,6 +129,10 @@
       <number size="11" decimals="0"/>
     </column>
     <constraints>
+      <primary name="id">
+        <column ref="privmembers.id"/>
+        <column ref="privmembers.parentid"/>
+      </primary>
       <index name="i_privmembers_pid">
         <column ref="privmembers.id"/>
       </index>

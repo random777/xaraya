@@ -63,6 +63,10 @@
       <number size="11" decimals="0"/>
     </column>
     <constraints>
+      <primary name="id">
+        <column ref="rolemembers.id"/>
+        <column ref="rolemembers.parentid"/>
+      </primary>
       <index name="i_rolememb_id">
         <column ref="rolemembers.id"/>
       </index>

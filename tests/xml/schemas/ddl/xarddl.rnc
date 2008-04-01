@@ -29,7 +29,7 @@ default namespace   = "http://xaraya.com/2007/schema"
 # Attributes:
 # id    unique identifier for a certain tag
 # ref   each tag may reference a previous definition of the same tag, this is
-#       useful for standardizing column definitions and for column constaint
+#       useful for standardizing column definitions and for column constraints
 #       definitions for example
 commonAtts =
 (

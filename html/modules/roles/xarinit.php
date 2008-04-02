@@ -88,13 +88,11 @@ function roles_init()
 
         $query = xarDBCreateTable($tables['rolemembers'],
                             array('id' => array('type'        => 'integer',
-                                                'null'        => true,
-                                                'default'     => null,
-                                                'primary_key' => true),
+                                 'null'        => true,
+                                                           'default'     => null),
                                         'parentid' => array('type'        => 'integer',
-                                                            'null'        => true,
-                                                            'default'     => null,
-                                                            'primary_key' => true)));
+                                                                'null'        => true,
+                                                                'default'     => null)));
         $dbconn->Execute($query);
 
         $index = array('name' => 'i_' . $prefix . '_rolememb_id',
@@ -136,8 +134,8 @@ function roles_activate()
     xarModVars::set('roles', 'locale', '');
     xarModVars::set('roles', 'duvsettings', serialize(array()));
     xarModVars::set('roles', 'userhome', 'undefined');
-    xarModVars::set('roles', 'userlastlogin', 0);
-    xarModVars::set('roles', 'passwordupdate', 0);
+    xarModVars::set('roles', 'userlastlogin', '');
+    xarModVars::set('roles', 'passwordupdate', '');
     xarModVars::set('roles', 'usertimezone', xarConfigVars::get(null, 'Site.Core.TimeZone'));
     xarModVars::set('roles', 'useremailformat', 'text');
     xarModVars::set('roles', 'displayrolelist', false);
@@ -188,6 +186,7 @@ function roles_activate()
     $rolefields['uname'] = 'everybody';
     $rolefields['parentid'] = 0;
     $topid = $group->createItem($rolefields);
+    xarRoles::isRoot('Everybody');
     xarModVars::set('roles', 'everybody', $topid);
     xarModVars::set('roles', 'primaryparent', $topid);
     xarModUserVars::set('roles', 'userhome', '[base]',$topid);

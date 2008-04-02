@@ -35,27 +35,29 @@
                     Login Security Options
                 </xar:mlstring>
             </legend>
-                <div class="xar-form-input-wrapper">
-                    <label for="uselockout" class="xar-form-label" title="Lock a user out after a number of failed logins">
-                        <xar:mlstring>
-                            Enable lockout option? 
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModVars::get('authsystem', 'uselockout')">
+                        <input type="checkbox" name="uselockout" id="uselockout" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="uselockout" id="uselockout" value="1" />
+                    </xar:if>
+                    <xar:data-input type="checkbox" name="uselockout" id="uselockout" value="$uselockoutchecked" checked="$uselockoutchecked" />
                         </xar:mlstring>
                     </label>
-                    <xar:data-input type="checkbox" name="uselockout" id="uselockout" value="$uselockoutchecked" checked="$uselockoutchecked" />
                 </div>
                 <div class="xar-form-input-wrapper">
-                    <label for="lockouttries" class="xar-form-label" title="The number of attempts allowed before lockout">
+                    <label for="lockouttries" class="xar-form-label">
                         <xar:mlstring>
-                            Allowed attempts 
+                            Number of attempts before lockout 
                         </xar:mlstring>
                         : 
                     </label>
                     <xar:data-input type="integerbox" name="lockouttries" id="lockouttries" value="$lockouttries" size="2" maxlength="2" />
                 </div>
                 <div class="xar-form-input-wrapper">
-                    <label for="lockouttime" class="xar-form-label" title="The time a lockout is in effect">
+                    <label for="lockouttime" class="xar-form-label">
                         <xar:mlstring>
-                            Lockout time (minutes) 
+                            Length of time for lockout (minutes) 
                         </xar:mlstring>
                         : 
                     </label>

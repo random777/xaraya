@@ -68,9 +68,9 @@ function dynamicdata_adminapi_updateprop($args)
     $bindvars = array();
     $sql = "UPDATE $dynamicprop SET label = ?, type = ?";
     $bindvars[] = $label; $bindvars[] = $type;
-    if (isset($defaultvalue) && is_string($defaultvalue)) {
+    if (isset($default) && is_string($default)) {
         $sql .= ", defaultvalue = ?";
-        $bindvars[] = $defaultvalue;
+        $bindvars[] = $default;
     }
     // TODO: verify that the data source exists
     if (isset($source) && is_string($source)) {

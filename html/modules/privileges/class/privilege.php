@@ -26,7 +26,7 @@ class xarPrivilege extends xarMask
     function __construct($pargs)
     {
         parent::__construct($pargs);
-        $this->parentid     = isset($pargs['parentid']) ? (int) $pargs['parentid'] : 0;
+        $this->parentid     = isset($parentid) ? (int) $parentid : 0;
     }
 
     /**
@@ -66,11 +66,30 @@ class xarPrivilege extends xarMask
         $this->id = $this->dbconn->getLastId($this->privilegestable);
 
         // make this privilege a child of its parent
-        if(!empty($this->parentid)) {
+        if($this->parentid != 0) {
             sys::import('modules.privileges.class.privileges');
             $parentperm = xarPrivileges::getprivilege($this->parentid);
             $parentperm->addMember($this);
         }
+        // create this privilege as an entry in the repository
+        return $this->makeEntry();
+    }
+
+    /**
+     * makeEntry: sets up a privilege without parents
+     *
+     * Sets up a privilege as a root entry (no parent)
+     *
+     * @author  Marc Lutolf <marcinmilan@xaraya.com>
+     * @access  public
+     * @return  boolean
+     * @todo    check to make sure the child is not a parent of the parent
+    */
+    function makeEntry()
+    {
+        if ($this->isRootPrivilege()) return true;
+        $query = "INSERT INTO $this->privmemberstable VALUES (?,?)";
+        $this->dbconn->Execute($query,array($this->getID(),0));
         return true;
     }
 
@@ -93,6 +112,10 @@ class xarPrivilege extends xarMask
         //Execute the query, bail if an exception was thrown
         $this->dbconn->Execute($query,$bindvars);
 
+// empty the privset cache
+//        $privileges = new xarPrivileges();
+//        $privileges->forgetprivsets();
+
         return true;
     }
 
@@ -108,10 +131,26 @@ class xarPrivilege extends xarMask
     function removeMember($member)
     {
         sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('DELETE',$this->privmemberstable);
+        $q = new xarQuery('SELECT', $this->privmemberstable, 'COUNT(*) AS count');
         $q->eq('id', $member->getID());
-        $q->eq('parentid', $this->getID());
         if (!$q->run()) return;
+        $total = $q->row();
+        if($total['count'] == 0) return true;
+
+        if($total['count'] > 1) {
+            $q = new xarQuery('DELETE');
+            $q->eq('parentid', $this->getID());
+        } else {
+            $q = new xarQuery('UPDATE');
+            $q->addfield('parentid', 0);
+        }
+        $q->addtable($this->privmemberstable);
+        $q->eq('id', $member->getID());
+        if (!$q->run()) return;
+
+// empty the privset cache
+//        $privileges = new xarPrivileges();
+//        $privileges->forgetprivsets();
 
         return true;
     }
@@ -139,7 +178,7 @@ class xarPrivilege extends xarMask
                           module_id = ?,   component = ?,
                           instance = ?, level = ?, type = ?
                       WHERE id = ?';
-        $bindvars = array($this->name, $realmid, $this->module_id,
+        $bindvars = array($this->name, $realmid, $this->module,
                           $this->component, $this->instance, $this->level, self::PRIVILEGES_PRIVILEGETYPE,
                           $this->getID());
         //Execute the query, bail if an exception was thrown
@@ -181,6 +220,11 @@ class xarPrivilege extends xarMask
                 $parentperm->removeMember($this);
             }
         }
+
+        // remove this child from the root privilege too
+        $query = "DELETE FROM $this->privmemberstable WHERE id=? AND parentid=?";
+        $stmt = $this->dbconn->prepareStatement($query);
+        $stmt->executeUpdate(array($this->id,0));
 
         // get all the roles this privilege was assigned to
         $roles = $this->getRoles();
@@ -308,10 +352,10 @@ class xarPrivilege extends xarMask
         $parents = array();
 
         // perform a SELECT on the privmembers table
-        $query = "SELECT DISTINCT p.*, m.name
+        $query = "SELECT p.*, m.name
                   FROM $this->privilegestable p INNER JOIN $this->privmemberstable pm ON p.id = pm.parentid
                   LEFT JOIN $this->modulestable m ON p.module_id = m.id
-                  WHERE pm.id = ?";
+                  AND pm.id = ?";
         if(!isset($stmt)) $stmt = $this->dbconn->prepareStatement($query);
         $result = $stmt->executeQuery(array($this->getID()));
         // collect the table values and use them to create new role objects
@@ -327,7 +371,7 @@ class xarPrivilege extends xarMask
                             'level'=>$level,
                             'description'=>$description,
                             'parentid' => $id);
-            $parents[] = new xarPrivilege($pargs);
+            array_push($parents, new xarPrivilege($pargs));
         }
         // done
         return $parents;
@@ -352,7 +396,7 @@ class xarPrivilege extends xarMask
         while (list($key, $parent) = each($parents)) {
             $ancestors = $parent->getParents();
             foreach ($ancestors as $ancestor) {
-                $parents[] = $ancestor;
+                array_push($parents,$ancestor);
             }
         }
 
@@ -488,7 +532,7 @@ class xarPrivilege extends xarMask
     */
     function isEmpty()
     {
-        return $this->module_id == null;
+        return $this->module == null;
     }
 
     /**
@@ -527,6 +571,7 @@ class xarPrivilege extends xarMask
         $q->addtable($this->privmemberstable,'pm');
         $q->join('p.id','pm.id');
         $q->eq('pm.id',$this->getID());
+        $q->eq('pm.parentid',0);
         if(!$q->run()) return;
         return ($q->output() != array());
     }

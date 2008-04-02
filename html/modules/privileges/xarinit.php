@@ -125,14 +125,26 @@ function privileges_init()
          * )
          *********************************************************************/
 
-        $query = "CREATE TABLE " . $tables['privmembers'] . "(
-          `id` int(11) NOT NULL default '0',
-          `parentid` int(11) NOT NULL default '0',
-          PRIMARY KEY  (`id`,`parentid`),
-          KEY `i_xar_privmembers_pid` (`id`),
-          KEY `i_xar_privmembers_parentid` (`parentid`)
-        )";
+        $query = xarDBCreateTable($tables['privmembers'],
+                                  array('id'       => array('type'        => 'integer',
+                                                                 'null'        => true,
+                                                                 'default'     => null),
+                                        'parentid'      => array('type'        => 'integer',
+                                                                 'null'        => true,
+                                                                 'default'     => null)));
+        $dbconn->Execute($query);
 
+        xarDB::importTables(array('privmembers' => $prefix . '_privmembers'));
+
+        $index = array('name'      => 'i_'.$prefix.'_privmembers_pid',
+                       'fields'    => array('id'),
+                       'unique'    => false);
+        $query = xarDBCreateIndex($tables['privmembers'],$index);
+        $dbconn->Execute($query);
+        $index = array('name'      => 'i_'.$prefix.'_privmembers_parentid',
+                       'fields'    => array('parentid'),
+                       'unique'    => false);
+        $query = xarDBCreateIndex($tables['privmembers'],$index);
         $dbconn->Execute($query);
 
         /*********************************************************************

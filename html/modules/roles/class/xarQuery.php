@@ -719,7 +719,7 @@ class xarQuery
                 return $condition['field1'] . " IS NULL";
         }
 
-        if (in_array(strtolower($condition['op']),array('in','not in'))) {
+        if ($condition['op'] == 'in' || $condition['op'] == 'IN') {
             if (is_array($condition['field2'])) {
                 $elements = array();
                 if ($this->usebinding) {

@@ -95,6 +95,11 @@ function installer_community_casualaccess()
     xarRegisterPrivilege('ViewBlocks','All','base','Block','All','ACCESS_OVERVIEW','View blocks of the Base module');
     xarRegisterPrivilege('ViewLoginItems','All','dynamicdata','Item','All','ACCESS_OVERVIEW','View some Dynamic Data items');
     xarRegisterPrivilege('ViewBlockItems','All','blocks','BlockItem','All','ACCESS_OVERVIEW','View block items in general');
+    xarMakePrivilegeRoot('CasualAccess');
+    xarMakePrivilegeRoot('ViewLogin');
+    xarMakePrivilegeRoot('ViewBlocks');
+    xarMakePrivilegeRoot('ViewLoginItems');
+    xarMakePrivilegeRoot('ViewBlockItems');
 //    xarMakePrivilegeMember('ViewRegistrationLogin','CasualAccess');
     xarMakePrivilegeMember('ViewLogin','CasualAccess');
     xarMakePrivilegeMember('ViewBlocks','CasualAccess');
@@ -112,6 +117,12 @@ function installer_community_readnoncore()
     xarRegisterPrivilege('DenyMail','All','mail','All','All','ACCESS_NONE','Deny access to the Mail module');
     xarRegisterPrivilege('DenyModules','All','modules','All','All','ACCESS_NONE','Deny access to the Modules module');
     xarRegisterPrivilege('DenyThemes','All','themes','All','All','ACCESS_NONE','Deny access to the Themes module');
+    xarMakePrivilegeRoot('ReadNonCore');
+    xarMakePrivilegeRoot('DenyPrivileges');
+    xarMakePrivilegeRoot('DenyBlocks');
+    xarMakePrivilegeRoot('DenyMail');
+    xarMakePrivilegeRoot('DenyModules');
+    xarMakePrivilegeRoot('DenyThemes');
     xarMakePrivilegeMember('ReadAccess','ReadNonCore');
     xarMakePrivilegeMember('ViewAuthsystem','ReadNonCore');
     xarMakePrivilegeMember('DenyPrivileges','ReadNonCore');
@@ -125,5 +136,6 @@ function installer_community_readnoncore()
 function installer_community_readaccess()
 {
         xarRegisterPrivilege('ReadAccess','All','All','All','All','ACCESS_READ','Read access to all modules');
+        xarMakePrivilegeRoot('ReadAccess');
 }
 ?>

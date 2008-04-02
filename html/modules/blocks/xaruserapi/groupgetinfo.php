@@ -38,7 +38,7 @@ function blocks_userapi_groupgetinfo($args)
 
     $blockInstancesTable      = $tables['block_instances'];
     $blockTypesTable          = $tables['block_types'];
-    $blockGroupsTable         = $tables['block_groups'];
+    $blockGroupsTable         = $tables['block_instances'];
     $blockGroupInstancesTable = $tables['block_group_instances'];
     $modulesTable             = $tables['modules'];
 
@@ -79,7 +79,6 @@ function blocks_userapi_groupgetinfo($args)
                         mods.name as module,
                         inst.title as title,
                         inst.name as name,
-                        inst.state as state,
                         group_inst.position as position
               FROM      $blockGroupInstancesTable as group_inst
               LEFT JOIN $blockGroupsTable as bgroups ON group_inst.group_id = bgroups.id

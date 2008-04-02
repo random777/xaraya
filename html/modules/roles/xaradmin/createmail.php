@@ -18,7 +18,7 @@ function roles_admin_createmail()
 
     if (!xarVarFetch('id',       'int:0:', $id,        -1, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('ids',      'isset',  $ids,     NULL, XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('state',    'int:0:', $state,      xarRoles::ROLES_STATE_ALL, XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('state',    'int:0:', $state,      -1, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('startnum', 'int:1:', $startnum,    1, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('order',    'str:0:', $data['order'], 'name', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('includesubgroups', 'int:0:', $data['includesubgroups'],0, XARVAR_NOT_REQUIRED)) return;
@@ -30,8 +30,7 @@ function roles_admin_createmail()
         $type = 'selection';
     } else {
         $role  = xarRoles::get($id);
-        $baseitemtype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $role->getType()));
-        $type  = ($baseitemtype == xarRoles::ROLES_GROUPTYPE) ? 'selection' : 'single';
+        $type  = $role->getType() ? 'selection' : 'single';
     }
 
     $xartable = xarDB::getTables();
@@ -58,16 +57,17 @@ function roles_admin_createmail()
                             'r.state AS state',
                             'r.date_reg AS date_reg'));
         $q->eq('r.id',$id);
-        xarSession::setVar('rolesquery',serialize($q));
-    } else {
+        $q->sessionsetvar('rolesquery');
+    }
+    else {
         if ($selstyle == 0) $selstyle = 1;
 
         // Get the current query or create a new one if need be
         if ($id == -1) {
             $q = new xarQuery();
-            $q = unserialize(xarSession::getVar('rolesquery'));
+            $q = $q->sessiongetvar('rolesquery');
         }
-        if(empty($q->tables)) {
+        if(empty($q)) {
             $q = new xarQuery('SELECT');
             $q->addtable($xartable['roles'],'r');
             $q->addfields(array('r.id AS id',
@@ -76,7 +76,7 @@ function roles_admin_createmail()
                                 'r.email AS email',
                                 'r.state AS state',
                                 'r.date_reg AS date_reg'));
-            $q->eq('type',xarRoles::ROLES_USERTYPE);
+            $q->eq('type',ROLES_USERTYPE);
         }
         // Set the paging and order stuff for this particular page
         $numitems = xarModVars::get('roles', 'itemsperpage');
@@ -87,26 +87,25 @@ function roles_admin_createmail()
         // Add state
         if ($id != -1) {
             $q->removecondition('state');
-            if ($state == xarRoles::ROLES_STATE_CURRENT) $q->ne('state',xarRoles::ROLES_STATE_DELETED);
-            elseif ($state == xarRoles::ROLES_STATE_ALL) {}
+            if ($state == ROLES_STATE_CURRENT) $q->ne('state',ROLES_STATE_DELETED);
+            elseif ($state == ROLES_STATE_ALL) {}
             else $q->eq('state',$state);
         } else {
-            $state = xarRoles::ROLES_STATE_ALL;
+            $state = -1;
         }
 
         if ($id != -1) {
-            if ($baseitemtype == xarRoles::ROLES_GROUPTYPE) {
+            if ($id != 0) {
                 // If a group was chosen, get only the users of that group
                 $q->addtable($xartable['rolemembers'],'rm');
                 $q->join('r.id','rm.id');
                 $q->eq('rm.parentid',$id);
-            } else {
-                $q->eq('r.id',$id);
             }
         }
 
         // Save the query so we can reuse it somewhere
-        xarSession::setVar('rolesquery',serialize($q));
+        $q->sessionsetvar('rolesquery');
+
         // open a connection and run the query
         $q->run();
 
@@ -130,15 +129,14 @@ function roles_admin_createmail()
 
             while (list($key, $user) = each($descendants)) {
                 if (xarSecurityCheck('EditRole',0,'Roles',$user->getName())) {
-                    if (in_array($state, array($user->getState(),xarRoles::ROLES_STATE_ALL))) {
-                        $data['users'][$user->getID()] =
-                            array('id'      => $user->getID(),
-                                  'name'     => $user->getName(),
-                                  'uname'    => $user->getUser(),
-                                  'email'    => $user->getEmail(),
-                                  'status'   => $user->getState(),
-                                  'date_reg' => $user->getDateReg()
-                                 );}
+                    $data['users'][$user->getID()] =
+                        array('id'      => $user->getID(),
+                              'name'     => $user->getName(),
+                              'uname'    => $user->getUser(),
+                              'email'    => $user->getEmail(),
+                              'status'   => $user->getState(),
+                              'date_reg' => $user->getDateReg()
+                             );
                 }
             }
         }

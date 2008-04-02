@@ -213,7 +213,6 @@ function base_adminmenublock_display($blockinfo)
             } //inner foreach
 
             $template = 'verticallistbycats';
-            ksort($catmods);
             $data = array(
                 'catmods'       => $catmods
             );

@@ -36,33 +36,16 @@ class XarDateTime extends DateTime
         $this->setTime($this->hour,$this->minute,$this->second);
     }
 
-    function getTZOffset($timezone=null, $dst=1)
+    function getTZOffset($timezone=null)
     {
         if (empty($timezone)) return 0;
-        if ($dst) {
-            $dt = new DateTime();
-
-            $machinetz = date_default_timezone_get();
-            $tzobject = new DateTimezone($machinetz);
-            $dt->setTimezone($tzobject);
-            $machineoffset = $dt->getOffset();
-
-            $tzobject = new DateTimezone($this->servertz);
-            $dt->setTimezone($tzobject);
-            $baseoffset = $dt->getOffset();
-
-            $tzobject = new DateTimezone($timezone);
-            $dt->setTimezone($tzobject);
-            $localoffset = $dt->getOffset();
-        } else {
-            $machinetz = date_default_timezone_get();
-            $tzobject = new DateTimezone($machinetz);
-            $machineoffset = $tzobject->getOffset($this);
-            $tzobject = new DateTimezone($this->servertz);
-            $baseoffset = $tzobject->getOffset($this);
-            $tzobject = new DateTimezone($timezone);
-            $localoffset = $tzobject->getOffset($this);
-        }
+        $machinetz = date_default_timezone_get();
+        $tzobject = new DateTimezone($machinetz);
+        $machineoffset = $tzobject->getOffset($this);
+        $tzobject = new DateTimezone($this->servertz);
+        $baseoffset = $tzobject->getOffset($this);
+        $tzobject = new DateTimezone($timezone);
+        $localoffset = $tzobject->getOffset($this);
         return $localoffset - ($baseoffset - $machineoffset);
     }
 

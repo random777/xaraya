@@ -93,6 +93,7 @@ class testPrivilegesBugs extends xarTestCase
         xarLogMessage("Hello");
         xarRegisterPrivilege('Bug1970Parent', 'All', 'themes', 'All', 'All',
                 'ACCESS_ADMIN');
+        xarMakePrivilegeRoot('Bug1970Parent');
 
         /* 2) privilege does not have a parent 'root' *|/g
         xarRegisterPrivilege('Bug1970Child', 'All', 'themes', 'All', 'All',
@@ -137,6 +138,7 @@ class testPrivilegesBugs extends xarTestCase
         /* 1) privilege has a parent *|/g
         xarRegisterPrivilege('Bug1970Parent', 'All', 'themes', 'All', 'All',
                 'ACCESS_ADMIN');
+        xarMakePrivilegeRoot('Bug1970Parent');
 
         /* 2) privilege does not have a parent 'root' *|/g
         xarRegisterPrivilege('Bug1970Child', 'All', 'themes', 'All', 'All',

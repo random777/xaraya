@@ -22,8 +22,8 @@ function initializeSetup()
     * Enter some default groups and users
     *********************************************************************/
     xarMakeGroup('Everybody');
-    xarMakeUser('Anonymous','anonymous','anonymous@xaraya.com');
-    xarMakeUser('Admin','Admin','admin@xaraya.com','password');
+    xarMakeUser('Anonymous','anonymous','anonymous@invalid.tld');
+    xarMakeUser(xarML('Administrator'),'Admin',xarML('none@invalid.tld'),'password');
     xarMakeGroup('Administrators');
     xarMakeGroup('Users');
     xarMakeUser('Myself','myself','myself@xaraya.com','password');

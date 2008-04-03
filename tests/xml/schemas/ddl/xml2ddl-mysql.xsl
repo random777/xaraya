@@ -64,6 +64,9 @@
   <xsl:apply-templates select="ddl:constraints"/>
   <xsl:text>);</xsl:text>
   <xsl:value-of select="$CR"/>
+  <xsl:apply-templates select="ddl:description"/>
+  <xsl:value-of select="$CR"/>
+  <xsl:value-of select="$CR"/>
 </xsl:template>
 
 <!-- Create a column -->
@@ -158,6 +161,15 @@
   <xsl:value-of select="."/>
   <xsl:text> */</xsl:text>
   <xsl:value-of select="$CR"/>
+</xsl:template>
+
+<!-- Table comments are supported in mysql -->
+<xsl:template match="ddl:table/ddl:description">
+  <xsl:text>ALTER TABLE </xsl:text>
+  <xsl:value-of select="../@name"/>
+  <xsl:text> COMMENT ='</xsl:text>
+  <xsl:value-of select="."/>
+  <xsl:text>';</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>

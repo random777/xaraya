@@ -37,7 +37,6 @@
   <!-- Stuff we ignore for now -->
   <!-- Supress things we dont want or havent gotten around to yet -->
   <xsl:template match="text()"/>
-  <xsl:template match="ddl:table/ddl:description"/>
   <xsl:template match="ddl:schema/ddl:description"/>
   <xsl:template match="ddl:index/ddl:description"/>
   <xsl:template match="ddl:prototypes"/>

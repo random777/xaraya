@@ -38,7 +38,10 @@
 <xsl:template match="ddl:schema">
   <xsl:text>/* Create the database if not already there */</xsl:text>
   <xsl:value-of select="$CR"/>
-  <xsl:text>CREATE DATABASE IF NOT EXISTS </xsl:text><xsl:value-of select="@name"/>;
+  <xsl:text>CREATE DATABASE IF NOT EXISTS </xsl:text><xsl:value-of select="@name"/>
+  <xsl:text>;</xsl:text>
+  <xsl:value-of select="$CR"/>
+  <xsl:text>USE </xsl:text><xsl:value-of select="@name"/>;
   <xsl:value-of select="$CR"/>
 
   <xsl:text>/* Satisfy all tables */</xsl:text>
@@ -57,9 +60,9 @@
   <xsl:text> (</xsl:text>
   <xsl:value-of select="$CR"/>
   <xsl:apply-templates select="ddl:column"/>
-  <xsl:text>);</xsl:text>
-  <xsl:value-of select="$CR"/>
+
   <xsl:apply-templates select="ddl:constraints"/>
+  <xsl:text>);</xsl:text>
   <xsl:value-of select="$CR"/>
 </xsl:template>
 
@@ -74,7 +77,7 @@
   <xsl:if test="*[@defaultvalue]"> DEFAULT '<xsl:value-of select="*/@defaultvalue"/>'</xsl:if>
   <!-- Auto increment looks odd here, but look at the spec at mysql, it *is* correct -->
   <xsl:if test="@auto ='true'"> AUTO_INCREMENT </xsl:if>
-  <xsl:if test="position() != last()"><xsl:text>,</xsl:text></xsl:if>
+  <xsl:text>,</xsl:text>
   <xsl:value-of select="$CR"/>
 </xsl:template>
 
@@ -125,15 +128,11 @@
 <xsl:key name="columns" match="ddl:column" use="@id"/>
 
 <xsl:template match="ddl:constraints">
-  <xsl:text>ALTER TABLE </xsl:text>
-  <xsl:value-of select="../@name"/>
-  <xsl:value-of select="$CR"/>
   <xsl:apply-templates select="ddl:primary|ddl:unique|ddl:index"/>
-  <xsl:text>;</xsl:text>
 </xsl:template>
 
 <xsl:template match="ddl:primary|ddl:unique|ddl:index">
-  <xsl:text>  ADD </xsl:text>
+  <xsl:text>  </xsl:text>
   <xsl:choose>
     <xsl:when test="name() = 'index'"/>
     <xsl:otherwise>
@@ -160,9 +159,5 @@
   <xsl:text> */</xsl:text>
   <xsl:value-of select="$CR"/>
 </xsl:template>
-
-<!-- Supress things we dont want or havent gotten around to yet -->
-<xsl:template match="text()"/>
-<xsl:template match="ddl:table/ddl:description"/>
 
 </xsl:stylesheet>

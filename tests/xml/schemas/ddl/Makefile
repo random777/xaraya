@@ -13,7 +13,7 @@
 
 TRANG=trang
 PHP=php5
-XSLTPROC=xsltproc
+XSLTPROC=xsltproc --novalid --nonet 
 SRC=rnc
 
 all: schemas xar-model.sql
@@ -34,7 +34,7 @@ test: schema.sql
 xar-model.xml: db2xml db2xml.xd
 	./db2xml > $(PWD)/$@
 
-%.sql: %.xml xar-model.xml
+%.sql: %.xml xar-model.xml 
 	$(XSLTPROC) --stringparam vendor mysql  xml2ddl-mysql.xsl  $< > $(*F).mysql.sql
 	$(XSLTPROC) --stringparam vendor sqlite xml2ddl-sqlite.xsl $< > $(*F).sqlite.sql
 	$(XSLTPROC) --stringparam vendor pgsql  xml2ddl-pgsql.xsl  $< > $(*F).pgsql.sql

@@ -30,8 +30,18 @@
 </xsl:text>
   </xsl:variable>
 
+  <!-- These two help with implenting case translations -->
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+
+  <!-- Stuff we ignore for now -->
+  <!-- Supress things we dont want or havent gotten around to yet -->
+  <xsl:template match="text()"/>
+  <xsl:template match="ddl:table/ddl:description"/>
+  <xsl:template match="ddl:schema/ddl:description"/>
+  <xsl:template match="ddl:index/ddl:description"/>
+  <xsl:template match="ddl:prototypes"/>
+
 
   <!-- File header -->
   <xsl:template name="topheader">
@@ -126,7 +136,4 @@
     </xsl:for-each>
     <xsl:text> ADD PRIMARY KEY (</xsl:text><xsl:call-template name="columnrefscsv"/>);
   </xsl:template>
-
-  <xsl:template match="ddl:schema/ddl:description"/> <!-- @todo : find out if this has a useful thing -->
-  <xsl:template match="ddl:index/ddl:description"/> <!-- @todo : find out if this has a useful thing -->
 </xsl:stylesheet>

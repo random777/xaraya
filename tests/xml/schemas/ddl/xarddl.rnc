@@ -228,6 +228,8 @@ constraints = element constraints
 }
 
 primary = element primary { constraint }
+#
+# @todo How are we going to deal with the references section?
 foreign = element foreign { constraint }
 unique  = element unique  { constraint }
 index   = element index   { constraint }

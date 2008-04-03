@@ -1,7 +1,12 @@
-<?xml version="1.0"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
-  <!-- DDL is no XML -->
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:ddl="http://xaraya.com/2007/schema" >
+
+  <!-- we are outputting text -->
   <xsl:output method="text" />
+
+  <!-- remove all the whitespace -->
   <xsl:strip-space elements="*"/>
 
   <!--
@@ -17,6 +22,7 @@
   <xsl:param name="version" />
   <xsl:param name="dbcreate"/>
   <xsl:param name="drop4create"/>
+  <xsl:param name="tableprefix"/>
 
   <!-- Variables, xslt style -->
   <xsl:variable name="CR">
@@ -24,13 +30,15 @@
 </xsl:text>
   </xsl:variable>
 
+  <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+
   <!-- File header -->
   <xsl:template name="topheader">
-    <xsl:param name="dbname"/>
     <xsl:param name="remarks"/>
 /* ---------------------------------------------------------------------------
  * Model generated from: TODO
- * Name                : <xsl:value-of select="$dbname"/>
+ * Name                : <xsl:value-of select="ddl:schema/@name"/>
  * Vendor              : <xsl:value-of select="$vendor"/>
  * Date                : TODO
  * Remarks:            :
@@ -47,54 +55,78 @@
 
 <!-- Easy TODO inclusion -->
 <xsl:template name="TODO">
-  <xsl:text>/* TODO: Template for: </xsl:text>
-  <xsl:value-of select="local-name()"/>
-  <xsl:text> </xsl:text>
-  <xsl:value-of select="@name"/>
-  <xsl:text> handling (vendor: </xsl:text>
-  <xsl:value-of select="$vendor"/>
-  <xsl:text>) */
+    <xsl:text>/* TODO: Template for: </xsl:text>
+    <xsl:value-of select="local-name()"/>
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="@name"/>
+    <xsl:text> handling (vendor: </xsl:text>
+    <xsl:value-of select="$vendor"/>
+    <xsl:text>) */
 </xsl:text>
 </xsl:template>
 
-<!-- Default create database statement -->
-<xsl:template match="schema">
-  <xsl:call-template name="dynheader"/>
-  <xsl:if test="$dbcreate">
-    <xsl:text>CREATE DATABASE </xsl:text><xsl:value-of select="@name"/>;
-  </xsl:if>
-<xsl:apply-templates/>
-</xsl:template>
+  <!-- Default create database statement -->
+  <xsl:template match="ddl:schema">
+      <xsl:text>CREATE DATABASE </xsl:text><xsl:value-of select="@name"/>;
+  <xsl:apply-templates/>
+  </xsl:template>
 
-<!--  @todo make this a generic template? -->
-<xsl:key name="columnid" match="table/column" use="@id"/>
-<xsl:template name="columnrefscsv">
-  <xsl:for-each select="columnref">
-    <xsl:value-of select="key('columnid',@ref)/@name"/>
-    <xsl:if test="position() != last()"><xsl:text>,</xsl:text></xsl:if>
-  </xsl:for-each>
-</xsl:template>
+  <!--  @todo make this a generic template? -->
+  <xsl:key name="columnid" match="ddl:table/ddl:column" use="@id"/>
+  <xsl:template name="columnrefscsv">
+    <xsl:for-each select="ddl:column">
+      <xsl:value-of select="key('columnid',@ref)/@name"/>
+      <xsl:if test="position() != last()"><xsl:text>,</xsl:text></xsl:if>
+    </xsl:for-each>
+  </xsl:template>
 
-<!-- Index base create is pretty portable
-     @todo put these back together?
--->
-<xsl:template match="table/constraints/index">
-  <xsl:text>CREATE INDEX </xsl:text>
-  <xsl:value-of select="@name"/> ON <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
-</xsl:template>
+  <!-- Index base create is pretty portable
+       @todo put these back together?
+  -->
+  <xsl:template match="ddl:table/ddl:constraints/ddl:index">
+    <xsl:text>CREATE INDEX </xsl:text>
+    <xsl:value-of select="@name"/> ON 
+    <xsl:if test="$tableprefix != ''">
+      <xsl:value-of select="$tableprefix"/>
+      <xsl:text>_</xsl:text>
+    </xsl:if>
+    <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
+  </xsl:template>
 
-<xsl:template match="table/constraints/unique">
-  <xsl:text>CREATE UNIQUE INDEX </xsl:text>
-  <xsl:value-of select="@name"/> ON <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
-</xsl:template>
+  <xsl:template match="ddl:table/ddl:constraints/ddl:unique">
+    <xsl:text>CREATE UNIQUE INDEX </xsl:text>
+    <xsl:value-of select="@name"/> ON 
+    <xsl:if test="$tableprefix != ''">
+      <xsl:value-of select="$tableprefix"/>
+      <xsl:text>_</xsl:text>
+    </xsl:if>
+    <xsl:value-of select="../../@name"/> (<xsl:call-template name="columnrefscsv"/>);
+  </xsl:template>
 
-<!-- Primary key creation -->
-<xsl:template match="table/constraints/primary">
-  <xsl:text>ALTER TABLE </xsl:text>
-  <xsl:value-of select="../../@name"/>
-  <xsl:text> ADD PRIMARY KEY (</xsl:text><xsl:call-template name="columnrefscsv"/>);
-</xsl:template>
+  <!-- Primary key creation -->
+  <xsl:template match="ddl:table/ddl:constraints/ddl:primary">
+    <xsl:text>ALTER TABLE </xsl:text>
+    <xsl:if test="$tableprefix != ''">
+      <xsl:value-of select="$tableprefix"/>
+      <xsl:text>_</xsl:text>
+    </xsl:if>
+    <xsl:value-of select="../../@name"/>
+    <xsl:for-each select="ddl:column">
+      <xsl:for-each select="key('columnid',@ref)">
+        <xsl:if test="@auto = 'true'">
+          <xsl:text> CHANGE COLUMN </xsl:text>
+          <xsl:value-of select="@name"/><xsl:text> </xsl:text>
+          <xsl:value-of select="@name"/><xsl:text> </xsl:text>
+          <!-- <xsl:call-template name="columnattributes"> -->
+          <!--   <xsl:with-param name="ignoreauto">false</xsl:with-param> -->
+          <!-- </xsl:call-template> -->
+          <xsl:text>, </xsl:text>
+        </xsl:if>
+      </xsl:for-each>
+    </xsl:for-each>
+    <xsl:text> ADD PRIMARY KEY (</xsl:text><xsl:call-template name="columnrefscsv"/>);
+  </xsl:template>
 
-<xsl:template match="schema/description"/> <!-- @todo : find out if this has a useful thing -->
-<xsl:template match="index/description"/> <!-- @todo : find out if this has a useful thing -->
+  <xsl:template match="ddl:schema/ddl:description"/> <!-- @todo : find out if this has a useful thing -->
+  <xsl:template match="ddl:index/ddl:description"/> <!-- @todo : find out if this has a useful thing -->
 </xsl:stylesheet>

@@ -31,6 +31,7 @@ function privileges_init()
     $tables['security_acl'] = $prefix . '_security_acl';
     $tables['security_instances'] = $prefix . '_security_instances';
     $tables['security_realms']      = $prefix . '_security_realms';
+    $tables['security_privsets']      = $prefix . '_security_privsets';
 
     // All or nothing
     try {

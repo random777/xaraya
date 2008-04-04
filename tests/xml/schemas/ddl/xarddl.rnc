@@ -29,7 +29,7 @@ default namespace   = "http://xaraya.com/2007/schema"
 # Attributes:
 # id    unique identifier for a certain tag
 # ref   each tag may reference a previous definition of the same tag, this is
-#       useful for standardizing column definitions and for column constaint
+#       useful for standardizing column definitions and for column constraints
 #       definitions for example
 commonAtts =
 (
@@ -62,7 +62,6 @@ prototypes = element prototypes
     column*,
     number*,\text*,boolean*,binary*
 }
-
 # Definitions corresponding to the values for the datatypes
 textValue    = string
 binaryValue  = string            # string? then we need an encoding
@@ -202,7 +201,7 @@ time = element time
 }
 
 # Element:
-#   binary    - element describing a b binary value
+#   binary    - element describing a binary value
 # Attributes:
 #   size      - required positive integer indidcatin the maximum number of bytes in the binary
 #   default   - default value
@@ -229,6 +228,8 @@ constraints = element constraints
 }
 
 primary = element primary { constraint }
+#
+# @todo How are we going to deal with the references section?
 foreign = element foreign { constraint }
 unique  = element unique  { constraint }
 index   = element index   { constraint }

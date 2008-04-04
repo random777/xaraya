@@ -10,8 +10,6 @@
  * @author Marcel van der Boom
  */
 
-
-
 /**
  * Set configuration options if necessary
  *
@@ -23,19 +21,14 @@
  * @todo add option to specify a list of tables to get
  * @todo move most of this into xaraya proper and make it runnable via cli interface (currently html/ls.php)
  */
-$xaruser = '';
-$xarpass = '';
-$dbtype = 'sqlite';
-//$dbhost = '../tests/xml/schemas/ddl';
-$dbname= 'ddltest';
-$dbuser = '';
-$dbpass = '';
+$config = parse_ini_file("db2xml.conf",true);
+
 /* We need a (fake) ip address to run xar */
 putenv("REMOTE_ADDR=127.0.0.1");
 /* End configurable stuff */
 
 /* Make sure we're in the docroot */
-chdir("../html");
+chdir("../../../../html");
 include '../lib/bootstrap.php';
 sys::import('xaraya.core');
 xarCoreInit(XARCORE_SYSTEM_ALL);
@@ -43,22 +36,23 @@ xarCoreInit(XARCORE_SYSTEM_ALL);
 /* Make sure we handle boney instead of fancy */
 set_exception_handler(array('ExceptionHandlers','bone'));
 
-if (!empty($xaruser)) {
+if (!empty($config['xaraya']['user'])) {
     /* Authenticate */
-    if (!xarUserLogin($xaruser,$xarpass)) {
+    if (!xarUserLogin($config['xaraya']['user'],$config['xaraya']['pass'])) {
         fwrite(STDERR,"Authentication failed\n");
         return 1;
     }
     fwrite(STDERR,"Authenticated\n");
 }
 
-if (!empty($dbhost)) {
+// FIX: Stupid way to allow another db than the xaraya install that we are in.
+if (!empty($config['connection']['host'])) {
     $dsnArgs = array(
-        'databaseType'  =>  $dbtype,
-        'databaseHost'  =>  $dbhost,
-        'databaseName'  =>  $dbname,
-        'userName'      =>  $dbuser,
-        'password'      =>  $dbpass
+        'databaseType'  =>  $config['connection']['type'],
+        'databaseHost'  =>  $config['connection']['host'],
+        'databaseName'  =>  $config['connection']['database'],
+        'userName'      =>  $config['connection']['user'],
+        'password'      =>  $config['connection']['pass']
     );
     $dbconn = xarDBNewConn($dsnArgs);
 } else {
@@ -74,6 +68,6 @@ $tplData = array(
 );
 
 // Produce the xml
-$out = xarTplFile('../html/modules/dynamicdata/xartemplates/includes/exportddl.xd',$tplData);
+$out = xarTplFile('../tests/xml/schemas/ddl/db2xml.xd',$tplData);
 echo $out;
 ?>

@@ -41,87 +41,9 @@ function base_init()
          * prefix_template_tags - module template tag registry
          *********************************************************************/
         $sessionInfoTable = $prefix . '_session_info';
-        /*********************************************************************
-         * CREATE TABLE xar_session_info (
-         *  id        varchar(32) NOT NULL,
-         *  ipaddr    varchar(20) NOT NULL default '',
-         *  first_use integer NOT NULL default '0',
-         *  last_use  integer NOT NULL default '0',
-         *  role_id   integer NOT NULL default '0',
-         *  vars      blob,
-         *  remember  int(1) default '0',
-         *  PRIMARY KEY  (id)
-         * )
-         *********************************************************************/
-        $fields = array('id'        => array('type'=>'varchar','size'=>32   ,'null'=>false,'primary_key'=>true),
-                        'ip_addr'   => array('type'=>'varchar','size'=>20   ,'null'=>false),
-                        'first_use' => array('type'=>'integer','null'=>false,'default'=>'0'),
-                        'last_use'  => array('type'=>'integer','null'=>false,'default'=>'0'),
-                        'role_id'   => array('type'=>'integer','null'=>false,'default'=>'0'),
-                        'vars'      => array('type'=>'blob'   ,'null'=>true),
-                        'remember'  => array('type'=>'integer','size'=>1    ,'default'=>'0')
-                        );
 
-        $query = xarDBCreateTable($sessionInfoTable,$fields);
-        $dbconn->Execute($query);
-
-        $index = array('name'   => 'i_'.$prefix.'_session_role_id',
-                       'fields' => array('role_id'),
-                       'unique' => false);
-        $query = xarDBCreateIndex($sessionInfoTable,$index);
-        $dbconn->Execute($query);
-
-        $index = array('name'   => 'i_'.$prefix.'_session_last_use',
-                       'fields' => array('last_use'),
-                       'unique' => false);
-
-        $query = xarDBCreateIndex($sessionInfoTable,$index);
-        $dbconn->Execute($query);
-
-        /*********************************************************************
-         * Here we install the module variables table and set some default
-         * variables
-         *********************************************************************/
-
-        $modVarsTable  = $prefix . '_module_vars';
-        /*********************************************************************
-         * CREATE TABLE xar_module_vars (
-         *  id        integer NOT NULL auto_increment,
-         *  module_id integer NOT NULL default '0',
-         *  name      varchar(64) NOT NULL default '',
-         *  value     longtext,
-         *  PRIMARY KEY  (id),
-         *  KEY (name)
-         * )
-         *********************************************************************/
-
-        $fields = array('id'        => array('type'=>'integer','null'=>false,'increment'=>true,'primary_key'=>true),
-                        'module_id' => array('type'=>'integer','null'=>true,'increment'=>false),
-                        'name'      => array('type'=>'varchar','size'=>64,'null'=>false),
-                        'value'     => array('type'=>'text','size'=>'long')
-                        );
-
-        $query = xarDBCreateTable($modVarsTable,$fields);
-        $dbconn->Execute($query);
-
-        // config var name should be unique in scope
-        // TODO: nameing of index is now confusing, see above.
-        $index = array('name'   => 'i_'.$prefix.'_config_name',
-                       'fields' => array('name', 'module_id'),
-                       'unique' => true);
-
-        $query = xarDBCreateIndex($modVarsTable,$index);
-        $dbconn->Execute($query);
-
-        $index = array('name' => 'i_' . $prefix . '_module_vars_module_id',
-                       'fields' => array('module_id'));
-        $query = xarDBCreateIndex($modVarsTable, $index);
-        $dbconn->Execute($query);
-
-        $index = array('name' => 'i_' . $prefix . '_module_vars_name',
-                       'fields' => array('name'));
-        $query = xarDBCreateIndex($modVarsTable, $index);
-        $dbconn->Execute($query);
+        sys::import('xaraya.installer');
+        Installer::createTable('schema', 'base');
 
         // Let's commit this, since we're gonna do some other stuff
         $dbconn->commit();
@@ -200,24 +122,6 @@ function base_init()
     xarConfigVars::set(null, 'Site.User.AuthenticationModules',$authModules);
 
     $templateTagsTable = $prefix . '_template_tags';
-    /*********************************************************************
-     * CREATE TABLE xar_template_tags (
-     *  id        integer NOT NULL auto_increment,
-     *  name      varchar(255) NOT NULL default '',
-     *  module_id integer default 0,
-     *  handler   varchar(255) NOT NULL default '',
-     *  data      text,
-     *  PRIMARY KEY (id)
-     * )
-     *********************************************************************/
-    $fields = array('id'      => array('type'=>'integer','null'=>false,'increment'=>true,'primary_key'=>true),
-                    'name'    => array('type'=>'varchar','size'=>255,'null'=>false),
-                    'module_id'   => array('type'=>'integer','null'=>false,'default'=>'0'),
-                    'handler' => array('type'=>'varchar','size'=>255,'null'=>false),
-                    'data'    => array('type'=>'text')
-                    );
-    $query = xarDBCreateTable($templateTagsTable,$fields);
-    $dbconn->Execute($query);
 
     // Start Modules Support
     $systemArgs = array('enableShortURLsSupport' => false,

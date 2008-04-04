@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="xaraya">
+  <table name="dynamic_data">
+    <column id="dynamic_data.id" name="id" required="true" auto="true">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="dynamic_data.propid" name="propid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_data.itemid" name="itemid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_data.value" name="value" required="false" auto="false">
+      <text/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="dynamic_data.id"/>
+      </primary>
+      <index name="i_dyndata_propid">
+        <column ref="dynamic_data.propid"/>
+      </index>
+      <index name="i_dyndata_itemid">
+        <column ref="dynamic_data.itemid"/>
+      </index>
+    </constraints>
+    <description>End of dynamic_data</description>
+  </table>
+  <table name="dynamic_objects">
+    <column id="dynamic_objects.id" name="id" required="true" auto="true">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="dynamic_objects.name" name="name" required="true" auto="false">
+      <text size="30" defaultvalue=""/>
+    </column>
+    <column id="dynamic_objects.label" name="label" required="true" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_objects.moduleid" name="moduleid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_objects.itemtype" name="itemtype" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_objects.parent" name="parent" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_objects.class" name="class" required="true" auto="false">
+      <text size="255" defaultvalue="DataObject"/>
+    </column>
+    <column id="dynamic_objects.filepath" name="filepath" required="true" auto="false">
+      <text size="255" defaultvalue="modules/dynamicdata/class/objects/base.php"/>
+    </column>
+    <column id="dynamic_objects.urlparam" name="urlparam" required="true" auto="false">
+      <text size="30" defaultvalue="itemid"/>
+    </column>
+    <column id="dynamic_objects.maxid" name="maxid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_objects.config" name="config" required="false" auto="false">
+      <text/>
+    </column>
+    <column id="dynamic_objects.isalias" name="isalias" required="true" auto="false">
+      <number size="4" defaultvalue="1" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="dynamic_objects.id"/>
+      </primary>
+      <unique name="i_dynobjects_combo">
+        <column ref="dynamic_objects.moduleid"/>
+        <column ref="dynamic_objects.itemtype"/>
+      </unique>
+      <unique name="i_dynobjects_name">
+        <column ref="dynamic_objects.name"/>
+      </unique>
+    </constraints>
+  </table>
+  <table name="dynamic_properties">
+    <column id="dynamic_properties.id" name="id" required="true" auto="true">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="dynamic_properties.name" name="name" required="true" auto="false">
+      <text size="30" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties.label" name="label" required="true" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties.objectid" name="objectid" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_properties.type" name="type" required="true" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="dynamic_properties.defaultvalue" name="defaultvalue" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties.source" name="source" required="true" auto="false">
+      <text size="254" defaultvalue="dynamic_data"/>
+    </column>
+    <column id="dynamic_properties.status" name="status" required="true" auto="false">
+      <number size="11" defaultvalue="33" decimals="0"/>
+    </column>
+    <column id="dynamic_properties.seq" name="seq" required="true" auto="false">
+      <number size="4" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="dynamic_properties.validation" name="validation" required="false" auto="false">
+      <text/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="dynamic_properties.id"/>
+      </primary>
+      <unique name="i_dynprops_combo">
+        <column ref="dynamic_properties.objectid"/>
+
+        <column ref="dynamic_properties.name"/>
+      </unique>
+    </constraints>
+  </table>
+  <table name="dynamic_properties_def">
+    <column id="dynamic_properties_def.id" name="id" required="true" auto="true">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="dynamic_properties_def.name" name="name" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.label" name="label" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.parent" name="parent" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.filepath" name="filepath" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.class" name="class" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.validation" name="validation" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.source" name="source" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.reqfiles" name="reqfiles" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.modid" name="modid" required="false" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="dynamic_properties_def.args" name="args" required="true" auto="false">
+      <text/>
+    </column>
+    <column id="dynamic_properties_def.aliases" name="aliases" required="false" auto="false">
+      <text size="254" defaultvalue=""/>
+    </column>
+    <column id="dynamic_properties_def.format" name="format" required="false" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="dynamic_properties_def.id"/>
+      </primary>
+      <index name="i_dynpropdef_modid">
+        <column ref="dynamic_properties_def.modid"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

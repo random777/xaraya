@@ -116,12 +116,14 @@ function xarWebservicesMain()
                 echo $fault->serialize();
             } elseif (gettype($server) == 'object') {
                 switch (get_class($server)) {
-                    case 'soap_server':
+                    case 'soap_server': // Legacy
+                    case 'nusoap_server':
                         // Try to process the request
                         global $HTTP_RAW_POST_DATA;
                         $server->service($HTTP_RAW_POST_DATA);
                         break;
-                    case 'soap_fault':
+                    case 'soap_fault': // Legacy
+                    case 'nusoap_fault':
                         echo $server->serialize();
                     default:
                         break;

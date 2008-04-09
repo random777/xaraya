@@ -145,8 +145,16 @@
                         </xar:mlstring>
                     </label>
                     <select name="defaultmodule" id="defaultmodule">
+                        <xar:if condition="$defaultModuleMissing">
+                            <option value="" selected="selected">
+                                <xar:ml>
+                                    <xar:mlstring>MISSING: #(1)</xar:mlstring>
+                                    <xar:mlvar>#$defaultModuleName#</xar:mlvar>
+                                </xar:ml>
+                            </option>
+                        </xar:if>
                         <xar:loop name="$mods">
-                            <xar:if condition="xarConfigGetVar('Site.Core.DefaultModuleName') eq $loop:item['name']">
+                            <xar:if condition="$defaultModuleName eq $loop:item['name']">
                                 <option value="#$loop:item['name']#" selected="selected">
                                     #$loop:item['displayname']#
                                 </option>

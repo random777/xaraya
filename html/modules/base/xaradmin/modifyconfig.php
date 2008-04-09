@@ -34,6 +34,14 @@ function base_admin_modifyconfig()
                           'getlist',
                           array('filter'     => array('UserCapable' => 1)));
     }
+    $defaultModuleName = xarConfigGetVar('Site.Core.DefaultModuleName');
+    $data['defaultModuleName'] = $defaultModuleName;
+    $data['defaultModuleMissing']  = true;
+    foreach ($data['mods'] as $module) {
+        if ($module['name'] == $defaultModuleName) {
+            $data['defaultModuleMissing'] = false;
+        }
+    }
 
     $localehome = xarCoreGetVarDirPath() . "/locales";
     if (!file_exists($localehome)) {

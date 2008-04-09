@@ -1243,14 +1243,14 @@ other loop constructs.
             The &lt;xar:ml&gt; tag is a wrapper for <xref target="mlkey">&lt;xar:mlkey
             /&gt;</xref> and <xref target="mlstring">&lt;xar:mlstring
             /&gt;</xref> when their values contain placeholders. These
-            placeholders are replaced by the content of <xref
+            placeholders are replaced by the variable in the <xref
             target="mlvar">&lt;xar:mlvar /&gt;</xref> tags in the
             order they appear in the template.
           </t>
           <t>
             The enclosing &lt;xar:mlstring&gt; or &lt;xar:mlkey&gt; should have
             placeholders in its definition of the form #(1)..#(n) if there are
-            'n' variables to be replaced. The contents of th first
+            'n' variables to be replaced. The contents of the first
             &lt;xar:mlvar&gt; tag is put in the place of #(1), the second in the
             location of #(2) etcetera.
           </t>
@@ -1275,14 +1275,14 @@ other loop constructs.
   <xar:mlvar>120</xar:mlvar>
 </xar:ml>
 
-The values '78' and '120' are put in the place of
+The values of $var1 and $var2 are put in the place of
 #(1) and #(2) in the definition of the key 'USERSONLINE'.
 Note that these aren't visible in the template itself.
 
 <xar:ml>
   <xar:mlstring>There are #(1) members and #(2) guests online.</xar:mlstring>
-  <xar:mlvar>78</xar:mlvar>
-  <xar:mlvar>120</xar:mlvar>
+  <xar:mlvar>#$members#</xar:mlvar>
+  <xar:mlvar>#$guests#</xar:mlvar>
 </xar:ml>
 
 Same as first example, but with the <xar:mlstring> form.
@@ -1301,7 +1301,7 @@ Same as first example, but with the <xar:mlstring> form.
         <!-- xar:mlkey -->
         <section anchor="mlkey" title="&lt;xar:mlkey /&gt;">
           <t>
-            <xref target="mlkey">&lt;xar:mlkey&gt;</xref> retrieves a
+            &lt;xar:mlkey&gt; retrieves a
             multilanguage string based on the database key contained
             in the tag. If the resulting string does not use
             placeholders, mlkey may be used alone. Otherwise, mlkey

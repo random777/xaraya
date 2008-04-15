@@ -3,7 +3,7 @@
  * Default setup for roles and privileges
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -23,10 +23,10 @@ function initializeSetup()
     *********************************************************************/
     xarMakeGroup('Everybody');
     xarMakeUser('Anonymous','anonymous','anonymous@invalid.tld');
-    xarMakeUser(xarML('Administrator'),'Admin',xarML('none@invalid.tld'),'password');
+    xarMakeUser('Admin','Admin','none@invalid.tld','password');
     xarMakeGroup('Administrators');
     xarMakeGroup('Users');
-    xarMakeUser('Myself','myself','myself@xaraya.com','password');
+    xarMakeUser('Myself','myself','myself@invalid.tld','password');
 
     /*********************************************************************
     * Arrange the roles in a hierarchy

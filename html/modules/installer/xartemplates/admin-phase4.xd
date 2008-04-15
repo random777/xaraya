@@ -61,7 +61,7 @@
                 <label for="install_database_password">
                     <xar:mlstring>Password</xar:mlstring>
                 </label>
-                <input type="password" name="install_database_password" id="install_database_password" maxlength="80" value="#$database_password#" />
+                <input type="text" name="install_database_password" id="install_database_password" maxlength="80" value="#$database_password#" />
                 <span class="xar-sub">
                     <xar:mlstring>(Only valid characters)</xar:mlstring>
                 </span>

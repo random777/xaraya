@@ -56,7 +56,7 @@
                     <label for="install_admin_email">
                         <xar:mlstring>Email</xar:mlstring>
                     </label>
-                    <input type="text" name="install_admin_email" id="install_admin_email" maxlength="80" value=#xarML("none@invalid.tld")# />
+                    <input type="text" name="install_admin_email" id="install_admin_email" maxlength="80" value="none@invalid.tld" />
                     <br class="clear" />
                 </p>
 

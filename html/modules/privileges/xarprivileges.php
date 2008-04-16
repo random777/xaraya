@@ -1313,24 +1313,35 @@ class xarPrivileges extends xarMasks
             $dropdown = array();
             if ($module ==''){
                 $dropdown[] = array('id' => -2,
+                                   'title' => '',
                                    'name' => '');
             }
             elseif($result->EOF) {
                 $dropdown[] = array('id' => -1,
+                                   'title' => 'All',
                                    'name' => 'All');
     //          $dropdown[] = array('id' => 0,
     //                             'name' => 'None');
             }
             else {
                 $dropdown[] = array('id' => -1,
+                                   'title' => 'All',
                                    'name' => 'All');
     //          $dropdown[] = array('id' => 0,
     //                             'name' => 'None');
             }
             while(!$result1->EOF) {
-                list($dropdownline) = $result1->fields;
+                // Use titles from the optional second column of instances query
+                if ($result1->FieldCount() == 1) {
+                    list($dropdownline) = $result1->fields;
+                    $dropdowntitle = '';
+                } else {
+                    $dropdownline  = $result1->fields[0];
+                    $dropdowntitle  = $result1->fields[1];
+                }
                 if (($dropdownline != 'All') && ($dropdownline != 'None')){
                     $dropdown[] = array('id' => $dropdownline,
+                                       'title' => $dropdownline . ' ' . $dropdowntitle,
                                        'name' => $dropdownline);
                 }
                 $result1->MoveNext();

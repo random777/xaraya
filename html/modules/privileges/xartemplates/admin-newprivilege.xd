@@ -311,7 +311,7 @@
                                 <select name="pinstance[]">
                                     <xar:loop name="$loop:item['dropdown']">
                                         <option value="#$loop:item['name']#">
-                                            #$loop:item['name']#
+                                            #$loop:item['title']#
                                         </option>
                                     </xar:loop>
                                 </select>

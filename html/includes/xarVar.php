@@ -3,7 +3,7 @@
  * Variable utilities
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,6 +22,8 @@ define('XARVAR_GET_ONLY',     2);
 define('XARVAR_POST_ONLY',    4);
 
 define('XARVAR_NOT_REQUIRED', 64);
+define('XARVAR_VAL_RESULT',   32); //limited use, exceptions will be thrown too
+define('XARVAR_VAL_REQ',      XARVAR_VAL_RESULT | XARVAR_NOT_REQUIRED);
 define('XARVAR_DONT_SET',     128);
 define('XARVAR_DONT_REUSE',   256);
 
@@ -162,7 +164,9 @@ function xarVarBatchFetch()
  * XARVAR_GET_OR_POST  - fetch from GET or POST variables
  * XARVAR_GET_ONLY     - fetch from GET variables only
  * XARVAR_POST_ONLY    - fetch from POST variables only
- * XARVAR_NOT_REQUIRED - allow the variable to be empty/not set, dont raise exception if it is
+ * XARVAR_NOT_REQUIRED - allow the variable to be empty, not set and invalid, dont
+ *                       raise exception
+ * XARVAR_VAL_RESULT   - return the validation result
  * XARVAR_DONT_REUSE   - if there is an existing value, do not reuse it
  * XARVAR_DONT_SET     - if there is an existing value, use it
  *
@@ -174,6 +178,10 @@ function xarVarBatchFetch()
  *
  * By default $flag is XARVAR_GET_OR_POST which means tha xarVarFetch will lookup both GET and POST parameters and
  * that if the variable is not present or doesn't validate correctly an exception will be raised.
+ *
+ * If XARVAR_NOT_REQUIRED is set the function will always return TRUE, even if the
+ * data is invalid. Using XARVAR_NOT_REQUIRED | XARVAR_VAL_RESULT (definied as XAVAR_VAL_REQ)
+ * gives back the validation result as return value.
  *
  * The $prep flag will prepare $value by passing it to one of the following:
  *   XARVAR_PREP_FOR_NOTHING:    no prep (default)
@@ -238,6 +246,10 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
         } elseif (($flags & XARVAR_DONT_SET) && isset($oldValue) && xarVarValidate($validation, $oldValue, $supress)) {
             // with XARVAR_DONT_SET, make sure we don't pass invalid old values back either
             $value = $oldValue;
+        }
+        // XARVAR_VAL_RESULT returns the validation result
+        if ($flags & XARVAR_VAL_RESULT) {
+            return false;
         }
     } else {
         // Value is ok, handle preparation of that value

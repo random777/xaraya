@@ -63,6 +63,7 @@ function privileges_admin_newprivilege()
 //    xarResponseRedirect($instances['target'] . "&extpid=0&extname=$name&extrealm=$realm&extmodule=$module&extcomponent=$component&extlevel=$level");
 //        return;
         $data['target'] = $instances['target'] . '&amp;extpid=0&amp;extname='.$data['pname'].'&amp;extrealm='.$data['prealm'].'&amp;extmodule='.$data['pmodule'].'&amp;extcomponent='.$data['pcomponent'].'&amp;extlevel='.$data['plevel'];
+        $data['target'] .= '&amp;pparentid=' . $data['pparentid'];
         $data['instances'] = array();
     } else {
         $data['instances'] = $instances;

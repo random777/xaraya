@@ -1389,10 +1389,12 @@ class xarPrivileges extends xarMasks
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
- * @param   strings with pid, name, realm, module, component, instances and level
+ * @param   strings with pid, name, realm, module, componentand level
+ * @param   array instances
+ * @param   int parentid optional ID of parent privilege
  * @return  mixed pid if OK, void if not
 */
-    function returnPrivilege($pid,$name,$realm,$module,$component,$instances,$level)
+    function returnPrivilege($pid,$name,$realm,$module,$component,$instances,$level,$parentid=0)
     {
 
         $instance = "";
@@ -1413,7 +1415,7 @@ class xarPrivileges extends xarMasks
                         'component' => $component,
                         'instance' => $instance,
                         'level' => $level,
-                        'parentid' => 0
+                        'parentid' => $parentid,
                         );
             $priv = new xarPrivilege($pargs);
             if ($priv->add()) {

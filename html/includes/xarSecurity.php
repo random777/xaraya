@@ -439,10 +439,10 @@ function xarTree()
  * @param   array instance
  * @return  boolean
  */
-function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$level)
+function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$level,$pparentid=0)
 {
     $privs = new xarPrivileges();
-    return $privs->returnPrivilege($pid,$name,$realm,$module,$component,$instance,$level);
+    return $privs->returnPrivilege($pid,$name,$realm,$module,$component,$instance,$level,$pparentid);
 }
 
 /**

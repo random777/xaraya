@@ -1047,7 +1047,7 @@ template 'SeaBreeze_center':
             <t>
             <artwork><![CDATA[
 <xar:for start="$i = 0" test="$i le 10" iter="$i++">
-  // stuff which gets process during $i less than 10
+  // stuff which gets processed while $i less than or equal to 10
 </xar:for>
 ]]>         </artwork>
             </t>
@@ -1577,8 +1577,8 @@ contents in the current context.
         <!-- xar:set -->
         <section anchor="set" title="&lt;xar:set /&gt;">
           <t>
-            Causes the variable identified by the 'name' attribute to
-            be set to the value of the tag's body. The variable must
+            Sets the variable identified by the 'name' attribute to
+            the value generated of the tag's body. The variable must
             be available in the scope of the tag.  Values set this way
             do not persist beyond the current page load.
           </t>

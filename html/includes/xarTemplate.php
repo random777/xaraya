@@ -3,7 +3,7 @@
  * BlockLayout Template Engine
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -1346,8 +1346,6 @@ function xarTpl_outputTemplateFilenames()
  * @param  string $tplOutput
  * @return bool found header content
  *
- * @todo it is possible that the first regex <!DOCTYPE[^>].*]> is too
- *       greedy in more complex xml documents and others.
  * @todo The doctype of the output belongs in a template somewhere (probably the xar:blocklayout tag, as an attribute
  */
 function xarTpl_modifyHeaderContent($sourceFileName, &$tplOutput)
@@ -1357,28 +1355,29 @@ function xarTpl_modifyHeaderContent($sourceFileName, &$tplOutput)
     // $headerTagsRegexes is an array of string regexes to match tags that could
     // be sent as part of a header. Important: the order here should be inside out
     // as the first regex that matches will have a start comment appended.
-    // fixes bugs: #1427, #1190, #603
+    // fixes bugs: #1427, #1190, #603, #3559, #6226
     // - Comments that precede <!doctype... cause ie6 not to sniff the doctype
     //   correctly.
     // - xml parsers dont like comments that precede xml output.
     // At this time attempting to match <!doctype... and <?xml version... tags.
     // This is about the best we can do now, until we process xar documents with an xml parser and actually 'parse'
     // the document.
-    $headerTagRegexes = array('<!DOCTYPE[^>].*]>',// eg. <!DOCTYPE doc [<!ATTLIST e9 attr CDATA "default">]>
-                              '<!DOCTYPE[^>]*>',// eg. <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-                              '<\?xml\s+version[^>]*\?>');// eg. <?xml version="1.0"? > // remove space between qmark and gt
+    $headerTagRegexes = array( // <!DOCTYPE doc [<!data>]> and <!DOCTYPE html PUBLIC "data">
+                               // Negative lookahead for first > which is not followed by ]
+                              '<!DOCTYPE.{0,}?>(?!\W{0,}])',
+                               //  eg. <?xml version="1.0"? > // remove space between qmark and gt
+                              '<\?xml\s+version[^>]*\?>');
 
     foreach($headerTagRegexes as $headerTagRegex) {
         if(preg_match("/$headerTagRegex/smix", $tplOutput, $matchedHeaderTag)) {
-            // FIXME: the next line assumes that we are not in a comment already, no way of knowing that,
-            // keep the functionality for now, but dont change more than necessary (see bug #3559)
-            // $startComment = '<!-- start(output actually commenced before header(s)): ' . $sourceFileName . ' -->';
-            $startComment ='';
-            // replace matched tag with an appended start comment tag in the first match
+            // append the 'start comment' notice to the first matched tag
             // in the template output $tplOutput
+            $startComment = "\n<!-- start: " . $sourceFileName .
+                            ' (file started before DOCTYPE/xml header(s)!) -->';
             $tplOutput = preg_replace("/$headerTagRegex/smix", $matchedHeaderTag[0] . $startComment, $tplOutput, 1);
-            // dont want start comment to be sent below as it has already been added.
+            // don't set start comment in calling function as it was set here
             $foundHeaderContent = true;
+            // break foreach loop if one header was found. Need to search inner header first
             break;
         }
     }

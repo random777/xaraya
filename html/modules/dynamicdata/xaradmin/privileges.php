@@ -36,6 +36,7 @@ function dynamicdata_admin_privileges($args)
     if (!xarVarFetch('extcomponent', 'enum:All:Item:Field:Type', $extcomponent)) return; // FIXME: is 'Type' needed?
     if (!xarVarFetch('extinstance', 'str:1', $extinstance, '', XARVAR_NOT_REQUIRED)) return; // somthing:somthing:somthing or empty
     if (!xarVarFetch('extlevel', 'str:1', $extlevel)) return;
+    if (!xarVarFetch('pparentid',    'isset', $pparentid,    NULL, XARVAR_DONT_SET)) return;
 
 // TODO: combine 'Item' and 'Type' instances someday ?
 
@@ -99,7 +100,8 @@ function dynamicdata_admin_privileges($args)
 
     if (!empty($apply)) {
         // create/update the privilege
-        $pid = xarReturnPrivilege($extpid,$extname,$extrealm,$extmodule,$extcomponent,$newinstance,$extlevel);
+        $pid = xarReturnPrivilege($extpid,$extname,$extrealm,$extmodule,$extcomponent,
+                                  $newinstance,$extlevel,$pparentid);
         if (empty($pid)) {
             return; // throw back
         }
@@ -196,6 +198,7 @@ function dynamicdata_admin_privileges($args)
                   'extcomponent' => $extcomponent,
                   'extlevel'     => $extlevel,
                   'extinstance'  => xarVarPrepForDisplay(join(':',$newinstance)),
+                  'pparentid'    => $pparentid,
                  );
 
     $data['refreshlabel'] = xarML('Refresh');

@@ -240,9 +240,9 @@
                 <select name="pinstance['#$id#']" id="pinstance#$id#" size="1" tabindex="7">
                   <xar:foreach in="$instance['dropdown']" value="$option">
                     <xar:if condition="$option['name'] eq $instance['default']">
-                      <option value="#$option['name']#" selected="selected">#$option['name']#</option>
+                      <option value="#$option['name']#" selected="selected">#$option['title']#</option>
                       <xar:else />
-                      <option value="#$option['name']#">#$option['name']#</option>
+                      <option value="#$option['name']#">#$option['title']#</option>
                     </xar:if>
                   </xar:foreach>
                 </select>

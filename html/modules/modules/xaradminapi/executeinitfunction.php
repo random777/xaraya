@@ -60,6 +60,7 @@ function modules_adminapi_executeinitfunction ($args)
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FUNCTION_NOT_EXIST', $msg);
         return;
         */
+        xarlogMessage("executeinitfunction file '$func' not found, skipping");
         //Return gracefully, the metaweblogapi doesnt have the init file..
         //Should it be obligatory? The same can be asked about each individual process function
         // (init/activate/deactivate/remobve)
@@ -80,12 +81,14 @@ function modules_adminapi_executeinitfunction ($args)
 
     $func = $modInfo['name'] . '_'.$args['function'];
     if (function_exists($func)) {
+        xarlogMessage("executeinitfunction $func");
         if ($args['function'] == 'upgrade') {
             // pass the old version as argument to the upgrade function
             $result = $func($modInfo['version']);
         } else {
             $result = $func();
         }
+        xarlogMessage("executeinitfunction \$result = $result");
 
         // If an exception was set, then return
         if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return;
@@ -102,8 +105,8 @@ function modules_adminapi_executeinitfunction ($args)
     } else {
         // A lot of init files dont have the function, maily activate...
         // Should we enforce them to have it?
+        xarlogMessage("executeinitfunction function '$func' not found, skipping");
         /*
-        // file exists, but function not found. Exception!
         $msg = xarML('Module change of state failed because your module did not include an #(1) function: #(2)', $args['function'], $func);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FUNCTION_NOT_EXIST', $msg);
         return;

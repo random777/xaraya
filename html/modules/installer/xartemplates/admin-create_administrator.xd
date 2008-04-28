@@ -34,7 +34,9 @@
                         <xar:mlstring>Username</xar:mlstring>
                     </label>
                     <input type="text" name="install_admin_username" id="install_admin_username" maxlength="80" value="#xarML('Admin')#" />
-                    <br class="clear" />
+                    <span class="xar-sub">
+                        <xar:mlstring>(Used for logon)</xar:mlstring>
+                    </span>
                 </p>
                 <p>
                     <label for="install_admin_password">
@@ -54,7 +56,7 @@
                     <label for="install_admin_email">
                         <xar:mlstring>Email</xar:mlstring>
                     </label>
-                    <input type="text" name="install_admin_email" id="install_admin_email" maxlength="80" value="none@none.com" />
+                    <input type="text" name="install_admin_email" id="install_admin_email" maxlength="80" value="none@invalid.tld" />
                     <br class="clear" />
                 </p>
 

@@ -498,7 +498,8 @@ function installer_admin_bootstrap()
         xarCore_die(xarML('An unknown error occured while regenerating the modules list'));
     }
     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
-        xarCore_die(xarCurrentError()->toHTML());
+        $err = xarCurrentError();
+        xarCore_die($err->toHTML());
     }
 
     //Hb: Authsystem is part of the core. Should we check the completeness here?

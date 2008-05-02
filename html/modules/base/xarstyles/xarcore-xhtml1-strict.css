@@ -374,3 +374,8 @@ div.xar-center {
     margin-left: 16em;
     margin-bottom: 4px;
 }
+
+.xar-form-container-after .xar-form-container-after{
+    margin-left: 0em;
+    margin-bottom: 0px;
+}

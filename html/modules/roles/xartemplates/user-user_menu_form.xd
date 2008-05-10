@@ -61,10 +61,10 @@
                         Email Address:
                     </xar:mlstring>
                 </label>
-                <input type="text" name="email" id="email" value="" size="40" maxlength="60" />
+                <input type="text" name="email" id="email" value="" size="30" maxlength="60" />
             </div>
             <xar:if condition="xarModGetVar('roles', 'requirevalidation')">
-                <div class="xar-form-input-wrapper">
+                <div class="xar-form-input-wrapper-after">
                     <label for="email">
                         <xar:mlstring>
                             Changing your email address will require you to revalidate your account. 

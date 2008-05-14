@@ -13,21 +13,21 @@
         <number size="11"/>
     </column>
   </prototypes>
-  
+
   <table name="first">
     <description>A nice table with some sort of description</description>
     <!-- Use the defined prototype -->
     <column ref="prototype_systemID" id="first.id"/>
-    
+
     <column id="first.ref_id" name="ref_id" required="true">
        <description>A reference to an id column</description>
        <number size="11" min="1" max="100" default="4"/> <!-- max attribute is kinda silly, but valid -->
     </column>
-    
+
     <column id="first.name" name="name" required="true">
       <text size="255" />
     </column>
-    
+
     <constraints>
       <primary name="id">
         <column ref="first.id"/>

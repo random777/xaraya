@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
 <schema name="xaraya">
   <table name="roles">
     <column id="roles.id" name="id" required="true" auto="true">
-      <number size="11" decimals="0"/>
+      <number size="11" />
     </column>
-    <column id="roles.name" name="name" required="true" auto="false">
-      <text size="255" defaultvalue=""/>
+    <column id="roles.name" name="name" required="true" >
+      <text size="255" default=""/>
     </column>
-    <column id="roles.type" name="type" required="true" auto="false">
-      <number size="11" defaultvalue="0" decimals="0"/>
+    <column id="roles.type" name="type" required="true" >
+      <number size="11" default="0" />
     </column>
-    <column id="roles.users" name="users" required="true" auto="false">
-      <number size="11" defaultvalue="0" decimals="0"/>
+    <column id="roles.users" name="users" required="true" >
+      <number size="11" default="0" />
     </column>
-    <column id="roles.uname" name="uname" required="true" auto="false">
-      <text size="255" defaultvalue=""/>
+    <column id="roles.uname" name="uname" required="true" >
+      <text size="255" default=""/>
     </column>
-    <column id="roles.email" name="email" required="true" auto="false">
-      <text size="255" defaultvalue=""/>
+    <column id="roles.email" name="email" required="true" >
+      <text size="255" default=""/>
     </column>
-    <column id="roles.pass" name="pass" required="true" auto="false">
-      <text size="100" defaultvalue=""/>
+    <column id="roles.pass" name="pass" required="true" >
+      <text size="100" default=""/>
     </column>
-    <column id="roles.date_reg" name="date_reg" required="true" auto="false">
-      <number size="11" defaultvalue="0" decimals="0"/>
+    <column id="roles.date_reg" name="date_reg" required="true" >
+      <number size="11" default="0" />
     </column>
-    <column id="roles.valcode" name="valcode" required="true" auto="false">
-      <text size="35" defaultvalue=""/>
+    <column id="roles.valcode" name="valcode" required="true" >
+      <text size="35" default=""/>
     </column>
-    <column id="roles.state" name="state" required="true" auto="false">
-      <number size="11" defaultvalue="3" decimals="0"/>
+    <column id="roles.state" name="state" required="true" >
+      <number size="11" default="3" />
     </column>
-    <column id="roles.auth_modid" name="auth_modid" required="true" auto="false">
-      <number size="11" defaultvalue="0" decimals="0"/>
+    <column id="roles.auth_modid" name="auth_modid" required="true" >
+      <number size="11" default="0" />
     </column>
     <constraints>
       <primary name="id">
@@ -56,11 +57,11 @@
     </constraints>
   </table>
   <table name="rolemembers">
-    <column id="rolemembers.id" name="id" required="false" auto="false">
-      <number size="11" decimals="0"/>
+    <column id="rolemembers.id" name="id"  >
+      <number size="11" />
     </column>
-    <column id="rolemembers.parentid" name="parentid" required="false" auto="false">
-      <number size="11" decimals="0"/>
+    <column id="rolemembers.parentid" name="parentid"  >
+      <number size="11" />
     </column>
     <constraints>
       <primary name="id">

@@ -88,6 +88,7 @@
   </xsl:template>
 
   <xsl:template name="columnattributes">
+    <xsl:param name="ignoreauto" value="false"/>
     <!-- @todo move the specific types into their own templates -->
     <xsl:choose>
       <xsl:when test="number">
@@ -116,7 +117,7 @@
     <xsl:if test="*[@size != '']">(<xsl:value-of select="*/@size"/>)</xsl:if>
     <xsl:if test="@required = 'true'"> NOT NULL</xsl:if>
     <!--  @todo this won't work with  the current exported ddl -->
-    <xsl:if test="*[@defaultvalue]"> DEFAULT '<xsl:value-of select="*/@defaultvalue"/>'</xsl:if>
+    <xsl:if test="*[@default]"> DEFAULT '<xsl:value-of select="*/@default"/>'</xsl:if>
     <xsl:if test="$ignoreauto = 'false'">
       <xsl:if test="@auto ='true'"> AUTO_INCREMENT</xsl:if>
     </xsl:if>

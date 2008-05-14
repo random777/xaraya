@@ -41,7 +41,10 @@ class Installer extends Object
         $queries = explode(';',$sqlCode);
         array_pop($queries);
         $dbconn = xarDB::getConn();
-        foreach ($queries as $q) $dbconn->Execute($q);
+        foreach ($queries as $q) {
+            xarLogMessage('SQL: '. $q);
+            $dbconn->Execute($q);
+        }
         return true;
     }
 }

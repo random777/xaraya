@@ -4,10 +4,10 @@
     <column id="block_groups.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="block_groups.name" name="name" required="true" auto="false">
+    <column id="block_groups.name" name="name" required="true" >
       <text size="255" defaultvalue=""/>
     </column>
-    <column id="block_groups.template" name="template" required="true" auto="false">
+    <column id="block_groups.template" name="template" required="true" >
       <text size="255" defaultvalue=""/>
     </column>
     <constraints>
@@ -23,16 +23,16 @@
     <column id="block_group_instances.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="block_group_instances.group_id" name="group_id" required="true" auto="false">
+    <column id="block_group_instances.group_id" name="group_id" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="block_group_instances.instance_id" name="instance_id" required="true" auto="false">
+    <column id="block_group_instances.instance_id" name="instance_id" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="block_group_instances.template" name="template" required="false" auto="false">
+    <column id="block_group_instances.template" name="template" required="false" >
       <text size="100" defaultvalue=""/>
     </column>
-    <column id="block_group_instances.position" name="position" required="true" auto="false">
+    <column id="block_group_instances.position" name="position" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
     <constraints>
@@ -51,28 +51,28 @@
     <column id="block_instances.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="block_instances.type_id" name="type_id" required="true" auto="false">
+    <column id="block_instances.type_id" name="type_id" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="block_instances.name" name="name" required="true" auto="false">
+    <column id="block_instances.name" name="name" required="true" >
       <text size="100" defaultvalue=""/>
     </column>
-    <column id="block_instances.title" name="title" required="false" auto="false">
+    <column id="block_instances.title" name="title" required="false" >
       <text size="255" defaultvalue=""/>
     </column>
-    <column id="block_instances.content" name="content" required="true" auto="false">
+    <column id="block_instances.content" name="content" required="true" >
       <text/>
     </column>
-    <column id="block_instances.template" name="template" required="false" auto="false">
+    <column id="block_instances.template" name="template" required="false" >
       <text size="255" defaultvalue=""/>
     </column>
-    <column id="block_instances.state" name="state" required="true" auto="false">
+    <column id="block_instances.state" name="state" required="true" >
       <number size="4" defaultvalue="2" decimals="0"/>
     </column>
-    <column id="block_instances.refresh" name="refresh" required="true" auto="false">
+    <column id="block_instances.refresh" name="refresh" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="block_instances.last_update" name="last_update" required="true" auto="false">
+    <column id="block_instances.last_update" name="last_update" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
     <constraints>
@@ -91,13 +91,13 @@
     <column id="block_types.id" name="id" required="true" auto="true">
       <number size="11" decimals="0"/>
     </column>
-    <column id="block_types.type" name="type" required="true" auto="false">
+    <column id="block_types.type" name="type" required="true" >
       <text size="64" defaultvalue=""/>
     </column>
-    <column id="block_types.modid" name="modid" required="true" auto="false">
-      <number size="10" defaultvalue="0" decimals="0"/>
+    <column id="block_types.module_id" name="module_id" required="true" >
+      <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="block_types.info" name="info" required="false" auto="false">
+    <column id="block_types.info" name="info" required="false" >
       <text/>
     </column>
     <constraints>
@@ -111,19 +111,19 @@
     </constraints>
   </table>
   <table name="cache_blocks">
-    <column id="cache_blocks.id" name="id" required="true" auto="false">
+    <column id="cache_blocks.id" name="id" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="cache_blocks.nocache" name="nocache" required="true" auto="false">
+    <column id="cache_blocks.nocache" name="nocache" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="cache_blocks.page" name="page" required="true" auto="false">
+    <column id="cache_blocks.page" name="page" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="cache_blocks.user" name="user" required="true" auto="false">
+    <column id="cache_blocks.user" name="user" required="true" >
       <number size="11" defaultvalue="0" decimals="0"/>
     </column>
-    <column id="cache_blocks.expire" name="expire" required="false" auto="false">
+    <column id="cache_blocks.expire" name="expire" required="false" >
       <number size="11" decimals="0"/>
     </column>
     <constraints>

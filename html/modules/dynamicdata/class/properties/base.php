@@ -290,8 +290,7 @@ class DataProperty extends Object implements iDataProperty
      */
     public function showInput(Array $data = array())
     {
-        if(!empty($data['preset']))
-            return $this->_showPreset($data);
+        if(!empty($data['preset']) && $data['preset']) return $this->_showPreset($data);
 
         if (!empty($data['hidden'])) {
             if ($data['hidden'] == 'active') {
@@ -312,8 +311,15 @@ class DataProperty extends Object implements iDataProperty
 
         // Our common items we need
         if(!isset($data['name']))        $data['name'] = 'dd_'.$this->id;
-        if(isset($data['fieldprefix']))  $data['name'] = $data['fieldprefix'] . '_' . $data['name'];
         if(!isset($data['id']))          $data['id']   = $data['name'];
+
+        // Add the object's field prefix if there is one
+        $prefix = '';
+        if(!empty($this->_fieldprefix))  $prefix = $this->_fieldprefix . '_';
+        // A field prefix added here can override the previous one
+        if(isset($data['fieldprefix']))  $prefix = $data['fieldprefix'] . '_';
+        if(!empty($prefix)) $data['name'] = $prefix . $data['name'];
+        if(!empty($prefix)) $data['id'] = $prefix . $data['id'];
 
         if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
         if(!isset($data['template'])) $data['template'] = $this->template;
@@ -385,6 +391,7 @@ class DataProperty extends Object implements iDataProperty
         $data['name']  = $this->name;
         $data['label'] = isset($label) ? xarVarPrepForDisplay($label) : xarVarPrepForDisplay($this->label);
         $data['for']   = isset($for) ? $for : null;
+        if(!empty($this->_fieldprefix))  $data['fieldprefix'] = $this->_fieldprefix;
         if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
         if(!isset($data['template'])) $data['template'] = $this->template;
         if(!isset($data['layout']))   $data['layout']   = $this->layout;
@@ -402,15 +409,16 @@ class DataProperty extends Object implements iDataProperty
     function showHidden(Array $data = array())
     {
         $data['name']     = !empty($data['name']) ? $data['name'] : 'dd_'.$this->id;
-
-        $name = $data['name'];
-        // Add the object's field prefix if there is one
-        if(!empty($this->_fieldprefix))  $name = $this->_fieldprefix . '_' . $data['name'];
-        // A field prefix added here can override the previous one
-        if(isset($data['fieldprefix']))  $name = $data['fieldprefix'] . '_' . $data['name'];
-        $data['name'] = $name;
-
         $data['id']       = !empty($data['id'])   ? $data['id']   : 'dd_'.$this->id;
+
+        // Add the object's field prefix if there is one
+        $prefix = '';
+        if(!empty($this->_fieldprefix))  $prefix = $this->_fieldprefix . '_';
+        // A field prefix added here can override the previous one
+        if(isset($data['fieldprefix']))  $prefix = $data['fieldprefix'] . '_';
+        if(!empty($prefix)) $data['name'] = $prefix . $data['name'];
+        if(!empty($prefix)) $data['id'] = $prefix . $data['id'];
+
         $data['value']    = isset($data['value']) ? xarVarPrepForDisplay($data['value']) : xarVarPrepForDisplay($this->getValue());
         $data['invalid']  = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) :'';
         if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
@@ -434,28 +442,26 @@ class DataProperty extends Object implements iDataProperty
      * @param $args['tabindex'] tab index of the field
      * @return string containing the HTML (or other) text to output in the BL template
      */
-    private final function _showPreset(Array $args = array())
+    private final function _showPreset(Array $data = array())
     {
         // Check for empty here instead of isset, e.g. for <xar:data-input ... value="" />
-        if(empty($args['value']))
+        if(empty($data['value']))
         {
-            if(empty($args['name']))
+            if(empty($data['name']))
                 $isvalid = $this->checkInput();
             else
-                $isvalid = $this->checkInput($args['name']);
+                $isvalid = $this->checkInput($data['name']);
 
             if($isvalid)
                 // remove the original input value from the arguments
-                unset($args['value']);
+                unset($data['value']);
             else
                 // clear the invalid message for preset
                 $this->invalid = '';
         }
 
-        if(!empty($args['hidden']))
-            return $this->showHidden($args);
-        else
-            return $this->showInput($args);
+        if(!empty($data['hidden'])) return $this->showHidden($data);
+        else return $this->showInput($data);
     }
 
     /**

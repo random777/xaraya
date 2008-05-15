@@ -110,6 +110,9 @@
               them both globally installed (for all instances) and at the specific
               in stance levels.
           </t>
+          <t>modules will inherit and be able to override most functions/templates from
+             the global install
+          </t>
         </list>
     </section>
     <section title="Global Environment">
@@ -137,11 +140,11 @@
              /themes                     [themes globally available for instances]
                  /default
                      package.xml         [theme meta information]
-                     /assets
-                         /style              [styling files]
-                         /scripts            [client scripts]
-                         /images
-                         ...                 [flash, or anything else]
+                         /style          [styling files]
+                         /scripts        [client scripts]
+                         /images         [icons and other global images]
+                         /xsl            [BL tags]
+                         ...             [flash, or anything else]
                      /pages              [page structure templates]
                          default.xt      (why do we use .xt vs .xd again?)
                  ...    
@@ -271,25 +274,8 @@
           theme, unless the theme overrides it specifically."
       </t>
     </section>
-    <section title="Misc">
-
-<artwork><![CDATA[
-Question and Answers
--------------------
-
-    Q:    how do we deal with themes and modules? themes typically want to have 
-    access to webroot accessible stuff like styles and images, modules too, but they 
-    shouldn't :-) i have a tendency to place modules outside the webroot, 
-    but that may be really uncomfortable.
-    A: Themes go below the webroot of an instance. Modules go outside the webroot which
-    means that modules need to be offered strong tools to access files in their own
-    parts.
-
-
-    Q: how do we define module data which is file based? (in terms of what is 
-    data and how, for example does it relate to things inside xardata like 
-    directories) Self contained modules are quite comfortable.
-    A:
+    <section title="Unresolved Issues">
+      <artwork><![CDATA[
 
     Q: where do client libraries like js frameworks go?
     A: either they go directly below the 'scripts' directory in the theme or are
@@ -304,56 +290,6 @@ Question and Answers
     instances are generated from that install, so we can make sure things are properly
     generated for each instance without having a need for a specific configuration
     in the webserver.
-
-    Q: is there a description why all this is better than just put stuff below the
-    webroot?
-    A: yes, see section below
-
-    Q: this assume a one tree deployment, what if we want to repeat this for some
-    reason. Should we take an 'order' into account, i.e. first look in the site 
-    tree, then look in the global tree? (cfr. trac organisation)
-    (aka: where do i put my custom code/content/data?)
-    (aka: where do i put my php snippets?)
-    A: This question was from an earlier proposal, the formulation of the definitions
-    and the assumption led to a split into a global environment and an instance
-    environment which more than caters for the problem outlined in the question.
-
-    Q: we probably want an easy-access taglib location, so it's easy to create 
-    custom tag definitions (where would that go?)
-    A:
-
-    Q: how often can the include_path on servers *not* be changed? That is, how
-    common is it to disallow calls to call set_include_path()?
-    A:
-
-    Q: how does multisites affect the above in the doc_root piece? (1 or many? both?)
-    A: one instance serves a multisite setup from one doc root.
-
-    Q: what impact does  1 codebase multisite/multiapp on this layout? (db or storage 
-    is following the application config, so multi-db is less of an issue in this area)
-    A: see the description at the top of this file.
-
-    Q: somehow modules seem painful in this layout, 'too big' comes to mind, 
-    'too loose' too. Meant in the way that modules do so much in our system, it's 
-    hard to give them a proper place. Where do we put them?
-    A: see above, outside the webroot at the instance level.
-
-    Q: where would we put framework wide shared stuff (the equiv of 
-    /usr/share/some_app/ in unices) things like a standardized iconset (which 
-    themes can override obviously) Stuff like that. (data, I guess)
-    A: in the install global env at least.
-
-    Q: wont this scare more users away as it becomes more complex?
-    A1: There is the option of distributing with the new configuration
-    parameters set to those values which would lead to the exact same setup we
-    have now, thus having the same complexity on an initial install. We can discuss 
-    this when the time comes to distribute the package and see what is desired. As
-    the proposed extension to have locations configurable can be made backwards
-    compatible, the current directory layout is _one_ possible configuration.
-    However, it is my expectation we would want at least some things to change, but
-    we can deal with those when the time comes.
-    A2: with the above description, A1 is not true anymore, its impossible to mimick
-    the exact same setup, as currently we have no split between global and instance. 
 
    Q: should we create a system "Application" theme that include common head content 
       like default styles, js library inclusion, required content types like json?

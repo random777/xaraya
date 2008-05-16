@@ -40,19 +40,65 @@
      so we can make informed decision on the directory layout.
       </t>
     </section>
+    <section title="Rationale">
+      <t>Reorganizing the directory layout is intrusive, very intrusive. Why is it 
+          that we are even considering to do this? This section hopes to clarify some
+          of the reasons.
+      </t>
+      <list style="hanging">
+        <t hangText="Security:">
+        This is a simple argument. Anything below the webroot is in theory accessible 
+by the webserver. There are special actions needed to prevent certain access. 
+Putting in a special config directive in the webserver configuration, putting 
+empty index.html files in folders, checking wether files are accessed directly, 
+where they should not have been etc. etc.
+
+By putting files outside the webroot of which we know upfront the webserver 
+doesnt need direct/URL based access to (a php program running on that server may 
+have/need access to them however) we make that access impossible, so the amount
+of measures needed is less, and if files contain code which would be risky to
+put in an URL accessible file it is protected from such access by default.
+In short, this makes the people who admin a server sleep better.
+        </t>
+        <t hangText="Deployment:">
+          Xaraya is often used as a hub to manage more than one, of even a lot of sites.
+Currently, if not using special deployment tricks like symlinks or bind mounting,
+the code has to be put into each Xaraya install. Typically, the code used in
+all those installs is for the most part identical except for the app/site specific
+parts the site has to have.
+<vspace blankLines="1" />
+Allowing to put common parts in a shared location can save a considerable amount
+of diskspace (esp. in php, since all php files are usually bincached too) and
+provide extra flexibility to run different core versions.
+Specifically for 'xaraya hosting' this is interesting since the shared install
+can be pre-made for the clients, where they only have to worry about their specifics.
+        </t>
+        <t hangText="Integration:">
+        Being a framework, xaraya often integrates other libraries and is integrated 
+often in larger scope setups _as_ a library. Other packages all have their own
+rules and peculiarities on how they deal with files and where to put them. 
+Taking a library approach provides more options and can make integration
+activities a lot easier when there are configuration settings provided on how
+to deal with file locations, include paths etc. 
+        </t>
+      </list>
+    </section>
     <section title="Defintions">
-        <artwork><![CDATA[
-    'install':
-        An 'install' is one copy of the framework code, identified by a
-        version (number, hash or otherwise) at a certain location.
-    'instance':
-        An 'instance' is the result of using one install to create one or more sites.
-    'database': 
-        A 'database' is a storage container which holds the data for exactly one instance. 
-    'site':
-        A 'site' is a collection of data within one instance belonging to 
-        one website.
-      ]]></artwork>
+      <list style="hanging">
+        <t hangText="install:">
+          An 'install' is one copy of the framework code, identified by a
+          version (number, hash or otherwise) at a certain location
+        </t>
+        <t hangText="instance:">
+          An 'instance' is the result of using one install to create one or more sites.
+        </t>
+        <t hangText="database:">
+          A 'database' is a storage container which holds the data for exactly one instance. 
+        </t>
+        <t hangText="site:">
+          A 'site' is a collection of data within one instance belonging to one website.
+        </t>
+      </list>
     </section>
     <section title="Assumptions">
       <list style="numbers">
@@ -191,8 +237,9 @@
           (collection of) websites. The necessary directories are created, the proper config is
           put into place etc.
       </t>
-      <t>A minimal instance might look something like this:</t>
-      <artwork><![CDATA[
+      <figure>
+        <preamble>A minimal instance might look something like this:</preamble>
+        <artwork><![CDATA[
             /path/to/instance
         /conf
             default.conf                
@@ -208,10 +255,11 @@
                       /styles
                       /templates
                 /logs
-      ]]></artwork>
-    
-      <t>An instance structure showing all possible options might look something like this:</t>
-      <artwork><![CDATA[
+        ]]></artwork>
+      </figure>
+      <figure>
+        <preamble>An instance structure showing all possible options might look something like this:</preamble>
+        <artwork><![CDATA[
         /path/to/instance
         /conf
             default.conf                [default site config, plus defaults for all sites]
@@ -265,6 +313,7 @@
                 /modname                [module modname's data area]
                     ...
       ]]></artwork>
+      </figure>
     </section>
     <section title="Analysis">
       <t>As there is a global and instance environment now, we basically also create
@@ -294,55 +343,6 @@
    Q: should we create a system "Application" theme that include common head content 
       like default styles, js library inclusion, required content types like json?
    A:
-   
-
-Why is the above better than all below webroot?
-===============================================
-
-Reorganizing the directory layout is intrusive, very intrusive. Why is it 
-that we are even considering to do this? This section hopes to clarify some
-of the reasons.
-
-Security argument
------------------
-
-This is a simple argument. Anything below the webroot is in theory accessible 
-by the webserver. There are special actions needed to prevent certain access. 
-Putting in a special config directive in the webserver configuration, putting 
-empty index.html files in folders, checking wether files are accessed directly, 
-where they should not have been etc. etc.
-
-By putting files outside the webroot of which we know upfront the webserver 
-doesnt need direct/URL based access to (a php program running on that server may 
-have/need access to them however) we make that access impossible, so the amount
-of measures needed is less, and if files contain code which would be risky to
-put in an URL accessible file it is protected from such access by default.
-In short, this makes the people who admin a server sleep better.
-
-Deployment argument
--------------------
-
-Xaraya is often used as a hub to manage more than one, of even a lot of sites.
-Currently, if not using special deployment tricks like symlinks or bind mounting,
-the code has to be put into each Xaraya install. Typically, the code used in
-all those installs is for the most part identical except for the app/site specific
-parts the site has to have.
-Allowing to put common parts in a shared location can save a considerable amount
-of diskspace (esp. in php, since all php files are usually bincached too) and
-provide extra flexibility to run different core versions.
-Specifically for 'xaraya hosting' this is interesting since the shared install
-can be pre-made for the clients, where they only have to worry about their specifics.
-
-Integration argument
---------------------
-
-Being a framework, xaraya often integrates other libraries and is integrated 
-often in larger scope setups _as_ a library. Other packages all have their own
-rules and peculiarities on how they deal with files and where to put them. 
-Taking a library approach provides more options and can make integration
-activities a lot easier when there are configuration settings provided on how
-to deal with file locations, include paths etc. 
-
 ]]></artwork>
     </section>
   </middle>

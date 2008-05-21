@@ -1053,7 +1053,7 @@ function xarTpl__execute($templateCode, $tplData, $sourceFileName = '', $cachedF
     //POINT of ENTRY for cleaning variables
     // We need to be able to figure what is the template output type: RSS, XHTML, XML or whatever
 
-    $tplData['_bl_data'] = $tplData;
+    $tplData['_bl_data'] = &$tplData;
     extract($tplData, EXTR_OVERWRITE);
 
     // Start output buffering

@@ -37,7 +37,7 @@
     <column id="dynamic_objects.label" name="label" required="true" >
       <text size="254" default=""/>
     </column>
-    <column id="dynamic_objects.moduleid" name="moduleid" required="true" >
+    <column id="dynamic_objects.module_id" name="module_id" required="true" >
       <number size="11" default="0" />
     </column>
     <column id="dynamic_objects.itemtype" name="itemtype" required="true" >
@@ -69,7 +69,7 @@
         <column ref="dynamic_objects.id"/>
       </primary>
       <unique name="i_dynobjects_combo">
-        <column ref="dynamic_objects.moduleid"/>
+        <column ref="dynamic_objects.module_id"/>
         <column ref="dynamic_objects.itemtype"/>
       </unique>
       <unique name="i_dynobjects_name">

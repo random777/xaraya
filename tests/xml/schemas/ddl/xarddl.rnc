@@ -10,22 +10,31 @@
 # The initial goals were:
 # 1. [ABANDONED] to create an absolute minimal DTD to replace xartableddl and xardatadict
 # 2. [ABANDONED] stay compatible with the original DTD it was based on.
-# 3. be able to generate more structured schema's from the DTD (like RNG)
-# 4. be able to produce the xml from the database itself.
-#
-# See the README document on what we initially changed before we abandoned compatibility.
+# 3. [DONE DIFFERENT] be able to generate more structured schema's from the DTD (like RNG) (RNG is now source, the DTD is generated)
+# 4. [DONE] be able to produce the xml from the database itself. (see db2xml)
 
-# Declare the namespace we need
-# scp xarddl.dtd xaraya.com:/var/www/ddf/www.xaraya.com/main/html/ddl/DTD/ddl-strict.dtd to get it there
+#
+# For further information, see the README file
+
+# Declare the namespaces we need
+# - default namespace is the schema DTD we are creating
+# - we need to define the RNG namespace so we can use special constructs
 default namespace   = "http://xaraya.com/2007/schema"
         namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 
+#
 # Define some common things and some stuff we may want to define more
 # clearly later on. A dtd has not got a strong notion of types, so we
 # need to help it a little
+# Attributes:
+# id    unique identifier for a certain tag
+# ref   each tag may reference a previous definition of the same tag, this is
+#       useful for standardizing column definitions and for column constraints
+#       definitions for example
 commonAtts =
 (
-    attribute id {xsd:ID}?
+    attribute id  {xsd:ID}?,
+    attribute ref {xsd:IDREF}?
 )
 
 # Common child tags
@@ -38,6 +47,21 @@ description =  element description
     text
 }
 
+# Prototypes contain templates of tags, their id is used to identify them 
+# from the other tags. This allows for a quick specification of (mostly) columns
+# but would also allow 'aliassing' for the datatypes. I dont see any use for
+# the 'table', 'contstraints' and the constraints varieties tags. The
+# 'description' tag's use as a prototype is arguably not very useful, but it
+# cant hurt either. Note that the 'ref' attribute is a common attribute and may
+# be used in the prototypes too, as far as the document validity is concerned. 
+# Wether the implementation supports them is another matter :-)
+# @todo require support for multiple level references?
+prototypes = element prototypes
+{
+    description*,
+    column*,
+    number*,\text*,boolean*,binary*
+}
 # Definitions corresponding to the values for the datatypes
 textValue    = string
 binaryValue  = string            # string? then we need an encoding
@@ -63,6 +87,7 @@ schema = element schema
     commonAtts?,
     attribute name { text }?,
     description?,
+    prototypes*,
     table*,
     constraints?
 }
@@ -203,6 +228,8 @@ constraints = element constraints
 }
 
 primary = element primary { constraint }
+#
+# @todo How are we going to deal with the references section?
 foreign = element foreign { constraint }
 unique  = element unique  { constraint }
 index   = element index   { constraint }
@@ -211,12 +238,6 @@ constraint =
 (
     commonAtts,
     attribute name {xsd:NMTOKEN},
-    columnref+
+    column+
 )
 
-# Note: i want to call this element column and the attribute ref ideally, but then we cant generate a DTD anymore so, lets do
-# something else for now.
-columnref = element columnref
-{
-    attribute id { xsd:IDREF}
-}

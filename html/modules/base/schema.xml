@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
+<schema name="xaraya">
+  <table name="module_vars">
+    <column id="module_vars.id" name="id" required="true" auto="true">
+      <number size="11" />
+    </column>
+    <column id="module_vars.module_id" name="module_id"  >
+      <number size="11" />
+    </column>
+    <column id="module_vars.name" name="name" required="true" >
+      <text size="64" default=""/>
+    </column>
+    <column id="module_vars.value" name="value"  >
+      <text/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="module_vars.id"/>
+      </primary>
+      <unique name="i_config_name">
+        <column ref="module_vars.name"/>
+        <column ref="module_vars.module_id"/>
+      </unique>
+      <index name="i_module_vars_module_id">
+        <column ref="module_vars.module_id"/>
+      </index>
+      <index name="i_module_vars_name">
+        <column ref="module_vars.name"/>
+      </index>
+    </constraints>
+  </table>
+  <table name="session_info">
+    <column id="session_info.id" name="id" required="true" >
+      <text size="32"/>
+    </column>
+    <column id="session_info.ip_addr" name="ip_addr" required="true" >
+      <text size="20"/>
+    </column>
+    <column id="session_info.first_use" name="first_use" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="session_info.last_use" name="last_use" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="session_info.role_id" name="role_id" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="session_info.vars" name="vars"  >
+      <binary/>
+    </column>
+    <column id="session_info.remember" name="remember"  >
+      <number size="11" default="0" />
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="session_info.id"/>
+      </primary>
+      <index name="i_session_role_id">
+        <column ref="session_info.role_id"/>
+      </index>
+      <index name="i_session_last_use">
+        <column ref="session_info.last_use"/>
+      </index>
+    </constraints>
+  </table>
+  <table name="template_tags">
+    <column id="template_tags.id" name="id" required="true" auto="true">
+      <number size="11" />
+    </column>
+    <column id="template_tags.name" name="name" required="true" >
+      <text size="255" default=""/>
+    </column>
+    <column id="template_tags.module_id" name="module_id" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="template_tags.handler" name="handler" required="true" >
+      <text size="255" default=""/>
+    </column>
+    <column id="template_tags.data" name="data"  >
+      <text/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="template_tags.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

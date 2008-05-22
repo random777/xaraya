@@ -60,19 +60,19 @@
     <column id="rolemembers.id" name="id"  >
       <number size="11" />
     </column>
-    <column id="rolemembers.parentid" name="parentid"  >
+    <column id="rolemembers.parent_id" name="parent_id"  >
       <number size="11" />
     </column>
     <constraints>
       <primary name="id">
         <column ref="rolemembers.id"/>
-        <column ref="rolemembers.parentid"/>
+        <column ref="rolemembers.parent_id"/>
       </primary>
       <index name="i_rolememb_id">
         <column ref="rolemembers.id"/>
       </index>
-      <index name="i_rolememb_parentid">
-        <column ref="rolemembers.parentid"/>
+      <index name="i_rolememb_parent_id">
+        <column ref="rolemembers.parent_id"/>
       </index>
     </constraints>
   </table>

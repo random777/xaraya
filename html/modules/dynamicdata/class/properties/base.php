@@ -41,14 +41,17 @@ class DataProperty extends Object implements iDataProperty
     public $validation = '';
     public $dependancies = '';    // semi-colon seperated list of files that must be present for this property to be available (optional)
     public $args         = array(); //args that hold alias info
+    public $anonymous = 0;        // if true the name, rather than the dd_xx designation is used in displaying the property
 
     public $datastore = '';    // name of the data store where this property comes from
 
     public $value = null;      // value of this property for a particular DataObject
     public $invalid = '';      // result of the checkInput/validateValue methods
 
+    public $include_reference = 0; // tells the object this property belongs whether to add a reference of itself to me
     // public $objectref = null; // object this property belongs to
     public $_objectid = null; // objectid this property belongs to
+    public $_fieldprefix = ''; // the object's fieldprefix
 
     public $_itemid;          // reference to $itemid in DataObject, where the current itemid is kept
     public $_items;           // reference to $items in DataObjectList, where the different item values are kept
@@ -76,7 +79,9 @@ class DataProperty extends Object implements iDataProperty
                     $this->defaultvalue = null;
                 }
             }
-            $this->value = $this->defaultvalue;
+            $this->setValue($this->defaultvalue);
+        } else {
+            $this->setValue($args['value']);
         }
         // do the minimum for alias info, let the single property do the rest
         if (!empty($this->args)) {
@@ -173,25 +178,14 @@ class DataProperty extends Object implements iDataProperty
      */
     public function fetchValue($name = '')
     {
-        $isvalid = true;
+        $found = false;
         $value = null;
-        xarVarFetch($name, 'isset', $namevalue,  NULL, XARVAR_DONT_SET);
+        xarVarFetch($name, 'isset', $namevalue, NULL, XARVAR_DONT_SET);
         if(isset($namevalue)) {
+            $found = true;
             $value = $namevalue;
-        } else {
-            xarVarFetch($this->name, 'isset', $fieldvalue,  NULL, XARVAR_DONT_SET);
-            if(isset($fieldvalue)) {
-                $value = $fieldvalue;
-            } else {
-                xarVarFetch('dd_'.$this->id, 'isset', $ddvalue,  NULL, XARVAR_DONT_SET);
-                if(isset($ddvalue)) {
-                    $value = $ddvalue;
-                } else {
-                    $isvalid = false;
-                }
-            }
         }
-        return array($isvalid,$value);
+        return array($found,$value);
     }
 
     /**
@@ -202,16 +196,17 @@ class DataProperty extends Object implements iDataProperty
      */
     public function checkInput($name = '', $value = null)
     {
+            // store the fieldname for configurations who need them (e.g. file uploads)
+        $name = empty($name) ? 'dd_'.$this->id : $name;
+        $this->fieldname = $name;
+        $this->invalid = '';
         if(!isset($value)) {
-            list($isvalid,$value) = $this->fetchValue($name);
-            if (!$isvalid) {
-                $this->invalid = xarML('no value found');
-                return false;
+            list($found,$value) = $this->fetchValue($name);
+            if (!$found) {
+            // store the fieldname for configurations who need them (e.g. file uploads)
+                $this->objectref->missingfields[] = $this->name;
+                return null;
             }
-
-            // store the fieldname for validations who need them (e.g. file uploads)
-            $name = empty($name) ? 'dd_'.$this->id : $name;
-            $this->fieldname = $name;
         }
        return $this->validateValue($value);
     }
@@ -290,8 +285,6 @@ class DataProperty extends Object implements iDataProperty
      */
     public function showInput(Array $data = array())
     {
-        if(!empty($data['preset']) && $data['preset']) return $this->_showPreset($data);
-
         if (!empty($data['hidden'])) {
             if ($data['hidden'] == 'active') {
                 $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE);
@@ -309,8 +302,11 @@ class DataProperty extends Object implements iDataProperty
             return $this->showOutput($data) . $this->showHidden($data);
         }
 
-        // Our common items we need
-        if(!isset($data['name']))        $data['name'] = 'dd_'.$this->id;
+        // Display directive for the name
+        if(!isset($data['name'])) {
+            if ($this->anonymous == true) $data['name'] = $this->name;
+            else $data['name'] = 'dd_'.$this->id;
+        }
         if(!isset($data['id']))          $data['id']   = $data['name'];
 
         // Add the object's field prefix if there is one
@@ -442,23 +438,11 @@ class DataProperty extends Object implements iDataProperty
      * @param $args['tabindex'] tab index of the field
      * @return string containing the HTML (or other) text to output in the BL template
      */
-    private final function _showPreset(Array $data = array())
+    public final function _showPreset(Array $data = array())
     {
-        // Check for empty here instead of isset, e.g. for <xar:data-input ... value="" />
-        if(empty($data['value']))
-        {
-            if(empty($data['name']))
-                $isvalid = $this->checkInput();
-            else
-                $isvalid = $this->checkInput($data['name']);
-
-            if($isvalid)
-                // remove the original input value from the arguments
-                unset($data['value']);
-            else
-                // clear the invalid message for preset
-                $this->invalid = '';
-        }
+        if(empty($data['name'])) $isvalid = $this->checkInput();
+        else $isvalid = $this->checkInput($data['name']);
+        if(!$isvalid) $isvalid = $this->checkInput($this->name);
 
         if(!empty($data['hidden'])) return $this->showHidden($data);
         else return $this->showInput($data);

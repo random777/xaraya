@@ -69,7 +69,7 @@ class DataObjectDescriptor extends ObjectDescriptor
             $q->eq('id',(int)$args['objectid']);
         } else {
             $args = self::getModID($args);
-            $q->eq('moduleid', $args['moduleid']);
+            $q->eq('module_id', $args['moduleid']);
             $q->eq('itemtype', $args['itemtype']);
         }
         if (!$q->run()) return;
@@ -80,7 +80,7 @@ class DataObjectDescriptor extends ObjectDescriptor
             $args['objectid'] = isset($args['objectid']) ? $args['objectid'] : null;
             $args['name'] = isset($args['name']) ? $args['name'] : null;
         } else {
-            $args['moduleid'] = $row['moduleid'];
+            $args['moduleid'] = $row['module_id'];
             $args['itemtype'] = $row['itemtype'];
             $args['objectid'] = $row['id'];
             $args['name'] = $row['name'];
@@ -121,6 +121,7 @@ class DataObjectMaster extends Object
     public $fieldorder  = array();      // displayorder for the properties
     public $fieldprefix = '';           // prefix to use in field names etc.
     public $status      = 65;           // inital status is active and can add/modify
+    public $anonymous   = 0;            // if true forces display of names of properties instead of dd_xx designations
 
     public $layout = 'default';         // optional layout inside the templates
     public $template = '';              // optional sub-template, e.g. user-objectview-[template].xd (defaults to the object name)
@@ -154,7 +155,7 @@ class DataObjectMaster extends Object
         $properties = $this->getPublicProperties();
         foreach ($properties as $key => $value) if (!isset($args[$key])) $args[$key] = $value;
         //FIXME where do we need to define the modname best?
-        $args['modname'] = xarModGetNameFromID($args['moduleid']); //FIXME change to systemid
+        if (!empty($args['moduleid'])) $args['modname'] = xarModGetNameFromID($args['moduleid']); //FIXME change to systemid
         return $args;
     }
 
@@ -396,7 +397,8 @@ class DataObjectMaster extends Object
             if(
                 !empty($this->fieldlist) and          // if there is a fieldlist
                 !in_array($name,$this->fieldlist) and // but the field is not in it,
-                $property->type != 21                 // and we're not on an Item ID property
+                $property->type != 21 or                // and we're not on an Item ID property
+                ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)  // or the property is disabled
             )
             {
                 // Skip it.
@@ -531,7 +533,7 @@ class DataObjectMaster extends Object
         $query = "SELECT id,
                          name,
                          label,
-                         moduleid,
+                         module_id,
                          itemtype,
                          parent,
                          urlparam,
@@ -541,7 +543,7 @@ class DataObjectMaster extends Object
                   FROM $dynamicobjects ";
         if(isset($moduleid))
         {
-            $query .= "WHERE moduleid = ?";
+            $query .= "WHERE module_id = ?";
             $bindvars[] = $moduleid;
         }
         $stmt = $dbconn->prepareStatement($query);
@@ -614,7 +616,7 @@ class DataObjectMaster extends Object
         $query = "SELECT id,
                          name,
                          label,
-                         moduleid,
+                         module_id,
                          itemtype,
                          parent,
                          class,
@@ -1014,8 +1016,8 @@ class DataObjectMaster extends Object
         sys::import('modules.roles.class.xarQuery');
         $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
 //        $q->open();
-        $q->addfields(array('id AS objectid','name AS objectname','moduleid AS moduleid','itemtype AS itemtype','parent AS parent'));
-        $q->eq('moduleid',$this->moduleid);
+        $q->addfields(array('id AS objectid','name AS objectname','module_id AS moduleid','itemtype AS itemtype','parent AS parent'));
+        $q->eq('module_id',$this->moduleid);
         if (!$q->run()) return;
 
         // Put in itemtype as key for easier manipulation
@@ -1085,36 +1087,21 @@ class DataObjectMaster extends Object
             $module = $info['name'];
         }
 
-        $native = isset($native) ? $native : true;
-        $extensions = isset($extensions) ? $extensions : true;
-
         $types = array();
-        if ($native) {
-            // Try to get the itemtypes
-            try {
-                // @todo create an adaptor class for procedural getitemtypes in modules
-                $types = xarModAPIFunc($module,'user','getitemtypes',array());
-            } catch ( FunctionNotFoundException $e) {
-                // No worries
-            }
-        }
-        if ($extensions) {
-            // Get all the objects at once
-            $xartable = xarDB::getTables();
-            sys::import('modules.roles.class.xarQuery');
-            $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
-            $q->addfields(array('id AS objectid','label AS objectlabel','moduleid AS moduleid','itemtype AS itemtype','parent AS parent'));
-            $q->eq('moduleid',$moduleid);
-            if (!$q->run()) return;
+        // Get all the objects at once
+        $xartable = xarDB::getTables();
+        sys::import('modules.roles.class.xarQuery');
+        $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
+        $q->addfields(array('id AS objectid','label AS objectlabel','module_id AS moduleid','itemtype AS itemtype','parent AS parent'));
+        $q->eq('module_id',$moduleid);
+        if (!$q->run()) return;
 
-            // put in itemtype as key for easier manipulation
-            foreach($q->output() as $row)
-                $types [$row['itemtype']] = array(
-                                            'label' => $row['objectlabel'],
-                                            'title' => xarML('View #(1)',$row['objectlabel']),
-                                            'url' => xarModURL('dynamicdata','user','view',array('itemtype' => $row['itemtype'])));
-        }
-
+        // put in itemtype as key for easier manipulation
+        foreach($q->output() as $row)
+            $types [$row['itemtype']] = array(
+                                        'label' => $row['objectlabel'],
+                                        'title' => xarML('View #(1)',$row['objectlabel']),
+                                        'url' => xarModURL('dynamicdata','user','view',array('itemtype' => $row['itemtype'])));
         return $types;
     }
 

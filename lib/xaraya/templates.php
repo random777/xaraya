@@ -42,10 +42,6 @@ class BLException extends xarExceptions
 **/
 function xarTpl_init(&$args)
 {
-    $table['template_tags'] = xarSystemVars::get(sys::CONFIG, 'DB.TablePrefix') . '_template_tags';
-    sys::import('xaraya.database');
-    xarDB::importTables($table);
-
     $GLOBALS['xarTpl_themesBaseDir']   = $args['themesBaseDirectory'];
     $GLOBALS['xarTpl_defaultThemeDir'] = $args['defaultThemeDir'];
     $GLOBALS['xarTpl_generateXMLURLs'] = $args['generateXMLURLs'];
@@ -428,7 +424,16 @@ function xarTpl__DDElement($modName, $ddName, $tplType, $tplData, $tplBase,$elem
     // Get the right source filename
     $sourceFileName = xarTpl__GetSourceFileName($modName, $templateBase, $ddName, $elements);
 
-    // Final fall-back to default template in dynamicdata
+    // Property fall-back to default template in the module the property belongs to
+    if ((empty($sourceFileName) || !file_exists($sourceFileName)) &&
+        $elements == 'properties') {
+        $fallbackmodule = DataPropertyMaster::getProperty(array('type' => $ddName))->tplmodule;
+        if ($fallbackmodule != $modName) {
+            $sourceFileName = xarTpl__GetSourceFileName($fallbackmodule, $templateBase, $ddName, $elements);
+        }
+    }
+
+    // Final fall-back to default template in dynamicdata for both objects and properties
     if ((empty($sourceFileName) || !file_exists($sourceFileName)) &&
         $modName != 'dynamicdata') {
         $sourceFileName = xarTpl__GetSourceFileName('dynamicdata', $templateBase, $ddName, $elements);
@@ -1084,30 +1089,6 @@ function xarTpl_outputTemplate($sourceFileName, &$tplOutput)
 }
 
 /**
- * Output php comment block in templates
- *
- * @access private
- * @global int xarTpl_showPHPCommentBlockInTemplates int
- * @return int value of xarTpl_showPHPCommentBlockInTemplates (0 or 1)
- */
-function xarTpl_outputPHPCommentBlockInTemplates()
-{
-    if (!isset($GLOBALS['xarTpl_showPHPCommentBlockInTemplates'])) {
-        // Default to not show the comments
-        $GLOBALS['xarTpl_showPHPCommentBlockInTemplates'] = 0;
-        // CHECKME: not sure if this is needed, e.g. during installation
-        // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable
-        if (method_exists('xarModVars','Get')){
-            $showphpcbit = xarModVars::get('themes', 'ShowPHPCommentBlockInTemplates');
-            if (!empty($showphpcbit)) {
-                $GLOBALS['xarTpl_showPHPCommentBlockInTemplates'] = 1;
-            }
-        }
-    }
-    return $GLOBALS['xarTpl_showPHPCommentBlockInTemplates'];
-}
-
-/**
  * Output template filenames
  *
  * @access private
@@ -1184,8 +1165,5 @@ function xarTpl_modifyHeaderContent($sourceFileName, &$tplOutput)
     }
     return $foundHeaderContent;
 }
-
-// Make sure we expose the same api as yesterday
-sys::import('blocklayout.template.tags');
 
 ?>

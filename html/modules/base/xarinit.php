@@ -121,8 +121,6 @@ function base_init()
     $authModules = array('authsystem');
     xarConfigVars::set(null, 'Site.User.AuthenticationModules',$authModules);
 
-    $templateTagsTable = $prefix . '_template_tags';
-
     // Start Modules Support
     $systemArgs = array('enableShortURLsSupport' => false,
                         'generateXMLURLs' => false);

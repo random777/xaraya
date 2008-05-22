@@ -123,7 +123,7 @@
     </constraints>
   </table>
   <table name="privmembers">
-    <column id="privmembers.id" name="id"  >
+    <column id="privmembers.privilege_id" name="privilege_id"  >
       <number size="11" />
     </column>
     <column id="privmembers.parent_id" name="parent_id"  >
@@ -131,11 +131,11 @@
     </column>
     <constraints>
       <primary name="id">
-        <column ref="privmembers.id"/>
+        <column ref="privmembers.privilege_id"/>
         <column ref="privmembers.parent_id"/>
       </primary>
       <index name="i_privmembers_pid">
-        <column ref="privmembers.id"/>
+        <column ref="privmembers.privilege_id"/>
       </index>
       <index name="i_privmembers_parent_id">
         <column ref="privmembers.parent_id"/>

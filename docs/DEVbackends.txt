@@ -237,6 +237,30 @@ Comments Syntax support for SQL:
 
 ==> Recommended : /*..*/
 
+SCHEMA support
+-------------
+- mysql   : yes, since 5.2.0, alias for CREATE DATABASE
+- sqlite  : 
+- postgres: yes, SCHEMA is essentially a namespace within a database
+- mssql   : 
+- oracle  : 
+
+Encoding on database object possible:
+-------------------------------------
+- mysql   : yes, through CHARSET selection
+- sqlite  : yes, only UTF varieties and through a PRAGMA statement
+- postgres: yes, explicit encoding on CREATE DATABASE
+- mssql   : ?
+- oracle  : ?
+
+Encoding on table object possible:
+-------------------------------------
+- mysql   : yes, through CHARSET selection
+- sqlite  : no
+- postgres: no
+- mssql   : ?
+- oracle  : ?
+
 Datatype notes:
 
 Acceptance in SQL:

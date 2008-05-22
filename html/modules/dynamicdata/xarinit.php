@@ -30,121 +30,14 @@ function dynamicdata_init()
     $dynamic_objects = $xartable['dynamic_objects'];
     $dynamic_properties = $xartable['dynamic_properties'];
     $dynamic_data = $xartable['dynamic_data'];
-    $dynamic_relations = $xartable['dynamic_relations'];
     $dynamic_properties_def = $xartable['dynamic_properties_def'];
     $modulestable = $xartable['modules'];
 
     // Create tables inside a transaction
     try {
         $dbconn->begin();
-        /**
-         * DataObjects table
-         */
-        $objectfields = array(
-            'id' => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0',
-                'increment'   => true,
-                'primary_key' => true
-            ),
-            /* the name used to reference an object */
-            'name'     => array(
-                'type'        => 'varchar',
-                'size'        => 30,
-                'null'        => false,
-                'default'     => ''
-            ),
-            /* the label used for display */
-            'label'    => array(
-                'type'        => 'varchar',
-                'size'        => 254,
-                'null'        => false,
-                'default'     => ''
-            ),
-            /* the module this object relates to */
-            'module_id' => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* the optional item type within this module */
-            'itemtype' => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* the item type of the parent of this object */
-            'parent' => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* the class this object belongs to*/
-            'class'     => array(
-                'type'        => 'varchar',
-                'size'        => 255,
-                'null'        => false,
-                'default'     => 'DataObject'
-            ),
-            /* the location where the class file lives*/
-            'filepath'     => array(
-                'type'        => 'varchar',
-                'size'        => 255,
-                'null'        => false,
-                'default'     => 'modules/dynamicdata/class/objects/base.php'
-            ),
-            /* the URL parameter used to pass on the item id to the original module */
-            'urlparam' => array(
-                'type'        => 'varchar',
-                'size'        => 30,
-                'null'        => false,
-                'default'     => 'itemid'
-            ),
-            /* the highest item id for this object (used if the object has a dynamic item id field) */
-            'maxid'    => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* any configuration settings for this object (future) */
-            'config'   => array(
-                'type'=>'text'
-            ),
-            /* use the name of this object as alias for short URLs */
-            'isalias'  => array(
-                'type'        => 'integer',
-                'size'        => 'tiny',
-                'null'        => false,
-                'default'     => '1'
-            ),
-        );
-
-        $query = xarDBCreateTable($dynamic_objects,$objectfields);
-        $dbconn->Execute($query);
-
-        // TODO: evaluate efficiency of combined index vs. individual ones
-        // the combination of module id + item type *must* be unique
-        $query = xarDBCreateIndex(
-            $dynamic_objects,
-            array(
-                'name'   => 'i_' . $prefix . '_dynobjects_combo',
-                'fields' => array('module_id','itemtype'),
-                'unique' => 'true'
-            )
-        );
-        $dbconn->Execute($query);
-
-        // the object name *must* be unique
-        $query = xarDBCreateIndex(
-            $dynamic_objects,
-            array(
-                'name'   => 'i_' . $prefix . '_dynobjects_name',
-                'fields' => array('name'),
-                'unique' => 'true'
-            )
-        );
-        $dbconn->Execute($query);
+        sys::import('xaraya.installer');
+        Installer::createTable('schema', 'dynamicdata');
 
         /**
          * Note : Classic chicken and egg problem - we can't use createobject() here
@@ -175,88 +68,6 @@ function dynamicdata_init()
             $objectid[$idx] = $dbconn->getLastId($dynamic_objects);
         }
 
-
-        /**
-         * Dynamic Properties table
-         */
-        $propfields = array(
-            'id'     => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0',
-                'increment'   => true,
-                'primary_key' => true
-            ),
-            /* the name used to reference a particular property, e.g. in function calls and templates */
-            'name'       => array(
-                'type'        => 'varchar',
-                'size'        => 30,
-                'null'        => false,
-                'default'     => ''
-            ),
-            /* the label used for display */
-            'label'      => array(
-                'type'        => 'varchar',
-                'size'        => 254,
-                'null'        => false,
-                'default'     => ''
-            ),
-            /* the object this property belong to */
-            'objectid'   => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* the property type of this property */
-            'type'       => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => null
-            ),
-            /* the default value for this property */
-            'defaultvalue'    => array(
-                'type'        => 'varchar',
-                'size'        => 254,
-                'default'     => null
-            ),
-            /* the data source for this property (dynamic data, static table, hook, user function, LDAP (?), file, ... */
-            'source'     => array(
-                'type'        => 'varchar',
-                'size'        => 254,
-                'null'        => false,
-                'default'     => 'dynamic_data'
-            ),
-            /* is this property active ? (unused at the moment) */
-            'status'     => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '33'
-            ),
-            /* the order of this property */
-            'seq'      => array(
-                'type'        => 'integer',
-                'size'        => 'tiny',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* specific validation rules for this property (e.g. basedir, size, ...) */
-            'validation' => array(
-                'type'        => 'text'
-            )
-        );
-
-        $query = xarDBCreateTable($dynamic_properties,$propfields);
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex(
-            $dynamic_properties,
-            array(
-                'name'   => 'i_' . $prefix . '_dynprops_combo',
-                'fields' => array('objectid', 'name'),
-                'unique' => 'true'
-            )
-        );
-        $dbconn->Execute($query);
 
         /**
          * Note : same remark as above - we can't use createproperty() here
@@ -317,59 +128,6 @@ function dynamicdata_init()
         }
 
 
-        /**
-         * Dynamic Data table (= one of the possible data sources for properties)
-         */
-        $datafields = array(
-            'id'   => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0',
-                'increment'   => true,
-                'primary_key' => true
-            ),
-            /* the property this dynamic data belongs to */
-            'propid'   => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* the item id this dynamic data belongs to */
-            'itemid'   => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '0'
-            ),
-            /* the value of this dynamic data */
-            'value'    => array(
-                'type'        => 'text', // or blob when storing binary data (but not for PostgreSQL - see bug 1324)
-                'size'        => 'medium',
-                'null'        => 'false'
-            )
-        );
-
-        // Create the Table - the function will return the SQL is successful or
-        // raise an exception if it fails, in this case $query is empty
-        $query = xarDBCreateTable($dynamic_data,$datafields);
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex(
-            $dynamic_data,
-            array(
-                'name'   => 'i_' . $prefix . '_dyndata_propid',
-                'fields' => array('propid')
-            )
-        );
-        $dbconn->Execute($query);
-
-        $query = xarDBCreateIndex(
-            $dynamic_data,
-            array(
-                'name'   => 'i_' . $prefix . '_dyndata_itemid',
-                'fields' => array('itemid')
-            )
-        );
-        $dbconn->Execute($query);
 
         /**
          * Note : here we *could* start using the dynamicdata APIs, but since
@@ -404,8 +162,6 @@ function dynamicdata_init()
             $stmt->executeUpdate($dataentry);
         }
 
-        // Add Dynamic Data Properties Definition Table
-        dynamicdata_createPropDefTable();
 
         $dbconn->commit();
     } catch (Exception $e) {
@@ -613,12 +369,6 @@ function dynamicdata_delete()
     if (!isset($result)) return;
 
     // Generate the SQL to drop the table using the API
-    $query = xarDBDropTable($xartable['dynamic_relations']);
-    if (empty($query)) return; // throw back
-    $result = $dbconn->Execute($query);
-    if (!isset($result)) return;
-
-    // Generate the SQL to drop the table using the API
     $query = xarDBDropTable($xartable['dynamic_properties_def']);
     if (empty($query)) return; // throw back
     $result = $dbconn->Execute($query);
@@ -721,113 +471,6 @@ function dynamicdata_delete()
 
 
     // Deletion successful
-    return true;
-}
-
-function dynamicdata_createPropDefTable()
-{
-    /**
-      * Dynamic Data Properties Definition Table
-      */
-
-    // Get existing DB info
-    $dbconn = xarDB::getConn();
-    $xartable = xarDB::getTables();
-    $prefix = xarDB::getPrefix();
-    $dynamic_properties_def = $xartable['dynamic_properties_def'];
-
-    $propdefs = array(
-        'id'     => array(
-            'type'        => 'integer',
-            'null'        => false,
-            'default'     => '0',
-            'increment'   => true,
-            'primary_key' => true
-        ),
-        /* the name of this property */
-        'name'   => array(
-            'type'        => 'varchar',
-            'size'        => 254,
-            'default'     => null
-        ),
-        /* the label of this property */
-        'label'  => array(
-            'type'        => 'varchar',
-            'size'        => 254,
-            'default'     => null
-        ),
-        /* this property's parent */
-        'parent' => array(
-            'type'        => 'varchar',
-            'size'        => 254,
-            'default'     => null
-        ),
-        /* path to the file defining this property */
-        'filepath' => array(
-            'type'          => 'varchar',
-            'size'          => 254,
-            'default'       => null
-        ),
-        /* name of the Class to be instantiated for this property */
-        'class'  => array(
-            'type'        => 'varchar',
-            'size'        => 254,
-            'default'     => null
-        ),
-        /* the default validation string for this property - no need to use text here... */
-        'validation'   => array(
-            'type'              => 'varchar',
-            'size'              => 254,
-            'default'           => null
-        ),
-        /* the source of this property */
-        'source'   => array(
-            'type'        => 'varchar',
-            'size'        => 254,
-            'default'     => null
-        ),
-        /* the semi-colon seperated list of file required to be present before this property is active */
-        'reqfiles'   => array(
-            'type'        => 'varchar',
-            'size'        => 254,
-            'default'     => null
-        ),
-        /* the ID of the module owning this property */
-        'modid'  => array(
-            'type'        => 'integer',
-            'null'        => true,
-            'default'     => null
-        ),
-        /* the default args for this property -- serialized array */
-        'args'    => array(
-            'type'        => 'text',
-            'size'        => 'medium',
-            'null'        => false
-        ),
-        /* the aliases for this property -- serialized array */
-        'aliases'   => array(
-            'type'        => 'varchar',
-            'size'        => 254,
-            'default'     => null
-        ),
-        /*  */
-        'format'   => array(
-            'type'        => 'integer',
-            'default'     => '0'
-        ),
-    );
-
-    $query = xarDBCreateTable($dynamic_properties_def,$propdefs);
-    $dbconn->Execute($query);
-
-    $query = xarDBCreateIndex(
-        $dynamic_properties_def,
-        array(
-            'name'   => 'i_' . $prefix . '_dynpropdef_modid',
-            'fields' => array('modid')
-        )
-    );
-    $dbconn->Execute($query);
     return true;
 }
 ?>

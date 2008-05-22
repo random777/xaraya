@@ -126,19 +126,19 @@
     <column id="privmembers.id" name="id"  >
       <number size="11" />
     </column>
-    <column id="privmembers.parentid" name="parentid"  >
+    <column id="privmembers.parent_id" name="parent_id"  >
       <number size="11" />
     </column>
     <constraints>
       <primary name="id">
         <column ref="privmembers.id"/>
-        <column ref="privmembers.parentid"/>
+        <column ref="privmembers.parent_id"/>
       </primary>
       <index name="i_privmembers_pid">
         <column ref="privmembers.id"/>
       </index>
-      <index name="i_privmembers_parentid">
-        <column ref="privmembers.parentid"/>
+      <index name="i_privmembers_parent_id">
+        <column ref="privmembers.parent_id"/>
       </index>
     </constraints>
   </table>

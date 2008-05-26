@@ -65,7 +65,7 @@
         <column ref="security_acl.role_id"/>
       </index>
       <index name="i_security_acl_privilege_id">
-        <column ref="security_acl.privilege_d"/>
+        <column ref="security_acl.privilege_id"/>
       </index>
     </constraints>
   </table>
@@ -87,18 +87,6 @@
     </column>
     <column id="security_instances.ddlimit" name="ddlimit" required="true" >
       <number size="11" default="0" />
-    </column>
-    <column id="security_instances.propagate" name="propagate" required="true" >
-      <number size="11" default="0" />
-    </column>
-    <column id="security_instances.instancetable2" name="instancetable2" required="true" >
-      <text size="100" default=""/>
-    </column>
-    <column id="security_instances.instancechildid" name="instancechildid" required="true" >
-      <text size="100" default=""/>
-    </column>
-    <column id="security_instances.instanceparentid" name="instanceparentid" required="true" >
-      <text size="100" default=""/>
     </column>
     <column id="security_instances.description" name="description" required="true" >
       <text size="255" default=""/>

@@ -5,7 +5,7 @@
     <column id="dynamic_data.id" name="id" required="true" auto="true">
       <number size="11" />
     </column>
-    <column id="dynamic_data.propid" name="propid" required="true" >
+    <column id="dynamic_data.property_id" name="property_id" required="true" >
       <number size="11" default="0" />
     </column>
     <column id="dynamic_data.itemid" name="itemid" required="true" >
@@ -18,8 +18,8 @@
       <primary name="id">
         <column ref="dynamic_data.id"/>
       </primary>
-      <index name="i_dyndata_propid">
-        <column ref="dynamic_data.propid"/>
+      <index name="i_dyndata_property_id">
+        <column ref="dynamic_data.property_id"/>
       </index>
       <index name="i_dyndata_itemid">
         <column ref="dynamic_data.itemid"/>
@@ -87,7 +87,7 @@
     <column id="dynamic_properties.label" name="label" required="true" >
       <text size="254" default=""/>
     </column>
-    <column id="dynamic_properties.objectid" name="objectid" required="true" >
+    <column id="dynamic_properties.object_id" name="object_id" required="true" >
       <number size="11" default="0" />
     </column>
     <column id="dynamic_properties.type" name="type" required="true" >
@@ -113,7 +113,7 @@
         <column ref="dynamic_properties.id"/>
       </primary>
       <unique name="i_dynprops_combo">
-        <column ref="dynamic_properties.objectid"/>
+        <column ref="dynamic_properties.object_id"/>
 
         <column ref="dynamic_properties.name"/>
       </unique>

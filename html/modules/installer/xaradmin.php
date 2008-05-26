@@ -494,9 +494,15 @@ function installer_admin_bootstrap()
     // Set up default user properties, etc.
 
     // load modules into *_modules table
-    if (!xarModAPIFunc('modules', 'admin', 'regenerate')) return;
+    if (!xarModAPIFunc('modules', 'admin', 'regenerate')) {
+        xarCore_die(xarML('An unknown error occured while regenerating the modules list'));
+    }
+    if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
+        $err = xarCurrentError();
+        xarCore_die($err->toHTML());
+    }
 
-
+    //Hb: Authsystem is part of the core. Should we check the completeness here?
     $regid=xarModGetIDFromName('authsystem');
     if (empty($regid)) {
         die(xarML('I cannot load the Authsystem module. Please make it available and reinstall'));

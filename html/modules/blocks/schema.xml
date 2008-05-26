@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
+<schema name="xaraya">
+  <table name="block_groups">
+    <column id="block_groups.id" name="id" required="true" auto="true">
+      <number size="11" />
+    </column>
+    <column id="block_groups.name" name="name" required="true" >
+      <text size="255" default=""/>
+    </column>
+    <column id="block_groups.template" name="template" required="true" >
+      <text size="255" default=""/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="block_groups.id"/>
+      </primary>
+      <unique name="i_block_groups">
+        <column ref="block_groups.name"/>
+      </unique>
+    </constraints>
+  </table>
+  <table name="block_group_instances">
+    <column id="block_group_instances.id" name="id" required="true" auto="true">
+      <number size="11" />
+    </column>
+    <column id="block_group_instances.group_id" name="group_id" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="block_group_instances.instance_id" name="instance_id" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="block_group_instances.template" name="template"  >
+      <text size="100" default=""/>
+    </column>
+    <column id="block_group_instances.position" name="position" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="block_group_instances.id"/>
+      </primary>
+      <index name="i_block_group_instances">
+        <column ref="block_group_instances.group_id"/>
+      </index>
+      <index name="i_block_group_instances_2">
+        <column ref="block_group_instances.instance_id"/>
+      </index>
+    </constraints>
+  </table>
+  <table name="block_instances">
+    <column id="block_instances.id" name="id" required="true" auto="true">
+      <number size="11" />
+    </column>
+    <column id="block_instances.type_id" name="type_id" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="block_instances.name" name="name" required="true" >
+      <text size="100" default=""/>
+    </column>
+    <column id="block_instances.title" name="title"  >
+      <text size="255" default=""/>
+    </column>
+    <column id="block_instances.content" name="content" required="true" >
+      <text/>
+    </column>
+    <column id="block_instances.template" name="template"  >
+      <text size="255" default=""/>
+    </column>
+    <column id="block_instances.state" name="state" required="true" >
+      <number size="4" default="2" />
+    </column>
+    <column id="block_instances.refresh" name="refresh" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="block_instances.last_update" name="last_update" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="block_instances.id"/>
+      </primary>
+      <unique name="i_block_instances_u2">
+        <column ref="block_instances.name"/>
+      </unique>
+      <index name="i_block_instances">
+        <column ref="block_instances.type_id"/>
+      </index>
+    </constraints>
+  </table>
+  <table name="block_types">
+    <column id="block_types.id" name="id" required="true" auto="true">
+      <number size="11" />
+    </column>
+    <column id="block_types.type" name="type" required="true" >
+      <text size="64" default=""/>
+    </column>
+    <column id="block_types.module_id" name="module_id" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="block_types.info" name="info"  >
+      <text/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="block_types.id"/>
+      </primary>
+      <unique name="i_block_types2">
+        <column ref="block_types.module_id"/>
+        <column ref="block_types.type"/>
+      </unique>
+    </constraints>
+  </table>
+  <table name="cache_blocks">
+    <column id="cache_blocks.id" name="id" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="cache_blocks.nocache" name="nocache" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="cache_blocks.page" name="page" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="cache_blocks.user" name="user" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="cache_blocks.expire" name="expire"  >
+      <number size="11" />
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="cache_blocks.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

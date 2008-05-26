@@ -15,13 +15,13 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="dynamic_data.dd_id"/>
+        <column ref="dynamic_data.dd_id"/>
       </primary>
       <index name="i_dyndata_propid">
-        <columnref id="dynamic_data.dd_propid"/>
+        <column ref="dynamic_data.dd_propid"/>
       </index>
       <index name="i_dyndata_itemid">
-        <columnref id="dynamic_data.dd_itemid"/>
+        <column ref="dynamic_data.dd_itemid"/>
       </index>
     </constraints>
   </table>
@@ -64,14 +64,14 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="dynamic_objects.object_id"/>
+        <column ref="dynamic_objects.object_id"/>
       </primary>
       <index name="i_dynobjects_name">
-        <columnref id="dynamic_objects.object_name"/>
+        <column ref="dynamic_objects.object_name"/>
       </index>
       <index name="i_dynobjects_combo">
-        <columnref id="dynamic_objects.object_moduleid"/>
-        <columnref id="dynamic_objects.object_itemtype"/>
+        <column ref="dynamic_objects.object_moduleid"/>
+        <column ref="dynamic_objects.object_itemtype"/>
       </index>
     </constraints>
   </table>
@@ -108,11 +108,11 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="dynamic_properties.prop_id"/>
+        <column ref="dynamic_properties.prop_id"/>
       </primary>
       <index name="i_dynprops_combo">
-        <columnref id="dynamic_properties.prop_objectid"/>
-        <columnref id="dynamic_properties.prop_name"/>
+        <column ref="dynamic_properties.prop_objectid"/>
+        <column ref="dynamic_properties.prop_name"/>
       </index>
     </constraints>
   </table>
@@ -158,10 +158,10 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="dynamic_properties_def.prop_id"/>
+        <column ref="dynamic_properties_def.prop_id"/>
       </primary>
       <index name="i_dynpropdef_modid">
-        <columnref id="dynamic_properties_def.prop_modid"/>
+        <column ref="dynamic_properties_def.prop_modid"/>
       </index>
     </constraints>
   </table>

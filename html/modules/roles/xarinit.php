@@ -34,8 +34,6 @@ function roles_init()
 
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'roles');
-                                                'unsigned'     => true,
-                                                            'unsigned'     => true,
 
         // We're done, commit
         $dbconn->commit();

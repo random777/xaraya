@@ -51,27 +51,10 @@ function privileges_init()
 
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'privileges');
-         *   itemtype integer unsigned NOT NULL,
-                        'id' => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true),
 
         xarDB::importTables(array('privileges' => $prefix . '_privileges'));
         xarDB::importTables(array('privmembers' => $prefix . '_privmembers'));
-         $fields = array(
-                'privilege_id' => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'primary_key' => true),
-                'parent_id'    => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'primary_key' => true)
-                );
-         $query = xarDBCreateTable($tables['privmembers'],$fields);
-         $dbconn->Execute($query);
-         $index = array('name'      => $prefix.'_privmembers_parent_id',
-                        'fields'    => array('parent_id'),
-                        'unique'    => false);
-         $query = xarDBCreateIndex($tables['privmembers'],$index);
-
-                                                                    'unsigned'    => true,
-                                                                   'unsigned'    => true,
         xarDB::importTables(array('security_acl' => $prefix . '_security_acl'));
-                                                            'unsigned'     => true,
-                                                             'unsigned'    => true,
         xarDB::importTables(array('security_instances' => $prefix . '_security_instances'));
 
         $dbconn->commit();

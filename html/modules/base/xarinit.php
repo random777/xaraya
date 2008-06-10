@@ -43,7 +43,6 @@ function base_init()
 
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'base');
-                        'module_id' => array('type'=>'integer','unsigned'=>true,'null'=>true),
 
         // Let's commit this, since we're gonna do some other stuff
         $dbconn->commit();

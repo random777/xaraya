@@ -38,8 +38,6 @@ function dynamicdata_init()
         $dbconn->begin();
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'dynamicdata');
-                'unsigned'     => true,
-                'unsigned'    => true,
 
         /**
          * Note : Classic chicken and egg problem - we can't use createobject() here
@@ -72,9 +70,6 @@ function dynamicdata_init()
 
 
         /**
-                'unsigned'     => true,
-                'size'        => 'tiny',
-                'unsigned'     => true,
          * Note : same remark as above - we can't use createproperty() here
          *        because dynamicdata doesn't know anything about properties yet :-)
          */
@@ -131,9 +126,6 @@ function dynamicdata_init()
             $idx++;
             $propid[$idx] = $dbconn->getLastId($dynamic_properties);
         }
-
-
-                'unsigned'     => true,
 
         /**
          * Note : here we *could* start using the dynamicdata APIs, but since

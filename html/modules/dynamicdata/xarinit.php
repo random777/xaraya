@@ -471,5 +471,4 @@ function dynamicdata_delete()
     // Deletion successful
     return true;
 }
-            'unsigned'     => true,
 ?>

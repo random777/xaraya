@@ -92,7 +92,7 @@
     <column id="block_types.id" name="id" required="true" auto="true">
       <number size="11" />
     </column>
-    <column id="block_types.type" name="type" required="true" >
+    <column id="block_types.name" name="name" required="true" >
       <text size="64" default=""/>
     </column>
     <column id="block_types.module_id" name="module_id" required="true" >
@@ -107,12 +107,12 @@
       </primary>
       <unique name="i_block_types2">
         <column ref="block_types.module_id"/>
-        <column ref="block_types.type"/>
+        <column ref="block_types.name"/>
       </unique>
     </constraints>
   </table>
   <table name="cache_blocks">
-    <column id="cache_blocks.id" name="id" required="true" >
+    <column id="cache_blocks.blockinstance_id" name="blockinstance_id" required="true" >
       <number size="11" default="0" />
     </column>
     <column id="cache_blocks.nocache" name="nocache" required="true" >
@@ -129,7 +129,7 @@
     </column>
     <constraints>
       <primary name="id">
-        <column ref="cache_blocks.id"/>
+        <column ref="cache_blocks.blockinstance_id"/>
       </primary>
     </constraints>
   </table>

@@ -8,7 +8,7 @@
     <column id="dynamic_data.property_id" name="property_id" required="true" >
       <number size="11" default="0" />
     </column>
-    <column id="dynamic_data.itemid" name="itemid" required="true" >
+    <column id="dynamic_data.item_id" name="item_id" required="true" >
       <number size="11" default="0" />
     </column>
     <column id="dynamic_data.value" name="value"  >
@@ -21,8 +21,8 @@
       <index name="i_dyndata_property_id">
         <column ref="dynamic_data.property_id"/>
       </index>
-      <index name="i_dyndata_itemid">
-        <column ref="dynamic_data.itemid"/>
+      <index name="i_dyndata_item_id">
+        <column ref="dynamic_data.item_id"/>
       </index>
     </constraints>
     <description>End of dynamic_data</description>
@@ -43,7 +43,7 @@
     <column id="dynamic_objects.itemtype" name="itemtype" required="true" >
       <number size="11" default="0" />
     </column>
-    <column id="dynamic_objects.parent" name="parent" required="true" >
+    <column id="dynamic_objects.parent_id" name="parent_id" required="true" >
       <number size="11" default="0" />
     </column>
     <column id="dynamic_objects.class" name="class" required="true" >
@@ -127,9 +127,6 @@
       <text size="254" default=""/>
     </column>
     <column id="dynamic_properties_def.label" name="label"  >
-      <text size="254" default=""/>
-    </column>
-    <column id="dynamic_properties_def.parent" name="parent"  >
       <text size="254" default=""/>
     </column>
     <column id="dynamic_properties_def.filepath" name="filepath"  >

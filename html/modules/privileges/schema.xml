@@ -26,7 +26,7 @@
     <column id="privileges.description" name="description" required="true" >
       <text size="255" default=""/>
     </column>
-    <column id="privileges.type" name="type" required="true" >
+    <column id="privileges.itemtype" name="itemtype" required="true" >
       <number size="11" default="0" />
     </column>
     <constraints>
@@ -36,7 +36,7 @@
       <unique name="i_privileges_name">
         <column ref="privileges.name"/>
         <column ref="privileges.module_id"/>
-        <column ref="privileges.type"/>
+        <column ref="privileges.itemtype"/>
       </unique>
       <index name="i_privileges_realm_id">
         <column ref="privileges.realm_id"/>

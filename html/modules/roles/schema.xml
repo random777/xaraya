@@ -8,7 +8,7 @@
     <column id="roles.name" name="name" required="true" >
       <text size="255" default=""/>
     </column>
-    <column id="roles.type" name="type" required="true" >
+    <column id="roles.itemtype" name="itemtype" required="true" >
       <number size="11" default="0" />
     </column>
     <column id="roles.users" name="users" required="true" >
@@ -32,7 +32,7 @@
     <column id="roles.state" name="state" required="true" >
       <number size="11" default="3" />
     </column>
-    <column id="roles.auth_modid" name="auth_modid" required="true" >
+    <column id="roles.auth_module_id" name="auth_module_id" required="true" >
       <number size="11" default="0" />
     </column>
     <constraints>
@@ -42,8 +42,8 @@
       <unique name="i_roles_uname">
         <column ref="roles.uname"/>
       </unique>
-      <index name="i_roles_type">
-        <column ref="roles.type"/>
+      <index name="i_roles_itemtype">
+        <column ref="roles.itemtype"/>
       </index>
       <index name="i_roles_name">
         <column ref="roles.name"/>

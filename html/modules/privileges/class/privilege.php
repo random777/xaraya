@@ -55,7 +55,7 @@ class xarPrivilege extends xarMask
             if($result->next()) $realmid = $result->getInt('id');
         }
         $query = "INSERT INTO $this->privilegestable
-                    (name, realm_id, module_id, component, instance, level, type, description)
+                    (name, realm_id, module_id, component, instance, level, itemtype, description)
                   VALUES (?,?,?,?,?,?,?,?)";
         $bindvars = array($this->name, $realmid, $this->module_id,
                           $this->component, $this->instance, $this->level, self::PRIVILEGES_PRIVILEGETYPE, $this->description);
@@ -136,7 +136,7 @@ class xarPrivilege extends xarMask
         $query =    "UPDATE " . $this->privilegestable .
                     ' SET name = ?,     realm_id = ?,
                           module_id = ?,   component = ?,
-                          instance = ?, level = ?, type = ?
+                          instance = ?, level = ?, itemtype = ?
                       WHERE id = ?';
         $bindvars = array($this->name, $realmid, $this->module_id,
                           $this->component, $this->instance, $this->level, self::PRIVILEGES_PRIVILEGETYPE,
@@ -237,9 +237,9 @@ class xarPrivilege extends xarMask
     {
         // set up a query to select the roles this privilege
         // is linked to in the acl table
-        $query = "SELECT r.id, r.name, r.type,
+        $query = "SELECT r.id, r.name, r.itemtype,
                          r.uname, r.email, r.pass,
-                         r.auth_modid
+                         r.auth_module_id
                   FROM $this->rolestable r, $this->acltable acl
                   WHERE r.id = acl.role_id AND
                         acl.privilege_id = ?";
@@ -252,15 +252,15 @@ class xarPrivilege extends xarMask
         //      $ind = 0;
     sys::import('modules.dynamicdata.class.objects.master');
         while($result->next()) {
-            list($id,$name,$type,$uname,$email,$pass,$auth_modid) = $result->fields;
+            list($id,$name,$itemtype,$uname,$email,$pass,$auth_modid) = $result->fields;
             //          $ind = $ind + 1;
 
-            $role = DataObjectMaster::getObject(array('module' => 'roles', 'itemtype' => $type));
+            $role = DataObjectMaster::getObject(array('module' => 'roles', 'itemtype' => $itemtype));
             $role->getItem(array('itemid' => $id));
             /*
             $role = new xarRole(array('id' => $id,
                                       'name' => $name,
-                                      'type' => $type,
+                                      'itemtype' => $itemtype,
                                       'uname' => $uname,
                                       'email' => $email,
                                       'pass' => $pass,
@@ -395,7 +395,7 @@ class xarPrivilege extends xarMask
         $result = $this->dbconn->executeQuery($query);
 
         while($result->next()) {
-            list($id,$name,$realm,$module_id,$component,$instance,$level,$description,$type,$parentid, $module) = $result->fields;
+            list($id,$name,$realm,$module_id,$component,$instance,$level,$description,$itemtype,$parentid, $module) = $result->fields;
             if (!isset($children[$parentid])) $children[$parentid] = array();
             $pargs = array('id'=>           $id,
                             'name'=>        $name,

@@ -50,7 +50,7 @@ function roles_userapi_getallroles($args)
 
     // Itemtype
     if (!empty($itemtype)) {
-        $q->eq('r.type',$itemtype);
+        $q->eq('r.itemtype',$itemtype);
     }
 
     // State
@@ -62,7 +62,7 @@ function roles_userapi_getallroles($args)
 
     $q->addfield('r.id AS id');
     $q->addfield('r.name AS name');
-    $q->addfield('r.type AS type');
+    $q->addfield('r.itemtype AS itemtype');
     $q->addfield('r.users AS users');
     $q->addfield('r.uname AS uname');
     $q->addfield('r.pass AS pass');
@@ -70,7 +70,7 @@ function roles_userapi_getallroles($args)
     $q->addfield('r.date_reg AS date_reg');
     $q->addfield('r.state AS state');
     $q->addfield('r.valcode AS valcode');
-    $q->addfield('r.auth_modid AS auth_modid');
+    $q->addfield('r.auth_module_id AS auth_module_id');
 
     // Inclusions
     $includedgroups = array();

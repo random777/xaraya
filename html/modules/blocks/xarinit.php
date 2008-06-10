@@ -28,16 +28,26 @@ function blocks_init()
 
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'blocks');
+                                                                  'unsigned'    => true,
+                                                                   'unsigned'    => true,
+                                                                   'unsigned'    => true,
+                                                                   'unsigned'    => true,
+                                                          'unsigned'    => true,
 
         /*
          TODO: Find a fix for this - Postgres will not allow partial indexes
          $query = xarDBCreateIndex($prefix . '_block_types',
-         array('name'   => 'i_' . $prefix . '_block_types_2',
-         'fields' => array('type(50)', 'module_id(50)'),
+         array('name'   => $prefix . '_block_types_2',
+         'fields' => array('name(50)', 'module_id(50)'),
          'unique' => true));
          $result =& $dbconn->Execute($query);
         */
+                                                                   'unsigned'    => true,
+                                                                   'null'        => false)));
 
+                                                                    'unsigned'    => true,
+                                                                    'size'        => 'tiny',
+                                                                 'size'        => 'tiny',
 
         // *_userblocks
         /* Removed Collapsing blocks to see if there is a better solution.
@@ -59,7 +69,7 @@ function blocks_init()
          $result = $dbconn->Execute($query);
 
          $query = xarDBCreateIndex($prefix . '_userblocks',
-         array('name'   => 'i_' . $prefix . '_userblocks',
+         array('name'   => $prefix . '_userblocks',
          'fields' => array('id', 'bid'),
          'unique' => true));
          $result = $dbconn->Execute($query);

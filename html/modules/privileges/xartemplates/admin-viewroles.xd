@@ -1,5 +1,5 @@
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
-<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
 <xar:style scope="module" module="base" file="navtabs" />
 <xar:style scope="module" file="privtree" />
 <xar:base-include-javascript module="privileges" filename="xarTree.js" />
@@ -105,7 +105,7 @@
             <xar:foreach in="$roles" value="$role">
                 <tr>
                     <td>
-                        <xar:if condition="$role['type'] eq 0">
+                        <xar:if condition="$role['itemtype'] eq 2">
                             <xar:mlstring>User</xar:mlstring>
                         <xar:else />
                             <xar:mlstring>Group</xar:mlstring>

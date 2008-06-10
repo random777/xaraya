@@ -38,12 +38,12 @@ function base_init()
          *
          * prefix_session_info  - Session table
          * prefix_module_vars   - system configuration variables
-         * prefix_template_tags - module template tag registry
          *********************************************************************/
         $sessionInfoTable = $prefix . '_session_info';
 
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'base');
+                        'module_id' => array('type'=>'integer','unsigned'=>true,'null'=>true),
 
         // Let's commit this, since we're gonna do some other stuff
         $dbconn->commit();

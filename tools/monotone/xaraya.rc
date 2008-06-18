@@ -305,22 +305,6 @@ function extractbugs(certs)
 end
 
 --
--- List of branches which we consider closed
---
--- TODO: store this in .mtn-ignore-branches for example
-function ignore_branch(name)
-   if (mtndebug ~= nil) then print("ignore_branch() in xaraya.rc") end
-   if name=='com.xaraya.core.marcel'     then return true end
-   if name=='com.xaraya.core.ddextend'   then return true end
-   if name=='com.xaraya.core.ddprops'    then return true end
-   if name=='com.xaraya.core.changesdue' then return true end
-   if name=='com.xaraya.core.creole'     then return true end
-   if name=='com.xaraya.core.blimprovs'  then return true end
-   if name=='com.xaraya.core.uitesting'  then return true end
-   return false
-end
-
---
 -- Validate a commit message and run pre-commit routines, if any
 --
 -- @param commit_msg   the text the user entered

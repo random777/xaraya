@@ -174,7 +174,7 @@ function xarVarBatchFetch()
  * to one of XARVAR_GET_ONLY or XARVAR_POST_ONLY.
  *
  * You can force xarVarFetch not to reuse the variable by setting
- * the $flag parameter to XARVAR_DON_REUSE.
+ * the $flag parameter to XARVAR_DONT_REUSE.
  *
  * By default $flag is XARVAR_GET_OR_POST which means tha xarVarFetch will lookup both GET and POST parameters and
  * that if the variable is not present or doesn't validate correctly an exception will be raised.
@@ -284,7 +284,7 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
  * 'bool' matches a string that can be 'true' or 'false'
  *
  * 'str:<min len>:<max len>' matches a string which has a lenght between <min len> and <max len>, if <min len>
- *                           is omitted no control is done on mininum lenght, the same applies to <max len>
+ *                           if omitted no control is done on minimum lenght, the same applies to <max len>
  *
  * 'html:<level>' validates the subject by searching unallowed html tags, allowed tags are defined by specifying <level>
  *                that could be one of restricted, basic, enhanced, admin. This last level is not configurable and allows
@@ -310,8 +310,8 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
  *
  * @author Marco Canini
  * @access public
- * @param validation mixed the validation to be performed
- * @param subject string the subject on which the validation must be performed, will be where the validated value will be returned
+ * @param mixed validation The validation to be performed
+ * @param string subject The subject on which the validation must be performed, will be where the validated value will be returned
  * @return bool true if the $subject validates correctly, false otherwise
  */
 function xarVarValidate($validation, &$subject, $supress = false, $name='')
@@ -688,8 +688,8 @@ function xarVar__GetVarByAlias($modName = NULL, $name, $uid = NULL, $prep = NULL
 
         default:
             // We finally found it, update the appropriate cache
-            //Couldnt we serialize and unserialize all variables?
-            //would that be too time expensive?
+            // Couldn't we serialize and unserialize all variables?
+            // would that be too time expensive?
             list($value) = $result->fields;
             if($type == 'configvar') {
                 $value = unserialize($value);
@@ -838,7 +838,7 @@ function xarVar__SetVarByAlias($modName = NULL, $name, $value, $prime = NULL, $d
 
             //Insert
             $seqId = $dbconn->GenId($config_varsTable);
-     
+
             $query = "INSERT INTO $config_varsTable
                       (xar_id, xar_name, xar_value)
                       VALUES (?,?,?)";

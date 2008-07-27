@@ -9,7 +9,7 @@
  *
  * @subpackage Blocks Module
  * @link http://xaraya.com/index.php/release/13.html
- * @author mikespub
+ * @author dracos
  */
 /**
  * get an array of block info (id => foo) for use in dropdown lists
@@ -149,7 +149,7 @@ function blocks_userapi_dropdownlist($args)
         case 'group':
             // valid sort values: id (default), name
             if (!isset($sort) || ($sort != 'id' && $sort != 'name')) {
-                $sort = 'id';
+                $sort = 'name';
             }
             $groups = xarModAPIFunc('blocks','user','getallgroups', array('sort' => $sort));
             foreach ($groups as $gid => $group) {

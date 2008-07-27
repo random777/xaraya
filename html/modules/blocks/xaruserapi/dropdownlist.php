@@ -151,7 +151,7 @@ function blocks_userapi_dropdownlist($args)
             if (!isset($sort) || ($sort != 'id' && $sort != 'name')) {
                 $sort = 'name';
             }
-            $groups = xarModAPIFunc('blocks','user','getallgroups', array('sort' => $sort));
+            $groups = xarModAPIFunc('blocks','user','getallgroups', array('order' => $sort));
             foreach ($groups as $gid => $group) {
                 $items[$gid] = $group['name'];
             }

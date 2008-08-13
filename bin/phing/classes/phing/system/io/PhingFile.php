@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: PhingFile.php,v 1.1 2005/05/26 13:10:52 mrook Exp $
+ *  $Id: PhingFile.php 258 2007-10-21 00:46:45Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -64,7 +64,6 @@ class PhingFile {
             $this->_constructStringParentStringChild($arg1, $arg2);
         } else {
             if ($arg1 === null) {
-                echo var_dump(debug_backtrace());
                 throw new NullPointerException("Argument1 to function must not be null");
             }
             $this->path = (string) $arg1;
@@ -395,6 +394,7 @@ class PhingFile {
      *
      */
     function exists() {                
+		clearstatcache();
         if ($this->isFile()) {
             return @file_exists($this->path);
         } else {
@@ -412,6 +412,7 @@ class PhingFile {
      *
      */
     function isDirectory() {
+		clearstatcache();
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to ".$this->path);
@@ -430,6 +431,7 @@ class PhingFile {
      *          false otherwise
      */
     function isFile() {
+		clearstatcache();
         //$fs = FileSystem::getFileSystem();
         return @is_file($this->path);
     }
@@ -528,8 +530,8 @@ class PhingFile {
      */
     function delete() {
         $fs = FileSystem::getFileSystem();
-        if ($fs->checkAccess($this, true) !== true) {
-            throw new IOException("No read access to " . $this->path."\n");
+        if ($fs->canDelete($this) !== true) {
+            throw new IOException("Cannot delete " . $this->path . "\n"); 
         }
         return $fs->delete($this);
     }

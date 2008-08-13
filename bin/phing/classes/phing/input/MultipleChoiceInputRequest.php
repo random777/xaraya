@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: MultipleChoiceInputRequest.php,v 1.5 2004/03/15 17:11:15 hlellelid Exp $
+ *  $Id: MultipleChoiceInputRequest.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: IniFileTokenReader.php,v 1.7 2005/05/26 13:10:51 mrook Exp $
+ *  $Id: IniFileTokenReader.php 227 2007-08-28 02:17:00Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -49,6 +49,7 @@ class IniFileTokenReader extends TokenReader {
      * Reads the next token from the INI file
      *
      * @throws  IOException     On error
+     * @return Token
      */
     function readToken() {
         if ($this->file === null) {

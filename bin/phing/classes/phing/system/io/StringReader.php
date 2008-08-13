@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: StringReader.php,v 1.8 2005/05/26 13:10:52 mrook Exp $
+ *  $Id: StringReader.php 227 2007-08-28 02:17:00Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,13 +20,24 @@
  */
 
 /**
- * Dummy class for reading character streams. 
+ * Dummy class for reading from string of characters. 
  * @package phing.system.io
  */
 class StringReader extends Reader {
     
-    private    $_string;
+	/**
+	 * @var string
+	 */
+    private $_string;
+    
+    /**
+     * @var int
+     */
     private $mark = 0;
+    
+    /**
+     * @var int
+     */
     private $currPos = 0;
     
     function __construct($string) {

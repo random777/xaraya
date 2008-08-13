@@ -1,6 +1,6 @@
 <?php
 /* 
- *  $Id: PregEngine.php,v 1.6 2003/12/24 12:38:42 hlellelid Exp $
+ *  $Id: PregEngine.php 131 2006-12-28 11:27:09Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -96,7 +96,7 @@ class PregEngine implements RegexpEngine {
     function replace($pattern, $replace, $source) {
         // convert \1 -> $1, because we want to use the more generic \1 in the XML
         // but PREG prefers $1 syntax.
-        $replace = preg_replace('/[^\\\]\\\(\d+)/', '$1', $replace);
+        $replace = preg_replace('/\\\(\d+)/', '\$$1', $replace);
         return preg_replace($this->preparePattern($pattern), $replace, $source);
     }
 

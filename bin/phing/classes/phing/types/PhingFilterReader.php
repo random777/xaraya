@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: PhingFilterReader.php,v 1.9 2005/10/05 20:23:22 hlellelid Exp $
+ *  $Id: PhingFilterReader.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

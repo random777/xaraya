@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: ContainsRegexpSelector.php,v 1.3 2005/05/26 13:10:53 mrook Exp $
+ * $Id: ContainsRegexpSelector.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

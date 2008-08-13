@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Path.php,v 1.13 2005/05/26 13:10:53 mrook Exp $
+ *  $Id: Path.php 225 2007-08-28 01:14:00Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -207,7 +207,7 @@ class Path extends DataType {
                 $this->setDir($f);
             } else {
                 $this->log("dropping " . $f->__toString() . " from path as it doesn't exist", 
-                    PROJECT_MSG_VERBOSE);
+                    Project::MSG_VERBOSE);
             }
         }
     }
@@ -261,13 +261,11 @@ class Path extends DataType {
                 $ds = $dset->getDirectoryScanner($this->project);
                 $dirstrs = $ds->getIncludedDirectories();
                 $dir = $dset->getDir($this->project);
-                $this->addUnlessPresent($result, $dir, $s);  
-                
                 foreach($dirstrs as $dstr) {
                     $d = new PhingFile($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
-                }                
-                     
+                }
+                var_dump($result);
             } elseif ($o instanceof FileList) {
                 $fl = $o;
                 $dirstrs = $fl->getFiles($this->project);
@@ -320,7 +318,7 @@ class Path extends DataType {
             } catch (BuildException $e) {
                 $this->project->log("Dropping path element " . $pathElement 
                     . " as it is not valid relative to the project", 
-                    PROJECT_MSG_VERBOSE);
+                    Project::MSG_VERBOSE);
             }
             
             for ($i = 0, $_i=strlen($element); $i < $_i; $i++) {
@@ -424,8 +422,8 @@ class Path extends DataType {
             return $f->getAbsolutePath();
         }
         return $relativeName;
-    }    
-
+    }
+    
 }
 
 

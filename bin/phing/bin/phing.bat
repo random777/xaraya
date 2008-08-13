@@ -2,7 +2,7 @@
 
 rem *********************************************************************
 rem ** the phing build script for Windows based systems
-rem ** $Id: phing.bat,v 1.5 2003/11/06 14:56:13 hlellelid Exp $
+rem ** $Id: phing.bat 143 2007-02-05 14:57:57Z hans $
 rem *********************************************************************
 
 rem This script will do the following:
@@ -50,7 +50,7 @@ echo variable to your local phing installation!
 goto cleanup
 
 :set_classpath
-set PHP_CLASSPATH="%PHING_HOME%\classes"
+set PHP_CLASSPATH=%PHING_HOME%\classes
 goto init
 
 :cleanup

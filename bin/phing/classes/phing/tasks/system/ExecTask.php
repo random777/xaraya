@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: ExecTask.php,v 1.17 2005/11/08 14:25:55 mrook Exp $
+ *  $Id: ExecTask.php 215 2007-08-14 14:13:17Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -103,10 +103,10 @@ class ExecTask extends Task {
     
          // test if os match
         $myos = Phing::getProperty("os.name");
-        $this->log("Myos = " . $myos, PROJECT_MSG_VERBOSE);
-        if (($this->os !== null) && (strpos($os, $myos) === false)) {
+        $this->log("Myos = " . $myos, Project::MSG_VERBOSE);
+        if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
             // this command will be executed only on the specified OS
-            $this->log("Not found in " . $os, PROJECT_MSG_VERBOSE);
+            $this->log("Not found in " . $this->os, Project::MSG_VERBOSE);
             return 0;
         }
         
@@ -162,7 +162,7 @@ class ExecTask extends Task {
         }
 
         foreach($output as $line) {
-            $this->log($line,  ($this->passthru ? PROJECT_MSG_INFO : PROJECT_MSG_VERBOSE));
+            $this->log($line,  ($this->passthru ? Project::MSG_INFO : Project::MSG_VERBOSE));
         }
         
         if($return != 0 && $this->checkreturn)
@@ -190,7 +190,7 @@ class ExecTask extends Task {
     }
     
     /**
-     * Specify the workign directory for executing this command.
+     * Specify the working directory for executing this command.
      * @param PhingFile $dir
      */
     function setDir(PhingFile $dir) {

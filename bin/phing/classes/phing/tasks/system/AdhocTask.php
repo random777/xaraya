@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: AdhocTask.php,v 1.6 2004/11/24 20:40:19 hlellelid Exp $
+ *  $Id: AdhocTask.php 144 2007-02-05 15:19:00Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -51,10 +51,10 @@ class AdhocTask extends Task {
         $this->execute();        
         if ($this->newClasses) {
             foreach($this->newClasses as $classname) {
-                $this->log("Added adhoc class " . $classname, PROJECT_MSG_VERBOSE);
+                $this->log("Added adhoc class " . $classname, Project::MSG_VERBOSE);
             }
         } else {
-            $this->log("Adhoc task executed but did not result in any new classes.", PROJECT_MSG_VERBOSE);
+            $this->log("Adhoc task executed but did not result in any new classes.", Project::MSG_VERBOSE);
         }
     }
     

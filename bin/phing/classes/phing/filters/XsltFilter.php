@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: XsltFilter.php,v 1.16 2005/12/07 20:05:01 hlellelid Exp $
+ *  $Id: XsltFilter.php 278 2007-11-01 14:33:28Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -150,7 +150,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         }
 
         if(empty($_xml)) {
-            $this->log("XML file is empty!", PROJECT_MSG_WARN);
+            $this->log("XML file is empty!", Project::MSG_WARN);
             return ''; // return empty string, don't attempt to apply XSLT
         }
        
@@ -159,7 +159,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         $xslFr = new FileReader($this->xslFile);
         $xslFr->readInto($_xsl);
         
-        $this->log("Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(), PROJECT_MSG_VERBOSE);
+        $this->log("Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(), Project::MSG_VERBOSE);
         
         $out = '';
         try {
@@ -201,7 +201,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         // ignoring param "type" attrib, because
         // we're only supporting direct XSL params right now
         foreach($this->xsltParams as $param) {
-            $this->log("Setting XSLT param: " . $param->getName() . "=>" . $param->getExpression(), PROJECT_MSG_DEBUG);
+            $this->log("Setting XSLT param: " . $param->getName() . "=>" . $param->getExpression(), Project::MSG_DEBUG);
             $processor->setParameter(null, $param->getName(), $param->getExpression());
         }
         
@@ -283,6 +283,28 @@ class XSLTParam {
      */
     public function getName() {
         return $this->name;
+    }
+    
+    /**
+     * Sets expression value (alias to the setExpression()) method. 
+     *
+     * @param string $v
+     * @see setExpression()
+     */
+    public function setValue($v)
+    {
+    	$this->setExpression($v);
+    }
+    
+	/**
+     * Gets expression value (alias to the getExpression()) method. 
+     *
+     * @param string $v
+     * @see getExpression()
+     */
+    public function getValue()
+    {
+    	return $this->getExpression();
     }
     
     /**

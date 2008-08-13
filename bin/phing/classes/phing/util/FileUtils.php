@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: FileUtils.php,v 1.10 2005/05/26 13:10:53 mrook Exp $
+ *  $Id: FileUtils.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -46,7 +46,7 @@ class FileUtils {
      * @param Project $project
      * @return Reader Assembled Reader (w/ filter chains).
      */
-    function getChainedReader(Reader $in, &$filterChains, Project $project) {
+    public static function getChainedReader(Reader $in, &$filterChains, Project $project) {
         if (!empty($filterChains)) {
             $crh = new ChainReaderHelper();
             $crh->setBufferSize(65536); // 64k buffer, but isn't being used (yet?)

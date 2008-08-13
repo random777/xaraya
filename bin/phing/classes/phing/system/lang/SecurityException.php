@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: SecurityException.php,v 1.4 2005/02/27 20:52:10 mrook Exp $
+ *  $Id: SecurityException.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

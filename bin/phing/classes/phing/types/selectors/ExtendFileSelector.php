@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: ExtendFileSelector.php,v 1.5 2004/02/16 05:28:40 hlellelid Exp $
+ * $Id: ExtendFileSelector.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: DefaultInputHandler.php,v 1.6 2004/02/27 18:49:13 hlellelid Exp $
+ *  $Id: DefaultInputHandler.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

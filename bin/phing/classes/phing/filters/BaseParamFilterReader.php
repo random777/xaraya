@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: BaseParamFilterReader.php,v 1.5 2005/02/27 20:52:08 mrook Exp $
+ *  $Id: BaseParamFilterReader.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@ include_once 'phing/types/Parameter.php';
  *
  * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @copyright © 2003 seasonfive. All rights reserved
- * @version   $Revision: 1.5 $ $Date: 2005/02/27 20:52:08 $
+ * @version   $Revision: 1.5 $ $Date: 2006-09-14 22:19:08 +0200 (Thu, 14 Sep 2006) $
  * @access    public
  * @see       FilterReader
  * @package   phing.filters

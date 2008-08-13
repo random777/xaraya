@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: AbstractSAXParser.php,v 1.13 2004/03/20 03:33:06 hlellelid Exp $
+ *  $Id: AbstractSAXParser.php 186 2007-04-19 21:18:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -60,7 +60,7 @@ abstract class AbstractSAXParser {
     /**
      * Method that gets invoked when the parser runs over a XML start element.
      *
-     * This method is called by PHP's internal parser funcitons and registered
+     * This method is called by PHP's internal parser functions and registered
      * in the actual parser implementation.
      * It gives control to the current active handler object by calling the
      * <code>startElement()</code> method.

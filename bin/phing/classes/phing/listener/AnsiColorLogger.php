@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: AnsiColorLogger.php,v 1.13 2005/05/26 13:10:51 mrook Exp $
+ * $Id: AnsiColorLogger.php 227 2007-08-28 02:17:00Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -198,9 +198,11 @@ final class AnsiColorLogger extends DefaultLogger {
 
     /**
      * @see DefaultLogger#printMessage
+     * @param string $message
+     * @param OutputStream $stream
+     * @param int $priority
      */
-    protected final function printMessage($message, $priority) {
-    
+    protected final function printMessage($message, OutputStream $stream, $priority) {
         if ($message !== null) {
         
             if (!$this->colorsSet) {
@@ -209,23 +211,24 @@ final class AnsiColorLogger extends DefaultLogger {
             }
             
             switch ($priority) {
-                case PROJECT_MSG_ERR:
+                case Project::MSG_ERR:
                     $message = $this->errColor . $message . self::END_COLOR;
                     break;
-                case PROJECT_MSG_WARN:
+                case Project::MSG_WARN:
                     $message = $this->warnColor . $message . self::END_COLOR;                    
                     break;
-                case PROJECT_MSG_INFO:
+                case Project::MSG_INFO:
                     $message = $this->infoColor . $message . self::END_COLOR;
                     break;
-                case PROJECT_MSG_VERBOSE:
+                case Project::MSG_VERBOSE:
                     $message = $this->verboseColor . $message . self::END_COLOR;
                     break;
-                case PROJECT_MSG_DEBUG:
+                case Project::MSG_DEBUG:
                     $message = $this->debugColor . $message . self::END_COLOR;
                     break;
             }
-            print($message."\n");
+            
+            $stream->write($message . PHP_EOL);
         }
     }
 }

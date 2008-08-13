@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: RuntimeConfigurable.php,v 1.6 2003/12/24 12:38:39 hlellelid Exp $
+ *  $Id: RuntimeConfigurable.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

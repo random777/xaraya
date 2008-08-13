@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: PhingCallTask.php,v 1.9 2004/03/15 17:11:16 hlellelid Exp $  
+ *  $Id: PhingCallTask.php 144 2007-02-05 15:19:00Z hans $  
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -93,7 +93,7 @@ class PhingCallTask extends Task {
      */
     function main() {        
             
-        $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", PROJECT_MSG_DEBUG);
+        $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
         if ($this->callee === null) {
             $this->init();
         }

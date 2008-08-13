@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: SvnExportTask.php,v 1.1 2006/01/25 15:28:12 mrook Exp $
+ * $Id: SvnExportTask.php 227 2007-08-28 02:17:00Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,33 +24,16 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Exports/checks out a repository to a local directory
+ * with authentication 
  *
- * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: SvnExportTask.php,v 1.1 2006/01/25 15:28:12 mrook Exp $
+ * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Andrew Eddie <andrew.eddie@jamboworks.com> 
+ * @version $Id: SvnExportTask.php 227 2007-08-28 02:17:00Z hans $
  * @package phing.tasks.ext.svn
- * @see VersionControl_SVN
- * @since 2.1.0
+ * @since 2.2.0
  */
 class SvnExportTask extends SvnBaseTask
 {
-	private $toDir = "";
-
-	/**
-	 * Sets the path to export/checkout to
-	 */
-	function setToDir($toDir)
-	{
-		$this->toDir = $toDir;
-	}
-
-	/**
-	 * Returns the path to export/checkout to
-	 */
-	function getToDir()
-	{
-		return $this->toDir;
-	}
-
 	/**
 	 * The main entry point
 	 *
@@ -60,9 +43,9 @@ class SvnExportTask extends SvnBaseTask
 	{
 		$this->setup('export');
 		
-		$this->log("Exporting SVN repository to '" . $this->toDir . "'");
-		
-		$this->run(array($this->toDir));
+		$this->log("Exporting SVN repository to '" . $this->getToDir() . "'");
+
+		$this->run(array($this->getToDir()));
 	}
 }
 ?>

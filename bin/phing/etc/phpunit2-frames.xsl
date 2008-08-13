@@ -30,7 +30,7 @@
  It creates a set of HTML files a la javadoc where you can browse easily
  through all packages and classes.
 
- @author Michiel Rook <a href="mailto:michiel@trendserver.nl"/>
+ @author Michiel Rook <a href="mailto:michiel.rook@gmail.com"/>
  @author Stephane Bailliez <a href="mailto:sbailliez@apache.org"/>
  @author Erik Hatcher <a href="mailto:ehatcher@apache.org"/>
  @author Martijn Kruithof <a href="mailto:martijn@kruithof.xs4all.nl"/>
@@ -650,6 +650,7 @@ a:hover {
     @param word the text from which to convert CR to BR tag
 -->
 <xsl:template name="br-replace">
+    <xsl:param name="word"/>
     <xsl:choose>
          <xsl:when test="contains($word,'&#x0A;')">
              <xsl:value-of select="substring-before($word,'&#x0A;')"/>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: BaseSelectorContainer.php,v 1.9 2004/02/16 04:56:24 hlellelid Exp $
+ * $Id: BaseSelectorContainer.php 123 2006-09-14 20:19:08Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

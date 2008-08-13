@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: TaskHandler.php,v 1.10 2005/10/04 19:13:44 hlellelid Exp $
+ *  $Id: TaskHandler.php 147 2007-02-06 20:32:22Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@ include_once 'phing/UnknownElement.php';
  * initialized on the fly.
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright © 2001,2002 THYRELL. All rights reserved
+ * @copyright ï¿½ 2001,2002 THYRELL. All rights reserved
  * @version   $Revision: 1.10 $
  * @package   phing.parser
  */
@@ -149,7 +149,7 @@ class TaskHandler extends AbstractHandler {
         // add file position information to the task (from parser)
         // should be used in task exceptions to provide details
         $this->task->setLocation($this->parser->getLocation());
-        $configurator->configureId($task, $attrs);
+        $configurator->configureId($this->task, $attrs);
 		
 		if ($this->container) {
 			$this->container->addTask($this->task);
@@ -164,10 +164,15 @@ class TaskHandler extends AbstractHandler {
             $this->task->init();
             $this->wrapper = $this->task->getRuntimeConfigurableWrapper();
             $this->wrapper->setAttributes($attrs);
+            /*
+			Commenting this out as per thread on Premature configurate of ReuntimeConfigurables 
+            with Matthias Pigulla: http://phing.tigris.org/servlets/ReadMsg?list=dev&msgNo=251
+            
 			if ($this->parentWrapper !== null) { // this may not make sense only within this if-block, but it
 												// seems to address current use cases adequately
 		    	$this->parentWrapper->addChild($this->wrapper);
 			}
+			*/
         } else {
             $this->task->init();
             $configurator->configure($this->task, $attrs, $project);
@@ -178,11 +183,11 @@ class TaskHandler extends AbstractHandler {
      * Executes the task at once if it's directly beneath the <project> tag.
      */
     protected function finished() {
-        if ($this->task !== null && $this->target === null) {
+        if ($this->task !== null && $this->target === null && $this->container === null) {
             try {
-                $this->task->main();
+                $this->task->perform();
             } catch (Exception $e) {
-                $this->task->log($e->getMessage(), PROJECT_MSG_ERR);
+                $this->task->log($e->getMessage(), Project::MSG_ERR);
                 throw $e;
             }
         }

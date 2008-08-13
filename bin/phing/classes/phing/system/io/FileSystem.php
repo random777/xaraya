@@ -1,7 +1,7 @@
 <?php
 
 /* 
- *  $Id: FileSystem.php,v 1.11 2005/12/01 20:56:59 hlellelid Exp $
+ *  $Id: FileSystem.php 258 2007-10-21 00:46:45Z hans $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -52,8 +52,9 @@ abstract class FileSystem {
     /**
      * Static method to return the FileSystem singelton representing
      * this platform's local filesystem driver.
+     * @return FileSystem
      */
-    function getFileSystem() {
+    public static function getFileSystem() {
         if (self::$fs === null) {
             switch(Phing::getProperty('host.fstype')) {
                 case 'UNIX':
@@ -126,7 +127,7 @@ abstract class FileSystem {
      * after this method returns.
      */
     abstract function fromURIPath($path);
-
+    
     /* -- Path operations -- */
 
     /**
@@ -189,7 +190,19 @@ abstract class FileSystem {
             return (boolean) @is_writable($strPath);
         }
     }
-
+	
+    /**
+     * Whether file can be deleted.
+     * @param PhingFile $f
+     * @return boolean
+     */
+    function canDelete(PhingFile $f)
+    {
+    	clearstatcache(); 
+ 		$dir = dirname($f->getAbsolutePath()); 
+ 		return (bool) @is_writable($dir); 
+    }
+    
     /**
      * Return the time at which the file or directory denoted by the given
      * abstract pathname was last modified, or zero if it does not exist or
@@ -409,7 +422,7 @@ abstract class FileSystem {
     function chmod($pathname, $mode) {    
         $str_mode = decoct($mode); // Show octal in messages.    
         if (false === @chmod($pathname, $mode)) {// FAILED.
-            $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode. $php_errormsg";
+            $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
             throw new Exception($msg);
         }
     }

@@ -1,0 +1,302 @@
+<?xml version="1.0" ?>
+<!--
+    This is the xaraya languages buildfile. It builds anything needed building:
+    - single languages
+    - all languages
+    
+    This languages.xml file is a phing build file. The phing make system
+    is like ant, but then implemented in php. For xaraya we stubbed
+    the phing system into a bk custom command: bk build which has the 
+    same interface as the original phing. 
+    
+    TODO:
+    - sql files automatically so they are always in sync
+    - phpdoc documentation
+    - deb package generation
+    - rpm package generation
+    - get the dependencies straight.
+    - use recursive build files, so we can package modules by just inspecting the build.xml 
+    file for each module, instead of hardcoding the list in here (? would that work)
+    - use the zip and tar task from phing once their mem requirements are below 8M (which is php std. mem setting)
+    or at least independent of the number of files packaging
+    - make this run on all platforms
+    - do something clever with the release log
+    - extract the version automatically somehow
+    - make a publish target so we can copy the files automatically to somewhere
+    
+  -->
+<project name="xaraya" basedir="." default="help" >
+  <!-- The main property file -->
+  <property file="common.properties"/>
+  <!-- The languages property file -->
+  <property file="languages.properties"/>
+  
+  <!-- Build some properties based on the settings in the build.properties file -->
+  <!--     
+       releaselog for modules depends on mtn usage which we don't do yet
+  <property name="releaselog" value="releaselog-${lastversion}-${version}.txt" />
+  -->
+  
+  <!-- get date formatted as yyyymmdd for pack filenames -->
+  <php function="date" returnProperty="builddate">
+    <param value="Ymd"/>
+  </php>
+  <property name="build.date" value="${builddate}"/>
+
+  <!-- We need something extra until phing 2 can be used, which is php 5 only -->
+  <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
+  
+  <target name="getlanguage">
+    <input propertyname="lang.name">What language would you like to build? (2 letter language code)</input>
+  </target>
+
+  <!--  Main target that runs the build  -->
+  <target name="all" description=": Creates all Xaraya languages">
+    <echo message="Copying files to build dir" />
+    <mkdir dir="${build.basedir.languages}" />
+    
+    <!-- Build all languages -->
+    <foreach list="${languages.all}" target="onelanguage" param="lang.name"/>
+  </target>
+  
+  <!-- Checkout target, make sure we have working dirs, appropriate for building -->
+  <target name="checkout" description=": Makes sure a current checkout is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build languages"/>
+    <foreach list="${languages.all}" target="lang_checkout" param="lang.name"/>
+  </target>
+
+  <target name="checkoutlanguages" description=": Makes sure a current checkout of languages is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build from"/>
+    <mkdir dir="${work.basedir}"/>
+    <foreach list="${languages.all}" target="lang_checkout" param="lang.name"/>
+  </target>
+
+  <!--
+      Pull targets
+
+      Pulls latest into the databases
+    -->
+  <target name="pull" description=": Pulls all the monotone repositories from the reference server">
+    <phingcall target="languages" />
+  </target>
+
+  <target name="pull_languages" description=": Pulls language branches from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${languages.repo}.db pull mt.xaraya.com 'com.xaraya.languages.*'"/>
+  </target>
+
+  <!-- 
+       Check out targets
+
+       Checks out the branches we give it.
+       Modules, themes and languagues are all treated separately.
+       In the end (will take quite a while, but only needs to be run once in the build environment
+       we will end up with all sources checked out needed for the builds
+  -->
+  <!-- Wrapper for the monotone command -->
+  <target name="mt_checkout">
+    <mkdir dir="${work.basedir}/${repo}"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
+  </target>
+  <target name="lang_checkout" if="lang.name">
+    <!-- Extract the branch from the locale specified -->
+    <php function="substr" returnProperty="lang.name">
+      <param value="${lang.name}"/>
+      <param value="0"/>
+      <param value="2"/>
+    </php>
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${languages.repo}"/>
+      <property name="branch" value="languages.${lang.name}"/>
+    </phingcall>
+  </target>
+
+  <!--
+      Update targets
+
+      Updates existing working directories to a certain revision
+      TODO: currently using head, but this begs to use revision from build properties obviously
+    -->
+  <target name="update" description=": Updates the working directories">
+    <phingcall target="updatelanguages" />
+  </target>
+
+  <target name="updatelanguages" description=": Updates the language working directories">
+    <echo message="Making sure our language working directories have the right base revision"/>
+    <foreach list="${languages.installer}" target="lang_update" param="lang.name"/>
+  </target>
+
+  <!-- Wrapper around the monotone command -->
+  <target name="mt_update">
+    <echo message="In: ${work.basedir}/${repo}/${branch} : ${monotone} update"/>
+    <exec dir="${work.basedir}/${repo}/${branch}" passthru="true" command="${monotone} update"/>
+  </target>
+  <target name="lang_update" if="lang.name">
+    <!-- Extract the language part from the locale -->
+    <php function="substr" returnProperty="lang.name">
+      <param value="${lang.name}"/>
+      <param value="0"/>
+      <param value="2"/>
+    </php>
+    <phingcall target="mt_update">
+      <property name="repo" value="${languages.repo}"/>
+      <property name="branch" value="languages.${lang.name}"/>
+    </phingcall>
+  </target>
+
+  <!-- set up build environment -->
+  <target name="setup" description=": Creates necessary directories">
+    <mkdir dir="${build.basedir.language}" />
+    <mkdir dir="${work.basedir}"/>
+    <mkdir dir="${work.basedir}/${repo}"/>      
+  </target>
+
+
+
+  <!-- single language -->
+  <target name="language" depends="pull_languages,getlanguage" description=": Creates build of named language">
+
+    <php function="strtolower" returnProperty="language">
+      <param value="${language}"/>
+    </php>
+
+    <property name="dest.dir" value="${build.basedir.languages}/${language}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+	<echo message=": Language: ${language.locale}" />
+
+	<phingcall target="copylanguagefromrepotoself">
+	  <property name="lang.name" value="${lang.name}"/>
+	</phingcall>
+
+    <phingcall target="createlanguagetarball">
+      <property name="tarball.name" value="language_${language}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createlanguagezipball">
+      <property name="zipball.name" value="language_${language}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- single module -->
+  <target name="onelanguage" depends="pull_languages" description=": Creates build of named language">
+    <!--
+        TODO: need a cert/tag/something in mtn to identify the revision set for a version number
+        in order to pull a changelog and include it.
+    -->
+
+    <php function="strtolower" returnProperty="lang.name">
+      <param value="${lang.name}"/>
+    </php>
+
+    <property name="dest.dir" value="${build.basedir.languages}/${lang.name}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <echo message=": Language: ${lang.name}" />
+
+    <phingcall target="copylanguagefromrepotoself">
+      <property name="lang.name" value="${lang.name}"/>
+    </phingcall>
+
+    <phingcall target="createlanguagetarball">
+      <property name="tarball.name" value="${lang.name}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createlanguagezipball">
+      <property name="zipball.name" value="${lang.name}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- copy a language into its own build -->
+  <target name="copylanguagefromrepotoself" if="lang.name">
+    <echo msg="Copying language ${lang.name} into language build..."/>
+    <copy todir="${build.basedir.languages}/${lang.name}-${build.date}">
+          <fileset dir="${work.basedir}/${languages.repo}/languages.${lang.name}/">
+            <include name="xml/*/installer/**"/>
+            <include name="xml/core/**"/>
+            <include name="locale.xml"/>
+            <exclude name="*MTN/**"/>
+            <exclude name=".mtn-ignore"/>
+            <exclude name="SCCS/**"/>
+            <exclude name="BitKeeper/**"/>
+            <exclude name="PENDING/**"/>
+            <exclude name=".DS_Store"/>
+          </fileset>
+    </copy>
+  </target>
+
+  <!-- Create a tarball from the current contents of the build tree -->
+  <target name="createlanguagetarball" if="tarball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir.languages}" command="tar -czf ${tarball.name} ${language}-${build.date}"/>
+  </target>
+  
+  <!-- Create a zipball from the current contents of the build tree -->
+  <target name="createlanguagezipball" if="zipball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir.languages}" command="zip -rq ${zipball.name} ${language}-${build.date}"/>
+  </target>
+  
+  <!-- Clean target, removes only the copied build tree -->
+  <target name="clean" description=": Cleans up the buildtree, but does not remove older builds">
+    <echo msg="Cleaning up languages buildtree..." />
+    <delete>
+      <fileset dir="${build.basedir.languages}" >
+        <include name="**" />
+        <exclude name="*.gz" />
+        <exclude name="*.zip" />
+      </fileset>
+    </delete>
+  </target>
+  
+  <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
+  <target name="realclean" depends="clean" description=": Removes the whole build structure except for the monotone databases">
+    <echo msg="Real clean..."/>
+    <delete dir="${build.basedir.languages}" />
+  </target>
+  
+  <!-- Rebuild target, depends on clean -->
+  <target name="rebuild" depends="clean" description=": Rebuilds all targets">
+    <echo msg="Starting new build..." />
+    <phingcall target="all" />
+  </target>
+  
+  <!--  Displays some help  -->
+  <target name="help" description=": Displays a brief help">
+    <echo message="Please call 'build -projecthelp' for details" />
+  </target>
+
+  <!-- Publish the files to somewhere -->
+  <target name="publish" description=": Publish what was generated to somewhere (scp for now)">
+    <echo>
+      We're going to copy, through scp, the files to another server here.
+      Since the files are pretty big, this can take a while. Be patient. 
+      We will ask you for a server, a username on that server and a 
+      directory where to 'scp' the generated files. Obviously you need 
+      permissions on the target server in the specified location.
+    </echo>
+    <input propertyName="publish.server" defaultvalue="xaraya.com">To what server should we copy the files?</input>
+    <input propertyName="publish.username">What is your username there?</input>
+    <input propertyName="publish.location">In which location should we copy those files?</input>
+    <exec passthru="true"  checkreturn="true" command="scp ${build.basedir}/xaraya-${version}-* ${publish.username}@${publish.server}:${publish.location}"/>
+  </target>
+  
+  <!-- Feed a subdir tree with empty index.html files -->
+  <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
+    <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
+    <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
+    <!-- Let's not do the html dir itself :-) -->
+    <delete file="${basedir}/index.html" />
+  </target>
+</project>

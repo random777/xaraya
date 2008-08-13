@@ -1,0 +1,584 @@
+<?xml version="1.0" ?>
+<!--
+    This is the xaraya modules buildfile. It builds anything needed building:
+    - single modules
+    - all modules
+    - named module packs listed in modules.properties
+    - custom module packs from user input
+    
+    This modules.xml file is a phing build file. The phing make system
+    is like ant, but then implemented in php. For xaraya we stubbed
+    the phing system into a bk custom command: bk build which has the 
+    same interface as the original phing. 
+    
+    TODO:
+    - sql files automatically so they are always in sync
+    - phpdoc documentation
+    - deb package generation
+    - rpm package generation
+    - get the dependencies straight.
+    - use recursive build files, so we can package modules by just inspecting the build.xml 
+    file for each module, instead of hardcoding the list in here (? would that work)
+    - use the zip and tar task from phing once their mem requirements are below 8M (which is php std. mem setting)
+    or at least independent of the number of files packaging
+    - make this run on all platforms
+    - do something clever with the release log
+    - extract the version automatically somehow
+    - make a publish target so we can copy the files automatically to somewhere
+    
+  -->
+<project name="xaraya" basedir="." default="help" >
+  <!-- The main property file -->
+  <property file="common.properties"/>
+  <!-- The modules property file -->
+  <property file="modules.properties"/>
+  
+  <!-- Build some properties based on the settings in the build.properties file -->
+  <!-- 
+       releaselog for modules depends on mtn usage which we don't do yet
+  <property name="releaselog" value="releaselog-${lastversion}-${version}.txt" />
+  -->
+  
+  <!-- get date formatted as yyyymmdd for pack filenames -->
+  <php function="date" returnProperty="builddate">
+    <param value="Ymd"/>
+  </php>
+  <property name="build.date" value="${builddate}"/>
+
+  <!-- We need something extra until phing 2 can be used, which is php 5 only -->
+  <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
+  
+  <target name="getmodule" depends="pull_modules,update_modules">
+    <input propertyname="mod.name">What module would you like to build? (branch name: com.xaraya.modules.[foo]</input>
+  </target>
+
+  <target name="getcustommodulepack">
+    <input propertyname="modpackname">What would you like to call this module pack? (no spaces or punctuation)</input>
+    <input propertyname="modpacklist">What modules are in this pack? (comma-separated list of module names)</input>
+  </target>
+
+  <!--  Main target that builds all modules  -->
+  <target name="all" depends="pull_modules,update_modules" description=": Creates all Xaraya modules">
+    <echo message="Copying files to build dir" />
+    <mkdir dir="${build.basedir.modules}/modules-all" />
+    
+    <!-- Build all modules -->
+    <foreach list="${modules.extra}" target="onemodule" param="module.name"/>
+
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="xaraya_modules-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="xaraya_modules-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+  </target>
+  
+  <!-- Checkout target, make sure we have working dirs, appropriate for building -->
+  <target name="checkout" description=": Makes sure a current checkout is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build modules"/>
+
+    <foreach list="${modules.extra}" target="mod_checkout" param="mod.name"/>
+  </target>
+
+  <target name="checkoutbasemodules" description=": Makes sure a current checkout of modules in base distro is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build modules from"/>
+    <mkdir dir="${work.basedir}"/>
+    <foreach list="${module_packs.base}" target="mod_checkout" param="mod.name"/>
+  </target>
+
+  <target name="checkoutfullmodules" description=": Makes sure a current checkout of modules in full distro is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build modules from"/>
+    <mkdir dir="${work.basedir}"/>
+    <foreach list="${module_packs.full}" target="mod_checkout" param="mod.name"/>
+  </target>
+
+  <!--
+      Pull targets
+
+      Pulls latest into the databases
+    -->
+  <target name="pull" description=": Pulls all the monotone repositories from the reference server">
+    <phingcall target="pull_modules" />
+  </target>
+
+  <target name="pull_modules" description=": Pulls module branches from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${modules.repo}.db pull mt.xaraya.com 'com.xaraya.modules.*'"/>
+  </target>
+
+  <!-- 
+       Check out targets
+
+       Checks out the branches we give it.
+       Modules, themes and languagues are all treated separately.
+       In the end (will take quite a while, but only needs to be run once in the build environment
+       we will end up with all sources checked out needed for the builds
+  -->
+  <!-- Wrapper for the monotone command -->
+  <target name="mt_checkout">
+    <mkdir dir="${work.basedir}/${repo}"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
+  </target>
+  <!-- Modules checkout -->
+  <target name="mod_checkout" if="mod.name">
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${modules.repo}"/>
+      <property name="branch" value="modules.${mod.name}"/>
+    </phingcall>
+  </target>
+
+  <!--
+      Update targets
+
+      Updates existing working directories to a certain revision
+      TODO: currently using head, but this begs to use revision from build properties obviously
+    -->
+  <target name="update" description=": Updates the working directories">
+    <phingcall target="update_modules" />
+  </target>
+
+  <target name="updatecore" description=": Updates the core working directories">
+    <echo message="Making sure our core working directories have the right base revision"/>
+    <phingcall target="mt_update">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="core" />
+    </phingcall>
+  </target>
+
+  <target name="update_modules" depends="pull_modules" description=": Updates the module working directories">
+    <echo message="Making sure our module working directories have the right base revision"/>
+    <foreach list="${modules.extra}" target="mod_update" param="mod.name"/>
+  </target>
+
+  <!-- Wrapper around the monotone command -->
+  <target name="mt_update">
+    <echo message="In: ${work.basedir}/${repo}/${branch} : ${monotone} update"/>
+    <exec dir="${work.basedir}/${repo}/${branch}" passthru="true" command="${monotone} update"/>
+  </target>
+  <target name="mod_update" if="mod.name">
+    <phingcall target="mt_update">
+      <property name="repo" value="${modules.repo}"/>
+      <property name="branch" value="modules.${mod.name}"/>
+    </phingcall>
+  </target>
+
+  <!-- set up build environment -->
+  <target name="setup" description=": Creates necessary directories">
+    <mkdir dir="${build.basedir.modules}" />
+    <mkdir dir="${build.basedir.module_packs}" />
+    <mkdir dir="${work.basedir}"/>
+    <mkdir dir="${work.basedir}/${repo}"/>
+  </target>
+
+
+
+  <!-- single module -->
+  <target name="module" depends="pull_modules,getmodule" description=": Creates build of named module">
+    <!-- 
+        TODO: need a cert/tag/something in mtn to identify the revision set for a version number
+        in order to pull a changelog and include it.
+    -->
+
+    <php function="strtolower" returnProperty="mod.name">
+      <param value="${mod.name}"/>
+    </php>
+
+    <property name="versionfile" value="${work.basedir}/${modules.repo}/modules.${mod.name}/xarversion.php"/>
+    <php function="exec" returnProperty="versionnum">
+	  <param value="grep '\bversion' ${versionfile} |grep -Eo '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+'"/>
+    </php>
+    <property name="dest.dir" value="${build.basedir.modules}/${mod.name}-${versionnum}" />
+    <mkdir dir="${dest.dir}" />
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+	<echo message=": Module: ${mod.name}, v ${versionnum}" />
+
+	<phingcall target="copymodulefromrepotoself">
+	  <property name="mod.name" value="${mod.name}"/>
+	</phingcall>
+
+    <phingcall target="createmoduletarball">
+      <property name="tarball.name" value="${mod.name}-${versionnum}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodulezipball">
+      <property name="zipball.name" value="${mod.name}-${versionnum}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- single module -->
+  <target name="onemodule" depends="pull_modules,update_modules" description=": Creates build of named module">
+    <!-- 
+        TODO: need a cert/tag/something in mtn to identify the revision set for a version number
+        in order to pull a changelog and include it.
+    -->
+
+    <php function="strtolower" returnProperty="mod.name">
+      <param value="${mod.name}"/>
+    </php>
+
+    <property name="versionfile" value="${work.basedir}/${modules.repo}/modules.${mod.name}/xarversion.php"/>
+    <php function="exec" returnProperty="versionnum">
+	  <param value="grep '\bversion' ${versionfile} |grep -Eo '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+'"/>
+    </php>
+    <property name="dest.dir" value="${build.basedir.modules}/${mod.name}-${versionnum}" />
+    <mkdir dir="${dest.dir}" />
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+	<echo message=": Module: ${mod.name}, v ${versionnum}" />
+
+	<phingcall target="copymodulefromrepotoself">
+	  <property name="mod.name" value="${mod.name}"/>
+	</phingcall>
+
+    <phingcall target="createmoduletarball">
+      <property name="tarball.name" value="${mod.name}-${versionnum}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodulezipball">
+      <property name="zipball.name" value="${mod.name}-${versionnum}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- predefined module packs -->
+  <target name="basemodulepack" depends="pull_modules,update_modules" description=": Creates module pack of what is included in base distro">
+    <!-- construct target directory -->
+    <property name="modpackname" value="base" />
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <foreach list="${module_packs.base}" target="copymodulefromrepotopack" param="module.name"/>
+
+	<echo message=": Modules: ${modpacklist}" />
+
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <target name="fullmodulepack" depends="pull_modules,update_modules" description=": Creates a module pack of what is included in full distro">
+    <!-- construct target directory -->
+    <property name="modpackname" value="full" />
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <foreach list="${module_packs.full}" target="copymodulefromrepotopack" param="module.name"/>
+
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <target name="authmodulepack" depends="pull_modules,update_modules" description=": Creates a module pack of all auth modules">
+    <!-- construct target directory -->
+    <property name="modpackname" value="auth" />
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <foreach list="${module_packs.auth}" target="copymodulefromrepotopack" param="module.name"/>
+
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <target name="blogmodulepack" depends="pull_modules,update_modules" description=": Creates a module pack of blogging-related modules">
+    <!-- construct target directory -->
+    <property name="modpackname" value="blog" />
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <foreach list="${module_packs.blog}" target="copymodulefromrepotopack" param="module.name"/>
+
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <target name="communitymodulepack" depends="pull_modules,update_modules" description=": Creates a module pack of community-related modules">
+    <!-- construct target directory -->
+    <property name="modpackname" value="community" />
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <foreach list="${module_packs.community}" target="copymodulefromrepotopack" param="module.name"/>
+
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <target name="paypalmodulepack" depends="pull_modules,update_modules" description=": Creates a module pack of paypal-related modules">
+    <!-- construct target directory -->
+    <property name="modpackname" value="paypal" />
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <foreach list="${module_packs.paypal}" target="copymodulefromrepotopack" param="module.name"/>
+
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <target name="xmlrpcmodulepack" depends="pull_modules,update_modules" description=": Creates a module pack of xmlrpc modules">
+    <!-- construct target directory -->
+    <property name="modpackname" value="xmlrpc" />
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <foreach list="${module_packs.xmlrpc}" target="copymodulefromrepotopack" param="module.name"/>
+
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- Custom module pack -->
+  <target name="custommodulepack" depends="pull_modules,update_modules,getcustommodulepack" description=": Creates a custom module pack">
+    <!-- construct target directory -->
+    <property name="dest.dir" value="${build.basedir.module_packs}/${modpackname}-${build.date}" />
+    <mkdir dir="${dest.dir}" />
+
+    <php function="strtolower" returnProperty="modpackname">
+      <param value="${modpackname}"/>
+    </php>
+    <php function="strtolower" returnProperty="modpacklist">
+      <param value="${modpacklist}"/>
+    </php>
+
+    <foreach list="${modpacklist}" target="copymodulefromrepotopack" param="module.name"/>
+
+	<echo message=": Modules: ${modpacklist}" />
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpacktarball">
+      <property name="tarball.name" value="${modpackname}-${build.date}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodpackzipball">
+      <property name="zipball.name" value="${modpackname}-${build.date}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- copy a module into its own build -->
+  <target name="copymodulefromrepotoself" if="mod.name">
+    <echo msg="Copying module ${mod.name} into module build..."/>
+    <copy todir="${build.basedir.modules}/${mod.name}-${versionnum}">
+      <fileset dir="${work.basedir}/${modules.repo}/modules.${mod.name}">
+        <include name="**"/>
+        <exclude name="*MTN/**"/>
+        <exclude name=".mtn-ignore"/>
+        <exclude name="SCCS/**"/>
+        <exclude name="BitKeeper/**"/>
+        <exclude name="PENDING/**"/>
+        <exclude name=".DS_Store"/>
+        <exclude name=".mt-attrs"/>
+        <exclude name="tmp.*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- copy a module into modulepack -->
+  <target name="copymodulefromrepotopack" if="module.name">
+    <echo msg="Copying module ${module.name} into module pack..."/>
+    <copy todir="${build.basedir.module_packs}/${modpackname}-${build.date}/${module.name}">
+      <fileset dir="${work.basedir}/${modules.repo}/modules.${module.name}">
+        <include name="**"/>
+        <exclude name="*MTN/**"/>
+        <exclude name=".mtn-ignore"/>
+        <exclude name="SCCS/**"/>
+        <exclude name="BitKeeper/**"/>
+        <exclude name="PENDING/**"/>
+        <exclude name=".DS_Store"/>
+        <exclude name=".mt-attrs"/>
+        <exclude name="tmp.*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="createtarball" if="tarball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir.modules}" command="tar -czf ${tarball.name} modules-all"/>
+  </target>
+  
+  <target name="createmodpacktarball" if="tarball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir.module_packs}" command="tar -czf ${tarball.name} ${modpackname}-${build.date}"/>
+  </target>
+  
+  <target name="createmoduletarball" if="tarball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir.modules}" command="tar -czf ${tarball.name} ${mod.name}-${versionnum}"/>
+  </target>
+  
+  <!-- Create a zipball from the current contents of the build tree -->
+  <target name="createzipball" if="zipball.name">
+    <echo msg="Creating zip archive ${zipball.name}"/>
+    <exec dir="${build.basedir.modules}" command="zip -rq ${zipball.name} modules-all"/>
+  </target>
+  
+  <target name="createmodpackzipball" if="zipball.name">
+    <echo msg="Creating tar archive ${zipball.name}"/>
+    <exec dir="${build.basedir.module_packs}" command="zip -rq ${zipball.name} ${modpackname}-${build.date}"/>
+  </target>
+  
+  <target name="createmodulezipball" if="zipball.name">
+    <echo msg="Creating tar archive ${zipball.name}"/>
+    <exec dir="${build.basedir.modules}" command="zip -rq ${zipball.name} ${mod.name}-${versionnum}"/>
+  </target>
+  
+  <!-- Clean target, removes only the copied module directories -->
+  <target name="clean" description=": Cleans up the module build environment, but does not remove older builds">
+    <echo msg="Cleaning up module buildtree..." />
+    <delete>
+      <fileset dir="${build.basedir.modules}">
+        <include name="**" />
+        <exclude name="*.gz" />
+        <exclude name="*.zip" />
+      </fileset>
+    </delete>
+  </target>
+  
+  <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
+  <target name="realclean" depends="clean" description=": Removes the whole build structure except for the monotone databases">
+    <echo msg="Real clean..."/>
+    <delete dir="${build.basedir.modules}" />
+  </target>
+  
+  <!-- Rebuild target, depends on clean -->
+  <target name="rebuild" depends="clean" description=": Rebuilds all targets">
+    <echo msg="Starting new build..." />
+    <phingcall target="all" />
+  </target>
+  
+  <!--  Displays some help  -->
+  <target name="help" description=": Displays a brief help">
+    <echo message="Please call 'build -projecthelp' for details" />
+  </target>
+
+  <!-- Publish the files to somewhere -->
+  <target name="publish" description=": Publish what was generated to somewhere (scp for now)">
+    <echo>
+      We're going to copy, through scp, the files to another server here.
+      Since the files are pretty big, this can take a while. Be patient. 
+      We will ask you for a server, a username on that server and a 
+      directory where to 'scp' the generated files. Obviously you need 
+      permissions on the target server in the specified location.
+    </echo>
+    <input propertyName="publish.server" defaultvalue="xaraya.com">To what server should we copy the files?</input>
+    <input propertyName="publish.username">What is your username there?</input>
+    <input propertyName="publish.location">In which location should we copy those files?</input>
+    <exec passthru="true"  checkreturn="true" command="scp ${build.basedir.modules}/*.* ${publish.username}@${publish.server}:${publish.location}"/>
+  </target>
+  
+  <!-- Feed a subdir tree with empty index.html files -->
+  <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
+    <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
+    <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
+    <!-- Let's not do the html dir itself :-) -->
+    <delete file="${basedir}/index.html" />
+  </target>
+</project>

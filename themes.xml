@@ -1,0 +1,293 @@
+<?xml version="1.0" ?>
+<!--
+    This is the xaraya themes buildfile. It builds anything needed building:
+    - single themes
+    - all themes
+    
+    This themes.xml file is a phing build file. The phing make system
+    is like ant, but then implemented in php. For xaraya we stubbed
+    the phing system into a bk custom command: bk build which has the 
+    same interface as the original phing. 
+    
+    TODO:
+    - sql files automatically so they are always in sync
+    - phpdoc documentation
+    - deb package generation
+    - rpm package generation
+    - get the dependencies straight.
+    - use recursive build files, so we can package modules by just inspecting the build.xml 
+    file for each module, instead of hardcoding the list in here (? would that work)
+    - use the zip and tar task from phing once their mem requirements are below 8M (which is php std. mem setting)
+    or at least independent of the number of files packaging
+    - make this run on all platforms
+    - do something clever with the release log
+    - extract the version automatically somehow
+    - make a publish target so we can copy the files automatically to somewhere
+    
+  -->
+<project name="xaraya" basedir="." default="help" >
+  <!-- The main property file -->
+  <property file="common.properties"/>
+  <!-- The themes property file -->
+  <property file="themes.properties"/>
+  
+  <!--
+       releaselog for themes depends on mtn usage which we don't do yet
+  <property name="releaselog" value="releaselog-${lastversion}-${version}.txt" />
+  -->
+  
+  <!-- get date formatted as yyyymmdd for pack filenames -->
+  <php function="date" returnProperty="builddate">
+    <param value="Ymd"/>
+  </php>
+  <property name="build.date" value="${builddate}"/>
+
+  <!-- We need something extra until phing 2 can be used, which is php 5 only -->
+  <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
+  
+  <target name="gettheme">
+    <input propertyname="theme.name">What theme would you like to build?</input>
+  </target>
+
+  <!--  Main target that builds all themes  -->
+  <target name="all" description=": Creates all Xaraya themes">
+    <echo message="Copying files to build dir" />
+    <mkdir dir="${build.basedir.themes}" />
+    
+    <!-- Build all themes -->
+    <foreach list="${themes.all}" target="onetheme" param="theme.name"/>
+  </target>
+  
+  <!-- Checkout target, make sure we have working dirs, appropriate for building -->
+  <target name="checkout" description=": Makes sure a current checkout is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build themes from"/>
+
+    <foreach list="${themes.all}" target="theme_checkout" param="theme.name"/>
+  </target>
+
+  <!--
+      Pull targets
+
+      Pulls latest into the databases
+    -->
+  <target name="pull" description=": Pulls all the monotone repositories from the reference server">
+    <phingcall target="qatests" />
+    <phingcall target="themes" />
+  </target>
+
+  <target name="pull_themes" description=": Pulls themes branches from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${themes.repo}.db pull mt.xaraya.com 'com.xaraya.themes.*'"/>
+  </target>
+
+  <!-- 
+       Check out targets
+
+       Checks out the branches we give it.
+       Modules, themes and languagues are all treated separately.
+       In the end (will take quite a while, but only needs to be run once in the build environment
+       we will end up with all sources checked out needed for the builds
+  -->
+  <!-- Wrapper for the monotone command -->
+  <target name="mt_checkout">
+    <mkdir dir="${work.basedir}/${repo}"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
+  </target>
+  <!-- Modules checkout -->
+  <target name="theme_checkout" if="theme.name">
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${themes.repo}"/>
+      <property name="branch" value="themes.${theme.name}"/>
+    </phingcall>
+  </target>
+
+  <!--
+      Update targets
+
+      Updates existing working directories to a certain revision
+      TODO: currently using head, but this begs to use revision from build properties obviously
+    -->
+  <target name="update" description=": Updates the working directories">
+    <phingcall target="updatethemes" />
+  </target>
+
+  <target name="updatethemes" description=": Updates the theme working directories">
+    <echo message="Making sure our theme working directories have the right base revision"/>
+    <foreach list="${themes.full}" target="theme_update" param="theme.name"/>
+  </target>
+
+  <!-- Wrapper around the monotone command -->
+  <target name="mt_update">
+    <echo message="In: ${work.basedir}/${repo}/${branch} : ${monotone} update"/>
+    <exec dir="${work.basedir}/${repo}/${branch}" passthru="true" command="${monotone} update"/>
+  </target>
+  <target name="theme_update" if="theme.name">
+    <phingcall target="mt_update">
+      <property name="repo" value="${themes.repo}"/>
+      <property name="branch" value="themes.${theme.name}"/>
+    </phingcall>
+  </target>
+
+  <!-- set up build environment -->
+  <target name="setup" description=": Creates necessary directories">
+    <mkdir dir="${build.basedir.themes}" />
+    <mkdir dir="${work.basedir}"/>
+    <mkdir dir="${work.basedir}/${repo}"/>
+  </target>
+
+  <!-- single theme -->
+  <target name="theme" depends="pull_themes,gettheme" description=": Creates build of named theme">
+    <!-- 
+        TODO: need a cert/tag/something in mtn to identify the revision set for a version number
+        in order to pull a changelog and include it.
+    -->
+    <property name="versionfile" value="${work.basedir}/${themes.repo}/themes.${theme.name}/xartheme.php"/>
+    <php function="exec" returnProperty="versionnum">
+	  <param value="grep '\bversion' ${versionfile} |grep -Eo '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+'"/>
+    </php>
+    <property name="dest.dir" value="${build.basedir.themes}/${theme.name}-${versionnum}" />
+    <mkdir dir="${dest.dir}" />
+
+    <php function="strtolower" returnProperty="theme.name">
+      <param value="${theme.name}"/>
+    </php>
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+	<echo message=": Theme: ${theme.name}, v ${versionnum}" />
+
+	<phingcall target="copythemefromrepotoself">
+	  <property name="theme.name" value="${theme.name}"/>
+	</phingcall>
+
+    <phingcall target="createthemetarball">
+      <property name="tarball.name" value="${theme.name}-${versionnum}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createthemezipball">
+      <property name="zipball.name" value="${theme.name}-${versionnum}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- single module -->
+  <target name="onetheme" depends="pull_themes" description=": Creates build of named theme">
+    <!--
+        TODO: need a cert/tag/something in mtn to identify the revision set for a version number
+        in order to pull a changelog and include it.
+    -->
+
+    <php function="strtolower" returnProperty="theme.name">
+      <param value="${theme.name}"/>
+    </php>
+
+    <property name="versionfile" value="${work.basedir}/${themes.repo}/themes.${theme.name}/xartheme.php"/>
+    <php function="exec" returnProperty="versionnum">
+      <param value="grep '\bversion' ${versionfile} |grep -Eo '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+'"/>
+    </php>
+    <property name="dest.dir" value="${build.basedir.themes}/${theme.name}-${versionnum}" />
+    <mkdir dir="${dest.dir}" />
+
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${dest.dir}"/>
+    </phingcall>
+
+    <echo message=": Theme: ${theme.name}, v ${versionnum}" />
+
+    <phingcall target="copythemefromrepotoself">
+      <property name="theme.name" value="${theme.name}"/>
+    </phingcall>
+
+    <phingcall target="createthemetarball">
+      <property name="tarball.name" value="${theme.name}-${versionnum}.tar.gz"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createthemezipball">
+      <property name="zipball.name" value="${theme.name}-${versionnum}.zip"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
+  <!-- copy a theme into its own build -->
+  <target name="copythemefromrepotoself" if="theme.name">
+    <echo msg="Copying theme ${theme.name} into theme build..."/>
+    <copy todir="${build.basedir.themes}/${theme.name}-${versionnum}">
+        <fileset dir="${work.basedir}/${themes.repo}/themes.${theme.name}">
+          <include name="**"/>
+          <exclude name="*MTN/**"/>
+          <exclude name=".mtn-ignore"/>
+          <exclude name="SCCS/**"/>
+          <exclude name="BitKeeper/**"/>
+          <exclude name="PENDING/**"/>
+          <exclude name=".DS_Store"/>
+          <exclude name=".mt-attrs"/>
+          <exclude name="tmp.*"/>
+        </fileset>
+    </copy>
+  </target>
+
+  <target name="createthemetarball" if="tarball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir.themes}" command="tar -czf ${tarball.name} ${theme.name}-${versionnum}"/>
+  </target>
+
+  <target name="createthemezipball" if="zipball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir.themes}" command="zip -rq ${zipball.name} ${theme.name}-${versionnum}"/>
+  </target>
+  
+  <!-- Clean target, removes only the copied build tree -->
+  <target name="clean" description=": Cleans up the module build environment, but does not remove older builds">
+    <echo msg="Cleaning up themes buildtree..." />
+    <delete>
+      <fileset dir="${build.basedir.themes}" >
+        <include name="**" />
+        <exclude name="*.gz" />
+        <exclude name="*.zip" />
+      </fileset>
+    </delete>
+  </target>
+  
+  <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
+  <target name="realclean" depends="clean" description=": Removes the whole build structure except for the monotone databases">
+    <echo msg="Real clean..."/>
+    <delete dir="${build.basedir.themes}" />
+  </target>
+  
+  <!-- Rebuild target, depends on clean -->
+  <target name="rebuild" depends="clean" description=": Rebuilds all targets">
+    <echo msg="Starting new build..." />
+    <phingcall target="all" />
+  </target>
+  
+  <!--  Displays some help  -->
+  <target name="help" description=": Displays a brief help">
+    <echo message="Please call 'build -projecthelp' for details" />
+  </target>
+
+  <!-- Publish the files to somewhere -->
+  <target name="publish" description=": Publish what was generated to somewhere (scp for now)">
+    <echo>
+      We're going to copy, through scp, the files to another server here.
+      Since the files are pretty big, this can take a while. Be patient. 
+      We will ask you for a server, a username on that server and a 
+      directory where to 'scp' the generated files. Obviously you need 
+      permissions on the target server in the specified location.
+    </echo>
+    <input propertyName="publish.server" defaultvalue="xaraya.com">To what server should we copy the files?</input>
+    <input propertyName="publish.username">What is your username there?</input>
+    <input propertyName="publish.location">In which location should we copy those files?</input>
+    <exec passthru="true"  checkreturn="true" command="scp ${build.basedir}/xaraya-${version}-* ${publish.username}@${publish.server}:${publish.location}"/>
+  </target>
+  
+  <!-- Feed a subdir tree with empty index.html files -->
+  <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
+    <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
+    <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
+    <!-- Let's not do the html dir itself :-) -->
+    <delete file="${basedir}/index.html" />
+  </target>
+</project>

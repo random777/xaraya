@@ -1,0 +1,613 @@
+<?xml version="1.0" ?>
+<!--
+    This is the xaraya core buildfile. It builds anything needed building:
+    - the tarballs
+    - release files
+    - documentation
+    
+    This core.xml file is a phing build file. The phing make system
+    is like ant, but then implemented in php. For xaraya we stubbed
+    the phing system into a bk custom command: bk build which has the 
+    same interface as the original phing. 
+    
+    TODO:
+    - sql files automatically so they are always in sync
+    - phpdoc documentation
+    - deb package generation
+    - rpm package generation
+    - get the dependencies straight.
+    - use recursive build files, so we can package modules by just inspecting the build.xml 
+    file for each module, instead of hardcoding the list in here (? would that work)
+    - use the zip and tar task from phing once their mem requirements are below 8M (which is php std. mem setting)
+    or at least independent of the number of files packaging
+    - make this run on all platforms
+    - do something clever with the release log
+    - extract the version automatically somehow
+    - make a publish target so we can copy the files automatically to somewhere
+    
+  -->
+<project name="xaraya" basedir="." default="help" >
+  <!-- The main property file -->
+  <property file="common.properties"/>
+  <!-- The core property file -->
+  <property file="core.properties"/>
+  <!-- The modules property file -->
+  <property file="modules.properties"/>
+  
+  <!-- Build some properties based on the settings in the properties files -->
+  <property name="releaselog" value="releaselog-${lastversion}-${version}.txt" />
+  <property name="final.name" value="${phing.project.name}-${version}" />
+  
+  <!-- source tree properties -->
+  <property name="html.dir" value="${work.basedir}/${core.repo}/${core.repo}/html" />
+  <property name="docs.dir" value="${work.basedir}/${core.repo}/documentation" />
+  <property name="tools.dir" value="${work.basedir}/${core.repo}/${core.repo}/tools" />
+  
+  <!-- build tree properties -->
+  <property name="build.dir" value="${build.basedir}/${final.name}"/>
+  <property name="build.docs" value="${build.dir}/docs"/>
+  <property name="build.sql" value="${build.dir}/sql" />
+  <property name="build.tools" value="${build.dir}/tools"/>
+  <property name="build.html" value="${build.dir}/html"/>
+  <property name="build.modules" value="${build.html}/modules"/>
+  <property name="build.themes" value="${build.html}/themes"/>
+
+  <!-- We need something extra until phing 2 can be used, which is php 5 only -->
+  <taskdef classname="user.tasks.PhpEvalTask" name="php"/>
+  
+  <target name="getversion">
+    <input propertyname="lastversion">What is the previous version? (used for release notes)</input>
+    <input propertyname="version">What version are you building now?</input>
+  </target>
+
+  <!--  Main target that runs the build  -->
+  <target name="all" depends="setup" description=": Creates all distributions of Xaraya">
+    <echo message="Copying files to build dir" />
+    
+    <!-- Build all distributions -->
+    <phingcall target="coredist" />
+    <phingcall target="basedist" />
+    <phingcall target="fulldist" />
+  </target>
+  
+  <!-- Checkout target, make sure we have working dirs, appropriate for building -->
+  <target name="checkout" depends="setup" description=": Makes sure a current checkout is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build from"/>
+    <!-- Checkout of core -->
+    <phingcall target="checkoutcore" />
+
+    <!-- Checkout of documentation -->
+    <phingcall target="checkoutdocs" />
+
+    <!-- Modules, Themes and languages -->
+    <phingcall target="checkoutbasemodules" />
+    <phingcall target="checkoutfullmodules" />
+    <phingcall target="checkoutthemes" />
+    <phingcall target="checkoutlanguages" />
+  </target>
+
+  <target name="checkoutcore" description=": Makes sure a current checkout of the core is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build the core from"/>
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="core"/>
+    </phingcall>
+  </target>
+
+  <target name="checkoutdocs" description=": Makes sure a current checkout of the documentation is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build documentation from"/>
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="documentation"/>
+    </phingcall>
+  </target>
+
+  <target name="checkoutbasemodules" description=": Makes sure a current checkout of modules in base distro is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build base modules from"/>
+    <foreach list="${module_packs.base}" target="mod_checkout" param="mod.name"/>
+  </target>
+
+  <target name="checkoutfullmodules" description=": Makes sure a current checkout of modules in full distro is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build full modules from"/>
+    <foreach list="${module_packs.full}" target="mod_checkout" param="mod.name"/>
+  </target>
+
+  <target name="checkoutthemes" description=": Makes sure a current checkout of themes is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build themes from"/>
+    <foreach list="${themes.full}" target="theme_checkout" param="theme.name"/>
+  </target>
+
+  <target name="checkoutlanguages" description=": Makes sure a current checkout of languages is available (normally only needed once)">
+    <echo message="Making sure we have a source environment to build from"/>
+    <foreach list="${languages.installer}" target="lang_checkout" param="lang.locale"/>
+  </target>
+
+  <!--
+      Pull targets
+
+      Pulls latest into the databases
+    -->
+  <target name="pull" description=": Pulls all the monotone repositories from the reference server">
+    <phingcall target="pull_build" />
+    <phingcall target="pull_qatests" />
+    <phingcall target="pull_docs" />
+    <phingcall target="pull_core" />
+    <phingcall target="pull_modules" />
+    <phingcall target="pull_themes" />
+    <phingcall target="pull_languages" />
+  </target>
+
+  <target name="pull_build" description=": Pulls build branch from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.build'"/>
+  </target>
+  <target name="pull_qatests" depends="pull_build" description=": Pulls qa.tests branch from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.qa.tests'"/>
+  </target>
+  <target name="pull_docs" depends="pull_build" description=": Pulls documentation branch from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.documentation'"/>
+  </target>
+  <target name="pull_core" depends="pull_build,pull_docs,pull_qatests" description=": Pulls core branches from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${core.repo}.db pull mt.xaraya.com 'com.xaraya.core*'"/>
+  </target>
+  <target name="pull_modules" depends="pull_build,pull_qatests" description=": Pulls module branches from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${modules.repo}.db pull mt.xaraya.com 'com.xaraya.modules.*'"/>
+  </target>
+  <target name="pull_themes" depends="pull_build,pull_qatests" description=": Pulls themes branches from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${themes.repo}.db pull mt.xaraya.com 'com.xaraya.themes.*'"/>
+  </target>
+  <target name="pull_languages" depends="pull_build,pull_qatests" description=": Pulls language branches from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${languages.repo}.db pull mt.xaraya.com 'com.xaraya.languages.*'"/>
+  </target>
+
+  <!-- 
+       Check out targets
+
+       Checks out the branches we give it.
+       Modules, themes and languagues are all treated separately.
+       In the end (will take quite a while, but only needs to be run once in the build environment
+       we will end up with all sources checked out needed for the builds
+  -->
+  <!-- Wrapper for the monotone command -->
+  <target name="mt_checkout">
+    <mkdir dir="${work.basedir}/${repo}"/>
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${repo}.db co -b ${branch.prefix}.${branch} ${repo}/${branch}"/>
+  </target>
+  <!-- Modules checkout -->
+  <target name="mod_checkout" if="mod.name">
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${modules.repo}"/>
+      <property name="branch" value="modules.${mod.name}"/>
+    </phingcall>
+  </target>
+  <!-- Themes checkout -->
+  <target name="theme_checkout" if="theme.name">
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${themes.repo}"/>
+      <property name="branch" value="themes.${theme.name}"/>
+    </phingcall>
+  </target>
+  <target name="lang_checkout" if="lang.locale">
+    <!-- Extract the branch from the locale specified -->
+    <php function="substr" returnProperty="language">
+      <param value="${lang.locale}"/>
+      <param value="0"/>
+      <param value="2"/>
+    </php>
+    <phingcall target="mt_checkout">
+      <property name="repo" value="${languages.repo}"/>
+      <property name="branch" value="languages.${language}"/>
+    </phingcall>
+  </target>
+
+  <!--
+      Update targets
+
+      Updates existing working directories to a certain revision
+      TODO: currently using head, but this begs to use revision from build properties obviously
+    -->
+  <target name="update" description=": Updates the working directories">
+    <phingcall target="updatecore" />
+    <phingcall target="updatedocs" />
+    <phingcall target="updatemodules" />
+    <phingcall target="updatethemes" />
+    <phingcall target="updatelanguages" />
+  </target>
+
+  <target name="updatecore" description=": Updates the core working directories">
+    <echo message="Making sure our core working directories have the right base revision"/>
+    <phingcall target="mt_update">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="core" />
+    </phingcall>
+  </target>
+
+  <target name="updatedocs" description=": Updates the documentation working directory">
+    <echo message="Making sure our working directories have the right base revision"/>
+    <phingcall target="mt_update">
+      <property name="repo" value="${core.repo}"/>
+      <property name="branch" value="documentation" />
+    </phingcall>
+  </target>
+
+  <target name="updatemodules" description=": Updates the module working directories">
+    <echo message="Making sure our module working directories have the right base revision"/>
+    <foreach list="${module_packs.full}" target="mod_update" param="mod.name"/>
+  </target>
+
+  <target name="updatethemes" description=": Updates the theme working directories">
+    <echo message="Making sure our theme working directories have the right base revision"/>
+    <foreach list="${themes.full}" target="theme_update" param="theme.name"/>
+  </target>
+
+  <target name="updatelanguages" description=": Updates the language working directories">
+    <echo message="Making sure our language working directories have the right base revision"/>
+    <foreach list="${languages.installer}" target="lang_update" param="lang.locale"/>
+  </target>
+
+  <!-- Wrapper around the monotone command -->
+  <target name="mt_update">
+    <echo message="In: ${work.basedir}/${repo}/${branch} : ${monotone} update"/>
+    <exec dir="${work.basedir}/${repo}/${branch}" passthru="true" command="${monotone} update"/>
+  </target>
+  <target name="mod_update" if="mod.name">
+    <phingcall target="mt_update">
+      <property name="repo" value="${modules.repo}"/>
+      <property name="branch" value="modules.${mod.name}"/>
+    </phingcall>
+  </target>
+  <target name="theme_update" if="theme.name">
+    <phingcall target="mt_update">
+      <property name="repo" value="${themes.repo}"/>
+      <property name="branch" value="themes.${theme.name}"/>
+    </phingcall>
+  </target>
+  <target name="lang_update" if="lang.locale">
+    <!-- Extract the language part from the locale -->
+    <php function="substr" returnProperty="language">
+      <param value="${lang.locale}"/>
+      <param value="0"/>
+      <param value="2"/>
+    </php>
+    <phingcall target="mt_update">
+      <property name="repo" value="${languages.repo}"/>
+      <property name="branch" value="languages.${language}"/>
+    </phingcall>
+  </target>
+
+  <!-- set up build environment -->
+  <target name="setup" description=": Creates necessary directories">
+    <mkdir dir="${build.basedir}" />
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${build.docs}" />
+    <mkdir dir="${build.sql}" />
+    <mkdir dir="${build.tools}" />
+    <mkdir dir="${build.html}" />
+    <mkdir dir="${build.html}/var/cache/adodb"/>
+    <mkdir dir="${build.html}/var/cache/rss"/>
+    <mkdir dir="${build.html}/var/cache/templates"/>
+    <mkdir dir="${build.modules}" />
+    <mkdir dir="${build.themes}" />
+    <mkdir dir="${work.basedir}" />
+    <mkdir dir="${docs.dir}" />
+  </target>
+
+  <!-- Core distribution -->
+  <target name="coredist" depends="commonfiles,languages" description=": Creates the core distribution">
+    <!-- The common files actually does too much, it includes all config files, remove the invalid ones for core -->
+    <!-- TODO: this is lame, do it different -->
+    <delete>
+      <fileset dir="${build.html}/modules/installer/xarconfigurations">
+        <include name="*.conf.php"/>
+        <exclude name="core.conf.php"/>
+      </fileset>
+    </delete>
+    
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.html}"/>
+    </phingcall>
+        
+    <!--- here we can make the core distribution -->
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-core.tar.gz"/>
+    </phingcall>
+    
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-core.zip"/>
+    </phingcall>
+  </target>
+  
+  <!-- Base distribution -->
+  <target name="basedist" depends="commonfiles,languages,basemodules" description=": Creates the base distribution">
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.html}"/>
+    </phingcall>
+    
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-base.tar.gz"/>
+    </phingcall>
+    
+    <phingcall target="createzipball">
+    </phingcall>
+  </target> 
+
+  <!-- Full distribution -->
+  <target name="fulldist" depends="commonfiles,languages,basemodules,fullmodules,fullthemes" description=": Creates the full distribution">
+    <!-- Produce empty html files in every folder below html, but dont change if already there -->
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.html}"/>
+    </phingcall>
+    
+    <phingcall target="createtarball">
+      <property name="tarball.name" value="${final.name}-full.tar.gz"/>
+    </phingcall>
+    
+    <phingcall target="createzipball">
+      <property name="zipball.name" value="${final.name}-full.zip"/>
+    </phingcall>
+  </target> 
+
+  <!-- xmdg new style -->
+  <target name="xmdg">
+    <echo message="In: ${docs.dir}/xmdg : making"/>
+    <exec dir="${docs.dir}/xmdg" passthru="true" checkreturn="true" command="make pdf"/>
+    <exec dir="${docs.dir}/xmdg" passthru="true" checkreturn="true" command="make html"/>
+  </target>
+  
+  <!-- Common contents for each distribution -->
+  <target name="commonfiles" depends="getversion,setup,checkout">
+    <!-- Copy the usual suspects for GPL alike projects -->
+    <copy todir="${build.docs}">
+      <fileset dir="${docs.dir}">
+        <include name="CREDITS.txt" />
+        <include name="INSTALL.txt" />
+        <include name="UPGRADE.txt" />
+        <include name="LICENSE.txt" />
+        <include name="${releaselog}" />
+      </fileset>
+    </copy>
+    <copy todir="${build.docs}">
+      <fileset dir="${docs.dir}/relnotes">
+        <include name="${releaselog}"/>
+      </fileset>
+    </copy>
+ 
+    <!-- Process docs directory -->
+    <copy todir="${build.docs}">
+      <fileset dir="${docs.dir}/xarayaguide" >
+        <include name="xarayaguide.txt"/>
+        <include name="xarayaguide.pdf"/>
+        <exclude name="*MTN/**" />
+        <exclude name=".mtn-ignore"/>
+        <exclude name=".DS_Store"/>
+      </fileset>
+      <fileset dir="${docs.dir}/xmdg" >
+        <include name="xmdg.pdf"/>
+        <include name="xmdg.html"/>
+        <include name="xardevguide.pdf"/>
+        <include name="xardevguide.html"/>
+        <exclude name="*MTN/**"/>
+        <exclude name=".mtn-ignore"/>                
+        <exclude name=".DS_Store"/>
+      </fileset>
+    </copy>
+    
+    <!-- Proces tools directory -->
+    <copy todir="${build.tools}">
+      <fileset dir="${tools.dir}">
+        <include name="import/**"/>
+        <include name="modwizard/**"/>
+        <exclude name="*MTN/**"/>
+        <exclude name=".mtn-ignore" />                
+        <exclude name=".DS_Store"/>
+      </fileset>
+    </copy>
+
+    <!-- Process html directory -->
+    <copy todir="${build.html}" >
+      <fileset dir="${html.dir}">
+        <!-- Core files -->
+        <include name="includes/**"/>
+        <exclude name="includes/xml/**"/>
+        <exclude name="includes/xartests/**"/>
+
+        <!-- Core modules -->
+        <include name="modules/**"/>
+
+        <!-- Themes -->
+        <include name="themes/print/**"/>
+        <include name="themes/rss/**"/>
+        <include name="themes/Xaraya_Classic/**"/>
+        <include name="themes/index.html"/>
+
+        <!-- Necessary files from var -->
+        <include name="var/index.html"/>
+        <include name="var/**/index.html"/>
+        <include name="var/rsd.xml"/>
+        <include name="var/messaging/**/*.xd" />
+        <include name="var/example.key.php" />
+        <include name="var/cache/**"/>
+
+        <include name="var/locales/en_US.iso-8859-1/**"/>
+        <include name="var/locales/en_US.utf-8/**"/>
+
+        <include name="xaradodb/**"/>
+
+        <include name="index.php"/>
+        <include name="ws.php"/>
+        <include name="install.php"/>
+        <include name="upgrade.php"/>
+        <include name="val.php"/>
+
+        <exclude name="SCCS/**"/>
+        <exclude name=".DS_Store"/>
+      </fileset>
+    </copy>
+    
+    <!-- Copy config.system.php.dist to config.system.php -->
+    <copy file="${html.dir}/var/config.system.php.dist" tofile="${build.html}/var/config.system.php"/>
+  </target>
+
+  <!-- Installer languages target -->
+  <target name="languages" depends="commonfiles">
+    <foreach list="${languages.installer}" target="copylanguage" param="language.locale"/>
+  </target>  
+  
+  <!-- process the list of modules for base distro -->
+  <target name="basemodules">
+    <foreach list="${module_packs.base}" target="copymodulefrommodrepo" param="module.name"/>
+  </target>
+  
+  <!-- process the list of modules for full distro -->
+  <target name="fullmodules">
+    <foreach list="${module_packs.full}" target="copymodulefrommodrepo" param="module.name"/>
+  </target>
+  
+  <!-- process the list of themes for full distro -->
+  <target name="fullthemes">
+    <foreach list="${themes.full}" target="copythemefromthemerepo" param="theme.name"/>
+  </target>
+  
+  <!-- copy a module into the build tree -->
+  <target name="copymodulefrommodrepo" if="module.name">
+    <echo msg="Copying module ${module.name} into build tree..."/>
+    <copy todir="${build.html}/modules/${module.name}">
+      <fileset dir="${work.basedir}/${modules.repo}/modules.${module.name}">
+        <include name="**"/>
+        <exclude name="*MTN/**"/>
+        <exclude name=".mtn-ignore"/>
+        <exclude name="SCCS/**"/>
+        <exclude name="BitKeeper/**"/>
+        <exclude name="PENDING/**"/>
+        <exclude name=".DS_Store"/>
+        <exclude name=".mt-attrs"/>
+        <exclude name="tmp.*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- copy a theme into the build tree -->
+  <target name="copythemefromthemerepo">
+    <if>
+      <isset property="theme.name"/>
+      <and>
+        <isset property="dest.path"/>
+      </and>
+      <then>
+        <echo msg="Copying theme ${theme.name} into ${dest.path} ..."/>
+        <copy todir="${dest.path}">
+          <fileset dir="${work.basedir}/${themes.repo}/themes.${theme.name}">
+            <include name="**"/>
+            <exclude name="*MTN/**"/>
+            <exclude name=".mtn-ignore"/>
+            <exclude name="SCCS/**"/>
+            <exclude name="BitKeeper/**"/>
+            <exclude name="PENDING/**"/>
+            <exclude name=".DS_Store"/>
+            <exclude name=".mt-attrs"/>
+            <exclude name="tmp.*"/>
+          </fileset>
+        </copy>
+      </then>
+      <else>
+        <echo message="Missing theme name or destination path" />
+      </else>
+    </if>
+  </target>
+
+  <!-- copy a language into the build tree -->
+  <target name="copylanguage">
+    <if>
+      <and>
+        <isset property="dest.path"/>
+      </and>
+      <then>
+        <echo msg="Copying installer locale ${language.locale} into ${dest.path} ..."/>
+        <php function="substr" returnProperty="language">
+          <param value="${language.locale}"/>
+          <param value="0"/>
+          <param value="2"/>
+        </php>
+        <copy todir="${dest.path}">
+          <fileset dir="${work.basedir}/${languages.repo}/languages.${language}/${language.locale}/">
+            <include name="xml/*/installer/**"/>
+            <include name="xml/core/**"/>
+            <include name="locale.xml"/>
+            <exclude name="*MTN/**"/>
+            <exclude name=".mtn-ignore"/>
+            <exclude name="SCCS/**"/>
+            <exclude name="BitKeeper/**"/>
+            <exclude name="PENDING/**"/>
+            <exclude name=".DS_Store"/>
+          </fileset>
+        </copy>
+      </then>
+      <else>
+        <echo message="Missing language locale or destination path" />
+      </else>
+    </if>
+  </target>
+  
+  <!-- Create a tarball from the current contents of the build tree -->
+  <target name="createtarball" if="tarball.name">
+    <echo msg="Creating tar archive ${tarball.name}"/>
+    <exec dir="${build.basedir}" command="tar -czf ${tarball.name} ${final.name}"/>
+  </target>
+
+  <!-- Create a zipball from the current contents of the build tree -->
+  <target name="createzipball" if="zipball.name">
+    <echo msg="Creating zip archive ${zipball.name}"/>
+    <exec dir="${build.basedir}" command="zip -rq ${zipball.name} ${final.name}"/>
+  </target>
+  
+  <!-- Clean target, removes only the copied build tree -->
+  <target name="clean" description=": Cleans up the buildtree, but does not remove older builds">
+    <echo msg="Cleaning up buildtree..." />
+    <delete dir="${build.basedir}" />
+  </target>
+  
+  <!-- Realclean target, depends on clean, removes also the generated distro's and the build directory itself -->
+  <target name="realclean" depends="clean" description=": Removes the whole build structure except for the monotone databases">
+    <echo msg="Real clean..."/>
+    <delete dir="${build.basedir}" />
+    <delete dir="${work.basedir}/core" />
+    <delete dir="${work.basedir}/modules" />
+    <delete dir="${work.basedir}/themes" />
+    <delete dir="${work.basedir}/languages" />
+  </target>
+  
+  <!-- Rebuild target, depends on clean -->
+  <target name="rebuild" depends="clean" description=": Rebuilds all targets">
+    <echo msg="Starting new build..." />
+    <phingcall target="all" />
+  </target>
+  
+  <!--  Displays some help  -->
+  <target name="help" description=": Displays a brief help">
+    <echo message="Please call 'build -projecthelp' for details" />
+  </target>
+
+  <!-- Publish the files to somewhere -->
+  <target name="publish" description=": Publish what was generated to somewhere (scp for now)">
+    <echo>
+      We're going to copy, through scp, the files to another server here.
+      Since the files are pretty big, this can take a while. Be patient. 
+      We will ask you for a server, a username on that server and a 
+      directory where to 'scp' the generated files. Obviously you need 
+      permissions on the target server in the specified location.
+    </echo>
+    <input propertyName="publish.server" defaultvalue="xaraya.com">To what server should we copy the files?</input>
+    <input propertyName="publish.username">What is your username there?</input>
+    <input propertyName="publish.location">In which location should we copy those files?</input>
+    <exec passthru="true"  checkreturn="true" command="scp ${build.basedir}/xaraya-${version}-* ${publish.username}@${publish.server}:${publish.location}"/>
+  </target>
+  
+  <!-- Feed a subdir tree with empty index.html files -->
+  <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
+    <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
+    <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
+    <!-- Let's not do the html dir itself :-) -->
+    <delete file="${basedir}/index.html" />
+  </target>
+</project>

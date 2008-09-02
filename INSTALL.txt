@@ -1,17 +1,29 @@
 PLEASE READ ALL OF THIS DOCUMENT BEFORE INSTALLING OR USING Xaraya
 
 Please read UPGRADE.txt if you are upgrading an EXISTING Xaraya installation.
-Ensure you check the VERSION CHANGES in UPGRADE.txt as you may need to update themes, templates or other areas in existing sites.
+Ensure you check the VERSION CHANGES in UPGRADE.txt as you may need to update 
+themes, templates or other areas in existing sites.
 
-Detailed installation instructions can be found in the Xaraya User Guide, in the xarayaguide.txt file which is included in the docs directory of this release. The Guide will provide a clear understanding of installation and configuration of Xaraya.
+Detailed installation instructions can be found in the Xaraya User Guide, in 
+the xarayaguide.txt file which is included in the docs directory of this 
+release. The Guide will provide a clear understanding of installation and 
+configuration of Xaraya.
 
-Xaraya: adam_baum 1.1.3
+Xaraya: adam_baum 1.1.5
 =======================
-Xaraya is an Open Source web applications framework.  Xaraya started out as a fork of PostNuke (http://www.postnuke.com). It has had a complete re-write from the ground up since it's beginnings.  Xaraya provides significant enhancements and functionality over it's predecessors and is in active, on-going development. Xaraya provides a stable and secure core, with a function rich API and powerful templating engine in place for third-party developers.
+Xaraya is an Open Source web applications framework.  Xaraya started out as a 
+fork of PostNuke (http://www.postnuke.com). It has had a complete re-write 
+from the ground up since it's beginnings.  Xaraya provides significant 
+enhancements and functionality over it's predecessors and is in active, 
+on-going development. Xaraya provides a stable and secure core, with a 
+function rich API and powerful templating engine in place for third-party 
+developers.
 
-If you would like to help develop this software, please visit our homepage at http://www.Xaraya.com, or send email to info@xaraya.com .
+If you would like to help develop this software, please visit our homepage at 
+http://www.Xaraya.com, or send email to info@xaraya.com.
 
-You can also visit us in channel #support or #chat, on our IRC Server irc.Xaraya.com.
+You can also visit us in channel #support or #chat, on our IRC Server 
+irc.xaraya.com.
 
 Directories in the Xaraya distribution
 ======================================
@@ -29,7 +41,12 @@ The Xaraya distributions consist of the following directory structure:
         (for example, <webdir>/<subdir>) or directly to the
         webserver's <webdir> (for example, <webdir>/).
 
-If you install Xaraya into a sub-directory of the <webdir>, your users will have to type the sub-directory name in the URL. For example, if you install Xaraya into <webdir>/xaraya, your users will have to visit "http://www.yoursite.com/xaraya" to get to Xaraya. If you wish for Xaraya to exist in the <webdir> (so that users will visit "http://www.yoursite.com" to get to Xaraya), copy Xaraya's files & sub-directories to <webdir>.
+If you install Xaraya into a sub-directory of the <webdir>, your users will 
+have to type the sub-directory name in the URL. For example, if you install 
+Xaraya into <webdir>/xaraya, your users will have to visit 
+"http://www.yoursite.com/xaraya" to get to Xaraya. If you wish for Xaraya to 
+exist in the <webdir> (so that users will visit "http://www.yoursite.com" to 
+get to Xaraya), copy Xaraya's files & sub-directories to <webdir>.
 
 - tools: This directory contains utility code. Noteworthy in this
          directory is the 'import' sub-directory, which contains
@@ -118,9 +135,14 @@ Adding a locale (language and encoding):
 
 Caution
 =======
-It should be noted that Xaraya does not support any modification of the core tables (those that come with this Xaraya distribution) or direct access to the core database tables.  APIs are provided for developers to use for these purposes, so that future planned changes will have a minimal impact on third-party added functionality, and these APIs should be used at all times.
+It should be noted that Xaraya does not support any modification of the core 
+tables (those that come with this Xaraya distribution) or direct access to 
+the core database tables.  APIs are provided for developers to use for these 
+purposes, so that future planned changes will have a minimal impact on 
+third-party added functionality, and these APIs should be used at all times.
 
-Please visit the #support channel for information on converting to Xaraya from CMS applications such as PostNuke or PHP-Nuke.
+Please visit the #support channel for information on converting to Xaraya from 
+CMS applications such as PostNuke or PHP-Nuke.
 
 Common Installation Errors
 ==========================
@@ -142,13 +164,15 @@ Common Installation Errors
   install additional modules at any time once installation has completed.
 
 - The html/var/cache/rss and html/var/cache/templates need to be writable
-   by the web server process, and executable, along with the config.system.php file.
+  by the web server process, and executable, along with the config.system.php 
+  file.
 
-- If you have a problem with install of your databases, and you receive a message:
+- If you have a problem with install of your databases, and you receive a 
+  message:
 
-  ErrorNo: 1142, Message:Database error while executing: 'CREATE INDEX i_base_xar_uid ON
-  xar_session_info (xar_uid)'; error description is: 'index command denied to user:
-  'debeemster@localhost' for table 'xar_session_info''.
+  ErrorNo: 1142, Message:Database error while executing: 'CREATE INDEX 
+  i_base_xar_uid ON xar_session_info (xar_uid)'; error description is: 'index 
+  command denied to user: 'debeemster@localhost' for table 'xar_session_info''.
 
    This is an indication that you or your host does not allow the permission in
    the database to create indexes.  The system will suffer from slow performance

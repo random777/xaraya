@@ -1,25 +1,35 @@
-PLEASE READ ALL OF THIS UPGRADE.txt BEFORE UPGRADING OR USING AN EXISTING Xaraya installation
+PLEASE READ ALL OF THIS UPGRADE.txt BEFORE UPGRADING OR USING AN EXISTING 
+XARAYA INSTALLATION
 
-Ensure you check the VERSION CHANGES at the end of this file in case you need to update themes, templates or other areas in existing sites.
+Ensure you check the VERSION CHANGES at the end of this file in case you need 
+to update themes, templates or other areas in existing sites.
 
 If you are creating a new Xaraya installation, please read INSTALL.txt
 
 
-You are Upgrading to Xaraya: adam_baum 1.1.3
+You are Upgrading to Xaraya: adam_baum 1.1.4
 ============================================
-Xaraya is an Open Source web applications framework. Xaraya started out as a fork of PostNuke (http://www.postnuke.com).
+Xaraya is an Open Source web applications framework. Xaraya started out as a 
+fork of PostNuke (http://www.postnuke.com).
+
 It has had a complete re-write from the ground up since it's beginnings.
-Xaraya provides significant enhancements and functionality over it's predecessors and is in active, on-going development.
-Xaraya provides a stable and secure core, with a function rich API and powerful templating engine in place for third-party developers.
 
-If you would like to help develop this software, please visit our homepage at http://www.xaraya.com, or send email to info@xaraya.com.
+Xaraya provides significant enhancements and functionality over it's 
+predecessors and is in active, on-going development.
 
-You can also visit us in channel #xaraya.support or #xaraya.chat, on our IRC Server irc.Xaraya.com.
+Xaraya provides a stable and secure core, with a function rich API and 
+powerful templating engine in place for third-party developers.
+
+If you would like to help develop this software, please visit our homepage at 
+http://www.xaraya.com, or send email to info@xaraya.com.
+
+You can also visit us in channel #support or #chat, on our IRC 
+Server irc.xaraya.com.
 
 PREPARE TO UPGRADE
 ==================
-    * Check the VERSION CHANGES at the end of this file and make note of any template
-      or site changes you may need to make
+    * Check the VERSION CHANGES at the end of this file and make note of any 
+      template or site changes you may need to make
 
     * Backup the existing Xaraya installation & database
 
@@ -40,18 +50,18 @@ PREPARE TO UPGRADE
         (typically for uploads, workflow processes, images etc)
 
       Make sure you check the release changes to see if you need to
-      update the config.system.php file, or any changes in the var subdirectories
-      with new content of changes.
+      update the config.system.php file, or any changes in the var 
+      subdirectories with new content of changes.
 
     * Make a backup (yes, we know this was already mentioned two times)
 
     * With "replacing" we mean DELETE all old files and copy the new ones in.
       Do not overwrite the old files with the new ones. THIS IS IMPORTANT.
 
-     The existing <xarroot>/var/config.system.php must be retained;
-     the upgrade script reads database settings from this file.
-     However, you should check for any config.system.php.dist file changes
-     and update your existing config.system.php file if necessary.
+      The existing <xarroot>/var/config.system.php must be retained;
+      the upgrade script reads database settings from this file.
+      However, you should check for any config.system.php.dist file changes
+      and update your existing config.system.php file if necessary.
 
     * Check permissions and ownership of the new files
 
@@ -59,8 +69,8 @@ PREPARE TO UPGRADE
       <xarroot>/var/cache/templates and <xarroot>/var/cache/rss
 
     * In the browser window where you are logged in as administrator,
-       point your browser to upgrade.php in your root directory and run this script.
-       For example, http://www.mywebsite.com/upgrade.php.
+      point your browser to upgrade.php in your root directory and run this 
+      script.  For example, http://www.mywebsite.com/upgrade.php.
 
     * Carefull read and follow the instructions in the upgrade script.
 
@@ -82,8 +92,8 @@ experiencing upgrade difficulties.
 Adding a locale (language and encoding):
 ---------------------------------------
 - If you wish to add an additional locale for your Xaraya installation,
-  download your preferred locale from http://www.xaraya.com/downloads/languages.
-  For example: es_ES.utf8
+  download your preferred locale from 
+  http://www.xaraya.com/downloads/languages.  For example: es_ES.utf8
 
 - Unpack the new locale to the Xaraya directory at var/locales
 
@@ -109,13 +119,15 @@ Adding a locale (language and encoding):
   We store translations in XML format with UTF-8 encoding only.
 
 
-Please visit the #xaraya.support channel for information on converting to Xaraya from CMS applications such as PostNuke, Joomla or PHP-Nuke.
+Please visit the #xaraya.support channel for information on converting to 
+Xaraya from CMS applications such as PostNuke, Joomla or PHP-Nuke.
 
 
 VERSION CHANGES - Please check and update your installation where necessary
 ===============
 
-   Template Changes between versions (please check your modules and theme overrides for these)
+   Template Changes between versions (please check your modules and theme 
+   overrides for these)
    ----------------------------------------------------
    .9.10.0 -> .9.11.0
           modules/xarbb/xartemplates/user-newreply.xd : the input form
@@ -134,10 +146,11 @@ VERSION CHANGES - Please check and update your installation where necessary
        2) in comments, blocks/latestcommentsblock.xd and
           user-displayall.xd the variable $comment['daychange'] is no
           longer supported; array $commentlist is now an array of arrays.
-          $commentlist[$daylabel] is the array of all comments posted on $daylabel.
+          $commentlist[$daylabel] is the array of all comments posted on 
+          $daylabel.
 
    1.0.0-RC1 -> 1.0.0-RC2
-          uiscrub scenario integration - please check your templates !
+          uiscrub scenario integration - please check your templates!
 
    1.0.0-RC2 -> 1.0.0-RC3
        1) the templates for DD properties have been moved as follows :
@@ -180,25 +193,28 @@ VERSION CHANGES - Please check and update your installation where necessary
    1.0.1 -> 1.0.2
 
    1.0.2 -> 1.1
-       1) Roles module was split into Registration module, Authentication and Roles
-          There are now default login templates in Authsystem module.
+       1) Roles module was split into Registration module, Authentication and 
+          Roles. There are now default login templates in Authsystem module.
           Registration contains registration links.
-       2) The Dashboard template now uses the page template dashboard.xt by default
-          instead of admin.xt, but can be specified. This config var has moved to Themes module.
-          The admin.xt page template is now able to be overridden using usual xaraya override logic,
-          and can be used to customize specific admin module pages.
-       3) The Adminpanels module has been removed. You may have to make changes for
-          specific blocks that have also been moved:
+       2) The Dashboard template now uses the page template dashboard.xt by 
+          default instead of admin.xt, but can be specified. This config var 
+          has moved to Themes module.  The admin.xt page template is now able 
+          to be overridden using usual xaraya override logic, and can be used 
+          to customize specific admin module pages.
+       3) The Adminpanels module has been removed. You may have to make 
+          changes for specific blocks that have also been moved:
           a) adminmenu block and waiting content block:
              - any instances in templates should now be changed to
              'base' module instead of 'adminpanel' in the block tags
              - make sure you copy any templates from your theme in the
                themes/yourtheme/modules/adminpanel[/blocks] to themes/yourtheme/modules/base[/blocks]
           b) waiting content block:
-             you will need to hooks for example, articles to base module rather than to adminpanels module
-       4) The country listing dynamic data property has been updated to store the id rather than the name
-          in the country list. You may need to override the showinput-countrylist property template to
-          continue using name as the value if you have been using this property.
+             you will need to hooks for example, articles to base module 
+             rather than to adminpanels module
+       4) The country listing dynamic data property has been updated to store 
+          the id rather than the name in the country list. You may need to 
+          override the showinput-countrylist property template to continue 
+          using name as the value if you have been using this property.
 
    1.1.0 -> 1.1.1
 
@@ -207,6 +223,44 @@ VERSION CHANGES - Please check and update your installation where necessary
          2) Update templates for roles and email validation process templates
 
    1.1.2 -> 1.1.3
+
+   1.1.3 -> 1.1.4
+
+   1.1.4 -> 1.1.5
+       1) base/xartemplates/admin-modifyconfig.xd: Show an Indicator if Default 
+          Module is missing
+       2) dynamicdata/xartemplates/admin-privileges.xd: Preserve the Parent 
+          Privilege Parameter in Wizards
+       3) dynamicdata/xartemplates/objects/showform.xd: add an error class to 
+          the wrapper of a dynamic data property if that property is in error
+       4) installer/xartemplates/admin-choose_configuration.xd: Radio Buttons 
+          for "Choose a Configuration" form
+       5) installer/xartemplates/admin-create_administrator.xd: 
+          a) Don't translate install time constants.  Database password field 
+          is not masqueraded any more to not fire browsers 'Store Passwords' 
+          dialog.
+          b) Suggesting a true invalid email adress for admin with a non 
+          existing TLD.
+       6) installer/xartemplates/admin-phase4.xd:
+          a) SQLite is now the default database if aviable.
+       7) installer/xartemplates/admin-phase5.xd: Duplicate Upgrade Warning
+       8) privileges/xartemplates/admin-modifyprivilege.xd: 
+          a) Allow labels in Instance Dropdowns
+          b) The instance delivering queries are allowed to have a second 
+          column with a 'title' for the item.
+       9) privileges/xartemplates/admin-newprivilege.xd: 
+          a) Allow labels in Instance Dropdowns
+          b) The instance delivering queries are allowed to have a second 
+          column with a 'title' for the item.
+       10) roles/xartemplates/admin-showusers.xd: Remove call to tree.css in 
+          roles
+       11) roles/xartemplates/user-user_menu_form.xd: Default size for email 
+          fields is 30 characters.
+       12) themes/xartemplates/user-usermenu_form.xd: If theme directory and 
+          name are not identical, default theme moduservar fails to load 
+          selected theme because themes/[theme name]/xarversion.php not found:  
+          Xaraya expects this moduservar to be the theme directory, not name... 
+          changed to store directory rather than name.
 
 
    DB Changes between versions
@@ -253,7 +307,9 @@ VERSION CHANGES - Please check and update your installation where necessary
                     Registration of new timesince tag in Base module
                     Setting of default registration module
                     Setting new user dynamic variables defaults - usertimezone, usersendemail
-     1.1.2 -> 1.1.3
+     1.1.2 -> 1.1.3 None
+     1.1.3 -> 1.1.4 None
+     1.1.4 -> 1.1.5 None
       
    ----------------------------------------------------
 

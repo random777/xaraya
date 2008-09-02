@@ -1,0 +1,69 @@
+Release notes for Xaraya Core release 1.1.5
+
+Release 1.1.5 (only relevant changes from 1.1.4 onwards included here)
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+Major changes:
+    * Fix for undefined $tplData error under php 5.2.6+
+    * Multiple authkeys: allows a session to have more than one active authkey,
+      useful for AJAX
+    * ROLES: Return a consistent datatype for the getallactive user API function
+
+General fixes and improvements:
+    * Use a single timestamp for the start and the end of the session
+    * Add dropdownlist support to blocks module
+    * INSTALLER: Message if duplicate modules found
+    * New flag for xarVarFetch(): XARVAR_VAL_REQ
+    * MODULES:  More debug info in executeinitfunction.php
+    * Change default theme moduservar to store theme directory instead of name
+    * Remove the ignore_branch function from xaraya.rc, we use suspending now
+    * Minor check for the rare cases when the modVar roles.usertimezone is empty
+    * ROLES: Minor template issue in user-user_menu_form.xd
+    * STYLES: No margins for nested form-containers
+    * Don't translate install time constants
+    * Changed soap_server class to nusoap_server to work with soapserver module 
+        version 0.1.1 and nusoap library 0.7.3
+    * Installing: Use invalid emails.  See why at www.donotreply.com
+    * Improve the (database settings) screens in the installer:
+        SQLite is now the default database if aviable.
+        Suggesting a true invalid email adress for admin with a non existing TLD
+    * Print theme: Fixed undefinied variable 'date' and titles as links
+    * Correct Dynamic Checkbox Property so it works again with normal 
+        checked="checked"
+    * dynamicdata showform: add an error class to the wrapper of a dynamic data 
+        property if that property is in error
+    * Add current charset information to Page Cache replies.
+    * Fix xarServerGetCurrentURL(): last part of path contained parameters
+    * xarModURL(): Allow empty Short URLs '' -> http://www.myhost.com/
+    * Fix page caching for Mozilla based browsers
+    * DYNAMIC DATA: Add parameter 'fieldprefix' to DD getitem.
+    * MODULES: Do not read the newer monotone directory when creating the 
+        module listing
+    * MODULES: Add some xarML calls
+    * DYNAMIC DATA: Subform property to use tplmodule parameter
+    * DYNAMIC DATA: tplmodule attribute in DD showdisplay.php
+
+
+      Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+      bug   : short info
+      ------|-----------
+    * [1301] Exceptions: access to the exception stack
+    * [1922] merge install and upgrade scripts into one
+    * [3129] When starting a wizard "Member of:" field is gone
+    * [3158] Instance definition by function
+    * [3496] Configurations Scripts need more detailed use cases
+    * [4294] Xaraya_Classic in IE6 content moves down the page
+    * [5513] Undefined primary and auto_increment in getmeta.php cause installer to fail in sqlite installation
+    * [5524] Translation of system constants?? (Adminpanels overview)
+    * [5630] New Flag for xarVarFetch (was:Validation of optional fetch variables always suppressed even if var is available)
+    * [5893] Module is not active. Unable to find Base Info for Module: xaraya.
+    * [5911] modifynotice.php - unserialize() - Argument is not a string
+    * [5938] dynamicdata data-display tag ignores tplmodule attribute
+    * [6189] Uploads: undefined variable in Dynamic_FileUpload_Property.php
+    * [6197] Subform property ignores tplmodule parameter
+    * [6205] see url above, it shows the complete error
+    * [6226] Title corrupted when it starts with $3000 => 00 ... fix included ... file: xarTemplate.php
+    * [6255] MS SQL 2005 error when querying the information_schema database

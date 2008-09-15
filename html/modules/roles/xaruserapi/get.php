@@ -21,6 +21,7 @@
  * @param $args['email'] email of user to get
  * @param int $args['state'] Status of the user to get
  * @param int $args['type'] set to 1 for group (default 0 = user)
+ * @param $args['itemid'] equivalent to uid often used in standard hook calls
  * NOTE: for groups, use 'name' not 'uname'
  * @return array user array, or false on failure
  */
@@ -28,6 +29,12 @@ function roles_userapi_get($args)
 {
     // Get arguments from argument array
     extract($args);
+    
+    // turn this into more standard get call, allow itemid to be passed in
+    if (!isset($uid) && isset($itemid) && !empty($itemid)) {
+        $uid = $itemid;
+    }
+    
     // Argument checks
     if (empty($uid) && empty($name) && empty($uname) && empty($email)) {
         $msg = xarML('Wrong arguments to roles_userapi_get.');

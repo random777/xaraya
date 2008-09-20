@@ -1,31 +1,48 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <table class="xar-norm">
-  <tr>
-    <td>
-      <xar:mlstring>Rows</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[rows]" id="#$id#_rows" value="#$rows#" size="4" tabindex="#$tabindex#" />
-      (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultrows#</xar:mlvar></xar:ml>)
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Columns</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[cols]" id="#$id#_cols" value="#$cols#" size="4" tabindex="#$tabindex#" />
-      (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultcols#</xar:mlvar></xar:ml>)
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Other rule</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
-    </td>
-  </tr>
+    <tr>
+        <td>
+            <xar:mlstring>Rows</xar:mlstring>
+        </td>
+        <td>
+            <input type="text" name="#$name#[rows]" id="#$id#_rows" value="#$rows#" size="4" tabindex="#$tabindex#" />
+            (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultrows#</xar:mlvar></xar:ml>)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <xar:mlstring>Columns</xar:mlstring>
+        </td>
+        <td>
+            <input type="text" name="#$name#[cols]" id="#$id#_cols" value="#$cols#" size="4" tabindex="#$tabindex#" />
+            (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultcols#</xar:mlvar></xar:ml>)
+        </td>
+    </tr>
+    <tr>
+        <td>
+        
+            <xar:mlstring>Class</xar:mlstring>
+        </td>
+        <td>
+            <input type="text" name="#$name#[classname]" id="#$id#_classname" value="#$classname#" size="25" tabindex="#$tabindex#" />
+            <xar:if condition="empty($defaultclass)">
+                <xar:set name="defaultclass">'NONE'</xar:set>
+            </xar:if>
+            <xar:ml>
+                <xar:mlstring>Default class: <strong>#(1)</strong>. </xar:mlstring>
+                <xar:mlvar>#$defaultclass#</xar:mlvar>
+            </xar:ml>
+            <xar:mlstring>A class set here will override a class set in the showinput property template.</xar:mlstring>
+        </td>
+    </tr>  
+    <tr>
+        <td>
+            <xar:mlstring>Other rule</xar:mlstring>
+        </td>
+        <td>
+            <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
+        </td>
+    </tr>
 </table>
 
 <xar:if condition="!empty($invalid)">

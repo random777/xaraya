@@ -44,6 +44,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         'upload'   => false,
         'stored'   => false
     );
+    var $style = '';
 
     // This is used by Dynamic_Property_Master::addProperty() to set the $object->upload flag.
     var $upload = true;
@@ -368,13 +369,15 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         if (!isset($value)) {
             $value = $this->value;
         }
+        if (isset($args['style'])) $this->style = $args['style'];
 
         if ($this->UploadsModule_isHooked) {
             return xarModAPIFunc('uploads', 'user', 'showoutput',
                 array(
                     'value' => $value,
                     'format' => 'fileupload',
-                    'multiple' => $this->multiple
+                    'multiple' => $this->multiple,
+                    'style' => $this->style,
                 )
             );
         }

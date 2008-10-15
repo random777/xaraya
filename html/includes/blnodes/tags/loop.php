@@ -64,6 +64,8 @@ class xarTpl__XarLoopNode extends xarTpl__TplTagNode
             $previousLoop ='$loop_'.($loopCounter-1);
             $output .= $previousLoop.'_save=serialize($loop);';
         }
+        // judgej@xaraya.com 2008-10-15 Be explicit in creating a standard class.
+        $output .= $loopName.' = new stdClass; ';
         $output .= $loopName.'->index=-1; '.$loopName.'->number='.$loopCounter.';
         foreach ('.$name.' as '.$loopName.'->key => '.$loopName.'->item ) {
             '.$loopName.'->index++;

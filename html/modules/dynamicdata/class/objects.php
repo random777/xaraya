@@ -890,7 +890,8 @@ class Dynamic_Object extends Dynamic_Object_Master
         if (empty($args['fieldprefix'])) {
             $args['fieldprefix'] = $this->fieldprefix;
         }
-        $isvalid = true;
+
+        $object_isvalid = true;
         foreach (array_keys($this->properties) as $name) {
             $isvalid = true;
 

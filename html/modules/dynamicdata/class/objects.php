@@ -892,6 +892,8 @@ class Dynamic_Object extends Dynamic_Object_Master
         }
         $isvalid = true;
         foreach (array_keys($this->properties) as $name) {
+            $isvalid = true;
+
             // for hooks, use the values passed via $extrainfo if available
             $field = 'dd_' . $this->properties[$name]->id;
             if (isset($args[$name])) {
@@ -911,8 +913,19 @@ class Dynamic_Object extends Dynamic_Object_Master
             } elseif (!$this->properties[$name]->checkInput()) {
                 $isvalid = false;
             }
+
+            if (!$isvalid) {
+                // If any properties are invalid, then the whole object is invalid.
+                $object_isvalid = false;
+
+                // Set a default error message for the property, if not already set.
+                if (empty($this->properties[$name]->invalid)) {
+                    $this->properties[$name]->invalid = xarML('Item probably missing');
+                }
+            }
         }
-        return $isvalid;
+
+        return $object_isvalid;
     }
 
     /**

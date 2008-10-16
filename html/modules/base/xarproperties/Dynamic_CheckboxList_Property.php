@@ -49,15 +49,7 @@ class Dynamic_CheckboxList_Property extends Dynamic_Select_Property
 
     function checkInput($name='', $value = null)
     {
-        if (empty($name)) {
-            $name = 'dd_'.$this->id;
-        }
-        // store the fieldname for validations who need them (e.g. file uploads)
-        $this->fieldname = $name;
-        if (!isset($value)) {
-            xarVarFetch($name, 'isset', $value,  NULL, XARVAR_NOT_REQUIRED);
-        }
-        return $this->validateValue($value);
+        return $this->_checkInput_optional($name, $value);
     }
 
     function validateValue($value = null)

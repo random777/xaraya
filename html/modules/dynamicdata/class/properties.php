@@ -435,6 +435,25 @@ class Dynamic_Property
         return $this->validateValue($value);
     }
 
+    /*
+     * Use this input checkInput for optional properties, i.e. where a submitted form
+     * may not return any data (e.g. checkbox, select, javascript-manipulated form items).
+     * @param $name name of the input field (default is 'dd_NN' with NN the property id)
+     * @param $value value of the input field (default is retrieved via xarVarFetch())
+     */
+    function _checkInput_optional($name='', $value = null)
+    {
+        if (empty($name)) {
+            $name = 'dd_'.$this->id;
+        }
+        // Store the fieldname for validations who need them (e.g. file uploads)
+        $this->fieldname = $name;
+        if (!isset($value)) {
+            if (!xarVarFetch($name, 'isset', $value,  NULL, XARVAR_DONT_SET)) {return;}
+        }
+        return $this->validateValue($value);
+    }
+
     /**
      * Validate the value of this property
      *

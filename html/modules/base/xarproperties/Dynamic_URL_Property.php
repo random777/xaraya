@@ -35,17 +35,18 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
         if (!isset($value)) {
             $value = $this->value;
         }
+
         // Make sure $value['link'] is set, has a length > 0 and does not equal simply 'http://'
         $value = trim($value);
+
         if (!empty($value) && $value != 'http://')  {
-           //let's process futher then
-           //check it is not invalid eg html tag
-            if (preg_match('/[<>"]/',$value)) {
+            //let's process futher then
+            //check it is not invalid eg html tag
+            if (preg_match('/[<>"]/', $value)) {
                 $this->invalid = xarML('URL');
-                $this->value = '';
                 return false;
             } else {
-              // If we have a scheme but nothing following it,
+                // If we have a scheme but nothing following it,
                 // then consider the link empty :-)
                 if (eregi('^[a-z]+\:\/\/$', $value)) {
                     $this->value = '';
@@ -55,22 +56,24 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
                     $uri = parse_url($value);
                     if (empty($uri['scheme']) && empty($uri['host']) && empty($uri['path'])) {
                         $this->invalid = xarML('URL');
-                        $this->value = '';
                         return false;
                     } elseif (empty($uri['scheme'])) {
+                        // No scheme, so add one.
                         $this->value = 'http://' . $value;
                     } else {
-                        // it has at least a scheme (http/ftp/etc) and a host (domain.tld)
+                        // It has at least a scheme (http/ftp/etc) and a host (domain.tld)
                         $this->value = $value;
                     }
                 }
-
             } //end checks for other schemes
+        } else {
+            // Set the empty value of the property.
+            $this->value = '';
         }
+
         return true;
     }
 
-//    function showInput($name = '', $value = null, $size = 0, $maxlength = 0, $id = '', $tabindex = '')
     function showInput($args = array())
     {
         extract($args);
@@ -86,28 +89,17 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
         if (empty($id) || !isset($id)) {
             $id = $name;
         }
-       $data=array();
+        $data=array();
 
-/*     return '<input type="text"'.
-               ' name="' . $name . '"' .
-               ' value="'. (isset($value) ? xarVarPrepForDisplay($value) : xarVarPrepForDisplay($this->value)) . '"' .
-               ' size="'. (!empty($size) ? $size : $this->size) . '"' .
-               ' maxlength="'. (!empty($maxlength) ? $maxlength : $this->maxlength) . '"' .
-               ' id="'. $id . '"' .
-               (!empty($tabindex) ? ' tabindex="'.$tabindex.'"' : '') .
-               ' />' .
-               (!empty($value) && $value != 'http://' ? ' [ <a href="'.$value.'" target="preview">'.xarML('check').'</a> ]' : '') .
-               (!empty($this->invalid) ? ' <span class="xar-error">'.xarML('Invalid #(1)', $this->invalid) .'</span>' : '');
-*/
         $data['name']     = $name;
         $data['id']       = $id;
         $data['value']    = isset($value) ? xarVarPrepForDisplay($value) : xarVarPrepForDisplay($this->value);
         $data['tabindex'] = !empty($tabindex) ? $tabindex : 0;
-        $data['invalid']  = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) :'';
+        $data['invalid']  = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '';
         $data['maxlength']= !empty($maxlength) ? $maxlength : $this->maxlength;
         $data['size']     = !empty($size) ? $size : $this->size;
 
-        $template="";
+        $template = '';
         return xarTplProperty('base', 'url', 'showinput', $data);
     }
 
@@ -122,7 +114,6 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
         // TODO: use redirect function here ?
         if (!empty($value) && $value != 'http://') {
             $data['value'] = xarVarPrepForDisplay($value);
-            //return '<a href="'.$value.'">'.$value.'</a>';
 
             $template="";
             return xarTplProperty('base', 'url', 'showoutput', $data);
@@ -138,20 +129,20 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
      function getBasePropertyInfo()
      {
          $baseInfo = array(
-                              'id'         => 11,
-                              'name'       => 'url',
-                              'label'      => 'URL',
-                              'format'     => '11',
-                              'validation' => '',
-                            'source'     => '',
-                            'dependancies' => '',
-                            'requiresmodule' => '',
-                            'aliases' => '',
-                            'args'         => '',
-                            // ...
-                           );
+            'id'         => 11,
+            'name'       => 'url',
+            'label'      => 'URL',
+            'format'     => '11',
+            'validation' => '',
+            'source'     => '',
+            'dependancies' => '',
+            'requiresmodule' => '',
+            'aliases' => '',
+            'args'         => '',
+            // ...
+        );
         return $baseInfo;
      }
-
 }
+
 ?>

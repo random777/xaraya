@@ -237,7 +237,8 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
             'uploads', 'admin', 'validatevalue',
             array(
                 'id' => $name, // not $this->id
-                'value' => isset($value)?$value:null,
+                // 2008-11-11 judgej@xaraya.com Pass in the current existing value (this->value) if nno passed in here.
+                'value' => isset($value) ? $value : $this->value,
                 // pass the module id, item type and item id (if available) for associations
                 'moduleid' => $this->_moduleid,
                 'itemtype' => $this->_itemtype,

@@ -66,8 +66,8 @@ class xarTpl__XarLoopNode extends xarTpl__TplTagNode
         }
         // judgej@xaraya.com 2008-10-15 Be explicit in creating a standard class
         // for both the named loop and its alias.
-        $output .= $loopName.' = new stdClass; ';
-        $output .= '$loop = new stdClass; ';
+        $output .= 'if (!isset(' . $loopName . ')) ' . $loopName . ' = new stdClass; ';
+        $output .= 'if (!isset($loop)) ' . '$loop = new stdClass; ';
         $output .= $loopName.'->index=-1; '.$loopName.'->number='.$loopCounter.';
         foreach ('.$name.' as '.$loopName.'->key => '.$loopName.'->item ) {
             '.$loopName.'->index++;

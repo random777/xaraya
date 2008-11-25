@@ -45,6 +45,24 @@ General fixes and improvements:
     * MODULES: Add some xarML calls
     * DYNAMIC DATA: Subform property to use tplmodule parameter
     * DYNAMIC DATA: tplmodule attribute in DD showdisplay.php
+    * Dynamic_FileUpload_Property.php: pass the existing value into the validate
+        function if no new value is present
+    * Dynamic_FileUpload_Property.php: properly detect uploads module hook when
+        the displayed object does not beling to the main module
+    * Dynamic_URLIcon_Property.php: allow blank URIs to be saved, and pass
+        invalid URI's back to the error handler
+    * BLOCKLAYOUT: loop BL tag: explicitly create an empty object for both the
+        named loop variable and its '$loop' alias
+    * DYNAMIC DATA: Move commonly-repeated code for properties checkInput()
+        method to the core Dynamic_Property object
+    * When validating an object submitted in a form, place an error message on
+        missing mandatory properties
+    * MLS: xarML.php: bindDomain() method gets default value on second parameter
+    * BLOCKLAYOUT: blnodes->loop: be explicit when creating the loop object
+    * Pass 'style' attribute down the line in base/fileupload property
+    * Update textarea property with class option
+    * Ability to pass in itemid to user api get call so it can be used for
+        standard hook functions
 
 
       Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)

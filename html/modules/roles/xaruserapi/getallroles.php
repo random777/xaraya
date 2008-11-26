@@ -74,14 +74,11 @@ function roles_userapi_getallroles($args)
 
     // Inclusions
     $includedgroups = array();
-    if (!isset($baseitemtype)) {
-        $basetype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
-    }
     if (isset($include)) {
         foreach (explode(',', $include) as $include_field) {
-            if ($baseitemtype == ROLES_USERTYPE) {
+            if ($itemtype == ROLES_USERTYPE) {
                 $q->ne('uname',xarModAPIFunc('roles', 'user', 'get', array('uname' => $include_field)));
-            } elseif ($baseitemtype == ROLES_GROUPTYPE) {
+            } elseif ($itemtype == ROLES_GROUPTYPE) {
                 $q->ne('name',xarModAPIFunc('roles', 'user', 'get', array('name' => $include_field)));
                 $includedgroups[] = $include_field;
             }
@@ -90,14 +87,11 @@ function roles_userapi_getallroles($args)
 
     // Exclusions
     $excludedgroups = array();
-    if (!isset($baseitemtype)) {
-        $basetype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
-    }
     if (isset($exclude)) {
         foreach (explode(',', $exclude) as $exclude_field) {
-            if ($baseitemtype == ROLES_USERTYPE) {
+            if ($itemtype == ROLES_USERTYPE) {
                 $q->ne('uname',xarModAPIFunc('roles', 'user', 'get', array('uname' => $exclude_field)));
-            } elseif ($baseitemtype == ROLES_GROUPTYPE) {
+            } elseif ($itemtype == ROLES_GROUPTYPE) {
                 $q->ne('name',xarModAPIFunc('roles', 'user', 'get', array('name' => $exclude_field)));
                 $excludedgroups[] = $exclude_field;
             }

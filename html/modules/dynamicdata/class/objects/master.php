@@ -108,9 +108,6 @@ class DataObjectMaster extends Object
     public $config      = 'a:0:{}';       // the configuration parameters for this DD object
     public $configuration;                // the exploded configuration parameters for this DD object
     public $isalias     = 0;
-    public $join        = '';
-    public $table       = '';
-    public $extend      = true;
 
     public $class       = 'DataObject'; // the class name of this DD object
     public $filepath    = 'auto';       // the path to the class of this DD object (can be empty or 'auto' for DataObject)
@@ -140,8 +137,6 @@ class DataObjectMaster extends Object
      * @param $args['objectid'] id of the object you're looking for, or
      * @param $args['moduleid'] module id of the object to retrieve +
      * @param $args['itemtype'] item type of the object to retrieve, or
-     * @param $args['table'] database table to turn into an object
-     * @param $args['catid'] categories we're selecting in (if hooked)
      *
      * @param $args['fieldlist'] optional list of properties to use, or
      * @param $args['status'] optional status of the properties to use
@@ -165,26 +160,6 @@ class DataObjectMaster extends Object
 
         xarMod::loadDbInfo('dynamicdata','dynamicdata');
 
-        // Get the info on the db table if that was passed in.
-        // meaning the object is based on a db table.
-        if(!empty($this->table))
-        {
-            $meta = xarModAPIFunc(
-                'dynamicdata','util','getmeta',
-                array('table' => $this->table)
-            );
-            // we throw an exception here because we assume a table should always exist (for now)
-            if(!isset($meta) || !isset($meta[$this->table]))
-            {
-                $msg = 'Invalid #(1) #(2) for dynamic object #(3)';
-                $vars = array('table',$this->table,$this->table);
-                throw new BadParameterException($vars,$msg);
-            }
-            // Add all the info we got from the table as properties to the object
-            foreach($meta[$this->table] as $name => $propinfo)
-                $this->addProperty($propinfo);
-        }
-
         // use the object name as default template override (*-*-[template].x*)
         if(empty($this->template) && !empty($this->name))
             $this->template = $this->name;
@@ -197,32 +172,6 @@ class DataObjectMaster extends Object
                 $args['allprops'] = null;
 
             DataPropertyMaster::getProperties($args); // we pass this object along
-        }
-
-        // Do we have a join?
-        if(!empty($this->join))
-        {
-            $meta = xarModAPIFunc(
-                'dynamicdata','util','getmeta',
-                array('table' => $this->join)
-            );
-            // we throw an exception here because we assume a table should always exist (for now)
-            if(!isset($meta) || !isset($meta[$this->join]))
-            {
-                $msg = 'Invalid #(1) #(2) for dynamic object #(3)';
-                $vars = array('join',$this->join,$this->name);
-                throw new BadParameterException($vars,$msg);
-            }
-            $count = count($this->properties);
-            foreach($meta[$this->join] as $name => $propinfo)
-                $this->addProperty($propinfo);
-
-            if(count($this->properties) > $count)
-            {
-                // put join properties in front
-                $joinprops = array_splice($this->properties,$count);
-                $this->properties = array_merge($joinprops,$this->properties);
-            }
         }
 
         // create the list of fields, filtering where necessary
@@ -270,7 +219,7 @@ class DataObjectMaster extends Object
     {
         if(is_numeric($object))
             $object = self::getObject(
-                array('objectid' => $object, 'extend' => false)
+                array('objectid' => $object)
             );
 
         if(!is_object($object))
@@ -525,21 +474,6 @@ class DataObjectMaster extends Object
     {
         if (!isset($args['objectid']) || (is_null($args['objectid'])))
             $args = DataObjectDescriptor::getObjectID($args);
-        if(!empty($args['table']))
-        {
-            $info = array();
-            $info['objectid'] = 0;
-            $info['name'] = $args['table'];
-            $info['label'] = xarML('Table #(1)',$args['table']);
-            $info['moduleid'] = 182;
-            $info['itemtype'] = 0;
-            $info['filepath'] = 'auto';
-            $info['urlparam'] = 'itemid';
-            $info['maxid'] = 0;
-            $info['config'] = '';
-            $info['isalias'] = 0;
-            return $info;
-        }
 
         $cacheKey = 'DynamicData.ObjectInfo';
         $infoid = (int)$args['objectid'];
@@ -580,10 +514,7 @@ class DataObjectMaster extends Object
             $info['isalias']
         ) = $result->fields;
         $result->close();
-        if(!empty($args['join']))
-        {
-            $info['label'] .= ' + ' . $args['join'];
-        }
+
         xarCore::setCached($cacheKey,$infoid,$info);
         return $info;
     }
@@ -762,7 +693,6 @@ class DataObjectMaster extends Object
         $mylist =& self::getObjectList(
             array(
                 'objectid' => $args['objectid'],
-                'extend' => false
             )
         );
         if(empty($mylist))
@@ -788,112 +718,6 @@ class DataObjectMaster extends Object
         $result = $object->deleteItem();
         unset($object);
         return $result;
-    }
-
-    /**
-     * Join another database table to this object (unfinished)
-     * The difference with the 'join' argument above is that we don't create a new datastore for it here,
-     * and the join is handled directly in the original datastore, i.e. more efficient querying...
-     *
-     * @param $args['table'] the table to join with
-     * @param $args['key'] the join key for this table
-     * @param $args['fields'] the fields you want from this table
-     * @param $args['where'] optional where clauses for those table fields
-     * @param $args['andor'] optional combination of those clauses with the ones from the object
-     * @param $args['sort'] optional sort order in that table (TODO)
-     *
-    **/
-    function joinTable($args)
-    {
-        if(empty($args['table']))
-            return;
-
-        $meta = xarModAPIFunc(
-            'dynamicdata','util','getmeta',
-            array('table' => $args['table'])
-        );
-
-        // we throw an exception here because we assume a table should always exist (for now)
-        if(!isset($meta) || !isset($meta[$args['table']]))
-        {
-            $msg = 'Invalid #(1) #(2) for dynamic object #(3)';
-            $vars = array('join',$args['table'],$this->name);
-            throw new BadParameterException($vars, $msg);
-        }
-
-        $count = count($this->properties);
-        foreach($meta[$args['table']] as $name => $propinfo)
-            $this->addProperty($propinfo);
-
-        $table = $args['table'];
-        $key = null;
-        if(!empty($args['key']) && isset($this->properties[$args['key']]))
-            $key = $this->properties[$args['key']]->source;
-
-        $fields = array();
-        if(!empty($args['fields']))
-        {
-            foreach($args['fields'] as $field)
-            {
-                if(isset($this->properties[$field]))
-                {
-                    $fields[$field] =& $this->properties[$field];
-                    if(count($this->fieldlist) > 0 && !in_array($field,$this->fieldlist))
-                        $this->fieldlist[] = $field;
-                }
-            }
-        }
-
-        $where = array();
-        if(!empty($args['where']))
-        {
-            // cfr. BL compiler - adapt as needed (I don't think == and === are accepted in SQL)
-            $findLogic      = array(' eq ', ' ne ', ' lt ', ' gt ', ' id ', ' nd ', ' le ', ' ge ');
-            $replaceLogic   = array( ' = ', ' != ',  ' < ',  ' > ',  ' = ', ' != ', ' <= ', ' >= ');
-
-            $args['where'] = str_replace($findLogic, $replaceLogic, $args['where']);
-
-            $parts = preg_split('/\s+(and|or)\s+/',$args['where'],-1,PREG_SPLIT_DELIM_CAPTURE);
-            $join = '';
-            foreach($parts as $part)
-            {
-                if($part == 'and' || $part == 'or')
-                {
-                    $join = $part;
-                    continue;
-                }
-                $pieces = preg_split('/\s+/',$part);
-                $name = array_shift($pieces);
-                // sanity check on SQL
-                if(count($pieces) < 2)
-                {
-                    $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                    $vars = array('query ' . $args['where'], 'DataObjectMaster', 'joinTable', 'DynamicData');
-                    throw new BadParameterException($vars,$msg);
-                }
-                // for many-to-1 relationships where you specify the foreign key in the original table here
-                // (e.g. properties joined to xar_dynamic_objects -> where id eq objectid)
-                if(
-                    !empty($pieces[1]) &&
-                    is_string($pieces[1]) &&
-                    isset($this->properties[$pieces[1]])
-                )  $pieces[1] = $this->properties[$pieces[1]]->source;
-
-                if(isset($this->properties[$name]))
-                {
-                    $where[] = array(
-                        'property' => &$this->properties[$name],
-                        'clause' => join(' ',$pieces),
-                        'join' => $join
-                    );
-                }
-            }
-        }
-
-        $andor = !empty($args['andor']) ? $args['andor'] : 'and';
-
-        foreach(array_keys($this->datastores) as $name)
-             $this->datastores[$name]->addJoin($table, $key, $fields, $where, $andor);
     }
 
     /**

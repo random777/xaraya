@@ -477,7 +477,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         $args['linktype'] = $linktype;
 
         if(empty($itemtype)) $itemtype = 0; // don't add to URL
-        $args['table'] = !empty($this->table) ? $this->table : null;
         $args['objectname'] = !empty($this->name) ? $this->name : null;
         $args['objectlabel'] = !empty($this->label) ? $this->label : null;
         $args['modname'] = $modname;
@@ -540,7 +539,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         extract($args);
 
         $urlargs = array();
-        $urlargs['table'] = $table;
         $urlargs[$args['param']] = $itemid;
         $urlargs['tplmodule'] = $args['tplmodule'];
         // The next 3 lines make the DD modify/display routines work for overlay objects

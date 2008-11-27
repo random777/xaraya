@@ -22,7 +22,6 @@ sys::import('modules.roles.class.xarQuery');
 class Role extends DataObject
 {
     public $parentlevel;  //we use this just to store transient information
-    public $basetype;     //the base itemtype. we add this so it can be passed rather than calculated here
 
     public $dbconn;
     public $rolestable;
@@ -62,8 +61,6 @@ class Role extends DataObject
         $this->modulestable = $xartable['modules'];
 
         $this->parentlevel = 0;
-        $ancestor = $this->getBaseAncestor();
-        $this->basetype = $ancestor['itemtype'];
     }
 
     /**
@@ -78,7 +75,7 @@ class Role extends DataObject
     {
         // Confirm that this group or user does not already exist
         $q = new xarQuery('SELECT',$this->rolestable);
-        if ($this->basetype == ROLES_GROUPTYPE) {
+        if ($this->itemtype == ROLES_GROUPTYPE) {
             if (empty($data['name'])) $data['name'] = $this->getName();
             $q->eq('name',$data['name']);
         } else {
@@ -89,7 +86,7 @@ class Role extends DataObject
 
         if ($q->getrows() > 0) {
             $result = $q->row();
-            throw new DuplicateException(array('role',($this->basetype == ROLES_GROUPTYPE) ? $result['name'] :$result['uname'] ));
+            throw new DuplicateException(array('role',($this->itemtype == ROLES_GROUPTYPE) ? $result['name'] :$result['uname'] ));
         }
 
         $id = parent::createItem($data);
@@ -699,8 +696,7 @@ class Role extends DataObject
      */
     public function isUser()
     {
-        $base = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('itemtype' => $this->getType(), 'moduleid' => 27));
-        return $base['itemtype'] == ROLES_USERTYPE;
+        return $this->getType() == ROLES_USERTYPE;
     }
 
     /**

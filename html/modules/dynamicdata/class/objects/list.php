@@ -44,9 +44,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         // get the object type information from our parent class
         $this->loader($descriptor);
 
-        // see if we can access these objects, at least in overview
-//        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->moduleid.':'.$this->itemtype.':All')) return;
-
         // Set the configuration parameters
         $args = $descriptor->getArgs();
         try {
@@ -108,7 +105,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         $this->setSort($this->sort);
         $this->setWhere($this->where);
         $this->setGroupBy($this->groupby);
-//        $this->setCategories($this->catid);
 
     }
 

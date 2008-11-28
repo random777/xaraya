@@ -45,13 +45,6 @@ class DataObject extends DataObjectMaster implements iDataObject
 
         // set the specific item id (or 0)
         if(isset($args['itemid'])) $this->itemid = $args['itemid'];
-
-        // see if we can access this object, at least in overview
-/*        if(!xarSecurityCheck(
-            'ViewDynamicDataItems',1,'Item',
-            $this->moduleid.':'.$this->itemtype.':'.$this->itemid)
-        ) return;
-        */
         
         // Get a reference to each property's value
         foreach ($this->properties as $property) {

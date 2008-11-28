@@ -269,7 +269,6 @@ class DataObjectMaster extends Object
             $cleanlist = array();
             foreach($this->fieldlist as $name) {
                 if (!strstr($name,'(')) {
-//                    if(isset($this->properties[$name]))
                         $cleanlist[] = $name;
                 } elseif (preg_match('/^(.+)\((.+)\)/',$name,$matches)) {
                     $operation = $matches[1];

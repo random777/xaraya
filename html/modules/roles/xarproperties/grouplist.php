@@ -24,12 +24,12 @@ class GroupListProperty extends SelectProperty
     public $previous_groupid = 0;
     public $current_groupid  = 0;
 
-    public $initialization_behavior        = 'replace';
-    public $initialization_basegroup       = 'Everybody';
-    public $validation_ancestorgroup_list  = null;
-    public $validation_parentgroup_list    = null;
-    public $validation_group_list          = null;
-    public $validation_override            = true;
+    public $initialization_update_behavior  = 'replace';
+    public $initialization_basegroup        = 1;
+    public $validation_ancestorgroup_list   = null;
+    public $validation_parentgroup_list     = null;
+    public $validation_group_list           = null;
+    public $validation_override             = true;
 
     /*
     * Options available to group selection
@@ -85,7 +85,7 @@ class GroupListProperty extends SelectProperty
     {
         $xartable = xarDB::getTables();
         
-        if ($this->initialization_behavior == 'replace' && $this->previous_groupid) {
+        if ($this->initialization_update_behavior == 'replace' && $this->previous_groupid) {
             if (!$itemid) {
                 $q = new xarQuery('DELETE',$xartable['rolemembers']);
                 $q->eq('parent_id',$this->previous_groupid);
@@ -121,7 +121,7 @@ class GroupListProperty extends SelectProperty
     {
         $this->value = $itemid;
         $value = 0;
-        $basegroup = xarRoles::findRole($this->initialization_basegroup);
+        $basegroup = xarRoles::get($this->initialization_basegroup);
         if (!empty($basegroup)) {
             $xartable = xarDB::getTables();
             $q = new xarQuery('SELECT',$xartable['rolemembers']);
@@ -130,7 +130,7 @@ class GroupListProperty extends SelectProperty
             if (!$q->run()) return;
             foreach ($q->output() as $row) {
                 $candidate = xarRoles::get($row['parent_id']);
-                if ($candidate->isAncestor($basegroup)) {
+                if ($candidate->isAncestor($basegroup) || ($candidate->getId() == $basegroup->getId())) {
                     $value = $row['parent_id'];
                     break;
                 }
@@ -141,7 +141,7 @@ class GroupListProperty extends SelectProperty
 
     public function showInput(Array $data = array())
     {
-        if (isset($data['behavior'])) $this->initialization_behavior = $data['behavior'];
+        if (isset($data['behavior'])) $this->initialization_update_behavior = $data['behavior'];
         if (isset($data['basegroup'])) $this->initialization_basegroup = $data['basegroup'];
 
         // If we are not standalone get the group value first 
@@ -153,7 +153,7 @@ class GroupListProperty extends SelectProperty
 
     public function showOutput(Array $data = array())
     {
-        if (isset($data['behavior'])) $this->initialization_behavior = $data['behavior'];
+        if (isset($data['behavior'])) $this->initialization_update_behavior = $data['behavior'];
         if (isset($data['basegroup'])) $this->initialization_basegroup = $data['basegroup'];
 
         // If we are not standalone get the group value first 
@@ -187,22 +187,7 @@ class GroupListProperty extends SelectProperty
         }
         // TODO: handle large # of groups too (optional - less urgent than for users)
         $groups = xarModAPIFunc('roles', 'user', 'getallgroups', $select_options);
-        $options = array();
-        $child = xarRoles::get($this->_itemid);
-        if ($this->_itemid && !empty($child)) {
-            // This is part of an object. Weed out unallowed parents
-            foreach ($groups as $group) {
-                $parent = xarRoles::get($group['id']);
-                if (($this->_itemid == $group['id']) || $child->isAncestor($parent)) continue;
-                $options[] = array('id' => $group['id'], 'name' => $group['name']);
-            }
-        } else {
-            // This is a standalone property
-            foreach ($groups as $group) {
-                $options[] = array('id' => $group['id'], 'name' => $group['name']);
-            }
-        }
-        return $options;
+        return $groups;
     }
 
 }

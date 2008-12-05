@@ -19,7 +19,7 @@
         </div>
     </form>
 
-    <form>
+    <form action="" onsubmit="return false;">
         <div>
             <xar:data-form object="$object" />
         </div>

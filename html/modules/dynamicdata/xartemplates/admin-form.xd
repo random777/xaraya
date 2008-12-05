@@ -21,9 +21,7 @@
 
     <form>
         <div>
-            <table class="xar-fullwidth">
-                <xar:data-form object="$object" />
-            </table>
+            <xar:data-form object="$object" />
         </div>
     </form>
 

@@ -102,17 +102,12 @@ class DataObjectMaster extends Object
 
     public $moduleid    = null;
     public $itemtype    = 0;
-    public $parent      = 0;
-    public $baseancestor= null;
 
     public $urlparam    = 'itemid';
     public $maxid       = 0;
     public $config      = 'a:0:{}';       // the configuration parameters for this DD object
     public $configuration;                // the exploded configuration parameters for this DD object
     public $isalias     = 0;
-    public $join        = '';
-    public $table       = '';
-    public $extend      = true;
 
     public $class       = 'DataObject'; // the class name of this DD object
     public $filepath    = 'auto';       // the path to the class of this DD object (can be empty or 'auto' for DataObject)
@@ -142,8 +137,6 @@ class DataObjectMaster extends Object
      * @param $args['objectid'] id of the object you're looking for, or
      * @param $args['moduleid'] module id of the object to retrieve +
      * @param $args['itemtype'] item type of the object to retrieve, or
-     * @param $args['table'] database table to turn into an object
-     * @param $args['catid'] categories we're selecting in (if hooked)
      *
      * @param $args['fieldlist'] optional list of properties to use, or
      * @param $args['status'] optional status of the properties to use
@@ -167,26 +160,6 @@ class DataObjectMaster extends Object
 
         xarMod::loadDbInfo('dynamicdata','dynamicdata');
 
-        // Get the info on the db table if that was passed in.
-        // meaning the object is based on a db table.
-        if(!empty($this->table))
-        {
-            $meta = xarModAPIFunc(
-                'dynamicdata','util','getmeta',
-                array('table' => $this->table)
-            );
-            // we throw an exception here because we assume a table should always exist (for now)
-            if(!isset($meta) || !isset($meta[$this->table]))
-            {
-                $msg = 'Invalid #(1) #(2) for dynamic object #(3)';
-                $vars = array('table',$this->table,$this->table);
-                throw new BadParameterException($vars,$msg);
-            }
-            // Add all the info we got from the table as properties to the object
-            foreach($meta[$this->table] as $name => $propinfo)
-                $this->addProperty($propinfo);
-        }
-
         // use the object name as default template override (*-*-[template].x*)
         if(empty($this->template) && !empty($this->name))
             $this->template = $this->name;
@@ -201,43 +174,12 @@ class DataObjectMaster extends Object
             DataPropertyMaster::getProperties($args); // we pass this object along
         }
 
-        // Do we have a join?
-        if(!empty($this->join))
-        {
-            $meta = xarModAPIFunc(
-                'dynamicdata','util','getmeta',
-                array('table' => $this->join)
-            );
-            // we throw an exception here because we assume a table should always exist (for now)
-            if(!isset($meta) || !isset($meta[$this->join]))
-            {
-                $msg = 'Invalid #(1) #(2) for dynamic object #(3)';
-                $vars = array('join',$this->join,$this->name);
-                throw new BadParameterException($vars,$msg);
-            }
-            $count = count($this->properties);
-            foreach($meta[$this->join] as $name => $propinfo)
-                $this->addProperty($propinfo);
-
-            if(count($this->properties) > $count)
-            {
-                // put join properties in front
-                $joinprops = array_splice($this->properties,$count);
-                $this->properties = array_merge($joinprops,$this->properties);
-            }
-        }
-
         // create the list of fields, filtering where necessary
         $this->fieldlist = $this->getFieldList($this->fieldlist,$this->status);
 
         // build the list of relevant data stores where we'll get/set our data
         if(count($this->datastores) == 0 && count($this->properties) > 0)
            $this->getDataStores();
-
-        // add ancestors' properties to this object if required
-        // the default is to add the fields
-        $this->baseancestor = $this->objectid;
-        if($this->extend) $this->addAncestors();
     }
 
     private function getFieldList($fieldlist=array(),$status=null)
@@ -266,28 +208,6 @@ class DataObjectMaster extends Object
     }
 
     /**
-     * Add the ancestors to this object
-     * This is adding the properties and datastores of all the ancestors to this object
-    **/
-    private function addAncestors($object=null)
-    {
-        $ancestors = $this->getAncestors();
-
-        // If this is an extended object add the ancestor properties for display purposes
-        $this->fieldorder = array_keys($this->properties);
-        if(!empty($ancestors))
-        {
-            $this->baseancestor = $ancestors[0]['objectid'];
-            // If the ancestors are objects, add them in
-            foreach($ancestors as $ancestor)
-            {
-                if($ancestor['objectid'])
-                    $this->addObject($ancestor['objectid']);
-            }
-        }
-    }
-
-    /**
      * Add one object to another
      * This is basically adding the properties and datastores from one object to another
      *
@@ -299,7 +219,7 @@ class DataObjectMaster extends Object
     {
         if(is_numeric($object))
             $object = self::getObject(
-                array('objectid' => $object, 'extend' => false)
+                array('objectid' => $object)
             );
 
         if(!is_object($object))
@@ -349,7 +269,6 @@ class DataObjectMaster extends Object
             $cleanlist = array();
             foreach($this->fieldlist as $name) {
                 if (!strstr($name,'(')) {
-//                    if(isset($this->properties[$name]))
                         $cleanlist[] = $name;
                 } elseif (preg_match('/^(.+)\((.+)\)/',$name,$matches)) {
                     $operation = $matches[1];
@@ -507,7 +426,6 @@ class DataObjectMaster extends Object
                          label,
                          module_id,
                          itemtype,
-                         parent_id,
                          urlparam,
                          maxid,
                          config,
@@ -528,7 +446,7 @@ class DataObjectMaster extends Object
             // @todo this depends on fetchmode being numeric
             list(
                 $info['objectid'], $info['name'],     $info['label'],
-                $info['moduleid'], $info['itemtype'], $info['parent'],
+                $info['moduleid'], $info['itemtype'],
                 $info['urlparam'], $info['maxid'],    $info['config'],
                 $info['isalias']
             ) = $result->fields;
@@ -555,22 +473,6 @@ class DataObjectMaster extends Object
     {
         if (!isset($args['objectid']) || (is_null($args['objectid'])))
             $args = DataObjectDescriptor::getObjectID($args);
-        if(!empty($args['table']))
-        {
-            $info = array();
-            $info['objectid'] = 0;
-            $info['name'] = $args['table'];
-            $info['label'] = xarML('Table #(1)',$args['table']);
-            $info['moduleid'] = 182;
-            $info['itemtype'] = 0;
-            $info['parent'] = 1;
-            $info['filepath'] = 'auto';
-            $info['urlparam'] = 'itemid';
-            $info['maxid'] = 0;
-            $info['config'] = '';
-            $info['isalias'] = 0;
-            return $info;
-        }
 
         $cacheKey = 'DynamicData.ObjectInfo';
         $infoid = (int)$args['objectid'];
@@ -590,7 +492,6 @@ class DataObjectMaster extends Object
                          label,
                          module_id,
                          itemtype,
-                         parent_id,
                          class,
                          filepath,
                          urlparam,
@@ -606,16 +507,13 @@ class DataObjectMaster extends Object
         $info = array();
         list(
             $info['objectid'], $info['name'],     $info['label'],
-            $info['moduleid'], $info['itemtype'], $info['parent'],
+            $info['moduleid'], $info['itemtype'],
             $info['class'], $info['filepath'],
             $info['urlparam'], $info['maxid'],    $info['config'],
             $info['isalias']
         ) = $result->fields;
         $result->close();
-        if(!empty($args['join']))
-        {
-            $info['label'] .= ' + ' . $args['join'];
-        }
+
         xarCore::setCached($cacheKey,$infoid,$info);
         return $info;
     }
@@ -794,7 +692,6 @@ class DataObjectMaster extends Object
         $mylist =& self::getObjectList(
             array(
                 'objectid' => $args['objectid'],
-                'extend' => false
             )
         );
         if(empty($mylist))
@@ -820,186 +717,6 @@ class DataObjectMaster extends Object
         $result = $object->deleteItem();
         unset($object);
         return $result;
-    }
-
-    /**
-     * Join another database table to this object (unfinished)
-     * The difference with the 'join' argument above is that we don't create a new datastore for it here,
-     * and the join is handled directly in the original datastore, i.e. more efficient querying...
-     *
-     * @param $args['table'] the table to join with
-     * @param $args['key'] the join key for this table
-     * @param $args['fields'] the fields you want from this table
-     * @param $args['where'] optional where clauses for those table fields
-     * @param $args['andor'] optional combination of those clauses with the ones from the object
-     * @param $args['sort'] optional sort order in that table (TODO)
-     *
-    **/
-    function joinTable($args)
-    {
-        if(empty($args['table']))
-            return;
-
-        $meta = xarModAPIFunc(
-            'dynamicdata','util','getmeta',
-            array('table' => $args['table'])
-        );
-
-        // we throw an exception here because we assume a table should always exist (for now)
-        if(!isset($meta) || !isset($meta[$args['table']]))
-        {
-            $msg = 'Invalid #(1) #(2) for dynamic object #(3)';
-            $vars = array('join',$args['table'],$this->name);
-            throw new BadParameterException($vars, $msg);
-        }
-
-        $count = count($this->properties);
-        foreach($meta[$args['table']] as $name => $propinfo)
-            $this->addProperty($propinfo);
-
-        $table = $args['table'];
-        $key = null;
-        if(!empty($args['key']) && isset($this->properties[$args['key']]))
-            $key = $this->properties[$args['key']]->source;
-
-        $fields = array();
-        if(!empty($args['fields']))
-        {
-            foreach($args['fields'] as $field)
-            {
-                if(isset($this->properties[$field]))
-                {
-                    $fields[$field] =& $this->properties[$field];
-                    if(count($this->fieldlist) > 0 && !in_array($field,$this->fieldlist))
-                        $this->fieldlist[] = $field;
-                }
-            }
-        }
-
-        $where = array();
-        if(!empty($args['where']))
-        {
-            // cfr. BL compiler - adapt as needed (I don't think == and === are accepted in SQL)
-            $findLogic      = array(' eq ', ' ne ', ' lt ', ' gt ', ' id ', ' nd ', ' le ', ' ge ');
-            $replaceLogic   = array( ' = ', ' != ',  ' < ',  ' > ',  ' = ', ' != ', ' <= ', ' >= ');
-
-            $args['where'] = str_replace($findLogic, $replaceLogic, $args['where']);
-
-            $parts = preg_split('/\s+(and|or)\s+/',$args['where'],-1,PREG_SPLIT_DELIM_CAPTURE);
-            $join = '';
-            foreach($parts as $part)
-            {
-                if($part == 'and' || $part == 'or')
-                {
-                    $join = $part;
-                    continue;
-                }
-                $pieces = preg_split('/\s+/',$part);
-                $name = array_shift($pieces);
-                // sanity check on SQL
-                if(count($pieces) < 2)
-                {
-                    $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                    $vars = array('query ' . $args['where'], 'DataObjectMaster', 'joinTable', 'DynamicData');
-                    throw new BadParameterException($vars,$msg);
-                }
-                // for many-to-1 relationships where you specify the foreign key in the original table here
-                // (e.g. properties joined to xar_dynamic_objects -> where id eq objectid)
-                if(
-                    !empty($pieces[1]) &&
-                    is_string($pieces[1]) &&
-                    isset($this->properties[$pieces[1]])
-                )  $pieces[1] = $this->properties[$pieces[1]]->source;
-
-                if(isset($this->properties[$name]))
-                {
-                    $where[] = array(
-                        'property' => &$this->properties[$name],
-                        'clause' => join(' ',$pieces),
-                        'join' => $join
-                    );
-                }
-            }
-        }
-
-        $andor = !empty($args['andor']) ? $args['andor'] : 'and';
-
-        foreach(array_keys($this->datastores) as $name)
-             $this->datastores[$name]->addJoin($table, $key, $fields, $where, $andor);
-    }
-
-    /**
-      * Get Object's Ancestors
-      *
-      * @param int    args[moduleid]
-      * @param int    args[itemtype]
-      * @param int    args[objectid]
-      * @param bool args[top]
-      * @param bool  args[base]
-    **/
-    function getAncestors()
-    {
-        $top = isset($top) ? $top : false;
-        $base = isset($base) ? $base : true;
-        $ancestors = array();
-
-
-        $xartable = xarDB::getTables();
-        $topobject = self::getObjectInfo(array('objectid' => $this->objectid));
-
-        // Include the last descendant (this object) or not
-        if ($top) {
-            $ancestors[] = self::getObjectInfo(array('objectid' => $this->objectid));
-        }
-
-        // Get all the dynamic objects at once
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
-        $q->addfields(array('id AS objectid','name AS objectname','module_id AS moduleid','itemtype AS itemtype','parent_id AS parent'));
-        $q->eq('module_id',$this->moduleid);
-        if (!$q->run()) return;
-
-        // Put in itemtype as key for easier manipulation
-        foreach($q->output() as $row)
-            $objects[$row['itemtype']] = array('objectid' => $row['objectid'],'objectname' => $row['objectname'], 'moduleid' => $row['moduleid'], 'itemtype' => $row['itemtype'], 'parent' => $row['parent']);
-
-        // Cycle through each ancestor
-        $parentitemtype = $topobject['parent'];
-        if (!$parentitemtype) return array();
-
-        for(;;) {
-            $thisobject     = $objects[$parentitemtype];
-
-            // This is a DD descendent object. add it to the ancestor array
-            $moduleid       = $thisobject['moduleid'];
-            $objectid       = $thisobject['objectid'];
-            $itemtype       = $thisobject['itemtype'];
-            $name           = $thisobject['objectname'];
-            $parentitemtype = $thisobject['parent'];
-            $this->baseancestor = $objectid;
-            $ancestors[] = $thisobject;
-            if (!$thisobject['parent']) break;
-        }
-        $ancestors = array_reverse($ancestors, true);
-        return $ancestors;
-
-    }
-
-    /**
-     * Get the base ancestor for the object
-     *
-     * see getAncestors for parameters
-     * @see self::getAncestors
-     */
-    function &getBaseAncestor()
-    {
-        $ancestors = $this->getAncestors();
-        if (empty($ancestors)) {
-            $ancestor = $this->toArray(); // FIXME: this is a bit sloppy, too many elements
-        } else {
-            $ancestor = array_shift($ancestors);
-        }
-        return $ancestor;
     }
 
     /**
@@ -1043,7 +760,7 @@ class DataObjectMaster extends Object
             $xartable = xarDB::getTables();
             sys::import('modules.roles.class.xarQuery');
             $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
-            $q->addfields(array('id AS objectid','label AS objectlabel','module_id AS moduleid','itemtype AS itemtype','parent_id AS parent'));
+            $q->addfields(array('id AS objectid','label AS objectlabel','module_id AS moduleid','itemtype AS itemtype'));
             $q->eq('module_id',$moduleid);
             if (!$q->run()) return;
 

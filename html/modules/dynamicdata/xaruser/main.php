@@ -24,7 +24,7 @@ function dynamicdata_user_main()
     if (!xarModAPILoad('dynamicdata','user')) return;
 
     // get items from the objects table
-    $objects = xarModAPIFunc('dynamicdata','user','getobjects');
+    $objects = DataObjectMaster::getObjects();
 
     $data['items'] = array();
     $mymodid = xarModGetIDFromName('dynamicdata');

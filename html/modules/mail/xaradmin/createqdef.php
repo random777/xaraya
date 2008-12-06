@@ -16,7 +16,7 @@ function mail_admin_createqdef($args)
         $qdefNew = false;
         if(!xarVarFetch('qdef_name_choose','id',$qdefObjectId)) return;
         // Get the name of the object from dd
-        $qdefObject = xarModApiFunc('dynamicdata','user','getobject',array('objectid' => $qdefObjectId));
+        $qdefObject = DataObjectMaster::getObject(array('objectid' => $qdefObjectId));
         if(!isset($qdefObject)) return;
         $qdefName = $qdefObject->name;
         break;

@@ -148,7 +148,7 @@ function roles_admin_showusers()
                            '2' => xarML('Tabbed')
                            );
 
-    $object = xarModAPIFunc('dynamicdata','user','getobjectlist',array('name' => 'roles_users'));
+    $object = DataObjectMaster::getObjectList(array('name' => 'roles_users'));
     $object->getItems(array('itemids' => array_keys($users)));
 
     // Load Template

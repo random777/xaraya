@@ -23,7 +23,12 @@ function roles_admin_new()
     if (!xarVarFetch('itemtype',    'int',   $data['itemtype'], xarRoles::ROLES_USERTYPE, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('duvs',        'array', $data['duvs'], array(), XARVAR_NOT_REQUIRED)) return;
 
-    $data['object'] = DataObjectMaster::getObject(array('module'   => 'roles', 'itemtype' => $data['itemtype']));
+    switch ($data['itemtype']) {
+        case 1: $name = "roles_roles"; break;
+        case 2: $name = "roles_users"; break;
+        case 3: $name = "roles_groups"; break;
+    }
+    $data['object'] = DataObjectMaster::getObject(array('name' => $name));
 
     xarSession::setVar('ddcontext.roles', array(
                                             'return_url' => xarServerGetCurrentURL(),

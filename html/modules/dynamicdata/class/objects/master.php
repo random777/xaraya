@@ -461,23 +461,23 @@ class DataObjectMaster extends Object
      *
      * @param $args['objectid'] id of the object you're looking for, OR
      * @param $args['name'] name of the object you're looking for, OR
-     * @param $args['moduleid'] module id of the object you're looking for + $args['itemtype'] item type of the object you're looking for
      * @return array containing the name => value pairs for the object
-     * @todo cache on id/name/modid ?
      * @todo when we had a constructor which was more passive, this could be non-static. (cheap construction is a good rule of thumb)
      * @todo no ref return?
      * @todo when we can turn this into an object method, we dont have to do db inclusion all the time.
-     * @todo THE PARAM INFORMATION ABOVE ARE LIES SO FAR, SEE IMPLEMENTATION
     **/
     static function getObjectInfo(Array $args=array())
     {
-        if (!isset($args['objectid']) || (is_null($args['objectid'])))
-            $args = DataObjectDescriptor::getObjectID($args);
+        if (!isset($args['objectid']) && (!isset($args['name']))) {
+           throw new Exception(xarML('Cannot get object information without an objectid or a name'));
+        }
 
         $cacheKey = 'DynamicData.ObjectInfo';
-        $infoid = (int)$args['objectid'];
-        if(xarCore::isCached($cacheKey,$infoid)) {
-            return xarCore::getCached($cacheKey,$infoid);
+        if(isset($args['objectid']) && xarCore::isCached($cacheKey,$args['objectid'])) {
+            return xarCore::getCached($cacheKey,$args['objectid']);
+        }
+        if(isset($args['name']) && xarCore::isCached($cacheKey,$args['name'])) {
+            return xarCore::getCached($cacheKey,$args['name']);
         }
 
         $dbconn = xarDB::getConn();
@@ -499,8 +499,13 @@ class DataObjectMaster extends Object
                          config,
                          isalias
                   FROM $dynamicobjects ";
-        $query .= " WHERE id = ? ";
-        $bindvars[] = (int) $args['objectid'];
+        if (isset($args['objectid'])) {
+            $query .= " WHERE id = ? ";
+            $bindvars[] = (int) $args['objectid'];
+        } else {
+            $query .= " WHERE name = ? ";
+            $bindvars[] = $args['name'];
+        }
         $stmt = $dbconn->prepareStatement($query);
         $result = $stmt->executeQuery($bindvars);
         if(!$result->first()) return;
@@ -514,7 +519,8 @@ class DataObjectMaster extends Object
         ) = $result->fields;
         $result->close();
 
-        xarCore::setCached($cacheKey,$infoid,$info);
+        xarCore::setCached($cacheKey,$info['objectid'],$info);
+        xarCore::setCached($cacheKey,$info['name'],$info);
         return $info;
     }
 

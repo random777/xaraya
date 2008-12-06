@@ -111,7 +111,7 @@ function dynamicdata_admin_privileges($args)
     }
 
     // Get objects
-    $objects = xarModAPIFunc('dynamicdata','user','getobjects');
+    $objects = DataObjectMaster::getObjects();
 
     // TODO: use object list instead of (or in addition to) module + itemtype
 

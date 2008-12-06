@@ -24,8 +24,12 @@ function roles_admin_display()
 
     $data['itemtype'] = $role->getType();
 
-    $object = xarModAPIFunc('dynamicdata','user','getobject',array('module'   => 'roles',
-                                                'itemtype' => $data['itemtype']));
+    switch ($data['itemtype']) {
+        case 1: $name = "roles_roles"; break;
+        case 2: $name = "roles_users"; break;
+        case 3: $name = "roles_groups"; break;
+    }
+    $object = DataObjectMaster::getObject(array('name' => $name));
 
     $itemid = $object->getItem(array('itemid' => $id));
 

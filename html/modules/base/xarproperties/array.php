@@ -142,6 +142,10 @@ class ArrayProperty extends DataProperty
         $data['rows'] = !empty($rows) ? $rows : $this->display_rows;
         $data['size'] = !empty($size) ? $size : $this->display_columns;
 
+        $data['style'] = !empty($data['style']) ? $data['style'] : '';
+        $data['class'] = !empty($data['class']) ? $data['class'] : '';
+        $data['columntype'] = 'textbox';
+        
         return parent::showInput($data);
     }
 

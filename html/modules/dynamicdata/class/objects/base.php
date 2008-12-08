@@ -54,17 +54,17 @@ class DataObject extends DataObjectMaster implements iDataObject
         // Set up the db tables
         try {
             $sourceargs = unserialize($args['sources']);
-            sys::import('modules.query.class.query');
-            $q = new Query();
-            foreach ($sourceargs as $key => $value) $q->addtable($value,$key);
-            $q->qecho();
+            if (!empty($sourceargs)) {
+                sys::import('modules.query.class.query');
+                $q = new Query();
+                foreach ($sourceargs as $key => $value) $q->addtable($value,$key);
+            }
         } catch (Exception $e) {}
 
         // Set up the db tablerelations
         try {
             $relationargs = unserialize($args['relations']);
-            foreach ($relationargs as $key => $value) $q->addtable($value,$key);
-            $q->qecho();
+            foreach ($relationargs as $key => $value) $q->join($key,$value);
         } catch (Exception $e) {}
     }
 

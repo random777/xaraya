@@ -32,7 +32,7 @@ class DataObject extends DataObjectMaster implements iDataObject
     **/
     public function __construct(DataObjectDescriptor $descriptor)
     {
-      // get the object type information from our parent class
+        // get the object type information from our parent class
         $this->loader($descriptor);
 
         // Set the configuration parameters
@@ -52,11 +52,20 @@ class DataObject extends DataObjectMaster implements iDataObject
         }
         
         // Set up the db tables
+        try {
             $sourceargs = unserialize($args['sources']);
             sys::import('modules.query.class.query');
             $q = new Query();
             foreach ($sourceargs as $key => $value) $q->addtable($value,$key);
             $q->qecho();
+        } catch (Exception $e) {}
+
+        // Set up the db tablerelations
+        try {
+            $relationargs = unserialize($args['relations']);
+            foreach ($relationargs as $key => $value) $q->addtable($value,$key);
+            $q->qecho();
+        } catch (Exception $e) {}
     }
 
     /**

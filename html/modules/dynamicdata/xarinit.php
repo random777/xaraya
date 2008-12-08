@@ -111,6 +111,10 @@ function dynamicdata_init()
             'sources'   => array(
                 'type'=>'text'
             ),
+            /* the data source relations this object uses */
+            'relations'   => array(
+                'type'=>'text'
+            ),
             /* use the name of this object as alias for short URLs */
             'isalias'  => array(
                 'type'        => 'boolean',
@@ -285,6 +289,7 @@ function dynamicdata_init()
             array('maxid'     ,'Max Id'             ,$objectid[1],15,'0'           ,$dynamic_objects.'.maxid'      ,DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,10 ,''),
             array('config'    ,'Configuration'      ,$objectid[1],999 ,''          ,$dynamic_objects.'.config'     ,DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,11 ,''),
             array('sources'   ,'Sources'            ,$objectid[1],999 ,''          ,$dynamic_objects.'.sources'    ,DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,11 ,''),
+            array('relations' ,'Relations'          ,$objectid[1],999 ,''          ,$dynamic_objects.'.relations'  ,DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,11 ,''),
             array('isalias'   ,'Alias in short URLs',$objectid[1],14,'1'           ,$dynamic_objects.'.isalias'    ,DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,12 ,''),
 
             // Properties for the Properties DD object

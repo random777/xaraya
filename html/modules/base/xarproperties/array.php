@@ -24,6 +24,7 @@ class ArrayProperty extends DataProperty
 
     public $display_columns = 30;
     public $display_rows = 4;
+    public $initialization_column_types = 'a:0:{}';
 
     function __construct(ObjectDescriptor $descriptor)
     {

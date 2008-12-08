@@ -48,6 +48,7 @@ function roles_admin_asknotification($args)
                 $data['authid'] = xarSecGenAuthKey();
                 $data['id'] = base64_encode(serialize($id));
 
+                /*
                 // dynamic properties (if any)
                 $data['properties'] = null;
                 if (xarModIsAvailable('dynamicdata')) {
@@ -60,6 +61,7 @@ function roles_admin_asknotification($args)
                         $data['properties'] = &$object->getProperties();
                     }
                 }
+                */
                 return $data;
             break;
         case 'notify' :

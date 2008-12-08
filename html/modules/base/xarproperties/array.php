@@ -24,6 +24,7 @@ class ArrayProperty extends DataProperty
 
     public $display_columns = 30;
     public $display_rows = 4;
+    public $initialization_column_types = 'a:0:{}';
 
     function __construct(ObjectDescriptor $descriptor)
     {
@@ -142,6 +143,10 @@ class ArrayProperty extends DataProperty
         $data['rows'] = !empty($rows) ? $rows : $this->display_rows;
         $data['size'] = !empty($size) ? $size : $this->display_columns;
 
+        $data['style'] = !empty($data['style']) ? $data['style'] : '';
+        $data['class'] = !empty($data['class']) ? $data['class'] : '';
+        $data['columntype'] = 'textbox';
+        
         return parent::showInput($data);
     }
 

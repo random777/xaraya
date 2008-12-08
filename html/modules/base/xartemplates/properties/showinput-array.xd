@@ -6,20 +6,28 @@
             <xar:foreach in="$value" key="$key" value="$val">
                 <div class="xar-form-input-wrapper" >
                     <label for="#$id#_key_#$index#">Key:</label>&#160;
-                    <input class="xar-form-textmedium" type="text" name="#$name#_key[#$index#]" id="#$id#_key_#$index#" value="#$key#" size="#$size#" />
+                    <xar:set name="name">$name . '_key[' . $index . ']'</xar:set>
+                    <xar:set name="id">$id . '_key_' . $index</xar:set>
+                    <xar:data-input type="$columntype" name="$name" id="$id" value="$key" class="$class" style="$style" />
                     &#160;
                     <label for="#$id#_value_#$index#">Value:</label>&#160;
-                    <input class="xar-form-textlong" type="text" name="#$name#_value[#$index#]" id="#$id#_value_#$index#" value="#$val#" size="#$size#" />
+                    <xar:set name="name">$name . '_value[' . $index . ']'</xar:set>
+                    <xar:set name="id">$id . '_value_' . $index</xar:set>
+                    <xar:data-input type="$columntype" name="$name" id="$id" value="$val" class="$class" style="$style" />
                 </div>
                 <xar:set name="index">$index+1</xar:set>
             </xar:foreach>
             <xar:for start="$i = $index" test="$i lt $rows" iter="$i++">
                 <div class="xar-form-input-wrapper">
                     <label for="#$id#_key_#$i#">Key:</label>&#160;
-                    <input class="xar-form-textmedium" type="text" name="#$name#_key[#$i#]" id="#$id#_key_#$i#" value="" size="#$size#" />
+                    <xar:set name="name">$name . '_key[' . $index . ']'</xar:set>
+                    <xar:set name="id">$id . '_key_' . $index</xar:set>
+                    <xar:data-input type="$columntype" name="$name" id="$id" value="" class="$class" style="$style" />
                     &#160;
                     <label for="#$id#_value_#$i#">Value:</label>&#160;
-                    <input class="xar-form-textlong" type="text" name="#$name#_value[#$i#]" id="#$id#_value_#$i#" value="" size="#$size#" />
+                    <xar:set name="name">$name . '_value[' . $index . ']'</xar:set>
+                    <xar:set name="id">$id . '_value_' . $index</xar:set>
+                    <xar:data-input type="$columntype" name="$name" id="$id" value="" class="$class" style="$style" />
                 </div>
             </xar:for>
         <xar:else />

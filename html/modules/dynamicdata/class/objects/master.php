@@ -107,6 +107,7 @@ class DataObjectMaster extends Object
     public $maxid       = 0;
     public $config      = 'a:0:{}';       // the configuration parameters for this DD object
     public $configuration;                // the exploded configuration parameters for this DD object
+    public $sources     = 'a:0:{}';       // the db source tables of this object
     public $isalias     = 0;
 
     public $class       = 'DataObject'; // the class name of this DD object
@@ -497,6 +498,7 @@ class DataObjectMaster extends Object
                          urlparam,
                          maxid,
                          config,
+                         sources,
                          isalias
                   FROM $dynamicobjects ";
         if (isset($args['objectid'])) {
@@ -515,6 +517,7 @@ class DataObjectMaster extends Object
             $info['moduleid'], $info['itemtype'],
             $info['class'], $info['filepath'],
             $info['urlparam'], $info['maxid'],    $info['config'],
+            $info['sources'],
             $info['isalias']
         ) = $result->fields;
         $result->close();

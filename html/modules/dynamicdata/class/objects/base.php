@@ -50,6 +50,13 @@ class DataObject extends DataObjectMaster implements iDataObject
         foreach ($this->properties as $property) {
             $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);
         }
+        
+        // Set up the db tables
+            $sourceargs = unserialize($args['sources']);
+            sys::import('modules.query.class.query');
+            $q = new Query();
+            foreach ($sourceargs as $key => $value) $q->addtable($value,$key);
+            $q->qecho();
     }
 
     /**

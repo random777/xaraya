@@ -45,6 +45,7 @@ function roles_admin_showusers()
         $role      = xarRoles::get($id);
         $ancestors = $role->getRoleAncestors();
         $data['groupname'] = $role->getName();
+        $data['itemtype'] = $role->getType();
         $data['title'] = '';
         $data['ancestors'] = array();
         foreach ($ancestors as $ancestor) {
@@ -54,6 +55,7 @@ function roles_admin_showusers()
     } else {
         $data['title'] = xarML('All ')." ";
         $data['groupname'] = '';
+        $data['itemtype'] = 0;
     }
 
     // Check if we already have a selection
@@ -63,13 +65,6 @@ function roles_admin_showusers()
     $q = '';
 
     if (empty($q) || isset($reload)) {
-        $types = xarModAPIFunc('roles','user','getitemtypes');
-        $basetypes = array();
-        // Show only roles based on the user itemtype
-        foreach ($types as $key => $value) {
-            $basetype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('itemtype' => $key, 'moduleid' => 27));
-            if ($basetype == ROLES_USERTYPE) $basetypes[] = $basetype;
-        }
         $xartable = xarDB::getTables();
         $q = new xarQuery('SELECT');
         $q->addtable($xartable['roles'],'r');
@@ -83,12 +78,7 @@ function roles_admin_showusers()
             $c[] = $q->plike('email','%' . $data['search'] . '%');
             $q->qor($c);
         }
-
-          $c = array();
-          foreach ($basetypes as $itemtype) {
-              $c[] = $q->eq('r.itemtype',$itemtype);
-          }
-          $q->qor($c);
+        $q->eq('r.itemtype',ROLES_USERTYPE);
 
         // Add state
         if ($data['state'] == ROLES_STATE_CURRENT) $q->ne('state',ROLES_STATE_DELETED);
@@ -158,7 +148,7 @@ function roles_admin_showusers()
                            '2' => xarML('Tabbed')
                            );
 
-    $object = xarModAPIFunc('dynamicdata','user','getobjectlist',array('name' => 'roles_users'));
+    $object = DataObjectMaster::getObjectList(array('name' => 'roles_users'));
     $object->getItems(array('itemids' => array_keys($users)));
 
     // Load Template

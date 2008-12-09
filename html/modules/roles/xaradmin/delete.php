@@ -63,7 +63,7 @@ function roles_admin_delete()
 
     if (empty($confirmation)) {
         // Load Template
-        $data['basetype'] = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
+        $data['itemtype'] = $itemtype;
         $types = xarModAPIFunc('roles','user','getitemtypes');
         $data['itemtypename'] = $types[$itemtype]['label'];
         $data['authid'] = xarSecGenAuthKey();

@@ -26,7 +26,7 @@ function dynamicdata_admin_modify($args)
 {
     extract($args);
 
-    if(!xarVarFetch('objectid', 'id',    $objectid,  1, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('objectid', 'id',    $objectid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('name',     'isset', $name,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('modid',    'isset', $moduleid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype', 'isset', $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
@@ -38,7 +38,6 @@ function dynamicdata_admin_modify($args)
     if(!xarVarFetch('itemid',   'isset', $itemid)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('preview',  'isset', $preview,     NULL, XARVAR_DONT_SET)) {return;}
-
 
     $data = xarModAPIFunc('dynamicdata','admin','menu');
 

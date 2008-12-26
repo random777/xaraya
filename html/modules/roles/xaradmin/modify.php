@@ -26,7 +26,6 @@ function roles_admin_modify()
 
 
     $object = xarRoles::get($id);
-    $data['basetype'] = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $object->getType()));
 
 //    $itemid = $object->getItem(array('itemid' => $id));
 //    $values = $object->getFieldValues();
@@ -68,7 +67,7 @@ function roles_admin_modify()
                                             'return_url' => xarServerGetCurrentURL(),
                                             'parents' => $parents,
                                             'groups' => $groups,
-                                            'basetype' => $data['basetype'],
+                                            'itemtype' => $object->getType(),
                                                 ));
 
     if (!xarSecurityCheck('EditRole',0,'Roles',$object->getName())) {

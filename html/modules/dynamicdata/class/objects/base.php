@@ -32,7 +32,7 @@ class DataObject extends DataObjectMaster implements iDataObject
     **/
     public function __construct(DataObjectDescriptor $descriptor)
     {
-      // get the object type information from our parent class
+        // get the object type information from our parent class
         $this->loader($descriptor);
 
         // Set the configuration parameters
@@ -45,18 +45,27 @@ class DataObject extends DataObjectMaster implements iDataObject
 
         // set the specific item id (or 0)
         if(isset($args['itemid'])) $this->itemid = $args['itemid'];
-
-        // see if we can access this object, at least in overview
-/*        if(!xarSecurityCheck(
-            'ViewDynamicDataItems',1,'Item',
-            $this->moduleid.':'.$this->itemtype.':'.$this->itemid)
-        ) return;
-        */
         
         // Get a reference to each property's value
         foreach ($this->properties as $property) {
             $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);
         }
+        
+        // Set up the db tables
+        try {
+            $sourceargs = unserialize($args['sources']);
+            if (!empty($sourceargs)) {
+                sys::import('modules.query.class.query');
+                $q = new Query();
+                foreach ($sourceargs as $key => $value) $q->addtable($value,$key);
+            }
+        } catch (Exception $e) {}
+
+        // Set up the db tablerelations
+        try {
+            $relationargs = unserialize($args['relations']);
+            foreach ($relationargs as $key => $value) $q->join($key,$value);
+        } catch (Exception $e) {}
     }
 
     /**
@@ -429,10 +438,10 @@ class DataObject extends DataObjectMaster implements iDataObject
 
         // check that we have a valid item id, or that we can create one if it's set to 0
         if(empty($this->itemid)) {
-            if ($this->baseancestor == 0) {
-                $this->baseancestor = 1;
+            if ($this->objectid == 0) {
+                $this->objectid = 1;
             }
-            $primaryobject = DataObjectMaster::getObject(array('objectid' => $this->baseancestor));
+            $primaryobject = DataObjectMaster::getObject(array('objectid' => $this->objectid));
             // no primary key identified for this object, so we're stuck
             if(!isset($primaryobject->primary)) {
                 $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
@@ -456,6 +465,7 @@ class DataObject extends DataObjectMaster implements iDataObject
                         $this->datastores[$primarystore]->addField($this->properties[$this->primary]); // use reference to original property
 
                     // Execute any property-specific code first
+                    if(!isset($this->datastores[$primarystore])){var_dump($this->datastores); exit;}
                     foreach ($this->datastores[$primarystore]->fields as $property) {
                         if (method_exists($property,'createvalue')) {
                             $property->createValue($this->itemid);

@@ -60,12 +60,14 @@ class DataObject extends DataObjectMaster implements iDataObject
                 foreach ($sourceargs as $key => $value) $q->addtable($value,$key);
             }
         } catch (Exception $e) {}
-
         // Set up the db tablerelations
         try {
             $relationargs = unserialize($args['relations']);
             foreach ($relationargs as $key => $value) $q->join($key,$value);
         } catch (Exception $e) {}
+        if (isset($q)) {
+        $q->qecho();echo "X";
+        }
     }
 
     /**

@@ -20,7 +20,7 @@
  */
 function dynamicdata_admin_updateprop()
 {
-    if(!xarVarFetch('objectid',          'isset', $objectid,          NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('objectid',          'isset', $objectid,          1, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('modid',             'isset', $modid,             NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype',          'int:1:', $itemtype,         0, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('table',             'isset', $table,             NULL, XARVAR_DONT_SET)) {return;}
@@ -68,7 +68,8 @@ function dynamicdata_admin_updateprop()
     }
 
     $fields = xarModAPIFunc('dynamicdata','user','getprop',
-                           array('modid' => $modid,
+                           array('objectid' => $objectid,
+                                 'modid' => $modid,
                                  'itemtype' => $itemtype,
                                  'allprops' => true));
     $isprimary = 0;

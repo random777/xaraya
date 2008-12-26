@@ -148,10 +148,10 @@ function dynamicdata_init()
         );
         $dbconn->Execute($query);
 
-        /**
-         * Note : Classic chicken and egg problem - we can't use createobject() here
-         *        because dynamicdata doesn't know anything about objects yet :-)
-         */
+# --------------------------------------------------------
+#
+# Create the object and property dataobjects
+#
 
         $modid = xarModGetIDFromName('dynamicdata');
 
@@ -164,7 +164,7 @@ function dynamicdata_init()
         $stmt = $dbconn->prepareStatement($sql);
 
         $objects = array(
-            array('objects'   ,'Dynamic Objects'   ,$modid,0,'','',                                               'itemid',0,''               ,0),
+            array('objects'   ,'Dynamic Objects'   ,$modid,0,'DataObject','auto',                                 'itemid',0,''               ,0),
             array('properties','Dynamic Properties',$modid,1,'DProperty','modules/dynamicdata/class/property.php','itemid',0,''               ,0),
         );
 
@@ -177,9 +177,10 @@ function dynamicdata_init()
         }
 
 
-        /**
-         * Dynamic Properties table
-         */
+# --------------------------------------------------------
+#
+# Create the Dynamic Properties table
+#
         $propfields = array(
             'id'     => array(
                 'type'        => 'integer',

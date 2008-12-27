@@ -181,11 +181,8 @@ class DataObjectMaster extends Object
         // create the list of fields, filtering where necessary
         $this->fieldlist = $this->getFieldList($this->fieldlist,$this->status);
 
-        // build the list of relevant data stores where we'll get/set our data
-        if(empty($this->datastores) && count($this->properties) > 0)
-           $this->getDataStores();
-
         // Set the configuration parameters
+        //FIXME: can we simplify this?
         $args = $descriptor->getArgs();
         try {
             $configargs = unserialize($args['config']);
@@ -193,6 +190,9 @@ class DataObjectMaster extends Object
             $this->configuration = $configargs;
         } catch (Exception $e) {}
 
+        // set the specific item id (or 0)
+        if(isset($args['itemid'])) $this->itemid = $args['itemid'];
+        
         // Set up the db tables
         sys::import('modules.query.class.query');
         $this->dataquery = new Query();
@@ -207,7 +207,11 @@ class DataObjectMaster extends Object
             $relationargs = unserialize($args['relations']);
             foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
         } catch (Exception $e) {}
-        $this->dataquery->qecho();echo "<br />";
+
+        // build the list of relevant data stores where we'll get/set our data
+        if(empty($this->datastores) && count($this->properties) > 0)
+           $this->getDataStores();
+
     }
 
     private function getFieldList($fieldlist=array(),$status=null)
@@ -312,8 +316,13 @@ class DataObjectMaster extends Object
             $this->fieldlist = $cleanlist;
         }
 
-        $this->addDataStore('relational', 'relational');
-        $storename = 'relational';
+        if (!empty($this->datasources)) {
+            $this->addDataStore('relational', 'relational');
+            $storename = 'relational';
+        } else {
+            $this->addDataStore('_dynamic_data_', 'data');
+            $storename = '_dynamic_data_';
+        }
 
         foreach($this->properties as $name => $property) {
             if(

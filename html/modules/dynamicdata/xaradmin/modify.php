@@ -26,7 +26,7 @@ function dynamicdata_admin_modify($args)
 {
     extract($args);
 
-    if(!xarVarFetch('objectid', 'id',    $objectid,  1, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('objectid', 'id',    $objectid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('name',     'isset', $name,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('modid',    'isset', $moduleid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype', 'isset', $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
@@ -41,6 +41,7 @@ function dynamicdata_admin_modify($args)
 
     $data = xarModAPIFunc('dynamicdata','admin','menu');
 
+    if (empty($objectid) && empty($name)) $objectid = 1;
     $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
                                          'name' => $name,
                                          'moduleid' => $moduleid,

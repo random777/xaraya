@@ -35,17 +35,6 @@ class DataObject extends DataObjectMaster implements iDataObject
         // get the object type information from our parent class
         $this->loader($descriptor);
 
-        // Set the configuration parameters
-        $args = $descriptor->getArgs();
-        try {
-            $configargs = unserialize($args['config']);
-            foreach ($configargs as $key => $value) $this->{$key} = $value;
-            $this->configuration = $configargs;
-        } catch (Exception $e) {}
-
-        // set the specific item id (or 0)
-        if(isset($args['itemid'])) $this->itemid = $args['itemid'];
-        
         // Get a reference to each property's value and find the primarys index
         foreach ($this->properties as $property) {
             $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);

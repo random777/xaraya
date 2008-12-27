@@ -184,6 +184,30 @@ class DataObjectMaster extends Object
         // build the list of relevant data stores where we'll get/set our data
         if(empty($this->datastores) && count($this->properties) > 0)
            $this->getDataStores();
+
+        // Set the configuration parameters
+        $args = $descriptor->getArgs();
+        try {
+            $configargs = unserialize($args['config']);
+            foreach ($configargs as $key => $value) $this->{$key} = $value;
+            $this->configuration = $configargs;
+        } catch (Exception $e) {}
+
+        // Set up the db tables
+        sys::import('modules.query.class.query');
+        $this->dataquery = new Query();
+        try {
+            $this->datasources = unserialize($args['sources']);
+            if (!empty($this->datasources)) {
+                foreach ($this->datasources as $key => $value) $this->dataquery->addtable($value,$key);
+            }
+        } catch (Exception $e) {}
+        // Set up the db table relations
+        try {
+            $relationargs = unserialize($args['relations']);
+            foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
+        } catch (Exception $e) {}
+        $this->dataquery->qecho();echo "<br />";
     }
 
     private function getFieldList($fieldlist=array(),$status=null)

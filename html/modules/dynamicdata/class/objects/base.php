@@ -50,23 +50,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         foreach ($this->properties as $property) {
             $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);
             if ($property->type == 21) $this->primary = $property->name;
-        }
-                
-        // Set up the db tables
-        sys::import('modules.query.class.query');
-        $this->dataquery = new Query();
-        try {
-            $this->datasources = unserialize($args['sources']);
-            if (!empty($this->datasources)) {
-                foreach ($this->datasources as $key => $value) $this->dataquery->addtable($value,$key);
-            }
-        } catch (Exception $e) {}
-        // Set up the db table relations
-        try {
-            $relationargs = unserialize($args['relations']);
-            foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
-        } catch (Exception $e) {}
-        $this->dataquery->qecho();echo "<br />";
+        }                
     }
 
     /**

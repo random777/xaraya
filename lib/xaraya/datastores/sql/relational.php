@@ -231,53 +231,50 @@ class RelationalDataStore extends SQLDataStore
         if (isset($args['cache'])) {
             $this->cache = $args['cache'];
         }
+        
+        $isgrouped = 0;
+        if (count($this->groupby) > 0) {
+            $isgrouped = 1;
+        }
+        if (count($itemids) == 0 && !$isgrouped) {
+            $saveids = 1;
+        } else {
+            $saveids = 0;
+        }
 
-        $table = $this->name;
-        $itemidfield = $this->primary;
+        //Make sure we have a primary field
+        if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
 
-        if (empty($itemidfield)) {
-            $itemidfield = $this->getPrimary();
-            // can't really do much without the item id field at the moment
-            if (empty($itemidfield)) {
-                return;
+        // Bail if the object has no properties
+        if (count($this->object->properties) < 1) return;
+        
+        // Complete the dataquery
+        $q = $this->object->dataquery;
+        foreach ($this->object->properties as $field) $q->addfield($field->source .  ' AS ' . $field->name);
+
+        // Run it
+        if (!$q->run()) throw new Exception(xarML('Query failed'));
+        $result = $q->output();
+        if (empty($result)) return;
+
+        $fieldlist = array_keys($this->object->properties);
+        foreach ($result as $row) {
+
+            // Get the value of the primary key
+            $itemid = $row[$this->object->primary];
+            
+            // add this itemid to the list
+            if ($saveids) {
+                $this->_itemids[] = $itemid;
+            }
+
+            // Set the values of the properties
+            foreach ($fieldlist as $field) {
+                $this->object->properties[$field]->setItemValue($itemid,$row[$this->object->properties[$field]->name]);
             }
         }
-
-        $tables = array($table);
-        $more = '';
-
-        // join with another table
-        if (count($this->join) > 0) {
-            $keys = array();
-            $where = array();
-            $andor = 'AND';
-            foreach ($this->join as $info) {
-                $tables[] = $info['table'];
-                foreach ($info['fields'] as $field) {
-                    $this->fields[$field] =& $this->extra[$field];
-                }
-                if (!empty($info['key'])) {
-                    $keys[] = $info['key'] . ' = ' . $itemidfield;
-                }
-                if (!empty($info['where'])) {
-                    $where[] = '(' . $info['where'] . ')';
-                }
-                if (!empty($info['andor'])) {
-                    $andor = $info['andor'];
-                }
-                if (!empty($info['more'])) {
-                    $more .= ' ' . $info['more'];
-                }
-                // TODO: sort clauses for the joined table ?
-            }
-        }
-
-        $fieldlist = array_keys($this->fields);
-        if (count($fieldlist) < 1) {
-            return;
-        }
-
-        // check if we're dealing with GROUP BY fields and/or COUNT, SUM etc. operations
+        
+/*        // check if we're dealing with GROUP BY fields and/or COUNT, SUM etc. operations
         $isgrouped = 0;
         if (count($this->groupby) > 0) {
             $isgrouped = 1;
@@ -292,12 +289,6 @@ class RelationalDataStore extends SQLDataStore
             }
         }
 
-        /*
-        // CHECKME: test working without the item id field
-        if (empty($itemidfield)) {
-            $isgrouped = 1;
-        }
-        */
         if ($isgrouped) {
             $query = "SELECT " . join(', ', $newfields) . "
                         FROM " . join(', ', $tables) . $more . " ";
@@ -309,16 +300,6 @@ class RelationalDataStore extends SQLDataStore
         }
 
         $next = 'WHERE';
-        if (count($this->join) > 0) {
-            if (count($keys) > 0) {
-                $query .= " $next " . join(' AND ', $keys);
-                $next = 'AND';
-            }
-            if (count($where) > 0) {
-                $query .= " $next ( " . join(' AND ', $where);
-                $next = $andor;
-            }
-        }
 
         $bindvars = array();
         if (count($itemids) > 1) {
@@ -397,6 +378,7 @@ class RelationalDataStore extends SQLDataStore
             }
         }
         $result->close();
+*/
     }
 
     function countItems(Array $args = array())
@@ -457,32 +439,6 @@ class RelationalDataStore extends SQLDataStore
         $result->close();
 
         return $numitems;
-    }
-
-    /**
-     * Get the primary key of this item
-     *
-     * @return string name of the column which is the primary key
-     * @todo ill defined, primary key can have combined columns, should perhaps return object(set) reference
-     **/
-    function getPrimary()
-    {
-        if (!empty($this->primary)) return $this->primary;
-
-        $dbInfo = $this->db->getDatabaseInfo();
-        $tblInfo= $dbInfo->getTable($this->name);
-        $keyInfo= $tblInfo->getPrimaryKey();
-        if(empty($keyInfo)) {
-            throw new BadParameterException($this->name,'The table "#(1)" does not appear to have a primary key.');
-        }
-
-        $columns = $keyInfo->getColumns();
-        if(count($columns) > 1) {
-            // TODO: support composite keys
-            throw new BadParameterException($this->name,'The table "#(1)" has more than one column in its primary key. We only support single column keys at this moment');
-        }
-        $this->primary = $columns[0]->getName();
-        return $this->primary;
     }
 
     function getNext(Array $args = array())

@@ -175,7 +175,7 @@ class DataStoreFactory extends Object
                 $tableobject = $dbInfo->getTable($value);
                 $fields = $tableobject->getColumns();
                 foreach ($fields as $field) {
-                    $sources[$key . "." . $field->getName()] = $value . "." . $field->getName();
+                    $sources[$key . "." . $field->getName()] = $key . "." . $field->getName();
                 }
             }
         } else {

@@ -7,6 +7,7 @@
   <filepath>auto</filepath>
   <urlparam>itemid</urlparam>
   <maxid>26</maxid>
+  <sources>a:1:{s:22:"dynamic_configurations";s:26:"xar_dynamic_configurations";}</sources>
   <isalias>0</isalias>
   <properties>
     <property name="id">

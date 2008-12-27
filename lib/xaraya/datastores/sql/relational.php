@@ -74,7 +74,13 @@ class RelationalDataStore extends SQLDataStore
     {
         // Get the itemid from the params or from the object definition
         $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
-
+        $checkid = false;
+        if (empty($itemid)) {
+            // get the next id (or dummy)
+            $itemid = null;
+            $checkid = true;
+        }
+        
         //Make sure we have a primary field
         if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
 
@@ -84,68 +90,19 @@ class RelationalDataStore extends SQLDataStore
         // Complete the dataquery
         $q = $this->object->dataquery;
         $q->setType('INSERT');
-        foreach ($this->object->properties as $field) {$q->addfield($field->source, $field->value);echo $field->source;}
-        $primary = $this->object->properties[$this->object->primary]->source;
-        $q->eq($primary, (int)$itemid);
-//$q->qecho();echo "<br />";exit;
+        $q->clearfields();
+        foreach ($this->object->properties as $field) $q->addfield($field->source, $field->value);
+
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
-        $result = $q->row();
-        if (empty($result)) return;
-
-        return $itemid;
-
-        // TODO: this won't work for objects with several static tables !
-        if (empty($itemid)) {
-            // get the next id (or dummy)
-            $itemid = null;
-            $checkid = true;
-        } else {
-            $checkid = false;
-        }
-        $this->fields[$itemidfield]->setValue($itemid);
-
-        $query = "INSERT INTO $table ( ";
-        $join = '';
-        foreach ($fieldlist as $field) {
-            // get the value from the corresponding property
-            $value = $this->fields[$field]->value;
-            // skip fields where values aren't set
-            if (!isset($value)) {
-                continue;
-            }
-            $query .= $join . $field;
-            $join = ', ';
-        }
-        $query .= " ) VALUES ( ";
-        $join = '';
-        $bindvars = array();
-        foreach ($fieldlist as $field) {
-            // get the value from the corresponding property
-            $value = $this->fields[$field]->value;
-            // skip fields where values aren't set
-            if (!isset($value)) {
-                continue;
-            }
-            // TODO: improve this based on static table info
-            $query .= $join . " ? ";
-            $bindvars[] = $value;
-            $join = ', ';
-        }
-        $query .= " )";
-        $stmt = $this->db->prepareStatement($query);
-        $result = $stmt->executeUpdate($bindvars);
 
         // get the last inserted id
         if ($checkid) {
-            $itemid = $this->db->getLastId($table);
+            $table = array_pop($q->tables);
+            $itemid = $q->lastid($table['name'], $this->object->properties[$this->object->primary]->source);
         }
 
-        if (empty($itemid)) {
-            $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-            throw new BadParameterException(array('item id from table '.$table, 'DataFlatTable_DataStore', 'createItem', 'DynamicData'),$msg);
-        }
-        $this->fields[$itemidfield]->setValue($itemid);
+        $this->object->properties[$this->object->primary]->value = $itemid;
         return $itemid;
     }
 
@@ -163,14 +120,11 @@ class RelationalDataStore extends SQLDataStore
         // Complete the dataquery
         $q = $this->object->dataquery;
         $q->setType('UPDATE');
+        $q->clearfields();
         foreach ($this->object->properties as $field) $q->addfield($field->source, $field->value);
-        $primary = $this->object->properties[$this->object->primary]->source;
-        $q->eq($primary, (int)$itemid);
-//$q->qecho();echo "<br />";exit;
+
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
-        $result = $q->row();
-        if (empty($result)) return;
 
         return $itemid;
     }

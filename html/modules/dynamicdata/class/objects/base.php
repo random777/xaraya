@@ -431,70 +431,19 @@ class DataObject extends DataObjectMaster implements iDataObject
                 // we already have an itemid value in the properties
                 if(!empty($value)) {
                     $this->itemid = $value;
-                } elseif(!empty($primaryobject->properties[$primaryobject->primary]->datastore)) {
-                    // we'll let the primary datastore create an itemid for us
-                    $primarystore = $primaryobject->properties[$primaryobject->primary]->datastore;
-                    // add the primary to the data store fields if necessary
-                    if(!empty($this->fieldlist) && !in_array($primaryobject->primary,$this->fieldlist))
-                        $this->datastores[$primarystore]->addField($this->properties[$this->primary]); // use reference to original property
-
+                } else {
+                    $this->itemid = null;
+                    
+                    $datastore = current($this->datastores);
                     // Execute any property-specific code first
-                    if(!isset($this->datastores[$primarystore])){var_dump($this->datastores); exit;}
-                    foreach ($this->datastores[$primarystore]->fields as $property) {
-                        if (method_exists($property,'createvalue')) {
+                    foreach ($this->properties as $property) {
+                        if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && method_exists($property,'createvalue')) {
                             $property->createValue($this->itemid);
                         }
                     }
-
-                    $this->itemid = $this->datastores[$primarystore]->createItem($this->toArray());
-                } else {
-                    $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                    $vars = array('primary key datastore', 'Dynamic Object', 'createItem', 'DynamicData');
-                    throw new BadParameterException($vars,$msg);
+                    $this->itemid = $datastore->createItem($this->toArray());
                 }
             }
-        }
-        if(empty($this->itemid)) return;
-
-        $args = $this->getFieldValues();
-        $args['itemid'] = $this->itemid;
-        foreach(array_keys($this->datastores) as $store) {
-            // skip the primary store
-            if(isset($primarystore) && $store == $primarystore)
-                continue;
-
-            // Execute any property-specific code first
-            if ($store != '_dummy_') {
-                foreach ($this->datastores[$store]->fields as $property) {
-                    if (method_exists($property,'createvalue')) {
-                        $property->createValue($this->itemid);
-                    }
-                }
-            }
-            
-            // Now run the create routine of the this datastore
-            $itemid = $this->datastores[$store]->createItem($args);
-            if(empty($itemid))
-                return;
-        }
-
-        // call create hooks for this item
-        // Added: check if module is articles or roles to prevent recursive hook calls if using an external table for those modules
-        // TODO:  somehow generalize this to prevent recursive calls in the general sense, rather then specifically for articles / roles
-        $modinfo = xarModGetInfo($this->moduleid);
-        if(
-            !empty($this->primary) &&
-            ($modinfo['name'] != 'articles') && ($modinfo['name'] != 'roles')
-        )
-        {
-            $item = array();
-            foreach(array_keys($this->properties) as $name)
-                $item[$name] = $this->properties[$name]->value;
-
-            $item['module'] = $modinfo['name'];
-            $item['itemtype'] = $this->itemtype;
-            $item['itemid'] = $this->itemid;
-            xarModCallHooks('item', 'create', $this->itemid, $item, $modinfo['name']);
         }
         return $this->itemid;
     }
@@ -534,25 +483,6 @@ class DataObject extends DataObjectMaster implements iDataObject
             $itemid = $this->datastores[$store]->updateItem($args);
             if(empty($itemid))
                 return;
-        }
-
-        // call update hooks for this item
-        // Added: check if module is articles or roles to prevent recursive hook calls if using an external table for those modules
-        // TODO:  somehow generalize this to prevent recursive calls in the general sense, rather then specifically for articles / roles
-        $modinfo = xarModGetInfo($this->moduleid);
-        if(
-            !empty($this->primary) &&
-            ($modinfo['name'] != 'articles') && ($modinfo['name'] != 'roles')
-        )
-        {
-            $item = array();
-            foreach(array_keys($this->properties) as $name)
-                $item[$name] = $this->properties[$name]->value;
-
-            $item['module'] = $modinfo['name'];
-            $item['itemtype'] = $this->itemtype;
-            $item['itemid'] = $this->itemid;
-            xarModCallHooks('item', 'update', $this->itemid, $item, $modinfo['name']);
         }
         return $this->itemid;
     }

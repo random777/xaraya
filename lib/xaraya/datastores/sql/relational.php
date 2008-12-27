@@ -72,23 +72,28 @@ class RelationalDataStore extends SQLDataStore
      **/
     function createItem(Array $args = array())
     {
-        if (count($this->fields) < 1) return;
-        $itemid = $args['itemid'];
-        $table = $this->name;
-        $itemidfield = $this->primary;
+        // Get the itemid from the params or from the object definition
+        $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
 
-        if (empty($itemidfield)) {
-            $itemidfield = $this->getPrimary();
-            // can't really do much without the item id field at the moment
-            if (empty($itemidfield)) {
-                return;
-            }
-        }
+        //Make sure we have a primary field
+        if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
 
-        $fieldlist = array_keys($this->fields);
-        if (count($fieldlist) < 1) {
-            return;
-        }
+        // Bail if the object has no properties
+        if (count($this->object->properties) < 1) return;
+        
+        // Complete the dataquery
+        $q = $this->object->dataquery;
+        $q->setType('INSERT');
+        foreach ($this->object->properties as $field) {$q->addfield($field->source, $field->value);echo $field->source;}
+        $primary = $this->object->properties[$this->object->primary]->source;
+        $q->eq($primary, (int)$itemid);
+//$q->qecho();echo "<br />";exit;
+        // Run it
+        if (!$q->run()) throw new Exception(xarML('Query failed'));
+        $result = $q->row();
+        if (empty($result)) return;
+
+        return $itemid;
 
         // TODO: this won't work for objects with several static tables !
         if (empty($itemid)) {
@@ -146,44 +151,26 @@ class RelationalDataStore extends SQLDataStore
 
     function updateItem(Array $args = array())
     {
-        $itemid = $args['itemid'];
-        if (count($this->fields) < 1) return $itemid;
-        $table = $this->name;
-        $itemidfield = $this->primary;
+        // Get the itemid from the params or from the object definition
+        $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
 
-        if (empty($itemidfield)) {
-            $itemidfield = $this->getPrimary();
-            // can't really do much without the item id field at the moment
-            if (empty($itemidfield)) {
-                return;
-            }
-        }
+        //Make sure we have a primary field
+        if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
 
-        $fieldlist = array_keys($this->fields);
-        if (count($fieldlist) < 1) {
-            return;
-        }
-
-        $query = "UPDATE $table ";
-        $join = 'SET ';
-        $bindvars = array();
-        foreach ($fieldlist as $field) {
-            // get the value from the corresponding property
-            $value = $this->fields[$field]->value;
-
-            // skip fields where values aren't set, and don't update the item id either
-            if (!isset($value) || $field == $itemidfield) {
-                continue;
-            }
-            // TODO: improve this based on static table info
-            $query .= $join . $field . '=?';
-            $bindvars[] = $value;
-            $join = ', ';
-        }
-        $query .= " WHERE $itemidfield=?";
-        $bindvars[] = (int)$itemid;
-        $stmt = $this->db->prepareStatement($query);
-        $stmt->executeUpdate($bindvars);
+        // Bail if the object has no properties
+        if (count($this->object->properties) < 1) return;
+        
+        // Complete the dataquery
+        $q = $this->object->dataquery;
+        $q->setType('UPDATE');
+        foreach ($this->object->properties as $field) $q->addfield($field->source, $field->value);
+        $primary = $this->object->properties[$this->object->primary]->source;
+        $q->eq($primary, (int)$itemid);
+//$q->qecho();echo "<br />";exit;
+        // Run it
+        if (!$q->run()) throw new Exception(xarML('Query failed'));
+        $result = $q->row();
+        if (empty($result)) return;
 
         return $itemid;
     }

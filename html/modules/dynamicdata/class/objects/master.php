@@ -108,6 +108,7 @@ class DataObjectMaster extends Object
     public $config      = 'a:0:{}';       // the configuration parameters for this DD object
     public $configuration;                // the exploded configuration parameters for this DD object
     public $sources     = 'a:0:{}';       // the db source tables of this object
+    public $datasources = array();        // the exploded db source tables of this object
     public $relations   = 'a:0:{}';       // the db source table relations of this object
     public $isalias     = 0;
 

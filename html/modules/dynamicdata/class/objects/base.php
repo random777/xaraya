@@ -46,28 +46,27 @@ class DataObject extends DataObjectMaster implements iDataObject
         // set the specific item id (or 0)
         if(isset($args['itemid'])) $this->itemid = $args['itemid'];
         
-        // Get a reference to each property's value
+        // Get a reference to each property's value and find the primarys index
         foreach ($this->properties as $property) {
             $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);
+            if ($property->type == 21) $this->primary = $property->name;
         }
-        
+                
         // Set up the db tables
+        sys::import('modules.query.class.query');
+        $this->dataquery = new Query();
         try {
             $this->datasources = unserialize($args['sources']);
             if (!empty($this->datasources)) {
-                sys::import('modules.query.class.query');
-                $q = new Query();
-                foreach ($this->datasources as $key => $value) $q->addtable($value,$key);
+                foreach ($this->datasources as $key => $value) $this->dataquery->addtable($value,$key);
             }
         } catch (Exception $e) {}
-        // Set up the db tablerelations
+        // Set up the db table relations
         try {
             $relationargs = unserialize($args['relations']);
-            foreach ($relationargs as $key => $value) $q->join($key,$value);
+            foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
         } catch (Exception $e) {}
-        if (isset($q)) {
-        $q->qecho();echo "X";
-        }
+        $this->dataquery->qecho();echo "<br />";
     }
 
     /**

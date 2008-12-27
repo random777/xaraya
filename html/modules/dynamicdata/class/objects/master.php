@@ -110,12 +110,13 @@ class DataObjectMaster extends Object
     public $sources     = 'a:0:{}';       // the db source tables of this object
     public $datasources = array();        // the exploded db source tables of this object
     public $relations   = 'a:0:{}';       // the db source table relations of this object
+    public $dataquery;                    // the initialization query of this obect
     public $isalias     = 0;
 
     public $class       = 'DataObject'; // the class name of this DD object
     public $filepath    = 'auto';       // the path to the class of this DD object (can be empty or 'auto' for DataObject)
     public $properties  = array();      // list of properties for the DD object
-    public $datastores  = array();      // similarly the list of datastores (arguably in the wrong place here)
+    public $datastores  = array();      // list of datastores for the DD object
     public $fieldlist   = array();      // array of properties to be displayed
     public $fieldorder  = array();      // displayorder for the properties
     public $fieldprefix = '';           // prefix to use in field names etc.
@@ -181,7 +182,7 @@ class DataObjectMaster extends Object
         $this->fieldlist = $this->getFieldList($this->fieldlist,$this->status);
 
         // build the list of relevant data stores where we'll get/set our data
-        if(count($this->datastores) == 0 && count($this->properties) > 0)
+        if(empty($this->datastores) && count($this->properties) > 0)
            $this->getDataStores();
     }
 
@@ -251,7 +252,7 @@ class DataObjectMaster extends Object
     function &getDataStores($reset = false)
     {
         // if we already have the datastores
-        if (!$reset && isset($this->datastores) && count($this->datastores) > 0) {
+        if (!$reset && isset($this->datastores) && !empty($this->datastores)) {
             return $this->datastores;
         }
 
@@ -287,6 +288,9 @@ class DataObjectMaster extends Object
             $this->fieldlist = $cleanlist;
         }
 
+        $this->addDataStore('relational', 'relational');
+        $storename = 'relational';
+
         foreach($this->properties as $name => $property) {
             if(
                 !empty($this->fieldlist) and          // if there is a fieldlist
@@ -299,12 +303,6 @@ class DataObjectMaster extends Object
                 $this->properties[$name]->datastore = '';
                 continue;
             }
-
-            list($storename, $storetype) = $property->getDataStore();
-            if (!isset($this->datastores[$storename])) {
-                $this->addDataStore($storename, $storetype);
-            }
-            $this->properties[$name]->datastore = $storename;
 
             if (empty($this->fieldlist) || in_array($name,$this->fieldlist)) {
                 // we add this to the data store fields
@@ -322,6 +320,7 @@ class DataObjectMaster extends Object
                 $this->secondary = $name;
             }
         }
+        
         return $this->datastores;
     }
 
@@ -338,6 +337,9 @@ class DataObjectMaster extends Object
 
         // add it to the list of data stores
         $this->datastores[$datastore->name] =& $datastore;
+
+        // Pass along a reference to this object
+        $this->datastores[$datastore->name]->object = $this;
 
         // for dynamic object lists, put a reference to the $itemids array in the data store
         if(method_exists($this, 'getItems'))

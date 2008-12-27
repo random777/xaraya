@@ -103,6 +103,10 @@ class DataStoreFactory extends Object
     {
         switch ($type)
         {
+            case 'relational':
+                sys::import('xaraya.datastores.sql.relational');
+                $datastore = new RelationalDataStore();
+                break;
             case 'table':
                 sys::import('xaraya.datastores.sql.flattable');
                 $datastore = new FlatTableDataStore($name);

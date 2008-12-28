@@ -91,7 +91,15 @@ class RelationalDataStore extends SQLDataStore
         $q = $this->object->dataquery;
         $q->setType('INSERT');
         $q->clearfields();
-        foreach ($this->object->properties as $field) $q->addfield($field->source, $field->value);
+        foreach ($this->object->properties as $field) {
+            if (isset($args[$field->name])) {
+                // We have an override through the methods parameters
+                $q->addfield($field->source, $args[$field->name]);
+            } else {
+                // No override, just take the value the property already has
+                $q->addfield($field->source, $field->value);
+            }
+        }
 
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
@@ -121,7 +129,21 @@ class RelationalDataStore extends SQLDataStore
         $q = $this->object->dataquery;
         $q->setType('UPDATE');
         $q->clearfields();
-        foreach ($this->object->properties as $field) $q->addfield($field->source, $field->value);
+        foreach ($this->object->properties as $field) {
+            if (isset($args[$field->name])) {
+                // We have an override through the methods parameters
+                $q->addfield($field->source, $args[$field->name]);
+            } else {
+                // No override, just take the value the property already has
+                $q->addfield($field->source, $field->value);
+            }
+        }
+
+        // Are we overriding the primary?
+        if (isset($args['itemid'])) {
+            $q->clearconditions();
+            $q->eq($this->object->properties[$this->object->primary]->source, $itemid);
+        }
 
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
@@ -131,21 +153,24 @@ class RelationalDataStore extends SQLDataStore
 
     function deleteItem(Array $args = array())
     {
-        $itemid = $args['itemid'];
-        $table = $this->name;
-        $itemidfield = $this->primary;
+        // Get the itemid from the params or from the object definition
+        $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
 
-        if (empty($itemidfield)) {
-            $itemidfield = $this->getPrimary();
-            // can't really do much without the item id field at the moment
-            if (empty($itemidfield)) {
-                return;
-            }
+        //Make sure we have a primary field
+        if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
+
+        // Complete the dataquery
+        $q = $this->object->dataquery;
+        $q->setType('DELETE');
+
+        // Are we overriding the primary?
+        if (isset($args['itemid'])) {
+            $q->clearconditions();
+            $q->eq($this->object->properties[$this->object->primary]->source, $itemid);
         }
+        // Run it
+        if (!$q->run()) throw new Exception(xarML('Query failed'));
 
-        $query = "DELETE FROM $table WHERE $itemidfield = ?";
-        $stmt = $this->db->prepareStatement($query);
-        $stmt->executeUpdate(array((int)$itemid));
         return $itemid;
     }
 
@@ -213,113 +238,7 @@ class RelationalDataStore extends SQLDataStore
             foreach ($fieldlist as $field) {
                 $this->object->properties[$field]->setItemValue($itemid,$row[$this->object->properties[$field]->name]);
             }
-        }
-        
-/*        // check if we're dealing with GROUP BY fields and/or COUNT, SUM etc. operations
-        $isgrouped = 0;
-        if (count($this->groupby) > 0) {
-            $isgrouped = 1;
-        }
-        $newfields = array();
-        foreach ($fieldlist as $field) {
-            if (!empty($this->fields[$field]->operation)) {
-                $newfields[] = $this->fields[$field]->operation . '(' . $field . ') AS ' . $this->fields[$field]->operation . '_' . $this->fields[$field]->name;
-                $isgrouped = 1;
-            } else {
-                $newfields[] = $field;
-            }
-        }
-
-        if ($isgrouped) {
-            $query = "SELECT " . join(', ', $newfields) . "
-                        FROM " . join(', ', $tables) . $more . " ";
-        } else {
-            // Note: Oracle doesn't like having the same field in a sub-query twice,
-            //       so we use an alias for the primary field here
-            $query = "SELECT DISTINCT $itemidfield AS ddprimaryid, " . join(', ', $fieldlist) .
-                        " FROM " . join(', ', $tables) . $more . " ";
-        }
-
-        $next = 'WHERE';
-
-        $bindvars = array();
-        if (count($itemids) > 1) {
-            $bindmarkers = '?' . str_repeat(',?',count($itemids)-1);
-            $query .= " $next $itemidfield IN ($bindmarkers) ";
-            foreach ($itemids as $itemid) {
-                $bindvars[] = (int) $itemid;
-            }
-        } elseif (count($itemids) == 1) {
-            $query .= " $next $itemidfield = ? ";
-            $bindvars[] = (int)$itemids[0];
-        } elseif (count($this->where) > 0) {
-            $query .= " $next ";
-            foreach ($this->where as $whereitem) {
-                $query .= $whereitem['join'] . ' ' . $whereitem['pre'] . $whereitem['field'] . ' ' . $whereitem['clause'] . $whereitem['post'] . ' ';
-            }
-        }
-        if (count($this->join) > 0 && count($where) > 0) {
-            $query .= " ) ";
-        }
-
-        if (count($this->groupby) > 0) {
-            $query .= " GROUP BY " . join(', ', $this->groupby);
-        }
-
-        if (count($this->sort) > 0) {
-            $query .= " ORDER BY ";
-            $join = '';
-            foreach ($this->sort as $sortitem) {
-                if (empty($this->fields[$sortitem['field']]->operation)) {
-                    $query .= $join . $sortitem['field'] . ' ' . $sortitem['sortorder'];
-                } else {
-                    $query .= $join . $this->fields[$sortitem['field']]->operation . '_' . $this->fields[$sortitem['field']]->name . ' ' . $sortitem['sortorder'];
-                }
-                $join = ', ';
-            }
-        } elseif (!$isgrouped) {
-            $query .= " ORDER BY ddprimaryid";
-        }
-
-        // We got the query, prepare it
-        $stmt = $this->db->prepareStatement($query);
-
-        if ($numitems > 0) {
-            $stmt->setLimit($numitems);
-            $stmt->setOffset($startnum - 1);
-        }
-        $result = $stmt->executeQuery($bindvars);
-
-        if (count($itemids) == 0 && !$isgrouped) {
-            $saveids = 1;
-        } else {
-            $saveids = 0;
-        }
-        $itemid = 0;
-        while ($result->next()) {
-            $values = $result->getRow();
-            if ($isgrouped) {
-                $itemid++;
-            } else {
-                $itemid = array_shift($values);
-            }
-            // oops, something went seriously wrong here...
-            if (empty($itemid) || count($values) != count($fieldlist)) {
-                continue;
-            }
-
-            // add this itemid to the list
-            if ($saveids) {
-                $this->_itemids[] = $itemid;
-            }
-
-            foreach ($fieldlist as $field) {
-                // add the item to the value list for this property
-                $this->fields[$field]->setItemValue($itemid,array_shift($values));
-            }
-        }
-        $result->close();
-*/
+        }        
     }
 
     function countItems(Array $args = array())

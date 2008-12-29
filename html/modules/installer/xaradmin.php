@@ -842,6 +842,12 @@ function installer_admin_choose_configuration()
                                  'selected' => count($names)==0);
             }
         }
+        // The translations XML parser can't follow runtime variables.
+        // @Todo:  Replace the static definitions, see bug 5634
+        // {ML_include 'modules/installer/xarconfigurations/community.conf.php'}
+        // {ML_include 'modules/installer/xarconfigurations/core.conf.php'}
+        // {ML_include 'modules/installer/xarconfigurations/intranet.conf.php'}
+        // {ML_include 'modules/installer/xarconfigurations/public.conf.php'}
     }
     $data['names'] = $names;
 

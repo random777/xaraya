@@ -78,10 +78,10 @@ class VariableTableDataStore extends SQLDataStore
             }
         }
 
-        $propids = array_keys($this->object->properties);
+        $props = array_keys($this->object->properties);
 
         $dynamicdata = $this->tables['dynamic_data'];
-        foreach ($propids as $prop) {
+        foreach ($props as $prop) {
             // get the id and value from the corresponding property
             $propid = $this->object->properties[$prop]->id;
             $value = $this->object->properties[$prop]->value;
@@ -105,10 +105,16 @@ class VariableTableDataStore extends SQLDataStore
      */
     function updateItem(array $args = array())
     {
-        $itemid = $args['itemid'];
-        if (count($this->fields) < 1) return $itemid;
+        // Get the itemid from the params or from the object definition
+        $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
 
-        $propids = array_keys($this->fields);
+        // Bail if the object has no properties
+        if (count($this->object->properties) < 1) return $itemid;
+
+        $props = array_keys($this->object->properties);
+        
+        $propids = array();
+        foreach ($this->object->properties as $prop) $propids[] = $prop->id;
 
         $dynamicdata = $this->tables['dynamic_data'];
 
@@ -131,9 +137,10 @@ class VariableTableDataStore extends SQLDataStore
         }
         $result->close();
 
-        foreach ($propids as $propid) {
-            // get the value from the corresponding property
-            $value = $this->fields[$propid]->value;
+        foreach ($props as $prop) {
+            // get the id and value from the corresponding property
+            $propid = $this->object->properties[$prop]->id;
+            $value = $this->object->properties[$prop]->value;
 
             // invalid prop_id or undefined value (empty is OK, though !)
             if (empty($propid) || !is_numeric($propid) || !isset($value)) {

@@ -66,30 +66,28 @@ class VariableTableDataStore extends SQLDataStore
      */
     function createItem(array $args = array())
     {
+        // Bail if the object has no properties
         if (count($this->object->properties) < 1) return;
-        extract($args);
 
         // we need to manage our own item ids here, and we can't use some sequential field
         if (empty($itemid)) {
-            $itemid = $this->getNextId($this->object->properties[$this->object->primary]->value);
+            $itemid = $this->getNextId($this->object->objectid);
             if (empty($itemid)) return;
-            if (isset($this->primary)) {
-                $this->fields[$this->primary]->setValue($itemid);
+            if (isset($this->object->primary)) {
+                $this->object->properties[$this->object->primary]->setValue($itemid);
             }
         }
 
         $propids = array_keys($this->object->properties);
 
         $dynamicdata = $this->tables['dynamic_data'];
-
-        foreach ($propids as $propid) {
-            // get the value from the corresponding property
-            $value = $this->object->properties[$propid]->value;
+        foreach ($propids as $prop) {
+            // get the id and value from the corresponding property
+            $propid = $this->object->properties[$prop]->id;
+            $value = $this->object->properties[$prop]->value;
 
             // invalid prop_id or undefined value (empty is OK, though !)
-            if (empty($propid) || !is_numeric($propid) || !isset($value)) {
-                continue;
-            }
+            if (empty($propid) || !is_numeric($propid) || !isset($value)) continue;
 
             $query = "INSERT INTO $dynamicdata (property_id,item_id,value)
                       VALUES (?,?,?)";
@@ -723,9 +721,7 @@ class VariableTableDataStore extends SQLDataStore
     function getNextId($objectid)
     {
         $invalid = '';
-        if (isset($objectid) && !is_numeric($objectid)) {
-            $invalid = 'object id';
-        }
+        if (isset($objectid) && !is_numeric($objectid)) $invalid = 'object id';
 
         if (!empty($invalid)) {
             $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
@@ -744,7 +740,6 @@ class VariableTableDataStore extends SQLDataStore
             $bindvars[] = (int)$objectid;
         $stmt = $this->db->prepareStatement($query);
         $stmt->executeUpdate($bindvars);
-
         // get it back (WARNING : this is *not* guaranteed to be unique on heavy-usage sites !)
         $bindvars = array();
         $query = "SELECT maxid

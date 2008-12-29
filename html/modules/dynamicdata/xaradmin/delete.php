@@ -68,7 +68,6 @@ function dynamicdata_admin_delete($args)
     }
 
     $myobject->getItem();
-
     if (empty($confirm)) {
         // TODO: is this needed?
         $data = array_merge($data,xarModAPIFunc('dynamicdata','admin','menu'));

@@ -6,6 +6,8 @@
     {
         function createItem(Array $args = array())
         {
+            return parent::createItem($args);
+            
             if ($args['source'] == 'module variables') {
                 $namepart = explode('_',$args['name']);
                 if (empty($namepart[1])) $namepart[1] = 'dynamicdata';
@@ -17,6 +19,8 @@
 
         function deleteItem(Array $args = array())
         {
+            return parent::deleteItem($args);
+            
             $this->getItem($args);
             $source = $this->properties['source']->value;
 

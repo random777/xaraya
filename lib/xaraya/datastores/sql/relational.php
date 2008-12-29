@@ -88,7 +88,7 @@ class RelationalDataStore extends SQLDataStore
         if (count($this->object->properties) < 1) return;
         
         // Complete the dataquery
-        $q = $this->object->dataquery;
+        $q = clone $this->object->dataquery;
         $q->setType('INSERT');
         $q->clearfields();
         foreach ($this->object->properties as $field) {
@@ -106,6 +106,8 @@ class RelationalDataStore extends SQLDataStore
         }
 
         // Run it
+        $q->clearconditions();
+        $q->qecho(); echo "<br />";
         if (!$q->run()) throw new Exception(xarML('Query failed'));
 
         // get the last inserted id
@@ -147,7 +149,7 @@ class RelationalDataStore extends SQLDataStore
         }
 
         // Are we overriding the primary?
-        if (isset($args['itemid'])) {
+        if (isset($itemid)) {
             $q->clearconditions();
             $q->eq($this->object->properties[$this->object->primary]->source, $itemid);
         }
@@ -262,50 +264,19 @@ class RelationalDataStore extends SQLDataStore
             $this->cache = $args['cache'];
         }
 
-        $table = $this->name;
-        $itemidfield = $this->primary;
+        //Make sure we have a primary field
+        if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
 
-        // can't really do much without the item id field at the moment
-        if (empty($itemidfield)) {
-            return;
-        }
+        // Complete the dataquery
+        $q = $this->object->dataquery;
+        $q->addfield('COUNT(DISTINCT ' . $this->object->properties[$this->object->primary]->source . ')');
 
-        if($this->db->databaseType == 'sqlite') {
-            $query = "SELECT COUNT(*)
-                      FROM (SELECT DISTINCT $itemidfield FROM $table "; // WATCH OUT, STILL UNBALANCED
-        } else {
-            $query = "SELECT COUNT(DISTINCT $itemidfield)
-                    FROM $table ";
-        }
+        // Run it
+        if (!$q->run()) throw new Exception(xarML('Query failed'));
+        $result = $q->row();
+        if (empty($result)) return;
 
-        $bindvars = array();
-        if (count($itemids) > 1) {
-            $bindmarkers = '?' . str_repeat(',?',count($itemids)-1);
-            $query .= " WHERE $itemidfield IN ($bindmarkers) ";
-            foreach ($itemids as $itemid) {
-                $bindvars[] = (int) $itemid;
-            }
-        } elseif (count($itemids) == 1) {
-            $query .= " WHERE $itemidfield = ? ";
-            $bindvars[] = (int)$itemids[0];
-        } elseif (count($this->where) > 0) {
-            $query .= " WHERE ";
-            foreach ($this->where as $whereitem) {
-                $query .= $whereitem['join'] . ' ' . $whereitem['pre'] . $whereitem['field'] . ' ' . $whereitem['clause'] . $whereitem['post'] . ' ';
-            }
-        }
-
-        // TODO: GROUP BY, LEFT JOIN, ... ? -> cfr. relationships
-        if($this->db->databaseType == 'sqlite') $query.=")";
-
-        $stmt = $this->db->prepareStatement($query);
-        $result = $stmt->executeQuery($bindvars);
-        if (!$result->first()) return;
-
-        $numitems = $result->getInt(1);
-        $result->close();
-
-        return $numitems;
+        return (int)current($result);
     }
 
     function getNext(Array $args = array())

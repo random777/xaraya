@@ -75,7 +75,7 @@ class RelationalDataStore extends SQLDataStore
         // Get the itemid from the params or from the object definition
         $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
         $checkid = false;
-        if (empty($itemid)) {
+        if (empty($args['itemid'])) {
             // get the next id (or dummy)
             $itemid = null;
             $checkid = true;
@@ -93,14 +93,18 @@ class RelationalDataStore extends SQLDataStore
         $q->clearfields();
         foreach ($this->object->properties as $field) {
             if (isset($args[$field->name])) {
-                // We have an override through the methods parameters
+                // We have an override through the method's parameters
                 $q->addfield($field->source, $args[$field->name]);
+            } elseif ($field->name == $this->object->primary){
+                // Ignore the primary value if not set
+                if (!isset($itemid)) continue;
+                $q->addfield($field->source, $itemid);
             } else {
                 // No override, just take the value the property already has
                 $q->addfield($field->source, $field->value);
             }
         }
-$q->qecho();exit;
+
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
 

@@ -134,7 +134,10 @@ class RelationalDataStore extends SQLDataStore
         $q->setType('UPDATE');
         $q->clearfields();
         foreach ($this->object->properties as $field) {
-            if (isset($args[$field->name])) {
+            if ($field->name == $this->object->primary) {
+                // Ignore the primary value
+                continue;
+            } elseif (isset($args[$field->name])) {
                 // We have an override through the methods parameters
                 $q->addfield($field->source, $args[$field->name]);
             } else {

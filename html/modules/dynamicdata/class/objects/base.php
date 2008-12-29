@@ -480,7 +480,7 @@ class DataObject extends DataObjectMaster implements iDataObject
             }
 
             // Now run the update routine of the this datastore
-            $itemid = $this->datastores[$store]->updateItem($args);
+            $itemid = $this->datastores[$store]->updateItem();
             if(empty($itemid))
                 return;
         }

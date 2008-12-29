@@ -115,6 +115,7 @@ class RelationalDataStore extends SQLDataStore
             $table = array_pop($q->tables);
             $itemid = $q->lastid($table['name'], $this->object->properties[$this->object->primary]->source);
         }
+        unset($q);
 
         $this->object->properties[$this->object->primary]->value = $itemid;
         return $itemid;
@@ -132,7 +133,7 @@ class RelationalDataStore extends SQLDataStore
         if (count($this->object->properties) < 1) return;
         
         // Complete the dataquery
-        $q = $this->object->dataquery;
+        $q = clone $this->object->dataquery;
         $q->setType('UPDATE');
         $q->clearfields();
         foreach ($this->object->properties as $field) {
@@ -156,7 +157,8 @@ class RelationalDataStore extends SQLDataStore
 
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
-
+        unset($q);
+        
         return $itemid;
     }
 

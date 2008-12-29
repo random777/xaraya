@@ -35,21 +35,11 @@ function dynamicdata_userapi_getmenulinks()
             if ($itemid < 3) continue;
             $modid = $object['moduleid'];
             // don't show data "belonging" to other modules for now
-            if ($modid != $mymodid) {
-                continue;
-            }
-            // nice(r) URLs
-            if ($modid == $mymodid) {
-                $modid = null;
-            }
-            $itemtype = $object['itemtype'];
-            if ($itemtype == 0) {
-                $itemtype = null;
-            }
+            if ($modid != $mymodid) continue;
+
             $label = $object['label'];
             $menulinks[] = Array('url'   => xarModURL('dynamicdata','user','view',
-                                                      array('modid' => $modid,
-                                                            'itemtype' => $itemtype)),
+                                                      array('objectid' => $itemid)),
                                  'title' => xarML('View #(1)', $label),
                                  'label' => $label);
         }

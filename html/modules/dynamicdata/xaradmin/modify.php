@@ -41,6 +41,7 @@ function dynamicdata_admin_modify($args)
 
     $data = xarModAPIFunc('dynamicdata','admin','menu');
 
+    if (empty($objectid) && empty($name)) $objectid = 1;
     $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
                                          'name' => $name,
                                          'moduleid' => $moduleid,

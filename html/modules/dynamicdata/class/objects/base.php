@@ -441,7 +441,7 @@ class DataObject extends DataObjectMaster implements iDataObject
                             $property->createValue($this->itemid);
                         }
                     }
-                    $this->itemid = $datastore->createItem($this->toArray());
+                    $this->itemid = $datastore->createItem();
                 }
             }
         }

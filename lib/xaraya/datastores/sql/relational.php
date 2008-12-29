@@ -50,7 +50,7 @@ class RelationalDataStore extends SQLDataStore
         foreach ($this->object->properties as $field) $q->addfield($field->source .  ' AS ' . $field->name);
         $primary = $this->object->properties[$this->object->primary]->source;
         $q->eq($primary, (int)$itemid);
-//$q->qecho();echo "<br />";
+
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
         $result = $q->row();
@@ -100,7 +100,7 @@ class RelationalDataStore extends SQLDataStore
                 $q->addfield($field->source, $field->value);
             }
         }
-
+$q->qecho();exit;
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
 

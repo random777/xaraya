@@ -107,7 +107,6 @@ class RelationalDataStore extends SQLDataStore
 
         // Run it
         $q->clearconditions();
-        $q->qecho(); echo "<br />";
         if (!$q->run()) throw new Exception(xarML('Query failed'));
 
         // get the last inserted id

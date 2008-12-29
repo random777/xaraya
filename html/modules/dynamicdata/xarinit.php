@@ -159,13 +159,13 @@ function dynamicdata_init()
         $sql = "INSERT INTO $dynamic_objects (
                 name, label,
                 module_id, itemtype, class, filepath, urlparam,
-                maxid, config, isalias)
-                VALUES (?,?,?,?,?,?,?,?,?,?)";
+                maxid, config, sources, relations, isalias)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $dbconn->prepareStatement($sql);
 
         $objects = array(
-            array('objects'   ,'Dynamic Objects'   ,$modid,0,'DataObject','auto',                                 'itemid',0,'',serialize(array('dynamic_objects' => $prefix . '_dynamic_objects')),''               ,0),
-            array('properties','Dynamic Properties',$modid,1,'DProperty','modules/dynamicdata/class/property.php','itemid',0,'',serialize(array('dynamic_properties' => $prefix . '_dynamic_properties')),''               ,0),
+            array('objects'   ,'Dynamic Objects'   ,$modid,0,'DataObject','auto',                                 'itemid',0,'a:0:{}',serialize(array('dynamic_objects' => $prefix . '_dynamic_objects')),'a:0:{}'               ,0),
+            array('properties','Dynamic Properties',$modid,1,'DProperty','modules/dynamicdata/class/property.php','itemid',0,'a:0:{}',serialize(array('dynamic_properties' => $prefix . '_dynamic_properties')),'a:0:{}'               ,0),
         );
 
         $objectid = array();

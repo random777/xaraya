@@ -66,25 +66,25 @@ class VariableTableDataStore extends SQLDataStore
      */
     function createItem(array $args = array())
     {
-        if (count($this->fields) < 1) return;
+        if (count($this->object->properties) < 1) return;
         extract($args);
 
         // we need to manage our own item ids here, and we can't use some sequential field
         if (empty($itemid)) {
-            $itemid = $this->getNextId($args);
+            $itemid = $this->getNextId($this->object->properties[$this->object->primary]->value);
             if (empty($itemid)) return;
             if (isset($this->primary)) {
                 $this->fields[$this->primary]->setValue($itemid);
             }
         }
 
-        $propids = array_keys($this->fields);
+        $propids = array_keys($this->object->properties);
 
         $dynamicdata = $this->tables['dynamic_data'];
 
         foreach ($propids as $propid) {
             // get the value from the corresponding property
-            $value = $this->fields[$propid]->value;
+            $value = $this->object->properties[$propid]->value;
 
             // invalid prop_id or undefined value (empty is OK, though !)
             if (empty($propid) || !is_numeric($propid) || !isset($value)) {
@@ -720,10 +720,8 @@ class VariableTableDataStore extends SQLDataStore
      * @return integer value of the next id
      * @throws BadParameterException
      */
-    function getNextId(array $args)
+    function getNextId($objectid)
     {
-        extract($args);
-
         $invalid = '';
         if (isset($objectid) && !is_numeric($objectid)) {
             $invalid = 'object id';

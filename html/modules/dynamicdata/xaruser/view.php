@@ -18,7 +18,7 @@
  */
 function dynamicdata_user_view($args)
 {
-    if(!xarVarFetch('objectid', 'int',   $objectid,  NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('objectid', 'int',   $objectid,  1, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('modid',    'int',   $modid,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype', 'int',   $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('startnum', 'int',   $startnum,  NULL, XARVAR_DONT_SET)) {return;}
@@ -32,7 +32,6 @@ function dynamicdata_user_view($args)
 
     // Override if needed from argument array
     extract($args);
-
     // Security measure for table browsing
     if (!empty($table)) {
         if(!xarSecurityCheck('AdminDynamicData')) return;
@@ -47,10 +46,6 @@ function dynamicdata_user_view($args)
 
     $object = DataObjectMaster::getObjectList(
                             array('objectid'  => $objectid,
-                                  'moduleid'  => $modid,
-                                  'itemtype'  => $itemtype,
-                                  'join'      => $join,
-                                  'table'     => $table,
                                   'tplmodule' => $tplmodule,
                                   'template'  => $template,
                                   ));

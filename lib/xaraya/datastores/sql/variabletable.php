@@ -166,13 +166,14 @@ class VariableTableDataStore extends SQLDataStore
 
     function deleteItem(array $args = array())
     {
-        $itemid = $args['itemid'];
+        // Get the itemid from the params or from the object definition
+        $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
 
-        $propids = array_keys($this->fields);
-        if (count($propids) < 1) {
-            return $itemid;
-        }
+        // Bail if the object has no properties
+        if (count($this->object->properties) < 1) return $itemid;
 
+        $propids = array();
+        foreach ($this->object->properties as $prop) $propids[] = $prop->id;
         $dynamicdata = $this->tables['dynamic_data'];
 
         // get the current dynamic data fields for all properties of this item

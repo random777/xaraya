@@ -44,9 +44,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         // get the object type information from our parent class
         $this->loader($descriptor);
 
-        // see if we can access these objects, at least in overview
-//        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->moduleid.':'.$this->itemtype.':All')) return;
-
         // Set the configuration parameters
         $args = $descriptor->getArgs();
         try {
@@ -111,7 +108,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         $this->setSort($this->sort);
         $this->setWhere($this->where);
         $this->setGroupBy($this->groupby);
-//        $this->setCategories($this->catid);
 
     }
 
@@ -479,7 +475,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         $args['linktype'] = $linktype;
 
         if(empty($itemtype)) $itemtype = 0; // don't add to URL
-        $args['table'] = !empty($this->table) ? $this->table : null;
         $args['objectname'] = !empty($this->name) ? $this->name : null;
         $args['objectlabel'] = !empty($this->label) ? $this->label : null;
         $args['modname'] = $modname;
@@ -542,7 +537,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         extract($args);
 
         $urlargs = array();
-        $urlargs['table'] = $table;
         $urlargs[$args['param']] = $itemid;
         $urlargs['tplmodule'] = $args['tplmodule'];
         // The next 3 lines make the DD modify/display routines work for overlay objects

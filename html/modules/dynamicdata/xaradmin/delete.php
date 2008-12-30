@@ -36,8 +36,7 @@ function dynamicdata_admin_delete($args)
                                          'table'      => $table,
                                          'itemid'     => $itemid,
                                          'tplmodule'  => $tplmodule,
-                                         'template'   => $template,
-                                         'extend'     => false));  //Note: this means we only delete this extension, not the parent
+                                         'template'   => $template));
     if (empty($myobject)) return;
     $data = $myobject->toArray();
 
@@ -69,7 +68,6 @@ function dynamicdata_admin_delete($args)
     }
 
     $myobject->getItem();
-
     if (empty($confirm)) {
         // TODO: is this needed?
         $data = array_merge($data,xarModAPIFunc('dynamicdata','admin','menu'));

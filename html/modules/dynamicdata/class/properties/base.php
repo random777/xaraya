@@ -38,7 +38,7 @@ class DataProperty extends Object implements iDataProperty
     public $template = '';
     public $layout = '';
     public $tplmodule = 'dynamicdata';
-    public $configuration = '';
+    public $configuration = 'a:0:{}';
     public $dependancies = '';    // semi-colon seperated list of files that must be present for this property to be available (optional)
     public $args         = array(); //args that hold alias info
     public $anonymous = 0;        // if true the name, rather than the dd_xx designation is used in displaying the property

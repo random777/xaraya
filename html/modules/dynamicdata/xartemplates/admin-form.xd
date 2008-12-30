@@ -19,11 +19,9 @@
         </div>
     </form>
 
-    <form>
+    <form action="" onsubmit="return false;">
         <div>
-            <table class="xar-fullwidth">
-                <xar:data-form object="$object" />
-            </table>
+            <xar:data-form object="$object" />
         </div>
     </form>
 

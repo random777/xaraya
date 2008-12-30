@@ -4,6 +4,11 @@
   For full source code, usage terms, and 100's more DHTML scripts, visit http://dynamicdrive.com
 */
 
+/*
+  Depraced as of January 2009
+  Use xar_base_formCheck() from formcheck.js instead 
+*/
+
 function submitonce(theform) {
     //if IE 4+ or NS 6+
     if (document.all||document.getElementById){

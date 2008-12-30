@@ -2,13 +2,11 @@
     License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
 <xar:base-include-javascript module="base" filename="formcheck.js" />
+<xar:comment> Mandatory fields and descriptions for formcheck </xar:comment>
 <script type="text/javascript">
-<!--
-    // Enter name of mandatory fields
+    var base_alertMsg = "#xarML('Please complete the following fields:')#";
     var base_fieldRequired = Array("defaultfunction");
-    // Enter field description to appear in the dialog box
-    var base_fieldDescription = Array("Default Module Function");
-//-->
+    var base_fieldDescription = Array("#xarML('Default Module Function:')#");
 </script>
 <xar:style scope="module" module="base" file="navtabs" />
 <div class="xar-mod-head">
@@ -25,6 +23,10 @@
             Modify System Configuration
         </xar:mlstring>
     </h2>
+    <xar:if condition="xarSessionGetVar('statusmsg') ne ''">
+        <p>#xarSessionGetVar('statusmsg')#</p>
+    </xar:if>
+
     <dl class="xar-tabs">
         <dt class="help" title="#xarML('Choose a set of configuration options to modify')#">
             <xar:mlstring>
@@ -104,7 +106,7 @@
         ------------------- Begin Site Display Options ---------------------
     </xar:comment>
     <xar:if condition="$tab eq 'display'">
-        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription);" enctype="application/x-www-form-urlencoded">
+        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription, base_alertMsg);" enctype="application/x-www-form-urlencoded">
                <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -421,7 +423,7 @@
                         </xar:mlstring>
                     </label>
                     <input type="text" id="cookiename" name="cookiename" value="#xarConfigGetVar('Site.Session.CookieName')#" class="xar-form-textmedium" />
-                    <xar:mlstring>Default: XARAYASID</xar:mlstring>
+                    <xar:mlstring>Default:</xar:mlstring> XARAYASID
                 </div>
                 <div class="xar-form-input-wrapper">
                     <label for="cookiepath" title="#xarML('Override the default cookie path')#" class="xar-form-label">
@@ -558,6 +560,18 @@
                     <xar:set name="timezone">#xarConfigGetVar('Site.Core.TimeZone')#</xar:set>
                     <xar:data-input type="timezone" name="defaulttimezone" id="defaulttimezone" value="$timezone" />
                 </div>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:set name="strftime">strftime('%a, %H:%M', time());</xar:set>
+                    <xar:set name="gmstrftime">gmstrftime('%a, %H:%M', time());</xar:set>
+                    <xar:mlstring>Results of</xar:mlstring>
+                    strftime('%a, %H:%M'):
+                    <strong>#$strftime#</strong>, <br />
+                    gmstrftime(...):
+                    <strong>#$gmstrftime#</strong> <br />
+                    <xar:mlstring>and</xar:mlstring>
+                    xarLocaleFormatDate(..., ..., true):
+                    <strong>#xarLocaleFormatDate('%a, %H:%M',time(),true)#</strong>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>
@@ -580,4 +594,5 @@
             </fieldset>
         </form>
     </xar:if>
+    <xar:if condition="xarSessionSetVar('statusmsg', '')"></xar:if>
 </div>

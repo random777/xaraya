@@ -1,13 +1,17 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
-<xar:if condition="!empty($class)">
-<xar:elseif condition="empty($rows)"/>
-    <xar:set name="class">'xar-form-textareamedium'</xar:set>
+<xar:if condition="empty($rows)">
+    <xar:set name="classtype">'xar-form-textareamedium'</xar:set>
 <xar:elseif condition="$rows gt 15"/>
-    <xar:set name="class">'xar-form-textarealarge'</xar:set>
+    <xar:set name="classtype">'xar-form-textarealarge'</xar:set>
 <xar:elseif condition="$rows lt 5"/>
-    <xar:set name="class">'xar-form-textareasmall'</xar:set>
+    <xar:set name="classtype">'xar-form-textareasmall'</xar:set>
 <xar:else/>
-    <xar:set name="class">'xar-form-textareamedium'</xar:set>
+    <xar:set name="classtype">'xar-form-textareamedium'</xar:set>
+</xar:if>
+
+<xar:comment>We want to be able to override the class from validation class passed in</xar:comment>
+<xar:if condition="empty($class)">
+   <xar:set name="class">$classtype</xar:set>
 </xar:if>
 
 <xar:comment>
@@ -43,7 +47,7 @@ textarea#'.$id.' {
 '</xar:set>
 <xar:style method="embed" source="'.$textareasource.'" media="all" />
 <div class="xar-form-container-after">
-    <textarea name="#$name#" rows="#$rows#" cols="#$cols#" id="#$id#" tabindex="#$tabindex#" class="#$class#">#$value#</textarea>
+    <textarea name="#$name#" class="#$class#" rows="#$rows#" cols="#$cols#" id="#$id#" tabindex="#$tabindex#">#$value#</textarea>
 <xar:if condition="!empty($invalid)">
     <span class="xar-error">#$invalid#</span>
 </xar:if>

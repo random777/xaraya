@@ -44,6 +44,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         'upload'   => false,
         'stored'   => false
     );
+    var $style = '';
 
     // This is used by Dynamic_Property_Master::addProperty() to set the $object->upload flag.
     var $upload = true;
@@ -60,8 +61,15 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         if (xarVarGetCached('Hooks.uploads', 'ishooked')) {
             $this->UploadsModule_isHooked = TRUE;
         } else {
-            // FIXME: this doesn't take into account the itemtype or non-main module objects.
-            $list = xarModGetHookList(xarModGetName(), 'item', 'transform');
+            // FIXME: this doesn't take into account the itemtype or non-main module objects. [FIXED]
+            // 2008-11-11 judgej@xaraya.com Get the list of hooks from the module and itemtype that this
+            // dd object is a part of. Default to the current module if we are not a part of a DD object.
+            if (isset($this->_moduleid) && isset($this->_itemtype)) {
+                $list = xarModGetHookList(xarModGetNameFromID($this->_moduleid), 'item', 'transform', $this->_itemtype);
+            } else {
+                // The old method as fallback.
+                $list = xarModGetHookList(xarModGetName(), 'item', 'transform');
+            }
             foreach ($list as $hook) {
                 if ($hook['module'] == 'uploads') {
                     $this->UploadsModule_isHooked = TRUE;
@@ -78,15 +86,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
 
     function checkInput($name='', $value = null)
     {
-        if (empty($name)) $name = 'dd_' . $this->id;
-
-        // Store the fieldname for validations who need them (e.g. file uploads)
-        $this->fieldname = $name;
-        if (!isset($value)) {
-            xarVarFetch($name, 'isset', $value,  NULL, XARVAR_DONT_SET);
-        }
-
-        return $this->validateValue($value);
+        return $this->_checkInput_optional($name, $value);
     }
 
     function validateValue($value = null)
@@ -237,7 +237,8 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
             'uploads', 'admin', 'validatevalue',
             array(
                 'id' => $name, // not $this->id
-                'value' => isset($value)?$value:null,
+                // 2008-11-11 judgej@xaraya.com Pass in the current existing value (this->value) if nno passed in here.
+                'value' => isset($value) ? $value : $this->value,
                 // pass the module id, item type and item id (if available) for associations
                 'moduleid' => $this->_moduleid,
                 'itemtype' => $this->_itemtype,
@@ -328,11 +329,8 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
 
         if (!empty($this->filetype)) {
             $extensions = $this->filetype;
-            // TODO: get rid of the break (not used anyway)
-            $allowed = '<br />' . xarML('Allowed file types : #(1)', $extensions); // DEPRECATED
         } else {
             $extensions = '';
-            $allowed = ''; // DEPRECATED
         }
 
         $data = array();
@@ -355,7 +353,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         $data['maxsize']    = !empty($maxsize) ? $maxsize : $this->maxsize;
         $data['tabindex']   = !empty($tabindex) ? $tabindex  : 0;
         $data['invalid']    = !empty($this->invalid) ? xarML('Invalid #(1)',  $this->invalid) : '';
-        $data['allowed']    = $allowed; // DEPRECATED
+        $data['allowed']    = ''; // DEPRECATED
         $data['extensions'] = $extensions;
 
         return xarTplProperty('base', 'fileupload', 'showinput', $data);
@@ -368,13 +366,15 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         if (!isset($value)) {
             $value = $this->value;
         }
+        if (isset($args['style'])) $this->style = $args['style'];
 
         if ($this->UploadsModule_isHooked) {
             return xarModAPIFunc('uploads', 'user', 'showoutput',
                 array(
                     'value' => $value,
                     'format' => 'fileupload',
-                    'multiple' => $this->multiple
+                    'multiple' => $this->multiple,
+                    'style' => $this->style,
                 )
             );
         }
@@ -686,7 +686,6 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         // Return 'success'
         return true;
     }
-
 }
 
 ?>

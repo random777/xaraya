@@ -67,12 +67,12 @@ function base_javascriptapi__findfile($args)
     $searchPath = array();
 
     // The search path for the JavaScript file.
-    $searchPath[] = $themedir . '/scripts/' . $filename;
     if (isset($modOsDir)) {
         $searchPath[] = $themedir . '/modules/' . $modOsDir . '/includes/' . $filename;
         $searchPath[] = $themedir . '/modules/' . $modOsDir . '/xarincludes/' . $filename;
         $searchPath[] = 'modules/' . $modOsDir . '/xartemplates/includes/' . $filename;
     }
+    $searchPath[] = $themedir . '/scripts/' . $filename;
 
     foreach($searchPath as $filePath) {
         if (file_exists($filePath)) {break;}

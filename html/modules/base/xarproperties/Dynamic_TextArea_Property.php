@@ -3,7 +3,7 @@
  * Dynamic Textarea Property
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2008 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,7 +21,10 @@ class Dynamic_TextArea_Property extends Dynamic_Property
 {
     var $rows = 8;
     var $cols = 35;
-
+    var $classname = ''; //via GUI in property
+    var $class = ''; //passed in from template
+    var $defaultclass = ''; //some default class
+    
     function Dynamic_TextArea_Property($args)
     {
          $this->Dynamic_Property($args);
@@ -31,24 +34,17 @@ class Dynamic_TextArea_Property extends Dynamic_Property
             $this->parseValidation($this->validation);
         }
     }
+
     function checkInput($name='', $value = null)
     {
-        if (empty($name)) {
-            $name = 'dd_'.$this->id;
-        }
-        // store the fieldname for validations who need them (e.g. file uploads)
-        $this->fieldname = $name;
-        if (!isset($value)) {
-            if (!xarVarFetch($name, 'isset', $value,  NULL, XARVAR_DONT_SET)) {return;}
-        }
-        return $this->validateValue($value);
+        return $this->_checkInput_optional($name, $value);
     }
+
     function validateValue($value = null)
     {
         if (!isset($value)) {
             $value = $this->value;
         }
-    // TODO: allowable HTML ?
         $this->value = $value;
         return true;
     }
@@ -73,9 +69,11 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         $data['invalid']  = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) :'';
         $data['rows']     = !empty($rows) ? $rows : $this->rows;
         $data['cols']     = !empty($cols) ? $cols : $this->cols;
+        //we allow GUI to override a template class
+        $data['class']    = !empty($this->classname) ? $this->classname : (!empty($class) ?$class : $this->defaultclass);
 
-        $template="";
-        return xarTplProperty('base', 'textarea', 'showinput', $data);
+        $template = (isset($template) && !empty($template)) ? $template : 'textarea';
+        return xarTplProperty('base', $template, 'showinput', $data);
 
     }
     /**
@@ -87,14 +85,13 @@ class Dynamic_TextArea_Property extends Dynamic_Property
          $data=array();
 
          if (isset($value)) {
-            //return xarVarPrepHTMLDisplay($value);
             $data['value'] = xarVarPrepHTMLDisplay($value);
          } else {
-            //return xarVarPrepHTMLDisplay($this->value);
             $data['value'] = xarVarPrepHTMLDisplay($this->value);
          }
-         $template="";
-         return xarTplProperty('base', 'textarea', 'showoutput', $data);
+        $template = (isset($template) && !empty($template)) ? $template : 'textarea';
+        
+        return xarTplProperty('base', $template, 'showoutput', $data);
     }
 
     /**
@@ -102,14 +99,25 @@ class Dynamic_TextArea_Property extends Dynamic_Property
      */
     function parseValidation($validation = '')
     {
+
         if (is_string($validation) && strchr($validation,':')) {
-            list($rows,$cols) = explode(':',$validation);
+            $testvalidation = explode(':',$validation); //check we have all three parts 
+            if (is_array($testvalidation) && count($testvalidation) ==3) {
+                list($rows,$cols,$classname) = $testvalidation;
+            } else {
+                list($rows,$cols) = $testvalidation;
+                $classname = $this->classname;
+            }
+
             if ($rows !== '' && is_numeric($rows)) {
                 $this->rows = $rows;
             }
             if ($cols !== '' && is_numeric($cols)) {
                 $this->cols = $cols;
-            }
+            } 
+            if ($classname !== '' && is_string($classname)) {
+                $this->classname = $classname;
+            }            
         }
     }
 
@@ -185,19 +193,23 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         $data['id']         = !empty($id)   ? $id   : 'dd_'.$this->id;
         $data['tabindex']   = !empty($tabindex) ? $tabindex : 0;
         $data['invalid']    = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) :'';
-
+       
         // get the original values first
         $data['defaultrows'] = $this->rows;
         $data['defaultcols'] = $this->cols;
-
+        $data['defaultclass'] = $this->defaultclass;
+        
         if (isset($validation)) {
             $this->validation = $validation;
             // check validation for allowed rows/cols (or values)
             $this->parseValidation($validation);
         }
+
         $data['rows'] = ($this->rows != $data['defaultrows']) ? $this->rows : '';
         $data['cols'] = ($this->cols != $data['defaultcols']) ? $this->cols : '';
+        $data['classname'] = ($this->classname != '') ? $this->classname : $this->defaultclass;        
         $data['other'] = '';
+
         // if we didn't match the above format
         if ($data['rows'] === '' &&  $data['cols'] === '') {
             $data['other'] = xarVarPrepForDisplay($this->validation);
@@ -226,7 +238,6 @@ class Dynamic_TextArea_Property extends Dynamic_Property
          if (empty($name)) {
              $name = 'dd_'.$this->id;
          }
-
          // do something with the validation and save it in $this->validation
          if (isset($validation)) {
              if (is_array($validation)) {
@@ -240,12 +251,19 @@ class Dynamic_TextArea_Property extends Dynamic_Property
                  } else {
                      $cols = '';
                  }
-                 // we have some rows and/or columns
-                 if ($rows !== '' || $cols !== '') {
-                     $this->validation = $rows .':'. $cols;
+                 if (isset($validation['classname']) && $validation['classname'] !== '' && is_string($validation['classname'])) {
+                     $classname = $validation['classname'];
+                 } else {
+                     $classname = '';
+                 }                 
+                // we have some rows and/or columns
+                if (($rows !== '' || $cols !== '') && $classname == '') {
+                    $this->validation = $rows .':'. $cols;
 
-                 // we have some other rule
-                 } elseif (!empty($validation['other'])) {
+                } elseif ($classname !== '') { 
+                    $this->validation = $rows .':'. $cols .':'.$classname;
+                    
+                } elseif (!empty($validation['other'])) {
                      $this->validation = $validation['other'];
 
                  } else {

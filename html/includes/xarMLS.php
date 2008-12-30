@@ -769,7 +769,7 @@ class xarMLS__TranslationsBackend
     /**
      * Binds the backend to the specified domain.
      */
-    function bindDomain($dnType, $dnName)
+    function bindDomain($dnType, $dnName = '')
     { die('abstract'); }
     /**
      * Checks if this backend supports a scpecified translation context.
@@ -847,7 +847,7 @@ class xarMLS__ReferencesBackend extends xarMLS__TranslationsBackend
     function enumKeyTranslations($reset = false)
     { die('abstract'); }
 
-    function bindDomain($dnType, $dnName)
+    function bindDomain($dnType, $dnName = '')
     {
         // only bind each domain once (?)
         //if (isset($this->domaincache["$dnType.$dnName"])) {

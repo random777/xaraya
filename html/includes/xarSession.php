@@ -23,6 +23,8 @@
 function xarSession_init(&$args, $whatElseIsGoingLoaded)
 {
     $GLOBALS['xarSession_systemArgs'] = $args;
+    // Get the timestamp of the session.
+    $GLOBALS['xarSession_timestamp'] = time();
 
     // Session Support Tables
     $systemPrefix = xarDBGetSystemTablePrefix();
@@ -404,7 +406,7 @@ function xarSession__new($sessionId, $ipAddress)
     $query = "INSERT INTO $sessioninfoTable
                  (xar_sessid, xar_ipaddr, xar_uid, xar_firstused, xar_lastused)
               VALUES (?,?,?,?,?)";
-    $bindvars = array($sessionId, $ipAddress, _XAR_ID_UNREGISTERED, time(), time());
+    $bindvars = array($sessionId, $ipAddress, _XAR_ID_UNREGISTERED, $GLOBALS['xarSession_timestamp'], $GLOBALS['xarSession_timestamp']);
     $result =& $dbconn->Execute($query,$bindvars);
     if (!$result) return;
 
@@ -468,7 +470,7 @@ function xarSession__phpRead($sessionId)
         // in case garbage collection didn't have the opportunity to do its job
         if (!empty($GLOBALS['xarSession_systemArgs']['securityLevel']) &&
             $GLOBALS['xarSession_systemArgs']['securityLevel'] == 'High') {
-            $timeoutSetting = time() - ($GLOBALS['xarSession_systemArgs']['inactivityTimeout'] * 60);
+            $timeoutSetting = $GLOBALS['xarSession_timestamp'] - ($GLOBALS['xarSession_systemArgs']['inactivityTimeout'] * 60);
             if ($lastused < $timeoutSetting) {
                 // force a reset of the userid (but use the same sessionid)
                 xarSession_setUserInfo(_XAR_ID_UNREGISTERED, 0);
@@ -509,7 +511,7 @@ function xarSession__phpWrite($sessionId, $vars)
     $dbtype = xarDBGetType();
     if (substr($dbtype,0,4) == 'oci8' || substr($dbtype,0,5) == 'mssql') {
         $query = "UPDATE $sessioninfoTable SET xar_lastused = ? WHERE xar_sessid = ?";
-        $result =& $dbconn->Execute($query,array(time(), $sessionId));
+        $result =& $dbconn->Execute($query,array($GLOBALS['xarSession_timestamp'], $sessionId));
         if (!$result) return;
         $id = $dbconn->qstr($sessionId);
         // Note: not sure why we use BLOB instead of TEXT (aka CLOB) for this field
@@ -517,7 +519,7 @@ function xarSession__phpWrite($sessionId, $vars)
         if (!$result) return;
     } else {
         $query = "UPDATE $sessioninfoTable SET xar_vars = ?, xar_lastused = ? WHERE xar_sessid = ?";
-        $result =& $dbconn->Execute($query,array($vars, time(), $sessionId));
+        $result =& $dbconn->Execute($query,array($vars, $GLOBALS['xarSession_timestamp'], $sessionId));
         if (!$result) return;
     }
 
@@ -558,16 +560,20 @@ function xarSession__phpGC($maxlifetime)
     $sessioninfoTable = $xartable['session_info'];
 
     // Calculate the inactivity cutoff time (setting is in minutes, so multiply with 60)
-    $inactiveTimer = time() - ($GLOBALS['xarSession_systemArgs']['inactivityTimeout'] * 60);
+    $inactiveTimer = $GLOBALS['xarSession_timestamp'] - ($GLOBALS['xarSession_systemArgs']['inactivityTimeout'] * 60);
     // Calculate the cookie expiration cutoff time (setting is in days, hence multiply with 60*60*24=86400)
-    $cookieTimer   = time() - ($GLOBALS['xarSession_systemArgs']['duration'] * 86400);
+    $cookieTimer   = $GLOBALS['xarSession_timestamp'] - ($GLOBALS['xarSession_systemArgs']['duration'] * 86400);
+    // Time to keep a one-only session handling around.
+    // TODO: make this configurable separately from the inactivity timer,
+    // as even a couple of minutes will suffice.
+    $unusedTimer = $GLOBALS['xarSession_timestamp'] - ($GLOBALS['xarSession_systemArgs']['inactivityTimeout'] * 60);
     
     switch ($GLOBALS['xarSession_systemArgs']['securityLevel']) {
         case 'Low':
             // Low security: Delete the session data if
             //  * rememberme is OFF, that is, user did not explicitly say to keep data AND
             //  * the inactivity time expired
-            $where = "WHERE xar_remembersess = ? AND xar_lastused < ?";
+            $where = "WHERE (xar_remembersess = ? AND xar_lastused < ?)";
             $bindvars = array(0,$inactiveTimer);
             break;
         case 'Medium':
@@ -576,17 +582,24 @@ function xarSession__phpGC($maxlifetime)
             //  * the inactivity time expired
             //  OR
             //  *  the cookie lifetime has expired
-            $where = "WHERE (xar_remembersess = ? AND xar_lastused <  ?)  OR xar_firstused < ?";
+            $where = "WHERE ((xar_remembersess = ? AND xar_lastused <  ?)  OR xar_firstused < ?)";
             $bindvars = array(0, $inactiveTimer, $cookieTimer);
             break;
         case 'High':
         default:
             // High security: Delete session info if:
             //  * user is inactive, period
-            $where = "WHERE xar_lastused < ?";
+            $where = "WHERE (xar_lastused < ?)";
             $bindvars = array($inactiveTimer);
             break;
     }
+
+    // Delete sessions used only once and not used again within a defined period.
+    if ($unusedTimer > 0) {
+        $where .= ' OR (xar_lastused = xar_firstused AND xar_firstused < ?)';
+        $bindvars[] = $unusedTimer;
+    }
+
     $query = "DELETE FROM $sessioninfoTable $where";
     $result =& $dbconn->Execute($query,$bindvars);
     if (!$result) return;

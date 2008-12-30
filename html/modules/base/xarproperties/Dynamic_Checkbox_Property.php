@@ -22,15 +22,7 @@ class Dynamic_Checkbox_Property extends Dynamic_Property
 {
     function checkInput($name='', $value = null)
     {
-        if (empty($name)) {
-            $name = 'dd_'.$this->id;
-        }
-        // store the fieldname for validations who need them (e.g. file uploads)
-        $this->fieldname = $name;
-        if (!isset($value)) {
-            if (!xarVarFetch($name, 'isset', $value,  NULL, XARVAR_DONT_SET)) {return;}
-        }
-        return $this->validateValue($value);
+        return $this->_checkInput_optional($name, $value);
     }
 
     function validateValue($value = null)
@@ -67,7 +59,7 @@ class Dynamic_Checkbox_Property extends Dynamic_Property
         $data['value']=$value;
         $data['name']=$name;
         $data['id']=$id;
-        $data['checked']  = ((isset($data['value']) && $data['value']) || (isset($data['checked']) && $data['checked'])) ? true : false;
+        $data['checked']  = (isset($value) && $value) || (isset($checked) && $checked) ? true : false;
         $data['onchange'] = !empty($onchange) ? $onchange : null; // let tpl decide what to do with it
         $data['tabindex']=!empty($tabindex) ? $tabindex : 0;
         $data['invalid'] = !empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid): '';

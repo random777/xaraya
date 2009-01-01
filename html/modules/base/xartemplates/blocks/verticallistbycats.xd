@@ -43,7 +43,7 @@
                                         <xar:foreach in="$mod['indlinks']" value="$sublinks" key="$sublink">
                                             <xar:comment> determine and indicate current states of module functions display </xar:comment>
                                             <xar:if condition="$sublinks['funcactive']">
-                                                <li class="xar-menu-subitem-current"><a name="activesubitem" title="#$sublinks['adminlabel']#">#$sublinks['adminlabel']#</a></li>
+                                                <li class="xar-menu-subitem-current"><a name="activesubitem" title="#$sublinks['admintitle']#">#$sublinks['adminlabel']#</a></li>
                                             <xar:else />
                                                 <li class="xar-menu-subitem"><a href="#$sublinks['adminlink']#" title="#$sublinks['admintitle']#">#$sublinks['adminlabel']#</a></li>
                                             </xar:if>                                        
@@ -59,7 +59,7 @@
                                         <xar:foreach in="$mod['indlinks']" value="$sublinks" key="$sublink">
                                             <xar:comment> determine and indicate current states of module functions display </xar:comment>
                                             <xar:if condition="$sublinks['funcactive']">
-                                                <li class="xar-menu-subitem-current"><a name="activesubitem" title="#$sublinks['adminlabel']#">#$sublinks['adminlabel']#</a></li>
+                                                <li class="xar-menu-subitem-current"><a name="activesubitem" title="#$sublinks['admintitle']#">#$sublinks['adminlabel']#</a></li>
                                             <xar:else />
                                                 <li class="xar-menu-subitem"><a href="#$sublinks['adminlink']#" title="#$sublinks['admintitle']#">#$sublinks['adminlabel']#</a></li>
                                             </xar:if>                                        
@@ -75,7 +75,7 @@
                                         <xar:foreach in="$mod['indlinks']" value="$sublinks" key="$sublink">
                                             <xar:comment> determine and indicate current states of module functions display </xar:comment>
                                             <xar:if condition="$sublinks['funcactive']">
-                                                <li class="xar-menu-subitem-current"><a name="activesubitem" title="#$sublinks['adminlabel']#">#$sublinks['adminlabel']#</a></li>
+                                                <li class="xar-menu-subitem-current"><a name="activesubitem" title="#$sublinks['admintitle']#">#$sublinks['adminlabel']#</a></li>
                                             <xar:else />
                                                 <li class="xar-menu-subitem"><a href="#$sublinks['adminlink']#" title="#$sublinks['admintitle']#">#$sublinks['adminlabel']#</a></li>
                                             </xar:if>                                        

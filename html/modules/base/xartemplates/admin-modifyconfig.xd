@@ -424,6 +424,11 @@
                     </label>
                     <input type="text" id="cookiename" name="cookiename" value="#xarConfigGetVar('Site.Session.CookieName')#" class="xar-form-textmedium" />
                     <xar:mlstring>Default:</xar:mlstring> XARAYASID
+                    <small>
+                      <xar:mlstring>(The CookieName in var/cache/config.caching.php 
+                      must be equal to this value to keep the cache working.)
+                      </xar:mlstring>
+                    </small>
                 </div>
                 <div class="xar-form-input-wrapper">
                     <label for="cookiepath" title="#xarML('Override the default cookie path')#" class="xar-form-label">

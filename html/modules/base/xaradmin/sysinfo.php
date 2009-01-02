@@ -3,7 +3,7 @@
  * Display some system information
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,7 @@
  */
 function base_admin_sysinfo()
 {
-    xarVarFetch('what','int:-1:127',$what,INFO_GENERAL, XARVAR_NOT_REQUIRED);
+    xarVarFetch('what','int:-1:127',$what,INFO_ALL, XARVAR_NOT_REQUIRED);
     $data['what'] = $what;
     // Security Check
     if(!xarSecurityCheck('AdminBase')) return;

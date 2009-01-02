@@ -3,7 +3,7 @@
  * Main admin GUI function
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,14 +16,14 @@
  * Main admin gui function, entry point
  * @author John Robeson
  * @author Greg Allan
- * @return bool true on success of return to sysinfo
+ * @return bool true on success of return to modifyconfig
  */
 function base_admin_main()
 {
 // Security Check
     if(!xarSecurityCheck('AdminBase')) return;
 
-    xarResponseRedirect(xarModURL('base', 'admin', 'sysinfo'));
+    xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig'));
 
     // success
     return true;

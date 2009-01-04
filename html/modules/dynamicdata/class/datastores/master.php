@@ -103,6 +103,10 @@ class DataStoreFactory extends Object
     {
         switch ($type)
         {
+            case 'relational':
+                sys::import('xaraya.datastores.sql.relational');
+                $datastore = new RelationalDataStore();
+                break;
             case 'table':
                 sys::import('xaraya.datastores.sql.flattable');
                 $datastore = new FlatTableDataStore($name);
@@ -157,63 +161,35 @@ class DataStoreFactory extends Object
     }
 
     /**
-     * Get possible data sources (// TODO: for a module ?)
+     * Get possible data sources
      *
-     * @param $args['table'] optional extra table whose fields you want to add as potential data source
+     * @param $args optional tables whose fields you want to add as a potential data source
      */
     static function &getDataSources($args = array())
     {
         $sources = array();
 
-        // default data source is dynamic data
-        $sources[] = 'dynamic_data';
-
-        // module variables
-        $sources[] = 'module variables';
-
-        // user settings (= user variables per module)
-        $sources[] = 'user settings';
-
-        // session variables // TODO: perhaps someday, if this makes sense
-        //$sources[] = 'session variables';
-
-        // TODO: re-evaluate this once we're further along
-        // hook modules manage their own data
-        $sources[] = 'hook module';
-
-        // user functions manage their own data
-        $sources[] = 'user function';
-
-        // no local storage
-        $sources[] = 'dummy';
-
-        // try to get the meta table definition
-        if (!empty($args['table']))
-        {
-            try
-            {
-                $meta = xarModAPIFunc('dynamicdata','util','getmeta',$args);
-            }
-            catch ( NotFoundExceptions $e )
-            {
-                // No worries
-            }
-            if (!empty($meta) && !empty($meta[$args['table']]))
-            {
-                foreach ($meta[$args['table']] as $column)
-                    if (!empty($column['source']))
-                        $sources[] = $column['source'];
-            }
-        }
-
         $dbconn = xarDB::getConn();
         $dbInfo = $dbconn->getDatabaseInfo();
-        $dbTables = $dbInfo->getTables();
-        foreach($dbTables as $tblInfo)
+
+        // try to get the meta table definition
+        if (!empty($args))
         {
-            $tblColumns = $tblInfo->getColumns();
-            foreach($tblColumns as $colInfo)
-                $sources[] = $tblInfo->getName().".".$colInfo->getName();
+            foreach ($args as $key => $value) {
+                $tableobject = $dbInfo->getTable($value);
+                $fields = $tableobject->getColumns();
+                foreach ($fields as $field) {
+                    $sources[$key . "." . $field->getName()] = $key . "." . $field->getName();
+                }
+            }
+        } else {
+            $dbTables = $dbInfo->getTables();
+            foreach($dbTables as $tblInfo)
+            {
+                $tblColumns = $tblInfo->getColumns();
+                foreach($tblColumns as $colInfo)
+                    $sources[$tblInfo->getName().".".$colInfo->getName()] = $tblInfo->getName().".".$colInfo->getName();
+            }
         }
         return $sources;
     }

@@ -305,7 +305,7 @@
                                 <input type="text" name="pinstance[]" id="pinstance#$loop:index#" value="All" class="xar-form-textmedium" />
                                 &nbsp;
                                 <xar:mlstring>
-                                    This field must contain a value
+                                    This field must/should contain a value
                                 </xar:mlstring>
                                 <xar:else />
                                 <select name="pinstance[]">

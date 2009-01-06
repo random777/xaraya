@@ -1879,7 +1879,9 @@ class xarPrivileges extends xarMasks
             }
         }
         for ( $i = 4, $p1count = count($p1); $i < $p1count; $i++) {
-            if (($p1[$i] != 'all') && ($p1[$i]!=$p2[$i])) {
+            if (($p1[$i] != 'all' 
+              //  || $p2[$i] != 'all'
+                ) && ($p1[$i]!=$p2[$i])) {
                 return false;
             }
         }

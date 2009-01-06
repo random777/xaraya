@@ -115,6 +115,10 @@ function dynamicdata_init()
             'relations'   => array(
                 'type'=>'text'
             ),
+            /* the data source relations this object uses */
+            'objects'   => array(
+                'type'=>'text'
+            ),
             /* use the name of this object as alias for short URLs */
             'isalias'  => array(
                 'type'        => 'boolean',
@@ -159,13 +163,13 @@ function dynamicdata_init()
         $sql = "INSERT INTO $dynamic_objects (
                 name, label,
                 module_id, itemtype, class, filepath, urlparam,
-                maxid, config, sources, relations, isalias)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                maxid, config, sources, relations, objects,isalias)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $dbconn->prepareStatement($sql);
 
         $objects = array(
-            array('objects'   ,'Dynamic Objects'   ,$modid,0,'DataObject','auto',                                 'itemid',0,'a:0:{}',serialize(array('dynamic_objects' => $prefix . '_dynamic_objects')),'a:0:{}'               ,0),
-            array('properties','Dynamic Properties',$modid,1,'DProperty','modules/dynamicdata/class/property.php','itemid',0,'a:0:{}',serialize(array('dynamic_properties' => $prefix . '_dynamic_properties')),'a:0:{}'               ,0),
+            array('objects'   ,'Dynamic Objects'   ,$modid,0,'DataObject','auto',                                 'itemid',0,'a:0:{}',serialize(array('dynamic_objects' => $prefix . '_dynamic_objects')),'a:0:{}','a:0:{}'               ,0),
+            array('properties','Dynamic Properties',$modid,1,'DProperty','modules/dynamicdata/class/property.php','itemid',0,'a:0:{}',serialize(array('dynamic_properties' => $prefix . '_dynamic_properties')),'a:0:{}','a:0:{}'               ,0),
         );
 
         $objectid = array();
@@ -291,6 +295,7 @@ function dynamicdata_init()
             array('config'    ,'Configuration'      ,$objectid[1],999 ,'a:0:{}'    ,'dynamic_objects.config'     ,DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,11 ,'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"4";s:17:"display_key_label";s:3:"Key";s:19:"display_value_label";s:5:"Label";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"0";s:32:"initialization_associative_array";s:1:"1";}'),
             array('sources'   ,'Sources'            ,$objectid[1],999 ,'a:0:{}'    ,'dynamic_objects.sources'    ,DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,11 ,'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"4";s:17:"display_key_label";s:3:"Key";s:19:"display_value_label";s:5:"Label";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"0";s:32:"initialization_associative_array";s:1:"1";}'),
             array('relations' ,'Relations'          ,$objectid[1],999 ,'a:0:{}'    ,'dynamic_objects.relations'  ,DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,11 ,'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"4";s:17:"display_key_label";s:3:"Key";s:19:"display_value_label";s:5:"Label";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"0";s:32:"initialization_associative_array";s:1:"1";}'),
+            array('objects'   ,'Objects'            ,$objectid[1],999 ,'a:0:{}'    ,'dynamic_objects.objects'    ,DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,11 ,'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"4";s:17:"display_key_label";s:3:"Key";s:19:"display_value_label";s:5:"Label";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"0";s:32:"initialization_associative_array";s:1:"1";}'),
             array('isalias'   ,'Alias in short URLs',$objectid[1],14,'1'           ,'dynamic_objects.isalias'    ,DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN | DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY,12 ,''),
 
             // Properties for the Properties DD object

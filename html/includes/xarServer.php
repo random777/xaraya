@@ -655,6 +655,8 @@ function xarRequest__resolveModuleAlias($aliasModName)
  * @access public
  * @global xarResponse_redirectCalled bool
  * @param redirectURL string the URL to redirect to
+ * @param httpResponse int optional response to send with 
+ *         redirect default 302, valid options 301,302,303,307
  */
 function xarResponseRedirect($redirectURL, $httpResponse=NULL)
 {

@@ -110,6 +110,7 @@ class DataObjectMaster extends Object
     public $sources     = 'a:0:{}';       // the db source tables of this object
     public $datasources = array();        // the exploded db source tables of this object
     public $relations   = 'a:0:{}';       // the db source table relations of this object
+    public $objects     = 'a:0:{}';       // the names of obejcts related to this one
     public $dataquery;                    // the initialization query of this obect
     public $isalias     = 0;
 
@@ -202,16 +203,47 @@ class DataObjectMaster extends Object
                 foreach ($this->datasources as $key => $value) $this->dataquery->addtable($value,$key);
             }
         } catch (Exception $e) {}
+
         // Set up the db table relations
         try {
             $relationargs = unserialize($args['relations']);
             foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
         } catch (Exception $e) {}
 
+        // Set up the relations to related objects
+        try {
+            $objectargs = unserialize($args['objects']);
+            
+            foreach ($objectargs as $key => $value)
+                $this->dataquery->join($this->propertysource($key),$this->propertysource($value));
+        } catch (Exception $e) {
+            die('Bad object relation');
+        }
+// $this->dataquery->qecho();echo "<br />";
         // build the list of relevant data stores where we'll get/set our data
         if(empty($this->datastores) && count($this->properties) > 0)
            $this->getDataStores();
 
+    }
+
+    private function propertysource($sourcestring)
+    {
+        $parts = explode('.',$sourcestring);
+        if (!isset($parts[1])) throw new Exception(xarML('Bad property definition'));
+        if ($parts[0] == 'this') {
+            return $this->properties[$parts[1]]->source;
+        } else {
+            $foreignobject = self::getObject(array('name' => $parts[0]));
+            $foreignstore = $foreignobject->properties[$parts[1]]->source;
+            $foreignparts = explode('.',$foreignstore);
+            $foreignconfiguration = $foreignobject->datasources;
+            if (!isset($foreignconfiguration[$foreignparts[0]])) throw new Exception(xarML('Bad foreign datasource'));
+            $foreigntable = $foreignconfiguration[$foreignparts[0]];
+            
+            // Add the foreign table to this object's query
+            $this->dataquery->addtable($foreigntable,$parts[0] . "_" . $foreignparts[0]);
+            return $parts[0] . "_" . $foreignstore;
+        }
     }
 
     private function getFieldList($fieldlist=array(),$status=null)
@@ -537,6 +569,7 @@ class DataObjectMaster extends Object
                          config,
                          sources,
                          relations,
+                         objects,
                          isalias
                   FROM $dynamicobjects ";
         if (isset($args['objectid'])) {
@@ -558,6 +591,7 @@ class DataObjectMaster extends Object
             $info['config'],
             $info['sources'],
             $info['relations'],
+            $info['objects'],
             $info['isalias']
         ) = $result->fields;
         $result->close();

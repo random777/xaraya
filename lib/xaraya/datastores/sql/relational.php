@@ -87,23 +87,66 @@ class RelationalDataStore extends SQLDataStore
         // Bail if the object has no properties
         if (count($this->object->properties) < 1) return;
         
-        // Complete the dataquery
         $q = clone $this->object->dataquery;
         $q->setType('INSERT');
-        $q->clearfields();
-        foreach ($this->object->properties as $field) {
-            if (isset($args[$field->name])) {
-                // We have an override through the method's parameters
-                $q->addfield($field->source, $args[$field->name]);
-            } elseif ($field->name == $this->object->primary){
-                // Ignore the primary value if not set
-                if (!isset($itemid)) continue;
-                $q->addfield($field->source, $itemid);
-            } else {
-                // No override, just take the value the property already has
-                $q->addfield($field->source, $field->value);
+
+        // Complete the dataquery
+        if (count($q->tables)<2) {
+            $q->clearfields();
+            foreach ($this->object->properties as $field) {
+                if (isset($args[$field->name])) {
+                    // We have an override through the method's parameters
+                    $q->addfield($field->source, $args[$field->name]);
+                } elseif ($field->name == $this->object->primary){
+                    // Ignore the primary value if not set
+                    if (!isset($itemid)) continue;
+                    $q->addfield($field->source, $itemid);
+                } else {
+                    // No override, just take the value the property already has
+                    $q->addfield($field->source, $field->value);
+                }
+            }
+        } else {
+            // Set aside our tables we'll be working with
+            $this->tables = $q->tables;
+            // Set aside our links we'll be working with
+            $this->tablelinks = $q->tablelinks;
+            
+            // Fill all the fields
+            $q->clearfields();
+            foreach ($this->object->properties as $field) {
+                if (isset($args[$field->name])) {
+                    // We have an override through the method's parameters
+                    $q->addfield($field->source, $args[$field->name]);
+                } elseif ($field->name == $this->object->primary){
+                    // Ignore the primary value if not set
+                    if (!isset($itemid)) continue;
+                    $q->addfield($field->source, $itemid);
+                } else {
+                    // No override, just take the value the property already has
+                    $q->addfield($field->source, $field->value);
+                }
+            }
+            
+            // Set aside our fields we'll be working with
+            $this->fields = $q->fields;
+
+            // Find the primary and get its table alias so we know which insert to start with
+            $primarysource = $this->object->properties[$this->object->primary]->source;
+            $parts = explode('.',$primarysource);
+            if (count($parts) != 2) throw new Exception(xarML('Incorrect datasource'));
+            $alias = $parts[0];
+            
+            $this->runinsert($alias,$this->object->primary);
+
+            foreach ($tables as $table) {
+                $q = clone $this->object->dataquery;
+                $q->setType('INSERT');
+                $q->clearfields();
             }
         }
+//        $q->qecho();exit;
+//$q->present();exit;
 
         // Run it
         $q->clearconditions();
@@ -119,7 +162,70 @@ class RelationalDataStore extends SQLDataStore
         $this->object->properties[$this->object->primary]->value = $itemid;
         return $itemid;
     }
+    
+    function runinsert($alias='',$primary='')
+    {
+        if (empty($alias)) return true;
+        
+        // Get the table we are inserting to and remove it from the array of tables
+        $tables = array();
+        $thistable = '';
+        foreach ($this->tables as $table) {
+            if ($table['alias'] == $alias) {
+                $thistable = $table;
+            } else {
+                $tables[] = $table;
+            }
+        }
+        $this->tables = $tables;
 
+        // Get the fields we are inserting to and remove them from the array of fields
+        $fields = array();
+        $thesefields = array();
+        foreach ($this->fields as $field) {
+            if ($field['table'] == $alias) {
+                $thesefields[] = $field;
+            } else {
+                $fields[] = $field;
+            }
+        }
+        $this->fields = $fields;
+        
+        // Run the insert for this table
+        $q = new Query('INSERT', $thistable['name']);
+        $q->fields = $thesefields;
+        if (!$q->run()) throw new Exception(xarML('Query failed'));
+        
+        // Get the row we just inserted
+        $q->setType('SELECT');
+        $q->clearfields();
+        if (!empty($primary)) $q->eq($primary, $q->lastid($thistable['name'],$primary));
+        if (!$q->run()) throw new Exception(xarML('Query failed'));
+        
+        // 
+        $tablelinks = array();
+        $theselinks = array();
+        foreach ($this->tablelinks as $link) {
+            $parts = explode('.',$link['field1']);
+            if (count($parts) != 2) throw new Exception(xarML('Incorrect datasource'));
+            $tablealias = $parts[0];
+            if ($tablealias == $alias) {
+                $theselinks[] = $link['field2'];
+            } else {
+                $parts = explode('.',$link['field2']);
+                if (count($parts) != 2) throw new Exception(xarML('Incorrect datasource'));
+                $tablealias = $parts[0];
+                if ($tablealias == $alias) {
+                    $theselinks[] = $link['field1'];
+                } else {
+                    $tablelinks[] = $link;
+                }
+            }
+        }
+        $this->tablelinks = $tablelinks;
+        
+    }
+    
     function updateItem(Array $args = array())
     {
         // Get the itemid from the params or from the object definition

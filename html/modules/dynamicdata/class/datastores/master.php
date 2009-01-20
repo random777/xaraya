@@ -147,9 +147,9 @@ class DataStoreFactory extends Object
                 sys::import('xaraya.datastores.file.csv');
                 $datastore = new CSVFileDataStore($name);
                 break;
-            case 'dummy':
+            case 'none':
             default:
-                sys::import('xaraya.datastores.dummy');
+                sys::import('xaraya.datastores.virtual');
                 $datastore = new DummyDataStore($name);
                 break;
         }

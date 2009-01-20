@@ -145,10 +145,10 @@ class DataProperty extends Object implements iDataProperty
                 $storename = 'module variables_'.$this->name;
                 $storetype = 'modulevars';
                 break;
-            case 'dummy':
+            case 'none':
                 // no data storage
-                $storename = '_dummy_';
-                $storetype = 'dummy';
+                $storename = '_none_';
+                $storetype = 'none';
                 break;
             default:
                 // Nothing specific, perhaps a table?

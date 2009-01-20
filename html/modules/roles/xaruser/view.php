@@ -43,7 +43,6 @@ function roles_user_view($args)
 
     $data['total'] = count($items);
     $data['itemtype'] = $args['itemtype'];
-    $data['basetype'] = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $data['itemtype']));
     $types = xarModAPIFunc('roles','user','getitemtypes');
     $data['itemtypename'] = $types[$data['itemtype']]['label'];
     $data['items'] = $items;

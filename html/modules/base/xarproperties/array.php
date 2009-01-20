@@ -25,6 +25,7 @@ class ArrayProperty extends DataProperty
     public $display_columns = 30;
     public $display_rows = 4;
     public $initialization_rows = 0;
+    public $initialization_column_types = 'a:0:{}';
     //default value of Key label
     public $display_key_label = "Key";
     //default value of value label
@@ -171,6 +172,10 @@ class ArrayProperty extends DataProperty
 
         $data['rows'] = !empty($rows) ? $rows : $this->display_rows;
         $data['size'] = !empty($size) ? $size : $this->display_columns;
+        
+        $data['style'] = !empty($data['style']) ? $data['style'] : '';
+        $data['class'] = !empty($data['class']) ? $data['class'] : '';
+        $data['columntype'] = 'textbox';
         
         //Psspl: Added code for getting the text of 'Key' and 'Value' label
         $data['keylabel'] = !empty($keylabel) ? $keylabel : $this->display_key_label;

@@ -332,13 +332,19 @@ class RelationalDataStore extends SQLDataStore
         
         // Complete the dataquery
         $q = $this->object->dataquery;
-        foreach ($this->object->properties as $field) $q->addfield($field->source .  ' AS ' . $field->name);
+        foreach ($this->object->properties as $field) {
+            if (empty($field->source)) {
+                if (empty($field->initialization_refobject)) continue;
+                $this->addqueryfields($q, $field->initialization_refobject);
+            } else {
+                $q->addfield($field->source .  ' AS ' . $field->name);
+            }
+        }
 
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
         $result = $q->output();
         if (empty($result)) return;
-
         $fieldlist = array_keys($this->object->properties);
         foreach ($result as $row) {
 
@@ -352,9 +358,23 @@ class RelationalDataStore extends SQLDataStore
 
             // Set the values of the properties
             foreach ($fieldlist as $field) {
+                if (empty($field->source)) continue;
                 $this->object->properties[$field]->setItemValue($itemid,$row[$this->object->properties[$field]->name]);
             }
         }        
+    }
+
+    function addqueryfields(Query $query, $objectname)
+    {
+        $object = DataObjectMaster::getObject(array('name' => $objectname));
+        foreach ($object->properties as $property) {
+            if (empty($property->source)) {
+                $this->addqueryfields($query, $property->initialization_refobject);
+                if (empty($property->initialization_refobject)) continue;
+            } else {
+                $query->addfield($object->name . "_" . $property->source);
+            }
+        }
     }
 
     function countItems(Array $args = array())

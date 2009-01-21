@@ -167,7 +167,7 @@ class DataStoreFactory extends Object
      */
     static function &getDataSources($args = array())
     {
-        $sources = array();
+        $sources[''] = xarML('None');
 
         $dbconn = xarDB::getConn();
         $dbInfo = $dbconn->getDatabaseInfo();

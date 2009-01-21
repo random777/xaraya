@@ -216,6 +216,7 @@ class DataObjectMaster extends Object
             
             foreach ($objectargs as $key => $value)
                 $this->dataquery->join($this->propertysource($key),$this->propertysource($value));
+
         } catch (Exception $e) {
             die('Bad object relation');
         }

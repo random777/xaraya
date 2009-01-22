@@ -352,12 +352,14 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             $this->startstore = $this->properties[$this->primary]->datastore;
         }
        // first get the items from the start store (if any)
+
         if(!empty($this->startstore)) {
             $this->datastores[$this->startstore]->getItems($args);
 
             // check if we found something - if not, no sense looking further
             if(count($this->itemids) == 0) return $this->items;
         }
+
         // then retrieve the other info about those items
         foreach(array_keys($this->datastores) as $name) {
             if(!empty($this->startstore) && $name == $this->startstore) {

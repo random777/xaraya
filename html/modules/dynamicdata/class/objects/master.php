@@ -215,7 +215,7 @@ class DataObjectMaster extends Object
             $objectargs = unserialize($args['objects']);
             
             foreach ($objectargs as $key => $value)
-                $this->dataquery->join($this->propertysource($key),$this->propertysource($value));
+                $this->dataquery->leftjoin($this->propertysource($key),$this->propertysource($value));
 
         } catch (Exception $e) {
             die('Bad object relation');

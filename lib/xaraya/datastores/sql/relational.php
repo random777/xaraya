@@ -337,7 +337,7 @@ class RelationalDataStore extends SQLDataStore
                 if (empty($field->initialization_refobject)) continue;
                 $this->addqueryfields($q, $field->initialization_refobject);
             } else {
-                $q->addfield($field->source .  ' AS ' . $field->name);
+                $q->addfield($field->source . ' AS ' . $field->name);
             }
         }
 
@@ -346,6 +346,7 @@ class RelationalDataStore extends SQLDataStore
         $result = $q->output();
         if (empty($result)) return;
         $fieldlist = array_keys($this->object->properties);
+
         foreach ($result as $row) {
 
             // Get the value of the primary key
@@ -358,7 +359,7 @@ class RelationalDataStore extends SQLDataStore
 
             // Set the values of the properties
             foreach ($fieldlist as $field) {
-                if (empty($field->source)) continue;
+                if (empty($this->object->properties[$field]->source)) continue;
                 $this->object->properties[$field]->setItemValue($itemid,$row[$this->object->properties[$field]->name]);
             }
         }        
@@ -372,7 +373,8 @@ class RelationalDataStore extends SQLDataStore
                 $this->addqueryfields($query, $property->initialization_refobject);
                 if (empty($property->initialization_refobject)) continue;
             } else {
-                $query->addfield($object->name . "_" . $property->source);
+                $parts = explode('.', $property->source);
+                $query->addfield($object->name . "_" . $property->source . ' AS ' . $object->name . "_" . $parts[1]);
             }
         }
     }

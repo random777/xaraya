@@ -479,7 +479,7 @@
                                         Core. It is a very mature and useful tool for Administrators. 
                     As such, we should embrace it.  As phpMyAdmin is a MySQL-specific
                                         tool, it would need adapted (presumably via ADODB) to work
-                                        with other Xaraya-supported databases (PostGRESQL, Oracle).
+                                        with other Xaraya-supported databases (PostgreSQL, Oracle).
                                         If this is not possible, the feature would only be made
                                         available for MySQL users or an alternative tool would
                                         be used                                                         

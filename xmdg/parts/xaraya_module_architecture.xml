@@ -843,6 +843,10 @@
         <listitem>
           <para><constant>XARVAR_NOT_REQUIRED</constant></para>
         </listitem>
+
+        <listitem>
+          <para><constant>XARVAR_VAL_RESULT</constant></para>
+        </listitem>
       </itemizedlist> You can force to get the variable only from GET
     parameters or POST parameters by setting the <varname>$flag</varname>
     parameter to one of <constant>XARVAR_GET_ONLY</constant> or
@@ -851,6 +855,11 @@
     <para>You can force xarVarFetch not to reuse the variable by setting the
     <varname>$flag</varname> parameter to
     <constant>XARVAR_DONT_REUSE</constant>.</para>
+
+    <para>Forcing xarVarFetch to return the validation result without throwing 
+    an exception needs the <varname>$flag</varname> parameter to be set to
+    <constant>XARVAR_NOT_REQUIRED</constant> + <constant>XARVAR_VAL_RESULT</constant>. 
+    This combination is predefinied as <constant>XAVAR_VAL_REQ</constant>.</para>
 
     <para>By default $flag is XARVAR_GET_OR_POST which means that xarVarFetch
     will lookup both GET and POST parameters and that if the variable is not
@@ -882,12 +891,6 @@
 
     <section>
       <title>Pitfalls with xarVarFetch()</title>
-
-      <para>No error given</para>
-
-      <para>Note that if a default value is specified, even if it is '', the
-      function will always succeed. If you need to catch validation errors and
-      other errors, you must set the default value to NULL.</para>
 
       <para>Loops with 1 $variable name</para>
 

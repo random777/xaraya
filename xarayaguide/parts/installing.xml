@@ -201,7 +201,7 @@
       <itemizedlist>
         <listitem>
           <para>The database types currently supported by Xaraya are MySQL or
-          PostGRESQL. Choose the one that you are using.</para>
+          PostgreSQL. Choose the one that you are using.</para>
         </listitem>
 
         <listitem>

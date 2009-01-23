@@ -3,7 +3,7 @@
  * View users
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -63,9 +63,7 @@ function roles_user_view($args)
             $selection = " AND ("
                 .$dbconn->substr."(".$dbconn->upperCase."(xar_name),1,1) < 'A' OR "
                 .$dbconn->substr."(".$dbconn->upperCase."(xar_name),1,1) > 'Z')";
-            // TODO: move these messages to the template (and shorten it a bit;-).
-            $data['msg'] = xarML(
-                'Members whose Display Name begins with character not listed in alphabet above (labeled as "Other")'
+            $data['msg'] = xarML('Members whose Display Name begins with character not listed in alphabet above (labeled as "Other")'
             );
         } else {
         // TODO: handle case-sensitive databases

@@ -3,7 +3,7 @@
  * Modify configuration
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -84,13 +84,6 @@ function roles_admin_modifyconfig()
                 }
             }
 
-            /* No longer required, catered for in Registration module
-            $checkip = xarModGetVar('roles', 'disallowedips');
-            if (empty($checkip)) {
-                $ip = serialize('10.0.0.1');
-                xarModSetVar('roles', 'disallowedips', $ip);
-            }
-            */
             $data['siteadmins']   = $siteadmins;
             $data['defaultgroup'] = xarModGetVar('roles', 'defaultgroup');
             $data['groups']       = $groups;
@@ -140,7 +133,7 @@ function roles_admin_modifyconfig()
                 case 'general':
                     if (!xarVarFetch('itemsperpage',      'str:1:4:', $itemsperpage,     '20', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     if (!xarVarFetch('defaultauthmodule', 'int:1:',   $defaultauthmodule, xarModGetIDFromName('authsystem'), XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
-                    if (!xarVarFetch('defaultregmodule',  'int:0:',   $defaultregmodule, NULL, XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+                    if (!xarVarFetch('defaultregmodule',  'int:0:',   $defaultregmodule, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     if (!xarVarFetch('shorturls',         'checkbox', $shorturls,        false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('siteadmin',         'int:1',    $siteadmin,        xarModGetVar('roles','admin'), XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('defaultgroup',      'str:1',    $defaultgroup,     'Users', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;

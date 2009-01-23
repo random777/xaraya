@@ -3,7 +3,7 @@
  * Purge users by status
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -269,19 +269,19 @@ function roles_admin_purge($args)
             }
             switch ($state):
                 case ROLES_STATE_DELETED :
-                    $state = 'deleted';
+                    $state = xarML('deleted');
                     break ;
                 case ROLES_STATE_INACTIVE :
-                    $state = 'inactive';
+                    $state = xarML('inactive');
                     break ;
                 case ROLES_STATE_NOTVALIDATED :
-                    $state = 'not validated';
+                    $state = xarML('not validated');
                     break ;
                 case ROLES_STATE_ACTIVE :
-                    $state = 'active';
+                    $state = xarML('active');
                     break ;
                 case ROLES_STATE_PENDING :
-                    $state = 'pending';
+                    $state = xarML('pending');
                     break ;
             endswitch ;
             $purgeusers[] = array(

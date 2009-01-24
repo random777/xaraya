@@ -347,6 +347,7 @@ class RelationalDataStore extends SQLDataStore
         if (empty($result)) return;
         $fieldlist = array_keys($this->object->properties);
 
+        // Distribute the results to the appropriate
         foreach ($result as $row) {
 
             // Get the value of the primary key
@@ -359,13 +360,48 @@ class RelationalDataStore extends SQLDataStore
 
             // Set the values of the properties
             foreach ($fieldlist as $field) {
-                if (empty($this->object->properties[$field]->source)) continue;
-                $this->object->properties[$field]->setItemValue($itemid,$row[$this->object->properties[$field]->name]);
+                $this->setItemValue($itemid, $row, $field);
             }
         }        
     }
 
-    function addqueryfields(Query $query, $objectname)
+    /**
+     * Assign a query result value to its property in the proper object 
+     *
+     **/
+
+    private function setItemValue($itemid, $row, $field)
+    {
+    // Is this a subitems property?
+        if ($this->object->properties[$field]->type == 30069) {
+
+    // Ignore if we don't have an object
+            $subitemsobjectname = $this->object->properties[$field]->initialization_refobject;
+            if (empty($subitemsobjectname)) continue;
+
+    // Assign the appropriate value to each of the subitemsobjct's properties
+            $subitemsobject = $this->object->properties[$field]->subitemsobject;
+            foreach (array_keys($subitemsobject->properties) as $subproperty) {
+    // If the property is again a subitems property, recall the function
+                if ($subitemsobject->properties[$subproperty]->type == 30069) {
+                    $this->setItemValue($itemid, $row, $field);
+                } else {
+    // Convert the source field name to this property's name and assign
+                   $sourceparts = explode('.',$subitemsobject->properties[$subproperty]->source);
+                   $subitemsobject->properties[$subproperty]->setItemValue($itemid,$row[$subitemsobjectname . "_" . $sourceparts[1]]);   
+                }
+             }
+        } else {
+    // This is not a subitems property: assign the value in the usual way
+            $this->object->properties[$field]->setItemValue($itemid,$row[$this->object->properties[$field]->name]);
+        }
+    }
+    
+    /**
+     * Add the properties of a subitems object to the getItems query
+     *
+     **/
+    private function addqueryfields(Query $query, $objectname)
     {
         $object = DataObjectMaster::getObject(array('name' => $objectname));
         foreach ($object->properties as $property) {

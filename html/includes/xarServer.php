@@ -655,8 +655,10 @@ function xarRequest__resolveModuleAlias($aliasModName)
  * @access public
  * @global xarResponse_redirectCalled bool
  * @param redirectURL string the URL to redirect to
+ * @param httpResponse int optional response to send with 
+ *         redirect default 302, valid options 301,302,303,307
  */
-function xarResponseRedirect($redirectURL)
+function xarResponseRedirect($redirectURL, $httpResponse=NULL)
 {
     // First checks if there's a pending exception, if so does not redirect browser
     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return false;
@@ -685,9 +687,10 @@ function xarResponseRedirect($redirectURL)
       $header = "Location: $redirectURL";
     }// if
 
-
+    if (!preg_match('/^301|302|303|307/', $httpResponse)) $httpResponse = 302;
+  
     // Start all over again
-    header($header);
+    header($header, TRUE, $httpResponse);
     exit();
 }
 

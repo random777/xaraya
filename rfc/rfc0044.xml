@@ -348,7 +348,12 @@
             Use unix file and line endings, not dos/windows ones. Most
             editors and IDEs on Windows will provide a choice to save
             a file as unix file. To some extent Monotone will provide
-            the necessary conversions if necessary.
+            the necessary conversions if necessary. Trailing spaces on lines
+            should be avoided.
+          </t>
+          <t>
+            Files should not contain an empty last line. Some diff tools might
+            indicate this with "\ No newline at end of file".
           </t>
         </t>
         <t><spanx>Comments</spanx>

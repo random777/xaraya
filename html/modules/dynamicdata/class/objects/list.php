@@ -124,6 +124,8 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             $this->sort = explode(',',$sort);
         }
         foreach($this->sort as $criteria) {
+            if (empty($criteria)) return true;
+            
             // split off trailing ASC or DESC
             if(preg_match('/^(.+)\s+(ASC|DESC)\s*$/',$criteria,$matches)) {
                 $criteria = trim($matches[1]);
@@ -132,28 +134,11 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
                 $sortorder = 'ASC';
             }
 
-            if(isset($this->properties[$criteria])) {
-                // pass the sort criteria to the right data store
-                $datastore = $this->properties[$criteria]->datastore;
-                // assign property to datastore if necessary
-                if(empty($datastore)) {
-                    list($storename, $storetype) = $this->properties[$criteria]->getDataStore();
-                    if(!isset($this->datastores[$storename]))
-                        $this->addDataStore($storename, $storetype);
+            // Make sure the field is added to the query 
+//            $this->dataquery->addfield($criteria);
 
-                    $this->properties[$criteria]->datastore = $storename;
-                    $this->datastores[$storename]->addField($this->properties[$criteria]); // use reference to original property
-                    $datastore = $storename;
-                }
-                elseif($this->properties[$criteria]->type == 21)
-                    $this->datastores[$datastore]->addField($this->properties[$criteria]); // use reference to original property
-
-                $this->datastores[$datastore]->addSort($this->properties[$criteria],$sortorder);
-
-                // if we're sorting on some field, we should start querying by the data store that holds it
-                if (!isset($this->startstore))
-                   $this->startstore = $datastore;
-            }
+            // Add the field's order clause
+            $this->dataquery->addorder($this->properties[$criteria]->source, $sortorder);
         }
     }
 

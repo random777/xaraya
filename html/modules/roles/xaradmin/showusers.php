@@ -149,7 +149,7 @@ function roles_admin_showusers()
                            );
 
     $object = DataObjectMaster::getObjectList(array('name' => 'roles_users'));
-    $object->getItems(array('itemids' => array_keys($users)));
+//    $object->getItems(array('itemids' => array_keys($users)));
 
     // Load Template
     $data['id']        = $id;

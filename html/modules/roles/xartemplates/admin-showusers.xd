@@ -203,21 +203,24 @@
                     </tr>
 
                     <xar:foreach in="$values" key="$itemid" value="$fields">         
+                        <xar:if condition="!isset($users[$itemid])">
+                            <xar:continue />
+                        </xar:if>
                         <tr>
                             <xar:foreach in="$properties" key="$name">
-                            <td>
-                            <xar:if condition="!empty($fields[$name])">
-                                <xar:if condition="$name eq 'name' and $users[$itemid]['frozen']">
-                                    <strong>#xarVarPrepForDisplay($fields['name'])#</strong>
-                                <xar:elseif condition="$name eq 'uname' and $users[$itemid]['frozen']" />
-                                    #xarVarPrepForDisplay($fields['uname'])#
-                                <xar:elseif condition="$name eq 'email' and $users[$itemid]['frozen']" />
-                                    None
-                                <xar:else />                           
-                                    <xar:data-output property="$properties[$name]" value="$fields[$name]" />
-                                </xar:if>
-                            </xar:if>
-                            </td>
+                                <td>
+                                    <xar:if condition="!empty($fields[$name])">
+                                        <xar:if condition="$name eq 'name' and $users[$itemid]['frozen']">
+                                            <strong>#xarVarPrepForDisplay($fields['name'])#</strong>
+                                        <xar:elseif condition="$name eq 'uname' and $users[$itemid]['frozen']" />
+                                            #xarVarPrepForDisplay($fields['uname'])#
+                                        <xar:elseif condition="$name eq 'email' and $users[$itemid]['frozen']" />
+                                            None
+                                        <xar:else />                           
+                                            <xar:data-output property="$properties[$name]" value="$fields[$name]" />
+                                        </xar:if>
+                                    </xar:if>
+                                </td>
                             </xar:foreach>
                             <td class="xar-align-center xar-nowrap">
                                 <xar:if condition="!$users[$itemid]['frozen']">

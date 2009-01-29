@@ -47,7 +47,14 @@ class RelationalDataStore extends SQLDataStore
         
         // Complete the dataquery
         $q = $this->object->dataquery;
-        foreach ($this->object->properties as $field) $q->addfield($field->source .  ' AS ' . $field->name);
+        foreach ($this->object->properties as $field) {
+            if (empty($field->source)) {
+                if (empty($field->initialization_refobject)) continue;
+                $this->addqueryfields($q, $field->initialization_refobject);
+            } else {
+                $q->addfield($field->source . ' AS ' . $field->name);
+            }
+        }
         $primary = $this->object->properties[$this->object->primary]->source;
         $q->eq($primary, (int)$itemid);
 
@@ -58,9 +65,8 @@ class RelationalDataStore extends SQLDataStore
 
         // Set the values of the properties
         $fieldlist = array_keys($this->object->properties);
-        foreach ($fieldlist as $field) {
-            $this->object->properties[$field]->value = $result[$this->object->properties[$field]->name];
-        }
+        foreach ($fieldlist as $field) $this->setValue($result, $field);
+
         return $itemid;
     }
 
@@ -369,6 +375,33 @@ class RelationalDataStore extends SQLDataStore
      * Assign a query result value to its property in the proper object 
      *
      **/
+
+    private function setValue($value, $field)
+    {
+    // Is this a subitems property?
+        if ($this->object->properties[$field]->type == 30069) {
+
+    // Ignore if we don't have an object
+            $subitemsobjectname = $this->object->properties[$field]->initialization_refobject;
+            if (empty($subitemsobjectname)) continue;
+
+    // Assign the appropriate value to each of the subitemsobjct's properties
+            $subitemsobject = $this->object->properties[$field]->subitemsobject;
+            foreach (array_keys($subitemsobject->properties) as $subproperty) {
+    // If the property is again a subitems property, recall the function
+                if ($subitemsobject->properties[$subproperty]->type == 30069) {
+                    $this->setValue($value, $field);
+                } else {
+    // Convert the source field name to this property's name and assign
+                   $sourceparts = explode('.',$subitemsobject->properties[$subproperty]->source);
+                   $subitemsobject->properties[$subproperty]->setValue($value[$subitemsobjectname . "_" . $sourceparts[1]]);   
+                }
+             }
+        } else {
+    // This is not a subitems property: assign the value in the usual way
+            $this->object->properties[$field]->setValue($value[$this->object->properties[$field]->name]);
+        }
+    }
 
     private function setItemValue($itemid, $row, $field)
     {

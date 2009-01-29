@@ -170,8 +170,8 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         }
 
         // cfr. BL compiler - adapt as needed (I don't think == and === are accepted in SQL)
-        $findLogic      = array(' eq ', ' ne ', ' lt ', ' gt ', ' id ', ' nd ', ' le ', ' ge ');
-        $replaceLogic   = array( ' = ', ' != ',  ' < ',  ' > ',  ' = ', ' != ', ' <= ', ' >= ');
+        $findLogic      = array(' eq ', ' ne ', ' lt ', ' gt ', ' id ', ' nd ', ' le ', ' ge ', ' like ');
+        $replaceLogic   = array( ' = ', ' != ',  ' < ',  ' > ',  ' = ', ' != ', ' <= ', ' >= ', ' like ');
 
         $where = str_replace($findLogic, $replaceLogic, $where);
 
@@ -215,6 +215,24 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
                 switch ($pieces[0]) {
                     case '=':
                         $this->dataquery->eq($this->properties[$name]->source, trim($pieces[1],"'"));
+                    break;
+                    case '!=':
+                        $this->dataquery->ne($this->properties[$name]->source, trim($pieces[1],"'"));
+                    break;
+                    case '>':
+                        $this->dataquery->gt($this->properties[$name]->source, trim($pieces[1],"'"));
+                    break;
+                    case '<':
+                        $this->dataquery->lt($this->properties[$name]->source, trim($pieces[1],"'"));
+                    break;
+                    case '>=':
+                        $this->dataquery->ge($this->properties[$name]->source, trim($pieces[1],"'"));
+                    break;
+                    case '<=':
+                        $this->dataquery->le($this->properties[$name]->source, trim($pieces[1],"'"));
+                    break;
+                    case 'like':
+                        $this->dataquery->like($this->properties[$name]->source, trim($pieces[1],"'"));
                     break;
                 }
 /*

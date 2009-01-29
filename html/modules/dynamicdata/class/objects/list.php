@@ -51,7 +51,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             foreach ($configargs as $key => $value) $this->{$key} = $value;
         } catch (Exception $e) {}
 
-        // Set the arguments passed via the constructor. These override the configurations settings
+        // Set the arguments passed via the constructor. These override the configuration settings
         $this->setArguments($args);
 
         // Get a reference to each property's value
@@ -211,20 +211,13 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             }
 
             if(isset($this->properties[$name])) {
-                // pass the where clause to the right data store
-                $datastore = $this->properties[$name]->datastore;
-                // assign property to datastore if necessary
-                if(empty($datastore)) {
-                    list($storename, $storetype) = $this->properties[$name]->getDataStore();
-                    if(!isset($this->datastores[$storename]))
-                        $this->addDataStore($storename, $storetype);
-
-                    $this->properties[$name]->datastore = $storename;
-                    $this->datastores[$storename]->addField($this->properties[$name]); // use reference to original property
-                    $datastore = $storename;
-                } elseif($this->properties[$name]->type == 21)
-                    $this->datastores[$datastore]->addField($this->properties[$name]); // use reference to original property
-
+                
+                switch ($pieces[0]) {
+                    case '=':
+                        $this->dataquery->eq($this->properties[$name]->source, trim($pieces[1],"'"));
+                    break;
+                }
+/*
                 if(empty($idx)) {
                     $mywhere = join(' ',$pieces);
                 } else {
@@ -245,6 +238,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
                     $pre,
                     $post
                 );
+                */
             }
         }
     }

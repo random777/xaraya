@@ -18,7 +18,7 @@
                 </th>
             </tr>
             <xar:loop name="$realms">
-                <tr class="xar-norm-outline xar-padding-endsthick xar-align-left">
+                <tr class="xar-norm-outline xar-padding-thickends xar-align-left">
                     <td >
                         <a href="&xar-modurl-privileges-admin-modifyrealm;&amp;rid=#$loop:item['rid']#">#xarVarPrepForDisplay($loop:item['name'])#</a>
                     </td>

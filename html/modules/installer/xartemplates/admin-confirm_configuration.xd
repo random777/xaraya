@@ -2,7 +2,7 @@
 <xar:set name="active_step">8</xar:set>
 <div id="install">
     <xar:template file="status" />
-    <h1 class="xar-pagetitle">
+    <h1>
         <xar:mlstring>Choose Configuration Options</xar:mlstring>
     </h1>
 
@@ -48,11 +48,11 @@
                     <xar:else />
                         <xar:loop name="$options2">
                         <xar:if condition="$loop:item['option'] eq ''">
-                            <p class="xar-normal">
+                            <p class="xar-norm">
                                 #$loop:item['comment']# 
                             </p>
                             <xar:else />
-                            <p class="xar-normal">
+                            <p class="xar-norm">
                                 <xar:if condition="$loop:item['option'] == 'true'">
                                     <input type="checkbox" name="chosen[]" id="chosen2_#$loop:index#" value="#$loop:item['item']#" checked="checked" />
                                     <xar:else />
@@ -67,7 +67,7 @@
                 </xar:if>
             </div>
             <xar:if condition="$installed ne ''">
-                <p class="xar-normal">
+                <p class="xar-norm">
                     <xar:mlstring>The following modules for this configuration are already installed:</xar:mlstring>
                     #$installed# 
                 </p>

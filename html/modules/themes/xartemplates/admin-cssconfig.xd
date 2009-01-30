@@ -30,7 +30,7 @@
                 The CSS subsystem can function in one of two modes: configurable (managed) or non-configurable (unmanaged - default). While default mode is extremely fast and fool-proof, the configurable option gives much more flexibility and control over the way css is treated by Xaraya. 
             </xar:mlstring>
         </p>
-        <form class="xar-blocks-admin" action="#xarModURL('themes', 'admin', 'cssconfig')#" method="post">
+        <form action="#xarModURL('themes', 'admin', 'cssconfig')#" method="post">
             <div class="xar-form-input-wrapper">
                 <span title="#xarML('Enable manual stylesheet configuration')#" class="xar-form-label">
                     <xar:mlstring>Mode:</xar:mlstring>

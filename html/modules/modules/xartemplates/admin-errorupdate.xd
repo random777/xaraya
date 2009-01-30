@@ -16,20 +16,30 @@
         <xar:mlstring>There is a discrepancy between the module version stored in the database and the module version found in the file system.  If you continue to run with an older version of the module files, you can severely corrupt your data.</xar:mlstring>
     </p>
 
-    <div class="xar-overflow-auto">
-        <label class="xar-title xar-thirdwidth xar-floatleft"><xar:mlstring>Module</xar:mlstring></label>
-        <label class="xar-title xar-thirdwidth xar-floatleft"><xar:mlstring>Database Version</xar:mlstring></label>
-        <label class="xar-title xar-thirdwidth xar-floatleft"><xar:mlstring>Filesystem Version</xar:mlstring></label>
-        <div class="xar-thirdwidth xar-floatleft">
-            <span class="xar-norm">#$modname#</span>
-        </div>
-        <div class="xar-thirdwidth xar-floatleft">
-            <span class="xar-norm">#$dbversion#</span>
-        </div>
-        <div class="xar-thirdwidth xar-floatleft">
-            <span class="xar-norm">#$fileversion#</span>
-        </div>
-    </div>
+    <table>
+        <tr>
+            <th>
+                <xar:mlstring>Module</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Database Version</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Filesystem Version</xar:mlstring>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                #$modname#
+            </td>
+            <td>
+                #$dbversion#
+            </td>
+            <td>
+                #$fileversion#
+            </td>
+        </tr>
+    </table>
 
     <p>
         <xar:mlstring>The module has been marked inactive until this discrepancy is corrected.</xar:mlstring>

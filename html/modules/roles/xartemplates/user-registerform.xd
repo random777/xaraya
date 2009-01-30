@@ -63,7 +63,7 @@
             </xar:if>
             <xar:if condition="xarModGetVar('roles','showterms') eq 0 and xarModGetVar('roles','showprivacy') eq 1">
             <div class="xar-form-input-wrapper">
-                <span class="xar-form-label-short">
+                <span class="xar-form-labelshort">
                     <input type="checkbox" name="agreetoterms" id="agreetoterms" value="1" />
                 </span>
                 <label for="agreetoterms"  title="#xarML('Please check to agree to the website requirements')#">
@@ -76,7 +76,7 @@
             </div>
             <xar:elseif condition="xarModGetVar('roles','showprivacy') eq 0 and xarModGetVar('roles','showterms') eq 1" />
             <div class="xar-form-input-wrapper">
-                <span class="xar-form-label-short">
+                <span class="xar-form-labelshort">
                     <input type="checkbox" name="agreetoterms" id="agreetoterms" value="1" />
                 </span>
                 <label for="agreetoterms" title="#xarML('Please check to agree to the website requirements')#">
@@ -89,7 +89,7 @@
             </div>
             <xar:elseif condition="xarModGetVar('roles','showprivacy') eq 1 and xarModGetVar('roles','showterms') eq 1" />
             <div class="xar-form-input-wrapper">
-                <span class="xar-form-label-short">
+                <span class="xar-form-labelshort">
                     <input type="checkbox" name="agreetoterms" id="agreetoterms" value="1" />
                 </span>
                 <label for="agreetoterms"  title="#xarML('Please check to agree to the website requirements')#">

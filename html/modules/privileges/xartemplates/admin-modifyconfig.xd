@@ -192,7 +192,7 @@
                             Realm Privilege Options
                         </xar:mlstring>
                     </legend>
-                     <p class="xar-form-input-wrapper-after xar-padding-endsthick">
+                     <p class="xar-form-input-wrapper-after xar-padding-thickends">
                         <xar:mlstring>Security checks will look for a match on the realm part of any privilege you define, with the 'realm mask' as defined below.</xar:mlstring>
                         </p>
 

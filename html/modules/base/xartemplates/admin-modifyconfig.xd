@@ -511,7 +511,7 @@
                         </xar:loop>
                     </select>
                 </div>
-                <div class="xar-form-input-wrapper-after xar-padding-topthick">
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
                     <xar:if condition="xarConfigGetVar('Site.Core.LoadLegacy')">
                         <input type="checkbox" name="loadlegacy" id="loadlegacy" value="1" checked="checked" />
                         <xar:else />
@@ -541,7 +541,7 @@
                             Proxy Server:
                         </xar:mlstring>
                     </label>
-                    <input type="text" id="proxyhost" name="proxyhost" value="#xarModGetVar('base','proxyhost')#" maxlength="100" class="xar-form-inputlong" />
+                    <input type="text" id="proxyhost" name="proxyhost" value="#xarModGetVar('base','proxyhost')#" maxlength="100" class="xar-form-textlong" />
                 </div>
                 <div class="xar-form-input-wrapper">
                     <label for="proxyport" title="#xarML('Proxy server port to use')#" class="xar-form-label">

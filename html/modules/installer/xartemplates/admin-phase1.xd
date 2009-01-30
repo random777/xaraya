@@ -17,7 +17,7 @@
             <label for="install_language">
                 <xar:mlstring>Language:</xar:mlstring>
             </label>
-            <select name="install_language" class="xar-text">
+            <select name="install_language">
                 <xar:foreach in="$languages" key="$key" value="$value">
                     <xar:if condition="$install_language == $key">
                         <option value="#$key#" selected="selected">#$value# (#$key#)</option>

@@ -12,7 +12,7 @@
                 <input type="hidden" name="rid" id="rid" value="#$rid#" />
                 <input type="hidden" name="confirmed" id="confirmed" value="1" />
 
-                <p><span class="xar-title"><xar:mlstring>Confirm the deletion of all instances of the realm</xar:mlstring>  '#$name#'</span></p>
+                <p><xar:mlstring>Confirm the deletion of all instances of the realm</xar:mlstring>  '#$name#'</p>
                 <br />
 
                 <input type="submit" value="#xarML('Confirm')#"  tabindex="1" /><br />

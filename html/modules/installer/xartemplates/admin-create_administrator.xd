@@ -9,7 +9,7 @@
     <form action="&xar-modurl-installer-admin-create_administrator;" method="post">
         <div>
             <input type="hidden" name="install_language" id="install_language" value="#$language#" />
-            <p class="xar-normal">
+            <p class="xar-norm">
                 <xar:mlstring>Please enter the settings for your Administrator account. This information is necessary in order to properly secure your Xaraya installation. These settings can be changed at any point in the future by visiting the Roles module.</xar:mlstring>
             </p>
 

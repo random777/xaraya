@@ -57,9 +57,9 @@
                         </label>
         
                         <xar:if condition="count($roles) gt 1">
-                            <input type="button" value="#$deletelabel#" onclick="this.form.action = '&xar-modurl-roles-admin-sitelock;&amp;cmd=delete&amp;uid=#$loop:item['uid']#';this.form.submit();" class="xar-amrgin-thickleft" />
+                            <input type="button" value="#$deletelabel#" onclick="this.form.action = '&xar-modurl-roles-admin-sitelock;&amp;cmd=delete&amp;uid=#$loop:item['uid']#';this.form.submit();" class="xar-margin-thickleft" />
                         <xar:else />
-                            <input type="button" value="#$deletelabel#" onclick="this.form.action = '&xar-modurl-roles-admin-sitelock;&amp;cmd=delete&amp;uid=#$loop:item['uid']#';this.form.submit();" disabled="disabled" class="xar-amrgin-thickleft" />
+                            <input type="button" value="#$deletelabel#" onclick="this.form.action = '&xar-modurl-roles-admin-sitelock;&amp;cmd=delete&amp;uid=#$loop:item['uid']#';this.form.submit();" disabled="disabled" class="xar-margin-thickleft" />
                         </xar:if>
                     </div>
                 </xar:loop>

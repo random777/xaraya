@@ -46,7 +46,8 @@ class DataProperty extends Object implements iDataProperty
 
     public $datastore = '';    // name of the data store where this property comes from
 
-    public $value = null;      // value of this property for a particular DataObject
+    public $value   = null;    // value of this property for a particular DataObject
+    public $filter  = null;    // value of the filter of this property (if it is part of a filter layout)
     public $invalid = '';      // result of the checkInput/validateValue methods
 
     public $include_reference = 0; // tells the object this property belongs to whether to add a reference of itself to me
@@ -227,7 +228,12 @@ class DataProperty extends Object implements iDataProperty
                 return null;
             }
         }
-       return $this->validateValue($value);
+
+        // Check for a filter option if found save it
+        list($found,$filter) = $this->fetchValue($name. '_filteroptions');
+        if ($found) $this->filter = $filter;
+
+        return $this->validateValue($value);
     }
 
     /**
@@ -483,7 +489,7 @@ class DataProperty extends Object implements iDataProperty
         $data['options'] = array();
         foreach ($data['filters'] as $filter) $data['options'][] = $filteroptions[$filter];
         
-        if(!isset($data['value']))    $data['value']    = $this->value;
+        $data['value'] = isset($data['filter']) ? $data['filter'] : $this->filter;
         if(!empty($this->_fieldprefix))  $data['fieldprefix'] = $this->_fieldprefix;
         if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
         if(!isset($data['template'])) $data['template'] = $this->template;

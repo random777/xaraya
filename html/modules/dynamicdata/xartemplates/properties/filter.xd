@@ -4,7 +4,7 @@
         <xar:set name="for">""</xar:set>
     </xar:if>
     <xar:if condition="empty($style)">
-        <xar:set name="style">""</xar:set>
+        <xar:set name="style">"width: 150px; margin-left: 5px; margin-right: 5px"</xar:set>
     </xar:if>
 
     <xar:if condition="$for ne 'id' and $for ne 'name'">

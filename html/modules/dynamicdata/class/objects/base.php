@@ -322,7 +322,26 @@ class DataObject extends DataObjectMaster implements iDataObject
     }
 
     /**
-     * Get the names and values of
+     * Get the filter values of the object's properties
+     */
+    public function getFilters(Array $args = array(), $bypass = 0)
+    {
+        $fields = array();
+        $properties = $this->getProperties($args);
+        if ($bypass) {
+            foreach ($properties as $property) {
+                $fields[$property->name] = array('filter' => $property->filter, 'value' => $property->value);
+            }
+        } else {
+            foreach ($properties as $property) {
+                $fields[$property->name] = array('filter' => $property->filter, 'value' => $property->getValue());
+            }
+        }
+        return $fields;
+    }
+
+    /**
+     * Get the names and values of the object's properties
      */
     public function getFieldValues(Array $args = array(), $bypass = 0)
     {

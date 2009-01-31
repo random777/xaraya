@@ -8,7 +8,7 @@
   <filepath>modules/roles/class/role.php</filepath>
   <urlparam>itemid</urlparam>
   <maxid>0</maxid>
-  <config>a:1:{s:5:&quot;where&quot;;s:13:&quot;role_type = 2&quot;;}</config>
+  <config>a:1:{s:5:&quot;where&quot;;s:13:&quot;role_type = 3&quot;;}</config>
   <sources>a:1:{s:5:"roles";s:9:"xar_roles";}</sources>
   <isalias>1</isalias>
   <properties>

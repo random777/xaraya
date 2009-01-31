@@ -320,9 +320,6 @@ class DataProperty extends Object implements iDataProperty
      */
     public function showInput(Array $data = array())
     {
-        $data['tagtype'] = 'showinput';
-        return $this->showProperty($data);
-
         if (!empty($data['hidden'])) {
             if ($data['hidden'] == 'active') {
                 $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE);
@@ -379,98 +376,7 @@ class DataProperty extends Object implements iDataProperty
                     $data[$configarg['shortname']] = $this->{$configarg['fullname']};
             }
         }
-        return xarTplProperty($data['tplmodule'], $data['template'], $data['tagtype'], $data);
-    }
-
-    /**
-     * Show the default property view for this property
-     *
-     * @param $args['template'] what's the partial name of the showfilter template.
-     * @return string containing the HTML (or other) text to output in the BL template
-     */
-
-    public function showProperty(Array $data = array())
-    {
-        if(!isset($data['tagtype'])) $data['tagtype'] = 'showproperty';
-
-        if (!empty($data['hidden'])) {
-            if ($data['hidden'] == 'active') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE);
-            } elseif ($data['hidden'] == 'display') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY);
-            } elseif ($data['hidden'] == 'hidden') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN);
-            }
-        }
-
-        if($this->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)
-            return $this->showHidden($data);
-
-        if($data['tagtype'] == 'showinput') {
-            if($this->getInputStatus() == DataPropertyMaster::DD_INPUTSTATE_NOINPUT) {
-                return $this->showOutput($data) . $this->showHidden($data);
-            }
-
-            // Display directive for the name
-            if(!isset($data['name'])) {
-                if ($this->anonymous == true) $data['name'] = $this->name;
-                else $data['name'] = 'dd_'.$this->id;
-            }
-            if(!isset($data['id']))          $data['id']   = $data['name'];
-        }
-        
-        if($data['tagtype'] == 'showoutput') {
-            $data['id']   = $this->id;
-            $data['name'] = $this->name;
-            if (empty($data['_itemid'])) $data['_itemid'] = 0;
-        }
-
-        if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
-        if(!isset($data['template'])) $data['template'] = $this->template;
-        if(!isset($data['layout']))   $data['layout']   = $this->display_layout;
-
-        if($data['tagtype'] == 'showinput') {
-            // Add the object's field prefix if there is one
-            $prefix = '';
-            if(!empty($this->_fieldprefix))  $prefix = $this->_fieldprefix . '_';
-            // A field prefix added here can override the previous one
-            if(isset($data['fieldprefix']))  $prefix = $data['fieldprefix'] . '_';
-            if(!empty($prefix)) $data['name'] = $prefix . $data['name'];
-            if(!empty($prefix)) $data['id'] = $prefix . $data['id'];
-
-            if(!isset($data['tabindex'])) $data['tabindex'] = 0;
-            if (!empty($this->invalid)) {
-                $data['invalid']  = !empty($data['invalid']) ? $data['invalid'] : xarML($this->invalid);
-            } else {
-                $data['invalid']  = '';
-            }
-        }
-
-        if($data['tagtype'] == 'showinput') {
-            if(!isset($data['value']))    $data['value']    = $this->value;
-        }
-
-        if($data['tagtype'] == 'showoutput') {
-            if(!isset($data['value'])) $data['value'] = $this->getValue();
-        }
-
-        if($data['tagtype'] == 'showinput') {
-            // Add the configuration options if they have not been overridden
-            if(isset($data['configuration'])) {
-                $this->parseConfiguration($data['configuration']);
-                unset($data['configuration']);
-            }
-
-            foreach ($this->configurationtypes as $configtype) {
-                $properties = $this->getConfigProperties($configtype,1);
-                foreach ($properties as $name => $configarg) {
-                    if (!isset($data[$configarg['shortname']]))
-                        $data[$configarg['shortname']] = $this->{$configarg['fullname']};
-                }
-            }
-        }
-
-        return xarTplProperty($data['tplmodule'], $data['template'], $data['tagtype'], $data);
+        return xarTplProperty($data['tplmodule'], $data['template'], 'showinput', $data);
     }
 
     /**
@@ -481,9 +387,6 @@ class DataProperty extends Object implements iDataProperty
      */
     public function showOutput(Array $data = array())
     {
-        $data['tagtype'] = 'showoutput';
-        return $this->showProperty($data);
-
         if (!empty($data['hidden'])) {
             if ($data['hidden'] == 'active') {
                 $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE);

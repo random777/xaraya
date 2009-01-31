@@ -551,9 +551,6 @@ class DataProperty extends Object implements iDataProperty
     function showFilter(Array $data=array())
     {
         if($this->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN) return "";
-
-        if(is_string($data)) $filter = $data;
-        elseif(is_array($data)) extract($data);
         
         $data['id']    = $this->id;
         $data['name']  = $this->name;

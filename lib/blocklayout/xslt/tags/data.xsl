@@ -409,7 +409,7 @@
         <xsl:text>echo $property-&gt;</xsl:text>
         <xsl:text>showFilter(</xsl:text>
         <xsl:call-template name="atts2args">
-          <xsl:with-param name="nodeset" select="*" />
+          <xsl:with-param name="nodeset" select="@*" />
         </xsl:call-template>
         <xsl:text>);</xsl:text>
       </xsl:when>
@@ -419,7 +419,7 @@
         <xsl:value-of select="@property"/><xsl:text>-&gt;</xsl:text>
           <xsl:text>showFilter(</xsl:text>
           <xsl:call-template name="atts2args">
-            <xsl:with-param name="nodeset" select="*" />
+            <xsl:with-param name="nodeset" select="@*[name() != 'property'  and name() != 'hidden' and name() != 'preset']"/>
           </xsl:call-template>
         <xsl:text>);</xsl:text>
       </xsl:otherwise>

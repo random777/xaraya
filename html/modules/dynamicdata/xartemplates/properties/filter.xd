@@ -27,5 +27,5 @@
         <xar:set name="for">$type</xar:set>
     </xar:if>
     <xar:set name="name">$for . "_filteroptions"</xar:set>
-    <xar:data-input type="dropdown" name="$name" value="$value" options="$options" style="$style" />
+    <xar:data-input type="dropdown" name="$name" value="$value" options="$options" style="$style" firstline="nofilter,"/>
 </xar:template>

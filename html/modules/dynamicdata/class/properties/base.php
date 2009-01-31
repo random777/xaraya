@@ -580,8 +580,10 @@ class DataProperty extends Object implements iDataProperty
         elseif ($this->basetype == 'string') $data['filters'] = array('=','!=','like','notlike','null','notnull','regex');
         
         // Now create the filter options for the dropdown
+        $data['options'] = array();
         foreach ($data['filters'] as $filter) $data['options'][] = $filteroptions[$filter];
         
+        if(!isset($data['value']))    $data['value']    = $this->value;
         if(!empty($this->_fieldprefix))  $data['fieldprefix'] = $this->_fieldprefix;
         if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
         if(!isset($data['template'])) $data['template'] = $this->template;

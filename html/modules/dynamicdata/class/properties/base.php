@@ -230,7 +230,7 @@ class DataProperty extends Object implements iDataProperty
         }
 
         // Check for a filter option if found save it
-        list($found,$filter) = $this->fetchValue($name. '_filteroptions');
+        list($found,$filter) = $this->fetchValue($name. '_filteroption');
         if ($found) $this->filter = $filter;
 
         return $this->validateValue($value);

@@ -44,11 +44,11 @@ class DataProperty extends Object implements iDataProperty
     public $args         = array(); //args that hold alias info
     public $anonymous = 0;        // if true the name, rather than the dd_xx designation is used in displaying the property
 
-    public $datastore = '';    // name of the data store where this property comes from
+    public $datastore = '';       // name of the data store where this property comes from
 
-    public $value   = null;    // value of this property for a particular DataObject
-    public $filter  = null;    // value of the filter of this property (if it is part of a filter layout)
-    public $invalid = '';      // result of the checkInput/validateValue methods
+    public $value   = null;       // value of this property for a particular DataObject
+    public $filter  = 'nofilter'; // value of the filter of this property (if it is part of a filter layout)
+    public $invalid = '';         // result of the checkInput/validateValue methods
 
     public $include_reference = 0; // tells the object this property belongs to whether to add a reference of itself to me
     public $objectref = null;  // object this property belongs to

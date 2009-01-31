@@ -330,10 +330,12 @@ class DataObject extends DataObjectMaster implements iDataObject
         $properties = $this->getProperties($args);
         if ($bypass) {
             foreach ($properties as $property) {
+                if ($property->filter == 'nofilter') continue;
                 $fields[$property->name] = array('filter' => $property->filter, 'value' => $property->value);
             }
         } else {
             foreach ($properties as $property) {
+                if ($property->filter == 'nofilter') continue;
                 $fields[$property->name] = array('filter' => $property->filter, 'value' => $property->getValue());
             }
         }

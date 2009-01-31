@@ -64,6 +64,62 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
     }
 
     /**
+     * Apply as set of filter values to an object's query
+     */
+
+    private function addFilterCondition($name,$filter,$value)
+    {
+        try {
+            switch ($filter) {
+                case '=':
+                    $this->dataquery->eq($this->properties[$name]->source, $value);
+                break;
+                case '!=':
+                    $this->dataquery->ne($this->properties[$name]->source, $value);
+                break;
+                case '>':
+                    $this->dataquery->gt($this->properties[$name]->source, $value);
+                break;
+                case '<':
+                    $this->dataquery->lt($this->properties[$name]->source, $value);
+                break;
+                case '>=':
+                    $this->dataquery->ge($this->properties[$name]->source, $value);
+                break;
+                case '<=':
+                    $this->dataquery->le($this->properties[$name]->source, $value);
+                break;
+                case 'like':
+                    $this->dataquery->like($this->properties[$name]->source, $value);
+                break;
+                case 'notlike':
+                    $this->dataquery->notlike($this->properties[$name]->source, $value);
+                break;
+                case 'null':
+                    $this->dataquery->eq($this->properties[$name]->source, NULL);
+                break;
+                case 'notnull':
+                    $this->dataquery->ne($this->properties[$name]->source, NULL);
+                break;
+                case 'regex':
+                    $this->dataquery->regex($this->properties[$name]->source, $value);
+                break;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
+    public function applyFilters(Array $args = array())
+    {
+        $properties = $this->getProperties($args);
+        foreach ($args as $key => $value) {
+            $this->addFilterCondition($key,$value['filter'],$value['value']);
+        }
+        return true;
+    }
+
+    /**
      * Set arguments for the DataObjectList class
      *
      * @param array
@@ -211,30 +267,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             }
 
             if(isset($this->properties[$name])) {
-                
-                switch ($pieces[0]) {
-                    case '=':
-                        $this->dataquery->eq($this->properties[$name]->source, trim($pieces[1],"'"));
-                    break;
-                    case '!=':
-                        $this->dataquery->ne($this->properties[$name]->source, trim($pieces[1],"'"));
-                    break;
-                    case '>':
-                        $this->dataquery->gt($this->properties[$name]->source, trim($pieces[1],"'"));
-                    break;
-                    case '<':
-                        $this->dataquery->lt($this->properties[$name]->source, trim($pieces[1],"'"));
-                    break;
-                    case '>=':
-                        $this->dataquery->ge($this->properties[$name]->source, trim($pieces[1],"'"));
-                    break;
-                    case '<=':
-                        $this->dataquery->le($this->properties[$name]->source, trim($pieces[1],"'"));
-                    break;
-                    case 'like':
-                        $this->dataquery->like($this->properties[$name]->source, trim($pieces[1],"'"));
-                    break;
-                }
+                $this->addFilterCondition($name,$pieces[0],trim($pieces[1],"'"));
 /*
                 if(empty($idx)) {
                     $mywhere = join(' ',$pieces);

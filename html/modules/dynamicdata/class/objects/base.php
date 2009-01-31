@@ -189,6 +189,14 @@ class DataObject extends DataObjectMaster implements iDataObject
     }
 
     /**
+     * Check the filter input values for this item
+     */
+    public function checkFilterInput(Array $args = array())
+    {
+        return $this->checkInput($args, 1, 'dd');
+    }
+
+    /**
      * Show an input form for this item
      */
     public function showForm(Array $args = array())

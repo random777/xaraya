@@ -395,7 +395,7 @@
   </xsl:processing-instruction>
 </xsl:template>
 
-<xsl:template match="xar:data-property">
+<xsl:template match="xar:data-filter">
   <xsl:processing-instruction name="php">
     <xsl:choose>
       <xsl:when test="not(@property)">
@@ -407,7 +407,7 @@
         </xsl:call-template>
         <xsl:text>);</xsl:text>
         <xsl:text>echo $property-&gt;</xsl:text>
-        <xsl:text>showProperty(</xsl:text>
+        <xsl:text>showFilter(</xsl:text>
         <xsl:call-template name="atts2args">
           <xsl:with-param name="nodeset" select="*" />
         </xsl:call-template>
@@ -417,7 +417,7 @@
         <!-- We do have a property in the attribute -->
         <xsl:text>echo </xsl:text>
         <xsl:value-of select="@property"/><xsl:text>-&gt;</xsl:text>
-          <xsl:text>showProperty(</xsl:text>
+          <xsl:text>showFilter(</xsl:text>
           <xsl:call-template name="atts2args">
             <xsl:with-param name="nodeset" select="*" />
           </xsl:call-template>

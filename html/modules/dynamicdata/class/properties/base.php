@@ -26,6 +26,7 @@ class DataProperty extends Object implements iDataProperty
     public $desc           = 'propertyDescription';
     public $label          = 'Property Label';
     public $type           = 1;
+    public $basetype       = 'none';        // the type of variable this property represents (string, number,...)
     public $defaultvalue   = '';
     public $source         = 'dynamic_data';
     public $status         = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
@@ -538,6 +539,54 @@ class DataProperty extends Object implements iDataProperty
         if(!isset($data['template'])) $data['template'] = $this->template;
         if(!isset($data['layout']))   $data['layout']   = $this->layout;
         return xarTplProperty($data['tplmodule'], $data['template'], 'label', $data);
+    }
+
+    /**
+     * Show the filter options for this property
+     *
+     * @param $data['filters'] an array of filter options for the property 
+     * @param $data['for'] label id to use for this property (id, name or nothing)
+     * @return string containing the HTML (or other) text to output in the BL template
+     */
+    function showFilter(Array $data=array())
+    {
+        if($this->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN) return "";
+
+        if(is_string($data)) $filter = $data;
+        elseif(is_array($data)) extract($data);
+        
+        $data['id']    = $this->id;
+        $data['name']  = $this->name;
+        
+        // This is the array of all possible filter options
+        $filteroptions = array(
+                            '=' => array('id' => '=', 'name' => xarML('equals')),
+                            '!=' => array('id' => '!=', 'name' => xarML('not equals')),
+                            '>' => array('id' => '>', 'name' => xarML('greater than')),
+                            '>=' => array('id' => '>=', 'name' => xarML('greater or equal')),
+                            '<' => array('id' => '<', 'name' => xarML('less than')),
+                            '<=' => array('id' => '<=', 'name' => xarML('less or equal')),
+                            'like' => array('id' => 'like', 'name' => xarML('like')),
+                            'notlike' => array('id' => 'notlike', 'name' => xarML('not like')),
+                            'null' => array('id' => 'null', 'name' => xarML('is null')),
+                            'notnull' => array('id' => 'notnull', 'name' => xarML('is not null')),
+                            'regex' => array('id' => 'regex', 'name' => xarML('regular expression')),
+                        );
+
+        $data['filters'] = isset($data['filters']) ? $data['filters'] : array();
+        
+        // Explicitly cater to the most common basetypes so as to avoid duplication in the extensions
+        if ($this->basetype == 'number') $data['filters'] = array('=','!=','>','>=','<','<=','like','notlike','null','notnull');
+        elseif ($this->basetype == 'string') $data['filters'] = array('=','!=','like','notlike','null','notnull','regex');
+        
+        // Now create the filter options for the dropdown
+        foreach ($data['filters'] as $filter) $data['options'][] = $filteroptions[$filter];
+        
+        if(!empty($this->_fieldprefix))  $data['fieldprefix'] = $this->_fieldprefix;
+        if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
+        if(!isset($data['template'])) $data['template'] = $this->template;
+        if(!isset($data['layout']))   $data['layout']   = $this->layout;
+        return xarTplProperty($data['tplmodule'], $data['template'], 'filter', $data);
     }
 
     /**

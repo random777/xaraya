@@ -193,7 +193,9 @@ class DataObject extends DataObjectMaster implements iDataObject
      */
     public function checkFilterInput(Array $args = array())
     {
-        return $this->checkInput($args, 1, 'dd');
+        $isvalid = $this->checkInput($args, 1, 'dd');
+        $this->clearInvalids();
+        return $isvalid;
     }
 
     /**

@@ -52,7 +52,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         } catch (Exception $e) {}
 
         // Set the arguments passed via the constructor. These override the configuration settings
-        $this->setArguments($args);
+//        $this->setArguments($args);
 
         // Get a reference to each property's value
         foreach ($this->properties as $property) {
@@ -303,29 +303,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
     public function setGroupBy($groupby)
     {
         foreach($this->groupby as $name) {
-            if(isset($this->properties[$name])) {
-                // pass the sort criteria to the right data store
-                $datastore = $this->properties[$name]->datastore;
-                // assign property to datastore if necessary
-                if(empty($datastore)) {
-                    list($storename, $storetype) = $this->properties[$name]->getDataStore();
-                    if(!isset($this->datastores[$storename])) {
-                        $this->addDataStore($storename, $storetype);
-                    }
-
-                    $this->properties[$name]->datastore = $storename;
-                    $this->datastores[$storename]->addField($this->properties[$name]); // use reference to original property
-                    $datastore = $storename;
-                }
-                elseif($this->properties[$name]->type == 21) {
-                    $this->datastores[$datastore]->addField($this->properties[$name]); // use reference to original property
-                }
-                $this->datastores[$datastore]->addGroupBy($this->properties[$name]);
-                // if we're grouping by some field, we should start querying by the data store that holds it
-                if(!isset($this->startstore)) {
-                   $this->startstore = $datastore;
-                }
-            }
+            $this->dataquery->addgroup($this->properties[$name]->source);
         }
     }
 

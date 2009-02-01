@@ -137,6 +137,8 @@
                 <input type="button" title="#xarML('Remove')#&#160;#$suffixlabel#" value="#xarML('Remove')#&#160;#$suffixlabel#" style="height: 23px; font-size: small;" onclick="javascript:#$id#_removeRow('#$id#','dummy')" />                                                   
             </div>
         </div>      
+		<!--PSspl:Added hidden field for associative array configuration value. -->
+		<input type="hidden" name="#$name#_associative_array" id="#$name#_associative_array" value="#$associative_array#" />	    
         <br class="xar-clearall" />
         <xar:template file="dataproperty_additions" module="base" />        
     </div>

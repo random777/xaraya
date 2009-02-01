@@ -52,6 +52,12 @@ class ArrayProperty extends DataProperty
         if (!isset($value)) {
             if (!xarVarFetch($name . '_key', 'array', $keys, array(), XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch($name . '_value',   'array', $values, array(), XARVAR_NOT_REQUIRED)) return;
+            
+            //Psspl: Added code for getting value of associative_array.
+            if (!xarVarFetch($name . '_associative_array',   'int', $associative_array, null, XARVAR_NOT_REQUIRED)) return;
+            //Psspl : Set value to the initialization_associative_array  
+            $this->initialization_associative_array = $associative_array;
+            
             $hasvalues = false;
             while (count($keys)) {
                 try {
@@ -87,20 +93,14 @@ class ArrayProperty extends DataProperty
         } else {
             if (empty($value)) $value = array();
             //this code is added to store the values as value1,value2 in the DB for non-associative storage
-            if(!$this->initialization_associative_array) {
-                $items = $value;
-                $elements = "";
-                foreach ($items as $value) {
-                    $element = $value;                  
-                    if($elements == "") {
-                        $elements = $element;
-                    } else {
-                        $elements = $elements . ";" . $element;
-                    }                   
-                }               
-                $this->value = $elements .";";
+        	if(!$this->initialization_associative_array) {
+            	$elements = "";
+            	foreach ($value as $element) {
+					$elements .= $element.";";
+                }
+            	$this->value = $elements;
             } else {
-                $this->value = serialize($value);
+            	$this->value = serialize($value);
             }
         }
     }
@@ -108,11 +108,11 @@ class ArrayProperty extends DataProperty
     public function getValue()
     {
         try {
-            if(!$this->initialization_associative_array) {
-                $value = $this->value;
-            } else {
-                $value = unserialize($this->value);
-            }            
+        	if(!$this->initialization_associative_array) {
+        		$value = $this->value;
+        	} else {
+        		$value = unserialize($this->value);
+        	}            
         } catch(Exception $e) {
             $value = null;
         }
@@ -170,41 +170,35 @@ class ArrayProperty extends DataProperty
             }
         }
 
-        $data['rows'] = !empty($rows) ? $rows : $this->display_rows;
-        $data['size'] = !empty($size) ? $size : $this->display_columns;
+        if (!isset($data['rows'])) $data['rows'] = $this->display_rows;
+        if (!isset($data['size'])) $data['size'] = $this->display_columns;
         
         $data['style'] = !empty($data['style']) ? $data['style'] : '';
         $data['class'] = !empty($data['class']) ? $data['class'] : '';
         $data['columntype'] = 'textbox';
         
         //Psspl: Added code for getting the text of 'Key' and 'Value' label
-        $data['keylabel'] = !empty($keylabel) ? $keylabel : $this->display_key_label;
-        $data['valuelabel'] = !empty($valuelabel) ? $valuelabel : $this->display_value_label;
-        $data['allowinput'] = !empty($allowinput) ? $allowinput : $this->initialization_rows;
-        $data['associative_array'] = !empty($associative_array) ? $associative_array : $this->initialization_associative_array;
-        $data['numberofrows'] = count($data['value']);
+        if (!isset($data['keylabel'])) $data['keylabel'] = $this->display_key_label;
+        if (!isset($data['valuelabel'])) $data['valuelabel'] = $this->display_value_label;
+        if (!isset($data['allowinput'])) $data['allowinput'] = $this->initialization_rows;
+        if (!isset($data['associative_array'])) $data['associative_array'] = $this->initialization_associative_array;
+		$data['numberofrows'] = count($data['value']);
         return parent::showInput($data);
     }
 
     public function showOutput(Array $data = array())
     {
         $value = isset($data['value']) ? $data['value'] : $this->getValue();
-        $data['associative_array'] = !empty($associative_array) ? $associative_array : $this->initialization_associative_array;     
+		$data['associative_array'] = !empty($associative_array) ? $associative_array : $this->initialization_associative_array;		
         if (!is_array($value)) {
-            //this is added to show the value with new line when storage is non-associative                     
-            if(!$this->initialization_associative_array) {              
-                $elements = array();
-                $data['value'] = $value;
-                $lines = explode(';',$value);
-                // remove the last (empty) element
-                 array_pop($lines);
-                 foreach ($lines as $element) {
-                     array_push($elements, $element);
-                 }
-                 $data['value'] = $elements;
-            } else {
-                 $data['value'] = $value;
-            }           
+        	//this is added to show the value with new line when storage is non-associative        	        	
+        	if(!$this->initialization_associative_array) {        		
+	            $data['value'] = explode(';',$value);
+	            // remove the last (empty) element
+	             array_pop($data['value']);
+        	} else {
+        		 $data['value'] = $value;
+        	}        	
         } else {
             if (empty($value)) $value = array();
 

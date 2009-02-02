@@ -214,8 +214,10 @@ class DataObjectMaster extends Object
         try {
             $objectargs = unserialize($args['objects']);
             
-            foreach ($objectargs as $key => $value)
+            foreach ($objectargs as $key => $value) {
+                if ((strpos($key, 'this') === false) && (strpos($value, 'this') === false)) die('One of the links must be of a property of ' . $this->name);
                 $this->dataquery->leftjoin($this->propertysource($key),$this->propertysource($value));
+            }
 
         } catch (Exception $e) {
             die('Bad object relation: ' . $key . ' or ' . $value);

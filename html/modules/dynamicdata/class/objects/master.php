@@ -218,7 +218,7 @@ class DataObjectMaster extends Object
                 $this->dataquery->leftjoin($this->propertysource($key),$this->propertysource($value));
 
         } catch (Exception $e) {
-            die('Bad object relation');
+            die('Bad object relation: ' . $key . ' or ' . $value);
         }
 // $this->dataquery->qecho();echo "<br />";
         // build the list of relevant data stores where we'll get/set our data

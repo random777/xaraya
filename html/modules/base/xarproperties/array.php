@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) copyright-placeholder
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,6 +25,7 @@ class ArrayProperty extends DataProperty
     public $display_columns = 30;
     public $display_rows = 4;
     public $initialization_rows = 0;
+    public $initialization_column_types = 'a:0:{}';
     //default value of Key label
     public $display_key_label = "Key";
     //default value of value label
@@ -171,6 +172,10 @@ class ArrayProperty extends DataProperty
 
         if (!isset($data['rows'])) $data['rows'] = $this->display_rows;
         if (!isset($data['size'])) $data['size'] = $this->display_columns;
+        
+        $data['style'] = !empty($data['style']) ? $data['style'] : '';
+        $data['class'] = !empty($data['class']) ? $data['class'] : '';
+        $data['columntype'] = 'textbox';
         
         //Psspl: Added code for getting the text of 'Key' and 'Value' label
         if (!isset($data['keylabel'])) $data['keylabel'] = $this->display_key_label;

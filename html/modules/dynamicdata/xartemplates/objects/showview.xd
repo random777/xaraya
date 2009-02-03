@@ -16,12 +16,25 @@
             <xar:set name="newlink">#xarModURL($urlmodule,'admin','new',array('objectid' =&gt; $objectid,'tplmodule' =&gt; $tplmodule))#</xar:set>
         </xar:if>
         <a href="#$newlink#">
-                <strong>
-                    <xar:mlstring>
-                        Create New Item in&#160;#$objectlabel#
-                    </xar:mlstring>
-                </strong>
+            <strong>
+                <xar:mlstring>
+                    Create New Item in&#160;#$objectlabel#
+                </xar:mlstring>
+            </strong>
          </a>
+         <xar:foreach in="$properties" value="$property">
+            <xar:if condition="isset($property->objectref)">
+                &#160;
+                <xar:set name="newlink">#xarModURL($urlmodule,'admin','new',array('objectid' =&gt; $property->subitemsobject->objectid,'tplmodule' =&gt; $tplmodule))#</xar:set>
+                <a href="#$newlink#">
+                    <strong>
+                        <xar:mlstring>
+                            Create New Item in&#160;#$property->subitemsobject->label#
+                        </xar:mlstring>
+                    </strong>
+                 </a>
+            </xar:if>
+         </xar:foreach>
     </xar:sec>
     <xar:if condition="empty($layout)">
         <xar:set name="layout">'default'</xar:set>

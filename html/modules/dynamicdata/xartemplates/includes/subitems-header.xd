@@ -4,7 +4,7 @@
     </xar:if>
     <xar:foreach in="$properties" key="$name">
         <xar:if condition="$properties[$name]->type == 30069" >
-            <xar:template file="subitems-headers" subdata="array('properties' => $properties[$name]->subitemsobject->properties, 'prefix' => $properties[$name]->label . ':')" />
+            <xar:template file="subitems-header" subdata="array('properties' => $properties[$name]->subitemsobject->properties, 'prefix' => $properties[$name]->label . ':')" />
         <xar:else />
             <th>
                 #$prefix#<xar:data-label property="$properties[$name]" />

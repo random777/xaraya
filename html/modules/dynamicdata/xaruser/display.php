@@ -23,11 +23,7 @@ function dynamicdata_user_display($args)
 
     if(!xarVarFetch('objectid', 'isset', $objectid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('name',     'isset', $name,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('modid',    'isset', $moduleid,  NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('itemtype', 'isset', $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemid',   'isset', $itemid,    NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('tplmodule','isset', $tplmodule, NULL, XARVAR_DONT_SET)) {return;}
 
@@ -45,10 +41,6 @@ function dynamicdata_user_display($args)
 
     $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
                                          'name' => $name,
-                                         'moduleid' => $moduleid,
-                                         'itemtype' => $itemtype,
-                                         'join'     => $join,
-                                         'table'    => $table,
                                          'itemid'   => $itemid,
                                          'tplmodule' => $tplmodule));
     if (!isset($myobject)) return;
@@ -63,10 +55,6 @@ function dynamicdata_user_display($args)
     $item['itemtype'] = $args['itemtype'];
     $item['returnurl'] = xarModURL($args['tplmodule'],'user','display',
                                    array('objectid' => $args['objectid'],
-                                         'moduleid' => $args['moduleid'],
-                                         'itemtype' => $args['itemtype'],
-                                         'join'     => $join,
-                                         'table'    => $table,
                                          'itemid'   => $args['itemid'],
                                          'tplmodule' => $args['tplmodule']));
 

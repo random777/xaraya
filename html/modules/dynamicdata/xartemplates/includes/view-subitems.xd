@@ -8,13 +8,27 @@
         <tr>
             <xar:template file="subitems-header" subdata="array('properties' => $properties)" />
             <th>
-                &#160;
+                Action
             </th>
         </tr>
         <xar:foreach in="$items" key="$itemid" value="$fields">
             <tr>
                 <xar:template file="subitems-row" subdata="array('fields' => $fields,'properties' => $properties, 'fieldprefix' => $fieldprefix)" />
                 <td>
+                    <xar:set name="link">#xarModURL($urlmodule,'user','display',array('name' => $name, 'itemid' => $itemid))#</xar:set>
+                    <a href="#$link#">
+                        Display
+                    </a>
+                    &#160;
+                    <xar:set name="link">#xarModURL($urlmodule,'admin','modify',array('name' => $name, 'itemid' => $itemid))#</xar:set>
+                    <a href="#$link#">
+                        Edit
+                    </a>
+                    &#160;
+                    <xar:set name="link">#xarModURL($urlmodule,'admin','delete',array('name' => $name, 'itemid' => $itemid))#</xar:set>
+                    <a href="#$link#">
+                        Delete
+                    </a>
                 </td>
             </tr>
         </xar:foreach>

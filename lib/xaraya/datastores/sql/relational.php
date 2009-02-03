@@ -354,17 +354,21 @@ class RelationalDataStore extends SQLDataStore
         $fieldlist = array_keys($this->object->properties);
 
         // Distribute the results to the appropriate properties
-        $index = 0;
+
         foreach ($result as $row) {
+            // Get the value of the primary key
+            $itemid = $row[$this->object->primary];
+            
             // add this itemid to the list
-            if ($saveids) $this->_itemids[] = $row[$this->object->primary];
+            if ($saveids) {
+                $this->_itemids[] = $itemid;
+            }
 
             // Set the values of the properties
             foreach ($fieldlist as $field) {
-                $this->setItemValue($index, $row, $field);
+                $this->setItemValue($itemid, $row, $field);
             }
-            $index++;
-        }        
+        }    
    }
 
     /**
@@ -420,7 +424,8 @@ class RelationalDataStore extends SQLDataStore
     // We do this for convenience of calling the items, and because the subobject is defined as an object, not an objectlist 
                    $sourceparts = explode('.',$subitemsobject->properties[$subproperty]->source);
 //                   $subitemsobject->properties[$subproperty]->setItemValue($itemid,$row[$subitemsobjectname . "_" . $sourceparts[1]]);   
-                    $this->object->items[$itemid][$subitemsobjectname . "_" . $sourceparts[1]] = $row[$subitemsobjectname . "_" . $sourceparts[1]];
+                    $subobjectid = $row[$subitemsobjectname . "_" . $subitemsobject->primary];
+                    $this->object->items[$itemid][$subitemsobjectname . "_" . $sourceparts[1]][$subobjectid] = $row[$subitemsobjectname . "_" . $sourceparts[1]];
                 }
              }
         } else {

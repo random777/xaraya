@@ -10,7 +10,15 @@
                 <xar:set name="propid">#$properties.$name:id#</xar:set>
                 <xar:set name="fieldname">$prefix . $name</xar:set>
                 <xar:if condition="!empty($fields[$fieldname])">
-                    <xar:data-output property="$properties[$name]" size="10" value="$fields[$fieldname]" />
+                    <xar:if condition="is_array($fields[$fieldname])">
+                        <xar:foreach in="$fields[$fieldname]" value="$value">
+                            <div>
+                                <xar:data-output property="$properties[$name]" size="10" value="$value" />
+                            </div>
+                        </xar:foreach>
+                    <xar:else />
+                        <xar:data-output property="$properties[$name]" size="10" value="$fields[$fieldname]" />
+                    </xar:if>
                 <xar:else />
                     &#160;
                 </xar:if>

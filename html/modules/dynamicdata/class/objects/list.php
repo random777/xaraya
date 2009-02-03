@@ -52,7 +52,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         } catch (Exception $e) {}
 
         // Set the arguments passed via the constructor. These override the configuration settings
-//        $this->setArguments($args);
+        $this->setArguments($args);
 
         // Get a reference to each property's value
         foreach ($this->properties as $property) {

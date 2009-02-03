@@ -112,7 +112,7 @@ function dynamicdata_admin_updateprop()
                                     'label' => $dd_label[$id],
                                     'type' => $dd_type[$id],
                                     'defaultvalue' => $dd_defaultvalue[$id],
-                              //      'source' => $dd_source[$id],
+                                    'source' => $dd_source[$id],
                                     'status' => $dd_status[$id],
                                     'configuration' => $dd_configuration[$id]))) {
                 return;

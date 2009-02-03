@@ -23,8 +23,6 @@ function dynamicdata_user_view($args)
     if(!xarVarFetch('itemtype', 'int',   $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('startnum', 'int',   $startnum,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('numitems', 'int',   $numitems,  NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('catid',    'isset', $catid,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('layout',   'str:1' ,$layout,    'default', XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('tplmodule','isset', $tplmodule, 'dynamicdata', XARVAR_NOT_REQUIRED)) {return;}
@@ -32,10 +30,6 @@ function dynamicdata_user_view($args)
 
     // Override if needed from argument array
     extract($args);
-    // Security measure for table browsing
-    if (!empty($table)) {
-        if(!xarSecurityCheck('AdminDynamicData')) return;
-    }
 
     if (empty($modid)) {
         $modid = xarModGetIDFromName('dynamicdata');
@@ -50,6 +44,8 @@ function dynamicdata_user_view($args)
                                   'template'  => $template,
                                   ));
     $data = $object->toArray();
+    $object->getItems();
+    $data['object'] = $object;
     if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:All")) return;
 
     // TODO: is this needed?

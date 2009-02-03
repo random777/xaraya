@@ -22,8 +22,6 @@ function dynamicdata_admin_view($args)
     if(!xarVarFetch('startnum', 'int',   $startnum,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('numitems', 'int',   $numitems,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('sort',     'isset', $sort,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('catid',    'isset', $catid,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('layout',   'str:1' ,$layout,    'default', XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('tplmodule','isset', $tplmodule, 'dynamicdata', XARVAR_NOT_REQUIRED)) {return;}
@@ -31,8 +29,6 @@ function dynamicdata_admin_view($args)
 
     $object = DataObjectMaster::getObjectList(array('objectid'  => $itemid,
                                   'name'       => $name,
-                                  'join'      => $join,
-                                  'table'     => $table,
                                   'tplmodule' => $tplmodule,
                                   'template'  => $template,
                                   ));

@@ -1,0 +1,23 @@
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:if condition="!empty($fieldprefix)">
+        <xar:set name="fieldprefix">$fieldprefix . '_'</xar:set>
+    <xar:else/>
+        <xar:set name="fieldprefix">''</xar:set>
+    </xar:if>
+    <table class="xar-fullwidth">
+        <tr>
+            <xar:template file="subitems-header" subdata="array('properties' => $properties)" />
+            <th>
+                &#160;
+            </th>
+        </tr>
+        <xar:set name="shownew">1</xar:set>
+        <xar:foreach in="$items" key="$itemid" value="$fields">
+            <tr>
+                <xar:template file="subitems-row" subdata="array('fields' => $fields,'properties' => $properties, 'fieldprefix' => $fieldprefix)" />
+                <td>
+                </td>
+            </tr>
+        </xar:foreach>
+    </table>
+</xar:template>

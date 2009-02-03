@@ -1,0 +1,20 @@
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:if condition="!isset($prefix)" >
+        <xar:set name="prefix">''</xar:set>
+    </xar:if>
+    <xar:foreach in="$properties" key="$name">
+        <xar:if condition="$properties[$name]->type == 30069" >
+            <xar:template file="subitems-row" subdata="array('fields' => $fields,'properties' => $properties[$name]->subitemsobject->properties, 'fieldprefix' => $fieldprefix, 'prefix' => $properties[$name]->initialization_refobject . '_')" />
+        <xar:else />
+            <td>
+                <xar:set name="propid">#$properties.$name:id#</xar:set>
+                <xar:set name="fieldname">$prefix . $name</xar:set>
+                <xar:if condition="!empty($fields[$fieldname])">
+                    <xar:data-output property="$properties[$name]" size="10" value="$fields[$fieldname]" />
+                <xar:else />
+                    &#160;
+                </xar:if>
+            </td>
+        </xar:if>
+    </xar:foreach>
+</xar:template>

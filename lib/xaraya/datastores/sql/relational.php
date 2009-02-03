@@ -353,23 +353,19 @@ class RelationalDataStore extends SQLDataStore
         if (empty($result)) return;
         $fieldlist = array_keys($this->object->properties);
 
-        // Distribute the results to the appropriate
+        // Distribute the results to the appropriate properties
+        $index = 0;
         foreach ($result as $row) {
-
-            // Get the value of the primary key
-            $itemid = $row[$this->object->primary];
-            
             // add this itemid to the list
-            if ($saveids) {
-                $this->_itemids[] = $itemid;
-            }
+            if ($saveids) $this->_itemids[] = $row[$this->object->primary];
 
             // Set the values of the properties
             foreach ($fieldlist as $field) {
-                $this->setItemValue($itemid, $row, $field);
+                $this->setItemValue($index, $row, $field);
             }
+            $index++;
         }        
-    }
+   }
 
     /**
      * Assign a query result value to its property in the proper object 
@@ -420,8 +416,11 @@ class RelationalDataStore extends SQLDataStore
                     $this->setItemValue($itemid, $row, $field);
                 } else {
     // Convert the source field name to this property's name and assign
+    // Note we add the subitems to the rows of the parent object list items array
+    // We do this for convenience of calling the items, and because the subobject is defined as an object, not an objectlist 
                    $sourceparts = explode('.',$subitemsobject->properties[$subproperty]->source);
-                   $subitemsobject->properties[$subproperty]->setItemValue($itemid,$row[$subitemsobjectname . "_" . $sourceparts[1]]);   
+//                   $subitemsobject->properties[$subproperty]->setItemValue($itemid,$row[$subitemsobjectname . "_" . $sourceparts[1]]);   
+                    $this->object->items[$itemid][$subitemsobjectname . "_" . $sourceparts[1]] = $row[$subitemsobjectname . "_" . $sourceparts[1]];
                 }
              }
         } else {

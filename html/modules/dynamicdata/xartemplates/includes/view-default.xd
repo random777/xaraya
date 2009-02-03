@@ -1,7 +1,6 @@
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <xar:set name="subitems">false</xar:set>
     <xar:foreach in="$properties" value="$property">
-    #$property->type#
         <xar:if condition="$property->type == 30069">
             <xar:set name="subitems">true</xar:set>
             <xar:break />

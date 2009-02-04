@@ -195,7 +195,7 @@ class DataObjectMaster extends Object
         if(isset($args['itemid'])) $this->itemid = $args['itemid'];
         
         // Set up the db tables
-        sys::import('modules.query.class.query');
+        sys::import('xaraya.structures.query');
         $this->dataquery = new Query();
         try {
             $this->datasources = unserialize($args['sources']);

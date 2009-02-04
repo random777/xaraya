@@ -7,6 +7,7 @@
         function createItem(Array $args = array())
         {
             // If this is a modvar storage, create the modvar first
+            
             if ($args['source'] == 'module variables') {
                 $namepart = explode('_',$args['name']);
                 if (empty($namepart[1])) {
@@ -26,6 +27,8 @@
 
         function deleteItem(Array $args = array())
         {
+            return parent::deleteItem($args);
+            
             $this->getItem($args);
             $source = $this->properties['source']->value;
 

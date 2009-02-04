@@ -24,6 +24,7 @@ class DataSourceProperty extends SelectProperty
     public $name       = 'datasource';
     public $desc       = 'Data Source';
 
+    public $include_reference   = 1;
     public $validation_override = true;
 
     function __construct(ObjectDescriptor $descriptor)
@@ -39,14 +40,8 @@ class DataSourceProperty extends SelectProperty
             if (!empty($firstline)) $this->options = array_merge($options,$this->options);
             return $this->options;
         }
-        
-        $sources = DataStoreFactory::getDataSources();
-        if (isset($sources) && is_array($sources)) {
-            foreach ($sources as $source) {
-                $options[] = array('id' => $source, 'name' => $source);
-            }
-        }
-        return $options;
+        $sources = is_object($this->objectref) ? $this->objectref->datasources : array();
+        return DataStoreFactory::getDataSources($sources);
     }
 }
 ?>

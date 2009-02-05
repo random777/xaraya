@@ -15,12 +15,7 @@
             <tr><td>
                 <div class="xar-form-input-wrapper">
                     <xar:data-label property="$properties[$name]" for="id" />
-                    <xar:if condition="$name eq 'parent'" >
-                        <xar:set name="modid">$properties['module_id']->value</xar:set>
-                        <xar:data-output property="$properties[$name]" modid="$modid" />
-                    <xar:else />
-                        <xar:data-output property="$properties[$name]" />
-                    </xar:if>
+                    <xar:data-output property="$properties[$name]" />
                 </div>
             </td></tr>
           </xar:foreach>

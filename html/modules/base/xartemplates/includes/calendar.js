@@ -32,7 +32,7 @@ var STR_HTMLPATH = 'modules/base/xartemplates/includes/';
 function xar_base_calendar_init(obj_target, base_url) {
     var testvar = typeof(window[obj_target+"_cal"]);
     if(testvar == "undefined") {
-        eval(obj_target+"_cal = new xar_base_calendar(document.getElementById('"+obj_target+"_input'), base_url);");
+        eval(obj_target+"_cal = new xar_base_calendar(document.getElementById('"+obj_target+"'), base_url);");
         eval(obj_target+"_cal.year_scroll = true;");
         eval(obj_target+"_cal.time_comp = true;");
         eval(obj_target+"_cal.popup();");

@@ -3,7 +3,7 @@
  * Installer
  *
  * @package Installer
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -736,7 +736,7 @@ function installer_admin_create_administrator()
 
     $now = time();
 
-    $varshtml['html_content'] = 'Please delete install.php and upgrade.php from your webroot .';
+    $varshtml['html_content'] = xarml('Please delete install.php and upgrade.php from your webroot.');
     $varshtml['expire'] = $now + 24000;
     $msg = serialize($varshtml);
 

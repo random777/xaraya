@@ -90,23 +90,24 @@
            <li><xar:mlstring><em>Footer note</em>: The 'footer' is displayed at the
            bottom (the 'foot') of each and every page on your site in the Default theme. Display this footer 
            note with <br /><code>&lt;xar:var scope="module" module="themes" name="SiteFooter" /&gt;</code></xar:mlstring></li>
+           <li><xar:mlstring><em>Page Title Separator</em>: This will be the separation character(s) in
+           your title. Example: "Themes :: Your Site Slogan :: Your Site Name"</xar:mlstring></li>
+           <li><xar:mlstring><em>Page Title Order</em>: Determines how the page title is displayed.
+           The results of the display options are:</xar:mlstring></li>
         </ul>
       </li>
-       <li><strong><xar:mlstring>Admin Dashboard</xar:mlstring></strong>
+       <li><strong><xar:mlstring>Theme Options</xar:mlstring></strong>
            <ul>
            <li><xar:mlstring><em>Enable the Admin Dashboard</em>: The Admin Dashboard is a special theme that uses the <code>dashboard.xt</code>
             template (by default) if it exists in your <code>themes/yourtheme/pages</code> directory. If you check this option 
             the Admin Dashboard provides admin options in a special Admin page view instead of through the Admin Menu.</xar:mlstring></li>
            <li><xar:mlstring><em>Dashboard Template Name</em>: This is the name of the Admin Dashboard template located in your <code>themes/yourtheme/pages</code> directory.
            By default it is called <code>dashboard.xt</code> but you can change it with this option. Do not include the .xt extension when using this option.</xar:mlstring></li>
-           </ul>
-       </li>
-       <li><strong><xar:mlstring>Page Title Options</xar:mlstring></strong>
-           <ul>
-           <li><xar:mlstring><em>Page Title Separator</em>: This will be the separation character(s) in
-           your title. Example: "Themes :: Your Site Slogan :: Your Site Name"</xar:mlstring></li>
-           <li><xar:mlstring><em>Page Title Order</em>: Determines how the page title is displayed.
-           The results of the display options are:</xar:mlstring></li>
+           <li><xar:mlstring><em>Enable InPage Admin SubMenus</em>: Many Modules
+             offer submenus at the top of admin pages (recommended).</xar:mlstring></li>
+           <li><xar:mlstring> <em>Allow users to set their theme in User Account 
+             page</em>: This checkbox enables the hook from Roles to the Themes 
+             module.</xar:mlstring></li>
            </ul>
        </li>
        <li><strong><xar:mlstring>Template Debugging Options</xar:mlstring></strong>

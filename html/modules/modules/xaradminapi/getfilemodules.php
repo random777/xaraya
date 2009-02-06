@@ -3,7 +3,7 @@
  * Get module information from xarversion.php for each module
  *
  * @package modules
- * @copyright (C) 2005-2008 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -132,12 +132,12 @@ function modules_adminapi_getfilemodules($args)
                     //Check for duplicates
                     foreach ($fileModules as $module) {
                         if($regId == $module['regid']) {
-                            $msg = xarML('The same registered ID (#(1)) was found in two different modules, #(2) and #(3). Please remove one of the modules and regenerate the list.', $regId, $name, $module['name']);
+                            $msg = xarML('The same registered ID (#(1)) was found in two different modules, #(2) and #(3).', $regId, $name, $module['name']);
                             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                                            new SystemException($msg));
                         }
                         if($nameinfile == $module['nameinfile']) {
-                            $msg = xarML('The module #(1) was found under two different registered IDs, #(2) and #(3). Please remove one of the modules and regenerate the list', $nameinfile, $regId, $module['regid']);
+                            $msg = xarML('The module #(1) was found under two different registered IDs, #(2) and #(3).', $nameinfile, $regId, $module['regid']);
                             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                                            new SystemException($msg));
                         }

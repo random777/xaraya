@@ -3,7 +3,7 @@
  * Privileges administration API
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -1879,9 +1879,7 @@ class xarPrivileges extends xarMasks
             }
         }
         for ( $i = 4, $p1count = count($p1); $i < $p1count; $i++) {
-            if (($p1[$i] != 'all' 
-              //  || $p2[$i] != 'all'
-                ) && ($p1[$i]!=$p2[$i])) {
+            if (($p1[$i] != 'all') && ($p1[$i]!=$p2[$i])) {
                 return false;
             }
         }

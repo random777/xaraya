@@ -319,7 +319,7 @@
                     <xar:else />
                     <input type="checkbox" name="usermenu" id="usermenu" value="1" />
                 </xar:if>
-                <label for="usermenu" title="#xarML('Allow users to select themes from their Account Details page.')#">
+                <label for="usermenu" title="#xarML('Sets the hook from Roles to Themes. This allows users to select a theme in their User Account page.')#">
                     <xar:mlstring>
                         Allow users to set their theme in User Account page
                     </xar:mlstring>

@@ -212,6 +212,7 @@ class DataObjectMaster extends Object
 
         // Set up the relations to related objects
         try {
+            if (!isset($args['objects'])) $args['objects'] = $this->objects;
             $objectargs = unserialize($args['objects']);
             
             foreach ($objectargs as $key => $value) {

@@ -100,6 +100,7 @@ class RelationalDataStore extends SQLDataStore
         if (count($q->tables)<2) {
             $q->clearfields();
             foreach ($this->object->properties as $field) {
+                if (empty($field->source)) continue;
                 if (isset($args[$field->name])) {
                     // We have an override through the method's parameters
                     $q->addfield($field->source, $args[$field->name]);
@@ -248,6 +249,7 @@ class RelationalDataStore extends SQLDataStore
         $q->setType('UPDATE');
         $q->clearfields();
         foreach ($this->object->properties as $field) {
+            if (empty($field->source)) continue;
             if ($field->name == $this->object->primary) {
                 // Ignore the primary value
                 continue;
@@ -397,6 +399,8 @@ class RelationalDataStore extends SQLDataStore
                    $subitemsobject->properties[$subproperty]->setValue($value[$subitemsobjectname . "_" . $sourceparts[1]]);   
                 }
              }
+        } elseif (empty($this->object->properties[$field]->source)){
+    // This is some other property with a virtual datasource, ignore it
         } else {
     // This is not a subitems property: assign the value in the usual way
             $this->object->properties[$field]->setValue($value[$this->object->properties[$field]->name]);
@@ -428,8 +432,10 @@ class RelationalDataStore extends SQLDataStore
                     $this->object->items[$itemid][$subitemsobjectname . "_" . $sourceparts[1]][$subobjectid] = $row[$subitemsobjectname . "_" . $sourceparts[1]];
                 }
              }
+        } elseif (empty($this->object->properties[$field]->source)){
+    // This is some other property with a virtual datasource, ignore it
         } else {
-    // This is not a subitems property: assign the value in the usual way
+    // This is a  property with a normal datasource: assign the value in the usual way
             $this->object->properties[$field]->setItemValue($itemid,$row[$this->object->properties[$field]->name]);
         }
     }

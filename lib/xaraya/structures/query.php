@@ -964,14 +964,16 @@ class Query
                 if (is_array($table)) {
                     switch ($this->type) {
                         case "SELECT" :
-                            $t .= $table['name'] . " AS " . $table['alias'] . ", ";
+                            if (empty($table['alias'])) $t .= $table['name'] . ", ";
+                            else $t .= $table['name'] . " AS " . $table['alias'] . ", ";
                             break;
                         case "INSERT" :
                             $t .= $table['name'] . " ";
                             break;
                         case "UPDATE" :
                         case "DELETE" :
-                            $t .= $table['name'] . " AS " . $table['alias'] . ", ";
+                            if (empty($table['alias'])) $t .= $table['name'] . ", ";
+                            else $t .= $table['name'] . " AS " . $table['alias'] . ", ";
                             break;
                     }
                 }

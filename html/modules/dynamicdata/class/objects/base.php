@@ -467,13 +467,30 @@ class DataObject extends DataObjectMaster implements iDataObject
                     $this->itemid = null;
                     
                     $datastore = current($this->datastores);
-                    // Execute any property-specific code first
+                    /* General sequence:
+                     * 1. Run the property-specific createValue methods for properties using the current datastore
+                     * 2. Run the object's createItem method
+                     * 3. Run the property-specific createValue methods for properties using the virtual datastore
+                     *
+                     * This may need to be adjusted inthe future
+                     */
+                   
                     foreach ($this->properties as $property) {
-                        if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && method_exists($property,'createvalue')) {
+                        if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                            !empty($property->source) &&
+                            method_exists($property,'createvalue')) {
                             $property->createValue($this->itemid);
                         }
                     }
                     $this->itemid = $datastore->createItem();
+                    
+                    foreach ($this->properties as $property) {
+                        if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                            empty($property->source) &&
+                            method_exists($property,'createvalue')) {
+                            $property->createValue($this->itemid);
+                        }
+                    }
                 }
             }
         }
@@ -503,22 +520,33 @@ class DataObject extends DataObjectMaster implements iDataObject
 
         $args = $this->getFieldValues();
         $args['itemid'] = $this->itemid;
-        foreach(array_keys($this->datastores) as $store)
-        {
-            // Execute any property-specific code first
-            if ($store != '_none_') {
-                foreach ($this->datastores[$store]->fields as $property) {
-                    if (method_exists($property,'createvalue')) {
-                        $property->createValue($this->itemid);
-                    }
-                }
-            }
+        
+        $datastore = current($this->datastores);
+        /* General sequence:
+         * 1. Run the property-specific updateValue methods for properties using the current datastore
+         * 2. Run the object's updateItem method
+         * 3. Run the property-specific updateValue methods for properties using the virtual datastore
+         *
+         * This may need to be adjusted inthe future
+         */
 
-            // Now run the update routine of the this datastore
-            $itemid = $this->datastores[$store]->updateItem();
-            if(empty($itemid))
-                return;
+        foreach ($this->properties as $property) {
+            if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                !empty($property->source) &&
+                method_exists($property,'updatevalue')) {
+                $property->updateValue($this->itemid);
+            }
         }
+        $this->itemid = $datastore->updateItem();
+
+        foreach ($this->properties as $property) {
+            if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                empty($property->source) &&
+                method_exists($property,'updatevalue')) {
+                $property->updateValue($this->itemid);
+            }
+        }
+
         return $this->itemid;
     }
 
@@ -544,11 +572,32 @@ class DataObject extends DataObjectMaster implements iDataObject
         // delete the item in all the data stores
         $args = $this->getFieldValues();
         $args['itemid'] = $this->itemid;
-        foreach(array_keys($this->datastores) as $store)
-        {
-            $itemid = $this->datastores[$store]->deleteItem($args);
-            if(empty($itemid))
-                return;
+
+        $datastore = current($this->datastores);
+        /* General sequence:
+         * 1. Run the property-specific deleteValue methods for properties using the current datastore
+         * 2. Run the object's deleteItem method
+         * 3. Run the property-specific deleteValue methods for properties using the virtual datastore
+         *
+         * This may need to be adjusted inthe future
+         */
+
+        foreach ($this->properties as $property) {
+            if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                !empty($property->source) &&
+                method_exists($property,'deletevalue')) {
+                $property->updateValue($this->itemid);
+            }
+        }
+        $this->itemid = $datastore->updateItem();     // CHECKME: Do we need the $args here?
+        if(empty($itemid)) return;                    // CHECKME: Is this needed?
+
+        foreach ($this->properties as $property) {
+            if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                empty($property->source) &&
+                method_exists($property,'deletevalue')) {
+                $property->updateValue($this->itemid);
+            }
         }
 
         // call delete hooks for this item

@@ -403,7 +403,7 @@ class RelationalDataStore extends SQLDataStore
     // This is some other property with a virtual datasource, ignore it
         } else {
     // This is not a subitems property: assign the value in the usual way
-            $this->object->properties[$field]->setValue($value[$this->object->properties[$field]->name]);
+            $this->object->properties[$field]->value = $value[$this->object->properties[$field]->name];
         }
     }
 

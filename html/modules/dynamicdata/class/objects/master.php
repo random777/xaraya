@@ -769,41 +769,29 @@ class DataObjectMaster extends Object
         $args = $descriptor->getArgs();
 
         // Last stand against wild hooks and other excesses
-        if($args['objectid'] < 3)
+        if($args['objectid'] < 5)
         {
-            $msg = 'You cannot delete the DataObject or DataProperties class';
+            $msg = 'You cannot delete the DynamicDat classes';
             throw new BadParameterException(null, $msg);
         }
 
-        // Get an object list for the object itself, so we can delete its items
-        $mylist =& self::getObjectList(
-            array(
-                'objectid' => $args['objectid'],
-            )
-        );
-        if(empty($mylist))
-            return;
+        // Do direct queries here, for speed
+        xarMod::load('dynamicdata');
+        $tables = xarDB::getTables();
 
         // TODO: delete all the (dynamic ?) data for this object
 
-        // delete all the properties for this object
-        foreach(array_keys($mylist->properties) as $name)
-        {
-            $propid = $mylist->properties[$name]->id;
-            $propid = DataPropertyMaster::deleteProperty(
-                array('itemid' => $propid)
-            );
-        }
-        unset($mylist);
+        // Delete all the properties of this object
+        $q = new Query('DELETE', $tables['dynamic_properties']);
+        $q->eq('object_id',$args['objectid']);
+        if (!$q->run()) return false;
+        
+        // Delete the object itself
+        $q = new Query('DELETE', $tables['dynamic_objects']);
+        $q->eq('id',$args['objectid']);
+        if (!$q->run()) return false;
 
-        // delete the Dynamic Objects item corresponding to this object
-        $object = self::getObject(array('objectid' => 1));
-        $itemid = $object->getItem(array('itemid' => $args['objectid']));
-        if(empty($itemid))
-            return;
-        $result = $object->deleteItem();
-        unset($object);
-        return $result;
+        return true;
     }
 
     /**

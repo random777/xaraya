@@ -518,9 +518,6 @@ class DataObject extends DataObjectMaster implements iDataObject
             throw new BadParameterException($vars,$msg);
         }
 
-        $args = $this->getFieldValues();
-        $args['itemid'] = $this->itemid;
-        
         $datastore = current($this->datastores);
         /* General sequence:
          * 1. Run the property-specific updateValue methods for properties using the current datastore
@@ -537,7 +534,7 @@ class DataObject extends DataObjectMaster implements iDataObject
                 $property->updateValue($this->itemid);
             }
         }
-        $this->itemid = $datastore->updateItem($args);
+        $this->itemid = $datastore->updateItem();
 
         foreach ($this->properties as $property) {
             if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 

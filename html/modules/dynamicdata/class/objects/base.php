@@ -537,7 +537,7 @@ class DataObject extends DataObjectMaster implements iDataObject
                 $property->updateValue($this->itemid);
             }
         }
-        $this->itemid = $datastore->updateItem();
+        $this->itemid = $datastore->updateItem($args);
 
         foreach ($this->properties as $property) {
             if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
@@ -573,7 +573,6 @@ class DataObject extends DataObjectMaster implements iDataObject
         $args = $this->getFieldValues();
         $args['itemid'] = $this->itemid;
 
-        $datastore = current($this->datastores);
         /* General sequence:
          * 1. Run the property-specific deleteValue methods for properties using the current datastore
          * 2. Run the object's deleteItem method
@@ -586,17 +585,19 @@ class DataObject extends DataObjectMaster implements iDataObject
             if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
                 !empty($property->source) &&
                 method_exists($property,'deletevalue')) {
-                $property->updateValue($this->itemid);
+                $property->deleteValue($this->itemid);
             }
         }
-        $this->itemid = $datastore->updateItem();     // CHECKME: Do we need the $args here?
-        if(empty($itemid)) return;                    // CHECKME: Is this needed?
-
+        foreach ($this->datastores as $datastore) {
+            $this->itemid = $datastore->deleteItem();
+            if(empty($this->itemid)) return;                    // CHECKME: Is this needed?
+        }
+        
         foreach ($this->properties as $property) {
             if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
                 empty($property->source) &&
                 method_exists($property,'deletevalue')) {
-                $property->updateValue($this->itemid);
+                $property->deleteValue($this->itemid);
             }
         }
 

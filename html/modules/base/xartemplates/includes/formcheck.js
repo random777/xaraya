@@ -6,7 +6,7 @@
 
 function xar_base_formCheck(formobj, fieldRequired, fieldDescription, alertMsg){
     // Use the default alert message if nothing is given
-    if (alertMsg = null) {
+    if (alertMsg == null) {
         alertMsg = "Please complete the following fields:";
     } 
     alertMsg += "\n";

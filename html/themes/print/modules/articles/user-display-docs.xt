@@ -1,1 +1,1 @@
-<xar:template type="theme" file="user-display-common"/>
+<xar:template type="module" module="articles" file="user-display-common"/>

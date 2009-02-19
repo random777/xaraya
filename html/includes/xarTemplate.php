@@ -3,7 +3,7 @@
  * BlockLayout Template Engine
  *
  * @package core
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -651,8 +651,14 @@ function xarTplGetImage($modImage, $modName = NULL)
  * @access public
  * @param integer $startNum     start item
  * @param integer $total        total number of items present
- * @param integer $itemsPerPage number of links to display (default=10)
- * @param integer $blockOptions number of pages to display at once (default=10) or array of advanced options
+ * @param integer $itemsPerPage number of items displayed on a page (default=10)
+ * @param integer $blockOptions number of direct page links to display in pager (default=10) or
+ * @param array   $blockOptions array of advanced options
+ *                              blocksize (default=10)
+ *                              firstitem (default=1)
+ *                              firstpage (default=1)
+ *                              $urltemplate optional
+ *                              urlitemmatch (default='%%')
  *
  * @todo  Move this somewhere else, preferably transparent and a widget (which might be mutually exclusive)
  */
@@ -835,8 +841,8 @@ function xarTplPagerInfo($currentItem, $total, $itemsPerPage = 10, $blockOptions
  * @param integer $startnum     start item
  * @param integer $total        total number of items present
  * @param string  $urltemplate  template for url, will replace '%%' with item number
- * @param integer $perpage      number of links to display (default=10)
- * @param integer $blockOptions number of pages to display at once (default=10) or array of advanced options
+ * @param integer $perpage      number of items displayed on a page (default=10)
+ * @param integer $blockOptions number of direct page links to display in pager (default=10) or array of advanced options (see xarTplPagerInfo())
  * @param integer $template     alternative template name within base/user (default 'pager')
  *
  * @todo Move this somewhere else
@@ -1373,7 +1379,7 @@ function xarTpl_modifyHeaderContent($sourceFileName, &$tplOutput)
             // append the 'start comment' notice to the first matched tag
             // in the template output $tplOutput
             $startComment = "\n<!-- start: " . $sourceFileName .
-                            ' (file started before DOCTYPE/xml header(s)!) -->';
+                            " (file started before DOCTYPE/xml header(s)!) -->\n";
             $tplOutput = preg_replace("/$headerTagRegex/smix", $matchedHeaderTag[0] . $startComment, $tplOutput, 1);
             // don't set start comment in calling function as it was set here
             $foundHeaderContent = true;

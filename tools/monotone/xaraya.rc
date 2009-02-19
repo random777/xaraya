@@ -79,18 +79,18 @@ function edit_comment(basetext, existinglog)
    -- compatible list of * file: whathappenedto it
    generatedlog = parse_statusmsg(basetext)
 
-   -- Construct the log
+   -- Construct the log  MTN: Lines starting with MTN: will automatically be removed.
    tmp:write("\n")
    tmp:write(generatedlog)
    tmp:write(existinglog)
    local notes = [[
 MTN: ----------------------------------------------
-MTN: Above is what has been parsed as changelog from 
-MTN: the status of your working dir.
-MTN: Augment them you see fit. Write the revision comment
-MTN: on the first line(s) and per file comments on the next.
-MTN: Lines starting with MTN: will automatically be
-MTN: removed]]
+MTN: Above is what has been parsed as changelog from your current workspace.
+MTN: Write the revisions subject on the first line. Write additional per
+MTN: file comments on the next lines if needed. Delete file names with only
+MTN: minor changes.
+MTN:
+MTN: *** You can CANCEL the commit with saving this file empty. ***]]
    tmp:write(notes)
    io.close(tmp)
 
@@ -340,8 +340,6 @@ function validate_commit_message (commit_msg, stanza, branchname)
     -- Run qa checks on the files contained in this revision
     local pcloc=qa_location..'pre-commit/'
     print("mtn: Running QA tests from: " .. pcloc)
-    -- TODO: opening the pcloc location on windows errors out, so we dont have
-    -- a graceful fallback at this time.
     _sysres = includedir(pcloc)
     if cancommit then
         return cancommit,"All seems OK, committing this revision"

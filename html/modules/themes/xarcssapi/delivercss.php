@@ -3,7 +3,7 @@
  * Handle additional styles tag
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,8 @@
 
 /**
  * Format : <xar:additional-styles /> without params
- * Typical use in the head section is: <xar:additional-styles />
+ * Used in the head section to deliver the styles which were set 
+ * with <xar:style ...> in module and block templates.
  *
  * @author Andy Varganov
  * @param none

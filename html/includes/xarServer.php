@@ -3,7 +3,7 @@
  * HTTP Protocol Server/Request/Response utilities
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -267,7 +267,7 @@ function xarServer__array2query($args, $prefix = '')
  * @access public
  * @param args array additional parameters to be added to/replaced in the URL (e.g. theme, ...)
  * @param generateXMLURL boolean over-ride Server default setting for generating XML URLs (true/false/NULL)
- * @param fragment string add a 'fragment' component to the URL
+ * @param fragment string add a fragment identifier to the URL for pointing to an anchor
  * @return string current URL
  * @todo cfr. BaseURI() for other possible ways, or try PHP_SELF
  */
@@ -297,7 +297,7 @@ function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $fragme
     }
 
     // Remove any magic quotes nonsense.
-    // TODO: move this to xarServergetVar() so it is dealt with at the lowest level.
+    // TODO: move this to xarServerGetVar() so it is dealt with at the lowest level.
     if (get_magic_quotes_gpc()) $request = stripslashes($request);
 
     // If the request has a '#' fragment, then remove it now, since the server
@@ -687,9 +687,11 @@ function xarResponseRedirect($redirectURL, $httpResponse=NULL)
       $header = "Location: $redirectURL";
     }// if
 
-    if (!preg_match('/^301|302|303|307/', $httpResponse)) $httpResponse = 302;
-  
-    // Start all over again
+    if (!preg_match('/^301|302|303|307/', $httpResponse)) {
+      $httpResponse = 302;
+    }
+
+     // Start all over again
     header($header, TRUE, $httpResponse);
     exit();
 }

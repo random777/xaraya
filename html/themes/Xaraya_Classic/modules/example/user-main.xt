@@ -1,35 +1,22 @@
+<div class="xar-mod-head">
+    <span class="xar-mod-title"><xar:mlstring>Example</xar:mlstring></span>
+</div>
+<div class="xar-mod-body">
 <p class="xar-error">
   <xar:ml>
-    <xar:mlstring>This is an over-ridden template. See #(1)/modules/example/user-main.xt for the example</xar:mlstring>
+    <xar:mlstring>This is an over-riding template. See #(1)/modules/example/user-main.xt
+      for this file. It over-rides modules/example/xartemplates/user-main.xd</xar:mlstring>
     <xar:mlvar>#xarTplGetThemeDir()#</xar:mlvar>
   </xar:ml>
 </p>
-<xar:comment> common user menu for this module - remove link to the current function </xar:comment>
-<table border="0" width="100%">
-  <!-- the variables used in this menu come from example_user_menu() -->
-  <tr>
-    <th class="xar-align-center">
-      <xar:var name="menutitle"/>
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <table border="0" width="100%">
-        <tr class="xar-align-center">
-          <!-- a link to a particular menu item -->
-          <td>
-            <a href="#$menulink_view#">#$menulabel_view#</a>
-          </td>
-          <!-- more menu items come here... -->
-          <!-- Note : you can also specify simple links directly with blocklayout
-          template tags : e.g. &xar-modurl-example-user-view; -->
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+<xar:mlstring>
+  The in-page menu for this module is not over-ridden. It is included from the
+  common file modules/example/xartemplates/includes/user-main.xd:
+</xar:mlstring>
+<xar:template type="module" module="example" file="user-menu" />
 <!-- the specific template for the current function comes here -->
 <!-- some variable filled in by the function using this template -->
 <div class="xar-align-center">
   <strong><xar:var name="welcome"/></strong>
+</div>
 </div>

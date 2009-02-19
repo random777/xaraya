@@ -71,14 +71,14 @@
                     </label>
                 </th>
                 <th>
-                    <label for="filter">
+                    <label for="selfilter">
                         <xar:mlstring>
                             View
                         </xar:mlstring>
                     </label>
                 </th>
                 <th>
-                    <label for="class">
+                    <label for="selclass">
                         <xar:mlstring>
                             Class
                         </xar:mlstring>
@@ -88,7 +88,7 @@
                     <br />
                 </th>
                 <th>
-                    <label for="reload">
+                    <label>
                         <xar:mlstring>
                             Action
                         </xar:mlstring>

@@ -6,6 +6,7 @@ print('--- Group 1: PHP syntax related checks ---')
 shorttest="No use of php short open tag '<?'";                   shortlist=''
 lasttest ="No other characters than '?>' at the end of php file";lastlist =''
 objtest  ="No object creation by reference (php 4.4. and up)";   objlist  =''
+copyrtest="Proper copyright notice in PHP files";                copyrlist=''
 
 -- This is not working outside monotone
 phpexec=phpexec or ''
@@ -45,21 +46,26 @@ for index,file in pairs(commit_files) do
             if(string.find(lastthree,'%?>[\n]?$') == nil) then
                 lastlist = lastlist..'  file: '..file.."' has other chars than '?>' at the end ('"..string.gsub(lastthree,'\n','\\n').."')\n"
             end
-            
             -- no object creation by reference, i.e. $a =& new Object(...)
             if(string.find(content,'=%s*&%s*new%s+') ~=nil) then
                 objlist = objlist..'  file: '..file..' uses a reference operator for constructing objects (like: $var =& new ...)\n'
+            end
+            -- missing, bad or ourdated copyright message, @copyright .*2009
+            local year = os.date("%Y")
+            if (string.find(content,'@copyright[^\n]*' ..year.. ' ') == nil) then
+                copyrlist = copyrlist..'  file: '..file..' misses or has an outdated copyright notice (like @copyright ... ' ..year.. ' ...)\n'
             end
             f:close()
         end
     end
 end
-if(phplist  ~='') then 
-    failed('1.10',phptest,phplist)     
+if(phplist  ~='') then
+    failed('1.10',phptest,phplist)
 else
     if phpexec=='' then phptest='NOT TESTED, could not find a suitable php interpreter in your path\n' end
-    passed('1.10',phptest)   
+    passed('1.10',phptest)
 end
 if(shortlist~='') then failed('1.11',shorttest,shortlist) else passed('1.11',shorttest) end
 if(lastlist ~='') then failed('1.12',lasttest,lastlist)   else passed('1.12',lasttest)  end
 if(objlist  ~='') then failed('1.13',objtest,objlist)     else passed('1.13',objtest)   end
+if(copyrlist~='') then failed('1.14',copyrtest,copyrlist) else passed('1.14',copyrtest) end

@@ -21,7 +21,7 @@
             <xar:comment>
                 Module List Sort and Filter Controls 
             </xar:comment>
-            <select name="selstyle" id="selstyle">
+            <select name="selstyle" id="selstyle" class="xar-form-textmedium">
                 <xar:foreach in="$style" key="$key" value="$value">
                     <xar:if condition="$key eq $selstyle">
                         <option value="#$key#" selected="selected">#$value#</option>

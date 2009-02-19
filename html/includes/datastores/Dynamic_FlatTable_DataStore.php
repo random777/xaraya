@@ -3,7 +3,11 @@
 /**
  * Data Store is a flat SQL table (= typical module tables)
  *
- * @package dynamicdata
+ * @package core
+ * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
  * @subpackage datastores
  * @todo Remove much of the duplication (query generation is repeated in parts several times here)
  */
@@ -165,8 +169,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         if (empty($itemid)) {
-            $msg = xarML(
-                'Invalid #(1) from table #(2) in class #(3) method #(4)',
+            $msg = xarML('Invalid #(1) from table #(2) in class #(3) method #(4)',
                 'item id', $table, 'Dynamic_FlatTable_DataStore', 'createItem'
             );
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));

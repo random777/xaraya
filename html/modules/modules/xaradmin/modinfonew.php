@@ -3,7 +3,7 @@
  * View complete module information/details
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -41,14 +41,27 @@ function modules_admin_modinfonew()
     $data['moddispname']        = xarVarPrepForDisplay($modinfo['displayname']);
     $data['moddispdesc']        = xarVarPrepForDisplay($modinfo['displaydescription']);
     $data['modlisturl']         = xarModURL('modules', 'admin', 'list');
+    $data['moddir']             = xarVarPrepForDisplay($modinfo['directory']);
+    $data['modclass']           = xarVarPrepForDisplay($modinfo['class']);
+    $data['modcat']             = xarVarPrepForDisplay($modinfo['category']);
+    $data['modver']             = xarVarPrepForDisplay($modinfo['version']);
     // check for proper icon, if not found display default
     // also displaying a generic icon now, if it was provided
     // additionally showing a short message if the icon is missing..
-    $modicon = 'modules/'.$modinfo['directory'].'/xarimages/admin.gif';
-    $modicongeneric = 'modules/'.$modinfo['directory'].'/xarimages/admin_generic.gif';
-    if(file_exists($modicon)){
+    // TODO icon not yet part of modinfo
+    if (isset($modinfo['icon'])) {
+      $modicon = xarVarPrepForDisplay($modinfo['icon']);
+    } else {
+      $modicon = 'modules/' . $data['moddir'] . '/xarimages/admin.gif';
+    }
+    $modicongeneric = 'modules/' . $data['moddir'] . '/xarimages/admin_generic.gif';
+    if (file_exists($modicon)){
         $data['modiconurl']     = xarVarPrepForDisplay($modicon);
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('as provided by the author'));
+    } elseif ($data['modname'] == 'authsystem'
+              || substr($modinfo['modclass'], 0, 4) == 'Core') {
+        $data['modiconurl'] = 'modules/modules/xarimages/admin.gif';
+        $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Xaraya Core Module'));
     }elseif(file_exists($modicongeneric)){
         $data['modiconurl']     = xarVarPrepForDisplay($modicongeneric);
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Only generic icon has been provided'));
@@ -57,10 +70,6 @@ function modules_admin_modinfonew()
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('[Original icon is missing.. 
                                 please ask this module developer to provide one in accordance with MDG]'));
     }
-    $data['moddir']             = xarVarPrepForDisplay($modinfo['directory']);
-    $data['modclass']           = xarVarPrepForDisplay($modinfo['class']);
-    $data['modcat']             = xarVarPrepForDisplay($modinfo['category']);
-    $data['modver']             = xarVarPrepForDisplay($modinfo['version']);
     $data['modauthor']          = preg_replace('/,/', '<br />', xarVarPrepForDisplay($modinfo['author']));
     $data['modcontact']         = preg_replace('/,/', '<br />',xarVarPrepForDisplay($modinfo['contact']));
     if(!empty($modinfo['dependency'])){

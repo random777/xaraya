@@ -127,8 +127,5 @@
       <li><xar:mlstring>Related tutorials and documentation on Mail module found at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/mail/" title="#xarML('Related documentation on Mail')#"><xar:mlstring>Xaraya Documentation.</xar:mlstring></a>
       </li>
   </ul>
-  <p class="xar-sub">
-    <strong>&nbsp;<xar:mlstring>Mail Module - Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 0.1.1&nbsp; 2005-11-02
-  </p>
 </div>
 

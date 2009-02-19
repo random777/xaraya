@@ -3,7 +3,7 @@
  * Base Module Initialisation
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -18,14 +18,14 @@
  */
 $modversion['name']         = 'Base';
 $modversion['id']           = '68';
-$modversion['displayname']  = xarML('Base');
+$modversion['displayname']  = 'Base';
 $modversion['version']      = '0.1.0';
 $modversion['description']  = 'Home Page';
-$modversion['displaydescription'] = xarML('Home Page');
-$modversion['credits']      = 'xardocs/credits.txt';
-$modversion['help']         = 'xardocs/help.txt';
-$modversion['changelog']    = 'xardocs/changelog.txt';
-$modversion['license']      = 'xardocs/license.txt';
+$modversion['displaydescription'] = 'Home Page';
+$modversion['credits']      = '';
+$modversion['help']         = '';
+$modversion['changelog']    = '';
+$modversion['license']      = '';
 $modversion['official']     = 1;
 $modversion['author']       = 'John Robeson, Greg Allan';
 $modversion['contact']      = 'johnny@xaraya.com';
@@ -33,4 +33,10 @@ $modversion['admin']        = 1;
 $modversion['user']         = 1;
 $modversion['class']        = 'Core Admin';
 $modversion['category']     = 'Global';
+
+if (false) { //bug 6033
+xarML('Base');
+xarML('Home Page');
+}
+
 ?>

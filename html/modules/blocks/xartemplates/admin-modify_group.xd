@@ -13,7 +13,10 @@
     <h2><xar:mlstring>Modify Group</xar:mlstring></h2>
 
     <form action="#xarModURL('blocks', 'admin', 'update_group')#" method="post" enctype="application/x-www-form-urlencoded" >
-
+      <fieldset>
+        <legend>
+          <xar:mlstring>Group Properties</xar:mlstring>
+        </legend>
         <input type="hidden" name="authid" id="authid" value="#$authid#" />
         <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
         <input type="hidden" name="group_instance_order" id="group_instance_order" value="" />
@@ -67,6 +70,7 @@
                 [ <xar:mlstring>none</xar:mlstring> ]
             </xar:if>
         </div>
+      </fieldset>
 
          
         <fieldset>

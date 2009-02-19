@@ -58,7 +58,7 @@
                     <xar:mlstring>Instance Template (optional):</xar:mlstring>
                 </label>
                 <input type="text" name="block_template" id="block_template" value="" maxlength="255" class="xar-form-textlong" />
-                (Specified as <code>outer<strong>;</strong>inner</code>)
+                <xar:mlstring>(Specified as <code>outer<strong>;</strong>inner</code>)</xar:mlstring>
             </div>
 
             <div class="xar-form-input-wrapper">

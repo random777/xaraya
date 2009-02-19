@@ -3,7 +3,7 @@
  * Installer Initialization file
  *
  * @package Installer
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,9 +19,9 @@
 $modversion['name'] = 'Xaraya Installer';
 $modversion['id'] = '200';
 $modversion['version'] = '1.0.0';
-$modversion['displayname'] = xarML('Installer');
+$modversion['displayname'] = 'Installer';
 $modversion['description'] = 'Install and customize Xaraya.';
-$modversion['displaydescription'] = xarML('Install and customize Xaraya.');
+$modversion['displaydescription'] = 'Install and customize Xaraya.';
 $modversion['credits'] = '';
 $modversion['help'] = '';
 $modversion['changelog'] = '';
@@ -34,4 +34,10 @@ $modversion['user'] = 0;
 $modversion['securityschema'] = array('Installer::' => '::');
 $modversion['class'] = 'Core Admin';
 $modversion['category'] = 'Global';
+
+if (false) { //bug 6033
+xarML('Installer');
+xarML('Install and customize Xaraya.');
+}
+
 ?>

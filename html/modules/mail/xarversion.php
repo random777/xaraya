@@ -3,7 +3,7 @@
  * Initialization function
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,14 +20,14 @@
  */
 $modversion['name']           = 'Mail';
 $modversion['id']             = '771';
-$modversion['displayname']    = xarML('Mail');
+$modversion['displayname']    = 'Mail';
 $modversion['version']        = '0.1.2';
 $modversion['description']    = 'Mail handling utility module';
-$modversion['displaydescription']    = xarML('Mail handling utility module');
-$modversion['credits']        = 'xardocs/credits.txt';
-$modversion['help']           = 'xardocs/help.txt';
-$modversion['changelog']      = 'xardocs/changelog.txt';
-$modversion['license']        = 'xardocs/license.txt';
+$modversion['displaydescription']    = 'Mail handling utility module';
+$modversion['credits']        = '';
+$modversion['help']           = 'xardocs/README';
+$modversion['changelog']      = 'xardocs/ChangeLog.txt';
+$modversion['license']        = 'xardocs/LICENSE';
 $modversion['official']       = 1;
 $modversion['author']         = 'John Cox via phpMailer';
 $modversion['contact']        = 'niceguyeddie@xaraya.com';
@@ -35,5 +35,10 @@ $modversion['admin']          = 1;
 $modversion['user']           = 0;
 $modversion['class']          = 'Core Complete';
 $modversion['category']       = 'Global';
+
+if (false) { //bug 6033
+xarML('Mail');
+xarML('Mail handling utility module');
+}
 
 ?>

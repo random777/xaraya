@@ -3,7 +3,7 @@
  * Blocks initialization
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,10 +20,10 @@
  */
 $modversion['name']                 = 'Blocks Administration';
 $modversion['id']                   = '13';
-$modversion['displayname']          = xarML('Blocks');
+$modversion['displayname']          = 'Blocks';
 $modversion['version']              = '1.0.1';
 $modversion['description']          = 'Administration of block instances and groups';
-$modversion['displaydescription']   = xarML('Administration of block instances and groups');
+$modversion['displaydescription']   = 'Administration of block instances and groups';
 $modversion['credits']              = '';
 $modversion['help']                 = '';
 $modversion['changelog']            = '';
@@ -35,4 +35,10 @@ $modversion['admin']                = 1;
 $modversion['user']                 = 0;
 $modversion['class']                = 'Core Admin';
 $modversion['category']             = 'Global';
+
+if (false) { //bug 6033
+xarML('Blocks');
+xarML('Administration of block instances and groups');
+}
+
 ?>

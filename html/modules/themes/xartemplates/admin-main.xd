@@ -170,8 +170,5 @@
       <li><xar:mlstring>Related tutorials and documentation on Themes module found at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/themes/" title="#xarML('Related documentation on Themes')#"><xar:mlstring>Xaraya Documentation.</xar:mlstring></a>
       </li>
   </ul>
-  <p class="xar-sub">
-    <strong>&nbsp;<xar:mlstring>Themes Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.7.1&nbsp; 2006-02-10
-  </p>
 </div>
 

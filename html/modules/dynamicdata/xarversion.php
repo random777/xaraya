@@ -3,7 +3,7 @@
  * Dynamic Data Initialization
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,14 +20,14 @@
  */
 $modversion['name']         = 'Dynamic Data';
 $modversion['id']           = '182';
-$modversion['displayname']  = xarML('Dynamic Data');
+$modversion['displayname']  = 'Dynamic Data';
 $modversion['version']      = '1.2.1';
 $modversion['description']  = 'Dynamic Data Module';
-$modversion['displaydescription'] = xarML('Dynamic Data Module');
-$modversion['credits']      = 'xardocs/credits.txt';
-$modversion['help']         = 'xardocs/help.txt';
-$modversion['changelog']    = 'xardocs/changelog.txt';
-$modversion['license']      = 'xardocs/license.txt';
+$modversion['displaydescription'] = 'Dynamic Data Module';
+$modversion['credits']      = '';
+$modversion['help']         = '';
+$modversion['changelog']    = '';
+$modversion['license']      = '';
 $modversion['official']     = 1;
 $modversion['author']       = 'mikespub';
 $modversion['contact']      = 'http://www.xaraya.com/';
@@ -35,4 +35,10 @@ $modversion['admin']        = 1;
 $modversion['user']         = 1;
 $modversion['class']        = 'Core Complete';
 $modversion['category']     = 'Content';
+
+if (false) { //bug 6033
+xarML('Dynamic Data');
+xarML('Dynamic Data Module');
+}
+
 ?>

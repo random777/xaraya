@@ -81,8 +81,5 @@
       <li><xar:mlstring>Related tutorials and documentation on Authsystem module at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/authsystem/" title="#xarML('Related documentation on Authsystem')#"><xar:mlstring>Xaraya Documentation.</xar:mlstring></a>
       </li>
    </ul>
-  <p class="xar-sub">
-    <strong>&nbsp;<xar:mlstring>Authentication Module - Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.0.0&nbsp; 2006-02-04
-  </p>
 </div>
 

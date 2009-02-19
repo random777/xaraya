@@ -3,7 +3,7 @@
  * Modify a block instance
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -69,8 +69,7 @@ function blocks_admin_modify_instance()
 
     if (empty($block_info)) {
         // Function does not exist so throw error
-        $msg = xarML(
-            'Block info function for module "#(1)" and type "#(2)"',
+        $msg = xarML('Block info function for module "#(1)" and type "#(2)"',
             $instance['module'], $instance['type']
         );
         xarErrorSet(

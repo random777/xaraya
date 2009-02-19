@@ -3,7 +3,7 @@
  * Data Dictionary API
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -180,8 +180,7 @@ class xarDataDict
             $invalid[] = 'fields';
         }
         if (count($invalid) > 0) {
-            $msg = xarML(
-                'Invalid #(1) for function #(2)() in #(3)',
+            $msg = xarML('Invalid #(1) for function #(2)() in #(3)',
                 join(', ',$invalid), 'changeTable', 'xarDataDict'
             );
             xarErrorSet(
@@ -270,8 +269,7 @@ class xarDataDict
             $invalid[] = 'fields';
         }
         if (count($invalid) > 0) {
-            $msg = xarML(
-                'Invalid #(1) for function #(2)() in #(3)',
+            $msg = xarML('Invalid #(1) for function #(2)() in #(3)',
                 join(', ',$invalid), 'createIndex', 'xarDataDict'
             );
             xarErrorSet(
@@ -316,8 +314,7 @@ class xarDataDict
             $table = NULL;
         }
         if (count($invalid) > 0) {
-            $msg = xarML(
-                'Invalid #(1) for function #(2)() in #(3)',
+            $msg = xarML('Invalid #(1) for function #(2)() in #(3)',
                 join(', ',$invalid), 'dropIndex', 'xarDataDict'
             );
             xarErrorSet(
@@ -571,8 +568,7 @@ class xarDataDict
             $invalid[] = 'table name';
         }
         if (count($invalid) > 0) {
-            $msg = xarML(
-                'Invalid #(1) for function #(2)() in #(3)',
+            $msg = xarML('Invalid #(1) for function #(2)() in #(3)',
                 join(', ',$invalid), 'getIndexes', 'xarDataDict'
             );
             xarErrorSet(

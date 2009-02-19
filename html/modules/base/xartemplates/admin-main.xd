@@ -145,8 +145,5 @@
               <li><xar:mlstring>Related tutorials and documentation on Base Module found at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/base/" title="#xarML('Related documentation on Base')#"><xar:mlstring>Xaraya Documentation.</xar:mlstring></a>
               </li>
          </ul>
-         <p class="xar-sub">
-             <strong>&nbsp;<xar:mlstring>Base Module Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.0.3&nbsp; 2006-11-12
-         </p>
 </div>
 

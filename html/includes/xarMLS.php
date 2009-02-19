@@ -3,7 +3,7 @@
  * Multi Language System
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -533,10 +533,10 @@ function xarMLS_loadTranslations($dnType, $dnName, $ctxType, $ctxName)
         }
         if ($dnType == XARMLS_DNTYPE_THEME) {
             // Load common translations
-            if (!isset($loadedCommons[$dnName])) {
+            //bug 6136  if (!isset($loadedCommons[$dnName])) {
                 $loadedCommons[$dnName] = true;
                 if (!$GLOBALS['xarMLS_backend']->loadContext('themes:', 'common')) return; // throw back
-            }
+            //bug 6136  }
         }
 
         if (!$GLOBALS['xarMLS_backend']->loadContext($ctxType, $ctxName)) return; // throw back

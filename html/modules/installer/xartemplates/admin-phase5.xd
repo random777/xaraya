@@ -39,7 +39,7 @@
             <h4>
               <xar:ml>
                 <xar:mlstring>You already have an installed database named #(1).</xar:mlstring>
-                <xar:mlvar>#$dbName#"</xar:mlvar>
+                <xar:mlvar>#$dbName#</xar:mlvar>
               </xar:ml>
             </h4>
             <p>

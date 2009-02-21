@@ -20,6 +20,7 @@ class TextBoxProperty extends DataProperty
     public $name       = 'textbox';
     public $desc       = 'Text Box';
     public $reqmodules = array('base');
+    public $basetype   = 'string';
 
     public $display_size                    = 50;
     public $display_maxlength               = 254;

@@ -496,7 +496,11 @@ class DataProperty extends Object implements iDataProperty
         foreach ($data['filters'] as $filter) $data['options'][] = $filteroptions[$filter];
         
         $data['value'] = isset($data['filter']) ? $data['filter'] : $this->filter;
-        if(!empty($this->_fieldprefix))  $data['fieldprefix'] = $this->_fieldprefix;
+        if(!empty($this->_fieldprefix) || $this->_fieldprefix === 0)  $prefix = $this->_fieldprefix . '_';
+        // A field prefix added here can override the previous one
+        if(isset($data['fieldprefix']))  $prefix = $data['fieldprefix'] . '_';
+        if(!empty($prefix)) $data['name'] = $prefix . $data['name'];
+        if(!empty($prefix)) $data['id'] = $prefix . $data['id'];
         if(!isset($data['tplmodule']))   $data['tplmodule']   = $this->tplmodule;
         if(!isset($data['template'])) $data['template'] = $this->template;
         if(!isset($data['layout']))   $data['layout']   = $this->layout;

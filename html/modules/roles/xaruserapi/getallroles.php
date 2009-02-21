@@ -74,14 +74,11 @@ function roles_userapi_getallroles($args)
 
     // Inclusions
     $includedgroups = array();
-    if (!isset($baseitemtype)) {
-        $basetype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
-    }
     if (isset($include)) {
         foreach (explode(',', $include) as $include_field) {
-            if ($baseitemtype == ROLES_USERTYPE) {
+            if ($itemtype == ROLES_USERTYPE) {
                 $q->ne('uname',xarModAPIFunc('roles', 'user', 'get', array('uname' => $include_field)));
-            } elseif ($baseitemtype == ROLES_GROUPTYPE) {
+            } elseif ($itemtype == ROLES_GROUPTYPE) {
                 $q->ne('name',xarModAPIFunc('roles', 'user', 'get', array('name' => $include_field)));
                 $includedgroups[] = $include_field;
             }
@@ -90,14 +87,11 @@ function roles_userapi_getallroles($args)
 
     // Exclusions
     $excludedgroups = array();
-    if (!isset($baseitemtype)) {
-        $basetype = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
-    }
     if (isset($exclude)) {
         foreach (explode(',', $exclude) as $exclude_field) {
-            if ($baseitemtype == ROLES_USERTYPE) {
+            if ($itemtype == ROLES_USERTYPE) {
                 $q->ne('uname',xarModAPIFunc('roles', 'user', 'get', array('uname' => $exclude_field)));
-            } elseif ($baseitemtype == ROLES_GROUPTYPE) {
+            } elseif ($itemtype == ROLES_GROUPTYPE) {
                 $q->ne('name',xarModAPIFunc('roles', 'user', 'get', array('name' => $exclude_field)));
                 $excludedgroups[] = $exclude_field;
             }
@@ -130,7 +124,13 @@ function roles_userapi_getallroles($args)
     $items['nativeitems'] = $q->output();
     $itemids = array();
     foreach ($items['nativeitems'] as $item) $itemids[] = $item['id'];
-    $items['dditems'] = xarModAPIFunc('dynamicdata','user','getitems',array('moduleid' => 27, 'itemtype' => $itemtype, 'itemids' => $itemids,'getobject' => true));
+    switch ($itemtype) {
+        case 1: $name = "roles_roles"; break;
+        case 2: $name = "roles_users"; break;
+        case 3: $name = "roles_groups"; break;
+    }
+    $object = DataObjectMaster::getObjectList(array('name' => $name));
+    $items['dditems'] = $object->getItems(array('itemids' => $itemids,'getobject' => true));
 /*    for ($i = 0, $max = count($items); $i < $max; $i++) {
         if (!isset($properties[$items[$i]['id']])) continue;
         $items[$i] = array_merge($items[$i],$properties[$items[$i]['id']]);

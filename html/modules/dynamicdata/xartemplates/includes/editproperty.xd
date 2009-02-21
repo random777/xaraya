@@ -39,7 +39,9 @@
                 <label class="xar-form-label">
                     #$propertyfields['source']['label']#:
                 </label>
-                #$field['source']#
+                <xar:set name="name">'dd_source[' . $field['id'] . ']'</xar:set>
+                <xar:set name="id">'dd_source_' . $field['id']</xar:set>
+                <xar:data-input type="dropdown" class="dd-norm" name="$name" id="$id" value="$field['source']" options="$sources" />
             </div>
 
             <div class="xar-form-input-wrapper">

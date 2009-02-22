@@ -211,8 +211,8 @@
       <t><spanx>File header</spanx>
         <t>
           This header is for all php files in the codebases. The
-          package name and copyright year (or a list of years) should
-          be updated as necessary.
+          package name and copyright year (or a range of years) should
+          be updated when the file changes.
           <artwork>
 /**
 * Short description of purpose of file
@@ -284,8 +284,8 @@
 
     <section title="Xaraya coding style">
       <t>
-        This section deals with standards for coding php files
-        in Xaraya
+        This section deals with standards for coding in Xaraya. The formatting
+        rules must not be applied to code imported from other publishers.
       </t>
       <section title="General">
         <t><spanx>Use &lt;?php ... ?&gt; instead of &lt;? ... ?&gt;</spanx>
@@ -304,8 +304,9 @@
         </t>
         <t><spanx>Indenting</spanx>
           <t>
-            Use an indent of 4 spaces. Do not use the tab character for
-            indentation. Most editors will have a configuration option for this.
+            Use indents of 4 spaces in general. In HTML centric templates indents
+            of only 2 spaces are better. Do not use the tab character.
+            Most editors will have a configuration option for this. 
           </t>
           <t>
             Indentation is intended to convey structural meaning, not just to
@@ -316,8 +317,8 @@
           </t>
           <artwork>
             list($p1,
-                 $p2) = xarVarCleanFromInput('name',
-                                             'module');
+                 $p2) = xarBadExampleOnlyVisual('name',
+                                                'module');
           </artwork>
           <t>
             A better style would convey more meaning of the
@@ -328,18 +329,17 @@
             opened:
           </t>
           <artwork>
-            list($p1, $p2) = xarVarCleanFromInput('name', 'module');
+            list($p1, $p2) = xarAllBracketsSameLine('name', 'module');
 
             list($p1, $p2) =
-                xarVarCleanFromInput('name', 'module');
+                xarBracketPairsSameLine('name', 'module');
 
             list(
-                $p1, $p2, $p3, $p4
-            ) = xarVarCleanFromInput(
+                $p1, $p2, $p3
+            ) = xarAllBracketsSameIndent(
                 'name',
                 'module',
-                'a_really_long_token_indeed',
-                'something_shorter'
+                xarML('A really long token from a really long translateable string indeed which reaches the 120th column')
             );
           </artwork>
         </t>
@@ -354,6 +354,13 @@
           <t>
             Files should not contain an empty last line. Some diff tools might
             indicate this with "\ No newline at end of file".
+          </t>
+        </t>
+        <t><spanx>Line lengths</spanx>
+          <t>
+            Line lengths depend on data. Normal lines should not extend 80
+            columns widely, but translateable strings shouldn't be broken into
+            different lines (see example above).
           </t>
         </t>
         <t><spanx>Comments</spanx>
@@ -535,10 +542,11 @@
       <section title="Variables">
         <t>Consistant variable naming eases the readability of code. We recommend (fill in the blank)</t>
         <t>Variables should have English based names where at all possible to maintain consistency across the code base.</t>
-        <t>Example:</t>
-        <t><artwork>
+        <t>Example:
+          <artwork>
             Example array key and variable usage
-          </artwork></t>
+          </artwork>
+        </t>
       </section>
 
       <section title="Control Structures">

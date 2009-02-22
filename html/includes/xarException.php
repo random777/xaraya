@@ -3,7 +3,7 @@
  * Exception Handling System
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -261,18 +261,20 @@ function xarErrorHandled()
 /**
  * Renders the current error.
  *
- * The error will be shown in a template which can be overridden in a theme. For this, modify the exception templates in base module.
- * Returns a string formatted according to the $format parameter that provides all the information
- * available on current error. 
+ * The error can be shown in a template specific to it. To override it modify
+ * the exception templates in Base module.
+ * Returns a string formatted according to the $format parameter which provides
+ * all information available on current error.
  * If there is no error currently raised an empty string is returned.
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
- * @param format string one of template or plain
- * @param stacktype string one of CORE or ERROR
- * @return string the string representing the raised error
+ * @param string format    one of 'template', 'rawhtml' or 'text'
+ * @param string stacktype one of 'ERROR' (default) or 'CORE'
+ * @param bool   shortmsg  makes message without stack  (default = false)
+ * @return string representing the raised error
  */
-function xarErrorRender($format,$stacktype = "ERROR")
+function xarErrorRender($format, $stacktype = 'ERROR', $shortmsg = false)
 {
     assert('$format == "template" || $format == "rawhtml" || $format == "text"; /* Improper format passed to xarErrorRender */');
 
@@ -301,10 +303,17 @@ function xarErrorRender($format,$stacktype = "ERROR")
     $data['title'] = $error->getTitle();
     $data['short'] = $error->getShort();
     $data['long'] = $error->getLong();
-    $data['hint'] = $error->getHint();
-    $data['stack'] = $error->getStack();
-    $data['product'] = $error->getProduct();
-    $data['component'] = $error->getComponent();
+    if (!$shortmsg) {
+        $data['hint'] = $error->getHint();
+        $data['stack'] = $error->getStack();
+        $data['product'] = $error->getProduct();
+        $data['component'] = $error->getComponent();
+    } else {
+        $data['hint'] = '';
+        $data['stack'] = '';
+        $data['product'] = '';
+        $data['component'] = '';
+    }
 
     if ($format == 'template') {
         $theme_dir = xarTplGetThemeDir();

@@ -24,7 +24,7 @@ function dynamicdata_user_main()
     if (!xarModAPILoad('dynamicdata','user')) return;
 
     // get items from the objects table
-    $objects = xarModAPIFunc('dynamicdata','user','getobjects');
+    $objects = DataObjectMaster::getObjects();
 
     $data['items'] = array();
     $mymodid = xarModGetIDFromName('dynamicdata');
@@ -33,22 +33,12 @@ function dynamicdata_user_main()
         if ($itemid < 3) continue;
         $modid = $object['moduleid'];
         // don't show data "belonging" to other modules for now
-        if ($modid != $mymodid) {
-            continue;
-        }
-        // nice(r) URLs
-        if ($modid == $mymodid) {
-            $modid = null;
-        }
-        $itemtype = $object['itemtype'];
-        if ($itemtype == 0) {
-            $itemtype = null;
-        }
+        if ($modid != $mymodid) continue;
+
         $label = $object['label'];
         $data['items'][] = array(
                                  'link'     => xarModURL('dynamicdata','user','view',
-                                                         array('modid' => $modid,
-                                                               'itemtype' => empty($itemtype) ? null : $itemtype)),
+                                                         array('objectid' => $itemid)),
                                  'label'    => $label
                                 );
     }

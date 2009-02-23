@@ -85,13 +85,6 @@ function dynamicdata_utilapi_import($args)
         $args['moduleid'] = (string)$xmlobject->module_id[0];
         $args['module_id'] = (string)$xmlobject->module_id[0];
 
-        // Treat parents where the module is DD differently. Put in numeric itemtype
-//        if ($args['moduleid'] == 182) {
-            $args['parent'] = empty($args['parent']) ? 0 : $args['parent'];
-            $infobaseobject = DataObjectMaster::getObjectInfo(array('name' => $args['parent']));
-            $args['parent'] = $infobaseobject['itemtype'];
-//        }
-
         if (empty($args['name']) || empty($args['moduleid'])) {
             throw new BadParameterException(null,'Missing keys in object definition');
         }
@@ -206,12 +199,6 @@ function dynamicdata_utilapi_import($args)
                 }
                 $object =& $objectcache[$currentobject];
                 $objectid = $objectcache[$currentobject]->objectid;
-                /*
-                if (!isset($objectcache[$object->baseancestor])) {
-                    $objectcache[$object->baseancestor] = DataObjectMaster::getObject(array('objectid' => $object->baseancestor));
-                }
-                $primaryobject =& $objectcache[$object->baseancestor];
-                */
                 // Get the properties for this object
                 $objectproperties = $object->properties;
             }

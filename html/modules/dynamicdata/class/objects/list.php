@@ -346,6 +346,14 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         // initialize the items array
         $this->items = array();
 
+        if (!empty($args['fieldlist']) && !is_array($args['fieldlist'])) {
+            if (!is_array($args['fieldlist'])) {
+                $args['fieldlist'] = explode(',',$args['fieldlist']);
+                if (!is_array($args['fieldlist'])) throw new Exception('Badly formed fieldlist attribute');
+            }
+            $this->fieldlist = $args['fieldlist'];
+        }
+
         // set/override the different arguments (item ids, sort, where, numitems, startnum, ...)
         $this->setArguments($args);
 
@@ -611,6 +619,11 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         if(empty($args['fieldlist'])) {
             $args['fieldlist'] = $this->fieldlist;
         }
+        if (!is_array($args['fieldlist'])) {
+            $args['fieldlist'] = explode(',',$args['fieldlist']);
+            if (!is_array($args['fieldlist'])) throw new Exception('Badly formed fieldlist attribute');
+        }
+        
         if(count($args['fieldlist']) == 0 && empty($this->status)) {
             $args['fieldlist'] = array_keys($this->properties);
         }

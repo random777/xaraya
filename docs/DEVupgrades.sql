@@ -32,13 +32,20 @@ UPDATE `xar_dynamic_properties` SET `source` = REPLACE(source, "xar_dynamic_conf
 UPDATE `xar_dynamic_properties` SET `source` = REPLACE(source, "xar_modules", "modules");
 UPDATE `xar_dynamic_properties` SET `source` = REPLACE(source, "xar_roles", "roles");
 
-/* Update the properties of the core objectdefinitions */
+/* Update the properties of the core object definitions */
 
-/* Add some property to the objects object */
+/* Add some properties to the objects object */
 INSERT INTO `xar_dynamic_properties` (`name`, `label`, `object_id`, `type`, `defaultvalue`, `source`, `status`, `seq`, `configuration`) VALUES
 ('sources', 'Sources', 1, 999, 'a:0:{}', 'dynamic_objects.sources', 34, 11, 'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"1";s:17:"display_key_label";s:5:"Alias";s:19:"display_value_label";s:5:"Table";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"2";s:32:"initialization_associative_array";s:1:"1";}'),
 ('relations', 'Relations', 1, 999, 'a:0:{}', 'dynamic_objects.relations', 34, 11, 'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"1";s:17:"display_key_label";s:9:"Link From";s:19:"display_value_label";s:7:"Link To";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"2";s:32:"initialization_associative_array";s:1:"1";}'),
 ('objects', 'Objects', 1, 999, 'a:0:{}', 'dynamic_objects.objects', 34, 11, 'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"1";s:17:"display_key_label";s:9:"Link From";s:19:"display_value_label";s:7:"Link To";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"2";s:32:"initialization_associative_array";s:1:"1";}');
+
+/* Change some properties to the objects object */
+UPDATE `xar_dynamic_properties` SET `label` = 'Configuration', `type` = 999, `configuration` = 'a:7:{s:15:"display_columns";s:2:"30";s:12:"display_rows";s:1:"1";s:17:"display_key_label";s:3:"Key";s:19:"display_value_label";s:5:"Value";s:14:"display_layout";s:7:"default";s:19:"initialization_rows";s:1:"2";s:32:"initialization_associative_array";s:1:"1";}' WHERE `object_id` = 1 AND `name` = 'config';
+UPDATE `xar_dynamic_properties` SET `status` = 67 WHERE `object_id` = 1 AND `name` = 'itemtype';
+UPDATE `xar_dynamic_properties` SET `status` = 35 WHERE `object_id` = 1 AND `name` = 'urlparam';
+UPDATE `xar_dynamic_properties` SET `status` = 35 WHERE `object_id` = 1 AND `name` = 'maxid';
+UPDATE `xar_dynamic_properties` SET `status` = 35 WHERE `object_id` = 1 AND `name` = 'isalias';
 
 /* Refresh the dynamic configurations table */
 TRUNCATE TABLE `xar_dynamic_configurations`;

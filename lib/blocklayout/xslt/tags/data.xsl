@@ -203,7 +203,7 @@
                 <xsl:text>sys::import('modules.dynamicdata.class.objects.master');</xsl:text>
                 <xsl:text>$__</xsl:text>
                 <xsl:value-of select="@object"/>
-                <xsl:text> = DataObjectMaster::getObjectList(array('name' => '</xsl:text>
+                <xsl:text>=DataObjectMaster::getObjectList(array('name'=>'</xsl:text>
                 <xsl:value-of select="@object"/>
                 <xsl:text>'));</xsl:text>
                 <xsl:value-of select="@value"/><xsl:text>=</xsl:text>

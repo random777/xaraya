@@ -3,7 +3,7 @@
  * Locales (Multi Language System)
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -170,6 +170,9 @@ function xarLocaleFormatCurrency($currency, $localeData = NULL)
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
+ * @param mixed $number      value to format, string or numeric
+ * @param array $localeData
+ * @param bool $isCurrency
  * @return string formatted number
  * @throws BAD_PARAM
  */
@@ -180,7 +183,7 @@ function xarLocaleFormatNumber($number, $localeData = NULL, $isCurrency = false)
     }
 
     if ($localeData == NULL) {
-        $localeData =& xarMLSLoadLocaleData(); // rraymond : assign by reference for large array (memory issues)
+        $localeData =& xarMLSLoadLocaleData();
     }
 
     if ($isCurrency == true) $bp = 'monetary';
@@ -201,7 +204,8 @@ function xarLocaleFormatNumber($number, $localeData = NULL, $isCurrency = false)
         $minus = true;
     }
 
-    $str_num = (string) $number; // Convert to string
+    // Round according to $maxFractDigits and convert to string
+    $str_num = (string) round($number, $maxFractDigits);
 
     if (($dsep_pos = strpos($str_num, '.')) !== false) {
         $int_part = substr($str_num, 0, $dsep_pos);
@@ -240,7 +244,6 @@ function xarLocaleFormatNumber($number, $localeData = NULL, $isCurrency = false)
             if ($dec_part_len < $minFractDigits) {
                 for ($i = 0; $i < $minFractDigits - $dec_part_len; $i++) $dec_part .= '0';
             } elseif ($dec_part_len > $maxFractDigits) {
-                // FIXME: <marco> Do we need round here?
                 $dec_part = substr($dec_part, 0, $maxFractDigits - $dec_part_len); // Note negative length
             }
             $str_num .= $dec_part;

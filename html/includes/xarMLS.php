@@ -384,7 +384,7 @@ function xarMLS_userOffset($timestamp = null)
             }
             // get the actual timezone for the user (in addition to the timezone offset)
             // $offset may still be false if usertimezone is empty
-            if (isset($offset) && !$offset && !is_numeric($offset)) {
+            if (isset($offset) && !empty($offset) && !is_numeric($offset)) {
                 $info = @unserialize($offset);
                 if (!empty($info) && is_array($info)) {
                     $offset = isset($info['offset']) ? $info['offset'] : null;

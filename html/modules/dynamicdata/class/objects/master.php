@@ -216,7 +216,10 @@ class DataObjectMaster extends Object
             $objectargs = unserialize($args['objects']);
             
             foreach ($objectargs as $key => $value) {
-                if ((strpos($key, 'this') === false) && (strpos($value, 'this') === false)) die('One of the links must be of a property of ' . $this->name);
+                if ((strpos($key, 'this') === false) && (strpos($value, 'this') === false)
+                && (strpos($key, $this->name) === false) && (strpos($value, $this->name) === false)
+                ) 
+                    die('One of the links must be of a property of ' . $this->name);
                 $this->dataquery->leftjoin($this->propertysource($key),$this->propertysource($value));
             }
 
@@ -225,16 +228,16 @@ class DataObjectMaster extends Object
         }
 // $this->dataquery->qecho();echo "<br />";
         // build the list of relevant data stores where we'll get/set our data
-        if(empty($this->datastores) && count($this->properties) > 0)
-           $this->getDataStores();
 
+    if(empty($this->datastores) && count($this->properties) > 0)
+           $this->getDataStores();
     }
 
     private function propertysource($sourcestring)
     {
         $parts = explode('.',$sourcestring);
         if (!isset($parts[1])) throw new Exception(xarML('Bad property definition'));
-        if ($parts[0] == 'this') {
+        if ($parts[0] == 'this' || $parts[0] == $this->name) {
             return $this->properties[$parts[1]]->source;
         } else {
             $foreignobject = self::getObject(array('name' => $parts[0]));

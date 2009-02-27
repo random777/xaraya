@@ -159,7 +159,7 @@ function xarLocaleParseNumber($number, $localeData = NULL, $isCurrency = false)
 function xarLocaleFormatCurrency($currency, $localeData = NULL)
 {
     if ($localeData == NULL) {
-        $localeData =& xarMLSLoadLocaleData(); // rraymond : assign by reference for large array (memory issues)
+        $localeData =& xarMLSLoadLocaleData();
     }
     $currencySym = $localeData['/monetary/currencySymbol'];
     return $currencySym.' '.xarLocaleFormatNumber($currency, $localeData, true);
@@ -295,7 +295,7 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
 
     // the locale data should already be a static var in the main loader script
     // so we no longer need to make it a static in this function
-    $localeData =& xarMLSLoadLocaleData();  // rraymond : assign by reference for large array (memory issues)
+    $localeData =& xarMLSLoadLocaleData();
 
     // grab the right set of locale data
     $locale_format = $localeData["/dateFormats/$length"];
@@ -305,7 +305,8 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
     $locale_format = str_replace('M','%m',$locale_format);
     $locale_format = str_replace('dddd','%A',$locale_format);
     $locale_format = str_replace('ddd','%a',$locale_format);
-    $locale_format = str_replace('d','%d',$locale_format);
+    $locale_format = str_replace('d','%e',$locale_format);    //'dd' gets to %e%e
+    $locale_format = str_replace('%e%e','%d',$locale_format); //%e%e back to %d
     $locale_format = str_replace('yyyy','%Y',$locale_format);
     $locale_format = str_replace('yy','%y',$locale_format);
 
@@ -366,7 +367,7 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
 
     // the locale data should already be a static var in the main loader script
     // so we no longer need to make it a static in this function
-    $localeData =& xarMLSLoadLocaleData();  // rraymond : assign by reference for large array (memory issues)
+    $localeData =& xarMLSLoadLocaleData();
 
     // grab the right set of locale data
     $locale_format = $localeData["/timeFormats/$length"];
@@ -506,7 +507,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
 
     // the locale data should already be a static var in the main loader script
     // so we no longer need to make it a static in this function
-    $localeData =& xarMLSLoadLocaleData();  // rraymond : assign by reference for large array (memory issues)
+    $localeData =& xarMLSLoadLocaleData();
     // TODO
     // if no $format is provided we need to use the default for the locale
 

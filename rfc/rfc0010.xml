@@ -1949,10 +1949,6 @@ contents in the current context.
           <t><spanx>&amp;xar-modurl-'modname'-'type'-'funcname';</spanx>
             <t>Retrieve the value of a module URL. (typically something like: http://site.com/index.php?module=modname&amp;type=type&amp;func=func )</t>
           </t>
-          <t><spanx>&amp;xar-url-'modname'-'type'-'funcname'-argsArray-'fragment'-generateXMLURL;</spanx>
-            <t>Retrieve the value of a URL as wrapper for xarModURL(). All parameters are optional, unneeded ones are skipped with 'Null'. The parameter <spanx>argsArray</spanx> has two syntaxes. If the first character is a '$' it is seen as $varname for an array. Otherwise it is used as comma delimited list of 'argument'=>'value' pairs which must be well formed.
-            (Result can be: http://site.com/index.php?module=modname&amp;type=type&amp;func=func&amp;key1=value1#fragment )</t>
-          </t>
         </list>
         
       </t>

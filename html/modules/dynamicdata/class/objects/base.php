@@ -126,7 +126,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         } else {
             $args['fieldprefix'] = $this->fieldprefix; 
         }
-var_dump($this->fieldprefix);
+
         $isvalid = true;
         if (!empty($args['fields'])) {
             $fields = $args['fields'];

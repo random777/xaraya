@@ -150,17 +150,15 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             }
         }
         // Note: they can be empty here, which means overriding any previous criteria
-        foreach(array_keys($this->datastores) as $name) {
             // make sure we don't have some left-over sort criteria
-            $this->datastores[$name]->cleanSort();
+            $this->datastore->cleanSort();
             // make sure we don't have some left-over where clauses
-            $this->datastores[$name]->cleanWhere();
+            $this->datastore->cleanWhere();
             // make sure we don't have some left-over group by fields
-            $this->datastores[$name]->cleanGroupBy();
+            $this->datastore->cleanGroupBy();
             if(isset($args['cache']))
                 // pass the cache value to the datastores
-                $this->datastores[$name]->cache = $args['cache'];
-        }
+                $this->datastore->cache = $args['cache'];
         $this->setSort($this->sort);
         $this->setWhere($this->where);
         $this->setGroupBy($this->groupby);
@@ -282,7 +280,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
                         $mywhere .= $piece . ' ';
                     }
                 }
-                $this->datastores[$datastore]->addWhere(
+                $this->datastore->addWhere(
                     $this->properties[$name],
                     $mywhere,
                     $join,
@@ -324,16 +322,14 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             )
         );
 
-        foreach(array_keys($this->datastores) as $name) {
-            $this->datastores[$name]->addJoin(
-                $categoriesdef['table'],
-                $categoriesdef['field'],
-                array(),
-                $categoriesdef['where'],
-                'and',
-                $categoriesdef['more']
-            );
-        }
+        $this->datastore->addJoin(
+            $categoriesdef['table'],
+            $categoriesdef['field'],
+            array(),
+            $categoriesdef['where'],
+            'and',
+            $categoriesdef['more']
+        );
     }
 
     /**
@@ -369,21 +365,8 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         }
        // first get the items from the start store (if any)
 
-        if(!empty($this->startstore)) {
-            $this->datastores[$this->startstore]->getItems($args);
+        $this->datastore->getItems($args);
 
-            // check if we found something - if not, no sense looking further
-            if(count($this->itemids) == 0) return $this->items;
-        }
-
-        // then retrieve the other info about those items
-        foreach(array_keys($this->datastores) as $name) {
-            if(!empty($this->startstore) && $name == $this->startstore) {
-                continue;
-            }
-
-            $this->datastores[$name]->getItems($args);
-        }
         return $this->items;
     }
 
@@ -396,23 +379,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
     {
         // set/override the different arguments (item ids, sort, where, numitems, startnum, ...)
         $this->setArguments($args);
-
-        // if we don't have a start store yet, but we do have a primary datastore, we'll count there
-        if(empty($this->startstore) && !empty($this->primary)) {
-            $this->startstore = $this->properties[$this->primary]->datastore;
-        }
-        // try to count the items in the start store (if any)
-        if(!empty($this->startstore)) {
-            return $this->datastores[$this->startstore]->countItems($args);
-        } else {
-            // If we don't have a start store, we're probably stuck,
-            // but we'll try the first one anyway :)
-            // TODO: find some better way to determine which data store to count in
-            foreach(array_keys($this->datastores) as $name) {
-                // this looks like a loop but it isnt :-) (yet)
-                return $this->datastores[$name]->countItems($args);
-            }
-        }
+        return $this->datastore->countItems($args);
     }
 
     /**
@@ -728,22 +695,9 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
                 $args['numitems'] = $this->numitems;
             if(empty($args['startnum']))
                 $args['startnum'] = $this->startnum;
-
-            // if we don't have a start store yet, but we do have a primary datastore, we'll start there
-            if(empty($this->startstore) && !empty($this->primary)) {
-                $this->startstore = $this->properties[$this->primary]->datastore;
-            }
-            $start = false;
         }
 
-        $itemid = null;
-        // first get the items from the start store (if any)
-        if(!empty($this->startstore)) {
-            $itemid = $this->datastores[$this->startstore]->getNext($args);
-
-            // check if we found something - if not, no sense looking further
-            if(empty($itemid)) return;
-        }
+        $itemid = $this->datastore->getNext($args);
         return $itemid;
     }
 }

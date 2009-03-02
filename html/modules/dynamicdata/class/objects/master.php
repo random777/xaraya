@@ -117,7 +117,7 @@ class DataObjectMaster extends Object
     public $class       = 'DataObject'; // the class name of this DD object
     public $filepath    = 'auto';       // the path to the class of this DD object (can be empty or 'auto' for DataObject)
     public $properties  = array();      // list of properties for the DD object
-    public $datastores  = array();      // list of datastores for the DD object
+    public $datastore   = '';           // the datastore for the DD object
     public $fieldlist   = array();      // array of properties to be displayed
     public $fieldorder  = array();      // displayorder for the properties
     public $fieldprefix = '';           // prefix to use in field names etc.
@@ -284,41 +284,6 @@ class DataObjectMaster extends Object
     }
 
     /**
-     * Add one object to another
-     * This is basically adding the properties and datastores from one object to another
-     *
-     * @todo can we use the type hinting for the parameter?
-     * @todo pass $object by ref?
-     * @todo stricten the interface, either an object or an id, not both.
-    **/
-    private function addObject($object=null)
-    {
-        if(is_numeric($object))
-            $object = self::getObject(
-                array('objectid' => $object)
-            );
-
-        if(!is_object($object))
-            throw new EmptyParameterException(array(),'Not a valid object');
-
-        $properties = $object->getProperties();
-        foreach($properties as $newproperty)
-        {
-            // ignore if this property already belongs to the object
-            if(isset($this->properties[$newproperty->name])) continue;
-            $props = $newproperty->getPublicProperties();
-            $this->addProperty($props);
-            if (!isset($this->datastores[$newproperty->datastore])) {
-                $newstore = $newproperty->getDataStore();
-                $this->addDatastore($newstore[0],$newstore[1]);
-            }
-            $this->datastores[$newproperty->datastore]->addField($this->properties[$props['name']]);
-            $this->fieldlist[] = $newproperty->name;
-        }
-        $this->fieldorder = array_merge(array_keys($properties), $this->fieldorder);
-    }
-
-    /**
      * Get the data stores where the dynamic properties of this object are kept
     **/
     function &getDataStores($reset = false)
@@ -330,7 +295,7 @@ class DataObjectMaster extends Object
             $this->addDataStore('_dynamic_data_', 'data');
             $storename = '_dynamic_data_';
         }
-        return $this->datastores;
+        return $this->datastore;
     }
 
     /**
@@ -345,14 +310,14 @@ class DataObjectMaster extends Object
         $datastore = DataStoreFactory::getDataStore($name, $type);
 
         // add it to the list of data stores
-        $this->datastores[$datastore->name] =& $datastore;
+        $this->datastore = $datastore;
 
         // Pass along a reference to this object
-        $this->datastores[$datastore->name]->object = $this;
+        $this->datastore->object = $this;
 
         // for dynamic object lists, put a reference to the $itemids array in the data store
         if(method_exists($this, 'getItems'))
-            $this->datastores[$datastore->name]->_itemids =& $this->itemids;
+            $this->datastore->_itemids =& $this->itemids;
     }
 
     /**

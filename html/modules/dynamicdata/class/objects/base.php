@@ -68,12 +68,10 @@ class DataObject extends DataObjectMaster implements iDataObject
             $primarystore = $this->properties[$this->primary]->datastore;
         }
 
-        foreach($this->datastores as $name => $datastore) {
-            $itemid = $datastore->getItem($this->toArray());
-            // only worry about finding something in primary datastore (if any)
-            if(empty($itemid) && !empty($primarystore) && $primarystore == $name) {
-                return;
-            }
+        $itemid = $this->datastore->getItem($this->toArray());
+        // only worry about finding something in primary datastore (if any)
+        if(empty($itemid) && !empty($primarystore) && $primarystore == $this->datastore) {
+            return;
         }
 
         // for use in DD tags : preview="yes" - don't use this if you already check the input in the code
@@ -481,7 +479,6 @@ class DataObject extends DataObjectMaster implements iDataObject
                 } else {
                     $this->itemid = null;
                     
-                    $datastore = current($this->datastores);
                     /* General sequence:
                      * 1. Run the property-specific createValue methods for properties using the current datastore
                      * 2. Run the object's createItem method
@@ -497,7 +494,7 @@ class DataObject extends DataObjectMaster implements iDataObject
                             $property->createValue($this->itemid);
                         }
                     }
-                    $this->itemid = $datastore->createItem();
+                    $this->itemid = $this->datastore->createItem();
                     
                     foreach ($this->properties as $property) {
                         if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
@@ -533,7 +530,6 @@ class DataObject extends DataObjectMaster implements iDataObject
             throw new BadParameterException($vars,$msg);
         }
 
-        $datastore = current($this->datastores);
         /* General sequence:
          * 1. Run the property-specific updateValue methods for properties using the current datastore
          * 2. Run the object's updateItem method
@@ -549,7 +545,7 @@ class DataObject extends DataObjectMaster implements iDataObject
                 $property->updateValue($this->itemid);
             }
         }
-        $this->itemid = $datastore->updateItem();
+        $this->itemid = $this->datastore->updateItem();
 
         foreach ($this->properties as $property) {
             if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
@@ -600,10 +596,8 @@ class DataObject extends DataObjectMaster implements iDataObject
                 $property->deleteValue($this->itemid);
             }
         }
-        foreach ($this->datastores as $datastore) {
-            $this->itemid = $datastore->deleteItem();
-            if(empty($this->itemid)) return;                    // CHECKME: Is this needed?
-        }
+        $this->itemid = $this->datastore->deleteItem();
+        if(empty($this->itemid)) return;                    // CHECKME: Is this needed?
         
         foreach ($this->properties as $property) {
             if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 

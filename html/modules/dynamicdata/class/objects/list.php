@@ -357,7 +357,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         if(empty($args['startnum'])) {
             $args['startnum'] = $this->startnum;
         }
-
         $this->datastore->getItems($args);
 
         return $this->items;

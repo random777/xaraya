@@ -46,9 +46,10 @@ class DataProperty extends Object implements iDataProperty
 
     public $datastore = '';       // name of the data store where this property comes from
 
-    public $value   = null;       // value of this property for a particular DataObject
-    public $filter  = 'nofilter'; // value of the filter of this property (if it is part of a filter layout)
-    public $invalid = '';         // result of the checkInput/validateValue methods
+    public $value          = null;       // value of this property for a particular DataObject
+    public $previous_value = null;       // previous value of this property (if supported)
+    public $filter         = 'nofilter'; // value of the filter of this property (if it is part of a filter layout)
+    public $invalid        = '';         // result of the checkInput/validateValue methods
 
     public $include_reference = 0; // tells the object this property belongs to whether to add a reference of itself to me
     public $objectref = null;  // object this property belongs to
@@ -232,6 +233,10 @@ class DataProperty extends Object implements iDataProperty
         // Check for a filter option if found save it
         list($found,$filter) = $this->fetchValue($name. '_filteroption');
         if ($found) $this->filter = $filter;
+
+        // Check for a previous if found save it
+        list($found,$previous_value) = $this->fetchValue($name. '_previous_value');
+        if ($found) $this->previous_value = $previous_value;
 
         return $this->validateValue($value);
     }

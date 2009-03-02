@@ -21,8 +21,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
     public $numitems = null;
     public $startnum = null;
 
-    public $startstore = null;      // the data store we should start with (for sort)
-
     public $items = array();       // the result array of itemid => (property name => value)
 
     // optional URL style for use in xarModURL() (defaults to itemtype=...&...)
@@ -359,11 +357,6 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         if(empty($args['startnum'])) {
             $args['startnum'] = $this->startnum;
         }
-        // if we don't have a start store yet, but we do have a primary datastore, we'll start there
-        if(empty($this->startstore) && !empty($this->primary)) {
-            $this->startstore = $this->properties[$this->primary]->datastore;
-        }
-       // first get the items from the start store (if any)
 
         $this->datastore->getItems($args);
 

@@ -17,8 +17,8 @@
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
- * @return array locale data
- * @throws  LOCALE_NOT_EXIST
+ * @return array locale data or Null on error or False
+ * @throws  LOCALE_NOT_EXIST, LOCALE_NOT_AVAILABLE
  * @todo   figure out why we go through this function for xarModIsAvailable
  */
 function &xarMLSLoadLocaleData($locale = NULL)
@@ -37,23 +37,24 @@ function &xarMLSLoadLocaleData($locale = NULL)
     // check for locale availability
     $siteLocales = xarMLSListSiteLocales();
 
-    $nullreturn = null; $falsereturn = false;
     if (!in_array($locale, $siteLocales)) {
         if (strstr($locale,'ISO')) {
             $locale = str_replace('ISO','iso',$locale);
             if (!in_array($locale, $siteLocales)) {
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_AVAILABLE');
-                return $nullreturn;
+                return null;
             }
         } else {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_AVAILABLE');
-            return $nullreturn;
+            return null;
         }
     }
 
     $fileName = xarCoreGetVarDirPath() . '/locales/$locale/locale.php';
-    //xarCoreGetVarDirPath()
-    if (!$parsedLocale = xarMLS__parseLocaleString($locale)) return false;
+
+    if (!$parsedLocale = xarMLS__parseLocaleString($locale)) {
+        return false;
+    }
     $siteCharset = $parsedLocale['charset'];
     $utf8locale = $parsedLocale['lang'].'_'.$parsedLocale['country'].'.utf-8';
     $utf8FileName = xarCoreGetVarDirPath() . '/locales/$utf8locale/locale.php';
@@ -73,7 +74,9 @@ function &xarMLSLoadLocaleData($locale = NULL)
 /* TODO: delete after new backend testing
         if ($GLOBALS['xarMLS_backendName'] == 'xml2php') {
 */
-            if (!$parsedLocale = xarMLS__parseLocaleString($locale)) return $falsereturn;
+    if (!$parsedLocale = xarMLS__parseLocaleString($locale)) {
+        return false;
+    }
             $utf8locale = $parsedLocale['lang'].'_'.$parsedLocale['country'].'.utf-8';
             $siteCharset = $parsedLocale['charset'];
             $res = $GLOBALS['xarMLS_localeDataLoader']->load($utf8locale);
@@ -81,9 +84,11 @@ function &xarMLSLoadLocaleData($locale = NULL)
                 // Can we use xarML here? border case, play it safe for now.
                 $msg = "The locale '$utf8locale' could not be loaded";
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_EXIST',$msg);
-                return $nullreturn;
+                return null;
             }
-            if (!isset($res)) return $nullreturn; // Throw back
+            if (!isset($res)) {
+                return null; // Throw back
+            }
             $tempArray = $GLOBALS['xarMLS_localeDataLoader']->getLocaleData();
             if ($siteCharset != 'utf-8') {
                 foreach ( $tempArray as $tempKey => $tempValue ) {
@@ -95,12 +100,12 @@ function &xarMLSLoadLocaleData($locale = NULL)
 /* TODO: delete after new backend testing
         } else {
             $res = $GLOBALS['xarMLS_localeDataLoader']->load($locale);
-            if (!isset($res)) return $nullreturn; // Throw back
+            if (!isset($res)) return null; // Throw back
             if ($res == false) {
                 // Can we use xarML here? border case, play it safe for now.
                 $msg = "The locale '$locale' could not be loaded";
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_EXIST',$msg);
-                return $nullreturn;
+                return null;
             }
             $GLOBALS['xarMLS_localeDataCache'][$locale] = $GLOBALS['xarMLS_localeDataLoader']->getLocaleData();
         }
@@ -276,39 +281,78 @@ function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null, $add
 }
 
 /**
- *  Grab the formated date by the user's current locale settings
+ *  Grab the formated date and/or time by the user's current locale settings
  *
  * @access public
- * @param string $length what date locale we want (short|medium|long)
+ * @param string $length what date locale we want (short|medium|long). Can be extended with (time|date|toly) to get "time date", "date time" or only "time" instead of "date"
  * @param int $timestamp optional unix timestamp in UTC to format
  * @param bool $addoffset add user timezone offset (default true)
- * @todo Check the exceptions when $length is not in the $validlengths (assert on it?)
+ * @return string
  */
 function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoffset = true)
 {
-    $length = strtolower($length);
-    $validLengths = array('short','medium','long');
-    if(!in_array($length,$validLengths)) {
-        //TODO: We should throw a USER exception here
+    if (empty($timestamp)) {
+        die("emptytimestamp");
+    } elseif ($timestamp < 0) {
+        // invalid dates < 0 (e.g. from strtotime) return an empty date string
         return '';
     }
 
-    // the locale data should already be a static var in the main loader script
-    // so we no longer need to make it a static in this function
-    $localeData =& xarMLSLoadLocaleData();
+    $length = strtolower($length);
+    $validLengths = array('short', 'medium', 'long',
+        'shorttime', 'mediumtime', 'longtime',
+        'shortdate', 'mediumdate', 'longdate',
+        'shorttoly', 'mediumtoly', 'longtoly'
+    );
+    if (!in_array($length,$validLengths)) {
+        //Set to ISO datetime format yyyy-MM-dd HH:mm:ss
+        $locale_format ='%Y-%m-%d %H:%M:%S';
+    } else {
 
-    // grab the right set of locale data
-    $locale_format = $localeData["/dateFormats/$length"];
-    // replace the locale formatting style with valid strftime() style
-    $locale_format = str_replace('MMMM','%B',$locale_format);
-    $locale_format = str_replace('MMM','%b',$locale_format);
-    $locale_format = str_replace('M','%m',$locale_format);
-    $locale_format = str_replace('dddd','%A',$locale_format);
-    $locale_format = str_replace('ddd','%a',$locale_format);
-    $locale_format = str_replace('d','%e',$locale_format);    //'dd' gets to %e%e
-    $locale_format = str_replace('%e%e','%d',$locale_format); //%e%e back to %d
-    $locale_format = str_replace('yyyy','%Y',$locale_format);
-    $locale_format = str_replace('yy','%y',$locale_format);
+        // the locale data should already be a static var in the main loader script
+        // so we no longer need to make it a static in this function
+        $localeData =& xarMLSLoadLocaleData();
+
+        // grab the right set of locale data based on the last 4 chars in $length
+        $lengthval = substr($length, 0, strlen($length)-4);
+        switch (substr($length, -4)) {
+        case 'time' :
+            $locale_format = $localeData["/timeFormats/$lengthval"];
+            $locale_format .= '&160;' . $localeData["/dateFormats/$lengthval"];
+            break;
+        case 'date' :
+            $locale_format = $localeData["/dateFormats/$lengthval"];
+            $locale_format .= '&160;' . $localeData["/timeFormats/$lengthval"];
+            break;
+        case 'toly' :
+            $locale_format = $localeData["/timeFormats/$lengthval"];
+            break;
+        default:
+            $locale_format = $localeData["/dateFormats/$length"];
+        }
+
+        // replace the locale formatting style with valid strftime() style
+        // The backslash \ is the escape char for verbatim chars
+        $search = array();
+        $search['/yyyy/']           = '%Y';  // 4 digit year
+        $search['/yy/']             = '%y';  // 2 digit year
+        $search['/MMMM/']           = '%B';  // full month name
+        $search['/MMM/']            = '%b';  // abbreviated month
+        $search['/(?<![\\\\])M/']   = '%m';  // digit month
+        $search['/dddd/']           = '%A';  // full weekday name
+        $search['/ddd/']            = '%a';  // abbreviated weekday name
+        $search['/dd/']             = '%d';  // 2 digit day
+        $search['/(?<![%\\\\])d/']  = '%e';  // 1 digit day, space preceeding
+        $search['/HH/']             = '%H';  // 2 digit 24 hour
+        $search['/(?<![%\\\\])H/']  = '%H';  // 2 digit 24 hour
+        $search['/hh/']             = '%I';  // 2 digit 12 hour
+        $search['/mm/']             = '%M';  // digit minute
+        $search['/ss/']             = '%S';  // digit second
+        $search['/(?<![%\\\\])a/']  = '%p';  // 'AM' or 'PM', upper-case
+        $search['/(?<![%\\\\])z/']  = '%Z';  // time zone offset/abbreviation
+        $search['/\\\\/']           = '';    // Remove the escape char \
+        $locale_format = preg_replace(array_keys($search), array_values($search), $locale_format);
+    }
 
     return xarLocaleFormatDate($locale_format,$timestamp,$addoffset);
 }
@@ -319,7 +363,7 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
 function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addoffset = false)
 {
     if(!isset($timestamp)) {
-        // get UTC timestamp
+        // get server timestamp, mostly UTC
         $timestamp = time();
     }
 
@@ -328,13 +372,14 @@ function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addo
 }
 
 /**
- * Grab the formated time by the user's current locale settings
+ * (Depraced) Grab the formated time by the user's current locale settings
+ * xarLocaleGetFormattedDate should be called instead to get a combined result
+ * for date and time.
  *
  * @access public
  * @param string $length what time locale we want (short|medium|long)
  * @param int $timestamp optional unix timestamp in UTC to format
  * @param bool $addoffset add user timezone offset (default true)
- * @todo MichelV: why are the formatting rules not the same as PHP rules for strftime?
  */
 function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffset = true)
 {
@@ -343,7 +388,6 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
     if(!in_array($length,$validLengths)) {
         return '';
     }
-
     if (empty($timestamp)) {
         // starting with PHP 5.1.0, strtotime returns false instead of -1
         if (isset($timestamp) && $timestamp === false) {
@@ -354,45 +398,11 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
         } else {
             $timestamp = time();
         }
-    } elseif ($timestamp >= 0) {
-        if ($addoffset) {
-            // adjust for the user's timezone offset
-            $timestamp += xarMLS_userOffset($timestamp) * 3600;
-        }
-    } else {
+    } elseif ($timestamp < 0) {
         // invalid dates < 0 (e.g. from strtotime) return an empty date string
         return '';
     }
-    $addoffset = false;
-
-    // the locale data should already be a static var in the main loader script
-    // so we no longer need to make it a static in this function
-    $localeData =& xarMLSLoadLocaleData();
-
-    // grab the right set of locale data
-    $locale_format = $localeData["/timeFormats/$length"];
-    // replace the locale formatting style with valid strftime() style
-
-    $locale_format = str_replace('HH','%H',$locale_format);
-    $locale_format = str_replace('H','%H',$locale_format); // Bug 5806
-    $locale_format = str_replace('%%H','%H',$locale_format); // Now put back the double replaced ones.
-    $locale_format = str_replace('hh','%I',$locale_format);
-    $locale_format = str_replace('mm','%M',$locale_format);
-    $locale_format = str_replace('ss','%S',$locale_format);
-    $locale_format = str_replace('a','%p',$locale_format);
-    $locale_format = str_replace('z','%Z',$locale_format);
-    // format the single digit flags
-
-    if (strpos($locale_format,'H') !== false)
-        $locale_format = str_replace('%H',sprintf('%1d',gmstrftime('%H',$timestamp)),$locale_format);
-    if (strpos($locale_format,'h') !== false)
-        $locale_format = str_replace('h',sprintf('%1d',gmstrftime('%I',$timestamp)),$locale_format);
-    if (strpos($locale_format,'m') !== false)
-        $locale_format = str_replace('m',sprintf('%1d',gmstrftime('%M',$timestamp)),$locale_format);
-    if (strpos($locale_format,'s') !== false)
-        $locale_format = str_replace('s',sprintf('%1d',gmstrftime('%S',$timestamp)),$locale_format);
-
-    return xarLocaleFormatDate($locale_format,$timestamp,$addoffset);
+    return xarLocaleGetFormattedDate($length.'toly', $timestamp, $addoffset);
 }
 
 /**

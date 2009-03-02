@@ -287,11 +287,10 @@ class RelationalDataStore extends SQLDataStore
         $q = $this->object->dataquery;
         $q->setType('DELETE');
 
-        // Are we overriding the primary?
-        if (isset($args['itemid'])) {
-            $q->clearconditions();
-            $q->eq($this->object->properties[$this->object->primary]->source, $itemid);
-        }
+        // CHECKME: should an itemid = 0 indicate deleting all items?
+        $q->clearconditions();
+        $q->eq($this->object->properties[$this->object->primary]->source, $itemid);
+
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
 

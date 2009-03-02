@@ -38,8 +38,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         // Get a reference to each property's value and find the primarys index
         foreach ($this->properties as $property) {
             $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);
-            if ($property->type == 21) $this->primary = $property->name;
-        }                
+        }
     }
 
     /**
@@ -578,7 +577,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         // Last stand against wild hooks and other excesses
         if(($this->objectid < 3) && ($this->itemid < 3))
         {
-            $msg = 'You cannot delete the DataObject or DataProperties class';
+            $msg = 'You cannot delete the "objects" or "properties" objects';
             throw new BadParameterException(null, $msg);
         }
 
@@ -591,7 +590,7 @@ class DataObject extends DataObjectMaster implements iDataObject
          * 2. Run the object's deleteItem method
          * 3. Run the property-specific deleteValue methods for properties using the virtual datastore
          *
-         * This may need to be adjusted inthe future
+         * This may need to be adjusted in the future
          */
 
         foreach ($this->properties as $property) {

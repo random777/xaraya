@@ -108,9 +108,9 @@ function dynamicdata_utilapi_import($args)
             $args['itemtype'] = $info['itemtype'];
             $objectid = $object->updateItem($args);
             // remove the properties, as they will be replaced
-            $dupobject = DataObjectMaster::getObject(array('name' => $info['name'], 'extend' => false));
-            $existingproperties = $dupobject->getProperties();
-            foreach ($existingproperties as $propertyitem)
+            $duplicateobject = DataObjectMaster::getObject(array('name' => $info['name'], 'extend' => false));
+            $oldproperties = $duplicateobject->getProperties();
+            foreach ($oldproperties as $propertyitem)
                 $dataproperty->deleteItem(array('itemid' => $propertyitem->id));
         } else {
             $objectid = $object->createItem($args);

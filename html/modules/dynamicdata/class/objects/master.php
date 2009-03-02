@@ -179,6 +179,12 @@ class DataObjectMaster extends Object
             DataPropertyMaster::getProperties($args); // we pass this object along
         }
 
+        // Make sure we have a primary key
+        foreach ($this->properties as $property) {
+            if ($property->type == 21) $this->primary = $property->name;
+        }
+        if (empty($this->primary)) throw new Exception(xarML('The object "#(1)" has no primary key', $this->name));
+
         // create the list of fields, filtering where necessary
         $this->fieldlist = $this->getFieldList($this->fieldlist,$this->status);
 
@@ -229,8 +235,7 @@ class DataObjectMaster extends Object
 // $this->dataquery->qecho();echo "<br />";
         // build the list of relevant data stores where we'll get/set our data
 
-    if(empty($this->datastores) && count($this->properties) > 0)
-           $this->getDataStores();
+       $this->getDataStores();
     }
 
     private function propertysource($sourcestring)
@@ -318,43 +323,6 @@ class DataObjectMaster extends Object
     **/
     function &getDataStores($reset = false)
     {
-        // if we already have the datastores
-        if (!$reset && isset($this->datastores) && !empty($this->datastores)) {
-            return $this->datastores;
-        }
-
-        // if we're filtering on property status and there are no properties matching this status
-        if (!$reset && !empty($this->status) && count($this->fieldlist) == 0) {
-            return $this->datastores;
-        }
-
-        // reset field list of datastores if necessary
-        if ($reset && count($this->datastores) > 0) {
-            foreach(array_keys($this->datastores) as $storename) {
-                $this->datastores[$storename]->fields = array();
-            }
-        }
-
-        // check the fieldlist for valid property names and for operations like COUNT, SUM etc.
-        if (!empty($this->fieldlist) && count($this->fieldlist) > 0) {
-            $cleanlist = array();
-            foreach($this->fieldlist as $name) {
-                if (!strstr($name,'(')) {
-                        $cleanlist[] = $name;
-                } elseif (preg_match('/^(.+)\((.+)\)/',$name,$matches)) {
-                    $operation = $matches[1];
-                    $field = $matches[2];
-                    if(isset($this->properties[$field]))
-                    {
-                        $this->properties[$field]->operation = $operation;
-                        $cleanlist[] = $field;
-                        $this->isgrouped = 1;
-                    }
-                }
-            }
-            $this->fieldlist = $cleanlist;
-        }
-
         if (!empty($this->datasources)) {
             $this->addDataStore('relational', 'relational');
             $storename = 'relational';
@@ -362,37 +330,6 @@ class DataObjectMaster extends Object
             $this->addDataStore('_dynamic_data_', 'data');
             $storename = '_dynamic_data_';
         }
-
-        foreach($this->properties as $name => $property) {
-            if(
-                !empty($this->fieldlist) and          // if there is a fieldlist
-                !in_array($name,$this->fieldlist) and // but the field is not in it,
-                $property->type != 21 or                // and we're not on an Item ID property
-                ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)  // or the property is disabled
-            )
-            {
-                // Skip it.
-                $this->properties[$name]->datastore = '';
-                continue;
-            }
-
-            if (empty($this->fieldlist) || in_array($name,$this->fieldlist)) {
-                // we add this to the data store fields
-                $this->datastores[$storename]->addField($this->properties[$name]); // use reference to original property
-            } else {
-                // we only pass this along as being the primary field
-                $this->datastores[$storename]->setPrimary($this->properties[$name]);
-            }
-            // keep track of what property holds the primary key (item id)
-            if (!isset($this->primary) && $property->type == 21) {
-                $this->primary = $name;
-            }
-            // keep track of what property holds the secondary key (item type)
-            if (empty($this->secondary) && $property->type == 20 && !empty($this->filter)) {
-                $this->secondary = $name;
-            }
-        }
-        
         return $this->datastores;
     }
 

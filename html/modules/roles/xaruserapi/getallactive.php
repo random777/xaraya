@@ -3,7 +3,7 @@
  * Get all active users
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -105,7 +105,7 @@ function roles_userapi_getallactive($args)
     for (; !$result->EOF; $result->MoveNext()) 
     {
         list($uid, $uname, $name, $email, $date_reg, $ipaddr) = $result->fields;
-        if (xarSecurityCheck('ViewRoles', 0, 'Roles', "$uname:All:$uid")) 
+        if (xarSecurityCheck('ViewRoles', 0, 'Roles', "$uname"))
         {
             $sessions[] = array(
                 'uid'       => (int) $uid,

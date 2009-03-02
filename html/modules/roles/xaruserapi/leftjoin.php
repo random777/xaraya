@@ -3,7 +3,7 @@
  *  Return the field names and correct values for joining on users table
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -45,9 +45,11 @@ function roles_userapi_leftjoin($args)
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
         return;
     }
-// TODO: check this !
+
+    $roles = new xarRoles();
     foreach ($uids as $uid) {
-        if (!xarSecurityCheck('ReadRole',0,'Roles',"All:All:$uid")) {
+        $role  = $roles->getRole($uid);
+        if (!xarSecurityCheck('ReadRole', 0, 'Roles', $role->getUser())) {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
             return;
         }

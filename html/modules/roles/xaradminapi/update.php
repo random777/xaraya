@@ -3,7 +3,7 @@
  * Update a role core info
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -50,17 +50,26 @@ function roles_adminapi_update($args)
         return false;
     }
 
+    // The former instance definition 'Item' was "username::uid". That enabled
+    // the Admin to use the 'myself' instance placeholder function for allowing
+    //  users to edit their own info. The current instance definition 'Roles'
+    // prohibits this because only the username is used for seccheck.
+    // So we try to fake an instance based security check.
+    if (!xarSecurityCheck('AdminRole', 0)) {
+        // Current user hasn't Admin privileges on Roles, need to go deeper
+        if (!xarSecurityCheck('EditRole', 0) || $uid != xarSessionGetVar('uid')) {
+            // Current user hasn't Edit privs or isn't the one he wants to change
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
+            return;
+        }
+    }
+
     if (empty($valcode)) {
         $valcode = '';
     }
     if (empty($home)) {
         $home = '';
     }
-
-//    if (!xarSecAuthAction(0, 'roles::Item', "$item[uname]::$uid", ACCESS_EDIT)) {
-//        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
-//        return;
-//    }
 
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();

@@ -102,7 +102,7 @@ function roles_admin_purge($args)
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM',
                 new SystemException($msg));
             }
-            if (xarSecurityCheck('ReadRole', 0, 'Roles', $role['uname'] . ":All:" . $role['uid'])) {
+            if (xarSecurityCheck('ReadRole', 0, 'Roles', $role['uname'])) {
                 $skip = 0;
                 $unique = 1;
                 if ($role['type']) {

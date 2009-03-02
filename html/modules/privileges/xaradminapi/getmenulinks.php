@@ -3,7 +3,7 @@
  * Utility function pass individual menu items to the main menu
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,17 +15,20 @@
  * utility function pass individual menu items to the main menu
  *
  * @author the Example module development team
- * @returns array
  * @return array containing the menulinks for the main menu items.
  */
 function privileges_adminapi_getmenulinks()
 {
-    $menulinks = array();
+    static $menulinks = array();
+    if (isset($menulinks[0])) {
+        return $menulinks;
+    }
     if (xarSecurityCheck('EditPrivilege',0)) {
 
         $menulinks[] = Array('url'   => xarModURL('privileges',
                                                   'admin',
                                                   'viewprivileges',array('phase' => 'active')),
+                              'active'=> array('viewprivileges'),
                               'title' => xarML('View all privileges on the system'),
                               'label' => xarML('View Privileges'));
     }
@@ -34,6 +37,7 @@ function privileges_adminapi_getmenulinks()
         $menulinks[] = Array('url'   => xarModURL('privileges',
                                                   'admin',
                                                   'newprivilege'),
+                              'active'=> array('newprivileges'),
                               'title' => xarML('Add a new privilege to the system'),
                               'label' => xarML('Add Privilege'));
     }
@@ -42,6 +46,12 @@ function privileges_adminapi_getmenulinks()
         $menulinks[] = Array('url'   => xarModURL('privileges',
                                                   'admin',
                                                   'viewrealms'),
+                              'active'=> array('viewrealms',
+                                               'newrealm',
+                                               'viewrealms',
+                                               'modifyrealm',
+                                               'deleterealm'
+                              ),
                               'title' => xarML('Add, change or delete realms'),
                               'label' => xarML('Manage Realms'));
     }
@@ -50,8 +60,17 @@ function privileges_adminapi_getmenulinks()
         $menulinks[] = Array('url'   => xarModURL('privileges',
                                                   'admin',
                                                   'modifyconfig'),
+                              'active'=> array('modifyconfig'),
                               'title' => xarML('Modify the privileges module configuration'),
                               'label' => xarML('Modify Config'));
+        $menulinks[] = Array('url'    => xarModURL('privileges',
+                                                   'admin',
+                                                   'overview'
+                               ),
+                              'active'=> array('overview'),
+                              'title' => xarML('Introduction on handling this module'),
+                              'label' => xarML('Overview')
+        );
     }
     return $menulinks;
 }

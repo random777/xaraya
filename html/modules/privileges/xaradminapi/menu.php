@@ -1,9 +1,10 @@
 <?php
 /**
- * Generate the common admin menu configuration
+ * DEPRECATED Generate the common admin menu configuration
+ * Hb 2009-03-02: Data isn't used any more in the module
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *

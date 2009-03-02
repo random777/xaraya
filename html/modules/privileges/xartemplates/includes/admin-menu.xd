@@ -9,48 +9,16 @@
     <dt class="help" title="#xarML('Choose an action to perform')#">
       <xar:mlstring>Actions:</xar:mlstring>
     </dt>
-    <xar:sec mask="ReadPrivilege" catch="false">
-        <xar:set name="tabclass">$activetab=='viewprivileges'?'active':''</xar:set>
-        <dd class="#$tabclass#">
-          <a href="&xar-modurl-privileges-admin-viewprivileges;">
-            <xar:mlstring>View Privileges</xar:mlstring>
-          </a>
-        </dd>
-    </xar:sec>
-    <xar:sec mask="AddPrivilege" catch="false">
-        <xar:set name="tabclass">$activetab=='newprivilege'?'active':''</xar:set>
-        <dd class="#$tabclass#">
-            <a href="&xar-modurl-privileges-admin-newprivilege;" >
-                <xar:mlstring>Add Privilege</xar:mlstring>
-            </a>
-        </dd>
-    </xar:sec>
-    <xar:sec mask="AdminPrivilege" catch="false">
-       <xar:if condition="$activetab eq 'viewreams' or $activetab eq 'newrealm' or $activetab eq 'viewrealms' or $activetab eq 'modifyrealm' or $activetab eq 'deleterealm'">
-         <xar:set name="tabclass">'active'</xar:set>
-      <xar:else />
-         <xar:set name="tabclass">''</xar:set>
-      </xar:if>
-        <dd class="#$tabclass#">
-          <a href="&xar-modurl-privileges-admin-viewrealms;">
-            <xar:mlstring>Manage Realms</xar:mlstring>
-          </a>
-        </dd>
-    </xar:sec>
-    <xar:sec mask="AdminPrivilege" catch="false">
-        <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
-        <dd class="#$tabclass#">
-          <a href="&xar-modurl-privileges-admin-modifyconfig;">
-            <xar:mlstring>Modify Config</xar:mlstring>
-          </a>
-        </dd>
-    </xar:sec>
-    <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
-    <dd class="#$tabclass#">
-      <a href="&xar-modurl-privileges-admin-overview;">
-        <xar:mlstring>Overview</xar:mlstring>
-      </a>
-    </dd>
+    <xar:loop name="xarModAPIFunc('privileges', 'admin', 'getmenulinks')">
+        <xar:set name="tabclass">
+          in_array($activetab, $loop->item['active'])?'active':''
+        </xar:set>
+      <dd class="#$tabclass#">
+        <a title="#$loop:item.title#" href="#$loop:item.url#" >
+          #$loop:item.label#
+        </a>
+      </dd>
+    </xar:loop>
   </dl>
 </div>
 </xar:if>

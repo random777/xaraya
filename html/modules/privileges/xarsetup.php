@@ -3,7 +3,7 @@
  * Default setup for roles and privileges
  *
  * @package core modules
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -223,6 +223,14 @@ function initializeSetup()
     xarRegisterMask('DeleteBlock','All','blocks','All','All','ACCESS_DELETE');
     xarRegisterMask('AdminBlock','All','blocks','All','All','ACCESS_ADMIN');
     */
+    /* Masks for Privileges Module are TODO:
+     * 1. none of them uses the instance definition 'Privileges' defined in line 121
+     * 2. The instance definition 'Realm' is used, but nowhere defined
+     * 3. We have duplicate mask names (the last registration wins)
+     * 4. The '(De-)AssignPrivilege' masks should use a different instance definition
+     *    than the View-AdminPrivilege masks
+     * 5. Check if that amount of access levels is really needed
+     */
     xarRegisterMask('AssignPrivilege','All','privileges','All','All','ACCESS_ADD');
     xarRegisterMask('DeassignPrivilege','All','privileges','All','All','ACCESS_DELETE');
     xarRegisterMask('ViewPrivileges','All','privileges','All','All','ACCESS_READ');

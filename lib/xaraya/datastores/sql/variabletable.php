@@ -32,10 +32,16 @@ class VariableTableDataStore extends SQLDataStore
      */
     function getItem(array $args = array())
     {
-        if (count($this->fields) < 1) return;
         $itemid = $args['itemid'];
 
-        $propids = array_keys($this->fields);
+        $propids = array();
+        $propnames = array_keys($this->object->properties);
+        $properties = array();
+        foreach ($this->object->properties as $property) {
+            $propids[] = $property->id;
+            $properties[$property->id] = $property;
+        }
+        if (count($propids) < 1) return;
 
         $dynamicdata = $this->tables['dynamic_data'];
 
@@ -54,7 +60,7 @@ class VariableTableDataStore extends SQLDataStore
             list($propid, $value) = $result->getRow();
             if (isset($value)) {
                 // set the value for this property
-                $this->fields[$propid]->value = $value;
+                $properties[$propid]->value = $value;
             }
         }
         $result->close();

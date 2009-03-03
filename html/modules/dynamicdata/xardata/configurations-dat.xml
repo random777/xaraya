@@ -611,4 +611,13 @@
     <ignore_empty>1</ignore_empty>
     <configuration>a:5:{s:14:"display_layout";s:7:"default";s:24:"initialization_refobject";s:11:"math_number";s:25:"initialization_store_prop";s:2:"id";s:27:"initialization_display_prop";s:4:"name";s:24:"initialization_firstline";s:16:"0,Current Locale";}</configuration>
   </configurations>
+  <configurations itemid="69">
+    <id>69</id>
+    <name>display_dateformat</name>
+    <description>How is this date displayed</description>
+    <property_id>507</property_id>
+    <label>Date Format</label>
+    <ignore_empty>1</ignore_empty>
+    <configuration>a:4:{s:14:"display_layout";s:7:"default";s:24:"initialization_refobject";s:9:"math_date";s:25:"initialization_store_prop";s:2:"id";s:27:"initialization_display_prop";s:4:"name";}</configuration>
+  </configurations>
 </items>

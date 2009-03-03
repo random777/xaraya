@@ -183,7 +183,7 @@ class DataObjectMaster extends Object
         foreach ($this->properties as $property) {
             if ($property->type == 21) $this->primary = $property->name;
         }
-        if (empty($this->primary)) throw new Exception(xarML('The object "#(1)" has no primary key', $this->name));
+//        if (empty($this->primary)) throw new Exception(xarML('The object "#(1)" has no primary key', $this->name));
 
         // create the list of fields, filtering where necessary
         $this->fieldlist = $this->getFieldList($this->fieldlist,$this->status);

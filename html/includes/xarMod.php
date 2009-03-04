@@ -3,7 +3,7 @@
  * Module handling subsystem
  *
  * @package core
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -1116,7 +1116,6 @@ function xarMod__URLaddParametersToPath($args, $path, $pini, $psep)
     return $path;
 }
 
-
 /**
  * Generates an URL that reference to a module function.
  *
@@ -1129,6 +1128,7 @@ function xarMod__URLaddParametersToPath($args, $path, $pini, $psep)
  * @param args array of arguments to put on the URL
  * @param generateXMLURL bool generate in XML format, defaults to global setting
  * @param fragment string document fragment target (e.g. somesite.com/index.php?foo=bar#target)
+ *                        Should not be equal to an HTML ID used on same page, some browsers don't find the anchor then.
  * @param entrypoint array of arguments for different entrypoint than index.php
  * @return mixed absolute URL for call, or false on failure
  * @todo allow for an alternative entry point (e.g. stream.php) without affecting the other parameters
@@ -1180,8 +1180,8 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
     // for the module. This also applies to custom entry points.
     if ($GLOBALS['xarMod_generateShortURLs']) {
         // The encode_shorturl will be in userapi.
-        // Note: if a module declares itself as supporting short URLs, then the encoding
-        // API subsequently fails to load, then we want those errors to be raised.
+        // Note: If a module promises short URLs but the encoding API
+        // subsequently fails to load, we want those errors to be raised.
         if ($modType == 'user' && xarModGetVar($modName, 'SupportShortURLs') && xarModAPILoad($modName, $modType)) {
             $encoderArgs = $args;
             $encoderArgs['func'] = $funcName;

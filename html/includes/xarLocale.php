@@ -318,11 +318,11 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
         switch (substr($length, -4)) {
         case 'time' :
             $locale_format = $localeData["/timeFormats/$lengthval"];
-            $locale_format .= '&160;' . $localeData["/dateFormats/$lengthval"];
+            $locale_format .= '&#160;' . $localeData["/dateFormats/$lengthval"];
             break;
         case 'date' :
             $locale_format = $localeData["/dateFormats/$lengthval"];
-            $locale_format .= '&160;' . $localeData["/timeFormats/$lengthval"];
+            $locale_format .= '&#160;' . $localeData["/timeFormats/$lengthval"];
             break;
         case 'toly' :
             $locale_format = $localeData["/timeFormats/$lengthval"];
@@ -372,7 +372,7 @@ function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addo
 }
 
 /**
- * (Depraced) Grab the formated time by the user's current locale settings
+ * (Deprecated) Grab the formated time by the user's current locale settings
  * xarLocaleGetFormattedDate should be called instead to get a combined result
  * for date and time.
  *

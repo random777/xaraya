@@ -3,7 +3,7 @@
  * Variable utilities
  *
  * @package core
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -284,7 +284,7 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
  * 'bool' matches a string that can be 'true' or 'false'
  *
  * 'str:<min len>:<max len>' matches a string which has a lenght between <min len> and <max len>, if <min len>
- *                           if omitted no control is done on minimum lenght, the same applies to <max len>
+ *                           is omitted no control is done on minimum lenght, the same applies to <max len>
  *
  * 'html:<level>' validates the subject by searching unallowed html tags, allowed tags are defined by specifying <level>
  *                that could be one of restricted, basic, enhanced, admin. This last level is not configurable and allows

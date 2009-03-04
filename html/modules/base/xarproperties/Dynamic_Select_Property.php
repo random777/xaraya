@@ -3,7 +3,7 @@
  * Dynamic Select property
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2007,2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,7 +22,8 @@ class Dynamic_Select_Property extends Dynamic_Property
     var $itemfunc;
     var $file;
     var $override = false; // allow values other than those in the options
-
+    var $firstline = NULL;
+    
     function Dynamic_Select_Property($args)
     {
         $this->Dynamic_Property($args);
@@ -107,7 +108,7 @@ class Dynamic_Select_Property extends Dynamic_Property
             $data['id']= $id;
         }
         $data['onchange'] = isset($onchange) ? $onchange : null; // let tpl decide what to do
-
+        $data['firstline']  = isset($firstline) ? $firstline:$this->firstline;  //NULL - let tpl decide
         $data['tabindex'] =!empty($tabindex) ? $tabindex : 0;
         $data['invalid']  =!empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '';
 

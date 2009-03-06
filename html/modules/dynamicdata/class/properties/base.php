@@ -40,11 +40,11 @@ class DataProperty extends Object implements iDataProperty
     public $layout = '';
     public $tplmodule = 'dynamicdata';
     public $configuration = 'a:0:{}';
-    public $dependancies = '';    // semi-colon seperated list of files that must be present for this property to be available (optional)
-    public $args         = array(); //args that hold alias info
-    public $anonymous = 0;        // if true the name, rather than the dd_xx designation is used in displaying the property
+    public $dependancies = '';           // semi-colon seperated list of files that must be present for this property to be available (optional)
+    public $args         = array();      //args that hold alias info
+    public $anonymous = 0;               // if true the name, rather than the dd_xx designation is used in displaying the property
 
-    public $datastore = '';       // name of the data store where this property comes from
+    public $datastore = '';              // name of the data store where this property comes from
 
     public $value          = null;       // value of this property for a particular DataObject
     public $previous_value = null;       // previous value of this property (if supported)

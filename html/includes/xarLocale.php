@@ -267,17 +267,18 @@ function xarLocaleFormatNumber($number, $localeData = NULL, $isCurrency = false)
 }
 
 /**
- *  Wrapper to xarLocaleGetFormattedDate without timezone offset
+ *  Grab the formated date and/or time in UTC without timezone offset
+ *  Wrapper to xarLocaleGetFormattedDate() 
+ *
+ * @access public
+ * @param string $length what date locale we want (short|medium|long). Can be extended with (time|date|toly) to get "time date", "date time" or only "time" instead of "date"
+ * @param int $timestamp optional unix timestamp in UTC to format
+ * @return string
  */
-function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null, $addoffset = false)
+function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null)
 {
-    if(!isset($timestamp)) {
-        // get UTC timestamp
-        $timestamp = time();
-    }
-
     // pass this to the regular function, but without using the timezone offset here
-    return xarLocaleGetFormattedDate($length,$timestamp,$addoffset);
+    return xarLocaleGetFormattedDate($length, $timestamp, false);
 }
 
 /**
@@ -291,13 +292,6 @@ function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null, $add
  */
 function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoffset = true)
 {
-    if (empty($timestamp)) {
-        die("emptytimestamp");
-    } elseif ($timestamp < 0) {
-        // invalid dates < 0 (e.g. from strtotime) return an empty date string
-        return '';
-    }
-
     $length = strtolower($length);
     $validLengths = array('short', 'medium', 'long',
         'shorttime', 'mediumtime', 'longtime',
@@ -334,22 +328,25 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
         // replace the locale formatting style with valid strftime() style
         // The backslash \ is the escape char for verbatim chars
         $search = array();
-        $search['/yyyy/']           = '%Y';  // 4 digit year
-        $search['/yy/']             = '%y';  // 2 digit year
-        $search['/MMMM/']           = '%B';  // full month name
-        $search['/MMM/']            = '%b';  // abbreviated month
-        $search['/(?<![\\\\])M/']   = '%m';  // digit month
-        $search['/dddd/']           = '%A';  // full weekday name
-        $search['/ddd/']            = '%a';  // abbreviated weekday name
-        $search['/dd/']             = '%d';  // 2 digit day
-        $search['/(?<![%\\\\])d/']  = '%e';  // 1 digit day, space preceeding
-        $search['/HH/']             = '%H';  // 2 digit 24 hour
-        $search['/(?<![%\\\\])H/']  = '%H';  // 2 digit 24 hour
-        $search['/hh/']             = '%I';  // 2 digit 12 hour
-        $search['/mm/']             = '%M';  // digit minute
-        $search['/ss/']             = '%S';  // digit second
-        $search['/(?<![%\\\\])a/']  = '%p';  // 'AM' or 'PM', upper-case
-        $search['/(?<![%\\\\])z/']  = '%Z';  // time zone offset/abbreviation
+        $search['/yyyy/']           = '%Y';  // yyyy  4 digit year
+        $search['/yy/']             = '%y';  // yy    2 digit year
+        $search['/MMMM/']           = '%B';  // MMMM  full month name
+        $search['/MMM/']            = '%b';  // MMM   abbreviated month
+        $search['/MM/']             = '%m';  // MM    2 digit month
+        $search['/(?<![\\\\])M/']   = '%m';  // M     1 digit month (TODO)
+        $search['/dddd/']           = '%A';  // dddd  full weekday name
+        $search['/ddd/']            = '%a';  // ddd   abbreviated weekday name
+        $search['/dd/']             = '%d';  // dd    2 digit day
+        $search['/(?<![%\\\\])d/']  = '%e';  // d     1 digit day, non space preceeding
+        //
+        $search['/HH/']             = '%H';  // HH    2 digit 24 hour
+        $search['/(?<![%\\\\])H/']  = '%H';  // H     2 digit 24 hour
+        $search['/hh/']             = '%I';  // hh    2 digit 12 hour
+        $search['/(?<![%\\\\])h/']  = '%I';  // h     2 digit 12 hour (deprecated)
+        $search['/mm/']             = '%M';  // mm    2 digit minute
+        $search['/ss/']             = '%S';  // ss    2 digit second
+        $search['/(?<![%\\\\])a/']  = '%p';  // a     'AM' or 'PM', upper-case
+        $search['/(?<![%\\\\])z/']  = '%Z';  // z     time zone offset/abbreviation
         $search['/\\\\/']           = '';    // Remove the escape char \
         $locale_format = preg_replace(array_keys($search), array_values($search), $locale_format);
     }
@@ -358,7 +355,8 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
 }
 
 /**
- *  Wrapper to xarLocaleGetFormattedTime without timezone offset
+ *  (Deprecated) Wrapper to xarLocaleGetFormattedTime without timezone offset
+ *  Hb: Never called in current modules on 2009-03
  */
 function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addoffset = false)
 {
@@ -383,25 +381,6 @@ function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addo
  */
 function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffset = true)
 {
-    $length = strtolower($length);
-    $validLengths = array('short','medium','long');
-    if(!in_array($length,$validLengths)) {
-        return '';
-    }
-    if (empty($timestamp)) {
-        // starting with PHP 5.1.0, strtotime returns false instead of -1
-        if (isset($timestamp) && $timestamp === false) {
-            return '';
-        }
-        if ($addoffset) {
-            $timestamp = xarMLS_userTime();
-        } else {
-            $timestamp = time();
-        }
-    } elseif ($timestamp < 0) {
-        // invalid dates < 0 (e.g. from strtotime) return an empty date string
-        return '';
-    }
     return xarLocaleGetFormattedDate($length.'toly', $timestamp, $addoffset);
 }
 
@@ -480,7 +459,7 @@ function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = tru
  *  %T - current time, equal to %H:%M:%S (for windows compatibility)
  *  %x - preferred date representation for the current locale without the time (same at %D)
  *  %X - preferred time representation for the current locale without the date
- *  %e - day of the month as a decimal number, a single digit is preceded by a space (range ' 1' to '31')
+ *  %e - day of the month, a single digit is NOT preceded by a space (range ' 1' to '31')
  *
  *  @todo unsupported strftime() format rules
  *  %Z - time zone or name or abbreviation - we should use the user or site's info for this
@@ -501,18 +480,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
 
     // we need to get the correct timestamp format if we do not have one
     if(!isset($format)) {
-        // check for user defined format
-        /*
-        if($user_defined) {
-            $format =& $user_defined;
-        } elseif ($admin_defined) {
-            $format =& $admin_defined;
-        } else {
-        */
             $format = '%c';
-        /*
-        }
-        */
     }
 
     // the locale data should already be a static var in the main loader script
@@ -539,13 +507,9 @@ function xarMLS_strftime($format=null,$timestamp=null)
                 break;
 
             case '%A' :
-                // figure out what weekday it is
                 $w = (int) gmstrftime('%w',$timestamp);
-                // increment because the locales start at 1
                 $w++;
-                // replace the weekeday in the format string
                 $format = str_replace($modifier,$localeData["/dateSymbols/weekdays/$w/full"],$format);
-                // clean up
                 unset($w);
                 break;
 
@@ -560,11 +524,8 @@ function xarMLS_strftime($format=null,$timestamp=null)
                 break;
 
             case '%B' :
-                // figure out what month it is
                 $m = (int) gmstrftime('%m',$timestamp);
-                // replace the month in the format string
                 $format = str_replace($modifier,$localeData["/dateSymbols/months/$m/full"],$format);
-                // clean up
                 unset($m);
                 break;
 
@@ -583,10 +544,6 @@ function xarMLS_strftime($format=null,$timestamp=null)
             case '%e' :
                 // implement %e for windows - grab the day number and remove the preceding zero
                 $e = sprintf('%1d',gmstrftime('%d',$timestamp));
-                // pad with a space if necessary
-                if(strlen($e) < 2) {
-                    $e = '&nbsp;'.$e;
-                }
                 $format = str_replace($modifier,$e,$format);
                 break;
 
@@ -613,7 +570,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
             case '%Z' :
 // TODO: we want to display the user or site's timezone, not the servers
 // TODO: we'll just push empty text for now
-                $format = str_replace($modifier,'',$format);
+                $format = str_replace($modifier,$GLOBALS['xarMLS_defaultTimeOffset'],$format);
                 break;
 
             case '%z' :

@@ -5,7 +5,7 @@
 <?rfc toc="yes"?>
 <rfc number="0020" category="info">
     <front>
-        <title>Multi Language System</title>
+        <title>Multi Language System / Localization</title>
         <author initials="M." surname="Canini" fullname="Marco Canini">
             <organization>Xaraya Development Group</organization>
             <address>
@@ -17,7 +17,7 @@
         
     <abstract>
             <t>
-                This document describes the Multi Language System technology
+                This document describes the Multi Language System and localization technologies
                 that will provide internationalization support for
                 Xaraya. This document is constantly subject to
                 revisions. This isn't the final version of the document.
@@ -26,7 +26,7 @@
     </front>
     
     <middle>
-        <section title=" Introduction">
+        <section title="Introduction">
             <t>
                 Internationalization of software is one of the more common problem
                 when you are developing web-based software.  Solutions for this
@@ -158,13 +158,6 @@ Anonymous user         |         |    X    |    X    |
             <t>
                 The API function xarMLS_setCurrentLocale will operate directly on Navigation
                 Locale, so it performs something only in the cases written before.
-            </t>
-            <t>
-                Considering that a Xaraya is represented by the number of seconds since
-                UNIX epoch (1/1/1970 00:00:00 GMT), the value of System Timezone is used to
-                convert the timestamp obtained by the time() function to the GMT timestamp.
-                Site Timezone is used by xarLocaleFormatDate API function; in particular Site
-                Timezone is used when not overridden by User Timezone.
             </t>
         </section>
         <section title="Architecture">
@@ -310,9 +303,44 @@ interface xarML_EnumerableTranslationsBackend {
                 </list>
             </t>
         </section>
+        <section title="Localization">
+            <t>
+                Localization is used to display data in a format depending on
+                users regional settings (especially date and time formats).
+            </t>
+            <t>
+                Xaraya uses locale.xml files to define country specific and
+                regional formats. The format codes used (should) follow the
+                Unicode Locale Data Markup Language (LDML) defined by the
+                <eref target="http://unicode.org/">Unicode CLDR Project</eref>.
+            </t>
+            <t>
+                The function xarLocaleGetFormattedDate() delivers a datetime
+                string according to the given format argument. Possible values
+                for the format argument are: 
+                <list>
+                    <t><spanx>short</spanx>, <spanx>medium</spanx> or <spanx>long</spanx> for a predefined date. The default is <spanx>short</spanx>.</t>
+                    <t><spanx>shortdate</spanx>, <spanx>mediumdate</spanx> and <spanx>longdate</spanx> for predefined date followed by time</t>
+                    <t><spanx>shorttime</spanx>, <spanx>mediumtime</spanx> and <spanx>longtime</spanx> for predefined time followed by date</t>
+                    <t><spanx>shorttoly</spanx>, <spanx>mediumtoly</spanx> and <spanx>longtoly</spanx> for predefined time only</t>
+                    <t>A <eref target="http://unicode.org/reports/tr35/#Date_Format_Patterns">
+                    Date Format Pattern (LDML)</eref>.
+                    Elements not recognized are passed verbatim. The backslash
+                    is used as escape char.</t>
+                </list>
+            </t>
+            <t>
+                Considering that a date in Xaraya is represented by the number of seconds since
+                UNIX epoch (1/1/1970 00:00:00 GMT), the value of System Timezone is used to
+                convert the timestamp obtained by the time() function to the GMT timestamp.
+                Site Timezone is used by xarLocaleFormatDate API function; in particular Site
+                Timezone is used when not overridden by User Timezone.
+            </t>
+            </section>
         <section title="Changelog">
             <t>
                 <list>
+                    <t>1.0 (Mar 08, 2009) Localization by Hb &lt;hb@xaraya.com&gt;</t>
                     <t>0.9 (Aug 14, 2002)</t>
                     <t>pre-0.1 (May 19, 2002)</t>
                     <t>Initial Version by Marco Canini &lt;marco.canini@xaraya.com&gt;</t>

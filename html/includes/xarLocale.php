@@ -155,7 +155,7 @@ function xarLocaleParseNumber($number, $localeData = NULL, $isCurrency = false)
 }
 
 /**
- * Formats a currency according to specified locale data
+ * Formats a currency according to locale data
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
@@ -268,7 +268,7 @@ function xarLocaleFormatNumber($number, $localeData = NULL, $isCurrency = false)
 
 /**
  *  Grab the formated date and/or time in UTC without timezone offset
- *  Wrapper to xarLocaleGetFormattedDate() 
+ *  Wrapper to xarLocaleGetFormattedDate()
  *
  * @access public
  * @param string $length what date locale we want (short|medium|long). Can be extended with (time|date|toly) to get "time date", "date time" or only "time" instead of "date"
@@ -284,72 +284,98 @@ function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null)
 /**
  *  Grab the formated date and/or time by the user's current locale settings
  *
+ * @link http://unicode.org/reports/tr35/#Date_Format_Patterns
+ *
  * @access public
- * @param string $length what date locale we want (short|medium|long). Can be extended with (time|date|toly) to get "time date", "date time" or only "time" instead of "date"
- * @param int $timestamp optional unix timestamp in UTC to format
+ * @param string $length LDML Format Pattern or predefined datetime format selector (short|medium|long). Selectors can be extended with (time|date|toly) to get "time date", "date time" or only "time" instead of "date"
+ * @param int $timestamp unix timestamp in UTC (default current users time, fallback to site time)
  * @param bool $addoffset add user timezone offset (default true)
  * @return string
  */
 function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoffset = true)
 {
-    $length = strtolower($length);
-    $validLengths = array('short', 'medium', 'long',
+    // list of predefined format names
+    $setting = array('short', 'medium', 'long',
         'shorttime', 'mediumtime', 'longtime',
         'shortdate', 'mediumdate', 'longdate',
-        'shorttoly', 'mediumtoly', 'longtoly'
+        'shorttoly', 'mediumtoly', 'longtoly',
+        'full',
+        'iso'
     );
-    if (!in_array($length,$validLengths)) {
-        //Set to ISO datetime format yyyy-MM-dd HH:mm:ss
-        $locale_format ='%Y-%m-%d %H:%M:%S';
-    } else {
-
+    $locale_format = '';
+    if (in_array(strtolower($length), $setting)) {
         // the locale data should already be a static var in the main loader script
-        // so we no longer need to make it a static in this function
         $localeData =& xarMLSLoadLocaleData();
 
-        // grab the right set of locale data based on the last 4 chars in $length
-        $lengthval = substr($length, 0, strlen($length)-4);
+        // use the last 4 chars in $length to grab a combination of locale data
+        $set = substr($length, 0, strlen($length)-4);
         switch (substr($length, -4)) {
         case 'time' :
-            $locale_format = $localeData["/timeFormats/$lengthval"];
-            $locale_format .= '&#160;' . $localeData["/dateFormats/$lengthval"];
+            $locale_format = $localeData["/timeFormats/$set"];
+            $locale_format .= '&#160;' . $localeData["/dateFormats/$set"];
             break;
         case 'date' :
-            $locale_format = $localeData["/dateFormats/$lengthval"];
-            $locale_format .= '&#160;' . $localeData["/timeFormats/$lengthval"];
+            $locale_format = $localeData["/dateFormats/$set"];
+            $locale_format .= '&#160;' . $localeData["/timeFormats/$set"];
             break;
         case 'toly' :
-            $locale_format = $localeData["/timeFormats/$lengthval"];
+            $locale_format = $localeData["/timeFormats/$set"];
             break;
         default:
-            $locale_format = $localeData["/dateFormats/$length"];
+            // No combination found. Try if $length as such is available. Matches
+            // also for 'iso' and 'full' which may not exist in locale.xml yet.
+            if (isset($localeData["/dateFormats/$length"])) {
+                $locale_format = $localeData["/dateFormats/$length"];
+            } else {
+                if ($addoffset) {
+                    // ISO date with timezone
+                    $locale_format = 'yyyy-MM-ddTHH:mm:ssz';
+                } else {
+                    // ISO date based on GMT
+                    $locale_format = 'yyyy-MM-ddTHH:mm:ss\Z';
+                }
+            }
+            break;
         }
-
-        // replace the locale formatting style with valid strftime() style
-        // The backslash \ is the escape char for verbatim chars
-        $search = array();
-        $search['/yyyy/']           = '%Y';  // yyyy  4 digit year
-        $search['/yy/']             = '%y';  // yy    2 digit year
-        $search['/MMMM/']           = '%B';  // MMMM  full month name
-        $search['/MMM/']            = '%b';  // MMM   abbreviated month
-        $search['/MM/']             = '%m';  // MM    2 digit month
-        $search['/(?<![\\\\])M/']   = '%m';  // M     1 digit month (TODO)
-        $search['/dddd/']           = '%A';  // dddd  full weekday name
-        $search['/ddd/']            = '%a';  // ddd   abbreviated weekday name
-        $search['/dd/']             = '%d';  // dd    2 digit day
-        $search['/(?<![%\\\\])d/']  = '%e';  // d     1 digit day, non space preceeding
-        //
-        $search['/HH/']             = '%H';  // HH    2 digit 24 hour
-        $search['/(?<![%\\\\])H/']  = '%H';  // H     2 digit 24 hour
-        $search['/hh/']             = '%I';  // hh    2 digit 12 hour
-        $search['/(?<![%\\\\])h/']  = '%I';  // h     2 digit 12 hour (deprecated)
-        $search['/mm/']             = '%M';  // mm    2 digit minute
-        $search['/ss/']             = '%S';  // ss    2 digit second
-        $search['/(?<![%\\\\])a/']  = '%p';  // a     'AM' or 'PM', upper-case
-        $search['/(?<![%\\\\])z/']  = '%Z';  // z     time zone offset/abbreviation
-        $search['/\\\\/']           = '';    // Remove the escape char \
-        $locale_format = preg_replace(array_keys($search), array_values($search), $locale_format);
+    } else {
+        $locale_format = $length;
     }
+
+    // replace the locale formatting patterns with strftime-like styles
+    // The backslash \ is the escape char for verbatim chars
+    $search = array();
+    $search['/yyyy/']           = '%Y';  // yyyy  4 digit year
+    $search['/yy/']             = '%y';  // yy    2 digit year
+    //
+    $search['/MMMM/']           = '%B';  // MMMM  full month name
+    $search['/MMM/']            = '%b';  // MMM   abbreviated month
+    $search['/MM/']             = '%m';  // MM    month
+    $search['/(?<![\\\\])M/']   = '%m';  // M     1 digit month (TODO)
+    //
+    $search['/ww/']             = '%U';  // ww    week of the year, not ISO
+    $search['/(?<![\\\\])w/']   = '%U';  // w     1 digit week of the year (TODO)
+    //
+    $search['/(eeee|EEEE)/']    = '%A';  // EEEE  full weekday name
+    $search['/dddd/']           = '%A';  // dddd  (deprecated)full weekday name
+    $search['/EEE/']            = '%a';  // EEE   abbreviated weekday name
+    $search['/ddd/']            = '%a';  // ddd   (deprecated) abbreviated weekday name
+    $search['/DDD/']            = '%j';  // DDD   3 digit day of year
+    $search['/dd/']             = '%d';  // dd    2 digit day of month
+    $search['/(?<![%\\\\])d/']  = '%e';  // d     1 digit day of month, non space preceeding
+    // ISO-8601 numeric day of the week 1 (for Monday) though 7 (for Sunday)
+    $search['/(?<![%\\\\])e/']  = '%u';  // e     1 digit day of ISO week
+    //
+    $search['/(?<![%\\\\])a/']  = '%p';  // a     'AM' or 'PM', upper-case
+    $search['/HH/']             = '%H';  // HH    hour [01-23]
+    $search['/(?<![%\\\\])H/']  = '%H';  // H     hour [1-23]
+    $search['/hh/']             = '%I';  // hh    hour [01-12]
+    $search['/(?<![%\\\\])h/']  = '%I';  // h     hour [1-12]
+    $search['/mm/']             = '%M';  // mm    2 digit minute TODO: m for 1 digit
+    $search['/ss/']             = '%S';  // ss    2 digit second TODO: s for 1 digit
+    //
+    $search['/(?<![%\\\\])z/']  = '%Z';  // z     time zone offset/abbreviation
+    $search['/\\\\/']           = '';    // \     Remove the escape char \
+    $locale_format = preg_replace(array_keys($search), array_values($search), $locale_format);
 
     return xarLocaleFormatDate($locale_format,$timestamp,$addoffset);
 }
@@ -360,12 +386,6 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
  */
 function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addoffset = false)
 {
-    if(!isset($timestamp)) {
-        // get server timestamp, mostly UTC
-        $timestamp = time();
-    }
-
-    // pass this to the regular function, but without using the timezone offset here
     return xarLocaleGetFormattedTime($length,$timestamp,$addoffset);
 }
 
@@ -387,24 +407,20 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
 /**
  *  Wrapper to xarLocaleFormatDate without timezone offset
  */
-function xarLocaleFormatUTCDate($format = null, $time = null, $addoffset = false)
+function xarLocaleFormatUTCDate($format = null, $timestamp = null)
 {
-    if(!isset($time)) {
-        $time = time();
-    }
-
-    // pass this to the regular function, but without using the timezone offset here
-    return xarLocaleFormatDate($format,$time,$addoffset);
+    // pass this to the regular function with suppressing the timezone offset
+    return xarLocaleFormatDate($format, $timeatamp, false);
 }
 
 /**
  * Format a date/time according to the current locale (and/or user's preferences)
  *
  * @access public
- * @param time mixed timestamp or date string (default now)
- * @param format strftime() format to use (TODO: default locale-dependent or configurable ?)
- * @param addoffset bool add user timezone offset (default true)
- * @return date string
+ * @param string format    format codes from strftime() with own extensions
+ * @param int    timestamp (default now)
+ * @param bool   addoffset add user timezone offset (default true)
+ * @return string formated date or empty string on error
  *
  */
 function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = true)
@@ -416,19 +432,11 @@ function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = tru
         if (isset($timestamp) && $timestamp === false) {
             return '';
         }
-        if ($addoffset) {
-            $timestamp = xarMLS_userTime();
-        } else {
-            $timestamp = time();
-        }
-    } elseif ($timestamp >= 0) {
-        if ($addoffset) {
-            // adjust for the user's timezone offset
-            $timestamp += xarMLS_userOffset($timestamp) * 3600;
-        }
-    } else {
-        // invalid dates < 0 (e.g. from strtotime) return an empty date string
-        return '';
+        $timestamp = time();
+    }
+    if ($addoffset) {
+        // adjust for the user's timezone offset
+        $timestamp += xarMLS_userOffset($timestamp) * 3600;
     }
     return xarMLS_strftime($format,$timestamp);
 }
@@ -471,23 +479,26 @@ function xarMLS_strftime($format=null,$timestamp=null)
     if(!isset($timestamp)) {
         $timestamp = xarMLS_userTime();
     } elseif ($timestamp < 0) {
-        // invalid dates < 0 (e.g. from strtotime) return an empty date string
-        return '';
+        // Some systems can't handle negative date values
+        if (version_compare("5.1.0", PHP_VERSION, '>=')
+            && strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'
+           ) {
+            return '';
+        }
     } elseif ($timestamp === false) {
         // starting with PHP 5.1.0, strtotime returns false instead of -1
         return '';
     }
 
-    // we need to get the correct timestamp format if we do not have one
+    // Adaption to Xarayas locale has been made in calling functions. If still
+    // no format is given we fall back to the current PHP locale.
     if(!isset($format)) {
-            $format = '%c';
+        $format = '%c';
     }
 
     // the locale data should already be a static var in the main loader script
     // so we no longer need to make it a static in this function
     $localeData =& xarMLSLoadLocaleData();
-    // TODO
-    // if no $format is provided we need to use the default for the locale
 
     // parse the format string
     preg_match_all('/%[a-z]/i',$format,$modifiers);
@@ -500,7 +511,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
                 $w = (int) gmstrftime('%w',$timestamp);
                 // increment because the locales start at 1
                 $w++;
-                // replace the weekeday in the format string
+                // replace the weekday in the format string
                 $format = str_replace($modifier,$localeData["/dateSymbols/weekdays/$w/short"],$format);
                 // clean up
                 unset($w);
@@ -567,12 +578,12 @@ function xarMLS_strftime($format=null,$timestamp=null)
                 $format = str_replace($modifier,xarLocaleGetFormattedUTCTime('short',$timestamp),$format);
                 break;
 
-            case '%Z' :
+//            case '%Z' :
 // TODO: we want to display the user or site's timezone, not the servers
 // TODO: we'll just push empty text for now
-                $format = str_replace($modifier,$GLOBALS['xarMLS_defaultTimeOffset'],$format);
-                break;
-
+//                $format = str_replace($modifier,'',$format);
+//                break;
+            case '%Z' :
             case '%z' :
                 $user_offset = (string) xarMLS_userOffset($timestamp);
                 // check to see if this is a negative or positive offset
@@ -606,7 +617,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
 
             case '%p' :
                 // figure out if it's am or pm
-                $h = gmstrftime('%H',$timestamp);
+                $h = (int) gmstrftime('%H',$timestamp);
                 if($h > 11) {
                     // replace with PM string
                     $format = str_replace($modifier,$localeData["/dateSymbols/pm"],$format);

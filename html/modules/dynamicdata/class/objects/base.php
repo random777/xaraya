@@ -444,7 +444,6 @@ class DataObject extends DataObjectMaster implements iDataObject
                 }
             }
         }
-
         // special case when we try to create a new object handled by dynamicdata
         if(
             $this->objectid == 1 &&
@@ -472,38 +471,34 @@ class DataObject extends DataObjectMaster implements iDataObject
                 } else {
                     $value = $primaryobject->properties[$primaryobject->primary]->getValue();
                 }
-
                 // we already have an itemid value in the properties
-                if(!empty($value)) {
-                    $this->itemid = $value;
-                } else {
-                    $this->itemid = null;
-                    
-                    /* General sequence:
-                     * 1. Run the property-specific createValue methods for properties using the current datastore
-                     * 2. Run the object's createItem method
-                     * 3. Run the property-specific createValue methods for properties using the virtual datastore
-                     *
-                     * This may need to be adjusted inthe future
-                     */
-                   
-                    foreach ($this->properties as $property) {
-                        if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
-                            !empty($property->source) &&
-                            method_exists($property,'createvalue')) {
-                            $property->createValue($this->itemid);
-                        }
-                    }
-                    $this->itemid = $this->datastore->createItem();
-                    
-                    foreach ($this->properties as $property) {
-                        if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
-                            empty($property->source) &&
-                            method_exists($property,'createvalue')) {
-                            $property->createValue($this->itemid);
-                        }
-                    }
-                }
+                if(!empty($value)) $this->itemid = $value;
+                else $this->itemid = null;
+            }
+        }
+        
+        /* General sequence:
+         * 1. Run the property-specific createValue methods for properties using the current datastore
+         * 2. Run the object's createItem method
+         * 3. Run the property-specific createValue methods for properties using the virtual datastore
+         *
+         * This may need to be adjusted inthe future
+         */
+
+        foreach ($this->properties as $property) {
+            if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                !empty($property->source) &&
+                method_exists($property,'createvalue')) {
+                $property->createValue($this->itemid);
+            }
+        }
+        $this->itemid = $this->datastore->createItem();
+
+        foreach ($this->properties as $property) {
+            if (($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) && 
+                empty($property->source) &&
+                method_exists($property,'createvalue')) {
+                $property->createValue($this->itemid);
             }
         }
         return $this->itemid;

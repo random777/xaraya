@@ -80,9 +80,10 @@ class RelationalDataStore extends SQLDataStore
     {
         // Get the itemid from the params or from the object definition
         $itemid = isset($args['itemid']) ? $args['itemid'] : $this->object->itemid;
+
+        // If no itemid was passed or found on the object, get the next id (or dummy)
         $checkid = false;
-        if (empty($args['itemid'])) {
-            // get the next id (or dummy)
+        if (empty($itemid)) {
             $itemid = null;
             $checkid = true;
         }
@@ -96,45 +97,36 @@ class RelationalDataStore extends SQLDataStore
         $q = clone $this->object->dataquery;
         $q->setType('INSERT');
 
+        $q->clearfields();
+        foreach ($this->object->properties as $field) {
+            if (empty($field->source)) continue;
+            if (isset($args[$field->name])) {
+                // We have an override through the method's parameters
+                $q->addfield($field->source, $args[$field->name]);
+            } elseif ($field->name == $this->object->primary){
+                // Ignore the primary value if not set
+                if (!isset($itemid)) continue;
+                $q->addfield($field->source, $itemid);
+            } elseif ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED) {
+                // Ignore the fields with IGNORE status
+                continue;
+            } else {
+                // No override, just take the value the property already has
+                $q->addfield($field->source, $field->value);
+            }
+        }
+        
+        // Optimze the query to see if we still have more than 1 table
+        $q->optimize();
+        
         // Complete the dataquery
         if (count($q->tables)<2) {
-            $q->clearfields();
-            foreach ($this->object->properties as $field) {
-                if (empty($field->source)) continue;
-                if (isset($args[$field->name])) {
-                    // We have an override through the method's parameters
-                    $q->addfield($field->source, $args[$field->name]);
-                } elseif ($field->name == $this->object->primary){
-                    // Ignore the primary value if not set
-                    if (!isset($itemid)) continue;
-                    $q->addfield($field->source, $itemid);
-                } else {
-                    // No override, just take the value the property already has
-                    $q->addfield($field->source, $field->value);
-                }
-            }
         } else {
             // Set aside our tables we'll be working with
             $this->tables = $q->tables;
             // Set aside our links we'll be working with
             $this->tablelinks = $q->tablelinks;
-            
-            // Fill all the fields
-            $q->clearfields();
-            foreach ($this->object->properties as $field) {
-                if (isset($args[$field->name])) {
-                    // We have an override through the method's parameters
-                    $q->addfield($field->source, $args[$field->name]);
-                } elseif ($field->name == $this->object->primary){
-                    // Ignore the primary value if not set
-                    if (!isset($itemid)) continue;
-                    $q->addfield($field->source, $itemid);
-                } else {
-                    // No override, just take the value the property already has
-                    $q->addfield($field->source, $field->value);
-                }
-            }
-            
+                        
             // Set aside our fields we'll be working with
             $this->fields = $q->fields;
 
@@ -146,7 +138,7 @@ class RelationalDataStore extends SQLDataStore
             
             $this->runinsert($alias,$this->object->primary);
 
-            foreach ($tables as $table) {
+            foreach ($this->tables as $table) {
                 $q = clone $this->object->dataquery;
                 $q->setType('INSERT');
                 $q->clearfields();
@@ -252,6 +244,9 @@ class RelationalDataStore extends SQLDataStore
             if (empty($field->source)) continue;
             if ($field->name == $this->object->primary) {
                 // Ignore the primary value
+                continue;
+            } elseif ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED) {
+                // Ignore the fields with IGNORE status
                 continue;
             } elseif (isset($args[$field->name])) {
                 // We have an override through the methods parameters

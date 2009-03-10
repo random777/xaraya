@@ -3,7 +3,7 @@
  * Update site configuration
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,21 +15,20 @@
 /**
  * Update site configuration
  *
- * @param string tab Part of the config to update
+ * @param string tab        Part of the config to update
+ * @param string returnurl  optional
  * @return bool true on success of update
- * @todo move in timezone var when we support them
  * @todo decide whether a site admin can set allowed locales for users
- * @todo update auth system part when we figure out how to do it
  * @todo add decent validation
  */
 function base_admin_updateconfig()
 {
     if (!xarSecConfirmAuthKey()) return;
 
-    // Security Check
     if(!xarSecurityCheck('AdminBase')) return;
 
     if (!xarVarFetch('tab', 'str:1:100', $data['tab'], 'general', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('returnurl', 'str:1:100', $data['returnurl'], Null, XARVAR_NOT_REQUIRED)) return;
     switch ($data['tab']) {
         case 'display':
             if (!xarVarFetch('defaultmodule','str:1:',$defaultModuleName)) return;
@@ -151,7 +150,12 @@ function base_admin_updateconfig()
     // Call updateconfig hooks
     xarModCallHooks('module','updateconfig','base', array('module' => 'base'));
 
-    xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
+    if (isset($data['returnurl'])) {
+        xarResponseRedirect($data['returnurl']);
+    } else {
+        xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig',
+                                      array('tab' => $data['tab'])));
+    }
 
     return true;
 }

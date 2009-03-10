@@ -4,6 +4,7 @@
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 
+// optional args: (fieldRequired, fieldDescription), alertMsg
 function xar_base_formCheck(formobj, fieldRequired, fieldDescription, alertMsg){
     // Use the default alert message if nothing is given
     if (alertMsg == null) {

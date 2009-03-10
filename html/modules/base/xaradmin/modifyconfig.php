@@ -3,7 +3,7 @@
  * Modify site configuration
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,13 +14,19 @@
  * Modify site configuration
  * @author John Robeson
  * @author Greg Allan
+
+ * @param string tab        Part of the config to update
+ * @param string returnurl  optional
  * @return array of template values
  */
 function base_admin_modifyconfig()
 {
     // Security Check
     if(!xarSecurityCheck('AdminBase')) return;
+
+    $data = array();
     if (!xarVarFetch('tab', 'str:1:100', $data['tab'], 'display', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('returnurl', 'str:1:100', $data['returnurl'], Null, XARVAR_NOT_REQUIRED)) return;
 
     if (xarConfigGetVar('Site.Core.DefaultModuleType') == 'admin'){
     // Get list of user capable mods

@@ -2,7 +2,7 @@
     License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
 <xar:base-include-javascript module="base" filename="formcheck.js" />
-<xar:comment> Mandatory fields and descriptions for formcheck </xar:comment>
+<xar:comment> IDs of mandatory fields and descriptions for formcheck </xar:comment>
 <script type="text/javascript">
     var base_alertMsg = "#xarML('Please complete the following fields:')#";
     var base_fieldRequired = Array("defaultfunction");
@@ -476,6 +476,7 @@
                 <div class="xar-form-input-wrapper-after">
                     <input type="hidden" name="authid" id="authid" value="#$authid#" />
                     <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                    <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
                     <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
                 </div>
             </fieldset>
@@ -565,17 +566,39 @@
                     <xar:set name="timezone">#xarConfigGetVar('Site.Core.TimeZone')#</xar:set>
                     <xar:data-input type="timezone" name="defaulttimezone" id="defaulttimezone" value="$timezone" />
                 </div>
-                <div class="xar-form-input-wrapper-after">
-                    <xar:set name="strftime">strftime('%a, %H:%M', time());</xar:set>
-                    <xar:set name="gmstrftime">gmstrftime('%a, %H:%M', time());</xar:set>
-                    <xar:mlstring>Results of</xar:mlstring>
-                    strftime('%a, %H:%M'):
-                    <strong>#$strftime#</strong>, <br />
-                    gmstrftime(...):
-                    <strong>#$gmstrftime#</strong> <br />
-                    <xar:mlstring>and</xar:mlstring>
-                    xarLocaleFormatDate(..., ..., true):
-                    <strong>#xarLocaleFormatDate('%a, %H:%M',time(),true)#</strong>
+                <div class="xar-form-input-wrapper">
+                    <xar:set name="strftime">strftime('%A, %H:%M');</xar:set>
+                    <xar:set name="gmstrftime">gmstrftime('%A, %H:%M');</xar:set>
+                    <table>
+                    <tr>
+                        <td>strftime('%A, %H:%M')</td>
+                        <td>#$strftime#</td>
+                    </tr>
+                    <tr>
+                        <td>gmstrftime(...)</td>
+                        <td>#$gmstrftime#</td>
+                    </tr>
+                    <tr>
+                        <td>xarLocaleFormatDate(...)</td>
+                        <td>#xarLocaleFormatDate('%A, %H:%M')#</td>
+                    </tr>
+                    <tr>
+                        <td>xarLocaleGetFormattedUTCDate('shortdate')</td>
+                        <td>#xarLocaleGetFormattedUTCDate('shortdate')#</td>
+                    </tr>
+                    <tr>
+                        <td>xarLocaleGetFormattedDate('mediumdate')</td>
+                        <td>#xarLocaleGetFormattedDate('mediumdate')#</td>
+                    </tr>
+                    <tr>
+                        <td>xarLocaleGetFormattedDate('longdate')</td>
+                        <td>#xarLocaleGetFormattedDate('longdate')#</td>
+                    </tr>
+                    <tr>
+                        <td>xarLocaleGetFormattedDate('full')</td>
+                        <td>#xarLocaleGetFormattedDate('full')#</td>
+                    </tr>
+                    </table>
                 </div>
             </fieldset>
             <fieldset>

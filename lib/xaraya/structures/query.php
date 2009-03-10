@@ -1660,6 +1660,14 @@ class Query
             if (isset($tables[$field['table']])) unset($tables[$field['table']]);
         }
 
+        // Check which tables the conditions reference; remove those they do from the array      
+        foreach ($this->conditions as $condition) {
+            $fullfield = $this->_deconstructfield($condition['field1']);
+            if (isset($tables[$fullfield['table']])) unset($tables[$fullfield['table']]);
+            $fullfield = $this->_deconstructfield($condition['field2']);
+            if (isset($tables[$fullfield['table']])) unset($tables[$fullfield['table']]);
+        }
+
         // What is left are the table with no fields; remove them
         $newtables = array();
         foreach ($this->tables as $table) {

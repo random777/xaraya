@@ -322,7 +322,7 @@ class Query
                 if (isset($argsarray['alias'])) {
                     $this->fields[$i]['alias'] = $argsarray['alias'];                
                 }
-                $this->fields[$i]['value'] = $argsarray['value'];
+                if (isset($argsarray['value'])) $this->fields[$i]['value'] = $argsarray['value'];
                 $done = true;
                 break;
             }
@@ -1121,7 +1121,7 @@ class Query
                 if (is_array($field)) {
                     if(isset($field['name']) && isset($field['value'])) {
                         if ($this->usebinding) {
-                            $this->bindstring .= $field['table'] . "." . $field['name'] . " = ?, ";
+                            $this->bindstring .= $this->_reconstructfield($field) . " = ?, ";
                             $this->bindvars[] = $field['value'];
                         }
                         else {
@@ -1136,7 +1136,7 @@ class Query
                                     $sqlfield = $field['value'];
                                 }
                             }
-                            $this->bindstring .= $field['table'] . "." . $field['name'] . " = " . $sqlfield . ", ";
+                            $this->bindstring .= $this->_reconstructfield($field) . " = " . $sqlfield . ", ";
                         }
                     }
                 }
@@ -1355,6 +1355,7 @@ class Query
     public function getrows()
     {
         if (isset($this->output) && $this->rowstodo == 0) return count($this->output);
+        $this->optimize();
         if ($this->type == 'SELECT' && $this->rowstodo != 0 && $this->limits == 1) {
             if (!isset($this->dbconn)) $this->dbconn = xarDB::getConn();
             if ($this->israwstatement) {
@@ -1531,6 +1532,7 @@ class Query
     }
     public function tostring()
     {
+        $this->optimize();
         $this->setstatement();
         return $this->getstatement();
     }
@@ -1644,5 +1646,36 @@ class Query
         echo $string;
     }
 
+    public function optimize()
+    {
+        // If we don't have multiple tables, no need to optimize
+        if (count($this->tables) < 2) return true;
+        
+        // Put the table names in an array for processing
+        $tables = array();
+        foreach ($this->tables as $table) $tables[$table['alias']] = $table['name'];
+        
+        // Check which tables the fields reference; remove those they do from the array      
+        foreach ($this->fields as $field) {
+            if (isset($tables[$field['table']])) unset($tables[$field['table']]);
+        }
+
+        // What is left are the table with no fields; remove them
+        $newtables = array();
+        foreach ($this->tables as $table) {
+            if (!isset($tables[$table['alias']])) $newtables[] = $table;
+        }
+        $this->tables = $newtables;
+        $newlinks = array();
+        foreach ($this->tablelinks as $link) {
+            $fullfield1 = $this->_deconstructfield($link['field1']);
+            $fullfield2 = $this->_deconstructfield($link['field2']);
+            if (isset($tables[$fullfield1['table']]) || isset($tables[$fullfield2['table']])) continue;
+            $newlinks[] = $link;
+        }
+        $this->tablelinks = $newlinks;
+        
+        return true;
+    }
 }
 ?>

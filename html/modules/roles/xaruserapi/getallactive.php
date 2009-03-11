@@ -13,7 +13,8 @@
 /**
  * get all active users
  * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @param bool $include_anonymous whether or not to include anonymous user
+ * @param bool $include_anonymous whether or not to include anonymous user (default true)
+ * @param bool $include_myself whether or not to include current user (default true)
  * @returns array
  * @return array of users, or false on failure
  */
@@ -25,6 +26,12 @@ function roles_userapi_getallactive($args)
         $include_anonymous = true;
     } else {
         $include_anonymous = (bool) $include_anonymous;
+    }
+
+    if (!isset($include_myself)) {
+        $include_myself = true;
+    } else {
+        $include_myself = (bool) $include_myself;
     }
 
     // Optional arguments.
@@ -102,7 +109,7 @@ function roles_userapi_getallactive($args)
 
     // Put users into result array
     $sessions = array();
-    for (; !$result->EOF; $result->MoveNext()) 
+    for (; !$result->EOF; $result->MoveNext())
     {
         list($uid, $uname, $name, $email, $date_reg, $ipaddr) = $result->fields;
         if (xarSecurityCheck('ViewRoles', 0, 'Roles', "$uname"))

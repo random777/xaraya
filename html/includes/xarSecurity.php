@@ -3,7 +3,7 @@
  * Xaraya Security functions
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -626,7 +626,7 @@ function xarSecAuthAction($testRealm, $testComponent, $testInstance, $testLevel,
  * indeed been manually requested by the user and that the key is valid
  *
  * @access public
- * @param string modName the module this authorisation key is for (optional)
+ * @param string modName the module this authorisation key is for (default = requested module)
  * @return string an encrypted key for use in authorisation of operations
  * @todo bring back possibility of extra security by using date (See code)
  */
@@ -672,16 +672,17 @@ function xarSecGenAuthKey($modName = NULL)
 /**
  * Confirm an authorisation key is valid
  *
- * See description of xarSecGenAuthKey for information on
- * this function
+ * See description of xarSecGenAuthKey for more information
  *
  * @access public
- * @param string authIdVarName
+ * @param string modName       Module to check the key against (default = requested module)
+ * @param string authIdVarName Name of form field carrying the key (default = 'authid')
+ * @param bool   showException Throws an exception if key is invalid (default = true)
  * @return bool true if the key is valid, false if it is not
  * @throws FORBIDDEN_OPERATION
  * @todo bring back possibility of time authorized keys
  */
-function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')
+function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid', $showException = true)
 {
     if(!isset($modName)) list($modName) = xarRequestGetInfo();
     $authid = xarRequestGetVar($authIdVarName);
@@ -730,10 +731,12 @@ function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')
         }
     }
 
-    // Not found, assume invalid
-    xarErrorSet(XAR_USER_EXCEPTION, 'FORBIDDEN_OPERATION',
+    // Not found, assume invalid. Show exception if not set to false
+    if ($showException) {
+        xarErrorSet(XAR_USER_EXCEPTION, 'FORBIDDEN_OPERATION',
                    new DefaultUserException());
-    return;
+    }
+    return false;
 }
 
 ?>

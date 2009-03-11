@@ -115,7 +115,7 @@
         </h2>
         <h4>
             <a href="&xar-modurl-blocks-admin-new_type;"><xar:mlstring>Add New Block Type</xar:mlstring></a>
-        </h4>        
+        </h4>
         <table class="xar-fullwidth">
             <tr>
                 <th title="#xarML('The module listed is the module from which this block originates')#"><xar:mlstring>Module</xar:mlstring></th>
@@ -134,6 +134,10 @@
                     </td>
                     <td class="xar-align-center">
                         <a href="#$loop:item['refreshurl']#" title="#xarML('Refresh block details')#"><xar:mlstring>Refresh</xar:mlstring></a>
+                        <xar:comment>BUG 2750: Add a link to delete block type</xar:comment>
+                        <xar:if condition="isset($loop:item['deleteurl'])">
+                            | <a href="#$loop:item['deleteurl']#" title="#xarML('Delete this block type')#"><xar:mlstring>Delete</xar:mlstring></a>
+                        </xar:if>
                     </td>
                 </tr>
             </xar:loop>

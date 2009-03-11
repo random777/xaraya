@@ -3,7 +3,7 @@
  * View block types
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -98,6 +98,13 @@ function blocks_admin_view_types()
             'blocks', 'admin', 'view_types',
             array('tid'=>$block_type['tid'])
         );
+        // BUG 2750: Add a link to delete block types
+        if (xarSecurityCheck('DeleteBlock', 0)) {
+            $block_types[$index]['deleteurl'] = xarModURL(
+                'blocks', 'admin', 'delete_type',
+                array('tid'=>$block_type['tid'])
+            );
+        }
         $block_types[$index]['info'] = $block_type['info'];
     }
 

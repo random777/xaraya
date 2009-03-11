@@ -1,0 +1,102 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style scope="common" />
+<div class="xar-mod-head">
+    <span class="xar-mod-title">
+        <xar:mlstring>Blocks Administration</xar:mlstring>
+    </span>
+</div>
+<div class="xar-mod-body">
+    <xar:template type="module" file="admin-menu" />
+    <h2><xar:mlstring>Confirm Delete Block Type</xar:mlstring></h2>
+    <p>
+        <strong><xar:mlstring>Info</xar:mlstring>:</strong>
+        <em>
+            <xar:mlstring>
+                Under normal circumstances it is not necessary to delete Block Types.
+                Consider using this function only if you added some non-standard blocks to your system
+                which you need to remove. Removing block types packaged with modules is not advised.
+            </xar:mlstring>
+        </em>
+    </p>
+    <form action="#xarModURL('blocks', 'admin', 'delete_type')#" method="post"  enctype="application/x-www-form-urlencoded">
+        <fieldset>
+            <legend>
+                <xar:mlstring>
+                    Delete Block Type
+                </xar:mlstring>
+            </legend>
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Module</xar:mlstring>
+                </label>
+                <strong>#$blocktype.module#</strong>
+            </div>
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Type</xar:mlstring>
+                </label>
+                <strong>#$blocktype.type#</strong>
+            </div>
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Instances</xar:mlstring>
+                </label>
+                <xar:if condition="empty($instcount)">
+                    <strong><xar:mlstring>None</xar:mlstring></strong>
+                <xar:else />
+                    <xar:set name="grammar">$instcount == 1 ? 'instance' : 'instances'</xar:set>
+                    <p class="xar-form-container-after">
+                        <span class="xar-error">
+                            <strong>
+                                <xar:ml>
+                                    <xar:mlstring>Warning: Found #(1) #(2) of this block type</xar:mlstring>
+                                    <xar:mlvar>#$instcount#</xar:mlvar>
+                                    <xar:mlvar>#$grammar#</xar:mlvar>
+                                </xar:ml>
+                            </strong>
+                        </span>
+                        <br />
+                        <xar:ml>
+                            <xar:mlstring>The following #(1) will also be deleted</xar:mlstring>
+                            <xar:mlvar>#$grammar#</xar:mlvar>
+                        </xar:ml>
+                    </p>
+                    <xar:foreach in="$instances" value="$instance">
+                        <p class="xar-form-container-after">
+                            <a href="#xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $instance['bid']))#">
+                                #$instance.title#
+                            </a>
+                            <xar:if condition="!empty($instance['groups'])">
+                                <xar:mlstring>from</xar:mlstring>&nbsp;
+                                <xar:set name="grpcount">count($instance['groups'])</xar:set>
+                                <xar:loop name="$instance['groups']">
+                                    <a href="&xar-modurl-blocks-admin-modify_group;&amp;gid=#$loop:item.gid#">#$loop:item.name#</a><xar:if condition="$loop:index lt $grpcount-1">, </xar:if>
+                                </xar:loop>
+                                &nbsp;
+                                <xar:if condition="$grpcount eq 1">
+                                    <xar:mlstring>group</xar:mlstring>
+                                <xar:else />
+                                    <xar:mlstring>groups</xar:mlstring>
+                                </xar:if>
+                            <xar:else />
+                                (<xar:mlstring>no groups</xar:mlstring>)
+                            </xar:if>
+                        </p>
+                    </xar:foreach>
+                </xar:if>
+            </div>
+        </fieldset>
+        <fieldset>
+            <div class="xar-form-input-wrapper-after">
+                <input type="hidden" name="tid" id="tid" value="#$tid#">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="confirm" id="confirm" value="true" />
+                <input type="submit" name="submit" value="#xarML('Delete Block Type')#" class="xar-margin-thick" />
+                <br />
+                <a href="#xarModURL('blocks', 'admin', 'view_types')#">
+                    <xar:mlstring>Cancel and return to block types</xar:mlstring>
+                </a>
+            </div>
+        </fieldset>
+    </form>
+</div>

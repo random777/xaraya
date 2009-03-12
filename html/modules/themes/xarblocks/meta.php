@@ -3,7 +3,7 @@
  *  Initialise meta block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,10 +15,6 @@
  * @author  John Cox
  * @author  Carl Corliss
  * @access  public
- * @param   none
- * @return  nothing
- * @throws  no exceptions
- * @todo    nothing
 */
 function themes_metablock_init()
 {
@@ -74,9 +70,10 @@ function themes_metablock_info()
 */
 function themes_metablock_display($blockinfo)
 {
-    // Security Check
-    if (!xarSecurityCheck('ViewBaseBlocks', 0, 'Block', 'meta:'.$blockinfo['title'].':All')) return;
-
+    if (!xarSecurityCheck('ViewBaseBlocks', 0, 'Block',
+                          'meta:'.$blockinfo['title'].':'.$blockinfo['bid'])) {
+        return;
+    }
     // Get current content
     if (!is_array($blockinfo['content'])) {
         $vars = unserialize($blockinfo['content']);
@@ -164,8 +161,6 @@ function themes_metablock_display($blockinfo)
  * @access  public
  * @param   $blockinfo
  * @return  $blockinfo data array
- * @throws  no exceptions
- * @todo    nothing
 */
 function themes_metablock_modify($blockinfo)
 {
@@ -222,8 +217,6 @@ function themes_metablock_modify($blockinfo)
  * @access  public
  * @param   $blockinfo
  * @return  $blockinfo data array
- * @throws  no exceptions
- * @todo    nothing
 */
 function themes_metablock_update($blockinfo)
 {

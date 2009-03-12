@@ -59,7 +59,7 @@ function modules_admin_modinfonew()
         $data['modiconurl']     = xarVarPrepForDisplay($modicon);
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('as provided by the author'));
     } elseif ($data['modname'] == 'authsystem'
-              || substr($modinfo['modclass'], 0, 4) == 'Core') {
+              || substr($data['modclass'], 0, 4) == 'Core'){
         $data['modiconurl'] = 'modules/modules/xarimages/admin.gif';
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Xaraya Core Module'));
     }elseif(file_exists($modicongeneric)){

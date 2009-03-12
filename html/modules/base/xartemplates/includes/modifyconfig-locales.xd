@@ -7,6 +7,43 @@
 <xar:set name="unboxed_checked">false</xar:set>
 <xar:if condition="$mlsmode eq 'UNBOXED'"><xar:set name="unboxed_checked">true</xar:set></xar:if>
 
+<input type="hidden" name="translationsbackend" id="translationsbackend" value="xml2php" />
+
+<fieldset>
+    <legend>
+        <xar:mlstring>Language/Locale Configuration</xar:mlstring>
+    </legend>
+    <p><xar:mlstring>The following locales are available to this site:</xar:mlstring></p>
+
+    <xar:loop name="$locales">
+        <div class="xar-form-input-wrapper-after">
+             <xar:if condition="$loop:item['active'] eq 'true'">
+                  <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" checked="checked" />
+            <xar:else />
+                  <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" />
+            </xar:if>
+            <label for="locale_#$loop:index#">
+                #$loop:item['name']#
+            </label>
+        </div>
+    </xar:loop>
+
+    <div class="xar-form-input-wrapper">
+        <label for="defaultlocale" title="#xarML('Default locale to load')#" class="xar-form-label">
+            <xar:mlstring>Default Locale:</xar:mlstring>
+        </label>
+        <select name="defaultlocale" id="defaultlocale">
+            <xar:loop name="$locales">
+                <xar:if condition="xarMLSGetSiteLocale() eq $loop:item['name']">
+                    <option value="#$loop:item['name']#" selected="selected">#$loop:item['name']#</option>
+                <xar:else />
+                    <option value="#$loop:item['name']#">#$loop:item['name']#</option>
+                </xar:if>
+            </xar:loop>
+        </select>
+    </div>
+</fieldset>
+
 <fieldset>
     <legend>
         <xar:mlstring>Mode of Operation</xar:mlstring>
@@ -85,48 +122,6 @@
 
 </fieldset>
 
-<fieldset>
-    <legend>
-        <xar:mlstring>Language/Locale Configuration</xar:mlstring>
-    </legend>
-
-    <p>
-        <xar:mlstring>The following locales are available to this site:</xar:mlstring>
-    </p>
-
-    <xar:loop name="$locales">
-
-        <div class="xar-form-input-wrapper-after">
-             <xar:if condition="$loop:item['active'] eq 'true'">
-                  <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" checked="checked" />
-            <xar:else />
-                  <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" />
-            </xar:if>
-            <label for="locale_#$loop:index#">
-                #$loop:item['name']#
-            </label>
-        </div>
-
-    </xar:loop>
-
-    <div class="xar-form-input-wrapper">
-        <label for="defaultlocale" title="#xarML('Default locale to load')#" class="xar-form-label">
-            <xar:mlstring>Default Locale:</xar:mlstring>
-        </label>
-        <select name="defaultlocale" id="defaultlocale">
-            <xar:loop name="$locales">
-                <xar:if condition="xarMLSGetSiteLocale() eq $loop:item['name']">
-                    <option value="#$loop:item['name']#" selected="selected">#$loop:item['name']#</option>
-                <xar:else />
-                    <option value="#$loop:item['name']#">#$loop:item['name']#</option>
-                </xar:if>
-            </xar:loop>
-        </select>
-    </div>
-
-</fieldset>    
-    
-<input type="hidden" name="translationsbackend" id="translationsbackend" value="xml2php" />
 
 <xar:comment>    
 <fieldset>

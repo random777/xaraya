@@ -82,10 +82,7 @@
             <p>
                 <xar:mlstring>All of the above modules can be installed or removed at any later time in the Modules module.</xar:mlstring>
             </p>
-            <xar:set name="buttonnext">
-                <xar:mlstring>Continue</xar:mlstring>
-            </xar:set>
-            <input type="submit" name="create" id="create" value="#$buttonnext#" />
+            <input type="submit" name="create" id="create" value="#xarML('Continue')#" />
         </div>
     </form>
 </div>

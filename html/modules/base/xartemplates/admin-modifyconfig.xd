@@ -569,7 +569,7 @@
                 <div class="xar-form-input-wrapper">
                     <xar:set name="strftime">strftime('%A, %H:%M');</xar:set>
                     <xar:set name="gmstrftime">gmstrftime('%A, %H:%M');</xar:set>
-                    <table>
+                    <table class="xar-norm">
                     <tr>
                         <td>strftime('%A, %H:%M')</td>
                         <td>#$strftime#</td>

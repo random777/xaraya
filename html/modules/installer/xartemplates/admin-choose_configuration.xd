@@ -18,26 +18,36 @@
               <xar:loop name="$names">
                 <p>
                   <xar:if condition="$loop:item['selected']">
-                    <input type="radio" id=#$loop:item['value']#  
-                           name="configuration" value="#$loop:item['value']#" 
-                           checked=checked" />
+                    <input type="radio" id=#$loop:item['value']# name="configuration" value="#$loop:item['value']#" checked="checked" />
                   <xar:else />
-                    <input type="radio" id=#$loop:item['value']# 
-                           name="configuration" value="#$loop:item['value']#" />
+                    <input type="radio" id=#$loop:item['value']# name="configuration" value="#$loop:item['value']#" />
                   </xar:if>
                   <label class="xblock" for="#$loop:item['value']#">
                       #$loop:item['display']#
                   </label>
-                </p>                   
+                </p>
               </xar:loop>
             </xar:if>
             <p>
                 <xar:mlstring>Each configuration will load a predefined set of modules, menus, hooks etc. as well as create an initial configuration of the security system. On the next page you can change some of the options of your chosen configuration.</xar:mlstring>
             </p>
-            <xar:set name="buttonnext">
-                <xar:mlstring>Continue</xar:mlstring>
-            </xar:set>
-            <input type="submit" name="create" id="create" value="#$buttonnext#" />
+            <p>
+              <xar:set name="lang">substr($language,0,2)</xar:set>
+              <xar:if condition="$lang ne 'en'">
+                <xar:set name="langpacks">'http://mt.xaraya.com/download/nightly/languages/'</xar:set>
+                <xar:set name="langspecific">$langpacks . 'com.xaraya.languages.' . $lang . '.tgz'</xar:set>
+                <xar:set name="locales_dir">realpath(xarCoreGetVarDirPath() . '/locales/')
+</xar:set>
+                <xar:ml>
+                    <xar:mlstring>Some modules will install with localized data if a 'Pack' for the language selected is present. Xaraya's official Language Pack for the language <strong>#(1)</strong> can be <a href="#(3)" target="_blank">downloaded here</a>. It is recommended to download and unzip the pack to <code>#(4)</code> before you continue. It doesn't harm to overwrite the existing directories there. Additional to <a href="#(2)" target="_blank">Xaraya's packs</a>), some packs are offered by 3rd party developers.</xar:mlstring>
+                    <xar:mlvar>#$lang#</xar:mlvar>
+                    <xar:mlvar>#$langpacks#</xar:mlvar>
+                    <xar:mlvar>#$langspecific#</xar:mlvar>
+                    <xar:mlvar>#$locales_dir#</xar:mlvar>
+                </xar:ml>
+              </xar:if>
+            </p>
+            <input type="submit" name="create" id="create" value="#xarML('Continue')#" />
         </div>
     </form>
 </div>

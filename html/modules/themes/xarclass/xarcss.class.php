@@ -3,7 +3,7 @@
  * Xaraya CSS class library
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -81,7 +81,6 @@ class xarCSS
     var $suppresstype;              // true == tags of this type are suppressed
     var $suppressscope;             // true == tags of this scope are suppressed
     var $sort       = true;         // true == tags will be sorted
-    var $comments   = true;         // true == comments will be shown in the templates
     var $debug      = false;        // true == debug mode enabled
     var $parse      = false;        // true == parse mode enabled
     var $suppress   = false;        // true == this css is suppressed
@@ -152,7 +151,8 @@ class xarCSS
                 return true;
         }
         // TODO: remove these hardcoded comments when BL + QA can handle them in templates
-        $data['comments']                   = $this->comments;
+        // Use same ModVar for comments on CSS as for comments out of template file names
+        $data['comments']                   = xarModGetVar('themes', 'ShowTemplates');
         $data['opencomment']                = "<!-- ";
         $data['closecomment']               = " -->\n";
         $data['openconditionalcomment']     = "<!--[if ";

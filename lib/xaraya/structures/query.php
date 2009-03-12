@@ -1540,8 +1540,11 @@ class Query
     {
         if ($q->gettype() != $this->gettype()) return false;
         foreach ($q->conditions as $key => $value) $this->addcondition($value);
-//        foreach ($q->conditions as $key => $value) $this->conditions[$key] = $value;
-//        foreach ($q->conjunctions as $key => $value) $this->conjunctions[$key] = $value;
+    }
+    public function addsorts($q)
+    {
+        if ($q->gettype() != $this->gettype()) return false;
+        foreach ($q->sorts as $sort) $this->addorder($sort['name'],$sort['order']);
     }
     public function unite($q1, $q2)
     {

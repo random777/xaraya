@@ -60,7 +60,7 @@
                 <ul>
                     <xar:foreach in="$dependencies['unsatisfiable']" value="$modInfo">
                         <li>
-                            <xar:if condition="is_array($modInfo) AND $modInfo['displayname'] ne xarML('Unknown') AND !empty($modInfo['displayname'])">EINS
+                            <xar:if condition="is_array($modInfo) AND $modInfo['displayname'] ne xarML('Unknown') AND !empty($modInfo['displayname'])">
                                 <xar:if condition="$modInfo['regid'] ne $id">
                                     #$modInfo['displayname']#
                                 <xar:else />

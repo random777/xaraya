@@ -3,7 +3,7 @@
  * Loads xarinit or pninit and executes the given function
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,7 +21,6 @@
  */
 function modules_adminapi_executeinitfunction ($args)
 {
-    // Security Check
     if(!xarSecurityCheck('AdminModules')) return;
 
     // Argument check
@@ -67,7 +66,6 @@ function modules_adminapi_executeinitfunction ($args)
         return true;
     }
 
-    // if (!empty($xarinitfile)) {
     ob_start();
     $r = include_once($xarinitfile);
     $error_msg = strip_tags(ob_get_contents());
@@ -76,6 +74,10 @@ function modules_adminapi_executeinitfunction ($args)
     if (empty($r) || !$r) {
         $msg = xarML("Could not load file: [#(1)].\n\n Error Caught:\n #(2)", $xarinitfile, $error_msg);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FUNCTION_NOT_EXIST', $msg);
+        return;
+    }
+
+    if (!xarMLSLoadTranslations($xarinitfile)) {
         return;
     }
 
@@ -103,7 +105,7 @@ function modules_adminapi_executeinitfunction ($args)
             return;
         }
     } else {
-        // A lot of init files dont have the function, maily activate...
+        // A lot of init files dont have the function, mainly activate...
         // Should we enforce them to have it?
         xarlogMessage("executeinitfunction function '$func' not found, skipping");
         /*

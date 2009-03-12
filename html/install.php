@@ -3,7 +3,7 @@
  * Xaraya Installer
  *
  * @package installer
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -116,9 +116,9 @@ $allowedLocales = array();
 if(is_dir($locale_dir)) {
     if ($dh = opendir($locale_dir)) {
         while (($file = readdir($dh)) !== false) {
-            // Exclude the current, previous and the Bitkeeper folder 
+            // Exclude the current, previous and the Monotone folder 
             // (just for us to be able to test, wont affect users who use a build)
-            if($file == '.' || $file == '..' || $file == 'SCCS' || filetype($locale_dir . $file) == 'file' ) continue;
+            if($file == '.' || $file == '..' || $file == '_MTN' || filetype($locale_dir . $file) == 'file' ) continue;
             if(filetype(realpath($locale_dir . $file)) == 'dir' &&
                file_exists(realpath($locale_dir . $file . '/locale.xml'))) {
                 $allowedLocales[] = $file;

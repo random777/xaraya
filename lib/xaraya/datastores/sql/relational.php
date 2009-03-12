@@ -326,28 +326,34 @@ class RelationalDataStore extends SQLDataStore
             $saveids = 0;
         }
 
-        //Make sure we have a primary field
-        if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
-
         // Bail if the object has no properties
         if (count($this->object->properties) < 1) return;
         
+        //Make sure we have a primary field
+        if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
+
         // Complete the dataquery
         $q = $this->object->dataquery;
-        foreach ($this->object->properties as $field) {
+        $fieldlist = array();
+        foreach ($this->object->properties as $fieldname => $field) {
+            // Ignore any fields that should not be displayed
+            
+            if (($field->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE) && 
+                ($field->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_IGNORED) &&
+                ($field->name != $this->object->primary)) continue;
             if (empty($field->source)) {
                 if (empty($field->initialization_refobject)) continue;
                 $this->addqueryfields($q, $field->initialization_refobject);
             } else {
                 $q->addfield($field->source . ' AS ' . $field->name);
             }
+            $fieldlist[] = $fieldname;
         }
 
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
         $result = $q->output();
         if (empty($result)) return;
-        $fieldlist = array_keys($this->object->properties);
 
         // Distribute the results to the appropriate properties
 

@@ -97,6 +97,7 @@ class Query
         if ($this->debugflag) $querystart = microtime(true);
 
         if (!isset($this->dbconn)) $this->dbconn = xarDB::getConn();
+        $this->optimize();
         $this->setstatement($statement);
 
         if ($this->type != 'SELECT') {
@@ -113,7 +114,6 @@ class Query
             $begin = $this->startat-1;
             if ($this->usebinding && !$this->israwstatement) {
                 $result = $this->dbconn->SelectLimit($this->statement,$this->rowstodo,$begin,$this->bindvars);
-                $this->statement .= " LIMIT " . $begin . "," . $this->rowstodo;
             }
             else {
                 $result = $this->dbconn->SelectLimit($this->statement,$this->rowstodo,$begin);

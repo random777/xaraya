@@ -493,13 +493,19 @@ function xarException__phpErrorHandler($errorType, $errorString, $file, $line)
 
     //Checks for a @ presence in the given line, should stop from setting Xaraya or DB errors
     $errLevel = xarCore_getSystemVar('Exception.ErrorLevel',true);
+    $logLevel = xarCore_getSystemVar('Exception.ErrorLogLevel', true);
     if(!isset($errLevel)) $errLevel = E_ALL;
-    if (!error_reporting() || !($errorType & $errLevel)) {
-        // Log the message so it is not lost.
+    if(!isset($logLevel)) $logLevel = E_ALL;
+
+    // Check if we want to log this type of errors
+    if ($errorType & $logLevel) {
         // TODO: make this message available to calling functions that suppress
         // errors through '@'.
         $msg = "PHP error code $errorType at line $line of $file: $errorString";
         xarLogMessage($msg);
+    }
+    // Check if error handling should end here, see bug 1828
+    if (!error_reporting() || !($errorType & $errLevel)) {
         return;
     }
 

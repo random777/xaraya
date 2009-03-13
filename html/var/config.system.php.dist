@@ -66,6 +66,11 @@ $systemConfiguration['Exception.EnablePHPErrorHandler'] = true;
  */
  $systemConfiguration['Exception.ErrorLevel'] = E_ALL;
 
+/* This value determines if the reported error is logged. 28672 is for the constants 
+ * E_RECOVERABLE_ERROR, E_DEPRECATED and E_USER_DEPRECATED in PHP since 5.2
+ */
+ $systemConfiguration['Exception.ErrorLogLevel'] = E_ALL + 28672;
+
 /*
  * This value determines to use the ADODB cache for SQL queries
  * In some cases performance will be reduced by setting this value to

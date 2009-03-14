@@ -251,19 +251,12 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
         if ($flags & XARVAR_VAL_RESULT) {
             return false;
         }
-    } else {
-        // Value is ok, handle preparation of that value
-        if ($prep & XARVAR_PREP_FOR_DISPLAY) $value = xarVarPrepForDisplay($value);
-        if ($prep & XARVAR_PREP_FOR_HTML)    $value = xarVarPrepHTMLDisplay($value);
-
-        // TODO: this is used nowhere, plus it introduces a db connection here which is of no use
-        if ($prep & XARVAR_PREP_FOR_STORE) {
-            $dbconn =& xarDBGetConn();
-            $value = $dbconn->qstr($value);
-        }
-
-        if ($prep & XARVAR_PREP_TRIM) $value = trim($value);
     }
+    // Prepare the 'value' regardless where it comes from or if it is NULL.
+    if ($prep & XARVAR_PREP_FOR_DISPLAY) $value = xarVarPrepForDisplay($value);
+    if ($prep & XARVAR_PREP_FOR_HTML)    $value = xarVarPrepHTMLDisplay($value);
+    if ($prep & XARVAR_PREP_TRIM)        $value = trim($value);
+
     return true;
 }
 

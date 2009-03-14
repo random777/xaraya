@@ -393,11 +393,6 @@ function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addo
  * (Deprecated) Grab the formated time by the user's current locale settings
  * xarLocaleGetFormattedDate should be called instead to get a combined result
  * for date and time.
- *
- * @access public
- * @param string $length what time locale we want (short|medium|long)
- * @param int $timestamp optional unix timestamp in UTC to format
- * @param bool $addoffset add user timezone offset (default true)
  */
 function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffset = true)
 {

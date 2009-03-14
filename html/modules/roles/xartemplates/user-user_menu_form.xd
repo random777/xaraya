@@ -1,57 +1,57 @@
 <xar:comment>
-    License: GPL http://www.gnu.org/copyleft/gpl.html 
+    License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
 <xar:if condition="isset($withupload) AND $withupload">
     <xar:set name="enc_type">
-        'multipart/form-data' 
+        'multipart/form-data'
     </xar:set>
     <xar:else />
     <xar:set name="enc_type">
-        'application/x-www-form-urlencoded' 
+        'application/x-www-form-urlencoded'
     </xar:set>
 </xar:if>
 <div class="xar-mod-body">
     <h2>
         <xar:mlstring>
-            Edit User 
+            Edit User
         </xar:mlstring>
-        : #$uname# 
+        : #$uname#
     </h2>
     <form action="&xar-modurl-roles-user-usermenu;" method="post" id="post" name="post" enctype="#$enc_type#">
         <fieldset>
             <legend>
                 <xar:mlstring>
-                    User Details 
+                    User Details
                 </xar:mlstring>
             </legend>
             <div class="xar-form-input-wrapper">
                 <label for="username" class="xar-form-label">
                     <xar:mlstring>
-                        User Name 
+                        User Name
                     </xar:mlstring>
-                    : 
+                    :
                 </label>
                 <span id="username">
-                    #xarVarPrepForDisplay($uname)# 
+                    #xarVarPrepForDisplay($uname)#
                 </span>
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="emailaddress" class="xar-form-label">
                     <xar:mlstring>
-                        Email Address 
+                        Email Address
                     </xar:mlstring>
-                    : 
+                    :
                 </label>
                 <span>
-                    #xarVarPrepForDisplay($emailaddress)# 
+                    #xarVarPrepForDisplay($emailaddress)#
                 </span>
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="name" class="xar-form-label">
                     <xar:mlstring>
-                        Display Name 
+                        Display Name
                     </xar:mlstring>
-                    : 
+                    :
                 </label>
                 <input type="text" name="name" id="name" value="#xarVarPrepForDisplay($name)#" size="20" maxlength="60" />
             </div>
@@ -61,13 +61,13 @@
                         Email Address:
                     </xar:mlstring>
                 </label>
-                <input type="text" name="email" id="email" value="" size="30" maxlength="60" />
+                <input type="text" name="email" id="email" value="" size="30" maxlength="60"  autocomplete="off" />
             </div>
             <xar:if condition="xarModGetVar('roles', 'requirevalidation')">
                 <div class="xar-form-input-wrapper-after">
                     <label for="email">
                         <xar:mlstring>
-                            Changing your email address will require you to revalidate your account. 
+                            Changing your email address will require you to revalidate your account.
                         </xar:mlstring>
                     </label>
                 </div>
@@ -91,7 +91,7 @@
                 <div class="xar-form-input-wrapper">
                     <label for="home" class="xar-form-label">
                         <xar:mlstring>
-                            User Home: 
+                            User Home:
                         </xar:mlstring>
                     </label>
                     <input type="text" name="home" id="home" value="#$home#" size="40" maxlength="100" />
@@ -99,7 +99,7 @@
             <xar:elseif condition="xarModGetVar('roles','setuserhome')" />
                  <input type="hidden" name="home" id="home" value="#$home#" />
             </xar:if>
-   
+
             <div class="xar-form-input-wrapper">
                 <label for="pass1" class="xar-form-label">
                     <xar:mlstring>
@@ -107,7 +107,7 @@
                     </xar:mlstring>
                     :
                 </label>
-                <input type="password" name="pass1" id="pass1" value="" size="20" maxlength="40" />
+                <input type="password" name="pass1" id="pass1" value="" size="20" maxlength="40"  autocomplete="off" />
             </div>
 
             <div class="xar-form-input-wrapper">

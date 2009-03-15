@@ -410,7 +410,7 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
 function xarLocaleFormatUTCDate($format = null, $timestamp = null)
 {
     // pass this to the regular function with suppressing the timezone offset
-    return xarLocaleFormatDate($format, $timeatamp, false);
+    return xarLocaleFormatDate($format, $timestamp, false);
 }
 
 /**

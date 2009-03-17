@@ -3,7 +3,7 @@
  * Privileges tree renderer
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -225,7 +225,7 @@ class xarTreeRenderer
                      array('pid'=>$object['pid'])) .
                      '" title="'.xarML('Delete this Privilege').'">
                          <span style="padding-left: 0.25em; padding-right: 0.25em;">
-                            <img src="modules/privileges/xarimages/delete.gif" style="vertical-align: middle;" />
+                            <img src="'.xarTplGetImage('delete.gif').'" style="vertical-align: middle;" />
                         </span>
                     </a>';
         }
@@ -238,7 +238,7 @@ class xarTreeRenderer
                      array('pid'=>$object['pid'])) .
                      '" title="'.xarML('Show the Groups/Users this Privilege is assigned to').'">
                         <span style="padding-left: 0.25em; padding-right: 0.25em;">
-                            <img src="modules/privileges/xarimages/usersgroups.gif" style="vertical-align: middle;" />
+                            <img src="'.xarTplGetImage('usersgroups.gif').'" style="vertical-align: middle;" />
                         </span>
                      </a>';
 
@@ -254,7 +254,7 @@ class xarTreeRenderer
                          array('childid'=> $object['pid'], 'parentid' => $object['parentid'])) .
                          '" title="'.xarML('Remove this privilege from its parent').'">
                              <span style="padding-left: 0.25em; padding-right: 0.25em;">
-                                 <img src="modules/privileges/xarimages/remove.gif" style="vertical-align: middle;" />
+                                 <img src="'.xarTplGetImage('remove.gif').'" style="vertical-align: middle;" />
                              </span>
                          </a>'."\n\t\t";
         }

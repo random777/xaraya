@@ -48,13 +48,14 @@ class DataObject extends DataObjectMaster implements iDataObject
     {
         if(!empty($args['itemid']))
         {
-            if($args['itemid'] != $this->itemid)
+            if($args['itemid'] != $this->itemid) {
                 // initialise the properties again and refresh the contents of the object configuration
                 foreach($this->properties as $property) {
                     $property->value = $property->defaultvalue;
                     $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);
                 }
-
+                $this->dataquery->clearconditions();
+            }
             $this->itemid = $args['itemid'];
         }
         if(empty($this->itemid))
@@ -68,7 +69,7 @@ class DataObject extends DataObjectMaster implements iDataObject
             $primarystore = $this->properties[$this->primary]->datastore;
         }
 
-        $itemid = $this->datastore->getItem($this->toArray());
+        $itemid = $this->datastore->getItem($args);
         // only worry about finding something in primary datastore (if any)
         if(empty($itemid) && !empty($primarystore) && $primarystore == $this->datastore) {
             return;

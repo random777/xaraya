@@ -48,7 +48,7 @@ class RelationalDataStore extends SQLDataStore
         // Complete the dataquery
         $q = $this->object->dataquery;
         $fieldlist = array();
-        foreach ($this->object->properties as $field) {
+        foreach ($this->object->properties as $fieldname => $field) {
             // Ignore disabled properties
             if ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) 
                 continue;
@@ -69,7 +69,7 @@ class RelationalDataStore extends SQLDataStore
         $result = $q->row();
         if (empty($result)) return;
 
-        // Set the values of the properties
+        // Set the values of the valid properties
         foreach ($fieldlist as $field) $this->setValue($result, $field);
 
         return $itemid;
@@ -371,7 +371,7 @@ class RelationalDataStore extends SQLDataStore
                 $this->_itemids[] = $itemid;
             }
 
-            // Set the values of the properties
+            // Set the values of the valid properties
             foreach ($fieldlist as $field) {
                 $this->setItemValue($itemid, $row, $field);
             }

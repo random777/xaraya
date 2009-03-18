@@ -48,8 +48,10 @@ class RelationalDataStore extends SQLDataStore
         // Complete the dataquery
         $q = $this->object->dataquery;
         foreach ($this->object->properties as $field) {
+            // Ignore disabled properties
             if ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) 
                 continue;
+                
             if (empty($field->source)) {
                 if (empty($field->initialization_refobject)) continue;
                 $this->addqueryfields($q, $field->initialization_refobject);

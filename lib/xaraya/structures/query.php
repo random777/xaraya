@@ -892,6 +892,10 @@ class Query
             $st .= $this->assembledsorts();
             break;
         case "INSERT" :
+            if (count($this->tables) > 1) {
+                foreach ($this->tables as $table) $this->partialinsert($table);
+                return true;
+            }
             $st .= "INTO ";
             $st .= $this->assembledtables();
             $st .= $this->assembledfields("INSERT");
@@ -1539,7 +1543,8 @@ class Query
     public function addconditions($q)
     {
         if ($q->gettype() != $this->gettype()) return false;
-        foreach ($q->conditions as $key => $value) $this->addcondition($value);
+        foreach ($q->conditions as $key => $value) $this->conditions[$key] = $value;
+        foreach ($q->conjunctions as $key => $value) $this->conjunctions[$key] = $value;
     }
     public function addsorts($q)
     {
@@ -1687,6 +1692,17 @@ class Query
         $this->tablelinks = $newlinks;
         
         return true;
+    }
+
+    private function partialinsert($table)
+    {
+        // Create an insert query based on this table
+        $q = new Query('INSERT', $table);
+        
+        // Pick out the fields that are in this table
+        foreach $this->fields as $field) {
+            $fullfield = $this->_deconstructfield($field);
+        }
     }
 }
 ?>

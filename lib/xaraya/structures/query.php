@@ -1700,7 +1700,7 @@ class Query
         $q = new Query('INSERT', $table);
         
         // Pick out the fields that are in this table
-        foreach $this->fields as $field) {
+        foreach ($this->fields as $field) {
             $fullfield = $this->_deconstructfield($field);
         }
     }

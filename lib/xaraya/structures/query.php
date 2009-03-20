@@ -1,17 +1,16 @@
 <?php
   /**************************************************************************\
-  * Query class for SQL abstraction                                     *
+  * Query class for SQL abstraction                                          *
   * Written by Marc Lutolf (marcinmilan@xaraya.com)                          *
   \**************************************************************************/
 
 class Query
 {
-
-    public $version = "3.3";
-    public $key;
+    public $version = "3.4";
     public $type;
     public $tables;
     public $fields;
+    public $primary;
     public $conditions;
     public $conjunctions;
     public $bindings;
@@ -33,8 +32,10 @@ class Query
     public $limits = 1;
     public $distinctselect = false;
     public $distinctarray = array();
-    public $starttime;
 
+    private $starttime;
+    private $key;
+    
 // Flags
 // Set to true to use binding variables supported by some dbs
     public $usebinding = true;
@@ -100,6 +101,7 @@ class Query
         $this->optimize();
         $this->setstatement($statement);
 
+        if ($this->type == 'INSERT' && count($this->tables) > 1) return true;
         if ($this->type != 'SELECT') {
             if ($this->usebinding  && !$this->israwstatement) {
                 $result = $this->dbconn->Execute($this->statement,$this->bindvars);
@@ -893,7 +895,10 @@ class Query
             break;
         case "INSERT" :
             if (count($this->tables) > 1) {
-                foreach ($this->tables as $table) $this->partialinsert($table);
+                if (empty($this->primary))
+                    throw new Exception(xarML('Cannot execute a multitable insert without a primary field defined'));
+                $this->multiinsert(); 
+//                foreach ($this->tables as $table) $this->partialinsert($table);
                 return true;
             }
             $st .= "INTO ";
@@ -1694,15 +1699,121 @@ class Query
         return true;
     }
 
-    private function partialinsert($table)
+    private function multiinsert()
+    {
+        // Determin which is the primary table
+        $parts = explode('.',$this->primary);
+        if (!isset($parts[1])) 
+            throw new Exception(xarML('Incorrect format for primary field: missing table alias'));            
+        $primarytable = $parts[0];
+        
+        // Get convenient arrays to track the tables, links and fields
+        foreach ($this->tables as $table) $tablestodo[$table['alias']] = $table;
+        $linkstodo = $this->tablelinks;
+        foreach ($this->fields as $field) $fieldstodo[$field['table'] . '.' . $field['name']] = $field;
+
+        // Set up an array which holds the number of links per table
+        $tablequeue = array();
+        foreach ($tablestodo as $table) $tablequeue[$table['alias']] = 0;
+
+        // Go through the tables, running an insert for each and its fields
+        while (count($tablestodo)) {
+
+            foreach ($linkstodo as $link) {
+                // This link is not present in the insert fields
+                if (!isset($fieldstodo[$link['field1']])) {
+                    $fulllink = $this->_deconstructfield($link['field1']);
+                    $tablequeue[$fulllink['table']] += 1;
+                }
+                if (!isset($fieldstodo[$link['field2']])) {
+                    $fulllink = $this->_deconstructfield($link['field2']);
+                    $tablequeue[$fulllink['table']] += 1;
+                }            
+            }
+
+            // Now pick up the table to run an insert on
+            // Look for a table with 1 link, saving the primary table for last
+            foreach ($tablequeue as $alias => $hits) {
+                if (($hits == 1) && ($alias != $primarytable)) {
+                    $thistable = $tablestodo[$alias];
+                    break;
+                }
+            }
+
+            // If we found nothing we must be almost finished: run an insert on the primary table
+            if (empty($thistable)) $thistable = $tablestodo[$primarytable];
+
+            // Run an insert
+            $fieldsdone = $this->partialinsert($thistable,$fieldstodo);            
+        
+            // We've run the insert for this table, remove it from the list of todos
+            unset($tablestodo[$thistable['alias']]);
+            $tablequeue = array();
+            foreach ($tablestodo as $table) $tablequeue[$table['alias']] = 0;
+
+            // Now check the fieldlinks for links to other tables
+            $newlinks = array();
+            foreach ($linkstodo as $link) {
+                $fulllink = $this->_deconstructfield($link['field1']);
+                if (isset($fieldsdone[$fulllink['name']]) && $fulllink['table'] == $thistable['alias']) {
+                    $fulllink1 = $this->_deconstructfield($link['field2']);
+                    $fulllink1['value'] = $fieldsdone[$fulllink['name']];
+                    $fieldstodo[$link['field2']] = $fulllink1;
+                    break;
+                }
+                $fulllink = $this->_deconstructfield($link['field2']);
+                if (isset($fieldsdone[$fulllink['name']]) && $fulllink['table'] == $thistable['alias']) {
+                    $fulllink1 = $this->_deconstructfield($link['field1']);
+                    $fulllink1['value'] = $fieldsdone[$fulllink['name']];
+                    $fieldstodo[$link['field1']] = $fulllink1;
+                    break;
+                }
+                
+                // This link was not involved in the last insert; pass it on
+                $newlinks[] = $link;
+            }
+            $linkstodo = $newlinks;
+            $thistable = '';
+            
+        }
+        return true;
+    }
+    
+    private function partialinsert($table, $fieldstodo)
     {
         // Create an insert query based on this table
-        $q = new Query('INSERT', $table);
+        $q = new Query('INSERT');
+        $q->tables[] = $table;
         
         // Pick out the fields that are in this table
-        foreach ($this->fields as $field) {
-            $fullfield = $this->_deconstructfield($field);
+        $fieldsdone = array();
+        foreach ($fieldstodo as $key => $field) {
+            //Ignore the fields of other tables
+            if ($field['table'] != $table['alias']) continue;
+            
+            // If a field of this table hasn't been used, add it to this query
+            $q->fields[] = $field;
+            $fieldsdone[$key] = $field;
         }
+
+        // Run the insert on this table
+        if (!$q->run()) return false;
+//        $q->qecho();echo "<br />";
+                
+        // Try to retrieve the record we just inserted
+        $dbInfo = $this->dbconn->getDatabaseInfo();
+        $tableobject = $dbInfo->getTable($table['name']);
+        $primarykey = $tableobject->getPrimaryKey()->getName();
+        if (empty($primarykey))
+            throw new Exception('Unable to retrieve primary key');
+
+        $itemid = $q->lastid($table['name'], $primarykey);
+        $q = new Query('SELECT',$table['name']);
+        $q->eq($primarykey, $itemid);
+        if (!$q->run()) return false;
+        
+        // Return the array of the fields we used for this insert and their values
+        return $q->row();
     }
 }
 ?>

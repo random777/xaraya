@@ -125,8 +125,13 @@ class RelationalDataStore extends SQLDataStore
         $q->optimize();
         
         // Complete the dataquery
-        if (count($q->tables)<2) {
+        if (count($q->tables) < 2) {
         } else {
+            
+            // Find the primary and pass it to the query so we know which insert to start with
+            $q->primary = $this->object->properties[$this->object->primary]->source;
+
+            /*
             // Set aside our tables we'll be working with
             $this->tables = $q->tables;
             // Set aside our links we'll be working with
@@ -148,6 +153,7 @@ class RelationalDataStore extends SQLDataStore
                 $q->setType('INSERT');
                 $q->clearfields();
             }
+            */
         }
 //        $q->qecho();exit;
 //$q->present();exit;
@@ -481,10 +487,23 @@ class RelationalDataStore extends SQLDataStore
         if (empty($this->object->primary)) throw new Exception(xarML('The object #(1) has no primary key', $this->object->name));
 
         // Complete the dataquery
-        $q = $this->object->dataquery;
+        $q = new Query();
         $q->addfield('COUNT(DISTINCT ' . $this->object->properties[$this->object->primary]->source . ')');
 
-        // Run it
+        // We need to make sure we only have the primary table here
+        $primaryfield = $this->object->properties[$this->object->primary]->source;
+        $parts = explode('.',$primaryfield);
+        if (!isset($parts[1])) 
+            throw new Exception(xarML('Incorrect format for primary field: missing table alias'));            
+        $primaryalias = $parts[0];
+        $tables = array();
+        foreach ($this->object->dataquery->tables as $table)
+            if ($table['alias'] == $primaryalias) $tables[] = $table;
+        if (empty($tables)) 
+            throw new Exception(xarML('Could not identify the primary table'));            
+        $q->tables = $tables;
+        
+        // Run the query
         if (!$q->run()) throw new Exception(xarML('Query failed'));
         $result = $q->row();
         if (empty($result)) return;

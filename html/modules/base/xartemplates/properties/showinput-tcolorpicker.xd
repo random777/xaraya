@@ -1,6 +1,6 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:set name="alttext"><xar:mlstring>Click Here to select a color</xar:mlstring></xar:set>
-<xar:set name="pickerimage">xarTplGetImage('tcolorpicker.gif', 'base')</xar:set>
+<xar:set name="pickerimage">xarTplGetImage('icons/color-picker.png', 'base')</xar:set>
 
 <input type="text" name="#$name#" id="#$id#" value="#$value#" size="#$size#" maxlength="#$maxlength#" />
 

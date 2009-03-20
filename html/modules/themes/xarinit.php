@@ -145,7 +145,7 @@ function themes_init()
     xarModSetVar('themes', 'SiteCopyRight', '&copy; Copyright 2006 ');
     xarModSetVar('themes', 'SiteTitleSeparator', ' :: ');
     xarModSetVar('themes', 'SiteTitleOrder', 'default');
-    xarModSetVar('themes', 'SiteFooter', '<a href="http://www.xaraya.com"><img src="modules/base/xarimages/xaraya.gif" alt="Powered by Xaraya" class="xar-noborder" /></a>');
+    xarModSetVar('themes', 'SiteFooter', '<a href="http://www.xaraya.com"><img src="modules/base/xarimages/xaraya.png" alt="Powered by Xaraya" class="xar-noborder" /></a>');
     xarModSetVar('themes', 'ShowPHPCommentBlockInTemplates', 0);
     xarModSetVar('themes', 'ShowTemplates', 0);
     //Moved here in 1.1.x series

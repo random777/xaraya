@@ -46,27 +46,26 @@ function modules_admin_modinfonew()
     $data['modcat']             = xarVarPrepForDisplay($modinfo['category']);
     $data['modver']             = xarVarPrepForDisplay($modinfo['version']);
     // check for proper icon, if not found display default
-    // also displaying a generic icon now, if it was provided
+    // also displaying a generic icon now
     // additionally showing a short message if the icon is missing..
     // TODO icon not yet part of modinfo
     if (isset($modinfo['icon'])) {
       $modicon = xarVarPrepForDisplay($modinfo['icon']);
     } else {
-      $modicon = 'modules/' . $data['moddir'] . '/xarimages/admin.gif';
+        $modicon = 'modules/' . $data['moddir'] . '/xarimages/' . $data['moddir'] . '.png';
+        if(!file_exists($modicon)) {
+          $modicon = 'modules/' . $data['moddir'] . '/xarimages/admin.gif';
+        }
     }
-    $modicongeneric = 'modules/' . $data['moddir'] . '/xarimages/admin_generic.gif';
-    if (file_exists($modicon)){
+    if ($data['modname'] == 'authsystem'
+              || substr($data['modclass'], 0, 4) == 'Core'){
+        $data['modiconurl'] = 'modules/' . $data['moddir'] . '/xarimages/' . $data['moddir'] . '.png';
+        $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Xaraya Core Module'));
+    } elseif (file_exists($modicon)){
         $data['modiconurl']     = xarVarPrepForDisplay($modicon);
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('as provided by the author'));
-    } elseif ($data['modname'] == 'authsystem'
-              || substr($data['modclass'], 0, 4) == 'Core'){
-        $data['modiconurl'] = 'modules/modules/xarimages/admin.gif';
-        $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Xaraya Core Module'));
-    }elseif(file_exists($modicongeneric)){
-        $data['modiconurl']     = xarVarPrepForDisplay($modicongeneric);
-        $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Only generic icon has been provided'));
-    }else{
-        $data['modiconurl']     = xarVarPrepForDisplay('modules/modules/xarimages/admin_generic.gif');
+    } else{
+        $data['modiconurl']     = xarVarPrepForDisplay('modules/modules/xarimages/module-generic.png');
         $data['modiconmsg'] = xarVarPrepForDisplay(xarML('[Original icon is missing.. 
                                 please ask this module developer to provide one in accordance with MDG]'));
     }

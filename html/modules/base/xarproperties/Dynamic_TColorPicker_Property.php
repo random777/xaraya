@@ -81,7 +81,7 @@ class Dynamic_TColorPicker_Property extends Dynamic_Property
         // Create the tags.
         $output = '<input type="text" name="'.$name.'" id="'.$id.'_input" value="'.xarVarPrepForDisplay($value).'" size="' . $this->size . '" maxlength="' . $this->maxlength . '" />'
             . '<a href="javascript:TCP.popup(document.getElementById(\''.$id.'_input\'), 1)">'
-            . '<img src="' . xarTplGetImage('tcolorpicker.gif', 'base') . '" width="15" height="13" border="0" alt="' . xarML('Click Here to select a color') . '" />'
+            . '<img src="' . xarTplGetImage('icons/color-picker.png', 'base') . '" alt="' . xarML('Click Here to select a color') . '" />'
             . '</a>';
 
         if (!empty($this->invalid)) {

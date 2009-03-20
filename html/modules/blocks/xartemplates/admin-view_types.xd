@@ -1,4 +1,6 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:set name="icon_refresh">xarTplGetImage('icons/view-refresh.png','base')</xar:set>
+<xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Blocks Administration</xar:mlstring></span>
 </div>
@@ -133,10 +135,10 @@
                         </xar:if>
                     </td>
                     <td class="xar-align-center">
-                        <a href="#$loop:item['refreshurl']#" title="#xarML('Refresh block details')#"><xar:mlstring>Refresh</xar:mlstring></a>
+                        <a href="#$loop:item['refreshurl']#" title="#xarML('Refresh block details')#"><img src="#$icon_refresh#" alt="#xarML('Refresh')#" /></a>
                         <xar:comment>BUG 2750: Add a link to delete block type</xar:comment>
                         <xar:if condition="isset($loop:item['deleteurl'])">
-                            | <a href="#$loop:item['deleteurl']#" title="#xarML('Delete this block type')#"><xar:mlstring>Delete</xar:mlstring></a>
+                            <a href="#$loop:item['deleteurl']#" title="#xarML('Delete this block type')#"><img src="#$icon_delete#" alt="#xarML('Delete')#" /></a>
                         </xar:if>
                     </td>
                 </tr>

@@ -31,6 +31,10 @@
         </xar:if>
 
         <xar:if condition="empty($table)">
+            <xar:set name="icon_display">xarTplGetImage('icons/display.png','base')</xar:set>
+            <xar:set name="icon_test">xarTplGetImage('icons/test.png','base')</xar:set>
+            <xar:set name="icon_export">xarTplGetImage('icons/export-xml.png','base')</xar:set>
+            <xar:set name="icon_add">xarTplGetImage('icons/add.png','base')</xar:set>
             <table>
                 <tr>
                     <th>
@@ -48,20 +52,17 @@
                             </a>
                         </td>
                         <td class="xar-align-center">
-                            <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$curtable#">
-                                <xar:mlstring>View</xar:mlstring>
+                            <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$curtable#" title="#xarML('View')#">
+                                <img src="#$icon_display#" alt="#xarML('View')#" />
                             </a>
-                            | 
-                            <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$curtable#">
-                                <xar:mlstring>Query</xar:mlstring>
+                            <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$curtable#" title="#xarML('Query')#">
+                                <img src="#$icon_test#" alt="#xarML('Query')#" />
                             </a>
-                            | 
-                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#&amp;export=1">
-                                <xar:mlstring>Export XML</xar:mlstring>
+                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#&amp;export=1" title="#xarML('Export XML')#">
+                                <img src="#$icon_export#" alt="#xarML('Export XML')#" />
                             </a>
-                            | 
-                            <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$curtable#">
-                                <xar:mlstring>Add Relation</xar:mlstring>
+                            <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$curtable#" title="#xarML('Add Relation')#">
+                                <img src="#$icon_add#" alt="#xarML('Add Relation')#" />
                             </a>
                         </td>
                     </tr>

@@ -88,8 +88,8 @@ class Dynamic_OrderSelect_Property extends Dynamic_Select_Property
         $data['name']   = $name;
         $data['id']     = $id;
         $data['options']= $options;
-        $data['up_arrow_src']   = xarTplGetImage('up.gif', 'blocks');
-        $data['down_arrow_src'] = xarTplGetImage('down.gif', 'blocks');
+        $data['up_arrow_src']   = xarTplGetImage('icons/go-up.png', 'base');
+        $data['down_arrow_src'] = xarTplGetImage('icons/go-down.png', 'base');
 
         $data['tabindex'] =!empty($tabindex) ? $tabindex : 0;
         $data['invalid']  =!empty($this->invalid) ? xarML('Invalid #(1)', $this->invalid) : '';

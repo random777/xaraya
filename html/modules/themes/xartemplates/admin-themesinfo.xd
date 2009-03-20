@@ -152,9 +152,6 @@
                         <option value="&xar-modurl-roles-admin-main;&amp;theme=#$themedir#"><xar:mlstring>Roles (admin)</xar:mlstring></option>
                         <option value="&xar-modurl-themes-admin-themesinfo;&amp;theme=#$themedir#&amp;id=#$themeid#"><xar:mlstring>This Page</xar:mlstring></option>                    
                     </select>
-                    <noscript>
-                        <input type="submit" value="Go" />
-                    </noscript>
                 <xar:else/>
                     <xar:mlstring>Theme not active, activate it first.</xar:mlstring>
                 </xar:if>

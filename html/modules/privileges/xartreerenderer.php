@@ -40,8 +40,13 @@ class xarTreeRenderer
     var $expandedbox = '<img class="xar-privtree-box" src="modules/privileges/xarimages/k2.gif" alt="" style="padding-left: 0.1em; vertical-align: middle" onclick="toggleBranch(this, this.parentNode.lastChild);" />';
     var $blank = '<img src="modules/privileges/xarimages/blank.gif" alt="" style="vertical-align: middle" />';
     var $collapsedbox = '<img class="xar-privtree-box" src="modules/privileges/xarimages/k3.gif" alt="" style="padding-left: 0.1em; vertical-align: middle" onclick="toggleBranch(this, this.parentNode.lastChild);" />';
-    var $bigblank ='<span style="padding-left: 0.25em; padding-right: 0.25em;"><img src="modules/privileges/xarimages/blank.gif" alt="" style="vertical-align: middle; width: 16px; height: 16px;" /></span>';
-    var $biggerblank ='<span style="padding-left: 0.25em; padding-right: 0.5em;"><img src="modules/privileges/xarimages/blank.gif" alt="" style="vertical-align: middle; width: 16px; height: 16px;" /></span>';
+    var $bigblank = '<span style="padding-left: 0.25em; padding-right: 0.25em;"><img src="modules/privileges/xarimages/blank.gif" alt="" style="vertical-align: middle; width: 16px; height: 16px;" /></span>';
+    var $biggerblank = '<span style="padding-left: 0.25em; padding-right: 0.5em;"><img src="modules/privileges/xarimages/blank.gif" alt="" style="vertical-align: middle; width: 16px; height: 16px;" /></span>';
+
+    var $icon_delete;
+    var $icon_groups;
+    var $icon_remove;
+    var $icon_toggle;
 
     // we'll use this to check whether a group has already been processed
     var $alreadydone;
@@ -53,6 +58,12 @@ class xarTreeRenderer
         function xarTreeRenderer()
         {
             $this->privs = new xarPrivileges();
+
+            $this->icon_toggle = xarTplGetImage('icons/toggle.png', 'base');
+            $this->icon_delete = xarTplGetImage('icons/delete.png', 'base');
+            $this->icon_groups = xarTplGetImage('icons/system-user-groups.png', 'base');
+            $this->icon_remove = xarTplGetImage('icons/remove.png', 'base');
+            $this->icon_toggle = xarTplGetImage('icons/toggle.png', 'base');
         }
 
     /**
@@ -210,7 +221,7 @@ class xarTreeRenderer
             $this->html .= $this->bigblank;
         }
         else {
-            $this->html .= '<a href="javascript:xarTree_exec(\''. $object['name'] .'\',2);" title="Expand or collapse this tree" style="padding-left: 0.25em; padding-right: 0.25em;"><img src="modules/privileges/xarimages/toggle.gif" style="vertical-align: middle;" /></a>';
+            $this->html .= '<a href="javascript:xarTree_exec(\''. $object['name'] .'\',2);" title="Expand or collapse this tree" style="padding-left: 0.25em; padding-right: 0.25em;"><img src="' . $this->icon_toggle . '" style="vertical-align: middle;" /></a>';
         }
 */
     // don't allow deletion of certain privileges
@@ -225,7 +236,7 @@ class xarTreeRenderer
                      array('pid'=>$object['pid'])) .
                      '" title="'.xarML('Delete this Privilege').'">
                          <span style="padding-left: 0.25em; padding-right: 0.25em;">
-                            <img src="'.xarTplGetImage('delete.gif').'" style="vertical-align: middle;" />
+                            <img src="'. $this->icon_delete .'" style="vertical-align: middle;" />
                         </span>
                     </a>';
         }
@@ -238,7 +249,7 @@ class xarTreeRenderer
                      array('pid'=>$object['pid'])) .
                      '" title="'.xarML('Show the Groups/Users this Privilege is assigned to').'">
                         <span style="padding-left: 0.25em; padding-right: 0.25em;">
-                            <img src="'.xarTplGetImage('usersgroups.gif').'" style="vertical-align: middle;" />
+                            <img src="'. $this->icon_groups .'" style="vertical-align: middle;" />
                         </span>
                      </a>';
 
@@ -254,7 +265,7 @@ class xarTreeRenderer
                          array('childid'=> $object['pid'], 'parentid' => $object['parentid'])) .
                          '" title="'.xarML('Remove this privilege from its parent').'">
                              <span style="padding-left: 0.25em; padding-right: 0.25em;">
-                                 <img src="'.xarTplGetImage('remove.gif').'" style="vertical-align: middle;" />
+                                 <img src="'. $this->icon_remove .'" style="vertical-align: middle;" />
                              </span>
                          </a>'."\n\t\t";
         }

@@ -24,8 +24,8 @@ function roles_user_usermenu($args)
     $data = array(); $hooks = array();
     switch(strtolower($phase)) {
         case 'menu':
-            $iconbasic    = xarTplGetImage('home.gif', 'roles');
-            $iconenhanced = xarTplGetImage('home.gif', 'roles');
+            $iconbasic    = xarTplGetImage('icons/go-home.png', 'base');
+            $iconenhanced = xarTplGetImage('icons/go-home.png', 'base');
             $current      = xarModURL('roles', 'user', 'account', array('moduleload' => 'roles'));
             $data         = xarTplModule('roles','user', 'user_menu_icon',
                                       array('iconbasic'    => $iconbasic,

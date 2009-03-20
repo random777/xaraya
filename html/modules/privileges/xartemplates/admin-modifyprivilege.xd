@@ -333,7 +333,7 @@
             </xar:ml>
           </xar:set>
           <a href="&xar-modurl-privileges-admin-removemember;&amp;childid=#$ppid#&amp;parentid=#$loop:item['parentid']#&amp;authid=#$authid#">
-            <img src="modules/privileges/xarimages/remove.gif" alt="#xarML('Remove')#" title="#$tmptitle#" />
+            <img src="#xarTplGetImage('icons/remove.png','base')#" alt="#xarML('Remove')#" title="#$tmptitle#" />
           </a>
         </div>
       </xar:loop>

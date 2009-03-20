@@ -27,8 +27,8 @@ function blocks_admin_modify_group()
         array('gid' => $gid)
     );
 
-    $up_arrow_src   = xarTplGetImage('up.gif');
-    $down_arrow_src = xarTplGetImage('down.gif');
+    $up_arrow_src   = xarTplGetImage('icons/go-up.png','base');
+    $down_arrow_src = xarTplGetImage('icons/go-down.png','base');
 
     return array(
         'group'            => $group,

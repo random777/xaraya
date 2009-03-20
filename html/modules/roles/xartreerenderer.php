@@ -48,6 +48,13 @@ class xarTreeRenderer
     var $bigblank;
     var $smallblank;
 
+    var $icon_users;
+    var $icon_delete;
+    var $icon_mail;
+    var $icon_privileges;
+    var $icon_test;
+
+
     /**
      * Constructor
      */
@@ -72,6 +79,12 @@ class xarTreeRenderer
         $this->setitem(5, "testitem");
         $this->setitem(6, "treeitem");
         $this->setitem(7, "descriptionitem");
+
+        $this->icon_users = xarTplGetImage('icons/system-users.png', 'base');
+        $this->icon_delete = xarTplGetImage('icons/delete.png', 'base');
+        $this->icon_mail = xarTplGetImage('icons/mail-message-new.png', 'base');
+        $this->icon_privileges = xarTplGetImage('icons/privileges.png', 'base');
+        $this->icon_test = xarTplGetImage('icons/test.png', 'base');
     }
 
     /**
@@ -270,7 +283,7 @@ class xarTreeRenderer
             $data['leafitemurl'] = xarModURL('roles', 'admin', 'showusers',
                             array('uid' => $this->treenode['uid'], 'reload' => 1));
             $data['leafitemtitle'] = xarML('Show the Users in this Group');
-            $data['leafitemimage'] = xarTplGetImage('users.png');
+            $data['leafitemimage'] = $this->icon_users;
             return xarTplObject('roles', 'leaf', 'showuser', $data);
         }
     }
@@ -283,7 +296,7 @@ class xarTreeRenderer
             $data['leafitemurl'] = xarModURL('roles', 'admin', 'deleterole',
                             array('uid' => $this->treenode['uid']));
             $data['leafitemtitle'] = xarML('Delete this Group');
-            $data['leafitemimage'] = xarTplGetImage('delete.png');
+            $data['leafitemimage'] = $this->icon_delete;
             return xarTplObject('roles', 'leaf', 'deleteuser', $data);
         }
     }
@@ -296,7 +309,7 @@ class xarTreeRenderer
             $data['leafitemurl'] = xarModURL('roles', 'admin', 'createmail',
                             array('uid' => $this->treenode['uid']));
             $data['leafitemtitle'] = xarML('Email the Users in this Group');
-            $data['leafitemimage'] = xarTplGetImage('email.png');
+            $data['leafitemimage'] = $this->icon_mail;
             return xarTplObject('roles', 'leaf', 'email', $data);
         }
     }
@@ -309,7 +322,7 @@ class xarTreeRenderer
             $data['leafitemurl'] = xarModURL('roles', 'admin', 'showprivileges',
                             array('uid' => $this->treenode['uid']));
             $data['leafitemtitle'] = xarML('Show the Privileges assigned to this Group');
-            $data['leafitemimage'] = xarTplGetImage('privileges.png');
+            $data['leafitemimage'] = $this->icon_privileges;
             return xarTplObject('roles', 'leaf', 'showprivileges', $data);
         }
     }
@@ -322,7 +335,7 @@ class xarTreeRenderer
             $data['leafitemurl'] = xarModURL('roles', 'admin', 'testprivileges',
                             array('uid' => $this->treenode['uid']));
             $data['leafitemtitle'] = xarML("Test this Groups's Privileges");
-            $data['leafitemimage'] = xarTplGetImage('test.png');
+            $data['leafitemimage'] = $this->icon_test;
             return xarTplObject('roles', 'leaf', 'testprivileges', $data);
         }
     }

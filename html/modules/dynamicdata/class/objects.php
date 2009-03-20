@@ -1838,7 +1838,8 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
-                                       'ojoin'  => '');
+                                       'ojoin'  => '',  
+                                       'oicon' => xarTplGetImage('icons/none.png','base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => xarModURL($args['urlmodule'],$linktype,$linkfunc,
@@ -1846,7 +1847,8 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          'table'        => $table,
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
-                                       'ojoin'  => '');
+                                       'ojoin'  => '',
+                                       'oicon' => xarTplGetImage('icons/display.png','base'));
                 }
                 $options[] = array('otitle' => xarML('Edit'),
                                    'olink'  => xarModURL($args['urlmodule'],'admin','modify',
@@ -1854,19 +1856,22 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                      'table'        => $table,
                                                      $args['param'] => $itemid,
                                                      'template'     => $args['template'])),
-                                   'ojoin'  => '|');
+                                   'ojoin'  => '|',
+                                   'oicon' => xarTplGetImage('icons/modify.png','base'));
                 $options[] = array('otitle' => xarML('Delete'),
                                    'olink'  => xarModURL($args['urlmodule'],'admin','delete',
                                                array('itemtype'     => $itemtype,
                                                      'table'        => $table,
                                                      $args['param'] => $itemid,
                                                      'template'     => $args['template'])),
-                                   'ojoin'  => '|');
+                                   'ojoin'  => '|',
+                                   'oicon' => xarTplGetImage('icons/delete.png','base'));
             } elseif(xarSecurityCheck('EditDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
-                                       'ojoin'  => '');
+                                       'ojoin'  => '',
+                                       'oicon' => xarTplGetImage('icons/none.png','base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => xarModURL($args['urlmodule'],$linktype,$linkfunc,
@@ -1874,7 +1879,8 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          'table'        => $table,
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
-                                       'ojoin'  => '');
+                                       'ojoin'  => '',  
+                                       'oicon' => xarTplGetImage('icons/none.png','base'));
                 }
                 $options[] = array('otitle' => xarML('Edit'),
                                    'olink'  => xarModURL($args['urlmodule'],'admin','modify',
@@ -1882,12 +1888,14 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                      'table'        => $table,
                                                      $args['param'] => $itemid,
                                                      'template'     => $args['template'])),
-                                   'ojoin'  => '|');
+                                   'ojoin'  => '|',  
+                                   'oicon' => xarTplGetImage('icons/modify.png','base'));
             } elseif(xarSecurityCheck('ReadDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
-                                       'ojoin'  => '');
+                                       'ojoin'  => '',  
+                                       'oicon' => xarTplGetImage('icons/none.png','base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => xarModURL($args['urlmodule'],$linktype,$linkfunc,
@@ -1895,7 +1903,8 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          'table'        => $table,
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
-                                       'ojoin'  => '');
+                                       'ojoin'  => '',  
+                                       'oicon' => xarTplGetImage('icons/display.png','base'));
                 }
             }
             $args['links'][$itemid] = $options;
@@ -2032,7 +2041,8 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                                                     'table'        => $table,
                                                                                     $args['param'] => $itemid,
                                                                                     'template'     => $args['template'])),
-                                                        'ojoin'  => '');
+                                                        'ojoin'  => '',  
+                                                        'oicon' => xarTplGetImage('icons/display.png','base'));
         }
         if (!empty($this->isgrouped)) {
             foreach (array_keys($args['properties']) as $name) {

@@ -157,7 +157,7 @@ class Dynamic_URLIcon_Property extends Dynamic_TextBox_Property
                                 array('url' => $data['value']));
                     if (!($data['icon'])) {
                         /* we'll have to use the default system icon */
-                        $data['icon'] = xarTplGetImage('urlicon.gif','base');
+                        $data['icon'] = xarTplGetImage('icons/www-url.png','base');
                     }
                 }
                 $template="";

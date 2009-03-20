@@ -1,4 +1,6 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
+<xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
 <table class="xar-fullwidth">
     <tr>
         <th>
@@ -73,15 +75,10 @@
             </td>
             <td class="xar-align-center">
                 <a href="&xar-modurl-blocks-admin-modify_instance;&amp;bid=#$loop:item.bid#">
-                    <xar:mlstring>
-                        Edit 
-                    </xar:mlstring>
+                    <img src="#$icon_modify#" alt="#xarML('Modify')#" />
                 </a>
-                | 
                 <a href="#$loop:item['deleteurl']#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($loop:item['deleteconfirm'])#')">
-                    <xar:mlstring>
-                        Delete 
-                    </xar:mlstring>
+                    <img src="#$icon_delete#" alt="#xarML('Delete')#" />
                 </a>
             </td>
         </tr>

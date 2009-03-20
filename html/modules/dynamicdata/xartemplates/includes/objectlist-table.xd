@@ -1,22 +1,22 @@
 <!-- TODO: multi-column output -->
+<xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
+<xar:set name="icon_view">xarTplGetImage('icons/view.png','base')</xar:set>
+<xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
 <div class="xar-fullwidth">
     <h4>
         <xar:mlstring>
             Properties and Options 
         </xar:mlstring>
     </h4>
+
+    <xar:if condition="!empty($newlink)">
+        <p>
+            <a href="#$newlink#"><xar:mlstring>Create New</xar:mlstring></a>
+        </p>
+    </xar:if>
+
     <!-- we don't use xar:data-form or xar:data-input here, because this is typically not an input form -->
     <table class="xar-fullwidth">
-        <!-- Show the create new link only once, if at all -->
-        <xar:if condition="!empty($newlink)">
-            <tr>
-                <xar:set name="colspan">count($properties)+2</xar:set>
-                <th class="xar-align-left" colspan="#$colspan#">
-                    <a href="#$newlink#"><strong><xar:mlstring>Create New</xar:mlstring></strong></a>
-                </th>
-            </tr>
-        </xar:if>
-        
         <xar:set name="item_no">0</xar:set>
         <xar:foreach in="$items" key="$itemid" value="$fields">
             <xar:if condition="$item_no eq 0">
@@ -51,12 +51,11 @@
                 <td style="border-bottom: 1pt solid;" class="xar-align-right" colspan="#$colspan#">
                         <xar:foreach in="$links[$itemid]" value="$option">
                         <xar:if condition="!empty($option['olink'])">
-                            #$option['ojoin']# 
                             <a href="#$option['olink']#">
-                                #$option['otitle']# 
+                                <img src="#$option['oicon']#" alt="#$option['otitle']#" />
                             </a>
                         <xar:else />
-                            #$option['ojoin']# #$option['otitle']# 
+                            <img src="#$option['oicon']#" alt="#$option['otitle']#" />
                         </xar:if>
                     </xar:foreach>
                 </td>

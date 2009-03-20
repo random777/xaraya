@@ -11,6 +11,16 @@
 <xar:style scope="module" module="base" file="navtabs" />
 <xar:style scope="module" file="roletree" />
 
+
+<xar:set name="icon_password">xarTplGetImage('icons/user-password.png','base')</xar:set>
+<xar:set name="icon_info">xarTplGetImage('icons/info.png','base')</xar:set>
+<xar:set name="icon_privileges">xarTplGetImage('icons/privileges.png','base')</xar:set>
+<xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
+<xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
+<xar:set name="icon_none">xarTplGetImage('icons/none.png','base')</xar:set>
+<xar:set name="icon_test">xarTplGetImage('icons/test.png','base')</xar:set>
+
+
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Roles Administration</xar:mlstring></span>
 </div>
@@ -319,17 +329,19 @@
                             <xar:if condition="!$loop:item['frozen']">
                                 <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">
                                 <!-- only show this option if password notification is active else we get change without anyone knowing see bug #5719-->
-                                    <a href="&xar-modurl-roles-admin-createpassword;&amp;uid=#$loop:item.uid#&amp;state=#$state#&amp;groupuid=#$groupuid#" title="#xarML('Generate a new password for this User')#"><img src="#xarTplGetImage('passicon.gif','roles')#" class="xar-valign-middle"/></a>&nbsp;
+                                    <a href="&xar-modurl-roles-admin-createpassword;&amp;uid=#$loop:item.uid#&amp;state=#$state#&amp;groupuid=#$groupuid#" title="#xarML('Generate a new password for this User')#"><img src="#$icon_password#" class="xar-valign-middle"/></a>&nbsp;
                                 </xar:if>
-                                <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$loop:item.uid##modify" title="#xarML('Modify this user')#"><img src="#xarTplGetImage('infoicon.gif','roles')#" class="xar-valign-middle"/></a>&nbsp;
-                                <a href="&xar-modurl-roles-admin-deleterole;&amp;uid=#$loop:item.uid#" title="#xarML('Delete this User')#"><img src="#xarTplGetImage('delete.png','roles')#" class="xar-valign-middle"/></a>&nbsp;
+                                <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$loop:item.uid##modify" title="#xarML('Modify this user')#"><img src="#$icon_modify#" class="xar-valign-middle"/></a>&nbsp;
+                                <a href="&xar-modurl-roles-admin-deleterole;&amp;uid=#$loop:item.uid#" title="#xarML('Delete this User')#"><img src="#$icon_delete#" class="xar-valign-middle"/></a>&nbsp;
                             <xar:else />
-                                <img src="#xarTplGetImage('passicon.gif','roles')#" class="xar-valign-middle"/>&nbsp;
-                                <img src="#xarTplGetImage('passicon.gif','roles')#" class="xar-valign-middle"/>&nbsp;
-                                <img src="#xarTplGetImage('passicon.gif','roles')#" class="xar-valign-middle"/>&nbsp;
+                                <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">
+	                                <img src="#$icon_none#" class="xar-valign-middle"/>&nbsp;
+								</xar:if>
+                                <img src="#$icon_none#" class="xar-valign-middle"/>&nbsp;
+                                <img src="#$icon_none#" class="xar-valign-middle"/>&nbsp;
                             </xar:if>
-                            <a href="&xar-modurl-roles-admin-showprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Show the Privileges assigned to this User')#"><img src="#xarTplGetImage('privileges.png','roles')#" class="xar-valign-middle"/></a>&nbsp;
-                            <a href="&xar-modurl-roles-admin-testprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Test the Privileges of this User')#"><img src="#xarTplGetImage('test.png','roles')#" class="xar-valign-middle"/></a>
+                            <a href="&xar-modurl-roles-admin-showprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Show the Privileges assigned to this User')#"><img src="#$icon_privileges#" class="xar-valign-middle"/></a>&nbsp;
+                            <a href="&xar-modurl-roles-admin-testprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Test the Privileges of this User')#"><img src="#$icon_test#" class="xar-valign-middle"/></a>
                         </td>
                         <td class="xar-align-center">
                             <xar:if condition="!$loop:item['frozen']">

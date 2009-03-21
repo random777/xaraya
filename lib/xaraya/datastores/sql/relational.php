@@ -66,12 +66,22 @@ class RelationalDataStore extends SQLDataStore
 
         // Run it
         if (!$q->run()) throw new Exception(xarML('Query failed'));
-        $result = $q->row();
+        $result = $q->output();
         if (empty($result)) return;
 
         // Set the values of the valid properties
-        foreach ($fieldlist as $field) $this->setValue($result, $field);
-
+        $index = 0;
+        foreach ($result as $row) {
+            // Set the values of the valid properties
+            foreach ($fieldlist as $field) {
+                if ($this->object->properties[$field]->type == 30069) {
+                    $this->setItemValue($itemid, $row, $field);
+                } elseif ($index < 1) {
+                    $this->setValue($row, $field);
+                }
+            }
+            $index++;
+        }    
         return $itemid;
     }
 

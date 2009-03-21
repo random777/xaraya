@@ -1541,7 +1541,6 @@ class Query
     }
     public function tostring()
     {
-        $this->optimize();
         $this->setstatement();
         return $this->getstatement();
     }

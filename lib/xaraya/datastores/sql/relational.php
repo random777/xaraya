@@ -125,38 +125,10 @@ class RelationalDataStore extends SQLDataStore
         $q->optimize();
         
         // Complete the dataquery
-        if (count($q->tables) < 2) {
-        } else {
-            
+        if (count($q->tables) > 1) {
             // Find the primary and pass it to the query so we know which insert to start with
             $q->primary = $this->object->properties[$this->object->primary]->source;
-
-            /*
-            // Set aside our tables we'll be working with
-            $this->tables = $q->tables;
-            // Set aside our links we'll be working with
-            $this->tablelinks = $q->tablelinks;
-                        
-            // Set aside our fields we'll be working with
-            $this->fields = $q->fields;
-
-            // Find the primary and get its table alias so we know which insert to start with
-            $primarysource = $this->object->properties[$this->object->primary]->source;
-            $parts = explode('.',$primarysource);
-            if (count($parts) != 2) throw new Exception(xarML('Incorrect datasource'));
-            $alias = $parts[0];
-            
-            $this->runinsert($alias,$this->object->primary);
-
-            foreach ($this->tables as $table) {
-                $q = clone $this->object->dataquery;
-                $q->setType('INSERT');
-                $q->clearfields();
-            }
-            */
         }
-//        $q->qecho();exit;
-//$q->present();exit;
 
         // Run it
         $q->clearconditions();

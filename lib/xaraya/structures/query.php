@@ -1680,12 +1680,24 @@ class Query
             if (isset($tables[$fullfield['table']])) unset($tables[$fullfield['table']]);
         }
 
+        // Remove any tables that have more than 1 link
+        foreach ($tables as $key => $table) $tablehits[$key] = 0;
+        foreach ($this->tablelinks as $link) {
+            $fullfield = $this->_deconstructfield($link['field1']);
+            if (isset($tables[$fullfield['table']])) $tablehits[$fullfield['table']] += 1;
+            $fullfield = $this->_deconstructfield($link['field1']);
+            if (isset($tables[$fullfield['table']])) $tablehits[$fullfield['table']] += 1;
+        }
+        foreach ($tablehits as $key => $hits) if ($hits > 1) unset($tables[$key]);
+                    
         // What is left are the table with no fields; remove them
         $newtables = array();
         foreach ($this->tables as $table) {
             if (!isset($tables[$table['alias']])) $newtables[] = $table;
         }
         $this->tables = $newtables;
+        
+        // Now remove the links that contain them
         $newlinks = array();
         foreach ($this->tablelinks as $link) {
             $fullfield1 = $this->_deconstructfield($link['field1']);

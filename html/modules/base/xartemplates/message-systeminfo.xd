@@ -11,7 +11,7 @@
     <span class="xar-mod-title"><xar:mlstring>System Message</xar:mlstring></span>
 </div>
 <div class="xar-mod-body">
-    <img src="#xarTplGetImage('info.png', 'base')#" alt="#xarML('Message Icon')#" class="xar-module-icon" />
+    <img src="#xarTplGetImage('info.png', 'base')#" alt="#xarML('Information Icon')#" class="xar-module-icon" />
 
     <h2>
          #$title#

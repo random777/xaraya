@@ -47,7 +47,6 @@ function dynamicdata_utilapi_importproperties($args)
     if (empty($objectid)) {
         $object = DataObjectMaster::getObjectInfo(array('modid' => $modid,
                                       'itemtype' => $itemtype));
-        var_dump($object);exit;
         if (!isset($object)) {
             $modinfo = xarModGetInfo($modid);
             $name = $modinfo['name'];

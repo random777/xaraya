@@ -74,6 +74,7 @@ class RelationalDataStore extends SQLDataStore
         foreach ($result as $row) {
             // Set the values of the valid properties
             foreach ($fieldlist as $field) {
+                // Subitem properties get special treatment
                 if ($this->object->properties[$field]->type == 30069) {
                     $this->setItemValue($itemid, $row, $field);
                 } elseif ($index < 1) {

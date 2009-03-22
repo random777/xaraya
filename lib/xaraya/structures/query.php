@@ -1681,6 +1681,7 @@ class Query
         }
 
         // Remove any tables that have more than 1 link
+        $tablehits = array();
         foreach ($tables as $key => $table) $tablehits[$key] = 0;
         foreach ($this->tablelinks as $link) {
             $fullfield = $this->_deconstructfield($link['field1']);

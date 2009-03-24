@@ -422,10 +422,9 @@ class RelationalDataStore extends SQLDataStore
     // Convert the source field name to this property's name and assign
     // Note we add the subitems to the rows of the parent object list items array
     // We do this for convenience of calling the items, and because the subobject is defined as an object, not an objectlist 
-                   $sourceparts = explode('.',$subitemsobject->properties[$subproperty]->source);
-//                   $subitemsobject->properties[$subproperty]->setItemValue($itemid,$row[$subitemsobjectname . "_" . $sourceparts[1]]);   
+                    $sourceparts = explode('.',$subitemsobject->properties[$subproperty]->source);
                     $subobjectid = $row[$subitemsobjectname . "_" . $subitemsobject->primary];
-                    $this->object->items[$itemid][$subitemsobjectname . "_" . $sourceparts[1]][$subobjectid] = $row[$subitemsobjectname . "_" . $sourceparts[1]];
+                    $this->object->items[$itemid][$subitemsobjectname . "_" . $subproperty][$subobjectid] = $row[$subitemsobjectname . "_" . $sourceparts[1]];
                 }
              }
         } elseif (empty($this->object->properties[$field]->source)){

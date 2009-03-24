@@ -118,11 +118,8 @@ class DataObject extends DataObjectMaster implements iDataObject
         }
 
         $isvalid = true;
-        if (!empty($args['fields'])) {
-            $fields = $args['fields'];
-        } else {
-            $fields = !empty($this->fieldlist) ? $this->fieldlist : array_keys($this->properties);
-        }
+        if (!empty($args['fields'])) $fields = $args['fields'];
+        else $fields = $this->getFieldList();
 
         $this->missingfields = array();
         foreach($fields as $name) {

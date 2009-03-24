@@ -584,7 +584,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         }
         
         if(count($args['fieldlist']) == 0 && empty($this->status)) {
-            $args['fieldlist'] = array_keys($this->properties);
+            $args['fieldlist'] = $this->getFieldList();
         }
         $viewvalues = array();
         foreach($this->itemids as $itemid) {

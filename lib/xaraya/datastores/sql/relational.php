@@ -47,7 +47,8 @@ class RelationalDataStore extends SQLDataStore
         
         // Complete the dataquery
         $q = $this->object->dataquery;
-        foreach ($this->object->fieldlist as $fieldname) {
+        $fieldlist = $this->object->getFieldList();
+        foreach ($fieldlist as $fieldname) {
             $field = $this->object->properties[$fieldname];
                 
             if (empty($field->source)) {
@@ -56,7 +57,6 @@ class RelationalDataStore extends SQLDataStore
             } else {
                 $q->addfield($field->source . ' AS ' . $field->name);
             }
-            $fieldlist[] = $fieldname;
         }
         $primary = $this->object->properties[$this->object->primary]->source;
         $q->eq($primary, (int)$itemid);
@@ -69,8 +69,6 @@ class RelationalDataStore extends SQLDataStore
         // Set the values of the valid properties
         $index = 0;
         foreach ($result as $row) {
-            // Set the values of the valid properties
-            $fieldlist = $this->object->getFieldList();
             foreach ($fieldlist as $fieldname) {
                 // Subitem properties get special treatment
                 if ($this->object->properties[$fieldname]->type == 30069) {
@@ -326,7 +324,8 @@ class RelationalDataStore extends SQLDataStore
 
         // Complete the dataquery
         $q = $this->object->dataquery;
-        foreach ($this->object->fieldlist as $fieldname) {
+        $fieldlist = $this->object->getFieldList();
+        foreach ($fieldlist as $fieldname) {
             $field = $this->object->properties[$fieldname];
             
             if (empty($field->source)) {
@@ -381,7 +380,8 @@ class RelationalDataStore extends SQLDataStore
 
     // Assign the appropriate value to each of the subitemsobjct's properties
             $subitemsobject = $this->object->properties[$field]->subitemsobject;
-            foreach (array_keys($subitemsobject->properties) as $subproperty) {
+            $fieldlist = $subitemsobject->getFieldList();
+            foreach ($fieldlist as $subproperty) {
     // If the property is again a subitems property, recall the function
                 if ($subitemsobject->properties[$subproperty]->type == 30069) {
                     $this->setValue($value, $field);
@@ -509,7 +509,7 @@ class RelationalDataStore extends SQLDataStore
         // can't really do much without the item id field at the moment
         if (empty($itemidfield)) return;
 
-        $fieldlist = array_keys($this->fields);
+        $fieldlist = $this->object->getFieldList();
         // Something to do for us?
         if (count($fieldlist) < 1) return;
 

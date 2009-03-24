@@ -47,11 +47,11 @@ class RelationalDataStore extends SQLDataStore
         
         // Complete the dataquery
         $q = $this->object->dataquery;
-        $fieldlist = array();
-        foreach ($this->object->properties as $fieldname => $field) {
+        foreach ($this->object->fieldlist as $fieldname) {
             // Ignore disabled properties
-            if ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) 
-                continue;
+            if (!isset($this->object->properties[$fieldname])) continue;
+            $field = $this->object->properties[$fieldname];
+            if ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) continue;
                 
             if (empty($field->source)) {
                 if (empty($field->initialization_refobject)) continue;
@@ -73,12 +73,12 @@ class RelationalDataStore extends SQLDataStore
         $index = 0;
         foreach ($result as $row) {
             // Set the values of the valid properties
-            foreach ($fieldlist as $field) {
+            foreach ($this->object->fieldlist as $fieldname) {
                 // Subitem properties get special treatment
-                if ($this->object->properties[$field]->type == 30069) {
-                    $this->setItemValue($itemid, $row, $field);
+                if ($this->object->properties[$fieldname]->type == 30069) {
+                    $this->setItemValue($itemid, $row, $fieldname);
                 } elseif ($index < 1) {
-                    $this->setValue($row, $field);
+                    $this->setValue($row, $fieldname);
                 }
             }
             $index++;
@@ -328,23 +328,26 @@ class RelationalDataStore extends SQLDataStore
 
         // Complete the dataquery
         $q = $this->object->dataquery;
-        $fieldlist = array();
-        foreach ($this->object->properties as $fieldname => $field) {
+        foreach ($this->object->fieldlist as $fieldname) {
             // Ignore any fields that should not be displayed
+            if (!isset($this->object->properties[$fieldname])) continue;
+            $field = $this->object->properties[$fieldname];
+            if ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) continue;
             
-            if (($field->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE) && 
-                ($field->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_IGNORED) &&
-                ($field->name != $this->object->primary)) continue;
             if (empty($field->source)) {
                 if (empty($field->initialization_refobject)) continue;
                 $this->addqueryfields($q, $field->initialization_refobject);
             } else {
                 $q->addfield($field->source . ' AS ' . $field->name);
             }
-            $fieldlist[] = $fieldname;
         }
-
-        // Run it
+        
+        // Make sure we include the primary key, even if it won't be displayed
+        if (!in_array($this->object->primary, $this->object->fieldlist)) {
+            $q->addfield($this->object->properties[$this->object->primary]->source . ' AS ' . $this->object->primary);
+        }
+        
+        // Run the query
         if (!$q->run()) throw new Exception(xarML('Query failed'));
         $result = $q->output();
         if (empty($result)) return;
@@ -361,8 +364,8 @@ class RelationalDataStore extends SQLDataStore
             }
 
             // Set the values of the valid properties
-            foreach ($fieldlist as $field) {
-                $this->setItemValue($itemid, $row, $field);
+            foreach ($this->object->fieldlist as $fieldname) {
+                $this->setItemValue($itemid, $row, $fieldname);
             }
         }    
    }

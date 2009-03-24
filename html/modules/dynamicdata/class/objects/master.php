@@ -186,7 +186,7 @@ class DataObjectMaster extends Object
 //        if (empty($this->primary)) throw new Exception(xarML('The object "#(1)" has no primary key', $this->name));
 
         // create the list of fields, filtering where necessary
-        $this->fieldlist = $this->getFieldList($this->fieldlist,$this->status);
+        $this->fieldlist = $this->setupFieldList($this->fieldlist,$this->status);
 
         // Set the configuration parameters
         //FIXME: can we simplify this?
@@ -269,19 +269,24 @@ class DataObjectMaster extends Object
         return true;
     }
 
-    private function getFieldList($fieldlist=array(),$status=null)
+    public function getFieldList()
     {
-        $properties = $this->properties;
+        if (empty($this->fieldlist)) $this->fieldlist = $this->setupFieldList();
+        return $this->fieldlist;
+    }
+
+    private function setupFieldList($fieldlist=array(),$status=null)
+    {
         $fields = array();
-        if(count($fieldlist) != 0) {
+        if(!empty($fieldlist)) {
             foreach($fieldlist as $field)
                 // Ignore those disabled AND those that don't exist
-                if(isset($properties[$field]) && ($properties[$field]->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED))
-                    $fields[$properties[$field]->id] = $properties[$field]->name;
+                if(isset($this->properties[$field]) && ($this->properties[$field]->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED))
+                    $fields[$this->properties[$field]->id] = $this->properties[$field]->name;
         } else {
             if ($status) {
                 // we have a status: filter on it
-                foreach($properties as $property)
+                foreach($this->properties as $property)
                     if($property->status && $this->status)
                         $fields[$property->id] = $property->name;
             } else {
@@ -348,7 +353,6 @@ class DataObjectMaster extends Object
             if (!is_array($args['fieldlist'])) $args['fieldlist'] = explode(',',$args['fieldlist']);
             $fieldlist = $args['fieldlist'];
         }
-
 
         $properties = array();
         if (!empty($args['fieldprefix'])) {

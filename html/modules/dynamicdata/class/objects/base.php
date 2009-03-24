@@ -82,11 +82,9 @@ class DataObject extends DataObjectMaster implements iDataObject
 
     public function getInvalids(Array $args = array())
     {
-        if (!empty($args['fields'])) {
-            $fields = $args['fields'];
-        } else {
-            $fields = !empty($this->fieldlist) ? $this->fieldlist : array_keys($this->properties);
-        }
+        if (!empty($args['fields'])) $fields = $args['fields'];
+        else $fields = $this->getFieldList();
+
         $invalids = array();
         foreach($fields as $name) {
             if (!empty($this->properties[$name]->invalid))

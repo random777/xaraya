@@ -70,7 +70,8 @@ class RelationalDataStore extends SQLDataStore
         $index = 0;
         foreach ($result as $row) {
             // Set the values of the valid properties
-            foreach ($this->object->fieldlist as $fieldname) {
+            $fieldlist = $this->object->getFieldList();
+            foreach ($fieldlist as $fieldname) {
                 // Subitem properties get special treatment
                 if ($this->object->properties[$fieldname]->type == 30069) {
                     $this->setItemValue($itemid, $row, $fieldname);
@@ -409,9 +410,8 @@ class RelationalDataStore extends SQLDataStore
 
     // Assign the appropriate value to each of the subitemsobjct's properties
             $subitemsobject = $this->object->properties[$field]->subitemsobject;
-            foreach (array_keys($subitemsobject->properties) as $subproperty) {
-    // Ignore fields that are disabled
-                if ($subitemsobject->properties[$subproperty]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) continue;
+            $fieldlist = $subitemsobject->getFieldList();
+            foreach ($fieldlist as $subproperty) {
     // If the property is again a subitems property, recall the function
                 if ($subitemsobject->properties[$subproperty]->type == 30069) {
                     $this->setItemValue($itemid, $row, $field);

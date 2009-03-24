@@ -416,9 +416,14 @@ class RelationalDataStore extends SQLDataStore
     // Assign the appropriate value to each of the subitemsobjct's properties
             $subitemsobject = $this->object->properties[$field]->subitemsobject;
             foreach (array_keys($subitemsobject->properties) as $subproperty) {
+    // Ignore fields that are disabled
+                if ($subitemsobject->properties[$subproperty]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) continue;
     // If the property is again a subitems property, recall the function
                 if ($subitemsobject->properties[$subproperty]->type == 30069) {
                     $this->setItemValue($itemid, $row, $field);
+    // Ignore any other property without a source (for now)
+                } elseif (empty($subitemsobject->properties[$subproperty]->source)){
+                    continue;
                 } else {
     // Convert the source field name to this property's name and assign
     // Note we add the subitems to the rows of the parent object list items array
@@ -445,9 +450,12 @@ class RelationalDataStore extends SQLDataStore
     {
         $object = DataObjectMaster::getObject(array('name' => $objectname));
         foreach ($object->properties as $property) {
+            // Ignore fields that are disabled
+            if ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) continue;
+            
             if (empty($property->source)) {
-                $this->addqueryfields($query, $property->initialization_refobject);
                 if (empty($property->initialization_refobject)) continue;
+                $this->addqueryfields($query, $property->initialization_refobject);
             } else {
                 $parts = explode('.', $property->source);
                 $query->addfield($object->name . "_" . $property->source . ' AS ' . $object->name . "_" . $parts[1]);

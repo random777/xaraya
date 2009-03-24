@@ -271,7 +271,7 @@ class DataObjectMaster extends Object
 
     public function getFieldList()
     {
-        if (empty($this->fieldlist)) $this->fieldlist = $this->setupFieldList();
+        $this->fieldlist = $this->setupFieldList();
         return $this->fieldlist;
     }
 
@@ -287,7 +287,7 @@ class DataObjectMaster extends Object
             if ($status) {
                 // we have a status: filter on it
                 foreach($this->properties as $property)
-                    if($property->status && $this->status)
+                    if($property->getDisplayStatus() && $status)
                         $fields[$property->id] = $property->name;
             } else {
                 // no status filter: return those that are not disabled

@@ -258,6 +258,17 @@ class DataObjectMaster extends Object
         }
     }
 
+    public function setFieldList($fieldlist=array())
+    {
+        $this->fieldlist = array();
+        if(empty($fieldlist)) return true;
+        foreach($fieldlist as $field)
+            // Ignore those disabled AND those that don't exist
+            if(isset($this->properties[$field]) && ($this->properties[$field]->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED))
+                $this->fieldlist[$this->properties[$field]->id] = $this->properties[$field]->name;
+        return true;
+    }
+
     private function getFieldList($fieldlist=array(),$status=null)
     {
         $properties = $this->properties;

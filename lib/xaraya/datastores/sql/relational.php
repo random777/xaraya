@@ -48,10 +48,7 @@ class RelationalDataStore extends SQLDataStore
         // Complete the dataquery
         $q = $this->object->dataquery;
         foreach ($this->object->fieldlist as $fieldname) {
-            // Ignore disabled properties
-            if (!isset($this->object->properties[$fieldname])) continue;
             $field = $this->object->properties[$fieldname];
-            if ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) continue;
                 
             if (empty($field->source)) {
                 if (empty($field->initialization_refobject)) continue;
@@ -329,10 +326,7 @@ class RelationalDataStore extends SQLDataStore
         // Complete the dataquery
         $q = $this->object->dataquery;
         foreach ($this->object->fieldlist as $fieldname) {
-            // Ignore any fields that should not be displayed
-            if (!isset($this->object->properties[$fieldname])) continue;
             $field = $this->object->properties[$fieldname];
-            if ($field->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) continue;
             
             if (empty($field->source)) {
                 if (empty($field->initialization_refobject)) continue;

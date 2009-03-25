@@ -299,8 +299,13 @@ class xarRoles extends Object
             case 2: $name = "roles_users"; break;
             case 3: $name = "roles_groups"; break;
         }
+        $cacheKey = 'Roles.ById';
+        if(xarVarIsCached($cacheKey,$row['id'])) {
+            return xarVarGetCached($cacheKey,$row['id']);
+        }
         $role = DataObjectMaster::getObject(array('name' => $name));
         $role->getItem(array('itemid' => $row['id']));
+        xarVarSetCached($cacheKey,$row['id'],$role);
         return $role;
     }
 }

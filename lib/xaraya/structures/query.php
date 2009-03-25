@@ -98,7 +98,7 @@ class Query
         if ($this->debugflag) $querystart = microtime(true);
 
         if (!isset($this->dbconn)) $this->dbconn = xarDB::getConn();
-        $this->optimize();
+        if (empty($statement)) $this->optimize();
         $this->setstatement($statement);
 
         if ($this->type == 'INSERT' && count($this->tables) > 1) return true;

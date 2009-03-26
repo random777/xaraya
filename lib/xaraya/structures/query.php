@@ -1810,7 +1810,6 @@ class Query
 
         // Run the insert on this table
         if (!$q->run()) return false;
-//        $q->qecho();echo "<br />";
                 
         // Try to retrieve the record we just inserted
         $dbInfo = $this->dbconn->getDatabaseInfo();

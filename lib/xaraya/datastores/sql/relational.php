@@ -78,7 +78,7 @@ class RelationalDataStore extends SQLDataStore
                 }
             }
             $index++;
-        }    
+        } 
         return $itemid;
     }
 
@@ -378,6 +378,10 @@ class RelationalDataStore extends SQLDataStore
             $subitemsobjectname = $this->object->properties[$field]->initialization_refobject;
             if (empty($subitemsobjectname)) continue;
 
+    // Ignore if the record is a null (by way of the primary index)
+            $subitemsobject = $this->object->properties[$field]->subitemsobject;
+            if ($row[$subitemsobjectname . "_" . $subitemsobject->primary] == null) return;
+
     // Assign the appropriate value to each of the subitemsobjct's properties
             $subitemsobject = $this->object->properties[$field]->subitemsobject;
             $fieldlist = $subitemsobject->getFieldList();
@@ -406,7 +410,11 @@ class RelationalDataStore extends SQLDataStore
 
     // Ignore if we don't have an object
             $subitemsobjectname = $this->object->properties[$field]->initialization_refobject;
-            if (empty($subitemsobjectname)) continue;
+            if (empty($subitemsobjectname)) return;
+
+    // Ignore if the record is a null (by way of the primary index)
+            $subitemsobject = $this->object->properties[$field]->subitemsobject;
+            if ($row[$subitemsobjectname . "_" . $subitemsobject->primary] == null) return;
 
     // Assign the appropriate value to each of the subitemsobjct's properties
             $subitemsobject = $this->object->properties[$field]->subitemsobject;

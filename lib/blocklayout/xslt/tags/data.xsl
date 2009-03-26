@@ -203,7 +203,7 @@
                 <xsl:text>sys::import('modules.dynamicdata.class.objects.master');</xsl:text>
                 <xsl:text>$__</xsl:text>
                 <xsl:value-of select="@object"/>
-                <xsl:text> = DataObjectMaster::getObjectList(array('name' => '</xsl:text>
+                <xsl:text>=DataObjectMaster::getObjectList(array('name'=>'</xsl:text>
                 <xsl:value-of select="@object"/>
                 <xsl:text>'));</xsl:text>
                 <xsl:value-of select="@value"/><xsl:text>=</xsl:text>
@@ -224,7 +224,6 @@
       </xsl:choose>
     </xsl:processing-instruction>
 </xsl:template>
-
 
 <xsl:template match="xar:data-input">
   <xsl:processing-instruction name="php">
@@ -391,6 +390,38 @@
         <!-- If we have an object, throw out its label -->
         <xsl:text>echo xarVarPrepForDisplay(</xsl:text>
         <xsl:value-of select="@object"/><xsl:text>-&gt;label);</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:processing-instruction>
+</xsl:template>
+
+<xsl:template match="xar:data-filter">
+  <xsl:processing-instruction name="php">
+    <xsl:choose>
+      <xsl:when test="not(@property)">
+        <!-- No property, gotta make one -->
+        <xsl:text>sys::import('modules.dynamicdata.class.properties');</xsl:text>
+        <xsl:text>$property =&amp; DataPropertyMaster::getProperty(</xsl:text>
+        <xsl:call-template name="atts2args">
+          <xsl:with-param name="nodeset" select="@*[name() != 'hidden' and name() != 'preset']"/>
+        </xsl:call-template>
+        <xsl:text>);</xsl:text>
+        <xsl:text>echo $property-&gt;</xsl:text>
+        <xsl:text>showFilter(</xsl:text>
+        <xsl:call-template name="atts2args">
+          <xsl:with-param name="nodeset" select="@*" />
+        </xsl:call-template>
+        <xsl:text>);</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- We do have a property in the attribute -->
+        <xsl:text>echo </xsl:text>
+        <xsl:value-of select="@property"/><xsl:text>-&gt;</xsl:text>
+          <xsl:text>showFilter(</xsl:text>
+          <xsl:call-template name="atts2args">
+            <xsl:with-param name="nodeset" select="@*[name() != 'property'  and name() != 'hidden' and name() != 'preset']"/>
+          </xsl:call-template>
+        <xsl:text>);</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:processing-instruction>

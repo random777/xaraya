@@ -36,8 +36,7 @@ function dynamicdata_admin_delete($args)
                                          'table'      => $table,
                                          'itemid'     => $itemid,
                                          'tplmodule'  => $tplmodule,
-                                         'template'   => $template,
-                                         'extend'     => false));  //Note: this means we only delete this extension, not the parent
+                                         'template'   => $template));
     if (empty($myobject)) return;
     $data = $myobject->toArray();
 
@@ -67,15 +66,13 @@ function dynamicdata_admin_delete($args)
         }
         return true;
     }
-
     $myobject->getItem();
-
     if (empty($confirm)) {
         // TODO: is this needed?
         $data = array_merge($data,xarModAPIFunc('dynamicdata','admin','menu'));
         $data['object'] = & $myobject;
         if ($data['objectid'] == 1) {
-            $mylist = & DataObjectMaster::getObjectList(array('objectid' => $data['itemid'], 'extend' => false));
+            $mylist = & DataObjectMaster::getObjectList(array('objectid' => $data['itemid']));
             if (count($mylist->properties) > 0) {
                 $data['related'] = xarML('Warning : there are #(1) properties and #(2) items associated with this object !', count($mylist->properties), $mylist->countItems());
             }

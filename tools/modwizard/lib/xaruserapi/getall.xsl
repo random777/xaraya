@@ -43,7 +43,7 @@
  * @param $args['sort'] sort order ('date','title','hits','rating',...)
  * @param $args['fields'] array with all the fields to return per article
  *                        Default list is : 'aid','title','summary','authorid',
- *                        'pubdate','pubtypeid','notes','status','body'
+ *                        'pubdate','pubtype_id','notes','status','body'
  *                        Optional fields : 'cids','author','counter','rating','dynamicdata'
  */
 function <xsl:value-of select="$module_prefix" />_userapi_getall( $args ) 

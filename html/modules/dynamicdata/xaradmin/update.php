@@ -124,9 +124,9 @@ function dynamicdata_admin_update($args)
         xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array('table' => $table)));
     } else {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'modify',
                                       array(
-                                      'itemid' => $objectid,
+                                      'itemid' => $itemid,
                                       'tplmodule' => $tplmodule
                                       )));
     }

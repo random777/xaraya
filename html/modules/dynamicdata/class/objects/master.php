@@ -171,31 +171,19 @@ class DataObjectMaster extends Object
             $this->template = $this->name;
 
         // get the properties defined for this object
-       if(count($this->properties) == 0 && isset($this->objectid)) {
-            $args = $this->toArray();
-            $args['objectref'] =& $this;
-            if(!isset($args['allprops']))   //FIXME is this needed??
-                $args['allprops'] = null;
-
-        if(!is_array($this->propertyargs)) {var_dump($this->propertyargs);exit;}
         foreach ($this->propertyargs as $row) DataPropertyMaster::addProperty($row, $this);
-//            DataPropertyMaster::getProperties($args); // we pass this object along
-        }
+        unset($this->propertyargs);
 
         // Make sure we have a primary key
-        foreach ($this->properties as $property) {
+        foreach ($this->properties as $property)
             if ($property->type == 21) $this->primary = $property->name;
-        }
-//        if (empty($this->primary)) throw new Exception(xarML('The object "#(1)" has no primary key', $this->name));
 
         // create the list of fields, filtering where necessary
         $this->fieldlist = $this->setupFieldList($this->fieldlist,$this->status);
 
         // Set the configuration parameters
-        //FIXME: can we simplify this?
-        $args = $descriptor->getArgs();
         try {
-            $configargs = unserialize($args['config']);
+            $configargs = unserialize($this->config);
             foreach ($configargs as $key => $value) $this->{$key} = $value;
             $this->configuration = $configargs;
         } catch (Exception $e) {}
@@ -207,7 +195,7 @@ class DataObjectMaster extends Object
         sys::import('xaraya.structures.query');
         $this->dataquery = new Query();
         try {
-            $this->datasources = unserialize($args['sources']);
+            $this->datasources = unserialize($this->sources);
             if (!empty($this->datasources)) {
                 foreach ($this->datasources as $key => $value) $this->dataquery->addtable($value,$key);
             }
@@ -215,14 +203,14 @@ class DataObjectMaster extends Object
 
         // Set up the db table relations
         try {
-            $relationargs = unserialize($args['relations']);
+            $relationargs = unserialize($this->relations);
             foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
         } catch (Exception $e) {}
 
         // Set up the relations to related objects
         try {
-            if (!isset($args['objects'])) $args['objects'] = $this->objects;
-            $objectargs = unserialize($args['objects']);
+            if (!isset($this->objects)) $this->objects = $this->objects;
+            $objectargs = unserialize($this->objects);
             
             foreach ($objectargs as $key => $value) {
                 if ((strpos($key, 'this') === false) && (strpos($value, 'this') === false)
@@ -579,6 +567,7 @@ class DataObjectMaster extends Object
         $q->addfield('p.seq AS seq');
         $q->addfield('p.configuration AS configuration');
         $q->addfield('p.object_id AS object_id');
+        $q->setorder('p.seq');
         if (!$q->run()) return false;
         $result = $q->output();
         $row = $q->row();

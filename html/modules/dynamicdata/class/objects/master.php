@@ -134,7 +134,8 @@ class DataObjectMaster extends Object
     public $secondary = null;           // secondary key could be item type (e.g. for articles)
     public $filter = false;             // set this true to automatically filter by current itemtype on secondary key
     public $upload = false;             // flag indicating if this object has some property that provides file upload
-
+    public $propertyargs;
+    
     /**
      * Default constructor to set the object variables, retrieve the dynamic properties
      * and get the corresponding data stores for those properties
@@ -176,7 +177,9 @@ class DataObjectMaster extends Object
             if(!isset($args['allprops']))   //FIXME is this needed??
                 $args['allprops'] = null;
 
-            DataPropertyMaster::getProperties($args); // we pass this object along
+        if(!is_array($this->propertyargs)) {var_dump($this->propertyargs);exit;}
+        foreach ($this->propertyargs as $row) DataPropertyMaster::addProperty($row, $this);
+//            DataPropertyMaster::getProperties($args); // we pass this object along
         }
 
         // Make sure we have a primary key
@@ -525,6 +528,65 @@ class DataObjectMaster extends Object
         return $info;
     }
 
+    private static function _getObjectInfo(Array $args=array())
+    {
+        if (!isset($args['objectid']) && (!isset($args['name']))) {
+           throw new Exception(xarML('Cannot get object information without an objectid or a name'));
+        }
+
+        $cacheKey = 'DynamicData._ObjectInfo';
+        if(isset($args['objectid']) && xarCore::isCached($cacheKey,$args['objectid'])) {
+            return xarCore::getCached($cacheKey,$args['objectid']);
+        }
+        if(isset($args['name']) && xarCore::isCached($cacheKey,$args['name'])) {
+            return xarCore::getCached($cacheKey,$args['name']);
+        }
+
+        $dbconn = xarDB::getConn();
+        $xartable = xarDB::getTables();
+        sys::import('xaraya.structures.query');
+        $q = new Query();
+
+        $q->addtable($xartable['dynamic_objects'],'o');
+        $q->addtable($xartable['dynamic_properties'],'p');
+        $q->rightjoin('o.id','p.object_id');
+        $q->addfield('o.id AS object_id');
+        $q->addfield('o.name AS object_name');
+        $q->addfield('o.label AS object_label');
+        $q->addfield('o.module_id AS object_module_id');
+        $q->addfield('o.itemtype AS object_itemtype');
+        $q->addfield('o.class AS object_class');
+        $q->addfield('o.filepath AS object_filepath');
+        $q->addfield('o.urlparam AS object_urlparam');
+        $q->addfield('o.maxid AS object_maxid');
+        $q->addfield('o.config AS object_config');
+        $q->addfield('o.sources AS object_sources');
+        $q->addfield('o.relations AS object_relations');
+        $q->addfield('o.objects AS object_objects');
+        $q->addfield('o.isalias AS object_isalias');
+        if (isset($args['objectid'])) {
+            $q->eq('o.id',$args['objectid']);
+        } else {
+            $q->eq('o.name',$args['name']);
+        }
+        $q->addfield('p.id AS id');
+        $q->addfield('p.name AS name');
+        $q->addfield('p.label AS label');
+        $q->addfield('p.type AS type');
+        $q->addfield('p.defaultvalue AS defaultvalue');
+        $q->addfield('p.source AS source');
+        $q->addfield('p.status AS status');
+        $q->addfield('p.seq AS seq');
+        $q->addfield('p.configuration AS configuration');
+        $q->addfield('p.object_id AS object_id');
+        if (!$q->run()) return false;
+        $result = $q->output();
+        $row = $q->row();
+        xarCore::setCached($cacheKey,$row['object_id'],$result);
+        xarCore::setCached($cacheKey,$row['object_name'],$result);
+        return $result;
+    }
+
     /**
      * Class method to retrieve a particular object definition, with sub-classing
      * (= the same as creating a new Dynamic Object with itemid = null)
@@ -536,6 +598,29 @@ class DataObjectMaster extends Object
      * @todo  automatic sub-classing per module (and itemtype) ?
     **/
     static function &getObject(Array $args=array())
+    {
+        $info = self::_getObjectInfo($args);
+        $current = current($info);
+        
+        foreach ($current as $key => $value) 
+            if (strpos($key, 'object_') === 0) $data[substr($key,7)] = $value;
+        $data = array_merge($args,$data);
+        $data['propertyargs'] =& $info;
+        
+        if(!empty($data['filepath']) && ($data['filepath'] != 'auto')) include_once($data['filepath']);
+        $descriptor = new DataObjectDescriptor($data);
+
+        // Try to get the object from the cache
+        if (xarCore::isCached('DDObject', MD5(serialize($data)))) {
+            $object = clone xarCore::getCached('DDObject', MD5(serialize($data)));
+        } else {
+            $object = new $data['class']($descriptor);
+            xarCore::setCached('DDObject', MD5(serialize($data)), clone $object);
+        }
+        return $object;
+    }
+    
+    static function &getfObject(Array $args=array())
     {
         if(!isset($args['itemid'])) $args['itemid'] = null;
 
@@ -582,25 +667,30 @@ class DataObjectMaster extends Object
     static function &getObjectList(Array $args=array())
     {
         // Complete the info if this is a known object
-        $info = self::getObjectInfo($args);
-        if ($info != null) $args = array_merge($args,$info);
+        $info = self::_getObjectInfo($args);
+        $current = current($info);
+
+        foreach ($current as $key => $value) 
+            if (strpos($key, 'object_') === 0) $data[substr($key,7)] = $value;
+        $data = array_merge($args,$data);        
+        $data['propertyargs'] =& $info;
 
         sys::import('modules.dynamicdata.class.objects.list');
         $class = 'DataObjectList';
-        if(!empty($args['class']))
+        if(!empty($data['class']))
         {
-            if(class_exists($args['class'] . 'List'))
+            if(class_exists($data['class'] . 'List'))
             {
                 // this is a generic classname for the object, list and interface
-                $classname = $args['class'] . 'List';
+                $classname = $data['class'] . 'List';
             }
-            elseif(class_exists($args['class']))
+            elseif(class_exists($data['class']))
             {
                 // this is a specific classname for the list
-                $classname = $args['class'];
+                $classname = $data['class'];
             }
         }
-        $descriptor = new DataObjectDescriptor($args);
+        $descriptor = new DataObjectDescriptor($data);
 
         // here we can use our own classes to retrieve this
         $object = new $class($descriptor);

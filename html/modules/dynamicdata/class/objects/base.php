@@ -68,7 +68,6 @@ class DataObject extends DataObjectMaster implements iDataObject
         if (!empty($this->primary) && !empty($this->properties[$this->primary])) {
             $primarystore = $this->properties[$this->primary]->datastore;
         }
-
         $itemid = $this->datastore->getItem($args);
         // only worry about finding something in primary datastore (if any)
         if(empty($itemid) && !empty($primarystore) && $primarystore == $this->datastore) {

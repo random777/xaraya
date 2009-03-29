@@ -12,7 +12,7 @@
 
         public $name                = 'BlockName';
         public $module              = 'BlockModule';
-        public $text_type           = null;
+        public $text_type           = 'Basic Block';
         public $text_type_long      = 'base';
         public $func_update         = null;
         public $allow_multiple      = false;

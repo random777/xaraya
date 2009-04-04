@@ -601,7 +601,7 @@ class DataObjectMaster extends Object
 
         // Try to get the object from the cache
         // Disable this for now
-        if (0 || xarCore::isCached('DDObject', MD5(serialize($data)))) {
+        if (xarCore::isCached('DDObject', MD5(serialize($data)))) {
             $object = clone xarCore::getCached('DDObject', MD5(serialize($data)));
         } else {
             $object = new $data['class']($descriptor);

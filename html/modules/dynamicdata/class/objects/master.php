@@ -105,12 +105,8 @@ class DataObjectMaster extends Object
 
     public $urlparam    = 'itemid';
     public $maxid       = 0;
-    public $config      = 'a:0:{}';       // the configuration parameters for this DD object
-    public $configuration;                // the exploded configuration parameters for this DD object
-    public $sources     = 'a:0:{}';       // the db source tables of this object
-    public $datasources = array();        // the exploded db source tables of this object
-    public $relations   = 'a:0:{}';       // the db source table relations of this object
-    public $objects     = 'a:0:{}';       // the names of obejcts related to this one
+    public $configuration;                // the configuration parameters for this DD object
+    public $datasources = array();        // the db source tables of this object
     public $dataquery;                    // the initialization query of this obect
     public $isalias     = 0;
 
@@ -182,11 +178,13 @@ class DataObjectMaster extends Object
         $this->fieldlist = $this->setupFieldList($this->fieldlist,$this->status);
 
         // Set the configuration parameters
-        try {
-            $configargs = unserialize($this->config);
-            foreach ($configargs as $key => $value) $this->{$key} = $value;
-            $this->configuration = $configargs;
-        } catch (Exception $e) {}
+        if ($descriptor->exists('config')) {
+            try {
+                $configargs = unserialize($descriptor->get('config'));
+                foreach ($configargs as $key => $value) $this->{$key} = $value;
+                $this->configuration = $configargs;
+            } catch (Exception $e) {}
+        }
 
         // set the specific item id (or 0)
         if(isset($args['itemid'])) $this->itemid = $args['itemid'];
@@ -194,35 +192,40 @@ class DataObjectMaster extends Object
         // Set up the db tables
         sys::import('xaraya.structures.query');
         $this->dataquery = new Query();
-        try {
-            $this->datasources = unserialize($this->sources);
-            if (!empty($this->datasources)) {
-                foreach ($this->datasources as $key => $value) $this->dataquery->addtable($value,$key);
-            }
-        } catch (Exception $e) {}
+        if ($descriptor->exists('sources')) {
+            try {
+                $this->datasources = unserialize($descriptor->get('sources'));
+                if (!empty($this->datasources)) {
+                    foreach ($this->datasources as $key => $value) $this->dataquery->addtable($value,$key);
+                }
+            } catch (Exception $e) {}
+        }
 
         // Set up the db table relations
-        try {
-            $relationargs = unserialize($this->relations);
-            foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
-        } catch (Exception $e) {}
+        if ($descriptor->exists('relations')) {
+            try {
+                $relationargs = unserialize($descriptor->get('relations'));
+                foreach ($relationargs as $key => $value) $this->dataquery->join($key,$value);
+            } catch (Exception $e) {}
+        }
 
         // Set up the relations to related objects
-        try {
-            if (!isset($this->objects)) $this->objects = $this->objects;
-            $objectargs = unserialize($this->objects);
-            
-            foreach ($objectargs as $key => $value) {
-                if ((strpos($key, 'this') === false) && (strpos($value, 'this') === false)
-                && (strpos($key, $this->name) === false) && (strpos($value, $this->name) === false)
-                ) 
-                    die('One of the links must be of a property of ' . $this->name);
-                $this->dataquery->leftjoin($this->propertysource($key),$this->propertysource($value));
-            }
+        if ($descriptor->exists('objects')) {
+            try {
+                $objectargs = unserialize($descriptor->get('objects'));
+                foreach ($objectargs as $key => $value) {
+                    if ((strpos($key, 'this') === false) && (strpos($value, 'this') === false)
+                    && (strpos($key, $this->name) === false) && (strpos($value, $this->name) === false)
+                    ) 
+                        die('One of the links must be of a property of ' . $this->name);
+                    $this->dataquery->leftjoin($this->propertysource($key),$this->propertysource($value));
+                }
 
-        } catch (Exception $e) {
-            die('Bad object relation: ' . $key . ' or ' . $value);
+            } catch (Exception $e) {
+                die('Bad object relation: ' . $key . ' or ' . $value);
+            }
         }
+
 // $this->dataquery->qecho();echo "<br />";
         // build the list of relevant data stores where we'll get/set our data
 

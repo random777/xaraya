@@ -218,7 +218,13 @@ class DataObjectMaster extends Object
                     && (strpos($key, $this->name) === false) && (strpos($value, $this->name) === false)
                     ) 
                         die('One of the links must be of a property of ' . $this->name);
-                    $this->dataquery->leftjoin($this->propertysource($key),$this->propertysource($value));
+                    try (
+                        $leftside = $this->propertysource($key);
+                    } catch (Exception $e) {die('Cannot translate ' . $key . ' to a valid datasource'); }
+                    try (
+                        $rightside = $this->propertysource($value);
+                    } catch (Exception $e) {die('Cannot translate ' . $value . ' to a valid datasource'); }
+                    $this->dataquery->leftjoin($leftside,$rightside);
                 }
 
             } catch (Exception $e) {

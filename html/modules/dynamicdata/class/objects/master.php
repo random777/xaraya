@@ -603,7 +603,7 @@ class DataObjectMaster extends Object
         if (empty($info)) {
             if (isset($args['objectid'])) $identifier = $args['objectid'];
             if (isset($args['name'])) $identifier = $args['name'];
-            throw new Exception('Unable to get object: #(1)',$identifier);
+            throw new Exception(xarML('Unable to get object: #(1)',$identifier));
         }
         
         $current = current($info);

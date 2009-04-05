@@ -94,7 +94,7 @@ function dynamicdata_admin_delete($args)
     // special case for a dynamic object : delete its properties too // TODO: and items
 // TODO: extend to any parent-child relation ?
     if ($data['objectid'] == 1) {
-        $mylist = & DataObjectMaster::getObjectList(array('objectid' => $data['itemid'], 'extend' => false));
+        $mylist = & DataObjectMaster::getObjectList(array('objectid' => $data['itemid']));
         foreach (array_keys($mylist->properties) as $name) {
             $propid = $mylist->properties[$name]->id;
             $propid = DataPropertyMaster::deleteProperty(array('itemid' => $propid));

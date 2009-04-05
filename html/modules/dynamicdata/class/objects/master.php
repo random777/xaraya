@@ -580,8 +580,10 @@ class DataObjectMaster extends Object
         if (!$q->run()) return false;
         $result = $q->output();
         $row = $q->row();
-        xarCore::setCached($cacheKey,$row['object_id'],$result);
-        xarCore::setCached($cacheKey,$row['object_name'],$result);
+        if (!empty($row)) {
+            xarCore::setCached($cacheKey,$row['object_id'],$result);
+            xarCore::setCached($cacheKey,$row['object_name'],$result);
+        }
         return $result;
     }
 
@@ -598,7 +600,7 @@ class DataObjectMaster extends Object
     static function &getObject(Array $args=array())
     {
         $info = self::_getObjectInfo($args);
-        $current = current($info);
+        $current = empty($info) ? $info : current($info);
         
         foreach ($current as $key => $value) 
             if (strpos($key, 'object_') === 0) $data[substr($key,7)] = $value;

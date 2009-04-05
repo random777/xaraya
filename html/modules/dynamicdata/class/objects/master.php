@@ -600,8 +600,13 @@ class DataObjectMaster extends Object
     static function &getObject(Array $args=array())
     {
         $info = self::_getObjectInfo($args);
-        $current = empty($info) ? $info : current($info);
+        if (empty($info)) {
+            if (isset($args['objectid'])) $identifier = $args['objectid'];
+            if (isset($args['name'])) $identifier = $args['name'];
+            throw new Exception('Unable to get object: #(1)',$identifier);
+        }
         
+        $current = current($info);
         foreach ($current as $key => $value) 
             if (strpos($key, 'object_') === 0) $data[substr($key,7)] = $value;
         $data = array_merge($args,$data);

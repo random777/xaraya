@@ -1,4 +1,4 @@
-<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <!-- TODO: multi-column output -->
     <div class="xar-fullwidth">

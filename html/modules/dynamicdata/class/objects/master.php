@@ -157,8 +157,7 @@ class DataObjectMaster extends Object
 
     function loader(DataObjectDescriptor $descriptor)
     {
-        $this->descriptor = $descriptor;
-        $this->load();
+        $descriptor->refresh($this);
 
         xarMod::loadDbInfo('dynamicdata','dynamicdata');
 
@@ -653,7 +652,7 @@ class DataObjectMaster extends Object
             $object = clone xarCore::getCached('DDObject', MD5(serialize($args)));
         } else {
             $object = new $args['class']($descriptor);
-            xarCore::setCached('DDObject', MD5(serialize($args)), clone $object);
+//            xarCore::setCached('DDObject', MD5(serialize($args)), clone $object);
         }
         return $object;
     }
@@ -865,11 +864,5 @@ class DataObjectMaster extends Object
 
         return $types;
     }
-
-    protected function load()
-    {
-        $this->descriptor->refresh($this);
-    }
-
 }
 ?>

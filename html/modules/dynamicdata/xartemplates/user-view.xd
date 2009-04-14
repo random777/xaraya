@@ -4,9 +4,9 @@
         <span class="xar-mod-title"><xar:mlstring>Dynamic Data</xar:mlstring></span>
     </div>
     <div class="xar-mod-body">
-        <h2>
+            <h2>
             View&#160;<xar:data-label object="$object" />
-        </h2>
-        <xar:data-view layout="$layout" object="$object" />
+            </h2>
+            <xar:data-view layout="$layout" object="$object" />
     </div>
 </xar:template>

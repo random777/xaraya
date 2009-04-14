@@ -166,11 +166,18 @@ function installer_admin_phase3()
     $maxexectime = trim(ini_get('max_execution_time'));
     $memLimit = trim(ini_get('memory_limit'));
     $memLimit = empty($memLimit) ? xarML('Undetermined') : $memLimit;
-    $memVal = substr($memLimit,0,strlen($memLimit)-1);
-    switch(strtolower($memLimit{strlen($memLimit)-1})) {
-        case 'g': $memVal *= 1024;
-        case 'm': $memVal *= 1024;
-        case 'k': $memVal *= 1024;
+    $memVal = intval($memLimit, 10);
+    $memBase = strtolower(substr($memLimit,0,strlen($memLimit)-1));
+    switch($memBase) {
+        case 'g':
+            // 'g' only valid in PHP 5.1 and later
+            if (version_compare(PHP_VERSION,'5.1.0','>=')) {
+                $memVal *= 1024;
+            }
+        case 'm':
+            $memVal *= 1024;
+        case 'k':
+            $memVal *= 1024;
     }
 
     // Extension Check

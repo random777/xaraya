@@ -22,18 +22,29 @@
 <xar:set name="steptext[8]">
     <xar:mlstring>Choosing Options</xar:mlstring>
 </xar:set>
+<xar:set name="steptext[9]">
+    <xar:mlstring>Installation Complete</xar:mlstring>
+</xar:set>
 <div id="status">
-    <xar:for start="$phase = 1" test="$phase lt $active_step" iter="$phase++">
-        <p class="complete">
-            #$steptext[$phase]# 
-        </p>
-    </xar:for>
-    <p class="active">
-        #$steptext[$active_step]# 
-    </p>
-    <xar:for start="$phase = $active_step + 1" test="$phase le 8" iter="$phase++">
-        <p class="greyed">
-            #$steptext[$phase]# 
-        </p>
-    </xar:for>
+	<div id="status_body">
+		<div class="xar-align-center">
+			<img src="./modules/installer/xarimages/installer.png" alt="#xarML('Installer icon')#" />
+		</div>
+		<ul>
+		    <xar:for start="$phase = 1" test="$phase lt $active_step" iter="$phase++">
+		        <li class="complete">
+		            #$steptext[$phase]# 
+		        </li>
+		    </xar:for>
+		    <li class="active">
+		        #$steptext[$active_step]# 
+		    </li>
+		    <xar:for start="$phase = $active_step + 1" test="$phase le 9" iter="$phase++">
+		        <li class="greyed">
+		            #$steptext[$phase]# 
+		        </li>
+		    </xar:for>
+		</ul>
+	</div>
+	<div id="status_foot"></div>
 </div>

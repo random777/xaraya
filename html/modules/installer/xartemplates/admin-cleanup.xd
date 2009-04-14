@@ -1,13 +1,17 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<div id="install">
+<xar:set name="active_step">9</xar:set>
+<div id="main_right">
+	<xar:template file="status" />
+</div>
+<div id="main_left">
     <h1>
         <xar:mlstring>Installation Complete</xar:mlstring>
     </h1>
 
-    <h3>
+    <p>
         <xar:mlstring>Congratulations, you have successfully installed</xar:mlstring>
         #xarConfigGetVar('System.Core.VersionId')# #xarConfigGetVar('System.Core.VersionNum')# ("#xarConfigGetVar('System.Core.VersionSub')#")! 
-    </h3>
+    </p>
 
     <p>
         <xar:mlstring>Take this time to customize your installation to match your needs. Use the Modules administration to install any additional features, and use the Blocks administration to adjust the look of your sidebars.</xar:mlstring>
@@ -27,16 +31,18 @@
         <xar:mlstring>If you are feeling even more security conscious you could remove read access from those who don't need it:</xar:mlstring>
 
         <xar:mlstring>(substitute "apache" for the group your webserver runs as, probably one of apache, web, www or www-data)</xar:mlstring>
-        <br />
-        <code>chgrp apache config.system.php</code>
-        <br />
-        <code>chmod 440 config.system.php</code>
     </p>
-    <p>
+
+	<ul>
+        <li><code>chgrp apache config.system.php</code></li>
+        <li><code>chmod 440 config.system.php</code></li>
+	</ul>
+
+    <h2 class="xar-align-center" style="border: 0;">
         <a href="#$finalurl#">
             <xar:mlstring>Launch the site!</xar:mlstring>
         </a>
-    </p>
+    </h2>
 
     <h2>
         <xar:mlstring>Thank you for using Xaraya.</xar:mlstring>

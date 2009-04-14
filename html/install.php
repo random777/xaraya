@@ -97,7 +97,7 @@ xarSerReqRes_init($systemArgs, $whatToLoad);
 // templateable too obviously
 $systemArgs = array('enableTemplatesCaching' => false,
                     'themesBaseDirectory'    => 'themes',
-                    'defaultThemeDir'        => 'Xaraya_Classic',
+                    'defaultThemeDir'        => 'installer',
                     'generateXMLURLs'        => false);
 xarTpl_init($systemArgs, $whatToLoad);
 
@@ -156,7 +156,7 @@ function xarInstallMain()
 
     // Make sure we can render a page
     xarTplSetPageTitle(xarML('Xaraya installer'));
-    xarTplSetThemeName('Xaraya_Classic') or  xarCore_die('You need the Xaraya_Classic theme if you want to install Xaraya.');
+    xarTplSetThemeName('installer') or  xarCore_die('You need the Installer theme if you want to install Xaraya.');
 
     // Handle installation phase designation
     xarVarFetch('install_phase','int:1:6',$phase,1,XARVAR_NOT_REQUIRED);
@@ -200,7 +200,7 @@ function xarInstallMain()
     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return; // throw back
 
     // Render page using the installer.xt page template
-    $pageOutput = xarTpl_renderPage($mainModuleOutput,NULL,'installer');
+    $pageOutput = xarTpl_renderPage($mainModuleOutput,NULL,'default');
 
     // Handle exceptions
     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return;

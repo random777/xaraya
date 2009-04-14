@@ -51,7 +51,7 @@ function xarUpgradeMain()
 
     // Make sure we can render a page
     xarTplSetPageTitle(xarML('Xaraya Upgrade'));
-    xarTplSetThemeName('Xaraya_Classic') or  xarCore_die('You need the Xaraya_Classic theme if you want to upgrade Xaraya.');
+    xarTplSetThemeName('installer') or  xarCore_die('You need the installer theme if you want to upgrade Xaraya.');
     // Build function name from phase
     $funcName = 'upgrade'.$phase;
       // if the debugger is active, start it
@@ -79,7 +79,7 @@ function xarUpgradeMain()
         ob_end_clean();
     }
 
-    $pageOutput = xarTpl_renderPage($mainModuleOutput,NULL,'installer');
+    $pageOutput = xarTpl_renderPage($mainModuleOutput,NULL,'default');
 
     // Handle exceptions
     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return;
@@ -100,7 +100,7 @@ if (!xarUpgradeMain()) {
         // As we are in the exception handling phase, we can clear it without side effects.
         xarErrorFree();
         // Render page
-        $pageOutput = xarTpl_renderPage($text,NULL,'installer');
+        $pageOutput = xarTpl_renderPage($text,NULL,'default');
         if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
             // Fallback to raw html
             $msg = '<span style="color: #FF0000;">The current page is shown because the Blocklayout Template Engine failed to render the page, however this could be due to a problem not in BL itself but in the template. BL has raised or has left uncaught the following exception:</span>';

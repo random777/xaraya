@@ -147,7 +147,42 @@ class Dynamic_FileList_Property extends Dynamic_ImageList_Property
 
     }
 
-      /**
+    function parseValidation($validation = '')
+    {
+        if (empty($validation)) return;
+        // specify base directory in validation field, or basedir|baseurl (not ; to avoid conflicts with old behaviour)
+        //jojo sep 08 - this property is broken, assuming this should be of the form: basedir|baseurl;(png|gif|jpg ...)
+        //but the parse validation does not reflect that, perhaps i'm wrong but i'm going with that now to fix it
+        ///jojo nov 08 - added display param - we need arrays!
+        
+        if (strpos($validation,';') !== false) {
+            $validations = explode(';',$validation);
+            $dirvalidations = $validations[0];
+            $filevalidations = $validations[1];
+            $display = isset($validations[2]) ?$validations[2]:false;
+            if (strpos($dirvalidations,'|') !== false) {       
+                $parts = explode('|',$dirvalidations);
+                //if (count($parts) < 2) return;
+                $this->basedir = isset($parts[0])? $parts[0] :'';
+                $this->baseurl = isset($parts[1])? $parts[1] :$parts[0];
+            } else {
+                $this->basedir = $dirvalidations;
+                //let's put in baseurl but make it the same in this case
+                $this->baseurl = $dirvalidations;
+            }
+            //now the filetypes
+           $this->filetype = $filevalidations;
+           $this->display = isset($display) ? $display : FALSE;
+        } else {
+              $this->basedir = $validation;
+              $this->baseurl = $validation;
+              $this->display = FALSE;
+              $this->filetype = '';
+        }
+
+    }
+
+    /**
      * Get the base information for this property.
      *
      * @return array base information for this property

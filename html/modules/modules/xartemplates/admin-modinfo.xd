@@ -171,7 +171,13 @@
         </div>
         <div class="xar-floatright xar-halfwidth xar-align-right">
             <p class="xar-mod-title">
-                #$moddependency#
+                <xar:if condition="is_array($dependency)">
+                    <xar:foreach in="$dependency" key="$k" value="$dep">
+                        #$dep#<br />
+                    </xar:foreach>
+                <xar:else />
+                    #$dependency#
+                </xar:if>
             </p>
         </div>
     </div>

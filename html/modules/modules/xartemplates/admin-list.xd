@@ -162,9 +162,9 @@
                                 <xar:if condition="$selstyle eq 'pro'">
                                     <input type="submit" name="info" id="info" value="#$infolabel#" />
                                 <xar:elseif condition="$selstyle eq 'icons'" />
-                                    <a href="#$modinfo['infourlnew']#&amp;theme=print" target="_new"><img src="#$icon_info#" alt="#xarML('Info')#" /></a>
+                                    <a href="#$modinfo['infourl']#&amp;theme=print" onclick="window.open(this.getAttribute('href'));return false;"><img src="#$icon_info#" alt="#xarML('Info')#" /></a>
                                 <xar:else />
-                                    <a href="#$modinfo['infourlnew']#&amp;theme=print" target="_new"><xar:mlstring>Info</xar:mlstring></a>
+                                    <a href="#$modinfo['infourl']#&amp;theme=print" onclick="window.open(this.getAttribute('href'));return false;"><xar:mlstring>Info</xar:mlstring></a>
                                 </xar:if>
                             </td>
                             <td>

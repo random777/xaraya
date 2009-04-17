@@ -165,15 +165,10 @@ function modules_admin_list()
                                     'admin',
                                     'modifyproperties',
                                      array( 'id'        => $thismodid));
-        $listrows[$i]['infourl']    = xarModURL('modules',
+        // added due to the feature request - opens info in new window
+        $listrows[$i]['infourl'] = xarModURL('modules',
                                     'admin',
                                     'modinfo',
-                                     array( 'id'        => $thismodid,
-                                            'authid'    => $authid));
-        // added due to the feature request - opens info in new window
-        $listrows[$i]['infourlnew'] = xarModURL('modules',
-                                    'admin',
-                                    'modinfonew',
                                     array( 'id'        => $thismodid));
         // image urls
 

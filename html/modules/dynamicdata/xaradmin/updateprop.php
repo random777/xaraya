@@ -20,7 +20,7 @@
  */
 function dynamicdata_admin_updateprop()
 {
-    if(!xarVarFetch('objectid',          'isset', $objectid,          NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('objectid',          'isset', $objectid,          1, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('module_id',             'isset', $module_id,             NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype',          'int:1:', $itemtype,         0, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('table',             'isset', $table,             NULL, XARVAR_DONT_SET)) {return;}
@@ -68,7 +68,8 @@ function dynamicdata_admin_updateprop()
     }
 
     $fields = xarModAPIFunc('dynamicdata','user','getprop',
-                           array('module_id' => $module_id,
+                           array('objectid' => $objectid,
+                                 'module_id' => $module_id,
                                  'itemtype' => $itemtype,
                                  'allprops' => true));
     $isprimary = 0;
@@ -111,7 +112,7 @@ function dynamicdata_admin_updateprop()
                                     'label' => $dd_label[$id],
                                     'type' => $dd_type[$id],
                                     'defaultvalue' => $dd_defaultvalue[$id],
-                              //      'source' => $dd_source[$id],
+                                    'source' => $dd_source[$id],
                                     'status' => $dd_status[$id],
                                     'configuration' => $dd_configuration[$id]))) {
                 return;
@@ -139,8 +140,8 @@ function dynamicdata_admin_updateprop()
                                 array('name' => $name,
                                       'label' => $dd_label[0],
                                       'objectid' => $objectid,
-                                      'moduleid' => $module_id,
-                                      'itemtype' => $itemtype,
+                                     // 'moduleid' => $modid,
+                                     // 'itemtype' => $itemtype,
                                       'type' => $dd_type[0],
                                       'defaultvalue' => $dd_defaultvalue[0],
                                       'source' => $dd_source[0],

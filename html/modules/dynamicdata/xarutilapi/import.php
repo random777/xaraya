@@ -86,13 +86,6 @@ function dynamicdata_utilapi_import($args)
         $args['moduleid'] = (string)$xmlobject->module_id;
         $args['module_id'] = (string)$xmlobject->module_id;
 
-        // Treat parents where the module is DD differently. Put in numeric itemtype
-//        if ($args['moduleid'] == 182) {
-            $args['parent'] = empty($args['parent']) ? 0 : $args['parent'];
-            $infobaseobject = DataObjectMaster::getObjectInfo(array('id' => $args['parent']));
-            $args['parent'] = $infobaseobject['itemtype'];
-//        }
-
         if (empty($args['name']) || empty($args['moduleid'])) {
             throw new BadParameterException(null,'Missing keys in object definition');
         }
@@ -101,10 +94,8 @@ function dynamicdata_utilapi_import($args)
         unset($args['objectid']);
 
         // Add an item to the object
-//        if ($args['moduleid'] == 182 || $args['moduleid'] == 27) {
             $args['itemtype'] = xarModAPIFunc('dynamicdata','admin','getnextitemtype',
                                            array('module_id' => $args['moduleid']));
-//        }
 
         // Create the DataProperty object we will use to create items of
         $dataproperty = DataObjectMaster::getObject(array('objectid' => 2));
@@ -116,9 +107,9 @@ function dynamicdata_utilapi_import($args)
             $args['itemtype'] = $info['itemtype'];
             $objectid = $object->updateItem($args);
             // remove the properties, as they will be replaced
-            $dupobject = DataObjectMaster::getObject(array('name' => $info['name'], 'extend' => false));
-            $existingproperties = $dupobject->getProperties();
-            foreach ($existingproperties as $propertyitem)
+            $duplicateobject = DataObjectMaster::getObject(array('name' => $info['name']));
+            $oldproperties = $duplicateobject->properties;
+            foreach ($oldproperties as $propertyitem)
                 $dataproperty->deleteItem(array('itemid' => $propertyitem->id));
         } else {
             $objectid = $object->createItem($args);
@@ -207,12 +198,6 @@ function dynamicdata_utilapi_import($args)
                 }
                 $object =& $objectcache[$currentobject];
                 $objectid = $objectcache[$currentobject]->objectid;
-                /*
-                if (!isset($objectcache[$object->baseancestor])) {
-                    $objectcache[$object->baseancestor] = DataObjectMaster::getObject(array('objectid' => $object->baseancestor));
-                }
-                $primaryobject =& $objectcache[$object->baseancestor];
-                */
                 // Get the properties for this object
                 $objectproperties = $object->properties;
             }

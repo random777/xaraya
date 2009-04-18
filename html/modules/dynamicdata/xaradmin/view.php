@@ -17,23 +17,18 @@ function dynamicdata_admin_view($args)
 {
     extract($args);
 
-    if(!xarVarFetch('itemid',   'int',   $itemid,    NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('itemid',   'int',   $itemid,    1, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('name',     'isset', $name,       NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('startnum', 'int',   $startnum,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('numitems', 'int',   $numitems,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('sort',     'isset', $sort,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('catid',    'isset', $catid,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('layout',   'str:1' ,$layout,    'default', XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('tplmodule','isset', $tplmodule, 'dynamicdata', XARVAR_NOT_REQUIRED)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
 
-    $object = xarModAPIFunc('dynamicdata','user','getobjectlist',
-                            array('objectid'  => $itemid,
+    $object = DataObjectMaster::getObjectList(array('objectid'  => $itemid,
                                   'name'       => $name,
-                                  'join'      => $join,
-                                  'table'     => $table,
                                   'tplmodule' => $tplmodule,
                                   'template'  => $template,
                                   ));
@@ -54,7 +49,7 @@ function dynamicdata_admin_view($args)
     if(!xarSecurityCheck('EditDynamicData')) return;
 
     if ($data['objectid'] == 1 && empty($table)) {
-        $objects = xarModAPIFunc('dynamicdata','user','getobjects');
+        $objects = DataObjectMaster::getObjects();
         xarLogMessage('AFTER getobjects');
     }
 

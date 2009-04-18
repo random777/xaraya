@@ -21,7 +21,7 @@
                         <a href="#xarServer::getCurrentURL()#">Modify DataProperties</a>
                     </dd>
                     <dd>
-                        <a href="&xar-modurl-dynamicdata-util-export;&amp;module_id=#$module_id#&amp;itemtype=#$itemtype#">
+                    <a href="&xar-modurl-dynamicdata-util-export;&amp;objectid=#$objectid#">
                         Export Object Definition to XML</a>
                     </dd>
                     <xar:if condition="!empty($fields)">

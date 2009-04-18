@@ -21,7 +21,6 @@
         '#xarVarPrepForDisplay($search)#'</xar:if>(#$totalselect#)</h2>
         <!-- TODO set the active tab here -->
         <!-- Show the general tab list for roles -->
-        <xar:set name="basetype">ROLES_GROUPTYPE</xar:set>
         <xar:template file="tablist" />
         <xar:if condition="$selstyle eq '0'">
         <xar:elseif condition="$selstyle eq '1'"/>
@@ -186,19 +185,22 @@
                         <th colspan="2" style="text-align: center">Action</th>
                     </tr>
                     <xar:foreach in="$values" key="$itemid" value="$fields">
+                        <xar:if condition="!isset($users[$itemid])">
+                            <xar:continue />
+                        </xar:if>
                         <tr>
                             <xar:foreach in="$properties" key="$name">
                                 <td>
                                     <xar:if condition="!empty($fields[$name])">
                                         <xar:if condition="$name eq 'name' and $users[$itemid]['frozen']">
                                         <strong>#xarVarPrepForDisplay($fields['name'])#</strong>
-                                        <xar:elseif condition="$name eq 'uname' and $users[$itemid]['frozen']" />#xarVarPrepForDisplay($fields['uname'])#
-                                        
-                                        <xar:elseif condition="$name eq 'email' and $users[$itemid]['frozen']" />None
-                                        
+                                        <xar:elseif condition="$name eq 'uname' and $users[$itemid]['frozen']" />
+                                            #xarVarPrepForDisplay($fields['uname'])#
+                                        <xar:elseif condition="$name eq 'email' and $users[$itemid]['frozen']" />
+                                            None
                                         <xar:else />
-                                        <xar:data-output property="$properties[$name]"
-                                        value="$fields[$name]" /></xar:if>
+                                            <xar:data-output property="$properties[$name]" value="$fields[$name]" />
+                                        </xar:if>
                                     </xar:if>
                                 </td>
                             </xar:foreach>

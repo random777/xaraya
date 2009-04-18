@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,13 +29,10 @@ function dynamicdata_utilapi_import($args)
 
     extract($args);
 
-    if (!isset($prefix)) {
-        $prefix = xarDB::getPrefix() . '_';
-    } else {
-        $prefix .= '_';
-    }
-
+    if (!isset($prefix)) $prefix = xarDB::getPrefix();
+    $prefix .= '_';
     if (!isset($overwrite)) $overwrite = false;
+
     if (empty($xml) && empty($file)) {
         throw new EmptyParameterException('xml or file');
     } elseif (!empty($file) && (!file_exists($file) || !preg_match('/\.xml$/',$file)) ) {
@@ -53,6 +50,8 @@ function dynamicdata_utilapi_import($args)
 
     if (!empty($file)) {
         $xmlobject = simplexml_load_file($file);
+        xarLogMessage('DD: import file ' . $file);
+        
     } elseif (!empty($xml)) {
         $xmlobject = new SimpleXMLElement($xml);
     }
@@ -61,10 +60,12 @@ function dynamicdata_utilapi_import($args)
     $roottag = $dom->tagName;
 
     if ($roottag == 'object') {
-
+        
+        //FIXME: this unconditionally CLEARS the incoming parameter!!
         $args = array();
         // Get the object's name
         $args['name'] = (string)($xmlobject->attributes()->name);
+        xarLogMessage('DD: importing ' . $args['name']);
 
         // check if the object exists
         $info = DataObjectMaster::getObjectInfo(array('name' => $args['name']));
@@ -82,8 +83,8 @@ function dynamicdata_utilapi_import($args)
                 $args[$property] = (string)$xmlobject->{$property}[0];
         }
         // Backwards Compatibility with old defintions
-        $args['moduleid'] = (string)$xmlobject->module_id[0];
-        $args['module_id'] = (string)$xmlobject->module_id[0];
+        $args['moduleid'] = (string)$xmlobject->module_id;
+        $args['module_id'] = (string)$xmlobject->module_id;
 
         if (empty($args['name']) || empty($args['moduleid'])) {
             throw new BadParameterException(null,'Missing keys in object definition');
@@ -94,7 +95,7 @@ function dynamicdata_utilapi_import($args)
 
         // Add an item to the object
             $args['itemtype'] = xarModAPIFunc('dynamicdata','admin','getnextitemtype',
-                                           array('modid' => $args['moduleid']));
+                                           array('module_id' => $args['moduleid']));
 
         // Create the DataProperty object we will use to create items of
         $dataproperty = DataObjectMaster::getObject(array('objectid' => 2));

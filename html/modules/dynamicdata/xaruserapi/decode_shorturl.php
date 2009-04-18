@@ -2,7 +2,7 @@
 /**
  * Decode short URLS
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -24,7 +24,7 @@ function dynamicdata_userapi_decode_shorturl($params)
     if (count($objectcache) == 0) {
         $objects = DataObjectMaster::getObjects();
         foreach ($objects as $object) {
-            $objectcache[$object['name']] = array('modid'    => $object['moduleid'],
+            $objectcache[$object['name']] = array('module_id'    => $object['moduleid'],
                                                   'itemtype' => $object['itemtype']);
         }
     }
@@ -39,7 +39,7 @@ function dynamicdata_userapi_decode_shorturl($params)
         // yup, looks like it
         if ($module == $alias) {
             if (isset($objectcache[$params[0]])) {
-                $args['modid'] = $objectcache[$params[0]]['modid'];
+                $args['module_id'] = $objectcache[$params[0]]['module_id'];
                 $args['itemtype'] = $objectcache[$params[0]]['itemtype'];
             } else {
                 // we don't know this one...
@@ -69,7 +69,7 @@ function dynamicdata_userapi_decode_shorturl($params)
         return array('display', $args);
 
     } elseif (isset($objectcache[$params[1]])) {
-        $args['modid'] = $objectcache[$params[1]]['modid'];
+        $args['module_id'] = $objectcache[$params[1]]['module_id'];
         $args['itemtype'] = $objectcache[$params[1]]['itemtype'];
         if (empty($params[2]) || preg_match('/^index/i',$params[2])) {
             return array('view', $args);

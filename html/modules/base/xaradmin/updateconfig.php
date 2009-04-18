@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -38,8 +38,6 @@ function base_admin_updateconfig()
             if (!xarVarFetch('shorturl','checkbox',$enableShortURLs,false,XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('baseshorturl','checkbox',$enableBaseShortURLs,false,XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('htmlenitites','checkbox',$FixHTMLEntities,false,XARVAR_NOT_REQUIRED)) return;
-            if (!xarVarFetch('compilerversion','str:1:',$compilerversion,xarConfigVars::get(null, 'Site.BL.CompilerVersion'),XARVAR_NOT_REQUIRED)) return;
-            xarConfigVars::set(null, 'Site.BL.CompilerVersion', $compilerversion);
 
             xarModVars::set('modules', 'defaultmodule', $defaultModuleName);
             xarModVars::set('modules', 'defaultmoduletype',$defaultModuleType);
@@ -145,7 +143,7 @@ function base_admin_updateconfig()
     // Call updateconfig hooks
     xarModCallHooks('module','updateconfig','base', array('module' => 'base'));
 
-    xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
+    xarResponse::Redirect(xarModURL('base', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
 
     return true;
 }

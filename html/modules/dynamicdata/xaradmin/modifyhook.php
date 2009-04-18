@@ -2,7 +2,7 @@
 /**
  * Modify Dynamic data for an Item
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -35,8 +35,8 @@ function dynamicdata_admin_modifyhook($args)
         $modname = $extrainfo['module'];
     }
 
-    $modid = xarModGetIDFromName($modname);
-    if (empty($modid)) {
+    $module_id = xarMod::getRegID($modname);
+    if (empty($module_id)) {
         $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
         $vars = array('module name', 'admin', 'modifyhook', 'dynamicdata');
         throw new BadParameterException($vars,$msg);
@@ -54,7 +54,7 @@ function dynamicdata_admin_modifyhook($args)
         $itemid = $objectid;
     }
 
-    $object = & DataObjectMaster::getObject(array('moduleid' => $modid,
+    $object = & DataObjectMaster::getObject(array('moduleid' => $module_id,
                                        'itemtype' => $itemtype,
                                        'itemid'   => $itemid));
     if (!isset($object)) return;

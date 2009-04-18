@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -51,7 +51,7 @@ function mail_admin_template($args)
                 return;
             }
 
-            xarResponseRedirect(xarModURL('mail', 'admin', 'template',
+            xarResponse::Redirect(xarModURL('mail', 'admin', 'template',
                                           array('mailtype' => $data['mailtype'])));
             return true;
             break;

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,6 +12,7 @@
 
 sys::import('xaraya.structures.tree');
 sys::import('modules.roles.class.roles');
+sys::import('modules.dynamicdata.class.properties.base');
 
 /**
  * Handle Roles Tree Property

@@ -2,7 +2,7 @@
 /**
  * Get menu links
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -28,14 +28,14 @@ function dynamicdata_userapi_getmenulinks()
         if (!isset($objects)) {
             return $menulinks;
         }
-        $mymodid = xarModGetIDFromName('dynamicdata');
+        $mymodid = xarMod::getRegID('dynamicdata');
         foreach ($objects as $object) {
             $itemid = $object['objectid'];
             // skip the internal objects
             if ($itemid < 3) continue;
-            $modid = $object['moduleid'];
+            $module_id = $object['moduleid'];
             // don't show data "belonging" to other modules for now
-            if ($modid != $mymodid) continue;
+            if ($module_id != $mymodid) continue;
 
             $label = $object['label'];
             $menulinks[] = Array('url'   => xarModURL('dynamicdata','user','view',

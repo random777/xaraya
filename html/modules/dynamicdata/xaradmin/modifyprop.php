@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,7 @@
  * Modify the dynamic properties for a module + itemtype
  *
  * @param int itemid
- * @param int modid
+ * @param int module_id
  * @param int itemtype
  * @param table
  * @param details
@@ -28,7 +28,7 @@ function dynamicdata_admin_modifyprop()
     if(!xarSecurityCheck('AdminDynamicData')) return;
 
     if(!xarVarFetch('itemid',   'isset', $itemid,   NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('modid',    'isset', $modid,    NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('module_id',    'isset', $module_id,    NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype', 'isset', $itemtype, NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('table',    'isset', $table,    NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('details',  'isset', $details,  NULL, XARVAR_DONT_SET)) {return;}
@@ -38,7 +38,7 @@ function dynamicdata_admin_modifyprop()
         $args = DataObjectDescriptor::getObjectID(
             array(
                 'objectid' => $itemid,
-                'moduleid' => $modid,
+                'moduleid' => $module_id,
                 'itemtype' => $itemtype,
             )
         );
@@ -48,19 +48,19 @@ function dynamicdata_admin_modifyprop()
 
     if (isset($objectinfo)) {
         $objectid = $objectinfo['objectid'];
-        $modid = $objectinfo['moduleid'];
+        $module_id = $objectinfo['moduleid'];
         $itemtype = $objectinfo['itemtype'];
         $label =  $objectinfo['label'];
     } else {
         $objectid = null;
     }
-    $data['modid'] = $modid;
+    $data['module_id'] = $module_id;
     $data['itemtype'] = $itemtype;
 
     // Generate a one-time authorisation code for this operation
     $data['authid'] = xarSecGenAuthKey();
 
-    $modinfo = xarModGetInfo($modid);
+    $modinfo = xarModGetInfo($module_id);
     if (!isset($objectinfo)) {
         $data['objectid'] = null;
         if (!empty($itemtype)) {
@@ -79,7 +79,7 @@ function dynamicdata_admin_modifyprop()
 
     $data['fields'] = xarModAPIFunc('dynamicdata','user','getprop',
                                    array('objectid' => $objectid,
-                                            'moduleid' => $modid,
+                                            'module_id' => $module_id,
                                             'itemtype' => $itemtype,
                                          'allprops' => true));
     if (!isset($data['fields']) || $data['fields'] == false) {
@@ -124,7 +124,7 @@ function dynamicdata_admin_modifyprop()
                                                    'details' => 1));
         } else {
             $data['detailslink'] = xarModURL('dynamicdata','admin','modifyprop',
-                                             array('modid' => $modid,
+                                             array('module_id' => $module_id,
                                                    'itemtype' => empty($itemtype) ? null : $itemtype,
                                                    'details' => 1));
         }
@@ -137,7 +137,7 @@ function dynamicdata_admin_modifyprop()
     // (try to) show the "static" properties, corresponding to fields in dedicated
     // tables for this module
     $data['static'] = xarModAPIFunc('dynamicdata','util','getstatic',
-                                   array('modid' => $modid,
+                                   array('module_id' => $module_id,
                                          'itemtype' => $itemtype));
     if (!isset($data['static']) || $data['static'] == false) {
         $data['static'] = array();
@@ -157,7 +157,7 @@ function dynamicdata_admin_modifyprop()
 // TODO: allow other kinds of relationships than hooks
     // (try to) get the relationships between this module and others
     $data['relations'] = xarModAPIFunc('dynamicdata','util','getrelations',
-                                       array('modid' => $modid,
+                                       array('module_id' => $module_id,
                                              'itemtype' => $itemtype));
     if (!isset($data['relations']) || $data['relations'] == false) {
         $data['relations'] = array();
@@ -174,7 +174,7 @@ function dynamicdata_admin_modifyprop()
                                          array('itemid' => $objectid));
     } else {
         $data['detailslink'] = xarModURL('dynamicdata','admin','modifyprop',
-                                         array('modid' => $modid,
+                                         array('module_id' => $module_id,
                                                'itemtype' => empty($itemtype) ? null : $itemtype));
     }
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -238,7 +238,7 @@ function roles_user_usermenu($args)
                 }
             }
 
-            xarResponseRedirect(xarModURL('roles', 'user', 'account'));
+            xarResponse::Redirect(xarModURL('roles', 'user', 'account'));
     }
     return $data;
 }

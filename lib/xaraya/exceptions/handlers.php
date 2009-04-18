@@ -3,7 +3,7 @@
  * Exception handlers class
  *
  * @package exceptions
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2006 The Digital Development Foundation
  * @license GPL <http://www.gnu.org/licenses/gpl.html>
  * @link http://www.xaraya.com
  * @author Marcel van der Boom <marcel@hsdev.com>
@@ -50,8 +50,10 @@ class ExceptionHandlers extends Object implements IExceptionHandlers
                                   'major'     => 'MAJOR TBD (Code was: '. $e->getCode().')',
                                   'type'      => get_class($e), // consider stripping of 'Exception'
                                   'title'     => get_class($e) . ' ['.$e->getCode().'] was raised (native)',
-                                  'short'     => htmlspecialchars($e->getMessage()),)
-                                );
+                                  'short'     => htmlspecialchars($e->getMessage()),
+                                  'line'      => $e->getLine(),
+                                  'file'      => $e->getFile(),
+                                ));
             // If we have em, use em
 
             if(function_exists('xarTplGetThemeDir') && function_exists('xarTplFile')) {
@@ -59,7 +61,7 @@ class ExceptionHandlers extends Object implements IExceptionHandlers
                 if(file_exists($theme_dir . '/modules/base/message-' . $template . '.xt')) {
                     $msg = xarTplFile($theme_dir . '/modules/base/message-' . $template . '.xt', self::$data);
                 } else {
-                    $msg = xarTplFile('modules/base/xartemplates/message-' . $template . '.xd', self::$data);
+                    $msg = xarTplFile('modules/base/xartemplates/message-' . $template . '.xt', self::$data);
                 }
                 echo xarTpl_renderPage($msg);
             } else {

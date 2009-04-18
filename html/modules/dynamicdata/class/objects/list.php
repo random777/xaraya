@@ -462,11 +462,11 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         if (empty($args['template']) && !empty($args['objectname'])) {
             $args['template'] = $args['objectname'];
         }
-        if(empty($args['urlmodule'])) {
-            if(!empty($this->urlmodule)) {
-                $args['urlmodule'] = $this->urlmodule;
+        if(empty($args['tplmodule'])) {
+            if(!empty($this->tplmodule)) {
+                $args['tplmodule'] = $this->tplmodule;
             } else {
-                $args['urlmodule'] = $modname;
+                $args['tplmodule'] = $modname;
             }
         }
         foreach(array_keys($this->items) as $itemid) {
@@ -518,17 +518,17 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         $urlargs[$args['param']] = $itemid;
         $urlargs['tplmodule'] = $args['tplmodule'];
         // The next 3 lines make the DD modify/display routines work for overlay objects
-        // TODO: do we need the concept of urlmodule at all?
+        // TODO: do we need the concept of tplmodule at all?
         $info = DataObjectMaster::getObjectInfo($args);
         $urlargs['name'] = $info['name'];
-        $args['urlmodule'] = 'dynamicdata';
+        $args['tplmodule'] = 'dynamicdata';
 
 
         $options = array();
 
         if (xarSecurityCheck('ReadDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
              $options['view'] = array('otitle' => xarML('Display'),
-                                     'olink'  => xarModURL($args['urlmodule'],$linktype,$linkfunc,$urlargs),
+                                     'olink'  => xarModURL($args['tplmodule'],$linktype,$linkfunc,$urlargs),
                                      'ojoin'  => '');
               if ($this->itemtype == 0) {
                     $options['viewitems'] = array('otitle' => xarML('Items'),
@@ -540,18 +540,18 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         }
         if (xarSecurityCheck('EditDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
              $options['modify'] = array('otitle' => xarML('Edit'),
-                                        'olink'  => xarModURL($args['urlmodule'],'admin','modify', $urlargs),
+                                        'olink'  => xarModURL($args['tplmodule'],'admin','modify', $urlargs),
                                         'ojoin'  => '|');
              if ($this->objectid == 1) {
                 $options['modifyprops'] = array('otitle' => xarML('Properties'),
-                                     'olink'  => xarModURL($args['urlmodule'],'admin','modifyprop',$urlargs),
+                                     'olink'  => xarModURL($args['tplmodule'],'admin','modifyprop',$urlargs),
                                      'ojoin'  => '|');
              }
         }
         if (xarSecurityCheck('DeleteDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid))  {
             if($this->objectid == 1){
                 $options['modifyprops'] = array('otitle' => xarML('Properties'),
-                                     'olink'  => xarModURL($args['urlmodule'],'admin','modifyprop',
+                                     'olink'  => xarModURL($args['tplmodule'],'admin','modifyprop',
                                                    $urlargs),
                                        'ojoin'  => '|');
                 $options['viewitems'] = array('otitle' => xarML('Items'),
@@ -561,7 +561,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
                                              );
             }
             $options['delete'] = array('otitle' => xarML('Delete'),
-                                   'olink'  => xarModURL($args['urlmodule'],'admin','delete',
+                                   'olink'  => xarModURL($args['tplmodule'],'admin','delete',
                                                $urlargs),
                                    'ojoin'  => '|');
         }
@@ -616,7 +616,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         // TODO: count items before calling getItems() if we want some better pager
 
         // Get current URL (this uses &amp; by default now)
-        if(empty($currenturl)) $currenturl = xarServerGetCurrentURL();
+        if(empty($currenturl)) $currenturl = xarServer::getCurrentURL();
 
         // TODO: clean up generation of sort URL
 

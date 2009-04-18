@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -52,7 +52,7 @@ function dynamicdata_adminapi_createproperty($args)
 
     if (empty($moduleid)) {
         // defaults to the current module
-        $moduleid = xarModGetIDFromName(xarModGetName());
+        $moduleid = xarMod::getRegID(xarModGetName());
     }
     if (empty($itemtype)) {
         $itemtype = 0;

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,7 +34,7 @@ function themes_admin_upgrade()
     //throw back
     if(!isset($upgraded)) return;
 
-    xarResponseRedirect(xarModURL('themes', 'admin', 'list'));
+    xarResponse::Redirect(xarModURL('themes', 'admin', 'list'));
 
     return true;
 }

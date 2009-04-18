@@ -2,7 +2,7 @@
 /**
  * Get an array of DD items for use in dropdown lists
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -23,7 +23,7 @@
  * @param $args['field'] field to use in the dropdown list (required here)
  * @param $args['showoutput'] go through showOutput() for this field (default false)
  * @param $args['module'] module name of the item fields to get, or
- * @param $args['modid'] module id of the item fields to get +
+ * @param $args['module_id'] module id of the item fields to get +
  * @param $args['itemtype'] item type of the item fields to get, or
  * @param $args['table'] database table to turn into an object
  * @returns array

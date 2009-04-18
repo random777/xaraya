@@ -2,7 +2,7 @@
 /**
  * Block group management - delete a block group
  * @package modules
- * @copyright (C) 2002-2006 The copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -48,7 +48,7 @@ function blocks_admin_delete_group()
         'blocks', 'admin', 'delete_group', array('id' => $id)
     );
 
-    xarResponseRedirect(xarModURL('blocks', 'admin', 'view_groups'));
+    xarResponse::Redirect(xarModURL('blocks', 'admin', 'view_groups'));
 
     return true;
 }

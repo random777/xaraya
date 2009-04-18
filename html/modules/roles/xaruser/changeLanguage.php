@@ -2,7 +2,7 @@
 /**
  * Changes the navigation language
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -32,7 +32,7 @@ function roles_user_changelanguage()
         // <paul> throw an exception. trap it later if we want it to look nice,
         // that's the whole point of exceptions.
     }
-    xarResponseRedirect($return_url);
+    xarResponse::Redirect($return_url);
 }
 
 ?>

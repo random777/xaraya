@@ -3,7 +3,7 @@
  * Modify an existing realm
  *
  * @package core modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -48,7 +48,7 @@ function privileges_admin_modifyrealm()
         $q->addfield('name', $newname);
         $q->eq('id', $id);
         if(!$q->run()) return;
-        xarResponseRedirect(xarModURL('privileges', 'admin', 'viewrealms'));
+        xarResponse::Redirect(xarModURL('privileges', 'admin', 'viewrealms'));
     }
 
     $data['id'] = $id;

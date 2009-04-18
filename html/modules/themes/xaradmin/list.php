@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -96,7 +96,7 @@ function themes_admin_list()
         $sortimage = xarTplGetImage('arrow_down.gif', 'base');
         $sortlabel = xarML('Sort Descending');
     }
-    $data['sorturl'] = xarServerGetCurrentURL(array('sort' => $newsort));
+    $data['sorturl'] = xarServer::getCurrentURL(array('sort' => $newsort));
     $data['sortimage'] = $sortimage;
     $data['sortlabel'] = $sortlabel;
 

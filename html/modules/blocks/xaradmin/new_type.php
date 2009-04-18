@@ -2,7 +2,7 @@
 /**
  * Register a new block type
  * @package modules
- * @copyright (C) 2002-2006 The copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,7 +20,7 @@ function blocks_admin_new_type()
     if (!xarSecurityCheck('AdminBlock', 0, 'Instance')) {return;}
 
     // Get parameters
-    if (!xarVarFetch('moduleid',   'id:', $modid, xarModGetIDFromName('base'), XARVAR_NOT_REQUIRED)) { return; }
+    if (!xarVarFetch('moduleid',   'id:', $modid, xarMod::getRegID('base'), XARVAR_NOT_REQUIRED)) { return; }
     if (!xarVarFetch('blockname', 'str:1:', $blockname, '', XARVAR_NOT_REQUIRED)) {return;}
     if (!xarVarFetch('submit', 'str:1:', $submit, '', XARVAR_NOT_REQUIRED)) {return;}
     if (!xarVarFetch('scan', 'str:1:', $scan, '', XARVAR_NOT_REQUIRED)) {return;}
@@ -65,7 +65,7 @@ function blocks_admin_new_type()
             array('module' => $modulename, 'type' => $blockname))
         ) {return;}
 
-        xarResponseRedirect(xarModURL('blocks', 'admin', 'view_types'));
+        xarResponse::Redirect(xarModURL('blocks', 'admin', 'view_types'));
         return true;
     } else {
         // Nothing submitted yet - return a blank form.

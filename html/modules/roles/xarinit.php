@@ -3,7 +3,7 @@
  * Initialise the roles module
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,14 +34,14 @@ function roles_init()
 
         $fields = array(
                         'id' => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true),
-                        'name' => array('type' => 'varchar','size' => 255,'null' => false,'default' => ''),
+                        'name' => array('type' => 'varchar','size' => 254,'null' => false),
                         'itemtype' => array('type' => 'integer', 'unsigned' => true, 'null' => false),
                         'users' => array('type' => 'integer', 'null' => false, 'default' => '0'),
-                        'uname' => array('type' => 'varchar', 'size' => 255, 'null' => false, 'default' => ''),
-                        'email' => array('type' => 'varchar', 'size' => 255,'null' => false,'default' => ''),
-                        'pass' => array('type' => 'varchar',  'size' => 100, 'null' => false, 'default' => ''),
+                        'uname' => array('type' => 'varchar', 'size' => 254, 'null' => false),
+                        'email' => array('type' => 'varchar', 'size' => 254,'null' => true),
+                        'pass' => array('type' => 'varchar',  'size' => 100, 'null' => true),
                         'date_reg' => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'default' => '0'),
-                        'valcode' => array('type' => 'varchar', 'size' => 35, 'null' => false, 'default' => ''),
+                        'valcode' => array('type' => 'varchar', 'size' => 35, 'null' => false),
                         'state' => array('type' => 'integer', 'unsigned' => true, 'size' => 'tiny', 'null' => false,'default' => '3'),
                         'auth_module_id' => array('type' => 'integer', 'unsigned' => true, 'unsigned' => true, 'null' => false));
         $query = xarDBCreateTable($tables['roles'],$fields);
@@ -165,8 +165,6 @@ function roles_activate()
     xarModRegisterHook('item', 'search', 'GUI','roles', 'user', 'search');
     xarModRegisterHook('item', 'usermenu', 'GUI','roles', 'user', 'usermenu');
 
-//    xarModAPIFunc('modules', 'admin', 'enablehooks', array('callerModName' => 'roles', 'hookModName' => 'roles'));
-
     // --------------------------------------------------------
     //
     // Enter some default groups and users and put them in a hierarchy
@@ -236,72 +234,35 @@ function roles_activate()
     $rolefields['parentid'] = $topid;
     $user->createItem($rolefields);
 
-    return true;
+    // Installation complete; check for upgrades
+    return roles_upgrade('2.0');
 }
 
 /**
- * Upgrade the roles module from an old version
+ * Upgrade this module from an old version
  *
- * @access public
- * @param oldVersion $
+ * @param oldVersion
  * @returns bool
- * @throws DATABASE_ERROR
  */
-function roles_upgrade($oldVersion)
+function roles_upgrade($oldversion)
 {
     // Upgrade dependent on old version number
-    switch ($oldVersion) {
-        case '2.0.0':
-            break;
+    switch ($oldversion) {
+        case '2.0':
+        case '2.1':
+      break;
     }
-    // Update successful
     return true;
 }
 
 /**
- * Delete the roles module
+ * Delete this module
  *
- * @access public
- * @param none $
- * @returns bool
- * @throws DATABASE_ERROR
+ * @return bool
  */
 function roles_delete()
 {
-    // this module cannot be removed
-    return false;
-
-    /**
-     * Drop the tables
-     */
-    // Get database information
-    $dbconn = xarDB::getConn();
-    $tables = xarDB::getTables();
-
-    try {
-        $dbconn->begin();
-        // drop roles table
-        $query = xarDBDropTable($tables['roles']);
-        $dbconn->Execute($query);
-
-        // drop role_members table
-        $query = xarDBDropTable($tables['rolemembers']);
-        $dbconn->Execute($query);
-
-        /**
-         * Remove modvars, instances and masks
-         */
-        xarModVars::delete_all('roles');
-        xarRemoveMasks('roles');
-        xarRemoveInstances('roles');
-
-        $dbconn->commit();
-    } catch (Exception $e) {
-        $dbconn->rollback();
-        throw $e;
-    }
-
-    // Deletion successful
-    return true;
+  //this module cannot be removed
+  return false;
 }
 ?>

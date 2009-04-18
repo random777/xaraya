@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -100,7 +100,7 @@ function modules_admin_hooks($args)
     foreach ($hooklist as $hookmodname => $hooks) {
 
         // Get module display name
-        $regid = xarModGetIDFromName($hookmodname);
+        $regid = xarMod::getRegID($hookmodname);
         $modinfo = xarModGetInfo($regid);
         $data['hookmodules'][] = array('modid' => $regid,
                                        'modname' => $hookmodname,

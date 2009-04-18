@@ -3,7 +3,7 @@
  * Main modules module function
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -18,13 +18,14 @@
  */
 function modules_admin_main()
 {
-    // Security Check
-    if(!xarSecurityCheck('AdminModules')) return;
+    if(!xarSecurityCheck('EditModules')) return;
 
-    xarResponseRedirect(xarModURL('modules', 'admin', 'list'));
-
-    // success
-    return true;
+    if (xarModVars::get('modules', 'disableoverview') == 0){
+        return xarTplModule('modules','admin','overview');
+    } else {
+        xarResponse::Redirect(xarModURL('modules', 'admin', 'list'));
+        return true;
+    }
 }
 
 ?>

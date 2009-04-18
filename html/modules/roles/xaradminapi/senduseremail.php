@@ -3,7 +3,7 @@
  * Send emails to users
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -47,7 +47,7 @@ function roles_adminapi_senduseremail($args)
             $user = xarModAPIFunc('roles','user','get', array('id' => $userid, 'itemtype' => ROLES_USERTYPE));
             if (!isset($pass)) $pass = '';
             if (!isset($ip)) $ip = '';
-            if (isset($user['valcode'])) $validationlink = xarServerGetBaseURL() . "val.php?v=".$user['valcode']."&u=".$userid;
+            if (isset($user['valcode'])) $validationlink = xarServer::getBaseURL() . "val.php?v=".$user['valcode']."&u=".$userid;
             else $validationlink = '';
 
             //user specific data

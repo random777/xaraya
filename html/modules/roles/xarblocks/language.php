@@ -3,7 +3,7 @@
  * Language Selection via block
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -62,12 +62,12 @@ class LanguageBlock extends BasicBlock
         $args['locales'] = $locales;
         $args['blockid'] = $data['bid'];
 
-        if (xarServerGetVar('REQUEST_METHOD') == 'GET') {
+        if (xarServer::getVar('REQUEST_METHOD') == 'GET') {
             // URL of this page
-            $args['return_url'] = xarServerGetCurrentURL();
+            $args['return_url'] = xarServer::getCurrentURL();
         } else {
             // Base URL of the site
-            $args['return_url'] = xarServerGetBaseURL();
+            $args['return_url'] = xarServer::getBaseURL();
         }
 
         $data['content'] = $args;

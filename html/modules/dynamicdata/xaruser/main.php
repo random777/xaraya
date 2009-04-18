@@ -2,7 +2,7 @@
 /**
  * Lists available objects defined in DD
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,13 +27,13 @@ function dynamicdata_user_main()
     $objects = DataObjectMaster::getObjects();
 
     $data['items'] = array();
-    $mymodid = xarModGetIDFromName('dynamicdata');
+    $mymodid = xarMod::getRegID('dynamicdata');
     foreach ($objects as $itemid => $object) {
         // skip the internal objects
         if ($itemid < 3) continue;
-        $modid = $object['moduleid'];
+        $module_id = $object['moduleid'];
         // don't show data "belonging" to other modules for now
-        if ($modid != $mymodid) continue;
+        if ($module_id != $mymodid) continue;
 
         $label = $object['label'];
         $data['items'][] = array(

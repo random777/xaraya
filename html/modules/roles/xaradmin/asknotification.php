@@ -3,7 +3,7 @@
  * Update users from roles_admin_showusers
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -94,7 +94,7 @@ function roles_admin_asknotification($args)
             if (!xarModAPIFunc('roles','admin','senduseremail', array( 'id' => $id, 'mailtype' => $data['mailtype'], 'subject' => $data['subject'], 'message' => $data['message'], 'pass' => $data['pass'], 'ip' => $data['ip']))) {
                 return;
             }
-            xarResponseRedirect(xarModURL('roles', 'admin', 'showusers',
+            xarResponse::Redirect(xarModURL('roles', 'admin', 'showusers',
                               array('id' => $data['groupid'], 'state' => $data['state'])));
            break;
     }

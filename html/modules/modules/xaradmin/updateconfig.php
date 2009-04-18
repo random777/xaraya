@@ -3,7 +3,7 @@
  * Update the configuration parameters
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -31,7 +31,7 @@ function modules_admin_updateconfig()
 
     xarModVars::set('modules', 'disableoverview', $disableoverview);
      // lets update status and display updated configuration
-    xarResponseRedirect(xarModURL('modules', 'admin', 'modifyconfig'));
+    xarResponse::Redirect(xarModURL('modules', 'admin', 'modifyconfig'));
 
     // Return
     return true;

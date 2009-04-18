@@ -3,7 +3,7 @@
  * Utility function pass individual menu items to the main menu
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,7 +20,7 @@
 function base_adminapi_loadadminmenuarray($args)
 {
     if (!isset($args['module'])) {
-        $urlinfo = xarRequestGetInfo();
+        $urlinfo = xarRequest::getInfo();
         $args['module'] = $urlinfo[0];
     }
     $menuarray = array();

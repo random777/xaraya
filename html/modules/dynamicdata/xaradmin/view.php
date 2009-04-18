@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -41,8 +41,6 @@ function dynamicdata_admin_view($args)
 
     $object->getItems();
     $data['object'] = $object;
-    // TODO: remove this when we turn all the moduleid into modid
-    $data['modid'] = $data['moduleid'];
     // TODO: another stray
     $data['catid'] = $catid;
     // TODO: is this needed?
@@ -68,8 +66,8 @@ function dynamicdata_admin_view($args)
                                            array('itemid' => $data['objectid']));
         }
     }
-    if (file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-view.xd') ||
-        file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-view-' . $data['template'] . '.xd')) {
+    if (file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-view.xt') ||
+        file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-view-' . $data['template'] . '.xt')) {
         return xarTplModule($data['tplmodule'],'admin','view',$data,$data['template']);
     } else {
         return xarTplModule('dynamicdata','admin','view',$data);

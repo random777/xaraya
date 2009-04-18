@@ -3,7 +3,7 @@
  * Main administrative function
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,19 +17,14 @@
  */
 function dynamicdata_admin_main()
 {
-// Security Check
     if(!xarSecurityCheck('EditDynamicData')) return;
 
     if (xarModVars::get('modules', 'disableoverview') == 0){
-        $data = xarModAPIFunc('dynamicdata','admin','menu');
-
-        // Return the template variables defined in this function
-        return $data;
+        return xarTplModule('dynamicdata','admin','overview');
     } else {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view'));
+        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view'));
+        return true;
     }
-
-    return true;
 }
 
 ?>

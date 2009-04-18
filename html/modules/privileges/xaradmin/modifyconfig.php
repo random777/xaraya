@@ -2,7 +2,7 @@
 /**
  * Modify configuration of this module
  * @package core modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -129,7 +129,7 @@ function privileges_admin_modifyconfig()
                     if (strcmp($password, $password2) != 0) {
                         $msg = xarML('Last Resort Admin Creation failed! <br />The two password entries are not the same, please try again.');
                         xarSession::setVar('statusmsg', $msg);
-                       xarResponseRedirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
+                       xarResponse::Redirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
                     }
                     $secret = array(
                                 'name' => MD5($name),
@@ -151,7 +151,7 @@ function privileges_admin_modifyconfig()
                     break;
             }
 
-            xarResponseRedirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
+            xarResponse::Redirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
             // Return
             return true;
             break;

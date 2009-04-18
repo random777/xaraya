@@ -3,7 +3,7 @@
  * Site lock
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -91,7 +91,7 @@ function roles_admin_sitelock($args)
                               'locked'    => $toggle,
                               'notifymsg' => $notifymsg);
             xarModVars::set('roles', 'lockdata', serialize($lockdata));
-            xarResponseRedirect(xarModURL('roles', 'admin', 'sitelock'));
+            xarResponse::Redirect(xarModURL('roles', 'admin', 'sitelock'));
         }
 
         elseif ($cmd == 'toggle') {

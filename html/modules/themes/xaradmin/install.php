@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -31,7 +31,7 @@ function themes_admin_install()
 
     // set the target location (anchor) to go to within the page
     $target = $minfo['name'];
-    xarResponseRedirect(xarModURL('themes', 'admin', 'list', array('state' => 0), NULL, $target));
+    xarResponse::Redirect(xarModURL('themes', 'admin', 'list', array('state' => 0), NULL, $target));
     return true;
 }
 ?>

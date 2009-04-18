@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -13,7 +13,7 @@
  * create a new item (the whole item or some dynamic data fields for it)
  *
  * @author the DynamicData module development team
- * @param $args['modid'] module id for the original item
+ * @param $args['module_id'] module id for the original item
  * @param $args['itemtype'] item type of the original item
  * @param $args['itemid'] item id of the original item
  * @param $args['values'] array of id => value, or
@@ -45,7 +45,7 @@ function dynamicdata_adminapi_create($args)
 
     // Security check - important to do this as early on as possible to
     // avoid potential security holes or just too much wasted processing
-    if(!xarSecurityCheck('AddDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
+    if(!xarSecurityCheck('AddDynamicDataItem',1,'Item',"$module_id:$itemtype:$itemid")) return;
 
     if (!isset($fields) || !is_array($fields)) {
         $fields = array();

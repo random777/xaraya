@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -44,7 +44,7 @@ function base_javascriptapi_modulefile($args)
 
         // A failure to find a file is recorded, but does not stop subsequent files.
         if (!empty($filePath)) {
-            $result = $result & xarTplAddJavaScript($position, 'src', xarServerGetBaseURL() . $filePath, $filePath);
+            $result = $result & xarTplAddJavaScript($position, 'src', xarServer::getBaseURL() . $filePath, $filePath);
         } else {
             $result = false;
         }

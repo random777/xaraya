@@ -3,7 +3,7 @@
  * Skin Selection via block
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2copyright-placeholder
+ * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -70,12 +70,12 @@ function themes_skinblock_display($blockinfo)
     $tplData['blockid'] = $blockinfo['bid'];
     $tplData['authid'] = xarSecGenAuthKey();
 
-    if (xarServerGetVar('REQUEST_METHOD') == 'GET') {
+    if (xarServer::getVar('REQUEST_METHOD') == 'GET') {
         // URL of this page
-        $tplData['return_url'] = xarServerGetCurrentURL();
+        $tplData['return_url'] = xarServer::getCurrentURL();
     } else {
         // Base URL of the site
-        $tplData['return_url'] = xarServerGetBaseURL();
+        $tplData['return_url'] = xarServer::getBaseURL();
     }
 
     $blockinfo['content'] = $tplData;

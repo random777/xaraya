@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,7 +16,7 @@
  * form supplied by xarModFunc('dynamicdata','admin','modify') to update a current item
  *
  * @param int    objectid
- * @param int    modid
+ * @param int    module_id
  * @param int    itemtype
  * @param int    itemid
  * @param string return_url
@@ -115,16 +115,16 @@ function dynamicdata_admin_update($args)
     }
 
     if (!empty($return_url)) {
-        xarResponseRedirect($return_url);
+        xarResponse::Redirect($return_url);
     } elseif ($myobject->objectid == 2) { // for dynamic properties, return to modifyprop
         $objectid = $myobject->properties['objectid']->value;
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
+        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
                                       array('itemid' => $objectid)));
     } elseif (!empty($table)) {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array('table' => $table)));
     } else {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'modify',
+        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
                                       'itemid' => $itemid,
                                       'tplmodule' => $tplmodule

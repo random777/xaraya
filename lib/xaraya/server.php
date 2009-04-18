@@ -3,7 +3,7 @@
  * HTTP Protocol Server/Request/Response utilities
  *
  * @package core
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -11,21 +11,6 @@
  * @author Marco Canini <marco@xaraya.com>
  * @author Michel Dalle <mikespub@xaraya.com>
 **/
-
-/**
- * Wrapper functions to support Xaraya 1 API Server functions
- *
-**/
-function xarServerGetVar($name) { return xarServer::getVar($name); }
-function xarServerGetBaseURI()  { return xarServer::getBaseURI();  }
-function xarServerGetHost()     { return xarServer::getHost();     }
-function xarServerGetProtocol() { return xarServer::getProtocol(); }
-function xarServerGetBaseURL()  { return xarServer::getBaseURL();  }
-function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $target = NULL) { return xarServer::getCurrentURL($args, $generateXMLURL, $target); }
-function xarRequestGetVar($name, $allowOnlyMethod = NULL) { return xarRequest::getVar($name, $allowOnlyMethod);}
-function xarRequestGetInfo()                              { return xarRequest::getInfo();        }
-function xarRequestIsLocalReferer()                       { return xarRequest::IsLocalReferer(); }
-function xarResponseRedirect($redirectURL)                { return xarResponse::Redirect($redirectURL); }
 
 /**
  * Convenience classes
@@ -455,9 +440,9 @@ class xarRequest extends Object
             // If $modName is still empty we use the default module/type/func to be loaded in that such case
             if (empty(self::$defaultRequestInfo)) {
 
-                self::$defaultRequestInfo = array(xarModVars::get('modules', 'defaultmodule'),
-                                                  xarModVars::get('modules', 'defaultmoduletype'),
-                                                  xarModVars::get('modules', 'defaultmodulefunction'));
+                self::$defaultRequestInfo = array(xarModVars::get('modules', 'defaultmodule','base'),
+                                                  xarModVars::get('modules', 'defaultmoduletype','user'),
+                                                  xarModVars::get('modules', 'defaultmodulefunction','main'));
             }
             $requestInfo = self::$defaultRequestInfo;
         }
@@ -493,8 +478,12 @@ class xarRequest extends Object
      */
     private static function resolveModuleAlias($var)
     {
-        $aliasesMap = xarConfigVars::get(null, 'System.ModuleAliases');
-        return (!empty($aliasesMap[$var])) ? $aliasesMap[$var] : $var;
+        try {
+          $aliasesMap = xarConfigVars::get(null, 'System.ModuleAliases');
+          return $aliasesMap[$var];
+        } catch (VariableNotFoundException $e) {
+          return $var;
+        }
     }
 }
 

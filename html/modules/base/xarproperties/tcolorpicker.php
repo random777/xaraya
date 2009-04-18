@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -68,7 +68,7 @@ class TColorPickerProperty extends DataProperty
             array('module' => 'base', 'filename' => 'tcolorpicker.js')
         );
 
-        $data['baseuri']  = xarServerGetBaseURI();
+        $data['baseuri']  = xarServer::getBaseURI();
         $data['size']     = $this->size;
         $data['maxlength']= $this->maxlength;
         $data['value']    = isset($value) ? xarVarPrepForDisplay($value) : xarVarPrepForDisplay($this->value);

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,7 @@
 function dynamicdata_user_view($args)
 {
     if(!xarVarFetch('objectid', 'int',   $objectid,  1, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('modid',    'int',   $modid,     NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('module_id',    'int',   $module_id,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype', 'int',   $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('startnum', 'int',   $startnum,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('numitems', 'int',   $numitems,  NULL, XARVAR_DONT_SET)) {return;}
@@ -31,8 +31,8 @@ function dynamicdata_user_view($args)
     // Override if needed from argument array
     extract($args);
 
-    if (empty($modid)) {
-        $modid = xarModGetIDFromName('dynamicdata');
+    if (empty($module_id)) {
+        $module_id = xarMod::getRegID('dynamicdata');
     }
     if (empty($itemtype)) {
         $itemtype = 0;
@@ -46,17 +46,16 @@ function dynamicdata_user_view($args)
     $data = $object->toArray();
     $object->getItems();
     $data['object'] = $object;
-    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:All")) return;
 
     // TODO: is this needed?
     $data = array_merge($data,xarModAPIFunc('dynamicdata','admin','menu'));
-    // TODO: remove this when we turn all the moduleid into modid
-    $data['modid'] = $data['moduleid'];
+    // TODO: remove this when we turn all the moduleid into module_id
+    $data['module_id'] = $data['moduleid'];
     // TODO: another stray
     $data['catid'] = $catid;
 
-    if (file_exists('modules/' . $data['tplmodule'] . '/xartemplates/user-view.xd') ||
-        file_exists('modules/' . $data['tplmodule'] . '/xartemplates/user-view-' . $data['template'] . '.xd')) {
+    if (file_exists('modules/' . $data['tplmodule'] . '/xartemplates/user-view.xt') ||
+        file_exists('modules/' . $data['tplmodule'] . '/xartemplates/user-view-' . $data['template'] . '.xt')) {
         return xarTplModule($data['tplmodule'],'user','view',$data,$data['template']);
     } else {
         return xarTplModule('dynamicdata','user','view',$data,$args['template']);

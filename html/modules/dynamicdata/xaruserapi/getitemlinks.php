@@ -2,7 +2,7 @@
 /**
  * Pass individual item links
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,7 +29,7 @@ function dynamicdata_userapi_getitemlinks($args)
     $status = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
     list($properties,$items) = xarModAPIFunc('dynamicdata','user','getitemsforview',
                                                    // for items managed by DD itself only
-                                             array('modid' => xarModGetIDFromName('dynamicdata'),
+                                             array('module_id' => xarMod::getRegID('dynamicdata'),
                                                    'itemtype' => $itemtype,
                                                    'itemids' => $itemids,
                                                    'status' => $status,

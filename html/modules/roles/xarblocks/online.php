@@ -3,7 +3,7 @@
  * Online Block
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -52,7 +52,7 @@
             $activetime = time() - (xarConfigVars::get(null, 'Site.Session.Duration') * 60);
             if($dbconn->databaseType == 'sqlite') {
                 $sql = "SELECT COUNT(*)
-                        FROM (SELECT DISTINCT toles_id FROM $sessioninfotable
+                FROM (SELECT DISTINCT role_id FROM $sessioninfotable
                               WHERE last_use > ? AND role_id > ?)";
             } else {
                 $sql = "SELECT COUNT(DISTINCT role_id)

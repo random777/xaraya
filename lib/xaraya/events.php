@@ -14,7 +14,7 @@
  * that need to check whether the proper things are loaded themselves.
  *
  * @package events
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marco Canini <marco@xaraya.com>
@@ -258,11 +258,12 @@ class xarEvents extends Object implements IxarEvents
         if (xarCore::isCached('Evt.Handlers', 'list')) {
             return xarCore::getCached('Evt.Handlers', 'list');
         }
-        if (method_exists('xarConfigVars','Get')) {
+        try {
             $handlers = xarConfigVars::get(null, 'Site.Evt.Handlers');
-        } else {
+        } catch (VariableNotFoundException $e) {
             $dbconn = xarDB::getConn();
-            $configtable = xarDB::getPrefix() . '_config_vars';
+            $tables = xarDB::getTables();
+            $configtable = $tables['config_vars'];
             $query = "SELECT value FROM $configtable WHERE name = ?";
             $stmt = $dbconn->prepareStatement($query);
             $result = $stmt->executeQuery(array('Site.Evt.Handlers'), ResultSet::FETCHMODE_ASSOC);

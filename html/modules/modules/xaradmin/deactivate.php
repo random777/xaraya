@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -55,7 +55,7 @@ function modules_admin_deactivate ()
         } else {
             // No dependents, we can deactivate the module
             if(!xarModAPIFunc('modules','admin','deactivate',array('regid' => $id)))  return;
-            xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));               
+            xarResponse::Redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));               
         }
     }
 
@@ -76,7 +76,7 @@ function modules_admin_deactivate ()
 
     // Hmmm, I wonder if the target adding is considered a hack
     // it certainly depends on the implementation of xarModUrl
-    xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
+    xarResponse::Redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
 
     return true;
 }

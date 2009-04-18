@@ -3,7 +3,7 @@
  * Test a user or group's privileges against a mask
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -103,7 +103,7 @@ function roles_admin_testprivileges()
     $data['authid'] = xarSecGenAuthKey();
     return $data;
     // redirect to the next page
-    xarResponseRedirect(xarModURL('roles', 'admin', 'new'));
+    xarResponse::Redirect(xarModURL('roles', 'admin', 'new'));
 }
 
 ?>

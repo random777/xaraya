@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,7 +29,7 @@ function themes_admin_removetpltag()
         throw new TagRegistrationException($tagname,'Could not unregister tag (#(1)).');
     }
 
-    xarResponseRedirect(xarModUrl('themes', 'admin', 'listtpltags'));
+    xarResponse::Redirect(xarModUrl('themes', 'admin', 'listtpltags'));
     
     return true;
 } 

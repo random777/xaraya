@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -30,14 +30,14 @@ function dynamicdata_admin_updateconfig($args)
     if ( isset($flushPropertyCache) && ($flushPropertyCache == true) ) {
         $args['flush'] = 'true';
         if(xarModAPIFunc('dynamicdata','admin','importpropertytypes', $args)) {
-            xarResponseRedirect(xarModURL('dynamicdata','admin','modifyconfig'));
+            xarResponse::Redirect(xarModURL('dynamicdata','admin','modifyconfig'));
             return true;
         } else {
             return 'Unknown error while clearing and reloading Property Definition Cache.';
         }
     }
 
-    xarResponseRedirect(xarModURL('dynamicdata','admin','modifyconfig'));
+    xarResponse::Redirect(xarModURL('dynamicdata','admin','modifyconfig'));
     return true;
 }
 ?>

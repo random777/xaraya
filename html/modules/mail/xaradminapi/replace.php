@@ -2,7 +2,7 @@
 /**
  * Utility function to replace %%calls%%
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,7 +22,7 @@ function mail_adminapi_replace($args)
     $sitename   = xarModVars::get('themes', 'SiteName');
     $siteslogan = xarModVars::get('themes', 'SiteSlogan');
     $siteadmin  = xarModVars::get('mail', 'adminname');
-    $siteurl    = xarServerGetBaseURL();
+    $siteurl    = xarServer::getBaseURL();
 
     $name = xarUserGetVar('name');
     $id = xarUserGetVar('id');

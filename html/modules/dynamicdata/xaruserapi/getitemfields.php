@@ -3,7 +3,7 @@
  * Utility function to pass item field definitions
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,7 +15,7 @@
  * utility function to pass item field definitions to whoever
  *
  * @param int $args['itemtype'] item type
- * @param int modid ID of the module
+ * @param int module ID of the module
  * @return array containing the item field definitions
  */
 function dynamicdata_userapi_getitemfields($args)

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholderetobject
+ * @copyright (C) 2002-2007 The Digital Development Foundationetobject
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -121,9 +121,8 @@ class DataObjectMaster extends Object
     public $anonymous   = 0;            // if true forces display of names of properties instead of dd_xx designations
 
     public $layout = 'default';         // optional layout inside the templates
-    public $template = '';              // optional sub-template, e.g. user-objectview-[template].xd (defaults to the object name)
+    public $template = '';              // optional sub-template, e.g. user-objectview-[template].xt (defaults to the object name)
     public $tplmodule = 'dynamicdata';  // optional module where the object templates reside (defaults to 'dynamicdata')
-    public $urlmodule = '';             // optional module for use in xarModURL() (defaults to the object module)
     public $viewfunc = 'view';          // optional view function for use in xarModURL() (defaults to 'view')
 
     public $primary = null;             // primary key is item id
@@ -455,6 +454,7 @@ class DataObjectMaster extends Object
      * @param $args['objectid'] id of the object you're looking for, OR
      * @param $args['name'] name of the object you're looking for, OR
      * @return array containing the name => value pairs for the object
+     * @todo cache on id/name/module_id ?
      * @todo when we had a constructor which was more passive, this could be non-static. (cheap construction is a good rule of thumb)
      * @todo no ref return?
      * @todo when we can turn this into an object method, we dont have to do db inclusion all the time.

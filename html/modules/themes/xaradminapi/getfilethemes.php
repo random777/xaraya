@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2copyright-placeholder
+ * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -18,9 +18,8 @@
 function themes_adminapi_getfilethemes()
 {
     $fileThemes = array();
-    $basedir = xarModVars::get('themes', 'themesdirectory');
+    $basedir = xarConfigVars::get(null,'Site.BL.ThemesDirectory');
 
-    //$dh = opendir('themes');
     $dh = opendir($basedir);
     while ($themeOsDir = readdir($dh)) {
         switch ($themeOsDir) {
@@ -63,9 +62,9 @@ function themes_adminapi_getfilethemes()
 
                     // TODO: beautify :-)
                     if (!isset($regId) || xarVarPrepForOS($directory) != $themeOsDir) {
-                        xarSession::setVar('errormsg', "Theme '$name' exists in ".xarModVars::get('themes', 'themesdirectory')."/$themeOsDir but should be in "
-                        .$basedir.
-                        "/$directory according to themes/$themeOsDir/xartheme.php... Skipping this theme until resolved.");
+                        xarSession::setVar('errormsg', 
+                          "Theme '$name' exists in $basedir/$themeOsDir " .
+                          "but should be in $basedir/$directory according to $basedir/$themeOsDir/xartheme.php... Skipping this theme until resolved.");
                         continue;
                     }
                     //Defaults

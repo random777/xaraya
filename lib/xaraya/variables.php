@@ -3,7 +3,7 @@
  * Variable utilities
  *
  * @package variables
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marco Canini marco@xaraya.com
@@ -93,8 +93,8 @@ function xarVar_init(&$args)
 
     // Initialise the variable cache
     sys::import('xaraya.variables.config');
-    $GLOBALS['xarVar_allowableHTML'] = xarConfigVars::get(null, 'Site.Core.AllowableHTML');
-    $GLOBALS['xarVar_fixHTMLEntities'] = xarConfigVars::get(null, 'Site.Core.FixHTMLEntities');
+    $GLOBALS['xarVar_allowableHTML'] = xarConfigVars::get(null, 'Site.Core.AllowableHTML', array());
+    $GLOBALS['xarVar_fixHTMLEntities'] = xarConfigVars::get(null, 'Site.Core.FixHTMLEntities',true);
 
     return true;
 }

@@ -3,7 +3,7 @@
  * Base Module Initialisation
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2005-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -43,12 +43,12 @@ function base_init()
         /*********************************************************************
          * CREATE TABLE xar_session_info (
          *  id        varchar(32) NOT NULL,
-         *  ipaddr    varchar(20) NOT NULL default '',
+         *  ipaddr    varchar(20) NOT NULL,
          *  first_use integer NOT NULL default '0',
          *  last_use  integer NOT NULL default '0',
          *  role_id   integer unsigned NOT NULL,
          *  vars      blob,
-         *  remember  boolean default '0',
+         *  remember  boolean default false,
          *  PRIMARY KEY  (id)
          * )
          *********************************************************************/
@@ -58,7 +58,7 @@ function base_init()
                         'last_use'  => array('type'=>'integer','unsigned'=>true,'null'=>false,'default'=>'0'),
                         'role_id'   => array('type'=>'integer','unsigned'=>true, 'null'=>false),
                         'vars'      => array('type'=>'blob'   ,'null'=>true),
-                        'remember'  => array('type'=>'boolean', 'default'=>'0')
+                        'remember'  => array('type'=>'boolean', 'default'=>  false)
                         );
 
         $query = xarDBCreateTable($sessionInfoTable,$fields);
@@ -87,7 +87,7 @@ function base_init()
          * CREATE TABLE xar_module_vars (
          *  id        integer unsigned NOT NULL auto_increment,
          *  module_id integer unsigned default NULL,
-         *  name      varchar(64) NOT NULL default '',
+         *  name      varchar(64) NOT NULL,
          *  value     longtext,
          *  PRIMARY KEY  (id),
          *  KEY (name)
@@ -154,19 +154,19 @@ function base_init()
      * Set site configuration variables
      ******************************************************************/
     xarConfigVars::set(null, 'Site.BL.CacheTemplates',true);
-    xarConfigVars::set(null, 'Site.BL.CompilerVersion','XAR_BL_USE_XSLT');
+    xarConfigVars::set(null, 'Site.BL.ThemesDirectory','themes');
     xarConfigVars::set(null, 'Site.Core.FixHTMLEntities',true);
     xarConfigVars::set(null, 'Site.Core.TimeZone', 'Etc/UTC');
     xarConfigVars::set(null, 'Site.Core.EnableShortURLsSupport', false);
     // when installing via https, we assume that we want to support that :)
-    $HTTPS = xarServerGetVar('HTTPS');
+    $HTTPS = xarServer::getVar('HTTPS');
     /* jojodee - monitor this fix.
      Localized fix for installer where HTTPS shows incorrectly as being on in
      some environments. Fix is ok as long as we dont access directly
      outside of installer. Consider setting config vars at later point rather than here.
     */
-    $REQ_URI = parse_url(xarServerGetVar('HTTP_REFERER'));
-    // IIS seems to set HTTPS = off for some reason (cfr. xarServerGetProtocol)
+    $REQ_URI = parse_url(xarServer::getVar('HTTP_REFERER'));
+    // IIS seems to set HTTPS = off for some reason (cfr. xarServer::getProtocol)
     if (!empty($HTTPS) && $HTTPS != 'off' && $REQ_URI['scheme'] == 'https') {
         xarConfigVars::set(null, 'Site.Core.EnableSecureServer', true);
     } else {
@@ -188,11 +188,10 @@ function base_init()
 
     // The installer should now set the default locale based on the
     // chosen language, let's make sure that is true
-    if(!xarConfigVars::get(null, 'Site.MLS.DefaultLocale')) {
-        xarConfigVars::set(null, 'Site.MLS.DefaultLocale', 'en_US.utf-8');
-        $allowedLocales = array('en_US.utf-8');
-        xarConfigVars::set(null, 'Site.MLS.AllowedLocales', $allowedLocales);
-    }
+    xarConfigVars::get(null, 'Site.MLS.DefaultLocale','en_US.utf-8');
+    $allowedLocales = array('en_US.utf-8');
+    xarConfigVars::set(null, 'Site.MLS.AllowedLocales', $allowedLocales);
+
     // Minimal information for timezone offset handling (see also Site.Core.TimeZone)
     xarConfigVars::set(null, 'Site.MLS.DefaultTimeOffset', 0);
 
@@ -224,31 +223,31 @@ function base_init()
                         'generateXMLURLs' => false);
     xarMod::init($systemArgs);
 
-    // Initialisation successful
-    return true;
+    // Installation complete; check for upgrades
+    return base_upgrade('2.0');
 }
 
 /**
- * Upgrade the base module from an old version
+ * Upgrade this module from an old version
  *
  * @param oldVersion
  * @returns bool
  */
-function base_upgrade($oldVersion)
+function base_upgrade($oldversion)
 {
-    switch($oldVersion) {
-    case '0.1':
-        // compatability upgrade, nothing to be done
-        break;
+    // Upgrade dependent on old version number
+    switch ($oldversion) {
+        case '2.0':
+        case '2.1':
+      break;
     }
     return true;
 }
 
 /**
- * Delete the base module
+ * Delete this module
  *
- * @param none
- * @return bool false, as this module cannot be removed
+ * @return bool
  */
 function base_delete()
 {

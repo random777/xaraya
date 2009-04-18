@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -31,7 +31,7 @@ function roles_admin_new()
     $data['object'] = DataObjectMaster::getObject(array('name' => $name));
 
     xarSession::setVar('ddcontext.roles', array(
-                                            'return_url' => xarServerGetCurrentURL(),
+                                            'return_url' => xarServer::getCurrentURL(),
                                             'itemtype' => $data['itemtype'],
                                             'parentid' => $data['parentid'],
                                                 ));

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -67,7 +67,7 @@ function roles_user_search()
         if (!xarModAPILoad('dynamicdata','user')) return $data;
 
         // get a new object list for roles
-        $object = new DataObjectList(array('moduleid'  => xarModGetIDFromName('roles')));
+        $object = new DataObjectList(array('moduleid'  => xarMod::getRegID('roles')));
 
         if (isset($object) && !empty($object->objectid)) {
             // save the properties for the search form

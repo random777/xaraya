@@ -3,7 +3,7 @@
  * Main administration function
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,12 +22,13 @@
 */
 function mail_admin_main()
 {
-    // Security Check
     if (!xarSecurityCheck('EditMail')) return;
 
-    xarResponseRedirect(xarModURL('mail', 'admin', 'modifyconfig'));
-
-    // success
-    return true;
+    if (xarModVars::get('modules', 'disableoverview') == 0){
+        return xarTplModule('mail','admin','overview');
+    } else {
+        xarResponse::Redirect(xarModURL('mail', 'admin', 'modifyconfig'));
+        return true;
+    }
 } 
 ?>

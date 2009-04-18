@@ -3,7 +3,7 @@
  * Browse for files and directories
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -84,7 +84,7 @@ function base_userapi_browse_files($args)
     // If the module is set, then find its home.
     if (!empty($module)) {
         // Assume for now that we are looking only in the module home directory.
-        $modinfo = xarModGetInfo(xarModGetIDFromName($module));
+        $modinfo = xarModGetInfo(xarMod::getRegID($module));
         if (!empty($modinfo)) {
             $rootdir = './modules/' . $modinfo['directory'];
         }

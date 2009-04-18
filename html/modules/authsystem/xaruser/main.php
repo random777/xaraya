@@ -3,7 +3,7 @@
  * Default user function
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,7 +22,7 @@
 function authsystem_user_main()
 {
     //no registration here - just redirect to the login form
-    xarResponseRedirect(xarModURL('authsystem','user','showloginform'));
+    xarResponse::Redirect(xarModURL('authsystem','user','showloginform'));
 
     return true;
 }

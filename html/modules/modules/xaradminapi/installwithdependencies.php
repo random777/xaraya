@@ -2,7 +2,7 @@
 /**
  * Install a module with all its dependencies.
  * @package Xaraya eXtensible Management System
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2005 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -101,8 +101,8 @@ function modules_adminapi_installwithdependencies ($args)
             }
 
             // Is there an install page?
-            if (!$initialised && file_exists('modules/' . $modInfo['osdirectory'] . '/xartemplates/includes/installoptions.xd')) {
-                xarResponseRedirect(xarModURL('modules','admin','modifyinstalloptions',array('regid' => $mainId)));
+            if (!$initialised && file_exists('modules/' . $modInfo['osdirectory'] . '/xartemplates/includes/installoptions.xt')) {
+                xarResponse::Redirect(xarModURL('modules','admin','modifyinstalloptions',array('regid' => $mainId)));
                 return true;
             } else {
                 //No install page; move to install the module now
@@ -142,7 +142,7 @@ function modules_adminapi_installwithdependencies ($args)
                     xarOutputFlushCached('base-block');
                 }
 
-                xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
+                xarResponse::Redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
             } else {
                 // Do the next module
                 if (!xarModAPIFunc('modules','admin','installwithdependencies',array('regid' => array_pop($modstack), 'phase' => 0))) return;

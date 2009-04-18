@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -66,7 +66,7 @@ function blocks_admin_update_instance()
     if (!empty($block_new_group)) {
         $groups[] = array(
             'id' => $block_new_group,
-            'template' => ''
+            'template' => null
         );
     }
     $blockinfo['groups'] = $groups;
@@ -124,7 +124,7 @@ function blocks_admin_update_instance()
     // Resequence blocks within groups.
     if (!xarModAPIFunc('blocks', 'admin', 'resequence')) {return;}
 
-    xarResponseRedirect(xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $bid)));
+    xarResponse::Redirect(xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $bid)));
 
     return true;
 }

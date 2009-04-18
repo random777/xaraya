@@ -2,7 +2,7 @@
 /**
  * Update/insert a template tag
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,19 +42,8 @@ function themes_admin_updatetpltag()
         }
     }
    */
-    // action update = delete and re-add
-    // action insert = add
-    if ($action == 'update') {
-        if(!xarTplUnregisterTag($tagname)) {
-            throw new TagRegistrationException($tagname,'Could not unregister tag (#(1)).');
-        }
-    }
-    
-    if(!xarTplRegisterTag($module, $tagname, $aAttributes, $handler)) {
-        throw new TagRegistrationException($tagname);
-    }
 
-    xarResponseRedirect(xarModUrl('themes', 'admin', 'listtpltags'));
+    xarResponse::Redirect(xarModUrl('themes', 'admin', 'listtpltags'));
     
     return true;
 } 

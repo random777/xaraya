@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2005-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,9 +16,8 @@
  */
 function base_xartables()
 {
-    $tables = array();
-    //@todo move this somewhere else
-    $tables['template_tags'] = xarDB::getPrefix() . '_template_tags';
+    $prefix = xarDB::getPrefix();
+    $tables['template_tags'] = $prefix . '_template_tags';
     return $tables;
 }
 ?>

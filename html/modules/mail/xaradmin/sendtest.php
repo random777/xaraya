@@ -2,7 +2,7 @@
 /**
  * Test the email settings
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -70,7 +70,7 @@ function mail_admin_sendtest()
                 'when' => $when))) return;
 
     // lets update status and display updated configuration
-    xarResponseRedirect(xarModURL('mail', 'admin', 'compose'));
+    xarResponse::Redirect(xarModURL('mail', 'admin', 'compose'));
     // Return
     return true;
 }

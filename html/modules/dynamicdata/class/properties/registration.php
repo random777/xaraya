@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -117,7 +117,7 @@ class PropertyRegistration extends DataContainer
             (int) $this->id, $this->name, $this->desc,
             $this->filepath, $this->class,
             $this->format, $this->configuration, $this->source,
-            serialize($this->reqfiles), $modId, is_array($this->args) ? serialize($this->args) : $this->args, serialize($this->aliases)
+            serialize($this->reqfiles), $module_id, is_array($this->args) ? serialize($this->args) : $this->args, serialize($this->aliases)
         );
 
         // Ignore if we already have this dataproperty

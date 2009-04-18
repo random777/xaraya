@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -105,7 +105,7 @@ class CalendarProperty extends DataProperty
                             'filename' => 'calendar.js'));
 
         // $timeval = xarLocaleFormatDate($dateformat, $value);
-        $data['baseuri']    = xarServerGetBaseURI();
+        $data['baseuri']    = xarServer::getBaseURI();
         $data['dateformat'] = $dateformat;
         $data['jsID']       = str_replace(array('[', ']'), '_', $id);
         // $data['timeval']    = $timeval;

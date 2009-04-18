@@ -2,7 +2,7 @@
 /**
  * Delete an item
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -50,15 +50,15 @@ function dynamicdata_admin_delete($args)
 
     if (!empty($noconfirm)) {
         if (!empty($return_url)) {
-            xarResponseRedirect($return_url);
+            xarResponse::Redirect($return_url);
         } elseif (!empty($table)) {
-            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
                                           array(
                                             'table'     => $table,
                                             'tplmodule' => $data['tplmodule'],
                                           )));
         } else {
-            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
                                           array(
                                             'itemid'    => $data['objectid'],
                                             'tplmodule' => $data['tplmodule'],
@@ -79,8 +79,8 @@ function dynamicdata_admin_delete($args)
         }
         $data['authid'] = xarSecGenAuthKey();
 
-        if (file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-delete.xd') ||
-            file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-delete-' . $data['template'] . '.xd')) {
+        if (file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-delete.xt') ||
+            file_exists('modules/' . $data['tplmodule'] . '/xartemplates/admin-delete-' . $data['template'] . '.xt')) {
             return xarTplModule($data['tplmodule'],'admin','delete',$data,$data['template']);
         } else {
             return xarTplModule('dynamicdata','admin','delete',$data,$data['template']);
@@ -103,15 +103,15 @@ function dynamicdata_admin_delete($args)
 
     $itemid = $myobject->deleteItem();
     if (!empty($return_url)) {
-        xarResponseRedirect($return_url);
+        xarResponse::Redirect($return_url);
     } elseif (!empty($table)) {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
                                       'table'     => $table,
                                       'tplmodule' => $tplmodule,
                                       )));
     } else {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
                                       'name' => $myobject->name,
                                       'tplmodule' => $tplmodule,

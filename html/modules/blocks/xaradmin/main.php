@@ -3,7 +3,7 @@
  * Block Functions
  *
  * @package modules
- * @copyright (C) 2002-2006 The copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -16,14 +16,14 @@
  */
 function blocks_admin_main()
 {
-
-// Security Check
     if(!xarSecurityCheck('EditBlock')) return;
 
-    xarResponseRedirect(xarModURL('blocks', 'admin', 'view_instances'));
-
-    // success
-    return true;
+    if (xarModVars::get('modules', 'disableoverview') == 0){
+        return xarTplModule('blocks','admin','overview');
+    } else {
+        xarResponse::Redirect(xarModURL('blocks', 'admin', 'view_instances'));
+        return true;
+    }
 }
 
 ?>

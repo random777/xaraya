@@ -3,7 +3,7 @@
  * Initialisation functions for the security module
  *
  * @package core modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -52,15 +52,15 @@ function privileges_init()
         /*********************************************************************
          * CREATE TABLE xar_security_realms (
          *  id int(11) NOT NULL auto_increment,
-         *  name varchar(255) NOT NULL default '',
+         *  name varchar(254) NOT NULL,
          *  PRIMARY KEY  (id)
          * )
          *********************************************************************/
         $fields = array('id'  => array('type'        => 'integer','null'        => false,
                                             'unsigned'     => true,      'increment'   => true,
                                             'primary_key' => true),
-                        'name' => array('type'        => 'varchar','size'        => 255,
-                                            'null'        => false,    'default'     => ''));
+                        'name' => array('type'        => 'varchar','size'        => 254,
+                                            'null'        => false,));
         $query = xarDBCreateTable($tables['security_realms'],$fields);
         $dbconn->Execute($query);
 
@@ -68,13 +68,13 @@ function privileges_init()
         /*********************************************************************
          * CREATE TABLE xar_privileges (
          *   id int(11) NOT NULL auto_increment,
-         *   name varchar(100) NOT NULL default '',
+         *   name varchar(100) NOT NULL,
          *   realm_id integer unsigned default NULL,
          *   module_id integer unsigned NOT NULL,
-         *   component varchar(100) NOT NULL default '',
-         *   instance varchar(100) NOT NULL default '',
+         *   component varchar(100) NOT NULL,
+         *   instance varchar(100) NOT NULL,
          *   level int(11) NOT NULL default '0',
-         *   description varchar(255) NOT NULL default '',
+         *   description varchar(254) NOT NULL,
          *   itemtype integer unsigned NOT NULL,
          *   PRIMARY KEY  (id)
          * )
@@ -82,13 +82,13 @@ function privileges_init()
 
         $fields = array(
                         'id' => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true),
-                        'name'  => array('type' => 'varchar', 'size' => 100, 'null' => false, 'default' => ''),
+                        'name'  => array('type' => 'varchar', 'size' => 100, 'null' => false),
                         'realm_id'=>array('type' => 'integer', 'unsigned' => true, 'null' => true),
                         'module_id'=>array('type' => 'integer', 'unsigned' => true, 'null' => true),
-                        'component' => array('type'  => 'varchar', 'size' => 100, 'null' => false, 'default' => ''),
-                        'instance' => array('type'   => 'varchar', 'size' => 100, 'null' => false, 'default' => ''),
+                        'component' => array('type'  => 'varchar', 'size' => 100, 'null' => false),
+                        'instance' => array('type'   => 'varchar', 'size' => 100, 'null' => false),
                         'level' => array('type'      => 'integer', 'null' => false,'default' => '0'),
-                        'description' => array('type'=> 'varchar', 'size' => 255, 'null' => false, 'default'     => ''),
+                        'description' => array('type'=> 'varchar', 'size' => 254, 'null' => false),
                         'itemtype' => array('type'=> 'integer', 'unsigned' => true, 'null' => false));
         $query = xarDBCreateTable($tables['privileges'],$fields);
         $dbconn->Execute($query);
@@ -182,15 +182,15 @@ function privileges_init()
         /*********************************************************************
          * CREATE TABLE xar_security_instances (
          *   id int(11) NOT NULL default '0',
-         *   name varchar(100) NOT NULL default '',
-         *   module varchar(100) NOT NULL default '',
-         *   type varchar(100) NOT NULL default '',
-         *   instancevaluefield1 varchar(100) NOT NULL default '',
-         *   instancedisplayfield1 varchar(100) NOT NULL default '',
+         *   name varchar(100) NOT NULL,
+         *   module varchar(100) NOT NULL,
+         *   type varchar(100) NOT NULL,
+         *   instancevaluefield1 varchar(100) NOT NULL,
+         *   instancedisplayfield1 varchar(100) NOT NULL,
          *   instanceapplication int(11) NOT NULL default '0',
-         *   instancevaluefield2 varchar(100) NOT NULL default '',
-         *   instancedisplayfield2 varchar(100) NOT NULL default '',
-         *   description varchar(255) NOT NULL default '',
+         *   instancevaluefield2 varchar(100) NOT NULL,
+         *   instancedisplayfield2 varchar(100) NOT NULL,
+         *   description varchar(254) NOT NULL,
          *   PRIMARY KEY  (sid)
          * )
          *********************************************************************/
@@ -206,24 +206,20 @@ function privileges_init()
                                                              'null'        => true),
                                         'component' => array('type'   => 'varchar',
                                                                  'size'        => 100,
-                                                                 'null'        => false,
-                                                                 'default'     => ''),
+                                                                 'null'        => false),
                                         'header' => array('type'   => 'varchar',
-                                                              'size'        => 255,
-                                                              'null'        => false,
-                                                              'default'     => ''),
+                                                              'size'        => 254,
+                                                              'null'        => false),
                                         'query' => array('type'   => 'varchar',
-                                                             'size'        => 255,
-                                                             'null'        => false,
-                                                             'default'     => ''),
+                                                             'size'        => 254,
+                                                             'null'        => false),
                                         'ddlimit' => array('type'  => 'integer',
                                                              'unsigned'    => true,
                                                              'null'        => false,
                                                              'default'     => '0'),
                                         'description' => array('type'=> 'varchar',
-                                                                   'size'        => 255,
-                                                                   'null'        => false,
-                                                                   'default'     => '')));
+                                                                   'size'        => 254,
+                                                                   'null'        => false)));
 
         $dbconn->Execute($query);
 
@@ -237,7 +233,9 @@ function privileges_init()
         $dbconn->rollback();
         throw $e;
     }
-    return true;
+
+    // Installation complete; check for upgrades
+    return privileges_upgrade('2.0');
 }
 
 function privileges_activate()
@@ -255,64 +253,30 @@ function privileges_activate()
 }
 
 /**
- * Upgrade the privileges module from an old version
+ * Upgrade this module from an old version
  *
- * @param oldVersion the old version to upgrade from
+ * @param oldVersion
  * @returns bool
  */
-function privileges_upgrade($oldVersion)
+function privileges_upgrade($oldversion)
 {
-    switch($oldVersion) {
-    case '2.0.0':
-        break;
+    // Upgrade dependent on old version number
+    switch ($oldversion) {
+        case '2.0':
+        case '2.1':
+      break;
     }
     return true;
 }
 
 /**
- * Delete the privileges module
+ * Delete this module
  *
- * @param none
- * @returns boolean
+ * @return bool
  */
 function privileges_delete()
 {
     // this module cannot be removed
     return false;
-
-    /*********************************************************************
-    * Drop the tables
-    *********************************************************************/
-
-    // Get database information
-    $dbconn =& xarDB::getConn();
-    $tables =& xarDB::getTables();
-
-    // TODO: wrap in transaction? (this section is only for testing anyways)
-    $query = xarDBDropTable($tables['privileges']);
-    if (empty($query)) return; // throw back
-    $dbconn->Execute($query);
-
-    $query = xarDBDropTable($tables['privmembers']);
-    if (empty($query)) return; // throw back
-    $dbconn->Execute($query);
-
-    $query = xarDBDropTable($tables['security_realms']);
-    if (empty($query)) return; // throw back
-    $dbconn->Execute($query);
-
-    $query = xarDBDropTable($tables['security_acl']);
-    if (empty($query)) return; // throw back
-    $dbconn->Execute($query);
-
-    $query = xarDBDropTable($tables['security_masks']);
-    if (empty($query)) return; // throw back
-    $dbconn->Execute($query);
-
-    $query = xarDBDropTable($tables['security_instances']);
-    if (empty($query)) return; // throw back
-    $dbconn->Execute($query);
-
-    return true;
 }
 ?>

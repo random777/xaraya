@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -23,17 +23,10 @@ function dynamicdata_user_display($args)
 
     if(!xarVarFetch('objectid', 'isset', $objectid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('name',     'isset', $name,      NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('module_id',    'isset', $moduleid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemid',   'isset', $itemid,    NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('tplmodule','isset', $tplmodule, NULL, XARVAR_DONT_SET)) {return;}
-
-/*  // we could also pass along the parameters to the template, and let it retrieve the object
-    // but in this case, we'd need to retrieve the object label anyway
-    return array('objectid' => $objectid,
-                 'modid' => $modid,
-                 'itemtype' => $itemtype,
-                 'itemid' => $itemid);
-*/
 
     if (!empty($table)) {
         if(!xarSecurityCheck('AdminDynamicData')) return;
@@ -83,8 +76,8 @@ function dynamicdata_user_display($args)
     $data['hooks'] = $hooks;
 
     // Return the template variables defined in this function
-    if (file_exists('modules/' . $args['tplmodule'] . '/xartemplates/user-display.xd') ||
-        file_exists('modules/' . $args['tplmodule'] . '/xartemplates/user-display-' . $args['template'] . '.xd')) {
+    if (file_exists('modules/' . $args['tplmodule'] . '/xartemplates/user-display.xt') ||
+        file_exists('modules/' . $args['tplmodule'] . '/xartemplates/user-display-' . $args['template'] . '.xt')) {
         return xarTplModule($args['tplmodule'],'user','display',$data,$args['template']);
     } else {
         return xarTplModule('dynamicdata','user','display',$data,$args['template']);

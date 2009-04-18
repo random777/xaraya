@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -30,8 +30,8 @@ function dynamicdata_utilapi_export($args)
         if (empty($objectid)) {
             $objectid = null;
         }
-        if (empty($modid)) {
-            $modid = xarModGetIDFromName('dynamicdata');
+        if (empty($module_id)) {
+            $module_id = xarMod::getRegID('dynamicdata');
         }
         if (empty($itemtype)) {
             $itemtype = 0;

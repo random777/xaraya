@@ -2,7 +2,7 @@
 /**
  *  Initialise meta block
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -122,11 +122,11 @@ function themes_metablock_display($blockinfo)
     $meta['latitude'] = $vars['latitude'];
 
     // Active Page
-    $meta['activepagerss'] = xarServerGetCurrentURL(array('theme' => 'rss'));
-    $meta['activepageatom'] = xarServerGetCurrentURL(array('theme' => 'atom'));
-    $meta['activepageprint'] = xarServerGetCurrentURL(array('theme' => 'print'));
+    $meta['activepagerss'] = xarServer::getCurrentURL(array('theme' => 'rss'));
+    $meta['activepageatom'] = xarServer::getCurrentURL(array('theme' => 'atom'));
+    $meta['activepageprint'] = xarServer::getCurrentURL(array('theme' => 'print'));
 
-    $meta['baseurl'] = xarServerGetBaseUrl();
+    $meta['baseurl'] = xarServer::getBaseURL();
     if (isset($vars['copyrightpage'])){
         $meta['copyrightpage'] = $vars['copyrightpage'];
     } else {

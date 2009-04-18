@@ -3,7 +3,7 @@
  * Main themes module function
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -18,13 +18,14 @@
  */
 function themes_admin_main()
 {
-    // Security Check
-    if(!xarSecurityCheck('AdminTheme')) return;
+    if(!xarSecurityCheck('EditThemes')) return;
 
-        xarResponseRedirect(xarModURL('themes', 'admin', 'list'));
-
-    // success
-    return true;
+    if (xarModVars::get('modules', 'disableoverview') == 0){
+        return xarTplModule('themes','admin','overview');
+    } else {
+        xarResponse::Redirect(xarModURL('themes', 'admin', 'list'));
+        return true;
+    }
 }
 
 ?>

@@ -3,7 +3,7 @@
  * main themes module user function
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,7 +27,7 @@ function themes_user_usermenu($args)
     switch(strtolower($phase)) {
         case 'menu':
 
-            $icon = xarTplGetImage('themes.gif','themes'); //'modules/themes/xarimages/themes.gif';
+            $icon = xarTplGetImage('themes.png','base'); //'modules/themes/xarimages/themes.gif';
             $current = xarModURL('roles', 'user', 'account', array('moduleload' => 'themes'));
             $data = xarTplModule('themes', 'user', 'usermenu_icon', array('icon' => $icon, 'current' => $current));
 
@@ -62,7 +62,7 @@ function themes_user_usermenu($args)
 
             xarModUserVars::set('themes', 'default', $themeInfo['name'], $id);
             // Redirect
-            xarResponseRedirect(xarModURL('roles', 'user', 'account', array('moduleload' => 'themes')));
+            xarResponse::Redirect(xarModURL('roles', 'user', 'account', array('moduleload' => 'themes')));
 
             break;
     }

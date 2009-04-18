@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -12,6 +12,8 @@
 
 sys::import('xaraya.structures.tree');
 sys::import('modules.privileges.class.privileges');
+sys::import('modules.dynamicdata.class.properties.base');
+
 /**
  * Handle Privileges Tree property
  */

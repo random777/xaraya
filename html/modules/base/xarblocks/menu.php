@@ -3,7 +3,7 @@
  * Menu Block
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -86,7 +86,7 @@ function base_menublock_display($blockinfo)
     $mods = xarModAPIFunc('modules',
                           'admin',
                           'getlist',
-                          array('filter'     => array('UserCapable' => 1)));
+                          array('filter'     => array('UserCapable' => true)));
     if(empty($mods)) {
     // there aren't any user capable modules, dont display user menu
         return;
@@ -106,7 +106,7 @@ function base_menublock_display($blockinfo)
     // which module is loaded atm?
     // we need it's name, type and function - dealing only with user type mods, aren't we?
     // This needs to be deprecated for multi-modules setups later on
-    list($thismodname, $thismodtype, $thisfuncname) = xarRequestGetInfo();
+    list($thismodname, $thismodtype, $thisfuncname) = xarRequest::getInfo();
 
     // Sort Order, Status, Common Labels and Links Display preparation
     $logoutlabel = xarVarPrepForDisplay(xarML('logout'));
@@ -118,8 +118,8 @@ function base_menublock_display($blockinfo)
     $loggedin = xarUserIsLoggedIn();
 
     // Get current URL
-    $truecurrenturl = xarServerGetCurrentURL(array(), false);
-    $currenturl = xarServerGetCurrentURL();
+    $truecurrenturl = xarServer::getCurrentURL(array(), false);
+    $currenturl = xarServer::getCurrentURL();
 
     // Added Content For non-modules list.
     if (!empty($vars['content'])) {
@@ -312,7 +312,7 @@ function base_menublock_display($blockinfo)
             }
             if (empty($usermods)) $usermods = '';
         } else {
-            $modid = xarModGetIDFromName('roles');
+            $modid = xarMod::getRegID('roles');
             $modinfo = xarModGetInfo($modid);
             if ($modinfo){
                 $title = $modinfo['displaydescription'];
@@ -345,8 +345,8 @@ function base_menublock_display($blockinfo)
         $showlogout = true;
     }
 
-    $rssurl         = xarServerGetCurrentURL(array('theme' => 'rss'));
-    $printurl       = xarServerGetCurrentURL(array('theme' => 'print'));
+    $rssurl         = xarServer::getCurrentURL(array('theme' => 'rss'));
+    $printurl       = xarServer::getCurrentURL(array('theme' => 'print'));
 
     if (isset($vars['displayprint'])) {
         $displayprint = $vars['displayprint'];

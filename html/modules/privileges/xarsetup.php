@@ -1,7 +1,7 @@
 <?php
 /**
  * @package core modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -130,6 +130,7 @@ function initializeSetup()
     xarMasks::register('AdminBaseBlock','All','base','Block','All:All:All',xarSecurityLevel('ACCESS_ADMIN'));
     xarMasks::register('ViewBase','All','base','All','All',xarSecurityLevel('ACCESS_OVERVIEW'));
     xarMasks::register('ReadBase','All','base','All','All',xarSecurityLevel('ACCESS_READ'));
+    xarMasks::register('EditBase','All','base','All','All',xarSecurityLevel('ACCESS_EDIT'));
     xarMasks::register('AdminBase','All','base','All','All',xarSecurityLevel('ACCESS_ADMIN'));
     /* This AdminPanel mask is added to replace the adminpanel module equivalent
      *   - since adminpanel module is removed as of 1.1.0

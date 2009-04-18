@@ -2,7 +2,7 @@
 /**
  * migrate module items
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -95,7 +95,7 @@ function dynamicdata_util_migrate($args)
 
     $data['modulesupported'] = array();
     foreach ($modsupported as $modname) {
-        $data['modulesupported'][] = xarModGetIDFromName($modname);
+        $data['modulesupported'][] = xarMod::getRegID($modname);
     }
 
     // list of hooks supported by the migration process (for now)
@@ -189,7 +189,7 @@ function dynamicdata_util_migrate($args)
                 // add DD properties to field list
                 if (!empty($data['fromhooklist']['dynamicdata'])) {
                     $props = xarModAPIFunc('dynamicdata','user','getprop',
-                                           array('modid'    => $data['from']['module'],
+                                           array('module_id'    => $data['from']['module'],
                                                  'itemtype' => $data['from']['itemtype']));
                     $proptypes = DataPropertyMaster::getPropertyTypes();
                     foreach ($props as $name => $info) {
@@ -276,7 +276,7 @@ function dynamicdata_util_migrate($args)
                 // add DD properties to field list
                 if (!empty($data['tohooklist']['dynamicdata'])) {
                     $props = xarModAPIFunc('dynamicdata','user','getprop',
-                                           array('modid'    => $data['to']['module'],
+                                           array('module_id'    => $data['to']['module'],
                                                  'itemtype' => $data['to']['itemtype']));
                     $proptypes = DataPropertyMaster::getPropertyTypes();
                     foreach ($props as $name => $info) {
@@ -354,7 +354,7 @@ function dynamicdata_util_migrate($args)
             // return and load the same map again
             $url = xarModURL('dynamicdata','util','migrate',
                              array('load' => 1, 'map' => $map));
-            xarResponseRedirect($url);
+            xarResponse::Redirect($url);
             return true;
         }
     }

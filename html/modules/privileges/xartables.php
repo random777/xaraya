@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2007 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,8 +19,6 @@
  */
 function privileges_xartables()
 {
-    $tables = array();
-
     $prefix = xarDB::getPrefix();
     $tables['privileges']     = $prefix . '_privileges';
     $tables['privmembers']    = $prefix . '_privmembers';
@@ -28,7 +26,6 @@ function privileges_xartables()
     $tables['instances']      = $prefix . '_instances';
     $tables['security_realms']    = $prefix . '_security_realms';
     $tables['security_instances'] = $prefix . '_security_instances';
-
     return $tables;
 }
 ?>

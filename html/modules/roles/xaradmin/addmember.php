@@ -3,7 +3,7 @@
  * Assign a user or group to a group
  *
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -50,7 +50,7 @@ function roles_admin_addmember()
     if (!xarModAPIFUnc('roles','user','addmember', array('id' => $id, 'gid' => $roleid))) return;
 
     // redirect to the next page
-    xarResponseRedirect(xarModURL('roles', 'admin', 'modify',
+    xarResponse::Redirect(xarModURL('roles', 'admin', 'modify',
             array('id' => $id)));
 }
 

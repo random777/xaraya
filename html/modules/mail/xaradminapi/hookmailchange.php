@@ -2,7 +2,7 @@
 /**
  * Hook function called to send mail
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -38,7 +38,7 @@ function mail_adminapi_hookmailchange($args)
         }
     }
 
-    $modid = xarModGetIDFromName($modname);
+    $modid = xarMod::getRegID($modname);
     if (empty($modid)) throw new IDNotFoundException("modid for $modname");
 
 
@@ -84,7 +84,7 @@ function mail_adminapi_hookmailchange($args)
         'siteslogan' => xarModVars::get('themes', 'SiteSlogan'),
         'siteadmin'  => xarModVars::get('mail', 'adminname'),
         'adminmail'  => xarModVars::get('mail', 'adminmail'),
-        'siteurl'    => xarServerGetBaseURL(),
+        'siteurl'    => xarServer::getBaseURL(),
         'myname'     => xarUserGetVar('name'),
         'myuname'    => xarUserGetVar('uname'),
         'myuid'      => xarUserGetVar('id'),

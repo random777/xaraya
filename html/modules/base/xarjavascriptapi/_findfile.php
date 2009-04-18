@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) copyright-placeholder
+ * @copyright (C) 2002-2006 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -41,12 +41,12 @@ function base_javascriptapi__findfile($args)
 
     // Use the current module if none supplied.
     if (empty($module) && empty($modid)) {
-        list($module) = xarRequestGetInfo();
+        list($module) = xarRequest::getInfo();
     }
 
     // Get the module ID from the module name.
     if (empty($modid) && !empty($module)) {
-        $modid = xarModGetIDFromName($module);
+        $modid = xarMod::getRegID($module);
     }
 
     // Get details for the module if we have a valid module id.

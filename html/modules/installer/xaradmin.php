@@ -590,7 +590,7 @@ function installer_admin_create_administrator()
     xarVarFetch('install_language','str::',$install_language, 'en_US.utf-8', XARVAR_NOT_REQUIRED);
 
     xarVarSetCached('installer','installing', true);
-    xarTplSetPageTemplateName('installer');
+    xarTplSetThemeName('installer');
 
     $data['language'] = $install_language;
     $data['phase'] = 6;
@@ -787,7 +787,7 @@ function installer_admin_choose_configuration()
     $data['language'] = $install_language;
     $data['phase'] = 7;
     $data['phase_label'] = xarML('Choose your configuration');
-    xarTplSetPageTemplateName('installer');
+    xarTplSetThemeName('installer');
 
     //Get all modules in the filesystem
     $fileModules = xarModAPIFunc('modules','admin','getfilemodules');
@@ -873,7 +873,7 @@ function installer_admin_confirm_configuration()
     xarVarFetch('install_language','str::',$install_language, 'en_US.utf-8', XARVAR_NOT_REQUIRED);
 
     xarVarSetCached('installer','installing', true);
-    xarTplSetPageTemplateName('installer');
+    xarTplSetThemeName('installer');
 
     if(!xarVarFetch('configuration', 'isset', $configuration, NULL,  XARVAR_DONT_SET))  return;
     if(!isset($configuration)) {
@@ -1078,7 +1078,7 @@ function installer_admin_confirm_configuration()
 function installer_admin_cleanup()
 {
     xarVarFetch('install_language','str::',$install_language, 'en_US.utf-8', XARVAR_NOT_REQUIRED);
-    xarTplSetPageTemplateName('installer');
+    xarTplSetThemeName('installer');
 
     xarUserLogOut();
 // log in admin user

@@ -167,7 +167,7 @@ function installer_admin_phase3()
     $memLimit = trim(ini_get('memory_limit'));
     $memLimit = empty($memLimit) ? xarML('Undetermined') : $memLimit;
     $memVal = intval($memLimit, 10);
-    $memBase = strtolower(substr($memLimit,0,strlen($memLimit)-1));
+    $memBase = strtolower(substr($memLimit,-1,1));
     switch($memBase) {
         case 'g':
             // 'g' only valid in PHP 5.1 and later

@@ -33,7 +33,7 @@ function roles_admin_addrole()
     // get the rest for users only
     // TODO: need to see what to do with auth_module
     if ($ptype == 0) {
-        xarVarFetch('puname', 'str:1:35:', $puname, NULL, XARVAR_NOT_REQUIRED);
+        xarVarFetch('puname', 'str:1:100:', $puname, NULL, XARVAR_NOT_REQUIRED);
         xarVarFetch('pemail', 'str:1:', $pemail, NULL, XARVAR_NOT_REQUIRED);
         xarVarFetch('ppass1', 'str:1:', $ppass1, NULL, XARVAR_NOT_REQUIRED);
         xarVarFetch('ppass2', 'str:1:', $ppass2, NULL, XARVAR_NOT_REQUIRED);

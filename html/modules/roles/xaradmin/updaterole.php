@@ -23,7 +23,7 @@ function roles_admin_updaterole()
  if (!xarSecConfirmAuthKey()) return;
    
     if (!xarVarFetch('uid',            'int:1:',    $uid)) return;
-    if (!xarVarFetch('pname',          'str:1:35:', $pname)) return;
+    if (!xarVarFetch('pname',          'str:1:100:', $pname)) return;
     if (!xarVarFetch('ptype',          'int',       $ptype)) return;
     if (!xarVarFetch('phome',          'str',       $phome, '', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('pprimaryparent', 'int',       $pprimaryparent, '', XARVAR_NOT_REQUIRED)) return;
@@ -67,7 +67,7 @@ function roles_admin_updaterole()
         $pstate = 3;
     }
     else {
-        if (!xarVarFetch('puname', 'str:1:35:', $puname)) return;
+        if (!xarVarFetch('puname', 'str:1:100:', $puname)) return;
         if (!xarVarFetch('pemail', 'str:1:',    $pemail)) return;
         if (!xarVarFetch('ppass1', 'str:1:',    $ppass1,'')) return;
         if (!xarVarFetch('ppass2', 'str:1:',    $ppass2,'')) return;

@@ -53,11 +53,10 @@ function dynamicdata_util_relations($args)
     // Pass the full info object to the template, let them figure out how and what
     $data['tables'] = $dbInfo->getTables();
 
-    $data['objects'] = xarModAPIFunc('dynamicdata','user','getobjects');
+    $data['objects'] = DataObjectMaster::getObjects();
 
     if (!empty($table) || !empty($objectid)) {
-        $object = xarModAPIFunc('dynamicdata','user','getobject',
-                                array('objectid' => $objectid,
+        $object = DataObjectMaster::getObject(array('objectid' => $objectid,
                                       'table' => $table));
         $data['fields'] = $object->properties;
         if (empty($table)) {
@@ -71,8 +70,7 @@ function dynamicdata_util_relations($args)
         }
         //echo '<pre>',var_dump($data['relations']),'</pre>';
         if (!empty($withtable) || !empty($withobjectid)) {
-            $withobject = xarModAPIFunc('dynamicdata','user','getobject',
-                                        array('objectid' => $withobjectid,
+            $withobject = DataObjectMaster::getObject(array('objectid' => $withobjectid,
                                               'table' => $withtable));
             $data['withfields'] = $withobject->properties;
             if (empty($withtable)) {

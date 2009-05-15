@@ -197,7 +197,12 @@ class xarRoles extends Object
         list($id, $name, $itemtype, $parentid, $uname, $email, $pass,
             $date_reg, $val_code, $state, $auth_module) = $result->fields;
         sys::import('modules.dynamicdata.class.objects.master');
-        $parent = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
+        switch ($itemtype) {
+            case 1: $name = "roles_roles"; break;
+            case 2: $name = "roles_users"; break;
+            case 3: $name = "roles_groups"; break;
+        }
+        $parent = DataObjectMaster::getObject(array('name' => $name));
         $parent->getItem(array('itemid' => $id));
 
         // retrieve the child's data from the repository
@@ -209,7 +214,12 @@ class xarRoles extends Object
         list($id, $name, $itemtype, $parentid, $uname, $email, $pass,
             $date_reg, $val_code, $state, $auth_module) = $result->fields;
         sys::import('modules.roles.class.role');
-        $child = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
+        switch ($itemtype) {
+            case 1: $name = "roles_roles"; break;
+            case 2: $name = "roles_users"; break;
+            case 3: $name = "roles_groups"; break;
+        }
+        $child = DataObjectMaster::getObject(array('name' => $name));
         $child->getItem(array('itemid' => $id));
 
        // done
@@ -226,8 +236,7 @@ class xarRoles extends Object
         $types = xarModAPIFunc('dynamicdata','user','getmoduleitemtypes',array('moduleid' => 27));
         $basetypes = array();
         foreach ($types as $key => $value) {
-            $basetype = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('itemtype' => $key, 'moduleid' => 27));
-            if ($basetype['itemtype'] == ROLES_GROUPTYPE) $basetypes[] = $key;
+            if ($key == ROLES_GROUPTYPE) $basetypes[] = $key;
         }
         // set up the query and get the groups
         self::initialize();
@@ -285,8 +294,18 @@ class xarRoles extends Object
         }
         // create and return the role object
         sys::import('modules.roles.class.role');
-        $role = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $row['itemtype']));
+        switch ($row['itemtype']) {
+            case 1: $name = "roles_roles"; break;
+            case 2: $name = "roles_users"; break;
+            case 3: $name = "roles_groups"; break;
+        }
+        $cacheKey = 'Roles.ById';
+        if(xarVarIsCached($cacheKey,$row['id'])) {
+            return xarVarGetCached($cacheKey,$row['id']);
+        }
+        $role = DataObjectMaster::getObject(array('name' => $name));
         $role->getItem(array('itemid' => $row['id']));
+        xarVarSetCached($cacheKey,$row['id'],$role);
         return $role;
     }
 }

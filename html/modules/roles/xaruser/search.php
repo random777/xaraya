@@ -26,12 +26,15 @@ function roles_user_search()
     if (!xarVarFetch('author',   'isset', $author,    NULL, XARVAR_DONT_SET)) {return;}
     $data = array();
     $data['users'] = array();
-    // show the search form
+
+/*
+// show the search form
     if (!isset($q)) {
         if (xarModIsHooked('dynamicdata','roles')) {
             // get the DataObject defined for this module
             $object = xarModAPIFunc('dynamicdata','user','getobject',
                                      array('module' => 'roles'));
+                                     var_dump($object);
             if (isset($object) && !empty($object->objectid)) {
                 // get the Dynamic Properties of this object
                 $data['properties'] =& $object->getProperties();
@@ -39,6 +42,7 @@ function roles_user_search()
         }
         return $data;
     }
+    */
 
     // execute the search
 

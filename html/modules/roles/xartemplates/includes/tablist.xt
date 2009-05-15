@@ -23,7 +23,7 @@
             <dd class="#$tabclass#">
                 <a href="&xar-modurl-roles-admin-showprivileges;&amp;id=#$id#">Privileges</a>
             </dd>
-            <xar:if condition="$basetype eq ROLES_GROUPTYPE">
+        <xar:if condition="$itemtype eq ROLES_GROUPTYPE">
                 <xar:set name="tabclass">$activetab=='showusers'?'active':''</xar:set>
                 <dd class="#$tabclass#">
                     <a href="&xar-modurl-roles-admin-showusers;&amp;id=#$id#&amp;reload=reload#">

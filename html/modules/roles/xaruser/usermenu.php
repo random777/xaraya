@@ -36,9 +36,7 @@ function roles_user_usermenu($args)
             $id = xarUserGetVar('id');
             $object = xarSession::getVar('user_object');
             if ($object == null) {
-                $object = xarModAPIFunc('dynamicdata','user','getobject',
-                                  array('name' => 'roles_users'));
-                $object->getItem(array('itemid' => $id));
+                $object = DataObjectMaster::getObject(array('name' => 'roles_users', 'itemid' => $id));
             } else {
                 $object = unserialize($object);
             }
@@ -103,9 +101,7 @@ function roles_user_usermenu($args)
             $id = xarUserGetVar('id');
             $uname = xarUserGetVar('uname');
             $name = xarUserGetVar('name');
-            $object = xarModAPIFunc('dynamicdata','user','getobject',
-                              array('name' => 'roles_users'));
-            $object->getItem(array('itemid' => $id));
+            $object = DataObjectMaster::getObject(array('name' => 'roles_users', 'itemid' => $id));
 
             $oldpass = $object->properties['password']->getValue();
             $oldemail = $object->properties['email']->getValue();

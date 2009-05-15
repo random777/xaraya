@@ -10,7 +10,7 @@ function mail_admin_delete($args = array())
     if(!xarVarFetch('itemid','id',$itemid)) return;
     if(!xarVarFetch('objectid','id',$objectid)) return;
 
-    $qdefObject = xarModApiFunc('dynamicdata','user','getobject',array('objectid' => $objectid));
+    $qdefObject = DataObjectMaster::getObject(array('objectid' => $objectid));
     if(!$qdefObject) return;
 
     $result = $qdefObject->deleteItem(array('itemid' => $itemid));

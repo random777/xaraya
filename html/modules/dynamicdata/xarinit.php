@@ -31,6 +31,7 @@ function dynamicdata_init()
     $dynamic_properties = $xartable['dynamic_properties'];
     $dynamic_data = $xartable['dynamic_data'];
     $dynamic_configurations = $xartable['dynamic_configurations'];
+    $dynamic_relations = $xartable['dynamic_relations'];
     $dynamic_properties_def = $xartable['dynamic_properties_def'];
     $modulestable = $xartable['modules'];
 
@@ -165,8 +166,8 @@ function dynamicdata_init()
         $stmt = $dbconn->prepareStatement($sql);
 
         $objects = array(
-            array('objects'   ,'Dynamic Objects'   ,$module_id,0,'DataObject','auto',                                 'itemid',0,'a:0:{}'               ,0),
-            array('properties','Dynamic Properties',$module_id,1,'DProperty','modules/dynamicdata/class/property.php','itemid',0,'a:0:{}'               ,0),
+            array('objects'   ,'Dynamic Objects'   ,$module_id,0,'DataObject','auto',                                 'itemid',0,'a:0:{}',serialize(array('dynamic_objects' => $prefix . '_dynamic_objects')),'a:0:{}','a:0:{}'               ,0),
+            array('properties','Dynamic Properties',$module_id,1,'DProperty','modules/dynamicdata/class/property.php','itemid',0,'a:0:{}',serialize(array('dynamic_properties' => $prefix . '_dynamic_properties')),'a:0:{}','a:0:{}'               ,0),
         );
 
         $objectid = array();

@@ -1,5 +1,7 @@
 /*
   Mysql 5.0 Upgrade script for the table changes made in 2.x Arcturus branch
+DROP TABLE IF EXISTS xar_template_tags;
+
 */
 
 /* Rework the dd objects table */

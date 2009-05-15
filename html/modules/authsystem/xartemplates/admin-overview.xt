@@ -15,7 +15,19 @@
             It handles user authentication on your site by checking for a valid user log in. The Authsystem module is a core module within Xaraya and cannot be removed.
         </p>
 
-        <h3>How to use it?</h3>
+        <h3>Concepts</h3>
+        <h4>Authentication modules</h4>
+        <p>
+            An authentication module is used to log users in to a Xaraya site. The Authsystem module used by default in Xaraya authenticates by checking the user name and password given, but this is only one possible way of authentication. Xaraya can work with different types of authentication modules that are available at www.xaraya.com or from 3rd party providers. You can search for such modules at the <a href="http://www.xaraya.com/index.php?module=release&amp;func=search" target="_blank">Extensions page</a> on www.xaraya.com 
+        </p>
+        <p>
+            To have Xaraya recognize an installed authentication module other than the default, go to the Roles module configuration page <strong>Admin Menu &#8594; Roles &#8594; Modify Configuration</strong> and set the authentication module you want to use as the default authentication module.
+        </p>
+        <p>
+            If your site also requires the ability to have users register, install the Registration module, which manages the user registration process. It is available in the Xaraya Base distribution and on www.xaraya.com
+        </p>
+
+        <h3>The Admin interface</h3>
         <p>
             As an administrator, you can change the module's configuration by pointing your browser to the configuration page <strong>Admin Menu &#8594; Authsystem &#8594; Modify Configuration</strong>. The configuration page includes the standard display options common to all core modules (see the Base module overview for an explanation of these).
         </p>
@@ -23,28 +35,10 @@
             In addition, this module also supports the following configuration options:
             <ul>
                 <li>
-                    <strong>User lockout:</strong>&#160;If this option is active, then users who incoorectly attempt to login a specified number times are locked out of the site for a specified amount of time.
+                    <strong>User lockout:</strong>&#160;If this option is active, then users who incorrectly attempt to login a specified number times are locked out of the site for a specified amount of time.
                 </li>
             </ul>
         </p>
-
-        <p>
-        <strong>NOTE:</strong>If you also require the ability to have users register and log in on
-        your site, you should install the Registration module. The Registration module manages user
-        registration and options for that process (which was previously handled by Roles module in
-        earlier Xaraya versions). It is available in the Xaraya Base distribution and Module code
-        repository</p>
-        <p>The Roles module will use the default Login page and block of the Default Authentication
-        module wish is by default, Authsystem.</p>
-        <br />
-        <h3>Other Authentication Methods</h3>
-        <p>Xaraya also has the ability to add other types of Authentication modules such as
-        AuthLDAP, AuthURL, AuthEmail and so on, that are available in our 3rd party module code
-        repository in addition to 3rd party providers' sites. Please see the documentation for the
-        relevant authentication module.</p>
-        <p>In the case of authentication modules other than the default, you should set your
-        Default Authentication module for Roles in the Roles module Modify Config.</p>
-        <br />
 
         <h3>Available Blocks</h3>
         <ul>
@@ -53,12 +47,13 @@
             </li>
         </ul>
 
-        <h3>Available Hooks</h3>
-        <p>The Authsystem module has no hooks</p>
-
         <h3>Available Dataproperties</h3>
         <p>The Authsystem module has no dataproperties</p>
 
+        <h3>Available Hooks</h3>
+        <p>The Authsystem module has no hooks</p>
+
+        <!--
         <h3>Further Information</h3>
         <p>Further information on the Authsystem Authentication module can be found at:</p>
         <ul>
@@ -74,5 +69,6 @@
         <p class="xar-sub">
         <strong>&#160;Authentication Module - Overview</strong>
         <br />&#160;Version 1.0.0&#160; 2006-02-04</p>
+        -->
     </div>
 </xar:template>

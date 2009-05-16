@@ -12,25 +12,25 @@
             <xar:sec mask="EditDynamicData" catch="false">
                 <xar:set name="tabclass">$activetab=='query'?'active':''</xar:set>
                 <dd class="#$tabclass#">
-                    <a href="#xarModURL('dynamicdata','util','query')#">Query</a>
+                    <a href="#xarModURL('dynamicdata','util','query')#">
                 </dd>
             </xar:sec>
             <xar:sec mask="EditDynamicData" catch="false">
                 <xar:set name="tabclass">$activetab=='import'?'active':''</xar:set>
                 <dd class="#$tabclass#">
-                    <a href="#xarModURL('dynamicdata','util','import')#">Import</a>
+                    <a href="#xarModURL('dynamicdata','util','import')#">
                 </dd>
             </xar:sec>
             <xar:sec mask="EditDynamicData" catch="false">
                 <xar:set name="tabclass">$activetab=='export'?'active':''</xar:set>
                 <dd class="#$tabclass#">
-                    <a href="#xarModURL('dynamicdata','util','export')#">Export</a>
+                    <a href="#xarModURL('dynamicdata','util','export')#">
                 </dd>
             </xar:sec>
             <xar:sec mask="EditDynamicData" catch="false">
                 <xar:set name="tabclass">$activetab=='static'?'active':''</xar:set>
                 <dd class="#$tabclass#">
-                    <a href="#xarModURL('dynamicdata','util','view_static')#">Table Definition</a>
+                    <a href="#xarModURL('dynamicdata','util','view_static')#">
                 </dd>
             </xar:sec>
             <!--
@@ -46,13 +46,13 @@
             <xar:sec mask="EditDynamicData" catch="false">
                 <xar:set name="tabclass">$activetab=='meta'?'active':''</xar:set>
                 <dd class="#$tabclass#">
-                    <a href="#xarModURL('dynamicdata','util','meta')#">Meta Definitions</a>
+                    <a href="#xarModURL('dynamicdata','util','meta')#">
                 </dd>
             </xar:sec>
             <xar:sec mask="EditDynamicData" catch="false">
                 <xar:set name="tabclass">$activetab=='migrate'?'active':''</xar:set>
                 <dd class="#$tabclass#">
-                    <a href="#xarModURL('dynamicdata','util','migrate')#">Migrate Items</a>
+                    <a href="#xarModURL('dynamicdata','util','migrate')#">
                 </dd>
             </xar:sec>
         </dl>

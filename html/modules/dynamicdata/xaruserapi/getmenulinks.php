@@ -24,7 +24,7 @@ function dynamicdata_userapi_getmenulinks()
     if(xarSecurityCheck('ViewDynamicDataItems')) {
 
         // get items from the objects table
-        $objects = xarModAPIFunc('dynamicdata','user','getobjects');
+        $objects = DataObjectMaster::getObjects();
         if (!isset($objects)) {
             return $menulinks;
         }
@@ -35,21 +35,11 @@ function dynamicdata_userapi_getmenulinks()
             if ($itemid < 3) continue;
             $module_id = $object['moduleid'];
             // don't show data "belonging" to other modules for now
-            if ($module_id != $mymodid) {
-                continue;
-            }
-            // nice(r) URLs
-            if ($module_id == $mymodid) {
-                $module_id = null;
-            }
-            $itemtype = $object['itemtype'];
-            if ($itemtype == 0) {
-                $itemtype = null;
-            }
+            if ($module_id != $mymodid) continue;
+
             $label = $object['label'];
             $menulinks[] = Array('url'   => xarModURL('dynamicdata','user','view',
-                                                      array('module_id' => $module_id,
-                                                            'itemtype' => $itemtype)),
+                                                      array('objectid' => $itemid)),
                                  'title' => xarML('View #(1)', $label),
                                  'label' => $label);
         }

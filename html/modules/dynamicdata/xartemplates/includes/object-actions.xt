@@ -39,7 +39,7 @@
                 </dd>
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-dynamicdata-util-export;&amp;objectid=#$itemid#&amp;name=#$object:name#">
+                    <a href="&xar-modurl-dynamicdata-util-export;&amp;objectid=#$itemid#">
                         Export to XML
                     </a>
                 </dd>

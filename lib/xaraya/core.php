@@ -510,7 +510,7 @@ class xarCore extends Object
     // The actual version information
     const VERSION_NUM = XARCORE_VERSION_REV;
     const VERSION_ID  = 'Jamaica';
-    const VERSION_SUB = 'post rabiem risus';
+    const VERSION_SUB = 'altius fortius';
 
     private static $cacheCollection = array();
 

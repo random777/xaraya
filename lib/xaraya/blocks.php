@@ -117,20 +117,29 @@ function xarBlock_render($blockinfo)
         $descriptor = new ObjectDescriptor(array());
         $block = new $name($descriptor);
 
-        $blockinfo = $block->display($blockinfo);
+        $block_id = $blockinfo['bid'];
+        $block_name = $blockinfo['name'];
+        $block_title = $blockinfo['title'];
+        $block_type = $blockinfo['type'];
+        if (isset($blockinfo['bgid'])) {
+            // The block may not be rendered as part of a group.
+            $block_gid = $blockinfo['bgid'];
+            $block_groupname = $blockinfo['group_name'];
+        }
+        $blockinfo['content'] = $block->display($blockinfo);
         if (!is_array($blockinfo)) {return '';}
         if (is_array($blockinfo['content'])) {
             // Here $blockinfo['content'] is template data.
 
             // Set some additional details that the could be useful in the block.
             // TODO: prefix these extra variables (_bl_) to indicate they are supplied by the core.
-            $blockinfo['content']['blockid'] = $blockinfo['bid'];
-            $blockinfo['content']['blockname'] = $blockinfo['name'];
-            $blockinfo['content']['blocktypename'] = $blockinfo['type'];
+            $blockinfo['content']['blockid'] = $block_id;
+            $blockinfo['content']['blockname'] = $block_name;
+            $blockinfo['content']['blocktypename'] = $block_type;
             if (isset($blockinfo['bgid'])) {
                 // The block may not be rendered as part of a group.
-                $blockinfo['content']['blockgid'] = $blockinfo['bgid'];
-                $blockinfo['content']['blockgroupname'] = $blockinfo['group_name'];
+                $blockinfo['content']['blockgid'] = $block_gid;
+                $blockinfo['content']['blockgroupname'] = $block_groupname;
             }
 
             // Render this block template data.

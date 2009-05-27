@@ -1,0 +1,187 @@
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <!-- Variables from BL -->
+    <xar:set name="itemkeys">implode(',',array_keys($items))</xar:set>
+    <xar:set name="itemkenumber_of_subitems">count($items)</xar:set>
+    <input type="hidden" name="number_of_subitems" id="number_of_subitems" value="#$itemkeys#" />
+    <input type="hidden" name="subitem_previous_ids" id="subitem_previous_ids" value="#$itemkeys#" />
+    <input type="hidden" name="subitem_ids" id="subitem_ids" value="#$itemkeys#" />
+    
+    
+    <script type="text/javascript">
+      var Dom = {
+        get: function(el) {
+          if (typeof el === 'string') {
+            return document.getElementById(el);
+          } else {
+            return el;
+          }
+        },
+        add: function(el, dest) {
+          var el = this.get(el);
+          var dest = this.get(dest);
+          dest.appendChild(el);
+        },
+        remove: function(el) {
+          var el = this.get(el);
+          el.parentNode.removeChild(el);
+        }
+      };
+      var Event = {
+        add: function() {
+          if (window.addEventListener) {
+            return function(el, type, fn) {
+              Dom.get(el).addEventListener(type, fn, false);
+            };
+          } else if (window.attachEvent) {
+            return function(el, type, fn) {
+              var f = function() {
+                fn.call(Dom.get(el), window.event);
+              };
+              Dom.get(el).attachEvent('on' + type, f);
+            };
+          }
+        }()
+      };
+      Event.add(window, 'load', function() {
+        var i = 0;
+        Event.add('add-element', 'click', function() {
+          var template = document.getElementById('empty_template');
+          var el = template.cloneNode(true);
+          el.setAttribute("id","new_template" + ++i);
+          el.setAttribute("style","display:block;");
+          replacePrefix(el, 'dummyfieldprefix','new_template' + i + '_#$fieldprefix#');
+          Dom.add(el, 'item_content');
+          var triggerremove = get_firstChild(el);
+          triggerremove.setAttribute("id","template"+i);
+          
+          // Update the id list
+          idlist = document.getElementById('subitem_ids').value;
+          if (idlist == '') idarray = new Array;
+          else idarray = idlist.split(',');
+          divtoadd = el.getAttribute('id');
+          idarray.push(divtoadd);
+          document.getElementById('subitem_ids').value = idarray.toString();
+                    
+          // Add a listener for removing and update the idlist
+          Event.add(triggerremove, 'click', function(e) {
+            removeEntry(triggerremove);
+            Dom.remove(triggerremove.parentNode);
+          });
+        });
+        
+      });
+
+        // Find the first child of a node that is not a text node
+        function get_firstChild(n)
+        {
+            y=n.firstChild;
+            while (y.nodeType!=1)
+              {
+              y=y.nextSibling;
+              }
+            return y;
+        }
+        
+        // Attach a listener to a node that removes the parent node
+        function setRemove(el)
+        {
+            Event.add(el,'click',function(e) {
+                removeEntry(el);
+                Dom.remove(el.parentNode);
+            });
+        }
+
+        // Remove an entry from the id list
+        function removeEntry(el)
+        {
+            divtogo = el.parentNode.getAttribute('id');
+            idlist = document.getElementById('subitem_ids').value;
+            if (idlist == '') idarray = new Array;
+            else idarray = idlist.split(',');
+            index = idarray.indexOf(divtogo);
+            idarray.splice(index,1);
+            document.getElementById('subitem_ids').value = idarray.toString();
+        }
+
+        // Replace text in all children of a node
+        function replacePrefix(el, oldstring, newstring) {
+            if (el.nodeType != 1) return true;
+            if (el.hasAttribute('name')) {
+                fieldname = el.getAttribute('name');
+                fieldname = fieldname.replace(oldstring,newstring);
+                el.setAttribute('name', fieldname);
+            }
+            var i=0;
+            // loop over the children of el and recursively pass them back to this function
+            while(el.childNodes[i]) {
+                replacePrefix(el.childNodes[i], oldstring, newstring);
+                i++;
+            }
+            return true;
+        }
+
+<!--
+<![CDATA[
+            if (!Array.prototype.indexOf)
+            {
+              Array.prototype.indexOf = function(elt /*, from*/)
+              {
+                var len = this.length >>> 0;
+
+                var from = Number(arguments[1]) || 0;
+                from = (from < 0)
+                     ? Math.ceil(from)
+                     : Math.floor(from);
+                if (from < 0)
+                  from += len;
+
+                for (; from < len; from++)
+                {
+                  if (from in this &&
+                      this[from] === elt)
+                    return from;
+                }
+                return -1;
+              };
+            }
+        ]]>
+        -->
+    </script>
+
+    <div id="add-element">
+        <span style="cursor: pointer">
+            Add Item
+        </span>
+    </div>
+    <div id="item_content">
+        <xar:set name="index">0</xar:set>
+        <xar:foreach in="$items" key="$key" value="$item">
+            <xar:set name="index">$index+1</xar:set>
+            <xar:set name="dummy">$object->setFieldValues($item)</xar:set>
+            <xar:set name="dummy">$object->setFieldPrefix($key . '_' . $fieldprefix)</xar:set>
+            <div id="#$key#">
+                <div id="template#$index#">
+                    <span style="cursor: pointer">
+                        Remove
+                    </span>
+                </div>
+                <xar:data-form object="$object" tplmodule="$tplmodule" layout="$layout" />
+            </div>
+            <script>
+                el = document.getElementById('template#$index#');
+                setRemove(el);
+            </script>
+        </xar:foreach>
+    </div>
+    
+    <div style="display:none;" id="empty_template">
+        <div id="dummyid">
+            <span style="cursor: pointer">
+                Remove
+            </span>
+        </div>
+        <xar:set name="dummy">$object->setFieldValues($defaultfieldvalues)</xar:set>
+        <xar:data-form object="$emptyobject" fieldprefix="dummyfieldprefix" tplmodule="$tplmodule" layout="$layout" />
+    </div>
+</xar:template>

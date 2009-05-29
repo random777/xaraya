@@ -34,8 +34,6 @@ function blocks_admin_view_instances()
                                                                  'order' => 'name',
                                                                  'rowstodo' => $rowstodo,
                                                                  'startat' => $startat));
-    // Get current style.
-    $data['selstyle'] = xarModGetUserVar('blocks', 'selstyle');
 
     // Create extra links and confirmation text.
     foreach ($instances as $index => $instance) {
@@ -47,12 +45,7 @@ function blocks_admin_view_instances()
             'blocks', 'admin', 'view_types',
             array('tid' => $instance['tid'])
         );
-        $instances[$index]['deleteconfirm'] = xarML('Delete instance "#(1)"', addslashes($instance['name']));
-    }
-
-    // Set default style if none selected.
-    if (empty($data['selstyle'])){
-        $data['selstyle'] = 'plain';
+        $instances[$index]['deleteconfirm'] = xarML('Delete instance "#(1)"?', addslashes($instance['name']));
     }
 
     $data['authid'] = $authid;
@@ -62,10 +55,6 @@ function blocks_admin_view_instances()
                             $total,
                             xarModURL('blocks', 'admin', 'view_instances',array('startat' => '%%')),
                             $rowstodo);
-
-    // Select vars for drop-down menus.
-    $data['style']['plain'] = xarML('Plain');
-    $data['style']['compact'] = xarML('Compact');
 
     // State descriptions.
     $data['state_desc'][0] = xarML('Hidden');

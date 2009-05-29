@@ -14,7 +14,7 @@
     </xar:foreach>
 <xar:elseif condition="$layout eq 'vertical_table'" />
     <xar:if condition="!empty($properties)">
-        <table class="xar-form-input-wrapper">
+        <table class="xar-items">
             <xar:foreach in="$properties" key="$name" value="$property">
                 <tr>
                     <th scope="row"><xar:data-label property="$properties[$name]" label="id" /></th>

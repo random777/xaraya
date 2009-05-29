@@ -75,7 +75,7 @@
                 </a>
             </dd>
             <dd class="active">
-                <a href="&xar-modurl-privileges-admin-viewroles;&amp;pid=#$pid#" >
+                <a href="&xar-modurl-privileges-admin-viewroles;&amp;pid=#$pid#">
                     <xar:mlstring>Groups/Users</xar:mlstring>
                 </a>
             </dd>
@@ -89,7 +89,7 @@
           <xar:mlstring>This privilege is not assigned to any user or group.</xar:mlstring>
         </p>
       <xar:else />
-        <table class="xar-fullwidth">
+        <table class="xar-items">
           <tr>
                 <th>
                     <xar:mlstring>Type</xar:mlstring>
@@ -101,6 +101,7 @@
                     <xar:mlstring>Actions</xar:mlstring>
                 </th>
             </tr>
+            <xar:set name="icon_remove">xarTplGetImage('icons/remove.png','base')</xar:set>
             <xar:foreach in="$roles" value="$role">
                 <tr>
                     <td>
@@ -115,9 +116,9 @@
                             #$role['name']#
                         </a>
                     </td>
-                    <td class="xar-align-center">
-                        <a href="#$removeurl#&amp;roleid=#$role['roleid']#" title="#xarML('Remove this Privilege assignment')#">
-                            <img src="#xarTplGetImage('icons/delete.png','base')#" class="xar-valign-middle" />
+                    <td class="xar-item-actions">
+                        <a href="#$removeurl#&amp;roleid=#$role['roleid']#" title="#xarML('Remove this Privilege assignment')#" class="xar-icon">
+                            <img src="#$icon_remove#" alt="#xarML('Remove this Privilege assignment')#" />
                         </a>
                     </td>
                 </tr>

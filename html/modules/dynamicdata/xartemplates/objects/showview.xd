@@ -39,10 +39,10 @@
         <xar:else />&gt;&gt;</xar:if></div>
     </xar:if>
     <xar:elseif condition="$layout eq 'list'" />
-    <table border="0" cellspacing="0" cellpadding="4">
+    <table class="xar-items">
         <tr>
             <xar:foreach in="$properties" key="$name">
-                <th class="xar-align-center">
+                <th>
                     <xar:data-label property="$properties[$name]" />
                 </th>
             </xar:foreach>
@@ -55,21 +55,21 @@
                 <!-- we could use xar:data-display here too, instead of looping over fields ourselves -->
                 <xar:foreach in="$properties" key="$name">
                     <xar:if condition="empty($fields[$name])">
-                        <td class="xar-valign-top">&#160;</td>
+                        <td>&#160;</td>
                         <xar:elseif condition="!empty($linkfield) and $linkfield eq $name" />
-                        <td class="xar-valign-top">
+                        <td>
                             <a href="#$links[$itemid]['display']['olink']#">
                                 <xar:data-output property="$properties[$name]" value="$fields[$name]" />
                             </a>
                         </td>
                         <xar:else />
-                        <td class="xar-valign-top">
+                        <td>
                             <xar:data-output property="$properties[$name]" value="$fields[$name]" />
                         </td>
                     </xar:if>
                 </xar:foreach>
                 <xar:if condition="empty($linkfield)">
-                    <td class="xar-align-center">
+                    <td class="xar-item-actions">
                         <xar:if condition="!empty($links[$itemid]) and count($links[$itemid]) gt 0">
                         <xar:foreach in="$links[$itemid]" value="$option">#$option['ojoin']# 
                         <a href="#$option['olink']#">#$option['otitle']#</a></xar:foreach>
@@ -89,7 +89,7 @@
         <xar:else />&gt;&gt;</xar:if></div>
     </xar:if>
     <xar:elseif condition="$layout eq 'subform'" />
-    <table class="xar-norm">
+    <table class="xar-items">
         <tr>
             <xar:foreach in="$properties" key="$name">
                 <th>
@@ -104,21 +104,21 @@
             <tr>
                 <xar:foreach in="$properties" key="$name">
                     <xar:if condition="empty($fields[$name])">
-                        <td class="xar-valign-top">&#160;</td>
+                        <td>&#160;</td>
                         <xar:elseif condition="!empty($linkfield) and $linkfield eq $name" />
-                        <td class="xar-valign-top">
+                        <td>
                             <a href="#$links[$itemid]['display']['olink']#">
                                 <xar:data-output property="$properties[$name]" value="$fields[$name]" />
                             </a>
                         </td>
                         <xar:else />
-                        <td class="xar-valign-top">
+                        <td>
                             <xar:data-output property="$properties[$name]" value="$fields[$name]" />
                         </td>
                     </xar:if>
                 </xar:foreach>
                 <xar:if condition="empty($linkfield)">
-                    <td class="xar-valign-top">
+                    <td class="xar-item-actions">
                         <xar:if condition="!empty($links[$itemid]) and count($links[$itemid]) gt 0">
                         <xar:foreach in="$links[$itemid]" value="$option">#$option['ojoin']# 
                         <a href="#$option['olink']#">#$option['otitle']#</a></xar:foreach>

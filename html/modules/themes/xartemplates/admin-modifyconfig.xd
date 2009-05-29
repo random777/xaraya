@@ -22,7 +22,6 @@
                     Site Display Options
                 </xar:mlstring>
             </legend>
-            <input type="hidden" name="authid" id="authid" value="#$authid#" />
 
             <div class="xar-form-input-wrapper">
                 <label for="sitename" class="xar-form-label">
@@ -395,11 +394,10 @@
             </xar:if>
         </fieldset>
 
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="submit" value="#$submitbutton#" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="submit" value="#$submitbutton#" />
+        </div>
 
     </form>
 </div>

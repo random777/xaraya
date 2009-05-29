@@ -8,7 +8,6 @@
     var blocks_fieldDescription = Array("Name");
 //-->
 </script> 
-<xar:style scope="common" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
         <xar:mlstring>Blocks Administration</xar:mlstring>
@@ -98,13 +97,9 @@
 
         </fieldset>
 
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#" />
-                <input type="submit" value="#xarML('Create Instance')#" class="xar-margin-thickright" />
-            </div>
-        </fieldset>
-
-
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#" />
+            <input type="submit" value="#xarML('Create Instance')#" class="xar-margin-thickright" />
+        </div>
     </form>
 </div>

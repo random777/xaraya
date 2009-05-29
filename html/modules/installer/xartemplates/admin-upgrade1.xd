@@ -53,7 +53,7 @@
 	    </ol>
 
     	<form action="upgrade.php" method="post">
-      		<div class="xar-align-center" style="margin: 2em 0;">
+      		<div class="xar-form-footer">
 		        <input type="hidden" name="upgrade_phase" id="upgrade_phase" value="2" />
 		        <input type="submit" value="#xarML('Continue')#" />
 		    </div>

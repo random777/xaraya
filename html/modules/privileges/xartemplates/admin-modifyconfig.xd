@@ -150,14 +150,12 @@
                     <xar:mlstring>Warning: This setting opens a tab to enable you to create an administrator whose privileges cannot be removed.</xar:mlstring>
                 </div>
             </fieldset>
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Privileges Configuration')#" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Privileges Configuration')#" />
+            </div>
         </form>
     </xar:if>
     <xar:comment>
@@ -262,14 +260,12 @@
                     </div>
                 </fieldset>
             </xar:if>
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Privileges Configuration')#" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Privileges Configuration')#" />
+            </div>
         </form>
     </xar:if>
     <xar:comment>
@@ -314,14 +310,12 @@
                 </xar:if>
                <xar:set name="dummy">xarSessionSetVar('statusmsg','')</xar:set>
             </fieldset>
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Privileges Configuration')#" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Privileges Configuration')#" />
+            </div>
         </form>
     </xar:if>
     <xar:comment>
@@ -343,14 +337,12 @@
             </p>
             <xar:data-list module="1098" itemtype="3" tplmodule="privileges" />
         </fieldset>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="hidden" name="phase" id="phase" value="update" />
-                <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                <input type="submit" value="#xarML('Update Privileges Configuration')#" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="phase" id="phase" value="update" />
+            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+            <input type="submit" value="#xarML('Update Privileges Configuration')#" />
+        </div>
     </xar:if>
     <xar:comment>
         ------------------- Begin Testing --------------------- 
@@ -454,12 +446,12 @@
                 </div>
             </fieldset>
 
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Tester Configuration')#" />
-                </div>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Tester Configuration')#" />
+            </div>
 
         </form>
     </xar:if>

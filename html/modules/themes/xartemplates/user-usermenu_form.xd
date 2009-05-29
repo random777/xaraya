@@ -22,7 +22,7 @@
             </select>
         </div>
 
-        <div class="xar-align-center">
+        <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="uid" id="uid" value="#$uid#" />
             <input type="hidden" name="phase" id="phase" value="update" />

@@ -13,44 +13,54 @@
         <a href="&xar-modurl-blocks-admin-new_group;"><xar:mlstring>Add New Block Group</xar:mlstring></a>
     </h4>
 
-    <table class="xar-fullwidth">
+    <xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
+    <xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
+    <table class="xar-items">
         <tr>
-            <th title="#xarML('The group name as it is called in your theme.')#"><xar:mlstring>Group Name</xar:mlstring></th>
-            <th title="#xarML('The individual instances which belong in this group in order as they appear.')#"><xar:mlstring>Group Members</xar:mlstring></th>
+            <th title="#xarML('The group name as it is called in your theme.')#"><xar:mlstring>Name</xar:mlstring></th>
+            <th title="#xarML('The individual instances which belong in this group in order as they appear.')#"><xar:mlstring>Members</xar:mlstring></th>
             <th title="#xarML('The template that is loaded for this block group.  The templates are defined in themes/themename/blocks.')#"><xar:mlstring>Template</xar:mlstring></th>
-            <th title="#xarML('This is the specific action that you can take with the block.  Either edit or delete the block group.')#"><xar:mlstring>Operations</xar:mlstring></th>
+            <th title="#xarML('This is the specific action that you can take with the block.  Either edit or delete the block group.')#"><xar:mlstring>Actions</xar:mlstring></th>
         </tr>
 
-        <xar:loop name="$block_groups">
+        <xar:foreach in="$block_groups" value="$group">
             <tr>
-                <td>#$loop:item['name']#</td>
+                <td>#$group.name#</td>
                 <td>
-                    <xar:if condition="$loop:item['membercount'] gt 0">
-                        <xar:loop name="$loop:item['instances']">
-                            <xar:if condition="$loop:index gt 0"> | </xar:if>
-                            <xar:if condition="!empty($loop:item['title'])">
-                                <a href="#xarModUrl('blocks', 'admin', 'modify_instance', array('bid' => $loop:item['id']))#" title="#xarVarPrepForDisplay($loop:item['title'])#">#$loop:item['name']#</a>
+                    <xar:if condition="$group['membercount'] gt 0">
+                        <xar:set name="$members">1</xar:set>
+                        <xar:foreach in="$group['instances']" value="$instance">
+                            <xar:if condition="!empty($instance['title'])">
+                                <xar:set name="tag_title">xarVarPrepForDisplay(xarML('Modify #(1)', $instance['title']))</xar:set>
+                                <a href="#xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $instance['id']))#" title="#$tag_title#">#$instance['title']#</a>
                             <xar:else />
-                                <a href="#xarModUrl('blocks', 'admin', 'modify_instance', array('bid' => $loop:item['id']))#">#$loop:item['name']#</a>
+                                <xar:set name="tag_title">xarVarPrepForDisplay(xarML('Modify #(1)', $instance['name']))</xar:set>
+                                <a href="#xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $instance['id']))#" title="#$tag_title#">#$instance['name']#</a>
                             </xar:if>
-                        </xar:loop>
+                            <xar:if condition="$members lt $group['membercount']"> | </xar:if>
+                            <xar:set name="$members">$members + 1</xar:set>
+                        </xar:foreach>
                     <xar:else />
                         [ <xar:mlstring>none</xar:mlstring> ]
                     </xar:if>
                 </td>
                 <td>
-                    <xar:if condition="empty($loop:item['template'])">
+                    <xar:if condition="empty($group['template'])">
                         [ <xar:mlstring>default</xar:mlstring> ]
                     <xar:else />
-                        #$loop:item['template']#
+                        #$group.template#
                     </xar:if>
                 </td>
-                <td class="xar-align-center">
-                    <a href="#xarModUrl('blocks', 'admin', 'modify_group', array('gid' => $loop:item['id']))#"><xar:mlstring>Edit</xar:mlstring></a>
-                    | <a href="#$loop:item['deleteurl']#" onclick="return xar_base_confirmLink(this, '#$loop:item['deleteconfirm']#')"><xar:mlstring>Delete</xar:mlstring></a>
+                <td class="xar-item-actions">
+                    <a href="#xarModUrl('blocks', 'admin', 'modify_group', array('gid' => $group['id']))#" title="#xarML('Modify')#">
+                        <img src="#$icon_modify#" alt="#xarML('Modify')#" />
+                    </a>
+                    <a href="#$group['deleteurl']#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($group['deleteconfirm'])#')" title="#xarML('Delete')#">
+                        <img src="#$icon_delete#" alt="#xarML('Delete')#" />
+                    </a>
                 </td>
             </tr>
-        </xar:loop>
+        </xar:foreach>
     </table>
 
 </div>

@@ -71,12 +71,10 @@
                     <input type="text" name="lockouttime" id="lockouttime" value="#xarModGetVar('authsystem', 'lockouttime')#" size="2" maxlength="2" />
                 </div>
         </fieldset>
-        <fieldset>
-             <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="submit" value="#xarML('Update Authentication Configuration')#" />
-              </div>
-          </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="phase" id="phase" value="update" />
+            <input type="submit" value="#xarML('Update Authentication Configuration')#" />
+        </div>
     </form>
 </div>

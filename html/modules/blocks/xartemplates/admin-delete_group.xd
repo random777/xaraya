@@ -51,17 +51,15 @@
                 <xar:var name="$group['template']" />
             </p>
         </fieldset>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="hidden" name="confirm" id="confirm" value="true" />
-                <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
-                <input type="submit" value="#xarML('Delete Group')#" class="xar-margin-thick" />
-                <xar:set name="$returnurl">
-                    #xarModURL('blocks', 'admin', 'view_groups')# 
-                </xar:set>
-                <input type="button" value="#xarML('Cancel')#" class="xar-margin-thick" onclick="window.location='#$returnurl#';" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="confirm" id="confirm" value="true" />
+            <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
+            <input type="submit" value="#xarML('Delete Group')#" class="xar-margin-thick" />
+            <xar:set name="returnurl">
+                #xarModURL('blocks', 'admin', 'view_groups')# 
+            </xar:set>
+            <input type="button" value="#xarML('Cancel')#" class="xar-margin-thick" onclick="window.location='#$returnurl#';" />
+        </div>
     </form>
 </div>

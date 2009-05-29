@@ -177,7 +177,7 @@
                         </xar:if>
                     </fieldset>
                 </xar:foreach>
-                <div class="xar-align-center">
+                <div class="xar-form-footer">
                     <input type="submit" value="#xarML('Save Changes')#" />
                 </div>
             </div>

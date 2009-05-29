@@ -39,15 +39,8 @@ function modules_admin_list()
     // pass tru some of the form variables (we dont store them anywhere, atm)
     $data['hidecore']                               = xarModGetUserVar('modules', 'hidecore');
     $data['regen']                                  = $regen;
-    $data['selstyle']                               = xarModGetUserVar('modules', 'selstyle');
     $data['selfilter']                              = xarModGetUserVar('modules', 'selfilter');
     $data['selsort']                                = xarModGetUserVar('modules', 'selsort');
-
-    // select vars for drop-down menus
-    $data['style']['plain']                         = xarML('Plain');
-    $data['style']['icons']                         = xarML('Icons');
-//    $data['style']['compacta']                      = xarML('Compact-A');
-//    $data['style']['compactb']                      = xarML('Compact-B');
 
     $data['filter'][XARMOD_STATE_ANY]               = xarML('All Modules');
     $data['filter'][XARMOD_STATE_INSTALLED]         = xarML('All Installed');
@@ -63,7 +56,6 @@ function modules_admin_list()
     $data['filter'][XARMOD_STATE_ERROR_INACTIVE]       = xarML('Update (Inactive)');
     $data['filter'][XARMOD_STATE_ERROR_ACTIVE]         = xarML('Update (Active)');
     $data['filter'][XARMOD_STATE_ERROR_UPGRADED]       = xarML('Update (Upgraded)');
-
 
     $data['sort']['nameasc']                        = xarML('Name [a-z]');
     $data['sort']['namedesc']                       = xarML('Name [z-a]');
@@ -83,8 +75,12 @@ function modules_admin_list()
     $img_activate       = xarTplGetImage('icons/activate.png','base');
     $img_deactivate     = xarTplGetImage('icons/deactivate.png','base');
     $img_upgrade        = xarTplGetImage('icons/software-upgrade.png','base');
-    $img_initialise     = xarTplGetImage('icons/initialize.png','base');
+    $img_install        = xarTplGetImage('icons/software-install.png','base');
     $img_remove         = xarTplGetImage('icons/remove.png','base');
+    $img_blank          = xarTplGetImage('icons/blank.png','base');
+    $img_core           = xarTplGetImage('icons/core.png','base');
+    $img_warning        = xarTplGetImage('icons/dialog-warning.png','base');
+    $img_error          = xarTplGetImage('icons/dialog-error.png','base');
 
     // get other images
     $data['infoimg']    = xarTplGetImage('icons/info.png','base');
@@ -92,13 +88,14 @@ function modules_admin_list()
     $data['propimg']    = xarTplGetImage('icons/modify.png','base');
 
     $data['listrowsitems'] = array();
+
     $listrows = array();
     $i = 0;
 
     // now we can prepare data for template
     // we will use standard xarMod api calls as much as possible
     //We want class as Authentication for auth mods so need to allow for this. Use hardcode list or core mods for now.
-    $coreMods = array('base','roles','privileges','blocks','themes','authsystem','mail','dynamicdata','installer','modules');
+    $coreMods = array('authsystem','base','blocks','dynamicdata','installer','mail','modules','privileges','roles','themes');
     foreach($modlist as $mod){
 
         // we're going to use the module regid in many places
@@ -150,10 +147,9 @@ function modules_admin_list()
 
         // link to module main admin function if any
         $listrows[$i]['modconfigurl'] = '';
+        $listrows[$i]['configurl'] = '';
         if(isset($mod['admin']) && $mod['admin'] == 1 && $mod['state'] == XARMOD_STATE_ACTIVE){
             $listrows[$i]['modconfigurl'] = xarModURL($mod['name'], 'admin');
-            // link title for modules main admin function - common
-            $listrows[$i]['adminurltitle'] = xarML('Go to administration of');
         }
 
         // common urls
@@ -170,6 +166,11 @@ function modules_admin_list()
                                     'admin',
                                     'modinfo',
                                     array( 'id'        => $thismodid));
+        if(isset($mod['admin']) && $mod['admin'] == 1 && $mod['state'] == XARMOD_STATE_ACTIVE){
+            $listrows[$i]['configurl'] = xarModURL($mod['name'],
+                                        'admin',
+                                        'modifyconfig');
+        }
         // image urls
 
 
@@ -192,9 +193,10 @@ function modules_admin_list()
             $listrows[$i]['actionurl']          = $installurl;
             $listrows[$i]['removeurl']          = '';
 
-            $listrows[$i]['actionimg1']         = $img_initialise;
-            $listrows[$i]['actionimg2']         = $img_none;
+            $listrows[$i]['actionimg1']         = $img_install;
+            $listrows[$i]['actionimg2']         = $img_remove;
 
+            $listrows[$i]['configurl']          = '';
 
         }elseif($mod['state'] == XARMOD_STATE_INACTIVE){
             // this module is 'Inactive'        - set labels and links
@@ -210,6 +212,9 @@ function modules_admin_list()
 
             $listrows[$i]['actionimg1']         = $img_activate;
             $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['configurl']          = '';
+
         }elseif($mod['state'] == XARMOD_STATE_ACTIVE){
             // this module is 'Active'          - set labels and links
             $statelabel = xarML('Active');
@@ -222,14 +227,15 @@ function modules_admin_list()
                 $listrows[$i]['removeurl']      = '';
 
                 $listrows[$i]['actionimg1']     = $img_deactivate;
-                $listrows[$i]['actionimg2']     = $img_none;
+                $listrows[$i]['actionimg2']     = $img_remove;
             }else{
                 $listrows[$i]['actionlabel']    = xarML('[core module]');
+                $listrows[$i]['actionlabel2']   = xarML('[core module]');
                 $listrows[$i]['actionurl']      = '';
                 $listrows[$i]['removeurl']      = '';
 
-                $listrows[$i]['actionimg1']     = $img_disabled;
-                $listrows[$i]['actionimg2']     = $img_disabled;
+                $listrows[$i]['actionimg1']     = $img_install;
+                $listrows[$i]['actionimg2']     = $img_remove;
             }
         }elseif($mod['state'] == XARMOD_STATE_MISSING_FROM_UNINITIALISED ||
                 $mod['state'] == XARMOD_STATE_MISSING_FROM_INACTIVE ||
@@ -239,13 +245,16 @@ function modules_admin_list()
             $statelabel = xarML('Missing');
             $listrows[$i]['state'] = XARMOD_STATE_MISSING_FROM_UNINITIALISED;
 
-            $listrows[$i]['actionlabel']        = xarML('Remove');
+            $listrows[$i]['actionlabel']        = xarML('Module is missing');
             $listrows[$i]['actionlabel2']       = xarML('Remove');
-            $listrows[$i]['actionurl']          = $removeurl;
+            $listrows[$i]['actionurl']          = $errorurl;
             $listrows[$i]['removeurl']          = $removeurl;
 
-            $listrows[$i]['actionimg1']         = $img_none;
+            $listrows[$i]['actionimg1']         = $img_warning;
             $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['configurl']          = '';
+
         }elseif($mod['state'] == XARMOD_STATE_ERROR_UNINITIALISED ||
                 $mod['state'] == XARMOD_STATE_ERROR_INACTIVE ||
                 $mod['state'] == XARMOD_STATE_ERROR_ACTIVE ||
@@ -259,8 +268,11 @@ function modules_admin_list()
             $listrows[$i]['actionurl']          = $errorurl;
             $listrows[$i]['removeurl']          = '';
 
-            $listrows[$i]['actionimg1']         = $img_disabled;
-            $listrows[$i]['actionimg2']         = $img_disabled;
+            $listrows[$i]['actionimg1']         = $img_error;
+            $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['configurl']          = '';
+
         }elseif($mod['state'] == XARMOD_STATE_UPGRADED){
             // this module is 'Upgraded'        - set labels and links
             $statelabel = xarML('New version');
@@ -270,21 +282,28 @@ function modules_admin_list()
             $listrows[$i]['actionurl']          = $upgradeurl;
             $listrows[$i]['removeurl']          = '';
 
-            $listrows[$i]['actionimg2']         = $img_none;
             $listrows[$i]['actionimg1']         = $img_upgrade;
+            $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['configurl']          = '';
 
         } else {
-      // Something seriously wrong
-      $statelabel = xarML('Unknown');
-      $listrows[$i]['actionurl'] = $removeurl;
-          $listrows[$i]['actionlabel'] = xarML('Remove (Bug! in list generation)');
-          $listrows[$i]['state'] = xarML('Remove');
+            // Something seriously wrong
+            $statelabel = xarML('Unknown');
+            $listrows[$i]['actionurl']          = $errorurl;
+            $listrows[$i]['state']              = xarML('Remove');
+            $listrows[$i]['actionlabel']        = xarML('Error in list generation');
+            $listrows[$i]['actionlabel2']       = xarML('Remove');
+
+            $listrows[$i]['actionimg1']         = $img_error;
+            $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['configurl']          = '';
 
         }
 
         // nearly done
         $listrows[$i]['statelabel']     = $statelabel;
-
 
         $data['listrowsitems'] = $listrows;
         $i++;
@@ -293,31 +312,8 @@ function modules_admin_list()
     // total count of items
     $data['totalitems'] = $i;
 
-    // detailed info image url
-    $data['infoimage'] = xarTplGetImage('help.gif');
-
     // not ideal but would do for now - reverse sort by module names
     if($data['selsort'] == 'namedesc') krsort($data['listrowsitems']);
-
-    // special sort for compact-b style
-    if($data['selstyle'] == 'compactb'){
-        if($i >= 2){
-        // more than 2 items in the array, we need to sort it, dont bother is less
-            $temparray = array_chunk($data['listrowsitems'], $i/2+1);
-            $newarray = array();
-            for($j = 0; $j <= $i/2; $j++){
-                if(!empty($temparray[0][$j])) array_push($newarray,$temparray[0][$j]);
-                if(!empty($temparray[1][$j])) array_push($newarray,$temparray[1][$j]);
-            }
-            $data['listrowsitems'] = $newarray;
-        }
-    }
-
-    // Include 'smoothscroll' JavaScript.
-    // TODO: move this to a template widget when available.
-    xarModAPIfunc('base', 'javascript', 'modulefile',
-        array('module'=>'modules', 'filename'=>'smoothscroll.js')
-    );
 
     // Send to BL.
     return $data;

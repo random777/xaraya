@@ -34,8 +34,7 @@
     #$output#
   </xar:foreach>
 </xar:if>
-<fieldset>
-<div class="xar-align-center">
+<div class="xar-form-footer">
   <xar:comment>
     Optional extra table for data sources - use a text box if you want to make this configurable
     <input type="text" name="table" id="table" value="#$table#" />
@@ -49,4 +48,3 @@
   <input type="hidden" name="itemtype" id="itemtype" value="#$itemtype#" />
   <input type="submit" value="#xarML('Update Properties')#" />
 </div>
-</fieldset>

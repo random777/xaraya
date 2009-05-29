@@ -329,14 +329,12 @@
                 </xar:if>
             </xar:if>
         </fieldset>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="hidden" name="pid" id="pid" value="#$pid#" />
-                <xar:set name="tmpaddvalue"><xar:mlstring>Add</xar:mlstring></xar:set>
-                <input type="submit" value="#$tmpaddvalue#" tabindex="8" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="pid" id="pid" value="#$pid#" />
+            <xar:set name="tmpaddvalue"><xar:mlstring>Add</xar:mlstring></xar:set>
+            <input type="submit" value="#$tmpaddvalue#" />
+        </div>
     </form>
 </div>
 

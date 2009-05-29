@@ -35,7 +35,7 @@
 
         <xar:comment>TODO
             <div class="xar-form-input-wrapper">
-                <label for="FOR" title="#xarML('Attributes of this tag')#" class="xar-form-label">
+                <label title="#xarML('Attributes of this tag')#" class="xar-form-label">
                     <xar:mlstring>Attributes:</xar:mlstring>
                 </label>
                 <xar:for start="$i=0" test="$i lt $max_attrs" iter="$i++">
@@ -49,9 +49,8 @@
             </div>
         </xar:comment>
       </fieldset>
-      <fieldset>
 
-        <div class="xar-align-center">
+        <div class="xar-form-footer">
             <!-- the same function is used for updates and inserts, therefore we
                  tell the function what to do -->
             <xar:if condition="$tagname == ''">
@@ -61,8 +60,7 @@
             </xar:if>
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="submit" value="#xarML('Update Tag')#" class="xar-margin-thickright" />
-            <input type="button" value="#xarML('Cancel')#" onclick="document.location = '&xar-modurl-themes-admin-listtpltags;';" class="xar-margin-thickleft" />
+            <input type="button" value="#xarML('Cancel')#" onclick="window.location = '&xar-modurl-themes-admin-listtpltags;';" class="xar-margin-thickleft" />
         </div>
-      </fieldset>
     </form>
 </div>

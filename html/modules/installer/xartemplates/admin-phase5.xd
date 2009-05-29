@@ -44,14 +44,14 @@
         </p>
 		<div class="xar-align-center" style="margin: 2em 0;">
             <form action="install.php" method="post" class="xar-displayinline">
-                <span>
+                <div class="xar-form-footer">
                     <input type="hidden" name="install_phase" id="install_phase" value="4" />
                     <input type="hidden" name="install_language" id="install_language" value="#$language#" />
                     <input type="submit" value="#xarML('Back')#" />
-                </span>
+                </div>
             </form>
             <form action="install.php" method="post" class="xar-displayinline">
-	            <span class="xar-align-center">
+	            <div class="xar-form-footer">
                     <input type="hidden" name="install_phase" id="install_phase" value="5" />
                     <input type="hidden" name="install_database_host" id="dbHost" value="#$dbHost#" />
                     <input type="hidden" name="install_database_name" id="dbName" value="#$dbName#" />
@@ -63,7 +63,7 @@
                     <!-- <input type="hidden" name="newDB" id="newDB" value="#$newDB#" /> -->
                     <input type="hidden" name="install_language" id="install_language" value="#$language#" />
                     <input type="submit" value="#xarML('Continue')#" />
-                </span>
+                </div>
             </form>
         </div>
 	</xar:if>

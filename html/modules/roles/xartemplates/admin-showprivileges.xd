@@ -56,7 +56,7 @@
         </p>
     <xar:else />
         <div class="xar-fullwidth xar-overflow-auto xar-area-large">
-            <table class="xar-fullwidth">
+            <table class="xar-items">
                 <tr>
                     <th><xar:mlstring>Name</xar:mlstring></th>
                     <xar:if condition="xarModGetVar('privileges','showrealms')">

@@ -97,7 +97,8 @@
         <xar:if condition="xarModIsHooked('dynamicdata','roles')">
             <xar:data-getitems name="$properties" value="$values" module="roles" itemids="$uidlist" />
         </xar:if>
-        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <xar:set name="usersendemails">xarModGetVar('roles', 'usersendemails')</xar:set>
+        <table class="xar-items">
             <tr>
             <xar:if condition="$phase eq 'active' and xarSecurityCheck('AdminRole',0)">
                 <th class="xar-thirdwidth">
@@ -117,7 +118,7 @@
                     </a>
                 </th>
             </xar:if>
-            <xar:if condition="xarModGetVar('roles', 'usersendemails')">
+            <xar:if condition="$usersendemails">
                 <th>
                     <xar:mlstring>Email</xar:mlstring>
                 </th>
@@ -147,7 +148,7 @@
                         <!-- TODO: add link to working whois service -->
                         #xarVarPrepForDisplay($loop:item['ipaddr'])#
                     </td>
-                    <xar:else />
+                <xar:else />
                     <td>
                         <xar:if condition="xarUserIsLoggedIn()">
                             <a href="&xar-modurl-roles-user-display;&amp;uid=#$loop:item.uid#">#xarVarPrepForDisplay($loop:item['name'])#</a>
@@ -156,7 +157,7 @@
                         </xar:if>
                     </td>
                 </xar:if>
-                <xar:if condition="xarModGetVar('roles', 'usersendemails') and xarModGetUserVar('roles','usersendemails',$loop:item['uid'])">
+                <xar:if condition="$usersendemails and xarModGetUserVar('roles','usersendemails',$loop:item['uid'])">
                     <td class="xar-align-center">
                         <xar:if condition="empty($loop:item['emailurl']) || !xarUserIsLoggedIn()">
                             <img src="#$loop:item['emailicon']#" alt="#xarML('Email')#" title="#xarML('Email')#"/>
@@ -181,16 +182,19 @@
             </xar:loop>
         </table>
 
-
         <!-- add the pager here -->
         <div class="xar-align-center">#$pager#</div>
         <form method="post" action="&xar-modurl-roles-user-view;">
-            <label for="search"><xar:mlstring>Search:</xar:mlstring></label>
-            <input type="hidden" name="phase" id="phase" value="#xarVarPrepForDisplay($phase)#" />
-            <input type="hidden" name="order" id="order" value="#xarVarPrepForDisplay($order)#" />
-            <input type="hidden" name="letter" id="letter" value="" />
-            <input type="text" name="search" id="search" value="" size="40" maxlength="255" tabindex="1" />
-            <input type="submit" value="#xarVarPrepForDisplay($searchlabel)#" />
+            <div class="xar-form-input-wrapper">
+                <label for="search" class="xar-form-label">
+                    <xar:mlstring>Search:</xar:mlstring>
+                </label>
+                <input type="text" name="search" id="search" value="" maxlength="255" class="xar-form-textlong" />
+                <input type="hidden" name="phase" id="phase" value="#xarVarPrepForDisplay($phase)#" />
+                <input type="hidden" name="order" id="order" value="#xarVarPrepForDisplay($order)#" />
+                <input type="hidden" name="letter" id="letter" value="" />
+                <input type="submit" value="#xarVarPrepForDisplay($searchlabel)#" class="xar-margin-thickleft" />
+            </div>
         </form>
         <p>
             <xar:mlstring>Search condition</xar:mlstring>: <strong>#xarVarPrepForDisplay($msg)#</strong>

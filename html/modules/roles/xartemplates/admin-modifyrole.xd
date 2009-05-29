@@ -236,14 +236,13 @@
                     </label>
                 </div>
                </xar:if>
-               <p class="xar-clear"></p>
                 <xar:if condition="!empty($hooks) and count($hooks) gt 0">
                     <xar:foreach in="$hooks" key="$hookmodule">
                         #$hooks[$hookmodule]#
                     </xar:foreach>
                 </xar:if>
                 
-                <div class="xar-align-center xar-clearboth">
+                <div class="xar-form-footer xar-clearboth">
                     <input type="hidden" name="uid" id="uid" value="#$uid#" />
                     <input type="hidden" name="authid" id="authid" value="#$authid#" />
                     <input type="submit" value="#xarML('Update')#" />
@@ -254,11 +253,12 @@
 
     <fieldset>
         <legend><xar:mlstring>Group Memberships</xar:mlstring></legend>
-        <table class="xar-fullwidth">
+        <table class="xar-items">
             <tr>
                 <th><xar:mlstring>Group</xar:mlstring></th>
                 <th><xar:mlstring>Remove</xar:mlstring></th>
             </tr>
+            <xar:set name="icon_remove">xarTplGetImage('icons/remove.png', 'base')</xar:set>
             <xar:loop name="$parents">
                 <tr>
                     <td>
@@ -270,13 +270,13 @@
                             <xar:var name="loop:item.parentname" prep="true"/>
                         </xar:if>
                     </td>
-                    <td class="xar-align-center">
+                    <td class="xar-item-actions">
                         <xar:if condition="count($parents) ne 1">
-                            <a href="&xar-modurl-roles-admin-removemember;&amp;childid=#$uid#&amp;parentid=#$loop:item['parentid']#&amp;authid=#$authid#">
-                                <xar:mlstring>Remove</xar:mlstring>
+                            <a href="&xar-modurl-roles-admin-removemember;&amp;childid=#$uid#&amp;parentid=#$loop:item['parentid']#&amp;authid=#$authid#" class="xar-icon">
+                                <img src="#$icon_remove#" alt="#xarML('Remove')#" />
                             </a>
                         <xar:else />
-                            <xar:mlstring>Cannot Remove</xar:mlstring>
+                            <img src="#$icon_remove#" alt="#xarML('Cannot Remove')#" title="#xarML('Cannot Remove')#" class="xar-icon-disabled" />
                         </xar:if>
                     </td>
                 </tr>

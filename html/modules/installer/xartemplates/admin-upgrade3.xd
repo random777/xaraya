@@ -14,7 +14,7 @@
         <xar:mlstring>Please review the considerations for this specific upgrade if you find unexpected results on your site.</xar:mlstring>
     </p>
     <form action="upgrade.php" method="post">
-        <div class="xar-align-center" style="margin: 2em 0;">
+        <div class="xar-form-footer">
             <input type="hidden" name="upgrade_phase" id="upgrade_phase" value="4" />
             <input type="submit" value="#xarML('Continue')#" />
         </div>

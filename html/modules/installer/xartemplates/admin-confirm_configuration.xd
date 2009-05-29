@@ -79,7 +79,7 @@
             <xar:mlstring>All of the above modules can be installed or removed at any later time in the Modules module.</xar:mlstring>
         </p>
 
-        <div class="xar-align-center" style="margin: 2em 0;">
+        <div class="xar-form-footer">
             <input type="hidden" name="install_language" id="install_language" value="#$language#" />
             <input type="hidden" name="configuration" id="configuration" value="#$configuration#" />
             <input type="hidden" name="confirmed" id="confirmed" value="true" />

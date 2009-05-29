@@ -13,9 +13,6 @@
             </xar:ml>
         </p>
         <form action="&xar-modurl-modules-admin-install;" method="post" enctype="application/x-www-form-urlencoded">
-           <div>
-            <input type="hidden" name="id" id="id" value="#$id#" />
-            <input type="hidden" name="authid" id="authid" value="#$authid#" />
 
             <xar:if condition="count($dependencies['satisfied']) ne 0">
                 <h3>
@@ -37,7 +34,6 @@
                 <ul>
                     <xar:foreach in="$dependencies['satisfiable']" value="$modInfo">
                         <li>
-
                             <xar:if condition="$modInfo['regid'] ne $id">
                                 #$modInfo['displayname']#
                             <xar:else />
@@ -107,9 +103,13 @@
                         </li>
                     </xar:foreach>
                 </ul>
-            <xar:else />
-                <input type="submit" name="command" id="command" value="#xarML('Install All')#" tabindex="9" />
             </xar:if>
+            <div class="xar-form-foter">
+                <input type="hidden" name="id" id="id" value="#$id#" />
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <xar:if condition="count($dependencies['unsatisfiable']) ne 0">
+                    <input type="submit" name="command" id="command" value="#xarML('Install All')#" tabindex="9" />
+                </xar:if>
            </div>
         </form>
     </xar:if>

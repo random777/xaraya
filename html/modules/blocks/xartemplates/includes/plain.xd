@@ -1,7 +1,7 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
 <xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
 <xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
-<table class="xar-fullwidth">
+<table class="xar-items">
     <tr>
         <th>
             <xar:mlstring>Name</xar:mlstring>
@@ -25,62 +25,58 @@
             <xar:mlstring>Actions</xar:mlstring>
         </th>
     </tr>
-    <xar:loop name="$blocks">
+    <xar:foreach in="$blocks" value="$block">
         <tr>
             <td>
-                <xar:if condition="empty($loop:item['title'])">
-                    #$loop:item['name']# 
+                <xar:if condition="empty($block['title'])">
+                    #$block.name# 
                     <xar:else />
-                    <span title="#xarVarPrepfordisplay($loop:item['title'])#">
-                        #$loop:item['name']# 
+                    <span title="#xarVarPrepfordisplay($block['title'])#">
+                        #$block.name# 
                     </span>
                 </xar:if>
             </td>
             <td>
-                <xar:if condition="!empty($loop:item.groups)">
-                    <xar:loop name="$loop:item.groups" id="groups">
-                        <a href="&xar-modurl-blocks-admin-modify_group;&amp;gid=#$loop:groups:item.gid#">
-                            #$loop:groups:item.name# 
+                <xar:if condition="!empty($block.groups)">
+                    <xar:foreach in="$block.groups" value="$group">
+                        <a href="#xarModURL('blocks','admin','modify_group',array('gid' =&gt; $group['gid']))#">
+                            #$group.name# 
                         </a>
-                    </xar:loop>
+                    </xar:foreach>
                 <xar:else />
                     [ <xar:mlstring>none</xar:mlstring> ]
                 </xar:if>
             </td>
             <td>
-                #$loop:item['module']# 
+                #$block.module# 
             </td>
             <td>
-                <a href="#$loop:item['typeurl']#" title="#xarML('View block type details')#">
-                    #$loop:item['type']# 
+                <a href="#$block.typeurl#" title="#xarML('View block type details')#">
+                    #$block.type# 
                 </a>
             </td>
             <td>
-                <xar:if condition="$loop:item['template'] ne NULL">
-                    #$loop:item['template']# &nbsp; 
+                <xar:if condition="$block['template'] ne NULL">
+                    #$block['template']# &nbsp; 
+                <xar:else />
+                    <xar:if condition="empty($block['group_template'])">
+                        [ <xar:mlstring>default</xar:mlstring> ] 
                     <xar:else />
-                    <xar:if condition="empty($loop:item['group_template'])">
-                        [ 
-                        <xar:mlstring>
-                            default 
-                        </xar:mlstring>
-                        ] 
-                    <xar:else />
-                        #$loop:item['group_template']# &nbsp; 
+                        #$block.group_template#
                     </xar:if>
                 </xar:if>
             </td>
             <td class="xar-align-center">
-                #$state_desc[$loop:item['state']]# 
+                #$state_desc[$block['state']]# 
             </td>
-            <td class="xar-align-center">
-                <a href="&xar-modurl-blocks-admin-modify_instance;&amp;bid=#$loop:item.bid#">
+            <td class="xar-item-actions">
+                <a href="#xarModURL('blocks','admin','modify_instance',array('bid' =&gt; $block['bid']))#" title="#xarML('Modify')#">
                     <img src="#$icon_modify#" alt="#xarML('Modify')#" />
                 </a>
-                <a href="#$loop:item['deleteurl']#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($loop:item['deleteconfirm'])#')">
+                <a href="#$block.deleteurl#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($block['deleteconfirm'])#')" title="#xarML('Delete')#">
                     <img src="#$icon_delete#" alt="#xarML('Delete')#" />
                 </a>
             </td>
         </tr>
-    </xar:loop>
+    </xar:foreach>
 </table>

@@ -1,3 +1,8 @@
-<a href="#$leafitemurl#" title="#$leafitemtitle#" style="text-decoration: none;">
-    <img src="#$leafitemimage#" style="vertical-align: middle;" alt="" />
-</a>
+<xar:if condition="$allowed">
+    <a href="#$leafitemurl#" title="#$leafitemtitle#" style="text-decoration: none;" class="xar-icon">
+        <img src="#$leafitemimage#" alt="#$leafitemtitle#" />
+    </a>
+<xar:else />
+    <img src="#$leafitemimage#" alt="#$leafitemtitle#" title="#$leafitemtitle#" class="xar-icon-disabled" />
+</xar:if>
+

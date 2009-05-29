@@ -79,8 +79,8 @@ class Dynamic_TColorPicker_Property extends Dynamic_Property
         );
         /*
         // Create the tags.
-        $output = '<input type="text" name="'.$name.'" id="'.$id.'_input" value="'.xarVarPrepForDisplay($value).'" size="' . $this->size . '" maxlength="' . $this->maxlength . '" />'
-            . '<a href="javascript:TCP.popup(document.getElementById(\''.$id.'_input\'), 1)">'
+        $output = '<input type="text" name="'.$name.'" id="'.$id.'_input" value="'.xarVarPrepForDisplay($value).'" size="' . $this->size . '" maxlength="' . $this->maxlength . '" class="xar-icon" />'
+            . '<a href="javascript:TCP.popup(document.getElementById(\''.$id.'_input\'), 1)" title="' . xarML('Click Here to select a color') . '">'
             . '<img src="' . xarTplGetImage('icons/color-picker.png', 'base') . '" alt="' . xarML('Click Here to select a color') . '" />'
             . '</a>';
 

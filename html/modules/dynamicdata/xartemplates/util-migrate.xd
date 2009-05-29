@@ -189,26 +189,23 @@
             </xar:if>
         </fieldset>
          
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="step" value="#$step#" />
-                <input type="hidden" name="authid" value="#xarSecGenAuthKey()#" />
-                <xar:if condition="$step gt 1">
-                    <input class="dd-norm" type="submit" name="back" value="#xarML('Back')#" />
-                    <xar:else />
-                    <input class="dd-norm" type="submit" name="back" value="#xarML('Back')#" disabled="disabled" />
-                </xar:if>
-                <input class="dd-norm" type="submit" name="next" value="#xarML('Next')#" />
-                <xar:if condition="!empty($check)">
-                    <input class="dd-norm" type="submit" name="test" value="#xarML('Test')#" />
-                    <input class="dd-norm" type="submit" name="confirm" value="#xarML('Finish')#" />
-                    <xar:else />
-                    <input class="dd-norm" type="submit" name="test" value="#xarML('Test')#" disabled="disabled" />
-                    <input class="dd-norm" type="submit" name="confirm" value="#xarML('Finish')#" disabled="disabled" />
-                </xar:if>
-            </div>
-        </fieldset>
-
+        <div class="xar-form-footer">
+            <input type="hidden" name="step" value="#$step#" />
+            <input type="hidden" name="authid" value="#xarSecGenAuthKey()#" />
+            <xar:if condition="$step gt 1">
+                <input type="submit" name="back" value="#xarML('Back')#" />
+            <xar:else />
+                <input type="submit" name="back" value="#xarML('Back')#" disabled="disabled" />
+            </xar:if>
+            <input type="submit" name="next" value="#xarML('Next')#" />
+            <xar:if condition="!empty($check)">
+                <input type="submit" name="test" value="#xarML('Test')#" />
+                <input type="submit" name="confirm" value="#xarML('Finish')#" />
+            <xar:else />
+                <input type="submit" name="test" value="#xarML('Test')#" disabled="disabled" />
+                <input type="submit" name="confirm" value="#xarML('Finish')#" disabled="disabled" />
+            </xar:if>
+        </div>
 
         <xar:if condition="!empty($from['module']) and !empty($to['module'])">
             <xar:if condition="!empty($from['itemtype']) and !empty($to['itemtype'])">

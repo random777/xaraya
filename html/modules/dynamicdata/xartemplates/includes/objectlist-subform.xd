@@ -3,7 +3,7 @@
 <xar:else/>
     <xar:set name="fieldprefix">''</xar:set>
 </xar:if>
-<table class="xar-norm">
+<table class="xar-items">
     <tr>
         <xar:foreach in="$properties" key="$name">
             <th>

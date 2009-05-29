@@ -284,13 +284,11 @@
                 </div>
             </fieldset>
 
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
+            </div>
         </form>
         <xar:comment>
             ----------------- Begin Security Options -------------------
@@ -458,13 +456,11 @@
                     <xar:ml><xar:mlstring>Default: #(1) for security level 'High'</xar:mlstring><xar:mlvar>#xarServerGetVar('HTTP_HOST')#</xar:mlvar></xar:ml>
                 </div>
             </fieldset>
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
+            </div>
         </form>
         <xar:comment>
             ----------------- Begin Locale Options -------------------
@@ -472,14 +468,12 @@
         <xar:elseif condition="$tab eq 'locales'" />
         <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription);" enctype="application/x-www-form-urlencoded">
             <xar:template file="modifyconfig-locales" module="base" type="module" />
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
-                    <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="hidden" name="returnurl" id="returnurl" value="#$returnurl#" />
+                <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
+            </div>
         </form>
         <xar:comment>
             ----------------- Begin Other Options -------------------
@@ -613,13 +607,11 @@
                     <input type="text" id="releasenumber" name="releasenumber" value="#$releasenumber#" maxlength="4" class="xar-form-textshort" />
                  </div>
             </fieldset>
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
+            </div>
         </form>
     </xar:if>
     <xar:if condition="xarSessionSetVar('statusmsg', '')"></xar:if>

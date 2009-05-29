@@ -34,7 +34,7 @@ function blocks_admin_view_groups()
             array('blockGroupId' => $block_groups[$index]['gid'])
         );
         $block_groups[$index]['membercount'] = count($block_groups[$index]['instances']);
-        $block_groups[$index]['deleteconfirm'] = xarML('Delete group #(1)?', $block_group['name']);
+        $block_groups[$index]['deleteconfirm'] = xarML('Delete group "#(1)"?', addslashes($block_group['name']));
         $block_groups[$index]['deleteurl'] = xarModUrl('blocks', 'admin', 'delete_group', array('gid' => $block_group['gid'], 'authid' => $authid));
     }
 

@@ -53,7 +53,7 @@ table {
     line-height: 1.35em;
     margin: 5px 0;
     border-spacing: 1px;
-    background-color: #d0d0d0;
+    background-color: #fff;
 }
 
 /*
@@ -77,7 +77,7 @@ th, td {
     height: auto;
 }
 
-td { background-color: #ffffff; }
+/* td { background-color: #ffffff; } */
 
 /*
 General text and related selectors 
@@ -317,7 +317,7 @@ module rendering area and related rules
 complementary styling - colors, backgrounds and outlines 
 -------------------------------------------------------------------------[comment] */
 
-.xar-alt { background-color: #f0f0f0; }
+.xar-alt { background-color: #f8f8f8; }
 .xar-accent { background-color: #efefef; }
 
 .xar-alt-outline {
@@ -346,6 +346,59 @@ complementary text related styling
 .xar-sub { font-size: 80%; }
 .xar-error { color: #ff0000; }
 .xar-title { font-weight: bold; }
+
+/*
+icon related styling
+-------------------------------------------------------------------------[comment] */
+
+a.xar-icon {
+    text-decoration: none;
+}
+
+img.xar-icon {
+}
+img.xar-icon-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/*
+item tables and listing controls
+-------------------------------------------------------------------------[comment] */
+table.xar-items {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid;
+}
+table.xar-items th, table.xar-items td {
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+}
+.xar-item-actions {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.xar-item-controls {
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+    width: 100%;
+}
+table.xar-item-controls th, table.xar-item-controls td {
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+}
+
+/*
+form footer (for submit buttons, etc)
+-------------------------------------------------------------------------[comment] */
+.xar-form-footer {
+    width: 100%;
+    text-align: center;
+    margin: 1em 0;
+    border: 1px solid #a0a0a0;
+    padding: 1em 0;
+}
 
 /*
 not sure if we still using this rule anywhere TODO: check

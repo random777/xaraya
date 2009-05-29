@@ -66,7 +66,7 @@
   <xar:else />
     <fieldset>
       <legend><xar:mlstring>Click On The Mask You Want To Test Privileges Against:</xar:mlstring></legend>
-      <table class="xar-fullwidth">
+      <table class="xar-items">
         <tr>
           <th><xar:mlstring>Mask</xar:mlstring></th>
           <xar:if condition="xarModGetVar('privileges','showrealms')">
@@ -101,7 +101,7 @@
   <xar:if condition="!empty($test)">
     <fieldset>
       <legend><xar:mlstring>Masks:</xar:mlstring></legend>
-      <table class="xar-fullwidth">
+      <table class="xar-items">
         <tr>
           <th>
             <xar:mlstring>Mask</xar:mlstring>    
@@ -153,7 +153,7 @@
     
     <fieldset>
       <legend><xar:mlstring>Privileges:</xar:mlstring></legend>
-      <table class="xar-fullwidth">
+      <table class="xar-items">
         <xar:if condition="$testresult ne false">
           <tr>
             <th>
@@ -208,7 +208,13 @@
     </fieldset>
     <fieldset>
       <legend><xar:mlstring>Test Result</xar:mlstring></legend>
-      <h4>
+      <p>
+        <xar:if condition="$testresult eq false">
+          <img src="#xarTplGetImage('icons/privilege-disallowed.png', 'base')#" alt="#xarML('Is Not Permitted')#" class="xar-icon" />
+        <xar:else />
+          <img src="#xarTplGetImage('icons/privilege-allowed.png', 'base')#" alt="#xarML('Is Permitted')#" class="xar-icon" />
+        </xar:if>
+
         <xar:if condition="$ptype eq 1">
           <xar:mlstring>Group </xar:mlstring>
           <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$uid#">'#$pname#'</a>
@@ -219,10 +225,10 @@
         
         <xar:if condition="$testresult eq false">
           <xar:mlstring>Is Not Permitted</xar:mlstring>
-          <xar:else />
+        <xar:else />
           <xar:mlstring>Is Permitted</xar:mlstring>
         </xar:if>
-      </h4>
+      </p>
     </fieldset>
     
 

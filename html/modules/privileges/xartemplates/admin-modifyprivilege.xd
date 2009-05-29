@@ -332,8 +332,8 @@
               <xar:mlvar>#$loop:item['parentname']#</xar:mlvar>
             </xar:ml>
           </xar:set>
-          <a href="&xar-modurl-privileges-admin-removemember;&amp;childid=#$ppid#&amp;parentid=#$loop:item['parentid']#&amp;authid=#$authid#">
-            <img src="#xarTplGetImage('icons/remove.png','base')#" alt="#xarML('Remove')#" title="#$tmptitle#" />
+          <a href="&xar-modurl-privileges-admin-removemember;&amp;childid=#$ppid#&amp;parentid=#$loop:item['parentid']#&amp;authid=#$authid#" title="#$tmptitle#" class="xar-icon">
+            <img src="#xarTplGetImage('icons/remove.png','base')#" alt="#xarML('Remove')#" />
           </a>
         </div>
       </xar:loop>

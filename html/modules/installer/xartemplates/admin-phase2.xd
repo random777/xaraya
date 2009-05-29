@@ -308,7 +308,7 @@ POSSIBILITY OF SUCH DAMAGES.
 				<xar:mlstring>We ask you agree to the Terms and Conditions above in order to continue installing.</xar:mlstring>
 	        </p>
         </xar:if>
-        <div class="xar-align-center" style="margin-top: 2em;">
+        <div class="xar-form-footer">
             <input type="hidden" name="install_language" id="install_language" value="#$language#" />
             <input type="hidden" name="install_phase" id="install_phase" value="3" />
 

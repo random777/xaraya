@@ -63,22 +63,20 @@
             </xar:if>
         </dl>
     </div>
-<form method="post" action="&xar-modurl-roles-admin-removeprivilege;" enctype="application/x-www-form-urlencoded" >
-   <div>
-    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-    <input type="hidden" name="roleid" id="roleid" value="#$roleid#" />
-    <input type="hidden" name="privid" id="privid" value="#$privid#" />
-    <input type="hidden" name="confirmation" id="confirmation" value="1" />
+    <form method="post" action="&xar-modurl-roles-admin-removeprivilege;" enctype="application/x-www-form-urlencoded" >
+        <p><xar:mlstring>Confirm the removal of</xar:mlstring> '#$privname#' <xar:mlstring>from</xar:mlstring>&nbsp;
+        <xar:if condition="$ptype eq 1"><xar:mlstring>Group</xar:mlstring>
+        <xar:else /><xar:mlstring>User</xar:mlstring>
+        </xar:if>
+        '#$rolename#'</p>
 
-    <p><xar:mlstring>Confirm the removal of</xar:mlstring> '#$privname#' <xar:mlstring>from</xar:mlstring>&nbsp;
-    <xar:if condition="$ptype eq 1"><xar:mlstring>Group</xar:mlstring>
-    <xar:else /><xar:mlstring>User</xar:mlstring>
-    </xar:if>
-    '#$rolename#'</p>
-
-    <p><input type="submit" value="#$removelabel#"  tabindex="1" /><br /><br />
-    
-    <a href="&xar-modurl-roles-admin-showprivileges;&amp;uid=#$roleid#"><xar:mlstring>Cancel Removal</xar:mlstring></a></p>
-    </div>
-</form>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="roleid" id="roleid" value="#$roleid#" />
+            <input type="hidden" name="privid" id="privid" value="#$privid#" />
+            <input type="hidden" name="confirmation" id="confirmation" value="1" />
+            <input type="submit" value="#$removelabel#" class="xar-margin-thickright" />    
+            <input type="button" onclick="window.location='&xar-modurl-roles-admin-showprivileges;&amp;uid=#$roleid#';" value="#xarML('Cancel Removal')#" class="xar-margin-thichleft" />
+        </div>
+    </form>
 </div>

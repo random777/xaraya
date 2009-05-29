@@ -309,16 +309,16 @@ div#status li {
 }
 
 .complete {
-    background-image: url(../../../../modules/base/xarimages/icons/activate.png);
+    background-image: url(../../../modules/base/xarimages/icons/activate.png);
 	color: #80ab1b;
 }
 
 .active {
-    background-image: url(../../../../modules/base/xarimages/icons/initialize.png);
+    background-image: url(../../../modules/base/xarimages/icons/initialize.png);
 }
 
 .greyed {
-    background-image: url(../../../../modules/base/xarimages/icons/none.png);
+    background-image: url(../../../modules/base/xarimages/icons/none.png);
 	color: #999;
 }
 
@@ -342,13 +342,13 @@ ul li.success, ul li.failure, ul li.warning {
 }
 
 ul li.success {
-	list-style-image:  url(../../../../modules/base/xarimages/icons/activate.png) !important;
+	list-style-image:  url(../../../modules/base/xarimages/icons/activate.png) !important;
 }
 ul li.failure {
-	list-style-image:  url(../../../../modules/base/xarimages/icons/dialog-error.png) !important;
+	list-style-image:  url(../../../modules/base/xarimages/icons/dialog-error.png) !important;
 }
 ul li.warning {
-	list-style-image:  url(../../../../modules/base/xarimages/icons/dialog-warning.png) !important;
+	list-style-image:  url(../../../modules/base/xarimages/icons/dialog-warning.png) !important;
 }
 
 p.warning {
@@ -402,40 +402,6 @@ div.configuration {
     width: 460px;
 }
 
-div.simpleform {
-    float: left;
-    width: 460px;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    border: 1px solid #B6A4BB;
-}
-
-div.simpleform p {
-    width: 460px;
-    padding: .35em 0;
-    margin: 0 auto;
-    text-align: left;
-    border-bottom: #ffffff;
-    border-width: 0 0 1px 0;
-    border-style: none none solid none;
-    background-color: #f0f0f0;
-}
-
-div.simpleform label {
-    width: 30%;
-    float: left;
-    padding: 0 .5em;
-    margin: 0;
-}
-
-div.simpleform input {
-    width: 30%;
-    float: left;
-    padding: 0;
-    margin: 0 .25em;
-}
-
 div.scroller {
     padding: 5px;
     margin-bottom: .5em;
@@ -450,11 +416,17 @@ div.scroller p, div.scroller input {
     margin: 0;
 }
 
-.xar-normal {
+.xar-norm {
     color: #000000;
     font-size: .75em;
 }
 
+.xar-form-footer {
+    border: 1px solid #3ce;
+    text-align: center;
+    margin: 1em 0;
+    padding: 1em 0;
+}
 
 .xar-sub { font-size: .7em; }
 .clear { clear: both; height:0px; }

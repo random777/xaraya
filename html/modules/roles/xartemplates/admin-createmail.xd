@@ -77,7 +77,7 @@
         <xar:comment>
             Module List Sort and Filter Controls table 
         </xar:comment>
-        <table class="xar-fullwidth">
+        <table class="xar-item-controls">
             <tr>
                 <th class="xar-nowrap">
                     <label for="filter" title="#xarML('Select display type')#">
@@ -342,7 +342,7 @@
               </xar:mlstring>
             </p>
           <xar:else />
-          <table class="xar-fullwidth">
+          <table class="xar-items">
             <tr>
               <th>
                 <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=name">
@@ -460,21 +460,19 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="hidden" name="uid" id="uid" value="#$uid#" />
-                <input type="hidden" name="state" id="state" value="#$state#" />
-                <input type="hidden" name="includesubgroups" id="includesubgroups" value="#$includesubgroups#" />
-                <!--<input type="hidden" name="uids" id="uids" value="#$uids#" />-->
-                <xar:if condition="!isset($users) or $users eq 0">
-                    <input type="submit" value="#xarML('Send')#" disabled="disabled" class="xar-margin-thickright" />
-                    <xar:else />
-                    <input type="submit" value="#xarML('Send')#" class="xar-margin-thickright" />
-                </xar:if>
-                <input type="button" value="#xarML('Cancel')#" onclick="history.back(-1);" class="xar-margin-thickright" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="uid" id="uid" value="#$uid#" />
+            <input type="hidden" name="state" id="state" value="#$state#" />
+            <input type="hidden" name="includesubgroups" id="includesubgroups" value="#$includesubgroups#" />
+            <!--<input type="hidden" name="uids" id="uids" value="#$uids#" />-->
+            <xar:if condition="!isset($users) or $users eq 0">
+                <input type="submit" value="#xarML('Send')#" disabled="disabled" class="xar-margin-thickright" />
+            <xar:else />
+                <input type="submit" value="#xarML('Send')#" class="xar-margin-thickright" />
+            </xar:if>
+            <input type="button" value="#xarML('Cancel')#" onclick="history.go(-1);" class="xar-margin-thickright" />
+        </div>
     </form>
     <p>
         <xar:mlstring>

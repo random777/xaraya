@@ -120,13 +120,11 @@
             </fieldset>
             </xar:if>
         </xar:if>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="submit" value="#$userlabel#" />
-            </div>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="phase" id="phase" value="checkregistration" />
+            <input type="submit" value="#$userlabel#" />
+        </div>
 
-        <input type="hidden" name="authid" id="authid" value="#$authid#" />
-        <input type="hidden" name="phase" id="phase" value="checkregistration" />
-        </fieldset>
     </form>
 </div>

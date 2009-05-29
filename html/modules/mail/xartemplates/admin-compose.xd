@@ -97,12 +97,10 @@
                 </div>
             </xar:if>
         </fieldset>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="submit" value="#xarML('Send Test Message')#" class="xar-margin-thickright" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="submit" value="#xarML('Send Test Message')#" class="xar-margin-thickright" />
+        </div>
     </form>
 </div>
 

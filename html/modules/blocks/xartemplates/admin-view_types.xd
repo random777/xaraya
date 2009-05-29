@@ -81,7 +81,7 @@
                 <legend>
                     <xar:mlstring>Block Parameters Customisable Through &lt;xar:block&gt; Tag</xar:mlstring>
                 </legend>
-                <table>
+                <table class="xar-items">
                     <tr>
                         <th><xar:mlstring>Name</xar:mlstring></th>
                         <th><xar:mlstring>Default</xar:mlstring></th>
@@ -118,7 +118,7 @@
         <h4>
             <a href="&xar-modurl-blocks-admin-new_type;"><xar:mlstring>Add New Block Type</xar:mlstring></a>
         </h4>
-        <table class="xar-fullwidth">
+        <table class="xar-items">
             <tr>
                 <th title="#xarML('The module listed is the module from which this block originates')#"><xar:mlstring>Module</xar:mlstring></th>
                 <th title="#xarML('The block type indicates the type of block that can be selected.')#"><xar:mlstring>Type</xar:mlstring></th>
@@ -134,7 +134,7 @@
                             #xarVarPrepForDisplay($loop:item['info']['text_type_long'])#
                         </xar:if>
                     </td>
-                    <td class="xar-align-center">
+                    <td class="xar-item-actions">
                         <a href="#$loop:item['refreshurl']#" title="#xarML('Refresh block details')#"><img src="#$icon_refresh#" alt="#xarML('Refresh')#" /></a>
                         <xar:comment>BUG 2750: Add a link to delete block type</xar:comment>
                         <xar:if condition="isset($loop:item['deleteurl'])">

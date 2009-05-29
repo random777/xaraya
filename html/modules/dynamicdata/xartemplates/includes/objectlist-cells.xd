@@ -1,6 +1,6 @@
-<table class="xar-fullwidth">
+<table class="xar-items">
     <tr>
-        <th>| 
+        <th> |
             <xar:foreach in="$properties" key="$name">
               <xar:data-label property="$properties[$name]" /> |
             </xar:foreach>

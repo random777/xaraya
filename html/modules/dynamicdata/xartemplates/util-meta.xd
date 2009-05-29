@@ -52,16 +52,16 @@
                             </a>
                         </td>
                         <td class="xar-align-center">
-                            <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$curtable#" title="#xarML('View')#">
+                            <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$curtable#" title="#xarML('View')#" class="xar-icon">
                                 <img src="#$icon_display#" alt="#xarML('View')#" />
                             </a>
-                            <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$curtable#" title="#xarML('Query')#">
+                            <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$curtable#" title="#xarML('Query')#" class="xar-icon">
                                 <img src="#$icon_test#" alt="#xarML('Query')#" />
                             </a>
-                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#&amp;export=1" title="#xarML('Export XML')#">
+                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#&amp;export=1" title="#xarML('Export XML')#" class="xar-icon">
                                 <img src="#$icon_export#" alt="#xarML('Export XML')#" />
                             </a>
-                            <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$curtable#" title="#xarML('Add Relation')#">
+                            <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$curtable#" title="#xarML('Add Relation')#" class="xar-icon">
                                 <img src="#$icon_add#" alt="#xarML('Add Relation')#" />
                             </a>
                         </td>
@@ -200,7 +200,7 @@
                     </div>
                 </div>
             </fieldset>
-            <div class="xar-align-center">
+            <div class="xar-form-footer">
                 <input type="hidden" name="authid" value="#xarSecGenAuthKey()#" />
                 <input type="submit" value="#xarML('Import Table Definition')#" />
             </div>

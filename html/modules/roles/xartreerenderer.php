@@ -278,66 +278,71 @@ class xarTreeRenderer
     function leafitem()
     {
         if ($this->treenode['users'] == 0 || (!$this->drawchildren)) {
-            return xarTplObject('roles', 'spacer', 'large');
+            $data['allowed'] = false;
         } else {
-            $data['leafitemurl'] = xarModURL('roles', 'admin', 'showusers',
-                            array('uid' => $this->treenode['uid'], 'reload' => 1));
-            $data['leafitemtitle'] = xarML('Show the Users in this Group');
-            $data['leafitemimage'] = $this->icon_users;
-            return xarTplObject('roles', 'leaf', 'showuser', $data);
+            $data['allowed'] = true;
         }
+        $data['leafitemurl'] = xarModURL('roles', 'admin', 'showusers',
+                        array('uid' => $this->treenode['uid'], 'reload' => 1));
+        $data['leafitemtitle'] = xarML('Show the Users in this Group');
+        $data['leafitemimage'] = $this->icon_users;
+        return xarTplObject('roles', 'leaf', 'showuser', $data);
     }
 
     function deleteitem()
     {
         if (!xarSecurityCheck('DeleteRole',0,'Roles',$this->treenode['name']) || ($this->treenode['users'] > 0) || (!$this->drawchildren)) {
-            return xarTplObject('roles', 'spacer', 'large');
+            $data['allowed'] = false;
         } else {
-            $data['leafitemurl'] = xarModURL('roles', 'admin', 'deleterole',
-                            array('uid' => $this->treenode['uid']));
-            $data['leafitemtitle'] = xarML('Delete this Group');
-            $data['leafitemimage'] = $this->icon_delete;
-            return xarTplObject('roles', 'leaf', 'deleteuser', $data);
+            $data['allowed'] = true;
         }
+        $data['leafitemurl'] = xarModURL('roles', 'admin', 'deleterole',
+                        array('uid' => $this->treenode['uid']));
+        $data['leafitemtitle'] = xarML('Delete this Group');
+        $data['leafitemimage'] = $this->icon_delete;
+        return xarTplObject('roles', 'leaf', 'deleteuser', $data);
     }
 
     function emailitem()
     {
         if ($this->treenode['users'] == 0 || (!$this->drawchildren)) {
-            return xarTplObject('roles', 'spacer', 'large');
+            $data['allowed'] = false;
         } else {
-            $data['leafitemurl'] = xarModURL('roles', 'admin', 'createmail',
-                            array('uid' => $this->treenode['uid']));
-            $data['leafitemtitle'] = xarML('Email the Users in this Group');
-            $data['leafitemimage'] = $this->icon_mail;
-            return xarTplObject('roles', 'leaf', 'email', $data);
+            $data['allowed'] = true;
         }
+        $data['leafitemurl'] = xarModURL('roles', 'admin', 'createmail',
+                        array('uid' => $this->treenode['uid']));
+        $data['leafitemtitle'] = xarML('Email the Users in this Group');
+        $data['leafitemimage'] = $this->icon_mail;
+        return xarTplObject('roles', 'leaf', 'email', $data);
     }
 
     function privilegesitem()
     {
         if (!$this->drawchildren) {
-            return xarTplObject('roles', 'spacer', 'large');
+            $data['allowed'] = false;
         } else {
-            $data['leafitemurl'] = xarModURL('roles', 'admin', 'showprivileges',
-                            array('uid' => $this->treenode['uid']));
-            $data['leafitemtitle'] = xarML('Show the Privileges assigned to this Group');
-            $data['leafitemimage'] = $this->icon_privileges;
-            return xarTplObject('roles', 'leaf', 'showprivileges', $data);
+            $data['allowed'] = true;
         }
+        $data['leafitemurl'] = xarModURL('roles', 'admin', 'showprivileges',
+                        array('uid' => $this->treenode['uid']));
+        $data['leafitemtitle'] = xarML('Show the Privileges assigned to this Group');
+        $data['leafitemimage'] = $this->icon_privileges;
+        return xarTplObject('roles', 'leaf', 'showprivileges', $data);
     }
 
     function testitem()
     {
         if (!$this->drawchildren) {
-            return xarTplObject('roles', 'spacer', 'large');
+            $data['allowed'] = false;
         } else {
-            $data['leafitemurl'] = xarModURL('roles', 'admin', 'testprivileges',
-                            array('uid' => $this->treenode['uid']));
-            $data['leafitemtitle'] = xarML("Test this Groups's Privileges");
-            $data['leafitemimage'] = $this->icon_test;
-            return xarTplObject('roles', 'leaf', 'testprivileges', $data);
+            $data['allowed'] = true;
         }
+        $data['leafitemurl'] = xarModURL('roles', 'admin', 'testprivileges',
+                        array('uid' => $this->treenode['uid']));
+        $data['leafitemtitle'] = xarML("Test this Groups's Privileges");
+        $data['leafitemimage'] = $this->icon_test;
+        return xarTplObject('roles', 'leaf', 'testprivileges', $data);
     }
 
     function descriptionitem()

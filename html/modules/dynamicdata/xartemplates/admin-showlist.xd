@@ -1,11 +1,11 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:if condition="empty($layout) or $layout eq 'default'">
-    <table width="100%" border="1" cellspacing="0" cellpadding="4">
+    <table class="xar-items">
     <tr>
         <xar:foreach in="$labels" value="$item">
-            <th class="xar-align-center">#$item['label']#</th>
+            <th>#$item['label']#</th>
         </xar:foreach>
-        <th class="xar-align-center"><xar:mlstring>Options</xar:mlstring></th>
+        <th><xar:mlstring>Options</xar:mlstring></th>
     </tr>
     <xar:foreach in="$items" value="$item">
     <tr>
@@ -14,7 +14,7 @@
         <xar:foreach in="$item['fields']" value="$field">
             <td><xar:data-output type="$field['type']" name="dd_'.$field['id'].'" value="$field['value']" /></td>
         </xar:foreach>
-        <td>
+        <td class="xar-item-actions">
             <xar:foreach in="$item['options']" value="$option">
                 #$option['join']# <a href="#$option['link']#">#$option['title']#</a>
             </xar:foreach>
@@ -32,8 +32,7 @@
     </table>
 
     <xar:if condition="!empty($prevurl) or !empty($nexturl)">
-        <br />
-        <div class="xar-align-center">
+        <div class="xar-align-center xar-margin-thickends">
             <xar:if condition="!empty($prevurl)">
                  <a href="#$prevurl#">&lt;&lt; </a>
             <xar:else />
@@ -49,10 +48,10 @@
     </xar:if>
 
 <xar:elseif condition="$layout eq 'cells'" />
-    <table width="100%" border="1" cellspacing="0" cellpadding="4">
+    <table class="xar-items">
     <tr>
         <xar:foreach in="$labels" value="$item">
-            <th class="xar-align-center">#$item['label']#</th>
+            <th>#$item['label']#</th>
         </xar:foreach>
     </tr>
     <xar:foreach in="$items" value="$item">
@@ -73,7 +72,7 @@
     </table>
 
     <xar:if condition="!empty($prevurl) or !empty($nexturl)">
-        <div class="xar-align-center">
+        <div class="xar-align-center xar-margin-thickends">
             <xar:if condition="!empty($prevurl)">
                  <a href="#$prevurl#">&lt;&lt; </a>
             <xar:else />
@@ -90,8 +89,11 @@
 
 <!-- TODO: multi-column output -->
 <xar:else />
-    <xar:mlstring>Specify your own layout here...</xar:mlstring>
-    <br /><br />
-    <xar:mlstring>You can also specify a separate template, e.g. if you want to handle individual fields differently for a particular module / itemtype</xar:mlstring>
+    <p>
+        <xar:mlstring>Specify your own layout here...</xar:mlstring>
+    </p>
+    <p>
+        <xar:mlstring>You can also specify a separate template, e.g. if you want to handle individual fields differently for a particular module / itemtype</xar:mlstring>
+    </p>
 </xar:if>
 

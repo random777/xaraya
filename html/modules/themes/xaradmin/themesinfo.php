@@ -51,6 +51,10 @@ function themes_admin_themesinfo()
     }
     $data['themedependency']      = xarVarPrepForDisplay($dependency);
 
+    $previewpath = "themes/$info[directory]/images/preview.jpg";
+    $data['themepreview'] = file_exists($previewpath) ? $previewpath : '';
+
+
     // Redirect
     return $data;
 }

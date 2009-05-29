@@ -23,13 +23,11 @@
             <input type="text" name="name" id="name" value="" size="20" maxlength="20" tabindex="1" class="xar-form-textmedium" />
             </div>
         </fieldset>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
+        <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="confirmed" id="confirmed" value="true" />
             <xar:set name="tmpaddvalue"><xar:mlstring>Add</xar:mlstring></xar:set>
             <input type="submit" value="#$tmpaddvalue#" tabindex="2" />
-            </div>
-        </fieldset>
+        </div>
     </form>
 </div>

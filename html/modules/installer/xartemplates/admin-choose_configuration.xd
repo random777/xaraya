@@ -43,7 +43,7 @@
 	            </xar:ml>
             </xar:if>
         </p>
-		<div class="xar-align-center" style="margin: 2em 0;">
+		<div class="xar-form-footer">
             <input type="hidden" name="install_language" id="install_language" value="#$language#" />
             <input type="submit" name="create" id="create" value="#xarML('Continue')#" />
         </div>

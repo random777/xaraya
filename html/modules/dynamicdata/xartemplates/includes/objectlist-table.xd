@@ -16,13 +16,13 @@
     </xar:if>
 
     <!-- we don't use xar:data-form or xar:data-input here, because this is typically not an input form -->
-    <table class="xar-fullwidth">
+    <table class="xar-items">
         <xar:set name="item_no">0</xar:set>
         <xar:foreach in="$items" key="$itemid" value="$fields">
             <xar:if condition="$item_no eq 0">
                 <tr>                        
                     <xar:foreach in="$properties" key="$name">
-                        <th class="xar-form-textlong">
+                        <th>
                             <a href="#$sorturl#=#$name#">
                                 <xar:data-label property="$properties[$name]" />
                             </a>
@@ -46,16 +46,16 @@
                     </td>
                 </xar:foreach>
             </tr>
-            <tr  class="#$rowclass#">
+            <tr class="#$rowclass#">
                 <xar:set name="colspan">count($properties)+2</xar:set>
-                <td style="border-bottom: 1pt solid;" class="xar-align-right" colspan="#$colspan#">
+                <td class="xar-item-actions xar-align-right" colspan="#$colspan#">
                         <xar:foreach in="$links[$itemid]" value="$option">
                         <xar:if condition="!empty($option['olink'])">
-                            <a href="#$option['olink']#">
+                            <a href="#$option['olink']#" class="xar-icon" title="#$option['otitle']#">
                                 <img src="#$option['oicon']#" alt="#$option['otitle']#" />
                             </a>
                         <xar:else />
-                            <img src="#$option['oicon']#" alt="#$option['otitle']#" />
+                            <img src="#$option['oicon']#" alt="#$option['otitle']#" title="#$option['otitle']#" class="xar-icon-disabled" />
                         </xar:if>
                     </xar:foreach>
                 </td>

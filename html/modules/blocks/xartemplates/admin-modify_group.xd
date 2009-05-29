@@ -17,9 +17,6 @@
         <legend>
           <xar:mlstring>Group Properties</xar:mlstring>
         </legend>
-        <input type="hidden" name="authid" id="authid" value="#$authid#" />
-        <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
-        <input type="hidden" name="group_instance_order" id="group_instance_order" value="" />
 
         <div class="xar-form-input-wrapper">
             <label for="group_name" title="#xarML('Enter the name of the group.  This value is used in your theme template to call the block group.')#" class="xar-form-label">
@@ -72,12 +69,12 @@
         </div>
       </fieldset>
 
-         
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="submit" value="#xarML('Update Group')#" class="xar-margin-thick" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
+            <input type="hidden" name="group_instance_order" id="group_instance_order" value="" />
+            <input type="submit" value="#xarML('Update Group')#" class="xar-margin-thick" />
+        </div>
 
     </form>
 </div>

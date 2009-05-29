@@ -145,7 +145,7 @@ function themes_adminapi_getthemelist($args)
                 xarVarSetCached('Theme.BaseInfos', $themeInfo['name'], $themeInfo);
 
                 $themeFileInfo = xarTheme_getFileInfo($themeInfo['osdirectory']);
-                if (!isset($themeFileInfo)) {
+                if (isset($themeFileInfo)) {
                     // Following changes were applied by <andyv> on 21st May 2003
                     // as per the patch by Garrett Hunter
                     // Credits: Garrett Hunter <Garrett.Hunter@Verizon.net>

@@ -86,13 +86,15 @@
         </table>
     </xar:if>
 
-    <form method="POST" action="&xar-modurl-mail-admin-viewq;">
-        <input type="hidden" name="authid" value="#$authid#" />
-        <input type="hidden" name="action" value="process" />
-        <input type="submit" value="#xarML('Process Queue')#" />
+    <form method="post" action="&xar-modurl-mail-admin-viewq;">
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" value="#$authid#" />
+            <input type="hidden" name="action" value="process" />
+            <input type="submit" value="#xarML('Process Queue')#" />
+        </div>
     </form>
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+    <table class="xar-items">
     <tr>
         <th>
             <xar:mlstring>Mail ID</xar:mlstring>
@@ -105,6 +107,8 @@
         </th>
     </tr>
     <xar:if condition="count($items) gt 0">
+    <xar:set name="icon_display">xarTplGetImage('icons/display.png', 'base')</xar:set>
+    <xar:set name="icon_delete">xarTplGetImage('icons/delete.png', 'base')</xar:set>
     <xar:foreach in="$items" key="$id" value="$when">
     <tr>
         <td>
@@ -113,10 +117,10 @@
         <td>
             #xarLocaleGetFormattedDate('medium',$when)# #xarLocaleGetFormattedTime('medium',$when)#
         </td>
-        <td>
-            <a href="#xarModURL('mail','admin','viewq',array('id'=>$id,'action' => 'view','authid' => $authid))#"><xar:mlstring>View</xar:mlstring></a>
+        <td class="xar-item-actions">
+            <a href="#xarModURL('mail','admin','viewq',array('id'=>$id,'action' => 'view','authid' => $authid))#" title="#xarML('View')#" class="xar-icon"><img src="#$icon_display#" alt="#xarML('View')#" /></a>
             |
-            <a href="#xarModURL('mail','admin','viewq',array('id'=>$id,'action' => 'delete','authid' => $authid))#"><xar:mlstring>Delete</xar:mlstring></a>
+            <a href="#xarModURL('mail','admin','viewq',array('id'=>$id,'action' => 'delete','authid' => $authid))#" class="xar-icon"><img src="#$icon_delete#" alt="#xarML('Delete')#" /></a>
         </td>
      </tr>
      </xar:foreach>

@@ -31,14 +31,12 @@ function modules_admin_viewerror()
                               'admin',
                               'getdbmodules',
                               array('regId' => $regId));
-    if (!isset($dbModule)) return;
 
     // Get module information from the filesystem
     $fileModule = xarModAPIFunc('modules',
                                 'admin',
                                 'getfilemodules',
                                 array('regId' => $regId));
-    if (!isset($fileModule)) return;
 
     // Get the module state and display appropriate template
     // for the error that was encountered with the module
@@ -54,14 +52,57 @@ function modules_admin_viewerror()
             $data['regId'] = $regId;
 
             // Set module name
-            $data['modname'] = $dbModule['name'];
+            if (isset($dbModule['name'])) {
+                $data['modname'] = $dbModule['name'];
+            } else {
+                $data['modname'] = xarML('[ unknown ]');
+            }
 
             // Set db version
-            $data['dbversion'] = $dbModule['version'];
+            if (isset($dbModule['version'])) {
+                $data['dbversion'] = $dbModule['version'];
+            } else {
+                $data['dbversion'] = xarML('[ unknown ]');
+            }
 
             // Set file version number of module
-            $data['fileversion'] = $fileModule['version'];
+            if (isset($fileModule['version'])) {
+                $data['fileversion'] = $fileModule['version'];
+            } else {
+                $data['fileversion'] = xarML('[ unknown ]');
+            }
+            break;
 
+        case XARMOD_STATE_MISSING_FROM_UNINITIALISED:
+        case XARMOD_STATE_MISSING_FROM_INACTIVE:
+        case XARMOD_STATE_MISSING_FROM_ACTIVE:
+        case XARMOD_STATE_MISSING_FROM_UPGRADED:
+            // Set template to 'missing'
+            $template = 'missing';
+
+            // Set regId 
+            $data['regId'] = $regId;
+
+            // Set module name
+            if (isset($dbModule['name'])) {
+                $data['modname'] = $dbModule['name'];
+            } else {
+                $data['modname'] = xarML('[ unknown ]');
+            }
+
+            // Set db version
+            if (isset($dbModule['version'])) {
+                $data['dbversion'] = $dbModule['version'];
+            } else {
+                $data['dbversion'] = xarML('[ unknown ]');
+            }
+
+            // Set file version number of module
+            if (isset($fileModule['version'])) {
+                $data['fileversion'] = $fileModule['version'];
+            } else {
+                $data['fileversion'] = xarML('[ unknown ]');
+            }
             break;
 
         default:

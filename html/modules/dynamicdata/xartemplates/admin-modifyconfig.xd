@@ -13,7 +13,7 @@
     </p>
 
     <form method="post" action="&xar-modurl-dynamicdata-admin-updateconfig;">
-        <div class="xar-align-center">
+        <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="flushPropertyCache" value="true" />
             <input type="submit" value="Flush Property Cache" />
@@ -29,7 +29,7 @@
             <xar:mlstring>The following property types are predefined in Xaraya and may be used in your own dynamic properties.</xar:mlstring>
         </p>
 
-        <table class="xar-fullwidth">
+        <table class="xar-items">
             <tr>
                 <th>
                     #$labels['id']# 
@@ -76,48 +76,47 @@
                 </tr>
             </xar:foreach>
         </table>
-        <p>
-            <xar:mlstring>Add a new Property Type using the fields below.</xar:mlstring> (TODO)
-        </p>
 
-        <table class="xar-fullwidth">
-            <tr>
-                <th>
-                    #$labels['id']# 
-                </th>
-                <th>
-                    #$labels['name']#
-                </th>
-                <th>
-                    #$labels['label']# 
-                </th>
-                <th>
-                    #$labels['informat']# 
-                </th>
-                <th>
-                    #$labels['validation']# 
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    #$labels['new']# 
-                </td>
-                <td>
-                    <input type="text" name="name[0]" id="name_0" class="xar-form-textmedium" />
-                </td>
-                <td>
-                    <input type="text" name="label[0]" id="label_0" class="xar-form-textmedium" />
-                </td>
-                <td>
-                    <xar:data-input property="$fieldtypeprop" name="format[0]" id="format_0" value="" />
-                </td>
-                <td>
-                    <input type="text" name="validation[0]" id="validation_0" value="" class="xar-form-textmedium" />
-                </td>
-            </tr>
-        </table>
+        <fieldset>
+            <legend>
+                <xar:mlstring>Add Property</xar:mlstring>
+            </legend>
 
-        <div class="xar-align-center">
+            <p>
+                <xar:mlstring>Add a new Property Type using the fields below.</xar:mlstring> (TODO)
+            </p>
+
+            <div class="xar-form-input-wrapper">
+                <label for="name_0" class="xar-form-label">
+                    #$labels['name']#:
+                </label>
+                <input type="text" name="name[0]" id="name_0" class="xar-form-textmedium" />
+            </div>
+
+            <div class="xar-form-input-wrapper">
+                <label for="label_0" class="xar-form-label">
+                    #$labels['label']#
+                </label>
+                <input type="text" name="label[0]" id="label_0" class="xar-form-textmedium" />
+            </div>
+
+            <div class="xar-form-input-wrapper">
+                <label for="format_0" class="xar-form-label">
+                    #$labels['informat']#
+                </label>
+                <xar:data-input property="$fieldtypeprop" name="format[0]" id="format_0" value="" />
+            </div>
+
+            <div class="xar-form-input-wrapper">
+                <label for="validation_0" class="xar-form-label">
+                    #$labels['validation']#
+                </label>
+                <input type="text" name="validation[0]" id="validation_0" value="" class="xar-form-textmedium" />
+            </div>
+
+        </fieldset>
+
+        <div class="xar-form-footer">
             <p>
                 <xar:mlstring>Note: any changes you make here will be lost whenever the property cache gets flushed.</xar:mlstring>
             </p>

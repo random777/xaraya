@@ -32,10 +32,10 @@
         </p>
         <form action="#xarModURL('themes', 'admin', 'cssconfig')#" method="post">
             <div class="xar-form-input-wrapper">
-                <span title="#xarML('Enable manual stylesheet configuration')#" class="xar-form-label">
+                <label title="#xarML('Enable manual stylesheet configuration')#" class="xar-form-label">
                     <xar:mlstring>Mode:</xar:mlstring>
-                </span>
-                <div class="xar-floatleft">
+                </label>
+                <div class="xar-form-container-after">
                     <xar:if condition="$configurable">
                         <div>
                             <input type="radio" value="0" id="configurable_false" name="configurable" />
@@ -77,14 +77,14 @@
                 #$resettagsurlstatus#
             </div>
             
-            <div class="xar-align-center">
+            <div class="xar-form-footer">
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
                 <input type="submit" value="#xarML('Submit')#" />
             </div>
         </form>
         
         <h4>
-            <xar:mlstring>Note: About stylesheet tags</xar:mlstring>
+            <xar:mlstring>About stylesheet tags</xar:mlstring>
         </h4>
 
         <p>
@@ -94,11 +94,11 @@
             The complete list of the tags is also available in "Template Tags" panel, 
             although modifying the tags from that interface would probably not be advisable.</xar:mlstring>
         </p>
-        <xar:elseif condition="$component eq 'core'" />
+    <xar:elseif condition="$component eq 'core'" />
         <xar:template file="corecss" type="module" />
-        <xar:elseif condition="$component eq 'themes'" />
+    <xar:elseif condition="$component eq 'themes'" />
         <xar:template file="themescss" type="module" />
-        <xar:elseif condition="$component eq 'modules'" />
+    <xar:elseif condition="$component eq 'modules'" />
         <xar:template file="modulescss" type="module" />
     </xar:if>
 </div>

@@ -55,7 +55,7 @@
 
         <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" >
             <xar:comment> Module List Sort and Filter Controls table </xar:comment>
-            <table class="xar-fullwidth">
+            <table class="xar-item-controls">
                 <tr>
                        <th>
                            <label for="recallsearch" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
@@ -125,7 +125,7 @@
                     </p>
                 <xar:else />
 
-                    <table class="xar-fullwidth">
+                    <table class="xar-items">
                         <tr>
                             <th>
                                 <xar:mlstring>Display name</xar:mlstring>
@@ -177,7 +177,7 @@
                         <!-- end loop over users -->
                     </table>
 
-                    <div class="xar-align-center">
+                    <div class="xar-form-footer">
                         <input type="hidden" name="authid" id="authid" value="#$authid#" />
                         <input type="hidden" name="operation" id="operation" value="recall" />
                         <input name="confirmation" type="submit" value="#xarML('Recall')#" />
@@ -209,11 +209,8 @@
 
         <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" name="purge">
 
-            <input type="hidden" name="authid" id="authid" value="#$authid#" />
-            <input type="hidden" name="operation" id="operation" value="purge" />
-
             <xar:comment>Roles List Sort and Filter Controls table</xar:comment>
-            <table class="xar-fullwidth">
+            <table class="xar-item-controls">
                 <tr>
                     <th>
                         <label for="purgesearch" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
@@ -282,7 +279,7 @@
                     </xar:if>
                 </p>
             <xar:else />
-                <table class="xar-fullwidth">
+                <table class="xar-items">
                     <tr>
                         <th>
                             <xar:mlstring>Display name</xar:mlstring>
@@ -337,8 +334,10 @@
                     </a>
                 </div>
 
-                <div class="xar-align-center">
-                   <input name="confirmation" type="submit" value="#xarML('Purge')#" />
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="operation" id="operation" value="purge" />
+                    <input name="confirmation" type="submit" value="#xarML('Purge')#" />
                 </div>
 
                 <xar:if condition="!empty($purgepager)">

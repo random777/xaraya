@@ -12,7 +12,7 @@
 
     <xar:set name="objectid">#$object:objectid#</xar:set>
     <form method="post" action="&xar-modurl-dynamicdata-admin-form;">
-        <div class="xar-align-center">
+        <div class="xar-form-footer">
             <input type="hidden" name="objectid" value="#$objectid#" />
             <input type="hidden" name="theme" value="print" />
             <input type="submit" value="#xarML('Refresh')#" />

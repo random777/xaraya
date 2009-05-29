@@ -90,7 +90,7 @@
         <p>
             <xar:mlstring>If checked, this Create the Database option allows the install process to create an empty database for you rather than just populating an existing one. If you cannot create databases through phpMyAdmin because of virtual hosting or MySQL security settings, the installer will <strong>not</strong> be able to create the database for you. It will be able to populate an already existing database.</xar:mlstring>
         </p>
-	    <div class="xar-align-center" style="margin: 2em 0;">
+	    <div class="xar-form-footer">
 	        <input type="hidden" name="install_phase" id="install_phase" value="5" />
 	        <input type="hidden" name="install_language" id="install_language" value="#$language#" />
 	        <input type="submit" value="#xarML('Continue')#" />

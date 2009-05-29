@@ -317,8 +317,8 @@
         </xar:comment>
     </ul>
 
-    <form action="install.php" method="post" style="margin: 2em 0;">
-        <div class="xar-align-center">
+    <form action="install.php" method="post">
+        <div class="xar-form-footer">
             <input type="hidden" name="install_language" value="#$language#" />
             <xar:if condition="$systemConfigIsWritable AND $cacheTemplatesIsWritable AND $cacheIsWritable AND $rssTemplatesIsWritable AND $adodbTemplatesIsWritable AND $metMinMemRequirement">
                 <input type="hidden" name="install_phase" id="install_phase" value="4" />

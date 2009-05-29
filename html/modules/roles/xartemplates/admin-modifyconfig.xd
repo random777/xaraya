@@ -231,14 +231,12 @@
                     <xar:data-input type="module" name="defaultregmodule" class="Registration" value="$defaultregmod" />
                 </div>
             </fieldset>
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Roles Configuration')#" />
+            </div>
         </form>
        <xar:comment>
             - - - - - - - - - - - - - - - - - Begin Restrictions Options - - - - - - - - - - - - - - - - - - -
@@ -281,14 +279,12 @@
               
             </fieldset>
          
-            <fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                </div>
-            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Roles Configuration')#" />
+            </div>
         </form>
         
         <xar:comment>
@@ -302,9 +298,10 @@
                             Basic User Variables
                         </xar:mlstring>
                     </legend>
-                    <p> <xar:mlstring>Always available in a user role, and can  be retrieved as <strong>xarUserGetVar('varname')</strong></xar:mlstring>
+                    <p>
+                        <xar:mlstring>Always available in a user role, and can  be retrieved as <strong>xarUserGetVar('varname')</strong></xar:mlstring>
                     </p>
-                    <table style="width: 90%">
+                    <table class="xar-items">
                         <tr>
                             <th style="width: 100px">
                                 <xar:mlstring>Name</xar:mlstring>
@@ -345,10 +342,11 @@
                             Dynamic Roles Variables
                         </xar:mlstring>
                     </legend>
-                    <p> <xar:mlstring>Optional in a user role. Once activated they can be retrieved as <strong>xarUserGetVar('varname')</strong></xar:mlstring>
+                    <p>
+                        <xar:mlstring>Optional in a user role. Once activated they can be retrieved as <strong>xarUserGetVar('varname')</strong></xar:mlstring>
                     </p>
 
-                    <table style="width: 90%">
+                    <table class="xar-items">
                         <tr>
                             <th style="width: 100px">
                                 <xar:mlstring>Name</xar:mlstring>
@@ -459,14 +457,12 @@
                         </tr>
                     </table>
                 </fieldset>
-                <fieldset>
-                    <div class="xar-form-input-wrapper-after">
-                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                        <input type="hidden" name="phase" id="phase" value="update" />
-                        <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                        <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                    </div>
-                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
+                </div>
             </form>
         <xar:comment>
             - - - - - - - - - - - - - - - - - Begin User Hooks Options - - - - - - - - - - - - - - - - - - -
@@ -481,14 +477,12 @@
                     #$hooks[$hookmodule]#
                 </xar:foreach>
               </fieldset>
-              <fieldset>
-                <div class="xar-form-input-wrapper-after">
+              <div class="xar-form-footer">
                   <input type="hidden" name="authid" id="authid" value="#$authid#" />
                   <input type="hidden" name="phase" id="phase" value="update" />
                   <input type="hidden" name="tab" id="tab" value="#$tab#" />
                   <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                </div>
-              </fieldset>
+              </div>
             </form>
             <xar:else />
             <p>
@@ -510,14 +504,12 @@
                     #$hooks[$hookmodule]#
                   </xar:foreach>
                 </fieldset>
-                <fieldset>
-                    <div class="xar-form-input-wrapper-after">
-                        <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                        <input type="hidden" name="phase" id="phase" value="update" />
-                        <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                        <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                    </div>
-                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
+                </div>
             </form>
             <xar:else />
             <p>
@@ -672,12 +664,12 @@
                 </div>
                 </xar:if>
             </fieldset>
-                <div class="xar-form-input-wrapper-after">
-                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                    <input type="hidden" name="phase" id="phase" value="update" />
-                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
-                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
-                </div>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Roles Configuration')#" />
+            </div>
         </form>
     </xar:if>
 </div>

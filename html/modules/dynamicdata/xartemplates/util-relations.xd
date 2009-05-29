@@ -380,7 +380,7 @@
                         <input type="textbox" name="withvalue" id="withvalue" value="#$withvalue#" class="xar-form-textmedium" />
                     </div>
                 </div>
-                <div class="xar-form-input-wrapper-after">
+                <div class="xar-form-footer">
                     <input type="submit" name="confirm" value="#xarML('Confirm')#" />
                 </div>
             </xar:if>
@@ -576,7 +576,7 @@
                         </xar:foreach>
                     </xar:foreach>
                 </table>
-                <div class="xar-form-input-wrapper-after">
+                <div class="xar-form-footer">
                     <input type="hidden" name="objectid" value="#$objectid#" />
                     <input type="hidden" name="table" value="#$table#" />
                     <input type="hidden" name="authid" value="#$authid#" />

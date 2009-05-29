@@ -8,7 +8,7 @@
         </tr>
     </table>
 </xar:if>
-<table class="xar-fullwidth">
+<table class="xar-items">
     <tr>
         <th>
             <xar:mlstring>Name</xar:mlstring>
@@ -80,7 +80,7 @@
             <td class="xar-align-center">
                 #$state_desc[$loop:item['state']]# 
             </td>
-            <td class="xar-align-center">
+            <td class="xar-item-actions">
                 <a href="&xar-modurl-blocks-admin-modify_instance;&amp;bid=#$loop:item.bid#">
                     <xar:mlstring>
                         Edit 

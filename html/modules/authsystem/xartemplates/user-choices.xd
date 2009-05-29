@@ -5,8 +5,6 @@
     <fieldset>
       <legend><xar:mlstring>Login</xar:mlstring></legend>
 
-      <input type="hidden" name="redirecturl" id="returnurl" value="#$redirecturl#" />
-
       <div class="xar-form-input-wrapper">
         <label for="username" class="xar-form-label"><xar:mlstring>Username</xar:mlstring></label>
         <input type="text" name="uname" id="username" maxlength="255" size="20" tabindex="1" />
@@ -23,10 +21,9 @@
         <label for="remembermeform"><xar:mlstring>Remember me</xar:mlstring></label>
       </div>
     </fieldset>
-    <fieldset>
-      <div class="xar-align-center">
+    <div class="xar-form-footer">
+        <input type="hidden" name="redirecturl" id="returnurl" value="#$redirecturl#" />
         <input type="submit" value="#$loginlabel#" tabindex="4" />
-      </div>
-    </fieldset>
+    </div>
   </form>
 </div>

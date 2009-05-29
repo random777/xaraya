@@ -118,7 +118,7 @@
             </xar:foreach>
         </xar:if>
         <fieldset>
-            <div class="xar-form-input-wrapper-after">
+            <div class="xar-form-footer">
                 <xar:if condition="!empty($return_url)">
                     <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
                 </xar:if>

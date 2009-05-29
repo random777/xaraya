@@ -15,7 +15,7 @@
     </span>
 </div>
 <div class="xar-mod-body">
-   <xar:template type="module" file="admin-menu" />
+  <xar:template type="module" file="admin-menu" />
   <h2><xar:mlstring>Add new block type</xar:mlstring></h2>
 
     <form action="#xarModURL('blocks', 'admin', 'new_type')#" method="post" onsubmit="return xar_base_formCheck(this, blocks_fieldRequired, blocks_fieldDescription);" enctype="application/x-www-form-urlencoded">
@@ -25,8 +25,6 @@
                     Add Block Type
                 </xar:mlstring>
             </legend>
-            <input type="hidden" name="authid" id="authid" value="#$authid#" />
-            <input type="hidden" name="confirm" id="confirm" value="true" />
             <div class="xar-form-input-wrapper">
                 <label for="modulename" title="#xarML('This is the name of the module that this block is to be associated with.  Blocks must be associated with modules.  When in doubt use the base module.')#" class="xar-form-label">
                     <xar:mlstring>
@@ -61,10 +59,10 @@
                 <input type="submit" name="scan" value="#xarML('Scan Module')#" />
             </div>
         </fieldset>
-        <fieldset>
-            <div class="xar-form-input-wrapper-after">
-                <input type="submit" name="submit" value="#xarML('Add Block Type')#" class="xar-margin-thick" />
-            </div>
-        </fieldset>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="confirm" id="confirm" value="true" />
+            <input type="submit" name="submit" value="#xarML('Add Block Type')#" class="xar-margin-thick" />
+        </div>
     </form>
 </div>

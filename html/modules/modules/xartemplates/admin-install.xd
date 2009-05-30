@@ -107,7 +107,7 @@
             <div class="xar-form-foter">
                 <input type="hidden" name="id" id="id" value="#$id#" />
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <xar:if condition="count($dependencies['unsatisfiable']) ne 0">
+                <xar:if condition="count($dependencies['unsatisfiable']) eq 0">
                     <input type="submit" name="command" id="command" value="#xarML('Install All')#" tabindex="9" />
                 </xar:if>
            </div>

@@ -42,7 +42,7 @@
     </ul>
 </xar:if>
 <xar:comment>
-    modified modules section, quickly brought in line with verticallistbyname.xd and verticallistbycats.xd templates in adminpanels
+    modified modules section, quickly brought in line with verticallistbyname.xt and verticallistbycats.xt templates in adminpanels
     TODO: see if the menus management can be achieved in one place to avoid duplication and to maintain healthy xhtml structures [andyv]
 </xar:comment>
 <xar:if condition="!empty($usermods)">

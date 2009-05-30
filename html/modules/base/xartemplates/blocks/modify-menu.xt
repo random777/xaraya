@@ -2,7 +2,7 @@
     License: GPL http://www.gnu.org/copyleft/gpl.html 
 </xar:comment>
 <xar:comment>
-    We know that blocks.css file is already included by admin-modify_instance.xd, so no need to do it twice 
+    We know that blocks.css file is already included by admin-modify_instance.xt, so no need to do it twice 
 </xar:comment>
 
 <xar:if condition="!empty($content)">

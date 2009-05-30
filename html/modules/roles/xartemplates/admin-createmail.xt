@@ -476,7 +476,7 @@
     </form>
     <p>
         <xar:mlstring>
-            Look in the file var/messaging/roles/includes/message-vars.xd to see how the different variables used in the templates are defined.
+            Look in the file var/messaging/roles/includes/message-vars.xt to see how the different variables used in the templates are defined.
         </xar:mlstring>
     </p>
     <p>

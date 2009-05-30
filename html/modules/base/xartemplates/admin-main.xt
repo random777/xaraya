@@ -93,7 +93,7 @@
     <p><xar:mlstring>The Base Module provides a number of Dynamic Data properties that you can use to extend existing Xaraya functionality by hooking Dynamic Data to your modules, or for developers, for use in your own module development.</xar:mlstring></p>
     <h3><xar:mlstring>Custom Templates and Static Pages</xar:mlstring></h3>
 
-    <p><xar:mlstring>As well as providing a means to provide a custom template for your front page by creating an override for the base user-main.xd template,
+    <p><xar:mlstring>As well as providing a means to provide a custom template for your front page by creating an override for the base user-main.xt template,
     you can also create further custom 'static' pages using base module templates. See the documentation for further information.</xar:mlstring></p>
 
     <h3><xar:mlstring>System Wide CSS</xar:mlstring></h3>

@@ -1,7 +1,7 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:comment>
     this is a simplified version of vertical list template
-    for full comments and examples see file verticallistbycats.xd
+    for full comments and examples see file verticallistbycats.xt
 </xar:comment>
 <ul class="xar-menu-section">
     <li class="xar-menu-section">

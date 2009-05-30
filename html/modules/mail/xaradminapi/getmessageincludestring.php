@@ -13,7 +13,7 @@
 
 /**
  * @author  John Cox <niceguyeddie@xaraya.com>
- * @param $args['template'] name of the template without .xd extension
+ * @param $args['template'] name of the template without .xt/.xd extension
  * @param $args['module'] module directory in var/messaging
  * @return string of file contents read
  */
@@ -28,13 +28,17 @@ function mail_adminapi_getmessageincludestring($args)
         list($module) = xarRequestGetInfo();
     }
 
-// Get the template that defines the substitution vars
+    // Get the template that defines the substitution vars
     $messaginghome = xarCoreGetVarDirPath() . "/messaging/" . $module;
-    if (!file_exists($messaginghome . "/includes/" . $template . ".xd")) {
+    $messagetemplate = $messaginghome . "/includes/" . $template . ".xt";
+    if (!file_exists($messagetemplate)) {
+        $messagetemplate = $messaginghome . "/includes/" . $template . ".xd";
+    }
+    if (!file_exists($messagetemplate)) {
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('The variables template was not found.'));
     }
     $string = '';
-    $fd = fopen($messaginghome . "/includes/" . $template . ".xd", 'r');
+    $fd = fopen($messagetemplate, 'r');
     while(!feof($fd)) {
         $line = fgets($fd, 1024);
         $string .= $line;

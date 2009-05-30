@@ -1021,6 +1021,10 @@ function xarTpl_includeModuleTemplate($modName, $templateName, $tplData)
     $templateName = xarVarPrepForOS($templateName);
     $sourceFileName = xarTplGetThemeDir() . "/modules/$modName/includes/$templateName.xt";
     if (!file_exists($sourceFileName)) {
+        $sourceFileName = "modules/$modName/xartemplates/includes/$templateName.xt";
+    }
+    // xd deprecated; try to find if xt not found
+    if (!file_exists($sourceFileName)) {
         $sourceFileName = "modules/$modName/xartemplates/includes/$templateName.xd";
     }
     return xarTpl__executeFromFile($sourceFileName, $tplData);
@@ -1192,13 +1196,16 @@ function xarTpl__getSourceFileName($modName,$tplBase, $templateName = NULL, $tpl
     // For props  : {tplBase} = {propertyName} or overridden value
 
     // Template search order:
-    // 1. {theme}/modules/{module}/{tplBase}-{templateName}.xt
-    // 2. modules/{module}/xartemplates/{tplBase}-{templateName}.xd
-    // 3. {theme}/modules/{module}/{tplBase}.xt
-    // 4. modules/{module}/xartemplates/{tplBase}.xd
-    // 5. {theme}/modules/{module}/{templateName}.xt (-syntax)
-    // 6. modules/{module}/xartemplates/{templateName}.xd (-syntax)
-    // 7. complain (later on)
+    // 1.  {theme}/modules/{module}/{tplBase}-{templateName}.xt
+    // 2.  modules/{module}/xartemplates/{tplBase}-{templateName}.xt
+    // 2a. modules/{module}/xartemplates/{tplBase}-{templateName}.xd (deprecated)
+    // 3.  {theme}/modules/{module}/{tplBase}.xt
+    // 4.  modules/{module}/xartemplates/{tplBase}.xt
+    // 4a. modules/{module}/xartemplates/{tplBase}.xd (deprecated)
+    // 5.  {theme}/modules/{module}/{templateName}.xt (-syntax)
+    // 6.  modules/{module}/xartemplates/{templateName}.xt (-syntax)
+    // 6a. modules/{module}/xartemplates/{templateName}.xd (-syntax) (deprecated)
+    // 7.  complain (later on)
 
     $tplThemesDir = xarTplGetThemeDir();
     $tplBaseDir   = "modules/$modOsDir";
@@ -1217,6 +1224,10 @@ function xarTpl__getSourceFileName($modName,$tplBase, $templateName = NULL, $tpl
         file_exists($sourceFileName = "$tplThemesDir/$tplBaseDir/$tplSubPart/$tplBase-$templateName.xt")) {
         $tplBase .= "-$templateName";
     } elseif(!empty($templateName) &&
+        file_exists($sourceFileName = "$tplBaseDir/xartemplates/$tplSubPart/$tplBase-$templateName.xt")) {
+        $use_internal = true;
+        $tplBase .= "-$templateName";
+    } elseif(!empty($templateName) &&
         file_exists($sourceFileName = "$tplBaseDir/xartemplates/$tplSubPart/$tplBase-$templateName.xd")) {
         $use_internal = true;
         $tplBase .= "-$templateName";
@@ -1224,10 +1235,16 @@ function xarTpl__getSourceFileName($modName,$tplBase, $templateName = NULL, $tpl
         file_exists($sourceFileName = "$tplThemesDir/$tplBaseDir/$tplSubPart/$tplBase.xt")) {
         ;
     } elseif(
+        file_exists($sourceFileName = "$tplBaseDir/xartemplates/$tplSubPart/$tplBase.xt")) {
+        $use_internal = true;
+    } elseif(
         file_exists($sourceFileName = "$tplBaseDir/xartemplates/$tplSubPart/$tplBase.xd")) {
         $use_internal = true;
     } elseif($canonical &&
         file_exists($sourceFileName = "$tplThemesDir/$tplBaseDir/$tplSubPart/$canTemplateName.xt")) {
+    } elseif($canonical &&
+        file_exists($sourceFileName = "$tplBaseDir/xartemplates/$canTemplateName.xt")) {
+        $use_internal = true;
     } elseif($canonical &&
         file_exists($sourceFileName = "$tplBaseDir/xartemplates/$canTemplateName.xd")) {
         $use_internal = true;

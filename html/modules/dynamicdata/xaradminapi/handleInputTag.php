@@ -19,7 +19,7 @@
  *
  * Special attributes :
  *     hidden="yes" to show a hidden field regardless of the original property type
- *     preset="yes" this can typically be used in admin-new.xd templates for individual
+ *     preset="yes" this can typically be used in admin-new.xt templates for individual
  *                  properties you'd like to automatically preset via GET or POST parameters
  * Note: don't use this if you already check the input for the whole object or in the code
  * See also preview="yes", which can be used on the object level to preview the whole object

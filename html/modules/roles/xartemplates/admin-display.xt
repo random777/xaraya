@@ -33,7 +33,7 @@
             <legend>Role properties</legend>
             <xar:set name="fields">array('id','name','uname','email','state','regdate')</xar:set>
             <xar:data-display object="$object" fieldlist="$fields" />
-            <xar:if condition="$basetype eq ROLES_USERTYPE">
+          <xar:if condition="$itemtype eq ROLES_USERTYPE">
                 <xar:set name="settings">
                 unserialize(xarModVars::get('roles','duvsettings'))</xar:set>
                 <xar:if condition="in_array('userhome',$settings)">

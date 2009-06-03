@@ -162,6 +162,9 @@ function base_adminmenublock_display($blockinfo)
                 if(!isset($mod['category']) or $mod['category'] == '0') {
                     $mod['category'] = xarML('Unknown');
                 }
+                if ($mod['category'] == 'Global') {
+                    $mod['category'] = 'System';
+                }
                 $cat = xarVarPrepForDisplay($mod['category']);
 
                 // if this module is loaded we probably want to display it with -current css rule in the menu

@@ -33,7 +33,7 @@ $modversion['admin'] = 0;
 $modversion['user'] = 0;
 $modversion['securityschema'] = array('Installer::' => '::');
 $modversion['class'] = 'Core Admin';
-$modversion['category'] = 'Global';
+$modversion['category'] = 'System';
 
 if (false) { //bug 6033
 xarML('Installer');

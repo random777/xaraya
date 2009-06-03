@@ -105,6 +105,10 @@ function modules_adminapi_getfilemodules($args)
                         $category = 'Miscellaneous';
                     }
 
+                    if ($category == 'Global') {
+                        $category = 'System';
+                    }
+
                     // Work out if admin-capable
                     if (!isset($adminCapable)) {
                         $adminCapable = 0;

@@ -303,7 +303,7 @@ function base_init()
     $seqId = $dbconn->GenId($modulesTable);
     $query = "INSERT INTO $modulesTable
               (xar_id, xar_name, xar_regid, xar_directory, xar_version, xar_mode, xar_class, xar_category, xar_admin_capable, xar_user_capable
-     ) VALUES (?, 'authsystem', 42, 'authsystem', '1.0.0', 1, 'Authentication', 'Global', 1, 0)";
+     ) VALUES (?, 'authsystem', 42, 'authsystem', '1.0.0', 1, 'Authentication', 'System', 1, 0)";
 
     $result =& $dbconn->Execute($query,array($seqId));
     if (!$result) return;
@@ -323,7 +323,7 @@ function base_init()
     $seqId = $dbconn->GenId($modulesTable);
     $query = "INSERT INTO $modulesTable
               (xar_id, xar_name, xar_regid, xar_directory, xar_version, xar_mode, xar_class, xar_category, xar_admin_capable, xar_user_capable
-     ) VALUES (?, 'base', 68, 'base', '0.1.0', 1, 'Core Admin', 'Global', 1, 1)";
+     ) VALUES (?, 'base', 68, 'base', '0.1.0', 1, 'Core Admin', 'System', 1, 1)";
 
     $result =& $dbconn->Execute($query,array($seqId));
     if (!$result) return;
@@ -343,7 +343,7 @@ function base_init()
     $seqId = $dbconn->GenId($modulesTable);
     $query = "INSERT INTO $modulesTable
               (xar_id, xar_name, xar_regid, xar_directory, xar_version, xar_mode, xar_class, xar_category, xar_admin_capable, xar_user_capable
-     ) VALUES (?, 'installer', 200, 'installer', '1.0.0', 1, 'Core Utility', 'Global', 0, 0)";
+     ) VALUES (?, 'installer', 200, 'installer', '1.0.0', 1, 'Core Utility', 'System', 0, 0)";
 
     $result =& $dbconn->Execute($query,array($seqId));
     if (!$result) return;
@@ -364,7 +364,7 @@ function base_init()
     $seqId = $dbconn->GenId($modulesTable);
     $query = "INSERT INTO $modulesTable
               (xar_id, xar_name, xar_regid, xar_directory, xar_version, xar_mode, xar_class, xar_category, xar_admin_capable, xar_user_capable
-     ) VALUES (?, 'blocks', 13, 'blocks', '1.0.0', 1, 'Core Utility', 'Global', 1, 0)";
+     ) VALUES (?, 'blocks', 13, 'blocks', '1.0.0', 1, 'Core Utility', 'System', 1, 0)";
     $result =& $dbconn->Execute($query,array($seqId));
     if (!$result) return;
 
@@ -383,7 +383,7 @@ function base_init()
     // Version number will be updated from the modules/themes/xarversion.php script
     $query = "INSERT INTO $modulesTable
               (xar_id, xar_name, xar_regid, xar_directory, xar_version, xar_mode, xar_class, xar_category, xar_admin_capable, xar_user_capable
-     ) VALUES (?, 'themes', 70, 'themes', '1.4.0', 1, 'Core Utility', 'Global', 1, 0)";
+     ) VALUES (?, 'themes', 70, 'themes', '1.4.0', 1, 'Core Utility', 'System', 1, 0)";
     $result =& $dbconn->Execute($query,array($seqId));
     if (!$result) return;
 

@@ -32,7 +32,7 @@ $modversion['contact']      = 'johnny@xaraya.com';
 $modversion['admin']        = 1;
 $modversion['user']         = 1;
 $modversion['class']        = 'Core Admin';
-$modversion['category']     = 'Global';
+$modversion['category']     = 'System';
 
 if (false) { //bug 6033
 xarML('Base');

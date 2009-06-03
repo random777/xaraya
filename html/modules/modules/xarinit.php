@@ -84,7 +84,7 @@ function modules_init()
     $seqId = $dbconn->GenId($tables['modules']);
     $query = "INSERT INTO " . $tables['modules'] . "
               (xar_id, xar_name, xar_regid, xar_directory, xar_version, xar_mode, xar_class, xar_category, xar_admin_capable, xar_user_capable
-     ) VALUES (?, 'modules', 1, 'modules', ?, 1, 'Core Admin', 'Global', 1, 0)";
+     ) VALUES (?, 'modules', 1, 'modules', ?, 1, 'Core Admin', 'System', 1, 0)";
     $bindvars = array($seqId,(string) $modVersion);
 
     $result = &$dbconn->Execute($query,$bindvars);

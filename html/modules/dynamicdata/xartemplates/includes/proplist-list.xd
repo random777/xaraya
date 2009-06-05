@@ -22,6 +22,19 @@
 <xar:comment>Include the part for creating a new property</xar:comment>
 <xar:template file="newproperty" module="dynamicdata"/>
 
+<xar:if condition="count($fields) gt 1">
+    <fieldset>
+        <legend>
+            <xar:mlstring>Set Property Order</xar:mlstring>
+        </legend>
+        <label for="prop_order_list" title="#xarML('Set the order of this object\'s properties')#" class="xar-form-label">
+            <xar:mlstring>Property Order</xar:mlstring>
+        </label>
+        <div class="xar-form-container-after">
+            <xar:data-input type="orderselect" options="$fields" name="prop_order" />
+        </div>
+    </fieldset>
+</xar:if>
 
 <xar:if condition="$modid eq 182">
   <p>

@@ -3,7 +3,7 @@
  * Displays the dynamic user menu.
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,7 +15,8 @@
  *
  * The menu is formed by data from the roles module, hooked Dynamic Data
  * and other hooked modules. Hooked modules should provide a hook called 'usermenu'
- * to show a submenu in this function
+ * to show a submenu in this function.
+ * @todo    DD Based Usermenu Scenario
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @param string moduleload The current module. This can be a hooked menu for which the menu is activated.

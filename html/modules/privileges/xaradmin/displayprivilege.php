@@ -49,6 +49,7 @@ function privileges_admin_displayprivilege()
     $data['pmodule'] = $priv->getModule();
     $data['pcomponent'] = $priv->getComponent();
     $data['plevel'] = $priv->getLevel();
+    $data['pdescription'] = $priv->getDescription();
 
     $instances = $privs->getinstances($data['pmodule'],$data['pcomponent']);
     $numInstances = count($instances); // count the instances to use in later loops

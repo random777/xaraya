@@ -78,7 +78,7 @@
       </div>
 
       <xar:if condition="$ptype eq 'empty'">
-        <p>
+        <p class="xar-form-input-wrapper-after">
           <xar:mlstring>This is an empty container for other privileges.</xar:mlstring>
         </p>
       </xar:if>
@@ -123,6 +123,11 @@
         </span>
       </div>
       
+      <div class="xar-form-input-wrapper">
+        <label class="xar-form-label"><xar:mlstring>Description:</xar:mlstring></label>
+        <span>#$pdescription#</span>
+      </div>
+
       <div class="xar-form-input-wrapper">
         <label class="xar-form-label"><xar:mlstring>Instances:</xar:mlstring></label>
         <span>#$instance#</span>

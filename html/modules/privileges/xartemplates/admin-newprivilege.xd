@@ -284,6 +284,14 @@
                     </select>
                 </div>
             </xar:if>
+
+            <div class="xar-form-input-wrapper">
+              <label for="pdescription" title="#xarML('A description of this privilege')#" class="xar-form-label">
+                <xar:mlstring>Description:</xar:mlstring>
+              </label>
+              <input type="text" name="pdescription" id="pdescription" value="#$pdescription#" maxlength="255" class="xar-form-textxlong" />  
+            </div>
+
             <xar:if condition="$ptype ne 'empty'">
                 <xar:if condition="($pcomponent ne 'All') and empty($target)">
                     <p>

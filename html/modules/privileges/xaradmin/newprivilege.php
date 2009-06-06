@@ -19,17 +19,18 @@ function privileges_admin_newprivilege()
 {
     $data = array();
 
-    if (!xarVarFetch('pid',        'isset', $data['pid'],        '',         XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('pname',      'isset', $data['pname'],      '',         XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('pparentid',  'isset', $data['pparentid'],  '',         XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('prealm',     'isset', $data['prealm'],     'All',      XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('pmodule',    'isset', $module,             NULL,       XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('pcomponent', 'isset', $data['pcomponent'], 'All',      XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('pinstance',  'isset', $data['pinstance'],  '',         XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('plevel',     'isset', $data['plevel'],     '',         XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('ptype',      'isset', $data['ptype'],      '',         XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('show',       'isset', $data['show'],       'assigned', XARVAR_NOT_REQUIRED)) {return;}
-    if (!xarVarFetch('trees',      'isset', $trees,              NULL,       XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('pid',          'isset', $data['pid'],          '',         XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('pname',        'isset', $data['pname'],        '',         XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('pparentid',    'isset', $data['pparentid'],    '',         XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('prealm',       'isset', $data['prealm'],       'All',      XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('pmodule',      'isset', $module,               NULL,       XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('pcomponent',   'isset', $data['pcomponent'],   'All',      XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('pinstance',    'isset', $data['pinstance'],    '',         XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('plevel',       'isset', $data['plevel'],       '',         XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('pdescription', 'isset', $data['pdescription'], '',         XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('ptype',        'isset', $data['ptype'],        '',         XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('show',         'isset', $data['show'],         'assigned', XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('trees',        'isset', $trees,                NULL,       XARVAR_NOT_REQUIRED)) {return;}
 
     if ($module !== NULL) {$data['pmodule'] = strtolower($module);}
     else {$data['pmodule'] = 'All';}
@@ -62,7 +63,7 @@ function privileges_admin_newprivilege()
     if (!empty($instances['external']) && $instances['external'] == "yes") {
 //    xarResponseRedirect($instances['target'] . "&extpid=0&extname=$name&extrealm=$realm&extmodule=$module&extcomponent=$component&extlevel=$level");
 //        return;
-        $data['target'] = $instances['target'] . '&amp;extpid=0&amp;extname='.$data['pname'].'&amp;extrealm='.$data['prealm'].'&amp;extmodule='.$data['pmodule'].'&amp;extcomponent='.$data['pcomponent'].'&amp;extlevel='.$data['plevel'];
+        $data['target'] = $instances['target'] . '&amp;extpid=0&amp;extname='.$data['pname'].'&amp;extrealm='.$data['prealm'].'&amp;extmodule='.$data['pmodule'].'&amp;extcomponent='.$data['pcomponent'].'&amp;extlevel='.$data['plevel'].'&amp;extdescription='.$data['pdescription'];
         $data['target'] .= '&amp;pparentid=' . $data['pparentid'];
         $data['instances'] = array();
     } else {

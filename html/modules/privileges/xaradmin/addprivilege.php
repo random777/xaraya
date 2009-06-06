@@ -19,14 +19,15 @@ function privileges_admin_addprivilege()
 {
     if(!xarSecurityCheck('AddPrivilege')) return;
         
-    if(!xarVarFetch('pname',      'isset', $pname,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('prealm',     'isset', $prealm,     'All', XARVAR_NOT_REQUIRED)) {return;}
-    if(!xarVarFetch('pmodule',    'isset', $pmodule,    NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('pcomponent', 'isset', $pcomponent, NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('ptype',      'isset', $type,       NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('plevel',     'isset', $plevel,     NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('pparentid',  'isset', $pparentid,  NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('pinstance',  'array', $pinstances, array(), XARVAR_NOT_REQUIRED)) {return;}
+    if(!xarVarFetch('pname',        'isset', $pname,        NULL,    XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('prealm',       'isset', $prealm,       'All',   XARVAR_NOT_REQUIRED)) {return;}
+    if(!xarVarFetch('pmodule',      'isset', $pmodule,      NULL,    XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pcomponent',   'isset', $pcomponent,   NULL,    XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('ptype',        'isset', $type,         NULL,    XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('plevel',       'isset', $plevel,       NULL,    XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pdescription', 'isset', $pdescription, NULL,    XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pparentid',    'isset', $pparentid,    NULL,    XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pinstance',    'array', $pinstances,   array(), XARVAR_NOT_REQUIRED)) {return;}
 
     $instance = "";
     foreach ($pinstances as $pinstance) {
@@ -51,6 +52,7 @@ function privileges_admin_addprivilege()
                     'component' => 'All',
                     'instance' => 'All',
                     'level' => 0,
+                    'description' => $pdescription,
                     'parentid' => 'All',
                     );
     }
@@ -63,6 +65,7 @@ function privileges_admin_addprivilege()
                     'component' => $pcomponent,
                     'instance' => $instance,
                     'level' => $plevel,
+                    'description' => $pdescription,
                     'parentid' => $pparentid,
                     );
     }

@@ -277,21 +277,22 @@ class xarTreeRenderer
 
     function leafitem()
     {
-        if ($this->treenode['users'] == 0 || (!$this->drawchildren)) {
+        if ($this->treenode['users'] == 0) {
             $data['allowed'] = false;
+            $data['leafitemtitle'] = xarML('No Users in this Group');
         } else {
             $data['allowed'] = true;
+            $data['leafitemtitle'] = xarML('Show the Users in this Group');
         }
         $data['leafitemurl'] = xarModURL('roles', 'admin', 'showusers',
                         array('uid' => $this->treenode['uid'], 'reload' => 1));
-        $data['leafitemtitle'] = xarML('Show the Users in this Group');
         $data['leafitemimage'] = $this->icon_users;
         return xarTplObject('roles', 'leaf', 'showuser', $data);
     }
 
     function deleteitem()
     {
-        if (!xarSecurityCheck('DeleteRole',0,'Roles',$this->treenode['name']) || ($this->treenode['users'] > 0) || (!$this->drawchildren)) {
+        if (!xarSecurityCheck('DeleteRole',0,'Roles',$this->treenode['name']) || ($this->treenode['users'] > 0)) {
             $data['allowed'] = false;
         } else {
             $data['allowed'] = true;
@@ -305,7 +306,7 @@ class xarTreeRenderer
 
     function emailitem()
     {
-        if ($this->treenode['users'] == 0 || (!$this->drawchildren)) {
+        if ($this->treenode['users'] == 0) {
             $data['allowed'] = false;
         } else {
             $data['allowed'] = true;
@@ -319,11 +320,7 @@ class xarTreeRenderer
 
     function privilegesitem()
     {
-        if (!$this->drawchildren) {
-            $data['allowed'] = false;
-        } else {
-            $data['allowed'] = true;
-        }
+        $data['allowed'] = true;
         $data['leafitemurl'] = xarModURL('roles', 'admin', 'showprivileges',
                         array('uid' => $this->treenode['uid']));
         $data['leafitemtitle'] = xarML('Show the Privileges assigned to this Group');
@@ -333,11 +330,7 @@ class xarTreeRenderer
 
     function testitem()
     {
-        if (!$this->drawchildren) {
-            $data['allowed'] = false;
-        } else {
-            $data['allowed'] = true;
-        }
+        $data['allowed'] = true;
         $data['leafitemurl'] = xarModURL('roles', 'admin', 'testprivileges',
                         array('uid' => $this->treenode['uid']));
         $data['leafitemtitle'] = xarML("Test this Groups's Privileges");
@@ -349,12 +342,17 @@ class xarTreeRenderer
     {
         // if we've already done this entry skip the links and just tell the user
         if (!$this->drawchildren) {
+            $data['leafitemurl'] = xarModURL('roles', 'admin', 'modifyrole',
+                            array('uid' => $this->treenode['uid']));
+            $data['leafitemtitle'] = xarML("Modify this Group");
             $data['leafitemtext'] = $this->treenode['name'];
+            $data['uid'] = $this->treenode['uid'];
             return xarTplObject('roles', 'leaf', 'placeholder', $data);
         } else {
             $numofsubgroups = count($this->roles->getsubgroups($this->treenode['uid']));
             $subgroups = $numofsubgroups == 1 ? xarML('subgroup') : xarML('subgroups');
             $users = $this->treenode['users'] == 1 ? xarML('user') : xarML('users');
+            $data['uid'] = $this->treenode['uid'];
             $data['leafitemurl'] = xarModURL('roles', 'admin', 'modifyrole',
                             array('uid' => $this->treenode['uid']));
             $data['leafitemtitle'] = xarML("Modify this Group");

@@ -37,3 +37,13 @@
         </xar:foreach>
     </select>
 </div>
+<div class="xar-form-input-wrapper-after">
+    <xar:if condition="$showall eq 1">
+        <input type="checkbox" name="showall" id="showall#$blockid#" value="1" checked="checked" />
+    <xar:else />
+        <input type="checkbox" name="showall" id="showall#$blockid#" value="1" />
+    </xar:if>
+    <label for="showall#$blockid#" title="#xarML('Checking this box includes all module menus in the block.')#">
+        <xar:mlstring>Show menus of non-current modules</xar:mlstring>
+    </label>
+</div>

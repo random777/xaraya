@@ -3,8 +3,24 @@
     <span class="xar-mod-title"><xar:mlstring>Roles</xar:mlstring></span>
 </div>
 <div class="xar-mod-body">
-    <h2><xar:mlstring>Member List</xar:mlstring></h2>
         <xar:style scope="module" module="base" file="navtabs" />
+        <xar:if condition="!empty($menutabs)">
+            <dl class="xar-tabs">
+                <dt class="help">
+                    <xar:if condition="xarUserIsLoggedIn()">
+                        #xarUserGetVar('name')#
+                    <xar:else />
+                        <xar:mlstring>Members</xar:mlstring>
+                    </xar:if>
+                </dt>
+                <xar:foreach in="$menutabs" value="$menutab">
+                    <xar:set name="activetab">!empty($menutab['active']) ? 'active' : ''</xar:set>
+                    <dd class="#$activetab#">
+                        <a href="#$menutab['url']#" title="#$menutab['title']#">#$menutab['label']#</a>
+                    </dd>
+                </xar:foreach>
+            </dl>
+        </xar:if>
         <dl class="xar-tabs">
             <dt class="help">
                 <xar:mlstring>
@@ -90,15 +106,14 @@
                 </xar:if>
             </dl>
         </div>
-        <div class="xar-clearboth">&nbsp;</div>
+    <h2 class="xar-clearboth"><xar:mlstring>Member List</xar:mlstring></h2>
     <xar:if condition="!empty($message)">
         <p>#xarVarPrepForDisplay($message)#</p>
     <xar:else />
         <xar:if condition="xarModIsHooked('dynamicdata','roles')">
             <xar:data-getitems name="$properties" value="$values" module="roles" itemids="$uidlist" />
         </xar:if>
-        <xar:set name="usersendemails">xarModGetVar('roles', 'usersendemails')</xar:set>
-        <table class="xar-items">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
             <tr>
             <xar:if condition="$phase eq 'active' and xarSecurityCheck('AdminRole',0)">
                 <th class="xar-thirdwidth">
@@ -118,7 +133,7 @@
                     </a>
                 </th>
             </xar:if>
-            <xar:if condition="$usersendemails">
+            <xar:if condition="xarModGetVar('roles', 'usersendemails')">
                 <th>
                     <xar:mlstring>Email</xar:mlstring>
                 </th>
@@ -148,7 +163,7 @@
                         <!-- TODO: add link to working whois service -->
                         #xarVarPrepForDisplay($loop:item['ipaddr'])#
                     </td>
-                <xar:else />
+                    <xar:else />
                     <td>
                         <xar:if condition="xarUserIsLoggedIn()">
                             <a href="&xar-modurl-roles-user-display;&amp;uid=#$loop:item.uid#">#xarVarPrepForDisplay($loop:item['name'])#</a>
@@ -157,7 +172,7 @@
                         </xar:if>
                     </td>
                 </xar:if>
-                <xar:if condition="$usersendemails and xarModGetUserVar('roles','usersendemails',$loop:item['uid'])">
+                <xar:if condition="xarModGetVar('roles', 'usersendemails') and xarModGetUserVar('roles','usersendemails',$loop:item['uid'])">
                     <td class="xar-align-center">
                         <xar:if condition="empty($loop:item['emailurl']) || !xarUserIsLoggedIn()">
                             <img src="#$loop:item['emailicon']#" alt="#xarML('Email')#" title="#xarML('Email')#"/>
@@ -182,19 +197,16 @@
             </xar:loop>
         </table>
 
+
         <!-- add the pager here -->
         <div class="xar-align-center">#$pager#</div>
         <form method="post" action="&xar-modurl-roles-user-view;">
-            <div class="xar-form-input-wrapper">
-                <label for="search" class="xar-form-label">
-                    <xar:mlstring>Search:</xar:mlstring>
-                </label>
-                <input type="text" name="search" id="search" value="" maxlength="255" class="xar-form-textlong" />
-                <input type="hidden" name="phase" id="phase" value="#xarVarPrepForDisplay($phase)#" />
-                <input type="hidden" name="order" id="order" value="#xarVarPrepForDisplay($order)#" />
-                <input type="hidden" name="letter" id="letter" value="" />
-                <input type="submit" value="#xarVarPrepForDisplay($searchlabel)#" class="xar-margin-thickleft" />
-            </div>
+            <label for="search"><xar:mlstring>Search:</xar:mlstring></label>
+            <input type="hidden" name="phase" id="phase" value="#xarVarPrepForDisplay($phase)#" />
+            <input type="hidden" name="order" id="order" value="#xarVarPrepForDisplay($order)#" />
+            <input type="hidden" name="letter" id="letter" value="" />
+            <input type="text" name="search" id="search" value="" size="40" maxlength="255" tabindex="1" />
+            <input type="submit" value="#xarVarPrepForDisplay($searchlabel)#" />
         </form>
         <p>
             <xar:mlstring>Search condition</xar:mlstring>: <strong>#xarVarPrepForDisplay($msg)#</strong>

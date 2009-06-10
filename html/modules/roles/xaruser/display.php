@@ -3,7 +3,7 @@
  * display user
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,6 +20,10 @@ function roles_user_display($args)
 
     if (!xarVarFetch('uid','int:1:',$uid, xarUserGetVar('uid'))) return;
 
+    if (xarUserIsLoggedIn() && $uid == xarUserGetVar('uid')) {
+        return xarResponseRedirect(xarModURL('roles', 'user', 'account'));
+    }
+
     // Get user information
     $data = xarModAPIFunc('roles', 'user', 'get',
                           array('uid' => $uid));
@@ -27,7 +31,11 @@ function roles_user_display($args)
     if ($data == false) return;
 
     $data['email'] = xarVarPrepForDisplay($data['email']);
-
+    //let's make sure other modules that refer here get to a default and existing login or logout form
+    $defaultauthdata      = xarModAPIFunc('roles','user','getdefaultauthdata');
+    $defaultauthmodname   = $defaultauthdata['defaultauthmodname'];
+    $defaultloginmodname  = $defaultauthdata['defaultloginmodname'];
+    $defaultlogoutmodname = $defaultauthdata['defaultlogoutmodname'];
     $item = $data;
     $item['module'] = 'roles';
     $item['itemtype'] = 0; // handle groups differently someday ?
@@ -123,6 +131,48 @@ function roles_user_display($args)
     $data['hooks'] = $hooks;
 
     xarTplSetPageTitle(xarVarPrepForDisplay($data['name']));
+    if (xarModIsHooked('dynamicdata', 'roles')) {
+        $mylist = xarModAPIFunc('dynamicdata', 'user', 'getobject',
+            array(
+                'moduleid' => xarModGetIDFromName('roles'),
+                'itemid' => $uid,
+                'tplmodule' => 'roles'
+        ));
+    }
+    // get the values for this object
+    if (!empty($mylist)) {
+        $newid = $mylist->getItem();
+        if (!isset($newid) || $newid != $uid) return;
+    }
+    $data['mylist'] = !empty($mylist) ? $mylist : '';
+
+    /* build our menu tabs */
+    // TODO: move this to getmenulinks()
+    $menutabs = array();
+    // display members list if allowed
+    if (xarModGetVar('roles', 'displayrolelist')){
+        $menutabs[] = array('url' => xarModURL('roles', 'user', 'view'),
+                            'title' => xarML('Browse members profiles'),
+                            'label' => xarML('Memberslist'),
+                            'active' => true);
+    }
+    // we always show the user account tab
+    $menutabs[] = array(
+        'url' => xarModURL('roles', 'user', 'account'),
+        'label' => xarML('Account'),
+        'title' => xarML('View and edit your account'),
+        'active' => false
+    );
+    // show logout
+    if (!empty($defaultlogoutmodname) && xarUserIsLoggedIn()) {
+        $menutabs[] = array(
+            'url' => xarModURL($defaultlogoutmodname, 'user', 'logout'),
+            'label' => xarML('Logout'),
+            'title' => xarML('Logout'),
+            'active' => false
+        );
+    }
+    $data['menutabs'] = $menutabs;
 
     return $data;
 }

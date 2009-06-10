@@ -50,6 +50,19 @@ function roles_user_view($args)
 
     // Security Check
     if (!xarSecurityCheck('ReadRole')) return;
+    $defaultauthdata=xarModAPIFunc('roles','user','getdefaultauthdata');
+
+    $loginmodule=$defaultauthdata['defaultloginmodname'];
+    $authmodule=$defaultauthdata['defaultauthmodname'];
+    $defaultlogoutmodname = $defaultauthdata['defaultlogoutmodname'];
+
+    if (!xarModGetVar('roles', 'displayrolelist') && xarUserGetVar('uname') != 'admin') {
+        if (xarUserIsLoggedIn()) {
+            return xarResponseRedirect(xarModURL('roles', 'user', 'account'));
+        } else {
+            return xarResponseRedirect(xarModURL($loginmodule, 'user', 'showloginform'));
+        }
+    }
 
     // Need the database connection for quoting strings.
     $dbconn =& xarDBGetConn();
@@ -212,8 +225,8 @@ function roles_user_view($args)
         if (empty($items[$i]['ipaddr'])) {
             $items[$i]['ipaddr'] = '';
         }
-        $items[$i]['emailicon'] = xarTplGetImage('icons/mail.png', 'base');
-        $items[$i]['infoicon'] = xarTplGetImage('icons/info.png', 'base');
+        $items[$i]['emailicon'] = xarTplGetImage('emailicon.gif');
+        $items[$i]['infoicon'] = xarTplGetImage('infoicon.gif');
     }
     $data['pmicon'] = '';
     // Add the array of items to the template variables
@@ -232,6 +245,33 @@ function roles_user_view($args)
         xarModURL('roles', 'user', 'view', $pagerfilter),
         $numitems
     );
+    /* build our menu tabs */
+    // TODO: move this to getmenulinks()
+    $menutabs = array();
+    // display members list if allowed
+    if (xarModGetVar('roles', 'displayrolelist')){
+        $menutabs[] = array('url' => xarModURL('roles', 'user', 'view'),
+                            'title' => xarML('Browse members profiles'),
+                            'label' => xarML('Memberslist'),
+                            'active' => true);
+    }
+    // we always show the user account tab
+    $menutabs[] = array(
+        'url' => xarModURL('roles', 'user', 'account'),
+        'label' => xarML('Account'),
+        'title' => xarML('View and edit your account'),
+        'active' => false
+    );
+    // show logout
+    if (!empty($defaultlogoutmodname) && xarUserIsLoggedIn()) {
+        $menutabs[] = array(
+            'url' => xarModURL($defaultlogoutmodname, 'user', 'logout'),
+            'label' => xarML('Logout'),
+            'title' => xarML('Logout'),
+            'active' => false
+        );
+    }
+    $data['menutabs'] = $menutabs;
     return $data;
 }
 

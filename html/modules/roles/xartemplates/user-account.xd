@@ -1,5 +1,5 @@
 <xar:comment>
-    License: GPL http://www.gnu.org/copyleft/gpl.html 
+    License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
 <xar:set name="compare">
     xarServerGetCurrentURL()
@@ -19,57 +19,294 @@
     </span>
 </div>
 <div class="xar-mod-body">
-    <h2>
-        #xarVarPrepForDisplay($name)#
-    </h2>
-    <xar:if condition="!empty($message)">
-        #$message# 
+    <xar:if condition="!empty($menutabs)">
+        <dl class="xar-tabs">
+            <dt class="help">
+                #xarVarPrepForDisplay($name)#
+            </dt>
+            <xar:foreach in="$menutabs" value="$menutab">
+                <xar:set name="activetab">!empty($menutab['active']) ? 'active' : ''</xar:set>
+                <dd class="#$activetab#">
+                    <a href="#$menutab['url']#" title="#$menutab['title']#">#$menutab['label']#</a>
+                </dd>
+            </xar:foreach>
+        </dl>
+    </xar:if>
+    <xar:if condition="!empty($taboptions)">
+        <dl class="xar-tabs">
+            <dt class="help">
+                <xar:mlstring>Options</xar:mlstring>
+            </dt>
+            <xar:foreach in="$taboptions" value="$menutab">
+                <xar:set name="activetab">!empty($menutab['active']) ? 'active' : ''</xar:set>
+                <dd class="#$activetab#">
+                    <a href="#$menutab['url']#" title="#$menutab['title']#">#$menutab['label']#</a>
+                </dd>
+            </xar:foreach>
+        </dl>
+    </xar:if>
+    <xar:if condition="empty($tab) OR $tab eq 'profile'">
+        <xar:comment>-------------- Display Profile ------------------</xar:comment>
+        <xar:if condition="!empty($mylist)">
+            <xar:data-display object="$mylist" uname="$uname" uid="$uid" homelink="$home" userlastlogin="$userlastlogin" displayname="$name" layout="profile" />
         <xar:else />
-        <div>
-            <dl class="xar-tabs">
-                <dt class="help">
-                    <xar:mlstring>
-                        Your Profile 
-                    </xar:mlstring>
-                    : 
-                </dt>
-                <xar:if condition="($compare eq $current) or ($compare eq $account)">
-                    <dd class="active">
-                        <a href="#xarServerGetCurrentURL()#">
+            <xar:if condition="strtolower($uname) ne 'anonymous' and strtolower($uname) ne 'myself'">
+                <xar:if condition="xarModGetVar('roles', 'usersendemails') and xarModGetUserVar('roles','usersendemails',$uid)">
+                    <p>
+                        <strong>
                             <xar:mlstring>
-                                Display your profile 
+                                Email
                             </xar:mlstring>
+                        </strong>
+                        :
+                        <a href="&xar-modurl-roles-user-email;&amp;uid=#$uid#">
+                            <xar:ml>
+                                <xar:mlstring>
+                                    Send an Email to #(1)
+                                </xar:mlstring>
+                                <xar:mlvar>
+                                    #xarVarPrepForDisplay($name)#
+                                </xar:mlvar>
+                            </xar:ml>
                         </a>
-                    </dd>
+                    </p>
                     <xar:else />
-                    <dd>
-                        <a href="&xar-modurl-roles-user-account;">
+                    <p>
+                        <strong>
                             <xar:mlstring>
-                                Display your profile 
+                                Name
                             </xar:mlstring>
-                        </a>
-                    </dd>
-                </xar:if>
-                <xar:if condition="!empty($output)">
-                    <xar:foreach in="$output" key="$module" value="$hookoutput">
-                        #$hookoutput#
-                    </xar:foreach>
-                </xar:if>
-                <xar:if condition="!empty($logoutmodule)">
-                    <dd>
-                        <a href="#xarModURL($logoutmodule,'user','logout')#">
+                        </strong>
+                        :
+                        #xarVarPrepForDisplay($name)#
+                    </p>
+
+                    </xar:if>
+
+                   <xar:if condition="!empty($userlastlogin)">
+                    <p>
+                        <strong>
                             <xar:mlstring>
-                                Logout 
+                                Time of Last Login
                             </xar:mlstring>
-                        </a>
-                    </dd>
+                        </strong>
+                        :
+                        #xarLocaleGetFormattedDate('medium', $userlastlogin)#  #xarLocaleGetFormattedTime('medium', $userlastlogin)#
+                    </p>
+                    </xar:if>
+                    <xar:if condition="!empty($homelink)">
+                    <p>
+                        <strong>
+                            <xar:mlstring>
+                                Home Page
+                            </xar:mlstring>
+                        </strong>
+                        :
+                        <a href="#$homelink#" title="#xarML('Home Page')#">#$homelink#</a>
+                    </p>
                 </xar:if>
-            </dl>
-        </div>
+                <xar:if condition="!empty($utimezone)">
+                    <p>
+                        <strong>
+                            <xar:mlstring>
+                                Timezone
+                            </xar:mlstring>
+                        </strong>
+                        :
+                        #$utimezone# (GMT #$offset#)
+                    </p>
+                </xar:if>
+            </xar:if>
+            <p>
+            <xar:if condition="!empty($hooks)">
+                <xar:foreach in="$hooks" key="$module" value="$output">
+                    #$output#
+                </xar:foreach>
+            </xar:if>
+            </p>
+        </xar:if>
+    <xar:else />
+        <xar:comment>-------------- Display Form -------------------</xar:comment>
+        <xar:if condition="!empty($formaction)">
+            <xar:if condition="isset($withupload) AND $withupload">
+                <xar:set name="enc_type">
+                    'multipart/form-data'
+                </xar:set>
+                <xar:else />
+                <xar:set name="enc_type">
+                    'application/x-www-form-urlencoded'
+                </xar:set>
+            </xar:if>
+            <form method="post" action="#$formaction#" enctype="#$enc_type#">
+                <xar:if condition="$tab eq 'basic'">
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>Basic Account Details</xar:mlstring>
+                        </legend>
+                        <div class="xar-form-input-wrapper">
+                          <label for="username" class="xar-form-label">
+                            <xar:mlstring>
+                              User Name
+                            </xar:mlstring>
+                            :
+                          </label>
+                          <span id="username">
+                            #xarVarPrepForDisplay($uname)#
+                          </span>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                          <label for="name" class="xar-form-label">
+                            <xar:mlstring>
+                              Display Name
+                            </xar:mlstring>
+                            :
+                          </label>
+                          <input type="text" name="name" id="name" value="#xarVarPrepForDisplay($name)#" size="20" maxlength="60" tabindex="1" />
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                          <label for="emailaddress" class="xar-form-label">
+                            <xar:mlstring>
+                              Current Email Address
+                            </xar:mlstring>
+                            :
+                          </label>
+                          <span>
+                            #xarVarPrepForDisplay($emailaddress)#
+                          </span>
+                        </div>
+                        <div class="xar-form-input-wrapper">
+                          <label for="email" class="xar-form-label">
+                            <xar:mlstring>
+                              New Email Address:
+                            </xar:mlstring>
+                          </label>
+                          <input type="text" name="email" id="email" value="#$email#" size="40" maxlength="60" autocomplete="off" tabindex="2" />
+                          <xar:if condition="!empty($invalid['email'])">
+                            <span class="xar-error">#$invalid['email']#</span>
+                          </xar:if>
+                          <xar:if condition="xarModGetVar('roles', 'requirevalidation')">
+                            <div class="xar-form-container-after">
+                              <label for="email">
+                                <xar:mlstring>
+                                  Changing your email address will require you to revalidate your account.
+                                </xar:mlstring>
+                              </label>
+                            </div>
+                          </xar:if>
+                        </div>
+                        <xar:if condition="xarModGetVar('roles','setuserhome') and xarModGetVar('roles','allowuserhomeedit')">
+                          <div class="xar-form-input-wrapper">
+                            <label for="home" class="xar-form-label">
+                              <xar:mlstring>
+                                Home Page:
+                              </xar:mlstring>
+                            </label>
+                            <input type="text" name="home" id="home" value="#$home#" size="40" maxlength="100" tabindex="3" />
+                          </div>
+                        <xar:elseif condition="xarModGetVar('roles','setuserhome')" />
+                          <input type="hidden" name="home" id="home" value="#$home#" />
+                        </xar:if>
+
+                        <div class="xar-form-input-wrapper">
+                          <label for="pass1" class="xar-form-label">
+                            <xar:mlstring>
+                              New Password
+                            </xar:mlstring>
+                            :
+                          </label>
+                          <input type="password" name="pass1" id="pass1" value="#$pass1#" size="20" maxlength="40" autocomplete="off" tabindex="4" />
+                          <xar:if condition="!empty($invalid['pass1'])">
+                            <span class="xar-error">#$invalid['pass1']#</span>
+                          </xar:if>
+                        </div>
+
+                        <div class="xar-form-input-wrapper">
+                          <label for="pass2" class="xar-form-label">
+                            <xar:mlstring>
+                              Confirm Password
+                            </xar:mlstring>
+                            :
+                          </label>
+                          <input type="password" name="pass2" id="pass2" value="" size="20" maxlength="40" autocomplete="off" tabindex="5" />
+                        </div>
+                        <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
+                          <div class="xar-form-input-wrapper">
+                            <label for="upasswordupdate" class="xar-form-label">
+                              <xar:mlstring>Password last updated:</xar:mlstring>
+                            </label>
+                            #xarLocaleGetFormattedDate('medium', $upasswordupdate)#
+                            #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
+                          </div>
+                        </xar:if>
+                        <xar:if condition="xarModGetVar('roles','setuserlastlogin')">
+                          <xar:if condition="!empty($usercurrentlogin)">
+                            <div class="xar-form-input-wrapper">
+                              <label for="thislogin" class="xar-form-label">
+                                <xar:mlstring>Time of Current Login:</xar:mlstring>
+                              </label>
+                              #xarLocaleGetFormattedDate('medium', $usercurrentlogin)#
+                              #xarLocaleGetFormattedTime('medium', $usercurrentlogin)#
+                            </div>
+                          </xar:if>
+                          <xar:if condition="!empty($userlastlogin)">
+                            <div class="xar-form-input-wrapper">
+                              <label for="lastlogin" class="xar-form-label">
+                                <xar:mlstring>Time of Last Login:</xar:mlstring>
+                              </label>
+                              #xarLocaleGetFormattedDate('medium', $userlastlogin)#
+                              #xarLocaleGetFormattedTime('medium', $userlastlogin)#
+                            </div>
+                          </xar:if>
+                        </xar:if>
+                        <xar:if condition="xarModGetVar('roles','setusertimezone')">
+                          <xar:if condition="!empty($utimezone)">
+                            <div class="xar-form-input-wrapper">
+                              <label for="utimezone" class="xar-form-label">
+                                <xar:mlstring>Your Timezone:</xar:mlstring>
+                              </label>
+                              <xar:data-input type="timezone" name="utimezone" id="utimezone" value="$utimezone" tabindex="6" />
+                            </div>
+                          </xar:if>
+                        </xar:if>
+                        <xar:if condition="xarModGetVar('roles','usersendemails')">
+                          <div class="xar-form-input-wrapper-after">
+                            <xar:if condition="xarModGetUserVar('roles', 'usersendemails',$uid)">
+                              <input type="checkbox" name="allowemail" id="allowemail" value="1" checked="checked" tabindex="2" />
+                            <xar:else />
+                              <input type="checkbox" name="allowemail" id="allowemail" value="1" tabindex="2" />
+                            </xar:if>
+                            <label for="allowemail" title="#xarML('Allow users to send emails?')#">
+                               <xar:mlstring>Allow other users to send you an email via a form?</xar:mlstring>
+                            </label>
+                            <p>
+                              <xar:mlstring>Note your email address is never disclosed or displayed in this process.</xar:mlstring>
+                            </p>
+                          </div>
+                        </xar:if>
+                        <xar:if condition="!empty($hooks)">
+                          <div class="xar-form-input-wrapper">
+                            <xar:foreach in="$hooks" key="$module" value="$output">
+                              #$output#
+                            </xar:foreach>
+                          </div>
+                        </xar:if>
+                    </fieldset>
+                <xar:elseif condition="!empty($mylist)"/>
+                    <xar:data-form object="$mylist" />
+                </xar:if>
+                <fieldset>
+                    <div class="xar-form-input-wrapper-after">
+                        <input type="hidden" name="authid" value="#$authid#" />
+                        <input type="hidden" name="modid" value="#xarModGetIDFromName('roles')#" />
+                        <input type="hidden" name="itemtype" value="#$itemtype#" />
+                        <input type="hidden" name="itemid" value="#$uid#" />
+                        <input type="hidden" name="tab" value="#$tab#" />
+                        <input type="hidden" name="uid" value="#$uid#" />
+                        <input type="hidden" name="return_url" value="#xarServerGetCurrentURL()#" />
+                        <input type="submit" value="#xarML('Update Settings')#" />
+                    </div>
+                </fieldset>
+            </form>
+         </xar:if>
     </xar:if>
 </div>
-<xar:if condition="$compare eq $account">
-    <xar:module main="false" module="roles" type="user" func="display" />
-    <xar:else />
-    <xar:module main="false" module="$moduleload" type="user" func="usermenu" phase="form" />
-</xar:if>

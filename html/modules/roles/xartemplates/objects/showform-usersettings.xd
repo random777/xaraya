@@ -1,0 +1,42 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:if condition="empty($layout) or $layout eq 'default'">
+  <fieldset>
+    <xar:foreach in="$properties" key="$name" value="$property">
+        <xar:if condition="$property-&gt;invalid ne ''">
+            <xar:set name="invalid_class">'xar-form-input-wrapper-invalid'</xar:set>
+        <xar:else />
+            <xar:set name="invalid_class">''</xar:set>
+        </xar:if>
+        <xar:set name="invalid">$property->invalid</xar:set>
+        <div class="xar-form-input-wrapper #$invalid_class#">
+            <xar:data-label property="$properties[$name]" label="id" />
+            <xar:data-input property="$properties[$name]" />
+        </div>
+    </xar:foreach>
+  </fieldset>
+<xar:elseif condition="$layout eq 'prefix'" />
+    <xar:comment>
+        This layout uses a field prefix for all input fields of the object, so that
+        you can have several identical objects in the same input form (cfr. subforms)
+    </xar:comment>
+    <xar:foreach in="$properties" key="$name" value="$property">
+        <xar:set name="fieldname">$fieldprefix . '_dd_' . $property->id</xar:set>
+        <div class="xar-form-input-wrapper">
+            <xar:data-label property="$properties[$name]" label="$fieldname" />
+            <xar:data-input property="$properties[$name]" name="$fieldname" />
+        </div>
+    </xar:foreach>
+<xar:else />
+    <xar:foreach in="$properties" key="$name" value="$property">
+        <xar:if condition="$property-&gt;invalid ne ''">
+            <xar:set name="invalid_class">'xar-form-input-wrapper-invalid'</xar:set>
+        <xar:else />
+            <xar:set name="invalid_class">''</xar:set>
+        </xar:if>
+        <xar:set name="invalid">$property->invalid</xar:set>
+        <div class="xar-form-input-wrapper #$invalid_class#">
+            <xar:data-label property="$properties[$name]" label="id" />
+            <xar:data-input property="$properties[$name]" />
+        </div>
+    </xar:foreach>
+</xar:if>

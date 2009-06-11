@@ -3,7 +3,7 @@
  * Get all modules in the database
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,7 +34,7 @@ function modules_adminapi_getdbmodules($args)
     $dbModules = array();
 
     // Get all modules in DB
-    $sql = "SELECT $xartable[modules].xar_regid, xar_name, xar_directory, xar_class, xar_version, xar_mode, xar_state
+    $sql = "SELECT $xartable[modules].xar_regid, xar_name, xar_directory, xar_class, xar_version, xar_mode, xar_state, xar_category, xar_admin_capable, xar_user_capable
               FROM $xartable[modules] LEFT JOIN $xartable[module_states] ON $xartable[modules].xar_regid = $xartable[module_states].xar_regid";
 
     if ($modregid) {
@@ -45,7 +45,7 @@ function modules_adminapi_getdbmodules($args)
     if (!$result) return;
 
     while(!$result->EOF) {
-        list($regid, $name, $directory, $class, $version, $mode, $state) = $result->fields;
+        list($regid, $name, $directory, $class, $version, $mode, $state, $category, $admin_capable, $user_capable) = $result->fields;
 
         // If returning one module, then push array without name index
         if ($modregid) {
@@ -54,7 +54,10 @@ function modules_adminapi_getdbmodules($args)
                                'version' => $version,
                                'class'   => $class,
                                'mode'    => $mode,
-                               'state'   => $state);
+                               'state'   => $state,
+                               'category'=> $category,
+                               'admin_capable' => $admin_capable,
+                               'user_capable' => $user_capable);
         } else {
             //Push it into array (should we change to index by regid instead?)
             $dbModules[$name] = array('name'    => $name,
@@ -62,7 +65,10 @@ function modules_adminapi_getdbmodules($args)
                                       'version' => $version,
                                       'class'   => $class,
                                       'mode'    => $mode,
-                                      'state'   => $state);
+                                      'state'   => $state,
+                                      'category'=> $category,
+                                      'admin_capable' => $admin_capable,
+                                      'user_capable' => $user_capable);
         }
         $result->MoveNext();
     }

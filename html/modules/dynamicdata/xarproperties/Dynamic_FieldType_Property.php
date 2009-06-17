@@ -36,7 +36,9 @@ class Dynamic_FieldType_Property extends Dynamic_Select_Property
                 }
                 foreach ($proptypes as $propid => $proptype) {
                     $this->options[] = array('id' => $propid, 'name' => $proptype['label']);
+                    $name[] = $proptype['label'];
                 }
+                array_multisort($name, SORT_ASC, $this->options);
             }
         }
     }

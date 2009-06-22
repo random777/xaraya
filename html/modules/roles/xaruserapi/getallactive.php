@@ -17,6 +17,7 @@
  * @param bool $include_myself whether or not to include current user (default true)
  * @returns array
  * @return array of users, or false on failure
+ * @todo Merge this whole function into the getall() API to (a) Avoid duplication and (b) provide additional selection features.
  */
 function roles_userapi_getallactive($args)
 {
@@ -62,7 +63,7 @@ function roles_userapi_getallactive($args)
     $rolestable = $xartable['roles'];
 
     $bindvars = array();
-    $query = "SELECT a.xar_uid,
+    $query = "SELECT DISTINCT a.xar_uid,
                      a.xar_uname,
                      a.xar_name,
                      a.xar_email,

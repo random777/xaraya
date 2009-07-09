@@ -21,7 +21,7 @@
         </xar:mlstring>
         #$displayname# 
     </h3>
-<!-- The form for editting the module settings and hooks -->
+    <!-- The form for editing the module settings and hooks -->
     <form action="&xar-modurl-modules-admin-update;" method="post" enctype="application/x-www-form-urlencoded">
         <xar:comment>
             <label for="newdisplayname">
@@ -49,7 +49,7 @@
                     </xar:mlvar>
                 </xar:ml>
             </p>
-            <xar:else />
+        <xar:else />
             <p>
                 <xar:ml>
                     <xar:mlstring>
@@ -71,7 +71,7 @@
                         </xar:mlstring>
                         #$hookmod['modname']# 
                     </legend>
-                    <div class="xar-form-input-wrapper">
+                    <div style="float: left;width: 48%;">
                         <p>
                             <xar:mlstring>
                                 Enable hooks for: 
@@ -102,6 +102,7 @@
                             </div>
                         </xar:foreach>
                     </div>
+                    <div style="float: left;width: 48%;">
                         <p>
                             <xar:mlstring>
                                 Available hooks: 
@@ -114,20 +115,42 @@
                                 </li>
                             </xar:foreach>
                         </ul>
+                    </div><br class="xar-clearboth" />
                 </fieldset>
             </xar:foreach>
-        </xar:if>
-        <fieldset>
-            <div class="xar-form-footer">
-                <xar:if condition="!empty($return_url)">
-                    <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+            <fieldset>
+                <legend>
+                    <xar:mlstring>Set Hook Order</xar:mlstring>
+                </legend>
+                <xar:if condition="isset($hookorder)">
+                    <div class="xar-form-input-wrapper">
+                        <label for="hookorder_list" title="#xarML('Set the order in which hooks are called')#" class="xar-form-label">
+                            <xar:mlstring>Hook Order:</xar:mlstring>
+                        </label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="orderselect" options="$hookorder" name="hookorder" />
+                        </div>
+                    </div>
+                <xar:else />
+                    <p>
+                        <xar:mlstring>More than one hook must be enabled.</xar:mlstring>
+                    </p>
                 </xar:if>
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="hidden" name="id" id="id" value="#$id#" />
-                <input type="hidden" name="displayname" id="displayname" value="#$displayname#" />
-                <input type="hidden" name="newdisplayname" id="newdisplayname" value="#$displayname#" />
-                <input type="submit" value="#xarML('Save Changes')#" class="xar-margin-thick" />
-            </div>
-        </fieldset>
+
+                <p>
+                    <xar:mlstring>Note: certain hooks may prefer or require being called in a certain order.  Consult the documentation for the module providing each hook for more information.</xar:mlstring>
+                </p>
+            </fieldset>
+        </xar:if>
+        <div class="xar-form-footer">
+            <xar:if condition="!empty($return_url)">
+                <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+            </xar:if>
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="id" id="id" value="#$id#" />
+            <input type="hidden" name="displayname" id="displayname" value="#$displayname#" />
+            <input type="hidden" name="newdisplayname" id="newdisplayname" value="#$displayname#" />
+            <input type="submit" value="#xarML('Save Changes')#" />
+        </div>
     </form>
 </div>

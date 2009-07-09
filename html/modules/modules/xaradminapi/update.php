@@ -27,76 +27,173 @@ function modules_adminapi_update($args)
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
         return;
     }
+    if (!isset($hookorder)) {
+        $hookorder = array();
+    } elseif (!is_array($hookorder)) {
+        $hookorder = explode(';', ';'.$hookorder);
+        $hookorder = array_slice($hookorder, 1, count($hookorder), true);
+        $hookorder = array_flip($hookorder);
+    }
+    $hookindex = count($hookorder) + 1;
 
-// Security Check
+    // Security Check
     if(!xarSecurityCheck('AdminModules',0,'All',"All:All:$regid")) return;
 
-    // Rename operation
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();
 
-    // Hooks
-
     // Get module name
     $modinfo = xarModGetInfo($regid);
+    $modname = $modinfo['name'];
 
-    // Delete hook regardless
-    $sql = "DELETE FROM $xartable[hooks] WHERE xar_smodule = ?";
-    $result =& $dbconn->Execute($sql,array($modinfo['name']));
-    if (!$result) return;
+    $enabledhooks = array();
+    $availablehooks = array();
+    $formhooks = array();
 
-    $sql = "SELECT DISTINCT xar_id, xar_smodule, xar_stype, xar_object,
-                            xar_action, xar_tarea, xar_tmodule, xar_ttype,
-                            xar_tfunc
-            FROM $xartable[hooks]
-            WHERE xar_smodule =''";
+    // get all available/enabled hooks for this module
+    $sql = "SELECT xar_id, xar_object, xar_action, xar_smodule, xar_stype,
+                    xar_tarea, xar_tmodule, xar_ttype, xar_tfunc, xar_order
+                FROM $xartable[hooks]
+                WHERE xar_smodule = ? OR xar_smodule = ''
+                ORDER BY xar_smodule, xar_order";
 
-    $result =& $dbconn->Execute($sql);
+    $bindvars = array($modname);
+    $result =& $dbconn->Execute($sql,$bindvars);
     if (!$result) return;
 
     for (; !$result->EOF; $result->MoveNext()) {
-        list($hookid,
-             $hooksmodname,
-             $hookstype,
-             $hookobject,
-             $hookaction,
-             $hooktarea,
-             $hooktmodule,
-             $hookttype,
-             $hooktfunc) = $result->fields;
+        list($hookid, $hookobject, $hookaction, $hooksmodule, $hookstype,
+             $hooktarea, $hooktmodule, $hookttype, $hooktfunc, $thookorder) = $result->fields;
 
-        // Avoid single-space module names e.g. for mssql
-        if (!empty($hooksmodname)) {
-            $hooksmodname = trim($hooksmodname);
-        }
-
-        // Get selected value of hook
-        unset($hookvalue);
         if (!xarVarFetch("hooks_$hooktmodule", 'isset', $hookvalue,  NULL, XARVAR_DONT_SET)) {return;}
-        // See if this is checked and isn't in the database
-        if ((isset($hookvalue)) && (is_array($hookvalue)) && (empty($hooksmodname))) {
-            // Insert hook if required
-            foreach (array_keys($hookvalue) as $itemtype) {
-                if ($itemtype == 0) $itemtype = '';
-                $sql = "INSERT INTO $xartable[hooks] (
-                      xar_id, xar_object, xar_action, xar_smodule,
-                      xar_stype, xar_tarea, xar_tmodule, xar_ttype, xar_tfunc)
-                    VALUES (?,?,?,?,?,?,?,?,?)";
-                $bindvars = array($dbconn->GenId($xartable['hooks']),
-                                  $hookobject,
-                                  $hookaction,
-                                  $modinfo['name'],
-                                  $itemtype,
-                                  $hooktarea,
-                                  $hooktmodule,
-                                  $hookttype,
-                                  $hooktfunc);
-                $subresult =& $dbconn->Execute($sql,$bindvars);
-                if (!$subresult) return;
+        if(is_array($hookvalue)) {
+            // if 0 is checked, we don't need the rest
+            if (isset($hookvalue[0])) {
+                $hookvalue = array(1);
             }
+            // more than one itemtype, unset 0
+            if (count($hookvalue) > 1 && isset($hookvalue[0])) {
+                unset($hookvalue[0]);
+            }
+            $formhooks[$hooktmodule] = $hookvalue;
+        }
+        unset($hookvalue);
+
+        if ($hooksmodule == '') {
+            if(!isset($availablehooks[$hooktmodule])) {
+                $availablehooks[$hooktmodule] = array();
+            }
+            $availablehooks[$hooktmodule][$hookid] = array('id' => $hookid, 'object' => $hookobject,
+                'action' => $hookaction, 'smodule' => trim($hooksmodule), 'stype' => $hookstype,
+                'tarea' => $hooktarea, 'tmodule' => $hooktmodule, 'ttype' => $hookttype,
+                'tfunc' => $hooktfunc, 'order' => $thookorder);
+        } else {
+            if(!isset($enabledhooks[$hooktmodule])) {
+                $enabledhooks[$hooktmodule] = array();
+            }
+            $enabledhooks[$hooktmodule][] = $modname . ':' . ($hookstype == '' ? 0 : $hookstype) . ':' . $hooktmodule;
         }
     }
     $result->Close();
+
+    ksort($availablehooks);
+    ksort($enabledhooks);
+    ksort($formhooks);
+
+    $deletehooks = array();
+    // loop through available hooks
+    foreach ($availablehooks as $hooktmodule => $thook) {
+        if(!isset($formhooks[$hooktmodule])) {
+            // hook disabled for all itemtypes
+            // queue for deletion if needed, by 'smodule:stype:tmodule'
+            if (isset($enabledhooks[$hooktmodule])) {
+                foreach ($enabledhooks[$hooktmodule] as $dhook) {
+                    if (!in_array($dhook, $deletehooks)) {
+                        $deletehooks[] = $dhook;
+                    }
+                }
+            }
+            unset($enabledhooks[$hooktmodule]);
+            unset($hookorder[$hooktmodule]);
+        } else {
+            // hook order
+            if (isset($hookorder[$hooktmodule])) {
+                $hookneworder = $hookorder[$hooktmodule];
+            } else {
+                // add newly enabled hooks at the end of the order
+                $hookindex = count($hookorder) + 1;
+                $hookorder[$hooktmodule] = $hookindex;
+                $hookneworder = $hookorder[$hooktmodule];
+            }
+
+            // loop through existing enabled hooks for itemtype hooks to remove
+            if (isset($enabledhooks[$hooktmodule])) {
+                foreach ($enabledhooks[$hooktmodule] as $ehook) {
+                    list($esmod, $estype, $etmod) = explode(':', $ehook);
+                    if (!isset($formhooks[$hooktmodule][$estype]) && !in_array("$esmod:$estype:$etmod", $deletehooks)) {
+                        $deletehooks[] = $esmod . ':' . $estype . ':' . $etmod;
+                    }
+                }
+            }
+
+            // Insert hooks if required, or queue for deletion
+            foreach (array_keys($formhooks[$hooktmodule]) as $itemtype) {
+                // not already enabled, insert
+                if(!isset($enabledhooks[$hooktmodule]) || !in_array("$modname:$itemtype:$hooktmodule", $enabledhooks[$hooktmodule])) {
+                    if ($itemtype == 0) $itemtype = '';
+                    foreach($thook as $hookinstance) {
+                        $sql = "INSERT INTO $xartable[hooks] (
+                              xar_id, xar_object, xar_action, xar_smodule,
+                              xar_stype, xar_tarea, xar_tmodule, xar_ttype, xar_tfunc, xar_order)
+                              VALUES (?,?,?,?,?,?,?,?,?,?)";
+                        $bindvars = array($dbconn->GenId($xartable['hooks']),
+                                          $hookinstance['object'],
+                                          $hookinstance['action'],
+                                          $modinfo['name'],
+                                          $itemtype,
+                                          $hookinstance['tarea'],
+                                          $hookinstance['tmodule'],
+                                          $hookinstance['ttype'],
+                                          $hookinstance['tfunc'],
+                                          $hookneworder);
+                        $subresult =& $dbconn->Execute($sql,$bindvars);
+                        if (!$subresult) return;
+                    }
+                }
+            }
+        }
+    }
+
+    // update hook order
+    $order = 1;
+    foreach ($hookorder as $tmod => $torder) {
+        $sql = "UPDATE $xartable[hooks] SET xar_order = ? 
+                WHERE xar_smodule = ? AND xar_tmodule = ?";
+        $bindvars = array($order, $modname, $tmod);
+        $result =& $dbconn->Execute($sql,$bindvars);
+        if (!$result) return;
+        $order++;
+    }
+
+    // delete queued hooks, if any
+    if(count($deletehooks) > 0) {
+        foreach ($deletehooks as $del) {
+            list($dsmod, $dstype, $dtmod) = explode(':', $del);
+            $sql = "DELETE FROM $xartable[hooks] WHERE ";
+            if ($dstype == '' || $dstype == 0) {
+                $sql .= "xar_smodule = ? AND xar_tmodule = ? and xar_stype = ?";
+                $bindvars = array($dsmod, $dtmod, '');
+            } else {
+                $sql .= "xar_smodule = ? AND xar_tmodule = ? AND xar_stype = ?";
+                $bindvars = array($dsmod, $dtmod, $dstype);
+            }
+            $result =& $dbconn->Execute($sql,$bindvars);
+            if (!$result) return;
+        }
+    }
+
+    $result->Close();
+
     return true;
 }
 

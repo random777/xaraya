@@ -59,7 +59,7 @@ function modules_admin_modify($args)
     // $data[hooklist] is the master array which holds all info
     // about the registered hooks.
     $data['hooklist'] = array();
-
+    $hooksort = array();
     // Loop over available $key => $value pairs in hooklist
     // $modname is assigned key (name of module)
     // $hooks is assigned object:action:area
@@ -75,12 +75,23 @@ function modules_admin_modify($args)
             if (!empty($modules[$modName])) {
                 foreach ($modules[$modName] as $itemType => $val) {
                     $data['hooklist'][$hookmodname]['checked'][$itemType] = 1;
+                    if(!isset($hooksort[$val])) {
+                        $hooksort[$val] = $hookmodname;
+                    }
                 }
             }
             $data['hooklist'][$hookmodname]['hooks'][$hook] = 1;
         }
     }
-  //print_r($data['hooklist']);
+
+    ksort($hooksort);
+    if(count($hooksort) > 1) {
+        $hookorder = array();
+        foreach($hooksort as $hookindex => $hookname) {
+            $hookorder[] = array('id' => $hookname, 'name' => $hookname);
+        }
+        $data['hookorder'] = $hookorder;
+    }
     // End form
 
     $data['authid'] = xarSecGenAuthKey('modules');

@@ -39,49 +39,116 @@ function modules_adminapi_enablehooks($args)
         $callerItemType = '';
     }
 
-    // Rename operation
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();
 
-    // Delete hooks regardless
-    $sql = "DELETE FROM $xartable[hooks]
-            WHERE xar_smodule = ? AND xar_stype = ? AND xar_tmodule = ?";
-    $bindvars = array($callerModName,$callerItemType,$hookModName);
+    // get all available/currently enabled hooks for this module
+    $sql = "SELECT xar_id, xar_object, xar_action, xar_smodule, xar_stype,
+                    xar_tarea, xar_tmodule, xar_ttype, xar_tfunc, xar_order
+                FROM $xartable[hooks]
+                WHERE xar_smodule = ? OR xar_smodule = ''
+                ORDER BY xar_smodule, xar_order";
 
+    $bindvars = array($callerModName);
     $result =& $dbconn->Execute($sql,$bindvars);
     if (!$result) return;
 
-    $sql = "SELECT DISTINCT xar_id, xar_smodule, xar_stype, xar_object,
-                            xar_action, xar_tarea, xar_tmodule, xar_ttype,
-                            xar_tfunc
-            FROM $xartable[hooks]
-            WHERE xar_smodule = '' AND xar_tmodule = ?";
-
-    $result =& $dbconn->Execute($sql,array($hookModName));
-    if (!$result) return;
-
+    $enabledhooks = array();
+    $availablehooks = array();
     for (; !$result->EOF; $result->MoveNext()) {
-        list($hookid,
-             $hooksmodname,
-             $hookstype,
-             $hookobject,
-             $hookaction,
-             $hooktarea,
-             $hooktmodule,
-             $hookttype,
-             $hooktfunc) = $result->fields;
+        list($hookid, $hookobject, $hookaction, $hooksmodule, $hookstype,
+             $hooktarea, $hooktmodule, $hookttype, $hooktfunc, $hookorder) = $result->fields;
 
+        if ($hooksmodule == '') {
+            // we only want $hookModName
+            if($hooktmodule == $hookModName) {
+                if(!isset($availablehooks[$hooktmodule])) {
+                    $availablehooks[$hooktmodule] = array();
+                }
+                $availablehooks[$hooktmodule][$hookid] = array('id' => $hookid, 'object' => $hookobject,
+                    'action' => $hookaction, 'smodule' => trim($hooksmodule), 'stype' => $hookstype,
+                    'tarea' => $hooktarea, 'tmodule' => $hooktmodule, 'ttype' => $hookttype,
+                    'tfunc' => $hooktfunc, 'order' => $hookorder);
+            }
+        } else {
+            if(!isset($enabledhooks[$hooktmodule])) {
+                $enabledhooks[$hooktmodule] = array();
+            }
+            $enabledhooks[$hooktmodule][$hookid] = array('id' => $hookid, 'object' => $hookobject,
+                    'action' => $hookaction, 'smodule' => trim($hooksmodule), 'stype' => $hookstype,
+                    'tarea' => $hooktarea, 'tmodule' => $hooktmodule, 'ttype' => $hookttype,
+                    'tfunc' => $hooktfunc, 'order' => $hookorder);
+        }
+    }
+    $result->Close();
+
+    // check for invalid module name
+    if (!isset($availablehooks[$hookModName])) {
+        $msg = xarML('invalid hookModName');
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
+        return;
+    }
+
+    // reduce available hooks down to only what we want
+    $thook = $availablehooks[$hookModName];
+
+    // check for duplicates, return true if found
+    // otherwise, get order from existing hooks
+    foreach ($enabledhooks as $hookmod => $hook) {
+        if (($hookmod == $hookModName)) {
+            if (($hook['smodule'] == $callerModName) && 
+                ($hook['stype'] == $callerItemType)
+            ) {
+                // duplicate found, throw back
+                return true;
+            } else {
+                // keep order in sync
+                $nextorder = $hook['order'];
+                break;
+            }
+        }
+    }
+
+    // find next hook order if not set
+    if (!isset($nextorder)) {
+        $sql = "SELECT xar_order
+                    FROM $xartable[hooks]
+                    WHERE xar_smodule = ?
+                    ORDER BY xar_order LIMIT 1";
+    
+        $result =& $dbconn->Execute($sql,array($callerModName));
+        if (!$result) return;
+    
+        for (; !$result->EOF; $result->MoveNext()) {
+            list($nextorder) = $result->fields;
+        }
+        if (!isset($nextorder)) {
+            $nextorder = 1;
+        } else {
+            $nextorder++;
+        }
+    }
+
+    // loop through target hook, insert what we need
+    foreach($thook as $targetmod => $targethook) {
         $sql = "INSERT INTO $xartable[hooks] (
                       xar_id, xar_object, xar_action, xar_smodule, xar_stype,
-                      xar_tarea, xar_tmodule, xar_ttype, xar_tfunc)
-                    VALUES (?,?,?,?,?,?,?,?,?)";
+                      xar_tarea, xar_tmodule, xar_ttype, xar_tfunc, xar_order)
+                    VALUES (?,?,?,?,?,?,?,?,?,?)";
         $bindvars = array($dbconn->GenId($xartable['hooks']),
-                          $hookobject, $hookaction, $callerModName,
-                          $callerItemType, $hooktarea, $hooktmodule,
-                          $hookttype, $hooktfunc);
-        $subresult =& $dbconn->Execute($sql,$bindvars);
-        if (!$subresult) return;
+                        'object' => $targethook['object'],
+                        'action' => $targethook['action'], 
+                        'smodule' => $callerModName, 
+                        'stype' => $callerItemType,
+                        'tarea' => $targethook['tarea'], 
+                        'tmodule' => $hookModName, 
+                        'ttype' => $targethook['ttype'],
+                        'tfunc' => $targethook['tfunc'], 
+                        'order' => $nextorder);
+        $result =& $dbconn->Execute($sql,$bindvars);
+        if (!$result) return;
     }
+
     $result->Close();
 
     return true;

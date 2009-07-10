@@ -4,6 +4,13 @@ so we have an easy cheatsheet when upgrading and have a document ready
 when we want things merged into the upstream code.
 
 =============================================================
+Changes made to ADOdb library in this Xaraya 1.2.x series
+=============================================================
+2009-07-10: Update adodb version in repo to 4.991
+            Remove server.php [Bug 5233]
+            No other changes applied, the sqlite files retained as per prior notes for 1.1.x series
+
+=============================================================
 Changes made to ADOdb library in this Xaraya 1.1.x series
 =============================================================
 2006-11-21: Update adodb version in repo to 4.93a

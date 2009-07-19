@@ -30,6 +30,7 @@
   <property file="common.properties"/>
   <!-- The themes property file -->
   <property file="themes.properties"/>
+  <php function="clearstatcache" />
   
   <!--
        releaselog for themes depends on mtn usage which we don't do yet
@@ -47,6 +48,89 @@
   
   <target name="gettheme">
     <input propertyname="theme.name">What theme would you like to build?</input>
+  </target>
+
+  <!--  Main target that builds one theme  -->
+  <!--  Use phing option -Dtheme.name=foo  -->
+  <target name="buildtheme" if="theme.name">
+    <!--  check theme.name against themes.all -->
+    <php function="preg_match" returnProperty="in_all">
+        <param value="/\b${theme.name}\b/" />
+        <param value="${themes.all}" />
+    </php>
+    <if>
+        <equals arg1="${in_all}" arg2="0" />
+        <then>
+            <fail message="Theme ${theme.name} not found!" />
+        </then>
+    </if>
+    <!-- check branch heads, fail if multiple -->
+    <php function="exec" returnProperty="heads.count">
+        <param value="${monotone} -d ${mtdir}/${themes.repo}.db automate heads ${branch.prefix}.themes.${theme.name} | wc -l" />
+    </php>
+    <if>
+        <not>
+            <equals arg1="1" arg2="${heads.count}" />
+        </not>
+        <then>
+            <fail message="Theme ${theme.name} has multiple heads!" />
+        </then>
+    </if>
+    <!--  create dir if doesn't exist, update or check out accordingly  -->
+    <php function="clearstatcache" />
+    <php function="is_dir" returnProperty="workdir_exists">
+        <param value="${work.basedir}/${themes.repo}/themes.${theme.name}/_MTN" />
+    </php>
+    <if>
+        <istrue value="${workdir_exists}" />
+        <then>
+            <echo message="Update: ${theme.name}" />
+            <phingcall target="mt_update">
+                <property name="repo" value="${themes.repo}" />
+                <property name="branch" value="themes.${theme.name}" />
+            </phingcall>
+        </then>
+        <else>
+            <echo message="Checkout: ${theme.name}" />
+            <phingcall target="mt_checkout">
+                <property name="repo" value="${themes.repo}" />
+                <property name="branch" value="themes.${theme.name}" />
+            </phingcall>
+        </else>
+    </if>
+    <!--  get the head revision we are at  -->
+    <php function="exec" returnProperty="theme.rev">
+        <param value="${monotone} -d ${mtdir}/${themes.repo}.db automate heads ${branch.prefix}.themes.${theme.name}" />
+    </php>
+    <if>
+        <equals arg1="" arg2="${theme.rev}" />
+        <then>
+            <fail message="theme ${theme.name}: error retreiving revision" />
+        </then>
+    </if>
+    <property name="theme.build.dir" value="${theme.name}-${theme.rev}" />
+    <echo message="Creating build dir: ${theme.build.dir}" />
+    <mkdir dir="${build.basedir.themes}" />
+    <mkdir dir="${build.basedir.themes}/${theme.build.dir}" />
+    <phingcall target="copythemefromrepotoself">
+        <property name="theme.name" value="${theme.name}" />
+        <property name="theme.build.dir" value="${theme.build.dir}" />
+    </phingcall>
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.basedir.themes}/${theme.build.dir}"/>
+    </phingcall>
+
+    <phingcall target="createthemetarball">
+      <property name="tarball.name" value="${theme.build.dir}.tar.gz"/>
+      <property name="tarball.src" value="${theme.build.dir}"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createthemezipball">
+        <property name="zipball.name" value="${theme.build.dir}.zip"/>
+        <property name="zipball.src" value="${theme.build.dir}"/>
+        <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
   </target>
 
   <!--  Main target that builds all themes  -->
@@ -214,7 +298,7 @@
   <!-- copy a theme into its own build -->
   <target name="copythemefromrepotoself" if="theme.name">
     <echo msg="Copying theme ${theme.name} into theme build..."/>
-    <copy todir="${build.basedir.themes}/${theme.name}-${versionnum}">
+    <copy todir="${build.basedir.themes}/${theme.build.dir}">
         <fileset dir="${work.basedir}/${themes.repo}/themes.${theme.name}">
           <include name="**"/>
           <exclude name="*MTN/**"/>
@@ -231,12 +315,12 @@
 
   <target name="createthemetarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
-    <exec dir="${build.basedir.themes}" command="tar -czf ${tarball.name} ${theme.name}-${versionnum}"/>
+    <exec dir="${build.basedir.themes}" command="tar -czf ${tarball.name} ${tarball.src}"/>
   </target>
 
   <target name="createthemezipball" if="zipball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
-    <exec dir="${build.basedir.themes}" command="zip -rq ${zipball.name} ${theme.name}-${versionnum}"/>
+    <exec dir="${build.basedir.themes}" command="zip -rq ${zipball.name} ${zipball.src}"/>
   </target>
   
   <!-- Clean target, removes only the copied build tree -->
@@ -287,7 +371,5 @@
   <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
     <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
     <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
-    <!-- Let's not do the html dir itself :-) -->
-    <delete file="${basedir}/index.html" />
   </target>
 </project>

@@ -57,6 +57,101 @@
     <input propertyname="modpacklist">What modules are in this pack? (comma-separated list of module names)</input>
   </target>
 
+  <!--  Main target that builds one module  -->
+  <!--  Use phing option -Dmod.name=foo  -->
+  <target name="buildmodule" if="mod.name">
+    <!--  check mod.name against module_packs.full and module_packs.base -->
+    <php function="preg_match" returnProperty="in_full">
+        <param value="/\b${mod.name}\b/" />
+        <param value="${module_packs.full}" />
+    </php>
+    <php function="preg_match" returnProperty="in_base">
+        <param value="/\b${mod.name}\b/" />
+        <param value="${module_packs.base}" />
+    </php>
+    <php function="preg_match" returnProperty="in_extra">
+        <param value="/\b${mod.name}\b/" />
+        <param value="${modules.extra}" />
+    </php>
+    <if>
+        <and>
+            <equals arg1="${in_full}" arg2="0" />
+            <equals arg1="${in_base}" arg2="0" />
+            <equals arg1="${in_extra}" arg2="0" />
+        </and>
+        <then>
+            <fail message="Module ${mod.name} not found in full or base!" />
+        </then>
+    </if>
+    <!-- check branch heads, fail if multiple -->
+    <php function="exec" returnProperty="heads.count">
+        <param value="${monotone} -d ${mtdir}/${modules.repo}.db automate heads ${branch.prefix}.modules.${mod.name} | wc -l" />
+    </php>
+    <if>
+        <not>
+            <equals arg1="1" arg2="${heads.count}" />
+        </not>
+        <then>
+            <fail message="Module ${mod.name} has multiple heads!" />
+        </then>
+    </if>
+    <!--  create dir if doesn't exist, update or check out accordingly  -->
+    <php function="clearstatcache" />
+    <php function="is_dir" returnProperty="workdir_exists">
+        <param value="${work.basedir}/${modules.repo}/modules.${mod.name}/_MTN" />
+    </php>
+    <if>
+        <istrue value="${workdir_exists}" />
+        <then>
+            <echo message="Update: ${mod.name}" />
+            <phingcall target="mt_update">
+                <property name="repo" value="${modules.repo}" />
+                <property name="branch" value="modules.${mod.name}" />
+            </phingcall>
+        </then>
+        <else>
+            <echo message="Checkout: ${mod.name}" />
+            <phingcall target="mt_checkout">
+                <property name="repo" value="${modules.repo}" />
+                <property name="branch" value="modules.${mod.name}" />
+            </phingcall>
+        </else>
+    </if>
+    <!--  get the head revision we are at  -->
+    <php function="exec" returnProperty="mod.rev">
+        <param value="${monotone} -d ${mtdir}/${modules.repo}.db automate heads ${branch.prefix}.modules.${mod.name}" />
+    </php>
+    <if>
+        <equals arg1="" arg2="${mod.rev}" />
+        <then>
+            <fail message="Module ${mod.name}: error retreiving revision" />
+        </then>
+    </if>
+    <property name="mod.build.dir" value="${mod.name}-${mod.rev}" />
+    <echo message="Creating build dir: ${mod.build.dir}" />
+    <mkdir dir="${build.basedir.modules}" />
+    <mkdir dir="${build.basedir.modules}/${mod.build.dir}" />
+    <phingcall target="copymodulefromrepotoself">
+        <property name="mod.name" value="${mod.name}" />
+        <property name="mod.build.dir" value="${mod.build.dir}" />
+    </phingcall>
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.basedir.modules}/${mod.build.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmoduletarball">
+      <property name="tarball.name" value="${mod.build.dir}.tar.gz"/>
+      <property name="tarball.src" value="${mod.build.dir}"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createmodulezipball">
+        <property name="zipball.name" value="${mod.build.dir}.zip"/>
+        <property name="zipball.src" value="${mod.build.dir}"/>
+        <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+  </target>
+
   <!--  Main target that builds all modules  -->
   <target name="all" depends="pull_modules,update_modules" description=": Creates all Xaraya modules">
     <echo message="Copying files to build dir" />
@@ -107,6 +202,10 @@
 
   <target name="pull_modules" description=": Pulls module branches from the reference server">
     <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${modules.repo}.db pull mt.xaraya.com 'com.xaraya.modules.*'"/>
+  </target>
+
+  <target name="pull_module" if="mod.name" description=": Pulls one module branch from the reference server">
+    <exec dir="${work.basedir}" passthru="true" command="${monotone} -d ${mtdir}/${modules.repo}.db pull mt.xaraya.com 'com.xaraya.modules.${mod.name}'"/>
   </target>
 
   <!-- 
@@ -466,7 +565,7 @@
   <!-- copy a module into its own build -->
   <target name="copymodulefromrepotoself" if="mod.name">
     <echo msg="Copying module ${mod.name} into module build..."/>
-    <copy todir="${build.basedir.modules}/${mod.name}-${versionnum}">
+    <copy todir="${build.basedir.modules}/${mod.build.dir}">
       <fileset dir="${work.basedir}/${modules.repo}/modules.${mod.name}">
         <include name="**"/>
         <exclude name="*MTN/**"/>
@@ -501,7 +600,7 @@
 
   <target name="createtarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
-    <exec dir="${build.basedir.modules}" command="tar -czf ${tarball.name} modules-all"/>
+    <exec dir="${build.basedir.modules}" command="tar -czf ${tarball.name} modules-all" />
   </target>
   
   <target name="createmodpacktarball" if="tarball.name">
@@ -511,7 +610,7 @@
   
   <target name="createmoduletarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
-    <exec dir="${build.basedir.modules}" command="tar -czf ${tarball.name} ${mod.name}-${versionnum}"/>
+    <exec dir="${build.basedir.modules}" command="tar -czf ${tarball.name} ${tarball.src}"/>
   </target>
   
   <!-- Create a zipball from the current contents of the build tree -->
@@ -526,8 +625,8 @@
   </target>
   
   <target name="createmodulezipball" if="zipball.name">
-    <echo msg="Creating tar archive ${zipball.name}"/>
-    <exec dir="${build.basedir.modules}" command="zip -rq ${zipball.name} ${mod.name}-${versionnum}"/>
+    <echo msg="Creating zip archive ${zipball.name}"/>
+    <exec dir="${build.basedir.modules}" command="zip -rq ${zipball.name} ${zipball.src}"/>
   </target>
   
   <!-- Clean target, removes only the copied module directories -->
@@ -578,7 +677,5 @@
   <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
     <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
     <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
-    <!-- Let's not do the html dir itself :-) -->
-    <delete file="${basedir}/index.html" />
   </target>
 </project>

@@ -32,10 +32,6 @@
   <property file="languages.properties"/>
   
   <!-- Build some properties based on the settings in the build.properties file -->
-  <!--     
-       releaselog for modules depends on mtn usage which we don't do yet
-  <property name="releaselog" value="releaselog-${lastversion}-${version}.txt" />
-  -->
   
   <!-- get date formatted as yyyymmdd for pack filenames -->
   <php function="date" returnProperty="builddate">
@@ -48,6 +44,89 @@
   
   <target name="getlanguage">
     <input propertyname="lang.name">What language would you like to build? (2 letter language code)</input>
+  </target>
+
+  <!--  Main target that builds one language  -->
+  <!--  Use phing option -Dlang.name=foo  -->
+  <target name="buildlanguage" if="lang.name">
+    <!--  check lang.name against languages.all  -->
+    <php function="preg_match" returnProperty="in_all">
+        <param value="/\b${lang.name}\b/" />
+        <param value="${languages.all}" />
+    </php>
+    <if>
+        <equals arg1="${in_all}" arg2="0" />
+        <then>
+            <fail message="Language ${lang.name} not found in list!" />
+        </then>
+    </if>
+    <!-- check branch heads, fail if multiple -->
+    <php function="exec" returnProperty="heads.count">
+        <param value="${monotone} -d ${mtdir}/${languages.repo}.db automate heads ${branch.prefix}.languages.${lang.name} | wc -l" />
+    </php>
+    <if>
+        <not>
+            <equals arg1="1" arg2="${heads.count}" />
+        </not>
+        <then>
+            <fail message="Language ${lang.name} has multiple heads!" />
+        </then>
+    </if>
+    <!--  create dir if doesn't exist, update or check out accordingly  -->
+    <php function="clearstatcache" />
+    <php function="is_dir" returnProperty="workdir_exists">
+        <param value="${work.basedir}/${languages.repo}/languages.${lang.name}/_MTN" />
+    </php>
+    <if>
+        <istrue value="${workdir_exists}" />
+        <then>
+            <echo message="Update: ${lang.name}" />
+            <phingcall target="mt_update">
+                <property name="repo" value="${languages.repo}" />
+                <property name="branch" value="languages.${lang.name}" />
+            </phingcall>
+        </then>
+        <else>
+            <echo message="Checkout: ${lang.name}" />
+            <phingcall target="mt_checkout">
+                <property name="repo" value="${languages.repo}" />
+                <property name="branch" value="languages.${lang.name}" />
+            </phingcall>
+        </else>
+    </if>
+    <!--  get the head revision we are at  -->
+    <php function="exec" returnProperty="lang.rev">
+        <param value="${monotone} -d ${mtdir}/${languages.repo}.db automate heads ${branch.prefix}.languages.${lang.name}" />
+    </php>
+    <if>
+        <equals arg1="" arg2="${lang.rev}" />
+        <then>
+            <fail message="Language ${lang.name}: error retreiving revision" />
+        </then>
+    </if>
+    <property name="lang.build.dir" value="${lang.name}-${lang.rev}" />
+    <echo message="Creating build dir: ${lang.build.dir}" />
+    <mkdir dir="${build.basedir.languages}" />
+    <mkdir dir="${build.basedir.languages}/${lang.build.dir}" />
+    <phingcall target="copylanguagefromrepotoself">
+        <property name="lang.name" value="${lang.name}" />
+        <property name="lang.build.dir" value="${lang.build.dir}" />
+    </phingcall>
+    <phingcall target="indexdothtmlfeed">
+      <property name="basedir" value="${build.basedir.languages}/${lang.build.dir}"/>
+    </phingcall>
+
+    <phingcall target="createlanguagetarball">
+      <property name="tarball.name" value="${lang.build.dir}.tar.gz"/>
+      <property name="tarball.src" value="${lang.build.dir}"/>
+      <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
+
+    <phingcall target="createlanguagezipball">
+        <property name="zipball.name" value="${lang.build.dir}.zip"/>
+        <property name="zipball.src" value="${lang.build.dir}"/>
+        <property name="dest.dir" value="${dest.dir}"/>
+    </phingcall>
   </target>
 
   <!--  Main target that runs the build  -->
@@ -150,8 +229,6 @@
     <mkdir dir="${work.basedir}/${repo}"/>      
   </target>
 
-
-
   <!-- single language -->
   <target name="language" depends="pull_languages,getlanguage" description=": Creates build of named language">
 
@@ -183,7 +260,7 @@
     </phingcall>
   </target>
 
-  <!-- single module -->
+  <!-- single language -->
   <target name="onelanguage" depends="pull_languages" description=": Creates build of named language">
     <!--
         TODO: need a cert/tag/something in mtn to identify the revision set for a version number
@@ -221,7 +298,7 @@
   <!-- copy a language into its own build -->
   <target name="copylanguagefromrepotoself" if="lang.name">
     <echo msg="Copying language ${lang.name} into language build..."/>
-    <copy todir="${build.basedir.languages}/${lang.name}-${build.date}">
+    <copy todir="${build.basedir.languages}/${lang.build.dir}">
           <fileset dir="${work.basedir}/${languages.repo}/languages.${lang.name}/">
             <include name="xml/*/installer/**"/>
             <include name="xml/core/**"/>
@@ -239,13 +316,13 @@
   <!-- Create a tarball from the current contents of the build tree -->
   <target name="createlanguagetarball" if="tarball.name">
     <echo msg="Creating tar archive ${tarball.name}"/>
-    <exec dir="${build.basedir.languages}" command="tar -czf ${tarball.name} ${language}-${build.date}"/>
+    <exec dir="${build.basedir.languages}" command="tar -czf ${tarball.name} ${tarball.src}"/>
   </target>
   
   <!-- Create a zipball from the current contents of the build tree -->
   <target name="createlanguagezipball" if="zipball.name">
-    <echo msg="Creating tar archive ${tarball.name}"/>
-    <exec dir="${build.basedir.languages}" command="zip -rq ${zipball.name} ${language}-${build.date}"/>
+    <echo msg="Creating zip archive ${zipball.name}"/>
+    <exec dir="${build.basedir.languages}" command="zip -rq ${zipball.name} ${zipball.src}"/>
   </target>
   
   <!-- Clean target, removes only the copied build tree -->
@@ -296,7 +373,5 @@
   <target name="indexdothtmlfeed" if="basedir" description=": Feed a subdir with empty index.html files (preserving existing)">
     <!-- Why do we keep running into things that a simple shell can, but phing can not, probably me -->
     <exec dir="${basedir}" passthru="true" command="find . -type d -exec touch {}/index.html \;"/>
-    <!-- Let's not do the html dir itself :-) -->
-    <delete file="${basedir}/index.html" />
   </target>
 </project>

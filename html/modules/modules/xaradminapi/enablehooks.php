@@ -3,7 +3,7 @@
  * Enable hooks between a caller module and a hook module
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -74,10 +74,7 @@ function modules_adminapi_enablehooks($args)
             if(!isset($enabledhooks[$hooktmodule])) {
                 $enabledhooks[$hooktmodule] = array();
             }
-            $enabledhooks[$hooktmodule][$hookid] = array('id' => $hookid, 'object' => $hookobject,
-                    'action' => $hookaction, 'smodule' => trim($hooksmodule), 'stype' => $hookstype,
-                    'tarea' => $hooktarea, 'tmodule' => $hooktmodule, 'ttype' => $hookttype,
-                    'tfunc' => $hooktfunc, 'order' => $hookorder);
+            $enabledhooks[$hooktmodule][$hooksmodule][$hookstype] = $hookorder;
         }
     }
     $result->Close();
@@ -94,19 +91,8 @@ function modules_adminapi_enablehooks($args)
 
     // check for duplicates, return true if found
     // otherwise, get order from existing hooks
-    foreach ($enabledhooks as $hookmod => $hook) {
-        if (($hookmod == $hookModName)) {
-            if (($hook['smodule'] == $callerModName) && 
-                ($hook['stype'] == $callerItemType)
-            ) {
-                // duplicate found, throw back
-                return true;
-            } else {
-                // keep order in sync
-                $nextorder = $hook['order'];
-                break;
-            }
-        }
+    if (isset($enabledhooks[$hookModName][$callerModName][$callerItemType])) {
+        return true;
     }
 
     // find next hook order if not set
@@ -115,10 +101,10 @@ function modules_adminapi_enablehooks($args)
                     FROM $xartable[hooks]
                     WHERE xar_smodule = ?
                     ORDER BY xar_order LIMIT 1";
-    
+
         $result =& $dbconn->Execute($sql,array($callerModName));
         if (!$result) return;
-    
+
         for (; !$result->EOF; $result->MoveNext()) {
             list($nextorder) = $result->fields;
         }
@@ -137,13 +123,13 @@ function modules_adminapi_enablehooks($args)
                     VALUES (?,?,?,?,?,?,?,?,?,?)";
         $bindvars = array($dbconn->GenId($xartable['hooks']),
                         'object' => $targethook['object'],
-                        'action' => $targethook['action'], 
-                        'smodule' => $callerModName, 
+                        'action' => $targethook['action'],
+                        'smodule' => $callerModName,
                         'stype' => $callerItemType,
-                        'tarea' => $targethook['tarea'], 
-                        'tmodule' => $hookModName, 
+                        'tarea' => $targethook['tarea'],
+                        'tmodule' => $hookModName,
                         'ttype' => $targethook['ttype'],
-                        'tfunc' => $targethook['tfunc'], 
+                        'tfunc' => $targethook['tfunc'],
                         'order' => $nextorder);
         $result =& $dbconn->Execute($sql,$bindvars);
         if (!$result) return;

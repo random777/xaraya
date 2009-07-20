@@ -153,7 +153,7 @@ function installer_admin_phase3()
     $xmlLanguageDir           = $systemVarDir . '/locales/' . $install_language . '/xml';
 
     if (function_exists('version_compare')) {
-        if (version_compare(PHP_VERSION,'4.1.2','>=')) $metRequiredPHPVersion = true;
+        if (version_compare(PHP_VERSION,'4.4.7','>=')) $metRequiredPHPVersion = true;
     }
 
     $systemConfigIsWritable     = is_writable($systemConfigFile);

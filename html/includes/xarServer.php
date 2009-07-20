@@ -74,7 +74,7 @@ function xarServer__shutdown_handler()
  */
 function xarServerGetVar($name)
 {
-    assert('version_compare("4.1.2",phpversion()) <= 0; /* The minimum PHP version supported by Xaraya is 4.1.2 */');
+    assert('version_compare("4.4.7",phpversion()) <= 0; /* The minimum PHP version supported by Xaraya is 4.4.7 */');
     if (isset($_SERVER[$name])) {
         return $_SERVER[$name];
     }

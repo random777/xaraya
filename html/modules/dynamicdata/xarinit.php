@@ -70,9 +70,11 @@ function dynamicdata_init()
             /* the optional item type within this module */
             'itemtype' => array(
                 'type'        => 'integer',
+                'unsigned'     => true,
                 'null'        => false,
                 'default'     => '0'
             ),
+                'unsigned'     => true,
             /* the class this object belongs to*/
             'class'     => array(
                 'type'        => 'varchar',
@@ -212,6 +214,7 @@ function dynamicdata_init()
             /* the property type of this property */
             'type'       => array(
                 'type'        => 'integer',
+                'unsigned'    => true,
                 'null'        => false,
                 'default'     => null
             ),
@@ -376,6 +379,7 @@ function dynamicdata_init()
         $configfields = array(
             'id'   => array(
                 'type'        => 'integer',
+                'unsigned'     => true,
                 'null'        => false,
                 'default'     => '0',
                 'increment'   => true,
@@ -395,6 +399,7 @@ function dynamicdata_init()
             ),
             'property_id'     => array(
                 'type'        => 'integer',
+                'unsigned'     => true,
                 'null'        => false,
                 'default'     => '0'
             ),
@@ -405,9 +410,8 @@ function dynamicdata_init()
                 'default'     => ''
             ),
             'ignore_empty'     => array(
-                'type'        => 'integer',
-                'null'        => false,
-                'default'     => '1'
+                'type'        => 'boolean',
+                'default'     => false
             ),
             'configuration'   => array(
                 'type'        => 'text',

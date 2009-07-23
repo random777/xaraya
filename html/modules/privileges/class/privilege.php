@@ -256,12 +256,11 @@ class xarPrivilege extends xarMask
         sys::import('modules.roles.class.roles');
         $roles = array();
         //      $ind = 0;
-    sys::import('modules.dynamicdata.class.objects.master');
         while($result->next()) {
             list($id,$name,$itemtype,$uname,$email,$pass,$auth_modid) = $result->fields;
             //          $ind = $ind + 1;
 
-            $role = DataObjectMaster::getObject(array('module' => 'roles', 'itemtype' => $itemtype));
+            $role = DynamicData_Object_Master::getObject(array('module' => 'roles', 'itemtype' => $itemtype));
             $role->getItem(array('itemid' => $id));
             /*
             $role = new xarRole(array('id' => $id,

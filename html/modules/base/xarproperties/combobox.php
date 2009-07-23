@@ -44,7 +44,7 @@ sys::import('modules.base.xarproperties.dropdown');
             {
                 // check as a textbox
                 $value = $tbvalue;
-                $textbox = DataPropertyMaster::getProperty(array('name' => 'textbox'));
+                $textbox = DynamicData_Property_Master::getProperty(array('name' => 'textbox'));
                 $isvalid = $textbox->checkInput($tbname, $tbvalue);
                 if ($isvalid) {
                     $this->value = $textbox->value;

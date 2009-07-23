@@ -40,7 +40,7 @@ class FieldTypeProperty extends ObjectRefProperty
             return $this->options;
         }
         
-        $proptypes = DataPropertyMaster::getPropertyTypes();
+        $proptypes = DynamicData_Property_Master::getPropertyTypes();
         if (!isset($proptypes)) $proptypes = array();
 
         foreach ($proptypes as $propid => $proptype) {

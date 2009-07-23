@@ -28,7 +28,7 @@
  */
 function dynamicdata_adminapi_createobject($args)
 {
-    $objectid = DataObjectMaster::createObject($args);
+    $objectid = DynamicData_Object_Master::createObject($args);
     return $objectid;
 }
 ?>

@@ -9,7 +9,6 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-sys::import('modules.dynamicdata.class.objects.base');
 sys::import('modules.roles.class.xarQuery');
 /**
  * Role: class for the role object
@@ -19,7 +18,7 @@ sys::import('modules.roles.class.xarQuery');
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @access public
  */
-class Role extends DataObject
+class Role extends DynamicData_Object_Base
 {
     public $parentlevel;  //we use this just to store transient information
     public $basetype;     //the base itemtype. we add this so it can be passed rather than calculated here
@@ -511,7 +510,7 @@ class Role extends DataObject
         while ($result->next()) {
             list($id) = $result->fields;
 
-            $role = DataObjectMaster::getObject(array('name' => 'roles_users'));
+            $role = DynamicData_Object_Master::getObject(array('name' => 'roles_users'));
             $role->getItem(array('itemid' => $id));
             $users[] = $role;
         }
@@ -598,7 +597,7 @@ class Role extends DataObject
         while ($result->next()) {
             list($id) = $result->fields;
 
-            $role = DataObjectMaster::getObject(array('name' => 'roles_groups'));
+            $role = DynamicData_Object_Master::getObject(array('name' => 'roles_groups'));
             $role->getItem(array('itemid' => $id));
             $parents[] = $role;
         }

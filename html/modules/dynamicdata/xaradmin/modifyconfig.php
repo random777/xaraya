@@ -23,13 +23,13 @@ function dynamicdata_admin_modifyconfig()
     $data['authid'] = xarSecGenAuthKey();
 
     if (!xarModAPILoad('dynamicdata', 'user')) return;
-    $data['fields'] = DataPropertyMaster::getPropertyTypes();
+    $data['fields'] = DynamicData_Property_Master::getPropertyTypes();
     if (!isset($data['fields']) || $data['fields'] == false) {
         $data['fields'] = array();
     }
 
     // FIXME: This may not work when moving property classes around manually !
-    //$data['fieldtypeprop'] =& DataPropertyMaster::getProperty(array('type' => 'fieldtype'));
+    //$data['fieldtypeprop'] =& DynamicData_Property_Master::getProperty(array('type' => 'fieldtype'));
     sys::import('modules.dynamicdata.xarproperties.fieldtype');
 
     $descriptor = new DataObjectDescriptor(array('type' => 'fieldtype'));

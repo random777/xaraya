@@ -151,7 +151,7 @@ OTHER CHANGES POSSIBLY AFFECTING UPGRADES:
   no functional behaviour is attached to it yet. In a way the
   xar:template tag and the xar:blocklayout tag are moving closer to
   eachother.
-* showList method in the DataObjectList class has been removed in favor of
+* showList method in the DynamicData_Object_List class has been removed in favor of
   showView due to it's redundancy in code. The data-list tag will continue to
   operate as normal (for now), but any $modname/xartemplates/objects/*list*
   templates will need to be renamed *view*

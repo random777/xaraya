@@ -23,7 +23,7 @@ class DynamicDataSequence extends ArraySequence implements iSequence, iSequenceA
     {
         // TODO: check the object definition, it needs id, data and nextid
         assert('isset($args["name"]); /* To construct a dd sequence, an objectname must be passed in */');
-        $this->seqInfo = DataObjectMaster::getObjectInfo($args);
+        $this->seqInfo = DynamicData_Object_Master::getObjectInfo($args);
          // This fills $seqObject and $seq with most current data.
         $this->getSequence();
     }
@@ -118,7 +118,7 @@ class DynamicDataSequence extends ArraySequence implements iSequence, iSequenceA
     /* Refresh the sequence data */
     private function getSequence()
     {
-        $this->seqObject = DataObjectMaster::getObject($this->seqInfo);
+        $this->seqObject = DynamicData_Object_Master::getObject($this->seqInfo);
         $params = array('modid'     => $this->seqInfo['moduleid'],
                         'itemtype'  => $this->seqInfo['itemtype'],
                         'sort'      => 'nextid',

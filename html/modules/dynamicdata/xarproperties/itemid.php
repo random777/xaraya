@@ -14,7 +14,6 @@
  * Include the base class
  */
 sys::import('modules.base.xarproperties.integerbox');
-
 /**
  * Handle item id property
  */

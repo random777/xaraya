@@ -175,7 +175,7 @@ final class Class_ extends Reflectable
      *
      * @param  string   $name Name of the property
      * @return Property Property object
-     * @todo get rid of the underscore once DataPropertyMaster:getProperty is remodelled
+     * @todo get rid of the underscore once DynamicData_Property_Master:getProperty is remodelled
     **/
     final public function getProperty_($name)
     {
@@ -386,4 +386,13 @@ class DataContainer extends Object
     }
 }
 
+function __autoload($classname) 
+{
+    $nameparts = explode('_',strtolower($classname));
+    $module = array_shift($nameparts);
+    $locationname = implode('.', $nameparts);
+//    die($module . '.class.' . $locationname);
+    // We are only looking at modules for now
+    if ($module != 'xaraya') sys::import('modules.' . $module . '.class.' . $locationname);
+}
 ?>

@@ -45,7 +45,7 @@ function dynamicdata_user_view($args)
         $itemtype = 0;
     }
 
-    $object = DataObjectMaster::getObjectList(
+    $object = DynamicData_Object_Master::getObjectList(
                             array('objectid'  => $objectid,
                                   'moduleid'  => $module_id,
                                   'itemtype'  => $itemtype,

@@ -91,7 +91,7 @@ function dynamicdata_utilapi_getstatic($args)
                 $name = $name . '_' . $i;
                 $label = $label . '_' . $i;
             }
-            $status = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+            $status = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
 
             // assign some default configuration for now
             $datatype = strtolower(CreoleTypes::getCreoleName($colInfo->getType()));
@@ -138,7 +138,7 @@ function dynamicdata_utilapi_getstatic($args)
             case 'text':
             case 'clob':
                 $proptype = 4; // Medium Text Area
-                $status = DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY;
+                $status = DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY;
                 $configuration ='';
                 break;
             case 'longvarbinary':
@@ -146,7 +146,7 @@ function dynamicdata_utilapi_getstatic($args)
             case 'binary':
             case 'blob':       // caution, could be binary too !
                 $proptype = 4; // Medium Text Area
-                $status = DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY;
+                $status = DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY;
                 break;
             default:
                 $proptype = 1; // Static Text

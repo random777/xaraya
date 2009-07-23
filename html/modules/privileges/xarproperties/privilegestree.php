@@ -12,12 +12,11 @@
 
 sys::import('xaraya.structures.tree');
 sys::import('modules.privileges.class.privileges');
-sys::import('modules.dynamicdata.class.properties.base');
 
 /**
  * Handle Privileges Tree property
  */
-class PrivilegesTreeProperty extends DataProperty
+class PrivilegesTreeProperty extends DynamicData_Property_Base
 {
     public $id         = 30045;
     public $name       = 'privilegestree';

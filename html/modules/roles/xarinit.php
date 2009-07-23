@@ -177,7 +177,7 @@ function roles_activate()
                     'valcode' => 'createdbysystem',
                     'authmodule' => xarMod::getID('roles'),
     );
-    $group = DataObjectMaster::getObject(array('name' => 'roles_groups'));
+    $group = DynamicData_Object_Master::getObject(array('name' => 'roles_groups'));
     $rolefields['role_type'] = ROLES_GROUPTYPE;
     xarModVars::set('roles', 'defaultgroup', 0);
 
@@ -210,7 +210,7 @@ function roles_activate()
     $usergroup = $group->createItem($rolefields);
     xarModVars::set('roles', 'defaultgroup', $usergroup);
 
-    $user = DataObjectMaster::getObject(array('name' => 'roles_users'));
+    $user = DynamicData_Object_Master::getObject(array('name' => 'roles_users'));
     $rolefields['role_type'] = ROLES_USERTYPE;
 
         // The Anonymous user

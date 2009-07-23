@@ -433,7 +433,7 @@ function xarTpl__DDElement($modName, $ddName, $tplType, $tplData, $tplBase,$elem
     // Property fall-back to default template in the module the property belongs to
     if ((empty($sourceFileName) || !file_exists($sourceFileName)) &&
         $elements == 'properties') {
-        $fallbackmodule = DataPropertyMaster::getProperty(array('type' => $ddName))->tplmodule;
+        $fallbackmodule = DynamicData_Property_Master::getProperty(array('type' => $ddName))->tplmodule;
         if ($fallbackmodule != $modName) {
             $sourceFileName = xarTpl__GetSourceFileName($fallbackmodule, $templateBase, $ddName, $elements);
         }

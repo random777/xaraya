@@ -13,7 +13,7 @@
 /**
  * Handle Tigra color picker property
  */
-class TColorPickerProperty extends DataProperty
+class TColorPickerProperty extends DynamicData_Property_Base
 {
     public $id         = 44;
     public $name       = 'tcolorpicker';

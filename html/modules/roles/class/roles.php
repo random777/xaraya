@@ -196,8 +196,7 @@ class xarRoles extends Object
         // create the parent object
         list($id, $name, $itemtype, $parentid, $uname, $email, $pass,
             $date_reg, $val_code, $state, $auth_module) = $result->fields;
-        sys::import('modules.dynamicdata.class.objects.master');
-        $parent = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
+        $parent = DynamicData_Object_Master::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
         $parent->getItem(array('itemid' => $id));
 
         // retrieve the child's data from the repository
@@ -209,7 +208,7 @@ class xarRoles extends Object
         list($id, $name, $itemtype, $parentid, $uname, $email, $pass,
             $date_reg, $val_code, $state, $auth_module) = $result->fields;
         sys::import('modules.roles.class.role');
-        $child = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
+        $child = DynamicData_Object_Master::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
         $child->getItem(array('itemid' => $id));
 
        // done
@@ -285,7 +284,7 @@ class xarRoles extends Object
         }
         // create and return the role object
         sys::import('modules.roles.class.role');
-        $role = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $row['itemtype']));
+        $role = DynamicData_Object_Master::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $row['itemtype']));
         $role->getItem(array('itemid' => $row['id']));
         return $role;
     }

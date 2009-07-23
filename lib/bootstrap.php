@@ -391,7 +391,7 @@ function __autoload($classname)
     $nameparts = explode('_',strtolower($classname));
     $module = array_shift($nameparts);
     $locationname = implode('.', $nameparts);
-//    die($module . '.class.' . $locationname);
+
     // We are only looking at modules for now
     if ($module != 'xaraya') sys::import('modules.' . $module . '.class.' . $locationname);
 }

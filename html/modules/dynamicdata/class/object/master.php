@@ -681,7 +681,7 @@ class DynamicData_Object_Master extends Object
         $class = 'DynamicData_Object_List';
         if(!empty($args['class']))
         {
-            if(class_exists($args['class'] . 'List'))
+            if(class_exists($args['class'] . 'List',false))
             {
                 // this is a generic classname for the object, list and interface
                 $classname = $args['class'] . 'List';

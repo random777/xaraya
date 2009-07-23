@@ -8,15 +8,12 @@
  * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  */
-sys::import('modules.dynamicdata.class.properties.base');
-sys::import('modules.dynamicdata.class.objects.base');
-sys::import('modules.dynamicdata.class.properties.registration');
 
 /**
  * Utility Class to manage Dynamic Properties
  *
  */
-class DataPropertyMaster extends Object
+class DynamicData_Property_Master extends Object
 {
     const DD_DISPLAYSTATE_DISABLED = 0;
     const DD_DISPLAYSTATE_ACTIVE = 1;
@@ -186,7 +183,7 @@ class DataPropertyMaster extends Object
         } else {
             $proptypes = self::getPropertyTypes();
         }
-        $clazz = 'DataProperty';
+        $clazz = 'DynamicData_Property_Base';
         if( isset($proptypes[$args['type']]) && is_array($proptypes[$args['type']]) )
         {
             $propertyInfo  = $proptypes[$args['type']];
@@ -209,7 +206,6 @@ class DataPropertyMaster extends Object
 
             $dp = str_replace('/','.',substr($propertyInfo['filepath'],0,-4)); // minus .php
             sys::import($dp);
-
             $clazz = $propertyClass;
         } else {
             throw new BadParameterException($args['type'], 'The dataproperty #(1) does not exist');
@@ -226,7 +222,7 @@ class DataPropertyMaster extends Object
     static function createProperty(Array $args)
     {
         $descriptor = new DataObjectDescriptor(array('objectid' => 2)); // the Dynamic Properties = 2
-        $object = new DataObject($descriptor);
+        $object = new DynamicData_Object_Base($descriptor);
         $objectid = $object->createItem($args);
         unset($object);
         return $objectid;
@@ -249,7 +245,7 @@ class DataPropertyMaster extends Object
                 'itemid'   => $args['itemid']
             )
         );
-        $object = new DataObject($descriptor);
+        $object = new DynamicData_Object_Base($descriptor);
         if (empty($object)) return;
 
         $objectid = $object->getItem();
@@ -265,7 +261,7 @@ class DataPropertyMaster extends Object
      */
     static function getPropertyTypes()
     {
-        return PropertyRegistration::Retrieve();
+        return DynamicData_Property_Registration::Retrieve();
     }
 }
 ?>

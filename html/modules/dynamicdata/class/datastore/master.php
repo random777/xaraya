@@ -94,7 +94,7 @@ class DDObject extends Object implements IDDObject
  * @todo this factory should go into core once we use datastores in more broad ways.
  * @todo the classnames could use a bit of a clean up (shorter, lowercasing)
  */
-class DataStoreFactory extends Object
+class DynamicData_DataStore_Master extends Object
 {
     /**
      * Class method to get a new dynamic data store (of the right type)

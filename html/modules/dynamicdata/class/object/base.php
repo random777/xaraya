@@ -10,14 +10,12 @@
  */
 
 sys::import('xaraya.structures.descriptor');
-sys::import('modules.dynamicdata.class.properties');
-sys::import('modules.dynamicdata.class.objects.interfaces');
-sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.dynamicdata.class.object.interfaces');
 
 /**
  * DataObject Base class
  */
-class DataObject extends DataObjectMaster implements iDataObject
+class DynamicData_Object_Base extends DynamicData_Object_Master implements iDataObject
 {
 
     protected $descriptor  = null;      // descriptor object of this class
@@ -26,7 +24,7 @@ class DataObject extends DataObjectMaster implements iDataObject
     public $missingfields  = array();      // reference to fields not found by checkInput
 
     /**
-     * Inherits from DataObjectMaster and sets the requested item id
+     * Inherits from DynamicData_Object_Master and sets the requested item id
      *
      * @param $args['itemid'] item id of the object to get
     **/
@@ -154,8 +152,8 @@ class DataObject extends DataObjectMaster implements iDataObject
         $this->missingfields = array();
         foreach($fields as $name) {
             // Ignore disabled or ignored properties
-            if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-            || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED))
+            if(($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+            || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED))
                 continue;
 
             // Give the property this object's reference so it can send back info on missing fields
@@ -228,18 +226,18 @@ class DataObject extends DataObjectMaster implements iDataObject
             $args['properties'] = array();
             foreach($args['fieldlist'] as $name) {
                 if(isset($this->properties[$name])) {
-                    if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)) continue;
+                    if(($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)) continue;
                         $args['properties'][$name] = $this->properties[$name];
                 }
             }
         } else {
             $args['properties'] = array();
             foreach ($properties as $property) {
-                if(($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)) continue;
+                if(($property->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)) continue;
                     $args['properties'][$property->name] = $property;
             }
 
@@ -278,9 +276,9 @@ class DataObject extends DataObjectMaster implements iDataObject
             $args['properties'] = array();
             foreach($args['fieldlist'] as $name) {
                 if(isset($this->properties[$name])) {
-                    if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)) continue;
+                    if(($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN)) continue;
                     $args['properties'][$name] = $this->properties[$name];
                 }
             }
@@ -289,9 +287,9 @@ class DataObject extends DataObjectMaster implements iDataObject
             // TODO: this is exactly the same as in the display function, consolidate it.
             $totransform = array(); $totransform['transform'] = array();
             foreach($this->properties as $pname => $pobj) {
-                if(($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                || ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)) continue;
+                if(($property->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)
+                || ($property->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN)) continue;
                 // *never* transform an ID
                 // TODO: there is probably lots more to skip here.
                 if($pobj->type == '21') continue;
@@ -307,9 +305,9 @@ class DataObject extends DataObjectMaster implements iDataObject
 
             foreach($this->properties as $property) {
                 if(
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) &&
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY) &&
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN) &&
+                    ($property->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED) &&
+                    ($property->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY) &&
+                    ($property->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN) &&
                     ($property->type != 21) &&
                     isset($transformed[$property->name])
                 )
@@ -449,11 +447,11 @@ class DataObject extends DataObjectMaster implements iDataObject
             if ($this->baseancestor == 0) {
                 $this->baseancestor = 1;
             }
-            $primaryobject = DataObjectMaster::getObject(array('objectid' => $this->baseancestor));
+            $primaryobject = DynamicData_Object_Master::getObject(array('objectid' => $this->baseancestor));
             // no primary key identified for this object, so we're stuck
             if(!isset($primaryobject->primary)) {
                 $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                $vars = array('primary key', 'DataObject', 'createItem', 'dynamicdata');
+                $vars = array('primary key', 'DynamicData_Object_Base', 'createItem', 'dynamicdata');
                 throw new BadParameterException($vars,$msg);
             } else {
                 if ($this->objectid == 1) {

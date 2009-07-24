@@ -656,7 +656,7 @@ class DynamicData_Property_Base extends Object implements iDataProperty
 
         if (empty($allconfigproperties)) {
             $xartable = xarDB::getTables();
-            $q = new xarQuery('SELECT',$xartable['dynamic_configurations']);
+            $q = new Roles_Query('SELECT',$xartable['dynamic_configurations']);
             if (!$q->run()) return;
             $allconfigproperties = $q->output();
 

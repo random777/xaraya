@@ -178,7 +178,7 @@ class Privileges_Privileges extends Privileges_Masks
         $privid = $privilege->getID();
 
         // find the role for the assignation and get its ID
-        $role = xarRoles::findRole($rolename);
+        $role = Roles_Roles::findRole($rolename);
         $roleid = $role->getID();
 
         $bindvars = array($roleid,$privid);

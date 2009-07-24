@@ -22,7 +22,7 @@ function roles_admin_showprivileges()
     // Security Check
     if (!xarSecurityCheck('EditRole')) return;
     // Call the Roles class and get the role
-    $role = xarRoles::get($id);
+    $role = Roles_Roles::get($id);
 
     // get the array of parents of this role
     // need to display this in the template
@@ -198,7 +198,7 @@ function roles_admin_showprivileges()
     $data['privileges'] = $currentprivileges;
     $data['directassigned'] = $directassigned;
     $data['authid'] = xarSecGenAuthKey();
-    $data['groups'] = xarRoles::getgroups();
+    $data['groups'] = Roles_Roles::getgroups();
     $data['removeurl'] = xarModURL('roles',
         'admin',
         'removeprivilege',

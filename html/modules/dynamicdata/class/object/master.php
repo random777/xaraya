@@ -61,7 +61,7 @@ class DataObjectDescriptor extends ObjectDescriptor
     {
         $xartable = xarDB::getTables();
 
-        $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
+        $q = new Roles_Query('SELECT',$xartable['dynamic_objects']);
         $q->open();
         if (isset($args['name'])) {
             $q->eq('name',$args['name']);
@@ -950,8 +950,7 @@ class DynamicData_Object_Master extends Object
         }
 
         // Get all the dynamic objects at once
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
+        $q = new Roles_Query('SELECT',$xartable['dynamic_objects']);
         $q->addfields(array('id AS objectid','name AS objectname','module_id AS moduleid','itemtype AS itemtype','parent_id AS parent'));
         $q->eq('module_id',$this->moduleid);
         if (!$q->run()) return;
@@ -1038,8 +1037,7 @@ class DynamicData_Object_Master extends Object
         if ($extensions) {
             // Get all the objects at once
             $xartable = xarDB::getTables();
-            sys::import('modules.roles.class.xarQuery');
-            $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
+            $q = new Roles_Query('SELECT',$xartable['dynamic_objects']);
             $q->addfields(array('id AS objectid','label AS objectlabel','module_id AS moduleid','itemtype AS itemtype','parent_id AS parent'));
             $q->eq('module_id',$moduleid);
             if (!$q->run()) return;

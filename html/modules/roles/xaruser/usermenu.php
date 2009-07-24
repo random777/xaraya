@@ -34,7 +34,7 @@ function roles_user_usermenu($args)
             $id = xarUserGetVar('id');
             $object = DynamicData_Object_Master::getObject(array('name' => 'roles_users'));
             $object->getItem(array('itemid' => $id));
-            $role = xarRoles::getRole($id);
+            $role = Roles_Roles::getRole($id);
             $home = xarModUserVars::get('roles','userhome');
             $allowemail = xarModUserVars::get('roles','allowemail',$id); //allow someone to send an email to the user via a form
             if (xarModVars::get('roles','setuserlastlogin')) {

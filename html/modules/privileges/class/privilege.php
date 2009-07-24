@@ -106,8 +106,7 @@ class Privileges_Privilege extends Privileges_Mask
     */
     function removeMember($member)
     {
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('DELETE',$this->privmemberstable);
+        $q = new Roles_Query('DELETE',$this->privmemberstable);
         $q->eq('privilege_id', $member->getID());
         $q->eq('parent_id', $this->getID());
         if (!$q->run()) return;
@@ -251,7 +250,6 @@ class Privileges_Privilege extends Privileges_Mask
         $result = $stmt->executeQuery(array($this->id));
 
         // make objects from the db entries retrieved
-        sys::import('modules.roles.class.roles');
         $roles = array();
         //      $ind = 0;
         while($result->next()) {
@@ -261,7 +259,7 @@ class Privileges_Privilege extends Privileges_Mask
             $role = DynamicData_Object_Master::getObject(array('module' => 'roles', 'itemtype' => $itemtype));
             $role->getItem(array('itemid' => $id));
             /*
-            $role = new xarRole(array('id' => $id,
+            $role = new Roles_Role(array('id' => $id,
                                       'name' => $name,
                                       'itemtype' => $itemtype,
                                       'uname' => $uname,
@@ -523,8 +521,7 @@ class Privileges_Privilege extends Privileges_Mask
     */
     function isRootPrivilege()
     {
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT');
+        $q = new Roles_Query('SELECT');
         $q->addtable($this->privilegestable,'p');
         $q->addtable($this->privmemberstable,'pm');
         $q->join('p.id','pm.privilege_id');

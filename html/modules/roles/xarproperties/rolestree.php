@@ -11,7 +11,6 @@
  */
 
 sys::import('xaraya.structures.tree');
-sys::import('modules.roles.class.roles');
 
 /**
  * Handle Roles Tree Property
@@ -45,7 +44,7 @@ class RolesTree extends Tree
 {
     function createnodes(TreeNode $node)
     {
-        $data = xarRoles::getgroups();
+        $data = Roles_Roles::getgroups();
          foreach ($data as $row) {
             $nodedata = array(
                 'id' => $row['id'],

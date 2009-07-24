@@ -29,8 +29,7 @@ function privileges_admin_newrealm()
         if (!xarSecConfirmAuthKey()) return;
 
         $xartable = xarDB::getTables();
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT',$xartable['security_realms'],'name');
+        $q = new Roles_Query('SELECT',$xartable['security_realms'],'name');
         $q->eq('name', $name);
         if(!$q->run()) return;
 
@@ -38,7 +37,7 @@ function privileges_admin_newrealm()
             throw new DuplicateException(array('realm',$name));
         }
 
-        $q = new xarQuery('INSERT',$xartable['security_realms']);
+        $q = new Roles_Query('INSERT',$xartable['security_realms']);
         $q->addfield('name', $name);
         if(!$q->run()) return;
 

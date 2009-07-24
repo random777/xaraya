@@ -378,9 +378,6 @@ class Privileges_Masks extends Object
         // normalize the mask now - its properties won't change below
         $mask->normalize();
 
-        // get the Roles class
-        sys::import('modules.roles.class.roles');
-
         // get the id of the role we will check against
         // an empty role means take the current user
         if ($rolename == '') {
@@ -389,9 +386,9 @@ class Privileges_Masks extends Object
             if (empty($userID)) {
                 $userID = _XAR_ID_UNREGISTERED;
             }
-            $role = xarRoles::get($userID);
+            $role = Roles_Roles::get($userID);
         } else {
-            $role = xarRoles::findRole($rolename);
+            $role = Roles_Roles::findRole($rolename);
         }
         
         // check if we already have the irreducible set of privileges for the current user

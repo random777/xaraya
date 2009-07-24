@@ -20,7 +20,7 @@ function roles_admin_new()
 
     if (!xarVarFetch('return_url',  'isset', $data['return_url'], NULL, XARVAR_DONT_SET)) {return;}
     if (!xarVarFetch('parentid',    'id',    $data['parentid'], xarModVars::get('roles','defaultgroup'), XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('itemtype',    'int',   $itemtype, xarRoles::ROLES_USERTYPE, XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('itemtype',    'int',   $itemtype, Roles_Roles::ROLES_USERTYPE, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('duvs',        'array', $data['duvs'], array(), XARVAR_NOT_REQUIRED)) return;
 
     $data['object'] = DynamicData_Object_Master::getObject(array('module'   => 'roles', 'itemtype' => $itemtype));

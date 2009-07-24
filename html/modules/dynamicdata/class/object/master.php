@@ -651,11 +651,11 @@ class DynamicData_Object_Master extends Object
         $descriptor = new DataObjectDescriptor($args);
 
         // Try to get the object from the cache
-        if (xarCore::isCached('DDObject', MD5(serialize($args)))) {
-            $object = clone xarCore::getCached('DDObject', MD5(serialize($args)));
+        if (xarCore::isCached('DynamicData_Datastore_DDObject', MD5(serialize($args)))) {
+            $object = clone xarCore::getCached('DynamicData_Datastore_DDObject', MD5(serialize($args)));
         } else {
             $object = new $args['class']($descriptor);
-//            xarCore::setCached('DDObject', MD5(serialize($args)), clone $object);
+//            xarCore::setCached('DynamicData_Datastore_DDObject', MD5(serialize($args)), clone $object);
         }
         return $object;
     }

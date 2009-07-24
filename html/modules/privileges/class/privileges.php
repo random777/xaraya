@@ -544,7 +544,6 @@ class Privileges_Privileges extends Privileges_Masks
                            'level'=>$level,
                            'description'=>$description,
                            'parentid'=>0);
-            sys::import('modules.privileges.class.privilege');
             return new Privileges_Privilege($pargs);
         }
         return;

@@ -390,9 +390,9 @@ function __autoload($classname)
 {
     $nameparts = explode('_',strtolower($classname));
     $module = array_shift($nameparts);
-    $locationname = implode('.', $nameparts);
+    $locationname = implode('/', $nameparts);
 
     // We are only looking at modules for now
-    if ($module != 'xaraya') sys::import('modules.' . $module . '.class.' . $locationname);
+    if ($module != 'xaraya') include('modules/' . $module . '/class/' . $locationname . '.php');
 }
 ?>

@@ -27,12 +27,10 @@
                            'level' => $level,
                            'parentid' => 0
                            );
-            sys::import('modules.privileges.class.privilege');
-            $priv = new xarPrivilege($pargs);
+            $priv = new Privileges_Privilege($pargs);
             if ($priv->add()) return $priv->getID();
         } else {
-            sys::import('modules.privileges.class.privileges');
-            $priv = xarPrivileges::getPrivilege($id);
+            $priv = Privileges_Privileges::getPrivilege($id);
             $priv->setName($name);
             $priv->setRealm($realm);
             $priv->setModule($module);

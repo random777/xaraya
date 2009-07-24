@@ -1,20 +1,19 @@
 <?php
 /**
- * xarPrivilege: class for the privileges object
+ * Privileges_Privilege: class for the privileges object
  *
  * Represents a single privileges object
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
 */
-sys::import('modules.privileges.class.mask');
 
-class xarPrivilege extends xarMask
+class Privileges_Privilege extends Privileges_Mask
 {
     public $parentid = 0;      //the id of the parent of this privilege
 
     /**
-     * xarPrivilege: constructor for the class
+     * Privileges_Privilege: constructor for the class
      *
      * Just sets up the db connection and initializes some variables
      *
@@ -67,8 +66,7 @@ class xarPrivilege extends xarMask
 
         // make this privilege a child of its parent
         if(!empty($this->parentid)) {
-            sys::import('modules.privileges.class.privileges');
-            $parentperm = xarPrivileges::getprivilege($this->parentid);
+            $parentperm = Privileges_Privileges::getprivilege($this->parentid);
             $parentperm->addMember($this);
         }
         return true;
@@ -93,7 +91,7 @@ class xarPrivilege extends xarMask
         //Execute the query, bail if an exception was thrown
         $this->dbconn->Execute($query,$bindvars);
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -115,7 +113,7 @@ class xarPrivilege extends xarMask
         if (!$q->run()) return;
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -149,7 +147,7 @@ class xarPrivilege extends xarMask
         $this->dbconn->Execute($query,$bindvars);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -182,7 +180,7 @@ class xarPrivilege extends xarMask
         while($result->next()) {
             list($parentid) = $result->fields;
             if ($parentid != 0) {
-                $parentperm = xarPrivileges::getPrivilege($parentid);
+                $parentperm = Privileges_Privileges::getPrivilege($parentid);
                 $parentperm->removeMember($this);
             }
         }
@@ -331,7 +329,7 @@ class xarPrivilege extends xarMask
                             'level'=>$level,
                             'description'=>$description,
                             'parentid' => $id);
-            $parents[] = new xarPrivilege($pargs);
+            $parents[] = new Privileges_Privilege($pargs);
         }
         // done
         return $parents;
@@ -412,7 +410,7 @@ class xarPrivilege extends xarMask
                             'level'=>       $level,
                             'description'=> $description,
                             'parentid' => $parentid);
-            $children[$parentid][] = new xarPrivilege($pargs);
+            $children[$parentid][] = new Privileges_Privilege($pargs);
         }
         // done
         foreach (array_keys($children) as $parentid) {

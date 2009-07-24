@@ -183,7 +183,7 @@ class Role extends DynamicData_Object_Base
         xarModCallHooks('item', 'link', $this->getID(), $item);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -224,7 +224,7 @@ class Role extends DynamicData_Object_Base
         xarModCallHooks('item', 'unlink', $this->getID(), $item);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -357,12 +357,11 @@ class Role extends DynamicData_Object_Base
         if(!isset($stmt)) $stmt = $this->dbconn->prepareStatement($query);
         $result = $stmt->executeQuery(array($this->properties['id']->value));
 
-        sys::import('modules.privileges.class.privilege');
         $privileges = array();
         while ($result->next()) {
             list($id, $name, $realm, $module_id, $module, $component, $instance, $level,
                 $description) = $result->fields;
-            $perm = new xarPrivilege(array('id' => $id,
+            $perm = new Privileges_Privilege(array('id' => $id,
                     'name' => $name,
                     'realm' => is_null($realm) ? 'All' : $realm,
                     'module' => $module,
@@ -431,7 +430,7 @@ class Role extends DynamicData_Object_Base
         $this->dbconn->Execute($query,$bindvars);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -451,7 +450,7 @@ class Role extends DynamicData_Object_Base
         $this->dbconn->Execute($query,$bindvars);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 

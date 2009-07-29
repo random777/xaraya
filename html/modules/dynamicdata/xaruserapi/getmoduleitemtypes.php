@@ -19,6 +19,6 @@
  */
 function dynamicdata_userapi_getmoduleitemtypes($args)
 {
-    return DataObjectMaster::getModuleItemTypes($args);      
+    return DynamicData_Object_Master::getModuleItemTypes($args);      
 }
 ?>

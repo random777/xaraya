@@ -20,7 +20,7 @@
  */
 function dynamicdata_adminapi_showinput($args)
 {
-    $property = & DataPropertyMaster::getProperty($args);
+    $property = & DynamicData_Property_Master::getProperty($args);
 
     if (!empty($args['preset']) && empty($args['value'])) {
         return $property->_showPreset($args);

@@ -41,7 +41,7 @@ function dynamicdata_admin_create($args)
 
     if (!xarSecConfirmAuthKey()) return;
 
-    $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
+    $myobject = & DynamicData_Object_Master::getObject(array('objectid' => $objectid,
                                          'join'     => $join,
                                          'table'    => $table,
                                          'itemid'   => $itemid));

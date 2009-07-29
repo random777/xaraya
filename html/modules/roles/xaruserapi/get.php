@@ -39,8 +39,7 @@ function roles_userapi_get($args)
     $rolestable = $xartable['roles'];
 
     // Get user
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery('SELECT',$rolestable);
+    $q = new Roles_Query('SELECT',$rolestable);
     $q->addfields(array(
                   'id',
                   'uname',

@@ -20,7 +20,7 @@ function dynamicdata_utilapi_export($args)
     // restricted to DD Admins
     if(!xarSecurityCheck('AdminDynamicData')) return;
 
-        $myobject = & DataObjectMaster::getObject(array('name' => 'objects'));
+        $myobject = & DynamicData_Object_Master::getObject(array('name' => 'objects'));
     if (isset($args['objectref'])) {
         $myobject->getItem(array('itemid' => $args['objectref']->objectid));
 
@@ -48,12 +48,12 @@ function dynamicdata_utilapi_export($args)
     }
 
     // get the list of properties for a Dynamic Object
-    $object_properties = DataPropertyMaster::getProperties(array('objectid' => 1));
+    $object_properties = DynamicData_Property_Master::getProperties(array('objectid' => 1));
 
     // get the list of properties for a Dynamic Property
-    $property_properties = DataPropertyMaster::getProperties(array('objectid' => 2));
+    $property_properties = DynamicData_Property_Master::getProperties(array('objectid' => 2));
 
-    $proptypes = DataPropertyMaster::getPropertyTypes();
+    $proptypes = DynamicData_Property_Master::getPropertyTypes();
 
     $prefix = xarDB::getPrefix();
     $prefix .= '_';
@@ -72,7 +72,7 @@ function dynamicdata_utilapi_export($args)
             } else {
                 // Treat parent fields where module is DD differently
                 if (($name == 'parent') && ($myobject->moduleid == 182)) {
-                    $info = DataObjectMaster::getObjectInfo(array('module_id' => 182, 'itemtype' => $myobject->properties[$name]->value));
+                    $info = DynamicData_Object_Master::getObjectInfo(array('module_id' => 182, 'itemtype' => $myobject->properties[$name]->value));
                     $value = $info['name'];
                 } else {
                     $value = $myobject->properties[$name]->value;
@@ -82,7 +82,7 @@ function dynamicdata_utilapi_export($args)
         }
     }
     $xml .= "  <properties>\n";
-    $properties = DataPropertyMaster::getProperties(array('objectid' => $myobject->properties['objectid']->value));
+    $properties = DynamicData_Property_Master::getProperties(array('objectid' => $myobject->properties['objectid']->value));
     foreach (array_keys($properties) as $name) {
         $xml .= '    <property name="'.$name.'">' . "\n";
         foreach (array_keys($property_properties) as $key) {

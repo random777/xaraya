@@ -11,9 +11,7 @@
  *
  * @package dynamicdata
 **/
-sys::import('modules.dynamicdata.class.datastores.base');
-
-class SQLDataStore extends OrderedDataStore implements ISQLDataStore
+class SQLDataStore extends DynamicData_Datastore_OrderedDataStore implements ISQLDataStore
 {
     protected $db     = null;
     protected $tables = null;
@@ -32,7 +30,7 @@ class SQLDataStore extends OrderedDataStore implements ISQLDataStore
     /**
      * Add a where clause for this data store (for getItems)
      */
-    function addWhere(DataProperty &$property, $clause, $join, $pre = '', $post = '')
+    function addWhere(DynamicData_Property_Base &$property, $clause, $join, $pre = '', $post = '')
     {
         $name = $this->getFieldName($property);
         if(!isset($name))
@@ -48,7 +46,7 @@ class SQLDataStore extends OrderedDataStore implements ISQLDataStore
     /**
      * Add a group by field for this data store (for getItems)
      */
-    function addGroupBy(DataProperty &$property)
+    function addGroupBy(DynamicData_Property_Base &$property)
     {
         $name = $this->getFieldName($property);
         if(!isset($name))

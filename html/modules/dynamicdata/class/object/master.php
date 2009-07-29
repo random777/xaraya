@@ -10,8 +10,8 @@
  */
 
 sys::import('xaraya.structures.descriptor');
-sys::import('modules.dynamicdata.class.datastores');
-sys::import('modules.dynamicdata.class.properties');
+sys::import('modules.dynamicdata.xartables');
+xarDB::importTables(dynamicdata_xartables());
 
 /*
  * generate the variables necessary to instantiate a DataObject or DataProperty class
@@ -61,7 +61,7 @@ class DataObjectDescriptor extends ObjectDescriptor
     {
         $xartable = xarDB::getTables();
 
-        $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
+        $q = new Roles_Query('SELECT',$xartable['dynamic_objects']);
         $q->open();
         if (isset($args['name'])) {
             $q->eq('name',$args['name']);
@@ -92,7 +92,7 @@ class DataObjectDescriptor extends ObjectDescriptor
     }
 }
 
-class DataObjectMaster extends Object
+class DynamicData_Object_Master extends Object
 {
     protected $descriptor  = null;      // descriptor object of this class
 
@@ -114,7 +114,7 @@ class DataObjectMaster extends Object
     public $table       = '';
     public $extend      = true;
 
-    public $class       = 'DataObject'; // the class name of this DD object
+    public $class       = 'DynamicData_Object_Base'; // the class name of this DD object
     public $filepath    = 'auto';       // the path to the class of this DD object (can be empty or 'auto' for DataObject)
     public $properties  = array();      // list of properties for the DD object
     public $datastores  = array();      // similarly the list of datastores (arguably in the wrong place here)
@@ -196,7 +196,7 @@ class DataObjectMaster extends Object
             if(!isset($args['allprops']))   //FIXME is this needed??
                 $args['allprops'] = null;
 
-            DataPropertyMaster::getProperties($args); // we pass this object along
+            DynamicData_Property_Master::getProperties($args); // we pass this object along
         }
 
         // Do we have a join?
@@ -245,7 +245,7 @@ class DataObjectMaster extends Object
         if(count($fieldlist) != 0) {
             foreach($fieldlist as $field)
                 // Ignore those disabled AND those that don't exist
-                if(isset($properties[$field]) && ($properties[$field]->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED))
+                if(isset($properties[$field]) && ($properties[$field]->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED))
                     $fields[$properties[$field]->id] = $properties[$field]->name;
         } else {
             if ($status) {
@@ -256,7 +256,7 @@ class DataObjectMaster extends Object
             } else {
                 // no status filter: return those that are not disabled
                 foreach($this->properties as $property)
-                    if($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
+                    if($property->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
                         $fields[$property->id] = $property->name;
             }
         }
@@ -368,7 +368,7 @@ class DataObjectMaster extends Object
                 !empty($this->fieldlist) and          // if there is a fieldlist
                 !in_array($name,$this->fieldlist) and // but the field is not in it,
                 $property->type != 21 or                // and we're not on an Item ID property
-                ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)  // or the property is disabled
+                ($property->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)  // or the property is disabled
             )
             {
                 // Skip it.
@@ -410,7 +410,7 @@ class DataObjectMaster extends Object
     function addDataStore($name = '_dynamic_data_', $type='data')
     {
         // get a new data store
-        $datastore = DataStoreFactory::getDataStore($name, $type);
+        $datastore = DynamicData_DataStore_Master::getDataStore($name, $type);
 
         // add it to the list of data stores
         $this->datastores[$datastore->name] =& $datastore;
@@ -482,7 +482,7 @@ class DataObjectMaster extends Object
         // TODO: find some way to have unique IDs across all objects if necessary
         if(!isset($args['id']))
             $args['id'] = count($this->properties) + 1;
-        DataPropertyMaster::addProperty($args,$this);
+        DynamicData_Property_Master::addProperty($args,$this);
     }
 
     /**
@@ -645,17 +645,17 @@ class DataObjectMaster extends Object
             }
         } else {
             //CHECKME: remove this later. only here for backward compatibility
-            $args['class'] = 'DataObject';
+            $args['class'] = 'DynamicData_Object_Base';
         }
         // here we can use our own classes to retrieve this
         $descriptor = new DataObjectDescriptor($args);
 
         // Try to get the object from the cache
-        if (xarCore::isCached('DDObject', MD5(serialize($args)))) {
-            $object = clone xarCore::getCached('DDObject', MD5(serialize($args)));
+        if (xarCore::isCached('DynamicData_Datastore_DDObject', MD5(serialize($args)))) {
+            $object = clone xarCore::getCached('DynamicData_Datastore_DDObject', MD5(serialize($args)));
         } else {
             $object = new $args['class']($descriptor);
-//            xarCore::setCached('DDObject', MD5(serialize($args)), clone $object);
+//            xarCore::setCached('DynamicData_Datastore_DDObject', MD5(serialize($args)), clone $object);
         }
         return $object;
     }
@@ -678,11 +678,10 @@ class DataObjectMaster extends Object
         $info = self::getObjectInfo($args);
         if ($info != null) $args = array_merge($args,$info);
 
-        sys::import('modules.dynamicdata.class.objects.list');
-        $class = 'DataObjectList';
+        $class = 'DynamicData_Object_List';
         if(!empty($args['class']))
         {
-            if(class_exists($args['class'] . 'List'))
+            if(class_exists($args['class'] . 'List',false))
             {
                 // this is a generic classname for the object, list and interface
                 $classname = $args['class'] . 'List';
@@ -804,7 +803,7 @@ class DataObjectMaster extends Object
         foreach(array_keys($mylist->properties) as $name)
         {
             $propid = $mylist->properties[$name]->id;
-            $propid = DataPropertyMaster::deleteProperty(
+            $propid = DynamicData_Property_Master::deleteProperty(
                 array('itemid' => $propid)
             );
         }
@@ -898,7 +897,7 @@ class DataObjectMaster extends Object
                 if(count($pieces) < 2)
                 {
                     $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                    $vars = array('query ' . $args['where'], 'DataObjectMaster', 'joinTable', 'DynamicData');
+                    $vars = array('query ' . $args['where'], 'DynamicData_Object_Master', 'joinTable', 'DynamicData');
                     throw new BadParameterException($vars,$msg);
                 }
                 // for many-to-1 relationships where you specify the foreign key in the original table here
@@ -951,8 +950,7 @@ class DataObjectMaster extends Object
         }
 
         // Get all the dynamic objects at once
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
+        $q = new Roles_Query('SELECT',$xartable['dynamic_objects']);
         $q->addfields(array('id AS objectid','name AS objectname','module_id AS moduleid','itemtype AS itemtype','parent_id AS parent'));
         $q->eq('module_id',$this->moduleid);
         if (!$q->run()) return;
@@ -1039,8 +1037,7 @@ class DataObjectMaster extends Object
         if ($extensions) {
             // Get all the objects at once
             $xartable = xarDB::getTables();
-            sys::import('modules.roles.class.xarQuery');
-            $q = new xarQuery('SELECT',$xartable['dynamic_objects']);
+            $q = new Roles_Query('SELECT',$xartable['dynamic_objects']);
             $q->addfields(array('id AS objectid','label AS objectlabel','module_id AS moduleid','itemtype AS itemtype','parent_id AS parent'));
             $q->eq('module_id',$moduleid);
             if (!$q->run()) return;

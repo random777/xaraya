@@ -13,7 +13,7 @@
 /**
  * Class to handle hidden property
  */
-class HiddenProperty extends DataProperty
+class HiddenProperty extends DynamicData_Property_Base
 {
     public $id         = 18;
     public $name       = 'hidden';

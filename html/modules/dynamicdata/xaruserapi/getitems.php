@@ -122,7 +122,7 @@ function &dynamicdata_userapi_getitems($args)
         $catid = '';
     }
 
-    $object = & DataObjectMaster::getObjectList(array('moduleid'  => $module_id,
+    $object = & DynamicData_Object_Master::getObjectList(array('moduleid'  => $module_id,
                                            'itemtype'  => $itemtype,
                                            'itemids' => $itemids,
                                            'sort' => $sort,

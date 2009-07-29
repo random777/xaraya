@@ -87,11 +87,11 @@ class GroupListProperty extends SelectProperty
         
         if ($this->initialization_update_behavior == 'replace' && $this->previous_groupid) {
             if (!$itemid) {
-                $q = new xarQuery('DELETE',$xartable['rolemembers']);
+                $q = new Roles_Query('DELETE',$xartable['rolemembers']);
                 $q->eq('parent_id',$this->previous_groupid);
                 if (!$q->run()) return;
             } else {
-                $q = new xarQuery('UPDATE',$xartable['rolemembers']);
+                $q = new Roles_Query('UPDATE',$xartable['rolemembers']);
                 $q->addfield('parent_id',$this->current_groupid);
                 $q->eq('role_id',$itemid);
                 $q->eq('parent_id',$this->previous_groupid);
@@ -99,7 +99,7 @@ class GroupListProperty extends SelectProperty
             }
         } else {
             if (!$itemid) return true;
-            $q = new xarQuery('INSERT',$xartable['rolemembers']);
+            $q = new Roles_Query('INSERT',$xartable['rolemembers']);
             $q->addfield('role_id',$itemid);
             $q->addfield('parent_id',$this->current_groupid);
             if (!$q->run()) return;
@@ -121,15 +121,15 @@ class GroupListProperty extends SelectProperty
     {
         $this->value = $itemid;
         $value = 0;
-        $basegroup = xarRoles::get($this->initialization_basegroup);
+        $basegroup = Roles_Roles::get($this->initialization_basegroup);
         if (!empty($basegroup)) {
             $xartable = xarDB::getTables();
-            $q = new xarQuery('SELECT',$xartable['rolemembers']);
+            $q = new Roles_Query('SELECT',$xartable['rolemembers']);
             $q->addfield('parent_id');
             $q->eq('role_id',$itemid);
             if (!$q->run()) return;
             foreach ($q->output() as $row) {
-                $candidate = xarRoles::get($row['parent_id']);
+                $candidate = Roles_Roles::get($row['parent_id']);
                 if ($candidate->isAncestor($basegroup) || ($candidate->getId() == $basegroup->getId())) {
                     $value = $row['parent_id'];
                     break;
@@ -164,7 +164,7 @@ class GroupListProperty extends SelectProperty
             // It's a row in an objectlist
             $data['value'] = $this->retrieveValue($data['_itemid']);
         }
-        $group = xarRoles::get($data['value']);
+        $group = Roles_Roles::get($data['value']);
         if (!empty($group)) {
             $data['value'] = $group->getName();
         } else {

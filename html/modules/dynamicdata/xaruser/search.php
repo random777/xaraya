@@ -66,7 +66,7 @@ function dynamicdata_user_search($args)
     if (empty($data['ishooked']) && !empty($data['gotobject'])) {
         // get the selected object
         $objects = array();
-        $object = DataObjectMaster::getObjectInfo(
+        $object = DynamicData_Object_Master::getObjectInfo(
                                 array('moduleid' => $module_id,
                                       'itemtype' => $itemtype));
         if (!empty($object)) {
@@ -108,7 +108,7 @@ function dynamicdata_user_search($args)
         }
         if (!empty($q) && count($wherelist) > 0) {
             $where = join(' or ',$wherelist);
-            $status = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+            $status = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
             $pagerurl = xarModURL('dynamicdata','user','search',
                                   array('module_id' => ($module_id == $mymodid) ? null : $module_id,
                                         'itemtype' => empty($itemtype) ? null : $itemtype,

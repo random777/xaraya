@@ -26,8 +26,7 @@ function privileges_admin_viewroles()
     xarSessionDelVar('privileges_statusmsg');
 
     //Call the Privileges class and get the privilege
-    sys::import('modules.privileges.class.privileges');
-    $priv = xarPrivileges::getPrivilege($id);
+    $priv = Privileges_Privileges::getPrivilege($id);
 
     //Get the array of current roles this privilege is assigned to
     $curroles = array();

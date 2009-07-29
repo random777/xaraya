@@ -135,7 +135,7 @@ function dynamicdata_admin_privileges($args)
     }
 
     // Get property types
-    $proptypes = DataPropertyMaster::getPropertyTypes();
+    $proptypes = DynamicData_Property_Master::getPropertyTypes();
 
     // Get properties
     $properties = xarModAPIFunc('dynamicdata','user','getitems',

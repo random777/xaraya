@@ -60,7 +60,7 @@ function dynamicdata_adminapi_update($args)
     }
 
 // TODO: test this
-    $myobject = & DataObjectMaster::getObject(array('moduleid' => $module_id,
+    $myobject = & DynamicData_Object_Master::getObject(array('moduleid' => $module_id,
                                          'itemtype' => $itemtype,
                                          'itemid'   => $itemid));
     if (empty($myobject)) return;

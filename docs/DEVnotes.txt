@@ -151,7 +151,7 @@ OTHER CHANGES POSSIBLY AFFECTING UPGRADES:
   no functional behaviour is attached to it yet. In a way the
   xar:template tag and the xar:blocklayout tag are moving closer to
   eachother.
-* showList method in the DataObjectList class has been removed in favor of
+* showList method in the DynamicData_Object_List class has been removed in favor of
   showView due to it's redundancy in code. The data-list tag will continue to
   operate as normal (for now), but any $modname/xartemplates/objects/*list*
   templates will need to be renamed *view*
@@ -288,7 +288,7 @@ design work can begin.
   be not needed anymore now, as an exception will already be raised so the statement
   will never be reached. Also look at cases where an exception is not raised
   where it probably should (i.e. adapt caller with try/catch)
-* take a decision on query abstraction, xarQuery we have, marc is a fan of it
+* take a decision on query abstraction, Roles_Query we have, marc is a fan of it
   it can help (mostly) in the modules arena. Should we offer it from core?
 * reqmodules in the registration class is now a bit moot, can only contain one
   module and its always the owning module. Didnt feel like going over all the props

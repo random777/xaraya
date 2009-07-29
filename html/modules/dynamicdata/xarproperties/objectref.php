@@ -87,15 +87,15 @@ class ObjectRefProperty extends SelectProperty
                              'config'   => $config,
                              'isalias'   => $isalias);
             }
-            $object = DataObjectMaster::getObject(array('name' => 'objects'));
+            $object = DynamicData_Object_Master::getObject(array('name' => 'objects'));
         } else {
-            $object = DataObjectMaster::getObjectList(array('name' => $this->initialization_refobject));
+            $object = DynamicData_Object_Master::getObjectList(array('name' => $this->initialization_refobject));
 
             $items =  $object->getItems(array (
                                         'sort'     => $this->initialization_display_prop,
                                         'fieldlist'=> array($this->initialization_display_prop,$this->initialization_store_prop))
                                  );
-            $object = DataObjectMaster::getObject(array('name' => $this->initialization_refobject));
+            $object = DynamicData_Object_Master::getObject(array('name' => $this->initialization_refobject));
         }
         
         // Make sure the display and store fields are valid properties of this object

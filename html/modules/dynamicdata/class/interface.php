@@ -13,7 +13,6 @@
  * @todo try to replace xarTplModule with xarTplObject
  */
 
- sys::import('modules.dynamicdata.class.objects');
 /**
  * Dynamic Object Interface (experimental - cfr. 'object' module)
  *
@@ -56,7 +55,7 @@ class DataObjectInterface extends Object
 
         // retrieve the object information for this object
         if(!empty($args['object']))  {
-            $info = DataObjectMaster::getObjectInfo(
+            $info = DynamicData_Object_Master::getObjectInfo(
                 array('name' => $args['object'])
             );
             $args = array_merge($args, $info);
@@ -114,7 +113,7 @@ class DataObjectInterface extends Object
 
         if(!isset($this->object)) 
         {
-            $this->object =& DataObjectMaster::getObject($this->args);
+            $this->object =& DynamicData_Object_Master::getObject($this->args);
             if(empty($this->object)) 
                 return;
             if(empty($this->tplmodule)) 
@@ -202,7 +201,7 @@ class DataObjectInterface extends Object
 
         if(!isset($this->object)) 
         {
-            $this->object =& DataObjectMaster::getObject($this->args);
+            $this->object =& DynamicData_Object_Master::getObject($this->args);
             if(empty($this->object)) 
                 return;
             if(empty($this->tplmodule)) 
@@ -291,7 +290,7 @@ class DataObjectInterface extends Object
 
         if(!isset($this->object)) 
         {
-            $this->object =& DataObjectMaster::getObject($this->args);
+            $this->object =& DynamicData_Object_Master::getObject($this->args);
             if(empty($this->object)) 
                 return;
 
@@ -371,7 +370,7 @@ class DataObjectInterface extends Object
 
         if(!isset($this->object)) 
         {
-            $this->object =& DataObjectMaster::getObject($this->args);
+            $this->object =& DynamicData_Object_Master::getObject($this->args);
             if(empty($this->object)) 
                 return;
 
@@ -439,7 +438,7 @@ class DataObjectInterface extends Object
 
         if(!isset($this->list)) 
         {
-            $this->list =& DataObjectMaster::getObjectList($this->args);
+            $this->list =& DynamicData_Object_Master::getObjectList($this->args);
             if(empty($this->list)) 
                 return;
             
@@ -477,7 +476,7 @@ class DataObjectInterface extends Object
 
         if(!isset($this->list)) 
         {
-            $this->list =& DataObjectMaster::getObjectList($this->args);
+            $this->list =& DynamicData_Object_Master::getObjectList($this->args);
             if(empty($this->list)) 
                 return;
 

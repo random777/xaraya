@@ -12,7 +12,7 @@
 /**
  * Handle calendar property
  */
-class CalendarProperty extends DataProperty
+class CalendarProperty extends DynamicData_Property_Base
 {
     public $id         = 8;
     public $name       = 'calendar';

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * xarMask: class for the mask object
+ * Privileges_Mask: class for the mask object
  *
  * Represents a single security mask
  *
@@ -9,7 +9,7 @@
  * @access  public
  * @throws  none
 */
-class xarMask extends Object
+class Privileges_Mask extends Object
 {
     const PRIVILEGES_PRIVILEGETYPE = 2;
     const PRIVILEGES_MASKTYPE = 3;
@@ -33,7 +33,7 @@ class xarMask extends Object
     public $modulestable;
 
     /**
-     * xarMask: constructor for the class
+     * Privileges_Mask: constructor for the class
      *
      * Creates a security mask
      *
@@ -241,7 +241,7 @@ class xarMask extends Object
         if (($p1[1] != 'all') && ($fails)) return false;
 
         // match module and component. bail if no match.
-        if (($p1[2] == null) || (($p1[2] != xarMasks::PRIVILEGES_ALL) && ($p1[2]!=$p2[2]))) {
+        if (($p1[2] == null) || (($p1[2] != Privileges_Masks::PRIVILEGES_ALL) && ($p1[2]!=$p2[2]))) {
             return false;
         }
         if (($p1[3] != 'all') && ($p1[3]!=$p2[3])) {
@@ -286,7 +286,7 @@ class xarMask extends Object
     */
     function implies($mask)
     {
-        $match = xarMasks::includes($this->normalform,$mask->normalform);
+        $match = Privileges_Masks::includes($this->normalform,$mask->normalform);
         return $match && ($this->getLevel() >= $mask->getLevel()) && ($mask->getLevel() > 0);
     }
 
@@ -305,7 +305,7 @@ class xarMask extends Object
     function setModule($var)         { $this->module = $var; }
     function setModuleID($var)
     {
-        if (strtolower($var) == 'all') $this->module_id = xarMasks::PRIVILEGES_ALL;
+        if (strtolower($var) == 'all') $this->module_id = Privileges_Masks::PRIVILEGES_ALL;
         elseif (($var === null) || (strtolower($var) == 'empty')) $this->module_id = null;
         else $this->module_id = xarMod::getID($var);
     }

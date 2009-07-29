@@ -458,7 +458,7 @@ ALTER TABLE `xar_themes` DROP `mode`;
 /* add a filepath to show where a class lives */
 ALTER TABLE xar_dynamic_objects ADD COLUMN object_class VARCHAR(255) NOT NULL DEFAULT '';
 ALTER TABLE xar_dynamic_objects ADD COLUMN object_filepath VARCHAR(255) NOT NULL DEFAULT '';
-UPDATE xar_dynamic_objects SET object_class= 'DataObject' WHERE object_class= '';
+UPDATE xar_dynamic_objects SET object_class= 'DynamicData_Object_Base' WHERE object_class= '';
 
 /* change the class of the roles objects */
 UPDATE `xar_dynamic_objects` SET  `object_class` = 'Role' , `object_filepath` = 'modules/roles/class/role.php' WHERE `object_name` = 'roles_roles';
@@ -546,7 +546,7 @@ ALTER TABLE `xar_dynamic_objects`
   CHANGE COLUMN `object_moduleid` `moduleid` INTEGER NOT NULL default '0',
   CHANGE COLUMN `object_itemtype` `itemtype` INTEGER NOT NULL default '0',
   CHANGE COLUMN `object_parent` `parent` INTEGER NOT NULL default '0',
-  CHANGE COLUMN `object_class` `class` VARCHAR(255) NOT NULL DEFAULT 'DataObject',
+  CHANGE COLUMN `object_class` `class` VARCHAR(255) NOT NULL DEFAULT 'DynamicData_Object_Base',
   CHANGE COLUMN `object_filepath` `filepath` VARCHAR(255) NOT NULL DEFAULT 'modules/dynamicdata/class/objects/base.php',
   CHANGE COLUMN `object_urlparam` `urlparam` varchar(30) NOT NULL default 'itemid',
   CHANGE COLUMN `object_maxid` `maxid` INTEGER NOT NULL default '0',
@@ -710,7 +710,7 @@ ALTER TABLE `xar_dynamic_objects` CHANGE `name` `name`            varchar(64) NO
 ALTER TABLE `xar_dynamic_objects` CHANGE `label` `label`          varchar(254) NOT NULL;
 ALTER TABLE `xar_dynamic_objects` CHANGE `module_id` `module_id`  integer unsigned NOT NULL;
 ALTER TABLE `xar_dynamic_objects` CHANGE `itemtype` `itemtype`    integer unsigned NOT NULL default '0';
-ALTER TABLE `xar_dynamic_objects` CHANGE `class` `class`          varchar(254) NOT NULL default 'DataObject';
+ALTER TABLE `xar_dynamic_objects` CHANGE `class` `class`          varchar(254) NOT NULL default 'DynamicData_Object_Base';
 ALTER TABLE `xar_dynamic_objects` CHANGE `filepath` `filepath`    varchar(254) NOT NULL default 'modules/dynamicdata/class/objects/base.php';
 ALTER TABLE `xar_dynamic_objects` CHANGE `urlparam` `urlparam`    varchar(30) NOT NULL default 'itemid';
 ALTER TABLE `xar_dynamic_objects` CHANGE `maxid` `maxid`          integer unsigned NOT NULL default '0';

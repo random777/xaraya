@@ -77,13 +77,13 @@ function dynamicdata_userapi_showview($args)
         $status = null;
     } else {
         $myfieldlist = null;
-        $status = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+        $status = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
     }
 
     // select in some category
     if (empty($catid)) $catid = '';
 
-    $object = DataObjectMaster::getObjectList(array('moduleid'  => $args ['moduleid'],
+    $object = DynamicData_Object_Master::getObjectList(array('moduleid'  => $args ['moduleid'],
                                            'itemtype'  => $args ['itemtype'],
                                            'itemids' => $itemids,
                                            'sort' => $sort,

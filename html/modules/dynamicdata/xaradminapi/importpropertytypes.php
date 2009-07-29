@@ -20,7 +20,6 @@
  */
 function dynamicdata_adminapi_importpropertytypes($args)
 {
-    sys::import('modules.dynamicdata.class.properties.registration');
     extract($args);
     if(!isset($flush)) {
        $flush = true;
@@ -28,7 +27,7 @@ function dynamicdata_adminapi_importpropertytypes($args)
     if(!isset($dirs)) {
        $dirs = array();
     }
-    $proptypes = PropertyRegistration::importPropertyTypes($flush,$dirs);
+    $proptypes = DynamicData_Property_Registration::importPropertyTypes($flush,$dirs);
     return $proptypes;
 }
 ?>

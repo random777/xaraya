@@ -23,7 +23,7 @@ function roles_admin_modifyconfig()
             // get a list of everyone with admin privileges
             // TODO: find a more elegant way to do this
             // first find the id of the admin privilege
-            $role  = xarRoles::get(xarModVars::get('roles','admin'));
+            $role  = Roles_Roles::get(xarModVars::get('roles','admin'));
             $privs = array_merge($role->getInheritedPrivileges(),$role->getAssignedPrivileges());
             foreach ($privs as $priv)
             {
@@ -52,7 +52,7 @@ function roles_admin_modifyconfig()
             while ($result->next())
             {
                 list($id) = $result->fields;
-                $role     = xarRoles::get($id);
+                $role     = Roles_Roles::get($id);
                 $admins[] = $role;
                 $admins   = array_merge($admins,$role->getDescendants());
             }

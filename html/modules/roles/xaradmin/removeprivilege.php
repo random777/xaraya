@@ -22,7 +22,7 @@ function roles_admin_removeprivilege()
     if (!xarVarFetch('roleid',       'int:1:', $roleid)) return;
     if (!xarVarFetch('confirmation', 'str:1:', $confirmation, '', XARVAR_NOT_REQUIRED)) return;
     // Call the Roles class and get the role
-    $role  = xarRoles::get($roleid);
+    $role  = Roles_Roles::get($roleid);
 
     // get the array of parents of this role
     // need to display this in the template
@@ -34,7 +34,7 @@ function roles_admin_removeprivilege()
     $data['parents'] = $parents;
 
     // Call the Privileges class and get the privilege
-    $priv = xarPrivileges::getPrivilege($privid);
+    $priv = Privileges_Privileges::getPrivilege($privid);
     // some assignments can't be removed, for your own good
     if ((($roleid == 1) && ($privid == 1)) ||
         (($roleid == 2) && ($privid == 6)) ||

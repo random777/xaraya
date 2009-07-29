@@ -25,9 +25,8 @@ function privileges_admin_modifyrealm()
     if (!xarVarFetch('name',      'str:1.20', $name,      '',      XARVAR_NOT_REQUIRED)) {return;}
     $xartable = xarDB::getTables();
 
-    sys::import('modules.roles.class.xarQuery');
     if (empty($confirmed)) {
-        $q = new xarQuery('SELECT',$xartable['security_realms']);
+        $q = new Roles_Query('SELECT',$xartable['security_realms']);
         $q->addfields(array('id','name'));
         $q->eq('id', $id);
         if(!$q->run()) return;
@@ -38,13 +37,13 @@ function privileges_admin_modifyrealm()
         if (!xarVarFetch('newname',   'str:1.20',$newname, '',XARVAR_NOT_REQUIRED)) {return;}
         if (!xarSecConfirmAuthKey()) return;
 
-        $q = new xarQuery('SELECT',$xartable['security_realms'],'name');
+        $q = new Roles_Query('SELECT',$xartable['security_realms'],'name');
         $q->eq('name', $newname);
         if(!$q->run()) return;
 
         if ($q->getrows() > 0) throw new DuplicateException(array('realm',$newname));
 
-        $q = new xarQuery('UPDATE',$xartable['security_realms']);
+        $q = new Roles_Query('UPDATE',$xartable['security_realms']);
         $q->addfield('name', $newname);
         $q->eq('id', $id);
         if(!$q->run()) return;

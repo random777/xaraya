@@ -27,7 +27,7 @@ class ImageProperty extends TextBoxProperty
     public $validation_file_extensions  = 'gif,jpg,jpeg,png,bmp';
     public $validation_file_extensions_invalid;    // TODO: not yet implemented
 
-    // this is used by DataPropertyMaster::addProperty() to set the $object->upload flag
+    // this is used by DynamicData_Property_Master::addProperty() to set the $object->upload flag
     public $upload = false;
 
     function __construct(ObjectDescriptor $descriptor)
@@ -50,11 +50,11 @@ class ImageProperty extends TextBoxProperty
         if (!xarVarFetch('image_source', 'str:1:100', $image_source, NULL, XARVAR_NOT_REQUIRED)) return;
         if (!empty($image_source)) $this->initialization_image_source = $image_source;
         if ($this->initialization_image_source == 'url') {
-            $prop = DataPropertyMaster::getProperty(array('type' => 'url'));
+            $prop = DynamicData_Property_Master::getProperty(array('type' => 'url'));
             $prop->validateValue($value);
             $this->value = $prop->value;
         } elseif ($this->initialization_image_source == 'upload') {
-            $prop = DataPropertyMaster::getProperty(array('type' => 'fileupload'));
+            $prop = DynamicData_Property_Master::getProperty(array('type' => 'fileupload'));
             $prop->initialization_basedirectory = $this->initialization_basedirectory;
             $prop->filetype= str_replace (',','|',$this->validation_file_extensions);
             $prop->fieldname = $this->fieldname;

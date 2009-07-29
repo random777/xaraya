@@ -42,7 +42,7 @@ function dynamicdata_utilapi_import($args)
     $objectcache = array();
     $objectmaxid = array();
 
-    $proptypes = DataPropertyMaster::getPropertyTypes();
+    $proptypes = DynamicData_Property_Master::getPropertyTypes();
     $name2id = array();
     foreach ($proptypes as $propid => $proptype) {
         $name2id[$proptype['name']] = $propid;
@@ -72,7 +72,7 @@ function dynamicdata_utilapi_import($args)
         xarLogMessage('DD: importing ' . $args['name']);
 
         // check if the object exists
-        $info = DataObjectMaster::getObjectInfo(array('name' => $args['name']));
+        $info = DynamicData_Object_Master::getObjectInfo(array('name' => $args['name']));
         $dupexists = !empty($info);
         if ($dupexists && !$overwrite) {
             $msg = 'Duplicate definition for #(1) #(2)';
@@ -80,7 +80,7 @@ function dynamicdata_utilapi_import($args)
             throw new DuplicateException($vars,$msg);
         }
 
-        $object = DataObjectMaster::getObject(array('objectid' => 1));
+        $object = DynamicData_Object_Master::getObject(array('objectid' => 1));
         $objectproperties = array_keys($object->properties);
         foreach($objectproperties as $property) {
             if (isset($xmlobject->{$property}[0])) {
@@ -103,7 +103,7 @@ function dynamicdata_utilapi_import($args)
         // Treat parents where the module is DD differently. Put in numeric itemtype
 //        if ($args['moduleid'] == 182) {
             $args['parent'] = empty($args['parent']) ? 0 : $args['parent'];
-            $infobaseobject = DataObjectMaster::getObjectInfo(array('id' => $args['parent']));
+            $infobaseobject = DynamicData_Object_Master::getObjectInfo(array('id' => $args['parent']));
             $args['parent'] = $infobaseobject['itemtype'];
 //        }
 
@@ -121,7 +121,7 @@ function dynamicdata_utilapi_import($args)
 //        }
 
         // Create the DataProperty object we will use to create items of
-        $dataproperty = DataObjectMaster::getObject(array('objectid' => 2));
+        $dataproperty = DynamicData_Object_Master::getObject(array('objectid' => 2));
         if (empty($dataproperty)) return;
 
         if ($dupexists && $overwrite) {
@@ -130,7 +130,7 @@ function dynamicdata_utilapi_import($args)
             $args['itemtype'] = $info['itemtype'];
             $objectid = $object->updateItem($args);
             // remove the properties, as they will be replaced
-            $dupobject = DataObjectMaster::getObject(array('name' => $info['name'], 'extend' => false));
+            $dupobject = DynamicData_Object_Master::getObject(array('name' => $info['name'], 'extend' => false));
             $existingproperties = $dupobject->getProperties();
             foreach ($existingproperties as $propertyitem)
                 $dataproperty->deleteItem(array('itemid' => $propertyitem->id));
@@ -205,7 +205,7 @@ function dynamicdata_utilapi_import($args)
                 /*
                 // Check that this is a real object
                 if (empty($objectnamelist[$currentobject])) {
-                    $objectinfo = DataObjectMaster::getObjectInfo(array('name' => $currentobject));
+                    $objectinfo = DynamicData_Object_Master::getObjectInfo(array('name' => $currentobject));
                     if (isset($objectinfo) && !empty($objectinfo['objectid'])) {
                         $objectname2objectid[$currentobject] = $$currentobject;
                     } else {
@@ -217,13 +217,13 @@ function dynamicdata_utilapi_import($args)
                 */
                 // Create the item
                 if (!isset($objectcache[$currentobject])) {
-                    $objectcache[$currentobject] = DataObjectMaster::getObject(array('name' => $currentobject));
+                    $objectcache[$currentobject] = DynamicData_Object_Master::getObject(array('name' => $currentobject));
                 }
                 $object =& $objectcache[$currentobject];
                 $objectid = $objectcache[$currentobject]->objectid;
                 /*
                 if (!isset($objectcache[$object->baseancestor])) {
-                    $objectcache[$object->baseancestor] = DataObjectMaster::getObject(array('objectid' => $object->baseancestor));
+                    $objectcache[$object->baseancestor] = DynamicData_Object_Master::getObject(array('objectid' => $object->baseancestor));
                 }
                 $primaryobject =& $objectcache[$object->baseancestor];
                 */
@@ -289,7 +289,7 @@ function dynamicdata_utilapi_import($args)
     if (count($objectcache) > 0 && count($objectmaxid) > 0) {
         foreach (array_keys($objectcache) as $objectid) {
             if (!empty($objectmaxid[$objectid]) && $object->maxid < $objectmaxid[$objectid]) {
-                $itemid = DataObjectMaster::updateObject(array('objectid' => $objectid,
+                $itemid = DynamicData_Object_Master::updateObject(array('objectid' => $objectid,
                                                                     'maxid'    => $objectmaxid[$objectid]));
                 if (empty($itemid)) return;
             }

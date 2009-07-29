@@ -83,7 +83,7 @@ function &dynamicdata_userapi_getitem($args)
     // make some database table available via DD
     if (empty($table)) $table = '';
 
-    $object =& DataObjectMaster::getObject(array('moduleid'  => $module_id,
+    $object =& DynamicData_Object_Master::getObject(array('moduleid'  => $module_id,
                                        'itemtype'  => $itemtype,
                                        'itemid'    => $itemid,
                                        'fieldlist' => $fieldlist,

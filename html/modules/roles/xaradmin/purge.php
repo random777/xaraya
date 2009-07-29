@@ -50,9 +50,9 @@ function roles_admin_purge($args)
         {
  // --- recall users and groups
             if(!xarSecurityCheck('DeleteRole')) return;
-            if ($data['groupid'] != 0) $parentgroup = xarRoles::get($data['groupid']);
+            if ($data['groupid'] != 0) $parentgroup = Roles_Roles::get($data['groupid']);
             foreach ($recallids as $id => $val) {
-                $role = xarRoles::get($id);
+                $role = Roles_Roles::get($id);
                 $state = $role->getType() ? ROLES_STATE_ACTIVE : $data['recallstate'];
                 $recalled = xarModAPIFunc('roles','admin','recall',
                     array('id' => $id,
@@ -62,8 +62,7 @@ function roles_admin_purge($args)
         }
 // --- display roles that can be recalled
         //Create the selection
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT',$rolestable);
+        $q = new Roles_Query('SELECT',$rolestable);
         $q->addfields(array('id',
                     'uname',
                     'name',
@@ -103,7 +102,7 @@ function roles_admin_purge($args)
             if (xarSecurityCheck('ReadRole', 0, 'All', $role['uname'] . ":All:" . $role['id'])) {
                 $skip = 0;
                 $unique = 1;
-                $thisrole = xarRoles::get($role['id']);
+                $thisrole = Roles_Roles::get($role['id']);
                 $baseancestor = $thisrole->getBaseAncestor();
                 $existinguser = xarModAPIFunc('roles','user','get',array('uname' => $role['uname'], 'state' => ROLES_STATE_CURRENT));
                 if ($baseancestor['itemtype'] != ROLES_USERTYPE) {
@@ -165,7 +164,7 @@ function roles_admin_purge($args)
                 if($id == xarModVars::get('roles','admin')) continue;
 // --- do this in 2 stages. First, delete the role: this will update the user
 // --- count on all the role's parents
-                $role = xarRoles::get($id);
+                $role = Roles_Roles::get($id);
                 $role->deleteItem();
 // --- now actually remove the data from the role's entry
                 $state = ROLES_STATE_DELETED;
@@ -174,7 +173,7 @@ function roles_admin_purge($args)
                 $pass = '';
                 $email = '';
                 $date_reg = 0;
-                $q = new xarQuery('UPDATE',$rolestable);
+                $q = new Roles_Query('UPDATE',$rolestable);
                 $q->addfield('name',$name);
                 $q->addfield('uname',$uname);
                 $q->addfield('pass',$pass);

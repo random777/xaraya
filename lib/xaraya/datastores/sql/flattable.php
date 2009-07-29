@@ -22,7 +22,7 @@ class FlatTableDataStore extends SQLDataStore
     /**
      * Get the field name used to identify this property (we use the name of the table field here)
      */
-    function getFieldName(DataProperty &$property)
+    function getFieldName(DynamicData_Property_Base &$property)
     {
         if (!is_object($property)) debug($property); // <-- this throws an exception
         // support [database.]table.field syntax

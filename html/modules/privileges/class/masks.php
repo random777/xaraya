@@ -13,7 +13,7 @@
  */
 
 /**
- * xarMasks: class for the mask repository
+ * Privileges_Masks: class for the mask repository
  *
  * Represents the repository containing all security masks
  *
@@ -21,7 +21,7 @@
  * @access  public
  * @todo    evaluate scoping
 */
-class xarMasks extends Object
+class Privileges_Masks extends Object
 {
     const PRIVILEGES_PRIVILEGETYPE = 2;
     const PRIVILEGES_MASKTYPE = 3;
@@ -43,7 +43,7 @@ class xarMasks extends Object
     protected static $privilegeset;
 
     /**
-     * xarMasks: constructor for the class
+     * Privileges_Masks: constructor for the class
      *
      * Just sets up the db connection and initializes some variables
      *
@@ -140,7 +140,7 @@ class xarMasks extends Object
                            'instance' => $instance,
                            'level' => $level,
                            'description' => $description);
-            array_push($masks, new xarMask($pargs));
+            array_push($masks, new Privileges_Mask($pargs));
         }
         return $masks;
     }
@@ -282,7 +282,7 @@ class xarMasks extends Object
         if ($userID == XARUSER_LAST_RESORT) return true;
 
         $maskname = $mask;
-        if (empty($maskname)) $mask = new xarMask();
+        if (empty($maskname)) $mask = new Privileges_Mask();
         else $mask =  self::getMask($mask);
         if (!$mask) {
             // <mikespub> moved this whole $module thing where it's actually used, i.e. for
@@ -378,9 +378,6 @@ class xarMasks extends Object
         // normalize the mask now - its properties won't change below
         $mask->normalize();
 
-        // get the Roles class
-        sys::import('modules.roles.class.roles');
-
         // get the id of the role we will check against
         // an empty role means take the current user
         if ($rolename == '') {
@@ -389,9 +386,9 @@ class xarMasks extends Object
             if (empty($userID)) {
                 $userID = _XAR_ID_UNREGISTERED;
             }
-            $role = xarRoles::get($userID);
+            $role = Roles_Roles::get($userID);
         } else {
-            $role = xarRoles::findRole($rolename);
+            $role = Roles_Roles::findRole($rolename);
         }
         
         // check if we already have the irreducible set of privileges for the current user
@@ -401,7 +398,6 @@ class xarMasks extends Object
             if (!xarVarIsCached('Security.Variables','privilegeset')) {
 
                 // No go from cache. Try and get it from the session
-                sys::import('modules.privileges.class.privilege');
                 $privileges = unserialize(xarSession::getVar('privilegeset'));
                 if (empty($privileges)) {
 
@@ -816,8 +812,7 @@ class xarMasks extends Object
         } else {
             $pargs = xarVarGetCached('Security.Masks',$name);
         }
-        sys::import('modules.privileges.class.mask');
-        return new xarMask($pargs);
+        return new Privileges_Mask($pargs);
     }
 
     /**

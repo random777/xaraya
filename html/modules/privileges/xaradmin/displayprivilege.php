@@ -22,8 +22,7 @@ function privileges_admin_displayprivilege()
     if(!xarVarFetch('pinstance',     'array', $instance,   array(), XARVAR_NOT_REQUIRED)) {return;}
 
 //Call the Privileges class and get the privilege to be modified
-    sys::import('modules.privileges.class.privileges');
-    $priv = xarPrivileges::getPrivilege($id);
+    $priv = Privileges_Privileges::getPrivilege($id);
 
 //Get the array of parents of this privilege
     $parents = array();

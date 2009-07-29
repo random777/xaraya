@@ -8,12 +8,10 @@
  * @subpackage base
  * @link http://xaraya.com/index.php/release/68.html
  */
-/* Include parent class */
-sys::import('modules.dynamicdata.class.properties.master');
 /**
  * Class to handle file upload properties
  */
-class FileUploadProperty extends DataProperty
+class FileUploadProperty extends DynamicData_Property_Base
 {
     public $id         = 9;
     public $name       = 'fileupload';
@@ -32,7 +30,7 @@ class FileUploadProperty extends DataProperty
                             'upload'   => false,
                             'stored'   => false);
 
-    // this is used by DataPropertyMaster::addProperty() to set the $object->upload flag
+    // this is used by DynamicData_Property_Master::addProperty() to set the $object->upload flag
     public $upload = true;
     public $UploadsModule_isHooked          = FALSE;
 

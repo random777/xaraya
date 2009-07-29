@@ -5,7 +5,7 @@
  * if it's there it will work, if it's not it will work too
  *
  */
-if(!class_exists('PEAR')) {
+if(!class_exists('PEAR',false)) {
     class PEAR extends Object
     {
         /**

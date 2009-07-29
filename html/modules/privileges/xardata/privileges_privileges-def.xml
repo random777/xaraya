@@ -3,7 +3,7 @@
   <label>Privileges</label>
   <module_id>1098</module_id>
   <itemtype>2</itemtype>
-  <class>DataObject</class>
+  <class>DynamicData_Object_Base</class>
   <filepath>auto</filepath>
   <urlparam>itemid</urlparam>
   <maxid>0</maxid>

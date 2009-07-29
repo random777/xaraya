@@ -12,9 +12,7 @@
 /**
  * Handle select property
  */
-sys::import('modules.dynamicdata.class.objects.base');
-
-class SelectProperty extends DataProperty
+class SelectProperty extends DynamicData_Property_Base
 {
     public $id   = 6;
     public $name = 'dropdown';

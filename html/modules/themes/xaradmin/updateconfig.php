@@ -69,12 +69,12 @@ function themes_admin_updateconfig()
     // Only go through updatehooks() if there was a change.
     if (xarModIsHooked('themes', 'roles') != $usermenu) {
 
-		sys::import('xaraya.structures.hooks.observer');
-		$observer = new BasicObserver('themes','user','usermenu');
-	    $subject = new HookSubject('roles');
-			$subject->detach($observer);
+        sys::import('xaraya.structures.hooks.observer');
+        $observer = new BasicObserver('themes','user','usermenu');
+        $subject = new HookSubject('roles');
+            $subject->detach($observer);
         if ($usermenu) {
-			$subject->attach($observer);
+            $subject->attach($observer);
         } else {
         }
 
@@ -83,7 +83,7 @@ function themes_admin_updateconfig()
         if ($usermenu) {
             $hooked_roles[0] = 1;
             // turning on, so remember previous hook config
-            if (xarModIsHooked('themes', 'roles', xarRoles::ROLES_GROUPTYPE)) {
+            if (xarModIsHooked('themes', 'roles', Roles_Roles::ROLES_GROUPTYPE)) {
                 xarModVars::set('themes', 'group_hooked', true);
             }
         } else {

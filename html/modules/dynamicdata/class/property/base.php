@@ -9,8 +9,7 @@
  * @link http://xaraya.com/index.php/release/182.html
  */
 
-sys::import('modules.dynamicdata.class.properties.master');
-sys::import('modules.dynamicdata.class.properties.interfaces');
+sys::import('modules.dynamicdata.class.property.interfaces');
 
 /**
  * Base Class for Dynamic Properties
@@ -18,7 +17,7 @@ sys::import('modules.dynamicdata.class.properties.interfaces');
  * @todo is this abstract?
  * @todo the visibility of most of the attributes can probably be protected
  */
-class DataProperty extends Object implements iDataProperty
+class DynamicData_Property_Base extends Object implements iDataProperty
 {
     // Attributes for registration
     public $id             = 0;
@@ -28,7 +27,7 @@ class DataProperty extends Object implements iDataProperty
     public $type           = 1;
     public $defaultvalue   = '';
     public $source         = 'dynamic_data';
-    public $status         = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+    public $status         = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
     public $seq            = 0;
     public $format         = '0'; //<-- eh?
     public $filepath       = 'modules/dynamicdata/xarproperties';
@@ -54,7 +53,7 @@ class DataProperty extends Object implements iDataProperty
     public $_fieldprefix = ''; // the object's fieldprefix
 
     public $_itemid;           // reference to $itemid in DataObject, where the current itemid is kept
-    public $_items;            // reference to $items in DataObjectList, where the different item values are kept
+    public $_items;            // reference to $items in DynamicData_Object_List, where the different item values are kept
 
     public $configurationtypes = array('display','validation','initialization');
 //    public $display_template                = "";
@@ -285,11 +284,11 @@ class DataProperty extends Object implements iDataProperty
      */
     function getDisplayStatus()
     {
-        return ($this->status & DataPropertyMaster::DD_DISPLAYMASK);
+        return ($this->status & DynamicData_Property_Master::DD_DISPLAYMASK);
     }
     function setDisplayStatus($status)
     {
-        $this->status = $status & DataPropertyMaster::DD_DISPLAYMASK;
+        $this->status = $status & DynamicData_Property_Master::DD_DISPLAYMASK;
     }
 
     /**
@@ -320,18 +319,18 @@ class DataProperty extends Object implements iDataProperty
     {
         if (!empty($data['hidden'])) {
             if ($data['hidden'] == 'active') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE);
+                $this->setDisplayStatus(DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE);
             } elseif ($data['hidden'] == 'display') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY);
+                $this->setDisplayStatus(DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY);
             } elseif ($data['hidden'] == 'hidden') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN);
+                $this->setDisplayStatus(DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN);
             }
         }
 
-        if($this->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)
+        if($this->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN)
             return $this->showHidden($data);
 
-        if($this->getInputStatus() == DataPropertyMaster::DD_INPUTSTATE_NOINPUT) {
+        if($this->getInputStatus() == DynamicData_Property_Master::DD_INPUTSTATE_NOINPUT) {
             return $this->showOutput($data) . $this->showHidden($data);
         }
 
@@ -388,15 +387,15 @@ class DataProperty extends Object implements iDataProperty
     {
         if (!empty($data['hidden'])) {
             if ($data['hidden'] == 'active') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE);
+                $this->setDisplayStatus(DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE);
             } elseif ($data['hidden'] == 'display') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY);
+                $this->setDisplayStatus(DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY);
             } elseif ($data['hidden'] == 'hidden') {
-                $this->setDisplayStatus(DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN);
+                $this->setDisplayStatus(DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN);
             }
         }
 
-        if($this->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)
+        if($this->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN)
             return $this->showHidden($data);
 
         $data['id']   = $this->id;
@@ -421,7 +420,7 @@ class DataProperty extends Object implements iDataProperty
      */
     function showLabel(Array $data=array())
     {
-        if($this->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)
+        if($this->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN)
             return "";
 
         if(empty($data))
@@ -657,7 +656,7 @@ class DataProperty extends Object implements iDataProperty
 
         if (empty($allconfigproperties)) {
             $xartable = xarDB::getTables();
-            $q = new xarQuery('SELECT',$xartable['dynamic_configurations']);
+            $q = new Roles_Query('SELECT',$xartable['dynamic_configurations']);
             if (!$q->run()) return;
             $allconfigproperties = $q->output();
 
@@ -668,7 +667,7 @@ class DataProperty extends Object implements iDataProperty
 //            $allconfigproperties = $q->output();
 
             // Can't use DD methods here as we go into a recursion loop
-//            $object = DataObjectMaster::getObjectList(array('name' => 'configurations'));
+//            $object = DynamicData_Object_Master::getObjectList(array('name' => 'configurations'));
 //            $allconfigproperties = $object->getItems();
         }
         $config = array();
@@ -721,7 +720,7 @@ class DataProperty extends Object implements iDataProperty
 
     public static function getRegistrationInfo()
     {
-        $info = new PropertyRegistration();
+        $info = new DynamicData_Property_Registration();
         $info->reqmodules = $this->reqmodules;
         $info->id   = $this->id;
         $info->name = $this->name;

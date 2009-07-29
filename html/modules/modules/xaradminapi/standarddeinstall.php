@@ -22,7 +22,7 @@ function modules_adminapi_standarddeinstall($args)
     try {
         $dd_objects = unserialize(xarModVars::get($module,'dd_objects'));
         foreach ($dd_objects as $key => $value)
-            $result = DataObjectMaster::deleteObject(array('objectid' => $value));
+            $result = DynamicData_Object_Master::deleteObject(array('objectid' => $value));
     } catch (Exception $e) {}
 
     $dbconn = xarDB::getConn();

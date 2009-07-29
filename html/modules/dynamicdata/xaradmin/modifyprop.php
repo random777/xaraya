@@ -43,7 +43,7 @@ function dynamicdata_admin_modifyprop()
             )
         );
     }
-    $objectinfo = DataObjectMaster::getObjectInfo($args);
+    $objectinfo = DynamicData_Object_Master::getObjectInfo($args);
 
     if (isset($objectinfo)) {
         $objectid = $objectinfo['objectid'];
@@ -119,8 +119,8 @@ function dynamicdata_admin_modifyprop()
     }
     $data['hooks'] = $hooks;
 
-    $data['fieldtypeprop'] =& DataPropertyMaster::getProperty(array('type' => 'fieldtype'));
-    $data['fieldstatusprop'] =& DataPropertyMaster::getProperty(array('type' => 'fieldstatus'));
+    $data['fieldtypeprop'] =& DynamicData_Property_Master::getProperty(array('type' => 'fieldtype'));
+    $data['fieldstatusprop'] =& DynamicData_Property_Master::getProperty(array('type' => 'fieldstatus'));
 
     // We have to specify this here, the js expects non xml urls and the => makes the template invalied
     $data['urlform'] = xarModURL('dynamicdata','admin','form',array('objectid' => $data['objectid'], 'theme' => 'print'),false);

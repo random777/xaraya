@@ -1,8 +1,6 @@
 <?php
 
-    sys::import('modules.dynamicdata.class.objects.base');
-
-    class DProperty extends DataObject
+    class DProperty extends DynamicData_Object_Base
     {
         function createItem(Array $args = array())
         {

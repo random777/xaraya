@@ -39,11 +39,6 @@ if (file_exists(sys::varpath() . '/security/on.touch')) {
     sys::import('xaraya.xarCacheSecurity');
 }
 
-// FIXME: Can we reverse this? (i.e. the module loading the files from here?)
-//        said another way, can we move the two files to /includes (partially preferably)
-sys::import('modules.privileges.class.privileges');
-sys::import('modules.roles.class.roles');
-
 /**
  * xarMakeGroup: create an entry in the database for a group
  *
@@ -53,7 +48,7 @@ sys::import('modules.roles.class.roles');
  * @param   string name
  * @return  bool
  */
-function xarMakeGroup($name,$uname='') { return xarRoles::makeGroup($name,$uname); }
+function xarMakeGroup($name,$uname='') { return Roles_Roles::makeGroup($name,$uname); }
 
 /**
  * xarMakeUser: create an entry in the database for a user
@@ -66,7 +61,7 @@ function xarMakeGroup($name,$uname='') { return xarRoles::makeGroup($name,$uname
  */
 function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state=3,$authModule= 0)
 {
-    return xarRoles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
+    return Roles_Roles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
 }
 
 /**
@@ -81,7 +76,7 @@ function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state
  */
 function xarMakeRoleMemberByName($childName, $parentName)
 {
-    return xarRoles::makeMemberByName($childName, $parentName);
+    return Roles_Roles::makeMemberByName($childName, $parentName);
 }
 
 /**
@@ -96,8 +91,8 @@ function xarMakeRoleMemberByName($childName, $parentName)
  */
 function xarMakeRoleMemberByUname($childName, $parentName)
 {
-    $parent = xarRoles::ufindRole($parentName);
-    $child = xarRoles::ufindRole($childName);
+    $parent = Roles_Roles::ufindRole($parentName);
+    $child = Roles_Roles::ufindRole($childName);
 
     return $parent->addMember($child);
 }
@@ -114,8 +109,8 @@ function xarMakeRoleMemberByUname($childName, $parentName)
  */
 function xarMakeRoleMemberByID($childId, $parentId)
 {
-    $parent = xarRoles::getRole($parentId);
-    $child = xarRoles::getRole($childId);
+    $parent = Roles_Roles::getRole($parentId);
+    $child = Roles_Roles::getRole($childId);
 
     return $parent->addMember($child);
 }
@@ -132,8 +127,8 @@ function xarMakeRoleMemberByID($childId, $parentId)
  */
 function xarRemoveRoleMemberByID($childId, $parentId)
 {
-    $parent = xarRoles::getRole($parentId);
-    $child = xarRoles::getRole($childId);
+    $parent = Roles_Roles::getRole($parentId);
+    $child = Roles_Roles::getRole($childId);
 
     return $parent->removeMember($child);
 }
@@ -156,9 +151,9 @@ function xarRemoveRoleMemberByID($childId, $parentId)
 function xarRegisterPrivilege($name,$realm,$module,$component,$instance,$level,$description='')
 {
     // Check if the privilege already exists
-    $privilege = xarPrivileges::findPrivilege($name);
+    $privilege = Privileges_Privileges::findPrivilege($name);
     if (!$privilege) {
-        return xarPrivileges::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
+        return Privileges_Privileges::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
     }
     return;
 }
@@ -175,7 +170,7 @@ function xarRegisterPrivilege($name,$realm,$module,$component,$instance,$level,$
  */
 function xarMakePrivilegeMember($childName, $parentName)
 {
-    return xarPrivileges::makeMember($childName, $parentName);
+    return Privileges_Privileges::makeMember($childName, $parentName);
 }
 
 /**
@@ -190,7 +185,7 @@ function xarMakePrivilegeMember($childName, $parentName)
  */
 function xarAssignPrivilege($privilege,$role)
 {
-    return xarPrivileges::assign($privilege,$role);
+    return Privileges_Privileges::assign($privilege,$role);
 }
 
 /**
@@ -205,7 +200,7 @@ function xarAssignPrivilege($privilege,$role)
 function xarRemovePrivileges($module)
 {
     // Get the pids for the module
-    $modulePrivileges = xarPrivileges::findPrivilegesForModule($module);
+    $modulePrivileges = Privileges_Privileges::findPrivilegesForModule($module);
     foreach ($modulePrivileges as $modulePrivilege) {
         $modulePrivilege->remove();
     }
@@ -229,7 +224,7 @@ function xarRemovePrivileges($module)
  */
 function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId='',$parentId='',$description='')
 {
-    return xarPrivileges::defineInstance($module,$type,$query,$propagate,$table2,$childId,$parentId,$description);
+    return Privileges_Privileges::defineInstance($module,$type,$query,$propagate,$table2,$childId,$parentId,$description);
 }
 
 /**
@@ -243,7 +238,7 @@ function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId
  */
 function xarRemoveInstances($module)
 {
-    return xarPrivileges::removeInstances($module);
+    return Privileges_Privileges::removeInstances($module);
 }
 
 /**
@@ -254,7 +249,7 @@ function xarRemoveInstances($module)
  * @access public
  * @return array of strings
  */
-function xarGetGroups() { return xarRoles::getgroups(); }
+function xarGetGroups() { return Roles_Roles::getgroups(); }
 
 /**
  * xarFindRole: returns a role object by its name
@@ -265,18 +260,18 @@ function xarGetGroups() { return xarRoles::getgroups(); }
  * @param   string name
  * @return  object role
  */
-function xarFindRole($name) { return xarRoles::findRole($name);  }
-function xarUFindRole($name){ return xarRoles::ufindRole($name); }
+function xarFindRole($name) { return Roles_Roles::findRole($name);  }
+function xarUFindRole($name){ return Roles_Roles::ufindRole($name); }
 
 function xarCurrentRole()
 {
-    return xarRoles::getRole(xarSessionGetVar('role_id'));
+    return Roles_Roles::getRole(xarSessionGetVar('role_id'));
 }
 
 function xarIsParent($name1, $name2)
 {
-    $role1 = xarRoles::findRole($name1);
-    $role2 = xarRoles::ufindRole($name2);
+    $role1 = Roles_Roles::findRole($name1);
+    $role2 = Roles_Roles::ufindRole($name2);
     if (is_object($role1) && is_object($role2)) {
         return $role2->isParent($role1);
     }
@@ -285,8 +280,8 @@ function xarIsParent($name1, $name2)
 
 function xarIsAncestor($name1, $name2)
 {
-    $role1 = xarRoles::findRole($name1);
-    $role2 = xarRoles::ufindRole($name2);
+    $role1 = Roles_Roles::findRole($name1);
+    $role2 = Roles_Roles::ufindRole($name2);
     if (is_object($role1) && is_object($role2)) {
         return $role2->isAncestor($role1);
     }
@@ -345,7 +340,7 @@ function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$leve
  */
 function xarSecurityLevel($levelname)
 {
-    return xarMasks::xarSecLevel($levelname);
+    return Privileges_Masks::xarSecLevel($levelname);
 }
 
 /**
@@ -358,7 +353,7 @@ function xarSecurityLevel($levelname)
  */
 function xarPrivExists($name)
 {
-    $priv = xarPrivileges::findPrivilege($name);
+    $priv = Privileges_Privileges::findPrivilege($name);
     if ($priv) return true;
     else return false;
 }
@@ -375,7 +370,7 @@ function xarPrivExists($name)
 function xarMaskExists($name,$module="All",$component="All")
 {
     if ($mask == "All") $mask = 0;
-    $mask = xarMasks::getMask($name,$module,$component,true);
+    $mask = Privileges_Masks::getMask($name,$module,$component,true);
     if ($mask) return true;
     else return false;
 }
@@ -392,7 +387,7 @@ function xarMaskExists($name,$module="All",$component="All")
 function xarQueryMask($mask, $showException=1, $component='', $instance='', $module='', $role='')
 {
     if ($mask == "All") $mask = 0;
-    return xarMasks::querymask($mask, $component, $instance, $module, $role,$pnrealm,$pnlevel);
+    return Privileges_Masks::querymask($mask, $component, $instance, $module, $role,$pnrealm,$pnlevel);
 }
 
 /**
@@ -417,8 +412,7 @@ function xarSecurityCheck($mask, $showException=1, $component='', $instance='', 
        return true;
     }
     else {
-        sys::import('modules.privileges.class.masks');
-       return xarMasks::xarSecurityCheck($mask, $showException, $component, $instance, $module, $role,$pnrealm,$pnlevel);
+       return Privileges_Masks::xarSecurityCheck($mask, $showException, $component, $instance, $module, $role,$pnrealm,$pnlevel);
     }
 }
 
@@ -437,7 +431,7 @@ function xarSecurityCheck($mask, $showException=1, $component='', $instance='', 
  */
 function xarRegisterMask($name,$realm,$module,$component,$instance,$level,$description='')
 {
-    return xarMasks::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
+    return Privileges_Masks::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
 }
 
 /**
@@ -449,7 +443,7 @@ function xarRegisterMask($name,$realm,$module,$component,$instance,$level,$descr
  */
 function xarUnregisterMask($name)
 {
-    return xarMasks::unregister($name);
+    return Privileges_Masks::unregister($name);
 }
 
 /**
@@ -464,13 +458,13 @@ function xarUnregisterMask($name)
 function xarRemoveMasks($module)
 {
     if ($module == "All") {
-        $modid = xarMasks::PRIVILEGES_ALL;
+        $modid = Privileges_Masks::PRIVILEGES_ALL;
     } elseif ($module == null) {
         $modid = null;
     } else {
         $modid = xarMod::getID($module);
     }
-    return xarMasks::removeMasks($modid);
+    return Privileges_Masks::removeMasks($modid);
 }
 
 /**

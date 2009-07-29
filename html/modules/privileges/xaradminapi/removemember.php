@@ -28,9 +28,8 @@ function privileges_adminapi_removemember($args)
     if(!isset($childid) || !isset($parentid)) return true;
 
 // call the Privileges class and get the parent and child objects
-    sys::import('modules.privileges.class.privileges');
-    $priv = xarPrivileges::getPrivilege($parentid);
-    $member = xarPrivileges::getPrivilege($childid);
+    $priv = Privileges_Privileges::getPrivilege($parentid);
+    $member = Privileges_Privileges::getPrivilege($childid);
 
 // assign the child to the parent and bail if an error was thrown
     if (!$priv->removeMember($member)) return;

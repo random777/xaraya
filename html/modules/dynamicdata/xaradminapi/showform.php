@@ -65,7 +65,7 @@ function dynamicdata_adminapi_showform($args)
         if(!xarSecurityCheck('EditDynamicDataItem',1,'Item',"$args[moduleid]:$args[itemtype]:$itemid")) return;
     }
 
-    $object = & DataObjectMaster::getObject($args);
+    $object = & DynamicData_Object_Master::getObject($args);
     if (!empty($itemid)) {
         $object->getItem();
     }

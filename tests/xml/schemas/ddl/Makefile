@@ -2,17 +2,18 @@
 
 # Generated from the .dtd format:
 # RNG - good structure
-# RNC - machine parseable optimized
+# RNC - machine parseable optimized, used as source
 # XSD - W3C standard but otherwise unreadable
-# DTD - defacto used standard, used as source here
+# DTD - defacto used standard, but less expressive than RN* varieties or XSD
 
 # db2xml creates a model from a running xar installation
 # that model is then taken as input for the xml2ddl target to
-# produce SQL like an sqldumper utility.
+# produce SQL like an sqldumper utility. db2xml is in Xaraya's 'bin'
+# directory.
 
 TRANG=trang
 PHP=php5
-XSLTPROC=xsltproc
+XSLTPROC=xsltproc --novalid --nonet 
 SRC=rnc
 
 all: schemas xar-model.sql
@@ -33,7 +34,7 @@ test: schema.sql
 xar-model.xml: db2xml db2xml.xd
 	./db2xml > $(PWD)/$@
 
-%.sql: %.xml xar-model.xml
+%.sql: %.xml xar-model.xml 
 	$(XSLTPROC) --stringparam vendor mysql  xml2ddl-mysql.xsl  $< > $(*F).mysql.sql
 	$(XSLTPROC) --stringparam vendor sqlite xml2ddl-sqlite.xsl $< > $(*F).sqlite.sql
 	$(XSLTPROC) --stringparam vendor pgsql  xml2ddl-pgsql.xsl  $< > $(*F).pgsql.sql

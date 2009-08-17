@@ -116,6 +116,8 @@ function base_admin_updateconfig()
             if (!xarVarFetch('proxyhost','str:1:',$proxyhost,'',XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('proxyport','int:1:',$proxyport,0,XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('editor','str:1:',$editor,'none',XARVAR_NOT_REQUIRED)) return;
+            if (!xarVarFetch('defaultframework','str:1:',$defaultframework,'jquery',XARVAR_NOT_REQUIRED)) return;
+            if (!xarVarFetch('autoloaddefaultframework','checkbox',$autoloaddefaultframework,true,XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('releasenumber','int:1:',$releasenumber,10,XARVAR_NOT_REQUIRED)) return;
 
             // Save these in normal module variables for now
@@ -124,6 +126,13 @@ function base_admin_updateconfig()
             xarModSetVar('base','releasenumber', $releasenumber);
             xarConfigSetVar('Site.Core.LoadLegacy', $loadLegacy);
             xarModSetVar('base','editor',$editor);
+
+            $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
+
+            if(is_array($fwinfo) && isset($fwinfo[$defaultframework])) {
+                xarModSetVar('base','DefaultFramework',$defaultframework);
+            }
+            xarModSetVar('base','AutoLoadDefaultFramework',$autoloaddefaultframework);
 
             // Timezone, offset and DST
             if (!xarVarFetch('defaulttimezone','str:1:',$defaulttimezone,'',XARVAR_NOT_REQUIRED)) return;
@@ -144,6 +153,8 @@ function base_admin_updateconfig()
                 xarConfigSetVar('Site.MLS.DefaultTimeOffset', 0);
             }
 
+            break;
+        case 'jquery':
             break;
     }
 

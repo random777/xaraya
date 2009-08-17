@@ -78,8 +78,20 @@ function base_admin_modifyconfig()
         else $active = false;
         $data['locales'][] = array('name' => $locale, 'active' => $active);
     }
+    $data['frameworks'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
+    $data['defaultframework'] = xarModGetVar('base','DefaultFramework');
+    $data['autoloaddefaultframework'] = xarModGetVar('base','AutoLoadDefaultFramework');
     $releasenumber=xarModGetVar('base','releasenumber');
     $data['releasenumber']=isset($releasenumber) ? $releasenumber:10;
+
+    if ($data['tab'] == 'jquery') {
+        $data['fwinfo'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('name' => 'jquery'));
+        $plugins = xarModAPIFunc('base','javascript','getplugininfo',array('framework' => 'jquery', 'all' => true));
+        if (is_array($plugins)) {
+            ksort($plugins);
+            $data['plugins'] = $plugins;
+        }
+    }
 
     // TODO: delete after new backend testing
     // $data['translationsBackend'] = xarConfigGetVar('Site.MLS.TranslationsBackend');

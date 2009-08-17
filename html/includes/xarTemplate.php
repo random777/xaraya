@@ -558,6 +558,51 @@ function xarTplObject($modName, $objectName, $tplType = 'showdisplay', $tplData 
 }
 
 /**
+ * Renders a JavaScript framework template.
+ *
+ * @author Marty Vance <dracos@xaraya.com>
+ * @access public
+ * @param  string $modName       the module name owning the framework
+ * @param  string $frameworkName the name of the framework
+ * @param  array  $tplData       arguments for the template
+ * @param  string $templateName  the template name
+ * @return string xarTpl__executeFromFile($sourceFileName, $tplData)
+ */
+function xarTplFramework($modName, $frameworkName, $tplData = array(), $templateName)
+{
+	if (empty($modName) || empty($frameworkName) || empty($templateName)) {
+		return;
+	}
+    // Get the right source filename
+    $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', $frameworkName);
+
+    return xarTpl__executeFromFile($sourceFileName, $tplData);
+}
+
+/**
+ * Renders a JavaScript framework plugin template.
+ *
+ * @author Marty Vance <dracos@xaraya.com>
+ * @access public
+ * @param  string $modName       the module name owning the framework
+ * @param  string $frameworkName the name of the framework
+ * @param  string $pluginName    the name of the framework
+ * @param  array  $tplData       arguments for the template
+ * @param  string $templateName  the template name
+ * @return string xarTpl__executeFromFile($sourceFileName, $tplData)
+ */
+function xarTplPlugin($modName, $frameworkName, $pluginName, $tplData = array(), $templateName)
+{
+	if (empty($modName) || empty($frameworkName) || empty($pluginName) || empty($templateName)) {
+		return;
+	}
+    // Get the right source filename
+    $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', "$frameworkName/plugins/$pluginName");
+
+    return xarTpl__executeFromFile($sourceFileName, $tplData);
+}
+
+/**
  * Get theme template image replacement for a module's image
  *
  * Example:

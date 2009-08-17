@@ -101,6 +101,23 @@
                 </a>
             </dd>
         </xar:if>
+        <xar:if condition="$tab eq 'jquery'">
+            <dd class="active">
+                <a href="#xarServerGetCurrentURL()#">
+                    <xar:mlstring>
+                        jQuery
+                    </xar:mlstring>
+                </a>
+            </dd>
+            <xar:else />
+            <dd>
+                <a href="#xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'jquery'))#">
+                    <xar:mlstring>
+                        jQuery
+                    </xar:mlstring>
+                </a>
+            </dd>
+        </xar:if>
     </dl>
     <xar:comment>
         ------------------- Begin Site Display Options ---------------------
@@ -597,6 +614,36 @@
             </fieldset>
             <fieldset>
                 <legend>
+                    <xar:mlstring>Javascript</xar:mlstring>
+                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="DefaultFramework" title="#xarML('Set the default Javascript framework to use.')#" class="xar-form-label">
+                        <xar:mlstring>Default Framework:</xar:mlstring>
+                    </label>
+                    <select id="defaultframework" name="defaultframework">
+                        <xar:foreach in="$frameworks" key="$fw" value="$fwinfo">
+                            <xar:if condition="$fw eq $defaultframework">
+                                <option value="#$fw#" selected="selected">#$fwinfo.displayname# (#$fwinfo.module#)</option>
+                            <xar:else />
+                                <option value="#$fw#">#$fwinfo.displayname# (#$fwinfo.module#)</option>
+                            </xar:if>
+                        </xar:foreach>
+                    </select>
+                </div>
+                <p><xar:mlstring>Further options may be available in each framework's host module.  For jQuery, see the tab above.</xar:mlstring></p>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="$autoloaddefaultframework">
+                        <input type="checkbox" name="autoloaddefaultframework" id="autoloaddefaultframework" checked="checked" value ="1" />
+                    <xar:else />
+                        <input type="checkbox" name="autoloaddefaultframework" id="autoloaddefaultframework" value ="1" />
+                    </xar:if>
+                    <label for="autoloaddefaultframework" title="#xarML('Automatically load the default framework on every page request.')#">
+                        <xar:mlstring>Automatically load default framework</xar:mlstring>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>
                     <xar:mlstring>Extension Release Feeds</xar:mlstring>
                 </legend>
 
@@ -613,6 +660,56 @@
                 <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
             </div>
         </form>
+        <xar:elseif condition="$tab eq 'jquery'" />
+            <h3>
+                <xar:mlstring>jQuery Info</xar:mlstring>
+            </h3>
+
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Version:</xar:mlstring>
+                </label>
+                #$fwinfo.version#
+            </div>
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Host Module:</xar:mlstring>
+                </label>
+                #$fwinfo.module#
+            </div>
+
+            <h3>
+                <xar:mlstring>jQuery Plugins</xar:mlstring>
+            </h3>
+
+            <table class="xar-fullwidth">
+                <tr>
+                    <th>
+                        <xar:mlstring>Display Name</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>System Name</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Version</xar:mlstring>
+                    </th>
+                </tr>
+                <xar:set name="rowclass">'xar-norm'</xar:set>
+                <xar:foreach in="$plugins" key="$k" value="$v">
+                    <tr class="#$rowclass#">
+                        <td>
+                            #$v.displayname#
+                        </td>
+                        <td>
+                            #$k#
+                        </td>
+                        <td>
+                            #$v.version#
+                        </td>
+                    </tr>
+                    <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                </xar:foreach>
+            </table>
     </xar:if>
     <xar:if condition="xarSessionSetVar('statusmsg', '')"></xar:if>
 </div>

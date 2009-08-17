@@ -443,6 +443,61 @@ function base_init()
     // TODO: is this is correct place for a default value for a modvar?
     xarModSetVar('base', 'AlternatePageTemplate', 'homepage');
 
+
+    // JS framework stuff added in Xaraya 1.2
+    $registeredframeworks = array(
+                'jquery' => array(
+                        'displayname' => 'jQuery',
+                        'version' => '1.3.2',
+                        'module' => 'base'
+                )
+    );
+    xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
+    xarModSetVar('base', 'DefaultFramework', 'jquery');
+    xarModSetVar('base','AutoLoadDefaultFramework', 1);
+
+    // jQuery plugins list
+    $plugins = array(
+        'bgiframe' => array('version' => '2.1.1', 'displayname' => 'bgiframe'),
+        'center' => array('version' => '2.0', 'displayname' => 'Center'),
+        'chili' => array('version' => '2.2', 'displayname' => 'Chili'),
+        'cluetip' => array('version' => '1.0.4', 'displayname' => 'clueTip'),
+        'color' => array('version' => 'unknown', 'displayname' => 'Color Animations'),
+        'cookie' => array('version' => 'unknown', 'displayname' => 'Cookie'),
+        'countdown' => array('version' => '1.5.3', 'displayname' => 'Countdown'),
+        'cycle' => array('version' => '2.71', 'displayname' => 'Cycle'),
+        'datepicker' => array('version' => '3739', 'displayname' => 'datePicker'),
+        'delegate' => array('version' => '1.0', 'displayname' => 'delegate'),
+        'dimensions' => array('version' => '1.2', 'displayname' => 'dimensions'),
+        'easing' => array('version' => '1.3', 'displayname' => 'Easing'),
+        'fancybox' => array('version' => '1.2.1', 'displayname' => 'FancyBox'),
+        'hoverintent' => array('version' => 'r5', 'displayname' => 'hoverIntent'),
+        'hovertip' => array('version' => 'unknown', 'displayname' => 'Hovertip'),
+        'ifixpng' => array('version' => '2.1', 'displayname' => 'ifixpng'),
+        'jcarousellite' => array('version' => '1.0.1', 'displayname' => 'jCarouselLite'),
+        'jqdnr' => array('version' => '+r2', 'displayname' => 'jqDnR'),
+        'jqgalview' => array('version' => '2.1', 'displayname' => 'jqGalView'),
+        'jqmodal' => array('version' => '+r14', 'displayname' => 'jqModal'),
+        'localscroll' => array('version' => '1.2.7', 'displayname' => 'LocalScroll'),
+        'metadata' => array('version' => 'unknown', 'displayname' => 'Metadata'),
+        'minitabs' => array('version' => '1.0', 'displayname' => 'minitabs'),
+        'motdpopup' => array('version' => 'unknown', 'displayname' => 'motdPopup'),
+        'perciformes' => array('version' => 'unknown', 'displayname' => 'perciformes'),
+        'pngfix' => array('version' => '1.2', 'displayname' => 'pngFix'),
+        'scrollto' => array('version' => '1.4.2', 'displayname' => 'ScrollTo'),
+        'superfish' => array('version' => '1.4.8', 'displayname' => 'Superfish'),
+        'supersubs' => array('version' => '0.2b', 'displayname' => 'Supersubs'),
+        'tablesorter' => array('version' => '2.0.3', 'displayname' => 'TableSorter'),
+        'thickbox' => array('version' => '3.1', 'displayname' => 'Thickbox'),
+        'tooltip' => array('version' => '1.3', 'displayname' => 'Tooltip'),
+        'truncator' => array('version' => 'unknown', 'displayname' => 'HTML Truncator'),
+        'ui' => array('version' => '1.7.2', 'displayname' => 'jQuery UI'),
+        'uitablefilter' => array('version' => 'unknown', 'displayname' => 'uiTableFilter'),
+        'xpath' => array('version' => 'unknown', 'displayname' => 'Simple XPath Compatibility')
+    );
+    xarModSetVar('base', 'jquery.plugins', serialize($plugins));
+
+
     // Initialisation successful
     return true;
 }

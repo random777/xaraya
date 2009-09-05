@@ -12,7 +12,7 @@
 
         public $name                = 'BlockName';
         public $module              = 'BlockModule';
-        public $text_type           = null;
+        public $text_type           = 'Basic Block';
         public $text_type_long      = 'base';
         public $func_update         = null;
         public $allow_multiple      = false;
@@ -36,47 +36,38 @@
             return $this->getPublicProperties();
         }
 
-        function display(Array $data=array())
+        public function display(Array $data=array())
         {
             if (!xarSecurityCheck('View' . $data['module'], 0, 'Block', $data['type'] . ":" . $data['name'] . ":" . "$data[bid]")) {return;}
             // Get variables from content block
-            if (!is_array($data['content'])) $data['content'] = unserialize($data['content']);
-            if (empty($data['content'])) $data['content'] = array();
+            if (!is_array($data['content'])) $data = unserialize($data['content']);
             return $data;
         }
 
         public function modify(Array $data=array())
         {
+            $blockid = $data['bid'];
             // Get current content
             if (!is_array($data['content'])) {
-                $exploded = @unserialize($data['content']);
-                if (is_array($exploded)) $data = array_merge($data,$exploded);
+                $data = @unserialize($data['content']);
             } else {
-                $data = array_merge($data,$data['content']);
+                $data = $data['content'];
             }
-            $data['blockid'] = $data['bid'];
+            $data['blockid'] = $blockid ;
             return $data;
         }
 
         public function update(Array $data=array())
         {
-            if (!is_array($data['content'])) {
-                $vars = unserialize($data['content']);
-            } else {
-                $vars = $data['content'];
-            }
-
             if ($this->form_refresh) {
                 if (!xarVarFetch('expire', 'int', $expire, 0, XARVAR_NOT_REQUIRED)) {return;}
                 if ($expire > 0) $vars['expire'] = $expire + time();
-                if (!isset($vars['expire'])) $vars['expire'] = 0;
+                if (!isset($data['expire'])) $data['expire'] = 0;
             }
             if ($this->form_content) {
                 if (!xarVarFetch('text_content', 'str:1', $text_content, '', XARVAR_DONT_SET)) {return;}
-                $vars['text_content'] = $text_content;
+                $data['text_content'] = $text_content;
             }
-
-            $data['content'] = $vars;
             return $data;
         }
     }

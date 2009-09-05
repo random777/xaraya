@@ -83,8 +83,8 @@ function dynamicdata_userapi_showview($args)
     // select in some category
     if (empty($catid)) $catid = '';
 
-    $object = DataObjectMaster::getObjectList(array('moduleid'  => $args ['moduleid'],
-                                           'itemtype'  => $args ['itemtype'],
+    $object = & DataObjectMaster::getObjectList(array('objectid'  => $args ['objectid'],
+                                           'name'  => $args ['name'],
                                            'itemids' => $itemids,
                                            'sort' => $sort,
                                            'numitems' => $numitems,
@@ -94,8 +94,7 @@ function dynamicdata_userapi_showview($args)
                                            'fieldlist' => $myfieldlist,
                                            'catid' => $catid,
                                            'groupby' => $groupby,
-                                           'status' => $status,
-                                           'extend' => !empty($extend)));
+                                           'status' => $status,));
     if (!isset($object)) return;
     // Count before numitems!
     $numthings = 0;

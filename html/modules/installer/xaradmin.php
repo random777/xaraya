@@ -516,8 +516,8 @@ function installer_admin_bootstrap()
 #
     $objects = array(
                    'configurations',
-                   'sample',
                    'dynamicdata_tablefields',
+                   'sample',
                    'module_settings',
                      );
 

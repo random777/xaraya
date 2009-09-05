@@ -22,8 +22,8 @@ class FieldStatusProperty extends SelectProperty
     public $reqmodules = array('dynamicdata');
 
     // CHANGEME: make this a configuration?
-    public $initialization_display_status = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
-    public $initialization_input_status   = DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY;
+    public $initialization_display_status = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
+    public $initialization_input_status   = DynamicData_Property_Master::DD_INPUTSTATE_ADDMODIFY;
 
     function __construct(ObjectDescriptor $descriptor)
     {
@@ -41,7 +41,7 @@ class FieldStatusProperty extends SelectProperty
             $value = $data['value'];
         }
 
-        $valuearray['display'] = $value & DataPropertyMaster::DD_DISPLAYMASK;
+        $valuearray['display'] = $value & DynamicData_Property_Master::DD_DISPLAYMASK;
         $valuearray['input'] = $value & 992;
 
         // if the input part is 0 then we need to display default values
@@ -83,12 +83,12 @@ class FieldStatusProperty extends SelectProperty
         // if (!parent::validateValue($value)) return false;
 
         if (empty($value)) {
-            $value = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE + DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY;
+            $value = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE + DynamicData_Property_Master::DD_INPUTSTATE_ADDMODIFY;
         }
 
         // Just really check whether we're in bounds. Don't think more is required
-        if (($value >= DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) &&
-            ($value <= DataPropertyMaster::DD_INPUTSTATE_MODIFY)) {
+        if (($value >= DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED) &&
+            ($value <= DynamicData_Property_Master::DD_INPUTSTATE_MODIFY)) {
             return true;
         }
         return false;
@@ -97,18 +97,18 @@ class FieldStatusProperty extends SelectProperty
     function getOptions()
     {
         $options['display'] = array(
-                             array('id' => DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE, 'name' => xarML('Active')),
-                             array('id' => DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY, 'name' => xarML('View only')),
-                             array('id' => DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY, 'name' => xarML('Display only')),
-                             array('id' => DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN, 'name' => xarML('Hidden')),
-                             array('id' => DataPropertyMaster::DD_DISPLAYSTATE_IGNORED, 'name' => xarML('Ignored')),
-                             array('id' => DataPropertyMaster::DD_DISPLAYSTATE_DISABLED, 'name' => xarML('Disabled')),
+                             array('id' => DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE, 'name' => xarML('Active')),
+                             array('id' => DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY, 'name' => xarML('View only')),
+                             array('id' => DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY, 'name' => xarML('Display only')),
+                             array('id' => DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN, 'name' => xarML('Hidden')),
+                             array('id' => DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED, 'name' => xarML('Ignored')),
+                             array('id' => DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED, 'name' => xarML('Disabled')),
                          );
         $options['input'] = array(
-                             array('id' => DataPropertyMaster::DD_INPUTSTATE_NOINPUT, 'name' => xarML('No input allowed')),
-                             array('id' => DataPropertyMaster::DD_INPUTSTATE_ADD, 'name' => xarML('Can be added')),
-                             array('id' => DataPropertyMaster::DD_INPUTSTATE_MODIFY, 'name' => xarML('Can be changed')),
-                             array('id' => DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY, 'name' => xarML('Can be added/changed')),
+                             array('id' => DynamicData_Property_Master::DD_INPUTSTATE_NOINPUT, 'name' => xarML('No input allowed')),
+                             array('id' => DynamicData_Property_Master::DD_INPUTSTATE_ADD, 'name' => xarML('Can be added')),
+                             array('id' => DynamicData_Property_Master::DD_INPUTSTATE_MODIFY, 'name' => xarML('Can be changed')),
+                             array('id' => DynamicData_Property_Master::DD_INPUTSTATE_ADDMODIFY, 'name' => xarML('Can be added/changed')),
                          );
         return $options;
     }

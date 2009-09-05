@@ -1,6 +1,6 @@
 <?php
 /**
- * xarPrivileges: class for the privileges repository
+ * Privileges_Privileges: class for the privileges repository
  *
  * Represents the repository containing all privileges
  * The constructor is the constructor of the parent object
@@ -11,9 +11,7 @@
  * @todo    none
 */
 
-sys::import('modules.privileges.class.masks');
-
-class xarPrivileges extends xarMasks
+class Privileges_Privileges extends Privileges_Masks
 {
 
     /**
@@ -180,7 +178,7 @@ class xarPrivileges extends xarMasks
         $privid = $privilege->getID();
 
         // find the role for the assignation and get its ID
-        $role = xarRoles::findRole($rolename);
+        $role = Roles_Roles::findRole($rolename);
         $roleid = $role->getID();
 
         $bindvars = array($roleid,$privid);
@@ -199,7 +197,7 @@ class xarPrivileges extends xarMasks
         //        parent::$forgetprivsets();
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -501,8 +499,7 @@ class xarPrivileges extends xarMasks
                            'description'=>$description,
                            'parentid'=>0);
 
-            sys::import('modules.privileges.class.privilege');
-            $priv = new xarPrivilege($pargs);
+            $priv = new Privileges_Privilege($pargs);
             xarCore::setCached($cacheKey,$id,$priv);
             return $priv;
         } else {
@@ -547,8 +544,7 @@ class xarPrivileges extends xarMasks
                            'level'=>$level,
                            'description'=>$description,
                            'parentid'=>0);
-            sys::import('modules.privileges.class.privilege');
-            return new xarPrivilege($pargs);
+            return new Privileges_Privilege($pargs);
         }
         return;
     }
@@ -591,7 +587,7 @@ class xarPrivileges extends xarMasks
                 'description' => $description,
                 'parentid'    => 0
             );
-            $privileges[] = new xarPrivilege($pargs);
+            $privileges[] = new Privileges_Privilege($pargs);
         }
         // Close result set
         $result->Close();

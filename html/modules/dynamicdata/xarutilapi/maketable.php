@@ -54,7 +54,7 @@ function dynamicdata_utilapi_maketable($args)
             $itemid = null;
         }
 
-        $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
+        $myobject = & DynamicData_Object_Master::getObject(array('objectid' => $objectid,
                                              'moduleid' => $module_id,
                                              'itemtype' => $itemtype,
                                              'itemid'   => $itemid,
@@ -66,9 +66,9 @@ function dynamicdata_utilapi_maketable($args)
     }
 
     // get the list of properties for a Dynamic Property
-    $property_properties = DataPropertyMaster::getProperties(array('objectid' => 2));
+    $property_properties = DynamicData_Property_Master::getProperties(array('objectid' => 2));
 
-    $proptypes = DataPropertyMaster::getPropertyTypes();
+    $proptypes = DynamicData_Property_Master::getPropertyTypes();
 
     $prefix = xarDB::getPrefix();
     $prefix .= '_';
@@ -88,7 +88,7 @@ function dynamicdata_utilapi_maketable($args)
 
     if (!empty($myobject->objectid)) {
         // get the property info directly from the database again to avoid default eval()
-        $properties = DataPropertyMaster::getProperties(array('objectid' => $myobject->objectid));
+        $properties = DynamicData_Property_Master::getProperties(array('objectid' => $myobject->objectid));
     } else {
         $properties = array();
         foreach (array_keys($myobject->properties) as $name) {

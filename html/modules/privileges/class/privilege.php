@@ -1,20 +1,19 @@
 <?php
 /**
- * xarPrivilege: class for the privileges object
+ * Privileges_Privilege: class for the privileges object
  *
  * Represents a single privileges object
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @access  public
 */
-sys::import('modules.privileges.class.mask');
 
-class xarPrivilege extends xarMask
+class Privileges_Privilege extends Privileges_Mask
 {
     public $parentid = 0;      //the id of the parent of this privilege
 
     /**
-     * xarPrivilege: constructor for the class
+     * Privileges_Privilege: constructor for the class
      *
      * Just sets up the db connection and initializes some variables
      *
@@ -67,8 +66,7 @@ class xarPrivilege extends xarMask
 
         // make this privilege a child of its parent
         if(!empty($this->parentid)) {
-            sys::import('modules.privileges.class.privileges');
-            $parentperm = xarPrivileges::getprivilege($this->parentid);
+            $parentperm = Privileges_Privileges::getprivilege($this->parentid);
             $parentperm->addMember($this);
         }
         return true;
@@ -93,7 +91,7 @@ class xarPrivilege extends xarMask
         //Execute the query, bail if an exception was thrown
         $this->dbconn->Execute($query,$bindvars);
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -108,14 +106,13 @@ class xarPrivilege extends xarMask
     */
     function removeMember($member)
     {
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('DELETE',$this->privmemberstable);
+        $q = new Roles_Query('DELETE',$this->privmemberstable);
         $q->eq('privilege_id', $member->getID());
         $q->eq('parent_id', $this->getID());
         if (!$q->run()) return;
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -149,7 +146,7 @@ class xarPrivilege extends xarMask
         $this->dbconn->Execute($query,$bindvars);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -182,7 +179,7 @@ class xarPrivilege extends xarMask
         while($result->next()) {
             list($parentid) = $result->fields;
             if ($parentid != 0) {
-                $parentperm = xarPrivileges::getPrivilege($parentid);
+                $parentperm = Privileges_Privileges::getPrivilege($parentid);
                 $parentperm->removeMember($this);
             }
         }
@@ -253,18 +250,16 @@ class xarPrivilege extends xarMask
         $result = $stmt->executeQuery(array($this->id));
 
         // make objects from the db entries retrieved
-        sys::import('modules.roles.class.roles');
         $roles = array();
         //      $ind = 0;
-    sys::import('modules.dynamicdata.class.objects.master');
         while($result->next()) {
             list($id,$name,$itemtype,$uname,$email,$pass,$auth_modid) = $result->fields;
             //          $ind = $ind + 1;
 
-            $role = DataObjectMaster::getObject(array('module' => 'roles', 'itemtype' => $itemtype));
+            $role = DynamicData_Object_Master::getObject(array('module' => 'roles', 'itemtype' => $itemtype));
             $role->getItem(array('itemid' => $id));
             /*
-            $role = new xarRole(array('id' => $id,
+            $role = new Roles_Role(array('id' => $id,
                                       'name' => $name,
                                       'itemtype' => $itemtype,
                                       'uname' => $uname,
@@ -332,7 +327,7 @@ class xarPrivilege extends xarMask
                             'level'=>$level,
                             'description'=>$description,
                             'parentid' => $id);
-            $parents[] = new xarPrivilege($pargs);
+            $parents[] = new Privileges_Privilege($pargs);
         }
         // done
         return $parents;
@@ -413,7 +408,7 @@ class xarPrivilege extends xarMask
                             'level'=>       $level,
                             'description'=> $description,
                             'parentid' => $parentid);
-            $children[$parentid][] = new xarPrivilege($pargs);
+            $children[$parentid][] = new Privileges_Privilege($pargs);
         }
         // done
         foreach (array_keys($children) as $parentid) {
@@ -526,8 +521,7 @@ class xarPrivilege extends xarMask
     */
     function isRootPrivilege()
     {
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT');
+        $q = new Roles_Query('SELECT');
         $q->addtable($this->privilegestable,'p');
         $q->addtable($this->privmemberstable,'pm');
         $q->join('p.id','pm.privilege_id');

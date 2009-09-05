@@ -9,92 +9,13 @@
  * @link http://xaraya.com/index.php/release/182.html
  */
 
-sys::import('xaraya.datastores.interface');
-
-/**
- * Base class for DD objects
- */
-class DDObject extends Object implements IDDObject
-{
-
-    public $name;
-
-    function __construct($name=null)
-    {
-        $this->name = isset($name) ? $name : self::toString();
-    }
-
-    function loadSchema(Array $args = array())
-    {
-        $this->schemaobject = $this->readSchema($args);
-    }
-
-    function readSchema(Array $args = array())
-    {
-        extract($args);
-        $module = isset($module) ? $module : '';
-        $type = isset($type) ? $type : '';
-        $func = isset($func) ? $func : '';
-        if (!empty($module)) {
-            $file = 'modules/' . $module . '/xar' . $type . '/' . $func . '.xml';
-        }
-        try {
-            return simplexml_load_file($file);
-        } catch (Exception $e) {
-            throw new BadParameterException(array($file),'Bad or no xml file encountered: #(1)');
-        }
-    }
-
-    //Stolen off http://it2.php.net/manual/en/ref.simplexml.php
-    function toArray(SimpleXMLElement $schemaobject=null)
-    {
-        $schemaobject = isset($schemaobject) ? $schemaobject : $this->schemaobject;
-        if (empty($schemaobject)) return array();
-        $children = $schemaobject->children();
-        $return = null;
-
-        foreach ($children as $element => $value) {
-            if ($value instanceof SimpleXMLElement) {
-                $values = (array)$value->children();
-
-                if (count($values) > 0) {
-                    $return[$element] = $this->toArray($value);
-                } else {
-                    if (!isset($return[$element])) {
-                        $return[$element] = (string)$value;
-                    } else {
-                       if (!is_array($return[$element])) {
-                           $return[$element] = array($return[$element], (string)$value);
-                       } else {
-                            $return[$element][] = (string)$value;
-                       }
-                   }
-                }
-            }
-        }
-
-        if (is_array($return)) {
-            return $return;
-        } else {
-            return false;
-        }
-    }
-
-    function toXML(SimpleXMLElement $schemaobject=null)
-    {
-        $schemaobject = isset($schemaobject) ? $schemaobject : $this->schemaobject;
-        if (empty($schemaobject)) return array();
-        return $schemaobject->asXML();
-    }
-}
-
 /**
  * Factory Class to create Dynamic Data Stores
  *
  * @todo this factory should go into core once we use datastores in more broad ways.
  * @todo the classnames could use a bit of a clean up (shorter, lowercasing)
  */
-class DataStoreFactory extends Object
+class DynamicData_DataStore_Master extends Object
 {
     /**
      * Class method to get a new dynamic data store (of the right type)
@@ -168,12 +89,11 @@ class DataStoreFactory extends Object
         // default data source is dynamic data
         $sources[] = 'dynamic_data';
 
-        // TODO: re-evaluate this once we're further along
         // module variables
-        $modules = xarModAPIFunc('modules', 'admin', 'getlist', array('filter' => array('State' => XARMOD_STATE_ACTIVE)));
-        foreach ($modules as $module) {
-            $sources[] = 'module variable: ' . $module['name'];
-        }
+        $sources[] = 'module variables';
+
+        // user settings (= user variables per module)
+        $sources[] = 'user settings';
 
         // session variables // TODO: perhaps someday, if this makes sense
         //$sources[] = 'session variables';

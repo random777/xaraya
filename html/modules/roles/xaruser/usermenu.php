@@ -32,10 +32,9 @@ function roles_user_usermenu($args)
         case 'form':
         case 'formbasic':
             $id = xarUserGetVar('id');
-            sys::import('modules.dynamicdata.class.objects.master');
-            $object = DataObjectMaster::getObject(array('name' => 'roles_users'));
+            $object = DynamicData_Object_Master::getObject(array('name' => 'roles_users'));
             $object->getItem(array('itemid' => $id));
-            $role = xarRoles::getRole($id);
+            $role = Roles_Roles::getRole($id);
             $home = xarModUserVars::get('roles','userhome');
             $allowemail = xarModUserVars::get('roles','allowemail',$id); //allow someone to send an email to the user via a form
             if (xarModVars::get('roles','setuserlastlogin')) {
@@ -87,8 +86,7 @@ function roles_user_usermenu($args)
             if(!xarVarFetch('home', 'str:1:', $home, '', XARVAR_NOT_REQUIRED)) return;
 
             $id = xarUserGetVar('id');
-            sys::import('modules.dynamicdata.class.objects.master');
-            $object = DataObjectMaster::getObject(array('name' => 'roles_users'));
+            $object = DynamicData_Object_Master::getObject(array('name' => 'roles_users'));
             $object->getItem(array('itemid' => $id));
 
             $oldpass = $object->properties['password']->getValue();

@@ -28,7 +28,7 @@ function dynamicdata_userapi_getprop($args)
 {
     static $propertybag = array();
 
-    $args = DataObjectMaster::getObjectInfo($args);
+    $args = DynamicData_Object_Master::getObjectInfo($args);
     if (empty($args)) return array();
 
     extract($args);
@@ -96,7 +96,7 @@ function dynamicdata_userapi_getprop($args)
         }
     }
 
-    $fields = DataPropertyMaster::getProperties(array('objectid' => $objectid,
+    $fields = DynamicData_Property_Master::getProperties(array('objectid' => $objectid,
                                                            'moduleid' => $module_id,
                                                            'itemtype' => $itemtype,
                                                            'allprops' => $allprops));

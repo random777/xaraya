@@ -10,14 +10,12 @@
  */
 
 sys::import('xaraya.structures.descriptor');
-sys::import('modules.dynamicdata.class.properties.master');
-sys::import('modules.dynamicdata.class.objects.interfaces');
-sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.dynamicdata.class.object.interfaces');
 
 /**
  * DataObject Base class
  */
-class DataObject extends DataObjectMaster implements iDataObject
+class DynamicData_Object_Base extends DynamicData_Object_Master implements iDataObject
 {
 
     protected $descriptor  = null;      // descriptor object of this class
@@ -26,7 +24,7 @@ class DataObject extends DataObjectMaster implements iDataObject
     public $missingfields  = array();      // reference to fields not found by checkInput
 
     /**
-     * Inherits from DataObjectMaster and sets the requested item id
+     * Inherits from DynamicData_Object_Master and sets the requested item id
      *
      * @param $args['itemid'] item id of the object to get
     **/
@@ -75,6 +73,12 @@ class DataObject extends DataObjectMaster implements iDataObject
 
             $this->itemid = $args['itemid'];
         }
+        if(empty($this->itemid))
+        {
+            $msg = 'Invalid item id in method #(1)() for dynamic object [#(2)] #(3)';
+            $vars = array('getItem',$this->objectid,$this->name);
+            throw new BadParameterException($vars,$msg);
+        }
 
         if (!empty($this->primary) && !empty($this->properties[$this->primary])) {
             $primarystore = $this->properties[$this->primary]->datastore;
@@ -82,18 +86,10 @@ class DataObject extends DataObjectMaster implements iDataObject
 
         foreach($this->datastores as $name => $datastore) {
             $itemid = $datastore->getItem($this->toArray());
-            
             // only worry about finding something in primary datastore (if any)
             if(empty($itemid) && !empty($primarystore) && $primarystore == $name) {
                 return;
             }
-        }
-
-        // Turn the values retrieved into proper PHP values
-        foreach($this->properties as $property) {
-            try {
-                $property->value = $property->castType($property->value);
-            } catch(Exception $e) {}
         }
 
         // for use in DD tags : preview="yes" - don't use this if you already check the input in the code
@@ -156,8 +152,8 @@ class DataObject extends DataObjectMaster implements iDataObject
         $this->missingfields = array();
         foreach($fields as $name) {
             // Ignore disabled or ignored properties
-            if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-            || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED))
+            if(($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+            || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED))
                 continue;
 
             // Give the property this object's reference so it can send back info on missing fields
@@ -230,18 +226,18 @@ class DataObject extends DataObjectMaster implements iDataObject
             $args['properties'] = array();
             foreach($args['fieldlist'] as $name) {
                 if(isset($this->properties[$name])) {
-                    if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)) continue;
+                    if(($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)) continue;
                         $args['properties'][$name] = $this->properties[$name];
                 }
             }
         } else {
             $args['properties'] = array();
             foreach ($properties as $property) {
-                if(($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)) continue;
+                if(($property->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)) continue;
                     $args['properties'][$property->name] = $property;
             }
 
@@ -280,9 +276,9 @@ class DataObject extends DataObjectMaster implements iDataObject
             $args['properties'] = array();
             foreach($args['fieldlist'] as $name) {
                 if(isset($this->properties[$name])) {
-                    if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)) continue;
+                    if(($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN)) continue;
                     $args['properties'][$name] = $this->properties[$name];
                 }
             }
@@ -291,9 +287,9 @@ class DataObject extends DataObjectMaster implements iDataObject
             // TODO: this is exactly the same as in the display function, consolidate it.
             $totransform = array(); $totransform['transform'] = array();
             foreach($this->properties as $pname => $pobj) {
-                if(($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                || ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)) continue;
+                if(($property->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)
+                || ($property->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN)) continue;
                 // *never* transform an ID
                 // TODO: there is probably lots more to skip here.
                 if($pobj->type == '21') continue;
@@ -309,9 +305,9 @@ class DataObject extends DataObjectMaster implements iDataObject
 
             foreach($this->properties as $property) {
                 if(
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) &&
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY) &&
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN) &&
+                    ($property->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_DISABLED) &&
+                    ($property->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY) &&
+                    ($property->getDisplayStatus() != DynamicData_Property_Master::DD_DISPLAYSTATE_HIDDEN) &&
                     ($property->type != 21) &&
                     isset($transformed[$property->name])
                 )
@@ -425,24 +421,17 @@ class DataObject extends DataObjectMaster implements iDataObject
 
     public function createItem(Array $args = array())
     {
-        // The id of the item^to be created is
-        //  1. An itemid arg passed
-        //  2. An id arg passed ot the primary index
-        //  3. 0
-        
-        $this->properties[$this->primary]->setValue(0);
         if(count($args) > 0) {
+            if(isset($args['itemid'])) {
+                $this->itemid = $args['itemid'];
+            }
             foreach($args as $name => $value) {
                 if(isset($this->properties[$name])) {
                     $this->properties[$name]->setValue($value);
                 }
             }
-            if(isset($args['itemid'])) {
-                $this->itemid = $args['itemid'];
-            } else {
-                $this->itemid = $this->properties[$this->primary]->getValue();
-            }
         }
+
         // special case when we try to create a new object handled by dynamicdata
         if(
             $this->objectid == 1 &&
@@ -455,36 +444,45 @@ class DataObject extends DataObjectMaster implements iDataObject
 
         // check that we have a valid item id, or that we can create one if it's set to 0
         if(empty($this->itemid)) {
-            // no primary key identified for this object, so we're stuck
-            if(!isset($this->primary)) {
-                $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                $vars = array('primary key', 'DataObject', 'createItem', 'dynamicdata');
-                throw new BadParameterException($vars,$msg);
+            if ($this->baseancestor == 0) {
+                $this->baseancestor = 1;
             }
-            $value = $this->properties[$this->primary]->getValue();
-
-            // we already have an itemid value in the properties
-            if(!empty($value)) {
-                $this->itemid = $value;
-            } elseif(!empty($this->properties[$this->primary]->datastore)) {
-                // we'll let the primary datastore create an itemid for us
-                $primarystore = $this->properties[$this->primary]->datastore;
-                // add the primary to the data store fields if necessary
-                if(!empty($this->fieldlist) && !in_array($this->primary,$this->fieldlist))
-                    $this->datastores[$primarystore]->addField($this->properties[$this->primary]); // use reference to original property
-
-                // Execute any property-specific code first
-                foreach ($this->datastores[$primarystore]->fields as $property) {
-                    if (method_exists($property,'createvalue')) {
-                        $property->createValue($this->itemid);
-                    }
+            $primaryobject = DynamicData_Object_Master::getObject(array('objectid' => $this->baseancestor));
+            // no primary key identified for this object, so we're stuck
+            if(!isset($primaryobject->primary)) {
+                $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
+                $vars = array('primary key', 'DynamicData_Object_Base', 'createItem', 'dynamicdata');
+                throw new BadParameterException($vars,$msg);
+            } else {
+                if ($this->objectid == 1) {
+                    $value = 0;
+                } else {
+                    $value = $primaryobject->properties[$primaryobject->primary]->getValue();
                 }
 
-                $this->itemid = $this->datastores[$primarystore]->createItem($this->toArray());
-            } else {
-                $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                $vars = array('primary key datastore', 'Dynamic Object', 'createItem', 'DynamicData');
-                throw new BadParameterException($vars,$msg);
+                // we already have an itemid value in the properties
+                if(!empty($value)) {
+                    $this->itemid = $value;
+                } elseif(!empty($primaryobject->properties[$primaryobject->primary]->datastore)) {
+                    // we'll let the primary datastore create an itemid for us
+                    $primarystore = $primaryobject->properties[$primaryobject->primary]->datastore;
+                    // add the primary to the data store fields if necessary
+                    if(!empty($this->fieldlist) && !in_array($primaryobject->primary,$this->fieldlist))
+                        $this->datastores[$primarystore]->addField($this->properties[$this->primary]); // use reference to original property
+
+                    // Execute any property-specific code first
+                    foreach ($this->datastores[$primarystore]->fields as $property) {
+                        if (method_exists($property,'createvalue')) {
+                            $property->createValue($this->itemid);
+                        }
+                    }
+
+                    $this->itemid = $this->datastores[$primarystore]->createItem($this->toArray());
+                } else {
+                    $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
+                    $vars = array('primary key datastore', 'Dynamic Object', 'createItem', 'DynamicData');
+                    throw new BadParameterException($vars,$msg);
+                }
             }
         }
         if(empty($this->itemid)) return;
@@ -547,6 +545,11 @@ class DataObject extends DataObjectMaster implements iDataObject
             foreach($this->properties as $property)
                 if ($property->type == 21) $this->itemid = $property->value;
         }
+        if(empty($this->itemid)) {
+            $msg = 'Invalid item id in method #(1)() for dynamic object [#(2)] #(3)';
+            $vars = array('updateItem',$this->objectid,$this->name);
+            throw new BadParameterException($vars,$msg);
+        }
 
         $args = $this->getFieldValues();
         $args['itemid'] = $this->itemid;
@@ -563,6 +566,8 @@ class DataObject extends DataObjectMaster implements iDataObject
 
             // Now run the update routine of the this datastore
             $itemid = $this->datastores[$store]->updateItem($args);
+            if(empty($itemid))
+                return;
         }
 
         // call update hooks for this item

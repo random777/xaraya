@@ -3,8 +3,6 @@
  * Delete a table field
  *
  */
-    sys::import('modules.dynamicdata.class.objects.master');
-    
     function dynamicdata_util_delete_static()
     {
         if (!xarSecurityCheck('AdminDynamicData')) return;
@@ -13,7 +11,7 @@
         if (!xarVarFetch('field' ,     'str:1',  $data['field'] , '' ,          XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('confirm',    'bool',   $data['confirm'], false,       XARVAR_NOT_REQUIRED)) return;
 
-        $data['object'] = DataObjectMaster::getObject(array('name' => 'dynamicdata_tablefields'));
+        $data['object'] = DynamicData_Object_Master::getObject(array('name' => 'dynamicdata_tablefields'));
 
         $data['tplmodule'] = 'dynamicdata';
         $data['authid'] = xarSecGenAuthKey('dynamicdata');

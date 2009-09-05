@@ -21,8 +21,7 @@ function privileges_admin_deleterealm()
     if (!xarVarFetch('confirmed', 'isset', $confirmed, NULL, XARVAR_DONT_SET)) return;
 
     $xartable = xarDB::getTables();
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery('SELECT',$xartable['security_realms']);
+    $q = new Roles_Query('SELECT',$xartable['security_realms']);
     $q->addfields(array('id','name'));
     $q->eq('id', $id);
     if(!$q->run()) return;
@@ -42,7 +41,7 @@ function privileges_admin_deleterealm()
 // Check for authorization code
     if (!xarSecConfirmAuthKey()) return;
 
-    $q = new xarQuery('DELETE',$xartable['security_realms']);
+    $q = new Roles_Query('DELETE',$xartable['security_realms']);
     $q->eq('id', $result['id']);
     if(!$q->run()) return;
 

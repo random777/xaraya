@@ -49,7 +49,7 @@ function dynamicdata_userapi_showdisplay($args)
         $args['fieldlist'] = null;
     }
 
-    $object = & DataObjectMaster::getObject($args);
+    $object = & DynamicData_Object_Master::getObject($args);
     // we're dealing with a real item, so retrieve the property values
     if (!empty($itemid)) {
         $object->getItem();

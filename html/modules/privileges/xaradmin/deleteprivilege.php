@@ -23,8 +23,7 @@ function privileges_admin_deleteprivilege()
     xarSessionDelVar('privileges_statusmsg');
 
 //Call the Privileges class and get the privilege to be deleted
-    sys::import('modules.privileges.class.privileges');
-    $priv = xarPrivileges::getprivilege($id);
+    $priv = Privileges_Privileges::getprivilege($id);
     $name = $priv->getName();
 
 // Security Check

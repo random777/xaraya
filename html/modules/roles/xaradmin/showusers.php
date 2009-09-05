@@ -42,7 +42,7 @@ function roles_admin_showusers()
 
     if ($id != 0) {
         // Call the Roles class and get the role
-        $role      = xarRoles::get($id);
+        $role      = Roles_Roles::get($id);
         $ancestors = $role->getRoleAncestors();
         $data['groupname'] = $role->getName();
         $data['title'] = '';
@@ -57,8 +57,7 @@ function roles_admin_showusers()
     }
 
     // Check if we already have a selection
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery();
+    $q = new Roles_Query();
     $q = $q->sessiongetvar('rolesquery');
     $q = '';
 
@@ -71,7 +70,7 @@ function roles_admin_showusers()
             if ($basetype == ROLES_USERTYPE) $basetypes[] = $basetype;
         }
         $xartable = xarDB::getTables();
-        $q = new xarQuery('SELECT');
+        $q = new Roles_Query('SELECT');
         $q->addtable($xartable['roles'],'r');
         $q->addfields(array('r.id AS id','r.name AS name'));
 

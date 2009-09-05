@@ -79,7 +79,7 @@ function dynamicdata_utilapi_getmeta($args)
                 $name = $name . '_' . $i;
                 $label = $label . '_' . $i;
             }
-            $status = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+            $status = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
 
             // assign some default validation for now
             $validation = $datatype;
@@ -124,15 +124,15 @@ function dynamicdata_utilapi_getmeta($args)
                     break;
                 case 'text':
                     $proptype = 4; // Medium Text Area
-                    $status = DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY;
+                    $status = DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY;
                     break;
                 case 'longtext':
                     $proptype = 5; // Large Text Area
-                    $status = DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY;
+                    $status = DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY;
                     break;
                 case 'blob':       // caution, could be binary too !
                     $proptype = 4; // Medium Text Area
-                    $status = DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY;
+                    $status = DynamicData_Property_Master::DD_DISPLAYSTATE_DISPLAYONLY;
                     break;
                 case 'enum':
                     $proptype = 6; // Dropdown

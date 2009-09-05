@@ -181,10 +181,9 @@
           </xsl:when>
           <xsl:otherwise>
             <!-- This a string. we assume it's an object name -->
-            <xsl:text>sys::import('modules.dynamicdata.class.objects.master');</xsl:text>
             <xsl:text>$__</xsl:text>
             <xsl:value-of select="@object"/>
-            <xsl:text> = DataObjectMaster::getObject(array('name' => '</xsl:text>
+            <xsl:text> = DynamicData_Object_Master::getObject(array('name' => '</xsl:text>
             <xsl:value-of select="@object"/>
             <xsl:text>'));</xsl:text>
             <xsl:text>$__</xsl:text>
@@ -242,10 +241,9 @@
               </xsl:when>
               <xsl:otherwise>
                 <!-- This a string. we assume it's an object name -->
-                <xsl:text>sys::import('modules.dynamicdata.class.objects.master');</xsl:text>
                 <xsl:text>$__</xsl:text>
                 <xsl:value-of select="@object"/>
-                <xsl:text> = DataObjectMaster::getObjectList(array('name' => '</xsl:text>
+                <xsl:text> = DynamicData_Object_Master::getObjectList(array('name' => '</xsl:text>
                 <xsl:value-of select="@object"/>
                 <xsl:text>'));</xsl:text>
                 <xsl:value-of select="@value"/><xsl:text>=</xsl:text>
@@ -273,8 +271,7 @@
     <xsl:choose>
       <xsl:when test="not(@property)">
         <!-- No property, gotta make one -->
-        <xsl:text>sys::import('modules.dynamicdata.class.properties');</xsl:text>
-        <xsl:text>$property =&amp; DataPropertyMaster::getProperty(</xsl:text>
+        <xsl:text>$property =&amp; DynamicData_Property_Master::getProperty(</xsl:text>
         <xsl:call-template name="atts2args">
           <xsl:with-param name="nodeset" select="@*[name() != 'hidden' and name() != 'preset']"/>
         </xsl:call-template>
@@ -337,8 +334,7 @@
     <xsl:choose>
         <xsl:when test="not(@property)">
           <!-- No prop, get one (the right one, preferably) -->
-          <xsl:text>sys::import('modules.dynamicdata.class.properties');</xsl:text>
-          <xsl:text>$property =&amp; DataPropertyMaster::getProperty(</xsl:text>
+          <xsl:text>$property =&amp; DynamicData_Property_Master::getProperty(</xsl:text>
           <xsl:call-template name="atts2args">
             <xsl:with-param name="nodeset" select="@*"/>
           </xsl:call-template>

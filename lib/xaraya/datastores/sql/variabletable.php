@@ -22,7 +22,7 @@ class VariableTableDataStore extends SQLDataStore
     /**
      * Get the field name used to identify this property (we use the property id here)
      */
-    function getFieldName(DataProperty &$property)
+    function getFieldName(DynamicData_Property_Base &$property)
     {
         return (int)$property->id;
     }

@@ -12,7 +12,7 @@
 /**
  * Handle the static text property
  */
-class StaticTextProperty extends DataProperty
+class StaticTextProperty extends DynamicData_Property_Base
 {
     public $id         = 1;
     public $name       = 'static';

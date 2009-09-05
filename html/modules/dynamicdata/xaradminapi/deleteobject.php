@@ -20,7 +20,7 @@
  */
 function dynamicdata_adminapi_deleteobject($args)
 {
-    $objectid = DataObjectMaster::deleteObject($args);
+    $objectid = DynamicData_Object_Master::deleteObject($args);
     return $objectid;
 }
 ?>

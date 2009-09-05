@@ -9,8 +9,6 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-sys::import('modules.dynamicdata.class.objects.base');
-sys::import('modules.roles.class.xarQuery');
 /**
  * Role: class for the role object
  *
@@ -19,7 +17,7 @@ sys::import('modules.roles.class.xarQuery');
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @access public
  */
-class Role extends DataObject
+class Role extends DynamicData_Object_Base
 {
     public $parentlevel;  //we use this just to store transient information
     public $basetype;     //the base itemtype. we add this so it can be passed rather than calculated here
@@ -77,7 +75,7 @@ class Role extends DataObject
     public function createItem(Array $data = array())
     {
         // Confirm that this group or user does not already exist
-        $q = new xarQuery('SELECT',$this->rolestable);
+        $q = new Roles_Query('SELECT',$this->rolestable);
         if ($this->basetype == ROLES_GROUPTYPE) {
             if (empty($data['name'])) $data['name'] = $this->getName();
             $q->eq('name',$data['name']);
@@ -101,7 +99,7 @@ class Role extends DataObject
         if (empty($data['parentid'])) xarVarFetch('parentid',  'int', $data['parentid'],  NULL, XARVAR_DONT_SET);
         if (empty($data['parentid'])) $data['parentid'] = xarModVars::get('roles', 'defaultgroup');
         if (!empty($data['parentid'])) {
-            $parent = xarRoles::get($data['parentid']);
+            $parent = Roles_Roles::get($data['parentid']);
             if (!$parent->addMember($this))
                 throw new Exception('Unable to create a roles relation');
         }
@@ -150,7 +148,7 @@ class Role extends DataObject
         // bail if the purported parent is not a group.
         if ($this->isUser()) return false;
 
-        $q = new xarQuery('SELECT',$this->rolememberstable);
+        $q = new Roles_Query('SELECT',$this->rolememberstable);
         $q->eq('role_id',$member->getID());
         $q->eq('parent_id',$this->getID());
         if (!$q->run()) return;
@@ -158,7 +156,7 @@ class Role extends DataObject
         if ($q->row() != array()) return true;
 
         // add the necessary entry to the rolemembers table
-        $q = new xarQuery('INSERT',$this->rolememberstable);
+        $q = new Roles_Query('INSERT',$this->rolememberstable);
         $q->addfield('role_id',$member->getID());
         $q->addfield('parent_id',$this->getID());
         if (!$q->run()) return;
@@ -167,13 +165,13 @@ class Role extends DataObject
         // add 1 to the users field of the parent group. This is for display purposes.
         if ($member->isUser()) {
             // get the current count
-            $q = new xarQuery('SELECT',$this->rolestable,'users');
+            $q = new Roles_Query('SELECT',$this->rolestable,'users');
             $q->eq('id',$this->getID());
             if (!$q->run()) return;
             $result = $q->row();
 
             // add 1 and update.
-            $q = new xarQuery('UPDATE',$this->rolestable);
+            $q = new Roles_Query('UPDATE',$this->rolestable);
             $q->eq('id',$this->getID());
             $q->addfield('users',$result['users']+1);
             if (!$q->run()) return;
@@ -184,7 +182,7 @@ class Role extends DataObject
         xarModCallHooks('item', 'link', $this->getID(), $item);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -208,13 +206,13 @@ class Role extends DataObject
         // subtract 1 from the users field of the parent group. This is for display purposes.
         if ($member->isUser()) {
             // get the current count.
-            $q = new xarQuery('SELECT',$this->rolestable,'users');
+            $q = new Roles_Query('SELECT',$this->rolestable,'users');
             $q->eq('id',$this->getID());
             if (!$q->run()) return;
             $result = $q->row();
 
             // subtract 1 and update.
-            $q = new xarQuery('UPDATE',$this->rolestable);
+            $q = new Roles_Query('UPDATE',$this->rolestable);
             $q->eq('id',$this->getID());
             $q->addfield('users',$result['users']-1);
             if (!$q->run()) return;
@@ -225,7 +223,7 @@ class Role extends DataObject
         xarModCallHooks('item', 'unlink', $this->getID(), $item);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -258,7 +256,7 @@ class Role extends DataObject
         // a simple SQL DELETE
         while ($result->next()) {
             list($parentid) = $result->fields;
-            $parent = xarRoles::get($parentid);
+            $parent = Roles_Roles::get($parentid);
             // Check that a parent was returned
             if ($parent) {
                 $parent->removeMember($this);
@@ -310,7 +308,7 @@ class Role extends DataObject
         $pass = '';
         $email = '';
         $date_reg = '';
-        $q = new xarQuery('UPDATE',$this->rolestable);
+        $q = new Roles_Query('UPDATE',$this->rolestable);
         $q->addfield('name',$name);
         $q->addfield('uname',$uname);
         $q->addfield('pass',$pass);
@@ -358,12 +356,11 @@ class Role extends DataObject
         if(!isset($stmt)) $stmt = $this->dbconn->prepareStatement($query);
         $result = $stmt->executeQuery(array($this->properties['id']->value));
 
-        sys::import('modules.privileges.class.privilege');
         $privileges = array();
         while ($result->next()) {
             list($id, $name, $realm, $module_id, $module, $component, $instance, $level,
                 $description) = $result->fields;
-            $perm = new xarPrivilege(array('id' => $id,
+            $perm = new Privileges_Privilege(array('id' => $id,
                     'name' => $name,
                     'realm' => is_null($realm) ? 'All' : $realm,
                     'module' => $module,
@@ -432,7 +429,7 @@ class Role extends DataObject
         $this->dbconn->Execute($query,$bindvars);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -452,7 +449,7 @@ class Role extends DataObject
         $this->dbconn->Execute($query,$bindvars);
 
         // Refresh the privileges cached for the current sessions
-        xarMasks::clearCache();
+        Privileges_Masks::clearCache();
         return true;
     }
 
@@ -511,7 +508,7 @@ class Role extends DataObject
         while ($result->next()) {
             list($id) = $result->fields;
 
-            $role = DataObjectMaster::getObject(array('name' => 'roles_users'));
+            $role = DynamicData_Object_Master::getObject(array('name' => 'roles_users'));
             $role->getItem(array('itemid' => $id));
             $users[] = $role;
         }
@@ -530,7 +527,7 @@ class Role extends DataObject
      */
     public function countChildren($state = ROLES_STATE_CURRENT, $selection = NULL, $itemtype = NULL)
     {
-        $q = new xarQuery('SELECT');
+        $q = new Roles_Query('SELECT');
         $q->addfield('COUNT(r.id) AS children');
         $q->addtable($this->rolestable,'r');
         $q->addtable($this->rolememberstable,'rm');
@@ -598,7 +595,7 @@ class Role extends DataObject
         while ($result->next()) {
             list($id) = $result->fields;
 
-            $role = DataObjectMaster::getObject(array('name' => 'roles_groups'));
+            $role = DynamicData_Object_Master::getObject(array('name' => 'roles_groups'));
             $role->getItem(array('itemid' => $id));
             $parents[] = $role;
         }
@@ -663,7 +660,7 @@ class Role extends DataObject
     {
         $users = $this->getUsers($state);
 
-        $groups = xarRoles::getSubGroups($this->getID());
+        $groups = Roles_Roles::getSubGroups($this->getID());
         $ua = array();
         foreach($users as $user){
             //using the ID as the key so that if a person is in more than one sub group they only get one email (mrb: email?)
@@ -671,7 +668,7 @@ class Role extends DataObject
         }
         //Get the sub groups and go for another round
         foreach($groups as $group){
-            $role = xarRoles::get($group['id']);
+            $role = Roles_Roles::get($group['id']);
             if ($grpflag) {
                 $ua[$group['id']] = $role;
             }
@@ -754,8 +751,8 @@ class Role extends DataObject
      */
     public function adjustParentUsers($adjust)
     {
-        $q = new xarQuery('SELECT', $this->rolestable, 'users AS users');
-        $q1 = new xarQuery('UPDATE', $this->rolestable);
+        $q = new Roles_Query('SELECT', $this->rolestable, 'users AS users');
+        $q1 = new Roles_Query('UPDATE', $this->rolestable);
         $parents = $this->getParents();
         foreach ($parents as $parent) {
             $q->clearconditions();

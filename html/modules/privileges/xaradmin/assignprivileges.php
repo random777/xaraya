@@ -18,16 +18,16 @@
                 switch ($data['tab']) {
                     case 'all':
                     default:
-                    $assignments = xarPrivileges::getAssignments(array('module' => $data['tab']));
+                    $assignments = Privileges_Privileges::getAssignments(array('module' => $data['tab']));
                     $data['anonassignments'] = array();
                     $data['groupassignments'] = array();
                     $data['userassignments'] = array();
                     foreach ($assignments as $assignment) {
                         if ($assignment['role_id'] == xarConfigVars::get(null,'Site.User.AnonymousUID'))
                             $data['anonassignments'][] = $assignment;
-                        elseif ($assignment['role_type'] == xarRoles::ROLES_USERTYPE)
+                        elseif ($assignment['role_type'] == Roles_Roles::ROLES_USERTYPE)
                             $data['userassignments'][] = $assignment;
-                        elseif ($assignment['role_type'] == xarRoles::ROLES_GROUPTYPE)
+                        elseif ($assignment['role_type'] == Roles_Roles::ROLES_GROUPTYPE)
                             $data['groupassignments'][] = $assignment;
                     }
                     break;

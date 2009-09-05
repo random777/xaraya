@@ -28,8 +28,7 @@ function roles_userapi_getallroles($args)
     if (!isset($startnum)) $startnum = 1;
     if (!isset($numitems)) $numitems = xarModVars::get('roles', 'itemsperpage');
 
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery();
+    $q = new Roles_Query();
     $xartable = xarDB::getTables();
     $q->addtable($xartable['roles'],'r');
 

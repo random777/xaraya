@@ -37,7 +37,7 @@ function dynamicdata_admin_update($args)
     if(!xarVarFetch('preview',    'isset', $preview,     0, XARVAR_NOT_REQUIRED)) {return;}
 
     if (!xarSecConfirmAuthKey()) return;
-    $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
+    $myobject = & DynamicData_Object_Master::getObject(array('objectid' => $objectid,
                                          'join'     => $join,
                                          'table'    => $table,
                                          'itemid'   => $itemid));

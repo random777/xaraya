@@ -34,7 +34,7 @@ function dynamicdata_admin_updateprop()
 
     if (!xarSecConfirmAuthKey()) return;
 
-    $objectinfo = DataObjectMaster::getObjectInfo(
+    $objectinfo = DynamicData_Object_Master::getObjectInfo(
                                     array(
                                     'objectid' => $objectid,
                                     'moduleid' => $module_id,
@@ -98,10 +98,10 @@ function dynamicdata_admin_updateprop()
                 $dd_configuration[$id] = null;
             }
             if (!isset($display_dd_status[$id])) {
-                $display_dd_status[$id] = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+                $display_dd_status[$id] = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
             }
             if (!isset($input_dd_status[$id])) {
-                $input_dd_status[$id] = DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY;
+                $input_dd_status[$id] = DynamicData_Property_Master::DD_INPUTSTATE_ADDMODIFY;
             }
             $dd_status[$id] = $display_dd_status[$id] + $input_dd_status[$id];
             if (!xarModAPIFunc('dynamicdata','admin','updateprop',
@@ -129,10 +129,10 @@ function dynamicdata_admin_updateprop()
         $name = preg_replace('/[^a-z0-9_]+/','_',$name);
         $name = preg_replace('/_$/','',$name);
         if (!isset($display_dd_status[0])) {
-            $display_dd_status[0] = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+            $display_dd_status[0] = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
         }
         if (!isset($input_dd_status[0])) {
-            $input_dd_status[0] = DataPropertyMaster::DD_INPUTSTATE_ADDMODIFY;
+            $input_dd_status[0] = DynamicData_Property_Master::DD_INPUTSTATE_ADDMODIFY;
         }
         $dd_status[0] = $display_dd_status[0] + $input_dd_status[0];
         $id = xarModAPIFunc('dynamicdata','admin','createproperty',

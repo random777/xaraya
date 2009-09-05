@@ -62,10 +62,10 @@ interface IBasicDataStore
 interface IOrderedDataStore
 {
     // @note tied to properties, as used by dd
-    function getFieldName(DataProperty &$property);
-    function     addField(DataProperty &$property);
-    function   setPrimary(DataProperty &$property);
-    function      addSort(DataProperty &$property, $sortorder = 'ASC');
+    function getFieldName(DynamicData_Property_Base &$property);
+    function     addField(DynamicData_Property_Base &$property);
+    function   setPrimary(DynamicData_Property_Base &$property);
+    function      addSort(DynamicData_Property_Base &$property, $sortorder = 'ASC');
 
     // @note tied to db table
 
@@ -76,8 +76,8 @@ interface IOrderedDataStore
 interface ISQLDataStore
 {
     // @note tied to properties, as used by dd
-    function     addWhere(DataProperty &$property, $clause, $join, $pre = '', $post = '');
-    function   addGroupBy(DataProperty &$property);
+    function     addWhere(DynamicData_Property_Base &$property, $clause, $join, $pre = '', $post = '');
+    function   addGroupBy(DynamicData_Property_Base &$property);
     function      addJoin($table, $key, $fields, array $where = array(), $andor = 'and', $more = '', $sort = array());
 
     // @note this looks pretty generic

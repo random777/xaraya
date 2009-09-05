@@ -22,7 +22,7 @@ function roles_admin_showprivileges()
     // Security Check
     if (!xarSecurityCheck('EditRole')) return;
     // Call the Roles class and get the role
-    $role = xarRoles::get($id);
+    $role = Roles_Roles::get($id);
 
     // get the array of parents of this role
     // need to display this in the template
@@ -32,8 +32,6 @@ function roles_admin_showprivileges()
             'parentname' => $parent->getName());
     }
     $data['parents'] = $parents;
-
-    sys::import('modules.privileges.class.privileges');
 
 // -------------------------------------------------------------------
     // Get the inherited privileges
@@ -73,7 +71,7 @@ function roles_admin_showprivileges()
                         'module' => $priv->getModule(),
                         'component' => $priv->getComponent(),
                         'instance' => $priv->getInstance(),
-                        'level' => xarPrivileges::$levels[$priv->getLevel()],
+                        'level' => Privileges_Privileges::$levels[$priv->getLevel()],
                         'groupid' => $groupid,
                         'groupname' => $groupname,
                         'relation' => $ancestor->getLevel(),
@@ -119,7 +117,7 @@ function roles_admin_showprivileges()
                 'module' => $priv->getModule(),
                 'component' => $priv->getComponent(),
                 'instance' => $priv->getInstance(),
-                'level' => xarPrivileges::$levels[$priv->getLevel()],
+                'level' => Privileges_Privileges::$levels[$priv->getLevel()],
                 'frozen' => $frozen,
                 'relation' => 0,
                 'status' => 3,
@@ -141,11 +139,11 @@ function roles_admin_showprivileges()
             if ($todo['relation'] != $i) continue;
             foreach($privilegesdone as $done) {
                 if (!($done['relation'] < $todo['relation'])) continue;
-                if (xarMasks::includes($done['object']->normalform,$todo['object']->normalform)) {
+                if (Privileges_Masks::includes($done['object']->normalform,$todo['object']->normalform)) {
                     $todo['status'] = 1;
                     break;
                 }
-                elseif (xarMasks::includes($todo['object']->normalform,$done['object']->normalform)) {
+                elseif (Privileges_Masks::includes($todo['object']->normalform,$done['object']->normalform)) {
                     $todo['status'] = 2;
                 }
             }
@@ -172,7 +170,7 @@ function roles_admin_showprivileges()
                         $x['status'] = 1;
                         break;
                     }
-                    elseif (xarMasks::includes($x['object']->normalform,$y['object']->normalform) && !$x['object']->implies($y['object'])) {
+                    elseif (Privileges_Masks::includes($x['object']->normalform,$y['object']->normalform) && !$x['object']->implies($y['object'])) {
                         $x['status'] = 2;
                     }
                 }
@@ -200,7 +198,7 @@ function roles_admin_showprivileges()
     $data['privileges'] = $currentprivileges;
     $data['directassigned'] = $directassigned;
     $data['authid'] = xarSecGenAuthKey();
-    $data['groups'] = xarRoles::getgroups();
+    $data['groups'] = Roles_Roles::getgroups();
     $data['removeurl'] = xarModURL('roles',
         'admin',
         'removeprivilege',

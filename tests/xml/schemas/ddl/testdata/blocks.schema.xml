@@ -41,23 +41,23 @@
   </table>
 
   <constraints>
-    <primary><columnref id="block_group_instances.id"/></primary>
-    <index name="i_block_group_instances_2"><columnref id="block_group_instances.instance_id"/></index>
-    <index name="i_block_group_instances"><columnref id="block_group_instances.group_id"/></index>
+    <primary><column ref="block_group_instances.id"/></primary>
+    <index name="i_block_group_instances_2"><column ref="block_group_instances.instance_id"/></index>
+    <index name="i_block_group_instances"><column ref="block_group_instances.group_id"/></index>
 
-    <primary><columnref id="block_groups.id"/></primary>
-    <index name="i_block_groups"><columnref id="block_groups.name"/></index>
+    <primary><column ref="block_groups.id"/></primary>
+    <index name="i_block_groups"><column ref="block_groups.name"/></index>
 
-    <primary><columnref id="block_instances.id"/></primary>
-    <index name="i_block_instances_u2"><columnref id="block_instances.name"/></index>
-    <index name="i_block_instances"><columnref id="block_instances.type_id"/></index>
+    <primary><column ref="block_instances.id"/></primary>
+    <index name="i_block_instances_u2"><column ref="block_instances.name"/></index>
+    <index name="i_block_instances"><column ref="block_instances.type_id"/></index>
 
-    <primary><columnref id="block_types.id"/></primary>
+    <primary><column ref="block_types.id"/></primary>
     <index name="i_block_types2">
-      <columnref id="block_types.modid"/>
-      <columnref id="block_types.type"/>
+      <column ref="block_types.modid"/>
+      <column ref="block_types.type"/>
     </index>
 
-    <primary><columnref id="cache_blocks.id"/></primary>
+    <primary><column ref="cache_blocks.id"/></primary>
   </constraints>
 </schema>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
+<schema name="xaraya">
+  <table name="themes">
+    <column id="themes.id" name="id" required="true" auto="true">
+      <number size="11" />
+    </column>
+    <column id="themes.name" name="name" required="true" >
+      <text size="64" default=""/>
+    </column>
+    <column id="themes.regid" name="regid"  >
+      <number size="11" />
+    </column>
+    <column id="themes.directory" name="directory" required="true" >
+      <text size="64" default=""/>
+    </column>
+    <column id="themes.author" name="author" required="true" >
+      <text size="64" default=""/>
+    </column>
+    <column id="themes.homepage" name="homepage" required="true" >
+      <text size="64" default=""/>
+    </column>
+    <column id="themes.email" name="email" required="true" >
+      <text size="64" default=""/>
+    </column>
+    <column id="themes.description" name="description" required="true" >
+      <text size="255" default=""/>
+    </column>
+    <column id="themes.contactinfo" name="contactinfo" required="true" >
+      <text size="255" default=""/>
+    </column>
+    <column id="themes.publishdate" name="publishdate" required="true" >
+      <text size="32" default=""/>
+    </column>
+    <column id="themes.license" name="license" required="true" >
+      <text size="255" default=""/>
+    </column>
+    <column id="themes.version" name="version" required="true" >
+      <text size="10" default=""/>
+    </column>
+    <column id="themes.xaraya_version" name="xaraya_version" required="true" >
+      <text size="10" default=""/>
+    </column>
+    <column id="themes.bl_version" name="bl_version" required="true" >
+      <text size="10" default=""/>
+    </column>
+    <column id="themes.class" name="class" required="true" >
+      <number size="11" default="0" />
+    </column>
+    <column id="themes.state" name="state" required="true" >
+      <number size="11" default="1" />
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="themes.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

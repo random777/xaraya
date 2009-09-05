@@ -27,37 +27,9 @@ function themes_init()
     $prefix = xarDB::getPrefix();
     $tables['themes']     = $prefix . '_themes';
 
-    // Create tables
-    /**
-     * Here we create all the tables for the theme system
-     *
-     * prefix_themes       - basic theme info
-     */
-    // prefix_themes
-    /**
-     * CREATE TABLE xar_themes (
-     *   id integer unsigned NOT NULL auto_increment,
-     *   name varchar(64) NOT NULL,
-     *   regid int(10) INTEGER unsigned NOT NULL,
-     *   directory varchar(64) NOT NULL,
-     *   version varchar(10) NOT NULL,
-     *   class int(10) INTEGER NOT NULL default '0',
-     *   state tinyint(3) not null default '1'
-     *   PRIMARY KEY  (id)
-     * )
-     */
+    sys::import('xaraya.installer');
+    Installer::createTable('schema', 'themes');
     $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
-    $fields = array(
-        'id' => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true),
-        'name' => array('type' => 'varchar', 'size' => 64, 'null' => false, 'charset' => $charset),
-        'regid' => array('type' => 'integer', 'unsigned' => true, 'null' => false),
-        'directory' => array('type' => 'varchar', 'size' => 64, 'null' => false, 'charset' => $charset),
-        'version' => array('type' => 'varchar', 'size' => 10, 'null' => false, 'charset' => $charset),
-        'state' => array('type' => 'integer', 'size' => 'tiny', 'unsigned'=> true, 'null' => false, 'default' => '1')
-        );
-
-    $query = xarDBCreateTable($tables['themes'], $fields);
-    $result =& $dbconn->Execute($query);
 
     xarModVars::set('themes', 'default', 'default');
     xarModVars::set('themes', 'selsort', 'nameasc');

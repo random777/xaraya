@@ -11,8 +11,6 @@ $systemConfiguration['DB.Host'] = 'localhost';
 $systemConfiguration['DB.Name'] = 'Xaraya';
 // Database Type: the type of the database server.
 $systemConfiguration['DB.Type'] = 'mysql';
-// Database Charset: the charset of the database.
-$systemConfiguration['DB.Charset'] = 'utf8';
 // Database TablePrefix: a string that will be prefixed to every database tables that are part of the core.
 //                       Those tables are shared across multi-sites.
 $systemConfiguration['DB.TablePrefix'] = 'xar';
@@ -42,7 +40,7 @@ $systemConfiguration['DB.Persistent'] = false;
  $systemConfiguration['Exception.ErrorLevel'] = E_ALL;
 /*
  * This value is used to change the default behavior of the
- * xarServer::getBaseURL() and xarModURL() functions to allow you
+ * xarServerGetBaseURL() and xarModURL() functions to allow you
  * to use things like Apache's mod_rewrite to shorten your
  * URLs even further then Short URL's allows, for example
  * completely removing the "index.php" from your site's URLs

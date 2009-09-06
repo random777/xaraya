@@ -40,7 +40,7 @@
                     <xar:data-display object="$object" />
                     <p>This #$object:label# cannot be edited or deleted.</p>
                 <xar:else />
-                    <xar:if condition="$basetype eq ROLES_GROUPTYPE AND $object:countChildren()">
+                    <xar:if condition="$itemtype eq ROLES_GROUPTYPE AND $object:countChildren()">
                         <div class="xar-form-input-wrapper">
                             <label title="#xarML('Type of Role')#" class="xar-form-label">
                         Type:</label>#$object:label# 
@@ -87,7 +87,7 @@
                             syntax available in the Base user menu block.</p>
                         </div>
                     </xar:if>
-                    <xar:if condition="$basetype eq ROLES_USERTYPE">
+                    <xar:if condition="$itemtype eq ROLES_USERTYPE">
                         <xar:if condition="in_array('useremailformat',$settings)">
                             <div class="xar-form-input-wrapper">
                                 <label for="duvs_useremailformat" title="#xarML('Email Format')#"

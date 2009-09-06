@@ -22,7 +22,7 @@
                         <a href="#xarServer::getCurrentURL()#" class="xar-accent xar-accent-outline">Modify DataProperties</a>
                     </li>
                     <li class="xar-tab">
-                        <a href="&xar-modurl-dynamicdata-util-export;&amp;module_id=#$module_id#&amp;itemtype=#$itemtype#" class="xar-norm xar-norm-outline">
+                        <a href="&xar-modurl-dynamicdata-util-export;&amp;objectid=#$objectid#" class="xar-norm xar-norm-outline">
                         Export to XML</a>
                     </li>
                     <xar:if condition="!empty($fields)">

@@ -74,22 +74,10 @@ function dynamicdata_adminapi_createproperty($args)
             $values[$name] = $args[$name];
         }
     }
-/* this is already done via the table definition of xar_dynamic_properties
-    // fill in some defaults if necessary
-    if (empty($fields['source']['value'])) {
-        $fields['source']['value'] = 'dynamic_data';
-    }
-    if (empty($fields['validation']['value'])) {
-        $fields['validation']['value'] = '';
-    }
-*/
 
-    $propid = xarModAPIFunc('dynamicdata', 'admin', 'create',
-                            array('module_id'    => xarMod::getRegID('dynamicdata'),
-                                  'itemtype' => 1, //$itemtype,
-                                  'itemid'   => $itemid,
-                                  'values'   => $values));
-    if (!isset($propid)) return;
+    sys::import('modules.dynamicdata.class.objects.master');
+    $propertyobject = DataObjectMaster::getObject(array('name' => 'properties'));
+    $propid = $propertyobject->createItem($values);
     return $propid;
 }
 ?>

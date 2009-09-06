@@ -89,7 +89,6 @@ function roles_user_usermenu($args)
             $id = xarUserGetVar('id');
             sys::import('modules.dynamicdata.class.objects.master');
             $object = DataObjectMaster::getObject(array('name' => 'roles_users'));
-            $object->getItem(array('itemid' => $id));
 
             $oldpass = $object->properties['password']->getValue();
             $oldemail = $object->properties['email']->getValue();

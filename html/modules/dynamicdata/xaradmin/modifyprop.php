@@ -44,6 +44,7 @@ function dynamicdata_admin_modifyprop()
         );
     }
     $objectinfo = DataObjectMaster::getObjectInfo($args);
+    $object = DataObjectMaster::getObject($args);
 
     if (isset($objectinfo)) {
         $objectid = $objectinfo['objectid'];
@@ -85,19 +86,7 @@ function dynamicdata_admin_modifyprop()
         $data['fields'] = array();
     }
 
-    // get possible data sources (with optional extra table)
-// TODO: combine with static tables list below someday ?
-    $params = array();
-    if (!empty($table)) {
-        $params['table'] = $table;
-        $data['table'] = $table;
-    } else {
-        $data['table'] = null;
-    }
-    $data['sources'] = DataStoreFactory::getDataSources($params);
-    if (empty($data['sources'])) {
-        $data['sources'] = array();
-    }
+    $data['sources'] = DataStoreFactory::getDataSources($object->datasources);
 
     $isprimary = 0;
     foreach (array_keys($data['fields']) as $field) {
@@ -189,7 +178,6 @@ function dynamicdata_admin_modifyprop()
                                                'itemtype' => empty($itemtype) ? null : $itemtype));
     }
 
-    // Return the template variables defined in this function
     return $data;
 }
 

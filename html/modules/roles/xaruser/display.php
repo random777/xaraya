@@ -45,8 +45,7 @@ function roles_user_display($args)
         $data['itemtype'] = $itemtype;
         $data['name'] = $name;
         //get the data for a user
-        $data['basetype'] = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
-        if ($data['basetype'] == ROLES_USERTYPE) {
+        if ($data['itemtype'] == ROLES_USERTYPE) {
             $data['uname'] = $role->getUser();
             $data['email'] = xarVarPrepForDisplay($role->getEmail());
             $data['state'] = $role->getState();

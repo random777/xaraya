@@ -29,7 +29,7 @@ function dynamicdata_admin_showpropval($args)
     if (!xarSecurityCheck('EditDynamicDataItem',1,'Item',"$module_id:$itemtype:$itemid")) return;
 
     // get the object corresponding to this dynamic property
-    $myobject = & DataObjectMaster::getObject(array('objectid' => 2,
+    $myobject = & DynamicData_Object_Master::getObject(array('objectid' => 2,
                                                          'itemid'   => $itemid));
     if (empty($myobject)) return;
 
@@ -59,7 +59,7 @@ function dynamicdata_admin_showpropval($args)
     $data['id']         = $id;
     // pass the original invalid value here
     $data['invalid']    = !empty($invalid) ? $invalid :'';
-    $property =& DataPropertyMaster::getProperty($data);
+    $property =& DynamicData_Property_Master::getProperty($data);
     if (empty($property)) return;
     
     if (!empty($confirm) || !empty($exit)) {

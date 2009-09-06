@@ -42,11 +42,11 @@ class SimpleObjectInterface extends DataObjectInterface
         if (!empty($args) && is_array($args) && count($args) > 0) {
             $this->args = array_merge($this->args, $args);
         }
-        $this->object =& DataObjectMaster::getObjectList($this->args);
+        $this->object =& DynamicData_Object_Master::getObjectList($this->args);
         if (method_exists($this->object,$this->args['method'])) {
             $this->object->getItems();
         } else {
-            $this->object =& DataObjectMaster::getObject($this->args);
+            $this->object =& DynamicData_Object_Master::getObject($this->args);
         }
 
         if (empty($this->object)) return;

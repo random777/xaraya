@@ -18,7 +18,7 @@ interface iDataObject
     public function getNextItemtype(Array $data = array());
 }
 
-interface iDataObjectList
+interface iDynamicData_Object_List
 {
     public function __construct(DataObjectDescriptor $descriptor);
     public function setArguments(Array $data = array());

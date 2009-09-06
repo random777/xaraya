@@ -46,11 +46,11 @@ class ConfigurationProperty extends TextBoxProperty
         } elseif (!empty($proptype->value)) {
             $data['type'] = $proptype->value;
         } else {
-            $data['type'] = 1; // default DataProperty class
+            $data['type'] = 1; // default DynamicData_Property_Base class
         }
 
         $data['name'] = !empty($name) ? $name : 'dd_'.$this->id;
-        $property =& DataPropertyMaster::getProperty($data);
+        $property =& DynamicData_Property_Master::getProperty($data);
         if (empty($property)) return;
 
         if (!xarVarFetch($data['name'],'isset',$data['configuration'],NULL,XARVAR_NOT_REQUIRED)) return;
@@ -65,7 +65,7 @@ class ConfigurationProperty extends TextBoxProperty
     {
         $data['type'] = $this->objectref->properties['property_id']->value;
 
-        $property =& DataPropertyMaster::getProperty($data);
+        $property =& DynamicData_Property_Master::getProperty($data);
         $property->id = $this->id;
         $property->parseConfiguration($this->value);
 

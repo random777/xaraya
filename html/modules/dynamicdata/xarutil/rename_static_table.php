@@ -2,9 +2,7 @@
 /**
  * Delete a table
  *
- */
-    sys::import('modules.dynamicdata.class.objects.master');
-    
+ */    
     function dynamicdata_util_rename_static_table()
     {
         if (!xarSecurityCheck('AdminDynamicData')) return;
@@ -13,7 +11,7 @@
         if (!xarVarFetch('newtable',   'str:1',  $data['newtable'],    '',     XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('confirm',    'bool',   $data['confirm'], false,       XARVAR_NOT_REQUIRED)) return;
 
-        $data['object'] = DataObjectMaster::getObject(array('name' => 'dynamicdata_tablefields'));
+        $data['object'] = DynamicData_Object_Master::getObject(array('name' => 'dynamicdata_tablefields'));
 
         $data['tplmodule'] = 'dynamicdata';
 

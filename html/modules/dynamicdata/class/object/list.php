@@ -8,11 +8,9 @@
  * @subpackage dynamicdata
  *
  **/
-sys::import('modules.dynamicdata.class.properties');
-sys::import('modules.dynamicdata.class.objects.master');
-sys::import('modules.dynamicdata.class.objects.interfaces');
+sys::import('modules.dynamicdata.class.object.interfaces');
 
-class DataObjectList extends DataObjectMaster implements iDataObjectList
+class DynamicData_Object_List extends DynamicData_Object_Master implements iDynamicData_Object_List
 {
     public $itemids  = array();           // the list of item ids used in data stores
     public $where    = '';
@@ -31,7 +29,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
     public $linkfunc = 'display';
 
     /**
-     * Inherits from DataObjectMaster and sets the requested item ids, sort, where, ...
+     * Inherits from DynamicData_Object_Master and sets the requested item ids, sort, where, ...
      *
      * @param $args['itemids'] array of item ids to return
      * @param $args['sort'] sort field(s)
@@ -67,7 +65,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
     }
 
     /**
-     * Set arguments for the DataObjectList class
+     * Set arguments for the DynamicData_Object_List class
      *
      * @param array
      */
@@ -225,7 +223,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             // sanity check on SQL
             if(count($pieces) < 2) {
                 $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
-                $vars = array('query ' . $where, 'DataObjectList', 'getWhere', 'DynamicData');
+                $vars = array('query ' . $where, 'DynamicData_Object_List', 'getWhere', 'DynamicData');
                 throw new BadParameterException($vars,$msg);
             }
 
@@ -413,7 +411,7 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         if(!empty($this->status)) {
             $state = $this->status;
         } else {
-            $state = DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE;
+            $state = DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE;
         }
         $args['properties'] = array();
         if (!empty($args['fieldlist']) && !is_array($args['fieldlist'])) {
@@ -423,10 +421,10 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         if(count($args['fieldlist']) > 0) {
             foreach($args['fieldlist'] as $name) {
                 if(isset($this->properties[$name])) {
-                    if(($this->properties[$name]->getDisplayStatus() == ($state & DataPropertyMaster::DD_DISPLAYMASK))
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
+                    if(($this->properties[$name]->getDisplayStatus() == ($state & DynamicData_Property_Master::DD_DISPLAYMASK))
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)
+                    || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED)
                     ) {
                         $args['properties'][$name] =& $this->properties[$name];
                     }
@@ -434,10 +432,10 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
             }
         } else {
             foreach($this->properties as $name => $property)
-                if(($this->properties[$name]->getDisplayStatus() == ($state & DataPropertyMaster::DD_DISPLAYMASK))
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
+                if(($this->properties[$name]->getDisplayStatus() == ($state & DynamicData_Property_Master::DD_DISPLAYMASK))
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_ACTIVE)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_VIEWONLY)
+                || ($this->properties[$name]->getDisplayStatus() == DynamicData_Property_Master::DD_DISPLAYSTATE_IGNORED)
                 ) {
                         $args['properties'][$name] =& $this->properties[$name];
                 }
@@ -548,41 +546,39 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
         $urlargs['tplmodule'] = $args['tplmodule'];
         // The next 3 lines make the DD modify/display routines work for overlay objects
         // TODO: do we need the concept of tplmodule at all?
-        $info = DataObjectMaster::getObjectInfo($args);
+        $info = DynamicData_Object_Master::getObjectInfo($args);
         $urlargs['name'] = $info['name'];
+        $args['tplmodule'] = 'dynamicdata';
+
 
         $options = array();
 
         if (xarSecurityCheck('ReadDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
-            $tplmodule = file_exists('modules/' . $args['tplmodule'] . '/xar_' . $linktype . '/' . $linkfunc . '.php') ? $args['tplmodule'] : 'dynamicdata';
-            $options['view'] = array('otitle' => xarML('Display'),
-                                 'olink'  => xarModURL($tplmodule,$linktype,$linkfunc,$urlargs),
-                                 'ojoin'  => '');
-            if ($this->itemtype == 0) {
-                $options['viewitems'] = array('otitle' => xarML('Items'),
-                                              'olink'  => xarModURL('dynamicdata','admin','view',
-                                                              array('itemid' => $itemid)),
-                                              'ojoin'  => '|'
-                                             );
-            }
+             $options['view'] = array('otitle' => xarML('Display'),
+                                     'olink'  => xarModURL($args['tplmodule'],$linktype,$linkfunc,$urlargs),
+                                     'ojoin'  => '');
+              if ($this->itemtype == 0) {
+                    $options['viewitems'] = array('otitle' => xarML('Items'),
+                                                  'olink'  => xarModURL('dynamicdata','admin','view',
+                                                                  array('itemid' => $itemid)),
+                                                  'ojoin'  => '|'
+                                                 );
+              }
         }
         if (xarSecurityCheck('EditDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
-            $tplmodule = file_exists('modules/' . $args['tplmodule'] . '/xaradmin/modify.php') ? $args['tplmodule'] : 'dynamicdata';
-            $options['modify'] = array('otitle' => xarML('Edit'),
-                                    'olink'  => xarModURL($tplmodule,'admin','modify', $urlargs),
-                                    'ojoin'  => '|');
-            if ($this->objectid == 1) {
-                $tplmodule = file_exists('modules/' . $args['tplmodule'] . '/xaradmin/modifyprop.php') ? $args['tplmodule'] : 'dynamicdata';
+             $options['modify'] = array('otitle' => xarML('Edit'),
+                                        'olink'  => xarModURL($args['tplmodule'],'admin','modify', $urlargs),
+                                        'ojoin'  => '|');
+             if ($this->objectid == 1) {
                 $options['modifyprops'] = array('otitle' => xarML('Properties'),
-                                     'olink'  => xarModURL($tplmodule,'admin','modifyprop',$urlargs),
+                                     'olink'  => xarModURL($args['tplmodule'],'admin','modifyprop',$urlargs),
                                      'ojoin'  => '|');
-            }
+             }
         }
         if (xarSecurityCheck('DeleteDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid))  {
             if($this->objectid == 1){
-                $tplmodule = file_exists('modules/' . $args['tplmodule'] . '/xaradmin/modifyprop.php') ? $args['tplmodule'] : 'dynamicdata';
                 $options['modifyprops'] = array('otitle' => xarML('Properties'),
-                                     'olink'  => xarModURL($tplmodule,'admin','modifyprop',
+                                     'olink'  => xarModURL($args['tplmodule'],'admin','modifyprop',
                                                    $urlargs),
                                        'ojoin'  => '|');
                 $options['viewitems'] = array('otitle' => xarML('Items'),
@@ -591,9 +587,8 @@ class DataObjectList extends DataObjectMaster implements iDataObjectList
                                               'ojoin'  => '|'
                                              );
             }
-            $tplmodule = file_exists('modules/' . $args['tplmodule'] . '/xaradmin/delete.php') ? $args['tplmodule'] : 'dynamicdata';
             $options['delete'] = array('otitle' => xarML('Delete'),
-                                   'olink'  => xarModURL($tplmodule,'admin','delete',
+                                   'olink'  => xarModURL($args['tplmodule'],'admin','delete',
                                                $urlargs),
                                    'ojoin'  => '|');
         }

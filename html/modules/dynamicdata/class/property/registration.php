@@ -16,7 +16,7 @@ xarMod::loadDbInfo('dynamicdata','dynamicdata');
  * This corresponds directly to the db info we register for a property.
  *
  */
-class PropertyRegistration extends DataContainer
+class DynamicData_Property_Registration extends DataContainer
 {
     public $id         = 0;                      // id of the property, hardcoded to make things easier
     public $name       = 'propertyType';         // what type of property are we dealing with
@@ -225,7 +225,7 @@ class PropertyRegistration extends DataContainer
                 $propDirs = $dirs;
             } else {
                 // Clear the cache
-                PropertyRegistration::ClearCache();
+                DynamicData_Property_Registration::ClearCache();
 
                 $activeMods = xarModApiFunc('modules','admin','getlist', array('filter' => array('State' => XARMOD_STATE_ACTIVE)));
                 assert('!empty($activeMods)'); // this should never happen
@@ -275,14 +275,14 @@ class PropertyRegistration extends DataContainer
             $i=0;
             foreach($newClasses as $index => $propertyClass) {
                 // If it doesnt exist something weird is goin on
-                if (!is_subclass_of($propertyClass, 'DataProperty')) {;continue;}
+                if (!is_subclass_of($propertyClass, 'DynamicData_Property_Base')) {;continue;}
                 $processedClasses[] = $propertyClass;
 
                 // Main part
                 // Call the class method on each property to get the registration info
                 if (!is_callable(array($propertyClass,'getRegistrationInfo'))) continue;
                 $descriptor = new ObjectDescriptor(array());
-                $baseInfo = new PropertyRegistration($descriptor);
+                $baseInfo = new DynamicData_Property_Registration($descriptor);
                 try {
                     $property = new $propertyClass($descriptor);
                 } catch (Exception $e) {
@@ -309,7 +309,7 @@ class PropertyRegistration extends DataContainer
                     // Each alias is also a propertyRegistration object
                     foreach($aliases as $alias) {
                         $descriptor = new ObjectDescriptor($alias);
-                        $aliasInfo = new PropertyRegistration($descriptor);
+                        $aliasInfo = new DynamicData_Property_Registration($descriptor);
                         $aliasInfo->class = $propertyClass;
                         $aliasInfo->filepath = $property->filepath .'/'. $property->name . '.php';
                         $currentproptypes[$aliasInfo->id] = $aliasInfo;

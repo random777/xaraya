@@ -1,6 +1,6 @@
 <?php
 /**
- * xarRoles class
+ * Roles_Roles class
  *
  * @package modules
  * @copyright (C) 2002-2007 The Digital Development Foundation
@@ -11,16 +11,15 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-sys::import('modules.roles.class.xarQuery');
 /**
- * xarRoles: class for the role repository
+ * Roles_Roles: class for the role repository
  *
  * Represents the repository containing all roles
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @access public
  */
-class xarRoles extends Object
+class Roles_Roles extends Object
 {
     const ROLES_STATE_DELETED = 0;
     const ROLES_STATE_INACTIVE = 1;
@@ -196,8 +195,7 @@ class xarRoles extends Object
         // create the parent object
         list($id, $name, $itemtype, $parentid, $uname, $email, $pass,
             $date_reg, $val_code, $state, $auth_module) = $result->fields;
-        sys::import('modules.dynamicdata.class.objects.master');
-        $parent = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
+        $parent = DynamicData_Object_Master::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
         $parent->getItem(array('itemid' => $id));
 
         // retrieve the child's data from the repository
@@ -208,8 +206,7 @@ class xarRoles extends Object
         // create the child object
         list($id, $name, $itemtype, $parentid, $uname, $email, $pass,
             $date_reg, $val_code, $state, $auth_module) = $result->fields;
-        sys::import('modules.roles.class.role');
-        $child = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
+        $child = DynamicData_Object_Master::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $itemtype));
         $child->getItem(array('itemid' => $id));
 
        // done
@@ -231,7 +228,7 @@ class xarRoles extends Object
         }
         // set up the query and get the groups
         self::initialize();
-        $q = new xarQuery('SELECT');
+        $q = new Roles_Query('SELECT');
         $q->addtable(self::$rolestable,'r');
         $q->addtable(self::$rolememberstable,'rm');
         $q->leftjoin('r.id','rm.role_id');
@@ -262,7 +259,7 @@ class xarRoles extends Object
         // retrieve the object's data from the repository
         // set up and execute the query
         self::initialize();
-        $q = new xarQuery('SELECT',self::$rolestable);
+        $q = new Roles_Query('SELECT',self::$rolestable);
         $q->eq($field,$value);
         if ($state == ROLES_STATE_CURRENT) {
             $q->ne('state',ROLES_STATE_DELETED);
@@ -284,8 +281,7 @@ class xarRoles extends Object
             if (!empty($duv)) $duvs[$key] = $duv;
         }
         // create and return the role object
-        sys::import('modules.roles.class.role');
-        $role = DataObjectMaster::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $row['itemtype']));
+        $role = DynamicData_Object_Master::getObject(array('class' => 'Role', 'module' => 'roles', 'itemtype' => $row['itemtype']));
         $role->getItem(array('itemid' => $row['id']));
         return $role;
     }

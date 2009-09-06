@@ -30,7 +30,7 @@ function dynamicdata_admin_delete($args)
     if(!xarVarFetch('template',   'isset', $template,   NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('return_url', 'isset', $return_url, NULL, XARVAR_DONT_SET)) {return;}
 
-    $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
+    $myobject = & DynamicData_Object_Master::getObject(array('objectid' => $objectid,
                                          'name'       => $name,
                                          'join'       => $join,
                                          'table'      => $table,
@@ -75,7 +75,7 @@ function dynamicdata_admin_delete($args)
         $data = array_merge($data,xarModAPIFunc('dynamicdata','admin','menu'));
         $data['object'] = & $myobject;
         if ($data['objectid'] == 1) {
-            $mylist = & DataObjectMaster::getObjectList(array('objectid' => $data['itemid'], 'extend' => false));
+            $mylist = & DynamicData_Object_Master::getObjectList(array('objectid' => $data['itemid'], 'extend' => false));
             if (count($mylist->properties) > 0) {
                 $data['related'] = xarML('Warning : there are #(1) properties and #(2) items associated with this object !', count($mylist->properties), $mylist->countItems());
             }
@@ -97,10 +97,10 @@ function dynamicdata_admin_delete($args)
     // special case for a dynamic object : delete its properties too // TODO: and items
 // TODO: extend to any parent-child relation ?
     if ($data['objectid'] == 1) {
-        $mylist = & DataObjectMaster::getObjectList(array('objectid' => $data['itemid'], 'extend' => false));
+        $mylist = & DynamicData_Object_Master::getObjectList(array('objectid' => $data['itemid'], 'extend' => false));
         foreach (array_keys($mylist->properties) as $name) {
             $propid = $mylist->properties[$name]->id;
-            $propid = DataPropertyMaster::deleteProperty(array('itemid' => $propid));
+            $propid = DynamicData_Property_Master::deleteProperty(array('itemid' => $propid));
         }
     }
 

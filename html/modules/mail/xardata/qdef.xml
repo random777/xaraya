@@ -3,7 +3,7 @@
   <label>mail-queues</label>
   <module_id>771</module_id>
   <itemtype>1000</itemtype>
-  <class>DataObject</class>
+  <class>DynamicData_Object_Base</class>
   <filepath>auto</filepath>
   <urlparam>itemid</urlparam>
   <maxid>2</maxid>

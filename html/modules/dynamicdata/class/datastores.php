@@ -22,8 +22,5 @@ sys::import('xaraya.datastores.interface');
     Over time this will probably change. For now i just made sure that everyone
     can still reach the same stuff as before.
 */
-sys::import('modules.dynamicdata.class.datastores.master');
-sys::import('modules.dynamicdata.class.datastores.base');
-
 
 ?>

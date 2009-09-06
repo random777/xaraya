@@ -19,7 +19,7 @@
  */
 function dynamicdata_userapi_countitems($args)
 {
-    $mylist = & DataObjectMaster::getObjectList($args);
+    $mylist = & DynamicData_Object_Master::getObjectList($args);
     if (!isset($mylist)) return;
 
     return $mylist->countItems();

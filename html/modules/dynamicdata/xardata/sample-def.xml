@@ -3,7 +3,7 @@
   <label>Sample Object</label>
   <module_id>182</module_id>
   <itemtype>3</itemtype>
-  <class>DataObject</class>
+  <class>DynamicData_Object_Base</class>
   <filepath>auto</filepath>
   <urlparam>itemid</urlparam>
   <maxid>7</maxid>

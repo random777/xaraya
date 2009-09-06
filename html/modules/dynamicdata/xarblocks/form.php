@@ -50,7 +50,7 @@ function dynamicdata_formblock_display($blockinfo)
 
     // Populate block info and pass to theme
     if (!empty($vars['objectid'])) {
-        $objectinfo = DataObjectMaster::getObjectInfo($vars);
+        $objectinfo = DynamicData_Object_Master::getObjectInfo($vars);
         if (!empty($objectinfo)) {
             if (!xarSecurityCheck('AddDynamicDataItem',0,'Item',"$objectinfo[moduleid]:$objectinfo[itemtype]:All")) return;
             $blockinfo['content'] = $objectinfo;

@@ -16,17 +16,17 @@ class HookDataStore extends BasicDataStore
     /**
      * Get the field name used to identify this property (we use the hook name here)
      */
-    function getFieldName(DataProperty &$property)
+    function getFieldName(DynamicData_Property_Base &$property)
     {
         // check if this is a known module, based on the name of the property type
-        $proptypes = DataPropertyMaster::getPropertyTypes();
+        $proptypes = DynamicData_Property_Master::getPropertyTypes();
         $curtype = $property->type;
         if (!empty($proptypes[$curtype]['name'])) {
             return $proptypes[$curtype]['name'];
         }
     }
 
-    function setPrimary(DataProperty &$property)
+    function setPrimary(DynamicData_Property_Base &$property)
     {
         // not applicable !?
     }
@@ -49,7 +49,7 @@ class HookDataStore extends BasicDataStore
                                              'objectid' => $itemid));
                 // see if we got something interesting in return
                 if (isset($value)) {
-		            $this->fields[$hook]->value = $value;
+                    $this->fields[$hook]->value = $value;
                 }
             }
         }

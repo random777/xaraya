@@ -11,7 +11,7 @@
  * renamed to avoid conflict for now
  * @todo what are we going to do with this long term?
  */
-class xarQuery
+class Roles_Query
 {
 
     public $version = "3.1";

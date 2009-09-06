@@ -30,7 +30,7 @@ function dynamicdata_util_export($args)
     $data = array();
     $data['menutitle'] = xarML('Dynamic Data Utilities');
 
-    $myobject = DataObjectMaster::getObject(array('objectid' => $objectid,
+    $myobject = DynamicData_Object_Master::getObject(array('objectid' => $objectid,
                                          'name'     => $name,
                                          'moduleid' => $moduleid,
                                          'itemtype' => $itemtype,
@@ -43,7 +43,7 @@ function dynamicdata_util_export($args)
         return $data;
     }
 
-    $proptypes = DataPropertyMaster::getPropertyTypes();
+    $proptypes = DynamicData_Property_Master::getPropertyTypes();
 
     $prefix = xarDB::getPrefix();
     $prefix .= '_';
@@ -92,7 +92,7 @@ function dynamicdata_util_export($args)
     } elseif ($itemid == 'all') {
         $data['label'] = xarML('Export Data for all #(1) Items', $myobject->label);
 
-        $mylist = DataObjectMaster::getObjectList(array('objectid' => $objectid,
+        $mylist = DynamicData_Object_Master::getObjectList(array('objectid' => $objectid,
                                                 'moduleid' => $moduleid,
                                                 'itemtype' => $itemtype));
         $mylist->getItems();

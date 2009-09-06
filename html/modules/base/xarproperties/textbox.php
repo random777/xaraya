@@ -9,12 +9,10 @@
  * @link http://xaraya.com/index.php/release/68.html
  * @author mikespub <mikespub@xaraya.com>
  */
-/* Include parent class */
-sys::import('modules.dynamicdata.class.properties');
 /**
  * Handle the textbox property
  */
-class TextBoxProperty extends DataProperty
+class TextBoxProperty extends DynamicData_Property_Base
 {
     public $id         = 2;
     public $name       = 'textbox';

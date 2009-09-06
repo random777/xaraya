@@ -9,12 +9,10 @@
  * @link http://xaraya.com/index.php/release/68.html
  * @author mikespub <mikespub@xaraya.com>
  */
-/* Include the parent class  */
-sys::import('modules.dynamicdata.class.properties');
 /**
  * Handle check box property
  */
-class CheckboxProperty extends DataProperty
+class CheckboxProperty extends DynamicData_Property_Base
 {
     public $id         = 14;
     public $name       = 'checkbox';

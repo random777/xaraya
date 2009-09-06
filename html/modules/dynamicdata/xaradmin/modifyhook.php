@@ -54,7 +54,7 @@ function dynamicdata_admin_modifyhook($args)
         $itemid = $objectid;
     }
 
-    $object = & DataObjectMaster::getObject(array('moduleid' => $module_id,
+    $object = & DynamicData_Object_Master::getObject(array('moduleid' => $module_id,
                                        'itemtype' => $itemtype,
                                        'itemid'   => $itemid,
                                        'extend'   => false));

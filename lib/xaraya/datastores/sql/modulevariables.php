@@ -37,7 +37,7 @@ class ModuleVariablesDataStore extends FlatTableDataStore
         }
     }
 
-    function getFieldName(DataProperty &$property)
+    function getFieldName(DynamicData_Property_Base &$property)
     {
         return $property->name;
     }

@@ -26,8 +26,7 @@ function roles_admin_sendmail()
     if (!xarSecurityCheck('MailRoles')) return;
     // Get user information
     // Get the current query
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery();
+    $q = new Roles_Query();
     $q = unserialize(xarSession::getVar('rolesquery'));
 
     // only need the id, name and email fields
@@ -49,7 +48,7 @@ function roles_admin_sendmail()
     // In this case we'll just pick out the descendants in the same state
     // Note the nice use of the array keys to overwrite users we already have
     if ($id != 0 && ($includesubgroups == 1)) {
-        $parentgroup = xarRoles::get($id);
+        $parentgroup = Roles_Roles::get($id);
         $descendants = $parentgroup->getDescendants($state);
 
         while (list($key, $user) = each($descendants)) {

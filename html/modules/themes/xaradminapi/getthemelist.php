@@ -3,7 +3,7 @@
  * Gets a list of themes
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -107,6 +107,17 @@ function themes_adminapi_getthemelist($args)
         $query = "SELECT themes.xar_regid,
                          themes.xar_name,
                          themes.xar_directory,
+                         themes.xar_mode,
+                         themes.xar_author,
+                         themes.xar_homepage,
+                         themes.xar_email,
+                         themes.xar_description,
+                         themes.xar_contactinfo,
+                         themes.xar_publishdate,
+                         themes.xar_license,
+                         themes.xar_version,
+                         themes.xar_xaraya_version,
+                         themes.xar_bl_version,
                          themes.xar_class,
                          states.xar_state
                   FROM $themestable AS themes
@@ -128,6 +139,17 @@ function themes_adminapi_getthemelist($args)
             list($themeInfo['regid'],
                  $themeInfo['name'],
                  $themeInfo['directory'],
+                 $themeInfo['mode'],
+                 $themeInfo['author'],
+                 $themeInfo['homepage'],
+                 $themeInfo['email'],
+                 $themeInfo['description'],
+                 $themeInfo['contactinfo'],
+                 $themeInfo['publishdate'],
+                 $themeInfo['license'],
+                 $themeInfo['version'],
+                 $themeInfo['xaraya_version'],
+                 $themeInfo['bl_version'],
                  $themeInfo['class'],
                  $themeState) = $result->fields;
 

@@ -22,14 +22,15 @@ function privileges_admin_updateprivilege()
 // Check for authorization code
     if (!xarSecConfirmAuthKey()) return;
 
-    if(!xarVarFetch('pid',        'isset', $pid,        NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('pname',      'isset', $name,       NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('prealm',     'isset', $realm,     'All', XARVAR_NOT_REQUIRED)) {return;}
-    if(!xarVarFetch('pmodule',    'isset', $module,     NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('pcomponent', 'isset', $component,  NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('ptype',      'isset', $type,       NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('plevel',     'isset', $level,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('pinstance',  'array', $pinstance, array(), XARVAR_NOT_REQUIRED)) {return;}
+    if(!xarVarFetch('pid',          'isset', $pid,         NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pname',        'isset', $name,        NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('prealm',       'isset', $realm,       'All', XARVAR_NOT_REQUIRED)) {return;}
+    if(!xarVarFetch('pmodule',      'isset', $module,      NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pcomponent',   'isset', $component,   NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('ptype',        'isset', $type,        NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('plevel',       'isset', $level,       NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pdescription', 'isset', $description, NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pinstance',    'array', $pinstance,   array(), XARVAR_NOT_REQUIRED)) {return;}
 
     $instance = "";
     foreach($pinstance as $part) $instance .= $part . ":";
@@ -56,6 +57,7 @@ function privileges_admin_updateprivilege()
         $priv->setComponent('All');
         $priv->setInstance('All');
         $priv->setLevel(0);
+        $priv->setDescription($description);
     }
     else {
         $privs = new xarPrivileges();
@@ -66,6 +68,7 @@ function privileges_admin_updateprivilege()
         $priv->setComponent($component);
         $priv->setInstance($instance);
         $priv->setLevel($level);
+        $priv->setDescription($description);
     }
 
 //Try to update the privilege to the repository and bail if an error was thrown

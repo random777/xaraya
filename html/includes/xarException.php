@@ -278,6 +278,9 @@ function xarErrorRender($format, $stacktype = 'ERROR', $shortmsg = false)
 {
     assert('$format == "template" || $format == "rawhtml" || $format == "text"; /* Improper format passed to xarErrorRender */');
 
+    // 2009-06-11 JDJ Save the current error ID so it can be made available to the error templates.
+    $CurrentErrorID = xarCurrentErrorID();
+
     $msgs = xarException__formatStack($format,$stacktype);
     $error = $msgs[0];
 
@@ -298,6 +301,7 @@ function xarErrorRender($format, $stacktype = 'ERROR', $shortmsg = false)
     }
 
     $data = array();
+    $data['id'] = $CurrentErrorID;
     $data['major'] = $error->getMajor();
     $data['type'] = $error->getType();
     $data['title'] = $error->getTitle();

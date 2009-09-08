@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+v4.991 16 Oct 2008  (c) 2000-2008 John Lim (jlim#natsoft.com). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -33,6 +33,11 @@ if (!defined('ADODB_DIR')) die();
 //	 http://support.microsoft.com/default.aspx?scid=kb;EN-US;q220918
 // Alternatively use:
 // 	   CONVERT(char(12),datecol,120)
+//
+// Also if your month is showing as month-1, 
+//   e.g. Jan 13, 2002 is showing as 13/0/2002, then see
+//     http://phplens.com/lens/lensforum/msgs.php?id=7048&x=1
+//   it's a localisation problem.
 //----------------------------------------------------------------
 
 
@@ -99,7 +104,7 @@ class ADODB_mssql extends ADOConnection {
 	var $rightOuter = '=*';
 	var $ansiOuter = true; // for mssql7 or later
 	var $poorAffectedRows = true;
-	var $identitySQL = 'select @@IDENTITY'; // 'select SCOPE_IDENTITY'; # for mssql 2000
+	var $identitySQL = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
 	var $uniqueOrderBy = true;
 	var $_bindInputArray = true;
 	
@@ -151,7 +156,11 @@ class ADODB_mssql extends ADOConnection {
 	// the same scope. A scope is a module -- a stored procedure, trigger, 
 	// function, or batch. Thus, two statements are in the same scope if 
 	// they are in the same stored procedure, function, or batch.
+        if ($this->lastInsID !== false) {
+            return $this->lastInsID; // InsID from sp_executesql call
+        } else {
 			return $this->GetOne($this->identitySQL);
+		}
 	}
 
 	function _affectedrows()
@@ -538,7 +547,7 @@ order by constraint_name, referenced_table_name, keyno";
 		for ($i = 1, $max = sizeof($sqlarr); $i < $max; $i++) {
 			$sql2 .=  '@P'.($i-1) . $sqlarr[$i];
 		} 
-		return array($sql,$this->qstr($sql2),$max);
+		return array($sql,$this->qstr($sql2),$max,$sql2);
 	}
 	
 	function PrepareSP($sql)
@@ -606,7 +615,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if ($type === false) 
 			switch(gettype($var)) {
 			default:
-			case 'string': $type = SQLCHAR; break;
+			case 'string': $type = SQLVARCHAR; break;
 			case 'double': $type = SQLFLT8; break;
 			case 'integer': $type = SQLINT4; break;
 			case 'boolean': $type = SQLINT1; break; # SQLBIT not supported in 4.1.0
@@ -662,6 +671,11 @@ order by constraint_name, referenced_table_name, keyno";
 			# bind input params with sp_executesql: 
 			# see http://www.quest-pipelines.com/newsletter-v3/0402_F.htm
 			# works only with sql server 7 and newer
+            $getIdentity = false;
+            if (!is_array($sql) && preg_match('/^\\s*insert/i', $sql)) {
+                $getIdentity = true;
+                $sql .= (preg_match('/;\\s*$/i', $sql) ? ' ' : '; ') . $this->identitySQL;
+            }
 			if (!is_array($sql)) $sql = $this->Prepare($sql);
 			$params = '';
 			$decl = '';
@@ -701,13 +715,20 @@ order by constraint_name, referenced_table_name, keyno";
 			$decl = $this->qstr($decl);
 			if ($this->debug) ADOConnection::outp("<font size=-1>sp_executesql N{$sql[1]},N$decl,$params</font>");
 			$rez = mssql_query("sp_executesql N{$sql[1]},N$decl,$params", $this->_connectionID);
+            if ($getIdentity) {
+                $arr = @mssql_fetch_row($rez);
+                $this->lastInsID = isset($arr[0]) ? $arr[0] : false;
+                @mssql_data_seek($rez, 0);
+            }
 			
 		} else if (is_array($sql)) {
 			# PrepareSP()
 			$rez = mssql_execute($sql[1]);
+            $this->lastInsID = false;
 			
 		} else {
 			$rez = mssql_query($sql,$this->_connectionID);
+            $this->lastInsID = false;
 		}
 		return $rez;
 	}

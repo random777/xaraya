@@ -24,6 +24,7 @@ function base_adminmenublock_init()
     return array('nocache' => 1,
                  'showlogout' => 1,
                  'menustyle' => 'bycat',
+                 'showall' => false,
                  'showhelp' => 1);
 }
 
@@ -93,6 +94,9 @@ function base_adminmenublock_display($blockinfo)
         $vars['menustyle'] = xarModGetVar('modules', 'menustyle');
     }
 
+    $showall = false;
+    if(isset($vars['showall']) && $vars['showall']) $showall = true;
+
 
     // Get current URL for later comparisons because we need to compare
     // xhtml compliant url, we fetch the default 'XML'-formatted URL.
@@ -127,7 +131,8 @@ function base_adminmenublock_display($blockinfo)
                         $adminmods[$modname]['features']['overview'] = 1;
                         $adminmods[$modname]['features']['maintitle'] = xarML('Display overview information for module #(1)', $labelDisplay);
                     }
-
+                } // if
+                if (($modname == $thismodname && in_array($thismodtype, $admintypes)) || $showall) {
                     // For active module we need to display the mod functions links
                     // call the api function to obtain function links, but don't raise an exception if it's not there
                     $menulinks = xarModAPIFunc($modname, 'admin', 'getmenulinks', array(), false);
@@ -143,7 +148,7 @@ function base_adminmenublock_display($blockinfo)
                             );
                         }
                     }
-                } // if
+                }
             } // foreach
 
             $template = 'verticallistbyname';
@@ -161,6 +166,9 @@ function base_adminmenublock_display($blockinfo)
                 $labelDisplay = $mod['displayname'];
                 if(!isset($mod['category']) or $mod['category'] == '0') {
                     $mod['category'] = xarML('Unknown');
+                }
+                if ($mod['category'] == 'Global') {
+                    $mod['category'] = 'System';
                 }
                 $cat = xarVarPrepForDisplay($mod['category']);
 
@@ -182,6 +190,11 @@ function base_adminmenublock_display($blockinfo)
                         $catmods[$cat][$modname]['features']['overview'] = 1;
                         $catmods[$cat][$modname]['features']['maintitle'] = xarML('Display overview information for module #(1)', $labelDisplay);
                     }
+                } else {
+                   // Why is this needed?
+                   unset($mod['displayname']);
+                }
+                if (($modname == $thismodname && in_array($thismodtype, $admintypes)) || $showall) {
                     // For active module we need to display the mod functions links
                     // call the api function to obtain function links, but don't raise an exception if it's not there
                     $menulinks = xarModAPIFunc($modname, 'admin', 'getmenulinks', array(), false);
@@ -197,9 +210,6 @@ function base_adminmenublock_display($blockinfo)
                             );
                         }
                     }
-                } else {
-                   // Why is this needed?
-                   unset($mod['displayname']);
                 }
             } //inner foreach
 
@@ -232,6 +242,7 @@ function base_adminmenublock_display($blockinfo)
     // Populate block info and pass to BlockLayout.
     $data['showlogout'] = $showlogout;
     $data['showhelp']  =  $showhelp;
+    $data['showall']  =  $showall;
     $data['menustyle']  = $vars['menustyle'];
     $blockinfo['content'] = $data;
     return $blockinfo;

@@ -3,7 +3,7 @@
  * Regenerate module list
  *
  * @package modules
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -282,6 +282,27 @@ function modules_adminapi_regenerate()
                     )
                 );
             }
+
+            // BUG 2580 - check for changes in version info and update db accordingly
+            $updatearray = array('class','category','admin_capable','user_capable');
+            $updaterequired = false;
+            foreach ($updatearray as $fieldname) {
+                if ($dbModules[$name][$fieldname] != $modinfo[$fieldname]) {
+                    $updaterequired = true;
+                }
+            }
+            if ($updaterequired) {
+                //update all these fields to the database
+                $updatemodule = xarModAPIFunc('modules','admin','updateproperties',
+                          array('regid' => $dbModules[$name]['regid'],
+                                'class' => $modinfo['class'],
+                                'category' => $modinfo['category'],
+                                'admincapable' => $modinfo['admin_capable'],
+                                'usercapable' => $modinfo['user_capable']
+                            )
+                    );
+            }
+
         }
     }
 

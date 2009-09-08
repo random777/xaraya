@@ -44,7 +44,7 @@ class ExceptionRendering
                     $this->id = "EXCEPTION_FAILURE";
                 }
                 $this->load();
-                $this->type = 'System Error';
+                $this->type = xarML('System Error');
                 break;
             case XAR_USER_EXCEPTION:
                 include(dirname(__FILE__) . "/defaultuserexception.defaults.php");
@@ -57,7 +57,7 @@ class ExceptionRendering
                     $this->long = "";
                     $this->hint = "";
                 }
-                $this->type = 'User Error';
+                $this->type = xarML('User Error');
                 break;
             case XAR_SYSTEM_MESSAGE:
                 include(dirname(__FILE__) . "/systemmessage.defaults.php");
@@ -70,7 +70,7 @@ class ExceptionRendering
                     $this->long = "";
                     $this->hint = "";
                 }
-                $this->type = 'System Message';
+                $this->type = xarML('System Message');
                 break;
             default:
                 include(dirname(__FILE__) . "/systemexception.defaults.php");

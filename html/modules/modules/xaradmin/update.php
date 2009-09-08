@@ -23,8 +23,18 @@
 function modules_admin_update()
 {
     // Get parameters
-    xarVarFetch('id','id',$regId);
-    xarVarFetch('newdisplayname','str::',$newDisplayName);
+    if(!xarVarFetch('id','id',$regId)) { return; }
+    if(!xarVarFetch('newdisplayname','str::',$newDisplayName)) { return; }
+    if(!xarVarFetch('hookorder', 'isset', $hookorder, NULL, XARVAR_DONT_SET)) { return; }
+
+    if(isset($hookorder)) {
+        $hookorder = explode(';', ';'.$hookorder);
+        $hookorder = array_slice($hookorder, 1, count($hookorder), true);
+        $hookorder = array_flip($hookorder);
+    } else {
+        $hookorder = array();
+    }
+
 
     if (!xarSecConfirmAuthKey()) return;
 
@@ -33,7 +43,8 @@ function modules_admin_update()
                              'admin',
                              'update',
                               array('regid' => $regId,
-                                    'displayname' => $newDisplayName));
+                                    'displayname' => $newDisplayName,
+                                    'hookorder' => $hookorder));
     
     if (!isset($updated)) return;
     
@@ -43,7 +54,9 @@ function modules_admin_update()
     } else {
         xarResponseRedirect(xarModURL('modules', 'admin', 'list'));
     }
-    
+
+    xarResponseRedirect(xarModURL('modules', 'admin', 'modify',array('id' => $regId)));
+
     return true;
 }
 

@@ -3,7 +3,7 @@
  * Delete an item
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,6 +29,7 @@ function dynamicdata_admin_delete($args)
     if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('return_url','isset', $return_url, NULL, XARVAR_DONT_SET)) return;
 
     $myobject = & Dynamic_Object_Master::getObject(array('moduleid' => $modid,
                                          'itemtype' => $itemtype,
@@ -87,16 +88,17 @@ function dynamicdata_admin_delete($args)
 
     $itemid = $myobject->deleteItem();
 
-    if (!empty($table)) {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
-                                      array('table' => $table)));
-    } else {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
-                                      array('itemid' => $objectid)));
+    if (empty($return_url)) {
+        if (!empty($table)) {
+            $return_url = xarModURL('dynamicdata', 'admin', 'view',
+                                          array('table' => $table));
+        } else {
+            $return_url = xarModURL('dynamicdata', 'admin', 'view',
+                                          array('itemid' => $objectid));
+        }
     }
 
-    // Return
-    return true;
+    return xarResponseRedirect($return_url);
 
 }
 

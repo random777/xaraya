@@ -1,6 +1,4 @@
-<span style="padding-left: 1em">
-    <a href="#$leafitemurl#" title="#$leafitemtitle#">
-        #$leafitemtext#
-    </a>
+<span style="padding-left: 1em;" id="roleleaf#$uid#">
+    <a href="#$leafitemurl#" title="#$leafitemtitle#">#$leafitemtext#</a> 
     #$leafitemdescription#
 </span>

@@ -36,6 +36,7 @@ function privileges_admin_modifyprivilege()
     if(!xarVarFetch('poldcomponent', 'isset', $oldcomponent, NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('ptype',         'isset', $type,         NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('plevel',        'isset', $level,        NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('pdescription',  'isset', $description,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('pinstance',     'array', $instance,     array(), XARVAR_NOT_REQUIRED)) {return;}
 
     if(!xarVarFetch('pparentid',     'isset', $pparentid,    NULL, XARVAR_DONT_SET)) {return;}
@@ -91,6 +92,9 @@ function privileges_admin_modifyprivilege()
 
     if(isset($level)) {$data['plevel'] = $level;}
     else {$data['plevel'] = $priv->getLevel();}
+
+    if(isset($description)) {$data['pdescription'] = $description;}
+    else {$data['pdescription'] = $priv->getDescription();}
 
     $instances = $privs->getinstances($data['pmodule'],$data['pcomponent']);
     $numInstances = count($instances); // count the instances to use in later loops

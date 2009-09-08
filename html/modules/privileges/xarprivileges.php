@@ -2103,11 +2103,11 @@ class xarPrivilege extends xarMask
 
 // create the insert query
         $query = "INSERT INTO $this->privilegestable
-                    (xar_pid, xar_name, xar_realm, xar_module, xar_component, xar_instance, xar_level)
-                  VALUES (?,?,?,?,?,?,?)";
+                    (xar_pid, xar_name, xar_realm, xar_module, xar_component, xar_instance, xar_level, xar_description)
+                  VALUES (?,?,?,?,?,?,?,?)";
         $bindvars = array($this->dbconn->genID($this->privilegestable),
                           $this->name, $this->realm, $this->module,
-                          $this->component, $this->instance, $this->level);
+                          $this->component, $this->instance, $this->level, $this->description);
         //Execute the query, bail if an exception was thrown
         if (!$this->dbconn->Execute($query,$bindvars)) return;
 
@@ -2235,10 +2235,10 @@ class xarPrivilege extends xarMask
         $query =    "UPDATE " . $this->privilegestable .
                     " SET xar_name = ?, xar_realm = ?,
                           xar_module = ?, xar_component = ?,
-                          xar_instance = ?, xar_level = ?
+                          xar_instance = ?, xar_level = ?, xar_description = ?
                       WHERE xar_pid = ?";
         $bindvars = array($this->name, $this->realm, $this->module,
-                          $this->component, $this->instance, $this->level,
+                          $this->component, $this->instance, $this->level, $this->description,
                           $this->getID());
         //Execute the query, bail if an exception was thrown
         if (!$this->dbconn->Execute($query,$bindvars)) return;

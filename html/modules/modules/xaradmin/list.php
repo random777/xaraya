@@ -157,10 +157,6 @@ function modules_admin_list()
                                     'admin',
                                     'modify',
                                      array( 'id'        => $thismodid));
-        $listrows[$i]['propurl']    = xarModURL('modules',
-                                    'admin',
-                                    'modifyproperties',
-                                     array( 'id'        => $thismodid));
         // added due to the feature request - opens info in new window
         $listrows[$i]['infourl'] = xarModURL('modules',
                                     'admin',

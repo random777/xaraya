@@ -85,7 +85,7 @@
         </p>
       <xar:else />
         <div class="xar-form-input-wrapper">
-          <label for="pname" title="#xarML('TITLE')#" class="xar-form-label">
+          <label for="pname" title="#xarML('The name of this privilege')#" class="xar-form-label">
             <xar:mlstring>Name:</xar:mlstring>
           </label>
           <input type="text" name="pname" id="pname" value="#$pname#" maxlength="40" class="xar-form-textlong" />
@@ -220,6 +220,13 @@
           </select>
         </div>
       </xar:if>
+
+      <div class="xar-form-input-wrapper">
+        <label for="pdescription" title="#xarML('A description of this privilege')#" class="xar-form-label">
+          <xar:mlstring>Description:</xar:mlstring>
+        </label>
+        <input type="text" name="pdescription" id="pdescription" value="#$pdescription#" maxlength="255" class="xar-form-textxlong" />
+      </div>
 
         <xar:if condition="$pcomponent ne 'All' and empty($target)">
           <p>

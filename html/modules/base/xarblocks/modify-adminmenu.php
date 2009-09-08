@@ -30,11 +30,13 @@ function base_adminmenublock_modify($blockinfo)
     if(empty($vars['showmarker'])) $vars['showmarker'] = 0;
     if(empty($vars['menustyle']))  $vars['menustyle'] = 'bycat'; //xarModGetVar('base','menustyle');
     if(empty($vars['showhelp'])) $vars['showhelp'] = 0;
+    if(empty($vars['showall'])) $vars['showall'] = 0;
 
     // Set the config values
     $args['showlogout'] = $vars['showlogout'];
     $args['menustyle']  = $vars['menustyle'];
     $args['showhelp']  = $vars['showhelp'];
+    $args['showall']  = $vars['showall'];
 
     // Set the template data we need
     $sortorder = array('byname' => xarML('By Name'),
@@ -53,6 +55,7 @@ function base_adminmenublock_update($blockinfo)
     if (!xarVarFetch('showlogout', 'int:0:1', $vars['showlogout'], 0, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('menustyle' , 'str::'  , $vars['menustyle'] , 'byname', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('showhelp', 'int:0:1', $vars['showhelp'], 0, XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('showall', 'int:0:1', $vars['showall'], 0, XARVAR_NOT_REQUIRED)) return;
 
     $blockinfo['content'] = $vars;
 

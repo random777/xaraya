@@ -3,7 +3,7 @@
  * Generate all groups listing.
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -30,7 +30,8 @@ function roles_userapi_getallgroups($args)
     $q->addtable($xartable['roles'],'r');
     $q->addtable($xartable['rolemembers'], 'rm');
     $q->join('rm.xar_uid','r.xar_uid');
-    $q->addfields(array('r.xar_uid','r.xar_name','r.xar_users','rm.xar_parentid'));
+    // Bug 3479: add uname to fields returned
+    $q->addfields(array('r.xar_uid','r.xar_uname','r.xar_name','r.xar_users','rm.xar_parentid'));
 
     $conditions = array();
     // Restriction by group.
@@ -84,13 +85,19 @@ function roles_userapi_getallgroups($args)
 
     if (count($conditions) != 0) $q->qor($conditions);
     $q->eq('r.xar_type',1);
-    $q->ne('r.xar_state',ROLES_STATE_DELETED);
+    // Bug 3479: accept state param
+    if (isset($state) && is_numeric($state)) {
+        $q->eq('r.xar_state', $state);
+    } else {
+        $q->ne('r.xar_state',ROLES_STATE_DELETED);
+    }
     $q->run();
 
 //this is a kludge, but xarQuery doesn't have this functionality yet
     $groups = array();
     foreach ($q->output() as $group) {
         $groups[] = array('uid' => $group['r.xar_uid'],
+                          'uname' => $group['r.xar_uname'], // Bug 3479: return uname field
                           'name' => $group['r.xar_name'],
                           'users' => $group['r.xar_users'],
                           'parentid' => $group['rm.xar_parentid']);

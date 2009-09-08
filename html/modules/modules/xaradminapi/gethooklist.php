@@ -39,7 +39,7 @@ function modules_adminapi_gethooklist($args)
     $bindvars = array();
     $query = "SELECT DISTINCT xar_smodule, xar_stype, xar_tmodule,
                             xar_object, xar_action, xar_tarea, xar_ttype,
-                            xar_tfunc
+                            xar_tfunc, xar_order
             FROM $xartable[hooks] ";
 
     if (!empty($modName)) {
@@ -57,7 +57,7 @@ function modules_adminapi_gethooklist($args)
     // hooklist will hold the available hooks
     $hooklist = array();
     for (; !$result->EOF; $result->MoveNext()) {
-        list($smodName, $itemType, $tmodName,$object,$action,$area,$tmodType,$tmodFunc) = $result->fields;
+        list($smodName, $itemType, $tmodName,$object,$action,$area,$tmodType,$tmodFunc,$order) = $result->fields;
 
         // Avoid single-space module names e.g. for mssql
         if (!empty($smodName)) {
@@ -81,7 +81,7 @@ function modules_adminapi_gethooklist($args)
         if (!empty($smodName)) {
             if (!isset($hooklist[$tmodName]["$object:$action:$area"][$smodName])) $hooklist[$tmodName]["$object:$action:$area"][$smodName] = array();
             if (empty($itemType)) $itemType = 0;
-            $hooklist[$tmodName]["$object:$action:$area"][$smodName][$itemType] = 1;
+            $hooklist[$tmodName]["$object:$action:$area"][$smodName][$itemType] = $order;
         }
     }
     $result->Close();

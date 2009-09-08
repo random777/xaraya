@@ -34,6 +34,13 @@ function dynamicdata_admin_updateprop()
     if(!xarVarFetch('dd_source',     'isset', $dd_source,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('dd_status',     'isset', $dd_status,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('dd_validation', 'isset', $dd_validation,  NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('prop_order',     'isset', $prop_order,      NULL, XARVAR_DONT_SET)) {return;}
+
+    if(isset($prop_order)) {
+        $prop_order = explode(';', ';'.$prop_order);
+        $prop_order = array_slice($prop_order, 1, count($prop_order), true);
+        $prop_order = array_flip($prop_order);
+    }
 
     // Confirm authorisation code.
     if (!xarSecConfirmAuthKey()) return;
@@ -80,7 +87,6 @@ function dynamicdata_admin_updateprop()
                            array('modid' => $modid,
                                  'itemtype' => $itemtype,
                                  'allprops' => true));
-
     if (!xarModAPILoad('dynamicdata', 'admin')) return;
 
     $isprimary = 0;
@@ -88,6 +94,7 @@ function dynamicdata_admin_updateprop()
     $i = 0;
     // update old fields
     foreach ($fields as $name => $field) {
+
         $id = $field['id'];
         $i++;
         if (empty($dd_label[$id])) {
@@ -109,6 +116,12 @@ function dynamicdata_admin_updateprop()
             if (!isset($dd_validation[$id])) {
                 $dd_validation[$id] = null;
             }
+            if(is_array($prop_order) && isset($prop_order[$id])) {
+                $dd_prop_order = $prop_order[$id];
+            } else {
+                $dd_prop_order = $field['order'];
+            }                
+
             if (!xarModAPIFunc('dynamicdata','admin','updateprop',
                               array('prop_id' => $id,
                               //      'modid' => $modid,
@@ -118,7 +131,8 @@ function dynamicdata_admin_updateprop()
                                     'default' => $dd_default[$id],
                               //      'source' => $dd_source[$id],
                                     'status' => $dd_status[$id],
-                                    'validation' => $dd_validation[$id]))) {
+                                    'validation' => $dd_validation[$id],
+                                    'order' => $dd_prop_order))) {
                 return;
             }
             if ($dd_type[$id] == 21) { // item id

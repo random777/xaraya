@@ -25,6 +25,7 @@
  * @param $args['source'] data source of the field to update (optional)
  * @param $args['status'] status of the field to update (optional)
  * @param $args['validation'] validation of the field to update (optional)
+ * @param $args['order'] order of the field to update (optional)
  * @return bool true on success, false on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
@@ -102,6 +103,11 @@ function dynamicdata_adminapi_updateprop($args)
     if (isset($status) && is_numeric($status)) {
         $sql .= ", xar_prop_status = ?";
         $bindvars[] = $status;
+    }
+
+    if (isset($order) && is_numeric($order)) {
+        $sql .= ", xar_prop_order = ?";
+        $bindvars[] = $order;
     }
 
     $sql .= " WHERE xar_prop_id = ?";

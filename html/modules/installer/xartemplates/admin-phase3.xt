@@ -32,14 +32,14 @@
         <xar:if condition="$metRequiredPHPVersion">
             <li class="success">
                 <xar:ml>
-                    <xar:mlstring>SUCCESS: PHP Version is greater than or equal to 4.1.2. Your PHP Version is #(1)</xar:mlstring>
+                    <xar:mlstring>SUCCESS: PHP Version is greater than or equal to 4.4.7. Your PHP Version is #(1)</xar:mlstring>
                     <xar:mlvar>#$phpVersion#</xar:mlvar>
                 </xar:ml>
             </li>
         <xar:else />
             <li class="failure">
                 <xar:ml>
-                    <xar:mlstring>ERROR: PHP Version is less than 4.1.2. Your PHP Version is #(1) please upgrade PHP.</xar:mlstring>
+                    <xar:mlstring>ERROR: PHP Version is less than 4.4.7. Your PHP Version is #(1) please upgrade PHP.</xar:mlstring>
                     <xar:mlvar>#$phpVersion#</xar:mlvar>
                 </xar:ml>
             </li>

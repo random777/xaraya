@@ -33,12 +33,23 @@ function roles_admin_showusers()
     if (!xarVarFetch('state',    'int:0:', $data['state'],    ROLES_STATE_CURRENT, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('selstyle', 'isset',  $data['selstyle'], xarSessionGetVar('rolesdisplay'), XARVAR_DONT_SET)) return;
     if (!xarVarFetch('invalid',  'str:0:', $data['invalid'],  NULL, XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('order',    'str:0:', $data['order'],    'xar_name', XARVAR_NOT_REQUIRED)) return;
+
+    if (!xarVarFetch('order',    'str:0:', $data['order'],    NULL, XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('sort',     'pre:trim:alpha:lower:enum:asc:desc',   $data['sort'],    NULL, XARVAR_NOT_REQUIRED)) return;
+
     if (!xarVarFetch('search',   'str:0:', $data['search'],   NULL, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('reload',   'str:0:', $reload,           NULL,    XARVAR_DONT_SET)) return;
 
     if (empty($data['selstyle'])) $data['selstyle'] = 0;
     xarSessionSetVar('rolesdisplay', $data['selstyle']);
+
+    if (empty($data['order'])) $data['order'] = xarSessionGetVar('rolesadminorder');
+    if (empty($data['order'])) $data['order'] = 'xar_name';
+    xarSessionSetVar('rolesadminorder', $data['order']);
+
+    if (empty($data['sort'])) $data['sort'] = xarSessionGetVar('rolesadminsort');
+    if (empty($data['sort'])) $data['sort'] = 'asc';
+    xarSessionSetVar('rolesadminsort', $data['sort']);
 
     //Create the role tree
     if ($data['selstyle'] == '1') {
@@ -114,7 +125,7 @@ function roles_admin_showusers()
     }
 
     // Sort order
-    $q->setorder($data['order']);
+    $q->setorder($data['order'],$data['sort']);
 
     // Add limits
     $numitems = xarModGetVar('roles', 'itemsperpage');
@@ -171,6 +182,7 @@ function roles_admin_showusers()
     $filter['state']    = $data['state'];
     $filter['search']   = $data['search'];
     $filter['order']    = $data['order'];
+    $filter['sort']     = $data['sort'];
 
     $data['pager']      = xarTplGetPager($startnum,
                                          $data['totalselect'],

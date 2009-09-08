@@ -33,7 +33,7 @@ $modversion['contact']        = 'andyv@xaraya.com';
 $modversion['admin']          = 1;
 $modversion['user']           = 0;
 $modversion['class']          = 'Core Admin';
-$modversion['category']       = 'Global';
+$modversion['category']       = 'System';
 
 if (false) { //bug 6033
 xarML('Themes');

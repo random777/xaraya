@@ -21,21 +21,27 @@
  */
 function base_versionsapi_assert_application($args)
 {
-    extract($args, EXTR_PREFIX_INVALID, 'p');
+    extract($args);
 
-    if (!isset($ver)) {
+     if (!isset($ver)) {
         if (isset($p_0)) {
             $ver = $p_0;
         } else {
-            return;
+            // The given verison number is missing
+            $msg = xarML('The application version number was not provided');
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
+            return false;
         }
     }
+
+    $ok = xarModAPIFunc('base','versions','validate',array($ver));
+
+    if (!$ok) { return false; }
 
     $result = xarModAPIfunc('base', 'versions', 'compare',
         array(
             'ver1' => $ver,
-            'ver2' => xarConfigGetVar('System.Core.VersionNum'),
-            'normalize' => 'numeric'
+            'ver2' => xarConfigGetVar('System.Core.VersionNum')
         )
     );
 

@@ -21,7 +21,7 @@
  * @param string $template      template name (required)
  * Typical use in the head section is: <xar:base-js-framework />
  *
- * @author Jason Judge
+ * @author Marty Vance
  * @param $args array containing the form field definition or the type, position, ...
  * @return string empty string
  */
@@ -29,9 +29,9 @@ function base_javascriptapi_handleframeworkjavascript($args)
 {
     extract($args);
 
-    $name = strtolower($name);
-    $module = strtolower($module);
-    $template = strtolower($template);
+    if (isset($name)) { $name = strtolower($name); }
+    if (isset($module)) { $module = strtolower($module); }
+    if (isset($template)) { $template = strtolower($template); }
 
     if (!isset($name)) {
         $name = xarModGetVar('base','DefaultFramework');
@@ -62,9 +62,19 @@ function base_javascriptapi_handleframeworkjavascript($args)
                         new SystemException($msg));
     }
 
+    // Ensure framework is initialized
+    if ($template == 'init' && !is_array($GLOBALS['xarTpl_JavaScript']['frameworks'][$name])) {
+        $init = xarModAPIFunc('base','javascript','init', array('name' => $name, 'modName' => $module));
+        if (!$init) {
+            $msg = xarML('#(1) initialization falied', $name);
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                            new SystemException($msg));
+        }
+    }
+
     // Call xarTplFramework
     return "
-        echo htmlspecialchars(xarTplFramework($module, $name, $tpldata, $template));
+        echo xarTplFramework('$module', '$name', array(), '$template');
     ";
 }
 

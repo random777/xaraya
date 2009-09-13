@@ -41,4 +41,5 @@
     <script type="text/javascript" src="#$classicthemedir#/scripts/switch_styles.js"></script>
 </xar:if>
 <xar:comment>Head JavaScript - required for all themes</xar:comment>
+<xar:base-js-framework template="init" />
 <xar:base-render-javascript position="head" />

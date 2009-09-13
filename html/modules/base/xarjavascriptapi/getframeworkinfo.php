@@ -32,6 +32,7 @@ function base_javascriptapi_getframeworkinfo($args)
         $msg = xarML('Missing framework name');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
+        return;
     }
 
 

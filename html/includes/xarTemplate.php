@@ -385,8 +385,8 @@ function xarTplAddJavaScript($position, $type, $data, $index = '')
     // php's register_shutdown_function) as at that time it's already too late to be able
     // to log anything
     if (!isset($GLOBALS['xarTpl_JavaScript'])) {
-        // Initialise the JavaScript array. Start with placeholders for the head and body.
-        $GLOBALS['xarTpl_JavaScript'] = array('head'=>array(), 'body'=>array());
+        // Initialise the JavaScript array. Start with placeholders for the head and body, and frameworks.
+        $GLOBALS['xarTpl_JavaScript'] = array('head'=>array(), 'body'=>array(), 'frameworks'=>array());
     }
 
     if (empty($index)) {
@@ -570,11 +570,21 @@ function xarTplObject($modName, $objectName, $tplType = 'showdisplay', $tplData 
  */
 function xarTplFramework($modName, $frameworkName, $tplData = array(), $templateName)
 {
-	if (empty($modName) || empty($frameworkName) || empty($templateName)) {
-		return;
-	}
+    if (empty($modName) || empty($frameworkName) || empty($templateName)) {
+        return;
+    }
     // Get the right source filename
     $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', $frameworkName);
+
+    // Ensure framework is initialized  
+    if (!is_array($GLOBALS['xarTpl_JavaScript']['frameworks'][$frameworkName])) {
+        $init = xarModAPIFunc('base','javascript','init', array('name' => $framework, 'modName' => $module));
+        if (!$init) {
+            $msg = xarML('#(1) initialization falied', $name);
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'UNOKNOWN',
+                            new SystemException($msg));
+        }
+    }
 
     return xarTpl__executeFromFile($sourceFileName, $tplData);
 }
@@ -593,9 +603,9 @@ function xarTplFramework($modName, $frameworkName, $tplData = array(), $template
  */
 function xarTplPlugin($modName, $frameworkName, $pluginName, $tplData = array(), $templateName)
 {
-	if (empty($modName) || empty($frameworkName) || empty($pluginName) || empty($templateName)) {
-		return;
-	}
+    if (empty($modName) || empty($frameworkName) || empty($pluginName) || empty($templateName)) {
+        return;
+    }
     // Get the right source filename
     $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', "$frameworkName/plugins/$pluginName");
 

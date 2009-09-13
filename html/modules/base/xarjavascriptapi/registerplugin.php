@@ -11,25 +11,26 @@
  * @link http://xaraya.com/index.php/release/68.html
  */
 /**
- * Get JS framework plugin info
+ * Register a JS framework plugin
  * @author Marty Vance
  * @param $args['name'] name of the plugin
  * @param $args['framework'] name of the framework
- * @param $args['all'] return all plugins for a framework (optional)
+ * @param $args['displayname'] pretty plugin name, for display
+ * @param $args['version'] plugin version, default 'unknown'
+ * @param $args['upgrade'] force plugin update, default false
  * @return array
  */
-function base_javascriptapi_getplugininfo($args)
+function base_javascriptapi_registerplugin($args)
 {
     extract($args);
 
-    if(!isset($all)) {
-        $all = false;
+    if(!isset($upgrade)) {
+        $upgrade = false;
     } else {
-        $all = (bool) $all;
+        $upgrade = (bool) $upgrade;
     }
 
-    // name and framework are required
-    if (!isset($name) && !$all) {
+    if (!isset($name)) {
         $msg = xarML('Missing framework plugin name');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
@@ -41,10 +42,17 @@ function base_javascriptapi_getplugininfo($args)
                         new SystemException($msg));
         return;
     }
-
-    if (isset($name)) {
-        $name = strtolower($name);
+    if (!isset($displayname)) {
+        $msg = xarML('Missing framework plugin display name');
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                        new SystemException($msg));
+        return;
     }
+    if (!isset($version)) {
+        $version = 'unknown';
+    }
+
+    $name = strtolower($name);
     $framework = strtolower($framework);
 
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
@@ -59,15 +67,23 @@ function base_javascriptapi_getplugininfo($args)
     $plugins = xarModGetVar($fwinfo['module'], $framework . ".plugins");
     $plugins = @unserialize($plugins);
 
-    if (isset($all) && $all) {
-        return $plugins;
+    if (!is_array($plugins)) {
+        $plugins = array();
     }
 
-    if (isset($plugins[$name])) {
-        return $plugins[$name];
-    } else {
+    $plugin = array('version' => $version, 'displayname' => $displayname);
+
+    if (isset($plugins[$name]) && !$upgrade) {
+        $msg = xarML('Cannot overwrite #(1) plugin #(2) without force', $framework, $name);
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                        new SystemException($msg));
         return;
     }
+    $plugins[$name] = $plugin;
+    ksort($plugins);
+    xarModSetVar($fwinfo['module'], $framework . ".plugins");
+
+    return true;
 }
 
 ?>

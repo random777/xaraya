@@ -436,6 +436,11 @@ function base_init()
         'base', 'base-render-javascript', array(),
         'base_javascriptapi_handlerenderjavascript'
     );
+    // Render JavaScript Framework
+    xarTplRegisterTag(
+        'base', 'base-js-framework', array(),
+        'base_javascriptapi_handleframeworkjavascript'
+    );
     // Render time since string
     xarTplRegisterTag('base', 'base-timesince', array(),
                       'base_userapi_handletimesincetag');
@@ -445,6 +450,8 @@ function base_init()
 
 
     // JS framework stuff added in Xaraya 1.2
+
+
     $registeredframeworks = array(
                 'jquery' => array(
                         'displayname' => 'jQuery',

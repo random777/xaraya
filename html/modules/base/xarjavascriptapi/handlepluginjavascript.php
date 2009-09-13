@@ -65,9 +65,24 @@ function base_javascriptapi_handlepluginjavascript($args)
         $tpldata = array();
     }
 
+    // Ensure framework is initialized
+    if (!is_array($GLOBALS['xarTpl_JavaScript']['frameworks'][$name])) {
+        $init = xarModAPIFunc('base','javascript','init', array('name' => $framework, 'modName' => $module));
+        if (!$init) {
+            $msg = xarML('#(1) initialization falied', $name);
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                            new SystemException($msg));
+        }
+    }
+
+    // Don't try to put a plugin in the JS queue more than once
+    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['plugins'][$name])) {
+//        $GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['plugins'][$name] = 
+    }
+
     // Call xarTplPlugin
     return "
-        echo htmlspecialchars(xarTplPlugin($module, $framework, $name, $tpldata, $template));
+        echo xarTplPlugin($module, $framework, $name, $tpldata, $template);
     ";
 }
 

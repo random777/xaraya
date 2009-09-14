@@ -13,12 +13,11 @@
 /**
  * Handle render javascript framework tags
  * Handle <xar:base-js-framework .../> tags
- * Format: <xar:base-js-framework template="init" />
- *      or <xar:base-js-framework module="base" name="jquery" template="init" tpldata="$somedata" />
+ * Format: <xar:base-js-framework file="jquery-1.3.2.min.js" />
+ *      or <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
  * @param string $name          framework name (default from base modvar: DefaultFramework)
  * @param string $module        host module of the framework (default from framework info)
- * @param string $tpldata       template data (default empty array)
- * @param string $template      template name (required)
+ * @param string $file          file name (required)
  * Typical use in the head section is: <xar:base-js-framework />
  *
  * @author Marty Vance
@@ -31,7 +30,6 @@ function base_javascriptapi_handleframeworkjavascript($args)
 
     if (isset($name)) { $name = strtolower($name); }
     if (isset($module)) { $module = strtolower($module); }
-    if (isset($template)) { $template = strtolower($template); }
 
     if (!isset($name)) {
         $name = xarModGetVar('base','DefaultFramework');
@@ -53,29 +51,16 @@ function base_javascriptapi_handleframeworkjavascript($args)
     } else {
         $module = addslashes($module);
     }
-    if (empty($tpldata) || !is_array($tpldata)) {
-        $tpldata = array();
-    }
-    if (empty($template)) {
-        $msg = xarML('Missing framework template name');
+    if (!isset($file)) {
+        $msg = xarML('Missing framework file name');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
     }
 
-    // Ensure framework is initialized
-    if ($template == 'init' && !is_array($GLOBALS['xarTpl_JavaScript']['frameworks'][$name])) {
-        $init = xarModAPIFunc('base','javascript','init', array('name' => $name, 'modName' => $module));
-        if (!$init) {
-            $msg = xarML('#(1) initialization falied', $name);
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                            new SystemException($msg));
-        }
-    }
-
-    // Call xarTplFramework
     return "
-        echo xarTplFramework('$module', '$name', array(), '$template');
+        xarModAPIFunc('base','javascript','init', array('name' => '$name', 'modName' => '$module', 'file' => '$file'));
     ";
+
 }
 
 ?>

@@ -100,6 +100,7 @@ function xarTpl_init(&$args, $whatElseIsGoingLoaded)
     }
 
     $GLOBALS['xarTpl_additionalStyles'] = '';
+    $GLOBALS['xarTpl_JavaScript'] = array('head'=>array(), 'body'=>array(), 'frameworks'=>array());
 
     // This is wrong here as well, but it's better at least than in xarMod
     include "includes/xarTheme.php";
@@ -409,6 +410,34 @@ function xarTplAddJavaScript($position, $type, $data, $index = '')
  */
 function xarTplGetJavaScript($position = '', $index = '')
 {
+    if ($position == 'head' && empty($index)) {
+        // spool framework files into head position, at the beginning
+        if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'])) {
+            $fwqueue = array();
+            foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'] as $fwname => $fw) {
+                if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['files'])) {
+                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['files'] as $f) {
+                        $fwqueue[] = $f;
+                    }
+                }
+                if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['plugins'])) {
+                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['plugins'] as $pl) {
+                        $fwqueue[] = $pl;
+                    }
+                }
+                if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'])) {
+                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'] as $ev) {
+                        $fwqueue[] = $ev;
+                    }
+                }
+            }
+            $fwqueue = array_reverse($fwqueue);
+            foreach ($fwqueue as $q => $f) {
+                array_unshift($GLOBALS['xarTpl_JavaScript']['head'], $f);
+            }
+        }
+    }
+
     if (empty($position)) {return $GLOBALS['xarTpl_JavaScript'];}
     if (!isset($GLOBALS['xarTpl_JavaScript'][$position])) {return;}
     if (empty($index)) {return $GLOBALS['xarTpl_JavaScript'][$position];}
@@ -574,11 +603,11 @@ function xarTplFramework($modName, $frameworkName, $tplData = array(), $template
         return;
     }
     // Get the right source filename
-    $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', $frameworkName);
+    $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', "includes/$frameworkName");
 
     // Ensure framework is initialized  
-    if (!is_array($GLOBALS['xarTpl_JavaScript']['frameworks'][$frameworkName])) {
-        $init = xarModAPIFunc('base','javascript','init', array('name' => $framework, 'modName' => $module));
+    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$frameworkName])) {
+        $init = xarModAPIFunc('base','javascript','init', array('name' => $frameworkName, 'modName' => $modName));
         if (!$init) {
             $msg = xarML('#(1) initialization falied', $name);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'UNOKNOWN',
@@ -607,7 +636,7 @@ function xarTplPlugin($modName, $frameworkName, $pluginName, $tplData = array(),
         return;
     }
     // Get the right source filename
-    $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', "$frameworkName/plugins/$pluginName");
+    $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', "includes/$frameworkName/plugins/$pluginName");
 
     return xarTpl__executeFromFile($sourceFileName, $tplData);
 }

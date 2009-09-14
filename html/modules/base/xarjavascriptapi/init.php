@@ -15,6 +15,7 @@
  * @author Marty Vance
  * @param $args['name'] name of the framework.  Default: xarModGetVar('base','DefaultFramework');
  * @param $args['modName'] name of the framework's host module.  Default: derived from $args['name']
+ * @param $args['file'] base file name of the framework (required)
  * @return bool
  */
 function base_javascriptapi_init($args)
@@ -39,6 +40,11 @@ function base_javascriptapi_init($args)
         return;
     }
 
+    if (!isset($file)) {
+        // pass thru for more specific handling
+        $file = '';
+    }
+
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $name));
 
     if (!is_array($fwinfo)) {
@@ -59,9 +65,25 @@ function base_javascriptapi_init($args)
         return;
     }
 
+    $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$name/$file"));
+
+    // Set up $GLOBALS['xarTpl_JavaScript']['frameworks'] indices for the framework
+    // The array for each framework must contains these indices:
+    // array files, string module, array plugins, array events
+    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$name])) {
+        $GLOBALS['xarTpl_JavaScript']['frameworks'][$name] = array(
+            'files' => array(),
+            'module' => $modName,
+            'plugins' => array(),
+            'events' => array()
+        );
+    }
+
     // pass to framework init function
     $args['name'] = $name;
     $args['modName'] = $modName;
+    $args['file'] = $file;
+    $args['filepath'] = $filepath;
 
     $init = xarModAPIFunc($modName, $name, 'init', $args);
 

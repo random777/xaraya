@@ -441,6 +441,11 @@ function base_init()
         'base', 'base-js-framework', array(),
         'base_javascriptapi_handleframeworkjavascript'
     );
+    // Render JavaScript Framework Plugin
+    xarTplRegisterTag(
+        'base', 'base-js-plugin', array(),
+        'base_javascriptapi_handlepluginjavascript'
+    );
     // Render time since string
     xarTplRegisterTag('base', 'base-timesince', array(),
                       'base_userapi_handletimesincetag');

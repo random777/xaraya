@@ -13,14 +13,12 @@
 /**
  * Handle render javascript framework plugin tags
  * Handle <xar:base-js-plugin .../> tags
- * Format : <xar:base-js-plugin name="whatever" framework="jquery" />
- * Typical use in the head section is: <xar:base-render-javascript position="head"/>
+ * Format : <xar:base-js-plugin name="thickbox" framework="jquery" file="thickbox-compressed.js" />
  *
  * @author Marty Vance
- * @param $args['framework']    framework name (default from base modvar: DefaultFramework)
- * @param string $name          name of the plugin (required)
- * @param string $tpldata       template data (default empty array)
- * @param string $template      template name (required)
+ * @param string $args['framework']     framework name (default from base modvar: DefaultFramework)
+ * @param string $args['name']          name of the plugin (required)
+ * @param string $args['file']          file name (required)
  * @return string empty string
  */
 function base_javascriptapi_handlepluginjavascript($args)
@@ -33,7 +31,7 @@ function base_javascriptapi_handlepluginjavascript($args)
     if (!isset($framework)) {
         $framework = xarModGetVar('base','DefaultFramework');
     }
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', $framework);
+    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
     if (!is_array($fwinfo)) {
         $msg = xarML('Could not retreive info for framework #(1)', $name);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
@@ -55,19 +53,21 @@ function base_javascriptapi_handlepluginjavascript($args)
     $name = addslashes($name);
     $framework = addslashes($framework);
 
-    if (empty($template)) {
-        $msg = xarML('Missing JS framework template name');
+    if (empty($file)) {
+        $msg = xarML('Missing JS framework plugin file name');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
         return;
     }
-    if (empty($tpldata) || !is_array($tpldata)) {
-        $tpldata = array();
-    }
+
+    return "
+        xarModAPIFunc('base','javascript','loadplugin', array('name' => '$name', 'modName' => '$module', 'file' => '$file'));
+    ";
+
 
     // Ensure framework is initialized
     if (!is_array($GLOBALS['xarTpl_JavaScript']['frameworks'][$name])) {
-        $init = xarModAPIFunc('base','javascript','init', array('name' => $framework, 'modName' => $module));
+        $init = xarModAPIFunc('base','javascript','init', array('name' => $framework, 'modName' => $module, 'file' => ''));
         if (!$init) {
             $msg = xarML('#(1) initialization falied', $name);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
@@ -76,8 +76,8 @@ function base_javascriptapi_handlepluginjavascript($args)
     }
 
     // Don't try to put a plugin in the JS queue more than once
-    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['plugins'][$name])) {
-//        $GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['plugins'][$name] = 
+    if (!in_array($file, $GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['plugins'])) {
+        $GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['plugins'][] = $file;
     }
 
     // Call xarTplPlugin

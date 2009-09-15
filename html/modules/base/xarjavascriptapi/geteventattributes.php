@@ -31,8 +31,8 @@
  * the total code involved in the JavaScript is quite small.
  *
  * @author Jason Judge
- * @param $args[position] the location of the event trigger; defaults to 'body'
- * @param $args[type] the type of event trigger; several as a comma-separated list
+ * @param string $args[position]    The location of the event trigger; defaults to 'body'
+ * @param string $args[type]        The type of event trigger; several as a comma-separated list
  * @return string empty string
  */
 function base_javascriptapi_geteventattributes($args)

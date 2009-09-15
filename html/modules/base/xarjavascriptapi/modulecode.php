@@ -15,10 +15,10 @@
  * Include a module JavaScript link in a page.
  *
  * @author Jason Judge
- * @param $args['module'] module name; or
- * @param $args['moduleid'] module ID
- * @param $args['filename'] file name list (comma-separated or array)
- * @param $args['position'] position on the page; generally 'head' or 'body'
+ * @param string $args['module']    Module name; or
+ * @param int $args['moduleid']     Module ID
+ * @param string $args['filename']  File name list (comma-separated or array)
+ * @param string $args['position']  Position on the page; generally 'head' or 'body'
  * @return bool true=success; null=fail
  */
 function base_javascriptapi_modulecode($args)

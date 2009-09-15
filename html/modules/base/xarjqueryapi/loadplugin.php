@@ -58,7 +58,7 @@ function base_jqueryapi_loadplugin($args)
         }
     }
 
-    $GLOBALS['xarTpl_JavaScript']['frameworks']['jquery']['plugins'][] = array(
+    $GLOBALS['xarTpl_JavaScript']['frameworks']['jquery']['plugins'][$file] = array(
             'type' => 'src',
             'data' => xarServerGetBaseURL() . $filepath
         );

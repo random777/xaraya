@@ -13,11 +13,11 @@
 /**
  * Register a JS framework plugin
  * @author Marty Vance
- * @param $args['name'] name of the plugin
- * @param $args['framework'] name of the framework
- * @param $args['displayname'] pretty plugin name, for display
- * @param $args['version'] plugin version, default 'unknown'
- * @param $args['upgrade'] force plugin update, default false
+ * @param string $args['name']          Name of the plugin
+ * @param string $args['framework']     Name of the framework
+ * @param string $args['displayname']   Pretty plugin name, for display
+ * @param string $args['version']       Plugin version, default 'unknown'
+ * @param bool $args['upgrade']         Force plugin update, default false
  * @return array
  */
 function base_javascriptapi_registerplugin($args)

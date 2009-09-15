@@ -20,7 +20,9 @@
  * Typical use in the head section is: <xar:base-render-javascript position="head"/>
  *
  * @author Jason Judge
- * @param $args array containing the form field definition or the type, position, ...
+ * @param array $args['definition']     Form field definition or the type, position, ...
+ * @param string $args['position']      Position to fetch the js
+ * @param string $args['type']          Type of event ('onload', 'onmouseup', etc.)
  * @return string empty string
  */
 function base_javascriptapi_handlerenderjavascript($args)

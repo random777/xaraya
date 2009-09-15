@@ -13,9 +13,9 @@
 /**
  * Get JS framework plugin info
  * @author Marty Vance
- * @param $args['name'] name of the plugin
- * @param $args['framework'] name of the framework
- * @param $args['all'] return all plugins for a framework (optional)
+ * @param string $args['name']          Name of the plugin
+ * @param string $args['framework']     Name of the framework
+ * @param bool $args['all'] return all plugins for a framework (optional)
  * @return array
  */
 function base_javascriptapi_getplugininfo($args)

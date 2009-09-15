@@ -30,8 +30,8 @@
  * the total code involved in the JavaScript is quite small.
  *
  * @author Jason Judge
- * @param $args[position] the location of the event trigger; defaults to 'body'
- * @param $args[type] the type of event trigger; e.g. 'onload', 'onmouseover'
+ * @param string $args[position]    The location of the event trigger; defaults to 'body'
+ * @param string $args[type]        The type of event trigger; e.g. 'onload', 'onmouseover'
  * @return string empty string
  */
 function base_javascriptapi_geteventjs($args)

@@ -13,11 +13,11 @@
 /**
  * Get JS framework info
  * @author Marty Vance
- * @param $args['name'] name of the framework
- * @param $args['displayname'] pretty framework name, for display
- * @param $args['version'] framework version
- * @param $args['module'] framework host module name
- * @param $args['all'] return all frameworks (optional)
+ * @param string $args['name']          Name of the framework
+ * @param string $args['displayname']   Pretty framework name, for display
+ * @param string $args['version']       Framework version
+ * @param string $args['module']        Framework host module name
+ * @param bool $args['all']             Return all frameworks (optional)
  * @return array
  */
 function base_javascriptapi_getframeworkinfo($args)

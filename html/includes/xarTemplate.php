@@ -411,29 +411,32 @@ function xarTplAddJavaScript($position, $type, $data, $index = '')
 function xarTplGetJavaScript($position = '', $index = '')
 {
     if ($position == 'head' && empty($index)) {
-        // spool framework files into head position, at the beginning
+        // spool framework files into head position; prepend framework and plugin files,
+        // append event entries
         if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'])) {
             $fwqueue = array();
             foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'] as $fwname => $fw) {
                 if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['files'])) {
-                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['files'] as $f) {
-                        $fwqueue[] = $f;
+                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['files'] as $file => $fileinfo) {
+                        $fwqueue[$file] = $fileinfo;
                     }
                 }
                 if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['plugins'])) {
-                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['plugins'] as $pl) {
-                        $fwqueue[] = $pl;
-                    }
-                }
-                if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'])) {
-                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'] as $ev) {
-                        $fwqueue[] = $ev;
+                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['plugins'] as $plugin => $plugininfo) {
+                        $fwqueue[$plugin] = $plugininfo;
                     }
                 }
             }
             $fwqueue = array_reverse($fwqueue);
             foreach ($fwqueue as $q => $f) {
                 array_unshift($GLOBALS['xarTpl_JavaScript']['head'], $f);
+            }
+            if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'])) {
+                foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'] as $event => $eventinfo) {
+                    foreach ($event as $eventname => $eventcode) {
+                        $GLOBALS['xarTpl_JavaScript']['head'][] = $eventcode;
+                    }
+                }
             }
         }
     }

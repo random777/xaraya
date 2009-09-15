@@ -18,9 +18,9 @@
  * such as "var lang_msg = xarML('error - aborted');"
  *
  * @author Jason Judge
- * @param $args['position'] position on the page; generally 'head' or 'body'
- * @param $args['code'] the JavaScript code fragment
- * @param $args['index'] optional index in the JS array; unique identifier
+ * @param string $args['position']  Position on the page; generally 'head' or 'body'
+ * @param string $args['code']      The JavaScript code fragment
+ * @param int $args['index']        Optional index in the JS array; unique identifier
  * @return bool true=success; null=fail
  */
 function base_javascriptapi_moduleinline($args)

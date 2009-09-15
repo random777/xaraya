@@ -16,9 +16,9 @@
  * Format : <xar:base-js-plugin name="thickbox" framework="jquery" file="thickbox-compressed.js" />
  *
  * @author Marty Vance
- * @param string $args['framework']     framework name (default from base modvar: DefaultFramework)
- * @param string $args['name']          name of the plugin (required)
- * @param string $args['file']          file name (required)
+ * @param string $args['framework']     Framework name (default from base modvar: DefaultFramework)
+ * @param string $args['name']          Name of the plugin (required)
+ * @param string $args['file']          File name (required)
  * @return string empty string
  */
 function base_javascriptapi_handlepluginjavascript($args)

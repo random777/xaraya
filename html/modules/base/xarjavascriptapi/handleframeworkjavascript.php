@@ -15,13 +15,12 @@
  * Handle <xar:base-js-framework .../> tags
  * Format: <xar:base-js-framework file="jquery-1.3.2.min.js" />
  *      or <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
- * @param string $name          framework name (default from base modvar: DefaultFramework)
- * @param string $module        host module of the framework (default from framework info)
- * @param string $file          file name (required)
  * Typical use in the head section is: <xar:base-js-framework />
  *
  * @author Marty Vance
- * @param $args array containing the form field definition or the type, position, ...
+ * @param string $args['name']      Framework name (default from base modvar: DefaultFramework)
+ * @param string $args['module']    Host module of the framework (default from framework info)
+ * @param string $args['file']      File name (required)
  * @return string empty string
  */
 function base_javascriptapi_handleframeworkjavascript($args)

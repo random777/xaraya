@@ -28,8 +28,11 @@
  *    <xar:base-include-javascript filename="myfile.js"/>
  *
  * @author Jason Judge
- * @param string $args['filename'] Name of the js file (default= 'head')
- * @param string $args['position'] Position to place the js (default= 'head')
+ * @param array $args['definition']     Form field definition or the type, position, ... 
+ * @param string $args['code']          String containing JS code
+ * @param string $args['filename']      Name of the js file
+ * @param string $args['module']        Name of module containing the file
+ * @param string $args['position']      Position to place the js (default= 'head')
  * @return string code to generate for this tag
  */
 function base_javascriptapi_handlemodulejavascript($args)

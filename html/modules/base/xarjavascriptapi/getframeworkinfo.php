@@ -13,8 +13,8 @@
 /**
  * Get JS framework info
  * @author Marty Vance
- * @param $args['name'] name of the framework
- * @param $args['all'] return all frameworks (optional)
+ * @param string $args['name']  Name of the framework
+ * @param bool $args['all']     Return all frameworks (optional)
  * @return array
  */
 function base_javascriptapi_getframeworkinfo($args)

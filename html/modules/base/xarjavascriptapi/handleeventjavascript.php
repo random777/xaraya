@@ -19,7 +19,9 @@
  * Typical use in the head section is: <xar:base-render-javascript position="head"/>
  *
  * @author Jason Judge
- * @param $args array containing the form field definition or the type, position, ...
+ * @param array $args['definition']     Form field definition or the type, position, ...
+ * @param string $args['position']      Name or ID of the tag ('body', 'mytag', etc.)
+ * @param string $args['type']          Type of event ('onload', 'onmouseup', etc.)
  * @return string empty string
  */
 function base_javascriptapi_handleeventjavascript($args)
@@ -32,8 +34,6 @@ function base_javascriptapi_handleeventjavascript($args)
     }
 
     // Position and type are mandatory.
-    // 'position' is the name or ID of the tag ('body', 'mytag', etc.).
-    // 'type' is the type of event ('onload', 'onmouseup', etc.)
     if (empty($position)) {
         $position = '';
     } else {

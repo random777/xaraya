@@ -16,10 +16,10 @@
  * Find the path for a JavaScript file.
  *
  * @author Jason Judge
- * @param string $args['module'] module name; or
- * @param int    $args['moduleid'] module ID (deprecated)
- * @param int    $args['modid'] module ID
- * @param string $args['filename'] file name
+ * @param string $args['module']        Module name; or
+ * @param int    $args['moduleid']      Module ID (deprecated)
+ * @param int    $args['modid']         Module ID
+ * @param string $args['filename']      File name
  * @return string the virtual pathname for the JS file; an empty value if not found
  * @todo checkme: the default module should be the current *template* module, not the *request* module?
  */

@@ -13,9 +13,9 @@
 /**
  * Inititalize a JS framework
  * @author Marty Vance
- * @param $args['name'] name of the framework.  Default: xarModGetVar('base','DefaultFramework');
- * @param $args['modName'] name of the framework's host module.  Default: derived from $args['name']
- * @param $args['file'] base file name of the framework (required)
+ * @param string $args['name']      Name of the framework.  Default: xarModGetVar('base','DefaultFramework');
+ * @param string $args['modName']   Name of the framework's host module.  Default: derived from $args['name']
+ * @param string $args['file']      Base file name of the framework (required)
  * @return bool
  */
 function base_javascriptapi_init($args)

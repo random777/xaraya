@@ -11,15 +11,17 @@
  * @link http://xaraya.com/index.php/release/68.html
  */
 /**
- * Load a JS framework plugin
+ * Add code to a framework event handler
  * @author Marty Vance
  * @param string $args['framework']    Name of the framework.  Default: xarModGetVar('base','DefaultFramework')
  * @param string $args['modName']      Name of the framework's host module.  Default: derived from $args['framework']
- * @param string $args['name']         Name of the plugin (required)
- * @param string $args['file']         File name of the plugin (required)
+ * @param string $args['name']         Name of the event (required)
+ * @param string $args['file']         Filename containing code (required), with
+ * @param string $args['filepath']     Path to the given file; or
+ * @param string $args['code']         String containing code (required)
  * @return bool
  */
-function base_javascriptapi_loadplugin($args)
+function base_javascriptapi_appendframeworkevent($args)
 {
     extract($args);
 
@@ -29,7 +31,7 @@ function base_javascriptapi_loadplugin($args)
     if (isset($file)) { $file = strtolower($file); }
 
     if (!isset($framework)) {
-        $framework = xarModGetVar('base','DefaultFramework');
+        $framework = 'jquery';
     }
 
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
@@ -41,26 +43,11 @@ function base_javascriptapi_loadplugin($args)
         return;
     }
 
-
     if (!isset($modName) || !xarModIsAvailable($modName)) {
-        $modName = $fwinfo['module'];
+        $modName = 'base';
     }
-    if (!isset($file) || $file == '') {
-        $msg = xarML('Missing plugin file name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
-    $plugins = xarModGetVar($fwinfo['module'], $framework . ".plugins");
-    $plugins = @unserialize($plugins);
-
-    if (!is_array($plugins)) {
-        $plugins = array();
-    }
-
-    if (!isset($plugins[$name])) {
-        $msg = xarML('Unknown plugin #(1) for framework #(2) without force', $name, $framework);
+    if ((!isset($file) || $file == '') || (!isset($code) || $code == '')) {
+        $msg = xarML('File or code required to append event');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
         return;
@@ -77,18 +64,31 @@ function base_javascriptapi_loadplugin($args)
         }
     }
 
-    $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/plugins/$name/$file"));
+    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['events'][$name])) {
+        $GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['events'][$name] = array();
+    }
 
-    // pass to framework's loadplugin function
-    $args['name'] = $name;
-    $args['modName'] = $modName;
-    $args['framework'] = $framework;
-    $args['file'] = $file;
-    $args['filepath'] = $filepath;
+    if (isset($file) && !empty($file) && isset($filepath) && !empty($filepath)) {
+        // load the file contents as a string
+        if (file_exists($filepath)) {
+            $code = @file_get_contents($filepath);
+            if (!$code) {
+                $msg = xarML('Could not append #(1) to event #(2) in #(3)', $file, $name, $framework);
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                                new SystemException($msg));
+                return;
+            }
+        }
+    } else {
+        $file = md5($code);
+    }
 
-    $init = xarModAPIFunc($modName, $framework, 'loadplugin', $args);
+    $GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['events'][$name][$file] = array(
+            'type' => 'code',
+            'data' => $code            
+        );
 
-    return $init;
+    return true;
 }
 
 ?>

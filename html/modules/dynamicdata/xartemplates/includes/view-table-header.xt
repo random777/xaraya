@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <tr>
+        <xar:template file="view-table-headerprefix" module="$tplmodule,dynamicdata" />
+        <xar:foreach in="$properties" key="$name">
+            <th class="xar-form-textlong">
+                <xar:set name="url">xarServer::getCurrentURL(array('order' => $name, 'op' => 'column'))</xar:set>
+                <a href="#$url#" alt="Click to order by this field" title="Order by #$name#">
+                    <xar:data-label property="$properties[$name]" />
+                </a>
+                <xar:template file="sortarrows" />
+            </th>
+        </xar:foreach>
+        <xar:template file="view-table-headersuffix" module="$tplmodule,dynamicdata" />
+    </tr>
+</xar:template>

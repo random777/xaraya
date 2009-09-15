@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:if condition="$params['order'] eq $name">
+        <xar:if condition="$sort eq 'ASC'">
+            <img src="#xarTplGetImage('arrow_up.gif','base')#" alt="Sorted Ascending" title="Sorted Ascending" />
+        <xar:else />
+            <img src="#xarTplGetImage('arrow_down.gif','base')#" alt="Sorted Descending" title="Sorted Descending" />
+        </xar:if>
+    </xar:if>
+</xar:template>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:set name="thispageno">count($items);</xar:set>
+    <div class="xar-clearleft xar-floatleft xar-padding-thick xar-halfwidth xar-align-left">
+        <xar:if condition="$total gt $items_per_page">
+          <xar:ml>
+              <xar:mlstring>Displaying #(1) of #(2) selected</xar:mlstring>
+          <xar:mlvar>#$thispageno#</xar:mlvar>
+            <xar:mlvar>#$total#</xar:mlvar>
+          </xar:ml>
+        <xar:else />
+           Total selected: #$total#
+        </xar:if>
+    </div>
+    <div class="xar-floatright xar-padding-thick xar-halfwidth xar-align-right">
+        <!-- <xar:sec mask="AddDynamicData" catch="false"> -->
+            <xar:set name="returnurl">xarModURL('dynamicdata','user','view')</xar:set>
+            <a style="font-weight:bold;" href ="#xarModURL('dynamicdata','admin','new',array('name'=> $objectname, 'tplmodule'=> $tplmodule))#">Add A New Item</a>
+        <!-- </xar:sec>-->
+    </div>
+</xar:template>

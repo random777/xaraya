@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:set name="url">xarServer::getCurrentURL($params)</xar:set>
+    <xar:if condition="($items_per_page lt $total)">
+        <form action="#$url#" method="post" style="clear: both">
+            <div class="xar-align-center">
+                <xar:data-input type="pager" url="$url" items_per_page ="$items_per_page" startnum="$startnum" itemstotal="$total" />
+            </div>
+            <xar:if condition="xarModItemVars::get('dynamicdata','showitems_per_page',$regid)">
+                <div class="xar-align-center">
+                    <xar:set name="options">array(
+                        array('id'=> 10 , 'name'=> 10),
+                        array('id'=> 20 , 'name'=> 20),
+                        array('id'=> 30 , 'name'=> 30),
+                        array('id'=> 40 , 'name'=> 40),
+                        array('id'=> 50 , 'name'=> 50),
+                        array('id'=> 100 , 'name'=> 100),
+                        array('id'=> 200 , 'name'=> 200),
+                        array('id'=> 300 , 'name'=> 300),
+                        array('id'=> 400 , 'name'=> 400),
+                        array('id'=> 500 , 'name'=> 500),
+                        )
+                    </xar:set>
+                    Show&#160;
+                    <xar:data-input type="dropdown" name="items_per_page" value="$items_per_page" options="$options" onchange="javascript: submit()" />
+                    &#160;items
+                </div>
+            </xar:if>
+        </form>
+    </xar:if>
+</xar:template>

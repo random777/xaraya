@@ -12,6 +12,9 @@
     <table id="view_table" class="xar-fullwidth">
         <xar:template file="view-table-header" module="$tplmodule,dynamicdata" />
         <xar:template file="view-table-body" module="$tplmodule,dynamicdata" />
+                                        #$option['ojoin']# 
+                                        #$option['ojoin']# #$option['otitle']#
+                                    </xar:if>
     </table>
     <xar:if condition="empty($total)">
               <p class="xar-align-center">There are no items selected</p>

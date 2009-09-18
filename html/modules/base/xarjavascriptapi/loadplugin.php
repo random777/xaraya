@@ -67,7 +67,7 @@ function base_javascriptapi_loadplugin($args)
     }
 
     // ensure framework init has happened
-    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$framework])) {
+    if (!isset($GLOBALS['xarTpl_JavaScript'][$framework])) {
         $fwinit = xarModAPIFunc($modName, $framework, 'init', array());
         if (!$fwinit) {
             $msg = xarML('Framework #(1) init failed', $framework);
@@ -79,6 +79,18 @@ function base_javascriptapi_loadplugin($args)
 
     $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/plugins/$name/$file"));
 
+    if (empty($filepath)) {
+        $msg = xarML('Plugin file \'#(1)\' (#(2) in #(3) could not be found', $file, $name, $framework);
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                        new SystemException($msg));
+        return;
+    }
+
+    $GLOBALS['xarTpl_JavaScript'][$framework . '_plugins'][$file] = array(
+            'type' => 'src',
+            'data' => xarServerGetBaseURL() . $filepath
+        );
+
     // pass to framework's loadplugin function
     $args['name'] = $name;
     $args['modName'] = $modName;
@@ -86,9 +98,9 @@ function base_javascriptapi_loadplugin($args)
     $args['file'] = $file;
     $args['filepath'] = $filepath;
 
-    $init = xarModAPIFunc($modName, $framework, 'loadplugin', $args);
+    $load = xarModAPIFunc($modName, $framework, 'loadplugin', $args);
 
-    return $init;
+    return $load;
 }
 
 ?>

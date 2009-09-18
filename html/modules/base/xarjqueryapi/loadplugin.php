@@ -22,46 +22,9 @@ function base_jqueryapi_loadplugin($args)
 {
     extract($args);
 
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => 'jquery'));
-
-    if (!is_array($fwinfo)) {
-        $msg = xarML('Bad framework name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
-    $framework = 'jquery';
-
-    $plugins = xarModGetVar('base', 'jquery' . ".plugins");
-    $plugins = @unserialize($plugins);
-
-    if (!is_array($plugins)) {
-        $plugins = array();
-    }          
-
-    if (!isset($plugins[$name])) {           
-        $msg = xarML('Unknown plugin #(1) for framework #(2) without force', $name, 'jquery');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
-    // ensure framework init has happened
-    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks']['jquery'])) {
-        $fwinit = xarModAPIFunc('base', 'jquery', 'init', array());
-        if (!$fwinit) {
-            $msg = xarML('Framework #(1) init failed', 'jquery');
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                            new SystemException($msg));
-            return;
-        }
-    }
-
-    $GLOBALS['xarTpl_JavaScript']['frameworks']['jquery']['plugins'][$file] = array(
-            'type' => 'src',
-            'data' => xarServerGetBaseURL() . $filepath
-        );
+    // This function should not normally be called directly; it gets called
+    // by base_javascriptapi_loadplugin, which does the important work.      
+    // Use this function to perform additional tasks for loading a plugin
 
     return true;
 }

@@ -11,36 +11,45 @@
             Array of positions (all positions) so a sub-loop is needed
 
 </xar:comment>
-<xar:if condition="is_array($javascript)"><xar:comment>sss
-    </xar:comment>
+
+
+
+<xar:if condition="is_array($javascript)">
     <xar:loop name="$javascript" id="top">
         <xar:if condition="!empty($position) and is_array($loop:top:item)">
-            <xar:if condition="$loop:top:item.type == 'code'
-                               and (empty($type) or $type == 'code')">
- <script type="text/javascript">
-#$loop:top:item.data#
-
-  </script>
+            <xar:if condition="$loop:top:item.type == 'code' and (empty($type) or $type == 'code')">
+                <script type="text/javascript">
+                    #$loop:top:item.data#
+                </script>
             </xar:if>
-            <xar:if condition="$loop:top:item.type == 'src' and (empty($type)
-                               or $type == 'src')">
- <script type="text/javascript" src="#$loop:top:item.data#"></script>
+            <xar:if condition="$loop:top:item.type == 'src' and (empty($type) or $type == 'src')">
+                <script type="text/javascript" src="#$loop:top:item.data#"></script>
+            </xar:if>
+            <xar:if condition="$loop:top:item.type == 'framework_event' and (empty($type) or $type == 'framework_event')">
+                <xar:set name="eventdata">#$loop:top:item#</xar:set>
+                <xar:set name="eventtplfile">#$loop:top:item.tplfile#</xar:set>
+                <xar:set name="eventtplmodule">#$loop:top:item.tplmodule#</xar:set>
+                <xar:template module="$eventtplmodule" file="$eventtplfile" subdata="$eventdata" />
             </xar:if>
         </xar:if>
         <xar:if condition="empty($position) and is_array($loop:top:item)">
             <xar:loop name="$loop:top:item" id="detail">
-                <xar:if condition="$loop:detail:item.type == 'code' and (empty($type)
-                                   or $type == 'code')">
- <script type="text/javascript">
-#$loop:detail:item.data#
-
-  </script>
+                <xar:if condition="$loop:detail:item.type == 'code' and (empty($type) or $type == 'code')">
+                    <script type="text/javascript">
+                        #$loop:detail:item.data#
+                    </script>
                 </xar:if>
-                <xar:if condition="$loop:detail:item.type == 'src' and (empty($type)
-                                   or $type == 'src')">
- <script type="text/javascript" src="#$loop:detail:item.data#"></script>
+                <xar:if condition="$loop:detail:item.type == 'src' and (empty($type) or $type == 'src')">
+                    <script type="text/javascript" src="#$loop:detail:item.data#"></script>
+                </xar:if>
+                <xar:if condition="$loop:detail:item.type == 'framework_event' and (empty($type) or $type == 'framework_event')">
+                    <xar:set name="eventdata">#$loop:detail:item#</xar:set>
+                    <xar:set name="eventtplfile">#$loop:detail:item.tplfile#</xar:set>
+                    <xar:set name="eventtplmodule">#$loop:detail:item.tplmodule#</xar:set>
+                    <xar:template module="$eventtplmodule" file="$eventtplfile" subdata="$eventdata" />
                 </xar:if>
             </xar:loop>
         </xar:if>
     </xar:loop>
 </xar:if>
+

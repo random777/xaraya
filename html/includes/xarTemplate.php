@@ -100,7 +100,7 @@ function xarTpl_init(&$args, $whatElseIsGoingLoaded)
     }
 
     $GLOBALS['xarTpl_additionalStyles'] = '';
-    $GLOBALS['xarTpl_JavaScript'] = array('head'=>array(), 'body'=>array(), 'frameworks'=>array());
+    $GLOBALS['xarTpl_JavaScript'] = array('head'=>array(), 'body'=>array());
 
     // This is wrong here as well, but it's better at least than in xarMod
     include "includes/xarTheme.php";
@@ -410,35 +410,40 @@ function xarTplAddJavaScript($position, $type, $data, $index = '')
  */
 function xarTplGetJavaScript($position = '', $index = '')
 {
+    static $fwinfo = array();
+
     if ($position == 'head' && empty($index)) {
         // spool framework files into head position; prepend framework and plugin files,
         // append event entries
-        if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'])) {
-            $fwqueue = array();
-            foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'] as $fwname => $fw) {
-                if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['files'])) {
-                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['files'] as $file => $fileinfo) {
-                        $fwqueue[$file] = $fileinfo;
-                    }
-                }
-                if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['plugins'])) {
-                    foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['plugins'] as $plugin => $plugininfo) {
-                        $fwqueue[$plugin] = $plugininfo;
-                    }
+        if (empty($fwinfo)) {
+            $fwinfo = @unserialize(xarModGetVar('base','RegisteredFrameworks'));
+        }
+
+        $head_pre = array();
+        $head_post = array();
+
+        foreach ($fwinfo as $fwname => $fw) {
+            // framework file(s)
+            if (isset($GLOBALS['xarTpl_JavaScript'][$fwname])) {
+                foreach ($GLOBALS['xarTpl_JavaScript'][$fwname] as $f => $fwx) {
+                    $head_pre[$f] = $fwx;
                 }
             }
-            $fwqueue = array_reverse($fwqueue);
-            foreach ($fwqueue as $q => $f) {
-                array_unshift($GLOBALS['xarTpl_JavaScript']['head'], $f);
+            // plugins
+            if (isset($GLOBALS['xarTpl_JavaScript'][$fwname . '_plugins'])) {
+                foreach ($GLOBALS['xarTpl_JavaScript'][$fwname . '_plugins'] as $p => $plx) {
+                    $head_pre[$p] = $plx;
+                }
             }
-            if (isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'])) {
-                foreach ($GLOBALS['xarTpl_JavaScript']['frameworks'][$fwname]['events'] as $event => $eventinfo) {
-                    foreach ($event as $eventname => $eventcode) {
-                        $GLOBALS['xarTpl_JavaScript']['head'][] = $eventcode;
-                    }
+            // events
+            if (isset($GLOBALS['xarTpl_JavaScript'][$fwname . '_events'])) {
+                foreach ($GLOBALS['xarTpl_JavaScript'][$fwname . '_events'] as $e => $evx) {
+                    $head_post[$e] = $evx;
                 }
             }
         }
+        
+        return array_merge($head_pre, $GLOBALS['xarTpl_JavaScript'][$position], $head_post);
     }
 
     if (empty($position)) {return $GLOBALS['xarTpl_JavaScript'];}

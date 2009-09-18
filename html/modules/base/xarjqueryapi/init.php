@@ -21,38 +21,9 @@ function base_jqueryapi_init($args)
 {
     extract($args);
 
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => 'jquery'));
-
-    if (!is_array($fwinfo)) {
-        $msg = xarML('Bad framework name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
-    // all frameworks should assume a default file name
-    if (!isset($file) || $file == '') {
-        $file = 'jquery-' . $fwinfo['version'] . '.min.js';
-    }
-
-    // Set up $GLOBALS['xarTpl_JavaScript']['frameworks'] indices for the framework
-    // The array for each framework must contains these indices: 
-    // array files, string module, array plugins, array events
-    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks']['jquery'])) {
-        $GLOBALS['xarTpl_JavaScript']['frameworks']['jquery'] = array(
-            'files' => array(),
-            'module' => 'base',
-            'plugins' => array(),
-            'events' => array()
-        );
-    }
-
-    $GLOBALS['xarTpl_JavaScript']['frameworks']['jquery']['files'][$file] = array(
-            'type' => 'src',
-            'data' => xarServerGetBaseURL() . $filepath
-        );
-
-    // perform other init tasks here
+    // This function should not normally be called directly; it gets called
+    // by base_javascriptapi_init, which does the important work. 
+    // Use this function to perform additional init tasks
 
     return true;
 }

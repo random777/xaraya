@@ -65,21 +65,30 @@ function base_javascriptapi_init($args)
         return;
     }
 
+    // Set up $GLOBALS['xarTpl_JavaScript'] indexes for the framework
+    if (!isset($GLOBALS['xarTpl_JavaScript'][$name])) {
+        $GLOBALS['xarTpl_JavaScript'][$name] = array();
+    }
+    if (!isset($GLOBALS['xarTpl_JavaScript'][$name . '_plugins'])) {
+        $GLOBALS['xarTpl_JavaScript'][$name . '_plugins'] = array();
+    }
+    // Events will be set up as needed
+
     $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$name/$file"));
 
-    // Set up $GLOBALS['xarTpl_JavaScript']['frameworks'] indices for the framework
-    // The array for each framework must contains these indices:
-    // array files, string module, array plugins, array events
-    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$name])) {
-        $GLOBALS['xarTpl_JavaScript']['frameworks'][$name] = array(
-            'files' => array(),
-            'module' => $modName,
-            'plugins' => array(),
-            'events' => array()
-        );
-    }
+    if (empty($filepath)) {
+        $msg = xarML('File \'#(1)\' in #(2) could not be found', $file, $name);
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                        new SystemException($msg));
+        return;
+    }        
 
-    // pass to framework init function
+    $GLOBALS['xarTpl_JavaScript'][$name][$file] = array(
+            'type' => 'src',
+            'data' => xarServerGetBaseURL() . $filepath
+        );
+
+    // pass to framework init function for any extra processing
     $args['name'] = $name;
     $args['modName'] = $modName;
     $args['file'] = $file;

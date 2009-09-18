@@ -45,7 +45,7 @@ function base_javascriptapi_appendframeworkevent($args)
     if (!isset($modName) || !xarModIsAvailable($modName)) {
         $modName = $fwinfo['module'];
     }
-    if ((!isset($file) || $file == '') || (!isset($code) || $code == '')) {
+    if ((!isset($file) || $file == '') && (!isset($code) || $code == '')) {
         $msg = xarML('File or code required to append event');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
@@ -53,7 +53,7 @@ function base_javascriptapi_appendframeworkevent($args)
     }
 
     // ensure framework init has happened
-    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$framework])) {
+    if (!isset($GLOBALS['xarTpl_JavaScript'][$framework])) {
         $fwinit = xarModAPIFunc($modName, $framework, 'init', array());
         if (!$fwinit) {
             $msg = xarML('Framework #(1) init failed', $framework);
@@ -63,26 +63,51 @@ function base_javascriptapi_appendframeworkevent($args)
         }
     }
 
-    if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['events'][$name])) {
-        $GLOBALS['xarTpl_JavaScript']['frameworks'][$framework]['events'][$name] = array();
+    // ensure framework events array is present
+    if (!isset($GLOBALS['xarTpl_JavaScript'][$framework . '_events'])) {
+        $GLOBALS['xarTpl_JavaScript'][$framework. '_events'] = array();
     }
 
     if (isset($file) && !empty($file)) {
-        $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/$event" . '-' . $file));
+        $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array(
+            'module' => $modName, 
+            'filename' => "$framework/events/$file"));
+        if (!empty($filepath)) {
+            // load the file contents as a string
+            if (file_exists($filepath)) {
+                $code = @file_get_contents($filepath);  
+                if (!$code) {
+                    $msg = xarML('Could not append #(1) to event #(2) in #(3)', $file, $name, $framework);
+                    xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                                    new SystemException($msg));
+                    return;      
+                }
+                $args['code'] = $code;
+            }
+        }
+        $args['file'] = $file;
         $args['filepath'] = $filepath;
+    }
+
+    if (!isset($GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name])) {
+        $GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name] = array(
+                'type' => 'framework_event',
+                'data' => $code . "\n",               
+                'tplfile' => "$framework/events/$name",   
+                'tplmodule' => $modName
+            );
     } else {
-        $args['code'] = $code;
+        $GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name] .= $code . "\n";
     }
 
     // pass to framework's appendframeworkevent function
     $args['name'] = $name;
     $args['modName'] = $modName;
     $args['framework'] = $framework;
-    $args['file'] = $file;
 
-    $init = xarModAPIFunc($modName, $framework, 'appendframeworkevent', $args);
+    $append = xarModAPIFunc($modName, $framework, 'appendframeworkevent', $args);
 
-    return $init;
+    return $append;
 }
 
 ?>

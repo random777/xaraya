@@ -19,7 +19,7 @@
  * @param string $args['framework']     Framework name (default from base modvar: DefaultFramework)
  * @param string $args['name']          Name of the plugin (required)
  * @param string $args['file']          File name (required)
- * @param string $args['stylefile']     File name(s) of assocuated CSS (array, or semicolon delimited list)
+ * @param string $args['style']         File name(s) of associated CSS (array, or semicolon delimited list)
  * @return string empty string
  */
 function base_javascriptapi_handlepluginjavascript($args)
@@ -61,29 +61,15 @@ function base_javascriptapi_handlepluginjavascript($args)
         return;
     }
 
-    return "
-        xarModAPIFunc('base','javascript','loadplugin', array('name' => '$name', 'modName' => '$module', 'file' => '$file'));
-    ";
-
-
-    // Ensure framework is initialized
-    if (!is_array($GLOBALS['xarTpl_JavaScript'][$framework])) {
-        $init = xarModAPIFunc('base','javascript','init', array('name' => $framework, 'modName' => $module, 'file' => ''));
-        if (!$init) {
-            $msg = xarML('#(1) initialization falied', $name);
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                            new SystemException($msg));
-        }
+    if (!isset($style)) {
+        $style = '';
+    }
+    if (is_array($style)) {
+        implode(';', $style);
     }
 
-    // Don't try to put a plugin in the JS queue more than once
-    if (!in_array($file, $GLOBALS['xarTpl_JavaScript'][$framework . '_plugins'])) {
-        $GLOBALS['xarTpl_JavaScript'][$framework . '_plugins'][] = $file;
-    }
-
-    // Call xarTplPlugin
     return "
-        echo xarTplPlugin($module, $framework, $name, $tpldata, $template);
+        xarModAPIFunc('base','javascript','loadplugin', array('name' => '$name', 'modName' => '$module', 'file' => '$file', 'style' => '$style'));
     ";
 }
 

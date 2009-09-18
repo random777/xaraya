@@ -1,6 +1,26 @@
 <title>#$tpl:pageTitle#</title>
 <xar:blockgroup name="header" id="header" />
 <base href="&xar-baseurl;index.php" />
+<xar:comment>
+    In order for everything to work with JS frameworks, process JS first,
+    then CSS.  This will ensure plugin CSS passed via <xar:base-js-plugin />
+    gets queued up *before* <xar:additional-styles /> is called.
+
+    As demonstrated below, you can separate the JS and CSS processing from
+    their final rendering.  To avoid a "screen flicker" caused by a delay in
+    CSS loading, render CSS first.
+</xar:comment>
+
+<xar:if condition="$styleswitchertype eq 'javascript'">
+    <xar:comment>Styleswitcher JavaScript</xar:comment>
+    <script type="text/javascript" src="#$classicthemedir#/scripts/switch_styles.js"></script>
+</xar:if>
+<xar:comment>Head JavaScript - required for all themes</xar:comment>
+<xar:base-js-framework file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="thickbox" framework="jquery" file="thickbox-compressed.js" style="thickbox.css" />
+<xar:set name="r">"$('strong').css('background-color','#fc0');"</xar:set>
+<xar:if condition="xarmodAPIFunc('base','javascript','appendframeworkevent', array('name' =&gt; 'ready', 'code' =&gt; $r))"></xar:if>
+
 <xar:comment>Main CSS rules (note: all default parameters in the tag can be omitted)</xar:comment>
 <xar:style />
 <xar:comment>Styleswitcher CSS files to link to</xar:comment>
@@ -35,10 +55,8 @@
     OLD WAY: #$tpl:additionalStyles# 
     NEW WAY: (starting from core RC3+) with the following attribute-less tag
 </xar:comment>
+
+
 <xar:additional-styles />
-<xar:if condition="$styleswitchertype eq 'javascript'">
-    <xar:comment>Styleswitcher JavaScript</xar:comment>
-    <script type="text/javascript" src="#$classicthemedir#/scripts/switch_styles.js"></script>
-</xar:if>
-<xar:comment>Head JavaScript - required for all themes</xar:comment>
 <xar:base-render-javascript position="head" />
+

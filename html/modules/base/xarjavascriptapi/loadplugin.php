@@ -17,6 +17,7 @@
  * @param string $args['modName']      Name of the framework's host module.  Default: derived from $args['framework']
  * @param string $args['name']         Name of the plugin (required)
  * @param string $args['file']         File name of the plugin (required)
+ * @param string $args['style']        File name(s) of associated CSS (array, or semicolon delimited list)
  * @return bool
  */
 function base_javascriptapi_loadplugin($args)
@@ -97,6 +98,23 @@ function base_javascriptapi_loadplugin($args)
     $args['framework'] = $framework;
     $args['file'] = $file;
     $args['filepath'] = $filepath;
+
+    if (isset($style)) {
+        if(is_string($style)) {
+            $style = explode(';', $style);
+        }
+        foreach ($style as $stylesheet) {
+            //themes_userapi_register
+            $styleload = xarModAPIFunc('themes','user','register', array(
+                'scope' => 'module',
+                'module' => $modName,
+                'file' => $framework . '/plugins/' . $name . '/' . preg_replace('/\.css$/', '', $stylesheet)
+            ));
+        }
+
+    }
+
+
 
     $load = xarModAPIFunc($modName, $framework, 'loadplugin', $args);
 

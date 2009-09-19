@@ -138,29 +138,6 @@ function xarIsAncestor($name1, $name2)
 }
 
 /**
- * xarReturnPrivilege: stores a privilege from an external wizard in the repository.
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   integer pid,level
- * @param   strings pid,name,realm,module,component
- * @param   array instance
- * @return  boolean
- */
-function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$level)
-{
-    return xarModAPIFunc('privileges','admin','returnprivilege',array(
-        'pid' => $pid,
-        'name' => $name,
-        'realm' => $realm,
-        'module' => $module,
-        'component' => $component,
-        'instance' => $instance,
-        'level' => $level));
-}
-
-/**
  * xarPrivExists: checks whether a privilege exists.
  *
  *

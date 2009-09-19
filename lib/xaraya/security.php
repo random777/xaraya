@@ -99,24 +99,6 @@ function xarRemoveRoleMemberByID($childId, $parentId)
     return $parent->removeMember($child);
 }
 
-/**
- * xarRemovePrivileges: removes the privileges registered by a module from the database
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   string module
- * @return  bool
- */
-function xarRemovePrivileges($module)
-{
-    // Get the pids for the module
-    $modulePrivileges = xarPrivileges::findPrivilegesForModule($module);
-    foreach ($modulePrivileges as $modulePrivilege) {
-        $modulePrivilege->remove();
-    }
-}
-
 function xarIsParent($name1, $name2)
 {
     $role1 = xarRoles::findRole($name1);
@@ -135,23 +117,6 @@ function xarIsAncestor($name1, $name2)
         return $role2->isAncestor($role1);
     }
     return false;
-}
-
-/**
- * xarMaskExists: checks whether a mask exists.
- *
- *
- * @access  public
- * @param   string name of mask
- * @param   string module of mask
- * @return  bool
- */
-function xarMaskExists($name,$module="All",$component="All")
-{
-    if ($mask == "All") $mask = 0;
-    $mask = xarMasks::getMask($name,$module,$component,true);
-    if ($mask) return true;
-    else return false;
 }
 
 /**

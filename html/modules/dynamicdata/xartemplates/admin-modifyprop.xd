@@ -1,12 +1,11 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
-<xar:base-include-javascript module="base" filename="toggle.js" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
         <xar:mlstring>Dynamic Data Administration</xar:mlstring>
     </span>
 </div>
 <div class="xar-mod-body">
-   <xar:template type="module" file="admin-menu" />
+    <xar:template type="module" file="admin-menu" />
     <h2>
         <xar:ml>
             <xar:mlstring>Modify Dynamic Properties #(1)</xar:mlstring>
@@ -24,7 +23,7 @@
                 <dd>
                     <a href="&xar-modurl-dynamicdata-admin-modify;&amp;itemid=#$objectid#">
                         <xar:mlstring>
-                            Modify Object Definition 
+                            Modify Object Definition
                         </xar:mlstring>
                     </a>
                 </dd>
@@ -81,7 +80,7 @@
 
     <!-- <xar:data-list object="$myobject" layout="$layout"  /> -->
     <p>
-        [ 
+        [
         <xar:if condition="empty($details)">
             <a href="#$detailslink#">
                 <xar:mlstring>Show Static Properties and Relations</xar:mlstring>
@@ -91,7 +90,7 @@
                 <xar:mlstring>Hide Static Properties and Relations</xar:mlstring>
             </a>
         </xar:if>
-        ] 
+        ]
     </p>
 
     <xar:if condition="count($static) gt 0">
@@ -127,22 +126,22 @@
             <xar:foreach in="$static" value="$field">
                 <tr>
                     <td>
-                        #$field['name']# 
+                        #$field['name']#
                     </td>
                     <td>
-                        #$field['label']# 
+                        #$field['label']#
                     </td>
                     <td>
                         <xar:data-output property="$fieldtypeprop" name="static_type['.$field['id'].']" value="$field['type']" />
                     </td>
                     <td>
-                        #$field['default']# 
+                        #$field['default']#
                     </td>
                     <td>
-                        #$field['source']# 
+                        #$field['source']#
                     </td>
                     <td>
-                        #$field['validation']# 
+                        #$field['validation']#
                     </td>
                 </tr>
             </xar:foreach>
@@ -177,7 +176,7 @@
     <xar:if condition="count($relations) gt 0">
 
         <h2>
-            #$relationstitle# 
+            #$relationstitle#
         </h2>
 
         <xar:comment>
@@ -228,7 +227,7 @@
                         <label class="xar-form-label">
                             #$labels['linktype']#
                         </label>
-                        ( <xar:mlstring>not found</xar:mlstring> ) 
+                        ( <xar:mlstring>not found</xar:mlstring> )
                     </div>
                     <div class="xar-form-input-wrapper">
                         <label class="xar-form-label">
@@ -240,7 +239,7 @@
                         <label class="xar-form-label">
                             #$labels['linkto']#
                         </label>
-                        ( <xar:mlstring>not found</xar:mlstring> ) 
+                        ( <xar:mlstring>not found</xar:mlstring> )
                     </div>
                 </xar:if>
                 </fieldset>

@@ -120,7 +120,7 @@ function dynamicdata_admin_updateprop()
                 $dd_prop_order = $prop_order[$id];
             } else {
                 $dd_prop_order = $field['order'];
-            }                
+            }
 
             if (!xarModAPIFunc('dynamicdata','admin','updateprop',
                               array('prop_id' => $id,

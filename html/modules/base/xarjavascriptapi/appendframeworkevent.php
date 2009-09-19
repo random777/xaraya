@@ -70,17 +70,17 @@ function base_javascriptapi_appendframeworkevent($args)
 
     if (isset($file) && !empty($file)) {
         $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array(
-            'module' => $modName, 
+            'module' => $modName,
             'filename' => "$framework/events/$file"));
         if (!empty($filepath)) {
             // load the file contents as a string
             if (file_exists($filepath)) {
-                $code = @file_get_contents($filepath);  
+                $code = @file_get_contents($filepath);
                 if (!$code) {
                     $msg = xarML('Could not append #(1) to event #(2) in #(3)', $file, $name, $framework);
                     xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                                     new SystemException($msg));
-                    return;      
+                    return;
                 }
                 $args['code'] = $code;
             }
@@ -92,12 +92,12 @@ function base_javascriptapi_appendframeworkevent($args)
     if (!isset($GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name])) {
         $GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name] = array(
                 'type' => 'framework_event',
-                'data' => $code . "\n",               
-                'tplfile' => "$framework/events/$name",   
+                'data' => $code . "\n",
+                'tplfile' => "$framework/events/$name",
                 'tplmodule' => $modName
             );
     } else {
-        $GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name] .= $code . "\n";
+        $GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name]['data'] .= $code . "\n";
     }
 
     // pass to framework's appendframeworkevent function

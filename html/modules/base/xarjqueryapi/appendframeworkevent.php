@@ -24,11 +24,11 @@ function base_jqueryapi_appendframeworkevent($args)
     extract($args);
 
     // This function should not normally be called directly; it gets called
-    // by base_javascriptapi_appendframeworkevent, which does the important 
-    // work.  Use this function to perform additional tasks for appending 
+    // by base_javascriptapi_appendframeworkevent, which does the important
+    // work.  Use this function to perform additional tasks for appending
     // code to a framework's event hander.
 
-    return true;
+    return '';
 }
 
 ?>

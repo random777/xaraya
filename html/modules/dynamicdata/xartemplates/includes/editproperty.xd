@@ -3,7 +3,7 @@
 <xar:if condition="empty($fieldwrapper)">
     <xar:set name="fieldwrapper">'fieldwrapper'</xar:set>
 </xar:if>
-<div id="#$fieldwrapper#_#$field.id#">
+<div class="#$fieldwrapper#">
     <div class="xar-form-input-wrapper">
         <label class="xar-form-label">#$labels.id#</label>
         #$field.id#

@@ -138,21 +138,6 @@ function xarIsAncestor($name1, $name2)
 }
 
 /**
- * xarPrivExists: checks whether a privilege exists.
- *
- *
- * @access  public
- * @param   string name of privilege
- * @return  boolean
- */
-function xarPrivExists($name)
-{
-    $priv = xarPrivileges::findPrivilege($name);
-    if ($priv) return true;
-    else return false;
-}
-
-/**
  * xarMaskExists: checks whether a mask exists.
  *
  *

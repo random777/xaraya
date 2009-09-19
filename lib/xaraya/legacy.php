@@ -203,5 +203,9 @@ function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$leve
         'instance' => $instance,
         'level' => $level));
 }
+function xarPrivExists($name)
+{
+    return (bool)xarPrivileges::findPrivilege($name);
+}
 
 ?>

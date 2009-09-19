@@ -32,22 +32,22 @@
                     <xar:mlstring>[unnamed property]</xar:mlstring></a>
             </xar:if>
             [#$labels['id']#: #$field['id']#]
+            <xar:if condition="$total gt 1">
+                <span class="xar-nowrap">
+                <xar:if condition="($i gt 1)">
+                    <a href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'up', 'authid' => $authid))#"><img src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#" /></a>
+                <xar:else />
+                    <img class="xar-icon-disabled" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#"/>
+                </xar:if>
+                <xar:if condition="($i lt $total)">
+                     <a href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'down', 'authid' => $authid))#"><img src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" /></a>
+                <xar:else />
+                    <img class="xar-icon-disabled" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" />
+                </xar:if>
+                </span>
+            </xar:if>
         </legend>
         <xar:comment>Include the edit-part for a property</xar:comment>
-        <xar:if condition="$total gt 1">
-            <span class="xar-floatright xar-nowrap">
-            <xar:if condition="($i gt 1)">
-                <a href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'up', 'authid' => $authid))#"><img src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#" /></a>
-            <xar:else />
-                <img class="xar-icon-disabled" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#"/>
-            </xar:if>
-            <xar:if condition="($i lt $total)">
-                 <a href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'down', 'authid' => $authid))#"><img src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" /></a>
-            <xar:else />
-                <img class="xar-icon-disabled" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" />
-            </xar:if>
-            </span>
-        </xar:if>
         <xar:template file="editproperty"
                       module="dynamicdata"
                       subdata="array('field' =&gt; $field, 'labels' =&gt; $labels,'fieldtypeprop' =&gt; $fieldtypeprop, 'fieldstatusprop' =&gt; $fieldstatusprop)"/>

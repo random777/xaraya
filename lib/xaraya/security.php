@@ -193,21 +193,6 @@ function xarMaskExists($name,$module="All",$component="All")
 }
 
 /**
- * xarQueryMask: returns a mask suitable for inclusion in a structured query
- *
- *
- * @access  public
- * @param   string name of mask
- * @param   string module of mask
- * @return  bool
- */
-function xarQueryMask($mask, $showException=1, $component='', $instance='', $module='', $role='')
-{
-    if ($mask == "All") $mask = 0;
-    return xarMasks::querymask($mask, $component, $instance, $module, $role,$pnrealm,$pnlevel);
-}
-
-/**
  * xarSecurityCheck: check a role's privileges against the masks of a component
  *
  * Checks the current group or user's privileges against a component

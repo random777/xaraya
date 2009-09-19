@@ -340,24 +340,6 @@ function xarSecurityCheck($mask, $showException=1, $component='', $instance='', 
 }
 
 /**
- * xarRegisterMask: wrapper function for registering a mask
- *
- * @access public
- * @param  string  $name
- * @param  integer $realm
- * @param  string  $module
- * @param  string  $component
- * @param  string  $instance
- * @param  integer $level
- * @param  string  $description
- * @return bool
- */
-function xarRegisterMask($name,$realm,$module,$component,$instance,$level,$description='')
-{
-    return xarMasks::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
-}
-
-/**
  * xarUnregisterMask: wrapper function for unregistering a mask
  *
  * @access public

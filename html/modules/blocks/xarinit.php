@@ -282,20 +282,21 @@ function blocks_init()
      /* remove and redefine new ones. The old ones do not seem to be working in any case in installs */
 
     //Unsure if this  Comment is used at all but left for compatiblity with prior setup
-    xarRegisterMask('CommentBlock','All','blocks','All','All','ACCESS_EDIT');
+    sys::import('modules.privileges.class.privileges');
+    xarMasks::register('CommentBlock','All','blocks','All','All','ACCESS_EDIT');
 
     // Blockgroups - in case people can edit block group
-    xarRegisterMask('EditBlockGroup',  'All', 'blocks', 'Blockgroup', 'All', 'ACCESS_EDIT');
+    xarMasks::register('EditBlockGroup',  'All', 'blocks', 'Blockgroup', 'All', 'ACCESS_EDIT');
     //Blocks block? could be a use ...
-    xarRegisterMask('ReadBlocksBlock', 'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
+    xarMasks::register('ReadBlocksBlock', 'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
     //And standard masks for the rest - keep names the same as any prior so minimal sec checks in templates still work
-    xarRegisterMask('ViewBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
-    xarRegisterMask('ReadBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_READ');
-    xarRegisterMask('ModerateBlock','All', 'blocks', 'Block', 'All:All:All', 'ACCESS_MODERATE');
-    xarRegisterMask('EditBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_EDIT');
-    xarRegisterMask('AddBlock',     'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADD');
-    xarRegisterMask('DeleteBlock',  'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_DELETE');
-    xarRegisterMask('AdminBlock',   'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADMIN');
+    xarMasks::register('ViewBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
+    xarMasks::register('ReadBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_READ');
+    xarMasks::register('ModerateBlock','All', 'blocks', 'Block', 'All:All:All', 'ACCESS_MODERATE');
+    xarMasks::register('EditBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_EDIT');
+    xarMasks::register('AddBlock',     'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADD');
+    xarMasks::register('DeleteBlock',  'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_DELETE');
+    xarMasks::register('AdminBlock',   'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADMIN');
 
     // Installation complete; check for upgrades
     return blocks_upgrade('2.0.0');

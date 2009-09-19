@@ -90,9 +90,10 @@ function themes_init()
     xarModVars::set('themes', 'dashtemplate', 'dashboard');
     xarModVars::set('themes', 'adminpagemenu', true);
 
-    xarRegisterMask('ViewThemes','All','themes','All','All','ACCESS_OVERVIEW');
-    xarRegisterMask('EditThemes','All','themes','All','All','ACCESS_EDIT');
-    xarRegisterMask('AdminTheme','All','themes','All','All','ACCESS_ADMIN');
+    sys::import('modules.privileges.class.privileges');
+    xarMasks::register('ViewThemes','All','themes','All','All','ACCESS_OVERVIEW');
+    xarMasks::register('EditThemes','All','themes','All','All','ACCESS_EDIT');
+    xarMasks::register('AdminTheme','All','themes','All','All','ACCESS_ADMIN');
     
     if (!xarModRegisterHook('item', 'usermenu', 'GUI', 'themes', 'user', 'usermenu')) {
         return false;

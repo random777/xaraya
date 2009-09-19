@@ -468,25 +468,26 @@ function dynamicdata_init()
      * register(Name,Realm,Module,Component,Instance,Level,Description)
      *********************************************************************/
 
-    xarRegisterMask('ViewDynamicData','All','dynamicdata','All','All','ACCESS_OVERVIEW');
-    xarRegisterMask('EditDynamicData','All','dynamicdata','All','All','ACCESS_EDIT');
-    xarRegisterMask('AdminDynamicData','All','dynamicdata','All','All','ACCESS_ADMIN');
+    sys::import('modules.privileges.class.privileges');
+    xarMasks::register('ViewDynamicData','All','dynamicdata','All','All','ACCESS_OVERVIEW');
+    xarMasks::register('EditDynamicData','All','dynamicdata','All','All','ACCESS_EDIT');
+    xarMasks::register('AdminDynamicData','All','dynamicdata','All','All','ACCESS_ADMIN');
 
-    xarRegisterMask('ViewDynamicDataItems','All','dynamicdata','Item','All:All:All','ACCESS_OVERVIEW');
-    xarRegisterMask('ReadDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_READ');
-    xarRegisterMask('EditDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_EDIT');
-    xarRegisterMask('AddDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_ADD');
-    xarRegisterMask('DeleteDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_DELETE');
-    xarRegisterMask('AdminDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_ADMIN');
+    xarMasks::register('ViewDynamicDataItems','All','dynamicdata','Item','All:All:All','ACCESS_OVERVIEW');
+    xarMasks::register('ReadDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_READ');
+    xarMasks::register('EditDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_EDIT');
+    xarMasks::register('AddDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_ADD');
+    xarMasks::register('DeleteDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_DELETE');
+    xarMasks::register('AdminDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_ADMIN');
 
-    xarRegisterMask('ReadDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_READ');
-    xarRegisterMask('EditDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_EDIT');
-    xarRegisterMask('AddDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_ADD');
-    xarRegisterMask('DeleteDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_DELETE');
-    xarRegisterMask('AdminDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_ADMIN');
+    xarMasks::register('ReadDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_READ');
+    xarMasks::register('EditDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_EDIT');
+    xarMasks::register('AddDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_ADD');
+    xarMasks::register('DeleteDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_DELETE');
+    xarMasks::register('AdminDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_ADMIN');
 
-    xarRegisterMask('ViewDynamicDataBlocks','All','dynamicdata','Block','All:All:All','ACCESS_OVERVIEW');
-    xarRegisterMask('ReadDynamicDataBlock','All','dynamicdata','Block','All:All:All','ACCESS_READ');
+    xarMasks::register('ViewDynamicDataBlocks','All','dynamicdata','Block','All:All:All','ACCESS_OVERVIEW');
+    xarMasks::register('ReadDynamicDataBlock','All','dynamicdata','Block','All:All:All','ACCESS_READ');
     /*********************************************************************
      * Define instances for this module
      * Format is

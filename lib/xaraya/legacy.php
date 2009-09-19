@@ -148,7 +148,7 @@ function xarRegisterPrivilege($name,$realm,$module,$component,$instance,$level,$
     // Check if the privilege already exists
     $privilege = xarPrivileges::findPrivilege($name);
     if (!$privilege) {
-        return xarPrivileges::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
+        return xarPrivileges::register($name,$realm,$module,$component,$level,$description);
     }
     return true;
 }
@@ -163,5 +163,9 @@ function xarAssignPrivilege($privilege,$role)
 function xarRemoveInstances($module)
 {
     return xarPrivileges::removeInstances($module);
+}
+function xarRegisterMask($name,$realm,$module,$component,$instance,$level,$description='')
+{
+    return xarMasks::register($name,$realm,$module,$component,$level,$description);
 }
 ?>

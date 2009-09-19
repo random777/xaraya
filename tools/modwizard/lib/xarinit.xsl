@@ -49,12 +49,13 @@
 <xsl:template mode="xarinit_init_security" match="xaraya_module">
     <xsl:variable name="module_prefix" select="registry/name" />
     // for module access
-    xarRegisterMask( 'Read<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_READ' );
-    xarRegisterMask( 'View<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_OVERVIEW' );
-    xarRegisterMask( 'Delete<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_DELETE' );
-    xarRegisterMask( 'Edit<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_EDIT' );
-    xarRegisterMask( 'Add<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_ADD' );
-    xarRegisterMask( 'Admin<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_ADMIN' );
+    sys::import('modules.privileges.class.privileges');
+    xarMasks::register( 'Read<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_READ' );
+    xarMasks::register( 'View<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_OVERVIEW' );
+    xarMasks::register( 'Delete<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_DELETE' );
+    xarMasks::register( 'Edit<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_EDIT' );
+    xarMasks::register( 'Add<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_ADD' );
+    xarMasks::register( 'Admin<xsl:value-of select="$module_prefix" />' ,'All' ,'<xsl:value-of select="$module_prefix" />' ,'All' ,'All', 'ACCESS_ADMIN' );
 
 </xsl:template>
 

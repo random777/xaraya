@@ -163,6 +163,10 @@ class xarMasks extends Object
         // Check if the mask has already been registered, and update it if necessary.
         // FIXME: make mask names unique across modules (+ across realms) ?
         // FIXME: is module/name enough? Perhaps revisit this with realms in mind.
+
+        sys::import('modules.privileges.class.securitylevel');
+        $level = SecurityLevel::get($level);
+
         if($module == 'All') {
             $module_id = self::PRIVILEGES_ALL;
         } elseif($module == null) {

@@ -57,11 +57,11 @@ function authsystem_activate()
     xarPrivileges::register('AdminAuthsystem','All','authsystem','All','All','ACCESS_ADMIN');
     xarPrivileges::register('ViewAuthsystem','All','authsystem','All','All','ACCESS_OVERVIEW');
 
-    xarRegisterMask('ViewLogin','All','authsystem','Block','login:Login:All','ACCESS_OVERVIEW');
-    xarRegisterMask('ViewAuthsystemBlocks','All','authsystem','Block','All','ACCESS_OVERVIEW');
-    xarRegisterMask('ViewAuthsystem','All','authsystem','All','All','ACCESS_OVERVIEW');
-    xarRegisterMask('EditAuthsystem','All','authsystem','All','All','ACCESS_EDIT');
-    xarRegisterMask('AdminAuthsystem','All','authsystem','All','All','ACCESS_ADMIN');
+    xarMasks::register('ViewLogin','All','authsystem','Block','login:Login:All','ACCESS_OVERVIEW');
+    xarMasks::register('ViewAuthsystemBlocks','All','authsystem','Block','All','ACCESS_OVERVIEW');
+    xarMasks::register('ViewAuthsystem','All','authsystem','All','All','ACCESS_OVERVIEW');
+    xarMasks::register('EditAuthsystem','All','authsystem','All','All','ACCESS_EDIT');
+    xarMasks::register('AdminAuthsystem','All','authsystem','All','All','ACCESS_ADMIN');
 
     /* Define Module vars */
     xarModVars::set('authsystem', 'lockouttime', 15);

@@ -18,7 +18,7 @@
 <xar:set name="uptitle">xarML('Move this property up')</xar:set>
 <xar:set name="downtitle">xarML('Move this property down')</xar:set>
 
-<xar:set name="r">"jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() { jQuery(this).parent().children('div.fieldwrapper').toggle(); } ).hover(function() { jQuery(this).css('cursor', 'pointer'); });"</xar:set>
+<xar:set name="r">"jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() { jQuery(this).parent().children('div.fieldwrapper').toggle(); } ).css('cursor','pointer');"</xar:set>
 <xar:base-js-event name="ready" code="$r" />
 
 <xar:foreach in="$fields" value="$field">

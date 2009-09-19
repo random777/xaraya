@@ -234,5 +234,12 @@ function xarRemoveRoleMemberByID($childId, $parentId)
 
     return $parent->removeMember($child);
 }
+function xarMakeRoleMemberByUname($childName, $parentName)
+{
+    $parent = xarRoles::ufindRole($parentName);
+    $child = xarRoles::ufindRole($childName);
+
+    return $parent->addMember($child);
+}
 
 ?>

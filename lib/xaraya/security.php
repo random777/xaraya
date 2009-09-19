@@ -55,20 +55,6 @@ sys::import('modules.roles.class.roles');
  */
 function xarMakeGroup($name,$uname='') { return xarRoles::makeGroup($name,$uname); }
 
-/**
- * xarMakeUser: create an entry in the database for a user
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string name
- * @return bool
- */
-function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state=3,$authModule= 0)
-{
-    return xarRoles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
-}
-
 
 /**
  * xarMakeRoleMemberByUname: create a parent-child relationship in the database between two roles

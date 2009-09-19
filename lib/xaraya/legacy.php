@@ -181,5 +181,9 @@ function xarCurrentRole()
     return xarRoles::getRole(xarSessionGetVar('role_id'));
 }
 function xarGetGroups() { return xarRoles::getgroups(); }
+function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state=3,$authModule= 0)
+{
+    return xarRoles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
+}
 
 ?>

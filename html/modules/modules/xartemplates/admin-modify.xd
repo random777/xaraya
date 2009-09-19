@@ -1,7 +1,8 @@
 <xar:comment>
     License: GPL http://www.gnu.org/copyleft/gpl.html 
 </xar:comment>
-<xar:base-include-javascript module="base" filename="toggle.js" />
+<xar:set name="togglecode">"jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() { jQuery(this).parent().children('div.fieldwrapper').toggle(); } ).hover(function() { jQuery(this).css('cursor', 'pointer'); });"</xar:set>
+<xar:base-js-event name="ready" code="$togglecode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
         <xar:mlstring>
@@ -10,6 +11,7 @@
     </span>
 </div>
 <div class="xar-mod-body">
+    <xar:template type="module" file="admin-menu" />
     <h2>
         <xar:mlstring>
             Module Settings and Hooks 
@@ -71,51 +73,53 @@
                         </xar:mlstring>
                         #$hookmod['modname']# 
                     </legend>
-                    <div style="float: left;width: 48%;">
-                        <p>
-                            <xar:mlstring>
-                                Enable hooks for: 
-                            </xar:mlstring>
-                        </p>
-                        <div class="xar-clearboth">
-                            <xar:if condition="!empty($hookmod['checked'][0])">
-                                <input type="checkbox" name="hooks_#$hookmod['modname']#[0]" id="hooks_#$hookmod['modname']#_0" value="1" checked="checked" />
-                                <xar:else />
-                                <input type="checkbox" name="hooks_#$hookmod['modname']#[0]" id="hooks_#$hookmod['modname']#_0" value="1" />
-                            </xar:if>
-                            <label for="hooks_#$hookmod['modname']#_0">
+                    <div class="fieldwrapper">
+                        <div style="float: left;width: 48%;">
+                            <p>
                                 <xar:mlstring>
-                                    All 
+                                    Enable hooks for: 
                                 </xar:mlstring>
-                            </label>
-                        </div>
-                        <xar:foreach in="$itemtypes" key="$typeid" value="$itemtype">
+                            </p>
                             <div class="xar-clearboth">
-                                <xar:if condition="!empty($hookmod['checked'][$typeid])">
-                                    <input type="checkbox" name="hooks_#$hookmod['modname']#[#$typeid#]" id="hooks_#$hookmod['modname']#_#$typeid#" value="1" checked="checked" />
+                                <xar:if condition="!empty($hookmod['checked'][0])">
+                                    <input type="checkbox" name="hooks_#$hookmod['modname']#[0]" id="hooks_#$hookmod['modname']#_0" value="1" checked="checked" />
                                     <xar:else />
-                                    <input type="checkbox" name="hooks_#$hookmod['modname']#[#$typeid#]" id="hooks_#$hookmod['modname']#_#$typeid#" value="1" />
+                                    <input type="checkbox" name="hooks_#$hookmod['modname']#[0]" id="hooks_#$hookmod['modname']#_0" value="1" />
                                 </xar:if>
-                                <label for="hooks_#$hookmod['modname']#_#$typeid#">
-                                    #$itemtype['label']# 
+                                <label for="hooks_#$hookmod['modname']#_0">
+                                    <xar:mlstring>
+                                        All 
+                                    </xar:mlstring>
                                 </label>
                             </div>
-                        </xar:foreach>
-                    </div>
-                    <div style="float: left;width: 48%;">
-                        <p>
-                            <xar:mlstring>
-                                Available hooks: 
-                            </xar:mlstring>
-                        </p>
-                        <ul>
-                            <xar:foreach in="$hookmod['hooks']" key="$hook">
-                                <li>
-                                    #$hook# 
-                                </li>
+                            <xar:foreach in="$itemtypes" key="$typeid" value="$itemtype">
+                                <div class="xar-clearboth">
+                                    <xar:if condition="!empty($hookmod['checked'][$typeid])">
+                                        <input type="checkbox" name="hooks_#$hookmod['modname']#[#$typeid#]" id="hooks_#$hookmod['modname']#_#$typeid#" value="1" checked="checked" />
+                                        <xar:else />
+                                        <input type="checkbox" name="hooks_#$hookmod['modname']#[#$typeid#]" id="hooks_#$hookmod['modname']#_#$typeid#" value="1" />
+                                    </xar:if>
+                                    <label for="hooks_#$hookmod['modname']#_#$typeid#">
+                                        #$itemtype['label']# 
+                                    </label>
+                                </div>
                             </xar:foreach>
-                        </ul>
-                    </div><br class="xar-clearboth" />
+                        </div>
+                        <div style="float: left;width: 48%;">
+                            <p>
+                                <xar:mlstring>
+                                    Available hooks: 
+                                </xar:mlstring>
+                            </p>
+                            <ul>
+                                <xar:foreach in="$hookmod['hooks']" key="$hook">
+                                    <li>
+                                        #$hook# 
+                                    </li>
+                                </xar:foreach>
+                            </ul>
+                        </div><br class="xar-clearboth" />
+                    </div>
                 </fieldset>
             </xar:foreach>
             <fieldset>

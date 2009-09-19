@@ -32,12 +32,17 @@
             <input type="text" name="group_template" id="group_template" value="#$group['template']#" maxlength="255" class="xar-form-textlong" />
         </div>
 
+            <xar:if condition="$instance_count gt 0">
+
+            </xar:if>
         <div class="xar-form-input-wrapper xar-clearboth">
             <label for="group_instances" title="#xarML('You may reorder the members in this block group by selecting the block to reorder and then using the up and down arrows to chose the position.')#" class="xar-form-label">
                 <xar:mlstring>Members:</xar:mlstring>
             </label>
             <xar:if condition="$instance_count gt 0">
-                <div class="xar-floatleft">
+                <xar:set name="r">"jQuery('#js_group_instances').show();"</xar:set>
+                <xar:base-js-event name="ready" code="$r" />
+                <div id="js_group_instances" class="xar-floatleft xar-displaynone">
                     <div class="xar-floatleft">
                         <button onclick="return xar_base_reorder('group_instances', true, 'group_instance_order');" title="#$moveuplabel#" class="xar-displayblock xar-margin-thickbottom">
                             <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" />
@@ -63,6 +68,50 @@
                         </select>
                     </div>
                 </div>
+                <noscript>
+                <table id="group_instances">
+                    <thead>
+                        <tr>
+                            <th scope="col"><xar:mlstring>Instances</xar:mlstring></th>
+                            <th scope="col" class="xar-align-right"><xar:mlstring>Actions</xar:mlstring></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <xar:set name="rowclass">'xar-norm'</xar:set>
+                        <xar:set name="iter">1</xar:set>
+                        <xar:set name="uptitle">xarML('Move instance up')</xar:set>
+                        <xar:set name="downtitle">xarML('Move instance down')</xar:set>
+                        <xar:foreach in="$group['instances']" value="$inst">
+                            <tr class="#$rowclass#">
+                                <td>
+                                    #$inst['name']#
+                                    <xar:if condition="!empty($inst['title'])">
+                                        (#$inst['title']#)
+                                    </xar:if>
+                                </td>
+                                <td class="xar-align-right">
+                                    <xar:if condition="$iter gt 1">
+                                        <a class="xar-icon" href="#xarModURL('blocks', 'admin', 'update_group', array('moveinst' => $inst['id'], 'gid' => $group['id'], 'group_name' => $group['name'], 'group_template' => $group['template'], 'authid' => $authid, 'direction' => 'up'))#">
+                                        <img class="xar-icon" src="#$up_arrow_src#" alt="#xarML('Up Arrow')#"  title="#$uptitle#"/>
+                                        </a>
+                                    <xar:else />
+                                        <img class="xar-icon-disabled" src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" title="#$uptitle#" />
+                                    </xar:if>
+                                    <xar:if condition="$iter lt $instance_count">
+                                        <a class="xar-icon" href="#xarModURL('blocks', 'admin', 'update_group', array('moveinst' => $inst['id'], 'gid' => $group['id'], 'group_name' => $group['name'], 'group_template' => $group['template'], 'authid' => $authid, 'direction' => 'down'))#">
+                                        <img class="xar-icon" src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" title="#$downtitle#" />
+                                        </a>
+                                    <xar:else />
+                                        <img class="xar-icon-disabled" src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" title="#$downtitle#" />
+                                    </xar:if>
+                                </td>
+                            </tr>
+                            <xar:set name="rowclass">$rowclass=='xar-norm'?'xar-alt':'xar-norm'</xar:set>
+                            <xar:set name="iter">$iter+1</xar:set>
+                        </xar:foreach>
+                    </tbody>
+                </table>
+                </noscript>
             <xar:else />
                 [ <xar:mlstring>none</xar:mlstring> ]
             </xar:if>

@@ -23,6 +23,8 @@ function blocks_admin_update_group()
     if (!xarVarFetch('group_name', 'pre:lower:ftoken:field:Group Name:passthru:str:1:', $name)) {return;}
     if (!xarVarFetch('group_template', 'pre:trim:lower:ftoken', $template, '', XARVAR_NOT_REQUIRED)) {return;}
 
+    if (!xarVarFetch('moveinst', 'int:1:', $moveinst, NULL, XARVAR_DONT_SET)) return;
+    if (!xarVarFetch('direction', 'pre:trim:lower', $direction, NULL, XARVAR_NOT_REQUIRED)) return;
     // Confirm Auth Key
     if (!xarSecConfirmAuthKey()) {return;}
 
@@ -49,6 +51,34 @@ function blocks_admin_update_group()
             return;
         }
     }
+    $seeninst = array();
+    if (!empty($currentgroup['instances'])) {
+        $i = 0;
+        foreach ($currentgroup['instances'] as $inst) {
+            if ($moveinst == $inst['id']) $currentpos = $i;
+            $seeninst[] = $inst['id'];
+            $i++;
+        }
+    }
+
+    if (!empty($seeninst) && !empty($moveinst) && in_array($moveinst, $seeninst) && !empty($direction)) {
+        $i = 0;
+        foreach ($currentgroup['instances'] as $inst) {
+            if ($i == $currentpos && $direction == 'up' && isset($seeninst[$i-1])) {
+                $temp = $seeninst[$i-1];
+                $seeninst[$i-1] = $inst['id'];
+                $seeninst[$i] = $temp;
+                break;
+            } elseif ($i == $currentpos && $direction == 'down' && isset($seeninst[$i+1])) {
+                $temp = $seeninst[$i+1];
+                $seeninst[$i+1] = $inst['id'];
+                $seeninst[$i] = $temp;
+                break;
+            }
+            $i++;
+        }
+        $group_instance_order = $seeninst;
+   }
 
     // Pass to API
     if (!xarModAPIFunc(
@@ -61,7 +91,7 @@ function blocks_admin_update_group()
         )
     ) {return;}
 
-    xarResponseRedirect(xarModURL('blocks', 'admin', 'view_groups'));
+    xarResponseRedirect(xarModURL('blocks', 'admin', 'modify_group', array('gid' => $gid)));
 
     return true;
 }

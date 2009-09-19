@@ -34,7 +34,7 @@ function base_javascriptapi_handleframeworkjavascript($args)
         $name = xarModGetVar('base','DefaultFramework');
     }
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $name));
-    
+
     if (!is_array($fwinfo)) {
         $msg = xarML('Could not retreive info for framework #(1)', $name);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',

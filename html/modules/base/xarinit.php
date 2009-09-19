@@ -466,6 +466,7 @@ function base_init()
     );
     xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
     xarModSetVar('base', 'DefaultFramework', 'jquery');
+    xarModSetVar('base', 'DefaultFrameworkfile', 'jquery-1.3.2.min.js');
     xarModSetVar('base','AutoLoadDefaultFramework', 1);
 
     // jQuery plugins list

@@ -80,7 +80,25 @@ function base_admin_modifyconfig()
     }
     $data['frameworks'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
     $data['defaultframework'] = xarModGetVar('base','DefaultFramework');
+    $data['defaultframeworkfile'] = xarModGetVar('base', 'DefaultFrameworkFile');
     $data['autoloaddefaultframework'] = xarModGetVar('base','AutoLoadDefaultFramework');
+    $fwinfo = isset($data['frameworks'][$data['defaultframework']]) ? $data['frameworks'][$data['defaultframework']] : array();
+    if (!empty($fwinfo)) {
+        $basedir = 'xartemplates/includes/' . $data['defaultframework'];
+        $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
+            array(
+                'module' => $fwinfo['module'],
+                'basedir' => $basedir,
+                'match_re' => true,
+                'match_preg' => '/\.js$/',
+                'levels' => 1
+            ));
+        if (!empty($fwfiles)) {
+            foreach ($fwfiles as $fwfn) {
+                $data['fwfiles'][] = array('id' => $fwfn, 'name' => $fwfn);
+            }
+        }
+    }
     $releasenumber=xarModGetVar('base','releasenumber');
     $data['releasenumber']=isset($releasenumber) ? $releasenumber:10;
 

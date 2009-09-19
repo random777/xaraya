@@ -118,6 +118,7 @@ function base_admin_updateconfig()
             if (!xarVarFetch('editor','str:1:',$editor,'none',XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('defaultframework','str:1:',$defaultframework,'jquery',XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('autoloaddefaultframework','checkbox',$autoloaddefaultframework,true,XARVAR_NOT_REQUIRED)) return;
+            if (!xarVarFetch('defaultframeworkfile', 'str:1:', $defaultframeworkfile, '', XARVAR_NOT_REQUIRED)) return;
             if (!xarVarFetch('releasenumber','int:1:',$releasenumber,10,XARVAR_NOT_REQUIRED)) return;
 
             // Save these in normal module variables for now
@@ -130,7 +131,36 @@ function base_admin_updateconfig()
             $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
 
             if(is_array($fwinfo) && isset($fwinfo[$defaultframework])) {
-                xarModSetVar('base','DefaultFramework',$defaultframework);
+                // look for framework files for selected framework
+                $basedir = 'xartemplates/includes/' . $defaultframework;
+                $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
+                    array(
+                        'module' => $fwinfo[$defaultframework]['module'],
+                        'basedir' => $basedir,
+                        'match_re' => true,
+                        'match_preg' => '/\.js$/',
+                        'levels' => 1
+                    ));
+                if (!empty($fwfiles)) {
+                    xarModSetVar('base','DefaultFramework',$defaultframework);
+                    // found a valid framework file for current framework
+                    if (!empty($defaultframeworkfile) && in_array($defaultframeworkfile, $fwfiles)) {
+                        xarModSetVar('base', 'DefaultFrameworkFile', $defaultframeworkfile);
+                    // if we didn't find a framework file, user probably switched frameworks
+                    // only one framework file, go ahead and set it
+                    } elseif (count($fwfiles) == 1) {
+                        xarModSetVar('base', 'DefaultFrameworkFile', $fwfiles[0]);
+                    // more than one framework file, set empty, and let the user decide
+                    } else {
+                        xarModSetVar('base', 'DefaultFrameworkFile', '');
+                        // jump to the fw settings on return, so the user knows action is required
+                        $fragment = 'jsframework';
+                    }
+                } else {
+                    // @checkme: no framework files found, unset defaultframework? throw exception?
+                    // xarModSetVar('base','DefaultFramework', '');
+
+                }
             }
             xarModSetVar('base','AutoLoadDefaultFramework',$autoloaddefaultframework);
 
@@ -155,6 +185,7 @@ function base_admin_updateconfig()
 
             break;
         case 'jquery':
+
             break;
     }
 
@@ -162,10 +193,11 @@ function base_admin_updateconfig()
     xarModCallHooks('module','updateconfig','base', array('module' => 'base'));
 
     if (isset($data['returnurl'])) {
+        if (isset($fragment)) $data['returnurl'] .= '#' . $fragment;
         xarResponseRedirect($data['returnurl']);
     } else {
         xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig',
-                                      array('tab' => $data['tab'])));
+                                      array('tab' => $data['tab']), NULL, isset($fragment) ? $fragment : NULL));
     }
 
     return true;

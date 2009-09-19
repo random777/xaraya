@@ -418,9 +418,18 @@ function xarTplGetJavaScript($position = '', $index = '')
         if (empty($fwinfo)) {
             $fwinfo = @unserialize(xarModGetVar('base','RegisteredFrameworks'));
         }
+        $autoload = xarModGetVar('base','AutoLoadDefaultFramework');
+        $basefw = xarModGetVar('base','DefaultFramework');
+        $fwfile = xarModGetVar('base', 'DefaultFrameworkFile');
+        // Autoload framework, only if we have valid framework info
+        if ($autoload && isset($fwinfo[$basefw]) && !empty($fwfile)) {
+            // load the base framework into globals array
+            xarModAPIFunc('base', 'javascript', 'init', array('module' => $fwinfo[$basefw]['module'], 'name' => $basefw, 'file' => $fwfile));
+        }
 
         $head_pre = array();
         $head_post = array();
+
 
         foreach ($fwinfo as $fwname => $fw) {
             // framework file(s)
@@ -428,6 +437,7 @@ function xarTplGetJavaScript($position = '', $index = '')
                 foreach ($GLOBALS['xarTpl_JavaScript'][$fwname] as $f => $fwx) {
                     $head_pre[$f] = $fwx;
                 }
+                // @checkme: only load plugins and events if the framework is also loaded?
             }
             // plugins
             if (isset($GLOBALS['xarTpl_JavaScript'][$fwname . '_plugins'])) {
@@ -442,7 +452,7 @@ function xarTplGetJavaScript($position = '', $index = '')
                 }
             }
         }
-        
+
         return array_merge($head_pre, $GLOBALS['xarTpl_JavaScript'][$position], $head_post);
     }
 
@@ -613,7 +623,7 @@ function xarTplFramework($modName, $frameworkName, $tplData = array(), $template
     // Get the right source filename
     $sourceFileName = xarTpl__GetSourceFileName($modName, $templateName, '', "includes/$frameworkName");
 
-    // Ensure framework is initialized  
+    // Ensure framework is initialized
     if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$frameworkName])) {
         $init = xarModAPIFunc('base','javascript','init', array('name' => $frameworkName, 'modName' => $modName));
         if (!$init) {
@@ -1548,7 +1558,7 @@ function xarTpl__SetCacheKey($sourceFileName)
     $filename = XAR_TPL_CACHE_DIR . '/CACHEKEYS';
     $eol = "\n";
 
-    // Get the existing cache file lines, create if not existing 
+    // Get the existing cache file lines, create if not existing
     // which is why we dont use file() here.
     if($fd = fopen($filename, 'a+')) {
         rewind($fd); // needed?
@@ -1560,7 +1570,7 @@ function xarTpl__SetCacheKey($sourceFileName)
 
     // If the cache key is already in the file, then no need to add it again.
     $line = $cacheKey . ': ' . $sourceFileName . $eol;
-    if (in_array($line, $lines)) 
+    if (in_array($line, $lines))
         return $cacheKey;
 
     // Add the line to the end of the file, then remove duplicates.

@@ -440,7 +440,7 @@
                     <input type="text" id="cookiename" name="cookiename" value="#xarConfigGetVar('Site.Session.CookieName')#" class="xar-form-textmedium" />
                     <xar:mlstring>Default:</xar:mlstring> XARAYASID
                     <small>
-                      <xar:mlstring>(The CookieName in var/cache/config.caching.php 
+                      <xar:mlstring>(The CookieName in var/cache/config.caching.php
                       must be equal to this value to keep the cache working.)
                       </xar:mlstring>
                     </small>
@@ -614,7 +614,7 @@
             </fieldset>
             <fieldset>
                 <legend>
-                    <xar:mlstring>Javascript</xar:mlstring>
+                    <a name="jsframework"></a><xar:mlstring>Javascript</xar:mlstring>
                 </legend>
                 <div class="xar-form-input-wrapper">
                     <label for="DefaultFramework" title="#xarML('Set the default Javascript framework to use.')#" class="xar-form-label">
@@ -630,6 +630,22 @@
                         </xar:foreach>
                     </select>
                 </div>
+                <div class="xar-form-input-wrapper">
+                    <xar:if condition="!empty($fwfiles)">
+                        <label for="defaultframeworkfile" title="#xarML('Choose the framework file to load for the default Javascript framework')#" class="xar-form-label help">
+                            <xar:mlstring>Framework File</xar:mlstring>:
+                        </label>
+                        <xar:data-input type="dropdown" name="defaultframeworkfile" id="defaultframeworkfile" value="$defaultframeworkfile" options="$fwfiles" />
+                        <xar:if condition="empty($defaultframeworkfile)">
+                        <span class="xar-error"><xar:mlstring>Please select a file to use with this framework.</xar:mlstring></span>
+                        </xar:if>
+                    <xar:else />
+                        <p class="xar-form-container-after xar-error">
+                            <xar:mlstring>Error: No framework files found!</xar:mlstring>
+                        </p>
+                    </xar:if>
+                </div>
+
                 <p><xar:mlstring>Further options may be available in each framework's host module.  For jQuery, see the tab above.</xar:mlstring></p>
                 <div class="xar-form-input-wrapper-after">
                     <xar:if condition="$autoloaddefaultframework">

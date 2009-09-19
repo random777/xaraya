@@ -515,7 +515,7 @@ function xarSecGenAuthKey($modName = NULL)
  * @throws ForbiddenOperationException
  * @todo bring back possibility of time authorized keys
  */
-function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')
+function xarSecConfirmAuthKey($modName=NULL, $authIdVarName='authid', $catch=false)
 {
     if(!isset($modName)) list($modName) = xarRequest::getInfo();
     $authid = xarRequest::getVar($authIdVarName);
@@ -549,7 +549,8 @@ function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid')
         return true;
     }
     // Not found, assume invalid
-    throw new ForbiddenOperationException();
+    if ($catch) throw new ForbiddenOperationException();
+    else return false;
 }
 
 ?>

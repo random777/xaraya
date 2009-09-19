@@ -40,10 +40,10 @@ class CheckboxProperty extends DynamicData_Property_Base
 
     public function validateValue($value = null)
     {
-        if (!empty($value)) {
-            $this->value = true;
-        } else {
+        if (empty($value) || $value == 'false') {
             $this->value = false;
+        } else {
+            $this->value = true;
         }
         return true;
     }
@@ -52,7 +52,8 @@ class CheckboxProperty extends DynamicData_Property_Base
     {
         if (isset($data['checked'])) $data['value']  = $data['checked'];
         if (!isset($data['value'])) $data['value'] = $this->value;
-        $data['value'] = ($data['value'] === true || $data['value'] === 'true') ? 1 : 0;
+        if ($data['value'] === true || $data['value'] === 'true') $data['value'] = 1;
+        elseif ($data['value'] === false || $data['value'] === 'false') $data['value'] = 0;
         $data['checked']  = $data['value'];
         if(!isset($data['onchange'])) $data['onchange'] = null; // let tpl decide what to do
         return parent::showInput($data);

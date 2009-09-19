@@ -32,7 +32,7 @@ class RolesTreeProperty extends DynamicData_Property_Base
 
     public function showInput(Array $data = array())
     {
-        if (!isset($topid)) $topid = xarModVars::get('roles', 'everybody');
+        if (!isset($topid)) $topid = (int)xarModVars::get('roles', 'everybody');
         $node = new TreeNode($topid);
         $tree = new RolesTree($node);
         $data['nodes'] = $node->depthfirstenumeration();

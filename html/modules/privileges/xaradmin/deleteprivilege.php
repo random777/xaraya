@@ -47,7 +47,9 @@ function privileges_admin_deleteprivilege()
     }
 
 // Check for authorization code
-    if (!xarSecConfirmAuthKey()) return;
+    if (!xarSecConfirmAuthKey()) {
+        return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
+    }        
 
 //Try to remove the privilege and bail if an error was thrown
     if (!$priv->remove()) return;

@@ -97,7 +97,7 @@ class Role extends DynamicData_Object_Base
 
         // Get a value for the parent id
         if (empty($data['parentid'])) xarVarFetch('parentid',  'int', $data['parentid'],  NULL, XARVAR_DONT_SET);
-        if (empty($data['parentid'])) $data['parentid'] = xarModVars::get('roles', 'defaultgroup');
+        if (empty($data['parentid'])) $data['parentid'] = (int)xarModVars::get('roles', 'defaultgroup');
         if (!empty($data['parentid'])) {
             $parent = Roles_Roles::get($data['parentid']);
             if (!$parent->addMember($this))
@@ -238,7 +238,7 @@ class Role extends DynamicData_Object_Base
     {
         if (!empty($data['itemid'])) $this->setID($data['itemid']);
 
-        if($this->getID() == xarModVars::get('roles','defaultgroup'))
+        if($this->getID() == (int)xarModVars::get('roles','defaultgroup'))
             return xarTplModule('roles','user','errors',array('layout' => 'remove_defaultusergroup', 'group' => $this->getID()));
 
         // get a list of all relevant entries in the rolemembers table

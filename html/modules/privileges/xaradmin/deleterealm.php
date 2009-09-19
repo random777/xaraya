@@ -39,7 +39,9 @@ function privileges_admin_deleterealm()
     }
 
 // Check for authorization code
-    if (!xarSecConfirmAuthKey()) return;
+    if (!xarSecConfirmAuthKey()) {
+        return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
+    }        
 
     $q = new Roles_Query('DELETE',$xartable['security_realms']);
     $q->eq('id', $result['id']);

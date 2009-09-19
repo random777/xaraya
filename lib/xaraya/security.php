@@ -117,28 +117,6 @@ function xarRemovePrivileges($module)
     }
 }
 
-/**
- * xarDefineInstance: creates an instance definition in the database
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string module
- * @param  string type
- * @param  string query
- * @param  integer propagate
- * @param  string table2
- * @param  integer childId
- * @param  integer parentId
- * @param  string description
- * @return bool
- */
-function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId='',$parentId='',$description='')
-{
-    return xarPrivileges::defineInstance($module,$type,$query,$propagate,$table2,$childId,$parentId,$description);
-}
-
-
 function xarFindRole($name) { return xarRoles::findRole($name);  }
 function xarUFindRole($name){ return xarRoles::ufindRole($name); }
 

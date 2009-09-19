@@ -186,5 +186,9 @@ function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state
     return xarRoles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
 }
 function xarMakeGroup($name,$uname='') { return xarRoles::makeGroup($name,$uname); }
+function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId='',$parentId='',$description='')
+{
+    return xarPrivileges::defineInstance($module,$type,$query,$propagate,$table2,$childId,$parentId,$description);
+}
 
 ?>

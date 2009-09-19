@@ -501,7 +501,7 @@ function dynamicdata_init()
             'limit'  => 0
         )
     );
-    xarDefineInstance('dynamicdata','Item',$instances);
+    xarPrivileges::defineInstance('dynamicdata','Item',$instances);
 
     $instances = array(
         array(
@@ -510,7 +510,7 @@ function dynamicdata_init()
             'limit'  => 0
         )
     );
-    xarDefineInstance('dynamicdata','Field',$instances);
+    xarPrivileges::defineInstance('dynamicdata','Field',$instances);
 
     // Installation complete; check for upgrades
     return dynamicdata_upgrade('2.0.0');

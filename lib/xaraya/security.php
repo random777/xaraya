@@ -44,25 +44,6 @@ if (file_exists(sys::varpath() . '/security/on.touch')) {
 sys::import('modules.privileges.class.privileges');
 sys::import('modules.roles.class.roles');
 
-
-/**
- * xarMakeRoleMemberByUname: create a parent-child relationship in the database between two roles
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string child uname
- * @param  string parent uname
- * @return bool
- */
-function xarMakeRoleMemberByUname($childName, $parentName)
-{
-    $parent = xarRoles::ufindRole($parentName);
-    $child = xarRoles::ufindRole($childName);
-
-    return $parent->addMember($child);
-}
-
 function xarIsParent($name1, $name2)
 {
     $role1 = xarRoles::findRole($name1);

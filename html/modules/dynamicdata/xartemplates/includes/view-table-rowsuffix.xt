@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:if condition="xarUserIsLoggedIn() AND xarSecurityCheck('DeleteListings',0)">
+        <td class="#$item_class#" style="text-align: center;">
+            <input type="checkbox" name="optionscheckbox" id="#$loopitem[$primaryalias]#"  />
+        </td>
+    </xar:if>
+</xar:template>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <xar:loop name="$items">
+        <xar:set name="itemid">$loop->index</xar:set>
+        <xar:set name="fields">$loop->item</xar:set>
+        <xar:if condition="(($itemid + 1) % 2)">
+            <xar:set name="item_class">'xar-alt'</xar:set>
+        <xar:else/>
+            <xar:set name="item_class">'xar-norm'</xar:set>
+        </xar:if>
+        <xar:if condition="xarUserIsLoggedIn()">
+            <xar:set name="currentuserid">xarUserGetVar('id');</xar:set>
+        </xar:if>
+        <xar:template file="view-table-row" module="$tplmodule,listings" />
+    </xar:loop>
+</xar:template>

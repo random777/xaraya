@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <tr>
+        <xar:template file="view-table-rowprefix" module="$tplmodule,dynamicdata" />
+        <xar:foreach in="$properties" key="$name">
+            <td class="#$item_class#">
+                <xar:if condition="xarUserIsLoggedIn() AND $name eq $linkfield AND xarSecurityCheck('EditListings',0)">
+                    <a href="#xarModURL('dynamicdata','admin','modify',array('itemid' => $properties[$object->primary], 'name' => $objectname,'tplmodule' => $tplmodule))#">
+                        <xar:data-output property="$properties[$name]" value="$fields[$name]" />
+                    </a>
+                <xar:else />
+                    <xar:if condition="$name eq $linkfield AND xarSecurityCheck('ReadListings',0)">
+                        <a href="#xarModURL('dynamicdata','user','display',array('itemid' =>$properties[$object->primary], 'name' => $objectname, 'tplmodule' => $tplmodule))#">
+                            <xar:data-output property="$properties[$name]" value="$fields[$name]" />
+                        </a>
+                    <xar:else />
+                        <xar:data-output property="$properties[$name]" value="$fields[$name]"/>
+                    </xar:if>
+                </xar:if>
+            </td>
+        </xar:foreach>
+
+        <xar:template file="view-table-rowsuffix" module="$tplmodule,dynamicdata" />
+    </tr>
+</xar:template>

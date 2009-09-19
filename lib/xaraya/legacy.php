@@ -160,4 +160,8 @@ function xarAssignPrivilege($privilege,$role)
 {
     return xarPrivileges::assign($privilege,$role);
 }
+function xarRemoveInstances($module)
+{
+    return xarPrivileges::removeInstances($module);
+}
 ?>

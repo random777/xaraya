@@ -226,7 +226,8 @@ function blocks_init()
        Old functionality in modules still exists.
        Note that the old instances and masks and code in the files was not 'matched' so don't think they worked properly in any case.
     */
-    xarRemoveInstances('blocks');
+    sys::import('modules.privileges.class.privileges');
+    xarPrivileges::removeInstances('blocks');
     //setup the new ones
     $dbconn = xarDB::getConn();
     $xartable = xarDB::getTables();

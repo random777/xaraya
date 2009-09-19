@@ -164,20 +164,6 @@ function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId
 }
 
 /**
- * xarRemoveInstances: removes the instances registered by a module from the database
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   string module
- * @return  bool
- */
-function xarRemoveInstances($module)
-{
-    return xarPrivileges::removeInstances($module);
-}
-
-/**
  * xarGetGroups: returns an array of all the groups in the database
  *
  * This is a wrapper function

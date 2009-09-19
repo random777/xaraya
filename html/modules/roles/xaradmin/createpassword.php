@@ -28,6 +28,7 @@ function roles_admin_createpassword()
 
     $pass = xarModAPIFunc('roles','user','makepass');
     if (empty($pass)) throw new DataNotFoundException(array(),'Problem generating new password');
+    sys::import('modules.roles.class.roles');
     $role = xarRoles::get($id);
     $modifiedstatus = $role->setPass($pass);
     $modifiedrole = $role->updateItem();

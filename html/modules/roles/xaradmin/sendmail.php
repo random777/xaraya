@@ -14,8 +14,9 @@
 function roles_admin_sendmail()
 {
     // Get parameters from whatever input we need
+    sys::import('modules.roles.class.roles');
     if (!xarVarFetch('id',     'int:0:', $id, 0)) return;
-    if (!xarVarFetch('state',   'int:0:', $state, ROLES_STATE_CURRENT)) return;
+    if (!xarVarFetch('state',   'int:0:', $state, xarRoles::ROLES_STATE_CURRENT)) return;
     if (!xarVarFetch('message', 'str:1:', $message,'')) return;
     if (!xarVarFetch('subject', 'str:1',  $subject, '')) return;
     if (!xarVarFetch('includesubgroups','int:0:',$includesubgroups,0,XARVAR_NOT_REQUIRED));

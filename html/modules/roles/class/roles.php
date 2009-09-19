@@ -153,7 +153,7 @@ class xarRoles extends Object
      */
     public static function findRole($name)
     {
-        return self::_lookuprole('name',$name,$state=ROLES_STATE_ACTIVE);
+        return self::_lookuprole('name',$name,$state=self::ROLES_STATE_ACTIVE);
     }
 
     /**
@@ -165,7 +165,7 @@ class xarRoles extends Object
      */
     public static function ufindRole($uname)
     {
-        return self::_lookuprole('uname',$uname,$state=ROLES_STATE_ACTIVE);
+        return self::_lookuprole('uname',$uname,$state=self::ROLES_STATE_ACTIVE);
     }
 
     /**
@@ -227,7 +227,7 @@ class xarRoles extends Object
         $basetypes = array();
         foreach ($types as $key => $value) {
             $basetype = xarModAPIFunc('dynamicdata','user','getbaseancestor',array('itemtype' => $key, 'moduleid' => 27));
-            if ($basetype['itemtype'] == ROLES_GROUPTYPE) $basetypes[] = $key;
+            if ($basetype['itemtype'] == self::ROLES_GROUPTYPE) $basetypes[] = $key;
         }
         // set up the query and get the groups
         self::initialize();
@@ -244,7 +244,7 @@ class xarRoles extends Object
             $c[] = $q->peq('r.itemtype',$itemtype);
         }
         $q->qor($c);
-        $q->eq('r.state',ROLES_STATE_ACTIVE);
+        $q->eq('r.state',self::ROLES_STATE_ACTIVE);
         $q->setorder('r.name');
         return $q;
     }
@@ -257,16 +257,16 @@ class xarRoles extends Object
      * @param int    $state
      * @return object a role
      */
-    private static function _lookuprole($field,$value,$itemtype=ROLES_USERTYPE,$state=ROLES_STATE_ALL)
+    private static function _lookuprole($field,$value,$itemtype=self::ROLES_USERTYPE,$state=self::ROLES_STATE_ALL)
     {
         // retrieve the object's data from the repository
         // set up and execute the query
         self::initialize();
         $q = new xarQuery('SELECT',self::$rolestable);
         $q->eq($field,$value);
-        if ($state == ROLES_STATE_CURRENT) {
-            $q->ne('state',ROLES_STATE_DELETED);
-        } elseif ($state != ROLES_STATE_ALL) {
+        if ($state == self::ROLES_STATE_CURRENT) {
+            $q->ne('state',self::ROLES_STATE_DELETED);
+        } elseif ($state != self::ROLES_STATE_ALL) {
             $q->eq('state',$state);
         }
 

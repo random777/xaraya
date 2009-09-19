@@ -46,6 +46,7 @@ class RolesTree extends Tree
 {
     function createnodes(TreeNode $node)
     {
+        sys::import('modules.roles.class.roles');
         $data = xarRoles::getgroups();
          foreach ($data as $row) {
             $nodedata = array(

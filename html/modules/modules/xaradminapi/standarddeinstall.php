@@ -75,7 +75,7 @@ function modules_adminapi_standarddeinstall($args)
 
     // Remove custom tags, modvars, masks and privilege instances
     sys::import('modules.privileges.class.privileges');
-    xarRemoveMasks($module);
+    xarMasks::removeMasks($module);
     xarPrivileges::removeInstances($module);
     xarModVars::delete_all($module);
 

@@ -632,7 +632,7 @@ function <xsl:value-of select="$module_prefix" />_delete()
      * REMOVE MASKS AND INSTANCES
      */
     sys::import('modules.privileges.class.privileges');
-    xarRemoveMasks( '<xsl:value-of select="$module_prefix" />' );
+    xarMasks::removeMasks( '<xsl:value-of select="$module_prefix" />' );
     xarPrivileges::removeInstances( '<xsl:value-of select="$module_prefix" />' );
 
     <!-- Create the stuff for out database tables. -->

@@ -12,39 +12,6 @@
  */
 
 /**
- * Notes on security system
- *
- * Special ID and GIDS:
- *  ID -1 corresponds to 'all users', includes unregistered users
- *  GID -1 corresponds to 'all groups', includes unregistered users
- *  ID 0 corresponds to unregistered users
- *  GID 0 corresponds to unregistered users
- *
- */
-define('ROLES_STATE_DELETED',0);
-define('ROLES_STATE_INACTIVE',1);
-define('ROLES_STATE_NOTVALIDATED',2);
-define('ROLES_STATE_ACTIVE',3);
-define('ROLES_STATE_PENDING',4);
-define('ROLES_STATE_CURRENT',98);
-define('ROLES_STATE_ALL',99);
-
-define('ROLES_ROLETYPE',1);
-define('ROLES_USERTYPE',2);
-define('ROLES_GROUPTYPE',3);
-
-// @todo Maybe changing this touch to a centralized API would be a good idea?
-//Even if in the end it would use touched files too...
-if (file_exists(sys::varpath() . '/security/on.touch')) {
-    sys::import('xaraya.xarCacheSecurity');
-}
-
-// FIXME: Can we reverse this? (i.e. the module loading the files from here?)
-//        said another way, can we move the two files to /includes (partially preferably)
-sys::import('modules.privileges.class.privileges');
-sys::import('modules.roles.class.roles');
-
-/**
  * xarSecurityCheck: check a role's privileges against the masks of a component
  *
  * Checks the current group or user's privileges against a component
@@ -69,27 +36,6 @@ function xarSecurityCheck($mask, $showException=1, $component='', $instance='', 
         sys::import('modules.privileges.class.masks');
        return xarMasks::xarSecurityCheck($mask, $showException, $component, $instance, $module, $role,$pnrealm,$pnlevel);
     }
-}
-
-/**
- * xarRemoveMasks: removes the masks registered by a module from the database
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   string module
- * @return  bool
- */
-function xarRemoveMasks($module)
-{
-    if ($module == "All") {
-        $modid = xarMasks::PRIVILEGES_ALL;
-    } elseif ($module == null) {
-        $modid = null;
-    } else {
-        $modid = xarMod::getID($module);
-    }
-    return xarMasks::removeMasks($modid);
 }
 
 /**

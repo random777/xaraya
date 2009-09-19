@@ -21,10 +21,11 @@ function roles_admin_modify()
     $id = isset($itemid) ? $itemid : $id;
 
 
-//    if (!xarVarFetch('itemtype', 'id', $itemtype, ROLES_USERTYPE, XARVAR_DONT_SET)) return;
+//    if (!xarVarFetch('itemtype', 'id', $itemtype, xarRoles::ROLES_USERTYPE, XARVAR_DONT_SET)) return;
     if (!xarVarFetch('duvs', 'array', $data['duvs'], array(), XARVAR_NOT_REQUIRED)) return;
 
 
+    sys::import('modules.roles.class.roles');
     $object = xarRoles::get($id);
     $data['basetype'] = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $object->getType()));
 

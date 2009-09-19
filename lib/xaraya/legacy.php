@@ -260,5 +260,9 @@ function xarIsAncestor($name1, $name2)
     }
     return false;
 }
+function xarRemoveMasks($module)
+{
+    return xarMasks::removeMasks($modid);
+}
 
 ?>

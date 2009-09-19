@@ -279,7 +279,7 @@ function blocks_init()
     xarPrivileges::defineInstance('blocks','BlockItem',$instances);
 
     //Set up the security masks
-     xarRemoveMasks('blocks');
+     xarMasks::removeMasks('blocks');
      /* remove and redefine new ones. The old ones do not seem to be working in any case in installs */
 
     //Unsure if this  Comment is used at all but left for compatiblity with prior setup

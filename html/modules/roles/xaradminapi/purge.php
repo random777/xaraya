@@ -23,8 +23,8 @@ function roles_adminapi_purge($args)
     // Get arguments
     extract($args);
 
-
-    if ($state == ROLES_STATE_ACTIVE)
+    sys::import('modules.roles.class.roles');
+    if ($state == xarRoles::ROLES_STATE_ACTIVE)
         return xarTplModule('roles','user','errors',array('layout' => 'purge_active_user'));
 
     $items = xarModAPIFunc('roles',

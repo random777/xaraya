@@ -52,6 +52,7 @@ class UsernameProperty extends TextBoxProperty
         // We allow the special value [All]
         
         if ($value != '[All]') {
+        sys::import('modules.roles.class.roles');
         $role = xarRoles::ufindRole($value);        
             switch ((int)$this->validation_existrule) {
                 case 1:
@@ -95,6 +96,7 @@ class UsernameProperty extends TextBoxProperty
             // Cater to a common case
             if ($data['user'] == 'myself') {
                 $this->value = xarUserGetVar('id');
+                sys::import('modules.roles.class.roles');
                 $role = xarRoles::get($this->value);
                 $data['value'] = $role->getUser();
             } else {
@@ -114,6 +116,7 @@ class UsernameProperty extends TextBoxProperty
             // Cater to a common case
             if ($data['user'] == 'myself') {
                 $this->value = xarUserGetVar('id');
+                sys::import('modules.roles.class.roles');
                 $role = xarRoles::get($this->value);
                 $data['value'] = $role->getUser();
             } else {
@@ -158,6 +161,7 @@ class UsernameProperty extends TextBoxProperty
                 if ($value == '[All]') {
                     $this->value = 0;
                 } else {
+                    sys::import('modules.roles.class.roles');
                     $role = xarRoles::ufindRole($value);
                     if (empty($role)) $this->value = null;
                     else $this->value = $role->getID();

@@ -239,11 +239,14 @@ class xarMasks extends Object
      * *
      * @author  Marc Lutolf <marcinmilan@xaraya.com>
      * @access  public
-     * @param   module name
+     * @param   module id or 'All'
      * @return  boolean
     */
     public static function removemasks($module_id)
     {
+        if ($module_id == "All") $module_id = xarMasks::PRIVILEGES_ALL;
+        if (!is_numeric($module_id)) $module_id = xarMod::getID($module_id);
+
         self::initialize();
         $query = "DELETE FROM " . self::$privilegestable . " WHERE itemtype = ? AND module_id = ?";
         //Execute the query, bail if an exception was thrown

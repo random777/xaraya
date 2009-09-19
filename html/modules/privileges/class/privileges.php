@@ -186,6 +186,7 @@ class xarPrivileges extends xarMasks
         $privid = $privilege->getID();
 
         // find the role for the assignation and get its ID
+        sys::import('modules.roles.class.roles');
         $role = xarRoles::findRole($rolename);
         $roleid = $role->getID();
 
@@ -620,7 +621,6 @@ class xarPrivileges extends xarMasks
     */
     public static function makeMember($childname,$parentname)
     {
-        echo $childname." ".$parentname."<br />";
         $parent = self::findPrivilege($parentname);
         $child = self::findPrivilege($childname);
         return $parent->addMember($child);

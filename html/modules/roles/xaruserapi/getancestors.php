@@ -24,6 +24,7 @@ function roles_userapi_getancestors($args)
 
     if(!xarSecurityCheck('ReadRole')) return;
 
+    sys::import('modules.roles.class.roles');
     $role = xarRoles::get($id);
 
     if (empty($args['parents'])) {

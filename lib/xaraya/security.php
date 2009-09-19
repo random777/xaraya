@@ -125,21 +125,6 @@ function xarRemoveRoleMemberByID($childId, $parentId)
 }
 
 /**
- * xarMakePrivilegeMember: create a parent-child relationship in the database between two privileges
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string childName
- * @param  string  parentName
- * @return bool
- */
-function xarMakePrivilegeMember($childName, $parentName)
-{
-    return xarPrivileges::makeMember($childName, $parentName);
-}
-
-/**
  * xarAssignPrivilege: assign a privilege to a role
  *
  * This is a wrapper function

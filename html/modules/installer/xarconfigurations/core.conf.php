@@ -79,11 +79,11 @@ function installer_core_casualaccess()
     xarPrivileges::register('ViewBlocks','All','base','Block','All','ACCESS_OVERVIEW','View blocks of the Base module');
     xarPrivileges::register('ViewLoginItems','All','dynamicdata','Item','All','ACCESS_OVERVIEW','View some Dynamic Data items');
     xarPrivileges::register('ViewBlockItems','All','blocks','BlockItem','All','ACCESS_OVERVIEW','View block items in general');
-    xarMakePrivilegeMember('ViewAuthsystem','CasualAccess');
-    xarMakePrivilegeMember('ViewLogin','CasualAccess');
-    xarMakePrivilegeMember('ViewBlocks','CasualAccess');
-    xarMakePrivilegeMember('ViewLoginItems','CasualAccess');
-    xarMakePrivilegeMember('ViewBlockItems','CasualAccess');
+    xarPrivileges::makeMember('ViewAuthsystem','CasualAccess');
+    xarPrivileges::makeMember('ViewLogin','CasualAccess');
+    xarPrivileges::makeMember('ViewBlocks','CasualAccess');
+    xarPrivileges::makeMember('ViewLoginItems','CasualAccess');
+    xarPrivileges::makeMember('ViewBlockItems','CasualAccess');
 }
 
 function installer_core_readnoncore()
@@ -94,12 +94,12 @@ function installer_core_readnoncore()
     xarPrivileges::register('DenyMail','All','mail','All','All','ACCESS_NONE','Deny access to the Mail module');
     xarPrivileges::register('DenyModules','All','modules','All','All','ACCESS_NONE','Deny access to the Modules module');
     xarPrivileges::register('DenyThemes','All','themes','All','All','ACCESS_NONE','Deny access to the Themes module');
-    xarMakePrivilegeMember('ReadAccess','ReadNonCore');
-    xarMakePrivilegeMember('DenyPrivileges','ReadNonCore');
-    xarMakePrivilegeMember('DenyBlocks','ReadNonCore');
-    xarMakePrivilegeMember('DenyMail','ReadNonCore');
-    xarMakePrivilegeMember('DenyModules','ReadNonCore');
-    xarMakePrivilegeMember('DenyThemes','ReadNonCore');
+    xarPrivileges::makeMember('ReadAccess','ReadNonCore');
+    xarPrivileges::makeMember('DenyPrivileges','ReadNonCore');
+    xarPrivileges::makeMember('DenyBlocks','ReadNonCore');
+    xarPrivileges::makeMember('DenyMail','ReadNonCore');
+    xarPrivileges::makeMember('DenyModules','ReadNonCore');
+    xarPrivileges::makeMember('DenyThemes','ReadNonCore');
 }
 
 function installer_core_readaccess()

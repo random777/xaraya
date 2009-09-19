@@ -152,4 +152,8 @@ function xarRegisterPrivilege($name,$realm,$module,$component,$instance,$level,$
     }
     return true;
 }
+function xarMakePrivilegeMember($childName, $parentName)
+{
+    return xarPrivileges::makeMember($childName, $parentName);
+}
 ?>

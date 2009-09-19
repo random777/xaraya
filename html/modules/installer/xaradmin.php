@@ -937,14 +937,14 @@ function installer_admin_confirm_configuration()
         /*********************************************************************
         * Arrange the  privileges in a hierarchy
         * Format is
-        * xarMakePrivilegeMember(Child,Parent)
+        * xarPrivileges::makeMember(Child,Parent)
         *********************************************************************/
 
-        xarMakePrivilegeMember('LockEverybody','GeneralLock');
-        xarMakePrivilegeMember('LockAnonymous','GeneralLock');
-        xarMakePrivilegeMember('LockAdministrators','GeneralLock');
-        xarMakePrivilegeMember('LockAdministration','GeneralLock');
-        xarMakePrivilegeMember('LockGeneralLock','GeneralLock');
+        xarPrivileges::makeMember('LockEverybody','GeneralLock');
+        xarPrivileges::makeMember('LockAnonymous','GeneralLock');
+        xarPrivileges::makeMember('LockAdministrators','GeneralLock');
+        xarPrivileges::makeMember('LockAdministration','GeneralLock');
+        xarPrivileges::makeMember('LockGeneralLock','GeneralLock');
 
         /*********************************************************************
         * Assign the default privileges to groups/users

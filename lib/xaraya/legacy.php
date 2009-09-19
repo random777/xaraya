@@ -168,4 +168,8 @@ function xarRegisterMask($name,$realm,$module,$component,$instance,$level,$descr
 {
     return xarMasks::register($name,$realm,$module,$component,$level,$description);
 }
+function xarUnregisterMask($name)
+{
+    return xarMasks::unregister($name);
+}
 ?>

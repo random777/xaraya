@@ -340,18 +340,6 @@ function xarSecurityCheck($mask, $showException=1, $component='', $instance='', 
 }
 
 /**
- * xarUnregisterMask: wrapper function for unregistering a mask
- *
- * @access public
- * @param  string name
- * @return bool
- */
-function xarUnregisterMask($name)
-{
-    return xarMasks::unregister($name);
-}
-
-/**
  * xarRemoveMasks: removes the masks registered by a module from the database
  *
  * This is a wrapper function
